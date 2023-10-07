@@ -715,6 +715,7 @@ type Mock struct {
 	mockHumanAuthCropFaceVerifyImage                           func(ctx context.Context, request *CropFaceVerifyImageReq, options ...MethodOptionFunc) (*CropFaceVerifyImageResp, *Response, error)
 	mockHumanAuthCreateIdentity                                func(ctx context.Context, request *CreateIdentityReq, options ...MethodOptionFunc) (*CreateIdentityResp, *Response, error)
 	mockJssdkGetJssdkTicket                                    func(ctx context.Context, request *GetJssdkTicketReq, options ...MethodOptionFunc) (*GetJssdkTicketResp, *Response, error)
+	mockLingoCreateLingoDraft                                  func(ctx context.Context, request *CreateLingoDraftReq, options ...MethodOptionFunc) (*CreateLingoDraftResp, *Response, error)
 	mockMailGetMailUser                                        func(ctx context.Context, request *GetMailUserReq, options ...MethodOptionFunc) (*GetMailUserResp, *Response, error)
 	mockMailCreateMailGroup                                    func(ctx context.Context, request *CreateMailGroupReq, options ...MethodOptionFunc) (*CreateMailGroupResp, *Response, error)
 	mockMailGetMailGroup                                       func(ctx context.Context, request *GetMailGroupReq, options ...MethodOptionFunc) (*GetMailGroupResp, *Response, error)

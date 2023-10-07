@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 899, 事件总数: 124
+API 总数: 900, 事件总数: 124
 
 <details>
   <summary>
@@ -900,6 +900,8 @@ API 总数: 899, 事件总数: 124
   - CreateIdentity
 - Jssdk
   - GetJssdkTicket
+- Lingo
+  - CreateLingoDraft
 - Mail
   - GetMailUser
   - CreateMailGroup

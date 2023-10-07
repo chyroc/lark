@@ -75,6 +75,7 @@ type Lark struct {
 	Hire             *HireService
 	HumanAuth        *HumanAuthService
 	Jssdk            *JssdkService
+	Lingo            *LingoService
 	Mail             *MailService
 	Message          *MessageService
 	Mina             *MinaService
@@ -117,6 +118,7 @@ func (r *Lark) init() {
 	r.Hire = &HireService{cli: r}
 	r.HumanAuth = &HumanAuthService{cli: r}
 	r.Jssdk = &JssdkService{cli: r}
+	r.Lingo = &LingoService{cli: r}
 	r.Mail = &MailService{cli: r}
 	r.Message = &MessageService{cli: r}
 	r.Mina = &MinaService{cli: r}
@@ -188,6 +190,7 @@ type HelpdeskService struct{ cli *Lark }
 type HireService struct{ cli *Lark }
 type HumanAuthService struct{ cli *Lark }
 type JssdkService struct{ cli *Lark }
+type LingoService struct{ cli *Lark }
 type MailService struct{ cli *Lark }
 type MessageService struct{ cli *Lark }
 type MinaService struct{ cli *Lark }

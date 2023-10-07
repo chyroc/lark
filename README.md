@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 899, Event Count: 124
+API Count: 900, Event Count: 124
 
 <details>
   <summary>
@@ -900,6 +900,8 @@ API Count: 899, Event Count: 124
   - CreateIdentity
 - Jssdk
   - GetJssdkTicket
+- Lingo
+  - CreateLingoDraft
 - Mail
   - GetMailUser
   - CreateMailGroup
