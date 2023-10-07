@@ -61,6 +61,162 @@ func Test_Lingo_Sample_Failed(t *testing.T) {
 			as.Equal(err.Error(), "mock-failed")
 		})
 
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockLingoUpdateLingoDraft(func(ctx context.Context, request *lark.UpdateLingoDraftReq, options ...lark.MethodOptionFunc) (*lark.UpdateLingoDraftResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockLingoUpdateLingoDraft()
+
+			_, _, err := moduleCli.UpdateLingoDraft(ctx, &lark.UpdateLingoDraftReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockLingoCreateLingoEntity(func(ctx context.Context, request *lark.CreateLingoEntityReq, options ...lark.MethodOptionFunc) (*lark.CreateLingoEntityResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockLingoCreateLingoEntity()
+
+			_, _, err := moduleCli.CreateLingoEntity(ctx, &lark.CreateLingoEntityReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockLingoUpdateLingoEntity(func(ctx context.Context, request *lark.UpdateLingoEntityReq, options ...lark.MethodOptionFunc) (*lark.UpdateLingoEntityResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockLingoUpdateLingoEntity()
+
+			_, _, err := moduleCli.UpdateLingoEntity(ctx, &lark.UpdateLingoEntityReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockLingoGetLingoEntity(func(ctx context.Context, request *lark.GetLingoEntityReq, options ...lark.MethodOptionFunc) (*lark.GetLingoEntityResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockLingoGetLingoEntity()
+
+			_, _, err := moduleCli.GetLingoEntity(ctx, &lark.GetLingoEntityReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockLingoGetLingoEntityList(func(ctx context.Context, request *lark.GetLingoEntityListReq, options ...lark.MethodOptionFunc) (*lark.GetLingoEntityListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockLingoGetLingoEntityList()
+
+			_, _, err := moduleCli.GetLingoEntityList(ctx, &lark.GetLingoEntityListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockLingoMatchLingoEntity(func(ctx context.Context, request *lark.MatchLingoEntityReq, options ...lark.MethodOptionFunc) (*lark.MatchLingoEntityResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockLingoMatchLingoEntity()
+
+			_, _, err := moduleCli.MatchLingoEntity(ctx, &lark.MatchLingoEntityReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockLingoSearchLingoEntity(func(ctx context.Context, request *lark.SearchLingoEntityReq, options ...lark.MethodOptionFunc) (*lark.SearchLingoEntityResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockLingoSearchLingoEntity()
+
+			_, _, err := moduleCli.SearchLingoEntity(ctx, &lark.SearchLingoEntityReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockLingoHighlightLingoEntity(func(ctx context.Context, request *lark.HighlightLingoEntityReq, options ...lark.MethodOptionFunc) (*lark.HighlightLingoEntityResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockLingoHighlightLingoEntity()
+
+			_, _, err := moduleCli.HighlightLingoEntity(ctx, &lark.HighlightLingoEntityReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockLingoExtractLingoEntity(func(ctx context.Context, request *lark.ExtractLingoEntityReq, options ...lark.MethodOptionFunc) (*lark.ExtractLingoEntityResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockLingoExtractLingoEntity()
+
+			_, _, err := moduleCli.ExtractLingoEntity(ctx, &lark.ExtractLingoEntityReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockLingoGetLingoClassificationList(func(ctx context.Context, request *lark.GetLingoClassificationListReq, options ...lark.MethodOptionFunc) (*lark.GetLingoClassificationListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockLingoGetLingoClassificationList()
+
+			_, _, err := moduleCli.GetLingoClassificationList(ctx, &lark.GetLingoClassificationListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockLingoGetLingoRepoList(func(ctx context.Context, request *lark.GetLingoRepoListReq, options ...lark.MethodOptionFunc) (*lark.GetLingoRepoListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockLingoGetLingoRepoList()
+
+			_, _, err := moduleCli.GetLingoRepoList(ctx, &lark.GetLingoRepoListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockLingoUploadLingoFile(func(ctx context.Context, request *lark.UploadLingoFileReq, options ...lark.MethodOptionFunc) (*lark.UploadLingoFileResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockLingoUploadLingoFile()
+
+			_, _, err := moduleCli.UploadLingoFile(ctx, &lark.UploadLingoFileReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockLingoDownloadLingoFile(func(ctx context.Context, request *lark.DownloadLingoFileReq, options ...lark.MethodOptionFunc) (*lark.DownloadLingoFileResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockLingoDownloadLingoFile()
+
+			_, _, err := moduleCli.DownloadLingoFile(ctx, &lark.DownloadLingoFileReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
 	})
 
 	t.Run("response is failed", func(t *testing.T) {
@@ -70,6 +226,105 @@ func Test_Lingo_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.CreateLingoDraft(ctx, &lark.CreateLingoDraftReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateLingoDraft(ctx, &lark.UpdateLingoDraftReq{
+				DraftID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateLingoEntity(ctx, &lark.CreateLingoEntityReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateLingoEntity(ctx, &lark.UpdateLingoEntityReq{
+				EntityID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetLingoEntity(ctx, &lark.GetLingoEntityReq{
+				EntityID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetLingoEntityList(ctx, &lark.GetLingoEntityListReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.MatchLingoEntity(ctx, &lark.MatchLingoEntityReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SearchLingoEntity(ctx, &lark.SearchLingoEntityReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.HighlightLingoEntity(ctx, &lark.HighlightLingoEntityReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.ExtractLingoEntity(ctx, &lark.ExtractLingoEntityReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetLingoClassificationList(ctx, &lark.GetLingoClassificationListReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetLingoRepoList(ctx, &lark.GetLingoRepoListReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UploadLingoFile(ctx, &lark.UploadLingoFileReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DownloadLingoFile(ctx, &lark.DownloadLingoFileReq{
+				FileToken: "x",
+			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -86,6 +341,105 @@ func Test_Lingo_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.CreateLingoDraft(ctx, &lark.CreateLingoDraftReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateLingoDraft(ctx, &lark.UpdateLingoDraftReq{
+				DraftID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateLingoEntity(ctx, &lark.CreateLingoEntityReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateLingoEntity(ctx, &lark.UpdateLingoEntityReq{
+				EntityID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetLingoEntity(ctx, &lark.GetLingoEntityReq{
+				EntityID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetLingoEntityList(ctx, &lark.GetLingoEntityListReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.MatchLingoEntity(ctx, &lark.MatchLingoEntityReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.SearchLingoEntity(ctx, &lark.SearchLingoEntityReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.HighlightLingoEntity(ctx, &lark.HighlightLingoEntityReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.ExtractLingoEntity(ctx, &lark.ExtractLingoEntityReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetLingoClassificationList(ctx, &lark.GetLingoClassificationListReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetLingoRepoList(ctx, &lark.GetLingoRepoListReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UploadLingoFile(ctx, &lark.UploadLingoFileReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DownloadLingoFile(ctx, &lark.DownloadLingoFileReq{
+				FileToken: "x",
+			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})

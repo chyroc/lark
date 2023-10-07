@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 900, Event Count: 124
+API Count: 918, Event Count: 124
 
 <details>
   <summary>
@@ -442,6 +442,7 @@ API Count: 900, Event Count: 124
   - DeleteCoreHRJobData
   - UpdateCoreHRJobData
   - GetCoreHRJobData
+  - BatchGetCoreHRJobData
   - GetCoreHRJobDataList
   - GetCoreHRDepartmentParentList
   - SearchCoreHRDepartment
@@ -478,6 +479,7 @@ API Count: 900, Event Count: 124
   - UpdateCoreHRPreHire
   - GetCoreHRPreHire
   - GetCoreHRPreHireList
+  - SearchCoreHRContract
   - CreateCoreHRContract
   - DeleteCoreHRContract
   - UpdateCoreHRContract
@@ -902,14 +904,30 @@ API Count: 900, Event Count: 124
   - GetJssdkTicket
 - Lingo
   - CreateLingoDraft
+  - UpdateLingoDraft
+  - CreateLingoEntity
+  - UpdateLingoEntity
+  - GetLingoEntity
+  - GetLingoEntityList
+  - MatchLingoEntity
+  - SearchLingoEntity
+  - HighlightLingoEntity
+  - ExtractLingoEntity
+  - GetLingoClassificationList
+  - GetLingoRepoList
+  - UploadLingoFile
+  - DownloadLingoFile
 - Mail
   - GetMailUser
   - CreateMailGroup
-  - GetMailGroup
-  - GetMailGroupList
+  - DeleteMailGroup
   - UpdateMailGroupPatch
   - UpdateMailGroup
-  - DeleteMailGroup
+  - GetMailGroup
+  - GetMailGroupList
+  - BatchCreateMailGroupManager
+  - BatchDeleteMailGroupManager
+  - GetMailGroupManagerList
   - CreateMailGroupMember
   - DeleteMailGroupMember
   - GetMailGroupMember
