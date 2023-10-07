@@ -105,6 +105,7 @@ type GetHireJobRespJob struct {
 	CreateTimestamp    string                             `json:"create_timestamp,omitempty"`     // 创建时间戳
 	UpdateTimestamp    string                             `json:"update_timestamp,omitempty"`     // 更新时间戳
 	ExpiryTimestamp    string                             `json:"expiry_timestamp,omitempty"`     // 到期时间戳
+	TargetMajorList    []*GetHireJobRespJobTargetMajor    `json:"target_major_list,omitempty"`    // 目标专业ID, 「0」 为不限专业, 其他情况可通过[「根据主数据编码批量获取专业」](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/mdm-v3/batch_major/get)获取专业详情
 }
 
 // GetHireJobRespJobCity ...
@@ -237,6 +238,13 @@ type GetHireJobRespJobSubject struct {
 type GetHireJobRespJobSubjectName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
+}
+
+// GetHireJobRespJobTargetMajor ...
+type GetHireJobRespJobTargetMajor struct {
+	ID     string `json:"id,omitempty"`      // 目标专业ID
+	ZhName string `json:"zh_name,omitempty"` // 目标专业中文名称
+	EnName string `json:"en_name,omitempty"` // 目标专业英文名称
 }
 
 // getHireJobResp ...

@@ -60,7 +60,8 @@ func (r *Mock) UnMockBitableCreateBitableApp() {
 // CreateBitableAppReq ...
 type CreateBitableAppReq struct {
 	Name        *string `json:"name,omitempty"`         // 多维表格App名字, 示例值: "一篇新的多维表格"
-	FolderToken *string `json:"folder_token,omitempty"` // 多维表格App归属文件夹, 示例值: "fldbco*CIMltVc"
+	FolderToken *string `json:"folder_token,omitempty"` // 多维表格App归属文件夹。关于如何获取 folder_token, 可参见[如何获取云文档资源相关 token](https://open.feishu.cn/document/server-docs/docs/faq#08bb5df6), 示例值: "fldbco*CIMltVc"
+	TimeZone    *string `json:"time_zone,omitempty"`    // 文档时区, [详见](https://bytedance.feishu.cn/docx/YKRndTM7VoyDqpxqqeEcd67MnEf), 示例值: "Asia/Macau"
 }
 
 // CreateBitableAppResp ...
@@ -75,6 +76,7 @@ type CreateBitableAppRespApp struct {
 	FolderToken    string `json:"folder_token,omitempty"`     // 多维表格 App 归属文件夹
 	URL            string `json:"url,omitempty"`              // 多维表格 App URL
 	DefaultTableID string `json:"default_table_id,omitempty"` // 默认的表格id
+	TimeZone       string `json:"time_zone,omitempty"`        // 文档时区
 }
 
 // createBitableAppResp ...

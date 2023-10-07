@@ -77,6 +77,7 @@ type UpdateBitableMetaRespApp struct {
 	AppToken   string `json:"app_token,omitempty"`   // 多维表格的 app_token
 	Name       string `json:"name,omitempty"`        // 多维表格的名字
 	IsAdvanced bool   `json:"is_advanced,omitempty"` // 多维表格是否已开启高级权限
+	TimeZone   string `json:"time_zone,omitempty"`   // 文档时区
 }
 
 // updateBitableMetaResp ...

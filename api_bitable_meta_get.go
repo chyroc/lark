@@ -76,6 +76,7 @@ type GetBitableMetaRespApp struct {
 	Name       string `json:"name,omitempty"`        // 多维表格的名字
 	Revision   int64  `json:"revision,omitempty"`    // 多维表格的版本号（对多维表格进行修改时更新, 如新增、删除数据表, 修改数据表名等, 初始为1, 每次更新+1）
 	IsAdvanced bool   `json:"is_advanced,omitempty"` // 多维表格是否开启了高级权限。取值包括: true: 表示开启了高级权限, false: 表示关闭了高级权限, [了解更多: 使用多维表格高级权限](https://www.feishu.cn/hc/zh-CN/articles/588604550568)
+	TimeZone   string `json:"time_zone,omitempty"`   // 文档时区
 }
 
 // getBitableMetaResp ...
