@@ -64,8 +64,8 @@ type AddApprovalInstanceSignReq struct {
 	TaskID         string   `json:"task_id,omitempty"`           // 任务 ID 审批实例详情task_list中id, 详情请参考[](https://open.feishu.cn/document/ukTMukTMukTM/uEDNyUjLxQjM14SM0ITN)
 	Comment        *string  `json:"comment,omitempty"`           // 意见
 	AddSignUserIDs []string `json:"add_sign_user_ids,omitempty"` // 被加签人id
-	AddSignType    string   `json:"add_sign_type,omitempty"`     // 1/2/3分别代表前加签/后加签/并加签
-	ApprovalMethod *string  `json:"approval_method,omitempty"`   // 仅在前加签、后加签时需要填写, 1/2 分别代表或签/会签
+	AddSignType    int64    `json:"add_sign_type,omitempty"`     // 1/2/3分别代表前加签/后加签/并加签
+	ApprovalMethod *int64   `json:"approval_method,omitempty"`   // 仅在前加签、后加签时需要填写, 1/2 分别代表或签/会签
 }
 
 // AddApprovalInstanceSignResp ...

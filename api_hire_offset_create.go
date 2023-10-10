@@ -105,7 +105,7 @@ type CreateHireOfferReqCustomizedInfo struct {
 
 // CreateHireOfferReqSalaryInfo ...
 type CreateHireOfferReqSalaryInfo struct {
-	Currency                  *string `json:"currency,omitempty"`                    // 币种, 示例值: "CNY"
+	Currency                  string  `json:"currency,omitempty"`                    // 币种, 示例值: "CNY"
 	BasicSalary               *string `json:"basic_salary,omitempty"`                // 基本工资, 当启用 Offer 申请表中的「薪资信息」模块时, 「基本工资」字段为必传项, 示例值: "1000000"
 	ProbationSalaryPercentage *string `json:"probation_salary_percentage,omitempty"` // 试用期百分比, 示例值: "0.8"
 	AwardSalaryMultiple       *string `json:"award_salary_multiple,omitempty"`       // 年终奖月数, 示例值: "3"

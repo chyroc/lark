@@ -70,13 +70,14 @@ type GetHireOfferByApplicationResp struct {
 
 // GetHireOfferByApplicationRespOffer ...
 type GetHireOfferByApplicationRespOffer struct {
-	ID            string                                        `json:"id,omitempty"`             // Offer id
-	ApplicationID string                                        `json:"application_id,omitempty"` // 投递id
-	BasicInfo     *GetHireOfferByApplicationRespOfferBasicInfo  `json:"basic_info,omitempty"`     // 基础信息
-	SalaryPlan    *GetHireOfferByApplicationRespOfferSalaryPlan `json:"salary_plan,omitempty"`    // 薪酬计划
-	SchemaID      string                                        `json:"schema_id,omitempty"`      // 当前 Offer 使用的 schema
-	OfferStatus   int64                                         `json:"offer_status,omitempty"`   // Offer 状态, 可选值有: 0: 所有, 1: 未申请, 2: 审批中, 3: 审批已撤回, 4: 审批通过, 5: 审批不通过, 6: Offer 已发出, 7: 候选人已接受, 8: 候选人已拒绝, 9: Offer 已失效, 10: 未审批
-	JobInfo       *GetHireOfferByApplicationRespOfferJobInfo    `json:"job_info,omitempty"`       // 职位信息
+	ID                   string                                                `json:"id,omitempty"`                     // Offer id
+	ApplicationID        string                                                `json:"application_id,omitempty"`         // 投递id
+	BasicInfo            *GetHireOfferByApplicationRespOfferBasicInfo          `json:"basic_info,omitempty"`             // 基础信息
+	SalaryPlan           *GetHireOfferByApplicationRespOfferSalaryPlan         `json:"salary_plan,omitempty"`            // 薪酬计划
+	SchemaID             string                                                `json:"schema_id,omitempty"`              // 当前 Offer 使用的 schema
+	OfferStatus          int64                                                 `json:"offer_status,omitempty"`           // Offer 状态, 可选值有: 0: 所有, 1: 未申请, 2: 审批中, 3: 审批已撤回, 4: 审批通过, 5: 审批不通过, 6: Offer 已发出, 7: 候选人已接受, 8: 候选人已拒绝, 9: Offer 已失效, 10: 未审批, 11: 实习待入职（仅实习 Offer 具有）, 12: 实习已入职（仅实习 Offer 具有）, 13: 实习已离职（仅实习 Offer 具有）
+	JobInfo              *GetHireOfferByApplicationRespOfferJobInfo            `json:"job_info,omitempty"`               // 职位信息
+	CustomizedModuleList []*GetHireOfferByApplicationRespOfferCustomizedModule `json:"customized_module_list,omitempty"` // offer自定义模块列表
 }
 
 // GetHireOfferByApplicationRespOfferBasicInfo ...
@@ -226,6 +227,18 @@ type GetHireOfferByApplicationRespOfferBasicInfoWorkAddressState struct {
 	EnName       string `json:"en_name,omitempty"`       // 英文名称
 	Code         string `json:"code,omitempty"`          // 编码
 	LocationType int64  `json:"location_type,omitempty"` // 地址类型, 可选值有: 1: COUNTRY, 2: STATE, 3: CITY, 4: DISTRICT, 5: ADDRESS
+}
+
+// GetHireOfferByApplicationRespOfferCustomizedModule ...
+type GetHireOfferByApplicationRespOfferCustomizedModule struct {
+	ID         string                                                      `json:"ID,omitempty"`          // 自定义模块ID
+	ObjectList []*GetHireOfferByApplicationRespOfferCustomizedModuleObject `json:"object_list,omitempty"` // 自定义模块下字段的值
+}
+
+// GetHireOfferByApplicationRespOfferCustomizedModuleObject ...
+type GetHireOfferByApplicationRespOfferCustomizedModuleObject struct {
+	ObjectID       string `json:"object_id,omitempty"`       // 自定义字段ID
+	CustomizeValue string `json:"customize_value,omitempty"` // 自定义字段Value
 }
 
 // GetHireOfferByApplicationRespOfferJobInfo ...
