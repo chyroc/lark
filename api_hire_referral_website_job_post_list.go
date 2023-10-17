@@ -84,6 +84,8 @@ type GetHireReferralWebsiteJobPostListRespItem struct {
 	JobRecruitmentType *GetHireReferralWebsiteJobPostListRespItemJobRecruitmentType `json:"job_recruitment_type,omitempty"` // 职位雇佣类型
 	JobDepartment      *GetHireReferralWebsiteJobPostListRespItemJobDepartment      `json:"job_department,omitempty"`       // 职位部门
 	JobType            *GetHireReferralWebsiteJobPostListRespItemJobType            `json:"job_type,omitempty"`             // 职位类型
+	MinJobLevel        *GetHireReferralWebsiteJobPostListRespItemMinJobLevel        `json:"min_job_level,omitempty"`        // 最低职级
+	MaxJobLevel        *GetHireReferralWebsiteJobPostListRespItemMaxJobLevel        `json:"max_job_level,omitempty"`        // 最高职级
 	Address            *GetHireReferralWebsiteJobPostListRespItemAddress            `json:"address,omitempty"`              // 职位地址
 	MinSalary          string                                                       `json:"min_salary,omitempty"`           // 月薪范围-最低薪资
 	MaxSalary          string                                                       `json:"max_salary,omitempty"`           // 月薪范围-最高薪资
@@ -264,6 +266,30 @@ type GetHireReferralWebsiteJobPostListRespItemJobType struct {
 type GetHireReferralWebsiteJobPostListRespItemJobTypeName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
+}
+
+// GetHireReferralWebsiteJobPostListRespItemMaxJobLevel ...
+type GetHireReferralWebsiteJobPostListRespItemMaxJobLevel struct {
+	ID   string                                                    `json:"id,omitempty"`   // 职级ID
+	Name *GetHireReferralWebsiteJobPostListRespItemMaxJobLevelName `json:"name,omitempty"` // 职级名称
+}
+
+// GetHireReferralWebsiteJobPostListRespItemMaxJobLevelName ...
+type GetHireReferralWebsiteJobPostListRespItemMaxJobLevelName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 职级中文名称
+	EnUs string `json:"en_us,omitempty"` // 职级英文名称
+}
+
+// GetHireReferralWebsiteJobPostListRespItemMinJobLevel ...
+type GetHireReferralWebsiteJobPostListRespItemMinJobLevel struct {
+	ID   string                                                    `json:"id,omitempty"`   // 职级ID
+	Name *GetHireReferralWebsiteJobPostListRespItemMinJobLevelName `json:"name,omitempty"` // 职级名称
+}
+
+// GetHireReferralWebsiteJobPostListRespItemMinJobLevelName ...
+type GetHireReferralWebsiteJobPostListRespItemMinJobLevelName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 职级中文名称
+	EnUs string `json:"en_us,omitempty"` // 职级英文名称
 }
 
 // getHireReferralWebsiteJobPostListResp ...

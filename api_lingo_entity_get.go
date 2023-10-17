@@ -86,6 +86,7 @@ type GetLingoEntityRespEntity struct {
 	OuterInfo   *GetLingoEntityRespEntityOuterInfo   `json:"outer_info,omitempty"`   // 外部系统关联数据
 	RichText    string                               `json:"rich_text,omitempty"`    // 富文本格式（当填写富文本内容时, description字段将会失效可不填写）, 支持的格式参考[飞书词典指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
 	Source      int64                                `json:"source,omitempty"`       // 词条的创建来源, 1: 用户主动创建, 2: 批量导入, 3: 官方词, 4: OpenAPI 创建
+	I18nDescs   []*GetLingoEntityRespEntityI18nDesc  `json:"i18n_descs,omitempty"`   // 国际化的词条释义
 }
 
 // GetLingoEntityRespEntityAliase ...
@@ -98,6 +99,13 @@ type GetLingoEntityRespEntityAliase struct {
 type GetLingoEntityRespEntityAliaseDisplayStatus struct {
 	AllowHighlight bool `json:"allow_highlight,omitempty"` // 是否允许在 IM 和 Doc 等场景进行高亮提示
 	AllowSearch    bool `json:"allow_search,omitempty"`    // 对应名称是否在搜索结果中展示
+}
+
+// GetLingoEntityRespEntityI18nDesc ...
+type GetLingoEntityRespEntityI18nDesc struct {
+	Language    int64  `json:"language,omitempty"`    // 语言类型, 可选值有: 1: 中文, 2: 英文, 3: 日文
+	Description string `json:"description,omitempty"` // 纯文本释义
+	RichText    string `json:"rich_text,omitempty"`   // 富文本描述
 }
 
 // GetLingoEntityRespEntityMainKey ...
@@ -145,7 +153,6 @@ type GetLingoEntityRespEntityRelatedMetaChat struct {
 // GetLingoEntityRespEntityRelatedMetaClassification ...
 type GetLingoEntityRespEntityRelatedMetaClassification struct {
 	ID       string `json:"id,omitempty"`        // 二级分类 ID
-	Name     string `json:"name,omitempty"`      // 二级分类名称
 	FatherID string `json:"father_id,omitempty"` // 父级分类的 ID
 }
 

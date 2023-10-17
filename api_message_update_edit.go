@@ -89,8 +89,8 @@ type UpdateMessageEditResp struct {
 // UpdateMessageEditRespMention ...
 type UpdateMessageEditRespMention struct {
 	Key       string `json:"key,omitempty"`        // mention key
-	ID        string `json:"id,omitempty"`         // 用户open id
-	IDType    IDType `json:"id_type,omitempty"`    // id 可以是open_id, user_id或者union_id
+	ID        string `json:"id,omitempty"`         // 用户或机器人的 open_id
+	IDType    IDType `json:"id_type,omitempty"`    // 被@的用户或机器人 id 类型, 目前仅支持 `open_id` ([什么是 Open ID？](https://open.feishu.cn/document/home/user-identity-introduction/open-id))
 	Name      string `json:"name,omitempty"`       // 被at用户的姓名
 	TenantKey string `json:"tenant_key,omitempty"` // tenant key
 }

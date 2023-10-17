@@ -23,8 +23,12 @@ import (
 
 // MatchBaikeEntity 将关键词与词条名、别名精准匹配, 并返回对应的 词条 ID。
 //
+// 为了更好地提升接口文档的的易理解性, 我们对文档进行了升级, 请尽快迁移至[新版本>>](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/lingo-v1/entity/match)
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/entity/match
 // new doc: https://open.feishu.cn/document/server-docs/baike-v1/entity/match
+//
+// Deprecated
 func (r *BaikeService) MatchBaikeEntity(ctx context.Context, request *MatchBaikeEntityReq, options ...MethodOptionFunc) (*MatchBaikeEntityResp, *Response, error) {
 	if r.cli.mock.mockBaikeMatchBaikeEntity != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Baike#MatchBaikeEntity mock enable")

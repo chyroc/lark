@@ -61,9 +61,12 @@ func (r *Mock) UnMockDriveGetDriveFileList() {
 
 // GetDriveFileListReq ...
 type GetDriveFileListReq struct {
-	PageSize    *int64  `query:"page_size" json:"-"`    // 分页大小, 示例值: 10, 最大值: `200`
+	PageSize    *int64  `query:"page_size" json:"-"`    // 分页大小, 示例值: 50, 最大值: `200`
 	PageToken   *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: MTY1NTA3MTA1OXw3MTA4NDc2MDc1NzkyOTI0Nabcef
 	FolderToken *string `query:"folder_token" json:"-"` // 文件夹的token（若不填写该参数或填写空字符串, 则默认获取用户云空间下的清单, 且不支持分页）, 示例值: fldbcO1UuPz8VwnpPx5a9abcef
+	OrderBy     *string `query:"order_by" json:"-"`     // 排序规则, 示例值: EditedTime, 可选值有: EditedTime: 编辑时间排序, CreatedTime: 创建时间排序, 默认值: `EditedTime`
+	Direction   *string `query:"direction" json:"-"`    // 升序降序, 示例值: DESC, 可选值有: ASC: 升序, DESC: 降序, 默认值: `DESC`
+	UserIDType  *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetDriveFileListResp ...
@@ -77,10 +80,13 @@ type GetDriveFileListResp struct {
 type GetDriveFileListRespFile struct {
 	Token        string                                `json:"token,omitempty"`         // 文件标识
 	Name         string                                `json:"name,omitempty"`          // 文件名
-	Type         string                                `json:"type,omitempty"`          // 文件类型, 可选值有: `doc`: 旧版文档, `sheet`: 表格, `mindnote`: 思维导图, `bitable`: 多维表格, `file`: 文件, `docx`: 新版文档, `folder`: 文件夹
+	Type         string                                `json:"type,omitempty"`          // 文件类型, 可选值有: `doc`: 旧版文档, `sheet`: 表格, `mindnote`: 思维导图, `bitable`: 多维表格, `file`: 文件, `docx`: 新版文档, `folder`: 文件夹, `shortcut`: 快捷方式
 	ParentToken  string                                `json:"parent_token,omitempty"`  // 父文件夹标识
 	URL          string                                `json:"url,omitempty"`           // 在浏览器中查看的链接
 	ShortcutInfo *GetDriveFileListRespFileShortcutInfo `json:"shortcut_info,omitempty"` // 快捷方式文件信息
+	CreatedTime  string                                `json:"created_time,omitempty"`  // 文件创建时间
+	ModifiedTime string                                `json:"modified_time,omitempty"` // 文件最近修改时间
+	OwnerID      string                                `json:"owner_id,omitempty"`      // 文件所有者
 }
 
 // GetDriveFileListRespFileShortcutInfo ...

@@ -89,8 +89,8 @@ type UpdateChatTabReqChatTabTabConfig struct {
 // UpdateChatTabReqChatTabTabContent ...
 type UpdateChatTabReqChatTabTabContent struct {
 	URL           *string `json:"url,omitempty"`            // URL类型, 示例值: "https://www.feishu.cn"
-	Doc           *string `json:"doc,omitempty"`            // Doc链接, 示例值: "https://bytedance.feishu.cn/wiki/wikcnPIcqWjJQwkwDzrB9t40123xz"
-	MeetingMinute *string `json:"meeting_minute,omitempty"` // 会议纪要, 示例值: "https://bytedance.feishu.cn/docs/doccnvIXbV22i6hSD3utar4123dx"
+	Doc           *string `json:"doc,omitempty"`            // Doc链接, 示例值: "https://example.feishu.cn/wiki/wikcnPIcqWjJQwkwDzrB9t40123xz"
+	MeetingMinute *string `json:"meeting_minute,omitempty"` // 会议纪要, 示例值: "https://example.feishu.cn/docs/doccnvIXbV22i6hSD3utar4123dx"
 }
 
 // UpdateChatTabResp ...

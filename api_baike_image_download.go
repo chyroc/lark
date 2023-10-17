@@ -24,8 +24,12 @@ import (
 
 // DownloadBaikeImage 通过 file_token 下载原图片。
 //
+// 为了更好地提升接口文档的的易理解性, 我们对文档进行了升级, 请尽快迁移至[新版本>>](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/lingo-v1/file/download)
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/file/download
 // new doc: https://open.feishu.cn/document/server-docs/baike-v1/file/download
+//
+// Deprecated
 func (r *BaikeService) DownloadBaikeImage(ctx context.Context, request *DownloadBaikeImageReq, options ...MethodOptionFunc) (*DownloadBaikeImageResp, *Response, error) {
 	if r.cli.mock.mockBaikeDownloadBaikeImage != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Baike#DownloadBaikeImage mock enable")

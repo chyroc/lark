@@ -60,7 +60,7 @@ func (r *Mock) UnMockOKRUpdateOKRProgressRecord() {
 // UpdateOKRProgressRecordReq ...
 type UpdateOKRProgressRecordReq struct {
 	ProgressID string                             `path:"progress_id" json:"-"`   // 待更新的 OKR进展记录 ID, 示例值: "7041857032248410131"
-	UserIDType *IDType                            `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDType *IDType                            `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	Content    *UpdateOKRProgressRecordReqContent `json:"content,omitempty"`      // 进展详情 富文本格式
 }
 
@@ -84,7 +84,7 @@ type UpdateOKRProgressRecordReqContentBlockGallery struct {
 // UpdateOKRProgressRecordReqContentBlockGalleryImageList ...
 type UpdateOKRProgressRecordReqContentBlockGalleryImageList struct {
 	FileToken *string  `json:"fileToken,omitempty"` // 图片 token, 通过上传图片接口获取, 示例值: "boxcnOj88GDkmWGm2zsTyCBqoLb"
-	Src       *string  `json:"src,omitempty"`       // 图片链接, 示例值: "https://bytedance.feishu.cn/drive/home/"
+	Src       *string  `json:"src,omitempty"`       // 图片链接, 示例值: "https://example/drive/home/"
 	Width     *float64 `json:"width,omitempty"`     // 图片宽, 单位px, 示例值: 458
 	Height    *float64 `json:"height,omitempty"`    // 图片高, 单位px, 示例值: 372
 }

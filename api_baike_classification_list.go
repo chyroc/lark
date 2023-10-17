@@ -24,9 +24,12 @@ import (
 // GetBaikeClassificationList 获取飞书词典当前分类。
 //
 // 飞书词典目前为二级分类体系, 每个词条可添加多个二级分类, 但选择的二级分类必须从属于不同的一级分类。
+// 为了更好地提升接口文档的的易理解性, 我们对文档进行了升级, 请尽快迁移至[新版本>>](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/lingo-v1/classification/list)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/classification/list
 // new doc: https://open.feishu.cn/document/server-docs/baike-v1/classification/list
+//
+// Deprecated
 func (r *BaikeService) GetBaikeClassificationList(ctx context.Context, request *GetBaikeClassificationListReq, options ...MethodOptionFunc) (*GetBaikeClassificationListResp, *Response, error) {
 	if r.cli.mock.mockBaikeGetBaikeClassificationList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Baike#GetBaikeClassificationList mock enable")
@@ -62,7 +65,7 @@ func (r *Mock) UnMockBaikeGetBaikeClassificationList() {
 // GetBaikeClassificationListReq ...
 type GetBaikeClassificationListReq struct {
 	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 20, 默认值: `20`, 取值范围: `1` ～ `500`
-	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "408ecac018b2e3518db37275e812bb8ad3e755fc886f322ac6c430ba"
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 408ecac018b2e3518db37275e812bb8ad3e755fc886f322ac6c430ba
 }
 
 // GetBaikeClassificationListResp ...

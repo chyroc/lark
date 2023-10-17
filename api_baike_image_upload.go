@@ -24,8 +24,12 @@ import (
 
 // UploadBaikeImage 词条图片资源上传。
 //
+// 为了更好地提升接口文档的的易理解性, 我们对文档进行了升级, 请尽快迁移至[新版本>>](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/lingo-v1/file/upload)
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/file/upload
 // new doc: https://open.feishu.cn/document/server-docs/baike-v1/file/upload
+//
+// Deprecated
 func (r *BaikeService) UploadBaikeImage(ctx context.Context, request *UploadBaikeImageReq, options ...MethodOptionFunc) (*UploadBaikeImageResp, *Response, error) {
 	if r.cli.mock.mockBaikeUploadBaikeImage != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Baike#UploadBaikeImage mock enable")

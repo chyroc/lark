@@ -23,7 +23,7 @@ import (
 
 // GetEventOutboundIpList 飞书开放平台向应用配置的回调地址推送事件时, 是通过特定的 IP 发送出去的, 应用可以通过本接口获取所有相关的 IP 地址。
 //
-// IP 地址有变更可能, 建议应用每隔 6 小时定时拉取最新的 IP 地址, 以免由于企业防火墙设置, 导致应用无法及时接收到飞书开放平台推送的事件。
+// IP 地址有变更可能, 建议定期拉取最新 IP 地址, 并自动更新至防火墙规则。此外, IP 变更时, 开放平台将会推送卡片消息和发布更新日志提前告知开发者。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-v1/outbound_ip/list
 // new doc: https://open.feishu.cn/document/server-docs/event-subscription-guide/list

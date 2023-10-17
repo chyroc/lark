@@ -19,6 +19,7 @@ package lark
 
 import (
 	"context"
+	"io"
 )
 
 // UploadLingoFile 词条图片资源上传。
@@ -39,6 +40,7 @@ func (r *LingoService) UploadLingoFile(ctx context.Context, request *UploadLingo
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 		NeedUserAccessToken:   true,
+		IsFile:                true,
 	}
 	resp := new(uploadLingoFileResp)
 

@@ -69,13 +69,21 @@ type GetLingoClassificationListReq struct {
 type GetLingoClassificationListResp struct {
 	Items     []*GetLingoClassificationListRespItem `json:"items,omitempty"`      // 分类
 	PageToken string                                `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	HasMore   bool                                  `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
 // GetLingoClassificationListRespItem ...
 type GetLingoClassificationListRespItem struct {
-	ID       string `json:"id,omitempty"`        // 二级分类 ID
-	Name     string `json:"name,omitempty"`      // 二级分类名称
-	FatherID string `json:"father_id,omitempty"` // 对应一级分类 ID
+	ID        string                                        `json:"id,omitempty"`         // 二级分类 ID
+	Name      string                                        `json:"name,omitempty"`       // 二级分类名称
+	FatherID  string                                        `json:"father_id,omitempty"`  // 对应一级分类 ID
+	I18nNames []*GetLingoClassificationListRespItemI18nName `json:"i18n_names,omitempty"` // 国际化分类名
+}
+
+// GetLingoClassificationListRespItemI18nName ...
+type GetLingoClassificationListRespItemI18nName struct {
+	Language int64  `json:"language,omitempty"` // 语言类型, 可选值有: 1: 中文, 2: 英文, 3: 日文
+	Name     string `json:"name,omitempty"`     // 分类名
 }
 
 // getLingoClassificationListResp ...

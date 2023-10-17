@@ -23,6 +23,9 @@ import (
 
 // FindSheet 在指定范围内查找符合查找条件的单元格。
 //
+// 注意事项:
+// - 当请求`range`范围大于实际数据区域时, 比如工作表只有 200 行, 但`range`填写的范围为 1 到 201 行, 接口将返回错误码`1310202`
+//
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/find
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/data-operation/find
 func (r *DriveService) FindSheet(ctx context.Context, request *FindSheetReq, options ...MethodOptionFunc) (*FindSheetResp, *Response, error) {
@@ -81,8 +84,8 @@ type FindSheetResp struct {
 
 // FindSheetRespFindResult ...
 type FindSheetRespFindResult struct {
-	MatchedCells        []string `json:"matched_cells,omitempty"`         // 符合查找条件的单元格数组, 不包含公式, 例如["A1", "A2"...]
-	MatchedFormulaCells []string `json:"matched_formula_cells,omitempty"` // 符合查找条件的含有公式的单元格数组, 例如["B3", "H7"...]
+	MatchedCells        []string `json:"matched_cells,omitempty"`         // 符合查找条件的单元格数组, 不包含公式
+	MatchedFormulaCells []string `json:"matched_formula_cells,omitempty"` // 符合查找条件的含有公式的单元格数组
 	RowsCount           int64    `json:"rows_count,omitempty"`            // 符合查找条件的总行数
 }
 

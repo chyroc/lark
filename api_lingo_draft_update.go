@@ -66,6 +66,7 @@ type UpdateLingoDraftReq struct {
 	Description *string                         `json:"description,omitempty"`  // 详情描述, 示例值: "词典是飞书提供的一款知识管理工具, 通过飞书词典可以帮助企业将分散的知识信息进行聚合, 并通过UGC的方式, 促进企业知识的保鲜和流通", 最大长度: `5000` 字符
 	RelatedMeta *UpdateLingoDraftReqRelatedMeta `json:"related_meta,omitempty"` // 相关数据
 	RichText    *string                         `json:"rich_text,omitempty"`    // 富文本格式（当填写富文本内容时, description字段将会失效可不填写）, 支持的格式参考[飞书词典指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分, 示例值: "<b>加粗</b><i>斜体</i><p><a href=\"https://feishu.cn\">链接</a></p><p><span>词典是飞书提供的一款知识管理工具, 通过飞书词典可以帮助企业将分散的知识信息进行聚合, 并通过UGC的方式, 促进企业知识的保鲜和流通</span></p>", 最大长度: `5000` 字符
+	I18nDescs   []*UpdateLingoDraftReqI18nDesc  `json:"i18n_descs,omitempty"`   // 国际化的词条释义, 最大长度: `3`
 }
 
 // UpdateLingoDraftReqAliase ...
@@ -78,6 +79,13 @@ type UpdateLingoDraftReqAliase struct {
 type UpdateLingoDraftReqAliaseDisplayStatus struct {
 	AllowHighlight bool `json:"allow_highlight,omitempty"` // 是否允许在 IM 和 Doc 等场景进行高亮提示, 示例值: true
 	AllowSearch    bool `json:"allow_search,omitempty"`    // 是否允许在飞书中被搜索到, 示例值: true
+}
+
+// UpdateLingoDraftReqI18nDesc ...
+type UpdateLingoDraftReqI18nDesc struct {
+	Language    int64   `json:"language,omitempty"`    // 语言类型, 示例值: 1, 可选值有: 1: 中文, 2: 英文, 3: 日文
+	Description *string `json:"description,omitempty"` // 纯文本释义, 示例值: "词典是飞书提供的一款知识管理工具, 通过飞书词典可以帮助企业将分散的知识信息进行聚合, 并通过UGC的方式, 促进企业知识的保鲜和流通", 长度范围: `1` ～ `5000` 字符
+	RichText    *string `json:"rich_text,omitempty"`   // 富文本描述, 示例值: "<p>词典是飞书提供的一款知识管理工具, 通过飞书词典可以帮助企业将分散的知识信息进行聚合, 并通过UGC的方式, 促进企业知识的保鲜和流通</p>", 长度范围: `1` ～ `5000` 字符
 }
 
 // UpdateLingoDraftReqMainKey ...
@@ -168,12 +176,13 @@ type UpdateLingoDraftRespDraftEntity struct {
 	Creator     string                                      `json:"creator,omitempty"`      // 创建者
 	CreateTime  string                                      `json:"create_time,omitempty"`  // 词条创建时间（秒级时间戳）
 	Updater     string                                      `json:"updater,omitempty"`      // 最近一次更新者
-	UpdateTime  string                                      `json:"update_time,omitempty"`  // 最近一次更新实体词时间（秒级时间戳）
+	UpdateTime  string                                      `json:"update_time,omitempty"`  // 最近一次更新词条时间（秒级时间戳）
 	RelatedMeta *UpdateLingoDraftRespDraftEntityRelatedMeta `json:"related_meta,omitempty"` // 相关数据
 	Statistics  *UpdateLingoDraftRespDraftEntityStatistics  `json:"statistics,omitempty"`   // 当前词条收到的反馈数据
 	OuterInfo   *UpdateLingoDraftRespDraftEntityOuterInfo   `json:"outer_info,omitempty"`   // 外部系统关联数据
 	RichText    string                                      `json:"rich_text,omitempty"`    // 富文本格式（当填写富文本内容时, description字段将会失效可不填写）, 支持的格式参考[飞书词典指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分
 	Source      int64                                       `json:"source,omitempty"`       // 词条的创建来源, 1: 用户主动创建, 2: 批量导入, 3: 官方词, 4: OpenAPI 创建
+	I18nDescs   []*UpdateLingoDraftRespDraftEntityI18nDesc  `json:"i18n_descs,omitempty"`   // 国际化的词条释义
 }
 
 // UpdateLingoDraftRespDraftEntityAliase ...
@@ -186,6 +195,13 @@ type UpdateLingoDraftRespDraftEntityAliase struct {
 type UpdateLingoDraftRespDraftEntityAliaseDisplayStatus struct {
 	AllowHighlight bool `json:"allow_highlight,omitempty"` // 是否允许在 IM 和 Doc 等场景进行高亮提示
 	AllowSearch    bool `json:"allow_search,omitempty"`    // 是否允许在飞书中被搜索到
+}
+
+// UpdateLingoDraftRespDraftEntityI18nDesc ...
+type UpdateLingoDraftRespDraftEntityI18nDesc struct {
+	Language    int64  `json:"language,omitempty"`    // 语言类型, 可选值有: 1: 中文, 2: 英文, 3: 日文
+	Description string `json:"description,omitempty"` // 纯文本释义
+	RichText    string `json:"rich_text,omitempty"`   // 富文本描述
 }
 
 // UpdateLingoDraftRespDraftEntityMainKey ...
@@ -233,7 +249,6 @@ type UpdateLingoDraftRespDraftEntityRelatedMetaChat struct {
 // UpdateLingoDraftRespDraftEntityRelatedMetaClassification ...
 type UpdateLingoDraftRespDraftEntityRelatedMetaClassification struct {
 	ID       string `json:"id,omitempty"`        // 二级分类 ID
-	Name     string `json:"name,omitempty"`      // 二级分类名称
 	FatherID string `json:"father_id,omitempty"` // 对应一级分类 ID
 }
 

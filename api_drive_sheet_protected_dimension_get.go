@@ -66,33 +66,33 @@ type GetSheetProtectedDimensionReq struct {
 
 // GetSheetProtectedDimensionResp ...
 type GetSheetProtectedDimensionResp struct {
-	ProtectedRange *GetSheetProtectedDimensionRespProtectedRange `json:"protectedRange,omitempty"` // 保护范围
+	ProtectedRanges *GetSheetProtectedDimensionRespProtectedRanges `json:"protectedRanges,omitempty"` // 保护范围
 }
 
-// GetSheetProtectedDimensionRespProtectedRange ...
-type GetSheetProtectedDimensionRespProtectedRange struct {
-	ProtectID string                                                 `json:"protectId,omitempty"` // 保护范围ID
-	Dimension *GetSheetProtectedDimensionRespProtectedRangeDimension `json:"dimension,omitempty"` // 保护范围, 如果为空, 则为保护子表
-	SheetID   string                                                 `json:"sheetId,omitempty"`   // sheet的id
-	LockInfo  string                                                 `json:"lockInfo,omitempty"`  // 保护说明
-	Editors   *GetSheetProtectedDimensionRespProtectedRangeEditors   `json:"editors,omitempty"`   // 用户信息
+// GetSheetProtectedDimensionRespProtectedRanges ...
+type GetSheetProtectedDimensionRespProtectedRanges struct {
+	ProtectID string                                                  `json:"protectId,omitempty"` // 保护范围ID
+	Dimension *GetSheetProtectedDimensionRespProtectedRangesDimension `json:"dimension,omitempty"` // 保护范围, 如果为空, 则为保护子表
+	SheetID   string                                                  `json:"sheetId,omitempty"`   // sheet的id
+	LockInfo  string                                                  `json:"lockInfo,omitempty"`  // 保护说明
+	Editors   *GetSheetProtectedDimensionRespProtectedRangesEditors   `json:"editors,omitempty"`   // 用户信息
 }
 
-// GetSheetProtectedDimensionRespProtectedRangeDimension ...
-type GetSheetProtectedDimensionRespProtectedRangeDimension struct {
+// GetSheetProtectedDimensionRespProtectedRangesDimension ...
+type GetSheetProtectedDimensionRespProtectedRangesDimension struct {
 	SheetID        string `json:"sheetId,omitempty"`        // sheet 的 id
 	StartIndex     int64  `json:"startIndex,omitempty"`     // 保护行列起始下标, 下标从1开始
 	EndIndex       int64  `json:"endIndex,omitempty"`       // 保护行列终止下标, 下标从1开始
 	MajorDimension string `json:"majorDimension,omitempty"` // 保护范围的维度, COLUMNS为保护列, ROWS为保护行
 }
 
-// GetSheetProtectedDimensionRespProtectedRangeEditors ...
-type GetSheetProtectedDimensionRespProtectedRangeEditors struct {
-	Users []*GetSheetProtectedDimensionRespProtectedRangeEditorsUser `json:"users,omitempty"` // 用户信息列表
+// GetSheetProtectedDimensionRespProtectedRangesEditors ...
+type GetSheetProtectedDimensionRespProtectedRangesEditors struct {
+	Users []*GetSheetProtectedDimensionRespProtectedRangesEditorsUser `json:"users,omitempty"` // 用户信息列表
 }
 
-// GetSheetProtectedDimensionRespProtectedRangeEditorsUser ...
-type GetSheetProtectedDimensionRespProtectedRangeEditorsUser struct {
+// GetSheetProtectedDimensionRespProtectedRangesEditorsUser ...
+type GetSheetProtectedDimensionRespProtectedRangesEditorsUser struct {
 	MemberType string `json:"memberType,omitempty"` // 用户类型
 	MemberID   string `json:"memberId,omitempty"`   // 用户ID
 }
