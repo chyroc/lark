@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 933, Event Count: 128
+API Count: 936, Event Count: 131
 
 <details>
   <summary>
@@ -286,6 +286,8 @@ API Count: 933, Event Count: 128
   - SearchCalendarEvent
   - SubscribeCalendarEvent
   - UnsubscribeCalendarEvent
+  - DeleteCalendarEventMeetingChat
+  - CreateCalendarEventMeetingChat
   - CreateCalendarEventAttendee
   - GetCalendarEventAttendeeList
   - DeleteCalendarEventAttendee
@@ -518,6 +520,7 @@ API Count: 933, Event Count: 128
   - GetCoreHRAuthorizationList
   - GetCoreHRSecurityGroupList
   - GetCoreHRProcessFormVariableData
+  - MatchCoreHRCompensationStandard
 - Drive
   - GetDriveRootFolderMeta
   - GetDriveFileList
@@ -805,10 +808,13 @@ API Count: 933, Event Count: 128
   - EventV2CorehrEmploymentResignedV1
   - EventV2CorehrOrgRoleAuthorizationUpdatedV1
   - EventV2HireEHRImportTaskForInternshipOfferImportedV1
-  - EventV2CorehrEmploymentConvertedV1
   - EventV2CorehrProbationUpdatedV2
   - EventV2CorehrPreHireUpdatedV1
-  - EventV2CorehrJobDataEmployedV1
+  - EventV2HireEcoAccountCreatedV1
+  - EventV2HireEcoBackgroundCheckCreatedV1
+  - EventV2HireEcoBackgroundCheckCanceledV1
+  - EventV2HireEcoExamCreatedV1
+  - EventV2HireReferralAccountAssetsUpdateV1
 - File
   - UploadImage
   - DownloadImage

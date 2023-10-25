@@ -1441,6 +1441,18 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 			as.Equal(err.Error(), "mock-failed")
 		})
 
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockCoreHRMatchCoreHRCompensationStandard(func(ctx context.Context, request *lark.MatchCoreHRCompensationStandardReq, options ...lark.MethodOptionFunc) (*lark.MatchCoreHRCompensationStandardResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCoreHRMatchCoreHRCompensationStandard()
+
+			_, _, err := moduleCli.MatchCoreHRCompensationStandard(ctx, &lark.MatchCoreHRCompensationStandardReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
 	})
 
 	t.Run("response is failed", func(t *testing.T) {
@@ -2353,6 +2365,13 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 			_, _, err := moduleCli.GetCoreHRProcessFormVariableData(ctx, &lark.GetCoreHRProcessFormVariableDataReq{
 				ProcessID: "x",
 			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.MatchCoreHRCompensationStandard(ctx, &lark.MatchCoreHRCompensationStandardReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -3272,6 +3291,13 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 			_, _, err := moduleCli.GetCoreHRProcessFormVariableData(ctx, &lark.GetCoreHRProcessFormVariableDataReq{
 				ProcessID: "x",
 			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.MatchCoreHRCompensationStandard(ctx, &lark.MatchCoreHRCompensationStandardReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
