@@ -87,6 +87,7 @@ const (
 	EventTypeV2CorehrDepartmentDeletedV1                       EventType = "corehr.department.deleted_v1"
 	EventTypeV2CorehrDepartmentUpdatedV1                       EventType = "corehr.department.updated_v1"
 	EventTypeV2CorehrEmploymentConvertedV1                     EventType = "corehr.employment.converted_v1"
+	EventTypeV2CorehrEmploymentConvertedV1                     EventType = "corehr.employment.converted_v1"
 	EventTypeV2CorehrEmploymentCreatedV1                       EventType = "corehr.employment.created_v1"
 	EventTypeV2CorehrEmploymentDeletedV1                       EventType = "corehr.employment.deleted_v1"
 	EventTypeV2CorehrEmploymentResignedV1                      EventType = "corehr.employment.resigned_v1"
@@ -214,6 +215,7 @@ type eventHandler struct {
 	eventV2CorehrDepartmentCreatedV1Handler                       EventV2CorehrDepartmentCreatedV1Handler
 	eventV2CorehrDepartmentDeletedV1Handler                       EventV2CorehrDepartmentDeletedV1Handler
 	eventV2CorehrDepartmentUpdatedV1Handler                       EventV2CorehrDepartmentUpdatedV1Handler
+	eventV2CorehrEmploymentConvertedV1Handler                     EventV2CorehrEmploymentConvertedV1Handler
 	eventV2CorehrEmploymentConvertedV1Handler                     EventV2CorehrEmploymentConvertedV1Handler
 	eventV2CorehrEmploymentCreatedV1Handler                       EventV2CorehrEmploymentCreatedV1Handler
 	eventV2CorehrEmploymentDeletedV1Handler                       EventV2CorehrEmploymentDeletedV1Handler
@@ -344,6 +346,7 @@ func (r *eventHandler) clone() *eventHandler {
 		eventV2CorehrDepartmentDeletedV1Handler:                       r.eventV2CorehrDepartmentDeletedV1Handler,
 		eventV2CorehrDepartmentUpdatedV1Handler:                       r.eventV2CorehrDepartmentUpdatedV1Handler,
 		eventV2CorehrEmploymentConvertedV1Handler:                     r.eventV2CorehrEmploymentConvertedV1Handler,
+		eventV2CorehrEmploymentConvertedV1Handler:                     r.eventV2CorehrEmploymentConvertedV1Handler,
 		eventV2CorehrEmploymentCreatedV1Handler:                       r.eventV2CorehrEmploymentCreatedV1Handler,
 		eventV2CorehrEmploymentDeletedV1Handler:                       r.eventV2CorehrEmploymentDeletedV1Handler,
 		eventV2CorehrEmploymentResignedV1Handler:                      r.eventV2CorehrEmploymentResignedV1Handler,
@@ -471,6 +474,7 @@ type eventBody struct {
 	eventV2CorehrDepartmentCreatedV1                       *EventV2CorehrDepartmentCreatedV1
 	eventV2CorehrDepartmentDeletedV1                       *EventV2CorehrDepartmentDeletedV1
 	eventV2CorehrDepartmentUpdatedV1                       *EventV2CorehrDepartmentUpdatedV1
+	eventV2CorehrEmploymentConvertedV1                     *EventV2CorehrEmploymentConvertedV1
 	eventV2CorehrEmploymentConvertedV1                     *EventV2CorehrEmploymentConvertedV1
 	eventV2CorehrEmploymentCreatedV1                       *EventV2CorehrEmploymentCreatedV1
 	eventV2CorehrEmploymentDeletedV1                       *EventV2CorehrEmploymentDeletedV1
@@ -749,6 +753,12 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 			return err
 		}
 		req.eventV2CorehrDepartmentUpdatedV1 = event
+	case EventTypeV2CorehrEmploymentConvertedV1:
+		event := new(EventV2CorehrEmploymentConvertedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrEmploymentConvertedV1 = event
 	case EventTypeV2CorehrEmploymentConvertedV1:
 		event := new(EventV2CorehrEmploymentConvertedV1)
 		if err := req.unmarshalEvent(event); err != nil {
@@ -1852,6 +1862,15 @@ func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) 
 				go r.cli.eventHandler.eventV2CorehrDepartmentUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrDepartmentUpdatedV1)
 			} else {
 				s, err = r.cli.eventHandler.eventV2CorehrDepartmentUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrDepartmentUpdatedV1)
+			}
+		}
+		return true, s, err
+	case req.eventV2CorehrEmploymentConvertedV1 != nil:
+		if r.cli.eventHandler.eventV2CorehrEmploymentConvertedV1Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CorehrEmploymentConvertedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrEmploymentConvertedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CorehrEmploymentConvertedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrEmploymentConvertedV1)
 			}
 		}
 		return true, s, err

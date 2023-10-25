@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 924, 事件总数: 124
+API 总数: 933, 事件总数: 125
 
 <details>
   <summary>
@@ -127,6 +127,7 @@ API 总数: 924, 事件总数: 124
   - GetApplicationUsageTrend
   - UpdateApplicationFeedback
   - GetApplicationFeedbackList
+  - SetApplicationAppBadge
 - Approval
   - CreateApproval
   - GetApproval
@@ -491,6 +492,11 @@ API 总数: 924, 事件总数: 124
   - UpdateCoreHRContract
   - GetCoreHRContract
   - GetCoreHRContractList
+  - SearchCoreHRProbation
+  - EnableDisableCoreHRProbationAssessment
+  - CreateCoreHRProbationAssessment
+  - UpdateCoreHRProbationAssessment
+  - DeleteCoreHRProbationAssessment
   - GetCoreHRTransferReasonList
   - GetCoreHRTransferTypeList
   - CreateCoreHRJobChange
@@ -503,8 +509,11 @@ API 总数: 924, 事件总数: 124
   - GetCoreHRLeaveTypeList
   - GetCoreHRLeaveBalanceList
   - GetCoreHRLeaveRequestHistoryList
-  - SearchCoreHRAssignedUser
+  - BatchGetCoreHrbpByEmployee
+  - GetCoreHrbpByDepartment
+  - GetCoreHrbpList
   - GetCoreHRSecurityGroupBp
+  - SearchCoreHRAssignedUser
   - GetCoreHRAuthorization
   - GetCoreHRAuthorizationList
   - GetCoreHRSecurityGroupList
@@ -796,6 +805,7 @@ API 总数: 924, 事件总数: 124
   - EventV2CorehrEmploymentResignedV1
   - EventV2CorehrOrgRoleAuthorizationUpdatedV1
   - EventV2HireEHRImportTaskForInternshipOfferImportedV1
+  - EventV2CorehrEmploymentConvertedV1
 - File
   - UploadImage
   - DownloadImage
