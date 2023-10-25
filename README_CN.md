@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 933, 事件总数: 125
+API 总数: 933, 事件总数: 128
 
 <details>
   <summary>
@@ -806,6 +806,9 @@ API 总数: 933, 事件总数: 125
   - EventV2CorehrOrgRoleAuthorizationUpdatedV1
   - EventV2HireEHRImportTaskForInternshipOfferImportedV1
   - EventV2CorehrEmploymentConvertedV1
+  - EventV2CorehrProbationUpdatedV2
+  - EventV2CorehrPreHireUpdatedV1
+  - EventV2CorehrJobDataEmployedV1
 - File
   - UploadImage
   - DownloadImage
