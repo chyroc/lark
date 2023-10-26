@@ -36,7 +36,7 @@ type EventV2ApplicationBotMenuV6Handler func(ctx context.Context, cli *Lark, sch
 type EventV2ApplicationBotMenuV6 struct {
 	Operator  *EventV2ApplicationBotMenuV6Operator `json:"operator,omitempty"`  // 用户信息
 	EventKey  string                               `json:"event_key,omitempty"` // 菜单事件的唯一标识, 长度范围: `1` ～ `30` 字符
-	Timestamp string                               `json:"timestamp,omitempty"` // 用户点击菜单时间, 长度范围: `1` ～ `30` 字符
+	Timestamp int64                                `json:"timestamp,omitempty"` // 用户点击菜单时间, 长度范围: `1` ～ `30`
 }
 
 // EventV2ApplicationBotMenuV6Operator ...

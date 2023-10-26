@@ -24,6 +24,8 @@ import (
 // ExtractLingoEntity 提取文本中可能成为词条的词语, 且不会过滤已经成为词条的词语。同时返回推荐的别名。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/lingo-v1/entity/extract
+//
+// Deprecated
 func (r *LingoService) ExtractLingoEntity(ctx context.Context, request *ExtractLingoEntityReq, options ...MethodOptionFunc) (*ExtractLingoEntityResp, *Response, error) {
 	if r.cli.mock.mockLingoExtractLingoEntity != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Lingo#ExtractLingoEntity mock enable")
