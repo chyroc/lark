@@ -64,7 +64,7 @@ func (r *Mock) UnMockVCApplyVCReserve() {
 type ApplyVCReserveReq struct {
 	UserIDType      *IDType                           `query:"user_id_type" json:"-"`     // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	EndTime         *string                           `json:"end_time,omitempty"`         // 预约到期时间（unix时间, 单位sec）, 多人会议必填, 示例值: "1608888867"
-	OwnerID         *string                           `json:"owner_id,omitempty"`         // 指定会议归属人, 使用 tenant_access_token 时生效且必传, 指定对象必须为同租户下的合法飞书用户（包含机器人）, 使用 user_access_token 时, 该参数不生效, 设置归属人无意义, 示例值: "ou_3ec3f6a28a0d08c45d895276e8e5e19b"
+	OwnerID         *string                           `json:"owner_id,omitempty"`         // 指定会议归属人, 使用 tenant_access_token 时生效且必传, 指定对象必须为同租户下的合法飞书用户, 使用 user_access_token 时, 该参数不生效, 设置归属人无意义, 示例值: "ou_3ec3f6a28a0d08c45d895276e8e5e19b"
 	MeetingSettings *ApplyVCReserveReqMeetingSettings `json:"meeting_settings,omitempty"` // 会议设置
 }
 

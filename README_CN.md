@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 936, 事件总数: 131
+API 总数: 957, 事件总数: 133
 
 <details>
   <summary>
@@ -815,6 +815,8 @@ API 总数: 936, 事件总数: 131
   - EventV2HireEcoBackgroundCheckCanceledV1
   - EventV2HireEcoExamCreatedV1
   - EventV2HireReferralAccountAssetsUpdateV1
+  - EventV2CorehrContractDeletedV1
+  - EventV2CorehrContractUpdatedV1
 - File
   - UploadImage
   - DownloadImage
@@ -881,11 +883,6 @@ API 总数: 936, 事件总数: 131
   - GetHireTalent
   - GetHireAttachment
   - GetHireAttachmentPreview
-  - GetHireResumeSource
-  - CreateHireNote
-  - UpdateHireNote
-  - GetHireNote
-  - GetHireNoteList
   - GetHireReferralWebsiteJobPostList
   - GetHireReferralWebsiteJobPost
   - GetHireReferralByApplication
@@ -906,20 +903,46 @@ API 总数: 936, 事件总数: 131
   - GetHireEvaluationList
   - GetHireQuestionnaireList
   - GetHireInterviewList
-  - UpdateHireOfferStatus
   - CreateHireOffer
   - UpdateHireOffer
-  - UpdateHireOfferInternStatus
   - GetHireOfferByApplication
   - GetHireOffer
   - GetHireOfferList
+  - UpdateHireOfferStatus
+  - UpdateHireOfferInternStatus
   - GetHireApplicationInterviewList
   - GetHireOfferSchema
+  - UpdateHireEHRImportTask
   - MakeHireTransferOnboardByApplication
   - UpdateHireEmployee
   - GetHireEmployeeByApplication
   - GetHireEmployee
-  - UpdateHireEHRImportTask
+  - CreateHireNote
+  - UpdateHireNote
+  - GetHireNote
+  - GetHireNoteList
+  - GetHireResumeSource
+  - CreateHireEcoAccountCustomField
+  - BatchUpdateHireEcoAccountCustomField
+  - BatchDeleteHireEcoAccountCustomField
+  - CreateHireEcoBackgroundCheckCustomField
+  - BatchUpdateHireEcoBackgroundCheckCustomField
+  - BatchDeleteHireEcoBackgroundCheckCustomField
+  - CreateHireEcoBackgroundCheckPackage
+  - BatchUpdateHireEcoBackgroundCheckPackage
+  - BatchDeleteHireEcoBackgroundCheckPackage
+  - UpdateHireEcoBackgroundCheckProgress
+  - UpdateHireEcoBackgroundCheckResult
+  - CancelHireEcoBackgroundCheck
+  - CreateHireEcoExamPaper
+  - BatchUpdateHireEcoExamPaper
+  - BatchDeleteHireEcoExamPaper
+  - CreateHireEcoExamLoginInfo
+  - UpdateHiredEcoExamResult
+  - CreateHireReferralAccount
+  - DeactivateHireReferralAccount
+  - WithdrawHireReferralAccount
+  - ReconcileHireReferralAccount
 - HumanAuth
   - GetFaceVerifyAuthResult
   - UploadFaceVerifyImage

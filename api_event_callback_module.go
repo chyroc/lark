@@ -83,6 +83,8 @@ const (
 	EventTypeV2ContactUserDeletedV3                            EventType = "contact.user.deleted_v3"
 	EventTypeV2ContactUserUpdatedV3                            EventType = "contact.user.updated_v3"
 	EventTypeV2CorehrContractCreatedV1                         EventType = "corehr.contract.created_v1"
+	EventTypeV2CorehrContractDeletedV1                         EventType = "corehr.contract.deleted_v1"
+	EventTypeV2CorehrContractUpdatedV1                         EventType = "corehr.contract.updated_v1"
 	EventTypeV2CorehrDepartmentCreatedV1                       EventType = "corehr.department.created_v1"
 	EventTypeV2CorehrDepartmentDeletedV1                       EventType = "corehr.department.deleted_v1"
 	EventTypeV2CorehrDepartmentUpdatedV1                       EventType = "corehr.department.updated_v1"
@@ -218,6 +220,8 @@ type eventHandler struct {
 	eventV2ContactUserDeletedV3Handler                            EventV2ContactUserDeletedV3Handler
 	eventV2ContactUserUpdatedV3Handler                            EventV2ContactUserUpdatedV3Handler
 	eventV2CorehrContractCreatedV1Handler                         EventV2CorehrContractCreatedV1Handler
+	eventV2CorehrContractDeletedV1Handler                         EventV2CorehrContractDeletedV1Handler
+	eventV2CorehrContractUpdatedV1Handler                         EventV2CorehrContractUpdatedV1Handler
 	eventV2CorehrDepartmentCreatedV1Handler                       EventV2CorehrDepartmentCreatedV1Handler
 	eventV2CorehrDepartmentDeletedV1Handler                       EventV2CorehrDepartmentDeletedV1Handler
 	eventV2CorehrDepartmentUpdatedV1Handler                       EventV2CorehrDepartmentUpdatedV1Handler
@@ -354,6 +358,8 @@ func (r *eventHandler) clone() *eventHandler {
 		eventV2ContactUserDeletedV3Handler:                            r.eventV2ContactUserDeletedV3Handler,
 		eventV2ContactUserUpdatedV3Handler:                            r.eventV2ContactUserUpdatedV3Handler,
 		eventV2CorehrContractCreatedV1Handler:                         r.eventV2CorehrContractCreatedV1Handler,
+		eventV2CorehrContractDeletedV1Handler:                         r.eventV2CorehrContractDeletedV1Handler,
+		eventV2CorehrContractUpdatedV1Handler:                         r.eventV2CorehrContractUpdatedV1Handler,
 		eventV2CorehrDepartmentCreatedV1Handler:                       r.eventV2CorehrDepartmentCreatedV1Handler,
 		eventV2CorehrDepartmentDeletedV1Handler:                       r.eventV2CorehrDepartmentDeletedV1Handler,
 		eventV2CorehrDepartmentUpdatedV1Handler:                       r.eventV2CorehrDepartmentUpdatedV1Handler,
@@ -489,6 +495,8 @@ type eventBody struct {
 	eventV2ContactUserDeletedV3                            *EventV2ContactUserDeletedV3
 	eventV2ContactUserUpdatedV3                            *EventV2ContactUserUpdatedV3
 	eventV2CorehrContractCreatedV1                         *EventV2CorehrContractCreatedV1
+	eventV2CorehrContractDeletedV1                         *EventV2CorehrContractDeletedV1
+	eventV2CorehrContractUpdatedV1                         *EventV2CorehrContractUpdatedV1
 	eventV2CorehrDepartmentCreatedV1                       *EventV2CorehrDepartmentCreatedV1
 	eventV2CorehrDepartmentDeletedV1                       *EventV2CorehrDepartmentDeletedV1
 	eventV2CorehrDepartmentUpdatedV1                       *EventV2CorehrDepartmentUpdatedV1
@@ -759,6 +767,18 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 			return err
 		}
 		req.eventV2CorehrContractCreatedV1 = event
+	case EventTypeV2CorehrContractDeletedV1:
+		event := new(EventV2CorehrContractDeletedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrContractDeletedV1 = event
+	case EventTypeV2CorehrContractUpdatedV1:
+		event := new(EventV2CorehrContractUpdatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrContractUpdatedV1 = event
 	case EventTypeV2CorehrDepartmentCreatedV1:
 		event := new(EventV2CorehrDepartmentCreatedV1)
 		if err := req.unmarshalEvent(event); err != nil {
@@ -1895,6 +1915,24 @@ func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) 
 				go r.cli.eventHandler.eventV2CorehrContractCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrContractCreatedV1)
 			} else {
 				s, err = r.cli.eventHandler.eventV2CorehrContractCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrContractCreatedV1)
+			}
+		}
+		return true, s, err
+	case req.eventV2CorehrContractDeletedV1 != nil:
+		if r.cli.eventHandler.eventV2CorehrContractDeletedV1Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CorehrContractDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrContractDeletedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CorehrContractDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrContractDeletedV1)
+			}
+		}
+		return true, s, err
+	case req.eventV2CorehrContractUpdatedV1 != nil:
+		if r.cli.eventHandler.eventV2CorehrContractUpdatedV1Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CorehrContractUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrContractUpdatedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CorehrContractUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrContractUpdatedV1)
 			}
 		}
 		return true, s, err
