@@ -35,13 +35,14 @@ func (r *CalendarService) SearchCalendarEvent(ctx context.Context, request *Sear
 	}
 
 	req := &RawRequestReq{
-		Scope:               "Calendar",
-		API:                 "SearchCalendarEvent",
-		Method:              "POST",
-		URL:                 r.cli.openBaseURL + "/open-apis/calendar/v4/calendars/:calendar_id/events/search",
-		Body:                request,
-		MethodOption:        newMethodOption(options),
-		NeedUserAccessToken: true,
+		Scope:                 "Calendar",
+		API:                   "SearchCalendarEvent",
+		Method:                "POST",
+		URL:                   r.cli.openBaseURL + "/open-apis/calendar/v4/calendars/:calendar_id/events/search",
+		Body:                  request,
+		MethodOption:          newMethodOption(options),
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(searchCalendarEventResp)
 

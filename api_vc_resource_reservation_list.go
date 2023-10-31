@@ -82,6 +82,7 @@ type GetVCResourceReservationListRespRoomReservation struct {
 	RoomName             string `json:"room_name,omitempty"`              // 会议室名称
 	EventTitle           string `json:"event_title,omitempty"`            // 会议标题
 	Reserver             string `json:"reserver,omitempty"`               // 预定人
+	ReserverUserID       string `json:"reserver_user_id,omitempty"`       // 预定人ID
 	DepartmentOfReserver string `json:"department_of_reserver,omitempty"` // 预定人所属部门
 	GuestsNumber         string `json:"guests_number,omitempty"`          // 邀约人数
 	AcceptedNumber       string `json:"accepted_number,omitempty"`        // 接受人数

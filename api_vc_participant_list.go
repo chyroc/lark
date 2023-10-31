@@ -81,6 +81,7 @@ type GetVCParticipantListRespParticipant struct {
 	ParticipantName string `json:"participant_name,omitempty"` // 参会者
 	Department      string `json:"department,omitempty"`       // 部门
 	UserID          string `json:"user_id,omitempty"`          // 用户ID
+	MeetingRoomID   string `json:"meeting_room_id,omitempty"`  // 会议室ID
 	EmployeeID      string `json:"employee_id,omitempty"`      // 工号
 	Phone           string `json:"phone,omitempty"`            // 电话
 	Email           string `json:"email,omitempty"`            // 邮箱

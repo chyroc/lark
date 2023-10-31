@@ -41,6 +41,7 @@ func (r *CalendarService) SearchCalendar(ctx context.Context, request *SearchCal
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(searchCalendarResp)
 
