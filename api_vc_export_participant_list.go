@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// ExportVCParticipantList 导出某个会议的参会人详情列表, 具体权限要求请参考「资源介绍」。
+// ExportVCParticipantList 导出某个会议的参会人详情列表（仅支持已结束会议）, 具体权限要求请参考「资源介绍」。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/export/participant_list
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/export/participant_list

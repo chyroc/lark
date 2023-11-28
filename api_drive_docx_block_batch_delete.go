@@ -23,7 +23,7 @@ import (
 
 // BatchDeleteDocxBlock 指定需要操作的块, 删除其指定范围的子块。如果操作成功, 接口将返回应用删除操作后的文档版本号。
 //
-// 在调用此接口前, 请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnby5Y0yoACL3PdfZqrJEm6f#doxcngCsscGk0WacO258mYDgM6b), 了解相关规则及约束。
+// 在调用此接口前, 请仔细阅读[新版文档 OpenAPI 接口校验规则](https://feishu.feishu.cn/docx/JTyjdXtsHo3H9AxXkgOcLTsynaf#doxcn0mboCwNukF761b8V66p0Cg), 了解相关规则及约束。
 // 应用频率限制: 单个应用调用频率上限为每秒 3 次, 超过该频率限制, 接口将返回 HTTP 状态码 400 及错误码 99991400；
 // 文档频率限制: 单篇文档并发编辑上限为每秒 3 次, 超过该频率限制, 接口将返回 HTTP 状态码 429, 编辑操作包括:
 // - 创建块

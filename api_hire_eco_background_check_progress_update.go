@@ -68,8 +68,9 @@ type UpdateHireEcoBackgroundCheckProgressReq struct {
 
 // UpdateHireEcoBackgroundCheckProgressReqReportFile ...
 type UpdateHireEcoBackgroundCheckProgressReqReportFile struct {
-	ReportName string `json:"report_name,omitempty"` // 报告名称, 示例值: "阶段报告.pdf"
-	ReportURL  string `json:"report_url,omitempty"`  // 报告地址, 示例值: "https://xxxxx/xxxxxx/xxxx.pdf"
+	ReportName    string `json:"report_name,omitempty"`     // 报告名称, 示例值: "阶段报告.pdf"
+	ReportURL     string `json:"report_url,omitempty"`      // 报告地址；当report_url_type 为空或为 1 时需为可下载 pdf 的链接；为 2 时为预览型链接, 示例值: "https://xxxxx/xxxxxx/xxxx.pdf"
+	ReportURLType *int64 `json:"report_url_type,omitempty"` // 报告地址类型；枚举值 1 或为空时为可下载的 pdf 链接, 2 为预览型链接, 示例值: 1, 可选值有: 1: 可下载的链接, 2: 外链型链接
 }
 
 // UpdateHireEcoBackgroundCheckProgressResp ...

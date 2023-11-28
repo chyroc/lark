@@ -39,6 +39,7 @@ func (r *MailService) GetPublicMailboxList(ctx context.Context, request *GetPubl
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getPublicMailboxListResp)
 
@@ -74,6 +75,7 @@ type GetPublicMailboxListRespItem struct {
 	PublicMailboxID string `json:"public_mailbox_id,omitempty"` // 公共邮箱唯一标识
 	Email           string `json:"email,omitempty"`             // 公共邮箱地址
 	Name            string `json:"name,omitempty"`              // 公共邮箱名称
+	Geo             string `json:"geo,omitempty"`               // 数据驻留地, 字段权限要求: 查看公共邮箱数据驻留地
 }
 
 // getPublicMailboxListResp ...

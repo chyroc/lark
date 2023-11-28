@@ -100,7 +100,7 @@ type UpdateUserPatchReqCustomAttr struct {
 
 // UpdateUserPatchReqCustomAttrValue ...
 type UpdateUserPatchReqCustomAttrValue struct {
-	Text        *string                                       `json:"text,omitempty"`         // 字段类型为`TEXT`时该参数定义字段值, 必填；字段类型为`HREF`时该参数定义网页标题, 必填, 示例值: "DemoText"
+	Text        *string                                       `json:"text,omitempty"`         // 字段类型为`TEXT`时该参数定义字段值, 必填, 长度限制为100字符；字段类型为`HREF`时该参数定义网页标题, 必填, 示例值: "DemoText"
 	URL         *string                                       `json:"url,omitempty"`          // 字段类型为 HREF 时, 该参数定义默认 URL, 例如手机端跳转小程序, PC端跳转网页, 示例值: "http://www.fs.cn"
 	PcURL       *string                                       `json:"pc_url,omitempty"`       // 字段类型为 HREF 时, 该参数定义PC端 URL, 示例值: "http://www.fs.cn"
 	OptionID    *string                                       `json:"option_id,omitempty"`    // 字段类型为 ENUMERATION 或 PICTURE_ENUM 时, 该参数定义选项值, 示例值: "edcvfrtg"

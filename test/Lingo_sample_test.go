@@ -75,6 +75,18 @@ func Test_Lingo_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockLingoDeleteLingoEntity(func(ctx context.Context, request *lark.DeleteLingoEntityReq, options ...lark.MethodOptionFunc) (*lark.DeleteLingoEntityResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockLingoDeleteLingoEntity()
+
+			_, _, err := moduleCli.DeleteLingoEntity(ctx, &lark.DeleteLingoEntityReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockLingoCreateLingoEntity(func(ctx context.Context, request *lark.CreateLingoEntityReq, options ...lark.MethodOptionFunc) (*lark.CreateLingoEntityResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -241,6 +253,15 @@ func Test_Lingo_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.DeleteLingoEntity(ctx, &lark.DeleteLingoEntityReq{
+				EntityID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateLingoEntity(ctx, &lark.CreateLingoEntityReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -349,6 +370,15 @@ func Test_Lingo_Sample_Failed(t *testing.T) {
 
 			_, _, err := moduleCli.UpdateLingoDraft(ctx, &lark.UpdateLingoDraftReq{
 				DraftID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteLingoEntity(ctx, &lark.DeleteLingoEntityReq{
+				EntityID: "x",
 			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())

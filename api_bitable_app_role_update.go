@@ -23,7 +23,7 @@ import (
 
 // UpdateBitableAppRole 更新自定义角色
 //
-// 更新自定义角色是全量更新, 会完全覆盖旧的自定义角色设置
+// 更新自定义角色是增量更新, 仅对传值的字段进行更新, 不传值则不更新
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role/update
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/advanced-permission/app-role/update

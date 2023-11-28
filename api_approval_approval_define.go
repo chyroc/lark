@@ -60,10 +60,10 @@ func (r *Mock) UnMockApprovalCreateApproval() {
 
 // CreateApprovalReq ...
 type CreateApprovalReq struct {
-	DepartmentIDType  *DepartmentIDType                `query:"department_id_type" json:"-"`  // 此次调用中使用的部门ID的类型, 示例值: "open_department_id", 可选值有: department_id: 以自定义department_id来标识部门, open_department_id: 以open_department_id来标识部门
-	UserIDType        *IDType                          `query:"user_id_type" json:"-"`        // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	DepartmentIDType  *DepartmentIDType                `query:"department_id_type" json:"-"`  // 此次调用中使用的部门ID的类型, 示例值: open_department_id, 可选值有: department_id: 以自定义department_id来标识部门, open_department_id: 以open_department_id来标识部门
+	UserIDType        *IDType                          `query:"user_id_type" json:"-"`        // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	ApprovalName      string                           `json:"approval_name,omitempty"`       // 审批名称的国际化文案 Key, 以 @i18n@ 开头, 长度不得少于 9 个字符, 示例值: "@i18n@approval_name"
-	ApprovalCode      *string                          `json:"approval_code,omitempty"`       // 传空表示新建, 示例值: "7C468A54-8745-2245-9675-08B7C63E7A85"
+	ApprovalCode      *string                          `json:"approval_code,omitempty"`       // 审批定义 Code。不传值表示新建；传入指定 Code 表示覆盖原定义内容进行全量更新, 示例值: "7C468A54-8745-2245-9675-08B7C63E7A85"
 	Description       *string                          `json:"description,omitempty"`         // 审批描述的国际化文案 Key, 以 @i18n@ 开头, 长度不得少于 9 个字符, 示例值: "@i18n@description"
 	Viewers           []*CreateApprovalReqViewer       `json:"viewers,omitempty"`             // viewers 字段指定了哪些人能从审批应用的前台发起该审批, 1. 当 viewer_type 为 USER, 需要填写viewer_user_id；, 2. 当 viewer_type 为DEPARTMENT, 需要填写viewer_department_id；, 3. 当 viewer_type 为TENANT或NONE时, viewer_user_id和viewer_department_id无需填写
 	Form              *CreateApprovalReqForm           `json:"form,omitempty"`                // 审批定义表单
@@ -81,7 +81,7 @@ type CreateApprovalReqConfig struct {
 	CanUpdateForm    bool    `json:"can_update_form,omitempty"`    // 允许用户更新表单, 示例值: false
 	CanUpdateProcess bool    `json:"can_update_process,omitempty"` // 允许用户更新流程定义, 示例值: false
 	CanUpdateRevert  bool    `json:"can_update_revert,omitempty"`  // 允许用户更新撤回设置, 示例值: false
-	HelpURL          *string `json:"help_url,omitempty"`           // 帮助文档链接, 示例值: "https://www.baidu.com"
+	HelpURL          *string `json:"help_url,omitempty"`           // 帮助文档链接, 示例值: "https://xxx.xxx.xxx"
 }
 
 // CreateApprovalReqForm ...
@@ -92,7 +92,7 @@ type CreateApprovalReqForm struct {
 // CreateApprovalReqI18nResource ...
 type CreateApprovalReqI18nResource struct {
 	Locale    string                               `json:"locale,omitempty"`     // 语言可选值有: zh-CN: 中文 en-US: 英文 ja-JP: 日文, 示例值: "zh-CN", 可选值有: zh-CN: 中文, en-US: 英文, ja-JP: 日文
-	Texts     []*CreateApprovalReqI18nResourceText `json:"texts,omitempty"`      // 文案 key, value, i18n key 以 @i18n@ 开头； 该字段主要用于做国际化, 允许用户同时传多个语言的文案, 审批中心会根据用户当前的语音环境使用对应的文案, 如果没有传用户当前的语音环境文案, 则会使用默认的语言文案。
+	Texts     []*CreateApprovalReqI18nResourceText `json:"texts,omitempty"`      // 文案 key, value, i18n key 以 @i18n@ 开头； 该字段主要用于做国际化, 允许用户同时传多个语言的文案, 审批中心会根据用户当前的语音环境使用对应的文案, 如果没有传用户当前的语音环境文案, 则会使用默认的语言文案, 示例值: { "@i18n@1": "权限申请", "@i18n@2": "OA审批", "@i18n@3": "Permission" }
 	IsDefault bool                                 `json:"is_default,omitempty"` // 是否默认语言, 默认语言需要包含所有key, 非默认语言如果key不存在会使用默认语言代替, 示例值: true
 }
 
@@ -111,7 +111,7 @@ type CreateApprovalReqNode struct {
 	Ccer                []*CreateApprovalReqNodeCcer                `json:"ccer,omitempty"`                  // 抄送人列表
 	PrivilegeField      *CreateApprovalReqNodePrivilegeField        `json:"privilege_field,omitempty"`       // 表单项的控件权限
 	ApproverChosenMulti *bool                                       `json:"approver_chosen_multi,omitempty"` // 自选审批人是否允许多选, 示例值: false
-	ApproverChosenRange []*CreateApprovalReqNodeApproverChosenRange `json:"approver_chosen_range,omitempty"` // 自选审批人选择范围
+	ApproverChosenRange []*CreateApprovalReqNodeApproverChosenRange `json:"approver_chosen_range,omitempty"` // 自选审批人选择范围, 示例值: [test]
 	StarterAssignee     *string                                     `json:"starter_assignee,omitempty"`      // 审批人为提交人时的操作, 示例值: "STARTER", 可选值有: STARTER: 发起人本人审批, AUTO_PASS: 自动通过, SUPERVISOR: 直属上级审批, DEPARTMENT_MANAGER: 直属部门负责人审批
 }
 
@@ -125,7 +125,7 @@ type CreateApprovalReqNodeApprover struct {
 // CreateApprovalReqNodeApproverChosenRange ...
 type CreateApprovalReqNodeApproverChosenRange struct {
 	Type   *string  `json:"type,omitempty"`    // 审批人类型, 示例值: "ALL", 可选值有: ALL: 全租户, PERSONAL: 指定审批人, ROLE: 指定角色
-	IDList []string `json:"id_list,omitempty"` // 审批人id, 示例值: f7cb567e
+	IDList []string `json:"id_list,omitempty"` // 审批人id, 示例值: ["f7cb567e"]
 }
 
 // CreateApprovalReqNodeCcer ...
@@ -137,14 +137,16 @@ type CreateApprovalReqNodeCcer struct {
 
 // CreateApprovalReqNodePrivilegeField ...
 type CreateApprovalReqNodePrivilegeField struct {
-	Writable []string `json:"writable,omitempty"` // 可写权限的表单项的 id列表, 示例值: 9293493
-	Readable []string `json:"readable,omitempty"` // 可读权限的表单项的 id列表, 示例值: 9293493
+	Writable []string `json:"writable,omitempty"` // 可写权限的表单项的 id列表, 示例值: ["user_name"]
+	Readable []string `json:"readable,omitempty"` // 可读权限的表单项的 id列表, 示例值: ["user_name"]
 }
 
 // CreateApprovalReqSettings ...
 type CreateApprovalReqSettings struct {
-	RevertInterval *int64 `json:"revert_interval,omitempty"` // 审批实例通过后允许撤回的时间, 以秒为单位, 默认 31 天, 0 为不可撤回, 示例值: 0
-	RevertOption   *int64 `json:"revert_option,omitempty"`   // 是否支持审批通过第一个节点后撤回, 默认为1, 0为不支持, 示例值: 0
+	RevertInterval      *int64 `json:"revert_interval,omitempty"`       // 审批实例通过后允许撤回的时间, 以秒为单位, 默认 31 天, 0 为不可撤回, 示例值: 0
+	RevertOption        *int64 `json:"revert_option,omitempty"`         // 是否支持审批通过第一个节点后撤回, 默认为1, 0为不支持, 示例值: 0
+	RejectOption        *int64 `json:"reject_option,omitempty"`         // 拒绝设置, 示例值: 0, 可选值有: 0: 默认设置, 流程被终止, 1: 退回至发起人, 发起人可编辑流程后重新提交
+	QuickApprovalOption *int64 `json:"quick_approval_option,omitempty"` // 快捷审批配置项, 开启后可在卡片上直接审批。默认值1为启用, 0为禁用, 示例值: 1, 可选值有: 0: 禁用, 1: 启用, 默认值: `1`
 }
 
 // CreateApprovalReqViewer ...

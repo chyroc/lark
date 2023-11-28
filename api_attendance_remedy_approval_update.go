@@ -62,7 +62,7 @@ func (r *Mock) UnMockAttendanceUpdateAttendanceRemedyApproval() {
 type UpdateAttendanceRemedyApprovalReq struct {
 	ApprovalID   string `json:"approval_id,omitempty"`   // 审批实例 ID, 获取方式: 1）[获取审批通过数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/query) 2）[写入审批结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/create) 3）[通知补卡审批发起（补卡情况下）](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task_remedy/create), 示例值: "6737202939523236113"
 	ApprovalType string `json:"approval_type,omitempty"` // 审批类型, leave: 请假, out: 外出, overtime: 加班, trip: 出差, remedy: 补卡, 示例值: "remedy"
-	Status       int64  `json:"status,omitempty"`        // 审批状态, 1: 不通过, 2: 通过, 4: 撤销, 示例值: 4
+	Status       int64  `json:"status,omitempty"`        // 审批状态, `1`: 不通过, `2`: 通过, `4`: 撤销, 注意, 请假、外出、加班、出差只支持传撤销, 补卡支持传不通过、通过和撤销, 示例值: 4
 }
 
 // UpdateAttendanceRemedyApprovalResp ...

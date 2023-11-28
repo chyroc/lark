@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetVCMeetingList 查询会议明细。
+// GetVCMeetingList 查询会议明细（仅支持已结束会议）, 具体权限要求请参考「资源介绍」。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting_list/get
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/meeting-room-data/get

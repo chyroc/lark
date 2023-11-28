@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetVCResourceReservationList 查询会议室预定数据。
+// GetVCResourceReservationList 查询会议室预定数据, 具体权限要求请参考「资源介绍」。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/resource_reservation_list/get
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/meeting-room-data/get-4

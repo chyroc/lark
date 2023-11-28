@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetVCParticipantList 查询参会人明细。
+// GetVCParticipantList 查询参会人明细（仅支持已结束会议）, 具体权限要求请参考「资源介绍」。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/participant_list/get
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/meeting-room-data/get-2

@@ -79,7 +79,7 @@ type UpdateHireJobReq struct {
 	Requirement        *string                           `json:"requirement,omitempty"`          // 职位要求, 示例值: "熟悉后端研发"
 	Description        *string                           `json:"description,omitempty"`          // 职位描述, 示例值: "后端研发岗位描述"
 	HighlightList      []string                          `json:"highlight_list,omitempty"`       // 职位亮点, 示例值: ["免费三餐"]
-	JobTypeID          string                            `json:"job_type_id,omitempty"`          // 职位类别, 示例值: "6960663240925956551"
+	JobTypeID          string                            `json:"job_type_id,omitempty"`          // 职位类别, 枚举可通过[「获取职位类别列表」](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_type/list)获取, 示例值: "6960663240925956551"
 	MaxLevelID         *string                           `json:"max_level_id,omitempty"`         // 最高职级, 枚举通过接口「获取职级列表」获取, 示例值: "6960663240925956548"
 	RequiredDegree     *int64                            `json:"required_degree,omitempty"`      // 学历要求, 示例值: 20, 可选值有: 1: 小学及以上, 2: 初中及以上, 3: 专职及以上, 4: 高中及以上, 5: 大专及以上, 6: 本科及以上, 7: 硕士及以上, 8: 博士及以上, 20: 不限
 	JobCategoryID      *string                           `json:"job_category_id,omitempty"`      // 序列ID, 示例值: "6960663240925956550"

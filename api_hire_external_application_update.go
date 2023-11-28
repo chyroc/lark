@@ -67,7 +67,8 @@ type UpdateHireExternalApplicationReq struct {
 	TalentID              string  `json:"talent_id,omitempty"`              // 人才 ID, 示例值: "6960663240925956459"
 	TerminationReason     *string `json:"termination_reason,omitempty"`     // 终止原因, 示例值: "不合适"
 	DeliveryType          *int64  `json:"delivery_type,omitempty"`          // 投递类型, 示例值: 1, 可选值有: 1: HR 寻访, 2: 候选人主动投递, 3: 人才推荐, 4: 其他
-	ModifyTime            *int64  `json:"modify_time,omitempty"`            // 更新时间, 示例值: 1618500278645
+	ModifyTime            *int64  `json:"modify_time,omitempty"`            // 更新时间, 招聘系统内用作投递在外部系统终止时间, 示例值: 1618500278645
+	CreateTime            *int64  `json:"create_time,omitempty"`            // 投递在外部系统创建时间, 示例值: 1618500278644
 	TerminationType       *string `json:"termination_type,omitempty"`       // 终止类型, 示例值: "health"
 }
 
@@ -86,7 +87,8 @@ type UpdateHireExternalApplicationRespExternalApplication struct {
 	TalentID           string `json:"talent_id,omitempty"`            // 人才 ID
 	TerminationReason  string `json:"termination_reason,omitempty"`   // 终止原因
 	DeliveryType       int64  `json:"delivery_type,omitempty"`        // 投递类型, 可选值有: 1: HR 寻访, 2: 候选人主动投递, 3: 人才推荐, 4: 其他
-	ModifyTime         int64  `json:"modify_time,omitempty"`          // 更新时间
+	ModifyTime         int64  `json:"modify_time,omitempty"`          // 更新时间, 招聘系统内用作投递在外部系统终止时间
+	CreateTime         int64  `json:"create_time,omitempty"`          // 投递在外部系统创建时间
 	TerminationType    string `json:"termination_type,omitempty"`     // 终止类型
 }
 

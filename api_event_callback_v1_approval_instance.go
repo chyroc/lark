@@ -48,7 +48,7 @@ type EventV1ApprovalInstance struct {
 	Type                string `json:"type,omitempty"`                  // approval_instance 固定字段
 	ApprovalCode        string `json:"approval_code,omitempty"`         // 审批定义 Code
 	InstanceCode        string `json:"instance_code,omitempty"`         // 审批实例 Code
-	Status              string `json:"status,omitempty"`                // 实例状态 PENDING - 进行中 APPROVED - 已通过 REJECTED - 已拒绝 CANCELED -  已撤回 DELETED - 已删除 REVERTED - 已撤销 OVERTIME_CLOSE - 超时被关闭 OVERTIME_RECOVER - 超时实例被恢复
+	Status              string `json:"status,omitempty"`                // 实例状态 PENDING - 审批中 APPROVED - 已通过 REJECTED - 已拒绝 CANCELED -  已撤回 DELETED - 已删除 REVERTED - 已撤销 OVERTIME_CLOSE - 超时被关闭 OVERTIME_RECOVER - 超时实例被恢复
 	InstanceOperateTime string `json:"instance_operate_time,omitempty"` // 事件发生时间
 	UUID                string `json:"uuid,omitempty"`                  // 审批实例自定义唯一ID, 接口创建审批时候传入。
 }

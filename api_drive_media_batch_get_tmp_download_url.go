@@ -23,6 +23,9 @@ import (
 
 // BatchGetDriveMediaTmpDownloadURL 通过`file_tokens`获取素材临时下载链接, 链接时效性是 24 小时, 过期失效。
 //
+// 注意事项:
+// * 无素材下载权限时, 接口将不会返回对应素材的下载链接。[点击了解如何将素材下载权限分享给应用](https://open.feishu.cn/document/server-docs/docs/drive-v1/faq#6e38a6de)。
+// * 拥有高级权限的 Bitable 在获取素材的下载链接时, 需要添加额外的 extra 作为 URL 查询参数, 未正确填写 extra 接口将不会返回对应素材的下载链接。请参考[上传点类型及对应 Extra 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction#a478a7c3)正确填写 extra 参数。
 // 该接口不支持太高的并发, 且调用频率上限为 5QPS。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/batch_get_tmp_download_url

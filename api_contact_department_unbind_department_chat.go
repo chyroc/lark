@@ -58,7 +58,7 @@ func (r *Mock) UnMockContactUnbindDepartmentChat() {
 
 // UnbindDepartmentChatReq ...
 type UnbindDepartmentChatReq struct {
-	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型, 默认为"open_department_id", 示例值: open_department_id, 可选值有: department_id: 用来标识租户内一个唯一的部门, open_department_id: 用来在具体某个应用中标识一个部门, 同一个部门 在不同应用中的 open_department_id 不相同。
+	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型, 默认为"open_department_id", 示例值: open_department_id, 可选值有: department_id: 用来标识租户内一个唯一的部门, open_department_id: 用来在具体某个应用中标识一个部门, 同一个部门 在不同应用中的 open_department_id 相同。
 	DepartmentID     string            `json:"department_id,omitempty"`      // 部门ID, 示例值: "D096"
 }
 

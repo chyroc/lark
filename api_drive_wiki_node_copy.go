@@ -61,8 +61,8 @@ func (r *Mock) UnMockDriveCopyWikiNode() {
 type CopyWikiNodeReq struct {
 	SpaceID           string  `path:"space_id" json:"-"`             // 知识空间id, 示例值: "6946843325487912356"
 	NodeToken         string  `path:"node_token" json:"-"`           // 节点token, 示例值: "wikcnKQ1k3p**8Vabce"
-	TargetParentToken *string `json:"target_parent_token,omitempty"` // 目标父节点token, 示例值: "wikcnKQ1k3p**8Vabce"
-	TargetSpaceID     *string `json:"target_space_id,omitempty"`     // 目标知识空间id, 示例值: "6946843325487912356"
+	TargetParentToken *string `json:"target_parent_token,omitempty"` // 目标父节点 Token, 目标知识空间 ID 与目标父节点 Token 不可同时为空, 示例值: "wikcnKQ1k3p**8Vabce"
+	TargetSpaceID     *string `json:"target_space_id,omitempty"`     // 目标知识空间 ID, 目标知识空间 ID 与目标父节点 Token 不可同时为空, 示例值: "6946843325487912356"
 	Title             *string `json:"title,omitempty"`               // 复制后的新标题。如果填空, 则新标题为空。如果不填, 则使用原节点标题, 示例值: "新标题。"
 }
 

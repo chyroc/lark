@@ -106,7 +106,7 @@ type CreateDriveCommentReqReplyListReplyContentElement struct {
 
 // CreateDriveCommentReqReplyListReplyContentElementDocsLink ...
 type CreateDriveCommentReqReplyListReplyContentElementDocsLink struct {
-	URL string `json:"url,omitempty"` // 回复 at云文档, 示例值: "https://bytedance.feishu.cn/docs/doccnHh7U87HOFpii5u5Gabcef"
+	URL string `json:"url,omitempty"` // 回复 at云文档, 示例值: "https://example.feishu.cn/docs/doccnHh7U87HOFpii5u5Gabcef"
 }
 
 // CreateDriveCommentReqReplyListReplyContentElementPerson ...

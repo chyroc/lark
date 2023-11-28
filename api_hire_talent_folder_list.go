@@ -72,9 +72,9 @@ type GetHireTalentFolderListResp struct {
 
 // GetHireTalentFolderListRespItem ...
 type GetHireTalentFolderListRespItem struct {
-	Name     string `json:"name,omitempty"`      // 名字
-	FolderID string `json:"folder_id,omitempty"` // 文件夹ID
-	OwnerID  string `json:"owner_id,omitempty"`  // 所有者ID
+	FolderID   string `json:"folder_id,omitempty"`   // 文件夹ID
+	FolderName string `json:"folder_name,omitempty"` // 名字
+	OwnerID    string `json:"owner_id,omitempty"`    // 所有者ID
 }
 
 // getHireTalentFolderListResp ...

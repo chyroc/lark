@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetCoreHRCustomField 获取「飞书人事」对象下某字段的详细信息, 支持系统预置字段和自定义字段。通常可通过该接口获取某个对象中字段的枚举值列表。使用方式可参考[【操作手册】如何通过 OpenAPI 维护自定义字段](https://bytedance.feishu.cn/docx/UZYmdBj1ho8RPixJwlKcpkzQn2b)
+// GetCoreHRCustomField 获取「飞书人事」对象下某字段的详细信息, 支持系统预置字段和自定义字段。通常可通过该接口获取某个对象中字段的枚举值列表。使用方式可参考[【操作手册】如何通过 OpenAPI 维护自定义字段](https://feishu.feishu.cn/docx/QlUudBfCtosWMbxx3vxcOFDknn7)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param
@@ -115,6 +115,7 @@ type GetCoreHRCustomFieldRespDataCommonSchemaConfigEnumFieldSettingEnumFieldOpti
 	ApiName     string                                                                                    `json:"api_name,omitempty"`    // 选项 api_name, 即选项的唯一标识
 	Name        *GetCoreHRCustomFieldRespDataCommonSchemaConfigEnumFieldSettingEnumFieldOptionName        `json:"name,omitempty"`        // 选项名称
 	Description *GetCoreHRCustomFieldRespDataCommonSchemaConfigEnumFieldSettingEnumFieldOptionDescription `json:"description,omitempty"` // 选项描述
+	IsOpen      bool                                                                                      `json:"is_open,omitempty"`     // 是否启用
 }
 
 // GetCoreHRCustomFieldRespDataCommonSchemaConfigEnumFieldSettingEnumFieldOptionDescription ...

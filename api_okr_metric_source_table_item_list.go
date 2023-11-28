@@ -24,7 +24,8 @@ import (
 // GetOKRMetricSourceTableItemList 获取指定指标表下的所有指标项（仅限 OKR 企业版使用）。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/metric_source-table-item/list
-// new doc: https://open.feishu.cn/document/server-docs/okr-v1/metric_source-table-item/list-3
+//
+// Deprecated
 func (r *OKRService) GetOKRMetricSourceTableItemList(ctx context.Context, request *GetOKRMetricSourceTableItemListReq, options ...MethodOptionFunc) (*GetOKRMetricSourceTableItemListResp, *Response, error) {
 	if r.cli.mock.mockOKRGetOKRMetricSourceTableItemList != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] OKR#GetOKRMetricSourceTableItemList mock enable")

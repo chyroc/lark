@@ -21,7 +21,9 @@ import (
 	"context"
 )
 
-// SubscribeDriveFile 该接口仅支持文档拥有者订阅自己文档的通知事件, 可订阅的文档类型为旧版文档、新版文档、电子表格和多维表格。在调用该接口之前请确保正确[配置事件回调网址和订阅事件类型](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM#2eb3504a), 事件类型参考[事件列表](https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-list)。
+// SubscribeDriveFile 该接口仅支持文档拥有者订阅自己文档的通知事件, 可订阅的文档类型为旧版文档、新版文档、电子表格和多维表格。在调用该接口之前请确保正确[配置事件回调网址和订阅事件类型](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM#2eb3504a), 目前已支持的事件类型请参考[事件列表](https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-list)。
+//
+// 目前只支持订阅事件列表中所有文档事件, 暂不支持只订阅某个或某些事件。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/subscribe
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/event/subscribe
@@ -60,7 +62,7 @@ func (r *Mock) UnMockDriveSubscribeDriveFile() {
 // SubscribeDriveFileReq ...
 type SubscribeDriveFileReq struct {
 	FileToken string   `path:"file_token" json:"-"` // 文档token, 示例值: "doccnxxxxxxxxxxxxxxxxxxxxxx"
-	FileType  FileType `query:"file_type" json:"-"` // 文档类型, 示例值: "doc", 可选值有: doc: 文档, docx: 新版文档, sheet: 表格, bitable: 多维表格
+	FileType  FileType `query:"file_type" json:"-"` // 文档类型, 示例值: doc, 可选值有: doc: 文档, docx: 新版文档, sheet: 表格, bitable: 多维表格
 }
 
 // SubscribeDriveFileResp ...

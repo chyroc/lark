@@ -23,7 +23,8 @@ import (
 
 // GetDriveFileList 获取用户云空间中指定文件夹下的文件清单。清单类型包括文件、各种在线文档（文档、电子表格、多维表格、思维笔记）、文件夹和快捷方式。该接口支持分页, 但是不会递归获取子文件夹的清单。
 //
-// 让应用（tenant_access_token）访问个人云空间中的文件夹请参阅[常见问题](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/faq)第三点。
+// - 让应用（tenant_access_token）访问个人云空间中的文件夹请参阅[常见问题](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/faq)第三点。
+// - 暂不支持返回我的空间下的快捷方式。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/folder/list

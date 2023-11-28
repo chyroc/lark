@@ -23,8 +23,9 @@ import (
 
 // SearchCoreHREmployee 该接口会按照应用拥有的「员工数据」的权限范围返回数据, 请确定在「开发者后台 - 权限管理 - 数据权限」中有申请「员工资源」权限范围
 //
-// 接口已升级, 推荐使用, 性能更优。
+// - 接口已升级, 推荐使用, 性能更优。
 // 如需继续使用旧版本接口, 可点击[ 查询单个雇佣信息](https://open.feishu.cn/document/server-docs/corehr-v1/employee/employment/get) [ 查询单个个人信息](https://open.feishu.cn/document/server-docs/corehr-v1/employee/person/get)
+// - 本接口关联数据库更新存在5分钟延迟, 若希望获取刚更新的数据内容请延缓请求；
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/search
@@ -98,56 +99,58 @@ type SearchCoreHREmployeeResp struct {
 
 // SearchCoreHREmployeeRespItem ...
 type SearchCoreHREmployeeRespItem struct {
-	EmploymentID             string                                            `json:"employment_id,omitempty"`               // 雇佣 ID
-	AtsApplicationID         string                                            `json:"ats_application_id,omitempty"`          // 招聘投递 ID, 详细信息可以通过【获取投递信息】接口查询获得
-	PrehireID                string                                            `json:"prehire_id,omitempty"`                  // 待入职 ID
-	EmployeeNumber           string                                            `json:"employee_number,omitempty"`             // 工号
-	EmployeeTypeID           string                                            `json:"employee_type_id,omitempty"`            // 人员类型 ID, 详细信息可通过【查询单个人员类型】接口获得
-	DepartmentID             string                                            `json:"department_id,omitempty"`               // 部门 ID, 详细信息可通过【查询单个部门】接口获得
-	JobLevelID               string                                            `json:"job_level_id,omitempty"`                // 职级 ID, 详细信息可通过【查询单个职务级别】接口获得, 字段权限要求（满足任一）: 获取职务级别信息, 读写员工的职务级别信息
-	WorkLocationID           string                                            `json:"work_location_id,omitempty"`            // 工作地点 ID, 详细信息可通过【查询单个地点】接口获得
-	JobFamilyID              string                                            `json:"job_family_id,omitempty"`               // 序列 ID, 详细信息可通过【查询单个职务序列】接口获得
-	JobID                    string                                            `json:"job_id,omitempty"`                      // 职务 ID, 详细信息可通过【查询单个职务】接口获得, 字段权限要求（满足任一）: 获取职务信息, 获取职务级别信息, 读写员工的职务级别信息
-	CompanyID                string                                            `json:"company_id,omitempty"`                  // 所属公司 ID, 详细信息可通过【查询单个公司】接口获得
-	WorkingHoursTypeID       string                                            `json:"working_hours_type_id,omitempty"`       // 工时制度 ID, 详细信息可通过【查询单个工时制度】接口获得
-	Tenure                   string                                            `json:"tenure,omitempty"`                      // 司龄
-	SeniorityDate            string                                            `json:"seniority_date,omitempty"`              // 资历起算日期
-	EffectiveDate            string                                            `json:"effective_date,omitempty"`              // 当前雇佣记录的入职日期
-	PrimaryEmployment        bool                                              `json:"primary_employment,omitempty"`          // 是否是主雇佣信息
-	ProbationPeriod          int64                                             `json:"probation_period,omitempty"`            // 试用期时长（月）
-	OnProbation              bool                                              `json:"on_probation,omitempty"`                // 是否在试用期中
-	ProbationEndDate         string                                            `json:"probation_end_date,omitempty"`          // 试用期结束日期（实际结束日期）
-	DirectManagerID          string                                            `json:"direct_manager_id,omitempty"`           // 直接上级的雇佣 ID
-	DottedLineManagerID      string                                            `json:"dotted_line_manager_id,omitempty"`      // 虚线上级的雇佣 ID
-	EmploymentType           *SearchCoreHREmployeeRespItemEmploymentType       `json:"employment_type,omitempty"`             // 雇佣类型, 枚举值可通过文档【飞书人事枚举常量】雇佣类型（employment_type）枚举定义获得
-	EmploymentStatus         *SearchCoreHREmployeeRespItemEmploymentStatus     `json:"employment_status,omitempty"`           // 雇佣状态, 枚举值可通过文档【飞书人事枚举常量】雇员状态（employment_status）枚举定义获得
-	ExpirationDate           string                                            `json:"expiration_date,omitempty"`             // 离职日期, 即员工的最后一个工作日, 最后一个工作日时员工的雇佣状态仍为“在职”, 次日凌晨将更改为“离职”
-	ReasonForOffboarding     *SearchCoreHREmployeeRespItemReasonForOffboarding `json:"reason_for_offboarding,omitempty"`      // 离职原因, 枚举值可通过文档【飞书人事枚举常量】离职原因（reason_for_offboarding）枚举定义部分获得, 字段权限要求: 获取员工离职原因
-	EmailAddress             string                                            `json:"email_address,omitempty"`               // 邮箱地址
-	WorkEmailList            []*SearchCoreHREmployeeRespItemWorkEmail          `json:"work_email_list,omitempty"`             // 工作邮箱列表, 只有当邮箱满足下面所有条件时, 才在个人信息页面可见
-	CostCenterList           []*SearchCoreHREmployeeRespItemCostCenter         `json:"cost_center_list,omitempty"`            // 成本中心列表
-	Rehire                   *SearchCoreHREmployeeRespItemRehire               `json:"rehire,omitempty"`                      // 是否离职重聘
-	RehireEmploymentID       string                                            `json:"rehire_employment_id,omitempty"`        // 历史雇佣信息 ID, 可以通过【查询单个雇佣信息】查询详细信息
-	PersonInfo               *SearchCoreHREmployeeRespItemPersonInfo           `json:"person_info,omitempty"`                 // 基本个人信息
-	CustomFields             []*SearchCoreHREmployeeRespItemCustomField        `json:"custom_fields,omitempty"`               // 自定义字段, 字段权限要求: 获取雇佣信息自定义字段信息
-	NoncompeteStatus         *SearchCoreHREmployeeRespItemNoncompeteStatus     `json:"noncompete_status,omitempty"`           // 竞业状态, 枚举值包括:1.竞业中；2.未竞业
-	PastOffboarding          bool                                              `json:"past_offboarding,omitempty"`            // 是否历史离职人员
-	RegularEmployeeStartDate string                                            `json:"regular_employee_start_date,omitempty"` // 转正式日期
-	ExternalID               string                                            `json:"external_id,omitempty"`                 // 外部系统 ID, 可存储租户系统中的员工 ID
-	TimesEmployed            int64                                             `json:"times_employed,omitempty"`              // 入职次数
-	RecruitmentType          *SearchCoreHREmployeeRespItemRecruitmentType      `json:"recruitment_type,omitempty"`            // 招聘来源, 枚举值 api_name 可通过【获取自定义字段详情】接口查询
-	AvatarURL                string                                            `json:"avatar_url,omitempty"`                  // 员工头像
-	PrimaryContractID        string                                            `json:"primary_contract_id,omitempty"`         // 主合同 ID
-	ContractStartDate        string                                            `json:"contract_start_date,omitempty"`         // 主合同开始日期, 字段权限要求（满足任一）: 获取合同期限信息, 读写合同期限信息
-	ContractEndDate          string                                            `json:"contract_end_date,omitempty"`           // 主合同到期日期, 字段权限要求（满足任一）: 获取合同期限信息, 读写合同期限信息
-	ContractExpectedEndDate  string                                            `json:"contract_expected_end_date,omitempty"`  // 主合同预计到期日期, 字段权限要求（满足任一）: 获取合同期限信息, 读写合同期限信息
-	PayGroupID               string                                            `json:"pay_group_id,omitempty"`                // 所属薪资组 ID, 字段权限要求: 获取员工薪资组信息
-	InternationalAssignment  bool                                              `json:"international_assignment,omitempty"`    // 是否外派
-	WorkCalendarID           string                                            `json:"work_calendar_id,omitempty"`            // 工作日历 ID
-	Department               *SearchCoreHREmployeeRespItemDepartment           `json:"department,omitempty"`                  // 部门基本信息
-	DirectManager            *SearchCoreHREmployeeRespItemDirectManager        `json:"direct_manager,omitempty"`              // 直接上级基本信息
-	DottedLineManager        *SearchCoreHREmployeeRespItemDottedLineManager    `json:"dotted_line_manager,omitempty"`         // 虚线上级基本信息
-	TimeZone                 string                                            `json:"time_zone,omitempty"`                   // 时区
+	EmploymentID                   string                                                      `json:"employment_id,omitempty"`                    // 雇佣 ID
+	AtsApplicationID               string                                                      `json:"ats_application_id,omitempty"`               // 招聘投递 ID, 详细信息可以通过【获取投递信息】接口查询获得
+	PrehireID                      string                                                      `json:"prehire_id,omitempty"`                       // 待入职 ID
+	EmployeeNumber                 string                                                      `json:"employee_number,omitempty"`                  // 工号
+	EmployeeTypeID                 string                                                      `json:"employee_type_id,omitempty"`                 // 人员类型 ID, 详细信息可通过【查询单个人员类型】接口获得
+	DepartmentID                   string                                                      `json:"department_id,omitempty"`                    // 部门 ID, 详细信息可通过【查询单个部门】接口获得
+	JobLevelID                     string                                                      `json:"job_level_id,omitempty"`                     // 职级 ID, 详细信息可通过【查询单个职务级别】接口获得, 字段权限要求（满足任一）: 获取职务级别信息, 读写员工的职务级别信息
+	JobGradeID                     string                                                      `json:"job_grade_id,omitempty"`                     // 职等 ID, 字段权限要求（满足任一）: 读取职等信息, 职等信息
+	WorkLocationID                 string                                                      `json:"work_location_id,omitempty"`                 // 工作地点 ID, 详细信息可通过【查询单个地点】接口获得
+	JobFamilyID                    string                                                      `json:"job_family_id,omitempty"`                    // 序列 ID, 详细信息可通过【查询单个职务序列】接口获得
+	JobID                          string                                                      `json:"job_id,omitempty"`                           // 职务 ID, 详细信息可通过【查询单个职务】接口获得, 字段权限要求（满足任一）: 获取员工的职务信息, 获取职务级别信息, 读写员工的职务级别信息
+	CompanyID                      string                                                      `json:"company_id,omitempty"`                       // 所属公司 ID, 详细信息可通过【查询单个公司】接口获得
+	WorkingHoursTypeID             string                                                      `json:"working_hours_type_id,omitempty"`            // 工时制度 ID, 详细信息可通过【查询单个工时制度】接口获得
+	Tenure                         string                                                      `json:"tenure,omitempty"`                           // 司龄
+	SeniorityDate                  string                                                      `json:"seniority_date,omitempty"`                   // 资历起算日期
+	EffectiveDate                  string                                                      `json:"effective_date,omitempty"`                   // 当前雇佣记录的入职日期
+	PrimaryEmployment              bool                                                        `json:"primary_employment,omitempty"`               // 是否是主雇佣信息
+	ProbationPeriod                int64                                                       `json:"probation_period,omitempty"`                 // 试用期时长（月）
+	OnProbation                    bool                                                        `json:"on_probation,omitempty"`                     // 是否在试用期中
+	ProbationEndDate               string                                                      `json:"probation_end_date,omitempty"`               // 试用期结束日期（实际结束日期）
+	DirectManagerID                string                                                      `json:"direct_manager_id,omitempty"`                // 直接上级的雇佣 ID
+	DottedLineManagerID            string                                                      `json:"dotted_line_manager_id,omitempty"`           // 虚线上级的雇佣 ID
+	EmploymentType                 *SearchCoreHREmployeeRespItemEmploymentType                 `json:"employment_type,omitempty"`                  // 雇佣类型, 枚举值可通过文档【飞书人事枚举常量】雇佣类型（employment_type）枚举定义获得
+	EmploymentStatus               *SearchCoreHREmployeeRespItemEmploymentStatus               `json:"employment_status,omitempty"`                // 雇佣状态, 枚举值可通过文档【飞书人事枚举常量】雇员状态（employment_status）枚举定义获得
+	ExpirationDate                 string                                                      `json:"expiration_date,omitempty"`                  // 离职日期, 即员工的最后一个工作日, 最后一个工作日时员工的雇佣状态仍为“在职”, 次日凌晨将更改为“离职”
+	ReasonForOffboarding           *SearchCoreHREmployeeRespItemReasonForOffboarding           `json:"reason_for_offboarding,omitempty"`           // 离职原因, 枚举值可通过文档【飞书人事枚举常量】离职原因（reason_for_offboarding）枚举定义部分获得, 字段权限要求: 获取员工离职原因
+	EmailAddress                   string                                                      `json:"email_address,omitempty"`                    // 邮箱地址
+	WorkEmailList                  []*SearchCoreHREmployeeRespItemWorkEmail                    `json:"work_email_list,omitempty"`                  // 工作邮箱列表, 只有当邮箱满足下面所有条件时, 才在个人信息页面可见
+	CostCenterList                 []*SearchCoreHREmployeeRespItemCostCenter                   `json:"cost_center_list,omitempty"`                 // 成本中心列表
+	Rehire                         *SearchCoreHREmployeeRespItemRehire                         `json:"rehire,omitempty"`                           // 是否离职重聘
+	RehireEmploymentID             string                                                      `json:"rehire_employment_id,omitempty"`             // 历史雇佣信息 ID, 可以通过【查询单个雇佣信息】查询详细信息
+	PersonInfo                     *SearchCoreHREmployeeRespItemPersonInfo                     `json:"person_info,omitempty"`                      // 基本个人信息
+	CustomFields                   []*SearchCoreHREmployeeRespItemCustomField                  `json:"custom_fields,omitempty"`                    // 自定义字段, 字段权限要求: 获取雇佣信息自定义字段信息
+	NoncompeteStatus               *SearchCoreHREmployeeRespItemNoncompeteStatus               `json:"noncompete_status,omitempty"`                // 竞业状态, 枚举值包括:1.竞业中；2.未竞业
+	PastOffboarding                bool                                                        `json:"past_offboarding,omitempty"`                 // 是否历史离职人员
+	RegularEmployeeStartDate       string                                                      `json:"regular_employee_start_date,omitempty"`      // 转正式日期
+	ExternalID                     string                                                      `json:"external_id,omitempty"`                      // 外部系统 ID, 可存储租户系统中的员工 ID
+	TimesEmployed                  int64                                                       `json:"times_employed,omitempty"`                   // 入职次数
+	RecruitmentType                *SearchCoreHREmployeeRespItemRecruitmentType                `json:"recruitment_type,omitempty"`                 // 招聘来源, 枚举值 api_name 可通过【获取自定义字段详情】接口查询
+	AvatarURL                      string                                                      `json:"avatar_url,omitempty"`                       // 员工头像
+	PrimaryContractID              string                                                      `json:"primary_contract_id,omitempty"`              // 主合同 ID
+	ContractStartDate              string                                                      `json:"contract_start_date,omitempty"`              // 主合同开始日期, 字段权限要求（满足任一）: 获取合同期限信息, 读写合同期限信息
+	ContractEndDate                string                                                      `json:"contract_end_date,omitempty"`                // 主合同到期日期, 字段权限要求（满足任一）: 获取合同期限信息, 读写合同期限信息
+	ContractExpectedEndDate        string                                                      `json:"contract_expected_end_date,omitempty"`       // 主合同预计到期日期, 字段权限要求（满足任一）: 获取合同期限信息, 读写合同期限信息
+	PayGroupID                     string                                                      `json:"pay_group_id,omitempty"`                     // 所属薪资组 ID, 字段权限要求: 获取员工薪资组信息
+	InternationalAssignment        bool                                                        `json:"international_assignment,omitempty"`         // 是否外派
+	WorkCalendarID                 string                                                      `json:"work_calendar_id,omitempty"`                 // 工作日历 ID
+	Department                     *SearchCoreHREmployeeRespItemDepartment                     `json:"department,omitempty"`                       // 部门基本信息
+	DirectManager                  *SearchCoreHREmployeeRespItemDirectManager                  `json:"direct_manager,omitempty"`                   // 直接上级基本信息
+	DottedLineManager              *SearchCoreHREmployeeRespItemDottedLineManager              `json:"dotted_line_manager,omitempty"`              // 虚线上级基本信息
+	TimeZone                       string                                                      `json:"time_zone,omitempty"`                        // 时区
+	PrimaryInternationalAssignment *SearchCoreHREmployeeRespItemPrimaryInternationalAssignment `json:"primary_international_assignment,omitempty"` // 当前生效的外派记录, 字段权限要求: 读取员工派派驻地信息
 }
 
 // SearchCoreHREmployeeRespItemCostCenter ...
@@ -263,7 +266,7 @@ type SearchCoreHREmployeeRespItemPersonInfo struct {
 	DateOfBirth              string                                                          `json:"date_of_birth,omitempty"`               // 出生日期, 字段权限要求（满足任一）: 获取生日信息, 读写生日信息
 	Race                     *SearchCoreHREmployeeRespItemPersonInfoRace                     `json:"race,omitempty"`                        // -| 民族 / 种族, 枚举值可查询【获取字段详情】接口获取, 按如下参数查询即可: custom_api_name: ethnicity_race - object_api_name: person, 字段权限要求: 获取民族/种族信息
 	MaritalStatus            *SearchCoreHREmployeeRespItemPersonInfoMaritalStatus            `json:"marital_status,omitempty"`              // -| 婚姻状况, 枚举值可查询【获取字段详情】接口获取, 按如下参数查询即可: custom_api_name: marital_status - object_api_name: person, 字段权限要求（满足任一）: 获取婚姻状况信息, 读写婚姻状况信息
-	PhoneList                []*SearchCoreHREmployeeRespItemPersonInfoPhone                  `json:"phone_list,omitempty"`                  // 电话列表, 只有当满足下面所有条件时, 电话在个人信息页才可见, 字段权限要求（满足任一）: 获取个人手机号信息, 读写个人手机号信息
+	PhoneList                []*SearchCoreHREmployeeRespItemPersonInfoPhone                  `json:"phone_list,omitempty"`                  // 电话列表, 字段权限要求（满足任一）: 获取个人手机号信息, 读写个人手机号信息
 	AddressList              []*SearchCoreHREmployeeRespItemPersonInfoAddress                `json:"address_list,omitempty"`                // 地址列表, 字段权限要求（满足任一）: 读取个人地址信息, 读写个人地址信息
 	EmailList                []*SearchCoreHREmployeeRespItemPersonInfoEmail                  `json:"email_list,omitempty"`                  // 邮箱列表, 字段权限要求（满足任一）: 获取个人邮箱信息, 读写个人邮箱信息
 	WorkExperienceList       []*SearchCoreHREmployeeRespItemPersonInfoWorkExperience         `json:"work_experience_list,omitempty"`        // 工作经历列表, 字段权限要求（满足任一）: 获取工作履历信息, 读写工作履历信息
@@ -356,7 +359,8 @@ type SearchCoreHREmployeeRespItemPersonInfoBankAccount struct {
 	CountryRegionID   string                                                               `json:"country_region_id,omitempty"`   // 国家/地区 ID, 详细信息可通过【查询国家/地区信息】接口查询获得
 	BankAccountUsage  []*SearchCoreHREmployeeRespItemPersonInfoBankAccountBankAccountUsage `json:"bank_account_usage,omitempty"`  // 银行卡用途, 枚举值可通过文档【飞书人事枚举常量】银行卡用途（Bank Account Usage）枚举定义部分获得
 	BankAccountType   *SearchCoreHREmployeeRespItemPersonInfoBankAccountBankAccountType    `json:"bank_account_type,omitempty"`   // 银行卡类型, 枚举值可通过文档【飞书人事枚举常量】银行卡类型（Bank Account Type）枚举定义部分获得
-	CurrencyID        string                                                               `json:"currency_id,omitempty"`         // 货币 ID
+	CurrencyID        string                                                               `json:"currency_id,omitempty"`         // 货币id
+	IBAN              string                                                               `json:"IBAN,omitempty"`                // 国际银行账号
 	CustomFields      []*SearchCoreHREmployeeRespItemPersonInfoBankAccountCustomField      `json:"custom_fields,omitempty"`       // 自定义字段
 }
 
@@ -1416,6 +1420,51 @@ type SearchCoreHREmployeeRespItemPersonInfoWorkExperienceDescription struct {
 
 // SearchCoreHREmployeeRespItemPersonInfoWorkExperienceJob ...
 type SearchCoreHREmployeeRespItemPersonInfoWorkExperienceJob struct {
+	Lang  string `json:"lang,omitempty"`  // 语言
+	Value string `json:"value,omitempty"` // 内容
+}
+
+// SearchCoreHREmployeeRespItemPrimaryInternationalAssignment ...
+type SearchCoreHREmployeeRespItemPrimaryInternationalAssignment struct {
+	ID                            string                                                                                   `json:"id,omitempty"`                              // 当前生效的外派记录ID
+	AssignmentCityID              string                                                                                   `json:"assignment_city_id,omitempty"`              // 当前生效外派记录的外派城市（派驻地）ID
+	AssignmentCompanyID           string                                                                                   `json:"assignment_company_id,omitempty"`           // 当前生效外派记录的外派公司ID
+	AssignmentCountryID           string                                                                                   `json:"assignment_country_id,omitempty"`           // 当前生效外派记录的外派国家ID
+	AssignmentReason              *SearchCoreHREmployeeRespItemPrimaryInternationalAssignmentAssignmentReason              `json:"assignment_reason,omitempty"`               // 当前生效外派记录的外派原因
+	EffectiveTime                 string                                                                                   `json:"effective_time,omitempty"`                  // 当前生效外派记录的生效时间
+	StartAssignmentProcessID      string                                                                                   `json:"start_assignment_process_id,omitempty"`     // 当前生效外派记录的开始外派流程 ID
+	EndAssignmentProcessID        string                                                                                   `json:"end_assignment_process_id,omitempty"`       // 当前生效外派记录的结束外派流程 ID
+	ExpirationTime                string                                                                                   `json:"expiration_time,omitempty"`                 // 当前生效外派记录的失效时间
+	InternationalAssignmentStatus *SearchCoreHREmployeeRespItemPrimaryInternationalAssignmentInternationalAssignmentStatus `json:"international_assignment_status,omitempty"` // -| 当前生效外派记录的外派状态 - 枚举值可查询【获取字段详情】接口获取, 按如下参数查询即可: custom_api_name: international_assignment_status - object_api_name: international_assignment
+	InternationalAssignmentType   *SearchCoreHREmployeeRespItemPrimaryInternationalAssignmentInternationalAssignmentType   `json:"international_assignment_type,omitempty"`   // -| 当前生效外派记录的外派类型 - 枚举值可查询【获取字段详情】接口获取, 按如下参数查询即可: custom_api_name: international_assignment_type - object_api_name: international_assignment
+}
+
+// SearchCoreHREmployeeRespItemPrimaryInternationalAssignmentAssignmentReason ...
+type SearchCoreHREmployeeRespItemPrimaryInternationalAssignmentAssignmentReason struct {
+	Lang  string `json:"lang,omitempty"`  // 语言
+	Value string `json:"value,omitempty"` // 内容
+}
+
+// SearchCoreHREmployeeRespItemPrimaryInternationalAssignmentInternationalAssignmentStatus ...
+type SearchCoreHREmployeeRespItemPrimaryInternationalAssignmentInternationalAssignmentStatus struct {
+	EnumName string                                                                                            `json:"enum_name,omitempty"` // 枚举值
+	Display  []*SearchCoreHREmployeeRespItemPrimaryInternationalAssignmentInternationalAssignmentStatusDisplay `json:"display,omitempty"`   // 枚举多语展示
+}
+
+// SearchCoreHREmployeeRespItemPrimaryInternationalAssignmentInternationalAssignmentStatusDisplay ...
+type SearchCoreHREmployeeRespItemPrimaryInternationalAssignmentInternationalAssignmentStatusDisplay struct {
+	Lang  string `json:"lang,omitempty"`  // 语言
+	Value string `json:"value,omitempty"` // 内容
+}
+
+// SearchCoreHREmployeeRespItemPrimaryInternationalAssignmentInternationalAssignmentType ...
+type SearchCoreHREmployeeRespItemPrimaryInternationalAssignmentInternationalAssignmentType struct {
+	EnumName string                                                                                          `json:"enum_name,omitempty"` // 枚举值
+	Display  []*SearchCoreHREmployeeRespItemPrimaryInternationalAssignmentInternationalAssignmentTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+}
+
+// SearchCoreHREmployeeRespItemPrimaryInternationalAssignmentInternationalAssignmentTypeDisplay ...
+type SearchCoreHREmployeeRespItemPrimaryInternationalAssignmentInternationalAssignmentTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }

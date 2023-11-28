@@ -61,7 +61,7 @@ func (r *Mock) UnMockAttendanceGetAttendanceUserStatsData() {
 
 // GetAttendanceUserStatsDataReq ...
 type GetAttendanceUserStatsDataReq struct {
-	EmployeeType     EmployeeType `query:"employee_type" json:"-"`      // 请求体中的 user_ids 和响应体中的 user_id 的员工工号类型, 示例值: employee_id, 可选值有: employee_id: 员工 employee ID, 即[飞书管理后台](https://bytedance.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的用户 ID, employee_no: 员工工号, 即[飞书管理后台](https://bytedance.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的工号
+	EmployeeType     EmployeeType `query:"employee_type" json:"-"`      // 请求体中的 user_ids 和响应体中的 user_id 的员工工号类型, 示例值: employee_id, 可选值有: employee_id: 员工 employee ID, 即[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的用户 ID, employee_no: 员工工号, 即[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的工号
 	Locale           string       `json:"locale,omitempty"`             // 语言类型, 示例值: "zh", 可选值有: en: 英语, ja: 日语, zh: 中文
 	StatsType        string       `json:"stats_type,omitempty"`         // 统计类型, 示例值: "month", 可选值有: daily: 日度统计, month: 月度统计
 	StartDate        int64        `json:"start_date,omitempty"`         // 开始时间, 示例值: 20210316

@@ -59,8 +59,8 @@ func (r *Mock) UnMockApprovalCreateApprovalInstance() {
 // CreateApprovalInstanceReq ...
 type CreateApprovalInstanceReq struct {
 	ApprovalCode           string                                             `json:"approval_code,omitempty"`              // 审批定义 code, 示例值: "7C468A54-8745-2245-9675-08B7C63E7A85"
-	UserID                 *string                                            `json:"user_id,omitempty"`                    // 发起审批用户, 示例值: "f7cb567e"
-	OpenID                 *string                                            `json:"open_id,omitempty"`                    // 发起审批用户 open id, 与user_id需二者传一, 如果传了 user_id 则优先使用 user_id, 示例值: "ou_3cda9c969f737aaa05e6915dce306cb9"
+	UserID                 *string                                            `json:"user_id,omitempty"`                    // 发起审批用户的 user_id, 与 open_id 必须传入其中一个。如果传入了 user_id 则优先使用 user_id, 示例值: "f7cb567e"
+	OpenID                 *string                                            `json:"open_id,omitempty"`                    // 发起审批用户的 open_id, 与 user_id 必须传入其中一个。如果传入了 user_id 则优先使用 user_id, 示例值: "ou_3cda9c969f737aaa05e6915dce306cb9"
 	DepartmentID           *string                                            `json:"department_id,omitempty"`              // 发起审批用户部门id, 如果用户只属于一个部门, 可以不填。如果属于多个部门, 默认会选择部门列表第一个部门, 示例值: "9293493ccacbdb9a"
 	Form                   ApprovalWidgetList                                 `json:"form,omitempty"`                       // json 数组, 控件值, 示例值: "[{\"id\":\"111\", \"type\": \"input\", \"value\":\"test\"}]"
 	NodeApproverUserIDList []*CreateApprovalInstanceReqNodeApproverUserIDList `json:"node_approver_user_id_list,omitempty"` // 如果有发起人自选节点, 则需要填写对应节点的审批人

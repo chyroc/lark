@@ -28,7 +28,8 @@ import (
 // - 已经将指标添加为 KR、且本次目标值/起始值/支撑的上级有变更的人员, 不包含仅更新了进度值的人员
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/metric_source-table-item/batch_update
-// new doc: https://open.feishu.cn/document/server-docs/okr-v1/metric_source-table-item/batch_update
+//
+// Deprecated
 func (r *OKRService) BatchUpdateOKRMetricSourceTableItem(ctx context.Context, request *BatchUpdateOKRMetricSourceTableItemReq, options ...MethodOptionFunc) (*BatchUpdateOKRMetricSourceTableItemResp, *Response, error) {
 	if r.cli.mock.mockOKRBatchUpdateOKRMetricSourceTableItem != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] OKR#BatchUpdateOKRMetricSourceTableItem mock enable")

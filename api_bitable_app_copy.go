@@ -63,7 +63,7 @@ type CopyBitableAppReq struct {
 	Name           *string `json:"name,omitempty"`            // 多维表格 App 名字, 示例值: "一篇新的多维表格"
 	FolderToken    *string `json:"folder_token,omitempty"`    // [多维表格 App 归属文件夹 ](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df), 示例值: "fldbco*CIMltVc"
 	WithoutContent *bool   `json:"without_content,omitempty"` // 是否复制多维表格内容, 取值: * true: 不复制, * false: 复制, 示例值: false
-	TimeZone       *string `json:"time_zone,omitempty"`       // 文档时区, [详见](https://bytedance.feishu.cn/docx/YKRndTM7VoyDqpxqqeEcd67MnEf), 示例值: "Asia/Shanghai"
+	TimeZone       *string `json:"time_zone,omitempty"`       // 文档时区, [详见](https://feishu.feishu.cn/docx/YKRndTM7VoyDqpxqqeEcd67MnEf), 示例值: "Asia/Shanghai"
 }
 
 // CopyBitableAppResp ...

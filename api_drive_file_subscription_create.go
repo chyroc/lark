@@ -67,15 +67,10 @@ type CreateDriveFileSubscriptionReq struct {
 
 // CreateDriveFileSubscriptionResp ...
 type CreateDriveFileSubscriptionResp struct {
-	Subscription *CreateDriveFileSubscriptionRespSubscription `json:"subscription,omitempty"` // 本次增加的文档订阅信息
-}
-
-// CreateDriveFileSubscriptionRespSubscription ...
-type CreateDriveFileSubscriptionRespSubscription struct {
 	SubscriptionID   string   `json:"subscription_id,omitempty"`   // 订阅关系ID
 	SubscriptionType string   `json:"subscription_type,omitempty"` // 订阅类型, 可选值有: comment_update: 评论更新
 	IsSubcribe       bool     `json:"is_subcribe,omitempty"`       // 是否订阅
-	FileType         FileType `json:"file_type,omitempty"`         // 文档类型, 可选值有: doc: 文档, docx: 新版文档, wiki: 知识库wiki
+	FileType         FileType `json:"file_type,omitempty"`         // 文档类型, 可选值有: doc: 旧版文档, docx: 新版文档, wiki: 知识库
 }
 
 // createDriveFileSubscriptionResp ...

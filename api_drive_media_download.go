@@ -24,7 +24,10 @@ import (
 
 // DownloadDriveMedia 下载各种类型文档中的素材, 比如电子表格中的图片, 支持通过在请求头通过指定`Range`进行分片下载。
 //
-// 本接口提供素材下载能力, 如要下载文件, 需调用[下载文件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/download)接口。素材表示云文档中的资源文件, 比如新版文档中的图片及附件等, 素材不会呈现在云空间, 只会显示在对应云文档内。
+// 注意事项:
+// * 本接口提供素材下载能力, 如要下载文件, 需调用[下载文件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/download)接口。素材表示云文档中的资源文件, 比如新版文档中的图片及附件等, 素材不会呈现在云空间, 只会显示在对应云文档内。
+// * 无素材下载权限时, 接口将返回 403 的 HTTP 状态码。[点击了解如何将素材下载权限分享给应用](https://open.feishu.cn/document/server-docs/docs/drive-v1/faq#6e38a6de)。
+// * 拥有高级权限的多维表格在下载素材时, 需要添加额外的 extra 作为 URL 查询参数, 未填正确填写 extra 接口将返回 403 的 HTTP 状态码。请参考[上传点类型及对应 Extra 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction#a478a7c3)正确填写 extra 参数。
 // 该接口不支持太高的并发, 且调用频率上限为 5QPS。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/download
@@ -63,8 +66,8 @@ func (r *Mock) UnMockDriveDownloadDriveMedia() {
 
 // DownloadDriveMediaReq ...
 type DownloadDriveMediaReq struct {
-	FileToken string   `path:"file_token" json:"-"` // 素材文件的`Token`, 比如对于新版文档中的附件, 可以通过[获取块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/get)接口获取指定 File Block 的 Token, 示例值: "boxcnrHpsg1QDqXAAAyachabcef"
-	Extra     *string  `query:"extra" json:"-"`     // 扩展信息, 示例值: "[请参考-上传点类型及对应Extra说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction)"
+	FileToken string   `path:"file_token" json:"-"` // 素材文件的`Token`, * 对于新版文档中的素材, 可以通过[获取块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/get)接口获取指定 File Block 或 Image Block 的 Token, * 对于电子表格中的素材, 可以通过[读取多个范围, ](https://open.feishu.cn/document/server-docs/docs/sheets-v3/data-operation/reading-multiple-ranges)接口获取指定 attachment 的 fileToken, * 对于多维表格中的素材, 可以通过[列出记录, ](https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-record/list) 接口获取指定的附件的 file_token。拥有高级权限的多维表格在下载素材时, 还需要添加额外的 [extra](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction#a478a7c3) 作为 URL 查询参数, 示例值: "boxcnrHpsg1QDqXAAAyachabcef"
+	Extra     *string  `query:"extra" json:"-"`     // 扩展信息, 示例值: [请参考-上传点类型及对应Extra说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction)
 	Range     [2]int64 `header:"range" json:"-"`    // 指定文件下载部分, 示例值: "bytes=0-1024"
 }
 

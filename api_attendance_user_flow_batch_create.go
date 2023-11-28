@@ -60,7 +60,7 @@ func (r *Mock) UnMockAttendanceBatchCreateAttendanceUserFlow() {
 
 // BatchCreateAttendanceUserFlowReq ...
 type BatchCreateAttendanceUserFlowReq struct {
-	EmployeeType EmployeeType                                  `query:"employee_type" json:"-"` // 请求体和响应体中的 user_id 和 creator_id 的员工工号类型, 示例值: employee_id, 可选值有: employee_id: 员工 employee ID, 即[飞书管理后台](https://bytedance.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的用户 ID, employee_no: 员工工号, 即[飞书管理后台](https://bytedance.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的工号
+	EmployeeType EmployeeType                                  `query:"employee_type" json:"-"` // 请求体和响应体中的 user_id 和 creator_id 的员工工号类型, 示例值: employee_id, 可选值有: employee_id: 员工 employee ID, 即[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的用户 ID, employee_no: 员工工号, 即[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的工号
 	FlowRecords  []*BatchCreateAttendanceUserFlowReqFlowRecord `json:"flow_records,omitempty"`  // 打卡流水记录列表(数量限制50)
 }
 

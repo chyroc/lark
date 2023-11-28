@@ -23,7 +23,7 @@ import (
 
 // UpdateDocxBlock 更新指定的块。
 //
-// 在调用此接口前, 请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnby5Y0yoACL3PdfZqrJEm6f#doxcnEeyS0I8MMqoieIMpK7jm8g), 了解相关规则及约束。
+// 在调用此接口前, 请仔细阅读[新版文档 OpenAPI 接口校验规则](https://feishu.feishu.cn/docx/JTyjdXtsHo3H9AxXkgOcLTsynaf#doxcnF0hcvibwvEesTOkZpDvdpe), 了解相关规则及约束。
 // 应用频率限制: 单个应用调用频率上限为每秒 3 次, 超过该频率限制, 接口将返回 HTTP 状态码 400 及错误码 99991400；
 // 文档频率限制: 单篇文档并发编辑上限为每秒 3 次, 超过该频率限制, 接口将返回 HTTP 状态码 429, 编辑操作包括:
 // - 创建块
