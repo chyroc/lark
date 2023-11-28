@@ -27,6 +27,8 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/authen-v1/refresh_access_token/create
 // new doc: https://open.feishu.cn/document/server-docs/authentication-management/access-token/create
+//
+// Deprecated
 func (r *AuthService) RefreshAccessToken(ctx context.Context, request *RefreshAccessTokenReq, options ...MethodOptionFunc) (*RefreshAccessTokenResp, *Response, error) {
 	if r.cli.mock.mockAuthRefreshAccessToken != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Auth#RefreshAccessToken mock enable")

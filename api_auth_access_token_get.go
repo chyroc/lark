@@ -27,6 +27,8 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/authen-v1/access_token/create
 // new doc: https://open.feishu.cn/document/server-docs/authentication-management/access-token/create-2
+//
+// Deprecated
 func (r *AuthService) GetAccessToken(ctx context.Context, request *GetAccessTokenReq, options ...MethodOptionFunc) (*GetAccessTokenResp, *Response, error) {
 	if r.cli.mock.mockAuthGetAccessToken != nil {
 		r.cli.log(ctx, LogLevelDebug, "[lark] Auth#GetAccessToken mock enable")

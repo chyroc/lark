@@ -20,6 +20,7 @@ import "strings"
 // MdBuilder Markdown标签
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uADOwUjLwgDM14CM4ATN
+// doc: https://open.feishu.cn/document/common-capabilities/message-card/message-cards-content/using-markdown-tags
 var MdBuilder mdBuilder
 
 type mdBuilder string
@@ -88,6 +89,15 @@ func (mdBuilder) LinkOrigin(url, title string) string {
 // 不支持在text对象的lark_md类型中使用
 func (mdBuilder) Image(imageKey, hoverText string) string {
 	return "![" + hoverText + "](" + imageKey + ")"
+}
+
+// HorizontalRule 分割线
+//
+// 仅支持Markdown模块
+// 不支持在text对象的lark_md类型中使用
+// --符号必须跟在换行符后使用，且与换行符间有1个空格
+func (mdBuilder) HorizontalRule() string {
+	return "\n ---\n"
 }
 
 var reservedWordsMapping = map[string]string{
