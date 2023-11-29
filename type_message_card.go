@@ -244,6 +244,7 @@ const (
 // button 属于交互元素的一种，可用于内容块的extra字段和交互块的actions字段。
 //
 // https://open.feishu.cn/document/ukTMukTMukTM/uEzNwUjLxcDM14SM3ATN
+// https://open.feishu.cn/document/common-capabilities/message-card/add-card-interaction/interactive-components/button
 type MessageContentCardElementButton struct {
 	Name       string                                    `json:"name,omitempty"`        // 组件的唯一标识，用于识别用户在交互后，点击的是哪个组件
 	Text       *MessageContentCardObjectText             `json:"text,omitempty"`        // 按钮中的文本

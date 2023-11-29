@@ -55,7 +55,7 @@ func LinkButton(text string, url string) *lark.MessageContentCardElementButton {
 	return &lark.MessageContentCardElementButton{
 		Text:       Text(text),
 		URL:        url,
-		ActionType: lark.MessageContentCardElementButtonMulti,
+		ActionType: lark.MessageContentCardElementButtonLink,
 	}
 }
 
