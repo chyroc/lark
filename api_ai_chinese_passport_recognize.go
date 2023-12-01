@@ -19,68 +19,70 @@ package lark
 
 import (
 	"context"
+	"io"
 )
 
-// RecognizeAiChinesePassport 中国护照识别接口, 支持JPG/JPEG/PNG/BMP四种文件类型的一次性的识别。
+// RecognizeAIChinesePassport 中国护照识别接口, 支持JPG/JPEG/PNG/BMP四种文件类型的一次性的识别。
 //
 // 单租户限流: 10QPS, 同租户下的应用没有限流, 共享本租户的 10QPS 限流
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/document_ai-v1/chinese_passport/recognize
-func (r *AIService) RecognizeAiChinesePassport(ctx context.Context, request *RecognizeAiChinesePassportReq, options ...MethodOptionFunc) (*RecognizeAiChinesePassportResp, *Response, error) {
-	if r.cli.mock.mockAIRecognizeAiChinesePassport != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] AI#RecognizeAiChinesePassport mock enable")
-		return r.cli.mock.mockAIRecognizeAiChinesePassport(ctx, request, options...)
+func (r *AIService) RecognizeAIChinesePassport(ctx context.Context, request *RecognizeAIChinesePassportReq, options ...MethodOptionFunc) (*RecognizeAIChinesePassportResp, *Response, error) {
+	if r.cli.mock.mockAIRecognizeAIChinesePassport != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] AI#RecognizeAIChinesePassport mock enable")
+		return r.cli.mock.mockAIRecognizeAIChinesePassport(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "AI",
-		API:                   "RecognizeAiChinesePassport",
+		API:                   "RecognizeAIChinesePassport",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/document_ai/v1/chinese_passport/recognize",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
+		IsFile:                true,
 	}
-	resp := new(recognizeAiChinesePassportResp)
+	resp := new(recognizeAIChinesePassportResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockAIRecognizeAiChinesePassport mock AIRecognizeAiChinesePassport method
-func (r *Mock) MockAIRecognizeAiChinesePassport(f func(ctx context.Context, request *RecognizeAiChinesePassportReq, options ...MethodOptionFunc) (*RecognizeAiChinesePassportResp, *Response, error)) {
-	r.mockAIRecognizeAiChinesePassport = f
+// MockAIRecognizeAIChinesePassport mock AIRecognizeAIChinesePassport method
+func (r *Mock) MockAIRecognizeAIChinesePassport(f func(ctx context.Context, request *RecognizeAIChinesePassportReq, options ...MethodOptionFunc) (*RecognizeAIChinesePassportResp, *Response, error)) {
+	r.mockAIRecognizeAIChinesePassport = f
 }
 
-// UnMockAIRecognizeAiChinesePassport un-mock AIRecognizeAiChinesePassport method
-func (r *Mock) UnMockAIRecognizeAiChinesePassport() {
-	r.mockAIRecognizeAiChinesePassport = nil
+// UnMockAIRecognizeAIChinesePassport un-mock AIRecognizeAIChinesePassport method
+func (r *Mock) UnMockAIRecognizeAIChinesePassport() {
+	r.mockAIRecognizeAIChinesePassport = nil
 }
 
-// RecognizeAiChinesePassportReq ...
-type RecognizeAiChinesePassportReq struct {
-	File *RecognizeAiChinesePassportReqFile `json:"file,omitempty"` // 识别的中国护照源文件, 示例值: file binary
+// RecognizeAIChinesePassportReq ...
+type RecognizeAIChinesePassportReq struct {
+	File io.Reader `json:"file,omitempty"` // 识别的中国护照源文件, 示例值: file binary
 }
 
-// RecognizeAiChinesePassportResp ...
-type RecognizeAiChinesePassportResp struct {
-	ChinesePassport *RecognizeAiChinesePassportRespChinesePassport `json:"chinese_passport,omitempty"` // 中国护照信息
+// RecognizeAIChinesePassportResp ...
+type RecognizeAIChinesePassportResp struct {
+	ChinesePassport *RecognizeAIChinesePassportRespChinesePassport `json:"chinese_passport,omitempty"` // 中国护照信息
 }
 
-// RecognizeAiChinesePassportRespChinesePassport ...
-type RecognizeAiChinesePassportRespChinesePassport struct {
-	Entities []*RecognizeAiChinesePassportRespChinesePassportEntitie `json:"entities,omitempty"` // 识别出的实体类型
+// RecognizeAIChinesePassportRespChinesePassport ...
+type RecognizeAIChinesePassportRespChinesePassport struct {
+	Entities []*RecognizeAIChinesePassportRespChinesePassportEntitie `json:"entities,omitempty"` // 识别出的实体类型
 }
 
-// RecognizeAiChinesePassportRespChinesePassportEntitie ...
-type RecognizeAiChinesePassportRespChinesePassportEntitie struct {
+// RecognizeAIChinesePassportRespChinesePassportEntitie ...
+type RecognizeAIChinesePassportRespChinesePassportEntitie struct {
 	Type  string `json:"type,omitempty"`  // 识别的字段种类, 可选值有: full_name_cn: 中文姓名, full_name_en: 英文格式姓名, date_of_birth: 出生日期, date_of_expiry: 有效期至, place_of_issue: 签发地点, passport_number: 护照号码
 	Value string `json:"value,omitempty"` // 识别出字段的文本信息
 }
 
-// recognizeAiChinesePassportResp ...
-type recognizeAiChinesePassportResp struct {
+// recognizeAIChinesePassportResp ...
+type recognizeAIChinesePassportResp struct {
 	Code int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                          `json:"msg,omitempty"`  // 错误描述
-	Data *RecognizeAiChinesePassportResp `json:"data,omitempty"`
+	Data *RecognizeAIChinesePassportResp `json:"data,omitempty"`
 }

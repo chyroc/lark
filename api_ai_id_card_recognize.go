@@ -19,70 +19,72 @@ package lark
 
 import (
 	"context"
+	"io"
 )
 
-// RecognizeAiIDCard 身份证识别接口, 支持JPG/JPEG/PNG/BMP四种文件类型的一次性的识别。
+// RecognizeAiidCard 身份证识别接口, 支持JPG/JPEG/PNG/BMP四种文件类型的一次性的识别。
 //
 // 单租户限流: 10QPS, 同租户下的应用没有限流, 共享本租户的 10QPS 限流
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/document_ai-v1/id_card/recognize
-func (r *AIService) RecognizeAiIDCard(ctx context.Context, request *RecognizeAiIDCardReq, options ...MethodOptionFunc) (*RecognizeAiIDCardResp, *Response, error) {
-	if r.cli.mock.mockAIRecognizeAiIDCard != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] AI#RecognizeAiIDCard mock enable")
-		return r.cli.mock.mockAIRecognizeAiIDCard(ctx, request, options...)
+func (r *AIService) RecognizeAiidCard(ctx context.Context, request *RecognizeAiidCardReq, options ...MethodOptionFunc) (*RecognizeAiidCardResp, *Response, error) {
+	if r.cli.mock.mockAIRecognizeAiidCard != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] AI#RecognizeAiidCard mock enable")
+		return r.cli.mock.mockAIRecognizeAiidCard(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "AI",
-		API:                   "RecognizeAiIDCard",
+		API:                   "RecognizeAiidCard",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/document_ai/v1/id_card/recognize",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
+		IsFile:                true,
 	}
-	resp := new(recognizeAiIDCardResp)
+	resp := new(recognizeAiidCardResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockAIRecognizeAiIDCard mock AIRecognizeAiIDCard method
-func (r *Mock) MockAIRecognizeAiIDCard(f func(ctx context.Context, request *RecognizeAiIDCardReq, options ...MethodOptionFunc) (*RecognizeAiIDCardResp, *Response, error)) {
-	r.mockAIRecognizeAiIDCard = f
+// MockAIRecognizeAiidCard mock AIRecognizeAiidCard method
+func (r *Mock) MockAIRecognizeAiidCard(f func(ctx context.Context, request *RecognizeAiidCardReq, options ...MethodOptionFunc) (*RecognizeAiidCardResp, *Response, error)) {
+	r.mockAIRecognizeAiidCard = f
 }
 
-// UnMockAIRecognizeAiIDCard un-mock AIRecognizeAiIDCard method
-func (r *Mock) UnMockAIRecognizeAiIDCard() {
-	r.mockAIRecognizeAiIDCard = nil
+// UnMockAIRecognizeAiidCard un-mock AIRecognizeAiidCard method
+func (r *Mock) UnMockAIRecognizeAiidCard() {
+	r.mockAIRecognizeAiidCard = nil
 }
 
-// RecognizeAiIDCardReq ...
-type RecognizeAiIDCardReq struct {
-	File *RecognizeAiIDCardReqFile `json:"file,omitempty"` // 识别身份证的源文件, 示例值: file binary
+// RecognizeAiidCardReq ...
+type RecognizeAiidCardReq struct {
+	File io.Reader `json:"file,omitempty"` // 识别身份证的源文件, 示例值: file binary
 }
 
-// RecognizeAiIDCardResp ...
-type RecognizeAiIDCardResp struct {
-	IDCard *RecognizeAiIDCardRespIDCard `json:"id_card,omitempty"` // 身份证信息
+// RecognizeAiidCardResp ...
+type RecognizeAiidCardResp struct {
+	IDCard *RecognizeAiidCardRespIDCard `json:"id_card,omitempty"` // 身份证信息
 }
 
-// RecognizeAiIDCardRespIDCard ...
-type RecognizeAiIDCardRespIDCard struct {
-	Entities []*RecognizeAiIDCardRespIDCardEntity `json:"entities,omitempty"` // 识别的实体列表
+// RecognizeAiidCardRespIDCard ...
+type RecognizeAiidCardRespIDCard struct {
+	Entities []*RecognizeAiidCardRespIDCardEntity `json:"entities,omitempty"` // 识别的实体列表
 	Side     int64                                `json:"side,omitempty"`     // 正反面, 1为身份证-姓名页, 0为身份证-国徽页
 	Conners  []int64                              `json:"conners,omitempty"`  // 四角坐标[x0, y0, x1, y1, x2, y2, x3, y3]
 }
 
-// RecognizeAiIDCardRespIDCardEntity ...
-type RecognizeAiIDCardRespIDCardEntity struct {
+// RecognizeAiidCardRespIDCardEntity ...
+type RecognizeAiidCardRespIDCardEntity struct {
 	Type  string `json:"type,omitempty"`  // 识别的字段种类, 可选值有: identity_code: 公民身份号码, identity_name: 姓名, address: 住址, valid_date_start: 有效期起始时间, valid_date_end: 有效期终止时间（“长期”识别为“长期”）, gender: 性别, race: 民族, issued_by: 签发机关, birth: 出生日期
 	Value string `json:"value,omitempty"` // 识别出字段的文本信息
 }
 
-// recognizeAiIDCardResp ...
-type recognizeAiIDCardResp struct {
+// recognizeAiidCardResp ...
+type recognizeAiidCardResp struct {
 	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *RecognizeAiIDCardResp `json:"data,omitempty"`
+	Data *RecognizeAiidCardResp `json:"data,omitempty"`
 }

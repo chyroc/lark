@@ -19,68 +19,70 @@ package lark
 
 import (
 	"context"
+	"io"
 )
 
-// RecognizeAiBankCard 银行卡识别接口, 支持JPG/JPEG/PNG/BMP四种文件类型的一次性的识别。
+// RecognizeAIBankCard 银行卡识别接口, 支持JPG/JPEG/PNG/BMP四种文件类型的一次性的识别。
 //
 // 单租户限流: 10QPS, 同租户下的应用没有限流, 共享本租户的 10QPS 限流
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/document_ai-v1/bank_card/recognize
-func (r *AIService) RecognizeAiBankCard(ctx context.Context, request *RecognizeAiBankCardReq, options ...MethodOptionFunc) (*RecognizeAiBankCardResp, *Response, error) {
-	if r.cli.mock.mockAIRecognizeAiBankCard != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] AI#RecognizeAiBankCard mock enable")
-		return r.cli.mock.mockAIRecognizeAiBankCard(ctx, request, options...)
+func (r *AIService) RecognizeAIBankCard(ctx context.Context, request *RecognizeAIBankCardReq, options ...MethodOptionFunc) (*RecognizeAIBankCardResp, *Response, error) {
+	if r.cli.mock.mockAIRecognizeAIBankCard != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] AI#RecognizeAIBankCard mock enable")
+		return r.cli.mock.mockAIRecognizeAIBankCard(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "AI",
-		API:                   "RecognizeAiBankCard",
+		API:                   "RecognizeAIBankCard",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/document_ai/v1/bank_card/recognize",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
+		IsFile:                true,
 	}
-	resp := new(recognizeAiBankCardResp)
+	resp := new(recognizeAIBankCardResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockAIRecognizeAiBankCard mock AIRecognizeAiBankCard method
-func (r *Mock) MockAIRecognizeAiBankCard(f func(ctx context.Context, request *RecognizeAiBankCardReq, options ...MethodOptionFunc) (*RecognizeAiBankCardResp, *Response, error)) {
-	r.mockAIRecognizeAiBankCard = f
+// MockAIRecognizeAIBankCard mock AIRecognizeAIBankCard method
+func (r *Mock) MockAIRecognizeAIBankCard(f func(ctx context.Context, request *RecognizeAIBankCardReq, options ...MethodOptionFunc) (*RecognizeAIBankCardResp, *Response, error)) {
+	r.mockAIRecognizeAIBankCard = f
 }
 
-// UnMockAIRecognizeAiBankCard un-mock AIRecognizeAiBankCard method
-func (r *Mock) UnMockAIRecognizeAiBankCard() {
-	r.mockAIRecognizeAiBankCard = nil
+// UnMockAIRecognizeAIBankCard un-mock AIRecognizeAIBankCard method
+func (r *Mock) UnMockAIRecognizeAIBankCard() {
+	r.mockAIRecognizeAIBankCard = nil
 }
 
-// RecognizeAiBankCardReq ...
-type RecognizeAiBankCardReq struct {
-	File *RecognizeAiBankCardReqFile `json:"file,omitempty"` // 识别的银行卡源文件, 示例值: file binary
+// RecognizeAIBankCardReq ...
+type RecognizeAIBankCardReq struct {
+	File io.Reader `json:"file,omitempty"` // 识别的银行卡源文件, 示例值: file binary
 }
 
-// RecognizeAiBankCardResp ...
-type RecognizeAiBankCardResp struct {
-	BankCard *RecognizeAiBankCardRespBankCard `json:"bank_card,omitempty"` // 银行卡信息
+// RecognizeAIBankCardResp ...
+type RecognizeAIBankCardResp struct {
+	BankCard *RecognizeAIBankCardRespBankCard `json:"bank_card,omitempty"` // 银行卡信息
 }
 
-// RecognizeAiBankCardRespBankCard ...
-type RecognizeAiBankCardRespBankCard struct {
-	Entities []*RecognizeAiBankCardRespBankCardEntitie `json:"entities,omitempty"` // 识别出的实体类型
+// RecognizeAIBankCardRespBankCard ...
+type RecognizeAIBankCardRespBankCard struct {
+	Entities []*RecognizeAIBankCardRespBankCardEntitie `json:"entities,omitempty"` // 识别出的实体类型
 }
 
-// RecognizeAiBankCardRespBankCardEntitie ...
-type RecognizeAiBankCardRespBankCardEntitie struct {
+// RecognizeAIBankCardRespBankCardEntitie ...
+type RecognizeAIBankCardRespBankCardEntitie struct {
 	Type  string `json:"type,omitempty"`  // 识别的字段种类, 可选值有: card_number: 银行卡卡号, date_of_expiry: 有效日期
 	Value string `json:"value,omitempty"` // 识别出字段的文本信息
 }
 
-// recognizeAiBankCardResp ...
-type recognizeAiBankCardResp struct {
+// recognizeAIBankCardResp ...
+type recognizeAIBankCardResp struct {
 	Code int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                   `json:"msg,omitempty"`  // 错误描述
-	Data *RecognizeAiBankCardResp `json:"data,omitempty"`
+	Data *RecognizeAIBankCardResp `json:"data,omitempty"`
 }

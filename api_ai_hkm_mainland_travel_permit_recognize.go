@@ -19,68 +19,70 @@ package lark
 
 import (
 	"context"
+	"io"
 )
 
-// RecognizeAiHkmMainlandTravelPermit 港澳居民来往内地通行证识别接口, 支持JPG/JPEG/PNG/BMP四种文件类型的一次性的识别。
+// RecognizeAIHkmMainlandTravelPermit 港澳居民来往内地通行证识别接口, 支持JPG/JPEG/PNG/BMP四种文件类型的一次性的识别。
 //
 // 单租户限流: 10QPS, 同租户下的应用没有限流, 共享本租户的 10QPS 限流
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/document_ai-v1/hkm_mainland_travel_permit/recognize
-func (r *AIService) RecognizeAiHkmMainlandTravelPermit(ctx context.Context, request *RecognizeAiHkmMainlandTravelPermitReq, options ...MethodOptionFunc) (*RecognizeAiHkmMainlandTravelPermitResp, *Response, error) {
-	if r.cli.mock.mockAIRecognizeAiHkmMainlandTravelPermit != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] AI#RecognizeAiHkmMainlandTravelPermit mock enable")
-		return r.cli.mock.mockAIRecognizeAiHkmMainlandTravelPermit(ctx, request, options...)
+func (r *AIService) RecognizeAIHkmMainlandTravelPermit(ctx context.Context, request *RecognizeAIHkmMainlandTravelPermitReq, options ...MethodOptionFunc) (*RecognizeAIHkmMainlandTravelPermitResp, *Response, error) {
+	if r.cli.mock.mockAIRecognizeAIHkmMainlandTravelPermit != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] AI#RecognizeAIHkmMainlandTravelPermit mock enable")
+		return r.cli.mock.mockAIRecognizeAIHkmMainlandTravelPermit(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "AI",
-		API:                   "RecognizeAiHkmMainlandTravelPermit",
+		API:                   "RecognizeAIHkmMainlandTravelPermit",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/document_ai/v1/hkm_mainland_travel_permit/recognize",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
+		IsFile:                true,
 	}
-	resp := new(recognizeAiHkmMainlandTravelPermitResp)
+	resp := new(recognizeAIHkmMainlandTravelPermitResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockAIRecognizeAiHkmMainlandTravelPermit mock AIRecognizeAiHkmMainlandTravelPermit method
-func (r *Mock) MockAIRecognizeAiHkmMainlandTravelPermit(f func(ctx context.Context, request *RecognizeAiHkmMainlandTravelPermitReq, options ...MethodOptionFunc) (*RecognizeAiHkmMainlandTravelPermitResp, *Response, error)) {
-	r.mockAIRecognizeAiHkmMainlandTravelPermit = f
+// MockAIRecognizeAIHkmMainlandTravelPermit mock AIRecognizeAIHkmMainlandTravelPermit method
+func (r *Mock) MockAIRecognizeAIHkmMainlandTravelPermit(f func(ctx context.Context, request *RecognizeAIHkmMainlandTravelPermitReq, options ...MethodOptionFunc) (*RecognizeAIHkmMainlandTravelPermitResp, *Response, error)) {
+	r.mockAIRecognizeAIHkmMainlandTravelPermit = f
 }
 
-// UnMockAIRecognizeAiHkmMainlandTravelPermit un-mock AIRecognizeAiHkmMainlandTravelPermit method
-func (r *Mock) UnMockAIRecognizeAiHkmMainlandTravelPermit() {
-	r.mockAIRecognizeAiHkmMainlandTravelPermit = nil
+// UnMockAIRecognizeAIHkmMainlandTravelPermit un-mock AIRecognizeAIHkmMainlandTravelPermit method
+func (r *Mock) UnMockAIRecognizeAIHkmMainlandTravelPermit() {
+	r.mockAIRecognizeAIHkmMainlandTravelPermit = nil
 }
 
-// RecognizeAiHkmMainlandTravelPermitReq ...
-type RecognizeAiHkmMainlandTravelPermitReq struct {
-	File *RecognizeAiHkmMainlandTravelPermitReqFile `json:"file,omitempty"` // 识别的港澳居民来往内地通行证源文件, 示例值: file binary
+// RecognizeAIHkmMainlandTravelPermitReq ...
+type RecognizeAIHkmMainlandTravelPermitReq struct {
+	File io.Reader `json:"file,omitempty"` // 识别的港澳居民来往内地通行证源文件, 示例值: file binary
 }
 
-// RecognizeAiHkmMainlandTravelPermitResp ...
-type RecognizeAiHkmMainlandTravelPermitResp struct {
-	HkmMainlandTravelPermit *RecognizeAiHkmMainlandTravelPermitRespHkmMainlandTravelPermit `json:"hkm_mainland_travel_permit,omitempty"` // 港澳居民来往内地通行证信息
+// RecognizeAIHkmMainlandTravelPermitResp ...
+type RecognizeAIHkmMainlandTravelPermitResp struct {
+	HkmMainlandTravelPermit *RecognizeAIHkmMainlandTravelPermitRespHkmMainlandTravelPermit `json:"hkm_mainland_travel_permit,omitempty"` // 港澳居民来往内地通行证信息
 }
 
-// RecognizeAiHkmMainlandTravelPermitRespHkmMainlandTravelPermit ...
-type RecognizeAiHkmMainlandTravelPermitRespHkmMainlandTravelPermit struct {
-	Entities []*RecognizeAiHkmMainlandTravelPermitRespHkmMainlandTravelPermitEntitie `json:"entities,omitempty"` // 识别出的实体类型
+// RecognizeAIHkmMainlandTravelPermitRespHkmMainlandTravelPermit ...
+type RecognizeAIHkmMainlandTravelPermitRespHkmMainlandTravelPermit struct {
+	Entities []*RecognizeAIHkmMainlandTravelPermitRespHkmMainlandTravelPermitEntitie `json:"entities,omitempty"` // 识别出的实体类型
 }
 
-// RecognizeAiHkmMainlandTravelPermitRespHkmMainlandTravelPermitEntitie ...
-type RecognizeAiHkmMainlandTravelPermitRespHkmMainlandTravelPermitEntitie struct {
+// RecognizeAIHkmMainlandTravelPermitRespHkmMainlandTravelPermitEntitie ...
+type RecognizeAIHkmMainlandTravelPermitRespHkmMainlandTravelPermitEntitie struct {
 	Type  string `json:"type,omitempty"`  // 识别的字段种类, 可选值有: full_name_cn: 中文姓名, full_name_en: 英文格式姓名, date_of_birth: 出生日期, date_of_expiry: 有效期至, card_number: 证件号码
 	Value string `json:"value,omitempty"` // 识别出字段的文本信息
 }
 
-// recognizeAiHkmMainlandTravelPermitResp ...
-type recognizeAiHkmMainlandTravelPermitResp struct {
+// recognizeAIHkmMainlandTravelPermitResp ...
+type recognizeAIHkmMainlandTravelPermitResp struct {
 	Code int64                                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                                  `json:"msg,omitempty"`  // 错误描述
-	Data *RecognizeAiHkmMainlandTravelPermitResp `json:"data,omitempty"`
+	Data *RecognizeAIHkmMainlandTravelPermitResp `json:"data,omitempty"`
 }

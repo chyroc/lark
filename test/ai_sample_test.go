@@ -38,7 +38,7 @@ func Test_AI_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.RecognizeBasicImage(ctx, &lark.RecognizeBasicImageReq{})
+			_, _, err := moduleCli.RecognizeAIHkmMainlandTravelPermit(ctx, &lark.RecognizeAIHkmMainlandTravelPermitReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -48,6 +48,186 @@ func Test_AI_Sample_Failed(t *testing.T) {
 	t.Run("request mock failed", func(t *testing.T) {
 		cli := AppAllPermission.Ins()
 		moduleCli := cli.AI
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockAIRecognizeAIHkmMainlandTravelPermit(func(ctx context.Context, request *lark.RecognizeAIHkmMainlandTravelPermitReq, options ...lark.MethodOptionFunc) (*lark.RecognizeAIHkmMainlandTravelPermitResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockAIRecognizeAIHkmMainlandTravelPermit()
+
+			_, _, err := moduleCli.RecognizeAIHkmMainlandTravelPermit(ctx, &lark.RecognizeAIHkmMainlandTravelPermitReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockAIRecognizeAITwMainlandTravelPermit(func(ctx context.Context, request *lark.RecognizeAITwMainlandTravelPermitReq, options ...lark.MethodOptionFunc) (*lark.RecognizeAITwMainlandTravelPermitResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockAIRecognizeAITwMainlandTravelPermit()
+
+			_, _, err := moduleCli.RecognizeAITwMainlandTravelPermit(ctx, &lark.RecognizeAITwMainlandTravelPermitReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockAIRecognizeAIChinesePassport(func(ctx context.Context, request *lark.RecognizeAIChinesePassportReq, options ...lark.MethodOptionFunc) (*lark.RecognizeAIChinesePassportResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockAIRecognizeAIChinesePassport()
+
+			_, _, err := moduleCli.RecognizeAIChinesePassport(ctx, &lark.RecognizeAIChinesePassportReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockAIRecognizeAIBankCard(func(ctx context.Context, request *lark.RecognizeAIBankCardReq, options ...lark.MethodOptionFunc) (*lark.RecognizeAIBankCardResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockAIRecognizeAIBankCard()
+
+			_, _, err := moduleCli.RecognizeAIBankCard(ctx, &lark.RecognizeAIBankCardReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockAIRecognizeAIVehicleLicense(func(ctx context.Context, request *lark.RecognizeAIVehicleLicenseReq, options ...lark.MethodOptionFunc) (*lark.RecognizeAIVehicleLicenseResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockAIRecognizeAIVehicleLicense()
+
+			_, _, err := moduleCli.RecognizeAIVehicleLicense(ctx, &lark.RecognizeAIVehicleLicenseReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockAIRecognizeAITrainInvoice(func(ctx context.Context, request *lark.RecognizeAITrainInvoiceReq, options ...lark.MethodOptionFunc) (*lark.RecognizeAITrainInvoiceResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockAIRecognizeAITrainInvoice()
+
+			_, _, err := moduleCli.RecognizeAITrainInvoice(ctx, &lark.RecognizeAITrainInvoiceReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockAIRecognizeAITaxiInvoice(func(ctx context.Context, request *lark.RecognizeAITaxiInvoiceReq, options ...lark.MethodOptionFunc) (*lark.RecognizeAITaxiInvoiceResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockAIRecognizeAITaxiInvoice()
+
+			_, _, err := moduleCli.RecognizeAITaxiInvoice(ctx, &lark.RecognizeAITaxiInvoiceReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockAIRecognizeAiidCard(func(ctx context.Context, request *lark.RecognizeAiidCardReq, options ...lark.MethodOptionFunc) (*lark.RecognizeAiidCardResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockAIRecognizeAiidCard()
+
+			_, _, err := moduleCli.RecognizeAiidCard(ctx, &lark.RecognizeAiidCardReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockAIRecognizeAIFoodProduceLicense(func(ctx context.Context, request *lark.RecognizeAIFoodProduceLicenseReq, options ...lark.MethodOptionFunc) (*lark.RecognizeAIFoodProduceLicenseResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockAIRecognizeAIFoodProduceLicense()
+
+			_, _, err := moduleCli.RecognizeAIFoodProduceLicense(ctx, &lark.RecognizeAIFoodProduceLicenseReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockAIRecognizeAIFoodManageLicense(func(ctx context.Context, request *lark.RecognizeAIFoodManageLicenseReq, options ...lark.MethodOptionFunc) (*lark.RecognizeAIFoodManageLicenseResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockAIRecognizeAIFoodManageLicense()
+
+			_, _, err := moduleCli.RecognizeAIFoodManageLicense(ctx, &lark.RecognizeAIFoodManageLicenseReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockAIRecognizeAIDrivingLicense(func(ctx context.Context, request *lark.RecognizeAIDrivingLicenseReq, options ...lark.MethodOptionFunc) (*lark.RecognizeAIDrivingLicenseResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockAIRecognizeAIDrivingLicense()
+
+			_, _, err := moduleCli.RecognizeAIDrivingLicense(ctx, &lark.RecognizeAIDrivingLicenseReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockAIRecognizeAIVatInvoice(func(ctx context.Context, request *lark.RecognizeAIVatInvoiceReq, options ...lark.MethodOptionFunc) (*lark.RecognizeAIVatInvoiceResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockAIRecognizeAIVatInvoice()
+
+			_, _, err := moduleCli.RecognizeAIVatInvoice(ctx, &lark.RecognizeAIVatInvoiceReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockAIRecognizeAIBusinessLicense(func(ctx context.Context, request *lark.RecognizeAIBusinessLicenseReq, options ...lark.MethodOptionFunc) (*lark.RecognizeAIBusinessLicenseResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockAIRecognizeAIBusinessLicense()
+
+			_, _, err := moduleCli.RecognizeAIBusinessLicense(ctx, &lark.RecognizeAIBusinessLicenseReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockAIExtractAIContractField(func(ctx context.Context, request *lark.ExtractAIContractFieldReq, options ...lark.MethodOptionFunc) (*lark.ExtractAIContractFieldResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockAIExtractAIContractField()
+
+			_, _, err := moduleCli.ExtractAIContractField(ctx, &lark.ExtractAIContractFieldReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockAIRecognizeAIBusinessCard(func(ctx context.Context, request *lark.RecognizeAIBusinessCardReq, options ...lark.MethodOptionFunc) (*lark.RecognizeAIBusinessCardResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockAIRecognizeAIBusinessCard()
+
+			_, _, err := moduleCli.RecognizeAIBusinessCard(ctx, &lark.RecognizeAIBusinessCardReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
 
 		t.Run("", func(t *testing.T) {
 
@@ -129,6 +309,111 @@ func Test_AI_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.RecognizeAIHkmMainlandTravelPermit(ctx, &lark.RecognizeAIHkmMainlandTravelPermitReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.RecognizeAITwMainlandTravelPermit(ctx, &lark.RecognizeAITwMainlandTravelPermitReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.RecognizeAIChinesePassport(ctx, &lark.RecognizeAIChinesePassportReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.RecognizeAIBankCard(ctx, &lark.RecognizeAIBankCardReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.RecognizeAIVehicleLicense(ctx, &lark.RecognizeAIVehicleLicenseReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.RecognizeAITrainInvoice(ctx, &lark.RecognizeAITrainInvoiceReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.RecognizeAITaxiInvoice(ctx, &lark.RecognizeAITaxiInvoiceReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.RecognizeAiidCard(ctx, &lark.RecognizeAiidCardReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.RecognizeAIFoodProduceLicense(ctx, &lark.RecognizeAIFoodProduceLicenseReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.RecognizeAIFoodManageLicense(ctx, &lark.RecognizeAIFoodManageLicenseReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.RecognizeAIDrivingLicense(ctx, &lark.RecognizeAIDrivingLicenseReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.RecognizeAIVatInvoice(ctx, &lark.RecognizeAIVatInvoiceReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.RecognizeAIBusinessLicense(ctx, &lark.RecognizeAIBusinessLicenseReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.ExtractAIContractField(ctx, &lark.ExtractAIContractFieldReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.RecognizeAIBusinessCard(ctx, &lark.RecognizeAIBusinessCardReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.RecognizeBasicImage(ctx, &lark.RecognizeBasicImageReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -176,6 +461,111 @@ func Test_AI_Sample_Failed(t *testing.T) {
 		moduleCli := cli.AI
 		cli.Mock().MockRawRequest(func(ctx context.Context, req *lark.RawRequestReq, resp interface{}) (response *lark.Response, err error) {
 			return nil, fmt.Errorf("fake raw request")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.RecognizeAIHkmMainlandTravelPermit(ctx, &lark.RecognizeAIHkmMainlandTravelPermitReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.RecognizeAITwMainlandTravelPermit(ctx, &lark.RecognizeAITwMainlandTravelPermitReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.RecognizeAIChinesePassport(ctx, &lark.RecognizeAIChinesePassportReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.RecognizeAIBankCard(ctx, &lark.RecognizeAIBankCardReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.RecognizeAIVehicleLicense(ctx, &lark.RecognizeAIVehicleLicenseReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.RecognizeAITrainInvoice(ctx, &lark.RecognizeAITrainInvoiceReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.RecognizeAITaxiInvoice(ctx, &lark.RecognizeAITaxiInvoiceReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.RecognizeAiidCard(ctx, &lark.RecognizeAiidCardReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.RecognizeAIFoodProduceLicense(ctx, &lark.RecognizeAIFoodProduceLicenseReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.RecognizeAIFoodManageLicense(ctx, &lark.RecognizeAIFoodManageLicenseReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.RecognizeAIDrivingLicense(ctx, &lark.RecognizeAIDrivingLicenseReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.RecognizeAIVatInvoice(ctx, &lark.RecognizeAIVatInvoiceReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.RecognizeAIBusinessLicense(ctx, &lark.RecognizeAIBusinessLicenseReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.ExtractAIContractField(ctx, &lark.ExtractAIContractFieldReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.RecognizeAIBusinessCard(ctx, &lark.RecognizeAIBusinessCardReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {

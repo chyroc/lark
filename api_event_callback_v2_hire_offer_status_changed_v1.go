@@ -34,5 +34,6 @@ type EventV2HireOfferStatusChangedV1Handler func(ctx context.Context, cli *Lark,
 
 // EventV2HireOfferStatusChangedV1 ...
 type EventV2HireOfferStatusChangedV1 struct {
-	OfferID string `json:"offer_id,omitempty"` // 发生状态变更的 OfferID
+	OfferID     string `json:"offer_id,omitempty"`     // 发生状态变更的 OfferID
+	OfferStatus int64  `json:"offer_status,omitempty"` // Offer 状态, 可选值有: 1: 未申请, 2: 审批中, 3: 审批已撤回, 4: 审批通过, 5: 审批不通过, 6: Offer 已发出, 7: 候选人已接受, 8: 候选人已拒绝, 9: Offer 已失效, 10: 未审批
 }

@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 959, Event Count: 133
+API Count: 974, Event Count: 133
 
 <details>
   <summary>
@@ -55,6 +55,21 @@ API Count: 959, Event Count: 133
   - UpdateACSUser
   - GetACSUserList
 - AI
+  - RecognizeAIHkmMainlandTravelPermit
+  - RecognizeAITwMainlandTravelPermit
+  - RecognizeAIChinesePassport
+  - RecognizeAIBankCard
+  - RecognizeAIVehicleLicense
+  - RecognizeAITrainInvoice
+  - RecognizeAITaxiInvoice
+  - RecognizeAiidCard
+  - RecognizeAIFoodProduceLicense
+  - RecognizeAIFoodManageLicense
+  - RecognizeAIDrivingLicense
+  - RecognizeAIVatInvoice
+  - RecognizeAIBusinessLicense
+  - ExtractAIContractField
+  - RecognizeAIBusinessCard
   - RecognizeBasicImage
   - RecognizeSpeechStream
   - RecognizeSpeechFile

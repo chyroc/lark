@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 959, 事件总数: 133
+API 总数: 974, 事件总数: 133
 
 <details>
   <summary>
@@ -55,6 +55,21 @@ API 总数: 959, 事件总数: 133
   - UpdateACSUser
   - GetACSUserList
 - AI
+  - RecognizeAIHkmMainlandTravelPermit
+  - RecognizeAITwMainlandTravelPermit
+  - RecognizeAIChinesePassport
+  - RecognizeAIBankCard
+  - RecognizeAIVehicleLicense
+  - RecognizeAITrainInvoice
+  - RecognizeAITaxiInvoice
+  - RecognizeAiidCard
+  - RecognizeAIFoodProduceLicense
+  - RecognizeAIFoodManageLicense
+  - RecognizeAIDrivingLicense
+  - RecognizeAIVatInvoice
+  - RecognizeAIBusinessLicense
+  - ExtractAIContractField
+  - RecognizeAIBusinessCard
   - RecognizeBasicImage
   - RecognizeSpeechStream
   - RecognizeSpeechFile

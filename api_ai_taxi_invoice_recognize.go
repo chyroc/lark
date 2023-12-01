@@ -19,68 +19,70 @@ package lark
 
 import (
 	"context"
+	"io"
 )
 
-// RecognizeAiTaxiInvoice 出租车发票识别接口, 支持JPG/JPEG/PNG/PDF/OFD五种文件类型的一次性的识别。
+// RecognizeAITaxiInvoice 出租车发票识别接口, 支持JPG/JPEG/PNG/PDF/OFD五种文件类型的一次性的识别。
 //
 // 单租户限流: 10QPS, 同租户下的应用没有限流, 共享本租户的 10QPS 限流
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/document_ai-v1/taxi_invoice/recognize
-func (r *AIService) RecognizeAiTaxiInvoice(ctx context.Context, request *RecognizeAiTaxiInvoiceReq, options ...MethodOptionFunc) (*RecognizeAiTaxiInvoiceResp, *Response, error) {
-	if r.cli.mock.mockAIRecognizeAiTaxiInvoice != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] AI#RecognizeAiTaxiInvoice mock enable")
-		return r.cli.mock.mockAIRecognizeAiTaxiInvoice(ctx, request, options...)
+func (r *AIService) RecognizeAITaxiInvoice(ctx context.Context, request *RecognizeAITaxiInvoiceReq, options ...MethodOptionFunc) (*RecognizeAITaxiInvoiceResp, *Response, error) {
+	if r.cli.mock.mockAIRecognizeAITaxiInvoice != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] AI#RecognizeAITaxiInvoice mock enable")
+		return r.cli.mock.mockAIRecognizeAITaxiInvoice(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "AI",
-		API:                   "RecognizeAiTaxiInvoice",
+		API:                   "RecognizeAITaxiInvoice",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/document_ai/v1/taxi_invoice/recognize",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
+		IsFile:                true,
 	}
-	resp := new(recognizeAiTaxiInvoiceResp)
+	resp := new(recognizeAITaxiInvoiceResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockAIRecognizeAiTaxiInvoice mock AIRecognizeAiTaxiInvoice method
-func (r *Mock) MockAIRecognizeAiTaxiInvoice(f func(ctx context.Context, request *RecognizeAiTaxiInvoiceReq, options ...MethodOptionFunc) (*RecognizeAiTaxiInvoiceResp, *Response, error)) {
-	r.mockAIRecognizeAiTaxiInvoice = f
+// MockAIRecognizeAITaxiInvoice mock AIRecognizeAITaxiInvoice method
+func (r *Mock) MockAIRecognizeAITaxiInvoice(f func(ctx context.Context, request *RecognizeAITaxiInvoiceReq, options ...MethodOptionFunc) (*RecognizeAITaxiInvoiceResp, *Response, error)) {
+	r.mockAIRecognizeAITaxiInvoice = f
 }
 
-// UnMockAIRecognizeAiTaxiInvoice un-mock AIRecognizeAiTaxiInvoice method
-func (r *Mock) UnMockAIRecognizeAiTaxiInvoice() {
-	r.mockAIRecognizeAiTaxiInvoice = nil
+// UnMockAIRecognizeAITaxiInvoice un-mock AIRecognizeAITaxiInvoice method
+func (r *Mock) UnMockAIRecognizeAITaxiInvoice() {
+	r.mockAIRecognizeAITaxiInvoice = nil
 }
 
-// RecognizeAiTaxiInvoiceReq ...
-type RecognizeAiTaxiInvoiceReq struct {
-	File *RecognizeAiTaxiInvoiceReqFile `json:"file,omitempty"` // 识别的出租车票源文件, 示例值: file binary
+// RecognizeAITaxiInvoiceReq ...
+type RecognizeAITaxiInvoiceReq struct {
+	File io.Reader `json:"file,omitempty"` // 识别的出租车票源文件, 示例值: file binary
 }
 
-// RecognizeAiTaxiInvoiceResp ...
-type RecognizeAiTaxiInvoiceResp struct {
-	TaxiInvoices []*RecognizeAiTaxiInvoiceRespTaxiInvoice `json:"taxi_invoices,omitempty"` // 出租车票信息
+// RecognizeAITaxiInvoiceResp ...
+type RecognizeAITaxiInvoiceResp struct {
+	TaxiInvoices []*RecognizeAITaxiInvoiceRespTaxiInvoice `json:"taxi_invoices,omitempty"` // 出租车票信息
 }
 
-// RecognizeAiTaxiInvoiceRespTaxiInvoice ...
-type RecognizeAiTaxiInvoiceRespTaxiInvoice struct {
-	Entities []*RecognizeAiTaxiInvoiceRespTaxiInvoiceEntitie `json:"entities,omitempty"` // 识别出的实体类型
+// RecognizeAITaxiInvoiceRespTaxiInvoice ...
+type RecognizeAITaxiInvoiceRespTaxiInvoice struct {
+	Entities []*RecognizeAITaxiInvoiceRespTaxiInvoiceEntitie `json:"entities,omitempty"` // 识别出的实体类型
 }
 
-// RecognizeAiTaxiInvoiceRespTaxiInvoiceEntitie ...
-type RecognizeAiTaxiInvoiceRespTaxiInvoiceEntitie struct {
+// RecognizeAITaxiInvoiceRespTaxiInvoiceEntitie ...
+type RecognizeAITaxiInvoiceRespTaxiInvoiceEntitie struct {
 	Type  string `json:"type,omitempty"`  // 识别的字段种类, 可选值有: car_number: 车号, start_time: 上车时间, end_time: 下车时间, distance: 里程, start_date: 日期, total_amount: 出租车价格
 	Value string `json:"value,omitempty"` // 识别出字段的文本信息
 }
 
-// recognizeAiTaxiInvoiceResp ...
-type recognizeAiTaxiInvoiceResp struct {
+// recognizeAITaxiInvoiceResp ...
+type recognizeAITaxiInvoiceResp struct {
 	Code int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                      `json:"msg,omitempty"`  // 错误描述
-	Data *RecognizeAiTaxiInvoiceResp `json:"data,omitempty"`
+	Data *RecognizeAITaxiInvoiceResp `json:"data,omitempty"`
 }

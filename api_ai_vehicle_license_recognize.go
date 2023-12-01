@@ -19,68 +19,70 @@ package lark
 
 import (
 	"context"
+	"io"
 )
 
-// RecognizeAiVehicleLicense 行驶证识别接口, 支持JPG/JPEG/PNG/BMP四种文件类型的一次性的识别。
+// RecognizeAIVehicleLicense 行驶证识别接口, 支持JPG/JPEG/PNG/BMP四种文件类型的一次性的识别。
 //
 // 单租户限流: 10QPS, 同租户下的应用没有限流, 共享本租户的 10QPS 限流
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/document_ai-v1/vehicle_license/recognize
-func (r *AIService) RecognizeAiVehicleLicense(ctx context.Context, request *RecognizeAiVehicleLicenseReq, options ...MethodOptionFunc) (*RecognizeAiVehicleLicenseResp, *Response, error) {
-	if r.cli.mock.mockAIRecognizeAiVehicleLicense != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] AI#RecognizeAiVehicleLicense mock enable")
-		return r.cli.mock.mockAIRecognizeAiVehicleLicense(ctx, request, options...)
+func (r *AIService) RecognizeAIVehicleLicense(ctx context.Context, request *RecognizeAIVehicleLicenseReq, options ...MethodOptionFunc) (*RecognizeAIVehicleLicenseResp, *Response, error) {
+	if r.cli.mock.mockAIRecognizeAIVehicleLicense != nil {
+		r.cli.log(ctx, LogLevelDebug, "[lark] AI#RecognizeAIVehicleLicense mock enable")
+		return r.cli.mock.mockAIRecognizeAIVehicleLicense(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "AI",
-		API:                   "RecognizeAiVehicleLicense",
+		API:                   "RecognizeAIVehicleLicense",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/document_ai/v1/vehicle_license/recognize",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
+		IsFile:                true,
 	}
-	resp := new(recognizeAiVehicleLicenseResp)
+	resp := new(recognizeAIVehicleLicenseResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockAIRecognizeAiVehicleLicense mock AIRecognizeAiVehicleLicense method
-func (r *Mock) MockAIRecognizeAiVehicleLicense(f func(ctx context.Context, request *RecognizeAiVehicleLicenseReq, options ...MethodOptionFunc) (*RecognizeAiVehicleLicenseResp, *Response, error)) {
-	r.mockAIRecognizeAiVehicleLicense = f
+// MockAIRecognizeAIVehicleLicense mock AIRecognizeAIVehicleLicense method
+func (r *Mock) MockAIRecognizeAIVehicleLicense(f func(ctx context.Context, request *RecognizeAIVehicleLicenseReq, options ...MethodOptionFunc) (*RecognizeAIVehicleLicenseResp, *Response, error)) {
+	r.mockAIRecognizeAIVehicleLicense = f
 }
 
-// UnMockAIRecognizeAiVehicleLicense un-mock AIRecognizeAiVehicleLicense method
-func (r *Mock) UnMockAIRecognizeAiVehicleLicense() {
-	r.mockAIRecognizeAiVehicleLicense = nil
+// UnMockAIRecognizeAIVehicleLicense un-mock AIRecognizeAIVehicleLicense method
+func (r *Mock) UnMockAIRecognizeAIVehicleLicense() {
+	r.mockAIRecognizeAIVehicleLicense = nil
 }
 
-// RecognizeAiVehicleLicenseReq ...
-type RecognizeAiVehicleLicenseReq struct {
-	File *RecognizeAiVehicleLicenseReqFile `json:"file,omitempty"` // 识别的行驶证源文件, 示例值: file binary
+// RecognizeAIVehicleLicenseReq ...
+type RecognizeAIVehicleLicenseReq struct {
+	File io.Reader `json:"file,omitempty"` // 识别的行驶证源文件, 示例值: file binary
 }
 
-// RecognizeAiVehicleLicenseResp ...
-type RecognizeAiVehicleLicenseResp struct {
-	VehicleLicense *RecognizeAiVehicleLicenseRespVehicleLicense `json:"vehicle_license,omitempty"` // 行驶证信息
+// RecognizeAIVehicleLicenseResp ...
+type RecognizeAIVehicleLicenseResp struct {
+	VehicleLicense *RecognizeAIVehicleLicenseRespVehicleLicense `json:"vehicle_license,omitempty"` // 行驶证信息
 }
 
-// RecognizeAiVehicleLicenseRespVehicleLicense ...
-type RecognizeAiVehicleLicenseRespVehicleLicense struct {
-	Entities []*RecognizeAiVehicleLicenseRespVehicleLicenseEntitie `json:"entities,omitempty"` // 识别出的实体类型
+// RecognizeAIVehicleLicenseRespVehicleLicense ...
+type RecognizeAIVehicleLicenseRespVehicleLicense struct {
+	Entities []*RecognizeAIVehicleLicenseRespVehicleLicenseEntitie `json:"entities,omitempty"` // 识别出的实体类型
 }
 
-// RecognizeAiVehicleLicenseRespVehicleLicenseEntitie ...
-type RecognizeAiVehicleLicenseRespVehicleLicenseEntitie struct {
+// RecognizeAIVehicleLicenseRespVehicleLicenseEntitie ...
+type RecognizeAIVehicleLicenseRespVehicleLicenseEntitie struct {
 	Type  string `json:"type,omitempty"`  // 识别的字段种类, 可选值有: plate_number: 号牌号码, vehicle_type: 车辆类型, owner: 所有人, address: 住址, use_character: 使用性质, model: 品牌型号, vin: 车辆识别代号, engine_number: 发动机号码, register_date: 注册日期, issue_date: 发证日期, license_issuing_authority: 发证机关, document_id: 档案编号, approved_passengers_capacity: 核定载人数, total_mass: 总质量, curb_weight: 整备质量, ratified_load_capacity: 核定载质量, gabarite: 外廓尺寸, traction_mass: 准牵引总质量, remarks: 备注, inspection_record: 检验记录
 	Value string `json:"value,omitempty"` // 识别出字段的文本信息
 }
 
-// recognizeAiVehicleLicenseResp ...
-type recognizeAiVehicleLicenseResp struct {
+// recognizeAIVehicleLicenseResp ...
+type recognizeAIVehicleLicenseResp struct {
 	Code int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg  string                         `json:"msg,omitempty"`  // 错误描述
-	Data *RecognizeAiVehicleLicenseResp `json:"data,omitempty"`
+	Data *RecognizeAIVehicleLicenseResp `json:"data,omitempty"`
 }

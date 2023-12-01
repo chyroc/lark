@@ -94,7 +94,7 @@ type CreateHireOfferReqBasicInfo struct {
 // CreateHireOfferReqBasicInfoContractPeriod ...
 type CreateHireOfferReqBasicInfoContractPeriod struct {
 	PeriodType int64 `json:"period_type,omitempty"` // 合同周期类型, 示例值: 1, 可选值有: 1: 月, 2: 年
-	Period     int64 `json:"period,omitempty"`      // 合同时长, 示例值: 3, 取值范围: `1` ～ `100`
+	Period     int64 `json:"period,omitempty"`      // 合同时长, 示例值: 3, 取值范围: `0` ～ `100`
 }
 
 // CreateHireOfferReqCustomizedInfo ...
