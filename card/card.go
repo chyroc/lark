@@ -23,7 +23,7 @@ func Card(modules ...lark.MessageContentCardModule) *lark.MessageContentCard {
 	return &lark.MessageContentCard{
 		Header:      nil,
 		Config:      Config(),
-		Modules:     modules,
+		Modules:     removeNilMessageContentCardModule(modules),
 		I18NModules: nil,
 	}
 }

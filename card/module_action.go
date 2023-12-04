@@ -22,6 +22,6 @@ import (
 // Action https://open.feishu.cn/document/ukTMukTMukTM/uYjNwUjL2YDM14iN2ATN
 func Action(actions ...lark.MessageContentCardElement) *lark.MessageContentCardModuleAction {
 	return &lark.MessageContentCardModuleAction{
-		Actions: actions,
+		Actions: removeNilMessageContentCardElement(actions),
 	}
 }

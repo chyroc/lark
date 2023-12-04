@@ -21,5 +21,5 @@ import (
 
 // Modules 构造模块列表
 func Modules(modules ...lark.MessageContentCardModule) []lark.MessageContentCardModule {
-	return modules
+	return removeNilMessageContentCardModule(modules)
 }

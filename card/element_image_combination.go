@@ -6,6 +6,6 @@ func ElementImageCombination(mode lark.MessageContentCardElementCombinationMode,
 	res := &lark.MessageContentCardElementImageCombination{
 		CombinationMode: mode,
 	}
-	res.SetImageList(images...)
+	res.SetImageList(removeNilString(images)...)
 	return res
 }

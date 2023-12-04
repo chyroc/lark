@@ -23,6 +23,6 @@ import (
 func Form(name string, elements ...lark.MessageContentCardElement) *lark.MessageContentCardModuleForm {
 	return &lark.MessageContentCardModuleForm{
 		Name:     name,
-		Elements: elements,
+		Elements: removeNilMessageContentCardElement(elements),
 	}
 }

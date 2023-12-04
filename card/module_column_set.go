@@ -9,7 +9,7 @@ func ColumnSet(columns ...*lark.MessageContentCardModuleColumn) *lark.MessageCon
 	bgStyle := "default"
 	hSpacing := "default"
 	return &lark.MessageContentCardModuleColumnSet{
-		Columns:           columns,
+		Columns:           removeNilMessageContentCardModuleColumn(columns),
 		FlexMode:          &flexMode,
 		BackgroundStyle:   &bgStyle,
 		HorizontalSpacing: &hSpacing,

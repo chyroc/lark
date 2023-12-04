@@ -22,14 +22,14 @@ import (
 func StaticSelectMenu(options ...*lark.MessageContentCardObjectOption) *lark.MessageContentCardElementSelectMenu {
 	return &lark.MessageContentCardElementSelectMenu{
 		Tag:     lark.MessageContentCardElementTagSelectStatic,
-		Options: options,
+		Options: removeNilMessageContentCardObjectOption(options),
 		Value:   nil,
 	}
 }
 
 func PersonSelectMenuForIDs(ids ...string) *lark.MessageContentCardElementSelectMenu {
 	var options []*lark.MessageContentCardObjectOption
-	for _, v := range ids {
+	for _, v := range removeNilString(ids) {
 		options = append(options, PersonOption(v))
 	}
 	return &lark.MessageContentCardElementSelectMenu{

@@ -6,7 +6,7 @@ import (
 
 func Column(modules ...lark.MessageContentCardModule) *lark.MessageContentCardModuleColumn {
 	return &lark.MessageContentCardModuleColumn{
-		Modules:       modules,
+		Modules:       removeNilMessageContentCardModule(modules),
 		Width:         nil,
 		Weight:        nil,
 		VerticalAlign: nil,
