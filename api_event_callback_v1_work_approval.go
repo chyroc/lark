@@ -37,17 +37,25 @@ type EventV1WorkApprovalHandler func(ctx context.Context, cli *Lark, schema stri
 
 // EventV1WorkApproval ...
 type EventV1WorkApproval struct {
-	AppID         string `json:"app_id,omitempty"`          // 如: cli_xxx
-	TenantKey     string `json:"tenant_key,omitempty"`      // 如: xxx
-	Type          string `json:"type,omitempty"`            // 如: work_approval
-	InstanceCode  string `json:"instance_code,omitempty"`   // 审批实例Code. 如: xxx
-	EmployeeID    string `json:"employee_id,omitempty"`     // 用户id. 如: xxx
-	OpenID        string `json:"open_id,omitempty"`         // 用户open_id. 如: ou_xxx
-	StartTime     int64  `json:"start_time,omitempty"`      // 审批发起时间, 单位: 秒. 如: 1502199207
-	EndTime       int64  `json:"end_time,omitempty"`        // 审批结束时间, 单位: 秒. 如: 1502199307
-	WorkType      string `json:"work_type,omitempty"`       // 加班类型. 如: xxx
+	AppID               string                          `json:"app_id,omitempty"`                 // 如: cli_xxx
+	TenantKey           string                          `json:"tenant_key,omitempty"`             // 如: xxx
+	Type                string                          `json:"type,omitempty"`                   // 如: work_approval
+	InstanceCode        string                          `json:"instance_code,omitempty"`          // 审批实例Code. 如: xxx
+	EmployeeID          string                          `json:"employee_id,omitempty"`            // 用户id. 如: xxx
+	OpenID              string                          `json:"open_id,omitempty"`                // 用户open_id. 如: ou_xxx
+	StartTime           int64                           `json:"start_time,omitempty"`             // 审批发起时间, 单位: 秒. 如: 1502199207
+	EndTime             int64                           `json:"end_time,omitempty"`               // 审批结束时间, 单位: 秒. 如: 1502199307
+	WorkType            string                          `json:"work_type,omitempty"`              // 加班类型. 如: xxx
+	WorkStartTime       string                          `json:"work_start_time,omitempty"`        // 加班开始时间. 如: 2018-12-01 12:00:00
+	WorkEndTime         string                          `json:"work_end_time,omitempty"`          // 加班结束时间. 如: 2018-12-02 12:00:00
+	WorkInterval        int64                           `json:"work_interval,omitempty"`          // 加班时长, 单位（秒）. 如: 7200
+	WorkReason          string                          `json:"work_reason,omitempty"`            // 加班事由. 如: xxx
+	AllowMultiTimeRange int64                           `json:"allow_multi_time_range,omitempty"` // 1:存在多时段, 0:不存在多时段. 如: 1
+	TimeRange           []*EventV1WorkApprovalTimeRange `json:"time_range,omitempty"`             // 多时段, allow_multi_time_range为1时存在该字段
+}
+
+// EventV1WorkApprovalTimeRange ...
+type EventV1WorkApprovalTimeRange struct {
 	WorkStartTime string `json:"work_start_time,omitempty"` // 加班开始时间. 如: 2018-12-01 12:00:00
 	WorkEndTime   string `json:"work_end_time,omitempty"`   // 加班结束时间. 如: 2018-12-02 12:00:00
-	WorkInterval  int64  `json:"work_interval,omitempty"`   // 加班时长, 单位（秒）. 如: 7200
-	WorkReason    string `json:"work_reason,omitempty"`     // 加班事由. 如: xxx
 }

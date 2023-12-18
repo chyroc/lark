@@ -103,6 +103,9 @@ const (
 	EventTypeV2CorehrPersonUpdatedV1                           EventType = "corehr.person.updated_v1"
 	EventTypeV2CorehrPreHireUpdatedV1                          EventType = "corehr.pre_hire.updated_v1"
 	EventTypeV2CorehrProbationUpdatedV2                        EventType = "corehr.probation.updated_v2"
+	EventTypeV2CorehrProcessApproverUpdatedV2                  EventType = "corehr.process.approver.updated_v2"
+	EventTypeV2CorehrProcessCcUpdatedV2                        EventType = "corehr.process.cc.updated_v2"
+	EventTypeV2CorehrProcessUpdatedV2                          EventType = "corehr.process.updated_v2"
 	EventTypeV2DriveFileBitableFieldChangedV1                  EventType = "drive.file.bitable_field_changed_v1"
 	EventTypeV2DriveFileBitableRecordChangedV1                 EventType = "drive.file.bitable_record_changed_v1"
 	EventTypeV2DriveFileDeletedV1                              EventType = "drive.file.deleted_v1"
@@ -240,6 +243,9 @@ type eventHandler struct {
 	eventV2CorehrPersonUpdatedV1Handler                           EventV2CorehrPersonUpdatedV1Handler
 	eventV2CorehrPreHireUpdatedV1Handler                          EventV2CorehrPreHireUpdatedV1Handler
 	eventV2CorehrProbationUpdatedV2Handler                        EventV2CorehrProbationUpdatedV2Handler
+	eventV2CorehrProcessApproverUpdatedV2Handler                  EventV2CorehrProcessApproverUpdatedV2Handler
+	eventV2CorehrProcessCcUpdatedV2Handler                        EventV2CorehrProcessCcUpdatedV2Handler
+	eventV2CorehrProcessUpdatedV2Handler                          EventV2CorehrProcessUpdatedV2Handler
 	eventV2DriveFileBitableFieldChangedV1Handler                  EventV2DriveFileBitableFieldChangedV1Handler
 	eventV2DriveFileBitableRecordChangedV1Handler                 EventV2DriveFileBitableRecordChangedV1Handler
 	eventV2DriveFileDeletedV1Handler                              EventV2DriveFileDeletedV1Handler
@@ -378,6 +384,9 @@ func (r *eventHandler) clone() *eventHandler {
 		eventV2CorehrPersonUpdatedV1Handler:                           r.eventV2CorehrPersonUpdatedV1Handler,
 		eventV2CorehrPreHireUpdatedV1Handler:                          r.eventV2CorehrPreHireUpdatedV1Handler,
 		eventV2CorehrProbationUpdatedV2Handler:                        r.eventV2CorehrProbationUpdatedV2Handler,
+		eventV2CorehrProcessApproverUpdatedV2Handler:                  r.eventV2CorehrProcessApproverUpdatedV2Handler,
+		eventV2CorehrProcessCcUpdatedV2Handler:                        r.eventV2CorehrProcessCcUpdatedV2Handler,
+		eventV2CorehrProcessUpdatedV2Handler:                          r.eventV2CorehrProcessUpdatedV2Handler,
 		eventV2DriveFileBitableFieldChangedV1Handler:                  r.eventV2DriveFileBitableFieldChangedV1Handler,
 		eventV2DriveFileBitableRecordChangedV1Handler:                 r.eventV2DriveFileBitableRecordChangedV1Handler,
 		eventV2DriveFileDeletedV1Handler:                              r.eventV2DriveFileDeletedV1Handler,
@@ -515,6 +524,9 @@ type eventBody struct {
 	eventV2CorehrPersonUpdatedV1                           *EventV2CorehrPersonUpdatedV1
 	eventV2CorehrPreHireUpdatedV1                          *EventV2CorehrPreHireUpdatedV1
 	eventV2CorehrProbationUpdatedV2                        *EventV2CorehrProbationUpdatedV2
+	eventV2CorehrProcessApproverUpdatedV2                  *EventV2CorehrProcessApproverUpdatedV2
+	eventV2CorehrProcessCcUpdatedV2                        *EventV2CorehrProcessCcUpdatedV2
+	eventV2CorehrProcessUpdatedV2                          *EventV2CorehrProcessUpdatedV2
 	eventV2DriveFileBitableFieldChangedV1                  *EventV2DriveFileBitableFieldChangedV1
 	eventV2DriveFileBitableRecordChangedV1                 *EventV2DriveFileBitableRecordChangedV1
 	eventV2DriveFileDeletedV1                              *EventV2DriveFileDeletedV1
@@ -887,6 +899,24 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 			return err
 		}
 		req.eventV2CorehrProbationUpdatedV2 = event
+	case EventTypeV2CorehrProcessApproverUpdatedV2:
+		event := new(EventV2CorehrProcessApproverUpdatedV2)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrProcessApproverUpdatedV2 = event
+	case EventTypeV2CorehrProcessCcUpdatedV2:
+		event := new(EventV2CorehrProcessCcUpdatedV2)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrProcessCcUpdatedV2 = event
+	case EventTypeV2CorehrProcessUpdatedV2:
+		event := new(EventV2CorehrProcessUpdatedV2)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrProcessUpdatedV2 = event
 	case EventTypeV2DriveFileBitableFieldChangedV1:
 		event := new(EventV2DriveFileBitableFieldChangedV1)
 		if err := req.unmarshalEvent(event); err != nil {
@@ -2095,6 +2125,33 @@ func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) 
 				go r.cli.eventHandler.eventV2CorehrProbationUpdatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrProbationUpdatedV2)
 			} else {
 				s, err = r.cli.eventHandler.eventV2CorehrProbationUpdatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrProbationUpdatedV2)
+			}
+		}
+		return true, s, err
+	case req.eventV2CorehrProcessApproverUpdatedV2 != nil:
+		if r.cli.eventHandler.eventV2CorehrProcessApproverUpdatedV2Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CorehrProcessApproverUpdatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrProcessApproverUpdatedV2)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CorehrProcessApproverUpdatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrProcessApproverUpdatedV2)
+			}
+		}
+		return true, s, err
+	case req.eventV2CorehrProcessCcUpdatedV2 != nil:
+		if r.cli.eventHandler.eventV2CorehrProcessCcUpdatedV2Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CorehrProcessCcUpdatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrProcessCcUpdatedV2)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CorehrProcessCcUpdatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrProcessCcUpdatedV2)
+			}
+		}
+		return true, s, err
+	case req.eventV2CorehrProcessUpdatedV2 != nil:
+		if r.cli.eventHandler.eventV2CorehrProcessUpdatedV2Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CorehrProcessUpdatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrProcessUpdatedV2)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CorehrProcessUpdatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrProcessUpdatedV2)
 			}
 		}
 		return true, s, err
