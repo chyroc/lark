@@ -34,7 +34,7 @@ func (r *AppLinkService) OpenMiniProgram(req *OpenMiniProgramReq) string {
 // OpenMiniProgramReq ...
 type OpenMiniProgramReq struct {
 	AppID       string  `json:"appId,omitempty"`        // 小程序 appId(可从「开发者后台-凭证与基础信息」获取)
-	Mode        *string `json:"mode,omitempty"`         // PC小程序启动模式, 枚举值包括: `sidebar-semi`: 聊天的侧边栏打开 `appCenter`: 工作台中打开 `window`: 独立大窗口打开 `window-semi`: 独立小窗口打开, 飞书3.33版本开始支持此模式   未填写的情况下, 默认会优先使用`sidebar-semi`打开, 不支持`sidebar-semi`模式的情况下会使用`window-semi`模式打开
+	Mode        *string `json:"mode,omitempty"`         // PC小程序启动模式, 枚举值包括: `sidebar-semi`: 聊天的侧边栏打开 `appCenter`: 在工作台打开；7.0版本起, 工作台应用会在飞书导航栏的标签页中打开。 `window`: 独立大窗口打开 `window-semi`: 独立小窗口打开, 飞书3.33版本开始支持此模式   未填写的情况下, 默认会优先使用`sidebar-semi`打开, 不支持`sidebar-semi`模式的情况下会使用`window-semi`模式打开
 	Height      *string `json:"height,omitempty"`       // 自定义独立窗口高度（仅当`mode`为`window`时生效）, 飞书5.12版本开始支持 最小值: 480 最大值: 屏幕的高度 默认值: 飞书窗口的高度
 	Width       *string `json:"width,omitempty"`        // 自定义独立窗口宽度（仅当`mode`为`window`时生效）, 飞书5.12版本开始支持 最小值: 640 最大值: 屏幕的宽度 默认值: 飞书窗口的宽度
 	Relaunch    *string `json:"relaunch,omitempty"`     // 是否重新加载指定页面。该参数仅当applink中传入path参数时才会生效。枚举值包括: `false`: 与[小程序打开逻辑](https://open.feishu.cn/document/uYjL24iN/uMjNzUjLzYzM14yM2MTN#c2bcfa33)一致。如果用户已打开相同path的页面与参数, 则保持页面原先状态, 不会重新加载；其他情况下会清空原来的页面栈, 打开指定页 `true`: 无论用户是否打开相同path的页面与参数, 一定会清空原来的页面栈, 打开指定页（与[relaunch](https://open.feishu.cn/document/uYjL24iN/uEDM04SMwQjLxADN)的逻辑一致）<BR>飞书5.9版本开始支持该参数, 默认值为`false`

@@ -66,8 +66,8 @@ type GetAttendanceUserApprovalReq struct {
 	CheckDateTo   int64        `json:"check_date_to,omitempty"`   // 查询的结束工作日, 与 check_date_from 的时间间隔不超过 30 天, 示例值: 20190820
 	CheckDateType *string      `json:"check_date_type,omitempty"` // 查询依据的时间类型（不填默认依据PeriodTime）, 示例值: "PeriodTime", 可选值有: PeriodTime: 单据作用时间, CreateTime: 单据创建时间（目前暂不支持）, UpdateTime: 单据状态更新时间（新增字段, 对特定租户生效）
 	Status        *int64       `json:"status,omitempty"`          // 查询状态（不填默认查询已通过状态）, 示例值: 2, 可选值有: 0: 待审批, 1: 未通过, 2: 已通过, 3: 已取消, 4: 已撤回
-	CheckTimeFrom *string      `json:"check_time_from,omitempty"` // 查询的起始时间, 精确到秒的时间戳, 示例值: "1566641088"
-	CheckTimeTo   *string      `json:"check_time_to,omitempty"`   // 查询的结束时间, 精确到秒的时间戳, 示例值: "1592561088"
+	CheckTimeFrom *string      `json:"check_time_from,omitempty"` // 查询的起始时间, 精确到秒的时间戳（灰度中, 暂不开放）, 示例值: "1566641088"
+	CheckTimeTo   *string      `json:"check_time_to,omitempty"`   // 查询的结束时间, 精确到秒的时间戳（灰度中, 暂不开放）, 示例值: "1592561088"
 }
 
 // GetAttendanceUserApprovalResp ...

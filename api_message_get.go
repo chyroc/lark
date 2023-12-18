@@ -68,7 +68,7 @@ type GetMessageReq struct {
 
 // GetMessageResp ...
 type GetMessageResp struct {
-	Items []*GetMessageRespItem `json:"items,omitempty"` // --
+	Items []*GetMessageRespItem `json:"items,omitempty"` // 若指定消息的类型为合并转发（merge_forward）, 返回的数据包含 1 条合并转发消息 + N 条子消息
 }
 
 // GetMessageRespItem ...

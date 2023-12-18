@@ -70,12 +70,39 @@ type CreateCoreHRCompanyReq struct {
 	BranchCompany       *bool                                        `json:"branch_company,omitempty"`       // 是否为分公司, 示例值: true
 	PrimaryManager      []*CreateCoreHRCompanyReqPrimaryManager      `json:"primary_manager,omitempty"`      // 主要负责人
 	CustomFields        []*CreateCoreHRCompanyReqCustomField         `json:"custom_fields,omitempty"`        // 自定义字段
+	Currency            *CreateCoreHRCompanyReqCurrency              `json:"currency,omitempty"`             // 默认币种
+	Phone               *CreateCoreHRCompanyReqPhone                 `json:"phone,omitempty"`                // 电话
+	Fax                 *CreateCoreHRCompanyReqFax                   `json:"fax,omitempty"`                  // 传真
+}
+
+// CreateCoreHRCompanyReqCurrency ...
+type CreateCoreHRCompanyReqCurrency struct {
+	CurrencyName       []*CreateCoreHRCompanyReqCurrencyCurrencyName `json:"currency_name,omitempty"`         // 货币名称
+	NumericCode        *int64                                        `json:"numeric_code,omitempty"`          // 数字代码, 示例值: 12
+	CurrencyAlpha3Code *string                                       `json:"currency_alpha_3_code,omitempty"` // 三位字母代码, 示例值: "12"
+}
+
+// CreateCoreHRCompanyReqCurrencyCurrencyName ...
+type CreateCoreHRCompanyReqCurrencyCurrencyName struct {
+	Lang  string `json:"lang,omitempty"`  // 语言, 示例值: "zh-CN"
+	Value string `json:"value,omitempty"` // 内容, 示例值: "刘梓新"
 }
 
 // CreateCoreHRCompanyReqCustomField ...
 type CreateCoreHRCompanyReqCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名, 示例值: "name"
 	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05"), 示例值: "\"Sandy\""
+}
+
+// CreateCoreHRCompanyReqFax ...
+type CreateCoreHRCompanyReqFax struct {
+	AreaCode    *CreateCoreHRCompanyReqFaxAreaCode `json:"area_code,omitempty"`    // 区号, 示例值: 123123
+	PhoneNumber string                             `json:"phone_number,omitempty"` // 号码, 示例值: "213213"
+}
+
+// CreateCoreHRCompanyReqFaxAreaCode ...
+type CreateCoreHRCompanyReqFaxAreaCode struct {
+	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
 }
 
 // CreateCoreHRCompanyReqHiberarchyCommon ...
@@ -125,6 +152,17 @@ type CreateCoreHRCompanyReqLegalRepresentative struct {
 	Value string `json:"value,omitempty"` // 名称信息的内容, 示例值: "张三"
 }
 
+// CreateCoreHRCompanyReqPhone ...
+type CreateCoreHRCompanyReqPhone struct {
+	AreaCode    *CreateCoreHRCompanyReqPhoneAreaCode `json:"area_code,omitempty"`    // 区号, 示例值: 123123
+	PhoneNumber string                               `json:"phone_number,omitempty"` // 号码, 示例值: "213213"
+}
+
+// CreateCoreHRCompanyReqPhoneAreaCode ...
+type CreateCoreHRCompanyReqPhoneAreaCode struct {
+	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
+}
+
 // CreateCoreHRCompanyReqPrimaryManager ...
 type CreateCoreHRCompanyReqPrimaryManager struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 示例值: "zh-CN"
@@ -148,24 +186,62 @@ type CreateCoreHRCompanyResp struct {
 
 // CreateCoreHRCompanyRespCompany ...
 type CreateCoreHRCompanyRespCompany struct {
-	ID                  string                                               `json:"id,omitempty"`                   // 公司 ID
-	HiberarchyCommon    *CreateCoreHRCompanyRespCompanyHiberarchyCommon      `json:"hiberarchy_common,omitempty"`    // 层级关系, 内层字段见实体
-	Type                *CreateCoreHRCompanyRespCompanyType                  `json:"type,omitempty"`                 // 性质, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)公司类型（company_type）枚举定义部分获得
-	IndustryList        []*CreateCoreHRCompanyRespCompanyIndustry            `json:"industry_list,omitempty"`        // 行业, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)行业（industry）枚举定义部分获得
-	LegalRepresentative []*CreateCoreHRCompanyRespCompanyLegalRepresentative `json:"legal_representative,omitempty"` // 法定代表人
-	PostCode            string                                               `json:"post_code,omitempty"`            // 邮编
-	TaxPayerID          string                                               `json:"tax_payer_id,omitempty"`         // 纳税人识别号
-	Confidential        bool                                                 `json:"confidential,omitempty"`         // 是否保密
-	SubTypeList         []*CreateCoreHRCompanyRespCompanySubType             `json:"sub_type_list,omitempty"`        // 主体类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)主体类型（company_sub_type）枚举定义部分获得
-	BranchCompany       bool                                                 `json:"branch_company,omitempty"`       // 是否为分公司
-	PrimaryManager      []*CreateCoreHRCompanyRespCompanyPrimaryManager      `json:"primary_manager,omitempty"`      // 主要负责人
-	CustomFields        []*CreateCoreHRCompanyRespCompanyCustomField         `json:"custom_fields,omitempty"`        // 自定义字段
+	ID                      string                                                  `json:"id,omitempty"`                        // 公司 ID
+	HiberarchyCommon        *CreateCoreHRCompanyRespCompanyHiberarchyCommon         `json:"hiberarchy_common,omitempty"`         // 层级关系, 内层字段见实体
+	Type                    *CreateCoreHRCompanyRespCompanyType                     `json:"type,omitempty"`                      // 性质, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)公司类型（company_type）枚举定义部分获得
+	IndustryList            []*CreateCoreHRCompanyRespCompanyIndustry               `json:"industry_list,omitempty"`             // 行业, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)行业（industry）枚举定义部分获得
+	LegalRepresentative     []*CreateCoreHRCompanyRespCompanyLegalRepresentative    `json:"legal_representative,omitempty"`      // 法定代表人
+	PostCode                string                                                  `json:"post_code,omitempty"`                 // 邮编
+	TaxPayerID              string                                                  `json:"tax_payer_id,omitempty"`              // 纳税人识别号
+	Confidential            bool                                                    `json:"confidential,omitempty"`              // 是否保密
+	SubTypeList             []*CreateCoreHRCompanyRespCompanySubType                `json:"sub_type_list,omitempty"`             // 主体类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)主体类型（company_sub_type）枚举定义部分获得
+	BranchCompany           bool                                                    `json:"branch_company,omitempty"`            // 是否为分公司
+	PrimaryManager          []*CreateCoreHRCompanyRespCompanyPrimaryManager         `json:"primary_manager,omitempty"`           // 主要负责人
+	CustomFields            []*CreateCoreHRCompanyRespCompanyCustomField            `json:"custom_fields,omitempty"`             // 自定义字段
+	Currency                *CreateCoreHRCompanyRespCompanyCurrency                 `json:"currency,omitempty"`                  // 默认币种
+	Phone                   *CreateCoreHRCompanyRespCompanyPhone                    `json:"phone,omitempty"`                     // 电话
+	Fax                     *CreateCoreHRCompanyRespCompanyFax                      `json:"fax,omitempty"`                       // 传真
+	RegisteredOfficeAddress []*CreateCoreHRCompanyRespCompanyRegisteredOfficeAddres `json:"registered_office_address,omitempty"` // 注册地址
+	OfficeAddress           []*CreateCoreHRCompanyRespCompanyOfficeAddres           `json:"office_address,omitempty"`            // 办公地址
+}
+
+// CreateCoreHRCompanyRespCompanyCurrency ...
+type CreateCoreHRCompanyRespCompanyCurrency struct {
+	ID                 string                                                `json:"id,omitempty"`                    // 货币id
+	CountryRegionID    string                                                `json:"country_region_id,omitempty"`     // 货币所属国家/地区id, 详细信息可通过[【查询国家/地区信息】](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/location_data/list)接口查询获得
+	CurrencyName       []*CreateCoreHRCompanyRespCompanyCurrencyCurrencyName `json:"currency_name,omitempty"`         // 货币名称
+	NumericCode        int64                                                 `json:"numeric_code,omitempty"`          // 数字代码
+	CurrencyAlpha3Code string                                                `json:"currency_alpha_3_code,omitempty"` // 三位字母代码
+}
+
+// CreateCoreHRCompanyRespCompanyCurrencyCurrencyName ...
+type CreateCoreHRCompanyRespCompanyCurrencyCurrencyName struct {
+	Lang  string `json:"lang,omitempty"`  // 语言
+	Value string `json:"value,omitempty"` // 内容
 }
 
 // CreateCoreHRCompanyRespCompanyCustomField ...
 type CreateCoreHRCompanyRespCompanyCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名
 	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05")
+}
+
+// CreateCoreHRCompanyRespCompanyFax ...
+type CreateCoreHRCompanyRespCompanyFax struct {
+	AreaCode    *CreateCoreHRCompanyRespCompanyFaxAreaCode `json:"area_code,omitempty"`    // 区号
+	PhoneNumber string                                     `json:"phone_number,omitempty"` // 号码
+}
+
+// CreateCoreHRCompanyRespCompanyFaxAreaCode ...
+type CreateCoreHRCompanyRespCompanyFaxAreaCode struct {
+	EnumName string                                              `json:"enum_name,omitempty"` // 枚举值
+	Display  []*CreateCoreHRCompanyRespCompanyFaxAreaCodeDisplay `json:"display,omitempty"`   // 枚举多语展示
+}
+
+// CreateCoreHRCompanyRespCompanyFaxAreaCodeDisplay ...
+type CreateCoreHRCompanyRespCompanyFaxAreaCodeDisplay struct {
+	Lang  string `json:"lang,omitempty"`  // 语言
+	Value string `json:"value,omitempty"` // 内容
 }
 
 // CreateCoreHRCompanyRespCompanyHiberarchyCommon ...
@@ -231,10 +307,40 @@ type CreateCoreHRCompanyRespCompanyLegalRepresentative struct {
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
+// CreateCoreHRCompanyRespCompanyOfficeAddres ...
+type CreateCoreHRCompanyRespCompanyOfficeAddres struct {
+	Lang  string `json:"lang,omitempty"`  // 语言
+	Value string `json:"value,omitempty"` // 内容
+}
+
+// CreateCoreHRCompanyRespCompanyPhone ...
+type CreateCoreHRCompanyRespCompanyPhone struct {
+	AreaCode    *CreateCoreHRCompanyRespCompanyPhoneAreaCode `json:"area_code,omitempty"`    // 区号
+	PhoneNumber string                                       `json:"phone_number,omitempty"` // 号码
+}
+
+// CreateCoreHRCompanyRespCompanyPhoneAreaCode ...
+type CreateCoreHRCompanyRespCompanyPhoneAreaCode struct {
+	EnumName string                                                `json:"enum_name,omitempty"` // 枚举值
+	Display  []*CreateCoreHRCompanyRespCompanyPhoneAreaCodeDisplay `json:"display,omitempty"`   // 枚举多语展示
+}
+
+// CreateCoreHRCompanyRespCompanyPhoneAreaCodeDisplay ...
+type CreateCoreHRCompanyRespCompanyPhoneAreaCodeDisplay struct {
+	Lang  string `json:"lang,omitempty"`  // 语言
+	Value string `json:"value,omitempty"` // 内容
+}
+
 // CreateCoreHRCompanyRespCompanyPrimaryManager ...
 type CreateCoreHRCompanyRespCompanyPrimaryManager struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
+}
+
+// CreateCoreHRCompanyRespCompanyRegisteredOfficeAddres ...
+type CreateCoreHRCompanyRespCompanyRegisteredOfficeAddres struct {
+	Lang  string `json:"lang,omitempty"`  // 语言
+	Value string `json:"value,omitempty"` // 内容
 }
 
 // CreateCoreHRCompanyRespCompanySubType ...

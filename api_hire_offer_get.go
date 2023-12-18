@@ -83,7 +83,7 @@ type GetHireOfferRespOffer struct {
 
 // GetHireOfferRespOfferBasicInfo ...
 type GetHireOfferRespOfferBasicInfo struct {
-	OfferType               int64                                                  `json:"offer_type,omitempty"`                 // Offer 类型, 可选值有: 1: Social, 2: Campus, 3: Intern, 4: InternTransfer
+	OfferType               int64                                                  `json:"offer_type,omitempty"`                 // Offer 类型, 可选值有: 1: 社招offer, 2: 校招offer, 3: 实习offer, 4: 实习生转正offer, 商业化租户无此选项
 	Remark                  string                                                 `json:"remark,omitempty"`                     // 备注, 字段权限要求（满足任一）: 获取 offer 信息, 更新 offer 信息
 	ExpireTime              int64                                                  `json:"expire_time,omitempty"`                // Offer 过期时间
 	OwnerUserID             string                                                 `json:"owner_user_id,omitempty"`              // Offer 负责人 ID

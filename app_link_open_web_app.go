@@ -34,7 +34,7 @@ func (r *AppLinkService) OpenWebApp(req *OpenWebAppReq) string {
 // OpenWebAppReq ...
 type OpenWebAppReq struct {
 	AppID       string  `json:"appId,omitempty"`         // H5应用的 appId(可从「开发者后台-凭证与基础信息」获取)
-	Mode        *string `json:"mode,omitempty"`          // 打开H5应用的容器模式, 枚举值包括  `appCenter`: 在工作台打开, 3.20版本开始支持（缺省值）   `window`: 在独立窗口打开, 3.20版本开始支持   `sidebar`: 在侧边栏打开, 3.40版本开始支持   `window-semi`: 在独立窗口以小屏形式打开, 5.10版本开始支持
+	Mode        *string `json:"mode,omitempty"`          // 打开H5应用的容器模式, 枚举值包括  `appCenter`: 3.20版本开始支持, 在工作台打开；7.0版本起, 工作台应用会在飞书导航栏的标签页中打开。（默认值）   `window`: 在独立窗口打开, 3.20版本开始支持   `sidebar`: 在侧边栏打开, 3.40版本开始支持   `window-semi`: 在独立窗口以小屏形式打开, 5.10版本开始支持
 	Height      *string `json:"height,omitempty"`        // 自定义独立窗口高度（仅当`mode`为`window`时生效）, 飞书5.12版本开始支持 最小值: 480 最大值: 屏幕的高度 默认值: 飞书窗口的高度
 	Width       *string `json:"width,omitempty"`         // 自定义独立窗口宽度（仅当`mode`为`window`时生效）, 飞书5.12版本开始支持 最小值: 640 最大值: 屏幕的宽度 默认值: 飞书窗口的宽度
 	Path        *string `json:"path,omitempty"`          // 指定要打开网页应用的某个页面路径。配置path参数后, 此参数将会被添加到或者替换网页应用原始url中的path部分（原始url是在开发者后台的网页应用配置页进行配置的）, 生成要打开页面的最终url。    注意: 1.path 的含义详见[Applink 的结构](https://open.feishu.cn/document/uYjL24iN/ucjN1UjL3YTN14yN2UTN), 不能出现'#'和'?'这样的字符（即不能携带query参数和fragment）, 否则会造成要打开的页面url结构异常, 导致页面打开的表现不符合预期  2.如果需要携带query参数或fragment（query和fragment的含义详见 Applink 的结构）, 推荐使用下面的lk_target_url参数   3.可以使用 path_android、path_ios、path_pc 参数对不同的客户端指定不同的path   4.该参数从 3.20版本 开始支持

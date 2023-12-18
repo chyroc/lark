@@ -68,10 +68,10 @@ type GetAttendanceGroupResp struct {
 	GroupID                 string                                         `json:"group_id,omitempty"`                    // 考勤组 ID（仅修改时提供）, 需要从“获取打卡结果”的接口中获取 groupId
 	GroupName               string                                         `json:"group_name,omitempty"`                  // 考勤组名称
 	TimeZone                string                                         `json:"time_zone,omitempty"`                   // 时区
-	BindDeptIDs             []string                                       `json:"bind_dept_ids,omitempty"`               // 绑定的部门 ID
-	ExceptDeptIDs           []string                                       `json:"except_dept_ids,omitempty"`             // 排除的部门 ID
-	BindUserIDs             []string                                       `json:"bind_user_ids,omitempty"`               // 绑定的用户 ID
-	ExceptUserIDs           []string                                       `json:"except_user_ids,omitempty"`             // 排除的用户 ID
+	BindDeptIDs             []string                                       `json:"bind_dept_ids,omitempty"`               // 绑定的部门 ID（与「need_punch_members」同时使用时, 以当前字段为准）
+	ExceptDeptIDs           []string                                       `json:"except_dept_ids,omitempty"`             // 排除的部门 ID（该字段已下线）
+	BindUserIDs             []string                                       `json:"bind_user_ids,omitempty"`               // 绑定的用户 ID（与「need_punch_members」同时使用时, 以当前字段为准）
+	ExceptUserIDs           []string                                       `json:"except_user_ids,omitempty"`             // 排除的用户 ID（该字段已下线）
 	GroupLeaderIDs          []string                                       `json:"group_leader_ids,omitempty"`            // 考勤主负责人 ID 列表, 必选字段（需至少拥有考勤组管理员权限）
 	SubGroupLeaderIDs       []string                                       `json:"sub_group_leader_ids,omitempty"`        // 考勤子负责人 ID 列表
 	AllowOutPunch           bool                                           `json:"allow_out_punch,omitempty"`             // 是否允许外勤打卡
@@ -122,12 +122,12 @@ type GetAttendanceGroupResp struct {
 	GoOutNeedPunchCfg       *GetAttendanceGroupRespGoOutNeedPunchCfg       `json:"go_out_need_punch_cfg,omitempty"`       // 外出期间打卡规则
 	TravelNeedPunch         int64                                          `json:"travel_need_punch,omitempty"`           // 出差期间是否需打卡
 	TravelNeedPunchCfg      *GetAttendanceGroupRespTravelNeedPunchCfg      `json:"travel_need_punch_cfg,omitempty"`       // 出差期间打卡规则
-	NeedPunchMembers        []*GetAttendanceGroupRespNeedPunchMember       `json:"need_punch_members,omitempty"`          // 需要打卡的人员集合（新版人事圈人使用该字段）
-	NoNeedPunchMembers      []*GetAttendanceGroupRespNoNeedPunchMember     `json:"no_need_punch_members,omitempty"`       // 无需打卡的人员集合（新版人事圈人使用该字段）
-	SaveAutoChanges         bool                                           `json:"save_auto_changes,omitempty"`           // 是否允许保存有冲突人员的考勤组。如果 true, 则冲突人员将被自动拉入到当前设置的考勤组中, 并从原考勤组中移除；如果 false, 则需手动调整冲突人员（新版人事圈人使用该字段）
-	OrgChangeAutoAdjust     bool                                           `json:"org_change_auto_adjust,omitempty"`      // 当有新员工入职或人员异动, 符合条件的人员是否自动加入考勤组（新版人事圈人使用该字段）
-	BindDefaultDeptIDs      []string                                       `json:"bind_default_dept_ids,omitempty"`       // 参与无需打卡的部门 ID 列表
-	BindDefaultUserIDs      []string                                       `json:"bind_default_user_ids,omitempty"`       // 参与无需打卡的人员 ID 列表
+	NeedPunchMembers        []*GetAttendanceGroupRespNeedPunchMember       `json:"need_punch_members,omitempty"`          // 需要打卡的人员集合（仅当不传「bind_dept_ids」和「bind_user_ids」时, 才会使用该字段）
+	NoNeedPunchMembers      []*GetAttendanceGroupRespNoNeedPunchMember     `json:"no_need_punch_members,omitempty"`       // 无需打卡的人员集合（仅当不传「bind_default_dept_ids」和「bind_default_user_ids」时, 才会使用该字段）
+	SaveAutoChanges         bool                                           `json:"save_auto_changes,omitempty"`           // 是否允许保存有冲突人员的考勤组。如果 true, 则冲突人员将被自动拉入到当前设置的考勤组中, 并从原考勤组中移除；如果 false, 则需手动调整冲突人员
+	OrgChangeAutoAdjust     bool                                           `json:"org_change_auto_adjust,omitempty"`      // 当有新员工入职或人员异动, 符合条件的人员是否自动加入考勤组
+	BindDefaultDeptIDs      []string                                       `json:"bind_default_dept_ids,omitempty"`       // 参与无需打卡的部门 ID 列表（与「no_need_punch_members」同时使用时, 以当前字段为准）
+	BindDefaultUserIDs      []string                                       `json:"bind_default_user_ids,omitempty"`       // 参与无需打卡的人员 ID 列表（与「no_need_punch_members」同时使用时, 以当前字段为准）
 }
 
 // GetAttendanceGroupRespFreePunchCfg ...

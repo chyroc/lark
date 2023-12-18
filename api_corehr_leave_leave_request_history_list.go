@@ -66,12 +66,12 @@ type GetCoreHRLeaveRequestHistoryListReq struct {
 	InitiatorIDList    []string `query:"initiator_id_list" json:"-"`     // 休假发起人 ID 列表, 最大 100 个, 示例值: 6919733291281024523
 	LeaveRequestStatus []string `query:"leave_request_status" json:"-"`  // 请假记录的状态, 可选值有: 1: 已通过, 2: 审批中, 3: 审批中（更正）, 4: 审批中（取消休假）, 5: 审批中（返岗）, 6: 已返岗, 7: 已拒绝, 8: 已取消, 9: 已撤回, 示例值: 1
 	LeaveTypeIDList    []string `query:"leave_type_id_list" json:"-"`    // 假期类型 ID 列表, 枚举值可通过【获取假期类型列表】接口获取, 示例值: 4718803945687580501
-	LeaveStartDateMin  *string  `query:"leave_start_date_min" json:"-"`  // 休假开始时间晚于等于的日期, 示例值: 2022-07-20 morning
-	LeaveStartDateMax  *string  `query:"leave_start_date_max" json:"-"`  // 休假开始时间早于等于的日期, 示例值: 2022-07-20 morning
-	LeaveEndDateMin    *string  `query:"leave_end_date_min" json:"-"`    // 休假结束时间晚于等于的日期, 示例值: 2022-07-20 morning
-	LeaveEndDateMax    *string  `query:"leave_end_date_max" json:"-"`    // 休假结束时间早于等于的日期, 示例值: 2022-07-20 morning
-	LeaveSubmitDateMin *string  `query:"leave_submit_date_min" json:"-"` // 休假发起时间晚于等于的日期, 示例值: 2022-07-20 morning
-	LeaveSubmitDateMax *string  `query:"leave_submit_date_max" json:"-"` // 休假发起时间早于等于的日期, 示例值: 2022-07-20 morning
+	LeaveStartDateMin  *string  `query:"leave_start_date_min" json:"-"`  // 休假开始时间晚于等于的日期, 示例值: 2022-07-20
+	LeaveStartDateMax  *string  `query:"leave_start_date_max" json:"-"`  // 休假开始时间早于等于的日期, 示例值: 2022-07-20
+	LeaveEndDateMin    *string  `query:"leave_end_date_min" json:"-"`    // 休假结束时间晚于等于的日期, 示例值: 2022-07-20
+	LeaveEndDateMax    *string  `query:"leave_end_date_max" json:"-"`    // 休假结束时间早于等于的日期, 示例值: 2022-07-20
+	LeaveSubmitDateMin *string  `query:"leave_submit_date_min" json:"-"` // 休假发起时间晚于等于的日期, 示例值: 2022-07-20
+	LeaveSubmitDateMax *string  `query:"leave_submit_date_max" json:"-"` // 休假发起时间早于等于的日期, 示例值: 2022-07-20
 	UserIDType         *IDType  `query:"user_id_type" json:"-"`          // 用户 ID 类型, 示例值: people_corehr_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_corehr_id: 以飞书人事的 ID 来识别用户, 默认值: `people_corehr_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	LeaveUpdateTimeMin *string  `query:"leave_update_time_min" json:"-"` // 请假记录更新时间晚于等于的时间, 示例值: 2022-10-24 10:00:00
 	LeaveUpdateTimeMax *string  `query:"leave_update_time_max" json:"-"` // 请假记录更新时间早于等于的时间, 示例值: 2022-10-24 10:00:00

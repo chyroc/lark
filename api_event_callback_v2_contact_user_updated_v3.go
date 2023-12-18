@@ -21,9 +21,9 @@ import (
 	"context"
 )
 
-// EventV2ContactUserUpdatedV3 通过该事件订阅员工变更。old_object中只展示更新的字段的原始值。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=contact&version=v3&resource=user&event=updated)
+// EventV2ContactUserUpdatedV3 通过该事件订阅员工变更。old_object中只包含更新的字段的原始值。手机号和邮箱的变更会发送一条独立的事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=contact&version=v3&resource=user&event=updated)
 //
-// 只有当应用拥有被改动字段的数据权限时, 才会接收到事件。具体的数据权限与字段的关系请参考[应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN), 或查看事件体参数列表的字段描述。
+// 只有当应用拥有成员的通讯录范围权限时, 才可以收到该成员的变更事件, 事件中会填充应用有权限的字段, 如果应用对被改动字段无权限, 收到的事件的old_object中不包含对应的字段。具体的数据权限与字段的关系请参考[应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN), 或查看事件体参数列表的字段描述。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/events/updated
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/user/events/updated

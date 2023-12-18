@@ -23,7 +23,7 @@ import (
 
 // GetUser 该接口用于获取通讯录中单个用户的信息。
 //
-// - 当使用`tenant_access_token`时, 结果中部门路径字段不会被返回。
+// 当使用`tenant_access_token`时, 结果中部门路径字段不会被返回。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/user/get
@@ -133,7 +133,7 @@ type GetUserRespUserAvatar struct {
 
 // GetUserRespUserCustomAttr ...
 type GetUserRespUserCustomAttr struct {
-	Type  string                          `json:"type,omitempty"`  // 自定义字段类型, `TEXT`: 文本, `HREF`: 网页, `ENUMERATION`: 枚举, `PICTURE_ENUM`: 图片, `GENERIC_USER`: 用户, 具体说明参见常见问题的[用户接口相关问题](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN#77061525)
+	Type  string                          `json:"type,omitempty"`  // 自定义字段类型, `TEXT`: 文本, `HREF`: 网页, `ENUMERATION`: 枚举, `PICTURE_ENUM`: 图片, `GENERIC_USER`: 用户, 具体说明参见常见问题的[用户接口相关问题](https://open.feishu.cn/document/server-docs/contact-v3/faqs#4ae8f490)
 	ID    string                          `json:"id,omitempty"`    // 自定义字段ID
 	Value *GetUserRespUserCustomAttrValue `json:"value,omitempty"` // 自定义字段取值
 }

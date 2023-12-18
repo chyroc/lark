@@ -37,7 +37,7 @@ func (r *AppLinkService) OpenWebURL(req *OpenWebURLReq) string {
 // OpenWebURLReq ...
 type OpenWebURLReq struct {
 	URL    string  `json:"url,omitempty"`    // 客户端内打开的目标页面链接, 需要encodeURIComponent处理, 若链接包含特殊字符, 则先将特殊字符进行百分号编码, 再进行Encode处理。V4.2.0+版本支持lark协议
-	Mode   string  `json:"mode,omitempty"`   // PC端打开的容器模式, 枚举值包括: `sidebar-semi` 在侧边栏打开； `window` 在独立窗口打开
+	Mode   string  `json:"mode,omitempty"`   // PC端打开的容器模式, 枚举值包括: `sidebar-semi` 在侧边栏打开； `window` 在独立窗口打开；   `appCenter` 在飞书导航栏的标签页打开。V7.5+版本支持, 低于此版本无法打开网页
 	Height *string `json:"height,omitempty"` // PC端自定义独立窗口高度（仅当`mode`为`window`时生效）, 飞书5.12版本开始支持 最小值: 480 最大值: 屏幕的高度 默认值: 飞书窗口的高度
 	Width  *string `json:"width,omitempty"`  // PC端自定义独立窗口宽度（仅当`mode`为`window`时生效）, 飞书5.12版本开始支持 最小值: 640 最大值: 屏幕的宽度 默认值: 飞书窗口的宽度
 }
