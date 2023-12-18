@@ -1146,3 +1146,19 @@ type I18NText struct {
 	EnUs string `json:"en_us"`
 	JaJp string `json:"ja_jp"`
 }
+
+// MessageContentCardTemplate ...
+//
+// docs: https://open.feishu.cn/document/ukTMukTMukTM/uYzM3QjL2MzN04iNzcDN/send-message-card/send-message-using-card-id
+type MessageContentCardTemplate struct {
+	TemplateID       string                 `json:"template_id"`
+	TemplateVariable map[string]interface{} `json:"template_variable"`
+}
+
+// String ...
+func (r MessageContentCardTemplate) String() string {
+	return jsonString(map[string]interface{}{
+		"type": "template",
+		"data": r,
+	})
+}
