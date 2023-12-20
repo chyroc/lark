@@ -22,7 +22,7 @@ jobs:
     - name: Build
       run: |
         go build -v ./...
-        go get github.com/chyroc/rerun-fail-test
+        go install github.com/chyroc/rerun-fail-test@latest
 
     - name: Test
       run: |

@@ -20,7 +20,7 @@ jobs:
 
     - name: Set up Check Tool
       run: |
-        go get -u github.com/client9/misspell/cmd/misspell
+        go install github.com/client9/misspell/cmd/misspell@latest
 
     - name: Code Style Check
       run: |
