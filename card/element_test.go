@@ -26,8 +26,8 @@ func Test_Element(t *testing.T) {
 	as := assert.New(t)
 
 	// button
-	as.Equal(`{"tag":"button","text":{"tag":"plain_text","content":"title"},"type":"default","value":{"val":"1"}}`, jsonString(card.Button("title", map[string]interface{}{"val": "1"})))
-	as.Equal(`{"tag":"button","text":{"tag":"plain_text","content":"title"},"url":"url"}`, jsonString(card.LinkButton("title", "url")))
+	as.Equal(`{"action_type":"request","tag":"button","text":{"tag":"plain_text","content":"title"},"type":"default","value":{"val":"1"}}`, jsonString(card.Button("title", map[string]interface{}{"val": "1"})))
+	as.Equal(`{"action_type":"link","tag":"button","text":{"tag":"plain_text","content":"title"},"url":"url"}`, jsonString(card.LinkButton("title", "url")))
 
 	// time picker
 	as.Equal(`{"tag":"date_picker","initial_date":"ini","value":{"val":"1"}}`, jsonString(card.DatePicker("ini", map[string]interface{}{"val": "1"})))

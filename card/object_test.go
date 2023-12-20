@@ -32,7 +32,7 @@ func Test_Object(t *testing.T) {
 	as.Equal(`{"title":{"tag":"plain_text","content":"title"},"text":{"tag":"lark_md","content":"hi"}}`, jsonString(card.Confirm("title", "txt").SetText(card.MarkdownText("hi"))))
 
 	// field
-	as.Equal(`{"text":{"tag":"plain_text","content":"field"}}`, jsonString(card.FieldText("field")))
+	as.Equal(`{"is_short":false,"text":{"tag":"plain_text","content":"field"}}`, jsonString(card.FieldText("field")))
 
 	// option
 	as.Equal(`{"text":{"tag":"plain_text","content":"txt"},"value":"val"}`, jsonString(card.SelectOption("txt", "val")))
