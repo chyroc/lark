@@ -34,6 +34,7 @@ const (
 	SheetContentTypeAtDoc      SheetContentType = "at_doc"
 	SheetContentTypeMultiValue SheetContentType = "multi_value"
 	SheetContentTypeEmbedImage SheetContentType = "embed_image"
+	SheetContentTypeAttachment SheetContentType = "attachment"
 	SheetContentTypeList       SheetContentType = "list"
 	SheetContentTypeNull       SheetContentType = "null"
 )
@@ -50,6 +51,16 @@ type SheetContent struct {
 	AtDoc      *SheetValueAtDoc      `json:"at_doc,omitempty"`      // @文档, `{
 	MultiValue *SheetValueMultiValue `json:"multi_value,omitempty"` // 下拉列表, `{
 	EmbedImage *SheetValueEmbedImage `json:"embed_image,omitempty"` // 内嵌图片, `{
+	Attachment *SheetValueAttachment `json:"attachment,omitempty"`  // 附件, `{
+}
+
+// SheetValueAttachment ...
+type SheetValueAttachment struct {
+	FileToken string `json:"fileToken"`
+	MimeType  string `json:"mimeType"`
+	Size      int    `json:"size"`
+	Text      string `json:"text"`
+	Type      string `json:"type"` // attachment
 }
 
 // SheetValueEmbedImage ...
@@ -118,6 +129,8 @@ func (r *SheetContent) Type() SheetContentType {
 		return SheetContentTypeMultiValue
 	case r.EmbedImage != nil:
 		return SheetContentTypeEmbedImage
+	case r.Attachment != nil:
+		return SheetContentTypeAttachment
 	case r.Children != nil:
 		return SheetContentTypeList
 	default:
@@ -179,6 +192,13 @@ func (r *SheetContent) UnmarshalJSON(bytes []byte) error {
 			return err
 		}
 		switch obj.Type {
+		case "attachment":
+			resp := new(SheetValueAttachment)
+			if err := json.Unmarshal(bytes, resp); err != nil {
+				return err
+			}
+			r.Attachment = resp
+			return nil
 		case "embed-image":
 			resp := new(SheetValueEmbedImage)
 			if err := json.Unmarshal(bytes, resp); err != nil {
