@@ -240,6 +240,7 @@ type BatchGetCoreHREmployeeRespItemPersonInfo struct {
 	NameList                 []*BatchGetCoreHREmployeeRespItemPersonInfoName                   `json:"name_list,omitempty"`                   // 姓名列表, 字段权限要求（满足任一）: 获取法定姓名信息, 读写法定姓名信息
 	Gender                   *BatchGetCoreHREmployeeRespItemPersonInfoGender                   `json:"gender,omitempty"`                      // -| 性别, 枚举值可查询【获取字段详情】接口获取, 按如下参数查询即可: custom_api_name: gender - object_api_name: person, 字段权限要求（满足任一）: 获取性别信息, 读写性别信息
 	DateOfBirth              string                                                            `json:"date_of_birth,omitempty"`               // 出生日期, 字段权限要求（满足任一）: 获取生日信息, 读写生日信息
+	NationalityIDV2          string                                                            `json:"nationality_id_v2,omitempty"`           // 国籍 ID, 可通过[【查询国籍信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-nationality/search)查询, 字段权限要求（满足任一）: 获取国籍信息, 读写国籍信息
 	Race                     *BatchGetCoreHREmployeeRespItemPersonInfoRace                     `json:"race,omitempty"`                        // -| 民族 / 种族, 枚举值可查询【获取字段详情】接口获取, 按如下参数查询即可: custom_api_name: ethnicity_race - object_api_name: person, 字段权限要求: 获取民族/种族信息
 	MaritalStatus            *BatchGetCoreHREmployeeRespItemPersonInfoMaritalStatus            `json:"marital_status,omitempty"`              // -| 婚姻状况, 枚举值可查询【获取字段详情】接口获取, 按如下参数查询即可: custom_api_name: marital_status - object_api_name: person, 字段权限要求（满足任一）: 获取婚姻状况信息, 读写婚姻状况信息
 	PhoneList                []*BatchGetCoreHREmployeeRespItemPersonInfoPhone                  `json:"phone_list,omitempty"`                  // 电话列表, 字段权限要求（满足任一）: 获取个人手机号信息, 读写个人手机号信息
@@ -284,6 +285,8 @@ type BatchGetCoreHREmployeeRespItemPersonInfoAddress struct {
 	AddressID                string                                                        `json:"address_id,omitempty"`                  // 地址 ID
 	CountryRegionID          string                                                        `json:"country_region_id,omitempty"`           // 国家 / 地区
 	RegionID                 string                                                        `json:"region_id,omitempty"`                   // 主要行政区
+	CityIDV2                 string                                                        `json:"city_id_v2,omitempty"`                  // 城市
+	DistrictIDV2             string                                                        `json:"district_id_v2,omitempty"`              // 区/县
 	LocalAddressLine1        string                                                        `json:"local_address_line1,omitempty"`         // 地址行 1（非拉丁语系的本地文字）
 	LocalAddressLine2        string                                                        `json:"local_address_line2,omitempty"`         // 地址行 2（非拉丁语系的本地文字）
 	LocalAddressLine3        string                                                        `json:"local_address_line3,omitempty"`         // 地址行 3（非拉丁语系的本地文字）
@@ -328,14 +331,16 @@ type BatchGetCoreHREmployeeRespItemPersonInfoAddressCustomFieldName struct {
 
 // BatchGetCoreHREmployeeRespItemPersonInfoBankAccount ...
 type BatchGetCoreHREmployeeRespItemPersonInfoBankAccount struct {
-	BankName          string                                                                 `json:"bank_name,omitempty"`           // 银行名称
+	BankName          string                                                                 `json:"bank_name,omitempty"`           // 银行名称。当在飞书人事找不到银行下拉选项, 手动填写文本时, 请通过此字段获取结果
 	BankAccountNumber string                                                                 `json:"bank_account_number,omitempty"` // 银行账号
 	AccountHolder     string                                                                 `json:"account_holder,omitempty"`      // 开户人姓名
-	BranchName        string                                                                 `json:"branch_name,omitempty"`         // 支行名称
-	CountryRegionID   string                                                                 `json:"country_region_id,omitempty"`   // 国家/地区 ID, 详细信息可通过【查询国家/地区信息】接口查询获得
+	BranchName        string                                                                 `json:"branch_name,omitempty"`         // 支行名称。当在飞书人事找不到支行下拉选项, 手动填写文本时, 请通过此字段获取结果
+	BankIDV2          string                                                                 `json:"bank_id_v2,omitempty"`          // 银行 ID, 详细信息可通过[【查询银行信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-bank/search)查询。当在飞书人事选择具体银行下拉选项时, 请通过此字段获取结果
+	BranchIDV2        string                                                                 `json:"branch_id_v2,omitempty"`        // 支行 ID, 要求必须为填入银行的支行, 详细信息可通过[【查询支行信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-bank_branch/search)查询。当在飞书人事选择具体支行下拉选项时, 请通过此字段获取结果
+	CountryRegionID   string                                                                 `json:"country_region_id,omitempty"`   // 国家/地区 ID, 详细信息可通过[【查询国家/地区信息v2】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)查询
 	BankAccountUsage  []*BatchGetCoreHREmployeeRespItemPersonInfoBankAccountBankAccountUsage `json:"bank_account_usage,omitempty"`  // 银行卡用途, 枚举值可通过文档【飞书人事枚举常量】银行卡用途（Bank Account Usage）枚举定义部分获得
 	BankAccountType   *BatchGetCoreHREmployeeRespItemPersonInfoBankAccountBankAccountType    `json:"bank_account_type,omitempty"`   // 银行卡类型, 枚举值可通过文档【飞书人事枚举常量】银行卡类型（Bank Account Type）枚举定义部分获得
-	CurrencyID        string                                                                 `json:"currency_id,omitempty"`         // 货币id
+	CurrencyID        string                                                                 `json:"currency_id,omitempty"`         // 货币id, 可通过[【查询货币信息v2】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)查询
 	IBAN              string                                                                 `json:"IBAN,omitempty"`                // 国际银行账号
 	CustomFields      []*BatchGetCoreHREmployeeRespItemPersonInfoBankAccountCustomField      `json:"custom_fields,omitempty"`       // 自定义字段
 }
@@ -398,6 +403,7 @@ type BatchGetCoreHREmployeeRespItemPersonInfoDependent struct {
 	Relationship                         *BatchGetCoreHREmployeeRespItemPersonInfoDependentRelationship            `json:"relationship,omitempty"`                               // 关系
 	Gender                               *BatchGetCoreHREmployeeRespItemPersonInfoDependentGender                  `json:"gender,omitempty"`                                     // 性别
 	DateOfBirth                          string                                                                    `json:"date_of_birth,omitempty"`                              // 生日
+	NationalityIDV2                      string                                                                    `json:"nationality_id_v2,omitempty"`                          // 国籍 ID, 可通过[【查询国籍信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-nationality/search)查询
 	NationalIDList                       []*BatchGetCoreHREmployeeRespItemPersonInfoDependentNationalID            `json:"national_id_list,omitempty"`                           // 证件号码
 	SpousesWorkingStatus                 *BatchGetCoreHREmployeeRespItemPersonInfoDependentSpousesWorkingStatus    `json:"spouses_working_status,omitempty"`                     // 配偶工作状态
 	IsThisPersonCoveredByHealthInsurance bool                                                                      `json:"is_this_person_covered_by_health_insurance,omitempty"` // 包含家属医疗保险
@@ -418,6 +424,8 @@ type BatchGetCoreHREmployeeRespItemPersonInfoDependentAddress struct {
 	AddressID                string                                                                 `json:"address_id,omitempty"`                  // 地址 ID
 	CountryRegionID          string                                                                 `json:"country_region_id,omitempty"`           // 国家 / 地区
 	RegionID                 string                                                                 `json:"region_id,omitempty"`                   // 主要行政区
+	CityIDV2                 string                                                                 `json:"city_id_v2,omitempty"`                  // 城市
+	DistrictIDV2             string                                                                 `json:"district_id_v2,omitempty"`              // 区/县
 	LocalAddressLine1        string                                                                 `json:"local_address_line1,omitempty"`         // 地址行 1（非拉丁语系的本地文字）
 	LocalAddressLine2        string                                                                 `json:"local_address_line2,omitempty"`         // 地址行 2（非拉丁语系的本地文字）
 	LocalAddressLine3        string                                                                 `json:"local_address_line3,omitempty"`         // 地址行 3（非拉丁语系的本地文字）

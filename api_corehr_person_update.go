@@ -79,7 +79,6 @@ type UpdateCoreHRPersonReq struct {
 	EmergencyContactList []*UpdateCoreHRPersonReqEmergencyContact `json:"emergency_contact_list,omitempty"` // 紧急联系人列表
 	DateEnteredWorkforce *string                                  `json:"date_entered_workforce,omitempty"` // 参加工作日期, 示例值: "2020-10-01"
 	ProfileImageID       *string                                  `json:"profile_image_id,omitempty"`       // 头像资源的 ID, 示例值: "dfysuc8x76dsfsw"
-	Age                  *int64                                   `json:"age,omitempty"`                    // 年龄, 示例值: 22
 	PersonalProfile      []*UpdateCoreHRPersonReqPersonalProfile  `json:"personal_profile,omitempty"`       // 个人资料附件
 	NativeRegion         *string                                  `json:"native_region,omitempty"`          // 籍贯 ID, 示例值: "6863326262618752111"
 	HukouType            *UpdateCoreHRPersonReqHukouType          `json:"hukou_type,omitempty"`             // 户口类型, 枚举值可通过文档 [【枚举常量介绍】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)户口类型（hukou_type）枚举定义部分获得
@@ -138,7 +137,7 @@ type UpdateCoreHRPersonReqBankAccount struct {
 	CountryRegionID   *string                                             `json:"country_region_id,omitempty"`   // 国家/地区 ID, 详细信息可通过【查询国家/地区信息】接口查询获得, 示例值: "12"
 	BankAccountUsage  []*UpdateCoreHRPersonReqBankAccountBankAccountUsage `json:"bank_account_usage,omitempty"`  // 银行卡用途, 枚举值可通过文档【飞书人事枚举常量】银行卡用途（Bank Account Usage）枚举定义部分获得
 	BankAccountType   *UpdateCoreHRPersonReqBankAccountBankAccountType    `json:"bank_account_type,omitempty"`   // 银行卡类型, 枚举值可通过文档【飞书人事枚举常量】银行卡类型（Bank Account Type）枚举定义部分获得
-	CurrencyID        *string                                             `json:"currency_id,omitempty"`         // 货币 ID, 示例值: "12"
+	CurrencyID        *string                                             `json:"currency_id,omitempty"`         // 货币id, 示例值: "12QueryCountryRegionSubdivisionDataReq"
 	CustomFields      []*UpdateCoreHRPersonReqBankAccountCustomField      `json:"custom_fields,omitempty"`       // 自定义字段
 }
 
@@ -674,7 +673,7 @@ type UpdateCoreHRPersonRespPersonBankAccount struct {
 	CountryRegionID   string                                                     `json:"country_region_id,omitempty"`   // 国家/地区 ID, 详细信息可通过【查询国家/地区信息】接口查询获得
 	BankAccountUsage  []*UpdateCoreHRPersonRespPersonBankAccountBankAccountUsage `json:"bank_account_usage,omitempty"`  // 银行卡用途, 枚举值可通过文档【飞书人事枚举常量】银行卡用途（Bank Account Usage）枚举定义部分获得
 	BankAccountType   *UpdateCoreHRPersonRespPersonBankAccountBankAccountType    `json:"bank_account_type,omitempty"`   // 银行卡类型, 枚举值可通过文档【飞书人事枚举常量】银行卡类型（Bank Account Type）枚举定义部分获得
-	CurrencyID        string                                                     `json:"currency_id,omitempty"`         // 货币 ID
+	CurrencyID        string                                                     `json:"currency_id,omitempty"`         // 货币id
 	CustomFields      []*UpdateCoreHRPersonRespPersonBankAccountCustomField      `json:"custom_fields,omitempty"`       // 自定义字段
 }
 

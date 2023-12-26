@@ -22,7 +22,7 @@ import (
 	"io"
 )
 
-// RecognizeAIVatInvoice 增值税发票识别接口, 支持JPG/JPEG/PNG/PDF/OFD四种文件类型的一次性的识别。
+// RecognizeAIVatInvoice 增值税发票识别接口, 支持JPG/JPEG/PNG/PDF/BMP五种文件类型的一次性的识别。
 //
 // 单租户限流: 10QPS, 同租户下的应用没有限流, 共享本租户的 10QPS 限流
 //

@@ -78,13 +78,21 @@ type CreateCoreHRPersonReq struct {
 	EmergencyContactList []*CreateCoreHRPersonReqEmergencyContact `json:"emergency_contact_list,omitempty"` // 紧急联系人列表, <b>字段权限要求: </b>, 读写紧急联系人信息(corehr:person.emergency_contact:write)
 	DateEnteredWorkforce *string                                  `json:"date_entered_workforce,omitempty"` // 参加工作日期, <b>字段权限要求: </b>, 读写参加工作日期(corehr:person.date_entered_workforce:write), 示例值: "2020-10-01"
 	ProfileImageID       *string                                  `json:"profile_image_id,omitempty"`       // 头像资源的 ID, 示例值: "dfysuc8x76dsfsw"
-	Age                  *int64                                   `json:"age,omitempty"`                    // 年龄, <b>字段权限要求: </b>, 读写生日信息(corehr:person.date_of_birth:write), 示例值: 22
 	PersonalProfile      []*CreateCoreHRPersonReqPersonalProfile  `json:"personal_profile,omitempty"`       // 个人资料附件, <b>字段权限要求: </b>, 读写个人资料信息(corehr:person.personal_profile:write)
 	NativeRegion         *string                                  `json:"native_region,omitempty"`          // 籍贯 ID, 详细数据可通过[【查询单条省份/行政区信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/subdivision/get)接口查询, <b>字段权限要求: </b>, 读写籍贯信息(corehr:person.native_region:write), 示例值: "6863326262618752111"
 	HukouType            *CreateCoreHRPersonReqHukouType          `json:"hukou_type,omitempty"`             // 户口类型, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "person_info_chn", custom_api_name = "hukou_type", <b>字段权限要求: </b>, 读写户口信息(corehr:person.hukou:write)
 	HukouLocation        *string                                  `json:"hukou_location,omitempty"`         // 户口所在地, <b>字段权限要求: </b>, 读写户口信息(corehr:person.hukou:write), 示例值: "山东省平阴县"
-	TalentID             *string                                  `json:"talent_id,omitempty"`              // 人才ID, 示例值: "6863326262618752123"
+	TalentID             *string                                  `json:"talent_id,omitempty"`              // 人才 ID, 示例值: "6863326262618752123"
 	CustomFields         []*CreateCoreHRPersonReqCustomField      `json:"custom_fields,omitempty"`          // 自定义字段
+	BornCountryRegion    *string                                  `json:"born_country_region,omitempty"`    // 出生国家/地区, 示例值: "中国"
+	IsDisabled           *bool                                    `json:"is_disabled,omitempty"`            // 是否残疾, 示例值: true
+	DisableCardNumber    *string                                  `json:"disable_card_number,omitempty"`    // 残疾证号, 示例值: "1110000"
+	IsMartyrFamily       *bool                                    `json:"is_martyr_family,omitempty"`       // 是否烈属, 示例值: true
+	MartyrCardNumber     *string                                  `json:"martyr_card_number,omitempty"`     // 烈属证号, 示例值: "1110000"
+	IsOldAlone           *bool                                    `json:"is_old_alone,omitempty"`           // 是否孤老, 示例值: true
+	ResidentTaxes        []*CreateCoreHRPersonReqResidentTaxe     `json:"resident_taxes,omitempty"`         // 居民身份信息, 示例值: 6863326262618752123
+	FirstEntryTime       *string                                  `json:"first_entry_time,omitempty"`       // 首次入境日期, 示例值: "2021-01-02"
+	LeaveTime            *string                                  `json:"leave_time,omitempty"`             // 预计离境日期, 示例值: "2022-01-02"
 }
 
 // CreateCoreHRPersonReqAddress ...
@@ -128,7 +136,7 @@ type CreateCoreHRPersonReqBankAccount struct {
 	CountryRegionID   *string                                             `json:"country_region_id,omitempty"`   // 国家/地区 ID, 详细信息可通过【查询国家/地区信息】接口查询获得, 示例值: "12"
 	BankAccountUsage  []*CreateCoreHRPersonReqBankAccountBankAccountUsage `json:"bank_account_usage,omitempty"`  // 银行卡用途, 枚举值可通过文档【飞书人事枚举常量】银行卡用途（Bank Account Usage）枚举定义部分获得
 	BankAccountType   *CreateCoreHRPersonReqBankAccountBankAccountType    `json:"bank_account_type,omitempty"`   // 银行卡类型, 枚举值可通过文档【飞书人事枚举常量】银行卡类型（Bank Account Type）枚举定义部分获得
-	CurrencyID        *string                                             `json:"currency_id,omitempty"`         // 货币 ID, 示例值: "12"
+	CurrencyID        *string                                             `json:"currency_id,omitempty"`         // 货币id, 示例值: "12QueryCountryRegionSubdivisionDataReq"
 	CustomFields      []*CreateCoreHRPersonReqBankAccountCustomField      `json:"custom_fields,omitempty"`       // 自定义字段
 }
 
@@ -493,6 +501,25 @@ type CreateCoreHRPersonReqRace struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
 }
 
+// CreateCoreHRPersonReqResidentTaxe ...
+type CreateCoreHRPersonReqResidentTaxe struct {
+	YearResidentTax    string                                           `json:"year_resident_tax,omitempty"`     // 年度, 示例值: "2023"
+	ResidentStatus     *CreateCoreHRPersonReqResidentTaxeResidentStatus `json:"resident_status,omitempty"`       // -| 居民身份, 枚举值 api_name 可通过【获取字段详情】接口查询, 查询参数如下: object_api_name = "resident_tax" - custom_api_name = "resident_status"
+	TaxCountryRegionID *string                                          `json:"tax_country_region_id,omitempty"` // 国家/地区, 可通过【查询国家/地区信息】 接口查询, 示例值: "中国"
+	CustomFields       []*CreateCoreHRPersonReqResidentTaxeCustomField  `json:"custom_fields,omitempty"`         // 自定义字段
+}
+
+// CreateCoreHRPersonReqResidentTaxeCustomField ...
+type CreateCoreHRPersonReqResidentTaxeCustomField struct {
+	FieldName string `json:"field_name,omitempty"` // 字段名, 示例值: "name"
+	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(123, 123.23, true, [\"id1\", \"id2\], 2006-01-02 15:04:05]), 示例值: "Sandy"
+}
+
+// CreateCoreHRPersonReqResidentTaxeResidentStatus ...
+type CreateCoreHRPersonReqResidentTaxeResidentStatus struct {
+	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
+}
+
 // CreateCoreHRPersonReqWorkExperience ...
 type CreateCoreHRPersonReqWorkExperience struct {
 	CompanyOrganization []*CreateCoreHRPersonReqWorkExperienceCompanyOrganization `json:"company_organization,omitempty"` // 公司 / 组织
@@ -548,7 +575,7 @@ type CreateCoreHRPersonRespPerson struct {
 	PreferredLocalFullName   string                                                `json:"preferred_local_full_name,omitempty"`   // 常用本地全名
 	PreferredEnglishFullName string                                                `json:"preferred_english_full_name,omitempty"` // 常用英文全名
 	NameList                 []*CreateCoreHRPersonRespPersonName                   `json:"name_list,omitempty"`                   // 姓名列表, 字段权限要求（满足任一）: 获取法定姓名信息, 读写法定姓名信息
-	Gender                   *CreateCoreHRPersonRespPersonGender                   `json:"gender,omitempty"`                      // 性别, 枚举值可通过文档【飞书人事枚举常量】性别（gender）枚举定义部分获得, 字段权限要求（满足任一）: 获取性别信息, 读写性别信息
+	Gender                   *CreateCoreHRPersonRespPersonGender                   `json:"gender,omitempty"`                      // -| 性别, 枚举值可查询【获取字段详情】接口获取, 按如下参数查询即可: custom_api_name: gender - object_api_name: person, 字段权限要求（满足任一）: 获取性别信息, 读写性别信息
 	DateOfBirth              string                                                `json:"date_of_birth,omitempty"`               // 出生日期, 字段权限要求（满足任一）: 获取生日信息, 读写生日信息
 	Race                     *CreateCoreHRPersonRespPersonRace                     `json:"race,omitempty"`                        // 民族 / 种族, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "person", custom_api_name = "race", 字段权限要求: 获取民族/种族信息
 	MaritalStatus            *CreateCoreHRPersonRespPersonMaritalStatus            `json:"marital_status,omitempty"`              // 婚姻状况, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "person", custom_api_name = "marital_status", <b>字段权限要求: </b>, 读写婚姻状况信息(corehr:person.marital_status:write), 字段权限要求（满足任一）: 获取婚姻状况信息, 读写婚姻状况信息
@@ -572,10 +599,19 @@ type CreateCoreHRPersonRespPerson struct {
 	NativeRegion             string                                                `json:"native_region,omitempty"`               // 籍贯 ID, 字段权限要求（满足任一）: 获取籍贯信息, 读写籍贯信息
 	HukouType                *CreateCoreHRPersonRespPersonHukouType                `json:"hukou_type,omitempty"`                  // 户口类型, 枚举值可通过文档【飞书人事枚举常量】户口类型（hukou_type）枚举定义部分获得, 字段权限要求（满足任一）: 获取户口信息, 读写户口信息
 	HukouLocation            string                                                `json:"hukou_location,omitempty"`              // 户口所在地, 字段权限要求（满足任一）: 获取户口信息, 读写户口信息
-	TalentID                 string                                                `json:"talent_id,omitempty"`                   // 人才ID
-	CustomFields             []*CreateCoreHRPersonRespPersonCustomField            `json:"custom_fields,omitempty"`               // 自定义字段, 字段权限要求: 获取个人信息自定义字段信息
+	TalentID                 string                                                `json:"talent_id,omitempty"`                   // 人才 ID
+	CustomFields             []*CreateCoreHRPersonRespPersonCustomField            `json:"custom_fields,omitempty"`               // 自定义字段, 字段权限要求（满足任一）: 获取个人信息自定义字段信息, 读写个人信息中的自定义字段信息
 	NationalIDNumber         string                                                `json:"national_id_number,omitempty"`          // 居民身份证件号码, 字段权限要求（满足任一）: 获取证件信息, 读写证件信息
 	FamilyAddress            string                                                `json:"family_address,omitempty"`              // 家庭地址, 字段权限要求（满足任一）: 读取个人地址信息, 读写个人地址信息
+	BornCountryRegion        string                                                `json:"born_country_region,omitempty"`         // 出生国家/地区, 字段权限要求（满足任一）: 获取出生国家/地区信息, 读写出生国家/地区信息
+	IsDisabled               bool                                                  `json:"is_disabled,omitempty"`                 // 是否残疾, 字段权限要求（满足任一）: 获取残疾信息, 读写残疾信息
+	DisableCardNumber        string                                                `json:"disable_card_number,omitempty"`         // 残疾证号, 字段权限要求（满足任一）: 获取残疾信息, 读写残疾信息
+	IsMartyrFamily           bool                                                  `json:"is_martyr_family,omitempty"`            // 是否烈属, 字段权限要求（满足任一）: 获取烈属信息, 读写烈属信息
+	MartyrCardNumber         string                                                `json:"martyr_card_number,omitempty"`          // 烈属证号, 字段权限要求（满足任一）: 获取烈属信息, 读写烈属信息
+	IsOldAlone               bool                                                  `json:"is_old_alone,omitempty"`                // 是否孤老, 字段权限要求（满足任一）: 获取孤老信息, 读写孤老信息
+	ResidentTaxes            []*CreateCoreHRPersonRespPersonResidentTaxe           `json:"resident_taxes,omitempty"`              // 居民身份信息, 字段权限要求（满足任一）: 获取居民身份信息, 读写居民身份信息
+	FirstEntryTime           string                                                `json:"first_entry_time,omitempty"`            // 首次入境日期, 字段权限要求（满足任一）: 获取出入境日期, 读写出入境日期
+	LeaveTime                string                                                `json:"leave_time,omitempty"`                  // 预计离境日期, 字段权限要求（满足任一）: 获取出入境日期, 读写出入境日期
 }
 
 // CreateCoreHRPersonRespPersonAddress ...
@@ -636,7 +672,7 @@ type CreateCoreHRPersonRespPersonBankAccount struct {
 	CountryRegionID   string                                                     `json:"country_region_id,omitempty"`   // 国家/地区 ID, 详细信息可通过【查询国家/地区信息】接口查询获得
 	BankAccountUsage  []*CreateCoreHRPersonRespPersonBankAccountBankAccountUsage `json:"bank_account_usage,omitempty"`  // 银行卡用途, 枚举值可通过文档【飞书人事枚举常量】银行卡用途（Bank Account Usage）枚举定义部分获得
 	BankAccountType   *CreateCoreHRPersonRespPersonBankAccountBankAccountType    `json:"bank_account_type,omitempty"`   // 银行卡类型, 枚举值可通过文档【飞书人事枚举常量】银行卡类型（Bank Account Type）枚举定义部分获得
-	CurrencyID        string                                                     `json:"currency_id,omitempty"`         // 货币 ID
+	CurrencyID        string                                                     `json:"currency_id,omitempty"`         // 货币id
 	CustomFields      []*CreateCoreHRPersonRespPersonBankAccountCustomField      `json:"custom_fields,omitempty"`       // 自定义字段
 }
 
@@ -1621,6 +1657,32 @@ type CreateCoreHRPersonRespPersonRace struct {
 
 // CreateCoreHRPersonRespPersonRaceDisplay ...
 type CreateCoreHRPersonRespPersonRaceDisplay struct {
+	Lang  string `json:"lang,omitempty"`  // 语言
+	Value string `json:"value,omitempty"` // 内容
+}
+
+// CreateCoreHRPersonRespPersonResidentTaxe ...
+type CreateCoreHRPersonRespPersonResidentTaxe struct {
+	YearResidentTax    string                                                  `json:"year_resident_tax,omitempty"`     // 年度
+	ResidentStatus     *CreateCoreHRPersonRespPersonResidentTaxeResidentStatus `json:"resident_status,omitempty"`       // -| 居民身份, 枚举值 api_name 可通过【获取字段详情】接口查询, 查询参数如下: object_api_name = "resident_tax" - custom_api_name = "resident_status"
+	TaxCountryRegionID string                                                  `json:"tax_country_region_id,omitempty"` // 国家/地区, 可通过【查询国家/地区信息】 接口查询
+	CustomFields       []*CreateCoreHRPersonRespPersonResidentTaxeCustomField  `json:"custom_fields,omitempty"`         // 自定义字段, 字段权限要求（满足任一）: 获取居民身份自定义字段信息, 读写居民身份自定义字段信息
+}
+
+// CreateCoreHRPersonRespPersonResidentTaxeCustomField ...
+type CreateCoreHRPersonRespPersonResidentTaxeCustomField struct {
+	FieldName string `json:"field_name,omitempty"` // 字段名
+	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(123, 123.23, true, [\"id1\", \"id2\], 2006-01-02 15:04:05])
+}
+
+// CreateCoreHRPersonRespPersonResidentTaxeResidentStatus ...
+type CreateCoreHRPersonRespPersonResidentTaxeResidentStatus struct {
+	EnumName string                                                           `json:"enum_name,omitempty"` // 枚举值
+	Display  []*CreateCoreHRPersonRespPersonResidentTaxeResidentStatusDisplay `json:"display,omitempty"`   // 枚举多语展示
+}
+
+// CreateCoreHRPersonRespPersonResidentTaxeResidentStatusDisplay ...
+type CreateCoreHRPersonRespPersonResidentTaxeResidentStatusDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }

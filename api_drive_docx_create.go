@@ -21,9 +21,9 @@ import (
 	"context"
 )
 
-// CreateDocx 创建新版文档, 文档标题和目录可选。
+// CreateDocx 创建文档类型为 docx 的文档。你可选择传入文档标题和文件夹。
 //
-// 在调用此接口前, 请仔细阅读[新版文档 OpenAPI 接口校验规则](https://feishu.feishu.cn/docx/JTyjdXtsHo3H9AxXkgOcLTsynaf#doxcngFvzhv0AO8mbZAkGzVA4wh), 了解相关规则及约束。
+// 该接口仅支持指定文档标题, 不支持带内容创建文档。
 // 应用频率限制: 单个应用调用频率上限为每秒 3 次, 超过该频率限制, 接口将返回 HTTP 状态码 400 及错误码 99991400。当请求被限频, 应用需要处理限频状态码, 并使用指数退避算法或其它一些频控策略降低对 API 的调用速率。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/create

@@ -22,7 +22,7 @@ import (
 	"io"
 )
 
-// RecognizeAIFoodProduceLicense 食品生产许可证识别接口, 支持JPG/JPEG/PNG/BMP四种文件类型的一次性的识别。
+// RecognizeAIFoodProduceLicense 食品生产许可证识别接口, 支持JPG/JPEG/PNG/BMP/PDF五种文件类型的一次性的识别。
 //
 // 单租户限流: 10QPS, 同租户下的应用没有限流, 共享本租户的 10QPS 限流
 //

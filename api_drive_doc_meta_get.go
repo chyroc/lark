@@ -21,8 +21,9 @@ import (
 	"context"
 )
 
-// GetDriveDocMeta 此接口只支持查询旧版文档元信息, 如果需要查询新版文档元信息, 请使用[获取元数据](https://open.feishu.cn/document/ukTMukTMukTM/uMjN3UjLzYzN14yM2cTN)接口。
+// GetDriveDocMeta :::warning
 //
+// 此接口只支持查询旧版文档元信息。要查询新版文档（`docx` 类型）元信息, 使用[获取文档元数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/meta/batch_query)接口。
 // 该接口用于根据 docToken 获取元数据。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uczN3UjL3czN14yN3cTN
