@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 977, 事件总数: 136
+API 总数: 985, 事件总数: 139
 
 <details>
   <summary>
@@ -420,9 +420,16 @@ API 总数: 977, 事件总数: 136
   - GetContactUnitDepartmentList
   - GetContactScopeList
 - CoreHR
+  - SearchCoreHRNationality
+  - SearchCoreHRBank
+  - SearchCoreHRBankBranch
   - GetCoreHRCustomField
   - GetCoreHRCustomFieldList
   - GetCoreHRCustomFieldObjectApiNameList
+  - SearchCoreHRCountryRegion
+  - SearchCoreHRCountryRegionSubdivision
+  - SearchCoreHRCity
+  - SearchCoreHRDistrict
   - GetCoreHRCountryRegion
   - GetCoreHRCountryRegionList
   - GetCoreHRSubdivision
@@ -444,6 +451,7 @@ API 总数: 977, 事件总数: 136
   - UpdateCoreHRWorkingHoursType
   - GetCoreHRWorkingHoursType
   - GetCoreHRWorkingHoursTypeList
+  - SearchCoreHRCurrency
   - GetCoreHRCurrency
   - GetCoreHRCurrencyList
   - BatchGetCoreHREmployee
@@ -703,6 +711,9 @@ API 总数: 977, 事件总数: 136
 - Event
   - GetEventOutboundIpList
 - EventCallback
+  - EventV2CorehrJobCreatedV1
+  - EventV2CorehrJobUpdatedV1
+  - EventV2CorehrJobDeletedV1
   - EventV2CorehrProcessUpdatedV2
   - EventV2CorehrProcessCcUpdatedV2
   - EventV2CorehrProcessApproverUpdatedV2

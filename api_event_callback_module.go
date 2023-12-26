@@ -94,8 +94,11 @@ const (
 	EventTypeV2CorehrEmploymentResignedV1                      EventType = "corehr.employment.resigned_v1"
 	EventTypeV2CorehrEmploymentUpdatedV1                       EventType = "corehr.employment.updated_v1"
 	EventTypeV2CorehrJobChangeUpdatedV1                        EventType = "corehr.job_change.updated_v1"
+	EventTypeV2CorehrJobCreatedV1                              EventType = "corehr.job.created_v1"
 	EventTypeV2CorehrJobDataChangedV1                          EventType = "corehr.job_data.changed_v1"
 	EventTypeV2CorehrJobDataEmployedV1                         EventType = "corehr.job_data.employed_v1"
+	EventTypeV2CorehrJobDeletedV1                              EventType = "corehr.job.deleted_v1"
+	EventTypeV2CorehrJobUpdatedV1                              EventType = "corehr.job.updated_v1"
 	EventTypeV2CorehrOffboardingUpdatedV1                      EventType = "corehr.offboarding.updated_v1"
 	EventTypeV2CorehrOrgRoleAuthorizationUpdatedV1             EventType = "corehr.org_role_authorization.updated_v1"
 	EventTypeV2CorehrPersonCreatedV1                           EventType = "corehr.person.created_v1"
@@ -234,8 +237,11 @@ type eventHandler struct {
 	eventV2CorehrEmploymentResignedV1Handler                      EventV2CorehrEmploymentResignedV1Handler
 	eventV2CorehrEmploymentUpdatedV1Handler                       EventV2CorehrEmploymentUpdatedV1Handler
 	eventV2CorehrJobChangeUpdatedV1Handler                        EventV2CorehrJobChangeUpdatedV1Handler
+	eventV2CorehrJobCreatedV1Handler                              EventV2CorehrJobCreatedV1Handler
 	eventV2CorehrJobDataChangedV1Handler                          EventV2CorehrJobDataChangedV1Handler
 	eventV2CorehrJobDataEmployedV1Handler                         EventV2CorehrJobDataEmployedV1Handler
+	eventV2CorehrJobDeletedV1Handler                              EventV2CorehrJobDeletedV1Handler
+	eventV2CorehrJobUpdatedV1Handler                              EventV2CorehrJobUpdatedV1Handler
 	eventV2CorehrOffboardingUpdatedV1Handler                      EventV2CorehrOffboardingUpdatedV1Handler
 	eventV2CorehrOrgRoleAuthorizationUpdatedV1Handler             EventV2CorehrOrgRoleAuthorizationUpdatedV1Handler
 	eventV2CorehrPersonCreatedV1Handler                           EventV2CorehrPersonCreatedV1Handler
@@ -375,8 +381,11 @@ func (r *eventHandler) clone() *eventHandler {
 		eventV2CorehrEmploymentResignedV1Handler:                      r.eventV2CorehrEmploymentResignedV1Handler,
 		eventV2CorehrEmploymentUpdatedV1Handler:                       r.eventV2CorehrEmploymentUpdatedV1Handler,
 		eventV2CorehrJobChangeUpdatedV1Handler:                        r.eventV2CorehrJobChangeUpdatedV1Handler,
+		eventV2CorehrJobCreatedV1Handler:                              r.eventV2CorehrJobCreatedV1Handler,
 		eventV2CorehrJobDataChangedV1Handler:                          r.eventV2CorehrJobDataChangedV1Handler,
 		eventV2CorehrJobDataEmployedV1Handler:                         r.eventV2CorehrJobDataEmployedV1Handler,
+		eventV2CorehrJobDeletedV1Handler:                              r.eventV2CorehrJobDeletedV1Handler,
+		eventV2CorehrJobUpdatedV1Handler:                              r.eventV2CorehrJobUpdatedV1Handler,
 		eventV2CorehrOffboardingUpdatedV1Handler:                      r.eventV2CorehrOffboardingUpdatedV1Handler,
 		eventV2CorehrOrgRoleAuthorizationUpdatedV1Handler:             r.eventV2CorehrOrgRoleAuthorizationUpdatedV1Handler,
 		eventV2CorehrPersonCreatedV1Handler:                           r.eventV2CorehrPersonCreatedV1Handler,
@@ -515,8 +524,11 @@ type eventBody struct {
 	eventV2CorehrEmploymentResignedV1                      *EventV2CorehrEmploymentResignedV1
 	eventV2CorehrEmploymentUpdatedV1                       *EventV2CorehrEmploymentUpdatedV1
 	eventV2CorehrJobChangeUpdatedV1                        *EventV2CorehrJobChangeUpdatedV1
+	eventV2CorehrJobCreatedV1                              *EventV2CorehrJobCreatedV1
 	eventV2CorehrJobDataChangedV1                          *EventV2CorehrJobDataChangedV1
 	eventV2CorehrJobDataEmployedV1                         *EventV2CorehrJobDataEmployedV1
+	eventV2CorehrJobDeletedV1                              *EventV2CorehrJobDeletedV1
+	eventV2CorehrJobUpdatedV1                              *EventV2CorehrJobUpdatedV1
 	eventV2CorehrOffboardingUpdatedV1                      *EventV2CorehrOffboardingUpdatedV1
 	eventV2CorehrOrgRoleAuthorizationUpdatedV1             *EventV2CorehrOrgRoleAuthorizationUpdatedV1
 	eventV2CorehrPersonCreatedV1                           *EventV2CorehrPersonCreatedV1
@@ -845,6 +857,12 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 			return err
 		}
 		req.eventV2CorehrJobChangeUpdatedV1 = event
+	case EventTypeV2CorehrJobCreatedV1:
+		event := new(EventV2CorehrJobCreatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrJobCreatedV1 = event
 	case EventTypeV2CorehrJobDataChangedV1:
 		event := new(EventV2CorehrJobDataChangedV1)
 		if err := req.unmarshalEvent(event); err != nil {
@@ -857,6 +875,18 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 			return err
 		}
 		req.eventV2CorehrJobDataEmployedV1 = event
+	case EventTypeV2CorehrJobDeletedV1:
+		event := new(EventV2CorehrJobDeletedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrJobDeletedV1 = event
+	case EventTypeV2CorehrJobUpdatedV1:
+		event := new(EventV2CorehrJobUpdatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrJobUpdatedV1 = event
 	case EventTypeV2CorehrOffboardingUpdatedV1:
 		event := new(EventV2CorehrOffboardingUpdatedV1)
 		if err := req.unmarshalEvent(event); err != nil {
@@ -2047,6 +2077,15 @@ func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) 
 			}
 		}
 		return true, s, err
+	case req.eventV2CorehrJobCreatedV1 != nil:
+		if r.cli.eventHandler.eventV2CorehrJobCreatedV1Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CorehrJobCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrJobCreatedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CorehrJobCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrJobCreatedV1)
+			}
+		}
+		return true, s, err
 	case req.eventV2CorehrJobDataChangedV1 != nil:
 		if r.cli.eventHandler.eventV2CorehrJobDataChangedV1Handler != nil {
 			if r.cli.noBlocking {
@@ -2062,6 +2101,24 @@ func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) 
 				go r.cli.eventHandler.eventV2CorehrJobDataEmployedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrJobDataEmployedV1)
 			} else {
 				s, err = r.cli.eventHandler.eventV2CorehrJobDataEmployedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrJobDataEmployedV1)
+			}
+		}
+		return true, s, err
+	case req.eventV2CorehrJobDeletedV1 != nil:
+		if r.cli.eventHandler.eventV2CorehrJobDeletedV1Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CorehrJobDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrJobDeletedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CorehrJobDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrJobDeletedV1)
+			}
+		}
+		return true, s, err
+	case req.eventV2CorehrJobUpdatedV1 != nil:
+		if r.cli.eventHandler.eventV2CorehrJobUpdatedV1Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CorehrJobUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrJobUpdatedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CorehrJobUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrJobUpdatedV1)
 			}
 		}
 		return true, s, err
