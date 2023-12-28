@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 985, 事件总数: 139
+API 总数: 987, 事件总数: 139
 
 <details>
   <summary>
@@ -301,6 +301,8 @@ API 总数: 985, 事件总数: 139
   - SearchCalendarEvent
   - SubscribeCalendarEvent
   - UnsubscribeCalendarEvent
+  - ReplyCalendarEvent
+  - GetCalendarEventInstanceList
   - DeleteCalendarEventMeetingChat
   - CreateCalendarEventMeetingChat
   - CreateCalendarEventAttendee

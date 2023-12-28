@@ -252,6 +252,8 @@ type Mock struct {
 	mockCalendarSearchCalendarEvent                            func(ctx context.Context, request *SearchCalendarEventReq, options ...MethodOptionFunc) (*SearchCalendarEventResp, *Response, error)
 	mockCalendarSubscribeCalendarEvent                         func(ctx context.Context, request *SubscribeCalendarEventReq, options ...MethodOptionFunc) (*SubscribeCalendarEventResp, *Response, error)
 	mockCalendarUnsubscribeCalendarEvent                       func(ctx context.Context, request *UnsubscribeCalendarEventReq, options ...MethodOptionFunc) (*UnsubscribeCalendarEventResp, *Response, error)
+	mockCalendarReplyCalendarEvent                             func(ctx context.Context, request *ReplyCalendarEventReq, options ...MethodOptionFunc) (*ReplyCalendarEventResp, *Response, error)
+	mockCalendarGetCalendarEventInstanceList                   func(ctx context.Context, request *GetCalendarEventInstanceListReq, options ...MethodOptionFunc) (*GetCalendarEventInstanceListResp, *Response, error)
 	mockCalendarDeleteCalendarEventMeetingChat                 func(ctx context.Context, request *DeleteCalendarEventMeetingChatReq, options ...MethodOptionFunc) (*DeleteCalendarEventMeetingChatResp, *Response, error)
 	mockCalendarCreateCalendarEventMeetingChat                 func(ctx context.Context, request *CreateCalendarEventMeetingChatReq, options ...MethodOptionFunc) (*CreateCalendarEventMeetingChatResp, *Response, error)
 	mockCalendarCreateCalendarEventAttendee                    func(ctx context.Context, request *CreateCalendarEventAttendeeReq, options ...MethodOptionFunc) (*CreateCalendarEventAttendeeResp, *Response, error)

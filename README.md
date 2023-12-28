@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 985, Event Count: 139
+API Count: 987, Event Count: 139
 
 <details>
   <summary>
@@ -301,6 +301,8 @@ API Count: 985, Event Count: 139
   - SearchCalendarEvent
   - SubscribeCalendarEvent
   - UnsubscribeCalendarEvent
+  - ReplyCalendarEvent
+  - GetCalendarEventInstanceList
   - DeleteCalendarEventMeetingChat
   - CreateCalendarEventMeetingChat
   - CreateCalendarEventAttendee
