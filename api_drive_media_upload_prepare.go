@@ -64,7 +64,7 @@ func (r *Mock) UnMockDrivePrepareUploadDriveMedia() {
 type PrepareUploadDriveMediaReq struct {
 	FileName   string  `json:"file_name,omitempty"`   // 文件名, 示例值: "demo.jpeg", 最大长度: `250` 字符
 	ParentType string  `json:"parent_type,omitempty"` // 上传点类型, 示例值: "doc_image", 可选值有: doc_image: 文档图片。, docx_image: 新版文档图片, sheet_image: 电子表格图片。, doc_file: 文档文件。, docx_file: 新版文档文件, sheet_file: 电子表格文件。, vc_virtual_background: vc虚拟背景(灰度中, 暂未开放)。, bitable_image: 多维表格图片。, bitable_file: 多维表格文件。, moments: 同事圈(灰度中, 暂未开放)。, ccm_import_open: 云文档导入文件。
-	ParentNode string  `json:"parent_node,omitempty"` // 上传点的标识符, 示例值: "doccnFivLCfJfblZjGZtxgabcef"
+	ParentNode string  `json:"parent_node,omitempty"` // 上传点 Token, 用于指定素材将要上传到的具体文档或位置。点击 [这里](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction) 了解各上传点类型及其对应的上传点 Token 的说明, 示例值: "doccnFivLCfJfblZjGZtxgabcef"
 	Size       int64   `json:"size,omitempty"`        // 文件大小, 示例值: 1024, 最小值: `0`
 	Extra      *string `json:"extra,omitempty"`       // 扩展信息(可选), 示例值: "{\"test\":\"test\"}"
 }
