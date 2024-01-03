@@ -30,6 +30,7 @@ import (
 	"reflect"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/chyroc/lark/internal"
 )
@@ -118,6 +119,10 @@ func (r *Lark) parseRawHttpRequest(ctx context.Context, req *RawRequestReq) (*ra
 		Method:  strings.ToUpper(req.Method),
 		Headers: map[string]string{},
 		URL:     req.URL,
+		Timeout: r.timeout,
+	}
+	if req.MethodOption.timeout > 0 {
+		rawHttpReq.Timeout = req.MethodOption.timeout
 	}
 
 	// 1 headers
@@ -145,7 +150,13 @@ func (r *Lark) doRequest(ctx context.Context, rawHttpReq *rawHttpRequest, realRe
 			rawHttpReq.Method, rawHttpReq.URL, jsonHeader(rawHttpReq.Headers), string(rawHttpReq.RawBody))
 	}
 
-	req, err := http.NewRequest(rawHttpReq.Method, rawHttpReq.URL, rawHttpReq.Body)
+	if rawHttpReq.Timeout > 0 {
+		var cancel context.CancelFunc
+		ctx, cancel = context.WithTimeout(ctx, rawHttpReq.Timeout)
+		defer cancel()
+	}
+
+	req, err := http.NewRequestWithContext(ctx, rawHttpReq.Method, rawHttpReq.URL, rawHttpReq.Body)
 	if err != nil {
 		return response, err
 	}
@@ -337,6 +348,7 @@ type rawHttpRequest struct {
 	Body    io.Reader
 	RawBody []byte
 	Headers map[string]string
+	Timeout time.Duration
 }
 
 func newFileUploadRequest(params map[string]string, filekey string, reader io.Reader) (string, io.Reader, error) {

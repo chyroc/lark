@@ -160,9 +160,17 @@ func WithUserAccessToken(token string) MethodOptionFunc {
 	}
 }
 
+// WithRequestTimeout set request timeout
+func WithRequestTimeout(timeout time.Duration) MethodOptionFunc {
+	return func(option *MethodOption) {
+		option.timeout = timeout
+	}
+}
+
 // MethodOption method option
 type MethodOption struct {
 	userAccessToken string
+	timeout         time.Duration
 }
 
 func newMethodOption(options []MethodOptionFunc) *MethodOption {

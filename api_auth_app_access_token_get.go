@@ -58,6 +58,7 @@ func (r *AuthService) GetAppAccessToken(ctx context.Context) (*TokenExpire, *Res
 			AppSecret: r.cli.appSecret,
 			AppTicket: appTicket,
 		},
+		MethodOption: newMethodOption(nil),
 	}
 	resp := new(getTenantAccessTokenResp)
 
