@@ -65,7 +65,7 @@ func (r *Mock) UnMockDriveDeleteDriveFile() {
 // DeleteDriveFileReq ...
 type DeleteDriveFileReq struct {
 	FileToken string `path:"file_token" json:"-"` // 需要删除的文件token, 示例值: "boxcnrHpsg1QDqXAAAyachabcef"
-	Type      string `query:"type" json:"-"`      // 被删除文件的类型, 示例值: file, 可选值有: file: 文件类型, docx: 新版文档类型, bitable: 多维表格类型, folder: 文件夹类型, doc: 文档类型, sheet: 电子表格类型, mindnote: 思维笔记类型, shortcut: 快捷方式类型
+	Type      string `query:"type" json:"-"`      // 被删除文件的类型, 示例值: file, 可选值有: file: 文件类型, docx: 新版文档类型, bitable: 多维表格类型, folder: 文件夹类型, doc: 文档类型, sheet: 电子表格类型, mindnote: 思维笔记类型, shortcut: 快捷方式类型, slides: 幻灯片
 }
 
 // DeleteDriveFileResp ...

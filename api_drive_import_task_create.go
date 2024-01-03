@@ -60,7 +60,7 @@ func (r *Mock) UnMockDriveCreateDriveImportTask() {
 // CreateDriveImportTaskReq ...
 type CreateDriveImportTaskReq struct {
 	FileExtension string                         `json:"file_extension,omitempty"` // 导入文件格式后缀, 示例值: "xlsx"
-	FileToken     string                         `json:"file_token,omitempty"`     // 导入文件Drive FileToken, 示例值: "boxcnxe5OxxxxxxxSNdsJviENsk"
+	FileToken     string                         `json:"file_token,omitempty"`     // 导入文件Drive FileToken, 示例值: "boxcnxe5OxxxxxxxSNdsJviENsk", 最大长度: `27` 字符
 	Type          string                         `json:"type,omitempty"`           // 导入目标云文档格式, 示例值: "sheet"
 	FileName      *string                        `json:"file_name,omitempty"`      // 导入目标云文档文件名, 若为空使用Drive文件名, 示例值: "test"
 	Point         *CreateDriveImportTaskReqPoint `json:"point,omitempty"`          // 挂载点

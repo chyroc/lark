@@ -59,6 +59,7 @@ func (r *Mock) UnMockDriveCreateDriveFileShortcut() {
 
 // CreateDriveFileShortcutReq ...
 type CreateDriveFileShortcutReq struct {
+	UserIDType  *IDType                                `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	ParentToken string                                 `json:"parent_token,omitempty"` // 目标父文件夹`Token`, 获取方式见[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6), 示例值: "fldbc5qgwyQnO0uedNllWuF3fAd"
 	ReferEntity *CreateDriveFileShortcutReqReferEntity `json:"refer_entity,omitempty"` // 源文档的信息
 }
@@ -66,7 +67,7 @@ type CreateDriveFileShortcutReq struct {
 // CreateDriveFileShortcutReqReferEntity ...
 type CreateDriveFileShortcutReqReferEntity struct {
 	ReferToken string `json:"refer_token,omitempty"` // 源文档的`Token`, 示例值: "doxbcGvhSVN0R6octqPwAEYNfFb"
-	ReferType  string `json:"refer_type,omitempty"`  // 源文档的类型, 示例值: "docx", 可选值有: file: 文件, docx: 新版文档, bitable: 多维表格, doc: 旧版文档, sheet: 电子表格, mindnote: 思维笔记
+	ReferType  string `json:"refer_type,omitempty"`  // 源文档的类型, 示例值: "docx", 可选值有: file: 文件, docx: 新版文档, bitable: 多维表格, doc: 旧版文档, sheet: 电子表格, mindnote: 思维笔记, slides: 幻灯片类型
 }
 
 // CreateDriveFileShortcutResp ...
@@ -82,6 +83,9 @@ type CreateDriveFileShortcutRespSuccShortcutNode struct {
 	ParentToken  string                                                   `json:"parent_token,omitempty"`  // 父文件夹`Token`
 	URL          string                                                   `json:"url,omitempty"`           // 访问链接
 	ShortcutInfo *CreateDriveFileShortcutRespSuccShortcutNodeShortcutInfo `json:"shortcut_info,omitempty"` // 快捷方式源文件信息
+	CreatedTime  string                                                   `json:"created_time,omitempty"`  // 文件创建时间
+	ModifiedTime string                                                   `json:"modified_time,omitempty"` // 文件最近修改时间
+	OwnerID      string                                                   `json:"owner_id,omitempty"`      // 文件所有者
 }
 
 // CreateDriveFileShortcutRespSuccShortcutNodeShortcutInfo ...
