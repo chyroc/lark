@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetChatListOfSelf 根据使用的 access_token 获取用户或者机器人所在群列表。
+// GetChatListOfSelf 获取 [access_token](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-choose-which-type-of-token-to-use) 所代表的用户或者机器人所在的群列表。
 //
 // 注意事项:
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)

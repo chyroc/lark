@@ -23,7 +23,7 @@ import (
 
 // DetectTextLanguage 机器翻译 (MT), 支持 100 多种语言识别, 返回符合 ISO 639-1 标准。
 //
-// 单租户限流: 20QPS, 同租户下的应用没有限流, 共享本租户的 20QPS 限流
+// 单租户限流: 20QPS, 同租户下的应用没有限流, 共享本租户的 20QPS 限流。免费版不支持调用。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/translation-v1/text/detect
 // new doc: https://open.feishu.cn/document/server-docs/ai/translation-v1/detect

@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 987, Event Count: 139
+API Count: 996, Event Count: 139
 
 <details>
   <summary>
@@ -55,6 +55,8 @@ API Count: 987, Event Count: 139
   - UpdateACSUser
   - GetACSUserList
 - AI
+  - RecognizeAIVehicleInvoice
+  - RecognizeAIHealthCertificate
   - RecognizeAIHkmMainlandTravelPermit
   - RecognizeAITwMainlandTravelPermit
   - RecognizeAIChinesePassport
@@ -485,12 +487,19 @@ API Count: 987, Event Count: 139
   - DeleteCoreHRLocation
   - GetCoreHRLocation
   - GetCoreHRLocationList
+  - GetCoreHRCompany
+  - GetCoreHRCompanyList
   - BatchGetCoreHRCompany
   - CreateCoreHRCompany
   - UpdateCoreHRCompany
   - DeleteCoreHRCompany
-  - GetCoreHRCompany
-  - GetCoreHRCompanyList
+  - CreateCoreHRCostCenter
+  - ActiveCoreHRCostCenter
+  - DeleteCoreHRCostCenter
+  - SearchCoreHRCostCenter
+  - CreateCoreHRCostCenterVersion
+  - UpdateCoreHRCostCenterVersion
+  - DeleteCoreHRCostCenterVersion
   - BatchGetCoreHRJobLevel
   - CreateCoreHRJobLevel
   - DeleteCoreHRJobLevel

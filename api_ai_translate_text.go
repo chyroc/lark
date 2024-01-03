@@ -39,7 +39,7 @@ import (
 // "pt": 葡萄牙语；
 // "ko": 朝鲜语；
 // "vi": 越南语；
-// 单租户限流: 20QPS, 同租户下的应用没有限流, 共享本租户的 20QPS 限流
+// 单租户限流: 20QPS, 同租户下的应用没有限流, 共享本租户的 20QPS 限流。免费版不支持调用。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/translation-v1/text/translate
 // new doc: https://open.feishu.cn/document/server-docs/ai/translation-v1/translate

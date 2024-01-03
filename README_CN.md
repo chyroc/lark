@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 987, 事件总数: 139
+API 总数: 996, 事件总数: 139
 
 <details>
   <summary>
@@ -55,6 +55,8 @@ API 总数: 987, 事件总数: 139
   - UpdateACSUser
   - GetACSUserList
 - AI
+  - RecognizeAIVehicleInvoice
+  - RecognizeAIHealthCertificate
   - RecognizeAIHkmMainlandTravelPermit
   - RecognizeAITwMainlandTravelPermit
   - RecognizeAIChinesePassport
@@ -485,12 +487,19 @@ API 总数: 987, 事件总数: 139
   - DeleteCoreHRLocation
   - GetCoreHRLocation
   - GetCoreHRLocationList
+  - GetCoreHRCompany
+  - GetCoreHRCompanyList
   - BatchGetCoreHRCompany
   - CreateCoreHRCompany
   - UpdateCoreHRCompany
   - DeleteCoreHRCompany
-  - GetCoreHRCompany
-  - GetCoreHRCompanyList
+  - CreateCoreHRCostCenter
+  - ActiveCoreHRCostCenter
+  - DeleteCoreHRCostCenter
+  - SearchCoreHRCostCenter
+  - CreateCoreHRCostCenterVersion
+  - UpdateCoreHRCostCenterVersion
+  - DeleteCoreHRCostCenterVersion
   - BatchGetCoreHRJobLevel
   - CreateCoreHRJobLevel
   - DeleteCoreHRJobLevel
