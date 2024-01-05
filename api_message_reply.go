@@ -64,10 +64,11 @@ func (r *Mock) UnMockMessageReplyRawMessage() {
 
 // ReplyRawMessageReq ...
 type ReplyRawMessageReq struct {
-	MessageID string  `path:"message_id" json:"-"` // 待回复的消息的ID, 详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2), 示例值: "om_dc13264520392913993dd051dba21dcf"
-	Content   string  `json:"content,omitempty"`   // 消息内容 json 格式, 格式说明参考: [发送消息内容](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json), 示例值: "`{\"text\":\"test content\"}`"
-	MsgType   MsgType `json:"msg_type,omitempty"`  // 消息类型, 包括: text、post、image、file、audio、media、sticker、interactive、share_card、share_user, 示例值: "text"
-	UUID      *string `json:"uuid,omitempty"`      // 由开发者生成的唯一字符串序列, 用于回复消息请求去重；持有相同uuid的请求1小时内至多成功执行一次, 示例值: "选填, 若填写每次调用前请更换, 如: a0d69e20-1dd1-458b-k525-dfeca4015204", 最大长度: `50` 字符
+	MessageID     string  `path:"message_id" json:"-"`       // 待回复的消息的ID, 详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2), 示例值: "om_dc13264520392913993dd051dba21dcf"
+	Content       string  `json:"content,omitempty"`         // 消息内容 json 格式, 格式说明参考: [发送消息内容](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json), 示例值: "`{\"text\":\"test content\"}`"
+	MsgType       MsgType `json:"msg_type,omitempty"`        // 消息类型, 包括: text、post、image、file、audio、media、sticker、interactive、share_card、share_user, 示例值: "text"
+	ReplyInThread *bool   `json:"reply_in_thread,omitempty"` // 是否以话题形式回复；若要回复的消息已经是话题消息, 则默认已话题形式进行回复, 示例值: false, 默认值: `false`
+	UUID          *string `json:"uuid,omitempty"`            // 由开发者生成的唯一字符串序列, 用于回复消息请求去重；持有相同uuid的请求1小时内至多成功执行一次, 示例值: "选填, 每次调用前请更换, 如a0d69e20-1dd1-458b-k525-dfeca4015204", 最大长度: `50` 字符
 }
 
 // ReplyRawMessageResp ...
@@ -75,6 +76,7 @@ type ReplyRawMessageResp struct {
 	MessageID      string       `json:"message_id,omitempty"`       // 消息id, 说明参见: [消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 	RootID         string       `json:"root_id,omitempty"`          // 根消息id, 用于回复消息场景, 说明参见: [消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 	ParentID       string       `json:"parent_id,omitempty"`        // 父消息的id, 用于回复消息场景, 说明参见: [消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	ThreadID       string       `json:"thread_id,omitempty"`        // 消息所属的话题 ID
 	MsgType        MsgType      `json:"msg_type,omitempty"`         // 消息类型 包括: text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等, 类型定义请参考[接收消息内容](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/events/message_content)
 	CreateTime     string       `json:"create_time,omitempty"`      // 消息生成的时间戳（毫秒）
 	UpdateTime     string       `json:"update_time,omitempty"`      // 消息更新的时间戳（毫秒）

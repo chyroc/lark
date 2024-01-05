@@ -68,7 +68,7 @@ type SendRawMessageReq struct {
 	ReceiveID     string  `json:"receive_id,omitempty"`      // 消息接收者的ID, ID类型应与查询参数[receive_id_type] 对应；推荐使用 OpenID, 获取方式可参考文档[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), 示例值: "ou_7d8a6e6df7621556ce0d21922b676706ccs"
 	MsgType       MsgType `json:"msg_type,omitempty"`        // 消息类型 包括: text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等, 类型定义请参考[发送消息内容](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json), 示例值: "text"
 	Content       string  `json:"content,omitempty"`         // 消息内容, JSON结构序列化后的字符串。不同msg_type对应不同内容, 具体格式说明参考: [发送消息内容](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json), 注意: JSON字符串需进行转义, 如换行符转义后为`\\n`, 文本消息请求体最大不能超过150KB, 卡片及富文本消息请求体最大不能超过30KB, 示例值: "`{\"text\":\"test content\"}`"
-	UUID          *string `json:"uuid,omitempty"`            // 由开发者生成的唯一字符串序列, 用于发送消息请求去重；持有相同uuid的请求1小时内至多成功发送一条消息, 示例值: "选填, 若填写每次调用前请更换, 如: a0d69e20-1dd1-458b-k525-dfeca4015204", 最大长度: `50` 字符
+	UUID          *string `json:"uuid,omitempty"`            // 由开发者生成的唯一字符串序列, 用于发送消息请求去重；持有相同uuid的请求1小时内至多成功发送一条消息, 示例值: "选填, 每次调用前请更换, 如a0d69e20-1dd1-458b-k525-dfeca4015204", 最大长度: `50` 字符
 }
 
 // SendRawMessageResp ...
@@ -76,6 +76,7 @@ type SendRawMessageResp struct {
 	MessageID      string       `json:"message_id,omitempty"`       // 消息id, 说明参见: [消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 	RootID         string       `json:"root_id,omitempty"`          // 根消息id, 用于回复消息场景, 说明参见: [消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
 	ParentID       string       `json:"parent_id,omitempty"`        // 父消息的id, 用于回复消息场景, 说明参见: [消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	ThreadID       string       `json:"thread_id,omitempty"`        // 消息所属的话题 ID
 	MsgType        MsgType      `json:"msg_type,omitempty"`         // 消息类型 包括: text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等, 类型定义请参考[接收消息内容](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/events/message_content)
 	CreateTime     string       `json:"create_time,omitempty"`      // 消息生成的时间戳（毫秒）
 	UpdateTime     string       `json:"update_time,omitempty"`      // 消息更新的时间戳（毫秒）
