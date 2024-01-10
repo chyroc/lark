@@ -32,7 +32,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/external_task/list
 func (r *ApprovalService) GetApprovalExternalList(ctx context.Context, request *GetApprovalExternalListReq, options ...MethodOptionFunc) (*GetApprovalExternalListResp, *Response, error) {
 	if r.cli.mock.mockApprovalGetApprovalExternalList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#GetApprovalExternalList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Approval#GetApprovalExternalList mock enable")
 		return r.cli.mock.mockApprovalGetApprovalExternalList(ctx, request, options...)
 	}
 

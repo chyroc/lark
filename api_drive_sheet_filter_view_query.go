@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet-filter_view/query
 func (r *DriveService) QuerySheetFilterView(ctx context.Context, request *QuerySheetFilterViewReq, options ...MethodOptionFunc) (*QuerySheetFilterViewResp, *Response, error) {
 	if r.cli.mock.mockDriveQuerySheetFilterView != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#QuerySheetFilterView mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#QuerySheetFilterView mock enable")
 		return r.cli.mock.mockDriveQuerySheetFilterView(ctx, request, options...)
 	}
 

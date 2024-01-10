@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/approval-search/search_cc
 func (r *ApprovalService) SearchApprovalCarbonCopy(ctx context.Context, request *SearchApprovalCarbonCopyReq, options ...MethodOptionFunc) (*SearchApprovalCarbonCopyResp, *Response, error) {
 	if r.cli.mock.mockApprovalSearchApprovalCarbonCopy != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#SearchApprovalCarbonCopy mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Approval#SearchApprovalCarbonCopy mock enable")
 		return r.cli.mock.mockApprovalSearchApprovalCarbonCopy(ctx, request, options...)
 	}
 

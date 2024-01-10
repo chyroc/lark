@@ -31,7 +31,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar/delete
 func (r *CalendarService) DeleteCalendar(ctx context.Context, request *DeleteCalendarReq, options ...MethodOptionFunc) (*DeleteCalendarResp, *Response, error) {
 	if r.cli.mock.mockCalendarDeleteCalendar != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#DeleteCalendar mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Calendar#DeleteCalendar mock enable")
 		return r.cli.mock.mockCalendarDeleteCalendar(ctx, request, options...)
 	}
 

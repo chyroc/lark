@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/leave_accrual_record/patch
 func (r *AttendanceService) UpdateAttendanceLeaveAccrualRecord(ctx context.Context, request *UpdateAttendanceLeaveAccrualRecordReq, options ...MethodOptionFunc) (*UpdateAttendanceLeaveAccrualRecordResp, *Response, error) {
 	if r.cli.mock.mockAttendanceUpdateAttendanceLeaveAccrualRecord != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#UpdateAttendanceLeaveAccrualRecord mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Attendance#UpdateAttendanceLeaveAccrualRecord mock enable")
 		return r.cli.mock.mockAttendanceUpdateAttendanceLeaveAccrualRecord(ctx, request, options...)
 	}
 

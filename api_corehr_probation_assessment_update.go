@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/probation-assessment/patch
 func (r *CoreHRService) UpdateCoreHRProbationAssessment(ctx context.Context, request *UpdateCoreHRProbationAssessmentReq, options ...MethodOptionFunc) (*UpdateCoreHRProbationAssessmentResp, *Response, error) {
 	if r.cli.mock.mockCoreHRUpdateCoreHRProbationAssessment != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#UpdateCoreHRProbationAssessment mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#UpdateCoreHRProbationAssessment mock enable")
 		return r.cli.mock.mockCoreHRUpdateCoreHRProbationAssessment(ctx, request, options...)
 	}
 

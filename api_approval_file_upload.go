@@ -28,7 +28,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/file/upload-files
 func (r *ApprovalService) UploadApprovalFile(ctx context.Context, request *UploadApprovalFileReq, options ...MethodOptionFunc) (*UploadApprovalFileResp, *Response, error) {
 	if r.cli.mock.mockApprovalUploadApprovalFile != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#UploadApprovalFile mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Approval#UploadApprovalFile mock enable")
 		return r.cli.mock.mockApprovalUploadApprovalFile(ctx, request, options...)
 	}
 

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/job_family/list
 func (r *ContactService) GetContactJobFamilyList(ctx context.Context, request *GetContactJobFamilyListReq, options ...MethodOptionFunc) (*GetContactJobFamilyListResp, *Response, error) {
 	if r.cli.mock.mockContactGetContactJobFamilyList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetContactJobFamilyList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#GetContactJobFamilyList mock enable")
 		return r.cli.mock.mockContactGetContactJobFamilyList(ctx, request, options...)
 	}
 

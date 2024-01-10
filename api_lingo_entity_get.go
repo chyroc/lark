@@ -28,7 +28,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/lingo-v1/entity/get
 func (r *LingoService) GetLingoEntity(ctx context.Context, request *GetLingoEntityReq, options ...MethodOptionFunc) (*GetLingoEntityResp, *Response, error) {
 	if r.cli.mock.mockLingoGetLingoEntity != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Lingo#GetLingoEntity mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Lingo#GetLingoEntity mock enable")
 		return r.cli.mock.mockLingoGetLingoEntity(ctx, request, options...)
 	}
 

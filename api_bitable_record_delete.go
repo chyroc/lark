@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-record/delete
 func (r *BitableService) DeleteBitableRecord(ctx context.Context, request *DeleteBitableRecordReq, options ...MethodOptionFunc) (*DeleteBitableRecordResp, *Response, error) {
 	if r.cli.mock.mockBitableDeleteBitableRecord != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#DeleteBitableRecord mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Bitable#DeleteBitableRecord mock enable")
 		return r.cli.mock.mockBitableDeleteBitableRecord(ctx, request, options...)
 	}
 

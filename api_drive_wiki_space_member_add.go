@@ -33,7 +33,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/wiki-v2/space-member/create
 func (r *DriveService) AddWikiSpaceMember(ctx context.Context, request *AddWikiSpaceMemberReq, options ...MethodOptionFunc) (*AddWikiSpaceMemberResp, *Response, error) {
 	if r.cli.mock.mockDriveAddWikiSpaceMember != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#AddWikiSpaceMember mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#AddWikiSpaceMember mock enable")
 		return r.cli.mock.mockDriveAddWikiSpaceMember(ctx, request, options...)
 	}
 

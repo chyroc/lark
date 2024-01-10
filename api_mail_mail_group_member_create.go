@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/mail-v1/mail-group/mailgroup-member/create
 func (r *MailService) CreateMailGroupMember(ctx context.Context, request *CreateMailGroupMemberReq, options ...MethodOptionFunc) (*CreateMailGroupMemberResp, *Response, error) {
 	if r.cli.mock.mockMailCreateMailGroupMember != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#CreateMailGroupMember mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#CreateMailGroupMember mock enable")
 		return r.cli.mock.mockMailCreateMailGroupMember(ctx, request, options...)
 	}
 

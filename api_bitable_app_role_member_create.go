@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/advanced-permission/app-role-member/create
 func (r *BitableService) CreateBitableAppRoleMember(ctx context.Context, request *CreateBitableAppRoleMemberReq, options ...MethodOptionFunc) (*CreateBitableAppRoleMemberResp, *Response, error) {
 	if r.cli.mock.mockBitableCreateBitableAppRoleMember != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#CreateBitableAppRoleMember mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Bitable#CreateBitableAppRoleMember mock enable")
 		return r.cli.mock.mockBitableCreateBitableAppRoleMember(ctx, request, options...)
 	}
 

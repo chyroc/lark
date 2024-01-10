@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/calendar-v4/timeoff_event/delete
 func (r *CalendarService) DeleteCalendarTimeoffEvent(ctx context.Context, request *DeleteCalendarTimeoffEventReq, options ...MethodOptionFunc) (*DeleteCalendarTimeoffEventResp, *Response, error) {
 	if r.cli.mock.mockCalendarDeleteCalendarTimeoffEvent != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#DeleteCalendarTimeoffEvent mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Calendar#DeleteCalendarTimeoffEvent mock enable")
 		return r.cli.mock.mockCalendarDeleteCalendarTimeoffEvent(ctx, request, options...)
 	}
 

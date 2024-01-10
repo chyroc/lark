@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/leave/create
 func (r *CoreHRService) CreateCoreHRLeaveGrantingRecord(ctx context.Context, request *CreateCoreHRLeaveGrantingRecordReq, options ...MethodOptionFunc) (*CreateCoreHRLeaveGrantingRecordResp, *Response, error) {
 	if r.cli.mock.mockCoreHRCreateCoreHRLeaveGrantingRecord != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCoreHRLeaveGrantingRecord mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCoreHRLeaveGrantingRecord mock enable")
 		return r.cli.mock.mockCoreHRCreateCoreHRLeaveGrantingRecord(ctx, request, options...)
 	}
 

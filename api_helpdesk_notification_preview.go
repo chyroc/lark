@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/notification/preview
 func (r *HelpdeskService) PreviewHelpdeskNotification(ctx context.Context, request *PreviewHelpdeskNotificationReq, options ...MethodOptionFunc) (*PreviewHelpdeskNotificationResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskPreviewHelpdeskNotification != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#PreviewHelpdeskNotification mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Helpdesk#PreviewHelpdeskNotification mock enable")
 		return r.cli.mock.mockHelpdeskPreviewHelpdeskNotification(ctx, request, options...)
 	}
 

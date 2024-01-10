@@ -28,7 +28,7 @@ import (
 // Deprecated
 func (r *MessageService) GetMessageSpecialFocusList(ctx context.Context, request *GetMessageSpecialFocusListReq, options ...MethodOptionFunc) (*GetMessageSpecialFocusListResp, *Response, error) {
 	if r.cli.mock.mockMessageGetMessageSpecialFocusList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Message#GetMessageSpecialFocusList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#GetMessageSpecialFocusList mock enable")
 		return r.cli.mock.mockMessageGetMessageSpecialFocusList(ctx, request, options...)
 	}
 

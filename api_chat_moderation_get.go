@@ -31,7 +31,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/group/chat/get
 func (r *ChatService) GetChatModeration(ctx context.Context, request *GetChatModerationReq, options ...MethodOptionFunc) (*GetChatModerationResp, *Response, error) {
 	if r.cli.mock.mockChatGetChatModeration != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#GetChatModeration mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Chat#GetChatModeration mock enable")
 		return r.cli.mock.mockChatGetChatModeration(ctx, request, options...)
 	}
 

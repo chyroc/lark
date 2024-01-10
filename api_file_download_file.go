@@ -35,7 +35,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/file/get
 func (r *FileService) DownloadFile(ctx context.Context, request *DownloadFileReq, options ...MethodOptionFunc) (*DownloadFileResp, *Response, error) {
 	if r.cli.mock.mockFileDownloadFile != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] File#DownloadFile mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] File#DownloadFile mock enable")
 		return r.cli.mock.mockFileDownloadFile(ctx, request, options...)
 	}
 

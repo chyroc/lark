@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/reserve/delete
 func (r *VCService) DeleteVCReserve(ctx context.Context, request *DeleteVCReserveReq, options ...MethodOptionFunc) (*DeleteVCReserveResp, *Response, error) {
 	if r.cli.mock.mockVCDeleteVCReserve != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] VC#DeleteVCReserve mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#DeleteVCReserve mock enable")
 		return r.cli.mock.mockVCDeleteVCReserve(ctx, request, options...)
 	}
 

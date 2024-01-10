@@ -39,7 +39,7 @@ import (
 // Deprecated
 func (r *ContactService) GetDepartmentListOld(ctx context.Context, request *GetDepartmentListOldReq, options ...MethodOptionFunc) (*GetDepartmentListOldResp, *Response, error) {
 	if r.cli.mock.mockContactGetDepartmentListOld != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetDepartmentListOld mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#GetDepartmentListOld mock enable")
 		return r.cli.mock.mockContactGetDepartmentListOld(ctx, request, options...)
 	}
 

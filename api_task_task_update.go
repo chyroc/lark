@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task/patch
 func (r *TaskService) UpdateTask(ctx context.Context, request *UpdateTaskReq, options ...MethodOptionFunc) (*UpdateTaskResp, *Response, error) {
 	if r.cli.mock.mockTaskUpdateTask != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Task#UpdateTask mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#UpdateTask mock enable")
 		return r.cli.mock.mockTaskUpdateTask(ctx, request, options...)
 	}
 

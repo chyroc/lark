@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/application-v6/appstore-paid-info/query-a-user's-app-access
 func (r *ApplicationService) CheckUserIsInApplicationPaidScope(ctx context.Context, request *CheckUserIsInApplicationPaidScopeReq, options ...MethodOptionFunc) (*CheckUserIsInApplicationPaidScopeResp, *Response, error) {
 	if r.cli.mock.mockApplicationCheckUserIsInApplicationPaidScope != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Application#CheckUserIsInApplicationPaidScope mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#CheckUserIsInApplicationPaidScope mock enable")
 		return r.cli.mock.mockApplicationCheckUserIsInApplicationPaidScope(ctx, request, options...)
 	}
 

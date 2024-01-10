@@ -33,7 +33,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/group/chat-tab/sort_tabs
 func (r *ChatService) SortChatTab(ctx context.Context, request *SortChatTabReq, options ...MethodOptionFunc) (*SortChatTabResp, *Response, error) {
 	if r.cli.mock.mockChatSortChatTab != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#SortChatTab mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Chat#SortChatTab mock enable")
 		return r.cli.mock.mockChatSortChatTab(ctx, request, options...)
 	}
 

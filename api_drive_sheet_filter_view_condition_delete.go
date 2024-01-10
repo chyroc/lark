@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet-filter_view/spreadsheet-sheet-filter_view-condition/delete
 func (r *DriveService) DeleteSheetFilterViewCondition(ctx context.Context, request *DeleteSheetFilterViewConditionReq, options ...MethodOptionFunc) (*DeleteSheetFilterViewConditionResp, *Response, error) {
 	if r.cli.mock.mockDriveDeleteSheetFilterViewCondition != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteSheetFilterViewCondition mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#DeleteSheetFilterViewCondition mock enable")
 		return r.cli.mock.mockDriveDeleteSheetFilterViewCondition(ctx, request, options...)
 	}
 

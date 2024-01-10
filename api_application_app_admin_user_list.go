@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/application-v6/admin/query-app-administrator-list
 func (r *ApplicationService) GetApplicationAppAdminUserList(ctx context.Context, request *GetApplicationAppAdminUserListReq, options ...MethodOptionFunc) (*GetApplicationAppAdminUserListResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplicationAppAdminUserList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Application#GetApplicationAppAdminUserList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#GetApplicationAppAdminUserList mock enable")
 		return r.cli.mock.mockApplicationGetApplicationAppAdminUserList(ctx, request, options...)
 	}
 

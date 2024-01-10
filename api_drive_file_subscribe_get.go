@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/get_subscribe
 func (r *DriveService) GetSubscribeDriveFile(ctx context.Context, request *GetSubscribeDriveFileReq, options ...MethodOptionFunc) (*GetSubscribeDriveFileResp, *Response, error) {
 	if r.cli.mock.mockDriveGetSubscribeDriveFile != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetSubscribeDriveFile mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetSubscribeDriveFile mock enable")
 		return r.cli.mock.mockDriveGetSubscribeDriveFile(ctx, request, options...)
 	}
 

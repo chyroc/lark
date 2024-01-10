@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/human_authentication-v1/query-recognition-result
 func (r *HumanAuthService) GetFaceVerifyAuthResult(ctx context.Context, request *GetFaceVerifyAuthResultReq, options ...MethodOptionFunc) (*GetFaceVerifyAuthResultResp, *Response, error) {
 	if r.cli.mock.mockHumanAuthGetFaceVerifyAuthResult != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] HumanAuth#GetFaceVerifyAuthResult mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] HumanAuth#GetFaceVerifyAuthResult mock enable")
 		return r.cli.mock.mockHumanAuthGetFaceVerifyAuthResult(ctx, request, options...)
 	}
 

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/note/get
 func (r *HireService) GetHireNote(ctx context.Context, request *GetHireNoteReq, options ...MethodOptionFunc) (*GetHireNoteResp, *Response, error) {
 	if r.cli.mock.mockHireGetHireNote != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#GetHireNote mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#GetHireNote mock enable")
 		return r.cli.mock.mockHireGetHireNote(ctx, request, options...)
 	}
 

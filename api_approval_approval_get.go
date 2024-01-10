@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/approval/get
 func (r *ApprovalService) GetApproval(ctx context.Context, request *GetApprovalReq, options ...MethodOptionFunc) (*GetApprovalResp, *Response, error) {
 	if r.cli.mock.mockApprovalGetApproval != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#GetApproval mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Approval#GetApproval mock enable")
 		return r.cli.mock.mockApprovalGetApproval(ctx, request, options...)
 	}
 

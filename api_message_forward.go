@@ -36,7 +36,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/message/forward
 func (r *MessageService) ForwardMessage(ctx context.Context, request *ForwardMessageReq, options ...MethodOptionFunc) (*ForwardMessageResp, *Response, error) {
 	if r.cli.mock.mockMessageForwardMessage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Message#ForwardMessage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#ForwardMessage mock enable")
 		return r.cli.mock.mockMessageForwardMessage(ctx, request, options...)
 	}
 

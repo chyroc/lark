@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task-comment/delete
 func (r *TaskService) DeleteTaskComment(ctx context.Context, request *DeleteTaskCommentReq, options ...MethodOptionFunc) (*DeleteTaskCommentResp, *Response, error) {
 	if r.cli.mock.mockTaskDeleteTaskComment != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Task#DeleteTaskComment mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#DeleteTaskComment mock enable")
 		return r.cli.mock.mockTaskDeleteTaskComment(ctx, request, options...)
 	}
 

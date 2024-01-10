@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/job-management/job_level/get
 func (r *CoreHRService) GetCoreHRJobLevel(ctx context.Context, request *GetCoreHRJobLevelReq, options ...MethodOptionFunc) (*GetCoreHRJobLevelResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRJobLevel != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRJobLevel mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRJobLevel mock enable")
 		return r.cli.mock.mockCoreHRGetCoreHRJobLevel(ctx, request, options...)
 	}
 

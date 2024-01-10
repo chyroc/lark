@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/get-candidates/referral/get_by_application
 func (r *HireService) GetHireReferralByApplication(ctx context.Context, request *GetHireReferralByApplicationReq, options ...MethodOptionFunc) (*GetHireReferralByApplicationResp, *Response, error) {
 	if r.cli.mock.mockHireGetHireReferralByApplication != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#GetHireReferralByApplication mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#GetHireReferralByApplication mock enable")
 		return r.cli.mock.mockHireGetHireReferralByApplication(ctx, request, options...)
 	}
 

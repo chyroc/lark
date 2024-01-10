@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/mail-v1/mail-group/mailgroup-permission_member/batch_create
 func (r *MailService) BatchCreateMailGroupPermissionMember(ctx context.Context, request *BatchCreateMailGroupPermissionMemberReq, options ...MethodOptionFunc) (*BatchCreateMailGroupPermissionMemberResp, *Response, error) {
 	if r.cli.mock.mockMailBatchCreateMailGroupPermissionMember != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#BatchCreateMailGroupPermissionMember mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#BatchCreateMailGroupPermissionMember mock enable")
 		return r.cli.mock.mockMailBatchCreateMailGroupPermissionMember(ctx, request, options...)
 	}
 

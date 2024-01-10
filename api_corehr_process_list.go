@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/list
 func (r *CoreHRService) GetCoreHRProcessList(ctx context.Context, request *GetCoreHRProcessListReq, options ...MethodOptionFunc) (*GetCoreHRProcessListResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRProcessList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRProcessList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRProcessList mock enable")
 		return r.cli.mock.mockCoreHRGetCoreHRProcessList(ctx, request, options...)
 	}
 

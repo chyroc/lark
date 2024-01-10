@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/alert/list
 func (r *VCService) GetVCAlertList(ctx context.Context, request *GetVCAlertListReq, options ...MethodOptionFunc) (*GetVCAlertListResp, *Response, error) {
 	if r.cli.mock.mockVCGetVCAlertList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] VC#GetVCAlertList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#GetVCAlertList mock enable")
 		return r.cli.mock.mockVCGetVCAlertList(ctx, request, options...)
 	}
 

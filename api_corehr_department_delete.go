@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/department/delete
 func (r *CoreHRService) DeleteCoreHRDepartment(ctx context.Context, request *DeleteCoreHRDepartmentReq, options ...MethodOptionFunc) (*DeleteCoreHRDepartmentResp, *Response, error) {
 	if r.cli.mock.mockCoreHRDeleteCoreHRDepartment != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHRDepartment mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHRDepartment mock enable")
 		return r.cli.mock.mockCoreHRDeleteCoreHRDepartment(ctx, request, options...)
 	}
 

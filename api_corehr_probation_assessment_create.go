@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/probation-assessment/create
 func (r *CoreHRService) CreateCoreHRProbationAssessment(ctx context.Context, request *CreateCoreHRProbationAssessmentReq, options ...MethodOptionFunc) (*CreateCoreHRProbationAssessmentResp, *Response, error) {
 	if r.cli.mock.mockCoreHRCreateCoreHRProbationAssessment != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCoreHRProbationAssessment mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCoreHRProbationAssessment mock enable")
 		return r.cli.mock.mockCoreHRCreateCoreHRProbationAssessment(ctx, request, options...)
 	}
 

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/group-member/remove
 func (r *ContactService) DeleteContactGroupMember(ctx context.Context, request *DeleteContactGroupMemberReq, options ...MethodOptionFunc) (*DeleteContactGroupMemberResp, *Response, error) {
 	if r.cli.mock.mockContactDeleteContactGroupMember != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#DeleteContactGroupMember mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#DeleteContactGroupMember mock enable")
 		return r.cli.mock.mockContactDeleteContactGroupMember(ctx, request, options...)
 	}
 

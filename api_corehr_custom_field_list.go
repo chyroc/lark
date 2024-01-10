@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/query
 func (r *CoreHRService) GetCoreHRCustomFieldList(ctx context.Context, request *GetCoreHRCustomFieldListReq, options ...MethodOptionFunc) (*GetCoreHRCustomFieldListResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRCustomFieldList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRCustomFieldList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRCustomFieldList mock enable")
 		return r.cli.mock.mockCoreHRGetCoreHRCustomFieldList(ctx, request, options...)
 	}
 

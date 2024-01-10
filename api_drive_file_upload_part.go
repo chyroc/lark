@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/upload/multipart-upload-file-/upload_part
 func (r *DriveService) PartUploadDriveFile(ctx context.Context, request *PartUploadDriveFileReq, options ...MethodOptionFunc) (*PartUploadDriveFileResp, *Response, error) {
 	if r.cli.mock.mockDrivePartUploadDriveFile != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#PartUploadDriveFile mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#PartUploadDriveFile mock enable")
 		return r.cli.mock.mockDrivePartUploadDriveFile(ctx, request, options...)
 	}
 

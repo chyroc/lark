@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/personal_settings-v1/system_status/list
 func (r *PersonalSettingsService) GetPersonalSettingsSystemStatusList(ctx context.Context, request *GetPersonalSettingsSystemStatusListReq, options ...MethodOptionFunc) (*GetPersonalSettingsSystemStatusListResp, *Response, error) {
 	if r.cli.mock.mockPersonalSettingsGetPersonalSettingsSystemStatusList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] PersonalSettings#GetPersonalSettingsSystemStatusList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] PersonalSettings#GetPersonalSettingsSystemStatusList mock enable")
 		return r.cli.mock.mockPersonalSettingsGetPersonalSettingsSystemStatusList(ctx, request, options...)
 	}
 

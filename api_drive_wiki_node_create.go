@@ -31,7 +31,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/wiki-v2/space-node/create
 func (r *DriveService) CreateWikiNode(ctx context.Context, request *CreateWikiNodeReq, options ...MethodOptionFunc) (*CreateWikiNodeResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateWikiNode != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateWikiNode mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#CreateWikiNode mock enable")
 		return r.cli.mock.mockDriveCreateWikiNode(ctx, request, options...)
 	}
 

@@ -31,7 +31,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/wiki-v2/space-node/list
 func (r *DriveService) GetWikiNodeList(ctx context.Context, request *GetWikiNodeListReq, options ...MethodOptionFunc) (*GetWikiNodeListResp, *Response, error) {
 	if r.cli.mock.mockDriveGetWikiNodeList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetWikiNodeList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetWikiNodeList mock enable")
 		return r.cli.mock.mockDriveGetWikiNodeList(ctx, request, options...)
 	}
 

@@ -31,7 +31,7 @@ import (
 // Deprecated
 func (r *BaikeService) CreateBaikeEntity(ctx context.Context, request *CreateBaikeEntityReq, options ...MethodOptionFunc) (*CreateBaikeEntityResp, *Response, error) {
 	if r.cli.mock.mockBaikeCreateBaikeEntity != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Baike#CreateBaikeEntity mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Baike#CreateBaikeEntity mock enable")
 		return r.cli.mock.mockBaikeCreateBaikeEntity(ctx, request, options...)
 	}
 

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task-comment/update
 func (r *TaskService) UpdateTaskComment(ctx context.Context, request *UpdateTaskCommentReq, options ...MethodOptionFunc) (*UpdateTaskCommentResp, *Response, error) {
 	if r.cli.mock.mockTaskUpdateTaskComment != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Task#UpdateTaskComment mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#UpdateTaskComment mock enable")
 		return r.cli.mock.mockTaskUpdateTaskComment(ctx, request, options...)
 	}
 

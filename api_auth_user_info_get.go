@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/authentication-management/login-state-management/get
 func (r *AuthService) GetUserInfo(ctx context.Context, request *GetUserInfoReq, options ...MethodOptionFunc) (*GetUserInfoResp, *Response, error) {
 	if r.cli.mock.mockAuthGetUserInfo != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Auth#GetUserInfo mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Auth#GetUserInfo mock enable")
 		return r.cli.mock.mockAuthGetUserInfo(ctx, request, options...)
 	}
 

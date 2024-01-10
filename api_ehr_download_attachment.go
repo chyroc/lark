@@ -31,7 +31,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/ehr-v1/get
 func (r *EHRService) DownloadEHRAttachments(ctx context.Context, request *DownloadEHRAttachmentsReq, options ...MethodOptionFunc) (*DownloadEHRAttachmentsResp, *Response, error) {
 	if r.cli.mock.mockEHRDownloadEHRAttachments != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] EHR#DownloadEHRAttachments mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] EHR#DownloadEHRAttachments mock enable")
 		return r.cli.mock.mockEHRDownloadEHRAttachments(ctx, request, options...)
 	}
 

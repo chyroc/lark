@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/data-operation/split-cells
 func (r *DriveService) UnmergeSheetCell(ctx context.Context, request *UnmergeSheetCellReq, options ...MethodOptionFunc) (*UnmergeSheetCellResp, *Response, error) {
 	if r.cli.mock.mockDriveUnmergeSheetCell != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UnmergeSheetCell mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#UnmergeSheetCell mock enable")
 		return r.cli.mock.mockDriveUnmergeSheetCell(ctx, request, options...)
 	}
 

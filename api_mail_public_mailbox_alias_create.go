@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/mail-v1/public-mailbox/public_mailbox-alias/create
 func (r *MailService) CreateMailPublicMailboxAlias(ctx context.Context, request *CreateMailPublicMailboxAliasReq, options ...MethodOptionFunc) (*CreateMailPublicMailboxAliasResp, *Response, error) {
 	if r.cli.mock.mockMailCreateMailPublicMailboxAlias != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#CreateMailPublicMailboxAlias mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#CreateMailPublicMailboxAlias mock enable")
 		return r.cli.mock.mockMailCreateMailPublicMailboxAlias(ctx, request, options...)
 	}
 

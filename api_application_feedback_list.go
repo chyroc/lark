@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/application-v6/application-feedback/list
 func (r *ApplicationService) GetApplicationFeedbackList(ctx context.Context, request *GetApplicationFeedbackListReq, options ...MethodOptionFunc) (*GetApplicationFeedbackListResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplicationFeedbackList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Application#GetApplicationFeedbackList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#GetApplicationFeedbackList mock enable")
 		return r.cli.mock.mockApplicationGetApplicationFeedbackList(ctx, request, options...)
 	}
 

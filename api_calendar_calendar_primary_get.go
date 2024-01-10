@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar/primary
 func (r *CalendarService) GetPrimaryCalendar(ctx context.Context, request *GetPrimaryCalendarReq, options ...MethodOptionFunc) (*GetPrimaryCalendarResp, *Response, error) {
 	if r.cli.mock.mockCalendarGetPrimaryCalendar != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#GetPrimaryCalendar mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Calendar#GetPrimaryCalendar mock enable")
 		return r.cli.mock.mockCalendarGetPrimaryCalendar(ctx, request, options...)
 	}
 

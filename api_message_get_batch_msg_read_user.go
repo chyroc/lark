@@ -31,7 +31,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/batch_message/read_user
 func (r *MessageService) GetBatchSentMessageReadUser(ctx context.Context, request *GetBatchSentMessageReadUserReq, options ...MethodOptionFunc) (*GetBatchSentMessageReadUserResp, *Response, error) {
 	if r.cli.mock.mockMessageGetBatchSentMessageReadUser != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Message#GetBatchSentMessageReadUser mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#GetBatchSentMessageReadUser mock enable")
 		return r.cli.mock.mockMessageGetBatchSentMessageReadUser(ctx, request, options...)
 	}
 

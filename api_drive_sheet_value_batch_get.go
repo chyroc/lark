@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/data-operation/reading-multiple-ranges
 func (r *DriveService) BatchGetSheetValue(ctx context.Context, request *BatchGetSheetValueReq, options ...MethodOptionFunc) (*BatchGetSheetValueResp, *Response, error) {
 	if r.cli.mock.mockDriveBatchGetSheetValue != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#BatchGetSheetValue mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#BatchGetSheetValue mock enable")
 		return r.cli.mock.mockDriveBatchGetSheetValue(ctx, request, options...)
 	}
 

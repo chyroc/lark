@@ -28,7 +28,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/lingo-v1/entity/delete
 func (r *LingoService) DeleteLingoEntity(ctx context.Context, request *DeleteLingoEntityReq, options ...MethodOptionFunc) (*DeleteLingoEntityResp, *Response, error) {
 	if r.cli.mock.mockLingoDeleteLingoEntity != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Lingo#DeleteLingoEntity mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Lingo#DeleteLingoEntity mock enable")
 		return r.cli.mock.mockLingoDeleteLingoEntity(ctx, request, options...)
 	}
 

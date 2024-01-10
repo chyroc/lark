@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/list
 func (r *CoreHRService) GetCoreHRJobListV2(ctx context.Context, request *GetCoreHRJobListV2Req, options ...MethodOptionFunc) (*GetCoreHRJobListV2Resp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRJobListV2 != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRJobListV2 mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRJobListV2 mock enable")
 		return r.cli.mock.mockCoreHRGetCoreHRJobListV2(ctx, request, options...)
 	}
 

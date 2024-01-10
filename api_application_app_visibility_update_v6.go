@@ -29,7 +29,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-visibility/patch
 func (r *ApplicationService) UpdateApplicationAppVisibilityV6(ctx context.Context, request *UpdateApplicationAppVisibilityV6Req, options ...MethodOptionFunc) (*UpdateApplicationAppVisibilityV6Resp, *Response, error) {
 	if r.cli.mock.mockApplicationUpdateApplicationAppVisibilityV6 != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Application#UpdateApplicationAppVisibilityV6 mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#UpdateApplicationAppVisibilityV6 mock enable")
 		return r.cli.mock.mockApplicationUpdateApplicationAppVisibilityV6(ctx, request, options...)
 	}
 

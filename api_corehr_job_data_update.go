@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/job_data/patch
 func (r *CoreHRService) UpdateCoreHRJobData(ctx context.Context, request *UpdateCoreHRJobDataReq, options ...MethodOptionFunc) (*UpdateCoreHRJobDataResp, *Response, error) {
 	if r.cli.mock.mockCoreHRUpdateCoreHRJobData != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#UpdateCoreHRJobData mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#UpdateCoreHRJobData mock enable")
 		return r.cli.mock.mockCoreHRUpdateCoreHRJobData(ctx, request, options...)
 	}
 

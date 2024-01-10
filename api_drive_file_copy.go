@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/file/copy
 func (r *DriveService) CopyDriveFile(ctx context.Context, request *CopyDriveFileReq, options ...MethodOptionFunc) (*CopyDriveFileResp, *Response, error) {
 	if r.cli.mock.mockDriveCopyDriveFile != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CopyDriveFile mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#CopyDriveFile mock enable")
 		return r.cli.mock.mockDriveCopyDriveFile(ctx, request, options...)
 	}
 

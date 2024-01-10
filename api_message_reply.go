@@ -33,7 +33,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/message/reply
 func (r *MessageService) ReplyRawMessage(ctx context.Context, request *ReplyRawMessageReq, options ...MethodOptionFunc) (*ReplyRawMessageResp, *Response, error) {
 	if r.cli.mock.mockMessageReplyRawMessage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Message#ReplyRawMessage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#ReplyRawMessage mock enable")
 		return r.cli.mock.mockMessageReplyRawMessage(ctx, request, options...)
 	}
 

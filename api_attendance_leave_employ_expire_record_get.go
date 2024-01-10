@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/leave_employ_expire_record/get
 func (r *AttendanceService) GetAttendanceLeaveEmployExpireRecord(ctx context.Context, request *GetAttendanceLeaveEmployExpireRecordReq, options ...MethodOptionFunc) (*GetAttendanceLeaveEmployExpireRecordResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetAttendanceLeaveEmployExpireRecord != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceLeaveEmployExpireRecord mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceLeaveEmployExpireRecord mock enable")
 		return r.cli.mock.mockAttendanceGetAttendanceLeaveEmployExpireRecord(ctx, request, options...)
 	}
 

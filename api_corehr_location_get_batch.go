@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/location/batch_get
 func (r *CoreHRService) BatchGetCoreHRLocation(ctx context.Context, request *BatchGetCoreHRLocationReq, options ...MethodOptionFunc) (*BatchGetCoreHRLocationResp, *Response, error) {
 	if r.cli.mock.mockCoreHRBatchGetCoreHRLocation != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#BatchGetCoreHRLocation mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#BatchGetCoreHRLocation mock enable")
 		return r.cli.mock.mockCoreHRBatchGetCoreHRLocation(ctx, request, options...)
 	}
 

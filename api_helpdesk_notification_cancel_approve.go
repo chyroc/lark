@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/notification/cancel_approve
 func (r *HelpdeskService) CancelApproveHelpdeskNotification(ctx context.Context, request *CancelApproveHelpdeskNotificationReq, options ...MethodOptionFunc) (*CancelApproveHelpdeskNotificationResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskCancelApproveHelpdeskNotification != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#CancelApproveHelpdeskNotification mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Helpdesk#CancelApproveHelpdeskNotification mock enable")
 		return r.cli.mock.mockHelpdeskCancelApproveHelpdeskNotification(ctx, request, options...)
 	}
 

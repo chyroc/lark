@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/probation/search
 func (r *CoreHRService) SearchCoreHRProbation(ctx context.Context, request *SearchCoreHRProbationReq, options ...MethodOptionFunc) (*SearchCoreHRProbationResp, *Response, error) {
 	if r.cli.mock.mockCoreHRSearchCoreHRProbation != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#SearchCoreHRProbation mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#SearchCoreHRProbation mock enable")
 		return r.cli.mock.mockCoreHRSearchCoreHRProbation(ctx, request, options...)
 	}
 

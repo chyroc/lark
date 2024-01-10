@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/job_level/update
 func (r *ContactService) UpdateContactJobLevel(ctx context.Context, request *UpdateContactJobLevelReq, options ...MethodOptionFunc) (*UpdateContactJobLevelResp, *Response, error) {
 	if r.cli.mock.mockContactUpdateContactJobLevel != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#UpdateContactJobLevel mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#UpdateContactJobLevel mock enable")
 		return r.cli.mock.mockContactUpdateContactJobLevel(ctx, request, options...)
 	}
 

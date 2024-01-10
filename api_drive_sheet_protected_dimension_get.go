@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/protect-range/retrieve-protection-scopes
 func (r *DriveService) GetSheetProtectedDimension(ctx context.Context, request *GetSheetProtectedDimensionReq, options ...MethodOptionFunc) (*GetSheetProtectedDimensionResp, *Response, error) {
 	if r.cli.mock.mockDriveGetSheetProtectedDimension != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetSheetProtectedDimension mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetSheetProtectedDimension mock enable")
 		return r.cli.mock.mockDriveGetSheetProtectedDimension(ctx, request, options...)
 	}
 

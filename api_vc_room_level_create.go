@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/room_level/create
 func (r *VCService) CreateVCRoomLevel(ctx context.Context, request *CreateVCRoomLevelReq, options ...MethodOptionFunc) (*CreateVCRoomLevelResp, *Response, error) {
 	if r.cli.mock.mockVCCreateVCRoomLevel != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] VC#CreateVCRoomLevel mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#CreateVCRoomLevel mock enable")
 		return r.cli.mock.mockVCCreateVCRoomLevel(ctx, request, options...)
 	}
 

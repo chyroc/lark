@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar/subscription
 func (r *CalendarService) SubscribeCalendarChangeEvent(ctx context.Context, request *SubscribeCalendarChangeEventReq, options ...MethodOptionFunc) (*SubscribeCalendarChangeEventResp, *Response, error) {
 	if r.cli.mock.mockCalendarSubscribeCalendarChangeEvent != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#SubscribeCalendarChangeEvent mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Calendar#SubscribeCalendarChangeEvent mock enable")
 		return r.cli.mock.mockCalendarSubscribeCalendarChangeEvent(ctx, request, options...)
 	}
 

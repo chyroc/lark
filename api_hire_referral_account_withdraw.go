@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/withdraw
 func (r *HireService) WithdrawHireReferralAccount(ctx context.Context, request *WithdrawHireReferralAccountReq, options ...MethodOptionFunc) (*WithdrawHireReferralAccountResp, *Response, error) {
 	if r.cli.mock.mockHireWithdrawHireReferralAccount != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#WithdrawHireReferralAccount mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#WithdrawHireReferralAccount mock enable")
 		return r.cli.mock.mockHireWithdrawHireReferralAccount(ctx, request, options...)
 	}
 

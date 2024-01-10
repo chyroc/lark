@@ -30,7 +30,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get
 func (r *CoreHRService) BatchGetCoreHREmployee(ctx context.Context, request *BatchGetCoreHREmployeeReq, options ...MethodOptionFunc) (*BatchGetCoreHREmployeeResp, *Response, error) {
 	if r.cli.mock.mockCoreHRBatchGetCoreHREmployee != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#BatchGetCoreHREmployee mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#BatchGetCoreHREmployee mock enable")
 		return r.cli.mock.mockCoreHRBatchGetCoreHREmployee(ctx, request, options...)
 	}
 

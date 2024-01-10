@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/unit/patch
 func (r *ContactService) UpdateContactUnit(ctx context.Context, request *UpdateContactUnitReq, options ...MethodOptionFunc) (*UpdateContactUnitResp, *Response, error) {
 	if r.cli.mock.mockContactUpdateContactUnit != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#UpdateContactUnit mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#UpdateContactUnit mock enable")
 		return r.cli.mock.mockContactUpdateContactUnit(ctx, request, options...)
 	}
 

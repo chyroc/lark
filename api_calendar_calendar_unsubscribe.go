@@ -31,7 +31,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar/unsubscribe
 func (r *CalendarService) UnsubscribeCalendar(ctx context.Context, request *UnsubscribeCalendarReq, options ...MethodOptionFunc) (*UnsubscribeCalendarResp, *Response, error) {
 	if r.cli.mock.mockCalendarUnsubscribeCalendar != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#UnsubscribeCalendar mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Calendar#UnsubscribeCalendar mock enable")
 		return r.cli.mock.mockCalendarUnsubscribeCalendar(ctx, request, options...)
 	}
 

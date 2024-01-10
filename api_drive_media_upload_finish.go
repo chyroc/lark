@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/media/multipart-upload-media/upload_finish
 func (r *DriveService) FinishUploadDriveMedia(ctx context.Context, request *FinishUploadDriveMediaReq, options ...MethodOptionFunc) (*FinishUploadDriveMediaResp, *Response, error) {
 	if r.cli.mock.mockDriveFinishUploadDriveMedia != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#FinishUploadDriveMedia mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#FinishUploadDriveMedia mock enable")
 		return r.cli.mock.mockDriveFinishUploadDriveMedia(ctx, request, options...)
 	}
 

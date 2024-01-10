@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/folder/get-folder-meta
 func (r *DriveService) GetDriveFolderMeta(ctx context.Context, request *GetDriveFolderMetaReq, options ...MethodOptionFunc) (*GetDriveFolderMetaResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDriveFolderMeta != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveFolderMeta mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetDriveFolderMeta mock enable")
 		return r.cli.mock.mockDriveGetDriveFolderMeta(ctx, request, options...)
 	}
 

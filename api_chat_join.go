@@ -32,7 +32,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/group/chat-member/me_join
 func (r *ChatService) JoinChat(ctx context.Context, request *JoinChatReq, options ...MethodOptionFunc) (*JoinChatResp, *Response, error) {
 	if r.cli.mock.mockChatJoinChat != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#JoinChat mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Chat#JoinChat mock enable")
 		return r.cli.mock.mockChatJoinChat(ctx, request, options...)
 	}
 

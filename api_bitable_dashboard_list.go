@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-dashboard/list
 func (r *BitableService) GetBitableDashboardList(ctx context.Context, request *GetBitableDashboardListReq, options ...MethodOptionFunc) (*GetBitableDashboardListResp, *Response, error) {
 	if r.cli.mock.mockBitableGetBitableDashboardList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetBitableDashboardList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Bitable#GetBitableDashboardList mock enable")
 		return r.cli.mock.mockBitableGetBitableDashboardList(ctx, request, options...)
 	}
 

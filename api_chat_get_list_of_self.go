@@ -32,7 +32,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/group/chat/list
 func (r *ChatService) GetChatListOfSelf(ctx context.Context, request *GetChatListOfSelfReq, options ...MethodOptionFunc) (*GetChatListOfSelfResp, *Response, error) {
 	if r.cli.mock.mockChatGetChatListOfSelf != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#GetChatListOfSelf mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Chat#GetChatListOfSelf mock enable")
 		return r.cli.mock.mockChatGetChatListOfSelf(ctx, request, options...)
 	}
 

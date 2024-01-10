@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-record/list
 func (r *BitableService) GetBitableRecordList(ctx context.Context, request *GetBitableRecordListReq, options ...MethodOptionFunc) (*GetBitableRecordListResp, *Response, error) {
 	if r.cli.mock.mockBitableGetBitableRecordList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetBitableRecordList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Bitable#GetBitableRecordList mock enable")
 		return r.cli.mock.mockBitableGetBitableRecordList(ctx, request, options...)
 	}
 

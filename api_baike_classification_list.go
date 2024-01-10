@@ -32,7 +32,7 @@ import (
 // Deprecated
 func (r *BaikeService) GetBaikeClassificationList(ctx context.Context, request *GetBaikeClassificationListReq, options ...MethodOptionFunc) (*GetBaikeClassificationListResp, *Response, error) {
 	if r.cli.mock.mockBaikeGetBaikeClassificationList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Baike#GetBaikeClassificationList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Baike#GetBaikeClassificationList mock enable")
 		return r.cli.mock.mockBaikeGetBaikeClassificationList(ctx, request, options...)
 	}
 

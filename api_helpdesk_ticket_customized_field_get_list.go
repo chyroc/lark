@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/ticket-management/ticket_customized_field/list-ticket-customized-fields
 func (r *HelpdeskService) GetHelpdeskTicketCustomizedFieldList(ctx context.Context, request *GetHelpdeskTicketCustomizedFieldListReq, options ...MethodOptionFunc) (*GetHelpdeskTicketCustomizedFieldListResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskGetHelpdeskTicketCustomizedFieldList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetHelpdeskTicketCustomizedFieldList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Helpdesk#GetHelpdeskTicketCustomizedFieldList mock enable")
 		return r.cli.mock.mockHelpdeskGetHelpdeskTicketCustomizedFieldList(ctx, request, options...)
 	}
 

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/mail-v1/mail-group/mailgroup-permission_member/batch_delete
 func (r *MailService) BatchDeleteMailGroupPermissionMember(ctx context.Context, request *BatchDeleteMailGroupPermissionMemberReq, options ...MethodOptionFunc) (*BatchDeleteMailGroupPermissionMemberResp, *Response, error) {
 	if r.cli.mock.mockMailBatchDeleteMailGroupPermissionMember != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#BatchDeleteMailGroupPermissionMember mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#BatchDeleteMailGroupPermissionMember mock enable")
 		return r.cli.mock.mockMailBatchDeleteMailGroupPermissionMember(ctx, request, options...)
 	}
 

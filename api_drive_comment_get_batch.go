@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/CommentAPI/batch_query
 func (r *DriveService) BatchGetDriveComment(ctx context.Context, request *BatchGetDriveCommentReq, options ...MethodOptionFunc) (*BatchGetDriveCommentResp, *Response, error) {
 	if r.cli.mock.mockDriveBatchGetDriveComment != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#BatchGetDriveComment mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#BatchGetDriveComment mock enable")
 		return r.cli.mock.mockDriveBatchGetDriveComment(ctx, request, options...)
 	}
 

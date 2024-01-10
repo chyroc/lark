@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-nationality/search
 func (r *CoreHRService) SearchCoreHRNationality(ctx context.Context, request *SearchCoreHRNationalityReq, options ...MethodOptionFunc) (*SearchCoreHRNationalityResp, *Response, error) {
 	if r.cli.mock.mockCoreHRSearchCoreHRNationality != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#SearchCoreHRNationality mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#SearchCoreHRNationality mock enable")
 		return r.cli.mock.mockCoreHRSearchCoreHRNationality(ctx, request, options...)
 	}
 

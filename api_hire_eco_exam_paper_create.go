@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/ecological-docking/eco_exam_paper/create
 func (r *HireService) CreateHireEcoExamPaper(ctx context.Context, request *CreateHireEcoExamPaperReq, options ...MethodOptionFunc) (*CreateHireEcoExamPaperResp, *Response, error) {
 	if r.cli.mock.mockHireCreateHireEcoExamPaper != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#CreateHireEcoExamPaper mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#CreateHireEcoExamPaper mock enable")
 		return r.cli.mock.mockHireCreateHireEcoExamPaper(ctx, request, options...)
 	}
 

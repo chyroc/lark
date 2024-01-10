@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/ai/speech_to_text-v1/file_recognize
 func (r *AIService) RecognizeSpeechFile(ctx context.Context, request *RecognizeSpeechFileReq, options ...MethodOptionFunc) (*RecognizeSpeechFileResp, *Response, error) {
 	if r.cli.mock.mockAIRecognizeSpeechFile != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] AI#RecognizeSpeechFile mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] AI#RecognizeSpeechFile mock enable")
 		return r.cli.mock.mockAIRecognizeSpeechFile(ctx, request, options...)
 	}
 

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/datavalidation/update-datavalidation
 func (r *DriveService) UpdateSheetDataValidationDropdown(ctx context.Context, request *UpdateSheetDataValidationDropdownReq, options ...MethodOptionFunc) (*UpdateSheetDataValidationDropdownResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateSheetDataValidationDropdown != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateSheetDataValidationDropdown mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#UpdateSheetDataValidationDropdown mock enable")
 		return r.cli.mock.mockDriveUpdateSheetDataValidationDropdown(ctx, request, options...)
 	}
 

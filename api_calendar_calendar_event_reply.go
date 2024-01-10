@@ -28,7 +28,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/reply
 func (r *CalendarService) ReplyCalendarEvent(ctx context.Context, request *ReplyCalendarEventReq, options ...MethodOptionFunc) (*ReplyCalendarEventResp, *Response, error) {
 	if r.cli.mock.mockCalendarReplyCalendarEvent != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#ReplyCalendarEvent mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Calendar#ReplyCalendarEvent mock enable")
 		return r.cli.mock.mockCalendarReplyCalendarEvent(ctx, request, options...)
 	}
 

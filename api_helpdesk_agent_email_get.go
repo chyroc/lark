@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/agent-function/agent/agent_email
 func (r *HelpdeskService) GetHelpdeskAgentEmail(ctx context.Context, request *GetHelpdeskAgentEmailReq, options ...MethodOptionFunc) (*GetHelpdeskAgentEmailResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskGetHelpdeskAgentEmail != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetHelpdeskAgentEmail mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Helpdesk#GetHelpdeskAgentEmail mock enable")
 		return r.cli.mock.mockHelpdeskGetHelpdeskAgentEmail(ctx, request, options...)
 	}
 

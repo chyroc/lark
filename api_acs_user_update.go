@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/acs-v1/user/patch
 func (r *ACSService) UpdateACSUser(ctx context.Context, request *UpdateACSUserReq, options ...MethodOptionFunc) (*UpdateACSUserResp, *Response, error) {
 	if r.cli.mock.mockACSUpdateACSUser != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] ACS#UpdateACSUser mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] ACS#UpdateACSUser mock enable")
 		return r.cli.mock.mockACSUpdateACSUser(ctx, request, options...)
 	}
 

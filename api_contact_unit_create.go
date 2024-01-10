@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/unit/create
 func (r *ContactService) CreateContactUnit(ctx context.Context, request *CreateContactUnitReq, options ...MethodOptionFunc) (*CreateContactUnitResp, *Response, error) {
 	if r.cli.mock.mockContactCreateContactUnit != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#CreateContactUnit mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#CreateContactUnit mock enable")
 		return r.cli.mock.mockContactCreateContactUnit(ctx, request, options...)
 	}
 

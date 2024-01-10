@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet-filter/update
 func (r *DriveService) UpdateSheetFilter(ctx context.Context, request *UpdateSheetFilterReq, options ...MethodOptionFunc) (*UpdateSheetFilterResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateSheetFilter != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateSheetFilter mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#UpdateSheetFilter mock enable")
 		return r.cli.mock.mockDriveUpdateSheetFilter(ctx, request, options...)
 	}
 

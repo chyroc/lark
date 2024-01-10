@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/get-candidates/import-external-system-information/update-2
 func (r *HireService) UpdateHireExternalApplication(ctx context.Context, request *UpdateHireExternalApplicationReq, options ...MethodOptionFunc) (*UpdateHireExternalApplicationResp, *Response, error) {
 	if r.cli.mock.mockHireUpdateHireExternalApplication != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#UpdateHireExternalApplication mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#UpdateHireExternalApplication mock enable")
 		return r.cli.mock.mockHireUpdateHireExternalApplication(ctx, request, options...)
 	}
 

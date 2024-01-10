@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/offer/offer_status
 func (r *HireService) UpdateHireOfferStatus(ctx context.Context, request *UpdateHireOfferStatusReq, options ...MethodOptionFunc) (*UpdateHireOfferStatusResp, *Response, error) {
 	if r.cli.mock.mockHireUpdateHireOfferStatus != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#UpdateHireOfferStatus mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#UpdateHireOfferStatus mock enable")
 		return r.cli.mock.mockHireUpdateHireOfferStatus(ctx, request, options...)
 	}
 

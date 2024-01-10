@@ -33,7 +33,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/message/delete
 func (r *MessageService) DeleteMessage(ctx context.Context, request *DeleteMessageReq, options ...MethodOptionFunc) (*DeleteMessageResp, *Response, error) {
 	if r.cli.mock.mockMessageDeleteMessage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Message#DeleteMessage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#DeleteMessage mock enable")
 		return r.cli.mock.mockMessageDeleteMessage(ctx, request, options...)
 	}
 

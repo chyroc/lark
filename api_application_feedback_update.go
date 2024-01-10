@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/application-v6/application-feedback/patch
 func (r *ApplicationService) UpdateApplicationFeedback(ctx context.Context, request *UpdateApplicationFeedbackReq, options ...MethodOptionFunc) (*UpdateApplicationFeedbackResp, *Response, error) {
 	if r.cli.mock.mockApplicationUpdateApplicationFeedback != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Application#UpdateApplicationFeedback mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#UpdateApplicationFeedback mock enable")
 		return r.cli.mock.mockApplicationUpdateApplicationFeedback(ctx, request, options...)
 	}
 

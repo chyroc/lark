@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/data-operation/replace
 func (r *DriveService) ReplaceSheet(ctx context.Context, request *ReplaceSheetReq, options ...MethodOptionFunc) (*ReplaceSheetResp, *Response, error) {
 	if r.cli.mock.mockDriveReplaceSheet != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#ReplaceSheet mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#ReplaceSheet mock enable")
 		return r.cli.mock.mockDriveReplaceSheet(ctx, request, options...)
 	}
 

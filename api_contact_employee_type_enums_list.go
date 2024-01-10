@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/employee_type_enum/list
 func (r *ContactService) GetEmployeeTypeEnumList(ctx context.Context, request *GetEmployeeTypeEnumListReq, options ...MethodOptionFunc) (*GetEmployeeTypeEnumListResp, *Response, error) {
 	if r.cli.mock.mockContactGetEmployeeTypeEnumList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetEmployeeTypeEnumList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#GetEmployeeTypeEnumList mock enable")
 		return r.cli.mock.mockContactGetEmployeeTypeEnumList(ctx, request, options...)
 	}
 

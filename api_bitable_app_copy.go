@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app/copy
 func (r *BitableService) CopyBitableApp(ctx context.Context, request *CopyBitableAppReq, options ...MethodOptionFunc) (*CopyBitableAppResp, *Response, error) {
 	if r.cli.mock.mockBitableCopyBitableApp != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#CopyBitableApp mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Bitable#CopyBitableApp mock enable")
 		return r.cli.mock.mockBitableCopyBitableApp(ctx, request, options...)
 	}
 

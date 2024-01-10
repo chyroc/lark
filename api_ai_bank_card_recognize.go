@@ -29,7 +29,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/document_ai-v1/bank_card/recognize
 func (r *AIService) RecognizeAIBankCard(ctx context.Context, request *RecognizeAIBankCardReq, options ...MethodOptionFunc) (*RecognizeAIBankCardResp, *Response, error) {
 	if r.cli.mock.mockAIRecognizeAIBankCard != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] AI#RecognizeAIBankCard mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] AI#RecognizeAIBankCard mock enable")
 		return r.cli.mock.mockAIRecognizeAIBankCard(ctx, request, options...)
 	}
 

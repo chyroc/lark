@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/scope_config/get-2
 func (r *VCService) GetVCReserveConfigForm(ctx context.Context, request *GetVCReserveConfigFormReq, options ...MethodOptionFunc) (*GetVCReserveConfigFormResp, *Response, error) {
 	if r.cli.mock.mockVCGetVCReserveConfigForm != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] VC#GetVCReserveConfigForm mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#GetVCReserveConfigForm mock enable")
 		return r.cli.mock.mockVCGetVCReserveConfigForm(ctx, request, options...)
 	}
 

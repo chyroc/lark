@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/file/async-task/task_check
 func (r *DriveService) GetDriveFileTask(ctx context.Context, request *GetDriveFileTaskReq, options ...MethodOptionFunc) (*GetDriveFileTaskResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDriveFileTask != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveFileTask mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetDriveFileTask mock enable")
 		return r.cli.mock.mockDriveGetDriveFileTask(ctx, request, options...)
 	}
 

@@ -32,7 +32,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/group/chat-tab/list_tabs
 func (r *ChatService) GetChatTabList(ctx context.Context, request *GetChatTabListReq, options ...MethodOptionFunc) (*GetChatTabListResp, *Response, error) {
 	if r.cli.mock.mockChatGetChatTabList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#GetChatTabList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Chat#GetChatTabList mock enable")
 		return r.cli.mock.mockChatGetChatTabList(ctx, request, options...)
 	}
 

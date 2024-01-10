@@ -28,7 +28,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/lingo-v1/classification/list
 func (r *LingoService) GetLingoClassificationList(ctx context.Context, request *GetLingoClassificationListReq, options ...MethodOptionFunc) (*GetLingoClassificationListResp, *Response, error) {
 	if r.cli.mock.mockLingoGetLingoClassificationList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Lingo#GetLingoClassificationList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Lingo#GetLingoClassificationList mock enable")
 		return r.cli.mock.mockLingoGetLingoClassificationList(ctx, request, options...)
 	}
 

@@ -32,7 +32,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/group/chat-menu_tree/delete
 func (r *ChatService) DeleteChatMenuTree(ctx context.Context, request *DeleteChatMenuTreeReq, options ...MethodOptionFunc) (*DeleteChatMenuTreeResp, *Response, error) {
 	if r.cli.mock.mockChatDeleteChatMenuTree != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#DeleteChatMenuTree mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Chat#DeleteChatMenuTree mock enable")
 		return r.cli.mock.mockChatDeleteChatMenuTree(ctx, request, options...)
 	}
 

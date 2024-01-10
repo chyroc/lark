@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/okr-v1/period/list
 func (r *OKRService) GetOKRPeriodList(ctx context.Context, request *GetOKRPeriodListReq, options ...MethodOptionFunc) (*GetOKRPeriodListResp, *Response, error) {
 	if r.cli.mock.mockOKRGetOKRPeriodList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] OKR#GetOKRPeriodList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] OKR#GetOKRPeriodList mock enable")
 		return r.cli.mock.mockOKRGetOKRPeriodList(ctx, request, options...)
 	}
 

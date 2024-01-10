@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task/uncomplete
 func (r *TaskService) UncompleteTask(ctx context.Context, request *UncompleteTaskReq, options ...MethodOptionFunc) (*UncompleteTaskResp, *Response, error) {
 	if r.cli.mock.mockTaskUncompleteTask != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Task#UncompleteTask mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#UncompleteTask mock enable")
 		return r.cli.mock.mockTaskUncompleteTask(ctx, request, options...)
 	}
 

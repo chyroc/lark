@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/data-operation/write-data-to-a-single-range
 func (r *DriveService) SetSheetValue(ctx context.Context, request *SetSheetValueReq, options ...MethodOptionFunc) (*SetSheetValueResp, *Response, error) {
 	if r.cli.mock.mockDriveSetSheetValue != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#SetSheetValue mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#SetSheetValue mock enable")
 		return r.cli.mock.mockDriveSetSheetValue(ctx, request, options...)
 	}
 

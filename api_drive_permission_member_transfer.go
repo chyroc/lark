@@ -29,7 +29,7 @@ import (
 // Deprecated
 func (r *DriveService) TransferDriveMemberPermission(ctx context.Context, request *TransferDriveMemberPermissionReq, options ...MethodOptionFunc) (*TransferDriveMemberPermissionResp, *Response, error) {
 	if r.cli.mock.mockDriveTransferDriveMemberPermission != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#TransferDriveMemberPermission mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#TransferDriveMemberPermission mock enable")
 		return r.cli.mock.mockDriveTransferDriveMemberPermission(ctx, request, options...)
 	}
 

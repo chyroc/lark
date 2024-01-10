@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_task/batch_create
 func (r *AttendanceService) BatchCreateAttendanceUserFlow(ctx context.Context, request *BatchCreateAttendanceUserFlowReq, options ...MethodOptionFunc) (*BatchCreateAttendanceUserFlowResp, *Response, error) {
 	if r.cli.mock.mockAttendanceBatchCreateAttendanceUserFlow != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#BatchCreateAttendanceUserFlow mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Attendance#BatchCreateAttendanceUserFlow mock enable")
 		return r.cli.mock.mockAttendanceBatchCreateAttendanceUserFlow(ctx, request, options...)
 	}
 

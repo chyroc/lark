@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet-float_image/delete
 func (r *DriveService) DeleteSheetFloatImage(ctx context.Context, request *DeleteSheetFloatImageReq, options ...MethodOptionFunc) (*DeleteSheetFloatImageResp, *Response, error) {
 	if r.cli.mock.mockDriveDeleteSheetFloatImage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteSheetFloatImage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#DeleteSheetFloatImage mock enable")
 		return r.cli.mock.mockDriveDeleteSheetFloatImage(ctx, request, options...)
 	}
 

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/mail-v1/mail-group/mailgroup/update
 func (r *MailService) UpdateMailGroup(ctx context.Context, request *UpdateMailGroupReq, options ...MethodOptionFunc) (*UpdateMailGroupResp, *Response, error) {
 	if r.cli.mock.mockMailUpdateMailGroup != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#UpdateMailGroup mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#UpdateMailGroup mock enable")
 		return r.cli.mock.mockMailUpdateMailGroup(ctx, request, options...)
 	}
 

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/authorization/search
 func (r *CoreHRService) SearchCoreHRAssignedUser(ctx context.Context, request *SearchCoreHRAssignedUserReq, options ...MethodOptionFunc) (*SearchCoreHRAssignedUserResp, *Response, error) {
 	if r.cli.mock.mockCoreHRSearchCoreHRAssignedUser != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#SearchCoreHRAssignedUser mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#SearchCoreHRAssignedUser mock enable")
 		return r.cli.mock.mockCoreHRSearchCoreHRAssignedUser(ctx, request, options...)
 	}
 

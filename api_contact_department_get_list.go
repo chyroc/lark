@@ -33,7 +33,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/department/children
 func (r *ContactService) GetDepartmentList(ctx context.Context, request *GetDepartmentListReq, options ...MethodOptionFunc) (*GetDepartmentListResp, *Response, error) {
 	if r.cli.mock.mockContactGetDepartmentList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetDepartmentList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#GetDepartmentList mock enable")
 		return r.cli.mock.mockContactGetDepartmentList(ctx, request, options...)
 	}
 

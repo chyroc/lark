@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/search-v2/open-search/schema/patch
 func (r *SearchService) UpdateSearchSchema(ctx context.Context, request *UpdateSearchSchemaReq, options ...MethodOptionFunc) (*UpdateSearchSchemaResp, *Response, error) {
 	if r.cli.mock.mockSearchUpdateSearchSchema != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Search#UpdateSearchSchema mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Search#UpdateSearchSchema mock enable")
 		return r.cli.mock.mockSearchUpdateSearchSchema(ctx, request, options...)
 	}
 

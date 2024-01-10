@@ -34,7 +34,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/media/download
 func (r *DriveService) DownloadDriveMedia(ctx context.Context, request *DownloadDriveMediaReq, options ...MethodOptionFunc) (*DownloadDriveMediaResp, *Response, error) {
 	if r.cli.mock.mockDriveDownloadDriveMedia != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DownloadDriveMedia mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#DownloadDriveMedia mock enable")
 		return r.cli.mock.mockDriveDownloadDriveMedia(ctx, request, options...)
 	}
 

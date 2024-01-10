@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/application-v6/application/list
 func (r *ApplicationService) GetApplicationVersionList(ctx context.Context, request *GetApplicationVersionListReq, options ...MethodOptionFunc) (*GetApplicationVersionListResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplicationVersionList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Application#GetApplicationVersionList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#GetApplicationVersionList mock enable")
 		return r.cli.mock.mockApplicationGetApplicationVersionList(ctx, request, options...)
 	}
 

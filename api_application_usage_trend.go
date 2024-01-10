@@ -29,7 +29,7 @@ import (
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uITN0YjLyUDN24iM1QjN
 func (r *ApplicationService) GetApplicationUsageTrend(ctx context.Context, request *GetApplicationUsageTrendReq, options ...MethodOptionFunc) (*GetApplicationUsageTrendResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplicationUsageTrend != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Application#GetApplicationUsageTrend mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#GetApplicationUsageTrend mock enable")
 		return r.cli.mock.mockApplicationGetApplicationUsageTrend(ctx, request, options...)
 	}
 

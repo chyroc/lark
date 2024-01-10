@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/shift/list
 func (r *AttendanceService) GetAttendanceShiftList(ctx context.Context, request *GetAttendanceShiftListReq, options ...MethodOptionFunc) (*GetAttendanceShiftListResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetAttendanceShiftList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceShiftList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceShiftList mock enable")
 		return r.cli.mock.mockAttendanceGetAttendanceShiftList(ctx, request, options...)
 	}
 

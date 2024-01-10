@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/file-version/get
 func (r *DriveService) GetDriveFileVersion(ctx context.Context, request *GetDriveFileVersionReq, options ...MethodOptionFunc) (*GetDriveFileVersionResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDriveFileVersion != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveFileVersion mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetDriveFileVersion mock enable")
 		return r.cli.mock.mockDriveGetDriveFileVersion(ctx, request, options...)
 	}
 

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/ecological-docking/eco_background_check_package/batch_delete
 func (r *HireService) BatchDeleteHireEcoBackgroundCheckPackage(ctx context.Context, request *BatchDeleteHireEcoBackgroundCheckPackageReq, options ...MethodOptionFunc) (*BatchDeleteHireEcoBackgroundCheckPackageResp, *Response, error) {
 	if r.cli.mock.mockHireBatchDeleteHireEcoBackgroundCheckPackage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#BatchDeleteHireEcoBackgroundCheckPackage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#BatchDeleteHireEcoBackgroundCheckPackage mock enable")
 		return r.cli.mock.mockHireBatchDeleteHireEcoBackgroundCheckPackage(ctx, request, options...)
 	}
 

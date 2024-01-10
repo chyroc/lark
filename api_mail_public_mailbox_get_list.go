@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/mail-v1/public-mailbox/public_mailbox/list
 func (r *MailService) GetPublicMailboxList(ctx context.Context, request *GetPublicMailboxListReq, options ...MethodOptionFunc) (*GetPublicMailboxListResp, *Response, error) {
 	if r.cli.mock.mockMailGetPublicMailboxList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#GetPublicMailboxList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#GetPublicMailboxList mock enable")
 		return r.cli.mock.mockMailGetPublicMailboxList(ctx, request, options...)
 	}
 

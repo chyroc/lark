@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region_subdivision/search
 func (r *CoreHRService) SearchCoreHRCountryRegionSubdivision(ctx context.Context, request *SearchCoreHRCountryRegionSubdivisionReq, options ...MethodOptionFunc) (*SearchCoreHRCountryRegionSubdivisionResp, *Response, error) {
 	if r.cli.mock.mockCoreHRSearchCoreHRCountryRegionSubdivision != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#SearchCoreHRCountryRegionSubdivision mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#SearchCoreHRCountryRegionSubdivision mock enable")
 		return r.cli.mock.mockCoreHRSearchCoreHRCountryRegionSubdivision(ctx, request, options...)
 	}
 

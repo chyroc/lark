@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/permission/permission-member/create
 func (r *DriveService) CreateDriveMemberPermission(ctx context.Context, request *CreateDriveMemberPermissionReq, options ...MethodOptionFunc) (*CreateDriveMemberPermissionResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateDriveMemberPermission != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateDriveMemberPermission mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#CreateDriveMemberPermission mock enable")
 		return r.cli.mock.mockDriveCreateDriveMemberPermission(ctx, request, options...)
 	}
 

@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/event/event-interface/subscribe
 func (r *ApprovalService) SubscribeApprovalSubscription(ctx context.Context, request *SubscribeApprovalSubscriptionReq, options ...MethodOptionFunc) (*SubscribeApprovalSubscriptionResp, *Response, error) {
 	if r.cli.mock.mockApprovalSubscribeApprovalSubscription != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#SubscribeApprovalSubscription mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Approval#SubscribeApprovalSubscription mock enable")
 		return r.cli.mock.mockApprovalSubscribeApprovalSubscription(ctx, request, options...)
 	}
 

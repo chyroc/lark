@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/job_level/list
 func (r *ContactService) GetContactJobLevelList(ctx context.Context, request *GetContactJobLevelListReq, options ...MethodOptionFunc) (*GetContactJobLevelListResp, *Response, error) {
 	if r.cli.mock.mockContactGetContactJobLevelList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetContactJobLevelList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#GetContactJobLevelList mock enable")
 		return r.cli.mock.mockContactGetContactJobLevelList(ctx, request, options...)
 	}
 

@@ -31,7 +31,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/message/get
 func (r *MessageService) GetMessage(ctx context.Context, request *GetMessageReq, options ...MethodOptionFunc) (*GetMessageResp, *Response, error) {
 	if r.cli.mock.mockMessageGetMessage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Message#GetMessage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#GetMessage mock enable")
 		return r.cli.mock.mockMessageGetMessage(ctx, request, options...)
 	}
 

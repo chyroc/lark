@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/event/delete_subscribe
 func (r *DriveService) UnsubscribeDriveFile(ctx context.Context, request *UnsubscribeDriveFileReq, options ...MethodOptionFunc) (*UnsubscribeDriveFileResp, *Response, error) {
 	if r.cli.mock.mockDriveUnsubscribeDriveFile != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UnsubscribeDriveFile mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#UnsubscribeDriveFile mock enable")
 		return r.cli.mock.mockDriveUnsubscribeDriveFile(ctx, request, options...)
 	}
 

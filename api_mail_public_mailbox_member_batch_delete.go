@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/mail-v1/public-mailbox/public_mailbox-member/batch_delete
 func (r *MailService) BatchDeletePublicMailboxMember(ctx context.Context, request *BatchDeletePublicMailboxMemberReq, options ...MethodOptionFunc) (*BatchDeletePublicMailboxMemberResp, *Response, error) {
 	if r.cli.mock.mockMailBatchDeletePublicMailboxMember != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#BatchDeletePublicMailboxMember mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#BatchDeletePublicMailboxMember mock enable")
 		return r.cli.mock.mockMailBatchDeletePublicMailboxMember(ctx, request, options...)
 	}
 

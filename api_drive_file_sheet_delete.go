@@ -36,7 +36,7 @@ import (
 // Deprecated
 func (r *DriveService) DeleteDriveSheetFile(ctx context.Context, request *DeleteDriveSheetFileReq, options ...MethodOptionFunc) (*DeleteDriveSheetFileResp, *Response, error) {
 	if r.cli.mock.mockDriveDeleteDriveSheetFile != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteDriveSheetFile mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#DeleteDriveSheetFile mock enable")
 		return r.cli.mock.mockDriveDeleteDriveSheetFile(ctx, request, options...)
 	}
 

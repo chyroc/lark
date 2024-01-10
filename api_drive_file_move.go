@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/file/move
 func (r *DriveService) MoveDriveFile(ctx context.Context, request *MoveDriveFileReq, options ...MethodOptionFunc) (*MoveDriveFileResp, *Response, error) {
 	if r.cli.mock.mockDriveMoveDriveFile != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#MoveDriveFile mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#MoveDriveFile mock enable")
 		return r.cli.mock.mockDriveMoveDriveFile(ctx, request, options...)
 	}
 

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/job_data/delete
 func (r *CoreHRService) DeleteCoreHRJobData(ctx context.Context, request *DeleteCoreHRJobDataReq, options ...MethodOptionFunc) (*DeleteCoreHRJobDataResp, *Response, error) {
 	if r.cli.mock.mockCoreHRDeleteCoreHRJobData != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHRJobData mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHRJobData mock enable")
 		return r.cli.mock.mockCoreHRDeleteCoreHRJobData(ctx, request, options...)
 	}
 

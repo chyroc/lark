@@ -34,7 +34,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event-attendee/create
 func (r *CalendarService) CreateCalendarEventAttendee(ctx context.Context, request *CreateCalendarEventAttendeeReq, options ...MethodOptionFunc) (*CreateCalendarEventAttendeeResp, *Response, error) {
 	if r.cli.mock.mockCalendarCreateCalendarEventAttendee != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#CreateCalendarEventAttendee mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Calendar#CreateCalendarEventAttendee mock enable")
 		return r.cli.mock.mockCalendarCreateCalendarEventAttendee(ctx, request, options...)
 	}
 

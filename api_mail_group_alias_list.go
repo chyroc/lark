@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/mail-v1/mail-group/mailgroup-alias/list
 func (r *MailService) GetMailGroupAliasList(ctx context.Context, request *GetMailGroupAliasListReq, options ...MethodOptionFunc) (*GetMailGroupAliasListResp, *Response, error) {
 	if r.cli.mock.mockMailGetMailGroupAliasList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#GetMailGroupAliasList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#GetMailGroupAliasList mock enable")
 		return r.cli.mock.mockMailGetMailGroupAliasList(ctx, request, options...)
 	}
 

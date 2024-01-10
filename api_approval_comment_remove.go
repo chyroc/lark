@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/instance-comment/remove
 func (r *ApprovalService) RemoveApprovalComment(ctx context.Context, request *RemoveApprovalCommentReq, options ...MethodOptionFunc) (*RemoveApprovalCommentResp, *Response, error) {
 	if r.cli.mock.mockApprovalRemoveApprovalComment != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#RemoveApprovalComment mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Approval#RemoveApprovalComment mock enable")
 		return r.cli.mock.mockApprovalRemoveApprovalComment(ctx, request, options...)
 	}
 

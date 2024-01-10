@@ -29,7 +29,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/document_ai-v1/chinese_passport/recognize
 func (r *AIService) RecognizeAIChinesePassport(ctx context.Context, request *RecognizeAIChinesePassportReq, options ...MethodOptionFunc) (*RecognizeAIChinesePassportResp, *Response, error) {
 	if r.cli.mock.mockAIRecognizeAIChinesePassport != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] AI#RecognizeAIChinesePassport mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] AI#RecognizeAIChinesePassport mock enable")
 		return r.cli.mock.mockAIRecognizeAIChinesePassport(ctx, request, options...)
 	}
 

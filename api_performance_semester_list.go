@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list
 func (r *PerformanceService) GetPerformanceSemesterList(ctx context.Context, request *GetPerformanceSemesterListReq, options ...MethodOptionFunc) (*GetPerformanceSemesterListResp, *Response, error) {
 	if r.cli.mock.mockPerformanceGetPerformanceSemesterList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Performance#GetPerformanceSemesterList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Performance#GetPerformanceSemesterList mock enable")
 		return r.cli.mock.mockPerformanceGetPerformanceSemesterList(ctx, request, options...)
 	}
 

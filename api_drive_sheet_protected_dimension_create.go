@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/protect-range/add-locked-cells
 func (r *DriveService) CreateSheetProtectedDimension(ctx context.Context, request *CreateSheetProtectedDimensionReq, options ...MethodOptionFunc) (*CreateSheetProtectedDimensionResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateSheetProtectedDimension != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateSheetProtectedDimension mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#CreateSheetProtectedDimension mock enable")
 		return r.cli.mock.mockDriveCreateSheetProtectedDimension(ctx, request, options...)
 	}
 

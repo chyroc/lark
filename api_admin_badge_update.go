@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/admin-v1/badge/badge/update
 func (r *AdminService) UpdateAdminBadge(ctx context.Context, request *UpdateAdminBadgeReq, options ...MethodOptionFunc) (*UpdateAdminBadgeResp, *Response, error) {
 	if r.cli.mock.mockAdminUpdateAdminBadge != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Admin#UpdateAdminBadge mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Admin#UpdateAdminBadge mock enable")
 		return r.cli.mock.mockAdminUpdateAdminBadge(ctx, request, options...)
 	}
 

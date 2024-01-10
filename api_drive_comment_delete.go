@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/CommentAPI/delete
 func (r *DriveService) DeleteDriveComment(ctx context.Context, request *DeleteDriveCommentReq, options ...MethodOptionFunc) (*DeleteDriveCommentResp, *Response, error) {
 	if r.cli.mock.mockDriveDeleteDriveComment != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteDriveComment mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#DeleteDriveComment mock enable")
 		return r.cli.mock.mockDriveDeleteDriveComment(ctx, request, options...)
 	}
 

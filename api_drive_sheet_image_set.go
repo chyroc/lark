@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/data-operation/write-images
 func (r *DriveService) SetSheetValueImage(ctx context.Context, request *SetSheetValueImageReq, options ...MethodOptionFunc) (*SetSheetValueImageResp, *Response, error) {
 	if r.cli.mock.mockDriveSetSheetValueImage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#SetSheetValueImage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#SetSheetValueImage mock enable")
 		return r.cli.mock.mockDriveSetSheetValueImage(ctx, request, options...)
 	}
 

@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_title/list
 func (r *ContactService) GetContactJobTitleList(ctx context.Context, request *GetContactJobTitleListReq, options ...MethodOptionFunc) (*GetContactJobTitleListResp, *Response, error) {
 	if r.cli.mock.mockContactGetContactJobTitleList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetContactJobTitleList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#GetContactJobTitleList mock enable")
 		return r.cli.mock.mockContactGetContactJobTitleList(ctx, request, options...)
 	}
 

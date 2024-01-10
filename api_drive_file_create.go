@@ -33,7 +33,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/file/create-online-document
 func (r *DriveService) CreateDriveFile(ctx context.Context, request *CreateDriveFileReq, options ...MethodOptionFunc) (*CreateDriveFileResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateDriveFile != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateDriveFile mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#CreateDriveFile mock enable")
 		return r.cli.mock.mockDriveCreateDriveFile(ctx, request, options...)
 	}
 

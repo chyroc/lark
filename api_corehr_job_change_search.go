@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/job_change/search
 func (r *CoreHRService) SearchCoreHRJobChange(ctx context.Context, request *SearchCoreHRJobChangeReq, options ...MethodOptionFunc) (*SearchCoreHRJobChangeResp, *Response, error) {
 	if r.cli.mock.mockCoreHRSearchCoreHRJobChange != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#SearchCoreHRJobChange mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#SearchCoreHRJobChange mock enable")
 		return r.cli.mock.mockCoreHRSearchCoreHRJobChange(ctx, request, options...)
 	}
 

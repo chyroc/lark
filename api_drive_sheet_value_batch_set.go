@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/data-operation/write-data-to-multiple-ranges
 func (r *DriveService) BatchSetSheetValue(ctx context.Context, request *BatchSetSheetValueReq, options ...MethodOptionFunc) (*BatchSetSheetValueResp, *Response, error) {
 	if r.cli.mock.mockDriveBatchSetSheetValue != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#BatchSetSheetValue mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#BatchSetSheetValue mock enable")
 		return r.cli.mock.mockDriveBatchSetSheetValue(ctx, request, options...)
 	}
 

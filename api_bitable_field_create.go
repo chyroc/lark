@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-field/create
 func (r *BitableService) CreateBitableField(ctx context.Context, request *CreateBitableFieldReq, options ...MethodOptionFunc) (*CreateBitableFieldResp, *Response, error) {
 	if r.cli.mock.mockBitableCreateBitableField != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#CreateBitableField mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Bitable#CreateBitableField mock enable")
 		return r.cli.mock.mockBitableCreateBitableField(ctx, request, options...)
 	}
 

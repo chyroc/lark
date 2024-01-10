@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/application-v6/admin/obtain-the-apps-installed-by-an-organization
 func (r *ApplicationService) GetApplicationAppList(ctx context.Context, request *GetApplicationAppListReq, options ...MethodOptionFunc) (*GetApplicationAppListResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplicationAppList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Application#GetApplicationAppList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#GetApplicationAppList mock enable")
 		return r.cli.mock.mockApplicationGetApplicationAppList(ctx, request, options...)
 	}
 

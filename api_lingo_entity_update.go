@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/lingo-v1/entity/update
 func (r *LingoService) UpdateLingoEntity(ctx context.Context, request *UpdateLingoEntityReq, options ...MethodOptionFunc) (*UpdateLingoEntityResp, *Response, error) {
 	if r.cli.mock.mockLingoUpdateLingoEntity != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Lingo#UpdateLingoEntity mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Lingo#UpdateLingoEntity mock enable")
 		return r.cli.mock.mockLingoUpdateLingoEntity(ctx, request, options...)
 	}
 

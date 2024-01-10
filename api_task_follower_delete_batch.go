@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task-follower/batch_delete_follower
 func (r *TaskService) BatchDeleteTaskFollower(ctx context.Context, request *BatchDeleteTaskFollowerReq, options ...MethodOptionFunc) (*BatchDeleteTaskFollowerResp, *Response, error) {
 	if r.cli.mock.mockTaskBatchDeleteTaskFollower != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Task#BatchDeleteTaskFollower mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#BatchDeleteTaskFollower mock enable")
 		return r.cli.mock.mockTaskBatchDeleteTaskFollower(ctx, request, options...)
 	}
 

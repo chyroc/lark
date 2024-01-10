@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/ecological-docking/eco_exam/update_result
 func (r *HireService) UpdateHiredEcoExamResult(ctx context.Context, request *UpdateHiredEcoExamResultReq, options ...MethodOptionFunc) (*UpdateHiredEcoExamResultResp, *Response, error) {
 	if r.cli.mock.mockHireUpdateHiredEcoExamResult != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#UpdateHiredEcoExamResult mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#UpdateHiredEcoExamResult mock enable")
 		return r.cli.mock.mockHireUpdateHiredEcoExamResult(ctx, request, options...)
 	}
 

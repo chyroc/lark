@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/faq-management/category/create
 func (r *HelpdeskService) CreateHelpdeskCategory(ctx context.Context, request *CreateHelpdeskCategoryReq, options ...MethodOptionFunc) (*CreateHelpdeskCategoryResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskCreateHelpdeskCategory != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#CreateHelpdeskCategory mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Helpdesk#CreateHelpdeskCategory mock enable")
 		return r.cli.mock.mockHelpdeskCreateHelpdeskCategory(ctx, request, options...)
 	}
 

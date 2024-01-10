@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/cost_center/cost_center-version/delete
 func (r *CoreHRService) DeleteCoreHRCostCenterVersion(ctx context.Context, request *DeleteCoreHRCostCenterVersionReq, options ...MethodOptionFunc) (*DeleteCoreHRCostCenterVersionResp, *Response, error) {
 	if r.cli.mock.mockCoreHRDeleteCoreHRCostCenterVersion != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHRCostCenterVersion mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHRCostCenterVersion mock enable")
 		return r.cli.mock.mockCoreHRDeleteCoreHRCostCenterVersion(ctx, request, options...)
 	}
 

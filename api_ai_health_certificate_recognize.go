@@ -29,7 +29,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/document_ai-v1/health_certificate/recognize
 func (r *AIService) RecognizeAIHealthCertificate(ctx context.Context, request *RecognizeAIHealthCertificateReq, options ...MethodOptionFunc) (*RecognizeAIHealthCertificateResp, *Response, error) {
 	if r.cli.mock.mockAIRecognizeAIHealthCertificate != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] AI#RecognizeAIHealthCertificate mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] AI#RecognizeAIHealthCertificate mock enable")
 		return r.cli.mock.mockAIRecognizeAIHealthCertificate(ctx, request, options...)
 	}
 

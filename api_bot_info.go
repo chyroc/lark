@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/client-docs/bot-v3/obtain-bot-info
 func (r *BotService) GetBotInfo(ctx context.Context, request *GetBotInfoReq, options ...MethodOptionFunc) (*GetBotInfoResp, *Response, error) {
 	if r.cli.mock.mockBotGetBotInfo != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Bot#GetBotInfo mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Bot#GetBotInfo mock enable")
 		return r.cli.mock.mockBotGetBotInfo(ctx, request, options...)
 	}
 

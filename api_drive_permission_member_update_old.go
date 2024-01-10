@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ucTN3UjL3UzN14yN1cTN
 func (r *DriveService) UpdateDriveMemberPermissionOld(ctx context.Context, request *UpdateDriveMemberPermissionOldReq, options ...MethodOptionFunc) (*UpdateDriveMemberPermissionOldResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateDriveMemberPermissionOld != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateDriveMemberPermissionOld mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#UpdateDriveMemberPermissionOld mock enable")
 		return r.cli.mock.mockDriveUpdateDriveMemberPermissionOld(ctx, request, options...)
 	}
 

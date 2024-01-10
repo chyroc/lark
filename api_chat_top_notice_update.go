@@ -32,7 +32,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/group/chat/put_top_notice
 func (r *ChatService) UpdateChatTopNotice(ctx context.Context, request *UpdateChatTopNoticeReq, options ...MethodOptionFunc) (*UpdateChatTopNoticeResp, *Response, error) {
 	if r.cli.mock.mockChatUpdateChatTopNotice != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#UpdateChatTopNotice mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Chat#UpdateChatTopNotice mock enable")
 		return r.cli.mock.mockChatUpdateChatTopNotice(ctx, request, options...)
 	}
 

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/job_change/query
 func (r *CoreHRService) GetCoreHRTransferTypeList(ctx context.Context, request *GetCoreHRTransferTypeListReq, options ...MethodOptionFunc) (*GetCoreHRTransferTypeListResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRTransferTypeList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRTransferTypeList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRTransferTypeList mock enable")
 		return r.cli.mock.mockCoreHRGetCoreHRTransferTypeList(ctx, request, options...)
 	}
 

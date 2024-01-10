@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet-filter_view/spreadsheet-sheet-filter_view-condition/create
 func (r *DriveService) CreateSheetFilterViewCondition(ctx context.Context, request *CreateSheetFilterViewConditionReq, options ...MethodOptionFunc) (*CreateSheetFilterViewConditionResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateSheetFilterViewCondition != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateSheetFilterViewCondition mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#CreateSheetFilterViewCondition mock enable")
 		return r.cli.mock.mockDriveCreateSheetFilterViewCondition(ctx, request, options...)
 	}
 

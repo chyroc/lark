@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/application-v6/admin/obtain-the-app-availability-in-an-organization
 func (r *ApplicationService) GetApplicationAppVisibility(ctx context.Context, request *GetApplicationAppVisibilityReq, options ...MethodOptionFunc) (*GetApplicationAppVisibilityResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplicationAppVisibility != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Application#GetApplicationAppVisibility mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#GetApplicationAppVisibility mock enable")
 		return r.cli.mock.mockApplicationGetApplicationAppVisibility(ctx, request, options...)
 	}
 

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/instance/create
 func (r *ApprovalService) CreateApprovalInstance(ctx context.Context, request *CreateApprovalInstanceReq, options ...MethodOptionFunc) (*CreateApprovalInstanceResp, *Response, error) {
 	if r.cli.mock.mockApprovalCreateApprovalInstance != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#CreateApprovalInstance mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Approval#CreateApprovalInstance mock enable")
 		return r.cli.mock.mockApprovalCreateApprovalInstance(ctx, request, options...)
 	}
 

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-field/list
 func (r *BitableService) GetBitableFieldList(ctx context.Context, request *GetBitableFieldListReq, options ...MethodOptionFunc) (*GetBitableFieldListResp, *Response, error) {
 	if r.cli.mock.mockBitableGetBitableFieldList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetBitableFieldList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Bitable#GetBitableFieldList mock enable")
 		return r.cli.mock.mockBitableGetBitableFieldList(ctx, request, options...)
 	}
 

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/attachment/preview
 func (r *HireService) GetHireAttachmentPreview(ctx context.Context, request *GetHireAttachmentPreviewReq, options ...MethodOptionFunc) (*GetHireAttachmentPreviewResp, *Response, error) {
 	if r.cli.mock.mockHireGetHireAttachmentPreview != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#GetHireAttachmentPreview mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#GetHireAttachmentPreview mock enable")
 		return r.cli.mock.mockHireGetHireAttachmentPreview(ctx, request, options...)
 	}
 

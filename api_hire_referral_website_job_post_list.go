@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/get-candidates/referral/list
 func (r *HireService) GetHireReferralWebsiteJobPostList(ctx context.Context, request *GetHireReferralWebsiteJobPostListReq, options ...MethodOptionFunc) (*GetHireReferralWebsiteJobPostListResp, *Response, error) {
 	if r.cli.mock.mockHireGetHireReferralWebsiteJobPostList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#GetHireReferralWebsiteJobPostList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#GetHireReferralWebsiteJobPostList mock enable")
 		return r.cli.mock.mockHireGetHireReferralWebsiteJobPostList(ctx, request, options...)
 	}
 

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/sheet-rowcol/-delete-rows-or-columns
 func (r *DriveService) DeleteSheetDimensionRange(ctx context.Context, request *DeleteSheetDimensionRangeReq, options ...MethodOptionFunc) (*DeleteSheetDimensionRangeResp, *Response, error) {
 	if r.cli.mock.mockDriveDeleteSheetDimensionRange != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteSheetDimensionRange mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#DeleteSheetDimensionRange mock enable")
 		return r.cli.mock.mockDriveDeleteSheetDimensionRange(ctx, request, options...)
 	}
 

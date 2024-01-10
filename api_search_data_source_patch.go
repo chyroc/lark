@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/search-v2/open-search/data_source/patch
 func (r *SearchService) UpdateSearchDataSource(ctx context.Context, request *UpdateSearchDataSourceReq, options ...MethodOptionFunc) (*UpdateSearchDataSourceResp, *Response, error) {
 	if r.cli.mock.mockSearchUpdateSearchDataSource != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Search#UpdateSearchDataSource mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Search#UpdateSearchDataSource mock enable")
 		return r.cli.mock.mockSearchUpdateSearchDataSource(ctx, request, options...)
 	}
 

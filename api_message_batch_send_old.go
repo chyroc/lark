@@ -40,7 +40,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/batch_message/send-messages-in-batches
 func (r *MessageService) BatchSendOldRawMessage(ctx context.Context, request *BatchSendOldRawMessageReq, options ...MethodOptionFunc) (*BatchSendOldRawMessageResp, *Response, error) {
 	if r.cli.mock.mockMessageBatchSendOldRawMessage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Message#BatchSendOldRawMessage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#BatchSendOldRawMessage mock enable")
 		return r.cli.mock.mockMessageBatchSendOldRawMessage(ctx, request, options...)
 	}
 

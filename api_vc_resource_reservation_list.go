@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/meeting-room-data/get-4
 func (r *VCService) GetVCResourceReservationList(ctx context.Context, request *GetVCResourceReservationListReq, options ...MethodOptionFunc) (*GetVCResourceReservationListResp, *Response, error) {
 	if r.cli.mock.mockVCGetVCResourceReservationList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] VC#GetVCResourceReservationList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#GetVCResourceReservationList mock enable")
 		return r.cli.mock.mockVCGetVCResourceReservationList(ctx, request, options...)
 	}
 

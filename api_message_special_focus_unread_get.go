@@ -28,7 +28,7 @@ import (
 // Deprecated
 func (r *MessageService) GetMessageSpecialFocusUnread(ctx context.Context, request *GetMessageSpecialFocusUnreadReq, options ...MethodOptionFunc) (*GetMessageSpecialFocusUnreadResp, *Response, error) {
 	if r.cli.mock.mockMessageGetMessageSpecialFocusUnread != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Message#GetMessageSpecialFocusUnread mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#GetMessageSpecialFocusUnread mock enable")
 		return r.cli.mock.mockMessageGetMessageSpecialFocusUnread(ctx, request, options...)
 	}
 

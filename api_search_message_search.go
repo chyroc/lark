@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/search-v2/suite-search/create
 func (r *SearchService) SearchMessage(ctx context.Context, request *SearchMessageReq, options ...MethodOptionFunc) (*SearchMessageResp, *Response, error) {
 	if r.cli.mock.mockSearchSearchMessage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Search#SearchMessage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Search#SearchMessage mock enable")
 		return r.cli.mock.mockSearchSearchMessage(ctx, request, options...)
 	}
 

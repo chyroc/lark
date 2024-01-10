@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/leave/delete
 func (r *CoreHRService) DeleteCoreHRLeaveGrantingRecord(ctx context.Context, request *DeleteCoreHRLeaveGrantingRecordReq, options ...MethodOptionFunc) (*DeleteCoreHRLeaveGrantingRecordResp, *Response, error) {
 	if r.cli.mock.mockCoreHRDeleteCoreHRLeaveGrantingRecord != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHRLeaveGrantingRecord mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHRLeaveGrantingRecord mock enable")
 		return r.cli.mock.mockCoreHRDeleteCoreHRLeaveGrantingRecord(ctx, request, options...)
 	}
 

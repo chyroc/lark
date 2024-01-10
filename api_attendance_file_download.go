@@ -28,7 +28,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_setting/download
 func (r *AttendanceService) DownloadAttendanceFile(ctx context.Context, request *DownloadAttendanceFileReq, options ...MethodOptionFunc) (*DownloadAttendanceFileResp, *Response, error) {
 	if r.cli.mock.mockAttendanceDownloadAttendanceFile != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#DownloadAttendanceFile mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Attendance#DownloadAttendanceFile mock enable")
 		return r.cli.mock.mockAttendanceDownloadAttendanceFile(ctx, request, options...)
 	}
 

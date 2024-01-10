@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/message/update-bot-messages
 func (r *ApprovalService) UpdateApprovalMessage(ctx context.Context, request *UpdateApprovalMessageReq, options ...MethodOptionFunc) (*UpdateApprovalMessageResp, *Response, error) {
 	if r.cli.mock.mockApprovalUpdateApprovalMessage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#UpdateApprovalMessage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Approval#UpdateApprovalMessage mock enable")
 		return r.cli.mock.mockApprovalUpdateApprovalMessage(ctx, request, options...)
 	}
 

@@ -29,7 +29,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/document_ai-v1/food_produce_license/recognize
 func (r *AIService) RecognizeAIFoodProduceLicense(ctx context.Context, request *RecognizeAIFoodProduceLicenseReq, options ...MethodOptionFunc) (*RecognizeAIFoodProduceLicenseResp, *Response, error) {
 	if r.cli.mock.mockAIRecognizeAIFoodProduceLicense != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] AI#RecognizeAIFoodProduceLicense mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] AI#RecognizeAIFoodProduceLicense mock enable")
 		return r.cli.mock.mockAIRecognizeAIFoodProduceLicense(ctx, request, options...)
 	}
 

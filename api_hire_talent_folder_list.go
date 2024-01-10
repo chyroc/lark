@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/talent/list-2
 func (r *HireService) GetHireTalentFolderList(ctx context.Context, request *GetHireTalentFolderListReq, options ...MethodOptionFunc) (*GetHireTalentFolderListResp, *Response, error) {
 	if r.cli.mock.mockHireGetHireTalentFolderList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#GetHireTalentFolderList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#GetHireTalentFolderList mock enable")
 		return r.cli.mock.mockHireGetHireTalentFolderList(ctx, request, options...)
 	}
 

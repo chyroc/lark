@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task/list
 func (r *TaskService) GetTaskList(ctx context.Context, request *GetTaskListReq, options ...MethodOptionFunc) (*GetTaskListResp, *Response, error) {
 	if r.cli.mock.mockTaskGetTaskList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Task#GetTaskList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#GetTaskList mock enable")
 		return r.cli.mock.mockTaskGetTaskList(ctx, request, options...)
 	}
 

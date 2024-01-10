@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/event/subscribe
 func (r *HelpdeskService) SubscribeHelpdeskEvent(ctx context.Context, request *SubscribeHelpdeskEventReq, options ...MethodOptionFunc) (*SubscribeHelpdeskEventResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskSubscribeHelpdeskEvent != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#SubscribeHelpdeskEvent mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Helpdesk#SubscribeHelpdeskEvent mock enable")
 		return r.cli.mock.mockHelpdeskSubscribeHelpdeskEvent(ctx, request, options...)
 	}
 

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/scope_config/get-4
 func (r *VCService) GetVCReserveConfigDisableInform(ctx context.Context, request *GetVCReserveConfigDisableInformReq, options ...MethodOptionFunc) (*GetVCReserveConfigDisableInformResp, *Response, error) {
 	if r.cli.mock.mockVCGetVCReserveConfigDisableInform != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] VC#GetVCReserveConfigDisableInform mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#GetVCReserveConfigDisableInform mock enable")
 		return r.cli.mock.mockVCGetVCReserveConfigDisableInform(ctx, request, options...)
 	}
 

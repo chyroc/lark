@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/department/update
 func (r *ContactService) UpdateDepartment(ctx context.Context, request *UpdateDepartmentReq, options ...MethodOptionFunc) (*UpdateDepartmentResp, *Response, error) {
 	if r.cli.mock.mockContactUpdateDepartment != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#UpdateDepartment mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#UpdateDepartment mock enable")
 		return r.cli.mock.mockContactUpdateDepartment(ctx, request, options...)
 	}
 

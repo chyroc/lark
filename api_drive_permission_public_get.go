@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/permission/permission-public/get
 func (r *DriveService) GetDrivePublicPermission(ctx context.Context, request *GetDrivePublicPermissionReq, options ...MethodOptionFunc) (*GetDrivePublicPermissionResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDrivePublicPermission != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDrivePublicPermission mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetDrivePublicPermission mock enable")
 		return r.cli.mock.mockDriveGetDrivePublicPermission(ctx, request, options...)
 	}
 

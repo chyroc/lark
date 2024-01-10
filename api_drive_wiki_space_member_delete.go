@@ -33,7 +33,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/wiki-v2/space-member/delete
 func (r *DriveService) DeleteWikiSpaceMember(ctx context.Context, request *DeleteWikiSpaceMemberReq, options ...MethodOptionFunc) (*DeleteWikiSpaceMemberResp, *Response, error) {
 	if r.cli.mock.mockDriveDeleteWikiSpaceMember != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteWikiSpaceMember mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#DeleteWikiSpaceMember mock enable")
 		return r.cli.mock.mockDriveDeleteWikiSpaceMember(ctx, request, options...)
 	}
 

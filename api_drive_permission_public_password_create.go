@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/permission/permission-public/permission-public-password/create
 func (r *DriveService) CreateDrivePermissionPublicPassword(ctx context.Context, request *CreateDrivePermissionPublicPasswordReq, options ...MethodOptionFunc) (*CreateDrivePermissionPublicPasswordResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateDrivePermissionPublicPassword != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateDrivePermissionPublicPassword mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#CreateDrivePermissionPublicPassword mock enable")
 		return r.cli.mock.mockDriveCreateDrivePermissionPublicPassword(ctx, request, options...)
 	}
 

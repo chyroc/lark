@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/instance-comment/list
 func (r *ApprovalService) GetApprovalComment(ctx context.Context, request *GetApprovalCommentReq, options ...MethodOptionFunc) (*GetApprovalCommentResp, *Response, error) {
 	if r.cli.mock.mockApprovalGetApprovalComment != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#GetApprovalComment mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Approval#GetApprovalComment mock enable")
 		return r.cli.mock.mockApprovalGetApprovalComment(ctx, request, options...)
 	}
 

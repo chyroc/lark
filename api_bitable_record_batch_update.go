@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-record/batch_update
 func (r *BitableService) BatchUpdateBitableRecord(ctx context.Context, request *BatchUpdateBitableRecordReq, options ...MethodOptionFunc) (*BatchUpdateBitableRecordResp, *Response, error) {
 	if r.cli.mock.mockBitableBatchUpdateBitableRecord != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#BatchUpdateBitableRecord mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Bitable#BatchUpdateBitableRecord mock enable")
 		return r.cli.mock.mockBitableBatchUpdateBitableRecord(ctx, request, options...)
 	}
 

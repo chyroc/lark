@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/leave/leave_request_history
 func (r *CoreHRService) GetCoreHRLeaveRequestHistoryList(ctx context.Context, request *GetCoreHRLeaveRequestHistoryListReq, options ...MethodOptionFunc) (*GetCoreHRLeaveRequestHistoryListResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRLeaveRequestHistoryList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRLeaveRequestHistoryList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRLeaveRequestHistoryList mock enable")
 		return r.cli.mock.mockCoreHRGetCoreHRLeaveRequestHistoryList(ctx, request, options...)
 	}
 

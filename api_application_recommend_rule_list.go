@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/workplace-v1/app_recommend_rule/list
 func (r *ApplicationService) GetApplicationRecommendRuleList(ctx context.Context, request *GetApplicationRecommendRuleListReq, options ...MethodOptionFunc) (*GetApplicationRecommendRuleListResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplicationRecommendRuleList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Application#GetApplicationRecommendRuleList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#GetApplicationRecommendRuleList mock enable")
 		return r.cli.mock.mockApplicationGetApplicationRecommendRuleList(ctx, request, options...)
 	}
 

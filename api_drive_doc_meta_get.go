@@ -32,7 +32,7 @@ import (
 // Deprecated
 func (r *DriveService) GetDriveDocMeta(ctx context.Context, request *GetDriveDocMetaReq, options ...MethodOptionFunc) (*GetDriveDocMetaResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDriveDocMeta != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveDocMeta mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetDriveDocMeta mock enable")
 		return r.cli.mock.mockDriveGetDriveDocMeta(ctx, request, options...)
 	}
 

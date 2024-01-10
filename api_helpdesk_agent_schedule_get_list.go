@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/agent-function/agent-schedules/list
 func (r *HelpdeskService) GetHelpdeskAgentScheduleList(ctx context.Context, request *GetHelpdeskAgentScheduleListReq, options ...MethodOptionFunc) (*GetHelpdeskAgentScheduleListResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskGetHelpdeskAgentScheduleList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetHelpdeskAgentScheduleList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Helpdesk#GetHelpdeskAgentScheduleList mock enable")
 		return r.cli.mock.mockHelpdeskGetHelpdeskAgentScheduleList(ctx, request, options...)
 	}
 

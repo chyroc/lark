@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/file/get
 func (r *DriveService) GetDriveFileStatistics(ctx context.Context, request *GetDriveFileStatisticsReq, options ...MethodOptionFunc) (*GetDriveFileStatisticsResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDriveFileStatistics != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveFileStatistics mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetDriveFileStatistics mock enable")
 		return r.cli.mock.mockDriveGetDriveFileStatistics(ctx, request, options...)
 	}
 

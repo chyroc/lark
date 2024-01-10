@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task-follower/create
 func (r *TaskService) CreateTaskFollower(ctx context.Context, request *CreateTaskFollowerReq, options ...MethodOptionFunc) (*CreateTaskFollowerResp, *Response, error) {
 	if r.cli.mock.mockTaskCreateTaskFollower != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Task#CreateTaskFollower mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#CreateTaskFollower mock enable")
 		return r.cli.mock.mockTaskCreateTaskFollower(ctx, request, options...)
 	}
 

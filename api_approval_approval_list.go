@@ -28,7 +28,7 @@ import (
 // Deprecated
 func (r *ApprovalService) GetApprovalList(ctx context.Context, request *GetApprovalListReq, options ...MethodOptionFunc) (*GetApprovalListResp, *Response, error) {
 	if r.cli.mock.mockApprovalGetApprovalList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#GetApprovalList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Approval#GetApprovalList mock enable")
 		return r.cli.mock.mockApprovalGetApprovalList(ctx, request, options...)
 	}
 

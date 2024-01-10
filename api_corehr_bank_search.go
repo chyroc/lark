@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-bank/search
 func (r *CoreHRService) SearchCoreHRBank(ctx context.Context, request *SearchCoreHRBankReq, options ...MethodOptionFunc) (*SearchCoreHRBankResp, *Response, error) {
 	if r.cli.mock.mockCoreHRSearchCoreHRBank != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#SearchCoreHRBank mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#SearchCoreHRBank mock enable")
 		return r.cli.mock.mockCoreHRSearchCoreHRBank(ctx, request, options...)
 	}
 

@@ -40,7 +40,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/message-card/delay-update-message-card
 func (r *MessageService) UpdateMessageDelay(ctx context.Context, request *UpdateMessageDelayReq, options ...MethodOptionFunc) (*UpdateMessageDelayResp, *Response, error) {
 	if r.cli.mock.mockMessageUpdateMessageDelay != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Message#UpdateMessageDelay mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#UpdateMessageDelay mock enable")
 		return r.cli.mock.mockMessageUpdateMessageDelay(ctx, request, options...)
 	}
 

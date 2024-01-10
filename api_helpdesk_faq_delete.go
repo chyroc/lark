@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/faq-management/faq/delete
 func (r *HelpdeskService) DeleteHelpdeskFAQ(ctx context.Context, request *DeleteHelpdeskFAQReq, options ...MethodOptionFunc) (*DeleteHelpdeskFAQResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskDeleteHelpdeskFAQ != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#DeleteHelpdeskFAQ mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Helpdesk#DeleteHelpdeskFAQ mock enable")
 		return r.cli.mock.mockHelpdeskDeleteHelpdeskFAQ(ctx, request, options...)
 	}
 

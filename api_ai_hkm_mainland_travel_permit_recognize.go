@@ -29,7 +29,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/document_ai-v1/hkm_mainland_travel_permit/recognize
 func (r *AIService) RecognizeAIHkmMainlandTravelPermit(ctx context.Context, request *RecognizeAIHkmMainlandTravelPermitReq, options ...MethodOptionFunc) (*RecognizeAIHkmMainlandTravelPermitResp, *Response, error) {
 	if r.cli.mock.mockAIRecognizeAIHkmMainlandTravelPermit != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] AI#RecognizeAIHkmMainlandTravelPermit mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] AI#RecognizeAIHkmMainlandTravelPermit mock enable")
 		return r.cli.mock.mockAIRecognizeAIHkmMainlandTravelPermit(ctx, request, options...)
 	}
 

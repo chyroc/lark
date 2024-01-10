@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/mail-v1/mail-group/mailgroup-member/list
 func (r *MailService) GetMailGroupMemberList(ctx context.Context, request *GetMailGroupMemberListReq, options ...MethodOptionFunc) (*GetMailGroupMemberListResp, *Response, error) {
 	if r.cli.mock.mockMailGetMailGroupMemberList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#GetMailGroupMemberList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#GetMailGroupMemberList mock enable")
 		return r.cli.mock.mockMailGetMailGroupMemberList(ctx, request, options...)
 	}
 

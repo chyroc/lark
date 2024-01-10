@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/ecological-docking/eco_background_check_custom_field/batch_update
 func (r *HireService) BatchUpdateHireEcoBackgroundCheckCustomField(ctx context.Context, request *BatchUpdateHireEcoBackgroundCheckCustomFieldReq, options ...MethodOptionFunc) (*BatchUpdateHireEcoBackgroundCheckCustomFieldResp, *Response, error) {
 	if r.cli.mock.mockHireBatchUpdateHireEcoBackgroundCheckCustomField != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#BatchUpdateHireEcoBackgroundCheckCustomField mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#BatchUpdateHireEcoBackgroundCheckCustomField mock enable")
 		return r.cli.mock.mockHireBatchUpdateHireEcoBackgroundCheckCustomField(ctx, request, options...)
 	}
 

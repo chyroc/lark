@@ -35,7 +35,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/group/chat-announcement/patch
 func (r *ChatService) UpdateChatAnnouncement(ctx context.Context, request *UpdateChatAnnouncementReq, options ...MethodOptionFunc) (*UpdateChatAnnouncementResp, *Response, error) {
 	if r.cli.mock.mockChatUpdateChatAnnouncement != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#UpdateChatAnnouncement mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Chat#UpdateChatAnnouncement mock enable")
 		return r.cli.mock.mockChatUpdateChatAnnouncement(ctx, request, options...)
 	}
 

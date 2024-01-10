@@ -32,7 +32,7 @@ import (
 // Deprecated
 func (r *DriveService) GetDriveDocRawContent(ctx context.Context, request *GetDriveDocRawContentReq, options ...MethodOptionFunc) (*GetDriveDocRawContentResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDriveDocRawContent != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveDocRawContent mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetDriveDocRawContent mock enable")
 		return r.cli.mock.mockDriveGetDriveDocRawContent(ctx, request, options...)
 	}
 

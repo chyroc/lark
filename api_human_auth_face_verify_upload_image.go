@@ -31,7 +31,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/human_authentication-v1/upload-facial-reference-image
 func (r *HumanAuthService) UploadFaceVerifyImage(ctx context.Context, request *UploadFaceVerifyImageReq, options ...MethodOptionFunc) (*UploadFaceVerifyImageResp, *Response, error) {
 	if r.cli.mock.mockHumanAuthUploadFaceVerifyImage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] HumanAuth#UploadFaceVerifyImage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] HumanAuth#UploadFaceVerifyImage mock enable")
 		return r.cli.mock.mockHumanAuthUploadFaceVerifyImage(ctx, request, options...)
 	}
 

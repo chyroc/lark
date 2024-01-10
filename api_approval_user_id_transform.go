@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/approval-search/search-approval-id-(dedicated)
 func (r *ApprovalService) TransformApprovalUserID(ctx context.Context, request *TransformApprovalUserIDReq, options ...MethodOptionFunc) (*TransformApprovalUserIDResp, *Response, error) {
 	if r.cli.mock.mockApprovalTransformApprovalUserID != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#TransformApprovalUserID mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Approval#TransformApprovalUserID mock enable")
 		return r.cli.mock.mockApprovalTransformApprovalUserID(ctx, request, options...)
 	}
 

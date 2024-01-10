@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/report/get_daily
 func (r *VCService) GetVCDailyReport(ctx context.Context, request *GetVCDailyReportReq, options ...MethodOptionFunc) (*GetVCDailyReportResp, *Response, error) {
 	if r.cli.mock.mockVCGetVCDailyReport != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] VC#GetVCDailyReport mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#GetVCDailyReport mock enable")
 		return r.cli.mock.mockVCGetVCDailyReport(ctx, request, options...)
 	}
 

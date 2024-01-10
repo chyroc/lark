@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_approval/query
 func (r *AttendanceService) GetAttendanceUserApproval(ctx context.Context, request *GetAttendanceUserApprovalReq, options ...MethodOptionFunc) (*GetAttendanceUserApprovalResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetAttendanceUserApproval != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceUserApproval mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceUserApproval mock enable")
 		return r.cli.mock.mockAttendanceGetAttendanceUserApproval(ctx, request, options...)
 	}
 

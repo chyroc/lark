@@ -36,7 +36,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/group/chat-menu_tree/create
 func (r *ChatService) CreateChatMenuTree(ctx context.Context, request *CreateChatMenuTreeReq, options ...MethodOptionFunc) (*CreateChatMenuTreeResp, *Response, error) {
 	if r.cli.mock.mockChatCreateChatMenuTree != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#CreateChatMenuTree mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Chat#CreateChatMenuTree mock enable")
 		return r.cli.mock.mockChatCreateChatMenuTree(ctx, request, options...)
 	}
 

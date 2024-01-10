@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet-float_image/query
 func (r *DriveService) QuerySheetFloatImage(ctx context.Context, request *QuerySheetFloatImageReq, options ...MethodOptionFunc) (*QuerySheetFloatImageResp, *Response, error) {
 	if r.cli.mock.mockDriveQuerySheetFloatImage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#QuerySheetFloatImage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#QuerySheetFloatImage mock enable")
 		return r.cli.mock.mockDriveQuerySheetFloatImage(ctx, request, options...)
 	}
 

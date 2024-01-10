@@ -29,7 +29,7 @@ import (
 // Deprecated
 func (r *DriveService) GetSheetMeta(ctx context.Context, request *GetSheetMetaReq, options ...MethodOptionFunc) (*GetSheetMetaResp, *Response, error) {
 	if r.cli.mock.mockDriveGetSheetMeta != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetSheetMeta mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetSheetMeta mock enable")
 		return r.cli.mock.mockDriveGetSheetMeta(ctx, request, options...)
 	}
 

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/ticket-management/ticket-message/create-2
 func (r *HelpdeskService) SendHelpdeskMessage(ctx context.Context, request *SendHelpdeskMessageReq, options ...MethodOptionFunc) (*SendHelpdeskMessageResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskSendHelpdeskMessage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#SendHelpdeskMessage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Helpdesk#SendHelpdeskMessage mock enable")
 		return r.cli.mock.mockHelpdeskSendHelpdeskMessage(ctx, request, options...)
 	}
 

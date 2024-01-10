@@ -31,7 +31,7 @@ import (
 // Deprecated
 func (r *ChatService) GetChatOld(ctx context.Context, request *GetChatOldReq, options ...MethodOptionFunc) (*GetChatOldResp, *Response, error) {
 	if r.cli.mock.mockChatGetChatOld != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#GetChatOld mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Chat#GetChatOld mock enable")
 		return r.cli.mock.mockChatGetChatOld(ctx, request, options...)
 	}
 

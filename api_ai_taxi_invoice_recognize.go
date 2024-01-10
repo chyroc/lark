@@ -29,7 +29,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/document_ai-v1/taxi_invoice/recognize
 func (r *AIService) RecognizeAITaxiInvoice(ctx context.Context, request *RecognizeAITaxiInvoiceReq, options ...MethodOptionFunc) (*RecognizeAITaxiInvoiceResp, *Response, error) {
 	if r.cli.mock.mockAIRecognizeAITaxiInvoice != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] AI#RecognizeAITaxiInvoice mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] AI#RecognizeAITaxiInvoice mock enable")
 		return r.cli.mock.mockAIRecognizeAITaxiInvoice(ctx, request, options...)
 	}
 

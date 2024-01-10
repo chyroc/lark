@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/user/patch
 func (r *ContactService) UpdateUserPatch(ctx context.Context, request *UpdateUserPatchReq, options ...MethodOptionFunc) (*UpdateUserPatchResp, *Response, error) {
 	if r.cli.mock.mockContactUpdateUserPatch != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#UpdateUserPatch mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#UpdateUserPatch mock enable")
 		return r.cli.mock.mockContactUpdateUserPatch(ctx, request, options...)
 	}
 

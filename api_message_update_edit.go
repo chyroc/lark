@@ -33,7 +33,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/message/update
 func (r *MessageService) UpdateMessageEdit(ctx context.Context, request *UpdateMessageEditReq, options ...MethodOptionFunc) (*UpdateMessageEditResp, *Response, error) {
 	if r.cli.mock.mockMessageUpdateMessageEdit != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Message#UpdateMessageEdit mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#UpdateMessageEdit mock enable")
 		return r.cli.mock.mockMessageUpdateMessageEdit(ctx, request, options...)
 	}
 

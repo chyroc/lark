@@ -32,7 +32,7 @@ import (
 // Deprecated
 func (r *OKRService) BatchUpdateOKRMetricSourceTableItem(ctx context.Context, request *BatchUpdateOKRMetricSourceTableItemReq, options ...MethodOptionFunc) (*BatchUpdateOKRMetricSourceTableItemResp, *Response, error) {
 	if r.cli.mock.mockOKRBatchUpdateOKRMetricSourceTableItem != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] OKR#BatchUpdateOKRMetricSourceTableItem mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] OKR#BatchUpdateOKRMetricSourceTableItem mock enable")
 		return r.cli.mock.mockOKRBatchUpdateOKRMetricSourceTableItem(ctx, request, options...)
 	}
 

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/cost_center/cost_center-version/patch
 func (r *CoreHRService) UpdateCoreHRCostCenterVersion(ctx context.Context, request *UpdateCoreHRCostCenterVersionReq, options ...MethodOptionFunc) (*UpdateCoreHRCostCenterVersionResp, *Response, error) {
 	if r.cli.mock.mockCoreHRUpdateCoreHRCostCenterVersion != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#UpdateCoreHRCostCenterVersion mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#UpdateCoreHRCostCenterVersion mock enable")
 		return r.cli.mock.mockCoreHRUpdateCoreHRCostCenterVersion(ctx, request, options...)
 	}
 

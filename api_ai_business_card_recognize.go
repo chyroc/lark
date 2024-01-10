@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/ai/document_ai-v1/business_card/recognize
 func (r *AIService) RecognizeAIBusinessCard(ctx context.Context, request *RecognizeAIBusinessCardReq, options ...MethodOptionFunc) (*RecognizeAIBusinessCardResp, *Response, error) {
 	if r.cli.mock.mockAIRecognizeAIBusinessCard != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] AI#RecognizeAIBusinessCard mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] AI#RecognizeAIBusinessCard mock enable")
 		return r.cli.mock.mockAIRecognizeAIBusinessCard(ctx, request, options...)
 	}
 

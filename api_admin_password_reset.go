@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/admin-v1/password/reset
 func (r *AdminService) AdminResetPassword(ctx context.Context, request *AdminResetPasswordReq, options ...MethodOptionFunc) (*AdminResetPasswordResp, *Response, error) {
 	if r.cli.mock.mockAdminAdminResetPassword != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Admin#AdminResetPassword mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Admin#AdminResetPassword mock enable")
 		return r.cli.mock.mockAdminAdminResetPassword(ctx, request, options...)
 	}
 

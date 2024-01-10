@@ -32,7 +32,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/message-reaction/create
 func (r *MessageService) CreateMessageReaction(ctx context.Context, request *CreateMessageReactionReq, options ...MethodOptionFunc) (*CreateMessageReactionResp, *Response, error) {
 	if r.cli.mock.mockMessageCreateMessageReaction != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Message#CreateMessageReaction mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#CreateMessageReaction mock enable")
 		return r.cli.mock.mockMessageCreateMessageReaction(ctx, request, options...)
 	}
 

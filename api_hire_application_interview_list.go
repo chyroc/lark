@@ -29,7 +29,7 @@ import (
 // Deprecated
 func (r *HireService) GetHireApplicationInterviewList(ctx context.Context, request *GetHireApplicationInterviewListReq, options ...MethodOptionFunc) (*GetHireApplicationInterviewListResp, *Response, error) {
 	if r.cli.mock.mockHireGetHireApplicationInterviewList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#GetHireApplicationInterviewList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#GetHireApplicationInterviewList mock enable")
 		return r.cli.mock.mockHireGetHireApplicationInterviewList(ctx, request, options...)
 	}
 

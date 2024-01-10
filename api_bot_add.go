@@ -28,7 +28,7 @@ import (
 // Deprecated
 func (r *BotService) AddBotToChat(ctx context.Context, request *AddBotToChatReq, options ...MethodOptionFunc) (*AddBotToChatResp, *Response, error) {
 	if r.cli.mock.mockBotAddBotToChat != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Bot#AddBotToChat mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Bot#AddBotToChat mock enable")
 		return r.cli.mock.mockBotAddBotToChat(ctx, request, options...)
 	}
 

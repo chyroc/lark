@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/unit/list
 func (r *ContactService) GetContactUnitList(ctx context.Context, request *GetContactUnitListReq, options ...MethodOptionFunc) (*GetContactUnitListResp, *Response, error) {
 	if r.cli.mock.mockContactGetContactUnitList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetContactUnitList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#GetContactUnitList mock enable")
 		return r.cli.mock.mockContactGetContactUnitList(ctx, request, options...)
 	}
 

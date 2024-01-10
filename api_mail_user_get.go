@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/mail-v1/user/query
 func (r *MailService) GetMailUser(ctx context.Context, request *GetMailUserReq, options ...MethodOptionFunc) (*GetMailUserResp, *Response, error) {
 	if r.cli.mock.mockMailGetMailUser != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#GetMailUser mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#GetMailUser mock enable")
 		return r.cli.mock.mockMailGetMailUser(ctx, request, options...)
 	}
 

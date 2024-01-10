@@ -32,7 +32,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/patch
 func (r *CalendarService) UpdateCalendarEvent(ctx context.Context, request *UpdateCalendarEventReq, options ...MethodOptionFunc) (*UpdateCalendarEventResp, *Response, error) {
 	if r.cli.mock.mockCalendarUpdateCalendarEvent != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#UpdateCalendarEvent mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Calendar#UpdateCalendarEvent mock enable")
 		return r.cli.mock.mockCalendarUpdateCalendarEvent(ctx, request, options...)
 	}
 

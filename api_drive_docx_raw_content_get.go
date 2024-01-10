@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/docs/docx-v1/document/raw_content
 func (r *DriveService) GetDocxDocumentRawContent(ctx context.Context, request *GetDocxDocumentRawContentReq, options ...MethodOptionFunc) (*GetDocxDocumentRawContentResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDocxDocumentRawContent != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDocxDocumentRawContent mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetDocxDocumentRawContent mock enable")
 		return r.cli.mock.mockDriveGetDocxDocumentRawContent(ctx, request, options...)
 	}
 

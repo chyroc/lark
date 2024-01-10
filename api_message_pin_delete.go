@@ -34,7 +34,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/pin/delete
 func (r *MessageService) DeleteMessagePin(ctx context.Context, request *DeleteMessagePinReq, options ...MethodOptionFunc) (*DeleteMessagePinResp, *Response, error) {
 	if r.cli.mock.mockMessageDeleteMessagePin != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Message#DeleteMessagePin mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#DeleteMessagePin mock enable")
 		return r.cli.mock.mockMessageDeleteMessagePin(ctx, request, options...)
 	}
 

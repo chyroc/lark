@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/application-v6/admin/obtain-the-apps-available-to-a-user
 func (r *ApplicationService) GetApplicationUserVisibleApp(ctx context.Context, request *GetApplicationUserVisibleAppReq, options ...MethodOptionFunc) (*GetApplicationUserVisibleAppResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplicationUserVisibleApp != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Application#GetApplicationUserVisibleApp mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#GetApplicationUserVisibleApp mock enable")
 		return r.cli.mock.mockApplicationGetApplicationUserVisibleApp(ctx, request, options...)
 	}
 

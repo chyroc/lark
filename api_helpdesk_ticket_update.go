@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/ticket-management/ticket/update
 func (r *HelpdeskService) UpdateHelpdeskTicket(ctx context.Context, request *UpdateHelpdeskTicketReq, options ...MethodOptionFunc) (*UpdateHelpdeskTicketResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskUpdateHelpdeskTicket != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#UpdateHelpdeskTicket mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Helpdesk#UpdateHelpdeskTicket mock enable")
 		return r.cli.mock.mockHelpdeskUpdateHelpdeskTicket(ctx, request, options...)
 	}
 

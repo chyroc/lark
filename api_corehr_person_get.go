@@ -29,7 +29,7 @@ import (
 // Deprecated
 func (r *CoreHRService) GetCoreHRPerson(ctx context.Context, request *GetCoreHRPersonReq, options ...MethodOptionFunc) (*GetCoreHRPersonResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRPerson != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRPerson mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRPerson mock enable")
 		return r.cli.mock.mockCoreHRGetCoreHRPerson(ctx, request, options...)
 	}
 

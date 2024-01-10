@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/data-operation/reading-a-single-range
 func (r *DriveService) GetSheetValue(ctx context.Context, request *GetSheetValueReq, options ...MethodOptionFunc) (*GetSheetValueResp, *Response, error) {
 	if r.cli.mock.mockDriveGetSheetValue != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetSheetValue mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetSheetValue mock enable")
 		return r.cli.mock.mockDriveGetSheetValue(ctx, request, options...)
 	}
 

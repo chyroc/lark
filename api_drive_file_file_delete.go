@@ -32,7 +32,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/file/delete
 func (r *DriveService) DeleteDriveFile(ctx context.Context, request *DeleteDriveFileReq, options ...MethodOptionFunc) (*DeleteDriveFileResp, *Response, error) {
 	if r.cli.mock.mockDriveDeleteDriveFile != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteDriveFile mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#DeleteDriveFile mock enable")
 		return r.cli.mock.mockDriveDeleteDriveFile(ctx, request, options...)
 	}
 

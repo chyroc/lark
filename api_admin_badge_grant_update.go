@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/admin-v1/badge/badge-grant/update
 func (r *AdminService) UpdateAdminBadgeGrant(ctx context.Context, request *UpdateAdminBadgeGrantReq, options ...MethodOptionFunc) (*UpdateAdminBadgeGrantResp, *Response, error) {
 	if r.cli.mock.mockAdminUpdateAdminBadgeGrant != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Admin#UpdateAdminBadgeGrant mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Admin#UpdateAdminBadgeGrant mock enable")
 		return r.cli.mock.mockAdminUpdateAdminBadgeGrant(ctx, request, options...)
 	}
 

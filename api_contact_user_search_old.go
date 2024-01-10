@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/user/search-users
 func (r *ContactService) SearchUserOld(ctx context.Context, request *SearchUserOldReq, options ...MethodOptionFunc) (*SearchUserOldResp, *Response, error) {
 	if r.cli.mock.mockContactSearchUserOld != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#SearchUserOld mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#SearchUserOld mock enable")
 		return r.cli.mock.mockContactSearchUserOld(ctx, request, options...)
 	}
 

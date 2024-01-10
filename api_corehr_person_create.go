@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/person/create-2
 func (r *CoreHRService) CreateCoreHRPerson(ctx context.Context, request *CreateCoreHRPersonReq, options ...MethodOptionFunc) (*CreateCoreHRPersonResp, *Response, error) {
 	if r.cli.mock.mockCoreHRCreateCoreHRPerson != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCoreHRPerson mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCoreHRPerson mock enable")
 		return r.cli.mock.mockCoreHRCreateCoreHRPerson(ctx, request, options...)
 	}
 

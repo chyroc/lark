@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/location_data/get-2
 func (r *CoreHRService) GetCoreHRSubdivision(ctx context.Context, request *GetCoreHRSubdivisionReq, options ...MethodOptionFunc) (*GetCoreHRSubdivisionResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRSubdivision != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRSubdivision mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRSubdivision mock enable")
 		return r.cli.mock.mockCoreHRGetCoreHRSubdivision(ctx, request, options...)
 	}
 

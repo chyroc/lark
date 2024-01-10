@@ -28,7 +28,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_setting/upload
 func (r *AttendanceService) UploadAttendanceFile(ctx context.Context, request *UploadAttendanceFileReq, options ...MethodOptionFunc) (*UploadAttendanceFileResp, *Response, error) {
 	if r.cli.mock.mockAttendanceUploadAttendanceFile != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#UploadAttendanceFile mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Attendance#UploadAttendanceFile mock enable")
 		return r.cli.mock.mockAttendanceUploadAttendanceFile(ctx, request, options...)
 	}
 

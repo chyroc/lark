@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/scope_config/get
 func (r *VCService) GetVCScopeConfig(ctx context.Context, request *GetVCScopeConfigReq, options ...MethodOptionFunc) (*GetVCScopeConfigResp, *Response, error) {
 	if r.cli.mock.mockVCGetVCScopeConfig != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] VC#GetVCScopeConfig mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#GetVCScopeConfig mock enable")
 		return r.cli.mock.mockVCGetVCScopeConfig(ctx, request, options...)
 	}
 

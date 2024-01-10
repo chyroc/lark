@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/workplace-v1/custom_workplace_access_data/search
 func (r *ApplicationService) SearchApplicationCustomWorkplaceAccessData(ctx context.Context, request *SearchApplicationCustomWorkplaceAccessDataReq, options ...MethodOptionFunc) (*SearchApplicationCustomWorkplaceAccessDataResp, *Response, error) {
 	if r.cli.mock.mockApplicationSearchApplicationCustomWorkplaceAccessData != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Application#SearchApplicationCustomWorkplaceAccessData mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#SearchApplicationCustomWorkplaceAccessData mock enable")
 		return r.cli.mock.mockApplicationSearchApplicationCustomWorkplaceAccessData(ctx, request, options...)
 	}
 

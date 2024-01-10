@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar-acl/list
 func (r *CalendarService) GetCalendarACLList(ctx context.Context, request *GetCalendarACLListReq, options ...MethodOptionFunc) (*GetCalendarACLListResp, *Response, error) {
 	if r.cli.mock.mockCalendarGetCalendarACLList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#GetCalendarACLList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Calendar#GetCalendarACLList mock enable")
 		return r.cli.mock.mockCalendarGetCalendarACLList(ctx, request, options...)
 	}
 

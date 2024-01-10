@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_approval/get
 func (r *ApprovalService) GetApprovalExternalApproval(ctx context.Context, request *GetApprovalExternalApprovalReq, options ...MethodOptionFunc) (*GetApprovalExternalApprovalResp, *Response, error) {
 	if r.cli.mock.mockApprovalGetApprovalExternalApproval != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#GetApprovalExternalApproval mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Approval#GetApprovalExternalApproval mock enable")
 		return r.cli.mock.mockApprovalGetApprovalExternalApproval(ctx, request, options...)
 	}
 

@@ -31,7 +31,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/human_authentication-v1/facial-image-cropping
 func (r *HumanAuthService) CropFaceVerifyImage(ctx context.Context, request *CropFaceVerifyImageReq, options ...MethodOptionFunc) (*CropFaceVerifyImageResp, *Response, error) {
 	if r.cli.mock.mockHumanAuthCropFaceVerifyImage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] HumanAuth#CropFaceVerifyImage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] HumanAuth#CropFaceVerifyImage mock enable")
 		return r.cli.mock.mockHumanAuthCropFaceVerifyImage(ctx, request, options...)
 	}
 

@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/acs-v1/user/list
 func (r *ACSService) GetACSUserList(ctx context.Context, request *GetACSUserListReq, options ...MethodOptionFunc) (*GetACSUserListResp, *Response, error) {
 	if r.cli.mock.mockACSGetACSUserList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] ACS#GetACSUserList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] ACS#GetACSUserList mock enable")
 		return r.cli.mock.mockACSGetACSUserList(ctx, request, options...)
 	}
 

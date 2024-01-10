@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/tenant-v2/query
 func (r *TenantService) GetTenant(ctx context.Context, request *GetTenantReq, options ...MethodOptionFunc) (*GetTenantResp, *Response, error) {
 	if r.cli.mock.mockTenantGetTenant != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Tenant#GetTenant mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Tenant#GetTenant mock enable")
 		return r.cli.mock.mockTenantGetTenant(ctx, request, options...)
 	}
 

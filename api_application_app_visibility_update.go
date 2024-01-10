@@ -31,7 +31,7 @@ import (
 // Deprecated
 func (r *ApplicationService) UpdateApplicationAppVisibility(ctx context.Context, request *UpdateApplicationAppVisibilityReq, options ...MethodOptionFunc) (*UpdateApplicationAppVisibilityResp, *Response, error) {
 	if r.cli.mock.mockApplicationUpdateApplicationAppVisibility != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Application#UpdateApplicationAppVisibility mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#UpdateApplicationAppVisibility mock enable")
 		return r.cli.mock.mockApplicationUpdateApplicationAppVisibility(ctx, request, options...)
 	}
 

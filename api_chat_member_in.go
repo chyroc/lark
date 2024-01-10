@@ -31,7 +31,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/group/chat-member/is_in_chat
 func (r *ChatService) IsInChat(ctx context.Context, request *IsInChatReq, options ...MethodOptionFunc) (*IsInChatResp, *Response, error) {
 	if r.cli.mock.mockChatIsInChat != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#IsInChat mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Chat#IsInChat mock enable")
 		return r.cli.mock.mockChatIsInChat(ctx, request, options...)
 	}
 

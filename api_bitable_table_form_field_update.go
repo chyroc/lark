@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/form/patch
 func (r *BitableService) UpdateBitableTableFormField(ctx context.Context, request *UpdateBitableTableFormFieldReq, options ...MethodOptionFunc) (*UpdateBitableTableFormFieldResp, *Response, error) {
 	if r.cli.mock.mockBitableUpdateBitableTableFormField != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#UpdateBitableTableFormField mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Bitable#UpdateBitableTableFormField mock enable")
 		return r.cli.mock.mockBitableUpdateBitableTableFormField(ctx, request, options...)
 	}
 

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/company/list
 func (r *CoreHRService) GetCoreHRCompanyList(ctx context.Context, request *GetCoreHRCompanyListReq, options ...MethodOptionFunc) (*GetCoreHRCompanyListResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRCompanyList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRCompanyList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRCompanyList mock enable")
 		return r.cli.mock.mockCoreHRGetCoreHRCompanyList(ctx, request, options...)
 	}
 

@@ -31,7 +31,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/group/chat/search
 func (r *ChatService) SearchChat(ctx context.Context, request *SearchChatReq, options ...MethodOptionFunc) (*SearchChatResp, *Response, error) {
 	if r.cli.mock.mockChatSearchChat != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#SearchChat mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Chat#SearchChat mock enable")
 		return r.cli.mock.mockChatSearchChat(ctx, request, options...)
 	}
 

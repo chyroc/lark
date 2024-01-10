@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app/get
 func (r *BitableService) GetBitableMeta(ctx context.Context, request *GetBitableMetaReq, options ...MethodOptionFunc) (*GetBitableMetaResp, *Response, error) {
 	if r.cli.mock.mockBitableGetBitableMeta != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#GetBitableMeta mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Bitable#GetBitableMeta mock enable")
 		return r.cli.mock.mockBitableGetBitableMeta(ctx, request, options...)
 	}
 

@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/permission/permission-member/obtain-a-collaborator-list
 func (r *DriveService) GetDriveMemberPermissionListOld(ctx context.Context, request *GetDriveMemberPermissionListOldReq, options ...MethodOptionFunc) (*GetDriveMemberPermissionListOldResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDriveMemberPermissionListOld != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveMemberPermissionListOld mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetDriveMemberPermissionListOld mock enable")
 		return r.cli.mock.mockDriveGetDriveMemberPermissionListOld(ctx, request, options...)
 	}
 

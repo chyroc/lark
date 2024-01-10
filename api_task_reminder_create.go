@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task-reminder/create
 func (r *TaskService) CreateTaskReminder(ctx context.Context, request *CreateTaskReminderReq, options ...MethodOptionFunc) (*CreateTaskReminderResp, *Response, error) {
 	if r.cli.mock.mockTaskCreateTaskReminder != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Task#CreateTaskReminder mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#CreateTaskReminder mock enable")
 		return r.cli.mock.mockTaskCreateTaskReminder(ctx, request, options...)
 	}
 

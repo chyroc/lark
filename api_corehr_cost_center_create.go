@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/cost_center/create
 func (r *CoreHRService) CreateCoreHRCostCenter(ctx context.Context, request *CreateCoreHRCostCenterReq, options ...MethodOptionFunc) (*CreateCoreHRCostCenterResp, *Response, error) {
 	if r.cli.mock.mockCoreHRCreateCoreHRCostCenter != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCoreHRCostCenter mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCoreHRCostCenter mock enable")
 		return r.cli.mock.mockCoreHRCreateCoreHRCostCenter(ctx, request, options...)
 	}
 

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_task_remedy/query_user_allowed_remedys
 func (r *AttendanceService) GetAttendanceUserTaskRemedyAllowedRemedyList(ctx context.Context, request *GetAttendanceUserTaskRemedyAllowedRemedyListReq, options ...MethodOptionFunc) (*GetAttendanceUserTaskRemedyAllowedRemedyListResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetAttendanceUserTaskRemedyAllowedRemedyList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceUserTaskRemedyAllowedRemedyList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceUserTaskRemedyAllowedRemedyList mock enable")
 		return r.cli.mock.mockAttendanceGetAttendanceUserTaskRemedyAllowedRemedyList(ctx, request, options...)
 	}
 

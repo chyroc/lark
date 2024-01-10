@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-city/search
 func (r *CoreHRService) SearchCoreHRCity(ctx context.Context, request *SearchCoreHRCityReq, options ...MethodOptionFunc) (*SearchCoreHRCityResp, *Response, error) {
 	if r.cli.mock.mockCoreHRSearchCoreHRCity != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#SearchCoreHRCity mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#SearchCoreHRCity mock enable")
 		return r.cli.mock.mockCoreHRSearchCoreHRCity(ctx, request, options...)
 	}
 

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/file/create_shortcut
 func (r *DriveService) CreateDriveFileShortcut(ctx context.Context, request *CreateDriveFileShortcutReq, options ...MethodOptionFunc) (*CreateDriveFileShortcutResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateDriveFileShortcut != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateDriveFileShortcut mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#CreateDriveFileShortcut mock enable")
 		return r.cli.mock.mockDriveCreateDriveFileShortcut(ctx, request, options...)
 	}
 

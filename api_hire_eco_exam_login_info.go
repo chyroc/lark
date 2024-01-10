@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/ecological-docking/eco_exam/login_info
 func (r *HireService) CreateHireEcoExamLoginInfo(ctx context.Context, request *CreateHireEcoExamLoginInfoReq, options ...MethodOptionFunc) (*CreateHireEcoExamLoginInfoResp, *Response, error) {
 	if r.cli.mock.mockHireCreateHireEcoExamLoginInfo != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#CreateHireEcoExamLoginInfo mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#CreateHireEcoExamLoginInfo mock enable")
 		return r.cli.mock.mockHireCreateHireEcoExamLoginInfo(ctx, request, options...)
 	}
 

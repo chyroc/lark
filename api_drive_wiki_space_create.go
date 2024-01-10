@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/wiki-v2/space/create
 func (r *DriveService) CreateWikiSpace(ctx context.Context, request *CreateWikiSpaceReq, options ...MethodOptionFunc) (*CreateWikiSpaceResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateWikiSpace != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateWikiSpace mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#CreateWikiSpace mock enable")
 		return r.cli.mock.mockDriveCreateWikiSpace(ctx, request, options...)
 	}
 

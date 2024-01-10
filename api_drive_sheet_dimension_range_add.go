@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/sheet-rowcol/add-rows-or-columns
 func (r *DriveService) AddSheetDimensionRange(ctx context.Context, request *AddSheetDimensionRangeReq, options ...MethodOptionFunc) (*AddSheetDimensionRangeResp, *Response, error) {
 	if r.cli.mock.mockDriveAddSheetDimensionRange != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#AddSheetDimensionRange mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#AddSheetDimensionRange mock enable")
 		return r.cli.mock.mockDriveAddSheetDimensionRange(ctx, request, options...)
 	}
 

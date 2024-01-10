@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task-collaborator/list
 func (r *TaskService) GetTaskCollaboratorList(ctx context.Context, request *GetTaskCollaboratorListReq, options ...MethodOptionFunc) (*GetTaskCollaboratorListResp, *Response, error) {
 	if r.cli.mock.mockTaskGetTaskCollaboratorList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Task#GetTaskCollaboratorList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#GetTaskCollaboratorList mock enable")
 		return r.cli.mock.mockTaskGetTaskCollaboratorList(ctx, request, options...)
 	}
 

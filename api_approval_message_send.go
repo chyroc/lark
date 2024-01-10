@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/message/send-bot-messages
 func (r *ApprovalService) SendApprovalMessage(ctx context.Context, request *SendApprovalMessageReq, options ...MethodOptionFunc) (*SendApprovalMessageResp, *Response, error) {
 	if r.cli.mock.mockApprovalSendApprovalMessage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#SendApprovalMessage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Approval#SendApprovalMessage mock enable")
 		return r.cli.mock.mockApprovalSendApprovalMessage(ctx, request, options...)
 	}
 

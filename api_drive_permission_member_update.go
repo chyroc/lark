@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/permission/permission-member/update
 func (r *DriveService) UpdateDriveMemberPermission(ctx context.Context, request *UpdateDriveMemberPermissionReq, options ...MethodOptionFunc) (*UpdateDriveMemberPermissionResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateDriveMemberPermission != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateDriveMemberPermission mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#UpdateDriveMemberPermission mock enable")
 		return r.cli.mock.mockDriveUpdateDriveMemberPermission(ctx, request, options...)
 	}
 

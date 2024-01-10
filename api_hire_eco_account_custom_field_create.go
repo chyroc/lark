@@ -31,7 +31,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/ecological-docking/eco_account_custom_field/create
 func (r *HireService) CreateHireEcoAccountCustomField(ctx context.Context, request *CreateHireEcoAccountCustomFieldReq, options ...MethodOptionFunc) (*CreateHireEcoAccountCustomFieldResp, *Response, error) {
 	if r.cli.mock.mockHireCreateHireEcoAccountCustomField != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#CreateHireEcoAccountCustomField mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#CreateHireEcoAccountCustomField mock enable")
 		return r.cli.mock.mockHireCreateHireEcoAccountCustomField(ctx, request, options...)
 	}
 

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/conditionformat/condition-format-delete
 func (r *DriveService) DeleteSheetConditionFormat(ctx context.Context, request *DeleteSheetConditionFormatReq, options ...MethodOptionFunc) (*DeleteSheetConditionFormatResp, *Response, error) {
 	if r.cli.mock.mockDriveDeleteSheetConditionFormat != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteSheetConditionFormat mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#DeleteSheetConditionFormat mock enable")
 		return r.cli.mock.mockDriveDeleteSheetConditionFormat(ctx, request, options...)
 	}
 

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet/patch
 func (r *DriveService) UpdateSpreadsheet(ctx context.Context, request *UpdateSpreadsheetReq, options ...MethodOptionFunc) (*UpdateSpreadsheetResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateSpreadsheet != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateSpreadsheet mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#UpdateSpreadsheet mock enable")
 		return r.cli.mock.mockDriveUpdateSpreadsheet(ctx, request, options...)
 	}
 

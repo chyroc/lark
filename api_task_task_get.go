@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task/get
 func (r *TaskService) GetTask(ctx context.Context, request *GetTaskReq, options ...MethodOptionFunc) (*GetTaskResp, *Response, error) {
 	if r.cli.mock.mockTaskGetTask != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Task#GetTask mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#GetTask mock enable")
 		return r.cli.mock.mockTaskGetTask(ctx, request, options...)
 	}
 

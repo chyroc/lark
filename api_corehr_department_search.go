@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/department/search
 func (r *CoreHRService) SearchCoreHRDepartment(ctx context.Context, request *SearchCoreHRDepartmentReq, options ...MethodOptionFunc) (*SearchCoreHRDepartmentResp, *Response, error) {
 	if r.cli.mock.mockCoreHRSearchCoreHRDepartment != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#SearchCoreHRDepartment mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#SearchCoreHRDepartment mock enable")
 		return r.cli.mock.mockCoreHRSearchCoreHRDepartment(ctx, request, options...)
 	}
 

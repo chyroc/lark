@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/offboarding/search
 func (r *CoreHRService) SearchCoreHROffboarding(ctx context.Context, request *SearchCoreHROffboardingReq, options ...MethodOptionFunc) (*SearchCoreHROffboardingResp, *Response, error) {
 	if r.cli.mock.mockCoreHRSearchCoreHROffboarding != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#SearchCoreHROffboarding mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#SearchCoreHROffboarding mock enable")
 		return r.cli.mock.mockCoreHRSearchCoreHROffboarding(ctx, request, options...)
 	}
 

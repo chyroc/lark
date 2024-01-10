@@ -32,7 +32,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/wiki-v2/space-node/move
 func (r *DriveService) MoveWikiNode(ctx context.Context, request *MoveWikiNodeReq, options ...MethodOptionFunc) (*MoveWikiNodeResp, *Response, error) {
 	if r.cli.mock.mockDriveMoveWikiNode != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#MoveWikiNode mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#MoveWikiNode mock enable")
 		return r.cli.mock.mockDriveMoveWikiNode(ctx, request, options...)
 	}
 

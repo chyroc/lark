@@ -29,7 +29,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/document_ai-v1/business_license/recognize
 func (r *AIService) RecognizeAIBusinessLicense(ctx context.Context, request *RecognizeAIBusinessLicenseReq, options ...MethodOptionFunc) (*RecognizeAIBusinessLicenseResp, *Response, error) {
 	if r.cli.mock.mockAIRecognizeAIBusinessLicense != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] AI#RecognizeAIBusinessLicense mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] AI#RecognizeAIBusinessLicense mock enable")
 		return r.cli.mock.mockAIRecognizeAIBusinessLicense(ctx, request, options...)
 	}
 

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_daily_shift/query
 func (r *AttendanceService) GetAttendanceUserDailyShift(ctx context.Context, request *GetAttendanceUserDailyShiftReq, options ...MethodOptionFunc) (*GetAttendanceUserDailyShiftResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetAttendanceUserDailyShift != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceUserDailyShift mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceUserDailyShift mock enable")
 		return r.cli.mock.mockAttendanceGetAttendanceUserDailyShift(ctx, request, options...)
 	}
 

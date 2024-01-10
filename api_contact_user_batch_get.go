@@ -35,7 +35,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/user/batch_get_id
 func (r *ContactService) BatchGetUserByID(ctx context.Context, request *BatchGetUserByIDReq, options ...MethodOptionFunc) (*BatchGetUserByIDResp, *Response, error) {
 	if r.cli.mock.mockContactBatchGetUserByID != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#BatchGetUserByID mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#BatchGetUserByID mock enable")
 		return r.cli.mock.mockContactBatchGetUserByID(ctx, request, options...)
 	}
 

@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/ai/document_ai-v1/contract/field_extraction
 func (r *AIService) ExtractAIContractField(ctx context.Context, request *ExtractAIContractFieldReq, options ...MethodOptionFunc) (*ExtractAIContractFieldResp, *Response, error) {
 	if r.cli.mock.mockAIExtractAIContractField != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] AI#ExtractAIContractField mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] AI#ExtractAIContractField mock enable")
 		return r.cli.mock.mockAIExtractAIContractField(ctx, request, options...)
 	}
 

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/okr-v1/progress_record/get
 func (r *OKRService) GetOKRProgressRecord(ctx context.Context, request *GetOKRProgressRecordReq, options ...MethodOptionFunc) (*GetOKRProgressRecordResp, *Response, error) {
 	if r.cli.mock.mockOKRGetOKRProgressRecord != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] OKR#GetOKRProgressRecord mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] OKR#GetOKRProgressRecord mock enable")
 		return r.cli.mock.mockOKRGetOKRProgressRecord(ctx, request, options...)
 	}
 

@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/ai/translation-v1/detect
 func (r *AIService) DetectTextLanguage(ctx context.Context, request *DetectTextLanguageReq, options ...MethodOptionFunc) (*DetectTextLanguageResp, *Response, error) {
 	if r.cli.mock.mockAIDetectTextLanguage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] AI#DetectTextLanguage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] AI#DetectTextLanguage mock enable")
 		return r.cli.mock.mockAIDetectTextLanguage(ctx, request, options...)
 	}
 

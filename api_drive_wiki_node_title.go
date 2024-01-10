@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/wiki-v2/space-node/update_title
 func (r *DriveService) UpdateWikiNodeTitle(ctx context.Context, request *UpdateWikiNodeTitleReq, options ...MethodOptionFunc) (*UpdateWikiNodeTitleResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateWikiNodeTitle != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateWikiNodeTitle mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#UpdateWikiNodeTitle mock enable")
 		return r.cli.mock.mockDriveUpdateWikiNodeTitle(ctx, request, options...)
 	}
 

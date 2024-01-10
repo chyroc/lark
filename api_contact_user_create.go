@@ -33,7 +33,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/user/create
 func (r *ContactService) CreateUser(ctx context.Context, request *CreateUserReq, options ...MethodOptionFunc) (*CreateUserResp, *Response, error) {
 	if r.cli.mock.mockContactCreateUser != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#CreateUser mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#CreateUser mock enable")
 		return r.cli.mock.mockContactCreateUser(ctx, request, options...)
 	}
 

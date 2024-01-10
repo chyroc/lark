@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/search-v2/open-search/data_source/get
 func (r *SearchService) GetSearchDataSource(ctx context.Context, request *GetSearchDataSourceReq, options ...MethodOptionFunc) (*GetSearchDataSourceResp, *Response, error) {
 	if r.cli.mock.mockSearchGetSearchDataSource != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Search#GetSearchDataSource mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Search#GetSearchDataSource mock enable")
 		return r.cli.mock.mockSearchGetSearchDataSource(ctx, request, options...)
 	}
 

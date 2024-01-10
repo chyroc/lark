@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/advanced-permission/app-role-member/delete
 func (r *BitableService) DeleteBitableAppRoleMember(ctx context.Context, request *DeleteBitableAppRoleMemberReq, options ...MethodOptionFunc) (*DeleteBitableAppRoleMemberResp, *Response, error) {
 	if r.cli.mock.mockBitableDeleteBitableAppRoleMember != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#DeleteBitableAppRoleMember mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Bitable#DeleteBitableAppRoleMember mock enable")
 		return r.cli.mock.mockBitableDeleteBitableAppRoleMember(ctx, request, options...)
 	}
 

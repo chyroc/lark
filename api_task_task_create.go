@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task/create
 func (r *TaskService) CreateTask(ctx context.Context, request *CreateTaskReq, options ...MethodOptionFunc) (*CreateTaskResp, *Response, error) {
 	if r.cli.mock.mockTaskCreateTask != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Task#CreateTask mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#CreateTask mock enable")
 		return r.cli.mock.mockTaskCreateTask(ctx, request, options...)
 	}
 

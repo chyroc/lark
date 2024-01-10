@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/instance/cancel
 func (r *ApprovalService) CancelApprovalInstance(ctx context.Context, request *CancelApprovalInstanceReq, options ...MethodOptionFunc) (*CancelApprovalInstanceResp, *Response, error) {
 	if r.cli.mock.mockApprovalCancelApprovalInstance != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#CancelApprovalInstance mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Approval#CancelApprovalInstance mock enable")
 		return r.cli.mock.mockApprovalCancelApprovalInstance(ctx, request, options...)
 	}
 

@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/wiki-v2/space-setting/update
 func (r *DriveService) UpdateWikiSpaceSetting(ctx context.Context, request *UpdateWikiSpaceSettingReq, options ...MethodOptionFunc) (*UpdateWikiSpaceSettingResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateWikiSpaceSetting != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateWikiSpaceSetting mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#UpdateWikiSpaceSetting mock enable")
 		return r.cli.mock.mockDriveUpdateWikiSpaceSetting(ctx, request, options...)
 	}
 

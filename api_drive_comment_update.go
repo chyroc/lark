@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/CommentAPI/update
 func (r *DriveService) UpdateDriveComment(ctx context.Context, request *UpdateDriveCommentReq, options ...MethodOptionFunc) (*UpdateDriveCommentResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateDriveComment != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateDriveComment mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#UpdateDriveComment mock enable")
 		return r.cli.mock.mockDriveUpdateDriveComment(ctx, request, options...)
 	}
 

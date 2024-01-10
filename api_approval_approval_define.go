@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/approval/create
 func (r *ApprovalService) CreateApproval(ctx context.Context, request *CreateApprovalReq, options ...MethodOptionFunc) (*CreateApprovalResp, *Response, error) {
 	if r.cli.mock.mockApprovalCreateApproval != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#CreateApproval mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Approval#CreateApproval mock enable")
 		return r.cli.mock.mockApprovalCreateApproval(ctx, request, options...)
 	}
 

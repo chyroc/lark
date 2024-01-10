@@ -32,7 +32,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/group/chat/get-2
 func (r *ChatService) GetChat(ctx context.Context, request *GetChatReq, options ...MethodOptionFunc) (*GetChatResp, *Response, error) {
 	if r.cli.mock.mockChatGetChat != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#GetChat mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Chat#GetChat mock enable")
 		return r.cli.mock.mockChatGetChat(ctx, request, options...)
 	}
 

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/permission/permission-member/delete
 func (r *DriveService) DeleteDriveMemberPermission(ctx context.Context, request *DeleteDriveMemberPermissionReq, options ...MethodOptionFunc) (*DeleteDriveMemberPermissionResp, *Response, error) {
 	if r.cli.mock.mockDriveDeleteDriveMemberPermission != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteDriveMemberPermission mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#DeleteDriveMemberPermission mock enable")
 		return r.cli.mock.mockDriveDeleteDriveMemberPermission(ctx, request, options...)
 	}
 

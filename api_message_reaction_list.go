@@ -32,7 +32,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/message-reaction/list
 func (r *MessageService) GetMessageReactionList(ctx context.Context, request *GetMessageReactionListReq, options ...MethodOptionFunc) (*GetMessageReactionListResp, *Response, error) {
 	if r.cli.mock.mockMessageGetMessageReactionList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Message#GetMessageReactionList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#GetMessageReactionList mock enable")
 		return r.cli.mock.mockMessageGetMessageReactionList(ctx, request, options...)
 	}
 

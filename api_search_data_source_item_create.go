@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/search-v2/open-search/data_source-item/create
 func (r *SearchService) CreateSearchDataSourceItem(ctx context.Context, request *CreateSearchDataSourceItemReq, options ...MethodOptionFunc) (*CreateSearchDataSourceItemResp, *Response, error) {
 	if r.cli.mock.mockSearchCreateSearchDataSourceItem != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Search#CreateSearchDataSourceItem mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Search#CreateSearchDataSourceItem mock enable")
 		return r.cli.mock.mockSearchCreateSearchDataSourceItem(ctx, request, options...)
 	}
 

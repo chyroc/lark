@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/data-operation/prepend-data
 func (r *DriveService) PrependSheetValue(ctx context.Context, request *PrependSheetValueReq, options ...MethodOptionFunc) (*PrependSheetValueResp, *Response, error) {
 	if r.cli.mock.mockDrivePrependSheetValue != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#PrependSheetValue mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#PrependSheetValue mock enable")
 		return r.cli.mock.mockDrivePrependSheetValue(ctx, request, options...)
 	}
 

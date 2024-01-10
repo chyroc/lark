@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/pre_hire/get
 func (r *CoreHRService) GetCoreHRPreHire(ctx context.Context, request *GetCoreHRPreHireReq, options ...MethodOptionFunc) (*GetCoreHRPreHireResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRPreHire != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRPreHire mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRPreHire mock enable")
 		return r.cli.mock.mockCoreHRGetCoreHRPreHire(ctx, request, options...)
 	}
 

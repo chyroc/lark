@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-dashboard/copy
 func (r *BitableService) CopyBitableDashboard(ctx context.Context, request *CopyBitableDashboardReq, options ...MethodOptionFunc) (*CopyBitableDashboardResp, *Response, error) {
 	if r.cli.mock.mockBitableCopyBitableDashboard != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#CopyBitableDashboard mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Bitable#CopyBitableDashboard mock enable")
 		return r.cli.mock.mockBitableCopyBitableDashboard(ctx, request, options...)
 	}
 

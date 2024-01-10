@@ -31,7 +31,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/lingo-v1/draft/create
 func (r *LingoService) CreateLingoDraft(ctx context.Context, request *CreateLingoDraftReq, options ...MethodOptionFunc) (*CreateLingoDraftResp, *Response, error) {
 	if r.cli.mock.mockLingoCreateLingoDraft != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Lingo#CreateLingoDraft mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Lingo#CreateLingoDraft mock enable")
 		return r.cli.mock.mockLingoCreateLingoDraft(ctx, request, options...)
 	}
 

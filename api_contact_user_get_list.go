@@ -31,7 +31,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/user/find_by_department
 func (r *ContactService) GetUserList(ctx context.Context, request *GetUserListReq, options ...MethodOptionFunc) (*GetUserListResp, *Response, error) {
 	if r.cli.mock.mockContactGetUserList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetUserList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#GetUserList mock enable")
 		return r.cli.mock.mockContactGetUserList(ctx, request, options...)
 	}
 

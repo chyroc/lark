@@ -31,7 +31,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/message-reaction/delete
 func (r *MessageService) DeleteMessageReaction(ctx context.Context, request *DeleteMessageReactionReq, options ...MethodOptionFunc) (*DeleteMessageReactionResp, *Response, error) {
 	if r.cli.mock.mockMessageDeleteMessageReaction != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Message#DeleteMessageReaction mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#DeleteMessageReaction mock enable")
 		return r.cli.mock.mockMessageDeleteMessageReaction(ctx, request, options...)
 	}
 

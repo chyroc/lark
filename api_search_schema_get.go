@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/search-v2/open-search/schema/get
 func (r *SearchService) GetSearchSchema(ctx context.Context, request *GetSearchSchemaReq, options ...MethodOptionFunc) (*GetSearchSchemaResp, *Response, error) {
 	if r.cli.mock.mockSearchGetSearchSchema != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Search#GetSearchSchema mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Search#GetSearchSchema mock enable")
 		return r.cli.mock.mockSearchGetSearchSchema(ctx, request, options...)
 	}
 

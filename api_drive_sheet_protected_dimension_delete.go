@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/protect-range/delete-protection-scopes
 func (r *DriveService) DeleteSheetProtectedDimension(ctx context.Context, request *DeleteSheetProtectedDimensionReq, options ...MethodOptionFunc) (*DeleteSheetProtectedDimensionResp, *Response, error) {
 	if r.cli.mock.mockDriveDeleteSheetProtectedDimension != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteSheetProtectedDimension mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#DeleteSheetProtectedDimension mock enable")
 		return r.cli.mock.mockDriveDeleteSheetProtectedDimension(ctx, request, options...)
 	}
 

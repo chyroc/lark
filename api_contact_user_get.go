@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/user/get
 func (r *ContactService) GetUser(ctx context.Context, request *GetUserReq, options ...MethodOptionFunc) (*GetUserResp, *Response, error) {
 	if r.cli.mock.mockContactGetUser != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetUser mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#GetUser mock enable")
 		return r.cli.mock.mockContactGetUser(ctx, request, options...)
 	}
 

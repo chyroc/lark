@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/reserve/get_active_meeting
 func (r *VCService) GetVCReserveActiveMeeting(ctx context.Context, request *GetVCReserveActiveMeetingReq, options ...MethodOptionFunc) (*GetVCReserveActiveMeetingResp, *Response, error) {
 	if r.cli.mock.mockVCGetVCReserveActiveMeeting != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] VC#GetVCReserveActiveMeeting mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#GetVCReserveActiveMeeting mock enable")
 		return r.cli.mock.mockVCGetVCReserveActiveMeeting(ctx, request, options...)
 	}
 

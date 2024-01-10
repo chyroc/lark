@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/group/search
 func (r *AttendanceService) SearchAttendanceGroup(ctx context.Context, request *SearchAttendanceGroupReq, options ...MethodOptionFunc) (*SearchAttendanceGroupResp, *Response, error) {
 	if r.cli.mock.mockAttendanceSearchAttendanceGroup != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#SearchAttendanceGroup mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Attendance#SearchAttendanceGroup mock enable")
 		return r.cli.mock.mockAttendanceSearchAttendanceGroup(ctx, request, options...)
 	}
 

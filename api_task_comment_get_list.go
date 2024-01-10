@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task-comment/list
 func (r *TaskService) GetTaskCommentList(ctx context.Context, request *GetTaskCommentListReq, options ...MethodOptionFunc) (*GetTaskCommentListResp, *Response, error) {
 	if r.cli.mock.mockTaskGetTaskCommentList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Task#GetTaskCommentList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#GetTaskCommentList mock enable")
 		return r.cli.mock.mockTaskGetTaskCommentList(ctx, request, options...)
 	}
 

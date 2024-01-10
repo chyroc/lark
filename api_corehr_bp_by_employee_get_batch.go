@@ -28,7 +28,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employees-bp/batch_get
 func (r *CoreHRService) BatchGetCoreHrbpByEmployee(ctx context.Context, request *BatchGetCoreHrbpByEmployeeReq, options ...MethodOptionFunc) (*BatchGetCoreHrbpByEmployeeResp, *Response, error) {
 	if r.cli.mock.mockCoreHRBatchGetCoreHrbpByEmployee != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#BatchGetCoreHrbpByEmployee mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#BatchGetCoreHrbpByEmployee mock enable")
 		return r.cli.mock.mockCoreHRBatchGetCoreHrbpByEmployee(ctx, request, options...)
 	}
 

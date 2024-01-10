@@ -35,7 +35,7 @@ import (
 // Deprecated
 func (r *BaikeService) CreateBaikeDraft(ctx context.Context, request *CreateBaikeDraftReq, options ...MethodOptionFunc) (*CreateBaikeDraftResp, *Response, error) {
 	if r.cli.mock.mockBaikeCreateBaikeDraft != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Baike#CreateBaikeDraft mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Baike#CreateBaikeDraft mock enable")
 		return r.cli.mock.mockBaikeCreateBaikeDraft(ctx, request, options...)
 	}
 

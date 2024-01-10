@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/employee_type_enum/update
 func (r *ContactService) UpdateEmployeeTypeEnumPatch(ctx context.Context, request *UpdateEmployeeTypeEnumPatchReq, options ...MethodOptionFunc) (*UpdateEmployeeTypeEnumPatchResp, *Response, error) {
 	if r.cli.mock.mockContactUpdateEmployeeTypeEnumPatch != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#UpdateEmployeeTypeEnumPatch mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#UpdateEmployeeTypeEnumPatch mock enable")
 		return r.cli.mock.mockContactUpdateEmployeeTypeEnumPatch(ctx, request, options...)
 	}
 

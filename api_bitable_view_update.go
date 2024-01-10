@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-view/patch
 func (r *BitableService) UpdateBitableView(ctx context.Context, request *UpdateBitableViewReq, options ...MethodOptionFunc) (*UpdateBitableViewResp, *Response, error) {
 	if r.cli.mock.mockBitableUpdateBitableView != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#UpdateBitableView mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Bitable#UpdateBitableView mock enable")
 		return r.cli.mock.mockBitableUpdateBitableView(ctx, request, options...)
 	}
 

@@ -34,7 +34,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/message/get-2
 func (r *MessageService) GetMessageFile(ctx context.Context, request *GetMessageFileReq, options ...MethodOptionFunc) (*GetMessageFileResp, *Response, error) {
 	if r.cli.mock.mockMessageGetMessageFile != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Message#GetMessageFile mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#GetMessageFile mock enable")
 		return r.cli.mock.mockMessageGetMessageFile(ctx, request, options...)
 	}
 

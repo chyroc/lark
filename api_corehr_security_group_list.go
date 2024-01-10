@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/authorization/list
 func (r *CoreHRService) GetCoreHRSecurityGroupList(ctx context.Context, request *GetCoreHRSecurityGroupListReq, options ...MethodOptionFunc) (*GetCoreHRSecurityGroupListResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRSecurityGroupList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRSecurityGroupList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRSecurityGroupList mock enable")
 		return r.cli.mock.mockCoreHRGetCoreHRSecurityGroupList(ctx, request, options...)
 	}
 

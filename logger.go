@@ -61,7 +61,7 @@ func (r LogLevel) String() string {
 	}
 }
 
-func (r *Lark) log(ctx context.Context, level LogLevel, msg string, args ...interface{}) {
+func (r *Lark) Log(ctx context.Context, level LogLevel, msg string, args ...interface{}) {
 	if r.logger != nil && r.logLevel <= level {
 		r.logger.Log(ctx, level, msg, args...)
 	}

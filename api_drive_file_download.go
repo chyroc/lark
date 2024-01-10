@@ -33,7 +33,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/download/download
 func (r *DriveService) DownloadDriveFile(ctx context.Context, request *DownloadDriveFileReq, options ...MethodOptionFunc) (*DownloadDriveFileResp, *Response, error) {
 	if r.cli.mock.mockDriveDownloadDriveFile != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DownloadDriveFile mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#DownloadDriveFile mock enable")
 		return r.cli.mock.mockDriveDownloadDriveFile(ctx, request, options...)
 	}
 

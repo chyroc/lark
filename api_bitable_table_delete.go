@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table/delete
 func (r *BitableService) DeleteBitableTable(ctx context.Context, request *DeleteBitableTableReq, options ...MethodOptionFunc) (*DeleteBitableTableResp, *Response, error) {
 	if r.cli.mock.mockBitableDeleteBitableTable != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#DeleteBitableTable mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Bitable#DeleteBitableTable mock enable")
 		return r.cli.mock.mockBitableDeleteBitableTable(ctx, request, options...)
 	}
 

@@ -28,7 +28,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/export_task/download
 func (r *DriveService) DownloadDriveExportTask(ctx context.Context, request *DownloadDriveExportTaskReq, options ...MethodOptionFunc) (*DownloadDriveExportTaskResp, *Response, error) {
 	if r.cli.mock.mockDriveDownloadDriveExportTask != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DownloadDriveExportTask mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#DownloadDriveExportTask mock enable")
 		return r.cli.mock.mockDriveDownloadDriveExportTask(ctx, request, options...)
 	}
 

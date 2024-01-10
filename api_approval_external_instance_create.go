@@ -36,7 +36,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/external_instance/create
 func (r *ApprovalService) CreateApprovalExternalInstance(ctx context.Context, request *CreateApprovalExternalInstanceReq, options ...MethodOptionFunc) (*CreateApprovalExternalInstanceResp, *Response, error) {
 	if r.cli.mock.mockApprovalCreateApprovalExternalInstance != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#CreateApprovalExternalInstance mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Approval#CreateApprovalExternalInstance mock enable")
 		return r.cli.mock.mockApprovalCreateApprovalExternalInstance(ctx, request, options...)
 	}
 

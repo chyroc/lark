@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/calendar-v4/setting/generate_caldav_conf
 func (r *CalendarService) GenerateCaldavConf(ctx context.Context, request *GenerateCaldavConfReq, options ...MethodOptionFunc) (*GenerateCaldavConfResp, *Response, error) {
 	if r.cli.mock.mockCalendarGenerateCaldavConf != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#GenerateCaldavConf mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Calendar#GenerateCaldavConf mock enable")
 		return r.cli.mock.mockCalendarGenerateCaldavConf(ctx, request, options...)
 	}
 

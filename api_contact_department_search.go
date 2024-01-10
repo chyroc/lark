@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/department/search
 func (r *ContactService) SearchDepartment(ctx context.Context, request *SearchDepartmentReq, options ...MethodOptionFunc) (*SearchDepartmentResp, *Response, error) {
 	if r.cli.mock.mockContactSearchDepartment != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#SearchDepartment mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#SearchDepartment mock enable")
 		return r.cli.mock.mockContactSearchDepartment(ctx, request, options...)
 	}
 

@@ -33,7 +33,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/message/create
 func (r *MessageService) SendRawMessage(ctx context.Context, request *SendRawMessageReq, options ...MethodOptionFunc) (*SendRawMessageResp, *Response, error) {
 	if r.cli.mock.mockMessageSendRawMessage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Message#SendRawMessage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#SendRawMessage mock enable")
 		return r.cli.mock.mockMessageSendRawMessage(ctx, request, options...)
 	}
 

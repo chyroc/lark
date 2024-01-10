@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_task/get
 func (r *AttendanceService) GetAttendanceUserFlow(ctx context.Context, request *GetAttendanceUserFlowReq, options ...MethodOptionFunc) (*GetAttendanceUserFlowResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetAttendanceUserFlow != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceUserFlow mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceUserFlow mock enable")
 		return r.cli.mock.mockAttendanceGetAttendanceUserFlow(ctx, request, options...)
 	}
 

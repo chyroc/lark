@@ -28,7 +28,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/batch
 func (r *ContactService) BatchGetUser(ctx context.Context, request *BatchGetUserReq, options ...MethodOptionFunc) (*BatchGetUserResp, *Response, error) {
 	if r.cli.mock.mockContactBatchGetUser != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#BatchGetUser mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#BatchGetUser mock enable")
 		return r.cli.mock.mockContactBatchGetUser(ctx, request, options...)
 	}
 

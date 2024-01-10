@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/search-v2/open-search/data_source-item/batch_create
 func (r *SearchService) BatchCreateSearchDataSourceItem(ctx context.Context, request *BatchCreateSearchDataSourceItemReq, options ...MethodOptionFunc) (*BatchCreateSearchDataSourceItemResp, *Response, error) {
 	if r.cli.mock.mockSearchBatchCreateSearchDataSourceItem != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Search#BatchCreateSearchDataSourceItem mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Search#BatchCreateSearchDataSourceItem mock enable")
 		return r.cli.mock.mockSearchBatchCreateSearchDataSourceItem(ctx, request, options...)
 	}
 

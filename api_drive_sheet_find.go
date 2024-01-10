@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/data-operation/find
 func (r *DriveService) FindSheet(ctx context.Context, request *FindSheetReq, options ...MethodOptionFunc) (*FindSheetResp, *Response, error) {
 	if r.cli.mock.mockDriveFindSheet != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#FindSheet mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#FindSheet mock enable")
 		return r.cli.mock.mockDriveFindSheet(ctx, request, options...)
 	}
 

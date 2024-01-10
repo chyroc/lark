@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet/operate-sheets
 func (r *DriveService) BatchUpdateSheet(ctx context.Context, request *BatchUpdateSheetReq, options ...MethodOptionFunc) (*BatchUpdateSheetResp, *Response, error) {
 	if r.cli.mock.mockDriveBatchUpdateSheet != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#BatchUpdateSheet mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#BatchUpdateSheet mock enable")
 		return r.cli.mock.mockDriveBatchUpdateSheet(ctx, request, options...)
 	}
 

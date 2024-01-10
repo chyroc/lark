@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/group-member/simplelist
 func (r *ContactService) GetContactGroupMember(ctx context.Context, request *GetContactGroupMemberReq, options ...MethodOptionFunc) (*GetContactGroupMemberResp, *Response, error) {
 	if r.cli.mock.mockContactGetContactGroupMember != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#GetContactGroupMember mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#GetContactGroupMember mock enable")
 		return r.cli.mock.mockContactGetContactGroupMember(ctx, request, options...)
 	}
 

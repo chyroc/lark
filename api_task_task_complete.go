@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task/complete
 func (r *TaskService) CompleteTask(ctx context.Context, request *CompleteTaskReq, options ...MethodOptionFunc) (*CompleteTaskResp, *Response, error) {
 	if r.cli.mock.mockTaskCompleteTask != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Task#CompleteTask mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#CompleteTask mock enable")
 		return r.cli.mock.mockTaskCompleteTask(ctx, request, options...)
 	}
 

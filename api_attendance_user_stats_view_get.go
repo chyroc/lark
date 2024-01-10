@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_stats_data/query
 func (r *AttendanceService) GetAttendanceUserStatsView(ctx context.Context, request *GetAttendanceUserStatsViewReq, options ...MethodOptionFunc) (*GetAttendanceUserStatsViewResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetAttendanceUserStatsView != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceUserStatsView mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceUserStatsView mock enable")
 		return r.cli.mock.mockAttendanceGetAttendanceUserStatsView(ctx, request, options...)
 	}
 

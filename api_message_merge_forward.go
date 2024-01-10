@@ -40,7 +40,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/message/merge_forward
 func (r *MessageService) MergeForwardMessage(ctx context.Context, request *MergeForwardMessageReq, options ...MethodOptionFunc) (*MergeForwardMessageResp, *Response, error) {
 	if r.cli.mock.mockMessageMergeForwardMessage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Message#MergeForwardMessage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#MergeForwardMessage mock enable")
 		return r.cli.mock.mockMessageMergeForwardMessage(ctx, request, options...)
 	}
 

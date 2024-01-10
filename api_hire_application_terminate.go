@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/application/terminate
 func (r *HireService) TerminateHireApplication(ctx context.Context, request *TerminateHireApplicationReq, options ...MethodOptionFunc) (*TerminateHireApplicationResp, *Response, error) {
 	if r.cli.mock.mockHireTerminateHireApplication != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#TerminateHireApplication mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#TerminateHireApplication mock enable")
 		return r.cli.mock.mockHireTerminateHireApplication(ctx, request, options...)
 	}
 

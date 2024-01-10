@@ -29,7 +29,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/document_ai-v1/vat_invoice/recognize
 func (r *AIService) RecognizeAIVatInvoice(ctx context.Context, request *RecognizeAIVatInvoiceReq, options ...MethodOptionFunc) (*RecognizeAIVatInvoiceResp, *Response, error) {
 	if r.cli.mock.mockAIRecognizeAIVatInvoice != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] AI#RecognizeAIVatInvoice mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] AI#RecognizeAIVatInvoice mock enable")
 		return r.cli.mock.mockAIRecognizeAIVatInvoice(ctx, request, options...)
 	}
 

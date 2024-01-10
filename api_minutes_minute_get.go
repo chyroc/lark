@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/minutes-v1/minute/get
 func (r *MinutesService) GetMinutesMinute(ctx context.Context, request *GetMinutesMinuteReq, options ...MethodOptionFunc) (*GetMinutesMinuteResp, *Response, error) {
 	if r.cli.mock.mockMinutesGetMinutesMinute != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Minutes#GetMinutesMinute mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Minutes#GetMinutesMinute mock enable")
 		return r.cli.mock.mockMinutesGetMinutesMinute(ctx, request, options...)
 	}
 

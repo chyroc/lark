@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/functional_role-member/batch_create
 func (r *ContactService) BatchCreateContactFunctionalRoleMember(ctx context.Context, request *BatchCreateContactFunctionalRoleMemberReq, options ...MethodOptionFunc) (*BatchCreateContactFunctionalRoleMemberResp, *Response, error) {
 	if r.cli.mock.mockContactBatchCreateContactFunctionalRoleMember != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#BatchCreateContactFunctionalRoleMember mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#BatchCreateContactFunctionalRoleMember mock enable")
 		return r.cli.mock.mockContactBatchCreateContactFunctionalRoleMember(ctx, request, options...)
 	}
 

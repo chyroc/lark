@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task-collaborator/delete
 func (r *TaskService) DeleteTaskCollaborator(ctx context.Context, request *DeleteTaskCollaboratorReq, options ...MethodOptionFunc) (*DeleteTaskCollaboratorResp, *Response, error) {
 	if r.cli.mock.mockTaskDeleteTaskCollaborator != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Task#DeleteTaskCollaborator mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#DeleteTaskCollaborator mock enable")
 		return r.cli.mock.mockTaskDeleteTaskCollaborator(ctx, request, options...)
 	}
 

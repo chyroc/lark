@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/meeting-recording/get
 func (r *VCService) GetVCMeetingRecording(ctx context.Context, request *GetVCMeetingRecordingReq, options ...MethodOptionFunc) (*GetVCMeetingRecordingResp, *Response, error) {
 	if r.cli.mock.mockVCGetVCMeetingRecording != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] VC#GetVCMeetingRecording mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#GetVCMeetingRecording mock enable")
 		return r.cli.mock.mockVCGetVCMeetingRecording(ctx, request, options...)
 	}
 

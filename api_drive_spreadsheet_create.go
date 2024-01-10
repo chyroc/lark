@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet/create
 func (r *DriveService) CreateSpreadsheet(ctx context.Context, request *CreateSpreadsheetReq, options ...MethodOptionFunc) (*CreateSpreadsheetResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateSpreadsheet != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateSpreadsheet mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#CreateSpreadsheet mock enable")
 		return r.cli.mock.mockDriveCreateSpreadsheet(ctx, request, options...)
 	}
 

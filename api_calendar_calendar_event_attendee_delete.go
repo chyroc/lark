@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event-attendee/batch_delete
 func (r *CalendarService) DeleteCalendarEventAttendee(ctx context.Context, request *DeleteCalendarEventAttendeeReq, options ...MethodOptionFunc) (*DeleteCalendarEventAttendeeResp, *Response, error) {
 	if r.cli.mock.mockCalendarDeleteCalendarEventAttendee != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#DeleteCalendarEventAttendee mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Calendar#DeleteCalendarEventAttendee mock enable")
 		return r.cli.mock.mockCalendarDeleteCalendarEventAttendee(ctx, request, options...)
 	}
 

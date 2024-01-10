@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/recruitment-related-configuration/job/combined_create
 func (r *HireService) CreateHireJob(ctx context.Context, request *CreateHireJobReq, options ...MethodOptionFunc) (*CreateHireJobResp, *Response, error) {
 	if r.cli.mock.mockHireCreateHireJob != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#CreateHireJob mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#CreateHireJob mock enable")
 		return r.cli.mock.mockHireCreateHireJob(ctx, request, options...)
 	}
 

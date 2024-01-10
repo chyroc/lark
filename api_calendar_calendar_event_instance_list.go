@@ -28,7 +28,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/instances
 func (r *CalendarService) GetCalendarEventInstanceList(ctx context.Context, request *GetCalendarEventInstanceListReq, options ...MethodOptionFunc) (*GetCalendarEventInstanceListResp, *Response, error) {
 	if r.cli.mock.mockCalendarGetCalendarEventInstanceList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#GetCalendarEventInstanceList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Calendar#GetCalendarEventInstanceList mock enable")
 		return r.cli.mock.mockCalendarGetCalendarEventInstanceList(ctx, request, options...)
 	}
 

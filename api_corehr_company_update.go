@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/patch
 func (r *CoreHRService) UpdateCoreHRCompany(ctx context.Context, request *UpdateCoreHRCompanyReq, options ...MethodOptionFunc) (*UpdateCoreHRCompanyResp, *Response, error) {
 	if r.cli.mock.mockCoreHRUpdateCoreHRCompany != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#UpdateCoreHRCompany mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#UpdateCoreHRCompany mock enable")
 		return r.cli.mock.mockCoreHRUpdateCoreHRCompany(ctx, request, options...)
 	}
 

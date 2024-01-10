@@ -34,7 +34,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/group/chat/delete
 func (r *ChatService) DeleteChat(ctx context.Context, request *DeleteChatReq, options ...MethodOptionFunc) (*DeleteChatResp, *Response, error) {
 	if r.cli.mock.mockChatDeleteChat != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#DeleteChat mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Chat#DeleteChat mock enable")
 		return r.cli.mock.mockChatDeleteChat(ctx, request, options...)
 	}
 

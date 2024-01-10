@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/workplace-v1/app_recommend_rule/favourite
 func (r *ApplicationService) GetApplicationFavourite(ctx context.Context, request *GetApplicationFavouriteReq, options ...MethodOptionFunc) (*GetApplicationFavouriteResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplicationFavourite != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Application#GetApplicationFavourite mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#GetApplicationFavourite mock enable")
 		return r.cli.mock.mockApplicationGetApplicationFavourite(ctx, request, options...)
 	}
 

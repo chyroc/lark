@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/application-v6/admin/contacts_range_configuration
 func (r *ApplicationService) GetApplicationContactsRangeConfiguration(ctx context.Context, request *GetApplicationContactsRangeConfigurationReq, options ...MethodOptionFunc) (*GetApplicationContactsRangeConfigurationResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplicationContactsRangeConfiguration != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Application#GetApplicationContactsRangeConfiguration mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#GetApplicationContactsRangeConfiguration mock enable")
 		return r.cli.mock.mockApplicationGetApplicationContactsRangeConfiguration(ctx, request, options...)
 	}
 

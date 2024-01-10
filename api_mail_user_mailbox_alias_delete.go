@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/mail-v1/user_mailbox-alias/delete-2
 func (r *MailService) DeleteMailUserMailboxAlias(ctx context.Context, request *DeleteMailUserMailboxAliasReq, options ...MethodOptionFunc) (*DeleteMailUserMailboxAliasResp, *Response, error) {
 	if r.cli.mock.mockMailDeleteMailUserMailboxAlias != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#DeleteMailUserMailboxAlias mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#DeleteMailUserMailboxAlias mock enable")
 		return r.cli.mock.mockMailDeleteMailUserMailboxAlias(ctx, request, options...)
 	}
 

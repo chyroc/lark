@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/task/transfer
 func (r *ApprovalService) TransferApprovalInstance(ctx context.Context, request *TransferApprovalInstanceReq, options ...MethodOptionFunc) (*TransferApprovalInstanceResp, *Response, error) {
 	if r.cli.mock.mockApprovalTransferApprovalInstance != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#TransferApprovalInstance mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Approval#TransferApprovalInstance mock enable")
 		return r.cli.mock.mockApprovalTransferApprovalInstance(ctx, request, options...)
 	}
 

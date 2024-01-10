@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/docs/docx-v1/document-block/get
 func (r *DriveService) GetDocxBlock(ctx context.Context, request *GetDocxBlockReq, options ...MethodOptionFunc) (*GetDocxBlockResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDocxBlock != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDocxBlock mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetDocxBlock mock enable")
 		return r.cli.mock.mockDriveGetDocxBlock(ctx, request, options...)
 	}
 

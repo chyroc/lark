@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/agent-function/agent_skill/delete
 func (r *HelpdeskService) DeleteHelpdeskAgentSkill(ctx context.Context, request *DeleteHelpdeskAgentSkillReq, options ...MethodOptionFunc) (*DeleteHelpdeskAgentSkillResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskDeleteHelpdeskAgentSkill != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#DeleteHelpdeskAgentSkill mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Helpdesk#DeleteHelpdeskAgentSkill mock enable")
 		return r.cli.mock.mockHelpdeskDeleteHelpdeskAgentSkill(ctx, request, options...)
 	}
 

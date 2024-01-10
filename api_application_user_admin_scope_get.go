@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/application-v6/admin/obtain-an-app-admin’s-management-permissions
 func (r *ApplicationService) GetApplicationUserAdminScope(ctx context.Context, request *GetApplicationUserAdminScopeReq, options ...MethodOptionFunc) (*GetApplicationUserAdminScopeResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplicationUserAdminScope != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Application#GetApplicationUserAdminScope mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#GetApplicationUserAdminScope mock enable")
 		return r.cli.mock.mockApplicationGetApplicationUserAdminScope(ctx, request, options...)
 	}
 

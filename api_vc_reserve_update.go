@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/reserve/update
 func (r *VCService) UpdateVCReserve(ctx context.Context, request *UpdateVCReserveReq, options ...MethodOptionFunc) (*UpdateVCReserveResp, *Response, error) {
 	if r.cli.mock.mockVCUpdateVCReserve != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] VC#UpdateVCReserve mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#UpdateVCReserve mock enable")
 		return r.cli.mock.mockVCUpdateVCReserve(ctx, request, options...)
 	}
 

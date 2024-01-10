@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/task/specified_rollback
 func (r *ApprovalService) RollbackApprovalInstance(ctx context.Context, request *RollbackApprovalInstanceReq, options ...MethodOptionFunc) (*RollbackApprovalInstanceResp, *Response, error) {
 	if r.cli.mock.mockApprovalRollbackApprovalInstance != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#RollbackApprovalInstance mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Approval#RollbackApprovalInstance mock enable")
 		return r.cli.mock.mockApprovalRollbackApprovalInstance(ctx, request, options...)
 	}
 

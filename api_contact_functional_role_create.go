@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/functional_role/create
 func (r *ContactService) CreateContactFunctionalRole(ctx context.Context, request *CreateContactFunctionalRoleReq, options ...MethodOptionFunc) (*CreateContactFunctionalRoleResp, *Response, error) {
 	if r.cli.mock.mockContactCreateContactFunctionalRole != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#CreateContactFunctionalRole mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#CreateContactFunctionalRole mock enable")
 		return r.cli.mock.mockContactCreateContactFunctionalRole(ctx, request, options...)
 	}
 

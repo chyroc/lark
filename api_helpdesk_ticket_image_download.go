@@ -28,7 +28,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/ticket-management/ticket/ticket_image
 func (r *HelpdeskService) DownloadHelpdeskTicketImage(ctx context.Context, request *DownloadHelpdeskTicketImageReq, options ...MethodOptionFunc) (*DownloadHelpdeskTicketImageResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskDownloadHelpdeskTicketImage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#DownloadHelpdeskTicketImage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Helpdesk#DownloadHelpdeskTicketImage mock enable")
 		return r.cli.mock.mockHelpdeskDownloadHelpdeskTicketImage(ctx, request, options...)
 	}
 

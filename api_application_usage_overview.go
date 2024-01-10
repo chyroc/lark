@@ -34,7 +34,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/application-v6/app-usage/overview
 func (r *ApplicationService) GetApplicationUsageOverview(ctx context.Context, request *GetApplicationUsageOverviewReq, options ...MethodOptionFunc) (*GetApplicationUsageOverviewResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplicationUsageOverview != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Application#GetApplicationUsageOverview mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#GetApplicationUsageOverview mock enable")
 		return r.cli.mock.mockApplicationGetApplicationUsageOverview(ctx, request, options...)
 	}
 

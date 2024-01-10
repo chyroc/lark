@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task-comment/create
 func (r *TaskService) CreateTaskComment(ctx context.Context, request *CreateTaskCommentReq, options ...MethodOptionFunc) (*CreateTaskCommentResp, *Response, error) {
 	if r.cli.mock.mockTaskCreateTaskComment != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Task#CreateTaskComment mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#CreateTaskComment mock enable")
 		return r.cli.mock.mockTaskCreateTaskComment(ctx, request, options...)
 	}
 

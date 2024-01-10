@@ -28,7 +28,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/lingo-v1/repo/list
 func (r *LingoService) GetLingoRepoList(ctx context.Context, request *GetLingoRepoListReq, options ...MethodOptionFunc) (*GetLingoRepoListResp, *Response, error) {
 	if r.cli.mock.mockLingoGetLingoRepoList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Lingo#GetLingoRepoList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Lingo#GetLingoRepoList mock enable")
 		return r.cli.mock.mockLingoGetLingoRepoList(ctx, request, options...)
 	}
 

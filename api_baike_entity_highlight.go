@@ -31,7 +31,7 @@ import (
 // Deprecated
 func (r *BaikeService) HighlightBaikeEntity(ctx context.Context, request *HighlightBaikeEntityReq, options ...MethodOptionFunc) (*HighlightBaikeEntityResp, *Response, error) {
 	if r.cli.mock.mockBaikeHighlightBaikeEntity != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Baike#HighlightBaikeEntity mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Baike#HighlightBaikeEntity mock enable")
 		return r.cli.mock.mockBaikeHighlightBaikeEntity(ctx, request, options...)
 	}
 

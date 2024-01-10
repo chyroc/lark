@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/meeting-recording/stop
 func (r *VCService) StopVCMeetingRecording(ctx context.Context, request *StopVCMeetingRecordingReq, options ...MethodOptionFunc) (*StopVCMeetingRecordingResp, *Response, error) {
 	if r.cli.mock.mockVCStopVCMeetingRecording != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] VC#StopVCMeetingRecording mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#StopVCMeetingRecording mock enable")
 		return r.cli.mock.mockVCStopVCMeetingRecording(ctx, request, options...)
 	}
 

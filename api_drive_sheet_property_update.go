@@ -29,7 +29,7 @@ import (
 // Deprecated
 func (r *DriveService) UpdateSheetProperty(ctx context.Context, request *UpdateSheetPropertyReq, options ...MethodOptionFunc) (*UpdateSheetPropertyResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateSheetProperty != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateSheetProperty mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#UpdateSheetProperty mock enable")
 		return r.cli.mock.mockDriveUpdateSheetProperty(ctx, request, options...)
 	}
 

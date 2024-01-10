@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-record/batch_delete
 func (r *BitableService) BatchDeleteBitableRecord(ctx context.Context, request *BatchDeleteBitableRecordReq, options ...MethodOptionFunc) (*BatchDeleteBitableRecordResp, *Response, error) {
 	if r.cli.mock.mockBitableBatchDeleteBitableRecord != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#BatchDeleteBitableRecord mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Bitable#BatchDeleteBitableRecord mock enable")
 		return r.cli.mock.mockBitableBatchDeleteBitableRecord(ctx, request, options...)
 	}
 

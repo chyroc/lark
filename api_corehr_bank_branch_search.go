@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-bank_branch/search
 func (r *CoreHRService) SearchCoreHRBankBranch(ctx context.Context, request *SearchCoreHRBankBranchReq, options ...MethodOptionFunc) (*SearchCoreHRBankBranchResp, *Response, error) {
 	if r.cli.mock.mockCoreHRSearchCoreHRBankBranch != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#SearchCoreHRBankBranch mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#SearchCoreHRBankBranch mock enable")
 		return r.cli.mock.mockCoreHRSearchCoreHRBankBranch(ctx, request, options...)
 	}
 

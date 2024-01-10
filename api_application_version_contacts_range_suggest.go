@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/application-v6/application/contacts_range_suggest
 func (r *ApplicationService) GetApplicationVersionContactsRangeSuggest(ctx context.Context, request *GetApplicationVersionContactsRangeSuggestReq, options ...MethodOptionFunc) (*GetApplicationVersionContactsRangeSuggestResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplicationVersionContactsRangeSuggest != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Application#GetApplicationVersionContactsRangeSuggest mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#GetApplicationVersionContactsRangeSuggest mock enable")
 		return r.cli.mock.mockApplicationGetApplicationVersionContactsRangeSuggest(ctx, request, options...)
 	}
 

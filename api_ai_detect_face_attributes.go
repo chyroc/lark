@@ -30,7 +30,7 @@ import (
 // Deprecated
 func (r *AIService) DetectFaceAttributes(ctx context.Context, request *DetectFaceAttributesReq, options ...MethodOptionFunc) (*DetectFaceAttributesResp, *Response, error) {
 	if r.cli.mock.mockAIDetectFaceAttributes != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] AI#DetectFaceAttributes mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] AI#DetectFaceAttributes mock enable")
 		return r.cli.mock.mockAIDetectFaceAttributes(ctx, request, options...)
 	}
 

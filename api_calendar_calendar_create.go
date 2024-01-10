@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar/create
 func (r *CalendarService) CreateCalendar(ctx context.Context, request *CreateCalendarReq, options ...MethodOptionFunc) (*CreateCalendarResp, *Response, error) {
 	if r.cli.mock.mockCalendarCreateCalendar != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#CreateCalendar mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Calendar#CreateCalendar mock enable")
 		return r.cli.mock.mockCalendarCreateCalendar(ctx, request, options...)
 	}
 

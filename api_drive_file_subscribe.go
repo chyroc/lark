@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/event/subscribe
 func (r *DriveService) SubscribeDriveFile(ctx context.Context, request *SubscribeDriveFileReq, options ...MethodOptionFunc) (*SubscribeDriveFileResp, *Response, error) {
 	if r.cli.mock.mockDriveSubscribeDriveFile != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#SubscribeDriveFile mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#SubscribeDriveFile mock enable")
 		return r.cli.mock.mockDriveSubscribeDriveFile(ctx, request, options...)
 	}
 

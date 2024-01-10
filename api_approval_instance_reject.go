@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/task/reject
 func (r *ApprovalService) RejectApprovalInstance(ctx context.Context, request *RejectApprovalInstanceReq, options ...MethodOptionFunc) (*RejectApprovalInstanceResp, *Response, error) {
 	if r.cli.mock.mockApprovalRejectApprovalInstance != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#RejectApprovalInstance mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Approval#RejectApprovalInstance mock enable")
 		return r.cli.mock.mockApprovalRejectApprovalInstance(ctx, request, options...)
 	}
 

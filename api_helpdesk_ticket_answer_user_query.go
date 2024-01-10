@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/ticket-management/ticket/answer_user_query
 func (r *HelpdeskService) AnswerHelpdeskTicketUserQuery(ctx context.Context, request *AnswerHelpdeskTicketUserQueryReq, options ...MethodOptionFunc) (*AnswerHelpdeskTicketUserQueryResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskAnswerHelpdeskTicketUserQuery != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#AnswerHelpdeskTicketUserQuery mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Helpdesk#AnswerHelpdeskTicketUserQuery mock enable")
 		return r.cli.mock.mockHelpdeskAnswerHelpdeskTicketUserQuery(ctx, request, options...)
 	}
 

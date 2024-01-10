@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/list_object_api_name
 func (r *CoreHRService) GetCoreHRCustomFieldObjectApiNameList(ctx context.Context, request *GetCoreHRCustomFieldObjectApiNameListReq, options ...MethodOptionFunc) (*GetCoreHRCustomFieldObjectApiNameListResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRCustomFieldObjectApiNameList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRCustomFieldObjectApiNameList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRCustomFieldObjectApiNameList mock enable")
 		return r.cli.mock.mockCoreHRGetCoreHRCustomFieldObjectApiNameList(ctx, request, options...)
 	}
 

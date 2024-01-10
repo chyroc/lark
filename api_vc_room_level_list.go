@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/room_level/list
 func (r *VCService) GetVCRoomLevelList(ctx context.Context, request *GetVCRoomLevelListReq, options ...MethodOptionFunc) (*GetVCRoomLevelListResp, *Response, error) {
 	if r.cli.mock.mockVCGetVCRoomLevelList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] VC#GetVCRoomLevelList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#GetVCRoomLevelList mock enable")
 		return r.cli.mock.mockVCGetVCRoomLevelList(ctx, request, options...)
 	}
 

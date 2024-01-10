@@ -32,7 +32,7 @@ import (
 // Deprecated
 func (r *BaikeService) UploadBaikeImage(ctx context.Context, request *UploadBaikeImageReq, options ...MethodOptionFunc) (*UploadBaikeImageResp, *Response, error) {
 	if r.cli.mock.mockBaikeUploadBaikeImage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Baike#UploadBaikeImage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Baike#UploadBaikeImage mock enable")
 		return r.cli.mock.mockBaikeUploadBaikeImage(ctx, request, options...)
 	}
 

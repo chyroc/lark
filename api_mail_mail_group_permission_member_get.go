@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/mail-v1/mail-group/mailgroup-permission_member/get
 func (r *MailService) GetMailGroupPermissionMember(ctx context.Context, request *GetMailGroupPermissionMemberReq, options ...MethodOptionFunc) (*GetMailGroupPermissionMemberResp, *Response, error) {
 	if r.cli.mock.mockMailGetMailGroupPermissionMember != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#GetMailGroupPermissionMember mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#GetMailGroupPermissionMember mock enable")
 		return r.cli.mock.mockMailGetMailGroupPermissionMember(ctx, request, options...)
 	}
 

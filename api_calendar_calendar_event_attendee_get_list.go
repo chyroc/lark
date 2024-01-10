@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event-attendee/list-2
 func (r *CalendarService) GetCalendarEventAttendeeList(ctx context.Context, request *GetCalendarEventAttendeeListReq, options ...MethodOptionFunc) (*GetCalendarEventAttendeeListResp, *Response, error) {
 	if r.cli.mock.mockCalendarGetCalendarEventAttendeeList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#GetCalendarEventAttendeeList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Calendar#GetCalendarEventAttendeeList mock enable")
 		return r.cli.mock.mockCalendarGetCalendarEventAttendeeList(ctx, request, options...)
 	}
 

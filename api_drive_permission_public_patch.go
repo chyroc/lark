@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/permission/permission-public/patch
 func (r *DriveService) UpdateDrivePublicPermission(ctx context.Context, request *UpdateDrivePublicPermissionReq, options ...MethodOptionFunc) (*UpdateDrivePublicPermissionResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateDrivePublicPermission != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateDrivePublicPermission mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#UpdateDrivePublicPermission mock enable")
 		return r.cli.mock.mockDriveUpdateDrivePublicPermission(ctx, request, options...)
 	}
 

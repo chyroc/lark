@@ -128,7 +128,7 @@ func (r *EventCallbackService) listenAllCallback(ctx context.Context, isSecurity
 
 func (r *EventCallbackService) parserAllCallbackRequest(ctx context.Context, header http.Header, body []byte) (*eventReq, error) {
 	if r.cli.encryptKey == "" {
-		r.cli.log(ctx, LogLevelTrace, "[lark] event body=%s", string(body))
+		r.cli.Log(ctx, LogLevelTrace, "[lark] event body=%s", string(body))
 	}
 
 	req := &eventReq{
@@ -150,7 +150,7 @@ func (r *EventCallbackService) parserAllCallbackRequest(ctx context.Context, hea
 		if err != nil {
 			return nil, err
 		}
-		r.cli.log(ctx, LogLevelTrace, "[lark] event decrypted, body=%s", decrypted)
+		r.cli.Log(ctx, LogLevelTrace, "[lark] event decrypted, body=%s", decrypted)
 
 		req, err = r.parserAllCallbackRequest(ctx, header, []byte(decrypted))
 		if err != nil {

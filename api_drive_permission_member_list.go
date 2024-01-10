@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/permission/permission-member/list
 func (r *DriveService) GetDriveMemberPermissionList(ctx context.Context, request *GetDriveMemberPermissionListReq, options ...MethodOptionFunc) (*GetDriveMemberPermissionListResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDriveMemberPermissionList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveMemberPermissionList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetDriveMemberPermissionList mock enable")
 		return r.cli.mock.mockDriveGetDriveMemberPermissionList(ctx, request, options...)
 	}
 

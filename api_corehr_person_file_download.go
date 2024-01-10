@@ -28,7 +28,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/person/get-2
 func (r *CoreHRService) DownloadCoreHRPersonFile(ctx context.Context, request *DownloadCoreHRPersonFileReq, options ...MethodOptionFunc) (*DownloadCoreHRPersonFileResp, *Response, error) {
 	if r.cli.mock.mockCoreHRDownloadCoreHRPersonFile != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#DownloadCoreHRPersonFile mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#DownloadCoreHRPersonFile mock enable")
 		return r.cli.mock.mockCoreHRDownloadCoreHRPersonFile(ctx, request, options...)
 	}
 

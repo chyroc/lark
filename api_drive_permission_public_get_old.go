@@ -29,7 +29,7 @@ import (
 // Deprecated
 func (r *DriveService) GetDrivePublicPermissionOld(ctx context.Context, request *GetDrivePublicPermissionOldReq, options ...MethodOptionFunc) (*GetDrivePublicPermissionOldResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDrivePublicPermissionOld != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDrivePublicPermissionOld mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetDrivePublicPermissionOld mock enable")
 		return r.cli.mock.mockDriveGetDrivePublicPermissionOld(ctx, request, options...)
 	}
 

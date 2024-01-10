@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/onboard/patch-2
 func (r *HireService) UpdateHireEHRImportTask(ctx context.Context, request *UpdateHireEHRImportTaskReq, options ...MethodOptionFunc) (*UpdateHireEHRImportTaskResp, *Response, error) {
 	if r.cli.mock.mockHireUpdateHireEHRImportTask != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#UpdateHireEHRImportTask mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#UpdateHireEHRImportTask mock enable")
 		return r.cli.mock.mockHireUpdateHireEHRImportTask(ctx, request, options...)
 	}
 

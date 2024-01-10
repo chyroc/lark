@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/datavalidation/query-datavalidation
 func (r *DriveService) GetSheetDataValidationDropdown(ctx context.Context, request *GetSheetDataValidationDropdownReq, options ...MethodOptionFunc) (*GetSheetDataValidationDropdownResp, *Response, error) {
 	if r.cli.mock.mockDriveGetSheetDataValidationDropdown != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetSheetDataValidationDropdown mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetSheetDataValidationDropdown mock enable")
 		return r.cli.mock.mockDriveGetSheetDataValidationDropdown(ctx, request, options...)
 	}
 

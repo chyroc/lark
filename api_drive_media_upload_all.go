@@ -31,7 +31,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/media/upload_all
 func (r *DriveService) UploadDriveMedia(ctx context.Context, request *UploadDriveMediaReq, options ...MethodOptionFunc) (*UploadDriveMediaResp, *Response, error) {
 	if r.cli.mock.mockDriveUploadDriveMedia != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UploadDriveMedia mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#UploadDriveMedia mock enable")
 		return r.cli.mock.mockDriveUploadDriveMedia(ctx, request, options...)
 	}
 

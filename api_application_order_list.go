@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/application-v6/appstore-paid-info/query-an-app-tenant’s-paid-orders
 func (r *ApplicationService) GetApplicationOrderList(ctx context.Context, request *GetApplicationOrderListReq, options ...MethodOptionFunc) (*GetApplicationOrderListResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplicationOrderList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Application#GetApplicationOrderList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#GetApplicationOrderList mock enable")
 		return r.cli.mock.mockApplicationGetApplicationOrderList(ctx, request, options...)
 	}
 

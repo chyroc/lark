@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/stage_task/find_by_page
 func (r *PerformanceService) GetPerformanceStageTaskByPage(ctx context.Context, request *GetPerformanceStageTaskByPageReq, options ...MethodOptionFunc) (*GetPerformanceStageTaskByPageResp, *Response, error) {
 	if r.cli.mock.mockPerformanceGetPerformanceStageTaskByPage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Performance#GetPerformanceStageTaskByPage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Performance#GetPerformanceStageTaskByPage mock enable")
 		return r.cli.mock.mockPerformanceGetPerformanceStageTaskByPage(ctx, request, options...)
 	}
 

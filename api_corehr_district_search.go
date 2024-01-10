@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-district/search
 func (r *CoreHRService) SearchCoreHRDistrict(ctx context.Context, request *SearchCoreHRDistrictReq, options ...MethodOptionFunc) (*SearchCoreHRDistrictResp, *Response, error) {
 	if r.cli.mock.mockCoreHRSearchCoreHRDistrict != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#SearchCoreHRDistrict mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#SearchCoreHRDistrict mock enable")
 		return r.cli.mock.mockCoreHRSearchCoreHRDistrict(ctx, request, options...)
 	}
 

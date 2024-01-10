@@ -31,7 +31,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/user/resurrect
 func (r *ContactService) ResurrectUser(ctx context.Context, request *ResurrectUserReq, options ...MethodOptionFunc) (*ResurrectUserResp, *Response, error) {
 	if r.cli.mock.mockContactResurrectUser != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#ResurrectUser mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#ResurrectUser mock enable")
 		return r.cli.mock.mockContactResurrectUser(ctx, request, options...)
 	}
 

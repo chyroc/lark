@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/mail-v1/public-mailbox/public_mailbox/update
 func (r *MailService) UpdatePublicMailbox(ctx context.Context, request *UpdatePublicMailboxReq, options ...MethodOptionFunc) (*UpdatePublicMailboxResp, *Response, error) {
 	if r.cli.mock.mockMailUpdatePublicMailbox != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#UpdatePublicMailbox mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#UpdatePublicMailbox mock enable")
 		return r.cli.mock.mockMailUpdatePublicMailbox(ctx, request, options...)
 	}
 

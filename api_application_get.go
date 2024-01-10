@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/application-v6/application/get
 func (r *ApplicationService) GetApplication(ctx context.Context, request *GetApplicationReq, options ...MethodOptionFunc) (*GetApplicationResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplication != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Application#GetApplication mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#GetApplication mock enable")
 		return r.cli.mock.mockApplicationGetApplication(ctx, request, options...)
 	}
 

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/datavalidation/delete-datavalidation
 func (r *DriveService) DeleteSheetDataValidationDropdown(ctx context.Context, request *DeleteSheetDataValidationDropdownReq, options ...MethodOptionFunc) (*DeleteSheetDataValidationDropdownResp, *Response, error) {
 	if r.cli.mock.mockDriveDeleteSheetDataValidationDropdown != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#DeleteSheetDataValidationDropdown mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#DeleteSheetDataValidationDropdown mock enable")
 		return r.cli.mock.mockDriveDeleteSheetDataValidationDropdown(ctx, request, options...)
 	}
 

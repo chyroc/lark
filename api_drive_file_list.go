@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/folder/list
 func (r *DriveService) GetDriveFileList(ctx context.Context, request *GetDriveFileListReq, options ...MethodOptionFunc) (*GetDriveFileListResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDriveFileList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveFileList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetDriveFileList mock enable")
 		return r.cli.mock.mockDriveGetDriveFileList(ctx, request, options...)
 	}
 

@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/report/get_top_user
 func (r *VCService) GetVCTopUserReport(ctx context.Context, request *GetVCTopUserReportReq, options ...MethodOptionFunc) (*GetVCTopUserReportResp, *Response, error) {
 	if r.cli.mock.mockVCGetVCTopUserReport != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] VC#GetVCTopUserReport mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#GetVCTopUserReport mock enable")
 		return r.cli.mock.mockVCGetVCTopUserReport(ctx, request, options...)
 	}
 

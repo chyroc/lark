@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/ecological-docking/eco_background_check/update_progress
 func (r *HireService) UpdateHireEcoBackgroundCheckProgress(ctx context.Context, request *UpdateHireEcoBackgroundCheckProgressReq, options ...MethodOptionFunc) (*UpdateHireEcoBackgroundCheckProgressResp, *Response, error) {
 	if r.cli.mock.mockHireUpdateHireEcoBackgroundCheckProgress != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#UpdateHireEcoBackgroundCheckProgress mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#UpdateHireEcoBackgroundCheckProgress mock enable")
 		return r.cli.mock.mockHireUpdateHireEcoBackgroundCheckProgress(ctx, request, options...)
 	}
 

@@ -67,7 +67,7 @@ func (r *Mock) UnMockRawRequest() {
 }
 
 func (r *Lark) rawRequest(ctx context.Context, req *RawRequestReq, resp interface{}) (response *Response, err error) {
-	r.log(ctx, LogLevelInfo, "[lark] %s#%s call api", req.Scope, req.API)
+	r.Log(ctx, LogLevelInfo, "[lark] %s#%s call api", req.Scope, req.API)
 
 	// 1. parse request
 	rawHttpReq, err := r.parseRawHttpRequest(ctx, req)
@@ -80,17 +80,17 @@ func (r *Lark) rawRequest(ctx context.Context, req *RawRequestReq, resp interfac
 
 	requestID, statusCode := getResponseRequestID(response)
 	if err != nil {
-		r.log(ctx, LogLevelError, "[lark] %s#%s %s %s failed, request_id: %s, status_code: %d, error: %s", req.Scope, req.API, req.Method, req.URL, requestID, statusCode, err)
+		r.Log(ctx, LogLevelError, "[lark] %s#%s %s %s failed, request_id: %s, status_code: %d, error: %s", req.Scope, req.API, req.Method, req.URL, requestID, statusCode, err)
 		return response, err
 	}
 
 	code, msg := getCodeMsg(resp)
 	if code != 0 {
-		r.log(ctx, LogLevelError, "[lark] %s#%s %s %s failed, request_id: %s, status_code: %d, code: %d, msg: %s", req.Scope, req.API, req.Method, req.URL, requestID, statusCode, code, msg)
+		r.Log(ctx, LogLevelError, "[lark] %s#%s %s %s failed, request_id: %s, status_code: %d, code: %d, msg: %s", req.Scope, req.API, req.Method, req.URL, requestID, statusCode, code, msg)
 		return response, NewError(req.Scope, req.API, code, msg)
 	}
 
-	r.log(ctx, LogLevelDebug, "[lark] %s#%s success, request_id: %s, status_code: %d, response: %s", req.Scope, req.API, requestID, statusCode, "TODO")
+	r.Log(ctx, LogLevelDebug, "[lark] %s#%s success, request_id: %s, status_code: %d, response: %s", req.Scope, req.API, requestID, statusCode, "TODO")
 
 	return response, nil
 }
@@ -146,7 +146,7 @@ func (r *Lark) doRequest(ctx context.Context, rawHttpReq *rawHttpRequest, realRe
 	response.Header = map[string][]string{}
 
 	if r.logLevel <= LogLevelTrace {
-		r.log(ctx, LogLevelTrace, "[lark] request %s#%s, %s %s, header=%s, body=%s", rawHttpReq.Scope, rawHttpReq.API,
+		r.Log(ctx, LogLevelTrace, "[lark] request %s#%s, %s %s, header=%s, body=%s", rawHttpReq.Scope, rawHttpReq.API,
 			rawHttpReq.Method, rawHttpReq.URL, jsonHeader(rawHttpReq.Headers), string(rawHttpReq.RawBody))
 	}
 
@@ -191,9 +191,9 @@ func (r *Lark) doRequest(ctx context.Context, rawHttpReq *rawHttpRequest, realRe
 
 	if r.logLevel <= LogLevelTrace {
 		if respFilename == "" {
-			r.log(ctx, LogLevelTrace, "[lark] response %s#%s, %s %s, body=%s", rawHttpReq.Scope, rawHttpReq.API, rawHttpReq.Method, rawHttpReq.URL, string(bs))
+			r.Log(ctx, LogLevelTrace, "[lark] response %s#%s, %s %s, body=%s", rawHttpReq.Scope, rawHttpReq.API, rawHttpReq.Method, rawHttpReq.URL, string(bs))
 		} else {
-			r.log(ctx, LogLevelTrace, "[lark] response %s#%s, %s %s, body=<FILE: %d>", rawHttpReq.Scope, rawHttpReq.API, rawHttpReq.Method, rawHttpReq.URL, len(bs))
+			r.Log(ctx, LogLevelTrace, "[lark] response %s#%s, %s %s, body=<FILE: %d>", rawHttpReq.Scope, rawHttpReq.API, rawHttpReq.Method, rawHttpReq.URL, len(bs))
 		}
 	}
 

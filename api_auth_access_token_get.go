@@ -29,7 +29,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/authen-v1/oidc-access_token/create
 func (r *AuthService) GetAccessToken(ctx context.Context, request *GetAccessTokenReq, options ...MethodOptionFunc) (*GetAccessTokenResp, *Response, error) {
 	if r.cli.mock.mockAuthGetAccessToken != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Auth#GetAccessToken mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Auth#GetAccessToken mock enable")
 		return r.cli.mock.mockAuthGetAccessToken(ctx, request, options...)
 	}
 

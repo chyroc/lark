@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/docs-assistant/file-subscription/create
 func (r *DriveService) CreateDriveFileSubscription(ctx context.Context, request *CreateDriveFileSubscriptionReq, options ...MethodOptionFunc) (*CreateDriveFileSubscriptionResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateDriveFileSubscription != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateDriveFileSubscription mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#CreateDriveFileSubscription mock enable")
 		return r.cli.mock.mockDriveCreateDriveFileSubscription(ctx, request, options...)
 	}
 

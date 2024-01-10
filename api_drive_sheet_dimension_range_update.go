@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/sheet-rowcol/update-rows-or-columns
 func (r *DriveService) UpdateSheetDimensionRange(ctx context.Context, request *UpdateSheetDimensionRangeReq, options ...MethodOptionFunc) (*UpdateSheetDimensionRangeResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateSheetDimensionRange != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateSheetDimensionRange mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#UpdateSheetDimensionRange mock enable")
 		return r.cli.mock.mockDriveUpdateSheetDimensionRange(ctx, request, options...)
 	}
 

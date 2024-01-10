@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/ecological-docking/eco_background_check/cancel
 func (r *HireService) CancelHireEcoBackgroundCheck(ctx context.Context, request *CancelHireEcoBackgroundCheckReq, options ...MethodOptionFunc) (*CancelHireEcoBackgroundCheckResp, *Response, error) {
 	if r.cli.mock.mockHireCancelHireEcoBackgroundCheck != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#CancelHireEcoBackgroundCheck mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#CancelHireEcoBackgroundCheck mock enable")
 		return r.cli.mock.mockHireCancelHireEcoBackgroundCheck(ctx, request, options...)
 	}
 

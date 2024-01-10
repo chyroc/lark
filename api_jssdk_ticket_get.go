@@ -38,7 +38,7 @@ import (
 // new doc: https://open.feishu.cn/document/common-capabilities/web-components/component-sdk-authentication-process
 func (r *JssdkService) GetJssdkTicket(ctx context.Context, request *GetJssdkTicketReq, options ...MethodOptionFunc) (*GetJssdkTicketResp, *Response, error) {
 	if r.cli.mock.mockJssdkGetJssdkTicket != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Jssdk#GetJssdkTicket mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Jssdk#GetJssdkTicket mock enable")
 		return r.cli.mock.mockJssdkGetJssdkTicket(ctx, request, options...)
 	}
 

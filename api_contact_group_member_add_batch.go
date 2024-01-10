@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/group-member/batch_add
 func (r *ContactService) BatchAddContactGroupMember(ctx context.Context, request *BatchAddContactGroupMemberReq, options ...MethodOptionFunc) (*BatchAddContactGroupMemberResp, *Response, error) {
 	if r.cli.mock.mockContactBatchAddContactGroupMember != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#BatchAddContactGroupMember mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#BatchAddContactGroupMember mock enable")
 		return r.cli.mock.mockContactBatchAddContactGroupMember(ctx, request, options...)
 	}
 

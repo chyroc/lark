@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/instance/approval-preview
 func (r *ApprovalService) PreviewApprovalInstance(ctx context.Context, request *PreviewApprovalInstanceReq, options ...MethodOptionFunc) (*PreviewApprovalInstanceResp, *Response, error) {
 	if r.cli.mock.mockApprovalPreviewApprovalInstance != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#PreviewApprovalInstance mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Approval#PreviewApprovalInstance mock enable")
 		return r.cli.mock.mockApprovalPreviewApprovalInstance(ctx, request, options...)
 	}
 

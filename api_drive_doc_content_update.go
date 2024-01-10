@@ -39,7 +39,7 @@ import (
 // Deprecated
 func (r *DriveService) UpdateDriveDocContent(ctx context.Context, request *UpdateDriveDocContentReq, options ...MethodOptionFunc) (*UpdateDriveDocContentResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateDriveDocContent != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateDriveDocContent mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#UpdateDriveDocContent mock enable")
 		return r.cli.mock.mockDriveUpdateDriveDocContent(ctx, request, options...)
 	}
 

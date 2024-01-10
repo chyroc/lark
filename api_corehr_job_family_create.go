@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/job-management/job_family/create
 func (r *CoreHRService) CreateCoreHRJobFamily(ctx context.Context, request *CreateCoreHRJobFamilyReq, options ...MethodOptionFunc) (*CreateCoreHRJobFamilyResp, *Response, error) {
 	if r.cli.mock.mockCoreHRCreateCoreHRJobFamily != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCoreHRJobFamily mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCoreHRJobFamily mock enable")
 		return r.cli.mock.mockCoreHRCreateCoreHRJobFamily(ctx, request, options...)
 	}
 

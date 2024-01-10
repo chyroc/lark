@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/media/multipart-upload-media/upload_prepare
 func (r *DriveService) PrepareUploadDriveMedia(ctx context.Context, request *PrepareUploadDriveMediaReq, options ...MethodOptionFunc) (*PrepareUploadDriveMediaResp, *Response, error) {
 	if r.cli.mock.mockDrivePrepareUploadDriveMedia != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#PrepareUploadDriveMedia mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#PrepareUploadDriveMedia mock enable")
 		return r.cli.mock.mockDrivePrepareUploadDriveMedia(ctx, request, options...)
 	}
 

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task-collaborator/batch_delete_collaborator
 func (r *TaskService) BatchDeleteTaskCollaborator(ctx context.Context, request *BatchDeleteTaskCollaboratorReq, options ...MethodOptionFunc) (*BatchDeleteTaskCollaboratorResp, *Response, error) {
 	if r.cli.mock.mockTaskBatchDeleteTaskCollaborator != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Task#BatchDeleteTaskCollaborator mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#BatchDeleteTaskCollaborator mock enable")
 		return r.cli.mock.mockTaskBatchDeleteTaskCollaborator(ctx, request, options...)
 	}
 

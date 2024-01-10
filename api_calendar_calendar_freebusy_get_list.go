@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar/list
 func (r *CalendarService) GetCalendarFreeBusyList(ctx context.Context, request *GetCalendarFreeBusyListReq, options ...MethodOptionFunc) (*GetCalendarFreeBusyListResp, *Response, error) {
 	if r.cli.mock.mockCalendarGetCalendarFreeBusyList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#GetCalendarFreeBusyList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Calendar#GetCalendarFreeBusyList mock enable")
 		return r.cli.mock.mockCalendarGetCalendarFreeBusyList(ctx, request, options...)
 	}
 

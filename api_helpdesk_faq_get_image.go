@@ -28,7 +28,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/faq-management/faq/faq_image
 func (r *HelpdeskService) GetHelpdeskFAQImage(ctx context.Context, request *GetHelpdeskFAQImageReq, options ...MethodOptionFunc) (*GetHelpdeskFAQImageResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskGetHelpdeskFAQImage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetHelpdeskFAQImage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Helpdesk#GetHelpdeskFAQImage mock enable")
 		return r.cli.mock.mockHelpdeskGetHelpdeskFAQImage(ctx, request, options...)
 	}
 

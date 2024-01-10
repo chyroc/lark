@@ -28,7 +28,7 @@ import (
 // Deprecated
 func (r *OKRService) GetOKRMetricSourceTableItem(ctx context.Context, request *GetOKRMetricSourceTableItemReq, options ...MethodOptionFunc) (*GetOKRMetricSourceTableItemResp, *Response, error) {
 	if r.cli.mock.mockOKRGetOKRMetricSourceTableItem != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] OKR#GetOKRMetricSourceTableItem mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] OKR#GetOKRMetricSourceTableItem mock enable")
 		return r.cli.mock.mockOKRGetOKRMetricSourceTableItem(ctx, request, options...)
 	}
 

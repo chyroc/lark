@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/unit/delete
 func (r *ContactService) DeleteContactUnit(ctx context.Context, request *DeleteContactUnitReq, options ...MethodOptionFunc) (*DeleteContactUnitResp, *Response, error) {
 	if r.cli.mock.mockContactDeleteContactUnit != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#DeleteContactUnit mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#DeleteContactUnit mock enable")
 		return r.cli.mock.mockContactDeleteContactUnit(ctx, request, options...)
 	}
 

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/application-v6/application/patch-2
 func (r *ApplicationService) UpdateApplicationVersion(ctx context.Context, request *UpdateApplicationVersionReq, options ...MethodOptionFunc) (*UpdateApplicationVersionResp, *Response, error) {
 	if r.cli.mock.mockApplicationUpdateApplicationVersion != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Application#UpdateApplicationVersion mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#UpdateApplicationVersion mock enable")
 		return r.cli.mock.mockApplicationUpdateApplicationVersion(ctx, request, options...)
 	}
 

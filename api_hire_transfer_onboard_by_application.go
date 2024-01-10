@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/onboard/transfer_onboard
 func (r *HireService) MakeHireTransferOnboardByApplication(ctx context.Context, request *MakeHireTransferOnboardByApplicationReq, options ...MethodOptionFunc) (*MakeHireTransferOnboardByApplicationResp, *Response, error) {
 	if r.cli.mock.mockHireMakeHireTransferOnboardByApplication != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#MakeHireTransferOnboardByApplication mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#MakeHireTransferOnboardByApplication mock enable")
 		return r.cli.mock.mockHireMakeHireTransferOnboardByApplication(ctx, request, options...)
 	}
 

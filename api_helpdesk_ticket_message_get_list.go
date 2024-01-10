@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/ticket-management/ticket-message/list
 func (r *HelpdeskService) GetHelpdeskTicketMessageList(ctx context.Context, request *GetHelpdeskTicketMessageListReq, options ...MethodOptionFunc) (*GetHelpdeskTicketMessageListResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskGetHelpdeskTicketMessageList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetHelpdeskTicketMessageList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Helpdesk#GetHelpdeskTicketMessageList mock enable")
 		return r.cli.mock.mockHelpdeskGetHelpdeskTicketMessageList(ctx, request, options...)
 	}
 

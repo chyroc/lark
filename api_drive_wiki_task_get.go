@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/wiki-v2/task/get
 func (r *DriveService) GetWikiTask(ctx context.Context, request *GetWikiTaskReq, options ...MethodOptionFunc) (*GetWikiTaskResp, *Response, error) {
 	if r.cli.mock.mockDriveGetWikiTask != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetWikiTask mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetWikiTask mock enable")
 		return r.cli.mock.mockDriveGetWikiTask(ctx, request, options...)
 	}
 

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/room_level/search
 func (r *VCService) SearchVCRoomLevel(ctx context.Context, request *SearchVCRoomLevelReq, options ...MethodOptionFunc) (*SearchVCRoomLevelResp, *Response, error) {
 	if r.cli.mock.mockVCSearchVCRoomLevel != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] VC#SearchVCRoomLevel mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#SearchVCRoomLevel mock enable")
 		return r.cli.mock.mockVCSearchVCRoomLevel(ctx, request, options...)
 	}
 

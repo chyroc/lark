@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/shift/delete
 func (r *AttendanceService) DeleteAttendanceShift(ctx context.Context, request *DeleteAttendanceShiftReq, options ...MethodOptionFunc) (*DeleteAttendanceShiftResp, *Response, error) {
 	if r.cli.mock.mockAttendanceDeleteAttendanceShift != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#DeleteAttendanceShift mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Attendance#DeleteAttendanceShift mock enable")
 		return r.cli.mock.mockAttendanceDeleteAttendanceShift(ctx, request, options...)
 	}
 

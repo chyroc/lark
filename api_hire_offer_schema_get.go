@@ -29,7 +29,7 @@ import (
 // Deprecated
 func (r *HireService) GetHireOfferSchema(ctx context.Context, request *GetHireOfferSchemaReq, options ...MethodOptionFunc) (*GetHireOfferSchemaResp, *Response, error) {
 	if r.cli.mock.mockHireGetHireOfferSchema != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Hire#GetHireOfferSchema mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#GetHireOfferSchema mock enable")
 		return r.cli.mock.mockHireGetHireOfferSchema(ctx, request, options...)
 	}
 

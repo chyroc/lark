@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/agent-function/agent_skill/get
 func (r *HelpdeskService) GetHelpdeskAgentSkill(ctx context.Context, request *GetHelpdeskAgentSkillReq, options ...MethodOptionFunc) (*GetHelpdeskAgentSkillResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskGetHelpdeskAgentSkill != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetHelpdeskAgentSkill mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Helpdesk#GetHelpdeskAgentSkill mock enable")
 		return r.cli.mock.mockHelpdeskGetHelpdeskAgentSkill(ctx, request, options...)
 	}
 

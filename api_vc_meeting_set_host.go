@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/meeting/set_host
 func (r *VCService) SetVCHostMeeting(ctx context.Context, request *SetVCHostMeetingReq, options ...MethodOptionFunc) (*SetVCHostMeetingResp, *Response, error) {
 	if r.cli.mock.mockVCSetVCHostMeeting != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] VC#SetVCHostMeeting mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#SetVCHostMeeting mock enable")
 		return r.cli.mock.mockVCSetVCHostMeeting(ctx, request, options...)
 	}
 

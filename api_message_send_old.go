@@ -29,7 +29,7 @@ import (
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUjNz4SN2MjL1YzM
 func (r *MessageService) SendRawMessageOld(ctx context.Context, request *SendRawMessageOldReq, options ...MethodOptionFunc) (*SendRawMessageOldResp, *Response, error) {
 	if r.cli.mock.mockMessageSendRawMessageOld != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Message#SendRawMessageOld mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#SendRawMessageOld mock enable")
 		return r.cli.mock.mockMessageSendRawMessageOld(ctx, request, options...)
 	}
 

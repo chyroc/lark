@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/open-ability/login/code2session
 func (r *MinaService) MinaCodeToSession(ctx context.Context, request *MinaCodeToSessionReq, options ...MethodOptionFunc) (*MinaCodeToSessionResp, *Response, error) {
 	if r.cli.mock.mockMinaMinaCodeToSession != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Mina#MinaCodeToSession mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Mina#MinaCodeToSession mock enable")
 		return r.cli.mock.mockMinaMinaCodeToSession(ctx, request, options...)
 	}
 

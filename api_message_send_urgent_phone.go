@@ -36,7 +36,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/buzz-messages/urgent_phone
 func (r *MessageService) SendUrgentPhoneMessage(ctx context.Context, request *SendUrgentPhoneMessageReq, options ...MethodOptionFunc) (*SendUrgentPhoneMessageResp, *Response, error) {
 	if r.cli.mock.mockMessageSendUrgentPhoneMessage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Message#SendUrgentPhoneMessage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#SendUrgentPhoneMessage mock enable")
 		return r.cli.mock.mockMessageSendUrgentPhoneMessage(ctx, request, options...)
 	}
 

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/okr-v1/progress_record/upload
 func (r *OKRService) UploadOKRImage(ctx context.Context, request *UploadOKRImageReq, options ...MethodOptionFunc) (*UploadOKRImageResp, *Response, error) {
 	if r.cli.mock.mockOKRUploadOKRImage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] OKR#UploadOKRImage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] OKR#UploadOKRImage mock enable")
 		return r.cli.mock.mockOKRUploadOKRImage(ctx, request, options...)
 	}
 

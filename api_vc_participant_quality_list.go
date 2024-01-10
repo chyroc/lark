@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/meeting-room-data/get-3
 func (r *VCService) GetVCParticipantQualityList(ctx context.Context, request *GetVCParticipantQualityListReq, options ...MethodOptionFunc) (*GetVCParticipantQualityListResp, *Response, error) {
 	if r.cli.mock.mockVCGetVCParticipantQualityList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] VC#GetVCParticipantQualityList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#GetVCParticipantQualityList mock enable")
 		return r.cli.mock.mockVCGetVCParticipantQualityList(ctx, request, options...)
 	}
 

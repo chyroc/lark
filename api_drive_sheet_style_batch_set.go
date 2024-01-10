@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/data-operation/batch-set-cell-style
 func (r *DriveService) BatchSetSheetStyle(ctx context.Context, request *BatchSetSheetStyleReq, options ...MethodOptionFunc) (*BatchSetSheetStyleResp, *Response, error) {
 	if r.cli.mock.mockDriveBatchSetSheetStyle != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#BatchSetSheetStyle mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#BatchSetSheetStyle mock enable")
 		return r.cli.mock.mockDriveBatchSetSheetStyle(ctx, request, options...)
 	}
 

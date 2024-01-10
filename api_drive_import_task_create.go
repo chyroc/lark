@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/import_task/create
 func (r *DriveService) CreateDriveImportTask(ctx context.Context, request *CreateDriveImportTaskReq, options ...MethodOptionFunc) (*CreateDriveImportTaskResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateDriveImportTask != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateDriveImportTask mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#CreateDriveImportTask mock enable")
 		return r.cli.mock.mockDriveCreateDriveImportTask(ctx, request, options...)
 	}
 

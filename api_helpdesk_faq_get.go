@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/faq-management/faq/get
 func (r *HelpdeskService) GetHelpdeskFAQ(ctx context.Context, request *GetHelpdeskFAQReq, options ...MethodOptionFunc) (*GetHelpdeskFAQResp, *Response, error) {
 	if r.cli.mock.mockHelpdeskGetHelpdeskFAQ != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Helpdesk#GetHelpdeskFAQ mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Helpdesk#GetHelpdeskFAQ mock enable")
 		return r.cli.mock.mockHelpdeskGetHelpdeskFAQ(ctx, request, options...)
 	}
 

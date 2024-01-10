@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task-reminder/list
 func (r *TaskService) GetTaskReminderList(ctx context.Context, request *GetTaskReminderListReq, options ...MethodOptionFunc) (*GetTaskReminderListResp, *Response, error) {
 	if r.cli.mock.mockTaskGetTaskReminderList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Task#GetTaskReminderList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#GetTaskReminderList mock enable")
 		return r.cli.mock.mockTaskGetTaskReminderList(ctx, request, options...)
 	}
 

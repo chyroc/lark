@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/mail-v1/public-mailbox/public_mailbox-member/create
 func (r *MailService) CreatePublicMailboxMember(ctx context.Context, request *CreatePublicMailboxMemberReq, options ...MethodOptionFunc) (*CreatePublicMailboxMemberResp, *Response, error) {
 	if r.cli.mock.mockMailCreatePublicMailboxMember != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Mail#CreatePublicMailboxMember mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#CreatePublicMailboxMember mock enable")
 		return r.cli.mock.mockMailCreatePublicMailboxMember(ctx, request, options...)
 	}
 

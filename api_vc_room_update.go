@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/room/patch
 func (r *VCService) UpdateVCRoom(ctx context.Context, request *UpdateVCRoomReq, options ...MethodOptionFunc) (*UpdateVCRoomResp, *Response, error) {
 	if r.cli.mock.mockVCUpdateVCRoom != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] VC#UpdateVCRoom mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#UpdateVCRoom mock enable")
 		return r.cli.mock.mockVCUpdateVCRoom(ctx, request, options...)
 	}
 

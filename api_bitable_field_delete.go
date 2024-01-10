@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-field/delete
 func (r *BitableService) DeleteBitableField(ctx context.Context, request *DeleteBitableFieldReq, options ...MethodOptionFunc) (*DeleteBitableFieldResp, *Response, error) {
 	if r.cli.mock.mockBitableDeleteBitableField != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#DeleteBitableField mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Bitable#DeleteBitableField mock enable")
 		return r.cli.mock.mockBitableDeleteBitableField(ctx, request, options...)
 	}
 

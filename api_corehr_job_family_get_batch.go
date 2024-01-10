@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_family/batch_get
 func (r *CoreHRService) BatchGetCoreHRJobFamily(ctx context.Context, request *BatchGetCoreHRJobFamilyReq, options ...MethodOptionFunc) (*BatchGetCoreHRJobFamilyResp, *Response, error) {
 	if r.cli.mock.mockCoreHRBatchGetCoreHRJobFamily != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#BatchGetCoreHRJobFamily mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#BatchGetCoreHRJobFamily mock enable")
 		return r.cli.mock.mockCoreHRBatchGetCoreHRJobFamily(ctx, request, options...)
 	}
 

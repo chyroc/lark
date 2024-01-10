@@ -34,7 +34,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/pin/create
 func (r *MessageService) CreateMessagePin(ctx context.Context, request *CreateMessagePinReq, options ...MethodOptionFunc) (*CreateMessagePinResp, *Response, error) {
 	if r.cli.mock.mockMessageCreateMessagePin != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Message#CreateMessagePin mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#CreateMessagePin mock enable")
 		return r.cli.mock.mockMessageCreateMessagePin(ctx, request, options...)
 	}
 

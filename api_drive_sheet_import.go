@@ -31,7 +31,7 @@ import (
 // Deprecated
 func (r *DriveService) ImportSheet(ctx context.Context, request *ImportSheetReq, options ...MethodOptionFunc) (*ImportSheetResp, *Response, error) {
 	if r.cli.mock.mockDriveImportSheet != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#ImportSheet mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#ImportSheet mock enable")
 		return r.cli.mock.mockDriveImportSheet(ctx, request, options...)
 	}
 

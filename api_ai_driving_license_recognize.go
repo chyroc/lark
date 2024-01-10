@@ -29,7 +29,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/document_ai-v1/driving_license/recognize
 func (r *AIService) RecognizeAIDrivingLicense(ctx context.Context, request *RecognizeAIDrivingLicenseReq, options ...MethodOptionFunc) (*RecognizeAIDrivingLicenseResp, *Response, error) {
 	if r.cli.mock.mockAIRecognizeAIDrivingLicense != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] AI#RecognizeAIDrivingLicense mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] AI#RecognizeAIDrivingLicense mock enable")
 		return r.cli.mock.mockAIRecognizeAIDrivingLicense(ctx, request, options...)
 	}
 

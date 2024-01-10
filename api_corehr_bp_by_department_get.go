@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/bp/get_by_department
 func (r *CoreHRService) GetCoreHrbpByDepartment(ctx context.Context, request *GetCoreHrbpByDepartmentReq, options ...MethodOptionFunc) (*GetCoreHrbpByDepartmentResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHrbpByDepartment != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHrbpByDepartment mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHrbpByDepartment mock enable")
 		return r.cli.mock.mockCoreHRGetCoreHrbpByDepartment(ctx, request, options...)
 	}
 

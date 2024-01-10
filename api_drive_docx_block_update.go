@@ -35,7 +35,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/docs/docx-v1/document-block/patch
 func (r *DriveService) UpdateDocxBlock(ctx context.Context, request *UpdateDocxBlockReq, options ...MethodOptionFunc) (*UpdateDocxBlockResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateDocxBlock != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#UpdateDocxBlock mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#UpdateDocxBlock mock enable")
 		return r.cli.mock.mockDriveUpdateDocxBlock(ctx, request, options...)
 	}
 

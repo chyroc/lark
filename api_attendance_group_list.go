@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/group/list
 func (r *AttendanceService) GetAttendanceGroupList(ctx context.Context, request *GetAttendanceGroupListReq, options ...MethodOptionFunc) (*GetAttendanceGroupListResp, *Response, error) {
 	if r.cli.mock.mockAttendanceGetAttendanceGroupList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceGroupList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Attendance#GetAttendanceGroupList mock enable")
 		return r.cli.mock.mockAttendanceGetAttendanceGroupList(ctx, request, options...)
 	}
 

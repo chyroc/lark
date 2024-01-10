@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/approval-search/search
 func (r *ApprovalService) SearchApprovalTask(ctx context.Context, request *SearchApprovalTaskReq, options ...MethodOptionFunc) (*SearchApprovalTaskResp, *Response, error) {
 	if r.cli.mock.mockApprovalSearchApprovalTask != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Approval#SearchApprovalTask mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Approval#SearchApprovalTask mock enable")
 		return r.cli.mock.mockApprovalSearchApprovalTask(ctx, request, options...)
 	}
 

@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-record/batch_create
 func (r *BitableService) BatchCreateBitableRecord(ctx context.Context, request *BatchCreateBitableRecordReq, options ...MethodOptionFunc) (*BatchCreateBitableRecordResp, *Response, error) {
 	if r.cli.mock.mockBitableBatchCreateBitableRecord != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Bitable#BatchCreateBitableRecord mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Bitable#BatchCreateBitableRecord mock enable")
 		return r.cli.mock.mockBitableBatchCreateBitableRecord(ctx, request, options...)
 	}
 

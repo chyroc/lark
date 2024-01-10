@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/room/mget
 func (r *VCService) BatchGetVCRoom(ctx context.Context, request *BatchGetVCRoomReq, options ...MethodOptionFunc) (*BatchGetVCRoomResp, *Response, error) {
 	if r.cli.mock.mockVCBatchGetVCRoom != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] VC#BatchGetVCRoom mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#BatchGetVCRoom mock enable")
 		return r.cli.mock.mockVCBatchGetVCRoom(ctx, request, options...)
 	}
 

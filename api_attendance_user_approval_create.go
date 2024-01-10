@@ -31,7 +31,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_approval/create
 func (r *AttendanceService) CreateAttendanceUserApproval(ctx context.Context, request *CreateAttendanceUserApprovalReq, options ...MethodOptionFunc) (*CreateAttendanceUserApprovalResp, *Response, error) {
 	if r.cli.mock.mockAttendanceCreateAttendanceUserApproval != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#CreateAttendanceUserApproval mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Attendance#CreateAttendanceUserApproval mock enable")
 		return r.cli.mock.mockAttendanceCreateAttendanceUserApproval(ctx, request, options...)
 	}
 

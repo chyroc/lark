@@ -38,7 +38,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/message-card/send-message-cards-that-are-only-visible-to-certain-people
 func (r *MessageService) SendEphemeralMessage(ctx context.Context, request *SendEphemeralMessageReq, options ...MethodOptionFunc) (*SendEphemeralMessageResp, *Response, error) {
 	if r.cli.mock.mockMessageSendEphemeralMessage != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Message#SendEphemeralMessage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#SendEphemeralMessage mock enable")
 		return r.cli.mock.mockMessageSendEphemeralMessage(ctx, request, options...)
 	}
 

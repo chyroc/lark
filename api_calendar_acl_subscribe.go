@@ -29,7 +29,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar-acl/subscription
 func (r *CalendarService) SubscribeCalendarACL(ctx context.Context, request *SubscribeCalendarACLReq, options ...MethodOptionFunc) (*SubscribeCalendarACLResp, *Response, error) {
 	if r.cli.mock.mockCalendarSubscribeCalendarACL != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Calendar#SubscribeCalendarACL mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Calendar#SubscribeCalendarACL mock enable")
 		return r.cli.mock.mockCalendarSubscribeCalendarACL(ctx, request, options...)
 	}
 

@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_setting/modify
 func (r *AttendanceService) UpdateAttendanceUserSetting(ctx context.Context, request *UpdateAttendanceUserSettingReq, options ...MethodOptionFunc) (*UpdateAttendanceUserSettingResp, *Response, error) {
 	if r.cli.mock.mockAttendanceUpdateAttendanceUserSetting != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#UpdateAttendanceUserSetting mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Attendance#UpdateAttendanceUserSetting mock enable")
 		return r.cli.mock.mockAttendanceUpdateAttendanceUserSetting(ctx, request, options...)
 	}
 

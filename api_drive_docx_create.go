@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/docs/docx-v1/document/create
 func (r *DriveService) CreateDocx(ctx context.Context, request *CreateDocxReq, options ...MethodOptionFunc) (*CreateDocxResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateDocx != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateDocx mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#CreateDocx mock enable")
 		return r.cli.mock.mockDriveCreateDocx(ctx, request, options...)
 	}
 

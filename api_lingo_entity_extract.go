@@ -28,7 +28,7 @@ import (
 // Deprecated
 func (r *LingoService) ExtractLingoEntity(ctx context.Context, request *ExtractLingoEntityReq, options ...MethodOptionFunc) (*ExtractLingoEntityResp, *Response, error) {
 	if r.cli.mock.mockLingoExtractLingoEntity != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Lingo#ExtractLingoEntity mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Lingo#ExtractLingoEntity mock enable")
 		return r.cli.mock.mockLingoExtractLingoEntity(ctx, request, options...)
 	}
 

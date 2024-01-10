@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/lingo-v1/entity/match
 func (r *LingoService) MatchLingoEntity(ctx context.Context, request *MatchLingoEntityReq, options ...MethodOptionFunc) (*MatchLingoEntityResp, *Response, error) {
 	if r.cli.mock.mockLingoMatchLingoEntity != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Lingo#MatchLingoEntity mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Lingo#MatchLingoEntity mock enable")
 		return r.cli.mock.mockLingoMatchLingoEntity(ctx, request, options...)
 	}
 

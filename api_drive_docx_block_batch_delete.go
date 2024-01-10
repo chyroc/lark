@@ -35,7 +35,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/docs/docx-v1/document-block/batch_delete
 func (r *DriveService) BatchDeleteDocxBlock(ctx context.Context, request *BatchDeleteDocxBlockReq, options ...MethodOptionFunc) (*BatchDeleteDocxBlockResp, *Response, error) {
 	if r.cli.mock.mockDriveBatchDeleteDocxBlock != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#BatchDeleteDocxBlock mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#BatchDeleteDocxBlock mock enable")
 		return r.cli.mock.mockDriveBatchDeleteDocxBlock(ctx, request, options...)
 	}
 

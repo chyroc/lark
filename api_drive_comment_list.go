@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/CommentAPI/list
 func (r *DriveService) GetDriveCommentList(ctx context.Context, request *GetDriveCommentListReq, options ...MethodOptionFunc) (*GetDriveCommentListResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDriveCommentList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveCommentList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetDriveCommentList mock enable")
 		return r.cli.mock.mockDriveGetDriveCommentList(ctx, request, options...)
 	}
 

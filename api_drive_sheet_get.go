@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet/get
 func (r *DriveService) GetSheet(ctx context.Context, request *GetSheetReq, options ...MethodOptionFunc) (*GetSheetResp, *Response, error) {
 	if r.cli.mock.mockDriveGetSheet != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetSheet mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetSheet mock enable")
 		return r.cli.mock.mockDriveGetSheet(ctx, request, options...)
 	}
 

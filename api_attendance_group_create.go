@@ -30,7 +30,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/group/create
 func (r *AttendanceService) CreateAttendanceGroup(ctx context.Context, request *CreateAttendanceGroupReq, options ...MethodOptionFunc) (*CreateAttendanceGroupResp, *Response, error) {
 	if r.cli.mock.mockAttendanceCreateAttendanceGroup != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Attendance#CreateAttendanceGroup mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Attendance#CreateAttendanceGroup mock enable")
 		return r.cli.mock.mockAttendanceCreateAttendanceGroup(ctx, request, options...)
 	}
 

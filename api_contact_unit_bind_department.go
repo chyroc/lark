@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/unit/bind_department
 func (r *ContactService) BindContactUnitDepartment(ctx context.Context, request *BindContactUnitDepartmentReq, options ...MethodOptionFunc) (*BindContactUnitDepartmentResp, *Response, error) {
 	if r.cli.mock.mockContactBindContactUnitDepartment != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Contact#BindContactUnitDepartment mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#BindContactUnitDepartment mock enable")
 		return r.cli.mock.mockContactBindContactUnitDepartment(ctx, request, options...)
 	}
 

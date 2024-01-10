@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/conditionformat/condition-format-set
 func (r *DriveService) CreateSheetConditionFormat(ctx context.Context, request *CreateSheetConditionFormatReq, options ...MethodOptionFunc) (*CreateSheetConditionFormatResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateSheetConditionFormat != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#CreateSheetConditionFormat mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#CreateSheetConditionFormat mock enable")
 		return r.cli.mock.mockDriveCreateSheetConditionFormat(ctx, request, options...)
 	}
 

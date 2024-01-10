@@ -32,7 +32,7 @@ import (
 // Deprecated
 func (r *DriveService) GetDriveFolderChildren(ctx context.Context, request *GetDriveFolderChildrenReq, options ...MethodOptionFunc) (*GetDriveFolderChildrenResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDriveFolderChildren != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Drive#GetDriveFolderChildren mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetDriveFolderChildren mock enable")
 		return r.cli.mock.mockDriveGetDriveFolderChildren(ctx, request, options...)
 	}
 

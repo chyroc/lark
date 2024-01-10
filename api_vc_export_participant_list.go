@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/export/participant_list
 func (r *VCService) ExportVCParticipantList(ctx context.Context, request *ExportVCParticipantListReq, options ...MethodOptionFunc) (*ExportVCParticipantListResp, *Response, error) {
 	if r.cli.mock.mockVCExportVCParticipantList != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] VC#ExportVCParticipantList mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#ExportVCParticipantList mock enable")
 		return r.cli.mock.mockVCExportVCParticipantList(ctx, request, options...)
 	}
 

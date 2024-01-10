@@ -45,7 +45,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/ai/translation-v1/translate
 func (r *AIService) TranslateText(ctx context.Context, request *TranslateTextReq, options ...MethodOptionFunc) (*TranslateTextResp, *Response, error) {
 	if r.cli.mock.mockAITranslateText != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] AI#TranslateText mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] AI#TranslateText mock enable")
 		return r.cli.mock.mockAITranslateText(ctx, request, options...)
 	}
 

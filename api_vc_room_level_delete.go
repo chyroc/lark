@@ -27,7 +27,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/room_level/del
 func (r *VCService) DeleteVCRoomLevel(ctx context.Context, request *DeleteVCRoomLevelReq, options ...MethodOptionFunc) (*DeleteVCRoomLevelResp, *Response, error) {
 	if r.cli.mock.mockVCDeleteVCRoomLevel != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] VC#DeleteVCRoomLevel mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#DeleteVCRoomLevel mock enable")
 		return r.cli.mock.mockVCDeleteVCRoomLevel(ctx, request, options...)
 	}
 

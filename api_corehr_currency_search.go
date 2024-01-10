@@ -26,7 +26,7 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search
 func (r *CoreHRService) SearchCoreHRCurrency(ctx context.Context, request *SearchCoreHRCurrencyReq, options ...MethodOptionFunc) (*SearchCoreHRCurrencyResp, *Response, error) {
 	if r.cli.mock.mockCoreHRSearchCoreHRCurrency != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] CoreHR#SearchCoreHRCurrency mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#SearchCoreHRCurrency mock enable")
 		return r.cli.mock.mockCoreHRSearchCoreHRCurrency(ctx, request, options...)
 	}
 

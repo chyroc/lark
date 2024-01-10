@@ -31,7 +31,7 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/group/chat/create
 func (r *ChatService) CreateChat(ctx context.Context, request *CreateChatReq, options ...MethodOptionFunc) (*CreateChatResp, *Response, error) {
 	if r.cli.mock.mockChatCreateChat != nil {
-		r.cli.log(ctx, LogLevelDebug, "[lark] Chat#CreateChat mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Chat#CreateChat mock enable")
 		return r.cli.mock.mockChatCreateChat(ctx, request, options...)
 	}
 
