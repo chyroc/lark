@@ -91,6 +91,14 @@ type Lark struct {
 	Verification     *VerificationService
 }
 
+func (r *Lark) AppID() string {
+	return r.appID
+}
+
+func (r *Lark) AppSecret() string {
+	return r.appSecret
+}
+
 func (r *Lark) init() {
 	r.wrapDoRequest = chainApiMiddleware(r.apiMiddlewares...)(r.rawRequest)
 
