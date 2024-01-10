@@ -62,7 +62,7 @@ func (r *Mock) UnMockDriveCreateDocx() {
 
 // CreateDocxReq ...
 type CreateDocxReq struct {
-	FolderToken *string `json:"folder_token,omitempty"` // 文件夹 Token, 获取方式可参考[如何获取云文档资源相关 Token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6), 不传或传空表示根目录, 示例值: "fldcnqquW1svRIYVT2Np6IuLCKd"
+	FolderToken *string `json:"folder_token,omitempty"` // 指定文档所在文件夹 的 Token。不传或传空表示根目录。了解如何获取文件夹 Token, 参考[如何获取云文档资源相关 Token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6), 若应用使用的是 `tenant_access_token` 权限, 此处仅可指定应用创建的文件夹, 示例值: "fldcnqquW1svRIYVT2Np6Iabcef"
 	Title       *string `json:"title,omitempty"`        // 文档标题, 只支持纯文本, 示例值: "一篇新的文档", 长度范围: `1` ～ `800` 字符
 }
 
@@ -73,7 +73,7 @@ type CreateDocxResp struct {
 
 // CreateDocxRespDocument ...
 type CreateDocxRespDocument struct {
-	DocumentID string `json:"document_id,omitempty"` // 文档唯一标识。对应新版文档 Token, [点击了解如何获取云文档 Token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。
+	DocumentID string `json:"document_id,omitempty"` // 文档的唯一标识。点击[这里](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)了解如何获取文档的 `document_id`
 	RevisionID int64  `json:"revision_id,omitempty"` // 文档版本 ID
 	Title      string `json:"title,omitempty"`       // 文档标题
 }

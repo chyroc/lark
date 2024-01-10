@@ -62,9 +62,9 @@ type GetVCParticipantQualityListReq struct {
 	MeetingStartTime string  `query:"meeting_start_time" json:"-"` // 会议开始时间（需要精确到一分钟, unix时间, 单位sec）, 示例值: 1655276858
 	MeetingEndTime   string  `query:"meeting_end_time" json:"-"`   // 会议结束时间（unix时间, 单位sec）, 示例值: 1655276858
 	MeetingNo        string  `query:"meeting_no" json:"-"`         // 9位会议号, 示例值: 123456789
-	JoinTime         string  `query:"join_time" json:"-"`          // 参会人入会时间（unix时间, 单位sec）, 示例值: 1655276858
-	UserID           *string `query:"user_id" json:"-"`            // 参会人为Lark用户时填入, 示例值: ou_3ec3f6a28a0d08c45d895276e8e5e19b
-	RoomID           *string `query:"room_id" json:"-"`            // 参会人为Rooms时填入, 示例值: omm_eada1d61a550955240c28757e7dec3af
+	JoinTime         string  `query:"join_time" json:"-"`          // 参会人入会时间（unix时间, 单位sec）, 可从「查询参会人明细」返回结果获取, 示例值: 1655276858
+	UserID           *string `query:"user_id" json:"-"`            // 参会人为Lark用户时填入, room_id和user_id必须只填一个, 示例值: ou_3ec3f6a28a0d08c45d895276e8e5e19b
+	RoomID           *string `query:"room_id" json:"-"`            // 参会人为Rooms时填入, room_id和user_id必须只填一个, 示例值: omm_eada1d61a550955240c28757e7dec3af
 	PageSize         *int64  `query:"page_size" json:"-"`          // 分页尺寸大小, 示例值: 20, 默认值: `20`, 取值范围: `20` ～ `100`
 	PageToken        *string `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 20
 	UserIDType       *IDType `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID

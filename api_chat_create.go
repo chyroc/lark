@@ -72,6 +72,7 @@ type CreateChatReq struct {
 	OwnerID                *string                             `json:"owner_id,omitempty"`                 // 创建群时指定的群主, 不填时指定建群的机器人为群主。群主 ID值应与查询参数中的 [user_id_type] 对应；推荐使用 OpenID, 获取方式可参考文档[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), 示例值: "ou_7d8a6e6df7621556ce0d21922b676706ccs"
 	UserIDList             []string                            `json:"user_id_list,omitempty"`             // 创建群时邀请的群成员, ID 类型在查询参数 [user_id_type] 中指定；推荐使用 OpenID, 获取方式可参考文档[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), 注意: 最多同时邀请 50 个用户, 为便于在客户端查看效果, 建议调试接口时加入开发者自身ID, 示例值: ["ou_7d8a6e6df7621556ce0d21922b676706ccs"], 最大长度: `50`
 	BotIDList              []string                            `json:"bot_id_list,omitempty"`              // 创建群时邀请的群机器人；可参考[如何获取应用的 App ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-app-id)来获取应用的App ID, 注意: 操作此接口的机器人会自动入群, 无需重复填写, 拉机器人入群请使用`app_id`, 最多同时邀请5个机器人, 且邀请后群组中机器人数量不能超过 15 个, 示例值: ["cli_a10fbf7e94b8d01d"], 最大长度: `5`
+	GroupMessageType       *MsgType                            `json:"group_message_type,omitempty"`       // 群消息形式, 示例值: "chat", 可选值有: chat: 对话消息, thread: 话题消息, 默认值: `chat`
 	ChatMode               *ChatMode                           `json:"chat_mode,omitempty"`                // 群模式, 可选值有: `group`: 群组, 示例值: "group", 默认值: `group`
 	ChatType               *ChatType                           `json:"chat_type,omitempty"`                // 群类型, 可选值有: `private`: 私有群, `public`: 公开群, 示例值: "private", 默认值: `private`
 	JoinMessageVisibility  *MessageVisibility                  `json:"join_message_visibility,omitempty"`  // 入群消息可见性, 可选值有: `only_owner`: 仅群主和管理员可见, `all_members`: 所有成员可见, `not_anyone`: 任何人均不可见, 示例值: "all_members", 默认值: `all_members`
@@ -106,6 +107,7 @@ type CreateChatResp struct {
 	ShareCardPermission    ShareCardPermission                  `json:"share_card_permission,omitempty"`    // 群分享权限, 可选值有: `allowed`: 允许, `not_allowed`: 不允许
 	AtAllPermission        AtAllPermission                      `json:"at_all_permission,omitempty"`        // at 所有人权限, 可选值有: `only_owner`: 仅群主和管理员, `all_members`: 所有成员
 	EditPermission         EditPermission                       `json:"edit_permission,omitempty"`          // 群编辑权限, 可选值有: `only_owner`: 仅群主和管理员, `all_members`: 所有成员
+	GroupMessageType       MsgType                              `json:"group_message_type,omitempty"`       // 群消息形式, 可选值有: `chat`: 对话消息, `thread`: 话题消息
 	ChatMode               ChatMode                             `json:"chat_mode,omitempty"`                // 群模式, 可选值有: `group`: 群组
 	ChatType               ChatType                             `json:"chat_type,omitempty"`                // 群类型, 可选值有: `private`: 私有群, `public`: 公开群
 	ChatTag                string                               `json:"chat_tag,omitempty"`                 // 群标签, 如有多个, 则按照下列顺序返回第一个, 可选值有: `inner`: 内部群, `tenant`: 公司群, `department`: 部门群, `edu`: 教育群, `meeting`: 会议群, `customer_service`: 客服群

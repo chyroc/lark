@@ -23,7 +23,6 @@ import (
 
 // GetDocxDocumentRawContent 获取文档的纯文本内容。
 //
-// 在调用此接口前, 请仔细阅读[新版文档 OpenAPI 接口校验规则](https://feishu.feishu.cn/docx/JTyjdXtsHo3H9AxXkgOcLTsynaf#doxcnG9U5620nw0QowM64RUhpcb), 了解相关规则及约束。
 // 应用频率限制: 单个应用调用频率上限为每秒 5 次, 超过该频率限制, 接口将返回 HTTP 状态码 400 及错误码 99991400。当请求被限频, 应用需要处理限频状态码, 并使用指数退避算法或其它一些频控策略降低对 API 的调用速率。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/raw_content
@@ -62,8 +61,8 @@ func (r *Mock) UnMockDriveGetDocxDocumentRawContent() {
 
 // GetDocxDocumentRawContentReq ...
 type GetDocxDocumentRawContentReq struct {
-	DocumentID string `path:"document_id" json:"-"` // 文档的唯一标识。对应新版文档 Token, [点击了解如何获取云文档 Token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6), 示例值: "doxbcmEtbFrbbq10nPNu8gO1F3b", 长度范围: `27` ～ `27` 字符
-	Lang       *int64 `query:"lang" json:"-"`       // 语言（用于 MentionUser 语言的选取）, 示例值: 0, 可选值有: 0: 中文, 1: 英文, 2: 日文, 默认值: `0`
+	DocumentID string `path:"document_id" json:"-"` // 文档的唯一标识。点击[这里](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)了解如何获取文档的 `document_id`, 示例值: "doxbcmEtbFrbbq10nPNu8gabcef", 长度范围: `27` ～ `27` 字符
+	Lang       *int64 `query:"lang" json:"-"`       // 指定返回的 MentionUser 即 @用户 的语言, 示例值: 0, 可选值有: 0: 该用户的默认名称。如: @张敏, 1: 该用户的英文名称。如: @Min Zhang, 2: 暂不支持该枚举, 使用时返回该用户的默认名称, 默认值: `0`
 }
 
 // GetDocxDocumentRawContentResp ...

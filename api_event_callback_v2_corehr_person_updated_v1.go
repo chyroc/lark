@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2CorehrPersonUpdatedV1 员工在飞书人事的「个人信息被更新」时将触发此事件, 个人信息的创建和删除不会触发该事件。注: 籍贯、政治面貌、户口类型、户口所在地、工龄变化不会触发该事件{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=person&event=updated)
+// EventV2CorehrPersonUpdatedV1 员工在飞书人事的「个人信息被更新」时将触发此事件, 个人信息的创建和删除不会触发该事件。注: 籍贯、政治面貌、户口类型、户口所在地变化不会触发该事件{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=person&event=updated)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/person/events/updated
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/person/updated
@@ -35,5 +35,5 @@ type EventV2CorehrPersonUpdatedV1Handler func(ctx context.Context, cli *Lark, sc
 // EventV2CorehrPersonUpdatedV1 ...
 type EventV2CorehrPersonUpdatedV1 struct {
 	PersonID     string   `json:"person_id,omitempty"`     // 被更新个人信息的 ID
-	FieldChanges []string `json:"field_changes,omitempty"` // 发生变更的字段
+	FieldChanges []string `json:"field_changes,omitempty"` // 发生变更的字段, 若部分字段变更无需接受事件消息, 可根据该字段进行事件消息过滤
 }

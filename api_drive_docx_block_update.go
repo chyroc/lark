@@ -21,9 +21,8 @@ import (
 	"context"
 )
 
-// UpdateDocxBlock 更新指定的块。
+// UpdateDocxBlock 更新指定块的内容。如果操作成功, 接口将返回更新后的块的富文本内容。
 //
-// 在调用此接口前, 请仔细阅读[新版文档 OpenAPI 接口校验规则](https://feishu.feishu.cn/docx/JTyjdXtsHo3H9AxXkgOcLTsynaf#doxcnF0hcvibwvEesTOkZpDvdpe), 了解相关规则及约束。
 // 应用频率限制: 单个应用调用频率上限为每秒 3 次, 超过该频率限制, 接口将返回 HTTP 状态码 400 及错误码 99991400；
 // 文档频率限制: 单篇文档并发编辑上限为每秒 3 次, 超过该频率限制, 接口将返回 HTTP 状态码 429, 编辑操作包括:
 // - 创建块
@@ -68,25 +67,25 @@ func (r *Mock) UnMockDriveUpdateDocxBlock() {
 
 // UpdateDocxBlockReq ...
 type UpdateDocxBlockReq struct {
-	DocumentID                 string                                        `path:"document_id" json:"-"`                     // 文档的唯一标识。对应新版文档 Token, [点击了解如何获取云文档 Token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6), 示例值: "doxcnePuYufKa49ISjhD8Ih0ikh"
-	BlockID                    string                                        `path:"block_id" json:"-"`                        // Block 的唯一标识, 示例值: "doxcnO6UW6wAw2qIcYf4hZpFIth"
-	DocumentRevisionID         *int64                                        `query:"document_revision_id" json:"-"`           // 操作的文档版本, 1 表示文档最新版本。编辑文档需要持有文档的编辑权限, 示例值:1, 默认值: `-1`, 最小值: `-1`
+	DocumentID                 string                                        `path:"document_id" json:"-"`                     // 文档的唯一标识。点击[这里](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)了解如何获取文档的 `document_id`, 示例值: "doxcnePuYufKa49ISjhD8Iabcef"
+	BlockID                    string                                        `path:"block_id" json:"-"`                        // Block 的唯一标识。你可调用[获取文档所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/list)获取文档中块的 block_id, 示例值: "doxcnO6UW6wAw2qIcYf4hZabcef"
+	DocumentRevisionID         *int64                                        `query:"document_revision_id" json:"-"`           // 要操作的文档版本。-1 表示文档最新版本。文档创建后, 版本为 1。你需确保你已拥有文档的编辑权限。你可通过调用[获取文档基本信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/get)获取文档的最新 revision_id, 示例值:1, 默认值: `-1`, 最小值: `-1`
 	ClientToken                *string                                       `query:"client_token" json:"-"`                   // 操作的唯一标识, 与接口返回值的 client_token 相对应, 用于幂等的进行更新操作。此值为空表示将发起一次新的请求, 此值非空表示幂等的进行更新操作, 示例值: "0e2633a3-aa1a-4171-af9e-0768ff863566"
 	UserIDType                 *IDType                                       `query:"user_id_type" json:"-"`                   // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	UpdateTextElements         *UpdateDocxBlockReqUpdateTextElements         `json:"update_text_elements,omitempty"`           // 更新文本元素请求
 	UpdateTextStyle            *UpdateDocxBlockReqUpdateTextStyle            `json:"update_text_style,omitempty"`              // 更新文本样式请求
-	UpdateTableProperty        *UpdateDocxBlockReqUpdateTableProperty        `json:"update_table_property,omitempty"`          // 更新表格属性请求
-	InsertTableRow             *UpdateDocxBlockReqInsertTableRow             `json:"insert_table_row,omitempty"`               // 表格插入新行请求
-	InsertTableColumn          *UpdateDocxBlockReqInsertTableColumn          `json:"insert_table_column,omitempty"`            // 表格插入新列请求
-	DeleteTableRows            *UpdateDocxBlockReqDeleteTableRows            `json:"delete_table_rows,omitempty"`              // 表格批量删除行请求
-	DeleteTableColumns         *UpdateDocxBlockReqDeleteTableColumns         `json:"delete_table_columns,omitempty"`           // 表格批量删除列请求
-	MergeTableCells            *UpdateDocxBlockReqMergeTableCells            `json:"merge_table_cells,omitempty"`              // 表格合并单元格请求
-	UnmergeTableCells          *UpdateDocxBlockReqUnmergeTableCells          `json:"unmerge_table_cells,omitempty"`            // 表格取消单元格合并状态请求
-	InsertGridColumn           *UpdateDocxBlockReqInsertGridColumn           `json:"insert_grid_column,omitempty"`             // 分栏插入新的分栏列请求
-	DeleteGridColumn           *UpdateDocxBlockReqDeleteGridColumn           `json:"delete_grid_column,omitempty"`             // 分栏删除列请求
-	UpdateGridColumnWidthRatio *UpdateDocxBlockReqUpdateGridColumnWidthRatio `json:"update_grid_column_width_ratio,omitempty"` // 更新分栏列宽比例请求
-	ReplaceImage               *UpdateDocxBlockReqReplaceImage               `json:"replace_image,omitempty"`                  // 替换图片请求
-	ReplaceFile                *UpdateDocxBlockReqReplaceFile                `json:"replace_file,omitempty"`                   // 替换附件请求
+	UpdateTableProperty        *UpdateDocxBlockReqUpdateTableProperty        `json:"update_table_property,omitempty"`          // 更新表格属性请求。仅支持对 Table 块进行修改
+	InsertTableRow             *UpdateDocxBlockReqInsertTableRow             `json:"insert_table_row,omitempty"`               // 表格插入新行请求。仅支持对 Table 块进行修改
+	InsertTableColumn          *UpdateDocxBlockReqInsertTableColumn          `json:"insert_table_column,omitempty"`            // 表格插入新列请求。仅支持对 Table 块进行修改
+	DeleteTableRows            *UpdateDocxBlockReqDeleteTableRows            `json:"delete_table_rows,omitempty"`              // 表格批量删除行请求。仅支持对 Table 块进行修改
+	DeleteTableColumns         *UpdateDocxBlockReqDeleteTableColumns         `json:"delete_table_columns,omitempty"`           // 表格批量删除列请求。仅支持对 Table 块进行修改
+	MergeTableCells            *UpdateDocxBlockReqMergeTableCells            `json:"merge_table_cells,omitempty"`              // 表格合并单元格请求。仅支持对 Table 块进行修改。表格单元格需要满足以下任一条件: 完全包含在之前合并的区域内, 完全不在之前合并的区域内
+	UnmergeTableCells          *UpdateDocxBlockReqUnmergeTableCells          `json:"unmerge_table_cells,omitempty"`            // 表格取消单元格合并状态请求。仅支持对 Table 块进行修改
+	InsertGridColumn           *UpdateDocxBlockReqInsertGridColumn           `json:"insert_grid_column,omitempty"`             // 分栏插入新的分栏列请求。仅支持对 Grid 块进行修改
+	DeleteGridColumn           *UpdateDocxBlockReqDeleteGridColumn           `json:"delete_grid_column,omitempty"`             // 分栏删除列请求。仅支持对 Grid 块进行修改
+	UpdateGridColumnWidthRatio *UpdateDocxBlockReqUpdateGridColumnWidthRatio `json:"update_grid_column_width_ratio,omitempty"` // 更新分栏列宽比例请求。仅支持对 Grid 块进行修改
+	ReplaceImage               *UpdateDocxBlockReqReplaceImage               `json:"replace_image,omitempty"`                  // 替换图片请求。调用此请求前, 你需确保已经上传过素材
+	ReplaceFile                *UpdateDocxBlockReqReplaceFile                `json:"replace_file,omitempty"`                   // 替换附件请求。调用此请求前, 你需确保已经上传过素材
 	UpdateText                 *UpdateDocxBlockReqUpdateText                 `json:"update_text,omitempty"`                    // 更新文本元素及样式请求
 }
 
@@ -132,14 +131,14 @@ type UpdateDocxBlockReqMergeTableCells struct {
 
 // UpdateDocxBlockReqReplaceFile ...
 type UpdateDocxBlockReqReplaceFile struct {
-	Token string `json:"token,omitempty"` // 附件 token, 示例值: "boxbckbfvfcqEg22hAzN8Dh9gJd"
+	Token string `json:"token,omitempty"` // 附件 token, 示例值: "boxbckbfvfcqEg22hAzN8Dabcef"
 }
 
 // UpdateDocxBlockReqReplaceImage ...
 type UpdateDocxBlockReqReplaceImage struct {
-	Token  string `json:"token,omitempty"`  // 图片 token, 示例值: "boxbckbfvfcqEg22hAzN8Dh9gJd"
-	Width  *int64 `json:"width,omitempty"`  // 图片宽度, 单位 px, 示例值: 100
-	Height *int64 `json:"height,omitempty"` // 图片高度, 单位 px, 示例值: 100
+	Token  string `json:"token,omitempty"`  // 图片 token, 示例值: "boxbckbfvfcqEg22hAzN8Dabcef"
+	Width  *int64 `json:"width,omitempty"`  // 图片宽度, 单位像素（px）, 示例值: 100
+	Height *int64 `json:"height,omitempty"` // 图片高度, 单位像素（px）, 示例值: 100
 	Align  *int64 `json:"align,omitempty"`  // 对齐方式, 示例值: 2, 可选值有: 1: 居左排版, 2: 居中排版, 3: 居右排版
 }
 
@@ -164,29 +163,29 @@ type UpdateDocxBlockReqUpdateTableProperty struct {
 
 // UpdateDocxBlockReqUpdateText ...
 type UpdateDocxBlockReqUpdateText struct {
-	Elements []*DocxTextElement `json:"elements,omitempty"` // 更新的文本元素列表, 单次更新中 reminder 上限 30 个, mention_doc 上限 50 个, mention_user 上限 100 个, 最小长度: `1`
+	Elements []*DocxTextElement `json:"elements,omitempty"` // 更新的文本元素列表。单次更新中: reminder 上限 30 个, mention_doc 上限 50 个, mention_user 上限 100 个, 最小长度: `1`
 	Style    *DocxTextStyle     `json:"style,omitempty"`    // 更新的文本样式
-	Fields   []int64            `json:"fields,omitempty"`   // 文本样式中应更新的字段, 必须至少指定一个字段。例如, 要调整 Block 对齐方式, 请设置 fields 为 [1], 示例值: [1], 可选值有: 1: 修改 Block 的对齐方式, 2: 修改 todo block 的完成状态, 3: 修改 block 的折叠状态, 4: 修改代码块的语言类型, 5: 修改代码块的折叠状态
+	Fields   []int64            `json:"fields,omitempty"`   // 文本样式中要更新的字段, 必须至少指定一个字段。例如, 要调整 Block 对齐方式, 请设置 fields 为 [1], 示例值: [1], 可选值有: 1: 修改 Block 的对齐方式, 2: 修改 todo 的完成状态。支持对 Todo 和 Task 块进行修改, 3: 文本的折叠状态。支持对 Heading1~9、和有子块的 Text、Ordered、Bullet、Todo 和 Task 块进行修改, 4: 代码块的语言类型。仅支持对 Code 块进行修改, 5: 代码块是否自动换行。支持对 Code 块进行修改
 }
 
 // UpdateDocxBlockReqUpdateTextElements ...
 type UpdateDocxBlockReqUpdateTextElements struct {
-	Elements []*DocxTextElement `json:"elements,omitempty"` // 更新的文本元素列表, 单次更新中 reminder 上限 30 个, mention_doc 上限 50 个, mention_user 上限 100 个, 最小长度: `1`
+	Elements []*DocxTextElement `json:"elements,omitempty"` // 更新后的文本元素列表, 单次更新中: reminder 元素上限 30 个, mention_doc 元素上限 50 个, mention_user 元素上限 100 个, 最小长度: `1`
 }
 
 // UpdateDocxBlockReqUpdateTextStyle ...
 type UpdateDocxBlockReqUpdateTextStyle struct {
-	Style  *UpdateDocxBlockReqUpdateTextStyleStyle `json:"style,omitempty"`  // 文本样式
-	Fields []int64                                 `json:"fields,omitempty"` // 应更新的字段, 必须至少指定一个字段。例如, 要调整 Block 对齐方式, 请设置 fields 为 [1], 示例值: 修改的文字样式属性, 可选值有: 1: 修改 Block 的对齐方式, 2: 修改 todo block 的完成状态, 3: 修改 block 的折叠状态, 4: 修改代码块的语言类型, 5: 修改代码块的折叠状态
+	Style  *UpdateDocxBlockReqUpdateTextStyleStyle `json:"style,omitempty"`  // 文本样式。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo、Task 块进行修改
+	Fields []int64                                 `json:"fields,omitempty"` // 应更新的字段, 必须至少指定一个字段。例如, 要调整 Block 对齐方式, 请设置 fields 为 [1], 示例值: 修改的文字样式属性, 可选值有: 1: 修改 Block 的对齐方式, 2: Todo 的完成状态。支持对 Todo 和 Task 块进行修改, 3: 文本的折叠状态。支持对 Heading1~9、和有子块的 Text、Ordered、Bullet、Todo 和 Task 块进行修改, 4: 代码块语言类型。仅支持对 Code 块进行修改, 5: 代码块是否自动换行。支持对 Code 块进行修改
 }
 
 // UpdateDocxBlockReqUpdateTextStyleStyle ...
 type UpdateDocxBlockReqUpdateTextStyleStyle struct {
 	Align    *int64 `json:"align,omitempty"`    // 对齐方式, 示例值: 1, 可选值有: 1: 居左排版, 2: 居中排版, 3: 居右排版, 默认值: `1`
-	Done     *bool  `json:"done,omitempty"`     // todo 的完成状态, 示例值: true, 默认值: `false`
-	Folded   *bool  `json:"folded,omitempty"`   // 文本的折叠状态, 示例值: true, 默认值: `false`
-	Language *int64 `json:"language,omitempty"` // 代码块语言, 示例值: 1, 可选值有: 1: PlainText, 2: ABAP, 3: Ada, 4: Apache, 5: Apex, 6: Assembly Language, 7: Bash, 8: CSharp, 9: C++, 10: C, 11: COBOL, 12: CSS, 13: CoffeeScript, 14: D, 15: Dart, 16: Delphi, 17: Django, 18: Dockerfile, 19: Erlang, 20: Fortran, 21: FoxPro, 22: Go, 23: Groovy, 24: HTML, 25: HTMLBars, 26: HTTP, 27: Haskell, 28: JSON, 29: Java, 30: JavaScript, 31: Julia, 32: Kotlin, 33: LateX, 34: Lisp, 35: Logo, 36: Lua, 37: MATLAB, 38: Makefile, 39: Markdown, 40: Nginx, 41: Objective-C, 42: OpenEdgeABL, 43: PHP, 44: Perl, 45: PostScript, 46: Power Shell, 47: Prolog, 48: ProtoBuf, 49: Python, 50: R, 51: RPG, 52: Ruby, 53: Rust, 54: SAS, 55: SCSS, 56: SQL, 57: Scala, 58: Scheme, 59: Scratch, 60: Shell, 61: Swift, 62: Thrift, 63: TypeScript, 64: VBScript, 65: Visual Basic, 66: XML, 67: YAML, 68: CMake, 69: Diff, 70: Gherkin, 71: GraphQL, 72: OpenGL Shading Language, 73: Properties, 74: Solidity, 75: TOML
-	Wrap     *bool  `json:"wrap,omitempty"`     // 代码块是否自动换行, 示例值: true, 默认值: `false`
+	Done     *bool  `json:"done,omitempty"`     // todo 的完成状态。支持对 Todo 和 Task 块进行修改, 示例值: true, 默认值: `false`
+	Folded   *bool  `json:"folded,omitempty"`   // 文本的折叠状态。支持对 Heading1~9、和有子块的 Text、Ordered、Bullet、Todo 和 Task 块进行修改, 示例值: true, 默认值: `false`
+	Language *int64 `json:"language,omitempty"` // 代码块的语言类型。仅支持对 Code 块进行修改, 示例值: 1, 可选值有: 1: PlainText, 2: ABAP, 3: Ada, 4: Apache, 5: Apex, 6: Assembly Language, 7: Bash, 8: CSharp, 9: C++, 10: C, 11: COBOL, 12: CSS, 13: CoffeeScript, 14: D, 15: Dart, 16: Delphi, 17: Django, 18: Dockerfile, 19: Erlang, 20: Fortran, 21: FoxPro, 22: Go, 23: Groovy, 24: HTML, 25: HTMLBars, 26: HTTP, 27: Haskell, 28: JSON, 29: Java, 30: JavaScript, 31: Julia, 32: Kotlin, 33: LateX, 34: Lisp, 35: Logo, 36: Lua, 37: MATLAB, 38: Makefile, 39: Markdown, 40: Nginx, 41: Objective-C, 42: OpenEdgeABL, 43: PHP, 44: Perl, 45: PostScript, 46: Power Shell, 47: Prolog, 48: ProtoBuf, 49: Python, 50: R, 51: RPG, 52: Ruby, 53: Rust, 54: SAS, 55: SCSS, 56: SQL, 57: Scala, 58: Scheme, 59: Scratch, 60: Shell, 61: Swift, 62: Thrift, 63: TypeScript, 64: VBScript, 65: Visual Basic, 66: XML, 67: YAML, 68: CMake, 69: Diff, 70: Gherkin, 71: GraphQL, 72: OpenGL Shading Language, 73: Properties, 74: Solidity, 75: TOML
+	Wrap     *bool  `json:"wrap,omitempty"`     // 代码块是否自动换行。支持对 Code 块进行修改, 示例值: true, 默认值: `false`
 }
 
 // UpdateDocxBlockResp ...

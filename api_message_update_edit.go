@@ -74,6 +74,7 @@ type UpdateMessageEditResp struct {
 	MessageID      string                          `json:"message_id,omitempty"`       // 消息id open_message_id
 	RootID         string                          `json:"root_id,omitempty"`          // 根消息id open_message_id
 	ParentID       string                          `json:"parent_id,omitempty"`        // 父消息的id open_message_id
+	ThreadID       string                          `json:"thread_id,omitempty"`        // 消息所属的话题 ID（不返回说明该消息非话题消息）, 说明参见: [话题介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/thread-introduction)
 	MsgType        MsgType                         `json:"msg_type,omitempty"`         // 消息类型 text post card image等等
 	CreateTime     string                          `json:"create_time,omitempty"`      // 消息生成的时间戳(毫秒)
 	UpdateTime     string                          `json:"update_time,omitempty"`      // 消息更新的时间戳

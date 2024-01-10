@@ -69,7 +69,7 @@ func (r *Mock) UnMockChatUpdateChatAnnouncement() {
 type UpdateChatAnnouncementReq struct {
 	ChatID   string   `path:"chat_id" json:"-"`   // 待修改公告的群 ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 注意: 不支持P2P单聊, 示例值: "oc_5ad11d72b830411d72b836c20"
 	Revision string   `json:"revision,omitempty"` // 文档当前版本号 int64 类型, [获取群公告信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/get)接口会返回, 注意: 传入的版本号和最新版本号的差距不能超过100, 示例值: "12"
-	Requests []string `json:"requests,omitempty"` // 修改文档请求的序列化字段, 更新公告信息的格式和更新[云文档](https://open.feishu.cn/document/ukTMukTMukTM/uYDM2YjL2AjN24iNwYjN)格式相同, 示例值: ["{\"requestType\":\"UpdateTitleRequestType\", \"updateTitleRequest\":{\"payload\":\"{\\\"elements\\\":[{\\\"type\\\":\\\"textRun\\\", \\\"textRun\\\":{\\\"text\\\":\\\"Updated Document Title\\\", \\\"style\\\":{}}}], \\\"style\\\":{}}\"}}"]
+	Requests []string `json:"requests,omitempty"` // 修改文档请求的序列化字段, 更新公告信息的格式和更新[云文档](https://open.feishu.cn/document/ukTMukTMukTM/uYDM2YjL2AjN24iNwYjN)格式相同, 示例值: ["{\"requestType\":\"InsertBlocksRequestType\", \"insertBlocksRequest\":{\"payload\":\"{\\\"blocks\\\":[{\\\"type\\\":\\\"paragraph\\\", \\\"paragraph\\\":{\\\"elements\\\":[{\\\"type\\\":\\\"textRun\\\", \\\"textRun\\\":{\\\"text\\\":\\\"Docs API Sample Content\\\", \\\"style\\\":{}}}], \\\"style\\\":{}}}]}\", \"location\":{\"zoneId\":\"0\", \"index\":0, \"endOfZone\": true}}}"]
 }
 
 // UpdateChatAnnouncementResp ...
