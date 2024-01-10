@@ -15,6 +15,8 @@ import (
 	"github.com/gorilla/websocket"
 )
 
+// copy from https://github.com/larksuite/oapi-sdk-go/blob/v3.2.0-beta.1/ws/client.go
+
 type Client struct {
 	Lark              *lark.Lark
 	wsDialer          *websocket.Dialer
