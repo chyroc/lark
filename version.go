@@ -15,4 +15,4 @@
  */
 package lark
 
-const version = "v0.0.112"
+const version = "v0.0.113"
