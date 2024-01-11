@@ -124,7 +124,7 @@ type UpdateBitableViewRespViewPropertyFilterInfoCondition struct {
 	Operator    string `json:"operator,omitempty"`     // 过滤操作的类型, 可选值有: is: 等于, isNot: 不等于, contains: 包含, doesNotContain: 不包含, isEmpty: 为空, isNotEmpty: 不为空, isGreater: 大于, isGreaterEqual: 大于等于, isLess: 小于, isLessEqual: 小于等于
 	Value       string `json:"value,omitempty"`        // 筛选值
 	ConditionID string `json:"condition_id,omitempty"` // 过滤条件的唯一ID
-	FieldType   string `json:"field_type,omitempty"`   // 用于过滤的字段类型
+	FieldType   int64  `json:"field_type,omitempty"`   // 用于过滤的字段类型 1: 多行文本 2: 数字 3: 单选 4: 多选 5: 日期 7: 复选框 11: 人员 13: 电话号码 15: 超链接 17: 附件 18: 单向关联 19: 查找引用 20: 公式 21: 双向关联 22: 地理位置 23: 群组 1001: 创建时间 1002: 最后更新时间 1003: 创建人 1004: 修改人 1005: 自动编号
 }
 
 // UpdateBitableViewRespViewPropertyHierarchyConfig ...

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UnsubscribeDriveFile 该接口仅支持文档拥有者取消订阅自己文档的通知事件, 可订阅的文档类型为旧版文档、新版文档、电子表格和多维表格。暂时无法指定取消的具体事件类型, 事件类型以开发者后台为准。在调用该接口之前请确保正确[配置事件回调网址和订阅事件类型](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM#2eb3504a), 事件类型参考[事件列表](https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-list)。
+// UnsubscribeDriveFile 该接口仅支持文档拥有者和文档管理者取消订阅文档的通知事件（但目前文档管理者仅能接收到文件编辑事件）。可订阅的文档类型为旧版文档、新版文档、电子表格和多维表格。暂时无法指定取消的具体事件类型, 事件类型以开发者后台为准。在调用该接口之前请确保正确[配置事件回调网址和订阅事件类型](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM#2eb3504a), 事件类型参考[事件列表](https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-list)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/delete_subscribe
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/event/delete_subscribe

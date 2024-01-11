@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 996, 事件总数: 139
+API 总数: 1006, 事件总数: 139
 
 <details>
   <summary>
@@ -46,14 +46,20 @@ API 总数: 996, 事件总数: 139
   </summary>
 
 - ACS
-  - GetACSAccessRecordPhoto
-  - GetACSAccessRecordList
-  - GetACSDeviceList
-  - GetACSUserFace
-  - UpdateACSUserFace
-  - GetACSUser
+  - DeleteACSVisitor
+  - CreateACSVisitor
+  - DeviceBindACSRuleExternal
+  - GetACSRuleExternal
+  - DeleteACSRuleExternal
+  - CreateACSRuleExternal
   - UpdateACSUser
+  - GetACSUser
   - GetACSUserList
+  - UpdateACSUserFace
+  - GetACSUserFace
+  - GetACSDeviceList
+  - GetACSAccessRecordList
+  - GetACSAccessRecordPhoto
 - AI
   - RecognizeAIVehicleInvoice
   - RecognizeAIHealthCertificate
@@ -1061,14 +1067,15 @@ API 总数: 996, 事件总数: 139
   - SendUrgentAppMessage
   - SendUrgentSmsMessage
   - SendUrgentPhoneMessage
-  - SendRawMessage
   - SendRawMessageOld
   - BatchSendOldRawMessage
+  - SendRawMessage
   - ReplyRawMessage
   - UpdateMessageEdit
   - DeleteMessage
   - ForwardMessage
   - MergeForwardMessage
+  - ForwardThreadMessage
   - BatchDeleteMessage
   - UpdateMessage
   - UpdateMessageDelay
@@ -1093,7 +1100,10 @@ API 总数: 996, 事件总数: 139
   - GetMinutesStatistics
   - GetMinutesMinute
 - OKR
+  - CreateOKRPeriod
+  - UpdateOKRPeriod
   - GetOKRPeriodList
+  - GetOKRPeriodRuleList
   - BatchGetOKR
   - GetUserOKRList
   - DeleteOKRProgressRecord

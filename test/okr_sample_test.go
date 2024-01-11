@@ -38,7 +38,7 @@ func Test_OKR_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetOKRPeriodList(ctx, &lark.GetOKRPeriodListReq{})
+			_, _, err := moduleCli.CreateOKRPeriod(ctx, &lark.CreateOKRPeriodReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -51,12 +51,48 @@ func Test_OKR_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockOKRCreateOKRPeriod(func(ctx context.Context, request *lark.CreateOKRPeriodReq, options ...lark.MethodOptionFunc) (*lark.CreateOKRPeriodResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockOKRCreateOKRPeriod()
+
+			_, _, err := moduleCli.CreateOKRPeriod(ctx, &lark.CreateOKRPeriodReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockOKRUpdateOKRPeriod(func(ctx context.Context, request *lark.UpdateOKRPeriodReq, options ...lark.MethodOptionFunc) (*lark.UpdateOKRPeriodResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockOKRUpdateOKRPeriod()
+
+			_, _, err := moduleCli.UpdateOKRPeriod(ctx, &lark.UpdateOKRPeriodReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockOKRGetOKRPeriodList(func(ctx context.Context, request *lark.GetOKRPeriodListReq, options ...lark.MethodOptionFunc) (*lark.GetOKRPeriodListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
 			defer cli.Mock().UnMockOKRGetOKRPeriodList()
 
 			_, _, err := moduleCli.GetOKRPeriodList(ctx, &lark.GetOKRPeriodListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockOKRGetOKRPeriodRuleList(func(ctx context.Context, request *lark.GetOKRPeriodRuleListReq, options ...lark.MethodOptionFunc) (*lark.GetOKRPeriodRuleListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockOKRGetOKRPeriodRuleList()
+
+			_, _, err := moduleCli.GetOKRPeriodRuleList(ctx, &lark.GetOKRPeriodRuleListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -225,7 +261,30 @@ func Test_OKR_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.CreateOKRPeriod(ctx, &lark.CreateOKRPeriodReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateOKRPeriod(ctx, &lark.UpdateOKRPeriodReq{
+				PeriodID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetOKRPeriodList(ctx, &lark.GetOKRPeriodListReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetOKRPeriodRuleList(ctx, &lark.GetOKRPeriodRuleListReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -356,7 +415,30 @@ func Test_OKR_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.CreateOKRPeriod(ctx, &lark.CreateOKRPeriodReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateOKRPeriod(ctx, &lark.UpdateOKRPeriodReq{
+				PeriodID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetOKRPeriodList(ctx, &lark.GetOKRPeriodListReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetOKRPeriodRuleList(ctx, &lark.GetOKRPeriodRuleListReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
