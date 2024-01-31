@@ -182,8 +182,8 @@ type UpdateDocxBlockReqUpdateTextStyle struct {
 // UpdateDocxBlockReqUpdateTextStyleStyle ...
 type UpdateDocxBlockReqUpdateTextStyleStyle struct {
 	Align    *int64 `json:"align,omitempty"`    // 对齐方式, 示例值: 1, 可选值有: 1: 居左排版, 2: 居中排版, 3: 居右排版, 默认值: `1`
-	Done     *bool  `json:"done,omitempty"`     // todo 的完成状态。支持对 Todo 和 Task 块进行修改, 示例值: true, 默认值: `false`
-	Folded   *bool  `json:"folded,omitempty"`   // 文本的折叠状态。支持对 Heading1~9、和有子块的 Text、Ordered、Bullet、Todo 和 Task 块进行修改, 示例值: true, 默认值: `false`
+	Done     *bool  `json:"done,omitempty"`     // todo 的完成状态。支持对 Todo 块进行修改, 示例值: true, 默认值: `false`
+	Folded   *bool  `json:"folded,omitempty"`   // 文本的折叠状态。支持对 Heading1~9、和有子块的 Text、Ordered、Bullet 和 Todo 块进行修改, 示例值: true, 默认值: `false`
 	Language *int64 `json:"language,omitempty"` // 代码块的语言类型。仅支持对 Code 块进行修改, 示例值: 1, 可选值有: 1: PlainText, 2: ABAP, 3: Ada, 4: Apache, 5: Apex, 6: Assembly Language, 7: Bash, 8: CSharp, 9: C++, 10: C, 11: COBOL, 12: CSS, 13: CoffeeScript, 14: D, 15: Dart, 16: Delphi, 17: Django, 18: Dockerfile, 19: Erlang, 20: Fortran, 21: FoxPro, 22: Go, 23: Groovy, 24: HTML, 25: HTMLBars, 26: HTTP, 27: Haskell, 28: JSON, 29: Java, 30: JavaScript, 31: Julia, 32: Kotlin, 33: LateX, 34: Lisp, 35: Logo, 36: Lua, 37: MATLAB, 38: Makefile, 39: Markdown, 40: Nginx, 41: Objective-C, 42: OpenEdgeABL, 43: PHP, 44: Perl, 45: PostScript, 46: Power Shell, 47: Prolog, 48: ProtoBuf, 49: Python, 50: R, 51: RPG, 52: Ruby, 53: Rust, 54: SAS, 55: SCSS, 56: SQL, 57: Scala, 58: Scheme, 59: Scratch, 60: Shell, 61: Swift, 62: Thrift, 63: TypeScript, 64: VBScript, 65: Visual Basic, 66: XML, 67: YAML, 68: CMake, 69: Diff, 70: Gherkin, 71: GraphQL, 72: OpenGL Shading Language, 73: Properties, 74: Solidity, 75: TOML
 	Wrap     *bool  `json:"wrap,omitempty"`     // 代码块是否自动换行。支持对 Code 块进行修改, 示例值: true, 默认值: `false`
 }

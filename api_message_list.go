@@ -64,7 +64,7 @@ func (r *Mock) UnMockMessageGetMessageList() {
 // GetMessageListReq ...
 type GetMessageListReq struct {
 	ContainerIDType ContainerIDType `query:"container_id_type" json:"-"` // 容器类型, 可选值有: `chat`: 包含单聊（p2p）和群聊（group）, `thread`: 话题, 示例值: chat
-	ContainerID     string          `query:"container_id" json:"-"`      // 容器的id, 可填写: 群组chat_id, 参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 话题 thread_id, 参见[话题介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/thread-introduction), 示例值: oc_234jsi43d3ssi993d43545f
+	ContainerID     string          `query:"container_id" json:"-"`      // 容器的ID, 可填写: chat_id, 群聊或单聊的 ID, 参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), thread_id, 话题 ID, 参见[话题介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/thread-introduction), 示例值: oc_234jsi43d3ssi993d43545f
 	StartTime       *string         `query:"start_time" json:"-"`        // 历史信息的起始时间（秒级时间戳）, 注意: thread 容器类型暂不支持获取指定时间范围内的消息, 示例值: 1608594809
 	EndTime         *string         `query:"end_time" json:"-"`          // 历史信息的结束时间（秒级时间戳）, 注意: thread 容器类型暂不支持获取指定时间范围内的消息, 示例值: 1609296809
 	SortType        *string         `query:"sort_type" json:"-"`         // 消息排序方式, 示例值: ByCreateTimeAsc, 可选值有: ByCreateTimeAsc: 按消息创建时间升序排列, ByCreateTimeDesc: 按消息创建时间降序排列, 默认值: `ByCreateTimeAsc`

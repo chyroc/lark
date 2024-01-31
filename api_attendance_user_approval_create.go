@@ -109,6 +109,7 @@ type CreateAttendanceUserApprovalReqUserApprovalOvertimeWork struct {
 	Type      int64   `json:"type,omitempty"`       // 加班规则类型, 示例值: 1, 可选值有: 0: 不关联加班规则, 1: 调休, 2: 加班费, 3: 关联加班规则, 没有调休或加班费
 	StartTime string  `json:"start_time,omitempty"` // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 示例值: "2021-01-09 09:00:00"
 	EndTime   string  `json:"end_time,omitempty"`   // 结束时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 示例值: "2021-01-10 13:00:00"
+	Reason    *string `json:"reason,omitempty"`     // 加班事由, 示例值: "推进项目进度"
 }
 
 // CreateAttendanceUserApprovalReqUserApprovalTrip ...
@@ -175,6 +176,7 @@ type CreateAttendanceUserApprovalRespUserApprovalOvertimeWork struct {
 	Type       int64   `json:"type,omitempty"`        // 加班规则类型, 可选值有: 0: 不关联加班规则, 1: 调休, 2: 加班费, 3: 关联加班规则, 没有调休或加班费
 	StartTime  string  `json:"start_time,omitempty"`  // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss
 	EndTime    string  `json:"end_time,omitempty"`    // 结束时间, 时间格式为 yyyy-MM-dd HH:mm:ss
+	Reason     string  `json:"reason,omitempty"`      // 加班事由
 }
 
 // CreateAttendanceUserApprovalRespUserApprovalTrip ...

@@ -66,6 +66,8 @@ type GetCalendarEventReq struct {
 	CalendarID          string  `path:"calendar_id" json:"-"`            // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 	EventID             string  `path:"event_id" json:"-"`               // 日程ID。参见[日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction), 示例值: "xxxxxxxxx_0"
 	NeedMeetingSettings *bool   `query:"need_meeting_settings" json:"-"` // 是否需要返回会前设置, 日程的会议类型(vc_type)为vc, 需要有日程的编辑权限, 示例值: false
+	NeedAttendee        *bool   `query:"need_attendee" json:"-"`         // 是否需要返回参与人信息, 示例值: false
+	MaxAttendeeNum      *int64  `query:"max_attendee_num" json:"-"`      // 返回的最大参与人数量, 使用获取日程参与人列表获取完整参与人信息, 示例值: false, 默认值: `10`, 最大值: `100`
 	UserIDType          *IDType `query:"user_id_type" json:"-"`          // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
@@ -76,25 +78,69 @@ type GetCalendarEventResp struct {
 
 // GetCalendarEventRespEvent ...
 type GetCalendarEventRespEvent struct {
-	EventID             string                               `json:"event_id,omitempty"`              // 日程ID。参见[日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction)
-	OrganizerCalendarID string                               `json:"organizer_calendar_id,omitempty"` // 日程组织者日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction)
-	Summary             string                               `json:"summary,omitempty"`               // 日程标题
-	Description         string                               `json:"description,omitempty"`           // 日程描述；目前不支持编辑富文本描述, 如果日程描述通过客户端编辑过, 更新描述会导致富文本格式丢失
-	StartTime           *GetCalendarEventRespEventStartTime  `json:"start_time,omitempty"`            // 日程开始时间
-	EndTime             *GetCalendarEventRespEventEndTime    `json:"end_time,omitempty"`              // 日程结束时间
-	Vchat               *GetCalendarEventRespEventVchat      `json:"vchat,omitempty"`                 // 视频会议信息。
-	Visibility          string                               `json:"visibility,omitempty"`            // 日程公开范围, 新建日程默认为Default；仅新建日程时对所有参与人生效, 之后修改该属性仅对当前身份生效, 可选值有: default: 默认权限, 跟随日历权限, 默认仅向他人显示是否“忙碌”, public: 公开, 显示日程详情, private: 私密, 仅自己可见详情
-	AttendeeAbility     string                               `json:"attendee_ability,omitempty"`      // 参与人权限, 可选值有: none: 无法编辑日程、无法邀请其它参与人、无法查看参与人列表, can_see_others: 无法编辑日程、无法邀请其它参与人、可以查看参与人列表, can_invite_others: 无法编辑日程、可以邀请其它参与人、可以查看参与人列表, can_modify_event: 可以编辑日程、可以邀请其它参与人、可以查看参与人列表
-	FreeBusyStatus      string                               `json:"free_busy_status,omitempty"`      // 日程占用的忙闲状态, 新建日程默认为Busy；仅新建日程时对所有参与人生效, 之后修改该属性仅对当前身份生效, 可选值有: busy: 忙碌, free: 空闲
-	Location            *GetCalendarEventRespEventLocation   `json:"location,omitempty"`              // 日程地点
-	Color               int64                                `json:"color,omitempty"`                 // 日程颜色, 颜色RGB值的int32表示。仅对当前身份生效；客户端展示时会映射到色板上最接近的一种颜色；值为0或-1时默认跟随日历颜色。
-	Reminders           []*GetCalendarEventRespEventReminder `json:"reminders,omitempty"`             // 日程提醒列表
-	Recurrence          string                               `json:"recurrence,omitempty"`            // 重复日程的重复性规则；参考[rfc5545](https://datatracker.ietf.org/doc/html/rfc5545#section-3.3.10)；, 不支持COUNT和UNTIL同时出现；, 预定会议室重复日程长度不得超过两年。
-	Status              string                               `json:"status,omitempty"`                // 日程状态, 可选值有: tentative: 未回应, confirmed: 已确认, cancelled: 日程已取消
-	IsException         bool                                 `json:"is_exception,omitempty"`          // 日程是否是一个重复日程的例外日程
-	RecurringEventID    string                               `json:"recurring_event_id,omitempty"`    // 例外日程的原重复日程的event_id
-	CreateTime          string                               `json:"create_time,omitempty"`           // 日程的创建时间（秒级时间戳）
-	Schemas             []*GetCalendarEventRespEventSchema   `json:"schemas,omitempty"`               // 日程自定义信息；控制日程详情页的ui展示。
+	EventID             string                                   `json:"event_id,omitempty"`              // 日程ID。参见[日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction)
+	OrganizerCalendarID string                                   `json:"organizer_calendar_id,omitempty"` // 日程组织者日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction)
+	Summary             string                                   `json:"summary,omitempty"`               // 日程标题
+	Description         string                                   `json:"description,omitempty"`           // 日程描述；目前不支持编辑富文本描述, 如果日程描述通过客户端编辑过, 更新描述会导致富文本格式丢失
+	StartTime           *GetCalendarEventRespEventStartTime      `json:"start_time,omitempty"`            // 日程开始时间
+	EndTime             *GetCalendarEventRespEventEndTime        `json:"end_time,omitempty"`              // 日程结束时间
+	Vchat               *GetCalendarEventRespEventVchat          `json:"vchat,omitempty"`                 // 视频会议信息。
+	Visibility          string                                   `json:"visibility,omitempty"`            // 日程公开范围, 新建日程默认为Default；仅新建日程时对所有参与人生效, 之后修改该属性仅对当前身份生效, 可选值有: default: 默认权限, 跟随日历权限, 默认仅向他人显示是否“忙碌”, public: 公开, 显示日程详情, private: 私密, 仅自己可见详情
+	AttendeeAbility     string                                   `json:"attendee_ability,omitempty"`      // 参与人权限, 可选值有: none: 无法编辑日程、无法邀请其它参与人、无法查看参与人列表, can_see_others: 无法编辑日程、无法邀请其它参与人、可以查看参与人列表, can_invite_others: 无法编辑日程、可以邀请其它参与人、可以查看参与人列表, can_modify_event: 可以编辑日程、可以邀请其它参与人、可以查看参与人列表
+	FreeBusyStatus      string                                   `json:"free_busy_status,omitempty"`      // 日程占用的忙闲状态, 新建日程默认为Busy；仅新建日程时对所有参与人生效, 之后修改该属性仅对当前身份生效, 可选值有: busy: 忙碌, free: 空闲
+	Location            *GetCalendarEventRespEventLocation       `json:"location,omitempty"`              // 日程地点
+	Color               int64                                    `json:"color,omitempty"`                 // 日程颜色, 颜色RGB值的int32表示。仅对当前身份生效；客户端展示时会映射到色板上最接近的一种颜色；值为0或-1时默认跟随日历颜色。
+	Reminders           []*GetCalendarEventRespEventReminder     `json:"reminders,omitempty"`             // 日程提醒列表
+	Recurrence          string                                   `json:"recurrence,omitempty"`            // 重复日程的重复性规则；参考[rfc5545](https://datatracker.ietf.org/doc/html/rfc5545#section-3.3.10)；, 不支持COUNT和UNTIL同时出现；, 预定会议室重复日程长度不得超过两年。
+	Status              string                                   `json:"status,omitempty"`                // 日程状态, 可选值有: tentative: 未回应, confirmed: 已确认, cancelled: 日程已取消
+	IsException         bool                                     `json:"is_exception,omitempty"`          // 日程是否是一个重复日程的例外日程
+	RecurringEventID    string                                   `json:"recurring_event_id,omitempty"`    // 例外日程的原重复日程的event_id
+	CreateTime          string                                   `json:"create_time,omitempty"`           // 日程的创建时间（秒级时间戳）
+	Schemas             []*GetCalendarEventRespEventSchema       `json:"schemas,omitempty"`               // 日程自定义信息；控制日程详情页的ui展示。
+	EventOrganizer      *GetCalendarEventRespEventEventOrganizer `json:"event_organizer,omitempty"`       // 日程组织者信息
+	AppLink             string                                   `json:"app_link,omitempty"`              // 日程的app_link, 跳转到具体的某个日程
+	Attendees           []*GetCalendarEventRespEventAttendee     `json:"attendees,omitempty"`             // 日程参与人信息
+	HasMoreAttendee     bool                                     `json:"has_more_attendee,omitempty"`     // 是否有更多的参与人
+}
+
+// GetCalendarEventRespEventAttendee ...
+type GetCalendarEventRespEventAttendee struct {
+	Type                  CalendarEventAttendeeType                                 `json:"type,omitempty"`                   // 参与人类型, 仅当新建参与人时可设置类型, type为User时, 值为open_id/user_id/union_id, type为Chat时, 值为open_chat_id, type为Resource时, 值为open_room_id, type为ThirdParty时, 值为third_party_email；不支持通过API新建该类型参与人, 可选值有: user: 用户, chat: 群组, resource: 会议室, third_party: 邮箱
+	AttendeeID            string                                                    `json:"attendee_id,omitempty"`            // 参与人ID
+	RsvpStatus            string                                                    `json:"rsvp_status,omitempty"`            // 参与人RSVP状态, 可选值有: needs_action: 参与人尚未回复状态, 或表示会议室预约中, accept: 参与人回复接受, 或表示会议室预约成功, tentative: 参与人回复待定, decline: 参与人回复拒绝, 或表示会议室预约失败, removed: 参与人或会议室已经从日程中被移除
+	IsOptional            bool                                                      `json:"is_optional,omitempty"`            // 参与人是否为「可选参加」, 无法编辑群参与人的此字段
+	IsOrganizer           bool                                                      `json:"is_organizer,omitempty"`           // 参与人是否为日程组织者
+	IsExternal            bool                                                      `json:"is_external,omitempty"`            // 参与人是否为外部参与人；外部参与人不支持编辑
+	DisplayName           string                                                    `json:"display_name,omitempty"`           // 参与人名称
+	ChatMembers           []*GetCalendarEventRespEventAttendeeChatMember            `json:"chat_members,omitempty"`           // 群中的群成员, 当type为Chat时有效；群成员不支持编辑
+	UserID                string                                                    `json:"user_id,omitempty"`                // 参与人的用户id, 依赖于user_id_type返回对应的取值, 当is_external为true时, 此字段只会返回open_id或者union_id
+	ChatID                string                                                    `json:"chat_id,omitempty"`                // chat类型参与人的群组chat_id
+	RoomID                string                                                    `json:"room_id,omitempty"`                // resource类型参与人的会议室room_id
+	ThirdPartyEmail       string                                                    `json:"third_party_email,omitempty"`      // third_party类型参与人的邮箱
+	OperateID             string                                                    `json:"operate_id,omitempty"`             // bot身份操作时, 为预定的会议室指定实际预定人
+	ResourceCustomization []*GetCalendarEventRespEventAttendeeResourceCustomization `json:"resource_customization,omitempty"` // 会议室的个性化配置
+}
+
+// GetCalendarEventRespEventAttendeeChatMember ...
+type GetCalendarEventRespEventAttendeeChatMember struct {
+	RsvpStatus  string `json:"rsvp_status,omitempty"`  // 参与人RSVP状态, 可选值有: needs_action: 参与人尚未回复状态, 或表示会议室预约中, accept: 参与人回复接受, 或表示会议室预约成功, tentative: 参与人回复待定, decline: 参与人回复拒绝, 或表示会议室预约失败, removed: 参与人或会议室已经从日程中被移除
+	IsOptional  bool   `json:"is_optional,omitempty"`  // 参与人是否为「可选参加」
+	DisplayName string `json:"display_name,omitempty"` // 参与人名称
+	IsOrganizer bool   `json:"is_organizer,omitempty"` // 参与人是否为日程组织者
+	IsExternal  bool   `json:"is_external,omitempty"`  // 参与人是否为外部参与人
+}
+
+// GetCalendarEventRespEventAttendeeResourceCustomization ...
+type GetCalendarEventRespEventAttendeeResourceCustomization struct {
+	IndexKey     string                                                          `json:"index_key,omitempty"`     // 个性化配置唯一键
+	InputContent string                                                          `json:"input_content,omitempty"` // 当type类型为填空时, 该参数有返回值
+	Options      []*GetCalendarEventRespEventAttendeeResourceCustomizationOption `json:"options,omitempty"`       // 个性化配置选项
+}
+
+// GetCalendarEventRespEventAttendeeResourceCustomizationOption ...
+type GetCalendarEventRespEventAttendeeResourceCustomizationOption struct {
+	OptionKey     string `json:"option_key,omitempty"`     // 个性化选项唯一键
+	OthersContent string `json:"others_content,omitempty"` // 当type类型为其它选项时, 该参数有返回值
 }
 
 // GetCalendarEventRespEventEndTime ...
@@ -102,6 +148,12 @@ type GetCalendarEventRespEventEndTime struct {
 	Date      string `json:"date,omitempty"`      // 仅全天日程使用该字段, 如2018-09-01。需满足 RFC3339 格式。不能与 timestamp 同时指定
 	Timestamp string `json:"timestamp,omitempty"` // 秒级时间戳, 如1602504000(表示2020/10/12 20:0:00 +8时区)
 	Timezone  string `json:"timezone,omitempty"`  // 时区名称, 使用IANA Time Zone Database标准, 如Asia/Shanghai；全天日程时区固定为UTC, 非全天日程时区默认为Asia/Shanghai
+}
+
+// GetCalendarEventRespEventEventOrganizer ...
+type GetCalendarEventRespEventEventOrganizer struct {
+	UserID      string `json:"user_id,omitempty"`      // 日程组织者user ID
+	DisplayName string `json:"display_name,omitempty"` // 日程组织者姓名
 }
 
 // GetCalendarEventRespEventLocation ...

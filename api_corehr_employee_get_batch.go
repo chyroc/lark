@@ -25,6 +25,7 @@ import (
 //
 // - 本接口会按照「员工资源」权限范围返回数据, 请确定在「开发者后台 - 权限管理 - 数据权限」中已申请此数据权限
 // - 每次最多传 100 个员工 ID, 若需单次查询全量员工, 可使用接口[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)；
+// - 人员全数据关联业务数据, 计算数据等较多, 更新后存在2-5s短暂延时, 建议数据更新动作完成后稍等几秒进行最新数据查询请求。
 // - 接口已升级, 推荐使用, 性能更优。如需继续使用旧版本接口, 可点击[批量查询雇佣信息](https://open.feishu.cn/document/server-docs/corehr-v1/employee/employment/list)[批量查询个人信息](https://open.feishu.cn/document/server-docs/corehr-v1/employee/person/list)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get
@@ -83,7 +84,7 @@ type BatchGetCoreHREmployeeRespItem struct {
 	EmployeeTypeID           string                                              `json:"employee_type_id,omitempty"`            // 人员类型 ID, 详细信息可通过【查询单个人员类型】接口获得
 	DepartmentID             string                                              `json:"department_id,omitempty"`               // 部门 ID, 详细信息可通过【查询单个部门】接口获得
 	JobLevelID               string                                              `json:"job_level_id,omitempty"`                // 职级 ID, 详细信息可通过【查询单个职务级别】接口获得, 字段权限要求（满足任一）: 获取职务级别信息, 读写员工的职务级别信息
-	JobGradeID               string                                              `json:"job_grade_id,omitempty"`                // 职等 ID, 字段权限要求（满足任一）: 读取职等信息, 职等信息
+	JobGradeID               string                                              `json:"job_grade_id,omitempty"`                // 职等 ID, 字段权限要求（满足任一）: 获取职等信息, 读写职等信息
 	WorkLocationID           string                                              `json:"work_location_id,omitempty"`            // 工作地点 ID, 详细信息可通过【查询单个地点】接口获得
 	JobFamilyID              string                                              `json:"job_family_id,omitempty"`               // 序列 ID, 详细信息可通过【查询单个职务序列】接口获得
 	JobID                    string                                              `json:"job_id,omitempty"`                      // 职务 ID, 详细信息可通过【查询单个职务】接口获得, 字段权限要求（满足任一）: 获取员工的职务信息, 获取职务级别信息, 读写员工的职务级别信息
@@ -120,7 +121,7 @@ type BatchGetCoreHREmployeeRespItem struct {
 	ContractStartDate        string                                              `json:"contract_start_date,omitempty"`         // 主合同开始日期, 字段权限要求（满足任一）: 获取合同期限信息, 读写合同期限信息
 	ContractEndDate          string                                              `json:"contract_end_date,omitempty"`           // 主合同到期日期, 字段权限要求（满足任一）: 获取合同期限信息, 读写合同期限信息
 	ContractExpectedEndDate  string                                              `json:"contract_expected_end_date,omitempty"`  // 主合同预计到期日期, 字段权限要求（满足任一）: 获取合同期限信息, 读写合同期限信息
-	PayGroupID               string                                              `json:"pay_group_id,omitempty"`                // 所属薪资组 ID, 字段权限要求: 获取员工薪资组信息
+	PayGroupID               string                                              `json:"pay_group_id,omitempty"`                // 所属薪资组 ID, 字段权限要求: 获取薪资组信息
 	InternationalAssignment  bool                                                `json:"international_assignment,omitempty"`    // 是否外派
 	WorkCalendarID           string                                              `json:"work_calendar_id,omitempty"`            // 工作日历 ID
 	Department               *BatchGetCoreHREmployeeRespItemDepartment           `json:"department,omitempty"`                  // 部门基本信息
@@ -274,8 +275,8 @@ type BatchGetCoreHREmployeeRespItemPersonInfo struct {
 	MartyrCardNumber         string                                                            `json:"martyr_card_number,omitempty"`          // 烈属证号, 字段权限要求（满足任一）: 获取烈属信息, 读写烈属信息
 	IsOldAlone               bool                                                              `json:"is_old_alone,omitempty"`                // 是否孤老, 字段权限要求（满足任一）: 获取孤老信息, 读写孤老信息
 	ResidentTaxes            []*BatchGetCoreHREmployeeRespItemPersonInfoResidentTaxe           `json:"resident_taxes,omitempty"`              // 居民身份信息, 字段权限要求（满足任一）: 获取居民身份信息, 读写居民身份信息
-	FirstEntryTime           string                                                            `json:"first_entry_time,omitempty"`            // 首次入境日期, 字段权限要求（满足任一）: 获取出入境日期, 读写出入境日期
-	LeaveTime                string                                                            `json:"leave_time,omitempty"`                  // 预计离境日期, 字段权限要求（满足任一）: 获取出入境日期, 读写出入境日期
+	FirstEntryTime           string                                                            `json:"first_entry_time,omitempty"`            // 首次入境日期, 字段权限要求（满足任一）: 获取出入境日期信息, 读写出入境日期信息
+	LeaveTime                string                                                            `json:"leave_time,omitempty"`                  // 预计离境日期, 字段权限要求（满足任一）: 获取出入境日期信息, 读写出入境日期信息
 }
 
 // BatchGetCoreHREmployeeRespItemPersonInfoAddress ...

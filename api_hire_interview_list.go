@@ -58,13 +58,14 @@ func (r *Mock) UnMockHireGetHireInterviewList() {
 
 // GetHireInterviewListReq ...
 type GetHireInterviewListReq struct {
-	PageSize      *int64  `query:"page_size" json:"-"`      // 分页大小, 示例值: 10, 默认值: `10`, 最大值: `100`
-	PageToken     *string `query:"page_token" json:"-"`     // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: xx
-	ApplicationID *string `query:"application_id" json:"-"` // 投递 ID, 示例值: 6134134355464633
-	InterviewID   *string `query:"interview_id" json:"-"`   // 面试 ID, 示例值: 6888217964693309704
-	StartTime     *string `query:"start_time" json:"-"`     // 最早开始时间, 格式为时间戳, 示例值: 1609489908000
-	EndTime       *string `query:"end_time" json:"-"`       // 最晚开始时间, 格式为时间戳, 示例值: 1610489908000
-	UserIDType    *IDType `query:"user_id_type" json:"-"`   // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	PageSize       *int64  `query:"page_size" json:"-"`         // 分页大小, 示例值: 10, 默认值: `10`, 最大值: `100`
+	PageToken      *string `query:"page_token" json:"-"`        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: xx
+	ApplicationID  *string `query:"application_id" json:"-"`    // 投递 ID, 示例值: 6134134355464633
+	InterviewID    *string `query:"interview_id" json:"-"`      // 面试 ID, 示例值: 6888217964693309704
+	StartTime      *string `query:"start_time" json:"-"`        // 最早开始时间, 格式为时间戳, 示例值: 1609489908000
+	EndTime        *string `query:"end_time" json:"-"`          // 最晚开始时间, 格式为时间戳, 示例值: 1610489908000
+	JobLevelIDType *IDType `query:"job_level_id_type" json:"-"` // 此次调用中使用的「职级 ID」的类型, 示例值: 6942778198054125570, 可选值有: people_admin_job_level_id: 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。, job_level_id: 「飞书管理后台」适用的职级 ID, 通过[「获取租户职级列表」](https://open.feishu.cn/document/server-docs/contact-v3/job_level/list)接口获取, 默认值: `people_admin_job_level_id`
+	UserIDType     *IDType `query:"user_id_type" json:"-"`      // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetHireInterviewListResp ...
@@ -194,15 +195,13 @@ type GetHireInterviewListRespItemCreatorName struct {
 
 // GetHireInterviewListRespItemInterviewRecord ...
 type GetHireInterviewListRespItemInterviewRecord struct {
-	ID             string                                                     `json:"id,omitempty"`               // 面试记录 ID
-	UserID         string                                                     `json:"user_id,omitempty"`          // 面试官用户 ID
-	Content        string                                                     `json:"content,omitempty"`          // 系统预设「记录」题目内容
-	MinJobLevelID  string                                                     `json:"min_job_level_id,omitempty"` // 建议定级下限的职级 ID
-	MaxJobLevelID  string                                                     `json:"max_job_level_id,omitempty"` // 建议定级上限的职级 ID
-	CommitStatus   int64                                                      `json:"commit_status,omitempty"`    // 提交状态, 可选值有: 1: 已提交, 2: 未提交
-	Conclusion     int64                                                      `json:"conclusion,omitempty"`       // 面试结论, 可选值有: 1: 通过, 2: 未通过
-	InterviewScore *GetHireInterviewListRespItemInterviewRecordInterviewScore `json:"interview_score,omitempty"`  // 面试评分
-	Interviewer    *GetHireInterviewListRespItemInterviewRecordInterviewer    `json:"interviewer,omitempty"`      // 面试官信息
+	ID             string                                                     `json:"id,omitempty"`              // 面试记录 ID
+	UserID         string                                                     `json:"user_id,omitempty"`         // 面试官用户 ID
+	Content        string                                                     `json:"content,omitempty"`         // 系统预设「记录」题目内容
+	CommitStatus   int64                                                      `json:"commit_status,omitempty"`   // 提交状态, 可选值有: 1: 已提交, 2: 未提交
+	Conclusion     int64                                                      `json:"conclusion,omitempty"`      // 面试结论, 可选值有: 1: 通过, 2: 未通过, 3: 未开始, 4: 未提交, 5: 未到场
+	InterviewScore *GetHireInterviewListRespItemInterviewRecordInterviewScore `json:"interview_score,omitempty"` // 面试评分
+	Interviewer    *GetHireInterviewListRespItemInterviewRecordInterviewer    `json:"interviewer,omitempty"`     // 面试官信息
 }
 
 // GetHireInterviewListRespItemInterviewRecordInterviewScore ...

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetCoreHRProcessFormVariableData 获取流程表单数据。
+// GetCoreHRProcessFormVariableData 根据流程实例 ID 获取流程表单字段数据。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/process-form_variable_data/get
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/process-form_variable_data/get
@@ -58,7 +58,7 @@ func (r *Mock) UnMockCoreHRGetCoreHRProcessFormVariableData() {
 
 // GetCoreHRProcessFormVariableDataReq ...
 type GetCoreHRProcessFormVariableDataReq struct {
-	ProcessID string `path:"process_id" json:"-"` // 流程ID, 示例值: "123456987"
+	ProcessID string `path:"process_id" json:"-"` // 流程实例 ID, 示例值: "123456987"
 }
 
 // GetCoreHRProcessFormVariableDataResp ...

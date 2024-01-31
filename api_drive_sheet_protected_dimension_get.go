@@ -23,6 +23,9 @@ import (
 
 // GetSheetProtectedDimension 该接口用于根据保护范围ID查询详细的保护行列信息, 最多支持同时查询5个ID。
 //
+// 1. 仅支持获取保护行或保护列, 暂不支持获取保护单元格
+// 2. 不支持获取包含多个区域的保护范围
+//
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQTM5YjL0ETO24CNxkjN
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/protect-range/retrieve-protection-scopes
 func (r *DriveService) GetSheetProtectedDimension(ctx context.Context, request *GetSheetProtectedDimensionReq, options ...MethodOptionFunc) (*GetSheetProtectedDimensionResp, *Response, error) {

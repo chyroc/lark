@@ -61,11 +61,13 @@ func (r *Mock) UnMockCalendarGetCalendarFreeBusyList() {
 
 // GetCalendarFreeBusyListReq ...
 type GetCalendarFreeBusyListReq struct {
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	TimeMin    string  `json:"time_min,omitempty"`     // 查询时段开始时间, 需要url编码, 示例值: "2020-10-28T12:00:00+08:00"
-	TimeMax    string  `json:"time_max,omitempty"`     // 查询时段结束时间, 需要url编码, 示例值: "2020-12-28T12:00:00+08:00"
-	UserID     *string `json:"user_id,omitempty"`      // 用户user_id, 输入时与 room_id 二选一。参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 示例值: "ou_xxxxxxxxxx"
-	RoomID     *string `json:"room_id,omitempty"`      // 会议室room_id, 输入时与 user_id 二选一, 示例值: "omm_xxxxxxxxxx"
+	UserIDType              *IDType `query:"user_id_type" json:"-"`              // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	TimeMin                 string  `json:"time_min,omitempty"`                  // 查询时段开始时间, 需要url编码, 示例值: "2020-10-28T12:00:00+08:00"
+	TimeMax                 string  `json:"time_max,omitempty"`                  // 查询时段结束时间, 需要url编码, 示例值: "2020-12-28T12:00:00+08:00"
+	UserID                  *string `json:"user_id,omitempty"`                   // 用户user_id, 输入时与 room_id 二选一。参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 示例值: "ou_xxxxxxxxxx"
+	RoomID                  *string `json:"room_id,omitempty"`                   // 会议室room_id, 输入时与 user_id 二选一, 示例值: "omm_xxxxxxxxxx"
+	IncludeExternalCalendar *bool   `json:"include_external_calendar,omitempty"` // 是否包含绑定的三方日历中的日程, 不传默认为true, 即包含, 示例值: true
+	OnlyBusy                *bool   `json:"only_busy,omitempty"`                 // 是否包含标记为空闲的日程, 不传默认为true, 即不包含, 示例值: true
 }
 
 // GetCalendarFreeBusyListResp ...

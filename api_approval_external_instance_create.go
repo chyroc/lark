@@ -177,7 +177,7 @@ type CreateApprovalExternalInstanceReqTaskLinks struct {
 type CreateApprovalExternalInstanceReqTrusteeshipCacheConfig struct {
 	FormPolicy         *string `json:"form_policy,omitempty"`           // 托管预缓存策略, 示例值: "DISABLE", 可选值有: DISABLE: 不启用, 默认, IMMUTABLE: 表单不会随流程进行改变, BY_NODE: 跟随流程节点变更更新缓存, BY_USER: 对于每个待办任务存储一份
 	FormVaryWithLocale *bool   `json:"form_vary_with_locale,omitempty"` // 表单是否随国际化改变, 示例值: false
-	FormVersion        *string `json:"form_version,omitempty"`          // 当前使用的表单版本号, 保证表单改变后, 版本号增加, 实际值为int64整数, 示例值: ""1""
+	FormVersion        *string `json:"form_version,omitempty"`          // 当前使用的表单版本号, 保证表单改变后, 版本号增加, 实际值为int64整数, 示例值: "1"
 }
 
 // CreateApprovalExternalInstanceReqTrusteeshipURLs ...

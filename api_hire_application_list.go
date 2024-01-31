@@ -71,7 +71,7 @@ type GetHireApplicationListReq struct {
 
 // GetHireApplicationListResp ...
 type GetHireApplicationListResp struct {
-	Items     []string `json:"items,omitempty"`      // 投递数据列表
+	Items     []string `json:"items,omitempty"`      // 投递ID列表
 	PageToken string   `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	HasMore   bool     `json:"has_more,omitempty"`   // 是否还有更多项
 }

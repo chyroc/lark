@@ -25,6 +25,8 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/subregion/list
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/location_data/list-3
+//
+// Deprecated
 func (r *CoreHRService) GetCoreHRSubregionList(ctx context.Context, request *GetCoreHRSubregionListReq, options ...MethodOptionFunc) (*GetCoreHRSubregionListResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRSubregionList != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRSubregionList mock enable")

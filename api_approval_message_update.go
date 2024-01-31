@@ -37,7 +37,7 @@ func (r *ApprovalService) UpdateApprovalMessage(ctx context.Context, request *Up
 		Scope:                 "Approval",
 		API:                   "UpdateApprovalMessage",
 		Method:                "POST",
-		URL:                   r.cli.wwwBaseURL + "/approval/openapi/v1/message/update",
+		URL:                   r.cli.openBaseURL + "/open-apis/approval/v1/message/update",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,

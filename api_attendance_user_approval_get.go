@@ -125,6 +125,7 @@ type GetAttendanceUserApprovalRespUserApprovalOvertimeWork struct {
 	Type       int64   `json:"type,omitempty"`        // 加班规则类型, 可选值有: 0: 不关联加班规则, 1: 调休, 2: 加班费, 3: 关联加班规则, 没有调休或加班费
 	StartTime  string  `json:"start_time,omitempty"`  // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 时间按照审批发起人当前考勤组的时区进行取值, 如果发起人已离职, 则默认为 0 时区。
 	EndTime    string  `json:"end_time,omitempty"`    // 结束时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 时间按照审批发起人当前考勤组的时区进行取值, 如果发起人已离职, 则默认为 0 时区。
+	Reason     string  `json:"reason,omitempty"`      // 加班事由
 }
 
 // GetAttendanceUserApprovalRespUserApprovalTrip ...

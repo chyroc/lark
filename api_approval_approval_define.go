@@ -65,14 +65,14 @@ type CreateApprovalReq struct {
 	ApprovalName      string                           `json:"approval_name,omitempty"`       // 审批名称的国际化文案 Key, 以 @i18n@ 开头, 长度不得少于 9 个字符, 示例值: "@i18n@approval_name"
 	ApprovalCode      *string                          `json:"approval_code,omitempty"`       // 审批定义 Code。不传值表示新建；传入指定 Code 表示覆盖原定义内容进行全量更新, 示例值: "7C468A54-8745-2245-9675-08B7C63E7A85"
 	Description       *string                          `json:"description,omitempty"`         // 审批描述的国际化文案 Key, 以 @i18n@ 开头, 长度不得少于 9 个字符, 示例值: "@i18n@description"
-	Viewers           []*CreateApprovalReqViewer       `json:"viewers,omitempty"`             // viewers 字段指定了哪些人能从审批应用的前台发起该审批, 1. 当 viewer_type 为 USER, 需要填写viewer_user_id；, 2. 当 viewer_type 为DEPARTMENT, 需要填写viewer_department_id；, 3. 当 viewer_type 为TENANT或NONE时, viewer_user_id和viewer_department_id无需填写
+	Viewers           []*CreateApprovalReqViewer       `json:"viewers,omitempty"`             // viewers 字段指定了哪些人能从审批应用的前台发起该审批（列表最大支持长度200）, 1. 当 viewer_type 为 USER, 需要填写viewer_user_id；, 2. 当 viewer_type 为DEPARTMENT, 需要填写viewer_department_id；, 3. 当 viewer_type 为TENANT或NONE时, viewer_user_id和viewer_department_id无需填写
 	Form              *CreateApprovalReqForm           `json:"form,omitempty"`                // 审批定义表单
 	NodeList          []*CreateApprovalReqNode         `json:"node_list,omitempty"`           // 审批定义节点, 需要将开始节点作为 list 第一个元素, 结束节点作为最后一个元素
 	Settings          *CreateApprovalReqSettings       `json:"settings,omitempty"`            // 审批定义其他设置
 	Config            *CreateApprovalReqConfig         `json:"config,omitempty"`              // 审批定义配置项, 用于配置对应审批定义是否可以由用户在审批后台进行修改
 	Icon              *int64                           `json:"icon,omitempty"`                // 审批图标枚举, 详见下方说明, 默认为 0, 示例值: 0, 默认值: `0`
 	I18nResources     []*CreateApprovalReqI18nResource `json:"i18n_resources,omitempty"`      // 国际化文案
-	ProcessManagerIDs []string                         `json:"process_manager_ids,omitempty"` // 根据user_id_type填写流程管理员的用户id, 示例值: ["1c5ea995"]
+	ProcessManagerIDs []string                         `json:"process_manager_ids,omitempty"` // 根据user_id_type填写流程管理员的用户id（列表最大支持长度200）, 示例值: ["1c5ea995"]
 }
 
 // CreateApprovalReqConfig ...
