@@ -243,6 +243,18 @@ func Test_Application_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockApplicationUpdateApplicationAppManagement(func(ctx context.Context, request *lark.UpdateApplicationAppManagementReq, options ...lark.MethodOptionFunc) (*lark.UpdateApplicationAppManagementResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockApplicationUpdateApplicationAppManagement()
+
+			_, _, err := moduleCli.UpdateApplicationAppManagement(ctx, &lark.UpdateApplicationAppManagementReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApplicationGetApplicationAppAdminUserList(func(ctx context.Context, request *lark.GetApplicationAppAdminUserListReq, options ...lark.MethodOptionFunc) (*lark.GetApplicationAppAdminUserListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -573,6 +585,15 @@ func Test_Application_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.UpdateApplicationAppManagement(ctx, &lark.UpdateApplicationAppManagementReq{
+				AppID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetApplicationAppAdminUserList(ctx, &lark.GetApplicationAppAdminUserListReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -837,6 +858,15 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.UpdateApplicationAppVisibilityV6(ctx, &lark.UpdateApplicationAppVisibilityV6Req{
+				AppID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateApplicationAppManagement(ctx, &lark.UpdateApplicationAppManagementReq{
 				AppID: "x",
 			})
 			as.NotNil(err)

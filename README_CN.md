@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 1006, 事件总数: 139
+API 总数: 1010, 事件总数: 141
 
 <details>
   <summary>
@@ -99,6 +99,7 @@ API 总数: 1006, 事件总数: 139
   - GetAdminBadgeGrant
   - DeleteAdminBadgeGrant
 - AppLink
+  - OpenNativeApp
   - OpenLark
   - OpenScan
   - OpenWorkbench
@@ -134,6 +135,7 @@ API 总数: 1006, 事件总数: 139
   - GetApplicationAppList
   - UpdateApplicationAppVisibility
   - UpdateApplicationAppVisibilityV6
+  - UpdateApplicationAppManagement
   - GetApplicationAppAdminUserList
   - CheckUserIsInApplicationPaidScope
   - GetApplicationOrderList
@@ -246,13 +248,14 @@ API 总数: 1006, 事件总数: 139
   - GetBitableViewList
   - CreateBitableView
   - DeleteBitableView
-  - GetBitableRecordList
   - GetBitableRecord
+  - GetBitableRecordList
+  - SearchBitableRecord
   - CreateBitableRecord
-  - BatchCreateBitableRecord
   - UpdateBitableRecord
-  - BatchUpdateBitableRecord
   - DeleteBitableRecord
+  - BatchCreateBitableRecord
+  - BatchUpdateBitableRecord
   - BatchDeleteBitableRecord
   - GetBitableFieldList
   - CreateBitableField
@@ -311,6 +314,7 @@ API 总数: 1006, 事件总数: 139
   - UnsubscribeCalendarEvent
   - ReplyCalendarEvent
   - GetCalendarEventInstanceList
+  - GetCalendarEventInstanceViewList
   - DeleteCalendarEventMeetingChat
   - CreateCalendarEventMeetingChat
   - CreateCalendarEventAttendee
@@ -728,6 +732,8 @@ API 总数: 1006, 事件总数: 139
 - Event
   - GetEventOutboundIpList
 - EventCallback
+  - EventV2HireApplicationStageChangedV1
+  - EventV2HireApplicationDeletedV1
   - EventV2CorehrJobCreatedV1
   - EventV2CorehrJobUpdatedV1
   - EventV2CorehrJobDeletedV1

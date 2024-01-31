@@ -25,7 +25,8 @@ import (
 //
 // 注意该事件仅通知变更投递id及阶段id, 需要配合另外的查询接口反查实际的投递或阶段信息。
 //
-// doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/event/deleted
+// doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/events/deleted
+// new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/event/deleted
 func (r *EventCallbackService) HandlerEventV2HireApplicationDeletedV1(f EventV2HireApplicationDeletedV1Handler) {
 	r.cli.eventHandler.eventV2HireApplicationDeletedV1Handler = f
 }

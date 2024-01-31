@@ -363,6 +363,18 @@ func Test_Calendar_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockCalendarGetCalendarEventInstanceViewList(func(ctx context.Context, request *lark.GetCalendarEventInstanceViewListReq, options ...lark.MethodOptionFunc) (*lark.GetCalendarEventInstanceViewListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCalendarGetCalendarEventInstanceViewList()
+
+			_, _, err := moduleCli.GetCalendarEventInstanceViewList(ctx, &lark.GetCalendarEventInstanceViewListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockCalendarDeleteCalendarEventMeetingChat(func(ctx context.Context, request *lark.DeleteCalendarEventMeetingChatReq, options ...lark.MethodOptionFunc) (*lark.DeleteCalendarEventMeetingChatResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -753,6 +765,15 @@ func Test_Calendar_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.GetCalendarEventInstanceViewList(ctx, &lark.GetCalendarEventInstanceViewListReq{
+				CalendarID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.DeleteCalendarEventMeetingChat(ctx, &lark.DeleteCalendarEventMeetingChatReq{
 				CalendarID: "x",
 				EventID:    "x",
@@ -1099,6 +1120,15 @@ func Test_Calendar_Sample_Failed(t *testing.T) {
 			_, _, err := moduleCli.GetCalendarEventInstanceList(ctx, &lark.GetCalendarEventInstanceListReq{
 				CalendarID: "x",
 				EventID:    "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetCalendarEventInstanceViewList(ctx, &lark.GetCalendarEventInstanceViewListReq{
+				CalendarID: "x",
 			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())

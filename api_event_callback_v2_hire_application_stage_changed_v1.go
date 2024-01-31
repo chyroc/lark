@@ -28,7 +28,8 @@ import (
 // - 依赖权限: [获取投递信息]
 // - 搭配使用: [获取投递信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get)
 //
-// doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/event/application-stage-changed
+// doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/event/application-stage-changed
+// new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/event/application-stage-changed
 func (r *EventCallbackService) HandlerEventV2HireApplicationStageChangedV1(f EventV2HireApplicationStageChangedV1Handler) {
 	r.cli.eventHandler.eventV2HireApplicationStageChangedV1Handler = f
 }
