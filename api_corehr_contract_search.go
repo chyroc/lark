@@ -76,12 +76,12 @@ type SearchCoreHRContractResp struct {
 // SearchCoreHRContractRespItem ...
 type SearchCoreHRContractRespItem struct {
 	ID                  string                                    `json:"id,omitempty"`                     // 合同ID
-	EffectiveTime       string                                    `json:"effective_time,omitempty"`         // 合同开始日期, 字段权限要求: 获取合同期限信息
-	ContractEndDate     string                                    `json:"contract_end_date,omitempty"`      // 合同结束日期, 字段权限要求: 获取合同期限信息
-	ExpirationTime      string                                    `json:"expiration_time,omitempty"`        // 实际结束日期, 字段权限要求: 获取合同期限信息
+	EffectiveTime       string                                    `json:"effective_time,omitempty"`         // 合同开始日期, 字段权限要求（满足任一）: 获取合同期限信息, 读写合同期限信息
+	ContractEndDate     string                                    `json:"contract_end_date,omitempty"`      // 合同结束日期, 字段权限要求（满足任一）: 获取合同期限信息, 读写合同期限信息
+	ExpirationTime      string                                    `json:"expiration_time,omitempty"`        // 实际结束日期, 字段权限要求（满足任一）: 获取合同期限信息, 读写合同期限信息
 	EmploymentID        string                                    `json:"employment_id,omitempty"`          // 雇佣 ID
 	ContractType        *SearchCoreHRContractRespItemContractType `json:"contract_type,omitempty"`          // 合同类型, 枚举值可通过文档【飞书人事枚举常量】合同类型（contract_type）枚举定义部分获得
-	FirstPartyCompanyID string                                    `json:"first_party_company_id,omitempty"` // 合同主体, 引用 Company 的 ID, 枚举值及详细信息可通过【批量查询公司】接口查询获得, 字段权限要求: 获取合同主体信息
+	FirstPartyCompanyID string                                    `json:"first_party_company_id,omitempty"` // 合同主体, 引用 Company 的 ID, 枚举值及详细信息可通过【批量查询公司】接口查询获得, 字段权限要求（满足任一）: 获取合同主体信息, 读写合同主体信息
 	PersonID            string                                    `json:"person_id,omitempty"`              // Person ID, 枚举值及详细信息可通过【批量查询个人信息】接口查询获得
 	DurationType        *SearchCoreHRContractRespItemDurationType `json:"duration_type,omitempty"`          // 期限类型, 枚举值可通过文档【飞书人事枚举常量】合同期限类型（duration_type）枚举定义部分获得
 	ContractNumber      string                                    `json:"contract_number,omitempty"`        // 合同编号

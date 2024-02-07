@@ -63,12 +63,12 @@ type CreateCoreHRDepartmentReq struct {
 	DepartmentIDType *DepartmentIDType                          `query:"department_id_type" json:"-"` // 此次调用中使用的部门 ID 类型, 示例值: people_corehr_department_id, 可选值有: open_department_id: 以 open_department_id 来标识部门, department_id: 以 department_id 来标识部门, people_corehr_department_id: 以 people_corehr_department_id 来标识部门, 默认值: `people_corehr_department_id`
 	SubType          *CreateCoreHRDepartmentReqSubType          `json:"sub_type,omitempty"`           // 子类型
 	Manager          *string                                    `json:"manager,omitempty"`            // 部门负责人, 示例值: "6893013238632416776"
-	IsConfidential   bool                                       `json:"is_confidential,omitempty"`    // 是否保密, 示例值: true
+	IsConfidential   *bool                                      `json:"is_confidential,omitempty"`    // 是否保密, 示例值: true
 	HiberarchyCommon *CreateCoreHRDepartmentReqHiberarchyCommon `json:"hiberarchy_common,omitempty"`  // 层级关系, 内层字段见实体
-	EffectiveTime    string                                     `json:"effective_time,omitempty"`     // 生效时间, 示例值: "2020-05-01 00:00:00"
-	ExpirationTime   *string                                    `json:"expiration_time,omitempty"`    // 失效时间, 示例值: "2020-05-02 00:00:00"
+	EffectiveTime    string                                     `json:"effective_time,omitempty"`     // 生效时间, 注意: 1. 部门的生效时间不可早于其上级部门的生效时间；2.时分秒必须为 00:00:00, 示例值: "2020-05-01 00:00:00"
 	CustomFields     []*CreateCoreHRDepartmentReqCustomField    `json:"custom_fields,omitempty"`      // 自定义字段
 	CostCenterID     *string                                    `json:"cost_center_id,omitempty"`     // 成本中心id, 示例值: "7142384817131652652"
+	StaffingModel    *CreateCoreHRDepartmentReqStaffingModel    `json:"staffing_model,omitempty"`     // 是否使用职务
 }
 
 // CreateCoreHRDepartmentReqCustomField ...
@@ -79,20 +79,11 @@ type CreateCoreHRDepartmentReqCustomField struct {
 
 // CreateCoreHRDepartmentReqHiberarchyCommon ...
 type CreateCoreHRDepartmentReqHiberarchyCommon struct {
-	ParentID       *string                                                 `json:"parent_id,omitempty"`       // 上级组织 ID, 示例值: "4719168654814483759"
-	Name           []*CreateCoreHRDepartmentReqHiberarchyCommonName        `json:"name,omitempty"`            // 名称
-	Type           *CreateCoreHRDepartmentReqHiberarchyCommonType          `json:"type,omitempty"`            // 组织类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)组织类型（organization_type）枚举定义部分获得
-	Active         bool                                                    `json:"active,omitempty"`          // 是否启用, 示例值: true
-	ExpirationTime *string                                                 `json:"expiration_time,omitempty"` // 失效时间, 示例值: "2020-05-02 00:00:00"
-	Code           *string                                                 `json:"code,omitempty"`            // 编码, 示例值: "12456"
-	Description    []*CreateCoreHRDepartmentReqHiberarchyCommonDescription `json:"description,omitempty"`     // 描述
-	CustomFields   []*CreateCoreHRDepartmentReqHiberarchyCommonCustomField `json:"custom_fields,omitempty"`   // 自定义字段
-}
-
-// CreateCoreHRDepartmentReqHiberarchyCommonCustomField ...
-type CreateCoreHRDepartmentReqHiberarchyCommonCustomField struct {
-	FieldName string `json:"field_name,omitempty"` // 字段名, 示例值: "name"
-	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05"), 示例值: "\"Sandy\""
+	ParentID    *string                                                 `json:"parent_id,omitempty"`   // 上级组织 ID, 示例值: "4719168654814483759"
+	Name        []*CreateCoreHRDepartmentReqHiberarchyCommonName        `json:"name,omitempty"`        // 名称
+	Active      bool                                                    `json:"active,omitempty"`      // 是否启用, 示例值: true
+	Code        *string                                                 `json:"code,omitempty"`        // 编码, 示例值: "12456"
+	Description []*CreateCoreHRDepartmentReqHiberarchyCommonDescription `json:"description,omitempty"` // 描述
 }
 
 // CreateCoreHRDepartmentReqHiberarchyCommonDescription ...
@@ -107,9 +98,9 @@ type CreateCoreHRDepartmentReqHiberarchyCommonName struct {
 	Value string `json:"value,omitempty"` // 名称信息的内容, 示例值: "张三"
 }
 
-// CreateCoreHRDepartmentReqHiberarchyCommonType ...
-type CreateCoreHRDepartmentReqHiberarchyCommonType struct {
-	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "type_1"
+// CreateCoreHRDepartmentReqStaffingModel ...
+type CreateCoreHRDepartmentReqStaffingModel struct {
+	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
 }
 
 // CreateCoreHRDepartmentReqSubType ...
@@ -133,6 +124,7 @@ type CreateCoreHRDepartmentRespDepartment struct {
 	ExpirationTime   string                                                `json:"expiration_time,omitempty"`   // 失效时间
 	CustomFields     []*CreateCoreHRDepartmentRespDepartmentCustomField    `json:"custom_fields,omitempty"`     // 自定义字段
 	CostCenterID     string                                                `json:"cost_center_id,omitempty"`    // 成本中心id
+	StaffingModel    *CreateCoreHRDepartmentRespDepartmentStaffingModel    `json:"staffing_model,omitempty"`    // 是否使用职务
 }
 
 // CreateCoreHRDepartmentRespDepartmentCustomField ...
@@ -184,6 +176,18 @@ type CreateCoreHRDepartmentRespDepartmentHiberarchyCommonType struct {
 type CreateCoreHRDepartmentRespDepartmentHiberarchyCommonTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
+}
+
+// CreateCoreHRDepartmentRespDepartmentStaffingModel ...
+type CreateCoreHRDepartmentRespDepartmentStaffingModel struct {
+	EnumName string                                                      `json:"enum_name,omitempty"` // 枚举值
+	Display  []*CreateCoreHRDepartmentRespDepartmentStaffingModelDisplay `json:"display,omitempty"`   // 枚举多语展示
+}
+
+// CreateCoreHRDepartmentRespDepartmentStaffingModelDisplay ...
+type CreateCoreHRDepartmentRespDepartmentStaffingModelDisplay struct {
+	Lang  string `json:"lang,omitempty"`  // 语言
+	Value string `json:"value,omitempty"` // 内容
 }
 
 // CreateCoreHRDepartmentRespDepartmentSubType ...

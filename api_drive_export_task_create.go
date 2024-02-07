@@ -65,7 +65,7 @@ type CreateDriveExportTaskReq struct {
 	FileExtension string  `json:"file_extension,omitempty"` // 导出文件扩展名, 示例值: "csv", 可选值有: docx: Microsoft Word (DOCX) 格式, pdf: pdf 格式, xlsx: Microsoft Excel (XLSX) 格式, csv: csv 格式
 	Token         string  `json:"token,omitempty"`          // 导出文档 token [获取文档 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6), 示例值: "shtcnxe5OxxxxxxxSNdsJviENsk"
 	Type          string  `json:"type,omitempty"`           // 导出文档类型 [文档类型说明](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#560bf735), 示例值: "sheet", 可选值有: doc: 旧版飞书云文档类型, 支持导出为 docx、pdf 格式, sheet: 飞书电子表格类型, 支持导出为 xlsx、csv 格式, bitable: 飞书多维表格类型, 支持导出为 xlsx、csv 格式, docx: 新版飞书云文档类型, 支持导出为 docx、pdf 格式
-	SubID         *string `json:"sub_id,omitempty"`         // 导出子表ID, 仅当将电子表格/多维表格导出为 csv 时使用, [获取电子表格子表ID](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 文档中的 sheet_id, [获取多维表格子表ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list) 文档中的 table_id, 示例值: "tblKz5D60T4JlfcT"
+	SubID         *string `json:"sub_id,omitempty"`         // 导出子表ID, 仅当将电子表格导出为 csv 时使用, [获取电子表格子表ID](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 文档中的 sheet_id, 示例值: "tblKz5D60T4JlfcT"
 }
 
 // CreateDriveExportTaskResp ...

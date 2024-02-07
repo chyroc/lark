@@ -84,6 +84,7 @@ type GetCoreHRDepartmentListRespItem struct {
 	ExpirationTime   string                                           `json:"expiration_time,omitempty"`   // 失效时间
 	CustomFields     []*GetCoreHRDepartmentListRespItemCustomField    `json:"custom_fields,omitempty"`     // 自定义字段
 	CostCenterID     string                                           `json:"cost_center_id,omitempty"`    // 成本中心id
+	StaffingModel    *GetCoreHRDepartmentListRespItemStaffingModel    `json:"staffing_model,omitempty"`    // 是否使用职务
 }
 
 // GetCoreHRDepartmentListRespItemCustomField ...
@@ -135,6 +136,18 @@ type GetCoreHRDepartmentListRespItemHiberarchyCommonType struct {
 type GetCoreHRDepartmentListRespItemHiberarchyCommonTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
+}
+
+// GetCoreHRDepartmentListRespItemStaffingModel ...
+type GetCoreHRDepartmentListRespItemStaffingModel struct {
+	EnumName string                                                 `json:"enum_name,omitempty"` // 枚举值
+	Display  []*GetCoreHRDepartmentListRespItemStaffingModelDisplay `json:"display,omitempty"`   // 枚举多语展示
+}
+
+// GetCoreHRDepartmentListRespItemStaffingModelDisplay ...
+type GetCoreHRDepartmentListRespItemStaffingModelDisplay struct {
+	Lang  string `json:"lang,omitempty"`  // 语言
+	Value string `json:"value,omitempty"` // 内容
 }
 
 // GetCoreHRDepartmentListRespItemSubType ...

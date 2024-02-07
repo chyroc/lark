@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetVCParticipantList 查询参会人明细, 具体权限要求请参考「资源介绍」。
+// GetVCParticipantList 查询参会人明细, 具体权限要求请参考「资源介绍」, 支持查询最近半年的数据。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/participant_list/get
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/meeting-room-data/get-2

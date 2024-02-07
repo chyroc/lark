@@ -131,7 +131,7 @@ type GetCoreHRCompanyListRespItemFaxAreaCodeDisplay struct {
 
 // GetCoreHRCompanyListRespItemHiberarchyCommon ...
 type GetCoreHRCompanyListRespItemHiberarchyCommon struct {
-	ParentID       string                                                     `json:"parent_id,omitempty"`       // 上级组织 ID
+	ParentID       string                                                     `json:"parent_id,omitempty"`       // 上级 ID
 	Name           []*GetCoreHRCompanyListRespItemHiberarchyCommonName        `json:"name,omitempty"`            // 名称
 	Type           *GetCoreHRCompanyListRespItemHiberarchyCommonType          `json:"type,omitempty"`            // 组织类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)组织类型（organization_type）枚举定义部分获得
 	Active         bool                                                       `json:"active,omitempty"`          // 是否启用
@@ -139,8 +139,8 @@ type GetCoreHRCompanyListRespItemHiberarchyCommon struct {
 	ExpirationTime string                                                     `json:"expiration_time,omitempty"` // 失效时间
 	Code           string                                                     `json:"code,omitempty"`            // 编码
 	Description    []*GetCoreHRCompanyListRespItemHiberarchyCommonDescription `json:"description,omitempty"`     // 描述
-	TreeOrder      string                                                     `json:"tree_order,omitempty"`      // 树形排序, 代表同层级的部门排序序号
-	ListOrder      string                                                     `json:"list_order,omitempty"`      // 列表排序, 代表所有部门的混排序号
+	TreeOrder      string                                                     `json:"tree_order,omitempty"`      // 树形排序
+	ListOrder      string                                                     `json:"list_order,omitempty"`      // 列表排序
 	CustomFields   []*GetCoreHRCompanyListRespItemHiberarchyCommonCustomField `json:"custom_fields,omitempty"`   // 自定义字段
 }
 

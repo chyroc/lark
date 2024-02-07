@@ -140,8 +140,8 @@ type SearchCoreHRJobChangeRespItemTransferInfo struct {
 	TargetCostCenterRate       []*SearchCoreHRJobChangeRespItemTransferInfoTargetCostCenterRate   `json:"target_cost_center_rate,omitempty"`       // 新成本中心分摊方式
 	OriginalEmploymentChange   *SearchCoreHRJobChangeRespItemTransferInfoOriginalEmploymentChange `json:"original_employment_change,omitempty"`    // 原工作信息
 	TargetEmploymentChange     *SearchCoreHRJobChangeRespItemTransferInfoTargetEmploymentChange   `json:"target_employment_change,omitempty"`      // 新工作信息
-	OriginalJobGrade           string                                                             `json:"original_job_grade,omitempty"`            // 原职等, 字段权限要求（满足任一）: 读取职等信息, 职等信息
-	TargetJobGrade             string                                                             `json:"target_job_grade,omitempty"`              // 新职等, 字段权限要求（满足任一）: 读取职等信息, 职等信息
+	OriginalJobGrade           string                                                             `json:"original_job_grade,omitempty"`            // 原职等, 字段权限要求（满足任一）: 获取职等信息, 读写职等信息
+	TargetJobGrade             string                                                             `json:"target_job_grade,omitempty"`              // 新职等, 字段权限要求（满足任一）: 获取职等信息, 读写职等信息
 }
 
 // SearchCoreHRJobChangeRespItemTransferInfoOriginalCostCenterRate ...

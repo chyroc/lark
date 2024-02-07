@@ -65,12 +65,12 @@ type UpdateCoreHRDepartmentReq struct {
 	ID               *string                                    `json:"id,omitempty"`                 // 部门 ID, 示例值: "6969828847121885087"
 	SubType          *UpdateCoreHRDepartmentReqSubType          `json:"sub_type,omitempty"`           // 部门子类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)部门子类型（department_sub_type）枚举定义部分获得
 	Manager          *string                                    `json:"manager,omitempty"`            // 部门负责人 ID, 枚举值及详细信息可通过【批量查询雇佣信息】接口查询获得, 示例值: "6893013238632416776"
-	IsConfidential   bool                                       `json:"is_confidential,omitempty"`    // 是否保密, 示例值: true
+	IsConfidential   *bool                                      `json:"is_confidential,omitempty"`    // 是否保密, 示例值: true
 	HiberarchyCommon *UpdateCoreHRDepartmentReqHiberarchyCommon `json:"hiberarchy_common,omitempty"`  // 层级关系, 内层字段见实体
 	EffectiveTime    string                                     `json:"effective_time,omitempty"`     // 生效时间, 示例值: "2020-05-01 00:00:00"
-	ExpirationTime   *string                                    `json:"expiration_time,omitempty"`    // 失效时间, 示例值: "2020-05-02 00:00:00"
 	CustomFields     []*UpdateCoreHRDepartmentReqCustomField    `json:"custom_fields,omitempty"`      // 自定义字段
 	CostCenterID     *string                                    `json:"cost_center_id,omitempty"`     // 成本中心id, 示例值: "7142384817131652652"
+	StaffingModel    *UpdateCoreHRDepartmentReqStaffingModel    `json:"staffing_model,omitempty"`     // 是否使用职务
 }
 
 // UpdateCoreHRDepartmentReqCustomField ...
@@ -81,21 +81,11 @@ type UpdateCoreHRDepartmentReqCustomField struct {
 
 // UpdateCoreHRDepartmentReqHiberarchyCommon ...
 type UpdateCoreHRDepartmentReqHiberarchyCommon struct {
-	ParentID       *string                                                 `json:"parent_id,omitempty"`       // 上级组织 ID, 示例值: "4719168654814483759"
-	Name           []*UpdateCoreHRDepartmentReqHiberarchyCommonName        `json:"name,omitempty"`            // 名称
-	Type           *UpdateCoreHRDepartmentReqHiberarchyCommonType          `json:"type,omitempty"`            // 组织类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)组织类型（organization_type）枚举定义部分获得
-	Active         bool                                                    `json:"active,omitempty"`          // 是否启用, 示例值: true
-	EffectiveTime  *string                                                 `json:"effective_time,omitempty"`  // 生效时间, 示例值: "2020-05-01 00:00:00"
-	ExpirationTime *string                                                 `json:"expiration_time,omitempty"` // 失效时间, 示例值: "2020-05-02 00:00:00"
-	Code           *string                                                 `json:"code,omitempty"`            // 编码, 示例值: "12456"
-	Description    []*UpdateCoreHRDepartmentReqHiberarchyCommonDescription `json:"description,omitempty"`     // 描述
-	CustomFields   []*UpdateCoreHRDepartmentReqHiberarchyCommonCustomField `json:"custom_fields,omitempty"`   // 自定义字段
-}
-
-// UpdateCoreHRDepartmentReqHiberarchyCommonCustomField ...
-type UpdateCoreHRDepartmentReqHiberarchyCommonCustomField struct {
-	FieldName string `json:"field_name,omitempty"` // 字段名, 示例值: "name"
-	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05"), 示例值: "\"Sandy\""
+	ParentID    *string                                                 `json:"parent_id,omitempty"`   // 上级组织 ID, 示例值: "4719168654814483759"
+	Name        []*UpdateCoreHRDepartmentReqHiberarchyCommonName        `json:"name,omitempty"`        // 名称
+	Active      bool                                                    `json:"active,omitempty"`      // 是否启用, 示例值: true
+	Code        *string                                                 `json:"code,omitempty"`        // 编码, 示例值: "12456"
+	Description []*UpdateCoreHRDepartmentReqHiberarchyCommonDescription `json:"description,omitempty"` // 描述
 }
 
 // UpdateCoreHRDepartmentReqHiberarchyCommonDescription ...
@@ -110,9 +100,9 @@ type UpdateCoreHRDepartmentReqHiberarchyCommonName struct {
 	Value string `json:"value,omitempty"` // 名称信息的内容, 示例值: "张三"
 }
 
-// UpdateCoreHRDepartmentReqHiberarchyCommonType ...
-type UpdateCoreHRDepartmentReqHiberarchyCommonType struct {
-	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "type_1"
+// UpdateCoreHRDepartmentReqStaffingModel ...
+type UpdateCoreHRDepartmentReqStaffingModel struct {
+	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
 }
 
 // UpdateCoreHRDepartmentReqSubType ...
@@ -136,6 +126,7 @@ type UpdateCoreHRDepartmentRespDepartment struct {
 	ExpirationTime   string                                                `json:"expiration_time,omitempty"`   // 失效时间
 	CustomFields     []*UpdateCoreHRDepartmentRespDepartmentCustomField    `json:"custom_fields,omitempty"`     // 自定义字段
 	CostCenterID     string                                                `json:"cost_center_id,omitempty"`    // 成本中心id
+	StaffingModel    *UpdateCoreHRDepartmentRespDepartmentStaffingModel    `json:"staffing_model,omitempty"`    // 是否使用职务
 }
 
 // UpdateCoreHRDepartmentRespDepartmentCustomField ...
@@ -187,6 +178,18 @@ type UpdateCoreHRDepartmentRespDepartmentHiberarchyCommonType struct {
 type UpdateCoreHRDepartmentRespDepartmentHiberarchyCommonTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
+}
+
+// UpdateCoreHRDepartmentRespDepartmentStaffingModel ...
+type UpdateCoreHRDepartmentRespDepartmentStaffingModel struct {
+	EnumName string                                                      `json:"enum_name,omitempty"` // 枚举值
+	Display  []*UpdateCoreHRDepartmentRespDepartmentStaffingModelDisplay `json:"display,omitempty"`   // 枚举多语展示
+}
+
+// UpdateCoreHRDepartmentRespDepartmentStaffingModelDisplay ...
+type UpdateCoreHRDepartmentRespDepartmentStaffingModelDisplay struct {
+	Lang  string `json:"lang,omitempty"`  // 语言
+	Value string `json:"value,omitempty"` // 内容
 }
 
 // UpdateCoreHRDepartmentRespDepartmentSubType ...

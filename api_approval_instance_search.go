@@ -118,7 +118,7 @@ type SearchApprovalInstanceRespInstanceInstance struct {
 	UserID     string                                          `json:"user_id,omitempty"`     // 审批实例发起人 id
 	StartTime  string                                          `json:"start_time,omitempty"`  // 审批实例开始时间
 	EndTime    string                                          `json:"end_time,omitempty"`    // 审批实例结束时间
-	Status     string                                          `json:"status,omitempty"`      // 审批实例状态, 可选值有: reject: 拒绝, pending: 审批中, recall: 撤回, deleted: 已删除, approved: 通过
+	Status     string                                          `json:"status,omitempty"`      // 审批实例状态, 可选值有: rejected: 拒绝, pending: 审批中, canceled: 撤回, deleted: 已删除, approved: 通过
 	Title      string                                          `json:"title,omitempty"`       // 审批实例名称（只有第三方审批有）
 	Extra      string                                          `json:"extra,omitempty"`       // 审批实例扩展字段, string型json
 	SerialID   string                                          `json:"serial_id,omitempty"`   // 审批流水号

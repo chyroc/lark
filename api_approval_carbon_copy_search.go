@@ -59,8 +59,8 @@ func (r *Mock) UnMockApprovalSearchApprovalCarbonCopy() {
 // SearchApprovalCarbonCopyReq ...
 type SearchApprovalCarbonCopyReq struct {
 	PageSize           *int64  `query:"page_size" json:"-"`            // 分页大小, 示例值: 10, 默认值: `10`, 取值范围: `5` ～ `200`
-	PageToken          *string `query:"page_token" json:"-"`           // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "nF1ZXJ5VGhlbkZldGNoCgAAAAAA6PZwFmUzSldvTC1yU"
-	UserIDType         *IDType `query:"user_id_type" json:"-"`         // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	PageToken          *string `query:"page_token" json:"-"`           // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: nF1ZXJ5VGhlbkZldGNoCgAAAAAA6PZwFmUzSldvTC1yU
+	UserIDType         *IDType `query:"user_id_type" json:"-"`         // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	UserID             *string `json:"user_id,omitempty"`              // 根据x_user_type填写用户 id, 示例值: "lwiu098wj"
 	ApprovalCode       *string `json:"approval_code,omitempty"`        // 审批定义 code, 示例值: "EB828003-9FFE-4B3F-AA50-2E199E2ED942"
 	InstanceCode       *string `json:"instance_code,omitempty"`        // 审批实例 code, 示例值: "EB828003-9FFE-4B3F-AA50-2E199E2ED943"
@@ -77,8 +77,8 @@ type SearchApprovalCarbonCopyReq struct {
 type SearchApprovalCarbonCopyResp struct {
 	Count     int64                             `json:"count,omitempty"`      // 查询返回条数
 	CcList    []*SearchApprovalCarbonCopyRespCc `json:"cc_list,omitempty"`    // 审批实例列表
-	PageToken string                            `json:"page_token,omitempty"` // 翻页 Token
-	HasMore   bool                              `json:"has_more,omitempty"`   // 是否有更多任务可供拉取
+	PageToken string                            `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	HasMore   bool                              `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
 // SearchApprovalCarbonCopyRespCc ...
@@ -95,6 +95,8 @@ type SearchApprovalCarbonCopyRespCcApproval struct {
 	Name       string                                          `json:"name,omitempty"`        // 审批定义名称
 	IsExternal bool                                            `json:"is_external,omitempty"` // 是否为第三方审批
 	External   *SearchApprovalCarbonCopyRespCcApprovalExternal `json:"external,omitempty"`    // 第三方审批信息
+	ApprovalID string                                          `json:"approval_id,omitempty"` // 审批定义Id
+	Icon       string                                          `json:"icon,omitempty"`        // 审批定义图标信息
 }
 
 // SearchApprovalCarbonCopyRespCcApprovalExternal ...
@@ -131,7 +133,7 @@ type SearchApprovalCarbonCopyRespCcInstance struct {
 	UserID     string                                      `json:"user_id,omitempty"`     // 审批实例发起人 id
 	StartTime  string                                      `json:"start_time,omitempty"`  // 审批实例开始时间
 	EndTime    string                                      `json:"end_time,omitempty"`    // 审批实例结束时间
-	Status     string                                      `json:"status,omitempty"`      // 审批实例状态, 可选值有: reject: 拒绝, pending: 审批中, recall: 撤回, deleted: 已删除, approved: 通过
+	Status     string                                      `json:"status,omitempty"`      // 审批实例状态, 可选值有: rejected: 拒绝, pending: 审批中, canceled: 撤回, deleted: 已删除, approved: 通过
 	Title      string                                      `json:"title,omitempty"`       // 审批实例名称（只有第三方审批有）
 	Extra      string                                      `json:"extra,omitempty"`       // 审批实例扩展字段, string型json
 	SerialID   string                                      `json:"serial_id,omitempty"`   // 审批流水号

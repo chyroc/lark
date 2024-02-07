@@ -59,6 +59,7 @@ func (r *Mock) UnMockHireGetHireApplication() {
 // GetHireApplicationReq ...
 type GetHireApplicationReq struct {
 	ApplicationID string   `path:"application_id" json:"-"` // 投递 ID, 示例值: "6949805467799537964"
+	UserIDType    *IDType  `query:"user_id_type" json:"-"`  // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	Options       []string `query:"options" json:"-"`       // 请求控制参数, 用于控制接口响应逻辑。如需一次查询多个用户ID, 可通过将同一参数名多次传递, 并且每次传递不同的参数值。例如: https://{url}?options={option1}&options={option2}, 示例值: get_latest_application_on_chain, 可选值有: get_latest_application_on_chain: 仅对当前投递是虚拟职位投递时生效, 若投递未分配, 虚拟职位投递即为最新投递, 返回请求中指定的虚拟职位投递的信息, 若投递已分配, 会返回分配链上最新一个实体职位投递的信息, 而非请求中指定的投递。
 }
 
@@ -86,6 +87,7 @@ type GetHireApplicationRespApplication struct {
 	TerminationReasonList        []string                                                     `json:"termination_reason_list,omitempty"`         // 终止的具体原因的id列表
 	TerminationReasonNote        string                                                       `json:"termination_reason_note,omitempty"`         // 终止备注
 	ApplicationPreferredCityList []*GetHireApplicationRespApplicationApplicationPreferredCity `json:"application_preferred_city_list,omitempty"` // 意向投递城市列表
+	CreatorID                    string                                                       `json:"creator_id,omitempty"`                      // 投递创建人 ID, 仅当投递创建人为企业内部员工时可获取（如员工手动上传简历 / 加入职位 / 内推）, 其余情况返回为空（如候选人主动投递）
 }
 
 // GetHireApplicationRespApplicationApplicationPreferredCity ...

@@ -69,7 +69,7 @@ type BatchCreateAttendanceUserFlowReqFlowRecord struct {
 	UserID       string   `json:"user_id,omitempty"`       // 用户 ID, 示例值: "abd754f7"
 	CreatorID    string   `json:"creator_id,omitempty"`    // 记录创建者 ID, 示例值: "abd754f7"
 	LocationName string   `json:"location_name,omitempty"` // 打卡位置名称信息, 示例值: "西溪八方城"
-	CheckTime    string   `json:"check_time,omitempty"`    // 打卡时间, 精确到秒的时间戳, 示例值: "1611476284"
+	CheckTime    string   `json:"check_time,omitempty"`    // 打卡时间, 精确到秒的时间戳, 示例值: "1611476284 （只支持导入打卡时间在2022年1月1日之后的数据）"
 	Comment      string   `json:"comment,omitempty"`       // 打卡备注, 示例值: "上班打卡"
 	RecordID     *string  `json:"record_id,omitempty"`     // 打卡记录 ID, 示例值: "考勤内部的打卡记录ID, 6709359313699356941（导入时此参数无效）"
 	Ssid         *string  `json:"ssid,omitempty"`          // 打卡 Wi-Fi 的 SSID, 示例值: "b0:b8:67:5c:1d:72"

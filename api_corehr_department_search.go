@@ -97,6 +97,7 @@ type SearchCoreHRDepartmentRespItem struct {
 	Active             bool                                            `json:"active,omitempty"`               // 是否启用
 	Description        []*SearchCoreHRDepartmentRespItemDescription    `json:"description,omitempty"`          // 描述
 	CustomFields       []*SearchCoreHRDepartmentRespItemCustomField    `json:"custom_fields,omitempty"`        // 自定义字段, 字段权限要求: 获取部门自定义字段
+	StaffingModel      *SearchCoreHRDepartmentRespItemStaffingModel    `json:"staffing_model,omitempty"`       // 是否使用职务
 }
 
 // SearchCoreHRDepartmentRespItemCustomField ...
@@ -121,6 +122,18 @@ type SearchCoreHRDepartmentRespItemDepartmentName struct {
 
 // SearchCoreHRDepartmentRespItemDescription ...
 type SearchCoreHRDepartmentRespItemDescription struct {
+	Lang  string `json:"lang,omitempty"`  // 语言
+	Value string `json:"value,omitempty"` // 内容
+}
+
+// SearchCoreHRDepartmentRespItemStaffingModel ...
+type SearchCoreHRDepartmentRespItemStaffingModel struct {
+	EnumName string                                                `json:"enum_name,omitempty"` // 枚举值
+	Display  []*SearchCoreHRDepartmentRespItemStaffingModelDisplay `json:"display,omitempty"`   // 枚举多语展示
+}
+
+// SearchCoreHRDepartmentRespItemStaffingModelDisplay ...
+type SearchCoreHRDepartmentRespItemStaffingModelDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
