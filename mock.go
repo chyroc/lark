@@ -430,6 +430,7 @@ type Mock struct {
 	mockCoreHRDeleteCoreHRJobData                              func(ctx context.Context, request *DeleteCoreHRJobDataReq, options ...MethodOptionFunc) (*DeleteCoreHRJobDataResp, *Response, error)
 	mockCoreHRUpdateCoreHRJobData                              func(ctx context.Context, request *UpdateCoreHRJobDataReq, options ...MethodOptionFunc) (*UpdateCoreHRJobDataResp, *Response, error)
 	mockCoreHRGetCoreHRJobData                                 func(ctx context.Context, request *GetCoreHRJobDataReq, options ...MethodOptionFunc) (*GetCoreHRJobDataResp, *Response, error)
+	mockCoreHRQueryCoreHRJobData                               func(ctx context.Context, request *QueryCoreHRJobDataReq, options ...MethodOptionFunc) (*QueryCoreHRJobDataResp, *Response, error)
 	mockCoreHRBatchGetCoreHRJobData                            func(ctx context.Context, request *BatchGetCoreHRJobDataReq, options ...MethodOptionFunc) (*BatchGetCoreHRJobDataResp, *Response, error)
 	mockCoreHRGetCoreHRJobDataList                             func(ctx context.Context, request *GetCoreHRJobDataListReq, options ...MethodOptionFunc) (*GetCoreHRJobDataListResp, *Response, error)
 	mockCoreHRGetCoreHRDepartmentParentList                    func(ctx context.Context, request *GetCoreHRDepartmentParentListReq, options ...MethodOptionFunc) (*GetCoreHRDepartmentParentListResp, *Response, error)

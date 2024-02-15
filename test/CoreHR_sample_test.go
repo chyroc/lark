@@ -639,6 +639,18 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockCoreHRQueryCoreHRJobData(func(ctx context.Context, request *lark.QueryCoreHRJobDataReq, options ...lark.MethodOptionFunc) (*lark.QueryCoreHRJobDataResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCoreHRQueryCoreHRJobData()
+
+			_, _, err := moduleCli.QueryCoreHRJobData(ctx, &lark.QueryCoreHRJobDataReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockCoreHRBatchGetCoreHRJobData(func(ctx context.Context, request *lark.BatchGetCoreHRJobDataReq, options ...lark.MethodOptionFunc) (*lark.BatchGetCoreHRJobDataResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -2064,6 +2076,13 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.QueryCoreHRJobData(ctx, &lark.QueryCoreHRJobDataReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.BatchGetCoreHRJobData(ctx, &lark.BatchGetCoreHRJobDataReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -3126,6 +3145,13 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 			_, _, err := moduleCli.GetCoreHRJobData(ctx, &lark.GetCoreHRJobDataReq{
 				JobDataID: "x",
 			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.QueryCoreHRJobData(ctx, &lark.QueryCoreHRJobDataReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
