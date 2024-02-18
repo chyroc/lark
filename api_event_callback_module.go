@@ -125,6 +125,7 @@ const (
 	EventTypeV2HireApplicationDeletedV1                        EventType = "hire.application.deleted_v1"
 	EventTypeV2HireApplicationStageChangedV1                   EventType = "hire.application.stage_changed_v1"
 	EventTypeV2HireEHRImportTaskForInternshipOfferImportedV1   EventType = "hire.ehr_import_task_for_internship_offer.imported_v1"
+	EventTypeV2HireEHRImportTaskImportedV1                     EventType = "hire.ehr_import_task.imported_v1"
 	EventTypeV2HireEcoAccountCreatedV1                         EventType = "hire.eco_account.created_v1"
 	EventTypeV2HireEcoBackgroundCheckCanceledV1                EventType = "hire.eco_background_check.canceled_v1"
 	EventTypeV2HireEcoBackgroundCheckCreatedV1                 EventType = "hire.eco_background_check.created_v1"
@@ -270,6 +271,7 @@ type eventHandler struct {
 	eventV2HireApplicationDeletedV1Handler                        EventV2HireApplicationDeletedV1Handler
 	eventV2HireApplicationStageChangedV1Handler                   EventV2HireApplicationStageChangedV1Handler
 	eventV2HireEHRImportTaskForInternshipOfferImportedV1Handler   EventV2HireEHRImportTaskForInternshipOfferImportedV1Handler
+	eventV2HireEHRImportTaskImportedV1Handler                     EventV2HireEHRImportTaskImportedV1Handler
 	eventV2HireEcoAccountCreatedV1Handler                         EventV2HireEcoAccountCreatedV1Handler
 	eventV2HireEcoBackgroundCheckCanceledV1Handler                EventV2HireEcoBackgroundCheckCanceledV1Handler
 	eventV2HireEcoBackgroundCheckCreatedV1Handler                 EventV2HireEcoBackgroundCheckCreatedV1Handler
@@ -416,6 +418,7 @@ func (r *eventHandler) clone() *eventHandler {
 		eventV2HireApplicationDeletedV1Handler:                        r.eventV2HireApplicationDeletedV1Handler,
 		eventV2HireApplicationStageChangedV1Handler:                   r.eventV2HireApplicationStageChangedV1Handler,
 		eventV2HireEHRImportTaskForInternshipOfferImportedV1Handler:   r.eventV2HireEHRImportTaskForInternshipOfferImportedV1Handler,
+		eventV2HireEHRImportTaskImportedV1Handler:                     r.eventV2HireEHRImportTaskImportedV1Handler,
 		eventV2HireEcoAccountCreatedV1Handler:                         r.eventV2HireEcoAccountCreatedV1Handler,
 		eventV2HireEcoBackgroundCheckCanceledV1Handler:                r.eventV2HireEcoBackgroundCheckCanceledV1Handler,
 		eventV2HireEcoBackgroundCheckCreatedV1Handler:                 r.eventV2HireEcoBackgroundCheckCreatedV1Handler,
@@ -561,6 +564,7 @@ type eventBody struct {
 	eventV2HireApplicationDeletedV1                        *EventV2HireApplicationDeletedV1
 	eventV2HireApplicationStageChangedV1                   *EventV2HireApplicationStageChangedV1
 	eventV2HireEHRImportTaskForInternshipOfferImportedV1   *EventV2HireEHRImportTaskForInternshipOfferImportedV1
+	eventV2HireEHRImportTaskImportedV1                     *EventV2HireEHRImportTaskImportedV1
 	eventV2HireEcoAccountCreatedV1                         *EventV2HireEcoAccountCreatedV1
 	eventV2HireEcoBackgroundCheckCanceledV1                *EventV2HireEcoBackgroundCheckCanceledV1
 	eventV2HireEcoBackgroundCheckCreatedV1                 *EventV2HireEcoBackgroundCheckCreatedV1
@@ -1051,6 +1055,12 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 			return err
 		}
 		req.eventV2HireEHRImportTaskForInternshipOfferImportedV1 = event
+	case EventTypeV2HireEHRImportTaskImportedV1:
+		event := new(EventV2HireEHRImportTaskImportedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2HireEHRImportTaskImportedV1 = event
 	case EventTypeV2HireEcoAccountCreatedV1:
 		event := new(EventV2HireEcoAccountCreatedV1)
 		if err := req.unmarshalEvent(event); err != nil {
@@ -2373,6 +2383,15 @@ func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) 
 				go r.cli.eventHandler.eventV2HireEHRImportTaskForInternshipOfferImportedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2HireEHRImportTaskForInternshipOfferImportedV1)
 			} else {
 				s, err = r.cli.eventHandler.eventV2HireEHRImportTaskForInternshipOfferImportedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2HireEHRImportTaskForInternshipOfferImportedV1)
+			}
+		}
+		return true, s, err
+	case req.eventV2HireEHRImportTaskImportedV1 != nil:
+		if r.cli.eventHandler.eventV2HireEHRImportTaskImportedV1Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2HireEHRImportTaskImportedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2HireEHRImportTaskImportedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2HireEHRImportTaskImportedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2HireEHRImportTaskImportedV1)
 			}
 		}
 		return true, s, err

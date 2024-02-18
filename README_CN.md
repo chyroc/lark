@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 1011, 事件总数: 141
+API 总数: 1015, 事件总数: 142
 
 <details>
   <summary>
@@ -317,17 +317,20 @@ API 总数: 1011, 事件总数: 141
   - GetCalendarEventInstanceViewList
   - DeleteCalendarEventMeetingChat
   - CreateCalendarEventMeetingChat
-  - CreateCalendarEventAttendee
-  - GetCalendarEventAttendeeList
-  - DeleteCalendarEventAttendee
-  - GetCalendarEventAttendeeChatMemberList
-  - GetCalendarFreeBusyList
   - CreateCalendarTimeoffEvent
   - DeleteCalendarTimeoffEvent
+  - BatchGetCalendarMeetingRoomSummary
+  - BatchGetCalendarMeetingRoomFreebusy
+  - ReplyCalendarMeetingRoomInstance
+  - CreateCalendarEventAttendee
+  - DeleteCalendarEventAttendee
+  - GetCalendarEventAttendeeList
+  - GetCalendarEventAttendeeChatMemberList
+  - GetCalendarFreeBusyList
   - GenerateCaldavConf
   - CreateCalendarExchangeBinding
-  - GetCalendarExchangeBinding
   - DeleteCalendarExchangeBinding
+  - GetCalendarExchangeBinding
 - Chat
   - CreateChat
   - GetChat
@@ -641,8 +644,8 @@ API 总数: 1011, 事件总数: 141
   - UpdateDriveComment
   - DeleteDriveComment
   - UpdateDriveCommentPatch
-  - CreateDriveFileSubscription
   - GetDriveFileSubscription
+  - CreateDriveFileSubscription
   - UpdateDriveFileSubscription
   - CreateDriveDoc
   - GetDriveDocContent
@@ -751,17 +754,17 @@ API 总数: 1011, 事件总数: 141
   - EventV2DriveFileReadV1
   - EventV2DriveFileEditV1
   - EventV1AppOpen
+  - EventV1OutApproval
+  - EventV1RemedyApproval
   - EventV1ShiftApproval
+  - EventV1WorkApproval
   - EventV1LeaveApprovalV2
   - EventV1LeaveApprovalRevert
-  - EventV1OutApproval
-  - EventV1WorkApproval
   - EventV2DriveFilePermissionMemberAddedV1
   - EventV2DriveFileTrashedV1
   - EventV2DriveFileDeletedV1
   - EventV2DriveFilePermissionMemberRemovedV1
   - EventV2ApprovalApprovalUpdatedV4
-  - EventV1RemedyApproval
   - EventV1ThirdPartyMeetingRoomEventUpdated
   - EventV1ThirdPartyMeetingRoomEventDeleted
   - EventV2MeetingRoomMeetingRoomCreatedV1
@@ -865,6 +868,7 @@ API 总数: 1011, 事件总数: 141
   - EventV2CorehrEmploymentResignedV1
   - EventV2CorehrOrgRoleAuthorizationUpdatedV1
   - EventV2HireEHRImportTaskForInternshipOfferImportedV1
+  - EventV2HireEHRImportTaskImportedV1
   - EventV2CorehrProbationUpdatedV2
   - EventV2CorehrPreHireUpdatedV1
   - EventV2HireEcoAccountCreatedV1
@@ -937,6 +941,7 @@ API 总数: 1011, 事件总数: 141
   - UpdateHireJobConfig
   - GetHireJob
   - GetHireJobManager
+  - QueryHireTalentObject
   - GetHireTalent
   - GetHireAttachment
   - GetHireAttachmentPreview

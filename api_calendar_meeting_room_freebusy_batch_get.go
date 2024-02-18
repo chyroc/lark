@@ -23,7 +23,8 @@ import (
 
 // BatchGetCalendarMeetingRoomFreebusy 该接口用于获取指定会议室的忙闲日程实例列表。非重复日程只有唯一实例；重复日程可能存在多个实例, 依据重复规则和时间范围扩展。建议查询区间为30天内。
 //
-// doc: https://open.feishu.cn/document/server-docs/calendar-v4/meeting-room-event/query-room-availability
+// doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDOyUjLygjM14iM4ITN
+// new doc: https://open.feishu.cn/document/server-docs/calendar-v4/meeting-room-event/query-room-availability
 func (r *CalendarService) BatchGetCalendarMeetingRoomFreebusy(ctx context.Context, request *BatchGetCalendarMeetingRoomFreebusyReq, options ...MethodOptionFunc) (*BatchGetCalendarMeetingRoomFreebusyResp, *Response, error) {
 	if r.cli.mock.mockCalendarBatchGetCalendarMeetingRoomFreebusy != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Calendar#BatchGetCalendarMeetingRoomFreebusy mock enable")

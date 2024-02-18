@@ -23,7 +23,8 @@ import (
 
 // BatchGetCalendarMeetingRoomSummary 通过日程的Uid和Original time, 查询会议室日程主题。
 //
-// doc: https://open.feishu.cn/document/server-docs/calendar-v4/meeting-room-event/
+// doc: https://open.feishu.cn/document/ukTMukTMukTM/uIjM5UjLyITO14iMykTN/
+// new doc: https://open.feishu.cn/document/server-docs/calendar-v4/meeting-room-event/
 func (r *CalendarService) BatchGetCalendarMeetingRoomSummary(ctx context.Context, request *BatchGetCalendarMeetingRoomSummaryReq, options ...MethodOptionFunc) (*BatchGetCalendarMeetingRoomSummaryResp, *Response, error) {
 	if r.cli.mock.mockCalendarBatchGetCalendarMeetingRoomSummary != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Calendar#BatchGetCalendarMeetingRoomSummary mock enable")

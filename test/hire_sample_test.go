@@ -123,6 +123,18 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockHireQueryHireTalentObject(func(ctx context.Context, request *lark.QueryHireTalentObjectReq, options ...lark.MethodOptionFunc) (*lark.QueryHireTalentObjectResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockHireQueryHireTalentObject()
+
+			_, _, err := moduleCli.QueryHireTalentObject(ctx, &lark.QueryHireTalentObjectReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockHireGetHireTalent(func(ctx context.Context, request *lark.GetHireTalentReq, options ...lark.MethodOptionFunc) (*lark.GetHireTalentResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -938,6 +950,13 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.QueryHireTalentObject(ctx, &lark.QueryHireTalentObjectReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetHireTalent(ctx, &lark.GetHireTalentReq{
 				TalentID: "x",
 			})
@@ -1485,6 +1504,13 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 				JobID:     "x",
 				ManagerID: "x",
 			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.QueryHireTalentObject(ctx, &lark.QueryHireTalentObjectReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
