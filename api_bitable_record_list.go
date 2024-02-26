@@ -28,6 +28,8 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/list
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-record/list
+//
+// Deprecated
 func (r *BitableService) GetBitableRecordList(ctx context.Context, request *GetBitableRecordListReq, options ...MethodOptionFunc) (*GetBitableRecordListResp, *Response, error) {
 	if r.cli.mock.mockBitableGetBitableRecordList != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Bitable#GetBitableRecordList mock enable")

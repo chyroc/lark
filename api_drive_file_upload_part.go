@@ -66,7 +66,7 @@ type PartUploadDriveFileReq struct {
 	UploadID string    `json:"upload_id,omitempty"` // 分片上传事务ID, 示例值: "7111211691345512356"
 	Seq      int64     `json:"seq,omitempty"`       // 块号, 从0开始计数, 示例值: 0
 	Size     int64     `json:"size,omitempty"`      // 块大小（以字节为单位）, 示例值: 4194304
-	Checksum *string   `json:"checksum,omitempty"`  // 文件分块adler32校验和(可选), 示例值: "12342388237783212356"
+	Checksum *string   `json:"checksum,omitempty"`  // 文件分块adler32校验和(可选), 示例值: "3248270248"
 	File     io.Reader `json:"file,omitempty"`      // 文件分片二进制内容, 示例值: file binary
 }
 

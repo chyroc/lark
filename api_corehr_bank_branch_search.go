@@ -77,7 +77,7 @@ type SearchCoreHRBankBranchRespItem struct {
 	BankBranchID   string                                          `json:"bank_branch_id,omitempty"`   // 支行 ID
 	BankBranchName []*SearchCoreHRBankBranchRespItemBankBranchName `json:"bank_branch_name,omitempty"` // 支行名称
 	BankID         string                                          `json:"bank_id,omitempty"`          // 所属银行 ID, 可通过[查询银行信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-bank/search)接口查询
-	Code           string                                          `json:"code,omitempty"`             // 金融分支机构编码
+	Code           string                                          `json:"code,omitempty"`             // 金融分支机构编码（即银行联行号）
 	SwiftCode      string                                          `json:"swift_code,omitempty"`       // 银行代码
 	Status         int64                                           `json:"status,omitempty"`           // 状态, 可选值有: 1: 生效, 0: 失效
 }

@@ -68,7 +68,7 @@ type UploadDriveFileReq struct {
 	ParentType string    `json:"parent_type,omitempty"` // 上传点类型, 示例值: "explorer", 可选值有: explorer: 云空间。
 	ParentNode string    `json:"parent_node,omitempty"` // 文件夹token, 获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction), 示例值: "fldbcO1UuPz8VwnpPx5a92abcef"
 	Size       int64     `json:"size,omitempty"`        // 文件大小（以字节为单位）, 示例值: 1024, 最大值: `20971520`
-	Checksum   *string   `json:"checksum,omitempty"`    // 文件adler32校验和(可选), 示例值: "123423882374238912356"
+	Checksum   *string   `json:"checksum,omitempty"`    // 文件adler32校验和(可选), 示例值: "3248270248"
 	File       io.Reader `json:"file,omitempty"`        // 文件二进制内容, 示例值: file binary
 }
 

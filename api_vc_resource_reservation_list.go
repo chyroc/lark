@@ -59,12 +59,12 @@ func (r *Mock) UnMockVCGetVCResourceReservationList() {
 
 // GetVCResourceReservationListReq ...
 type GetVCResourceReservationListReq struct {
-	RoomLevelID string   `query:"room_level_id" json:"-"` // 层级id, 示例值: omb_57c9cc7d9a81e27e54c8fabfd02759e7
+	RoomLevelID string   `query:"room_level_id" json:"-"` // 层级ID, 如传递非omb前缀的异常ID时, 会默认使用租户层级进行兜底, 示例值: omb_57c9cc7d9a81e27e54c8fabfd02759e7
 	NeedTopic   *bool    `query:"need_topic" json:"-"`    // 是否展示会议主题, 示例值: true
 	StartTime   string   `query:"start_time" json:"-"`    // 查询开始时间（unix时间, 单位sec）, 示例值: 1655276858
 	EndTime     string   `query:"end_time" json:"-"`      // 查询结束时间（unix时间, 单位sec）, 示例值: 1655276858
 	RoomIDs     []string `query:"room_ids" json:"-"`      // 待筛选的会议室id列表, 示例值: omm_eada1d61a550955240c28757e7dec3af
-	IsExclude   *bool    `query:"is_exclude" json:"-"`    // 若为true表示导出room_ids范围外的会议室, 默认为false, 示例值: false
+	IsExclude   *bool    `query:"is_exclude" json:"-"`    // 默认为false；若为false, 则获取room_ids字段传入的会议室列表预定数据；若为true, 则根据room_level_id字段获取层级下的会议室列表, 并过滤掉room_ids范围的会议室, 获取剩余会议室的预定数据, 示例值: false
 	PageSize    *int64   `query:"page_size" json:"-"`     // 分页尺寸大小, 示例值: 20, 默认值: `20`, 取值范围: `20` ～ `100`
 	PageToken   *string  `query:"page_token" json:"-"`    // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 20
 }
