@@ -71,7 +71,7 @@ type GetApprovalResp struct {
 	Form             ApprovalWidgetList       `json:"form,omitempty"`               // 控件信息, 见下方form字段说明
 	NodeList         []*GetApprovalRespNode   `json:"node_list,omitempty"`          // 节点信息
 	Viewers          []*GetApprovalRespViewer `json:"viewers,omitempty"`            // 可见人列表
-	ApprovalAdminIDs []string                 `json:"approval_admin_ids,omitempty"` // 有数据管理权限的审批流程管理员ID
+	ApprovalAdminIDs []string                 `json:"approval_admin_ids,omitempty"` // 有数据管理权限的审批流程管理员ID, 由参数“with_admin_id”控制是否返回
 }
 
 // GetApprovalRespNode ...

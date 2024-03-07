@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetCoreHRProcessFormVariableData 根据流程实例 ID 获取流程表单字段数据。
+// GetCoreHRProcessFormVariableData 根据流程实例 id（process_id）获取流程表单字段数据, 包括表单里的业务字段和自定义字段。仅支持飞书人事、假勤相关业务流程。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/process-form_variable_data/get
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/process-form_variable_data/get

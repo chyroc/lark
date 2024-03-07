@@ -84,7 +84,7 @@ type CreateApprovalExternalInstanceReq struct {
 	UpdateTime             string                                                   `json:"update_time,omitempty"`              // 审批实例最近更新时间；用于推送数据版本控制如果 update_mode 值为 UPDATE, 则只有传过来的 update_time 有变化时（变大）, 才会更新审批中心中的审批实例信息。使用该字段主要用来避免并发时老的数据更新了新的数据, 示例值: "1556468012678"
 	DisplayMethod          *string                                                  `json:"display_method,omitempty"`           // 列表页打开审批实例的方式, 示例值: "BROWSER", 可选值有: BROWSER: 跳转系统默认浏览器打开, SIDEBAR: 飞书中侧边抽屉打开, NORMAL: 飞书内嵌页面打开, TRUSTEESHIP: 以托管打开
 	UpdateMode             *string                                                  `json:"update_mode,omitempty"`              // 更新方式, 当 update_mode=REPLACE时, 每次都以当前推送的数据为最终数据, 会删掉审批中心中多余的任务、抄送数据（不在这次推送的数据中）; 当 update_mode=UPDATE时, 则不会删除审批中心的数据, 而只是进行新增和更新实例、任务数据, 示例值: "UPDATE", 可选值有: REPLACE: 全量替换, 默认值, UPDATE: 增量更新
-	TaskList               []*CreateApprovalExternalInstanceReqTask                 `json:"task_list,omitempty"`                // 任务列表, 最大长度: `200`
+	TaskList               []*CreateApprovalExternalInstanceReqTask                 `json:"task_list,omitempty"`                // 任务列表, 最大长度: `300`
 	CcList                 []*CreateApprovalExternalInstanceReqCc                   `json:"cc_list,omitempty"`                  // 抄送列表, 最大长度: `200`
 	I18nResources          []*CreateApprovalExternalInstanceReqI18nResource         `json:"i18n_resources,omitempty"`           // 国际化文案
 	TrusteeshipURLToken    *string                                                  `json:"trusteeship_url_token,omitempty"`    // 单据托管认证token, 托管回调会附带此token, 帮助业务方认证, 示例值: "788981c886b1c28ac29d1e68efd60683d6d90dfce80938ee9453e2a5f3e9e306"

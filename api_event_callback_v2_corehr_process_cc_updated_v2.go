@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2CorehrProcessCcUpdatedV2 抄送单据状态变更。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v2&resource=process.cc&event=updated)
+// EventV2CorehrProcessCcUpdatedV2 抄送节点会生成抄送单据任务。如果一个节点有多个人抄送人, 则会生成多个抄送单据。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v2&resource=process.cc&event=updated)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process-cc/events/updated
 func (r *EventCallbackService) HandlerEventV2CorehrProcessCcUpdatedV2(f EventV2CorehrProcessCcUpdatedV2Handler) {
@@ -36,4 +36,5 @@ type EventV2CorehrProcessCcUpdatedV2 struct {
 	ProcessID  string `json:"process_id,omitempty"`  // 流程实例ID
 	ApproverID string `json:"approver_id,omitempty"` // 抄送单据ID
 	Status     int64  `json:"status,omitempty"`      // 单据状态, 可选值有: 5: 抄送到达
+	BizType    string `json:"biz_type,omitempty"`    // 业务类型, 长度范围: `1` ～ `200` 字符
 }

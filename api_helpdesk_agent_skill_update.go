@@ -23,6 +23,9 @@ import (
 
 // UpdateHelpdeskAgentSkill 该接口用于更新客服技能。
 //
+// 注意事项:
+// user_access_token 访问, 需要操作者是当前服务台的管理员或所有者
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_skill/patch
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/agent-function/agent_skill/patch
 func (r *HelpdeskService) UpdateHelpdeskAgentSkill(ctx context.Context, request *UpdateHelpdeskAgentSkillReq, options ...MethodOptionFunc) (*UpdateHelpdeskAgentSkillResp, *Response, error) {

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetCoreHRProcessList 查询流程实例列表。
+// GetCoreHRProcessList 查询流程实例列表。发起的流程为流程实例（process_id 是唯一标识）；配置的流程为流程定义（flow_definition_id 是唯一标识）。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/list
 func (r *CoreHRService) GetCoreHRProcessList(ctx context.Context, request *GetCoreHRProcessListReq, options ...MethodOptionFunc) (*GetCoreHRProcessListResp, *Response, error) {

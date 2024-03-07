@@ -23,6 +23,9 @@ import (
 
 // CreateHelpdeskCategory 该接口用于创建知识库分类。
 //
+// 注意事项:
+// user_access_token 访问, 需要操作者是当前服务台的客服、管理员或所有者
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/create
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/faq-management/category/create
 func (r *HelpdeskService) CreateHelpdeskCategory(ctx context.Context, request *CreateHelpdeskCategoryReq, options ...MethodOptionFunc) (*CreateHelpdeskCategoryResp, *Response, error) {

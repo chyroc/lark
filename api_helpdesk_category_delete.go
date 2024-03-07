@@ -23,6 +23,9 @@ import (
 
 // DeleteHelpdeskCategory 该接口用于删除知识库分类详情。
 //
+// 注意事项:
+// user_access_token 访问, 需要操作者是当前服务台的客服、管理员或所有者
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/delete
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/faq-management/category/delete
 func (r *HelpdeskService) DeleteHelpdeskCategory(ctx context.Context, request *DeleteHelpdeskCategoryReq, options ...MethodOptionFunc) (*DeleteHelpdeskCategoryResp, *Response, error) {

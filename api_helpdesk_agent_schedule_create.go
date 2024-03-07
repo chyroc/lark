@@ -23,6 +23,9 @@ import (
 
 // CreateHelpdeskAgentSchedule 该接口用于创建客服日程。
 //
+// 注意事项:
+// user_access_token 访问, 需要操作者是当前服务台的管理员或所有者
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_schedule/create
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/agent-function/agent-schedules/create
 func (r *HelpdeskService) CreateHelpdeskAgentSchedule(ctx context.Context, request *CreateHelpdeskAgentScheduleReq, options ...MethodOptionFunc) (*CreateHelpdeskAgentScheduleResp, *Response, error) {

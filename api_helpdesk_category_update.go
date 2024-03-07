@@ -23,6 +23,9 @@ import (
 
 // UpdateHelpdeskCategory 该接口用于更新知识库分类详情。
 //
+// 注意事项:
+// user_access_token 访问, 需要操作者是当前服务台的客服、管理员或所有者
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/category/patch
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/faq-management/category/patch
 func (r *HelpdeskService) UpdateHelpdeskCategory(ctx context.Context, request *UpdateHelpdeskCategoryReq, options ...MethodOptionFunc) (*UpdateHelpdeskCategoryResp, *Response, error) {

@@ -23,6 +23,9 @@ import (
 
 // UpdateHelpdeskFAQ 该接口用于修改知识库。
 //
+// 注意事项:
+// user_access_token 访问, 需要操作者是当前服务台的客服、管理员或所有者
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/patch
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/faq-management/faq/patch
 func (r *HelpdeskService) UpdateHelpdeskFAQ(ctx context.Context, request *UpdateHelpdeskFAQReq, options ...MethodOptionFunc) (*UpdateHelpdeskFAQResp, *Response, error) {

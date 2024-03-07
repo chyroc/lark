@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2CorehrProcessApproverUpdatedV2 单据状态变更。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v2&resource=process.approver&event=updated)
+// EventV2CorehrProcessApproverUpdatedV2 审批任务（approver_id 是唯一标识）, 比如一个多人会签节点, 会分别生成多人的审批任务。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v2&resource=process.approver&event=updated)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process-approver/events/updated
 func (r *EventCallbackService) HandlerEventV2CorehrProcessApproverUpdatedV2(f EventV2CorehrProcessApproverUpdatedV2Handler) {
@@ -37,4 +37,5 @@ type EventV2CorehrProcessApproverUpdatedV2 struct {
 	ApproverID string `json:"approver_id,omitempty"` // 单据ID
 	Type       int64  `json:"type,omitempty"`        // 单据类型, 可选值有: 1: 审批单, 5: 表单
 	Status     int64  `json:"status,omitempty"`      // 单据状态, 可选值有: 1: 待办, 3: 已完成, 2: 拒绝, 4: 取消
+	BizType    string `json:"biz_type,omitempty"`    // 业务类型, 长度范围: `1` ～ `200` 字符
 }

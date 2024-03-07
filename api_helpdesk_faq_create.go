@@ -23,6 +23,9 @@ import (
 
 // CreateHelpdeskFAQ 该接口用于创建知识库。
 //
+// 注意事项:
+// user_access_token 访问, 需要操作者是当前服务台的客服、管理员或所有者
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/faq/create
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/faq-management/faq/create
 func (r *HelpdeskService) CreateHelpdeskFAQ(ctx context.Context, request *CreateHelpdeskFAQReq, options ...MethodOptionFunc) (*CreateHelpdeskFAQResp, *Response, error) {

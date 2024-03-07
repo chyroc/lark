@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// BatchGetDriveComment 该接口用于根据评论 ID 列表批量获取全文评论, 暂时不支持局部评论
+// BatchGetDriveComment 该接口用于根据评论 ID 列表批量获取云文档评论信息, 包括评论和回复 ID、回复的内容、评论人和回复人的用户 ID 等。支持返回全局评论以及局部评论（可通过 is_whole 字段区分）。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment/batch_query
 // new doc: https://open.feishu.cn/document/server-docs/docs/CommentAPI/batch_query
@@ -59,10 +59,10 @@ func (r *Mock) UnMockDriveBatchGetDriveComment() {
 
 // BatchGetDriveCommentReq ...
 type BatchGetDriveCommentReq struct {
-	FileToken  string   `path:"file_token" json:"-"`    // 文档Token, 示例值: "doxbcdl03Vsxhm7Qmnj110abcef"
-	FileType   FileType `query:"file_type" json:"-"`    // 文档类型, 示例值: doc, docx, sheet, file, 可选值有: doc: 文档类型, sheet: 电子表格类型, file: 文件类型, docx: 新版文档类型
+	FileToken  string   `path:"file_token" json:"-"`    // 文档 Token, 示例值: "doxbcdl03Vsxhm7Qmnj110abcef"
+	FileType   FileType `query:"file_type" json:"-"`    // 文档类型, 示例值: docx, 可选值有: doc: 文档类型, sheet: 电子表格类型, file: 文件类型, docx: 新版文档类型
 	UserIDType *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	CommentIDs []string `json:"comment_ids,omitempty"`  // 需要获取数据的评论id, 示例值: ["1654857036541812356"]
+	CommentIDs []string `json:"comment_ids,omitempty"`  // 需要获取数据的评论 ID, 可通过调用获取云文档所有评论接口获取 comment_id, 示例值: ["1654857036541812356"]
 }
 
 // BatchGetDriveCommentResp ...
@@ -72,17 +72,17 @@ type BatchGetDriveCommentResp struct {
 
 // BatchGetDriveCommentRespItem ...
 type BatchGetDriveCommentRespItem struct {
-	CommentID    string                                 `json:"comment_id,omitempty"`     // 评论ID（创建新评论可不填；如填写, 则视为回复已有评论）
-	UserID       string                                 `json:"user_id,omitempty"`        // 用户ID
+	CommentID    string                                 `json:"comment_id,omitempty"`     // 评论 ID
+	UserID       string                                 `json:"user_id,omitempty"`        // 用户 ID
 	CreateTime   int64                                  `json:"create_time,omitempty"`    // 创建时间
 	UpdateTime   int64                                  `json:"update_time,omitempty"`    // 更新时间
 	IsSolved     bool                                   `json:"is_solved,omitempty"`      // 是否已解决
 	SolvedTime   int64                                  `json:"solved_time,omitempty"`    // 解决评论时间
-	SolverUserID string                                 `json:"solver_user_id,omitempty"` // 解决评论者的用户ID
+	SolverUserID string                                 `json:"solver_user_id,omitempty"` // 解决评论者的用户 ID
 	HasMore      bool                                   `json:"has_more,omitempty"`       // 是否有更多回复
 	PageToken    string                                 `json:"page_token,omitempty"`     // 回复分页标记
 	IsWhole      bool                                   `json:"is_whole,omitempty"`       // 是否是全文评论
-	Quote        string                                 `json:"quote,omitempty"`          // 如果是局部评论, 引用字段
+	Quote        string                                 `json:"quote,omitempty"`          // 局部评论的引用字段
 	ReplyList    *BatchGetDriveCommentRespItemReplyList `json:"reply_list,omitempty"`     // 评论里的回复列表
 }
 
@@ -93,12 +93,12 @@ type BatchGetDriveCommentRespItemReplyList struct {
 
 // BatchGetDriveCommentRespItemReplyListReply ...
 type BatchGetDriveCommentRespItemReplyListReply struct {
-	ReplyID    string                                             `json:"reply_id,omitempty"`    // 回复ID
-	UserID     string                                             `json:"user_id,omitempty"`     // 用户ID
+	ReplyID    string                                             `json:"reply_id,omitempty"`    // 回复 ID
+	UserID     string                                             `json:"user_id,omitempty"`     // 用户 ID
 	CreateTime int64                                              `json:"create_time,omitempty"` // 创建时间
 	UpdateTime int64                                              `json:"update_time,omitempty"` // 更新时间
 	Content    *BatchGetDriveCommentRespItemReplyListReplyContent `json:"content,omitempty"`     // 回复内容
-	Extra      *BatchGetDriveCommentRespItemReplyListReplyExtra   `json:"extra,omitempty"`       // 回复的其他内容, 图片token等
+	Extra      *BatchGetDriveCommentRespItemReplyListReplyExtra   `json:"extra,omitempty"`       // 回复的其他内容, 图片 Token 等
 }
 
 // BatchGetDriveCommentRespItemReplyListReplyContent ...
@@ -110,18 +110,18 @@ type BatchGetDriveCommentRespItemReplyListReplyContent struct {
 type BatchGetDriveCommentRespItemReplyListReplyContentElement struct {
 	Type     string                                                            `json:"type,omitempty"`      // 回复的内容元素, 可选值有: text_run: 普通文本, docs_link: at 云文档链接, person: at 联系人
 	TextRun  *BatchGetDriveCommentRespItemReplyListReplyContentElementTextRun  `json:"text_run,omitempty"`  // 文本内容
-	DocsLink *BatchGetDriveCommentRespItemReplyListReplyContentElementDocsLink `json:"docs_link,omitempty"` // 文本内容
-	Person   *BatchGetDriveCommentRespItemReplyListReplyContentElementPerson   `json:"person,omitempty"`    // 文本内容
+	DocsLink *BatchGetDriveCommentRespItemReplyListReplyContentElementDocsLink `json:"docs_link,omitempty"` // 添加云文档链接
+	Person   *BatchGetDriveCommentRespItemReplyListReplyContentElementPerson   `json:"person,omitempty"`    // 添加用户的 user_id
 }
 
 // BatchGetDriveCommentRespItemReplyListReplyContentElementDocsLink ...
 type BatchGetDriveCommentRespItemReplyListReplyContentElementDocsLink struct {
-	URL string `json:"url,omitempty"` // 回复 at云文档
+	URL string `json:"url,omitempty"` // 回复 at 云文档
 }
 
 // BatchGetDriveCommentRespItemReplyListReplyContentElementPerson ...
 type BatchGetDriveCommentRespItemReplyListReplyContentElementPerson struct {
-	UserID string `json:"user_id,omitempty"` // 回复 at联系人
+	UserID string `json:"user_id,omitempty"` // 添加用户的 user_id 以@用户
 }
 
 // BatchGetDriveCommentRespItemReplyListReplyContentElementTextRun ...
@@ -131,7 +131,7 @@ type BatchGetDriveCommentRespItemReplyListReplyContentElementTextRun struct {
 
 // BatchGetDriveCommentRespItemReplyListReplyExtra ...
 type BatchGetDriveCommentRespItemReplyListReplyExtra struct {
-	ImageList []string `json:"image_list,omitempty"` // 评论中的图片token list
+	ImageList []string `json:"image_list,omitempty"` // 评论中的图片 Token list
 }
 
 // batchGetDriveCommentResp ...
