@@ -84,7 +84,8 @@ type CreateSheetDataValidationDropdownResp struct {
 
 // createSheetDataValidationDropdownResp ...
 type createSheetDataValidationDropdownResp struct {
-	Code int64                                  `json:"code,omitempty"` // 状态码, 0代表成功
-	Msg  *string                                `json:"msg,omitempty"`  // 状态信息
-	Data *CreateSheetDataValidationDropdownResp `json:"data,omitempty"`
+	Code  int64                                  `json:"code,omitempty"` // 状态码, 0代表成功
+	Msg   *string                                `json:"msg,omitempty"`  // 状态信息
+	Data  *CreateSheetDataValidationDropdownResp `json:"data,omitempty"`
+	Error *ErrorDetail                           `json:"error,omitempty"`
 }

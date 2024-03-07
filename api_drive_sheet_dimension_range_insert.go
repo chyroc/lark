@@ -80,7 +80,8 @@ type InsertSheetDimensionRangeResp struct {
 
 // insertSheetDimensionRangeResp ...
 type insertSheetDimensionRangeResp struct {
-	Code int64                          `json:"code,omitempty"`
-	Msg  string                         `json:"msg,omitempty"`
-	Data *InsertSheetDimensionRangeResp `json:"data,omitempty"`
+	Code  int64                          `json:"code,omitempty"`
+	Msg   string                         `json:"msg,omitempty"`
+	Data  *InsertSheetDimensionRangeResp `json:"data,omitempty"`
+	Error *ErrorDetail                   `json:"error,omitempty"`
 }

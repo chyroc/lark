@@ -88,7 +88,8 @@ type GetLingoClassificationListRespItemI18nName struct {
 
 // getLingoClassificationListResp ...
 type getLingoClassificationListResp struct {
-	Code int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                          `json:"msg,omitempty"`  // 错误描述
-	Data *GetLingoClassificationListResp `json:"data,omitempty"`
+	Code  int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                          `json:"msg,omitempty"`  // 错误描述
+	Data  *GetLingoClassificationListResp `json:"data,omitempty"`
+	Error *ErrorDetail                    `json:"error,omitempty"`
 }

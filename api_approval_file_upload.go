@@ -73,7 +73,8 @@ type UploadApprovalFileResp struct {
 
 // uploadApprovalFileResp ...
 type uploadApprovalFileResp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码, 非0表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 返回码的描述
-	Data *UploadApprovalFileResp `json:"data,omitempty"` // 返回业务信息
+	Code  int64                   `json:"code,omitempty"` // 错误码, 非0表示失败
+	Msg   string                  `json:"msg,omitempty"`  // 返回码的描述
+	Data  *UploadApprovalFileResp `json:"data,omitempty"` // 返回业务信息
+	Error *ErrorDetail            `json:"error,omitempty"`
 }

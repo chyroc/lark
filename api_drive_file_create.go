@@ -79,7 +79,8 @@ type CreateDriveFileResp struct {
 
 // createDriveFileResp ...
 type createDriveFileResp struct {
-	Code int64                `json:"code,omitempty"`
-	Msg  string               `json:"msg,omitempty"`
-	Data *CreateDriveFileResp `json:"data,omitempty"`
+	Code  int64                `json:"code,omitempty"`
+	Msg   string               `json:"msg,omitempty"`
+	Data  *CreateDriveFileResp `json:"data,omitempty"`
+	Error *ErrorDetail         `json:"error,omitempty"`
 }

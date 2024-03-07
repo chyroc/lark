@@ -70,7 +70,8 @@ type ReplyCalendarMeetingRoomInstanceResp struct {
 
 // replyCalendarMeetingRoomInstanceResp ...
 type replyCalendarMeetingRoomInstanceResp struct {
-	Code int64                                 `json:"code,omitempty"` // 返回码, 非 0 表示失败。105003表示 original_time 非法, 此时可能是重复日程的整个开始时间被修改, 建议应用重新查询会议室日程实例列表, 获取最新的 original_time。
-	Msg  string                                `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
-	Data *ReplyCalendarMeetingRoomInstanceResp `json:"data,omitempty"`
+	Code  int64                                 `json:"code,omitempty"` // 返回码, 非 0 表示失败。105003表示 original_time 非法, 此时可能是重复日程的整个开始时间被修改, 建议应用重新查询会议室日程实例列表, 获取最新的 original_time。
+	Msg   string                                `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
+	Data  *ReplyCalendarMeetingRoomInstanceResp `json:"data,omitempty"`
+	Error *ErrorDetail                          `json:"error,omitempty"`
 }

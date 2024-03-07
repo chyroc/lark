@@ -65,9 +65,10 @@ type DownloadVCExportFileReq struct {
 
 // downloadVCExportFileResp ...
 type downloadVCExportFileResp struct {
-	Code int64                     `json:"code,omitempty"`
-	Msg  string                    `json:"msg,omitempty"`
-	Data *DownloadVCExportFileResp `json:"data,omitempty"`
+	Code  int64                     `json:"code,omitempty"`
+	Msg   string                    `json:"msg,omitempty"`
+	Data  *DownloadVCExportFileResp `json:"data,omitempty"`
+	Error *ErrorDetail              `json:"error,omitempty"`
 }
 
 func (r *downloadVCExportFileResp) SetReader(file io.Reader) {

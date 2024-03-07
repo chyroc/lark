@@ -75,7 +75,8 @@ type GetDriveFolderMetaResp struct {
 
 // getDriveFolderMetaResp ...
 type getDriveFolderMetaResp struct {
-	Code int64                   `json:"code,omitempty"`
-	Msg  string                  `json:"msg,omitempty"`
-	Data *GetDriveFolderMetaResp `json:"data,omitempty"`
+	Code  int64                   `json:"code,omitempty"`
+	Msg   string                  `json:"msg,omitempty"`
+	Data  *GetDriveFolderMetaResp `json:"data,omitempty"`
+	Error *ErrorDetail            `json:"error,omitempty"`
 }

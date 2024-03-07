@@ -64,9 +64,10 @@ type DownloadLingoFileReq struct {
 
 // downloadLingoFileResp ...
 type downloadLingoFileResp struct {
-	Code int64                  `json:"code,omitempty"`
-	Msg  string                 `json:"msg,omitempty"`
-	Data *DownloadLingoFileResp `json:"data,omitempty"`
+	Code  int64                  `json:"code,omitempty"`
+	Msg   string                 `json:"msg,omitempty"`
+	Data  *DownloadLingoFileResp `json:"data,omitempty"`
+	Error *ErrorDetail           `json:"error,omitempty"`
 }
 
 func (r *downloadLingoFileResp) SetReader(file io.Reader) {

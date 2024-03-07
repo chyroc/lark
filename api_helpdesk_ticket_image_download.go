@@ -67,9 +67,10 @@ type DownloadHelpdeskTicketImageReq struct {
 
 // downloadHelpdeskTicketImageResp ...
 type downloadHelpdeskTicketImageResp struct {
-	Code int64                            `json:"code,omitempty"`
-	Msg  string                           `json:"msg,omitempty"`
-	Data *DownloadHelpdeskTicketImageResp `json:"data,omitempty"`
+	Code  int64                            `json:"code,omitempty"`
+	Msg   string                           `json:"msg,omitempty"`
+	Data  *DownloadHelpdeskTicketImageResp `json:"data,omitempty"`
+	Error *ErrorDetail                     `json:"error,omitempty"`
 }
 
 func (r *downloadHelpdeskTicketImageResp) SetReader(file io.Reader) {

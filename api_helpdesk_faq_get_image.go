@@ -66,9 +66,10 @@ type GetHelpdeskFAQImageReq struct {
 
 // getHelpdeskFAQImageResp ...
 type getHelpdeskFAQImageResp struct {
-	Code int64                    `json:"code,omitempty"`
-	Msg  string                   `json:"msg,omitempty"`
-	Data *GetHelpdeskFAQImageResp `json:"data,omitempty"`
+	Code  int64                    `json:"code,omitempty"`
+	Msg   string                   `json:"msg,omitempty"`
+	Data  *GetHelpdeskFAQImageResp `json:"data,omitempty"`
+	Error *ErrorDetail             `json:"error,omitempty"`
 }
 
 func (r *getHelpdeskFAQImageResp) SetReader(file io.Reader) {

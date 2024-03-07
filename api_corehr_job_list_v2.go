@@ -112,7 +112,8 @@ type GetCoreHRJobListV2RespItemName struct {
 
 // getCoreHRJobListV2Resp ...
 type getCoreHRJobListV2Resp struct {
-	Code int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                  `json:"msg,omitempty"`  // 错误描述
-	Data *GetCoreHRJobListV2Resp `json:"data,omitempty"`
+	Code  int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                  `json:"msg,omitempty"`  // 错误描述
+	Data  *GetCoreHRJobListV2Resp `json:"data,omitempty"`
+	Error *ErrorDetail            `json:"error,omitempty"`
 }

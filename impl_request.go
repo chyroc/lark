@@ -84,10 +84,12 @@ func (r *Lark) rawRequest(ctx context.Context, req *RawRequestReq, resp interfac
 		return response, err
 	}
 
-	code, msg := getCodeMsg(resp)
+	code, msg, detailErr := getCodeMsg(resp)
 	if code != 0 {
+		e := NewError(req.Scope, req.API, code, msg)
+		e.(*Error).ErrorDetail = detailErr
 		r.Log(ctx, LogLevelError, "[lark] %s#%s %s %s failed, request_id: %s, status_code: %d, code: %d, msg: %s", req.Scope, req.API, req.Method, req.URL, requestID, statusCode, code, msg)
-		return response, NewError(req.Scope, req.API, code, msg)
+		return response, e
 	}
 
 	r.Log(ctx, LogLevelDebug, "[lark] %s#%s success, request_id: %s, status_code: %d, response: %s", req.Scope, req.API, requestID, statusCode, "TODO")
@@ -383,16 +385,16 @@ type filenameSetter interface {
 	SetFilename(filename string)
 }
 
-func getCodeMsg(v interface{}) (code int64, msg string) {
+func getCodeMsg(v interface{}) (code int64, msg string, detail *ErrorDetail) {
 	if v == nil {
-		return 0, ""
+		return 0, "", nil
 	}
 	vv := reflect.ValueOf(v)
 	if vv.Kind() == reflect.Ptr {
 		vv = vv.Elem()
 	}
 	if vv.Kind() != reflect.Struct {
-		return 0, ""
+		return 0, "", nil
 	}
 	codeField := vv.FieldByName("Code")
 	if codeField.IsValid() {
@@ -415,11 +417,16 @@ func getCodeMsg(v interface{}) (code int64, msg string) {
 		}
 	}
 
-	codeMsg := vv.FieldByName("Msg")
-	if codeField.IsValid() {
-		if codeMsg.Kind() == reflect.String {
-			msg = codeMsg.String()
+	msgField := vv.FieldByName("Msg")
+	if msgField.IsValid() {
+		if msgField.Kind() == reflect.String {
+			msg = msgField.String()
 		}
+	}
+
+	errorField := vv.FieldByName("Error")
+	if errorField.IsValid() {
+		detail, _ = errorField.Interface().(*ErrorDetail)
 	}
 	return
 }

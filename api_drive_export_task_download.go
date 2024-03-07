@@ -65,9 +65,10 @@ type DownloadDriveExportTaskReq struct {
 
 // downloadDriveExportTaskResp ...
 type downloadDriveExportTaskResp struct {
-	Code int64                        `json:"code,omitempty"`
-	Msg  string                       `json:"msg,omitempty"`
-	Data *DownloadDriveExportTaskResp `json:"data,omitempty"`
+	Code  int64                        `json:"code,omitempty"`
+	Msg   string                       `json:"msg,omitempty"`
+	Data  *DownloadDriveExportTaskResp `json:"data,omitempty"`
+	Error *ErrorDetail                 `json:"error,omitempty"`
 }
 
 func (r *downloadDriveExportTaskResp) SetReader(file io.Reader) {

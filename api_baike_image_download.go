@@ -69,9 +69,10 @@ type DownloadBaikeImageReq struct {
 
 // downloadBaikeImageResp ...
 type downloadBaikeImageResp struct {
-	Code int64                   `json:"code,omitempty"`
-	Msg  string                  `json:"msg,omitempty"`
-	Data *DownloadBaikeImageResp `json:"data,omitempty"`
+	Code  int64                   `json:"code,omitempty"`
+	Msg   string                  `json:"msg,omitempty"`
+	Data  *DownloadBaikeImageResp `json:"data,omitempty"`
+	Error *ErrorDetail            `json:"error,omitempty"`
 }
 
 func (r *downloadBaikeImageResp) SetReader(file io.Reader) {

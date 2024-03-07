@@ -73,7 +73,8 @@ type CheckDriveMemberPermissionOldResp struct {
 
 // checkDriveMemberPermissionOldResp ...
 type checkDriveMemberPermissionOldResp struct {
-	Code int64                              `json:"code,omitempty"`
-	Msg  string                             `json:"msg,omitempty"`
-	Data *CheckDriveMemberPermissionOldResp `json:"data,omitempty"`
+	Code  int64                              `json:"code,omitempty"`
+	Msg   string                             `json:"msg,omitempty"`
+	Data  *CheckDriveMemberPermissionOldResp `json:"data,omitempty"`
+	Error *ErrorDetail                       `json:"error,omitempty"`
 }

@@ -67,9 +67,10 @@ type DownloadEHRAttachmentsReq struct {
 
 // downloadEHRAttachmentsResp ...
 type downloadEHRAttachmentsResp struct {
-	Code int64                       `json:"code,omitempty"`
-	Msg  string                      `json:"msg,omitempty"`
-	Data *DownloadEHRAttachmentsResp `json:"data,omitempty"`
+	Code  int64                       `json:"code,omitempty"`
+	Msg   string                      `json:"msg,omitempty"`
+	Data  *DownloadEHRAttachmentsResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }
 
 func (r *downloadEHRAttachmentsResp) SetReader(file io.Reader) {

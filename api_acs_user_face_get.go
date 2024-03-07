@@ -66,9 +66,10 @@ type GetACSUserFaceReq struct {
 
 // getACSUserFaceResp ...
 type getACSUserFaceResp struct {
-	Code int64               `json:"code,omitempty"`
-	Msg  string              `json:"msg,omitempty"`
-	Data *GetACSUserFaceResp `json:"data,omitempty"`
+	Code  int64               `json:"code,omitempty"`
+	Msg   string              `json:"msg,omitempty"`
+	Data  *GetACSUserFaceResp `json:"data,omitempty"`
+	Error *ErrorDetail        `json:"error,omitempty"`
 }
 
 func (r *getACSUserFaceResp) SetReader(file io.Reader) {

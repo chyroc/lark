@@ -84,7 +84,8 @@ type UpdateSheetDimensionRangeResp struct {
 
 // updateSheetDimensionRangeResp ...
 type updateSheetDimensionRangeResp struct {
-	Code int64                          `json:"code,omitempty"`
-	Data *UpdateSheetDimensionRangeResp `json:"data,omitempty"`
-	Msg  string                         `json:"msg,omitempty"`
+	Code  int64                          `json:"code,omitempty"`
+	Data  *UpdateSheetDimensionRangeResp `json:"data,omitempty"`
+	Msg   string                         `json:"msg,omitempty"`
+	Error *ErrorDetail                   `json:"error,omitempty"`
 }

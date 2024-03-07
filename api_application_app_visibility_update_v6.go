@@ -104,7 +104,8 @@ type UpdateApplicationAppVisibilityV6Resp struct {
 
 // updateApplicationAppVisibilityV6Resp ...
 type updateApplicationAppVisibilityV6Resp struct {
-	Code int64                                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                                `json:"msg,omitempty"`  // 错误描述
-	Data *UpdateApplicationAppVisibilityV6Resp `json:"data,omitempty"`
+	Code  int64                                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateApplicationAppVisibilityV6Resp `json:"data,omitempty"`
+	Error *ErrorDetail                          `json:"error,omitempty"`
 }

@@ -64,9 +64,10 @@ type DownloadAttendanceFileReq struct {
 
 // downloadAttendanceFileResp ...
 type downloadAttendanceFileResp struct {
-	Code int64                       `json:"code,omitempty"`
-	Msg  string                      `json:"msg,omitempty"`
-	Data *DownloadAttendanceFileResp `json:"data,omitempty"`
+	Code  int64                       `json:"code,omitempty"`
+	Msg   string                      `json:"msg,omitempty"`
+	Data  *DownloadAttendanceFileResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }
 
 func (r *downloadAttendanceFileResp) SetReader(file io.Reader) {

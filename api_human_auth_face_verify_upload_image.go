@@ -75,7 +75,8 @@ type UploadFaceVerifyImageResp struct {
 
 // uploadFaceVerifyImageResp ...
 type uploadFaceVerifyImageResp struct {
-	Code int64                      `json:"code,omitempty"` // 返回码, 非0为失败
-	Msg  string                     `json:"msg,omitempty"`  // 返回信息, 返回码的描述
-	Data *UploadFaceVerifyImageResp `json:"data,omitempty"` // 业务数据
+	Code  int64                      `json:"code,omitempty"` // 返回码, 非0为失败
+	Msg   string                     `json:"msg,omitempty"`  // 返回信息, 返回码的描述
+	Data  *UploadFaceVerifyImageResp `json:"data,omitempty"` // 业务数据
+	Error *ErrorDetail               `json:"error,omitempty"`
 }

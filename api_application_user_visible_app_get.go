@@ -90,7 +90,8 @@ type GetApplicationUserVisibleAppRespAppList struct {
 
 // getApplicationUserVisibleAppResp ...
 type getApplicationUserVisibleAppResp struct {
-	Code int64                             `json:"code,omitempty"` // 返回码, 非 0 表示失败
-	Msg  string                            `json:"msg,omitempty"`  // 返回码的描述
-	Data *GetApplicationUserVisibleAppResp `json:"data,omitempty"` // 返回的业务信息, 仅 code = 0 时有效
+	Code  int64                             `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg   string                            `json:"msg,omitempty"`  // 返回码的描述
+	Data  *GetApplicationUserVisibleAppResp `json:"data,omitempty"` // 返回的业务信息, 仅 code = 0 时有效
+	Error *ErrorDetail                      `json:"error,omitempty"`
 }

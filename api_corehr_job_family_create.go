@@ -111,7 +111,8 @@ type CreateCoreHRJobFamilyRespJobFamilyName struct {
 
 // createCoreHRJobFamilyResp ...
 type createCoreHRJobFamilyResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 错误描述
-	Data *CreateCoreHRJobFamilyResp `json:"data,omitempty"`
+	Code  int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                     `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateCoreHRJobFamilyResp `json:"data,omitempty"`
+	Error *ErrorDetail               `json:"error,omitempty"`
 }

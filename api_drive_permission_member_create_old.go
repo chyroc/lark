@@ -86,7 +86,8 @@ type CreateDriveMemberPermissionOldRespFailMember struct {
 
 // createDriveMemberPermissionOldResp ...
 type createDriveMemberPermissionOldResp struct {
-	Code int64                               `json:"code,omitempty"`
-	Msg  string                              `json:"msg,omitempty"`
-	Data *CreateDriveMemberPermissionOldResp `json:"data,omitempty"`
+	Code  int64                               `json:"code,omitempty"`
+	Msg   string                              `json:"msg,omitempty"`
+	Data  *CreateDriveMemberPermissionOldResp `json:"data,omitempty"`
+	Error *ErrorDetail                        `json:"error,omitempty"`
 }

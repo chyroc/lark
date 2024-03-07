@@ -73,7 +73,8 @@ type GetBotInfoResp struct {
 
 // getBotInfoResp ...
 type getBotInfoResp struct {
-	Code int64           `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string          `json:"msg,omitempty"`  // 错误描述
-	Data *GetBotInfoResp `json:"bot,omitempty"`  // 机器人信息
+	Code  int64           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string          `json:"msg,omitempty"`  // 错误描述
+	Data  *GetBotInfoResp `json:"bot,omitempty"`  // 机器人信息
+	Error *ErrorDetail    `json:"error,omitempty"`
 }

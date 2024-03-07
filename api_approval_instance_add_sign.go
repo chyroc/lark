@@ -74,7 +74,8 @@ type AddApprovalInstanceSignResp struct {
 
 // addApprovalInstanceSignResp ...
 type addApprovalInstanceSignResp struct {
-	Code int64                        `json:"code,omitempty"` // 错误码, 非0表示失败
-	Msg  string                       `json:"msg,omitempty"`  // 返回码的描述
-	Data *AddApprovalInstanceSignResp `json:"data,omitempty"`
+	Code  int64                        `json:"code,omitempty"` // 错误码, 非0表示失败
+	Msg   string                       `json:"msg,omitempty"`  // 返回码的描述
+	Data  *AddApprovalInstanceSignResp `json:"data,omitempty"`
+	Error *ErrorDetail                 `json:"error,omitempty"`
 }

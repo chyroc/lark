@@ -80,7 +80,8 @@ type CreateWikiSpaceRespSpace struct {
 
 // createWikiSpaceResp ...
 type createWikiSpaceResp struct {
-	Code int64                `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string               `json:"msg,omitempty"`  // 错误描述
-	Data *CreateWikiSpaceResp `json:"data,omitempty"`
+	Code  int64                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string               `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateWikiSpaceResp `json:"data,omitempty"`
+	Error *ErrorDetail         `json:"error,omitempty"`
 }

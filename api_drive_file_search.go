@@ -83,7 +83,8 @@ type SearchDriveFileRespDocsEntity struct {
 
 // searchDriveFileResp ...
 type searchDriveFileResp struct {
-	Code int64                `json:"code,omitempty"`
-	Msg  string               `json:"msg,omitempty"`
-	Data *SearchDriveFileResp `json:"data,omitempty"`
+	Code  int64                `json:"code,omitempty"`
+	Msg   string               `json:"msg,omitempty"`
+	Data  *SearchDriveFileResp `json:"data,omitempty"`
+	Error *ErrorDetail         `json:"error,omitempty"`
 }

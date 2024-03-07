@@ -74,7 +74,8 @@ type GetApplicationAppAdminUserListRespUser struct {
 
 // getApplicationAppAdminUserListResp ...
 type getApplicationAppAdminUserListResp struct {
-	Code int64                               `json:"code,omitempty"` // 返回码, 非 0 表示失败
-	Msg  string                              `json:"msg,omitempty"`  // 返回码描述
-	Data *GetApplicationAppAdminUserListResp `json:"data,omitempty"`
+	Code  int64                               `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg   string                              `json:"msg,omitempty"`  // 返回码描述
+	Data  *GetApplicationAppAdminUserListResp `json:"data,omitempty"`
+	Error *ErrorDetail                        `json:"error,omitempty"`
 }

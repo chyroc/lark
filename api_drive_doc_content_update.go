@@ -82,7 +82,8 @@ type UpdateDriveDocContentResp struct {
 
 // updateDriveDocContentResp ...
 type updateDriveDocContentResp struct {
-	Code int64                      `json:"code,omitempty"`
-	Msg  string                     `json:"msg,omitempty"`
-	Data *UpdateDriveDocContentResp `json:"data,omitempty"`
+	Code  int64                      `json:"code,omitempty"`
+	Msg   string                     `json:"msg,omitempty"`
+	Data  *UpdateDriveDocContentResp `json:"data,omitempty"`
+	Error *ErrorDetail               `json:"error,omitempty"`
 }

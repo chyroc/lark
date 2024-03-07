@@ -79,7 +79,8 @@ type DeleteDriveSheetFileResp struct {
 
 // deleteDriveSheetFileResp ...
 type deleteDriveSheetFileResp struct {
-	Code int64                     `json:"code,omitempty"`
-	Msg  string                    `json:"msg,omitempty"`
-	Data *DeleteDriveSheetFileResp `json:"data,omitempty"`
+	Code  int64                     `json:"code,omitempty"`
+	Msg   string                    `json:"msg,omitempty"`
+	Data  *DeleteDriveSheetFileResp `json:"data,omitempty"`
+	Error *ErrorDetail              `json:"error,omitempty"`
 }

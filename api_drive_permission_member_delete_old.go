@@ -71,7 +71,8 @@ type DeleteDriveMemberPermissionOldResp struct {
 
 // deleteDriveMemberPermissionOldResp ...
 type deleteDriveMemberPermissionOldResp struct {
-	Code int64                               `json:"code,omitempty"`
-	Msg  string                              `json:"msg,omitempty"`
-	Data *DeleteDriveMemberPermissionOldResp `json:"data,omitempty"`
+	Code  int64                               `json:"code,omitempty"`
+	Msg   string                              `json:"msg,omitempty"`
+	Data  *DeleteDriveMemberPermissionOldResp `json:"data,omitempty"`
+	Error *ErrorDetail                        `json:"error,omitempty"`
 }

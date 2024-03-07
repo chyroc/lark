@@ -74,7 +74,8 @@ type UpdateApprovalMessageResp struct {
 
 // updateApprovalMessageResp ...
 type updateApprovalMessageResp struct {
-	Code int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                     `json:"msg,omitempty"`  // 返回码的描述
-	Data *UpdateApprovalMessageResp `json:"data,omitempty"` // 返回业务信息
+	Code  int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                     `json:"msg,omitempty"`  // 返回码的描述
+	Data  *UpdateApprovalMessageResp `json:"data,omitempty"` // 返回业务信息
+	Error *ErrorDetail               `json:"error,omitempty"`
 }

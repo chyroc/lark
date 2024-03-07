@@ -80,7 +80,8 @@ type GetJssdkTicketResp struct {
 
 // getJssdkTicketResp ...
 type getJssdkTicketResp struct {
-	Code int64               `json:"code,omitempty"` // 返回码, 非 0 表示失败
-	Msg  string              `json:"msg,omitempty"`  // 对返回码的文本描述
-	Data *GetJssdkTicketResp `json:"data,omitempty"` // 返回内容
+	Code  int64               `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg   string              `json:"msg,omitempty"`  // 对返回码的文本描述
+	Data  *GetJssdkTicketResp `json:"data,omitempty"` // 返回内容
+	Error *ErrorDetail        `json:"error,omitempty"`
 }

@@ -64,9 +64,10 @@ type DownloadCoreHRPersonFileReq struct {
 
 // downloadCoreHRPersonFileResp ...
 type downloadCoreHRPersonFileResp struct {
-	Code int64                         `json:"code,omitempty"`
-	Msg  string                        `json:"msg,omitempty"`
-	Data *DownloadCoreHRPersonFileResp `json:"data,omitempty"`
+	Code  int64                         `json:"code,omitempty"`
+	Msg   string                        `json:"msg,omitempty"`
+	Data  *DownloadCoreHRPersonFileResp `json:"data,omitempty"`
+	Error *ErrorDetail                  `json:"error,omitempty"`
 }
 
 func (r *downloadCoreHRPersonFileResp) SetReader(file io.Reader) {

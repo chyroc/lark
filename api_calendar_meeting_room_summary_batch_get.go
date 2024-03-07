@@ -98,7 +98,8 @@ type BatchGetCalendarMeetingRoomSummaryRespEventInfoVchat struct {
 
 // batchGetCalendarMeetingRoomSummaryResp ...
 type batchGetCalendarMeetingRoomSummaryResp struct {
-	Code int64                                   `json:"code,omitempty"` // 返回码, 非 0 表示失败
-	Msg  string                                  `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
-	Data *BatchGetCalendarMeetingRoomSummaryResp `json:"data,omitempty"` // 返回业务信息
+	Code  int64                                   `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg   string                                  `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
+	Data  *BatchGetCalendarMeetingRoomSummaryResp `json:"data,omitempty"` // 返回业务信息
+	Error *ErrorDetail                            `json:"error,omitempty"`
 }

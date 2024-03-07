@@ -81,7 +81,8 @@ type SearchMessageResp struct {
 
 // searchMessageResp ...
 type searchMessageResp struct {
-	Code int64              `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string             `json:"msg,omitempty"`  // 错误描述
-	Data *SearchMessageResp `json:"data,omitempty"`
+	Code  int64              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string             `json:"msg,omitempty"`  // 错误描述
+	Data  *SearchMessageResp `json:"data,omitempty"`
+	Error *ErrorDetail       `json:"error,omitempty"`
 }

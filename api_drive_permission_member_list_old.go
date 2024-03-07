@@ -81,7 +81,8 @@ type GetDriveMemberPermissionListOldRespMember struct {
 
 // getDriveMemberPermissionListOldResp ...
 type getDriveMemberPermissionListOldResp struct {
-	Code int64                                `json:"code,omitempty"`
-	Msg  string                               `json:"msg,omitempty"`
-	Data *GetDriveMemberPermissionListOldResp `json:"data,omitempty"`
+	Code  int64                                `json:"code,omitempty"`
+	Msg   string                               `json:"msg,omitempty"`
+	Data  *GetDriveMemberPermissionListOldResp `json:"data,omitempty"`
+	Error *ErrorDetail                         `json:"error,omitempty"`
 }

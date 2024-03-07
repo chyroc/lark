@@ -20,43 +20,6 @@ import (
 	"fmt"
 )
 
-// Error ...
-type Error struct {
-	Scope    string
-	FuncName string
-	Code     int64
-	Msg      string
-}
-
-// Error ...
-func (r *Error) Error() string {
-	if r.Code == 0 {
-		return ""
-	}
-	return fmt.Sprintf("request %s#%s failed: code: %d, msg: %s", r.Scope, r.FuncName, r.Code, r.Msg)
-}
-
-// NewError ...
-func NewError(scope, funcName string, code int64, msg string) error {
-	return &Error{
-		Scope:    scope,
-		FuncName: funcName,
-		Code:     code,
-		Msg:      msg,
-	}
-}
-
-// GetErrorCode ...
-func GetErrorCode(err error) int64 {
-	if err != nil {
-		if e, ok := err.(*Error); ok {
-			return e.Code
-		}
-		return -1
-	}
-	return 0
-}
-
 // UnwrapMessageContent 接收消息解析
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/events/message_content
