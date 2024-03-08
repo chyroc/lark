@@ -42,12 +42,12 @@ type EventV2ApprovalApprovalUpdatedV4 struct {
 
 // EventV2ApprovalApprovalUpdatedV4Object ...
 type EventV2ApprovalApprovalUpdatedV4Object struct {
-	ApprovalID       string `json:"approval_id,omitempty"`       // 审批定义id
-	ApprovalCode     string `json:"approval_code,omitempty"`     // 审批定义code
-	VersionID        string `json:"version_id,omitempty"`        // 审批定义版本号
-	WidgetGroupType  int64  `json:"widget_group_type,omitempty"` // 控件组类型, 0表示未使用. 如: 0
-	FormDefinitionID string `json:"FormDefinitionId,omitempty"`  // 表单定义ID
-	ProcessObj       string `json:"process_obj,omitempty"`       // 审批流程设计
-	Timestamp        string `json:"timestamp,omitempty"`         // 时间
-	Extra            string `json:"extra,omitempty"`             // 扩展字段
+	ApprovalID       string `json:"approval_id,omitempty"`        // 审批定义id
+	ApprovalCode     string `json:"approval_code,omitempty"`      // 审批定义code
+	VersionID        string `json:"version_id,omitempty"`         // 审批定义版本号
+	WidgetGroupType  int64  `json:"widget_group_type,omitempty"`  // 控件组类型, 0表示未使用. 如: 0
+	FormDefinitionID string `json:"form_definition_id,omitempty"` // 表单定义ID
+	ProcessObj       string `json:"process_obj,omitempty"`        // 审批流程设计
+	Timestamp        string `json:"timestamp,omitempty"`          // 时间
+	Extra            string `json:"extra,omitempty"`              // 扩展字段
 }

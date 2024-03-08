@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetDriveCommentList 该接口用于根据云文档 Token 分页获取文档所有评论信息, 包括评论和回复 ID、回复的内容、评论人和回复人的用户 ID 等。该接口支持返回全局评论以及局部评论。默认每页返回 50 个评论。
+// GetDriveCommentList 该接口用于根据云文档 Token 分页获取文档所有评论信息, 包括评论和回复 ID、回复的内容、评论人和回复人的用户 ID 等。该接口支持返回全局评论以及局部评论（可通过 is_whole 字段区分）。默认每页返回 50 个评论。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment/list
 // new doc: https://open.feishu.cn/document/server-docs/docs/CommentAPI/list

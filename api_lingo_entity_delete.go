@@ -40,7 +40,6 @@ func (r *LingoService) DeleteLingoEntity(ctx context.Context, request *DeleteLin
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedUserAccessToken:   true,
 	}
 	resp := new(deleteLingoEntityResp)
 
