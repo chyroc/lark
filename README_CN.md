@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 1016, 事件总数: 143
+API 总数: 1016, 事件总数: 146
 
 <details>
   <summary>
@@ -737,6 +737,9 @@ API 总数: 1016, 事件总数: 143
 - Event
   - GetEventOutboundIpList
 - EventCallback
+  - EventV2ElearningCourseRegistrationCreatedV2
+  - EventV2ElearningCourseRegistrationUpdatedV2
+  - EventV2ElearningCourseRegistrationDeletedV2
   - EventV2URLPreviewGet
   - EventV2HireApplicationStageChangedV1
   - EventV2HireApplicationDeletedV1

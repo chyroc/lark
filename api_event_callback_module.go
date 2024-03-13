@@ -118,6 +118,9 @@ const (
 	EventTypeV2DriveFileReadV1                                 EventType = "drive.file.read_v1"
 	EventTypeV2DriveFileTitleUpdatedV1                         EventType = "drive.file.title_updated_v1"
 	EventTypeV2DriveFileTrashedV1                              EventType = "drive.file.trashed_v1"
+	EventTypeV2ElearningCourseRegistrationCreatedV2            EventType = "elearning.course_registration.created_v2"
+	EventTypeV2ElearningCourseRegistrationDeletedV2            EventType = "elearning.course_registration.deleted_v2"
+	EventTypeV2ElearningCourseRegistrationUpdatedV2            EventType = "elearning.course_registration.updated_v2"
 	EventTypeV2HelpdeskNotificationApproveV1                   EventType = "helpdesk.notification.approve_v1"
 	EventTypeV2HelpdeskTicketCreatedV1                         EventType = "helpdesk.ticket.created_v1"
 	EventTypeV2HelpdeskTicketMessageCreatedV1                  EventType = "helpdesk.ticket_message.created_v1"
@@ -265,6 +268,9 @@ type eventHandler struct {
 	eventV2DriveFileReadV1Handler                                 EventV2DriveFileReadV1Handler
 	eventV2DriveFileTitleUpdatedV1Handler                         EventV2DriveFileTitleUpdatedV1Handler
 	eventV2DriveFileTrashedV1Handler                              EventV2DriveFileTrashedV1Handler
+	eventV2ElearningCourseRegistrationCreatedV2Handler            EventV2ElearningCourseRegistrationCreatedV2Handler
+	eventV2ElearningCourseRegistrationDeletedV2Handler            EventV2ElearningCourseRegistrationDeletedV2Handler
+	eventV2ElearningCourseRegistrationUpdatedV2Handler            EventV2ElearningCourseRegistrationUpdatedV2Handler
 	eventV2HelpdeskNotificationApproveV1Handler                   EventV2HelpdeskNotificationApproveV1Handler
 	eventV2HelpdeskTicketCreatedV1Handler                         EventV2HelpdeskTicketCreatedV1Handler
 	eventV2HelpdeskTicketMessageCreatedV1Handler                  EventV2HelpdeskTicketMessageCreatedV1Handler
@@ -413,6 +419,9 @@ func (r *eventHandler) clone() *eventHandler {
 		eventV2DriveFileReadV1Handler:                                 r.eventV2DriveFileReadV1Handler,
 		eventV2DriveFileTitleUpdatedV1Handler:                         r.eventV2DriveFileTitleUpdatedV1Handler,
 		eventV2DriveFileTrashedV1Handler:                              r.eventV2DriveFileTrashedV1Handler,
+		eventV2ElearningCourseRegistrationCreatedV2Handler:            r.eventV2ElearningCourseRegistrationCreatedV2Handler,
+		eventV2ElearningCourseRegistrationDeletedV2Handler:            r.eventV2ElearningCourseRegistrationDeletedV2Handler,
+		eventV2ElearningCourseRegistrationUpdatedV2Handler:            r.eventV2ElearningCourseRegistrationUpdatedV2Handler,
 		eventV2HelpdeskNotificationApproveV1Handler:                   r.eventV2HelpdeskNotificationApproveV1Handler,
 		eventV2HelpdeskTicketCreatedV1Handler:                         r.eventV2HelpdeskTicketCreatedV1Handler,
 		eventV2HelpdeskTicketMessageCreatedV1Handler:                  r.eventV2HelpdeskTicketMessageCreatedV1Handler,
@@ -560,6 +569,9 @@ type eventBody struct {
 	eventV2DriveFileReadV1                                 *EventV2DriveFileReadV1
 	eventV2DriveFileTitleUpdatedV1                         *EventV2DriveFileTitleUpdatedV1
 	eventV2DriveFileTrashedV1                              *EventV2DriveFileTrashedV1
+	eventV2ElearningCourseRegistrationCreatedV2            *EventV2ElearningCourseRegistrationCreatedV2
+	eventV2ElearningCourseRegistrationDeletedV2            *EventV2ElearningCourseRegistrationDeletedV2
+	eventV2ElearningCourseRegistrationUpdatedV2            *EventV2ElearningCourseRegistrationUpdatedV2
 	eventV2HelpdeskNotificationApproveV1                   *EventV2HelpdeskNotificationApproveV1
 	eventV2HelpdeskTicketCreatedV1                         *EventV2HelpdeskTicketCreatedV1
 	eventV2HelpdeskTicketMessageCreatedV1                  *EventV2HelpdeskTicketMessageCreatedV1
@@ -1017,6 +1029,24 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 			return err
 		}
 		req.eventV2DriveFileTrashedV1 = event
+	case EventTypeV2ElearningCourseRegistrationCreatedV2:
+		event := new(EventV2ElearningCourseRegistrationCreatedV2)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ElearningCourseRegistrationCreatedV2 = event
+	case EventTypeV2ElearningCourseRegistrationDeletedV2:
+		event := new(EventV2ElearningCourseRegistrationDeletedV2)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ElearningCourseRegistrationDeletedV2 = event
+	case EventTypeV2ElearningCourseRegistrationUpdatedV2:
+		event := new(EventV2ElearningCourseRegistrationUpdatedV2)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ElearningCourseRegistrationUpdatedV2 = event
 	case EventTypeV2HelpdeskNotificationApproveV1:
 		event := new(EventV2HelpdeskNotificationApproveV1)
 		if err := req.unmarshalEvent(event); err != nil {
@@ -2330,6 +2360,33 @@ func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) 
 				go r.cli.eventHandler.eventV2DriveFileTrashedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFileTrashedV1)
 			} else {
 				s, err = r.cli.eventHandler.eventV2DriveFileTrashedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFileTrashedV1)
+			}
+		}
+		return true, s, err
+	case req.eventV2ElearningCourseRegistrationCreatedV2 != nil:
+		if r.cli.eventHandler.eventV2ElearningCourseRegistrationCreatedV2Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2ElearningCourseRegistrationCreatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ElearningCourseRegistrationCreatedV2)
+			} else {
+				s, err = r.cli.eventHandler.eventV2ElearningCourseRegistrationCreatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ElearningCourseRegistrationCreatedV2)
+			}
+		}
+		return true, s, err
+	case req.eventV2ElearningCourseRegistrationDeletedV2 != nil:
+		if r.cli.eventHandler.eventV2ElearningCourseRegistrationDeletedV2Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2ElearningCourseRegistrationDeletedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ElearningCourseRegistrationDeletedV2)
+			} else {
+				s, err = r.cli.eventHandler.eventV2ElearningCourseRegistrationDeletedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ElearningCourseRegistrationDeletedV2)
+			}
+		}
+		return true, s, err
+	case req.eventV2ElearningCourseRegistrationUpdatedV2 != nil:
+		if r.cli.eventHandler.eventV2ElearningCourseRegistrationUpdatedV2Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2ElearningCourseRegistrationUpdatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ElearningCourseRegistrationUpdatedV2)
+			} else {
+				s, err = r.cli.eventHandler.eventV2ElearningCourseRegistrationUpdatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2ElearningCourseRegistrationUpdatedV2)
 			}
 		}
 		return true, s, err

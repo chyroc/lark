@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 1016, Event Count: 143
+API Count: 1016, Event Count: 146
 
 <details>
   <summary>
@@ -737,6 +737,9 @@ API Count: 1016, Event Count: 143
 - Event
   - GetEventOutboundIpList
 - EventCallback
+  - EventV2ElearningCourseRegistrationCreatedV2
+  - EventV2ElearningCourseRegistrationUpdatedV2
+  - EventV2ElearningCourseRegistrationDeletedV2
   - EventV2URLPreviewGet
   - EventV2HireApplicationStageChangedV1
   - EventV2HireApplicationDeletedV1
