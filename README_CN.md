@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 1015, 事件总数: 142
+API 总数: 1016, 事件总数: 143
 
 <details>
   <summary>
@@ -61,6 +61,7 @@ API 总数: 1015, 事件总数: 142
   - GetACSAccessRecordList
   - GetACSAccessRecordPhoto
 - AI
+  - ParseAIResume
   - RecognizeAIVehicleInvoice
   - RecognizeAIHealthCertificate
   - RecognizeAIHkmMainlandTravelPermit
@@ -736,6 +737,7 @@ API 总数: 1015, 事件总数: 142
 - Event
   - GetEventOutboundIpList
 - EventCallback
+  - EventV2URLPreviewGet
   - EventV2HireApplicationStageChangedV1
   - EventV2HireApplicationDeletedV1
   - EventV2CorehrJobCreatedV1

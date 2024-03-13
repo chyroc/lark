@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 1015, Event Count: 142
+API Count: 1016, Event Count: 143
 
 <details>
   <summary>
@@ -61,6 +61,7 @@ API Count: 1015, Event Count: 142
   - GetACSAccessRecordList
   - GetACSAccessRecordPhoto
 - AI
+  - ParseAIResume
   - RecognizeAIVehicleInvoice
   - RecognizeAIHealthCertificate
   - RecognizeAIHkmMainlandTravelPermit
@@ -736,6 +737,7 @@ API Count: 1015, Event Count: 142
 - Event
   - GetEventOutboundIpList
 - EventCallback
+  - EventV2URLPreviewGet
   - EventV2HireApplicationStageChangedV1
   - EventV2HireApplicationDeletedV1
   - EventV2CorehrJobCreatedV1

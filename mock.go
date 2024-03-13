@@ -40,6 +40,7 @@ type Mock struct {
 	mockACSGetACSDeviceList                                    func(ctx context.Context, request *GetACSDeviceListReq, options ...MethodOptionFunc) (*GetACSDeviceListResp, *Response, error)
 	mockACSGetACSAccessRecordList                              func(ctx context.Context, request *GetACSAccessRecordListReq, options ...MethodOptionFunc) (*GetACSAccessRecordListResp, *Response, error)
 	mockACSGetACSAccessRecordPhoto                             func(ctx context.Context, request *GetACSAccessRecordPhotoReq, options ...MethodOptionFunc) (*GetACSAccessRecordPhotoResp, *Response, error)
+	mockAIParseAIResume                                        func(ctx context.Context, request *ParseAIResumeReq, options ...MethodOptionFunc) (*ParseAIResumeResp, *Response, error)
 	mockAIRecognizeAIVehicleInvoice                            func(ctx context.Context, request *RecognizeAIVehicleInvoiceReq, options ...MethodOptionFunc) (*RecognizeAIVehicleInvoiceResp, *Response, error)
 	mockAIRecognizeAIHealthCertificate                         func(ctx context.Context, request *RecognizeAIHealthCertificateReq, options ...MethodOptionFunc) (*RecognizeAIHealthCertificateResp, *Response, error)
 	mockAIRecognizeAIHkmMainlandTravelPermit                   func(ctx context.Context, request *RecognizeAIHkmMainlandTravelPermitReq, options ...MethodOptionFunc) (*RecognizeAIHkmMainlandTravelPermitResp, *Response, error)
