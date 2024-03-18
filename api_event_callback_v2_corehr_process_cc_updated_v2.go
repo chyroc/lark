@@ -36,5 +36,5 @@ type EventV2CorehrProcessCcUpdatedV2 struct {
 	ProcessID  string `json:"process_id,omitempty"`  // 流程实例ID
 	ApproverID string `json:"approver_id,omitempty"` // 抄送单据ID
 	Status     int64  `json:"status,omitempty"`      // 单据状态, 可选值有: 5: 抄送到达
-	BizType    string `json:"biz_type,omitempty"`    // 业务类型, 长度范围: `1` ～ `200` 字符
+	BizType    string `json:"biz_type,omitempty"`    // 业务类型, 详情请查看[业务类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process-approver/events/biz-type), 长度范围: `1` ～ `200` 字符
 }

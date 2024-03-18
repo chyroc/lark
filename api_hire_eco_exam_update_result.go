@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UpdateHiredEcoExamResult 回传笔试结果
+// UpdateHiredEcoExamResult 回传笔试结果。回传笔试结果后, 若需更新笔试结果, 可再次调用该接口更新笔试结果, 更新后的数据将覆盖原数据。用户若已在飞书招聘完成阅卷, 不再支持回传笔试结果。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_exam/update_result
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/ecological-docking/eco_exam/update_result

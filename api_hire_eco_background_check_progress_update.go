@@ -63,6 +63,7 @@ type UpdateHireEcoBackgroundCheckProgressReq struct {
 	StageEnName       *string                                              `json:"stage_en_name,omitempty"`       // 背调阶段英文名称, 示例值: "stage report"
 	StageName         string                                               `json:"stage_name,omitempty"`          // 背调阶段名称, 示例值: "阶段报告"
 	StageTime         string                                               `json:"stage_time,omitempty"`          // 阶段进度更新时间。 毫秒级时间戳, 每次调用此字段应严格递增, 示例值: "1660123456789"
+	Result            *string                                              `json:"result,omitempty"`              // 背调结果（阶段性背调结果）, 注意: 若需回传该字段, report_file_list为必填, 示例值: "通过"
 	ReportFileList    []*UpdateHireEcoBackgroundCheckProgressReqReportFile `json:"report_file_list,omitempty"`    // 报告列表
 }
 

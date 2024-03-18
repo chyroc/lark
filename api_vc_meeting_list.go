@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetVCMeetingList 查询会议明细, 具体权限要求请参考「资源介绍」, 支持查询最近半年的数据。
+// GetVCMeetingList 查询会议明细, 具体权限要求请参考[资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting-room-data/resource-introduction)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting_list/get
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/meeting-room-data/get
@@ -61,7 +61,7 @@ func (r *Mock) UnMockVCGetVCMeetingList() {
 type GetVCMeetingListReq struct {
 	StartTime     string  `query:"start_time" json:"-"`     // 查询开始时间（unix时间, 单位sec）, 示例值: 1655276858
 	EndTime       string  `query:"end_time" json:"-"`       // 查询结束时间（unix时间, 单位sec）, 示例值: 1655276858
-	MeetingStatus *int64  `query:"meeting_status" json:"-"` // 会议状态, 示例值: 2, 可选值有: 1: 进行中, 2: 已结束
+	MeetingStatus *int64  `query:"meeting_status" json:"-"` // 会议状态（不传默认为已结束会议）, 示例值: 2, 可选值有: 1: 进行中, 2: 已结束
 	MeetingNo     *string `query:"meeting_no" json:"-"`     // 按9位会议号筛选（最多一个筛选条件）, 示例值: 123456789
 	UserID        *string `query:"user_id" json:"-"`        // 按参会Lark用户筛选（最多一个筛选条件）, 示例值: ou_3ec3f6a28a0d08c45d895276e8e5e19b
 	RoomID        *string `query:"room_id" json:"-"`        // 按参会Rooms筛选（最多一个筛选条件）, 示例值: omm_eada1d61a550955240c28757e7dec3af

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetVCParticipantList 查询参会人明细, 具体权限要求请参考「资源介绍」, 支持查询最近半年的数据。
+// GetVCParticipantList 查询参会人明细, 具体权限要求请参考[资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting-room-data/resource-introduction)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/participant_list/get
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/meeting-room-data/get-2
@@ -59,8 +59,8 @@ func (r *Mock) UnMockVCGetVCParticipantList() {
 
 // GetVCParticipantListReq ...
 type GetVCParticipantListReq struct {
-	MeetingStartTime string  `query:"meeting_start_time" json:"-"` // 会议开始时间（需要精确到一分钟, unix时间, 单位sec）, 示例值: 1655276858
-	MeetingEndTime   string  `query:"meeting_end_time" json:"-"`   // 会议结束时间（unix时间, 单位sec）, 示例值: 1655276858
+	MeetingStartTime string  `query:"meeting_start_time" json:"-"` // 会议开始时间（unix时间, 单位sec）, 示例值: 1655276858
+	MeetingEndTime   string  `query:"meeting_end_time" json:"-"`   // 会议结束时间（unix时间, 单位sec, 若是进行中会议可填当前时间, 否则填准确的会议结束时间）, 示例值: 1655276858
 	MeetingStatus    *int64  `query:"meeting_status" json:"-"`     // 会议状态（不传默认为已结束会议）, 示例值: 2, 可选值有: 1: 进行中, 2: 已结束
 	MeetingNo        string  `query:"meeting_no" json:"-"`         // 9位会议号, 示例值: 123456789
 	UserID           *string `query:"user_id" json:"-"`            // 按参会Lark用户筛选（最多一个筛选条件）, 示例值: ou_3ec3f6a28a0d08c45d895276e8e5e19b

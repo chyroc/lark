@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2CorehrProcessUpdatedV2 发起流程后会生成一个流程实例（process_id 是唯一标识）{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v2&resource=process&event=updated)
+// EventV2CorehrProcessUpdatedV2 发起流程后会生成一个流程实例（process_id 是唯一标识）。流程中有审批人操作、流程数据更新、流程状态变化等都会触发事件, 比如流程发起后, 创建流程实例并生成节点每个人的待办任务, 可能会触发多条事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v2&resource=process&event=updated)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/events/updated
 func (r *EventCallbackService) HandlerEventV2CorehrProcessUpdatedV2(f EventV2CorehrProcessUpdatedV2Handler) {
@@ -35,5 +35,5 @@ type EventV2CorehrProcessUpdatedV2Handler func(ctx context.Context, cli *Lark, s
 type EventV2CorehrProcessUpdatedV2 struct {
 	ProcessID string `json:"process_id,omitempty"` // 流程实例ID
 	Status    int64  `json:"status,omitempty"`     // 变更后状态: 1 发起/进行中, 9 完成, 2拒绝, 4 撤回, 8 撤销, 可选值有: 1: 发起/进行中, 9: 完成, 2: 拒绝, 4: 撤回, 8: 撤销
-	BizType   string `json:"biz_type,omitempty"`   // 业务类型, 长度范围: `1` ～ `200` 字符
+	BizType   string `json:"biz_type,omitempty"`   // 业务类型, 详情请查看[业务类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process-approver/events/biz-type), 长度范围: `1` ～ `200` 字符
 }

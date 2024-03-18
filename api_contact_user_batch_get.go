@@ -79,9 +79,19 @@ type BatchGetUserByIDResp struct {
 
 // BatchGetUserByIDRespUser ...
 type BatchGetUserByIDRespUser struct {
-	UserID string `json:"user_id,omitempty"` // 用户id, 值为user_id_type所指定的类型。如果查询的手机号、邮箱不存在, 或者无权限查看对应的用户, 则不返回此项。
-	Mobile string `json:"mobile,omitempty"`  // 手机号, 通过手机号查询时返回
-	Email  string `json:"email,omitempty"`   // 邮箱, 通过邮箱查询时返回
+	UserID string                          `json:"user_id,omitempty"` // 用户id, 值为user_id_type所指定的类型。如果查询的手机号、邮箱不存在, 或者无权限查看对应的用户, 则不返回此项。
+	Mobile string                          `json:"mobile,omitempty"`  // 手机号, 通过手机号查询时返回
+	Email  string                          `json:"email,omitempty"`   // 邮箱, 通过邮箱查询时返回
+	Status *BatchGetUserByIDRespUserStatus `json:"status,omitempty"`  // 用户状态, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户受雇信息, 以应用身份访问通讯录, 读取通讯录
+}
+
+// BatchGetUserByIDRespUserStatus ...
+type BatchGetUserByIDRespUserStatus struct {
+	IsFrozen    bool `json:"is_frozen,omitempty"`    // 是否冻结
+	IsResigned  bool `json:"is_resigned,omitempty"`  // 是否离职
+	IsActivated bool `json:"is_activated,omitempty"` // 是否激活
+	IsExited    bool `json:"is_exited,omitempty"`    // 是否主动退出, 主动退出一段时间后用户会自动转为已离职
+	IsUnjoin    bool `json:"is_unjoin,omitempty"`    // 是否未加入, 需要用户自主确认才能加入团队
 }
 
 // batchGetUserByIDResp ...

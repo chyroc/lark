@@ -80,7 +80,7 @@ type CreateHireJobReq struct {
 	MaxSalary                     *int64                            `json:"max_salary,omitempty"`                       // 最高薪资, 单位: k, 示例值: 2000
 	Requirement                   *string                           `json:"requirement,omitempty"`                      // 职位要求, 示例值: "熟悉后端研发"
 	Description                   *string                           `json:"description,omitempty"`                      // 职位描述, 示例值: "后端研发岗位描述"
-	HighlightList                 []string                          `json:"highlight_list,omitempty"`                   // 职位亮点, 示例值: ["免费三餐"]
+	HighlightList                 []string                          `json:"highlight_list,omitempty"`                   // 职位亮点, 可参考招聘[枚举常量介绍](, https://open.feishu.cn/document/server-docs/hire-v1/enum), 示例值: ["6732430418202593547"]
 	JobTypeID                     string                            `json:"job_type_id,omitempty"`                      // 职位类别, 枚举可通过[「获取职位类别列表」](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_type/list)获取, 示例值: "6960663240925956551"
 	MaxLevelID                    *string                           `json:"max_level_id,omitempty"`                     // 最高职级, 枚举通过接口「获取职级列表」获取, 示例值: "6960663240925956548"
 	RecruitmentTypeID             string                            `json:"recruitment_type_id,omitempty"`              // 雇佣类型, 社招: 101-全职  102-外包 103-劳务 105-顾问 301-实习, 校招: 201-正式 202-实习, 示例值: "102"
