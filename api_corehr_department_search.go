@@ -97,7 +97,7 @@ type SearchCoreHRDepartmentRespItem struct {
 	Active             bool                                            `json:"active,omitempty"`               // 是否启用
 	Description        []*SearchCoreHRDepartmentRespItemDescription    `json:"description,omitempty"`          // 描述
 	CustomFields       []*SearchCoreHRDepartmentRespItemCustomField    `json:"custom_fields,omitempty"`        // 自定义字段, 字段权限要求: 获取部门自定义字段
-	StaffingModel      *SearchCoreHRDepartmentRespItemStaffingModel    `json:"staffing_model,omitempty"`       // 是否使用职务
+	StaffingModel      *SearchCoreHRDepartmentRespItemStaffingModel    `json:"staffing_model,omitempty"`       // 是否使用职务, （功能灰度中, 暂未开放）
 }
 
 // SearchCoreHRDepartmentRespItemCustomField ...

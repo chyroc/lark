@@ -108,9 +108,11 @@ const (
 	EventTypeV2CorehrProbationUpdatedV2                        EventType = "corehr.probation.updated_v2"
 	EventTypeV2CorehrProcessApproverUpdatedV2                  EventType = "corehr.process.approver.updated_v2"
 	EventTypeV2CorehrProcessCcUpdatedV2                        EventType = "corehr.process.cc.updated_v2"
+	EventTypeV2CorehrProcessNodeUpdatedV2                      EventType = "corehr.process.node.updated_v2"
 	EventTypeV2CorehrProcessUpdatedV2                          EventType = "corehr.process.updated_v2"
 	EventTypeV2DriveFileBitableFieldChangedV1                  EventType = "drive.file.bitable_field_changed_v1"
 	EventTypeV2DriveFileBitableRecordChangedV1                 EventType = "drive.file.bitable_record_changed_v1"
+	EventTypeV2DriveFileCreatedInFolderV1                      EventType = "drive.file.created_in_folder_v1"
 	EventTypeV2DriveFileDeletedV1                              EventType = "drive.file.deleted_v1"
 	EventTypeV2DriveFileEditV1                                 EventType = "drive.file.edit_v1"
 	EventTypeV2DriveFilePermissionMemberAddedV1                EventType = "drive.file.permission_member_added_v1"
@@ -258,9 +260,11 @@ type eventHandler struct {
 	eventV2CorehrProbationUpdatedV2Handler                        EventV2CorehrProbationUpdatedV2Handler
 	eventV2CorehrProcessApproverUpdatedV2Handler                  EventV2CorehrProcessApproverUpdatedV2Handler
 	eventV2CorehrProcessCcUpdatedV2Handler                        EventV2CorehrProcessCcUpdatedV2Handler
+	eventV2CorehrProcessNodeUpdatedV2Handler                      EventV2CorehrProcessNodeUpdatedV2Handler
 	eventV2CorehrProcessUpdatedV2Handler                          EventV2CorehrProcessUpdatedV2Handler
 	eventV2DriveFileBitableFieldChangedV1Handler                  EventV2DriveFileBitableFieldChangedV1Handler
 	eventV2DriveFileBitableRecordChangedV1Handler                 EventV2DriveFileBitableRecordChangedV1Handler
+	eventV2DriveFileCreatedInFolderV1Handler                      EventV2DriveFileCreatedInFolderV1Handler
 	eventV2DriveFileDeletedV1Handler                              EventV2DriveFileDeletedV1Handler
 	eventV2DriveFileEditV1Handler                                 EventV2DriveFileEditV1Handler
 	eventV2DriveFilePermissionMemberAddedV1Handler                EventV2DriveFilePermissionMemberAddedV1Handler
@@ -409,9 +413,11 @@ func (r *eventHandler) clone() *eventHandler {
 		eventV2CorehrProbationUpdatedV2Handler:                        r.eventV2CorehrProbationUpdatedV2Handler,
 		eventV2CorehrProcessApproverUpdatedV2Handler:                  r.eventV2CorehrProcessApproverUpdatedV2Handler,
 		eventV2CorehrProcessCcUpdatedV2Handler:                        r.eventV2CorehrProcessCcUpdatedV2Handler,
+		eventV2CorehrProcessNodeUpdatedV2Handler:                      r.eventV2CorehrProcessNodeUpdatedV2Handler,
 		eventV2CorehrProcessUpdatedV2Handler:                          r.eventV2CorehrProcessUpdatedV2Handler,
 		eventV2DriveFileBitableFieldChangedV1Handler:                  r.eventV2DriveFileBitableFieldChangedV1Handler,
 		eventV2DriveFileBitableRecordChangedV1Handler:                 r.eventV2DriveFileBitableRecordChangedV1Handler,
+		eventV2DriveFileCreatedInFolderV1Handler:                      r.eventV2DriveFileCreatedInFolderV1Handler,
 		eventV2DriveFileDeletedV1Handler:                              r.eventV2DriveFileDeletedV1Handler,
 		eventV2DriveFileEditV1Handler:                                 r.eventV2DriveFileEditV1Handler,
 		eventV2DriveFilePermissionMemberAddedV1Handler:                r.eventV2DriveFilePermissionMemberAddedV1Handler,
@@ -559,9 +565,11 @@ type eventBody struct {
 	eventV2CorehrProbationUpdatedV2                        *EventV2CorehrProbationUpdatedV2
 	eventV2CorehrProcessApproverUpdatedV2                  *EventV2CorehrProcessApproverUpdatedV2
 	eventV2CorehrProcessCcUpdatedV2                        *EventV2CorehrProcessCcUpdatedV2
+	eventV2CorehrProcessNodeUpdatedV2                      *EventV2CorehrProcessNodeUpdatedV2
 	eventV2CorehrProcessUpdatedV2                          *EventV2CorehrProcessUpdatedV2
 	eventV2DriveFileBitableFieldChangedV1                  *EventV2DriveFileBitableFieldChangedV1
 	eventV2DriveFileBitableRecordChangedV1                 *EventV2DriveFileBitableRecordChangedV1
+	eventV2DriveFileCreatedInFolderV1                      *EventV2DriveFileCreatedInFolderV1
 	eventV2DriveFileDeletedV1                              *EventV2DriveFileDeletedV1
 	eventV2DriveFileEditV1                                 *EventV2DriveFileEditV1
 	eventV2DriveFilePermissionMemberAddedV1                *EventV2DriveFilePermissionMemberAddedV1
@@ -969,6 +977,12 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 			return err
 		}
 		req.eventV2CorehrProcessCcUpdatedV2 = event
+	case EventTypeV2CorehrProcessNodeUpdatedV2:
+		event := new(EventV2CorehrProcessNodeUpdatedV2)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrProcessNodeUpdatedV2 = event
 	case EventTypeV2CorehrProcessUpdatedV2:
 		event := new(EventV2CorehrProcessUpdatedV2)
 		if err := req.unmarshalEvent(event); err != nil {
@@ -987,6 +1001,12 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 			return err
 		}
 		req.eventV2DriveFileBitableRecordChangedV1 = event
+	case EventTypeV2DriveFileCreatedInFolderV1:
+		event := new(EventV2DriveFileCreatedInFolderV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2DriveFileCreatedInFolderV1 = event
 	case EventTypeV2DriveFileDeletedV1:
 		event := new(EventV2DriveFileDeletedV1)
 		if err := req.unmarshalEvent(event); err != nil {
@@ -2273,6 +2293,15 @@ func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) 
 			}
 		}
 		return true, s, err
+	case req.eventV2CorehrProcessNodeUpdatedV2 != nil:
+		if r.cli.eventHandler.eventV2CorehrProcessNodeUpdatedV2Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CorehrProcessNodeUpdatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrProcessNodeUpdatedV2)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CorehrProcessNodeUpdatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrProcessNodeUpdatedV2)
+			}
+		}
+		return true, s, err
 	case req.eventV2CorehrProcessUpdatedV2 != nil:
 		if r.cli.eventHandler.eventV2CorehrProcessUpdatedV2Handler != nil {
 			if r.cli.noBlocking {
@@ -2297,6 +2326,15 @@ func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) 
 				go r.cli.eventHandler.eventV2DriveFileBitableRecordChangedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFileBitableRecordChangedV1)
 			} else {
 				s, err = r.cli.eventHandler.eventV2DriveFileBitableRecordChangedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFileBitableRecordChangedV1)
+			}
+		}
+		return true, s, err
+	case req.eventV2DriveFileCreatedInFolderV1 != nil:
+		if r.cli.eventHandler.eventV2DriveFileCreatedInFolderV1Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2DriveFileCreatedInFolderV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFileCreatedInFolderV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2DriveFileCreatedInFolderV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2DriveFileCreatedInFolderV1)
 			}
 		}
 		return true, s, err

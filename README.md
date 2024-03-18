@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 1016, Event Count: 146
+API Count: 1016, Event Count: 148
 
 <details>
   <summary>
@@ -747,28 +747,36 @@ API Count: 1016, Event Count: 146
   - EventV2CorehrJobUpdatedV1
   - EventV2CorehrJobDeletedV1
   - EventV2CorehrProcessUpdatedV2
-  - EventV2CorehrProcessCcUpdatedV2
+  - EventV2CorehrProcessNodeUpdatedV2
   - EventV2CorehrProcessApproverUpdatedV2
-  - EventV2ApplicationApplicationAppVersionAuditV6
+  - EventV2CorehrProcessCcUpdatedV2
+  - EventV2ContactCustomAttrEventUpdatedV3
+  - EventV2ApplicationApplicationCreatedV6
+  - EventV1AppOpen
+  - EventV1AppStatusChange
+  - EventV1OrderPaid
+  - EventV1AppTicket
+  - EventV1AppUninstalled
+  - EventV2ApplicationApplicationVisibilityAddedV6
   - EventV2ApplicationApplicationAppVersionPublishApplyV6
   - EventV2ApplicationApplicationAppVersionPublishRevokeV6
-  - EventV2ApplicationApplicationCreatedV6
-  - EventV2ContactCustomAttrEventUpdatedV3
-  - EventV2DriveFileBitableRecordChangedV1
-  - EventV2DriveFileTitleUpdatedV1
-  - EventV2DriveFileReadV1
-  - EventV2DriveFileEditV1
-  - EventV1AppOpen
+  - EventV2ApplicationApplicationAppVersionAuditV6
   - EventV1OutApproval
   - EventV1RemedyApproval
   - EventV1ShiftApproval
   - EventV1WorkApproval
   - EventV1LeaveApprovalV2
   - EventV1LeaveApprovalRevert
+  - EventV2DriveFileCreatedInFolderV1
+  - EventV2DriveFileBitableFieldChangedV1
+  - EventV2DriveFileBitableRecordChangedV1
+  - EventV2DriveFileTitleUpdatedV1
+  - EventV2DriveFileReadV1
+  - EventV2DriveFileEditV1
   - EventV2DriveFilePermissionMemberAddedV1
+  - EventV2DriveFilePermissionMemberRemovedV1
   - EventV2DriveFileTrashedV1
   - EventV2DriveFileDeletedV1
-  - EventV2DriveFilePermissionMemberRemovedV1
   - EventV2ApprovalApprovalUpdatedV4
   - EventV1ThirdPartyMeetingRoomEventUpdated
   - EventV1ThirdPartyMeetingRoomEventDeleted
@@ -777,11 +785,6 @@ API Count: 1016, Event Count: 146
   - EventV2MeetingRoomMeetingRoomStatusChangedV1
   - EventV2MeetingRoomMeetingRoomDeletedV1
   - EventV1ThirdPartyMeetingRoomEventCreated
-  - EventV1OrderPaid
-  - EventV1AppTicket
-  - EventV1AppUninstalled
-  - EventV1AppStatusChange
-  - EventV2ApplicationApplicationVisibilityAddedV6
   - EventV2ApplicationApplicationFeedbackCreatedV6
   - EventV2ApplicationApplicationFeedbackUpdatedV6
   - EventV2TaskTaskUpdateTenantV1
@@ -846,7 +849,6 @@ API Count: 1016, Event Count: 146
   - EventV2VCRoomCreatedV1
   - EventV2VCRoomDeletedV1
   - EventV2VCRoomUpdatedV1
-  - EventV2DriveFileBitableFieldChangedV1
   - EventV2VCMeetingAllMeetingStartedV1
   - EventV2VCMeetingAllMeetingEndedV1
   - EventV2VCRoomLevelCreatedV1

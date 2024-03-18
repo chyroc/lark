@@ -80,7 +80,7 @@ type SearchBitableRecordReqFilter struct {
 type SearchBitableRecordReqFilterCondition struct {
 	FieldName string   `json:"field_name,omitempty"` // 筛选条件的左值, 值为字段的名称, 示例值: "字段1", 长度范围: `0` ～ `1000` 字符
 	Operator  string   `json:"operator,omitempty"`   // 条件运算符, 示例值: "is", 可选值有: is: 等于, isNot: 不等于, contains: 包含, doesNotContain: 不包含, isEmpty: 为空, isNotEmpty: 不为空, isGreater: 大于, isGreaterEqual: 大于等于, isLess: 小于, isLessEqual: 小于等于, like: like, in: in
-	Value     []string `json:"value,omitempty"`      // 目标值, [目标值填写指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/record-filter-guide), 示例值: ["文本类容"], 长度范围: `0` ～ `10`
+	Value     []string `json:"value,omitempty"`      // 目标值, [目标值填写指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/record-filter-guide), 示例值: ["文本内容"], 长度范围: `0` ～ `10`
 }
 
 // SearchBitableRecordReqSort ...

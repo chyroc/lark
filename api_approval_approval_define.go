@@ -117,7 +117,7 @@ type CreateApprovalReqNode struct {
 
 // CreateApprovalReqNodeApprover ...
 type CreateApprovalReqNodeApprover struct {
-	Type   string  `json:"type,omitempty"`    // 审批/抄送人类型, 1. 当 type 为 Supervisor、SupervisorTopDown、DepartmentManager 、DepartmentManagerTopDown 这 4 种时, 需要在 level 中填写对应的级数, 例如: 由下往上三级主管审批, level = 3；, 2. 当 type 为 Personal 时, 需要填写对应的user_id, 用于指定用户；, 3. 当 approver 为 Free 发起人自选时, 不需要指定 user_id 和level；, 4. ccer不支持 Free 发起人自选, 示例值: "Supervisor", 可选值有: Supervisor: 主管审批（由下往上）, SupervisorTopDown: 主管审批（从上往下）, DepartmentManager: 部门负责人审批（由下往上）, DepartmentManagerTopDown: 部门负责人审批（从上往下）, Personal: 指定成员, Free: 发起人自选
+	Type   string  `json:"type,omitempty"`    // 审批/抄送人类型, 1. 当 type 为 Supervisor、SupervisorTopDown、DepartmentManager 、DepartmentManagerTopDown 这 4 种时, 需要在 level 中填写对应的级数, 例如: 由下往上三级主管审批, level = 3；, 2. 当 type 为 Personal 时, 需要填写对应的user_id, 用于指定用户；, 3. 当 type 为 Free 发起人自选时, 不需要指定 user_id 和level；, 4. ccer不支持 Free 发起人自选, 示例值: "Supervisor", 可选值有: Supervisor: 主管审批（由下往上）, SupervisorTopDown: 主管审批（从上往下）, DepartmentManager: 部门负责人审批（由下往上）, DepartmentManagerTopDown: 部门负责人审批（从上往下）, Personal: 指定成员, Free: 发起人自选
 	UserID *string `json:"user_id,omitempty"` // 用户id, 根据user_id_type填写, 示例值: "f7cb567e"
 	Level  *string `json:"level,omitempty"`   // 审批级数, 当 type 为 Supervisor、SupervisorTopDown、DepartmentManager 、DepartmentManagerTopDown 这 4 种时, 需要在 level 中填写对应的级数, 例如: 由下往上三级主管审批, level = 3, 示例值: "3"
 }
