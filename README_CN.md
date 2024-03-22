@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 1016, 事件总数: 148
+API 总数: 1017, 事件总数: 148
 
 <details>
   <summary>
@@ -496,6 +496,7 @@ API 总数: 1016, 事件总数: 148
   - DeleteCoreHRDepartment
   - UpdateCoreHRDepartment
   - GetCoreHRDepartment
+  - BatchGetCoreHRDepartment
   - GetCoreHRDepartmentList
   - BatchGetCoreHRLocation
   - CreateCoreHRLocation

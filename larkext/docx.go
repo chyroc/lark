@@ -29,7 +29,7 @@ type Docx struct {
 	typ        string
 }
 
-// NewDoc new Docx client
+// NewDocx new Docx client
 func NewDocx(larkClient *lark.Lark, token string) *Docx {
 	return newDocx(larkClient, token, "")
 }
@@ -53,4 +53,12 @@ func (r *Docx) Move(ctx context.Context, folderToken string) (*Task, error) {
 
 func (r *Docx) Delete(ctx context.Context) (*Task, error) {
 	return deleteFile(ctx, r.larkClient, r.token, r.typ)
+}
+
+func (r *Docx) RawContent(ctx context.Context) (string, error) {
+	return r.rawContent(ctx)
+}
+
+func (r *Docx) Blocks(ctx context.Context) ([]*lark.DocxBlock, error) {
+	return r.blocks(ctx)
 }

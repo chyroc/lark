@@ -37,3 +37,38 @@ func (r *Docx) copy(ctx context.Context, folderToken, name string) (*Docx, error
 	}
 	return newDocx(r.larkClient, res.Token, res.URL), nil
 }
+
+func (r *Docx) rawContent(ctx context.Context) (string, error) {
+	resp, _, err := r.larkClient.Drive.GetDocxDocumentRawContent(ctx, &lark.GetDocxDocumentRawContentReq{
+		DocumentID: r.token,
+		Lang:       nil,
+	})
+	if err != nil {
+		return "", err
+	}
+	return resp.Content, nil
+}
+
+func (r *Docx) blocks(ctx context.Context) ([]*lark.DocxBlock, error) {
+	token := ""
+	size := int64(200)
+	blocks := []*lark.DocxBlock{}
+	for {
+		resp, _, err := r.larkClient.Drive.GetDocxBlockListOfDocument(ctx, &lark.GetDocxBlockListOfDocumentReq{
+			DocumentID:         r.token,
+			PageSize:           &size,
+			PageToken:          &token,
+			DocumentRevisionID: nil,
+			UserIDType:         nil,
+		})
+		if err != nil {
+			return nil, err
+		}
+		blocks = append(blocks, resp.Items...)
+		if !resp.HasMore {
+			break
+		}
+		token = resp.PageToken
+	}
+	return blocks, nil
+}

@@ -443,6 +443,7 @@ type Mock struct {
 	mockCoreHRDeleteCoreHRDepartment                           func(ctx context.Context, request *DeleteCoreHRDepartmentReq, options ...MethodOptionFunc) (*DeleteCoreHRDepartmentResp, *Response, error)
 	mockCoreHRUpdateCoreHRDepartment                           func(ctx context.Context, request *UpdateCoreHRDepartmentReq, options ...MethodOptionFunc) (*UpdateCoreHRDepartmentResp, *Response, error)
 	mockCoreHRGetCoreHRDepartment                              func(ctx context.Context, request *GetCoreHRDepartmentReq, options ...MethodOptionFunc) (*GetCoreHRDepartmentResp, *Response, error)
+	mockCoreHRBatchGetCoreHRDepartment                         func(ctx context.Context, request *BatchGetCoreHRDepartmentReq, options ...MethodOptionFunc) (*BatchGetCoreHRDepartmentResp, *Response, error)
 	mockCoreHRGetCoreHRDepartmentList                          func(ctx context.Context, request *GetCoreHRDepartmentListReq, options ...MethodOptionFunc) (*GetCoreHRDepartmentListResp, *Response, error)
 	mockCoreHRBatchGetCoreHRLocation                           func(ctx context.Context, request *BatchGetCoreHRLocationReq, options ...MethodOptionFunc) (*BatchGetCoreHRLocationResp, *Response, error)
 	mockCoreHRCreateCoreHRLocation                             func(ctx context.Context, request *CreateCoreHRLocationReq, options ...MethodOptionFunc) (*CreateCoreHRLocationResp, *Response, error)

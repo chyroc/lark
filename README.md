@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 1016, Event Count: 148
+API Count: 1017, Event Count: 148
 
 <details>
   <summary>
@@ -496,6 +496,7 @@ API Count: 1016, Event Count: 148
   - DeleteCoreHRDepartment
   - UpdateCoreHRDepartment
   - GetCoreHRDepartment
+  - BatchGetCoreHRDepartment
   - GetCoreHRDepartmentList
   - BatchGetCoreHRLocation
   - CreateCoreHRLocation
