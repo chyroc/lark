@@ -154,7 +154,7 @@ type GetCoreHRPersonRespPersonBankAccount struct {
 	CustomFields      []*GetCoreHRPersonRespPersonBankAccountCustomField      `json:"custom_fields,omitempty"`       // 自定义字段
 	CountryRegionID   string                                                  `json:"country_region_id,omitempty"`   // 国家/地区id, 详细信息可通过【查询国家/地区信息】接口查询获得
 	BankAccountUsage  []*GetCoreHRPersonRespPersonBankAccountBankAccountUsage `json:"bank_account_usage,omitempty"`  // 银行卡用途, 枚举值可通过文档【飞书人事枚举常量】银行卡用途（Bank Account Usage）枚举定义部分获得
-	BankAccountType   *GetCoreHRPersonRespPersonBankAccountBankAccountType    `json:"bank_account_type,omitempty"`   // 银行卡类型, 枚举值可通过文档【飞书人事枚举常量】银行卡类型（Bank Account Type）枚举定义部分获得
+	BankAccountType   *GetCoreHRPersonRespPersonBankAccountBankAccountType    `json:"bank_account_type,omitempty"`   // 银行卡类型, 枚举值可通过文档【飞书人事枚举常量】银行卡类型（Bank Account NameType）枚举定义部分获得
 	CurrencyID        string                                                  `json:"currency_id,omitempty"`         // 货币id
 }
 
