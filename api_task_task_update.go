@@ -25,6 +25,8 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/patch
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task/patch
+//
+// Deprecated
 func (r *TaskService) UpdateTask(ctx context.Context, request *UpdateTaskReq, options ...MethodOptionFunc) (*UpdateTaskResp, *Response, error) {
 	if r.cli.mock.mockTaskUpdateTask != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#UpdateTask mock enable")
@@ -76,8 +78,8 @@ type UpdateTaskReqTask struct {
 	Custom          *string                          `json:"custom,omitempty"`           // 自定义完成配置, 此字段用于设置完成任务时的页面跳转, 或展示提示语。详细参见: [任务字段补充说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/Supplementary-directions-of-task-fields), 示例值: "{\"custom_complete\":{\"android\":{\"href\":\"https://www.feishu.cn/\", \"tip\":{\"zh_cn\":\"你好\", \"en_us\":\"hello\"}}, \"ios\":{\"href\":\"https://www.feishu.cn/\", \"tip\":{\"zh_cn\":\"你好\", \"en_us\":\"hello\"}}, \"pc\":{\"href\":\"https://www.feishu.cn/\", \"tip\":{\"zh_cn\":\"你好\", \"en_us\":\"hello\"}}}}", 长度范围: `0` ～ `65536` 字符
 	Followers       []*UpdateTaskReqTaskFollower     `json:"followers,omitempty"`        // 任务的关注者, 示例值: ou_03c21c80caea2c816665f8056dc59027
 	Collaborators   []*UpdateTaskReqTaskCollaborator `json:"collaborators,omitempty"`    // 任务的执行者, 示例值: ou_558d4999baae26e32aa2fd9bb228660b
-	CollaboratorIDs []string                         `json:"collaborator_ids,omitempty"` // 创建任务时添加的执行者用户id列表, 传入的值为 user_id 或 open_id, 由user_id_type 决定。user_id和open_id的获取可见文档: [如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), 示例值: ["ou_49dadcd6fd55da971d887087c4f3a37a"], 最大长度: `100`
-	FollowerIDs     []string                         `json:"follower_ids,omitempty"`     // 创建任务时添加的关注者用户id列表, 传入的值为 user_id 或 open_id, 由user_id_type 决定。user_id和open_id的获取可见文档: [如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), 示例值: ["ou_49dadcd6fd55da971d887087c4f3a37a"], 最大长度: `100`
+	CollaboratorIDs []string                         `json:"collaborator_ids,omitempty"` // 创建任务时添加的执行者用户id列表, 传入的值为 user_id 或 open_id, 由user_id_type 决定。user_id和open_id的获取可见文档: [如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id), 示例值: ["ou_49dadcd6fd55da971d887087c4f3a37a"], 最大长度: `100`
+	FollowerIDs     []string                         `json:"follower_ids,omitempty"`     // 创建任务时添加的关注者用户id列表, 传入的值为 user_id 或 open_id, 由user_id_type 决定。user_id和open_id的获取可见文档: [如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id), 示例值: ["ou_49dadcd6fd55da971d887087c4f3a37a"], 最大长度: `100`
 	RepeatRule      *string                          `json:"repeat_rule,omitempty"`      // 重复任务的规则表达式, 语法格式参见[RRule语法规范](https://www.ietf.org/rfc/rfc2445.txt) 4.3.10小节, 示例值: "FREQ=WEEKLY;INTERVAL=1;BYDAY=MO, TU, WE, TH, FR"
 	RichSummary     *string                          `json:"rich_summary,omitempty"`     // 富文本任务标题。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module), 。创建任务时, 任务标题(summary字段)和任务富文本标题(rich_summary字段)不能同时为空, 需要至少填充其中一个字段, 示例值: "完成本季度OKR编写\[飞书开放平台](https://open.feishu.cn/)", 长度范围: `0` ～ `1000` 字符
 	RichDescription *string                          `json:"rich_description,omitempty"` // 富文本任务备注。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module), 示例值: "对本次会议内容复盘总结, 编写更新本季度OKR\[飞书开放平台](https://open.feishu.cn/)", 长度范围: `0` ～ `65536` 字符
@@ -85,8 +87,8 @@ type UpdateTaskReqTask struct {
 
 // UpdateTaskReqTaskCollaborator ...
 type UpdateTaskReqTaskCollaborator struct {
-	ID     *string  `json:"id,omitempty"`      // 任务执行者的 ID, 传入的值为 user_id 或 open_id, 由user_id_type 决定。user_id和open_id的获取可见文档[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), 已经废弃, 为了向前兼容早期只支持单次添加一个人的情况而保留, 但不再推荐使用, 建议使用id_list字段, 示例值: "ou_99e1a581b36ecc4862cbfbce473f1234"
-	IDList []string `json:"id_list,omitempty"` // 执行者的用户ID列表, 传入的值为 user_id 或 open_id, 由user_id_type 决定。user_id和open_id的获取可见文档[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), 示例值: ["ou_99e1a581b36ecc4862cbfbce473f3123"]
+	ID     *string  `json:"id,omitempty"`      // 任务执行者的 ID, 传入的值为 user_id 或 open_id, 由user_id_type 决定。user_id和open_id的获取可见文档[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id), 已经废弃, 为了向前兼容早期只支持单次添加一个人的情况而保留, 但不再推荐使用, 建议使用id_list字段, 示例值: "ou_99e1a581b36ecc4862cbfbce473f1234"
+	IDList []string `json:"id_list,omitempty"` // 执行者的用户ID列表, 传入的值为 user_id 或 open_id, 由user_id_type 决定。user_id和open_id的获取可见文档[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id), 示例值: ["ou_99e1a581b36ecc4862cbfbce473f3123"]
 }
 
 // UpdateTaskReqTaskDue ...
@@ -135,8 +137,8 @@ type UpdateTaskRespTask struct {
 	Source          int64                             `json:"source,omitempty"`           // 任务创建的来源, 可选值有: 0: 未知类型, 1: 来源任务中心创建, 2: 来源消息转任务, 3: 来源云文档, 4: 来源文档单品, 5: 来源PANO, 6: 来源tenant_access_token创建的任务, 7: 来源user_access_token创建的任务, 8: 来源新版云文档
 	Followers       []*UpdateTaskRespTaskFollower     `json:"followers,omitempty"`        // 任务的关注者
 	Collaborators   []*UpdateTaskRespTaskCollaborator `json:"collaborators,omitempty"`    // 任务的执行者
-	CollaboratorIDs []string                          `json:"collaborator_ids,omitempty"` // 创建任务时添加的执行者用户id列表, 传入的值为 user_id 或 open_id, 由user_id_type 决定。user_id和open_id的获取可见文档: [如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
-	FollowerIDs     []string                          `json:"follower_ids,omitempty"`     // 创建任务时添加的关注者用户id列表, 传入的值为 user_id 或 open_id, 由user_id_type 决定。user_id和open_id的获取可见文档: [如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
+	CollaboratorIDs []string                          `json:"collaborator_ids,omitempty"` // 创建任务时添加的执行者用户id列表, 传入的值为 user_id 或 open_id, 由user_id_type 决定。user_id和open_id的获取可见文档: [如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)。
+	FollowerIDs     []string                          `json:"follower_ids,omitempty"`     // 创建任务时添加的关注者用户id列表, 传入的值为 user_id 或 open_id, 由user_id_type 决定。user_id和open_id的获取可见文档: [如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)。
 	RepeatRule      string                            `json:"repeat_rule,omitempty"`      // 重复任务的规则表达式, 语法格式参见[RRule语法规范](https://www.ietf.org/rfc/rfc2445.txt) 4.3.10小节
 	RichSummary     string                            `json:"rich_summary,omitempty"`     // 富文本任务标题。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module), 。创建任务时, 任务标题(summary字段)和任务富文本标题(rich_summary字段)不能同时为空, 需要至少填充其中一个字段。
 	RichDescription string                            `json:"rich_description,omitempty"` // 富文本任务备注。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
@@ -144,8 +146,8 @@ type UpdateTaskRespTask struct {
 
 // UpdateTaskRespTaskCollaborator ...
 type UpdateTaskRespTaskCollaborator struct {
-	ID     string   `json:"id,omitempty"`      // 任务执行者的 ID, 传入的值为 user_id 或 open_id, 由user_id_type 决定。user_id和open_id的获取可见文档[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), 已经废弃, 为了向前兼容早期只支持单次添加一个人的情况而保留, 但不再推荐使用, 建议使用id_list字段
-	IDList []string `json:"id_list,omitempty"` // 执行者的用户ID列表, 传入的值为 user_id 或 open_id, 由user_id_type 决定。user_id和open_id的获取可见文档[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
+	ID     string   `json:"id,omitempty"`      // 任务执行者的 ID, 传入的值为 user_id 或 open_id, 由user_id_type 决定。user_id和open_id的获取可见文档[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id), 已经废弃, 为了向前兼容早期只支持单次添加一个人的情况而保留, 但不再推荐使用, 建议使用id_list字段
+	IDList []string `json:"id_list,omitempty"` // 执行者的用户ID列表, 传入的值为 user_id 或 open_id, 由user_id_type 决定。user_id和open_id的获取可见文档[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)。
 }
 
 // UpdateTaskRespTaskDue ...

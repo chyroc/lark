@@ -21,10 +21,13 @@ import (
 	"context"
 )
 
-// GetCalendarEventAttendeeList 获取日程的参与人列表, 若参与者列表中有群组, 请使用 [获取参与人群成员列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee-chat_member/list) 。
+// GetCalendarEventAttendeeList 调用该接口以当前身份（应用或用户）获取日程的参与人列表。
 //
-// - 当前身份必须对日历有reader、writer或owner权限（调用[获取日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口, role字段可查看权限）。
-// - 当前身份必须有权限查看日程的参与人列表。
+// - 当前身份由 Header Authorization 的 Token 类型决定。tenant_access_token 指应用身份, user_access_token 指用户身份。
+// - 如果使用应用身份调用该接口, 则需要确保应用开启了[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// - 当前身份必须对日历有 reader、writer 或 owner 权限。你可以调用[查询日历信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口, 获取当前身份对该日历的访问权限（role）。
+// - 当前身份必须有权限查看日程的参与人列表, 即当前身份需要是日程的组织者, 或者是日程参与人且日程设置了参与人可查看参与人列表权限。你可以调用[获取日程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/get)接口, 获取日程的参与人权限（attendee_ability）。
+// - 如果你需要获取群组类型参与人的群成员, 需要调用[获取参与人群成员列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee-chat_member/list)接口。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/list
 // new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event-attendee/list-2
@@ -62,59 +65,59 @@ func (r *Mock) UnMockCalendarGetCalendarEventAttendeeList() {
 
 // GetCalendarEventAttendeeListReq ...
 type GetCalendarEventAttendeeListReq struct {
-	CalendarID                string  `path:"calendar_id" json:"-"`                  // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
-	EventID                   string  `path:"event_id" json:"-"`                     // 日程ID。参见[日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction), 示例值: "xxxxxxxxx_0"
+	CalendarID                string  `path:"calendar_id" json:"-"`                  // 日程所在的日历 ID。关于日历 ID 可参见[日历 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	EventID                   string  `path:"event_id" json:"-"`                     // 日程 ID, 创建日程时会返回日程 ID。你也可以调用以下接口获取某一日历的 ID, [获取日程列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/list), [搜索日程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/search), 示例值: "xxxxxxxxx_0"
 	UserIDType                *IDType `query:"user_id_type" json:"-"`                // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	NeedResourceCustomization *bool   `query:"need_resource_customization" json:"-"` // 是否需要会议室表单信息。当前身份需要有日程的编辑权限, 才会返回表单信息, 示例值: true
+	NeedResourceCustomization *bool   `query:"need_resource_customization" json:"-"` // 是否需要会议室表单信息, 可选值有: true: 需要, false（默认值）: 不需要, 注意: 当前身份需要有日程的编辑权限才会返回会议室表单信息, 即当前身份需要是日程的组织者, 或者是日程参与人且日程设置了参与人可编辑日程权限。你可以调用[获取日程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/get)接口, 获取日程的参与人权限（attendee_ability）, 示例值: true
 	PageToken                 *string `query:"page_token" json:"-"`                  // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 780TRhwXXXXX
-	PageSize                  *int64  `query:"page_size" json:"-"`                   // 分页大小, 示例值: 10, 默认值: `20`, 最大值: `100`
+	PageSize                  *int64  `query:"page_size" json:"-"`                   // 一次请求返回的最大日程参与人数量, 示例值: 10, 默认值: `20`, 最大值: `100`
 }
 
 // GetCalendarEventAttendeeListResp ...
 type GetCalendarEventAttendeeListResp struct {
-	Items     []*GetCalendarEventAttendeeListRespItem `json:"items,omitempty"`      // 日程的参与者列表
+	Items     []*GetCalendarEventAttendeeListRespItem `json:"items,omitempty"`      // 日程参与人列表。
 	HasMore   bool                                    `json:"has_more,omitempty"`   // 是否还有更多项
 	PageToken string                                  `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 }
 
 // GetCalendarEventAttendeeListRespItem ...
 type GetCalendarEventAttendeeListRespItem struct {
-	Type                  CalendarEventAttendeeType                                    `json:"type,omitempty"`                   // 参与人类型, 可选值有: user: 用户, chat: 群组, resource: 会议室, third_party: 邮箱
-	AttendeeID            string                                                       `json:"attendee_id,omitempty"`            // 参与人ID。参见[参与人ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/introduction#4998889c)
-	RsvpStatus            string                                                       `json:"rsvp_status,omitempty"`            // 参与人RSVP状态, 可选值有: needs_action: 参与人尚未回复状态, 或表示会议室预约中, accept: 参与人回复接受, 或表示会议室预约成功, tentative: 参与人回复待定, decline: 参与人回复拒绝, 或表示会议室预约失败, removed: 参与人或会议室已经从日程中被移除
-	IsOptional            bool                                                         `json:"is_optional,omitempty"`            // 参与人是否为「可选参加」, 无法编辑群参与人的此字段
-	IsOrganizer           bool                                                         `json:"is_organizer,omitempty"`           // 参与人是否为日程组织者
-	IsExternal            bool                                                         `json:"is_external,omitempty"`            // 参与人是否为外部参与人；外部参与人不支持编辑
-	DisplayName           string                                                       `json:"display_name,omitempty"`           // 参与人名称
-	ChatMembers           []*GetCalendarEventAttendeeListRespItemChatMember            `json:"chat_members,omitempty"`           // 群中的群成员, 当type为Chat时有效；群成员不支持编辑, 当前字段已废弃, 如需获取群中的群成员, 请使用 [获取参与人群成员列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee-chat_member/list)
-	UserID                string                                                       `json:"user_id,omitempty"`                // 参与人的用户id, 依赖于user_id_type返回对应的取值, 当is_external为true时, 此字段只会返回open_id或者union_id, 参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
-	ChatID                string                                                       `json:"chat_id,omitempty"`                // chat类型参与人的群组chat_id, 参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
-	RoomID                string                                                       `json:"room_id,omitempty"`                // resource类型参与人的会议室room_id
-	ThirdPartyEmail       string                                                       `json:"third_party_email,omitempty"`      // third_party类型参与人的邮箱
-	OperateID             string                                                       `json:"operate_id,omitempty"`             // 如果日程是使用应用身份创建的, 在添加会议室的时候, 用来指定会议室的联系人, 在会议室视图展示。参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
-	ResourceCustomization []*GetCalendarEventAttendeeListRespItemResourceCustomization `json:"resource_customization,omitempty"` // 会议室的个性化配置
+	Type                  CalendarEventAttendeeType                                    `json:"type,omitempty"`                   // 参与人类型, 可选值有: user: 用户, chat: 群组, resource: 会议室, third_party: 外部邮箱
+	AttendeeID            string                                                       `json:"attendee_id,omitempty"`            // 参与人 ID。日程参与人在当前日程内的唯一标识, 后续可通过该 ID 删除日程参与人, 或用于查询群组类型参与人的群成员信息。
+	RsvpStatus            string                                                       `json:"rsvp_status,omitempty"`            // 参与人 RSVP 状态, 即日程回复状态, 可选值有: needs_action: 参与人尚未回复状态, 或表示会议室预约中, accept: 参与人回复接受, 或表示会议室预约成功, tentative: 参与人回复待定, decline: 参与人回复拒绝, 或表示会议室预约失败, removed: 参与人或会议室已经从日程中被移除
+	IsOptional            bool                                                         `json:"is_optional,omitempty"`            // 参与人是否为可选参加, 该参数值对群组的群成员不生效。
+	IsOrganizer           bool                                                         `json:"is_organizer,omitempty"`           // 参与人是否为日程组织者。
+	IsExternal            bool                                                         `json:"is_external,omitempty"`            // 参与人是否为外部参与人。外部参与人不支持编辑。
+	DisplayName           string                                                       `json:"display_name,omitempty"`           // 参与人名称。
+	ChatMembers           []*GetCalendarEventAttendeeListRespItemChatMember            `json:"chat_members,omitempty"`           // 群成员信息, 注意: 该字段已废弃, 如需获取群中的群成员, 请使用 [获取参与人群成员列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee-chat_member/list)接口。
+	UserID                string                                                       `json:"user_id,omitempty"`                // 用户类型参与人的用户 ID, ID 类型与 user_id_type 的值保持一致。关于用户 ID 可参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 注意: 当 is_external 返回为 true 时, 此字段只会返回 open_id 或者 union_id。
+	ChatID                string                                                       `json:"chat_id,omitempty"`                // 群组类型参与人的群组 ID。关于群组 ID 可参见[群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)。
+	RoomID                string                                                       `json:"room_id,omitempty"`                // 会议室类型参与人的会议室 ID。
+	ThirdPartyEmail       string                                                       `json:"third_party_email,omitempty"`      // 外部邮箱类型参与人的邮箱地址。
+	OperateID             string                                                       `json:"operate_id,omitempty"`             // 如果日程是使用应用身份创建的, 在添加会议室时, 指定的会议室联系人 ID。ID 类型与 user_id_type 的值保持一致。
+	ResourceCustomization []*GetCalendarEventAttendeeListRespItemResourceCustomization `json:"resource_customization,omitempty"` // 会议室的个性化配置。
 }
 
 // GetCalendarEventAttendeeListRespItemChatMember ...
 type GetCalendarEventAttendeeListRespItemChatMember struct {
-	RsvpStatus  string `json:"rsvp_status,omitempty"`  // 参与人RSVP状态, 可选值有: needs_action: 参与人尚未回复状态, 或表示会议室预约中, accept: 参与人回复接受, 或表示会议室预约成功, tentative: 参与人回复待定, decline: 参与人回复拒绝, 或表示会议室预约失败, removed: 参与人或会议室已经从日程中被移除
-	IsOptional  bool   `json:"is_optional,omitempty"`  // 参与人是否为「可选参加」
-	DisplayName string `json:"display_name,omitempty"` // 参与人名称
-	IsOrganizer bool   `json:"is_organizer,omitempty"` // 参与人是否为日程组织者
-	IsExternal  bool   `json:"is_external,omitempty"`  // 参与人是否为外部参与人
+	RsvpStatus  string `json:"rsvp_status,omitempty"`  // 参与人 RSVP 状态, 可选值有: needs_action: 参与人尚未回复状态, 或表示会议室预约中, accept: 参与人回复接受, 或表示会议室预约成功, tentative: 参与人回复待定, decline: 参与人回复拒绝, 或表示会议室预约失败, removed: 参与人或会议室已经从日程中被移除
+	IsOptional  bool   `json:"is_optional,omitempty"`  // 参与人是否为可选参加。
+	DisplayName string `json:"display_name,omitempty"` // 参与人名称。
+	IsOrganizer bool   `json:"is_organizer,omitempty"` // 参与人是否为日程组织者。
+	IsExternal  bool   `json:"is_external,omitempty"`  // 参与人是否为外部参与人。
 }
 
 // GetCalendarEventAttendeeListRespItemResourceCustomization ...
 type GetCalendarEventAttendeeListRespItemResourceCustomization struct {
-	IndexKey     string                                                             `json:"index_key,omitempty"`     // 每个配置的唯一ID
-	InputContent string                                                             `json:"input_content,omitempty"` // 当type类型为填空时, 该参数需要填入
-	Options      []*GetCalendarEventAttendeeListRespItemResourceCustomizationOption `json:"options,omitempty"`       // 每个配置的选项
+	IndexKey     string                                                             `json:"index_key,omitempty"`     // 每个配置的唯一 ID。
+	InputContent string                                                             `json:"input_content,omitempty"` // 填空类型的取值。
+	Options      []*GetCalendarEventAttendeeListRespItemResourceCustomizationOption `json:"options,omitempty"`       // 每个配置的选项。
 }
 
 // GetCalendarEventAttendeeListRespItemResourceCustomizationOption ...
 type GetCalendarEventAttendeeListRespItemResourceCustomizationOption struct {
-	OptionKey     string `json:"option_key,omitempty"`     // 每个选项的唯一ID
-	OthersContent string `json:"others_content,omitempty"` // 当type类型为其它选项时, 该参数需要填入
+	OptionKey     string `json:"option_key,omitempty"`     // 每个选项的唯一 ID。
+	OthersContent string `json:"others_content,omitempty"` // 其他选项类型的取值。
 }
 
 // getCalendarEventAttendeeListResp ...

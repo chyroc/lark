@@ -21,9 +21,9 @@ import (
 	"context"
 )
 
-// EventV1ThirdPartyMeetingRoomEventUpdated 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
+// EventV1ThirdPartyMeetingRoomEventUpdated 当添加了第三方会议室的日程发生变动时（创建/更新/删除）触发此事件。
 //
-// 当添加了第三方会议室的日程发生变动时（创建/更新/删除）触发此事件。
+// 了解事件订阅的使用场景和配置流程, 可参见[事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/meeting_room-v1/event/third-room-event-changes
 // new doc: https://open.feishu.cn/document/server-docs/calendar-v4/meeting-room-event/event/third-room-event-changes

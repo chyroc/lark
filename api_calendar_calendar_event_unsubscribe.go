@@ -21,9 +21,9 @@ import (
 	"context"
 )
 
-// UnsubscribeCalendarEvent 该接口用于以用户身份取消订阅指定日历下的日程变更事件。
+// UnsubscribeCalendarEvent 调用该接口以用户身份取消订阅指定日历下的日程变更事件。
 //
-// 当前身份必须对日历有reader、writer或owner权限（调用[获取日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口, role字段可查看权限）。
+// 当前身份必须对日历有 reader、writer 或 owner 权限。你可以调用[查询日历信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口, 获取当前身份对该日历的访问权限。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/unsubscription
 // new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/unsubscription
@@ -60,7 +60,7 @@ func (r *Mock) UnMockCalendarUnsubscribeCalendarEvent() {
 
 // UnsubscribeCalendarEventReq ...
 type UnsubscribeCalendarEventReq struct {
-	CalendarID string `path:"calendar_id" json:"-"` // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	CalendarID string `path:"calendar_id" json:"-"` // 日历 ID。关于日历 ID 可参见[日历 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 }
 
 // UnsubscribeCalendarEventResp ...

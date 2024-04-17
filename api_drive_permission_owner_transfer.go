@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// TransferDriveOwnerPermission 该接口用于根据 filetoken 和用户信息转移文件的所有者。
+// TransferDriveOwnerPermission 该接口用于根据云文档 token 和用户信息转移文件的所有者。
 //
 // 个人文件夹下的文件转移所有者完成后, 默认会移动到新所有者的空间下
 //
@@ -61,13 +61,14 @@ func (r *Mock) UnMockDriveTransferDriveOwnerPermission() {
 
 // TransferDriveOwnerPermissionReq ...
 type TransferDriveOwnerPermissionReq struct {
-	Token            string `path:"token" json:"-"`              // 文件的 token, 示例值: "doccnBKgoMyY5OMbUG6FioTXuBe"
-	Type             string `query:"type" json:"-"`              // 文件类型, 需要与文件的 token 相匹配, 示例值: doc, 可选值有: doc: 文档, sheet: 电子表格, file: 云空间文件, wiki: 知识库节点, bitable: 多维表格, docx: 新版文档, mindnote: 思维笔记, minutes: 妙记
-	NeedNotification *bool  `query:"need_notification" json:"-"` // 是否需要通知新的文件所有者, 示例值: true, 默认值: `true`
-	RemoveOldOwner   *bool  `query:"remove_old_owner" json:"-"`  // 转移后是否需要移除原文件所有者的权限, 示例值: false, 默认值: `false`
-	StayPut          *bool  `query:"stay_put" json:"-"`          // 仅当文件在个人文件夹下, 此参数才会生效。如果设为`false`, 系统会将该内容移至新所有者的空间下。如果设为`true`, 则留在原位置, 示例值: false, 默认值: `false`
-	MemberType       string `json:"member_type,omitempty"`       // 文件所有者的 ID 类型, 示例值: "openid", 可选值有: email: 飞书邮箱, openid: 开放平台ID, userid: 用户自定义ID
-	MemberID         string `json:"member_id,omitempty"`         // 文件所有者的 ID, 与文件所有者的 ID 类型需要对应, 示例值: "ou_67e5ecb64ce1c0bd94612c17999db411"
+	Token            string  `path:"token" json:"-"`              // 文件的 token, 示例值: "doccnBKgoMyY5OMbUG6FioTXuBe"
+	Type             string  `query:"type" json:"-"`              // 文件类型, 需要与文件的 token 相匹配, 示例值: doc, 可选值有: doc: 文档, sheet: 电子表格, file: 云空间文件, wiki: 知识库节点, bitable: 多维表格, docx: 新版文档, mindnote: 思维笔记, minutes: 妙记, slides: 幻灯片
+	NeedNotification *bool   `query:"need_notification" json:"-"` // 是否需要通知新的文件所有者, 示例值: true, 默认值: `true`
+	RemoveOldOwner   *bool   `query:"remove_old_owner" json:"-"`  // 转移后是否需要移除原文件所有者的权限, 示例值: false, 默认值: `false`
+	StayPut          *bool   `query:"stay_put" json:"-"`          // 仅当文件在个人文件夹下, 此参数才会生效。如果设为`false`, 系统会将该内容移至新所有者的空间下。如果设为`true`, 则留在原位置, 示例值: false, 默认值: `false`
+	OldOwnerPerm     *string `query:"old_owner_perm" json:"-"`    // 仅当 remove_old_owner = false 时, 此参数才会生效 保留原文件所有者指定的权限角色, 示例值: view, 默认值: `full_access`
+	MemberType       string  `json:"member_type,omitempty"`       // 文件所有者的 ID 类型, 示例值: "openid", 可选值有: email: 飞书邮箱, openid: 开放平台ID, userid: 用户自定义ID
+	MemberID         string  `json:"member_id,omitempty"`         // 文件所有者的 ID, 与文件所有者的 ID 类型需要对应, 示例值: "ou_67e5ecb64ce1c0bd94612c17999db411"
 }
 
 // TransferDriveOwnerPermissionResp ...

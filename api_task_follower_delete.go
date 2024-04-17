@@ -25,6 +25,8 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-follower/delete
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task-follower/delete
+//
+// Deprecated
 func (r *TaskService) DeleteTaskFollower(ctx context.Context, request *DeleteTaskFollowerReq, options ...MethodOptionFunc) (*DeleteTaskFollowerResp, *Response, error) {
 	if r.cli.mock.mockTaskDeleteTaskFollower != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#DeleteTaskFollower mock enable")

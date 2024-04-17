@@ -98,11 +98,11 @@ type GetDriveCommentListRespItemReplyList struct {
 
 // GetDriveCommentListRespItemReplyListReply ...
 type GetDriveCommentListRespItemReplyListReply struct {
+	Content    *GetDriveCommentListRespItemReplyListReplyContent `json:"content,omitempty"`     // 回复内容
 	ReplyID    string                                            `json:"reply_id,omitempty"`    // 回复 ID
 	UserID     string                                            `json:"user_id,omitempty"`     // 用户 ID
 	CreateTime int64                                             `json:"create_time,omitempty"` // 创建时间
 	UpdateTime int64                                             `json:"update_time,omitempty"` // 更新时间
-	Content    *GetDriveCommentListRespItemReplyListReplyContent `json:"content,omitempty"`     // 回复内容
 	Extra      *GetDriveCommentListRespItemReplyListReplyExtra   `json:"extra,omitempty"`       // 回复的其他内容, 图片 Token 等
 }
 

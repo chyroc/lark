@@ -87,6 +87,7 @@ type UpdateDocxBlockReq struct {
 	ReplaceImage               *UpdateDocxBlockReqReplaceImage               `json:"replace_image,omitempty"`                  // 替换图片请求。调用此请求前, 你需确保已经上传过素材
 	ReplaceFile                *UpdateDocxBlockReqReplaceFile                `json:"replace_file,omitempty"`                   // 替换附件请求。调用此请求前, 你需确保已经上传过素材
 	UpdateText                 *UpdateDocxBlockReqUpdateText                 `json:"update_text,omitempty"`                    // 更新文本元素及样式请求
+	UpdateTask                 *UpdateDocxBlockReqUpdateTask                 `json:"update_task,omitempty"`                    // 更新任务 Block 请求
 }
 
 // UpdateDocxBlockReqDeleteGridColumn ...
@@ -159,6 +160,12 @@ type UpdateDocxBlockReqUpdateTableProperty struct {
 	ColumnIndex  *int64 `json:"column_index,omitempty"`  // 需要修改列宽的表格列的索引, 示例值: 0, 最小值: `0`
 	HeaderRow    *bool  `json:"header_row,omitempty"`    // 设置首行为标题行, 示例值: false
 	HeaderColumn *bool  `json:"header_column,omitempty"` // 设置首列为标题列, 示例值: false
+}
+
+// UpdateDocxBlockReqUpdateTask ...
+type UpdateDocxBlockReqUpdateTask struct {
+	TaskID *string `json:"task_id,omitempty"` // 任务 ID。该字段仅在首次更新 Task Block 时生效, 更新成功后, 后续请求中将忽略该字段, 示例值: "ba5040f4-8116-4042-ab3c-254e5cfe3ce7"
+	Folded *bool   `json:"folded,omitempty"`  // 折叠状态, 字段为空时不更新折叠状态, 示例值: false
 }
 
 // UpdateDocxBlockReqUpdateText ...

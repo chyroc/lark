@@ -60,7 +60,7 @@ func (r *Mock) UnMockCoreHRCreateCoreHRCompany() {
 type CreateCoreHRCompanyReq struct {
 	ClientToken         *string                                      `query:"client_token" json:"-"`         // 根据client_token是否一致来判断是否为同一请求, 示例值: 12454646
 	HiberarchyCommon    *CreateCoreHRCompanyReqHiberarchyCommon      `json:"hiberarchy_common,omitempty"`    // 层级关系, 内层字段见实体
-	Type                *CreateCoreHRCompanyReqType                  `json:"type,omitempty"`                 // 性质, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)公司类型（company_type）枚举定义部分获得
+	Type                *CreateCoreHRCompanyReqType                  `json:"type,omitempty"`                 // 性质, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)公司类型（company_type）枚举定义部分获得。该字段为通用字段, 若为公司维度则为必填。
 	IndustryList        []*CreateCoreHRCompanyReqIndustry            `json:"industry_list,omitempty"`        // 行业, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)行业（industry）枚举定义部分获得
 	LegalRepresentative []*CreateCoreHRCompanyReqLegalRepresentative `json:"legal_representative,omitempty"` // 法定代表人
 	PostCode            *string                                      `json:"post_code,omitempty"`            // 邮编, 示例值: "邮编"
@@ -78,14 +78,14 @@ type CreateCoreHRCompanyReq struct {
 // CreateCoreHRCompanyReqCurrency ...
 type CreateCoreHRCompanyReqCurrency struct {
 	CurrencyName       []*CreateCoreHRCompanyReqCurrencyCurrencyName `json:"currency_name,omitempty"`         // 货币名称
-	NumericCode        *int64                                        `json:"numeric_code,omitempty"`          // 数字代码, 示例值: 12
-	CurrencyAlpha3Code *string                                       `json:"currency_alpha_3_code,omitempty"` // 三位字母代码, 示例值: "12"
+	NumericCode        *int64                                        `json:"numeric_code,omitempty"`          // 对应币种的指代代码, 通过[查询货币信息v2](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)查询获取, 示例值: 12
+	CurrencyAlpha3Code *string                                       `json:"currency_alpha_3_code,omitempty"` // 法定货币对应代码, 如CNY	、USD等, 通过[查询货币信息v2](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)查询获取, 示例值: "CNY"
 }
 
 // CreateCoreHRCompanyReqCurrencyCurrencyName ...
 type CreateCoreHRCompanyReqCurrencyCurrencyName struct {
-	Lang  string `json:"lang,omitempty"`  // 语言, 示例值: "zh-CN"
-	Value string `json:"value,omitempty"` // 内容, 示例值: "刘梓新"
+	Lang  string `json:"lang,omitempty"`  // 语言, 支持中文和英文。中文用zh-CN；英文用en-US, 示例值: "zh-CN"
+	Value string `json:"value,omitempty"` // 内容, 支持中文和英文, 示例值: "张三"
 }
 
 // CreateCoreHRCompanyReqCustomField ...
@@ -96,13 +96,13 @@ type CreateCoreHRCompanyReqCustomField struct {
 
 // CreateCoreHRCompanyReqFax ...
 type CreateCoreHRCompanyReqFax struct {
-	AreaCode    *CreateCoreHRCompanyReqFaxAreaCode `json:"area_code,omitempty"`    // 区号, 示例值: 123123
-	PhoneNumber string                             `json:"phone_number,omitempty"` // 号码, 示例值: "213213"
+	AreaCode    *CreateCoreHRCompanyReqFaxAreaCode `json:"area_code,omitempty"`    // 区号对应的数字, 可通过, [请求接口](https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)查询获取。请求参数: object_api_name=phone；custom_api_name=international_area_code, 示例值: 123123
+	PhoneNumber string                             `json:"phone_number,omitempty"` // 号码, 示例值: "18812341234"
 }
 
 // CreateCoreHRCompanyReqFaxAreaCode ...
 type CreateCoreHRCompanyReqFaxAreaCode struct {
-	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
+	EnumName string `json:"enum_name,omitempty"` // 区号对应的名称, 示例值: "86_china"
 }
 
 // CreateCoreHRCompanyReqHiberarchyCommon ...
@@ -110,10 +110,10 @@ type CreateCoreHRCompanyReqHiberarchyCommon struct {
 	ParentID       *string                                              `json:"parent_id,omitempty"`       // 上级组织 ID, 示例值: "4719168654814483759"
 	Name           []*CreateCoreHRCompanyReqHiberarchyCommonName        `json:"name,omitempty"`            // 名称
 	Type           *CreateCoreHRCompanyReqHiberarchyCommonType          `json:"type,omitempty"`            // 组织类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)组织类型（organization_type）枚举定义部分获得
-	Active         bool                                                 `json:"active,omitempty"`          // 是否启用, 示例值: true
+	Active         bool                                                 `json:"active,omitempty"`          // 是否启用该公司, 示例值: true
 	EffectiveTime  *string                                              `json:"effective_time,omitempty"`  // 生效时间, 示例值: "2020-05-01 00:00:00"
 	ExpirationTime *string                                              `json:"expiration_time,omitempty"` // 失效时间, 示例值: "2020-05-02 00:00:00"
-	Code           *string                                              `json:"code,omitempty"`            // 编码, 示例值: "12456"
+	Code           *string                                              `json:"code,omitempty"`            // 公司编码, 示例值: "12456"
 	Description    []*CreateCoreHRCompanyReqHiberarchyCommonDescription `json:"description,omitempty"`     // 描述
 	CustomFields   []*CreateCoreHRCompanyReqHiberarchyCommonCustomField `json:"custom_fields,omitempty"`   // 自定义字段
 }
@@ -126,14 +126,14 @@ type CreateCoreHRCompanyReqHiberarchyCommonCustomField struct {
 
 // CreateCoreHRCompanyReqHiberarchyCommonDescription ...
 type CreateCoreHRCompanyReqHiberarchyCommonDescription struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 示例值: "zh-CN"
-	Value string `json:"value,omitempty"` // 名称信息的内容, 示例值: "张三"
+	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 支持中文和英文。中文用zh-CN；英文用en-US, 示例值: "zh-CN"
+	Value string `json:"value,omitempty"` // 名称信息的内容, 支持中文和英文, 示例值: "xx有限科技公司"
 }
 
 // CreateCoreHRCompanyReqHiberarchyCommonName ...
 type CreateCoreHRCompanyReqHiberarchyCommonName struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 示例值: "zh-CN"
-	Value string `json:"value,omitempty"` // 名称信息的内容, 示例值: "张三"
+	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 支持中文和英文。中文用zh-CN；英文用en-US, 示例值: "zh-CN"
+	Value string `json:"value,omitempty"` // 名称信息的内容, 支持中文和英文, 示例值: "xx有限科技公司"
 }
 
 // CreateCoreHRCompanyReqHiberarchyCommonType ...
@@ -148,25 +148,25 @@ type CreateCoreHRCompanyReqIndustry struct {
 
 // CreateCoreHRCompanyReqLegalRepresentative ...
 type CreateCoreHRCompanyReqLegalRepresentative struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 示例值: "zh-CN"
-	Value string `json:"value,omitempty"` // 名称信息的内容, 示例值: "张三"
+	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 支持中文和英文。中文用zh-CN；英文用en-US, 示例值: "zh-CN"
+	Value string `json:"value,omitempty"` // 名称信息的内容, 支持中文和英文, 示例值: "张三"
 }
 
 // CreateCoreHRCompanyReqPhone ...
 type CreateCoreHRCompanyReqPhone struct {
-	AreaCode    *CreateCoreHRCompanyReqPhoneAreaCode `json:"area_code,omitempty"`    // 区号, 示例值: 123123
-	PhoneNumber string                               `json:"phone_number,omitempty"` // 号码, 示例值: "213213"
+	AreaCode    *CreateCoreHRCompanyReqPhoneAreaCode `json:"area_code,omitempty"`    // 区号对应的数字, 可通过, [请求接口](https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)查询获取。请求参数: object_api_name=phone；custom_api_name=international_area_code, 示例值: 123123
+	PhoneNumber string                               `json:"phone_number,omitempty"` // 号码, 示例值: "18812341234"
 }
 
 // CreateCoreHRCompanyReqPhoneAreaCode ...
 type CreateCoreHRCompanyReqPhoneAreaCode struct {
-	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
+	EnumName string `json:"enum_name,omitempty"` // 区号对应名称, 示例值: "86_china"
 }
 
 // CreateCoreHRCompanyReqPrimaryManager ...
 type CreateCoreHRCompanyReqPrimaryManager struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 示例值: "zh-CN"
-	Value string `json:"value,omitempty"` // 名称信息的内容, 示例值: "张三"
+	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 支持中文和英文。中文用zh-CN；英文用en-US, 示例值: "zh-CN"
+	Value string `json:"value,omitempty"` // 名称信息的内容, 支持中文和英文, 示例值: "张三"
 }
 
 // CreateCoreHRCompanyReqSubType ...
@@ -188,7 +188,7 @@ type CreateCoreHRCompanyResp struct {
 type CreateCoreHRCompanyRespCompany struct {
 	ID                      string                                                  `json:"id,omitempty"`                        // 公司 ID
 	HiberarchyCommon        *CreateCoreHRCompanyRespCompanyHiberarchyCommon         `json:"hiberarchy_common,omitempty"`         // 层级关系, 内层字段见实体
-	Type                    *CreateCoreHRCompanyRespCompanyType                     `json:"type,omitempty"`                      // 性质, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)公司类型（company_type）枚举定义部分获得
+	Type                    *CreateCoreHRCompanyRespCompanyType                     `json:"type,omitempty"`                      // 性质, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)公司类型（company_type）枚举定义部分获得。该字段为通用字段, 若为公司维度则为必填。
 	IndustryList            []*CreateCoreHRCompanyRespCompanyIndustry               `json:"industry_list,omitempty"`             // 行业, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)行业（industry）枚举定义部分获得
 	LegalRepresentative     []*CreateCoreHRCompanyRespCompanyLegalRepresentative    `json:"legal_representative,omitempty"`      // 法定代表人
 	PostCode                string                                                  `json:"post_code,omitempty"`                 // 邮编
@@ -210,14 +210,14 @@ type CreateCoreHRCompanyRespCompanyCurrency struct {
 	ID                 string                                                `json:"id,omitempty"`                    // 货币id
 	CountryRegionID    string                                                `json:"country_region_id,omitempty"`     // 货币所属国家/地区id, 详细信息可通过[【查询国家/地区信息】](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/location_data/list)接口查询获得
 	CurrencyName       []*CreateCoreHRCompanyRespCompanyCurrencyCurrencyName `json:"currency_name,omitempty"`         // 货币名称
-	NumericCode        int64                                                 `json:"numeric_code,omitempty"`          // 数字代码
-	CurrencyAlpha3Code string                                                `json:"currency_alpha_3_code,omitempty"` // 三位字母代码
+	NumericCode        int64                                                 `json:"numeric_code,omitempty"`          // 对应币种的指代代码, 通过[查询货币信息v2](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)查询获取。
+	CurrencyAlpha3Code string                                                `json:"currency_alpha_3_code,omitempty"` // 法定货币对应代码, 如CNY	、USD等, 通过[查询货币信息v2](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)查询获取。
 }
 
 // CreateCoreHRCompanyRespCompanyCurrencyCurrencyName ...
 type CreateCoreHRCompanyRespCompanyCurrencyCurrencyName struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 货币语言, 支持中文和英文。中文用zh-CN；英文用en-US。
+	Value string `json:"value,omitempty"` // 货币内容, 支持中文和英文
 }
 
 // CreateCoreHRCompanyRespCompanyCustomField ...
@@ -240,8 +240,8 @@ type CreateCoreHRCompanyRespCompanyFaxAreaCode struct {
 
 // CreateCoreHRCompanyRespCompanyFaxAreaCodeDisplay ...
 type CreateCoreHRCompanyRespCompanyFaxAreaCodeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言, 支持中文和英文。中文用zh-CN；英文用en-US。
+	Value string `json:"value,omitempty"` // 内容, 支持中文和英文
 }
 
 // CreateCoreHRCompanyRespCompanyHiberarchyCommon ...
@@ -267,14 +267,14 @@ type CreateCoreHRCompanyRespCompanyHiberarchyCommonCustomField struct {
 
 // CreateCoreHRCompanyRespCompanyHiberarchyCommonDescription ...
 type CreateCoreHRCompanyRespCompanyHiberarchyCommonDescription struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
-	Value string `json:"value,omitempty"` // 名称信息的内容
+	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 支持中文和英文。中文用zh-CN；英文用en-US。
+	Value string `json:"value,omitempty"` // 名称信息的内容, 支持中文和英文
 }
 
 // CreateCoreHRCompanyRespCompanyHiberarchyCommonName ...
 type CreateCoreHRCompanyRespCompanyHiberarchyCommonName struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
-	Value string `json:"value,omitempty"` // 名称信息的内容
+	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 支持中文和英文。中文用zh-CN；英文用en-US。
+	Value string `json:"value,omitempty"` // 名称信息的内容, 支持中文和英文。
 }
 
 // CreateCoreHRCompanyRespCompanyHiberarchyCommonType ...
@@ -285,8 +285,8 @@ type CreateCoreHRCompanyRespCompanyHiberarchyCommonType struct {
 
 // CreateCoreHRCompanyRespCompanyHiberarchyCommonTypeDisplay ...
 type CreateCoreHRCompanyRespCompanyHiberarchyCommonTypeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
-	Value string `json:"value,omitempty"` // 名称信息的内容
+	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 支持中文和英文。中文用zh-CN；英文用en-US。
+	Value string `json:"value,omitempty"` // 名称信息的内容, 支持中文和英文
 }
 
 // CreateCoreHRCompanyRespCompanyIndustry ...
@@ -297,50 +297,50 @@ type CreateCoreHRCompanyRespCompanyIndustry struct {
 
 // CreateCoreHRCompanyRespCompanyIndustryDisplay ...
 type CreateCoreHRCompanyRespCompanyIndustryDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
-	Value string `json:"value,omitempty"` // 名称信息的内容
+	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 支持中文和英文。中文用zh-CN；英文用en-US。
+	Value string `json:"value,omitempty"` // 名称信息的内容, 支持中文和英文
 }
 
 // CreateCoreHRCompanyRespCompanyLegalRepresentative ...
 type CreateCoreHRCompanyRespCompanyLegalRepresentative struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
-	Value string `json:"value,omitempty"` // 名称信息的内容
+	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 支持中文和英文。中文用zh-CN；英文用en-US。
+	Value string `json:"value,omitempty"` // 名称信息的内容, 支持中文和英文
 }
 
 // CreateCoreHRCompanyRespCompanyOfficeAddres ...
 type CreateCoreHRCompanyRespCompanyOfficeAddres struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言, 支持中文和英文。中文用zh-CN；英文用en-US。
+	Value string `json:"value,omitempty"` // 内容, 支持中文和英文
 }
 
 // CreateCoreHRCompanyRespCompanyPhone ...
 type CreateCoreHRCompanyRespCompanyPhone struct {
-	AreaCode    *CreateCoreHRCompanyRespCompanyPhoneAreaCode `json:"area_code,omitempty"`    // 区号
+	AreaCode    *CreateCoreHRCompanyRespCompanyPhoneAreaCode `json:"area_code,omitempty"`    // 区号对应的数字, 可通过, [请求接口](https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)查询获取。请求参数: object_api_name=phone；custom_api_name=international_area_code
 	PhoneNumber string                                       `json:"phone_number,omitempty"` // 号码
 }
 
 // CreateCoreHRCompanyRespCompanyPhoneAreaCode ...
 type CreateCoreHRCompanyRespCompanyPhoneAreaCode struct {
-	EnumName string                                                `json:"enum_name,omitempty"` // 枚举值
+	EnumName string                                                `json:"enum_name,omitempty"` // 区号对应的名称
 	Display  []*CreateCoreHRCompanyRespCompanyPhoneAreaCodeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
 // CreateCoreHRCompanyRespCompanyPhoneAreaCodeDisplay ...
 type CreateCoreHRCompanyRespCompanyPhoneAreaCodeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言, 支持中文和英文。中文用zh-CN；英文用en-US。
+	Value string `json:"value,omitempty"` // 内容, 支持中文和英文
 }
 
 // CreateCoreHRCompanyRespCompanyPrimaryManager ...
 type CreateCoreHRCompanyRespCompanyPrimaryManager struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
-	Value string `json:"value,omitempty"` // 名称信息的内容
+	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 支持中文和英文。中文用zh-CN；英文用en-US。
+	Value string `json:"value,omitempty"` // 名称信息的内容, 支持中文和英文
 }
 
 // CreateCoreHRCompanyRespCompanyRegisteredOfficeAddres ...
 type CreateCoreHRCompanyRespCompanyRegisteredOfficeAddres struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言, 支持中文和英文。中文用zh-CN；英文用en-US。
+	Value string `json:"value,omitempty"` // 内容, 支持中文和英文
 }
 
 // CreateCoreHRCompanyRespCompanySubType ...
@@ -351,8 +351,8 @@ type CreateCoreHRCompanyRespCompanySubType struct {
 
 // CreateCoreHRCompanyRespCompanySubTypeDisplay ...
 type CreateCoreHRCompanyRespCompanySubTypeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
-	Value string `json:"value,omitempty"` // 名称信息的内容
+	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 支持中文和英文。中文用zh-CN；英文用en-US。
+	Value string `json:"value,omitempty"` // 名称信息的内容, 支持中文和英文
 }
 
 // CreateCoreHRCompanyRespCompanyType ...
@@ -363,8 +363,8 @@ type CreateCoreHRCompanyRespCompanyType struct {
 
 // CreateCoreHRCompanyRespCompanyTypeDisplay ...
 type CreateCoreHRCompanyRespCompanyTypeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
-	Value string `json:"value,omitempty"` // 名称信息的内容
+	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 支持中文和英文。中文用zh-CN；英文用en-US。
+	Value string `json:"value,omitempty"` // 名称信息的内容, 支持中文和英文
 }
 
 // createCoreHRCompanyResp ...

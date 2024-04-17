@@ -25,6 +25,8 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-comment/delete
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task-comment/delete
+//
+// Deprecated
 func (r *TaskService) DeleteTaskComment(ctx context.Context, request *DeleteTaskCommentReq, options ...MethodOptionFunc) (*DeleteTaskCommentResp, *Response, error) {
 	if r.cli.mock.mockTaskDeleteTaskComment != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#DeleteTaskComment mock enable")

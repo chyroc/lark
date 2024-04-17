@@ -76,7 +76,7 @@ type CreateHelpdeskAgentScheduleReqAgentSchedule struct {
 type CreateHelpdeskAgentScheduleReqAgentScheduleSchedule struct {
 	StartTime *string `json:"start_time,omitempty"` // 开始时间, format 00:00 - 23:59, 示例值: "00:00"
 	EndTime   *string `json:"end_time,omitempty"`   // 结束时间, format 00:00 - 23:59, 示例值: "24:00"
-	Weekday   *int64  `json:"weekday,omitempty"`    // 星期几, 1 - Monday, 2 - Tuesday, 3 - Wednesday, 4 - Thursday, 5 - Friday, 6 - Saturday, 7 - Sunday, 9 - Everday, 10 - Weekday, 11 - Weekend, 示例值: 9
+	Weekday   *int64  `json:"weekday,omitempty"`    // 星期几, 1 - Monday, 2 - Tuesday, 3 - Wednesday, 4 - Thursday, 5 - Friday, 6 - Saturday, 7 - Sunday, 9 - Everyday, 10 - Weekday, 11 - Weekend, 示例值: 9
 }
 
 // CreateHelpdeskAgentScheduleResp ...

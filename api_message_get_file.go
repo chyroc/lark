@@ -28,7 +28,7 @@ import (
 // - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 机器人和消息需要在同一会话中
 // - 暂不支持获取合并转发消息中的子消息的资源文件
-// - 文件类型可通过 response header 中`Content-NameType`字段获取
+// - 文件类型可通过 response header 中`Content-Type`字段获取
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-resource/get
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/message/get-2

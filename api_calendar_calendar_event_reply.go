@@ -21,9 +21,9 @@ import (
 	"context"
 )
 
-// ReplyCalendarEvent 该接口用于以当前身份（应用 / 用户）回复日程。
+// ReplyCalendarEvent 调用该接口以当前身份（应用或用户）回复日程。
 //
-// 身份由 Header Authorization 的 Token 类型决定。
+// 当前身份由 Header Authorization 的 Token 类型决定。tenant_access_token 指应用身份, user_access_token 指用户身份。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/reply
 func (r *CalendarService) ReplyCalendarEvent(ctx context.Context, request *ReplyCalendarEventReq, options ...MethodOptionFunc) (*ReplyCalendarEventResp, *Response, error) {
@@ -60,9 +60,9 @@ func (r *Mock) UnMockCalendarReplyCalendarEvent() {
 
 // ReplyCalendarEventReq ...
 type ReplyCalendarEventReq struct {
-	CalendarID string `path:"calendar_id" json:"-"`  // 日历资源ID, 示例值: "feishu.cn_HF9U2MbibE8PPpjro6xjqa@group.calendar.feishu.cn"
-	EventID    string `path:"event_id" json:"-"`     // 日程资源ID, 示例值: "75d28f9b-e35c-4230-8a83-4a661497db54_0"
-	RsvpStatus string `json:"rsvp_status,omitempty"` // rsvp-回复状态, 示例值: "accept", 可选值有: accept: 接受, decline: 拒绝, tentative: 待定
+	CalendarID string `path:"calendar_id" json:"-"`  // 日程所在的日历 ID。了解更多, 参见[日历 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值: "feishu.cn_HF9U2MbibE8PPpjro6xjqa@group.calendar.feishu.cn"
+	EventID    string `path:"event_id" json:"-"`     // 日程 ID, 创建日程时会返回日程 ID。你也可以调用以下接口获取某一日历的 ID, [获取日程列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/list), [搜索日程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/search), 示例值: "75d28f9b-e35c-4230-8a83-4a661497db54_0"
+	RsvpStatus string `json:"rsvp_status,omitempty"` // 日程参与人 RSVP 状态, 即日程回复状态, 示例值: "accept", 可选值有: accept: 接受, decline: 拒绝, tentative: 待定
 }
 
 // ReplyCalendarEventResp ...

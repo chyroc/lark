@@ -25,6 +25,8 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-reminder/delete
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task-reminder/delete
+//
+// Deprecated
 func (r *TaskService) DeleteTaskReminder(ctx context.Context, request *DeleteTaskReminderReq, options ...MethodOptionFunc) (*DeleteTaskReminderResp, *Response, error) {
 	if r.cli.mock.mockTaskDeleteTaskReminder != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#DeleteTaskReminder mock enable")

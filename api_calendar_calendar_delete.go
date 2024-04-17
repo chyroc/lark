@@ -21,11 +21,11 @@ import (
 	"context"
 )
 
-// DeleteCalendar 该接口用于以当前身份（应用 / 用户）删除一个共享日历。
+// DeleteCalendar 调用该接口以当前身份（应用或用户）删除某一指定的共享日历。
 //
-// 身份由 Header Authorization 的 Token 类型决定。
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
-// - 当前身份必须对日历具有 owner 权限。
+// - 当前身份由 Header Authorization 的 Token 类型决定。tenant_access_token 指应用身份, user_access_token 指用户身份。
+// - 如果使用应用身份调用该接口, 则需要确保应用开启了[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// - 当前身份必须对日历有 owner 权限才可以删除。你可以调用[查询日历信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口, 通过响应字段 role 查看当前身份对日历的权限。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/delete
 // new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar/delete
@@ -63,7 +63,7 @@ func (r *Mock) UnMockCalendarDeleteCalendar() {
 
 // DeleteCalendarReq ...
 type DeleteCalendarReq struct {
-	CalendarID string `path:"calendar_id" json:"-"` // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	CalendarID string `path:"calendar_id" json:"-"` // 日历 ID, 创建共享日历时会返回日历 ID。你也可以调用以下接口获取某一日历的 ID, [查询主日历信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/primary), [查询日历列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/list), [搜索日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/search), 示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 }
 
 // DeleteCalendarResp ...

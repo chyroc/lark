@@ -21,10 +21,9 @@ import (
 	"context"
 )
 
-// DeleteCalendarExchangeBinding 本接口解除Exchange账户和飞书账户的绑定关系, Exchange账户解除绑定后才能绑定其他飞书账户
+// DeleteCalendarExchangeBinding 调用该接口解除 Exchange 账户和飞书账户的绑定关系, Exchange 账户解除绑定后才能和其他飞书账户继续绑定。
 //
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
-// - 操作用户需要是企业超级管理员
+// 当前身份需要是企业超级管理员。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/exchange_binding/delete
 // new doc: https://open.feishu.cn/document/server-docs/calendar-v4/exchange_binding/delete
@@ -61,7 +60,7 @@ func (r *Mock) UnMockCalendarDeleteCalendarExchangeBinding() {
 
 // DeleteCalendarExchangeBindingReq ...
 type DeleteCalendarExchangeBindingReq struct {
-	ExchangeBindingID string `path:"exchange_binding_id" json:"-"` // exchange绑定唯一标识id。参见[exchange绑定ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/exchange_binding/introduction#12533d5e), 示例值: "ZW1haWxfYWRtaW5fZXhhbXBsZUBvdXRsb29rLmNvbSBlbWFpbF9hY2NvdW50X2V4YW1wbGVAb3V0bG9vay5jb20="
+	ExchangeBindingID string `path:"exchange_binding_id" json:"-"` // Exchange 绑定的唯一标识 ID。调用 [将 Exchange 账户绑定到飞书账户](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/exchange_binding/create) 绑定时, 可从返回结果中获取 exchange_binding_id, 示例值: "ZW1haWxfYWRtaW5fZXhhbXBsZUBvdXRsb29rLmNvbSBlbWFpbF9hY2NvdW50X2V4YW1wbGVAb3V0bG9vay5jb20="
 }
 
 // DeleteCalendarExchangeBindingResp ...

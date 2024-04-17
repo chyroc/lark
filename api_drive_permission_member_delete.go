@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// DeleteDriveMemberPermission 该接口用于根据 filetoken 移除文档协作者的权限。
+// DeleteDriveMemberPermission 该接口用于根据文件的 token 移除文档协作者的权限。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-member/delete
 // new doc: https://open.feishu.cn/document/server-docs/docs/permission/permission-member/delete
@@ -59,10 +59,11 @@ func (r *Mock) UnMockDriveDeleteDriveMemberPermission() {
 
 // DeleteDriveMemberPermissionReq ...
 type DeleteDriveMemberPermissionReq struct {
-	Token      string `path:"token" json:"-"`        // 文件的 token, 获取方式见 [如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6), 示例值: "doccnBKgoMyY5OMbUG6FioTXuBe"
-	MemberID   string `path:"member_id" json:"-"`    // 协作者 ID, 与协作者 ID 类型需要对应, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
-	Type       string `query:"type" json:"-"`        // 文件类型, 需要与文件的 token 相匹配, 示例值: doc, 可选值有: doc: 文档, sheet: 电子表格, file: 云空间文件, wiki: 知识库节点, bitable: 多维表格, docx: 新版文档, folder: 文件夹, mindnote: 思维笔记, minutes: 妙记
-	MemberType string `query:"member_type" json:"-"` // 协作者 ID 类型, 与协作者 ID 需要对应, 示例值: openid, 可选值有: email: 邮箱地址, openid: [开放平台ID](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), openchat: [开放平台群组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), opendepartmentid: [开放平台部门ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview), userid: [用户自定义ID](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)
+	Token      string  `path:"token" json:"-"`        // 文件的 token, 获取方式见 [如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6), 示例值: "doccnBKgoMyY5OMbUG6FioTXuBe"
+	MemberID   string  `path:"member_id" json:"-"`    // 协作者 ID, 与协作者 ID 类型需要对应, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
+	Type       string  `query:"type" json:"-"`        // 文件类型, 需要与文件的 token 相匹配, 示例值: doc, 可选值有: doc: 文档, sheet: 电子表格, file: 云空间文件, wiki: 知识库节点, bitable: 多维表格, docx: 新版文档, folder: 文件夹, mindnote: 思维笔记, minutes: 妙记, slides: 幻灯片
+	MemberType string  `query:"member_type" json:"-"` // 协作者 ID 类型, 与协作者 ID 需要对应, 示例值: openid, 可选值有: email: 邮箱地址, openid: 开放平台 ID, openchat: 开放平台群组 ID, opendepartmentid: 开放平台部门 ID, userid: 用户自定义 ID, unionid: 开放平台 UnionID, groupid: 自定义用户组 ID, wikispaceid: 知识空间 ID, 注意: 仅知识库文档支持该参数, 当需要操作知识库文档里的「知识库成员」类型协作者时传该参数
+	Type2      *string `json:"type2,omitempty"`       // 协作者类型, 注意: 当 `member_type` 参数为 `wikispaceid` 时必须传该参数, 默认值: "", 示例值: "user", 可选值有: user: 用户, chat: 群组, department: 组织架构, group: 用户组, wiki_space_member: 知识库成员, 注意: 在知识库启用了成员分组功能后不支持该参数, wiki_space_viewer: 知识库可阅读成员, 注意: 仅在知识库启用了成员分组功能后才支持该参数, wiki_space_editor: 知识库可编辑成员, 注意: 仅在知识库启用了成员分组功能后才支持该参数
 }
 
 // DeleteDriveMemberPermissionResp ...

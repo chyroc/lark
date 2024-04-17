@@ -75,8 +75,8 @@ type GetCoreHRProcessFormVariableDataRespFieldVariableValue struct {
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableName ...
 type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // i18n类型字段, 中文值
-	EnUs string `json:"en_us,omitempty"` // i18n类型字段, 英文值
+	ZhCn string `json:"zh_cn,omitempty"` // （注json key是zh-CN, 不是zh_cn）i18n类型字段, 中文值
+	EnUs string `json:"en_us,omitempty"` // （注json key是en-US, 不是en_us）i18n类型字段, 英文值
 }
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValue ...
@@ -93,6 +93,7 @@ type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValue struct 
 	I18nValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueI18nValue       `json:"i18n_value,omitempty"`       // i18n变量对象
 	ObjectValue     *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueObjectValue     `json:"object_value,omitempty"`     // 对象变量
 	ListValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValue       `json:"list_value,omitempty"`       // 列表对象
+	RecordValue     *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueRecordValue     `json:"record_value,omitempty"`     // 记录对象
 }
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueBoolValue ...
@@ -131,14 +132,14 @@ type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueEnumValu
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueEnumValueDesc ...
 type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueEnumValueDesc struct {
-	ZhCn string `json:"zh_cn,omitempty"` // i18n类型字段, 中文值
-	EnUs string `json:"en_us,omitempty"` // i18n类型字段, 英文值
+	ZhCn string `json:"zh_cn,omitempty"` // （注json key是zh-CN, 不是zh_cn）i18n类型字段, 中文值
+	EnUs string `json:"en_us,omitempty"` // （注json key是en-US, 不是en_us）i18n类型字段, 英文值
 }
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueEnumValueName ...
 type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueEnumValueName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // i18n类型字段, 中文值
-	EnUs string `json:"en_us,omitempty"` // i18n类型字段, 英文值
+	ZhCn string `json:"zh_cn,omitempty"` // （注json key是zh-CN, 不是zh_cn）i18n类型字段, 中文值
+	EnUs string `json:"en_us,omitempty"` // （注json key是en-US, 不是en_us）i18n类型字段, 英文值
 }
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueFileValue ...
@@ -157,8 +158,8 @@ type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueI18nValu
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueI18nValueValue ...
 type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueI18nValueValue struct {
-	ZhCn string `json:"zh_cn,omitempty"` // i18n类型字段, 中文值
-	EnUs string `json:"en_us,omitempty"` // i18n类型字段, 英文值
+	ZhCn string `json:"zh_cn,omitempty"` // （注json key是zh-CN, 不是zh_cn）i18n类型字段, 中文值
+	EnUs string `json:"en_us,omitempty"` // （注json key是en-US, 不是en_us）i18n类型字段, 英文值
 }
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValue ...
@@ -179,6 +180,7 @@ type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValu
 	FileValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueFileValue       `json:"file_value,omitempty"`       // 文件变量对象
 	I18nValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueI18nValue       `json:"i18n_value,omitempty"`       // i18n变量对象
 	ObjectValue     *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueObjectValue     `json:"object_value,omitempty"`     // 对象变量
+	RecordValue     *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueRecordValue     `json:"record_value,omitempty"`     // 记录对象
 }
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueBoolValue ...
@@ -217,14 +219,14 @@ type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValu
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEnumValueDesc ...
 type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEnumValueDesc struct {
-	ZhCn string `json:"zh_cn,omitempty"` // i18n类型字段, 中文值
-	EnUs string `json:"en_us,omitempty"` // i18n类型字段, 英文值
+	ZhCn string `json:"zh_cn,omitempty"` // （注json key是zh-CN, 不是zh_cn）i18n类型字段, 中文值
+	EnUs string `json:"en_us,omitempty"` // （注json key是en-US, 不是en_us）i18n类型字段, 英文值
 }
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEnumValueName ...
 type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEnumValueName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // i18n类型字段, 中文值
-	EnUs string `json:"en_us,omitempty"` // i18n类型字段, 英文值
+	ZhCn string `json:"zh_cn,omitempty"` // （注json key是zh-CN, 不是zh_cn）i18n类型字段, 中文值
+	EnUs string `json:"en_us,omitempty"` // （注json key是en-US, 不是en_us）i18n类型字段, 英文值
 }
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueFileValue ...
@@ -243,8 +245,8 @@ type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValu
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueI18nValueValue ...
 type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueI18nValueValue struct {
-	ZhCn string `json:"zh_cn,omitempty"` // i18n类型字段, 中文值
-	EnUs string `json:"en_us,omitempty"` // i18n类型字段, 英文值
+	ZhCn string `json:"zh_cn,omitempty"` // （注json key是zh-CN, 不是zh_cn）i18n类型字段, 中文值
+	EnUs string `json:"en_us,omitempty"` // （注json key是en-US, 不是en_us）i18n类型字段, 英文值
 }
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueNumberValue ...
@@ -254,6 +256,27 @@ type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValu
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueObjectValue ...
 type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueObjectValue struct {
+	Value     string `json:"value,omitempty"`       // 对象ID
+	WkApiName string `json:"wk_api_name,omitempty"` // 主数据apiName
+}
+
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueRecordValue ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueRecordValue struct {
+	Values *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueRecordValueValues `json:"values,omitempty"` // 注意: 这个值是一个map, key是变量唯一标识, value是变量值（平台限制, 没法录入Map类型, 这里用object示意一下）
+}
+
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueRecordValueValues ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueRecordValueValues struct {
+	CountryRegion *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueRecordValueValuesCountryRegion `json:"country_region,omitempty"` // 这个属性名称是map的key的示例, 属性值是map的value的示例, 值和外层的variable_value是的一样的结构。
+}
+
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueRecordValueValuesCountryRegion ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueRecordValueValuesCountryRegion struct {
+	ObjectValue *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueRecordValueValuesCountryRegionObjectValue `json:"object_value,omitempty"` // 文本变量对象
+}
+
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueRecordValueValuesCountryRegionObjectValue ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueRecordValueValuesCountryRegionObjectValue struct {
 	Value     string `json:"value,omitempty"`       // 对象ID
 	WkApiName string `json:"wk_api_name,omitempty"` // 主数据apiName
 }
@@ -270,6 +293,27 @@ type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueNumberVa
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueObjectValue ...
 type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueObjectValue struct {
+	Value     string `json:"value,omitempty"`       // 对象ID
+	WkApiName string `json:"wk_api_name,omitempty"` // 主数据apiName
+}
+
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueRecordValue ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueRecordValue struct {
+	Values *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueRecordValueValues `json:"values,omitempty"` // 注意: 这个值是一个map, key是变量唯一标识, value是变量值（平台限制, 没法录入Map类型, 这里用object示意一下）
+}
+
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueRecordValueValues ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueRecordValueValues struct {
+	CountryRegion *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueRecordValueValuesCountryRegion `json:"country_region,omitempty"` // 这个属性名称是map的key的示例, 属性值是map的value的示例, 值和外层的variable_value是的一样的结构。
+}
+
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueRecordValueValuesCountryRegion ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueRecordValueValuesCountryRegion struct {
+	ObjectValue *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueRecordValueValuesCountryRegionObjectValue `json:"object_value,omitempty"` // 文本变量对象
+}
+
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueRecordValueValuesCountryRegionObjectValue ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueRecordValueValuesCountryRegionObjectValue struct {
 	Value     string `json:"value,omitempty"`       // 对象ID
 	WkApiName string `json:"wk_api_name,omitempty"` // 主数据apiName
 }

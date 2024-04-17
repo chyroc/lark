@@ -21,10 +21,10 @@ import (
 	"context"
 )
 
-// UnsubscribeCalendar 该接口用于以当前身份（应用 / 用户）取消对某日历的订阅状态。
+// UnsubscribeCalendar 调用该接口以当前身份（应用或用户）取消指定日历的订阅状态。
 //
-// 身份由 Header Authorization 的 Token 类型决定。
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// - 当前身份由 Header Authorization 的 Token 类型决定。tenant_access_token 指应用身份, user_access_token 指用户身份。
+// - 如果使用应用身份调用该接口, 则需要确保应用开启了[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
 // - 仅可操作已经被当前身份订阅的日历。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/unsubscribe
@@ -63,7 +63,7 @@ func (r *Mock) UnMockCalendarUnsubscribeCalendar() {
 
 // UnsubscribeCalendarReq ...
 type UnsubscribeCalendarReq struct {
-	CalendarID string `path:"calendar_id" json:"-"` // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	CalendarID string `path:"calendar_id" json:"-"` // 日历 ID, 你可以调用以下接口获取某一日历的 ID, [查询主日历信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/primary), [查询日历列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/list), [搜索日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/search), 示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 }
 
 // UnsubscribeCalendarResp ...

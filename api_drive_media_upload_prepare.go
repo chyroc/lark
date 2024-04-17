@@ -21,10 +21,10 @@ import (
 	"context"
 )
 
-// PrepareUploadDriveMedia 发送初始化请求获取上传事务ID和分块策略, 目前是以4MB大小进行定长分片。
+// PrepareUploadDriveMedia 发送初始化请求, 以获取上传事务 ID 和分片策略, 为[上传素材分片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_part)做准备。平台固定以 4MB 的大小对素材进行分片。了解完整的分片上传素材流程, 参考[分片上传素材概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/multipart-upload-media/introduction)。
 //
-// 您在24小时内可保存上传事务ID和上传进度, 以便可以恢复上传
-// 该接口不支持太高的并发, 且调用频率上限为5QPS
+// 上传事务 ID 和上传进度在 24 小时内有效。请及时保存和恢复上传。
+// 该接口不支持较高并发, 且调用频率上限为 5 QPS。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_prepare
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/media/multipart-upload-media/upload_prepare
@@ -62,16 +62,16 @@ func (r *Mock) UnMockDrivePrepareUploadDriveMedia() {
 
 // PrepareUploadDriveMediaReq ...
 type PrepareUploadDriveMediaReq struct {
-	FileName   string  `json:"file_name,omitempty"`   // 文件名, 示例值: "demo.jpeg", 最大长度: `250` 字符
-	ParentType string  `json:"parent_type,omitempty"` // 上传点类型, 示例值: "doc_image", 可选值有: doc_image: 文档图片。, docx_image: 新版文档图片, sheet_image: 电子表格图片。, doc_file: 文档文件。, docx_file: 新版文档文件, sheet_file: 电子表格文件。, vc_virtual_background: vc虚拟背景(灰度中, 暂未开放)。, bitable_image: 多维表格图片。, bitable_file: 多维表格文件。, moments: 同事圈(灰度中, 暂未开放)。, ccm_import_open: 云文档导入文件。
-	ParentNode string  `json:"parent_node,omitempty"` // 上传点 Token, 用于指定素材将要上传到的具体文档或位置。点击 [这里](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction) 了解各上传点类型及其对应的上传点 Token 的说明, 示例值: "doccnFivLCfJfblZjGZtxgabcef"
-	Size       int64   `json:"size,omitempty"`        // 文件大小, 示例值: 1024, 最小值: `0`
-	Extra      *string `json:"extra,omitempty"`       // 扩展信息(可选), 示例值: "{\"test\":\"test\"}"
+	FileName   string  `json:"file_name,omitempty"`   // 素材的文件名称, 示例值: "demo.jpeg", 最大长度: `250` 字符
+	ParentType string  `json:"parent_type,omitempty"` // 上传点的类型。你可根据上传的文件类型与云文档类型确定上传点类型。例如, 要将一张图片插入到新版文档（文件类型为 `docx`）中, 需指定上传点为 `docx_image`；要将一个附件上传到新版文档中, 需指定上传点为 `docx_file`, 示例值: "docx_image", 可选值有: doc_image: 旧版文档图片, docx_image: 新版文档图片, sheet_image: 电子表格图片, doc_file: 文档文件, docx_file: 新版文档文件, sheet_file: 电子表格文件, vc_virtual_background: vc 虚拟背景（灰度中, 暂未开放）, bitable_image: 多维表格图片, bitable_file: 多维表格文件, moments: 同事圈（灰度中, 暂未开放）, ccm_import_open: 云文档导入文件
+	ParentNode string  `json:"parent_node,omitempty"` // 上传点的 token, 即要上传的云文档的 token, 用于指定素材将要上传到的云文档或位置。参考 [素材概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction) 了解上传点类型与上传点 token 的对应关系, 示例值: "doccnFivLCfJfblZjGZtxgabcef"
+	Size       int64   `json:"size,omitempty"`        // 文件的大小, 单位为字节。可通过查看文件的属性获取, 示例值: 1024, 最小值: `0`
+	Extra      *string `json:"extra,omitempty"`       // 其它扩展信息, 示例值: "{\"test\":\"test\"}"
 }
 
 // PrepareUploadDriveMediaResp ...
 type PrepareUploadDriveMediaResp struct {
-	UploadID  string `json:"upload_id,omitempty"`  // 分片上传事务ID
+	UploadID  string `json:"upload_id,omitempty"`  // 分片上传事务 ID
 	BlockSize int64  `json:"block_size,omitempty"` // 分片大小策略
 	BlockNum  int64  `json:"block_num,omitempty"`  // 分片数量
 }

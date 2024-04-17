@@ -68,7 +68,7 @@ type CreateApprovalInstanceReq struct {
 	NodeCcUserIDList       []*CreateApprovalInstanceReqNodeCcUserIDList       `json:"node_cc_user_id_list,omitempty"`       // 如果有发起人自选节点, 则可填写对应节点的抄送人, 单个节点最多选择20位抄送人, 最大长度: `20`
 	NodeCcOpenIDList       []*CreateApprovalInstanceReqNodeCcOpenIDList       `json:"node_cc_open_id_list,omitempty"`       // 抄送人发起人自选 open id 单个节点最多选择20位抄送人, 最大长度: `20`
 	UUID                   *string                                            `json:"uuid,omitempty"`                       // 审批实例 uuid, 用于幂等操作, 每个租户下面的唯一key, 同一个 uuid 只能用于创建一个审批实例, 如果冲突, 返回错误码 60012, 格式建议为 XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX, 不区分大小写, 示例值: "7C468A54-8745-2245-9675-08B7C63E7A87", 长度范围: `1` ～ `64` 字符
-	AllowResubmit          *bool                                              `json:"allow_resubmit,omitempty"`             // 可配置是否可以重新提交, 适用于审批人退回场景, 提单人在同一实例重新提交单据, 示例值: true
+	AllowResubmit          *bool                                              `json:"allow_resubmit,omitempty"`             // 可配置“提交”按钮, 该操作适用于审批人退回场景, 提单人在同一实例提交单据, 示例值: true
 	AllowSubmitAgain       *bool                                              `json:"allow_submit_again,omitempty"`         // 可配置是否可以再次提交, 适用于周期性提单场景, 按照当前表单内容再次发起一个新实例, 示例值: true
 	CancelBotNotification  *string                                            `json:"cancel_bot_notification,omitempty"`    // 取消指定的 bot 推送通知。可选值: 1: 取消通过推送, 2: 取消拒绝推送, 4: 取消实例取消推送, 支持同时取消多个 bot 推送通知。位运算, 即如需取消 1 和 2 两种通知, 则需要传入加和值 3, 示例值: "1"
 	ForbidRevoke           *bool                                              `json:"forbid_revoke,omitempty"`              // 配置是否可以禁止撤销, 示例值: false, 默认值: `false`

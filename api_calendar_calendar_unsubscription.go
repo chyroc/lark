@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// UnsubscribeCalendarChangeEvent 该接口用于以用户身份取消订阅当前身份下日历列表中的日历变更事件。
-//
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// UnsubscribeCalendarChangeEvent 调用该接口为当前用户身份取消订阅[日历变更事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/events/changed)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/unsubscription
 // new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar/unsubscription

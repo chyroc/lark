@@ -21,12 +21,11 @@ import (
 	"context"
 )
 
-// BatchGetDriveMediaTmpDownloadURL 通过`file_tokens`获取素材临时下载链接, 链接时效性是 24 小时, 过期失效。
+// BatchGetDriveMediaTmpDownloadURL 该接口用于获取云文档中素材的临时下载链接。链接的有效期为 24 小时, 过期失效。
 //
-// 注意事项:
-// * 无素材下载权限时, 接口将不会返回对应素材的下载链接。[点击了解如何将素材下载权限分享给应用](https://open.feishu.cn/document/server-docs/docs/drive-v1/faq#6e38a6de)。
-// * 拥有高级权限的 Bitable 在获取素材的下载链接时, 需要添加额外的 extra 作为 URL 查询参数, 未正确填写 extra 接口将不会返回对应素材的下载链接。请参考[上传点类型及对应 Extra 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction#a478a7c3)正确填写 extra 参数。
-// 该接口不支持太高的并发, 且调用频率上限为 5QPS。
+// * 调用此接口之前, 你需确保应用已拥有素材的下载权限。否则接口将返回 403 的 HTTP 状态码。参考[云空间常见问题](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/faq)第五点了解如何分享素材的下载权限给应用。
+// * 对于拥有高级权限的多维表格, 在下载素材时, 你需要添加额外的 extra 作为 URL 查询参数, 未填正确填写 extra 接口将返回 403 的 HTTP 状态码。请参考[extra 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction#a478a7c3)正确填写 extra 参数。
+// 该接口不支持较高并发, 且调用频率上限为 5 QPS。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/batch_get_tmp_download_url
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/media/batch_get_tmp_download_url
@@ -64,8 +63,8 @@ func (r *Mock) UnMockDriveBatchGetDriveMediaTmpDownloadURL() {
 
 // BatchGetDriveMediaTmpDownloadURLReq ...
 type BatchGetDriveMediaTmpDownloadURLReq struct {
-	FileTokens []string `query:"file_tokens" json:"-"` // 文件标识符列表, 最小个数: 1, 最大个数: 5, 如需一次查询多个文件标识符, 可通过将同一个参数名多次传递, 并且每次传递不同的参数值, 例如一次查询两个文件标识符的下载链接: https://{url}?file_tokens={token1}&file_tokens={token2}, 其中: `file_tokens`是参数名, 可以多次传递, `token1`和`token2`是参数值, 示例值: boxcnrHpsg1QDqXAAAyachabcef
-	Extra      *string  `query:"extra" json:"-"`       // 拓展信息, 比如对于拥有高级权限的 Bitable, 在下载素材或者获取素材临时下载链接时, 需要添加额外的`extra`作为 URL 查询参数进行鉴权, 示例值: [请参考-上传点类型及对应Extra说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction)
+	FileTokens []string `query:"file_tokens" json:"-"` // 素材文件的 token。获取方式如下所示: * 新版文档: 通过[获取文档所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/list)接口获取指定文件块（File Block）或图片块（Image Block）的 token, 即为素材 token, * 电子表格: 通过[读取多个范围](https://open.feishu.cn/document/ukTMukTMukTM/ukTMzUjL5EzM14SOxMTN)接口获取指定附件的, `fileToken`, 即为素材的 token, * 多维表格: 通过[列出记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/list)接口获取指定附件的 `file_token`, 即为素材的 token, 如需一次获取多个素材的下载链接, 可多次传递本参数及素材的 token 值, 格式如下: `https://{url}?file_tokens={token1}&file_tokens={token2}`, 其中: `file_tokens` 是参数名, 可以多次传递, `token1` 和 `token2` 为素材的实际 token 值, 你最多可一次获取五个素材的下载链接, 示例值: boxcnrHpsg1QDqXAAAyachabcef
+	Extra      *string  `query:"extra" json:"-"`       // 拓展信息, 如拥有高级权限的多维表格在下载素材时, 需要添加额外的扩展信息作为 URL 查询参数鉴权。详情参考[上传点类型及对应 Extra说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction)。未填正确填写该参数的接口将返回 403 的 HTTP 状态码, 示例值: 请参考[上传点类型及对应 extra 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction)
 }
 
 // BatchGetDriveMediaTmpDownloadURLResp ...
@@ -75,8 +74,8 @@ type BatchGetDriveMediaTmpDownloadURLResp struct {
 
 // BatchGetDriveMediaTmpDownloadURLRespTmpDownloadURL ...
 type BatchGetDriveMediaTmpDownloadURLRespTmpDownloadURL struct {
-	FileToken      string `json:"file_token,omitempty"`       // 文件标识符
-	TmpDownloadURL string `json:"tmp_download_url,omitempty"` // 文件临时下载链接
+	FileToken      string `json:"file_token,omitempty"`       // 素材的 token
+	TmpDownloadURL string `json:"tmp_download_url,omitempty"` // 素材的临时下载链接
 }
 
 // batchGetDriveMediaTmpDownloadURLResp ...

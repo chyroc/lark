@@ -21,10 +21,10 @@ import (
 	"context"
 )
 
-// GetDriveExportTask 根据[创建导出任务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/create)返回的`ticket`轮询导出任务的结果, 通过本接口获取到导出产物的文件`token`之后, 可调用[下载导出文件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/download)接口将导出产物下载到本地。
+// GetDriveExportTask 根据[创建导出任务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/create)返回的导出任务 ID（ticket）轮询导出任务结果, 并返回导出文件的 token。你可使用该 token 继续调用[下载导出文件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/download)接口将导出的产物下载到本地。了解完整的导出文件步骤, 参考[导出飞书云文档概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/export-user-guide)。
 //
-// ::: note
-// 获取导出结果的用户需要与创建导出任务的用户相一致。
+// ::: warning
+// 调用该接口的用户或应用需与调用创建导出任务接口的用户或应用保持一致。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/get
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/export_task/get
@@ -62,8 +62,8 @@ func (r *Mock) UnMockDriveGetDriveExportTask() {
 
 // GetDriveExportTaskReq ...
 type GetDriveExportTaskReq struct {
-	Ticket string `path:"ticket" json:"-"` // 导出任务ID, [创建导出任务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/create) 响应中的 ticket 字段, 示例值: "6933093124755423251"
-	Token  string `query:"token" json:"-"` // 导出文档的 token, [如何获取文档 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6), 示例值: doccnZVxxxxxxxxxxxxGiyBgYqe
+	Ticket string `path:"ticket" json:"-"` // 导出任务 ID。调用[创建导出任务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/create) 获取, 示例值: "6933093124755412345"
+	Token  string `query:"token" json:"-"` // 要导出的云文档的 token。获取方式参考[如何获取云文档相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。你可参考以下请求示例了解如何使用查询参数, 示例值: docbcZVGtv1papC6jAVGiyabcef, 最大长度: `27` 字符
 }
 
 // GetDriveExportTaskResp ...
@@ -73,13 +73,13 @@ type GetDriveExportTaskResp struct {
 
 // GetDriveExportTaskRespResult ...
 type GetDriveExportTaskRespResult struct {
-	FileExtension string `json:"file_extension,omitempty"` // 导出文件扩展名, 可选值有: docx: Microsoft Word (DOCX) 格式, pdf: pdf 格式, xlsx: Microsoft Excel (XLSX) 格式, csv: csv 格式
-	Type          string `json:"type,omitempty"`           // 导出文档类型 [文档类型说明](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#560bf735), 可选值有: doc: 旧版飞书云文档类型, 支持导出为 docx、pdf 格式, sheet: 飞书电子表格类型, 支持导出为 xlsx、csv 格式, bitable: 飞书多维表格类型, 支持导出为 xlsx、csv 格式, docx: 新版飞书云文档类型, 支持导出为 docx、pdf 格式
-	FileName      string `json:"file_name,omitempty"`      // 导出文件名
-	FileToken     string `json:"file_token,omitempty"`     // 导出文件 drive token
-	FileSize      int64  `json:"file_size,omitempty"`      // 导出文件大小, 单位字节
-	JobErrorMsg   string `json:"job_error_msg,omitempty"`  // 任务失败原因
-	JobStatus     int64  `json:"job_status,omitempty"`     // 任务状态, 可选值有: 0: 成功, 1: 初始化, 2: 处理中, 3: 内部错误, 107: 导出文档过大, 108: 处理超时, 109: 导出内容块无权限, 110: 无权限, 111: 导出文档已删除, 122: 创建副本中禁止导出, 123: 导出文档不存在, 6000: 导出文档图片过多
+	FileExtension string `json:"file_extension,omitempty"` // 导出的文件的扩展名, 可选值有: docx: Microsoft Word 格式, pdf: PDF 格式, xlsx: Microsoft Excel (XLSX) 格式, csv: CSV 格式
+	Type          string `json:"type,omitempty"`           // 要导出的云文档的类型。可通过云文档的链接判断, 可选值有: doc: 旧版飞书文档。支持导出扩展名为 docx 和 pdf 的文件。, sheet: 飞书电子表格。支持导出扩展名为 xlsx 和 csv 的文件。, bitable: 飞书多维表格。支持导出扩展名为 xlsx 和 csv 格式的文件。, docx: 新版飞书文档。支持导出扩展名为 docx 和 pdf 格式的文件。
+	FileName      string `json:"file_name,omitempty"`      // 导出的文件名称
+	FileToken     string `json:"file_token,omitempty"`     // 导出的文件的 token。可用于调用[下载导出文件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/download)接口将导出的产物下载到本地。
+	FileSize      int64  `json:"file_size,omitempty"`      // 导出文件的大小, 单位字节。
+	JobErrorMsg   string `json:"job_error_msg,omitempty"`  // 导出任务失败的原因
+	JobStatus     int64  `json:"job_status,omitempty"`     // 导出任务状态, 可选值有: 0: 成功, 1: 初始化, 2: 处理中, 3: 内部错误, 107: 导出文档过大, 108: 处理超时, 109: 导出内容块无权限, 110: 无权限, 111: 导出文档已删除, 122: 创建副本中禁止导出, 123: 导出文档不存在, 6000: 导出文档图片过多
 }
 
 // getDriveExportTaskResp ...

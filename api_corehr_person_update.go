@@ -142,7 +142,7 @@ type UpdateCoreHRPersonReqBankAccount struct {
 	BranchIDV2        *string                                             `json:"branch_id_v2,omitempty"`        // 支行 ID, 要求必须为填入银行的支行, 详细信息可通过【查询支行信息】接口查询获得, 示例值: "MDBK00000017"
 	CountryRegionID   *string                                             `json:"country_region_id,omitempty"`   // 国家/地区 ID, 详细信息可通过【查询国家/地区信息】接口查询获得, 示例值: "12"
 	BankAccountUsage  []*UpdateCoreHRPersonReqBankAccountBankAccountUsage `json:"bank_account_usage,omitempty"`  // 银行卡用途, 枚举值可通过文档【飞书人事枚举常量】银行卡用途（Bank Account Usage）枚举定义部分获得
-	BankAccountType   *UpdateCoreHRPersonReqBankAccountBankAccountType    `json:"bank_account_type,omitempty"`   // 银行卡类型, 枚举值可通过文档【飞书人事枚举常量】银行卡类型（Bank Account NameType）枚举定义部分获得
+	BankAccountType   *UpdateCoreHRPersonReqBankAccountBankAccountType    `json:"bank_account_type,omitempty"`   // 银行卡类型, 枚举值可通过文档【飞书人事枚举常量】银行卡类型（Bank Account Type）枚举定义部分获得
 	CurrencyID        *string                                             `json:"currency_id,omitempty"`         // 货币id, 示例值: "12QueryCountryRegionSubdivisionDataReq"
 	CustomFields      []*UpdateCoreHRPersonReqBankAccountCustomField      `json:"custom_fields,omitempty"`       // 自定义字段
 }
@@ -686,7 +686,7 @@ type UpdateCoreHRPersonRespPersonBankAccount struct {
 	BranchIDV2        string                                                     `json:"branch_id_v2,omitempty"`        // 支行 ID, 要求必须为填入银行的支行, 详细信息可通过【查询支行信息】接口查询获得
 	CountryRegionID   string                                                     `json:"country_region_id,omitempty"`   // 国家/地区 ID, 详细信息可通过【查询国家/地区信息】接口查询获得
 	BankAccountUsage  []*UpdateCoreHRPersonRespPersonBankAccountBankAccountUsage `json:"bank_account_usage,omitempty"`  // 银行卡用途, 枚举值可通过文档【飞书人事枚举常量】银行卡用途（Bank Account Usage）枚举定义部分获得
-	BankAccountType   *UpdateCoreHRPersonRespPersonBankAccountBankAccountType    `json:"bank_account_type,omitempty"`   // 银行卡类型, 枚举值可通过文档【飞书人事枚举常量】银行卡类型（Bank Account NameType）枚举定义部分获得
+	BankAccountType   *UpdateCoreHRPersonRespPersonBankAccountBankAccountType    `json:"bank_account_type,omitempty"`   // 银行卡类型, 枚举值可通过文档【飞书人事枚举常量】银行卡类型（Bank Account Type）枚举定义部分获得
 	CurrencyID        string                                                     `json:"currency_id,omitempty"`         // 货币id
 	CustomFields      []*UpdateCoreHRPersonRespPersonBankAccountCustomField      `json:"custom_fields,omitempty"`       // 自定义字段
 }

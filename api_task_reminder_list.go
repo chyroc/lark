@@ -25,6 +25,8 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-reminder/list
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task-reminder/list
+//
+// Deprecated
 func (r *TaskService) GetTaskReminderList(ctx context.Context, request *GetTaskReminderListReq, options ...MethodOptionFunc) (*GetTaskReminderListResp, *Response, error) {
 	if r.cli.mock.mockTaskGetTaskReminderList != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#GetTaskReminderList mock enable")

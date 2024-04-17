@@ -25,6 +25,8 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-collaborator/list
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task-collaborator/list
+//
+// Deprecated
 func (r *TaskService) GetTaskCollaboratorList(ctx context.Context, request *GetTaskCollaboratorListReq, options ...MethodOptionFunc) (*GetTaskCollaboratorListResp, *Response, error) {
 	if r.cli.mock.mockTaskGetTaskCollaboratorList != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#GetTaskCollaboratorList mock enable")
@@ -74,8 +76,8 @@ type GetTaskCollaboratorListResp struct {
 
 // GetTaskCollaboratorListRespItem ...
 type GetTaskCollaboratorListRespItem struct {
-	ID     string   `json:"id,omitempty"`      // 任务执行者的 ID, 传入的值为 user_id 或 open_id, 由user_id_type 决定。user_id和open_id的获取可见文档[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get), 已经废弃, 为了向前兼容早期只支持单次添加一个人的情况而保留, 但不再推荐使用, 建议使用id_list字段
-	IDList []string `json:"id_list,omitempty"` // 执行者的用户ID列表, 传入的值为 user_id 或 open_id, 由user_id_type 决定。user_id和open_id的获取可见文档[如何获取相关id](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)。
+	ID     string   `json:"id,omitempty"`      // 任务执行者的 ID, 传入的值为 user_id 或 open_id, 由user_id_type 决定。user_id和open_id的获取可见文档[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id), 已经废弃, 为了向前兼容早期只支持单次添加一个人的情况而保留, 但不再推荐使用, 建议使用id_list字段
+	IDList []string `json:"id_list,omitempty"` // 执行者的用户ID列表, 传入的值为 user_id 或 open_id, 由user_id_type 决定。user_id和open_id的获取可见文档[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)。
 }
 
 // getTaskCollaboratorListResp ...

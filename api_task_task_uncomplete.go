@@ -25,6 +25,8 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/uncomplete
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task/uncomplete
+//
+// Deprecated
 func (r *TaskService) UncompleteTask(ctx context.Context, request *UncompleteTaskReq, options ...MethodOptionFunc) (*UncompleteTaskResp, *Response, error) {
 	if r.cli.mock.mockTaskUncompleteTask != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#UncompleteTask mock enable")

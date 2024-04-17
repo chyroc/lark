@@ -84,10 +84,13 @@ type BatchGetCoreHREmployeeRespItem struct {
 	EmployeeTypeID           string                                              `json:"employee_type_id,omitempty"`            // 人员类型 ID, 详细信息可通过【查询单个人员类型】接口获得
 	DepartmentID             string                                              `json:"department_id,omitempty"`               // 部门 ID, 详细信息可通过【查询单个部门】接口获得
 	JobLevelID               string                                              `json:"job_level_id,omitempty"`                // 职级 ID, 详细信息可通过【查询单个职务级别】接口获得, 字段权限要求（满足任一）: 获取职务级别信息, 读写员工的职务级别信息
+	JobLevel                 *BatchGetCoreHREmployeeRespItemJobLevel             `json:"job_level,omitempty"`                   // 职级, 字段权限要求（满足任一）: 获取职务级别信息, 读写员工的职务级别信息
 	JobGradeID               string                                              `json:"job_grade_id,omitempty"`                // 职等 ID, 字段权限要求（满足任一）: 获取职等信息, 读写职等信息
 	WorkLocationID           string                                              `json:"work_location_id,omitempty"`            // 工作地点 ID, 详细信息可通过【查询单个地点】接口获得
 	JobFamilyID              string                                              `json:"job_family_id,omitempty"`               // 序列 ID, 详细信息可通过【查询单个职务序列】接口获得
+	JobFamily                *BatchGetCoreHREmployeeRespItemJobFamily            `json:"job_family,omitempty"`                  // 序列
 	JobID                    string                                              `json:"job_id,omitempty"`                      // 职务 ID, 详细信息可通过【查询单个职务】接口获得, 字段权限要求（满足任一）: 获取员工的职务信息, 获取职务级别信息, 读写员工的职务级别信息
+	Job                      *BatchGetCoreHREmployeeRespItemJob                  `json:"job,omitempty"`                         // 职务, 字段权限要求（满足任一）: 获取员工的职务信息, 获取职务级别信息, 读写员工的职务级别信息
 	CompanyID                string                                              `json:"company_id,omitempty"`                  // 所属公司 ID, 详细信息可通过【查询单个公司】接口获得
 	WorkingHoursTypeID       string                                              `json:"working_hours_type_id,omitempty"`       // 工时制度 ID, 详细信息可通过【查询单个工时制度】接口获得
 	Tenure                   string                                              `json:"tenure,omitempty"`                      // 司龄
@@ -128,6 +131,21 @@ type BatchGetCoreHREmployeeRespItem struct {
 	DirectManager            *BatchGetCoreHREmployeeRespItemDirectManager        `json:"direct_manager,omitempty"`              // 直接上级基本信息
 	DottedLineManager        *BatchGetCoreHREmployeeRespItemDottedLineManager    `json:"dotted_line_manager,omitempty"`         // 虚线上级基本信息
 	TimeZone                 string                                              `json:"time_zone,omitempty"`                   // 时区
+	ServiceCompany           string                                              `json:"service_company,omitempty"`             // 任职公司, 字段权限要求: 获取任职公司
+	CompensationType         *BatchGetCoreHREmployeeRespItemCompensationType     `json:"compensation_type,omitempty"`           // 薪资类型, 字段权限要求: 获取薪资类型
+	WorkShift                *BatchGetCoreHREmployeeRespItemWorkShift            `json:"work_shift,omitempty"`                  // 排班类型, 字段权限要求: 获取排班信息
+}
+
+// BatchGetCoreHREmployeeRespItemCompensationType ...
+type BatchGetCoreHREmployeeRespItemCompensationType struct {
+	EnumName string                                                   `json:"enum_name,omitempty"` // 枚举值
+	Display  []*BatchGetCoreHREmployeeRespItemCompensationTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+}
+
+// BatchGetCoreHREmployeeRespItemCompensationTypeDisplay ...
+type BatchGetCoreHREmployeeRespItemCompensationTypeDisplay struct {
+	Lang  string `json:"lang,omitempty"`  // 语言
+	Value string `json:"value,omitempty"` // 内容
 }
 
 // BatchGetCoreHREmployeeRespItemCostCenter ...
@@ -218,6 +236,115 @@ type BatchGetCoreHREmployeeRespItemEmploymentTypeDisplay struct {
 	Value string `json:"value,omitempty"` // 内容
 }
 
+// BatchGetCoreHREmployeeRespItemJob ...
+type BatchGetCoreHREmployeeRespItemJob struct {
+	ID                 string                                          `json:"id,omitempty"`                    // 实体在CoreHR内部的唯一键
+	Code               string                                          `json:"code,omitempty"`                  // 编码
+	Name               []*BatchGetCoreHREmployeeRespItemJobName        `json:"name,omitempty"`                  // 名称
+	Description        []*BatchGetCoreHREmployeeRespItemJobDescription `json:"description,omitempty"`           // 描述
+	Active             bool                                            `json:"active,omitempty"`                // 启用
+	JobTitle           []*BatchGetCoreHREmployeeRespItemJobJobTitle    `json:"job_title,omitempty"`             // 职务头衔
+	JobFamilyIDList    []string                                        `json:"job_family_id_list,omitempty"`    // 序列
+	JobLevelIDList     []string                                        `json:"job_level_id_list,omitempty"`     // 职级, 字段权限要求: 获取职务中的职级信息
+	WorkingHoursTypeID string                                          `json:"working_hours_type_id,omitempty"` // 工时制度, 引用WorkingHoursType的ID
+	EffectiveTime      string                                          `json:"effective_time,omitempty"`        // 生效时间
+	ExpirationTime     string                                          `json:"expiration_time,omitempty"`       // 失效时间
+	CustomFields       []*BatchGetCoreHREmployeeRespItemJobCustomField `json:"custom_fields,omitempty"`         // 自定义字段
+}
+
+// BatchGetCoreHREmployeeRespItemJobCustomField ...
+type BatchGetCoreHREmployeeRespItemJobCustomField struct {
+	FieldName string `json:"field_name,omitempty"` // 字段名
+	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(123, 123.23, true, [\"id1\", \"id2\], 2006-01-02 15:04:05])
+}
+
+// BatchGetCoreHREmployeeRespItemJobDescription ...
+type BatchGetCoreHREmployeeRespItemJobDescription struct {
+	Lang  string `json:"lang,omitempty"`  // 语言
+	Value string `json:"value,omitempty"` // 内容
+}
+
+// BatchGetCoreHREmployeeRespItemJobFamily ...
+type BatchGetCoreHREmployeeRespItemJobFamily struct {
+	JobFamilyID    string                                                `json:"job_family_id,omitempty"`   // 序列 ID
+	Name           []*BatchGetCoreHREmployeeRespItemJobFamilyName        `json:"name,omitempty"`            // 名称
+	Active         bool                                                  `json:"active,omitempty"`          // 启用
+	ParentID       string                                                `json:"parent_id,omitempty"`       // 上级序列
+	EffectiveTime  string                                                `json:"effective_time,omitempty"`  // 生效时间
+	ExpirationTime string                                                `json:"expiration_time,omitempty"` // 失效时间
+	Code           string                                                `json:"code,omitempty"`            // 编码
+	CustomFields   []*BatchGetCoreHREmployeeRespItemJobFamilyCustomField `json:"custom_fields,omitempty"`   // 自定义字段
+}
+
+// BatchGetCoreHREmployeeRespItemJobFamilyCustomField ...
+type BatchGetCoreHREmployeeRespItemJobFamilyCustomField struct {
+	CustomApiName string                                                  `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
+	Name          *BatchGetCoreHREmployeeRespItemJobFamilyCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
+	Type          int64                                                   `json:"type,omitempty"`            // 自定义字段类型
+	Value         string                                                  `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
+}
+
+// BatchGetCoreHREmployeeRespItemJobFamilyCustomFieldName ...
+type BatchGetCoreHREmployeeRespItemJobFamilyCustomFieldName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文
+	EnUs string `json:"en_us,omitempty"` // 英文
+}
+
+// BatchGetCoreHREmployeeRespItemJobFamilyName ...
+type BatchGetCoreHREmployeeRespItemJobFamilyName struct {
+	Lang  string `json:"lang,omitempty"`  // 语言
+	Value string `json:"value,omitempty"` // 内容
+}
+
+// BatchGetCoreHREmployeeRespItemJobJobTitle ...
+type BatchGetCoreHREmployeeRespItemJobJobTitle struct {
+	Lang  string `json:"lang,omitempty"`  // 语言
+	Value string `json:"value,omitempty"` // 内容
+}
+
+// BatchGetCoreHREmployeeRespItemJobLevel ...
+type BatchGetCoreHREmployeeRespItemJobLevel struct {
+	JobLevelID   string                                               `json:"job_level_id,omitempty"`  // 职级 ID
+	LevelOrder   int64                                                `json:"level_order,omitempty"`   // 职级数值
+	Code         string                                               `json:"code,omitempty"`          // 编码
+	Name         []*BatchGetCoreHREmployeeRespItemJobLevelName        `json:"name,omitempty"`          // 名称
+	Description  []*BatchGetCoreHREmployeeRespItemJobLevelDescription `json:"description,omitempty"`   // 描述
+	Active       bool                                                 `json:"active,omitempty"`        // 启用
+	CustomFields []*BatchGetCoreHREmployeeRespItemJobLevelCustomField `json:"custom_fields,omitempty"` // 自定义字段
+}
+
+// BatchGetCoreHREmployeeRespItemJobLevelCustomField ...
+type BatchGetCoreHREmployeeRespItemJobLevelCustomField struct {
+	CustomApiName string                                                 `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
+	Name          *BatchGetCoreHREmployeeRespItemJobLevelCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
+	Type          int64                                                  `json:"type,omitempty"`            // 自定义字段类型
+	Value         string                                                 `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
+}
+
+// BatchGetCoreHREmployeeRespItemJobLevelCustomFieldName ...
+type BatchGetCoreHREmployeeRespItemJobLevelCustomFieldName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文
+	EnUs string `json:"en_us,omitempty"` // 英文
+}
+
+// BatchGetCoreHREmployeeRespItemJobLevelDescription ...
+type BatchGetCoreHREmployeeRespItemJobLevelDescription struct {
+	Lang  string `json:"lang,omitempty"`  // 语言
+	Value string `json:"value,omitempty"` // 内容
+}
+
+// BatchGetCoreHREmployeeRespItemJobLevelName ...
+type BatchGetCoreHREmployeeRespItemJobLevelName struct {
+	Lang  string `json:"lang,omitempty"`  // 语言
+	Value string `json:"value,omitempty"` // 内容
+}
+
+// BatchGetCoreHREmployeeRespItemJobName ...
+type BatchGetCoreHREmployeeRespItemJobName struct {
+	Lang  string `json:"lang,omitempty"`  // 语言
+	Value string `json:"value,omitempty"` // 内容
+}
+
 // BatchGetCoreHREmployeeRespItemNoncompeteStatus ...
 type BatchGetCoreHREmployeeRespItemNoncompeteStatus struct {
 	EnumName string                                                   `json:"enum_name,omitempty"` // 枚举值
@@ -264,6 +391,7 @@ type BatchGetCoreHREmployeeRespItemPersonInfo struct {
 	NativeRegion             string                                                            `json:"native_region,omitempty"`               // 籍贯 ID, 字段权限要求（满足任一）: 获取籍贯信息, 读写籍贯信息
 	HukouType                *BatchGetCoreHREmployeeRespItemPersonInfoHukouType                `json:"hukou_type,omitempty"`                  // 户口类型, 枚举值可通过文档【飞书人事枚举常量】户口类型（hukou_type）枚举定义部分获得, 字段权限要求（满足任一）: 获取户口信息, 读写户口信息
 	HukouLocation            string                                                            `json:"hukou_location,omitempty"`              // 户口所在地, 字段权限要求（满足任一）: 获取户口信息, 读写户口信息
+	PoliticalAffiliations    []*BatchGetCoreHREmployeeRespItemPersonInfoPoliticalAffiliation   `json:"political_affiliations,omitempty"`      // 政治面貌, 枚举值可查询【获取字段详情】接口获取, 按如下参数查询即可: custom_api_name: political_affiliation - object_api_name: person_info_chn, 字段权限要求: 获取政治面貌信息
 	TalentID                 string                                                            `json:"talent_id,omitempty"`                   // 人才 ID
 	CustomFields             []*BatchGetCoreHREmployeeRespItemPersonInfoCustomField            `json:"custom_fields,omitempty"`               // 自定义字段, 字段权限要求（满足任一）: 获取个人信息自定义字段信息, 读写个人信息中的自定义字段信息
 	NationalIDNumber         string                                                            `json:"national_id_number,omitempty"`          // 居民身份证件号码, 字段权限要求（满足任一）: 获取证件信息, 读写证件信息
@@ -340,7 +468,7 @@ type BatchGetCoreHREmployeeRespItemPersonInfoBankAccount struct {
 	BranchIDV2        string                                                                 `json:"branch_id_v2,omitempty"`        // 支行 ID, 要求必须为填入银行的支行, 详细信息可通过[【查询支行信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-bank_branch/search)查询。当在飞书人事选择具体支行下拉选项时, 请通过此字段获取结果
 	CountryRegionID   string                                                                 `json:"country_region_id,omitempty"`   // 国家/地区 ID, 详细信息可通过[【查询国家/地区信息v2】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)查询
 	BankAccountUsage  []*BatchGetCoreHREmployeeRespItemPersonInfoBankAccountBankAccountUsage `json:"bank_account_usage,omitempty"`  // 银行卡用途, 枚举值可通过文档【飞书人事枚举常量】银行卡用途（Bank Account Usage）枚举定义部分获得
-	BankAccountType   *BatchGetCoreHREmployeeRespItemPersonInfoBankAccountBankAccountType    `json:"bank_account_type,omitempty"`   // 银行卡类型, 枚举值可通过文档【飞书人事枚举常量】银行卡类型（Bank Account NameType）枚举定义部分获得
+	BankAccountType   *BatchGetCoreHREmployeeRespItemPersonInfoBankAccountBankAccountType    `json:"bank_account_type,omitempty"`   // 银行卡类型, 枚举值可通过文档【飞书人事枚举常量】银行卡类型（Bank Account Type）枚举定义部分获得
 	CurrencyID        string                                                                 `json:"currency_id,omitempty"`         // 货币id, 可通过[【查询货币信息v2】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)查询
 	IBAN              string                                                                 `json:"IBAN,omitempty"`                // 国际银行账号
 	CustomFields      []*BatchGetCoreHREmployeeRespItemPersonInfoBankAccountCustomField      `json:"custom_fields,omitempty"`       // 自定义字段
@@ -1253,7 +1381,6 @@ type BatchGetCoreHREmployeeRespItemPersonInfoNationalIDCustomFieldName struct {
 
 // BatchGetCoreHREmployeeRespItemPersonInfoPersonalProfile ...
 type BatchGetCoreHREmployeeRespItemPersonInfoPersonalProfile struct {
-	PersonalProfileID   string                                                                      `json:"personal_profile_id,omitempty"`   // 个人资料 ID
 	PersonalProfileType *BatchGetCoreHREmployeeRespItemPersonInfoPersonalProfilePersonalProfileType `json:"personal_profile_type,omitempty"` // 资料类型
 	Files               []*BatchGetCoreHREmployeeRespItemPersonInfoPersonalProfileFile              `json:"files,omitempty"`                 // 上传文件列表
 }
@@ -1318,6 +1445,18 @@ type BatchGetCoreHREmployeeRespItemPersonInfoPhonePhoneUsage struct {
 
 // BatchGetCoreHREmployeeRespItemPersonInfoPhonePhoneUsageDisplay ...
 type BatchGetCoreHREmployeeRespItemPersonInfoPhonePhoneUsageDisplay struct {
+	Lang  string `json:"lang,omitempty"`  // 语言
+	Value string `json:"value,omitempty"` // 内容
+}
+
+// BatchGetCoreHREmployeeRespItemPersonInfoPoliticalAffiliation ...
+type BatchGetCoreHREmployeeRespItemPersonInfoPoliticalAffiliation struct {
+	EnumName string                                                                 `json:"enum_name,omitempty"` // 枚举值
+	Display  []*BatchGetCoreHREmployeeRespItemPersonInfoPoliticalAffiliationDisplay `json:"display,omitempty"`   // 枚举多语展示
+}
+
+// BatchGetCoreHREmployeeRespItemPersonInfoPoliticalAffiliationDisplay ...
+type BatchGetCoreHREmployeeRespItemPersonInfoPoliticalAffiliationDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
@@ -1459,6 +1598,18 @@ type BatchGetCoreHREmployeeRespItemWorkEmailEmailUsage struct {
 
 // BatchGetCoreHREmployeeRespItemWorkEmailEmailUsageDisplay ...
 type BatchGetCoreHREmployeeRespItemWorkEmailEmailUsageDisplay struct {
+	Lang  string `json:"lang,omitempty"`  // 语言
+	Value string `json:"value,omitempty"` // 内容
+}
+
+// BatchGetCoreHREmployeeRespItemWorkShift ...
+type BatchGetCoreHREmployeeRespItemWorkShift struct {
+	EnumName string                                            `json:"enum_name,omitempty"` // 枚举值
+	Display  []*BatchGetCoreHREmployeeRespItemWorkShiftDisplay `json:"display,omitempty"`   // 枚举多语展示
+}
+
+// BatchGetCoreHREmployeeRespItemWorkShiftDisplay ...
+type BatchGetCoreHREmployeeRespItemWorkShiftDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }

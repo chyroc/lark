@@ -21,10 +21,10 @@ import (
 	"context"
 )
 
-// DeleteCalendarTimeoffEvent 删除一个指定的请假日程, 请假日程删除, 用户个人签名页的请假信息也会消失。
+// DeleteCalendarTimeoffEvent 调用该接口删除一个指定的请假日程。请假日程删除后, 用户个人签名页的请假信息也会消失。
 //
-// 一个应用只能删除自己创建的请假日程。
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// - 使用应用身份调用该接口, 需要确保应用开启了[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// - 当前应用身份只能删除自己创建的请假日程。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/timeoff_event/delete
 // new doc: https://open.feishu.cn/document/server-docs/calendar-v4/timeoff_event/delete
@@ -61,7 +61,7 @@ func (r *Mock) UnMockCalendarDeleteCalendarTimeoffEvent() {
 
 // DeleteCalendarTimeoffEventReq ...
 type DeleteCalendarTimeoffEventReq struct {
-	TimeoffEventID string `path:"timeoff_event_id" json:"-"` // 休假申请的唯一标识id。参见[请假日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/timeoff_event/introduction#b6611a02), 示例值: "timeoff:XXXXXX-XXXX-0917-1623-aa493d591a39"
+	TimeoffEventID string `path:"timeoff_event_id" json:"-"` // 请假日程 ID, 在创建请假日程时从返回结果中获取, 示例值: "timeoff:XXXXXX-XXXX-0917-1623-aa493d591a39"
 }
 
 // DeleteCalendarTimeoffEventResp ...

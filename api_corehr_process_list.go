@@ -58,7 +58,7 @@ func (r *Mock) UnMockCoreHRGetCoreHRProcessList() {
 // GetCoreHRProcessListReq ...
 type GetCoreHRProcessListReq struct {
 	ModifyTimeTo     string  `query:"modify_time_to" json:"-"`     // 任务查询结束时间 (unix毫秒时间戳), 闭区间, 开始时间和结束时间跨度不能超过31天, 示例值: 1547654251506
-	Statuses         []int64 `query:"statuses" json:"-"`           // 查询状态列表, 示例值: 1
+	Statuses         []int64 `query:"statuses" json:"-"`           // 查询状态列表。如需一次查询多个状态值, 可通过将同一参数名多次传递, 并且每次传递不同的参数值。例如:https://{url}?statuses=1&statuses=2, 示例值: 1
 	PageToken        *string `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 7278949005675988535
 	PageSize         int64   `query:"page_size" json:"-"`          // 分页大小, 示例值: 100, 最大值: `100`
 	ModifyTimeFrom   string  `query:"modify_time_from" json:"-"`   // 查询开始时间（unix毫秒时间戳）, 闭区间, 开始时间和结束时间跨度不能超过31天, 示例值: 1547654251506

@@ -22,12 +22,11 @@ import (
 	"io"
 )
 
-// DownloadDriveFile 下载云空间下的文件, 不含飞书文档、电子表格以及多维表格等在线文档, 支持指定文件`Range`进行下载。
+// DownloadDriveFile 下载云空间中的文件, 如 PDF 文件。不包含飞书文档、电子表格以及多维表格等在线文档。该接口支持通过在请求头添加`Range` 参数分片下载部分文件。
 //
-// 注意事项:
-// * 无文件下载权限时接口将返回 403 的 HTTP 状态码。[点击了解如何将文件下载权限分享给应用](https://open.feishu.cn/document/server-docs/docs/drive-v1/faq#6e38a6de)。
-// * 本接口提供文件下载能力, 如要下载云文档素材, 需调用[下载素材](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/download)接口。素材表示云文档中的资源文件, 比如新版文档中的图片及附件等, 素材不会呈现在云空间, 只会显示在对应云文档内。
-// 该接口支持调用频率上限为 5QPS
+// * 调用此接口之前, 你需确保应用已拥有文件的下载权限。否则接口将返回 403 的 HTTP 状态码。参考[云空间常见问题](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/faq)第五点了解如何分享文件的下载权限给应用。
+// * 本接口仅支持下载云空间中的资源文件。要下载云文档中的素材（如图片、附件等）, 需调用[下载素材](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/download)接口。
+// 该接口支持调用频率上限为 5 QPS。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/download
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/download/download
@@ -65,8 +64,7 @@ func (r *Mock) UnMockDriveDownloadDriveFile() {
 
 // DownloadDriveFileReq ...
 type DownloadDriveFileReq struct {
-	FileToken string   `path:"file_token" json:"-"` // 文件的 token, 获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction), 示例值: "boxcnabCdefg12345"
-	Range     [2]int64 `header:"range" json:"-"`    // 指定文件下载部分, 示例值: "bytes=0-1024"
+	FileToken string `path:"file_token" json:"-"` // 文件的 token, 获取方式见 [云文档常见问题](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/docs-faq), 示例值: "boxcnabCdefgabcef"
 }
 
 // downloadDriveFileResp ...

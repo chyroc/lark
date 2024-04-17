@@ -21,11 +21,12 @@ import (
 	"context"
 )
 
-// CreateCalendarEventMeetingChat 该接口用于以当前身份（应用/用户）给日程创建一个会议群。
+// CreateCalendarEventMeetingChat 调用该接口以当前身份（应用或用户）为指定日程创建一个会议群。
 //
-// 身份由 Header Authorization 的 Token 类型决定。
-// - 日历需要是当前身份的主日历, 且具有writer权限。
-// - 日程至少需要2个参与人, 且不隐藏参与人列表
+// - 当前身份由 Header Authorization 的 Token 类型决定。tenant_access_token 指应用身份, user_access_token 指用户身份。
+// - 如果使用应用身份调用该接口, 则需要确保应用开启了[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// - 日程所在的日历需要是当前身份的主日历, 且具有日历的 writer 权限。你可以调用[查询主日历信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/primary)接口, 获取当前身份的主日历信息。
+// - 日程需要添加了至少 2 个参与人, 且不隐藏参与人列表。你可以调用[获取日程参与人列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/list)接口获取日程的参与人情况；可以调用[获取日程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/get)接口, 查看日程参与人权限信息（attendee_ability）。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-meeting_chat/create
 func (r *CalendarService) CreateCalendarEventMeetingChat(ctx context.Context, request *CreateCalendarEventMeetingChatReq, options ...MethodOptionFunc) (*CreateCalendarEventMeetingChatResp, *Response, error) {
@@ -62,14 +63,14 @@ func (r *Mock) UnMockCalendarCreateCalendarEventMeetingChat() {
 
 // CreateCalendarEventMeetingChatReq ...
 type CreateCalendarEventMeetingChatReq struct {
-	CalendarID string `path:"calendar_id" json:"-"` // 日历ID, 示例值: "feishu.cn_xxx@group.calendar.feishu.cn"
-	EventID    string `path:"event_id" json:"-"`    // 日程ID, 示例值: "75d28f9b-e35c-4230-8a83-123_0"
+	CalendarID string `path:"calendar_id" json:"-"` // 日程所在的日历 ID。了解更多, 参见[日历 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值: "feishu.cn_xxx@group.calendar.feishu.cn"
+	EventID    string `path:"event_id" json:"-"`    // 日程 ID, 创建日程时会返回日程 ID。你也可以调用以下接口获取某一日历的 ID, [获取日程列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/list), [搜索日程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/search), 示例值: "75d28f9b-e35c-4230-8a83-123_0"
 }
 
 // CreateCalendarEventMeetingChatResp ...
 type CreateCalendarEventMeetingChatResp struct {
-	MeetingChatID string `json:"meeting_chat_id,omitempty"` // 会议群ID
-	Applink       string `json:"applink,omitempty"`         // 群分享链接
+	MeetingChatID string `json:"meeting_chat_id,omitempty"` // 会议群 ID。后续可用于解绑会议群。
+	Applink       string `json:"applink,omitempty"`         // 群分享链接。
 }
 
 // createCalendarEventMeetingChatResp ...

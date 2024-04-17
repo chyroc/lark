@@ -26,7 +26,7 @@ import (
 // 不返回用户 ID 的情况说明:
 // - 查询的手机号或者邮箱不存在。
 // - 未开通 获取用户 user ID 权限, 将无法返回用户的 user_id。
-// - 无权限查看用户信息。你可以在开发者后台应用详情页的 权限管理 > 数据权限 > 通讯录权限范围 中, 指定用户权限范围。
+// - 无权限查看用户信息。你需要在应用详情页配置数据权限, 详情参见[配置应用数据权限](https://open.feishu.cn/document/home/introduction-to-scope-and-authorization/configure-app-data-permissions)。
 // - 使用企业邮箱查询将无法返回用户 ID, 需要使用用户的邮箱地址。
 // - 在请求头 Authorization 中, 传入的 Token 有误。例如, Token 对应的应用与实际所需应用不一致。
 // - 所查询的用户已离职。

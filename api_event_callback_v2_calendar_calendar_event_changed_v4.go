@@ -21,9 +21,10 @@ import (
 	"context"
 )
 
-// EventV2CalendarCalendarEventChangedV4 当被订阅的用户日历下有日程变更时触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=calendar&version=v4&resource=calendar.event&event=changed)
+// EventV2CalendarCalendarEventChangedV4 当用户订阅日程变更事件后, 被订阅的日历下有日程发生变更时, 将会触发该事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=calendar&version=v4&resource=calendar.event&event=changed)
 //
-// 应用首先需要调用[订阅日程变更事件接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/subscription)建立订阅关系。应用收到该事件后, 使用事件的 user_list 字段中的用户对应的 user_access_token 调用[获取日程列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/list)接口拉取事件中 calendar_id 字段对应的日历下的日程数据
+// - 先调用[订阅日程变更事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/subscription)接口订阅事件, 再前往应用中配置事件订阅, 这样才可以在事件触发时接收到事件数据。了解事件订阅参见[事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
+// - 该事件主要包含发生日程变动的用户信息以及日历 ID, 不包含日程信息。因此当你接收到事件请求后, 还需要提取 user_id_list 字段中的用户信息, 然后用这些用户身份（user_access_token）调用[获取日程列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/list)接口, 通过日历 ID 获取日历中的日程信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/events/changed
 // new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/events/changed
@@ -36,13 +37,13 @@ type EventV2CalendarCalendarEventChangedV4Handler func(ctx context.Context, cli 
 
 // EventV2CalendarCalendarEventChangedV4 ...
 type EventV2CalendarCalendarEventChangedV4 struct {
-	CalendarID string                                         `json:"calendar_id,omitempty"`  // 日历id
-	UserIDList []*EventV2CalendarCalendarEventChangedV4UserID `json:"user_id_list,omitempty"` // 需要推送事件的用户列表
+	CalendarID string                                         `json:"calendar_id,omitempty"`  // 日程所在的日历 ID。
+	UserIDList []*EventV2CalendarCalendarEventChangedV4UserID `json:"user_id_list,omitempty"` // 需要推送事件的用户列表。关于用户不同 ID 的介绍, 参见[用户身份概述](https://open.feishu.cn/document/home/user-identity-introduction/introduction).
 }
 
 // EventV2CalendarCalendarEventChangedV4UserID ...
 type EventV2CalendarCalendarEventChangedV4UserID struct {
-	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id
-	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
+	UnionID string `json:"union_id,omitempty"` // 用户的 union_id。
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user_id。
+	OpenID  string `json:"open_id,omitempty"`  // 用户的 open_id。
 }

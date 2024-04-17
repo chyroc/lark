@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// MergeForwardMessage 将来自同一个群聊中的多条消息合并转发给指定用、群聊或话题。
+// MergeForwardMessage 将来自同一个群聊中的多条消息合并转发给指定用户、群聊或话题。
 //
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)

@@ -76,7 +76,7 @@ type GetCoreHRCustomFieldRespData struct {
 	IsRequired         bool                                            `json:"is_required,omitempty"`          // 是否必填
 	IsUnique           bool                                            `json:"is_unique,omitempty"`            // 是否唯一
 	ObjectApiName      string                                          `json:"object_api_name,omitempty"`      // 所属对象 apiname
-	Type               int64                                           `json:"type,omitempty"`                 // 字段类型, 可选值有: `1`: 文本 Text, “文本”和“超链接”属于该类型, `2`: 布尔 Boolean, `3`: 数字 Number, `4`: 枚举 Option, “单选”和“多选”属于该类型, `5`: 查找 Lookup, “人员（单选）”、“人员（多选）”和个人信息中的自定义分组属于该类型, `6`: 自动编号 AutoNumber, `7`: 日期时间 Date time, `8`: 附件 Attachment, “附件单选”和“附件多选”属于该类型, `9`: 图片 Image, `10`: 计算字段 Calculated, `11`: 反向查找 BackLookup
+	Type               int64                                           `json:"type,omitempty"`                 // 字段类型, 可选值有: 1: 文本 Text, “文本”和“超链接”属于该类型, 2: 布尔 Boolean, 3: 数字 Number, 4: 枚举 Option, “单选”和“多选”为该类型, 5: 查找 Lookup, “人员（单选）”、“人员（多选）”和个人信息中的自定义分组为该类型, 6: 自动编码 Autonumber, 7: 日期时间 Datetime, 8: 附件 Attachment, “附件单选”和“附件多选”为该类型, 9: 图片 Image, 10: 计算字段 Calculated, 11: 反向查找 Backlookup
 	CommonSchemaConfig *GetCoreHRCustomFieldRespDataCommonSchemaConfig `json:"common_schema_config,omitempty"` // 配置信息, 当前仅字段类型为「文本」、「布尔」、「数字」、「枚举」、「日期时间」、「附件」、「图片」时返回具体的配置信息, 其余类型的自定义字段暂不返回
 	CreateTime         string                                          `json:"create_time,omitempty"`          // 创建时间, 秒级时间戳
 	UpdateTime         string                                          `json:"update_time,omitempty"`          // 更新时间, 秒级时间戳

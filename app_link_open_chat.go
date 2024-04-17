@@ -33,6 +33,6 @@ func (r *AppLinkService) OpenChat(req *OpenChatReq) string {
 
 // OpenChatReq ...
 type OpenChatReq struct {
-	OpenID     *string `json:"openId,omitempty"`     // 用户 openId, 获取方式可以参考文档: [如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)
+	OpenID     *string `json:"openId,omitempty"`     // 用户 openId, 获取方式可以参考文档: [如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)
 	OpenChatID *string `json:"openChatId,omitempty"` // 会话ID, 包括单聊会话和群聊会话。是以 'oc' 开头的字段, 获取方式可参考文档 [群ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)<BR>示例值: oc_41e7bdf4877cfc316136f4ccf6c32613
 }

@@ -22,10 +22,10 @@ import (
 	"io"
 )
 
-// UploadDriveMedia 将文件、图片、视频等素材文件上传到指定云文档中。素材文件在云空间中不会显示, 只会显示在对应云文档中。
+// UploadDriveMedia 将文件、图片、视频等素材上传到指定云文档中。素材将显示在对应云文档中, 在云空间中不会显示。
 //
-// 请不要使用这个接口上传大于20MB的文件, 如果有这个需求可以尝试使用[分片上传接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/multipart-upload-media/introduction)。
-// 该接口支持调用频率上限为5QPS
+// 素材大小不得超过 20 MB。要上传大于 20 MB 的文件, 你需使用分片上传素材相关接口。详情参考[分片上传概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/multipart-upload-media/introduction)。
+// 该接口支持调用频率上限为 5 QPS。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_all
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/media/upload_all
@@ -64,13 +64,13 @@ func (r *Mock) UnMockDriveUploadDriveMedia() {
 
 // UploadDriveMediaReq ...
 type UploadDriveMediaReq struct {
-	FileName   string    `json:"file_name,omitempty"`   // 文件名, 示例值: "demo.jpeg", 最大长度: `250` 字符
-	ParentType string    `json:"parent_type,omitempty"` // 上传点类型, 即要将某种类型的素材上传到指定类型的云文档中。例如将一张图片插入到新版文档, 则`parent_type`需填写为`docx_image `, 再如将一个附件上传到新版文档, 则`parent_type`需填写为`docx_file`, 示例值: "doc_image", 可选值有: doc_image: 文档图片。, docx_image: 新版文档图片。, sheet_image: 电子表格图片。, doc_file: 文档文件。, docx_file: 新版文档文件。, sheet_file: 电子表格文件。, vc_virtual_background: vc虚拟背景(灰度中, 暂未开放)。, bitable_image: 多维表格图片。, bitable_file: 多维表格文件。, moments: 同事圈(灰度中, 暂未开放)。, ccm_import_open: 云文档导入文件。
-	ParentNode string    `json:"parent_node,omitempty"` // 上传点 token, 用于指定素材将要上传到的具体文档或位置。点击 [这里](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction) 了解各上传点类型及其对应的上传点 Token 的说明
-	Size       int64     `json:"size,omitempty"`        // 文件大小（以字节为单位）, 示例值: 1024, 最大值: `20971520`
-	Checksum   *string   `json:"checksum,omitempty"`    // 文件adler32校验和（可选）, 示例值: "12345678"
-	Extra      *string   `json:"extra,omitempty"`       // 扩展信息(可选), 示例值: "{"test":"test"}"
-	File       io.Reader `json:"file,omitempty"`        // 文件二进制内容, 示例值: file binary
+	FileName   string    `json:"file_name,omitempty"`   // 要上传的素材的名称, 示例值: "demo.jpeg", 最大长度: `250` 字符
+	ParentType string    `json:"parent_type,omitempty"` // 上传点的类型。你可根据上传的素材类型与云文档类型确定上传点类型。例如, 要将一张图片插入到新版文档（文件类型为 `docx`）中, 需指定上传点为 `docx_image `；要将一个附件上传到新版文档中, 需指定上传点为 `docx_file`, 示例值: "docx_image", 可选值有: doc_image: 旧版文档图片, docx_image: 新版文档图片, sheet_image: 电子表格图片, doc_file: 旧版文档文件, docx_file: 新版文档文件, sheet_file: 电子表格文件, vc_virtual_background: vc 虚拟背景（灰度中, 暂未开放）, bitable_image: 多维表格图片, bitable_file: 多维表格文件, moments: 同事圈（灰度中, 暂未开放）, ccm_import_open: 云文档导入文件
+	ParentNode string    `json:"parent_node,omitempty"` // 上传点的 token, 即要上传的云文档的 token, 用于指定素材将要上传到的云文档或位置。参考 [素材概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction) 了解上传点类型与上传点 token 的对应关系
+	Size       int64     `json:"size,omitempty"`        // 文件的大小, 单位为字节。可通过查看文件的属性获取, 示例值: 1024, 最大值: `20971520`
+	Checksum   *string   `json:"checksum,omitempty"`    // 文件的 Adler-32 校验和, 示例值: "3248270248"
+	Extra      *string   `json:"extra,omitempty"`       // 其它扩展信息, 示例值: "{"test":"test"}"
+	File       io.Reader `json:"file,omitempty"`        // 文件的二进制内容, 示例值: file binary
 }
 
 // UploadDriveMediaResp ...

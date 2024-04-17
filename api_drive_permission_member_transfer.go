@@ -71,7 +71,7 @@ type TransferDriveMemberPermissionReq struct {
 // TransferDriveMemberPermissionReqOwner ...
 type TransferDriveMemberPermissionReqOwner struct {
 	MemberType string `json:"member_type,omitempty"` // 用户类型, 可选 email、openid、userid、unionid
-	MemberID   string `json:"member_id,omitempty"`   // 用户类型下的值, 获取方式见 [如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)
+	MemberID   string `json:"member_id,omitempty"`   // 用户类型下的值, 获取方式见 [如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)
 }
 
 // TransferDriveMemberPermissionResp ...

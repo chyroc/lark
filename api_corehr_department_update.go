@@ -81,9 +81,9 @@ type UpdateCoreHRDepartmentReqCustomField struct {
 
 // UpdateCoreHRDepartmentReqHiberarchyCommon ...
 type UpdateCoreHRDepartmentReqHiberarchyCommon struct {
-	ParentID    *string                                                 `json:"parent_id,omitempty"`   // 上级组织 ID, 示例值: "4719168654814483759"
+	ParentID    *string                                                 `json:"parent_id,omitempty"`   // 上级组织 ID, 该字段为通用字段, 若为部门维度则为必填, 示例值: "4719168654814483759"
 	Name        []*UpdateCoreHRDepartmentReqHiberarchyCommonName        `json:"name,omitempty"`        // 名称
-	Active      bool                                                    `json:"active,omitempty"`      // 是否启用, 示例值: true
+	Active      bool                                                    `json:"active,omitempty"`      // 是否启用该部门, 示例值: true
 	Code        *string                                                 `json:"code,omitempty"`        // 编码, 示例值: "12456"
 	Description []*UpdateCoreHRDepartmentReqHiberarchyCommonDescription `json:"description,omitempty"` // 描述
 }
@@ -97,7 +97,7 @@ type UpdateCoreHRDepartmentReqHiberarchyCommonDescription struct {
 // UpdateCoreHRDepartmentReqHiberarchyCommonName ...
 type UpdateCoreHRDepartmentReqHiberarchyCommonName struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 示例值: "zh-CN"
-	Value string `json:"value,omitempty"` // 名称信息的内容, 示例值: "张三"
+	Value string `json:"value,omitempty"` // 名称信息的内容, 示例值: "研发部"
 }
 
 // UpdateCoreHRDepartmentReqStaffingModel ...
@@ -137,7 +137,7 @@ type UpdateCoreHRDepartmentRespDepartmentCustomField struct {
 
 // UpdateCoreHRDepartmentRespDepartmentHiberarchyCommon ...
 type UpdateCoreHRDepartmentRespDepartmentHiberarchyCommon struct {
-	ParentID       string                                                             `json:"parent_id,omitempty"`       // 上级组织 ID
+	ParentID       string                                                             `json:"parent_id,omitempty"`       // 上级组织 ID, 该字段为通用字段, 若为部门维度则为必填。
 	Name           []*UpdateCoreHRDepartmentRespDepartmentHiberarchyCommonName        `json:"name,omitempty"`            // 名称
 	Type           *UpdateCoreHRDepartmentRespDepartmentHiberarchyCommonType          `json:"type,omitempty"`            // 组织类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)组织类型（organization_type）枚举定义部分获得
 	Active         bool                                                               `json:"active,omitempty"`          // 是否启用

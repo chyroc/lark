@@ -21,11 +21,11 @@ import (
 	"context"
 )
 
-// GetCalendarList 该接口用于分页获得当前身份（应用 / 用户）的日历列表。
+// GetCalendarList 调用该接口分页查询当前身份（应用或用户）的日历列表。
 //
-// 身份由 Header Authorization 的 Token 类型决定。
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
-// - 调用时首先使用 page_token 分页拉取存量数据, 之后使用 sync_token 增量同步变更数据。
+// - 当前身份由 Header Authorization 的 Token 类型决定。tenant_access_token 指应用身份, user_access_token 指用户身份。
+// - 如果使用应用身份调用该接口, 则需要确保应用开启了[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// - 调用该接口时, 首先需要使用 page_token 分页查询存量的日历列表, 然后再使用 sync_token 增量同步日历的变更数据。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/list
 // new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar/list-2
@@ -63,31 +63,31 @@ func (r *Mock) UnMockCalendarGetCalendarList() {
 
 // GetCalendarListReq ...
 type GetCalendarListReq struct {
-	PageSize  *int64  `query:"page_size" json:"-"`  // 一次请求要求返回最大数量, 默认500, 取值范围为[50. 1000], 示例值: 50, 默认值: `500`, 取值范围: `50` ～ `1000`
+	PageSize  *int64  `query:"page_size" json:"-"`  // 一次请求返回的最大日历数量, 示例值: `50`, 默认值: `500`, 取值范围: `50` ～ `1000`
 	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: ListCalendarsPageToken_xxx
-	SyncToken *string `query:"sync_token" json:"-"` // 上次请求Response返回的增量同步标记, 分页请求未结束时为空, 示例值: ListCalendarsSyncToken_xxx
+	SyncToken *string `query:"sync_token" json:"-"` // 增量同步标记, 第一次请求不填。当分页查询结束（page_token 返回值为空）时, 接口会返回 sync_token 字段, 下次调用可使用该 sync_token 增量获取日历变更数据, 默认值: 空, 示例值: ListCalendarsSyncToken_xxx
 }
 
 // GetCalendarListResp ...
 type GetCalendarListResp struct {
 	HasMore      bool                           `json:"has_more,omitempty"`      // 是否还有更多项
 	PageToken    string                         `json:"page_token,omitempty"`    // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-	SyncToken    string                         `json:"sync_token,omitempty"`    // 下次请求需要带上的增量同步标记, 90 天有效期
-	CalendarList []*GetCalendarListRespCalendar `json:"calendar_list,omitempty"` // 分页加载的日历数据列表
+	SyncToken    string                         `json:"sync_token,omitempty"`    // 增量同步标记。当 has_more 为 false 时, 会同步返回新的 sync_token, 下次请求需要带上 sync_token 增量获取日历变更数据, 注意: 返回的 sync_token 在 90 天内有效。
+	CalendarList []*GetCalendarListRespCalendar `json:"calendar_list,omitempty"` // 分页加载的日历数据列表。
 }
 
 // GetCalendarListRespCalendar ...
 type GetCalendarListRespCalendar struct {
-	CalendarID   string             `json:"calendar_id,omitempty"`    // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction)
-	Summary      string             `json:"summary,omitempty"`        // 日历标题
-	Description  string             `json:"description,omitempty"`    // 日历描述
-	Permissions  CalendarPermission `json:"permissions,omitempty"`    // 日历公开范围, 可选值有: private: 私密, show_only_free_busy: 仅展示忙闲信息, public: 他人可查看日程详情
-	Color        int64              `json:"color,omitempty"`          // 日历颜色, 颜色RGB值的int32表示。客户端展示时会映射到色板上最接近的一种颜色。仅对当前身份生效
-	Type         CalendarType       `json:"type,omitempty"`           // 日历类型, 可选值有: unknown: 未知类型, primary: 用户或应用的主日历, shared: 由用户或应用创建的共享日历, google: 用户绑定的谷歌日历, resource: 会议室日历, exchange: 用户绑定的Exchange日历
-	SummaryAlias string             `json:"summary_alias,omitempty"`  // 日历备注名, 修改或添加后仅对当前身份生效
-	IsDeleted    bool               `json:"is_deleted,omitempty"`     // 对于当前身份, 日历是否已经被标记为删除
-	IsThirdParty bool               `json:"is_third_party,omitempty"` // 当前日历是否是第三方数据；三方日历及日程只支持读, 不支持写入
-	Role         CalendarRole       `json:"role,omitempty"`           // 当前身份对于该日历的访问权限, 可选值有: unknown: 未知权限, free_busy_reader: 游客, 只能看到忙碌/空闲信息, reader: 订阅者, 查看所有日程详情, writer: 编辑者, 创建及修改日程, owner: 管理员, 管理日历及共享设置
+	CalendarID   string             `json:"calendar_id,omitempty"`    // 日历 ID。后续可以通过该 ID 查询、更新或删除日历信息。更多信息参见[日历 ID 字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction)。
+	Summary      string             `json:"summary,omitempty"`        // 日历标题。
+	Description  string             `json:"description,omitempty"`    // 日历描述。
+	Permissions  CalendarPermission `json:"permissions,omitempty"`    // 日历公开范围, 可选值有: private: 私密, show_only_free_busy: 仅展示忙闲信息, public: 公开, 他人可查看日程详情
+	Color        int64              `json:"color,omitempty"`          // 日历颜色, 由颜色 RGB 值的 int32 表示。实际在客户端展示时会映射到色板上最接近的一种颜色, 且该字段仅对当前身份生效。
+	Type         CalendarType       `json:"type,omitempty"`           // 日历类型, 可选值有: unknown: 未知类型, primary: 用户或应用的主日历, shared: 由用户或应用创建的共享日历, google: 用户绑定的谷歌日历, resource: 会议室日历, exchange: 用户绑定的 Exchange 日历
+	SummaryAlias string             `json:"summary_alias,omitempty"`  // 日历备注名, 仅对当前身份生效。
+	IsDeleted    bool               `json:"is_deleted,omitempty"`     // 对于当前身份, 日历是否已经被标记为删除。
+	IsThirdParty bool               `json:"is_third_party,omitempty"` // 当前日历是否是第三方数据。三方日历及日程只支持读, 不支持写入。
+	Role         CalendarRole       `json:"role,omitempty"`           // 当前身份对于该日历的访问权限, 可选值有: unknown: 未知权限, free_busy_reader: 游客, 只能看到忙碌、空闲信息, reader: 订阅者, 可查看所有日程详情, writer: 编辑者, 可创建及修改日程, owner: 管理员, 可管理日历及共享设置
 }
 
 // getCalendarListResp ...

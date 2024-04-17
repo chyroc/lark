@@ -21,9 +21,11 @@ import (
 	"context"
 )
 
-// DeleteCalendarEventAttendee 批量删除日程的参与人。
+// DeleteCalendarEventAttendee 调用该接口以当前身份（应用或用户）删除指定日程的一个或多个参与人。
 //
-// - 当前身份需要有日历的 writer 或 owner 权限, 并且日历的类型只能为 primary 或 shared。
+// - 当前身份由 Header Authorization 的 Token 类型决定。tenant_access_token 指应用身份, user_access_token 指用户身份。
+// - 如果使用应用身份调用该接口, 则需要确保应用开启了[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// - 当前身份需要有日历的 writer 或 owner 权限, 并且日历的类型只能为 primary 或 shared。你可以调用[查询日历信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口, 获取日历类型以及当前身份对该日历的访问权限。
 // - 当前身份需要是日程的组织者。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/batch_delete
@@ -62,23 +64,14 @@ func (r *Mock) UnMockCalendarDeleteCalendarEventAttendee() {
 
 // DeleteCalendarEventAttendeeReq ...
 type DeleteCalendarEventAttendeeReq struct {
-	CalendarID             string                                    `path:"calendar_id" json:"-"`                // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
-	EventID                string                                    `path:"event_id" json:"-"`                   // 日程ID。参见[日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction), 示例值: "xxxxxxxxx_0"
-	UserIDType             *IDType                                   `query:"user_id_type" json:"-"`              // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	AttendeeIDs            []string                                  `json:"attendee_ids,omitempty"`              // 要移除的参与人 ID 列表。参见[参与人ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/introduction#4998889c), 示例值: ["user_xxxxx"]
-	DeleteIDs              []*DeleteCalendarEventAttendeeReqDeleteID `json:"delete_ids,omitempty"`                // 需要删除的参与人类型实体ID, 作为attendee_ids字段的补充。
-	NeedNotification       *bool                                     `json:"need_notification,omitempty"`         // 删除日程参与人时是否要给参与人发送bot通知, 默认为true, 示例值: false
-	InstanceStartTimeAdmin *string                                   `json:"instance_start_time_admin,omitempty"` // 使用管理员身份访问时要修改的实例, 示例值: "1647320400"
-	IsEnableAdmin          *bool                                     `json:"is_enable_admin,omitempty"`           // 是否启用管理员身份(需先在管理后台设置某人为会议室管理员), 示例值: false
-}
-
-// DeleteCalendarEventAttendeeReqDeleteID ...
-type DeleteCalendarEventAttendeeReqDeleteID struct {
-	Type            *CalendarEventAttendeeType `json:"type,omitempty"`              // 参与人类型, 仅当新建参与人时可设置类型, 示例值: "user", 可选值有: user: 用户, chat: 群组, resource: 会议室, third_party: 邮箱
-	UserID          *string                    `json:"user_id,omitempty"`           // 参与人的用户id, 依赖于user_id_type返回对应的取值, 当is_external为true时, 此字段只会返回open_id或者union_id, 示例值: "ou_xxxxxxxx"
-	ChatID          *string                    `json:"chat_id,omitempty"`           // chat类型参与人的群组chat_id, 示例值: "oc_xxxxxxxxx"
-	RoomID          *string                    `json:"room_id,omitempty"`           // resource类型参与人的会议室room_id, 示例值: "omm_xxxxxxxx"
-	ThirdPartyEmail *string                    `json:"third_party_email,omitempty"` // third_party类型参与人的邮箱, 示例值: "wangwu@email.com"
+	CalendarID             string   `path:"calendar_id" json:"-"`                // 日程对应的日历 ID。了解更多, 参见[日历 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	EventID                string   `path:"event_id" json:"-"`                   // 日程 ID, 创建日程时会返回日程 ID。你也可以调用以下接口获取某一日历的 ID, [获取日程列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/list), [搜索日程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/search), 示例值: "xxxxxxxxx_0"
+	UserIDType             *IDType  `query:"user_id_type" json:"-"`              // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	AttendeeIDs            []string `json:"attendee_ids,omitempty"`              // 需要删除的参与人 ID 列表, 添加日程参与人时, 会返回参与人 ID（attendee_id）, 你也可以调用[获取日程参与人列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/list)接口, 查询指定日程的参与人 ID, 示例值: ["user_xxxxx"]
+	DeleteIDs              []string `json:"delete_ids,omitempty"`                // 参与人类型对应的 ID, 该 ID 是 attendee_ids 字段的补充字段。
+	NeedNotification       *bool    `json:"need_notification,omitempty"`         // 删除日程参与人时, 是否向参与人发送 Bot 通知, 可选值有: true（默认值）: 发送, false: 不发送, 示例值: false
+	InstanceStartTimeAdmin *string  `json:"instance_start_time_admin,omitempty"` // 使用管理员身份访问时, 要修改的实例（仅用于重复日程修改其中的一个实例, 非重复日程无需填此字段）, 示例值: "1647320400"
+	IsEnableAdmin          *bool    `json:"is_enable_admin,omitempty"`           // 是否启用会议室管理员身份（需先在管理后台设置某人为会议室管理员）, 可选值有: true: 启用, false（默认值）: 不启用, 示例值: false
 }
 
 // DeleteCalendarEventAttendeeResp ...

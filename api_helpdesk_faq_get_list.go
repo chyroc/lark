@@ -82,7 +82,7 @@ type GetHelpdeskFAQListRespItem struct {
 	HelpdeskID     string                                      `json:"helpdesk_id,omitempty"`     // 服务台ID
 	Question       string                                      `json:"question,omitempty"`        // 问题
 	Answer         string                                      `json:"answer,omitempty"`          // 答案
-	AnswerRichtext []*GetHelpdeskFAQListRespItemAnswerRichtext `json:"answer_richtext,omitempty"` // 富文本答案
+	AnswerRichText []*GetHelpdeskFAQListRespItemAnswerRichText `json:"answer_richtext,omitempty"` // 富文本答案
 	CreateTime     int64                                       `json:"create_time,omitempty"`     // 创建时间
 	UpdateTime     int64                                       `json:"update_time,omitempty"`     // 修改时间
 	Categories     []*HelpdeskCategory                         `json:"categories,omitempty"`      // 分类
@@ -92,8 +92,8 @@ type GetHelpdeskFAQListRespItem struct {
 	CreateUser     *GetHelpdeskFAQListRespItemCreateUser       `json:"create_user,omitempty"`     // 创建用户
 }
 
-// GetHelpdeskFAQListRespItemAnswerRichtext ...
-type GetHelpdeskFAQListRespItemAnswerRichtext struct {
+// GetHelpdeskFAQListRespItemAnswerRichText ...
+type GetHelpdeskFAQListRespItemAnswerRichText struct {
 	Content string `json:"content,omitempty"` // 内容
 	Type    string `json:"type,omitempty"`    // 类型
 }

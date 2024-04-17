@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UnsubscribeCalendarACL 该接口用于以用户身份取消订阅指定日历下的日历成员变更事件。
+// UnsubscribeCalendarACL 调用该接口以用户身份取消订阅指定日历下的访问控制变更事件。
 //
 // 用户必须对日历有访问权限。
 //
@@ -60,7 +60,7 @@ func (r *Mock) UnMockCalendarUnsubscribeCalendarACL() {
 
 // UnsubscribeCalendarACLReq ...
 type UnsubscribeCalendarACLReq struct {
-	CalendarID string `path:"calendar_id" json:"-"` // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	CalendarID string `path:"calendar_id" json:"-"` // 日历ID, 创建共享日历时会返回日历 ID。你也可以调用以下接口获取某一日历的 ID, [查询主日历信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/primary), [查询日历列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/list), [搜索日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/search), 示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 }
 
 // UnsubscribeCalendarACLResp ...

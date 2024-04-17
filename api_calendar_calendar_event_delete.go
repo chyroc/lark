@@ -21,11 +21,12 @@ import (
 	"context"
 )
 
-// DeleteCalendarEvent 该接口用于以当前身份（应用 / 用户）删除日历上的一个日程。
+// DeleteCalendarEvent 调用该接口以当前身份（应用或用户）删除指定日历上的一个日程。
 //
-// 身份由 Header Authorization 的 Token 类型决定。
-// 当前身份必须对日历有 writer 或 owner 权限, 并且日历的类型只能为 primary 或 shared。
-// 当前身份必须是日程的组织者。
+// - 当前身份由 Header Authorization 的 Token 类型决定。tenant_access_token 指应用身份, user_access_token 指用户身份。
+// - 如果使用应用身份调用该接口, 则需要确保应用开启了[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// - 当前身份必须对日历有 writer 或 owner 权限, 并且日历的类型只能为 primary 或 shared。你可以调用[查询日历信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口, 获取日历类型以及当前身份对该日历的访问权限。
+// - 当前身份必须是日程的组织者。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/delete
 // new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/delete
@@ -63,9 +64,9 @@ func (r *Mock) UnMockCalendarDeleteCalendarEvent() {
 
 // DeleteCalendarEventReq ...
 type DeleteCalendarEventReq struct {
-	CalendarID       string `path:"calendar_id" json:"-"`        // 日历ID。参见[日历ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
-	EventID          string `path:"event_id" json:"-"`           // 日程ID。参见[日程ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction), 示例值: "xxxxxxxxx_0"
-	NeedNotification *bool  `query:"need_notification" json:"-"` // 删除日程是否给日程参与人发送bot通知, 默认为true, 示例值: false, 可选值有: true: true, false: false
+	CalendarID       string `path:"calendar_id" json:"-"`        // 日程所在的日历 ID。了解更多, 参见[日历 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	EventID          string `path:"event_id" json:"-"`           // 日程 ID, 创建日程时会返回日程 ID。你也可以调用以下接口获取某一日历的 ID, [获取日程列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/list), [搜索日程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/search), 示例值: "xxxxxxxxx_0"
+	NeedNotification *bool  `query:"need_notification" json:"-"` // 删除日程是否给日程参与人发送 Bot 通知, 默认值: true, 示例值: false, 可选值有: true: 发送, false: 不发送
 }
 
 // DeleteCalendarEventResp ...

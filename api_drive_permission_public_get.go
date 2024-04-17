@@ -60,7 +60,7 @@ func (r *Mock) UnMockDriveGetDrivePublicPermission() {
 // GetDrivePublicPermissionReq ...
 type GetDrivePublicPermissionReq struct {
 	Token string `path:"token" json:"-"` // 文件的 token, 获取方式见 [如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6), 示例值: "doccnBKgoMyY5OMbUG6FioTXuBe"
-	Type  string `query:"type" json:"-"` // 文件类型, 需要与文件的 token 相匹配, 示例值: doc, 可选值有: doc: 文档, sheet: 电子表格, file: 云空间文件, wiki: 知识库节点, bitable: 多维表格, docx: 新版文档, mindnote: 思维笔记, minutes: 妙记
+	Type  string `query:"type" json:"-"` // 文件类型, 需要与文件的 token 相匹配, 示例值: doc, 可选值有: doc: 文档, sheet: 电子表格, file: 云空间文件, wiki: 知识库节点, bitable: 多维表格, docx: 新版文档, mindnote: 思维笔记, minutes: 妙记, slides: 幻灯片
 }
 
 // GetDrivePublicPermissionResp ...
