@@ -423,6 +423,18 @@ func Test_Message_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockMessageBatchUpdateURLPreview(func(ctx context.Context, request *lark.BatchUpdateURLPreviewReq, options ...lark.MethodOptionFunc) (*lark.BatchUpdateURLPreviewResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageBatchUpdateURLPreview()
+
+			_, _, err := moduleCli.BatchUpdateURLPreview(ctx, &lark.BatchUpdateURLPreviewReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockMessageCreateAppFeedCard(func(ctx context.Context, request *lark.CreateAppFeedCardReq, options ...lark.MethodOptionFunc) (*lark.CreateAppFeedCardResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -477,6 +489,78 @@ func Test_Message_Sample_Failed(t *testing.T) {
 			defer cli.Mock().UnMockMessageInstantReminderAppFeedCard()
 
 			_, _, err := moduleCli.InstantReminderAppFeedCard(ctx, &lark.InstantReminderAppFeedCardReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockMessageListIMTagRelation(func(ctx context.Context, request *lark.ListIMTagRelationReq, options ...lark.MethodOptionFunc) (*lark.ListIMTagRelationResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageListIMTagRelation()
+
+			_, _, err := moduleCli.ListIMTagRelation(ctx, &lark.ListIMTagRelationReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockMessageCreateIMTag(func(ctx context.Context, request *lark.CreateIMTagReq, options ...lark.MethodOptionFunc) (*lark.CreateIMTagResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageCreateIMTag()
+
+			_, _, err := moduleCli.CreateIMTag(ctx, &lark.CreateIMTagReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockMessageUpdateIMTag(func(ctx context.Context, request *lark.UpdateIMTagReq, options ...lark.MethodOptionFunc) (*lark.UpdateIMTagResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageUpdateIMTag()
+
+			_, _, err := moduleCli.UpdateIMTag(ctx, &lark.UpdateIMTagReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockMessageMGetIMTag(func(ctx context.Context, request *lark.MGetIMTagReq, options ...lark.MethodOptionFunc) (*lark.MGetIMTagResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageMGetIMTag()
+
+			_, _, err := moduleCli.MGetIMTag(ctx, &lark.MGetIMTagReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockMessageCreateIMTagRelation(func(ctx context.Context, request *lark.CreateIMTagRelationReq, options ...lark.MethodOptionFunc) (*lark.CreateIMTagRelationResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageCreateIMTagRelation()
+
+			_, _, err := moduleCli.CreateIMTagRelation(ctx, &lark.CreateIMTagRelationReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockMessageDeleteIMTagRelation(func(ctx context.Context, request *lark.DeleteIMTagRelationReq, options ...lark.MethodOptionFunc) (*lark.DeleteIMTagRelationResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageDeleteIMTagRelation()
+
+			_, _, err := moduleCli.DeleteIMTagRelation(ctx, &lark.DeleteIMTagRelationReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -746,6 +830,13 @@ func Test_Message_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.BatchUpdateURLPreview(ctx, &lark.BatchUpdateURLPreviewReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateAppFeedCard(ctx, &lark.CreateAppFeedCardReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -777,6 +868,50 @@ func Test_Message_Sample_Failed(t *testing.T) {
 			_, _, err := moduleCli.InstantReminderAppFeedCard(ctx, &lark.InstantReminderAppFeedCardReq{
 				FeedCardID: "x",
 			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.ListIMTagRelation(ctx, &lark.ListIMTagRelationReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateIMTag(ctx, &lark.CreateIMTagReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateIMTag(ctx, &lark.UpdateIMTagReq{
+				TagID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.MGetIMTag(ctx, &lark.MGetIMTagReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateIMTagRelation(ctx, &lark.CreateIMTagRelationReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteIMTagRelation(ctx, &lark.DeleteIMTagRelationReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -1049,6 +1184,13 @@ func Test_Message_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.BatchUpdateURLPreview(ctx, &lark.BatchUpdateURLPreviewReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateAppFeedCard(ctx, &lark.CreateAppFeedCardReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
@@ -1080,6 +1222,50 @@ func Test_Message_Sample_Failed(t *testing.T) {
 			_, _, err := moduleCli.InstantReminderAppFeedCard(ctx, &lark.InstantReminderAppFeedCardReq{
 				FeedCardID: "x",
 			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.ListIMTagRelation(ctx, &lark.ListIMTagRelationReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateIMTag(ctx, &lark.CreateIMTagReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateIMTag(ctx, &lark.UpdateIMTagReq{
+				TagID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.MGetIMTag(ctx, &lark.MGetIMTagReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateIMTagRelation(ctx, &lark.CreateIMTagRelationReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteIMTagRelation(ctx, &lark.DeleteIMTagRelationReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})

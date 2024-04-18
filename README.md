@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 1023, Event Count: 148
+API Count: 1031, Event Count: 148
 
 <details>
   <summary>
@@ -1115,11 +1115,18 @@ API Count: 1023, Event Count: 148
   - GetMessagePinList
   - GetMessageSpecialFocusList
   - GetMessageSpecialFocusUnread
+  - BatchUpdateURLPreview
   - CreateAppFeedCard
   - UpdateAppFeedCard
   - DeleteAppFeedCard
   - UpdateAppFeedCardButton
   - InstantReminderAppFeedCard
+  - ListIMTagRelation
+  - CreateIMTag
+  - UpdateIMTag
+  - MGetIMTag
+  - CreateIMTagRelation
+  - DeleteIMTagRelation
 - Mina
   - MinaCodeToSession
 - Minutes
@@ -1137,6 +1144,7 @@ API Count: 1023, Event Count: 148
   - GetOKRProgressRecord
   - CreateOKRProgressRecord
   - UploadOKRImage
+  - GetOKRReview
   - GetOKRMetricSourceList
   - GetOKRMetricSourceTableList
   - BatchUpdateOKRMetricSourceTableItem

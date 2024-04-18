@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 1023, 事件总数: 148
+API 总数: 1031, 事件总数: 148
 
 <details>
   <summary>
@@ -1115,11 +1115,18 @@ API 总数: 1023, 事件总数: 148
   - GetMessagePinList
   - GetMessageSpecialFocusList
   - GetMessageSpecialFocusUnread
+  - BatchUpdateURLPreview
   - CreateAppFeedCard
   - UpdateAppFeedCard
   - DeleteAppFeedCard
   - UpdateAppFeedCardButton
   - InstantReminderAppFeedCard
+  - ListIMTagRelation
+  - CreateIMTag
+  - UpdateIMTag
+  - MGetIMTag
+  - CreateIMTagRelation
+  - DeleteIMTagRelation
 - Mina
   - MinaCodeToSession
 - Minutes
@@ -1137,6 +1144,7 @@ API 总数: 1023, 事件总数: 148
   - GetOKRProgressRecord
   - CreateOKRProgressRecord
   - UploadOKRImage
+  - GetOKRReview
   - GetOKRMetricSourceList
   - GetOKRMetricSourceTableList
   - BatchUpdateOKRMetricSourceTableItem

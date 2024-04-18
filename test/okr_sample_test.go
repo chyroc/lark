@@ -183,6 +183,18 @@ func Test_OKR_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockOKRGetOKRReview(func(ctx context.Context, request *lark.GetOKRReviewReq, options ...lark.MethodOptionFunc) (*lark.GetOKRReviewResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockOKRGetOKRReview()
+
+			_, _, err := moduleCli.GetOKRReview(ctx, &lark.GetOKRReviewReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockOKRGetOKRMetricSourceList(func(ctx context.Context, request *lark.GetOKRMetricSourceListReq, options ...lark.MethodOptionFunc) (*lark.GetOKRMetricSourceListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -348,6 +360,13 @@ func Test_OKR_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.GetOKRReview(ctx, &lark.GetOKRReviewReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetOKRMetricSourceList(ctx, &lark.GetOKRMetricSourceListReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -496,6 +515,13 @@ func Test_OKR_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.UploadOKRImage(ctx, &lark.UploadOKRImageReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetOKRReview(ctx, &lark.GetOKRReviewReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
