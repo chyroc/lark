@@ -421,6 +421,66 @@ func Test_Message_Sample_Failed(t *testing.T) {
 			as.Equal(err.Error(), "mock-failed")
 		})
 
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockMessageCreateAppFeedCard(func(ctx context.Context, request *lark.CreateAppFeedCardReq, options ...lark.MethodOptionFunc) (*lark.CreateAppFeedCardResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageCreateAppFeedCard()
+
+			_, _, err := moduleCli.CreateAppFeedCard(ctx, &lark.CreateAppFeedCardReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockMessageUpdateAppFeedCard(func(ctx context.Context, request *lark.UpdateAppFeedCardReq, options ...lark.MethodOptionFunc) (*lark.UpdateAppFeedCardResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageUpdateAppFeedCard()
+
+			_, _, err := moduleCli.UpdateAppFeedCard(ctx, &lark.UpdateAppFeedCardReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockMessageDeleteAppFeedCard(func(ctx context.Context, request *lark.DeleteAppFeedCardReq, options ...lark.MethodOptionFunc) (*lark.DeleteAppFeedCardResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageDeleteAppFeedCard()
+
+			_, _, err := moduleCli.DeleteAppFeedCard(ctx, &lark.DeleteAppFeedCardReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockMessageUpdateAppFeedCardButton(func(ctx context.Context, request *lark.UpdateAppFeedCardButtonReq, options ...lark.MethodOptionFunc) (*lark.UpdateAppFeedCardButtonResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageUpdateAppFeedCardButton()
+
+			_, _, err := moduleCli.UpdateAppFeedCardButton(ctx, &lark.UpdateAppFeedCardButtonReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockMessageInstantReminderAppFeedCard(func(ctx context.Context, request *lark.InstantReminderAppFeedCardReq, options ...lark.MethodOptionFunc) (*lark.InstantReminderAppFeedCardResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageInstantReminderAppFeedCard()
+
+			_, _, err := moduleCli.InstantReminderAppFeedCard(ctx, &lark.InstantReminderAppFeedCardReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
 	})
 
 	t.Run("response is failed", func(t *testing.T) {
@@ -680,6 +740,43 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetMessageSpecialFocusUnread(ctx, &lark.GetMessageSpecialFocusUnreadReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateAppFeedCard(ctx, &lark.CreateAppFeedCardReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateAppFeedCard(ctx, &lark.UpdateAppFeedCardReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteAppFeedCard(ctx, &lark.DeleteAppFeedCardReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateAppFeedCardButton(ctx, &lark.UpdateAppFeedCardButtonReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.InstantReminderAppFeedCard(ctx, &lark.InstantReminderAppFeedCardReq{
+				FeedCardID: "x",
+			})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -946,6 +1043,43 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetMessageSpecialFocusUnread(ctx, &lark.GetMessageSpecialFocusUnreadReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateAppFeedCard(ctx, &lark.CreateAppFeedCardReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateAppFeedCard(ctx, &lark.UpdateAppFeedCardReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteAppFeedCard(ctx, &lark.DeleteAppFeedCardReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateAppFeedCardButton(ctx, &lark.UpdateAppFeedCardButtonReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.InstantReminderAppFeedCard(ctx, &lark.InstantReminderAppFeedCardReq{
+				FeedCardID: "x",
+			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})

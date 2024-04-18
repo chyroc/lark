@@ -70,11 +70,11 @@ type UpdateAppFeedCardButtonReqButtons struct {
 
 // UpdateAppFeedCardButtonReqButtonsButton ...
 type UpdateAppFeedCardButtonReqButtonsButton struct {
-	MultiURL   *UpdateAppFeedCardButtonReqButtonsButtonMultiURL  `json:"multi_url,omitempty"`   // 跳转 URL
-	ActionType string                                            `json:"action_type,omitempty"` // 交互类型, 示例值: "url_page", 可选值有: url_page: URL 页面, webhook: 回调
-	Text       *UpdateAppFeedCardButtonReqButtonsButtonText      `json:"text,omitempty"`        // 文字
-	ButtonType *string                                           `json:"button_type,omitempty"` // 按钮类型, 示例值: "default", 可选值有: default: 默认, primary: 主要, success: 成功, 默认值: `default`
-	ActionMap  *UpdateAppFeedCardButtonReqButtonsButtonActionMap `json:"action_map,omitempty"`  // action 字典, 示例值: {"foo": "bar"}
+	MultiURL   *UpdateAppFeedCardButtonReqButtonsButtonMultiURL `json:"multi_url,omitempty"`   // 跳转 URL
+	ActionType string                                           `json:"action_type,omitempty"` // 交互类型, 示例值: "url_page", 可选值有: url_page: URL 页面, webhook: 回调
+	Text       *UpdateAppFeedCardButtonReqButtonsButtonText     `json:"text,omitempty"`        // 文字
+	ButtonType *string                                          `json:"button_type,omitempty"` // 按钮类型, 示例值: "default", 可选值有: default: 默认, primary: 主要, success: 成功, 默认值: `default`
+	ActionMap  map[string]string                                `json:"action_map,omitempty"`  // action 字典, 示例值: {"foo": "bar"}
 }
 
 // UpdateAppFeedCardButtonReqButtonsButtonMultiURL ...

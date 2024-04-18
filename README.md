@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 1017, Event Count: 148
+API Count: 1023, Event Count: 148
 
 <details>
   <summary>
@@ -535,6 +535,7 @@ API Count: 1017, Event Count: 148
   - GetCoreHRJobListV2
   - GetCoreHRJob
   - GetCoreHRJobList
+  - SearchCoreHRPreHire
   - CreateCoreHRPreHire
   - DeleteCoreHRPreHire
   - UpdateCoreHRPreHire
@@ -1114,6 +1115,11 @@ API Count: 1017, Event Count: 148
   - GetMessagePinList
   - GetMessageSpecialFocusList
   - GetMessageSpecialFocusUnread
+  - CreateAppFeedCard
+  - UpdateAppFeedCard
+  - DeleteAppFeedCard
+  - UpdateAppFeedCardButton
+  - InstantReminderAppFeedCard
 - Mina
   - MinaCodeToSession
 - Minutes

@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 1017, 事件总数: 148
+API 总数: 1023, 事件总数: 148
 
 <details>
   <summary>
@@ -535,6 +535,7 @@ API 总数: 1017, 事件总数: 148
   - GetCoreHRJobListV2
   - GetCoreHRJob
   - GetCoreHRJobList
+  - SearchCoreHRPreHire
   - CreateCoreHRPreHire
   - DeleteCoreHRPreHire
   - UpdateCoreHRPreHire
@@ -1114,6 +1115,11 @@ API 总数: 1017, 事件总数: 148
   - GetMessagePinList
   - GetMessageSpecialFocusList
   - GetMessageSpecialFocusUnread
+  - CreateAppFeedCard
+  - UpdateAppFeedCard
+  - DeleteAppFeedCard
+  - UpdateAppFeedCardButton
+  - InstantReminderAppFeedCard
 - Mina
   - MinaCodeToSession
 - Minutes
