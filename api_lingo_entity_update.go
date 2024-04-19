@@ -38,7 +38,6 @@ func (r *LingoService) UpdateLingoEntity(ctx context.Context, request *UpdateLin
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedUserAccessToken:   true,
 	}
 	resp := new(updateLingoEntityResp)
 

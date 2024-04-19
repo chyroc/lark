@@ -38,7 +38,6 @@ func (r *LingoService) CreateLingoEntity(ctx context.Context, request *CreateLin
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedUserAccessToken:   true,
 	}
 	resp := new(createLingoEntityResp)
 

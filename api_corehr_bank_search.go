@@ -57,11 +57,13 @@ func (r *Mock) UnMockCoreHRSearchCoreHRBank() {
 
 // SearchCoreHRBankReq ...
 type SearchCoreHRBankReq struct {
-	PageSize     int64    `query:"page_size" json:"-"`      // 分页大小, 最大 100, 示例值: 100, 取值范围: `1` ～ `100`
-	PageToken    *string  `query:"page_token" json:"-"`     // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 6891251722631890445
-	BankIDList   []string `json:"bank_id_list,omitempty"`   // 银行 ID 列表, 与「银行名称列表」查询条件至少填写一项, 示例值: ["6891251722631891445"], 最大长度: `100`
-	BankNameList []string `json:"bank_name_list,omitempty"` // 银行名称列表, 支持对银行名称精确搜索, 示例值: ["招商银行"], 最大长度: `100`
-	StatusList   []int64  `json:"status_list,omitempty"`    // 状态列表, 示例值: [1], 可选值有: 1: 生效, 0: 失效, 默认值: `[1]`, 最大长度: `2`
+	PageSize        int64    `query:"page_size" json:"-"`         // 分页大小, 最大 100, 示例值: 100, 取值范围: `1` ～ `100`
+	PageToken       *string  `query:"page_token" json:"-"`        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 6891251722631890445
+	BankIDList      []string `json:"bank_id_list,omitempty"`      // 银行 ID 列表, 示例值: ["6891251722631891445"], 最大长度: `100`
+	BankNameList    []string `json:"bank_name_list,omitempty"`    // 银行名称列表, 支持对银行名称精确搜索, 示例值: ["招商银行"], 最大长度: `100`
+	StatusList      []int64  `json:"status_list,omitempty"`       // 状态列表, 示例值: [1], 可选值有: 1: 生效, 0: 失效, 默认值: `[1]`, 最大长度: `2`
+	UpdateStartTime *string  `json:"update_start_time,omitempty"` // 最早更新时间, 示例值: "2024-01-01 00:00:00"
+	UpdateEndTime   *string  `json:"update_end_time,omitempty"`   // 最晚更新时间, 示例值: "2024-01-01 00:00:00"
 }
 
 // SearchCoreHRBankResp ...
@@ -78,6 +80,8 @@ type SearchCoreHRBankRespItem struct {
 	BankCode        string                              `json:"bank_code,omitempty"`         // 总行代码
 	CountryRegionID string                              `json:"country_region_id,omitempty"` // 国家 / 地区 ID, 可通过[查询国家 / 地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search) 接口查询
 	Status          int64                               `json:"status,omitempty"`            // 状态, 可选值有: 1: 生效, 0: 失效
+	CreateTime      string                              `json:"create_time,omitempty"`       // 创建时间
+	UpdateTime      string                              `json:"update_time,omitempty"`       // 更新时间
 }
 
 // SearchCoreHRBankRespItemBankName ...

@@ -72,6 +72,7 @@ type GetCoreHRJobDataResp struct {
 type GetCoreHRJobDataRespJobData struct {
 	ID                       string                                            `json:"id,omitempty"`                          // 任职信息 ID
 	JobLevelID               string                                            `json:"job_level_id,omitempty"`                // 职务级别 ID, 枚举值及详细信息可通过【查询单个职务级别】接口查询获得
+	JobGradeID               string                                            `json:"job_grade_id,omitempty"`                // 职等ID
 	EmployeeTypeID           string                                            `json:"employee_type_id,omitempty"`            // 人员类型 ID, 枚举值及详细信息可通过【查询单个人员类型】接口查询获得
 	WorkingHoursTypeID       string                                            `json:"working_hours_type_id,omitempty"`       // 工时制度 ID, 枚举值及详细信息可通过【查询单个工时制度】接口查询获得
 	WorkLocationID           string                                            `json:"work_location_id,omitempty"`            // 工作地点 ID, 枚举值及详细信息可通过【查询单个地点】接口查询获得
@@ -91,7 +92,10 @@ type GetCoreHRJobDataRespJobData struct {
 	DottedLineManagerIDList  []string                                          `json:"dotted_line_manager_id_list,omitempty"` // 虚线主管的任职记录ID
 	SecondDirectManagerID    string                                            `json:"second_direct_manager_id,omitempty"`    // 第二实线主管的任职记录ID
 	CostCenterRate           []*GetCoreHRJobDataRespJobDataCostCenterRate      `json:"cost_center_rate,omitempty"`            // 成本中心分摊信息
-	CustomFields             []*GetCoreHRJobDataRespJobDataCustomField         `json:"custom_fields,omitempty"`               // 自定义字段
+	WeeklyWorkingHoursV2     float64                                           `json:"weekly_working_hours_v2,omitempty"`     // 周工作时长v2
+	WorkShift                *GetCoreHRJobDataRespJobDataWorkShift             `json:"work_shift,omitempty"`                  // 排班类型, 字段权限要求: 获取排班信息
+	CompensationType         *GetCoreHRJobDataRespJobDataCompensationType      `json:"compensation_type,omitempty"`           // 薪资类型, 字段权限要求: 获取薪资类型
+	ServiceCompany           string                                            `json:"service_company,omitempty"`             // 任职公司, 字段权限要求: 获取任职公司
 }
 
 // GetCoreHRJobDataRespJobDataAssignmentStartReason ...
@@ -106,16 +110,34 @@ type GetCoreHRJobDataRespJobDataAssignmentStartReasonDisplay struct {
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
+// GetCoreHRJobDataRespJobDataCompensationType ...
+type GetCoreHRJobDataRespJobDataCompensationType struct {
+	EnumName string                                                `json:"enum_name,omitempty"` // 枚举值
+	Display  []*GetCoreHRJobDataRespJobDataCompensationTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+}
+
+// GetCoreHRJobDataRespJobDataCompensationTypeDisplay ...
+type GetCoreHRJobDataRespJobDataCompensationTypeDisplay struct {
+	Lang  string `json:"lang,omitempty"`  // 语言
+	Value string `json:"value,omitempty"` // 内容
+}
+
 // GetCoreHRJobDataRespJobDataCostCenterRate ...
 type GetCoreHRJobDataRespJobDataCostCenterRate struct {
 	CostCenterID string `json:"cost_center_id,omitempty"` // 支持的成本中心id
 	Rate         int64  `json:"rate,omitempty"`           // 分摊比例
 }
 
-// GetCoreHRJobDataRespJobDataCustomField ...
-type GetCoreHRJobDataRespJobDataCustomField struct {
-	FieldName string `json:"field_name,omitempty"` // 字段名
-	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05")
+// GetCoreHRJobDataRespJobDataWorkShift ...
+type GetCoreHRJobDataRespJobDataWorkShift struct {
+	EnumName string                                         `json:"enum_name,omitempty"` // 枚举值
+	Display  []*GetCoreHRJobDataRespJobDataWorkShiftDisplay `json:"display,omitempty"`   // 枚举多语展示
+}
+
+// GetCoreHRJobDataRespJobDataWorkShiftDisplay ...
+type GetCoreHRJobDataRespJobDataWorkShiftDisplay struct {
+	Lang  string `json:"lang,omitempty"`  // 语言
+	Value string `json:"value,omitempty"` // 内容
 }
 
 // getCoreHRJobDataResp ...

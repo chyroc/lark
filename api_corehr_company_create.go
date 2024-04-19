@@ -109,7 +109,7 @@ type CreateCoreHRCompanyReqFaxAreaCode struct {
 type CreateCoreHRCompanyReqHiberarchyCommon struct {
 	ParentID       *string                                              `json:"parent_id,omitempty"`       // 上级组织 ID, 示例值: "4719168654814483759"
 	Name           []*CreateCoreHRCompanyReqHiberarchyCommonName        `json:"name,omitempty"`            // 名称
-	Type           *CreateCoreHRCompanyReqHiberarchyCommonType          `json:"type,omitempty"`            // 组织类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)组织类型（organization_type）枚举定义部分获得
+	Type           *CreateCoreHRCompanyReqHiberarchyCommonType          `json:"type,omitempty"`            // 组织类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)组织类型（organization_type）枚举定义部分获得。该字段为通用字段, 若为公司维度则为必填。
 	Active         bool                                                 `json:"active,omitempty"`          // 是否启用该公司, 示例值: true
 	EffectiveTime  *string                                              `json:"effective_time,omitempty"`  // 生效时间, 示例值: "2020-05-01 00:00:00"
 	ExpirationTime *string                                              `json:"expiration_time,omitempty"` // 失效时间, 示例值: "2020-05-02 00:00:00"
@@ -248,7 +248,7 @@ type CreateCoreHRCompanyRespCompanyFaxAreaCodeDisplay struct {
 type CreateCoreHRCompanyRespCompanyHiberarchyCommon struct {
 	ParentID       string                                                       `json:"parent_id,omitempty"`       // 上级组织 ID
 	Name           []*CreateCoreHRCompanyRespCompanyHiberarchyCommonName        `json:"name,omitempty"`            // 名称
-	Type           *CreateCoreHRCompanyRespCompanyHiberarchyCommonType          `json:"type,omitempty"`            // 组织类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)组织类型（organization_type）枚举定义部分获得
+	Type           *CreateCoreHRCompanyRespCompanyHiberarchyCommonType          `json:"type,omitempty"`            // 组织类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)组织类型（organization_type）枚举定义部分获得。该字段为通用字段, 若为公司维度则为必填。
 	Active         bool                                                         `json:"active,omitempty"`          // 是否启用
 	EffectiveTime  string                                                       `json:"effective_time,omitempty"`  // 生效时间
 	ExpirationTime string                                                       `json:"expiration_time,omitempty"` // 失效时间

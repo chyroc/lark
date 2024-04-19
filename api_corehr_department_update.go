@@ -90,13 +90,13 @@ type UpdateCoreHRDepartmentReqHiberarchyCommon struct {
 
 // UpdateCoreHRDepartmentReqHiberarchyCommonDescription ...
 type UpdateCoreHRDepartmentReqHiberarchyCommonDescription struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 示例值: "zh-CN"
+	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 支持中文和英文。中文用zh-CN；英文用en-US, 示例值: "zh-CN"
 	Value string `json:"value,omitempty"` // 名称信息的内容, 示例值: "张三"
 }
 
 // UpdateCoreHRDepartmentReqHiberarchyCommonName ...
 type UpdateCoreHRDepartmentReqHiberarchyCommonName struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 示例值: "zh-CN"
+	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 支持中文和英文。中文用zh-CN；英文用en-US, 示例值: "zh-CN"
 	Value string `json:"value,omitempty"` // 名称信息的内容, 示例值: "研发部"
 }
 
@@ -158,13 +158,13 @@ type UpdateCoreHRDepartmentRespDepartmentHiberarchyCommonCustomField struct {
 
 // UpdateCoreHRDepartmentRespDepartmentHiberarchyCommonDescription ...
 type UpdateCoreHRDepartmentRespDepartmentHiberarchyCommonDescription struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
+	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 支持中文和英文。中文用zh-CN；英文用en-US。
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
 // UpdateCoreHRDepartmentRespDepartmentHiberarchyCommonName ...
 type UpdateCoreHRDepartmentRespDepartmentHiberarchyCommonName struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
+	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 支持中文和英文。中文用zh-CN；英文用en-US。
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
@@ -176,7 +176,7 @@ type UpdateCoreHRDepartmentRespDepartmentHiberarchyCommonType struct {
 
 // UpdateCoreHRDepartmentRespDepartmentHiberarchyCommonTypeDisplay ...
 type UpdateCoreHRDepartmentRespDepartmentHiberarchyCommonTypeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
+	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 支持中文和英文。中文用zh-CN；英文用en-US。
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
@@ -188,7 +188,7 @@ type UpdateCoreHRDepartmentRespDepartmentStaffingModel struct {
 
 // UpdateCoreHRDepartmentRespDepartmentStaffingModelDisplay ...
 type UpdateCoreHRDepartmentRespDepartmentStaffingModelDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
+	Lang  string `json:"lang,omitempty"`  // 语言, 支持中文和英文。中文用zh-CN；英文用en-US。
 	Value string `json:"value,omitempty"` // 内容
 }
 
@@ -200,7 +200,7 @@ type UpdateCoreHRDepartmentRespDepartmentSubType struct {
 
 // UpdateCoreHRDepartmentRespDepartmentSubTypeDisplay ...
 type UpdateCoreHRDepartmentRespDepartmentSubTypeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
+	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 支持中文和英文。中文用zh-CN；英文用en-US。
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 

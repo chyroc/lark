@@ -103,7 +103,7 @@ type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueBoolValu
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueDateTimeValue ...
 type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueDateTimeValue struct {
-	Value int64  `json:"value,omitempty"` // 毫秒的时间戳
+	Value int64  `json:"value,omitempty"` // 毫秒的时间戳。注: 此字段是一个 int64 类型（因为网关限制, 这里只能配置为int)
 	Zone  string `json:"zone,omitempty"`  // 时区
 }
 
@@ -190,7 +190,7 @@ type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValu
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueDateTimeValue ...
 type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueDateTimeValue struct {
-	Value int64  `json:"value,omitempty"` // 毫秒的时间戳
+	Value int64  `json:"value,omitempty"` // 毫秒的时间戳。注: 此字段是一个 int64 类型（因为网关限制, 这里只能配置为int)
 	Zone  string `json:"zone,omitempty"`  // 时区
 }
 

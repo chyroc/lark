@@ -26,7 +26,6 @@ import (
 // - 本接口会按照「员工资源」权限范围返回数据, 请确定在「开发者后台 - 权限管理 - 数据权限」中已申请此数据权限
 // - 每次最多传 100 个员工 ID, 若需单次查询全量员工, 可使用接口[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)；
 // - 人员全数据关联业务数据, 计算数据等较多, 更新后存在2-5s短暂延时, 建议数据更新动作完成后稍等几秒进行最新数据查询请求。
-// - 接口已升级, 推荐使用, 性能更优。如需继续使用旧版本接口, 可点击[批量查询雇佣信息](https://open.feishu.cn/document/server-docs/corehr-v1/employee/employment/list)[批量查询个人信息](https://open.feishu.cn/document/server-docs/corehr-v1/employee/person/list)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get
 func (r *CoreHRService) BatchGetCoreHREmployee(ctx context.Context, request *BatchGetCoreHREmployeeReq, options ...MethodOptionFunc) (*BatchGetCoreHREmployeeResp, *Response, error) {
