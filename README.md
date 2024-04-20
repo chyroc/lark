@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 1087, Event Count: 149
+API Count: 1089, Event Count: 149
 
 <details>
   <summary>
@@ -1045,6 +1045,9 @@ API Count: 1087, Event Count: 149
   - GetLingoRepoList
   - UploadLingoFile
   - DownloadLingoFile
+- MDM
+  - BindMDMUserAuthDataRelation
+  - UnbindMDMUserAuthDataRelation
 - Mail
   - GetMailUser
   - CreateMailGroup

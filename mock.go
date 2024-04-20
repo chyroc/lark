@@ -832,6 +832,8 @@ type Mock struct {
 	mockLingoGetLingoRepoList                                  func(ctx context.Context, request *GetLingoRepoListReq, options ...MethodOptionFunc) (*GetLingoRepoListResp, *Response, error)
 	mockLingoUploadLingoFile                                   func(ctx context.Context, request *UploadLingoFileReq, options ...MethodOptionFunc) (*UploadLingoFileResp, *Response, error)
 	mockLingoDownloadLingoFile                                 func(ctx context.Context, request *DownloadLingoFileReq, options ...MethodOptionFunc) (*DownloadLingoFileResp, *Response, error)
+	mockMDMBindMDMUserAuthDataRelation                         func(ctx context.Context, request *BindMDMUserAuthDataRelationReq, options ...MethodOptionFunc) (*BindMDMUserAuthDataRelationResp, *Response, error)
+	mockMDMUnbindMDMUserAuthDataRelation                       func(ctx context.Context, request *UnbindMDMUserAuthDataRelationReq, options ...MethodOptionFunc) (*UnbindMDMUserAuthDataRelationResp, *Response, error)
 	mockMailGetMailUser                                        func(ctx context.Context, request *GetMailUserReq, options ...MethodOptionFunc) (*GetMailUserResp, *Response, error)
 	mockMailCreateMailGroup                                    func(ctx context.Context, request *CreateMailGroupReq, options ...MethodOptionFunc) (*CreateMailGroupResp, *Response, error)
 	mockMailDeleteMailGroup                                    func(ctx context.Context, request *DeleteMailGroupReq, options ...MethodOptionFunc) (*DeleteMailGroupResp, *Response, error)

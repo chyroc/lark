@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 1087, 事件总数: 149
+API 总数: 1089, 事件总数: 149
 
 <details>
   <summary>
@@ -1045,6 +1045,9 @@ API 总数: 1087, 事件总数: 149
   - GetLingoRepoList
   - UploadLingoFile
   - DownloadLingoFile
+- MDM
+  - BindMDMUserAuthDataRelation
+  - UnbindMDMUserAuthDataRelation
 - Mail
   - GetMailUser
   - CreateMailGroup
