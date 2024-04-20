@@ -987,6 +987,18 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockDriveGetWhiteboardNodeList(func(ctx context.Context, request *lark.GetWhiteboardNodeListReq, options ...lark.MethodOptionFunc) (*lark.GetWhiteboardNodeListResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveGetWhiteboardNodeList()
+
+			_, _, err := moduleCli.GetWhiteboardNodeList(ctx, &lark.GetWhiteboardNodeListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockDriveUpdateSpreadsheet(func(ctx context.Context, request *lark.UpdateSpreadsheetReq, options ...lark.MethodOptionFunc) (*lark.UpdateSpreadsheetResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -2605,6 +2617,15 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.GetWhiteboardNodeList(ctx, &lark.GetWhiteboardNodeListReq{
+				WhiteboardID: "x",
+			})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.UpdateSpreadsheet(ctx, &lark.UpdateSpreadsheetReq{
 				SpreadSheetToken: "x",
 			})
@@ -4009,6 +4030,15 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 			_, _, err := moduleCli.GetDriveDocMeta(ctx, &lark.GetDriveDocMetaReq{
 				DocToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetWhiteboardNodeList(ctx, &lark.GetWhiteboardNodeListReq{
+				WhiteboardID: "x",
 			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())

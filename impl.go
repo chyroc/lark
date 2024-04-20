@@ -53,6 +53,7 @@ type Lark struct {
 	// service
 	ACS              *ACSService
 	AI               *AIService
+	APaaS            *APaaSService
 	Admin            *AdminService
 	AppLink          *AppLinkService
 	Application      *ApplicationService
@@ -84,6 +85,7 @@ type Lark struct {
 	Passport         *PassportService
 	Performance      *PerformanceService
 	PersonalSettings *PersonalSettingsService
+	Report           *ReportService
 	Search           *SearchService
 	Task             *TaskService
 	TaskV1           *TaskV1Service
@@ -109,6 +111,7 @@ func (r *Lark) init() {
 
 	r.ACS = &ACSService{cli: r}
 	r.AI = &AIService{cli: r}
+	r.APaaS = &APaaSService{cli: r}
 	r.Admin = &AdminService{cli: r}
 	r.AppLink = &AppLinkService{cli: r}
 	r.Application = &ApplicationService{cli: r}
@@ -140,6 +143,7 @@ func (r *Lark) init() {
 	r.Passport = &PassportService{cli: r}
 	r.Performance = &PerformanceService{cli: r}
 	r.PersonalSettings = &PersonalSettingsService{cli: r}
+	r.Report = &ReportService{cli: r}
 	r.Search = &SearchService{cli: r}
 	r.Task = &TaskService{cli: r}
 	r.TaskV1 = &TaskV1Service{cli: r}
@@ -182,6 +186,7 @@ func (r *Lark) clone(tenantKey string) *Lark {
 
 type ACSService struct{ cli *Lark }
 type AIService struct{ cli *Lark }
+type APaaSService struct{ cli *Lark }
 type AdminService struct{ cli *Lark }
 type AppLinkService struct{ cli *Lark }
 type ApplicationService struct{ cli *Lark }
@@ -213,6 +218,7 @@ type OKRService struct{ cli *Lark }
 type PassportService struct{ cli *Lark }
 type PerformanceService struct{ cli *Lark }
 type PersonalSettingsService struct{ cli *Lark }
+type ReportService struct{ cli *Lark }
 type SearchService struct{ cli *Lark }
 type TaskService struct{ cli *Lark }
 type TaskV1Service struct{ cli *Lark }

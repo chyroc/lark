@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 1078, Event Count: 149
+API Count: 1087, Event Count: 149
 
 <details>
   <summary>
@@ -85,6 +85,11 @@ API Count: 1078, Event Count: 149
   - TranslateText
   - DetectTextLanguage
   - DetectFaceAttributes
+- APaaS
+  - AgreeAPaaSApprovalTask
+  - RejectAPaaSApprovalTask
+  - TransferAPaaSApprovalTask
+  - AddAssigneeAPaaSApprovalTask
 - Admin
   - AdminResetPassword
   - GetAdminDeptStats
@@ -655,6 +660,7 @@ API Count: 1078, Event Count: 149
   - UpdateDriveDocContent
   - GetDriveDocRawContent
   - GetDriveDocMeta
+  - GetWhiteboardNodeList
   - UpdateSpreadsheet
   - GetSpreadsheet
   - CreateSpreadsheet
@@ -967,6 +973,7 @@ API Count: 1078, Event Count: 149
   - AddHireTalentToFolder
   - GetHireTalentFolderList
   - BatchGetHireTalent
+  - GetHireTalentList
   - GetHireJobProcessList
   - CreateHireApplication
   - TerminateHireApplication
@@ -1165,6 +1172,10 @@ API Count: 1078, Event Count: 149
   - GetPersonalSettingsSystemStatusList
   - BatchOpenPersonalSettingsSystemStatus
   - BatchClosePersonalSettingsSystemStatus
+- Report
+  - QueryReportRule
+  - RemoveReportView
+  - QueryReportTask
 - Search
   - SearchMessage
   - SearchApp
