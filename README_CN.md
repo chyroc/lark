@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 1031, 事件总数: 149
+API 总数: 1078, 事件总数: 149
 
 <details>
   <summary>
@@ -1181,6 +1181,54 @@ API 总数: 1031, 事件总数: 149
   - DeleteSearchSchema
   - GetSearchSchema
   - CreateSearchSchema
+- Task
+  - CreateTask
+  - GetTask
+  - UpdateTask
+  - DeleteTask
+  - AddTaskMember
+  - RemoveTaskMember
+  - GetTaskList
+  - AddTaskTasklist
+  - RemoveTaskTasklist
+  - AddTaskReminder
+  - RemoveTaskReminder
+  - AddTaskDependency
+  - RemoveTaskDependency
+  - CreateTaskSubtask
+  - GetTaskSubtaskList
+  - CreateTaskTasklist
+  - GetTaskTasklist
+  - UpdateTaskTasklist
+  - DeleteTaskTasklist
+  - AddTaskTasklistMember
+  - RemoveTaskTasklistMember
+  - GetTaskTaskListOfTasklist
+  - GetTaskTasklistList
+  - CreateTaskTasklistActivitySubscription
+  - GetTaskTasklistActivitySubscription
+  - UpdateTaskTasklistActivitySubscription
+  - DeleteTaskTasklistActivitySubscription
+  - GetTaskTasklistActivitySubscriptionList
+  - CreateTaskComment
+  - GetTaskComment
+  - UpdateTaskComment
+  - DeleteTaskComment
+  - GetTaskCommentList
+  - UploadTaskAttachment
+  - GetTaskAttachment
+  - DeleteTaskAttachment
+  - GetTaskAttachmentList
+  - CreateTaskSection
+  - GetTaskSection
+  - UpdateTaskSection
+  - DeleteTaskSection
+  - GetTaskSectionList
+  - GetTaskTaskListOfSection
+  - AddTaskCustomField
+  - RemoveTaskCustomField
+  - CreateTaskCustomFieldOption
+  - UpdateTaskCustomFieldOption
 - TaskV1
   - CreateTaskV1Follower
   - DeleteTaskV1Follower
