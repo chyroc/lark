@@ -69,6 +69,7 @@ const (
 	EventTypeV2CalendarCalendarACLDeletedV4                    EventType = "calendar.calendar.acl.deleted_v4"
 	EventTypeV2CalendarCalendarChangedV4                       EventType = "calendar.calendar.changed_v4"
 	EventTypeV2CalendarCalendarEventChangedV4                  EventType = "calendar.calendar.event.changed_v4"
+	EventTypeV2CardActionTrigger                               EventType = "card.action.trigger"
 	EventTypeV2ContactCustomAttrEventUpdatedV3                 EventType = "contact.custom_attr_event.updated_v3"
 	EventTypeV2ContactDepartmentCreatedV3                      EventType = "contact.department.created_v3"
 	EventTypeV2ContactDepartmentDeletedV3                      EventType = "contact.department.deleted_v3"
@@ -221,6 +222,7 @@ type eventHandler struct {
 	eventV2CalendarCalendarACLDeletedV4Handler                    EventV2CalendarCalendarACLDeletedV4Handler
 	eventV2CalendarCalendarChangedV4Handler                       EventV2CalendarCalendarChangedV4Handler
 	eventV2CalendarCalendarEventChangedV4Handler                  EventV2CalendarCalendarEventChangedV4Handler
+	eventV2CardActionTriggerHandler                               EventV2CardActionTriggerHandler
 	eventV2ContactCustomAttrEventUpdatedV3Handler                 EventV2ContactCustomAttrEventUpdatedV3Handler
 	eventV2ContactDepartmentCreatedV3Handler                      EventV2ContactDepartmentCreatedV3Handler
 	eventV2ContactDepartmentDeletedV3Handler                      EventV2ContactDepartmentDeletedV3Handler
@@ -374,6 +376,7 @@ func (r *eventHandler) clone() *eventHandler {
 		eventV2CalendarCalendarACLDeletedV4Handler:                    r.eventV2CalendarCalendarACLDeletedV4Handler,
 		eventV2CalendarCalendarChangedV4Handler:                       r.eventV2CalendarCalendarChangedV4Handler,
 		eventV2CalendarCalendarEventChangedV4Handler:                  r.eventV2CalendarCalendarEventChangedV4Handler,
+		eventV2CardActionTriggerHandler:                               r.eventV2CardActionTriggerHandler,
 		eventV2ContactCustomAttrEventUpdatedV3Handler:                 r.eventV2ContactCustomAttrEventUpdatedV3Handler,
 		eventV2ContactDepartmentCreatedV3Handler:                      r.eventV2ContactDepartmentCreatedV3Handler,
 		eventV2ContactDepartmentDeletedV3Handler:                      r.eventV2ContactDepartmentDeletedV3Handler,
@@ -526,6 +529,7 @@ type eventBody struct {
 	eventV2CalendarCalendarACLDeletedV4                    *EventV2CalendarCalendarACLDeletedV4
 	eventV2CalendarCalendarChangedV4                       *EventV2CalendarCalendarChangedV4
 	eventV2CalendarCalendarEventChangedV4                  *EventV2CalendarCalendarEventChangedV4
+	eventV2CardActionTrigger                               *EventV2CardActionTrigger
 	eventV2ContactCustomAttrEventUpdatedV3                 *EventV2ContactCustomAttrEventUpdatedV3
 	eventV2ContactDepartmentCreatedV3                      *EventV2ContactDepartmentCreatedV3
 	eventV2ContactDepartmentDeletedV3                      *EventV2ContactDepartmentDeletedV3
@@ -743,6 +747,12 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 			return err
 		}
 		req.eventV2CalendarCalendarEventChangedV4 = event
+	case EventTypeV2CardActionTrigger:
+		event := new(EventV2CardActionTrigger)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CardActionTrigger = event
 	case EventTypeV2ContactCustomAttrEventUpdatedV3:
 		event := new(EventV2ContactCustomAttrEventUpdatedV3)
 		if err := req.unmarshalEvent(event); err != nil {
@@ -1939,6 +1949,15 @@ func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) 
 				go r.cli.eventHandler.eventV2CalendarCalendarEventChangedV4Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CalendarCalendarEventChangedV4)
 			} else {
 				s, err = r.cli.eventHandler.eventV2CalendarCalendarEventChangedV4Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CalendarCalendarEventChangedV4)
+			}
+		}
+		return true, s, err
+	case req.eventV2CardActionTrigger != nil:
+		if r.cli.eventHandler.eventV2CardActionTriggerHandler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CardActionTriggerHandler(ctx, r.cli, req.Schema, req.Header, req.eventV2CardActionTrigger)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CardActionTriggerHandler(ctx, r.cli, req.Schema, req.Header, req.eventV2CardActionTrigger)
 			}
 		}
 		return true, s, err
