@@ -21,21 +21,21 @@ import (
 	"context"
 )
 
-// DeleteTask 该接口用于删除任务。
+// DeleteTaskV1 该接口用于删除任务。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/delete
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task/delete
 //
 // Deprecated
-func (r *TaskService) DeleteTask(ctx context.Context, request *DeleteTaskReq, options ...MethodOptionFunc) (*DeleteTaskResp, *Response, error) {
-	if r.cli.mock.mockTaskDeleteTask != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#DeleteTask mock enable")
-		return r.cli.mock.mockTaskDeleteTask(ctx, request, options...)
+func (r *TaskV1Service) DeleteTaskV1(ctx context.Context, request *DeleteTaskV1Req, options ...MethodOptionFunc) (*DeleteTaskV1Resp, *Response, error) {
+	if r.cli.mock.mockTaskV1DeleteTaskV1 != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] TaskV1#DeleteTaskV1 mock enable")
+		return r.cli.mock.mockTaskV1DeleteTaskV1(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "Task",
-		API:                   "DeleteTask",
+		Scope:                 "TaskV1",
+		API:                   "DeleteTaskV1",
 		Method:                "DELETE",
 		URL:                   r.cli.openBaseURL + "/open-apis/task/v1/tasks/:task_id",
 		Body:                  request,
@@ -43,35 +43,35 @@ func (r *TaskService) DeleteTask(ctx context.Context, request *DeleteTaskReq, op
 		NeedTenantAccessToken: true,
 		NeedUserAccessToken:   true,
 	}
-	resp := new(deleteTaskResp)
+	resp := new(deleteTaskV1Resp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockTaskDeleteTask mock TaskDeleteTask method
-func (r *Mock) MockTaskDeleteTask(f func(ctx context.Context, request *DeleteTaskReq, options ...MethodOptionFunc) (*DeleteTaskResp, *Response, error)) {
-	r.mockTaskDeleteTask = f
+// MockTaskV1DeleteTaskV1 mock TaskV1DeleteTaskV1 method
+func (r *Mock) MockTaskV1DeleteTaskV1(f func(ctx context.Context, request *DeleteTaskV1Req, options ...MethodOptionFunc) (*DeleteTaskV1Resp, *Response, error)) {
+	r.mockTaskV1DeleteTaskV1 = f
 }
 
-// UnMockTaskDeleteTask un-mock TaskDeleteTask method
-func (r *Mock) UnMockTaskDeleteTask() {
-	r.mockTaskDeleteTask = nil
+// UnMockTaskV1DeleteTaskV1 un-mock TaskV1DeleteTaskV1 method
+func (r *Mock) UnMockTaskV1DeleteTaskV1() {
+	r.mockTaskV1DeleteTaskV1 = nil
 }
 
-// DeleteTaskReq ...
-type DeleteTaskReq struct {
+// DeleteTaskV1Req ...
+type DeleteTaskV1Req struct {
 	TaskID string `path:"task_id" json:"-"` // 任务 ID, 示例值: "83912691-2e43-47fc-94a4-d512e03984fa"
 }
 
-// DeleteTaskResp ...
-type DeleteTaskResp struct {
+// DeleteTaskV1Resp ...
+type DeleteTaskV1Resp struct {
 }
 
-// deleteTaskResp ...
-type deleteTaskResp struct {
-	Code  int64           `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg   string          `json:"msg,omitempty"`  // 错误描述
-	Data  *DeleteTaskResp `json:"data,omitempty"`
-	Error *ErrorDetail    `json:"error,omitempty"`
+// deleteTaskV1Resp ...
+type deleteTaskV1Resp struct {
+	Code  int64             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string            `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteTaskV1Resp `json:"data,omitempty"`
+	Error *ErrorDetail      `json:"error,omitempty"`
 }

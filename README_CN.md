@@ -1181,30 +1181,30 @@ API 总数: 1031, 事件总数: 149
   - DeleteSearchSchema
   - GetSearchSchema
   - CreateSearchSchema
-- Task
-  - CreateTaskFollower
-  - DeleteTaskFollower
-  - BatchDeleteTaskFollower
-  - GetTaskFollowerList
-  - CreateTaskCollaborator
-  - DeleteTaskCollaborator
-  - BatchDeleteTaskCollaborator
-  - GetTaskCollaboratorList
-  - CreateTaskReminder
-  - GetTaskReminderList
-  - DeleteTaskReminder
-  - CreateTask
-  - GetTask
-  - GetTaskList
-  - DeleteTask
-  - UpdateTask
-  - CompleteTask
-  - UncompleteTask
-  - CreateTaskComment
-  - GetTaskComment
-  - GetTaskCommentList
-  - DeleteTaskComment
-  - UpdateTaskComment
+- TaskV1
+  - CreateTaskV1Follower
+  - DeleteTaskV1Follower
+  - BatchDeleteTaskV1Follower
+  - GetTaskFollowerV1List
+  - CreateTaskV1Collaborator
+  - DeleteTaskV1Collaborator
+  - BatchDeleteTaskV1Collaborator
+  - GetTaskV1CollaboratorList
+  - CreateTaskV1Reminder
+  - GetTaskV1ReminderList
+  - DeleteTaskV1Reminder
+  - CreateTaskV1
+  - GetTaskV1
+  - GetTaskV1List
+  - DeleteTaskV1
+  - UpdateTaskV1
+  - CompleteTaskV1
+  - UncompleteTaskV1
+  - CreateTaskV1Comment
+  - GetTaskV1Comment
+  - GetTaskV1CommentList
+  - DeleteTaskV1Comment
+  - UpdateTaskV1Comment
 - Tenant
   - GetTenantProductAssignInfo
   - GetTenant

@@ -21,21 +21,21 @@ import (
 	"context"
 )
 
-// GetTaskFollowerList 该接口用于查询任务关注人列表, 支持分页, 最大值为50。
+// GetTaskFollowerV1List 该接口用于查询任务关注人列表, 支持分页, 最大值为50。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-follower/list
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task-follower/list
 //
 // Deprecated
-func (r *TaskService) GetTaskFollowerList(ctx context.Context, request *GetTaskFollowerListReq, options ...MethodOptionFunc) (*GetTaskFollowerListResp, *Response, error) {
-	if r.cli.mock.mockTaskGetTaskFollowerList != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#GetTaskFollowerList mock enable")
-		return r.cli.mock.mockTaskGetTaskFollowerList(ctx, request, options...)
+func (r *TaskV1Service) GetTaskFollowerV1List(ctx context.Context, request *GetTaskFollowerV1ListReq, options ...MethodOptionFunc) (*GetTaskFollowerV1ListResp, *Response, error) {
+	if r.cli.mock.mockTaskV1GetTaskFollowerV1List != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] TaskV1#GetTaskFollowerV1List mock enable")
+		return r.cli.mock.mockTaskV1GetTaskFollowerV1List(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "Task",
-		API:                   "GetTaskFollowerList",
+		Scope:                 "TaskV1",
+		API:                   "GetTaskFollowerV1List",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/task/v1/tasks/:task_id/followers",
 		Body:                  request,
@@ -43,47 +43,47 @@ func (r *TaskService) GetTaskFollowerList(ctx context.Context, request *GetTaskF
 		NeedTenantAccessToken: true,
 		NeedUserAccessToken:   true,
 	}
-	resp := new(getTaskFollowerListResp)
+	resp := new(getTaskFollowerV1ListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockTaskGetTaskFollowerList mock TaskGetTaskFollowerList method
-func (r *Mock) MockTaskGetTaskFollowerList(f func(ctx context.Context, request *GetTaskFollowerListReq, options ...MethodOptionFunc) (*GetTaskFollowerListResp, *Response, error)) {
-	r.mockTaskGetTaskFollowerList = f
+// MockTaskV1GetTaskFollowerV1List mock TaskV1GetTaskFollowerV1List method
+func (r *Mock) MockTaskV1GetTaskFollowerV1List(f func(ctx context.Context, request *GetTaskFollowerV1ListReq, options ...MethodOptionFunc) (*GetTaskFollowerV1ListResp, *Response, error)) {
+	r.mockTaskV1GetTaskFollowerV1List = f
 }
 
-// UnMockTaskGetTaskFollowerList un-mock TaskGetTaskFollowerList method
-func (r *Mock) UnMockTaskGetTaskFollowerList() {
-	r.mockTaskGetTaskFollowerList = nil
+// UnMockTaskV1GetTaskFollowerV1List un-mock TaskV1GetTaskFollowerV1List method
+func (r *Mock) UnMockTaskV1GetTaskFollowerV1List() {
+	r.mockTaskV1GetTaskFollowerV1List = nil
 }
 
-// GetTaskFollowerListReq ...
-type GetTaskFollowerListReq struct {
+// GetTaskFollowerV1ListReq ...
+type GetTaskFollowerV1ListReq struct {
 	TaskID     string  `path:"task_id" json:"-"`       // 任务 ID, 示例值: "0d38e26e-190a-49e9-93a2-35067763ed1f"
 	PageSize   *int64  `query:"page_size" json:"-"`    // 分页大小, 示例值: 10, 最大值: `50`
 	PageToken  *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "「上次返回的page_token」"
 	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
-// GetTaskFollowerListResp ...
-type GetTaskFollowerListResp struct {
-	Items     []*GetTaskFollowerListRespItem `json:"items,omitempty"`      // 返回的关注人ID列表
-	PageToken string                         `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-	HasMore   bool                           `json:"has_more,omitempty"`   // 是否还有更多项
+// GetTaskFollowerV1ListResp ...
+type GetTaskFollowerV1ListResp struct {
+	Items     []*GetTaskFollowerV1ListRespItem `json:"items,omitempty"`      // 返回的关注人ID列表
+	PageToken string                           `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	HasMore   bool                             `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
-// GetTaskFollowerListRespItem ...
-type GetTaskFollowerListRespItem struct {
+// GetTaskFollowerV1ListRespItem ...
+type GetTaskFollowerV1ListRespItem struct {
 	ID     string   `json:"id,omitempty"`      // 任务关注人 ID
 	IDList []string `json:"id_list,omitempty"` // 要删除的关注人ID列表
 }
 
-// getTaskFollowerListResp ...
-type getTaskFollowerListResp struct {
-	Code  int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg   string                   `json:"msg,omitempty"`  // 错误描述
-	Data  *GetTaskFollowerListResp `json:"data,omitempty"`
-	Error *ErrorDetail             `json:"error,omitempty"`
+// getTaskFollowerV1ListResp ...
+type getTaskFollowerV1ListResp struct {
+	Code  int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                     `json:"msg,omitempty"`  // 错误描述
+	Data  *GetTaskFollowerV1ListResp `json:"data,omitempty"`
+	Error *ErrorDetail               `json:"error,omitempty"`
 }

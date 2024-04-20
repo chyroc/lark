@@ -21,21 +21,21 @@ import (
 	"context"
 )
 
-// GetTaskCollaboratorList 该接口用于查询任务执行者列表, 支持分页, 最大值为50。
+// GetTaskV1CollaboratorList 该接口用于查询任务执行者列表, 支持分页, 最大值为50。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-collaborator/list
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task-collaborator/list
 //
 // Deprecated
-func (r *TaskService) GetTaskCollaboratorList(ctx context.Context, request *GetTaskCollaboratorListReq, options ...MethodOptionFunc) (*GetTaskCollaboratorListResp, *Response, error) {
-	if r.cli.mock.mockTaskGetTaskCollaboratorList != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#GetTaskCollaboratorList mock enable")
-		return r.cli.mock.mockTaskGetTaskCollaboratorList(ctx, request, options...)
+func (r *TaskV1Service) GetTaskV1CollaboratorList(ctx context.Context, request *GetTaskV1CollaboratorListReq, options ...MethodOptionFunc) (*GetTaskV1CollaboratorListResp, *Response, error) {
+	if r.cli.mock.mockTaskV1GetTaskV1CollaboratorList != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] TaskV1#GetTaskV1CollaboratorList mock enable")
+		return r.cli.mock.mockTaskV1GetTaskV1CollaboratorList(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "Task",
-		API:                   "GetTaskCollaboratorList",
+		Scope:                 "TaskV1",
+		API:                   "GetTaskV1CollaboratorList",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/task/v1/tasks/:task_id/collaborators",
 		Body:                  request,
@@ -43,47 +43,47 @@ func (r *TaskService) GetTaskCollaboratorList(ctx context.Context, request *GetT
 		NeedTenantAccessToken: true,
 		NeedUserAccessToken:   true,
 	}
-	resp := new(getTaskCollaboratorListResp)
+	resp := new(getTaskV1CollaboratorListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockTaskGetTaskCollaboratorList mock TaskGetTaskCollaboratorList method
-func (r *Mock) MockTaskGetTaskCollaboratorList(f func(ctx context.Context, request *GetTaskCollaboratorListReq, options ...MethodOptionFunc) (*GetTaskCollaboratorListResp, *Response, error)) {
-	r.mockTaskGetTaskCollaboratorList = f
+// MockTaskV1GetTaskV1CollaboratorList mock TaskV1GetTaskV1CollaboratorList method
+func (r *Mock) MockTaskV1GetTaskV1CollaboratorList(f func(ctx context.Context, request *GetTaskV1CollaboratorListReq, options ...MethodOptionFunc) (*GetTaskV1CollaboratorListResp, *Response, error)) {
+	r.mockTaskV1GetTaskV1CollaboratorList = f
 }
 
-// UnMockTaskGetTaskCollaboratorList un-mock TaskGetTaskCollaboratorList method
-func (r *Mock) UnMockTaskGetTaskCollaboratorList() {
-	r.mockTaskGetTaskCollaboratorList = nil
+// UnMockTaskV1GetTaskV1CollaboratorList un-mock TaskV1GetTaskV1CollaboratorList method
+func (r *Mock) UnMockTaskV1GetTaskV1CollaboratorList() {
+	r.mockTaskV1GetTaskV1CollaboratorList = nil
 }
 
-// GetTaskCollaboratorListReq ...
-type GetTaskCollaboratorListReq struct {
+// GetTaskV1CollaboratorListReq ...
+type GetTaskV1CollaboratorListReq struct {
 	TaskID     string  `path:"task_id" json:"-"`       // 任务 ID, 示例值: "0d38e26e-190a-49e9-93a2-35067763ed1f"
 	PageSize   *int64  `query:"page_size" json:"-"`    // 分页大小, 示例值: 50, 默认值: `50`, 取值范围: `0` ～ `50`
 	PageToken  *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 「上次返回的page_token」
 	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
-// GetTaskCollaboratorListResp ...
-type GetTaskCollaboratorListResp struct {
-	Items     []*GetTaskCollaboratorListRespItem `json:"items,omitempty"`      // 返回的执行者ID列表
-	PageToken string                             `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-	HasMore   bool                               `json:"has_more,omitempty"`   // 是否还有更多项
+// GetTaskV1CollaboratorListResp ...
+type GetTaskV1CollaboratorListResp struct {
+	Items     []*GetTaskV1CollaboratorListRespItem `json:"items,omitempty"`      // 返回的执行者ID列表
+	PageToken string                               `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	HasMore   bool                                 `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
-// GetTaskCollaboratorListRespItem ...
-type GetTaskCollaboratorListRespItem struct {
+// GetTaskV1CollaboratorListRespItem ...
+type GetTaskV1CollaboratorListRespItem struct {
 	ID     string   `json:"id,omitempty"`      // 任务执行者的 ID, 传入的值为 user_id 或 open_id, 由user_id_type 决定。user_id和open_id的获取可见文档[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id), 已经废弃, 为了向前兼容早期只支持单次添加一个人的情况而保留, 但不再推荐使用, 建议使用id_list字段
 	IDList []string `json:"id_list,omitempty"` // 执行者的用户ID列表, 传入的值为 user_id 或 open_id, 由user_id_type 决定。user_id和open_id的获取可见文档[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)。
 }
 
-// getTaskCollaboratorListResp ...
-type getTaskCollaboratorListResp struct {
-	Code  int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg   string                       `json:"msg,omitempty"`  // 错误描述
-	Data  *GetTaskCollaboratorListResp `json:"data,omitempty"`
-	Error *ErrorDetail                 `json:"error,omitempty"`
+// getTaskV1CollaboratorListResp ...
+type getTaskV1CollaboratorListResp struct {
+	Code  int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                         `json:"msg,omitempty"`  // 错误描述
+	Data  *GetTaskV1CollaboratorListResp `json:"data,omitempty"`
+	Error *ErrorDetail                   `json:"error,omitempty"`
 }

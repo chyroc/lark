@@ -21,21 +21,21 @@ import (
 	"context"
 )
 
-// CreateTaskReminder 该接口用于创建任务的提醒时间。提醒时间在截止时间基础上做偏移, 但是偏移后的结果不能早于当前时间。
+// CreateTaskV1Reminder 该接口用于创建任务的提醒时间。提醒时间在截止时间基础上做偏移, 但是偏移后的结果不能早于当前时间。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-reminder/create
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task-reminder/create
 //
 // Deprecated
-func (r *TaskService) CreateTaskReminder(ctx context.Context, request *CreateTaskReminderReq, options ...MethodOptionFunc) (*CreateTaskReminderResp, *Response, error) {
-	if r.cli.mock.mockTaskCreateTaskReminder != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#CreateTaskReminder mock enable")
-		return r.cli.mock.mockTaskCreateTaskReminder(ctx, request, options...)
+func (r *TaskV1Service) CreateTaskV1Reminder(ctx context.Context, request *CreateTaskV1ReminderReq, options ...MethodOptionFunc) (*CreateTaskV1ReminderResp, *Response, error) {
+	if r.cli.mock.mockTaskV1CreateTaskV1Reminder != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] TaskV1#CreateTaskV1Reminder mock enable")
+		return r.cli.mock.mockTaskV1CreateTaskV1Reminder(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "Task",
-		API:                   "CreateTaskReminder",
+		Scope:                 "TaskV1",
+		API:                   "CreateTaskV1Reminder",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/task/v1/tasks/:task_id/reminders",
 		Body:                  request,
@@ -43,43 +43,43 @@ func (r *TaskService) CreateTaskReminder(ctx context.Context, request *CreateTas
 		NeedTenantAccessToken: true,
 		NeedUserAccessToken:   true,
 	}
-	resp := new(createTaskReminderResp)
+	resp := new(createTaskV1ReminderResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockTaskCreateTaskReminder mock TaskCreateTaskReminder method
-func (r *Mock) MockTaskCreateTaskReminder(f func(ctx context.Context, request *CreateTaskReminderReq, options ...MethodOptionFunc) (*CreateTaskReminderResp, *Response, error)) {
-	r.mockTaskCreateTaskReminder = f
+// MockTaskV1CreateTaskV1Reminder mock TaskV1CreateTaskV1Reminder method
+func (r *Mock) MockTaskV1CreateTaskV1Reminder(f func(ctx context.Context, request *CreateTaskV1ReminderReq, options ...MethodOptionFunc) (*CreateTaskV1ReminderResp, *Response, error)) {
+	r.mockTaskV1CreateTaskV1Reminder = f
 }
 
-// UnMockTaskCreateTaskReminder un-mock TaskCreateTaskReminder method
-func (r *Mock) UnMockTaskCreateTaskReminder() {
-	r.mockTaskCreateTaskReminder = nil
+// UnMockTaskV1CreateTaskV1Reminder un-mock TaskV1CreateTaskV1Reminder method
+func (r *Mock) UnMockTaskV1CreateTaskV1Reminder() {
+	r.mockTaskV1CreateTaskV1Reminder = nil
 }
 
-// CreateTaskReminderReq ...
-type CreateTaskReminderReq struct {
+// CreateTaskV1ReminderReq ...
+type CreateTaskV1ReminderReq struct {
 	TaskID             string `path:"task_id" json:"-"`               // 任务 ID, 示例值: "83912691-2e43-47fc-94a4-d512e03984fa"
 	RelativeFireMinute int64  `json:"relative_fire_minute,omitempty"` // 相对于截止时间的提醒时间（如提前 30 分钟, 截止时间后 30 分钟, 则为 -30） 任务没有截止时间则为全天任务(截止时间为0), 示例值: 30
 }
 
-// CreateTaskReminderResp ...
-type CreateTaskReminderResp struct {
-	Reminder *CreateTaskReminderRespReminder `json:"reminder,omitempty"` // 返回创建成功的提醒时间
+// CreateTaskV1ReminderResp ...
+type CreateTaskV1ReminderResp struct {
+	Reminder *CreateTaskV1ReminderRespReminder `json:"reminder,omitempty"` // 返回创建成功的提醒时间
 }
 
-// CreateTaskReminderRespReminder ...
-type CreateTaskReminderRespReminder struct {
+// CreateTaskV1ReminderRespReminder ...
+type CreateTaskV1ReminderRespReminder struct {
 	ID                 string `json:"id,omitempty"`                   // 提醒时间设置的 ID（在删除时候需要使用这个）
 	RelativeFireMinute int64  `json:"relative_fire_minute,omitempty"` // 相对于截止时间的提醒时间（如提前 30 分钟, 截止时间后 30 分钟, 则为 -30） 任务没有截止时间则为全天任务(截止时间为0)
 }
 
-// createTaskReminderResp ...
-type createTaskReminderResp struct {
-	Code  int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg   string                  `json:"msg,omitempty"`  // 错误描述
-	Data  *CreateTaskReminderResp `json:"data,omitempty"`
-	Error *ErrorDetail            `json:"error,omitempty"`
+// createTaskV1ReminderResp ...
+type createTaskV1ReminderResp struct {
+	Code  int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                    `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateTaskV1ReminderResp `json:"data,omitempty"`
+	Error *ErrorDetail              `json:"error,omitempty"`
 }

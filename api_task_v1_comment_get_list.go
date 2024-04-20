@@ -21,21 +21,21 @@ import (
 	"context"
 )
 
-// GetTaskCommentList 该接口用于查询任务评论列表, 支持分页, 最大值为100。
+// GetTaskV1CommentList 该接口用于查询任务评论列表, 支持分页, 最大值为100。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-comment/list
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task-comment/list
 //
 // Deprecated
-func (r *TaskService) GetTaskCommentList(ctx context.Context, request *GetTaskCommentListReq, options ...MethodOptionFunc) (*GetTaskCommentListResp, *Response, error) {
-	if r.cli.mock.mockTaskGetTaskCommentList != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#GetTaskCommentList mock enable")
-		return r.cli.mock.mockTaskGetTaskCommentList(ctx, request, options...)
+func (r *TaskV1Service) GetTaskV1CommentList(ctx context.Context, request *GetTaskV1CommentListReq, options ...MethodOptionFunc) (*GetTaskV1CommentListResp, *Response, error) {
+	if r.cli.mock.mockTaskV1GetTaskV1CommentList != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] TaskV1#GetTaskV1CommentList mock enable")
+		return r.cli.mock.mockTaskV1GetTaskV1CommentList(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "Task",
-		API:                   "GetTaskCommentList",
+		Scope:                 "TaskV1",
+		API:                   "GetTaskV1CommentList",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/task/v1/tasks/:task_id/comments",
 		Body:                  request,
@@ -43,24 +43,24 @@ func (r *TaskService) GetTaskCommentList(ctx context.Context, request *GetTaskCo
 		NeedTenantAccessToken: true,
 		NeedUserAccessToken:   true,
 	}
-	resp := new(getTaskCommentListResp)
+	resp := new(getTaskV1CommentListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockTaskGetTaskCommentList mock TaskGetTaskCommentList method
-func (r *Mock) MockTaskGetTaskCommentList(f func(ctx context.Context, request *GetTaskCommentListReq, options ...MethodOptionFunc) (*GetTaskCommentListResp, *Response, error)) {
-	r.mockTaskGetTaskCommentList = f
+// MockTaskV1GetTaskV1CommentList mock TaskV1GetTaskV1CommentList method
+func (r *Mock) MockTaskV1GetTaskV1CommentList(f func(ctx context.Context, request *GetTaskV1CommentListReq, options ...MethodOptionFunc) (*GetTaskV1CommentListResp, *Response, error)) {
+	r.mockTaskV1GetTaskV1CommentList = f
 }
 
-// UnMockTaskGetTaskCommentList un-mock TaskGetTaskCommentList method
-func (r *Mock) UnMockTaskGetTaskCommentList() {
-	r.mockTaskGetTaskCommentList = nil
+// UnMockTaskV1GetTaskV1CommentList un-mock TaskV1GetTaskV1CommentList method
+func (r *Mock) UnMockTaskV1GetTaskV1CommentList() {
+	r.mockTaskV1GetTaskV1CommentList = nil
 }
 
-// GetTaskCommentListReq ...
-type GetTaskCommentListReq struct {
+// GetTaskV1CommentListReq ...
+type GetTaskV1CommentListReq struct {
 	TaskID        string  `path:"task_id" json:"-"`         // 任务id, 示例值: ""83912691-2e43-47fc-94a4-d512e03984fa""
 	PageSize      *int64  `query:"page_size" json:"-"`      // 分页大小, 示例值: 10, 最大值: `100`
 	PageToken     *string `query:"page_token" json:"-"`     // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "MTYzMTg3ODUxNQ=="
@@ -68,15 +68,15 @@ type GetTaskCommentListReq struct {
 	UserIDType    *IDType `query:"user_id_type" json:"-"`   // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
-// GetTaskCommentListResp ...
-type GetTaskCommentListResp struct {
-	Items     []*GetTaskCommentListRespItem `json:"items,omitempty"`      // 返回的评论列表
-	PageToken string                        `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-	HasMore   bool                          `json:"has_more,omitempty"`   // 是否还有更多项
+// GetTaskV1CommentListResp ...
+type GetTaskV1CommentListResp struct {
+	Items     []*GetTaskV1CommentListRespItem `json:"items,omitempty"`      // 返回的评论列表
+	PageToken string                          `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	HasMore   bool                            `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
-// GetTaskCommentListRespItem ...
-type GetTaskCommentListRespItem struct {
+// GetTaskV1CommentListRespItem ...
+type GetTaskV1CommentListRespItem struct {
 	Content         string `json:"content,omitempty"`           // 评论内容, 评论内容和富文本评论内容同时存在时只使用富文本评论内容。
 	ParentID        string `json:"parent_id,omitempty"`         // 评论的父ID, 创建评论时若不为空则为某条评论的回复, 若为空则不是回复
 	ID              string `json:"id,omitempty"`                // 评论ID, 由飞书服务器发号
@@ -85,10 +85,10 @@ type GetTaskCommentListRespItem struct {
 	CreatorID       string `json:"creator_id,omitempty"`        // 评论的创建者 ID。在创建评论时无需填充该字段
 }
 
-// getTaskCommentListResp ...
-type getTaskCommentListResp struct {
-	Code  int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg   string                  `json:"msg,omitempty"`  // 错误描述
-	Data  *GetTaskCommentListResp `json:"data,omitempty"`
-	Error *ErrorDetail            `json:"error,omitempty"`
+// getTaskV1CommentListResp ...
+type getTaskV1CommentListResp struct {
+	Code  int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                    `json:"msg,omitempty"`  // 错误描述
+	Data  *GetTaskV1CommentListResp `json:"data,omitempty"`
+	Error *ErrorDetail              `json:"error,omitempty"`
 }

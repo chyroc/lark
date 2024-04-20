@@ -21,21 +21,21 @@ import (
 	"context"
 )
 
-// DeleteTaskCollaborator 该接口用于删除任务执行者。
+// DeleteTaskV1Collaborator 该接口用于删除任务执行者。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-collaborator/delete
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task-collaborator/delete
 //
 // Deprecated
-func (r *TaskService) DeleteTaskCollaborator(ctx context.Context, request *DeleteTaskCollaboratorReq, options ...MethodOptionFunc) (*DeleteTaskCollaboratorResp, *Response, error) {
-	if r.cli.mock.mockTaskDeleteTaskCollaborator != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#DeleteTaskCollaborator mock enable")
-		return r.cli.mock.mockTaskDeleteTaskCollaborator(ctx, request, options...)
+func (r *TaskV1Service) DeleteTaskV1Collaborator(ctx context.Context, request *DeleteTaskV1CollaboratorReq, options ...MethodOptionFunc) (*DeleteTaskV1CollaboratorResp, *Response, error) {
+	if r.cli.mock.mockTaskV1DeleteTaskV1Collaborator != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] TaskV1#DeleteTaskV1Collaborator mock enable")
+		return r.cli.mock.mockTaskV1DeleteTaskV1Collaborator(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "Task",
-		API:                   "DeleteTaskCollaborator",
+		Scope:                 "TaskV1",
+		API:                   "DeleteTaskV1Collaborator",
 		Method:                "DELETE",
 		URL:                   r.cli.openBaseURL + "/open-apis/task/v1/tasks/:task_id/collaborators/:collaborator_id",
 		Body:                  request,
@@ -43,37 +43,37 @@ func (r *TaskService) DeleteTaskCollaborator(ctx context.Context, request *Delet
 		NeedTenantAccessToken: true,
 		NeedUserAccessToken:   true,
 	}
-	resp := new(deleteTaskCollaboratorResp)
+	resp := new(deleteTaskV1CollaboratorResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockTaskDeleteTaskCollaborator mock TaskDeleteTaskCollaborator method
-func (r *Mock) MockTaskDeleteTaskCollaborator(f func(ctx context.Context, request *DeleteTaskCollaboratorReq, options ...MethodOptionFunc) (*DeleteTaskCollaboratorResp, *Response, error)) {
-	r.mockTaskDeleteTaskCollaborator = f
+// MockTaskV1DeleteTaskV1Collaborator mock TaskV1DeleteTaskV1Collaborator method
+func (r *Mock) MockTaskV1DeleteTaskV1Collaborator(f func(ctx context.Context, request *DeleteTaskV1CollaboratorReq, options ...MethodOptionFunc) (*DeleteTaskV1CollaboratorResp, *Response, error)) {
+	r.mockTaskV1DeleteTaskV1Collaborator = f
 }
 
-// UnMockTaskDeleteTaskCollaborator un-mock TaskDeleteTaskCollaborator method
-func (r *Mock) UnMockTaskDeleteTaskCollaborator() {
-	r.mockTaskDeleteTaskCollaborator = nil
+// UnMockTaskV1DeleteTaskV1Collaborator un-mock TaskV1DeleteTaskV1Collaborator method
+func (r *Mock) UnMockTaskV1DeleteTaskV1Collaborator() {
+	r.mockTaskV1DeleteTaskV1Collaborator = nil
 }
 
-// DeleteTaskCollaboratorReq ...
-type DeleteTaskCollaboratorReq struct {
+// DeleteTaskV1CollaboratorReq ...
+type DeleteTaskV1CollaboratorReq struct {
 	TaskID         string  `path:"task_id" json:"-"`         // 任务 ID, 示例值: "83912691-2e43-47fc-94a4-d512e03984fa"
 	CollaboratorID string  `path:"collaborator_id" json:"-"` // 任务执行者 ID（Open ID或User ID, 由user_id_type指定）, 示例值: "ou_99e1a581b36ecc4862cbfbce123f346a"
 	UserIDType     *IDType `query:"user_id_type" json:"-"`   // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
-// DeleteTaskCollaboratorResp ...
-type DeleteTaskCollaboratorResp struct {
+// DeleteTaskV1CollaboratorResp ...
+type DeleteTaskV1CollaboratorResp struct {
 }
 
-// deleteTaskCollaboratorResp ...
-type deleteTaskCollaboratorResp struct {
-	Code  int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg   string                      `json:"msg,omitempty"`  // 错误描述
-	Data  *DeleteTaskCollaboratorResp `json:"data,omitempty"`
-	Error *ErrorDetail                `json:"error,omitempty"`
+// deleteTaskV1CollaboratorResp ...
+type deleteTaskV1CollaboratorResp struct {
+	Code  int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                        `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteTaskV1CollaboratorResp `json:"data,omitempty"`
+	Error *ErrorDetail                  `json:"error,omitempty"`
 }

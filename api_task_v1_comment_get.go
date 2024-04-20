@@ -21,21 +21,21 @@ import (
 	"context"
 )
 
-// GetTaskComment 该接口用于通过评论ID获取评论详情。
+// GetTaskV1Comment 该接口用于通过评论ID获取评论详情。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-comment/get
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task-comment/get
 //
 // Deprecated
-func (r *TaskService) GetTaskComment(ctx context.Context, request *GetTaskCommentReq, options ...MethodOptionFunc) (*GetTaskCommentResp, *Response, error) {
-	if r.cli.mock.mockTaskGetTaskComment != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#GetTaskComment mock enable")
-		return r.cli.mock.mockTaskGetTaskComment(ctx, request, options...)
+func (r *TaskV1Service) GetTaskV1Comment(ctx context.Context, request *GetTaskV1CommentReq, options ...MethodOptionFunc) (*GetTaskV1CommentResp, *Response, error) {
+	if r.cli.mock.mockTaskV1GetTaskV1Comment != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] TaskV1#GetTaskV1Comment mock enable")
+		return r.cli.mock.mockTaskV1GetTaskV1Comment(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "Task",
-		API:                   "GetTaskComment",
+		Scope:                 "TaskV1",
+		API:                   "GetTaskV1Comment",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/task/v1/tasks/:task_id/comments/:comment_id",
 		Body:                  request,
@@ -43,36 +43,36 @@ func (r *TaskService) GetTaskComment(ctx context.Context, request *GetTaskCommen
 		NeedTenantAccessToken: true,
 		NeedUserAccessToken:   true,
 	}
-	resp := new(getTaskCommentResp)
+	resp := new(getTaskV1CommentResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockTaskGetTaskComment mock TaskGetTaskComment method
-func (r *Mock) MockTaskGetTaskComment(f func(ctx context.Context, request *GetTaskCommentReq, options ...MethodOptionFunc) (*GetTaskCommentResp, *Response, error)) {
-	r.mockTaskGetTaskComment = f
+// MockTaskV1GetTaskV1Comment mock TaskV1GetTaskV1Comment method
+func (r *Mock) MockTaskV1GetTaskV1Comment(f func(ctx context.Context, request *GetTaskV1CommentReq, options ...MethodOptionFunc) (*GetTaskV1CommentResp, *Response, error)) {
+	r.mockTaskV1GetTaskV1Comment = f
 }
 
-// UnMockTaskGetTaskComment un-mock TaskGetTaskComment method
-func (r *Mock) UnMockTaskGetTaskComment() {
-	r.mockTaskGetTaskComment = nil
+// UnMockTaskV1GetTaskV1Comment un-mock TaskV1GetTaskV1Comment method
+func (r *Mock) UnMockTaskV1GetTaskV1Comment() {
+	r.mockTaskV1GetTaskV1Comment = nil
 }
 
-// GetTaskCommentReq ...
-type GetTaskCommentReq struct {
+// GetTaskV1CommentReq ...
+type GetTaskV1CommentReq struct {
 	TaskID     string  `path:"task_id" json:"-"`       // 任务ID, 示例值: "83912691-2e43-47fc-94a4-d512e03984fa"
 	CommentID  string  `path:"comment_id" json:"-"`    // 评论ID, 示例值: "6937231762296684564"
 	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
-// GetTaskCommentResp ...
-type GetTaskCommentResp struct {
-	Comment *GetTaskCommentRespComment `json:"comment,omitempty"` // 返回新的任务评论详情
+// GetTaskV1CommentResp ...
+type GetTaskV1CommentResp struct {
+	Comment *GetTaskV1CommentRespComment `json:"comment,omitempty"` // 返回新的任务评论详情
 }
 
-// GetTaskCommentRespComment ...
-type GetTaskCommentRespComment struct {
+// GetTaskV1CommentRespComment ...
+type GetTaskV1CommentRespComment struct {
 	Content         string `json:"content,omitempty"`           // 评论内容, 评论内容和富文本评论内容同时存在时只使用富文本评论内容。
 	ParentID        string `json:"parent_id,omitempty"`         // 评论的父ID, 创建评论时若不为空则为某条评论的回复, 若为空则不是回复
 	ID              string `json:"id,omitempty"`                // 评论ID, 由飞书服务器发号
@@ -81,10 +81,10 @@ type GetTaskCommentRespComment struct {
 	CreatorID       string `json:"creator_id,omitempty"`        // 评论的创建者 ID。在创建评论时无需填充该字段
 }
 
-// getTaskCommentResp ...
-type getTaskCommentResp struct {
-	Code  int64               `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg   string              `json:"msg,omitempty"`  // 错误描述
-	Data  *GetTaskCommentResp `json:"data,omitempty"`
-	Error *ErrorDetail        `json:"error,omitempty"`
+// getTaskV1CommentResp ...
+type getTaskV1CommentResp struct {
+	Code  int64                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                `json:"msg,omitempty"`  // 错误描述
+	Data  *GetTaskV1CommentResp `json:"data,omitempty"`
+	Error *ErrorDetail          `json:"error,omitempty"`
 }

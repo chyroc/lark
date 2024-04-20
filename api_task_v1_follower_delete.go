@@ -21,21 +21,21 @@ import (
 	"context"
 )
 
-// DeleteTaskFollower 该接口用于删除任务关注人。
+// DeleteTaskV1Follower 该接口用于删除任务关注人。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-follower/delete
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task-follower/delete
 //
 // Deprecated
-func (r *TaskService) DeleteTaskFollower(ctx context.Context, request *DeleteTaskFollowerReq, options ...MethodOptionFunc) (*DeleteTaskFollowerResp, *Response, error) {
-	if r.cli.mock.mockTaskDeleteTaskFollower != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#DeleteTaskFollower mock enable")
-		return r.cli.mock.mockTaskDeleteTaskFollower(ctx, request, options...)
+func (r *TaskV1Service) DeleteTaskV1Follower(ctx context.Context, request *DeleteTaskV1FollowerReq, options ...MethodOptionFunc) (*DeleteTaskV1FollowerResp, *Response, error) {
+	if r.cli.mock.mockTaskV1DeleteTaskV1Follower != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] TaskV1#DeleteTaskV1Follower mock enable")
+		return r.cli.mock.mockTaskV1DeleteTaskV1Follower(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "Task",
-		API:                   "DeleteTaskFollower",
+		Scope:                 "TaskV1",
+		API:                   "DeleteTaskV1Follower",
 		Method:                "DELETE",
 		URL:                   r.cli.openBaseURL + "/open-apis/task/v1/tasks/:task_id/followers/:follower_id",
 		Body:                  request,
@@ -43,37 +43,37 @@ func (r *TaskService) DeleteTaskFollower(ctx context.Context, request *DeleteTas
 		NeedTenantAccessToken: true,
 		NeedUserAccessToken:   true,
 	}
-	resp := new(deleteTaskFollowerResp)
+	resp := new(deleteTaskV1FollowerResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockTaskDeleteTaskFollower mock TaskDeleteTaskFollower method
-func (r *Mock) MockTaskDeleteTaskFollower(f func(ctx context.Context, request *DeleteTaskFollowerReq, options ...MethodOptionFunc) (*DeleteTaskFollowerResp, *Response, error)) {
-	r.mockTaskDeleteTaskFollower = f
+// MockTaskV1DeleteTaskV1Follower mock TaskV1DeleteTaskV1Follower method
+func (r *Mock) MockTaskV1DeleteTaskV1Follower(f func(ctx context.Context, request *DeleteTaskV1FollowerReq, options ...MethodOptionFunc) (*DeleteTaskV1FollowerResp, *Response, error)) {
+	r.mockTaskV1DeleteTaskV1Follower = f
 }
 
-// UnMockTaskDeleteTaskFollower un-mock TaskDeleteTaskFollower method
-func (r *Mock) UnMockTaskDeleteTaskFollower() {
-	r.mockTaskDeleteTaskFollower = nil
+// UnMockTaskV1DeleteTaskV1Follower un-mock TaskV1DeleteTaskV1Follower method
+func (r *Mock) UnMockTaskV1DeleteTaskV1Follower() {
+	r.mockTaskV1DeleteTaskV1Follower = nil
 }
 
-// DeleteTaskFollowerReq ...
-type DeleteTaskFollowerReq struct {
+// DeleteTaskV1FollowerReq ...
+type DeleteTaskV1FollowerReq struct {
 	TaskID     string  `path:"task_id" json:"-"`       // 任务 ID, 示例值: "83912691-2e43-47fc-94a4-d512e03984fa"
 	FollowerID string  `path:"follower_id" json:"-"`   // 任务关注人 ID（Open ID或User ID, 由user_id_type指定）, 示例值: "ou_87e1a581b36ecc4862cbfbce473f346a"
 	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
-// DeleteTaskFollowerResp ...
-type DeleteTaskFollowerResp struct {
+// DeleteTaskV1FollowerResp ...
+type DeleteTaskV1FollowerResp struct {
 }
 
-// deleteTaskFollowerResp ...
-type deleteTaskFollowerResp struct {
-	Code  int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg   string                  `json:"msg,omitempty"`  // 错误描述
-	Data  *DeleteTaskFollowerResp `json:"data,omitempty"`
-	Error *ErrorDetail            `json:"error,omitempty"`
+// deleteTaskV1FollowerResp ...
+type deleteTaskV1FollowerResp struct {
+	Code  int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                    `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteTaskV1FollowerResp `json:"data,omitempty"`
+	Error *ErrorDetail              `json:"error,omitempty"`
 }

@@ -21,21 +21,21 @@ import (
 	"context"
 )
 
-// GetTaskReminderList 返回提醒时间列表, 支持分页, 最大值为50。
+// GetTaskV1ReminderList 返回提醒时间列表, 支持分页, 最大值为50。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-reminder/list
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task-reminder/list
 //
 // Deprecated
-func (r *TaskService) GetTaskReminderList(ctx context.Context, request *GetTaskReminderListReq, options ...MethodOptionFunc) (*GetTaskReminderListResp, *Response, error) {
-	if r.cli.mock.mockTaskGetTaskReminderList != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#GetTaskReminderList mock enable")
-		return r.cli.mock.mockTaskGetTaskReminderList(ctx, request, options...)
+func (r *TaskV1Service) GetTaskV1ReminderList(ctx context.Context, request *GetTaskV1ReminderListReq, options ...MethodOptionFunc) (*GetTaskV1ReminderListResp, *Response, error) {
+	if r.cli.mock.mockTaskV1GetTaskV1ReminderList != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] TaskV1#GetTaskV1ReminderList mock enable")
+		return r.cli.mock.mockTaskV1GetTaskV1ReminderList(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "Task",
-		API:                   "GetTaskReminderList",
+		Scope:                 "TaskV1",
+		API:                   "GetTaskV1ReminderList",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/task/v1/tasks/:task_id/reminders",
 		Body:                  request,
@@ -43,46 +43,46 @@ func (r *TaskService) GetTaskReminderList(ctx context.Context, request *GetTaskR
 		NeedTenantAccessToken: true,
 		NeedUserAccessToken:   true,
 	}
-	resp := new(getTaskReminderListResp)
+	resp := new(getTaskV1ReminderListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockTaskGetTaskReminderList mock TaskGetTaskReminderList method
-func (r *Mock) MockTaskGetTaskReminderList(f func(ctx context.Context, request *GetTaskReminderListReq, options ...MethodOptionFunc) (*GetTaskReminderListResp, *Response, error)) {
-	r.mockTaskGetTaskReminderList = f
+// MockTaskV1GetTaskV1ReminderList mock TaskV1GetTaskV1ReminderList method
+func (r *Mock) MockTaskV1GetTaskV1ReminderList(f func(ctx context.Context, request *GetTaskV1ReminderListReq, options ...MethodOptionFunc) (*GetTaskV1ReminderListResp, *Response, error)) {
+	r.mockTaskV1GetTaskV1ReminderList = f
 }
 
-// UnMockTaskGetTaskReminderList un-mock TaskGetTaskReminderList method
-func (r *Mock) UnMockTaskGetTaskReminderList() {
-	r.mockTaskGetTaskReminderList = nil
+// UnMockTaskV1GetTaskV1ReminderList un-mock TaskV1GetTaskV1ReminderList method
+func (r *Mock) UnMockTaskV1GetTaskV1ReminderList() {
+	r.mockTaskV1GetTaskV1ReminderList = nil
 }
 
-// GetTaskReminderListReq ...
-type GetTaskReminderListReq struct {
+// GetTaskV1ReminderListReq ...
+type GetTaskV1ReminderListReq struct {
 	TaskID    string  `path:"task_id" json:"-"`     // 任务 ID, 示例值: "0d38e26e-190a-49e9-93a2-35067763ed1f"
 	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 50, 默认值: `50`, 取值范围: `0` ～ `50`
 	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 「填写上次返回的page_token」
 }
 
-// GetTaskReminderListResp ...
-type GetTaskReminderListResp struct {
-	Items     []*GetTaskReminderListRespItem `json:"items,omitempty"`      // 返回提醒时间设置列表
-	PageToken string                         `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-	HasMore   bool                           `json:"has_more,omitempty"`   // 是否还有更多项
+// GetTaskV1ReminderListResp ...
+type GetTaskV1ReminderListResp struct {
+	Items     []*GetTaskV1ReminderListRespItem `json:"items,omitempty"`      // 返回提醒时间设置列表
+	PageToken string                           `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	HasMore   bool                             `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
-// GetTaskReminderListRespItem ...
-type GetTaskReminderListRespItem struct {
+// GetTaskV1ReminderListRespItem ...
+type GetTaskV1ReminderListRespItem struct {
 	ID                 string `json:"id,omitempty"`                   // 提醒时间设置的 ID（在删除时候需要使用这个）
 	RelativeFireMinute int64  `json:"relative_fire_minute,omitempty"` // 相对于截止时间的提醒时间（如提前 30 分钟, 截止时间后 30 分钟, 则为 -30） 任务没有截止时间则为全天任务(截止时间为0)
 }
 
-// getTaskReminderListResp ...
-type getTaskReminderListResp struct {
-	Code  int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg   string                   `json:"msg,omitempty"`  // 错误描述
-	Data  *GetTaskReminderListResp `json:"data,omitempty"`
-	Error *ErrorDetail             `json:"error,omitempty"`
+// getTaskV1ReminderListResp ...
+type getTaskV1ReminderListResp struct {
+	Code  int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                     `json:"msg,omitempty"`  // 错误描述
+	Data  *GetTaskV1ReminderListResp `json:"data,omitempty"`
+	Error *ErrorDetail               `json:"error,omitempty"`
 }
