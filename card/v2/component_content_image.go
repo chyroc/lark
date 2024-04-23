@@ -72,6 +72,26 @@ type ComponentImage struct {
 	// false：点击图片后, 响应卡片本身的交互事件, 不弹出图片查看器。
 	// 提示：如果你为卡片配置了跳转链接card_link参数, 可将该参数设置为 false, 后续用户点击卡片上的图片也能响应 card_link 链接跳转。
 	Preview bool `json:"preview,omitempty"`
+
+	// 图片显示模式。取值：
+	//
+	// crop_center：居中裁剪模式，对长图会限高，并居中裁剪后展示。
+	// fit_horizontal：平铺模式，宽度撑满卡片完整展示上传的图片。
+	// stretch：自适应。图片宽度撑满卡片宽度，当图片 高:宽 小于 16:9 时，完整展示原图。当图片 高:宽 大于 16:9 时，顶部对齐裁剪图片，并在图片底部展示 长图 脚标。
+	// large：大图，尺寸为 160 × 160，适用于多图混排。
+	// medium：中图，尺寸为 80 × 80，适用于图文混排的封面图。
+	// small：小图，尺寸为 40 × 40，适用于人员头像。
+	// tiny：超小图，尺寸为 16 × 16，适用于图标、备注。
+	// 注意：设置该参数后，会覆盖 custom_width 参数。更多信息参见消息卡片设计规范。
+	Mode ImageMode `json:"mode,omitempty"`
+
+	// 自定义图片的最大展示宽度，支持在 278px ~ 580px 范围内指定最大展示宽度。默认情况下图片宽度与图片组件所占区域的宽度一致。
+	//
+	// 注意：该参数在飞书 V4.0 以上版本生效。
+	CustomWidth int64 `json:"custom_width,omitempty"`
+
+	// 是否展示为紧凑型的图片。如果配置为 true，则展示最大宽度为 278px 的紧凑型图片。
+	CompactWidth bool `json:"compact_width,omitempty"`
 }
 
 // MarshalJSON ...
@@ -187,9 +207,69 @@ func (r *ComponentImage) SetPreview(val bool) *ComponentImage {
 	return r
 }
 
+// SetMode set ComponentImage.Mode attribute
+func (r *ComponentImage) SetMode(val ImageMode) *ComponentImage {
+	r.Mode = val
+	return r
+}
+
+// SetModeCropCenter set ComponentImage.Mode attribute to ImageModeCropCenter
+func (r *ComponentImage) SetModeCropCenter() *ComponentImage {
+	r.Mode = ImageModeCropCenter
+	return r
+}
+
+// SetModeFitHorizontal set ComponentImage.Mode attribute to ImageModeFitHorizontal
+func (r *ComponentImage) SetModeFitHorizontal() *ComponentImage {
+	r.Mode = ImageModeFitHorizontal
+	return r
+}
+
+// SetModeStretch set ComponentImage.Mode attribute to ImageModeStretch
+func (r *ComponentImage) SetModeStretch() *ComponentImage {
+	r.Mode = ImageModeStretch
+	return r
+}
+
+// SetModeLarge set ComponentImage.Mode attribute to ImageModeLarge
+func (r *ComponentImage) SetModeLarge() *ComponentImage {
+	r.Mode = ImageModeLarge
+	return r
+}
+
+// SetModeMedium set ComponentImage.Mode attribute to ImageModeMedium
+func (r *ComponentImage) SetModeMedium() *ComponentImage {
+	r.Mode = ImageModeMedium
+	return r
+}
+
+// SetModeSmall set ComponentImage.Mode attribute to ImageModeSmall
+func (r *ComponentImage) SetModeSmall() *ComponentImage {
+	r.Mode = ImageModeSmall
+	return r
+}
+
+// SetModeTiny set ComponentImage.Mode attribute to ImageModeTiny
+func (r *ComponentImage) SetModeTiny() *ComponentImage {
+	r.Mode = ImageModeTiny
+	return r
+}
+
+// SetCustomWidth set ComponentImage.CustomWidth attribute
+func (r *ComponentImage) SetCustomWidth(val int64) *ComponentImage {
+	r.CustomWidth = val
+	return r
+}
+
+// SetCompactWidth set ComponentImage.CompactWidth attribute
+func (r *ComponentImage) SetCompactWidth(val bool) *ComponentImage {
+	r.CompactWidth = val
+	return r
+}
+
 // toMap conv ComponentImage to map
 func (r *ComponentImage) toMap() map[string]interface{} {
-	res := make(map[string]interface{}, 8)
+	res := make(map[string]interface{}, 11)
 	if r.ImgKey != "" {
 		res["img_key"] = r.ImgKey
 	}
@@ -213,6 +293,15 @@ func (r *ComponentImage) toMap() map[string]interface{} {
 	}
 	if r.Preview != false {
 		res["preview"] = r.Preview
+	}
+	if r.Mode != "" {
+		res["mode"] = r.Mode
+	}
+	if r.CustomWidth != 0 {
+		res["custom_width"] = r.CustomWidth
+	}
+	if r.CompactWidth != false {
+		res["compact_width"] = r.CompactWidth
 	}
 	return res
 }
