@@ -21,6 +21,8 @@ import (
 )
 
 // MessageContentPostAll ...
+//
+// docs: https://open.larkoffice.com/document/server-docs/im-v1/message-content-description/message_content
 type MessageContentPostAll struct {
 	ZhCn *MessageContentPost `json:"zh_cn,omitempty"`
 	JaJp *MessageContentPost `json:"ja_jp,omitempty"`
@@ -63,10 +65,14 @@ func (r *MessageContentPost) UnmarshalJSON(bytes []byte) error {
 				r.Content[vvIdx][vIdx] = MessageContentPostText{Text: item.Text, UnEscape: item.UnEscape}
 			case messageContentPostItemTypeLink:
 				r.Content[vvIdx][vIdx] = MessageContentPostLink{Text: item.Text, UnEscape: item.UnEscape, Href: item.Href}
-			case messageContentPostItemTypeImage:
-				r.Content[vvIdx][vIdx] = MessageContentPostImage{ImageKey: item.ImageKey, Height: item.Height, Width: item.Width}
 			case messageContentPostItemTypeAt:
 				r.Content[vvIdx][vIdx] = MessageContentPostAt{UserID: item.UserID, UserName: item.UserName}
+			case messageContentPostItemTypeImage:
+				r.Content[vvIdx][vIdx] = MessageContentPostImage{ImageKey: item.ImageKey, Height: item.Height, Width: item.Width}
+			case messageContentPostItemTypeMedia:
+				r.Content[vvIdx][vIdx] = MessageContentPostMedia{FileKey: item.FileKey, ImageKey: item.ImageKey}
+			case messageContentPostItemTypeEmotion:
+				r.Content[vvIdx][vIdx] = MessageContentPostEmotion{EmojiType: item.EmojiType}
 			}
 		}
 	}
@@ -79,10 +85,12 @@ type MessageContentPostItem interface {
 }
 
 const (
-	messageContentPostItemTypeText  = "text"
-	messageContentPostItemTypeLink  = "a"
-	messageContentPostItemTypeImage = "img"
-	messageContentPostItemTypeAt    = "at"
+	messageContentPostItemTypeText    = "text"
+	messageContentPostItemTypeLink    = "a"
+	messageContentPostItemTypeAt      = "at"
+	messageContentPostItemTypeImage   = "img"
+	messageContentPostItemTypeMedia   = "media"
+	messageContentPostItemTypeEmotion = "emotion"
 )
 
 type messageContentPostAll struct {
@@ -95,9 +103,13 @@ type messageContentPostAll struct {
 	UserID   string `json:"user_id"`   // open_id
 	UserName string `json:"user_name"` // 用户姓名
 
-	ImageKey string `json:"image_key"` // 图片的唯一标识
+	ImageKey string `json:"image_key"` // 图片的唯一标识, 视频封面图片的唯一标识
 	Height   int    `json:"height"`    // 图片的高
 	Width    int    `json:"width"`     // 图片的宽
+
+	FileKey string `json:"file_key"` // 适配文件的唯一标识
+
+	EmojiType string `json:"emoji_type"` // 表情类型， 部分可选值请参见表情文案
 }
 
 // MessageContentPostText 	文本内容
@@ -168,6 +180,36 @@ func (r MessageContentPostImage) MarshalJSON() ([]byte, error) {
 		"height":    r.Height,
 		"width":     r.Width,
 		"tag":       messageContentPostItemTypeImage,
+	})
+}
+
+// MessageContentPostMedia 视频
+type MessageContentPostMedia struct {
+	messageContentPostInterfaceDefaultImpl
+	FileKey  string `json:"file_key"`  // 视频文件的唯一标识
+	ImageKey string `json:"image_key"` // 视频封面图片的唯一标识
+}
+
+// MarshalJSON ...
+func (r MessageContentPostMedia) MarshalJSON() ([]byte, error) {
+	return json.Marshal(map[string]interface{}{
+		"file_key":  r.FileKey,
+		"image_key": r.ImageKey,
+		"tag":       messageContentPostItemTypeMedia,
+	})
+}
+
+// MessageContentPostEmotion 标签
+type MessageContentPostEmotion struct {
+	messageContentPostInterfaceDefaultImpl
+	EmojiType string `json:"emoji_type"` // 标签类型
+}
+
+// MarshalJSON ...
+func (r MessageContentPostEmotion) MarshalJSON() ([]byte, error) {
+	return json.Marshal(map[string]interface{}{
+		"emoji_type": r.EmojiType,
+		"tag":        messageContentPostItemTypeEmotion,
 	})
 }
 
