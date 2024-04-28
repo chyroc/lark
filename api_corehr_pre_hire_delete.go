@@ -21,10 +21,9 @@ import (
 	"context"
 )
 
-// DeleteCoreHRPreHire 删除待入职人员。
+// DeleteCoreHRPreHire 删除待入职人员
 //
-// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/pre_hire/delete
-// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/pre_hire/delete
+// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/delete
 func (r *CoreHRService) DeleteCoreHRPreHire(ctx context.Context, request *DeleteCoreHRPreHireReq, options ...MethodOptionFunc) (*DeleteCoreHRPreHireResp, *Response, error) {
 	if r.cli.mock.mockCoreHRDeleteCoreHRPreHire != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHRPreHire mock enable")
@@ -35,7 +34,7 @@ func (r *CoreHRService) DeleteCoreHRPreHire(ctx context.Context, request *Delete
 		Scope:                 "CoreHR",
 		API:                   "DeleteCoreHRPreHire",
 		Method:                "DELETE",
-		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/pre_hires/:pre_hire_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/pre_hires/:pre_hire_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
@@ -58,7 +57,7 @@ func (r *Mock) UnMockCoreHRDeleteCoreHRPreHire() {
 
 // DeleteCoreHRPreHireReq ...
 type DeleteCoreHRPreHireReq struct {
-	PreHireID string `path:"pre_hire_id" json:"-"` // 需要删除的待入职人员信息ID, 示例值: "76534545454"
+	PreHireID string `path:"pre_hire_id" json:"-"` // 待入职ID, 示例值: "7345005664477775407"
 }
 
 // DeleteCoreHRPreHireResp ...

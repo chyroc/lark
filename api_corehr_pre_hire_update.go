@@ -21,10 +21,9 @@ import (
 	"context"
 )
 
-// UpdateCoreHRPreHire 更新待入职信息。
+// UpdateCoreHRPreHire 更新待入职对象指定字段的值
 //
-// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/pre_hire/patch
-// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/pre_hire/patch
+// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/patch
 func (r *CoreHRService) UpdateCoreHRPreHire(ctx context.Context, request *UpdateCoreHRPreHireReq, options ...MethodOptionFunc) (*UpdateCoreHRPreHireResp, *Response, error) {
 	if r.cli.mock.mockCoreHRUpdateCoreHRPreHire != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#UpdateCoreHRPreHire mock enable")
@@ -35,7 +34,7 @@ func (r *CoreHRService) UpdateCoreHRPreHire(ctx context.Context, request *Update
 		Scope:                 "CoreHR",
 		API:                   "UpdateCoreHRPreHire",
 		Method:                "PATCH",
-		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/pre_hires/:pre_hire_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/pre_hires/:pre_hire_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
@@ -58,94 +57,91 @@ func (r *Mock) UnMockCoreHRUpdateCoreHRPreHire() {
 
 // UpdateCoreHRPreHireReq ...
 type UpdateCoreHRPreHireReq struct {
-	PreHireID        string                                  `path:"pre_hire_id" json:"-"`         // 待入职ID, 示例值: "1616161616"
-	ClientToken      *string                                 `query:"client_token" json:"-"`       // 根据client_token是否一致来判断是否为同一请求, 示例值: 12454646
-	AtsApplicationID *string                                 `json:"ats_application_id,omitempty"` // 招聘投递 ID, 详细信息可以通过招聘的【获取投递信息】接口查询获得, 示例值: "4719168654814483759"
-	HireDate         *string                                 `json:"hire_date,omitempty"`          // 入职日期, 示例值: "2020-01-01"
-	EmployeeType     *UpdateCoreHRPreHireReqEmployeeType     `json:"employee_type,omitempty"`      // 雇佣类型
-	WorkerID         *string                                 `json:"worker_id,omitempty"`          // 人员编号, 示例值: "1245646"
-	EmployeeTypeID   *string                                 `json:"employee_type_id,omitempty"`   // 雇佣类型, 示例值: "正式"
-	PersonID         *string                                 `json:"person_id,omitempty"`          // 引用Person ID, 示例值: "656464648662"
-	CustomFields     []*UpdateCoreHRPreHireReqCustomField    `json:"custom_fields,omitempty"`      // 自定义字段
-	CostCenterRate   []*UpdateCoreHRPreHireReqCostCenterRate `json:"cost_center_rate,omitempty"`   // 成本中心分摊信息
-	OnboardingStatus *UpdateCoreHRPreHireReqOnboardingStatus `json:"onboarding_status,omitempty"`  // 入职状态, 待入职(preboarding), 已删除(deleted), 准备就绪(day_one), 已撤销(withdrawn), 已完成(completed)
+	PreHireID            string                                 `path:"pre_hire_id" json:"-"`             // 待入职ID, 示例值: "7345005664477775411"
+	BasicInfoUpdate      *UpdateCoreHRPreHireReqBasicInfoUpdate `json:"basic_info_update,omitempty"`      // 更新个人（person）信息
+	OfferInfoUpdate      *UpdateCoreHRPreHireReqOfferInfoUpdate `json:"offer_info_update,omitempty"`      // 更新待入职（prehire）信息
+	StandardUpdateFields []string                               `json:"standard_update_fields,omitempty"` // 指定需要更新的系统字段, 只支持最多下钻一层, 格式如下: basic_info_update字段: basic_info_update.name（对name整体进行覆盖更新）；basic_info_update.emails（对邮箱整体进行更新）, offer_info_update字段: offer_info_update.onboarding_method, 招聘ID: ats_application_id, 示例值: ["basic_info_update.names"]
+	CustomUpdateFields   []string                               `json:"custom_update_fields,omitempty"`   // 指定需要更新的PreHire对象上的自定义字段, 格式如下: custom_field1__c, 示例值: ["custom_field1__c"]
 }
 
-// UpdateCoreHRPreHireReqCostCenterRate ...
-type UpdateCoreHRPreHireReqCostCenterRate struct {
-	CostCenterID *string `json:"cost_center_id,omitempty"` // 支持的成本中心id, 示例值: "6950635856373745165"
+// UpdateCoreHRPreHireReqBasicInfoUpdate ...
+type UpdateCoreHRPreHireReqBasicInfoUpdate struct {
+	Names  []*UpdateCoreHRPreHireReqBasicInfoUpdateName  `json:"names,omitempty"`  // 姓名, 该值是一个list, 会全量更新。若未传递的字段原本有值, 将同步清空
+	Phones []*UpdateCoreHRPreHireReqBasicInfoUpdatePhone `json:"phones,omitempty"` // 电话, 该值是一个list, 会全量更新。若未传递的字段原本有值, 将同步清空
+	Emails []*UpdateCoreHRPreHireReqBasicInfoUpdateEmail `json:"emails,omitempty"` // 邮箱, 该值是一个list, 会全量更新。若未传递的字段原本有值, 将同步清空
+}
+
+// UpdateCoreHRPreHireReqBasicInfoUpdateEmail ...
+type UpdateCoreHRPreHireReqBasicInfoUpdateEmail struct {
+	Email      string  `json:"email,omitempty"`       // 邮箱地址, 示例值: "1234567@bytedance.com"
+	IsPrimary  bool    `json:"is_primary,omitempty"`  // 是否为主要邮箱, 若有多个邮箱, 只能有一个邮箱的「is_primary」为true, 示例值: true
+	IsPublic   bool    `json:"is_public,omitempty"`   // 是否为公开邮箱, 示例值: true
+	EmailUsage *string `json:"email_usage,omitempty"` // 邮箱用途, 枚举值可通过文档[枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)获得, 示例值: "work"
+}
+
+// UpdateCoreHRPreHireReqBasicInfoUpdateName ...
+type UpdateCoreHRPreHireReqBasicInfoUpdateName struct {
+	FullName          *string `json:"full_name,omitempty"`           // 全名, 示例值: "李一一"
+	FirstName         *string `json:"first_name,omitempty"`          // 名, 示例值: "一"
+	MiddleName        *string `json:"middle_name,omitempty"`         // 中间名, 示例值: "一"
+	NamePrimary       *string `json:"name_primary,omitempty"`        // 姓, 示例值: "李"
+	LocalFirstName    *string `json:"local_first_name,omitempty"`    // 名 - 本地文字, 示例值: "一"
+	LocalMiddleName   *string `json:"local_middle_name,omitempty"`   // 本地中间名, 示例值: "一"
+	LocalPrimary      *string `json:"local_primary,omitempty"`       // 姓 - 本地文字, 示例值: "李"
+	CustomLocalName   *string `json:"custom_local_name,omitempty"`   // 自定义姓名（本地文字）, 示例值: "李一一"
+	CustomWesternName *string `json:"custom_western_name,omitempty"` // 自定义姓名（西方文字）, 示例值: "YiyiLi"
+	CountryRegion     string  `json:"country_region,omitempty"`      // 国家/地区, 示例值: "6862995757234914824"
+	NameType          string  `json:"name_type,omitempty"`           // 姓名类型, 枚举值如下: legal_name: 法定姓名, preferred_name: 常用名, former_name: 曾用名, additional_name: 别名, 示例值: "legal_name"
+}
+
+// UpdateCoreHRPreHireReqBasicInfoUpdatePhone ...
+type UpdateCoreHRPreHireReqBasicInfoUpdatePhone struct {
+	InternationalAreaCode *string `json:"international_area_code,omitempty"` // 国家区号, 枚举值, 示例值: "86_china"
+	PhoneNumber           string  `json:"phone_number,omitempty"`            // 电话号码, 示例值: "010-12345678"
+	DeviceType            *string `json:"device_type,omitempty"`             // 设备类型, 枚举值, mobile_phone: 手机, landline: 座机, fax: 传真, 示例值: "mobile_phone"
+	PhoneUsage            *string `json:"phone_usage,omitempty"`             // 电话用途, 枚举值, work: 工作, home: 家庭, emergency_contact: 紧急联系人, company: 公司, 示例值: "work"
+	IsPrimary             bool    `json:"is_primary,omitempty"`              // 主要电话, 若有多个电话, 只能有一个电话的「is_primary」为true, 示例值: true
+	IsPublic              bool    `json:"is_public,omitempty"`               // 公开电话, 示例值: true
+}
+
+// UpdateCoreHRPreHireReqOfferInfoUpdate ...
+type UpdateCoreHRPreHireReqOfferInfoUpdate struct {
+	OnboardingDate       *string                                                `json:"onboarding_date,omitempty"`        // 入职日期, 示例值: "2022-10-08"
+	AtsApplicationID     *string                                                `json:"ats_application_id,omitempty"`     // 招聘应用ID, 示例值: "7140946969586010375"
+	OnboardingLocationID *string                                                `json:"onboarding_location_id,omitempty"` // 入职地点ID, 详细信息可通过[批量查询地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)获得, 示例值: "6977976687350924832"
+	OnboardingAddressID  *string                                                `json:"onboarding_address_id,omitempty"`  // 入职地址ID, 详细信息可通过【批量查询地址】接口获得, 示例值: "6977976687350924832"
+	OfficeLocationID     *string                                                `json:"office_location_id,omitempty"`     // 办公地点ID, 详细信息可通过[批量查询地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)获得, 示例值: "6977976687350924833"
+	OfficeAddressID      *string                                                `json:"office_address_id,omitempty"`      // 办公地址ID, 详细信息可通过【批量查询地址】接口获得, 示例值: "6977976687350924832"
+	EmploymentType       *string                                                `json:"employment_type,omitempty"`        // 雇佣类型, [枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)获得, employee(员工), contingent_worker(临时工), 示例值: "employee"
+	OnboardingMethod     *string                                                `json:"onboarding_method,omitempty"`      // 入职方式, 通过[枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)获得, onsite(现场入职), remote(远程入职), 示例值: "onsite"
+	WorkEmails           []*UpdateCoreHRPreHireReqOfferInfoUpdateWorkEmail      `json:"work_emails,omitempty"`            // 工作邮箱
+	CostCenterRates      []*UpdateCoreHRPreHireReqOfferInfoUpdateCostCenterRate `json:"cost_center_rates,omitempty"`      // 成本中心分摊信息, 只支持商业化租户
+	CustomFields         []*UpdateCoreHRPreHireReqOfferInfoUpdateCustomField    `json:"custom_fields,omitempty"`          // 自定义字段
+}
+
+// UpdateCoreHRPreHireReqOfferInfoUpdateCostCenterRate ...
+type UpdateCoreHRPreHireReqOfferInfoUpdateCostCenterRate struct {
+	CostCenterID *string `json:"cost_center_id,omitempty"` // 成本中心 ID, 可以通过【查询单个成本中心信息】获取对应的成本中心信息, 示例值: "6950635856373745165"
 	Rate         *int64  `json:"rate,omitempty"`           // 分摊比例, 示例值: 100
 }
 
-// UpdateCoreHRPreHireReqCustomField ...
-type UpdateCoreHRPreHireReqCustomField struct {
+// UpdateCoreHRPreHireReqOfferInfoUpdateCustomField ...
+type UpdateCoreHRPreHireReqOfferInfoUpdateCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名, 示例值: "name"
-	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05"), 示例值: "\"Sandy\""
+	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(123, 123.23, true, [\"id1\", \"id2\], 2006-01-02 15:04:05]), 示例值: "Sandy"
 }
 
-// UpdateCoreHRPreHireReqEmployeeType ...
-type UpdateCoreHRPreHireReqEmployeeType struct {
-	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "type_1"
-}
-
-// UpdateCoreHRPreHireReqOnboardingStatus ...
-type UpdateCoreHRPreHireReqOnboardingStatus struct {
-	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "type_1"
+// UpdateCoreHRPreHireReqOfferInfoUpdateWorkEmail ...
+type UpdateCoreHRPreHireReqOfferInfoUpdateWorkEmail struct {
+	Email      string  `json:"email,omitempty"`       // 邮箱地址, 示例值: "1234567@bytedance.com"
+	IsPrimary  bool    `json:"is_primary,omitempty"`  // 是否为主要邮箱, 若有多个邮箱, 只能有一个邮箱的「is_primary」为true, 示例值: true
+	IsPublic   bool    `json:"is_public,omitempty"`   // 是否为公开邮箱, 示例值: true
+	EmailUsage *string `json:"email_usage,omitempty"` // 邮箱用途, 枚举值可通过[枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)获得, 示例值: "work"
 }
 
 // UpdateCoreHRPreHireResp ...
 type UpdateCoreHRPreHireResp struct {
-	PreHire *UpdateCoreHRPreHireRespPreHire `json:"pre_hire,omitempty"` // 待入职数据
-}
-
-// UpdateCoreHRPreHireRespPreHire ...
-type UpdateCoreHRPreHireRespPreHire struct {
-	AtsApplicationID string                                          `json:"ats_application_id,omitempty"` // 招聘投递 ID, 详细信息可以通过招聘的【获取投递信息】接口查询获得
-	ID               string                                          `json:"id,omitempty"`                 // 待入职ID
-	HireDate         string                                          `json:"hire_date,omitempty"`          // 入职日期
-	EmployeeType     *UpdateCoreHRPreHireRespPreHireEmployeeType     `json:"employee_type,omitempty"`      // 雇佣类型
-	WorkerID         string                                          `json:"worker_id,omitempty"`          // 人员编号
-	EmployeeTypeID   string                                          `json:"employee_type_id,omitempty"`   // 雇佣类型
-	PersonID         string                                          `json:"person_id,omitempty"`          // 引用Person ID
-	CustomFields     []*UpdateCoreHRPreHireRespPreHireCustomField    `json:"custom_fields,omitempty"`      // 自定义字段
-	CostCenterRate   []*UpdateCoreHRPreHireRespPreHireCostCenterRate `json:"cost_center_rate,omitempty"`   // 成本中心分摊信息
-	OnboardingStatus *UpdateCoreHRPreHireRespPreHireOnboardingStatus `json:"onboarding_status,omitempty"`  // 入职状态, 待入职(preboarding), 已删除(deleted), 准备就绪(day_one), 已撤销(withdrawn), 已完成(completed)
-}
-
-// UpdateCoreHRPreHireRespPreHireCostCenterRate ...
-type UpdateCoreHRPreHireRespPreHireCostCenterRate struct {
-	CostCenterID string `json:"cost_center_id,omitempty"` // 支持的成本中心id
-	Rate         int64  `json:"rate,omitempty"`           // 分摊比例
-}
-
-// UpdateCoreHRPreHireRespPreHireCustomField ...
-type UpdateCoreHRPreHireRespPreHireCustomField struct {
-	FieldName string `json:"field_name,omitempty"` // 字段名
-	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05")
-}
-
-// UpdateCoreHRPreHireRespPreHireEmployeeType ...
-type UpdateCoreHRPreHireRespPreHireEmployeeType struct {
-	EnumName string                                               `json:"enum_name,omitempty"` // 枚举值
-	Display  []*UpdateCoreHRPreHireRespPreHireEmployeeTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
-}
-
-// UpdateCoreHRPreHireRespPreHireEmployeeTypeDisplay ...
-type UpdateCoreHRPreHireRespPreHireEmployeeTypeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
-	Value string `json:"value,omitempty"` // 名称信息的内容
-}
-
-// UpdateCoreHRPreHireRespPreHireOnboardingStatus ...
-type UpdateCoreHRPreHireRespPreHireOnboardingStatus struct {
-	EnumName string                                                   `json:"enum_name,omitempty"` // 枚举值
-	Display  []*UpdateCoreHRPreHireRespPreHireOnboardingStatusDisplay `json:"display,omitempty"`   // 枚举多语展示
-}
-
-// UpdateCoreHRPreHireRespPreHireOnboardingStatusDisplay ...
-type UpdateCoreHRPreHireRespPreHireOnboardingStatusDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
-	Value string `json:"value,omitempty"` // 名称信息的内容
+	PreHireID string `json:"pre_hire_id,omitempty"` // 待入职ID
 }
 
 // updateCoreHRPreHireResp ...
