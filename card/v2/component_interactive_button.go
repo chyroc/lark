@@ -79,6 +79,11 @@ type ComponentButton struct {
 
 	// 配置交互类型和具体交互行为。详情参考配置卡片交互。
 	Behaviors []*ObjectBehavior `json:"behaviors,omitempty"`
+
+	// 该字段用于配置回传交互。当用户点击交互组件后，会将 value 的值返回给接收回调数据的服务器。后续你可以通过服务器接收的 value 值进行业务处理。
+	//
+	// 该字段值仅支持 key-value 形式的 JSON 结构，且 key 为 String 类型。示例值：
+	Value map[string]any `json:"value,omitempty"`
 }
 
 type ButtonType = string
@@ -273,9 +278,15 @@ func (r *ComponentButton) SetBehaviors(val ...*ObjectBehavior) *ComponentButton 
 	return r
 }
 
+// SetValue set ComponentButton.Value attribute
+func (r *ComponentButton) SetValue(val map[string]any) *ComponentButton {
+	r.Value = val
+	return r
+}
+
 // toMap conv ComponentButton to map
 func (r *ComponentButton) toMap() map[string]interface{} {
-	res := make(map[string]interface{}, 11)
+	res := make(map[string]interface{}, 12)
 	if r.Type != "" {
 		res["type"] = r.Type
 	}
@@ -308,6 +319,10 @@ func (r *ComponentButton) toMap() map[string]interface{} {
 	}
 	if len(r.Behaviors) != 0 {
 		res["behaviors"] = r.Behaviors
+	}
+	if len(r.Value) != 0 {
+		res["value"] = r.Value
+		res["complex_interaction"] = true // 是否同时生效上述历史字段配置的跳转链接交互和回传交互。默认仅生效跳转链接交互。
 	}
 	return res
 }
