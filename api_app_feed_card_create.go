@@ -70,7 +70,7 @@ type CreateAppFeedCardReqAppFeedCard struct {
 	Preview       *string                                     `json:"preview,omitempty"`        // 预览信息, 示例值: "预览信息", 长度范围: `0` ～ `120` 字符
 	StatusLabel   *CreateAppFeedCardReqAppFeedCardStatusLabel `json:"status_label,omitempty"`   // 状态标签
 	Buttons       *CreateAppFeedCardReqAppFeedCardButtons     `json:"buttons,omitempty"`        // 交互按钮
-	Link          *CreateAppFeedCardReqAppFeedCardLink        `json:"link,omitempty"`           // 跳转链接
+	Link          *CreateAppFeedCardReqAppFeedCardLink        `json:"link,omitempty"`           // 跳转链接（创建时该参数为必填参数）
 	TimeSensitive *bool                                       `json:"time_sensitive,omitempty"` // 即时提醒状态, true-打开, false-关闭, 示例值: false, 默认值: `false`
 	Notify        *CreateAppFeedCardReqAppFeedCardNotify      `json:"notify,omitempty"`         // 通知设置, 当前可设置通知是否关闭, 为空时默认进行通知
 }

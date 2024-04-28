@@ -82,7 +82,7 @@ type GetHelpdeskFAQListRespItem struct {
 	HelpdeskID     string                                      `json:"helpdesk_id,omitempty"`     // 服务台ID
 	Question       string                                      `json:"question,omitempty"`        // 问题
 	Answer         string                                      `json:"answer,omitempty"`          // 答案
-	AnswerRichText []*GetHelpdeskFAQListRespItemAnswerRichText `json:"answer_richtext,omitempty"` // 富文本答案
+	AnswerRichText []*GetHelpdeskFAQListRespItemAnswerRichText `json:"answer_richtext,omitempty"` // 富文本答案。该字段支持 text、hyperlink、img、line break 四种类型, 不同类型包含的参数信息可能不同, 详情可参见[富文本](https://open.feishu.cn/document/ukTMukTMukTM/uITM0YjLyEDN24iMxQjN)。
 	CreateTime     int64                                       `json:"create_time,omitempty"`     // 创建时间
 	UpdateTime     int64                                       `json:"update_time,omitempty"`     // 修改时间
 	Categories     []*HelpdeskCategory                         `json:"categories,omitempty"`      // 分类

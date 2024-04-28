@@ -39,7 +39,6 @@ func (r *VCService) GetVCReserveConfigAdmin(ctx context.Context, request *GetVCR
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedUserAccessToken:   true,
 	}
 	resp := new(getVCReserveConfigAdminResp)
 

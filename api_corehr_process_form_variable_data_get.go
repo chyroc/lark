@@ -23,8 +23,12 @@ import (
 
 // GetCoreHRProcessFormVariableData 根据流程实例 id（process_id）获取流程表单字段数据, 包括表单里的业务字段和自定义字段。仅支持飞书人事、假勤相关业务流程。
 //
+// 建议使用新版本 API 文档。详情参见[获取流程表单数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process-form_variable_data/get)。
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/process-form_variable_data/get
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/process-form_variable_data/get
+//
+// Deprecated
 func (r *CoreHRService) GetCoreHRProcessFormVariableData(ctx context.Context, request *GetCoreHRProcessFormVariableDataReq, options ...MethodOptionFunc) (*GetCoreHRProcessFormVariableDataResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRProcessFormVariableData != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRProcessFormVariableData mock enable")
@@ -75,8 +79,8 @@ type GetCoreHRProcessFormVariableDataRespFieldVariableValue struct {
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableName ...
 type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // （注json key是zh-CN, 不是zh_cn）i18n类型字段, 中文值
-	EnUs string `json:"en_us,omitempty"` // （注json key是en-US, 不是en_us）i18n类型字段, 英文值
+	ZhCn string `json:"zh_cn,omitempty"` // （基于系统兼容性, 该参数名称在文档中展示为zh_cn, 但在实际返回的 JSON Key 中展示为 zh-CN）i18n类型字段, 中文值
+	EnUs string `json:"en_us,omitempty"` // （基于系统兼容性, 该参数名称在文档中展示为en_us, 但在实际返回的 JSON Key 中展示为 en-US）i18n类型字段, 英文值
 }
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValue ...
@@ -103,8 +107,8 @@ type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueBoolValu
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueDateTimeValue ...
 type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueDateTimeValue struct {
-	Value int64  `json:"value,omitempty"` // 毫秒的时间戳。注: 此字段是一个 int64 类型（因为网关限制, 这里只能配置为int)
-	Zone  string `json:"zone,omitempty"`  // 时区
+	Value int64  `json:"value,omitempty"` // 毫秒的时间戳。注: 此字段数据类型为 int64
+	Zone  string `json:"zone,omitempty"`  // 时区, +08:00
 }
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueDateValue ...
@@ -132,14 +136,14 @@ type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueEnumValu
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueEnumValueDesc ...
 type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueEnumValueDesc struct {
-	ZhCn string `json:"zh_cn,omitempty"` // （注json key是zh-CN, 不是zh_cn）i18n类型字段, 中文值
-	EnUs string `json:"en_us,omitempty"` // （注json key是en-US, 不是en_us）i18n类型字段, 英文值
+	ZhCn string `json:"zh_cn,omitempty"` // （基于系统兼容性, 该参数名称在文档中展示为zh_cn, 但在实际返回的 JSON Key 中展示为 zh-CN）i18n类型字段, 中文值
+	EnUs string `json:"en_us,omitempty"` // （基于系统兼容性, 该参数名称在文档中展示为en_us, 但在实际返回的 JSON Key 中展示为 en-US）i18n类型字段, 英文值
 }
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueEnumValueName ...
 type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueEnumValueName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // （注json key是zh-CN, 不是zh_cn）i18n类型字段, 中文值
-	EnUs string `json:"en_us,omitempty"` // （注json key是en-US, 不是en_us）i18n类型字段, 英文值
+	ZhCn string `json:"zh_cn,omitempty"` // （基于系统兼容性, 该参数名称在文档中展示为zh_cn, 但在实际返回的 JSON Key 中展示为 zh-CN）i18n类型字段, 中文值
+	EnUs string `json:"en_us,omitempty"` // （基于系统兼容性, 该参数名称在文档中展示为en_us, 但在实际返回的 JSON Key 中展示为 en-US）i18n类型字段, 英文值
 }
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueFileValue ...
@@ -148,7 +152,7 @@ type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueFileValu
 	FileID     string `json:"file_id,omitempty"`     // 文件id
 	FileName   string `json:"file_name,omitempty"`   // 文件名称
 	Length     int64  `json:"length,omitempty"`      // 文件长度
-	MimeType   string `json:"mime_type,omitempty"`   // mime type
+	MimeType   string `json:"mime_type,omitempty"`   // 扩展类型
 }
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueI18nValue ...
@@ -158,8 +162,8 @@ type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueI18nValu
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueI18nValueValue ...
 type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueI18nValueValue struct {
-	ZhCn string `json:"zh_cn,omitempty"` // （注json key是zh-CN, 不是zh_cn）i18n类型字段, 中文值
-	EnUs string `json:"en_us,omitempty"` // （注json key是en-US, 不是en_us）i18n类型字段, 英文值
+	ZhCn string `json:"zh_cn,omitempty"` // （基于系统兼容性, 该参数名称在文档中展示为zh_cn, 但在实际返回的 JSON Key 中展示为 zh-CN）i18n类型字段, 中文值
+	EnUs string `json:"en_us,omitempty"` // （基于系统兼容性, 该参数名称在文档中展示为en_us, 但在实际返回的 JSON Key 中展示为 en-US）i18n类型字段, 英文值
 }
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValue ...
@@ -190,8 +194,8 @@ type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValu
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueDateTimeValue ...
 type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueDateTimeValue struct {
-	Value int64  `json:"value,omitempty"` // 毫秒的时间戳。注: 此字段是一个 int64 类型（因为网关限制, 这里只能配置为int)
-	Zone  string `json:"zone,omitempty"`  // 时区
+	Value int64  `json:"value,omitempty"` // 毫秒的时间戳。注: 此字段数据类型为 int64
+	Zone  string `json:"zone,omitempty"`  // 时区, +08:00
 }
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueDateValue ...
@@ -219,14 +223,14 @@ type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValu
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEnumValueDesc ...
 type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEnumValueDesc struct {
-	ZhCn string `json:"zh_cn,omitempty"` // （注json key是zh-CN, 不是zh_cn）i18n类型字段, 中文值
-	EnUs string `json:"en_us,omitempty"` // （注json key是en-US, 不是en_us）i18n类型字段, 英文值
+	ZhCn string `json:"zh_cn,omitempty"` // （基于系统兼容性, 该参数名称在文档中展示为zh_cn, 但在实际返回的 JSON Key 中展示为 zh-CN）i18n类型字段, 中文值
+	EnUs string `json:"en_us,omitempty"` // （基于系统兼容性, 该参数名称在文档中展示为en_us, 但在实际返回的 JSON Key 中展示为 en-US）i18n类型字段, 英文值
 }
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEnumValueName ...
 type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEnumValueName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // （注json key是zh-CN, 不是zh_cn）i18n类型字段, 中文值
-	EnUs string `json:"en_us,omitempty"` // （注json key是en-US, 不是en_us）i18n类型字段, 英文值
+	ZhCn string `json:"zh_cn,omitempty"` // （基于系统兼容性, 该参数名称在文档中展示为zh_cn, 但在实际返回的 JSON Key 中展示为 zh-CN）i18n类型字段, 中文值
+	EnUs string `json:"en_us,omitempty"` // （基于系统兼容性, 该参数名称在文档中展示为en_us, 但在实际返回的 JSON Key 中展示为 en-US）i18n类型字段, 英文值
 }
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueFileValue ...
@@ -235,7 +239,7 @@ type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValu
 	FileID     string `json:"file_id,omitempty"`     // 文件id
 	FileName   string `json:"file_name,omitempty"`   // 文件名称
 	Length     int64  `json:"length,omitempty"`      // 文件长度
-	MimeType   string `json:"mime_type,omitempty"`   // mime type
+	MimeType   string `json:"mime_type,omitempty"`   // 扩展类型
 }
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueI18nValue ...
@@ -245,8 +249,8 @@ type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValu
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueI18nValueValue ...
 type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueI18nValueValue struct {
-	ZhCn string `json:"zh_cn,omitempty"` // （注json key是zh-CN, 不是zh_cn）i18n类型字段, 中文值
-	EnUs string `json:"en_us,omitempty"` // （注json key是en-US, 不是en_us）i18n类型字段, 英文值
+	ZhCn string `json:"zh_cn,omitempty"` // （基于系统兼容性, 该参数名称在文档中展示为zh_cn, 但在实际返回的 JSON Key 中展示为 zh-CN）i18n类型字段, 中文值
+	EnUs string `json:"en_us,omitempty"` // （基于系统兼容性, 该参数名称在文档中展示为en_us, 但在实际返回的 JSON Key 中展示为 en-US）i18n类型字段, 英文值
 }
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueNumberValue ...
@@ -262,7 +266,7 @@ type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValu
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueRecordValue ...
 type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueRecordValue struct {
-	Values *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueRecordValueValues `json:"values,omitempty"` // 注意: 这个值是一个map, key是变量唯一标识, value是变量值（平台限制, 没法录入Map类型, 这里用object示意一下）
+	Values *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueRecordValueValues `json:"values,omitempty"` // 注: 该参数实际为 Map 数据类型, Key 是变量唯一标识, Value 是变量值。
 }
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueRecordValueValues ...
@@ -299,7 +303,7 @@ type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueObjectVa
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueRecordValue ...
 type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueRecordValue struct {
-	Values *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueRecordValueValues `json:"values,omitempty"` // 注意: 这个值是一个map, key是变量唯一标识, value是变量值（平台限制, 没法录入Map类型, 这里用object示意一下）
+	Values *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueRecordValueValues `json:"values,omitempty"` // 注: 该参数实际为 Map 数据类型, Key 是变量唯一标识, Value 是变量值。
 }
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueRecordValueValues ...

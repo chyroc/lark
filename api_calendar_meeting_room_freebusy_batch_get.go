@@ -63,9 +63,9 @@ func (r *Mock) UnMockCalendarBatchGetCalendarMeetingRoomFreebusy() {
 
 // BatchGetCalendarMeetingRoomFreebusyReq ...
 type BatchGetCalendarMeetingRoomFreebusyReq struct {
-	RoomIDs []string `query:"room_ids" json:"-"` // 会议室 ID。你可以通过[查询会议室列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/list)或[搜索会议室](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/search)接口获取指定会议室 ID。
-	TimeMin string   `query:"time_min" json:"-"` // 查询的起始时间, 需要遵循 [RFC3339](https://tools.ietf.org/html/rfc3339) 格式, 且需要进行 URL 编码。
-	TimeMax string   `query:"time_max" json:"-"` // 查询的结束时间, 需要遵循 [RFC3339](https://tools.ietf.org/html/rfc3339) 格式, 且需要进行 URL 编码。
+	RoomIDs []string `query:"room_ids" json:"-"` // 会议室 ID。你可以通过[查询会议室列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/list)或[搜索会议室](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/search)接口获取指定会议室 ID。  GET 请求中传入多个会议室 ID 的格式示例为 `room_ids=omm_83d09ad4f6896e02029a6a075f71xxxx&room_ids=omm_eada1d61a550955240c28757e7dexxxx`。
+	TimeMin string   `query:"time_min" json:"-"` // 查询的起始时间, 需要遵循 [RFC3339](https://tools.ietf.org/html/rfc3339) 格式, 示例: 2019-09-04T08:45:00+08:00。 注意: 传入该参数时需要进行 URL 编码。
+	TimeMax string   `query:"time_max" json:"-"` // 查询的结束时间, 需要遵循 [RFC3339](https://tools.ietf.org/html/rfc3339) 格式, 示例: 2019-09-04T09:45:00+08:00。 注意: 传入该参数时需要进行 URL 编码。
 }
 
 // BatchGetCalendarMeetingRoomFreebusyResp ...

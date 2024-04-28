@@ -79,7 +79,7 @@ type SearchBitableRecordReqFilter struct {
 // SearchBitableRecordReqFilterCondition ...
 type SearchBitableRecordReqFilterCondition struct {
 	FieldName string   `json:"field_name,omitempty"` // 筛选条件的左值, 值为字段的名称, 示例值: "字段1", 长度范围: `0` ～ `1000` 字符
-	Operator  string   `json:"operator,omitempty"`   // 条件运算符, 示例值: "is", 可选值有: is: 等于, isNot: 不等于, contains: 包含, doesNotContain: 不包含, isEmpty: 为空, isNotEmpty: 不为空, isGreater: 大于, isGreaterEqual: 大于等于, isLess: 小于, isLessEqual: 小于等于, like: like, in: in
+	Operator  string   `json:"operator,omitempty"`   // 条件运算符, 示例值: "is", 可选值有: is: 等于, isNot: 不等于, contains: 包含, doesNotContain: 不包含, isEmpty: 为空, isNotEmpty: 不为空, isGreater: 大于, isGreaterEqual: 大于等于, isLess: 小于, isLessEqual: 小于等于, like: LIKE 运算符。暂未支持, in: IN 运算符。暂未支持
 	Value     []string `json:"value,omitempty"`      // 目标值, [目标值填写指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/record-filter-guide), 示例值: ["文本内容"], 长度范围: `0` ～ `10`
 }
 
@@ -91,7 +91,7 @@ type SearchBitableRecordReqSort struct {
 
 // SearchBitableRecordResp ...
 type SearchBitableRecordResp struct {
-	Items     *SearchBitableRecordRespItems `json:"items,omitempty"`      // record 结果
+	Items     *SearchBitableRecordRespItems `json:"items,omitempty"`      // 数组类型。record 结果。了解 record 数据结构, 参考[数据结构](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/development-guide/bitable-structure)
 	HasMore   bool                          `json:"has_more,omitempty"`   // 是否还有更多项
 	PageToken string                        `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	Total     int64                         `json:"total,omitempty"`      // 总数

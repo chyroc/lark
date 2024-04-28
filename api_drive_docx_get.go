@@ -71,9 +71,29 @@ type GetDocxDocumentResp struct {
 
 // GetDocxDocumentRespDocument ...
 type GetDocxDocumentRespDocument struct {
-	DocumentID string `json:"document_id,omitempty"` // 文档的唯一标识。点击[这里](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)了解如何获取文档的 `document_id`
-	RevisionID int64  `json:"revision_id,omitempty"` // 文档版本 ID。起始值为 1
-	Title      string `json:"title,omitempty"`       // 文档标题
+	DocumentID     string                                     `json:"document_id,omitempty"`     // 文档的唯一标识。点击[这里](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)了解如何获取文档的 `document_id`
+	RevisionID     int64                                      `json:"revision_id,omitempty"`     // 文档版本 ID。起始值为 1
+	Title          string                                     `json:"title,omitempty"`           // 文档标题
+	DisplaySetting *GetDocxDocumentRespDocumentDisplaySetting `json:"display_setting,omitempty"` // 文档展示设置
+	Cover          *GetDocxDocumentRespDocumentCover          `json:"cover,omitempty"`           // 文档封面
+}
+
+// GetDocxDocumentRespDocumentCover ...
+type GetDocxDocumentRespDocumentCover struct {
+	Token        string  `json:"token,omitempty"`          // 图片 token
+	OffsetRatioX float64 `json:"offset_ratio_x,omitempty"` // 视图在水平方向的偏移比例。其值为距离原图中心的水平方向偏移值 px / 原图宽度 px, 视图在原图中心时, 该值为 0；, 视图在原图右部分时, 该值为正数；, 视图在原图左部分时, 该值为负数。
+	OffsetRatioY float64 `json:"offset_ratio_y,omitempty"` // 视图在垂直方向的偏移比例。其值为距离原图中心的垂直方向偏移值 px / 原图高度 px, 视图在原图中心时, 该值为 0；, 视图在原图上部分时, 该值为正数；, 视图在原图下部分时, 该值为负数。
+}
+
+// GetDocxDocumentRespDocumentDisplaySetting ...
+type GetDocxDocumentRespDocumentDisplaySetting struct {
+	ShowAuthors        bool `json:"show_authors,omitempty"`         // 文档信息中是否展示文档作者
+	ShowCreateTime     bool `json:"show_create_time,omitempty"`     // 文档信息中是否展示文档创建时间
+	ShowPv             bool `json:"show_pv,omitempty"`              // 文档信息中是否展示文档访问次数
+	ShowUv             bool `json:"show_uv,omitempty"`              // 文档信息中是否展示文档访问人数
+	ShowLikeCount      bool `json:"show_like_count,omitempty"`      // 文档信息中是否展示点赞总数
+	ShowCommentCount   bool `json:"show_comment_count,omitempty"`   // 文档信息中是否展示评论总数
+	ShowRelatedMatters bool `json:"show_related_matters,omitempty"` // 文档信息中是否展示关联事项。暂未支持
 }
 
 // getDocxDocumentResp ...

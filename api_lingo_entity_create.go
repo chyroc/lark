@@ -64,7 +64,7 @@ type CreateLingoEntityReq struct {
 	Description *string                          `json:"description,omitempty"`  // 纯文本格式词条释义。注: description 和 rich_text 至少有一个, 否则会报错: 1540001, 示例值: "词典是飞书提供的一款知识管理工具, 通过飞书词典可以帮助企业将分散的知识信息进行聚合, 并通过UGC的方式, 促进企业知识的保鲜和流通", 最大长度: `5000` 字符
 	RelatedMeta *CreateLingoEntityReqRelatedMeta `json:"related_meta,omitempty"` // 词条相关信息
 	OuterInfo   *CreateLingoEntityReqOuterInfo   `json:"outer_info,omitempty"`   // 外部系统关联数据
-	RichText    *string                          `json:"rich_text,omitempty"`    // 富文本格式（当填写富文本内容时, description字段将会失效可不填写）, 支持的格式参考[飞书词典指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分, 示例值: "<b>加粗</b><i>斜体</i><p><a href=\"https://feishu.cn\">链接</a></p><p><span>词典是飞书提供的一款知识管理工具, 通过飞书词典可以帮助企业将分散的知识信息进行聚合, 并通过UGC的方式, 促进企业知识的保鲜和流通</span></p>", 最大长度: `5000` 字符
+	RichText    *string                          `json:"rich_text,omitempty"`    // 富文本格式（当填写富文本内容时, description字段将会失效可不填写）, 支持的格式参考[飞书词典指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分, 注意: 富文本格式至少需要包含一个 `<p>` 标签, 否则请求会报错, 示例值: "<b>加粗</b><i>斜体</i><p><a href=\"https://feishu.cn\">链接</a></p><p><span>词典是飞书提供的一款知识管理工具, 通过飞书词典可以帮助企业将分散的知识信息进行聚合, 并通过UGC的方式, 促进企业知识的保鲜和流通</span></p>", 最大长度: `5000` 字符
 	I18nDescs   []*CreateLingoEntityReqI18nDesc  `json:"i18n_descs,omitempty"`   // 国际化的词条释义, 最大长度: `3`
 }
 

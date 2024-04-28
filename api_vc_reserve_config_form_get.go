@@ -39,7 +39,6 @@ func (r *VCService) GetVCReserveConfigForm(ctx context.Context, request *GetVCRe
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedUserAccessToken:   true,
 	}
 	resp := new(getVCReserveConfigFormResp)
 
@@ -71,10 +70,11 @@ type GetVCReserveConfigFormResp struct {
 
 // GetVCReserveConfigFormRespReserveFormConfig ...
 type GetVCReserveConfigFormRespReserveFormConfig struct {
-	ReserveForm   bool                                                       `json:"reserve_form,omitempty"`   // 预定表单开关, true表示打开, false表示关闭
-	NotifiedUsers []*GetVCReserveConfigFormRespReserveFormConfigNotifiedUser `json:"notified_users,omitempty"` // 通知人列表
-	NotifiedTime  int64                                                      `json:"notified_time,omitempty"`  // 最晚于会议开始前 notified_time收到通知（单位: 分/时/天）
-	TimeUnit      int64                                                      `json:"time_unit,omitempty"`      // 时间单位, 1为分钟；2为小时；3为天, 默认为天
+	IfCoverChildScope bool                                                       `json:"if_cover_child_scope,omitempty"` // 是否覆盖子层级及会议室
+	ReserveForm       bool                                                       `json:"reserve_form,omitempty"`         // 预定表单开关, true表示打开, false表示关闭
+	NotifiedUsers     []*GetVCReserveConfigFormRespReserveFormConfigNotifiedUser `json:"notified_users,omitempty"`       // 通知人列表
+	NotifiedTime      int64                                                      `json:"notified_time,omitempty"`        // 最晚于会议开始前 notified_time收到通知（单位: 分/时/天）
+	TimeUnit          int64                                                      `json:"time_unit,omitempty"`            // 时间单位, 1为分钟；2为小时；3为天, 默认为天
 }
 
 // GetVCReserveConfigFormRespReserveFormConfigNotifiedUser ...

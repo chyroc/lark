@@ -39,7 +39,6 @@ func (r *VCService) DeleteVCRoom(ctx context.Context, request *DeleteVCRoomReq, 
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedUserAccessToken:   true,
 	}
 	resp := new(deleteVCRoomResp)
 

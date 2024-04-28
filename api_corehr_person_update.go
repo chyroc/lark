@@ -61,7 +61,7 @@ func (r *Mock) UnMockCoreHRUpdateCoreHRPerson() {
 
 // UpdateCoreHRPersonReq ...
 type UpdateCoreHRPersonReq struct {
-	PersonID             string                                   `path:"person_id" json:"-"`               // person的ID, 示例值: "12454646"
+	PersonID             string                                   `path:"person_id" json:"-"`               // 个人信息 ID。该 ID 在创建个人信息时可从响应体中获取（person_id）, 此外你也可以调用[搜索员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口, 获取指定员工的 person_id, 示例值: "12454646"
 	ClientToken          *string                                  `query:"client_token" json:"-"`           // 根据client_token是否一致来判断是否为同一请求, 示例值: 12454646
 	NoNeedQuery          *bool                                    `query:"no_need_query" json:"-"`          // 根据no_need_query判断更新后是否返回更新后个人信息, 若填写为 “true”则只返回更新结果信息, 示例值: false
 	NameList             []*UpdateCoreHRPersonReqName             `json:"name_list,omitempty"`              // 姓名列表

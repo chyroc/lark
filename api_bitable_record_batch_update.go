@@ -67,7 +67,7 @@ type BatchUpdateBitableRecordReq struct {
 
 // BatchUpdateBitableRecordReqRecord ...
 type BatchUpdateBitableRecordReqRecord struct {
-	RecordID *string                `json:"record_id,omitempty"` // 一条记录的唯一标识 id [record_id 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#15d8db94), 示例值: "recqwIwhc6"
+	RecordID *string                `json:"record_id,omitempty"` // 一条记录的唯一标识 ID。参考[record_id 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#15d8db94) 获取 record_id。该参数必填, 请忽略左侧必填列的否, 示例值: "recqwIwhc6"
 	Fields   map[string]interface{} `json:"fields,omitempty"`    // 数据表的字段, 即数据表的列, 当前接口支持的字段类型请参考[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#31f78a3c), 不同类型字段的数据结构请参考[数据结构概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/development-guide/bitable-structure), 示例值: {"多行文本":"HelloWorld"}
 }
 

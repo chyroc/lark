@@ -39,7 +39,6 @@ func (r *VCService) CreateVCRoom(ctx context.Context, request *CreateVCRoomReq, 
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedUserAccessToken:   true,
 	}
 	resp := new(createVCRoomResp)
 

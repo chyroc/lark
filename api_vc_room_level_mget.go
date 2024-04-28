@@ -39,7 +39,6 @@ func (r *VCService) BatchGetVCRoomLevel(ctx context.Context, request *BatchGetVC
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedUserAccessToken:   true,
 	}
 	resp := new(batchGetVCRoomLevelResp)
 

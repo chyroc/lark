@@ -39,7 +39,6 @@ func (r *VCService) UpdateVCReserveConfig(ctx context.Context, request *UpdateVC
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedUserAccessToken:   true,
 	}
 	resp := new(updateVCReserveConfigResp)
 

@@ -39,7 +39,6 @@ func (r *VCService) GetVCRoomList(ctx context.Context, request *GetVCRoomListReq
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedUserAccessToken:   true,
 	}
 	resp := new(getVCRoomListResp)
 

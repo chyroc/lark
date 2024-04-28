@@ -65,7 +65,7 @@ type UpdateAppFeedCardButtonReq struct {
 
 // UpdateAppFeedCardButtonReqButtons ...
 type UpdateAppFeedCardButtonReqButtons struct {
-	Buttons []*UpdateAppFeedCardButtonReqButtonsButton `json:"buttons,omitempty"` // 按钮组合, 长度范围: `0` ～ `2`
+	Buttons []*UpdateAppFeedCardButtonReqButtonsButton `json:"buttons,omitempty"` // 按钮组合, 该字段为全量更新字段, 若未传入字段原有值, 则会清空字段数据。例如: 在保持原有按钮的字段配置的前提下, 新增一个按钮配置会添加一个按钮, 在原有按钮的字段配置上做更新, 会更新该按钮, 清空原有按钮的字段配置, 会删除该按钮, 长度范围: `0` ～ `2`
 }
 
 // UpdateAppFeedCardButtonReqButtonsButton ...

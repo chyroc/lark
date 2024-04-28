@@ -39,7 +39,6 @@ func (r *VCService) GetVCReserveConfigDisableInform(ctx context.Context, request
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedUserAccessToken:   true,
 	}
 	resp := new(getVCReserveConfigDisableInformResp)
 
@@ -71,9 +70,10 @@ type GetVCReserveConfigDisableInformResp struct {
 
 // GetVCReserveConfigDisableInformRespDisableInform ...
 type GetVCReserveConfigDisableInformRespDisableInform struct {
-	IfInform      bool                                                            `json:"if_inform,omitempty"`      // 禁用状态变更通知开关
-	InformedUsers []*GetVCReserveConfigDisableInformRespDisableInformInformedUser `json:"informed_users,omitempty"` // 通知成员列表
-	InformedDepts []*GetVCReserveConfigDisableInformRespDisableInformInformedDept `json:"informed_depts,omitempty"` // 通知部门列表
+	IfCoverChildScope bool                                                            `json:"if_cover_child_scope,omitempty"` // 是否覆盖子层级及会议室
+	IfInform          bool                                                            `json:"if_inform,omitempty"`            // 禁用状态变更通知开关
+	InformedUsers     []*GetVCReserveConfigDisableInformRespDisableInformInformedUser `json:"informed_users,omitempty"`       // 通知成员列表
+	InformedDepts     []*GetVCReserveConfigDisableInformRespDisableInformInformedDept `json:"informed_depts,omitempty"`       // 通知部门列表
 }
 
 // GetVCReserveConfigDisableInformRespDisableInformInformedDept ...

@@ -39,7 +39,6 @@ func (r *VCService) UpdateVCReserveConfigDisableInform(ctx context.Context, requ
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedUserAccessToken:   true,
 	}
 	resp := new(updateVCReserveConfigDisableInformResp)
 

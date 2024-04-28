@@ -39,7 +39,6 @@ func (r *VCService) SetVCScopeConfig(ctx context.Context, request *SetVCScopeCon
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
-		NeedUserAccessToken:   true,
 	}
 	resp := new(setVCScopeConfigResp)
 

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// SearchVCRoom 该接口可以用来搜索会议室, 支持使用关键词进行搜索, 也支持使用自定义会议室 ID 进行查询。
+// SearchVCRoom 该接口可以用来搜索会议室, 支持使用关键词进行搜索, 也支持使用自定义会议室 ID 进行查询。该接口只会返回用户有预定权限的会议室列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/search
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/room/search
@@ -62,7 +62,7 @@ type SearchVCRoomReq struct {
 	CustomRoomIDs   []string `json:"custom_room_ids,omitempty"`   // 用于查询指定会议室的租户自定义会议室ID列表, 优先使用该字段进行查询, 示例值: ["10001"]
 	Keyword         *string  `json:"keyword,omitempty"`           // 会议室搜索关键词（当custom_room_ids为空时, 使用该字段进行查询）, 示例值: "测试会议室"
 	RoomLevelID     *string  `json:"room_level_id,omitempty"`     // 在该会议室层级下进行搜索（当custom_room_ids为空时, 使用该字段进行查询）, 示例值: "omb_4ad1a2c7a2fbc5fc9570f38456931293"
-	SearchLevelName *bool    `json:"search_level_name,omitempty"` // 搜索会议室是否包括层级名称（当custom_room_ids为空时, 使用该字段进行查询）, 示例值: true
+	SearchLevelName *bool    `json:"search_level_name,omitempty"` // 搜索会议室是否可以包括层级名称（当custom_room_ids为空时, 使用 keyword 字段查询）, 示例值: true
 	PageSize        *int64   `json:"page_size,omitempty"`         // 分页大小, 该值默认为10, 最大为100（当custom_room_ids为空时, 使用该字段进行查询）, 示例值: 10, 默认值: `10`, 取值范围: `1` ～ `100`
 	PageToken       *string  `json:"page_token,omitempty"`        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "0"
 }
