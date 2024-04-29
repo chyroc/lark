@@ -61,15 +61,15 @@ type CreateCoreHRContractReq struct {
 	ClientToken         *string                               `query:"client_token" json:"-"`           // 根据client_token是否一致来判断是否为同一请求, 示例值: 12454646
 	EffectiveTime       string                                `json:"effective_time,omitempty"`         // 合同开始日期, 示例值: "2050-01-01 00:00:00"
 	ExpirationTime      *string                               `json:"expiration_time,omitempty"`        // 实际结束日期, 示例值: "9999-12-31 23:59:59"
-	EmploymentID        string                                `json:"employment_id,omitempty"`          // 雇佣 ID, 详细信息可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口查询获得, 示例值: "6893013238632416776"
-	ContractType        *CreateCoreHRContractReqContractType  `json:"contract_type,omitempty"`          // 合同类型, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "contract", custom_api_name = "contract_type"
-	FirstPartyCompanyID string                                `json:"first_party_company_id,omitempty"` // 甲方, 引用Company的ID, 详细信息可通过[【查询单个公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)接口查询获得, 示例值: "6892686614112241165"
-	PersonID            *string                               `json:"person_id,omitempty"`              // Person ID, 详细信息可通过[【查询单个个人信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/person/get)接口查询获得, 示例值: "151515151"
+	EmploymentID        string                                `json:"employment_id,omitempty"`          // 雇佣 ID, 详细信息可通过[搜索员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口查询获得, 示例值: "6893013238632416776"
+	ContractType        *CreateCoreHRContractReqContractType  `json:"contract_type,omitempty"`          // 合同类型, 枚举值 api_name 可通过[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "contract", custom_api_name = "contract_type"
+	FirstPartyCompanyID string                                `json:"first_party_company_id,omitempty"` // 甲方, 引用Company的ID, 详细信息可通过[查询单个公司](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)接口查询获得, 示例值: "6892686614112241165"
+	PersonID            *string                               `json:"person_id,omitempty"`              // Person ID, 详细信息可通过[查询单个个人信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/person/get)接口查询获得, 示例值: "151515151"
 	CustomFields        []*CreateCoreHRContractReqCustomField `json:"custom_fields,omitempty"`          // 自定义字段
-	DurationType        *CreateCoreHRContractReqDurationType  `json:"duration_type,omitempty"`          // 期限类型, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "contract", custom_api_name = "duration_type", 示例值: fixed_term
+	DurationType        *CreateCoreHRContractReqDurationType  `json:"duration_type,omitempty"`          // 期限类型, 枚举值 api_name 可通过[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "contract", custom_api_name = "duration_type", 示例值: fixed_term
 	ContractEndDate     *string                               `json:"contract_end_date,omitempty"`      // 合同结束日期, 示例值: "2006-01-02"
 	ContractNumber      *string                               `json:"contract_number,omitempty"`        // 合同编号, 示例值: "6919737965274990093"
-	SigningType         *CreateCoreHRContractReqSigningType   `json:"signing_type,omitempty"`           // 签订类型, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "contract", custom_api_name = "signing_type"
+	SigningType         *CreateCoreHRContractReqSigningType   `json:"signing_type,omitempty"`           // 签订类型, 枚举值 api_name 可通过[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "contract", custom_api_name = "signing_type"
 }
 
 // CreateCoreHRContractReqContractType ...
@@ -80,7 +80,7 @@ type CreateCoreHRContractReqContractType struct {
 // CreateCoreHRContractReqCustomField ...
 type CreateCoreHRContractReqCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名, 示例值: "name"
-	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05"), 示例值: "\"Sandy\""
+	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05"), 示例值: "Sandy"
 }
 
 // CreateCoreHRContractReqDurationType ...
@@ -103,15 +103,15 @@ type CreateCoreHRContractRespContract struct {
 	ID                  string                                         `json:"id,omitempty"`                     // 合同ID
 	EffectiveTime       string                                         `json:"effective_time,omitempty"`         // 合同开始日期
 	ExpirationTime      string                                         `json:"expiration_time,omitempty"`        // 实际结束日期
-	EmploymentID        string                                         `json:"employment_id,omitempty"`          // 雇佣 ID, 详细信息可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口查询获得
-	ContractType        *CreateCoreHRContractRespContractContractType  `json:"contract_type,omitempty"`          // 合同类型, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "contract", custom_api_name = "contract_type"
-	FirstPartyCompanyID string                                         `json:"first_party_company_id,omitempty"` // 甲方, 引用Company的ID, 详细信息可通过[【查询单个公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)接口查询获得
-	PersonID            string                                         `json:"person_id,omitempty"`              // Person ID, 详细信息可通过[【查询单个个人信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/person/get)接口查询获得
+	EmploymentID        string                                         `json:"employment_id,omitempty"`          // 雇佣 ID, 详细信息可通过[搜索员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口查询获得
+	ContractType        *CreateCoreHRContractRespContractContractType  `json:"contract_type,omitempty"`          // 合同类型, 枚举值 api_name 可通过[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "contract", custom_api_name = "contract_type"
+	FirstPartyCompanyID string                                         `json:"first_party_company_id,omitempty"` // 甲方, 引用Company的ID, 详细信息可通过[查询单个公司](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)接口查询获得
+	PersonID            string                                         `json:"person_id,omitempty"`              // Person ID, 详细信息可通过[查询单个个人信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/person/get)接口查询获得
 	CustomFields        []*CreateCoreHRContractRespContractCustomField `json:"custom_fields,omitempty"`          // 自定义字段
-	DurationType        *CreateCoreHRContractRespContractDurationType  `json:"duration_type,omitempty"`          // 期限类型, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "contract", custom_api_name = "duration_type"
+	DurationType        *CreateCoreHRContractRespContractDurationType  `json:"duration_type,omitempty"`          // 期限类型, 枚举值 api_name 可通过[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "contract", custom_api_name = "duration_type"
 	ContractEndDate     string                                         `json:"contract_end_date,omitempty"`      // 合同结束日期
 	ContractNumber      string                                         `json:"contract_number,omitempty"`        // 合同编号
-	SigningType         *CreateCoreHRContractRespContractSigningType   `json:"signing_type,omitempty"`           // 签订类型, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "contract", custom_api_name = "signing_type"
+	SigningType         *CreateCoreHRContractRespContractSigningType   `json:"signing_type,omitempty"`           // 签订类型, 枚举值 api_name 可通过[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "contract", custom_api_name = "signing_type"
 }
 
 // CreateCoreHRContractRespContractContractType ...

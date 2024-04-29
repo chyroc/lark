@@ -89,7 +89,7 @@ type BatchGetCoreHRCompanyRespItem struct {
 // BatchGetCoreHRCompanyRespItemCurrency ...
 type BatchGetCoreHRCompanyRespItemCurrency struct {
 	CurrencyID         string                                               `json:"currency_id,omitempty"`           // 货币 ID
-	CountryRegionID    string                                               `json:"country_region_id,omitempty"`     // 货币所属国家/地区 ID, 详细信息可通过[【查询国家/地区信息】](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/location_data/list)接口查询获得
+	CountryRegionID    string                                               `json:"country_region_id,omitempty"`     // 货币所属国家/地区 ID, 详细信息可通过[查询国家/地区信息](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/location_data/list)接口查询获得
 	CurrencyName       []*BatchGetCoreHRCompanyRespItemCurrencyCurrencyName `json:"currency_name,omitempty"`         // 货币名称
 	NumericCode        int64                                                `json:"numeric_code,omitempty"`          // 数字代码
 	CurrencyAlpha3Code string                                               `json:"currency_alpha_3_code,omitempty"` // 三位字母代码

@@ -27,9 +27,9 @@ import (
 // - 使用
 // tenant_access_token 则基于应用的通讯录权限范围进行权限校验与过滤。由于
 // parent_department_id 是非必填参数, 填与不填存在<b>两种数据权限校验与返回</b>情况:
-// 1、请求设置了
+// - 、请求设置了
 // parent_department_id 为A（根部门0）, 会检验A是否在通讯录权限内, 若在( parent_department_id=0 时会校验是否为全员权限）, 则返回部门下子部门列表（根据fetch_child决定是否递归）, 否则返回无部门通讯录权限错误码。
-// 2、请求未带
+// - 、请求未带
 // parent_department_id 参数, 如通讯录范围为全员权限, 只返回根部门ID(部门ID为0), 否则返回根据通讯录范围配置的部门ID及子部门(根据
 // fetch_child 决定是否递归)。
 //

@@ -79,8 +79,8 @@ type GetCoreHRPersonRespPerson struct {
 	Gender                   *GetCoreHRPersonRespPersonGender                   `json:"gender,omitempty"`                      // 性别
 	DateOfBirth              string                                             `json:"date_of_birth,omitempty"`               // 出生日期
 	NationalityID            string                                             `json:"nationality_id,omitempty"`              // 国籍 ID
-	Race                     *GetCoreHRPersonRespPersonRace                     `json:"race,omitempty"`                        // 民族 / 种族, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "person", custom_api_name = "race"
-	MaritalStatus            *GetCoreHRPersonRespPersonMaritalStatus            `json:"marital_status,omitempty"`              // 婚姻状况, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "person", custom_api_name = "marital_status", <b>字段权限要求: </b>, 读写婚姻状况信息(corehr:person.marital_status:write)
+	Race                     *GetCoreHRPersonRespPersonRace                     `json:"race,omitempty"`                        // 民族 / 种族, 枚举值 api_name 可通过[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "person", custom_api_name = "race"
+	MaritalStatus            *GetCoreHRPersonRespPersonMaritalStatus            `json:"marital_status,omitempty"`              // 婚姻状况, 枚举值 api_name 可通过[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "person", custom_api_name = "marital_status", <b>字段权限要求: </b>, 读写婚姻状况信息(corehr:person.marital_status:write)
 	PhoneList                []*GetCoreHRPersonRespPersonPhone                  `json:"phone_list,omitempty"`                  // 电话列表
 	AddressList              []*GetCoreHRPersonRespPersonAddress                `json:"address_list,omitempty"`                // 地址列表
 	EmailList                []*GetCoreHRPersonRespPersonEmail                  `json:"email_list,omitempty"`                  // 邮件列表
@@ -152,9 +152,9 @@ type GetCoreHRPersonRespPersonBankAccount struct {
 	Bank              *GetCoreHRPersonRespPersonBankAccountBank               `json:"bank,omitempty"`                // 银行名称（该字段待作废, 请勿使用）
 	BranchName        string                                                  `json:"branch_name,omitempty"`         // 支行名称
 	CustomFields      []*GetCoreHRPersonRespPersonBankAccountCustomField      `json:"custom_fields,omitempty"`       // 自定义字段
-	CountryRegionID   string                                                  `json:"country_region_id,omitempty"`   // 国家/地区id, 详细信息可通过【查询国家/地区信息】接口查询获得
-	BankAccountUsage  []*GetCoreHRPersonRespPersonBankAccountBankAccountUsage `json:"bank_account_usage,omitempty"`  // 银行卡用途, 枚举值可通过文档【飞书人事枚举常量】银行卡用途（Bank Account Usage）枚举定义部分获得
-	BankAccountType   *GetCoreHRPersonRespPersonBankAccountBankAccountType    `json:"bank_account_type,omitempty"`   // 银行卡类型, 枚举值可通过文档【飞书人事枚举常量】银行卡类型（Bank Account Type）枚举定义部分获得
+	CountryRegionID   string                                                  `json:"country_region_id,omitempty"`   // 国家/地区id, 详细信息可通过[查询国家/地区信息]接口查询获得
+	BankAccountUsage  []*GetCoreHRPersonRespPersonBankAccountBankAccountUsage `json:"bank_account_usage,omitempty"`  // 银行卡用途, 枚举值可通过文档[飞书人事枚举常量]银行卡用途（Bank Account Usage）枚举定义部分获得
+	BankAccountType   *GetCoreHRPersonRespPersonBankAccountBankAccountType    `json:"bank_account_type,omitempty"`   // 银行卡类型, 枚举值可通过文档[飞书人事枚举常量]银行卡类型（Bank Account Type）枚举定义部分获得
 	CurrencyID        string                                                  `json:"currency_id,omitempty"`         // 货币id
 }
 
@@ -393,7 +393,7 @@ type GetCoreHRPersonRespPersonDependentNationalIDCustomField struct {
 
 // GetCoreHRPersonRespPersonDependentPhone ...
 type GetCoreHRPersonRespPersonDependentPhone struct {
-	InternationalAreaCode *GetCoreHRPersonRespPersonDependentPhoneInternationalAreaCode `json:"international_area_code,omitempty"` // 国家区号, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "phone", custom_api_name = "international_area_code"
+	InternationalAreaCode *GetCoreHRPersonRespPersonDependentPhoneInternationalAreaCode `json:"international_area_code,omitempty"` // 国家区号, 枚举值 api_name 可通过[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "phone", custom_api_name = "international_area_code"
 	PhoneNumber           string                                                        `json:"phone_number,omitempty"`            // 电话号码
 	FormattedPhoneNumber  string                                                        `json:"formatted_phone_number,omitempty"`  // 完整电话号码
 	DeviceType            *GetCoreHRPersonRespPersonDependentPhoneDeviceType            `json:"device_type,omitempty"`             // 设备类型, 可选值如下: mobile_phone: 手机, landline: 座机, fax: 传真类型
@@ -555,7 +555,7 @@ type GetCoreHRPersonRespPersonEmail struct {
 	Email        string                                       `json:"email,omitempty"`         // 邮箱号
 	IsPrimary    bool                                         `json:"is_primary,omitempty"`    // 主要邮箱
 	IsPublic     bool                                         `json:"is_public,omitempty"`     // 公开邮箱
-	EmailUsage   *GetCoreHRPersonRespPersonEmailEmailUsage    `json:"email_usage,omitempty"`   // 邮箱用途, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "email", custom_api_name = "email_usage"
+	EmailUsage   *GetCoreHRPersonRespPersonEmailEmailUsage    `json:"email_usage,omitempty"`   // 邮箱用途, 枚举值 api_name 可通过[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "email", custom_api_name = "email_usage"
 	CustomFields []*GetCoreHRPersonRespPersonEmailCustomField `json:"custom_fields,omitempty"` // 自定义字段
 }
 
@@ -676,7 +676,7 @@ type GetCoreHRPersonRespPersonEmergencyContactNameTitleDisplay struct {
 
 // GetCoreHRPersonRespPersonEmergencyContactPhoneIst ...
 type GetCoreHRPersonRespPersonEmergencyContactPhoneIst struct {
-	InternationalAreaCode *GetCoreHRPersonRespPersonEmergencyContactPhoneIstInternationalAreaCode `json:"international_area_code,omitempty"` // 国家区号, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "phone", custom_api_name = "international_area_code"
+	InternationalAreaCode *GetCoreHRPersonRespPersonEmergencyContactPhoneIstInternationalAreaCode `json:"international_area_code,omitempty"` // 国家区号, 枚举值 api_name 可通过[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "phone", custom_api_name = "international_area_code"
 	PhoneNumber           string                                                                  `json:"phone_number,omitempty"`            // 电话号码
 	FormattedPhoneNumber  string                                                                  `json:"formatted_phone_number,omitempty"`  // 完整电话号码
 	DeviceType            *GetCoreHRPersonRespPersonEmergencyContactPhoneIstDeviceType            `json:"device_type,omitempty"`             // 设备类型, 可选值如下: mobile_phone: 手机, landline: 座机, fax: 传真
@@ -1049,7 +1049,7 @@ type GetCoreHRPersonRespPersonPersonalProfilePersonalProfileTypeDisplay struct {
 
 // GetCoreHRPersonRespPersonPhone ...
 type GetCoreHRPersonRespPersonPhone struct {
-	InternationalAreaCode *GetCoreHRPersonRespPersonPhoneInternationalAreaCode `json:"international_area_code,omitempty"` // 国家区号, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "phone", custom_api_name = "international_area_code"
+	InternationalAreaCode *GetCoreHRPersonRespPersonPhoneInternationalAreaCode `json:"international_area_code,omitempty"` // 国家区号, 枚举值 api_name 可通过[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "phone", custom_api_name = "international_area_code"
 	PhoneNumber           string                                               `json:"phone_number,omitempty"`            // 电话号码
 	FormattedPhoneNumber  string                                               `json:"formatted_phone_number,omitempty"`  // 完整电话号码
 	DeviceType            *GetCoreHRPersonRespPersonPhoneDeviceType            `json:"device_type,omitempty"`             // 设备类型, 可选值如下: mobile_phone: 手机, landline: 座机, fax: 传真

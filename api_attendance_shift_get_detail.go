@@ -68,7 +68,7 @@ type GetAttendanceShiftDetailResp struct {
 	PunchTimes         int64                                            `json:"punch_times,omitempty"`           // 打卡次数
 	SubShiftLeaderIDs  []string                                         `json:"sub_shift_leader_ids,omitempty"`  // 排班组子负责人id列表
 	IsFlexible         bool                                             `json:"is_flexible,omitempty"`           // 是否弹性打卡
-	FlexibleMinutes    int64                                            `json:"flexible_minutes,omitempty"`      // 弹性打卡时间, 设置【上班最多可晚到】与【下班最多可早走】时间, 如果不设置flexible_rule则生效
+	FlexibleMinutes    int64                                            `json:"flexible_minutes,omitempty"`      // 弹性打卡时间, 设置[上班最多可晚到]与[下班最多可早走]时间, 如果不设置flexible_rule则生效
 	FlexibleRule       []*GetAttendanceShiftDetailRespFlexibleRule      `json:"flexible_rule,omitempty"`         // 弹性打卡时间设置
 	NoNeedOff          bool                                             `json:"no_need_off,omitempty"`           // 不需要打下班卡
 	PunchTimeRule      []*GetAttendanceShiftDetailRespPunchTimeRule     `json:"punch_time_rule,omitempty"`       // 打卡规则

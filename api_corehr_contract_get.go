@@ -71,15 +71,15 @@ type GetCoreHRContractRespContract struct {
 	ID                  string                                      `json:"id,omitempty"`                     // 合同ID
 	EffectiveTime       string                                      `json:"effective_time,omitempty"`         // 合同开始日期
 	ExpirationTime      string                                      `json:"expiration_time,omitempty"`        // 实际结束日期
-	EmploymentID        string                                      `json:"employment_id,omitempty"`          // 雇员 ID, 枚举值及详细信息可通过【批量查询雇佣信息】接口查询获得
-	ContractType        *GetCoreHRContractRespContractContractType  `json:"contract_type,omitempty"`          // 合同类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)合同类型（contract_type）枚举定义部分获得
-	FirstPartyCompanyID string                                      `json:"first_party_company_id,omitempty"` // 甲方, 引用Company的ID, 枚举值及详细信息可通过【批量查询公司】接口查询获得
-	PersonID            string                                      `json:"person_id,omitempty"`              // Person ID, 枚举值及详细信息可通过【批量查询个人信息】接口查询获得
+	EmploymentID        string                                      `json:"employment_id,omitempty"`          // 雇员 ID, 枚举值及详细信息可通过[批量查询雇佣信息]接口查询获得
+	ContractType        *GetCoreHRContractRespContractContractType  `json:"contract_type,omitempty"`          // 合同类型, 枚举值可通过文档[飞书人事枚举常量](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)合同类型（contract_type）枚举定义部分获得
+	FirstPartyCompanyID string                                      `json:"first_party_company_id,omitempty"` // 甲方, 引用Company的ID, 枚举值及详细信息可通过[批量查询公司]接口查询获得
+	PersonID            string                                      `json:"person_id,omitempty"`              // Person ID, 枚举值及详细信息可通过[批量查询个人信息]接口查询获得
 	CustomFields        []*GetCoreHRContractRespContractCustomField `json:"custom_fields,omitempty"`          // 自定义字段
-	DurationType        *GetCoreHRContractRespContractDurationType  `json:"duration_type,omitempty"`          // 期限类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)合同期限类型（duration_type）枚举定义部分获得
+	DurationType        *GetCoreHRContractRespContractDurationType  `json:"duration_type,omitempty"`          // 期限类型, 枚举值可通过文档[飞书人事枚举常量](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)合同期限类型（duration_type）枚举定义部分获得
 	ContractEndDate     string                                      `json:"contract_end_date,omitempty"`      // 合同结束日期
 	ContractNumber      string                                      `json:"contract_number,omitempty"`        // 合同编号
-	SigningType         *GetCoreHRContractRespContractSigningType   `json:"signing_type,omitempty"`           // 签订类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)签订类型（signing_type）枚举定义部分获得
+	SigningType         *GetCoreHRContractRespContractSigningType   `json:"signing_type,omitempty"`           // 签订类型, 枚举值可通过文档[飞书人事枚举常量](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)签订类型（signing_type）枚举定义部分获得
 }
 
 // GetCoreHRContractRespContractContractType ...

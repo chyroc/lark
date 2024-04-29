@@ -74,9 +74,9 @@ type GetCoreHRJobRespJob struct {
 	Description        []*GetCoreHRJobRespJobDescription `json:"description,omitempty"`           // 描述
 	Active             bool                              `json:"active,omitempty"`                // 是否启用
 	JobTitle           []*GetCoreHRJobRespJobJobTitle    `json:"job_title,omitempty"`             // 职务头衔
-	JobFamilyIDList    []string                          `json:"job_family_id_list,omitempty"`    // 职务序列 ID 列表, 枚举值及详细信息可通过【批量查询职务序列】接口查询获得
-	JobLevelIDList     []string                          `json:"job_level_id_list,omitempty"`     // 职务级别 ID 列表, 枚举值及详细信息可通过【批量查询职务级别】接口查询获得
-	WorkingHoursTypeID string                            `json:"working_hours_type_id,omitempty"` // 工时制度 ID, 枚举值及详细信息可通过【批量查询工时制度】接口查询获得
+	JobFamilyIDList    []string                          `json:"job_family_id_list,omitempty"`    // 职务序列 ID 列表, 枚举值及详细信息可通过[批量查询职务序列]接口查询获得
+	JobLevelIDList     []string                          `json:"job_level_id_list,omitempty"`     // 职务级别 ID 列表, 枚举值及详细信息可通过[批量查询职务级别]接口查询获得
+	WorkingHoursTypeID string                            `json:"working_hours_type_id,omitempty"` // 工时制度 ID, 枚举值及详细信息可通过[批量查询工时制度]接口查询获得
 	EffectiveTime      string                            `json:"effective_time,omitempty"`        // 生效时间
 	ExpirationTime     string                            `json:"expiration_time,omitempty"`       // 失效时间
 	CustomFields       []*GetCoreHRJobRespJobCustomField `json:"custom_fields,omitempty"`         // 自定义字段

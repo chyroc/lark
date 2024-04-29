@@ -74,7 +74,7 @@ type QueryCoreHRDepartmentTimelineRespItem struct {
 	ID                 string                                              `json:"id,omitempty"`                   // 部门 ID
 	Names              []*QueryCoreHRDepartmentTimelineRespItemName        `json:"names,omitempty"`                // 部门名称
 	ParentDepartmentID string                                              `json:"parent_department_id,omitempty"` // 上级部门 ID, 字段权限要求: 获取部门组织架构信息
-	Manager            string                                              `json:"manager,omitempty"`              // 部门负责人雇佣 ID, 枚举值及详细信息可通过【查询员工信息】接口查询获得, 字段权限要求: 获取部门负责人信息
+	Manager            string                                              `json:"manager,omitempty"`              // 部门负责人雇佣 ID, 枚举值及详细信息可通过[查询员工信息]接口查询获得, 字段权限要求: 获取部门负责人信息
 	Code               string                                              `json:"code,omitempty"`                 // 编码
 	EffectiveDate      string                                              `json:"effective_date,omitempty"`       // 生效日期
 	Active             bool                                                `json:"active,omitempty"`               // 是否启用

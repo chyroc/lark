@@ -21,13 +21,13 @@ import (
 	"context"
 )
 
-// EventV2IMChatDisbandedV1 群组被解散后触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=im&version=v1&resource=chat&event=disbanded)
+// EventV2IMChatDisbandedV1 群组被解散后触发此事件。
 //
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 需要订阅 [消息与群组] 分类下的 [解散群] 事件
 // - 事件会向群内订阅了该事件的机器人进行推送
-// - 解散群并勾选【为群成员保留历史记录】不会触发该事件
+// - 解散群并勾选[为群成员保留历史记录]不会触发该事件
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/events/disbanded
 // new doc: https://open.feishu.cn/document/server-docs/group/chat/events/disbanded

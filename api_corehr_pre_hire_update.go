@@ -109,9 +109,9 @@ type UpdateCoreHRPreHireReqOfferInfoUpdate struct {
 	OnboardingDate       *string                                                `json:"onboarding_date,omitempty"`        // 入职日期, 示例值: "2022-10-08"
 	AtsApplicationID     *string                                                `json:"ats_application_id,omitempty"`     // 招聘应用ID, 示例值: "7140946969586010375"
 	OnboardingLocationID *string                                                `json:"onboarding_location_id,omitempty"` // 入职地点ID, 详细信息可通过[批量查询地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)获得, 示例值: "6977976687350924832"
-	OnboardingAddressID  *string                                                `json:"onboarding_address_id,omitempty"`  // 入职地址ID, 详细信息可通过【批量查询地址】接口获得, 示例值: "6977976687350924832"
+	OnboardingAddressID  *string                                                `json:"onboarding_address_id,omitempty"`  // 入职地址ID, 详细信息可通过[批量查询地址]接口获得, 示例值: "6977976687350924832"
 	OfficeLocationID     *string                                                `json:"office_location_id,omitempty"`     // 办公地点ID, 详细信息可通过[批量查询地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)获得, 示例值: "6977976687350924833"
-	OfficeAddressID      *string                                                `json:"office_address_id,omitempty"`      // 办公地址ID, 详细信息可通过【批量查询地址】接口获得, 示例值: "6977976687350924832"
+	OfficeAddressID      *string                                                `json:"office_address_id,omitempty"`      // 办公地址ID, 详细信息可通过[批量查询地址]接口获得, 示例值: "6977976687350924832"
 	EmploymentType       *string                                                `json:"employment_type,omitempty"`        // 雇佣类型, [枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)获得, employee(员工), contingent_worker(临时工), 示例值: "employee"
 	OnboardingMethod     *string                                                `json:"onboarding_method,omitempty"`      // 入职方式, 通过[枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)获得, onsite(现场入职), remote(远程入职), 示例值: "onsite"
 	WorkEmails           []*UpdateCoreHRPreHireReqOfferInfoUpdateWorkEmail      `json:"work_emails,omitempty"`            // 工作邮箱
@@ -121,7 +121,7 @@ type UpdateCoreHRPreHireReqOfferInfoUpdate struct {
 
 // UpdateCoreHRPreHireReqOfferInfoUpdateCostCenterRate ...
 type UpdateCoreHRPreHireReqOfferInfoUpdateCostCenterRate struct {
-	CostCenterID *string `json:"cost_center_id,omitempty"` // 成本中心 ID, 可以通过【查询单个成本中心信息】获取对应的成本中心信息, 示例值: "6950635856373745165"
+	CostCenterID *string `json:"cost_center_id,omitempty"` // 成本中心 ID, 可以通过[查询单个成本中心信息]获取对应的成本中心信息, 示例值: "6950635856373745165"
 	Rate         *int64  `json:"rate,omitempty"`           // 分摊比例, 示例值: 100
 }
 

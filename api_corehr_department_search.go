@@ -84,9 +84,9 @@ type SearchCoreHRDepartmentRespItem struct {
 	ID                 string                                          `json:"id,omitempty"`                   // 部门 ID
 	VersionID          string                                          `json:"version_id,omitempty"`           // 部门记录版本 ID
 	DepartmentName     []*SearchCoreHRDepartmentRespItemDepartmentName `json:"department_name,omitempty"`      // 部门名称
-	SubType            *SearchCoreHRDepartmentRespItemSubType          `json:"sub_type,omitempty"`             // 部门类型, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "department", custom_api_name = "subtype"
+	SubType            *SearchCoreHRDepartmentRespItemSubType          `json:"sub_type,omitempty"`             // 部门类型, 枚举值 api_name 可通过[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "department", custom_api_name = "subtype"
 	ParentDepartmentID string                                          `json:"parent_department_id,omitempty"` // 上级部门 ID, 字段权限要求: 获取部门组织架构信息
-	Manager            string                                          `json:"manager,omitempty"`              // 部门负责人雇佣 ID, 枚举值及详细信息可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口查询获得, 字段权限要求: 获取部门负责人信息
+	Manager            string                                          `json:"manager,omitempty"`              // 部门负责人雇佣 ID, 枚举值及详细信息可通过[搜索员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口查询获得, 字段权限要求: 获取部门负责人信息
 	TreeOrder          string                                          `json:"tree_order,omitempty"`           // 树形排序, 代表同层级的部门排序序号
 	ListOrder          string                                          `json:"list_order,omitempty"`           // 列表排序, 代表所有部门的混排序号
 	Code               string                                          `json:"code,omitempty"`                 // 编码

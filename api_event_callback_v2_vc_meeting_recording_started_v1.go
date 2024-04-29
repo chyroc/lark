@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2VCMeetingRecordingStartedV1 发生在开始录制时【仅通过Open API预约的会议会产生此类事件】{使用示例}(url=/api/tools/api_explore/api_explore_config?project=vc&version=v1&resource=meeting&event=recording_started)
+// EventV2VCMeetingRecordingStartedV1 发生在开始录制时[仅通过Open API预约的会议会产生此类事件]
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/recording_started
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/meeting/events/recording_started

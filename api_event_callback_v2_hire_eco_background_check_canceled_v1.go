@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2HireEcoBackgroundCheckCanceledV1 用户在招聘系统终止背调后, 系统会推送事件给对应的应用开发者。开发者可根据事件获取背调 ID, 完成在三方服务商处的订单取消等后续操作。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=hire&version=v1&resource=eco_background_check&event=canceled)
+// EventV2HireEcoBackgroundCheckCanceledV1 用户在招聘系统终止背调后, 系统会推送事件给对应的应用开发者。开发者可根据事件获取背调 ID, 完成在三方服务商处的订单取消等后续操作。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check/events/canceled
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/ecological-docking/eco_background_check/events/canceled

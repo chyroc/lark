@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2ContactEmployeeTypeEnumDeletedV3 删除人员类型会发出对应事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=contact&version=v3&resource=employee_type_enum&event=deleted)
+// EventV2ContactEmployeeTypeEnumDeletedV3 删除人员类型会发出对应事件。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/events/deleted
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/employee_type_enum/events/deleted

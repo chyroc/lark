@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2CorehrOffboardingUpdatedV1 在离职发起审批和产生审批结果时触发该事件, 审批结果产生的场景包括撤销、审批通过、审批拒绝。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=offboarding&event=updated)
+// EventV2CorehrOffboardingUpdatedV1 在离职发起审批和产生审批结果时触发该事件, 审批结果产生的场景包括撤销、审批通过、审批拒绝。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/events/updated
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/offboarding/updated

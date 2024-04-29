@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2CorehrContractUpdatedV1 合同更新{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=contract&event=updated)
+// EventV2CorehrContractUpdatedV1 合同更新
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/events/updated
 func (r *EventCallbackService) HandlerEventV2CorehrContractUpdatedV1(f EventV2CorehrContractUpdatedV1Handler) {

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2HireReferralAccountAssetsUpdateV1 当内推账号余额发生变更时, 触发该事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=hire&version=v1&resource=referral_account&event=assets_update)
+// EventV2HireReferralAccountAssetsUpdateV1 当内推账号余额发生变更时, 触发该事件。
 //
 // - 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
 // - 订阅前, 请确认已完成[「注册外部系统内推账户」](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/create), 约定需推送的内推账号范围。收到事件后, 如需将余额充值到三方平台发放给用户, 请使用接口[「全额扣减内推奖励的积分总额」](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/withdraw)

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2ACSUserUpdatedV1 智能门禁用户特征值变化时, 发送此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=acs&version=v1&resource=user&event=updated)
+// EventV2ACSUserUpdatedV1 智能门禁用户特征值变化时, 发送此事件。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/acs-v1/user/events/updated
 // new doc: https://open.feishu.cn/document/server-docs/acs-v1/user/events/updated

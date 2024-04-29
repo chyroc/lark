@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2HireEcoBackgroundCheckCreatedV1 用户在招聘系统安排背调后, 系统会推送事件给对应的应用开发者。开发者可根据事件获取候选人信息、委托人信息和自定义字段信息, 并根据这些信息完成在三方服务商处的背调订单创建。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=hire&version=v1&resource=eco_background_check&event=created)
+// EventV2HireEcoBackgroundCheckCreatedV1 用户在招聘系统安排背调后, 系统会推送事件给对应的应用开发者。开发者可根据事件获取候选人信息、委托人信息和自定义字段信息, 并根据这些信息完成在三方服务商处的背调订单创建。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check/events/created
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/ecological-docking/eco_background_check/events/created

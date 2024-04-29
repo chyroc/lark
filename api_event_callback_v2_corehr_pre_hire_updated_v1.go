@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2CorehrPreHireUpdatedV1 待入职人员信息更新后, 触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=pre_hire&event=updated)
+// EventV2CorehrPreHireUpdatedV1 待入职人员信息更新后, 触发此事件。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/pre_hire/events/updated
 func (r *EventCallbackService) HandlerEventV2CorehrPreHireUpdatedV1(f EventV2CorehrPreHireUpdatedV1Handler) {

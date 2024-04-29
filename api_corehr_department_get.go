@@ -71,8 +71,8 @@ type GetCoreHRDepartmentResp struct {
 // GetCoreHRDepartmentRespDepartment ...
 type GetCoreHRDepartmentRespDepartment struct {
 	ID               string                                             `json:"id,omitempty"`                // 部门 ID
-	SubType          *GetCoreHRDepartmentRespDepartmentSubType          `json:"sub_type,omitempty"`          // 部门子类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)部门子类型（department_sub_type）枚举定义部分获得
-	Manager          string                                             `json:"manager,omitempty"`           // 部门负责人 ID, 枚举值及详细信息可通过【批量查询雇佣信息】接口查询获得
+	SubType          *GetCoreHRDepartmentRespDepartmentSubType          `json:"sub_type,omitempty"`          // 部门子类型, 枚举值可通过文档[飞书人事枚举常量](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)部门子类型（department_sub_type）枚举定义部分获得
+	Manager          string                                             `json:"manager,omitempty"`           // 部门负责人 ID, 枚举值及详细信息可通过[批量查询雇佣信息]接口查询获得
 	IsConfidential   bool                                               `json:"is_confidential,omitempty"`   // 是否保密
 	HiberarchyCommon *GetCoreHRDepartmentRespDepartmentHiberarchyCommon `json:"hiberarchy_common,omitempty"` // 层级关系, 内层字段见实体
 	EffectiveTime    string                                             `json:"effective_time,omitempty"`    // 生效时间
@@ -92,7 +92,7 @@ type GetCoreHRDepartmentRespDepartmentCustomField struct {
 type GetCoreHRDepartmentRespDepartmentHiberarchyCommon struct {
 	ParentID       string                                                          `json:"parent_id,omitempty"`       // 上级组织 ID
 	Name           []*GetCoreHRDepartmentRespDepartmentHiberarchyCommonName        `json:"name,omitempty"`            // 名称
-	Type           *GetCoreHRDepartmentRespDepartmentHiberarchyCommonType          `json:"type,omitempty"`            // 组织类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)组织类型（organization_type）枚举定义部分获得
+	Type           *GetCoreHRDepartmentRespDepartmentHiberarchyCommonType          `json:"type,omitempty"`            // 组织类型, 枚举值可通过文档[飞书人事枚举常量](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)组织类型（organization_type）枚举定义部分获得
 	Active         bool                                                            `json:"active,omitempty"`          // 是否启用
 	EffectiveTime  string                                                          `json:"effective_time,omitempty"`  // 生效时间
 	ExpirationTime string                                                          `json:"expiration_time,omitempty"` // 失效时间

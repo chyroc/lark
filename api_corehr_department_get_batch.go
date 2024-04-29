@@ -77,9 +77,9 @@ type BatchGetCoreHRDepartmentRespItem struct {
 	ID                 string                                            `json:"id,omitempty"`                   // 部门 ID
 	VersionID          string                                            `json:"version_id,omitempty"`           // 部门记录版本 ID
 	DepartmentName     []*BatchGetCoreHRDepartmentRespItemDepartmentName `json:"department_name,omitempty"`      // 部门名称
-	SubType            *BatchGetCoreHRDepartmentRespItemSubType          `json:"sub_type,omitempty"`             // 部门类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)部门子类型（department_sub_type）枚举定义部分获得
+	SubType            *BatchGetCoreHRDepartmentRespItemSubType          `json:"sub_type,omitempty"`             // 部门类型, 枚举值可通过文档[飞书人事枚举常量](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)部门子类型（department_sub_type）枚举定义部分获得
 	ParentDepartmentID string                                            `json:"parent_department_id,omitempty"` // 上级部门 ID, 字段权限要求: 获取部门组织架构信息
-	Manager            string                                            `json:"manager,omitempty"`              // 部门负责人雇佣 ID, 枚举值及详细信息可通过【查询员工信息】接口查询获得, 字段权限要求: 获取部门负责人信息
+	Manager            string                                            `json:"manager,omitempty"`              // 部门负责人雇佣 ID, 枚举值及详细信息可通过[查询员工信息]接口查询获得, 字段权限要求: 获取部门负责人信息
 	TreeOrder          string                                            `json:"tree_order,omitempty"`           // 树形排序, 代表同层级的部门排序序号
 	ListOrder          string                                            `json:"list_order,omitempty"`           // 列表排序, 代表所有部门的混排序号
 	Code               string                                            `json:"code,omitempty"`                 // 编码

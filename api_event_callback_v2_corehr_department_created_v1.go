@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2CorehrDepartmentCreatedV1 飞书人事中「部门被创建」时将触发此事件。注意: 1. 触发时间为部门实际生效时间, 如在 2022-01-01 创建部门, 部门生效时间设置为 2022-05-01, 事件将在 2022-05-01 进行推送。2. 现在创建部门也会同时触发「部门更新」事件{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=department&event=created)
+// EventV2CorehrDepartmentCreatedV1 飞书人事中「部门被创建」时将触发此事件。注意: 1. 触发时间为部门实际生效时间, 如在 2022-01-01 创建部门, 部门生效时间设置为 2022-05-01, 事件将在 2022-05-01 进行推送。2. 现在创建部门也会同时触发「部门更新」事件
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/events/created
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/department/created

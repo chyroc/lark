@@ -68,7 +68,7 @@ type GetCoreHRPreHireResp struct {
 
 // GetCoreHRPreHireRespPreHire ...
 type GetCoreHRPreHireRespPreHire struct {
-	AtsApplicationID string                                       `json:"ats_application_id,omitempty"` // 招聘投递 ID, 详细信息可以通过招聘的【获取投递信息】接口查询获得
+	AtsApplicationID string                                       `json:"ats_application_id,omitempty"` // 招聘投递 ID, 详细信息可以通过招聘的[获取投递信息]接口查询获得
 	ID               string                                       `json:"id,omitempty"`                 // 待入职ID
 	HireDate         string                                       `json:"hire_date,omitempty"`          // 入职日期
 	EmployeeType     *GetCoreHRPreHireRespPreHireEmployeeType     `json:"employee_type,omitempty"`      // 雇佣类型

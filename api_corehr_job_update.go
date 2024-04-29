@@ -65,9 +65,9 @@ type UpdateCoreHRJobReq struct {
 	Description        []*UpdateCoreHRJobReqDescription `json:"description,omitempty"`           // 描述
 	Active             *bool                            `json:"active,omitempty"`                // 是否启用, 示例值: true
 	JobTitle           []*UpdateCoreHRJobReqJobTitle    `json:"job_title,omitempty"`             // 职务头衔
-	JobFamilyIDList    []string                         `json:"job_family_id_list,omitempty"`    // 职务序列 ID 列表, 枚举值及详细信息可通过【批量查询职务序列】接口查询获得, 示例值: ["4719519211875096301"]
-	JobLevelIDList     []string                         `json:"job_level_id_list,omitempty"`     // 职务级别 ID 列表, 枚举值及详细信息可通过【批量查询职务级别】接口查询获得, 示例值: ["4719519212005299950"]
-	WorkingHoursTypeID *string                          `json:"working_hours_type_id,omitempty"` // 工时制度 ID, 枚举值及详细信息可通过【批量查询工时制度】接口查询获得, 示例值: "6890452208593372679"
+	JobFamilyIDList    []string                         `json:"job_family_id_list,omitempty"`    // 职务序列 ID 列表, 枚举值及详细信息可通过[批量查询职务序列]接口查询获得, 示例值: ["4719519211875096301"]
+	JobLevelIDList     []string                         `json:"job_level_id_list,omitempty"`     // 职务级别 ID 列表, 枚举值及详细信息可通过[批量查询职务级别]接口查询获得, 示例值: ["4719519212005299950"]
+	WorkingHoursTypeID *string                          `json:"working_hours_type_id,omitempty"` // 工时制度 ID, 枚举值及详细信息可通过[批量查询工时制度]接口查询获得, 示例值: "6890452208593372679"
 	EffectiveTime      *string                          `json:"effective_time,omitempty"`        // 生效时间, 示例值: "2020-01-01 00:00:00"
 	ExpirationTime     *string                          `json:"expiration_time,omitempty"`       // 失效时间, 示例值: "2021-01-01 00:00:00"
 	CustomFields       []*UpdateCoreHRJobReqCustomField `json:"custom_fields,omitempty"`         // 自定义字段
@@ -76,7 +76,7 @@ type UpdateCoreHRJobReq struct {
 // UpdateCoreHRJobReqCustomField ...
 type UpdateCoreHRJobReqCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名, 示例值: "name"
-	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05"), 示例值: "\"Sandy\""
+	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05"), 示例值: "Sandy"
 }
 
 // UpdateCoreHRJobReqDescription ...
@@ -110,9 +110,9 @@ type UpdateCoreHRJobRespJob struct {
 	Description        []*UpdateCoreHRJobRespJobDescription `json:"description,omitempty"`           // 描述
 	Active             bool                                 `json:"active,omitempty"`                // 是否启用
 	JobTitle           []*UpdateCoreHRJobRespJobJobTitle    `json:"job_title,omitempty"`             // 职务头衔
-	JobFamilyIDList    []string                             `json:"job_family_id_list,omitempty"`    // 职务序列 ID 列表, 枚举值及详细信息可通过【批量查询职务序列】接口查询获得
-	JobLevelIDList     []string                             `json:"job_level_id_list,omitempty"`     // 职务级别 ID 列表, 枚举值及详细信息可通过【批量查询职务级别】接口查询获得
-	WorkingHoursTypeID string                               `json:"working_hours_type_id,omitempty"` // 工时制度 ID, 枚举值及详细信息可通过【批量查询工时制度】接口查询获得
+	JobFamilyIDList    []string                             `json:"job_family_id_list,omitempty"`    // 职务序列 ID 列表, 枚举值及详细信息可通过[批量查询职务序列]接口查询获得
+	JobLevelIDList     []string                             `json:"job_level_id_list,omitempty"`     // 职务级别 ID 列表, 枚举值及详细信息可通过[批量查询职务级别]接口查询获得
+	WorkingHoursTypeID string                               `json:"working_hours_type_id,omitempty"` // 工时制度 ID, 枚举值及详细信息可通过[批量查询工时制度]接口查询获得
 	EffectiveTime      string                               `json:"effective_time,omitempty"`        // 生效时间
 	ExpirationTime     string                               `json:"expiration_time,omitempty"`       // 失效时间
 	CustomFields       []*UpdateCoreHRJobRespJobCustomField `json:"custom_fields,omitempty"`         // 自定义字段

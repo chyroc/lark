@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2CorehrContractCreatedV1 合同创建{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=contract&event=created)
+// EventV2CorehrContractCreatedV1 合同创建
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/events/created
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/contract/created

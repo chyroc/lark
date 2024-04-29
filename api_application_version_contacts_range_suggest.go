@@ -68,7 +68,7 @@ type GetApplicationVersionContactsRangeSuggestReq struct {
 
 // GetApplicationVersionContactsRangeSuggestResp ...
 type GetApplicationVersionContactsRangeSuggestResp struct {
-	ContactsRange *GetApplicationVersionContactsRangeSuggestRespContactsRange `json:"contacts_range,omitempty"` // 应用版本通讯录权限范围建议信息。开发者在提交该版本时如果修改了通讯录权限范围则返回申请的通讯录权限范围。不代表最终应用生效的通讯录权限范围。如果没有修改, 则为空。【如果通讯录权限范围与应用可用范围保持一致, 上次的配置也是如此, 则认为没变化。】
+	ContactsRange *GetApplicationVersionContactsRangeSuggestRespContactsRange `json:"contacts_range,omitempty"` // 应用版本通讯录权限范围建议信息。开发者在提交该版本时如果修改了通讯录权限范围则返回申请的通讯录权限范围。不代表最终应用生效的通讯录权限范围。如果没有修改, 则为空。[如果通讯录权限范围与应用可用范围保持一致, 上次的配置也是如此, 则认为没变化。]
 }
 
 // GetApplicationVersionContactsRangeSuggestRespContactsRange ...

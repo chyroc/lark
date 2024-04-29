@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2HireEcoExamCreatedV1 用户在招聘系统安排笔试后, 系统会推送事件给对应的开发者应用。开发者可根据事件获取候选人信息和试卷信息, 并根据这些信息完成在三方服务商处的笔试订单创建。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=hire&version=v1&resource=eco_exam&event=created)
+// EventV2HireEcoExamCreatedV1 用户在招聘系统安排笔试后, 系统会推送事件给对应的开发者应用。开发者可根据事件获取候选人信息和试卷信息, 并根据这些信息完成在三方服务商处的笔试订单创建。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_exam/events/created
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/ecological-docking/eco_exam/events/created

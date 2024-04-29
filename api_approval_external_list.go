@@ -23,10 +23,10 @@ import (
 
 // GetApprovalExternalList 该接口用于获取三方审批的状态。用户传入查询条件, 接口返回满足条件的审批实例的状态。该接口支持多种参数的组合, 包括如下组合:
 //
-// 1.通过 instance_ids 获取指定实例的任务状态
-// 2.通过 user_ids 获取指定用户的任务状态
-// 3.通过 status 获取指定状态的所有任务
-// 4.通过page_token获取下一批数据
+// - 通过 instance_ids 获取指定实例的任务状态
+// - 通过 user_ids 获取指定用户的任务状态
+// - 通过 status 获取指定状态的所有任务
+// - 通过page_token获取下一批数据
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_task/list
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/external_task/list

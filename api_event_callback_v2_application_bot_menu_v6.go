@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2ApplicationBotMenuV6 当用户点击类型为事件的机器人菜单时触发{使用示例}(url=/api/tools/api_explore/api_explore_config?project=application&version=v6&resource=bot&event=menu)
+// EventV2ApplicationBotMenuV6 当用户点击类型为事件的机器人菜单时触发
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/bot/events/menu
 // new doc: https://open.feishu.cn/document/client-docs/bot-v3/events/menu

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2CorehrProcessApproverUpdatedV2 审批任务（approver_id 是唯一标识）, 比如一个多人会签节点, 会分别生成多人的审批任务。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v2&resource=process.approver&event=updated)
+// EventV2CorehrProcessApproverUpdatedV2 审批任务（approver_id 是唯一标识）, 比如一个多人会签节点, 会分别生成多人的审批任务。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process-approver/events/updated
 func (r *EventCallbackService) HandlerEventV2CorehrProcessApproverUpdatedV2(f EventV2CorehrProcessApproverUpdatedV2Handler) {

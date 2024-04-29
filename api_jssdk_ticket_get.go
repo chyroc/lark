@@ -25,7 +25,7 @@ import (
 //
 // - 网页组件只适用于自建应用, 暂不支持商店应用。
 // - 网页组件适用于普通web网页, 不建议在小程序webview中调用此组件
-// ## 准备工作
+// 准备工作:
 // - 在开发者后台[创建一个企业自建应用](https://open.feishu.cn/document/home/introduction-to-custom-app-development/self-built-application-development-process)。
 // - 引入组件库。在网页 html 中引入如下代码:
 // ```html

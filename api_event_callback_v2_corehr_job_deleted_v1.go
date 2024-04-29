@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2CorehrJobDeletedV1 飞书人事中「职务被删除」时将触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=job&event=deleted)
+// EventV2CorehrJobDeletedV1 飞书人事中「职务被删除」时将触发此事件。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/events/deleted
 func (r *EventCallbackService) HandlerEventV2CorehrJobDeletedV1(f EventV2CorehrJobDeletedV1Handler) {

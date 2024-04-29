@@ -25,7 +25,7 @@ import (
 //
 // - 群主转移
 // - 群基本信息修改(群头像/群名称/群描述/群国际化名称)
-// - 群权限修改(加人入群权限/群编辑权限/at所有人权限/群分享权限等){使用示例}(url=/api/tools/api_explore/api_explore_config?project=im&version=v1&resource=chat&event=updated)
+// - 群权限修改(加人入群权限/群编辑权限/at所有人权限/群分享权限等)
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 需要订阅 [消息与群组] 分类下的 [群配置修改] 事件

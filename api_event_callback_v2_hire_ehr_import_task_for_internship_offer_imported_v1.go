@@ -23,7 +23,7 @@ import (
 
 // EventV2HireEHRImportTaskForInternshipOfferImportedV1 飞书招聘系统内用户选择实习 Offer 导入 e-HR 系统之后, 将推送候选人信息至订阅系统中。可以使用实习 Offer id[更新实习 Offer 入/离职状态](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer/intern_offer_status)
 //
-// 搭配使用: [更新 e-HR 导入任务结果](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/ehr_import_task/patch)更新本次导入事件的结果{使用示例}(url=/api/tools/api_explore/api_explore_config?project=hire&version=v1&resource=ehr_import_task_for_internship_offer&event=imported)
+// 搭配使用: [更新 e-HR 导入任务结果](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/ehr_import_task/patch)更新本次导入事件的结果
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/ehr_import_task_for_internship_offer/events/imported
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/onboard/events/imported

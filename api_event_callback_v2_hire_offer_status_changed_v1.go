@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2HireOfferStatusChangedV1 当 Offer 状态发生变更时将触发该事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=hire&version=v1&resource=offer&event=status_changed)
+// EventV2HireOfferStatusChangedV1 当 Offer 状态发生变更时将触发该事件。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer/events/status_changed
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/offer/events/status_changed

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2CalendarCalendarEventChangedV4 当用户订阅日程变更事件后, 被订阅的日历下有日程发生变更时, 将会触发该事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=calendar&version=v4&resource=calendar.event&event=changed)
+// EventV2CalendarCalendarEventChangedV4 当用户订阅日程变更事件后, 被订阅的日历下有日程发生变更时, 将会触发该事件。
 //
 // - 先调用[订阅日程变更事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/subscription)接口订阅事件, 再前往应用中配置事件订阅, 这样才可以在事件触发时接收到事件数据。了解事件订阅参见[事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
 // - 该事件主要包含发生日程变动的用户信息以及日历 ID, 不包含日程信息。因此当你接收到事件请求后, 还需要提取 user_id_list 字段中的用户信息, 然后用这些用户身份（user_access_token）调用[获取日程列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/list)接口, 通过日历 ID 获取日历中的日程信息。

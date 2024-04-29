@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2ContactEmployeeTypeEnumUpdatedV3 修改人员类型名称会发出对应事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=contact&version=v3&resource=employee_type_enum&event=updated)
+// EventV2ContactEmployeeTypeEnumUpdatedV3 修改人员类型名称会发出对应事件。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/events/updated
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/employee_type_enum/events/updated

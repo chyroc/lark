@@ -69,8 +69,8 @@ type SearchCoreHROffboardingReq struct {
 	OffboardingDateStart         *string  `json:"offboarding_date_start,omitempty"`          // 离职日期 - 搜索范围开始, 需要与搜索范围结束一同使用, 示例值: "2022-01-01"
 	OffboardingDateEnd           *string  `json:"offboarding_date_end,omitempty"`            // 离职日期 - 搜索范围结束, 示例值: "2022-01-01"
 	Statuses                     []string `json:"statuses,omitempty"`                        // 离职状态, 多个状态之间为「或」的关系, 示例值: ["Approving"], 可选值有: Approving: Approving  审批中, Approved: Approved  审批通过, Offboarded: Offboarded  已离职, Rejected: Rejected  已拒绝, Withdrawn: Withdrawn  已撤销, NoNeedApproval: NoNeedApproval  无需审批, 最大长度: `10`
-	Reasons                      []string `json:"reasons,omitempty"`                         // 离职原因列表, 可以通过【查询员工离职原因列表】接口获取, 查询时不返回下级原因相关的离职信息, <b>字段权限要求: </b>, 按照离职原因搜索(corehr:employment.offboarding_reason.search:read), 示例值: ["voluntary"]
-	EmployeeReasons              []string `json:"employee_reasons,omitempty"`                // 离职原因（员工）列表, 可以通过【查询员工离职原因列表】接口获取, 查询时不返回下级原因相关的离职信息, <b>字段权限要求: </b>, 按照离职原因搜索(corehr:employment.offboarding_reason.search:read), 示例值: ["voluntary"]
+	Reasons                      []string `json:"reasons,omitempty"`                         // 离职原因列表, 可以通过[查询员工离职原因列表]接口获取, 查询时不返回下级原因相关的离职信息, <b>字段权限要求: </b>, 按照离职原因搜索(corehr:employment.offboarding_reason.search:read), 示例值: ["voluntary"]
+	EmployeeReasons              []string `json:"employee_reasons,omitempty"`                // 离职原因（员工）列表, 可以通过[查询员工离职原因列表]接口获取, 查询时不返回下级原因相关的离职信息, <b>字段权限要求: </b>, 按照离职原因搜索(corehr:employment.offboarding_reason.search:read), 示例值: ["voluntary"]
 }
 
 // SearchCoreHROffboardingResp ...

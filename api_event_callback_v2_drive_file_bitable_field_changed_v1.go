@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2DriveFileBitableFieldChangedV1 多维表格字段变更{使用示例}(url=/api/tools/api_explore/api_explore_config?project=drive&version=v1&resource=file&event=bitable_field_changed)
+// EventV2DriveFileBitableFieldChangedV1 多维表格字段变更
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/events/bitable_field_changed
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/event/list/bitable_field_changed

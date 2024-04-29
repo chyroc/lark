@@ -74,7 +74,7 @@ type GetCoreHRCurrencyListResp struct {
 // GetCoreHRCurrencyListRespItem ...
 type GetCoreHRCurrencyListRespItem struct {
 	ID                 string                                       `json:"id,omitempty"`                    // 货币id
-	CountryRegionID    string                                       `json:"country_region_id,omitempty"`     // 货币所属国家/地区id, 详细信息可通过【查询国家/地区信息】接口查询获得
+	CountryRegionID    string                                       `json:"country_region_id,omitempty"`     // 货币所属国家/地区id, 详细信息可通过[查询国家/地区信息]接口查询获得
 	CurrencyName       []*GetCoreHRCurrencyListRespItemCurrencyName `json:"currency_name,omitempty"`         // 货币名称
 	NumericCode        int64                                        `json:"numeric_code,omitempty"`          // 数字代码
 	CurrencyAlpha3Code string                                       `json:"currency_alpha_3_code,omitempty"` // 三位字母代码

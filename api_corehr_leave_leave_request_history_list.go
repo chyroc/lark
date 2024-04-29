@@ -65,7 +65,7 @@ type GetCoreHRLeaveRequestHistoryListReq struct {
 	EmploymentIDList   []string `query:"employment_id_list" json:"-"`    // 员工 ID 列表, 最大 100 个（不传则默认查询全部员工）, 示例值: 6919733291281024522
 	InitiatorIDList    []string `query:"initiator_id_list" json:"-"`     // 休假发起人 ID 列表, 最大 100 个, 示例值: 6919733291281024523
 	LeaveRequestStatus []string `query:"leave_request_status" json:"-"`  // 请假记录的状态, 可选值有: 1: 已通过, 2: 审批中, 3: 审批中（更正）, 4: 审批中（取消休假）, 5: 审批中（返岗）, 6: 已返岗, 7: 已拒绝, 8: 已取消, 9: 已撤回, 示例值: 1
-	LeaveTypeIDList    []string `query:"leave_type_id_list" json:"-"`    // 假期类型 ID 列表, 枚举值可通过【获取假期类型列表】接口获取, 示例值: 4718803945687580501
+	LeaveTypeIDList    []string `query:"leave_type_id_list" json:"-"`    // 假期类型 ID 列表, 枚举值可通过[获取假期类型列表]接口获取, 示例值: 4718803945687580501
 	LeaveStartDateMin  *string  `query:"leave_start_date_min" json:"-"`  // 休假开始时间晚于等于的日期, 示例值: 2022-07-20
 	LeaveStartDateMax  *string  `query:"leave_start_date_max" json:"-"`  // 休假开始时间早于等于的日期, 示例值: 2022-07-20
 	LeaveEndDateMin    *string  `query:"leave_end_date_min" json:"-"`    // 休假结束时间晚于等于的日期, 示例值: 2022-07-20

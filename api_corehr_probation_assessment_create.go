@@ -68,7 +68,7 @@ type CreateCoreHRProbationAssessmentReqAssessment struct {
 	AssessmentStatus   string   `json:"assessment_status,omitempty"`    // 考核状态, 示例值: "completed", 可选值有: not_started: 未开始, in_process: 进行中, completed: 已完成, no_need: 无需考核
 	AssessmentResult   *string  `json:"assessment_result,omitempty"`    // 试用期考核结果, 示例值: "approved", 可选值有: approved: 通过, rejected: 不通过
 	AssessmentScore    *float64 `json:"assessment_score,omitempty"`     // 考核得分, 示例值: 99.9
-	AssessmentGrade    *string  `json:"assessment_grade,omitempty"`     // 试用期考核等级, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "probation_management", custom_api_name = "final_assessment_grade", 示例值: "grade_a"
+	AssessmentGrade    *string  `json:"assessment_grade,omitempty"`     // 试用期考核等级, 枚举值 api_name 可通过[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "probation_management", custom_api_name = "final_assessment_grade", 示例值: "grade_a"
 	AssessmentComment  *string  `json:"assessment_comment,omitempty"`   // 考核评语, 示例值: "超出预期"
 	AssessmentDetail   *string  `json:"assessment_detail,omitempty"`    // 考核结果页面超链接, 示例值: "暂无示例"
 	IsFinalAsssessment bool     `json:"is_final_asssessment,omitempty"` // 是否为最终考核结果, 示例值: false

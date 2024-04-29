@@ -23,19 +23,19 @@ import (
 
 // EventV1ApprovalTask 审批人同意/拒绝/转交/退回 审批任务后, 会向开发者推送审批任务状态消息。
 //
-// 1. 用户创建审批后, 推送第一个审批节点的审批任务【PENDING】状态
-// 2. 如果当前节点是会签(AND)节点
-// - 	任一审批任务被同意, 推送该任务的【APPROVED】状态
-// - 	任一审批任务被拒绝, 推送该任务的【REJECTED】状态, 当前节点其他剩余任务的【DONE】状态
-// 3. 如果当前节点是或签(OR)节点
-// - 任一审批任务被同意, 推送该任务的【APPROVED】状态, 当前节点其他剩余任务的【DONE】状态, 下一个节点所有任务的【PENDING】状态
-// - 任一审批任务被拒绝, 推送该任务的【REJECTED】状态, 当前节点其他所有任务的【DONE】状态
-// 4. 如果用户对审批任务进行转交, 推送该任务的【TRANSFERRED】状态, 和被转交人任务的【PENDING】状态
-// 5. 发起人撤回审批后, 推送剩余所有任务的【DONE】状态
-// 6. 审批定义被管理员删除后, 推送剩余所有任务的【DONE】状态
-// 7. 如果用户对审批任务进行退回, 推送该任务的【ROLLBACK】状态, 和被退回人任务的【PENDING】状态
-// 8. 如果进行中的审批任务超时未处理被关闭, 推送该任务的【OVERTIME_CLOSE】状态
-// 9. 如果超时已关闭的审批任务被手动恢复, 推送该任务的【OVERTIME_RECOVER】状态
+// - 用户创建审批后, 推送第一个审批节点的审批任务[PENDING]状态
+// - 如果当前节点是会签(AND)节点
+// - 	任一审批任务被同意, 推送该任务的[APPROVED]状态
+// - 	任一审批任务被拒绝, 推送该任务的[REJECTED]状态, 当前节点其他剩余任务的[DONE]状态
+// - 如果当前节点是或签(OR)节点
+// - 任一审批任务被同意, 推送该任务的[APPROVED]状态, 当前节点其他剩余任务的[DONE]状态, 下一个节点所有任务的[PENDING]状态
+// - 任一审批任务被拒绝, 推送该任务的[REJECTED]状态, 当前节点其他所有任务的[DONE]状态
+// - 如果用户对审批任务进行转交, 推送该任务的[TRANSFERRED]状态, 和被转交人任务的[PENDING]状态
+// - 发起人撤回审批后, 推送剩余所有任务的[DONE]状态
+// - 审批定义被管理员删除后, 推送剩余所有任务的[DONE]状态
+// - 如果用户对审批任务进行退回, 推送该任务的[ROLLBACK]状态, 和被退回人任务的[PENDING]状态
+// - 如果进行中的审批任务超时未处理被关闭, 推送该任务的[OVERTIME_CLOSE]状态
+// - 如果超时已关闭的审批任务被手动恢复, 推送该任务的[OVERTIME_RECOVER]状态
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/common-event/approval-task-event
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/event/common-event/approval-task-event

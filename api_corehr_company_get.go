@@ -70,13 +70,13 @@ type GetCoreHRCompanyResp struct {
 type GetCoreHRCompanyRespCompany struct {
 	ID                      string                                               `json:"id,omitempty"`                        // 公司 ID
 	HiberarchyCommon        *GetCoreHRCompanyRespCompanyHiberarchyCommon         `json:"hiberarchy_common,omitempty"`         // 层级关系, 内层字段见实体
-	Type                    *GetCoreHRCompanyRespCompanyType                     `json:"type,omitempty"`                      // 性质, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)公司类型（company_type）枚举定义部分获得
-	IndustryList            []*GetCoreHRCompanyRespCompanyIndustry               `json:"industry_list,omitempty"`             // 行业, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)行业（industry）枚举定义部分获得
+	Type                    *GetCoreHRCompanyRespCompanyType                     `json:"type,omitempty"`                      // 性质, 枚举值可通过文档[飞书人事枚举常量](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)公司类型（company_type）枚举定义部分获得
+	IndustryList            []*GetCoreHRCompanyRespCompanyIndustry               `json:"industry_list,omitempty"`             // 行业, 枚举值可通过文档[飞书人事枚举常量](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)行业（industry）枚举定义部分获得
 	LegalRepresentative     []*GetCoreHRCompanyRespCompanyLegalRepresentative    `json:"legal_representative,omitempty"`      // 法定代表人
 	PostCode                string                                               `json:"post_code,omitempty"`                 // 邮编
 	TaxPayerID              string                                               `json:"tax_payer_id,omitempty"`              // 纳税人识别号
 	Confidential            bool                                                 `json:"confidential,omitempty"`              // 是否保密
-	SubTypeList             []*GetCoreHRCompanyRespCompanySubType                `json:"sub_type_list,omitempty"`             // 主体类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)主体类型（company_sub_type）枚举定义部分获得
+	SubTypeList             []*GetCoreHRCompanyRespCompanySubType                `json:"sub_type_list,omitempty"`             // 主体类型, 枚举值可通过文档[飞书人事枚举常量](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)主体类型（company_sub_type）枚举定义部分获得
 	BranchCompany           bool                                                 `json:"branch_company,omitempty"`            // 是否为分公司
 	PrimaryManager          []*GetCoreHRCompanyRespCompanyPrimaryManager         `json:"primary_manager,omitempty"`           // 主要负责人
 	CustomFields            []*GetCoreHRCompanyRespCompanyCustomField            `json:"custom_fields,omitempty"`             // 自定义字段
@@ -90,7 +90,7 @@ type GetCoreHRCompanyRespCompany struct {
 // GetCoreHRCompanyRespCompanyCurrency ...
 type GetCoreHRCompanyRespCompanyCurrency struct {
 	ID                 string                                             `json:"id,omitempty"`                    // 货币id
-	CountryRegionID    string                                             `json:"country_region_id,omitempty"`     // 货币所属国家/地区id, 详细信息可通过[【查询国家/地区信息】](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/location_data/list)接口查询获得
+	CountryRegionID    string                                             `json:"country_region_id,omitempty"`     // 货币所属国家/地区id, 详细信息可通过[查询国家/地区信息](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/location_data/list)接口查询获得
 	CurrencyName       []*GetCoreHRCompanyRespCompanyCurrencyCurrencyName `json:"currency_name,omitempty"`         // 货币名称
 	NumericCode        int64                                              `json:"numeric_code,omitempty"`          // 数字代码
 	CurrencyAlpha3Code string                                             `json:"currency_alpha_3_code,omitempty"` // 三位字母代码
@@ -130,7 +130,7 @@ type GetCoreHRCompanyRespCompanyFaxAreaCodeDisplay struct {
 type GetCoreHRCompanyRespCompanyHiberarchyCommon struct {
 	ParentID       string                                                    `json:"parent_id,omitempty"`       // 上级
 	Name           []*GetCoreHRCompanyRespCompanyHiberarchyCommonName        `json:"name,omitempty"`            // 名称
-	Type           *GetCoreHRCompanyRespCompanyHiberarchyCommonType          `json:"type,omitempty"`            // 组织类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)组织类型（organization_type）枚举定义部分获得
+	Type           *GetCoreHRCompanyRespCompanyHiberarchyCommonType          `json:"type,omitempty"`            // 组织类型, 枚举值可通过文档[飞书人事枚举常量](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)组织类型（organization_type）枚举定义部分获得
 	Active         bool                                                      `json:"active,omitempty"`          // 是否启用
 	EffectiveTime  string                                                    `json:"effective_time,omitempty"`  // 生效时间
 	ExpirationTime string                                                    `json:"expiration_time,omitempty"` // 失效时间

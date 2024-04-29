@@ -24,8 +24,8 @@ import (
 // DeleteDriveFile 删除用户在云空间内的文件或者文件夹。文件或者文件夹被删除后, 会进入用户回收站里。
 //
 // 要删除文件需要确保应用具有下述两种权限之一:
-// 1. 该应用是文件所有者并且具有该文件所在父文件夹的编辑权限。
-// 2. 该应用并非文件所有者, 但是是该文件所在父文件夹的所有者或者拥有该父文件夹的所有权限（full access）。
+// - 该应用是文件所有者并且具有该文件所在父文件夹的编辑权限。
+// - 该应用并非文件所有者, 但是是该文件所在父文件夹的所有者或者拥有该父文件夹的所有权限（full access）。
 // 该接口不支持并发调用, 且调用频率上限为5QPS。删除文件夹会异步执行并返回一个task_id, 可以使用[task_check](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/task_check)接口查询任务执行状态。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/delete

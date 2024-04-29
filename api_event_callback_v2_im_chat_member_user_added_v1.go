@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2IMChatMemberUserAddedV1 新用户进群（包含话题群）触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=im&version=v1&resource=chat.member.user&event=added)
+// EventV2IMChatMemberUserAddedV1 新用户进群（包含话题群）触发此事件。
 //
 // 注意事项:
 // - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)

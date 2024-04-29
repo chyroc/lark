@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2ElearningCourseRegistrationDeletedV2 课程学习进度删除时触发{使用示例}(url=/api/tools/api_explore/api_explore_config?project=elearning&version=v2&resource=course_registration&event=deleted)
+// EventV2ElearningCourseRegistrationDeletedV2 课程学习进度删除时触发
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/elearning-v2/course_registration/events/deleted
 func (r *EventCallbackService) HandlerEventV2ElearningCourseRegistrationDeletedV2(f EventV2ElearningCourseRegistrationDeletedV2Handler) {

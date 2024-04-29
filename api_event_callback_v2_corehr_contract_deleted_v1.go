@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2CorehrContractDeletedV1 合同删除{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=contract&event=deleted)
+// EventV2CorehrContractDeletedV1 合同删除
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/events/deleted
 func (r *EventCallbackService) HandlerEventV2CorehrContractDeletedV1(f EventV2CorehrContractDeletedV1Handler) {

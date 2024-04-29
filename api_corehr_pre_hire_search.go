@@ -109,7 +109,7 @@ type SearchCoreHRPreHireRespItemEmploymentInfo struct {
 	DepartmentID         string                                                     `json:"department_id,omitempty"`           // 部门 ID, 可以通过[搜索部门信息](https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/department/search)接口获取
 	CostCenterRates      []*SearchCoreHRPreHireRespItemEmploymentInfoCostCenterRate `json:"cost_center_rates,omitempty"`       // 成本中心分摊信息
 	OfficeLocationID     string                                                     `json:"office_location_id,omitempty"`      // 办公地点 ID, 详细信息可通过[查询地点](https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/location/get)接口获得
-	WorkLocationID       string                                                     `json:"work_location_id,omitempty"`        // 工作地点id, 详细信息可通过【批量查询地点】接口获得
+	WorkLocationID       string                                                     `json:"work_location_id,omitempty"`        // 工作地点id, 详细信息可通过[批量查询地点]接口获得
 	WorkStation          string                                                     `json:"work_station,omitempty"`            // 工位
 	WorkerID             string                                                     `json:"worker_id,omitempty"`               // 工号
 	CompensationType     *SearchCoreHRPreHireRespItemEmploymentInfoCompensationType `json:"compensation_type,omitempty"`       // 薪资类型, 枚举值可查询[获取字段详情](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)接口获取, 按如下参数查询即可: custom_api_name: compensation_type, object_api_name: pre_hire, 字段权限要求（满足任一）: 查看员工的薪资类型信息, 读写员工的薪资类型信息

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2ContactCustomAttrEventUpdatedV3 通过该事件订阅成员字段变更。old_object 展示更新字段的原始值。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=contact&version=v3&resource=custom_attr_event&event=updated)
+// EventV2ContactCustomAttrEventUpdatedV3 通过该事件订阅成员字段变更。old_object 展示更新字段的原始值。
 //
 // 触发事件的动作有「打开/关闭」开关、「增加/删除」成员字段。
 //

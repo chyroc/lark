@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2CorehrProcessNodeUpdatedV2 配置的节点为节点定义（node_definition_id 是唯一标识）。在流程实例中, 每个流程实例生成的节点实例会不同。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v2&resource=process.node&event=updated)
+// EventV2CorehrProcessNodeUpdatedV2 配置的节点为节点定义（node_definition_id 是唯一标识）。在流程实例中, 每个流程实例生成的节点实例会不同。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process-node/events/updated
 func (r *EventCallbackService) HandlerEventV2CorehrProcessNodeUpdatedV2(f EventV2CorehrProcessNodeUpdatedV2Handler) {

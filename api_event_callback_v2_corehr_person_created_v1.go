@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2CorehrPersonCreatedV1 个人信息创建{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=person&event=created)
+// EventV2CorehrPersonCreatedV1 个人信息创建
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/person/events/created
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/person/created

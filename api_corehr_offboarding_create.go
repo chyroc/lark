@@ -62,7 +62,7 @@ type CreateCoreHROffboardingReq struct {
 	OffboardingMode                   int64                                    `json:"offboarding_mode,omitempty"`                     // 离职方式, 示例值: 1, 可选值有: 1: 直接离职
 	EmploymentID                      string                                   `json:"employment_id,omitempty"`                        // 雇员 id, 示例值: "6982509313466189342"
 	OffboardingDate                   string                                   `json:"offboarding_date,omitempty"`                     // 离职日期, 示例值: "2022-05-18"
-	OffboardingReasonUniqueIdentifier string                                   `json:"offboarding_reason_unique_identifier,omitempty"` // 离职原因, 可通过接口, [【查询员工离职原因列表】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/query)获取, 示例值: "reason_for_offboarding_option8"
+	OffboardingReasonUniqueIdentifier string                                   `json:"offboarding_reason_unique_identifier,omitempty"` // 离职原因, 可通过接口, [查询员工离职原因列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/query)获取, 示例值: "reason_for_offboarding_option8"
 	OffboardingReasonExplanation      *string                                  `json:"offboarding_reason_explanation,omitempty"`       // 离职原因说明, 长度限制6000, 示例值: "离职原因说明"
 	InitiatorID                       *string                                  `json:"initiator_id,omitempty"`                         // 操作发起人 ID（employment_id）, 为空默认为系统发起。注意: 只有操作发起人可以撤销流程, 示例值: "6982509313466189341"
 	AddBlockList                      *bool                                    `json:"add_block_list,omitempty"`                       // 是否加入离职屏蔽名单, 示例值: false
@@ -74,7 +74,7 @@ type CreateCoreHROffboardingReq struct {
 // CreateCoreHROffboardingReqCustomField ...
 type CreateCoreHROffboardingReqCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名, 示例值: "name"
-	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05"), 示例值: "\"Sandy\""
+	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05"), 示例值: "Sandy"
 }
 
 // CreateCoreHROffboardingResp ...

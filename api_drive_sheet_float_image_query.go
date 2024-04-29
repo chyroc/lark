@@ -73,7 +73,7 @@ type QuerySheetFloatImageResp struct {
 // QuerySheetFloatImageRespItem ...
 type QuerySheetFloatImageRespItem struct {
 	FloatImageID    string  `json:"float_image_id,omitempty"`    // 浮动图片 id
-	FloatImageToken string  `json:"float_image_token,omitempty"` // 【更新时不用传, 创建需要】浮动图片 token, 需要先上传图片到表格获得此 token 之后再进行浮动图片的相关操作
+	FloatImageToken string  `json:"float_image_token,omitempty"` // [更新时不用传, 创建需要]浮动图片 token, 需要先上传图片到表格获得此 token 之后再进行浮动图片的相关操作
 	Range           string  `json:"range,omitempty"`             // 浮动图片的左上角单元格定位, 只支持一个单元格
 	Width           float64 `json:"width,omitempty"`             // 浮动图片的宽度, 大于等于 20px
 	Height          float64 `json:"height,omitempty"`            // 浮动图片的高度, 大于等于 20px

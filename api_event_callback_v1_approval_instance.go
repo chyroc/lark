@@ -23,14 +23,14 @@ import (
 
 // EventV1ApprovalInstance 审批实例状态变更事件, 会在实例状态变更后, 向开发者推送审批实例状态消息。
 //
-// 1. 用户创建审批后, 推送【PENDING】状态
-// 2. 任一审批人拒绝后, 推送【REJECTED】状态
-// 3. 流程中所有人同意后, 推送【APPROVED】状态
-// 4. 发起人撤回审批后, 推送【CANCELED】状态
-// 5. 审批定义被管理员删除后, 推送【DELETED】状态
-// 6. 发起人撤销已通过的审批, 推送【REVERTED】状态
-// 7. 审批实例超时未处理被关闭, 推送【OVERTIME_CLOSE】状态
-// 8. 已超时的审批实例手动恢复, 推送【OVERTIME_RECOVER】状态
+// - 用户创建审批后, 推送[PENDING]状态
+// - 任一审批人拒绝后, 推送[REJECTED]状态
+// - 流程中所有人同意后, 推送[APPROVED]状态
+// - 发起人撤回审批后, 推送[CANCELED]状态
+// - 审批定义被管理员删除后, 推送[DELETED]状态
+// - 发起人撤销已通过的审批, 推送[REVERTED]状态
+// - 审批实例超时未处理被关闭, 推送[OVERTIME_CLOSE]状态
+// - 已超时的审批实例手动恢复, 推送[OVERTIME_RECOVER]状态
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/common-event/approval-instance-event
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/event/common-event/approval-instance-event

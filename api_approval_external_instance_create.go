@@ -23,7 +23,7 @@ import (
 
 // CreateApprovalExternalInstance 审批中心不负责审批的流转, 审批的流转在三方系统, 三方系统在审批流转后生成的审批实例、审批任务、审批抄送数据同步到审批中心。
 //
-// 用户可以在审批中心中浏览三方系统同步过来的实例、任务、抄送信息, 并且可以跳转回三方系统进行更详细的查看和操作, 其中实例信息在【已发起】列表, 任务信息在【待审批】和【已审批】列表, 抄送信息在【抄送我】列表。
+// 用户可以在审批中心中浏览三方系统同步过来的实例、任务、抄送信息, 并且可以跳转回三方系统进行更详细的查看和操作, 其中实例信息在[已发起]列表, 任务信息在[待审批]和[已审批]列表, 抄送信息在[抄送我]列表。
 // :::html
 // <img src="//sf3-cn.feishucdn.com/obj/open-platform-opendoc/9dff4434afbeb0ef69de7f36b9a6e995_z5iwmTzEgg.png" alt="" style="zoom:17%;" />
 // <img src="//sf3-cn.feishucdn.com/obj/open-platform-opendoc/ca6e0e984a7a6d64e1b16a0bac4bf868_tfqjCiaJQM.png" alt="" style="zoom:17%;" />
@@ -71,10 +71,10 @@ type CreateApprovalExternalInstanceReq struct {
 	Status                 string                                                   `json:"status,omitempty"`                   // 审批实例状态, 示例值: "PENDING", 可选值有: PENDING: 审批中, APPROVED: 审批流程结束, 结果为同意, REJECTED: 审批流程结束, 结果为拒绝, CANCELED: 审批发起人撤回, DELETED: 审批被删除, HIDDEN: 状态隐藏(不显示状态), TERMINATED: 审批终止
 	Extra                  *string                                                  `json:"extra,omitempty"`                    // 审批实例扩展 JSON。单据编号通过传business_key字段来实现, 示例值: "{\"xxx\":\"xxx\", \"business_key\":\"xxx\"}"
 	InstanceID             string                                                   `json:"instance_id,omitempty"`              // 审批实例唯一标识, 用户自定义, 需确保证租户和应用下都唯一, 示例值: "24492654"
-	Links                  *CreateApprovalExternalInstanceReqLink                   `json:"links,omitempty"`                    // 审批实例链接集合, 用于【已发起】列表的跳转, 跳转回三方系统； pc_link 和 mobile_link 必须填一个, 填写的是哪一端的链接, 即会跳转到该链接, 不受平台影响
+	Links                  *CreateApprovalExternalInstanceReqLink                   `json:"links,omitempty"`                    // 审批实例链接集合, 用于[已发起]列表的跳转, 跳转回三方系统； pc_link 和 mobile_link 必须填一个, 填写的是哪一端的链接, 即会跳转到该链接, 不受平台影响
 	Title                  *string                                                  `json:"title,omitempty"`                    // 审批展示名称, 如果填写了该字段, 则审批列表中的审批名称使用该字段, 如果不填该字段, 则审批名称使用审批定义的名称, 示例值: "@i18n@1"
 	Form                   []*CreateApprovalExternalInstanceReqForm                 `json:"form,omitempty"`                     // 用户提交审批时填写的表单数据, 用于所有审批列表中展示。可传多个值, 但审批中心pc展示前2个, 移动端展示前3个, 长度不超过2048字符, 示例值: [{ "name": "@i18n@2", "value": "@i18n@3" }]
-	UserID                 *string                                                  `json:"user_id,omitempty"`                  // 审批发起人 user_id, 发起人可在【已发起】列表中看到所有已发起的审批; 在【待审批】, 【已审批】【抄送我】列表中, 该字段展示审批是谁发起的, 示例值: "a987sf9s"
+	UserID                 *string                                                  `json:"user_id,omitempty"`                  // 审批发起人 user_id, 发起人可在[已发起]列表中看到所有已发起的审批; 在[待审批], [已审批][抄送我]列表中, 该字段展示审批是谁发起的, 示例值: "a987sf9s"
 	UserName               *string                                                  `json:"user_name,omitempty"`                // 审批发起人 用户名, 如果发起人不是真实的用户（例如是某个部门）, 没有 user_id, 则可以使用该字段传名称, 示例值: "@i18n@9"
 	OpenID                 *string                                                  `json:"open_id,omitempty"`                  // 审批发起人 open id, 示例值: "ou_be73cbc0ee35eb6ca54e9e7cc14998c1"
 	DepartmentID           *string                                                  `json:"department_id,omitempty"`            // 发起人部门, 用于列表中展示发起人所属部门。不传则不展示。如果用户没加入任何部门, 传 "", 将展示租户名称传 department_name 展示部门名称, 示例值: "od-8ec33278bc2"
@@ -98,7 +98,7 @@ type CreateApprovalExternalInstanceReqCc struct {
 	CcID          string                                   `json:"cc_id,omitempty"`          // 审批实例内唯一标识, 示例值: "123456"
 	UserID        *string                                  `json:"user_id,omitempty"`        // 抄送人 employee id, 示例值: "12345"
 	OpenID        *string                                  `json:"open_id,omitempty"`        // 抄送人 open id, 和user id 二者至少填一个, 示例值: "ou_be73cbc0ee35eb6ca54e9e7cc14998c1"
-	Links         *CreateApprovalExternalInstanceReqCcLink `json:"links,omitempty"`          // 跳转链接, 用于【抄送我的】列表中的跳转pc_link 和 mobile_link 必须填一个, 填写的是哪一端的链接, 即会跳转到该链接, 不受平台影响
+	Links         *CreateApprovalExternalInstanceReqCcLink `json:"links,omitempty"`          // 跳转链接, 用于[抄送我的]列表中的跳转pc_link 和 mobile_link 必须填一个, 填写的是哪一端的链接, 即会跳转到该链接, 不受平台影响
 	ReadStatus    string                                   `json:"read_status,omitempty"`    // 阅读状态, 空值表示不支持已读未读: 示例值: "READ", 可选值有: READ: 已读, UNREAD: 未读
 	Extra         *string                                  `json:"extra,omitempty"`          // 扩展 json, 示例值: "{\"xxx\":\"xxx\"}"
 	Title         *string                                  `json:"title,omitempty"`          // 抄送任务名称, 示例值: "xxx"
@@ -141,10 +141,10 @@ type CreateApprovalExternalInstanceReqLink struct {
 // CreateApprovalExternalInstanceReqTask ...
 type CreateApprovalExternalInstanceReqTask struct {
 	TaskID            string                                               `json:"task_id,omitempty"`            // 审批实例内的唯一标识, 用于更新审批任务时定位数据, 示例值: "112534"
-	UserID            *string                                              `json:"user_id,omitempty"`            // 审批人 user_id, 和 open_id 二者至少填一个。该任务会出现在审批人的【待审批】或【已审批】列表中, 示例值: "a987sf9s"
+	UserID            *string                                              `json:"user_id,omitempty"`            // 审批人 user_id, 和 open_id 二者至少填一个。该任务会出现在审批人的[待审批]或[已审批]列表中, 示例值: "a987sf9s"
 	OpenID            *string                                              `json:"open_id,omitempty"`            // 审批人 open_id, 和 user_id 二者至少填一个, 示例值: "ou_be73cbc0ee35eb6ca54e9e7cc14998c1"
 	Title             *string                                              `json:"title,omitempty"`              // 审批任务名称, 示例值: "i18n1"
-	Links             *CreateApprovalExternalInstanceReqTaskLinks          `json:"links,omitempty"`              // 【待审批】或【已审批】中使用的跳转链接, 用于跳转回三方系统pc_link 和 mobile_link 必须填一个, 填写的是哪一端的链接, 即会跳转到该链接, 不受平台影响
+	Links             *CreateApprovalExternalInstanceReqTaskLinks          `json:"links,omitempty"`              // [待审批]或[已审批]中使用的跳转链接, 用于跳转回三方系统pc_link 和 mobile_link 必须填一个, 填写的是哪一端的链接, 即会跳转到该链接, 不受平台影响
 	Status            string                                               `json:"status,omitempty"`             // 任务状态, 示例值: "PENDING", 可选值有: PENDING: 待审批, APPROVED: 任务同意, REJECTED: 任务拒绝, TRANSFERRED: 任务转交, DONE: 任务通过但审批人未操作；审批人看不到这个任务, 若想要看到, 可以通过抄送该人.
 	Extra             *string                                              `json:"extra,omitempty"`              // 扩展 json, 任务结束原因需传complete_reason字段。枚举值与对应说明: approved: 同意, rejected: 拒绝, node_auto_reject: （因逻辑判断产生的）自动拒绝, specific_rollback: 退回（包括退回到发起人、退回到中间任一审批人）, add: 并加签（添加新审批人, 和我一起审批）, add_pre: 前加签（添加新审批人, 在我之前审批）, add_post: 后加签（添加新审批人, 在我之后审批）, delete_assignee: 减签, forward_resign: 转交（转给其他人审批）, recall: 撤销（撤回单据, 单据失效）, delete : 删除审批单, admin_forward: 管理员在后台操作转交, system_forward: 系统自动转交, auto_skip: 自动通过, manual_skip: 手动跳过, submit_again: 重新提交任务, restart: 重新启动流程, others: 其他（作为兜底）, 示例值: "{\"xxx\":\"xxx\", \"complete_reason\":\"approved\"}"
 	CreateTime        string                                               `json:"create_time,omitempty"`        // 任务创建时间, Unix 毫秒时间戳, 示例值: "1556468012678"
@@ -200,10 +200,10 @@ type CreateApprovalExternalInstanceRespData struct {
 	Status                 string                                                        `json:"status,omitempty"`                   // 审批实例状态, 可选值有: PENDING: 审批中, APPROVED: 审批流程结束, 结果为同意, REJECTED: 审批流程结束, 结果为拒绝, CANCELED: 审批发起人撤回, DELETED: 审批被删除, HIDDEN: 状态隐藏(不显示状态), TERMINATED: 审批终止
 	Extra                  string                                                        `json:"extra,omitempty"`                    // 审批实例扩展 JSON。单据编号通过传business_key字段来实现
 	InstanceID             string                                                        `json:"instance_id,omitempty"`              // 审批实例唯一标识, 用户自定义, 需确保证租户下唯一
-	Links                  *CreateApprovalExternalInstanceRespDataLink                   `json:"links,omitempty"`                    // 审批实例链接集合, 用于【已发起】列表的跳转, 跳转回三方系统； pc_link 和 mobile_link 必须填一个, 填写的是哪一端的链接, 即会跳转到该链接, 不受平台影响
+	Links                  *CreateApprovalExternalInstanceRespDataLink                   `json:"links,omitempty"`                    // 审批实例链接集合, 用于[已发起]列表的跳转, 跳转回三方系统； pc_link 和 mobile_link 必须填一个, 填写的是哪一端的链接, 即会跳转到该链接, 不受平台影响
 	Title                  string                                                        `json:"title,omitempty"`                    // 审批展示名称, 如果填写了该字段, 则审批列表中的审批名称使用该字段, 如果不填该字段, 则审批名称使用审批定义的名称
 	Form                   []*CreateApprovalExternalInstanceRespDataForm                 `json:"form,omitempty"`                     // 用户提交审批时填写的表单数据, 用于所有审批列表中展示。可传多个值, 但审批中心pc展示前2个, 移动端展示前3个, 长度不超过2048字符
-	UserID                 string                                                        `json:"user_id,omitempty"`                  // 审批发起人 user_id, 发起人可在【已发起】列表中看到所有已发起的审批; 在【待审批】, 【已审批】【抄送我】列表中, 该字段展示审批是谁发起的。审批发起人 open id。
+	UserID                 string                                                        `json:"user_id,omitempty"`                  // 审批发起人 user_id, 发起人可在[已发起]列表中看到所有已发起的审批; 在[待审批], [已审批][抄送我]列表中, 该字段展示审批是谁发起的。审批发起人 open id。
 	UserName               string                                                        `json:"user_name,omitempty"`                // 审批发起人 用户名, 如果发起人不是真实的用户（例如是某个部门）, 没有 user_id, 则可以使用该字段传名称
 	OpenID                 string                                                        `json:"open_id,omitempty"`                  // 审批发起人 open id。
 	DepartmentID           string                                                        `json:"department_id,omitempty"`            // 发起人部门, 用于列表中展示发起人所属部门。不传则不展示。如果用户没加入任何部门, 传 "", 将展示租户名称传 department_name 展示部门名称
@@ -227,7 +227,7 @@ type CreateApprovalExternalInstanceRespDataCc struct {
 	CcID          string                                        `json:"cc_id,omitempty"`          // 审批实例内唯一标识
 	UserID        string                                        `json:"user_id,omitempty"`        // 抄送人 employee id
 	OpenID        string                                        `json:"open_id,omitempty"`        // 抄送人 open id
-	Links         *CreateApprovalExternalInstanceRespDataCcLink `json:"links,omitempty"`          // 跳转链接, 用于【抄送我的】列表中的跳转pc_link 和 mobile_link 必须填一个, 填写的是哪一端的链接, 即会跳转到该链接, 不受平台影响
+	Links         *CreateApprovalExternalInstanceRespDataCcLink `json:"links,omitempty"`          // 跳转链接, 用于[抄送我的]列表中的跳转pc_link 和 mobile_link 必须填一个, 填写的是哪一端的链接, 即会跳转到该链接, 不受平台影响
 	ReadStatus    string                                        `json:"read_status,omitempty"`    // 阅读状态, 空值表示不支持已读未读: 可选值有: READ: 已读, UNREAD: 未读
 	Extra         string                                        `json:"extra,omitempty"`          // 扩展 json
 	Title         string                                        `json:"title,omitempty"`          // 抄送任务名称
@@ -270,10 +270,10 @@ type CreateApprovalExternalInstanceRespDataLink struct {
 // CreateApprovalExternalInstanceRespDataTask ...
 type CreateApprovalExternalInstanceRespDataTask struct {
 	TaskID            string                                                    `json:"task_id,omitempty"`            // 审批实例内的唯一标识, 用于更新审批任务时定位数据
-	UserID            string                                                    `json:"user_id,omitempty"`            // 审批人 user_id。该任务会出现在审批人的【待审批】或【已审批】列表中
+	UserID            string                                                    `json:"user_id,omitempty"`            // 审批人 user_id。该任务会出现在审批人的[待审批]或[已审批]列表中
 	OpenID            string                                                    `json:"open_id,omitempty"`            // 审批人 open_id
 	Title             string                                                    `json:"title,omitempty"`              // 审批任务名称
-	Links             *CreateApprovalExternalInstanceRespDataTaskLinks          `json:"links,omitempty"`              // 【待审批】或【已审批】中使用的跳转链接, 用于跳转回三方系统pc_link 和 mobile_link 必须填一个, 填写的是哪一端的链接, 即会跳转到该链接, 不受平台影响
+	Links             *CreateApprovalExternalInstanceRespDataTaskLinks          `json:"links,omitempty"`              // [待审批]或[已审批]中使用的跳转链接, 用于跳转回三方系统pc_link 和 mobile_link 必须填一个, 填写的是哪一端的链接, 即会跳转到该链接, 不受平台影响
 	Status            string                                                    `json:"status,omitempty"`             // 任务状态, 可选值有: PENDING: 待审批, APPROVED: 任务同意, REJECTED: 任务拒绝, TRANSFERRED: 任务转交, DONE: 任务通过但审批人未操作；审批人看不到这个任务, 若想要看到, 可以通过抄送该人.
 	Extra             string                                                    `json:"extra,omitempty"`              // 扩展 json, 任务结束原因需传complete_reason字段。枚举值与对应说明: approved: 同意, rejected: 拒绝, node_auto_reject: （因逻辑判断产生的）自动拒绝, specific_rollback: 退回（包括退回到发起人、退回到中间任一审批人）, add: 并加签（添加新审批人, 和我一起审批）, add_pre: 前加签（添加新审批人, 在我之前审批）, add_post: 后加签（添加新审批人, 在我之后审批）, delete_assignee: 减签, forward_resign: 转交（转给其他人审批）, recall: 撤销（撤回单据, 单据失效）, delete : 删除审批单, admin_forward: 管理员在后台操作转交, system_forward: 系统自动转交, auto_skip: 自动通过, manual_skip: 手动跳过, submit_again: 重新提交任务, restart: 重新启动流程, others: 其他（作为兜底）
 	CreateTime        string                                                    `json:"create_time,omitempty"`        // 任务创建时间, Unix 毫秒时间戳

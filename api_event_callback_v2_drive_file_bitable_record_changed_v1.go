@@ -24,7 +24,7 @@ import (
 // EventV2DriveFileBitableRecordChangedV1 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
 //
 // 被订阅的多维表格记录发生变更将会触发此事件, 公式字段的值变化不会触发事件。
-// ## 概述
+// 概述:
 // :::html
 // <md-table>
 // <md-thead>
@@ -52,14 +52,14 @@ import (
 // </md-tbody>
 // </md-table>
 // 如何订阅文档请点击查看 [订阅云文档事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/subscribe)。
-// ## 支持的记录变更类型
+// 支持的记录变更类型:
 // | 变更类型         | action           |
 // | --------- | --------------- |
 // |新增行记录 | `record_added` |
 // |删除行记录 | `record_deleted` |
 // |修改行记录 | `record_edited` |
 // 回调结构中的 `field_value` 字段为 JSON 序列化后的字符串, 序列化前的结构请查看 [数据结构](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/development-guide/bitable-structure)
-// ## 回调示例
+// 回调示例:
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/event/list/bitable-record-changed
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/event/list/bitable-record-changed

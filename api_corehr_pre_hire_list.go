@@ -72,7 +72,7 @@ type GetCoreHRPreHireListResp struct {
 
 // GetCoreHRPreHireListRespItem ...
 type GetCoreHRPreHireListRespItem struct {
-	AtsApplicationID string                                        `json:"ats_application_id,omitempty"` // 招聘投递 ID, 详细信息可以通过招聘的【获取投递信息】接口查询获得
+	AtsApplicationID string                                        `json:"ats_application_id,omitempty"` // 招聘投递 ID, 详细信息可以通过招聘的[获取投递信息]接口查询获得
 	ID               string                                        `json:"id,omitempty"`                 // 实体在CoreHR内部的唯一键
 	HireDate         string                                        `json:"hire_date,omitempty"`          // 入职日期
 	EmployeeType     *GetCoreHRPreHireListRespItemEmployeeType     `json:"employee_type,omitempty"`      // 雇佣类型
@@ -127,7 +127,7 @@ type GetCoreHRPreHireListRespItemWorkEmail struct {
 	Email        string                                              `json:"email,omitempty"`         // 邮箱号
 	IsPrimary    bool                                                `json:"is_primary,omitempty"`    // 是否为主要邮箱
 	IsPublic     bool                                                `json:"is_public,omitempty"`     // 是否为公开邮箱
-	EmailUsage   *GetCoreHRPreHireListRespItemWorkEmailEmailUsage    `json:"email_usage,omitempty"`   // 邮箱用途, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)邮箱用途（email_usage）枚举定义获得
+	EmailUsage   *GetCoreHRPreHireListRespItemWorkEmailEmailUsage    `json:"email_usage,omitempty"`   // 邮箱用途, 枚举值可通过文档[飞书人事枚举常量](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)邮箱用途（email_usage）枚举定义获得
 	CustomFields []*GetCoreHRPreHireListRespItemWorkEmailCustomField `json:"custom_fields,omitempty"` // 自定义字段
 }
 

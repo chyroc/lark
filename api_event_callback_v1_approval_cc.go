@@ -23,8 +23,8 @@ import (
 
 // EventV1ApprovalCc 创建抄送或者被抄送人已读抄送后, 会向开发者推送消息。
 //
-// 1. 创建抄送, 推送 "operate" 为 "CREATE" 的事件。
-// 1. 被抄送人已读抄送, 推送 "operate" 为 "READ" 的事件。
+// - 创建抄送, 推送 "operate" 为 "CREATE" 的事件。
+// - 被抄送人已读抄送, 推送 "operate" 为 "READ" 的事件。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/common-event/approval-cc-event
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/event/common-event/approval-cc-event

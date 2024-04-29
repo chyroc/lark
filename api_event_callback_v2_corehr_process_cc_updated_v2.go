@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2CorehrProcessCcUpdatedV2 抄送节点会生成抄送单据任务。如果一个节点有多个人抄送人, 则会生成多个抄送单据。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v2&resource=process.cc&event=updated)
+// EventV2CorehrProcessCcUpdatedV2 抄送节点会生成抄送单据任务。如果一个节点有多个人抄送人, 则会生成多个抄送单据。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process-cc/events/updated
 func (r *EventCallbackService) HandlerEventV2CorehrProcessCcUpdatedV2(f EventV2CorehrProcessCcUpdatedV2Handler) {

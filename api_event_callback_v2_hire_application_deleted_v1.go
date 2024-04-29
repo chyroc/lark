@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2HireApplicationDeletedV1 投递被删除后会推送该事件{使用示例}(url=/api/tools/api_explore/api_explore_config?project=hire&version=v1&resource=application&event=deleted)
+// EventV2HireApplicationDeletedV1 投递被删除后会推送该事件
 //
 // 注意该事件仅通知变更投递id及阶段id, 需要配合另外的查询接口反查实际的投递或阶段信息。
 //

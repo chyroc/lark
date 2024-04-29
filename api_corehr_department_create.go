@@ -74,7 +74,7 @@ type CreateCoreHRDepartmentReq struct {
 // CreateCoreHRDepartmentReqCustomField ...
 type CreateCoreHRDepartmentReqCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名, 示例值: "name"
-	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05"), 示例值: "\"Sandy\""
+	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05"), 示例值: "Sandy"
 }
 
 // CreateCoreHRDepartmentReqHiberarchyCommon ...
@@ -137,7 +137,7 @@ type CreateCoreHRDepartmentRespDepartmentCustomField struct {
 type CreateCoreHRDepartmentRespDepartmentHiberarchyCommon struct {
 	ParentID       string                                                             `json:"parent_id,omitempty"`       // 上级组织 ID, 该字段为通用字段, 若为部门维度则为必填。
 	Name           []*CreateCoreHRDepartmentRespDepartmentHiberarchyCommonName        `json:"name,omitempty"`            // 名称
-	Type           *CreateCoreHRDepartmentRespDepartmentHiberarchyCommonType          `json:"type,omitempty"`            // 组织类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)组织类型（organization_type）枚举定义部分获得
+	Type           *CreateCoreHRDepartmentRespDepartmentHiberarchyCommonType          `json:"type,omitempty"`            // 组织类型, 枚举值可通过文档[飞书人事枚举常量](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)组织类型（organization_type）枚举定义部分获得
 	Active         bool                                                               `json:"active,omitempty"`          // 是否启用
 	EffectiveTime  string                                                             `json:"effective_time,omitempty"`  // 生效时间
 	ExpirationTime string                                                             `json:"expiration_time,omitempty"` // 失效时间

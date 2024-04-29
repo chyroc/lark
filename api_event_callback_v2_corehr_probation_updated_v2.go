@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2CorehrProbationUpdatedV2 当试用期记录状态发生变更时, 触发该事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v2&resource=probation&event=updated)
+// EventV2CorehrProbationUpdatedV2 当试用期记录状态发生变更时, 触发该事件。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/probation/events/updated
 func (r *EventCallbackService) HandlerEventV2CorehrProbationUpdatedV2(f EventV2CorehrProbationUpdatedV2Handler) {

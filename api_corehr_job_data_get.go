@@ -71,21 +71,21 @@ type GetCoreHRJobDataResp struct {
 // GetCoreHRJobDataRespJobData ...
 type GetCoreHRJobDataRespJobData struct {
 	ID                       string                                            `json:"id,omitempty"`                          // 任职信息 ID
-	JobLevelID               string                                            `json:"job_level_id,omitempty"`                // 职务级别 ID, 枚举值及详细信息可通过【查询单个职务级别】接口查询获得
+	JobLevelID               string                                            `json:"job_level_id,omitempty"`                // 职务级别 ID, 枚举值及详细信息可通过[查询单个职务级别]接口查询获得
 	JobGradeID               string                                            `json:"job_grade_id,omitempty"`                // 职等ID
-	EmployeeTypeID           string                                            `json:"employee_type_id,omitempty"`            // 人员类型 ID, 枚举值及详细信息可通过【查询单个人员类型】接口查询获得
-	WorkingHoursTypeID       string                                            `json:"working_hours_type_id,omitempty"`       // 工时制度 ID, 枚举值及详细信息可通过【查询单个工时制度】接口查询获得
-	WorkLocationID           string                                            `json:"work_location_id,omitempty"`            // 工作地点 ID, 枚举值及详细信息可通过【查询单个地点】接口查询获得
-	DepartmentID             string                                            `json:"department_id,omitempty"`               // 部门 ID, 枚举值及详细信息可通过【查询单个部门】接口查询获得
-	JobID                    string                                            `json:"job_id,omitempty"`                      // 职务 ID, 枚举值及详细信息可通过【查询单个职务】接口查询获得
+	EmployeeTypeID           string                                            `json:"employee_type_id,omitempty"`            // 人员类型 ID, 枚举值及详细信息可通过[查询单个人员类型]接口查询获得
+	WorkingHoursTypeID       string                                            `json:"working_hours_type_id,omitempty"`       // 工时制度 ID, 枚举值及详细信息可通过[查询单个工时制度]接口查询获得
+	WorkLocationID           string                                            `json:"work_location_id,omitempty"`            // 工作地点 ID, 枚举值及详细信息可通过[查询单个地点]接口查询获得
+	DepartmentID             string                                            `json:"department_id,omitempty"`               // 部门 ID, 枚举值及详细信息可通过[查询单个部门]接口查询获得
+	JobID                    string                                            `json:"job_id,omitempty"`                      // 职务 ID, 枚举值及详细信息可通过[查询单个职务]接口查询获得
 	ProbationStartDate       string                                            `json:"probation_start_date,omitempty"`        // 试用期开始日期
 	ProbationEndDate         string                                            `json:"probation_end_date,omitempty"`          // 试用期结束日期（实际结束日期）
 	PrimaryJobData           bool                                              `json:"primary_job_data,omitempty"`            // 是否为主任职
 	EmploymentID             string                                            `json:"employment_id,omitempty"`               // 雇佣 ID
 	EffectiveTime            string                                            `json:"effective_time,omitempty"`              // 生效时间
 	ExpirationTime           string                                            `json:"expiration_time,omitempty"`             // 失效时间
-	JobFamilyID              string                                            `json:"job_family_id,omitempty"`               // 职务序列 ID, 枚举值及详细信息可通过【查询单个职务序列】接口查询获得
-	AssignmentStartReason    *GetCoreHRJobDataRespJobDataAssignmentStartReason `json:"assignment_start_reason,omitempty"`     // 任职原因, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)任职原因（assignment_start_reason）枚举定义部分获得
+	JobFamilyID              string                                            `json:"job_family_id,omitempty"`               // 职务序列 ID, 枚举值及详细信息可通过[查询单个职务序列]接口查询获得
+	AssignmentStartReason    *GetCoreHRJobDataRespJobDataAssignmentStartReason `json:"assignment_start_reason,omitempty"`     // 任职原因, 枚举值可通过文档[飞书人事枚举常量](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)任职原因（assignment_start_reason）枚举定义部分获得
 	ProbationExpectedEndDate string                                            `json:"probation_expected_end_date,omitempty"` // 预计试用期结束日期
 	WeeklyWorkingHours       int64                                             `json:"weekly_working_hours,omitempty"`        // 周工作时长
 	DirectManagerID          string                                            `json:"direct_manager_id,omitempty"`           // 实线主管的任职记录ID

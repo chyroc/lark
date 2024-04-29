@@ -61,7 +61,7 @@ type CreateCoreHRJobFamilyReq struct {
 	ClientToken    *string                                `query:"client_token" json:"-"`    // 根据client_token是否一致来判断是否为同一请求, 示例值: 12454646
 	Name           []*CreateCoreHRJobFamilyReqName        `json:"name,omitempty"`            // 名称
 	Active         bool                                   `json:"active,omitempty"`          // 是否启用, 示例值: true
-	ParentID       *string                                `json:"parent_id,omitempty"`       // 上级序列 ID, 枚举值及详细信息可通过【批量查询序列】接口查询获得, 示例值: "4698020757495316313"
+	ParentID       *string                                `json:"parent_id,omitempty"`       // 上级序列 ID, 枚举值及详细信息可通过[批量查询序列]接口查询获得, 示例值: "4698020757495316313"
 	EffectiveTime  string                                 `json:"effective_time,omitempty"`  // 生效时间, 示例值: "2020-05-01 00:00:00"
 	ExpirationTime *string                                `json:"expiration_time,omitempty"` // 失效时间, 示例值: "2020-05-02 00:00:00"
 	Code           *string                                `json:"code,omitempty"`            // 编码, 示例值: "123456"
@@ -71,7 +71,7 @@ type CreateCoreHRJobFamilyReq struct {
 // CreateCoreHRJobFamilyReqCustomField ...
 type CreateCoreHRJobFamilyReqCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名, 示例值: "name"
-	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05"), 示例值: "\"Sandy\""
+	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05"), 示例值: "Sandy"
 }
 
 // CreateCoreHRJobFamilyReqName ...
@@ -90,7 +90,7 @@ type CreateCoreHRJobFamilyRespJobFamily struct {
 	ID             string                                           `json:"id,omitempty"`              // 序列 ID
 	Name           []*CreateCoreHRJobFamilyRespJobFamilyName        `json:"name,omitempty"`            // 名称
 	Active         bool                                             `json:"active,omitempty"`          // 是否启用
-	ParentID       string                                           `json:"parent_id,omitempty"`       // 上级序列 ID, 枚举值及详细信息可通过【批量查询序列】接口查询获得
+	ParentID       string                                           `json:"parent_id,omitempty"`       // 上级序列 ID, 枚举值及详细信息可通过[批量查询序列]接口查询获得
 	EffectiveTime  string                                           `json:"effective_time,omitempty"`  // 生效时间
 	ExpirationTime string                                           `json:"expiration_time,omitempty"` // 失效时间
 	Code           string                                           `json:"code,omitempty"`            // 编码

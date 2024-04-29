@@ -146,7 +146,7 @@ type SearchCoreHRJobChangeRespItemTransferInfo struct {
 
 // SearchCoreHRJobChangeRespItemTransferInfoOriginalCostCenterRate ...
 type SearchCoreHRJobChangeRespItemTransferInfoOriginalCostCenterRate struct {
-	CostCenterID string `json:"cost_center_id,omitempty"` // 成本中心 ID, 可以通过【查询单个成本中心信息】接口获取对应的成本中心信息
+	CostCenterID string `json:"cost_center_id,omitempty"` // 成本中心 ID, 可以通过[查询单个成本中心信息]接口获取对应的成本中心信息
 	Rate         int64  `json:"rate,omitempty"`           // 分摊比例
 }
 
@@ -174,7 +174,7 @@ type SearchCoreHRJobChangeRespItemTransferInfoOriginalEmploymentChangeCustomFiel
 
 // SearchCoreHRJobChangeRespItemTransferInfoTargetCostCenterRate ...
 type SearchCoreHRJobChangeRespItemTransferInfoTargetCostCenterRate struct {
-	CostCenterID string `json:"cost_center_id,omitempty"` // 成本中心 ID, 可以通过【查询单个成本中心信息】接口获取对应的成本中心信息
+	CostCenterID string `json:"cost_center_id,omitempty"` // 成本中心 ID, 可以通过[查询单个成本中心信息]接口获取对应的成本中心信息
 	Rate         int64  `json:"rate,omitempty"`           // 分摊比例
 }
 

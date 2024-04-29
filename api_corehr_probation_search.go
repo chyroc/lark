@@ -73,7 +73,7 @@ type SearchCoreHRProbationReq struct {
 	InitiatingTimeEnd             *string           `json:"initiating_time_end,omitempty"`               // 转正发起日期 - 搜索范围结束, 示例值: "2022-11-20"
 	ProbationStatus               *string           `json:"probation_status,omitempty"`                  // 试用期状态, 示例值: "approved", 可选值有: pending: 审批中, rejected: 已拒绝, waiting: 待发起转正, approved: 审批通过, converted: 已转正, offboarded: 已离职
 	FinalAssessmentResult         *string           `json:"final_assessment_result,omitempty"`           // 试用期最终考核结果, 示例值: "approved", 可选值有: approved: 通过, rejected: 不通过
-	FinalAssessmentGrade          *string           `json:"final_assessment_grade,omitempty"`            // 试用期最终考核等级, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name: probation_management, custom_api_name: final_assessment_grade, <b>字段权限要求: </b>, 按照试用期考核等级搜索 (corehr:probation.grade.search:read), 示例值: "grade_a"
+	FinalAssessmentGrade          *string           `json:"final_assessment_grade,omitempty"`            // 试用期最终考核等级, 枚举值 api_name 可通过[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name: probation_management, custom_api_name: final_assessment_grade, <b>字段权限要求: </b>, 按照试用期考核等级搜索 (corehr:probation.grade.search:read), 示例值: "grade_a"
 }
 
 // SearchCoreHRProbationResp ...
@@ -102,7 +102,7 @@ type SearchCoreHRProbationRespItem struct {
 	FinalAssessmentStatus    *SearchCoreHRProbationRespItemFinalAssessmentStatus `json:"final_assessment_status,omitempty"`     // 试用期考核最终状态: not_started: 未开始, in_process: 进行中, completed: 已完成, no_need: 无需考核
 	FinalAssessmentResult    *SearchCoreHRProbationRespItemFinalAssessmentResult `json:"final_assessment_result,omitempty"`     // 试用期考核最终结果: approved: 通过, rejected: 不通过
 	FinalAssessmentScore     float64                                             `json:"final_assessment_score,omitempty"`      // 试用期考核最终得分, 字段权限要求（满足任一）: 获取试用期考核信息, 读写试用期考核信息
-	FinalAssessmentGrade     *SearchCoreHRProbationRespItemFinalAssessmentGrade  `json:"final_assessment_grade,omitempty"`      // 试用期考核最终等级, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "probation_management", custom_api_name = "final_assessment_grade", 字段权限要求（满足任一）: 获取试用期考核信息, 读写试用期考核信息
+	FinalAssessmentGrade     *SearchCoreHRProbationRespItemFinalAssessmentGrade  `json:"final_assessment_grade,omitempty"`      // 试用期考核最终等级, 枚举值 api_name 可通过[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "probation_management", custom_api_name = "final_assessment_grade", 字段权限要求（满足任一）: 获取试用期考核信息, 读写试用期考核信息
 	FinalAssessmentComment   string                                              `json:"final_assessment_comment,omitempty"`    // 试用期考核最终评语, 字段权限要求（满足任一）: 获取试用期考核信息, 读写试用期考核信息
 	FinalAssessmentDetail    string                                              `json:"final_assessment_detail,omitempty"`     // 最终考核结果页面超链接, 字段权限要求（满足任一）: 获取试用期考核信息, 读写试用期考核信息
 	Assessments              []*SearchCoreHRProbationRespItemAssessment          `json:"assessments,omitempty"`                 // 试用期考核结果列表, 字段权限要求（满足任一）: 获取试用期考核信息, 读写试用期考核信息
@@ -114,7 +114,7 @@ type SearchCoreHRProbationRespItemAssessment struct {
 	AssessmentStatus   *SearchCoreHRProbationRespItemAssessmentAssessmentStatus `json:"assessment_status,omitempty"`    // 考核状态, not_started: 未开始, in_process: 进行中, completed: 已完成, no_need: 无需考核
 	AssessmentResult   *SearchCoreHRProbationRespItemAssessmentAssessmentResult `json:"assessment_result,omitempty"`    // 试用期考核结果, approved: 通过, rejected: 不通过
 	AssessmentScore    float64                                                  `json:"assessment_score,omitempty"`     // 考核得分
-	AssessmentGrade    *SearchCoreHRProbationRespItemAssessmentAssessmentGrade  `json:"assessment_grade,omitempty"`     // 试用期考核等级, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "probation_management", custom_api_name = "final_assessment_grade"
+	AssessmentGrade    *SearchCoreHRProbationRespItemAssessmentAssessmentGrade  `json:"assessment_grade,omitempty"`     // 试用期考核等级, 枚举值 api_name 可通过[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "probation_management", custom_api_name = "final_assessment_grade"
 	AssessmentComment  string                                                   `json:"assessment_comment,omitempty"`   // 考核评语
 	AssessmentDetail   string                                                   `json:"assessment_detail,omitempty"`    // 考核结果页面超链接
 	IsFinalAsssessment bool                                                     `json:"is_final_asssessment,omitempty"` // 是否为最终考核结果

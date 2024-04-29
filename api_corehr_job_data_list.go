@@ -94,9 +94,9 @@ type GetCoreHRJobDataListRespItem struct {
 	EffectiveTime            string                                             `json:"effective_time,omitempty"`              // 生效时间
 	ExpirationTime           string                                             `json:"expiration_time,omitempty"`             // 失效时间
 	JobFamilyID              string                                             `json:"job_family_id,omitempty"`               // 序列 ID, 枚举值及详细信息可通过[查询单个序列](https://open.feishu.cn/document/server-docs/corehr-v1/job-management/job_family/get)接口查询获得
-	AssignmentStartReason    *GetCoreHRJobDataListRespItemAssignmentStartReason `json:"assignment_start_reason,omitempty"`     // 任职原因, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)任职原因（assignment_start_reason）枚举定义部分获得
+	AssignmentStartReason    *GetCoreHRJobDataListRespItemAssignmentStartReason `json:"assignment_start_reason,omitempty"`     // 任职原因, 枚举值可通过文档[飞书人事枚举常量](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)任职原因（assignment_start_reason）枚举定义部分获得
 	ProbationExpectedEndDate string                                             `json:"probation_expected_end_date,omitempty"` // 预计试用期结束日期
-	ProbationOutcome         *GetCoreHRJobDataListRespItemProbationOutcome      `json:"probation_outcome,omitempty"`           // 试用期结果, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)试用期结果（probation_outcome）枚举定义部分获得
+	ProbationOutcome         *GetCoreHRJobDataListRespItemProbationOutcome      `json:"probation_outcome,omitempty"`           // 试用期结果, 枚举值可通过文档[飞书人事枚举常量](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)试用期结果（probation_outcome）枚举定义部分获得
 	WeeklyWorkingHours       int64                                              `json:"weekly_working_hours,omitempty"`        // 周工作时长
 	DirectManagerID          string                                             `json:"direct_manager_id,omitempty"`           // 实线主管的任职记录ID
 	DottedLineManagerIDList  []string                                           `json:"dotted_line_manager_id_list,omitempty"` // 虚线主管的任职记录ID

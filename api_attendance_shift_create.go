@@ -65,7 +65,7 @@ type CreateAttendanceShiftReq struct {
 	PunchTimes         int64                                        `json:"punch_times,omitempty"`           // 打卡次数, 示例值: 1
 	SubShiftLeaderIDs  []string                                     `json:"sub_shift_leader_ids,omitempty"`  // 排班组子负责人id列表, 示例值: ["员工id:dd31248a或者员工工号:456123"]
 	IsFlexible         *bool                                        `json:"is_flexible,omitempty"`           // 是否弹性打卡, 示例值: false
-	FlexibleMinutes    *int64                                       `json:"flexible_minutes,omitempty"`      // 弹性打卡时间, 设置【上班最多可晚到】与【下班最多可早走】时间, 如果不设置flexible_rule则生效, 示例值: 60
+	FlexibleMinutes    *int64                                       `json:"flexible_minutes,omitempty"`      // 弹性打卡时间, 设置[上班最多可晚到]与[下班最多可早走]时间, 如果不设置flexible_rule则生效, 示例值: 60
 	FlexibleRule       []*CreateAttendanceShiftReqFlexibleRule      `json:"flexible_rule,omitempty"`         // 弹性打卡时间设置
 	NoNeedOff          *bool                                        `json:"no_need_off,omitempty"`           // 不需要打下班卡, 示例值: true
 	PunchTimeRule      []*CreateAttendanceShiftReqPunchTimeRule     `json:"punch_time_rule,omitempty"`       // 打卡规则
@@ -124,7 +124,7 @@ type CreateAttendanceShiftRespShift struct {
 	PunchTimes         int64                                              `json:"punch_times,omitempty"`           // 打卡次数
 	SubShiftLeaderIDs  []string                                           `json:"sub_shift_leader_ids,omitempty"`  // 排班组子负责人id列表
 	IsFlexible         bool                                               `json:"is_flexible,omitempty"`           // 是否弹性打卡
-	FlexibleMinutes    int64                                              `json:"flexible_minutes,omitempty"`      // 弹性打卡时间, 设置【上班最多可晚到】与【下班最多可早走】时间, 如果不设置flexible_rule则生效
+	FlexibleMinutes    int64                                              `json:"flexible_minutes,omitempty"`      // 弹性打卡时间, 设置[上班最多可晚到]与[下班最多可早走]时间, 如果不设置flexible_rule则生效
 	FlexibleRule       []*CreateAttendanceShiftRespShiftFlexibleRule      `json:"flexible_rule,omitempty"`         // 弹性打卡时间设置
 	NoNeedOff          bool                                               `json:"no_need_off,omitempty"`           // 不需要打下班卡
 	PunchTimeRule      []*CreateAttendanceShiftRespShiftPunchTimeRule     `json:"punch_time_rule,omitempty"`       // 打卡规则

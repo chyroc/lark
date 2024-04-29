@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2HireEcoAccountCreatedV1 招聘管理员添加三方服务商帐号时, 系统会推送事件给应用开发者, 开发者可根据事件获取用户添加的帐号类型（背调 或 笔试）和 帐号自定义字段信息, 并根据这些信息识别用户在服务商处的身份, 完成三方服务商帐号 和 招聘帐号之间的绑定, 并根据用户服务商身份推送对应的背调套餐或试卷列表。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=hire&version=v1&resource=eco_account&event=created)
+// EventV2HireEcoAccountCreatedV1 招聘管理员添加三方服务商帐号时, 系统会推送事件给应用开发者, 开发者可根据事件获取用户添加的帐号类型（背调 或 笔试）和 帐号自定义字段信息, 并根据这些信息识别用户在服务商处的身份, 完成三方服务商帐号 和 招聘帐号之间的绑定, 并根据用户服务商身份推送对应的背调套餐或试卷列表。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_account/events/created
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/ecological-docking/eco_account/events/created

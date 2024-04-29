@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2ContactDepartmentUpdatedV3 通过该事件订阅部门更新。`old_object`只展示被更新字段的原始值。应用身份访问通讯录的权限为历史版本, 不推荐申请。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=contact&version=v3&resource=department&event=updated)
+// EventV2ContactDepartmentUpdatedV3 通过该事件订阅部门更新。`old_object`只展示被更新字段的原始值。应用身份访问通讯录的权限为历史版本, 不推荐申请。
 //
 // 只有当应用拥有被改动字段的数据权限时, 才会接收到事件。具体的数据权限与字段的关系请参考[应用权限](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN), 或查看事件体参数列表的字段描述。
 //

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2ElearningCourseRegistrationCreatedV2 课程学习进度新增时触发{使用示例}(url=/api/tools/api_explore/api_explore_config?project=elearning&version=v2&resource=course_registration&event=created)
+// EventV2ElearningCourseRegistrationCreatedV2 课程学习进度新增时触发
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/elearning-v2/course_registration/events/created
 func (r *EventCallbackService) HandlerEventV2ElearningCourseRegistrationCreatedV2(f EventV2ElearningCourseRegistrationCreatedV2Handler) {

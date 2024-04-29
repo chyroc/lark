@@ -24,8 +24,8 @@ import (
 // CreateAttendanceUserApproval 由于部分企业使用的是自己的审批系统, 而不是飞书审批系统, 因此员工的请假、加班等数据无法流入到飞书考勤系统中, 导致员工在请假时间段内依然收到打卡提醒, 并且被记为缺卡。
 //
 // 对于这些只使用飞书考勤系统, 而未使用飞书审批系统的企业, 可以通过考勤开放接口的形式, 将三方审批结果数据回写到飞书考勤系统中。
-// 1. 目前支持写入加班、请假、出差和外出这四种审批结果, 写入只会追加(insert), 不会覆盖(update)（开放接口导入的加班假期记录, 在管理后台的假期加班里查不到, 可以在考勤统计报表查看, 或者通过[获取审批通过数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/query)来查询）
-// 2. 离职人员没有考勤组, 所以写入和返回的时间会有差异
+// - 目前支持写入加班、请假、出差和外出这四种审批结果, 写入只会追加(insert), 不会覆盖(update)（开放接口导入的加班假期记录, 在管理后台的假期加班里查不到, 可以在考勤统计报表查看, 或者通过[获取审批通过数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/query)来查询）
+// - 离职人员没有考勤组, 所以写入和返回的时间会有差异
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/create
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_approval/create

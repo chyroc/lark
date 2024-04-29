@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2ApplicationApplicationCreatedV6 当企业内有新的应用被创建时推送此事件{使用示例}(url=/api/tools/api_explore/api_explore_config?project=application&version=v6&resource=application&event=created)
+// EventV2ApplicationApplicationCreatedV6 当企业内有新的应用被创建时推送此事件
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/events/created
 // new doc: https://open.feishu.cn/document/server-docs/application-v6/event/created

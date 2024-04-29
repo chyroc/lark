@@ -71,7 +71,7 @@ type GetCoreHRJobFamilyRespJobFamily struct {
 	ID             string                                        `json:"id,omitempty"`              // 序列 ID
 	Name           []*GetCoreHRJobFamilyRespJobFamilyName        `json:"name,omitempty"`            // 名称
 	Active         bool                                          `json:"active,omitempty"`          // 是否启用
-	ParentID       string                                        `json:"parent_id,omitempty"`       // 上级序列 ID, 枚举值及详细信息可通过【批量查询序列】接口查询获得
+	ParentID       string                                        `json:"parent_id,omitempty"`       // 上级序列 ID, 枚举值及详细信息可通过[批量查询序列]接口查询获得
 	EffectiveTime  string                                        `json:"effective_time,omitempty"`  // 生效时间
 	ExpirationTime string                                        `json:"expiration_time,omitempty"` // 失效时间
 	Code           string                                        `json:"code,omitempty"`            // 编码

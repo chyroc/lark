@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2IMMessageRecalledV1 消息被撤回后触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=im&version=v1&resource=message&event=recalled)
+// EventV2IMMessageRecalledV1 消息被撤回后触发此事件。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/recalled
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/message/events/recalled

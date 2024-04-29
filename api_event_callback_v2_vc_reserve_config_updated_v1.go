@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2VCReserveConfigUpdatedV1 当更新会议室预定限制时, 会触发该事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=vc&version=v1&resource=reserve_config&event=updated)
+// EventV2VCReserveConfigUpdatedV1 当更新会议室预定限制时, 会触发该事件。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve_config/events/updated
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/scope_config/events/updated

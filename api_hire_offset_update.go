@@ -23,7 +23,7 @@ import (
 
 // UpdateHireOffer 1. 更新 Offer 时, 需传入本文档中标注为必传的参数, 其余参数是否必传参考「获取 Offer 申请表模板信息」的参数定义；
 //
-// 2. 对系统中已存在的 offer 进行更新的, 若更新 offer 中含有「修改需审批」的字段, 更新后原 Offer 的审批会自动撤回, 需要重新发起审批。
+// - 对系统中已存在的 offer 进行更新的, 若更新 offer 中含有「修改需审批」的字段, 更新后原 Offer 的审批会自动撤回, 需要重新发起审批。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer/update
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/offer/update

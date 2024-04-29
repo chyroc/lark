@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2IMChatMemberUserDeletedV1 用户主动退群或被移出群聊时推送事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=im&version=v1&resource=chat.member.user&event=deleted)
+// EventV2IMChatMemberUserDeletedV1 用户主动退群或被移出群聊时推送事件。
 //
 // 注意事项:
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)并且机器人所在群发生上述变化
