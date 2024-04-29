@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 1090, Event Count: 149
+API Count: 1091, Event Count: 149
 
 <details>
   <summary>
@@ -1169,6 +1169,7 @@ API Count: 1090, Event Count: 149
   - GetPerformanceSemesterList
   - GetPerformanceStageTaskByUser
   - GetPerformanceStageTaskByPage
+  - GetPerformanceReviewData
 - PersonalSettings
   - CreatePersonalSettingsSystemStatus
   - DeletePersonalSettingsSystemStatus

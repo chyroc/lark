@@ -948,6 +948,7 @@ type Mock struct {
 	mockPerformanceGetPerformanceSemesterList                  func(ctx context.Context, request *GetPerformanceSemesterListReq, options ...MethodOptionFunc) (*GetPerformanceSemesterListResp, *Response, error)
 	mockPerformanceGetPerformanceStageTaskByUser               func(ctx context.Context, request *GetPerformanceStageTaskByUserReq, options ...MethodOptionFunc) (*GetPerformanceStageTaskByUserResp, *Response, error)
 	mockPerformanceGetPerformanceStageTaskByPage               func(ctx context.Context, request *GetPerformanceStageTaskByPageReq, options ...MethodOptionFunc) (*GetPerformanceStageTaskByPageResp, *Response, error)
+	mockPerformanceGetPerformanceReviewData                    func(ctx context.Context, request *GetPerformanceReviewDataReq, options ...MethodOptionFunc) (*GetPerformanceReviewDataResp, *Response, error)
 	mockPersonalSettingsCreatePersonalSettingsSystemStatus     func(ctx context.Context, request *CreatePersonalSettingsSystemStatusReq, options ...MethodOptionFunc) (*CreatePersonalSettingsSystemStatusResp, *Response, error)
 	mockPersonalSettingsDeletePersonalSettingsSystemStatus     func(ctx context.Context, request *DeletePersonalSettingsSystemStatusReq, options ...MethodOptionFunc) (*DeletePersonalSettingsSystemStatusResp, *Response, error)
 	mockPersonalSettingsUpdatePersonalSettingsSystemStatus     func(ctx context.Context, request *UpdatePersonalSettingsSystemStatusReq, options ...MethodOptionFunc) (*UpdatePersonalSettingsSystemStatusResp, *Response, error)
