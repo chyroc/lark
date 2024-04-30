@@ -99,7 +99,7 @@ type StaticPickerOption struct {
 	// 自定义选项回调值。当用户点击交互组件的选项后，会将 value 的值返回给接收回调数据的服务器。后续你可以通过服务器接收的 value 值进行业务处理。
 	//
 	// 该字段值仅支持 key-value 形式的 JSON 结构，且 key 为 String 类型。示例值：
-	Value map[string]any `json:"value,omitempty"`
+	Value string `json:"value,omitempty"`
 }
 
 // MarshalJSON ...
@@ -245,7 +245,7 @@ func (r *StaticPickerOption) SetIcon(val *ObjectIcon) *StaticPickerOption {
 }
 
 // SetValue set StaticPickerOption.Value attribute
-func (r *StaticPickerOption) SetValue(val map[string]any) *StaticPickerOption {
+func (r *StaticPickerOption) SetValue(val string) *StaticPickerOption {
 	r.Value = val
 	return r
 }
@@ -259,7 +259,7 @@ func (r *StaticPickerOption) toMap() map[string]interface{} {
 	if r.Icon != nil {
 		res["icon"] = r.Icon
 	}
-	if len(r.Value) != 0 {
+	if r.Value != "" {
 		res["value"] = r.Value
 	}
 	return res
