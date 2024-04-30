@@ -57,8 +57,8 @@ type ComponentStaticPicker struct {
 	// false: 单选组件组件保持可用状态
 	Disabled bool `json:"disabled,omitempty"`
 
-	// 下拉选择组件的初始选项值。取值上限为选项的数量。该配置将会覆盖 placeholder 配置的占位文本。
-	InitialIndex int64 `json:"initial_index,omitempty"`
+	// 下拉选择组件的初始选项值，取值为选项 StaticPickerOption.Value
+	InitialOption string `json:"initial_option,omitempty"`
 
 	// 下拉选择组件内的占位文本。
 	Placeholder *ObjectText `json:"placeholder,omitempty"`
@@ -133,9 +133,9 @@ func (r *ComponentStaticPicker) SetDisabled(val bool) *ComponentStaticPicker {
 	return r
 }
 
-// SetInitialIndex set ComponentStaticPicker.InitialIndex attribute
-func (r *ComponentStaticPicker) SetInitialIndex(val int64) *ComponentStaticPicker {
-	r.InitialIndex = val
+// SetInitialOption set ComponentStaticPicker.InitialOption attribute
+func (r *ComponentStaticPicker) SetInitialOption(val string) *ComponentStaticPicker {
+	r.InitialOption = val
 	return r
 }
 
@@ -208,8 +208,8 @@ func (r *ComponentStaticPicker) toMap() map[string]interface{} {
 	if r.Disabled != false {
 		res["disabled"] = r.Disabled
 	}
-	if r.InitialIndex != 0 {
-		res["initial_index"] = r.InitialIndex
+	if r.InitialOption != "" {
+		res["initial_option"] = r.InitialOption
 	}
 	if r.Placeholder != nil {
 		res["placeholder"] = r.Placeholder
