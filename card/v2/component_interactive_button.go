@@ -2,10 +2,23 @@ package card
 
 import "encoding/json"
 
+// Button 按钮
 func Button(text string) *ComponentButton {
 	return &ComponentButton{
+		Type:  ButtonTypeDefault,
 		Width: WidthDefault,
 		Text:  Text(text),
+	}
+}
+
+// FormButton 表单中的按钮
+func FormButton(name, text string) *ComponentButton {
+	return &ComponentButton{
+		Type:       ButtonTypeDefault,
+		Width:      WidthDefault,
+		Text:       Text(text),
+		Name:       name,
+		ActionType: ButtonActionTypeFormSubmit,
 	}
 }
 
@@ -84,6 +97,12 @@ type ComponentButton struct {
 	//
 	// 该字段值仅支持 key-value 形式的 JSON 结构，且 key 为 String 类型。示例值：
 	Value map[string]any `json:"value,omitempty"`
+
+	// 用于提交表单的按钮组件的唯一标识，用于识别用户在交互后，点击的是哪个按钮。在表单容器中所有的交互组件中，该字段必填，否则数据会发送失败。
+	Name string `json:"name,omitempty"`
+
+	// 用于提交表单的按钮组件的交互类型。固定取值 form_submit，表示提交表单。
+	ActionType ButtonActionType `json:"action_type,omitempty"`
 }
 
 type ButtonType = string
@@ -109,10 +128,19 @@ const (
 	ButtonSizeLarge  ButtonSize = "large"  // 大尺寸, PC 端为 40 px; 移动端为 48 px
 )
 
+type ButtonActionType = string
+
+const (
+	ButtonActionTypeFormSubmit ButtonActionType = "form_submit"
+)
+
 // MarshalJSON ...
 func (r ComponentButton) MarshalJSON() ([]byte, error) {
 	m := r.toMap()
 	m["tag"] = "button"
+	if len(r.Value) > 0 {
+		m["complex_interaction"] = true // 是否同时生效上述历史字段配置的跳转链接交互和回传交互。默认仅生效跳转链接交互。
+	}
 	return json.Marshal(m)
 }
 
@@ -284,9 +312,27 @@ func (r *ComponentButton) SetValue(val map[string]any) *ComponentButton {
 	return r
 }
 
+// SetName set ComponentButton.Name attribute
+func (r *ComponentButton) SetName(val string) *ComponentButton {
+	r.Name = val
+	return r
+}
+
+// SetActionType set ComponentButton.ActionType attribute
+func (r *ComponentButton) SetActionType(val ButtonActionType) *ComponentButton {
+	r.ActionType = val
+	return r
+}
+
+// SetActionTypeFormSubmit set ComponentButton.ActionType attribute to ButtonActionTypeFormSubmit
+func (r *ComponentButton) SetActionTypeFormSubmit() *ComponentButton {
+	r.ActionType = ButtonActionTypeFormSubmit
+	return r
+}
+
 // toMap conv ComponentButton to map
 func (r *ComponentButton) toMap() map[string]interface{} {
-	res := make(map[string]interface{}, 12)
+	res := make(map[string]interface{}, 14)
 	if r.Type != "" {
 		res["type"] = r.Type
 	}
@@ -322,7 +368,12 @@ func (r *ComponentButton) toMap() map[string]interface{} {
 	}
 	if len(r.Value) != 0 {
 		res["value"] = r.Value
-		res["complex_interaction"] = true // 是否同时生效上述历史字段配置的跳转链接交互和回传交互。默认仅生效跳转链接交互。
+	}
+	if r.Name != "" {
+		res["name"] = r.Name
+	}
+	if r.ActionType != "" {
+		res["action_type"] = r.ActionType
 	}
 	return res
 }
