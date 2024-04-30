@@ -41,6 +41,13 @@ func WithAppCredential(appID, appSecret string) ClientOptionFunc {
 	}
 }
 
+// WithTenantKey set tenantKey
+func WithTenantKey(tenantKey string) ClientOptionFunc {
+	return func(r *Lark) {
+		r.tenantKey = tenantKey
+	}
+}
+
 // WithCustomBot set custom bot
 func WithCustomBot(customBotWebHookURL, customBotSecret string) ClientOptionFunc {
 	return func(r *Lark) {
