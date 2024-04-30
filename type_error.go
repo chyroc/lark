@@ -37,6 +37,9 @@ type ErrorDetail struct {
 }
 
 func (r *ErrorDetail) String() string {
+	if r == nil {
+		return ""
+	}
 	s := new(strings.Builder)
 	permissionActions := []string{}
 	permissionSubjects := map[string][]string{}
