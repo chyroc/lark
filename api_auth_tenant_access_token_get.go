@@ -20,6 +20,8 @@ import (
 	"time"
 )
 
+// GetTenantAccessToken ...
+//
 // https://open.feishu.cn/document/ukTMukTMukTM/ukDNz4SO0MjL5QzM/auth-v3/auth/tenant_access_token_internal
 // https://open.feishu.cn/document/ukTMukTMukTM/ukDNz4SO0MjL5QzM/auth-v3/auth/tenant_access_token
 func (r *AuthService) GetTenantAccessToken(ctx context.Context) (*TokenExpire, *Response, error) {

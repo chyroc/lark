@@ -3,16 +3,10 @@ package card
 import "encoding/json"
 
 // StaticPicker 创建下拉选择-单选组件
-func StaticPicker(name string, options ...string) *ComponentStaticPicker {
-	opts := make([]*StaticPickerOption, 0)
-	for _, option := range options {
-		opts = append(opts, &StaticPickerOption{
-			Text: Text(option),
-		})
-	}
+func StaticPicker(name string, options ...*StaticPickerOption) *ComponentStaticPicker {
 	return &ComponentStaticPicker{
 		Name:    name,
-		Options: opts,
+		Options: options,
 	}
 }
 
@@ -93,9 +87,19 @@ type ComponentStaticPicker struct {
 	Confirm *ObjectConfirm `json:"confirm,omitempty"`
 }
 
+//go:generate generate_set_attrs -type=StaticPickerOption
+//go:generate generate_to_map -type=StaticPickerOption
 type StaticPickerOption struct {
 	// 选项的名称。
 	Text *ObjectText `json:"text,omitempty"`
+
+	// 添加图标作为文本前缀图标。支持自定义或使用图标库中的图标。
+	Icon *ObjectIcon `json:"icon,omitempty"`
+
+	// 自定义选项回调值。当用户点击交互组件的选项后，会将 value 的值返回给接收回调数据的服务器。后续你可以通过服务器接收的 value 值进行业务处理。
+	//
+	// 该字段值仅支持 key-value 形式的 JSON 结构，且 key 为 String 类型。示例值：
+	Value map[string]any `json:"value,omitempty"`
 }
 
 // MarshalJSON ...
@@ -224,6 +228,39 @@ func (r *ComponentStaticPicker) toMap() map[string]interface{} {
 	}
 	if r.Confirm != nil {
 		res["confirm"] = r.Confirm
+	}
+	return res
+}
+
+// SetText set StaticPickerOption.Text attribute
+func (r *StaticPickerOption) SetText(val *ObjectText) *StaticPickerOption {
+	r.Text = val
+	return r
+}
+
+// SetIcon set StaticPickerOption.Icon attribute
+func (r *StaticPickerOption) SetIcon(val *ObjectIcon) *StaticPickerOption {
+	r.Icon = val
+	return r
+}
+
+// SetValue set StaticPickerOption.Value attribute
+func (r *StaticPickerOption) SetValue(val map[string]any) *StaticPickerOption {
+	r.Value = val
+	return r
+}
+
+// toMap conv StaticPickerOption to map
+func (r *StaticPickerOption) toMap() map[string]interface{} {
+	res := make(map[string]interface{}, 3)
+	if r.Text != nil {
+		res["text"] = r.Text
+	}
+	if r.Icon != nil {
+		res["icon"] = r.Icon
+	}
+	if len(r.Value) != 0 {
+		res["value"] = r.Value
 	}
 	return res
 }
