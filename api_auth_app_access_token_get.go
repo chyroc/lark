@@ -71,7 +71,7 @@ func (r *AuthService) GetAppAccessToken(ctx context.Context) (*TokenExpire, *Res
 		return nil, response, NewError("Token", "GetAppAccessToken", resp.Code, resp.Msg)
 	}
 
-	r.cli.Log(ctx, LogLevelDebug, "[lark] Auth#GetAppAccessToken request_id: %s, response: %s", response.RequestID, jsonString(resp))
+	r.cli.Log(ctx, LogLevelDebug, "[lark] Auth#GetAppAccessToken log_id: %s, response: %s", response.LogID, jsonString(resp))
 
 	err = r.cli.store.Set(ctx, genAppTokenKey(r.cli.isISV, r.cli.appID), resp.AppAccessToken, time.Second*time.Duration(resp.Expire))
 	if err != nil {

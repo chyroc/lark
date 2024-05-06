@@ -531,7 +531,7 @@ func Test_EphemeralMessage(t *testing.T) {
 	as.NotNil(resp)
 	as.NotEmpty(resp.MessageID)
 	as.NotNil(res)
-	as.NotEmpty(res.RequestID)
+	as.NotEmpty(res.LogID)
 }
 
 func Test_BatchSend(t *testing.T) {

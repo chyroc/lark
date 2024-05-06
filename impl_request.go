@@ -39,10 +39,13 @@ import (
 type Response struct {
 	Method        string      // request method
 	URL           string      // request url
-	RequestID     string      // request id, if you got some error and oncall lark/feishu team, please with this request id
+	LogID         string      // log id, if you got some error and oncall lark/feishu team, please with this log id
 	StatusCode    int         // http response status code
 	Header        http.Header // http response header
 	ContentLength int64       // http response content length
+
+	// deprecated
+	RequestID string
 }
 
 // RawRequest Send a http request of lark
@@ -78,9 +81,9 @@ func (r *Lark) rawRequest(ctx context.Context, req *RawRequestReq, resp interfac
 	// 2. do request
 	response, err = r.doRequest(ctx, rawHttpReq, resp)
 
-	requestID, statusCode := getResponseRequestID(response)
+	logID, statusCode := getResponseLogID(response)
 	if err != nil {
-		r.Log(ctx, LogLevelError, "[lark] %s#%s %s %s failed, request_id: %s, status_code: %d, error: %s", req.Scope, req.API, req.Method, req.URL, requestID, statusCode, err)
+		r.Log(ctx, LogLevelError, "[lark] %s#%s %s %s failed, log_id: %s, status_code: %d, error: %s", req.Scope, req.API, req.Method, req.URL, logID, statusCode, err)
 		return response, err
 	}
 
@@ -88,11 +91,11 @@ func (r *Lark) rawRequest(ctx context.Context, req *RawRequestReq, resp interfac
 	if code != 0 {
 		e := NewError(req.Scope, req.API, code, msg)
 		e.(*Error).ErrorDetail = detailErr
-		r.Log(ctx, LogLevelError, "[lark] %s#%s %s %s failed, request_id: %s, status_code: %d, code: %d, msg: %s", req.Scope, req.API, req.Method, req.URL, requestID, statusCode, code, msg)
+		r.Log(ctx, LogLevelError, "[lark] %s#%s %s %s failed, log_id: %s, status_code: %d, code: %d, msg: %s", req.Scope, req.API, req.Method, req.URL, logID, statusCode, code, msg)
 		return response, e
 	}
 
-	r.Log(ctx, LogLevelDebug, "[lark] %s#%s success, request_id: %s, status_code: %d, response: %s", req.Scope, req.API, requestID, statusCode, "TODO")
+	r.Log(ctx, LogLevelDebug, "[lark] %s#%s success, log_id: %s, status_code: %d, response: %s", req.Scope, req.API, logID, statusCode, "TODO")
 
 	return response, nil
 }
@@ -179,6 +182,7 @@ func (r *Lark) doRequest(ctx context.Context, rawHttpReq *rawHttpRequest, realRe
 
 	response.StatusCode = resp.StatusCode
 	response.RequestID = resp.Header.Get("X-Request-Id")
+	response.LogID = resp.Header.Get("x-tt-id")
 	response.Header = resp.Header
 	response.ContentLength = resp.ContentLength
 
@@ -431,11 +435,11 @@ func getCodeMsg(v interface{}) (code int64, msg string, detail *ErrorDetail) {
 	return
 }
 
-func getResponseRequestID(response *Response) (requestID string, statusCode int) {
+func getResponseLogID(response *Response) (logID string, statusCode int) {
 	if response == nil {
 		return
 	}
-	requestID = response.RequestID
+	logID = response.LogID
 	statusCode = response.StatusCode
 	return
 }

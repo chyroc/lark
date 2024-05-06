@@ -74,7 +74,7 @@ func (r *AuthService) GetTenantAccessToken(ctx context.Context) (*TokenExpire, *
 		return nil, response, NewError("Token", "GetTenantAccessToken", resp.Code, resp.Msg)
 	}
 
-	r.cli.Log(ctx, LogLevelDebug, "[lark] Auth#GetTenantAccessToken request_id: %s, response: %s", response.RequestID, jsonString(resp))
+	r.cli.Log(ctx, LogLevelDebug, "[lark] Auth#GetTenantAccessToken log_id: %s, response: %s", response.LogID, jsonString(resp))
 
 	err = r.cli.store.Set(ctx, genTenantTokenKey(r.cli.isISV, r.cli.appID, r.cli.tenantKey), resp.TenantAccessToken, time.Second*time.Duration(resp.Expire))
 	if err != nil {

@@ -38,7 +38,7 @@ func Test_AI(t *testing.T) {
 		as.Nil(err)
 		as.NotNil(resp)
 		as.Equal("en", strings.ToLower(resp.Language))
-		as.NotEmpty(response.RequestID)
+		as.NotEmpty(response.LogID)
 	})
 
 	t.Run("", func(t *testing.T) {
@@ -52,7 +52,7 @@ func Test_AI(t *testing.T) {
 		as.Nil(err)
 		as.NotNil(resp)
 		as.Contains([]string{"country", "national"}, strings.ToLower(resp.Text))
-		as.NotEmpty(response.RequestID)
+		as.NotEmpty(response.LogID)
 	})
 
 	t.Run("", func(t *testing.T) {

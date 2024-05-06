@@ -39,7 +39,7 @@ func Test_Bitable(t *testing.T) {
 			TableID:   tableID,
 		})
 		as.Nil(err)
-		as.NotEmpty(response.RequestID)
+		as.NotEmpty(response.LogID)
 		as.True(len(resp.Items) > 0)
 	})
 
