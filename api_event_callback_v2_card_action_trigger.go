@@ -46,9 +46,11 @@ type EventV2CardActionTrigger struct {
 
 // EventV2CardActionTriggerAction ...
 type EventV2CardActionTriggerAction struct {
-	Value  json.RawMessage `json:"value,omitempty"`  // 交互元素的 value 字段值。
-	Tag    string          `json:"tag,omitempty"`    // 交互元素的 tag 字段值。
-	Option json.RawMessage `json:"option,omitempty"` // 选中 option 的 value。（button 元素不适用）
+	Value     json.RawMessage `json:"value,omitempty"`  // 交互元素的 value 字段值。
+	Tag       string          `json:"tag,omitempty"`    // 交互元素的 tag 字段值。
+	Option    json.RawMessage `json:"option,omitempty"` // 选中 option 的 value。（button 元素不适用）
+	Name      string          `json:"name,omitempty"`   // 表单容器中，“提交”按钮组件本身的回传属性
+	FormValue json.RawMessage `json:"form_value"`       // 表单容器内用户提交的数据
 }
 
 // EventV2CardActionTriggerContext ...
