@@ -71,22 +71,23 @@ type GetApplicationVersionResp struct {
 
 // GetApplicationVersionRespAppVersion ...
 type GetApplicationVersionRespAppVersion struct {
-	AppID            string                                      `json:"app_id,omitempty"`            // 应用 id
-	Version          string                                      `json:"version,omitempty"`           // 在开发者后台填入的应用版本号
-	VersionID        string                                      `json:"version_id,omitempty"`        // 唯一标识应用版本的 ID
-	AppName          string                                      `json:"app_name,omitempty"`          // 应用默认名称
-	AvatarURL        string                                      `json:"avatar_url,omitempty"`        // 应用头像 url
-	Description      string                                      `json:"description,omitempty"`       // 应用默认描述
-	Scopes           []*GetApplicationVersionRespAppVersionScope `json:"scopes,omitempty"`            // 应用权限列表
-	BackHomeURL      string                                      `json:"back_home_url,omitempty"`     // 后台主页地址
-	I18n             []*GetApplicationVersionRespAppVersionI18n  `json:"i18n,omitempty"`              // 应用的国际化信息列表
-	CommonCategories []string                                    `json:"common_categories,omitempty"` // 应用分类的国际化描述
-	Events           []string                                    `json:"events,omitempty"`            // 应用已订阅开放平台事件列表
-	Status           int64                                       `json:"status,omitempty"`            // 版本状态, 可选值有: 0: 未知状态, 1: 审核通过, 2: 审核拒绝, 3: 审核中, 4: 未提交审核
-	CreateTime       string                                      `json:"create_time,omitempty"`       // 版本创建时间（单位: s）
-	PublishTime      string                                      `json:"publish_time,omitempty"`      // 版本发布时间（单位: s）
-	Ability          *GetApplicationVersionRespAppVersionAbility `json:"ability,omitempty"`           // 当前版本下应用开启的能力
-	Remark           *GetApplicationVersionRespAppVersionRemark  `json:"remark,omitempty"`            // 跟随应用版本的信息
+	AppID            string                                          `json:"app_id,omitempty"`            // 应用 id
+	Version          string                                          `json:"version,omitempty"`           // 在开发者后台填入的应用版本号
+	VersionID        string                                          `json:"version_id,omitempty"`        // 唯一标识应用版本的 ID
+	AppName          string                                          `json:"app_name,omitempty"`          // 应用默认名称
+	AvatarURL        string                                          `json:"avatar_url,omitempty"`        // 应用头像 url
+	Description      string                                          `json:"description,omitempty"`       // 应用默认描述
+	Scopes           []*GetApplicationVersionRespAppVersionScope     `json:"scopes,omitempty"`            // 应用权限列表
+	BackHomeURL      string                                          `json:"back_home_url,omitempty"`     // 后台主页地址
+	I18n             []*GetApplicationVersionRespAppVersionI18n      `json:"i18n,omitempty"`              // 应用的国际化信息列表
+	CommonCategories []string                                        `json:"common_categories,omitempty"` // 应用分类的国际化描述
+	EventInfos       []*GetApplicationVersionRespAppVersionEventInfo `json:"event_infos,omitempty"`       //
+	Events           []string                                        `json:"events,omitempty"`            // 应用已订阅开放平台事件列表
+	Status           int64                                           `json:"status,omitempty"`            // 版本状态, 可选值有: 0: 未知状态, 1: 审核通过, 2: 审核拒绝, 3: 审核中, 4: 未提交审核
+	CreateTime       string                                          `json:"create_time,omitempty"`       // 版本创建时间（单位: s）
+	PublishTime      string                                          `json:"publish_time,omitempty"`      // 版本发布时间（单位: s）
+	Ability          *GetApplicationVersionRespAppVersionAbility     `json:"ability,omitempty"`           // 当前版本下应用开启的能力
+	Remark           *GetApplicationVersionRespAppVersionRemark      `json:"remark,omitempty"`            // 跟随应用版本的信息
 }
 
 // GetApplicationVersionRespAppVersionAbility ...
@@ -204,6 +205,13 @@ type GetApplicationVersionRespAppVersionI18n struct {
 	Name        string `json:"name,omitempty"`        // 应用国际化名称
 	Description string `json:"description,omitempty"` // 应用国际化描述（副标题）
 	HelpUse     string `json:"help_use,omitempty"`    // 国际化帮助文档链接
+}
+
+// GetApplicationVersionRespAppVersionEventInfo ...
+type GetApplicationVersionRespAppVersionEventInfo struct {
+	EventDescription string `json:"event_description"`
+	EventName        string `json:"event_name"`
+	EventType        string `json:"event_type"`
 }
 
 // GetApplicationVersionRespAppVersionRemark ...
