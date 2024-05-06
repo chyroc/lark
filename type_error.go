@@ -30,6 +30,7 @@ type Error struct {
 }
 
 type ErrorDetail struct {
+	FieldViolations      []*ErrorFieldViolation      `json:"field_violations"`
 	PermissionViolations []*ErrorPermissionViolation `json:"permission_violations"`
 	Helps                []*ErrorHelper              `json:"helps"`
 	Message              string                      `json:"message"`
@@ -48,6 +49,14 @@ func (r *ErrorDetail) String() string {
 			permissionActions = append(permissionActions, v.Type)
 		}
 		permissionSubjects[v.Type] = append(permissionSubjects[v.Type], v.Subject)
+	}
+	for i, v := range r.FieldViolations {
+		if i > 0 {
+			s.WriteString("\n")
+		}
+		s.WriteString(v.Field)
+		s.WriteString(": ")
+		s.WriteString(v.Description)
 	}
 
 	// action_scope_required: [docx:document, docx:document:readonly]
@@ -81,6 +90,11 @@ func (r *ErrorDetail) String() string {
 	}
 
 	return s.String()
+}
+
+type ErrorFieldViolation struct {
+	Field       string `json:"field"`
+	Description string `json:"description"`
 }
 
 type ErrorPermissionViolation struct {
