@@ -60,7 +60,7 @@ func (r *Mock) UnMockCoreHRGetCoreHRLeaveRequestHistoryList() {
 
 // GetCoreHRLeaveRequestHistoryListReq ...
 type GetCoreHRLeaveRequestHistoryListReq struct {
-	PageToken          *string  `query:"page_token" json:"-"`            // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+	PageToken          *string  `query:"page_token" json:"-"`            // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: [1712932008000, "7356863257632491046"]
 	PageSize           int64    `query:"page_size" json:"-"`             // 分页大小, 示例值: 100
 	EmploymentIDList   []string `query:"employment_id_list" json:"-"`    // 员工 ID 列表, 最大 100 个（不传则默认查询全部员工）, 示例值: 6919733291281024522
 	InitiatorIDList    []string `query:"initiator_id_list" json:"-"`     // 休假发起人 ID 列表, 最大 100 个, 示例值: 6919733291281024523

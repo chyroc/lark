@@ -23,7 +23,8 @@ import (
 
 // EventV2MeetingRoomMeetingRoomStatusChangedV1 当会议室状态信息发生变更时, 将会触发此事件。
 //
-// 了解事件订阅的使用场景和配置流程, 可参见 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
+// - 了解事件订阅的使用场景和配置流程, 可参见 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
+// - 该事件仅包含会议室名称与 ID, 当你接收到事件数据后, 需使用会议室 ID（room_id）调用[查询会议室详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/get)接口获取会议室状态（room_status）。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/meeting_room-v1/meeting_room/events/status_changed
 // new doc: https://open.feishu.cn/document/server-docs/calendar-v4/meeting-room-event/event/status_changed

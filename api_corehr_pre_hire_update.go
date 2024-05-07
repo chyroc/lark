@@ -60,23 +60,23 @@ type UpdateCoreHRPreHireReq struct {
 	PreHireID            string                                 `path:"pre_hire_id" json:"-"`             // 待入职ID, 示例值: "7345005664477775411"
 	BasicInfoUpdate      *UpdateCoreHRPreHireReqBasicInfoUpdate `json:"basic_info_update,omitempty"`      // 更新个人（person）信息
 	OfferInfoUpdate      *UpdateCoreHRPreHireReqOfferInfoUpdate `json:"offer_info_update,omitempty"`      // 更新待入职（prehire）信息
-	StandardUpdateFields []string                               `json:"standard_update_fields,omitempty"` // 指定需要更新的系统字段, 只支持最多下钻一层, 格式如下: basic_info_update字段: basic_info_update.name（对name整体进行覆盖更新）；basic_info_update.emails（对邮箱整体进行更新）, offer_info_update字段: offer_info_update.onboarding_method, 招聘ID: ats_application_id, 示例值: ["basic_info_update.names"]
-	CustomUpdateFields   []string                               `json:"custom_update_fields,omitempty"`   // 指定需要更新的PreHire对象上的自定义字段, 格式如下: custom_field1__c, 示例值: ["custom_field1__c"]
+	StandardUpdateFields []string                               `json:"standard_update_fields,omitempty"` // 指定需要更新的系统字段, 只支持最多下钻一层, 格式如下: basic_info_update字段: basic_info_update.names（对name整体进行覆盖更新）；basic_info_update.emails（对邮箱整体进行更新）, offer_info_update字段: offer_info_update.onboarding_method, 注意, 如果指定了要更新的系统字段但是没有在结构体中传对应的值, 那么就会清空该字段的值, 示例值: ["basic_info_update.names"]
+	CustomUpdateFields   []string                               `json:"custom_update_fields,omitempty"`   // 指定需要更新的PreHire对象上的自定义字段, 格式如下: custom_field1__c, 注意, 如果指定了要更新的自定义字段但是没有在结构体中传对应的值, 那么就会清空该字段的值, 示例值: ["custom_field1__c"]
 }
 
 // UpdateCoreHRPreHireReqBasicInfoUpdate ...
 type UpdateCoreHRPreHireReqBasicInfoUpdate struct {
-	Names  []*UpdateCoreHRPreHireReqBasicInfoUpdateName  `json:"names,omitempty"`  // 姓名, 该值是一个list, 会全量更新。若未传递的字段原本有值, 将同步清空
-	Phones []*UpdateCoreHRPreHireReqBasicInfoUpdatePhone `json:"phones,omitempty"` // 电话, 该值是一个list, 会全量更新。若未传递的字段原本有值, 将同步清空
-	Emails []*UpdateCoreHRPreHireReqBasicInfoUpdateEmail `json:"emails,omitempty"` // 邮箱, 该值是一个list, 会全量更新。若未传递的字段原本有值, 将同步清空
+	Names  []*UpdateCoreHRPreHireReqBasicInfoUpdateName  `json:"names,omitempty"`  // 姓名, 该值是一个list, 会全量更新。即使只更新 list 中的某一个元素, 也需要把其它元素都完整传值, 否则将丢失数据。
+	Phones []*UpdateCoreHRPreHireReqBasicInfoUpdatePhone `json:"phones,omitempty"` // 电话, 该值是一个list, 会全量更新。即使只更新 list 中的某一个元素, 也需要把其它元素都完整传值, 否则将丢失数据。
+	Emails []*UpdateCoreHRPreHireReqBasicInfoUpdateEmail `json:"emails,omitempty"` // 邮箱, 该值是一个list, 会全量更新。即使只更新 list 中的某一个元素, 也需要把其它元素都完整传值, 否则将丢失数据。
 }
 
 // UpdateCoreHRPreHireReqBasicInfoUpdateEmail ...
 type UpdateCoreHRPreHireReqBasicInfoUpdateEmail struct {
-	Email      string  `json:"email,omitempty"`       // 邮箱地址, 示例值: "1234567@bytedance.com"
-	IsPrimary  bool    `json:"is_primary,omitempty"`  // 是否为主要邮箱, 若有多个邮箱, 只能有一个邮箱的「is_primary」为true, 示例值: true
-	IsPublic   bool    `json:"is_public,omitempty"`   // 是否为公开邮箱, 示例值: true
-	EmailUsage *string `json:"email_usage,omitempty"` // 邮箱用途, 枚举值可通过文档[枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)获得, 示例值: "work"
+	Email      string `json:"email,omitempty"`       // 邮箱地址, 示例值: "1234567@bytedance.com"
+	IsPrimary  bool   `json:"is_primary,omitempty"`  // 是否为主要邮箱, 若有多个邮箱, 只能有一个邮箱的「is_primary」为true, 示例值: true
+	IsPublic   bool   `json:"is_public,omitempty"`   // 是否为公开邮箱, 示例值: true
+	EmailUsage string `json:"email_usage,omitempty"` // 邮箱用途, 枚举值可通过文档[枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)获得, 示例值: "work"
 }
 
 // UpdateCoreHRPreHireReqBasicInfoUpdateName ...
@@ -96,12 +96,12 @@ type UpdateCoreHRPreHireReqBasicInfoUpdateName struct {
 
 // UpdateCoreHRPreHireReqBasicInfoUpdatePhone ...
 type UpdateCoreHRPreHireReqBasicInfoUpdatePhone struct {
-	InternationalAreaCode *string `json:"international_area_code,omitempty"` // 国家区号, 枚举值, 示例值: "86_china"
-	PhoneNumber           string  `json:"phone_number,omitempty"`            // 电话号码, 示例值: "010-12345678"
-	DeviceType            *string `json:"device_type,omitempty"`             // 设备类型, 枚举值, mobile_phone: 手机, landline: 座机, fax: 传真, 示例值: "mobile_phone"
-	PhoneUsage            *string `json:"phone_usage,omitempty"`             // 电话用途, 枚举值, work: 工作, home: 家庭, emergency_contact: 紧急联系人, company: 公司, 示例值: "work"
-	IsPrimary             bool    `json:"is_primary,omitempty"`              // 主要电话, 若有多个电话, 只能有一个电话的「is_primary」为true, 示例值: true
-	IsPublic              bool    `json:"is_public,omitempty"`               // 公开电话, 示例值: true
+	InternationalAreaCode string `json:"international_area_code,omitempty"` // 国家区号, 枚举值, 示例值: "86_china"
+	PhoneNumber           string `json:"phone_number,omitempty"`            // 电话号码, 示例值: "010-12345678"
+	DeviceType            string `json:"device_type,omitempty"`             // 设备类型, 枚举值, mobile_phone: 手机, landline: 座机, fax: 传真, 示例值: "mobile_phone"
+	PhoneUsage            string `json:"phone_usage,omitempty"`             // 电话用途, 枚举值, work: 工作, home: 家庭, emergency_contact: 紧急联系人, company: 公司, 示例值: "work"
+	IsPrimary             bool   `json:"is_primary,omitempty"`              // 主要电话, 若有多个电话, 只能有一个电话的「is_primary」为true, 示例值: true
+	IsPublic              bool   `json:"is_public,omitempty"`               // 公开电话, 示例值: true
 }
 
 // UpdateCoreHRPreHireReqOfferInfoUpdate ...
@@ -114,7 +114,7 @@ type UpdateCoreHRPreHireReqOfferInfoUpdate struct {
 	OfficeAddressID      *string                                                `json:"office_address_id,omitempty"`      // 办公地址ID, 详细信息可通过[批量查询地址]接口获得, 示例值: "6977976687350924832"
 	EmploymentType       *string                                                `json:"employment_type,omitempty"`        // 雇佣类型, [枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)获得, employee(员工), contingent_worker(临时工), 示例值: "employee"
 	OnboardingMethod     *string                                                `json:"onboarding_method,omitempty"`      // 入职方式, 通过[枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)获得, onsite(现场入职), remote(远程入职), 示例值: "onsite"
-	WorkEmails           []*UpdateCoreHRPreHireReqOfferInfoUpdateWorkEmail      `json:"work_emails,omitempty"`            // 工作邮箱
+	WorkEmails           []*UpdateCoreHRPreHireReqOfferInfoUpdateWorkEmail      `json:"work_emails,omitempty"`            // 工作邮箱, 该值是一个list, 会全量更新。即使只更新 list 中的某一个元素, 也需要把其它元素都完整传值, 否则将丢失数据。
 	CostCenterRates      []*UpdateCoreHRPreHireReqOfferInfoUpdateCostCenterRate `json:"cost_center_rates,omitempty"`      // 成本中心分摊信息, 只支持商业化租户
 	CustomFields         []*UpdateCoreHRPreHireReqOfferInfoUpdateCustomField    `json:"custom_fields,omitempty"`          // 自定义字段
 }
@@ -128,15 +128,15 @@ type UpdateCoreHRPreHireReqOfferInfoUpdateCostCenterRate struct {
 // UpdateCoreHRPreHireReqOfferInfoUpdateCustomField ...
 type UpdateCoreHRPreHireReqOfferInfoUpdateCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名, 示例值: "name"
-	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(123, 123.23, true, [\"id1\", \"id2\], 2006-01-02 15:04:05]), 示例值: "Sandy"
+	Value     string `json:"value,omitempty"`      // 字段值, 该值是一个 string list 经转义后的字符串, 具体参考请求体示例, 示例值: "[\"Sandy\"]"
 }
 
 // UpdateCoreHRPreHireReqOfferInfoUpdateWorkEmail ...
 type UpdateCoreHRPreHireReqOfferInfoUpdateWorkEmail struct {
-	Email      string  `json:"email,omitempty"`       // 邮箱地址, 示例值: "1234567@bytedance.com"
-	IsPrimary  bool    `json:"is_primary,omitempty"`  // 是否为主要邮箱, 若有多个邮箱, 只能有一个邮箱的「is_primary」为true, 示例值: true
-	IsPublic   bool    `json:"is_public,omitempty"`   // 是否为公开邮箱, 示例值: true
-	EmailUsage *string `json:"email_usage,omitempty"` // 邮箱用途, 枚举值可通过[枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)获得, 示例值: "work"
+	Email      string `json:"email,omitempty"`       // 邮箱地址, 示例值: "1234567@bytedance.com"
+	IsPrimary  bool   `json:"is_primary,omitempty"`  // 是否为主要邮箱, 若有多个邮箱, 只能有一个邮箱的「is_primary」为true, 示例值: true
+	IsPublic   bool   `json:"is_public,omitempty"`   // 是否为公开邮箱, 示例值: true
+	EmailUsage string `json:"email_usage,omitempty"` // 邮箱用途, 枚举值可通过[枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)获得, 示例值: "work"
 }
 
 // UpdateCoreHRPreHireResp ...

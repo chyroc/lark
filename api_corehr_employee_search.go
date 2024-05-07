@@ -621,7 +621,8 @@ type SearchCoreHREmployeeRespItemPersonInfoDependentAddressCustomFieldName struc
 
 // SearchCoreHREmployeeRespItemPersonInfoDependentBirthCertificateOfChild ...
 type SearchCoreHREmployeeRespItemPersonInfoDependentBirthCertificateOfChild struct {
-	ID string `json:"id,omitempty"` // 上传文件ID
+	ID   string `json:"id,omitempty"`   // 上传文件ID
+	Name string `json:"name,omitempty"` // 文件名
 }
 
 // SearchCoreHREmployeeRespItemPersonInfoDependentCustomField ...
@@ -1409,7 +1410,8 @@ type SearchCoreHREmployeeRespItemPersonInfoPersonalProfile struct {
 
 // SearchCoreHREmployeeRespItemPersonInfoPersonalProfileFile ...
 type SearchCoreHREmployeeRespItemPersonInfoPersonalProfileFile struct {
-	ID string `json:"id,omitempty"` // 上传文件ID
+	ID   string `json:"id,omitempty"`   // 上传文件ID
+	Name string `json:"name,omitempty"` // 文件名
 }
 
 // SearchCoreHREmployeeRespItemPersonInfoPersonalProfilePersonalProfileType ...

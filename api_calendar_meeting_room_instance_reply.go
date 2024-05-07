@@ -23,7 +23,8 @@ import (
 
 // ReplyCalendarMeetingRoomInstance 调用该接口用于回复会议室日程实例, 支持回复未签到释放、提前结束释放、被管理员置为接受、被管理员置为拒绝。
 //
-// 说明: 你可以先调用[查询会议室忙闲](https://open.feishu.cn/document/ukTMukTMukTM/uIDOyUjLygjM14iM4ITN)接口, 获取指定会议室的某一日程的 uid、original_time 信息, 然后再调用本接口回复会议室日程。
+// 说明: 你可以先调用[查询会议室忙闲](https://open.feishu.cn/document/ukTMukTMukTM/uIDOyUjLygjM14iM4ITN)接口, 获取指定会议室的某一日程的 uid、original_time 信息, 然后再调用本接口回复会议室日程。<BR>
+// ID说明: 日程 ID（event_id）格式为 `<Uid>_<Original time>`, 因此你可以通过 event_id 获取日程的 Uid 和 Original time。例如, 日程 ID 为 `c32537e6-e0a8-4506-b42f-47440655cdb4_0`, 则 Uid 为 `c32537e6-e0a8-4506-b42f-47440655cdb4`、Original time 为 `0`。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYzN4UjL2cDO14iN3gTN
 // new doc: https://open.feishu.cn/document/server-docs/calendar-v4/meeting-room-event/reply-meeting-room-event-instance

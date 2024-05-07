@@ -598,7 +598,8 @@ type BatchGetCoreHREmployeeRespItemPersonInfoDependentAddressCustomFieldName str
 
 // BatchGetCoreHREmployeeRespItemPersonInfoDependentBirthCertificateOfChild ...
 type BatchGetCoreHREmployeeRespItemPersonInfoDependentBirthCertificateOfChild struct {
-	ID string `json:"id,omitempty"` // 上传文件ID
+	ID   string `json:"id,omitempty"`   // 上传文件ID
+	Name string `json:"name,omitempty"` // 文件名
 }
 
 // BatchGetCoreHREmployeeRespItemPersonInfoDependentCustomField ...
@@ -1386,7 +1387,8 @@ type BatchGetCoreHREmployeeRespItemPersonInfoPersonalProfile struct {
 
 // BatchGetCoreHREmployeeRespItemPersonInfoPersonalProfileFile ...
 type BatchGetCoreHREmployeeRespItemPersonInfoPersonalProfileFile struct {
-	ID string `json:"id,omitempty"` // 上传文件ID
+	ID   string `json:"id,omitempty"`   // 上传文件ID
+	Name string `json:"name,omitempty"` // 文件名
 }
 
 // BatchGetCoreHREmployeeRespItemPersonInfoPersonalProfilePersonalProfileType ...

@@ -61,7 +61,7 @@ func (r *Mock) UnMockVCGetVCParticipantList() {
 type GetVCParticipantListReq struct {
 	MeetingStartTime string  `query:"meeting_start_time" json:"-"` // 会议开始时间（unix时间, 单位sec）, 示例值: 1655276858
 	MeetingEndTime   string  `query:"meeting_end_time" json:"-"`   // 会议结束时间（unix时间, 单位sec, 若是进行中会议可填当前时间, 否则填准确的会议结束时间）, 示例值: 1655276858
-	MeetingStatus    *int64  `query:"meeting_status" json:"-"`     // 会议状态（不传默认为已结束会议）, 示例值: 2, 可选值有: 1: 进行中, 2: 已结束
+	MeetingStatus    *int64  `query:"meeting_status" json:"-"`     // 会议状态（不传默认为已结束会议）, 示例值: 2, 可选值有: 1: 进行中, 2: 已结束, 3: 待召开
 	MeetingNo        string  `query:"meeting_no" json:"-"`         // 9位会议号, 示例值: 123456789
 	UserID           *string `query:"user_id" json:"-"`            // 按参会Lark用户筛选（最多一个筛选条件）, 示例值: ou_3ec3f6a28a0d08c45d895276e8e5e19b
 	RoomID           *string `query:"room_id" json:"-"`            // 按参会Rooms筛选（最多一个筛选条件）, 示例值: omm_eada1d61a550955240c28757e7dec3af
@@ -104,6 +104,7 @@ type GetVCParticipantListRespParticipant struct {
 	LeaveTime       string `json:"leave_time,omitempty"`       // 离会时间
 	TimeInMeeting   string `json:"time_in_meeting,omitempty"`  // 参会时长
 	LeaveReason     string `json:"leave_reason,omitempty"`     // 离会原因
+	AcceptStatus    int64  `json:"accept_status,omitempty"`    // 日程响应状态, 可选值有: 1: 接受, 2: 拒绝, 3: 待确认, 4: 未响应
 }
 
 // getVCParticipantListResp ...
