@@ -182,7 +182,7 @@ func (r *Lark) doRequest(ctx context.Context, rawHttpReq *rawHttpRequest, realRe
 
 	response.StatusCode = resp.StatusCode
 	response.RequestID = resp.Header.Get("X-Request-Id")
-	response.LogID = resp.Header.Get("x-tt-id")
+	response.LogID = resp.Header.Get("X-Tt-Logid")
 	response.Header = resp.Header
 	response.ContentLength = resp.ContentLength
 
