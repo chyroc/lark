@@ -360,7 +360,7 @@ type rawHttpRequest struct {
 func newFileUploadRequest(params map[string]string, filekey string, reader io.Reader) (string, io.Reader, error) {
 	body := &bytes.Buffer{}
 	writer := multipart.NewWriter(body)
-	part, err := writer.CreateFormFile(filekey, "file.file")
+	part, err := writer.CreateFormFile(filekey, "unknown-file")
 	if err != nil {
 		return "", nil, err
 	}
