@@ -41,55 +41,36 @@ func (r *ErrorDetail) String() string {
 	if r == nil {
 		return ""
 	}
-	s := new(strings.Builder)
-	permissionActions := []string{}
-	permissionSubjects := map[string][]string{}
-	for _, v := range r.PermissionViolations {
-		if len(permissionSubjects[v.Type]) == 0 {
-			permissionActions = append(permissionActions, v.Type)
-		}
-		permissionSubjects[v.Type] = append(permissionSubjects[v.Type], v.Subject)
-	}
-	for i, v := range r.FieldViolations {
-		if i > 0 {
-			s.WriteString("\n")
-		}
-		s.WriteString(v.Field)
-		s.WriteString(": ")
-		s.WriteString(v.Description)
-	}
+	s := []string{}
 
-	// action_scope_required: [docx:document, docx:document:readonly]
-	for i, action := range permissionActions {
-		if i > 0 {
-			s.WriteString("\n")
+	// message
+	{
+		if r.Message != "" {
+			s = append(s, r.Message)
 		}
-		s.WriteString(action)
-		s.WriteString(": [")
-		for j, subject := range permissionSubjects[action] {
-			if j != 0 {
-				s.WriteString(", ")
-			}
-			s.WriteString(subject)
-		}
-		s.WriteString("]")
 	}
-
-	if len(r.Helps) > 0 {
-		s.WriteString("\n")
-
+	// field validation
+	{
+		for _, v := range r.FieldViolations {
+			s = append(s, v.Field+": "+v.Description)
+		}
+	}
+	// permission
+	{
+		// action_scope_required: [docx:document, docx:document:readonly]
+		for _, v := range r.groupByPermissionType() {
+			s = append(s, fmt.Sprintf("%s: [%s]", v.permissionAction, strings.Join(v.permissionSubjects, ", ")))
+		}
+	}
+	// help
+	{
 		// Learn more about scopes and how to add them: [docx:document,docx:document:readonly]: https://open.feishu.cn/app/xxx/auth?q=docx:document,docx:document:readonly&op_from=openapi
-		for j, v := range r.Helps {
-			if j > 0 {
-				s.WriteString("\n")
-			}
-			s.WriteString(v.Description)
-			s.WriteString(": ")
-			s.WriteString(v.URL)
+		for _, v := range r.Helps {
+			s = append(s, v.Description+": "+v.URL)
 		}
 	}
 
-	return s.String()
+	return strings.Join(s, "\n")
 }
 
 type ErrorFieldViolation struct {
@@ -145,4 +126,28 @@ func GetErrorDetail(err error) *ErrorDetail {
 		return nil
 	}
 	return nil
+}
+
+type permissionType struct {
+	permissionAction   string
+	permissionSubjects []string
+}
+
+func (r *ErrorDetail) groupByPermissionType() []permissionType {
+	permissionActions := []string{}
+	permissionSubjects := map[string][]string{}
+	for _, v := range r.PermissionViolations {
+		if len(permissionSubjects[v.Type]) == 0 {
+			permissionActions = append(permissionActions, v.Type)
+		}
+		permissionSubjects[v.Type] = append(permissionSubjects[v.Type], v.Subject)
+	}
+	permissionTypes := []permissionType{}
+	for _, action := range permissionActions {
+		permissionTypes = append(permissionTypes, permissionType{
+			permissionAction:   action,
+			permissionSubjects: permissionSubjects[action],
+		})
+	}
+	return permissionTypes
 }
