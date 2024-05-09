@@ -129,6 +129,11 @@ func (r *Lark) parseRawHttpRequest(ctx context.Context, req *RawRequestReq) (*ra
 	if req.MethodOption.timeout > 0 {
 		rawHttpReq.Timeout = req.MethodOption.timeout
 	}
+	if len(req.MethodOption.headers) > 0 {
+		for k, v := range req.MethodOption.headers {
+			rawHttpReq.Headers[k] = v
+		}
+	}
 
 	// 1 headers
 	if err := rawHttpReq.parseHeader(ctx, r, req); err != nil {

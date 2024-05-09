@@ -174,10 +174,18 @@ func WithRequestTimeout(timeout time.Duration) MethodOptionFunc {
 	}
 }
 
+// WithRequestHeaders set request headers
+func WithRequestHeaders(headers map[string]string) MethodOptionFunc {
+	return func(option *MethodOption) {
+		option.headers = headers
+	}
+}
+
 // MethodOption method option
 type MethodOption struct {
 	userAccessToken string
 	timeout         time.Duration
+	headers         map[string]string
 }
 
 func newMethodOption(options []MethodOptionFunc) *MethodOption {
