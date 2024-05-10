@@ -39,6 +39,7 @@ func UnwrapMessageContent(msgType MsgType, content string) (*MessageContent, err
 		Location:           new(MessageContentLocation),
 		VideoChat:          new(MessageContentVideoChat),
 		Post:               new(MessageContentPost),
+		MsgType:            msgType,
 	}
 	switch msgType {
 	case MsgTypeText:

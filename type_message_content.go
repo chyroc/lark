@@ -31,6 +31,7 @@ type MessageContent struct {
 	Location           *MessageContentLocation           // 位置消息
 	VideoChat          *MessageContentVideoChat          // 视频通话消息
 	Post               *MessageContentPost               // 富文本
+	MsgType            MsgType
 }
 
 // MessageContentText 文本消息
