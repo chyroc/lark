@@ -7,6 +7,13 @@ func Text(text string) *ObjectText {
 	}
 }
 
+func TextI18n(i18n map[Language]string) *ObjectText {
+	return &ObjectText{
+		Tag:  "plain_text",
+		I18n: i18n,
+	}
+}
+
 func Md(md string) *ObjectText {
 	return &ObjectText{
 		Tag:     "lark_md",

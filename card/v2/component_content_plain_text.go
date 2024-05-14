@@ -8,6 +8,12 @@ func PlainText(text string) *ComponentPlainText {
 	}
 }
 
+func PlainTextI18n(i18n map[Language]string) *ComponentPlainText {
+	return &ComponentPlainText{
+		Text: TextI18n(i18n),
+	}
+}
+
 // ComponentPlainText 普通文本
 //
 // docs: https://open.larkoffice.com/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-components/content-components/plain-text
