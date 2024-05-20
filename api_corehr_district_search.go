@@ -59,9 +59,9 @@ func (r *Mock) UnMockCoreHRSearchCoreHRDistrict() {
 type SearchCoreHRDistrictReq struct {
 	PageSize       int64    `query:"page_size" json:"-"`        // 分页大小, 最大 100, 示例值: 100, 取值范围: `1` ～ `100`
 	PageToken      *string  `query:"page_token" json:"-"`       // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 6891251722631890445
-	CityIDList     []string `json:"city_id_list,omitempty"`     // 所属城市 ID 列表, 详细信息可通过[查询城市信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-city/search), 接口查询获得, 示例值: ["6891251722121891445"], 最大长度: `100`
-	DistrictIDList []string `json:"district_id_list,omitempty"` // 区/县 ID 列表, 示例值: ["6891251733121891445"], 最大长度: `100`
-	StatusList     []int64  `json:"status_list,omitempty"`      // 状态列表, 示例值: [1], 可选值有: 1: 生效, 0: 失效, 默认值: `[1]`, 最大长度: `2`
+	CityIDList     []string `json:"city_id_list,omitempty"`     // 所属城市 ID 列表, 详细信息可通过[查询城市信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-city/search), 接口查询获得, 不填写则返回全部列表, 示例值: ["6891251722121891445"], 最大长度: `100`
+	DistrictIDList []string `json:"district_id_list,omitempty"` // 区/县 ID 列表, 不填写则返回全部列表, 示例值: ["6891251733121891445"], 最大长度: `100`
+	StatusList     []int64  `json:"status_list,omitempty"`      // 区/县状态列表, 不填写则返回全部列表, 示例值: [1], 可选值有: 1: 生效, 0: 失效, 默认值: `[1]`, 最大长度: `2`
 }
 
 // SearchCoreHRDistrictResp ...
@@ -73,10 +73,11 @@ type SearchCoreHRDistrictResp struct {
 
 // SearchCoreHRDistrictRespItem ...
 type SearchCoreHRDistrictRespItem struct {
-	DistrictID string                              `json:"district_id,omitempty"` // 区/县 ID
-	Name       []*SearchCoreHRDistrictRespItemName `json:"name,omitempty"`        // 名称
-	CityID     string                              `json:"city_id,omitempty"`     // 所属城市 ID, 详细信息可通过[查询城市信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-city/search)接口获得
-	Status     int64                               `json:"status,omitempty"`      // 状态, 可选值有: 1: 生效, 0: 失效
+	DistrictID    string                              `json:"district_id,omitempty"`    // 区/县 ID
+	Name          []*SearchCoreHRDistrictRespItemName `json:"name,omitempty"`           // 名称
+	CityID        string                              `json:"city_id,omitempty"`        // 所属城市 ID, 详细信息可通过[查询城市信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-city/search)接口获得
+	SubregionCode string                              `json:"subregion_code,omitempty"` // 行政区划代码
+	Status        int64                               `json:"status,omitempty"`         // 状态, 可选值有: 1: 生效, 0: 失效
 }
 
 // SearchCoreHRDistrictRespItemName ...

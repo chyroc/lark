@@ -21,7 +21,9 @@ import (
 	"context"
 )
 
-// EventV2CorehrProcessCcUpdatedV2 抄送节点会生成抄送单据任务。如果一个节点有多个人抄送人, 则会生成多个抄送单据。
+// EventV2CorehrProcessCcUpdatedV2 流程中生成抄送单据后会触发该事件。抄送节点会生成抄送单据任务。如果一个节点有多个人抄送人, 则会生成多个抄送单据。
+//
+// 你需要在应用内配置事件订阅, 并订阅该事件, 这样才可以在事件触发时接收到事件数据。了解事件订阅可参见[事件概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process-cc/events/updated
 func (r *EventCallbackService) HandlerEventV2CorehrProcessCcUpdatedV2(f EventV2CorehrProcessCcUpdatedV2Handler) {

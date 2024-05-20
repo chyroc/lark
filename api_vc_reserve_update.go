@@ -75,6 +75,7 @@ type UpdateVCReserveReqMeetingSettings struct {
 	CallSetting        *UpdateVCReserveReqMeetingSettingsCallSetting        `json:"call_setting,omitempty"`         // 1v1呼叫相关参数
 	AutoRecord         *bool                                                `json:"auto_record,omitempty"`          // 使用飞书视频会议时, 是否开启自动录制, 默认false, 示例值: true
 	AssignHostList     []*UpdateVCReserveReqMeetingSettingsAssignHost       `json:"assign_host_list,omitempty"`     // 指定主持人列表
+	Password           *string                                              `json:"password,omitempty"`             // 设置会议密码, 不传则根据个人设置决定是否使用密码及分配随机密码, 传空则不使用密码, 传 4-9 位数字则设置密码, 示例值: "971024", 最大长度: `9` 字符
 }
 
 // UpdateVCReserveReqMeetingSettingsActionPermission ...
@@ -124,6 +125,7 @@ type UpdateVCReserveResp struct {
 type UpdateVCReserveRespReserve struct {
 	ID           string `json:"id,omitempty"`            // 预约ID（预约的唯一标识, 非会议ID, 会议ID仅在会议开始后才生成）
 	MeetingNo    string `json:"meeting_no,omitempty"`    // 9位会议号（飞书用户可通过输入9位会议号快捷入会）
+	Password     string `json:"password,omitempty"`      // 会议密码
 	URL          string `json:"url,omitempty"`           // 会议链接（飞书用户可通过点击会议链接快捷入会）
 	LiveLink     string `json:"live_link,omitempty"`     // 会议转直播链接
 	EndTime      string `json:"end_time,omitempty"`      // 预约到期时间（unix时间, 单位sec）

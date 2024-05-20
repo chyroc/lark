@@ -21,7 +21,9 @@ import (
 	"context"
 )
 
-// EventV2CorehrProcessNodeUpdatedV2 配置的节点为节点定义（node_definition_id 是唯一标识）。在流程实例中, 每个流程实例生成的节点实例会不同。
+// EventV2CorehrProcessNodeUpdatedV2 流程中节点状态发生变化会触发该事件。例如, 节点从未开始变为进行中、从进行中变为已通过等。配置的节点为节点定义（node_definition_id 是唯一标识）。在流程实例中, 每个流程实例生成的节点实例会不同。
+//
+// 你需要在应用内配置事件订阅, 并订阅该事件, 这样才可以在事件触发时接收到事件数据。了解事件订阅可参见[事件概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process-node/events/updated
 func (r *EventCallbackService) HandlerEventV2CorehrProcessNodeUpdatedV2(f EventV2CorehrProcessNodeUpdatedV2Handler) {

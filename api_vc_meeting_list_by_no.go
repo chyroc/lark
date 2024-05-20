@@ -79,6 +79,7 @@ type ListVCMeetingByNoRespMeetingBrief struct {
 	Topic     string `json:"topic,omitempty"`      // 会议主题
 	URL       string `json:"url,omitempty"`        // 会议链接（飞书用户可通过点击会议链接快捷入会）
 	MeetingNo string `json:"meeting_no,omitempty"` // 会议号
+	Password  string `json:"password,omitempty"`   // 会议密码
 }
 
 // listVCMeetingByNoResp ...

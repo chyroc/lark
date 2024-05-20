@@ -71,8 +71,8 @@ type UpdateCalendarEventReq struct {
 	Summary          *string                           `json:"summary,omitempty"`           // 日程标题, 默认值: 空, 表示不更新该字段, 示例值: "日程标题", 最大长度: `1000` 字符
 	Description      *string                           `json:"description,omitempty"`       // 日程描述, 注意: 目前 API 方式不支持编辑富文本描述。如果日程描述通过客户端编辑为富文本内容, 则使用 API 更新描述会导致富文本格式丢失, 默认值: 空, 表示不更新该字段, 示例值: "日程描述", 最大长度: `40960` 字符
 	NeedNotification *bool                             `json:"need_notification,omitempty"` // 更新日程时, 是否给日程参与人发送 Bot 通知, 默认值: 空, 表示不更新该字段, 可选值有: true: 发送通知, false: 不发送通知, 示例值: false
-	StartTime        *UpdateCalendarEventReqStartTime  `json:"start_time,omitempty"`        // 日程开始时间。不传值则表示不更新该字段。
-	EndTime          *UpdateCalendarEventReqEndTime    `json:"end_time,omitempty"`          // 日程结束时间。不传值则表示不更新该字段。
+	StartTime        *UpdateCalendarEventReqStartTime  `json:"start_time,omitempty"`        // 日程开始时间。需要与end_time同时有值才会生效。
+	EndTime          *UpdateCalendarEventReqEndTime    `json:"end_time,omitempty"`          // 日程结束时间。需要与start_time同时有值才会生效。
 	Vchat            *UpdateCalendarEventReqVchat      `json:"vchat,omitempty"`             // 视频会议信息。不传值则表示不更新该字段。
 	Visibility       *string                           `json:"visibility,omitempty"`        // 日程公开范围, 注意: 更新日程时如果修改了该参数值, 则仅对当前身份生效, 默认值: 空, 表示不更新该字段, 示例值: "default", 可选值有: default: 默认权限, 即跟随日历权限, 默认仅向他人显示是否忙碌, public: 公开, 显示日程详情, private: 私密, 仅自己可见详情
 	AttendeeAbility  *string                           `json:"attendee_ability,omitempty"`  // 参与人权限, 默认值: 空, 表示不更新该字段, 示例值: "can_see_others", 可选值有: none: 无法编辑日程、无法邀请其他参与人、无法查看参与人列表, can_see_others: 无法编辑日程、无法邀请其他参与人、可以查看参与人列表, can_invite_others: 无法编辑日程、可以邀请其他参与人、可以查看参与人列表, can_modify_event: 可以编辑日程、可以邀请其他参与人、可以查看参与人列表

@@ -23,6 +23,8 @@ import (
 
 // EventV2CorehrProcessUpdatedV2 发起流程后会生成一个流程实例（process_id 是唯一标识）。流程中有审批人操作、流程数据更新、流程状态变化等都会触发事件, 比如流程发起后, 创建流程实例并生成节点每个人的待办任务, 可能会触发多条事件。
 //
+// 你需要在应用内配置事件订阅, 并订阅该事件, 这样才可以在事件触发时接收到事件数据。了解事件订阅可参见[事件概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/events/updated
 func (r *EventCallbackService) HandlerEventV2CorehrProcessUpdatedV2(f EventV2CorehrProcessUpdatedV2Handler) {
 	r.cli.eventHandler.eventV2CorehrProcessUpdatedV2Handler = f

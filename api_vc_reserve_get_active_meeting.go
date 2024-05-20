@@ -77,6 +77,7 @@ type GetVCReserveActiveMeetingRespMeeting struct {
 	Topic                       string                                             `json:"topic,omitempty"`                         // 会议主题
 	URL                         string                                             `json:"url,omitempty"`                           // 会议链接（飞书用户可通过点击会议链接快捷入会）
 	MeetingNo                   string                                             `json:"meeting_no,omitempty"`                    // 会议号
+	Password                    string                                             `json:"password,omitempty"`                      // 会议密码
 	CreateTime                  string                                             `json:"create_time,omitempty"`                   // 会议创建时间（unix时间, 单位sec）
 	StartTime                   string                                             `json:"start_time,omitempty"`                    // 会议开始时间（unix时间, 单位sec）
 	EndTime                     string                                             `json:"end_time,omitempty"`                      // 会议结束时间（unix时间, 单位sec）

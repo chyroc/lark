@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// ResendAppTicket 飞书开放平台每隔 1 小时会给应用推送一次最新的 `app_ticket`, 应用也可以主动调用此接口, 触发飞书开放平台进行即时推送。
+// ResendAppTicket 开放平台每隔 1 小时会向应用推送 app_ticket 事件, 事件体内包含了 app_ticket。应用也可以主动调用此接口, 触发开放平台即时推送 app_ticket 事件。了解事件信息可参见[app_ticket 事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/event/app_ticket-events)。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ukDNz4SO0MjL5QzM/auth-v3/auth/app_ticket_resend
 // new doc: https://open.feishu.cn/document/server-docs/authentication-management/access-token/app_ticket_resend

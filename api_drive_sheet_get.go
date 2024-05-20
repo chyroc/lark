@@ -74,7 +74,7 @@ type GetSheetRespSheet struct {
 	Title          string                           `json:"title,omitempty"`           // 工作表标题
 	Index          int64                            `json:"index,omitempty"`           // 工作表索引位置, 索引从 0 开始计数。
 	Hidden         bool                             `json:"hidden,omitempty"`          // 工作表是否被隐藏, `true`: 表示被隐藏, `false`: 表示未被隐藏
-	GridProperties *GetSheetRespSheetGridProperties `json:"grid_properties,omitempty"` // 单元格属性
+	GridProperties *GetSheetRespSheetGridProperties `json:"grid_properties,omitempty"` // 单元格属性, 仅当 `resource_type=sheet` 时返回
 	ResourceType   string                           `json:"resource_type,omitempty"`   // 工作表类型, `sheet`: 工作表, `bitable`: 多维表格, [多维表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview), `#UNSUPPORTED_TYPE`: 不支持的类型
 	Merges         []*GetSheetRespSheetMerge        `json:"merges,omitempty"`          // 合并单元格的相关信息
 }

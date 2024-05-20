@@ -23,6 +23,8 @@ import (
 
 // MatchCoreHRCompensationStandard 根据员工获取匹配的薪资标准信息。
 //
+// 该接口会按照应用拥有的「薪资标准资源」的权限范围返回数据, 请确定在「开发者后台 - 权限管理 - 数据权限」中已申请「薪资标准资源」权限范围
+//
 // doc: https://open.feishu.cn/document/server-docs/corehr-v1/compensation_standard/match
 func (r *CoreHRService) MatchCoreHRCompensationStandard(ctx context.Context, request *MatchCoreHRCompensationStandardReq, options ...MethodOptionFunc) (*MatchCoreHRCompensationStandardResp, *Response, error) {
 	if r.cli.mock.mockCoreHRMatchCoreHRCompensationStandard != nil {
@@ -58,7 +60,7 @@ func (r *Mock) UnMockCoreHRMatchCoreHRCompensationStandard() {
 // MatchCoreHRCompensationStandardReq ...
 type MatchCoreHRCompensationStandardReq struct {
 	UserIDType         *IDType           `query:"user_id_type" json:"-"`          // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_corehr_id: 以飞书人事的ID来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	DepartmentIDType   *DepartmentIDType `query:"department_id_type" json:"-"`    // 此次调用中使用的部门 ID 类型, 示例值: open_department_id, 可选值有: open_department_id: 以 open_department_id 来标识部门, department_id: 以 department_id 来标识部门, people_corehr_department_id: 以 people_corehr_department_id 来标识部门, 默认值: `people_corehr_department_id`
+	DepartmentIDType   *DepartmentIDType `query:"department_id_type" json:"-"`    // 此次调用中使用的部门 ID 类型, 示例值: open_department_id, 可选值有: open_department_id: [飞书]用来在具体某个应用中标识一个部门, 同一个department_id 在不同应用中的 open_department_id 相同。, department_id: [飞书]用来标识租户内一个唯一的部门。, people_corehr_department_id: [飞书人事]用来标识「飞书人事」中的部门。, 默认值: `people_corehr_department_id`
 	EmploymentID       string            `query:"employment_id" json:"-"`         // 雇员ID, 可通过接口[批量查询员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)获取, 示例值: 7124293751317038636
 	ReferenceObjectApi *string           `query:"reference_object_api" json:"-"`  // 薪资标准的关联对象, 项目或者指标, 示例值: cpst_item, 可选值有: cpst_item: 薪资项目, cpst_indicator: 薪资统计指标
 	ReferenceObjectID  string            `query:"reference_object_id" json:"-"`   // 薪资标准关联对象ID, 示例值: 7156853394442044972

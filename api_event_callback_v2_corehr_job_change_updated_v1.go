@@ -34,15 +34,16 @@ type EventV2CorehrJobChangeUpdatedV1Handler func(ctx context.Context, cli *Lark,
 
 // EventV2CorehrJobChangeUpdatedV1 ...
 type EventV2CorehrJobChangeUpdatedV1 struct {
-	EmploymentID                 string                                       `json:"employment_id,omitempty"`                   // 雇员ID
-	TargetUserID                 *EventV2CorehrJobChangeUpdatedV1TargetUserID `json:"target_user_id,omitempty"`                  // 用户 ID
-	JobChangeID                  string                                       `json:"job_change_id,omitempty"`                   // 异动记录 id
-	TransferMode                 int64                                        `json:"transfer_mode,omitempty"`                   // 异动属性/方式, 可选值有: 1: 直接异动: 无需审批, 异动状态直接为审批通过, 2: 发起异动: 需要走异动流程
-	TransferTypeUniqueIdentifier string                                       `json:"transfer_type_unique_identifier,omitempty"` // 异动类型唯一标识
-	ProcessID                    string                                       `json:"process_id,omitempty"`                      // 异动发起后的审批流程 id, 如果是直接异动, 则无需要审批流程id
-	EffectiveDate                string                                       `json:"effective_date,omitempty"`                  // 异动生效日期
-	Status                       int64                                        `json:"status,omitempty"`                          // 异动状态, 可选值有: 1: 异动发起 = 审批中状态, 2: 已撤销, 3: 已拒绝, 4: 审批通过, 5: 已生效（到了生效日期后就生效）
-	TransferKey                  string                                       `json:"transfer_key,omitempty"`                    // 异动记录标识符
+	EmploymentID                   string                                       `json:"employment_id,omitempty"`                     // 雇员ID
+	TargetUserID                   *EventV2CorehrJobChangeUpdatedV1TargetUserID `json:"target_user_id,omitempty"`                    // 用户 ID
+	JobChangeID                    string                                       `json:"job_change_id,omitempty"`                     // 异动记录 id
+	TransferMode                   int64                                        `json:"transfer_mode,omitempty"`                     // 异动属性/方式, 可选值有: 1: 直接异动: 无需审批的异动, 操作后异动状态为「无需审批」, 2: 发起异动: 需要走异动流程
+	TransferTypeUniqueIdentifier   string                                       `json:"transfer_type_unique_identifier,omitempty"`   // 异动类型唯一标识
+	TransferReasonUniqueIdentifier string                                       `json:"transfer_reason_unique_identifier,omitempty"` // 异动原因唯一标识
+	ProcessID                      string                                       `json:"process_id,omitempty"`                        // 异动发起后的审批流程 id, 如果是直接异动, 则无需要审批流程id
+	EffectiveDate                  string                                       `json:"effective_date,omitempty"`                    // 异动生效日期
+	Status                         int64                                        `json:"status,omitempty"`                            // 异动状态, 可选值有: 1: 异动发起 = 审批中状态, 2: 已撤销, 3: 已拒绝, 4: 审批通过, 5: 已生效（到了生效日期后就生效）, 6: 无需审批
+	TransferKey                    string                                       `json:"transfer_key,omitempty"`                      // 异动记录标识符
 }
 
 // EventV2CorehrJobChangeUpdatedV1TargetUserID ...

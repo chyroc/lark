@@ -59,7 +59,7 @@ func (r *Mock) UnMockHelpdeskGetHelpdeskAgentScheduleList() {
 
 // GetHelpdeskAgentScheduleListReq ...
 type GetHelpdeskAgentScheduleListReq struct {
-	Status []int64 `query:"status" json:"-"` // 筛选条件, 1 - online客服, 2 - offline(手动)客服, 3 - off duty(下班)客服, 4 - 移除客服, 示例值: status=1&status=2
+	Status []int64 `query:"status" json:"-"` // 筛选条件, 1: online客服, 2: offline(手动)客服, 3: off duty(下班)客服, 4: 移除客服, 在 GET 请求中传入多个值的格式为 `status=1&status=2`, 示例值: 1
 }
 
 // GetHelpdeskAgentScheduleListResp ...

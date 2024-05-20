@@ -70,13 +70,14 @@ type CreateBitableTableReq struct {
 type CreateBitableTableReqTable struct {
 	Name            *string                            `json:"name,omitempty"`              // 数据表名称, 请注意: 1. 名称中的首尾空格将会被去除, 示例值: "table1", 长度范围: `1` ～ `100` 字符
 	DefaultViewName *string                            `json:"default_view_name,omitempty"` // 默认表格视图的名称, 不填则默认为 表格, 请注意: 1. 名称中的首尾空格将会被去除, 2. 名称中不允许包含 [ ] 两个字符, 示例值: "表格"
-	Fields          []*CreateBitableTableReqTableField `json:"fields,omitempty"`            // 数据表的初始字段, 请注意: 1. 如果 default_view_name 字段和 fields 字段都不填写, 将会创建一个仅包含索引列的空数据表, 2. 如果指定了 fields 字段, 将会创建一个包含初始字段的数据表且默认第一个字段为索引列, 长度范围: `1` ～ `50`
+	Fields          []*CreateBitableTableReqTableField `json:"fields,omitempty"`            // 数据表的初始字段, 请注意: 1. 如果 default_view_name 字段和 fields 字段都不填写, 将会创建一个仅包含索引列的空数据表, 2. 如果指定了 fields 字段, 将会创建一个包含初始字段的数据表且默认第一个字段为索引列, 长度范围: `1` ～ `300`
 }
 
 // CreateBitableTableReqTableField ...
 type CreateBitableTableReqTableField struct {
 	FieldName   string                                      `json:"field_name,omitempty"`  // 字段名, 示例值: "文本"
-	Type        int64                                       `json:"type,omitempty"`        // 字段类型, 示例值: 1, 可选值有: 1: 多行文本, 2: 数字, 3: 单选, 4: 多选, 5: 日期, 7: 复选框, 11: 人员, 13: 电话号码, 15: 超链接, 22: 地理位置, 1001: 创建时间, 1002: 最后更新时间, 1003: 创建人, 1004: 修改人
+	Type        int64                                       `json:"type,omitempty"`        // 字段类型, 示例值: 1, 可选值有: 1: 多行文本, 2: 数字, 3: 单选, 4: 多选, 5: 日期, 7: 复选框, 11: 人员, 13: 电话号码, 15: 超链接, 17: 附件, 18: 单向关联, 20: 公式, 21: 双向关联, 22: 地理位置, 23: 群组, 1001: 创建时间, 1002: 最后更新时间, 1003: 创建人, 1004: 修改人, 1005: 自动编号
+	UiType      *string                                     `json:"ui_type,omitempty"`     // 字段在界面上的展示类型, 例如进度字段是数字的一种展示形态, 示例值: "Progress", 可选值有: Text: 多行文本, Barcode: 条码, Number: 数字, Progress: 进度, Currency: 货币, Rating: 评分, SingleSelect: 单选, MultiSelect: 多选, DateTime: 日期, Checkbox: 复选框, User: 人员, GroupChat: 群组, Phone: 电话号码, Url: 超链接, Attachment: 附件, SingleLink: 单向关联, Formula: 公式, DuplexLink: 双向关联, Location: 地理位置, CreatedTime: 创建时间, ModifiedTime: 最后更新时间, CreatedUser: 创建人, ModifiedUser: 修改人, AutoNumber: 自动编号
 	Property    *CreateBitableTableReqTableFieldProperty    `json:"property,omitempty"`    // 字段属性
 	Description *CreateBitableTableReqTableFieldDescription `json:"description,omitempty"` // 字段的描述
 }

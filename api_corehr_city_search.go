@@ -59,9 +59,9 @@ func (r *Mock) UnMockCoreHRSearchCoreHRCity() {
 type SearchCoreHRCityReq struct {
 	PageSize                       int64    `query:"page_size" json:"-"`                          // 分页大小, 最大 100, 示例值: 100, 取值范围: `1` ～ `100`
 	PageToken                      *string  `query:"page_token" json:"-"`                         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 6891251722631890445
-	CountryRegionSubdivisionIDList []string `json:"country_region_subdivision_id_list,omitempty"` // 省份/行政区 ID 列表, 可通过[查询省份/行政区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region_subdivision/search)接口获取, 示例值: ["6661251722631891445"], 最大长度: `100`
-	CityIDList                     []string `json:"city_id_list,omitempty"`                       // 城市 ID 列表, 示例值: ["6661222722631891445"], 最大长度: `100`
-	StatusList                     []int64  `json:"status_list,omitempty"`                        // 状态列表, 示例值: [1], 可选值有: 1: 生效, 0: 失效, 默认值: `[1]`, 最大长度: `2`
+	CountryRegionSubdivisionIDList []string `json:"country_region_subdivision_id_list,omitempty"` // 省份/行政区 ID 列表, 可通过[查询省份/行政区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region_subdivision/search)接口获取, 不填写则返回全部列表, 示例值: ["6661251722631891445"], 最大长度: `100`
+	CityIDList                     []string `json:"city_id_list,omitempty"`                       // 城市 ID 列表, 不填写则返回全部列表, 示例值: ["6661222722631891445"], 最大长度: `100`
+	StatusList                     []int64  `json:"status_list,omitempty"`                        // 城市状态列表, 不填写则返回全部列表, 示例值: [1], 可选值有: 1: 生效, 0: 失效, 默认值: `[1]`, 最大长度: `2`
 }
 
 // SearchCoreHRCityResp ...
@@ -77,6 +77,7 @@ type SearchCoreHRCityRespItem struct {
 	Name                       []*SearchCoreHRCityRespItemName `json:"name,omitempty"`                          // 城市名称
 	CountryRegionSubdivisionID string                          `json:"country_region_subdivision_id,omitempty"` // 所属省份/行政区 ID, 详细信息可通过[查询省份/行政区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region_subdivision/search)接口查询获得
 	Code                       string                          `json:"code,omitempty"`                          // 城市三字码
+	SubregionCode              string                          `json:"subregion_code,omitempty"`                // 行政区划代码
 	Status                     int64                           `json:"status,omitempty"`                        // 状态, 可选值有: 1: 生效, 0: 失效
 }
 

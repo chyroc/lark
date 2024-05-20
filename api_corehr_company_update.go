@@ -157,10 +157,19 @@ type UpdateCoreHRCompanyReqLegalRepresentative struct {
 
 // UpdateCoreHRCompanyReqOfficeAddressInfo ...
 type UpdateCoreHRCompanyReqOfficeAddressInfo struct {
-	CountryRegionID   string  `json:"country_region_id,omitempty"`   // 国家 / 地区 ID。若选择中国大陆、中国香港、中国澳门, 则需要指定主要行政区（中国大陆为省份）、城市、区/县（中国香港为地区） ；, 若选择中国台湾, 则需要指定主要行政区（中国台湾为省/地区）、城市、区/县（中国台湾为区）.可通过, [请求接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)查询获取, 示例值: "6862995757234914824"
+	CountryRegionID   string  `json:"country_region_id,omitempty"`   // 国家 / 地区 ID。各国家/地区填写字段可参考[地址填写规则](https://bytedance.larkoffice.com/wiki/GoL4wAKAXis3OWku72YcEjTxnKe?sheet=0sMjoP)查询.可通过, [请求接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)查询获取, 示例值: "6862995757234914824"
 	RegionID          *string `json:"region_id,omitempty"`           // 主要行政区ID.可通过, [请求接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region_subdivision/search)查询获取, 示例值: "6863326815667095047"
 	CityID            *string `json:"city_id,omitempty"`             // 城市ID.可通过, [请求接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-city/search)查询获取, 示例值: "6863333254578046471"
 	DistinctID        *string `json:"distinct_id,omitempty"`         // 区/县ID.可通过, [请求接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-district/search)查询获取, 示例值: "6863333516579440141"
+	AddressLine1      *string `json:"address_line1,omitempty"`       // 地址行 1, 示例值: "丹佛测试地址-纽埃时区"
+	AddressLine2      *string `json:"address_line2,omitempty"`       // 地址行 2, 示例值: "PoewH"
+	AddressLine3      *string `json:"address_line3,omitempty"`       // 地址行 3, 示例值: "PoewH"
+	AddressLine4      *string `json:"address_line4,omitempty"`       // 地址行 4, 示例值: "jmwJc"
+	AddressLine5      *string `json:"address_line5,omitempty"`       // 地址行 5, 示例值: "jmwJc"
+	AddressLine6      *string `json:"address_line6,omitempty"`       // 地址行 6, 示例值: "jmwJc"
+	AddressLine7      *string `json:"address_line7,omitempty"`       // 地址行 7, 示例值: "jmwJc"
+	AddressLine8      *string `json:"address_line8,omitempty"`       // 地址行 8, 示例值: "rafSu"
+	AddressLine9      *string `json:"address_line9,omitempty"`       // 地址行 9, 示例值: "McPRG"
 	LocalAddressLine1 *string `json:"local_address_line1,omitempty"` // 地址行 1（非拉丁语系的本地文字）, 示例值: "丹佛测试地址-纽埃时区"
 	LocalAddressLine2 *string `json:"local_address_line2,omitempty"` // 地址行 2（非拉丁语系的本地文字）, 示例值: "PoewH"
 	LocalAddressLine3 *string `json:"local_address_line3,omitempty"` // 地址行 3（非拉丁语系的本地文字）, 示例值: "PoewH"
@@ -192,10 +201,19 @@ type UpdateCoreHRCompanyReqPrimaryManager struct {
 
 // UpdateCoreHRCompanyReqRegisteredOfficeAddressInfo ...
 type UpdateCoreHRCompanyReqRegisteredOfficeAddressInfo struct {
-	CountryRegionID   string  `json:"country_region_id,omitempty"`   // 国家 / 地区 ID。若选择中国大陆、中国香港、中国澳门, 则需要指定主要行政区（中国大陆为省份）、城市、区/县（中国香港为地区） ；, 若选择中国台湾, 则需要指定主要行政区（中国台湾为省/地区）、城市、区/县（中国台湾为区）.可通过, [请求接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)查询获取, 示例值: "6862995757234914824"
+	CountryRegionID   string  `json:"country_region_id,omitempty"`   // 国家 / 地区 ID。各国家/地区填写字段可参考[地址填写规则](https://bytedance.larkoffice.com/wiki/GoL4wAKAXis3OWku72YcEjTxnKe?sheet=0sMjoP)查询。可通过, [请求接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)查询获取, 示例值: "6862995757234914824"
 	RegionID          *string `json:"region_id,omitempty"`           // 主要行政区ID.可通过, [请求接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region_subdivision/search)查询获取, 示例值: "6863326815667095047"
 	CityID            *string `json:"city_id,omitempty"`             // 城市ID.可通过, [请求接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-city/search)查询获取, 示例值: "6863333254578046471"
 	DistinctID        *string `json:"distinct_id,omitempty"`         // 区/县ID.可通过, [请求接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-district/search)查询获取, 示例值: "6863333516579440141"
+	AddressLine1      *string `json:"address_line1,omitempty"`       // 地址行 1, 示例值: "丹佛测试地址-纽埃时区"
+	AddressLine2      *string `json:"address_line2,omitempty"`       // 地址行 2, 示例值: "PoewH"
+	AddressLine3      *string `json:"address_line3,omitempty"`       // 地址行 3, 示例值: "PoewH"
+	AddressLine4      *string `json:"address_line4,omitempty"`       // 地址行 4, 示例值: "jmwJc"
+	AddressLine5      *string `json:"address_line5,omitempty"`       // 地址行 5, 示例值: "jmwJc"
+	AddressLine6      *string `json:"address_line6,omitempty"`       // 地址行 6, 示例值: "jmwJc"
+	AddressLine7      *string `json:"address_line7,omitempty"`       // 地址行 7, 示例值: "jmwJc"
+	AddressLine8      *string `json:"address_line8,omitempty"`       // 地址行 8, 示例值: "rafSu"
+	AddressLine9      *string `json:"address_line9,omitempty"`       // 地址行 9, 示例值: "McPRG"
 	LocalAddressLine1 *string `json:"local_address_line1,omitempty"` // 地址行 1（非拉丁语系的本地文字）, 示例值: "丹佛测试地址-纽埃时区"
 	LocalAddressLine2 *string `json:"local_address_line2,omitempty"` // 地址行 2（非拉丁语系的本地文字）, 示例值: "PoewH"
 	LocalAddressLine3 *string `json:"local_address_line3,omitempty"` // 地址行 3（非拉丁语系的本地文字）, 示例值: "PoewH"
@@ -356,10 +374,19 @@ type UpdateCoreHRCompanyRespCompanyOfficeAddres struct {
 
 // UpdateCoreHRCompanyRespCompanyOfficeAddressInfo ...
 type UpdateCoreHRCompanyRespCompanyOfficeAddressInfo struct {
-	CountryRegionID   string `json:"country_region_id,omitempty"`   // 国家 / 地区。若选择中国大陆、中国香港、中国澳门, 则需要指定主要行政区（中国大陆为省份）、城市、区/县（中国香港为地区） ；, 若选择中国台湾, 则需要指定主要行政区（中国台湾为省/地区）、城市、区/县（中国台湾为区）
+	CountryRegionID   string `json:"country_region_id,omitempty"`   // 国家 / 地区。各国家/地区填写字段可参考[地址填写规则](https://bytedance.larkoffice.com/wiki/GoL4wAKAXis3OWku72YcEjTxnKe?sheet=0sMjoP)查询。
 	RegionID          string `json:"region_id,omitempty"`           // 主要行政区
 	CityID            string `json:"city_id,omitempty"`             // 城市Id.可通过, [请求接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-city/search)查询获取。
 	DistinctID        string `json:"distinct_id,omitempty"`         // 区/县ID, 可通过, [请求接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-district/search)查询获取。
+	AddressLine1      string `json:"address_line1,omitempty"`       // 地址行 1
+	AddressLine2      string `json:"address_line2,omitempty"`       // 地址行 2
+	AddressLine3      string `json:"address_line3,omitempty"`       // 地址行 3
+	AddressLine4      string `json:"address_line4,omitempty"`       // 地址行 4
+	AddressLine5      string `json:"address_line5,omitempty"`       // 地址行 5
+	AddressLine6      string `json:"address_line6,omitempty"`       // 地址行 6
+	AddressLine7      string `json:"address_line7,omitempty"`       // 地址行 7
+	AddressLine8      string `json:"address_line8,omitempty"`       // 地址行 8
+	AddressLine9      string `json:"address_line9,omitempty"`       // 地址行 9
 	LocalAddressLine1 string `json:"local_address_line1,omitempty"` // 地址行 1（非拉丁语系的本地文字）
 	LocalAddressLine2 string `json:"local_address_line2,omitempty"` // 地址行 2（非拉丁语系的本地文字）
 	LocalAddressLine3 string `json:"local_address_line3,omitempty"` // 地址行 3（非拉丁语系的本地文字）
@@ -404,10 +431,19 @@ type UpdateCoreHRCompanyRespCompanyRegisteredOfficeAddres struct {
 
 // UpdateCoreHRCompanyRespCompanyRegisteredOfficeAddressInfo ...
 type UpdateCoreHRCompanyRespCompanyRegisteredOfficeAddressInfo struct {
-	CountryRegionID   string `json:"country_region_id,omitempty"`   // 国家 / 地区 ID。若选择中国大陆、中国香港、中国澳门, 则需要指定主要行政区（中国大陆为省份）、城市、区/县（中国香港为地区） ；, 若选择中国台湾, 则需要指定主要行政区（中国台湾为省/地区）、城市、区/县（中国台湾为区）.可通过, [请求接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)查询获取。
+	CountryRegionID   string `json:"country_region_id,omitempty"`   // 国家 / 地区 ID。各国家/地区填写字段可参考[地址填写规则](https://bytedance.larkoffice.com/wiki/GoL4wAKAXis3OWku72YcEjTxnKe?sheet=0sMjoP)查询.可通过, [请求接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)查询获取。
 	RegionID          string `json:"region_id,omitempty"`           // 主要行政区ID.可通过, [请求接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region_subdivision/search)查询获取。
 	CityID            string `json:"city_id,omitempty"`             // 城市ID.可通过, [请求接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-city/search)查询获取。
 	DistinctID        string `json:"distinct_id,omitempty"`         // 区/县ID, 可通过, [请求接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-district/search)查询获取。
+	AddressLine1      string `json:"address_line1,omitempty"`       // 地址行 1
+	AddressLine2      string `json:"address_line2,omitempty"`       // 地址行 2
+	AddressLine3      string `json:"address_line3,omitempty"`       // 地址行 3
+	AddressLine4      string `json:"address_line4,omitempty"`       // 地址行 4
+	AddressLine5      string `json:"address_line5,omitempty"`       // 地址行 5
+	AddressLine6      string `json:"address_line6,omitempty"`       // 地址行 6
+	AddressLine7      string `json:"address_line7,omitempty"`       // 地址行 7
+	AddressLine8      string `json:"address_line8,omitempty"`       // 地址行 8
+	AddressLine9      string `json:"address_line9,omitempty"`       // 地址行 9
 	LocalAddressLine1 string `json:"local_address_line1,omitempty"` // 地址行 1（非拉丁语系的本地文字）
 	LocalAddressLine2 string `json:"local_address_line2,omitempty"` // 地址行 2（非拉丁语系的本地文字）
 	LocalAddressLine3 string `json:"local_address_line3,omitempty"` // 地址行 3（非拉丁语系的本地文字）

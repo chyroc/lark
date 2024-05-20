@@ -21,7 +21,9 @@ import (
 	"context"
 )
 
-// EventV2CorehrProcessApproverUpdatedV2 审批任务（approver_id 是唯一标识）, 比如一个多人会签节点, 会分别生成多人的审批任务。
+// EventV2CorehrProcessApproverUpdatedV2 单个审批任务的状态变化会触发该事件。例如, 审批任务从待办变为已完成。审批任务（approver_id 是唯一标识）, 比如一个多人会签节点, 会分别生成多人的审批任务。
+//
+// 你需要在应用内配置事件订阅, 并订阅该事件, 这样才可以在事件触发时接收到事件数据。了解事件订阅可参见[事件概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process-approver/events/updated
 func (r *EventCallbackService) HandlerEventV2CorehrProcessApproverUpdatedV2(f EventV2CorehrProcessApproverUpdatedV2Handler) {

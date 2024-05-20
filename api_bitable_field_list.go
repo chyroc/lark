@@ -89,7 +89,7 @@ type GetBitableFieldListRespItem struct {
 
 // GetBitableFieldListRespItemDescription ...
 type GetBitableFieldListRespItemDescription struct {
-	DisableSync bool   `json:"disable_sync,omitempty"` // 是否禁止同步, 如果为true, 表示禁止同步该描述内容到表单的问题描述（只在新增、修改字段时生效）
+	DisableSync bool   `json:"disable_sync,omitempty"` // 是否禁止同步, 如果为true, 表示禁止同步该描述内容到表单的问题描述, 注意: 该字段在列出字段时不生效。只在新增、修改字段时生效。
 	Text        string `json:"text,omitempty"`         // 字段描述内容
 }
 

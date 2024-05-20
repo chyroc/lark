@@ -71,23 +71,25 @@ type GetCoreHRCompanyListResp struct {
 
 // GetCoreHRCompanyListRespItem ...
 type GetCoreHRCompanyListRespItem struct {
-	ID                      string                                                `json:"id,omitempty"`                        // 公司 ID
-	HiberarchyCommon        *GetCoreHRCompanyListRespItemHiberarchyCommon         `json:"hiberarchy_common,omitempty"`         // 层级关系, 内层字段见实体
-	Type                    *GetCoreHRCompanyListRespItemType                     `json:"type,omitempty"`                      // 性质, 枚举值可通过文档[飞书人事枚举常量](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)公司类型（company_type）枚举定义部分获得
-	IndustryList            []*GetCoreHRCompanyListRespItemIndustry               `json:"industry_list,omitempty"`             // 行业, 枚举值可通过文档[飞书人事枚举常量](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)行业（industry）枚举定义部分获得
-	LegalRepresentative     []*GetCoreHRCompanyListRespItemLegalRepresentative    `json:"legal_representative,omitempty"`      // 法定代表人
-	PostCode                string                                                `json:"post_code,omitempty"`                 // 邮编
-	TaxPayerID              string                                                `json:"tax_payer_id,omitempty"`              // 纳税人识别号
-	Confidential            bool                                                  `json:"confidential,omitempty"`              // 是否保密
-	SubTypeList             []*GetCoreHRCompanyListRespItemSubType                `json:"sub_type_list,omitempty"`             // 主体类型, 枚举值可通过文档[飞书人事枚举常量](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)主体类型（company_sub_type）枚举定义部分获得
-	BranchCompany           bool                                                  `json:"branch_company,omitempty"`            // 是否为分公司
-	PrimaryManager          []*GetCoreHRCompanyListRespItemPrimaryManager         `json:"primary_manager,omitempty"`           // 主要负责人
-	CustomFields            []*GetCoreHRCompanyListRespItemCustomField            `json:"custom_fields,omitempty"`             // 自定义字段
-	Currency                *GetCoreHRCompanyListRespItemCurrency                 `json:"currency,omitempty"`                  // 默认币种
-	Phone                   *GetCoreHRCompanyListRespItemPhone                    `json:"phone,omitempty"`                     // 电话
-	Fax                     *GetCoreHRCompanyListRespItemFax                      `json:"fax,omitempty"`                       // 传真
-	RegisteredOfficeAddress []*GetCoreHRCompanyListRespItemRegisteredOfficeAddres `json:"registered_office_address,omitempty"` // 注册地址
-	OfficeAddress           []*GetCoreHRCompanyListRespItemOfficeAddres           `json:"office_address,omitempty"`            // 办公地址
+	ID                          string                                                   `json:"id,omitempty"`                             // 公司 ID
+	HiberarchyCommon            *GetCoreHRCompanyListRespItemHiberarchyCommon            `json:"hiberarchy_common,omitempty"`              // 层级关系, 内层字段见实体
+	Type                        *GetCoreHRCompanyListRespItemType                        `json:"type,omitempty"`                           // 性质, 枚举值可通过文档[飞书人事枚举常量](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)公司类型（company_type）枚举定义部分获得
+	IndustryList                []*GetCoreHRCompanyListRespItemIndustry                  `json:"industry_list,omitempty"`                  // 行业, 枚举值可通过文档[飞书人事枚举常量](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)行业（industry）枚举定义部分获得
+	LegalRepresentative         []*GetCoreHRCompanyListRespItemLegalRepresentative       `json:"legal_representative,omitempty"`           // 法定代表人
+	PostCode                    string                                                   `json:"post_code,omitempty"`                      // 邮编
+	TaxPayerID                  string                                                   `json:"tax_payer_id,omitempty"`                   // 纳税人识别号
+	Confidential                bool                                                     `json:"confidential,omitempty"`                   // 是否保密
+	SubTypeList                 []*GetCoreHRCompanyListRespItemSubType                   `json:"sub_type_list,omitempty"`                  // 主体类型, 枚举值可通过文档[飞书人事枚举常量](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)主体类型（company_sub_type）枚举定义部分获得
+	BranchCompany               bool                                                     `json:"branch_company,omitempty"`                 // 是否为分公司
+	PrimaryManager              []*GetCoreHRCompanyListRespItemPrimaryManager            `json:"primary_manager,omitempty"`                // 主要负责人
+	CustomFields                []*GetCoreHRCompanyListRespItemCustomField               `json:"custom_fields,omitempty"`                  // 自定义字段
+	Currency                    *GetCoreHRCompanyListRespItemCurrency                    `json:"currency,omitempty"`                       // 默认币种
+	Phone                       *GetCoreHRCompanyListRespItemPhone                       `json:"phone,omitempty"`                          // 电话
+	Fax                         *GetCoreHRCompanyListRespItemFax                         `json:"fax,omitempty"`                            // 传真
+	RegisteredOfficeAddress     []*GetCoreHRCompanyListRespItemRegisteredOfficeAddres    `json:"registered_office_address,omitempty"`      // 完整注册地址
+	OfficeAddress               []*GetCoreHRCompanyListRespItemOfficeAddres              `json:"office_address,omitempty"`                 // 完整办公地址
+	RegisteredOfficeAddressInfo *GetCoreHRCompanyListRespItemRegisteredOfficeAddressInfo `json:"registered_office_address_info,omitempty"` // 注册地址详细信息
+	OfficeAddressInfo           *GetCoreHRCompanyListRespItemOfficeAddressInfo           `json:"office_address_info,omitempty"`            // 办公地址详细信息
 }
 
 // GetCoreHRCompanyListRespItemCurrency ...
@@ -198,6 +200,11 @@ type GetCoreHRCompanyListRespItemOfficeAddres struct {
 	Value string `json:"value,omitempty"` // 内容
 }
 
+// GetCoreHRCompanyListRespItemOfficeAddressInfo ...
+type GetCoreHRCompanyListRespItemOfficeAddressInfo struct {
+	PostalCode string `json:"postal_code,omitempty"` // 邮政编码
+}
+
 // GetCoreHRCompanyListRespItemPhone ...
 type GetCoreHRCompanyListRespItemPhone struct {
 	AreaCode    *GetCoreHRCompanyListRespItemPhoneAreaCode `json:"area_code,omitempty"`    // 区号
@@ -226,6 +233,11 @@ type GetCoreHRCompanyListRespItemPrimaryManager struct {
 type GetCoreHRCompanyListRespItemRegisteredOfficeAddres struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
+}
+
+// GetCoreHRCompanyListRespItemRegisteredOfficeAddressInfo ...
+type GetCoreHRCompanyListRespItemRegisteredOfficeAddressInfo struct {
+	PostalCode string `json:"postal_code,omitempty"` // 邮政编码
 }
 
 // GetCoreHRCompanyListRespItemSubType ...

@@ -93,6 +93,15 @@ type GetCoreHRLocationListRespItemAddres struct {
 	RegionID                 string                                            `json:"region_id,omitempty"`                   // 主要行政区
 	CityID                   string                                            `json:"city_id,omitempty"`                     // 城市, 该字段已作废, 请使用 city_id_v2 字段
 	DistinctID               string                                            `json:"distinct_id,omitempty"`                 // 区/县, 该字段已作废, 请使用 district_id_v2 字段
+	AddressLine1             string                                            `json:"address_line1,omitempty"`               // 地址行 1
+	AddressLine2             string                                            `json:"address_line2,omitempty"`               // 地址行 2
+	AddressLine3             string                                            `json:"address_line3,omitempty"`               // 地址行 3
+	AddressLine4             string                                            `json:"address_line4,omitempty"`               // 地址行 4
+	AddressLine5             string                                            `json:"address_line5,omitempty"`               // 地址行 5
+	AddressLine6             string                                            `json:"address_line6,omitempty"`               // 地址行 6
+	AddressLine7             string                                            `json:"address_line7,omitempty"`               // 地址行 7
+	AddressLine8             string                                            `json:"address_line8,omitempty"`               // 地址行 8
+	AddressLine9             string                                            `json:"address_line9,omitempty"`               // 地址行 9
 	LocalAddressLine1        string                                            `json:"local_address_line1,omitempty"`         // 地址行 1（非拉丁语系的本地文字）
 	LocalAddressLine2        string                                            `json:"local_address_line2,omitempty"`         // 地址行 2（非拉丁语系的本地文字）
 	LocalAddressLine3        string                                            `json:"local_address_line3,omitempty"`         // 地址行 3（非拉丁语系的本地文字）
