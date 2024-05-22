@@ -24,12 +24,13 @@ const (
 	MsgTypePost               MsgType = "post"                 // 富文本
 	MsgTypeImage              MsgType = "image"                // 图片
 	MsgTypeFile               MsgType = "file"                 // 文件
-	MsgTypeAudio              MsgType = "audio"                // 语音
+	MsgTypeFolder             MsgType = "folder"               // 文件夹
+	MsgTypeAudio              MsgType = "audio"                // 音频
 	MsgTypeMedia              MsgType = "media"                // 视频
 	MsgTypeSticker            MsgType = "sticker"              // 表情包
 	MsgTypeInteractive        MsgType = "interactive"          // 卡片消息
 	MsgTypeRedBag             MsgType = "red_bag"              // 红包
-	MsgTypeShareCalendarEvent MsgType = "share_calendar_event" // 分享日历事件
+	MsgTypeShareCalendarEvent MsgType = "share_calendar_event" // 日程分享卡片
 	MsgTypeShareChat          MsgType = "share_chat"           // 分享群卡片
 	MsgTypeShareUser          MsgType = "share_user"           // 分享个人卡片
 	MsgTypeMergeForward       MsgType = "merge_forward"        // 合并转发消息内容

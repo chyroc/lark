@@ -20,6 +20,7 @@ type MessageContent struct {
 	Text               *MessageContentText               // 文本消息
 	Image              *MessageContentImage              // 图片消息
 	File               *MessageContentFile               // 文件消息
+	Folder             *MessageContentFolder             // 文件夹消息
 	Audio              *MessageContentAudio              // 音频消息
 	Media              *MessageContentMedia              // 视频消息
 	Sticker            *MessageContentSticker            // 表情包消息
@@ -48,6 +49,12 @@ type MessageContentImage struct {
 type MessageContentFile struct {
 	FileKey  string `json:"file_key"`
 	FileName string `json:"file_name"`
+}
+
+// MessageContentFolder 文件夹消息
+type MessageContentFolder struct {
+	FileKey  string `json:"file_key"`
+	FileName string `json:"file_name"` // 文件夹名称
 }
 
 // MessageContentAudio 音频消息

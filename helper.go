@@ -28,6 +28,7 @@ func UnwrapMessageContent(msgType MsgType, content string) (*MessageContent, err
 		Text:               new(MessageContentText),
 		Image:              new(MessageContentImage),
 		File:               new(MessageContentFile),
+		Folder:             new(MessageContentFolder),
 		Audio:              new(MessageContentAudio),
 		Media:              new(MessageContentMedia),
 		Sticker:            new(MessageContentSticker),
@@ -50,6 +51,8 @@ func UnwrapMessageContent(msgType MsgType, content string) (*MessageContent, err
 		return msg, unmarshalMessageContent(msgType, content, msg.Image)
 	case MsgTypeFile:
 		return msg, unmarshalMessageContent(msgType, content, msg.File)
+	case MsgTypeFolder:
+		return msg, unmarshalMessageContent(msgType, content, msg.Folder)
 	case MsgTypeAudio:
 		return msg, unmarshalMessageContent(msgType, content, msg.Audio)
 	case MsgTypeMedia:
