@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 1091, Event Count: 149
+API Count: 1098, Event Count: 149
 
 <details>
   <summary>
@@ -528,6 +528,7 @@ API Count: 1091, Event Count: 149
   - UpdateCoreHRJobLevel
   - GetCoreHRJobLevel
   - GetCoreHRJobLevelList
+  - QueryCoreHRJobGrade
   - BatchGetCoreHRJobFamily
   - CreateCoreHRJobFamily
   - DeleteCoreHRJobFamily
@@ -581,7 +582,13 @@ API Count: 1091, Event Count: 149
   - GetCoreHRProcessList
   - GetCoreHRProcess
   - GetCoreHRProcessFormVariableData
+  - QueryCoreHRCompensationArchive
+  - GetCoreHRCompensationItemList
+  - GetCoreHRCompensationIndicatorList
+  - GetCoreHRCompensationItemCategoryList
   - MatchCoreHRCompensationStandard
+  - GetCoreHRCompensationPlanList
+  - GetCoreHRCompensationChangeReasonList
 - Drive
   - GetDriveRootFolderMeta
   - GetDriveFileList

@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 1091, 事件总数: 149
+API 总数: 1098, 事件总数: 149
 
 <details>
   <summary>
@@ -528,6 +528,7 @@ API 总数: 1091, 事件总数: 149
   - UpdateCoreHRJobLevel
   - GetCoreHRJobLevel
   - GetCoreHRJobLevelList
+  - QueryCoreHRJobGrade
   - BatchGetCoreHRJobFamily
   - CreateCoreHRJobFamily
   - DeleteCoreHRJobFamily
@@ -581,7 +582,13 @@ API 总数: 1091, 事件总数: 149
   - GetCoreHRProcessList
   - GetCoreHRProcess
   - GetCoreHRProcessFormVariableData
+  - QueryCoreHRCompensationArchive
+  - GetCoreHRCompensationItemList
+  - GetCoreHRCompensationIndicatorList
+  - GetCoreHRCompensationItemCategoryList
   - MatchCoreHRCompensationStandard
+  - GetCoreHRCompensationPlanList
+  - GetCoreHRCompensationChangeReasonList
 - Drive
   - GetDriveRootFolderMeta
   - GetDriveFileList
