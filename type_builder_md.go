@@ -21,6 +21,7 @@ import "strings"
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uADOwUjLwgDM14CM4ATN
 // doc: https://open.feishu.cn/document/common-capabilities/message-card/message-cards-content/using-markdown-tags
+// 新卡片: https://open.larkoffice.com/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-components/content-components/rich-text
 var MdBuilder mdBuilder
 
 type mdBuilder string
@@ -45,14 +46,19 @@ func (mdBuilder) AtAll() string {
 	return "<at id=all></at>"
 }
 
-// AtUser 艾特
+// AtUserID 艾特
 //
 // id 支持 open_id，user_id
 func (mdBuilder) AtUserID(id string) string {
 	return "<at id=" + id + "></at>"
 }
 
-// AtUser 艾特
+// AtUserIDs 艾特多个人
+func (mdBuilder) AtUserIDs(ids ...string) string {
+	return "<at ids=" + strings.Join(ids, ",") + "></at>"
+}
+
+// AtUserEmail 艾特, 支持 email
 func (mdBuilder) AtUserEmail(email string) string {
 	return "<at email=" + email + "></at>"
 }
@@ -60,6 +66,11 @@ func (mdBuilder) AtUserEmail(email string) string {
 // Link 超链接
 func (mdBuilder) Link(url, title string) string {
 	return "[" + title + "](" + url + ")"
+}
+
+// LinkOrigin 超链接(保持原样，防止类似于 &region变成®ion 这种情况)
+func (mdBuilder) LinkOrigin(url, title string) string {
+	return "[" + escape(title) + "](" + preprocessURL(url) + ")"
 }
 
 // GreenText 绿色文本
@@ -77,9 +88,10 @@ func (mdBuilder) GreyText(s string) string {
 	return "<font color='grey'>" + s + "</font>"
 }
 
-// LinkOrigin 超链接(保持原样，防止类似于 &region变成®ion 这种情况)
-func (mdBuilder) LinkOrigin(url, title string) string {
-	return "[" + escape(title) + "](" + preprocessURL(url) + ")"
+// Telephone 可点击的电话号码
+func (mdBuilder) Telephone(title string, telephone string) string {
+	//  [文本展示的电话号码或其他文案内容](tel://移动端弹窗唤起的电话号码)
+	return "[" + title + "](tel://" + telephone + ")"
 }
 
 // Image 图片
@@ -98,6 +110,85 @@ func (mdBuilder) Image(imageKey, hoverText string) string {
 // --符号必须跟在换行符后使用，且与换行符间有1个空格
 func (mdBuilder) HorizontalRule() string {
 	return "\n ---\n"
+}
+
+// Emoji 飞书表情
+func (mdBuilder) Emoji(key EmojiType) string {
+	return ":" + string(key) + ":"
+}
+
+// TextTagNeutral 中性色标签
+func (mdBuilder) TextTagNeutral(title string) string {
+	return buildTextTag(title, "neutral")
+}
+
+// TextTagBlue 蓝色标签
+func (mdBuilder) TextTagBlue(title string) string {
+	return buildTextTag(title, "blue")
+}
+
+// TextTagTurquoise 青绿色标签
+func (mdBuilder) TextTagTurquoise(title string) string {
+	return buildTextTag(title, "turquoise")
+}
+
+// TextTagLime 酸橙色标签
+func (mdBuilder) TextTagLime(title string) string {
+	return buildTextTag(title, "lime")
+}
+
+// TextTagOrange 橙色标签
+func (mdBuilder) TextTagOrange(title string) string {
+	return buildTextTag(title, "orange")
+}
+
+// TextTagViolet 紫罗兰色标签
+func (mdBuilder) TextTagViolet(title string) string {
+	return buildTextTag(title, "violet")
+}
+
+// TextTagIndigo 靛青色标签
+func (mdBuilder) TextTagIndigo(title string) string {
+	return buildTextTag(title, "indigo")
+}
+
+// TextTagWathet 天蓝色标签
+func (mdBuilder) TextTagWathet(title string) string {
+	return buildTextTag(title, "wathet")
+}
+
+// TextTagGreen 绿色标签
+func (mdBuilder) TextTagGreen(title string) string {
+	return buildTextTag(title, "green")
+}
+
+// TextTagYellow 黄色标签
+func (mdBuilder) TextTagYellow(title string) string {
+	return buildTextTag(title, "yellow")
+}
+
+// TextTagRed 红色标签
+func (mdBuilder) TextTagRed(title string) string {
+	return buildTextTag(title, "red")
+}
+
+// TextTagPurple 紫色标签
+func (mdBuilder) TextTagPurple(title string) string {
+	return buildTextTag(title, "purple")
+}
+
+// TextTagCarmine 洋红色标签
+func (mdBuilder) TextTagCarmine(title string) string {
+	return buildTextTag(title, "carmine")
+}
+
+// CodeBlock 代码块
+func (mdBuilder) CodeBlock(language, code string) string {
+	return "```" + language + "\n" + code + "\n```"
+}
+
+func buildTextTag(title, color string) string {
+	return "<text_tag color='" + color + "'>" + title + "</text_tag>"
 }
 
 var reservedWordsMapping = map[string]string{
