@@ -81,13 +81,13 @@ type GetApplicationVersionRespAppVersion struct {
 	BackHomeURL      string                                          `json:"back_home_url,omitempty"`     // 后台主页地址
 	I18n             []*GetApplicationVersionRespAppVersionI18n      `json:"i18n,omitempty"`              // 应用的国际化信息列表
 	CommonCategories []string                                        `json:"common_categories,omitempty"` // 应用分类的国际化描述
+	EventInfos       []*GetApplicationVersionRespAppVersionEventInfo `json:"event_infos,omitempty"`       //
 	Events           []string                                        `json:"events,omitempty"`            // 应用已订阅开放平台事件列表
 	Status           int64                                           `json:"status,omitempty"`            // 版本状态, 可选值有: 0: 未知状态, 1: 审核通过, 2: 审核拒绝, 3: 审核中, 4: 未提交审核
 	CreateTime       string                                          `json:"create_time,omitempty"`       // 版本创建时间（单位: s）
 	PublishTime      string                                          `json:"publish_time,omitempty"`      // 版本发布时间（单位: s）
 	Ability          *GetApplicationVersionRespAppVersionAbility     `json:"ability,omitempty"`           // 当前版本下应用开启的能力
 	Remark           *GetApplicationVersionRespAppVersionRemark      `json:"remark,omitempty"`            // 跟随应用版本的信息
-	EventInfos       []*GetApplicationVersionRespAppVersionEventInfo `json:"event_infos,omitempty"`       // 应用已订阅事件详情列表
 }
 
 // GetApplicationVersionRespAppVersionAbility ...
@@ -199,19 +199,19 @@ type GetApplicationVersionRespAppVersionAbilityWorkplaceWidget struct {
 	MinLarkVersion string `json:"min_lark_version,omitempty"` // 最低兼容飞书版本号
 }
 
-// GetApplicationVersionRespAppVersionEventInfo ...
-type GetApplicationVersionRespAppVersionEventInfo struct {
-	EventType        string `json:"event_type,omitempty"`        // 事件类型, 事件唯一标识
-	EventName        string `json:"event_name,omitempty"`        // 事件名称
-	EventDescription string `json:"event_description,omitempty"` // 事件描述
-}
-
 // GetApplicationVersionRespAppVersionI18n ...
 type GetApplicationVersionRespAppVersionI18n struct {
-	I18nKey     string `json:"i18n_key,omitempty"`    // 国际化语言的 key, 可选值有: zh_cn: 中文, en_us: 英文, ja_jp: 日文, zh_hk: 繁体中文(中国香港), zh_tw: 繁体中文(中国台湾), id_id: 印度尼西亚语, ms_my: 马来语, de_de: 德语, es_es: 西班牙语, fr_fr: 法语, it_it: 意大利语, pt_br: 葡萄牙语(巴西), vi_vn: 越南语, ru_ru: 俄语, th_th: 泰语, ko_kr: 韩语
+	I18nKey     string `json:"i18n_key,omitempty"`    // 国际化语言的 key, 可选值有: zh_cn: 中文, en_us: 英文, ja_jp: 日文
 	Name        string `json:"name,omitempty"`        // 应用国际化名称
 	Description string `json:"description,omitempty"` // 应用国际化描述（副标题）
 	HelpUse     string `json:"help_use,omitempty"`    // 国际化帮助文档链接
+}
+
+// GetApplicationVersionRespAppVersionEventInfo ...
+type GetApplicationVersionRespAppVersionEventInfo struct {
+	EventDescription string `json:"event_description"`
+	EventName        string `json:"event_name"`
+	EventType        string `json:"event_type"`
 }
 
 // GetApplicationVersionRespAppVersionRemark ...

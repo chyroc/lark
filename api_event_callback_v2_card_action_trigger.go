@@ -19,6 +19,7 @@ package lark
 
 import (
 	"context"
+	"encoding/json"
 )
 
 // EventV2CardActionTrigger 卡片回传交互作用于飞书卡片的 请求回调 交互组件。当终端用户点击飞书卡片上的回传交互组件后, 你在开发者后台应用内注册的回调请求地址将会收到 卡片回传交互 回调。该回调包含了用户与卡片之间的交互信息。
@@ -45,15 +46,11 @@ type EventV2CardActionTrigger struct {
 
 // EventV2CardActionTriggerAction ...
 type EventV2CardActionTriggerAction struct {
-	Value      *EventV2CardActionTriggerActionValue     `json:"value,omitempty"`       // 交互组件绑定的开发者自定义回传数据, 对应组件中的 value 属性。
-	Tag        string                                   `json:"tag,omitempty"`         // 交互组件的标签。
-	Timezone   string                                   `json:"timezone,omitempty"`    // 用户当前所在地区的时区。当用户操作日期选择器、时间选择器、或日期时间选择器时返回。
-	Name       string                                   `json:"name,omitempty"`        // 组件的自定义唯一标识, 用于识别内嵌在表单容器中的某个组件。
-	FormValue  *EventV2CardActionTriggerActionFormValue `json:"form_value,omitempty"`  // 表单容器内用户提交的数据。示例值: ```JSON, {, "field name 1": [ // 表单容器内某多选组件的 name 和 value, "selectDemo1", "selectDemo2", ], "field name 2": "value 2", // 表单容器内某交互组件的 name 和 value, "field name 3": "value 3", // 表单容器内某交互组件的 name 和 value, }, ```
-	InputValue string                                   `json:"input_value,omitempty"` // 当输入框组件未内嵌在表单容器中时, 用户在输入框中提交的数据。
-	Option     string                                   `json:"option,omitempty"`      // 当折叠按钮组、下拉选择-单选、人员选择-单选、日期选择器、时间选择器、日期时间选择器组件未内嵌在表单容器中时, 用户选择该类组件某个选项时, 组件返回的选项回调值。
-	Options    string                                   `json:"options,omitempty"`     // 当下拉选择-多选组件和人员选择-多选组件未内嵌在表单容器中时, 用户选择该类组件某个选项时, 组件返回的选项回调值。
-	Checked    bool                                     `json:"checked,omitempty"`     // 当勾选器组件未内嵌在表单容器中时, 勾选器组件的回调数据。
+	Value     json.RawMessage `json:"value,omitempty"`  // 交互元素的 value 字段值。
+	Tag       string          `json:"tag,omitempty"`    // 交互元素的 tag 字段值。
+	Option    json.RawMessage `json:"option,omitempty"` // 选中 option 的 value。（button 元素不适用）
+	Name      string          `json:"name,omitempty"`   // 表单容器中，“提交”按钮组件本身的回传属性
+	FormValue json.RawMessage `json:"form_value"`       // 表单容器内用户提交的数据
 }
 
 // EventV2CardActionTriggerContext ...
