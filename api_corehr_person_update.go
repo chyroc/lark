@@ -623,7 +623,7 @@ type UpdateCoreHRPersonRespPerson struct {
 	HighestLevelOfEducation  *UpdateCoreHRPersonRespPersonHighestLevelOfEducation  `json:"highest_level_of_education,omitempty"`  // 最高学历教育经历, 字段权限要求（满足任一）: 获取教育经历信息, 读写教育经历信息
 	HighestDegreeOfEducation *UpdateCoreHRPersonRespPersonHighestDegreeOfEducation `json:"highest_degree_of_education,omitempty"` // 最高学位教育经历, 字段权限要求（满足任一）: 获取教育经历信息, 读写教育经历信息
 	PersonalProfile          []*UpdateCoreHRPersonRespPersonPersonalProfile        `json:"personal_profile,omitempty"`            // 个人资料附件, 字段权限要求（满足任一）: 获取个人资料信息, 读写个人资料信息
-	NativeRegion             string                                                `json:"native_region,omitempty"`               // 籍贯 ID, 字段权限要求（满足任一）: 获取籍贯信息, 读写籍贯信息
+	NativeRegion             string                                                `json:"native_region,omitempty"`               // 籍贯 ID, 详细信息可通过[查询省份/行政区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region_subdivision/search)接口查询获得, 字段权限要求（满足任一）: 获取籍贯信息, 读写籍贯信息
 	HukouType                *UpdateCoreHRPersonRespPersonHukouType                `json:"hukou_type,omitempty"`                  // 户口类型, 枚举值可通过文档[飞书人事枚举常量](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant), 户口类型（hukou_type）枚举定义部分获得, 字段权限要求（满足任一）: 获取户口信息, 读写户口信息
 	HukouLocation            string                                                `json:"hukou_location,omitempty"`              // 户口所在地, 字段权限要求（满足任一）: 获取户口信息, 读写户口信息
 	TalentID                 string                                                `json:"talent_id,omitempty"`                   // 人才 ID
@@ -667,7 +667,7 @@ type UpdateCoreHRPersonRespPersonAddress struct {
 	LocalAddressLine8        string                                            `json:"local_address_line8,omitempty"`         // 地址行 8（非拉丁语系的本地文字）
 	LocalAddressLine9        string                                            `json:"local_address_line9,omitempty"`         // 地址行 9（非拉丁语系的本地文字）
 	PostalCode               string                                            `json:"postal_code,omitempty"`                 // 邮政编码
-	AddressTypeList          []*UpdateCoreHRPersonRespPersonAddressAddressType `json:"address_type_list,omitempty"`           // 地址类型
+	AddressTypeList          []*UpdateCoreHRPersonRespPersonAddressAddressType `json:"address_type_list,omitempty"`           // 地址类型, 枚举值可通过文档[飞书人事枚举常量](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)地址类型（address_type）枚举定义部分获得
 	IsPrimary                bool                                              `json:"is_primary,omitempty"`                  // 主要地址
 	IsPublic                 bool                                              `json:"is_public,omitempty"`                   // 公开地址
 	CustomFields             []*UpdateCoreHRPersonRespPersonAddressCustomField `json:"custom_fields,omitempty"`               // 自定义字段
@@ -710,7 +710,7 @@ type UpdateCoreHRPersonRespPersonBankAccount struct {
 	CountryRegionID   string                                                     `json:"country_region_id,omitempty"`   // 国家/地区 ID, 详细信息可通过[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)接口查询获得
 	BankAccountUsage  []*UpdateCoreHRPersonRespPersonBankAccountBankAccountUsage `json:"bank_account_usage,omitempty"`  // 银行卡用途, 枚举值可通过文档[飞书人事枚举常量](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)银行卡用途（Bank Account Usage）枚举定义部分获得
 	BankAccountType   *UpdateCoreHRPersonRespPersonBankAccountBankAccountType    `json:"bank_account_type,omitempty"`   // 银行卡类型, 枚举值可通过文档[飞书人事枚举常量](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)银行卡类型（Bank Account Type）枚举定义部分获得
-	CurrencyID        string                                                     `json:"currency_id,omitempty"`         // 货币id
+	CurrencyID        string                                                     `json:"currency_id,omitempty"`         // 货币 ID, 可通过[查询货币信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)接口查询获得
 	CustomFields      []*UpdateCoreHRPersonRespPersonBankAccountCustomField      `json:"custom_fields,omitempty"`       // 自定义字段
 }
 
@@ -812,7 +812,7 @@ type UpdateCoreHRPersonRespPersonDependentAddress struct {
 	LocalAddressLine8        string                                                     `json:"local_address_line8,omitempty"`         // 地址行 8（非拉丁语系的本地文字）
 	LocalAddressLine9        string                                                     `json:"local_address_line9,omitempty"`         // 地址行 9（非拉丁语系的本地文字）
 	PostalCode               string                                                     `json:"postal_code,omitempty"`                 // 邮政编码
-	AddressTypeList          []*UpdateCoreHRPersonRespPersonDependentAddressAddressType `json:"address_type_list,omitempty"`           // 地址类型
+	AddressTypeList          []*UpdateCoreHRPersonRespPersonDependentAddressAddressType `json:"address_type_list,omitempty"`           // 地址类型, 枚举值可通过文档[飞书人事枚举常量](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)地址类型（address_type）枚举定义部分获得
 	IsPrimary                bool                                                       `json:"is_primary,omitempty"`                  // 主要地址
 	IsPublic                 bool                                                       `json:"is_public,omitempty"`                   // 公开地址
 	CustomFields             []*UpdateCoreHRPersonRespPersonDependentAddressCustomField `json:"custom_fields,omitempty"`               // 自定义字段
@@ -846,7 +846,7 @@ type UpdateCoreHRPersonRespPersonDependentAddressCustomFieldName struct {
 
 // UpdateCoreHRPersonRespPersonDependentBirthCertificateOfChild ...
 type UpdateCoreHRPersonRespPersonDependentBirthCertificateOfChild struct {
-	ID   string `json:"id,omitempty"`   // 上传文件ID
+	ID   string `json:"id,omitempty"`   // 上传文件 ID, 可通过[上传文件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/person/upload)接口获得
 	Name string `json:"name,omitempty"` // 文件名
 }
 
@@ -981,8 +981,8 @@ type UpdateCoreHRPersonRespPersonDependentPhone struct {
 	InternationalAreaCode *UpdateCoreHRPersonRespPersonDependentPhoneInternationalAreaCode `json:"international_area_code,omitempty"` // 国家区号
 	PhoneNumber           string                                                           `json:"phone_number,omitempty"`            // 电话号码
 	FormattedPhoneNumber  string                                                           `json:"formatted_phone_number,omitempty"`  // 完整电话号码
-	DeviceType            *UpdateCoreHRPersonRespPersonDependentPhoneDeviceType            `json:"device_type,omitempty"`             // 设备类型
-	PhoneUsage            *UpdateCoreHRPersonRespPersonDependentPhonePhoneUsage            `json:"phone_usage,omitempty"`             // 电话用途
+	DeviceType            *UpdateCoreHRPersonRespPersonDependentPhoneDeviceType            `json:"device_type,omitempty"`             // 设备类型, 可选值如下: mobile_phone: 手机, landline: 座机, fax: 传真
+	PhoneUsage            *UpdateCoreHRPersonRespPersonDependentPhonePhoneUsage            `json:"phone_usage,omitempty"`             // 电话用途, 可选值如下: home: 家庭, work: 工作, emergency_contact: 紧急联系人, company: 公司
 	IsPrimary             bool                                                             `json:"is_primary,omitempty"`              // 主要电话
 	IsPublic              bool                                                             `json:"is_public,omitempty"`               // 公开电话
 }
@@ -1057,7 +1057,7 @@ type UpdateCoreHRPersonRespPersonEducation struct {
 	Degree           *UpdateCoreHRPersonRespPersonEducationDegree           `json:"degree,omitempty"`              // 学位
 	SchoolName       *UpdateCoreHRPersonRespPersonEducationSchoolName       `json:"school_name,omitempty"`         // 学校名称
 	FieldOfStudyName *UpdateCoreHRPersonRespPersonEducationFieldOfStudyName `json:"field_of_study_name,omitempty"` // 专业名称
-	CountryRegionID  string                                                 `json:"country_region_id,omitempty"`   // 国家地区ID
+	CountryRegionID  string                                                 `json:"country_region_id,omitempty"`   // 国家地区 ID, 可通过[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)接口查询获得
 	ExpectedEndDate  string                                                 `json:"expected_end_date,omitempty"`   // 预期结束日期
 	CustomFields     []*UpdateCoreHRPersonRespPersonEducationCustomField    `json:"custom_fields,omitempty"`       // 自定义字段
 }
@@ -1161,6 +1161,7 @@ type UpdateCoreHRPersonRespPersonEmergencyContact struct {
 	Name         *UpdateCoreHRPersonRespPersonEmergencyContactName          `json:"name,omitempty"`          // 姓名
 	Relationship *UpdateCoreHRPersonRespPersonEmergencyContactRelationship  `json:"relationship,omitempty"`  // 关系
 	PhoneIst     []*UpdateCoreHRPersonRespPersonEmergencyContactPhoneIst    `json:"phone_ist,omitempty"`     // 电话
+	PhoneList    []*UpdateCoreHRPersonRespPersonEmergencyContactPhone       `json:"phone_list,omitempty"`    // 电话
 	LegalName    string                                                     `json:"legal_name,omitempty"`    // 法定姓名
 	CustomFields []*UpdateCoreHRPersonRespPersonEmergencyContactCustomField `json:"custom_fields,omitempty"` // 自定义字段
 }
@@ -1254,13 +1255,48 @@ type UpdateCoreHRPersonRespPersonEmergencyContactNameTitleDisplay struct {
 	Value string `json:"value,omitempty"` // 内容
 }
 
+// UpdateCoreHRPersonRespPersonEmergencyContactPhone ...
+type UpdateCoreHRPersonRespPersonEmergencyContactPhone struct {
+	InternationalAreaCode *UpdateCoreHRPersonRespPersonEmergencyContactPhoneInternationalAreaCode `json:"international_area_code,omitempty"` // 国家区号
+	PhoneNumber           string                                                                  `json:"phone_number,omitempty"`            // 电话号码
+	FormattedPhoneNumber  string                                                                  `json:"formatted_phone_number,omitempty"`  // 完整电话号码
+	DeviceType            *UpdateCoreHRPersonRespPersonEmergencyContactPhoneDeviceType            `json:"device_type,omitempty"`             // 设备类型, 可选值如下: mobile_phone: 手机, landline: 座机, fax: 传真
+	PhoneUsage            *UpdateCoreHRPersonRespPersonEmergencyContactPhonePhoneUsage            `json:"phone_usage,omitempty"`             // 电话用途, 可选值如下: home: 家庭, work: 工作, emergency_contact: 紧急联系人, company: 公司
+	IsPrimary             bool                                                                    `json:"is_primary,omitempty"`              // 主要电话
+	IsPublic              bool                                                                    `json:"is_public,omitempty"`               // 公开电话
+}
+
+// UpdateCoreHRPersonRespPersonEmergencyContactPhoneDeviceType ...
+type UpdateCoreHRPersonRespPersonEmergencyContactPhoneDeviceType struct {
+	EnumName string                                                                `json:"enum_name,omitempty"` // 枚举值
+	Display  []*UpdateCoreHRPersonRespPersonEmergencyContactPhoneDeviceTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+}
+
+// UpdateCoreHRPersonRespPersonEmergencyContactPhoneDeviceTypeDisplay ...
+type UpdateCoreHRPersonRespPersonEmergencyContactPhoneDeviceTypeDisplay struct {
+	Lang  string `json:"lang,omitempty"`  // 语言
+	Value string `json:"value,omitempty"` // 内容
+}
+
+// UpdateCoreHRPersonRespPersonEmergencyContactPhoneInternationalAreaCode ...
+type UpdateCoreHRPersonRespPersonEmergencyContactPhoneInternationalAreaCode struct {
+	EnumName string                                                                           `json:"enum_name,omitempty"` // 枚举值
+	Display  []*UpdateCoreHRPersonRespPersonEmergencyContactPhoneInternationalAreaCodeDisplay `json:"display,omitempty"`   // 枚举多语展示
+}
+
+// UpdateCoreHRPersonRespPersonEmergencyContactPhoneInternationalAreaCodeDisplay ...
+type UpdateCoreHRPersonRespPersonEmergencyContactPhoneInternationalAreaCodeDisplay struct {
+	Lang  string `json:"lang,omitempty"`  // 语言
+	Value string `json:"value,omitempty"` // 内容
+}
+
 // UpdateCoreHRPersonRespPersonEmergencyContactPhoneIst ...
 type UpdateCoreHRPersonRespPersonEmergencyContactPhoneIst struct {
 	InternationalAreaCode *UpdateCoreHRPersonRespPersonEmergencyContactPhoneIstInternationalAreaCode `json:"international_area_code,omitempty"` // 国家区号
 	PhoneNumber           string                                                                     `json:"phone_number,omitempty"`            // 电话号码
 	FormattedPhoneNumber  string                                                                     `json:"formatted_phone_number,omitempty"`  // 完整电话号码
-	DeviceType            *UpdateCoreHRPersonRespPersonEmergencyContactPhoneIstDeviceType            `json:"device_type,omitempty"`             // 设备类型
-	PhoneUsage            *UpdateCoreHRPersonRespPersonEmergencyContactPhoneIstPhoneUsage            `json:"phone_usage,omitempty"`             // 电话用途
+	DeviceType            *UpdateCoreHRPersonRespPersonEmergencyContactPhoneIstDeviceType            `json:"device_type,omitempty"`             // 设备类型, 可选值如下: mobile_phone: 手机, landline: 座机, fax: 传真
+	PhoneUsage            *UpdateCoreHRPersonRespPersonEmergencyContactPhoneIstPhoneUsage            `json:"phone_usage,omitempty"`             // 电话用途, 可选值如下: home: 家庭, work: 工作, emergency_contact: 紧急联系人, company: 公司
 	IsPrimary             bool                                                                       `json:"is_primary,omitempty"`              // 主要电话
 	IsPublic              bool                                                                       `json:"is_public,omitempty"`               // 公开电话
 }
@@ -1301,6 +1337,18 @@ type UpdateCoreHRPersonRespPersonEmergencyContactPhoneIstPhoneUsageDisplay struc
 	Value string `json:"value,omitempty"` // 内容
 }
 
+// UpdateCoreHRPersonRespPersonEmergencyContactPhonePhoneUsage ...
+type UpdateCoreHRPersonRespPersonEmergencyContactPhonePhoneUsage struct {
+	EnumName string                                                                `json:"enum_name,omitempty"` // 枚举值
+	Display  []*UpdateCoreHRPersonRespPersonEmergencyContactPhonePhoneUsageDisplay `json:"display,omitempty"`   // 枚举多语展示
+}
+
+// UpdateCoreHRPersonRespPersonEmergencyContactPhonePhoneUsageDisplay ...
+type UpdateCoreHRPersonRespPersonEmergencyContactPhonePhoneUsageDisplay struct {
+	Lang  string `json:"lang,omitempty"`  // 语言
+	Value string `json:"value,omitempty"` // 内容
+}
+
 // UpdateCoreHRPersonRespPersonEmergencyContactRelationship ...
 type UpdateCoreHRPersonRespPersonEmergencyContactRelationship struct {
 	EnumName string                                                             `json:"enum_name,omitempty"` // 枚举值
@@ -1335,7 +1383,7 @@ type UpdateCoreHRPersonRespPersonHighestDegreeOfEducation struct {
 	Degree           *UpdateCoreHRPersonRespPersonHighestDegreeOfEducationDegree           `json:"degree,omitempty"`              // 学位
 	SchoolName       *UpdateCoreHRPersonRespPersonHighestDegreeOfEducationSchoolName       `json:"school_name,omitempty"`         // 学校名称
 	FieldOfStudyName *UpdateCoreHRPersonRespPersonHighestDegreeOfEducationFieldOfStudyName `json:"field_of_study_name,omitempty"` // 专业名称
-	CountryRegionID  string                                                                `json:"country_region_id,omitempty"`   // 国家地区ID
+	CountryRegionID  string                                                                `json:"country_region_id,omitempty"`   // 国家地区 ID, 可通过[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)接口查询获得
 	ExpectedEndDate  string                                                                `json:"expected_end_date,omitempty"`   // 预期结束日期
 	CustomFields     []*UpdateCoreHRPersonRespPersonHighestDegreeOfEducationCustomField    `json:"custom_fields,omitempty"`       // 自定义字段
 }
@@ -1424,7 +1472,7 @@ type UpdateCoreHRPersonRespPersonHighestLevelOfEducation struct {
 	Degree           *UpdateCoreHRPersonRespPersonHighestLevelOfEducationDegree           `json:"degree,omitempty"`              // 学位
 	SchoolName       *UpdateCoreHRPersonRespPersonHighestLevelOfEducationSchoolName       `json:"school_name,omitempty"`         // 学校名称
 	FieldOfStudyName *UpdateCoreHRPersonRespPersonHighestLevelOfEducationFieldOfStudyName `json:"field_of_study_name,omitempty"` // 专业名称
-	CountryRegionID  string                                                               `json:"country_region_id,omitempty"`   // 国家地区ID
+	CountryRegionID  string                                                               `json:"country_region_id,omitempty"`   // 国家地区 ID, 可通过[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)接口查询获得
 	ExpectedEndDate  string                                                               `json:"expected_end_date,omitempty"`   // 预期结束日期
 	CustomFields     []*UpdateCoreHRPersonRespPersonHighestLevelOfEducationCustomField    `json:"custom_fields,omitempty"`       // 自定义字段
 }
@@ -1635,7 +1683,7 @@ type UpdateCoreHRPersonRespPersonPersonalProfile struct {
 
 // UpdateCoreHRPersonRespPersonPersonalProfileFile ...
 type UpdateCoreHRPersonRespPersonPersonalProfileFile struct {
-	ID   string `json:"id,omitempty"`   // 上传文件ID
+	ID   string `json:"id,omitempty"`   // 上传文件 ID, 可通过[上传文件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/person/upload)接口获得
 	Name string `json:"name,omitempty"` // 文件名
 }
 
@@ -1656,8 +1704,8 @@ type UpdateCoreHRPersonRespPersonPhone struct {
 	InternationalAreaCode *UpdateCoreHRPersonRespPersonPhoneInternationalAreaCode `json:"international_area_code,omitempty"` // 国家区号
 	PhoneNumber           string                                                  `json:"phone_number,omitempty"`            // 电话号码
 	FormattedPhoneNumber  string                                                  `json:"formatted_phone_number,omitempty"`  // 完整电话号码
-	DeviceType            *UpdateCoreHRPersonRespPersonPhoneDeviceType            `json:"device_type,omitempty"`             // 设备类型
-	PhoneUsage            *UpdateCoreHRPersonRespPersonPhonePhoneUsage            `json:"phone_usage,omitempty"`             // 电话用途
+	DeviceType            *UpdateCoreHRPersonRespPersonPhoneDeviceType            `json:"device_type,omitempty"`             // 设备类型, 可选值如下: mobile_phone: 手机, landline: 座机, fax: 传真
+	PhoneUsage            *UpdateCoreHRPersonRespPersonPhonePhoneUsage            `json:"phone_usage,omitempty"`             // 电话用途, 可选值如下: home: 家庭, work: 工作, emergency_contact: 紧急联系人, company: 公司
 	IsPrimary             bool                                                    `json:"is_primary,omitempty"`              // 主要电话
 	IsPublic              bool                                                    `json:"is_public,omitempty"`               // 公开电话
 }
@@ -1713,7 +1761,7 @@ type UpdateCoreHRPersonRespPersonRaceDisplay struct {
 // UpdateCoreHRPersonRespPersonResidentTaxe ...
 type UpdateCoreHRPersonRespPersonResidentTaxe struct {
 	YearResidentTax    string                                                  `json:"year_resident_tax,omitempty"`     // 年度
-	ResidentStatus     *UpdateCoreHRPersonRespPersonResidentTaxeResidentStatus `json:"resident_status,omitempty"`       // -| 居民身份, 枚举值 api_name 可通过[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "resident_tax" - custom_api_name = "resident_status"
+	ResidentStatus     *UpdateCoreHRPersonRespPersonResidentTaxeResidentStatus `json:"resident_status,omitempty"`       // 居民身份, 枚举值 api_name 可通过[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "resident_tax" - custom_api_name = "resident_status"
 	TaxCountryRegionID string                                                  `json:"tax_country_region_id,omitempty"` // 国家/地区, 可通过[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search) 接口查询
 	CustomFields       []*UpdateCoreHRPersonRespPersonResidentTaxeCustomField  `json:"custom_fields,omitempty"`         // 自定义字段, 字段权限要求（满足任一）: 获取居民身份自定义字段信息, 读写居民身份自定义字段信息
 }

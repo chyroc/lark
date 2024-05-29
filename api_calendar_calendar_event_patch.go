@@ -65,23 +65,30 @@ func (r *Mock) UnMockCalendarUpdateCalendarEvent() {
 
 // UpdateCalendarEventReq ...
 type UpdateCalendarEventReq struct {
-	CalendarID       string                            `path:"calendar_id" json:"-"`        // 日程所在的日历 ID。了解更多, 参见[日历 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
-	EventID          string                            `path:"event_id" json:"-"`           // 日程 ID, 创建日程时会返回日程 ID。你也可以调用以下接口获取某一日历的 ID, [获取日程列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/list), [搜索日程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/search), 示例值: "00592a0e-7edf-4678-bc9d-1b77383ef08e_0"
-	UserIDType       *IDType                           `query:"user_id_type" json:"-"`      // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	Summary          *string                           `json:"summary,omitempty"`           // 日程标题, 默认值: 空, 表示不更新该字段, 示例值: "日程标题", 最大长度: `1000` 字符
-	Description      *string                           `json:"description,omitempty"`       // 日程描述, 注意: 目前 API 方式不支持编辑富文本描述。如果日程描述通过客户端编辑为富文本内容, 则使用 API 更新描述会导致富文本格式丢失, 默认值: 空, 表示不更新该字段, 示例值: "日程描述", 最大长度: `40960` 字符
-	NeedNotification *bool                             `json:"need_notification,omitempty"` // 更新日程时, 是否给日程参与人发送 Bot 通知, 默认值: 空, 表示不更新该字段, 可选值有: true: 发送通知, false: 不发送通知, 示例值: false
-	StartTime        *UpdateCalendarEventReqStartTime  `json:"start_time,omitempty"`        // 日程开始时间。需要与end_time同时有值才会生效。
-	EndTime          *UpdateCalendarEventReqEndTime    `json:"end_time,omitempty"`          // 日程结束时间。需要与start_time同时有值才会生效。
-	Vchat            *UpdateCalendarEventReqVchat      `json:"vchat,omitempty"`             // 视频会议信息。不传值则表示不更新该字段。
-	Visibility       *string                           `json:"visibility,omitempty"`        // 日程公开范围, 注意: 更新日程时如果修改了该参数值, 则仅对当前身份生效, 默认值: 空, 表示不更新该字段, 示例值: "default", 可选值有: default: 默认权限, 即跟随日历权限, 默认仅向他人显示是否忙碌, public: 公开, 显示日程详情, private: 私密, 仅自己可见详情
-	AttendeeAbility  *string                           `json:"attendee_ability,omitempty"`  // 参与人权限, 默认值: 空, 表示不更新该字段, 示例值: "can_see_others", 可选值有: none: 无法编辑日程、无法邀请其他参与人、无法查看参与人列表, can_see_others: 无法编辑日程、无法邀请其他参与人、可以查看参与人列表, can_invite_others: 无法编辑日程、可以邀请其他参与人、可以查看参与人列表, can_modify_event: 可以编辑日程、可以邀请其他参与人、可以查看参与人列表
-	FreeBusyStatus   *string                           `json:"free_busy_status,omitempty"`  // 日程占用的忙闲状态, 新建日程默认为 `busy`, 注意: 更新日程时如果修改了该参数值, 则仅对当前身份生效, 默认值: 空, 表示不更新该字段, 示例值: "busy", 可选值有: busy: 忙碌, free: 空闲
-	Location         *UpdateCalendarEventReqLocation   `json:"location,omitempty"`          // 日程地点。不传值则表示不更新该字段。
-	Color            *int64                            `json:"color,omitempty"`             // 日程颜色, 取值通过颜色 RGB 值的 int32 表示, 注意: 该参数仅对当前身份生效, 客户端展示时会映射到色板上最接近的一种颜色, 取值为 0 或 -1 时, 默认跟随日历颜色, 默认值: 空, 表示不更新该字段, 示例值:1
-	Reminders        []*UpdateCalendarEventReqReminder `json:"reminders,omitempty"`         // 日程提醒列表。不传值则表示不更新该字段。
-	Recurrence       *string                           `json:"recurrence,omitempty"`        // 重复日程的重复性规则, 规则设置方式参考[rfc5545](https://datatracker.ietf.org/doc/html/rfc5545#section-3.3.10), 注意: COUNT 和 UNTIL 不支持同时出现, 预定会议室重复日程长度不得超过两年, 默认值: 空, 表示不更新该字段, 示例值: "FREQ=DAILY;INTERVAL=1", 最大长度: `2000` 字符
-	Schemas          []*UpdateCalendarEventReqSchema   `json:"schemas,omitempty"`           // 日程自定义信息, 控制日程详情页的 UI 展示。不传值则表示不更新该字段。
+	CalendarID       string                              `path:"calendar_id" json:"-"`        // 日程所在的日历 ID。了解更多, 参见[日历 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	EventID          string                              `path:"event_id" json:"-"`           // 日程 ID, 创建日程时会返回日程 ID。你也可以调用以下接口获取某一日历的 ID, [获取日程列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/list), [搜索日程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/search), 示例值: "00592a0e-7edf-4678-bc9d-1b77383ef08e_0"
+	UserIDType       *IDType                             `query:"user_id_type" json:"-"`      // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	Summary          *string                             `json:"summary,omitempty"`           // 日程标题, 默认值: 空, 表示不更新该字段, 示例值: "日程标题", 最大长度: `1000` 字符
+	Description      *string                             `json:"description,omitempty"`       // 日程描述, 注意: 目前 API 方式不支持编辑富文本描述。如果日程描述通过客户端编辑为富文本内容, 则使用 API 更新描述会导致富文本格式丢失, 默认值: 空, 表示不更新该字段, 示例值: "日程描述", 最大长度: `40960` 字符
+	NeedNotification *bool                               `json:"need_notification,omitempty"` // 更新日程时, 是否给日程参与人发送 Bot 通知, 默认值: 空, 表示不更新该字段, 可选值有: true: 发送通知, false: 不发送通知, 示例值: false
+	StartTime        *UpdateCalendarEventReqStartTime    `json:"start_time,omitempty"`        // 日程开始时间。需要与end_time同时有值才会生效。
+	EndTime          *UpdateCalendarEventReqEndTime      `json:"end_time,omitempty"`          // 日程结束时间。需要与start_time同时有值才会生效。
+	Vchat            *UpdateCalendarEventReqVchat        `json:"vchat,omitempty"`             // 视频会议信息。不传值则表示不更新该字段。
+	Visibility       *string                             `json:"visibility,omitempty"`        // 日程公开范围, 注意: 更新日程时如果修改了该参数值, 则仅对当前身份生效, 默认值: 空, 表示不更新该字段, 示例值: "default", 可选值有: default: 默认权限, 即跟随日历权限, 默认仅向他人显示是否忙碌, public: 公开, 显示日程详情, private: 私密, 仅自己可见详情
+	AttendeeAbility  *string                             `json:"attendee_ability,omitempty"`  // 参与人权限, 默认值: 空, 表示不更新该字段, 示例值: "can_see_others", 可选值有: none: 无法编辑日程、无法邀请其他参与人、无法查看参与人列表, can_see_others: 无法编辑日程、无法邀请其他参与人、可以查看参与人列表, can_invite_others: 无法编辑日程、可以邀请其他参与人、可以查看参与人列表, can_modify_event: 可以编辑日程、可以邀请其他参与人、可以查看参与人列表
+	FreeBusyStatus   *string                             `json:"free_busy_status,omitempty"`  // 日程占用的忙闲状态, 新建日程默认为 `busy`, 注意: 更新日程时如果修改了该参数值, 则仅对当前身份生效, 默认值: 空, 表示不更新该字段, 示例值: "busy", 可选值有: busy: 忙碌, free: 空闲
+	Location         *UpdateCalendarEventReqLocation     `json:"location,omitempty"`          // 日程地点。不传值则表示不更新该字段。
+	Color            *int64                              `json:"color,omitempty"`             // 日程颜色, 取值通过颜色 RGB 值的 int32 表示, 注意: 该参数仅对当前身份生效, 客户端展示时会映射到色板上最接近的一种颜色, 取值为 0 或 -1 时, 默认跟随日历颜色, 默认值: 空, 表示不更新该字段, 示例值:1
+	Reminders        []*UpdateCalendarEventReqReminder   `json:"reminders,omitempty"`         // 日程提醒列表。不传值则表示不更新该字段。
+	Recurrence       *string                             `json:"recurrence,omitempty"`        // 重复日程的重复性规则, 规则设置方式参考[rfc5545](https://datatracker.ietf.org/doc/html/rfc5545#section-3.3.10), 注意: COUNT 和 UNTIL 不支持同时出现, 预定会议室重复日程长度不得超过两年, 默认值: 空, 表示不更新该字段, 示例值: "FREQ=DAILY;INTERVAL=1", 最大长度: `2000` 字符
+	Schemas          []*UpdateCalendarEventReqSchema     `json:"schemas,omitempty"`           // 日程自定义信息, 控制日程详情页的 UI 展示。不传值则表示不更新该字段。
+	Attachments      []*UpdateCalendarEventReqAttachment `json:"attachments,omitempty"`       // 日程附件
+}
+
+// UpdateCalendarEventReqAttachment ...
+type UpdateCalendarEventReqAttachment struct {
+	FileToken *string `json:"file_token,omitempty"` // 附件token, 参考[上传素材](https://open.larkoffice.com/document/server-docs/docs/drive-v1/media/upload_all)获取file_token, 注意: parent_type传入固定值 "calendar", parent_node传入日历ID且与本接口日历ID保持一致, 附件校验规则: 附件总大小不超过25MB, 示例值: "xAAAAA"
+	IsDeleted *bool   `json:"is_deleted,omitempty"` // 是否删除附件, 默认值: false: 不删除附件, 可选值有: true: 删除附件, false: 不删除附件, 示例值: true
 }
 
 // UpdateCalendarEventReqEndTime ...
@@ -166,6 +173,15 @@ type UpdateCalendarEventRespEvent struct {
 	Schemas             []*UpdateCalendarEventRespEventSchema       `json:"schemas,omitempty"`               // 日程自定义信息, 控制日程详情页的 UI 展示。
 	EventOrganizer      *UpdateCalendarEventRespEventEventOrganizer `json:"event_organizer,omitempty"`       // 日程组织者信息。
 	AppLink             string                                      `json:"app_link,omitempty"`              // 日程的 app_link, 用于跳转到具体的某个日程。
+	Attachments         []*UpdateCalendarEventRespEventAttachment   `json:"attachments,omitempty"`           // 日程附件
+}
+
+// UpdateCalendarEventRespEventAttachment ...
+type UpdateCalendarEventRespEventAttachment struct {
+	FileToken string `json:"file_token,omitempty"` // 附件token
+	FileSize  string `json:"file_size,omitempty"`  // 附件大小
+	IsDeleted bool   `json:"is_deleted,omitempty"` // 是否删除附件
+	Name      string `json:"name,omitempty"`       // 附件名称
 }
 
 // UpdateCalendarEventRespEventEndTime ...
@@ -221,6 +237,7 @@ type UpdateCalendarEventRespEventVchat struct {
 type UpdateCalendarEventRespEventVchatMeetingSettings struct {
 	OwnerID               string   `json:"owner_id,omitempty"`                // 会议 owner 的用户 ID 信息。
 	JoinMeetingPermission string   `json:"join_meeting_permission,omitempty"` // 设置入会范围, 可选值有: anyone_can_join: 所有人可以加入会议, only_organization_employees: 仅企业内用户可以加入会议, only_event_attendees: 仅日程参与者可以加入会议
+	Password              string   `json:"password,omitempty"`                // 设置会议密码, 仅支持 4-9 位数字
 	AssignHosts           []string `json:"assign_hosts,omitempty"`            // 主持人的用户 ID 信息。
 	AutoRecord            bool     `json:"auto_record,omitempty"`             // 是否开启自动录制。
 	OpenLobby             bool     `json:"open_lobby,omitempty"`              // 是否开启等候室。

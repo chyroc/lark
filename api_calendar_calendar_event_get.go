@@ -101,6 +101,14 @@ type GetCalendarEventRespEvent struct {
 	AppLink             string                                   `json:"app_link,omitempty"`              // 日程的 app_link, 跳转到具体的某个日程。
 	Attendees           []*GetCalendarEventRespEventAttendee     `json:"attendees,omitempty"`             // 日程参与人信息。
 	HasMoreAttendee     bool                                     `json:"has_more_attendee,omitempty"`     // 是否有更多的参与人。
+	Attachments         []*GetCalendarEventRespEventAttachment   `json:"attachments,omitempty"`           // 日程附件
+}
+
+// GetCalendarEventRespEventAttachment ...
+type GetCalendarEventRespEventAttachment struct {
+	FileToken string `json:"file_token,omitempty"` // 附件token
+	FileSize  string `json:"file_size,omitempty"`  // 附件大小
+	Name      string `json:"name,omitempty"`       // 附件名称
 }
 
 // GetCalendarEventRespEventAttendee ...
@@ -196,6 +204,7 @@ type GetCalendarEventRespEventVchat struct {
 type GetCalendarEventRespEventVchatMeetingSettings struct {
 	OwnerID               string   `json:"owner_id,omitempty"`                // 会议 owner 的用户 ID 信息。
 	JoinMeetingPermission string   `json:"join_meeting_permission,omitempty"` // 设置入会范围, 可选值有: anyone_can_join: 所有人可以加入会议。, only_organization_employees: 仅企业内用户可以加入会议, only_event_attendees: 仅日程参与者可以加入会议
+	Password              string   `json:"password,omitempty"`                // （灰度中, 仅部分租户可见）设置会议密码, 仅支持 4-9 位数字
 	AssignHosts           []string `json:"assign_hosts,omitempty"`            // 主持人的用户 ID 信息。
 	AutoRecord            bool     `json:"auto_record,omitempty"`             // 是否开启自动录制。
 	OpenLobby             bool     `json:"open_lobby,omitempty"`              // 是否开启等候室。

@@ -23,8 +23,10 @@ import (
 
 // GetPrimaryCalendar 调用该接口获取当前身份（应用或用户）的主日历信息。
 //
+// 说明
 // - 当前身份由 Header Authorization 的 Token 类型决定。tenant_access_token 指应用身份, user_access_token 指用户身份。
 // - 使用应用身份调用该接口前, 需要确保该应用开启了[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// - 使用应用身份调用该接口时, 查询参数 user_id_type 不能设置为 user_id。你可以选择 open_id 或者 union_id, 在返回结果中, user_id 参数值会包含应用机器人对应的 open_id 或 union_id。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/primary
 // new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar/primary

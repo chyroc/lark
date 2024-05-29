@@ -118,6 +118,15 @@ type SearchCalendarEventRespItem struct {
 	RecurringEventID    string                                     `json:"recurring_event_id,omitempty"`    // 例外日程对应的原重复日程的 event_id。
 	EventOrganizer      *SearchCalendarEventRespItemEventOrganizer `json:"event_organizer,omitempty"`       // 日程组织者信息。
 	AppLink             string                                     `json:"app_link,omitempty"`              // 日程的 app_link, 跳转到具体的某个日程。
+	Attachments         []*SearchCalendarEventRespItemAttachment   `json:"attachments,omitempty"`           // 日程附件
+}
+
+// SearchCalendarEventRespItemAttachment ...
+type SearchCalendarEventRespItemAttachment struct {
+	FileToken string `json:"file_token,omitempty"` // 附件token
+	FileSize  string `json:"file_size,omitempty"`  // 附件大小
+	IsDeleted bool   `json:"is_deleted,omitempty"` // 是否删除附件
+	Name      string `json:"name,omitempty"`       // 附件名称
 }
 
 // SearchCalendarEventRespItemEndTime ...

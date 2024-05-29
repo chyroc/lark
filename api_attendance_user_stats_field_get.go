@@ -90,7 +90,7 @@ type GetAttendanceUserStatsFieldRespUserStatsFieldField struct {
 type GetAttendanceUserStatsFieldRespUserStatsFieldFieldChildField struct {
 	Code     string `json:"code,omitempty"`      // 子字段编号
 	Title    string `json:"title,omitempty"`     // 子字段名称
-	TimeUnit string `json:"time_unit,omitempty"` // 时间单位
+	TimeUnit string `json:"time_unit,omitempty"` // 时间单位(该字段已停止使用)
 }
 
 // getAttendanceUserStatsFieldResp ...

@@ -35,9 +35,12 @@ type EventV2CorehrProcessApproverUpdatedV2Handler func(ctx context.Context, cli 
 
 // EventV2CorehrProcessApproverUpdatedV2 ...
 type EventV2CorehrProcessApproverUpdatedV2 struct {
-	ProcessID  string `json:"process_id,omitempty"`  // 流程实例ID
-	ApproverID string `json:"approver_id,omitempty"` // 单据ID
-	Type       int64  `json:"type,omitempty"`        // 单据类型, 可选值有: 1: 审批单, 5: 表单
-	Status     int64  `json:"status,omitempty"`      // 单据状态, 可选值有: 1: 待办, 3: 已完成, 2: 拒绝, 4: 取消
-	BizType    string `json:"biz_type,omitempty"`    // 业务类型, 详情请查看[业务类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process-approver/events/biz-type), 长度范围: `1` ～ `200` 字符
+	ProcessID        string `json:"process_id,omitempty"`         // 流程实例ID
+	ApproverID       string `json:"approver_id,omitempty"`        // 单据ID
+	Type             int64  `json:"type,omitempty"`               // 单据类型, 可选值有: 1: 审批单, 5: 表单
+	Status           int64  `json:"status,omitempty"`             // 单据状态, 可选值有: 1: 待办, 3: 已完成, 2: 拒绝, 4: 取消
+	BizType          string `json:"biz_type,omitempty"`           // 业务类型, 详情请查看[业务类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process-approver/events/biz-type), 长度范围: `1` ～ `200` 字符
+	FlowDefinitionID string `json:"flow_definition_id,omitempty"` // 流程定义id
+	NodeDefinitionID string `json:"node_definition_id,omitempty"` // 节点定义id
+	NodeID           string `json:"node_id,omitempty"`            // 节点id
 }

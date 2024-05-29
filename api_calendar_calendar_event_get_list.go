@@ -105,6 +105,14 @@ type GetCalendarEventListRespItem struct {
 	Schemas             []*GetCalendarEventListRespItemSchema       `json:"schemas,omitempty"`               // 日程自定义信息, 控制日程详情页的 UI 展示。
 	EventOrganizer      *GetCalendarEventListRespItemEventOrganizer `json:"event_organizer,omitempty"`       // 日程组织者信息。
 	AppLink             string                                      `json:"app_link,omitempty"`              // 日程的 app_link, 跳转到具体的某个日程。
+	Attachments         []*GetCalendarEventListRespItemAttachment   `json:"attachments,omitempty"`           // 日程附件
+}
+
+// GetCalendarEventListRespItemAttachment ...
+type GetCalendarEventListRespItemAttachment struct {
+	FileToken string `json:"file_token,omitempty"` // 附件token
+	FileSize  string `json:"file_size,omitempty"`  // 附件大小
+	Name      string `json:"name,omitempty"`       // 附件名称
 }
 
 // GetCalendarEventListRespItemEndTime ...

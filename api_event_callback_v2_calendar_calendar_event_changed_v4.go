@@ -23,8 +23,11 @@ import (
 
 // EventV2CalendarCalendarEventChangedV4 当用户订阅日程变更事件后, 被订阅的日历下有日程发生变更时, 将会触发该事件。
 //
+// 注意事项:
+// 在使用该事件之前, 请务必阅读该注意事项。
 // - 先调用[订阅日程变更事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/subscription)接口订阅事件, 再前往应用中配置事件订阅, 这样才可以在事件触发时接收到事件数据。了解事件订阅参见[事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
-// - 该事件主要包含发生日程变动的用户信息以及日历 ID, 不包含日程信息。因此当你接收到事件请求后, 还需要提取 user_id_list 字段中的用户信息, 然后用这些用户身份（user_access_token）调用[获取日程列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/list)接口, 通过日历 ID 获取日历中的日程信息。
+// - 该事件包含的日程 ID（calendar_event_id）、变更类型（change_type）、用户回复日程的变更状态（rsvp_infos）参数均在灰度测试阶段, 如需使用请咨询[技术支持](https://applink.feishu.cn/TLJpeNdW)。
+// 如果当前只能接收到发生日程变动的用户信息（user_id_list）以及日历 ID（calendar_id）, 那么你可以在接收到事件请求后, 提取 user_id_list 参数中的用户信息, 然后用这些用户身份（user_access_token）调用[获取日程列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/list)接口, 通过日历 ID 获取日历中的日程信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/events/changed
 // new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/events/changed
@@ -37,8 +40,24 @@ type EventV2CalendarCalendarEventChangedV4Handler func(ctx context.Context, cli 
 
 // EventV2CalendarCalendarEventChangedV4 ...
 type EventV2CalendarCalendarEventChangedV4 struct {
-	CalendarID string                                         `json:"calendar_id,omitempty"`  // 日程所在的日历 ID。
-	UserIDList []*EventV2CalendarCalendarEventChangedV4UserID `json:"user_id_list,omitempty"` // 需要推送事件的用户列表。关于用户不同 ID 的介绍, 参见[用户身份概述](https://open.feishu.cn/document/home/user-identity-introduction/introduction).
+	CalendarID      string                                           `json:"calendar_id,omitempty"`       // 日程所在的日历 ID。
+	UserIDList      []*EventV2CalendarCalendarEventChangedV4UserID   `json:"user_id_list,omitempty"`      // 需要推送事件的用户列表。关于用户不同 ID 的介绍, 参见[用户身份概述](https://open.feishu.cn/document/home/user-identity-introduction/introduction).
+	CalendarEventID string                                           `json:"calendar_event_id,omitempty"` // 发生变更的日程 ID, 注意: 该参数在灰度测试阶段, 如需使用请咨询[技术支持](https://applink.feishu.cn/TLJpeNdW)。
+	ChangeType      string                                           `json:"change_type,omitempty"`       // 日程变更类型, 可能值有: create: 日程在日历上被创建。新建日程或者作为参与人被邀请进日程, 都属于 create 类型, update: 日程发生了变更, delete: 日程从日历上消失。删除日程或者作为参与人被移出了日程, 都属于 delete 类型, rsvp: 用户类型的参与人主动对日程进行回复（包括回复接收、拒绝、待定）, 事件聚合策略: 在实际推送事件时, 同一个日历（calendarID）、同一个日程（eventID）的变更事件, 会以 3 秒为一个窗口进行聚合推送事件。在 3 秒内: 日程进行了 create + delete 变更时, 不推送事件, 日程进行了 create + update 变更时, 推送 create 变更类型的事件, 日程进行了 delete + update 变更时, 推送 delete 变更类型的事件, 日程进行了 update + update 变更时, 只推送最后一次 update 变更类型的事件, 有多次 rsvp 变更时, 只推送最后一次 rsvp 变更类型的事件, 注意: 该参数在灰度测试阶段, 如需使用请咨询[技术支持](https://applink.feishu.cn/TLJpeNdW)。
+	RsvpInfos       []*EventV2CalendarCalendarEventChangedV4RsvpInfo `json:"rsvp_infos,omitempty"`        // RSVP 变更详情, 即日程参与人的回复状态, 注意: 该参数仅包含用户类型参与人的变更详情, 该参数在灰度测试阶段, 如需使用请咨询[技术支持](https://applink.feishu.cn/TLJpeNdW)。
+}
+
+// EventV2CalendarCalendarEventChangedV4RsvpInfo ...
+type EventV2CalendarCalendarEventChangedV4RsvpInfo struct {
+	FromUserID *EventV2CalendarCalendarEventChangedV4RsvpInfoFromUserID `json:"from_user_id,omitempty"` // 用户类型参与人的用户 ID。
+	RsvpStatus string                                                   `json:"rsvp_status,omitempty"`  // RSVP 操作状态, 可能值有: accept: 接收, decline: 拒绝, tentative: 待定
+}
+
+// EventV2CalendarCalendarEventChangedV4RsvpInfoFromUserID ...
+type EventV2CalendarCalendarEventChangedV4RsvpInfoFromUserID struct {
+	UnionID string `json:"union_id,omitempty"` // 用户的 union id
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
+	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
 // EventV2CalendarCalendarEventChangedV4UserID ...

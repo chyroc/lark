@@ -58,18 +58,18 @@ func (r *Mock) UnMockCoreHRGetCoreHRAuthorizationList() {
 
 // GetCoreHRAuthorizationListReq ...
 type GetCoreHRAuthorizationListReq struct {
-	EmploymentIDList []string `query:"employment_id_list" json:"-"` // 雇员ID列表, 最大100个（不传则默认查询全部员工）, 示例值: ["6967639606963471902"]
-	RoleIDList       []string `query:"role_id_list" json:"-"`       // 角色 ID 列表, 最多 100 个, 示例值: ["6966577636294264356"]
-	PageToken        *string  `query:"page_token" json:"-"`         // 页码标识, 获取第一页传空, 每次查询会返回下一页的page_token, 示例值: "6969864184272078374"
-	PageSize         *int64   `query:"page_size" json:"-"`          // 每页获取记录数量, 最大20, 示例值: "20"
-	UserIDType       *IDType  `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_corehr_id: 以飞书人事的 ID 来识别用户, 默认值: `people_corehr_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	EmploymentIDList []string `query:"employment_id_list" json:"-"` // 员工ID列表, 最大100个（不传则默认查询全部员工）, 示例值: 2144464184272078374
+	RoleIDList       []string `query:"role_id_list" json:"-"`       // 角色 ID 列表, 最大 100 个, 示例值: 4344464184272078374
+	PageToken        *string  `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 6969864184272078374
+	PageSize         *int64   `query:"page_size" json:"-"`          // 每页获取记录数量, 最大100, 示例值: 100
+	UserIDType       *IDType  `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: people_corehr_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_corehr_id: 以飞书人事的 ID 来识别用户, 默认值: `people_corehr_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetCoreHRAuthorizationListResp ...
 type GetCoreHRAuthorizationListResp struct {
-	HasMore   bool                                  `json:"has_more,omitempty"`   // 是否有下一页
-	PageToken string                                `json:"page_token,omitempty"` // 下一页页码
 	Items     []*GetCoreHRAuthorizationListRespItem `json:"items,omitempty"`      // 查询的用户授权信息
+	HasMore   bool                                  `json:"has_more,omitempty"`   // 是否还有更多项
+	PageToken string                                `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 }
 
 // GetCoreHRAuthorizationListRespItem ...
@@ -81,39 +81,52 @@ type GetCoreHRAuthorizationListRespItem struct {
 // GetCoreHRAuthorizationListRespItemPermissionDetail ...
 type GetCoreHRAuthorizationListRespItemPermissionDetail struct {
 	Role                     *GetCoreHRAuthorizationListRespItemPermissionDetailRole                     `json:"role,omitempty"`                       // 角色
-	AssignedOrganizationList [][]*GetCoreHRAuthorizationListRespItemPermissionDetailAssignedOrganization `json:"assigned_organization_list,omitempty"` // 管理的组织对象列表, 当授权为组织类角色, 返回该数据
-	GrantorRuleList          []*GetCoreHRAuthorizationListRespItemPermissionDetailGrantorRule            `json:"grantor_rule_list,omitempty"`          // 授权的数据范围, 当授权非组织类角色, 返回该数据
+	AssignedOrganizationList [][]*GetCoreHRAuthorizationListRespItemPermissionDetailAssignedOrganization `json:"assigned_organization_list,omitempty"` // 指定管理对象列表, 如果该值为null, 则使用设置数据权限
+	GrantorRuleList          []*GetCoreHRAuthorizationListRespItemPermissionDetailGrantorRule            `json:"grantor_rule_list,omitempty"`          // 设置数据权限, 如果该值为null, 则使用指定管理对象列表
 	UpdateTime               string                                                                      `json:"update_time,omitempty"`                // 更新时间
-}
-
-// GetCoreHRAuthorizationListRespItemPermissionDetailAssignedOrganization ...
-type GetCoreHRAuthorizationListRespItemPermissionDetailAssignedOrganization struct {
-	AssignedOrganization *GetCoreHRAuthorizationListRespItemPermissionDetailAssignedOrganizationAssignedOrganization `json:"assigned_organization,omitempty"` // 被授权的组织信息
-}
-
-// GetCoreHRAuthorizationListRespItemPermissionDetailAssignedOrganizationAssignedOrganization ...
-type GetCoreHRAuthorizationListRespItemPermissionDetailAssignedOrganizationAssignedOrganization struct {
-	OrgKey    string                                                                                             `json:"org_key,omitempty"`     // 被授权的组织类型, 当前支持的类型有: department: 部门, work_location: 工作地点, company: 公司
-	OrgName   *GetCoreHRAuthorizationListRespItemPermissionDetailAssignedOrganizationAssignedOrganizationOrgName `json:"org_name,omitempty"`    // 管理对象名称, 例如: 部门、工作城市
-	OrgIDList []string                                                                                           `json:"org_id_list,omitempty"` // 管理对象id列表, 例如: [, "6966974245293393415", "6967286219029874189", ]
-}
-
-// GetCoreHRAuthorizationListRespItemPermissionDetailAssignedOrganizationAssignedOrganizationOrgName ...
-type GetCoreHRAuthorizationListRespItemPermissionDetailAssignedOrganizationAssignedOrganizationOrgName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
 // GetCoreHRAuthorizationListRespItemPermissionDetailGrantorRule ...
 type GetCoreHRAuthorizationListRespItemPermissionDetailGrantorRule struct {
-	RuleDimension *GetCoreHRAuthorizationListRespItemPermissionDetailGrantorRuleRuleDimension `json:"rule_dimension,omitempty"` // 数据实体
-	RuleType      int64                                                                       `json:"rule_type,omitempty"`      // 管理类型, 枚举: 0 - 无数据权限, 1 - 全部数据权限, 2 - 被授权的用户自己, 3 - 按规则指定范围
+	RuleDimension *GetCoreHRAuthorizationListRespItemPermissionDetailGrantorRuleRuleDimension `json:"rule_dimension,omitempty"` // 管理维度
+	RuleType      int64                                                                       `json:"rule_type,omitempty"`      // 管理类型
+	Expression    *GetCoreHRAuthorizationListRespItemPermissionDetailGrantorRuleExpression    `json:"expression,omitempty"`     // 规则
+}
+
+// GetCoreHRAuthorizationListRespItemPermissionDetailGrantorRuleExpression ...
+type GetCoreHRAuthorizationListRespItemPermissionDetailGrantorRuleExpression struct {
+	Conditions []*GetCoreHRAuthorizationListRespItemPermissionDetailGrantorRuleExpressionCondition `json:"conditions,omitempty"` // 规则
+	Expression string                                                                              `json:"expression,omitempty"` // 表达式
+}
+
+// GetCoreHRAuthorizationListRespItemPermissionDetailGrantorRuleExpressionCondition ...
+type GetCoreHRAuthorizationListRespItemPermissionDetailGrantorRuleExpressionCondition struct {
+	Left           *GetCoreHRAuthorizationListRespItemPermissionDetailGrantorRuleExpressionConditionLeft  `json:"left,omitempty"`             // 左值
+	Right          *GetCoreHRAuthorizationListRespItemPermissionDetailGrantorRuleExpressionConditionRight `json:"right,omitempty"`            // 右值
+	Operator       int64                                                                                  `json:"operator,omitempty"`         // 操作符
+	RightValueType int64                                                                                  `json:"right_value_type,omitempty"` // 右值类型
+}
+
+// GetCoreHRAuthorizationListRespItemPermissionDetailGrantorRuleExpressionConditionLeft ...
+type GetCoreHRAuthorizationListRespItemPermissionDetailGrantorRuleExpressionConditionLeft struct {
+	Type        int64  `json:"type,omitempty"`         // 规则值类型
+	Value       string `json:"value,omitempty"`        // 规则值
+	LookupValue string `json:"lookup_value,omitempty"` // 下钻值
+	LookupType  string `json:"lookup_type,omitempty"`  // 下钻类型
+}
+
+// GetCoreHRAuthorizationListRespItemPermissionDetailGrantorRuleExpressionConditionRight ...
+type GetCoreHRAuthorizationListRespItemPermissionDetailGrantorRuleExpressionConditionRight struct {
+	Type        int64  `json:"type,omitempty"`         // 规则值类型
+	Value       string `json:"value,omitempty"`        // 规则值
+	LookupValue string `json:"lookup_value,omitempty"` // 下钻值
+	LookupType  string `json:"lookup_type,omitempty"`  // 下钻类型
 }
 
 // GetCoreHRAuthorizationListRespItemPermissionDetailGrantorRuleRuleDimension ...
 type GetCoreHRAuthorizationListRespItemPermissionDetailGrantorRuleRuleDimension struct {
-	EntityKey  string                                                                                `json:"entity_key,omitempty"`  // user: 员工, department: 部门, location: 地点, company: 公司 , job_level: 职务级别 , job_family: 职务序列 , job: 职务 , entity-onboarding-pre_hire: 待入职 , offboarding_info: 离职 , signature_template: 文件模板 , signature_file: 电子签文件 , cpst_standard: 薪资标准 , cpst_archive: 员工薪资档案 , cpst_grade: 薪资等级
-	EntityName *GetCoreHRAuthorizationListRespItemPermissionDetailGrantorRuleRuleDimensionEntityName `json:"entity_name,omitempty"` // 数据实体名称, 例如: 员工、部门
+	EntityKey  string                                                                                `json:"entity_key,omitempty"`  // 维度的key
+	EntityName *GetCoreHRAuthorizationListRespItemPermissionDetailGrantorRuleRuleDimensionEntityName `json:"entity_name,omitempty"` // 维度名称
 }
 
 // GetCoreHRAuthorizationListRespItemPermissionDetailGrantorRuleRuleDimensionEntityName ...
@@ -124,10 +137,11 @@ type GetCoreHRAuthorizationListRespItemPermissionDetailGrantorRuleRuleDimensionE
 
 // GetCoreHRAuthorizationListRespItemPermissionDetailRole ...
 type GetCoreHRAuthorizationListRespItemPermissionDetailRole struct {
-	ID          string                                                             `json:"id,omitempty"`          // 角色ID
-	Code        string                                                             `json:"code,omitempty"`        // 角色code, 通常用于与其他系统进行交互
-	Name        *GetCoreHRAuthorizationListRespItemPermissionDetailRoleName        `json:"name,omitempty"`        // 角色名称
-	Description *GetCoreHRAuthorizationListRespItemPermissionDetailRoleDescription `json:"description,omitempty"` // 角色描述
+	ID            string                                                                 `json:"id,omitempty"`             // 角色ID
+	Code          string                                                                 `json:"code,omitempty"`           // 角色code
+	Name          *GetCoreHRAuthorizationListRespItemPermissionDetailRoleName            `json:"name,omitempty"`           // 角色名称
+	Description   *GetCoreHRAuthorizationListRespItemPermissionDetailRoleDescription     `json:"description,omitempty"`    // 角色描述
+	OrgTruncation []*GetCoreHRAuthorizationListRespItemPermissionDetailRoleOrgTruncation `json:"org_truncation,omitempty"` // 组织管理维度
 }
 
 // GetCoreHRAuthorizationListRespItemPermissionDetailRoleDescription ...
@@ -140,6 +154,13 @@ type GetCoreHRAuthorizationListRespItemPermissionDetailRoleDescription struct {
 type GetCoreHRAuthorizationListRespItemPermissionDetailRoleName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
+}
+
+// GetCoreHRAuthorizationListRespItemPermissionDetailRoleOrgTruncation ...
+type GetCoreHRAuthorizationListRespItemPermissionDetailRoleOrgTruncation struct {
+	OrgKey string `json:"org_key,omitempty"` // 组织名称
+	Type   int64  `json:"type,omitempty"`    // 下钻类型
+	Depth  int64  `json:"depth,omitempty"`   // 下钻深度
 }
 
 // getCoreHRAuthorizationListResp ...

@@ -70,7 +70,6 @@ type UpdateCoreHRCompanyReq struct {
 	SubTypeList                 []*UpdateCoreHRCompanyReqSubType                   `json:"sub_type_list,omitempty"`                  // 主体类型, 枚举值可通过文档[飞书人事枚举常量](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)主体类型（company_sub_type）枚举定义部分获得
 	BranchCompany               *bool                                              `json:"branch_company,omitempty"`                 // 是否为分公司, 示例值: true
 	PrimaryManager              []*UpdateCoreHRCompanyReqPrimaryManager            `json:"primary_manager,omitempty"`                // 主要负责人
-	CustomFields                []*UpdateCoreHRCompanyReqCustomField               `json:"custom_fields,omitempty"`                  // 自定义字段
 	Currency                    *UpdateCoreHRCompanyReqCurrency                    `json:"currency,omitempty"`                       // 默认币种
 	Phone                       *UpdateCoreHRCompanyReqPhone                       `json:"phone,omitempty"`                          // 电话
 	Fax                         *UpdateCoreHRCompanyReqFax                         `json:"fax,omitempty"`                            // 传真
@@ -91,12 +90,6 @@ type UpdateCoreHRCompanyReqCurrencyCurrencyName struct {
 	Value string `json:"value,omitempty"` // 内容, 支持中文和英文, 示例值: "xx科技有限公司"
 }
 
-// UpdateCoreHRCompanyReqCustomField ...
-type UpdateCoreHRCompanyReqCustomField struct {
-	FieldName string `json:"field_name,omitempty"` // 字段名, 示例值: "name"
-	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(123, 123.23, true, [\"id1\", \"id2\], 2006-01-02 15:04:05]), 示例值: "Sandy"
-}
-
 // UpdateCoreHRCompanyReqFax ...
 type UpdateCoreHRCompanyReqFax struct {
 	AreaCode    *UpdateCoreHRCompanyReqFaxAreaCode `json:"area_code,omitempty"`    // 区号对应的数字, 可通过, [请求接口](https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)查询获取。请求参数: object_api_name=phone；custom_api_name=international_area_code, 示例值: 123123
@@ -110,21 +103,12 @@ type UpdateCoreHRCompanyReqFaxAreaCode struct {
 
 // UpdateCoreHRCompanyReqHiberarchyCommon ...
 type UpdateCoreHRCompanyReqHiberarchyCommon struct {
-	ParentID       *string                                              `json:"parent_id,omitempty"`       // 上级组织, 示例值: "4719168654814483759"
-	Name           []*UpdateCoreHRCompanyReqHiberarchyCommonName        `json:"name,omitempty"`            // 名称
-	Type           *UpdateCoreHRCompanyReqHiberarchyCommonType          `json:"type,omitempty"`            // 组织类型, 枚举值可通过文档[飞书人事枚举常量](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)组织类型（organization_type）枚举定义部分获得
-	Active         bool                                                 `json:"active,omitempty"`          // 是否启用该公司, 示例值: true
-	EffectiveTime  *string                                              `json:"effective_time,omitempty"`  // 生效时间, 示例值: "2020-05-01 00:00:00"
-	ExpirationTime *string                                              `json:"expiration_time,omitempty"` // 失效时间, 示例值: "2020-05-02 00:00:00"
-	Code           *string                                              `json:"code,omitempty"`            // 编码, 示例值: "12456"
-	Description    []*UpdateCoreHRCompanyReqHiberarchyCommonDescription `json:"description,omitempty"`     // 描述
-	CustomFields   []*UpdateCoreHRCompanyReqHiberarchyCommonCustomField `json:"custom_fields,omitempty"`   // 自定义字段
-}
-
-// UpdateCoreHRCompanyReqHiberarchyCommonCustomField ...
-type UpdateCoreHRCompanyReqHiberarchyCommonCustomField struct {
-	FieldName string `json:"field_name,omitempty"` // 字段名, 示例值: "name"
-	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(123, 123.23, true, [\"id1\", \"id2\], 2006-01-02 15:04:05]), 示例值: "Sandy"
+	ParentID      *string                                              `json:"parent_id,omitempty"`      // 上级组织, 示例值: "4719168654814483759"
+	Name          []*UpdateCoreHRCompanyReqHiberarchyCommonName        `json:"name,omitempty"`           // 名称
+	Active        *bool                                                `json:"active,omitempty"`         // 是否启用该公司, 示例值: true
+	EffectiveTime string                                               `json:"effective_time,omitempty"` // 生效时间, 示例值: "2020-05-01 00:00:00"
+	Code          *string                                              `json:"code,omitempty"`           // 编码, 示例值: "12456"
+	Description   []*UpdateCoreHRCompanyReqHiberarchyCommonDescription `json:"description,omitempty"`    // 描述
 }
 
 // UpdateCoreHRCompanyReqHiberarchyCommonDescription ...
@@ -137,11 +121,6 @@ type UpdateCoreHRCompanyReqHiberarchyCommonDescription struct {
 type UpdateCoreHRCompanyReqHiberarchyCommonName struct {
 	Lang  string `json:"lang,omitempty"`  // 语言, 支持中文和英文。中文用zh-CN；英文用en-US, 示例值: "zh-CN"
 	Value string `json:"value,omitempty"` // 内容, 支持中文和英文, 示例值: "刘梓新"
-}
-
-// UpdateCoreHRCompanyReqHiberarchyCommonType ...
-type UpdateCoreHRCompanyReqHiberarchyCommonType struct {
-	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
 }
 
 // UpdateCoreHRCompanyReqIndustry ...
