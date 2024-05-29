@@ -26,8 +26,7 @@ import (
 // 注意事项:
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
 // - 本接口支持在创建群的同时拉用户或机器人进群；如果仅需要拉用户或者机器人入群参考 [将用户或机器人拉入群聊](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/create)接口
-// - 商店应用无法使用 user_id。因此使用商店应用调用本接口时用户 ID 类型请选择 open_id 或者 union_id
-// - 本接口仅支持创建普通群, 即对话消息形式的群。如果你需要创建话题群, 可以先调用本接口创建群, 然后调用[更新群信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/update)接口, 将群更新为话题群（group_message_type 取值 thread）。
+// - 商店应用无法使用 user_id。因此使用商店应用调用本接口时用户 ID 类型请选择 open_id 或者 union_id。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create
 // new doc: https://open.feishu.cn/document/server-docs/group/chat/create

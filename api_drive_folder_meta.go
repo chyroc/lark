@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetDriveFolderMeta 该接口用于根据 folderToken 获取该文件夹的元信息。
+// GetDriveFolderMeta 该接口用于根据文件夹 token 获取该文件夹的元数据, 包括文件夹的 ID、名称、创建者 ID 等。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uAjNzUjLwYzM14CM2MTN
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/folder/get-folder-meta
@@ -59,24 +59,23 @@ func (r *Mock) UnMockDriveGetDriveFolderMeta() {
 
 // GetDriveFolderMetaReq ...
 type GetDriveFolderMetaReq struct {
-	FolderToken string `path:"folderToken" json:"-"` // 文件夹 token, 获取方式见[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+	FolderToken string `path:"folderToken" json:"-"` // 文件夹 token。了解如何获取文件夹 token, 参考[文件夹概述](https://open.feishu.cn/document/ukTMukTMukTM/ugTNzUjL4UzM14CO1MTN/folder-overview)。
 }
 
 // GetDriveFolderMetaResp ...
 type GetDriveFolderMetaResp struct {
-	ID        string `json:"id,omitempty"`        // 文件夹的 id
+	ID        string `json:"id,omitempty"`        // 文件夹的 ID
 	Name      string `json:"name,omitempty"`      // 文件夹的标题
 	Token     string `json:"token,omitempty"`     // 文件夹的 token
-	CreateUid string `json:"createUid,omitempty"` // 文件夹的创建者 id
-	EditUid   string `json:"editUid,omitempty"`   // 文件夹的最后编辑者 id
-	ParentID  string `json:"parentId,omitempty"`  // 文件夹的上级目录 id
-	OwnUid    string `json:"ownUid,omitempty"`    // 文件夹为个人文件夹时, 为文件夹的所有者 id；文件夹为共享文件夹时, 为文件夹树id
+	CreateUid string `json:"createUid,omitempty"` // 文件夹的创建者 ID
+	EditUid   string `json:"editUid,omitempty"`   // 文件夹的最后编辑者 ID
+	ParentID  string `json:"parentId,omitempty"`  // 文件夹的上级目录 ID。“0” 表示当前文件夹无上级目录
+	OwnUid    string `json:"ownUid,omitempty"`    // 文件夹为个人文件夹时, 为文件夹的所有者 ID；文件夹为共享文件夹时, 为文件夹树 ID
 }
 
 // getDriveFolderMetaResp ...
 type getDriveFolderMetaResp struct {
-	Code  int64                   `json:"code,omitempty"`
-	Msg   string                  `json:"msg,omitempty"`
-	Data  *GetDriveFolderMetaResp `json:"data,omitempty"`
-	Error *ErrorDetail            `json:"error,omitempty"`
+	Code int64                   `json:"code,omitempty"`
+	Msg  string                  `json:"msg,omitempty"`
+	Data *GetDriveFolderMetaResp `json:"data,omitempty"`
 }

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetDriveFileMeta 根据 Token 获取各类文档的元数据。
+// GetDriveFileMeta 该接口用于根据文件 token 获取其元数据, 包括标题、所有者、创建时间、密级、访问链接等数据。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/meta/batch_query
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/file/batch_query
@@ -60,38 +60,38 @@ func (r *Mock) UnMockDriveGetDriveFileMeta() {
 // GetDriveFileMetaReq ...
 type GetDriveFileMetaReq struct {
 	UserIDType  *IDType                           `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	RequestDocs []*GetDriveFileMetaReqRequestDocs `json:"request_docs,omitempty"` // 请求文档, 一次不超过200个, 长度范围: `1` ～ `200`
-	WithURL     *bool                             `json:"with_url,omitempty"`     // 是否获取文档链接, 示例值: false
+	RequestDocs []*GetDriveFileMetaReqRequestDocs `json:"request_docs,omitempty"` // 请求的文件的 token 和类型。一次请求中不可超过 200 个, 长度范围: `1` ～ `200`
+	WithURL     *bool                             `json:"with_url,omitempty"`     // 是否获取文件的访问链接, 示例值: false
 }
 
 // GetDriveFileMetaReqRequestDocs ...
 type GetDriveFileMetaReqRequestDocs struct {
-	DocToken string `json:"doc_token,omitempty"` // 文件的 token, 获取方式见[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6), 示例值: "doccnfYZzTlvXqZIGTdAHKabcef"
-	DocType  string `json:"doc_type,omitempty"`  // 文件类型, 示例值: "doc", 可选值有: doc: 飞书文档, sheet: 飞书电子表格, bitable: 飞书多维表格, mindnote: 飞书思维笔记, file: 飞书文件, wiki: 飞书wiki, docx: 飞书新版文档, folder: 飞书文件夹
+	DocToken string `json:"doc_token,omitempty"` // 文件的 token, 获取方式见[文件概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/file-overview), 示例值: "doccnfYZzTlvXqZIGTdAHKabcef"
+	DocType  string `json:"doc_type,omitempty"`  // 文件的类型, 示例值: "doc", 可选值有: doc: 飞书文档, sheet: 飞书电子表格, bitable: 飞书多维表格, mindnote: 飞书思维笔记, file: 飞书文件, wiki: 飞书知识库, docx: 飞书新版文档, folder: 飞书文件夹, synced_block: 文档同步块（灰度中）
 }
 
 // GetDriveFileMetaResp ...
 type GetDriveFileMetaResp struct {
-	Metas      []*GetDriveFileMetaRespMeta   `json:"metas,omitempty"`       // 文档元数据列表
-	FailedList []*GetDriveFileMetaRespFailed `json:"failed_list,omitempty"` // 无法获取元数据的文档列表
+	Metas      []*GetDriveFileMetaRespMeta   `json:"metas,omitempty"`       // 文件的元数据列表
+	FailedList []*GetDriveFileMetaRespFailed `json:"failed_list,omitempty"` // 获取元数据失败的文档 token 列表
 }
 
 // GetDriveFileMetaRespFailed ...
 type GetDriveFileMetaRespFailed struct {
 	Token string `json:"token,omitempty"` // 获取元数据失败的文档token
-	Code  int64  `json:"code,omitempty"`  // 获取元数据失败的错误码, 可选值有: 970002: Unsupported doc-type, 970003: No permission to access meta, 970005: Record not found (不存在或者已被删除)
+	Code  int64  `json:"code,omitempty"`  // 获取元数据失败的错误码, 可选值有: 970002: 文档类型不支持, 970003: 当前应用或用户没有获取该文件元数据的权限, 970005: 文件 token 和 doc_type 不匹配或该文件不存在
 }
 
 // GetDriveFileMetaRespMeta ...
 type GetDriveFileMetaRespMeta struct {
-	DocToken         string `json:"doc_token,omitempty"`          // 文件token
-	DocType          string `json:"doc_type,omitempty"`           // 文件类型
+	DocToken         string `json:"doc_token,omitempty"`          // 文件的 token
+	DocType          string `json:"doc_type,omitempty"`           // 文件的类型
 	Title            string `json:"title,omitempty"`              // 标题
-	OwnerID          string `json:"owner_id,omitempty"`           // 文件所有者
-	CreateTime       string `json:"create_time,omitempty"`        // 创建时间（Unix时间戳）
+	OwnerID          string `json:"owner_id,omitempty"`           // 文件的所有者
+	CreateTime       string `json:"create_time,omitempty"`        // 创建时间。UNIX 时间戳, 单位为秒
 	LatestModifyUser string `json:"latest_modify_user,omitempty"` // 最后编辑者
-	LatestModifyTime string `json:"latest_modify_time,omitempty"` // 最后编辑时间（Unix时间戳）
-	URL              string `json:"url,omitempty"`                // 文档链接
+	LatestModifyTime string `json:"latest_modify_time,omitempty"` // 最后编辑时间。UNIX 时间戳, 单位为秒
+	URL              string `json:"url,omitempty"`                // 文档访问链接
 	SecLabelName     string `json:"sec_label_name,omitempty"`     // 文档密级标签名称, 字段权限要求: 获取文档密级标签名称
 }
 

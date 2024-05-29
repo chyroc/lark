@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 1098, Event Count: 149
+API Count: 1098, Event Count: 152
 
 <details>
   <summary>
@@ -498,6 +498,7 @@ API Count: 1098, Event Count: 149
   - GetCoreHRDepartment
   - SearchCoreHRDepartment
   - QueryCoreHRDepartmentTimeline
+  - BatchQueryCoreHRDepartmentTimeline
   - GetCoreHRDepartmentParentList
   - CreateCoreHRDepartment
   - DeleteCoreHRDepartment
@@ -577,7 +578,6 @@ API Count: 1098, Event Count: 149
   - GetCoreHRSecurityGroupBp
   - SearchCoreHRAssignedUser
   - GetCoreHRAuthorization
-  - GetCoreHRAuthorizationList
   - GetCoreHRSecurityGroupList
   - GetCoreHRProcessList
   - GetCoreHRProcess
@@ -753,6 +753,9 @@ API Count: 1098, Event Count: 149
 - Event
   - GetEventOutboundIpList
 - EventCallback
+  - EventV2CorehrOffboardingUpdatedV2
+  - EventV2CorehrOffboardingStatusUpdatedV2
+  - EventV2CorehrOffboardingChecklistUpdatedV2
   - EventV2CardActionTrigger
   - EventV2ElearningCourseRegistrationCreatedV2
   - EventV2ElearningCourseRegistrationUpdatedV2

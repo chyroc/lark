@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 1098, 事件总数: 149
+API 总数: 1098, 事件总数: 152
 
 <details>
   <summary>
@@ -498,6 +498,7 @@ API 总数: 1098, 事件总数: 149
   - GetCoreHRDepartment
   - SearchCoreHRDepartment
   - QueryCoreHRDepartmentTimeline
+  - BatchQueryCoreHRDepartmentTimeline
   - GetCoreHRDepartmentParentList
   - CreateCoreHRDepartment
   - DeleteCoreHRDepartment
@@ -577,7 +578,6 @@ API 总数: 1098, 事件总数: 149
   - GetCoreHRSecurityGroupBp
   - SearchCoreHRAssignedUser
   - GetCoreHRAuthorization
-  - GetCoreHRAuthorizationList
   - GetCoreHRSecurityGroupList
   - GetCoreHRProcessList
   - GetCoreHRProcess
@@ -753,6 +753,9 @@ API 总数: 1098, 事件总数: 149
 - Event
   - GetEventOutboundIpList
 - EventCallback
+  - EventV2CorehrOffboardingUpdatedV2
+  - EventV2CorehrOffboardingStatusUpdatedV2
+  - EventV2CorehrOffboardingChecklistUpdatedV2
   - EventV2CardActionTrigger
   - EventV2ElearningCourseRegistrationCreatedV2
   - EventV2ElearningCourseRegistrationUpdatedV2

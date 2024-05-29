@@ -100,7 +100,10 @@ const (
 	EventTypeV2CorehrJobDataEmployedV1                         EventType = "corehr.job_data.employed_v1"
 	EventTypeV2CorehrJobDeletedV1                              EventType = "corehr.job.deleted_v1"
 	EventTypeV2CorehrJobUpdatedV1                              EventType = "corehr.job.updated_v1"
+	EventTypeV2CorehrOffboardingChecklistUpdatedV2             EventType = "corehr.offboarding.checklist_updated_v2"
+	EventTypeV2CorehrOffboardingStatusUpdatedV2                EventType = "corehr.offboarding.status_updated_v2"
 	EventTypeV2CorehrOffboardingUpdatedV1                      EventType = "corehr.offboarding.updated_v1"
+	EventTypeV2CorehrOffboardingUpdatedV2                      EventType = "corehr.offboarding.updated_v2"
 	EventTypeV2CorehrOrgRoleAuthorizationUpdatedV1             EventType = "corehr.org_role_authorization.updated_v1"
 	EventTypeV2CorehrPersonCreatedV1                           EventType = "corehr.person.created_v1"
 	EventTypeV2CorehrPersonDeletedV1                           EventType = "corehr.person.deleted_v1"
@@ -253,7 +256,10 @@ type eventHandler struct {
 	eventV2CorehrJobDataEmployedV1Handler                         EventV2CorehrJobDataEmployedV1Handler
 	eventV2CorehrJobDeletedV1Handler                              EventV2CorehrJobDeletedV1Handler
 	eventV2CorehrJobUpdatedV1Handler                              EventV2CorehrJobUpdatedV1Handler
+	eventV2CorehrOffboardingChecklistUpdatedV2Handler             EventV2CorehrOffboardingChecklistUpdatedV2Handler
+	eventV2CorehrOffboardingStatusUpdatedV2Handler                EventV2CorehrOffboardingStatusUpdatedV2Handler
 	eventV2CorehrOffboardingUpdatedV1Handler                      EventV2CorehrOffboardingUpdatedV1Handler
+	eventV2CorehrOffboardingUpdatedV2Handler                      EventV2CorehrOffboardingUpdatedV2Handler
 	eventV2CorehrOrgRoleAuthorizationUpdatedV1Handler             EventV2CorehrOrgRoleAuthorizationUpdatedV1Handler
 	eventV2CorehrPersonCreatedV1Handler                           EventV2CorehrPersonCreatedV1Handler
 	eventV2CorehrPersonDeletedV1Handler                           EventV2CorehrPersonDeletedV1Handler
@@ -407,7 +413,10 @@ func (r *eventHandler) clone() *eventHandler {
 		eventV2CorehrJobDataEmployedV1Handler:                         r.eventV2CorehrJobDataEmployedV1Handler,
 		eventV2CorehrJobDeletedV1Handler:                              r.eventV2CorehrJobDeletedV1Handler,
 		eventV2CorehrJobUpdatedV1Handler:                              r.eventV2CorehrJobUpdatedV1Handler,
+		eventV2CorehrOffboardingChecklistUpdatedV2Handler:             r.eventV2CorehrOffboardingChecklistUpdatedV2Handler,
+		eventV2CorehrOffboardingStatusUpdatedV2Handler:                r.eventV2CorehrOffboardingStatusUpdatedV2Handler,
 		eventV2CorehrOffboardingUpdatedV1Handler:                      r.eventV2CorehrOffboardingUpdatedV1Handler,
+		eventV2CorehrOffboardingUpdatedV2Handler:                      r.eventV2CorehrOffboardingUpdatedV2Handler,
 		eventV2CorehrOrgRoleAuthorizationUpdatedV1Handler:             r.eventV2CorehrOrgRoleAuthorizationUpdatedV1Handler,
 		eventV2CorehrPersonCreatedV1Handler:                           r.eventV2CorehrPersonCreatedV1Handler,
 		eventV2CorehrPersonDeletedV1Handler:                           r.eventV2CorehrPersonDeletedV1Handler,
@@ -560,7 +569,10 @@ type eventBody struct {
 	eventV2CorehrJobDataEmployedV1                         *EventV2CorehrJobDataEmployedV1
 	eventV2CorehrJobDeletedV1                              *EventV2CorehrJobDeletedV1
 	eventV2CorehrJobUpdatedV1                              *EventV2CorehrJobUpdatedV1
+	eventV2CorehrOffboardingChecklistUpdatedV2             *EventV2CorehrOffboardingChecklistUpdatedV2
+	eventV2CorehrOffboardingStatusUpdatedV2                *EventV2CorehrOffboardingStatusUpdatedV2
 	eventV2CorehrOffboardingUpdatedV1                      *EventV2CorehrOffboardingUpdatedV1
+	eventV2CorehrOffboardingUpdatedV2                      *EventV2CorehrOffboardingUpdatedV2
 	eventV2CorehrOrgRoleAuthorizationUpdatedV1             *EventV2CorehrOrgRoleAuthorizationUpdatedV1
 	eventV2CorehrPersonCreatedV1                           *EventV2CorehrPersonCreatedV1
 	eventV2CorehrPersonDeletedV1                           *EventV2CorehrPersonDeletedV1
@@ -933,12 +945,30 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 			return err
 		}
 		req.eventV2CorehrJobUpdatedV1 = event
+	case EventTypeV2CorehrOffboardingChecklistUpdatedV2:
+		event := new(EventV2CorehrOffboardingChecklistUpdatedV2)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrOffboardingChecklistUpdatedV2 = event
+	case EventTypeV2CorehrOffboardingStatusUpdatedV2:
+		event := new(EventV2CorehrOffboardingStatusUpdatedV2)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrOffboardingStatusUpdatedV2 = event
 	case EventTypeV2CorehrOffboardingUpdatedV1:
 		event := new(EventV2CorehrOffboardingUpdatedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
 		req.eventV2CorehrOffboardingUpdatedV1 = event
+	case EventTypeV2CorehrOffboardingUpdatedV2:
+		event := new(EventV2CorehrOffboardingUpdatedV2)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrOffboardingUpdatedV2 = event
 	case EventTypeV2CorehrOrgRoleAuthorizationUpdatedV1:
 		event := new(EventV2CorehrOrgRoleAuthorizationUpdatedV1)
 		if err := req.unmarshalEvent(event); err != nil {
@@ -2231,12 +2261,39 @@ func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) 
 			}
 		}
 		return true, s, err
+	case req.eventV2CorehrOffboardingChecklistUpdatedV2 != nil:
+		if r.cli.eventHandler.eventV2CorehrOffboardingChecklistUpdatedV2Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CorehrOffboardingChecklistUpdatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrOffboardingChecklistUpdatedV2)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CorehrOffboardingChecklistUpdatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrOffboardingChecklistUpdatedV2)
+			}
+		}
+		return true, s, err
+	case req.eventV2CorehrOffboardingStatusUpdatedV2 != nil:
+		if r.cli.eventHandler.eventV2CorehrOffboardingStatusUpdatedV2Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CorehrOffboardingStatusUpdatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrOffboardingStatusUpdatedV2)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CorehrOffboardingStatusUpdatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrOffboardingStatusUpdatedV2)
+			}
+		}
+		return true, s, err
 	case req.eventV2CorehrOffboardingUpdatedV1 != nil:
 		if r.cli.eventHandler.eventV2CorehrOffboardingUpdatedV1Handler != nil {
 			if r.cli.noBlocking {
 				go r.cli.eventHandler.eventV2CorehrOffboardingUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrOffboardingUpdatedV1)
 			} else {
 				s, err = r.cli.eventHandler.eventV2CorehrOffboardingUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrOffboardingUpdatedV1)
+			}
+		}
+		return true, s, err
+	case req.eventV2CorehrOffboardingUpdatedV2 != nil:
+		if r.cli.eventHandler.eventV2CorehrOffboardingUpdatedV2Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CorehrOffboardingUpdatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrOffboardingUpdatedV2)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CorehrOffboardingUpdatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrOffboardingUpdatedV2)
 			}
 		}
 		return true, s, err

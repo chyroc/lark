@@ -78,8 +78,8 @@ type GetDriveMemberPermissionListRespItem struct {
 	MemberID      string `json:"member_id,omitempty"`      // 协作者 ID, 与协作者 ID 类型需要对应
 	Perm          string `json:"perm,omitempty"`           // 协作者对应的权限角色, 可选值有: view: 可阅读角色, edit: 可编辑角色, full_access: 可管理角色
 	Type          string `json:"type,omitempty"`           // 协作者的类型, 可选值有: user: 用户, chat: 群组, department: 组织架构, group: 用户组, wiki_space_member: 知识库成员, 注意: 在知识库启用了成员分组功能后不支持该参数, wiki_space_viewer: 知识库可阅读成员, 注意: 仅在知识库启用了成员分组功能后才支持该参数, wiki_space_editor: 知识库可编辑成员, 注意: 仅在知识库启用了成员分组功能后才支持该参数
-	Name          string `json:"name,omitempty"`           // 协作者的名字, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
-	Avatar        string `json:"avatar,omitempty"`         // 协作者的头像, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
+	Name          string `json:"name,omitempty"`           // 协作者的名字, 字段权限要求（满足任一）: 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录, 以应用身份读取通讯录
+	Avatar        string `json:"avatar,omitempty"`         // 协作者的头像, 字段权限要求（满足任一）: 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录, 以应用身份读取通讯录
 	ExternalLabel bool   `json:"external_label,omitempty"` // 协作者的外部标签
 }
 

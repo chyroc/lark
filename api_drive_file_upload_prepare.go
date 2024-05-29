@@ -21,10 +21,12 @@ import (
 	"context"
 )
 
-// PrepareUploadDriveFile 发送初始化请求获取上传事务ID和分块策略, 目前是以4MB大小进行定长分片。
+// PrepareUploadDriveFile 发送初始化请求, 以获取上传事务 ID 和分片策略, 为[上传分片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/upload_part)做准备。平台固定以 4MB 的大小对文件进行分片。了解完整的上传文件流程, 参考[上传文件概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/multipart-upload-file-/introduction)。
 //
-// 你在24小时内可保存上传事务ID和上传进度, 以便可以恢复上传
-// 该接口不支持太高的并发, 且调用频率上限为5QPS
+// 注意事项:
+// 上传事务 ID 和上传进度在 24 小时内有效。请及时保存和恢复上传。
+// 使用限制:
+// 该接口不支持并发调用, 且调用频率上限为 5 QPS, 10000 次/天。否则会返回 1061045 错误码, 可通过稍后重试解决。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/upload_prepare
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/upload/multipart-upload-file-/upload_prepare
@@ -62,17 +64,17 @@ func (r *Mock) UnMockDrivePrepareUploadDriveFile() {
 
 // PrepareUploadDriveFileReq ...
 type PrepareUploadDriveFileReq struct {
-	FileName   string `json:"file_name,omitempty"`   // 文件名, 示例值: "test.txt", 最大长度: `250` 字符
-	ParentType string `json:"parent_type,omitempty"` // 上传点类型, 示例值: "explorer", 可选值有: explorer: 云空间。
-	ParentNode string `json:"parent_node,omitempty"` // 文件夹的token, 示例值: "fldbcO1UuPz8VwnpPx5a92abcef"
-	Size       int64  `json:"size,omitempty"`        // 文件大小, 示例值: 1024, 最小值: `0`
+	FileName   string `json:"file_name,omitempty"`   // 文件的名称, 示例值: "test.txt", 最大长度: `250` 字符
+	ParentType string `json:"parent_type,omitempty"` // 上传点的类型。取固定值 explorer, 表示将文件上传至云空间中, 示例值: "explorer", 可选值有: explorer: 云空间
+	ParentNode string `json:"parent_node,omitempty"` // 云空间中文件夹的 token。了解如何获取文件夹 token, 参考[文件夹概述](https://open.feishu.cn/document/ukTMukTMukTM/ugTNzUjL4UzM14CO1MTN/folder-overview), 示例值: "fldbcO1UuPz8VwnpPx5a92abcef"
+	Size       int64  `json:"size,omitempty"`        // 文件的大小, 单位为字节, 示例值: 1024, 最小值: `0`
 }
 
 // PrepareUploadDriveFileResp ...
 type PrepareUploadDriveFileResp struct {
-	UploadID  string `json:"upload_id,omitempty"`  // 分片上传事务ID
+	UploadID  string `json:"upload_id,omitempty"`  // 分片上传事务 ID
 	BlockSize int64  `json:"block_size,omitempty"` // 分片大小策略
-	BlockNum  int64  `json:"block_num,omitempty"`  // 分片数量
+	BlockNum  int64  `json:"block_num,omitempty"`  // 分片的数量
 }
 
 // prepareUploadDriveFileResp ...

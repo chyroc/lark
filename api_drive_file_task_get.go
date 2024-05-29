@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetDriveFileTask 查询删除文件夹等异步任务的状态信息。
+// GetDriveFileTask 查询异步任务的状态信息。目前支持查询删除文件夹和移动文件夹的异步任务。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/task_check
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/file/async-task/task_check
@@ -59,12 +59,12 @@ func (r *Mock) UnMockDriveGetDriveFileTask() {
 
 // GetDriveFileTaskReq ...
 type GetDriveFileTaskReq struct {
-	TaskID string `query:"task_id" json:"-"` // 文件相关异步任务id, 示例值: 12345
+	TaskID string `query:"task_id" json:"-"` // 异步任务的 ID。目前支持查询删除文件夹和移动文件夹的异步任务。可通过调用[删除文件夹](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/delete)或[移动文件夹](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/move)获取任务 ID, 示例值: 7360595374803812356
 }
 
 // GetDriveFileTaskResp ...
 type GetDriveFileTaskResp struct {
-	Status string `json:"status,omitempty"` // 异步任务的执行状态, 如果任务执行成功则返回success, 如果任务执行失败则返回fail, 如果任务还在执行中则返回process。
+	Status string `json:"status,omitempty"` // 异步任务的执行状态。枚举值有: success: 任务执行成功, fail: 任务执行失败, process: 任务还在执行中
 }
 
 // getDriveFileTaskResp ...

@@ -21,9 +21,12 @@ import (
 	"context"
 )
 
-// CreateDriveFolder 在用户云空间的指定文件夹中创建一个新的空文件夹。
+// CreateDriveFolder 该接口用于在用户云空间指定文件夹中创建一个空文件夹。
 //
-// 该接口不支持并发创建, 且调用频率上限为 5QPS 以及 10000次/天
+// 使用限制:
+// - 该接口不支持并发创建, 且调用频率上限为 5QPS 以及 10000次/天。否则会返回 1061045 错误码, 可通过稍后重试解决。
+// - 云空间中根目录或文件夹的单层节点上限为 1500 个。超过此限制时, 接口将返回 1062507 错误码。可通过新建节点到其它节点中解决。
+// - 云空间中所有层级的节点总和的上限为 40 万个。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/create_folder
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/folder/create_folder
@@ -61,14 +64,14 @@ func (r *Mock) UnMockDriveCreateDriveFolder() {
 
 // CreateDriveFolderReq ...
 type CreateDriveFolderReq struct {
-	Name        string `json:"name,omitempty"`         // 文件夹名称, 示例值: "New Folder"
-	FolderToken string `json:"folder_token,omitempty"` // 父文件夹token。如果需要创建到「我的空间」作为顶级文件夹, 请传入我的空间token[获取方式](https://open.feishu.cn/document/ukTMukTMukTM/ugTNzUjL4UzM14CO1MTN/get-root-folder-meta), 示例值: "fldbcO1UuPz8VwnpPx5a92abcef"
+	Name        string `json:"name,omitempty"`         // 文件夹名称, 示例值: "产品优化项目"
+	FolderToken string `json:"folder_token,omitempty"` // 父文件夹的 token。该参数非必填。参数为空时, 表示在根目录下创建文件夹。你可参考[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)获取某个文件夹的 token。了解更多, 参考[文件夹概述](https://open.feishu.cn/document/ukTMukTMukTM/ugTNzUjL4UzM14CO1MTN/folder-overview), 示例值: "fldbcO1UuPz8VwnpPx5a92abcef"
 }
 
 // CreateDriveFolderResp ...
 type CreateDriveFolderResp struct {
-	Token string `json:"token,omitempty"` // 创建文件夹的token
-	URL   string `json:"url,omitempty"`   // 创建文件夹的访问url
+	Token string `json:"token,omitempty"` // 新建的文件夹的 token
+	URL   string `json:"url,omitempty"`   // 新建的文件夹的 URL 链接
 }
 
 // createDriveFolderResp ...

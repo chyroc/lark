@@ -711,6 +711,18 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockCoreHRBatchQueryCoreHRDepartmentTimeline(func(ctx context.Context, request *lark.BatchQueryCoreHRDepartmentTimelineReq, options ...lark.MethodOptionFunc) (*lark.BatchQueryCoreHRDepartmentTimelineResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockCoreHRBatchQueryCoreHRDepartmentTimeline()
+
+			_, _, err := moduleCli.BatchQueryCoreHRDepartmentTimeline(ctx, &lark.BatchQueryCoreHRDepartmentTimelineReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockCoreHRGetCoreHRDepartmentParentList(func(ctx context.Context, request *lark.GetCoreHRDepartmentParentListReq, options ...lark.MethodOptionFunc) (*lark.GetCoreHRDepartmentParentListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1659,18 +1671,6 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockCoreHRGetCoreHRAuthorizationList(func(ctx context.Context, request *lark.GetCoreHRAuthorizationListReq, options ...lark.MethodOptionFunc) (*lark.GetCoreHRAuthorizationListResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockCoreHRGetCoreHRAuthorizationList()
-
-			_, _, err := moduleCli.GetCoreHRAuthorizationList(ctx, &lark.GetCoreHRAuthorizationListReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockCoreHRGetCoreHRSecurityGroupList(func(ctx context.Context, request *lark.GetCoreHRSecurityGroupListReq, options ...lark.MethodOptionFunc) (*lark.GetCoreHRSecurityGroupListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -2240,6 +2240,13 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.BatchQueryCoreHRDepartmentTimeline(ctx, &lark.BatchQueryCoreHRDepartmentTimelineReq{})
+			as.NotNil(err)
+			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetCoreHRDepartmentParentList(ctx, &lark.GetCoreHRDepartmentParentListReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
@@ -2851,13 +2858,6 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetCoreHRAuthorization(ctx, &lark.GetCoreHRAuthorizationReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetCoreHRAuthorizationList(ctx, &lark.GetCoreHRAuthorizationListReq{})
 			as.NotNil(err)
 			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
 		})
@@ -3385,6 +3385,13 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.BatchQueryCoreHRDepartmentTimeline(ctx, &lark.BatchQueryCoreHRDepartmentTimelineReq{})
+			as.NotNil(err)
+			as.Equal("fake raw request", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetCoreHRDepartmentParentList(ctx, &lark.GetCoreHRDepartmentParentListReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
@@ -3996,13 +4003,6 @@ func Test_CoreHR_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetCoreHRAuthorization(ctx, &lark.GetCoreHRAuthorizationReq{})
-			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetCoreHRAuthorizationList(ctx, &lark.GetCoreHRAuthorizationListReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})

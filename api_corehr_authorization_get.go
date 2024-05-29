@@ -23,8 +23,7 @@ import (
 
 // GetCoreHRAuthorization 查询「飞书人事」-「权限设置」中的单个用户授权信息。
 //
-// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/authorization/query-user-authorization
-// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/authorization/query-user-authorization
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/authorization/get_by_param
 func (r *CoreHRService) GetCoreHRAuthorization(ctx context.Context, request *GetCoreHRAuthorizationReq, options ...MethodOptionFunc) (*GetCoreHRAuthorizationResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRAuthorization != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRAuthorization mock enable")

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetDriveRootFolderMeta 该接口用于获取 "我的空间" 的元信息
+// GetDriveRootFolderMeta 该接口用于获取用户“我的空间”（root folder）的元数据, 包括文件夹的 token、ID 和文件夹所有者的 ID。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ugTNzUjL4UzM14CO1MTN/get-root-folder-meta
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/folder/get-root-folder-meta
@@ -64,14 +64,13 @@ type GetDriveRootFolderMetaReq struct {
 // GetDriveRootFolderMetaResp ...
 type GetDriveRootFolderMetaResp struct {
 	Token  string `json:"token,omitempty"`   // 文件夹的 token
-	ID     string `json:"id,omitempty"`      // 文件夹的 id
-	UserID string `json:"user_id,omitempty"` // 文件夹的所有者 id
+	ID     string `json:"id,omitempty"`      // 文件夹的 ID
+	UserID string `json:"user_id,omitempty"` // 文件夹所有者的 ID
 }
 
 // getDriveRootFolderMetaResp ...
 type getDriveRootFolderMetaResp struct {
-	Code  int64                       `json:"code,omitempty"`
-	Msg   string                      `json:"msg,omitempty"`
-	Data  *GetDriveRootFolderMetaResp `json:"data,omitempty"`
-	Error *ErrorDetail                `json:"error,omitempty"`
+	Code int64                       `json:"code,omitempty"`
+	Msg  string                      `json:"msg,omitempty"`
+	Data *GetDriveRootFolderMetaResp `json:"data,omitempty"`
 }

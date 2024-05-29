@@ -39,6 +39,7 @@ type Lark struct {
 	wwwBaseURL          string
 	isEnableLogID       bool
 	noBlocking          bool
+	disableErrorLog     bool
 	apiMiddlewares      []ApiMiddleware
 
 	httpClient       HttpClient
@@ -172,6 +173,7 @@ func (r *Lark) clone(tenantKey string) *Lark {
 		wwwBaseURL:          r.wwwBaseURL,
 		isEnableLogID:       r.isEnableLogID,
 		noBlocking:          r.noBlocking,
+		disableErrorLog:     r.disableErrorLog,
 		httpClient:          r.httpClient,
 		logger:              r.logger,
 		logLevel:            r.logLevel,
