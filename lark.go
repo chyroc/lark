@@ -157,6 +157,12 @@ func WithNonBlockingCallback(noBlocking bool) ClientOptionFunc {
 	}
 }
 
+func WithDisableErrorLog(disableErrorLog bool) ClientOptionFunc {
+	return func(lark *Lark) {
+		lark.disableErrorLog = disableErrorLog
+	}
+}
+
 // MethodOptionFunc new method option
 type MethodOptionFunc func(*MethodOption)
 

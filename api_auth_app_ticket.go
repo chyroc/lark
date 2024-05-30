@@ -28,12 +28,18 @@ func (r *Lark) WithTenant(tenantKey string) *Lark {
 // GetAppTicket ...
 func (r *AuthService) GetAppTicket(ctx context.Context) (string, error) {
 	s, _, err := r.cli.store.Get(ctx, genISVAppTicketKey(r.cli.appID))
+	if err != nil && err != ErrStoreNotFound {
+		r.cli.Log(ctx, LogLevelError, "[lark] Auth#GetAppTicket get_ticket_cache failed, app_id=%s, err=%s", r.cli.appID, err)
+	}
 	if err == ErrStoreNotFound && r.cli.getAppTicketFunc != nil {
 		ticket, err := r.cli.getAppTicketFunc(ctx, r.cli, r.cli.appID)
 		if err != nil {
+			r.cli.Log(ctx, LogLevelError, "[lark] Auth#GetAppTicket get_ticket failed, app_id=%s, err=%s", r.cli.appID, err)
 			return "", err
 		}
-		_ = r.SetAppTicket(ctx, ticket)
+		if err = r.SetAppTicket(ctx, ticket); err != nil {
+			r.cli.Log(ctx, LogLevelError, "[lark] Auth#GetAppTicket set_ticket_cache failed, app_id=%s, err=%s", r.cli.appID, err)
+		}
 		return ticket, nil
 	}
 	return s, err

@@ -26,15 +26,13 @@ import (
 // https://open.feishu.cn/document/ukTMukTMukTM/ukDNz4SO0MjL5QzM/auth-v3/auth/tenant_access_token
 func (r *AuthService) GetTenantAccessToken(ctx context.Context) (*TokenExpire, *Response, error) {
 	if r.cli.mock.mockGetTenantAccessToken != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] Auth#GetTenantAccessToken mock enable")
+		r.cli.Log(ctx, LogLevelTrace, "[lark] Auth#GetTenantAccessToken mock enable")
 		return r.cli.mock.mockGetTenantAccessToken(ctx)
 	}
 
-	r.cli.Log(ctx, LogLevelInfo, "[lark] Auth#GetTenantAccessToken call api")
-
 	val, ttl, err := r.cli.store.Get(ctx, genTenantTokenKey(r.cli.isISV, r.cli.appID, r.cli.tenantKey))
 	if err != nil && err != ErrStoreNotFound {
-		r.cli.Log(ctx, LogLevelError, "[lark] Auth#GetTenantAccessToken get token from store failed: %s", err)
+		r.cli.Log(ctx, LogLevelError, "[lark] Auth#GetTenantAccessToken get_from_cache failed, err=%s", err)
 	} else if val != "" && ttl > 0 {
 		return &TokenExpire{Token: val, Expire: int64(ttl.Seconds())}, &Response{}, nil
 	}
@@ -67,20 +65,12 @@ func (r *AuthService) GetTenantAccessToken(ctx context.Context) (*TokenExpire, *
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	if err != nil {
-		r.cli.Log(ctx, LogLevelError, "[lark] Auth#GetTenantAccessToken GET %s failed: %s", uri, err)
 		return nil, response, err
-	} else if resp.Code != 0 {
-		r.cli.Log(ctx, LogLevelError, "[lark] Auth#GetTenantAccessToken GET %s failed, code: %d, msg: %s", uri, resp.Code, resp.Msg)
-		return nil, response, NewError("Token", "GetTenantAccessToken", resp.Code, resp.Msg)
 	}
 
-	r.cli.Log(ctx, LogLevelDebug, "[lark] Auth#GetTenantAccessToken log_id: %s, response: %s", response.LogID, jsonString(resp))
-
-	err = r.cli.store.Set(ctx, genTenantTokenKey(r.cli.isISV, r.cli.appID, r.cli.tenantKey), resp.TenantAccessToken, time.Second*time.Duration(resp.Expire))
-	if err != nil {
-		r.cli.Log(ctx, LogLevelError, "[lark] Auth#GetTenantAccessToken set token to store failed: %s", err)
+	if err = r.cli.store.Set(ctx, genTenantTokenKey(r.cli.isISV, r.cli.appID, r.cli.tenantKey), resp.TenantAccessToken, time.Second*time.Duration(resp.Expire)); err != nil {
+		r.cli.Log(ctx, LogLevelError, "[lark] Auth#GetTenantAccessToken set_token_cache failed, err=%s", err)
 	}
-
 	return &TokenExpire{
 		Token:  resp.TenantAccessToken,
 		Expire: resp.Expire,
@@ -112,9 +102,10 @@ type getTenantAccessTokenReq struct {
 }
 
 type getTenantAccessTokenResp struct {
-	Code              int64  `json:"code,omitempty"` // 错误码，非 0 表示失败
-	Msg               string `json:"msg,omitempty"`  // 错误描述
-	TenantAccessToken string `json:"tenant_access_token"`
-	AppAccessToken    string `json:"app_access_token"`
-	Expire            int64  `json:"expire"`
+	Code              int64        `json:"code,omitempty"` // 错误码，非 0 表示失败
+	Msg               string       `json:"msg,omitempty"`  // 错误描述
+	TenantAccessToken string       `json:"tenant_access_token"`
+	AppAccessToken    string       `json:"app_access_token"`
+	Expire            int64        `json:"expire"`
+	Error             *ErrorDetail `json:"error,omitempty"`
 }

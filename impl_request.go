@@ -70,32 +70,61 @@ func (r *Mock) UnMockRawRequest() {
 }
 
 func (r *Lark) rawRequest(ctx context.Context, req *RawRequestReq, resp interface{}) (response *Response, err error) {
-	r.Log(ctx, LogLevelInfo, "[lark] %s#%s call api", req.Scope, req.API)
-
 	// 1. parse request
 	rawHttpReq, err := r.parseRawHttpRequest(ctx, req)
 	if err != nil {
+		// 这里日志不需要区分 level, 输出 [error] 日志
+		r.Log(ctx, LogLevelError, "[lark] %s#%s %s %s parse_req failed, err=%s", req.Scope, req.API, req.Method, req.URL, err)
 		return response, err
 	}
 
-	// 2. do request
-	response, err = r.doRequest(ctx, rawHttpReq, resp)
+	// 2. request log
+	logLevel := r.getLogLevel(req.Scope, req.API)
+	switch logLevel {
+	case LogLevelDebug:
+		r.Log(ctx, LogLevelDebug, "[lark] %s#%s %s %s start, body=%s", rawHttpReq.Scope, rawHttpReq.API, rawHttpReq.Method, rawHttpReq.URL, string(rawHttpReq.RawBody))
+	case LogLevelInfo:
+		r.Log(ctx, LogLevelInfo, "[lark] %s#%s %s %s start", rawHttpReq.Scope, rawHttpReq.API, rawHttpReq.Method, rawHttpReq.URL)
+	default:
+		// error 不需要 req 日志, 合并到 resp 一起
+	}
 
-	logID, statusCode := getResponseLogID(response)
+	// 3. do request
+	var respContent string
+	response, respContent, err = r.doRequest(ctx, rawHttpReq, resp)
 	if err != nil {
-		r.Log(ctx, LogLevelError, "[lark] %s#%s %s %s failed, log_id: %s, status_code: %d, error: %s", req.Scope, req.API, req.Method, req.URL, logID, statusCode, err)
+		switch logLevel {
+		case LogLevelDebug:
+			// [debug]: 详细 error 日志
+			r.Log(ctx, LogLevelError, "[lark] %s#%s %s %s failed, log_id=%s, status=%d, body=%s", rawHttpReq.Scope, rawHttpReq.API, rawHttpReq.Method, rawHttpReq.URL, response.LogID, response.StatusCode, respContent)
+		default:
+			// [其他]: 简单 error 日志
+			r.Log(ctx, LogLevelError, "[lark] %s#%s %s %s failed, log_id=%s, status=%d", rawHttpReq.Scope, rawHttpReq.API, rawHttpReq.Method, rawHttpReq.URL, response.LogID, response.StatusCode)
+		}
 		return response, err
 	}
-
 	code, msg, detailErr := getCodeMsg(resp)
+
+	// 4. response log
+	if response.StatusCode >= http.StatusBadRequest || code != 0 {
+		r.Log(ctx, LogLevelError, "[lark] %s#%s %s %s failed, log_id=%s, status=%d, code=%d, msg=%s, detail=%s", rawHttpReq.Scope, rawHttpReq.API, rawHttpReq.Method, rawHttpReq.URL, response.LogID, response.StatusCode, code, msg, detailErr)
+	} else {
+		switch logLevel {
+		case LogLevelDebug:
+			r.Log(ctx, LogLevelDebug, "[lark] %s#%s %s %s success, log_id=%s, body=%s", rawHttpReq.Scope, rawHttpReq.API, rawHttpReq.Method, rawHttpReq.URL, response.LogID, respContent)
+		case LogLevelInfo:
+			r.Log(ctx, LogLevelInfo, "[lark] %s#%s %s %s success, log_id=%s", rawHttpReq.Scope, rawHttpReq.API, rawHttpReq.Method, rawHttpReq.URL, response.LogID)
+		default:
+			// error 不需要 resp 日志
+		}
+	}
+
+	// 5. response
 	if code != 0 {
 		e := NewError(req.Scope, req.API, code, msg)
 		e.(*Error).ErrorDetail = detailErr
-		r.Log(ctx, LogLevelError, "[lark] %s#%s %s %s failed, log_id: %s, status_code: %d, code: %d, msg: %s", req.Scope, req.API, req.Method, req.URL, logID, statusCode, code, msg)
 		return response, e
 	}
-
-	r.Log(ctx, LogLevelDebug, "[lark] %s#%s success, log_id: %s, status_code: %d, response: %s", req.Scope, req.API, logID, statusCode, "TODO")
 
 	return response, nil
 }
@@ -149,16 +178,11 @@ func (r *Lark) parseRawHttpRequest(ctx context.Context, req *RawRequestReq) (*ra
 	return rawHttpReq, nil
 }
 
-func (r *Lark) doRequest(ctx context.Context, rawHttpReq *rawHttpRequest, realResponse interface{}) (*Response, error) {
+func (r *Lark) doRequest(ctx context.Context, rawHttpReq *rawHttpRequest, realResponse interface{}) (*Response, string, error) {
 	response := new(Response)
 	response.Method = rawHttpReq.Method
 	response.URL = rawHttpReq.URL
 	response.Header = map[string][]string{}
-
-	if r.logLevel <= LogLevelTrace {
-		r.Log(ctx, LogLevelTrace, "[lark] request %s#%s, %s %s, header=%s, body=%s", rawHttpReq.Scope, rawHttpReq.API,
-			rawHttpReq.Method, rawHttpReq.URL, jsonHeader(rawHttpReq.Headers), string(rawHttpReq.RawBody))
-	}
 
 	if rawHttpReq.Timeout > 0 {
 		var cancel context.CancelFunc
@@ -168,7 +192,7 @@ func (r *Lark) doRequest(ctx context.Context, rawHttpReq *rawHttpRequest, realRe
 
 	req, err := http.NewRequestWithContext(ctx, rawHttpReq.Method, rawHttpReq.URL, rawHttpReq.Body)
 	if err != nil {
-		return response, err
+		return response, "", err
 	}
 	for k, v := range rawHttpReq.Headers {
 		req.Header.Set(k, v)
@@ -176,7 +200,7 @@ func (r *Lark) doRequest(ctx context.Context, rawHttpReq *rawHttpRequest, realRe
 
 	resp, err := r.httpClient.Do(ctx, req)
 	if err != nil {
-		return response, err
+		return response, "", err
 	}
 
 	_, media, _ := mime.ParseMediaType(resp.Header.Get("Content-Disposition"))
@@ -197,15 +221,14 @@ func (r *Lark) doRequest(ctx context.Context, rawHttpReq *rawHttpRequest, realRe
 
 	bs, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		return response, err
+		return response, "", err
 	}
 
-	if r.logLevel <= LogLevelTrace {
-		if respFilename == "" {
-			r.Log(ctx, LogLevelTrace, "[lark] response %s#%s, %s %s, body=%s", rawHttpReq.Scope, rawHttpReq.API, rawHttpReq.Method, rawHttpReq.URL, string(bs))
-		} else {
-			r.Log(ctx, LogLevelTrace, "[lark] response %s#%s, %s %s, body=<FILE: %d>", rawHttpReq.Scope, rawHttpReq.API, rawHttpReq.Method, rawHttpReq.URL, len(bs))
-		}
+	var respContent string
+	if respFilename == "" {
+		respContent = string(bs)
+	} else {
+		respContent = fmt.Sprintf("<FILE: %d>", len(bs))
 	}
 
 	if realResponse != nil {
@@ -220,20 +243,20 @@ func (r *Lark) doRequest(ctx context.Context, rawHttpReq *rawHttpRequest, realRe
 				setter.SetFilename(respFilename)
 			}
 			if isSpecResp {
-				return response, nil
+				return response, respContent, nil
 			}
 		}
 
 		if len(bs) == 0 && resp.StatusCode >= http.StatusBadRequest {
-			return response, fmt.Errorf("request fail: %s", resp.Status)
+			return response, respContent, fmt.Errorf("request fail: %s", resp.Status)
 		}
 
 		if err = json.Unmarshal(bs, realResponse); err != nil {
-			return response, fmt.Errorf("invalid json: %s, err: %s", bs, err)
+			return response, respContent, fmt.Errorf("invalid json: %s, err: %s", bs, err)
 		}
 	}
 
-	return response, nil
+	return response, respContent, nil
 }
 
 func (r *rawHttpRequest) parseHeader(ctx context.Context, ins *Lark, req *RawRequestReq) error {
