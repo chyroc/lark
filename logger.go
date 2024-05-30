@@ -27,6 +27,8 @@ import (
 )
 
 // Logger ...
+//
+// 具体影响参考 LogLevel 注释
 type Logger interface {
 	Log(ctx context.Context, level LogLevel, msg string, args ...interface{})
 }
