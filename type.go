@@ -49,7 +49,8 @@ type ContainerIDType string
 
 // ContainerIDTypeChat ...
 const (
-	ContainerIDTypeChat ContainerIDType = "chat"
+	ContainerIDTypeChat   ContainerIDType = "chat"
+	ContainerIDTypeThread ContainerIDType = "thread"
 )
 
 // ContainerIDTypePtr ...
