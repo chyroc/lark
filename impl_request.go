@@ -96,10 +96,10 @@ func (r *Lark) rawRequest(ctx context.Context, req *RawRequestReq, resp interfac
 		switch logLevel {
 		case LogLevelDebug:
 			// [debug]: 详细 error 日志
-			r.Log(ctx, LogLevelError, "[lark] %s#%s %s %s failed, log_id=%s, status=%d, body=%s", rawHttpReq.Scope, rawHttpReq.API, rawHttpReq.Method, rawHttpReq.URL, response.LogID, response.StatusCode, respContent)
+			r.Log(ctx, LogLevelError, "[lark] %s#%s %s %s failed, log_id=%s, status=%d, body=%s, err=%s", rawHttpReq.Scope, rawHttpReq.API, rawHttpReq.Method, rawHttpReq.URL, response.LogID, response.StatusCode, respContent, err)
 		default:
 			// [其他]: 简单 error 日志
-			r.Log(ctx, LogLevelError, "[lark] %s#%s %s %s failed, log_id=%s, status=%d", rawHttpReq.Scope, rawHttpReq.API, rawHttpReq.Method, rawHttpReq.URL, response.LogID, response.StatusCode)
+			r.Log(ctx, LogLevelError, "[lark] %s#%s %s %s failed, log_id=%s, status=%d, err=%s", rawHttpReq.Scope, rawHttpReq.API, rawHttpReq.Method, rawHttpReq.URL, response.LogID, response.StatusCode, err)
 		}
 		return response, err
 	}
