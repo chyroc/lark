@@ -91,24 +91,24 @@ type SearchBitableRecordReqSort struct {
 
 // SearchBitableRecordResp ...
 type SearchBitableRecordResp struct {
-	Items     *SearchBitableRecordRespItems `json:"items,omitempty"`      // 数组类型。record 结果。了解 record 数据结构, 参考[数据结构](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/development-guide/bitable-structure)
-	HasMore   bool                          `json:"has_more,omitempty"`   // 是否还有更多项
-	PageToken string                        `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-	Total     int64                         `json:"total,omitempty"`      // 总数
+	Items     []*SearchBitableRecordRespItem `json:"items,omitempty"`      // 数组类型。record 结果。了解 record 数据结构, 参考[数据结构](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/development-guide/bitable-structure)
+	HasMore   bool                           `json:"has_more,omitempty"`   // 是否还有更多项
+	PageToken string                         `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	Total     int64                          `json:"total,omitempty"`      // 总数
 }
 
-// SearchBitableRecordRespItems ...
-type SearchBitableRecordRespItems struct {
-	Fields           map[string]interface{}                      `json:"fields,omitempty"`             // 记录字段[记录数据结构](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/bitable-record-data-structure-overview)
-	RecordID         string                                      `json:"record_id,omitempty"`          // 记录Id
-	CreatedBy        *SearchBitableRecordRespItemsCreatedBy      `json:"created_by,omitempty"`         // 创建人
-	CreatedTime      int64                                       `json:"created_time,omitempty"`       // 创建时间
-	LastModifiedBy   *SearchBitableRecordRespItemsLastModifiedBy `json:"last_modified_by,omitempty"`   // 修改人
-	LastModifiedTime int64                                       `json:"last_modified_time,omitempty"` // 最近更新时间
+// SearchBitableRecordRespItem ...
+type SearchBitableRecordRespItem struct {
+	Fields           map[string]interface{}                     `json:"fields,omitempty"`             // 记录字段[记录数据结构](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/bitable-record-data-structure-overview)
+	RecordID         string                                     `json:"record_id,omitempty"`          // 记录Id
+	CreatedBy        *SearchBitableRecordRespItemCreatedBy      `json:"created_by,omitempty"`         // 创建人
+	CreatedTime      int64                                      `json:"created_time,omitempty"`       // 创建时间
+	LastModifiedBy   *SearchBitableRecordRespItemLastModifiedBy `json:"last_modified_by,omitempty"`   // 修改人
+	LastModifiedTime int64                                      `json:"last_modified_time,omitempty"` // 最近更新时间
 }
 
-// SearchBitableRecordRespItemsCreatedBy ...
-type SearchBitableRecordRespItemsCreatedBy struct {
+// SearchBitableRecordRespItemCreatedBy ...
+type SearchBitableRecordRespItemCreatedBy struct {
 	ID        string `json:"id,omitempty"`         // 人员Id
 	Name      string `json:"name,omitempty"`       // 中文姓名
 	EnName    string `json:"en_name,omitempty"`    // 英文姓名
@@ -116,8 +116,8 @@ type SearchBitableRecordRespItemsCreatedBy struct {
 	AvatarURL string `json:"avatar_url,omitempty"` // 头像链接, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
 }
 
-// SearchBitableRecordRespItemsLastModifiedBy ...
-type SearchBitableRecordRespItemsLastModifiedBy struct {
+// SearchBitableRecordRespItemLastModifiedBy ...
+type SearchBitableRecordRespItemLastModifiedBy struct {
 	ID        string `json:"id,omitempty"`         // 人员Id
 	Name      string `json:"name,omitempty"`       // 中文姓名
 	EnName    string `json:"en_name,omitempty"`    // 英文姓名
