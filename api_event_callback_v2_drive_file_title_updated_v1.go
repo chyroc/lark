@@ -36,9 +36,9 @@ type EventV2DriveFileTitleUpdatedV1Handler func(ctx context.Context, cli *Lark, 
 
 // EventV2DriveFileTitleUpdatedV1 ...
 type EventV2DriveFileTitleUpdatedV1 struct {
-	FileToken      string                                      `json:"file_token,omitempty"` // 文件token. 如: doccnxxxxxx
-	FileType       FileType                                    `json:"file_type,omitempty"`  // 文件类型, 目前有doc、sheet. 如: doc
-	OperatorIDList []*EventV2DriveFileTitleUpdatedV1OperatorID `json:"operator_id_list,omitempty"`
+	FileToken  string                                    `json:"file_token,omitempty"` // 文件token. 如: doccnxxxxxx
+	FileType   FileType                                  `json:"file_type,omitempty"`  // 文件类型, 目前有doc、sheet. 如: doc
+	OperatorID *EventV2DriveFileTitleUpdatedV1OperatorID `json:"operator_id,omitempty"`
 }
 
 // EventV2DriveFileTitleUpdatedV1OperatorID ...
