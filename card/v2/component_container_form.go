@@ -28,6 +28,7 @@ func Form(name string, elements ...Component) *ComponentForm {
 //
 //go:generate generate_set_attrs -type=ComponentForm
 //go:generate generate_to_map -type=ComponentForm
+//go:generate generate_iface_unmarshal -type=ComponentForm
 type ComponentForm struct {
 	componentBase
 
@@ -35,7 +36,7 @@ type ComponentForm struct {
 	Name string `json:"name,omitempty"`
 
 	// 表单容器的子节点。可内嵌其它容器类组件和展示、交互组件, 不支持内嵌表格、图表、和表单容器组件。
-	Elements []Component `json:"elements,omitempty"`
+	Elements []Component `json:"elements,omitempty" unmarshal:"unmarshalComponent"`
 }
 
 // MarshalJSON ...
@@ -67,4 +68,28 @@ func (r *ComponentForm) toMap() map[string]interface{} {
 		res["elements"] = r.Elements
 	}
 	return res
+}
+
+// unmarshalComponentForm generated to unmarshal ComponentForm iface
+type unmarshalComponentForm struct {
+	Name     string            `json:"name,omitempty"`
+	Elements []json.RawMessage `json:"elements,omitempty"`
+}
+
+// UnmarshalJSON generated to unmarshal ComponentForm iface
+func (r *ComponentForm) UnmarshalJSON(bs []byte) error {
+	obj := new(unmarshalComponentForm)
+	err := json.Unmarshal(bs, obj)
+	if err != nil {
+		return err
+	}
+	r.Name = obj.Name
+	r.Elements = make([]Component, len(obj.Elements))
+	for i, v := range obj.Elements {
+		r.Elements[i], err = unmarshalComponent(v)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }

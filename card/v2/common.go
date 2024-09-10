@@ -23,6 +23,18 @@ func unmarshalComponent(data json.RawMessage) (Component, error) {
 		res := &ComponentColumnSet{}
 		err = json.Unmarshal(data, res)
 		return res, err
+	case "markdown":
+		res := &ComponentMarkdown{}
+		err = json.Unmarshal(data, res)
+		return res, err
+	case "input":
+		res := &ComponentInput{}
+		err = json.Unmarshal(data, res)
+		return res, err
+	case "button":
+		res := &ComponentButton{}
+		err = json.Unmarshal(data, res)
+		return res, err
 	}
 
 	return nil, nil
