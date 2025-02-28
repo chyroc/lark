@@ -1,4 +1,4 @@
-module github.com/aker-pc/lark
+module github.com/aker-pc/lark/v2
 
 go 1.18
 
