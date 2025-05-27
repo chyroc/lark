@@ -154,7 +154,7 @@ func (r *SheetContent) UnmarshalJSON(bytes []byte) error {
 	} else if (bytes[0] >= '0' && bytes[0] <= '9') ||
 		(bytes[0] == '-' && len(bytes) > 1 && bytes[1] >= '0' && bytes[1] <= '9') {
 		str := string(bytes)
-		if strings.Contains(str, ".") {
+		if strings.ContainsAny(str, ".eE") { // 支持科学计数法 e.g. 1e10
 			float, err := strconv.ParseFloat(str, 64)
 			if err != nil {
 				return err
