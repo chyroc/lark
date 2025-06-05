@@ -68,11 +68,12 @@ type EventCardCallback struct {
 
 // EventCardCallbackAction ...
 type EventCardCallbackAction struct {
-	Value     json.RawMessage `json:"value"`      // 交互元素的value字段值
-	Tag       string          `json:"tag"`        // 交互元素的tag字段值
-	Option    string          `json:"option"`     // 选中option的value（button元素不适用）
-	Name      string          `json:"name"`       // 按钮的唯一标识
-	FormValue json.RawMessage `json:"form_value"` // Form内交互组件的name和value
+	Value      json.RawMessage `json:"value"`      // 交互元素的value字段值
+	Tag        string          `json:"tag"`        // 交互元素的tag字段值
+	Option     string          `json:"option"`     // 选中option的value（button元素不适用）
+	Name       string          `json:"name"`       // 按钮的唯一标识
+	FormValue  json.RawMessage `json:"form_value"` // Form内交互组件的name和value
+	InputValue string          `json:"input_value"`
 }
 
 // EventCardHandler ...
