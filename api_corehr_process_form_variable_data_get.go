@@ -85,19 +85,19 @@ type GetCoreHRProcessFormVariableDataRespFieldVariableValueSubValue struct {
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueSubValueValue ...
 type GetCoreHRProcessFormVariableDataRespFieldVariableValueSubValueValue struct {
-	TextValue       string                                                                          `json:"text_value,omitempty"`       // 文本值
-	BoolValue       bool                                                                            `json:"bool_value,omitempty"`       // 布尔值
-	NumberValue     string                                                                          `json:"number_value,omitempty"`     // 数字值
-	EnumValue       string                                                                          `json:"enum_value,omitempty"`       // 枚举值, 这里是枚举的 id
-	DateValue       string                                                                          `json:"date_value,omitempty"`       // 从 1970 开始的天数
-	DateTimeValue   string                                                                          `json:"date_time_value,omitempty"`  // 时间戳, 毫秒
-	I18nValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueSubValueValueI18nValue   `json:"i18n_value,omitempty"`       // 多语字段值
-	ObjectValue     *GetCoreHRProcessFormVariableDataRespFieldVariableValueSubValueValueObjectValue `json:"object_value,omitempty"`     // 对象值, 包括对象 id 和对象类型
-	UserValue       string                                                                          `json:"user_value,omitempty"`       // 用户 id, 根据 user_type 选择对应的用户 id
-	DepartmentValue string                                                                          `json:"department_value,omitempty"` // 部门 id, 根据入参选择对应的部门 id
-	RecordValue     *GetCoreHRProcessFormVariableDataRespFieldVariableValueSubValueValueRecordValue `json:"record_value,omitempty"`     // 记录类型字段值
-	EmploymentValue string                                                                          `json:"employment_value,omitempty"` // 员工类型字段值, 为用户 id, 根据入参选择返回的用户 id
-	ListValues      []string                                                                        `json:"list_values,omitempty"`      // 数组类型值, 里面包含多个值, 每个元素都对应 subValues 中的数组下标
+	TextValue		 *string                                                                          `json:"text_value,omitempty"`       // 文本值
+	BoolValue        *bool                                                                            `json:"bool_value,omitempty"`       // 布尔值
+	NumberValue      *string                                                                          `json:"number_value,omitempty"`     // 数字值
+	EnumValue        *string                                                                          `json:"enum_value,omitempty"`       // 枚举值, 这里是枚举的 id
+	DateValue        *string                                                                          `json:"date_value,omitempty"`       // 从 1970 开始的天数
+	DateTimeValue    *string                                                                          `json:"date_time_value,omitempty"`  // 时间戳, 毫秒
+	I18nValue        *GetCoreHRProcessFormVariableDataRespFieldVariableValueSubValueValueI18nValue   `json:"i18n_value,omitempty"`       // 多语字段值
+	ObjectValue      *GetCoreHRProcessFormVariableDataRespFieldVariableValueSubValueValueObjectValue `json:"object_value,omitempty"`     // 对象值, 包括对象 id 和对象类型
+	UserValue        *string                                                                          `json:"user_value,omitempty"`       // 用户 id, 根据 user_type 选择对应的用户 id
+	DepartmentValue  *string                                                                          `json:"department_value,omitempty"` // 部门 id, 根据入参选择对应的部门 id
+	RecordValues     []*GetCoreHRProcessFormVariableDataRespFieldVariableValueSubValueValueRecordValues `json:"record_values,omitempty"`     // 记录类型字段值
+	EmploymentValue  *string                                                                          `json:"employment_value,omitempty"` // 员工类型字段值, 为用户 id, 根据入参选择返回的用户 id
+	ListValues       []string                                                                        `json:"list_values,omitempty"`      // 数组类型值, 里面包含多个值, 每个元素都对应 subValues 中的数组下标
 }
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueSubValueValueI18nValue ...
@@ -112,10 +112,10 @@ type GetCoreHRProcessFormVariableDataRespFieldVariableValueSubValueValueObjectVa
 	WkApiName string `json:"wk_api_name,omitempty"` // 飞书人事 Wukong 元数据唯一标识
 }
 
-// GetCoreHRProcessFormVariableDataRespFieldVariableValueSubValueValueRecordValue ...
-type GetCoreHRProcessFormVariableDataRespFieldVariableValueSubValueValueRecordValue struct {
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueSubValueValueRecordValues ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueSubValueValueRecordValues struct {
 	VariableApiName string `json:"variable_api_name,omitempty"` // 变量唯一标识
-	VariableValue   string `json:"variable_value,omitempty"`    // 变量值, 对应 subValues 中的 key
+	SubValueKey     string `json:"sub_value_key,omitempty"`    // 变量值, 对应 subValues 中的 key
 }
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableName ...
@@ -126,19 +126,19 @@ type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableName struct {
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValue ...
 type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValue struct {
-	TextValue       string                                                                          `json:"text_value,omitempty"`       // 文本值
-	BoolValue       bool                                                                            `json:"bool_value,omitempty"`       // 布尔值
-	NumberValue     string                                                                          `json:"number_value,omitempty"`     // 数字值
-	EnumValue       string                                                                          `json:"enum_value,omitempty"`       // 枚举值, 这里是枚举的 id
-	DateValue       string                                                                          `json:"date_value,omitempty"`       // 从 1970 开始的天数
-	DateTimeValue   string                                                                          `json:"date_time_value,omitempty"`  // 时间戳, 毫秒
-	I18nValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueI18nValue   `json:"i18n_value,omitempty"`       // 多语字段值
-	ObjectValue     *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueObjectValue `json:"object_value,omitempty"`     // 对象值, 包括对象 id 和对象类型
-	UserValue       string                                                                          `json:"user_value,omitempty"`       // 用户 id, 根据 user_type 选择对应的用户 id
-	DepartmentValue string                                                                          `json:"department_value,omitempty"` // 部门 id, 根据入参选择对应的部门 id
-	RecordValue     *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueRecordValue `json:"record_value,omitempty"`     // 记录类型字段值
-	EmploymentValue string                                                                          `json:"employment_value,omitempty"` // 员工类型字段值, 为用户 id, 根据入参选择返回的用户 id
-	ListValues      []string                                                                        `json:"list_values,omitempty"`      // 数组类型值, 里面包含多个值, 每个元素都对应 subValues 中的数组下标
+	TextValue        *string                                                                          `json:"text_value,omitempty"`       // 文本值
+	BoolValue        *bool                                                                            `json:"bool_value,omitempty"`       // 布尔值
+	NumberValue      *string                                                                          `json:"number_value,omitempty"`     // 数字值
+	EnumValue        *string                                                                          `json:"enum_value,omitempty"`       // 枚举值, 这里是枚举的 id
+	DateValue        *string                                                                          `json:"date_value,omitempty"`       // 从 1970 开始的天数
+	DateTimeValue    *string                                                                          `json:"date_time_value,omitempty"`  // 时间戳, 毫秒
+	I18nValue        *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueI18nValue   `json:"i18n_value,omitempty"`       // 多语字段值
+	ObjectValue      *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueObjectValue `json:"object_value,omitempty"`     // 对象值, 包括对象 id 和对象类型
+	UserValue        *string                                                                          `json:"user_value,omitempty"`       // 用户 id, 根据 user_type 选择对应的用户 id
+	DepartmentValue  *string                                                                          `json:"department_value,omitempty"` // 部门 id, 根据入参选择对应的部门 id
+	RecordValues     []*GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueRecordValues `json:"record_values,omitempty"`     // 记录类型字段值
+	EmploymentValue  *string                                                                          `json:"employment_value,omitempty"` // 员工类型字段值, 为用户 id, 根据入参选择返回的用户 id
+	ListValues       []string                                                                        `json:"list_values,omitempty"`      // 数组类型值, 里面包含多个值, 每个元素都对应 subValues 中的数组下标
 }
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueI18nValue ...
@@ -153,10 +153,10 @@ type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueObjectVa
 	WkApiName string `json:"wk_api_name,omitempty"` // 飞书人事 Wukong 元数据唯一标识
 }
 
-// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueRecordValue ...
-type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueRecordValue struct {
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueRecordValues ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueRecordValues struct {
 	VariableApiName string `json:"variable_api_name,omitempty"` // 变量唯一标识
-	VariableValue   string `json:"variable_value,omitempty"`    // 变量值, 对应 subValues 中的 key
+	SubValueKey     string `json:"sub_value_key,omitempty"`    // 变量值, 对应 subValues 中的 key
 }
 
 // getCoreHRProcessFormVariableDataResp ...
