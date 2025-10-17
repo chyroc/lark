@@ -26,17 +26,22 @@ type DocxDocument struct {
 	Title      string `json:"title,omitempty"`       // 文档标题，只支持返回纯文本。
 }
 
+type DocReferenceSynced struct {
+	SourceBlockID    string `json:"source_block_id"`
+	SourceDocumentID string `json:"source_document_id"`
+}
+
 // DocxBlock ...
 //
 // 在一篇文档中，有多个不同类型的段落，这些段落被定义为块（Block）。块是文档中的最小构建单元，是内容的结构化组成元素，有着明确的含义。块有多种形态，可以是一段文字、一张电子表格、一张图片或一个多维表格等。每个块都有唯一的 block_id 作为标识。
 //
 // docs: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/data-structure/block
 type DocxBlock struct {
-	BlockID   string        `json:"block_id,omitempty"`   // 块的唯一标识。创建块时会自动生成
-	ParentID  string        `json:"parent_id,omitempty"`  // 块的父块 ID。除了根节点 Page 块外，其余块均有父块
-	Children  []string      `json:"children,omitempty"`   // 块的子块 ID 列表
-	BlockType DocxBlockType `json:"block_type,omitempty"` // 块的枚举值，表示块的类型
-
+	BlockID         string             `json:"block_id,omitempty"`         // 块的唯一标识。创建块时会自动生成
+	ParentID        string             `json:"parent_id,omitempty"`        // 块的父块 ID。除了根节点 Page 块外，其余块均有父块
+	Children        []string           `json:"children,omitempty"`         // 块的子块 ID 列表
+	BlockType       DocxBlockType      `json:"block_type,omitempty"`       // 块的枚举值，表示块的类型
+	ReferenceSynced DocReferenceSynced `json:"reference_synced,omitempty"` //同步块
 	// BlockData 只能是以下其中一种，并且需与 BlockType 相对应:
 	Page           *DocxBlockText           `json:"page,omitempty"`            // 文档 Block, 1 DocxBlockTypePage
 	Text           *DocxBlockText           `json:"text,omitempty"`            // 文本 Block, 2 DocxBlockTypeText
