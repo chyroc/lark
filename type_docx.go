@@ -26,6 +26,16 @@ type DocxDocument struct {
 	Title      string `json:"title,omitempty"`       // 文档标题，只支持返回纯文本。
 }
 
+type DocxReferenceSynced struct {
+	SourceBlockID    string `json:"source_block_id"`
+	SourceDocumentID string `json:"source_document_id"`
+}
+
+type DocxSourceSynced struct {
+	Align    DocxAlign          `json:"align,omitempty"`    // 对齐方式, 可选值有: `1`：居左排版, `2`：居中排版, `3`：居右排版
+	Elements []*DocxTextElement `json:"elements,omitempty"` // 文本元素
+}
+
 // DocxBlock ...
 //
 // 在一篇文档中，有多个不同类型的段落，这些段落被定义为块（Block）。块是文档中的最小构建单元，是内容的结构化组成元素，有着明确的含义。块有多种形态，可以是一段文字、一张电子表格、一张图片或一个多维表格等。每个块都有唯一的 block_id 作为标识。
@@ -36,52 +46,53 @@ type DocxBlock struct {
 	ParentID  string        `json:"parent_id,omitempty"`  // 块的父块 ID。除了根节点 Page 块外，其余块均有父块
 	Children  []string      `json:"children,omitempty"`   // 块的子块 ID 列表
 	BlockType DocxBlockType `json:"block_type,omitempty"` // 块的枚举值，表示块的类型
-
 	// BlockData 只能是以下其中一种，并且需与 BlockType 相对应:
-	Page           *DocxBlockText           `json:"page,omitempty"`            // 文档 Block, 1 DocxBlockTypePage
-	Text           *DocxBlockText           `json:"text,omitempty"`            // 文本 Block, 2 DocxBlockTypeText
-	Heading1       *DocxBlockText           `json:"heading1,omitempty"`        // 一级标题 Block, 3 DocxBlockTypeHeading1
-	Heading2       *DocxBlockText           `json:"heading2,omitempty"`        // 二级标题 Block, 4 DocxBlockTypeHeading2
-	Heading3       *DocxBlockText           `json:"heading3,omitempty"`        // 三级标题 Block, 5 DocxBlockTypeHeading3
-	Heading4       *DocxBlockText           `json:"heading4,omitempty"`        // 四级标题 Block, 6 DocxBlockTypeHeading4
-	Heading5       *DocxBlockText           `json:"heading5,omitempty"`        // 五级标题 Block, 7 DocxBlockTypeHeading5
-	Heading6       *DocxBlockText           `json:"heading6,omitempty"`        // 六级标题 Block, 8 DocxBlockTypeHeading6
-	Heading7       *DocxBlockText           `json:"heading7,omitempty"`        // 七级标题 Block, 9 DocxBlockTypeHeading7
-	Heading8       *DocxBlockText           `json:"heading8,omitempty"`        // 八级标题 Block, 10 DocxBlockTypeHeading8
-	Heading9       *DocxBlockText           `json:"heading9,omitempty"`        // 九级标题 Block, 11 DocxBlockTypeHeading9
-	Bullet         *DocxBlockText           `json:"bullet,omitempty"`          // 无序列表 Block, 12 DocxBlockTypeBullet
-	Ordered        *DocxBlockText           `json:"ordered,omitempty"`         // 有序列表 Block, 13 DocxBlockTypeOrdered
-	Code           *DocxBlockText           `json:"code,omitempty"`            // 代码块 Block, 14 DocxBlockTypeCode
-	Quote          *DocxBlockText           `json:"quote,omitempty"`           // 引用 Block, 15 DocxBlockTypeQuote
-	Equation       *DocxBlockText           `json:"equation,omitempty"`        // 公式 Block, 16 DocxBlockTypeEquation
-	Todo           *DocxBlockText           `json:"todo,omitempty"`            // 任务 Block, 17 DocxBlockTypeTodo
-	Bitable        *DocxBlockBitable        `json:"bitable,omitempty"`         // 多维表格 Block, 18 DocxBlockTypeBitable
-	Callout        *DocxBlockCallout        `json:"callout,omitempty"`         // 高亮块 Block, 19 DocxBlockTypeCallout
-	ChatCard       *DocxBlockChatCard       `json:"chat_card,omitempty"`       // 群聊卡片 Block, 20 DocxBlockTypeChatCard
-	Diagram        *DocxBlockDiagram        `json:"diagram,omitempty"`         // 流程图/UML Block, 21 DocxBlockTypeDiagram
-	Divider        DocxBlockDivider         `json:"divider,omitempty"`         // 分割线 Block, 22 DocxBlockTypeDivider
-	File           *DocxBlockFile           `json:"file,omitempty"`            // 文件 Block, 23 DocxBlockTypeFile
-	Grid           *DocxBlockGrid           `json:"grid,omitempty"`            // 分栏 Block, 24 DocxBlockTypeGrid
-	GridColumn     *DocxBlockGridColumn     `json:"grid_column,omitempty"`     // 分栏列 Block, 25 DocxBlockTypeGridColumn
-	Iframe         *DocxBlockIframe         `json:"iframe,omitempty"`          // 内嵌 Block, 26 DocxBlockTypeIframe
-	Image          *DocxBlockImage          `json:"image,omitempty"`           // 图片 Block, 27 DocxBlockTypeImage
-	ISV            *DocxBlockISV            `json:"isv,omitempty"`             // 三方 Block, 28 DocxBlockTypeISV
-	Mindnote       *DocxBlockMindnote       `json:"mindnote,omitempty"`        // 思维笔记 Block, 29 DocxBlockTypeMindnote
-	Sheet          *DocxBlockSheet          `json:"sheet,omitempty"`           // 电子表格 Block, 30 DocxBlockTypeSheet
-	Table          *DocxBlockTable          `json:"table,omitempty"`           // 表格 Block, 31 DocxBlockTypeTable
-	TableCell      *DocxBlockTableCell      `json:"table_cell,omitempty"`      // 单元格 Block, 32 DocxBlockTypeTableCell
-	View           *DocxBlockView           `json:"view,omitempty"`            // 视图 Block, 33 DocxBlockTypeView
-	QuoteContainer *DocxBlockQuoteContainer `json:"quote_container,omitempty"` // 引用容器 Block, 34 DocxBlockTypeQuoteContainer
-	Task           *DocxBlockTask           `json:"task,omitempty"`            // 任务容器 Block, 35 DocxBlockTask
-	OKR            *DocxBlockOKR            `json:"okr,omitempty"`             // OKR Block, 36 DocxBlockTypeOKR
-	OKRObjective   *DocxBlockOKRObjective   `json:"okr_objective,omitempty"`   // OKR Objective, 37 DocxBlockTypeOKRObjective
-	OKRKeyResult   *DocxBlockOKRKeyResult   `json:"okr_key_result,omitempty"`  // OKR KR Block, 38 DocxBlockTypeOKRKeyResult
-	OKRProgress    *DocxBlockOKRProgress    `json:"okr_progress,omitempty"`    // OKR Progress, 39 DocxBlockTypeOKRProgress
-	AddOns         *DocxBlockAddOns         `json:"add_ons"`                   // 文档小组件 Block, 40 DocxBlockTypeAddOns
-	JiraIssue      *DocxBlockJiraIssue      `json:"jira_issue,omitempty"`      // Jira 问题 Block, 41 DocxBlockJiraIssue
-	WikiCatalog    *DocxBlockWikiCatalog    `json:"wiki_catalog,omitempty"`    // Wiki 子目录 Block, 42 DocxBlockWikiCatalog
-	Board          *DocxBlockBoard          `json:"board,omitempty"`           // 画板 Block, 43 DocxBlockBoard
-	Undefined      *DocxBlocUndefined       `json:"undefined,omitempty"`       // 未支持 Block, 999 DocxBlockTypeUndefined
+	Page            *DocxBlockText           `json:"page,omitempty"`             // 文档 Block, 1 DocxBlockTypePage
+	Text            *DocxBlockText           `json:"text,omitempty"`             // 文本 Block, 2 DocxBlockTypeText
+	Heading1        *DocxBlockText           `json:"heading1,omitempty"`         // 一级标题 Block, 3 DocxBlockTypeHeading1
+	Heading2        *DocxBlockText           `json:"heading2,omitempty"`         // 二级标题 Block, 4 DocxBlockTypeHeading2
+	Heading3        *DocxBlockText           `json:"heading3,omitempty"`         // 三级标题 Block, 5 DocxBlockTypeHeading3
+	Heading4        *DocxBlockText           `json:"heading4,omitempty"`         // 四级标题 Block, 6 DocxBlockTypeHeading4
+	Heading5        *DocxBlockText           `json:"heading5,omitempty"`         // 五级标题 Block, 7 DocxBlockTypeHeading5
+	Heading6        *DocxBlockText           `json:"heading6,omitempty"`         // 六级标题 Block, 8 DocxBlockTypeHeading6
+	Heading7        *DocxBlockText           `json:"heading7,omitempty"`         // 七级标题 Block, 9 DocxBlockTypeHeading7
+	Heading8        *DocxBlockText           `json:"heading8,omitempty"`         // 八级标题 Block, 10 DocxBlockTypeHeading8
+	Heading9        *DocxBlockText           `json:"heading9,omitempty"`         // 九级标题 Block, 11 DocxBlockTypeHeading9
+	Bullet          *DocxBlockText           `json:"bullet,omitempty"`           // 无序列表 Block, 12 DocxBlockTypeBullet
+	Ordered         *DocxBlockText           `json:"ordered,omitempty"`          // 有序列表 Block, 13 DocxBlockTypeOrdered
+	Code            *DocxBlockText           `json:"code,omitempty"`             // 代码块 Block, 14 DocxBlockTypeCode
+	Quote           *DocxBlockText           `json:"quote,omitempty"`            // 引用 Block, 15 DocxBlockTypeQuote
+	Equation        *DocxBlockText           `json:"equation,omitempty"`         // 公式 Block, 16 DocxBlockTypeEquation
+	Todo            *DocxBlockText           `json:"todo,omitempty"`             // 任务 Block, 17 DocxBlockTypeTodo
+	Bitable         *DocxBlockBitable        `json:"bitable,omitempty"`          // 多维表格 Block, 18 DocxBlockTypeBitable
+	Callout         *DocxBlockCallout        `json:"callout,omitempty"`          // 高亮块 Block, 19 DocxBlockTypeCallout
+	ChatCard        *DocxBlockChatCard       `json:"chat_card,omitempty"`        // 群聊卡片 Block, 20 DocxBlockTypeChatCard
+	Diagram         *DocxBlockDiagram        `json:"diagram,omitempty"`          // 流程图/UML Block, 21 DocxBlockTypeDiagram
+	Divider         DocxBlockDivider         `json:"divider,omitempty"`          // 分割线 Block, 22 DocxBlockTypeDivider
+	File            *DocxBlockFile           `json:"file,omitempty"`             // 文件 Block, 23 DocxBlockTypeFile
+	Grid            *DocxBlockGrid           `json:"grid,omitempty"`             // 分栏 Block, 24 DocxBlockTypeGrid
+	GridColumn      *DocxBlockGridColumn     `json:"grid_column,omitempty"`      // 分栏列 Block, 25 DocxBlockTypeGridColumn
+	Iframe          *DocxBlockIframe         `json:"iframe,omitempty"`           // 内嵌 Block, 26 DocxBlockTypeIframe
+	Image           *DocxBlockImage          `json:"image,omitempty"`            // 图片 Block, 27 DocxBlockTypeImage
+	ISV             *DocxBlockISV            `json:"isv,omitempty"`              // 三方 Block, 28 DocxBlockTypeISV
+	Mindnote        *DocxBlockMindnote       `json:"mindnote,omitempty"`         // 思维笔记 Block, 29 DocxBlockTypeMindnote
+	Sheet           *DocxBlockSheet          `json:"sheet,omitempty"`            // 电子表格 Block, 30 DocxBlockTypeSheet
+	Table           *DocxBlockTable          `json:"table,omitempty"`            // 表格 Block, 31 DocxBlockTypeTable
+	TableCell       *DocxBlockTableCell      `json:"table_cell,omitempty"`       // 单元格 Block, 32 DocxBlockTypeTableCell
+	View            *DocxBlockView           `json:"view,omitempty"`             // 视图 Block, 33 DocxBlockTypeView
+	QuoteContainer  *DocxBlockQuoteContainer `json:"quote_container,omitempty"`  // 引用容器 Block, 34 DocxBlockTypeQuoteContainer
+	Task            *DocxBlockTask           `json:"task,omitempty"`             // 任务容器 Block, 35 DocxBlockTask
+	OKR             *DocxBlockOKR            `json:"okr,omitempty"`              // OKR Block, 36 DocxBlockTypeOKR
+	OKRObjective    *DocxBlockOKRObjective   `json:"okr_objective,omitempty"`    // OKR Objective, 37 DocxBlockTypeOKRObjective
+	OKRKeyResult    *DocxBlockOKRKeyResult   `json:"okr_key_result,omitempty"`   // OKR KR Block, 38 DocxBlockTypeOKRKeyResult
+	OKRProgress     *DocxBlockOKRProgress    `json:"okr_progress,omitempty"`     // OKR Progress, 39 DocxBlockTypeOKRProgress
+	AddOns          *DocxBlockAddOns         `json:"add_ons"`                    // 文档小组件 Block, 40 DocxBlockTypeAddOns
+	JiraIssue       *DocxBlockJiraIssue      `json:"jira_issue,omitempty"`       // Jira 问题 Block, 41 DocxBlockJiraIssue
+	WikiCatalog     *DocxBlockWikiCatalog    `json:"wiki_catalog,omitempty"`     // Wiki 子目录 Block, 42 DocxBlockWikiCatalog
+	Board           *DocxBlockBoard          `json:"board,omitempty"`            // 画板 Block, 43 DocxBlockBoard
+	SourceSynced    *DocxSourceSynced        `json:"source_synced,omitempty"`    //源同步块,49 DocSourceSynced
+	ReferenceSynced *DocxReferenceSynced     `json:"reference_synced,omitempty"` //引用同步块,50 DocReferenceSynced
+	Undefined       *DocxBlocUndefined       `json:"undefined,omitempty"`        // 未支持 Block, 999 DocxBlockTypeUndefined
 }
 
 // DocxBlockType ...
@@ -131,6 +142,8 @@ const (
 	DocxBlockTypeJiraIssue      DocxBlockType = 41  // Jira 问题 Block: DocxBlockJiraIssue
 	DocxBlockTypeWikiCatalog    DocxBlockType = 42  // Wiki 子目录 Block: DocxBlockWikiCatalog
 	DocxBlockTypeBoard          DocxBlockType = 43  // 画板 Block: DocxBlockBoard
+	DocSourceSynced             DocxBlockType = 49  // 源同步块,49 DocSourceSynced
+	DocReferenceSynced          DocxBlockType = 50  // 引用同步块,50 DocReferenceSynced
 	DocxBlockTypeUndefined      DocxBlockType = 999 // 未支持 Block: DocxBlockUndefined
 )
 
