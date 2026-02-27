@@ -31,3 +31,6 @@ jobs:
     - name: Test (No Real Feishu API Calls)
       run: |
         go test ./... -count=1
+
+    - name: Upload Cov
+      run: bash <(curl -s https://codecov.io/bash)
