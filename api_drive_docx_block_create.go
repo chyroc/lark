@@ -19,7 +19,6 @@ package lark
 
 import (
 	"context"
-	"io"
 )
 
 // CreateDocxBlock 在指定块的子块列表中, 新创建一批子块, 并放置到指定位置。如果操作成功, 接口将返回新创建子块的富文本内容。
@@ -54,7 +53,6 @@ func (r *DriveService) CreateDocxBlock(ctx context.Context, request *CreateDocxB
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 		NeedUserAccessToken:   true,
-		IsFile:                true,
 	}
 	resp := new(createDocxBlockResp)
 
