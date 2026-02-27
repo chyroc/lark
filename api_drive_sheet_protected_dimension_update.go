@@ -78,7 +78,7 @@ type UpdateSheetProtectedDimensionReqRequests struct {
 type UpdateSheetProtectedDimensionReqRequestsDimension struct {
 	SheetID        string `json:"sheetId,omitempty"`        // 电子表格工作表的 ID。调用[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query)获取。
 	MajorDimension string `json:"majorDimension,omitempty"` // 保护范围的维度。可选值: ROWS: 行- COLUMNS: 列
-	StartIndex     int64  `json:"startIndex,omitempty"`     // 开始的行或列的索引。从 1 开始计数。若 `startIndex` 为 3, 则从第 3 行或列开始保护。包含第 3 行或列。
+	StartIndex     int64  `json:"startIndex"`               // 开始的行或列的索引。从 1 开始计数。若 `startIndex` 为 3, 则从第 3 行或列开始保护。包含第 3 行或列。
 	EndIndex       int64  `json:"endIndex,omitempty"`       // 结束的行或列的索引。从 1 开始计数。若 `endIndex` 为 7, 则保护到第 7 行或列。包含第 7 行或列。
 }
 

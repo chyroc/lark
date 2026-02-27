@@ -71,7 +71,7 @@ type DeleteSheetDimensionRangeReq struct {
 type DeleteSheetDimensionRangeReqDimension struct {
 	SheetID        string `json:"sheetId,omitempty"`        // 工作表的 ID。调用[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query)获取 ID
 	MajorDimension string `json:"majorDimension,omitempty"` // 删除的维度。可选值: `ROWS`: 行  - `COLUMNS`: 列
-	StartIndex     int64  `json:"startIndex,omitempty"`     // 要删除的行或列的起始位置, 从 1 开始计数。若 `startIndex` 为 3, 则从第 3 行或列开始删除。包含第 3 行或列。
+	StartIndex     int64  `json:"startIndex"`               // 要删除的行或列的起始位置, 从 1 开始计数。若 `startIndex` 为 3, 则从第 3 行或列开始删除。包含第 3 行或列。
 	EndIndex       int64  `json:"endIndex,omitempty"`       // 要删除的行或列结束的位置。从 1 开始计数。若 `endIndex` 为 7, 则删除至第 7 行或列结束。包含第 7 行或列。 示例: 当 `majorDimension` 为 `ROWS`、 `startIndex` 为 3、`endIndex` 为 7 时, 则删除第 3、4、5、6、7 行的数据, 共删除 5 行。
 }
 
