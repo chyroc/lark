@@ -25,6 +25,7 @@ import (
 )
 
 func Test_CalendarACL_Failed(t *testing.T) {
+	SkipRealAPITest(t)
 	as := assert.New(t)
 
 	t.Run("request failed", func(t *testing.T) {
@@ -97,6 +98,7 @@ func Test_CalendarACL_Failed(t *testing.T) {
 }
 
 func Test_CalendarEventAttendee_Failed(t *testing.T) {
+	SkipRealAPITest(t)
 	as := assert.New(t)
 
 	t.Run("request failed", func(t *testing.T) {
@@ -157,6 +159,7 @@ func Test_CalendarEventAttendee_Failed(t *testing.T) {
 }
 
 func Test_Calendar(t *testing.T) {
+	SkipRealAPITest(t)
 	as := assert.New(t)
 	moduleCli := AppAllPermission.Ins().Calendar
 
@@ -228,6 +231,7 @@ func Test_Calendar(t *testing.T) {
 }
 
 func Test_CalendarEvent(t *testing.T) {
+	SkipRealAPITest(t)
 	as := assert.New(t)
 	moduleCli := AppAllPermission.Ins().Calendar
 
@@ -319,6 +323,7 @@ func Test_CalendarEvent(t *testing.T) {
 }
 
 func Test_CalendarACL(t *testing.T) {
+	SkipRealAPITest(t)
 	as := assert.New(t)
 	moduleCli := AppAllPermission.Ins().Calendar
 

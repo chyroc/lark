@@ -26,6 +26,7 @@ import (
 )
 
 func Test_Bot(t *testing.T) {
+	SkipRealAPITest(t)
 	as := assert.New(t)
 
 	t.Run("", func(t *testing.T) {

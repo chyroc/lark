@@ -25,6 +25,7 @@ import (
 )
 
 func Test_Auth(t *testing.T) {
+	SkipRealAPITest(t)
 	t.Skip()
 	as := assert.New(t)
 
@@ -40,6 +41,7 @@ func Test_Auth(t *testing.T) {
 }
 
 func Test_GenOauth(t *testing.T) {
+	SkipRealAPITest(t)
 	fmt.Println(AppAllPermission.Ins().Auth.GenOAuthURL(ctx, &lark.GenOAuthURLReq{
 		RedirectURI: "http://127.0.0.1:5000/",
 		State:       "",

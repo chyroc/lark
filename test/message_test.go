@@ -28,6 +28,7 @@ import (
 )
 
 func Test_GetMessage(t *testing.T) {
+	SkipRealAPITest(t)
 	as := assert.New(t)
 
 	msgIDs := []string{}
@@ -244,6 +245,7 @@ func Test_GetMessage(t *testing.T) {
 }
 
 func Test_SendCustomBotMessage(t *testing.T) {
+	SkipRealAPITest(t)
 	as := assert.New(t)
 
 	t.Run("AppCustomBotNoValid", func(t *testing.T) {
@@ -495,6 +497,7 @@ func Test_SendCustomBotMessage(t *testing.T) {
 }
 
 func Test_EphemeralMessage(t *testing.T) {
+	SkipRealAPITest(t)
 	as := assert.New(t)
 
 	resp, res, err := AppAllPermission.Ins().Message.SendEphemeralMessage(ctx, &lark.SendEphemeralMessageReq{
@@ -535,6 +538,7 @@ func Test_EphemeralMessage(t *testing.T) {
 }
 
 func Test_BatchSend(t *testing.T) {
+	SkipRealAPITest(t)
 	as := assert.New(t)
 
 	card := lark.MessageContentCard{

@@ -27,6 +27,7 @@ import (
 )
 
 func Test_LarkExt_Doc(t *testing.T) {
+	SkipRealAPITest(t)
 	as := assert.New(t)
 
 	larkClient := AppAllPermission.Ins()

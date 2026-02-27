@@ -26,6 +26,7 @@ import (
 )
 
 func Test_ContactUserUpdatedV3(t *testing.T) {
+	SkipRealAPITest(t)
 	as := assert.New(t)
 	cli := AppAllPermission.Ins()
 

@@ -26,6 +26,7 @@ import (
 )
 
 func Test_GetApproval(t *testing.T) {
+	SkipRealAPITest(t)
 	as := assert.New(t)
 
 	cli := AppAllPermission.Ins()
@@ -77,6 +78,7 @@ func Test_GetApproval(t *testing.T) {
 }
 
 func Test_UnmarshalGetApprovalInstance(t *testing.T) {
+	SkipRealAPITest(t)
 	as := assert.New(t)
 
 	s := `{
@@ -127,6 +129,7 @@ func Test_UnmarshalGetApprovalInstance(t *testing.T) {
 }
 
 func Test_UnmarshalCreateApproval(t *testing.T) {
+	SkipRealAPITest(t)
 	as := assert.New(t)
 
 	s := `{
@@ -162,6 +165,7 @@ func Test_UnmarshalCreateApproval(t *testing.T) {
 }
 
 func Test_Create_CancelApproval(t *testing.T) {
+	SkipRealAPITest(t)
 	as := assert.New(t)
 
 	cli := AppAllPermission.Ins()

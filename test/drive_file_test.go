@@ -28,6 +28,7 @@ import (
 )
 
 func Test_DriveFile(t *testing.T) {
+	SkipRealAPITest(t)
 	as := assert.New(t)
 
 	filename := "./_examples/bot.go"

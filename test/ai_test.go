@@ -39,6 +39,7 @@ func skipIfAIFrequencyLimited(t *testing.T, err error) bool {
 }
 
 func Test_AI(t *testing.T) {
+	SkipRealAPITest(t)
 	as := assert.New(t)
 
 	cli := AppAllPermission.Ins()

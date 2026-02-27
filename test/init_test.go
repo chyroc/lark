@@ -170,6 +170,8 @@ var ApprovalALLField = Approval{
 }
 
 func Test_Config(t *testing.T) {
+	SkipRealAPITest(t)
+
 	as := assert.New(t)
 
 	as.NotEmpty(AppNoPermission.AppID)

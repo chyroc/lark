@@ -24,6 +24,7 @@ import (
 )
 
 func Test_Contact_Failed(t *testing.T) {
+	SkipRealAPITest(t)
 	as := assert.New(t)
 
 	cli := AppAllPermission.Ins()

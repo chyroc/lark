@@ -30,6 +30,7 @@ import (
 var ctx = context.Background()
 
 func Test_CreateChat(t *testing.T) {
+	SkipRealAPITest(t)
 	as := assert.New(t)
 
 	t.Run("CreateChat, AddMember, GetMemberList, DeleteMember, DeleteChat", func(t *testing.T) {
@@ -88,6 +89,7 @@ func Test_CreateChat(t *testing.T) {
 }
 
 func Test_Chat_member(t *testing.T) {
+	SkipRealAPITest(t)
 	as := assert.New(t)
 
 	t.Run("", func(t *testing.T) {
@@ -110,6 +112,7 @@ func Test_Chat_member(t *testing.T) {
 }
 
 func Test_GetChat(t *testing.T) {
+	SkipRealAPITest(t)
 	as := assert.New(t)
 
 	t.Run("SearchChat, success", func(t *testing.T) {
@@ -165,6 +168,7 @@ func Test_GetChat(t *testing.T) {
 }
 
 func Test_ChatAnnouncement(t *testing.T) {
+	SkipRealAPITest(t)
 	as := assert.New(t)
 
 	t.Run("GetAnnouncement, all-permission", func(t *testing.T) {

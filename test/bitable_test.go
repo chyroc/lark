@@ -25,6 +25,7 @@ import (
 )
 
 func Test_Bitable(t *testing.T) {
+	SkipRealAPITest(t)
 	as := assert.New(t)
 	cli := AppAllPermission.Ins()
 

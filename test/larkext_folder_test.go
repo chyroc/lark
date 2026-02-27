@@ -26,6 +26,7 @@ import (
 )
 
 func Test_FolderExt(t *testing.T) {
+	SkipRealAPITest(t)
 	as := assert.New(t)
 	ctx := context.Background()
 	larkCli := AppAllPermission.Ins()

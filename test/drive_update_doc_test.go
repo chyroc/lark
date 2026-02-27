@@ -37,6 +37,7 @@ func randString(n int) string {
 }
 
 func Test_UpdateDoc(t *testing.T) {
+	SkipRealAPITest(t)
 	as := assert.New(t)
 
 	ctx := context.Background()

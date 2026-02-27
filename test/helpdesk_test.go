@@ -24,6 +24,7 @@ import (
 )
 
 func Test_Helpdesk(t *testing.T) {
+	SkipRealAPITest(t)
 	as := assert.New(t)
 
 	t.Run("", func(t *testing.T) {

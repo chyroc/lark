@@ -23,6 +23,7 @@ import (
 )
 
 func Test_LarkExt_Bitable(t *testing.T) {
+	SkipRealAPITest(t)
 	as := assert.New(t)
 	as.Nil(nil)
 

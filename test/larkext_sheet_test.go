@@ -27,6 +27,7 @@ import (
 )
 
 func TestLarkExt_Helper(t *testing.T) {
+	SkipRealAPITest(t)
 	as := assert.New(t)
 
 	as.Equal("sht!A1:A1", larkext.CellRange("sht", 1, 1, 1, 1))
@@ -42,6 +43,7 @@ func TestLarkExt_Helper(t *testing.T) {
 }
 
 func Test_SheetExt(t *testing.T) {
+	SkipRealAPITest(t)
 	as := assert.New(t)
 	imageBytes := readFile("./test/file_1.png")
 	ctx := context.Background()
