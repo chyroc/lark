@@ -80,7 +80,8 @@ type BatchUpdateHireEcoBackgroundCheckPackageReqPackage struct {
 }
 
 // BatchUpdateHireEcoBackgroundCheckPackageResp ...
-type BatchUpdateHireEcoBackgroundCheckPackageResp struct{}
+type BatchUpdateHireEcoBackgroundCheckPackageResp struct {
+}
 
 // batchUpdateHireEcoBackgroundCheckPackageResp ...
 type batchUpdateHireEcoBackgroundCheckPackageResp struct {

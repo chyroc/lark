@@ -68,7 +68,8 @@ type TransferApprovalInstanceReq struct {
 }
 
 // TransferApprovalInstanceResp ...
-type TransferApprovalInstanceResp struct{}
+type TransferApprovalInstanceResp struct {
+}
 
 // transferApprovalInstanceResp ...
 type transferApprovalInstanceResp struct {

@@ -21,11 +21,12 @@ import (
 	"context"
 )
 
-// GetTask 该接口用于获取任务详情, 包括任务标题、描述、时间、成员等信息。
+// GetTask 该接口用于获取任务详情, 包括任务标题、描述、时间、来源等信息。
 //
-// 获取任务详情需要调用身份拥有对任务的可读取权限。详情见[任务功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/overview)中的“任务是如何鉴权的？”章节。
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/get
+// new doc: https://open.feishu.cn/document/server-docs/task-v1/task/get
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/get
+// Deprecated
 func (r *TaskService) GetTask(ctx context.Context, request *GetTaskReq, options ...MethodOptionFunc) (*GetTaskResp, *Response, error) {
 	if r.cli.mock.mockTaskGetTask != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#GetTask mock enable")
@@ -36,7 +37,7 @@ func (r *TaskService) GetTask(ctx context.Context, request *GetTaskReq, options 
 		Scope:                 "Task",
 		API:                   "GetTask",
 		Method:                "GET",
-		URL:                   r.cli.openBaseURL + "/open-apis/task/v2/tasks/:task_guid",
+		URL:                   r.cli.openBaseURL + "/open-apis/task/v1/tasks/:task_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
@@ -60,234 +61,68 @@ func (r *Mock) UnMockTaskGetTask() {
 
 // GetTaskReq ...
 type GetTaskReq struct {
-	TaskGuid   string  `path:"task_guid" json:"-"`     // 要获取的任务guid, 示例值: "e297ddff-06ca-4166-b917-4ce57cd3a7a0", 最大长度: `100` 字符
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 默认值: `open_id`
+	TaskID     string  `path:"task_id" json:"-"`       // 任务 ID示例值: "83912691-2e43-47fc-94a4-d512e03984fa"
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetTaskResp ...
 type GetTaskResp struct {
-	Task *GetTaskRespTask `json:"task,omitempty"` // 获得的任务实体
+	Task *GetTaskRespTask `json:"task,omitempty"` // 返回任务资源详情
 }
 
 // GetTaskRespTask ...
 type GetTaskRespTask struct {
-	Guid           string                         `json:"guid,omitempty"`             // 任务guid, 任务的唯一ID
-	Summary        string                         `json:"summary,omitempty"`          // 任务标题
-	Description    string                         `json:"description,omitempty"`      // 任务描述
-	Due            *GetTaskRespTaskDue            `json:"due,omitempty"`              // 任务截止时间
-	Reminders      []*GetTaskRespTaskReminder     `json:"reminders,omitempty"`        // 任务的提醒配置列表。目前每个任务最多有1个。
-	Creator        *GetTaskRespTaskCreator        `json:"creator,omitempty"`          // 任务创建者
-	Members        []*GetTaskRespTaskMember       `json:"members,omitempty"`          // 任务成员列表
-	CompletedAt    string                         `json:"completed_at,omitempty"`     // 任务完成的时间戳(ms)
-	Attachments    []*GetTaskRespTaskAttachment   `json:"attachments,omitempty"`      // 任务的附件列表
-	Origin         *GetTaskRespTaskOrigin         `json:"origin,omitempty"`           // 任务关联的第三方平台来源信息。创建是设置后就不可更改。
-	Extra          string                         `json:"extra,omitempty"`            // 任务附带的自定义数据。
-	Tasklists      []*GetTaskRespTaskTasklist     `json:"tasklists,omitempty"`        // 任务所属清单的名字。调用者只能看到有权限访问的清单的列表。
-	RepeatRule     string                         `json:"repeat_rule,omitempty"`      // 如果任务为重复任务, 返回重复任务的配置
-	ParentTaskGuid string                         `json:"parent_task_guid,omitempty"` // 如果当前任务为某个任务的子任务, 返回父任务的guid
-	Mode           int64                          `json:"mode,omitempty"`             // 任务的模式。1 - 会签任务；2 - 或签任务
-	Source         int64                          `json:"source,omitempty"`           // 任务创建的来源, 可选值有: 0: 未知来源, 1: 任务中心, 2: 群组任务/消息转任务, 6: 通过开放平台以tenant_access_token授权创建的任务, 7: 通过开放平台以user_access_token授权创建的任务, 8: 文档任务
-	CustomComplete *GetTaskRespTaskCustomComplete `json:"custom_complete,omitempty"`  // 任务的自定义完成配置
-	TaskID         string                         `json:"task_id,omitempty"`          // 任务界面上的代码
-	CreatedAt      string                         `json:"created_at,omitempty"`       // 任务创建时间戳(ms)
-	UpdatedAt      string                         `json:"updated_at,omitempty"`       // 任务最后一次更新的时间戳(ms)
-	Status         string                         `json:"status,omitempty"`           // 任务的状态, 支持"todo"和"done"两种状态
-	URL            string                         `json:"url,omitempty"`              // 任务的分享链接
-	Start          *GetTaskRespTaskStart          `json:"start,omitempty"`            // 任务的开始时间
-	SubtaskCount   int64                          `json:"subtask_count,omitempty"`    // 该任务的子任务的个数。
-	IsMilestone    bool                           `json:"is_milestone,omitempty"`     // 是否是里程碑任务
-	CustomFields   []*GetTaskRespTaskCustomField  `json:"custom_fields,omitempty"`    // 任务的自定义字段值
-	Dependencies   []*GetTaskRespTaskDependencie  `json:"dependencies,omitempty"`     // 任务依赖
+	ID              string                         `json:"id,omitempty"`               // 任务的唯一ID, 例如"83912691-2e43-47fc-94a4-d512e03984fa"
+	Summary         string                         `json:"summary,omitempty"`          // 任务的标题, 类型为文本字符串。如果要在任务标题中插入 URL 或者 @某个用户, 请使用rich_summary字段。创建任务时, 任务标题(summary字段)和任务富文本标题(rich_summary字段)不能同时为空, 需要至少填充其中一个字段。任务标题和任务富文本标题同时存在时只使用富文本标题。
+	Description     string                         `json:"description,omitempty"`      // 任务的描述, 类型为文本字符串。如果要在任务描述中插入 URL 或者 @某个用户, 请使用rich_description字段。任务备注和任务富文本备注同时存在时只使用富文本备注。
+	CompleteTime    string                         `json:"complete_time,omitempty"`    // 任务的完成时间戳（单位为秒）, 完成时间为0则表示任务尚未完成。不支持部分完成, 只有整个任务完成, 该字段才会有非0值。
+	CreatorID       string                         `json:"creator_id,omitempty"`       // 任务的创建者 ID。其中查询字段 user_id_type 是用于控制返回体中 creator_id 的类型, 不传时默认返回 open_id。特别的, 使用tenant_access_token 调用接口时, 如果是user_id_type是openid, 则返回代表该应用身份的openid；当user_id_type为user_id时, 不返回creator_id。原因是user_id代表一个真实飞书用户的id, 应用身份没有user_id。使用user_access_token调用接口正常返回创建者。
+	Extra           string                         `json:"extra,omitempty"`            // 附属信息。接入方可以传入base64 编码后的自定义的数据。用户如果需要对当前任务备注信息, 但对外不显示, 可使用该字段进行存储。该数据会在获取任务详情时, 原样返回给用户。
+	CreateTime      string                         `json:"create_time,omitempty"`      // 任务的创建时间的Unix时间戳（单位为秒）
+	UpdateTime      string                         `json:"update_time,omitempty"`      // 任务的更新时间的Unix时间戳（单位为秒）创建任务时update_time与create_time相同
+	Due             *GetTaskRespTaskDue            `json:"due,omitempty"`              // 任务的截止时间设置
+	Origin          *GetTaskRespTaskOrigin         `json:"origin,omitempty"`           // 任务关联的第三方平台来源信息
+	CanEdit         bool                           `json:"can_edit,omitempty"`         // 此字段用于控制该任务在飞书任务中心是否可编辑, 默认为false已经废弃, 向前兼容故仍然保留, 但不推荐使用
+	Custom          string                         `json:"custom,omitempty"`           // 自定义完成配置。此字段用于设置完成任务时的页面跳转, 或展示提示语。详细参见: [任务字段补充说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/Supplementary-directions-of-task-fields)
+	Source          int64                          `json:"source,omitempty"`           // 任务创建的来源可选值有: 未知类型来源任务中心创建来源消息转任务来源云文档来源文档单品来源PANO来源tenant_access_token创建的任务来源user_access_token创建的任务来源新版云文档
+	Followers       []*GetTaskRespTaskFollower     `json:"followers,omitempty"`        // 任务的关注者
+	Collaborators   []*GetTaskRespTaskCollaborator `json:"collaborators,omitempty"`    // 任务的执行者
+	CollaboratorIDs []string                       `json:"collaborator_ids,omitempty"` // 创建任务时添加的执行者用户id列表。传入的值为 user_id 或 open_id, 由user_id_type 决定。user_id和open_id的获取可见文档: [如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)。
+	FollowerIDs     []string                       `json:"follower_ids,omitempty"`     // 创建任务时添加的关注者用户id列表。传入的值为 user_id 或 open_id, 由user_id_type 决定。user_id和open_id的获取可见文档: [如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)。
+	RepeatRule      string                         `json:"repeat_rule,omitempty"`      // 重复任务的规则表达式。语法格式参见[RRule语法规范](https://www.ietf.org/rfc/rfc2445.txt) 4.3.10小节
+	RichSummary     string                         `json:"rich_summary,omitempty"`     // 富文本任务标题。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)。创建任务时, 任务标题(summary字段)和任务富文本标题(rich_summary字段)不能同时为空, 需要至少填充其中一个字段。
+	RichDescription string                         `json:"rich_description,omitempty"` // 富文本任务备注。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
 }
 
-// GetTaskRespTaskAttachment ...
-type GetTaskRespTaskAttachment struct {
-	Guid       string                             `json:"guid,omitempty"`        // 附件guid
-	FileToken  string                             `json:"file_token,omitempty"`  // 附件在云文档系统中的token
-	Name       string                             `json:"name,omitempty"`        // 附件名
-	Size       int64                              `json:"size,omitempty"`        // 附件的字节大小
-	Resource   *GetTaskRespTaskAttachmentResource `json:"resource,omitempty"`    // 附件归属的资源
-	Uploader   *GetTaskRespTaskAttachmentUploader `json:"uploader,omitempty"`    // 附件上传者
-	IsCover    bool                               `json:"is_cover,omitempty"`    // 是否是封面图
-	UploadedAt string                             `json:"uploaded_at,omitempty"` // 上传时间戳(ms)
-}
-
-// GetTaskRespTaskAttachmentResource ...
-type GetTaskRespTaskAttachmentResource struct {
-	Type string `json:"type,omitempty"` // 资源类型
-	ID   string `json:"id,omitempty"`   // 资源ID
-}
-
-// GetTaskRespTaskAttachmentUploader ...
-type GetTaskRespTaskAttachmentUploader struct {
-	ID   string `json:"id,omitempty"`   // 表示member的id
-	Type string `json:"type,omitempty"` // 成员的类型
-	Role string `json:"role,omitempty"` // 角色
-}
-
-// GetTaskRespTaskCreator ...
-type GetTaskRespTaskCreator struct {
-	ID   string `json:"id,omitempty"`   // 表示member的id
-	Type string `json:"type,omitempty"` // 成员的类型
-	Role string `json:"role,omitempty"` // 成员角色
-}
-
-// GetTaskRespTaskCustomComplete ...
-type GetTaskRespTaskCustomComplete struct {
-	Pc      *GetTaskRespTaskCustomCompletePc      `json:"pc,omitempty"`      // pc客户端自定义完成配置（含mac和windows）
-	Ios     *GetTaskRespTaskCustomCompleteIos     `json:"ios,omitempty"`     // ios端的自定义完成配置
-	Android *GetTaskRespTaskCustomCompleteAndroid `json:"android,omitempty"` // android端的自定义完成配置
-}
-
-// GetTaskRespTaskCustomCompleteAndroid ...
-type GetTaskRespTaskCustomCompleteAndroid struct {
-	Href string                                   `json:"href,omitempty"` // 自定义完成的跳转url
-	Tip  *GetTaskRespTaskCustomCompleteAndroidTip `json:"tip,omitempty"`  // 自定义完成的弹出提示为
-}
-
-// GetTaskRespTaskCustomCompleteAndroidTip ...
-type GetTaskRespTaskCustomCompleteAndroidTip struct {
-	EnUs string `json:"en_us,omitempty"` // 英文
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	ZhHk string `json:"zh_hk,omitempty"` // 中文（香港地区）
-	ZhTw string `json:"zh_tw,omitempty"` // 中文（台湾地区）
-	JaJp string `json:"ja_jp,omitempty"` // 日语
-	FrFr string `json:"fr_fr,omitempty"` // 法语
-	ItIt string `json:"it_it,omitempty"` // 意大利语
-	DeDe string `json:"de_de,omitempty"` // 德语
-	RuRu string `json:"ru_ru,omitempty"` // 俄语
-	ThTh string `json:"th_th,omitempty"` // 泰语
-	EsEs string `json:"es_es,omitempty"` // 西班牙语
-	KoKr string `json:"ko_kr,omitempty"` // 韩语
-}
-
-// GetTaskRespTaskCustomCompleteIos ...
-type GetTaskRespTaskCustomCompleteIos struct {
-	Href string                               `json:"href,omitempty"` // 自定义完成的跳转url
-	Tip  *GetTaskRespTaskCustomCompleteIosTip `json:"tip,omitempty"`  // 自定义完成的弹出提示为
-}
-
-// GetTaskRespTaskCustomCompleteIosTip ...
-type GetTaskRespTaskCustomCompleteIosTip struct {
-	EnUs string `json:"en_us,omitempty"` // 英文
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	ZhHk string `json:"zh_hk,omitempty"` // 中文（香港地区）
-	ZhTw string `json:"zh_tw,omitempty"` // 中文（台湾地区）
-	JaJp string `json:"ja_jp,omitempty"` // 日语
-	FrFr string `json:"fr_fr,omitempty"` // 法语
-	ItIt string `json:"it_it,omitempty"` // 意大利语
-	DeDe string `json:"de_de,omitempty"` // 德语
-	RuRu string `json:"ru_ru,omitempty"` // 俄语
-	ThTh string `json:"th_th,omitempty"` // 泰语
-	EsEs string `json:"es_es,omitempty"` // 西班牙语
-	KoKr string `json:"ko_kr,omitempty"` // 韩语
-}
-
-// GetTaskRespTaskCustomCompletePc ...
-type GetTaskRespTaskCustomCompletePc struct {
-	Href string                              `json:"href,omitempty"` // 自定义完成的跳转url
-	Tip  *GetTaskRespTaskCustomCompletePcTip `json:"tip,omitempty"`  // 自定义完成的弹出提示为
-}
-
-// GetTaskRespTaskCustomCompletePcTip ...
-type GetTaskRespTaskCustomCompletePcTip struct {
-	EnUs string `json:"en_us,omitempty"` // 英文
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	ZhHk string `json:"zh_hk,omitempty"` // 中文（香港地区）
-	ZhTw string `json:"zh_tw,omitempty"` // 中文（台湾地区）
-	JaJp string `json:"ja_jp,omitempty"` // 日语
-	FrFr string `json:"fr_fr,omitempty"` // 法语
-	ItIt string `json:"it_it,omitempty"` // 意大利语
-	DeDe string `json:"de_de,omitempty"` // 德语
-	RuRu string `json:"ru_ru,omitempty"` // 俄语
-	ThTh string `json:"th_th,omitempty"` // 泰语
-	EsEs string `json:"es_es,omitempty"` // 西班牙语
-	KoKr string `json:"ko_kr,omitempty"` // 韩语
-}
-
-// GetTaskRespTaskCustomField ...
-type GetTaskRespTaskCustomField struct {
-	Guid              string                                   `json:"guid,omitempty"`                // 字段GUID
-	Type              string                                   `json:"type,omitempty"`                // 自定义字段类型, 支持"member", "datetime", "number", "single_select", "multi_select"五种类型
-	NumberValue       string                                   `json:"number_value,omitempty"`        // 数字类型的自定义字段值, 填写一个合法数字的字符串表示, 空字符串表示设为空。
-	DatetimeValue     string                                   `json:"datetime_value,omitempty"`      // 日期类型自定义字段值。可以输入一个表示日期的以毫秒为单位的字符串。设为空字符串表示设为空。
-	MemberValue       []*GetTaskRespTaskCustomFieldMemberValue `json:"member_value,omitempty"`        // 人员类型的自定义字段值, 可以设置1个或多个用户的id（遵循member格式, 只支持user类型）。当该字段的设置为“不能多选”时只能输入一个值。设为空数组表示设为空。
-	SingleSelectValue string                                   `json:"single_select_value,omitempty"` // 单选类型字段值, 填写一个字段选项的option_guid。设置为空字符串表示设为空。
-	MultiSelectValue  []string                                 `json:"multi_select_value,omitempty"`  // 多选类型字段值, 可以填写一个或多个本字段的option_guid。设为空数组表示设为空。
-	Name              string                                   `json:"name,omitempty"`                // 自定义字段名
-	TextValue         string                                   `json:"text_value,omitempty"`          // 文本类型字段值。可以输入一段文本。空字符串表示清空。
-}
-
-// GetTaskRespTaskCustomFieldMemberValue ...
-type GetTaskRespTaskCustomFieldMemberValue struct {
-	ID   string `json:"id,omitempty"`   // 表示member的id
-	Type string `json:"type,omitempty"` // 成员的类型
-	Role string `json:"role,omitempty"` // 成员角色
-}
-
-// GetTaskRespTaskDependencie ...
-type GetTaskRespTaskDependencie struct {
-	Type     string `json:"type,omitempty"`      // 依赖类型, 可选值有: prev: 前置依赖, next: 后置依赖
-	TaskGuid string `json:"task_guid,omitempty"` // 依赖任务的GUID
+// GetTaskRespTaskCollaborator ...
+type GetTaskRespTaskCollaborator struct {
+	ID     string   `json:"id,omitempty"`      // 任务执行者的 ID。传入的值为 user_id 或 open_id, 由user_id_type 决定。user_id和open_id的获取可见文档[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)。已经废弃, 为了向前兼容早期只支持单次添加一个人的情况而保留, 但不再推荐使用, 建议使用id_list字段
+	IDList []string `json:"id_list,omitempty"` // 执行者的用户ID列表。传入的值为 user_id 或 open_id, 由user_id_type 决定。user_id和open_id的获取可见文档[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)。
 }
 
 // GetTaskRespTaskDue ...
 type GetTaskRespTaskDue struct {
-	Timestamp string `json:"timestamp,omitempty"`  // 截止时间/日期的时间戳, 距1970-01-01 00:00:00的毫秒数。如果截止时间是一个日期, 需要把日期转换成时间戳, 并设置 is_all_day=true
-	IsAllDay  bool   `json:"is_all_day,omitempty"` // 是否截止到一个日期。如果设为true, timestamp中只有日期的部分会被解析和存储。
+	Time     string `json:"time,omitempty"`       // 表示截止时间的Unix时间戳（单位为秒）。
+	Timezone string `json:"timezone,omitempty"`   // 截止时间对应的时区。传入值需要符合IANA Time Zone Database标准, 规范见[Time Zone Database](https://www.iana.org/time-zones)。
+	IsAllDay bool   `json:"is_all_day,omitempty"` // 标记任务是否为全天任务。包括如下取值: true: 表示是全天任务, 全天任务的截止时间为当天 UTC 时间的 0 点。- false: 表示不是全天任务。
 }
 
-// GetTaskRespTaskMember ...
-type GetTaskRespTaskMember struct {
-	ID   string `json:"id,omitempty"`   // 表示member的id
-	Type string `json:"type,omitempty"` // 成员的类型
-	Role string `json:"role,omitempty"` // 成员角色
+// GetTaskRespTaskFollower ...
+type GetTaskRespTaskFollower struct {
+	ID     string   `json:"id,omitempty"`      // 任务关注人 ID
+	IDList []string `json:"id_list,omitempty"` // 要删除的关注人ID列表
 }
 
 // GetTaskRespTaskOrigin ...
 type GetTaskRespTaskOrigin struct {
-	PlatformI18nName *GetTaskRespTaskOriginPlatformI18nName `json:"platform_i18n_name,omitempty"` // 任务导入来源的名称, 用于在任务中心详情页展示。需提供多语言版本。
-	Href             *GetTaskRespTaskOriginHref             `json:"href,omitempty"`               // 任务关联的来源平台详情页链接
+	PlatformI18nName string                     `json:"platform_i18n_name,omitempty"` // 任务来源的名称。用于在任务中心详情页展示。需要提供一个字典, 支持多种语言名称映射。应用在使用不同语言时, 导入来源也将展示对应的内容。详细参见: [任务字段补充说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/Supplementary-directions-of-task-fields)
+	Href             *GetTaskRespTaskOriginHref `json:"href,omitempty"`               // 任务关联的来源平台详情页链接
 }
 
 // GetTaskRespTaskOriginHref ...
 type GetTaskRespTaskOriginHref struct {
-	URL   string `json:"url,omitempty"`   // 链接对应的地址
+	URL   string `json:"url,omitempty"`   // 具体链接地址。URL仅支持解析http、https。详细参见: [任务字段补充说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/Supplementary-directions-of-task-fields)
 	Title string `json:"title,omitempty"` // 链接对应的标题
-}
-
-// GetTaskRespTaskOriginPlatformI18nName ...
-type GetTaskRespTaskOriginPlatformI18nName struct {
-	EnUs string `json:"en_us,omitempty"` // 英文
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	ZhHk string `json:"zh_hk,omitempty"` // 中文（香港地区）
-	ZhTw string `json:"zh_tw,omitempty"` // 中文（台湾地区）
-	JaJp string `json:"ja_jp,omitempty"` // 日语
-	FrFr string `json:"fr_fr,omitempty"` // 法语
-	ItIt string `json:"it_it,omitempty"` // 意大利语
-	DeDe string `json:"de_de,omitempty"` // 德语
-	RuRu string `json:"ru_ru,omitempty"` // 俄语
-	ThTh string `json:"th_th,omitempty"` // 泰语
-	EsEs string `json:"es_es,omitempty"` // 西班牙语
-	KoKr string `json:"ko_kr,omitempty"` // 韩语
-}
-
-// GetTaskRespTaskReminder ...
-type GetTaskRespTaskReminder struct {
-	ID                 string `json:"id,omitempty"`                   // 提醒时间设置的 ID
-	RelativeFireMinute int64  `json:"relative_fire_minute,omitempty"` // 相对于截止时间的提醒时间分钟数。例如30表示截止时间前30分钟提醒；0表示截止时提醒。
-}
-
-// GetTaskRespTaskStart ...
-type GetTaskRespTaskStart struct {
-	Timestamp string `json:"timestamp,omitempty"`  // 开始时间/日期的时间戳, 距1970-01-01 00:00:00的毫秒数。如果开始时间是一个日期, 需要把日期转换成时间戳, 并设置 is_all_day=true
-	IsAllDay  bool   `json:"is_all_day,omitempty"` // 是否开始于一个日期。如果设为true, timestamp中只有日期的部分会被解析和存储。
-}
-
-// GetTaskRespTaskTasklist ...
-type GetTaskRespTaskTasklist struct {
-	TasklistGuid string `json:"tasklist_guid,omitempty"` // 任务所在清单的guid
-	SectionGuid  string `json:"section_guid,omitempty"`  // 任务所在清单的自定义分组guid
 }
 
 // getTaskResp ...

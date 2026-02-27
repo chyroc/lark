@@ -76,7 +76,8 @@ type ResurrectUserReq struct {
 }
 
 // ResurrectUserResp ...
-type ResurrectUserResp struct{}
+type ResurrectUserResp struct {
+}
 
 // resurrectUserResp ...
 type resurrectUserResp struct {

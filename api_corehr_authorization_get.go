@@ -63,7 +63,8 @@ type GetCoreHRAuthorizationReq struct {
 }
 
 // GetCoreHRAuthorizationResp ...
-type GetCoreHRAuthorizationResp struct{}
+type GetCoreHRAuthorizationResp struct {
+}
 
 // getCoreHRAuthorizationResp ...
 type getCoreHRAuthorizationResp struct {

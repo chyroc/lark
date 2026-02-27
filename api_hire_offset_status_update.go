@@ -81,7 +81,8 @@ type UpdateHireOfferStatusReq struct {
 }
 
 // UpdateHireOfferStatusResp ...
-type UpdateHireOfferStatusResp struct{}
+type UpdateHireOfferStatusResp struct {
+}
 
 // updateHireOfferStatusResp ...
 type updateHireOfferStatusResp struct {

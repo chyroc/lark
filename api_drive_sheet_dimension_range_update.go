@@ -82,7 +82,8 @@ type UpdateSheetDimensionRangeReqDimensionProperties struct {
 }
 
 // UpdateSheetDimensionRangeResp ...
-type UpdateSheetDimensionRangeResp struct{}
+type UpdateSheetDimensionRangeResp struct {
+}
 
 // updateSheetDimensionRangeResp ...
 type updateSheetDimensionRangeResp struct {

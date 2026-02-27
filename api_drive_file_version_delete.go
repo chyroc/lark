@@ -66,7 +66,8 @@ type DeleteDriveFileVersionReq struct {
 }
 
 // DeleteDriveFileVersionResp ...
-type DeleteDriveFileVersionResp struct{}
+type DeleteDriveFileVersionResp struct {
+}
 
 // deleteDriveFileVersionResp ...
 type deleteDriveFileVersionResp struct {

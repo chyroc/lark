@@ -62,7 +62,8 @@ type DeleteCoreHRNationalIDTypeReq struct {
 }
 
 // DeleteCoreHRNationalIDTypeResp ...
-type DeleteCoreHRNationalIDTypeResp struct{}
+type DeleteCoreHRNationalIDTypeResp struct {
+}
 
 // deleteCoreHRNationalIDTypeResp ...
 type deleteCoreHRNationalIDTypeResp struct {

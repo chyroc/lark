@@ -63,7 +63,8 @@ type DeviceBindACSRuleExternalReq struct {
 }
 
 // DeviceBindACSRuleExternalResp ...
-type DeviceBindACSRuleExternalResp struct{}
+type DeviceBindACSRuleExternalResp struct {
+}
 
 // deviceBindACSRuleExternalResp ...
 type deviceBindACSRuleExternalResp struct {

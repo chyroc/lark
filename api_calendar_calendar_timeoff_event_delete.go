@@ -65,7 +65,8 @@ type DeleteCalendarTimeoffEventReq struct {
 }
 
 // DeleteCalendarTimeoffEventResp ...
-type DeleteCalendarTimeoffEventResp struct{}
+type DeleteCalendarTimeoffEventResp struct {
+}
 
 // deleteCalendarTimeoffEventResp ...
 type deleteCalendarTimeoffEventResp struct {

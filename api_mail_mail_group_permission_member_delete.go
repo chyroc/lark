@@ -63,7 +63,8 @@ type DeleteMailGroupPermissionMemberReq struct {
 }
 
 // DeleteMailGroupPermissionMemberResp ...
-type DeleteMailGroupPermissionMemberResp struct{}
+type DeleteMailGroupPermissionMemberResp struct {
+}
 
 // deleteMailGroupPermissionMemberResp ...
 type deleteMailGroupPermissionMemberResp struct {

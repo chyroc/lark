@@ -82,7 +82,8 @@ type CreateHireEcoBackgroundCheckPackageReqPackage struct {
 }
 
 // CreateHireEcoBackgroundCheckPackageResp ...
-type CreateHireEcoBackgroundCheckPackageResp struct{}
+type CreateHireEcoBackgroundCheckPackageResp struct {
+}
 
 // createHireEcoBackgroundCheckPackageResp ...
 type createHireEcoBackgroundCheckPackageResp struct {

@@ -80,7 +80,8 @@ type UpdateHelpdeskTicketReqCustomizedField struct {
 }
 
 // UpdateHelpdeskTicketResp ...
-type UpdateHelpdeskTicketResp struct{}
+type UpdateHelpdeskTicketResp struct {
+}
 
 // updateHelpdeskTicketResp ...
 type updateHelpdeskTicketResp struct {

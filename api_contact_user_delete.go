@@ -82,7 +82,8 @@ type DeleteUserReqEmailAcceptor struct {
 }
 
 // DeleteUserResp ...
-type DeleteUserResp struct{}
+type DeleteUserResp struct {
+}
 
 // deleteUserResp ...
 type deleteUserResp struct {

@@ -62,7 +62,8 @@ type DeleteCoreHRProbationAssessmentReq struct {
 }
 
 // DeleteCoreHRProbationAssessmentResp ...
-type DeleteCoreHRProbationAssessmentResp struct{}
+type DeleteCoreHRProbationAssessmentResp struct {
+}
 
 // deleteCoreHRProbationAssessmentResp ...
 type deleteCoreHRProbationAssessmentResp struct {

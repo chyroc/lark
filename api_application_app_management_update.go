@@ -63,7 +63,8 @@ type UpdateApplicationAppManagementReq struct {
 }
 
 // UpdateApplicationAppManagementResp ...
-type UpdateApplicationAppManagementResp struct{}
+type UpdateApplicationAppManagementResp struct {
+}
 
 // updateApplicationAppManagementResp ...
 type updateApplicationAppManagementResp struct {

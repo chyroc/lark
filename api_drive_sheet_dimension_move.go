@@ -73,7 +73,8 @@ type MoveSheetDimensionReqSource struct {
 }
 
 // MoveSheetDimensionResp ...
-type MoveSheetDimensionResp struct{}
+type MoveSheetDimensionResp struct {
+}
 
 // moveSheetDimensionResp ...
 type moveSheetDimensionResp struct {

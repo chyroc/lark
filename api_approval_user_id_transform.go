@@ -64,7 +64,8 @@ type TransformApprovalUserIDReq struct {
 }
 
 // TransformApprovalUserIDResp ...
-type TransformApprovalUserIDResp struct{}
+type TransformApprovalUserIDResp struct {
+}
 
 // transformApprovalUserIDResp ...
 type transformApprovalUserIDResp struct {

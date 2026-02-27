@@ -63,7 +63,8 @@ type DeleteVCRoomLevelReq struct {
 }
 
 // DeleteVCRoomLevelResp ...
-type DeleteVCRoomLevelResp struct{}
+type DeleteVCRoomLevelResp struct {
+}
 
 // deleteVCRoomLevelResp ...
 type deleteVCRoomLevelResp struct {

@@ -67,7 +67,8 @@ type UpdateApplicationVersionReq struct {
 }
 
 // UpdateApplicationVersionResp ...
-type UpdateApplicationVersionResp struct{}
+type UpdateApplicationVersionResp struct {
+}
 
 // updateApplicationVersionResp ...
 type updateApplicationVersionResp struct {

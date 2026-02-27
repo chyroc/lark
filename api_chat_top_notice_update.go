@@ -75,7 +75,8 @@ type UpdateChatTopNoticeReqChatTopNotice struct {
 }
 
 // UpdateChatTopNoticeResp ...
-type UpdateChatTopNoticeResp struct{}
+type UpdateChatTopNoticeResp struct {
+}
 
 // updateChatTopNoticeResp ...
 type updateChatTopNoticeResp struct {

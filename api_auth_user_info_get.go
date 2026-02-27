@@ -59,7 +59,8 @@ func (r *Mock) UnMockAuthGetUserInfo() {
 }
 
 // GetUserInfoReq ...
-type GetUserInfoReq struct{}
+type GetUserInfoReq struct {
+}
 
 // GetUserInfoResp ...
 type GetUserInfoResp struct {

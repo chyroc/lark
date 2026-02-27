@@ -62,7 +62,8 @@ func (r *Mock) UnMockTenantGetTenantProductAssignInfo() {
 }
 
 // GetTenantProductAssignInfoReq ...
-type GetTenantProductAssignInfoReq struct{}
+type GetTenantProductAssignInfoReq struct {
+}
 
 // GetTenantProductAssignInfoResp ...
 type GetTenantProductAssignInfoResp struct {

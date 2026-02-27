@@ -62,7 +62,8 @@ type DeleteContactJobLevelReq struct {
 }
 
 // DeleteContactJobLevelResp ...
-type DeleteContactJobLevelResp struct{}
+type DeleteContactJobLevelResp struct {
+}
 
 // deleteContactJobLevelResp ...
 type deleteContactJobLevelResp struct {

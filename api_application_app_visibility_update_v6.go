@@ -102,7 +102,8 @@ type UpdateApplicationAppVisibilityV6ReqDelVisibleList struct {
 }
 
 // UpdateApplicationAppVisibilityV6Resp ...
-type UpdateApplicationAppVisibilityV6Resp struct{}
+type UpdateApplicationAppVisibilityV6Resp struct {
+}
 
 // updateApplicationAppVisibilityV6Resp ...
 type updateApplicationAppVisibilityV6Resp struct {

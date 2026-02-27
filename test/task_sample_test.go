@@ -629,7 +629,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetTask(ctx, &lark.GetTaskReq{
-				TaskGuid: "x",
+				TaskID: "x",
 			})
 			as.NotNil(err)
 			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
@@ -638,7 +638,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.UpdateTask(ctx, &lark.UpdateTaskReq{
-				TaskGuid: "x",
+				TaskID: "x",
 			})
 			as.NotNil(err)
 			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
@@ -647,7 +647,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.DeleteTask(ctx, &lark.DeleteTaskReq{
-				TaskGuid: "x",
+				TaskID: "x",
 			})
 			as.NotNil(err)
 			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
@@ -1045,7 +1045,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetTask(ctx, &lark.GetTaskReq{
-				TaskGuid: "x",
+				TaskID: "x",
 			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
@@ -1054,7 +1054,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.UpdateTask(ctx, &lark.UpdateTaskReq{
-				TaskGuid: "x",
+				TaskID: "x",
 			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
@@ -1063,7 +1063,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.DeleteTask(ctx, &lark.DeleteTaskReq{
-				TaskGuid: "x",
+				TaskID: "x",
 			})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
