@@ -83,8 +83,7 @@ type UpdateVCReserveConfigDisableInformReqDisableInformInformedUser struct {
 }
 
 // UpdateVCReserveConfigDisableInformResp ...
-type UpdateVCReserveConfigDisableInformResp struct {
-}
+type UpdateVCReserveConfigDisableInformResp struct{}
 
 // updateVCReserveConfigDisableInformResp ...
 type updateVCReserveConfigDisableInformResp struct {

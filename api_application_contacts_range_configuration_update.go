@@ -83,8 +83,7 @@ type UpdateApplicationContactsRangeConfigurationReqDelVisibleList struct {
 }
 
 // UpdateApplicationContactsRangeConfigurationResp ...
-type UpdateApplicationContactsRangeConfigurationResp struct {
-}
+type UpdateApplicationContactsRangeConfigurationResp struct{}
 
 // updateApplicationContactsRangeConfigurationResp ...
 type updateApplicationContactsRangeConfigurationResp struct {

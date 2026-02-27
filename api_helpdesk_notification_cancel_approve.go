@@ -63,8 +63,7 @@ type CancelApproveHelpdeskNotificationReq struct {
 }
 
 // CancelApproveHelpdeskNotificationResp ...
-type CancelApproveHelpdeskNotificationResp struct {
-}
+type CancelApproveHelpdeskNotificationResp struct{}
 
 // cancelApproveHelpdeskNotificationResp ...
 type cancelApproveHelpdeskNotificationResp struct {

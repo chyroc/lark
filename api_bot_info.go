@@ -59,8 +59,7 @@ func (r *Mock) UnMockBotGetBotInfo() {
 }
 
 // GetBotInfoReq ...
-type GetBotInfoReq struct {
-}
+type GetBotInfoReq struct{}
 
 // GetBotInfoResp ...
 type GetBotInfoResp struct {

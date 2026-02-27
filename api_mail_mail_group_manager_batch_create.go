@@ -69,8 +69,7 @@ type BatchCreateMailGroupManagerReqMailGroupManager struct {
 }
 
 // BatchCreateMailGroupManagerResp ...
-type BatchCreateMailGroupManagerResp struct {
-}
+type BatchCreateMailGroupManagerResp struct{}
 
 // batchCreateMailGroupManagerResp ...
 type batchCreateMailGroupManagerResp struct {

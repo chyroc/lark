@@ -75,8 +75,7 @@ type DeleteCalendarEventAttendeeReq struct {
 }
 
 // DeleteCalendarEventAttendeeResp ...
-type DeleteCalendarEventAttendeeResp struct {
-}
+type DeleteCalendarEventAttendeeResp struct{}
 
 // deleteCalendarEventAttendeeResp ...
 type deleteCalendarEventAttendeeResp struct {

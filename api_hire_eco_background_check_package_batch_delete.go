@@ -64,8 +64,7 @@ type BatchDeleteHireEcoBackgroundCheckPackageReq struct {
 }
 
 // BatchDeleteHireEcoBackgroundCheckPackageResp ...
-type BatchDeleteHireEcoBackgroundCheckPackageResp struct {
-}
+type BatchDeleteHireEcoBackgroundCheckPackageResp struct{}
 
 // batchDeleteHireEcoBackgroundCheckPackageResp ...
 type batchDeleteHireEcoBackgroundCheckPackageResp struct {

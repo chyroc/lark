@@ -63,8 +63,7 @@ func (r *Mock) UnMockJssdkGetJssdkTicket() {
 }
 
 // GetJssdkTicketReq ...
-type GetJssdkTicketReq struct {
-}
+type GetJssdkTicketReq struct{}
 
 // GetJssdkTicketResp ...
 type GetJssdkTicketResp struct {

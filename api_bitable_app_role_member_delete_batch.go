@@ -74,8 +74,7 @@ type BatchDeleteBitableAppRoleMemberReqMember struct {
 }
 
 // BatchDeleteBitableAppRoleMemberResp ...
-type BatchDeleteBitableAppRoleMemberResp struct {
-}
+type BatchDeleteBitableAppRoleMemberResp struct{}
 
 // batchDeleteBitableAppRoleMemberResp ...
 type batchDeleteBitableAppRoleMemberResp struct {

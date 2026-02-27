@@ -64,8 +64,7 @@ type UpdateSpreadsheetReq struct {
 }
 
 // UpdateSpreadsheetResp ...
-type UpdateSpreadsheetResp struct {
-}
+type UpdateSpreadsheetResp struct{}
 
 // updateSpreadsheetResp ...
 type updateSpreadsheetResp struct {

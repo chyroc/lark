@@ -65,8 +65,7 @@ type DeleteEmployeeTypeEnumReq struct {
 }
 
 // DeleteEmployeeTypeEnumResp ...
-type DeleteEmployeeTypeEnumResp struct {
-}
+type DeleteEmployeeTypeEnumResp struct{}
 
 // deleteEmployeeTypeEnumResp ...
 type deleteEmployeeTypeEnumResp struct {

@@ -74,8 +74,7 @@ type BatchDeleteContactGroupMemberReqMember struct {
 }
 
 // BatchDeleteContactGroupMemberResp ...
-type BatchDeleteContactGroupMemberResp struct {
-}
+type BatchDeleteContactGroupMemberResp struct{}
 
 // batchDeleteContactGroupMemberResp ...
 type batchDeleteContactGroupMemberResp struct {

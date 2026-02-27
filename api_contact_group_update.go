@@ -72,8 +72,7 @@ type UpdateContactGroupReq struct {
 }
 
 // UpdateContactGroupResp ...
-type UpdateContactGroupResp struct {
-}
+type UpdateContactGroupResp struct{}
 
 // updateContactGroupResp ...
 type updateContactGroupResp struct {

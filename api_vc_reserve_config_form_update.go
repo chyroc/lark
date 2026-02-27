@@ -79,8 +79,7 @@ type UpdateVCReserveConfigFormReqReserveFormConfigNotifiedUser struct {
 }
 
 // UpdateVCReserveConfigFormResp ...
-type UpdateVCReserveConfigFormResp struct {
-}
+type UpdateVCReserveConfigFormResp struct{}
 
 // updateVCReserveConfigFormResp ...
 type updateVCReserveConfigFormResp struct {

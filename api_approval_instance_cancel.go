@@ -70,8 +70,7 @@ type CancelApprovalInstanceReq struct {
 }
 
 // CancelApprovalInstanceResp ...
-type CancelApprovalInstanceResp struct {
-}
+type CancelApprovalInstanceResp struct{}
 
 // cancelApprovalInstanceResp ...
 type cancelApprovalInstanceResp struct {

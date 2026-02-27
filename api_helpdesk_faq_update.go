@@ -82,8 +82,7 @@ type UpdateHelpdeskFAQReqFAQAnswerRichtext struct {
 }
 
 // UpdateHelpdeskFAQResp ...
-type UpdateHelpdeskFAQResp struct {
-}
+type UpdateHelpdeskFAQResp struct{}
 
 // updateHelpdeskFAQResp ...
 type updateHelpdeskFAQResp struct {

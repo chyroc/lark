@@ -63,8 +63,7 @@ type PreviewHelpdeskNotificationReq struct {
 }
 
 // PreviewHelpdeskNotificationResp ...
-type PreviewHelpdeskNotificationResp struct {
-}
+type PreviewHelpdeskNotificationResp struct{}
 
 // previewHelpdeskNotificationResp ...
 type previewHelpdeskNotificationResp struct {

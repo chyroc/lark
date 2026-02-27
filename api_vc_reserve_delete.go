@@ -65,8 +65,7 @@ type DeleteVCReserveReq struct {
 }
 
 // DeleteVCReserveResp ...
-type DeleteVCReserveResp struct {
-}
+type DeleteVCReserveResp struct{}
 
 // deleteVCReserveResp ...
 type deleteVCReserveResp struct {

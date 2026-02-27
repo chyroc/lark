@@ -67,8 +67,7 @@ type RollbackApprovalInstanceReq struct {
 }
 
 // RollbackApprovalInstanceResp ...
-type RollbackApprovalInstanceResp struct {
-}
+type RollbackApprovalInstanceResp struct{}
 
 // rollbackApprovalInstanceResp ...
 type rollbackApprovalInstanceResp struct {

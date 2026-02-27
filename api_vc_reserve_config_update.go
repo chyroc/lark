@@ -109,8 +109,7 @@ type UpdateVCReserveConfigReqTimeConfig struct {
 }
 
 // UpdateVCReserveConfigResp ...
-type UpdateVCReserveConfigResp struct {
-}
+type UpdateVCReserveConfigResp struct{}
 
 // updateVCReserveConfigResp ...
 type updateVCReserveConfigResp struct {

@@ -75,8 +75,7 @@ type UpdateChatModerationReq struct {
 }
 
 // UpdateChatModerationResp ...
-type UpdateChatModerationResp struct {
-}
+type UpdateChatModerationResp struct{}
 
 // updateChatModerationResp ...
 type updateChatModerationResp struct {

@@ -62,8 +62,7 @@ type DeleteAttendanceShiftReq struct {
 }
 
 // DeleteAttendanceShiftResp ...
-type DeleteAttendanceShiftResp struct {
-}
+type DeleteAttendanceShiftResp struct{}
 
 // deleteAttendanceShiftResp ...
 type deleteAttendanceShiftResp struct {

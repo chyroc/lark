@@ -67,8 +67,7 @@ type DeleteBitableTableReq struct {
 }
 
 // DeleteBitableTableResp ...
-type DeleteBitableTableResp struct {
-}
+type DeleteBitableTableResp struct{}
 
 // deleteBitableTableResp ...
 type deleteBitableTableResp struct {

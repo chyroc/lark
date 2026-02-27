@@ -100,8 +100,7 @@ type BatchUpdateHireEcoBackgroundCheckCustomFieldReqCustomFieldOptionName struct
 }
 
 // BatchUpdateHireEcoBackgroundCheckCustomFieldResp ...
-type BatchUpdateHireEcoBackgroundCheckCustomFieldResp struct {
-}
+type BatchUpdateHireEcoBackgroundCheckCustomFieldResp struct{}
 
 // batchUpdateHireEcoBackgroundCheckCustomFieldResp ...
 type batchUpdateHireEcoBackgroundCheckCustomFieldResp struct {

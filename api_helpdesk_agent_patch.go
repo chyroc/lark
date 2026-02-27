@@ -64,8 +64,7 @@ type UpdateHelpdeskAgentReq struct {
 }
 
 // UpdateHelpdeskAgentResp ...
-type UpdateHelpdeskAgentResp struct {
-}
+type UpdateHelpdeskAgentResp struct{}
 
 // updateHelpdeskAgentResp ...
 type updateHelpdeskAgentResp struct {

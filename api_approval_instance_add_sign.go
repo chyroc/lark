@@ -69,8 +69,7 @@ type AddApprovalInstanceSignReq struct {
 }
 
 // AddApprovalInstanceSignResp ...
-type AddApprovalInstanceSignResp struct {
-}
+type AddApprovalInstanceSignResp struct{}
 
 // addApprovalInstanceSignResp ...
 type addApprovalInstanceSignResp struct {

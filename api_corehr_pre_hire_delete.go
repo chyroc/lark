@@ -64,8 +64,7 @@ type DeleteCoreHRPreHireReq struct {
 }
 
 // DeleteCoreHRPreHireResp ...
-type DeleteCoreHRPreHireResp struct {
-}
+type DeleteCoreHRPreHireResp struct{}
 
 // deleteCoreHRPreHireResp ...
 type deleteCoreHRPreHireResp struct {

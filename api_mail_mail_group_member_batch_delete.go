@@ -63,8 +63,7 @@ type BatchDeleteMailGroupMemberReq struct {
 }
 
 // BatchDeleteMailGroupMemberResp ...
-type BatchDeleteMailGroupMemberResp struct {
-}
+type BatchDeleteMailGroupMemberResp struct{}
 
 // batchDeleteMailGroupMemberResp ...
 type batchDeleteMailGroupMemberResp struct {

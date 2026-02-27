@@ -67,8 +67,7 @@ type UpdateWikiNodeTitleReq struct {
 }
 
 // UpdateWikiNodeTitleResp ...
-type UpdateWikiNodeTitleResp struct {
-}
+type UpdateWikiNodeTitleResp struct{}
 
 // updateWikiNodeTitleResp ...
 type updateWikiNodeTitleResp struct {

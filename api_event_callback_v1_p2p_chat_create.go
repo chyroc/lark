@@ -36,5 +36,4 @@ func (r *EventCallbackService) HandlerEventV1P2PChatCreate(f EventV1P2PChatCreat
 type EventV1P2PChatCreateHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1P2PChatCreate) (string, error)
 
 // EventV1P2PChatCreate ...
-type EventV1P2PChatCreate struct {
-}
+type EventV1P2PChatCreate struct{}

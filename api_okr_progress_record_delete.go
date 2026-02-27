@@ -63,8 +63,7 @@ type DeleteOKRProgressRecordReq struct {
 }
 
 // DeleteOKRProgressRecordResp ...
-type DeleteOKRProgressRecordResp struct {
-}
+type DeleteOKRProgressRecordResp struct{}
 
 // deleteOKRProgressRecordResp ...
 type deleteOKRProgressRecordResp struct {

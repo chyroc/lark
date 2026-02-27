@@ -80,8 +80,7 @@ type UpdateHelpdeskAgentScheduleReqAgentScheduleSchedule struct {
 }
 
 // UpdateHelpdeskAgentScheduleResp ...
-type UpdateHelpdeskAgentScheduleResp struct {
-}
+type UpdateHelpdeskAgentScheduleResp struct{}
 
 // updateHelpdeskAgentScheduleResp ...
 type updateHelpdeskAgentScheduleResp struct {

@@ -64,8 +64,7 @@ type DeleteSheetFilterReq struct {
 }
 
 // DeleteSheetFilterResp ...
-type DeleteSheetFilterResp struct {
-}
+type DeleteSheetFilterResp struct{}
 
 // deleteSheetFilterResp ...
 type deleteSheetFilterResp struct {

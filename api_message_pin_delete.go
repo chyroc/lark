@@ -72,8 +72,7 @@ type DeleteMessagePinReq struct {
 }
 
 // DeleteMessagePinResp ...
-type DeleteMessagePinResp struct {
-}
+type DeleteMessagePinResp struct{}
 
 // deleteMessagePinResp ...
 type deleteMessagePinResp struct {

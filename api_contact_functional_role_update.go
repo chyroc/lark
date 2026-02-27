@@ -63,8 +63,7 @@ type UpdateContactFunctionalRoleReq struct {
 }
 
 // UpdateContactFunctionalRoleResp ...
-type UpdateContactFunctionalRoleResp struct {
-}
+type UpdateContactFunctionalRoleResp struct{}
 
 // updateContactFunctionalRoleResp ...
 type updateContactFunctionalRoleResp struct {

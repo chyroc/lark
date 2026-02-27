@@ -67,8 +67,7 @@ type UpdateUserIDReq struct {
 }
 
 // UpdateUserIDResp ...
-type UpdateUserIDResp struct {
-}
+type UpdateUserIDResp struct{}
 
 // updateUserIDResp ...
 type updateUserIDResp struct {

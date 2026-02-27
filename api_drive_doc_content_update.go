@@ -77,8 +77,7 @@ type UpdateDriveDocContentReq struct {
 }
 
 // UpdateDriveDocContentResp ...
-type UpdateDriveDocContentResp struct {
-}
+type UpdateDriveDocContentResp struct{}
 
 // updateDriveDocContentResp ...
 type updateDriveDocContentResp struct {

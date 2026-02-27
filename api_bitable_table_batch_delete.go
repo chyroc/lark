@@ -67,8 +67,7 @@ type BatchDeleteBitableTableReq struct {
 }
 
 // BatchDeleteBitableTableResp ...
-type BatchDeleteBitableTableResp struct {
-}
+type BatchDeleteBitableTableResp struct{}
 
 // batchDeleteBitableTableResp ...
 type batchDeleteBitableTableResp struct {

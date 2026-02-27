@@ -75,8 +75,7 @@ type CreateHireEcoExamPaperReqPaper struct {
 }
 
 // CreateHireEcoExamPaperResp ...
-type CreateHireEcoExamPaperResp struct {
-}
+type CreateHireEcoExamPaperResp struct{}
 
 // createHireEcoExamPaperResp ...
 type createHireEcoExamPaperResp struct {

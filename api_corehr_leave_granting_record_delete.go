@@ -64,8 +64,7 @@ type DeleteCoreHRLeaveGrantingRecordReq struct {
 }
 
 // DeleteCoreHRLeaveGrantingRecordResp ...
-type DeleteCoreHRLeaveGrantingRecordResp struct {
-}
+type DeleteCoreHRLeaveGrantingRecordResp struct{}
 
 // deleteCoreHRLeaveGrantingRecordResp ...
 type deleteCoreHRLeaveGrantingRecordResp struct {

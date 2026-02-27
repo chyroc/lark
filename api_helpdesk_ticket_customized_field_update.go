@@ -72,8 +72,7 @@ type UpdateHelpdeskTicketCustomizedFieldReq struct {
 }
 
 // UpdateHelpdeskTicketCustomizedFieldResp ...
-type UpdateHelpdeskTicketCustomizedFieldResp struct {
-}
+type UpdateHelpdeskTicketCustomizedFieldResp struct{}
 
 // updateHelpdeskTicketCustomizedFieldResp ...
 type updateHelpdeskTicketCustomizedFieldResp struct {

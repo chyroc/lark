@@ -62,8 +62,7 @@ type DeleteSearchSchemaReq struct {
 }
 
 // DeleteSearchSchemaResp ...
-type DeleteSearchSchemaResp struct {
-}
+type DeleteSearchSchemaResp struct{}
 
 // deleteSearchSchemaResp ...
 type deleteSearchSchemaResp struct {

@@ -96,8 +96,7 @@ type UpdateDriveCommentReqContentElementTextRun struct {
 }
 
 // UpdateDriveCommentResp ...
-type UpdateDriveCommentResp struct {
-}
+type UpdateDriveCommentResp struct{}
 
 // updateDriveCommentResp ...
 type updateDriveCommentResp struct {

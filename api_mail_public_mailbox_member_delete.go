@@ -63,8 +63,7 @@ type DeletePublicMailboxMemberReq struct {
 }
 
 // DeletePublicMailboxMemberResp ...
-type DeletePublicMailboxMemberResp struct {
-}
+type DeletePublicMailboxMemberResp struct{}
 
 // deletePublicMailboxMemberResp ...
 type deletePublicMailboxMemberResp struct {

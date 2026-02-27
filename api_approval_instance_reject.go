@@ -68,8 +68,7 @@ type RejectApprovalInstanceReq struct {
 }
 
 // RejectApprovalInstanceResp ...
-type RejectApprovalInstanceResp struct {
-}
+type RejectApprovalInstanceResp struct{}
 
 // rejectApprovalInstanceResp ...
 type rejectApprovalInstanceResp struct {

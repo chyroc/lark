@@ -65,8 +65,7 @@ type UpdateVCRoomLevelReq struct {
 }
 
 // UpdateVCRoomLevelResp ...
-type UpdateVCRoomLevelResp struct {
-}
+type UpdateVCRoomLevelResp struct{}
 
 // updateVCRoomLevelResp ...
 type updateVCRoomLevelResp struct {

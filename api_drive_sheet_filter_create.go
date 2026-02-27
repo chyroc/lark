@@ -74,8 +74,7 @@ type CreateSheetFilterReqCondition struct {
 }
 
 // CreateSheetFilterResp ...
-type CreateSheetFilterResp struct {
-}
+type CreateSheetFilterResp struct{}
 
 // createSheetFilterResp ...
 type createSheetFilterResp struct {

@@ -66,8 +66,7 @@ type DeleteSheetFilterViewConditionReq struct {
 }
 
 // DeleteSheetFilterViewConditionResp ...
-type DeleteSheetFilterViewConditionResp struct {
-}
+type DeleteSheetFilterViewConditionResp struct{}
 
 // deleteSheetFilterViewConditionResp ...
 type deleteSheetFilterViewConditionResp struct {

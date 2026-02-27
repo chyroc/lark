@@ -70,8 +70,7 @@ type DeleteCalendarEventReq struct {
 }
 
 // DeleteCalendarEventResp ...
-type DeleteCalendarEventResp struct {
-}
+type DeleteCalendarEventResp struct{}
 
 // deleteCalendarEventResp ...
 type deleteCalendarEventResp struct {

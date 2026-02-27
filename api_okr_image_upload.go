@@ -66,8 +66,7 @@ type UploadOKRImageReq struct {
 }
 
 // UploadOKRImageReqData ...
-type UploadOKRImageReqData struct {
-}
+type UploadOKRImageReqData struct{}
 
 // UploadOKRImageResp ...
 type UploadOKRImageResp struct {

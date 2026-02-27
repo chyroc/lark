@@ -66,8 +66,7 @@ type DeleteHelpdeskAgentSkillReq struct {
 }
 
 // DeleteHelpdeskAgentSkillResp ...
-type DeleteHelpdeskAgentSkillResp struct {
-}
+type DeleteHelpdeskAgentSkillResp struct{}
 
 // deleteHelpdeskAgentSkillResp ...
 type deleteHelpdeskAgentSkillResp struct {

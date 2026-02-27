@@ -67,8 +67,7 @@ type ReplyCalendarEventReq struct {
 }
 
 // ReplyCalendarEventResp ...
-type ReplyCalendarEventResp struct {
-}
+type ReplyCalendarEventResp struct{}
 
 // replyCalendarEventResp ...
 type replyCalendarEventResp struct {

@@ -89,8 +89,7 @@ type CreateSearchDataSourceItemReqMetadata struct {
 }
 
 // CreateSearchDataSourceItemResp ...
-type CreateSearchDataSourceItemResp struct {
-}
+type CreateSearchDataSourceItemResp struct{}
 
 // createSearchDataSourceItemResp ...
 type createSearchDataSourceItemResp struct {

@@ -66,8 +66,7 @@ type DeleteContactGroupReq struct {
 }
 
 // DeleteContactGroupResp ...
-type DeleteContactGroupResp struct {
-}
+type DeleteContactGroupResp struct{}
 
 // deleteContactGroupResp ...
 type deleteContactGroupResp struct {

@@ -62,8 +62,7 @@ type ClearPublicMailboxMemberReq struct {
 }
 
 // ClearPublicMailboxMemberResp ...
-type ClearPublicMailboxMemberResp struct {
-}
+type ClearPublicMailboxMemberResp struct{}
 
 // clearPublicMailboxMemberResp ...
 type clearPublicMailboxMemberResp struct {

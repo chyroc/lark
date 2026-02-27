@@ -81,8 +81,7 @@ type UpdateVCReserveConfigAdminReqReserveAdminConfigUser struct {
 }
 
 // UpdateVCReserveConfigAdminResp ...
-type UpdateVCReserveConfigAdminResp struct {
-}
+type UpdateVCReserveConfigAdminResp struct{}
 
 // updateVCReserveConfigAdminResp ...
 type updateVCReserveConfigAdminResp struct {

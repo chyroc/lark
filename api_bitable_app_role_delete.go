@@ -67,8 +67,7 @@ type DeleteBitableAppRoleReq struct {
 }
 
 // DeleteBitableAppRoleResp ...
-type DeleteBitableAppRoleResp struct {
-}
+type DeleteBitableAppRoleResp struct{}
 
 // deleteBitableAppRoleResp ...
 type deleteBitableAppRoleResp struct {

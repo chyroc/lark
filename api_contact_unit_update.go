@@ -63,8 +63,7 @@ type UpdateContactUnitReq struct {
 }
 
 // UpdateContactUnitResp ...
-type UpdateContactUnitResp struct {
-}
+type UpdateContactUnitResp struct{}
 
 // updateContactUnitResp ...
 type updateContactUnitResp struct {

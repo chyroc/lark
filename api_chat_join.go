@@ -71,8 +71,7 @@ type JoinChatReq struct {
 }
 
 // JoinChatResp ...
-type JoinChatResp struct {
-}
+type JoinChatResp struct{}
 
 // joinChatResp ...
 type joinChatResp struct {

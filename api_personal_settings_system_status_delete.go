@@ -66,8 +66,7 @@ type DeletePersonalSettingsSystemStatusReq struct {
 }
 
 // DeletePersonalSettingsSystemStatusResp ...
-type DeletePersonalSettingsSystemStatusResp struct {
-}
+type DeletePersonalSettingsSystemStatusResp struct{}
 
 // deletePersonalSettingsSystemStatusResp ...
 type deletePersonalSettingsSystemStatusResp struct {

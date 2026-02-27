@@ -62,8 +62,7 @@ type UnsubscribeApprovalSubscriptionReq struct {
 }
 
 // UnsubscribeApprovalSubscriptionResp ...
-type UnsubscribeApprovalSubscriptionResp struct {
-}
+type UnsubscribeApprovalSubscriptionResp struct{}
 
 // unsubscribeApprovalSubscriptionResp ...
 type unsubscribeApprovalSubscriptionResp struct {

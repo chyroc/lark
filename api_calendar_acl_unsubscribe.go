@@ -64,8 +64,7 @@ type UnsubscribeCalendarACLReq struct {
 }
 
 // UnsubscribeCalendarACLResp ...
-type UnsubscribeCalendarACLResp struct {
-}
+type UnsubscribeCalendarACLResp struct{}
 
 // unsubscribeCalendarACLResp ...
 type unsubscribeCalendarACLResp struct {

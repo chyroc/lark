@@ -63,8 +63,7 @@ type DeleteMailPublicMailboxAliasReq struct {
 }
 
 // DeleteMailPublicMailboxAliasResp ...
-type DeleteMailPublicMailboxAliasResp struct {
-}
+type DeleteMailPublicMailboxAliasResp struct{}
 
 // deleteMailPublicMailboxAliasResp ...
 type deleteMailPublicMailboxAliasResp struct {

@@ -80,8 +80,7 @@ type UpdateMessageReq struct {
 }
 
 // UpdateMessageResp ...
-type UpdateMessageResp struct {
-}
+type UpdateMessageResp struct{}
 
 // updateMessageResp ...
 type updateMessageResp struct {

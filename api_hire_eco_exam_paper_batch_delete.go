@@ -65,8 +65,7 @@ type BatchDeleteHireEcoExamPaperReq struct {
 }
 
 // BatchDeleteHireEcoExamPaperResp ...
-type BatchDeleteHireEcoExamPaperResp struct {
-}
+type BatchDeleteHireEcoExamPaperResp struct{}
 
 // batchDeleteHireEcoExamPaperResp ...
 type batchDeleteHireEcoExamPaperResp struct {

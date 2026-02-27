@@ -64,8 +64,7 @@ type ExecuteSendHelpdeskNotificationReq struct {
 }
 
 // ExecuteSendHelpdeskNotificationResp ...
-type ExecuteSendHelpdeskNotificationResp struct {
-}
+type ExecuteSendHelpdeskNotificationResp struct{}
 
 // executeSendHelpdeskNotificationResp ...
 type executeSendHelpdeskNotificationResp struct {

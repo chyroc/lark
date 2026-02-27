@@ -66,8 +66,7 @@ type DeleteHelpdeskFAQReq struct {
 }
 
 // DeleteHelpdeskFAQResp ...
-type DeleteHelpdeskFAQResp struct {
-}
+type DeleteHelpdeskFAQResp struct{}
 
 // deleteHelpdeskFAQResp ...
 type deleteHelpdeskFAQResp struct {

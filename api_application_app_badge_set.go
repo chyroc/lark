@@ -79,8 +79,7 @@ type SetApplicationAppBadgeReqPc struct {
 }
 
 // SetApplicationAppBadgeResp ...
-type SetApplicationAppBadgeResp struct {
-}
+type SetApplicationAppBadgeResp struct{}
 
 // setApplicationAppBadgeResp ...
 type setApplicationAppBadgeResp struct {

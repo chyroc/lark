@@ -65,8 +65,7 @@ type TerminateHireApplicationReq struct {
 }
 
 // TerminateHireApplicationResp ...
-type TerminateHireApplicationResp struct {
-}
+type TerminateHireApplicationResp struct{}
 
 // terminateHireApplicationResp ...
 type terminateHireApplicationResp struct {

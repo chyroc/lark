@@ -65,8 +65,7 @@ type DeleteSheetFloatImageReq struct {
 }
 
 // DeleteSheetFloatImageResp ...
-type DeleteSheetFloatImageResp struct {
-}
+type DeleteSheetFloatImageResp struct{}
 
 // deleteSheetFloatImageResp ...
 type deleteSheetFloatImageResp struct {

@@ -123,8 +123,7 @@ type UpdateHelpdeskNotificationReqUser struct {
 }
 
 // UpdateHelpdeskNotificationResp ...
-type UpdateHelpdeskNotificationResp struct {
-}
+type UpdateHelpdeskNotificationResp struct{}
 
 // updateHelpdeskNotificationResp ...
 type updateHelpdeskNotificationResp struct {

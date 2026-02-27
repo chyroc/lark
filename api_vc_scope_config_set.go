@@ -132,8 +132,7 @@ type SetVCScopeConfigReqScopeConfigRoomStatus struct {
 }
 
 // SetVCScopeConfigResp ...
-type SetVCScopeConfigResp struct {
-}
+type SetVCScopeConfigResp struct{}
 
 // setVCScopeConfigResp ...
 type setVCScopeConfigResp struct {

@@ -100,8 +100,7 @@ type CreateHireEcoBackgroundCheckCustomFieldReqCustomFieldOptionName struct {
 }
 
 // CreateHireEcoBackgroundCheckCustomFieldResp ...
-type CreateHireEcoBackgroundCheckCustomFieldResp struct {
-}
+type CreateHireEcoBackgroundCheckCustomFieldResp struct{}
 
 // createHireEcoBackgroundCheckCustomFieldResp ...
 type createHireEcoBackgroundCheckCustomFieldResp struct {

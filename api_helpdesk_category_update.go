@@ -68,8 +68,7 @@ type UpdateHelpdeskCategoryReq struct {
 }
 
 // UpdateHelpdeskCategoryResp ...
-type UpdateHelpdeskCategoryResp struct {
-}
+type UpdateHelpdeskCategoryResp struct{}
 
 // updateHelpdeskCategoryResp ...
 type updateHelpdeskCategoryResp struct {

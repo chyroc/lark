@@ -70,8 +70,7 @@ type BindContactUnitDepartmentReq struct {
 }
 
 // BindContactUnitDepartmentResp ...
-type BindContactUnitDepartmentResp struct {
-}
+type BindContactUnitDepartmentResp struct{}
 
 // bindContactUnitDepartmentResp ...
 type bindContactUnitDepartmentResp struct {

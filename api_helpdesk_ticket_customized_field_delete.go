@@ -66,8 +66,7 @@ type DeleteHelpdeskTicketCustomizedFieldReq struct {
 }
 
 // DeleteHelpdeskTicketCustomizedFieldResp ...
-type DeleteHelpdeskTicketCustomizedFieldResp struct {
-}
+type DeleteHelpdeskTicketCustomizedFieldResp struct{}
 
 // deleteHelpdeskTicketCustomizedFieldResp ...
 type deleteHelpdeskTicketCustomizedFieldResp struct {

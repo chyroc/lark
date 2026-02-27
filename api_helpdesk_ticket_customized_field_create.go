@@ -75,8 +75,7 @@ type CreateHelpdeskTicketCustomizedFieldReq struct {
 }
 
 // CreateHelpdeskTicketCustomizedFieldResp ...
-type CreateHelpdeskTicketCustomizedFieldResp struct {
-}
+type CreateHelpdeskTicketCustomizedFieldResp struct{}
 
 // createHelpdeskTicketCustomizedFieldResp ...
 type createHelpdeskTicketCustomizedFieldResp struct {

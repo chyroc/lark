@@ -73,8 +73,7 @@ type UpdateChatAnnouncementReq struct {
 }
 
 // UpdateChatAnnouncementResp ...
-type UpdateChatAnnouncementResp struct {
-}
+type UpdateChatAnnouncementResp struct{}
 
 // updateChatAnnouncementResp ...
 type updateChatAnnouncementResp struct {

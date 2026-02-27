@@ -71,8 +71,7 @@ type UpdateACSUserReqFeature struct {
 }
 
 // UpdateACSUserResp ...
-type UpdateACSUserResp struct {
-}
+type UpdateACSUserResp struct{}
 
 // updateACSUserResp ...
 type updateACSUserResp struct {

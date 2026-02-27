@@ -69,8 +69,7 @@ type CreateBitableAppRoleMemberReq struct {
 }
 
 // CreateBitableAppRoleMemberResp ...
-type CreateBitableAppRoleMemberResp struct {
-}
+type CreateBitableAppRoleMemberResp struct{}
 
 // createBitableAppRoleMemberResp ...
 type createBitableAppRoleMemberResp struct {

@@ -68,8 +68,7 @@ type ResubmitApprovalInstanceTaskReq struct {
 }
 
 // ResubmitApprovalInstanceTaskResp ...
-type ResubmitApprovalInstanceTaskResp struct {
-}
+type ResubmitApprovalInstanceTaskResp struct{}
 
 // resubmitApprovalInstanceTaskResp ...
 type resubmitApprovalInstanceTaskResp struct {

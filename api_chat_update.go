@@ -100,8 +100,7 @@ type UpdateChatReqRestrictedModeSetting struct {
 }
 
 // UpdateChatResp ...
-type UpdateChatResp struct {
-}
+type UpdateChatResp struct{}
 
 // updateChatResp ...
 type updateChatResp struct {

@@ -69,8 +69,7 @@ type UnsubscribeHelpdeskEventReqEvent struct {
 }
 
 // UnsubscribeHelpdeskEventResp ...
-type UnsubscribeHelpdeskEventResp struct {
-}
+type UnsubscribeHelpdeskEventResp struct{}
 
 // unsubscribeHelpdeskEventResp ...
 type unsubscribeHelpdeskEventResp struct {

@@ -65,8 +65,7 @@ type DeleteContactFunctionalRoleReq struct {
 }
 
 // DeleteContactFunctionalRoleResp ...
-type DeleteContactFunctionalRoleResp struct {
-}
+type DeleteContactFunctionalRoleResp struct{}
 
 // deleteContactFunctionalRoleResp ...
 type deleteContactFunctionalRoleResp struct {

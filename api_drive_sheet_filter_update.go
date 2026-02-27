@@ -73,8 +73,7 @@ type UpdateSheetFilterReqCondition struct {
 }
 
 // UpdateSheetFilterResp ...
-type UpdateSheetFilterResp struct {
-}
+type UpdateSheetFilterResp struct{}
 
 // updateSheetFilterResp ...
 type updateSheetFilterResp struct {

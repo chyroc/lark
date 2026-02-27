@@ -74,8 +74,7 @@ type DeleteMessageReq struct {
 }
 
 // DeleteMessageResp ...
-type DeleteMessageResp struct {
-}
+type DeleteMessageResp struct{}
 
 // deleteMessageResp ...
 type deleteMessageResp struct {

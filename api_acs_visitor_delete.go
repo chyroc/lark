@@ -63,8 +63,7 @@ type DeleteACSVisitorReq struct {
 }
 
 // DeleteACSVisitorResp ...
-type DeleteACSVisitorResp struct {
-}
+type DeleteACSVisitorResp struct{}
 
 // deleteACSVisitorResp ...
 type deleteACSVisitorResp struct {

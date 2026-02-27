@@ -63,8 +63,7 @@ type DeleteAdminBadgeGrantReq struct {
 }
 
 // DeleteAdminBadgeGrantResp ...
-type DeleteAdminBadgeGrantResp struct {
-}
+type DeleteAdminBadgeGrantResp struct{}
 
 // deleteAdminBadgeGrantResp ...
 type deleteAdminBadgeGrantResp struct {

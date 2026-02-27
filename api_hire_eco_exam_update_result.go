@@ -83,8 +83,7 @@ type UpdateHiredEcoExamResultReqReport struct {
 }
 
 // UpdateHiredEcoExamResultResp ...
-type UpdateHiredEcoExamResultResp struct {
-}
+type UpdateHiredEcoExamResultResp struct{}
 
 // updateHiredEcoExamResultResp ...
 type updateHiredEcoExamResultResp struct {

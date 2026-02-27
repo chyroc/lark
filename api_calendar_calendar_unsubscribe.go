@@ -67,8 +67,7 @@ type UnsubscribeCalendarReq struct {
 }
 
 // UnsubscribeCalendarResp ...
-type UnsubscribeCalendarResp struct {
-}
+type UnsubscribeCalendarResp struct{}
 
 // unsubscribeCalendarResp ...
 type unsubscribeCalendarResp struct {

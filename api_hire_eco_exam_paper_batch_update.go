@@ -77,8 +77,7 @@ type BatchUpdateHireEcoExamPaperReqPaper struct {
 }
 
 // BatchUpdateHireEcoExamPaperResp ...
-type BatchUpdateHireEcoExamPaperResp struct {
-}
+type BatchUpdateHireEcoExamPaperResp struct{}
 
 // batchUpdateHireEcoExamPaperResp ...
 type batchUpdateHireEcoExamPaperResp struct {

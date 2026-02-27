@@ -71,8 +71,7 @@ type AddContactGroupMemberReq struct {
 }
 
 // AddContactGroupMemberResp ...
-type AddContactGroupMemberResp struct {
-}
+type AddContactGroupMemberResp struct{}
 
 // addContactGroupMemberResp ...
 type addContactGroupMemberResp struct {

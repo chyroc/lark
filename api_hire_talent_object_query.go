@@ -61,8 +61,7 @@ func (r *Mock) UnMockHireQueryHireTalentObject() {
 }
 
 // QueryHireTalentObjectReq ...
-type QueryHireTalentObjectReq struct {
-}
+type QueryHireTalentObjectReq struct{}
 
 // QueryHireTalentObjectResp ...
 type QueryHireTalentObjectResp struct {

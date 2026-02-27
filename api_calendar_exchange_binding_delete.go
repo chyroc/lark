@@ -64,8 +64,7 @@ type DeleteCalendarExchangeBindingReq struct {
 }
 
 // DeleteCalendarExchangeBindingResp ...
-type DeleteCalendarExchangeBindingResp struct {
-}
+type DeleteCalendarExchangeBindingResp struct{}
 
 // deleteCalendarExchangeBindingResp ...
 type deleteCalendarExchangeBindingResp struct {

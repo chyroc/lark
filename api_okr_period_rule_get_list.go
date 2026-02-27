@@ -57,8 +57,7 @@ func (r *Mock) UnMockOKRGetOKRPeriodRuleList() {
 }
 
 // GetOKRPeriodRuleListReq ...
-type GetOKRPeriodRuleListReq struct {
-}
+type GetOKRPeriodRuleListReq struct{}
 
 // GetOKRPeriodRuleListResp ...
 type GetOKRPeriodRuleListResp struct {

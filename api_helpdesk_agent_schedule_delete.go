@@ -66,8 +66,7 @@ type DeleteHelpdeskAgentScheduleReq struct {
 }
 
 // DeleteHelpdeskAgentScheduleResp ...
-type DeleteHelpdeskAgentScheduleResp struct {
-}
+type DeleteHelpdeskAgentScheduleResp struct{}
 
 // deleteHelpdeskAgentScheduleResp ...
 type deleteHelpdeskAgentScheduleResp struct {

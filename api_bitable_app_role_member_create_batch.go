@@ -74,8 +74,7 @@ type BatchCreateBitableAppRoleMemberReqMember struct {
 }
 
 // BatchCreateBitableAppRoleMemberResp ...
-type BatchCreateBitableAppRoleMemberResp struct {
-}
+type BatchCreateBitableAppRoleMemberResp struct{}
 
 // batchCreateBitableAppRoleMemberResp ...
 type batchCreateBitableAppRoleMemberResp struct {

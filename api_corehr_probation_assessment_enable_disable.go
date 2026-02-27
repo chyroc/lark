@@ -63,8 +63,7 @@ type EnableDisableCoreHRProbationAssessmentReq struct {
 }
 
 // EnableDisableCoreHRProbationAssessmentResp ...
-type EnableDisableCoreHRProbationAssessmentResp struct {
-}
+type EnableDisableCoreHRProbationAssessmentResp struct{}
 
 // enableDisableCoreHRProbationAssessmentResp ...
 type enableDisableCoreHRProbationAssessmentResp struct {

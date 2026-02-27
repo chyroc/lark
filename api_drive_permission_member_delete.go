@@ -67,8 +67,7 @@ type DeleteDriveMemberPermissionReq struct {
 }
 
 // DeleteDriveMemberPermissionResp ...
-type DeleteDriveMemberPermissionResp struct {
-}
+type DeleteDriveMemberPermissionResp struct{}
 
 // deleteDriveMemberPermissionResp ...
 type deleteDriveMemberPermissionResp struct {

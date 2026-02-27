@@ -67,8 +67,7 @@ type UpdateHireEHRImportTaskReq struct {
 }
 
 // UpdateHireEHRImportTaskResp ...
-type UpdateHireEHRImportTaskResp struct {
-}
+type UpdateHireEHRImportTaskResp struct{}
 
 // updateHireEHRImportTaskResp ...
 type updateHireEHRImportTaskResp struct {

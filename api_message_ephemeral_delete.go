@@ -66,8 +66,7 @@ type DeleteEphemeralMessageReq struct {
 }
 
 // DeleteEphemeralMessageResp ...
-type DeleteEphemeralMessageResp struct {
-}
+type DeleteEphemeralMessageResp struct{}
 
 // deleteEphemeralMessageResp ...
 type deleteEphemeralMessageResp struct {

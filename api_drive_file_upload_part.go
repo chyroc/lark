@@ -72,8 +72,7 @@ type PartUploadDriveFileReq struct {
 }
 
 // PartUploadDriveFileResp ...
-type PartUploadDriveFileResp struct {
-}
+type PartUploadDriveFileResp struct{}
 
 // partUploadDriveFileResp ...
 type partUploadDriveFileResp struct {

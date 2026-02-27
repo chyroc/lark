@@ -67,8 +67,7 @@ type BatchDeleteHireEcoAccountCustomFieldReq struct {
 }
 
 // BatchDeleteHireEcoAccountCustomFieldResp ...
-type BatchDeleteHireEcoAccountCustomFieldResp struct {
-}
+type BatchDeleteHireEcoAccountCustomFieldResp struct{}
 
 // batchDeleteHireEcoAccountCustomFieldResp ...
 type batchDeleteHireEcoAccountCustomFieldResp struct {

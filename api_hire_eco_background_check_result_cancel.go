@@ -62,8 +62,7 @@ type CancelHireEcoBackgroundCheckReq struct {
 }
 
 // CancelHireEcoBackgroundCheckResp ...
-type CancelHireEcoBackgroundCheckResp struct {
-}
+type CancelHireEcoBackgroundCheckResp struct{}
 
 // cancelHireEcoBackgroundCheckResp ...
 type cancelHireEcoBackgroundCheckResp struct {

@@ -66,8 +66,7 @@ type UnbindDepartmentChatReq struct {
 }
 
 // UnbindDepartmentChatResp ...
-type UnbindDepartmentChatResp struct {
-}
+type UnbindDepartmentChatResp struct{}
 
 // unbindDepartmentChatResp ...
 type unbindDepartmentChatResp struct {

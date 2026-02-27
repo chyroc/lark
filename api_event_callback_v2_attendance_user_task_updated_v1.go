@@ -63,5 +63,4 @@ func (r *EventCallbackService) HandlerEventV2AttendanceUserTaskUpdatedV1(f Event
 type EventV2AttendanceUserTaskUpdatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2AttendanceUserTaskUpdatedV1) (string, error)
 
 // EventV2AttendanceUserTaskUpdatedV1 ...
-type EventV2AttendanceUserTaskUpdatedV1 struct {
-}
+type EventV2AttendanceUserTaskUpdatedV1 struct{}
