@@ -26,7 +26,7 @@ import (
 // 当用户发送消息给机器人或在群聊中@机器人时触发此事件。
 // - 依赖权限: [获取用户发给机器人的私聊消息] 、 [获取群聊中用户 @ 机器人的消息]。开启了相应的权限才能获取到相应的消息。
 // - 其他条件: 应用必须开启了[机器人能力](https://open.feishu.cn/document/home/develop-a-bot-in-5-minutes/create-an-app)。
-// 文本消息:
+// ## 文本消息
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ugzMugzMugzM/event/receive-message
 func (r *EventCallbackService) HandlerEventV1ReceiveMessage(f EventV1ReceiveMessageHandler) {

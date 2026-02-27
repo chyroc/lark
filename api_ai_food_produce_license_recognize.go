@@ -24,9 +24,11 @@ import (
 
 // RecognizeAIFoodProduceLicense 食品生产许可证识别接口, 支持JPG/JPEG/PNG/BMP/PDF五种文件类型的一次性的识别。
 //
+// 文件大小需要小于10M。
 // 单租户限流: 10QPS, 同租户下的应用没有限流, 共享本租户的 10QPS 限流
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/document_ai-v1/food_produce_license/recognize
+// new doc: https://open.feishu.cn/document/ai/document_ai-v1/food_produce_license/recognize
 func (r *AIService) RecognizeAIFoodProduceLicense(ctx context.Context, request *RecognizeAIFoodProduceLicenseReq, options ...MethodOptionFunc) (*RecognizeAIFoodProduceLicenseResp, *Response, error) {
 	if r.cli.mock.mockAIRecognizeAIFoodProduceLicense != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] AI#RecognizeAIFoodProduceLicense mock enable")
@@ -61,7 +63,7 @@ func (r *Mock) UnMockAIRecognizeAIFoodProduceLicense() {
 
 // RecognizeAIFoodProduceLicenseReq ...
 type RecognizeAIFoodProduceLicenseReq struct {
-	File io.Reader `json:"file,omitempty"` // 识别的食品生产许可证源文件, 示例值: file binary
+	File io.Reader `json:"file,omitempty"` // 识别的食品生产许可证源文件示例值: file binary
 }
 
 // RecognizeAIFoodProduceLicenseResp ...
@@ -76,7 +78,7 @@ type RecognizeAIFoodProduceLicenseRespFoodProduceLicense struct {
 
 // RecognizeAIFoodProduceLicenseRespFoodProduceLicenseEntity ...
 type RecognizeAIFoodProduceLicenseRespFoodProduceLicenseEntity struct {
-	Type  string `json:"type,omitempty"`  // 识别的字段种类, 可选值有: validity_period: 有效期, issuer: 签发人, issuing_authority: 发证机关, complaints_hotline: 投诉举报电话, food_category: 食品类别, production_address: 生产地址, license_number: 许可证编号, domicile: 住所, legal_representative: 法定代表人(负责人), credit_code: 社会信用代码(身份证号), producer: 生产者名称, daily_supervisory_authorities: 日常监督管理机构, daily_supervisor: 日常监督管理人员
+	Type  string `json:"type,omitempty"`  // 识别的字段种类可选值有: 有效期签发人发证机关投诉举报电话食品类别生产地址许可证编号住所法定代表人(负责人)社会信用代码(身份证号)生产者名称日常监督管理机构日常监督管理人员
 	Value string `json:"value,omitempty"` // 识别出字段的文本信息
 }
 

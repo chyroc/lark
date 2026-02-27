@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// DeleteAttendanceShift 通过班次 ID 删除班次。
+// DeleteAttendanceShift 通过班次 ID 删除班次。对应功能为假勤设置-[班次设置](https://example.feishu.cn/people/workforce-management/setting/group/shifts)班次列表中操作栏的删除按钮。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/delete
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/shift/delete
@@ -58,12 +58,11 @@ func (r *Mock) UnMockAttendanceDeleteAttendanceShift() {
 
 // DeleteAttendanceShiftReq ...
 type DeleteAttendanceShiftReq struct {
-	ShiftID string `path:"shift_id" json:"-"` // 班次 ID, 获取方式: 1）[按名称查询班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/query) 2）[创建班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/create), 示例值: "6919358778597097404"
+	ShiftID string `path:"shift_id" json:"-"` // 班次 ID, 获取方式: 1）[按名称查询班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/query) 2）[创建班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/create)示例值: "6919358778597097404"
 }
 
 // DeleteAttendanceShiftResp ...
-type DeleteAttendanceShiftResp struct {
-}
+type DeleteAttendanceShiftResp struct{}
 
 // deleteAttendanceShiftResp ...
 type deleteAttendanceShiftResp struct {

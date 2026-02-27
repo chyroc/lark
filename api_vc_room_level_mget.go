@@ -58,7 +58,7 @@ func (r *Mock) UnMockVCBatchGetVCRoomLevel() {
 
 // BatchGetVCRoomLevelReq ...
 type BatchGetVCRoomLevelReq struct {
-	LevelIDs []string `json:"level_ids,omitempty"` // 层级ID列表, 示例值: ["omb_4ad1a2c7a2fbc5fc9570f38456931293"]
+	LevelIDs []string `json:"level_ids,omitempty"` // 层级ID列表示例值: ["omb_4ad1a2c7a2fbc5fc9570f38456931293"]
 }
 
 // BatchGetVCRoomLevelResp ...

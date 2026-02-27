@@ -21,7 +21,12 @@ import (
 	"context"
 )
 
-// EventV2CorehrEmploymentCreatedV1 员工在飞书人事的「雇佣信息被创建」时将触发此事件。
+// EventV2CorehrEmploymentCreatedV1 员工雇佣信息被创建时发送该事件, 场景举例:
+//
+// - 调用[【创建雇佣信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employment/create)、[【添加人员】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/create)接口
+// - 人事系统【添加人员】、【导入人员】功能{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=employment&event=created)
+// - 目前事件不保证有序
+// - 创建雇佣信息后, 可能同时触发计算字段的变更, 所以也会发送[【更新雇佣信息事件】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employment/events/updated)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employment/events/created
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/employment/created
@@ -41,6 +46,6 @@ type EventV2CorehrEmploymentCreatedV1 struct {
 // EventV2CorehrEmploymentCreatedV1TargetUserID ...
 type EventV2CorehrEmploymentCreatedV1TargetUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }

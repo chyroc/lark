@@ -59,8 +59,8 @@ func (r *Mock) UnMockHelpdeskSubmitApproveHelpdeskNotification() {
 
 // SubmitApproveHelpdeskNotificationReq ...
 type SubmitApproveHelpdeskNotificationReq struct {
-	NotificationID string `path:"notification_id" json:"-"` // 创建接口返回的唯一id, 示例值: "6985032626234982420"
-	Reason         string `json:"reason,omitempty"`         // 提交审批理由, 示例值: "测试发送消息"
+	NotificationID string `path:"notification_id" json:"-"` // 创建接口返回的唯一id示例值: "6985032626234982420"
+	Reason         string `json:"reason,omitempty"`         // 提交审批理由示例值: "测试发送消息"
 }
 
 // SubmitApproveHelpdeskNotificationResp ...

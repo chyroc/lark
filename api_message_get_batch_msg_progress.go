@@ -21,11 +21,11 @@ import (
 	"context"
 )
 
-// GetBatchSentMessageProgress 该接口在[查询批量消息推送和阅读人数](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/batch_message/read_user)查询结果的基础上, 增加了批量请求中有效的user id数量以及消息撤回进度数据。
+// GetBatchSentMessageProgress [批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)或者[批量撤回消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/batch_message/delete)后, 可通过该接口查询消息的发送进度和撤回进度。
 //
-// 注意事项:
-// - 只能查询30天内通过[批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)接口产生的消息
-// - 该接口返回的数据为查询时刻的快照数据
+// ## 注意事项
+// - 只能查询 30 天内, 通过[批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)接口发送的消息。
+// - 该接口返回的数据为查询时刻的快照数据。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/batch_message/get_progress
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/batch_message/get_progress
@@ -62,26 +62,26 @@ func (r *Mock) UnMockMessageGetBatchSentMessageProgress() {
 
 // GetBatchSentMessageProgressReq ...
 type GetBatchSentMessageProgressReq struct {
-	BatchMessageID string `path:"batch_message_id" json:"-"` // 待查询的批量消息任务ID, 通过调用[批量发送消息接口](	/ssl:ttdoc/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)的返回值`message_id`中得到, 示例值: "bm-0b3d5d1b2df7c6d5dbd1abe2c91e2217"
+	BatchMessageID string `path:"batch_message_id" json:"-"` // 待查询的批量消息任务 ID, 该 ID 为[批量发送消息](/ssl:ttdoc/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)接口返回值中的 `message_id` 字段, 用于标识一次批量发送消息请求。示例值: "bm-0b3d5d1b2df7c6d5dbd1abe2c91e2217"
 }
 
 // GetBatchSentMessageProgressResp ...
 type GetBatchSentMessageProgressResp struct {
-	BatchMessageSendProgress   []*GetBatchSentMessageProgressRespBatchMessageSendProgres   `json:"batch_message_send_progress,omitempty"`   // 消息发送进度
-	BatchMessageRecallProgress []*GetBatchSentMessageProgressRespBatchMessageRecallProgres `json:"batch_message_recall_progress,omitempty"` // 消息撤回进度
+	BatchMessageSendProgress   []*GetBatchSentMessageProgressRespBatchMessageSendProgres   `json:"batch_message_send_progress,omitempty"`   // 批量发送消息的进度。
+	BatchMessageRecallProgress []*GetBatchSentMessageProgressRespBatchMessageRecallProgres `json:"batch_message_recall_progress,omitempty"` // 批量撤回消息的进度。
 }
 
 // GetBatchSentMessageProgressRespBatchMessageRecallProgres ...
 type GetBatchSentMessageProgressRespBatchMessageRecallProgres struct {
-	Recall      bool  `json:"recall,omitempty"`       // 该条批量消息是否被执行过撤回操作
-	RecallCount int64 `json:"recall_count,omitempty"` // 已经成功撤回的消息数量
+	Recall      bool  `json:"recall,omitempty"`       // 当前查询的批量发送消息任务是否执行过撤回操作。可能值: true: 消息被撤回过- false: 消息未被撤回过
+	RecallCount int64 `json:"recall_count,omitempty"` // 已经成功撤回的消息数量。
 }
 
 // GetBatchSentMessageProgressRespBatchMessageSendProgres ...
 type GetBatchSentMessageProgressRespBatchMessageSendProgres struct {
-	ValidUserIDsCount   int64 `json:"valid_user_ids_count,omitempty"`   // 批量请求中有效的userid数量(包含机器人不可见用户), 注意: 当valid_user_ids_count为0有两种情况: * 批量任务还没有开始被调度（请等待一会再调用该接口）, * 批量发送消息时传入的所有openIDs、employeID、departmentiIDs都不包含有效的用户
-	SuccessUserIDsCount int64 `json:"success_user_ids_count,omitempty"` // 已经成功给用户发送成功的消息数量, 注意: 最终success_user_ids_count不一定等于valid_user_ids_count, 因为valid_user_ids_count包含了对机器人不可见的用户
-	ReadUserIDsCount    int64 `json:"read_user_ids_count,omitempty"`    // 已读信息用户数量
+	ValidUserIDsCount   int64 `json:"valid_user_ids_count,omitempty"`   // 批量发送消息请求中, 有效的用户数量。注意: 不在当前机器人的通讯录权限数据范围内但有效的用户, 也会被统计在内。了解通讯录数据权限范围参见[配置应用数据权限](https://open.feishu.cn/document/home/introduction-to-scope-and-authorization/configure-app-data-permissions)。- `valid_user_ids_count` 值为 0 有两种情况: - 批量发送消息接口为异步调用, 任务还没有开始被调度便查询当前接口则取值为 0。建议你等待片刻再调用该接口。    - 批量发送消息时传入的所有 department_ids、open_ids、user_ids、union_ids 均未包含有效的用户。
+	SuccessUserIDsCount int64 `json:"success_user_ids_count,omitempty"` // 已向用户成功发送消息的数量。注意: 最终 `success_user_ids_count` 不一定等于 `valid_user_ids_count`, 原因是 `valid_user_ids_count` 包含了对机器人不可见的用户。
+	ReadUserIDsCount    int64 `json:"read_user_ids_count,omitempty"`    // 已读消息的用户数量。
 }
 
 // getBatchSentMessageProgressResp ...

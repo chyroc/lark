@@ -21,7 +21,15 @@ import (
 	"context"
 )
 
-// EventV2CorehrDepartmentUpdatedV1 飞书人事中「部门信息被更新」时将触发此事件。注意: 1. 触发时间为部门更新实际生效时间, 如在 2022-01-01 更新部门, 部门更新生效时间设置为 2022-05-01, 事件将在 2022-05-01 进行推送。2. 只有在部门发生如下字段变更的时候, 会触发「部门更新」事件: 部门名称、code、部门描述、上级部门、部门子类型、部门负责人、是否保密、生效时间、失效时间、自定义字段（不包括其他部门角色）3. 删除部门不会触发「部门更新」事件
+// EventV2CorehrDepartmentUpdatedV1 飞书人事中「部门信息被更新」时将触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=department&event=updated)
+//
+// - 使用场景: 此事件为无序事件（创建有上下级关系的部门创建之后, 上下级部门事件可能乱序）, 若对事件顺序无依赖则可以使用V1版本事件, 否则请使用[【更新部门事件V2】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/events/updated)
+// - [【搜索部门信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/search)[【获取父部门信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/parents) 等接口数据查询存在一定延迟, 不建议收到事件后立即查询以上接口。
+// - 该接口只会推送当前生效对象的变更事件。
+// - 未来生效的版本数据, 会在生效日期当天凌晨推送事件。例如: 今天为1月1日, 修改对象名称并填写1月10日生效, 则1月10日凌晨发送该对象变更事件。
+// - 收到事件后, 可以立即通过[【批量查询部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)查询到最新变更数据。
+// - 以下字段变更会收到事件: organization_id.name（部门名称）、organization_id.code（部门编码）、organization_id.description（部门描述）、organization_id.superior_org（上级部门）、organization_id.active（部门状态）、subtype（部门类型）、manager（部门负责人）、is_confidential（是否保密）、effective_time（生效时间）、cost_center（成本中心）、staffing_model（岗职模式）、lark_chat_id（部门群ID）、自定义字段（不包括其他部门角色）
+// - 以下字段变更不会收到事件: list_order（列表排序）、tree_order（树状排序）
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/events/updated
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/department/updated

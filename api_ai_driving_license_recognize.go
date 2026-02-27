@@ -24,9 +24,11 @@ import (
 
 // RecognizeAIDrivingLicense 驾驶证识别接口, 支持JPG/JPEG/PNG/BMP四种文件类型的一次性的识别。
 //
+// 文件大小需要小于10M。
 // 单租户限流: 10QPS, 同租户下的应用没有限流, 共享本租户的 10QPS 限流
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/document_ai-v1/driving_license/recognize
+// new doc: https://open.feishu.cn/document/ai/document_ai-v1/driving_license/recognize
 func (r *AIService) RecognizeAIDrivingLicense(ctx context.Context, request *RecognizeAIDrivingLicenseReq, options ...MethodOptionFunc) (*RecognizeAIDrivingLicenseResp, *Response, error) {
 	if r.cli.mock.mockAIRecognizeAIDrivingLicense != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] AI#RecognizeAIDrivingLicense mock enable")
@@ -61,7 +63,7 @@ func (r *Mock) UnMockAIRecognizeAIDrivingLicense() {
 
 // RecognizeAIDrivingLicenseReq ...
 type RecognizeAIDrivingLicenseReq struct {
-	File io.Reader `json:"file,omitempty"` // 识别的驾驶证源文件, 示例值: file binary
+	File io.Reader `json:"file,omitempty"` // 识别的驾驶证源文件示例值: file binary
 }
 
 // RecognizeAIDrivingLicenseResp ...
@@ -76,7 +78,7 @@ type RecognizeAIDrivingLicenseRespDrivingLicense struct {
 
 // RecognizeAIDrivingLicenseRespDrivingLicenseEntitie ...
 type RecognizeAIDrivingLicenseRespDrivingLicenseEntitie struct {
-	Type  string `json:"type,omitempty"`  // 识别的字段种类, 可选值有: id_number: 证号, name: 姓名, sex: 性别, nationality: 国籍, address: 住址, date_of_birth: 出生日期, date_of_first_issue: 初次领证日期, class: 准驾车型, valid_begin: 有效期起, valid_end: 有效期止, license_issuing_authority: 发证机关, document_id: 档案编号, record: 记录, id_photo_location: 相片位置
+	Type  string `json:"type,omitempty"`  // 识别的字段种类可选值有: 证号姓名性别国籍住址出生日期初次领证日期准驾车型有效期起有效期止发证机关档案编号记录相片位置
 	Value string `json:"value,omitempty"` // 识别出字段的文本信息
 }
 

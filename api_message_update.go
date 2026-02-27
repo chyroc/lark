@@ -21,16 +21,23 @@ import (
 	"context"
 )
 
-// UpdateMessage 更新应用已发送的消息卡片内容。
+// UpdateMessage 通过消息 ID（message_id）更新已发送的消息卡片的内容。
 //
-// 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
-// - 若以user_access_token更新消息, 该操作用户必须是卡片消息的发送者
-// - 仅支持对所有人更新未撤回的[「共享卡片」](ukTMukTMukTM/uAjNwUjLwYDM14CM2ATN)消息, 需在卡片的config属性中, 显式声明 ["update_multi":true]。
-// - 不支持更新批量消息
-// - 文本消息请求体最大不能超过150KB；卡片及富文本消息请求体最大不能超过30KB
-// - 仅支持修改14天内发送的消息
-// - 单条消息更新频控为5QPS
+// ## 前提条件
+// 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// ## 使用场景
+// - 本接口适用于卡片发送后, 对卡片无条件直接更新的场景。
+// - 如果你需要在用户与卡片进行交互后更新卡片, 可参考[处理卡片回调](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/handle-card-callbacks), 选择在 3 秒内立即更新卡片、或 30 分钟内[延时更新卡片](https://open.feishu.cn/document/ukTMukTMukTM/uMDO1YjLzgTN24yM4UjN)的方式。
+// - 如果你需要仅更新部分成员接收到的卡片, 你需调用[延时更新消息卡片](https://open.feishu.cn/document/ukTMukTMukTM/uMDO1YjLzgTN24yM4UjN)接口, 指定用户的 open_id。
+// ## 注意事项
+// - 调用该接口的身份（access_token）需与发送卡片的身份一致。
+// - 仅支持更新未撤回的卡片。
+// - 你需在更新前后卡片的 `config` 属性中, 均显式声明 ["update_multi":true]（表示卡片为共享卡片, 卡片的更新对所有接收的用户可见）。
+// ## 使用限制
+// - 不支持更新[批量发送的消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)。
+// - 不支持更新[仅特定人可见的卡片](https://open.feishu.cn/document/ukTMukTMukTM/uETOyYjLxkjM24SM5IjN)。
+// - 仅支持更新 14 天内发送的消息。
+// - 单条消息更新频控为 5 QPS。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/patch
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/message-card/patch
@@ -68,13 +75,12 @@ func (r *Mock) UnMockMessageUpdateMessage() {
 
 // UpdateMessageReq ...
 type UpdateMessageReq struct {
-	MessageID string `path:"message_id" json:"-"` // 待更新的消息的ID, 仅支持更新消息卡片(`interactive`类型), 详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2), 示例值: "om_dc13264520392913993dd051dba21dcf"
-	Content   string `json:"content,omitempty"`   // 消息内容 json 格式, [发送消息 content 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json), 参考文档中的卡片格式, 示例值: "参考链接"
+	MessageID string `path:"message_id" json:"-"` // 待更新的消息 ID, 仅支持更新卡片（消息类型为 `interactive`）。ID 获取方式: - 调用[发送消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)接口后, 从响应结果的 `message_id` 参数获取。- 监听[接收消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive)事件, 当触发该事件后可以从事件体内获取消息的 `message_id`。- 调用[获取会话历史消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/list)接口, 从响应结果的 `message_id` 参数获取。示例值: "om_dc13264520392913993dd051dba21dcf"
+	Content   string `json:"content,omitempty"`   // 消息卡片的内容, 支持卡片 JSON 或[搭建工具](https://open.feishu.cn/cardkit?from=open_docs)构建的卡片, 需为 JSON 结构序列化后的字符串。  - 要使用卡片 JSON, 参考[卡片 JSON 结构](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-structure)。  - 要使用[搭建工具](https://open.feishu.cn/cardkit?from=open_docs)构建的卡片模板, 参考下文请求体示例。注意: 更新的卡片消息最大不能超过 30 KB。若消息中包含大量样式标签, 会使实际消息体长度大于你输入的请求体长度。- 以下示例值未转义, 使用时请注意将其转为 JSON 序列化后的字符串。示例值: "{"elements":[{"tag":"div", "text":{"content":"This is the plain text", "tag":"plain_text"}}], "header":{"template":"blue", "title":{"content":"This is the title", "tag":"plain_text"}}}"
 }
 
 // UpdateMessageResp ...
-type UpdateMessageResp struct {
-}
+type UpdateMessageResp struct{}
 
 // updateMessageResp ...
 type updateMessageResp struct {

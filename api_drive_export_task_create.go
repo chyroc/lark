@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// CreateDriveExportTask 该接口用于创建导出文件的任务, 并返回导出任务 ID。导出文件指将飞书文档、电子表格、多维表格导出为本地文件。该接口为异步接口, 需要继续调用[查询导出任务结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/get)接口获取导出结果。了解完整的导出文件步骤, 参考[导出飞书云文档概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/export-user-guide)。
+// CreateDriveExportTask 该接口用于创建导出文件的任务, 并返回导出任务 ID。导出文件指将飞书文档、电子表格、多维表格导出为本地文件, 包括 Word、Excel、PDF、CSV 格式。该接口为异步接口, 需要继续调用[查询导出任务结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/get)接口获取导出结果。了解完整的导出步骤, 参考[导出云文档概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/export-user-guide)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/create
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/export_task/create
@@ -59,10 +59,10 @@ func (r *Mock) UnMockDriveCreateDriveExportTask() {
 
 // CreateDriveExportTaskReq ...
 type CreateDriveExportTaskReq struct {
-	FileExtension string  `json:"file_extension,omitempty"` // 将云文档导出为本地文件后, 本地文件的扩展名。了解各类云文档支持导出的文件格式, 参考[导出飞书云文档概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/export-user-guide), 示例值: "csv", 可选值有: docx: Microsoft Word 格式, pdf: PDF 格式, xlsx: Microsoft Excel 格式, csv: CSV 格式
-	Token         string  `json:"token,omitempty"`          // 要导出的云文档的 token。获取方式参考 [如何获取云文档相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6), 示例值: "shtcnxe5OxxxxxxxSNdsJviENsk", 最大长度: `27` 字符
-	Type          string  `json:"type,omitempty"`           // 要导出的云文档的类型 。可通过云文档的链接判断, 示例值: "sheet", 可选值有: doc: 旧版飞书文档。支持导出扩展名为 docx 和 pdf 的文件。, sheet: 飞书电子表格。支持导出扩展名为 xlsx 和 csv 的文件。, bitable: 飞书多维表格。支持导出扩展名为 xlsx 和 csv 格式的文件。, docx: 新版飞书文档。支持导出扩展名为 docx 和 pdf 格式的文件。
-	SubID         *string `json:"sub_id,omitempty"`         // 导出飞书电子表格为 CSV 文件时, 需传入电子表格子表的 ID, 你需调用, [获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 接口获取返回的 `sheet_id` 的值作为该参数的值, 示例值: "tblKz5D60T4abcef"
+	FileExtension string  `json:"file_extension,omitempty"` // 将云文档导出为本地文件后, 本地文件的扩展名。了解各类云文档支持导出的文件格式, 参考[导出云文档概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/export-user-guide)。示例值: "csv"可选值有: Microsoft Word 格式PDF 格式Microsoft Excel 格式CSV 格式
+	Token         string  `json:"token,omitempty"`          // 要导出的云文档的 token。获取方式参考 [如何获取云文档相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。示例值: "Fm7osyjtMh5o7Ktrv32c73abcef" 最大长度: `27` 字符
+	Type          string  `json:"type,omitempty"`           // 要导出的云文档的类型 。可通过云文档的链接判断。示例值: "sheet"可选值有: 旧版飞书文档。支持导出扩展名为 docx 和 pdf 的文件。已不推荐使用。飞书电子表格。支持导出扩展名为 xlsx 和 csv 的文件。飞书多维表格。支持导出扩展名为 xlsx 和 csv 格式的文件。新版飞书文档。支持导出扩展名为 docx 和 pdf 格式的文件。
+	SubID         *string `json:"sub_id,omitempty"`         // 导出飞书电子表格或多维表格为 CSV 文件时, 需传入电子表格工作表的 ID 或多维表格数据表的 ID: 电子表格可调用[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 接口获取返回的 `sheet_id` 的值作为该参数的值- 多维表格可调用[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取返回的 `table_id` 的值作为该参数的值示例值: "6e5ed3"
 }
 
 // CreateDriveExportTaskResp ...

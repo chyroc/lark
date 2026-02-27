@@ -60,7 +60,7 @@ func (r *Mock) UnMockCoreHRGetCoreHRCountryRegion() {
 
 // GetCoreHRCountryRegionReq ...
 type GetCoreHRCountryRegionReq struct {
-	CountryRegionID string `path:"country_region_id" json:"-"` // 国家/地区 ID, 示例值: "67489937334909845"
+	CountryRegionID string `path:"country_region_id" json:"-"` // 国家/地区 ID示例值: "67489937334909845"
 }
 
 // GetCoreHRCountryRegionResp ...

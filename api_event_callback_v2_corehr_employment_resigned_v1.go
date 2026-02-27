@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// EventV2CorehrEmploymentResignedV1 员工完成离职, 即离职日期的次日凌晨时, 员工雇佣状态更改为“离职”后触发该事件。
+// EventV2CorehrEmploymentResignedV1 员工完成离职, 即离职日期的次日凌晨时, 员工雇佣状态更改为“离职”后触发该事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=employment&event=resigned)
+//
+// 注意: 监听到该消息不一定能立刻通过[搜索离职信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/search)搜索到对应的离职信息, 这中间存在数据延时。推荐监听[离职申请状态变更（新）
+// ](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/offboarding/events/status_updated)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employment/events/resigned
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/offboarding/resigned
@@ -34,5 +37,5 @@ type EventV2CorehrEmploymentResignedV1Handler func(ctx context.Context, cli *Lar
 
 // EventV2CorehrEmploymentResignedV1 ...
 type EventV2CorehrEmploymentResignedV1 struct {
-	EmploymentID string `json:"employment_id,omitempty"` // 主对象ID
+	EmploymentID string `json:"employment_id,omitempty"` // 离职员工雇佣ID, 可通过[批量查询员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)获取员工信息。
 }

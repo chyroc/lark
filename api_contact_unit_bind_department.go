@@ -21,7 +21,13 @@ import (
 	"context"
 )
 
-// BindContactUnitDepartment 通过该接口建立部门与单位的绑定关系。由于单位是旗舰版付费功能, 企业需开通相关版本, 否则会绑定失败, 不同版本请参考[飞书版本对比](https://www.feishu.cn/service)。
+// BindContactUnitDepartment 调用该接口建立部门与单位的绑定关系。一个部门同时只能绑定一个单位。
+//
+// ## 注意事项
+// 操作的部门需要在应用的通讯录权限范围内。了解通讯录权限范围, 可参见[权限范围资源介绍](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// ## 使用限制
+// - 单个单位可关联的部门数量上限为 1, 000。
+// - 同一个部门只能关联一个单位。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/bind_department
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/unit/bind_department
@@ -58,14 +64,13 @@ func (r *Mock) UnMockContactBindContactUnitDepartment() {
 
 // BindContactUnitDepartmentReq ...
 type BindContactUnitDepartmentReq struct {
-	UnitID           string            `json:"unit_id,omitempty"`            // 单位ID, 示例值: "BU121"
-	DepartmentID     string            `json:"department_id,omitempty"`      // 单位关联的部门ID, 示例值: "od-4e6ac4d14bcd5071a37a39de902c7141"
-	DepartmentIDType *DepartmentIDType `json:"department_id_type,omitempty"` // 此次调用中使用的部门ID的类型, 示例值: "open_department_id", 可选值有: department_id: 以自定义department_id来标识部门, open_department_id: 以open_department_id来标识部门, 默认值: `open_department_id`
+	UnitID           string            `json:"unit_id,omitempty"`            // 单位 ID。当你在创建单位时, 可以在返回结果中获取单位 ID。你也可以调用[获取单位列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/list)接口, 获取单位 ID。示例值: "BU121"
+	DepartmentID     string            `json:"department_id,omitempty"`      // 单位关联的部门 ID, ID 类型与 department_id_type 的取值保持一致。部门 API 提供了多种获取部门 ID 的方式, 如[获取子部门列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/children)、[获取父部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/parent)、[搜索部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/search), 你可以选择合适的 API 进行查询。示例值: "od-4e6ac4d14bcd5071a37a39de902c7141"
+	DepartmentIDType *DepartmentIDType `json:"department_id_type,omitempty"` // 此次调用中的部门 ID 类型。关于部门 ID 的详细介绍, 可参见[部门 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)。示例值: "open_department_id"可选值有: 支持用户自定义配置的部门 ID。自定义配置时可复用已删除的 department_id, 因此在未删除的部门范围内 department_id 具有唯一性。由系统自动生成的部门 ID, ID 前缀固定为 `od-`, 在租户内全局唯一。默认值: `open_department_id
 }
 
 // BindContactUnitDepartmentResp ...
-type BindContactUnitDepartmentResp struct {
-}
+type BindContactUnitDepartmentResp struct{}
 
 // bindContactUnitDepartmentResp ...
 type bindContactUnitDepartmentResp struct {

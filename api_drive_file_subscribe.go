@@ -21,9 +21,15 @@ import (
 	"context"
 )
 
-// SubscribeDriveFile 该接口仅支持文档拥有者和文档管理者订阅文档的通知事件（但目前文档管理者仅能接收到文件编辑事件）。可订阅的文档类型为旧版文档、新版文档、电子表格和多维表格。在调用该接口之前请确保正确[配置事件回调网址和订阅事件类型](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM#2eb3504a), 目前已支持的事件类型请参考[事件列表](https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-list)。
+// SubscribeDriveFile 订阅云文档的各类通知事件。调用该接口并在开发者后台添加事件后, 当云文档发生指定事件时, 系统会向配置的地址发送事件。
 //
-// 目前只支持订阅事件列表中所有文档事件, 暂不支持只订阅某个或某些事件。
+// 了解事件订阅的整体流程, 参考[事件概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。了解云文档支持的事件类型, 参考[事件列表](https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-list)。
+// ## 注意事项
+// - 文档管理者仅能接收到[文件编辑](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/file-edited)、[多维表格字段变更](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/events/bitable_field_changed)、[多维表格记录变更](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/events/bitable_record_changed)事件。
+// - 若应用是以应用身份（`tenant_access_token`） 订阅的事件, 在接收事件时需要同时申请应用和用户两个身份接收事件的权限。例如, 要订阅 [文件夹下文件创建](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/events/created_in_folder) 事件, 你需要在开发者后台, 为应用同时开通两个身份的 `space:document.event:read` 权限。
+// ## 前提条件
+// - 调用该接口之前, 请确保在开发者后台配置了订阅方式并添加了具体事件。详情参考[配置订阅方式](https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-subscription-configure-/request-url-configuration-case)和[添加事件](https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-subscription-configure-/subscription-event-case)。
+// - 文档的通知事件仅支持文档拥有者和文档管理者订阅。调用接口前请确保应用或用户具有文档可管理权限。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/subscribe
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/event/subscribe
@@ -61,14 +67,13 @@ func (r *Mock) UnMockDriveSubscribeDriveFile() {
 
 // SubscribeDriveFileReq ...
 type SubscribeDriveFileReq struct {
-	FileToken string   `path:"file_token" json:"-"`  // 文档token, 示例值: "doccnxxxxxxxxxxxxxxxxxxxxxx"
-	FileType  FileType `query:"file_type" json:"-"`  // 文档类型, 示例值: doc, 可选值有: doc: 文档, docx: 新版文档, sheet: 表格, bitable: 多维表格, folder: 文件夹
-	EventType *string  `query:"event_type" json:"-"` // 事件类型, 订阅为folder类型时必填, 示例值: file.created_in_folder_v1
+	FileToken string   `path:"file_token" json:"-"`  // 云文档的 token。了解如何获取各类云文档的 token, 参考[云空间常见问题](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/faq)。示例值: "doccnfYZzTlvXqZIGTdAHKabcef"
+	FileType  FileType `query:"file_type" json:"-"`  // 云文档类型示例值: docx可选值有: 旧版文档。已不推荐使用新版文档电子表格多维表格文件文件夹幻灯片
+	EventType *string  `query:"event_type" json:"-"` // 事件类型。- 若 `file_type` 为 `folder`, 需要填写该字段, 且字段必须填写为 `file.created_in_folder_v1`, 表示订阅[文件夹下文件创建](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/events/created_in_folder)事件- 若 `file_type` 不为 `folder`, 请勿填写该字段。对于文档、电子表格、多维表格等云文档类型, 目前仅支持订阅所有相关的云文档事件, 暂不支持只订阅该云文档类型下的某个或某些事件示例值: file.created_in_folder_v1
 }
 
 // SubscribeDriveFileResp ...
-type SubscribeDriveFileResp struct {
-}
+type SubscribeDriveFileResp struct{}
 
 // subscribeDriveFileResp ...
 type subscribeDriveFileResp struct {

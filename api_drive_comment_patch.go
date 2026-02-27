@@ -59,15 +59,14 @@ func (r *Mock) UnMockDriveUpdateDriveCommentPatch() {
 
 // UpdateDriveCommentPatchReq ...
 type UpdateDriveCommentPatchReq struct {
-	FileToken string   `path:"file_token" json:"-"` // 文档token, 示例值: "doccnGp4UK1UskrOEJwBXd3"
-	CommentID string   `path:"comment_id" json:"-"` // 评论ID, 示例值: "6916106822734578184"
-	FileType  FileType `query:"file_type" json:"-"` // 文档类型, 示例值: doc, 可选值有: doc: 文档, sheet: 表格, file: 文件, docx: 新版文档
-	IsSolved  bool     `json:"is_solved,omitempty"` // 评论解决标志, 示例值: true
+	FileToken string   `path:"file_token" json:"-"` // 文档token示例值: "doccnGp4UK1UskrOEJwBXd3"
+	CommentID string   `path:"comment_id" json:"-"` // 评论ID示例值: "6916106822734578184"
+	FileType  FileType `query:"file_type" json:"-"` // 云文档类型示例值: doc可选值有: 旧版文档, 已不推荐使用新版文档表格文件幻灯片
+	IsSolved  bool     `json:"is_solved,omitempty"` // 评论解决标志示例值: true
 }
 
 // UpdateDriveCommentPatchResp ...
-type UpdateDriveCommentPatchResp struct {
-}
+type UpdateDriveCommentPatchResp struct{}
 
 // updateDriveCommentPatchResp ...
 type updateDriveCommentPatchResp struct {

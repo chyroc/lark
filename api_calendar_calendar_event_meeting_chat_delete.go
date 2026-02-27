@@ -29,6 +29,7 @@ import (
 // - 当前的操作人需要是会议群的群主。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-meeting_chat/delete
+// new doc: https://open.feishu.cn/document/calendar-v4/calendar-event-meeting_chat/delete
 func (r *CalendarService) DeleteCalendarEventMeetingChat(ctx context.Context, request *DeleteCalendarEventMeetingChatReq, options ...MethodOptionFunc) (*DeleteCalendarEventMeetingChatResp, *Response, error) {
 	if r.cli.mock.mockCalendarDeleteCalendarEventMeetingChat != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Calendar#DeleteCalendarEventMeetingChat mock enable")
@@ -63,14 +64,13 @@ func (r *Mock) UnMockCalendarDeleteCalendarEventMeetingChat() {
 
 // DeleteCalendarEventMeetingChatReq ...
 type DeleteCalendarEventMeetingChatReq struct {
-	CalendarID    string `path:"calendar_id" json:"-"`      // 日程所在的日历 ID, 示例值: "feishu.cn_xxx@group.calendar.feishu.cn"
-	EventID       string `path:"event_id" json:"-"`         // 日程 ID, 示例值: "75d28f9b-e35c-4230-8a83-123_0"
-	MeetingChatID string `query:"meeting_chat_id" json:"-"` // 会议群 ID。在创建会议群时会返回会议群 ID, 示例值: oc_xxx
+	CalendarID    string `path:"calendar_id" json:"-"`      // 日程所在的日历 ID。示例值: "feishu.cn_xxx@group.calendar.feishu.cn"
+	EventID       string `path:"event_id" json:"-"`         // 日程 ID。示例值: "75d28f9b-e35c-4230-8a83-123_0"
+	MeetingChatID string `query:"meeting_chat_id" json:"-"` // 会议群 ID。在创建会议群时会返回会议群 ID。示例值: oc_xxx
 }
 
 // DeleteCalendarEventMeetingChatResp ...
-type DeleteCalendarEventMeetingChatResp struct {
-}
+type DeleteCalendarEventMeetingChatResp struct{}
 
 // deleteCalendarEventMeetingChatResp ...
 type deleteCalendarEventMeetingChatResp struct {

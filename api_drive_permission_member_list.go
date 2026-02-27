@@ -21,10 +21,10 @@ import (
 	"context"
 )
 
-// GetDriveMemberPermissionList 该接口用于根据文件的 token 查询协作者。
+// GetDriveMemberPermissionList 获取指定云文档的协作者, 支持查询人、群、组织架构、用户组、知识库成员五种类型的协作者。
 //
-// - 调用该接口前, 你需确保当前应用或用户具有文档的分享权限
-// - 目前仅支持人、群、组织架构、用户组、知识库成员五种类型的协作者
+// ## 前提条件
+// 调用该接口前, 你需确保当前应用或用户具有查看协作者的权限。了解更多, 参考[如何为应用或用户开通文档权限](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#16c6475a)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-member/list
 // new doc: https://open.feishu.cn/document/server-docs/docs/permission/permission-member/list
@@ -62,9 +62,10 @@ func (r *Mock) UnMockDriveGetDriveMemberPermissionList() {
 
 // GetDriveMemberPermissionListReq ...
 type GetDriveMemberPermissionListReq struct {
-	Token  string  `path:"token" json:"-"`   // 文件的 token, 获取方式见 [如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6), 示例值: "doccnBKgoMyY5OMbUG6FioTXuBe"
-	Type   string  `query:"type" json:"-"`   // 文件类型, 需要与文件的 token 相匹配, 示例值: doc, 可选值有: doc: 文档, sheet: 电子表格, file: 云空间文件, wiki: 知识库节点, bitable: 多维表格, docx: 新版文档, mindnote: 思维笔记, minutes: 妙记, slides: 幻灯片
-	Fields *string `query:"fields" json:"-"` // 指定返回的协作者字段信息, 如无指定则默认不返回, 可选值有: `name`: 协作者名, `type`: 协作者类型, `avatar`: 头像, `external_label`: 外部标签, 注意: 你可以使用特殊值`*`指定返回目前支持的所有字段, 你可以使用`, `分隔若干个你想指定返回的字段, 如: `name, avatar`, 按需指定返回字段接口性能更好, 示例值: *
+	Token    string  `path:"token" json:"-"`      // 云文档的 token, 需要与 type 参数指定的云文档类型相匹配。可参考[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。示例值: "doccnBKgoMyY5OMbUG6FioTXuBe"
+	Type     string  `query:"type" json:"-"`      // 云文档类型, 需要与云文档的 token 相匹配。示例值: docx可选值有: 旧版文档。了解更多, 参考[新旧版本文档说明](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/docs/upgraded-docs-access-guide/upgraded-docs-openapi-access-guide)。电子表格云空间文件知识库节点多维表格新版文档思维笔记妙记幻灯片
+	Fields   *string `query:"fields" json:"-"`    // 指定返回的协作者字段信息, 如无指定则默认不返回。可选值有: `name`: 协作者名- `type`: 协作者类型- `avatar`: 头像- `external_label`: 外部标签注意: 你可以使用特殊值`*`指定返回目前支持的所有字段- 你可以使用`, `分隔若干个你想指定返回的字段, 如: `name, avatar`- 按需指定返回字段接口性能更好示例值: *
+	PermType *string `query:"perm_type" json:"-"` // 协作者的权限角色类型。当云文档类型为 wiki 即知识库节点时, 该参数有效。默认值: container示例值: container可选值有: 当前页面及子页面仅当前页面, 当且仅当在知识库文档中该参数有效
 }
 
 // GetDriveMemberPermissionListResp ...
@@ -74,12 +75,13 @@ type GetDriveMemberPermissionListResp struct {
 
 // GetDriveMemberPermissionListRespItem ...
 type GetDriveMemberPermissionListRespItem struct {
-	MemberType    string `json:"member_type,omitempty"`    // 协作者 ID 类型, 与协作者 ID 需要对应, 可选值有: email: 飞书邮箱, openid: 开放平台 ID, unionid: 开放平台 UnionID, openchat: 开放平台群组 ID, opendepartmentid: 开放平台部门 ID, userid: 用户自定义 ID, groupid: 自定义用户组 ID, wikispaceid: 知识空间 ID, 注意: 仅知识库文档支持该参数, 代表知识库文档里的「知识库成员」类型协作者的 ID
+	MemberType    string `json:"member_type,omitempty"`    // 协作者 ID 类型, 与协作者 ID 需要对应可选值有: 飞书邮箱开放平台 ID开放平台 UnionID开放平台群组 ID开放平台部门 ID用户自定义 ID自定义用户组 ID知识空间 ID    - 注意: 仅知识库文档支持该参数, 代表知识库文档里的「知识库成员」类型协作者的 ID
 	MemberID      string `json:"member_id,omitempty"`      // 协作者 ID, 与协作者 ID 类型需要对应
-	Perm          string `json:"perm,omitempty"`           // 协作者对应的权限角色, 可选值有: view: 可阅读角色, edit: 可编辑角色, full_access: 可管理角色
-	Type          string `json:"type,omitempty"`           // 协作者的类型, 可选值有: user: 用户, chat: 群组, department: 组织架构, group: 用户组, wiki_space_member: 知识库成员, 注意: 在知识库启用了成员分组功能后不支持该参数, wiki_space_viewer: 知识库可阅读成员, 注意: 仅在知识库启用了成员分组功能后才支持该参数, wiki_space_editor: 知识库可编辑成员, 注意: 仅在知识库启用了成员分组功能后才支持该参数
-	Name          string `json:"name,omitempty"`           // 协作者的名字, 字段权限要求（满足任一）: 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录, 以应用身份读取通讯录
-	Avatar        string `json:"avatar,omitempty"`         // 协作者的头像, 字段权限要求（满足任一）: 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录, 以应用身份读取通讯录
+	Perm          string `json:"perm,omitempty"`           // 协作者对应的权限角色可选值有: 可阅读角色可编辑角色可管理角色
+	PermType      string `json:"perm_type,omitempty"`      // 协作者的权限角色类型可选值有: 当前页面及子页面仅当前页面, 当且仅当在知识库文档中该参数有效
+	Type          string `json:"type,omitempty"`           // 协作者的类型可选值有: 用户群组组织架构用户组知识库成员    - 注意: 在知识库启用了成员分组功能后不支持该参数知识库可阅读成员    - 注意: 仅在知识库启用了成员分组功能后才支持该参数知识库可编辑成员    - 注意: 仅在知识库启用了成员分组功能后才支持该参数
+	Name          string `json:"name,omitempty"`           // 协作者的名字字段权限要求（满足任一）: 获取用户基本信息以应用身份访问通讯录读取通讯录以应用身份读取通讯录
+	Avatar        string `json:"avatar,omitempty"`         // 协作者的头像字段权限要求（满足任一）: 获取用户基本信息以应用身份访问通讯录读取通讯录以应用身份读取通讯录
 	ExternalLabel bool   `json:"external_label,omitempty"` // 协作者的外部标签
 }
 

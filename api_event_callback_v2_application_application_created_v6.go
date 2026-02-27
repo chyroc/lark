@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// EventV2ApplicationApplicationCreatedV6 当企业内有新的应用被创建时推送此事件
+// EventV2ApplicationApplicationCreatedV6 当企业内有新的自建应用被创建时推送此事件（创建就会产生此事件, 不需要发版）{使用示例}(url=/api/tools/api_explore/api_explore_config?project=application&version=v6&resource=application&event=created)
+//
+// ## 前提条件
+// 你需要在应用中配置事件订阅, 这样才可以在事件触发时接收到事件数据。了解事件订阅可参见[事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/events/created
 // new doc: https://open.feishu.cn/document/server-docs/application-v6/event/created
@@ -41,11 +44,12 @@ type EventV2ApplicationApplicationCreatedV6 struct {
 	Avatar          string                                            `json:"avatar,omitempty"`           // 应用图标链接
 	AppSceneType    int64                                             `json:"app_scene_type,omitempty"`   // 应用类型, 0: 自建应用, 1: 应用商店应用
 	PrimaryLanguage string                                            `json:"primary_language,omitempty"` // 应用主语言
+	CreateSource    string                                            `json:"create_source,omitempty"`    // 应用创建来源可选值有: 开发者后台多维表格自动化流程创建的应用飞书应用引擎机器人助手aily(智能伙伴搭建平台)未知来源
 }
 
 // EventV2ApplicationApplicationCreatedV6OperatorID ...
 type EventV2ApplicationApplicationCreatedV6OperatorID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }

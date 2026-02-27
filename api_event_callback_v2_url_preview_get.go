@@ -24,8 +24,173 @@ import (
 // EventV2URLPreviewGet 拉取链接预览数据 回调作用于应用的链接预览能力。当企业内发布了具备链接预览能力的应用后, 企业成员在飞书客户端查看、发送链接时, 如果链接命中了应用注册的 URL 规则, 则应用会向指定的回调地址发送 拉取链接预览数据 回调。你需要在对应的业务服务器内接收回调请求, 并在 3 秒内响应回调请求, 飞书客户端会根据响应数据渲染链接预览效果。
 //
 // 需应用配置并生效链接预览能力后, 回调才可以推送生效。
+// ## 回调
+// :::html
+// <md-table>
+// <md-thead>
+// <tr>
+// <md-th>基本信息</md-th>
+// <md-th></md-th>
+// </tr>
+// </md-thead>
+// <md-tbody>
+// <md-tr>
+// <md-th>回调类型</md-th>
+// <md-td>url.preview.get</md-td>
+// </md-tr>
+// <md-tr>
+// <md-th>支持的应用类型</md-th>
+// <md-td>
+// custom, isv
+// </md-td>
+// </md-tr>
+// <md-tr>
+// <md-th>
+// 权限要求
+// <md-tooltip type="info">订阅该事件所需的权限, 开启其中任意一项权限即可订阅</md-tooltip>
+// </md-th>
+// <md-td>
+// 暂无
+// </md-td>
+// </md-tr>
+// <md-tr>
+// <md-th>
+// 字段权限要求
+// </md-th>
+// <md-td>
+// 事件结构体中存在 `user_id` 敏感字段, 仅当应用开启以下权限后才会返回。如果无需获取该字段, 则不建议申请。
+// 获取用户 user ID
+// </md-td>
+// </md-tr>
+// <md-tr>
+// <md-th>推送方式</md-th>
+// <md-td>
+// Webhook
+// </md-td>
+// </md-tr>
+// </md-tbody>
+// </md-table>
+// ## 结构体
+// :::html
+// <md-dt-table>
+// <md-dt-thead>
+// <md-dt-tr>
+// <md-dt-th>字段</md-dt-th>
+// <md-dt-th>数据类型</md-dt-th>
+// <md-dt-th>描述</md-dt-th>
+// </md-dt-tr>
+// </md-dt-thead>
+// <md-dt-tbody>
+// <md-dt-tr level="0">
+// <md-dt-td>schema</md-dt-td>
+// <md-dt-td>string</md-dt-td>
+// <md-dt-td>回调的版本。</md-dt-td>
+// </md-dt-tr>
+// <md-dt-tr level="0">
+// <md-dt-td>header</md-dt-td>
+// <md-dt-td>object</md-dt-td>
+// <md-dt-td>回调的基本信息。</md-dt-td>
+// </md-dt-tr>
+// <md-dt-tr level="1">
+// <md-dt-td>event_id</md-dt-td>
+// <md-dt-td>string</md-dt-td>
+// <md-dt-td>回调的唯一标识。</md-dt-td>
+// </md-dt-tr>
+// <md-dt-tr level="1">
+// <md-dt-td>token</md-dt-td>
+// <md-dt-td>string</md-dt-td>
+// <md-dt-td>应用的 Verification Token。</md-dt-td>
+// </md-dt-tr>
+// <md-dt-tr level="1">
+// <md-dt-td>create_time</md-dt-td>
+// <md-dt-td>string</md-dt-td>
+// <md-dt-td>回调发送的时间。</md-dt-td>
+// </md-dt-tr>
+// <md-dt-tr level="1">
+// <md-dt-td>event_type</md-dt-td>
+// <md-dt-td>string</md-dt-td>
+// <md-dt-td>回调类型。拉取链接预览场景中, 固定为 `"url.preview.get"`。</md-dt-td>
+// </md-dt-tr>
+// <md-dt-tr level="1">
+// <md-dt-td>tenant_key</md-dt-td>
+// <md-dt-td>string</md-dt-td>
+// <md-dt-td>应用归属的 tenant key, 即租户唯一标识。</md-dt-td>
+// </md-dt-tr>
+// <md-dt-tr level="1">
+// <md-dt-td>app_id</md-dt-td>
+// <md-dt-td>string</md-dt-td>
+// <md-dt-td>应用的App ID。</md-dt-td>
+// </md-dt-tr>
+// <md-dt-tr level="0">
+// <md-dt-td>event</md-dt-td>
+// <md-dt-td>object</md-dt-td>
+// <md-dt-td>回调的详细信息。</md-dt-td>
+// </md-dt-tr>
+// <md-dt-tr level="1">
+// <md-dt-td>operator</md-dt-td>
+// <md-dt-td>object</md-dt-td>
+// <md-dt-td>回调触发者信息。</md-dt-td>
+// </md-dt-tr>
+// <md-dt-tr level="2">
+// <md-dt-td>tenant_key</md-dt-td>
+// <md-dt-td>string</md-dt-td>
+// <md-dt-td>回调触发者的 tenant key, 即租户唯一标识。</md-dt-td>
+// </md-dt-tr>
+// <md-dt-tr level="2">
+// <md-dt-td>user_id</md-dt-td>
+// <md-dt-td>string</md-dt-td>
+// <md-dt-td>回调触发者的 user_id。了解不同的用户 ID, 参见[用户身份概述](https://open.feishu.cn/document/home/user-identity-introduction/introduction)。</md-dt-td>
+// </md-dt-tr>
+// <md-dt-tr level="2">
+// <md-dt-td>open_id</md-dt-td>
+// <md-dt-td>string</md-dt-td>
+// <md-dt-td>回调触发者的 open_id。</md-dt-td>
+// </md-dt-tr>
+// <md-dt-tr level="1">
+// <md-dt-td>host</md-dt-td>
+// <md-dt-td>string</md-dt-td>
+// <md-dt-td>链接预览展示的场景。可能值:
+// - im_message: 会话消息
+// - im_top_notice: 群置顶
+// </md-dt-td>
+// </md-dt-tr>
+// <md-dt-tr level="1">
+// <md-dt-td>context</md-dt-td>
+// <md-dt-td>object</md-dt-td>
+// <md-dt-td>场景上下文。</md-dt-td>
+// </md-dt-tr>
+// <md-dt-tr level="2">
+// <md-dt-td>url</md-dt-td>
+// <md-dt-td>string</md-dt-td>
+// <md-dt-td>预览链接。</md-dt-td>
+// </md-dt-tr>
+// <md-dt-tr level="2">
+// <md-dt-td>preview_token</md-dt-td>
+// <md-dt-td>string</md-dt-td>
+// <md-dt-td>预览 Token。该 Token 用于调用[更新 URL 预览](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/group/im-v2/url_preview/batch_update)接口, 主动更新 URL 预览。
+// 注意:
+// - 同一条消息的同一个链接可能会触发多次拉取链接预览数据回调（例如多端登录飞书查看消息、群聊内多个用户查看消息等）, 这些回调包含的 preview_token 值相同。
+// - 消息发送后才会产生 preview_token, 因此, 临时预览场景（即在会话输入框输入链接, 但消息还未发送时）, 不会产生 preview_token。
+// </md-dt-td>
+// </md-dt-tr>
+// <md-dt-tr level="2">
+// <md-dt-td>open_message_id</md-dt-td>
+// <md-dt-td>string</md-dt-td>
+// <md-dt-td>链接所在的消息 ID。
+// 注意: 临时预览场景（即在会话输入框输入链接, 但消息还未发送时）open_message_id 为空值。</md-dt-td>
+// </md-dt-tr>
+// <md-dt-tr level="2">
+// <md-dt-td>open_chat_id</md-dt-td>
+// <md-dt-td>string</md-dt-td>
+// <md-dt-td>链接所在的会话 ID。
+// 注意: 临时预览场景（即在会话输入框输入链接, 但消息还未发送时）open_chat_id 为空值。</md-dt-td>
+// </md-dt-tr>
+// </md-dt-tbody>
+// </md-dt-table>
+// ## 回调结构体示例
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/development-link-preview/pull-link-preview-data-callback-structure
+// new doc: https://open.feishu.cn/document/development-link-preview/callback/pull-link-preview-data-callback-structure
 func (r *EventCallbackService) HandlerEventV2URLPreviewGet(f EventV2URLPreviewGetHandler) {
 	r.cli.eventHandler.eventV2URLPreviewGetHandler = f
 }
@@ -34,5 +199,4 @@ func (r *EventCallbackService) HandlerEventV2URLPreviewGet(f EventV2URLPreviewGe
 type EventV2URLPreviewGetHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2URLPreviewGet) (string, error)
 
 // EventV2URLPreviewGet ...
-type EventV2URLPreviewGet struct {
-}
+type EventV2URLPreviewGet struct{}

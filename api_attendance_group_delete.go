@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// DeleteAttendanceGroup 通过班次 ID 删除班次。
+// DeleteAttendanceGroup 通过考勤组 ID 删除考勤组。对应设置-假勤设置-[考勤组](https://example.feishu.cn/people/workforce-management/setting/group/list)操作列的删除功能
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/delete
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/group/delete
@@ -58,12 +58,11 @@ func (r *Mock) UnMockAttendanceDeleteAttendanceGroup() {
 
 // DeleteAttendanceGroupReq ...
 type DeleteAttendanceGroupReq struct {
-	GroupID string `path:"group_id" json:"-"` // 考勤组 ID, 获取方式: 1）[创建或修改考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/create) 2）[按名称查询考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/search) 3）[获取打卡结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task/query), 示例值: "6919358128597097404"
+	GroupID string `path:"group_id" json:"-"` // 考勤组 ID, 获取方式: 1）[创建或修改考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/create) 2）[按名称查询考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/search) 3）[获取打卡结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task/query)示例值: "6919358128597097404"
 }
 
 // DeleteAttendanceGroupResp ...
-type DeleteAttendanceGroupResp struct {
-}
+type DeleteAttendanceGroupResp struct{}
 
 // deleteAttendanceGroupResp ...
 type deleteAttendanceGroupResp struct {

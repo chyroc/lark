@@ -58,9 +58,9 @@ func (r *Mock) UnMockVCCreateVCRoomLevel() {
 
 // CreateVCRoomLevelReq ...
 type CreateVCRoomLevelReq struct {
-	Name          string  `json:"name,omitempty"`            // 层级名称, 示例值: "测试层级"
-	ParentID      string  `json:"parent_id,omitempty"`       // 父层级ID, 示例值: "omb_4ad1a2c7a2fbc5fc9570f38456931293"
-	CustomGroupID *string `json:"custom_group_id,omitempty"` // 自定义层级ID, 示例值: "10000"
+	Name          string  `json:"name,omitempty"`            // 层级名称示例值: "测试层级"
+	ParentID      string  `json:"parent_id,omitempty"`       // 父层级ID。说明: 如需在租户层级（即根层级）下创建会议室层级, 可以先调用[查询会议室层级详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room_level/get)接口, 将路径参数 `room_level_id` 传入 `0` 进行查询, 返回结果中的 `room_level_id` 值即为根层级 ID。示例值: "omb_4ad1a2c7a2fbc5fc9570f38456931293"
+	CustomGroupID *string `json:"custom_group_id,omitempty"` // 自定义层级ID示例值: "10000"
 }
 
 // CreateVCRoomLevelResp ...

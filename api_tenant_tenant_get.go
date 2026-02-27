@@ -57,8 +57,7 @@ func (r *Mock) UnMockTenantGetTenant() {
 }
 
 // GetTenantReq ...
-type GetTenantReq struct {
-}
+type GetTenantReq struct{}
 
 // GetTenantResp ...
 type GetTenantResp struct {
@@ -69,10 +68,10 @@ type GetTenantResp struct {
 type GetTenantRespTenant struct {
 	Name      string                     `json:"name,omitempty"`       // 企业名称
 	DisplayID string                     `json:"display_id,omitempty"` // 企业编号, 平台内唯一
-	TenantTag int64                      `json:"tenant_tag,omitempty"` // 个人版/团队版标志, 可选值有: 0: 团队版, 2: 个人版
+	TenantTag int64                      `json:"tenant_tag,omitempty"` // 个人版/团队版标志可选值有: 团队版个人版
 	TenantKey string                     `json:"tenant_key,omitempty"` // 企业标识
 	Avatar    *GetTenantRespTenantAvatar `json:"avatar,omitempty"`     // 企业头像
-	Domain    string                     `json:"domain,omitempty"`     // 企业完整域名。企业域名可用于企业成员访问管理后台、云文档等含URL地址的网页, 字段权限要求: 获取企业完整域名
+	Domain    string                     `json:"domain,omitempty"`     // 企业完整域名。企业域名可用于企业成员访问管理后台、云文档等含URL地址的网页。字段权限要求: 获取企业完整域名
 }
 
 // GetTenantRespTenantAvatar ...

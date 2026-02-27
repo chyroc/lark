@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// DeleteHireExternalApplication 将外部投递删除
+// DeleteHireExternalApplication 根据外部投递 ID 删除外部投递。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_application/delete
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/get-candidates/import-external-system-information/delete
@@ -58,8 +58,8 @@ func (r *Mock) UnMockHireDeleteHireExternalApplication() {
 
 // DeleteHireExternalApplicationReq ...
 type DeleteHireExternalApplicationReq struct {
-	ExternalApplicationID string  `path:"external_application_id" json:"-"` // 外部投递 id, 示例值: "6960663240925956660"
-	TalentID              *string `query:"talent_id" json:"-"`              // 人才ID, 示例值: 6960663240925956660
+	ExternalApplicationID string  `path:"external_application_id" json:"-"` // 外部投递 ID, 可通过[查询外部投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_application/list)接口获取示例值: "6960663240925956660"
+	TalentID              *string `query:"talent_id" json:"-"`              // 人才 ID, 可通过[获取人才列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/list)接口获取示例值: 6960663240925956660
 }
 
 // DeleteHireExternalApplicationResp ...
@@ -70,14 +70,14 @@ type DeleteHireExternalApplicationResp struct {
 // DeleteHireExternalApplicationRespExternalApplication ...
 type DeleteHireExternalApplicationRespExternalApplication struct {
 	ID                 string `json:"id,omitempty"`                   // 外部投递 ID
-	JobRecruitmentType int64  `json:"job_recruitment_type,omitempty"` // 职位招聘类型, 可选值有: 1: 社招, 2: 校招
+	JobRecruitmentType int64  `json:"job_recruitment_type,omitempty"` // 职位招聘类型可选值有: 社招校招
 	JobTitle           string `json:"job_title,omitempty"`            // 职位名称
 	ResumeSource       string `json:"resume_source,omitempty"`        // 简历来源
-	Stage              string `json:"stage,omitempty"`                // 阶段
-	TalentID           string `json:"talent_id,omitempty"`            // 人才 ID
+	Stage              string `json:"stage,omitempty"`                // 阶段名称
+	TalentID           string `json:"talent_id,omitempty"`            // 人才 ID, 详情请查看: [获取人才信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/get)
 	TerminationReason  string `json:"termination_reason,omitempty"`   // 终止原因
-	DeliveryType       int64  `json:"delivery_type,omitempty"`        // 投递类型, 可选值有: 1: HR 寻访, 2: 候选人主动投递, 3: 人才推荐, 4: 其他
-	ModifyTime         int64  `json:"modify_time,omitempty"`          // 更新时间
+	DeliveryType       int64  `json:"delivery_type,omitempty"`        // 投递类型可选值有: HR 寻访候选人主动投递人才推荐其他
+	ModifyTime         int64  `json:"modify_time,omitempty"`          // 投递在外部系统终止时间, 毫秒时间戳（字段类型为: int64）
 	TerminationType    string `json:"termination_type,omitempty"`     // 终止类型
 }
 

@@ -21,7 +21,13 @@ import (
 	"context"
 )
 
-// EventV2CorehrDepartmentCreatedV1 飞书人事中「部门被创建」时将触发此事件。注意: 1. 触发时间为部门实际生效时间, 如在 2022-01-01 创建部门, 部门生效时间设置为 2022-05-01, 事件将在 2022-05-01 进行推送。2. 现在创建部门也会同时触发「部门更新」事件
+// EventV2CorehrDepartmentCreatedV1 飞书人事中「部门被创建」时将触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=department&event=created)
+//
+// - 使用场景: 此事件为无序事件（创建有上下级关系的部门创建之后, 上下级部门事件可能乱序）, 若对事件顺序无依赖则可以使用V1版本事件, 否则请使用[【创建部门事件V2】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/events/created)
+// - [【搜索部门信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/search)[【获取父部门信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/parents) 等接口数据查询存在一定延迟, 不建议收到事件后立即查询以上接口。
+// - 该接口只会推送当前生效部门的变更事件。
+// - 未来生效的版本数据, 会在生效日期当天凌晨推送事件。例如: 今天为1月1日, 新建部门1月10日生效, 则1月10日凌晨发送该对象创建事件。
+// - 收到事件后, 可以立即通过[【批量查询部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)查询到最新创建的部门。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/events/created
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/department/created

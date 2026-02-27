@@ -22,12 +22,13 @@ import (
 	"io"
 )
 
-// DownloadImage 下载图片资源, 只能下载当前应用所上传且图片类型为message的图片。
+// DownloadImage 通过已上传图片的 Key 值下载图片。
 //
-// 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
-// - 只能下载机器人自己上传且图片类型为message的图片, avatar类型暂不支持下载
-// - 下载用户发送的资源, 请使用[获取消息中的资源文件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-resource/get)接口
+// ## 前提条件
+// 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// ## 使用限制
+// - 只能下载由当前机器人上传的图片, 且上传时图片类型为 用于发送消息。用于设置头像 的图片暂不支持下载。
+// - 该接口仅适用于通过图片的 Key 下载图片。如果你需要下载用户发送消息内的资源文件, 可使用[获取消息中的资源文件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-resource/get)接口。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/get
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/image/get
@@ -64,7 +65,7 @@ func (r *Mock) UnMockFileDownloadImage() {
 
 // DownloadImageReq ...
 type DownloadImageReq struct {
-	ImageKey string `path:"image_key" json:"-"` // 图片的key, 通过[上传图片](	/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)接口上传图片后获得, 示例值: "img_8d5181ca-0aed-40f0-b0d1-b1452132afbg"
+	ImageKey string `path:"image_key" json:"-"` // 图片的 Key, 通过[上传图片](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)接口上传图片后, 在返回结果中获取。示例值: "img_8d5181ca-0aed-40f0-b0d1-b1452132afbg"
 }
 
 // downloadImageResp ...

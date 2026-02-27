@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetCoreHRLeaveBalanceList 批量获取员工各个假期的余额数据。
+// GetCoreHRLeaveBalanceList 批量获取员工各个假期的余额数据。对应页面为假勤管理-休假管理-[假期报表](https://example.feishu.cn/people/workforce-management/manage/leave/leave_admin/balance)
 //
 // 仅飞书人事企业版可用
 //
@@ -60,11 +60,13 @@ func (r *Mock) UnMockCoreHRGetCoreHRLeaveBalanceList() {
 
 // GetCoreHRLeaveBalanceListReq ...
 type GetCoreHRLeaveBalanceListReq struct {
-	PageToken        *string  `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: `{"eu_nc":"[\"6994333322503669260\"]"}`
-	PageSize         int64    `query:"page_size" json:"-"`          // 分页大小, 示例值: 20
-	AsOfDate         *string  `query:"as_of_date" json:"-"`         // 查询截止日期, 即截止到某天余额数据的日期（不传则默认为当天）, 示例值: 2022-07-29
-	EmploymentIDList []string `query:"employment_id_list" json:"-"` // 员工 ID 列表, 最大 100 个（不传则默认查询全部员工）, 示例值: 6919733291281024526
-	UserIDType       *IDType  `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: people_corehr_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_corehr_id: 以飞书人事的 ID 来识别用户, 默认值: `people_corehr_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	PageToken        *string  `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: `{"eu_nc":"[\"6994333322503669260\"]"}
+	PageSize         int64    `query:"page_size" json:"-"`          // 分页大小示例值: 20
+	AsOfDate         *string  `query:"as_of_date" json:"-"`         // 查询截止日期, 即截止到某天余额数据的日期（不传则默认为当天）。格式为yyyy-MM-dd示例值: 2022-07-29
+	EmploymentIDList []string `query:"employment_id_list" json:"-"` // 员工 ID 列表, 最大 100 个（不传则默认查询全部员工）, 对应user_id_type。请注意: 此接口为get请求, 所以传入数组时需要满足get请求传入数组的规范, 例如employment_id_list=6919733291281024522&employment_id_list=6919733291281024523示例值: 6919733291281024526
+	UserIDType       *IDType  `query:"user_id_type" json:"-"`       // 用户 ID 类型示例值: people_corehr_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `people_corehr_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	TimeZone         *string  `query:"time_zone" json:"-"`          // 查询时区示例值: Asia/Shanghai
+	IncludeOffboard  *bool    `query:"include_offboard" json:"-"`   // 是否获取离职折算字段, 默认值为false示例值: true
 }
 
 // GetCoreHRLeaveBalanceListResp ...
@@ -76,9 +78,9 @@ type GetCoreHRLeaveBalanceListResp struct {
 
 // GetCoreHRLeaveBalanceListRespEmploymentLeaveBalance ...
 type GetCoreHRLeaveBalanceListRespEmploymentLeaveBalance struct {
-	EmploymentID     string                                                               `json:"employment_id,omitempty"`      // 雇佣信息ID
+	EmploymentID     string                                                               `json:"employment_id,omitempty"`      // 雇佣信息ID, 对应user_id_type
 	EmploymentName   []*GetCoreHRLeaveBalanceListRespEmploymentLeaveBalanceEmploymentName `json:"employment_name,omitempty"`    // 员工姓名
-	AsOfDate         string                                                               `json:"as_of_date,omitempty"`         // 截止日期, 即查询截止到某天余额数据的日期
+	AsOfDate         string                                                               `json:"as_of_date,omitempty"`         // 截止日期, 即查询截止到某天余额数据的日期。格式为yyyy-MM-dd
 	LeaveBalanceList []*GetCoreHRLeaveBalanceListRespEmploymentLeaveBalanceLeaveBalance   `json:"leave_balance_list,omitempty"` // 假期余额列表
 }
 
@@ -90,13 +92,20 @@ type GetCoreHRLeaveBalanceListRespEmploymentLeaveBalanceEmploymentName struct {
 
 // GetCoreHRLeaveBalanceListRespEmploymentLeaveBalanceLeaveBalance ...
 type GetCoreHRLeaveBalanceListRespEmploymentLeaveBalanceLeaveBalance struct {
-	LeaveTypeID          string                                                                          `json:"leave_type_id,omitempty"`          // 假期类型ID
-	LeaveTypeName        []*GetCoreHRLeaveBalanceListRespEmploymentLeaveBalanceLeaveBalanceLeaveTypeName `json:"leave_type_name,omitempty"`        // 假期类型名称
-	HistoricalCyclesLeft string                                                                          `json:"historical_cycles_left,omitempty"` // 结转的历史周期授予时长
-	ThisCycleTotal       int64                                                                           `json:"this_cycle_total,omitempty"`       // 本周期授予时长
-	ThisCycleTaken       string                                                                          `json:"this_cycle_taken,omitempty"`       // 本周期已休时长
-	LeaveBalance         string                                                                          `json:"leave_balance,omitempty"`          // 假期余额
-	LeaveDurationUnit    int64                                                                           `json:"leave_duration_unit,omitempty"`    // 假期时长单位, 可选值有: 1: 天, 2: 小时
+	LeaveTypeID           string                                                                          `json:"leave_type_id,omitempty"`            // 假期类型ID, 可用于* [创建假期发放记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave_granting_record/create)* [批量查询员工请假记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/leave_request_history)* [通过过期时间获取发放记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/leave_employ_expire_record/get)* [修改发放记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/leave_accrual_record/patch)
+	LeaveTypeName         []*GetCoreHRLeaveBalanceListRespEmploymentLeaveBalanceLeaveBalanceLeaveTypeName `json:"leave_type_name,omitempty"`          // 假期类型名称
+	HistoricalCyclesLeft  string                                                                          `json:"historical_cycles_left,omitempty"`   // 历史结转余额
+	ThisCycleTotal        int64                                                                           `json:"this_cycle_total,omitempty"`         // 当前周期发放
+	ThisCycleTaken        string                                                                          `json:"this_cycle_taken,omitempty"`         // 已休（归属当前周期）
+	LeaveBalance          string                                                                          `json:"leave_balance,omitempty"`            // 假期余额
+	LeaveDurationUnit     int64                                                                           `json:"leave_duration_unit,omitempty"`      // 假期时长单位可选值有: 1: 天- 2: 小时
+	HistoryCycleAccrual   string                                                                          `json:"history_cycle_accrual,omitempty"`    // 历史结转发放, 当入参include_offboard为true时返回
+	BalanceInCurrentCycle string                                                                          `json:"balance_in_current_cycle,omitempty"` // 当前周期余额
+	Taken                 string                                                                          `json:"taken,omitempty"`                    // 已休时长, 当入参include_offboard为true时返回
+	TakenHistoryCycle     string                                                                          `json:"taken_history_cycle,omitempty"`      // 历史周期已休时长
+	OffboardingBalance    string                                                                          `json:"offboarding_balance,omitempty"`      // 余额（离职折算）, 当入参include_offboard为true时返回
+	TakenCurrentDate      string                                                                          `json:"taken_current_date,omitempty"`       // 已休时长（截止当日）, 当入参include_offboard为true时返回
+	OffboardingGranted    string                                                                          `json:"offboarding_granted,omitempty"`      // 本周期授予时长（离职折算）, 当入参include_offboard为true时返回
 }
 
 // GetCoreHRLeaveBalanceListRespEmploymentLeaveBalanceLeaveBalanceLeaveTypeName ...

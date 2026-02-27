@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// DeleteCoreHRJobFamily 删除序列。
+// DeleteCoreHRJobFamily 该接口支持通过序列ID删除单个序列信息。
+//
+// 删除后无法恢复, 并且在系统中无法搜索到对应序列信息, 请谨慎操作。
+// 删除对象时请确认有无在职员工、异动单据、待入职单据、职务、职级、职等、岗位等关联此对象, 如有会导致删除失败。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/delete
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/job-management/job_family/delete
@@ -58,12 +61,11 @@ func (r *Mock) UnMockCoreHRDeleteCoreHRJobFamily() {
 
 // DeleteCoreHRJobFamilyReq ...
 type DeleteCoreHRJobFamilyReq struct {
-	JobFamilyID string `path:"job_family_id" json:"-"` // 需要删除的序列 ID, 示例值: "5425424525"
+	JobFamilyID string `path:"job_family_id" json:"-"` // 需要删除的序列 ID。ID获取方式: 调用[【新建序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/create)[【查询租户的序列信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)等接口可以返回序列ID示例值: "5425424525"
 }
 
 // DeleteCoreHRJobFamilyResp ...
-type DeleteCoreHRJobFamilyResp struct {
-}
+type DeleteCoreHRJobFamilyResp struct{}
 
 // deleteCoreHRJobFamilyResp ...
 type deleteCoreHRJobFamilyResp struct {

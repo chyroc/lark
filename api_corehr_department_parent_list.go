@@ -23,6 +23,8 @@ import (
 
 // GetCoreHRDepartmentParentList 该接口用来递归获取部门的父部门信息, 并按照由子到父的顺序返回有权限的父部门信息列表。
 //
+// 延迟说明: 该接口返回的数据延迟 10s内, 即: 直接部门上级或者上上级部门发生变化后, 10s后才能查询到最新数据。
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/parents
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/department/parents
 func (r *CoreHRService) GetCoreHRDepartmentParentList(ctx context.Context, request *GetCoreHRDepartmentParentListReq, options ...MethodOptionFunc) (*GetCoreHRDepartmentParentListResp, *Response, error) {
@@ -58,8 +60,8 @@ func (r *Mock) UnMockCoreHRGetCoreHRDepartmentParentList() {
 
 // GetCoreHRDepartmentParentListReq ...
 type GetCoreHRDepartmentParentListReq struct {
-	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门 ID 类型, 示例值: open_department_id, 可选值有: open_department_id: 以 open_department_id 来标识部门, department_id: 以 department_id 来标识部门, people_corehr_department_id: 以 people_corehr_department_id 来标识部门, 默认值: `open_department_id`
-	DepartmentIDList []string          `json:"department_id_list,omitempty"` // 部门 ID 列表, 一次性最多传入 100 个部门 ID, 示例值: ["6893014062142064111"], 长度范围: `1` ～ `100`
+	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门 ID 类型示例值: open_department_id可选值有: 【飞书】用来在具体某个应用中标识一个部门, 同一个department_id 在不同应用中的 open_department_id 相同。【飞书】用来标识租户内一个唯一的部门。【飞书人事】用来标识「飞书人事」中的部门。默认值: `open_department_id
+	DepartmentIDList []string          `json:"department_id_list,omitempty"` // 部门 ID 列表, 一次性最多传入 100 个部门 ID- 调用[【创建部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/create)[【搜索部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/search)等接口可以返回部门ID示例值: ["6893014062142064111"] 长度范围: `1` ～ `100
 }
 
 // GetCoreHRDepartmentParentListResp ...
@@ -77,14 +79,14 @@ type GetCoreHRDepartmentParentListRespItem struct {
 type GetCoreHRDepartmentParentListRespItemParentDepartment struct {
 	DepartmentID       string                                                                 `json:"department_id,omitempty"`        // 部门 ID
 	DepartmentName     []*GetCoreHRDepartmentParentListRespItemParentDepartmentDepartmentName `json:"department_name,omitempty"`      // 部门名称
-	ParentDepartmentID string                                                                 `json:"parent_department_id,omitempty"` // 上级部门 ID
+	ParentDepartmentID string                                                                 `json:"parent_department_id,omitempty"` // 上级部门 ID（若查询的是一级部门, 则该字段不展示）- 可通过[批量查询部门V2](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get) 或者[搜索部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/search) 获取详情
 	Active             bool                                                                   `json:"active,omitempty"`               // 是否启用
 	IsRoot             bool                                                                   `json:"is_root,omitempty"`              // 是否根部门
 }
 
 // GetCoreHRDepartmentParentListRespItemParentDepartmentDepartmentName ...
 type GetCoreHRDepartmentParentListRespItemParentDepartmentDepartmentName struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
+	Lang  string `json:"lang,omitempty"`  // 语言, 中文用zh-CN, 英文用en-US
 	Value string `json:"value,omitempty"` // 内容
 }
 

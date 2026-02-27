@@ -21,10 +21,12 @@ import (
 	"context"
 )
 
-// GetCoreHRPreHire 根据 ID 查询单个待入职人员。
+// GetCoreHRPreHire 根据 ID 查询单个待入职人员, 本接口不再推荐使用（个人信息相关数据不完整）, 请使用[查询待入职](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/query)接口获取更完整信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/pre_hire/get
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/pre_hire/get
+//
+// Deprecated
 func (r *CoreHRService) GetCoreHRPreHire(ctx context.Context, request *GetCoreHRPreHireReq, options ...MethodOptionFunc) (*GetCoreHRPreHireResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRPreHire != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRPreHire mock enable")
@@ -58,7 +60,7 @@ func (r *Mock) UnMockCoreHRGetCoreHRPreHire() {
 
 // GetCoreHRPreHireReq ...
 type GetCoreHRPreHireReq struct {
-	PreHireID string `path:"pre_hire_id" json:"-"` // 待入职ID, 示例值: "121215"
+	PreHireID string `path:"pre_hire_id" json:"-"` // 待入职ID, 可从[搜索待入职人员信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/search)接口获取示例值: "121215"
 }
 
 // GetCoreHRPreHireResp ...
@@ -68,21 +70,21 @@ type GetCoreHRPreHireResp struct {
 
 // GetCoreHRPreHireRespPreHire ...
 type GetCoreHRPreHireRespPreHire struct {
-	AtsApplicationID string                                       `json:"ats_application_id,omitempty"` // 招聘投递 ID, 详细信息可以通过招聘的[获取投递信息]接口查询获得
-	ID               string                                       `json:"id,omitempty"`                 // 待入职ID
-	HireDate         string                                       `json:"hire_date,omitempty"`          // 入职日期
-	EmployeeType     *GetCoreHRPreHireRespPreHireEmployeeType     `json:"employee_type,omitempty"`      // 雇佣类型
+	AtsApplicationID string                                       `json:"ats_application_id,omitempty"` // 招聘投递 ID, 可以通过[获取投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/list)接口获取
+	ID               string                                       `json:"id,omitempty"`                 // 待入职ID, 可从[待入职列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/search)接口获取
+	HireDate         string                                       `json:"hire_date,omitempty"`          // 入职日期, 格式: "YYYY-MM-DD"
+	EmployeeType     *GetCoreHRPreHireRespPreHireEmployeeType     `json:"employee_type,omitempty"`      // 人员类型
 	WorkerID         string                                       `json:"worker_id,omitempty"`          // 人员编号
-	EmployeeTypeID   string                                       `json:"employee_type_id,omitempty"`   // 雇佣类型
-	PersonID         string                                       `json:"person_id,omitempty"`          // 引用Person ID
+	EmployeeTypeID   string                                       `json:"employee_type_id,omitempty"`   // 人员类型, 可通过[【批量查询人员类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)接口获取
+	PersonID         string                                       `json:"person_id,omitempty"`          // 个人信息ID
 	CustomFields     []*GetCoreHRPreHireRespPreHireCustomField    `json:"custom_fields,omitempty"`      // 自定义字段
 	CostCenterRate   []*GetCoreHRPreHireRespPreHireCostCenterRate `json:"cost_center_rate,omitempty"`   // 成本中心分摊信息
-	OnboardingStatus *GetCoreHRPreHireRespPreHireOnboardingStatus `json:"onboarding_status,omitempty"`  // 入职状态, `preboarding`: 待入职, `day_one`: 准备就绪, `completed`: 已完成, `withdrawn`: 已撤销, `deleted`: 已删除, 对应的系统操作是将待入职人员回退至 Offer 沟通阶段
+	OnboardingStatus *GetCoreHRPreHireRespPreHireOnboardingStatus `json:"onboarding_status,omitempty"`  // 入职状态- `preboarding`: 待入职- `day_one`: 准备就绪- `completed`: 已完成- `withdrawn`: 已撤销- `deleted`: 已删除, 对应的系统操作是将待入职人员回退至 Offer 沟通阶段
 }
 
 // GetCoreHRPreHireRespPreHireCostCenterRate ...
 type GetCoreHRPreHireRespPreHireCostCenterRate struct {
-	CostCenterID string `json:"cost_center_id,omitempty"` // 支持的成本中心id
+	CostCenterID string `json:"cost_center_id,omitempty"` // 支持的成本中心id, 详细信息可通过[【搜索成本中心信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)接口查询获得
 	Rate         int64  `json:"rate,omitempty"`           // 分摊比例
 }
 

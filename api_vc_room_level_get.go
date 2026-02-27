@@ -58,7 +58,7 @@ func (r *Mock) UnMockVCGetVCRoomLevel() {
 
 // GetVCRoomLevelReq ...
 type GetVCRoomLevelReq struct {
-	RoomLevelID string `path:"room_level_id" json:"-"` // 层级ID, 查询租户层级可传0, 示例值: "omb_57c9cc7d9a81e27e54c8fabfd02759e7"
+	RoomLevelID string `path:"room_level_id" json:"-"` // 层级ID, 查询租户层级可传0示例值: "omb_57c9cc7d9a81e27e54c8fabfd02759e7"
 }
 
 // GetVCRoomLevelResp ...

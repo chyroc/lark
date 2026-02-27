@@ -58,13 +58,12 @@ func (r *Mock) UnMockMailDeleteMailUserMailboxAlias() {
 
 // DeleteMailUserMailboxAliasReq ...
 type DeleteMailUserMailboxAliasReq struct {
-	UserMailboxID string `path:"user_mailbox_id" json:"-"` // 用户邮箱地址, 示例值: "user@xxx.xx"
-	AliasID       string `path:"alias_id" json:"-"`        // 别名邮箱地址, 示例值: "user_alias@xxx.xx"
+	UserMailboxID string `path:"user_mailbox_id" json:"-"` // 用户邮箱地址示例值: "user@xxx.xx"
+	AliasID       string `path:"alias_id" json:"-"`        // 别名邮箱地址示例值: "user_alias@xxx.xx"
 }
 
 // DeleteMailUserMailboxAliasResp ...
-type DeleteMailUserMailboxAliasResp struct {
-}
+type DeleteMailUserMailboxAliasResp struct{}
 
 // deleteMailUserMailboxAliasResp ...
 type deleteMailUserMailboxAliasResp struct {

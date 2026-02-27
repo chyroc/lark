@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetBitableTableList 根据  app_token, 获取多维表格下的所有数据表。
+// GetBitableTableList 列出多维表格中的所有数据表, 包括其 ID、版本号和名称。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table/list
@@ -59,9 +59,9 @@ func (r *Mock) UnMockBitableGetBitableTableList() {
 
 // GetBitableTableListReq ...
 type GetBitableTableListReq struct {
-	AppToken  string  `path:"app_token" json:"-"`   // 多维表格的唯一标识符 [app_token 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#8121eebe), 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
-	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: tblsRc9GRRXKqhvW
-	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 10, 默认值: `20`, 最大值: `100`
+	AppToken  string  `path:"app_token" json:"-"`   // 多维表格 App 的唯一标识。不同形态的多维表格, 其 `app_token` 的获取方式不同: 如果多维表格的 URL 以 [feishu.cn/base] 开头, 该多维表格的 `app_token` 是下图高亮部分: ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004)- 如果多维表格的 URL 以 [feishu.cn/wiki] 开头, 你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时, `obj_token` 字段的值才是多维表格的 `app_token`。了解更多, 参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: tblsRc9GRRXKqhvW
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小示例值: 10默认值: `20` 最大值: `100
 }
 
 // GetBitableTableListResp ...
@@ -74,9 +74,9 @@ type GetBitableTableListResp struct {
 
 // GetBitableTableListRespItem ...
 type GetBitableTableListRespItem struct {
-	TableID  string `json:"table_id,omitempty"` // 数据表 id
-	Revision int64  `json:"revision,omitempty"` // 数据表的版本号
-	Name     string `json:"name,omitempty"`     // 数据表名字
+	TableID  string `json:"table_id,omitempty"` // 数据表 ID
+	Revision int64  `json:"revision,omitempty"` // 数据表的版本号。对数据表进行修改时更新, 如新增、删除记录, 修改数据表名称等, 初始为 1, 每次更新+1
+	Name     string `json:"name,omitempty"`     // 数据表名称
 }
 
 // getBitableTableListResp ...

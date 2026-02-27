@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetApproval 根据 Approval Code 获取某个审批定义的详情, 用于构造创建审批实例的请求。
+// GetApproval 根据审批定义 Code 以及语言、用户 ID 等筛选条件获取指定审批定义的信息, 包括审批定义名称、状态、表单控件以及节点等信息。获取审批定义信息后, 可根据信息构造[创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create)的请求。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/approval/get
@@ -58,45 +58,45 @@ func (r *Mock) UnMockApprovalGetApproval() {
 
 // GetApprovalReq ...
 type GetApprovalReq struct {
-	ApprovalCode string  `path:"approval_code" json:"-"`  // 审批定义 Code, 示例值: "7C468A54-8745-2245-9675-08B7C63E7A85"
-	Locale       *string `query:"locale" json:"-"`        // 语言可选值, 示例值: zh-CN, 可选值有: zh-CN: 中文, en-US: 英文, ja-JP: 日文
-	WithAdminID  *bool   `query:"with_admin_id" json:"-"` // 可选是否返回有数据权限审批流程管理员ID列表, 示例值: false
-	UserIDType   *IDType `query:"user_id_type" json:"-"`  // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	ApprovalCode string  `path:"approval_code" json:"-"`  // 审批定义 Code。获取方式: 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后, 从响应参数 approval_code 获取。- 登录审批管理后台, 在指定审批定义的 URL 中获取, 具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。示例值: "7C468A54-8745-2245-9675-08B7C63E7A85"
+	Locale       *string `query:"locale" json:"-"`        // 语言可选值, 默认为审批定义配置的默认语言。示例值: zh-CN可选值有: 中文英文日文
+	WithAdminID  *bool   `query:"with_admin_id" json:"-"` // 是否返回有数据管理权限的审批流程管理员 ID 列表（即响应参数 approval_admin_ids）。默认值: false示例值: false
+	UserIDType   *IDType `query:"user_id_type" json:"-"`  // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetApprovalResp ...
 type GetApprovalResp struct {
 	ApprovalName     string                   `json:"approval_name,omitempty"`      // 审批名称
-	Status           string                   `json:"status,omitempty"`             // 审批定义状态, 可选值有: ACTIVE: 已启用, INACTIVE: 已停用, DELETED: 已删除, UNKNOWN: 未知
-	Form             ApprovalWidgetList       `json:"form,omitempty"`               // 控件信息, 见下方form字段说明
+	Status           string                   `json:"status,omitempty"`             // 审批定义状态可选值有: 已启用已停用已删除未知
+	Form             ApprovalWidgetList       `json:"form,omitempty"`               // 控件参数信息, 见下方 form 字段说明 章节。
 	NodeList         []*GetApprovalRespNode   `json:"node_list,omitempty"`          // 节点信息
-	Viewers          []*GetApprovalRespViewer `json:"viewers,omitempty"`            // 可见人列表
-	ApprovalAdminIDs []string                 `json:"approval_admin_ids,omitempty"` // 有数据管理权限的审批流程管理员ID, 由参数“with_admin_id”控制是否返回
+	Viewers          []*GetApprovalRespViewer `json:"viewers,omitempty"`            // 审批定义的可见人列表
+	ApprovalAdminIDs []string                 `json:"approval_admin_ids,omitempty"` // 有数据管理权限的审批流程管理员的 open_id, 由参数 with_admin_id 控制是否返回。
 }
 
 // GetApprovalRespNode ...
 type GetApprovalRespNode struct {
 	Name                string                                    `json:"name,omitempty"`                  // 节点名称
-	NeedApprover        bool                                      `json:"need_approver,omitempty"`         // 是否发起人自选节点 true - 发起审批时需要提交审批人
+	NeedApprover        bool                                      `json:"need_approver,omitempty"`         // 是否为发起人自选节点。取值为 true 表示发起审批时需要提交人自选审批人。
 	NodeID              string                                    `json:"node_id,omitempty"`               // 节点 ID
 	CustomNodeID        string                                    `json:"custom_node_id,omitempty"`        // 节点自定义 ID, 如果没有设置则不返回
-	NodeType            string                                    `json:"node_type,omitempty"`             // 审批方式, 可选值有: AND: 会签, OR: 或签, SEQUENTIAL: 依次审批, CC_NODE: 抄送节点
-	ApproverChosenMulti bool                                      `json:"approver_chosen_multi,omitempty"` // 是否支持多选: true-支持, 发起、结束节点该值无意义
-	ApproverChosenRange []*GetApprovalRespNodeApproverChosenRange `json:"approver_chosen_range,omitempty"` // 自选范围
-	RequireSignature    bool                                      `json:"require_signature,omitempty"`     // 是否签名
+	NodeType            string                                    `json:"node_type,omitempty"`             // 审批方式可选值有: 会签或签依次审批抄送节点
+	ApproverChosenMulti bool                                      `json:"approver_chosen_multi,omitempty"` // 选择方式是否支持多选。流程的开始、结束节点该值无意义。
+	ApproverChosenRange []*GetApprovalRespNodeApproverChosenRange `json:"approver_chosen_range,omitempty"` // 提交人自选审批人的范围
+	RequireSignature    bool                                      `json:"require_signature,omitempty"`     // 审批同意时是否需要手写签名。
 }
 
 // GetApprovalRespNodeApproverChosenRange ...
 type GetApprovalRespNodeApproverChosenRange struct {
-	ApproverRangeType int64    `json:"approver_range_type,omitempty"` // 指定范围: 0-all, 1-指定角色, 2-指定人员, 可选值有: 0: 全公司范围, 1: 指定角色范围, 2: 指定用户范围
-	ApproverRangeIDs  []string `json:"approver_range_ids,omitempty"`  // 根据上面的type, 分别存放角色id与人员open_id, type为0时本字段为空列表
+	ApproverRangeType int64    `json:"approver_range_type,omitempty"` // 指定范围可选值有: 全公司范围指定角色范围指定用户范围
+	ApproverRangeIDs  []string `json:"approver_range_ids,omitempty"`  // 资源 ID。- approver_range_type 取值为 0 时, 该参数为空。- approver_range_type 取值为 1 时, 该参数取值为角色 ID。- approver_range_type 取值为 2 时, 该参数取值为用户 open_id。
 }
 
 // GetApprovalRespViewer ...
 type GetApprovalRespViewer struct {
-	Type   string `json:"type,omitempty"`    // 可见人类型, 可选值有: TENANT: 租户内可见, DEPARTMENT: 指定部门, USER: 指定用户, ROLE: 指定角色, USER_GROUP: 指定用户组, NONE: 任何人都不可见
-	ID     string `json:"id,omitempty"`      // 在可见人类型为DEPARTMENT时, id为部门的id ；在可见人类型为USER时, id为用户的id ；在可见人类型为ROLE时, id为角色的id ；在可见人类型为USER_GROUP时, id为用户组的id
-	UserID string `json:"user_id,omitempty"` // 在可见人类型为USER时, 表示可见人用户id
+	Type   string `json:"type,omitempty"`    // 可见人类型可选值有: 企业内可见指定部门指定用户指定角色指定用户组任何人都不可见
+	ID     string `json:"id,omitempty"`      // 资源 ID。- 在可见人类型为 DEPARTMENT 时, ID 为部门 ID。- 在可见人类型为 USER 时, ID 为用户 open_id。- 在可见人类型为 ROLE 时, ID 为角色 ID。- 在可见人类型为 USER_GROUP 时, ID 为用户组 ID。
+	UserID string `json:"user_id,omitempty"` // 在可见人类型为 USER 时, 表示可见人用户 open_id。
 }
 
 // getApprovalResp ...

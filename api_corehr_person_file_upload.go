@@ -60,8 +60,8 @@ func (r *Mock) UnMockCoreHRUploadCoreHRPersonFile() {
 
 // UploadCoreHRPersonFileReq ...
 type UploadCoreHRPersonFileReq struct {
-	FileContent io.Reader `json:"file_content,omitempty"` // 文件二进制内容, 示例值: file binary
-	FileName    string    `json:"file_name,omitempty"`    // 文件名称, 示例值: "个人信息"
+	FileContent io.Reader `json:"file_content,omitempty"` // 文件二进制内容, 大小不超过50M示例值: file binary
+	FileName    string    `json:"file_name,omitempty"`    // 文件名称（需带有文件后缀）示例值: "个人信息.xlsx"
 }
 
 // UploadCoreHRPersonFileResp ...

@@ -58,7 +58,7 @@ func (r *Mock) UnMockAdminGetAdminBadge() {
 
 // GetAdminBadgeReq ...
 type GetAdminBadgeReq struct {
-	BadgeID string `path:"badge_id" json:"-"` // 勋章id, 示例值: "m_DjMzaK", 长度范围: `1` ～ `64` 字符
+	BadgeID string `path:"badge_id" json:"-"` // 勋章id示例值: "m_DjMzaK" 长度范围: `1` ～ `64` 字符
 }
 
 // GetAdminBadgeResp ...

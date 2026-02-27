@@ -61,12 +61,11 @@ func (r *Mock) UnMockCalendarDeleteCalendarTimeoffEvent() {
 
 // DeleteCalendarTimeoffEventReq ...
 type DeleteCalendarTimeoffEventReq struct {
-	TimeoffEventID string `path:"timeoff_event_id" json:"-"` // 请假日程 ID, 在创建请假日程时从返回结果中获取, 示例值: "timeoff:XXXXXX-XXXX-0917-1623-aa493d591a39"
+	TimeoffEventID string `path:"timeoff_event_id" json:"-"` // 请假日程 ID, 在创建请假日程时从返回结果中获取。示例值: "timeoff:XXXXXX-XXXX-0917-1623-aa493d591a39"
 }
 
 // DeleteCalendarTimeoffEventResp ...
-type DeleteCalendarTimeoffEventResp struct {
-}
+type DeleteCalendarTimeoffEventResp struct{}
 
 // deleteCalendarTimeoffEventResp ...
 type deleteCalendarTimeoffEventResp struct {

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetCoreHRSecurityGroupBp 通过部门或工作地点, 查询对应的 HRBP / 属地 BP。
+// GetCoreHRSecurityGroupBp 通过部门或工作地点, 查询对应的 HRBP / 属地 BP, 返回的信息中包含BP的员工ID、部门ID、属地ID等信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/security_group/query
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/authorization/query
@@ -58,15 +58,17 @@ func (r *Mock) UnMockCoreHRGetCoreHRSecurityGroupBp() {
 
 // GetCoreHRSecurityGroupBpReq ...
 type GetCoreHRSecurityGroupBpReq struct {
-	DepartmentIDType *DepartmentIDType                  `query:"department_id_type" json:"-"` // 此次调用中使用的部门 ID 类型, 示例值: people_corehr_department_id, 可选值有: open_department_id: 以 open_department_id 来标识部门, department_id: 以 department_id 来标识部门, people_corehr_department_id: 以 people_corehr_department_id 来标识部门, 默认值: `people_corehr_department_id`
+	DepartmentIDType *DepartmentIDType                  `query:"department_id_type" json:"-"` // 此次调用中使用的部门 ID 类型示例值: people_corehr_department_id可选值有: 以 open_department_id 来标识部门以 department_id 来标识部门以 people_corehr_department_id 来标识部门默认值: `people_corehr_department_id
 	ItemList         []*GetCoreHRSecurityGroupBpReqItem `json:"item_list,omitempty"`          // 角色列表, 一次最多支持查询 50 个
+	UpdatedAtGte     *string                            `json:"updated_at_gte,omitempty"`     // 授权时间大于示例值: "1729773628"
+	UpdatedAtLte     *string                            `json:"updated_at_lte,omitempty"`     // 授权时间小于示例值: "1729773628"
 }
 
 // GetCoreHRSecurityGroupBpReqItem ...
 type GetCoreHRSecurityGroupBpReqItem struct {
-	RoleKey        string  `json:"role_key,omitempty"`         // 角色类型的唯一标识, HRBP: 与部门有关, role_key 固定为 「hrbp」, 属地 BP: 与部门、工作地点有关, role_key 固定为 「location_bp」, 示例值: "location_bp"
-	DepartmentID   string  `json:"department_id,omitempty"`    // 部门 ID, 查询 HRBP 需输入部门 ID, 示例值: "7063072995761456670"
-	WorkLocationID *string `json:"work_location_id,omitempty"` // 工作地点 ID, 查询属地 BP 需要输入部门 ID 与 工作地点 ID, 示例值: "6892687221355185677"
+	RoleKey        string  `json:"role_key,omitempty"`         // 角色类型的唯一标识- HRBP: 与部门有关, role_key 固定为 「hrbp」- 属地 BP: 与部门、工作地点有关, role_key 固定为 「location_bp」示例值: "location_bp"
+	DepartmentID   string  `json:"department_id,omitempty"`    // 部门 ID, 查询 HRBP 需输入部门 ID, ID类型与department_id_type的取值意义一致。  > 可以使用 [ID转换服务](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/common_data-id/convert)换取 [department_id]  > 部门id也可通过[搜索部门信息](https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/department/search)接口获取。示例值: "7063072995761456670"
+	WorkLocationID *string `json:"work_location_id,omitempty"` // 工作地点 ID, 查询属地 BP 需要输入部门 ID 与 工作地点 ID>可从[批量查询地点](https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/location/list)接口获取, 或者在「[飞书人事](https://people.feishu.cn/people/)-组织管理-地点」中查看。示例值: "6892687221355185677"
 }
 
 // GetCoreHRSecurityGroupBpResp ...
@@ -76,8 +78,8 @@ type GetCoreHRSecurityGroupBpResp struct {
 
 // GetCoreHRSecurityGroupBpRespHrbp ...
 type GetCoreHRSecurityGroupBpRespHrbp struct {
-	EmploymentIDList []string `json:"employment_id_list,omitempty"` // HRBP/属地 BP 的雇员ID : 对于 HRBP 而言, 若入参的部门没有找到对应的 HRBP, 将向上找寻, 即向其上级部门取对应的 HRBP, 且同一部门可能有多个 HRBP；, 对于 属地 BP 而言, 若入参的部门和地点没有找到对应的属地 BP, 将优先拿地点向上找寻, 即向其上级地点取对应的属地 BP
-	DepartmentID     string   `json:"department_id,omitempty"`      // 部门 ID
+	EmploymentIDList []string `json:"employment_id_list,omitempty"` // HRBP/属地 BP 的雇员ID : 对于 HRBP 而言, 若入参的部门没有找到对应的 HRBP, 将向上找寻, 即向其上级部门取对应的 HRBP, 且同一部门可能有多个 HRBP；对于 属地 BP 而言, 若入参的部门和地点没有找到对应的属地 BP, 将优先拿地点向上找寻, 即向其上级地点取对应的属地 BP  > 如想获取BP的详细信息, 可通过[搜索员工信息](https://open.larkoffice.com/document/server-docs/corehr-v1/employee/search)接口获取。
+	DepartmentID     string   `json:"department_id,omitempty"`      // 部门 ID  > 如想获取部门详细信息, 可通过[搜索部门信息](https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/department/search)接口获取。
 	WorkLocationID   string   `json:"work_location_id,omitempty"`   // 工作地点 ID
 }
 

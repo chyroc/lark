@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2VCMeetingRecordingReadyV1 发生在录制文件上传完毕时[仅通过Open API预约的会议会产生此类事件]
+// EventV2VCMeetingRecordingReadyV1 发生在录制文件上传完毕时【仅通过Open API预约的会议会产生此类事件】{使用示例}(url=/api/tools/api_explore/api_explore_config?project=vc&version=v1&resource=meeting&event=recording_ready)
 //
 // 收到该事件后, 方可进行录制文件获取、授权等操作。
 //
@@ -57,6 +57,6 @@ type EventV2VCMeetingRecordingReadyV1MeetingOwner struct {
 // EventV2VCMeetingRecordingReadyV1MeetingOwnerID ...
 type EventV2VCMeetingRecordingReadyV1MeetingOwnerID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }

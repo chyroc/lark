@@ -23,7 +23,11 @@ import (
 
 // SearchBitableRecord 该接口用于查询数据表中的现有记录, 单次最多查询 500 行记录, 支持分页获取。
 //
+// ## 注意事项
+// 若多维表格开启了高级权限, 你需确保调用身份拥有多维表格的可管理权限, 否则可能出现调用成功但返回数据为空的情况。了解具体步骤, 参考[如何为应用或用户开通文档权限](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#16c6475a)。
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/search
+// new doc: https://open.feishu.cn/document/docs/bitable-v1/app-table-record/search
 func (r *BitableService) SearchBitableRecord(ctx context.Context, request *SearchBitableRecordReq, options ...MethodOptionFunc) (*SearchBitableRecordResp, *Response, error) {
 	if r.cli.mock.mockBitableSearchBitableRecord != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Bitable#SearchBitableRecord mock enable")
@@ -58,71 +62,73 @@ func (r *Mock) UnMockBitableSearchBitableRecord() {
 
 // SearchBitableRecordReq ...
 type SearchBitableRecordReq struct {
-	AppToken        string                        `path:"app_token" json:"-"`         // 表格token, 示例值: "NQRxbRkBMa6OnZsjtERcxhNWnNh", 长度范围: `0` ～ `100` 字符
-	TableID         string                        `path:"table_id" json:"-"`          // 表ID, 示例值: "tbl0xe5g8PP3U3cS", 长度范围: `0` ～ `50` 字符
-	UserIDType      *IDType                       `query:"user_id_type" json:"-"`     // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	PageToken       *string                       `query:"page_token" json:"-"`       // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: eVQrYzJBNDNONlk4VFZBZVlSdzlKdFJ4bVVHVExENDNKVHoxaVdiVnViQT0=
-	PageSize        *int64                        `query:"page_size" json:"-"`        // 分页大小, 示例值: 10, 默认值: `20`
-	ViewID          *string                       `json:"view_id,omitempty"`          // 视图的唯一标识符, 获取指定视图下的记录[view_id 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#8121eebe), 注意: 当 filter 参数 或 sort 参数不为空时, 请求视为对数据表中的全部数据做条件过滤, 指定的view_id 会被忽略, 示例值: "vewqhz51lk", 长度范围: `0` ～ `50` 字符
-	FieldNames      []string                      `json:"field_names,omitempty"`      // 字段名称, 用于指定本次查询返回记录中包含的字段, 示例值: ["字段1", "字段2"], 长度范围: `0` ～ `200`
-	Sort            []*SearchBitableRecordReqSort `json:"sort,omitempty"`             // 排序条件, 长度范围: `0` ～ `100`
-	Filter          *SearchBitableRecordReqFilter `json:"filter,omitempty"`           // 筛选条件
-	AutomaticFields *bool                         `json:"automatic_fields,omitempty"` // 控制是否返回自动计算的字段, true 表示返回, 示例值: false
+	AppToken        string                        `path:"app_token" json:"-"`         // 多维表格 App 的唯一标识。不同形态的多维表格, 其 app_token 的获取方式不同: 如果多维表格的 URL 以 [feishu.cn/base] 开头, 该多维表格的 app_token 是下图高亮部分: ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004)- 如果多维表格的 URL 以 [feishu.cn/wiki] 开头, 你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 obj_type 的值为 bitable 时, obj_token 字段的值才是多维表格的 app_token。了解更多, 参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。示例值: "NQRxbRkBMa6OnZsjtERcxhNWnNh" 长度范围: `0` ～ `100` 字符
+	TableID         string                        `path:"table_id" json:"-"`          // 多维表格数据表的唯一标识。获取方式: 你可通过多维表格 URL 获取 `table_id`, 下图高亮部分即为当前数据表的 `table_id`- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`  ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976)示例值: "tbl0xe5g8PP3U3cS" 长度范围: `0` ～ `50` 字符
+	UserIDType      *IDType                       `query:"user_id_type" json:"-"`     // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	PageToken       *string                       `query:"page_token" json:"-"`       // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eVQrYzJBNDNONlk4VFZBZVlSdzlKdFJ4bVVHVExENDNKVHoxaVdiVnViQT0=
+	PageSize        *int64                        `query:"page_size" json:"-"`        // 分页大小。最大值为 500示例值: 10默认值: `20
+	ViewID          *string                       `json:"view_id,omitempty"`          // 多维表格中视图的唯一标识。获取方式: 在多维表格的 URL 地址栏中, view_id 是下图中高亮部分: ![view_id.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/140668632c97e0095832219001d17c54_DJMgVH9x2S.png?height=748&lazyload=true&width=2998)- 通过[列出视图](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-view/list)接口获取。暂时无法获取到嵌入到云文档中的多维表格的 view_id。注意: 当 filter 参数 或 sort 参数不为空时, 请求视为对数据表中的全部数据做条件过滤, 指定的 view_id 会被忽略。示例值: "vewqhz51lk" 长度范围: `0` ～ `50` 字符
+	FieldNames      []string                      `json:"field_names,omitempty"`      // 字段名称, 用于指定本次查询返回记录中包含的字段示例值: ["字段1", "字段2"] 长度范围: `0` ～ `200
+	Sort            []*SearchBitableRecordReqSort `json:"sort,omitempty"`             // 排序条件 长度范围: `0` ～ `100
+	Filter          *SearchBitableRecordReqFilter `json:"filter,omitempty"`           // 包含条件筛选信息的对象。了解 filter 填写指南和使用示例（如怎样同时使用 `and` 和 `or` 逻辑链接词）, 参考[记录筛选参数填写指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/record-filter-guide)。
+	AutomaticFields *bool                         `json:"automatic_fields,omitempty"` // 是否自动计算并返回创建时间（created_time）、修改时间（last_modified_time）、创建人（created_by）、修改人（last_modified_by）这四类字段。默认为 false, 表示不返回。示例值: false
 }
 
 // SearchBitableRecordReqFilter ...
 type SearchBitableRecordReqFilter struct {
-	Conjunction *string                                  `json:"conjunction,omitempty"` // 条件逻辑连接词, 示例值: "and", 可选值有: and: 满足全部条件, or: 满足任一条件, 长度范围: `0` ～ `10` 字符
-	Conditions  []*SearchBitableRecordReqFilterCondition `json:"conditions,omitempty"`  // 筛选条件集合, 长度范围: `0` ～ `50`
+	Conjunction *string                                  `json:"conjunction,omitempty"` // 表示条件之间的逻辑连接词, 该字段必填, 请忽略左侧必填列的否示例值: "and"可选值有: 满足全部条件满足任一条件 长度范围: `0` ～ `10` 字符
+	Conditions  []*SearchBitableRecordReqFilterCondition `json:"conditions,omitempty"`  // 筛选条件集合 长度范围: `0` ～ `50
 }
 
 // SearchBitableRecordReqFilterCondition ...
 type SearchBitableRecordReqFilterCondition struct {
-	FieldName string   `json:"field_name,omitempty"` // 筛选条件的左值, 值为字段的名称, 示例值: "字段1", 长度范围: `0` ～ `1000` 字符
-	Operator  string   `json:"operator,omitempty"`   // 条件运算符, 示例值: "is", 可选值有: is: 等于, isNot: 不等于, contains: 包含, doesNotContain: 不包含, isEmpty: 为空, isNotEmpty: 不为空, isGreater: 大于, isGreaterEqual: 大于等于, isLess: 小于, isLessEqual: 小于等于, like: LIKE 运算符。暂未支持, in: IN 运算符。暂未支持
-	Value     []string `json:"value,omitempty"`      // 目标值, [目标值填写指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/record-filter-guide), 示例值: ["文本内容"], 长度范围: `0` ～ `10`
+	FieldName string   `json:"field_name,omitempty"` // 筛选条件的左值, 值为字段的名称示例值: "字段1" 长度范围: `0` ～ `1000` 字符
+	Operator  string   `json:"operator,omitempty"`   // 条件运算符示例值: "is"可选值有: 等于不等于（不支持日期字段, 了解如何查询日期字段, 参考[日期字段填写说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/record-filter-guide#29d9dc89)）包含（不支持日期字段）不包含（不支持日期字段）为空不为空大于大于等于（不支持日期字段）小于小于等于（不支持日期字段）LIKE 运算符。暂未支持IN 运算符。暂未支持
+	Value     []string `json:"value,omitempty"`      // 条件的值, 可以是单个值或多个值的数组。不同字段类型和不同的 operator 可填的值不同。详情参考[字段目标值（value）填写说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/record-filter-guide#3e0fd644)。示例值: ["文本内容"] 长度范围: `0` ～ `10
 }
 
 // SearchBitableRecordReqSort ...
 type SearchBitableRecordReqSort struct {
-	FieldName *string `json:"field_name,omitempty"` // 字段名称, 示例值: "多行文本", 长度范围: `0` ～ `1000` 字符
-	Desc      *bool   `json:"desc,omitempty"`       // 是否倒序排序, 示例值: true, 默认值: `false`
+	FieldName *string `json:"field_name,omitempty"` // 字段名称示例值: "多行文本" 长度范围: `0` ～ `1000` 字符
+	Desc      *bool   `json:"desc,omitempty"`       // 是否倒序排序示例值: true默认值: `false
 }
 
 // SearchBitableRecordResp ...
 type SearchBitableRecordResp struct {
-	Items     []*SearchBitableRecordRespItem `json:"items,omitempty"`      // 数组类型。record 结果。了解 record 数据结构, 参考[数据结构](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/development-guide/bitable-structure)
+	Items     []*SearchBitableRecordRespItem `json:"items,omitempty"`      // 数组类型。record 结果。了解 record 数据结构, 参考[数据结构](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/development-guide/bitable-structure)。
 	HasMore   bool                           `json:"has_more,omitempty"`   // 是否还有更多项
 	PageToken string                         `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-	Total     int64                          `json:"total,omitempty"`      // 总数
+	Total     int64                          `json:"total,omitempty"`      // 记录总数
 }
 
 // SearchBitableRecordRespItem ...
 type SearchBitableRecordRespItem struct {
-	Fields           map[string]interface{}                     `json:"fields,omitempty"`             // 记录字段[记录数据结构](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/bitable-record-data-structure-overview)
-	RecordID         string                                     `json:"record_id,omitempty"`          // 记录Id
+	Fields           map[string]interface{}                     `json:"fields,omitempty"`             // 记录字段
+	RecordID         string                                     `json:"record_id,omitempty"`          // 记录 ID
 	CreatedBy        *SearchBitableRecordRespItemCreatedBy      `json:"created_by,omitempty"`         // 创建人
 	CreatedTime      int64                                      `json:"created_time,omitempty"`       // 创建时间
 	LastModifiedBy   *SearchBitableRecordRespItemLastModifiedBy `json:"last_modified_by,omitempty"`   // 修改人
 	LastModifiedTime int64                                      `json:"last_modified_time,omitempty"` // 最近更新时间
+	SharedURL        string                                     `json:"shared_url,omitempty"`         // 记录分享链接(批量获取记录接口将返回该字段)
+	RecordURL        string                                     `json:"record_url,omitempty"`         // 记录链接(检索记录接口将返回该字段)
 }
 
 // SearchBitableRecordRespItemCreatedBy ...
 type SearchBitableRecordRespItemCreatedBy struct {
-	ID        string `json:"id,omitempty"`         // 人员Id
+	ID        string `json:"id,omitempty"`         // 人员 ID。与查询参数 user_id_type 指定的类型一致。
 	Name      string `json:"name,omitempty"`       // 中文姓名
 	EnName    string `json:"en_name,omitempty"`    // 英文姓名
 	Email     string `json:"email,omitempty"`      // 邮箱
-	AvatarURL string `json:"avatar_url,omitempty"` // 头像链接, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
+	AvatarURL string `json:"avatar_url,omitempty"` // 头像链接字段权限要求（满足任一）: 获取用户基本信息以应用身份访问通讯录读取通讯录以应用身份读取通讯录
 }
 
 // SearchBitableRecordRespItemLastModifiedBy ...
 type SearchBitableRecordRespItemLastModifiedBy struct {
-	ID        string `json:"id,omitempty"`         // 人员Id
+	ID        string `json:"id,omitempty"`         // 人员 ID。与查询参数 user_id_type 指定的类型一致。
 	Name      string `json:"name,omitempty"`       // 中文姓名
 	EnName    string `json:"en_name,omitempty"`    // 英文姓名
 	Email     string `json:"email,omitempty"`      // 邮箱
-	AvatarURL string `json:"avatar_url,omitempty"` // 头像链接, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
+	AvatarURL string `json:"avatar_url,omitempty"` // 头像链接字段权限要求（满足任一）: 获取用户基本信息以应用身份访问通讯录读取通讯录以应用身份读取通讯录
 }
 
 // searchBitableRecordResp ...

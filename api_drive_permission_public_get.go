@@ -21,10 +21,14 @@ import (
 	"context"
 )
 
-// GetDrivePublicPermission 该接口用于根据 filetoken 获取云文档的权限设置。
+// GetDrivePublicPermission 获取指定云文档的权限设置, 包括是否允许内容被分享到组织外、谁可以查看、添加、移除协作者等设置。
+//
+// 本接口为历史版本接口。推荐使用新版接口[获取云文档权限设置](https://open.feishu.cn/document/ukTMukTMukTM/uIzNzUjLyczM14iM3MTN/drive-v2/permission-public/get)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-public/get
 // new doc: https://open.feishu.cn/document/server-docs/docs/permission/permission-public/get
+//
+// Deprecated
 func (r *DriveService) GetDrivePublicPermission(ctx context.Context, request *GetDrivePublicPermissionReq, options ...MethodOptionFunc) (*GetDrivePublicPermissionResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDrivePublicPermission != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetDrivePublicPermission mock enable")
@@ -59,24 +63,24 @@ func (r *Mock) UnMockDriveGetDrivePublicPermission() {
 
 // GetDrivePublicPermissionReq ...
 type GetDrivePublicPermissionReq struct {
-	Token string `path:"token" json:"-"` // 文件的 token, 获取方式见 [如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6), 示例值: "doccnBKgoMyY5OMbUG6FioTXuBe"
-	Type  string `query:"type" json:"-"` // 文件类型, 需要与文件的 token 相匹配, 示例值: doc, 可选值有: doc: 文档, sheet: 电子表格, file: 云空间文件, wiki: 知识库节点, bitable: 多维表格, docx: 新版文档, mindnote: 思维笔记, minutes: 妙记, slides: 幻灯片
+	Token string `path:"token" json:"-"` // 云文档的 token, 需要与 type 参数指定的云文档类型相匹配。可参考[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。示例值: "doccnBKgoMyY5OMbUG6Fioabcef"
+	Type  string `query:"type" json:"-"` // 云文档类型, 需要与云文档的 token 相匹配。示例值: docx可选值有: 旧版文档。了解更多, 参考[新旧版本文档说明](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/docs/upgraded-docs-access-guide/upgraded-docs-openapi-access-guide)。电子表格云空间文件知识库节点多维表格新版文档思维笔记妙记幻灯片
 }
 
 // GetDrivePublicPermissionResp ...
 type GetDrivePublicPermissionResp struct {
-	PermissionPublic *GetDrivePublicPermissionRespPermissionPublic `json:"permission_public,omitempty"` // 返回的文档权限设置
+	PermissionPublic *GetDrivePublicPermissionRespPermissionPublic `json:"permission_public,omitempty"` // 返回的文档公共访问和协作权限设置
 }
 
 // GetDrivePublicPermissionRespPermissionPublic ...
 type GetDrivePublicPermissionRespPermissionPublic struct {
-	ExternalAccess  bool   `json:"external_access,omitempty"`   // 允许内容被分享到组织外, 可选值有: `true`: 允许, `false`: 不允许
-	SecurityEntity  string `json:"security_entity,omitempty"`   // 谁可以复制内容、创建副本、打印、下载, 可选值有: anyone_can_view: 拥有可阅读权限的用户, anyone_can_edit: 拥有可编辑权限的用户, only_full_access: 拥有可管理权限（包括我）的用户
-	CommentEntity   string `json:"comment_entity,omitempty"`    // 可评论设置, 可选值有: anyone_can_view: 拥有可阅读权限的用户, anyone_can_edit: 拥有可编辑权限的用户
-	ShareEntity     string `json:"share_entity,omitempty"`      // 谁可以添加和管理协作者, 可选值有: anyone: 所有可阅读或编辑此文档的用户, same_tenant: 组织内所有可阅读或编辑此文档的用户, only_full_access: 拥有可管理权限（包括我）的用户
-	LinkShareEntity string `json:"link_share_entity,omitempty"` // 链接分享设置, 可选值有: tenant_readable: 组织内获得链接的人可阅读, tenant_editable: 组织内获得链接的人可编辑, anyone_readable: 互联网上获得链接的任何人可阅读, anyone_editable: 互联网上获得链接的任何人可编辑, closed: 关闭链接分享
-	InviteExternal  bool   `json:"invite_external,omitempty"`   // 允许非「可管理权限」的人分享到组织外
-	LockSwitch      bool   `json:"lock_switch,omitempty"`       // 节点加锁状态
+	ExternalAccess  bool   `json:"external_access,omitempty"`   // 是否允许内容被分享到组织外枚举值有: `true`: 允许- `false`: 不允许
+	SecurityEntity  string `json:"security_entity,omitempty"`   // 谁可以复制内容、创建副本、打印、下载可选值有: 拥有可阅读权限的用户拥有可编辑权限的用户拥有可管理权限（包括我）的用户
+	CommentEntity   string `json:"comment_entity,omitempty"`    // 谁可以评论可选值有: 拥有可阅读权限的用户拥有可编辑权限的用户
+	ShareEntity     string `json:"share_entity,omitempty"`      // 谁可以查看、添加、移除协作者可选值有: 所有可阅读或编辑此文档的用户组织内所有可阅读或编辑此文档的用户拥有可管理权限（包括我）的用户
+	LinkShareEntity string `json:"link_share_entity,omitempty"` // 链接分享设置可选值有: 组织内获得链接的人可阅读组织内获得链接的人可编辑互联网上获得链接的任何人可阅读互联网上获得链接的任何人可编辑关闭链接分享
+	InviteExternal  bool   `json:"invite_external,omitempty"`   // 是否允许非「可管理权限」的人分享到组织外枚举值有: `true`: 允许- `false`: 不允许
+	LockSwitch      bool   `json:"lock_switch,omitempty"`       // 节点是否已加锁, 加锁之后不再继承父级页面的权限。枚举值有: `true`: 已加锁- `false`: 未加锁
 }
 
 // getDrivePublicPermissionResp ...

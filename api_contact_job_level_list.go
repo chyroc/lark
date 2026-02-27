@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetContactJobLevelList 该接口可以获取租户职级列表。
+// GetContactJobLevelList 调用该接口获取当前租户下的职级信息, 包括职级名称、描述、排序、状态以及多语言等。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_level/list
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/job_level/list
@@ -58,39 +58,39 @@ func (r *Mock) UnMockContactGetContactJobLevelList() {
 
 // GetContactJobLevelListReq ...
 type GetContactJobLevelListReq struct {
-	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 10, 默认值: `10`, 取值范围: `1` ～ `50`
-	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: AQD9/Rn9eij9Pm39ED40/RD/cIFmu77WxpxPB/2oHfQLZ+G8JG6tK7+ZnHiT7COhD2hMSICh/eBl7cpzU6JEC3J7COKNe4jrQ8ExwBCR
-	Name      *string `query:"name" json:"-"`       // 传入该字段时, 可查询指定职级名称对应的职级信息, 示例值: 高级, 长度范围: `1` ～ `255` 字符
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 用于限制一次请求所返回的数据条目数。示例值: 10默认值: `10` 取值范围: `1` ～ `50
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: AQD9/Rn9eij9Pm39ED40/RD/cIFmu77WxpxPB/2oHfQLZ+G8JG6tK7+ZnHiT7COhD2hMSICh/eBl7cpzU6JEC3J7COKNe4jrQ8ExwBCR
+	Name      *string `query:"name" json:"-"`       // 职级名称。- 传入该字段时, 可查询指定职级名称对应的职级信息（不支持模糊查询）。- 不传入该字段时, 查询当前租户下所以职级的信息。示例值: 高级专家 长度范围: `1` ～ `255` 字符
 }
 
 // GetContactJobLevelListResp ...
 type GetContactJobLevelListResp struct {
-	Items     []*GetContactJobLevelListRespItem `json:"items,omitempty"`      // 职级列表
+	Items     []*GetContactJobLevelListRespItem `json:"items,omitempty"`      // 职级列表。
 	PageToken string                            `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	HasMore   bool                              `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
 // GetContactJobLevelListRespItem ...
 type GetContactJobLevelListRespItem struct {
-	Name            string                                           `json:"name,omitempty"`             // 职级名称
-	Description     string                                           `json:"description,omitempty"`      // 职级描述
-	Order           int64                                            `json:"order,omitempty"`            // 职级的排序, 可填入自然数100-100000的数值, 系统按照数值大小从小到大排序。不填写该字段时, 默认新增排序在当前职级列表中最后位（最大值）
-	Status          bool                                             `json:"status,omitempty"`           // 是否启用
-	JobLevelID      string                                           `json:"job_level_id,omitempty"`     // 职级ID
-	I18nName        []*GetContactJobLevelListRespItemI18nName        `json:"i18n_name,omitempty"`        // 多语言名称
-	I18nDescription []*GetContactJobLevelListRespItemI18nDescription `json:"i18n_description,omitempty"` // 多语言描述
+	Name            string                                           `json:"name,omitempty"`             // 职级名称。
+	Description     string                                           `json:"description,omitempty"`      // 职级描述。
+	Order           int64                                            `json:"order,omitempty"`            // 职级排序。数值越小, 排序越靠前。
+	Status          bool                                             `json:"status,omitempty"`           // 是否启用职级。可能值有: true: 启用- false: 不启用
+	JobLevelID      string                                           `json:"job_level_id,omitempty"`     // 职级 ID。后续可通过该 ID 删除、更新、查询职级。
+	I18nName        []*GetContactJobLevelListRespItemI18nName        `json:"i18n_name,omitempty"`        // 多语言名称。
+	I18nDescription []*GetContactJobLevelListRespItemI18nDescription `json:"i18n_description,omitempty"` // 多语言描述。
 }
 
 // GetContactJobLevelListRespItemI18nDescription ...
 type GetContactJobLevelListRespItemI18nDescription struct {
-	Locale string `json:"locale,omitempty"` // 语言版本
-	Value  string `json:"value,omitempty"`  // 字段名
+	Locale string `json:"locale,omitempty"` // 语言版本。
+	Value  string `json:"value,omitempty"`  // 语言版本对应的描述。
 }
 
 // GetContactJobLevelListRespItemI18nName ...
 type GetContactJobLevelListRespItemI18nName struct {
-	Locale string `json:"locale,omitempty"` // 语言版本
-	Value  string `json:"value,omitempty"`  // 字段名
+	Locale string `json:"locale,omitempty"` // 语言版本。
+	Value  string `json:"value,omitempty"`  // 语言版本对应的名称。
 }
 
 // getContactJobLevelListResp ...

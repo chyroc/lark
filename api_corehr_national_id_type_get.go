@@ -58,7 +58,7 @@ func (r *Mock) UnMockCoreHRGetCoreHRNationalIDType() {
 
 // GetCoreHRNationalIDTypeReq ...
 type GetCoreHRNationalIDTypeReq struct {
-	NationalIDTypeID string `path:"national_id_type_id" json:"-"` // 证件类型 ID, 示例值: "121515"
+	NationalIDTypeID string `path:"national_id_type_id" json:"-"` // 证件类型 ID示例值: "121515"
 }
 
 // GetCoreHRNationalIDTypeResp ...
@@ -69,14 +69,14 @@ type GetCoreHRNationalIDTypeResp struct {
 // GetCoreHRNationalIDTypeRespNationalIDType ...
 type GetCoreHRNationalIDTypeRespNationalIDType struct {
 	ID                        string                                                                `json:"id,omitempty"`                          // 证件类型 ID
-	CountryRegionID           string                                                                `json:"country_region_id,omitempty"`           // 国家 / 地区
+	CountryRegionID           string                                                                `json:"country_region_id,omitempty"`           // 国家 / 地区ID, 可通过[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)获取对应的国家/地区信息
 	Name                      []*GetCoreHRNationalIDTypeRespNationalIDTypeName                      `json:"name,omitempty"`                        // 名称
 	Active                    bool                                                                  `json:"active,omitempty"`                      // 是否启用
-	ValidationRule            string                                                                `json:"validation_rule,omitempty"`             // 校验规则
+	ValidationRule            string                                                                `json:"validation_rule,omitempty"`             // 校验规则（正则表达式）
 	ValidationRuleDescription []*GetCoreHRNationalIDTypeRespNationalIDTypeValidationRuleDescription `json:"validation_rule_description,omitempty"` // 校验规则描述
 	Code                      string                                                                `json:"code,omitempty"`                        // 编码
 	IdentificationType        *GetCoreHRNationalIDTypeRespNationalIDTypeIdentificationType          `json:"identification_type,omitempty"`         // 证件类型
-	CustomFields              []*GetCoreHRNationalIDTypeRespNationalIDTypeCustomField               `json:"custom_fields,omitempty"`               // 自定义字段
+	CustomFields              []*GetCoreHRNationalIDTypeRespNationalIDTypeCustomField               `json:"custom_fields,omitempty"`               // 自定义字段（暂不支持）
 }
 
 // GetCoreHRNationalIDTypeRespNationalIDTypeCustomField ...

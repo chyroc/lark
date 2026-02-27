@@ -21,9 +21,13 @@ import (
 	"context"
 )
 
-// GetCoreHRJobListV2 批量查询职务。
+// GetCoreHRJobListV2 查询全部职务详情, 包括职务编码、名称等信息
+//
+// 使用建议: 职务数量过多时, 可以通过多次循环调用该接口获取所有职务详情信息
+// 延迟说明: 数据库主从延迟2s以内, 即: 直接创建对象后2s内调用此接口可能查询不到数据。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/list
+// new doc: https://open.feishu.cn/document/corehr-v1/job-management/job/list
 func (r *CoreHRService) GetCoreHRJobListV2(ctx context.Context, request *GetCoreHRJobListV2Req, options ...MethodOptionFunc) (*GetCoreHRJobListV2Resp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRJobListV2 != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRJobListV2 mock enable")
@@ -57,10 +61,10 @@ func (r *Mock) UnMockCoreHRGetCoreHRJobListV2() {
 
 // GetCoreHRJobListV2Req ...
 type GetCoreHRJobListV2Req struct {
-	PageToken     *string `query:"page_token" json:"-"`     // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 1231231987
-	PageSize      int64   `query:"page_size" json:"-"`      // 每页获取记录数量, 最大100, 示例值: 100
-	Name          *string `query:"name" json:"-"`           // 名称, 示例值: keyword
-	QueryLanguage *string `query:"query_language" json:"-"` // 语言, 示例值: zh
+	PageToken     *string `query:"page_token" json:"-"`     // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 1231231987
+	PageSize      int64   `query:"page_size" json:"-"`      // 每页获取记录数量, 最大100- 最少1个字符, 最多200个字符示例值: 100
+	Name          *string `query:"name" json:"-"`           // 职务名称- 最少1个字符, 最多200个字符示例值: 软件工程师
+	QueryLanguage *string `query:"query_language" json:"-"` // 语言信息, 中文用zh-CN, 英文用en-US- 传空默认都返回- 最少1个字符, 最多200个字符示例值: zh-CN
 }
 
 // GetCoreHRJobListV2Resp ...
@@ -72,18 +76,19 @@ type GetCoreHRJobListV2Resp struct {
 
 // GetCoreHRJobListV2RespItem ...
 type GetCoreHRJobListV2RespItem struct {
-	ID                 string                                   `json:"id,omitempty"`                    // 实体在CoreHR内部的唯一键
+	ID                 string                                   `json:"id,omitempty"`                    // 职务ID
 	Code               string                                   `json:"code,omitempty"`                  // 编码
 	Name               []*GetCoreHRJobListV2RespItemName        `json:"name,omitempty"`                  // 名称
 	Description        []*GetCoreHRJobListV2RespItemDescription `json:"description,omitempty"`           // 描述
-	Active             bool                                     `json:"active,omitempty"`                // 启用
+	Active             bool                                     `json:"active,omitempty"`                // 启用状态, true为启用, false为停用
 	JobTitle           []*GetCoreHRJobListV2RespItemJobTitle    `json:"job_title,omitempty"`             // 职务头衔
-	JobFamilyIDList    []string                                 `json:"job_family_id_list,omitempty"`    // 序列
-	JobLevelIDList     []string                                 `json:"job_level_id_list,omitempty"`     // 职级, 字段权限要求: 获取职务中的职级信息
-	WorkingHoursTypeID string                                   `json:"working_hours_type_id,omitempty"` // 工时制度, 引用WorkingHoursType的ID
-	EffectiveTime      string                                   `json:"effective_time,omitempty"`        // 生效时间
-	ExpirationTime     string                                   `json:"expiration_time,omitempty"`       // 失效时间
-	CustomFields       []*GetCoreHRJobListV2RespItemCustomField `json:"custom_fields,omitempty"`         // 自定义字段
+	PathwayID          string                                   `json:"pathway_id,omitempty"`            // 通道ID, 详情可以参考[【获取通道信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pathway/batch_get)
+	JobFamilyIDList    []string                                 `json:"job_family_id_list,omitempty"`    // 关联的序列ID列表- 可通过[批量查询序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_family/batch_get)获取详情
+	JobLevelIDList     []string                                 `json:"job_level_id_list,omitempty"`     // 关联的职级ID列表- 可通过[批量查询职级](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_level/batch_get)获取详情字段权限要求: 获取职务中的职级信息
+	WorkingHoursTypeID string                                   `json:"working_hours_type_id,omitempty"` // 工时制度 ID, 枚举值及详细信息可通过[【批量查询工时制度】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/list)接口查询获得
+	EffectiveTime      string                                   `json:"effective_time,omitempty"`        // 当前版本生效日期- 返回格式: YYYY-MM-DD 00:00:00（最小单位到日）- 日期范围:1900-01-01 00:00:00～9999-12-31 00:00:00
+	ExpirationTime     string                                   `json:"expiration_time,omitempty"`       // 当前版本失效日期- 返回格式: YYYY-MM-DD 00:00:00（最小单位到日）- 日期范围:1900-01-01 00:00:00～9999-12-31 00:00:00
+	CustomFields       []*GetCoreHRJobListV2RespItemCustomField `json:"custom_fields,omitempty"`         // 自定义字段, 格式参考: [【自定义字段说明】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide)岗位、职务、自定义组织模块
 }
 
 // GetCoreHRJobListV2RespItemCustomField ...
@@ -94,20 +99,20 @@ type GetCoreHRJobListV2RespItemCustomField struct {
 
 // GetCoreHRJobListV2RespItemDescription ...
 type GetCoreHRJobListV2RespItemDescription struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // GetCoreHRJobListV2RespItemJobTitle ...
 type GetCoreHRJobListV2RespItemJobTitle struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言信息, 中文用zh-CN, 英文用en-US
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // GetCoreHRJobListV2RespItemName ...
 type GetCoreHRJobListV2RespItemName struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言信息, 中文用zh-CN, 英文用en-US
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // getCoreHRJobListV2Resp ...

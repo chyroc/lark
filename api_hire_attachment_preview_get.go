@@ -21,7 +21,11 @@ import (
 	"context"
 )
 
-// GetHireAttachmentPreview 根据人才简历附件 ID 获取附件预览信息, 可通过[获取人才信息](https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/talent/get-2)接口获取人才的简历附件
+// GetHireAttachmentPreview 根据人才简历附件 ID 获取该简历附件对应的 PDF 文件的下载地址。
+//
+// ## 注意事项
+// - 本接口仅支持转换人才简历类型的附件, 不支持作品附件和通用附件。
+// - 飞书招聘系统支持将文件后缀名为 `.doc`、`.docx`、`.ppt`、`.pptx` 和 `.txt`的人才简历附件转换为 PDF 格式。若转换 PDF 失败, 该接口会返回附件原文件的下载地址。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/preview
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/attachment/preview
@@ -58,12 +62,12 @@ func (r *Mock) UnMockHireGetHireAttachmentPreview() {
 
 // GetHireAttachmentPreviewReq ...
 type GetHireAttachmentPreviewReq struct {
-	AttachmentID string `path:"attachment_id" json:"-"` // 附件id, 示例值: "11111"
+	AttachmentID string `path:"attachment_id" json:"-"` // 附件 ID, 可通过[获取人才信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/get)接口返回数据中获取人才简历附件 ID。示例值: "64352523512563462"
 }
 
 // GetHireAttachmentPreviewResp ...
 type GetHireAttachmentPreviewResp struct {
-	URL string `json:"url,omitempty"` // 预览链接
+	URL string `json:"url,omitempty"` // PDF 文件下载链接, 有效期为 30 分钟
 }
 
 // getHireAttachmentPreviewResp ...

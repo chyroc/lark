@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2ACSUserUpdatedV1 智能门禁用户特征值变化时, 发送此事件。
+// EventV2ACSUserUpdatedV1 智能门禁用户特征值变化时, 发送此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=acs&version=v1&resource=user&event=updated)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/acs-v1/user/events/updated
 // new doc: https://open.feishu.cn/document/server-docs/acs-v1/user/events/updated
@@ -42,6 +42,6 @@ type EventV2ACSUserUpdatedV1 struct {
 // EventV2ACSUserUpdatedV1UserID ...
 type EventV2ACSUserUpdatedV1UserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }

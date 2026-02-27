@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// BatchUpdateHireEcoBackgroundCheckCustomField 更新用户在发起背调时的自定义字段。更新操作不支持更新自定义字段类型, 只允许更新字段名称, 且将影响已发起的背调表单展示。
+// BatchUpdateHireEcoBackgroundCheckCustomField 更新用户在发起背调时展示的表单自定义字段名称和描述。
+//
+// * 更新操作将影响已发起的背调表单展示, 但不影响实际背调内容。
+// * 更新操作只允许更新已有字段的名称和描述, 不支持更新字段类型, 也不允许新增或删除自定义字段。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check_custom_field/batch_update
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/ecological-docking/eco_background_check_custom_field/batch_update
@@ -58,47 +61,46 @@ func (r *Mock) UnMockHireBatchUpdateHireEcoBackgroundCheckCustomField() {
 
 // BatchUpdateHireEcoBackgroundCheckCustomFieldReq ...
 type BatchUpdateHireEcoBackgroundCheckCustomFieldReq struct {
-	AccountID       string                                                        `json:"account_id,omitempty"`        // 背调账号 ID, 可在「账号绑定」事件中获取, 示例值: "6995842370159937061"
-	CustomFieldList []*BatchUpdateHireEcoBackgroundCheckCustomFieldReqCustomField `json:"custom_field_list,omitempty"` // 自定义字段列表
+	AccountID       string                                                        `json:"account_id,omitempty"`        // 背调账号 ID, 可通过[账号绑定](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_account/events/created)事件获取示例值: "6995842370159937061"
+	CustomFieldList []*BatchUpdateHireEcoBackgroundCheckCustomFieldReqCustomField `json:"custom_field_list,omitempty"` // 自定义字段列表。 注意: 列表长度须与[创建背调自定义字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check_custom_field/create)时传入的一致
 }
 
 // BatchUpdateHireEcoBackgroundCheckCustomFieldReqCustomField ...
 type BatchUpdateHireEcoBackgroundCheckCustomFieldReqCustomField struct {
-	Type        string                                                                 `json:"type,omitempty"`        // 自定义字段类型, 示例值: "text", 可选值有: text: 单行文本, 最多100个汉字, textarea: 多行文本, 最多200个汉字, number: 数字, boolean: 布尔, select: 单选, multiselect: 多选, date: 日期, file: 附件, resume: 候选人简历
-	Key         string                                                                 `json:"key,omitempty"`         // 自定义字段的标识, 在同一账号内唯一, 示例值: "candidate_resume"
+	Type        string                                                                 `json:"type,omitempty"`        // 自定义字段类型示例值: "select"可选值有: 单行文本, 最多100个汉字多行文本, 最多200个汉字数字布尔单选多选日期附件候选人简历
+	Key         string                                                                 `json:"key,omitempty"`         // 自定义字段的标识, 在同一账号内唯一示例值: "candidate_degree"
 	Name        *BatchUpdateHireEcoBackgroundCheckCustomFieldReqCustomFieldName        `json:"name,omitempty"`        // 自定义字段的名称, 用户在安排背调表单看到的控件标题
-	IsRequired  bool                                                                   `json:"is_required,omitempty"` // 是否必填, 示例值: true
+	IsRequired  bool                                                                   `json:"is_required,omitempty"` // 是否必填示例值: true
 	Description *BatchUpdateHireEcoBackgroundCheckCustomFieldReqCustomFieldDescription `json:"description,omitempty"` // 自定义字段的描述, 如果是输入控件, 为用户在安排背调表单看到的 placeholder 或 提示文字
 	Options     []*BatchUpdateHireEcoBackgroundCheckCustomFieldReqCustomFieldOption    `json:"options,omitempty"`     // type 为 select 或 multiselect 时必填, 单选或多选的选项
 }
 
 // BatchUpdateHireEcoBackgroundCheckCustomFieldReqCustomFieldDescription ...
 type BatchUpdateHireEcoBackgroundCheckCustomFieldReqCustomFieldDescription struct {
-	ZhCn *string `json:"zh_cn,omitempty"` // 中文, 示例值: "测试"
-	EnUs *string `json:"en_us,omitempty"` // 英文, 示例值: "test"
+	ZhCn *string `json:"zh_cn,omitempty"` // 中文描述示例值: "候选人真实学历"
+	EnUs *string `json:"en_us,omitempty"` // 英文描述示例值: "The candidate's real degree"
 }
 
 // BatchUpdateHireEcoBackgroundCheckCustomFieldReqCustomFieldName ...
 type BatchUpdateHireEcoBackgroundCheckCustomFieldReqCustomFieldName struct {
-	ZhCn *string `json:"zh_cn,omitempty"` // 中文, 示例值: "测试"
-	EnUs *string `json:"en_us,omitempty"` // 英文, 示例值: "test"
+	ZhCn *string `json:"zh_cn,omitempty"` // 中文名称示例值: "候选人学历"
+	EnUs *string `json:"en_us,omitempty"` // 英文名称示例值: "Candidate's degree"
 }
 
 // BatchUpdateHireEcoBackgroundCheckCustomFieldReqCustomFieldOption ...
 type BatchUpdateHireEcoBackgroundCheckCustomFieldReqCustomFieldOption struct {
-	Key  string                                                                `json:"key,omitempty"`  // 选项的 key, 示例值: "A"
+	Key  string                                                                `json:"key,omitempty"`  // 选项的唯一标识示例值: "bachelor"
 	Name *BatchUpdateHireEcoBackgroundCheckCustomFieldReqCustomFieldOptionName `json:"name,omitempty"` // 选项的名称
 }
 
 // BatchUpdateHireEcoBackgroundCheckCustomFieldReqCustomFieldOptionName ...
 type BatchUpdateHireEcoBackgroundCheckCustomFieldReqCustomFieldOptionName struct {
-	ZhCn *string `json:"zh_cn,omitempty"` // 中文, 示例值: "测试"
-	EnUs *string `json:"en_us,omitempty"` // 英文, 示例值: "test"
+	ZhCn *string `json:"zh_cn,omitempty"` // 中文名称示例值: "本科"
+	EnUs *string `json:"en_us,omitempty"` // 英文名称示例值: "Bachelor"
 }
 
 // BatchUpdateHireEcoBackgroundCheckCustomFieldResp ...
-type BatchUpdateHireEcoBackgroundCheckCustomFieldResp struct {
-}
+type BatchUpdateHireEcoBackgroundCheckCustomFieldResp struct{}
 
 // batchUpdateHireEcoBackgroundCheckCustomFieldResp ...
 type batchUpdateHireEcoBackgroundCheckCustomFieldResp struct {

@@ -58,9 +58,9 @@ func (r *Mock) UnMockSearchGetSearchDataSourceList() {
 
 // GetSearchDataSourceListReq ...
 type GetSearchDataSourceListReq struct {
-	View      *int64  `query:"view" json:"-"`       // 回包数据格式, 0-全量数据；1-摘要数据, 注: 摘要数据仅包含"id", "name", "state", 示例值: 0, 可选值有: 0: 全量数据, 1: 摘要数据
-	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 10, 最大值: `50`
-	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "PxZFma9OIRhdBlT/dOYNiu2Ro8F2WAhcby7OhOijfljZ"
+	View      *int64  `query:"view" json:"-"`       // 回包数据格式, 0-全量数据；1-摘要数据。注: 摘要数据仅包含"id", "name", "state"。示例值: 0可选值有: 全量数据摘要数据
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小示例值: 10 最大值: `50
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: "PxZFma9OIRhdBlT/dOYNiu2Ro8F2WAhcby7OhOijfljZ"
 }
 
 // GetSearchDataSourceListResp ...
@@ -74,14 +74,14 @@ type GetSearchDataSourceListResp struct {
 type GetSearchDataSourceListRespItem struct {
 	ID               string                                          `json:"id,omitempty"`                // 数据源的唯一标识
 	Name             string                                          `json:"name,omitempty"`              // data_source的展示名称
-	State            int64                                           `json:"state,omitempty"`             // 数据源状态, 0-已上线, 1-未上线。如果未填, 默认是未上线状态, 可选值有: 0: 已上线, 1: 未上线
+	State            int64                                           `json:"state,omitempty"`             // 数据源状态, 0-已上线, 1-未上线。如果未填, 默认是未上线状态。可选值有: 已上线未上线
 	Description      string                                          `json:"description,omitempty"`       // 对于数据源的描述
 	CreateTime       string                                          `json:"create_time,omitempty"`       // 创建时间, 使用Unix时间戳, 单位为“秒”
 	UpdateTime       string                                          `json:"update_time,omitempty"`       // 更新时间, 使用Unix时间戳, 单位为“秒”
 	IsExceedQuota    bool                                            `json:"is_exceed_quota,omitempty"`   // 是否超限
 	IconURL          string                                          `json:"icon_url,omitempty"`          // 数据源在 search tab 上的展示图标路径, 建议使用png或jpeg格式, 否则可能无法在客户端正常展示
 	Template         string                                          `json:"template,omitempty"`          // 数据源采用的展示模版名称
-	SearchableFields []string                                        `json:"searchable_fields,omitempty"` // [已废弃, 如有定制需要请使用“数据范式”接口]描述哪些字段可以被搜索
+	SearchableFields []string                                        `json:"searchable_fields,omitempty"` // 【已废弃, 如有定制需要请使用“数据范式”接口】描述哪些字段可以被搜索
 	I18nName         *GetSearchDataSourceListRespItemI18nName        `json:"i18n_name,omitempty"`         // 数据源的国际化展示名称
 	I18nDescription  *GetSearchDataSourceListRespItemI18nDescription `json:"i18n_description,omitempty"`  // 数据源的国际化描述
 	SchemaID         string                                          `json:"schema_id,omitempty"`         // 数据源关联的 schema 标识

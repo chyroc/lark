@@ -23,6 +23,9 @@ import (
 
 // GetVCMeetingList 查询会议明细, 具体权限要求请参考[资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting-room-data/resource-introduction)
 //
+// 说明
+// 本接口适用于查询 进行中 或者 已结束 的会议明细。
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting_list/get
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/meeting-room-data/get
 func (r *VCService) GetVCMeetingList(ctx context.Context, request *GetVCMeetingListReq, options ...MethodOptionFunc) (*GetVCMeetingListResp, *Response, error) {
@@ -59,16 +62,18 @@ func (r *Mock) UnMockVCGetVCMeetingList() {
 
 // GetVCMeetingListReq ...
 type GetVCMeetingListReq struct {
-	StartTime     string  `query:"start_time" json:"-"`     // 查询开始时间（unix时间, 单位sec）, 示例值: 1655276858
-	EndTime       string  `query:"end_time" json:"-"`       // 查询结束时间（unix时间, 单位sec）, 示例值: 1655276858
-	MeetingStatus *int64  `query:"meeting_status" json:"-"` // 会议状态（不传默认为已结束会议）, 示例值: 2, 可选值有: 1: 进行中, 2: 已结束, 3: 待召开
-	MeetingNo     *string `query:"meeting_no" json:"-"`     // 按9位会议号筛选（最多一个筛选条件）, 示例值: 123456789
-	UserID        *string `query:"user_id" json:"-"`        // 按参会Lark用户筛选（最多一个筛选条件）, 示例值: ou_3ec3f6a28a0d08c45d895276e8e5e19b
-	RoomID        *string `query:"room_id" json:"-"`        // 按参会Rooms筛选（最多一个筛选条件）, 示例值: omm_eada1d61a550955240c28757e7dec3af
-	MeetingType   *int64  `query:"meeting_type" json:"-"`   // 按会议类型筛选（最多一个筛选条件）, 示例值: 2, 可选值有: 1: 全部类型（默认）, 2: 视频会议, 3: 本地投屏
-	PageSize      *int64  `query:"page_size" json:"-"`      // 分页尺寸大小, 示例值: 20, 默认值: `20`, 取值范围: `20` ～ `100`
-	PageToken     *string `query:"page_token" json:"-"`     // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 20
-	UserIDType    *IDType `query:"user_id_type" json:"-"`   // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	StartTime               string  `query:"start_time" json:"-"`                // 查询开始时间（unix时间, 单位sec）示例值: 1655276858
+	EndTime                 string  `query:"end_time" json:"-"`                  // 查询结束时间（unix时间, 单位sec）示例值: 1655276858
+	MeetingStatus           *int64  `query:"meeting_status" json:"-"`            // 会议状态（不传默认为已结束会议）示例值: 2可选值有: 进行中已结束待召开。该枚举值只读, 请求时不支持选择。
+	MeetingNo               *string `query:"meeting_no" json:"-"`                // 按9位会议号筛选（最多一个筛选条件, 如果设置多个, 参数校验会失败, 可以从视频会议记录中获取）示例值: 123456789
+	UserID                  *string `query:"user_id" json:"-"`                   // 按参会飞书用户筛选（最多一个筛选条件, 如果设置多个, 参数校验会失败）示例值: ou_3ec3f6a28a0d08c45d895276e8e5e19b
+	RoomID                  *string `query:"room_id" json:"-"`                   // 按参会Rooms筛选（最多一个筛选条件, 如果设置多个, 参数校验会失败）示例值: omm_eada1d61a550955240c28757e7dec3af
+	MeetingType             *int64  `query:"meeting_type" json:"-"`              // 按会议类型筛选（最多一个筛选条件, 如果设置多个, 参数校验会失败）示例值: 2可选值有: 全部类型（默认）视频会议本地投屏
+	PageSize                *int64  `query:"page_size" json:"-"`                 // 分页尺寸大小示例值: 20默认值: `20` 取值范围: `20` ～ `100
+	PageToken               *string `query:"page_token" json:"-"`                // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 20
+	IncludeExternalMeetings *bool   `query:"include_external_meetings" json:"-"` // 是否查询外部会议（不传默认为不查询）示例值: false
+	IncludeWebinar          *bool   `query:"include_webinar" json:"-"`           // 是否查询网络研讨会（不传默认为不查询）示例值: false
+	UserIDType              *IDType `query:"user_id_type" json:"-"`              // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetVCMeetingListResp ...
@@ -80,27 +85,32 @@ type GetVCMeetingListResp struct {
 
 // GetVCMeetingListRespMeeting ...
 type GetVCMeetingListRespMeeting struct {
-	MeetingID            string                                     `json:"meeting_id,omitempty"`             // 9位会议号
-	MeetingTopic         string                                     `json:"meeting_topic,omitempty"`          // 会议主题
-	MeetingType          int64                                      `json:"meeting_type,omitempty"`           // 会议类型, 可选值有: 1: 全部类型（默认）, 2: 视频会议, 3: 本地投屏
-	Organizer            string                                     `json:"organizer,omitempty"`              // 组织者
-	Department           string                                     `json:"department,omitempty"`             // 部门
-	UserID               string                                     `json:"user_id,omitempty"`                // 用户ID
-	EmployeeID           string                                     `json:"employee_id,omitempty"`            // 工号
-	Email                string                                     `json:"email,omitempty"`                  // 邮箱
-	Mobile               string                                     `json:"mobile,omitempty"`                 // 手机
-	MeetingStartTime     string                                     `json:"meeting_start_time,omitempty"`     // 会议开始时间
-	MeetingEndTime       string                                     `json:"meeting_end_time,omitempty"`       // 会议结束时间
-	MeetingDuration      string                                     `json:"meeting_duration,omitempty"`       // 会议持续时间
-	NumberOfParticipants string                                     `json:"number_of_participants,omitempty"` // 参会人数
-	NumberOfDevices      string                                     `json:"number_of_devices,omitempty"`      // 累计入会设备数
-	Audio                bool                                       `json:"audio,omitempty"`                  // 音频
-	Video                bool                                       `json:"video,omitempty"`                  // 视频
-	Sharing              bool                                       `json:"sharing,omitempty"`                // 共享
-	Recording            bool                                       `json:"recording,omitempty"`              // 录制
-	Telephone            bool                                       `json:"telephone,omitempty"`              // 电话
-	ReservedRooms        []*GetVCMeetingListRespMeetingReservedRoom `json:"reserved_rooms,omitempty"`         // 关联会议室列表
-	HasRelatedDocument   bool                                       `json:"has_related_document,omitempty"`   // 是否有关联文档和纪要
+	MeetingID              string                                     `json:"meeting_id,omitempty"`                // 9位会议号
+	MeetingTopic           string                                     `json:"meeting_topic,omitempty"`             // 会议主题
+	MeetingType            int64                                      `json:"meeting_type,omitempty"`              // 会议类型可选值有: 全部类型（默认）视频会议本地投屏
+	Organizer              string                                     `json:"organizer,omitempty"`                 // 组织者
+	Department             string                                     `json:"department,omitempty"`                // 部门
+	UserID                 string                                     `json:"user_id,omitempty"`                   // 用户ID
+	EmployeeID             string                                     `json:"employee_id,omitempty"`               // 工号
+	Email                  string                                     `json:"email,omitempty"`                     // 邮箱
+	Mobile                 string                                     `json:"mobile,omitempty"`                    // 手机
+	MeetingStartTime       string                                     `json:"meeting_start_time,omitempty"`        // 会议开始时间, 格式见响应体示例
+	MeetingEndTime         string                                     `json:"meeting_end_time,omitempty"`          // 会议结束时间, 格式见响应体示例
+	MeetingDuration        string                                     `json:"meeting_duration,omitempty"`          // 会议持续时间（秒）, 格式见响应体示例
+	NumberOfParticipants   string                                     `json:"number_of_participants,omitempty"`    // 参会人数
+	NumberOfDevices        string                                     `json:"number_of_devices,omitempty"`         // 累计入会设备数
+	Audio                  bool                                       `json:"audio,omitempty"`                     // 音频
+	Video                  bool                                       `json:"video,omitempty"`                     // 视频
+	Sharing                bool                                       `json:"sharing,omitempty"`                   // 共享
+	Recording              bool                                       `json:"recording,omitempty"`                 // 录制
+	Telephone              bool                                       `json:"telephone,omitempty"`                 // 电话
+	ReservedRooms          []*GetVCMeetingListRespMeetingReservedRoom `json:"reserved_rooms,omitempty"`            // 关联会议室列表, 只有待召开的会议支持该字段。
+	HasRelatedDocument     bool                                       `json:"has_related_document,omitempty"`      // 是否有关联文档和纪要
+	AINote                 bool                                       `json:"ai_note,omitempty"`                   // 是否使用AI纪要
+	IsExternal             bool                                       `json:"is_external,omitempty"`               // 是否为外部会议
+	MeetingSubtype         int64                                      `json:"meeting_subtype,omitempty"`           // 会议子类型可选值有: 全部类型（默认）投屏有线投屏妙享聊天室飞阅会企业电话ip电话webniar会议离线会议妙记会议
+	MeetingInstanceID      string                                     `json:"meeting_instance_id,omitempty"`       // 唯一会议ID
+	NumberOfWebinarViewers string                                     `json:"number_of_webinar_viewers,omitempty"` // 网络研讨会观众人数
 }
 
 // GetVCMeetingListRespMeetingReservedRoom ...

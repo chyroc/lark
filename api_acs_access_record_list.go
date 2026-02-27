@@ -60,12 +60,12 @@ func (r *Mock) UnMockACSGetACSAccessRecordList() {
 
 // GetACSAccessRecordListReq ...
 type GetACSAccessRecordListReq struct {
-	PageSize   *int64  `query:"page_size" json:"-"`    // 分页大小, 示例值: 100, 默认值: `100`, 最大值: `500`
-	PageToken  *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "AQD9/Rn9eij9Pm39ED40/dk53s4Ebp882DYfFaPFbz00L4CMZJrqGdzNyc8BcZtDbwVUvRmQTvyMYicnGWrde9X56TgdBuS+JKiSIkdexPw="
-	From       int64   `query:"from" json:"-"`         // 记录开始时间, 单位秒, 示例值: 1624520521
-	To         int64   `query:"to" json:"-"`           // 记录结束时间, 单位秒, 时间跨度不能超过30天, 示例值: 1624520521
-	DeviceID   *string `query:"device_id" json:"-"`    // 门禁设备 ID, 示例值: "7091146989218002577"
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	PageSize   *int64  `query:"page_size" json:"-"`    // 分页大小示例值: 100默认值: `100` 最大值: `500
+	PageToken  *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: "AQD9/Rn9eij9Pm39ED40/dk53s4Ebp882DYfFaPFbz00L4CMZJrqGdzNyc8BcZtDbwVUvRmQTvyMYicnGWrde9X56TgdBuS+JKiSIkdexPw="
+	From       int64   `query:"from" json:"-"`         // 记录开始时间, 单位秒示例值: 1624520521
+	To         int64   `query:"to" json:"-"`           // 记录结束时间, 单位秒, 时间跨度不能超过30天示例值: 1624520521
+	DeviceID   *string `query:"device_id" json:"-"`    // 门禁设备 ID示例值: "7091146989218002577"
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: "open_id"可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetACSAccessRecordListResp ...
@@ -82,7 +82,7 @@ type GetACSAccessRecordListRespItem struct {
 	DeviceID       string `json:"device_id,omitempty"`        // 门禁设备 ID
 	IsClockIn      bool   `json:"is_clock_in,omitempty"`      // 是否是打卡
 	AccessTime     string `json:"access_time,omitempty"`      // 访问时间, 单位秒
-	AccessType     string `json:"access_type,omitempty"`      // 识别方式, 可选值有: FA: 人脸识别方式
+	AccessType     string `json:"access_type,omitempty"`      // 识别方式可选值有: 人脸识别方式
 	AccessData     string `json:"access_data,omitempty"`      // 识别相关数据, 根据 access_type 不同, 取值不同
 	IsDoorOpen     bool   `json:"is_door_open,omitempty"`     // 是否开门
 }

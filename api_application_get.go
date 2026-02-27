@@ -60,9 +60,9 @@ func (r *Mock) UnMockApplicationGetApplication() {
 
 // GetApplicationReq ...
 type GetApplicationReq struct {
-	AppID      string  `path:"app_id" json:"-"`        // 应用的 app_id, 需要查询其他应用信息时, 必须申请[获取应用信息](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)权限, 仅查询本应用信息时, 可填入 "me" 或者应用自身 app_id, 示例值: "cli_9b445f5258795107"
-	Lang       string  `query:"lang" json:"-"`         // 指定获取应用在该语言下的信息, 示例值: zh_cn, 可选值有: zh_cn: 中文, en_us: 英文, ja_jp: 日文, 最小长度: `1` 字符
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	AppID      string  `path:"app_id" json:"-"`        // 应用的 app_id, 需要查询其他应用信息时, 必须申请[获取应用信息](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)权限, 仅查询本应用信息时, 可填入 "me" 或者应用自身 app_id示例值: "cli_9b445f5258795107"
+	Lang       string  `query:"lang" json:"-"`         // 指定获取应用在该语言下的信息示例值: zh_cn可选值有: 中文英文日文 最小长度: `1` 字符
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetApplicationResp ...
@@ -72,28 +72,31 @@ type GetApplicationResp struct {
 
 // GetApplicationRespApp ...
 type GetApplicationRespApp struct {
-	AppID            string                        `json:"app_id,omitempty"`             // 应用的 app_id
-	CreatorID        string                        `json:"creator_id,omitempty"`         // 应用创建者（所有者）
-	Status           int64                         `json:"status,omitempty"`             // 应用状态, 可选值有: 0: 停用状态, 1: 启用状态, 2: 未启用状态, 3: 未知状态
-	SceneType        int64                         `json:"scene_type,omitempty"`         // 应用类型, 可选值有: 0: 自建应用, 1: 应用商店应用, 2: 个人应用商店应用, 3: 未知应用类型
-	PaymentType      int64                         `json:"payment_type,omitempty"`       // 付费类型, 可选值有: 0: 免费, 1: 付费
-	RedirectURLs     []string                      `json:"redirect_urls,omitempty"`      // 安全设置中的重定向 URL
-	OnlineVersionID  string                        `json:"online_version_id,omitempty"`  // 发布在线上的应用版本 ID, 若没有则为空
-	UnauditVersionID string                        `json:"unaudit_version_id,omitempty"` // 在审核中的版本 ID, 若没有则为空
-	AppName          string                        `json:"app_name,omitempty"`           // 应用名称
-	AvatarURL        string                        `json:"avatar_url,omitempty"`         // 应用图标 url
-	Description      string                        `json:"description,omitempty"`        // 应用默认描述
-	Scopes           []*GetApplicationRespAppScope `json:"scopes,omitempty"`             // 应用权限列表
-	BackHomeURL      string                        `json:"back_home_url,omitempty"`      // 后台主页地址
-	I18n             []*GetApplicationRespAppI18n  `json:"i18n,omitempty"`               // 应用的国际化信息列表
-	PrimaryLanguage  string                        `json:"primary_language,omitempty"`   // 应用主语言, 可选值有: zh_cn: 中文, en_us: 英文, ja_jp: 日文
-	CommonCategories []string                      `json:"common_categories,omitempty"`  // 应用分类的国际化描述
-	Owner            *GetApplicationRespAppOwner   `json:"owner,omitempty"`              // 应用的所有者信息
+	AppID                string                        `json:"app_id,omitempty"`                 // 应用的 app_id
+	CreatorID            string                        `json:"creator_id,omitempty"`             // 应用创建者（所有者）
+	Status               int64                         `json:"status,omitempty"`                 // 应用状态可选值有: 停用状态启用状态未启用状态未知状态
+	SceneType            int64                         `json:"scene_type,omitempty"`             // 应用类型可选值有: 自建应用应用商店应用个人应用商店应用未知应用类型
+	PaymentType          int64                         `json:"payment_type,omitempty"`           // 付费类型可选值有: 免费付费
+	CreateSource         string                        `json:"create_source,omitempty"`          // 应用创建来源(目前仅Base应用返回)可选值有: 开发者后台多维表格自动化流程创建的应用飞书 aPaaS机器人助手aily(智能伙伴搭建平台)未知来源
+	RedirectURLs         []string                      `json:"redirect_urls,omitempty"`          // 安全设置中的重定向 URL
+	OnlineVersionID      string                        `json:"online_version_id,omitempty"`      // 发布在线上的应用版本 ID, 若没有则为空
+	UnauditVersionID     string                        `json:"unaudit_version_id,omitempty"`     // 在审核中的版本 ID, 若没有则为空
+	AppName              string                        `json:"app_name,omitempty"`               // 应用名称
+	AvatarURL            string                        `json:"avatar_url,omitempty"`             // 应用图标 url
+	Description          string                        `json:"description,omitempty"`            // 应用默认描述
+	Scopes               []*GetApplicationRespAppScope `json:"scopes,omitempty"`                 // 应用权限列表
+	BackHomeURL          string                        `json:"back_home_url,omitempty"`          // 后台主页地址
+	I18n                 []*GetApplicationRespAppI18n  `json:"i18n,omitempty"`                   // 应用的国际化信息列表
+	PrimaryLanguage      string                        `json:"primary_language,omitempty"`       // 应用主语言可选值有: 中文英文日文
+	CommonCategories     []string                      `json:"common_categories,omitempty"`      // 应用分类的国际化描述
+	Owner                *GetApplicationRespAppOwner   `json:"owner,omitempty"`                  // 应用的所有者信息
+	MobileDefaultAbility string                        `json:"mobile_default_ability,omitempty"` // 移动端默认能力可选值有: 小程序网页应用机器人
+	PcDefaultAbility     string                        `json:"pc_default_ability,omitempty"`     // PC端默认能力可选值有: 小程序网页应用机器人
 }
 
 // GetApplicationRespAppI18n ...
 type GetApplicationRespAppI18n struct {
-	I18nKey     string `json:"i18n_key,omitempty"`    // 国际化语言的 key, 可选值有: zh_cn: 中文, en_us: 英文, ja_jp: 日文
+	I18nKey     string `json:"i18n_key,omitempty"`    // 国际化语言的 key可选值有: 简体中文英文日文繁体中文(中国香港)繁体中文(中国台湾)印度尼西亚语马来语德语西班牙语法语意大利语葡萄牙语(巴西)越南语俄语泰语韩语
 	Name        string `json:"name,omitempty"`        // 应用国际化名称
 	Description string `json:"description,omitempty"` // 应用国际化描述（副标题）
 	HelpUse     string `json:"help_use,omitempty"`    // 国际化帮助文档链接
@@ -101,19 +104,21 @@ type GetApplicationRespAppI18n struct {
 
 // GetApplicationRespAppOwner ...
 type GetApplicationRespAppOwner struct {
-	Type     int64  `json:"type,omitempty"`      // 应用所有者类型, 可选值有: 0: 飞书科技, 1: 飞书合作伙伴, 2: 企业内成员
-	OwnerID  string `json:"owner_id,omitempty"`  // 应用所有者ID
-	Name     string `json:"name,omitempty"`      // 应用开发商名称(仅商店应用返回)
-	HelpDesk string `json:"help_desk,omitempty"` // 应用开发商服务台链接(仅商店应用返回)
-	Email    string `json:"email,omitempty"`     // 应用开发商的邮箱(仅商店应用返回)
-	Phone    string `json:"phone,omitempty"`     // 应用开发商的手机号(仅商店应用返回)
+	Type                   int64  `json:"type,omitempty"`                     // 应用所有者类型可选值有: 飞书科技飞书合作伙伴企业内成员
+	OwnerID                string `json:"owner_id,omitempty"`                 // 应用所有者ID
+	Name                   string `json:"name,omitempty"`                     // 应用开发商名称(仅商店应用返回)
+	HelpDesk               string `json:"help_desk,omitempty"`                // 应用开发商服务台链接(仅商店应用返回)
+	Email                  string `json:"email,omitempty"`                    // 应用开发商的邮箱(仅商店应用返回)
+	Phone                  string `json:"phone,omitempty"`                    // 应用开发商的手机号(仅商店应用返回)
+	CustomerServiceAccount string `json:"customer_service_account,omitempty"` // 客服账号, 仅当商店应用配置了这种联系方式时才会返回
 }
 
 // GetApplicationRespAppScope ...
 type GetApplicationRespAppScope struct {
-	Scope       string `json:"scope,omitempty"`       // 应用权限
-	Description string `json:"description,omitempty"` // 应用权限的国际化描述
-	Level       int64  `json:"level,omitempty"`       // 权限等级描述, 可选值有: 1: 普通权限, 2: 高级权限, 3: 超敏感权限, 0: 未知等级
+	Scope       string   `json:"scope,omitempty"`       // 应用权限
+	Description string   `json:"description,omitempty"` // 应用权限的国际化描述
+	Level       int64    `json:"level,omitempty"`       // 权限等级描述可选值有: 普通权限高级权限超敏感权限未知等级
+	TokenTypes  []string `json:"token_types,omitempty"` // 返回用户身份类型user、应用身份类型tenant。如果两种类型都支持, 则同时返回两个。可选值有: 应用身份类型用户身份类型
 }
 
 // getApplicationResp ...

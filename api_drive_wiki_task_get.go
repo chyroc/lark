@@ -62,8 +62,8 @@ func (r *Mock) UnMockDriveGetWikiTask() {
 
 // GetWikiTaskReq ...
 type GetWikiTaskReq struct {
-	TaskID   string `path:"task_id" json:"-"`    // 任务id, 示例值: "7037044037068177428-075c9481e6a0007c1df689dfbe5b55a08b6b06f7"
-	TaskType string `query:"task_type" json:"-"` // 任务类型, 示例值: move, 可选值有: move: [移动云空间文档至知识空间](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-node/move_docs_to_wiki)任务
+	TaskID   string `path:"task_id" json:"-"`    // 任务id示例值: "7037044037068177428-075c9481e6a0007c1df689dfbe5b55a08b6b06f7"
+	TaskType string `query:"task_type" json:"-"` // 任务类型示例值: move可选值有: [移动云空间文档至知识空间](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-node/move_docs_to_wiki)任务
 }
 
 // GetWikiTaskResp ...
@@ -86,12 +86,12 @@ type GetWikiTaskRespTaskMoveResult struct {
 
 // GetWikiTaskRespTaskMoveResultNode ...
 type GetWikiTaskRespTaskMoveResultNode struct {
-	SpaceID         string `json:"space_id,omitempty"`          // 知识空间id, [获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-overview)
+	SpaceID         string `json:"space_id,omitempty"`          // 知识空间id[获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-overview)
 	NodeToken       string `json:"node_token,omitempty"`        // 节点token
 	ObjToken        string `json:"obj_token,omitempty"`         // 对应文档类型的token, 可根据 obj_type 判断属于哪种文档类型。
-	ObjType         string `json:"obj_type,omitempty"`          // 文档类型, 对于快捷方式, 该字段是对应的实体的obj_type, 可选值有: doc: 旧版文档, sheet: 表格, mindnote: 思维导图, bitable: 多维表格, file: 文件, docx: 新版文档
+	ObjType         string `json:"obj_type,omitempty"`          // 文档类型, 对于快捷方式, 该字段是对应的实体的obj_type。可选值有: 旧版文档表格思维导图多维表格文件新版文档幻灯片
 	ParentNodeToken string `json:"parent_node_token,omitempty"` // 父节点 token。若当前节点为一级节点, 父节点 token 为空。
-	NodeType        string `json:"node_type,omitempty"`         // 节点类型, 可选值有: origin: 实体, shortcut: 快捷方式
+	NodeType        string `json:"node_type,omitempty"`         // 节点类型可选值有: 实体快捷方式
 	OriginNodeToken string `json:"origin_node_token,omitempty"` // 快捷方式对应的实体node_token, 当节点为快捷方式时, 该值不为空。
 	OriginSpaceID   string `json:"origin_space_id,omitempty"`   // 快捷方式对应的实体所在的space id
 	HasChild        bool   `json:"has_child,omitempty"`         // 是否有子节点
@@ -101,6 +101,7 @@ type GetWikiTaskRespTaskMoveResultNode struct {
 	NodeCreateTime  string `json:"node_create_time,omitempty"`  // 节点创建时间
 	Creator         string `json:"creator,omitempty"`           // 节点创建者
 	Owner           string `json:"owner,omitempty"`             // 节点所有者
+	NodeCreator     string `json:"node_creator,omitempty"`      // 节点创建者
 }
 
 // getWikiTaskResp ...

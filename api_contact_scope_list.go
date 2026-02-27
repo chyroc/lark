@@ -21,9 +21,11 @@ import (
 	"context"
 )
 
-// GetContactScopeList 该接口用于获取应用被授权可访问的通讯录范围, 包括可访问的部门列表、用户列表和用户组列表。
+// GetContactScopeList 调用该接口获取当前应用被授权可访问的通讯录范围, 包括可访问的部门列表、用户列表和用户组列表。
 //
-// 授权范围为全员时, 返回的部门列表为该企业所有的一级部门；否则返回的部门为管理员在设置授权范围时勾选的部门（不包含勾选部门的子部门）。
+// ## 注意事项
+// - 当应用通讯录权限范围为全部成员时, 该接口将返回根部门下的一级部门列表和直属用户列表, 以及租户下所有用户组列表。
+// - 当应用通讯录权限范围不为全部成员时, 则只返回在通讯录权限范围内的部门列表（不包含部门内的子部门以及用户）、用户列表或用户组列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/scope/list
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/scope/list
@@ -60,17 +62,17 @@ func (r *Mock) UnMockContactGetContactScopeList() {
 
 // GetContactScopeListReq ...
 type GetContactScopeListReq struct {
-	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: user_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 返回值的部门ID的类型, 示例值: department_id, 可选值有: department_id: 以自定义department_id来标识部门, open_department_id: 以open_department_id来标识部门, 默认值: `open_department_id`
-	PageToken        *string           `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: AQD9/Rn9eij9Pm39ED40/dk53s4Ebp882DYfFaPFbz00L4CMZJrqGdzNyc8BcZtDbwVUvRmQTvyMYicnGWrde9X56TgdBuS+JKiSIkdexPw=
-	PageSize         *int64            `query:"page_size" json:"-"`          // 分页大小, 返回值所有列表长度之和不超过这个值, 示例值: 50, 默认值: `50`, 取值范围: `1` ～ `100`
+	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型示例值: user_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 指定查询结果中的部门 ID 类型。关于部门 ID 的详细介绍, 可参见[部门 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)。示例值: department_id可选值有: 支持用户自定义配置的部门 ID。自定义配置时可复用已删除的 department_id, 因此在未删除的部门范围内 department_id 具有唯一性。由系统自动生成的部门 ID, ID 前缀固定为 `od-`, 在租户内全局唯一。默认值: `open_department_id
+	PageToken        *string           `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: AQD9/Rn9eij9Pm39ED40/dk53s4Ebp882DYfFaPFbz00L4CMZJrqGdzNyc8BcZtDbwVUvRmQTvyMYicnGWrde9X56TgdBuS+JKiSIkdexPw=
+	PageSize         *int64            `query:"page_size" json:"-"`          // 分页大小, 用于设置一次调用的返回值列表长度。注意: 分页查询时, 返回的所有资源列表长度之和不会大于 page_size 值, 列表内的资源返回顺序为: 先返回 user_ids、然后返回 department_ids、最后返回 group_ids。示例值: 50默认值: `50` 取值范围: `1` ～ `100
 }
 
 // GetContactScopeListResp ...
 type GetContactScopeListResp struct {
-	DepartmentIDs []string `json:"department_ids,omitempty"` // 已授权部门列表, 授权范围为全员可见时返回的是当前企业的所有一级部门列表
-	UserIDs       []string `json:"user_ids,omitempty"`       // 已授权用户列表, 应用申请了获取用户user_id 权限时返回；当授权范围为全员可见时返回的是当前企业所有顶级部门用户列表
-	GroupIDs      []string `json:"group_ids,omitempty"`      // 已授权的用户组, 授权范围为全员可见时返回的是当前企业所有用户组
+	DepartmentIDs []string `json:"department_ids,omitempty"` // 已授权的部门列表。列表内的部门 ID 类型与查询参数 department_id_type 的取值一致。
+	UserIDs       []string `json:"user_ids,omitempty"`       // 已授权的用户列表。列表内的用户 ID 类型与查询参数 user_id_type 的取值一致。应用申请以下权限后才会返回该值。获取用户 user ID
+	GroupIDs      []string `json:"group_ids,omitempty"`      // 已授权的用户组。
 	HasMore       bool     `json:"has_more,omitempty"`       // 是否还有更多项
 	PageToken     string   `json:"page_token,omitempty"`     // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 }

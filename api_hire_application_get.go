@@ -23,6 +23,8 @@ import (
 
 // GetHireApplication 根据投递 ID 获取单个投递信息。
 //
+// 该接口不再更新, 推荐使用新接口: [获取投递详情](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get_detail)
+//
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/application/get
 func (r *HireService) GetHireApplication(ctx context.Context, request *GetHireApplicationReq, options ...MethodOptionFunc) (*GetHireApplicationResp, *Response, error) {
@@ -58,9 +60,9 @@ func (r *Mock) UnMockHireGetHireApplication() {
 
 // GetHireApplicationReq ...
 type GetHireApplicationReq struct {
-	ApplicationID string   `path:"application_id" json:"-"` // 投递 ID, 示例值: "6949805467799537964"
-	UserIDType    *IDType  `query:"user_id_type" json:"-"`  // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	Options       []string `query:"options" json:"-"`       // 请求控制参数, 用于控制接口响应逻辑。如需一次查询多个用户ID, 可通过将同一参数名多次传递, 并且每次传递不同的参数值。例如: https://{url}?options={option1}&options={option2}, 示例值: get_latest_application_on_chain, 可选值有: get_latest_application_on_chain: 仅对当前投递是虚拟职位投递时生效, 若投递未分配, 虚拟职位投递即为最新投递, 返回请求中指定的虚拟职位投递的信息, 若投递已分配, 会返回分配链上最新一个实体职位投递的信息, 而非请求中指定的投递。
+	ApplicationID string   `path:"application_id" json:"-"` // 投递 ID, 可通过[获取投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/list)获取示例值: "6949805467799537964"
+	UserIDType    *IDType  `query:"user_id_type" json:"-"`  // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	Options       []string `query:"options" json:"-"`       // 请求控制参数, 用于控制接口响应逻辑。如需一次查询多个用户ID, 可通过将同一参数名多次传递, 并且每次传递不同的参数值。例如: https://{url}?options={option1}&options={option2}。示例值: get_latest_application_on_chain可选值有: 仅对当前投递是虚拟职位投递时生效。  - 若投递未分配, 虚拟职位投递即为最新投递, 返回请求中指定的虚拟职位投递的信息  - 若投递已分配, 会返回分配链上最新一个实体职位投递的信息, 而非请求中指定的投递。
 }
 
 // GetHireApplicationResp ...
@@ -71,20 +73,20 @@ type GetHireApplicationResp struct {
 // GetHireApplicationRespApplication ...
 type GetHireApplicationRespApplication struct {
 	ID                           string                                                       `json:"id,omitempty"`                              // 投递id
-	JobID                        string                                                       `json:"job_id,omitempty"`                          // 投递的职位 ID
-	TalentID                     string                                                       `json:"talent_id,omitempty"`                       // 候选人 ID
+	JobID                        string                                                       `json:"job_id,omitempty"`                          // 投递的职位 ID, 详情可参考: [获取职位详情](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/get_detail)
+	TalentID                     string                                                       `json:"talent_id,omitempty"`                       // 候选人 ID, 详情可参考: [获取人才详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/hire-v2/talent/get)
 	ResumeSourceID               string                                                       `json:"resume_source_id,omitempty"`                // 简历来源 ID
 	Stage                        *GetHireApplicationRespApplicationStage                      `json:"stage,omitempty"`                           // 投递处于的阶段
-	ActiveStatus                 int64                                                        `json:"active_status,omitempty"`                   // 活跃状态, 可选值有: 1: 活跃, 2: 非活跃, 即为「已终止」
-	DeliveryType                 int64                                                        `json:"delivery_type,omitempty"`                   // 投递方式, 详细枚举请参考[「枚举常量介绍」](https://open.larkoffice.com/document/server-docs/hire-v1/enum) - 投递方式枚举定义, 可选值有: 1: HR寻访, 2: 候选人主动投递
+	ActiveStatus                 int64                                                        `json:"active_status,omitempty"`                   // 活跃状态可选值有: 活跃非活跃, 即为「已终止」
+	DeliveryType                 int64                                                        `json:"delivery_type,omitempty"`                   // 投递方式, 详细枚举请参考[「枚举常量介绍」](https://open.larkoffice.com/document/server-docs/hire-v1/enum) - 投递方式枚举定义可选值有: HR 寻访候选人主动投递
 	ResumeSourceInfo             *GetHireApplicationRespApplicationResumeSourceInfo           `json:"resume_source_info,omitempty"`              // 投递来源信息
 	WebsiteResumeSource          *GetHireApplicationRespApplicationWebsiteResumeSource        `json:"website_resume_source,omitempty"`           // 官网投递来源
 	TalentAttachmentResumeID     string                                                       `json:"talent_attachment_resume_id,omitempty"`     // 简历附件 ID
 	CreateTime                   string                                                       `json:"create_time,omitempty"`                     // 创建时间
 	ModifyTime                   string                                                       `json:"modify_time,omitempty"`                     // 修改时间
 	StageTimeList                []*GetHireApplicationRespApplicationStageTime                `json:"stage_time_list,omitempty"`                 // 阶段变更时间列表
-	TerminationType              int64                                                        `json:"termination_type,omitempty"`                // 终止原因的类型, 可选值有: 1: 我们拒绝了候选人, 22: 候选人拒绝了我们, 27: 其他
-	TerminationReasonList        []string                                                     `json:"termination_reason_list,omitempty"`         // 终止的具体原因的id列表
+	TerminationType              int64                                                        `json:"termination_type,omitempty"`                // 终止原因的类型可选值有: 我们拒绝了候选人候选人拒绝了我们其他
+	TerminationReasonList        []string                                                     `json:"termination_reason_list,omitempty"`         // 终止的具体原因的id列表, 详细信息请参考[获取终止投递原因](https://open.larkoffice.com/document/server-docs/hire-v1/candidate-management/delivery-process-management/application/list-2)
 	TerminationReasonNote        string                                                       `json:"termination_reason_note,omitempty"`         // 终止备注
 	ApplicationPreferredCityList []*GetHireApplicationRespApplicationApplicationPreferredCity `json:"application_preferred_city_list,omitempty"` // 意向投递城市列表
 	CreatorID                    string                                                       `json:"creator_id,omitempty"`                      // 投递创建人 ID, 仅当投递创建人为企业内部员工时可获取（如员工手动上传简历 / 加入职位 / 内推）, 其余情况返回为空（如候选人主动投递）
@@ -106,7 +108,7 @@ type GetHireApplicationRespApplicationApplicationPreferredCityName struct {
 type GetHireApplicationRespApplicationResumeSourceInfo struct {
 	ID               string                                                 `json:"id,omitempty"`                 // 投递来源 ID
 	Name             *GetHireApplicationRespApplicationResumeSourceInfoName `json:"name,omitempty"`               // 投递来源名称
-	ResumeSourceType int64                                                  `json:"resume_source_type,omitempty"` // 投递来源类型, 可选值有: 10000: 内推, 10001: 猎头, 10002: 内部来源, 10003: 第三方招聘网站, 10004: 社交媒体, 10005: 线下来源, 10006: 其他, 10007: 外部推荐, 10008: 员工转岗, 10009: 实习生转正
+	ResumeSourceType int64                                                  `json:"resume_source_type,omitempty"` // 投递来源类型可选值有: 内推猎头内部来源第三方招聘网站社交媒体线下来源其他外部推荐员工转岗实习生转正
 }
 
 // GetHireApplicationRespApplicationResumeSourceInfoName ...
@@ -117,10 +119,10 @@ type GetHireApplicationRespApplicationResumeSourceInfoName struct {
 
 // GetHireApplicationRespApplicationStage ...
 type GetHireApplicationRespApplicationStage struct {
-	ID     string `json:"id,omitempty"`      // 阶段 ID
+	ID     string `json:"id,omitempty"`      // 阶段 ID, 详情可参考: [获取招聘流程信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_process/list)返回参数中的投递阶段信息
 	ZhName string `json:"zh_name,omitempty"` // 阶段中文名字
 	EnName string `json:"en_name,omitempty"` // 英文名
-	Type   int64  `json:"type,omitempty"`    // 阶段类型, 可选值有: 1: 筛选型, 2: 评估型, 3: 笔试型, 4: 面试型, 5: Offer型, 6: 待入职, 7: 已入职, 8: 其它类型, 255: 系统默认
+	Type   int64  `json:"type,omitempty"`    // 阶段类型可选值有: 筛选型评估型笔试型面试型Offer型待入职已入职其它类型系统默认
 }
 
 // GetHireApplicationRespApplicationStageTime ...

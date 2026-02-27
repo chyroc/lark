@@ -21,11 +21,11 @@ import (
 	"context"
 )
 
-// EventV2IMMessageReadV1 用户阅读机器人发送的单聊消息后触发此事件。
+// EventV2IMMessageReadV1 用户阅读机器人发送的单聊消息后触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=im&version=v1&resource=message&event=message_read)
 //
-// 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
-// - 需要订阅 [消息与群组] 分类下的 [消息已读] 事件
+// ## 前提条件
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
+// - 你需要在应用中配置事件订阅, 订阅 [消息与群组] 分类下的 [消息已读] 事件才可接收推送。了解事件订阅可参见[事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/message_read
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/message/events/message_read
@@ -39,19 +39,19 @@ type EventV2IMMessageReadV1Handler func(ctx context.Context, cli *Lark, schema s
 // EventV2IMMessageReadV1 ...
 type EventV2IMMessageReadV1 struct {
 	Reader        *EventV2IMMessageReadV1Reader `json:"reader,omitempty"`
-	MessageIDList []string                      `json:"message_id_list,omitempty"` // 消息列表
+	MessageIDList []string                      `json:"message_id_list,omitempty"` // 消息 ID 列表。你可以调用[获取指定消息的内容](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/get)接口, 通过消息 ID 查询消息内容。
 }
 
 // EventV2IMMessageReadV1Reader ...
 type EventV2IMMessageReadV1Reader struct {
-	ReaderID  *EventV2IMMessageReadV1ReaderReaderID `json:"reader_id,omitempty"`  // 用户 ID
-	ReadTime  string                                `json:"read_time,omitempty"`  // 阅读时间
+	ReaderID  *EventV2IMMessageReadV1ReaderReaderID `json:"reader_id,omitempty"`  // 用户 ID。调用[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口, 可通过 ID 获取用户信息。
+	ReadTime  string                                `json:"read_time,omitempty"`  // 用户已读的时间, 毫秒级时间戳
 	TenantKey string                                `json:"tenant_key,omitempty"` // 租户key, 为租户在飞书上的唯一标识, 用来换取对应的tenant_access_token, 也可以用作租户在应用里面的唯一标识
 }
 
 // EventV2IMMessageReadV1ReaderReaderID ...
 type EventV2IMMessageReadV1ReaderReaderID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }

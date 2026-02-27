@@ -23,6 +23,8 @@ import (
 
 // GetHireTalent 根据人才 ID 获取人才信息。
 //
+// 本接口不再更新, 推荐使用新接口: [获取人才详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/hire-v2/talent/get)
+//
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/get
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/talent/get
 func (r *HireService) GetHireTalent(ctx context.Context, request *GetHireTalentReq, options ...MethodOptionFunc) (*GetHireTalentResp, *Response, error) {
@@ -58,8 +60,8 @@ func (r *Mock) UnMockHireGetHireTalent() {
 
 // GetHireTalentReq ...
 type GetHireTalentReq struct {
-	TalentID   string  `path:"talent_id" json:"-"`     // 人才ID, 示例值: "6891560630172518670"
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_admin_id: 以 people_admin_id 来识别用户, 默认值: `people_admin_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	TalentID   string  `path:"talent_id" json:"-"`     // 人才ID, 可通过[获取人才列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/list)接口获取示例值: "6891560630172518670"
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以 people_admin_id 来识别用户默认值: `people_admin_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetHireTalentResp ...
@@ -70,8 +72,8 @@ type GetHireTalentResp struct {
 // GetHireTalentRespTalent ...
 type GetHireTalentRespTalent struct {
 	ID                        string                                          `json:"id,omitempty"`                          // 人才ID
-	IsInAgencyPeriod          bool                                            `json:"is_in_agency_period,omitempty"`         // 是否在猎头保护期, 可选值有: false: 未在猎头保护期, true: 在猎头保护期
-	IsOnboarded               bool                                            `json:"is_onboarded,omitempty"`                // 是否已入职, 可选值有: false: 未入职, true: 已入职
+	IsInAgencyPeriod          bool                                            `json:"is_in_agency_period,omitempty"`         // 是否在猎头保护期可选值有: 未在猎头保护期在猎头保护期
+	IsOnboarded               bool                                            `json:"is_onboarded,omitempty"`                // 是否已入职可选值有: 未入职已入职
 	BasicInfo                 *GetHireTalentRespTalentBasicInfo               `json:"basic_info,omitempty"`                  // 基础信息
 	EducationList             []*GetHireTalentRespTalentEducation             `json:"education_list,omitempty"`              // 教育经历
 	CareerList                []*GetHireTalentRespTalentCareer                `json:"career_list,omitempty"`                 // 工作经历
@@ -81,12 +83,12 @@ type GetHireTalentRespTalent struct {
 	LanguageList              []*GetHireTalentRespTalentLanguage              `json:"language_list,omitempty"`               // 语言能力
 	SnsList                   []*GetHireTalentRespTalentSns                   `json:"sns_list,omitempty"`                    // 社交账号
 	ResumeSourceList          []*GetHireTalentRespTalentResumeSource          `json:"resume_source_list,omitempty"`          // 简历来源
-	InterviewRegistrationList []*GetHireTalentRespTalentInterviewRegistration `json:"interview_registration_list,omitempty"` // 面试登记表, 推荐使用 registration_list 字段获取完整登记表列表
+	InterviewRegistrationList []*GetHireTalentRespTalentInterviewRegistration `json:"interview_registration_list,omitempty"` // 面试登记表推荐使用 registration_list 字段获取完整登记表列表
 	RegistrationList          []*GetHireTalentRespTalentRegistration          `json:"registration_list,omitempty"`           // 登记表列表
 	ResumeAttachmentIDList    []string                                        `json:"resume_attachment_id_list,omitempty"`   // 简历附件id列表（按照简历创建时间降序）
 	CustomizedDataList        []*GetHireTalentRespTalentCustomizedData        `json:"customized_data_list,omitempty"`        // 自定义模块
-	TopDegree                 int64                                           `json:"top_degree,omitempty"`                  // 最高学历, 可选值有: 1: 小学, 2: 初中, 3: 专职, 4: 高中, 5: 大专, 6: 本科, 7: 硕士, 8: 博士, 9: 其他
-	FirstDegree               int64                                           `json:"first_degree,omitempty"`                // 第一学历, 可选值有: 1: 低于大专, 2: 大专, 3: 本科, 4: 硕士, 5: 博士, 6: 其他, 7: 无
+	TopDegree                 int64                                           `json:"top_degree,omitempty"`                  // 最高学历可选值有: 小学初中专职高中大专本科硕士博士其他
+	FirstDegree               int64                                           `json:"first_degree,omitempty"`                // 第一学历可选值有: 低于大专大专本科硕士博士其他无
 }
 
 // GetHireTalentRespTalentAward ...
@@ -102,7 +104,7 @@ type GetHireTalentRespTalentAward struct {
 type GetHireTalentRespTalentAwardCustomizedData struct {
 	ObjectID   string                                           `json:"object_id,omitempty"`   // 自定义字段 ID
 	Name       *GetHireTalentRespTalentAwardCustomizedDataName  `json:"name,omitempty"`        // 字段名称
-	ObjectType int64                                            `json:"object_type,omitempty"` // 字段类型, 可选值有: 1: 单行文本, 2: 多行文本, 3: 单选, 4: 多选, 5: 日期, 6: 月份选择, 7: 年份选择, 8: 时间段, 9: 数字, 10: 默认字段, 11: 模块, 13: 附件
+	ObjectType int64                                            `json:"object_type,omitempty"` // 字段类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块日选择附件
 	Value      *GetHireTalentRespTalentAwardCustomizedDataValue `json:"value,omitempty"`       // 自定义字段值
 }
 
@@ -159,15 +161,15 @@ type GetHireTalentRespTalentBasicInfo struct {
 	ExperienceYears      int64                                             `json:"experience_years,omitempty"`      // 工作年限
 	Age                  int64                                             `json:"age,omitempty"`                   // 年龄
 	Nationality          *GetHireTalentRespTalentBasicInfoNationality      `json:"nationality,omitempty"`           // 国籍
-	Gender               int64                                             `json:"gender,omitempty"`                // 性别, 可选值有: 1: 男, 2: 女, 3: 保密
+	Gender               int64                                             `json:"gender,omitempty"`                // 性别可选值有: 男女保密
 	CurrentCity          *GetHireTalentRespTalentBasicInfoCurrentCity      `json:"current_city,omitempty"`          // 所在地点
 	HometownCity         *GetHireTalentRespTalentBasicInfoHometownCity     `json:"hometown_city,omitempty"`         // 家乡
 	PreferredCityList    []*GetHireTalentRespTalentBasicInfoPreferredCity  `json:"preferred_city_list,omitempty"`   // 意向地点
-	IdentificationType   int64                                             `json:"identification_type,omitempty"`   // 证件类型, 可选值有: 1: 中国 - 居民身份证, 2: 护照, 3: 中国 - 港澳居民居住证, 4: 中国 - 台湾居民来往大陆通行证, 5: 其他, 6: 中国 - 港澳居民来往内地通行证, 9: 中国 - 台湾居民居住证
+	IdentificationType   int64                                             `json:"identification_type,omitempty"`   // 证件类型可选值有: 中国 - 居民身份证护照中国 - 港澳居民居住证中国 - 台湾居民来往大陆通行证其他中国 - 港澳居民来往内地通行证中国 - 台湾居民居住证
 	IdentificationNumber string                                            `json:"identification_number,omitempty"` // 证件号
 	Birthday             int64                                             `json:"birthday,omitempty"`              // 生日
 	CreatorID            string                                            `json:"creator_id,omitempty"`            // 创建人
-	MaritalStatus        int64                                             `json:"marital_status,omitempty"`        // 婚姻状况, 可选值有: 1: 已婚, 2: 未婚
+	MaritalStatus        int64                                             `json:"marital_status,omitempty"`        // 婚姻状况可选值有: 已婚未婚
 	CurrentHomeAddress   string                                            `json:"current_home_address,omitempty"`  // 家庭住址
 	CustomizedDataList   []*GetHireTalentRespTalentBasicInfoCustomizedData `json:"customized_data_list,omitempty"`  // 自定义字段
 	ModifyTime           string                                            `json:"modify_time,omitempty"`           // 修改时间
@@ -185,7 +187,7 @@ type GetHireTalentRespTalentBasicInfoCurrentCity struct {
 type GetHireTalentRespTalentBasicInfoCustomizedData struct {
 	ObjectID   string                                               `json:"object_id,omitempty"`   // 自定义字段 ID
 	Name       *GetHireTalentRespTalentBasicInfoCustomizedDataName  `json:"name,omitempty"`        // 字段名称
-	ObjectType int64                                                `json:"object_type,omitempty"` // 字段类型, 可选值有: 1: 单行文本, 2: 多行文本, 3: 单选, 4: 多选, 5: 日期, 6: 月份选择, 7: 年份选择, 8: 时间段, 9: 数字, 10: 默认字段, 11: 模块, 13: 附件
+	ObjectType int64                                                `json:"object_type,omitempty"` // 字段类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块日选择附件
 	Value      *GetHireTalentRespTalentBasicInfoCustomizedDataValue `json:"value,omitempty"`       // 自定义字段值
 }
 
@@ -261,8 +263,8 @@ type GetHireTalentRespTalentCareer struct {
 	Desc               string                                         `json:"desc,omitempty"`                 // 描述
 	StartTime          string                                         `json:"start_time,omitempty"`           // 开始时间
 	EndTime            string                                         `json:"end_time,omitempty"`             // 结束时间
-	CareerType         int64                                          `json:"career_type,omitempty"`          // 经历类型, 可选值有: 1: 实习经历, 2: 工作经历
-	TagList            []int64                                        `json:"tag_list,omitempty"`             // 工作经历标签, 可选值有: 5: BAT, 6: TMD, 14: 互联网100强
+	CareerType         int64                                          `json:"career_type,omitempty"`          // 经历类型可选值有: 实习经历工作经历兼职经历其他经历
+	TagList            []int64                                        `json:"tag_list,omitempty"`             // 工作经历标签可选值有: BATTMD互联网100强互联网大厂
 	CustomizedDataList []*GetHireTalentRespTalentCareerCustomizedData `json:"customized_data_list,omitempty"` // 自定义字段
 }
 
@@ -270,7 +272,7 @@ type GetHireTalentRespTalentCareer struct {
 type GetHireTalentRespTalentCareerCustomizedData struct {
 	ObjectID   string                                            `json:"object_id,omitempty"`   // 自定义字段 ID
 	Name       *GetHireTalentRespTalentCareerCustomizedDataName  `json:"name,omitempty"`        // 字段名称
-	ObjectType int64                                             `json:"object_type,omitempty"` // 字段类型, 可选值有: 1: 单行文本, 2: 多行文本, 3: 单选, 4: 多选, 5: 日期, 6: 月份选择, 7: 年份选择, 8: 时间段, 9: 数字, 10: 默认字段, 11: 模块, 13: 附件
+	ObjectType int64                                             `json:"object_type,omitempty"` // 字段类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块日选择附件
 	Value      *GetHireTalentRespTalentCareerCustomizedDataValue `json:"value,omitempty"`       // 自定义字段值
 }
 
@@ -321,7 +323,7 @@ type GetHireTalentRespTalentCareerCustomizedDataValueTimeRange struct {
 type GetHireTalentRespTalentCustomizedData struct {
 	ObjectID   string                                           `json:"object_id,omitempty"`   // 模块 ID
 	Name       *GetHireTalentRespTalentCustomizedDataName       `json:"name,omitempty"`        // 模块名称
-	ObjectType int64                                            `json:"object_type,omitempty"` // 类型, 可选值有: 1: 单行文本, 2: 多行文本, 3: 单选, 4: 多选, 5: 日期, 6: 月份选择, 7: 年份选择, 8: 时间段, 9: 数字, 10: 默认字段, 11: 模块
+	ObjectType int64                                            `json:"object_type,omitempty"` // 类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块
 	Children   []*GetHireTalentRespTalentCustomizedDataChildren `json:"children,omitempty"`    // 模块下的字段
 }
 
@@ -329,7 +331,7 @@ type GetHireTalentRespTalentCustomizedData struct {
 type GetHireTalentRespTalentCustomizedDataChildren struct {
 	ObjectID   string                                              `json:"object_id,omitempty"`   // 自定义字段 ID
 	Name       *GetHireTalentRespTalentCustomizedDataChildrenName  `json:"name,omitempty"`        // 字段名称
-	ObjectType int64                                               `json:"object_type,omitempty"` // 字段类型, 可选值有: 1: 单行文本, 2: 多行文本, 3: 单选, 4: 多选, 5: 日期, 6: 月份选择, 7: 年份选择, 8: 时间段, 9: 数字, 10: 默认字段, 11: 模块, 13: 附件
+	ObjectType int64                                               `json:"object_type,omitempty"` // 字段类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块日选择附件
 	Value      *GetHireTalentRespTalentCustomizedDataChildrenValue `json:"value,omitempty"`       // 自定义字段值
 }
 
@@ -385,14 +387,15 @@ type GetHireTalentRespTalentCustomizedDataName struct {
 // GetHireTalentRespTalentEducation ...
 type GetHireTalentRespTalentEducation struct {
 	ID                 string                                            `json:"id,omitempty"`                   // ID
-	Degree             int64                                             `json:"degree,omitempty"`               // 学位, 可选值有: 1: 小学, 2: 初中, 3: 专职, 4: 高中, 5: 大专, 6: 本科, 7: 硕士, 8: 博士, 9: 其他
+	Degree             int64                                             `json:"degree,omitempty"`               // 学位可选值有: 小学初中专职高中大专本科硕士MBA博士其他
 	School             string                                            `json:"school,omitempty"`               // 学校
 	FieldOfStudy       string                                            `json:"field_of_study,omitempty"`       // 专业
 	StartTime          string                                            `json:"start_time,omitempty"`           // 开始时间
 	EndTime            string                                            `json:"end_time,omitempty"`             // 结束时间
-	EducationType      int64                                             `json:"education_type,omitempty"`       // 学历类型, 可选值有: 1: 海外及港台, 2: 统招全日制, 3: 非全日制, 4: 自考, 5: 其他
-	AcademicRanking    int64                                             `json:"academic_ranking,omitempty"`     // 成绩排名, 可选值有: 5: 前 5 %, 10: 前 10 %, 20: 前 20 %, 30: 前 30 %, 50: 前 50 %, -1: 其他
-	TagList            []int64                                           `json:"tag_list,omitempty"`             // 教育经历标签, 可选值有: 1: 985学校, 2: 211学校, 3: 一本, 4: 国外院校QS200
+	EndTimeV2          string                                            `json:"end_time_v2,omitempty"`          // 结束时间-新, 无「至今」传值。建议使用此字段, 避免模糊的毕业时间影响候选人筛选
+	EducationType      int64                                             `json:"education_type,omitempty"`       // 学历类型可选值有: 海外及港台统招全日制非全日制自考其他
+	AcademicRanking    int64                                             `json:"academic_ranking,omitempty"`     // 成绩排名可选值有: 前 5 %前 10 %前 20 %前 30 %前 50 %其他
+	TagList            []int64                                           `json:"tag_list,omitempty"`             // 教育经历标签可选值有: 985学校211学校一本国外院校QS200
 	CustomizedDataList []*GetHireTalentRespTalentEducationCustomizedData `json:"customized_data_list,omitempty"` // 自定义字段
 }
 
@@ -400,7 +403,7 @@ type GetHireTalentRespTalentEducation struct {
 type GetHireTalentRespTalentEducationCustomizedData struct {
 	ObjectID   string                                               `json:"object_id,omitempty"`   // 自定义字段 ID
 	Name       *GetHireTalentRespTalentEducationCustomizedDataName  `json:"name,omitempty"`        // 字段名称
-	ObjectType int64                                                `json:"object_type,omitempty"` // 字段类型, 可选值有: 1: 单行文本, 2: 多行文本, 3: 单选, 4: 多选, 5: 日期, 6: 月份选择, 7: 年份选择, 8: 时间段, 9: 数字, 10: 默认字段, 11: 模块, 13: 附件
+	ObjectType int64                                                `json:"object_type,omitempty"` // 字段类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块日选择附件
 	Value      *GetHireTalentRespTalentEducationCustomizedDataValue `json:"value,omitempty"`       // 自定义字段值
 }
 
@@ -457,8 +460,8 @@ type GetHireTalentRespTalentInterviewRegistration struct {
 // GetHireTalentRespTalentLanguage ...
 type GetHireTalentRespTalentLanguage struct {
 	ID                 string                                           `json:"id,omitempty"`                   // ID
-	Language           int64                                            `json:"language,omitempty"`             // 语言, 可选值有: 1: 英语, 2: 法语, 3: 日语, 4: 韩语, 5: 德语, 6: 俄语, 7: 西班牙语, 8: 葡萄牙语, 9: 阿拉伯语, 10: 印地语, 11: 印度斯坦语, 12: 孟加拉语, 13: 豪萨语, 14: 旁遮普语, 15: 波斯语, 16: 斯瓦西里语, 17: 泰卢固语, 18: 土耳其语, 19: 意大利语, 20: 爪哇语, 21: 泰米尔语, 22: 马拉地语, 23: 越南语, 24: 普通话, 25: 粤语
-	Proficiency        int64                                            `json:"proficiency,omitempty"`          // 精通程度, 可选值有: 1: 入门, 2: 日常会话, 3: 商务会话, 4: 无障碍沟通, 5: 母语
+	Language           int64                                            `json:"language,omitempty"`             // 语言可选值有: 英语法语日语韩语德语俄语西班牙语葡萄牙语阿拉伯语印地语印度斯坦语孟加拉语豪萨语旁遮普语波斯语斯瓦西里语泰卢固语土耳其语意大利语爪哇语泰米尔语马拉地语越南语普通话粤语
+	Proficiency        int64                                            `json:"proficiency,omitempty"`          // 精通程度可选值有: 入门日常会话商务会话无障碍沟通母语
 	CustomizedDataList []*GetHireTalentRespTalentLanguageCustomizedData `json:"customized_data_list,omitempty"` // 自定义字段
 }
 
@@ -466,7 +469,7 @@ type GetHireTalentRespTalentLanguage struct {
 type GetHireTalentRespTalentLanguageCustomizedData struct {
 	ObjectID   string                                              `json:"object_id,omitempty"`   // 自定义字段 ID
 	Name       *GetHireTalentRespTalentLanguageCustomizedDataName  `json:"name,omitempty"`        // 字段名称
-	ObjectType int64                                               `json:"object_type,omitempty"` // 字段类型, 可选值有: 1: 单行文本, 2: 多行文本, 3: 单选, 4: 多选, 5: 日期, 6: 月份选择, 7: 年份选择, 8: 时间段, 9: 数字, 10: 默认字段, 11: 模块, 13: 附件
+	ObjectType int64                                               `json:"object_type,omitempty"` // 字段类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块日选择附件
 	Value      *GetHireTalentRespTalentLanguageCustomizedDataValue `json:"value,omitempty"`       // 自定义字段值
 }
 
@@ -529,7 +532,7 @@ type GetHireTalentRespTalentProject struct {
 type GetHireTalentRespTalentProjectCustomizedData struct {
 	ObjectID   string                                             `json:"object_id,omitempty"`   // 自定义字段 ID
 	Name       *GetHireTalentRespTalentProjectCustomizedDataName  `json:"name,omitempty"`        // 字段名称
-	ObjectType int64                                              `json:"object_type,omitempty"` // 字段类型, 可选值有: 1: 单行文本, 2: 多行文本, 3: 单选, 4: 多选, 5: 日期, 6: 月份选择, 7: 年份选择, 8: 时间段, 9: 数字, 10: 默认字段, 11: 模块, 13: 附件
+	ObjectType int64                                              `json:"object_type,omitempty"` // 字段类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块日选择附件
 	Value      *GetHireTalentRespTalentProjectCustomizedDataValue `json:"value,omitempty"`       // 自定义字段值
 }
 
@@ -581,7 +584,7 @@ type GetHireTalentRespTalentRegistration struct {
 	ID               string `json:"id,omitempty"`                // ID
 	RegistrationTime int64  `json:"registration_time,omitempty"` // 创建时间
 	DownloadURL      string `json:"download_url,omitempty"`      // 下载链接
-	Scenario         int64  `json:"scenario,omitempty"`          // 登记表场景, 可选值有: 5: 面试登记表, 6: 入职登记表, 14: 信息更新登记表
+	Scenario         int64  `json:"scenario,omitempty"`          // 登记表场景可选值有: 面试登记表入职登记表信息更新登记表
 }
 
 // GetHireTalentRespTalentResumeSource ...
@@ -594,7 +597,7 @@ type GetHireTalentRespTalentResumeSource struct {
 // GetHireTalentRespTalentSns ...
 type GetHireTalentRespTalentSns struct {
 	ID                 string                                      `json:"id,omitempty"`                   // ID
-	SnsType            int64                                       `json:"sns_type,omitempty"`             // SNS名称, 可选值有: 1: 领英, 2: 脉脉, 3: 微信, 4: 微博, 5: Github, 6: 知乎, 7: 脸书, 8: 推特, 9: Whatsapp, 10: 个人网站, 11: QQ
+	SnsType            int64                                       `json:"sns_type,omitempty"`             // 社交平台可选值有: 领英脉脉微信微博Github知乎脸书推特Whatsapp个人网站QQ
 	Link               string                                      `json:"link,omitempty"`                 // URL/ID
 	CustomizedDataList []*GetHireTalentRespTalentSnsCustomizedData `json:"customized_data_list,omitempty"` // 自定义字段
 }
@@ -603,7 +606,7 @@ type GetHireTalentRespTalentSns struct {
 type GetHireTalentRespTalentSnsCustomizedData struct {
 	ObjectID   string                                         `json:"object_id,omitempty"`   // 自定义字段 ID
 	Name       *GetHireTalentRespTalentSnsCustomizedDataName  `json:"name,omitempty"`        // 字段名称
-	ObjectType int64                                          `json:"object_type,omitempty"` // 字段类型, 可选值有: 1: 单行文本, 2: 多行文本, 3: 单选, 4: 多选, 5: 日期, 6: 月份选择, 7: 年份选择, 8: 时间段, 9: 数字, 10: 默认字段, 11: 模块, 13: 附件
+	ObjectType int64                                          `json:"object_type,omitempty"` // 字段类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块日选择附件
 	Value      *GetHireTalentRespTalentSnsCustomizedDataValue `json:"value,omitempty"`       // 自定义字段值
 }
 
@@ -663,7 +666,7 @@ type GetHireTalentRespTalentWorks struct {
 type GetHireTalentRespTalentWorksCustomizedData struct {
 	ObjectID   string                                           `json:"object_id,omitempty"`   // 自定义字段 ID
 	Name       *GetHireTalentRespTalentWorksCustomizedDataName  `json:"name,omitempty"`        // 字段名称
-	ObjectType int64                                            `json:"object_type,omitempty"` // 字段类型, 可选值有: 1: 单行文本, 2: 多行文本, 3: 单选, 4: 多选, 5: 日期, 6: 月份选择, 7: 年份选择, 8: 时间段, 9: 数字, 10: 默认字段, 11: 模块, 13: 附件
+	ObjectType int64                                            `json:"object_type,omitempty"` // 字段类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块日选择附件
 	Value      *GetHireTalentRespTalentWorksCustomizedDataValue `json:"value,omitempty"`       // 自定义字段值
 }
 

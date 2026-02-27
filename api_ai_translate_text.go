@@ -76,16 +76,16 @@ func (r *Mock) UnMockAITranslateText() {
 
 // TranslateTextReq ...
 type TranslateTextReq struct {
-	SourceLanguage string                      `json:"source_language,omitempty"` // 源语言, 示例值: "zh"
-	Text           string                      `json:"text,omitempty"`            // 源文本, 示例值: "尝试使用一下飞书吧"
-	TargetLanguage string                      `json:"target_language,omitempty"` // 目标语言, 示例值: "en"
+	SourceLanguage string                      `json:"source_language,omitempty"` // 源语言示例值: "zh"
+	Text           string                      `json:"text,omitempty"`            // 源文本, 字符上限为 1, 000。示例值: "尝试使用一下飞书吧"
+	TargetLanguage string                      `json:"target_language,omitempty"` // 目标语言示例值: "en"
 	Glossary       []*TranslateTextReqGlossary `json:"glossary,omitempty"`        // 请求级术语表, 携带术语, 仅在本次翻译中生效（最多能携带 128个术语词）
 }
 
 // TranslateTextReqGlossary ...
 type TranslateTextReqGlossary struct {
-	From string `json:"from,omitempty"` // 原文, 示例值: "飞书"
-	To   string `json:"to,omitempty"`   // 译文, 示例值: "Lark"
+	From string `json:"from,omitempty"` // 原文示例值: "飞书"
+	To   string `json:"to,omitempty"`   // 译文示例值: "Lark"
 }
 
 // TranslateTextResp ...

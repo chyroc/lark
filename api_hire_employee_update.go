@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UpdateHireEmployee 根据员工 ID 更新员工转正、离职状态。
+// UpdateHireEmployee 根据员工 ID 更新员工招聘系统内的转正、离职状态。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/employee/patch
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/onboard/patch
@@ -58,26 +58,26 @@ func (r *Mock) UnMockHireUpdateHireEmployee() {
 
 // UpdateHireEmployeeReq ...
 type UpdateHireEmployeeReq struct {
-	EmployeeID         string                               `path:"employee_id" json:"-"`            // 员工ID, 示例值: "123"
-	UserIDType         *IDType                              `query:"user_id_type" json:"-"`          // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	DepartmentIDType   *DepartmentIDType                    `query:"department_id_type" json:"-"`    // 此次调用中使用的部门 ID 的类型, 示例值: department_id, 可选值有: open_department_id: 以 open_department_id 来标识部门, department_id: 以 department_id 来标识部门, people_admin_department_id: 以 people_admin_department_id 来标识部门, 默认值: `people_admin_department_id`
-	JobLevelIDType     *IDType                              `query:"job_level_id_type" json:"-"`     // 此次调用中使用的「职级 ID」的类型, 示例值: 6942778198054125570, 可选值有: people_admin_job_level_id: 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。, job_level_id: 「飞书管理后台」适用的职级 ID, 通过[「获取租户职级列表」](https://open.feishu.cn/document/server-docs/contact-v3/job_level/list)接口获取, 默认值: `people_admin_job_level_id`
-	JobFamilyIDType    *IDType                              `query:"job_family_id_type" json:"-"`    // 此次调用中使用的「序列 ID」的类型, 示例值: 6942778198054125571, 可选值有: people_admin_job_category_id: 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。, job_family_id: 「飞书管理后台」适用的序列 ID, 通过[「获取租户序列列表」](https://open.feishu.cn/document/server-docs/contact-v3/job_family/list)接口获取, 默认值: `people_admin_job_category_id`
-	EmployeeTypeIDType *IDType                              `query:"employee_type_id_type" json:"-"` // 此次调用中使用的「人员类型 ID」的类型, 示例值: 1, 可选值有: people_admin_employee_type_id: 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。, employee_type_enum_id: 「飞书管理后台」适用的人员类型 ID, 通过[「查询人员类型」](https://open.feishu.cn/document/server-docs/contact-v3/employee_type_enum/list)接口获取, 默认值: `people_admin_employee_type_id`
-	Operation          int64                                `json:"operation,omitempty"`             // 修改状态操作, 示例值: 1, 可选值有: 1: 转正, 2: 离职
-	ConversionInfo     *UpdateHireEmployeeReqConversionInfo `json:"conversion_info,omitempty"`       // 转正信息, 操作员工转正时必填
-	OverboardInfo      *UpdateHireEmployeeReqOverboardInfo  `json:"overboard_info,omitempty"`        // 离职信息, 操作员工离职时必填
+	EmployeeID         string                               `path:"employee_id" json:"-"`            // 员工ID, 请参考: [通过投递 ID 获取入职信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/employee/get_by_application)示例值: "6891613503971461384"
+	UserIDType         *IDType                              `query:"user_id_type" json:"-"`          // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	DepartmentIDType   *DepartmentIDType                    `query:"department_id_type" json:"-"`    // 指定查询结果中的部门 ID 类型。关于部门 ID 的详细介绍, 可参见[部门资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)。示例值: department_id可选值有: 以 open_department_id 来标识部门由系统自动生成的部门 ID, ID 前缀固定为 `od-`, 在租户内全局唯一。支持用户自定义配置的部门 ID。自定义配置时可复用已删除的 department_id, 因此在未删除的部门范围内 department_id 具有唯一性。以 people_admin_department_id 来标识部门默认值: `people_admin_department_id
+	JobLevelIDType     *IDType                              `query:"job_level_id_type" json:"-"`     // 此次调用中使用的「职级 ID」的类型示例值: 6942778198054125570可选值有: 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。「飞书管理后台」适用的职级 ID, 通过 [获取租户职级列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_level/list)接口获取默认值: `people_admin_job_level_id
+	JobFamilyIDType    *IDType                              `query:"job_family_id_type" json:"-"`    // 此次调用中使用的「序列 ID」的类型示例值: 6942778198054125571可选值有: 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。「飞书管理后台」适用的序列 ID, 通过 [获取租户序列列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_family/list)接口获取默认值: `people_admin_job_category_id
+	EmployeeTypeIDType *IDType                              `query:"employee_type_id_type" json:"-"` // 此次调用中使用的「人员类型 ID」的类型示例值: 1可选值有: 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。「飞书管理后台」适用的人员类型 ID, 通过 [查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)接口获取默认值: `people_admin_employee_type_id
+	Operation          int64                                `json:"operation,omitempty"`             // 修改状态操作类型示例值: 1可选值有: 转正离职恢复至待入职撤销离职（恢复至已入职）撤销转正（恢复至待转正）
+	ConversionInfo     *UpdateHireEmployeeReqConversionInfo `json:"conversion_info,omitempty"`       // 转正信息, 操作类型operation为`转正`时必填
+	OverboardInfo      *UpdateHireEmployeeReqOverboardInfo  `json:"overboard_info,omitempty"`        // 离职信息, 操作类型operation为`离职`时必填
 }
 
 // UpdateHireEmployeeReqConversionInfo ...
 type UpdateHireEmployeeReqConversionInfo struct {
-	ActualConversionTime *int64 `json:"actual_conversion_time,omitempty"` // 实际转正日期, 示例值: 1637596800000
+	ActualConversionTime *int64 `json:"actual_conversion_time,omitempty"` // 实际转正日期, 毫秒时间戳示例值: 1637596800000
 }
 
 // UpdateHireEmployeeReqOverboardInfo ...
 type UpdateHireEmployeeReqOverboardInfo struct {
-	ActualOverboardTime *int64  `json:"actual_overboard_time,omitempty"` // 实际离职日期, 示例值: 1637596800000
-	OverboardNote       *string `json:"overboard_note,omitempty"`        // 离职原因, 示例值: "职业发展考虑"
+	ActualOverboardTime *int64  `json:"actual_overboard_time,omitempty"` // 实际离职日期, 毫秒时间戳示例值: 1637596800000
+	OverboardNote       *string `json:"overboard_note,omitempty"`        // 离职原因示例值: "职业发展考虑"
 }
 
 // UpdateHireEmployeeResp ...
@@ -88,20 +88,21 @@ type UpdateHireEmployeeResp struct {
 // UpdateHireEmployeeRespEmployee ...
 type UpdateHireEmployeeRespEmployee struct {
 	ID                     string       `json:"id,omitempty"`                       // 员工ID
-	ApplicationID          string       `json:"application_id,omitempty"`           // 投递ID
-	OnboardStatus          int64        `json:"onboard_status,omitempty"`           // 入职状态, 可选值有: 1: 已入职, 2: 已离职
-	ConversionStatus       int64        `json:"conversion_status,omitempty"`        // 转正状态, 可选值有: 1: 未转正, 2: 已转正
-	OnboardTime            int64        `json:"onboard_time,omitempty"`             // 实际入职时间
-	ExpectedConversionTime int64        `json:"expected_conversion_time,omitempty"` // 预期转正时间
-	ActualConversionTime   int64        `json:"actual_conversion_time,omitempty"`   // 实际转正时间
-	OverboardTime          int64        `json:"overboard_time,omitempty"`           // 离职时间
+	ApplicationID          string       `json:"application_id,omitempty"`           // 投递ID, 详情请查看: [获取投递信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get)
+	OnboardStatus          int64        `json:"onboard_status,omitempty"`           // 入职状态可选值有: 已入职已离职
+	ConversionStatus       int64        `json:"conversion_status,omitempty"`        // 转正状态可选值有: 未转正已转正
+	OnboardTime            int64        `json:"onboard_time,omitempty"`             // 实际入职时间, 毫秒时间戳
+	ExpectedConversionTime int64        `json:"expected_conversion_time,omitempty"` // 预期转正时间, 毫秒时间戳
+	ActualConversionTime   int64        `json:"actual_conversion_time,omitempty"`   // 实际转正时间, 毫秒时间戳
+	OverboardTime          int64        `json:"overboard_time,omitempty"`           // 离职时间, 毫秒时间戳
 	OverboardNote          string       `json:"overboard_note,omitempty"`           // 离职原因
-	OnboardCityCode        string       `json:"onboard_city_code,omitempty"`        // 办公地点
-	Department             string       `json:"department,omitempty"`               // 入职部门
-	Leader                 string       `json:"leader,omitempty"`                   // 直属上级
-	Sequence               string       `json:"sequence,omitempty"`                 // 序列
-	Level                  string       `json:"level,omitempty"`                    // 职级
-	EmployeeType           EmployeeType `json:"employee_type,omitempty"`            // 员工类型
+	OnboardCityCode        string       `json:"onboard_city_code,omitempty"`        // 办公地点, 详情请查看: [查询地点列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/query)
+	Department             string       `json:"department,omitempty"`               // 入职部门ID, 与入参中的`department_id_type`类型一致, 详情请查看: [获取单个部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/get)
+	Leader                 string       `json:"leader,omitempty"`                   // 直属上级用户ID, 与入参`user_id_type`类型一致
+	Sequence               string       `json:"sequence,omitempty"`                 // 序列ID, 与入参`job_family_id_type` 类型一致
+	Level                  string       `json:"level,omitempty"`                    // 职级ID, 与入参`job_level_id_type` 类型一致
+	EmployeeType           EmployeeType `json:"employee_type,omitempty"`            // 员工类型ID, 与入参`employee_type_id_type` 类型一致
+	JobRequirementID       string       `json:"job_requirement_id,omitempty"`       // 招聘需求ID
 }
 
 // updateHireEmployeeResp ...

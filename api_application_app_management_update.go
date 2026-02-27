@@ -24,6 +24,7 @@ import (
 // UpdateApplicationAppManagement 可停用或启用企业内已安装的自建应用与商店应用。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-management/update
+// new doc: https://open.feishu.cn/document/application-v6/admin/update
 func (r *ApplicationService) UpdateApplicationAppManagement(ctx context.Context, request *UpdateApplicationAppManagementReq, options ...MethodOptionFunc) (*UpdateApplicationAppManagementResp, *Response, error) {
 	if r.cli.mock.mockApplicationUpdateApplicationAppManagement != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#UpdateApplicationAppManagement mock enable")
@@ -57,13 +58,12 @@ func (r *Mock) UnMockApplicationUpdateApplicationAppManagement() {
 
 // UpdateApplicationAppManagementReq ...
 type UpdateApplicationAppManagementReq struct {
-	AppID  string `path:"app_id" json:"-"`  // 应用ID, 示例值: "cli_a4517c8461f8100a"
-	Enable *bool  `json:"enable,omitempty"` // 启用/停用应用, 示例值: true
+	AppID  string `path:"app_id" json:"-"`  // 应用ID示例值: "cli_a4517c8461f8100a"
+	Enable *bool  `json:"enable,omitempty"` // 启用/停用应用示例值: true
 }
 
 // UpdateApplicationAppManagementResp ...
-type UpdateApplicationAppManagementResp struct {
-}
+type UpdateApplicationAppManagementResp struct{}
 
 // updateApplicationAppManagementResp ...
 type updateApplicationAppManagementResp struct {

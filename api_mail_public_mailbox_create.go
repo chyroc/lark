@@ -58,9 +58,9 @@ func (r *Mock) UnMockMailCreatePublicMailbox() {
 
 // CreatePublicMailboxReq ...
 type CreatePublicMailboxReq struct {
-	Email *string `json:"email,omitempty"` // 公共邮箱地址, 示例值: "test_public_mailbox@xxx.xx"
-	Name  *string `json:"name,omitempty"`  // 公共邮箱名称, 示例值: "test public mailbox"
-	Geo   *string `json:"geo,omitempty"`   // 数据驻留地, 示例值: "cn"
+	Email *string `json:"email,omitempty"` // 公共邮箱地址示例值: "test_public_mailbox@xxx.xx"
+	Name  *string `json:"name,omitempty"`  // 公共邮箱名称示例值: "test public mailbox"
+	Geo   *string `json:"geo,omitempty"`   // 数据驻留地示例值: "cn"
 }
 
 // CreatePublicMailboxResp ...
@@ -68,7 +68,7 @@ type CreatePublicMailboxResp struct {
 	PublicMailboxID string `json:"public_mailbox_id,omitempty"` // 公共邮箱唯一标识
 	Email           string `json:"email,omitempty"`             // 公共邮箱地址
 	Name            string `json:"name,omitempty"`              // 公共邮箱名称
-	Geo             string `json:"geo,omitempty"`               // 数据驻留地, 字段权限要求: 查看公共邮箱数据驻留地
+	Geo             string `json:"geo,omitempty"`               // 数据驻留地字段权限要求: 查看公共邮箱数据驻留地
 }
 
 // createPublicMailboxResp ...

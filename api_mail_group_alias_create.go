@@ -58,8 +58,8 @@ func (r *Mock) UnMockMailCreateMailGroupAlias() {
 
 // CreateMailGroupAliasReq ...
 type CreateMailGroupAliasReq struct {
-	MailGroupID string  `path:"mailgroup_id" json:"-"` // 邮件组id或邮件组邮箱地址, 示例值: "xxxxxx 或者 xxx@xx.xxx"
-	EmailAlias  *string `json:"email_alias,omitempty"` // 邮箱别名, 示例值: "xxx@xx.xxx"
+	MailGroupID string  `path:"mailgroup_id" json:"-"` // 邮件组id或邮件组邮箱地址示例值: "xxxxxx 或者 xxx@xx.xxx"
+	EmailAlias  *string `json:"email_alias,omitempty"` // 邮箱别名示例值: "xxx@xx.xxx"
 }
 
 // CreateMailGroupAliasResp ...

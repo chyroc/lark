@@ -21,10 +21,11 @@ import (
 	"context"
 )
 
-// UpdateAttendanceLeaveAccrualRecord 仅可更新「发放数量」和「失效日期」
+// UpdateAttendanceLeaveAccrualRecord 更新发放记录的发放数量和失效日期, 对应假勤管理-休假管理-[发放记录](https://example.feishu.cn/people/workforce-management/manage/leave/leave_admin/granting_record)
 //
 // - 仅飞书人事企业版可用
 // - 由系统生成的发放记录不可被更新
+// - 仅可更新「发放数量」和「失效日期」
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/leave_accrual_record/patch
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/leave_accrual_record/patch
@@ -61,21 +62,21 @@ func (r *Mock) UnMockAttendanceUpdateAttendanceLeaveAccrualRecord() {
 
 // UpdateAttendanceLeaveAccrualRecordReq ...
 type UpdateAttendanceLeaveAccrualRecordReq struct {
-	LeaveID               string                                         `path:"leave_id" json:"-"`                  // 假期类型ID, 示例值: "7111688079785723436"
-	UserIDType            *IDType                                        `query:"user_id_type" json:"-"`             // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_corehr_id: 以飞书人事的 ID 来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	LeaveGrantingRecordID string                                         `json:"leave_granting_record_id,omitempty"` // 发放记录的唯一ID, 示例值: "6893014062142064135"
-	EmploymentID          string                                         `json:"employment_id,omitempty"`            // 员工ID, 示例值: "6982509313466189342"
-	LeaveTypeID           string                                         `json:"leave_type_id,omitempty"`            // 假期类型ID, 示例值: "7111688079785723436"
+	LeaveID               string                                         `path:"leave_id" json:"-"`                  // 假期类型ID, 可通过[获取假期类型列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/leave_types)获取示例值: "7111688079785723436"
+	UserIDType            *IDType                                        `query:"user_id_type" json:"-"`             // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	LeaveGrantingRecordID string                                         `json:"leave_granting_record_id,omitempty"` // 发放记录的唯一ID, 可通过[创建假期发放记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave_granting_record/create)示例值: "6893014062142064135"
+	EmploymentID          string                                         `json:"employment_id,omitempty"`            // 员工ID, 类型对应user_id_type示例值: "6982509313466189342"
+	LeaveTypeID           string                                         `json:"leave_type_id,omitempty"`            // 假期类型ID, 可通过[获取假期类型列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/leave_types)获取示例值: "7111688079785723436"
 	Reason                []*UpdateAttendanceLeaveAccrualRecordReqReason `json:"reason,omitempty"`                   // 修改发放记录原因
-	TimeOffset            *int64                                         `json:"time_offset,omitempty"`              // 时间偏移, 东八区: 480    8*60, 示例值: 480
-	ExpirationDate        *string                                        `json:"expiration_date,omitempty"`          // 失效日期, 格式"2020-01-01", 示例值: "2020-01-01"
-	Quantity              *string                                        `json:"quantity,omitempty"`                 // 修改source 余额, 示例值: "1"
+	TimeOffset            *int64                                         `json:"time_offset,omitempty"`              // 时间偏移, 东八区: 480    8*60示例值: 480
+	ExpirationDate        *string                                        `json:"expiration_date,omitempty"`          // 失效日期, 格式"2020-01-01"示例值: "2020-01-01"
+	Quantity              *string                                        `json:"quantity,omitempty"`                 // 修改发放数量示例值: "1"
 }
 
 // UpdateAttendanceLeaveAccrualRecordReqReason ...
 type UpdateAttendanceLeaveAccrualRecordReqReason struct {
-	Lang  string `json:"lang,omitempty"`  // 语言码, 示例值: "zh-CN"
-	Value string `json:"value,omitempty"` // 语言码对应的文本, 示例值: "test"
+	Lang  string `json:"lang,omitempty"`  // 语言码示例值: "zh_CN"
+	Value string `json:"value,omitempty"` // 语言码对应的文本示例值: "test"
 }
 
 // UpdateAttendanceLeaveAccrualRecordResp ...
@@ -86,18 +87,18 @@ type UpdateAttendanceLeaveAccrualRecordResp struct {
 // UpdateAttendanceLeaveAccrualRecordRespRecord ...
 type UpdateAttendanceLeaveAccrualRecordRespRecord struct {
 	ID               string                                                `json:"id,omitempty"`                // 发放记录唯一ID
-	EmploymentID     string                                                `json:"employment_id,omitempty"`     // 员工ID
+	EmploymentID     string                                                `json:"employment_id,omitempty"`     // 员工ID, 类型对应user_id_type
 	LeaveTypeID      string                                                `json:"leave_type_id,omitempty"`     // 假期类型ID
 	GrantingQuantity string                                                `json:"granting_quantity,omitempty"` // 发放数量
 	GrantingUnit     int64                                                 `json:"granting_unit,omitempty"`     // 发放单位, 1表示天, 2表示小时
-	EffectiveDate    string                                                `json:"effective_date,omitempty"`    // 生效日期, 格式"2020-01-01"
-	ExpirationDate   string                                                `json:"expiration_date,omitempty"`   // 失效日期, 格式"2020-01-01"
+	EffectiveDate    string                                                `json:"effective_date,omitempty"`    // 生效日期, 格式为yyyy-MM-dd
+	ExpirationDate   string                                                `json:"expiration_date,omitempty"`   // 失效日期, 格式为yyyy-MM-dd
 	GrantedBy        int64                                                 `json:"granted_by,omitempty"`        // 发放来源, 1: 系统发放；2: 手动发放；3: 外部系统发放
 	Reason           []*UpdateAttendanceLeaveAccrualRecordRespRecordReason `json:"reason,omitempty"`            // 发放原因
 	CreatedAt        string                                                `json:"created_at,omitempty"`        // 发放记录的创建时间, unix时间戳
-	CreatedBy        string                                                `json:"created_by,omitempty"`        // 发放记录的创建人的ID
+	CreatedBy        string                                                `json:"created_by,omitempty"`        // 发放记录的创建人的ID, 类型对应user_id_type
 	UpdatedAt        string                                                `json:"updated_at,omitempty"`        // 发放记录的更新时间, unix时间戳
-	UpdatedBy        string                                                `json:"updated_by,omitempty"`        // 发放记录的更新人的ID
+	UpdatedBy        string                                                `json:"updated_by,omitempty"`        // 发放记录的更新人的ID, 类型对应user_id_type
 }
 
 // UpdateAttendanceLeaveAccrualRecordRespRecordReason ...

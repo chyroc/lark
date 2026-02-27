@@ -59,9 +59,9 @@ func (r *Mock) UnMockApprovalGetApprovalList() {
 
 // GetApprovalListReq ...
 type GetApprovalListReq struct {
-	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 10, 默认值: `10`, 最大值: `100`
-	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "ASDJHA1323_sda1JSASDFD"
-	Locale    *string `query:"locale" json:"-"`     // --zh-CN: 中文, en-US: 英文, ja-JP: 日文, 示例值: "zh-CN"
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小示例值: 10默认值: `10` 最大值: `100
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: "ASDJHA1323_sda1JSASDFD"
+	Locale    *string `query:"locale" json:"-"`     // --zh-CN: 中文 - en-US: 英文 - ja-JP: 日文示例值: "zh-CN"
 }
 
 // GetApprovalListResp ...

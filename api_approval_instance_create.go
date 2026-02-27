@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// CreateApprovalInstance 创建一个审批实例, 调用方需对审批定义的表单有详细了解, 将按照定义的表单结构, 将表单 Value 通过接口传入。
+// CreateApprovalInstance 调用本接口使用指定审批定义 Code 创建一个审批实例, 接口调用者需对审批定义的表单有详细了解, 按照定义的表单结构, 将表单 Value 通过本接口传入。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/instance/create
@@ -58,58 +58,67 @@ func (r *Mock) UnMockApprovalCreateApprovalInstance() {
 
 // CreateApprovalInstanceReq ...
 type CreateApprovalInstanceReq struct {
-	ApprovalCode           string                                             `json:"approval_code,omitempty"`              // 审批定义 code, 示例值: "7C468A54-8745-2245-9675-08B7C63E7A85"
-	UserID                 *string                                            `json:"user_id,omitempty"`                    // 发起审批用户的 user_id, 与 open_id 必须传入其中一个。如果传入了 user_id 则优先使用 user_id, 示例值: "f7cb567e"
-	OpenID                 *string                                            `json:"open_id,omitempty"`                    // 发起审批用户的 open_id, 与 user_id 必须传入其中一个。如果传入了 user_id 则优先使用 user_id, 示例值: "ou_3cda9c969f737aaa05e6915dce306cb9"
-	DepartmentID           *string                                            `json:"department_id,omitempty"`              // 发起审批用户部门id, 如果用户只属于一个部门, 可以不填。如果属于多个部门, 默认会选择部门列表第一个部门, 示例值: "9293493ccacbdb9a"
-	Form                   ApprovalWidgetList                                 `json:"form,omitempty"`                       // json 数组（需压缩转义成string）, 控件值, 示例值: "[{\"id\":\"111\", \"type\": \"input\", \"value\":\"test\"}]"
-	NodeApproverUserIDList []*CreateApprovalInstanceReqNodeApproverUserIDList `json:"node_approver_user_id_list,omitempty"` // 如果有发起人自选节点, 则需要填写对应节点的审批人
-	NodeApproverOpenIDList []*CreateApprovalInstanceReqNodeApproverOpenIDList `json:"node_approver_open_id_list,omitempty"` // 审批人发起人自选 open id, 与上述node_approver_user_id_list字段取并集
-	NodeCcUserIDList       []*CreateApprovalInstanceReqNodeCcUserIDList       `json:"node_cc_user_id_list,omitempty"`       // 如果有发起人自选节点, 则可填写对应节点的抄送人, 单个节点最多选择20位抄送人, 最大长度: `20`
-	NodeCcOpenIDList       []*CreateApprovalInstanceReqNodeCcOpenIDList       `json:"node_cc_open_id_list,omitempty"`       // 抄送人发起人自选 open id 单个节点最多选择20位抄送人, 最大长度: `20`
-	UUID                   *string                                            `json:"uuid,omitempty"`                       // 审批实例 uuid, 用于幂等操作, 每个租户下面的唯一key, 同一个 uuid 只能用于创建一个审批实例, 如果冲突, 返回错误码 60012, 格式建议为 XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX, 不区分大小写, 示例值: "7C468A54-8745-2245-9675-08B7C63E7A87", 长度范围: `1` ～ `64` 字符
-	AllowResubmit          *bool                                              `json:"allow_resubmit,omitempty"`             // 可配置“提交”按钮, 该操作适用于审批人退回场景, 提单人在同一实例提交单据, 示例值: true
-	AllowSubmitAgain       *bool                                              `json:"allow_submit_again,omitempty"`         // 可配置是否可以再次提交, 适用于周期性提单场景, 按照当前表单内容再次发起一个新实例, 示例值: true
-	CancelBotNotification  *string                                            `json:"cancel_bot_notification,omitempty"`    // 取消指定的 bot 推送通知。可选值: 1: 取消通过推送, 2: 取消拒绝推送, 4: 取消实例取消推送, 支持同时取消多个 bot 推送通知。位运算, 即如需取消 1 和 2 两种通知, 则需要传入加和值 3, 示例值: "1"
-	ForbidRevoke           *bool                                              `json:"forbid_revoke,omitempty"`              // 配置是否可以禁止撤销, 示例值: false, 默认值: `false`
-	I18nResources          []*CreateApprovalInstanceReqI18nResource           `json:"i18n_resources,omitempty"`             // 国际化文案。目前只支单行、多行文本的值。
+	ApprovalCode           string                                             `json:"approval_code,omitempty"`              // 审批定义 Code。获取方式: 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后, 从响应参数 approval_code 获取。- 登录审批管理后台, 在指定审批定义的 URL 中获取, 具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。示例值: "7C468A54-8745-2245-9675-08B7C63E7A85"
+	UserID                 *string                                            `json:"user_id,omitempty"`                    // 审批发起人的 user_id, 与 open_id 必须传入其中一个。如果传入了 user_id 则优先使用 user_id。获取方式参考[如何获取用户的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。示例值: "f7cb567e"
+	OpenID                 *string                                            `json:"open_id,omitempty"`                    // 审批发起人的 open_id, 与 user_id 必须传入其中一个。如果传入了 user_id 则优先使用 user_id。获取方式参考[如何获取用户的 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)示例值: "ou_3cda9c969f737aaa05e6915dce306cb9"
+	DepartmentID           *string                                            `json:"department_id,omitempty"`              // 审批发起人所属部门 ID。如果用户只属于一个部门, 可以不填。如果用户属于多个部门, 不填值则默认选择部门列表第一个部门。获取方式参见[部门 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#9c02ed7a)。说明: 不支持填写根部门。- 需填写 department_id 类型的部门 ID。示例值: "9293493ccacbdb9a"
+	Form                   ApprovalWidgetList                                 `json:"form,omitempty"`                       // 填写的审批表单控件值, JSON 数组, 传值时需要压缩转义为字符串。各控件值的参数说明参考[审批实例表单控件参数](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/approval-instance-form-control-parameters)。示例值: "[{\"id\":\"111\", \"type\": \"input\", \"value\":\"test\"}]"
+	NodeApproverUserIDList []*CreateApprovalInstanceReqNodeApproverUserIDList `json:"node_approver_user_id_list,omitempty"` // 如果审批定义的流程中, 有节点需要发起人自选审批人, 则需要通过本参数填写对应节点的审批人（通过用户 user_id 指定审批人）。说明: 如果同时传入了 node_approver_user_id_list、node_approver_open_id_list, 则取两个参数的并集生效审批人。
+	NodeApproverOpenIDList []*CreateApprovalInstanceReqNodeApproverOpenIDList `json:"node_approver_open_id_list,omitempty"` // 如果审批定义的流程中, 有节点需要发起人自选审批人, 则需要通过本参数填写对应节点的审批人（通过用户 open_id 指定审批人）。说明: 如果同时传入了 node_approver_user_id_list、node_approver_open_id_list, 则取两个参数的并集生效审批人。
+	NodeCcUserIDList       []*CreateApprovalInstanceReqNodeCcUserIDList       `json:"node_cc_user_id_list,omitempty"`       // 如果审批定义的流程中, 有节点需要发起人自选抄送人, 则需要通过本参数填写对应节点的抄送人（通过用户 user_id 指定审批人）。说明: 如果同时传入了 node_cc_user_id_list、node_cc_open_id_list, 则取两个参数的并集生效抄送人。 最大长度: `20
+	NodeCcOpenIDList       []*CreateApprovalInstanceReqNodeCcOpenIDList       `json:"node_cc_open_id_list,omitempty"`       // 如果审批定义的流程中, 有节点需要发起人自选抄送人, 则需要通过本参数填写对应节点的抄送人（通过用户 open_id 指定审批人）。说明: 如果同时传入了 node_cc_user_id_list、node_cc_open_id_list, 则取两个参数的并集生效抄送人。 最大长度: `20
+	UUID                   *string                                            `json:"uuid,omitempty"`                       // 审批实例 uuid, 用于幂等操作, 单个企业内的唯一 key。同一个 uuid 只能用于创建一个审批实例, 如果冲突则创建失败并返回错误码 60012, 格式建议为 XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX, 不区分大小写。示例值: "7C468A54-8745-2245-9675-08B7C63E7A87" 长度范围: `1` ～ `64` 字符
+	AllowResubmit          *bool                                              `json:"allow_resubmit,omitempty"`             // 是否配置 提交 按钮, 适用于任务的审批人退回审批单据后, 审批提交人可以在同一个审批实例内点击 提交, 提交单据。示例值: true
+	AllowSubmitAgain       *bool                                              `json:"allow_submit_again,omitempty"`         // 是否配置 再次提交 按钮, 适用于周期性提单场景, 按照当前表单内容再次发起一个新审批实例。示例值: true
+	CancelBotNotification  *string                                            `json:"cancel_bot_notification,omitempty"`    // 取消指定的 Bot 推送通知。可选值有: 1: 取消审批实例通过推送。- 2: 取消审批实例拒绝推送。- 4: 取消审批实例取消推送。支持同时取消多个 bot 推送通知。位运算, 即如需取消 1 和 2 两种通知, 则需要传入加和值 3。示例值: "1"
+	ForbidRevoke           *bool                                              `json:"forbid_revoke,omitempty"`              // 是否禁止撤销审批实例示例值: false默认值: `false
+	I18nResources          []*CreateApprovalInstanceReqI18nResource           `json:"i18n_resources,omitempty"`             // 国际化文案。目前只支持为表单的单行、多行文本控件赋值。
+	Title                  *string                                            `json:"title,omitempty"`                      // 审批实例的展示名称。如果填写了该参数, 则审批列表中的审批名称使用该参数, 如果不填该参数, 则审批名称使用审批定义的名称。说明: 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key）, 必须以 @i18n@ 开头, 还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。示例值: "@i18n@1"
+	TitleDisplayMethod     *int64                                             `json:"title_display_method,omitempty"`       // 审批详情页 title 展示模式。示例值: 0可选值有: 如果审批定义和审批实例都有 title, 则全部展示, 通过竖线分割。如果审批定义和审批实例都有 title, 只展示审批实例的 title。默认值: `0
+	NodeAutoApprovalList   []*CreateApprovalInstanceReqNodeAutoApproval       `json:"node_auto_approval_list,omitempty"`    // 设置自动通过的节点。 最大长度: `10
 }
 
 // CreateApprovalInstanceReqI18nResource ...
 type CreateApprovalInstanceReqI18nResource struct {
-	Locale    string                                       `json:"locale,omitempty"`     // 语言, 示例值: "zh-CN", 可选值有: zh-CN: 中文, en-US: 英文, ja-JP: 日文
-	Texts     []*CreateApprovalInstanceReqI18nResourceText `json:"texts,omitempty"`      // 文案 key, value, i18n key 以 @i18n@ 开头； 该字段主要用于做国际化, 允许用户同时传多个语言的文案, 审批中心会根据用户当前的语音环境使用对应的文案, 如果没有传用户当前的语音环境文案, 则会使用默认的语言文案, 示例值: { "@i18n@1": "权限申请", "@i18n@2": "OA审批", "@i18n@3": "Permission" }
-	IsDefault bool                                         `json:"is_default,omitempty"` // 是否默认语言, 默认语言需要包含所有key, 非默认语言如果key不存在会使用默认语言代替, 示例值: true
+	Locale    string                                       `json:"locale,omitempty"`     // 语言示例值: "zh-CN"可选值有: 中文英文日文
+	Texts     []*CreateApprovalInstanceReqI18nResourceText `json:"texts,omitempty"`      // 文案的 Key:Value。Key 需要以 @i18n@ 开头, 并按照各个参数的要求传入 Value。说明: 该字段主要用于适配国际化, 允许同时设置多个语言的文案, 审批中心会根据实际用户当前的语音环境使用匹配的文案。如果没有设置用户当前的语音环境文案, 则会使用默认的语言文案。示例值: { "@i18n@1": "权限申请", "@i18n@2": "OA审批", "@i18n@3": "Permission" }
+	IsDefault bool                                         `json:"is_default,omitempty"` // 是否为默认语言。默认语言需要包含所有所需的文案 Key, 非默认语言如果 Key 不存在, 则会使用默认语言代替。示例值: true
 }
 
 // CreateApprovalInstanceReqI18nResourceText ...
 type CreateApprovalInstanceReqI18nResourceText struct {
-	Key   string `json:"key,omitempty"`   // 文案key, 示例值: "@i18n@1"
-	Value string `json:"value,omitempty"` // 文案, 示例值: "people"
+	Key   string `json:"key,omitempty"`   // 文案 Key, 需要和各个参数 Key 相匹配。示例值: "@i18n@1"
+	Value string `json:"value,omitempty"` // 文案 Value, 即文案 Key 对应的参数值。示例值: "people"
 }
 
 // CreateApprovalInstanceReqNodeApproverOpenIDList ...
 type CreateApprovalInstanceReqNodeApproverOpenIDList struct {
-	Key   *string  `json:"key,omitempty"`   // node id 或 custom node id, 通过 [查看审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 获取, 示例值: "46e6d96cfa756980907209209ec03b64"
-	Value []string `json:"value,omitempty"` // value: 审批人列表, 示例值: ["f7cb567e"]
+	Key   *string  `json:"key,omitempty"`   // 节点的 node_id 或 custom_node_id, 可调用 [查看指定审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 接口, 从接口返回的 node_list 参数中获取。示例值: "46e6d96cfa756980907209209ec03b64"
+	Value []string `json:"value,omitempty"` // 审批人列表, 需传入用户 open_id。获取方式参考[如何获取用户的 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。示例值: ["f7cb567e"]
 }
 
 // CreateApprovalInstanceReqNodeApproverUserIDList ...
 type CreateApprovalInstanceReqNodeApproverUserIDList struct {
-	Key   *string  `json:"key,omitempty"`   // node id 或 custom node id, 通过 [查看审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 获取, 示例值: "46e6d96cfa756980907209209ec03b64"
-	Value []string `json:"value,omitempty"` // value: 审批人列表, 示例值: ["f7cb567e"]
+	Key   *string  `json:"key,omitempty"`   // 节点的 node_id 或 custom_node_id, 可调用 [查看指定审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 接口, 从接口返回的 node_list 参数中获取。示例值: "46e6d96cfa756980907209209ec03b64"
+	Value []string `json:"value,omitempty"` // 审批人列表, 需传入用户 user_id。获取方式参考[如何获取用户的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。示例值: ["f7cb567e"]
+}
+
+// CreateApprovalInstanceReqNodeAutoApproval ...
+type CreateApprovalInstanceReqNodeAutoApproval struct {
+	NodeIDType *IDType `json:"node_id_type,omitempty"` // 节点 ID 类型示例值: "NON_CUSTOM"可选值有: 自定义节点ID非自定义节点ID
+	NodeID     *string `json:"node_id,omitempty"`      // 节点 ID 值, 可调用 [查看指定审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 接口, 从接口返回的 node_list 参数中获取。示例值: "manager_node_id"
 }
 
 // CreateApprovalInstanceReqNodeCcOpenIDList ...
 type CreateApprovalInstanceReqNodeCcOpenIDList struct {
-	Key   *string  `json:"key,omitempty"`   // node id, 通过 [查看审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 获取, 示例值: "46e6d96cfa756980907209209ec03b75"
-	Value []string `json:"value,omitempty"` // value: 审批人列表, 示例值: ["f7cb567e"]
+	Key   *string  `json:"key,omitempty"`   // 节点的 node_id, 可调用 [查看指定审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 接口, 从接口返回的 node_list 参数中获取。示例值: "46e6d96cfa756980907209209ec03b75"
+	Value []string `json:"value,omitempty"` // 抄送人列表, 需传入用户 open_id。获取方式参考[如何获取用户的 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。示例值: ["f7cb567e"]
 }
 
 // CreateApprovalInstanceReqNodeCcUserIDList ...
 type CreateApprovalInstanceReqNodeCcUserIDList struct {
-	Key   *string  `json:"key,omitempty"`   // node id, 通过 [查看审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 获取, 示例值: "46e6d96cfa756980907209209ec03b75"
-	Value []string `json:"value,omitempty"` // value: 审批人列表, 示例值: ["f7cb567e"]
+	Key   *string  `json:"key,omitempty"`   // 节点的 node_id, 可调用 [查看指定审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get) 接口, 从接口返回的 node_list 参数中获取。示例值: "46e6d96cfa756980907209209ec03b75"
+	Value []string `json:"value,omitempty"` // 抄送人列表, 需传入用户 user_id。获取方式参考[如何获取用户的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。示例值: ["f7cb567e"]
 }
 
 // CreateApprovalInstanceResp ...

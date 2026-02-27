@@ -63,7 +63,7 @@ func (r *Mock) UnMockBaikeHighlightBaikeEntity() {
 
 // HighlightBaikeEntityReq ...
 type HighlightBaikeEntityReq struct {
-	Text string `json:"text,omitempty"` // 需要识别词条的内容（不超过1000字）, 示例值: "词典是飞书提供的一款知识管理工具", 长度范围: `1` ～ `1000` 字符
+	Text string `json:"text,omitempty"` // 需要识别词条的内容（不超过1000字）示例值: "词典是飞书提供的一款知识管理工具" 长度范围: `1` ～ `1000` 字符
 }
 
 // HighlightBaikeEntityResp ...

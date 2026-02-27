@@ -62,8 +62,8 @@ func (r *Mock) UnMockDriveGetWikiNode() {
 
 // GetWikiNodeReq ...
 type GetWikiNodeReq struct {
-	Token   string  `query:"token" json:"-"`    // 文档的token, 使用文档token查询时, 需要obj_type参数传入文档对应的类型, 示例值: wikcnKQ1k3p**8Vabcef
-	ObjType *string `query:"obj_type" json:"-"` // 文档类型。不传时默认以wiki类型查询, 示例值: docx, 可选值有: doc: 旧版文档, docx: 新版文档, sheet: 表格, mindnote: 思维导图, bitable: 多维表格, file: 文件, slides: 幻灯片, wiki: 知识库节点, 默认值: `wiki`
+	Token   string  `query:"token" json:"-"`    // 知识库节点或对应云文档的实际 token。- 知识库节点 token: 如果 URL 链接中 token 前为 wiki, 该 token 为知识库的节点 token。- 云文档实际 token: 如果 URL 链接中 token 前为 docx、base、sheets 等非 wiki 类型, 则说明该 token 是当前云文档的实际 token。了解更多, 请参考[文档常见问题-如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)。注意: 使用云文档 token 查询时, 需要对 obj_type 参数传入文档对应的类型。示例值: wikcnKQ1k3p8Vabcef数据校验规则**: 长度范围: `0` ～ `999` 字符
+	ObjType *string `query:"obj_type" json:"-"` // 文档类型。不传时默认以 wiki 类型查询。示例值: docx可选值有: 旧版文档新版文档表格思维导图多维表格文件幻灯片知识库节点默认值: `wiki
 }
 
 // GetWikiNodeResp ...
@@ -73,12 +73,12 @@ type GetWikiNodeResp struct {
 
 // GetWikiNodeRespNode ...
 type GetWikiNodeRespNode struct {
-	SpaceID         string `json:"space_id,omitempty"`          // 知识空间id, [获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-overview)
-	NodeToken       string `json:"node_token,omitempty"`        // 节点token
-	ObjToken        string `json:"obj_token,omitempty"`         // 对应文档类型的token, 可根据 obj_type 判断属于哪种文档类型。
-	ObjType         string `json:"obj_type,omitempty"`          // 文档类型, 对于快捷方式, 该字段是对应的实体的obj_type, 可选值有: doc: 旧版文档, sheet: 表格, mindnote: 思维导图, bitable: 多维表格, file: 文件, docx: 新版文档
+	SpaceID         string `json:"space_id,omitempty"`          // 知识空间 ID。获取方式参考[知识库概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-overview)。
+	NodeToken       string `json:"node_token,omitempty"`        // 知识库节点 token, 如果 URL 链接中 token 前为 wiki, 该 token 为知识库的节点 token。
+	ObjToken        string `json:"obj_token,omitempty"`         // 节点的实际云文档的 token, 如果 URL 链接中 token 前为 docx、base、sheets 等非 wiki 类型, 则说明该 token 是当前云文档的实际 token。如果要获取或编辑节点内容, 需要使用此 token 调用对应的接口。可根据 obj_type 判断属于哪种文档类型。
+	ObjType         string `json:"obj_type,omitempty"`          // 文档类型, 对于快捷方式, 该字段是对应的实体的obj_type。可选值有: 旧版文档表格思维导图多维表格文件新版文档幻灯片
 	ParentNodeToken string `json:"parent_node_token,omitempty"` // 父节点 token。若当前节点为一级节点, 父节点 token 为空。
-	NodeType        string `json:"node_type,omitempty"`         // 节点类型, 可选值有: origin: 实体, shortcut: 快捷方式
+	NodeType        string `json:"node_type,omitempty"`         // 节点类型可选值有: 实体快捷方式
 	OriginNodeToken string `json:"origin_node_token,omitempty"` // 快捷方式对应的实体node_token, 当节点为快捷方式时, 该值不为空。
 	OriginSpaceID   string `json:"origin_space_id,omitempty"`   // 快捷方式对应的实体所在的space id
 	HasChild        bool   `json:"has_child,omitempty"`         // 是否有子节点
@@ -86,8 +86,9 @@ type GetWikiNodeRespNode struct {
 	ObjCreateTime   string `json:"obj_create_time,omitempty"`   // 文档创建时间
 	ObjEditTime     string `json:"obj_edit_time,omitempty"`     // 文档最近编辑时间
 	NodeCreateTime  string `json:"node_create_time,omitempty"`  // 节点创建时间
-	Creator         string `json:"creator,omitempty"`           // 节点创建者
-	Owner           string `json:"owner,omitempty"`             // 节点所有者
+	Creator         string `json:"creator,omitempty"`           // 文档创建者
+	Owner           string `json:"owner,omitempty"`             // 文档所有者
+	NodeCreator     string `json:"node_creator,omitempty"`      // 节点创建者
 }
 
 // getWikiNodeResp ...

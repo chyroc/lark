@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetContactJobFamilyList 该接口用于获取租户序列列表。
+// GetContactJobFamilyList 调用该接口获取当前租户下的序列信息, 包含序列的名称、描述、启用状态以及 ID 等。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_family/list
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/job_family/list
@@ -58,39 +58,39 @@ func (r *Mock) UnMockContactGetContactJobFamilyList() {
 
 // GetContactJobFamilyListReq ...
 type GetContactJobFamilyListReq struct {
-	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 10, 默认值: `10`, 取值范围: `1` ～ `50`
-	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 3
-	Name      *string `query:"name" json:"-"`       // 序列名称, 传入该字段时, 可查询指定序列名称对应的序列信息, 示例值: 2-2, 长度范围: `1` ～ `100` 字符
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 用于限制一次请求所返回的数据条目数。示例值: 10默认值: `10` 取值范围: `1` ～ `50
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 3
+	Name      *string `query:"name" json:"-"`       // 序列名称。- 传入该字段时, 可查询指定序列名称对应的序列信息（不支持模糊查询）。- 不传入该字段时, 查询当前租户下所有序列的信息。示例值: 产品 长度范围: `1` ～ `100` 字符
 }
 
 // GetContactJobFamilyListResp ...
 type GetContactJobFamilyListResp struct {
-	Items     []*GetContactJobFamilyListRespItem `json:"items,omitempty"`      // 序列信息
+	Items     []*GetContactJobFamilyListRespItem `json:"items,omitempty"`      // 序列信息。
 	PageToken string                             `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	HasMore   bool                               `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
 // GetContactJobFamilyListRespItem ...
 type GetContactJobFamilyListRespItem struct {
-	Name              string                                            `json:"name,omitempty"`                 // 序列名称。1-100字符, 支持中、英文及符号
-	Description       string                                            `json:"description,omitempty"`          // 序列描述, 描述序列详情信息
-	ParentJobFamilyID string                                            `json:"parent_job_family_id,omitempty"` // 上级序列ID。需是该租户的序列ID列表中的值, 对应唯一的序列名称。
-	Status            bool                                              `json:"status,omitempty"`               // 是否启用
-	I18nName          []*GetContactJobFamilyListRespItemI18nName        `json:"i18n_name,omitempty"`            // 多语言序列名称
-	I18nDescription   []*GetContactJobFamilyListRespItemI18nDescription `json:"i18n_description,omitempty"`     // 多语言描述
-	JobFamilyID       string                                            `json:"job_family_id,omitempty"`        // 职级序列ID
+	Name              string                                            `json:"name,omitempty"`                 // 序列名称。
+	Description       string                                            `json:"description,omitempty"`          // 序列描述。
+	ParentJobFamilyID string                                            `json:"parent_job_family_id,omitempty"` // 上级序列 ID。
+	Status            bool                                              `json:"status,omitempty"`               // 是否启用序列。可能值有: true: 启用- false: 禁用
+	I18nName          []*GetContactJobFamilyListRespItemI18nName        `json:"i18n_name,omitempty"`            // 多语言序列名称。
+	I18nDescription   []*GetContactJobFamilyListRespItemI18nDescription `json:"i18n_description,omitempty"`     // 多语言序列描述。
+	JobFamilyID       string                                            `json:"job_family_id,omitempty"`        // 序列 ID。后续可通过该 ID 更新、查询、删除序列。
 }
 
 // GetContactJobFamilyListRespItemI18nDescription ...
 type GetContactJobFamilyListRespItemI18nDescription struct {
-	Locale string `json:"locale,omitempty"` // 语言版本
-	Value  string `json:"value,omitempty"`  // 字段名
+	Locale string `json:"locale,omitempty"` // 语言版本。可能值有: zh_cn: 中文- en_us: 英语- ja_jp: 日语
+	Value  string `json:"value,omitempty"`  // 语言版本对应的值。
 }
 
 // GetContactJobFamilyListRespItemI18nName ...
 type GetContactJobFamilyListRespItemI18nName struct {
-	Locale string `json:"locale,omitempty"` // 语言版本
-	Value  string `json:"value,omitempty"`  // 字段名
+	Locale string `json:"locale,omitempty"` // 语言版本。可能值有: zh_cn: 中文- en_us: 英语- ja_jp: 日语
+	Value  string `json:"value,omitempty"`  // 语言版本对应的值。
 }
 
 // getContactJobFamilyListResp ...

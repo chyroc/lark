@@ -60,7 +60,7 @@ func (r *Mock) UnMockCoreHRGetCoreHRSubregion() {
 
 // GetCoreHRSubregionReq ...
 type GetCoreHRSubregionReq struct {
-	SubregionID string `path:"subregion_id" json:"-"` // 城市/区域 ID, 示例值: "67489937334909845"
+	SubregionID string `path:"subregion_id" json:"-"` // 城市/区域 ID示例值: "67489937334909845"
 }
 
 // GetCoreHRSubregionResp ...
@@ -72,7 +72,7 @@ type GetCoreHRSubregionResp struct {
 type GetCoreHRSubregionRespSubregion struct {
 	ID                  string                                 `json:"id,omitempty"`                    // 城市/区域id
 	Name                []*GetCoreHRSubregionRespSubregionName `json:"name,omitempty"`                  // 城市/区域名称
-	SubdivisionID       string                                 `json:"subdivision_id,omitempty"`        // 所属省份/行政区id, 详细信息可通过[查询省份/行政区信息]接口查询获得
+	SubdivisionID       string                                 `json:"subdivision_id,omitempty"`        // 所属省份/行政区id, 详细信息可通过【查询省份/行政区信息】接口查询获得
 	SuperiorSubregionID string                                 `json:"superior_subregion_id,omitempty"` // 上级城市/区域区id
 }
 

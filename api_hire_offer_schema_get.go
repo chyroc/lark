@@ -60,13 +60,13 @@ func (r *Mock) UnMockHireGetHireOfferSchema() {
 
 // GetHireOfferSchemaReq ...
 type GetHireOfferSchemaReq struct {
-	OfferSchemaID string `path:"offer_schema_id" json:"-"` // offer申请表的ID *必需属性, 示例值: "1231231231231"
+	OfferSchemaID string `path:"offer_schema_id" json:"-"` // offer申请表的ID *必需属性示例值: "1231231231231"
 }
 
 // GetHireOfferSchemaResp ...
 type GetHireOfferSchemaResp struct {
 	ID         string                          `json:"id,omitempty"`          // offer申请表ID
-	Scenario   int64                           `json:"scenario,omitempty"`    // offer申请表使用场景, 可选值有: `1`: Offer审批表
+	Scenario   int64                           `json:"scenario,omitempty"`    // offer申请表使用场景可选值有: `1`: Offer审批表
 	Version    int64                           `json:"version,omitempty"`     // 申请表版本
 	ObjectList []*GetHireOfferSchemaRespObject `json:"object_list,omitempty"` // 字段对象信息
 }
@@ -90,7 +90,7 @@ type GetHireOfferSchemaRespObjectName struct {
 type GetHireOfferSchemaRespObjectOption struct {
 	Name         *GetHireOfferSchemaRespObjectOptionName `json:"name,omitempty"`          // 名字
 	Index        int64                                   `json:"index,omitempty"`         // 选项序号
-	ActiveStatus int64                                   `json:"active_status,omitempty"` // 选项当前是否启用, 可选值有: `1`: 进行中, `2`: 已终止
+	ActiveStatus int64                                   `json:"active_status,omitempty"` // 选项当前是否启用可选值有: `1`: 进行中- `2`: 已终止
 }
 
 // GetHireOfferSchemaRespObjectOptionName ...

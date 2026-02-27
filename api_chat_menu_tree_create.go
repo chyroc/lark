@@ -21,16 +21,16 @@ import (
 	"context"
 )
 
-// CreateChatMenuTree 该接口用于向群组中添加群菜单。
+// CreateChatMenuTree 在指定群组中添加一个或多个群菜单。成功调用后接口会返回当前群组内所有群菜单信息。
 //
-// 注意事项:
-// - 该接口是向群内追加菜单, 群内已存在的菜单不会被覆盖。
-// - 接口调用成功后, 会返回当前群内所有群菜单。
+// ## 前提条件
 // - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
-// - 机器人必须在群里。
-// - 一个群内, 一级菜单最多有3个, 每个一级菜单最多有5个二级菜单。
-// - 暂不支持在一级菜单中追加二级菜单。
-// - 仅支持群模式为group的群组。
+// - 调用当前接口的机器人必须在对应的群组内。
+// ## 使用限制
+// - 该接口是向群内追加菜单, 群内已存在的菜单不会被覆盖。
+// - 一个群内最多有 3 个一级菜单, 每个一级菜单最多配置 5 个二级菜单。
+// - 不支持在已有的一级菜单中追加二级菜单。
+// - 该接口仅支持群模式为 `group` 的群组, 你可以调用[获取群信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get)接口, 在返回结果中查看 `chat_mode` 参数取值是否为 `group`。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-menu_tree/create
 // new doc: https://open.feishu.cn/document/server-docs/group/chat-menu_tree/create
@@ -67,13 +67,13 @@ func (r *Mock) UnMockChatCreateChatMenuTree() {
 
 // CreateChatMenuTreeReq ...
 type CreateChatMenuTreeReq struct {
-	ChatID   string                         `path:"chat_id" json:"-"`    // 群ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 注意: 仅支持群模式为`group`的群ID, 示例值: "oc_a0553eda9014c201e6969b478895c230"
+	ChatID   string                         `path:"chat_id" json:"-"`    // 群 ID。获取方式: [创建群](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create), 从返回结果中获取该群的 chat_id。- 调用[获取用户或机器人所在的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list)接口, 可以查询用户或机器人所在群的 chat_id。- 调用[搜索对用户或机器人可见的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search), 可搜索用户或机器人所在的群、对用户或机器人公开的群的 chat_id。注意: 仅支持群模式为 群组（group） 的群组 ID。你可以调用[获取群信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get)接口, 在返回结果中查看 `chat_mode` 参数取值是否为 `group`。示例值: "oc_a0553eda9014c201e6969b478895c230"
 	MenuTree *CreateChatMenuTreeReqMenuTree `json:"menu_tree,omitempty"` // 要向群内追加的菜单
 }
 
 // CreateChatMenuTreeReqMenuTree ...
 type CreateChatMenuTreeReqMenuTree struct {
-	ChatMenuTopLevels []*CreateChatMenuTreeReqMenuTreeChatMenuTopLevel `json:"chat_menu_top_levels,omitempty"` // 一级菜单列表
+	ChatMenuTopLevels []*CreateChatMenuTreeReqMenuTreeChatMenuTopLevel `json:"chat_menu_top_levels,omitempty"` // 一级菜单列表注意: 一个群内最多有 3 个一级菜单。
 }
 
 // CreateChatMenuTreeReqMenuTreeChatMenuTopLevel ...
@@ -84,20 +84,20 @@ type CreateChatMenuTreeReqMenuTreeChatMenuTopLevel struct {
 
 // CreateChatMenuTreeReqMenuTreeChatMenuTopLevelChatMenuItem ...
 type CreateChatMenuTreeReqMenuTreeChatMenuTopLevelChatMenuItem struct {
-	ActionType   string                                                                 `json:"action_type,omitempty"`   // 菜单类型, 注意, 如果一级菜单有二级菜单时, 则此一级菜单的值必须为NONE, 示例值: "NONE", 可选值有: NONE: 无类型, REDIRECT_LINK: 跳转链接类型
-	RedirectLink *CreateChatMenuTreeReqMenuTreeChatMenuTopLevelChatMenuItemRedirectLink `json:"redirect_link,omitempty"` // 跳转链接
-	ImageKey     *string                                                                `json:"image_key,omitempty"`     // 图片的key值。通过 [上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create) 接口上传message类型图片获取image_key, 注意, 如果一级菜单有二级菜单, 则此一级菜单不能有图标, 示例值: "img_v2_b0fbe905-7988-4282-b882-82edd010336j"
-	Name         string                                                                 `json:"name,omitempty"`          // 菜单名称, 注意, 一级、二级菜单名称字符数要在1到120范围内, 示例值: "群聊"
-	I18nNames    *I18nNames                                                             `json:"i18n_names,omitempty"`    // 菜单国际化名称, 注意, 一级、二级菜单名称字符数要在1到120范围内
+	ActionType   string                                                                 `json:"action_type,omitempty"`   // 一级菜单类型注意: 如果一级菜单有二级菜单, 则此一级菜单的值必须为 `NONE`。- 菜单类型创建后不可更改。示例值: "NONE"可选值有: 无类型, 如果需要在一级菜单内添加二级菜单, 则该一级菜单需要设置为 NONE。跳转链接类型, 取该值时需要设置对应的跳转链接（redirect_link）。
+	RedirectLink *CreateChatMenuTreeReqMenuTreeChatMenuTopLevelChatMenuItemRedirectLink `json:"redirect_link,omitempty"` // 一级菜单的跳转链接
+	ImageKey     *string                                                                `json:"image_key,omitempty"`     // 一级菜单图标的 key 值。通过 [上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create) 接口上传 message 类型图片获取 image_key, 并传入该值。注意: 如果一级菜单有二级菜单, 则此一级菜单不能设置图标。示例值: "img_v2_b0fbe905-7988-4282-b882-82edd010336j"
+	Name         string                                                                 `json:"name,omitempty"`          // 菜单名称注意: 一级、二级菜单名称字符数要在 1 ~ 120 范围内。示例值: "群聊"
+	I18nNames    *I18nNames                                                             `json:"i18n_names,omitempty"`    // 菜单国际化名称注意: 一级、二级菜单名称字符数要在 1 ~ 120 范围内。
 }
 
 // CreateChatMenuTreeReqMenuTreeChatMenuTopLevelChatMenuItemRedirectLink ...
 type CreateChatMenuTreeReqMenuTreeChatMenuTopLevelChatMenuItemRedirectLink struct {
-	CommonURL  *string `json:"common_url,omitempty"`  // 公用跳转链接, 必须以http开头, 示例值: "https://open.feishu.cn/"
-	IosURL     *string `json:"ios_url,omitempty"`     // IOS端跳转链接, 当该字段不设置时, IOS端会使用common_url。必须以http开头, 示例值: "https://open.feishu.cn/"
-	AndroidURL *string `json:"android_url,omitempty"` // Android端跳转链接, 当该字段不设置时, Android端会使用common_url。必须以http开头, 示例值: "https://open.feishu.cn/"
-	PcURL      *string `json:"pc_url,omitempty"`      // PC端跳转链接, 当该字段不设置时, PC端会使用common_url。必须以http开头。在PC端点击群菜单后, 如果需要url对应的页面在飞书侧边栏展开, 可以在url前加上https://applink.feishu.cn/client/web_url/open?mode=sidebar-semi&url=, 比如https://applink.feishu.cn/client/web_url/open?mode=sidebar-semi&url=https://open.feishu.cn/, 示例值: "https://open.feishu.cn/"
-	WebURL     *string `json:"web_url,omitempty"`     // Web端跳转链接, 当该字段不设置时, Web端会使用common_url。必须以http开头, 示例值: "https://open.feishu.cn/"
+	CommonURL  *string `json:"common_url,omitempty"`  // 公用跳转链接, 必须以 http/https 开头。示例值: "https://open.feishu.cn/"
+	IosURL     *string `json:"ios_url,omitempty"`     // iOS 端跳转链接, 当该字段不设置时, iOS 端默认使用 `common_url` 值。必须以 http/https 开头。示例值: "https://open.feishu.cn/"
+	AndroidURL *string `json:"android_url,omitempty"` // Android 端跳转链接, 当该字段不设置时, Android 端默认使用 `common_url` 值。必须以 http/https 开头。示例值: "https://open.feishu.cn/"
+	PcURL      *string `json:"pc_url,omitempty"`      // PC 端跳转链接, 当该字段不设置时, PC 端默认使用 `common_url` 值。必须以 http/https 开头。使用说明: 在 PC 端点击群菜单后, 如果需要 url 对应的页面在飞书侧边栏展开, 可以在 url 前加上 `https://applink.feishu.cn/client/web_url/open?mode=sidebar-semi&url=`, 例如 `https://applink.feishu.cn/client/web_url/open?mode=sidebar-semi&url=https://open.feishu.cn/`示例值: "https://open.feishu.cn/"
+	WebURL     *string `json:"web_url,omitempty"`     // Web 端跳转链接, 当该字段不设置时, Web 端默认使用 `common_url` 值。必须以 http/https 开头。示例值: "https://open.feishu.cn/"
 }
 
 // CreateChatMenuTreeReqMenuTreeChatMenuTopLevelChildren ...
@@ -107,25 +107,25 @@ type CreateChatMenuTreeReqMenuTreeChatMenuTopLevelChildren struct {
 
 // CreateChatMenuTreeReqMenuTreeChatMenuTopLevelChildrenChatMenuItem ...
 type CreateChatMenuTreeReqMenuTreeChatMenuTopLevelChildrenChatMenuItem struct {
-	ActionType   *string                                                                        `json:"action_type,omitempty"`   // 菜单类型, 注意, 如果一级菜单有二级菜单时, 则此一级菜单的值必须为NONE, 示例值: "NONE", 可选值有: NONE: 无类型, REDIRECT_LINK: 跳转链接类型
-	RedirectLink *CreateChatMenuTreeReqMenuTreeChatMenuTopLevelChildrenChatMenuItemRedirectLink `json:"redirect_link,omitempty"` // 跳转链接
-	ImageKey     *string                                                                        `json:"image_key,omitempty"`     // 图片的key值。通过 [上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create) 接口上传message类型图片获取image_key, 注意, 如果一级菜单有二级菜单, 则此一级菜单不能有图标, 示例值: "img_v2_b0fbe905-7988-4282-b882-82edd010336j"
-	Name         *string                                                                        `json:"name,omitempty"`          // 菜单名称, 注意, 一级、二级菜单名称字符数要在1到120范围内, 示例值: "群聊"
-	I18nNames    *I18nNames                                                                     `json:"i18n_names,omitempty"`    // 菜单国际化名称, 注意, 一级、二级菜单名称字符数要在1到120范围内
+	ActionType   *string                                                                        `json:"action_type,omitempty"`   // 二级菜单类型示例值: "NONE"可选值有: 无类型跳转链接类型, 取该值时需要设置跳转链接（redirect_link）。
+	RedirectLink *CreateChatMenuTreeReqMenuTreeChatMenuTopLevelChildrenChatMenuItemRedirectLink `json:"redirect_link,omitempty"` // 二级菜单跳转链接
+	ImageKey     *string                                                                        `json:"image_key,omitempty"`     // 二级菜单图标的 key 值。通过 [上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create) 接口上传 message 类型图片获取 image_key, 并传入该值。示例值: "img_v2_b0fbe905-7988-4282-b882-82edd010336j"
+	Name         *string                                                                        `json:"name,omitempty"`          // 菜单名称注意: 一级、二级菜单名称字符数要在 1 ~ 120 范围内示例值: "群聊"
+	I18nNames    *I18nNames                                                                     `json:"i18n_names,omitempty"`    // 菜单国际化名称注意: 一级、二级菜单名称字符数要在 1 ~ 120 范围内
 }
 
 // CreateChatMenuTreeReqMenuTreeChatMenuTopLevelChildrenChatMenuItemRedirectLink ...
 type CreateChatMenuTreeReqMenuTreeChatMenuTopLevelChildrenChatMenuItemRedirectLink struct {
-	CommonURL  *string `json:"common_url,omitempty"`  // 公用跳转链接, 必须以http开头, 示例值: "https://open.feishu.cn/"
-	IosURL     *string `json:"ios_url,omitempty"`     // IOS端跳转链接, 当该字段不设置时, IOS端会使用common_url。必须以http开头, 示例值: "https://open.feishu.cn/"
-	AndroidURL *string `json:"android_url,omitempty"` // Android端跳转链接, 当该字段不设置时, Android端会使用common_url。必须以http开头, 示例值: "https://open.feishu.cn/"
-	PcURL      *string `json:"pc_url,omitempty"`      // PC端跳转链接, 当该字段不设置时, PC端会使用common_url。必须以http开头。在PC端点击群菜单后, 如果需要url对应的页面在飞书侧边栏展开, 可以在url前加上https://applink.feishu.cn/client/web_url/open?mode=sidebar-semi&url=, 比如https://applink.feishu.cn/client/web_url/open?mode=sidebar-semi&url=https://open.feishu.cn/, 示例值: "https://open.feishu.cn/"
-	WebURL     *string `json:"web_url,omitempty"`     // Web端跳转链接, 当该字段不设置时, Web端会使用common_url。必须以http开头, 示例值: "https://open.feishu.cn/"
+	CommonURL  *string `json:"common_url,omitempty"`  // 公用跳转链接, 必须以 http/https 开头。示例值: "https://open.feishu.cn/"
+	IosURL     *string `json:"ios_url,omitempty"`     // iOS 端跳转链接, 当该字段不设置时, iOS 端默认使用 `common_url` 值。必须以 http/https 开头。示例值: "https://open.feishu.cn/"
+	AndroidURL *string `json:"android_url,omitempty"` // Android 端跳转链接, 当该字段不设置时, Android 端默认使用 `common_url` 值。必须以 http/https 开头。示例值: "https://open.feishu.cn/"
+	PcURL      *string `json:"pc_url,omitempty"`      // PC 端跳转链接, 当该字段不设置时, PC 端默认使用 `common_url` 值。必须以 http/https 开头。使用说明: 在 PC 端点击群菜单后, 如果需要 url 对应的页面在飞书侧边栏展开, 可以在 url 前加上 `https://applink.feishu.cn/client/web_url/open?mode=sidebar-semi&url=`, 例如 `https://applink.feishu.cn/client/web_url/open?mode=sidebar-semi&url=https://open.feishu.cn/`示例值: "https://open.feishu.cn/"
+	WebURL     *string `json:"web_url,omitempty"`     // Web 端跳转链接, 当该字段不设置时, Web 端默认使用 `common_url` 值。必须以 http/https 开头。示例值: "https://open.feishu.cn/"
 }
 
 // CreateChatMenuTreeResp ...
 type CreateChatMenuTreeResp struct {
-	MenuTree *CreateChatMenuTreeRespMenuTree `json:"menu_tree,omitempty"` // 追加后群内现有菜单
+	MenuTree *CreateChatMenuTreeRespMenuTree `json:"menu_tree,omitempty"` // 添加群菜单后, 该群组内所有群菜单的信息。
 }
 
 // CreateChatMenuTreeRespMenuTree ...
@@ -135,51 +135,51 @@ type CreateChatMenuTreeRespMenuTree struct {
 
 // CreateChatMenuTreeRespMenuTreeChatMenuTopLevel ...
 type CreateChatMenuTreeRespMenuTreeChatMenuTopLevel struct {
-	ChatMenuTopLevelID string                                                      `json:"chat_menu_top_level_id,omitempty"` // 一级菜单ID
+	ChatMenuTopLevelID string                                                      `json:"chat_menu_top_level_id,omitempty"` // 一级菜单 ID, 后续删除、修改、排序等群菜单管理操作均需要使用菜单 ID。
 	ChatMenuItem       *CreateChatMenuTreeRespMenuTreeChatMenuTopLevelChatMenuItem `json:"chat_menu_item,omitempty"`         // 一级菜单信息
 	Children           []*CreateChatMenuTreeRespMenuTreeChatMenuTopLevelChildren   `json:"children,omitempty"`               // 二级菜单列表
 }
 
 // CreateChatMenuTreeRespMenuTreeChatMenuTopLevelChatMenuItem ...
 type CreateChatMenuTreeRespMenuTreeChatMenuTopLevelChatMenuItem struct {
-	ActionType   string                                                                  `json:"action_type,omitempty"`   // 菜单类型, 注意, 如果一级菜单有二级菜单时, 则此一级菜单的值必须为NONE, 可选值有: NONE: 无类型, REDIRECT_LINK: 跳转链接类型
+	ActionType   string                                                                  `json:"action_type,omitempty"`   // 菜单类型可选值有: 无类型, 当一级菜单下有二级菜单时, 类型取值为 NONE。跳转链接类型
 	RedirectLink *CreateChatMenuTreeRespMenuTreeChatMenuTopLevelChatMenuItemRedirectLink `json:"redirect_link,omitempty"` // 跳转链接
-	ImageKey     string                                                                  `json:"image_key,omitempty"`     // 图片的key值。通过 [上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create) 接口上传message类型图片获取image_key, 注意, 如果一级菜单有二级菜单, 则此一级菜单不能有图标。
-	Name         string                                                                  `json:"name,omitempty"`          // 菜单名称, 注意, 一级、二级菜单名称字符数要在1到120范围内
-	I18nNames    *I18nNames                                                              `json:"i18n_names,omitempty"`    // 菜单国际化名称, 注意, 一级、二级菜单名称字符数要在1到120范围内
+	ImageKey     string                                                                  `json:"image_key,omitempty"`     // 图标的 key 值。通过[下载图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/get)接口可将图标下载到本地（只能下载由当前机器人上传的图片）。注意: 一级菜单下存在二级菜单时不能设置图标。
+	Name         string                                                                  `json:"name,omitempty"`          // 菜单名称
+	I18nNames    *I18nNames                                                              `json:"i18n_names,omitempty"`    // 菜单国际化名称
 }
 
 // CreateChatMenuTreeRespMenuTreeChatMenuTopLevelChatMenuItemRedirectLink ...
 type CreateChatMenuTreeRespMenuTreeChatMenuTopLevelChatMenuItemRedirectLink struct {
-	CommonURL  string `json:"common_url,omitempty"`  // 公用跳转链接, 必须以http开头。
-	IosURL     string `json:"ios_url,omitempty"`     // IOS端跳转链接, 当该字段不设置时, IOS端会使用common_url。必须以http开头。
-	AndroidURL string `json:"android_url,omitempty"` // Android端跳转链接, 当该字段不设置时, Android端会使用common_url。必须以http开头。
-	PcURL      string `json:"pc_url,omitempty"`      // PC端跳转链接, 当该字段不设置时, PC端会使用common_url。必须以http开头。在PC端点击群菜单后, 如果需要url对应的页面在飞书侧边栏展开, 可以在url前加上https://applink.feishu.cn/client/web_url/open?mode=sidebar-semi&url=, 比如https://applink.feishu.cn/client/web_url/open?mode=sidebar-semi&url=https://open.feishu.cn/
-	WebURL     string `json:"web_url,omitempty"`     // Web端跳转链接, 当该字段不设置时, Web端会使用common_url。必须以http开头。
+	CommonURL  string `json:"common_url,omitempty"`  // 公用跳转链接
+	IosURL     string `json:"ios_url,omitempty"`     // iOS 端跳转链接, 当该字段不设置时, iOS 端默认使用 `common_url` 值。
+	AndroidURL string `json:"android_url,omitempty"` // Android 端跳转链接, 当该字段不设置时, Android 端默认使用 `common_url` 值。
+	PcURL      string `json:"pc_url,omitempty"`      // PC 端跳转链接, 当该字段不设置时, PC 端默认使用 `common_url` 值。说明: 以 `https://applink.feishu.cn/client/web_url/open?mode=sidebar-semi&url=` 开头的链接表示在飞书侧边栏展开。
+	WebURL     string `json:"web_url,omitempty"`     // Web 端跳转链接, 当该字段不设置时, Web 端默认使用 `common_url` 值。
 }
 
 // CreateChatMenuTreeRespMenuTreeChatMenuTopLevelChildren ...
 type CreateChatMenuTreeRespMenuTreeChatMenuTopLevelChildren struct {
-	ChatMenuSecondLevelID string                                                              `json:"chat_menu_second_level_id,omitempty"` // 二级菜单ID
+	ChatMenuSecondLevelID string                                                              `json:"chat_menu_second_level_id,omitempty"` // 二级菜单 ID
 	ChatMenuItem          *CreateChatMenuTreeRespMenuTreeChatMenuTopLevelChildrenChatMenuItem `json:"chat_menu_item,omitempty"`            // 二级菜单信息
 }
 
 // CreateChatMenuTreeRespMenuTreeChatMenuTopLevelChildrenChatMenuItem ...
 type CreateChatMenuTreeRespMenuTreeChatMenuTopLevelChildrenChatMenuItem struct {
-	ActionType   string                                                                          `json:"action_type,omitempty"`   // 菜单类型, 注意, 如果一级菜单有二级菜单时, 则此一级菜单的值必须为NONE, 可选值有: NONE: 无类型, REDIRECT_LINK: 跳转链接类型
+	ActionType   string                                                                          `json:"action_type,omitempty"`   // 菜单类型可选值有: 无类型跳转链接类型
 	RedirectLink *CreateChatMenuTreeRespMenuTreeChatMenuTopLevelChildrenChatMenuItemRedirectLink `json:"redirect_link,omitempty"` // 跳转链接
-	ImageKey     string                                                                          `json:"image_key,omitempty"`     // 图片的key值。通过 [上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create) 接口上传message类型图片获取image_key, 注意, 如果一级菜单有二级菜单, 则此一级菜单不能有图标。
-	Name         string                                                                          `json:"name,omitempty"`          // 菜单名称, 注意, 一级、二级菜单名称字符数要在1到120范围内
-	I18nNames    *I18nNames                                                                      `json:"i18n_names,omitempty"`    // 菜单国际化名称, 注意, 一级、二级菜单名称字符数要在1到120范围内
+	ImageKey     string                                                                          `json:"image_key,omitempty"`     // 图标的 key 值。通过[下载图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/get)接口可将图标下载到本地（只能下载由当前机器人上传的图片）。
+	Name         string                                                                          `json:"name,omitempty"`          // 菜单名称
+	I18nNames    *I18nNames                                                                      `json:"i18n_names,omitempty"`    // 菜单国际化名称
 }
 
 // CreateChatMenuTreeRespMenuTreeChatMenuTopLevelChildrenChatMenuItemRedirectLink ...
 type CreateChatMenuTreeRespMenuTreeChatMenuTopLevelChildrenChatMenuItemRedirectLink struct {
-	CommonURL  string `json:"common_url,omitempty"`  // 公用跳转链接, 必须以http开头。
-	IosURL     string `json:"ios_url,omitempty"`     // IOS端跳转链接, 当该字段不设置时, IOS端会使用common_url。必须以http开头。
-	AndroidURL string `json:"android_url,omitempty"` // Android端跳转链接, 当该字段不设置时, Android端会使用common_url。必须以http开头。
-	PcURL      string `json:"pc_url,omitempty"`      // PC端跳转链接, 当该字段不设置时, PC端会使用common_url。必须以http开头。在PC端点击群菜单后, 如果需要url对应的页面在飞书侧边栏展开, 可以在url前加上https://applink.feishu.cn/client/web_url/open?mode=sidebar-semi&url=, 比如https://applink.feishu.cn/client/web_url/open?mode=sidebar-semi&url=https://open.feishu.cn/
-	WebURL     string `json:"web_url,omitempty"`     // Web端跳转链接, 当该字段不设置时, Web端会使用common_url。必须以http开头。
+	CommonURL  string `json:"common_url,omitempty"`  // 公用跳转链接
+	IosURL     string `json:"ios_url,omitempty"`     // iOS 端跳转链接, 当该字段不设置时, iOS 端默认使用 `common_url` 值。
+	AndroidURL string `json:"android_url,omitempty"` // Android 端跳转链接, 当该字段不设置时, Android 端默认使用 `common_url` 值。
+	PcURL      string `json:"pc_url,omitempty"`      // PC 端跳转链接, 当该字段不设置时, PC 端默认使用 `common_url` 值。说明: 以 `https://applink.feishu.cn/client/web_url/open?mode=sidebar-semi&url=` 开头的链接表示在飞书侧边栏展开。
+	WebURL     string `json:"web_url,omitempty"`     // Web 端跳转链接, 当该字段不设置时, Web 端默认使用 `common_url` 值。
 }
 
 // createChatMenuTreeResp ...

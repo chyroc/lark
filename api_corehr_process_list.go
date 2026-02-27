@@ -21,9 +21,13 @@ import (
 	"context"
 )
 
-// GetCoreHRProcessList 查询流程实例列表。发起的流程为流程实例（process_id 是唯一标识）；配置的流程为流程定义（flow_definition_id 是唯一标识）。
+// GetCoreHRProcessList 本接口用于查询流程实例列表, 支持通过流程定义 ID 等进行查询（此功能不受数据权限范围控制）, 其中:
+//
+// - 流程实例: 是指用户在业务功能或者飞书人事的审批中心发起的具体流程, process_id 是其唯一标识。
+// - 流程定义: 是指管理员在设置侧配置的流程, 类似流程模板, flow_definition_id 是其唯一标识。用户发起的流程是按照对应的流程定义的配置生成。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/list
+// new doc: https://open.feishu.cn/document/corehr-v1/process-form_variable_data/process-instance/list
 func (r *CoreHRService) GetCoreHRProcessList(ctx context.Context, request *GetCoreHRProcessListReq, options ...MethodOptionFunc) (*GetCoreHRProcessListResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRProcessList != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRProcessList mock enable")
@@ -57,17 +61,17 @@ func (r *Mock) UnMockCoreHRGetCoreHRProcessList() {
 
 // GetCoreHRProcessListReq ...
 type GetCoreHRProcessListReq struct {
-	ModifyTimeTo     string  `query:"modify_time_to" json:"-"`     // 任务查询结束时间 (unix毫秒时间戳), 闭区间, 开始时间和结束时间跨度不能超过31天, 示例值: 1547654251506
-	Statuses         []int64 `query:"statuses" json:"-"`           // 查询状态列表。如需一次查询多个状态值, 可通过将同一参数名多次传递, 并且每次传递不同的参数值。例如:https://{url}?statuses=1&statuses=2, 示例值: 1
-	PageToken        *string `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 7278949005675988535
-	PageSize         int64   `query:"page_size" json:"-"`          // 分页大小, 示例值: 100, 最大值: `100`
-	ModifyTimeFrom   string  `query:"modify_time_from" json:"-"`   // 查询开始时间（unix毫秒时间戳）, 闭区间, 开始时间和结束时间跨度不能超过31天, 示例值: 1547654251506
-	FlowDefinitionID *string `query:"flow_definition_id" json:"-"` // 流程定义ID, 示例值: people_6961286846093788680_7081951411982077732
+	Statuses         []int64 `query:"statuses" json:"-"`           // 查询流程状态列表。如需一次查询多个状态值, 可通过将同一参数名多次传递, 并且每次传递不同的参数值。例如:https://{url}?statuses=1&statuses=2可选值: 1: 进行中- 2: 已拒绝- 4: 已撤回- 8: 已撤销- 9: 已完成- 15: 撤销中示例值: 1
+	PageToken        *string `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 7278949005675988535
+	PageSize         int64   `query:"page_size" json:"-"`          // 分页大小, 取值范围: 1 ～ 100示例值: 10 最大值: `100
+	ModifyTimeFrom   string  `query:"modify_time_from" json:"-"`   // 流程实例修改时间的查询起始值, 闭区间。修改时间的更新时机: 流程中有审批人操作、流程数据更新、流程状态变化等单位: ms。从 1970 年 1 月 1 日 (UTC/GMT的午夜) 开始经过的毫秒数注意: 起始时间和终止时间跨度要小于 31 天示例值: 1547654251506
+	ModifyTimeTo     string  `query:"modify_time_to" json:"-"`     // 流程实例修改时间的查询终止值, 闭区间修改时间的更新时机: 流程中有审批人操作、流程数据更新、流程状态变化等单位: ms。从 1970 年 1 月 1 日 (UTC/GMT的午夜) 开始经过的毫秒数注意: 起始时间和终止时间跨度要小于 31 天示例值: 1547654251506
+	FlowDefinitionID *string `query:"flow_definition_id" json:"-"` // 流程定义ID可通过[获取单个流程详情](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/get)查询流程实例对应的流程定义ID示例值: people_6961286846093788680_7081951411982077732
 }
 
 // GetCoreHRProcessListResp ...
 type GetCoreHRProcessListResp struct {
-	ProcessIDs []string `json:"process_ids,omitempty"` // 流程实例ID列表
+	ProcessIDs []string `json:"process_ids,omitempty"` // 流程实例ID列表可通过[获取单个流程详情](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/get) 查询流程详情
 	HasMore    bool     `json:"has_more,omitempty"`    // 是否还有更多项
 	PageToken  string   `json:"page_token,omitempty"`  // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 }

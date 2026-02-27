@@ -21,9 +21,10 @@ import (
 	"context"
 )
 
-// GetContactJobTitle 该接口可以获取单个职务的信息。
+// GetContactJobTitle 调用该接口获取指定职务的信息, 包括职务的 ID、名称、多语言名称以及启用状态。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_title/get
+// new doc: https://open.feishu.cn/document/contact-v3/job_title/get
 func (r *ContactService) GetContactJobTitle(ctx context.Context, request *GetContactJobTitleReq, options ...MethodOptionFunc) (*GetContactJobTitleResp, *Response, error) {
 	if r.cli.mock.mockContactGetContactJobTitle != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#GetContactJobTitle mock enable")
@@ -58,26 +59,26 @@ func (r *Mock) UnMockContactGetContactJobTitle() {
 
 // GetContactJobTitleReq ...
 type GetContactJobTitleReq struct {
-	JobTitleID string `path:"job_title_id" json:"-"` // 职务ID, 示例值: "dd39369b19b9"
+	JobTitleID string `path:"job_title_id" json:"-"` // 职务 ID。你可以调用[获取租户职务列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_title/list)接口获取职务 ID。示例值: "dd39369b19b9"
 }
 
 // GetContactJobTitleResp ...
 type GetContactJobTitleResp struct {
-	JobTitle *GetContactJobTitleRespJobTitle `json:"job_title,omitempty"` // 职务信息
+	JobTitle *GetContactJobTitleRespJobTitle `json:"job_title,omitempty"` // 职务信息。
 }
 
 // GetContactJobTitleRespJobTitle ...
 type GetContactJobTitleRespJobTitle struct {
-	JobTitleID string                                    `json:"job_title_id,omitempty"` // 职务ID
-	Name       string                                    `json:"name,omitempty"`         // 职务名称。1-100字符, 支持中、英文及符号
-	I18nName   []*GetContactJobTitleRespJobTitleI18nName `json:"i18n_name,omitempty"`    // 多语言职务名称
-	Status     bool                                      `json:"status,omitempty"`       // 是否启用
+	JobTitleID string                                    `json:"job_title_id,omitempty"` // 职务 ID。
+	Name       string                                    `json:"name,omitempty"`         // 职务名称。
+	I18nName   []*GetContactJobTitleRespJobTitleI18nName `json:"i18n_name,omitempty"`    // 多语言职务名称。
+	Status     bool                                      `json:"status,omitempty"`       // 是否启用职务。可能值有: true: 启用- false: 禁用
 }
 
 // GetContactJobTitleRespJobTitleI18nName ...
 type GetContactJobTitleRespJobTitleI18nName struct {
-	Locale string `json:"locale,omitempty"` // 语言
-	Value  string `json:"value,omitempty"`  // 多语言内容
+	Locale string `json:"locale,omitempty"` // 语言版本。例如: zh_cn: 中文- en_us: 英语- ja_jp: 日语
+	Value  string `json:"value,omitempty"`  // 多语言版本对应的值。
 }
 
 // getContactJobTitleResp ...

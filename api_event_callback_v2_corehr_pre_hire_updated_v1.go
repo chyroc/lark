@@ -21,9 +21,16 @@ import (
 	"context"
 )
 
-// EventV2CorehrPreHireUpdatedV1 待入职人员信息更新后, 触发此事件。
+// EventV2CorehrPreHireUpdatedV1 待入职人员任职信息更新后, 触发此事件, 包括两种场景:
+//
+// - 通过开放平台接口创建待入职、更新待入职
+// - 在飞书人事-入职系统, HR 补充任职信息
+// 如果有创建待入职后, 更新数据的场景, 请收到创建事件后延迟10s时间再执行更新操作{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=pre_hire&event=updated)
+// - 通过开放平台删除待入职接口不会触发事件。
+// - 本事件基于mysql binlog 设计, 会存在发送冗余事件情况, 后续会提供无冗余事件版本。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/pre_hire/events/updated
+// new doc: https://open.feishu.cn/document/corehr-v1/pre_hire/pre-hire-events/updated
 func (r *EventCallbackService) HandlerEventV2CorehrPreHireUpdatedV1(f EventV2CorehrPreHireUpdatedV1Handler) {
 	r.cli.eventHandler.eventV2CorehrPreHireUpdatedV1Handler = f
 }
@@ -33,6 +40,6 @@ type EventV2CorehrPreHireUpdatedV1Handler func(ctx context.Context, cli *Lark, s
 
 // EventV2CorehrPreHireUpdatedV1 ...
 type EventV2CorehrPreHireUpdatedV1 struct {
-	PreHireID    string   `json:"pre_hire_id,omitempty"`   // 待入职 ID
-	FieldChanges []string `json:"field_changes,omitempty"` // 变更的字段
+	PreHireID    string   `json:"pre_hire_id,omitempty"`   // 待入职 ID, 可通过[【搜索待入职人员】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/search)获取更详细信息
+	FieldChanges []string `json:"field_changes,omitempty"` // 变更的字段。由于历史原因, 部分字段（例如个人信息）变更会发送为‘wk_updated_at’字段, 不会显示真实变更字段, 需要通过[【搜索待入职人员】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/search)获取更详细信息。
 }

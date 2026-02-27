@@ -21,11 +21,13 @@ import (
 	"context"
 )
 
-// CreateHireEcoAccountCustomField 定制用户在服务商处的身份标示字段（如用户在服务商处的租户 ID）。用户在飞书招聘后台添加帐号后, 系统会推送「帐号绑定」事件给开发者, 事件将携带用户填写的自定义字段信息, 开发者可根据此信息识别飞书招聘用户在服务商处的身份信息, 完成飞书招聘用户和服务商帐号的绑定, 并以此来推送对应的套餐或试卷列表等。 可多次推送, 多次推送为覆盖逻辑。
+// CreateHireEcoAccountCustomField 飞书招聘的背调或笔试服务商, 可通过此接口创建账号自定义字段, 用来标识飞书招聘客户在服务商处的身份（比如客户在服务商处的租户 ID、账号 ID等字段）。
 //
-// 该接口调用时机有两种情况:
-// - 当用户在飞书管理后台首次安装服务商应用时。服务商将收到「首次安装事件」, 服务商需响应处理「首次安装应用」事件。调用此接口推送账号表单。
-// - 当用户在飞书管理后台启用应用时。 服务商将收到「应用启用」事件, 服务商需响应处理「应用启用」事件。调用此接口推送账号表单。
+// * 对于飞书招聘客户的自建应用, 客户须先在「飞书招聘」-「设置」-「生态对接」-「笔试/背景调查」添加自建应用后, 才可调用本接口。
+// * 本接口为全量更新, 多次调用时, 将生效最后一次调用传入的自定义字段。
+// ## 使用流程
+// 客户在「飞书招聘」-「设置」-「生态对接」-「笔试/背景调查」添加服务商账号时, 需填写本接口创建的自定义字段, 之后系统将通过[账号绑定](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_account/events/created)事件将客户填入的自定义字段值推送给服务商, 服务商可据此识别和绑定飞书招聘客户, 并以此来[创建背调套餐和附加调查项](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check_package/create)或[创建试卷列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_exam_paper/create)等。
+// 详细的接入步骤可参考 [背调/笔试生态接入概览文档](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/ecological-docking/summary)。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_account_custom_field/create
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/ecological-docking/eco_account_custom_field/create
@@ -62,33 +64,32 @@ func (r *Mock) UnMockHireCreateHireEcoAccountCustomField() {
 
 // CreateHireEcoAccountCustomFieldReq ...
 type CreateHireEcoAccountCustomFieldReq struct {
-	Scope           int64                                            `json:"scope,omitempty"`             // 适用范围, 示例值: 1, 可选值有: 1: 背调, 2: 笔试
+	Scope           int64                                            `json:"scope,omitempty"`             // 适用范围示例值: 1可选值有: 背调笔试
 	CustomFieldList []*CreateHireEcoAccountCustomFieldReqCustomField `json:"custom_field_list,omitempty"` // 自定义字段列表
 }
 
 // CreateHireEcoAccountCustomFieldReqCustomField ...
 type CreateHireEcoAccountCustomFieldReqCustomField struct {
-	Key         string                                                    `json:"key,omitempty"`         // 自定义字段的标识, 同一 scope 内须唯一, 示例值: "org_id"
-	Name        *CreateHireEcoAccountCustomFieldReqCustomFieldName        `json:"name,omitempty"`        // 自定义字段的名称, 用户在添加账号表单看到的控件标题
-	IsRequired  bool                                                      `json:"is_required,omitempty"` // 是否必填, 示例值: true
-	Description *CreateHireEcoAccountCustomFieldReqCustomFieldDescription `json:"description,omitempty"` // 自定义字段的描述, 用户在添加账号表单看到的 place holder
+	Key         string                                                    `json:"key,omitempty"`         // 自定义字段的标识。在同一`scope`内须唯一示例值: "account_token"
+	Name        *CreateHireEcoAccountCustomFieldReqCustomFieldName        `json:"name,omitempty"`        // 自定义字段的名称。用户在「飞书招聘」-「设置」-「生态对接」-「笔试/背景调查」下添加账号时看到的表单控件标题
+	IsRequired  bool                                                      `json:"is_required,omitempty"` // 是否必填。 可选值有: * `true`: 必填 * `false`: 非必填示例值: true
+	Description *CreateHireEcoAccountCustomFieldReqCustomFieldDescription `json:"description,omitempty"` // 自定义字段的描述。用户在「飞书招聘」-「设置」-「生态对接」-「笔试/背景调查」下添加账号时看到的控件提示信息
 }
 
 // CreateHireEcoAccountCustomFieldReqCustomFieldDescription ...
 type CreateHireEcoAccountCustomFieldReqCustomFieldDescription struct {
-	ZhCn *string `json:"zh_cn,omitempty"` // 中文, 示例值: "测试"
-	EnUs *string `json:"en_us,omitempty"` // 英文, 示例值: "test"
+	ZhCn *string `json:"zh_cn,omitempty"` // 中文名称示例值: "账号的唯一标识, 可联系客服获取"
+	EnUs *string `json:"en_us,omitempty"` // 英文名称示例值: "The unique identifier of the account can be obtained by contacting the customer service"
 }
 
 // CreateHireEcoAccountCustomFieldReqCustomFieldName ...
 type CreateHireEcoAccountCustomFieldReqCustomFieldName struct {
-	ZhCn *string `json:"zh_cn,omitempty"` // 中文, 示例值: "测试"
-	EnUs *string `json:"en_us,omitempty"` // 英文, 示例值: "test"
+	ZhCn *string `json:"zh_cn,omitempty"` // 自定义字段中文名称示例值: "账号token"
+	EnUs *string `json:"en_us,omitempty"` // 自定义字段英文名称示例值: "Account token"
 }
 
 // CreateHireEcoAccountCustomFieldResp ...
-type CreateHireEcoAccountCustomFieldResp struct {
-}
+type CreateHireEcoAccountCustomFieldResp struct{}
 
 // createHireEcoAccountCustomFieldResp ...
 type createHireEcoAccountCustomFieldResp struct {

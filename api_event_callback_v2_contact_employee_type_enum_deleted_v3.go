@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// EventV2ContactEmployeeTypeEnumDeletedV3 删除人员类型会发出对应事件。
+// EventV2ContactEmployeeTypeEnumDeletedV3 当应用订阅该事件后, 如果删除某一人员类型, 则会触发该事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=contact&version=v3&resource=employee_type_enum&event=deleted)
+//
+// ## 前提条件
+// 你需要在应用中配置事件订阅, 这样才可以在事件触发时接收到事件数据。了解事件订阅可参见[事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/events/deleted
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/employee_type_enum/events/deleted
@@ -34,21 +37,21 @@ type EventV2ContactEmployeeTypeEnumDeletedV3Handler func(ctx context.Context, cl
 
 // EventV2ContactEmployeeTypeEnumDeletedV3 ...
 type EventV2ContactEmployeeTypeEnumDeletedV3 struct {
-	OldEnum *EventV2ContactEmployeeTypeEnumDeletedV3OldEnum `json:"old_enum,omitempty"` // 旧枚举类型
+	OldEnum *EventV2ContactEmployeeTypeEnumDeletedV3OldEnum `json:"old_enum,omitempty"` // 人员类型删除前的信息。
 }
 
 // EventV2ContactEmployeeTypeEnumDeletedV3OldEnum ...
 type EventV2ContactEmployeeTypeEnumDeletedV3OldEnum struct {
-	EnumID      string                                                       `json:"enum_id,omitempty"`      // 枚举值id
-	EnumValue   string                                                       `json:"enum_value,omitempty"`   // 枚举的编号值, 创建新的人员类型后, 系统生成对应编号。对应[创建用户接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
-	Content     string                                                       `json:"content,omitempty"`      // 枚举内容, 长度范围: `1` ～ `100` 字符
-	EnumType    int64                                                        `json:"enum_type,omitempty"`    // 类型, 可选值有: 1: 内置类型, 2: 自定义
-	EnumStatus  int64                                                        `json:"enum_status,omitempty"`  // 使用状态, 可选值有: 1: 激活, 2: 未激活
-	I18nContent []*EventV2ContactEmployeeTypeEnumDeletedV3OldEnumI18nContent `json:"i18n_content,omitempty"` // i18n定义
+	EnumID      string                                                       `json:"enum_id,omitempty"`      // 人员类型的选项 ID。
+	EnumValue   string                                                       `json:"enum_value,omitempty"`   // 人员类型的选项编号。
+	Content     string                                                       `json:"content,omitempty"`      // 人员类型的选项内容。 长度范围: `1` ～ `100` 字符
+	EnumType    int64                                                        `json:"enum_type,omitempty"`    // 人员类型的选项类型。可选值有: 内置类型自定义
+	EnumStatus  int64                                                        `json:"enum_status,omitempty"`  // 人员类型的选项激活状态。可选值有: 激活未激活
+	I18nContent []*EventV2ContactEmployeeTypeEnumDeletedV3OldEnumI18nContent `json:"i18n_content,omitempty"` // 选项内容的国际化配置。
 }
 
 // EventV2ContactEmployeeTypeEnumDeletedV3OldEnumI18nContent ...
 type EventV2ContactEmployeeTypeEnumDeletedV3OldEnumI18nContent struct {
-	Locale string `json:"locale,omitempty"` // 语言版本
-	Value  string `json:"value,omitempty"`  // 字段名
+	Locale string `json:"locale,omitempty"` // 语言版本。例如: zh_cn: 中文- en_us: 英文- ja_jp: 日文
+	Value  string `json:"value,omitempty"`  // 语言版本对应的内容。
 }

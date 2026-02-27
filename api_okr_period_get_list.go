@@ -60,8 +60,8 @@ func (r *Mock) UnMockOKRGetOKRPeriodList() {
 
 // GetOKRPeriodListReq ...
 type GetOKRPeriodListReq struct {
-	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: xaasdasdax
-	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 默认10, 示例值: 10, 默认值: `10`
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: xaasdasdax
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 默认10示例值: 10默认值: `10
 }
 
 // GetOKRPeriodListResp ...
@@ -76,7 +76,7 @@ type GetOKRPeriodListRespItem struct {
 	ID              string `json:"id,omitempty"`                // id
 	ZhName          string `json:"zh_name,omitempty"`           // 中文名称
 	EnName          string `json:"en_name,omitempty"`           // 英文名称
-	Status          int64  `json:"status,omitempty"`            // 启用状态, 可选值有: 0: 正常状态, 1: 暂不处理, 2: 标记失效, 3: 隐藏周期
+	Status          int64  `json:"status,omitempty"`            // 启用状态可选值有: 正常状态暂不处理标记失效隐藏周期
 	PeriodStartTime string `json:"period_start_time,omitempty"` // 周期开始时间
 	PeriodEndTime   string `json:"period_end_time,omitempty"`   // 周期结束时间
 }

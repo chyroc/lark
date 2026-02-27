@@ -23,6 +23,9 @@ import (
 
 // UpdateHireNote 根据备注 ID 更新备注信息。
 //
+// ## 注意事项
+// 在备注中@其他用户时, 会同时赋予该用户查看该人才的权限, 即该用户有权限在「飞书招聘」产品中查看该人才。
+//
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/note/patch
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/note/patch
 func (r *HireService) UpdateHireNote(ctx context.Context, request *UpdateHireNoteReq, options ...MethodOptionFunc) (*UpdateHireNoteResp, *Response, error) {
@@ -58,9 +61,12 @@ func (r *Mock) UnMockHireUpdateHireNote() {
 
 // UpdateHireNoteReq ...
 type UpdateHireNoteReq struct {
-	NoteID     string  `path:"note_id" json:"-"`       // 备注 ID, 示例值: "6960663240925956401"
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_admin_id: 以people_admin_id来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	Content    string  `json:"content,omitempty"`      // 备注内容, 示例值: "111"
+	NoteID              string     `path:"note_id" json:"-"`                // 备注 ID, 可通过[获取备注列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/note/list)获取示例值: "6960663240925956401"
+	UserIDType          *IDType    `query:"user_id_type" json:"-"`          // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以people_admin_id来识别用户默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	Content             string     `json:"content,omitempty"`               // 备注内容示例值: "这是一个备注"
+	OperatorID          *string    `json:"operator_id,omitempty"`           // 更新人 ID, 请传入与`user_id_type`相匹配的ID示例值: "ou_f476cb099ac9227c9bae09ce46112579"
+	NotifyMentionedUser *Mention   `json:"notify_mentioned_user,omitempty"` // 是否通知被@的用户示例值: false默认值: `false
+	MentionEntityList   []*Mention `json:"mention_entity_list,omitempty"`   // 被@用户列表
 }
 
 // UpdateHireNoteResp ...
@@ -74,10 +80,10 @@ type UpdateHireNoteRespNote struct {
 	TalentID      string `json:"talent_id,omitempty"`      // 人才ID
 	ApplicationID string `json:"application_id,omitempty"` // 投递ID
 	IsPrivate     bool   `json:"is_private,omitempty"`     // 是否私密
-	CreateTime    int64  `json:"create_time,omitempty"`    // 创建时间
-	ModifyTime    int64  `json:"modify_time,omitempty"`    // 更新时间
-	CreatorID     string `json:"creator_id,omitempty"`     // 创建人ID
-	Content       string `json:"content,omitempty"`        // 内容
+	CreateTime    int64  `json:"create_time,omitempty"`    // 创建时间, 毫秒时间戳
+	ModifyTime    int64  `json:"modify_time,omitempty"`    // 更新时间, 毫秒时间戳
+	CreatorID     string `json:"creator_id,omitempty"`     // 创建人ID, 与入参 `user_id_type` 类型一致
+	Content       string `json:"content,omitempty"`        // 备注内容
 }
 
 // updateHireNoteResp ...

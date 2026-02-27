@@ -22,7 +22,9 @@ import (
 	"io"
 )
 
-// UploadApprovalFile 当审批表单中有图片或附件控件时, 开发者需在创建审批实例前通过审批上传文件接口将文件上传到审批系统, 且附件上传大小限制为50M, 图片上传大小为10M。
+// UploadApprovalFile 当审批表单中有图片或者附件控件时, 开发者需要在调用[创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create)前, 将传入图片或附件控件的文件通过本接口上传到审批系统, 接口会返回文件的 code, 该 code 用于创建审批实例时为图片或附件控件赋值。
+//
+// 例如, 以下是创建审批实例时, 图片控件值示例, 其中的 value 为本接口返回的图片 code。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDOyUjL1gjM14SN4ITN
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/file/upload-files
@@ -60,20 +62,20 @@ func (r *Mock) UnMockApprovalUploadApprovalFile() {
 
 // UploadApprovalFileReq ...
 type UploadApprovalFileReq struct {
-	Name    string    `json:"name,omitempty"`    // 文件名（需包含文件扩展名, 如“文件.doc”
-	Type    string    `json:"type,omitempty"`    // 文件类型（image 或 attachment）
+	Name    string    `json:"name,omitempty"`    // 文件名, 需包含文件扩展名。例如 `文件.doc
+	Type    string    `json:"type,omitempty"`    // 文件类型。取值 image（图片）或 attachment（附件）
 	Content io.Reader `json:"content,omitempty"` // 文件
 }
 
 // UploadApprovalFileResp ...
 type UploadApprovalFileResp struct {
-	Code string `json:"code,omitempty"` // 文件标识码（用于创建审批实例）
+	Code string `json:"code,omitempty"` // 文件标识码。用于[创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create)时, 传入图片控件或附件控件的 value 参数。
 	URL  string `json:"url,omitempty"`  // 文件 url
 }
 
 // uploadApprovalFileResp ...
 type uploadApprovalFileResp struct {
-	Code  int64                   `json:"code,omitempty"` // 错误码, 非0表示失败
+	Code  int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                  `json:"msg,omitempty"`  // 返回码的描述
 	Data  *UploadApprovalFileResp `json:"data,omitempty"` // 返回业务信息
 	Error *ErrorDetail            `json:"error,omitempty"`

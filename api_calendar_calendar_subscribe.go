@@ -28,6 +28,7 @@ import (
 // - 仅可订阅以下属性的日历, 你可以调用[查询日历信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/get)接口, 查看指定日历的属性。
 // - 日历类型（type）为 shared 或者 primary。
 // - 日历公开范围（permissions）为 public 或者 show_only_free_busy。
+// - 不允许订阅机器人的主日历。
 // - 当前身份可订阅的日历数量上限为 1000。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/subscribe
@@ -66,7 +67,7 @@ func (r *Mock) UnMockCalendarSubscribeCalendar() {
 
 // SubscribeCalendarReq ...
 type SubscribeCalendarReq struct {
-	CalendarID string `path:"calendar_id" json:"-"` // 日历ID, 创建共享日历时会返回日历 ID。你也可以调用以下接口获取某一日历的 ID, [查询主日历信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/primary), [查询日历列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/list), [搜索日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/search), 示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	CalendarID string `path:"calendar_id" json:"-"` // 日历ID。创建共享日历时会返回日历 ID。你也可以调用以下接口获取某一日历的 ID。- [查询主日历信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/primary)- [查询日历列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/list)- [搜索日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/search)示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 }
 
 // SubscribeCalendarResp ...
@@ -79,13 +80,13 @@ type SubscribeCalendarRespCalendar struct {
 	CalendarID   string             `json:"calendar_id,omitempty"`    // 日历 ID。后续可以通过该 ID 查询、更新或删除日历信息。更多信息参见[日历 ID 字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction)。
 	Summary      string             `json:"summary,omitempty"`        // 日历标题。
 	Description  string             `json:"description,omitempty"`    // 日历描述。
-	Permissions  CalendarPermission `json:"permissions,omitempty"`    // 日历公开范围, 可选值有: private: 私密, show_only_free_busy: 仅展示忙闲信息, public: 公开, 他人可查看日程详情
+	Permissions  CalendarPermission `json:"permissions,omitempty"`    // 日历公开范围。可选值有: 私密仅展示忙闲信息公开, 他人可查看日程详情
 	Color        int64              `json:"color,omitempty"`          // 日历颜色, 由颜色 RGB 值的 int32 表示。实际在客户端展示时会映射到色板上最接近的一种颜色, 且该字段仅对当前身份生效。
-	Type         CalendarType       `json:"type,omitempty"`           // 日历类型, 可选值有: unknown: 未知类型, primary: 用户或应用的主日历, shared: 由用户或应用创建的共享日历, google: 用户绑定的谷歌日历, resource: 会议室日历, exchange: 用户绑定的 Exchange 日历
+	Type         CalendarType       `json:"type,omitempty"`           // 日历类型。可选值有: 未知类型用户或应用的主日历由用户或应用创建的共享日历用户绑定的谷歌日历会议室日历用户绑定的 Exchange 日历
 	SummaryAlias string             `json:"summary_alias,omitempty"`  // 日历备注名, 仅对当前身份生效。
 	IsDeleted    bool               `json:"is_deleted,omitempty"`     // 对于当前身份, 日历是否已经被标记为删除。
 	IsThirdParty bool               `json:"is_third_party,omitempty"` // 当前日历是否是第三方数据。三方日历及日程只支持读, 不支持写入。
-	Role         CalendarRole       `json:"role,omitempty"`           // 当前身份对于该日历的访问权限, 可选值有: unknown: 未知权限, free_busy_reader: 游客, 只能看到忙碌、空闲信息, reader: 订阅者, 可查看所有日程详情, writer: 编辑者, 可创建及修改日程, owner: 管理员, 可管理日历及共享设置
+	Role         CalendarRole       `json:"role,omitempty"`           // 当前身份对于该日历的访问权限。可选值有: 未知权限游客, 只能看到忙碌、空闲信息订阅者, 可查看所有日程详情编辑者, 可创建及修改日程管理员, 可管理日历及共享设置
 }
 
 // subscribeCalendarResp ...

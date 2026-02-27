@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// CreateCoreHRLeaveGrantingRecord 向飞书人事休假系统写入假期发放记录。
+// CreateCoreHRLeaveGrantingRecord 向飞书人事休假系统写入假期发放记录。对应假勤管理-休假管理-[发放记录](https://example.feishu.cn/people/workforce-management/manage/leave/leave_admin/granting_record)的创建或者导入功能
 //
 // 仅飞书人事企业版可用
 //
@@ -60,20 +60,22 @@ func (r *Mock) UnMockCoreHRCreateCoreHRLeaveGrantingRecord() {
 
 // CreateCoreHRLeaveGrantingRecordReq ...
 type CreateCoreHRLeaveGrantingRecordReq struct {
-	UserIDType       *IDType                                     `query:"user_id_type" json:"-"`      // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_corehr_id: 以飞书人事的ID来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	LeaveTypeID      string                                      `json:"leave_type_id,omitempty"`     // 假期类型 ID, 枚举值可通过[获取假期类型列表]接口获取（若假期类型下存在假期子类, 此处仅支持传入假期子类的 ID）, 示例值: "7111688079785723436"
-	EmploymentID     string                                      `json:"employment_id,omitempty"`     // 员工 ID, 示例值: "6982509313466189342"
-	GrantingQuantity string                                      `json:"granting_quantity,omitempty"` // 发放数量, 示例值: "0.5"
-	GrantingUnit     int64                                       `json:"granting_unit,omitempty"`     // 发放时长单位, 可选值有: 1: 天, 2: 小时, 示例值: 1
-	EffectiveDate    string                                      `json:"effective_date,omitempty"`    // 生效时间, 示例值: "2022-01-01"
+	UserIDType       *IDType                                     `query:"user_id_type" json:"-"`      // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的ID来识别用户默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	LeaveTypeID      string                                      `json:"leave_type_id,omitempty"`     // 假期类型 ID, 枚举值可通过[获取假期类型列表](https://open.larkoffice.com/document/server-docs/corehr-v1/leave/leave_types)接口获取（若假期类型下存在假期子类, 此处仅支持传入假期子类的 ID）示例值: "7111688079785723436"
+	EmploymentID     string                                      `json:"employment_id,omitempty"`     // 员工 ID, 飞书人事的雇员id。对应user_id_type示例值: "6982509313466189342"
+	GrantingQuantity string                                      `json:"granting_quantity,omitempty"` // 发放数量（小数位数不能超过6位, 授予数量范围为-9999~9999）示例值: "0.5"
+	GrantingUnit     int64                                       `json:"granting_unit,omitempty"`     // 发放时长单位可选值有: 1: 天- 2: 小时示例值: 1
+	EffectiveDate    string                                      `json:"effective_date,omitempty"`    // 生效时间, 格式为yyyy-MM-dd示例值: "2022-01-01"
+	ExpirationDate   *string                                     `json:"expiration_date,omitempty"`   // 失效时间, 格式为yyyy-MM-dd示例值: "2022-01-01"
+	SectionType      *int64                                      `json:"section_type,omitempty"`      // 是否参与折算（1不参与折算, 2参与折算）。默认不折算示例值: 1
 	Reason           []*CreateCoreHRLeaveGrantingRecordReqReason `json:"reason,omitempty"`            // 发放原因
-	ExternalID       *string                                     `json:"external_id,omitempty"`       // 自定义外部 ID, 可用于避免数据重复写入（不能超过 64 字符）, 示例值: "111"
+	ExternalID       *string                                     `json:"external_id,omitempty"`       // 自定义外部 ID, 可用于避免数据重复写入（不能超过 64 字符）。如果重复录入, 不会创建新纪录、也不会更新原始记录示例值: "111"
 }
 
 // CreateCoreHRLeaveGrantingRecordReqReason ...
 type CreateCoreHRLeaveGrantingRecordReqReason struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 示例值: "zh-CN"
-	Value string `json:"value,omitempty"` // 名称信息的内容, 示例值: "张三"
+	Lang  string `json:"lang,omitempty"`  // 名称信息的语言示例值: "zh_CN"
+	Value string `json:"value,omitempty"` // 名称信息的内容示例值: "张三"
 }
 
 // CreateCoreHRLeaveGrantingRecordResp ...
@@ -83,19 +85,20 @@ type CreateCoreHRLeaveGrantingRecordResp struct {
 
 // CreateCoreHRLeaveGrantingRecordRespLeaveGrantingRecord ...
 type CreateCoreHRLeaveGrantingRecordRespLeaveGrantingRecord struct {
-	ID               string                                                          `json:"id,omitempty"`                // 假期发放记录 ID
-	EmploymentID     string                                                          `json:"employment_id,omitempty"`     // 员工 ID
+	ID               string                                                          `json:"id,omitempty"`                // 假期发放记录 ID, 可用与[删除假期发放记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave_granting_record/delete)和[修改发放记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/leave_accrual_record/patch)
+	EmploymentID     string                                                          `json:"employment_id,omitempty"`     // 员工 ID, 对应user_id_type
 	LeaveTypeID      string                                                          `json:"leave_type_id,omitempty"`     // 假期类型 ID
 	GrantingQuantity string                                                          `json:"granting_quantity,omitempty"` // 发放数量
-	GrantingUnit     int64                                                           `json:"granting_unit,omitempty"`     // 发放时长单位, 可选值有: 1: 天, 2: 小时
-	EffectiveDate    string                                                          `json:"effective_date,omitempty"`    // 生效时间
-	ExpirationDate   string                                                          `json:"expiration_date,omitempty"`   // 失效时间（根据休假规则自动计算）
-	GrantedBy        int64                                                           `json:"granted_by,omitempty"`        // 发放来源, 可选值有: 1: 系统发放, 2: 手动发放, 3: 外部系统发放
+	GrantingUnit     int64                                                           `json:"granting_unit,omitempty"`     // 发放时长单位可选值有: 1: 天- 2: 小时
+	EffectiveDate    string                                                          `json:"effective_date,omitempty"`    // 生效时间, 格式为yyyy-MM-dd
+	ExpirationDate   string                                                          `json:"expiration_date,omitempty"`   // 失效时间（根据休假规则自动计算）, 格式为yyyy-MM-dd
+	GrantedBy        int64                                                           `json:"granted_by,omitempty"`        // 发放来源可选值有: 1: 系统发放- 2: 手动发放- 3: 外部系统发放
 	Reason           []*CreateCoreHRLeaveGrantingRecordRespLeaveGrantingRecordReason `json:"reason,omitempty"`            // 发放原因
-	CreatedAt        string                                                          `json:"created_at,omitempty"`        // 发放记录的创建时间
-	CreatedBy        string                                                          `json:"created_by,omitempty"`        // 发放记录的创建人, 值为创建人的员工 ID
-	UpdatedAt        string                                                          `json:"updated_at,omitempty"`        // 发放记录的更新时间
-	UpdatedBy        string                                                          `json:"updated_by,omitempty"`        // 发放记录的更新人, 值为更新人的员工 ID
+	CreatedAt        string                                                          `json:"created_at,omitempty"`        // 发放记录的创建时间, 格式为毫秒级时间戳
+	CreatedBy        string                                                          `json:"created_by,omitempty"`        // 发放记录的创建人, 值为创建人的员工 ID, 对应user_id_type
+	UpdatedAt        string                                                          `json:"updated_at,omitempty"`        // 发放记录的更新时间, 格式为毫秒级时间戳
+	UpdatedBy        string                                                          `json:"updated_by,omitempty"`        // 发放记录的更新人, 值为更新人的员工 ID, 对应user_id_type
+	SectionType      int64                                                           `json:"section_type,omitempty"`      // 是否参与折算（1不参与折算, 2参与折算）
 }
 
 // CreateCoreHRLeaveGrantingRecordRespLeaveGrantingRecordReason ...

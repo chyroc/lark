@@ -22,11 +22,12 @@ import (
 	"io"
 )
 
-// ParseAIResume 简历信息解析接口, 支持PDF/DOCX/PNG/JPG四种文件类型的一次性的识别。
+// ParseAIResume 简历信息解析接口, 支持PDF/DOCX/PNG/JPG四种文件类型的一次性的识别。文件大小需要小于30M。
 //
 // 单租户限流: 10QPS, 同租户下的应用没有限流, 共享本租户的 10QPS 限流
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/document_ai-v1/resume/parse
+// new doc: https://open.feishu.cn/document/ai/document_ai-v1/resume/parse
 func (r *AIService) ParseAIResume(ctx context.Context, request *ParseAIResumeReq, options ...MethodOptionFunc) (*ParseAIResumeResp, *Response, error) {
 	if r.cli.mock.mockAIParseAIResume != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] AI#ParseAIResume mock enable")
@@ -61,7 +62,7 @@ func (r *Mock) UnMockAIParseAIResume() {
 
 // ParseAIResumeReq ...
 type ParseAIResumeReq struct {
-	File io.Reader `json:"file,omitempty"` // 简历文件, 支持 PDF / DOCX / PNG / JPG, 示例值: file binary
+	File io.Reader `json:"file,omitempty"` // 简历文件, 支持 PDF / DOCX / PNG / JPG示例值: file binary
 }
 
 // ParseAIResumeResp ...
@@ -84,7 +85,7 @@ type ParseAIResumeRespResume struct {
 	Projects         []*ParseAIResumeRespResumeProject     `json:"projects,omitempty"`          // 项目经历
 	WorkYear         int64                                 `json:"work_year,omitempty"`         // 工作年限, 为空表示工作年限未知, 数字单位为年, 整数
 	DateOfBirth      string                                `json:"date_of_birth,omitempty"`     // 生日, 格式YYYY-MM-DD
-	Gender           int64                                 `json:"gender,omitempty"`            // 性别, 可选值有: 0: 未知, 1: 男性, 2: 女性
+	Gender           int64                                 `json:"gender,omitempty"`            // 性别可选值有: 未知男性女性
 	WillingPositions []string                              `json:"willing_positions,omitempty"` // 希望获得的职位列表
 	CurrentLocation  string                                `json:"current_location,omitempty"`  // 当前工作地点(城市)
 	WillingLocations []string                              `json:"willing_locations,omitempty"` // 希望工作地点列表
@@ -113,7 +114,7 @@ type ParseAIResumeRespResumeCareer struct {
 	EndDate        string `json:"end_date,omitempty"`        // 结束时间, 格式: YYYY-MM-DD
 	EndTime        string `json:"end_time,omitempty"`        // 结束时间, 格式: YYYY-MM-DD 或 “至今”, 当值为“至今”时, end_date["", 值为其他时, end_date]end_time
 	Title          string `json:"title,omitempty"`           // 职位
-	Type           int64  `json:"type,omitempty"`            // 工作类型, 可选值有: 1: 实习, 2: 全职
+	Type           int64  `json:"type,omitempty"`            // 工作类型可选值有: 实习全职
 	TypeStr        string `json:"type_str,omitempty"`        // 工作类型——'实习'、'全职'
 	JobDescription string `json:"job_description,omitempty"` // 工作描述
 }

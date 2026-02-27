@@ -21,7 +21,9 @@ import (
 	"context"
 )
 
-// CreateHireEcoExamPaper 定制指定帐号可用的试卷列表
+// CreateHireEcoExamPaper 飞书招聘的笔试服务商, 在完成[账号绑定](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_account/events/created)后, 可通过本接口在客户的笔试帐号下创建试卷列表。若客户的笔试账号为「未激活」、「停用」状态, 则试卷创建成功后, 客户的账号将变为「正常」状态, 可正常安排笔试。
+//
+// 本接口为全量更新, 多次调用时, 将生效最后一次调用传入的试卷列表。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_exam_paper/create
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/ecological-docking/eco_exam_paper/create
@@ -58,23 +60,22 @@ func (r *Mock) UnMockHireCreateHireEcoExamPaper() {
 
 // CreateHireEcoExamPaperReq ...
 type CreateHireEcoExamPaperReq struct {
-	AccountID string                            `json:"account_id,omitempty"` // 账号 ID, 可在「账号绑定」事件中获取, 示例值: "7147998241542539527"
+	AccountID string                            `json:"account_id,omitempty"` // 笔试账号 ID, 可通过[账号绑定](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_account/events/created)事件获取示例值: "7147998241542539527"
 	PaperList []*CreateHireEcoExamPaperReqPaper `json:"paper_list,omitempty"` // 试卷列表
 }
 
 // CreateHireEcoExamPaperReqPaper ...
 type CreateHireEcoExamPaperReqPaper struct {
-	ID            string  `json:"id,omitempty"`             // 试卷 ID, 示例值: "7147998241542539527", 最小长度: `1` 字符
-	Name          string  `json:"name,omitempty"`           // 试卷名称, 示例值: "春季测评", 最小长度: `1` 字符
-	Duration      *int64  `json:"duration,omitempty"`       // 考试时长（分钟）, 示例值: 30
-	QuestionCount *int64  `json:"question_count,omitempty"` // 试卷题目数量, 示例值: 30
-	StartTime     *string `json:"start_time,omitempty"`     // 开始时间, 留空或不传表示不限制开始时间, 示例值: "1658676234053"
-	EndTime       *string `json:"end_time,omitempty"`       // 结束时间, 留空或不传表示不限制结束时间, 示例值: "1672444800000"
+	ID            string  `json:"id,omitempty"`             // 试卷 ID。由调用方自定义 注意: 试卷 ID 长度应不超过`255`字符, 超出部分将被截断示例值: "7147998241542539527" 最小长度: `1` 字符
+	Name          string  `json:"name,omitempty"`           // 试卷名称 注意: 试卷名称长度应不超过`255`字符, 超出部分将被截断示例值: "春季测评" 最小长度: `1` 字符
+	Duration      *int64  `json:"duration,omitempty"`       // 考试时长（分钟）示例值: 30
+	QuestionCount *int64  `json:"question_count,omitempty"` // 试卷题目数量示例值: 30
+	StartTime     *string `json:"start_time,omitempty"`     // 笔试开始时间, 毫秒时间戳。留空或不传表示不限制开始时间。 注意: 若传值且`end_time`不为空, 则开始时间必须小于结束时间示例值: "1658676234053"
+	EndTime       *string `json:"end_time,omitempty"`       // 笔试结束时间, 毫秒时间戳。留空或不传表示不限制结束时间 注意: 若传值且`start_time `不为空, 则结束时间必须大于开始时间示例值: "1672444800000"
 }
 
 // CreateHireEcoExamPaperResp ...
-type CreateHireEcoExamPaperResp struct {
-}
+type CreateHireEcoExamPaperResp struct{}
 
 // createHireEcoExamPaperResp ...
 type createHireEcoExamPaperResp struct {

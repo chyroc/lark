@@ -21,9 +21,10 @@ import (
 	"context"
 )
 
-// EventV2ElearningCourseRegistrationCreatedV2 课程学习进度新增时触发
+// EventV2ElearningCourseRegistrationCreatedV2 课程学习进度新增时触发{使用示例}(url=/api/tools/api_explore/api_explore_config?project=elearning&version=v2&resource=course_registration&event=created)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/elearning-v2/course_registration/events/created
+// new doc: https://open.feishu.cn/document/elearning-v2/course_registration/events/created
 func (r *EventCallbackService) HandlerEventV2ElearningCourseRegistrationCreatedV2(f EventV2ElearningCourseRegistrationCreatedV2Handler) {
 	r.cli.eventHandler.eventV2ElearningCourseRegistrationCreatedV2Handler = f
 }
@@ -35,15 +36,15 @@ type EventV2ElearningCourseRegistrationCreatedV2Handler func(ctx context.Context
 type EventV2ElearningCourseRegistrationCreatedV2 struct {
 	CourseID                   string                                              `json:"course_id,omitempty"`                     // 课程ID
 	Learner                    *EventV2ElearningCourseRegistrationCreatedV2Learner `json:"learner,omitempty"`                       // 课程学员信息
-	EnrollAt                   int64                                               `json:"enroll_at,omitempty"`                     // 加入学习时间戳（秒）, 取值范围: `0` ～ `4294967295`
-	EnrollType                 int64                                               `json:"enroll_type,omitempty"`                   // 注册类型, 可选值有: 1: 被管理员指派, 2: 学员自主加入, 3: 按照规则自动加入, 4: 学员申请被批准加入
-	LearningDuration           int64                                               `json:"learning_duration,omitempty"`             // 学习时长, 单位: 秒, 取值范围: `0` ～ `4294967295`
-	FinishedAt                 int64                                               `json:"finished_at,omitempty"`                   // 完成时间戳（秒）, 取值范围: `0` ～ `4294967295`
-	LearningState              int64                                               `json:"learning_state,omitempty"`                // 完成状态, 可选值有: 0: 课程未开始, 1: 课程学习中, 2: 课程已通过, 3: 课程不合格
-	CompulsoryLessonIDs        []string                                            `json:"compulsory_lesson_ids,omitempty"`         // 必修章节id列表, 长度范围: `0` ～ `65535`
-	LearnedCompulsoryLessonIDs []string                                            `json:"learned_compulsory_lesson_ids,omitempty"` // 已完成的必修章节id列表, 长度范围: `0` ～ `65535`
-	OptionalLessonIDs          []string                                            `json:"optional_lesson_ids,omitempty"`           // 选修章节id列表, 长度范围: `0` ～ `65535`
-	LearnedOptionalLessonIDs   []string                                            `json:"learned_optional_lesson_ids,omitempty"`   // 已完成的选修章节id列表, 长度范围: `0` ～ `65535`
+	EnrollAt                   int64                                               `json:"enroll_at,omitempty"`                     // 加入学习时间戳（秒） 取值范围: `0` ～ `4294967295
+	EnrollType                 int64                                               `json:"enroll_type,omitempty"`                   // 注册类型可选值有: 被管理员指派学员自主加入按照规则自动加入学员申请被批准加入
+	LearningDuration           int64                                               `json:"learning_duration,omitempty"`             // 学习时长, 单位: 秒 取值范围: `0` ～ `4294967295
+	FinishedAt                 int64                                               `json:"finished_at,omitempty"`                   // 完成时间戳（秒） 取值范围: `0` ～ `4294967295
+	LearningState              int64                                               `json:"learning_state,omitempty"`                // 完成状态可选值有: 课程未开始课程学习中课程已通过课程不合格
+	CompulsoryLessonIDs        []string                                            `json:"compulsory_lesson_ids,omitempty"`         // 必修章节id列表 长度范围: `0` ～ `65535
+	LearnedCompulsoryLessonIDs []string                                            `json:"learned_compulsory_lesson_ids,omitempty"` // 已完成的必修章节id列表 长度范围: `0` ～ `65535
+	OptionalLessonIDs          []string                                            `json:"optional_lesson_ids,omitempty"`           // 选修章节id列表 长度范围: `0` ～ `65535
+	LearnedOptionalLessonIDs   []string                                            `json:"learned_optional_lesson_ids,omitempty"`   // 已完成的选修章节id列表 长度范围: `0` ～ `65535
 }
 
 // EventV2ElearningCourseRegistrationCreatedV2Learner ...
@@ -56,6 +57,6 @@ type EventV2ElearningCourseRegistrationCreatedV2Learner struct {
 // EventV2ElearningCourseRegistrationCreatedV2LearnerUserID ...
 type EventV2ElearningCourseRegistrationCreatedV2LearnerUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }

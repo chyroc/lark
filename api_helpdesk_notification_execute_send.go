@@ -59,13 +59,12 @@ func (r *Mock) UnMockHelpdeskExecuteSendHelpdeskNotification() {
 
 // ExecuteSendHelpdeskNotificationReq ...
 type ExecuteSendHelpdeskNotificationReq struct {
-	NotificationID string `path:"notification_id" json:"-"` // 创建接口返回的唯一id, 示例值: "6985032626234982420"
-	SendAt         string `json:"send_at,omitempty"`        // 发送时间戳(毫秒), 示例值: "1624326025000"
+	NotificationID string `path:"notification_id" json:"-"` // 创建接口返回的唯一id示例值: "6985032626234982420"
+	SendAt         string `json:"send_at,omitempty"`        // 发送时间戳(毫秒)示例值: "1624326025000"
 }
 
 // ExecuteSendHelpdeskNotificationResp ...
-type ExecuteSendHelpdeskNotificationResp struct {
-}
+type ExecuteSendHelpdeskNotificationResp struct{}
 
 // executeSendHelpdeskNotificationResp ...
 type executeSendHelpdeskNotificationResp struct {

@@ -63,28 +63,28 @@ func (r *Mock) UnMockCalendarCreateCalendarACL() {
 
 // CreateCalendarACLReq ...
 type CreateCalendarACLReq struct {
-	CalendarID string                     `path:"calendar_id" json:"-"`   // 需要添加访问控制的日历 ID, 创建共享日历时会返回日历 ID。你也可以调用以下接口获取某一日历的 ID, [查询主日历信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/primary), [查询日历列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/list), [搜索日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/search), 示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
-	UserIDType *IDType                    `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	Role       CalendarRole               `json:"role,omitempty"`         // 对日历的访问权限, 示例值: "writer", 可选值有: unknown: 未知权限。unknown 是 role 参数枚举值之一, 但 role 作为请求参数时, 不支持传入 unknown。, free_busy_reader: 游客, 只能看到忙碌、空闲信息。, reader: 订阅者, 可查看所有日程详情。, writer: 编辑者, 可创建及修改日程。, owner: 管理员, 可管理日历及共享设置。
+	CalendarID string                     `path:"calendar_id" json:"-"`   // 需要添加访问控制的日历 ID。创建共享日历时会返回日历 ID。你也可以调用以下接口获取某一日历的 ID。- [查询主日历信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/primary)- [查询日历列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/list)- [搜索日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/search)示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	UserIDType *IDType                    `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	Role       CalendarRole               `json:"role,omitempty"`         // 对日历的访问权限。示例值: "writer"可选值有: 未知权限。unknown 是 role 参数枚举值之一, 但 role 作为请求参数时, 不支持传入 unknown。游客, 只能看到忙碌、空闲信息。订阅者, 可查看所有日程详情。编辑者, 可创建及修改日程。管理员, 可管理日历及共享设置。
 	Scope      *CreateCalendarACLReqScope `json:"scope,omitempty"`        // 权限的生效范围。
 }
 
 // CreateCalendarACLReqScope ...
 type CreateCalendarACLReqScope struct {
-	Type   string  `json:"type,omitempty"`    // 权限生效范围的类型, 注意: 目前只支持 `user`, 且当 `type=user` 时, user_id 需要传入和 user_id_type 一致的用户 ID 类型。例如, `user_id_type=open_id` 时, user_id 需要传入用户的 open_id, 示例值: "user", 可选值有: user: 用户
-	UserID *string `json:"user_id,omitempty"` // 用户 ID。当 `type=user` 时, 必须设置该参数值。关于用户 ID 的更多介绍可参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 示例值: "ou_xxxxxx"
+	Type   string  `json:"type,omitempty"`    // 权限生效范围的类型。注意: 目前只支持 `user`, 且当 `type=user` 时, user_id 需要传入和 user_id_type 一致的用户 ID 类型。例如, `user_id_type=open_id` 时, user_id 需要传入用户的 open_id。示例值: "user"可选值有: 用户
+	UserID *string `json:"user_id,omitempty"` // 用户 ID。当 `type=user` 时, 必须设置该参数值。关于用户 ID 的更多介绍可参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)。示例值: "ou_xxxxxx"
 }
 
 // CreateCalendarACLResp ...
 type CreateCalendarACLResp struct {
 	ACLID string                      `json:"acl_id,omitempty"` // 访问控制 ID。该 ID 在单个日历实体内唯一, 不同日历实体可能存在重复的访问控制 ID。
-	Role  CalendarRole                `json:"role,omitempty"`   // 对日历的访问权限, 可选值有: unknown: 未知权限。, free_busy_reader: 游客, 只能看到忙碌、空闲信息。, reader: 订阅者, 可查看所有日程详情。, writer: 编辑者, 可创建及修改日程。, owner: 管理员, 可管理日历及共享设置。
+	Role  CalendarRole                `json:"role,omitempty"`   // 对日历的访问权限。可选值有: 未知权限。游客, 只能看到忙碌、空闲信息。订阅者, 可查看所有日程详情。编辑者, 可创建及修改日程。管理员, 可管理日历及共享设置。
 	Scope *CreateCalendarACLRespScope `json:"scope,omitempty"`  // 权限生效范围。
 }
 
 // CreateCalendarACLRespScope ...
 type CreateCalendarACLRespScope struct {
-	Type   string `json:"type,omitempty"`    // 权限生效范围的类型, 可选值有: user: 用户
+	Type   string `json:"type,omitempty"`    // 权限生效范围的类型。可选值有: 用户
 	UserID string `json:"user_id,omitempty"` // 用户 ID, 更多介绍可参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)。
 }
 

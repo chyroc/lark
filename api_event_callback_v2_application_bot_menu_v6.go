@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2ApplicationBotMenuV6 当用户点击类型为事件的机器人菜单时触发
+// EventV2ApplicationBotMenuV6 当用户点击类型为事件的机器人菜单时触发{使用示例}(url=/api/tools/api_explore/api_explore_config?project=application&version=v6&resource=bot&event=menu)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/bot/events/menu
 // new doc: https://open.feishu.cn/document/client-docs/bot-v3/events/menu
@@ -35,19 +35,19 @@ type EventV2ApplicationBotMenuV6Handler func(ctx context.Context, cli *Lark, sch
 // EventV2ApplicationBotMenuV6 ...
 type EventV2ApplicationBotMenuV6 struct {
 	Operator  *EventV2ApplicationBotMenuV6Operator `json:"operator,omitempty"`  // 用户信息
-	EventKey  string                               `json:"event_key,omitempty"` // 菜单事件的唯一标识, 长度范围: `1` ～ `30` 字符
-	Timestamp int64                                `json:"timestamp,omitempty"` // 用户点击菜单时间, 长度范围: `1` ～ `30`
+	EventKey  string                               `json:"event_key,omitempty"` // 菜单事件的唯一标识 长度范围: `1` ～ `30` 字符
+	Timestamp int64                                `json:"timestamp,omitempty"` // 用户点击菜单时间 长度范围: `1` ～ `30
 }
 
 // EventV2ApplicationBotMenuV6Operator ...
 type EventV2ApplicationBotMenuV6Operator struct {
-	OperatorName string                                         `json:"operator_name,omitempty"` // 用户名称, 长度范围: `1` ～ `100` 字符, 字段权限要求: 获取机器人自定义菜单操作人名称
+	OperatorName string                                         `json:"operator_name,omitempty"` // 用户名称 长度范围: `1` ～ `100` 字符字段权限要求: 获取机器人自定义菜单操作人名称
 	OperatorID   *EventV2ApplicationBotMenuV6OperatorOperatorID `json:"operator_id,omitempty"`   // 用户 ID
 }
 
 // EventV2ApplicationBotMenuV6OperatorOperatorID ...
 type EventV2ApplicationBotMenuV6OperatorOperatorID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }

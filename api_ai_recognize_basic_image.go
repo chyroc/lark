@@ -21,9 +21,11 @@ import (
 	"context"
 )
 
-// RecognizeBasicImage 可识别图片中的文字, 按图片中的区域划分, 分段返回文本列表。
+// RecognizeBasicImage 可识别图片中的文字, 按图片中的区域划分, 分段返回文本列表。文件大小需小于5M。
 //
-// 单租户限流: 20QPS, 同租户下的应用没有限流, 共享本租户的 20QPS 限流
+// ## 注意事项
+// - 单租户限流为 20QPS, 即同租户下的应用共享本租户的 20 QPS 限流。
+// - 该接口不支持通过飞书个人版调试。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/optical_char_recognition-v1/image/basic_recognize
 // new doc: https://open.feishu.cn/document/server-docs/ai/optical_char_recognition-v1/basic_recognize
@@ -60,7 +62,7 @@ func (r *Mock) UnMockAIRecognizeBasicImage() {
 
 // RecognizeBasicImageReq ...
 type RecognizeBasicImageReq struct {
-	Image *string `json:"image,omitempty"` // base64 后的图片数据, 示例值: "base64后的图片二进制数据"
+	Image *string `json:"image,omitempty"` // base64 后的图片数据示例值: "base64后的图片二进制数据"
 }
 
 // RecognizeBasicImageResp ...

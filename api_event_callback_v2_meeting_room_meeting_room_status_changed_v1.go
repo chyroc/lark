@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2MeetingRoomMeetingRoomStatusChangedV1 当会议室状态信息发生变更时, 将会触发此事件。
+// EventV2MeetingRoomMeetingRoomStatusChangedV1 会议室被创建、更新、删除或者被预定时, 将会触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=meeting_room&version=v1&resource=meeting_room&event=status_changed)
 //
 // - 了解事件订阅的使用场景和配置流程, 可参见 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
 // - 该事件仅包含会议室名称与 ID, 当你接收到事件数据后, 需使用会议室 ID（room_id）调用[查询会议室详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/get)接口获取会议室状态（room_status）。

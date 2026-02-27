@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// ResubmitApprovalInstanceTask 对于单个退回到发起人的审批任务进行重新发起操作。发起后审批流程会流转到下一个审批人。
+// ResubmitApprovalInstanceTask 对于退回到发起人的审批任务进行重新发起操作。发起后审批流程会流转到下一个审批人。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/task/resubmit
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/task/resubmit
@@ -58,18 +58,17 @@ func (r *Mock) UnMockApprovalResubmitApprovalInstanceTask() {
 
 // ResubmitApprovalInstanceTaskReq ...
 type ResubmitApprovalInstanceTaskReq struct {
-	UserIDType   *IDType            `query:"user_id_type" json:"-"`  // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	ApprovalCode string             `json:"approval_code,omitempty"` // 审批定义 Code, 示例值: "7C468A54-8745-2245-9675-08B7C63E7A85"
-	InstanceCode string             `json:"instance_code,omitempty"` // 审批实例 Code, 示例值: "81D31358-93AF-92D6-7425-01A5D67C4E71"
-	UserID       string             `json:"user_id,omitempty"`       // 根据user_id_type填写操作用户id, 示例值: "f7cb567e"
-	Comment      *string            `json:"comment,omitempty"`       // 意见, 示例值: "{\"text\":\"评论\", \"file_codes\":[\"ABCD1232s\", \"ABC12334d22\"]}"
-	TaskID       string             `json:"task_id,omitempty"`       // 任务 ID, 审批实例详情task_list中id, 示例值: "12345"
-	Form         ApprovalWidgetList `json:"form,omitempty"`          // json 数组, 控件值, 同创建审批实例接口中form字段, 示例值: "[{\"id\":\"user_name\", \"type\": \"input\", \"value\":\"test\"}]"
+	UserIDType   *IDType            `query:"user_id_type" json:"-"`  // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	ApprovalCode string             `json:"approval_code,omitempty"` // 审批定义 Code。获取方式: 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后, 从响应参数 approval_code 获取。- 登录审批管理后台, 在指定审批定义的 URL 中获取, 具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。示例值: "7C468A54-8745-2245-9675-08B7C63E7A85"
+	InstanceCode string             `json:"instance_code,omitempty"` // 审批实例 Code。获取方式: 调用[创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create)接口后, 从响应参数 instance_code 获取。- 调用[批量获取审批实例 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list)接口, 获取所需的审批实例 Code。- 调用[查询实例列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/query), 设置过滤条件查询指定的审批实例 Code。示例值: "81D31358-93AF-92D6-7425-01A5D67C4E71"
+	UserID       string             `json:"user_id,omitempty"`       // 操作人 ID, ID 类型与查询参数 user_id_type 取值一致。示例值: "f7cb567e"
+	Comment      *string            `json:"comment,omitempty"`       // 意见。JSON 格式, 传入时需要压缩转义为字符串。以下示例值未转义, 你可参考请求体示例中的示例 comment 进行编辑。JSON 内参数说明: text: string 类型, 评论文本内容。- files: Attachment[] 类型, 附件信息。    - url: string 类型, 附件链接。    - thumbnailURL: string 类型, 缩略图链接。    - fileSize: int64 类型, 文件大小。    - title: string 类型, 标题。    - type: string 类型, 附件类型, 取值 image 表示图片类型。注意: 对于附件, 在 PC 端使用 HTTP 资源链接传图片资源可能会导致缩略图异常, 建议使用 HTTPS 传资源附件。示例值: "{\"text\":\"评论\"]}"
+	TaskID       string             `json:"task_id,omitempty"`       // 任务 ID。你可调用[获取单个审批实例详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get), 从返回结果的 task_list 中获取所需的 id。示例值: "12345"
+	Form         ApprovalWidgetList `json:"form,omitempty"`          // 审批表单控件值, JSON 数组, 传值时需要压缩转义为字符串。该参数与[创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create)中的 form 参数用法一致。示例值: "[{\"id\":\"user_name\", \"type\": \"input\", \"value\":\"test\"}]"
 }
 
 // ResubmitApprovalInstanceTaskResp ...
-type ResubmitApprovalInstanceTaskResp struct {
-}
+type ResubmitApprovalInstanceTaskResp struct{}
 
 // resubmitApprovalInstanceTaskResp ...
 type resubmitApprovalInstanceTaskResp struct {

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// QuerySheetFilterView 查询子表内所有的筛选视图基本信息, 包括 id、name 和 range
+// QuerySheetFilterView 查询电子表格指定工作表的所有筛选视图及其基本信息, 包括视图 ID、视图名称和筛选范围。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view/query
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet-filter_view/query
@@ -59,19 +59,19 @@ func (r *Mock) UnMockDriveQuerySheetFilterView() {
 
 // QuerySheetFilterViewReq ...
 type QuerySheetFilterViewReq struct {
-	SpreadSheetToken string `path:"spreadsheet_token" json:"-"` // 表格 token, 示例值: "shtcnmBA*yGehy8"
-	SheetID          string `path:"sheet_id" json:"-"`          // 子表 id, 示例值: "0b**12"
+	SpreadSheetToken string `path:"spreadsheet_token" json:"-"` // 电子表格的 token。可通过以下两种方式获取。了解更多, 参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。- 电子表格的 URL: https://sample.feishu.cn/sheets/[Iow7sNNEphp3WbtnbCscPqabcef]- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)示例值: "Iow7sNNEphp3WbtnbCscPqabcef"
+	SheetID          string `path:"sheet_id" json:"-"`          // 工作表 ID, 通过[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 获取。示例值: "8fe9d6"
 }
 
 // QuerySheetFilterViewResp ...
 type QuerySheetFilterViewResp struct {
-	Items []*QuerySheetFilterViewRespItem `json:"items,omitempty"` // 子表的所有筛选视图信息, id、name、range
+	Items []*QuerySheetFilterViewRespItem `json:"items,omitempty"` // 筛选视图及其基本信息
 }
 
 // QuerySheetFilterViewRespItem ...
 type QuerySheetFilterViewRespItem struct {
-	FilterViewID   string `json:"filter_view_id,omitempty"`   // 筛选视图 id
-	FilterViewName string `json:"filter_view_name,omitempty"` // 筛选视图名字
+	FilterViewID   string `json:"filter_view_id,omitempty"`   // 筛选视图 ID
+	FilterViewName string `json:"filter_view_name,omitempty"` // 筛选视图名称
 	Range          string `json:"range,omitempty"`            // 筛选视图的筛选范围
 }
 

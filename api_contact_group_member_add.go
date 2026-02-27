@@ -21,7 +21,13 @@ import (
 	"context"
 )
 
-// AddContactGroupMember 向用户组中添加成员(目前成员仅支持用户, 未来会支持部门), 如果应用的通讯录权限范围是“全部员工”, 则可将任何成员添加到任何用户组。如果应用的通讯录权限范围不是“全部员工”, 则仅可将通讯录权限范围中的成员添加到通讯录权限范围的用户组中, [点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// AddContactGroupMember 调用该接口向指定的普通用户组内添加成员。
+//
+// ## 注意事项
+// - 目前仅支持添加用户类型的成员, 暂不支持添加部门类型的成员。
+// - 如果应用的通讯录权限范围是 全部员工, 则可以将当前租户内的任何用户添加到任何用户组当中。如果应用的通讯录权限范围不是 全部员工, 则所要添加的用户以及对应的用户组, 均需要在应用的通讯录权限范围内。了解通讯录权限范围, 可参见[权限范围资源介绍](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// ## 使用限制
+// 单租户内单个普通用户组的成员数量上限为 100, 000, 但需要注意, 单租户内所有普通用户组的成员数量总和不能超过当前租户成员数量的 10 倍。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group-member/add
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/group-member/add
@@ -58,15 +64,14 @@ func (r *Mock) UnMockContactAddContactGroupMember() {
 
 // AddContactGroupMemberReq ...
 type AddContactGroupMemberReq struct {
-	GroupID      string `path:"group_id" json:"-"`        // 用户组ID, 示例值: "g281721"
-	MemberType   string `json:"member_type,omitempty"`    // 用户组成员的类型, 取值为 user, 示例值: "user", 可选值有: user: 用户成员, 默认值: `user`
-	MemberIDType IDType `json:"member_id_type,omitempty"` // 当member_type =user时候, member_id_type表示user_id_type, 枚举值为open_id, union_id, user_id, 示例值: "open_id", 可选值有: open_id: member_type =user时候, 表示用户的open_id, union_id: member_type =user时候, 表示用户的union_id, user_id: member_type =user时候, 表示用户的user_id
-	MemberID     string `json:"member_id,omitempty"`      // 添加的成员ID, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
+	GroupID      string `path:"group_id" json:"-"`        // 用户组 ID。用户组 ID 可在创建用户组时从返回值中获取, 你也可以调用[查询用户组列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/simplelist)接口, 获取用户组的 ID。示例值: "g281721"
+	MemberType   string `json:"member_type,omitempty"`    // 用户组成员的类型, 目前仅支持选择 user。示例值: "user"可选值有: 用户类型。默认值: `user
+	MemberIDType IDType `json:"member_id_type,omitempty"` // 当 `member_type` 取值为 `user`时, 通过该参数设置用户 ID 类型。示例值: "open_id"可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用中都保持一致。User ID 主要用于在不同的应用间打通用户数据。
+	MemberID     string `json:"member_id,omitempty"`      // 添加的用户 ID, ID 类型与 member_id_type 的取值保持一致。不同类型的 ID 获取方式可参见: [如何获取用户 open_id](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)- [如何获取用户 union_id](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)- [如何获取用户 user_id](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
 }
 
 // AddContactGroupMemberResp ...
-type AddContactGroupMemberResp struct {
-}
+type AddContactGroupMemberResp struct{}
 
 // addContactGroupMemberResp ...
 type addContactGroupMemberResp struct {

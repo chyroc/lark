@@ -24,9 +24,11 @@ import (
 
 // RecognizeAIBusinessLicense 营业执照识别接口, 支持JPG/JPEG/PNG/BMP/PDF五种文件类型的一次性的识别。
 //
+// 文件大小需要小于10M。
 // 单租户限流: 10QPS, 同租户下的应用没有限流, 共享本租户的 10QPS 限流
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/document_ai-v1/business_license/recognize
+// new doc: https://open.feishu.cn/document/ai/document_ai-v1/business_license/recognize
 func (r *AIService) RecognizeAIBusinessLicense(ctx context.Context, request *RecognizeAIBusinessLicenseReq, options ...MethodOptionFunc) (*RecognizeAIBusinessLicenseResp, *Response, error) {
 	if r.cli.mock.mockAIRecognizeAIBusinessLicense != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] AI#RecognizeAIBusinessLicense mock enable")
@@ -61,7 +63,7 @@ func (r *Mock) UnMockAIRecognizeAIBusinessLicense() {
 
 // RecognizeAIBusinessLicenseReq ...
 type RecognizeAIBusinessLicenseReq struct {
-	File io.Reader `json:"file,omitempty"` // 识别的营业执照源文件, 示例值: file binary
+	File io.Reader `json:"file,omitempty"` // 识别的营业执照源文件示例值: file binary
 }
 
 // RecognizeAIBusinessLicenseResp ...
@@ -76,7 +78,7 @@ type RecognizeAIBusinessLicenseRespBusinessLicense struct {
 
 // RecognizeAIBusinessLicenseRespBusinessLicenseEntitie ...
 type RecognizeAIBusinessLicenseRespBusinessLicenseEntitie struct {
-	Type  string `json:"type,omitempty"`  // 识别的字段种类, 可选值有: certificate_type: 证书类型, unified_social_credit_code: 统一社会信用代码, company_name: 公司名称, company_type: 公司类型, domicile: 住所, legal_representative: 法定代表人, registered_capital: 注册资本, established_time: 成立日期, established_date: 营业期限, business_scope: 经营范围, website: 企业信用信息公示系统网址, approval_date: 核准日期
+	Type  string `json:"type,omitempty"`  // 识别的字段种类可选值有: 证书类型统一社会信用代码公司名称公司类型住所法定代表人注册资本成立日期营业期限经营范围企业信用信息公示系统网址核准日期
 	Value string `json:"value,omitempty"` // 识别出字段的文本信息
 }
 

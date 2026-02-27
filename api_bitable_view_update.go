@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UpdateBitableView 该接口用于增量修改视图信息
+// UpdateBitableView 增量更新视图信息, 包括视图名称、属性等, 可设置视图的筛选条件。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-view/patch
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-view/patch
@@ -59,36 +59,36 @@ func (r *Mock) UnMockBitableUpdateBitableView() {
 
 // UpdateBitableViewReq ...
 type UpdateBitableViewReq struct {
-	AppToken string                        `path:"app_token" json:"-"`  // base app token, 示例值: "bascng7vrxcxpig7geggXiCtadY", 最小长度: `1` 字符
-	TableID  string                        `path:"table_id" json:"-"`   // table id, 示例值: "tblsRc9GRRXKqhvW"
-	ViewID   string                        `path:"view_id" json:"-"`    // 视图 ID, 示例值: "vewTpR1urY"
-	ViewName *string                       `json:"view_name,omitempty"` // 视图名称, 示例值: "grid"
+	AppToken string                        `path:"app_token" json:"-"`  // 多维表格 App 的唯一标识。不同形态的多维表格, 其 `app_token` 的获取方式不同: 如果多维表格的 URL 以 [feishu.cn/base] 开头, 该多维表格的 `app_token` 是下图高亮部分: ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004)- 如果多维表格的 URL 以 [feishu.cn/wiki] 开头, 你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时, `obj_token` 字段的值才是多维表格的 `app_token`。了解更多, 参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。示例值: "bascng7vrxcxpig7geggXiCtadY" 最小长度: `1` 字符
+	TableID  string                        `path:"table_id" json:"-"`   // 多维表格数据表的唯一标识。获取方式: 你可通过多维表格 URL 获取 `table_id`, 下图高亮部分即为当前数据表的 `table_id`- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`  ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976)示例值: "tblsRc9GRRXKqhvW"
+	ViewID   string                        `path:"view_id" json:"-"`    // 多维表格中视图的唯一标识。获取方式: 在多维表格的 URL 地址栏中, `view_id` 是下图中高亮部分: ![view_id.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/140668632c97e0095832219001d17c54_DJMgVH9x2S.png?height=748&lazyload=true&width=2998)- 通过[列出视图](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-view/list)接口获取。暂时无法获取到嵌入到云文档中的多维表格的 `view_id`。示例值: "vewTpR1urY"
+	ViewName *string                       `json:"view_name,omitempty"` // 视图名称。名称不能包含特殊字符, 请确保其符合以下规则: 长度不超过 100 个字符- 不为空且不包含这些特殊符号: [ ]示例值: "表格视图 1"
 	Property *UpdateBitableViewReqProperty `json:"property,omitempty"`  // 视图属性
 }
 
 // UpdateBitableViewReqProperty ...
 type UpdateBitableViewReqProperty struct {
-	FilterInfo      *UpdateBitableViewReqPropertyFilterInfo      `json:"filter_info,omitempty"`      // 过滤条件
-	HiddenFields    []string                                     `json:"hidden_fields,omitempty"`    // 隐藏字段ID列表, 示例值: ["fldVioU**2"], 最大长度: `300`
+	FilterInfo      *UpdateBitableViewReqPropertyFilterInfo      `json:"filter_info,omitempty"`      // 筛选条件
+	HiddenFields    []string                                     `json:"hidden_fields,omitempty"`    // 隐藏字段 ID 列表示例值: ["fldmeqmpVA"] 最大长度: `300
 	HierarchyConfig *UpdateBitableViewReqPropertyHierarchyConfig `json:"hierarchy_config,omitempty"` // 表格视图层级结构设置
 }
 
 // UpdateBitableViewReqPropertyFilterInfo ...
 type UpdateBitableViewReqPropertyFilterInfo struct {
-	Conjunction string                                             `json:"conjunction,omitempty"` // 多个筛选条件的关系, 示例值: "and", 可选值有: and: 与, or: 或, 默认值: `and`
-	Conditions  []*UpdateBitableViewReqPropertyFilterInfoCondition `json:"conditions,omitempty"`  // 筛选条件, 最大长度: `50`
+	Conjunction string                                             `json:"conjunction,omitempty"` // 多个筛选条件的关系, 表示条件之间的逻辑连接词示例值: "and"可选值有: 与或默认值: `and
+	Conditions  []*UpdateBitableViewReqPropertyFilterInfoCondition `json:"conditions,omitempty"`  // 筛选条件集合 最大长度: `50
 }
 
 // UpdateBitableViewReqPropertyFilterInfoCondition ...
 type UpdateBitableViewReqPropertyFilterInfoCondition struct {
-	FieldID  string  `json:"field_id,omitempty"` // 用于过滤的字段唯一ID, 示例值: "fldVioU**1"
-	Operator string  `json:"operator,omitempty"` // 过滤操作的类型, 示例值: "is", 可选值有: is: 等于, isNot: 不等于, contains: 包含, doesNotContain: 不包含, isEmpty: 为空, isNotEmpty: 不为空, isGreater: 大于, isGreaterEqual: 大于等于, isLess: 小于, isLessEqual: 小于等于, 默认值: `is`
-	Value    *string `json:"value,omitempty"`    // 筛选值, 示例值: "["optbdVH*", "optrpd3*"]"
+	FieldID  string  `json:"field_id,omitempty"` // 用于筛选的字段的 ID。可通过[列出字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/list)接口获取示例值: "fldmeqmpVA"
+	Operator string  `json:"operator,omitempty"` // 筛选操作的类型, 条件运算符示例值: "is"可选值有: 等于不等于（不支持日期字段）包含（不支持日期字段）不包含（不支持日期字段）为空不为空大于大于等于（不支持日期字段）小于小于等于（不支持日期字段）默认值: `is
+	Value    *string `json:"value,omitempty"`    // 条件的值, 可以是单个值或多个值的数组。不同字段类型和不同的 operator 可填的值不同。详情参考[字段目标值（value）填写说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/record-filter-guide#3e0fd644)。示例值: "`[\"text content\"]`"
 }
 
 // UpdateBitableViewReqPropertyHierarchyConfig ...
 type UpdateBitableViewReqPropertyHierarchyConfig struct {
-	FieldID *string `json:"field_id,omitempty"` // 层级结构的关联列id, 示例值: "fldTca**hb"
+	FieldID *string `json:"field_id,omitempty"` // 层级结构的关联列 ID示例值: "fldmeqmpVA"
 }
 
 // UpdateBitableViewResp ...
@@ -98,8 +98,8 @@ type UpdateBitableViewResp struct {
 
 // UpdateBitableViewRespView ...
 type UpdateBitableViewRespView struct {
-	ViewID   string                             `json:"view_id,omitempty"`   // 视图Id
-	ViewName string                             `json:"view_name,omitempty"` // 视图名字
+	ViewID   string                             `json:"view_id,omitempty"`   // 视图 ID
+	ViewName string                             `json:"view_name,omitempty"` // 视图名称
 	ViewType string                             `json:"view_type,omitempty"` // 视图类型
 	Property *UpdateBitableViewRespViewProperty `json:"property,omitempty"`  // 视图属性
 }
@@ -113,23 +113,23 @@ type UpdateBitableViewRespViewProperty struct {
 
 // UpdateBitableViewRespViewPropertyFilterInfo ...
 type UpdateBitableViewRespViewPropertyFilterInfo struct {
-	Conjunction      string                                                  `json:"conjunction,omitempty"`       // 多个筛选条件的关系, 可选值有: and: 与, or: 或
+	Conjunction      string                                                  `json:"conjunction,omitempty"`       // 多个筛选条件的关系可选值有: 与或
 	Conditions       []*UpdateBitableViewRespViewPropertyFilterInfoCondition `json:"conditions,omitempty"`        // 筛选条件
 	ConditionOmitted bool                                                    `json:"condition_omitted,omitempty"` // 筛选条件是否缺省
 }
 
 // UpdateBitableViewRespViewPropertyFilterInfoCondition ...
 type UpdateBitableViewRespViewPropertyFilterInfoCondition struct {
-	FieldID     string `json:"field_id,omitempty"`     // 用于过滤的字段唯一ID
-	Operator    string `json:"operator,omitempty"`     // 过滤操作的类型, 可选值有: is: 等于, isNot: 不等于, contains: 包含, doesNotContain: 不包含, isEmpty: 为空, isNotEmpty: 不为空, isGreater: 大于, isGreaterEqual: 大于等于, isLess: 小于, isLessEqual: 小于等于
+	FieldID     string `json:"field_id,omitempty"`     // 用于过滤的字段的 ID
+	Operator    string `json:"operator,omitempty"`     // 过滤操作的类型可选值有: 等于不等于包含不包含为空不为空大于大于等于小于小于等于
 	Value       string `json:"value,omitempty"`        // 筛选值
-	ConditionID string `json:"condition_id,omitempty"` // 过滤条件的唯一ID
-	FieldType   int64  `json:"field_type,omitempty"`   // 用于过滤的字段类型 1: 多行文本 2: 数字 3: 单选 4: 多选 5: 日期 7: 复选框 11: 人员 13: 电话号码 15: 超链接 17: 附件 18: 单向关联 19: 查找引用 20: 公式 21: 双向关联 22: 地理位置 23: 群组 1001: 创建时间 1002: 最后更新时间 1003: 创建人 1004: 修改人 1005: 自动编号
+	ConditionID string `json:"condition_id,omitempty"` // 过滤条件的 ID
+	FieldType   int64  `json:"field_type,omitempty"`   // 用于过滤的字段类型- 1: 多行文本- 2: 数字- 3: 单选- 4: 多选- 5: 日期- 7: 复选框- 11: 人员- 13: 电话号码- 15: 超链接- 17: 附件- 18: 单向关联- 19: 查找引用- 20: 公式- 21: 双向关联- 22: 地理位置- 23: 群组- 1001: 创建时间- 1002: 最后更新时间- 1003: 创建人- 1004: 修改人- 1005: 自动编号
 }
 
 // UpdateBitableViewRespViewPropertyHierarchyConfig ...
 type UpdateBitableViewRespViewPropertyHierarchyConfig struct {
-	FieldID string `json:"field_id,omitempty"` // 层级结构的关联列id
+	FieldID string `json:"field_id,omitempty"` // 层级结构的关联列 ID
 }
 
 // updateBitableViewResp ...

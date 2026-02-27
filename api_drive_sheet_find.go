@@ -23,8 +23,8 @@ import (
 
 // FindSheet 在指定范围内查找符合查找条件的单元格。
 //
-// 注意事项:
-// - 当请求`range`范围大于实际数据区域时, 比如工作表只有 200 行, 但`range`填写的范围为 1 到 201 行, 接口将返回错误码`1310202`
+// ## 注意事项
+// 请求参数 `range` 所指定的范围不可大于实际数据区域, 否则将报错。例如, 当工作表只有 200 行、而 `range` 参数的范围为 1 到 201 行时, 接口将返回 1310202 错误码。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/find
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/data-operation/find
@@ -62,19 +62,19 @@ func (r *Mock) UnMockDriveFindSheet() {
 
 // FindSheetReq ...
 type FindSheetReq struct {
-	SpreadSheetToken string                     `path:"spreadsheet_token" json:"-"` // 表格的token, 获取方式见[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN), 示例值: "shtcnmBA*yGehy8"
-	SheetID          string                     `path:"sheet_id" json:"-"`          // 工作表的id, 获取方式见[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query), 示例值: "0b**12"
-	FindCondition    *FindSheetReqFindCondition `json:"find_condition,omitempty"`   // 查找条件
-	Find             string                     `json:"find,omitempty"`             // 查找的字符串, 当`search_by_regex`字段为 true 时, 该字段为正则表达式, 示例值: "如下, 普通查找示例: "hello", 正则查找示例: "[A-Z]\w+""
+	SpreadSheetToken string                     `path:"spreadsheet_token" json:"-"` // 电子表格的 token。可通过以下两种方式获取。了解更多, 参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。- 电子表格的 URL: https://sample.feishu.cn/sheets/[Iow7sNNEphp3WbtnbCscPqabcef]- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)示例值: "Iow7sNNEphp3WbtnbCscPqabcef"
+	SheetID          string                     `path:"sheet_id" json:"-"`          // 工作表的 ID, 获取方式见[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query)。示例值: "PNIfrm"
+	FindCondition    *FindSheetReqFindCondition `json:"find_condition,omitempty"`   // 指定查找单元格的条件。
+	Find             string                     `json:"find,omitempty"`             // 查找的字符串。当`search_by_regex` 字段为 true 时, 你需填入正则表达式示例值: "如下所示: 字符串查找示例: "hello"- 正则表达式查找示例: "[A-Z]\w+"
 }
 
 // FindSheetReqFindCondition ...
 type FindSheetReqFindCondition struct {
-	Range           string `json:"range,omitempty"`             // 查找范围, 参考 [名词解释 Range](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview), 示例值: "PNIfrm!A1:C5"
-	MatchCase       *bool  `json:"match_case,omitempty"`        // 是否忽略大小写, 默认为 false, `true`: 表示忽略字符串中字母大小写差异, `false`: 表示区分字符串中字母大小写, 示例值: true
-	MatchEntireCell *bool  `json:"match_entire_cell,omitempty"` // 是否完全匹配整个单元格, 默认值为 false, `true`: 表示完全匹配单元格, 比如 find 取值为 "hello", 则单元格中的内容必须为 "hello", `false`: 表示允许部分匹配单元格, 比如 find 取值为 "hello", 则单元格中的内容包含 "hello" 即可, 示例值: false
-	SearchByRegex   *bool  `json:"search_by_regex,omitempty"`   // 是否为正则匹配, 默认值为 false, `true`: 表示使用正则匹配, `false`: 表示不使用正则匹配, 示例值: false
-	IncludeFormulas *bool  `json:"include_formulas,omitempty"`  // 是否仅搜索单元格公式, 默认值为 false, `true`: 表示仅搜索单元格公式, `false`: 表示仅搜索单元格内容, 示例值: false
+	Range           string `json:"range,omitempty"`             // 查找范围。格式为 `!:`。其中: `sheetId` 为工作表 ID, 通过[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 获取- `:` 为工作表中单元格的范围, 数字表示行索引, 字母表示列索引。如 `A2:B2` 表示该工作表第 2 行的 A 列到 B 列。`range`支持四种写法, 详情参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)示例值: "PNIfrm!A1:C5"
+	MatchCase       *bool  `json:"match_case,omitempty"`        // 是否忽略查找字符串的大小写, 默认为 false。- `true`: 忽略字符串中字母大小写差异- `false`: 区分字符串中字母大小写示例值: true
+	MatchEntireCell *bool  `json:"match_entire_cell,omitempty"` // 字符串是否需要完全匹配整个单元格, 默认值为 false。- `true`: 完全匹配单元格, 比如 `find` 参数 取值为 "hello", 则单元格中的内容必须为 "hello" 才会匹配替换- `false`: 允许部分匹配单元格, 比如 `find` 取值为 "hello", 则单元格中的内容包含 "hello" 即可匹配替换示例值: false
+	SearchByRegex   *bool  `json:"search_by_regex,omitempty"`   // 是否使用正则表达式查找, 默认值为 false。- `true`: 使用正则表达式- `false`: 不使用正则表达式示例值: false
+	IncludeFormulas *bool  `json:"include_formulas,omitempty"`  // 是否仅搜索单元格公式, 默认值为 false。- `true`: 仅搜索单元格公式- `false`: 仅搜索单元格内容示例值: false
 }
 
 // FindSheetResp ...

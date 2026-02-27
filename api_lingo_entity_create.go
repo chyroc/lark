@@ -24,6 +24,7 @@ import (
 // CreateLingoEntity 通过此接口创建的词条, 无需经过词典管理员审核, 直接写入词库。因此, 调用此接口时, 应当慎重操作。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/lingo-v1/entity/create
+// new doc: https://open.feishu.cn/document/lingo-v1/entity/create
 func (r *LingoService) CreateLingoEntity(ctx context.Context, request *CreateLingoEntityReq, options ...MethodOptionFunc) (*CreateLingoEntityResp, *Response, error) {
 	if r.cli.mock.mockLingoCreateLingoEntity != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Lingo#CreateLingoEntity mock enable")
@@ -57,52 +58,52 @@ func (r *Mock) UnMockLingoCreateLingoEntity() {
 
 // CreateLingoEntityReq ...
 type CreateLingoEntityReq struct {
-	RepoID      *string                          `query:"repo_id" json:"-"`      // 词库 ID（需要在指定词库创建词条时传入, 不传时默认创建至全员词库）, 如以应用身份创建词条到非全员词库, 需要在“词库设置”页面添加应用；若以用户身份创建词条到非全员词库, 该用户需要拥有对应词库的可见权限, 示例值: 71527909274113
-	UserIDType  *IDType                          `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	MainKeys    []*CreateLingoEntityReqMainKey   `json:"main_keys,omitempty"`    // 词条名, 最大长度: `1`
-	Aliases     []*CreateLingoEntityReqAliase    `json:"aliases,omitempty"`      // 别名, 最大长度: `10`
-	Description *string                          `json:"description,omitempty"`  // 纯文本格式词条释义。注: description 和 rich_text 至少有一个, 否则会报错: 1540001, 示例值: "词典是飞书提供的一款知识管理工具, 通过飞书词典可以帮助企业将分散的知识信息进行聚合, 并通过UGC的方式, 促进企业知识的保鲜和流通", 最大长度: `5000` 字符
+	RepoID      *string                          `query:"repo_id" json:"-"`      // 词库 ID（需要在指定词库创建词条时传入, 不传时默认创建至全员词库）如以应用身份创建词条到非全员词库, 需要在“词库设置”页面添加应用；若以用户身份创建词条到非全员词库, 该用户需要拥有对应词库的可见权限。示例值: 71527909274113
+	UserIDType  *IDType                          `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	MainKeys    []*CreateLingoEntityReqMainKey   `json:"main_keys,omitempty"`    // 词条名 最大长度: `1
+	Aliases     []*CreateLingoEntityReqAliase    `json:"aliases,omitempty"`      // 别名 最大长度: `10
+	Description *string                          `json:"description,omitempty"`  // 纯文本格式词条释义。注: description 和 rich_text 至少有一个, 否则会报错: 1540001示例值: "词典是飞书提供的一款知识管理工具, 通过飞书词典可以帮助企业将分散的知识信息进行聚合, 并通过UGC的方式, 促进企业知识的保鲜和流通" 最大长度: `5000` 字符
 	RelatedMeta *CreateLingoEntityReqRelatedMeta `json:"related_meta,omitempty"` // 词条相关信息
 	OuterInfo   *CreateLingoEntityReqOuterInfo   `json:"outer_info,omitempty"`   // 外部系统关联数据
-	RichText    *string                          `json:"rich_text,omitempty"`    // 富文本格式（当填写富文本内容时, description字段将会失效可不填写）, 支持的格式参考[飞书词典指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分, 注意: 富文本格式至少需要包含一个 `<p>` 标签, 否则请求会报错, 示例值: "<b>加粗</b><i>斜体</i><p><a href=\"https://feishu.cn\">链接</a></p><p><span>词典是飞书提供的一款知识管理工具, 通过飞书词典可以帮助企业将分散的知识信息进行聚合, 并通过UGC的方式, 促进企业知识的保鲜和流通</span></p>", 最大长度: `5000` 字符
-	I18nDescs   []*CreateLingoEntityReqI18nDesc  `json:"i18n_descs,omitempty"`   // 国际化的词条释义, 最大长度: `3`
+	RichText    *string                          `json:"rich_text,omitempty"`    // 富文本格式（当填写富文本内容时, description字段将会失效可不填写）, 支持的格式参考[飞书词典指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/overview)中的释义部分注意: 富文本格式至少需要包含一个 `` 标签, 否则请求会报错。示例值: "加粗斜体链接词典是飞书提供的一款知识管理工具, 通过飞书词典可以帮助企业将分散的知识信息进行聚合, 并通过UGC的方式, 促进企业知识的保鲜和流通" 最大长度: `5000` 字符
+	I18nDescs   []*CreateLingoEntityReqI18nDesc  `json:"i18n_descs,omitempty"`   // 国际化的词条释义 最大长度: `3
 }
 
 // CreateLingoEntityReqAliase ...
 type CreateLingoEntityReqAliase struct {
-	Key           string                                   `json:"key,omitempty"`            // 名称, 示例值: "词典"
+	Key           string                                   `json:"key,omitempty"`            // 名称示例值: "词典"
 	DisplayStatus *CreateLingoEntityReqAliaseDisplayStatus `json:"display_status,omitempty"` // 展示状态
 }
 
 // CreateLingoEntityReqAliaseDisplayStatus ...
 type CreateLingoEntityReqAliaseDisplayStatus struct {
-	AllowHighlight bool `json:"allow_highlight,omitempty"` // 是否允许在 IM 和 Doc 等场景进行高亮提示, 示例值: true
-	AllowSearch    bool `json:"allow_search,omitempty"`    // 是否允许在飞书中被搜索到, 示例值: true
+	AllowHighlight bool `json:"allow_highlight,omitempty"` // 是否允许在 IM 和 Doc 等场景进行高亮提示示例值: true
+	AllowSearch    bool `json:"allow_search,omitempty"`    // 是否允许在飞书中被搜索到示例值: true
 }
 
 // CreateLingoEntityReqI18nDesc ...
 type CreateLingoEntityReqI18nDesc struct {
-	Language    int64   `json:"language,omitempty"`    // 语言类型, 示例值: 1, 可选值有: 1: 中文, 2: 英文, 3: 日文
-	Description *string `json:"description,omitempty"` // 纯文本释义, 示例值: "词典是飞书提供的一款知识管理工具, 通过飞书词典可以帮助企业将分散的知识信息进行聚合, 并通过UGC的方式, 促进企业知识的保鲜和流通", 长度范围: `1` ～ `5000` 字符
-	RichText    *string `json:"rich_text,omitempty"`   // 富文本描述, 示例值: "<b>加粗</b><i>斜体</i><p><a href=\"https://feishu.cn\">链接</a></p><p><span>词典是飞书提供的一款知识管理工具, 通过飞书词典可以帮助企业将分散的知识信息进行聚合, 并通过UGC的方式, 促进企业知识的保鲜和流通</span></p>", 长度范围: `1` ～ `5000` 字符
+	Language    int64   `json:"language,omitempty"`    // 语言类型示例值: 1可选值有: 中文英文日文
+	Description *string `json:"description,omitempty"` // 纯文本释义示例值: "词典是飞书提供的一款知识管理工具, 通过飞书词典可以帮助企业将分散的知识信息进行聚合, 并通过UGC的方式, 促进企业知识的保鲜和流通" 长度范围: `1` ～ `5000` 字符
+	RichText    *string `json:"rich_text,omitempty"`   // 富文本描述示例值: "加粗斜体链接词典是飞书提供的一款知识管理工具, 通过飞书词典可以帮助企业将分散的知识信息进行聚合, 并通过UGC的方式, 促进企业知识的保鲜和流通" 长度范围: `1` ～ `5000` 字符
 }
 
 // CreateLingoEntityReqMainKey ...
 type CreateLingoEntityReqMainKey struct {
-	Key           string                                    `json:"key,omitempty"`            // 名称, 示例值: "飞书词典"
+	Key           string                                    `json:"key,omitempty"`            // 名称示例值: "飞书词典"
 	DisplayStatus *CreateLingoEntityReqMainKeyDisplayStatus `json:"display_status,omitempty"` // 展示状态
 }
 
 // CreateLingoEntityReqMainKeyDisplayStatus ...
 type CreateLingoEntityReqMainKeyDisplayStatus struct {
-	AllowHighlight bool `json:"allow_highlight,omitempty"` // 是否允许在 IM 和 Doc 等场景进行高亮提示, 示例值: true
-	AllowSearch    bool `json:"allow_search,omitempty"`    // 是否允许在飞书中被搜索到, 示例值: true
+	AllowHighlight bool `json:"allow_highlight,omitempty"` // 是否允许在 IM 和 Doc 等场景进行高亮提示示例值: true
+	AllowSearch    bool `json:"allow_search,omitempty"`    // 是否允许在飞书中被搜索到示例值: true
 }
 
 // CreateLingoEntityReqOuterInfo ...
 type CreateLingoEntityReqOuterInfo struct {
-	Provider string `json:"provider,omitempty"` // 数据提供方（不能包含中横线 "-"）, 示例值: "星云", 长度范围: `2` ～ `32` 字符
-	OuterID  string `json:"outer_id,omitempty"` // 词条在外部系统中对应的唯一 ID（不能包含中横线 "-"）, 示例值: "client_65326***7498d", 长度范围: `1` ～ `64` 字符
+	Provider string `json:"provider,omitempty"` // 数据提供方（不能包含中横线 "-"）示例值: "星云" 长度范围: `2` ～ `32` 字符
+	OuterID  string `json:"outer_id,omitempty"` // 词条在外部系统中对应的唯一 ID（不能包含中横线 "-"）示例值: "client_65326*7498d"数据校验规则**: 长度范围: `1` ～ `64` 字符
 }
 
 // CreateLingoEntityReqRelatedMeta ...
@@ -113,52 +114,52 @@ type CreateLingoEntityReqRelatedMeta struct {
 	Oncalls         []*CreateLingoEntityReqRelatedMetaOncall         `json:"oncalls,omitempty"`         // 飞书值班号
 	Links           []*CreateLingoEntityReqRelatedMetaLink           `json:"links,omitempty"`           // 其他网页链接
 	Abbreviations   []*CreateLingoEntityReqRelatedMetaAbbreviation   `json:"abbreviations,omitempty"`   // 相关词条
-	Classifications []*CreateLingoEntityReqRelatedMetaClassification `json:"classifications,omitempty"` // 当前词条所属分类, 词条只能属于二级分类, 且每个一级分类下只能选择一个二级分类。
-	Images          []*CreateLingoEntityReqRelatedMetaImage          `json:"images,omitempty"`          // 上传的相关图片, 最大长度: `10`
+	Classifications []*CreateLingoEntityReqRelatedMetaClassification `json:"classifications,omitempty"` // 当前词条所属分类 词条只能属于二级分类, 且每个一级分类下只能选择一个二级分类。
+	Images          []*CreateLingoEntityReqRelatedMetaImage          `json:"images,omitempty"`          // 上传的相关图片 最大长度: `10
 }
 
 // CreateLingoEntityReqRelatedMetaAbbreviation ...
 type CreateLingoEntityReqRelatedMetaAbbreviation struct {
-	ID *string `json:"id,omitempty"` // 其他相关词条 id, 示例值: "enterprise_5158***7960"
+	ID *string `json:"id,omitempty"` // 其他相关词条 id示例值: "enterprise_5158***7960"
 }
 
 // CreateLingoEntityReqRelatedMetaChat ...
 type CreateLingoEntityReqRelatedMetaChat struct {
-	ID string `json:"id,omitempty"` // 公开群 id, 示例值: "oc_c13831833eaa8c92***cfa759ea4806"
+	ID string `json:"id,omitempty"` // 公开群 id示例值: "oc_c13831833eaa8c92***cfa759ea4806"
 }
 
 // CreateLingoEntityReqRelatedMetaClassification ...
 type CreateLingoEntityReqRelatedMetaClassification struct {
-	ID       string  `json:"id,omitempty"`        // 二级分类 ID, 示例值: "704960692637761"
-	FatherID *string `json:"father_id,omitempty"` // 对应一级分类 ID, 示例值: "704960692637777"
+	ID       string  `json:"id,omitempty"`        // 二级分类 ID示例值: "704960692637761"
+	FatherID *string `json:"father_id,omitempty"` // 对应一级分类 ID示例值: "704960692637777"
 }
 
 // CreateLingoEntityReqRelatedMetaDoc ...
 type CreateLingoEntityReqRelatedMetaDoc struct {
-	Title *string `json:"title,omitempty"` // 文档标题, 示例值: "快速了解飞书文档"
-	URL   *string `json:"url,omitempty"`   // 文档 url, 示例值: "https://example.feishu.cn/docs/doccnxlVCs***sJE15I7PLAjIWc", 正则校验: `(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:.;]+[-A-Za-z0-9+&@#/%=~_|]`
+	Title *string `json:"title,omitempty"` // 文档标题示例值: "快速了解飞书文档"
+	URL   *string `json:"url,omitempty"`   // 文档 url示例值: "https://example.feishu.cn/docs/doccnxlVCs*sJE15I7PLAjIWc"数据校验规则**: 正则校验: `(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:.;]+[-A-Za-z0-9+&@#/%=~_|]
 }
 
 // CreateLingoEntityReqRelatedMetaImage ...
 type CreateLingoEntityReqRelatedMetaImage struct {
-	Token string `json:"token,omitempty"` // 通过文件接口上传后的图片 token, 示例值: "boxbcEcmKiDia3e***WTpvdc7jc"
+	Token string `json:"token,omitempty"` // 通过文件接口上传后的图片 token示例值: "boxbcEcmKiDia3e***WTpvdc7jc"
 }
 
 // CreateLingoEntityReqRelatedMetaLink ...
 type CreateLingoEntityReqRelatedMetaLink struct {
-	Title *string `json:"title,omitempty"` // 标题, 示例值: "飞书官网"
-	URL   *string `json:"url,omitempty"`   // 网页链接, 示例值: "https://feishu.cn", 正则校验: `(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:.;]+[-A-Za-z0-9+&@#/%=~_|]`
+	Title *string `json:"title,omitempty"` // 标题示例值: "飞书官网"
+	URL   *string `json:"url,omitempty"`   // 网页链接示例值: "https://feishu.cn" 正则校验: `(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:.;]+[-A-Za-z0-9+&@#/%=~_|]
 }
 
 // CreateLingoEntityReqRelatedMetaOncall ...
 type CreateLingoEntityReqRelatedMetaOncall struct {
-	ID string `json:"id,omitempty"` // 值班号 id, 示例值: "70236890***45548034"
+	ID string `json:"id,omitempty"` // 值班号 id示例值: "70236890***45548034"
 }
 
 // CreateLingoEntityReqRelatedMetaUser ...
 type CreateLingoEntityReqRelatedMetaUser struct {
-	ID    string  `json:"id,omitempty"`    // 格式根据 user_id_type 不同需要符合 open_id、user_id、union_id 格式的有效 id, 示例值: "ou_30b07b63089e***18789914dac63d36"
-	Title *string `json:"title,omitempty"` // 备注, 示例值: "xxx 负责人"
+	ID    string  `json:"id,omitempty"`    // 格式根据 user_id_type 不同需要符合 open_id、user_id、union_id 格式的有效 id示例值: "ou_30b07b63089e***18789914dac63d36"
+	Title *string `json:"title,omitempty"` // 备注示例值: "xxx 负责人"
 }
 
 // CreateLingoEntityResp ...
@@ -198,7 +199,7 @@ type CreateLingoEntityRespEntityAliaseDisplayStatus struct {
 
 // CreateLingoEntityRespEntityI18nDesc ...
 type CreateLingoEntityRespEntityI18nDesc struct {
-	Language    int64  `json:"language,omitempty"`    // 语言类型, 可选值有: 1: 中文, 2: 英文, 3: 日文
+	Language    int64  `json:"language,omitempty"`    // 语言类型可选值有: 中文英文日文
 	Description string `json:"description,omitempty"` // 纯文本释义
 	RichText    string `json:"rich_text,omitempty"`   // 富文本描述
 }
@@ -229,7 +230,7 @@ type CreateLingoEntityRespEntityRelatedMeta struct {
 	Oncalls         []*CreateLingoEntityRespEntityRelatedMetaOncall         `json:"oncalls,omitempty"`         // 相关服务中的相关值班号
 	Links           []*CreateLingoEntityRespEntityRelatedMetaLink           `json:"links,omitempty"`           // 关联链接信息
 	Abbreviations   []*CreateLingoEntityRespEntityRelatedMetaAbbreviation   `json:"abbreviations,omitempty"`   // 相关词条信息
-	Classifications []*CreateLingoEntityRespEntityRelatedMetaClassification `json:"classifications,omitempty"` // 当前词条所属分类, 词条只能属于二级分类, 且每个一级分类下只能选择一个二级分类。
+	Classifications []*CreateLingoEntityRespEntityRelatedMetaClassification `json:"classifications,omitempty"` // 当前词条所属分类 词条只能属于二级分类, 且每个一级分类下只能选择一个二级分类。
 	Images          []*CreateLingoEntityRespEntityRelatedMetaImage          `json:"images,omitempty"`          // 上传的相关图片
 }
 
@@ -242,7 +243,7 @@ type CreateLingoEntityRespEntityRelatedMetaAbbreviation struct {
 type CreateLingoEntityRespEntityRelatedMetaChat struct {
 	ID    string `json:"id,omitempty"`    // 数据 id
 	Title string `json:"title,omitempty"` // 标题
-	URL   string `json:"url,omitempty"`   // 链接地址
+	URL   string `json:"url,omitempty"`   // 链接地址注意: 暂不支持返回该字段, 请忽略。如需获取群组链接可调用[获取群分享链接](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/link)。
 }
 
 // CreateLingoEntityRespEntityRelatedMetaClassification ...

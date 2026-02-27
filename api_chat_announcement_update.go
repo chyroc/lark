@@ -21,15 +21,15 @@ import (
 	"context"
 )
 
-// UpdateChatAnnouncement 更新会话中的群公告信息, 更新公告信息的格式和更新[旧版云文档](https://open.feishu.cn/document/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN)格式相同, 不支持新版文档格式。
+// UpdateChatAnnouncement 更新指定群组中的群公告信息。更新的公告内容格式和更新[旧版云文档](https://open.feishu.cn/document/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN)的格式相同, 不支持新版云文档格式。
 //
-// 注意事项:
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
-// - 机器人或授权用户必须在群里
-// - 操作者需要拥有群公告文档的阅读权限
-// - 获取内部群信息时, 操作者须与群组在同一租户下
-// - 若群开启了 [仅群主和群管理员可编辑群信息] 配置, 群主/群管理员 或 创建群组且具备 [更新应用所创建群的群信息] 权限的机器人, 可更新群公告
-// - 若群未开启 [仅群主和群管理员可编辑群信息] 配置, 所有成员可以更新群公告
+// ## 前提条件
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// - 调用当前接口的用户或者机器人必须在对应的群组内, 且需要拥有群公告文档的阅读权限。
+// ## 使用限制
+// - 如果群组配置了 仅群主和群管理员可编辑群信息, 则仅有群主、群管理员, 或者是创建群组且具有 更新应用所创建群的群信息（im:chat:operate_as_owner） 权限的机器人, 可以更新群公告信息。
+// - 如果群组没有配置 仅群主和群管理员可编辑群信息, 则所有群成员可以更新群公告信息。
+// - 操作内部群时, 操作者和被操作的群组必须在同一租户下。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/patch
 // new doc: https://open.feishu.cn/document/server-docs/group/chat-announcement/patch
@@ -67,14 +67,13 @@ func (r *Mock) UnMockChatUpdateChatAnnouncement() {
 
 // UpdateChatAnnouncementReq ...
 type UpdateChatAnnouncementReq struct {
-	ChatID   string   `path:"chat_id" json:"-"`   // 待修改公告的群 ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 注意: 不支持P2P单聊, 示例值: "oc_5ad11d72b830411d72b836c20"
-	Revision string   `json:"revision,omitempty"` // 文档当前版本号 int64 类型, [获取群公告信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/get)接口会返回, 注意: 传入的版本号和最新版本号的差距不能超过100, 示例值: "12"
-	Requests []string `json:"requests,omitempty"` // 修改文档请求的序列化字段, 更新公告信息的格式和更新[云文档](https://open.feishu.cn/document/ukTMukTMukTM/uYDM2YjL2AjN24iNwYjN)格式相同, 示例值: ["{\"requestType\":\"InsertBlocksRequestType\", \"insertBlocksRequest\":{\"payload\":\"{\\\"blocks\\\":[{\\\"type\\\":\\\"paragraph\\\", \\\"paragraph\\\":{\\\"elements\\\":[{\\\"type\\\":\\\"textRun\\\", \\\"textRun\\\":{\\\"text\\\":\\\"Docs API Sample Content\\\", \\\"style\\\":{}}}], \\\"style\\\":{}}}]}\", \"location\":{\"zoneId\":\"0\", \"index\":0, \"endOfZone\": true}}}"]
+	ChatID   string   `path:"chat_id" json:"-"`   // 群 ID。获取方式: [创建群](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create), 从返回结果中获取该群的 chat_id。- 调用[获取用户或机器人所在的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list)接口, 可以查询用户或机器人所在群的 chat_id。- 调用[搜索对用户或机器人可见的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search), 可搜索用户或机器人所在的群、对用户或机器人公开的群的 chat_id。注意: 单聊（群类型为 `p2p`）不支持更新群公告。示例值: "oc_5ad11d72b830411d72b836c20"
+	Revision string   `json:"revision,omitempty"` // 文档当前版本号 int64 类型, 可调用[获取群公告信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/get)接口, 从返回结果中获取。注意: 传入的版本号和最新版本号的差距不能超过 100。示例值: "12"
+	Requests []string `json:"requests,omitempty"` // 公告内容, 调用接口时该参数必须传入值。公告内容的格式与更新旧版文档内容的格式相同, 具体数据结构参考[编辑旧版文档内容](https://open.feishu.cn/document/ukTMukTMukTM/uYDM2YjL2AjN24iNwYjN)。示例值: ["{\"requestType\":\"InsertBlocksRequestType\", \"insertBlocksRequest\":{\"payload\":\"{\\\"blocks\\\":[{\\\"type\\\":\\\"paragraph\\\", \\\"paragraph\\\":{\\\"elements\\\":[{\\\"type\\\":\\\"textRun\\\", \\\"textRun\\\":{\\\"text\\\":\\\"Docs API Sample Content\\\", \\\"style\\\":{}}}], \\\"style\\\":{}}}]}\", \"location\":{\"zoneId\":\"0\", \"index\":0, \"endOfZone\": true}}}"]
 }
 
 // UpdateChatAnnouncementResp ...
-type UpdateChatAnnouncementResp struct {
-}
+type UpdateChatAnnouncementResp struct{}
 
 // updateChatAnnouncementResp ...
 type updateChatAnnouncementResp struct {

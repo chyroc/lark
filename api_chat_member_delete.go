@@ -21,14 +21,16 @@ import (
 	"context"
 )
 
-// DeleteChatMember 将用户或机器人移出群聊。
+// DeleteChatMember 将指定的用户或机器人从群聊中移出。
 //
-// 注意事项:
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
-// - 用户或机器人在任何条件下均可移除自己出群（即主动退群）
-// - 仅有群主/管理员 或 创建群组并且具备 [更新应用所创建群的群信息] 权限的机器人, 可以移除其他用户或者机器人
-// - 每次请求, 最多移除50个用户或者5个机器人
-// - 操作内部群时, 操作者须与群组在同一租户下
+// ## 前提条件
+// 调用该接口的应用, 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// ## 使用限制
+// - 仅群主、群管理员, 或者是创建群组且具有 更新应用所创建群的群信息（im:chat:operate_as_owner） 权限的机器人, 可以将其他群成员移出群组。
+// - 用户或机器人在任何条件下均可将自己移出群组（即主动退群）。
+// - 每次请求, 最多移除 50 个用户或者 5 个机器人。
+// - 操作内部群时, 操作者须与群组在同一租户下。
+// - 操作同一个群组时, 如果同时多次调用当前接口, 可能会出现 232019 错误码, 建议你串行调用, 即等待当前调用完成后再进行下一次调用。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/delete
 // new doc: https://open.feishu.cn/document/server-docs/group/chat-member/delete
@@ -66,14 +68,14 @@ func (r *Mock) UnMockChatDeleteChatMember() {
 
 // DeleteChatMemberReq ...
 type DeleteChatMemberReq struct {
-	ChatID       string   `path:"chat_id" json:"-"`         // 群 ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 注意: 仅支持群模式为`group`、`topic`的群组ID, 示例值: "oc_a0553eda9014c201e6969b478895c230"
-	MemberIDType *IDType  `query:"member_id_type" json:"-"` // 出群成员ID类型, 注意: 移除机器人请使用 [app_id], 示例值: open_id, 可选值有: user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), app_id: 飞书开放平台应用的唯一标识。在创建应用时, 由系统自动生成, 用户不能自行修改。[了解更多: 如何获取应用的 App ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-app-id), 默认值: `open_id`
-	IDList       []string `json:"id_list,omitempty"`        // 成员列表。移除群内的用户时推荐使用 OpenID, 获取方式可参考文档[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)；移除群内的机器人时需填写应用的App ID, 请参考[如何获取应用的 App ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-app-id), 注意: 成员列表不可为空, 列表中填写的成员ID类型应与 [member_id_type] 参数中选择的类型相对应, 示例值: ["4d7a3c6g"]
+	ChatID       string   `path:"chat_id" json:"-"`         // 群 ID。获取方式: [创建群](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create), 从返回结果中获取该群的 chat_id。- 调用[获取用户或机器人所在的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list)接口, 可以查询用户或机器人所在群的 chat_id。- 调用[搜索对用户或机器人可见的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search), 可搜索用户或机器人所在的群、对用户或机器人公开的群的 chat_id。注意: 仅支持群模式为 群组（group）、话题（topic） 的群组 ID。你可以调用[获取群信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get)接口, 在返回结果中查看 `chat_mode` 参数取值是否为 `group`、`topic`。示例值: "oc_a0553eda9014c201e6969b478895c230"
+	MemberIDType *IDType  `query:"member_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)飞书开放平台应用的唯一标识。在创建应用时, 由系统自动生成, 用户不能自行修改。[了解更多: 如何获取应用的 App ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-app-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	IDList       []string `json:"id_list,omitempty"`        // 成员 ID 列表。ID 类型与查询参数 member_id_type 的取值一致。- 移除群内的用户时推荐使用 OpenID, 获取方式可参考文档[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。- 移除群内的机器人时需填写应用的 App ID, 请参考[如何获取应用的 App ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-app-id)。注意: 成员列表不可为空。- 每次请求, 最多移除 50 个用户或者 5 个机器人。示例值: ["4d7a3c6g"]
 }
 
 // DeleteChatMemberResp ...
 type DeleteChatMemberResp struct {
-	InvalidIDList []string `json:"invalid_id_list,omitempty"` // 无效成员列表
+	InvalidIDList []string `json:"invalid_id_list,omitempty"` // 无效成员列表。
 }
 
 // deleteChatMemberResp ...

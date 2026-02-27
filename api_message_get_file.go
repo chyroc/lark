@@ -22,13 +22,16 @@ import (
 	"io"
 )
 
-// GetMessageFile 获取消息中的资源文件, 包括音频, 视频, 图片和文件, 暂不支持表情包资源下载。当前仅支持 100M 以内的资源文件的下载。
+// GetMessageFile 获取指定消息内包含的资源文件, 包括音频、视频、图片和文件。成功调用后, 返回二进制文件流下载文件。
 //
-// 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
-// - 机器人和消息需要在同一会话中
-// - 暂不支持获取合并转发消息中的子消息的资源文件
-// - 文件类型可通过 response header 中`Content-Type`字段获取
+// ## 前提条件
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// - 机器人和待操作的消息需要在同一会话内。
+// ## 使用限制
+// - 仅支持下载 100 MB 以内的资源文件。
+// - 暂不支持获取表情包资源。
+// - 暂不支持获取合并转发消息中的子消息、卡片消息中的资源文件。如果请求时传入了合并转发消息或子消息的 ID、卡片消息 ID, 则会返回错误码 234043。
+// - 不支持在当前接口内调整文件格式, 你可以获取资源文件后, 在本地自行调整。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-resource/get
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/message/get-2
@@ -65,9 +68,9 @@ func (r *Mock) UnMockMessageGetMessageFile() {
 
 // GetMessageFileReq ...
 type GetMessageFileReq struct {
-	MessageID string `path:"message_id" json:"-"` // 待查询资源对应的消息ID, 示例值: "om_dc13264520392913993dd051dba21dcf"
-	FileKey   string `path:"file_key" json:"-"`   // 待查询资源的key。可以调用[获取指定消息的内容](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/get)接口, 通过消息ID查询消息内容中的资源Key, 注意: 请求的 file_key 和 message_id 需要匹配, 示例值: "file_456a92d6-c6ea-4de4-ac3f-7afcf44ac78g"
-	Type      string `query:"type" json:"-"`      // 资源类型, 可选值有: `image`: 对应消息中的图片或富文本消息中的图片, `file`: 对应消息中的 文件、音频、视频（表情包除外）, 示例值: image
+	MessageID string `path:"message_id" json:"-"` // 待查询的消息 ID。ID 获取方式: - 调用[发送消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)接口后, 从响应结果的 `message_id` 参数获取。- 监听[接收消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive)事件, 当触发该事件后可以从事件体内获取消息的 `message_id`。- 调用[获取会话历史消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/list)接口, 从响应结果的 `message_id` 参数获取。示例值: "om_dc13264520392913993dd051dba21dcf"
+	FileKey   string `path:"file_key" json:"-"`   // 待查询资源的 Key。你可以调用[获取指定消息的内容](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/get)接口, 通过消息 ID 获取消息内容中的资源 Key。注意: 路径参数 `file_key` 和 `message_id` 需要匹配。示例值: "file_456a92d6-c6ea-4de4-ac3f-7afcf44ac78g"
+	Type      string `query:"type" json:"-"`      // 资源类型可选值有: `image`: 对应消息中的图片或富文本消息中的图片。- `file`: 对应消息中的文件、音频、视频（表情包除外）。示例值: image
 }
 
 // getMessageFileResp ...

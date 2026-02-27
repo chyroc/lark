@@ -58,40 +58,40 @@ func (r *Mock) UnMockHireUpdateHireOfferInternStatus() {
 
 // UpdateHireOfferInternStatusReq ...
 type UpdateHireOfferInternStatusReq struct {
-	OfferID         string                                         `path:"offer_id" json:"-"`          // Offer ID, 示例值: "7016605170635213100"
-	Operation       string                                         `json:"operation,omitempty"`        // 更新入/离职状态的操作, 示例值: "confirm_onboarding", 可选值有: confirm_onboarding: 确认入职, cancel_onboarding: 放弃入职, offboard: 操作离职
-	OnboardingInfo  *UpdateHireOfferInternStatusReqOnboardingInfo  `json:"onboarding_info,omitempty"`  // 入职表单信息（当 operation 为 confirm_onboarding 时, 该字段必填）
-	OffboardingInfo *UpdateHireOfferInternStatusReqOffboardingInfo `json:"offboarding_info,omitempty"` // 离职表单信息（当 operation 为 offboard 时, 该字段必填）
+	OfferID         string                                         `path:"offer_id" json:"-"`          // Offer ID, 如何获取请参考[获取 Offer 列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer/list)示例值: "7016605170635213100"
+	Operation       string                                         `json:"operation,omitempty"`        // 更新入/离职状态的操作示例值: "confirm_onboarding"可选值有: 确认入职放弃入职操作离职
+	OnboardingInfo  *UpdateHireOfferInternStatusReqOnboardingInfo  `json:"onboarding_info,omitempty"`  // 入职表单信息 注意: 当 operation 为 `confirm_onboarding` 时, 该字段必填
+	OffboardingInfo *UpdateHireOfferInternStatusReqOffboardingInfo `json:"offboarding_info,omitempty"` // 离职表单信息 注意: 当 operation 为 `offboard` 时, 该字段必填
 }
 
 // UpdateHireOfferInternStatusReqOffboardingInfo ...
 type UpdateHireOfferInternStatusReqOffboardingInfo struct {
-	ActualOffboardingDate string  `json:"actual_offboarding_date,omitempty"` // 实际离职日期（实际离职日期需晚于实际入职日期）, 示例值: "2022-03-02"
-	Notes                 *string `json:"notes,omitempty"`                   // 备注, 示例值: "主动离职"
+	ActualOffboardingDate string  `json:"actual_offboarding_date,omitempty"` // 实际离职日期 注意: 实际离职日期需晚于实际入职日期 值格式: "YYYY-MM-DD"示例值: "2022-03-02"
+	Notes                 *string `json:"notes,omitempty"`                   // 备注示例值: "主动离职"
 }
 
 // UpdateHireOfferInternStatusReqOnboardingInfo ...
 type UpdateHireOfferInternStatusReqOnboardingInfo struct {
-	ActualOnboardingDate string `json:"actual_onboarding_date,omitempty"` // 实际入职日期, 示例值: "2022-01-01"
+	ActualOnboardingDate string `json:"actual_onboarding_date,omitempty"` // 实际入职日期 值格式: "YYYY-MM-DD"示例值: "2022-01-01"
 }
 
 // UpdateHireOfferInternStatusResp ...
 type UpdateHireOfferInternStatusResp struct {
-	OfferID         string                                          `json:"offer_id,omitempty"`         // Offer ID
-	Operation       string                                          `json:"operation,omitempty"`        // 更新入/离职状态的操作, 可选值有: confirm_onboarding: 确认入职, cancel_onboarding: 放弃入职, offboard: 操作离职
-	OnboardingInfo  *UpdateHireOfferInternStatusRespOnboardingInfo  `json:"onboarding_info,omitempty"`  // 入职表单信息（当 operation 为 confirm_onboarding 时, 该字段必填）
-	OffboardingInfo *UpdateHireOfferInternStatusRespOffboardingInfo `json:"offboarding_info,omitempty"` // 离职表单信息（当 operation 为 offboard 时, 该字段必填）
+	OfferID         string                                          `json:"offer_id,omitempty"`         // Offer ID, 详细信息请参考[获取 Offer 信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/offer)
+	Operation       string                                          `json:"operation,omitempty"`        // 更新入/离职状态的操作可选值有: 确认入职放弃入职操作离职
+	OnboardingInfo  *UpdateHireOfferInternStatusRespOnboardingInfo  `json:"onboarding_info,omitempty"`  // 入职表单信息
+	OffboardingInfo *UpdateHireOfferInternStatusRespOffboardingInfo `json:"offboarding_info,omitempty"` // 离职表单信息
 }
 
 // UpdateHireOfferInternStatusRespOffboardingInfo ...
 type UpdateHireOfferInternStatusRespOffboardingInfo struct {
-	ActualOffboardingDate string `json:"actual_offboarding_date,omitempty"` // 实际离职日期（实际离职日期需晚于实际入职日期）
+	ActualOffboardingDate string `json:"actual_offboarding_date,omitempty"` // 实际离职日期 值格式: "YYYY-MM-DD"
 	Notes                 string `json:"notes,omitempty"`                   // 备注
 }
 
 // UpdateHireOfferInternStatusRespOnboardingInfo ...
 type UpdateHireOfferInternStatusRespOnboardingInfo struct {
-	ActualOnboardingDate string `json:"actual_onboarding_date,omitempty"` // 实际入职日期
+	ActualOnboardingDate string `json:"actual_onboarding_date,omitempty"` // 实际入职日期 值格式: "YYYY-MM-DD"
 }
 
 // updateHireOfferInternStatusResp ...

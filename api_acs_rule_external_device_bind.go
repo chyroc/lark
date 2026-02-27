@@ -24,6 +24,7 @@ import (
 // DeviceBindACSRuleExternal 设备绑定权限组
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/acs-v1/rule_external/device_bind
+// new doc: https://open.feishu.cn/document/acs-v1/rule_external/device_bind
 func (r *ACSService) DeviceBindACSRuleExternal(ctx context.Context, request *DeviceBindACSRuleExternalReq, options ...MethodOptionFunc) (*DeviceBindACSRuleExternalResp, *Response, error) {
 	if r.cli.mock.mockACSDeviceBindACSRuleExternal != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] ACS#DeviceBindACSRuleExternal mock enable")
@@ -57,13 +58,12 @@ func (r *Mock) UnMockACSDeviceBindACSRuleExternal() {
 
 // DeviceBindACSRuleExternalReq ...
 type DeviceBindACSRuleExternalReq struct {
-	DeviceID string   `json:"device_id,omitempty"` // 设备id, 示例值: "6939433228970082593"
-	RuleIDs  []string `json:"rule_ids,omitempty"`  // 权限组id列表, 示例值: ["7298933941867135276"], 长度范围: `0` ～ `10000`
+	DeviceID string   `json:"device_id,omitempty"` // 设备id示例值: "6939433228970082593"
+	RuleIDs  []string `json:"rule_ids,omitempty"`  // 权限组id列表示例值: ["7298933941867135276"] 长度范围: `0` ～ `10000
 }
 
 // DeviceBindACSRuleExternalResp ...
-type DeviceBindACSRuleExternalResp struct {
-}
+type DeviceBindACSRuleExternalResp struct{}
 
 // deviceBindACSRuleExternalResp ...
 type deviceBindACSRuleExternalResp struct {

@@ -21,14 +21,15 @@ import (
 	"context"
 )
 
-// DeleteChat 解散群组。
+// DeleteChat 通过 chat_id 解散指定群组。通过 API 解散群组后, 群聊天记录将不会保存。
 //
-// 注意事项:
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
-// - 如果使用tenant_access_token, 需要机器人符合以下任一情况才可解散群:
-// - 机器人是群主
-// - 机器人是群的创建者且具备[更新应用所创建群的群信息]权限
-// - 如果使用user_access_token, 需要对应的用户是群主才可解散群
+// ## 前提条件
+// 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// ## 使用限制
+// - 如果以应用身份（tenant_access_token）解散群, 则应用机器人需要符合以下任一情况。
+// - 应用机器人是群主。
+// - 应用机器人是群的创建者, 且应用已开通 更新应用所创建群的群信息（im:chat:operate_as_owner）权限。
+// - 如果以用户身份（user_access_token）解散群, 需要该用户是群主。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/delete
 // new doc: https://open.feishu.cn/document/server-docs/group/chat/delete
@@ -66,12 +67,11 @@ func (r *Mock) UnMockChatDeleteChat() {
 
 // DeleteChatReq ...
 type DeleteChatReq struct {
-	ChatID string `path:"chat_id" json:"-"` // 群 ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 注意: 仅支持群模式为`group`的群组ID, 示例值: "oc_a0553eda9014c201e6969b478895c230"
+	ChatID string `path:"chat_id" json:"-"` // 群 ID。获取方式: [创建群](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create), 从返回结果中获取该群的 chat_id。- 调用[获取用户或机器人所在的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list)接口, 可以查询用户或机器人所在群的 chat_id。- 调用[搜索对用户或机器人可见的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search), 可搜索用户或机器人所在的群、对用户或机器人公开的群的 chat_id。注意: 仅支持群模式为 `group` 的群组 ID。你可以调用[获取群信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get)接口, 在返回结果中查看 `chat_mode` 参数取值是否为 `group`。示例值: "oc_a0553eda9014c201e6969b478895c230"
 }
 
 // DeleteChatResp ...
-type DeleteChatResp struct {
-}
+type DeleteChatResp struct{}
 
 // deleteChatResp ...
 type deleteChatResp struct {

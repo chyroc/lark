@@ -25,6 +25,8 @@ import (
 //
 // 事件
 // 当用户任务变更后, 推送该用户的任务状态变更消息。
+// 事件类型
+// `attendance.user_task.updated_v1`
 // 事件体
 // |名称|类型|描述|
 // |---|---|---|
@@ -37,17 +39,17 @@ import (
 // |-app_id|string|应用 ID|
 // |-tenant_key|string|租户 Key|
 // |event|-|事件体|
-// |-employee_id|string|员工 ID|
-// |-employee_no|string|员工工号|
-// |-group_id|string|考勤组 ID|
-// |-shift_id|string|班次 ID|
-// |-date|int|日期|
+// |-employee_id|string|[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的用户 ID|
+// |-employee_no|string|[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的工号|
+// |-group_id|string|考勤组 ID, 可用于[按 ID 查询考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/get) |
+// |-shift_id|string|班次 ID, 可用于[按 ID 查询班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/get)|
+// |-date|int|日期, 格式为yyyyMMdd|
 // |-status_changes|list|状态变更数组|
-// |--before_status|string|变更前打卡结果, 值为: [NoNeedCheck（无需打卡）, SystemCheck（系统打卡）, Normal（正常）, Early（早退）, Late（迟到）, Lack（缺卡）]|
-// |--current_status|string|变更后打卡结果, 值为: [NoNeedCheck（无需打卡）, SystemCheck（系统打卡）, Normal（正常）, Early（早退）, Late（迟到）, Lack（缺卡）]|
-// |--before_supplement|string|变更前结果补充, 值为: [None（无）, ManagerModification（管理员修改）, CardReplacement（补卡通过）, ShiftChange（换班）, Travel（出差）, Leave（请假）, GoOut（外出）, CardReplacementApplication（补卡申请中）, FieldPunch（外勤打卡）]|
-// |--current_supplement|string|变更后打卡结果补充, 值为: [None（无）, ManagerModification（管理员修改）, CardReplacement（补卡通过）, ShiftChange（换班）, Travel（出差）, Leave（请假）, GoOut（外出）, CardReplacementApplication（补卡申请中）, FieldPunch（外勤打卡）]|
-// |--work_type|string|上下班状态变更, 值为: [on（上班）, off（下班）]
+// |--before_status|string|变更前打卡结果, 值为: 【NoNeedCheck（无需打卡）, SystemCheck（系统打卡）, Normal（正常）, Early（早退）, Late（迟到）, Lack（缺卡）】|
+// |--current_status|string|变更后打卡结果, 值为: 【NoNeedCheck（无需打卡）, SystemCheck（系统打卡）, Normal（正常）, Early（早退）, Late（迟到）, Lack（缺卡）】|
+// |--before_supplement|string|变更前结果补充, 值为: 【None（无）, ManagerModification（管理员修改）, CardReplacement（补卡通过）, ShiftChange（换班）, Travel（出差）, Leave（请假）, GoOut（外出）, CardReplacementApplication（补卡申请中）, FieldPunch（外勤打卡）】|
+// |--current_supplement|string|变更后打卡结果补充, 值为: 【None（无）, ManagerModification（管理员修改）, CardReplacement（补卡通过）, ShiftChange（换班）, Travel（出差）, Leave（请假）, GoOut（外出）, CardReplacementApplication（补卡申请中）, FieldPunch（外勤打卡）】|
+// |--work_type|string|上下班状态变更, 值为: 【on（上班）, off（下班）】
 // |--index|string|任务中的第几次上下班
 // 事件示例
 //
@@ -61,5 +63,4 @@ func (r *EventCallbackService) HandlerEventV2AttendanceUserTaskUpdatedV1(f Event
 type EventV2AttendanceUserTaskUpdatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2AttendanceUserTaskUpdatedV1) (string, error)
 
 // EventV2AttendanceUserTaskUpdatedV1 ...
-type EventV2AttendanceUserTaskUpdatedV1 struct {
-}
+type EventV2AttendanceUserTaskUpdatedV1 struct{}

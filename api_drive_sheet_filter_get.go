@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetSheetFilter 获取子表的详细筛选信息
+// GetSheetFilter 获取电子表格中工作表的详细筛选信息, 包括筛选的应用范围、筛选条件、被筛选条件过滤掉的行。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter/get
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet-filter/get
@@ -59,8 +59,8 @@ func (r *Mock) UnMockDriveGetSheetFilter() {
 
 // GetSheetFilterReq ...
 type GetSheetFilterReq struct {
-	SpreadSheetToken string `path:"spreadsheet_token" json:"-"` // 表格 token, 示例值: "shtcnmBA\*yGehy8"
-	SheetID          string `path:"sheet_id" json:"-"`          // 子表 id, 示例值: "0b\**12"
+	SpreadSheetToken string `path:"spreadsheet_token" json:"-"` // 电子表格的 token。可通过以下两种方式获取。了解更多, 参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。- 电子表格的 URL: https://sample.feishu.cn/sheets/[Iow7sNNEphp3WbtnbCscPqabcef]- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)示例值: "Iow7sNNEphp3WbtnbCscPqabcef"
+	SheetID          string `path:"sheet_id" json:"-"`          // 工作表 ID, 通过[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 获取。示例值: "8fe9d6"
 }
 
 // GetSheetFilterResp ...
@@ -70,9 +70,9 @@ type GetSheetFilterResp struct {
 
 // GetSheetFilterRespSheetFilterInfo ...
 type GetSheetFilterRespSheetFilterInfo struct {
-	Range           string                                         `json:"range,omitempty"`             // 筛选应用范围
-	FilteredOutRows []int64                                        `json:"filtered_out_rows,omitempty"` // 筛选出来隐藏的行
-	FilterInfos     []*GetSheetFilterRespSheetFilterInfoFilterInfo `json:"filter_infos,omitempty"`      // sheet的筛选条件
+	Range           string                                         `json:"range,omitempty"`             // 筛选的应用范围
+	FilteredOutRows []int64                                        `json:"filtered_out_rows,omitempty"` // 被筛选条件过滤掉的行。从 1 开始索引。
+	FilterInfos     []*GetSheetFilterRespSheetFilterInfoFilterInfo `json:"filter_infos,omitempty"`      // 工作表的筛选条件
 }
 
 // GetSheetFilterRespSheetFilterInfoFilterInfo ...
@@ -83,9 +83,9 @@ type GetSheetFilterRespSheetFilterInfoFilterInfo struct {
 
 // GetSheetFilterRespSheetFilterInfoFilterInfoCondition ...
 type GetSheetFilterRespSheetFilterInfoFilterInfoCondition struct {
-	FilterType  string   `json:"filter_type,omitempty"`  // 筛选类型
-	CompareType string   `json:"compare_type,omitempty"` // 比较类型
-	Expected    []string `json:"expected,omitempty"`     // 筛选参数
+	FilterType  string   `json:"filter_type,omitempty"`  // 筛选类型, 枚举值如下所示。了解更多, 参考[筛选指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter/filter-user-guide)。- multiValue : 多值筛选- number : 数字筛选- text : 文本筛选- color : 颜色筛选- clear : 清除筛选
+	CompareType string   `json:"compare_type,omitempty"` // 比较类型。不同筛选类型的比较类型的枚举值不同, 详情参考[筛选指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter/filter-user-guide)。
+	Expected    []string `json:"expected,omitempty"`     // 筛选参数。不同筛选类型的筛选参数限制不同, 详情参考[筛选指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter/filter-user-guide)。
 }
 
 // getSheetFilterResp ...

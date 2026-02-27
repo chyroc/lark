@@ -58,9 +58,9 @@ func (r *Mock) UnMockAttendanceGetAttendanceUserTaskRemedyAllowedRemedyList() {
 
 // GetAttendanceUserTaskRemedyAllowedRemedyListReq ...
 type GetAttendanceUserTaskRemedyAllowedRemedyListReq struct {
-	EmployeeType EmployeeType `query:"employee_type" json:"-"` // 请求体和响应体中的 user_id 的员工工号类型, 示例值: employee_id, 可选值有: employee_id: 员工 employee ID, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID, employee_no: 员工工号, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号
-	UserID       string       `json:"user_id,omitempty"`       // 用户 ID, 示例值: "abd754f7"
-	RemedyDate   int64        `json:"remedy_date,omitempty"`   // 补卡日期, 示例值: 20210104
+	EmployeeType EmployeeType `query:"employee_type" json:"-"` // 响应体中的 user_id 的员工ID类型。如果没有后台管理权限, 可使用[通过手机号或邮箱获取用户 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/batch_get_id)示例值: employee_id可选值有: 员工 employee ID, 即[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的用户 ID员工工号, 即[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的工号
+	UserID       string       `json:"user_id,omitempty"`       // 用户 ID, 对应employee_type示例值: "abd754f7"
+	RemedyDate   int64        `json:"remedy_date,omitempty"`   // 补卡日期, 格式为yyyyMMdd示例值: 20210104
 }
 
 // GetAttendanceUserTaskRemedyAllowedRemedyListResp ...
@@ -70,8 +70,8 @@ type GetAttendanceUserTaskRemedyAllowedRemedyListResp struct {
 
 // GetAttendanceUserTaskRemedyAllowedRemedyListRespUserAllowedRemedy ...
 type GetAttendanceUserTaskRemedyAllowedRemedyListRespUserAllowedRemedy struct {
-	UserID          string `json:"user_id,omitempty"`           // 用户 ID
-	RemedyDate      int64  `json:"remedy_date,omitempty"`       // 补卡日期
+	UserID          string `json:"user_id,omitempty"`           // 用户 ID, 对应employe_type
+	RemedyDate      int64  `json:"remedy_date,omitempty"`       // 补卡日期, 格式为yyyyMMdd
 	IsFreePunch     bool   `json:"is_free_punch,omitempty"`     // 是否为自由班次, 若为自由班次, 则不用选择考虑第几次上下班, 直接选择补卡时间即可
 	PunchNo         int64  `json:"punch_no,omitempty"`          // 第几次上下班, 0: 第 1 次上下班, 1: 第 2 次上下班, 2: 第 3 次上下班
 	WorkType        int64  `json:"work_type,omitempty"`         // 上班 / 下班, 1: 上班, 2: 下班

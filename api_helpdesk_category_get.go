@@ -59,7 +59,7 @@ func (r *Mock) UnMockHelpdeskGetHelpdeskCategory() {
 
 // GetHelpdeskCategoryReq ...
 type GetHelpdeskCategoryReq struct {
-	ID string `path:"id" json:"-"` // 知识库分类ID, 示例值: "6948728206392295444"
+	ID string `path:"id" json:"-"` // 知识库分类ID示例值: "6948728206392295444"
 }
 
 // GetHelpdeskCategoryResp ...

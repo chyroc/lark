@@ -24,6 +24,7 @@ import (
 // DeleteCoreHRProbationAssessment 删除试用期的考核结果
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/probation-assessment/delete
+// new doc: https://open.feishu.cn/document/corehr-v1/probation/delete
 func (r *CoreHRService) DeleteCoreHRProbationAssessment(ctx context.Context, request *DeleteCoreHRProbationAssessmentReq, options ...MethodOptionFunc) (*DeleteCoreHRProbationAssessmentResp, *Response, error) {
 	if r.cli.mock.mockCoreHRDeleteCoreHRProbationAssessment != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHRProbationAssessment mock enable")
@@ -57,12 +58,11 @@ func (r *Mock) UnMockCoreHRDeleteCoreHRProbationAssessment() {
 
 // DeleteCoreHRProbationAssessmentReq ...
 type DeleteCoreHRProbationAssessmentReq struct {
-	AssessmentID string `path:"assessment_id" json:"-"` // 考核结果 ID, 示例值: "7140964208476371331"
+	AssessmentID string `path:"assessment_id" json:"-"` // 考核结果 ID示例值: "7140964208476371331"
 }
 
 // DeleteCoreHRProbationAssessmentResp ...
-type DeleteCoreHRProbationAssessmentResp struct {
-}
+type DeleteCoreHRProbationAssessmentResp struct{}
 
 // deleteCoreHRProbationAssessmentResp ...
 type deleteCoreHRProbationAssessmentResp struct {

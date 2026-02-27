@@ -60,7 +60,7 @@ func (r *Mock) UnMockMailGetMailPublicMailboxAliasList() {
 
 // GetMailPublicMailboxAliasListReq ...
 type GetMailPublicMailboxAliasListReq struct {
-	PublicMailboxID string `path:"public_mailbox_id" json:"-"` // 公共邮箱id或公共邮箱邮件地址, 示例值: "xxxxxx 或 xxx@xx.xxx"
+	PublicMailboxID string `path:"public_mailbox_id" json:"-"` // 公共邮箱id或公共邮箱邮件地址示例值: "xxxxxx 或 xxx@xx.xxx"
 }
 
 // GetMailPublicMailboxAliasListResp ...

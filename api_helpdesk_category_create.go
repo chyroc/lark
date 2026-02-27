@@ -62,9 +62,9 @@ func (r *Mock) UnMockHelpdeskCreateHelpdeskCategory() {
 
 // CreateHelpdeskCategoryReq ...
 type CreateHelpdeskCategoryReq struct {
-	Name     string  `json:"name,omitempty"`      // 名称, 示例值: "创建团队和邀请成员"
-	ParentID string  `json:"parent_id,omitempty"` // 父知识库分类ID, 示例值: "0"
-	Language *string `json:"language,omitempty"`  // 语言, 示例值: "zh_cn"
+	Name     string  `json:"name,omitempty"`      // 名称示例值: "创建团队和邀请成员"
+	ParentID string  `json:"parent_id,omitempty"` // 父知识库分类ID示例值: "0"
+	Language *string `json:"language,omitempty"`  // 语言示例值: "zh_cn"
 }
 
 // CreateHelpdeskCategoryResp ...

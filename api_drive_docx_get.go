@@ -24,6 +24,8 @@ import (
 // GetDocxDocument 获取文档标题和最新版本 ID。
 //
 // 应用频率限制: 单个应用调用频率上限为每秒 5 次, 超过该频率限制, 接口将返回 HTTP 状态码 400 及错误码 99991400。当请求被限频, 应用需要处理限频状态码, 并使用指数退避算法或其它一些频控策略降低对 API 的调用速率。
+// ## 前提条件
+// 调用此接口前, 请确保当前调用身份（tenant_access_token 或 user_access_token）已有云文档的阅读、编辑等文档权限, 否则接口将返回 HTTP 403 或 400 状态码。了解更多, 参考[如何为应用或用户开通文档权限](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#16c6475a)。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/get
 // new doc: https://open.feishu.cn/document/server-docs/docs/docs/docx-v1/document/get
@@ -61,7 +63,7 @@ func (r *Mock) UnMockDriveGetDocxDocument() {
 
 // GetDocxDocumentReq ...
 type GetDocxDocumentReq struct {
-	DocumentID string `path:"document_id" json:"-"` // 文档的唯一标识。点击[这里](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)了解如何获取文档的 `document_id`, 示例值: "doxcnePuYufKa49ISjhD8Iabcef", 长度范围: `27` ～ `27` 字符
+	DocumentID string `path:"document_id" json:"-"` // 文档的唯一标识。你可通过以下方式获取文档的 `document_id`。了解更多, 参考[文档概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview#e18a49a1)。- 若文档存储在云盘中, 你可通过 URL 地址或通过[获取文件夹下文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list) 获取其中文档资源的 `document_id`。- 若文档挂载在知识库中, 你需通过知识库相关接口[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)获取该节点下挂载的云资源的 `obj_token` 和 `obj_type`。在该情况下, `obj_type` 为 `docx` 时, 其对应的 `obj_token`  即为文档的 `document_id`。注意: 对于知识库（wiki）中的文档, 其 URL 地址中的 token 并不是该文档的 `document_id`。使用时请注意区分。示例值: "doxcnePuYufKa49ISjhD8Iabcef" 长度范围: `27` ～ `27` 字符
 }
 
 // GetDocxDocumentResp ...
@@ -71,7 +73,7 @@ type GetDocxDocumentResp struct {
 
 // GetDocxDocumentRespDocument ...
 type GetDocxDocumentRespDocument struct {
-	DocumentID     string                                     `json:"document_id,omitempty"`     // 文档的唯一标识。点击[这里](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)了解如何获取文档的 `document_id`
+	DocumentID     string                                     `json:"document_id,omitempty"`     // 文档的唯一标识。点击[这里](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)了解如何获取文档的 `document_id
 	RevisionID     int64                                      `json:"revision_id,omitempty"`     // 文档版本 ID。起始值为 1
 	Title          string                                     `json:"title,omitempty"`           // 文档标题
 	DisplaySetting *GetDocxDocumentRespDocumentDisplaySetting `json:"display_setting,omitempty"` // 文档展示设置
@@ -81,8 +83,8 @@ type GetDocxDocumentRespDocument struct {
 // GetDocxDocumentRespDocumentCover ...
 type GetDocxDocumentRespDocumentCover struct {
 	Token        string  `json:"token,omitempty"`          // 图片 token
-	OffsetRatioX float64 `json:"offset_ratio_x,omitempty"` // 视图在水平方向的偏移比例。其值为距离原图中心的水平方向偏移值 px / 原图宽度 px, 视图在原图中心时, 该值为 0；, 视图在原图右部分时, 该值为正数；, 视图在原图左部分时, 该值为负数。
-	OffsetRatioY float64 `json:"offset_ratio_y,omitempty"` // 视图在垂直方向的偏移比例。其值为距离原图中心的垂直方向偏移值 px / 原图高度 px, 视图在原图中心时, 该值为 0；, 视图在原图上部分时, 该值为正数；, 视图在原图下部分时, 该值为负数。
+	OffsetRatioX float64 `json:"offset_ratio_x,omitempty"` // 视图在水平方向的偏移比例。其值为距离原图中心的水平方向偏移值 px / 原图宽度 px。视图在原图中心时, 该值为 0；视图在原图右部分时, 该值为正数；视图在原图左部分时, 该值为负数。
+	OffsetRatioY float64 `json:"offset_ratio_y,omitempty"` // 视图在垂直方向的偏移比例。其值为距离原图中心的垂直方向偏移值 px / 原图高度 px。视图在原图中心时, 该值为 0；视图在原图上部分时, 该值为正数；视图在原图下部分时, 该值为负数。
 }
 
 // GetDocxDocumentRespDocumentDisplaySetting ...

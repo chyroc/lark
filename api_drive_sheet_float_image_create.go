@@ -21,9 +21,13 @@ import (
 	"context"
 )
 
-// CreateSheetFloatImage 根据传入的参数创建一张浮动图片。Float_image_token （[上传图片至表格后得到](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_all)）和range（只支持一个单元格） 必填。Float_image_id 可选, 不填的话会默认生成, 长度为10, 由 0-9、a-z、A-Z 组合生成。表格内不重复的图片（浮动图片+单元格图片）总数不超过4000。width 和 height 为图片展示的宽高, 可选, 不填的话会使用图片的真实宽高。offset_x 和 offset_y 为图片左上角距离所在单元格左上角的偏移, 可选, 默认为 0。
+// CreateSheetFloatImage 在电子表格工作表的指定位置创建一张浮动图片。
 //
-// 浮动图片的设置参考: [浮动图片指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/float-image-user-guide)
+// ## 前提条件
+// 你已调用[上传素材](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_all)或[分片上传素材](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_prepare)上传图片至表格并获取了图片的 `file_token`, 作为本接口中图片的 `float_image_token`。
+// ## 使用限制
+// - 图片大小不得超过 20 MB。
+// - 单个电子表格最多支持放置 4, 000 张不同 token 的图片, 即表格内不重复的图片（包括浮动图片和单元格图片）总数不超过 4, 000 张。将相同 token 的图片多次放置在表格的不同位置, 数量上仅算一张图片。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/create
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet-float_image/create
@@ -61,31 +65,31 @@ func (r *Mock) UnMockDriveCreateSheetFloatImage() {
 
 // CreateSheetFloatImageReq ...
 type CreateSheetFloatImageReq struct {
-	SpreadSheetToken string   `path:"spreadsheet_token" json:"-"`  // 表格 token, 示例值: "shtcnmBA*yGehy8"
-	SheetID          string   `path:"sheet_id" json:"-"`           // 子表 id, 示例值: "0b**12"
-	FloatImageID     *string  `json:"float_image_id,omitempty"`    // 浮动图片 id, 示例值: "ye06SS14ph"
-	FloatImageToken  *string  `json:"float_image_token,omitempty"` // [更新时不用传, 创建需要]浮动图片 token, 需要先上传图片到表格获得此 token 之后再进行浮动图片的相关操作, 示例值: "boxbcbQsaSqIXsxxxxx1HCPJFbh"
-	Range            *string  `json:"range,omitempty"`             // 浮动图片的左上角单元格定位, 只支持一个单元格, 示例值: "0b**12!A1:A1"
-	Width            *float64 `json:"width,omitempty"`             // 浮动图片的宽度, 大于等于 20px, 示例值: 100
-	Height           *float64 `json:"height,omitempty"`            // 浮动图片的高度, 大于等于 20px, 示例值: 100
-	OffsetX          *float64 `json:"offset_x,omitempty"`          // 浮动图片左上角所在位置相对于所在单元格左上角的横向偏移, 大于等于0且小于所在单元格的宽度, 示例值: 0
-	OffsetY          *float64 `json:"offset_y,omitempty"`          // 浮动图片左上角所在位置相对于所在单元格左上角的纵向偏移, 大于等于0且小于所在单元格的高度, 示例值: 0
+	SpreadSheetToken string   `path:"spreadsheet_token" json:"-"`  // 电子表格的 token。可通过以下两种方式获取。了解更多, 参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。-  电子表格的 URL: https://sample.feishu.cn/sheets/[Iow7sNNEphp3WbtnbCscPqabcef]- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)示例值: "Iow7sNNEphp3WbtnbCscPqabcef"
+	SheetID          string   `path:"sheet_id" json:"-"`           // 电子表格工作表的 ID。调用[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query)获取 ID。示例值: "0beg12"
+	FloatImageID     *string  `json:"float_image_id,omitempty"`    // 工作表内浮动图片的唯一标识。可不传由系统自动生成, 也可选择自定义。 长度为 10, 由 0-9、a-z、A-Z 组合而成。示例值: "ye06SS14ph"
+	FloatImageToken  *string  `json:"float_image_token,omitempty"` // 浮动图片的 token。通过[上传素材](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_all)或[分片上传素材](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_prepare)上传图片至表格, 获得素材的 `file_token`, 即为 float_image_token。注意: 该参数必填, 请忽略左侧必填列的”否”。示例值: "boxcnrHpsg1QDqXAAAyachabcef"
+	Range            *string  `json:"range,omitempty"`             // 浮动图片左上角所在单元格位置, 只允许单个单元格的形式, 如 "ahgsch!A1:A1"。了解更多, 参考[浮动图片使用指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/float-image-user-guide)。注意: 该参数必填, 请忽略左侧必填列的”否”。示例值: "ahgsch!A1:A1"
+	Width            *float64 `json:"width,omitempty"`             // 浮动图片的宽度, 单位为像素。不传会默认采用图片实际宽度, 如果传则需要大于等于 20 像素。了解更多, 参考[浮动图片使用指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/float-image-user-guide)。示例值: 100
+	Height           *float64 `json:"height,omitempty"`            // 浮动图片的高度, 单位为像素。不传会默认采用图片实际高度, 如果传则需要大于等于 20 像素。了解更多, 参考[浮动图片使用指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/float-image-user-guide)。示例值: 100
+	OffsetX          *float64 `json:"offset_x,omitempty"`          // 浮动图片左上角距离所在单元格左上角的横向偏移, 单位为像素, 默认为 0, 设置的值需要大于等于 0、小于浮动图片左上角所在单元格的宽度。了解更多, 参考[浮动图片使用指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/float-image-user-guide)。示例值: 0
+	OffsetY          *float64 `json:"offset_y,omitempty"`          // 浮动图片左上角距离所在单元格左上角的纵向偏移, 单位为像素, 默认为 0。设置的值需要大于等于 0、小于浮动图片左上角所在单元格的高度。了解更多, 参考[浮动图片使用指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/float-image-user-guide)。示例值: 0
 }
 
 // CreateSheetFloatImageResp ...
 type CreateSheetFloatImageResp struct {
-	FloatImage *CreateSheetFloatImageRespFloatImage `json:"float_image,omitempty"` // 浮动图片返回值
+	FloatImage *CreateSheetFloatImageRespFloatImage `json:"float_image,omitempty"` // 浮动图片的相关参数
 }
 
 // CreateSheetFloatImageRespFloatImage ...
 type CreateSheetFloatImageRespFloatImage struct {
-	FloatImageID    string  `json:"float_image_id,omitempty"`    // 浮动图片 id
-	FloatImageToken string  `json:"float_image_token,omitempty"` // [更新时不用传, 创建需要]浮动图片 token, 需要先上传图片到表格获得此 token 之后再进行浮动图片的相关操作
-	Range           string  `json:"range,omitempty"`             // 浮动图片的左上角单元格定位, 只支持一个单元格
-	Width           float64 `json:"width,omitempty"`             // 浮动图片的宽度, 大于等于 20px
-	Height          float64 `json:"height,omitempty"`            // 浮动图片的高度, 大于等于 20px
-	OffsetX         float64 `json:"offset_x,omitempty"`          // 浮动图片左上角所在位置相对于所在单元格左上角的横向偏移, 大于等于0且小于所在单元格的宽度
-	OffsetY         float64 `json:"offset_y,omitempty"`          // 浮动图片左上角所在位置相对于所在单元格左上角的纵向偏移, 大于等于0且小于所在单元格的高度
+	FloatImageID    string  `json:"float_image_id,omitempty"`    // 浮动图片的唯一标识。用于对图片进行增删改查操作。
+	FloatImageToken string  `json:"float_image_token,omitempty"` // 浮动图片的 token, 用于图片的上传和下载操作。你可通过该 token, 调用[下载素材](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/download)接口下载图片。
+	Range           string  `json:"range,omitempty"`             // 浮动图片左上角所在单元格位置
+	Width           float64 `json:"width,omitempty"`             // 浮动图片的宽度, 单位为像素。
+	Height          float64 `json:"height,omitempty"`            // 浮动图片的高度, 单位为像素。
+	OffsetX         float64 `json:"offset_x,omitempty"`          // 浮动图片左上角距离所在单元格左上角的横向偏移, 单位为像素。
+	OffsetY         float64 `json:"offset_y,omitempty"`          // 浮动图片左上角距离所在单元格左上角的纵向偏移, 单位为像素。
 }
 
 // createSheetFloatImageResp ...

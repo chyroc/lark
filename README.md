@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 1098, Event Count: 152
+API Count: 1018, Event Count: 148
 
 <details>
   <summary>
@@ -85,11 +85,6 @@ API Count: 1098, Event Count: 152
   - TranslateText
   - DetectTextLanguage
   - DetectFaceAttributes
-- APaaS
-  - AgreeAPaaSApprovalTask
-  - RejectAPaaSApprovalTask
-  - TransferAPaaSApprovalTask
-  - AddAssigneeAPaaSApprovalTask
 - Admin
   - AdminResetPassword
   - GetAdminDeptStats
@@ -495,14 +490,12 @@ API Count: 1098, Event Count: 152
   - QueryCoreHRJobData
   - BatchGetCoreHRJobData
   - GetCoreHRJobDataList
-  - GetCoreHRDepartment
-  - SearchCoreHRDepartment
-  - QueryCoreHRDepartmentTimeline
-  - BatchQueryCoreHRDepartmentTimeline
   - GetCoreHRDepartmentParentList
+  - SearchCoreHRDepartment
   - CreateCoreHRDepartment
   - DeleteCoreHRDepartment
   - UpdateCoreHRDepartment
+  - GetCoreHRDepartment
   - BatchGetCoreHRDepartment
   - GetCoreHRDepartmentList
   - BatchGetCoreHRLocation
@@ -529,7 +522,6 @@ API Count: 1098, Event Count: 152
   - UpdateCoreHRJobLevel
   - GetCoreHRJobLevel
   - GetCoreHRJobLevelList
-  - QueryCoreHRJobGrade
   - BatchGetCoreHRJobFamily
   - CreateCoreHRJobFamily
   - DeleteCoreHRJobFamily
@@ -543,7 +535,6 @@ API Count: 1098, Event Count: 152
   - GetCoreHRJobListV2
   - GetCoreHRJob
   - GetCoreHRJobList
-  - SearchCoreHRPreHire
   - CreateCoreHRPreHire
   - DeleteCoreHRPreHire
   - UpdateCoreHRPreHire
@@ -578,17 +569,12 @@ API Count: 1098, Event Count: 152
   - GetCoreHRSecurityGroupBp
   - SearchCoreHRAssignedUser
   - GetCoreHRAuthorization
+  - GetCoreHRAuthorizationList
   - GetCoreHRSecurityGroupList
   - GetCoreHRProcessList
   - GetCoreHRProcess
   - GetCoreHRProcessFormVariableData
-  - QueryCoreHRCompensationArchive
-  - GetCoreHRCompensationItemList
-  - GetCoreHRCompensationIndicatorList
-  - GetCoreHRCompensationItemCategoryList
   - MatchCoreHRCompensationStandard
-  - GetCoreHRCompensationPlanList
-  - GetCoreHRCompensationChangeReasonList
 - Drive
   - GetDriveRootFolderMeta
   - GetDriveFileList
@@ -668,7 +654,6 @@ API Count: 1098, Event Count: 152
   - UpdateDriveDocContent
   - GetDriveDocRawContent
   - GetDriveDocMeta
-  - GetWhiteboardNodeList
   - UpdateSpreadsheet
   - GetSpreadsheet
   - CreateSpreadsheet
@@ -753,10 +738,6 @@ API Count: 1098, Event Count: 152
 - Event
   - GetEventOutboundIpList
 - EventCallback
-  - EventV2CorehrOffboardingUpdatedV2
-  - EventV2CorehrOffboardingStatusUpdatedV2
-  - EventV2CorehrOffboardingChecklistUpdatedV2
-  - EventV2CardActionTrigger
   - EventV2ElearningCourseRegistrationCreatedV2
   - EventV2ElearningCourseRegistrationUpdatedV2
   - EventV2ElearningCourseRegistrationDeletedV2
@@ -984,7 +965,6 @@ API Count: 1098, Event Count: 152
   - AddHireTalentToFolder
   - GetHireTalentFolderList
   - BatchGetHireTalent
-  - GetHireTalentList
   - GetHireJobProcessList
   - CreateHireApplication
   - TerminateHireApplication
@@ -1056,9 +1036,6 @@ API Count: 1098, Event Count: 152
   - GetLingoRepoList
   - UploadLingoFile
   - DownloadLingoFile
-- MDM
-  - BindMDMUserAuthDataRelation
-  - UnbindMDMUserAuthDataRelation
 - Mail
   - GetMailUser
   - CreateMailGroup
@@ -1137,18 +1114,6 @@ API Count: 1098, Event Count: 152
   - GetMessagePinList
   - GetMessageSpecialFocusList
   - GetMessageSpecialFocusUnread
-  - BatchUpdateURLPreview
-  - CreateAppFeedCard
-  - UpdateAppFeedCard
-  - DeleteAppFeedCard
-  - UpdateAppFeedCardButton
-  - InstantReminderAppFeedCard
-  - ListIMTagRelation
-  - CreateIMTag
-  - UpdateIMTag
-  - MGetIMTag
-  - CreateIMTagRelation
-  - DeleteIMTagRelation
 - Mina
   - MinaCodeToSession
 - Minutes
@@ -1166,7 +1131,6 @@ API Count: 1098, Event Count: 152
   - GetOKRProgressRecord
   - CreateOKRProgressRecord
   - UploadOKRImage
-  - GetOKRReview
   - GetOKRMetricSourceList
   - GetOKRMetricSourceTableList
   - BatchUpdateOKRMetricSourceTableItem
@@ -1187,10 +1151,6 @@ API Count: 1098, Event Count: 152
   - GetPersonalSettingsSystemStatusList
   - BatchOpenPersonalSettingsSystemStatus
   - BatchClosePersonalSettingsSystemStatus
-- Report
-  - QueryReportRule
-  - RemoveReportView
-  - QueryReportTask
 - Search
   - SearchMessage
   - SearchApp
@@ -1208,77 +1168,29 @@ API Count: 1098, Event Count: 152
   - GetSearchSchema
   - CreateSearchSchema
 - Task
+  - CreateTaskFollower
+  - DeleteTaskFollower
+  - BatchDeleteTaskFollower
+  - GetTaskFollowerList
+  - CreateTaskCollaborator
+  - DeleteTaskCollaborator
+  - BatchDeleteTaskCollaborator
+  - GetTaskCollaboratorList
+  - CreateTaskReminder
+  - GetTaskReminderList
+  - DeleteTaskReminder
   - CreateTask
   - GetTask
-  - UpdateTask
-  - DeleteTask
-  - AddTaskMember
-  - RemoveTaskMember
   - GetTaskList
-  - AddTaskTasklist
-  - RemoveTaskTasklist
-  - AddTaskReminder
-  - RemoveTaskReminder
-  - AddTaskDependency
-  - RemoveTaskDependency
-  - CreateTaskSubtask
-  - GetTaskSubtaskList
-  - CreateTaskTasklist
-  - GetTaskTasklist
-  - UpdateTaskTasklist
-  - DeleteTaskTasklist
-  - AddTaskTasklistMember
-  - RemoveTaskTasklistMember
-  - GetTaskTaskListOfTasklist
-  - GetTaskTasklistList
-  - CreateTaskTasklistActivitySubscription
-  - GetTaskTasklistActivitySubscription
-  - UpdateTaskTasklistActivitySubscription
-  - DeleteTaskTasklistActivitySubscription
-  - GetTaskTasklistActivitySubscriptionList
+  - DeleteTask
+  - UpdateTask
+  - CompleteTask
+  - UncompleteTask
   - CreateTaskComment
   - GetTaskComment
-  - UpdateTaskComment
-  - DeleteTaskComment
   - GetTaskCommentList
-  - UploadTaskAttachment
-  - GetTaskAttachment
-  - DeleteTaskAttachment
-  - GetTaskAttachmentList
-  - CreateTaskSection
-  - GetTaskSection
-  - UpdateTaskSection
-  - DeleteTaskSection
-  - GetTaskSectionList
-  - GetTaskTaskListOfSection
-  - AddTaskCustomField
-  - RemoveTaskCustomField
-  - CreateTaskCustomFieldOption
-  - UpdateTaskCustomFieldOption
-- TaskV1
-  - CreateTaskV1Follower
-  - DeleteTaskV1Follower
-  - BatchDeleteTaskV1Follower
-  - GetTaskFollowerV1List
-  - CreateTaskV1Collaborator
-  - DeleteTaskV1Collaborator
-  - BatchDeleteTaskV1Collaborator
-  - GetTaskV1CollaboratorList
-  - CreateTaskV1Reminder
-  - GetTaskV1ReminderList
-  - DeleteTaskV1Reminder
-  - CreateTaskV1
-  - GetTaskV1
-  - GetTaskV1List
-  - DeleteTaskV1
-  - UpdateTaskV1
-  - CompleteTaskV1
-  - UncompleteTaskV1
-  - CreateTaskV1Comment
-  - GetTaskV1Comment
-  - GetTaskV1CommentList
-  - DeleteTaskV1Comment
-  - UpdateTaskV1Comment
+  - DeleteTaskComment
+  - UpdateTaskComment
 - Tenant
   - GetTenantProductAssignInfo
   - GetTenant

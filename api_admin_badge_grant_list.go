@@ -58,12 +58,12 @@ func (r *Mock) UnMockAdminGetAdminBadgeGrantList() {
 
 // GetAdminBadgeGrantListReq ...
 type GetAdminBadgeGrantListReq struct {
-	BadgeID          string            `path:"badge_id" json:"-"`            // 企业勋章的唯一ID, 示例值: "m_DjMzaK", 长度范围: `1` ～ `64` 字符
-	PageSize         int64             `query:"page_size" json:"-"`          // 分页大小, 示例值: 10, 默认值: `10`, 取值范围: `1` ～ `50`
-	PageToken        *string           `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "om5fn1", 长度范围: `1` ～ `64` 字符
-	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型, 示例值: "open_department_id", 可选值有: department_id: 以自定义department_id来标识部门, open_department_id: 以open_department_id来标识部门, 默认值: `open_department_id`
-	Name             *string           `query:"name" json:"-"`               // 授予名单名称, 精确匹配, 示例值: "激励勋章的授予名单", 最小长度: `1` 字符
+	BadgeID          string            `path:"badge_id" json:"-"`            // 企业勋章的唯一ID示例值: "m_DjMzaK" 长度范围: `1` ～ `64` 字符
+	PageSize         int64             `query:"page_size" json:"-"`          // 分页大小示例值: 10默认值: `10` 取值范围: `1` ～ `50
+	PageToken        *string           `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: "om5fn1" 长度范围: `1` ～ `64` 字符
+	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型示例值: "open_id"可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型。示例值: "open_department_id"可选值有: 以自定义department_id来标识部门以open_department_id来标识部门默认值: `open_department_id
+	Name             *string           `query:"name" json:"-"`               // 授予名单名称, 精确匹配。示例值: "激励勋章的授予名单" 最小长度: `1` 字符
 }
 
 // GetAdminBadgeGrantListResp ...
@@ -78,7 +78,7 @@ type GetAdminBadgeGrantListRespGrant struct {
 	ID            string                                     `json:"id,omitempty"`             // 租户内授予名单的唯一标识, 该值由系统随机生成。
 	BadgeID       string                                     `json:"badge_id,omitempty"`       // 企业勋章的唯一ID
 	Name          string                                     `json:"name,omitempty"`           // 勋章下唯一的授予事项, 最多100个字符。
-	GrantType     int64                                      `json:"grant_type,omitempty"`     // 授予名单类型, 可选值有: 0: 手动选择有效期, 1: 匹配系统入职时间
+	GrantType     int64                                      `json:"grant_type,omitempty"`     // 授予名单类型可选值有: 手动选择有效期匹配系统入职时间
 	TimeZone      string                                     `json:"time_zone,omitempty"`      // 授予名单的生效时间对应的时区, 用于检查RuleDetail的时间戳的取值是否规范, 取值范围为TZ database name
 	RuleDetail    *GetAdminBadgeGrantListRespGrantRuleDetail `json:"rule_detail,omitempty"`    // 规则详情
 	IsGrantAll    bool                                       `json:"is_grant_all,omitempty"`   // 是否授予给全员。1.为false时, 需要关联1~500个用户群体。2.为true时, 不可关联用户、用户组、部门。
@@ -92,7 +92,7 @@ type GetAdminBadgeGrantListRespGrantRuleDetail struct {
 	EffectiveTime   string `json:"effective_time,omitempty"`   // 开始生效的时间戳。1.手动设置有效期类型勋章, 配置有效期限需要配置该字段；2.时间戳必须是所在时区当天的零点时间戳, 如时区为Asia/Shanghai时区时的1649606400
 	ExpirationTime  string `json:"expiration_time,omitempty"`  // 结束生效的时间戳。1.手动设置有效期类型勋章, 配置有效期限需要配置该字段；2.最大值: 不得超过effective_time+100 年；3.非永久有效: 时间戳必须是所在时区当天的23:59:59时间戳, 如时区为Asia/Shanghai时区时的1649692799；4.永久有效: 传值为0即可
 	Anniversary     int64  `json:"anniversary,omitempty"`      // 入职周年日。根据入职时间发放类型勋章, 需要配置该字段。
-	EffectivePeriod int64  `json:"effective_period,omitempty"` // 有效期限。根据入职时间发放类型勋章, 需要配置该字段, 可选值有: 1: 有效期为一年, 2: 永久有效
+	EffectivePeriod int64  `json:"effective_period,omitempty"` // 有效期限。根据入职时间发放类型勋章, 需要配置该字段。可选值有: 有效期为一年永久有效
 }
 
 // getAdminBadgeGrantListResp ...

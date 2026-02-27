@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// DeleteContactJobFamily 该接口用于删除租户内的序列。
+// DeleteContactJobFamily 调用该接口删除指定序列。
+//
+// ## 使用限制
+// 仅支持删除没有子序列的序列。如果序列内存在子序列, 则不能直接删除。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_family/delete
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/job_family/delete
@@ -58,12 +61,11 @@ func (r *Mock) UnMockContactDeleteContactJobFamily() {
 
 // DeleteContactJobFamilyReq ...
 type DeleteContactJobFamilyReq struct {
-	JobFamilyID string `path:"job_family_id" json:"-"` // 序列ID, 示例值: "mga5oa8ayjlp9rb"
+	JobFamilyID string `path:"job_family_id" json:"-"` // 序列 ID。获取方式: [创建序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_family/create)时可以从返回结果中获取（job_family_id）。- 调用[获取租户序列列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_family/list)接口获取序列 ID。示例值: "mga5oa8ayjlp9rb"
 }
 
 // DeleteContactJobFamilyResp ...
-type DeleteContactJobFamilyResp struct {
-}
+type DeleteContactJobFamilyResp struct{}
 
 // deleteContactJobFamilyResp ...
 type deleteContactJobFamilyResp struct {

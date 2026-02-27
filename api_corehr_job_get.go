@@ -21,10 +21,15 @@ import (
 	"context"
 )
 
-// GetCoreHRJob 根据 ID 查询单个职务。
+// GetCoreHRJob 该接口支持通过职务id批量查询当天的职务详情信息, 包括职务包含的名称、描述、启用状态等。
+//
+// 本接口不再推荐使用, 请使用[查询单个职务V2](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/get)接口。
+// 延迟说明: 数据库主从延迟 2s 以内, 即: 直接创建职级后2s内调用此接口可能查询不到数据。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/get
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/job-management/job/get
+//
+// Deprecated
 func (r *CoreHRService) GetCoreHRJob(ctx context.Context, request *GetCoreHRJobReq, options ...MethodOptionFunc) (*GetCoreHRJobResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRJob != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRJob mock enable")
@@ -58,7 +63,7 @@ func (r *Mock) UnMockCoreHRGetCoreHRJob() {
 
 // GetCoreHRJobReq ...
 type GetCoreHRJobReq struct {
-	JobID string `path:"job_id" json:"-"` // 职务 ID, 示例值: "151515"
+	JobID string `path:"job_id" json:"-"` // 职务 ID示例值: "151515"
 }
 
 // GetCoreHRJobResp ...
@@ -74,12 +79,12 @@ type GetCoreHRJobRespJob struct {
 	Description        []*GetCoreHRJobRespJobDescription `json:"description,omitempty"`           // 描述
 	Active             bool                              `json:"active,omitempty"`                // 是否启用
 	JobTitle           []*GetCoreHRJobRespJobJobTitle    `json:"job_title,omitempty"`             // 职务头衔
-	JobFamilyIDList    []string                          `json:"job_family_id_list,omitempty"`    // 职务序列 ID 列表, 枚举值及详细信息可通过[批量查询职务序列]接口查询获得
-	JobLevelIDList     []string                          `json:"job_level_id_list,omitempty"`     // 职务级别 ID 列表, 枚举值及详细信息可通过[批量查询职务级别]接口查询获得
-	WorkingHoursTypeID string                            `json:"working_hours_type_id,omitempty"` // 工时制度 ID, 枚举值及详细信息可通过[批量查询工时制度]接口查询获得
-	EffectiveTime      string                            `json:"effective_time,omitempty"`        // 生效时间
-	ExpirationTime     string                            `json:"expiration_time,omitempty"`       // 失效时间
-	CustomFields       []*GetCoreHRJobRespJobCustomField `json:"custom_fields,omitempty"`         // 自定义字段
+	JobFamilyIDList    []string                          `json:"job_family_id_list,omitempty"`    // 职务序列 ID 列表, 枚举值及详细信息可通过[【批量查询序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)接口查询获得
+	JobLevelIDList     []string                          `json:"job_level_id_list,omitempty"`     // 职务级别 ID 列表, 枚举值及详细信息可通过[【批量查询职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)接口查询获得
+	WorkingHoursTypeID string                            `json:"working_hours_type_id,omitempty"` // 工时制度 ID, 枚举值及详细信息可通过[【批量查询工时制度】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/list)接口查询获得
+	EffectiveTime      string                            `json:"effective_time,omitempty"`        // 生效时间- 返回格式: YYYY-MM-DD 00:00:00（最小单位到日）- 日期范围:1900-01-01 00:00:00～9999-12-31 23:59:59
+	ExpirationTime     string                            `json:"expiration_time,omitempty"`       // 失效时间- 返回格式: YYYY-MM-DD 00:00:00（最小单位到日）- 日期范围:1900-01-01 00:00:00～9999-12-31 23:59:59
+	CustomFields       []*GetCoreHRJobRespJobCustomField `json:"custom_fields,omitempty"`         // 自定义字段（暂不支持）
 }
 
 // GetCoreHRJobRespJobCustomField ...
@@ -90,19 +95,19 @@ type GetCoreHRJobRespJobCustomField struct {
 
 // GetCoreHRJobRespJobDescription ...
 type GetCoreHRJobRespJobDescription struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
-	Value string `json:"value,omitempty"` // 名称信息的内容
+	Lang  string `json:"lang,omitempty"`  // 描述信息的语言, 中文用zh-CN, 英文用en-US
+	Value string `json:"value,omitempty"` // 描述信息的内容
 }
 
 // GetCoreHRJobRespJobJobTitle ...
 type GetCoreHRJobRespJobJobTitle struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
-	Value string `json:"value,omitempty"` // 名称信息的内容
+	Lang  string `json:"lang,omitempty"`  // 职务头衔信息的语言, 中文用zh-CN, 英文用en-US
+	Value string `json:"value,omitempty"` // 职务头衔信息的内容
 }
 
 // GetCoreHRJobRespJobName ...
 type GetCoreHRJobRespJobName struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
+	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 中文用zh-CN, 英文用en-US
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 

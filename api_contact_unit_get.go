@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetContactUnit 该接口用于获取单位信息。
+// GetContactUnit 调用该接口获取指定单位的信息, 包括单位 ID、名字、类型。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/get
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/unit/get
@@ -58,19 +58,19 @@ func (r *Mock) UnMockContactGetContactUnit() {
 
 // GetContactUnitReq ...
 type GetContactUnitReq struct {
-	UnitID string `path:"unit_id" json:"-"` // 单位ID, 示例值: "BU121"
+	UnitID string `path:"unit_id" json:"-"` // 单位 ID。当你在创建单位时, 可以在返回结果中获取单位 ID。你也可以调用[获取单位列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/list)接口, 获取单位 ID。示例值: "BU121"
 }
 
 // GetContactUnitResp ...
 type GetContactUnitResp struct {
-	Unit *GetContactUnitRespUnit `json:"unit,omitempty"` // 单位信息
+	Unit *GetContactUnitRespUnit `json:"unit,omitempty"` // 单位信息。
 }
 
 // GetContactUnitRespUnit ...
 type GetContactUnitRespUnit struct {
-	UnitID   string `json:"unit_id,omitempty"`   // 单位ID
-	Name     string `json:"name,omitempty"`      // 单位的名字
-	UnitType string `json:"unit_type,omitempty"` // 单位的类型
+	UnitID   string `json:"unit_id,omitempty"`   // 单位 ID。
+	Name     string `json:"name,omitempty"`      // 单位名字。
+	UnitType string `json:"unit_type,omitempty"` // 单位类型。
 }
 
 // getContactUnitResp ...

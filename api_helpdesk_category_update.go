@@ -62,14 +62,13 @@ func (r *Mock) UnMockHelpdeskUpdateHelpdeskCategory() {
 
 // UpdateHelpdeskCategoryReq ...
 type UpdateHelpdeskCategoryReq struct {
-	ID       string  `path:"id" json:"-"`         // category id, 示例值: "6948728206392295444"
-	Name     *string `json:"name,omitempty"`      // 名称, 示例值: "创建团队和邀请成员"
-	ParentID *string `json:"parent_id,omitempty"` // 父知识库分类ID, 示例值: "0"
+	ID       string  `path:"id" json:"-"`         // category id示例值: "6948728206392295444"
+	Name     *string `json:"name,omitempty"`      // 名称示例值: "创建团队和邀请成员"
+	ParentID *string `json:"parent_id,omitempty"` // 父知识库分类ID示例值: "0"
 }
 
 // UpdateHelpdeskCategoryResp ...
-type UpdateHelpdeskCategoryResp struct {
-}
+type UpdateHelpdeskCategoryResp struct{}
 
 // updateHelpdeskCategoryResp ...
 type updateHelpdeskCategoryResp struct {

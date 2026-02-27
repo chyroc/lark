@@ -21,14 +21,16 @@ import (
 	"context"
 )
 
-// CreateMessagePin Pin 一条指定的消息。
+// CreateMessagePin Pin 一条指定的消息。Pin 消息的效果可参见[Pin 消息概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/pin/pin-overview)。
 //
-// 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
-// - Pin消息时, 机器人必须在对应的群组中
-// - 若消息已经被Pin, 返回该Pin的操作信息
-// - 不能Pin一条对操作者不可见的消息
-// - 对同一条消息的Pin操作不能超过[5 QPS]
+// ## 前提条件
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// - Pin 消息时, 机器人必须在消息所属的会话内。
+// ## 使用限制
+// - 当前操作者不可见的消息无法 Pin。
+// - 对同一条消息的 Pin 操作不能超过 5 QPS。
+// ## 注意事项
+// 如果消息已经被 Pin, 则该接口会返回该 Pin 的操作信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/pin/create
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/pin/create
@@ -66,21 +68,21 @@ func (r *Mock) UnMockMessageCreateMessagePin() {
 
 // CreateMessagePinReq ...
 type CreateMessagePinReq struct {
-	MessageID string `json:"message_id,omitempty"` // 待Pin的消息ID, 详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2), 示例值: "om_dc13264520392913993dd051dba21dcf"
+	MessageID string `json:"message_id,omitempty"` // 待 Pin 的消息 ID。ID 获取方式: - 调用[发送消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)接口后, 从响应结果的 `message_id` 参数获取。- 监听[接收消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive)事件, 当触发该事件后可以从事件体内获取消息的 `message_id`。- 调用[获取会话历史消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/list)接口, 从响应结果的 `message_id` 参数获取。示例值: "om_dc13264520392913993dd051dba21dcf"
 }
 
 // CreateMessagePinResp ...
 type CreateMessagePinResp struct {
-	Pin *CreateMessagePinRespPin `json:"pin,omitempty"` // Pin的操作信息
+	Pin *CreateMessagePinRespPin `json:"pin,omitempty"` // Pin 的操作信息
 }
 
 // CreateMessagePinRespPin ...
 type CreateMessagePinRespPin struct {
-	MessageID      string `json:"message_id,omitempty"`       // Pin的消息ID
-	ChatID         string `json:"chat_id,omitempty"`          // Pin消息所在的群聊ID
-	OperatorID     string `json:"operator_id,omitempty"`      // Pin的操作人ID
-	OperatorIDType IDType `json:"operator_id_type,omitempty"` // Pin的操作人ID类型。当Pin的操作人为用户时, 为[open_id]；当Pin的操作人为机器人时, 为[app_id]
-	CreateTime     string `json:"create_time,omitempty"`      // Pin的创建时间（毫秒级时间戳）
+	MessageID      string `json:"message_id,omitempty"`       // Pin 的消息 ID
+	ChatID         string `json:"chat_id,omitempty"`          // Pin 消息所在的群聊 ID
+	OperatorID     string `json:"operator_id,omitempty"`      // Pin 的操作人 ID
+	OperatorIDType IDType `json:"operator_id_type,omitempty"` // Pin 的操作人 ID 类型。可能值有: open_id: 表示操作人为用户, 此时 `operator_id` 返回值为用户的 open_id。- app_id: 表示操作人为应用, 此时 `operator_id` 返回值为应用的 app_id。
+	CreateTime     string `json:"create_time,omitempty"`      // Pin 的创建时间（毫秒级时间戳）
 }
 
 // createMessagePinResp ...

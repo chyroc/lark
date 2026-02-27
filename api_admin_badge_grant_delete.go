@@ -58,13 +58,12 @@ func (r *Mock) UnMockAdminDeleteAdminBadgeGrant() {
 
 // DeleteAdminBadgeGrantReq ...
 type DeleteAdminBadgeGrantReq struct {
-	BadgeID string `path:"badge_id" json:"-"` // 企业勋章的唯一ID, 示例值: "m_DjMzaK", 长度范围: `1` ～ `64` 字符
-	GrantID string `path:"grant_id" json:"-"` // 租户内授予名单的唯一标识, 该值由系统随机生成, 示例值: "g_uS4yux", 长度范围: `1` ～ `64` 字符
+	BadgeID string `path:"badge_id" json:"-"` // 企业勋章的唯一ID示例值: "m_DjMzaK" 长度范围: `1` ～ `64` 字符
+	GrantID string `path:"grant_id" json:"-"` // 租户内授予名单的唯一标识, 该值由系统随机生成。示例值: "g_uS4yux" 长度范围: `1` ～ `64` 字符
 }
 
 // DeleteAdminBadgeGrantResp ...
-type DeleteAdminBadgeGrantResp struct {
-}
+type DeleteAdminBadgeGrantResp struct{}
 
 // deleteAdminBadgeGrantResp ...
 type deleteAdminBadgeGrantResp struct {

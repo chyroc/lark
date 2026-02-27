@@ -21,15 +21,16 @@ import (
 	"context"
 )
 
-// EventV2IMChatUpdatedV1 群组配置被修改后触发此事件, 包含:
+// EventV2IMChatUpdatedV1 群组配置被修改后触发此事件, 在该群组内的、已订阅当前事件的应用机器人将会收到事件通知。修改操作包含:
 //
-// - 群主转移
-// - 群基本信息修改(群头像/群名称/群描述/群国际化名称)
-// - 群权限修改(加人入群权限/群编辑权限/at所有人权限/群分享权限等)
-// 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
-// - 需要订阅 [消息与群组] 分类下的 [群配置修改] 事件
-// - 事件会向群内订阅了该事件的机器人进行推送
+// - 转移群主
+// - 修改群基本信息, 包括: 群头像、群名称、群描述、群国际化名称
+// - 修改群权限, 包括: 加人入群权限、群编辑权限、at 所有人权限、群分享权限等{使用示例}(url=/api/tools/api_explore/api_explore_config?project=im&version=v1&resource=chat&event=updated)
+// ## 前提条件
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// - 应用需要配置[事件订阅](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM), 订阅 消息与群组 分类下的 群配置修改 事件。
+// ## 使用限制
+// 只有在群内的、已订阅当前事件的应用机器人可以收到事件通知。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/events/updated
 // new doc: https://open.feishu.cn/document/server-docs/group/chat/events/updated
@@ -42,10 +43,10 @@ type EventV2IMChatUpdatedV1Handler func(ctx context.Context, cli *Lark, schema s
 
 // EventV2IMChatUpdatedV1 ...
 type EventV2IMChatUpdatedV1 struct {
-	ChatID            string                               `json:"chat_id,omitempty"`             // 群组 ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
-	OperatorID        *EventV2IMChatUpdatedV1OperatorID    `json:"operator_id,omitempty"`         // 用户 ID
+	ChatID            string                               `json:"chat_id,omitempty"`             // 群组 ID, 详细介绍参见[群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
+	OperatorID        *EventV2IMChatUpdatedV1OperatorID    `json:"operator_id,omitempty"`         // 修改群配置的操作者的 ID 信息
 	External          bool                                 `json:"external,omitempty"`            // 是否是外部群
-	OperatorTenantKey string                               `json:"operator_tenant_key,omitempty"` // 操作者租户 Key
+	OperatorTenantKey string                               `json:"operator_tenant_key,omitempty"` // 操作者的租户 Key, 为租户在飞书上的唯一标识, 用来换取对应的tenant_access_token, 也可以用作租户在应用中的唯一标识。
 	AfterChange       *EventV2IMChatUpdatedV1AfterChange   `json:"after_change,omitempty"`        // 更新后的群信息
 	BeforeChange      *EventV2IMChatUpdatedV1BeforeChange  `json:"before_change,omitempty"`       // 更新前的群信息
 	ModeratorList     *EventV2IMChatUpdatedV1ModeratorList `json:"moderator_list,omitempty"`      // 群可发言成员名单的变更信息
@@ -57,32 +58,32 @@ type EventV2IMChatUpdatedV1AfterChange struct {
 	Name                   string                                                  `json:"name,omitempty"`                     // 群名称
 	Description            string                                                  `json:"description,omitempty"`              // 群描述
 	I18nNames              *I18nNames                                              `json:"i18n_names,omitempty"`               // 群国际化名称
-	AddMemberPermission    AddMemberPermission                                     `json:"add_member_permission,omitempty"`    // 加人入群权限(all_members/only_owner/unknown)
-	ShareCardPermission    ShareCardPermission                                     `json:"share_card_permission,omitempty"`    // 群分享权限(allowed/not_allowed/unknown)
-	AtAllPermission        AtAllPermission                                         `json:"at_all_permission,omitempty"`        // at 所有人权限(all_members/only_owner/unknown)
-	EditPermission         EditPermission                                          `json:"edit_permission,omitempty"`          // 群编辑权限(all_members/only_owner/unknown)
-	MembershipApproval     MembershipApproval                                      `json:"membership_approval,omitempty"`      // 加群审批(no_approval_required/approval_required)
-	JoinMessageVisibility  MessageVisibility                                       `json:"join_message_visibility,omitempty"`  // 入群消息可见性(only_owner/all_members/not_anyone)
-	LeaveMessageVisibility MessageVisibility                                       `json:"leave_message_visibility,omitempty"` // 出群消息可见性(only_owner/all_members/not_anyone)
-	ModerationPermission   ModerationPermission                                    `json:"moderation_permission,omitempty"`    // 发言权限(all_members/only_owner)
-	OwnerID                *EventV2IMChatUpdatedV1AfterChangeOwnerID               `json:"owner_id,omitempty"`                 // 用户 ID
+	AddMemberPermission    AddMemberPermission                                     `json:"add_member_permission,omitempty"`    // 谁可以邀请成员（用户或机器人）入群可选值有: all_members: 所有成员- only_owner: 仅群主和管理员- unknown: 未设置
+	ShareCardPermission    ShareCardPermission                                     `json:"share_card_permission,omitempty"`    // 群分享权限可选值有: allowed: 允许- not_allowed: 不允许- unknown: 未设置
+	AtAllPermission        AtAllPermission                                         `json:"at_all_permission,omitempty"`        // 谁可以 at 所有人可选值有: all_members: 所有成员- only_owner: 仅群主和管理员- unknown: 未设置
+	EditPermission         EditPermission                                          `json:"edit_permission,omitempty"`          // 谁可以编辑群可选值有: all_members: 所有成员- only_owner: 仅群主和管理员- unknown: 未设置
+	MembershipApproval     MembershipApproval                                      `json:"membership_approval,omitempty"`      // 加群是否需要审批可选值有: no_approval_required: 无需审批- approval_required: 需要审批
+	JoinMessageVisibility  MessageVisibility                                       `json:"join_message_visibility,omitempty"`  // 入群提示消息的可见性可选值有: only_owner: 仅群主和管理员可见- all_members: 所有成员可见- not_anyone: 任何人均不可见
+	LeaveMessageVisibility MessageVisibility                                       `json:"leave_message_visibility,omitempty"` // 出群消息可见性可选值有: only_owner: 仅群主和管理员可见- all_members: 所有成员可见- not_anyone: 任何人均不可见
+	ModerationPermission   ModerationPermission                                    `json:"moderation_permission,omitempty"`    // 发言权限可选值有: all_members: 所有成员- only_owner: 仅群主和管理员说明: 发言权限为指定群成员时, 需要参考 `moderator_list` 参数。
+	OwnerID                *EventV2IMChatUpdatedV1AfterChangeOwnerID               `json:"owner_id,omitempty"`                 // 群主 ID
 	RestrictedModeSetting  *EventV2IMChatUpdatedV1AfterChangeRestrictedModeSetting `json:"restricted_mode_setting,omitempty"`  // 防泄密模式设置
-	GroupMessageType       MsgType                                                 `json:"group_message_type,omitempty"`       // 群消息形式, （chat/thread）
+	GroupMessageType       MsgType                                                 `json:"group_message_type,omitempty"`       // 群消息形式可选值有: chat: 会话消息- thread: 话题消息
 }
 
 // EventV2IMChatUpdatedV1AfterChangeOwnerID ...
 type EventV2IMChatUpdatedV1AfterChangeOwnerID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
 // EventV2IMChatUpdatedV1AfterChangeRestrictedModeSetting ...
 type EventV2IMChatUpdatedV1AfterChangeRestrictedModeSetting struct {
 	Status                         bool   `json:"status,omitempty"`                            // 防泄密模式是否开启
-	ScreenshotHasPermissionSetting string `json:"screenshot_has_permission_setting,omitempty"` // 允许截屏录屏, 可选值有: all_members: 所有成员允许截屏录屏, not_anyone: 所有成员禁止截屏录屏
-	DownloadHasPermissionSetting   string `json:"download_has_permission_setting,omitempty"`   // 允许下载消息中图片、视频和文件, 可选值有: all_members: 所有成员允许下载资源, not_anyone: 所有成员禁止下载资源
-	MessageHasPermissionSetting    string `json:"message_has_permission_setting,omitempty"`    // 允许复制和转发消息, 可选值有: all_members: 所有成员允许复制和转发消息, not_anyone: 所有成员禁止复制和转发消息
+	ScreenshotHasPermissionSetting string `json:"screenshot_has_permission_setting,omitempty"` // 允许截屏录屏可选值有: 所有成员允许截屏录屏所有成员禁止截屏录屏
+	DownloadHasPermissionSetting   string `json:"download_has_permission_setting,omitempty"`   // 允许下载消息中图片、视频和文件可选值有: 所有成员允许下载资源所有成员禁止下载资源
+	MessageHasPermissionSetting    string `json:"message_has_permission_setting,omitempty"`    // 允许复制和转发消息可选值有: 所有成员允许复制和转发消息所有成员禁止复制和转发消息
 }
 
 // EventV2IMChatUpdatedV1BeforeChange ...
@@ -91,69 +92,69 @@ type EventV2IMChatUpdatedV1BeforeChange struct {
 	Name                   string                                                   `json:"name,omitempty"`                     // 群名称
 	Description            string                                                   `json:"description,omitempty"`              // 群描述
 	I18nNames              *I18nNames                                               `json:"i18n_names,omitempty"`               // 群国际化名称
-	AddMemberPermission    AddMemberPermission                                      `json:"add_member_permission,omitempty"`    // 加人入群权限(all_members/only_owner/unknown)
-	ShareCardPermission    ShareCardPermission                                      `json:"share_card_permission,omitempty"`    // 群分享权限(allowed/not_allowed/unknown)
-	AtAllPermission        AtAllPermission                                          `json:"at_all_permission,omitempty"`        // at 所有人权限(all_members/only_owner/unknown)
-	EditPermission         EditPermission                                           `json:"edit_permission,omitempty"`          // 群编辑权限(all_members/only_owner/unknown)
-	MembershipApproval     MembershipApproval                                       `json:"membership_approval,omitempty"`      // 加群审批(no_approval_required/approval_required)
-	JoinMessageVisibility  MessageVisibility                                        `json:"join_message_visibility,omitempty"`  // 入群消息可见性(only_owner/all_members/not_anyone)
-	LeaveMessageVisibility MessageVisibility                                        `json:"leave_message_visibility,omitempty"` // 出群消息可见性(only_owner/all_members/not_anyone)
-	ModerationPermission   ModerationPermission                                     `json:"moderation_permission,omitempty"`    // 发言权限(all_members/only_owner)
-	OwnerID                *EventV2IMChatUpdatedV1BeforeChangeOwnerID               `json:"owner_id,omitempty"`                 // 用户 ID
+	AddMemberPermission    AddMemberPermission                                      `json:"add_member_permission,omitempty"`    // 谁可以邀请成员（用户或机器人）入群可选值有: all_members: 所有成员- only_owner: 仅群主和管理员- unknown: 未设置
+	ShareCardPermission    ShareCardPermission                                      `json:"share_card_permission,omitempty"`    // 群分享权限可选值有: allowed: 允许- not_allowed: 不允许- unknown: 未设置
+	AtAllPermission        AtAllPermission                                          `json:"at_all_permission,omitempty"`        // 谁可以 at 所有人可选值有: all_members: 所有成员- only_owner: 仅群主和管理员- unknown: 未设置
+	EditPermission         EditPermission                                           `json:"edit_permission,omitempty"`          // 谁可以编辑群可选值有: all_members: 所有成员- only_owner: 仅群主和管理员- unknown: 未设置
+	MembershipApproval     MembershipApproval                                       `json:"membership_approval,omitempty"`      // 加群是否需要审批可选值有: no_approval_required: 无需审批- approval_required: 需要审批
+	JoinMessageVisibility  MessageVisibility                                        `json:"join_message_visibility,omitempty"`  // 入群提示消息的可见性可选值有: only_owner: 仅群主和管理员可见- all_members: 所有成员可见- not_anyone: 任何人均不可见
+	LeaveMessageVisibility MessageVisibility                                        `json:"leave_message_visibility,omitempty"` // 出群消息可见性可选值有: only_owner: 仅群主和管理员可见- all_members: 所有成员可见- not_anyone: 任何人均不可见
+	ModerationPermission   ModerationPermission                                     `json:"moderation_permission,omitempty"`    // 发言权限可选值有: all_members: 所有成员- only_owner: 仅群主和管理员说明: 发言权限为指定群成员时, 需要参考 `moderator_list` 参数。
+	OwnerID                *EventV2IMChatUpdatedV1BeforeChangeOwnerID               `json:"owner_id,omitempty"`                 // 群主 ID
 	RestrictedModeSetting  *EventV2IMChatUpdatedV1BeforeChangeRestrictedModeSetting `json:"restricted_mode_setting,omitempty"`  // 防泄密模式设置
-	GroupMessageType       MsgType                                                  `json:"group_message_type,omitempty"`       // 群消息形式, （chat/thread）
+	GroupMessageType       MsgType                                                  `json:"group_message_type,omitempty"`       // 群消息形式可选值有: chat: 会话消息- thread: 话题消息
 }
 
 // EventV2IMChatUpdatedV1BeforeChangeOwnerID ...
 type EventV2IMChatUpdatedV1BeforeChangeOwnerID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
 // EventV2IMChatUpdatedV1BeforeChangeRestrictedModeSetting ...
 type EventV2IMChatUpdatedV1BeforeChangeRestrictedModeSetting struct {
 	Status                         bool   `json:"status,omitempty"`                            // 防泄密模式是否开启
-	ScreenshotHasPermissionSetting string `json:"screenshot_has_permission_setting,omitempty"` // 允许截屏录屏, 可选值有: all_members: 所有成员允许截屏录屏, not_anyone: 所有成员禁止截屏录屏
-	DownloadHasPermissionSetting   string `json:"download_has_permission_setting,omitempty"`   // 允许下载消息中图片、视频和文件, 可选值有: all_members: 所有成员允许下载资源, not_anyone: 所有成员禁止下载资源
-	MessageHasPermissionSetting    string `json:"message_has_permission_setting,omitempty"`    // 允许复制和转发消息, 可选值有: all_members: 所有成员允许复制和转发消息, not_anyone: 所有成员禁止复制和转发消息
+	ScreenshotHasPermissionSetting string `json:"screenshot_has_permission_setting,omitempty"` // 允许截屏录屏可选值有: 所有成员允许截屏录屏所有成员禁止截屏录屏
+	DownloadHasPermissionSetting   string `json:"download_has_permission_setting,omitempty"`   // 允许下载消息中图片、视频和文件可选值有: 所有成员允许下载资源所有成员禁止下载资源
+	MessageHasPermissionSetting    string `json:"message_has_permission_setting,omitempty"`    // 允许复制和转发消息可选值有: 所有成员允许复制和转发消息所有成员禁止复制和转发消息
 }
 
 // EventV2IMChatUpdatedV1ModeratorList ...
 type EventV2IMChatUpdatedV1ModeratorList struct {
-	AddedMemberList   []*EventV2IMChatUpdatedV1ModeratorListAddedMember   `json:"added_member_list,omitempty"`   // 被添加进可发言名单的用户列表（列表中一定会有owner）
+	AddedMemberList   []*EventV2IMChatUpdatedV1ModeratorListAddedMember   `json:"added_member_list,omitempty"`   // 被添加进可发言名单的用户列表（该列表中一定有群主）
 	RemovedMemberList []*EventV2IMChatUpdatedV1ModeratorListRemovedMember `json:"removed_member_list,omitempty"` // 被移除出可发言名单的用户列表
 }
 
 // EventV2IMChatUpdatedV1ModeratorListAddedMember ...
 type EventV2IMChatUpdatedV1ModeratorListAddedMember struct {
-	TenantKey string                                                `json:"tenant_key,omitempty"` // 租户 Key
+	TenantKey string                                                `json:"tenant_key,omitempty"` // 租户 Key, 为租户在飞书上的唯一标识, 用来换取对应的tenant_access_token, 也可以用作租户在应用中的唯一标识。
 	UserID    *EventV2IMChatUpdatedV1ModeratorListAddedMemberUserID `json:"user_id,omitempty"`    // 用户 ID
 }
 
 // EventV2IMChatUpdatedV1ModeratorListAddedMemberUserID ...
 type EventV2IMChatUpdatedV1ModeratorListAddedMemberUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
 // EventV2IMChatUpdatedV1ModeratorListRemovedMember ...
 type EventV2IMChatUpdatedV1ModeratorListRemovedMember struct {
-	TenantKey string                                                  `json:"tenant_key,omitempty"` // 租户 Key
+	TenantKey string                                                  `json:"tenant_key,omitempty"` // 租户 Key, 为租户在飞书上的唯一标识, 用来换取对应的tenant_access_token, 也可以用作租户在应用中的唯一标识。
 	UserID    *EventV2IMChatUpdatedV1ModeratorListRemovedMemberUserID `json:"user_id,omitempty"`    // 用户 ID
 }
 
 // EventV2IMChatUpdatedV1ModeratorListRemovedMemberUserID ...
 type EventV2IMChatUpdatedV1ModeratorListRemovedMemberUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
 // EventV2IMChatUpdatedV1OperatorID ...
 type EventV2IMChatUpdatedV1OperatorID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }

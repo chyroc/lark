@@ -21,9 +21,10 @@ import (
 	"context"
 )
 
-// UpdateDrivePermissionPublicPassword 该接口用于根据 filetoken 刷新云文档的密码。
+// UpdateDrivePermissionPublicPassword 刷新指定云文档的密码。密码刷新后, 旧密码将失效, 并生成新密码。
 //
-// 注意: 刷新密码, 需要先通过”云文档“-“权限”-“设置”-“更新云文档权限设置”的接口更新元文档为互联网上获得链接的任何人可阅读/编辑
+// ## 注意事项
+// 要刷新密码, 必须先确保指定云文档已有密码。你可通过[启用云文档密码](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-public-password/create)接口启用密码。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-public-password/update
 // new doc: https://open.feishu.cn/document/server-docs/docs/permission/permission-public/permission-public-password/update
@@ -61,8 +62,8 @@ func (r *Mock) UnMockDriveUpdateDrivePermissionPublicPassword() {
 
 // UpdateDrivePermissionPublicPasswordReq ...
 type UpdateDrivePermissionPublicPasswordReq struct {
-	Token string `path:"token" json:"-"` // 文件的 token, 获取方式见 [如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6), 示例值: "doccnBKgoMyY5OMbUG6FioTXuBe"
-	Type  string `query:"type" json:"-"` // 文件类型, 需要与文件的 token 相匹配, 示例值: doc, 可选值有: doc: 文档, sheet: 电子表格, file: 云空间文件, wiki: 知识库节点, bitable: 多维表格, docx: 新版文档, mindnote: 思维笔记, minutes: 妙计（暂不支持）, slides: 幻灯片
+	Token string `path:"token" json:"-"` // 云文档的 token, 需要与 type 参数指定的云文档类型相匹配。可参考[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。示例值: "doccnBKgoMyY5OMbUG6Fioabcef"
+	Type  string `query:"type" json:"-"` // 云文档类型, 需要与云文档的 token 相匹配。示例值: docx可选值有: 旧版文档。了解更多, 参考[新旧版本文档说明](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/docs/upgraded-docs-access-guide/upgraded-docs-openapi-access-guide)。电子表格云空间文件知识库节点多维表格新版文档思维笔记妙计（暂不支持）幻灯片
 }
 
 // UpdateDrivePermissionPublicPasswordResp ...

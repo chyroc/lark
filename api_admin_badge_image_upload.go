@@ -60,8 +60,8 @@ func (r *Mock) UnMockAdminUploadAdminBadgeImage() {
 
 // UploadAdminBadgeImageReq ...
 type UploadAdminBadgeImageReq struct {
-	ImageFile io.Reader `json:"image_file,omitempty"` // 勋章图片的文件, 仅支持 PNG 格式, 320 x 320 像素, 大小不超过 1024 KB, 示例值: file binary
-	ImageType int64     `json:"image_type,omitempty"` // 图片的类型, 示例值: 1, 可选值有: 1: 勋章详情图, 2: 勋章挂饰图, 取值范围: `1` ～ `2`
+	ImageFile io.Reader `json:"image_file,omitempty"` // 勋章图片的文件, 仅支持 PNG 格式, 320 x 320 像素, 大小不超过 1024 KB。示例值: file binary
+	ImageType int64     `json:"image_type,omitempty"` // 图片的类型示例值: 1可选值有: 勋章详情图勋章挂饰图 取值范围: `1` ～ `2
 }
 
 // UploadAdminBadgeImageResp ...

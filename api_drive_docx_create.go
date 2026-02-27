@@ -23,8 +23,8 @@ import (
 
 // CreateDocx 创建文档类型为 docx 的文档。你可选择传入文档标题和文件夹。
 //
-// 该接口仅支持指定文档标题, 不支持带内容创建文档。
-// 应用频率限制: 单个应用调用频率上限为每秒 3 次, 超过该频率限制, 接口将返回 HTTP 状态码 400 及错误码 99991400。当请求被限频, 应用需要处理限频状态码, 并使用指数退避算法或其它一些频控策略降低对 API 的调用速率。
+// - 应用频率限制: 单个应用调用频率上限为每秒 3 次, 超过该频率限制, 接口将返回 HTTP 状态码 400 及错误码 99991400。当请求被限频, 应用需要处理限频状态码, 并使用指数退避算法或其它一些频控策略降低对 API 的调用速率。
+// - 该接口仅支持指定文档标题, 不支持带内容创建文档。要基于模板创建文档, 可先获取模板文档的 [document_id](s/ssl:ttdoc/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview) 作为文件 token, 再调用[复制文件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/copy)接口创建文档。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/create
 // new doc: https://open.feishu.cn/document/server-docs/docs/docs/docx-v1/document/create
@@ -62,8 +62,8 @@ func (r *Mock) UnMockDriveCreateDocx() {
 
 // CreateDocxReq ...
 type CreateDocxReq struct {
-	FolderToken *string `json:"folder_token,omitempty"` // 指定文档所在文件夹 的 Token。不传或传空表示根目录。了解如何获取文件夹 Token, 参考[如何获取云文档资源相关 Token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6), 若应用使用的是 `tenant_access_token` 权限, 此处仅可指定应用创建的文件夹, 示例值: "fldcnqquW1svRIYVT2Np6Iabcef"
-	Title       *string `json:"title,omitempty"`        // 文档标题, 只支持纯文本, 示例值: "一篇新的文档", 长度范围: `1` ～ `800` 字符
+	FolderToken *string `json:"folder_token,omitempty"` // 指定文档所在文件夹 的 Token。不传或传空表示根目录。了解如何获取文件夹 Token, 参考[如何获取云文档资源相关 Token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。提示: 若应用使用的是 `tenant_access_token` 权限, 此处仅可指定应用创建的文件夹。示例值: "fldcnqquW1svRIYVT2Np6Iabcef"
+	Title       *string `json:"title,omitempty"`        // 文档标题, 只支持纯文本示例值: "一篇新的文档" 长度范围: `1` ～ `800` 字符
 }
 
 // CreateDocxResp ...
@@ -73,9 +73,29 @@ type CreateDocxResp struct {
 
 // CreateDocxRespDocument ...
 type CreateDocxRespDocument struct {
-	DocumentID string `json:"document_id,omitempty"` // 文档的唯一标识。点击[这里](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)了解如何获取文档的 `document_id`
-	RevisionID int64  `json:"revision_id,omitempty"` // 文档版本 ID
-	Title      string `json:"title,omitempty"`       // 文档标题
+	DocumentID     string                                `json:"document_id,omitempty"`     // 文档的唯一标识。你可以将 `https://sample.feishu.cn/docx/` 与该标识拼接, 并将 sample 替换为实际域名, 生成文档的 URL 链接。如 `https://sample.feishu.cn/docx/doxbcmEtbFrbbq10nPNu8gabcef`。
+	RevisionID     int64                                 `json:"revision_id,omitempty"`     // 文档版本 ID
+	Title          string                                `json:"title,omitempty"`           // 文档标题
+	DisplaySetting *CreateDocxRespDocumentDisplaySetting `json:"display_setting,omitempty"` // 文档展示设置
+	Cover          *CreateDocxRespDocumentCover          `json:"cover,omitempty"`           // 文档封面
+}
+
+// CreateDocxRespDocumentCover ...
+type CreateDocxRespDocumentCover struct {
+	Token        string  `json:"token,omitempty"`          // 图片 token
+	OffsetRatioX float64 `json:"offset_ratio_x,omitempty"` // 展示视图在水平方向的偏移比例。其值为距离原图中心的水平方向偏移值 px / 原图宽度 px。 视图在原图中心时, 该值为 0； 视图在原图右部分时, 该值为正数； 视图在原图左部分时, 改值为负数。
+	OffsetRatioY float64 `json:"offset_ratio_y,omitempty"` // 展示视图在垂直方向的偏移比例。其值为距离原图中心的垂直方向偏移值 px / 原图高度 px。 视图在原图中心时, 该值为 0； 视图在原图上部分时, 该值为正数； 视图在原图下部分时, 改值为负数。
+}
+
+// CreateDocxRespDocumentDisplaySetting ...
+type CreateDocxRespDocumentDisplaySetting struct {
+	ShowAuthors        bool `json:"show_authors,omitempty"`         // 文档信息中是否展示文档作者
+	ShowCreateTime     bool `json:"show_create_time,omitempty"`     // 文档信息中是否展示文档创建时间
+	ShowPv             bool `json:"show_pv,omitempty"`              // 文档信息中是否展示文档访问次数
+	ShowUv             bool `json:"show_uv,omitempty"`              // 文档信息中是否展示文档访问人数
+	ShowLikeCount      bool `json:"show_like_count,omitempty"`      // 文档信息中是否展示点赞总数
+	ShowCommentCount   bool `json:"show_comment_count,omitempty"`   // 文档信息中是否展示评论总数
+	ShowRelatedMatters bool `json:"show_related_matters,omitempty"` // 文档信息中是否展示关联事项
 }
 
 // createDocxResp ...

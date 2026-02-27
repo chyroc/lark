@@ -35,6 +35,6 @@ func (r *AppLinkService) OpenTaskDetail(req *OpenTaskDetailReq) string {
 
 // OpenTaskDetailReq ...
 type OpenTaskDetailReq struct {
-	Guid string  `json:"guid,omitempty"` // 全局唯一的taskId（global unique ID）, 通过[飞书任务的 OpenAPI](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/overview) 获取
-	Mode *string `json:"mode,omitempty"` // 默认在im场景下, 打开任务详情页面； `mode=app`, 在任务tab中打开详情页面
+	Guid string  `json:"guid,omitempty"` // 全局唯一的 taskId（global unique ID）, 通过[飞书任务的 OpenAPI](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/get) 获取
+	Mode *string `json:"mode,omitempty"` // 打开模式, 未填写时默认在 IM 场景打开详情页面。枚举值包括: `app`: 在任务 tab 中打开详情页面。
 }

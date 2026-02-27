@@ -21,12 +21,11 @@ import (
 	"context"
 )
 
-// EventV2IMChatMemberUserDeletedV1 用户主动退群或被移出群聊时推送事件。
+// EventV2IMChatMemberUserDeletedV1 用户主动退出群聊或被移出群聊时推触发此事件, 在群组内的、已订阅该事件的机器人会收到事件数据。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=im&version=v1&resource=chat.member.user&event=deleted)
 //
-// 注意事项:
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)并且机器人所在群发生上述变化
-// - 机器人需要订阅 [消息与群组] 分类下的 [用户主动退群或被移出群聊] 事件
-// - 事件会向群内订阅了该事件的机器人进行推送
+// ## 前提条件
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// - 你需要在应用中配置事件订阅, 在事件列表的 [消息与群组] 分类下订阅 [用户主动退群或被移出群聊] 事件, 这样才可以在事件触发时接收到事件数据。了解事件订阅可参见[事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-member-user/events/deleted
 // new doc: https://open.feishu.cn/document/server-docs/group/chat-member/event/deleted-2
@@ -39,10 +38,10 @@ type EventV2IMChatMemberUserDeletedV1Handler func(ctx context.Context, cli *Lark
 
 // EventV2IMChatMemberUserDeletedV1 ...
 type EventV2IMChatMemberUserDeletedV1 struct {
-	ChatID            string                                      `json:"chat_id,omitempty"`             // 群组 ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
-	OperatorID        *EventV2IMChatMemberUserDeletedV1OperatorID `json:"operator_id,omitempty"`         // 用户 ID
+	ChatID            string                                      `json:"chat_id,omitempty"`             // 群组 ID, 详情参见[群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
+	OperatorID        *EventV2IMChatMemberUserDeletedV1OperatorID `json:"operator_id,omitempty"`         // 操作者的 ID。用户不同 ID 类型介绍参考[用户身份概述](https://open.feishu.cn/document/home/user-identity-introduction/introduction)。
 	External          bool                                        `json:"external,omitempty"`            // 是否是外部群
-	OperatorTenantKey string                                      `json:"operator_tenant_key,omitempty"` // 操作者的租户Key, 为租户在飞书上的唯一标识, 用来换取对应的tenant_access_token, 也可以用作租户在应用中的唯一标识
+	OperatorTenantKey string                                      `json:"operator_tenant_key,omitempty"` // 操作者的租户 Key, 为租户在飞书上的唯一标识, 用来换取对应的 tenant_access_token, 也可以用作租户在应用中的唯一标识
 	Users             []*EventV2IMChatMemberUserDeletedV1User     `json:"users,omitempty"`               // 被移除用户列表
 	Name              string                                      `json:"name,omitempty"`                // 群名称
 	I18nNames         *I18nNames                                  `json:"i18n_names,omitempty"`          // 群国际化名称
@@ -51,20 +50,20 @@ type EventV2IMChatMemberUserDeletedV1 struct {
 // EventV2IMChatMemberUserDeletedV1OperatorID ...
 type EventV2IMChatMemberUserDeletedV1OperatorID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
 // EventV2IMChatMemberUserDeletedV1User ...
 type EventV2IMChatMemberUserDeletedV1User struct {
 	Name      string                                      `json:"name,omitempty"`       // 用户名字
-	TenantKey string                                      `json:"tenant_key,omitempty"` // 租户Key, 为租户在飞书上的唯一标识, 用来换取对应的tenant_access_token, 也可以用作租户在应用中的唯一标识
-	UserID    *EventV2IMChatMemberUserDeletedV1UserUserID `json:"user_id,omitempty"`    // 用户 ID
+	TenantKey string                                      `json:"tenant_key,omitempty"` // 租户 Key, 为租户在飞书上的唯一标识, 用来换取对应的 tenant_access_token, 也可以用作租户在应用中的唯一标识
+	UserID    *EventV2IMChatMemberUserDeletedV1UserUserID `json:"user_id,omitempty"`    // 用户 ID。用户不同 ID 类型介绍参考[用户身份概述](https://open.feishu.cn/document/home/user-identity-introduction/introduction)。
 }
 
 // EventV2IMChatMemberUserDeletedV1UserUserID ...
 type EventV2IMChatMemberUserDeletedV1UserUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }

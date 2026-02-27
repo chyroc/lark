@@ -21,15 +21,16 @@ import (
 	"context"
 )
 
-// GenChatShareLink 获取指定群的分享链接。
+// GenChatShareLink 获取指定群的分享链接, 他人点击分享链接后可加入群组。
 //
-// 注意事项:
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
-// - access_token所对应的 机器人 或 授权用户 必须在`chat_id`参数指定的群组中
-// - 单聊、密聊、团队群不支持分享群链接
-// - 当Bot被停用或Bot退出群组时, Bot生成的群链接也将停用
-// - 当群聊开启了 [仅群主和群管理员可添加群成员/分享群] 设置时, 仅群主和群管理员可以获取群分享链接
-// - 获取内部群分享链接时, 操作者须与群组在同一租户下
+// ## 前提条件
+// 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// ## 使用限制
+// - 调用该接口的用户或机器人必须在对应群组内。
+// - 单聊、密聊、团队群不支持生成分享链接。
+// - 当机器人被停用或者退出群组时, 由该机器人获取的群分享链接也将失效。
+// - 当群组设置了 仅群主和群管理员可添加群成员或分享群 时, 调用该接口的用户或机器人必须是群组的群主或管理员。
+// - 获取内部群分享链接时, 调用该接口的用户或机器人必须和群组属于同一租户。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/link
 // new doc: https://open.feishu.cn/document/server-docs/group/chat/link
@@ -67,14 +68,14 @@ func (r *Mock) UnMockChatGenChatShareLink() {
 
 // GenChatShareLinkReq ...
 type GenChatShareLinkReq struct {
-	ChatID         string  `path:"chat_id" json:"-"`          // 待获取分享链接的群ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 注意: 单聊、密聊、团队群不支持分享群链接, 示例值: "oc_a0553eda9014c201e6969b478895c230"
-	ValidityPeriod *string `json:"validity_period,omitempty"` // 群分享链接有效时长, 可选值week、year、permanently, 分别表示7天、1年以及永久有效, 示例值: "week", 可选值有: week: 有效期7天, year: 有效期1年, permanently: 永久有效, 默认值: `week`
+	ChatID         string  `path:"chat_id" json:"-"`          // 群 ID。获取方式: [创建群](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create), 从返回结果中获取该群的 chat_id。- 调用[获取用户或机器人所在的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list)接口, 可以查询用户或机器人所在群的 chat_id。- 调用[搜索对用户或机器人可见的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search), 可搜索用户或机器人所在的群、对用户或机器人公开的群的 chat_id。注意: 单聊、密聊、团队群不支持分享群链接示例值: "oc_a0553eda9014c201e6969b478895c230"
+	ValidityPeriod *string `json:"validity_period,omitempty"` // 群分享链接有效时长示例值: "week"可选值有: 有效期 7 天有效期 1 年永久有效默认值: `week
 }
 
 // GenChatShareLinkResp ...
 type GenChatShareLinkResp struct {
 	ShareLink   string `json:"share_link,omitempty"`   // 群分享链接
-	ExpireTime  string `json:"expire_time,omitempty"`  // 分享链接过期时间戳（秒级）
+	ExpireTime  string `json:"expire_time,omitempty"`  // 分享链接的过期时间, 秒级时间戳
 	IsPermanent bool   `json:"is_permanent,omitempty"` // 分享链接是否永久有效
 }
 

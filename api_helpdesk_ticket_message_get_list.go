@@ -59,11 +59,11 @@ func (r *Mock) UnMockHelpdeskGetHelpdeskTicketMessageList() {
 
 // GetHelpdeskTicketMessageListReq ...
 type GetHelpdeskTicketMessageListReq struct {
-	TicketID  string `path:"ticket_id" json:"-"`   // 工单ID, 示例值: "6948728206392295444"
-	TimeStart *int64 `query:"time_start" json:"-"` // 起始时间, 示例值: 1617960686
-	TimeEnd   *int64 `query:"time_end" json:"-"`   // 结束时间, 示例值: 1617960687
-	Page      *int64 `query:"page" json:"-"`       // 页数ID, 示例值: 1
-	PageSize  *int64 `query:"page_size" json:"-"`  // 消息数量, 最大200, 默认20, 示例值: 10
+	TicketID  string `path:"ticket_id" json:"-"`   // 工单ID示例值: "6948728206392295444"
+	TimeStart *int64 `query:"time_start" json:"-"` // 起始时间示例值: 1617960686
+	TimeEnd   *int64 `query:"time_end" json:"-"`   // 结束时间示例值: 1617960687
+	Page      *int64 `query:"page" json:"-"`       // 页数ID示例值: 1
+	PageSize  *int64 `query:"page_size" json:"-"`  // 消息数量, 最大200, 默认20示例值: 10
 }
 
 // GetHelpdeskTicketMessageListResp ...

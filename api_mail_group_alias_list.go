@@ -60,7 +60,7 @@ func (r *Mock) UnMockMailGetMailGroupAliasList() {
 
 // GetMailGroupAliasListReq ...
 type GetMailGroupAliasListReq struct {
-	MailGroupID string `path:"mailgroup_id" json:"-"` // 邮件组id或邮件组邮箱地址, 示例值: "xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx"
+	MailGroupID string `path:"mailgroup_id" json:"-"` // 邮件组id或邮件组邮箱地址示例值: "xxxxxxxxxxxxxxx 或 test_mail_group@xxx.xx"
 }
 
 // GetMailGroupAliasListResp ...

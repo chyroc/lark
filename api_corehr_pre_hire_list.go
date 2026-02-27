@@ -21,10 +21,12 @@ import (
 	"context"
 )
 
-// GetCoreHRPreHireList 批量查询待入职人员。
+// GetCoreHRPreHireList 可通过本接口批量查询待入职人员信息, 本接口不再推荐使用（个人信息相关数据不完整）, 请使用[查询待入职](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/query)接口获取更完整信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/pre_hire/list
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/pre_hire/list
+//
+// Deprecated
 func (r *CoreHRService) GetCoreHRPreHireList(ctx context.Context, request *GetCoreHRPreHireListReq, options ...MethodOptionFunc) (*GetCoreHRPreHireListResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRPreHireList != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRPreHireList mock enable")
@@ -58,9 +60,9 @@ func (r *Mock) UnMockCoreHRGetCoreHRPreHireList() {
 
 // GetCoreHRPreHireListReq ...
 type GetCoreHRPreHireListReq struct {
-	PageToken  *string  `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 1231231987
-	PageSize   int64    `query:"page_size" json:"-"`    // 分页大小, 示例值: 100
-	PreHireIDs []string `query:"pre_hire_ids" json:"-"` // 待入职ID列表, 示例值: 7140964208476371, 最大长度: `10`
+	PageToken  *string  `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 1231231987
+	PageSize   int64    `query:"page_size" json:"-"`    // 分页大小, 最大值100, 最小值 1示例值: 100
+	PreHireIDs []string `query:"pre_hire_ids" json:"-"` // 待入职ID列表, 可通过[搜索待入职](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/search)接口获取示例值: 7140964208476371 最大长度: `10
 }
 
 // GetCoreHRPreHireListResp ...
@@ -72,23 +74,23 @@ type GetCoreHRPreHireListResp struct {
 
 // GetCoreHRPreHireListRespItem ...
 type GetCoreHRPreHireListRespItem struct {
-	AtsApplicationID string                                        `json:"ats_application_id,omitempty"` // 招聘投递 ID, 详细信息可以通过招聘的[获取投递信息]接口查询获得
-	ID               string                                        `json:"id,omitempty"`                 // 实体在CoreHR内部的唯一键
-	HireDate         string                                        `json:"hire_date,omitempty"`          // 入职日期
+	AtsApplicationID string                                        `json:"ats_application_id,omitempty"` // 招聘投递 ID, 可以通过[获取投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/list)接口获取
+	ID               string                                        `json:"id,omitempty"`                 // 待入职ID, 可从[待入职列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/search)接口获取
+	HireDate         string                                        `json:"hire_date,omitempty"`          // 入职日期, 格式: "YYYY-MM-DD"
 	EmployeeType     *GetCoreHRPreHireListRespItemEmployeeType     `json:"employee_type,omitempty"`      // 雇佣类型
 	WorkerID         string                                        `json:"worker_id,omitempty"`          // 人员编号
-	EmployeeTypeID   string                                        `json:"employee_type_id,omitempty"`   // 雇佣类型
-	PersonID         string                                        `json:"person_id,omitempty"`          // 引用Person ID
+	EmployeeTypeID   string                                        `json:"employee_type_id,omitempty"`   // 人员类型, 可通过[【批量查询人员类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)接口获取
+	PersonID         string                                        `json:"person_id,omitempty"`          // 个人信息 ID
 	CustomFields     []*GetCoreHRPreHireListRespItemCustomField    `json:"custom_fields,omitempty"`      // 自定义字段
-	OnboardingStatus *GetCoreHRPreHireListRespItemOnboardingStatus `json:"onboarding_status,omitempty"`  // 入职状态, `preboarding`: 待入职, `day_one`: 准备就绪, `completed`: 已完成, `withdrawn`: 已撤销, `deleted`: 已删除, 对应的系统操作是将待入职人员回退至 Offer 沟通阶段
+	OnboardingStatus *GetCoreHRPreHireListRespItemOnboardingStatus `json:"onboarding_status,omitempty"`  // 入职状态- `preboarding`: 待入职- `day_one`: 准备就绪- `completed`: 已完成- `withdrawn`: 已撤销- `deleted`: 已删除, 对应的系统操作是将待入职人员回退至 Offer 沟通阶段
 	CostCenterRate   []*GetCoreHRPreHireListRespItemCostCenterRate `json:"cost_center_rate,omitempty"`   // 成本中心分摊信息
 	WorkEmailList    []*GetCoreHRPreHireListRespItemWorkEmail      `json:"work_email_list,omitempty"`    // 工作邮箱
-	DepartmentID     string                                        `json:"department_id,omitempty"`      // 部门ID
+	DepartmentID     string                                        `json:"department_id,omitempty"`      // 部门ID, 可通过[【批量查询部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)接口获取
 }
 
 // GetCoreHRPreHireListRespItemCostCenterRate ...
 type GetCoreHRPreHireListRespItemCostCenterRate struct {
-	CostCenterID string `json:"cost_center_id,omitempty"` // 支持的成本中心id
+	CostCenterID string `json:"cost_center_id,omitempty"` // 支持的成本中心id, 详细信息可通过[【搜索成本中心信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)接口查询获得
 	Rate         int64  `json:"rate,omitempty"`           // 分摊比例
 }
 
@@ -127,7 +129,7 @@ type GetCoreHRPreHireListRespItemWorkEmail struct {
 	Email        string                                              `json:"email,omitempty"`         // 邮箱号
 	IsPrimary    bool                                                `json:"is_primary,omitempty"`    // 是否为主要邮箱
 	IsPublic     bool                                                `json:"is_public,omitempty"`     // 是否为公开邮箱
-	EmailUsage   *GetCoreHRPreHireListRespItemWorkEmailEmailUsage    `json:"email_usage,omitempty"`   // 邮箱用途, 枚举值可通过文档[飞书人事枚举常量](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)邮箱用途（email_usage）枚举定义获得
+	EmailUsage   *GetCoreHRPreHireListRespItemWorkEmailEmailUsage    `json:"email_usage,omitempty"`   // 邮箱用途, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)邮箱用途（email_usage）枚举定义获得
 	CustomFields []*GetCoreHRPreHireListRespItemWorkEmailCustomField `json:"custom_fields,omitempty"` // 自定义字段
 }
 

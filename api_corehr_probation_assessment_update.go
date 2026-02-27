@@ -24,6 +24,7 @@ import (
 // UpdateCoreHRProbationAssessment 更新试用期的考核结果
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/probation-assessment/patch
+// new doc: https://open.feishu.cn/document/corehr-v1/probation/patch
 func (r *CoreHRService) UpdateCoreHRProbationAssessment(ctx context.Context, request *UpdateCoreHRProbationAssessmentReq, options ...MethodOptionFunc) (*UpdateCoreHRProbationAssessmentResp, *Response, error) {
 	if r.cli.mock.mockCoreHRUpdateCoreHRProbationAssessment != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#UpdateCoreHRProbationAssessment mock enable")
@@ -57,20 +58,19 @@ func (r *Mock) UnMockCoreHRUpdateCoreHRProbationAssessment() {
 
 // UpdateCoreHRProbationAssessmentReq ...
 type UpdateCoreHRProbationAssessmentReq struct {
-	AssessmentID       string   `path:"assessment_id" json:"-"`         // 考核结果 ID, 示例值: "7140964208476371331"
-	ClientToken        *string  `query:"client_token" json:"-"`         // 根据 client_token 是否一致来判断是否为同一请求, 示例值: 6822122262122064111
-	AssessmentStatus   string   `json:"assessment_status,omitempty"`    // 考核状态, 示例值: "completed", 可选值有: not_started: 未开始, in_process: 进行中, completed: 已完成, no_need: 无需考核
-	AssessmentResult   *string  `json:"assessment_result,omitempty"`    // 试用期考核结果, 示例值: "approved", 可选值有: approved: 通过, rejected: 不通过
-	AssessmentScore    *float64 `json:"assessment_score,omitempty"`     // 考核得分, 示例值: 99.9
-	AssessmentGrade    *string  `json:"assessment_grade,omitempty"`     // 试用期考核等级, 枚举值 api_name 可通过[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "probation_management", custom_api_name = "final_assessment_grade", 示例值: "grade_a"
-	AssessmentComment  *string  `json:"assessment_comment,omitempty"`   // 考核评语, 示例值: "超出预期"
-	AssessmentDetail   *string  `json:"assessment_detail,omitempty"`    // 考核结果页面超链接, 示例值: "暂无示例"
-	IsFinalAsssessment bool     `json:"is_final_asssessment,omitempty"` // 是否为最终考核结果, 示例值: false
+	AssessmentID       string   `path:"assessment_id" json:"-"`         // 考核结果 ID示例值: "7140964208476371331"
+	ClientToken        *string  `query:"client_token" json:"-"`         // 根据 client_token 是否一致来判断是否为同一请求示例值: 6822122262122064111
+	AssessmentStatus   string   `json:"assessment_status,omitempty"`    // 考核状态示例值: "completed"可选值有: 未开始进行中已完成无需考核
+	AssessmentResult   *string  `json:"assessment_result,omitempty"`    // 试用期考核结果示例值: "approved"可选值有: 通过不通过
+	AssessmentScore    *float64 `json:"assessment_score,omitempty"`     // 考核得分示例值: 99.9
+	AssessmentGrade    *string  `json:"assessment_grade,omitempty"`     // 试用期考核等级, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "probation_management"- custom_api_name = "final_assessment_grade"示例值: "grade_a"
+	AssessmentComment  *string  `json:"assessment_comment,omitempty"`   // 考核评语示例值: "超出预期"
+	AssessmentDetail   *string  `json:"assessment_detail,omitempty"`    // 考核结果页面超链接示例值: "暂无示例"
+	IsFinalAsssessment bool     `json:"is_final_asssessment,omitempty"` // 是否为最终考核结果示例值: false
 }
 
 // UpdateCoreHRProbationAssessmentResp ...
-type UpdateCoreHRProbationAssessmentResp struct {
-}
+type UpdateCoreHRProbationAssessmentResp struct{}
 
 // updateCoreHRProbationAssessmentResp ...
 type updateCoreHRProbationAssessmentResp struct {

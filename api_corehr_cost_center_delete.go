@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// DeleteCoreHRCostCenter 删除成本中心
+// DeleteCoreHRCostCenter 删除成本中心记录
+//
+// 删除对象时请确认有无在职员工、异动单据、待入职单据关联此对象, 如有会导致删除失败。
+// 删除后无法恢复, 并且在系统中无法搜索到对应成本中心信息, 请谨慎操作。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/delete
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/cost_center/delete
@@ -58,13 +61,12 @@ func (r *Mock) UnMockCoreHRDeleteCoreHRCostCenter() {
 
 // DeleteCoreHRCostCenterReq ...
 type DeleteCoreHRCostCenterReq struct {
-	CostCenterID    string `path:"cost_center_id" json:"-"`    // 成本中心ID, 示例值: "6862995757234914824"
-	OperationReason string `json:"operation_reason,omitempty"` // 操作原因, 示例值: "随着组织架构调整, 该成本中心不再使用"
+	CostCenterID    string `path:"cost_center_id" json:"-"`    // 成本ID。ID获取方式: 调用[【创建成本中心】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/create)[【搜索成本中心】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)等接口可以返回成本中心ID示例值: "6862995757234914824"
+	OperationReason string `json:"operation_reason,omitempty"` // 操作原因示例值: "随着组织架构调整, 该成本中心不再使用"
 }
 
 // DeleteCoreHRCostCenterResp ...
-type DeleteCoreHRCostCenterResp struct {
-}
+type DeleteCoreHRCostCenterResp struct{}
 
 // deleteCoreHRCostCenterResp ...
 type deleteCoreHRCostCenterResp struct {

@@ -21,7 +21,9 @@ import (
 	"context"
 )
 
-// UpdateHireEcoBackgroundCheckProgress 更新指定背调的进展信息和阶段报告, 进度信息将会被展示在背调卡片上, 用以推送背调进度、阶段报告。用以告知用户目前系统订单的流转状态。 当订单状态已完成时, 将无法通过此接口更新阶段报告、更新进度事件信息。
+// UpdateHireEcoBackgroundCheckProgress 更新指定背调订单的进度信息和阶段性报告, 进度信息将会被展示在「飞书招聘」-「投递详情页」-「背调卡片」上, 告知用户目前背调订单的流转状态。
+//
+// 当订单状态已完成时, 将无法通过此接口更新进度信息和阶段报告。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check/update_progress
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/ecological-docking/eco_background_check/update_progress
@@ -58,25 +60,24 @@ func (r *Mock) UnMockHireUpdateHireEcoBackgroundCheckProgress() {
 
 // UpdateHireEcoBackgroundCheckProgressReq ...
 type UpdateHireEcoBackgroundCheckProgressReq struct {
-	BackgroundCheckID string                                               `json:"background_check_id,omitempty"` // 背调 ID, 招聘侧的 ID, 示例值: "6931286400470354183"
-	StageID           string                                               `json:"stage_id,omitempty"`            // 阶段 ID, 同一背调订单此 ID 不能重复, 示例值: "6931286400470354183"
-	StageEnName       *string                                              `json:"stage_en_name,omitempty"`       // 背调阶段英文名称, 示例值: "stage report"
-	StageName         string                                               `json:"stage_name,omitempty"`          // 背调阶段名称, 示例值: "阶段报告"
-	StageTime         string                                               `json:"stage_time,omitempty"`          // 阶段进度更新时间。 毫秒级时间戳, 每次调用此字段应严格递增, 示例值: "1660123456789"
-	Result            *string                                              `json:"result,omitempty"`              // 背调结果（阶段性背调结果）, 注意: 若需回传该字段, report_file_list为必填, 示例值: "通过"
+	BackgroundCheckID string                                               `json:"background_check_id,omitempty"` // 背调 ID。可通过[创建背调](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check/events/created)事件获取示例值: "6931286400470354183"
+	StageID           string                                               `json:"stage_id,omitempty"`            // 阶段 ID。同一背调订单此 ID 不能重复, 由调用方自定义示例值: "6931286400470354183"
+	StageEnName       *string                                              `json:"stage_en_name,omitempty"`       // 背调阶段英文名称示例值: "stage report"
+	StageName         string                                               `json:"stage_name,omitempty"`          // 背调阶段名称示例值: "阶段报告"
+	StageTime         string                                               `json:"stage_time,omitempty"`          // 阶段进度更新时间。 毫秒时间戳, 每次调用此字段应严格递增示例值: "1660123456789"
+	Result            *string                                              `json:"result,omitempty"`              // 背调结果（阶段性背调结果）。 注意: 若需回传该字段, report_file_list为必填示例值: "通过"
 	ReportFileList    []*UpdateHireEcoBackgroundCheckProgressReqReportFile `json:"report_file_list,omitempty"`    // 报告列表
 }
 
 // UpdateHireEcoBackgroundCheckProgressReqReportFile ...
 type UpdateHireEcoBackgroundCheckProgressReqReportFile struct {
-	ReportName    string `json:"report_name,omitempty"`     // 报告名称, 示例值: "阶段报告.pdf"
-	ReportURL     string `json:"report_url,omitempty"`      // 报告地址；当report_url_type 为空或为 1 时需为可下载 pdf 的链接；为 2 时为预览型链接, 示例值: "https://xxxxx/xxxxxx/xxxx.pdf"
-	ReportURLType *int64 `json:"report_url_type,omitempty"` // 报告地址类型；枚举值 1 或为空时为可下载的 pdf 链接, 2 为预览型链接, 示例值: 1, 可选值有: 1: 可下载的链接, 2: 外链型链接
+	ReportName    string `json:"report_name,omitempty"`     // 报告名称示例值: "阶段报告.pdf"
+	ReportURL     string `json:"report_url,omitempty"`      // 报告地址；当report_url_type 为空或为 1 时需为可下载的 pdf 链接；为 2 时为预览型链接示例值: "https://xxxxx/xxxxxx/xxxx.pdf"
+	ReportURLType *int64 `json:"report_url_type,omitempty"` // 报告地址类型；枚举值为空或 1 时为可下载的 pdf 链接, 2 为预览型链接示例值: 1可选值有: 可下载的链接预览型链接
 }
 
 // UpdateHireEcoBackgroundCheckProgressResp ...
-type UpdateHireEcoBackgroundCheckProgressResp struct {
-}
+type UpdateHireEcoBackgroundCheckProgressResp struct{}
 
 // updateHireEcoBackgroundCheckProgressResp ...
 type updateHireEcoBackgroundCheckProgressResp struct {

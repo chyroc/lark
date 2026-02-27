@@ -22,11 +22,12 @@ import (
 	"io"
 )
 
-// UploadFile 上传文件, 可以上传视频, 音频和常见的文件类型。
+// UploadFile 调用该接口将本地文件上传至开放平台, 支持上传音频、视频、文档等文件类型。上传后接口会返回文件的 Key, 使用该 Key 值可以调用其他 OpenAPI。例如, 调用[发送消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)接口, 发送文件。
 //
-// 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
-// - 文件大小不得超过30M, 且不允许上传空文件
+// ## 前提条件
+// 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// ## 使用限制
+// 文件大小不得超过 30 MB, 且不允许上传空文件。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/file/create
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/file/create
@@ -64,15 +65,15 @@ func (r *Mock) UnMockFileUploadFile() {
 
 // UploadFileReq ...
 type UploadFileReq struct {
-	FileType FileType  `json:"file_type,omitempty"` // 文件类型, 示例值: "mp4", 可选值有: opus: 上传opus音频文件；, 其他格式的音频文件, 请转为opus格式后上传, 转换方式可参考: `ffmpeg -i  SourceFile.mp3 -acodec libopus -ac 1 -ar 16000 TargetFile.opus`, mp4: 上传mp4视频文件, pdf: 上传pdf格式文件, doc: 上传doc格式文件, xls: 上传xls格式文件, ppt: 上传ppt格式文件, stream: 上传stream格式文件。若上传文件不属于以上类型, 可以使用stream格式
-	FileName string    `json:"file_name,omitempty"` // 带后缀的文件名, 示例值: "测试视频.mp4"
-	Duration *int64    `json:"duration,omitempty"`  // 文件的时长（视频、音频）, 单位:毫秒。不填充时无法显示具体时长, 示例值: 3000
-	File     io.Reader `json:"file,omitempty"`      // 文件内容, 示例值: 二进制文件
+	FileType FileType  `json:"file_type,omitempty"` // 待上传的文件类型示例值: "mp4"可选值有: OPUS 音频文件。其他格式的音频文件, 请转为 OPUS 格式后上传。可使用 ffmpeg 转换格式: `ffmpeg -i  SourceFile.mp3 -acodec libopus -ac 1 -ar 16000 TargetFile.opus`MP4 格式视频文件PDF 格式文件DOC 格式文件XLS 格式文件PPT 格式文件stream 格式文件。若上传文件不属于以上枚举类型, 可以使用 stream 格式
+	FileName string    `json:"file_name,omitempty"` // 带后缀的文件名示例值: "测试视频.mp4"
+	Duration *int64    `json:"duration,omitempty"`  // 文件的时长（视频、音频）, 单位: 毫秒。不传值时无法显示文件的具体时长。示例值: 3000
+	File     io.Reader `json:"file,omitempty"`      // 文件内容, 具体的传值方式可参考请求体示例。注意: 文件大小不得超过 30 MB, 且不允许上传空文件。示例值: 二进制文件
 }
 
 // UploadFileResp ...
 type UploadFileResp struct {
-	FileKey string `json:"file_key,omitempty"` // 文件的key
+	FileKey string `json:"file_key,omitempty"` // 文件的 Key
 }
 
 // uploadFileResp ...

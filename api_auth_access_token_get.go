@@ -21,11 +21,19 @@ import (
 	"context"
 )
 
-// GetAccessToken 根据[登录预授权码](https://open.feishu.cn/document/common-capabilities/sso/api/obtain-oauth-code) 返回 code 获取 `user_access_token`。
+// GetAccessToken 本接口已成为历史版本, 不推荐使用。请使用最新版本: [获取 user_access_token ](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/authentication-management/access-token/get-user-access-token)
 //
-// 为了让流程更加规范, 本接口不再返回用户信息, 只返回token相关的字段。如需用户信息, 请通过 [获取用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/authen-v1/user_info/get)接口获取数据
+// </md-alert>。
+// 根据[登录预授权码](https://open.feishu.cn/document/common-capabilities/sso/api/obtain-oauth-code) 返回 code 获取 `user_access_token`。
+// :::html
+// <md-alert type="tip">
+// - 为了让流程更加规范, 本接口不再返回用户信息, 只返回token相关的字段。如需用户信息, 请通过 [获取用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/authen-v1/user_info/get)接口获取数据。
+// - user_access_token 有效期为 2 小时左右, 具体剩余有效期可通过当前接口返回的 expires_in 参数获取。如果 user_access_token 过期可以[刷新 user_access_token](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/authen-v1/oidc-refresh_access_token/create)。当前接口返回结果中包含用于刷新 user_access_token 的 refresh_token 参数, 注意该参数也存在有效期（30 天左右）, 具体剩余有效期可通过返回的 refresh_expires_in 参数获取。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/authen-v1/oidc-access_token/create
+// new doc: https://open.feishu.cn/document/historic-version/authen/create-3
+//
+// Deprecated
 func (r *AuthService) GetAccessToken(ctx context.Context, request *GetAccessTokenReq, options ...MethodOptionFunc) (*GetAccessTokenResp, *Response, error) {
 	if r.cli.mock.mockAuthGetAccessToken != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Auth#GetAccessToken mock enable")
@@ -59,8 +67,8 @@ func (r *Mock) UnMockAuthGetAccessToken() {
 
 // GetAccessTokenReq ...
 type GetAccessTokenReq struct {
-	GrantType string `json:"grant_type,omitempty"` // 授权类型, 固定值, 示例值: "authorization_code"
-	Code      string `json:"code,omitempty"`       // 登录预授权码, 调用[登录预授权码](https://open.feishu.cn/document/common-capabilities/sso/api/obtain-oauth-code) 获取code, 示例值: "xMSldislSkdK"
+	GrantType string `json:"grant_type,omitempty"` // 授权类型, 固定值示例值: "authorization_code"
+	Code      string `json:"code,omitempty"`       // 登录预授权码, 调用[登录预授权码](https://open.feishu.cn/document/common-capabilities/sso/api/obtain-oauth-code) 获取code示例值: "xMSldislSkdK"
 }
 
 // GetAccessTokenResp ...

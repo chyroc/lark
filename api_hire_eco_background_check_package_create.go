@@ -21,7 +21,11 @@ import (
 	"context"
 )
 
-// CreateHireEcoBackgroundCheckPackage 定制指定帐号可用的背调套餐和附加调查项信息。
+// CreateHireEcoBackgroundCheckPackage 在指定背调帐号下创建可用的背调套餐列表和附加调查项信息列表。该接口为增量创建, 每次调用会在原有的套餐列表和附加调查项列表基础上新增。
+//
+// ## 注意事项
+// 已经创建过的套餐 ID和附加调查项 ID无法重复创建, 如需修改, 请使用[更新背调套餐和附加调查项](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check_package/batch_update)或
+// [删除背调套餐和附加调查项](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check_package/batch_delete)接口进行操作。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check_package/create
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/ecological-docking/eco_background_check_package/create
@@ -58,28 +62,27 @@ func (r *Mock) UnMockHireCreateHireEcoBackgroundCheckPackage() {
 
 // CreateHireEcoBackgroundCheckPackageReq ...
 type CreateHireEcoBackgroundCheckPackageReq struct {
-	AccountID          string                                                  `json:"account_id,omitempty"`           // 背调账号 ID, 可在「账号绑定」事件中获取, 示例值: "ord_id"
+	AccountID          string                                                  `json:"account_id,omitempty"`           // 背调账号 ID, 可通过[账号绑定](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_account/events/created)事件获取示例值: "6995842370159937061"
 	PackageList        []*CreateHireEcoBackgroundCheckPackageReqPackage        `json:"package_list,omitempty"`         // 背调套餐列表
 	AdditionalItemList []*CreateHireEcoBackgroundCheckPackageReqAdditionalItem `json:"additional_item_list,omitempty"` // 附加调查项列表
 }
 
 // CreateHireEcoBackgroundCheckPackageReqAdditionalItem ...
 type CreateHireEcoBackgroundCheckPackageReqAdditionalItem struct {
-	ID          string  `json:"id,omitempty"`          // 附件调查项 ID, 示例值: "ext001"
-	Name        string  `json:"name,omitempty"`        // 附加调查项名称, 示例值: "工作履历信息验证X2"
-	Description *string `json:"description,omitempty"` // 附加调查项描述, 示例值: "详细调查"
+	ID          string  `json:"id,omitempty"`          // 附件调查项 ID。由调用方自定义 注意: 长度不超过`36`字符示例值: "ext001"
+	Name        string  `json:"name,omitempty"`        // 附加调查项名称示例值: "工作履历信息验证X2"
+	Description *string `json:"description,omitempty"` // 附加调查项描述示例值: "详细调查"
 }
 
 // CreateHireEcoBackgroundCheckPackageReqPackage ...
 type CreateHireEcoBackgroundCheckPackageReqPackage struct {
-	ID          string  `json:"id,omitempty"`          // 套餐 ID, 示例值: "pkg001"
-	Name        string  `json:"name,omitempty"`        // 背调名称, 示例值: "基础套餐", 最大长度: `36` 字符
-	Description *string `json:"description,omitempty"` // 套餐描述, 示例值: "工作履历信息验证X1, 工作表现鉴定评价X1, 教育背景核实, 公民身份信息验证, 简历对比, 民事诉讼调查"
+	ID          string  `json:"id,omitempty"`          // 套餐 ID。由调用方自定义 注意: 长度不超过`36`字符示例值: "pkg001"
+	Name        string  `json:"name,omitempty"`        // 套餐名称示例值: "基础套餐" 最大长度: `100` 字符
+	Description *string `json:"description,omitempty"` // 套餐描述示例值: "工作履历信息验证X1, 工作表现鉴定评价X1, 教育背景核实, 公民身份信息验证, 简历对比, 民事诉讼调查"
 }
 
 // CreateHireEcoBackgroundCheckPackageResp ...
-type CreateHireEcoBackgroundCheckPackageResp struct {
-}
+type CreateHireEcoBackgroundCheckPackageResp struct{}
 
 // createHireEcoBackgroundCheckPackageResp ...
 type createHireEcoBackgroundCheckPackageResp struct {

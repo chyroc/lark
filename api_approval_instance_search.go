@@ -23,7 +23,13 @@ import (
 
 // SearchApprovalInstance 该接口通过不同条件查询审批系统中符合条件的审批实例列表。
 //
-// 如需了解审批实例各状态的说明, 以及审批实例状态变更事件, 可参见[审批实例状态变更](https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/common-event/approval-instance-event)。
+// ## 使用限制
+// - 该接口会过滤被撤销的审批实例, 因此会有实例存在却不返回数据的情况。
+// 该情况的具体表现: 返回结果中每页的数据条目数可能小于 page_size 值。例如, page_size 取值为 10, 实际查询结果中当前页只显示 6 条数据, 则表示有 4 条数据是被撤销的审批实例。
+// - 该接口查询结果可能存在延迟, 无法保证实时性。如需实时查询, 建议使用[批量获取审批实例 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list)（该接口只能查询某一审批定义下的审批实例 ID）。
+// - 查询时:
+// - user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。
+// - approval_code 和 group_external_id 查询结果取并集；instance_code 和 instance_external_id 查询结果取并集；其他查询条件之间均取交集。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/query
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/approval-search/query-2
@@ -60,24 +66,24 @@ func (r *Mock) UnMockApprovalSearchApprovalInstance() {
 
 // SearchApprovalInstanceReq ...
 type SearchApprovalInstanceReq struct {
-	PageSize              *int64  `query:"page_size" json:"-"`                // 分页大小, 示例值: 10, 默认值: `10`, 取值范围: `5` ～ `200`
-	PageToken             *string `query:"page_token" json:"-"`               // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: nF1ZXJ5VGhlbkZldGNoCgAAAAAA6PZwFmUzSldvTC1yU
-	UserIDType            *IDType `query:"user_id_type" json:"-"`             // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	UserID                *string `json:"user_id,omitempty"`                  // 根据user_id_type填写用户 id, 示例值: "lwiu098wj"
-	ApprovalCode          *string `json:"approval_code,omitempty"`            // 审批定义 code, 示例值: "EB828003-9FFE-4B3F-AA50-2E199E2ED942"
-	InstanceCode          *string `json:"instance_code,omitempty"`            // 审批实例 code, 示例值: "EB828003-9FFE-4B3F-AA50-2E199E2ED943"
-	InstanceExternalID    *string `json:"instance_external_id,omitempty"`     // 审批实例第三方 id 注: 和 approval_code 取并集, 示例值: "EB828003-9FFE-4B3F-AA50-2E199E2ED976"
-	GroupExternalID       *string `json:"group_external_id,omitempty"`        // 审批定义分组第三方 id 注: 和 instance_code 取并集, 示例值: "1234567"
-	InstanceTitle         *string `json:"instance_title,omitempty"`           // 审批实例标题（只有第三方审批有）, 示例值: "test"
-	InstanceStatus        *string `json:"instance_status,omitempty"`          // 审批实例状态, 注: 若不设置, 查询全部状态 若不在集合中, 报错, 示例值: "PENDING", 可选值有: PENDING: 审批中, RECALL: 撤回, REJECT: 拒绝, DELETED: 已删除, APPROVED: 通过, ALL: 所有状态
-	InstanceStartTimeFrom *string `json:"instance_start_time_from,omitempty"` // 实例查询开始时间（unix毫秒时间戳）, 示例值: "1547654251506"
-	InstanceStartTimeTo   *string `json:"instance_start_time_to,omitempty"`   // 实例查询结束时间 (unix毫秒时间戳), 示例值: "1547654251506"
-	Locale                *string `json:"locale,omitempty"`                   // 地区, 示例值: "zh-CN", 可选值有: zh-CN: 中文, en-US: 英文, ja-JP: 日文
+	PageSize              *int64  `query:"page_size" json:"-"`                // 分页大小。如果当前页包含被撤销的审批实例, 则查询结果中每页的数据条目数可能小于 page_size 值。例如, page_size 取值为 10, 实际查询结果中当前页只显示 6 条数据, 则表示有 4 条数据是被撤销的审批实例。示例值: 10默认值: `10` 取值范围: `5` ～ `200
+	PageToken             *string `query:"page_token" json:"-"`               // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: nF1ZXJ5VGhlbkZldGNoCgAAAAAA6PZwFmUzSldvTC1yU
+	UserIDType            *IDType `query:"user_id_type" json:"-"`             // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserID                *string `json:"user_id,omitempty"`                  // 用户 ID, ID 类型与查询参数 user_id_type 保持一致。示例值: "lwiu098wj"
+	ApprovalCode          *string `json:"approval_code,omitempty"`            // 审批定义 Code。获取方式: 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后, 从响应参数 approval_code 获取。- 登录审批管理后台, 在指定审批定义的 URL 中获取, 具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。注意: user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。- approval_code 和 group_external_id 查询结果取并集。示例值: "EB828003-9FFE-4B3F-AA50-2E199E2ED942"
+	InstanceCode          *string `json:"instance_code,omitempty"`            // 审批实例 Code。获取方式: 调用[创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create)接口后, 从响应参数 instance_code 获取。- 调用[批量获取审批实例 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list)接口, 获取所需的审批实例 Code。注意: user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。- instance_code 和 instance_external_id 查询结果取并集。示例值: "EB828003-9FFE-4B3F-AA50-2E199E2ED943"
+	InstanceExternalID    *string `json:"instance_external_id,omitempty"`     // 审批实例的第三方 ID。注意: user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。- instance_code 和 instance_external_id 查询结果取并集。示例值: "EB828003-9FFE-4B3F-AA50-2E199E2ED976"
+	GroupExternalID       *string `json:"group_external_id,omitempty"`        // 审批定义分组的第三方 ID。注意: user_id、approval_code、instance_code、instance_external_id、group_external_id 不能同时为空。- approval_code 和 group_external_id 查询结果取并集。示例值: "1234567"
+	InstanceTitle         *string `json:"instance_title,omitempty"`           // 审批实例标题。说明: 仅第三方审批存在审批实例标题。示例值: "test"
+	InstanceStatus        *string `json:"instance_status,omitempty"`          // 审批实例状态。示例值: "PENDING"可选值有: 审批中已撤回已拒绝已删除已通过所有状态
+	InstanceStartTimeFrom *string `json:"instance_start_time_from,omitempty"` // 实例查询开始时间, Unix 毫秒时间戳。与 instance_start_time_to 参数构成时间段查询条件, 仅会返回在该时间段内的审批实例。注意: 查询时间跨度不得大于 30 天, 开始和结束时间必须同时设置或者同时不设置。示例值: "1547654251506"
+	InstanceStartTimeTo   *string `json:"instance_start_time_to,omitempty"`   // 实例查询结束时间, Unix 毫秒时间戳。与 instance_start_time_from 参数构成时间段查询条件, 仅会返回在该时间段内的审批实例。注意: 查询时间跨度不得大于 30 天, 开始和结束时间必须同时设置或者同时不设置。示例值: "1547654251506"
+	Locale                *string `json:"locale,omitempty"`                   // 语言。示例值: "zh-CN"可选值有: 中文英文日文
 }
 
 // SearchApprovalInstanceResp ...
 type SearchApprovalInstanceResp struct {
-	Count        int64                                 `json:"count,omitempty"`         // 查询返回条数
+	Count        int64                                 `json:"count,omitempty"`         // 查询结果中包含的审批实例总数
 	InstanceList []*SearchApprovalInstanceRespInstance `json:"instance_list,omitempty"` // 审批实例列表
 	PageToken    string                                `json:"page_token,omitempty"`    // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	HasMore      bool                                  `json:"has_more,omitempty"`      // 是否还有更多项
@@ -85,18 +91,18 @@ type SearchApprovalInstanceResp struct {
 
 // SearchApprovalInstanceRespInstance ...
 type SearchApprovalInstanceRespInstance struct {
-	Approval *SearchApprovalInstanceRespInstanceApproval `json:"approval,omitempty"` // 审批定义
+	Approval *SearchApprovalInstanceRespInstanceApproval `json:"approval,omitempty"` // 审批定义信息
 	Group    *SearchApprovalInstanceRespInstanceGroup    `json:"group,omitempty"`    // 审批定义分组
 	Instance *SearchApprovalInstanceRespInstanceInstance `json:"instance,omitempty"` // 审批实例信息
 }
 
 // SearchApprovalInstanceRespInstanceApproval ...
 type SearchApprovalInstanceRespInstanceApproval struct {
-	Code       string                                              `json:"code,omitempty"`        // 审批定义 code
+	Code       string                                              `json:"code,omitempty"`        // 审批定义 Code
 	Name       string                                              `json:"name,omitempty"`        // 审批定义名称
 	IsExternal bool                                                `json:"is_external,omitempty"` // 是否为第三方审批
 	External   *SearchApprovalInstanceRespInstanceApprovalExternal `json:"external,omitempty"`    // 第三方审批信息
-	ApprovalID string                                              `json:"approval_id,omitempty"` // 审批定义Id
+	ApprovalID string                                              `json:"approval_id,omitempty"` // 审批定义 ID
 	Icon       string                                              `json:"icon,omitempty"`        // 审批定义图标信息
 }
 
@@ -107,27 +113,27 @@ type SearchApprovalInstanceRespInstanceApprovalExternal struct {
 
 // SearchApprovalInstanceRespInstanceGroup ...
 type SearchApprovalInstanceRespInstanceGroup struct {
-	ExternalID string `json:"external_id,omitempty"` // 审批定义分组外部 id
+	ExternalID string `json:"external_id,omitempty"` // 审批定义分组的第三方 ID
 	Name       string `json:"name,omitempty"`        // 审批定义分组名称
 }
 
 // SearchApprovalInstanceRespInstanceInstance ...
 type SearchApprovalInstanceRespInstanceInstance struct {
-	Code       string                                          `json:"code,omitempty"`        // 审批实例 code
-	ExternalID string                                          `json:"external_id,omitempty"` // 审批实例外部 id
-	UserID     string                                          `json:"user_id,omitempty"`     // 审批实例发起人 id
-	StartTime  string                                          `json:"start_time,omitempty"`  // 审批实例开始时间
-	EndTime    string                                          `json:"end_time,omitempty"`    // 审批实例结束时间
-	Status     string                                          `json:"status,omitempty"`      // 审批实例状态, 可选值有: rejected: 拒绝, pending: 审批中, canceled: 撤回, deleted: 已删除, approved: 通过
-	Title      string                                          `json:"title,omitempty"`       // 审批实例名称（只有第三方审批有）
-	Extra      string                                          `json:"extra,omitempty"`       // 审批实例扩展字段, string型json
+	Code       string                                          `json:"code,omitempty"`        // 审批实例 Code
+	ExternalID string                                          `json:"external_id,omitempty"` // 审批实例的第三方 ID
+	UserID     string                                          `json:"user_id,omitempty"`     // 审批实例发起人的 user_id
+	StartTime  string                                          `json:"start_time,omitempty"`  // 审批实例开始时间, Unix 毫秒时间戳
+	EndTime    string                                          `json:"end_time,omitempty"`    // 审批实例结束时间, Unix 毫秒时间戳
+	Status     string                                          `json:"status,omitempty"`      // 审批实例状态可选值有: 已拒绝审批中已撤回已删除已通过
+	Title      string                                          `json:"title,omitempty"`       // 审批实例名称（只有第三方审批有返回值）
+	Extra      string                                          `json:"extra,omitempty"`       // 审批实例扩展字段, 字符串类型的 JSON 数据
 	SerialID   string                                          `json:"serial_id,omitempty"`   // 审批流水号
-	Link       *SearchApprovalInstanceRespInstanceInstanceLink `json:"link,omitempty"`        // 审批实例链接（只有第三方审批有）
+	Link       *SearchApprovalInstanceRespInstanceInstanceLink `json:"link,omitempty"`        // 审批实例链接（只有第三方审批有返回值）
 }
 
 // SearchApprovalInstanceRespInstanceInstanceLink ...
 type SearchApprovalInstanceRespInstanceInstanceLink struct {
-	PcLink     string `json:"pc_link,omitempty"`     // 审批实例 pc 端链接
+	PcLink     string `json:"pc_link,omitempty"`     // 审批实例 PC 端链接
 	MobileLink string `json:"mobile_link,omitempty"` // 审批实例移动端链接
 }
 

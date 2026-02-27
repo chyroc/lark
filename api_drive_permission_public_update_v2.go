@@ -21,7 +21,9 @@ import (
 	"context"
 )
 
-// UpdateDrivePublicPermissionV2 该接口用于根据 filetoken 更新云文档的权限设置。
+// UpdateDrivePublicPermissionV2 更新指定云文档的权限设置, 包括是否允许内容被分享到组织外、谁可以查看、添加、移除协作者、谁可以复制内容等设置。
+//
+// 本接口为增量更新, 即仅更新传入的参数对应的权限设置。若参数不传, 则不更新设置。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIzNzUjLyczM14iM3MTN/drive-v2/permission-public/patch
 // new doc: https://open.feishu.cn/document/server-docs/docs/permission/permission-public/patch-2
@@ -59,32 +61,32 @@ func (r *Mock) UnMockDriveUpdateDrivePublicPermissionV2() {
 
 // UpdateDrivePublicPermissionV2Req ...
 type UpdateDrivePublicPermissionV2Req struct {
-	Token                    string  `path:"token" json:"-"`                       // 文件的 token, 获取方式见 [如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6), 示例值: "doccnBKgoMyY5OMbUG6FioTXuBe"
-	Type                     string  `query:"type" json:"-"`                       // 文件类型, 需要与文件的 token 相匹配, 示例值: doc, 可选值有: doc: 旧版文档, sheet: 电子表格, file: 云空间文件, wiki: 知识库节点, bitable: 多维表格, docx: 新版文档, mindnote: 思维笔记, minutes: 妙记, slides: 幻灯片
-	ExternalAccessEntity     *string `json:"external_access_entity,omitempty"`     // 允许内容被分享到组织外, 示例值: "open", 可选值有: open: 打开, closed: 关闭, allow_share_partner_tenant: 允许分享给关联组织（只有租户后台设置仅允许关联组织分享, 才能设置为该值）
-	SecurityEntity           *string `json:"security_entity,omitempty"`            // 谁可以创建副本、打印、下载, 示例值: "anyone_can_view", 可选值有: anyone_can_view: 拥有可阅读权限的用户, anyone_can_edit: 拥有可编辑权限的用户, only_full_access: 拥有可管理权限（包括我）的用户
-	CommentEntity            *string `json:"comment_entity,omitempty"`             // 谁可以评论, 示例值: "anyone_can_view", 可选值有: anyone_can_view: 拥有可阅读权限的用户, anyone_can_edit: 拥有可编辑权限的用户
-	ShareEntity              *string `json:"share_entity,omitempty"`               // 谁可以添加和管理协作者-组织维度, 示例值: "anyone", 可选值有: anyone: 所有可阅读或编辑此文档的用户, same_tenant: 组织内所有可阅读或编辑此文档的用户
-	ManageCollaboratorEntity *string `json:"manage_collaborator_entity,omitempty"` // 谁可以添加和管理协作者-协作者维度, 示例值: "collaborator_can_view", 可选值有: collaborator_can_view: 拥有可阅读权限的协作者, collaborator_can_edit: 拥有可编辑权限的协作者, collaborator_full_access: 拥有可管理权限（包括我）的协作者
-	LinkShareEntity          *string `json:"link_share_entity,omitempty"`          // 链接分享设置, 示例值: "tenant_readable", 可选值有: tenant_readable: 组织内获得链接的人可阅读, tenant_editable: 组织内获得链接的人可编辑, partner_tenant_readable: 关联组织的人可阅读（只有租户后台设置仅允许关联组织分享, 才能设置为该值）, partner_tenant_editable: 关联组织的人可编辑（只有租户后台设置仅允许关联组织分享, 才能设置为该值）, anyone_readable: 互联网上获得链接的任何人可阅读（仅external_access_entity=“open”时有效）, anyone_editable: 互联网上获得链接的任何人可编辑（仅external_access_entity=“open”时有效）, closed: 关闭链接分享
-	CopyEntity               *string `json:"copy_entity,omitempty"`                // 谁可以复制内容, 示例值: "anyone_can_view", 可选值有: anyone_can_view: 拥有可阅读权限的用户, anyone_can_edit: 拥有可编辑权限的用户, only_full_access: 拥有可管理权限（包括我）的协作者
+	Token                    string  `path:"token" json:"-"`                       // 云文档的 token, 需要与 type 参数指定的云文档类型相匹配。可参考[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。示例值: "doccnBKgoMyY5OMbUG6Fioabcef"
+	Type                     string  `query:"type" json:"-"`                       // 云文档类型, 需要与云文档的 token 相匹配。示例值: docx可选值有: 旧版文档。了解更多, 参考[新旧版本文档说明](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/docs/upgraded-docs-access-guide/upgraded-docs-openapi-access-guide)。电子表格云空间文件知识库节点多维表格新版文档思维笔记妙记幻灯片
+	ExternalAccessEntity     *string `json:"external_access_entity,omitempty"`     // 是否允许内容被分享到组织外示例值: "open"可选值有: 打开, 即允许内容被分享到组织外注意: 内容是否支持分享到组织外, 还与企业的安全设置相关。如果文档位于知识库中, 还与知识空间的安全设置相关。关闭, 即不允许内容被分享到组织外仅允许内容分享给关联组织。了解关联组织, 参考飞书帮助中心文档[关联组织介绍](https://www.feishu.cn/hc/zh-CN/articles/657083794612-%E5%85%B3%E8%81%94%E7%BB%84%E7%BB%87%E4%BB%8B%E7%BB%8D)。 注意: 只有企业管理后台设置仅允许关联组织分享, 才能设置为该值。
+	SecurityEntity           *string `json:"security_entity,omitempty"`            // 谁可以创建副本、打印、下载示例值: "anyone_can_view"可选值有: 拥有可阅读权限的用户拥有可编辑权限的用户拥有可管理权限（包括我）的用户
+	CommentEntity            *string `json:"comment_entity,omitempty"`             // 谁可以评论示例值: "anyone_can_view"可选值有: 拥有可阅读权限的用户拥有可编辑权限的用户
+	ShareEntity              *string `json:"share_entity,omitempty"`               // 从组织维度, 设置谁可以查看、添加、移除协作者示例值: "anyone"可选值有: 所有可阅读或编辑此文档的用户组织内所有可阅读或编辑此文档的用户
+	ManageCollaboratorEntity *string `json:"manage_collaborator_entity,omitempty"` // 从协作者维度, 设置谁可以查看、添加、移除协作者示例值: "collaborator_can_view"可选值有: 拥有可阅读权限的协作者拥有可编辑权限的协作者拥有可管理权限（包括我）的协作者
+	LinkShareEntity          *string `json:"link_share_entity,omitempty"`          // 链接分享设置示例值: "tenant_readable"可选值有: 组织内获得链接的人可阅读组织内获得链接的人可编辑[关联组织](https://www.feishu.cn/hc/zh-CN/articles/657083794612-%E5%85%B3%E8%81%94%E7%BB%84%E7%BB%87%E4%BB%8B%E7%BB%8D)的人可阅读 注意: 只有企业管理后台设置仅允许关联组织分享, 才能设置为该值。[关联组织](https://www.feishu.cn/hc/zh-CN/articles/657083794612-%E5%85%B3%E8%81%94%E7%BB%84%E7%BB%87%E4%BB%8B%E7%BB%8D)的人可编辑 注意: 只有企业管理后台设置仅允许关联组织分享, 才能设置为该值。互联网上获得链接的任何人可阅读（仅external_access=“open” 时有效）互联网上获得链接的任何人可编辑（仅 external_access=“open” 时有效）关闭链接分享
+	CopyEntity               *string `json:"copy_entity,omitempty"`                // 谁可以复制内容示例值: "anyone_can_view"可选值有: 拥有可阅读权限的用户拥有可编辑权限的用户拥有可管理权限（包括我）的协作者
 }
 
 // UpdateDrivePublicPermissionV2Resp ...
 type UpdateDrivePublicPermissionV2Resp struct {
-	PermissionPublic *UpdateDrivePublicPermissionV2RespPermissionPublic `json:"permission_public,omitempty"` // 本次更新后文档公共设置
+	PermissionPublic *UpdateDrivePublicPermissionV2RespPermissionPublic `json:"permission_public,omitempty"` // 本次更新后的文档权限设置。如权限设置未更新, 则不返回对应参数。
 }
 
 // UpdateDrivePublicPermissionV2RespPermissionPublic ...
 type UpdateDrivePublicPermissionV2RespPermissionPublic struct {
-	ExternalAccessEntity     string `json:"external_access_entity,omitempty"`     // 允许内容被分享到组织外, 可选值有: open: 打开, closed: 关闭, allow_share_partner_tenant: 允许分享给关联组织
-	SecurityEntity           string `json:"security_entity,omitempty"`            // 谁可以创建副本、打印、下载, 可选值有: anyone_can_view: 拥有可阅读权限的用户, anyone_can_edit: 拥有可编辑权限的用户, only_full_access: 拥有可管理权限（包括我）的用户
-	CommentEntity            string `json:"comment_entity,omitempty"`             // 谁可以评论, 可选值有: anyone_can_view: 拥有可阅读权限的用户, anyone_can_edit: 拥有可编辑权限的用户
-	ShareEntity              string `json:"share_entity,omitempty"`               // 谁可以添加和管理协作者-组织维度, 可选值有: anyone: 所有可阅读或编辑此文档的用户, same_tenant: 组织内所有可阅读或编辑此文档的用户
-	ManageCollaboratorEntity string `json:"manage_collaborator_entity,omitempty"` // 谁可以添加和管理协作者-协作者维度, 可选值有: collaborator_can_view: 拥有可阅读权限的协作者, collaborator_can_edit: 拥有可编辑权限的协作者, collaborator_full_access: 拥有可管理权限（包括我）的协作者
-	LinkShareEntity          string `json:"link_share_entity,omitempty"`          // 链接分享设置, 可选值有: tenant_readable: 组织内获得链接的人可阅读, tenant_editable: 组织内获得链接的人可编辑, partner_tenant_readable: 关联组织的人可阅读, partner_tenant_editable: 关联组织的人可编辑, anyone_readable: 互联网上获得链接的任何人可阅读（仅external_access_entity=“open”时有效）, anyone_editable: 互联网上获得链接的任何人可编辑（仅external_access_entity=“open”时有效）, closed: 关闭链接分享
-	CopyEntity               string `json:"copy_entity,omitempty"`                // 谁可以复制内容, 可选值有: anyone_can_view: 拥有可阅读权限的用户, anyone_can_edit: 拥有可编辑权限的用户, only_full_access: 拥有可管理权限（包括我）的协作者
-	LockSwitch               bool   `json:"lock_switch,omitempty"`                // 节点是否已加锁, 加锁之后不再继承父级页面的权限
+	ExternalAccessEntity     string `json:"external_access_entity,omitempty"`     // 允许内容被分享到组织外可选值有: 打开, 即允许内容被分享到组织外关闭, 即不允许内容被分享到组织外仅允许分享给关联组织
+	SecurityEntity           string `json:"security_entity,omitempty"`            // 谁可以创建副本、打印、下载可选值有: 拥有可阅读权限的用户拥有可编辑权限的用户拥有可管理权限（包括我）的用户
+	CommentEntity            string `json:"comment_entity,omitempty"`             // 谁可以评论可选值有: 拥有可阅读权限的用户拥有可编辑权限的用户
+	ShareEntity              string `json:"share_entity,omitempty"`               // 从组织维度, 设置谁可以查看、添加、移除协作者可选值有: 所有可阅读或编辑此文档的用户组织内所有可阅读或编辑此文档的用户
+	ManageCollaboratorEntity string `json:"manage_collaborator_entity,omitempty"` // 谁可以添加和管理协作者-协作者维度可选值有: 拥有可阅读权限的协作者拥有可编辑权限的协作者拥有可管理权限（包括我）的协作者
+	LinkShareEntity          string `json:"link_share_entity,omitempty"`          // 链接分享设置可选值有: 组织内获得链接的人可阅读组织内获得链接的人可编辑关联组织的人可阅读关联组织的人可编辑互联网上获得链接的任何人可阅读（仅 external_access_entity=“open” 时有效）互联网上获得链接的任何人可编辑（仅 external_access_entity=“open” 时有效）关闭链接分享
+	CopyEntity               string `json:"copy_entity,omitempty"`                // 谁可以复制内容可选值有: 拥有可阅读权限的用户拥有可编辑权限的用户拥有可管理权限（包括我）的协作者
+	LockSwitch               bool   `json:"lock_switch,omitempty"`                // 知识库中的子页面是否已限制权限, 不再继承父级页面的权限设置。枚举值有: `true`: 已限制权限- `false`: 未限制权限提示: 当知识库中的子页面权限范围小于父级页面时, 该页面权限将默认限制权限。![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a99780710c3f7e5e390280ff6d87fc47_HIjzKDxscr.png?maxWidth=200)
 }
 
 // updateDrivePublicPermissionV2Resp ...

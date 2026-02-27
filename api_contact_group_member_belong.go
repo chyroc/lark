@@ -21,7 +21,11 @@ import (
 	"context"
 )
 
-// GetContactMemberGroupList 通过该接口可查询该用户所属的用户组列表, 可分别查询普通用户组和动态用户组。如果应用的通讯录权限范围是“全部员工”, 则可获取该员工所属的全部用户组列表。如果应用的通讯录权限范围不是“全部员工”, 则仅可获取通讯录权限范围内该员工所属的用户组。[点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// GetContactMemberGroupList 调用该接口查询指定用户所属的用户组列表。
+//
+// ## 注意事项
+// - 如果应用的通讯录权限范围设置为 全部员工, 则通过本接口可查询到用户所属的全部用户组列表, 否则, 仅会查询到应用通讯录权限范围内该用户所属的用户组。了解应用通讯录权限范围, 可参见[权限范围资源介绍](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// - 支持查询到普通用户组和动态用户组的信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/member_belong
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/group/member_belong
@@ -58,16 +62,16 @@ func (r *Mock) UnMockContactGetContactMemberGroupList() {
 
 // GetContactMemberGroupListReq ...
 type GetContactMemberGroupListReq struct {
-	MemberID     string  `query:"member_id" json:"-"`      // 成员ID, 示例值: u287xj12
-	MemberIDType *IDType `query:"member_id_type" json:"-"` // 成员ID类型, 示例值: open_id, 可选值有: open_id: member_id_type为user时, 表示用户的open_id, union_id: member_id_type为user时, 表示用户的union_id, user_id: member_id_type为user时, 表示用户的user_id, 默认值: `open_id`
-	GroupType    *int64  `query:"group_type" json:"-"`     // 欲获取的用户组类型, 示例值: 1, 可选值有: 1: 普通用户组, 2: 动态用户组, 取值范围: `1` ～ `2`
-	PageSize     *int64  `query:"page_size" json:"-"`      // 分页查询大小, 示例值: 500, 默认值: `500`, 取值范围: `1` ～ `1000`
-	PageToken    *string `query:"page_token" json:"-"`     // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: AQD9/Rn9eij9Pm39ED40/dk53s4Ebp882DYfFaPFbz00L4CMZJrqGdzNyc8BcZtDbwVUvRmQTvyMYicnGWrde9X56TgdBuS+JKiSIkdexPw=
+	MemberID     string  `query:"member_id" json:"-"`      // 成员 ID。ID 类型与 member_id_type 取值保持一致。示例值: u287xj12
+	MemberIDType *IDType `query:"member_id_type" json:"-"` // 成员 ID 类型。示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)。标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。默认值: `open_id
+	GroupType    *int64  `query:"group_type" json:"-"`     // 用户组类型。示例值: 1可选值有: 普通用户组动态用户组 取值范围: `1` ～ `2
+	PageSize     *int64  `query:"page_size" json:"-"`      // 分页大小, 用于限制一次请求所返回的数据条目数。示例值: 500默认值: `500` 取值范围: `1` ～ `1000
+	PageToken    *string `query:"page_token" json:"-"`     // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: AQD9/Rn9eij9Pm39ED40/dk53s4Ebp882DYfFaPFbz00L4CMZJrqGdzNyc8BcZtDbwVUvRmQTvyMYicnGWrde9X56TgdBuS+JKiSIkdexPw=
 }
 
 // GetContactMemberGroupListResp ...
 type GetContactMemberGroupListResp struct {
-	GroupList []string `json:"group_list,omitempty"` // 用户组ID列表
+	GroupList []string `json:"group_list,omitempty"` // 用户组 ID 列表。说明: 你可以调用[查询指定用户组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/get)接口, 通过用户组 ID 获取用户组的详细信息。
 	PageToken string   `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	HasMore   bool     `json:"has_more,omitempty"`   // 是否还有更多项
 }

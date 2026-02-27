@@ -21,9 +21,9 @@ import (
 	"context"
 )
 
-// CheckApprovalExternalInstance 校验三方审批实例数据, 用于判断服务端数据是否为最新的。用户提交实例最新更新时间, 如果服务端不存在该实例, 或者服务端实例更新时间不是最新的, 则返回对应实例 id。
+// CheckApprovalExternalInstance 调用该接口校验三方审批实例数据, 用于判断服务端数据是否为最新的。请求时提交实例最新更新时间, 如果服务端不存在该实例, 或者服务端实例更新时间不是最新的, 则返回对应实例 ID。
 //
-// 例如, 用户可以每隔5分钟, 将最近5分钟产生的实例使用该接口进行对比。
+// 例如, 设置定时任务每隔 5 分钟, 将最近 5 分钟产生的实例使用该接口进行对比。如果数据在服务端不存在或者不是最新, 则可以根据本接口返回的实例 ID、任务 ID, 前往[同步三方审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_instance/create)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_instance/check
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/external_instance/check
@@ -65,15 +65,15 @@ type CheckApprovalExternalInstanceReq struct {
 
 // CheckApprovalExternalInstanceReqInstance ...
 type CheckApprovalExternalInstanceReqInstance struct {
-	InstanceID string                                          `json:"instance_id,omitempty"` // 审批实例 id, 示例值: "1234234234242423"
-	UpdateTime string                                          `json:"update_time,omitempty"` // 审批实例最近更新时间, 示例值: "1591603040000"
+	InstanceID string                                          `json:"instance_id,omitempty"` // 审批实例 ID。自定义配置, 需要确保当前企业、应用内唯一。注意: 调用本接口和[同步三方审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_instance/create)接口操作同一个三方审批实例时, 需要确保所用的实例 ID 一致。示例值: "1234234234242423"
+	UpdateTime string                                          `json:"update_time,omitempty"` // 审批实例最近更新时间, Unix 毫秒时间戳。示例值: "1591603040000"
 	Tasks      []*CheckApprovalExternalInstanceReqInstanceTask `json:"tasks,omitempty"`       // 任务信息
 }
 
 // CheckApprovalExternalInstanceReqInstanceTask ...
 type CheckApprovalExternalInstanceReqInstanceTask struct {
-	TaskID     string `json:"task_id,omitempty"`     // 任务 id, 示例值: "112253"
-	UpdateTime string `json:"update_time,omitempty"` // 任务最近更新时间, 示例值: "1591603040000"
+	TaskID     string `json:"task_id,omitempty"`     // 审批实例内的审批任务 ID。自定义配置, 需要确保当前企业、应用内唯一。注意: 调用本接口和[同步三方审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_instance/create)接口操作同一个三方审批实例内的任务时, 需要确保所用的任务 ID 一致。示例值: "112253"
+	UpdateTime string `json:"update_time,omitempty"` // 任务最近更新时间, Unix 毫秒时间戳。示例值: "1591603040000"
 }
 
 // CheckApprovalExternalInstanceResp ...
@@ -83,15 +83,15 @@ type CheckApprovalExternalInstanceResp struct {
 
 // CheckApprovalExternalInstanceRespDiffInstance ...
 type CheckApprovalExternalInstanceRespDiffInstance struct {
-	InstanceID string                                               `json:"instance_id,omitempty"` // 审批实例 id
-	UpdateTime string                                               `json:"update_time,omitempty"` // 任务最近更新时间
+	InstanceID string                                               `json:"instance_id,omitempty"` // 审批实例 ID
+	UpdateTime string                                               `json:"update_time,omitempty"` // 任务最近更新时间, Unix 毫秒时间戳。
 	Tasks      []*CheckApprovalExternalInstanceRespDiffInstanceTask `json:"tasks,omitempty"`       // 任务信息
 }
 
 // CheckApprovalExternalInstanceRespDiffInstanceTask ...
 type CheckApprovalExternalInstanceRespDiffInstanceTask struct {
-	TaskID     string `json:"task_id,omitempty"`     // 任务 id
-	UpdateTime string `json:"update_time,omitempty"` // 任务最近更新时间
+	TaskID     string `json:"task_id,omitempty"`     // 任务 ID
+	UpdateTime string `json:"update_time,omitempty"` // 任务最近更新时间, Unix 毫秒时间戳。
 }
 
 // checkApprovalExternalInstanceResp ...

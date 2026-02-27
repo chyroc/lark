@@ -22,7 +22,7 @@ import (
 	"io"
 )
 
-// DownloadAttendanceFile 通过文件 ID 下载指定的文件。
+// DownloadAttendanceFile 通过文件 ID 下载用户的头像照片文件。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/file/download
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_setting/download
@@ -59,7 +59,7 @@ func (r *Mock) UnMockAttendanceDownloadAttendanceFile() {
 
 // DownloadAttendanceFileReq ...
 type DownloadAttendanceFileReq struct {
-	FileID string `path:"file_id" json:"-"` // 文件 ID, 示例值: "xxxxxb306842b1c189bc5212eefxxxxx"
+	FileID string `path:"file_id" json:"-"` // 文件 ID, 可通过[批量查询用户人脸识别信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_setting/query)获取示例值: "xxxxxb306842b1c189bc5212eefxxxxx"
 }
 
 // downloadAttendanceFileResp ...

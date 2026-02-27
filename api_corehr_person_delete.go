@@ -58,12 +58,11 @@ func (r *Mock) UnMockCoreHRDeleteCoreHRPerson() {
 
 // DeleteCoreHRPersonReq ...
 type DeleteCoreHRPersonReq struct {
-	PersonID string `path:"person_id" json:"-"` // 需要删除的Person ID, 示例值: "654637829201"
+	PersonID string `path:"person_id" json:"-"` // 需要删除的Person ID示例值: "654637829201"
 }
 
 // DeleteCoreHRPersonResp ...
-type DeleteCoreHRPersonResp struct {
-}
+type DeleteCoreHRPersonResp struct{}
 
 // deleteCoreHRPersonResp ...
 type deleteCoreHRPersonResp struct {

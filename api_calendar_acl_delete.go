@@ -63,13 +63,12 @@ func (r *Mock) UnMockCalendarDeleteCalendarACL() {
 
 // DeleteCalendarACLReq ...
 type DeleteCalendarACLReq struct {
-	CalendarID string `path:"calendar_id" json:"-"` // 需要删除访问控制的日历 ID, 创建共享日历时会返回日历 ID。你也可以调用以下接口获取某一日历的 ID, [查询主日历信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/primary), [查询日历列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/list), [搜索日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/search), 示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
-	ACLID      string `path:"acl_id" json:"-"`      // 访问控制 ID, 为日历创建访问控制时会返回访问控制 ID。你也可以调用[获取访问控制列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/list)接口, 获取指定日历内的访问控制信息, 示例值: "user_xxxxxx"
+	CalendarID string `path:"calendar_id" json:"-"` // 需要删除访问控制的日历 ID。创建共享日历时会返回日历 ID。你也可以调用以下接口获取某一日历的 ID。- [查询主日历信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/primary)- [查询日历列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/list)- [搜索日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/search)示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	ACLID      string `path:"acl_id" json:"-"`      // 访问控制 ID。为日历创建访问控制时会返回访问控制 ID。你也可以调用[获取访问控制列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/list)接口, 获取指定日历内的访问控制信息。示例值: "user_xxxxxx"
 }
 
 // DeleteCalendarACLResp ...
-type DeleteCalendarACLResp struct {
-}
+type DeleteCalendarACLResp struct{}
 
 // deleteCalendarACLResp ...
 type deleteCalendarACLResp struct {

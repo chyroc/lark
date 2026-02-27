@@ -21,9 +21,11 @@ import (
 	"context"
 )
 
-// SearchUserOld 以用户身份搜索其他用户的信息, 无法搜索到外部企业或已离职的用户。
+// SearchUserOld 通过用户名关键词搜索其他用户的信息, 包括用户头像、用户名、用户所在部门、用户 user_id 以及 open_id。
 //
-// 调用该接口需要申请 `搜索用户` 权限。
+// ## 注意事项
+// - 仅支持通过用户身份（user_access_token）调用该接口。
+// - 无法搜索到外部企业或已离职的用户。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMTM4UjLzEDO14yMxgTN
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/user/search-users
@@ -60,39 +62,39 @@ func (r *Mock) UnMockContactSearchUserOld() {
 
 // SearchUserOldReq ...
 type SearchUserOldReq struct {
-	Query     string  `query:"query" json:"-"`      // 要执行搜索的字符串, 一般为用户名。
-	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 最小为 1, 最大为 200, 默认为 20。
-	PageToken *string `query:"page_token" json:"-"` // 分页标识, 获取首页不需要填写, 获取下一页时传入上一页返回的分页标识值。 请注意此字段的值并没有特殊含义, 请使用每次请求所返回的标识值。
+	Query     string  `query:"query" json:"-"`      // 搜索关键词, 接口通过传入的关键词搜索相匹配的用户名。
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 用于限制当前请求所返回的数据条目数。      - 最小值: 1- 最大值: 200- 默认值: 20
+	PageToken *string `query:"page_token" json:"-"` // 分页标识, 首次调用该接口时无需填写。如果返回值中包含了 page_token 值, 则可以使用该值继续调用本接口, 并将该值传入查询参数 page_token 中, 以获取下一页数据。
 }
 
 // SearchUserOldResp ...
 type SearchUserOldResp struct {
-	HasMore   bool                     `json:"has_more,omitempty"`   // 是否还有更多用户, 值为 true 表示存在下一页。
-	PageToken string                   `json:"page_token,omitempty"` // 分页标识, 存在下一页的时候返回。下次请求带上此标识可以获取下一页的用户。
+	HasMore   bool                     `json:"has_more,omitempty"`   // 是否还有更多数据, 当返回值为 true 时, 表示存在下一页, 即 page_token 不为空。
+	PageToken string                   `json:"page_token,omitempty"` // 分页标识, 存在下一页（has_more 为 true）时会返回该值。下次请求带上此标识可以获取下一页的用户数据。
 	Users     []*SearchUserOldRespUser `json:"users,omitempty"`      // 搜索到的用户列表。
 }
 
 // SearchUserOldRespUser ...
 type SearchUserOldRespUser struct {
-	Avatar        *SearchUserOldRespUserAvatar `json:"avatar,omitempty"`         // 用户的头像信息。
-	DepartmentIDs []string                     `json:"department_ids,omitempty"` // 用户所在的部门 ID。
+	Avatar        *SearchUserOldRespUserAvatar `json:"avatar,omitempty"`         // 用户的头像信息。  注意: 为避免 URL 更新, 头像 URL 不建议保存下来长期使用, 推荐你在需要使用头像 URL 时再调用本接口进行获取。
+	DepartmentIDs []string                     `json:"department_ids,omitempty"` // 用户所在的部门 ID 列表。
 	Name          string                       `json:"name,omitempty"`           // 用户名。
-	OpenID        string                       `json:"open_id,omitempty"`        // 用户的 open_id。
-	UserID        string                       `json:"user_id,omitempty"`        // 用户的 user_id, 只有已申请 `获取用户UserID` 权限的企业自建应用返回此字段。
+	OpenID        string                       `json:"open_id,omitempty"`        // 用户的 open_id。open_id 是用户 ID 类型中的一种, 详细介绍可参见[用户身份概述](https://open.feishu.cn/document/home/user-identity-introduction/introduction)。
+	UserID        string                       `json:"user_id,omitempty"`        // 用户的 user_id。user_id 是用户 ID 类型中的一种, 详细介绍可参见[用户身份概述](https://open.feishu.cn/document/home/user-identity-introduction/introduction)。说明: 只有已申请 [获取用户 UserID](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN) API 权限的 企业自建应用 会返回该字段。
 }
 
 // SearchUserOldRespUserAvatar ...
 type SearchUserOldRespUserAvatar struct {
-	Avatar72     string `json:"avatar_72,omitempty"`     // 用户的头像图片 URL, 72×72px。
-	Avatar240    string `json:"avatar_240,omitempty"`    // 用户的头像图片 URL, 240×240px。
-	Avatar640    string `json:"avatar_640,omitempty"`    // 用户的头像图片 URL, 640×640px。
+	Avatar72     string `json:"avatar_72,omitempty"`     // 用户的头像图片 URL, 大小 72×72 px。
+	Avatar240    string `json:"avatar_240,omitempty"`    // 用户的头像图片 URL, 大小 240×240 px。
+	Avatar640    string `json:"avatar_640,omitempty"`    // 用户的头像图片 URL, 大小 640×640 px。
 	AvatarOrigin string `json:"avatar_origin,omitempty"` // 用户的头像图片 URL, 原始大小。
 }
 
 // searchUserOldResp ...
 type searchUserOldResp struct {
 	Code  int64              `json:"code,omitempty"` // 返回码, 非 0 表示失败。
-	Msg   string             `json:"msg,omitempty"`  // 对返回码的文本描述。
+	Msg   string             `json:"msg,omitempty"`  // 返回码对应的描述。例如返回 `ok` 表示成功。
 	Data  *SearchUserOldResp `json:"data,omitempty"`
 	Error *ErrorDetail       `json:"error,omitempty"`
 }

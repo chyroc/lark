@@ -24,11 +24,11 @@ import (
 
 // DownloadDriveFile 下载云空间中的文件, 如 PDF 文件。不包含飞书文档、电子表格以及多维表格等在线文档。该接口支持通过在请求头添加 `Range` 参数分片下载部分文件。
 //
-// 前提条件:
+// ## 前提条件
 // 调用此接口之前, 你需确保应用已拥有文件的下载权限。否则接口将返回 403 的 HTTP 状态码。参考[云空间常见问题](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/faq)第五点了解如何分享文件的下载权限给应用。更多云文档接口权限问题, 参考[云文档常见问题](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)。
-// 注意事项:
+// ## 注意事项
 // 本接口仅支持下载云空间中的资源文件。要下载云文档中的素材（如图片、附件等）, 需调用[下载素材](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/download)接口。
-// 使用限制:
+// ## 使用限制
 // 该接口调用频率上限为 5 QPS, 10000 次/天。否则会返回 1061045 错误码, 可通过稍后重试解决。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/download
@@ -67,7 +67,7 @@ func (r *Mock) UnMockDriveDownloadDriveFile() {
 
 // DownloadDriveFileReq ...
 type DownloadDriveFileReq struct {
-	FileToken string `path:"file_token" json:"-"` // 文件的 token, 获取方式见[文件概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/file-overview), 示例值: "boxcnabCdefgabcef"
+	FileToken string `path:"file_token" json:"-"` // 文件的 token, 获取方式见[文件概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/file-overview)。示例值: "boxcnabCdefgabcef"
 }
 
 // downloadDriveFileResp ...

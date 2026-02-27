@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2ApplicationApplicationFeedbackUpdatedV6 当反馈的处理状态被更新时, 触发该事件
+// EventV2ApplicationApplicationFeedbackUpdatedV6 当反馈的处理状态被更新时, 触发该事件{使用示例}(url=/api/tools/api_explore/api_explore_config?project=application&version=v6&resource=application.feedback&event=updated)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-feedback/events/updated
 // new doc: https://open.feishu.cn/document/server-docs/application-v6/event/updated
@@ -44,6 +44,6 @@ type EventV2ApplicationApplicationFeedbackUpdatedV6 struct {
 // EventV2ApplicationApplicationFeedbackUpdatedV6OperatorID ...
 type EventV2ApplicationApplicationFeedbackUpdatedV6OperatorID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }

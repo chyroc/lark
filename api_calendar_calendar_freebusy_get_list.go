@@ -21,9 +21,9 @@ import (
 	"context"
 )
 
-// GetCalendarFreeBusyList 查询用户主日历或会议室的忙闲信息。
+// GetCalendarFreeBusyList 调用该接口查询指定用户的主日历忙闲信息, 或者查询指定会议室的忙闲信息。
 //
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// 如果使用应用身份调用该接口, 则需要确保应用开启了[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/freebusy/list
 // new doc: https://open.feishu.cn/document/server-docs/calendar-v4/calendar/list
@@ -61,24 +61,26 @@ func (r *Mock) UnMockCalendarGetCalendarFreeBusyList() {
 
 // GetCalendarFreeBusyListReq ...
 type GetCalendarFreeBusyListReq struct {
-	UserIDType              *IDType `query:"user_id_type" json:"-"`              // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	TimeMin                 string  `json:"time_min,omitempty"`                  // 查询时段开始时间, 需要url编码, 示例值: "2020-10-28T12:00:00+08:00"
-	TimeMax                 string  `json:"time_max,omitempty"`                  // 查询时段结束时间, 需要url编码, 示例值: "2020-12-28T12:00:00+08:00"
-	UserID                  *string `json:"user_id,omitempty"`                   // 用户user_id, 输入时与 room_id 二选一。参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 示例值: "ou_xxxxxxxxxx"
-	RoomID                  *string `json:"room_id,omitempty"`                   // 会议室room_id, 输入时与 user_id 二选一, 示例值: "omm_xxxxxxxxxx"
-	IncludeExternalCalendar *bool   `json:"include_external_calendar,omitempty"` // 是否包含绑定的三方日历中的日程, 不传默认为true, 即包含, 示例值: true
-	OnlyBusy                *bool   `json:"only_busy,omitempty"`                 // 是否包含标记为空闲的日程, 不传默认为true, 即不包含, 示例值: true
+	UserIDType              *IDType `query:"user_id_type" json:"-"`              // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	TimeMin                 string  `json:"time_min,omitempty"`                  // 查询时段开始时间, [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) date_time 格式。注意: time_min 与 time_max 之间的时间间隔不能大于 90 天。示例值: "2020-10-28T12:00:00+08:00"
+	TimeMax                 string  `json:"time_max,omitempty"`                  // 查询时段结束时间, [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) date_time 格式。注意: time_min 与 time_max 之间的时间间隔不能大于 90 天。示例值: "2020-12-28T12:00:00+08:00"
+	UserID                  *string `json:"user_id,omitempty"`                   // 用户 ID, 需要传入与查询参数 user_id_type 相匹配的 id。例如, `user_id_type=open_id` 时, 需要传入用户的 open_id。了解用户 ID 参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)。注意: user_id 与 room_id 需要二选一传入, 如果同时传入则只生效 user_id。示例值: "ou_xxxxxxxxxx"
+	RoomID                  *string `json:"room_id,omitempty"`                   // 会议室 room_id。你可以调用[查询会议室列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/list)接口或者[搜索会议室](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/search)接口, 获取相应会议室的 room_id。注意: user_id 与 room_id 需要二选一传入, 如果同时传入则只生效 user_id。示例值: "omm_xxxxxxxxxx"
+	IncludeExternalCalendar *bool   `json:"include_external_calendar,omitempty"` // 是否包含绑定的三方日历中的日程。取值: true（默认值）: 包含- false: 不包含示例值: true
+	OnlyBusy                *bool   `json:"only_busy,omitempty"`                 // 是否只查询忙碌日程信息。取值: true（默认值）: 是, 查询结果不包含空闲日程。- false: 否, 查询结果包含空闲日程。示例值: true
+	NeedRsvpStatus          *bool   `json:"need_rsvp_status,omitempty"`          // 是否需要RSVP状态信息示例值: true
 }
 
 // GetCalendarFreeBusyListResp ...
 type GetCalendarFreeBusyListResp struct {
-	FreebusyList []*GetCalendarFreeBusyListRespFreebusy `json:"freebusy_list,omitempty"` // 日历上请求时间区间内的忙碌时间段信息。
+	FreebusyList []*GetCalendarFreeBusyListRespFreebusy `json:"freebusy_list,omitempty"` // 在请求的时间区间内的忙碌时间段列表。
 }
 
 // GetCalendarFreeBusyListRespFreebusy ...
 type GetCalendarFreeBusyListRespFreebusy struct {
-	StartTime string `json:"start_time,omitempty"` // 忙闲信息开始时间, RFC3339 date_time 格式
-	EndTime   string `json:"end_time,omitempty"`   // 忙闲信息结束时间, RFC3339 date_time 格式
+	StartTime  string `json:"start_time,omitempty"`  // 忙闲信息开始时间, [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) date_time 格式。
+	EndTime    string `json:"end_time,omitempty"`    // 忙闲信息结束时间, [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) date_time 格式。
+	RsvpStatus string `json:"rsvp_status,omitempty"` // 用户RSVP状态可选值有: 参与人尚未回复状态, 或表示会议室预约中参与人回复接受, 或表示会议室预约成功参与人回复待定参与人回复拒绝, 或表示会议室预约失败参与人或会议室已经从日程中被移除
 }
 
 // getCalendarFreeBusyListResp ...

@@ -24,6 +24,7 @@ import (
 // DeleteACSRuleExternal 删除权限组
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/acs-v1/rule_external/delete
+// new doc: https://open.feishu.cn/document/acs-v1/rule_external/delete
 func (r *ACSService) DeleteACSRuleExternal(ctx context.Context, request *DeleteACSRuleExternalReq, options ...MethodOptionFunc) (*DeleteACSRuleExternalResp, *Response, error) {
 	if r.cli.mock.mockACSDeleteACSRuleExternal != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] ACS#DeleteACSRuleExternal mock enable")
@@ -57,12 +58,11 @@ func (r *Mock) UnMockACSDeleteACSRuleExternal() {
 
 // DeleteACSRuleExternalReq ...
 type DeleteACSRuleExternalReq struct {
-	RuleID string `query:"rule_id" json:"-"` // 权限组id, 示例值: 7298933941867135276
+	RuleID string `query:"rule_id" json:"-"` // 权限组id示例值: 7298933941867135276
 }
 
 // DeleteACSRuleExternalResp ...
-type DeleteACSRuleExternalResp struct {
-}
+type DeleteACSRuleExternalResp struct{}
 
 // deleteACSRuleExternalResp ...
 type deleteACSRuleExternalResp struct {

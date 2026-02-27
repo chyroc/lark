@@ -60,9 +60,9 @@ func (r *Mock) UnMockOKRGetOKRMetricSourceTableList() {
 
 // GetOKRMetricSourceTableListReq ...
 type GetOKRMetricSourceTableListReq struct {
-	MetricSourceID string  `path:"metric_source_id" json:"-"` // okr指标库id, 示例值: "7041857032248410131"
-	PageToken      *string `query:"page_token" json:"-"`      // 页码标识, 获取第一页传空, 每次查询会返回下一页的page_token, 示例值: "6969864184272078374"
-	PageSize       *int64  `query:"page_size" json:"-"`       // 每页获取记录数, 示例值: "10"
+	MetricSourceID string  `path:"metric_source_id" json:"-"` // okr指标库id示例值: "7041857032248410131"
+	PageToken      *string `query:"page_token" json:"-"`      // 页码标识, 获取第一页传空, 每次查询会返回下一页的page_token示例值: "6969864184272078374"
+	PageSize       *int64  `query:"page_size" json:"-"`       // 每页获取记录数示例值: "10"
 }
 
 // GetOKRMetricSourceTableListResp ...

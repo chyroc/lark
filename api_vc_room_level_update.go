@@ -58,15 +58,14 @@ func (r *Mock) UnMockVCUpdateVCRoomLevel() {
 
 // UpdateVCRoomLevelReq ...
 type UpdateVCRoomLevelReq struct {
-	RoomLevelID   string  `path:"room_level_id" json:"-"`    // 层级ID, 示例值: "omb_4ad1a2c7a2fbc5fc9570f38456931293", 长度范围: `1` ～ `100` 字符
-	Name          string  `json:"name,omitempty"`            // 层级名称, 示例值: "测试层级"
-	ParentID      string  `json:"parent_id,omitempty"`       // 父层级ID, 示例值: "omb_4ad1a2c7a2fbc5fc9570f38456931293"
-	CustomGroupID *string `json:"custom_group_id,omitempty"` // 自定义层级ID, 示例值: "10000"
+	RoomLevelID   string  `path:"room_level_id" json:"-"`    // 层级ID示例值: "omb_4ad1a2c7a2fbc5fc9570f38456931293" 长度范围: `1` ～ `100` 字符
+	Name          string  `json:"name,omitempty"`            // 层级名称示例值: "测试层级"
+	ParentID      string  `json:"parent_id,omitempty"`       // 父层级ID示例值: "omb_4ad1a2c7a2fbc5fc9570f38456931293"
+	CustomGroupID *string `json:"custom_group_id,omitempty"` // 自定义层级ID示例值: "10000"
 }
 
 // UpdateVCRoomLevelResp ...
-type UpdateVCRoomLevelResp struct {
-}
+type UpdateVCRoomLevelResp struct{}
 
 // updateVCRoomLevelResp ...
 type updateVCRoomLevelResp struct {

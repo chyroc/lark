@@ -21,10 +21,7 @@ import (
 	"context"
 )
 
-// GetBitableMeta 获取指定多维表格的元数据信息, 包括多维表格名称, 多维表格版本号, 多维表格是否开启高级权限等。
-//
-// ::: note
-// 首次调用请参考 [云文档接口快速入门](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)[多维表格接口接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification)
+// GetBitableMeta 获取指定多维表格的元数据信息, 包括多维表格名称、多维表格版本号、多维表格是否开启高级权限等。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/get
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app/get
@@ -62,7 +59,7 @@ func (r *Mock) UnMockBitableGetBitableMeta() {
 
 // GetBitableMetaReq ...
 type GetBitableMetaReq struct {
-	AppToken string `path:"app_token" json:"-"` // 多维表格的唯一标识符 [app_token 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#8121eebe), 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
+	AppToken string `path:"app_token" json:"-"` // 多维表格 App 的唯一标识。不同形态的多维表格, 其 `app_token` 的获取方式不同: 如果多维表格的 URL 以 [feishu.cn/base] 开头, 该多维表格的 `app_token` 是下图高亮部分: ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004)- 如果多维表格的 URL 以 [feishu.cn/wiki] 开头, 你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时, `obj_token` 字段的值才是多维表格的 `app_token`。了解更多, 参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
 }
 
 // GetBitableMetaResp ...
@@ -72,11 +69,13 @@ type GetBitableMetaResp struct {
 
 // GetBitableMetaRespApp ...
 type GetBitableMetaRespApp struct {
-	AppToken   string `json:"app_token,omitempty"`   // 多维表格的 app_token, [app_token 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#8121eebe)
-	Name       string `json:"name,omitempty"`        // 多维表格的名字
-	Revision   int64  `json:"revision,omitempty"`    // 多维表格的版本号（对多维表格进行修改时更新, 如新增、删除数据表, 修改数据表名等, 初始为1, 每次更新+1）
-	IsAdvanced bool   `json:"is_advanced,omitempty"` // 多维表格是否开启了高级权限。取值包括: true: 表示开启了高级权限, false: 表示关闭了高级权限, [了解更多: 使用多维表格高级权限](https://www.feishu.cn/hc/zh-CN/articles/588604550568)
-	TimeZone   string `json:"time_zone,omitempty"`   // 文档时区
+	AppToken       string `json:"app_token,omitempty"`       // 多维表格的唯一标识 app_token
+	Name           string `json:"name,omitempty"`            // 多维表格的名称
+	Revision       int64  `json:"revision,omitempty"`        // 多维表格的版本号。对多维表格进行修改时更新, 如新增、删除数据表, 修改数据表名等, 初始为 1, 每次更新+1
+	IsAdvanced     bool   `json:"is_advanced,omitempty"`     // 多维表格是否开启了高级权限。取值包括: true: 开启了高级权限- false: 关闭了高级权限了解更多参考飞书帮助中心文档[使用多维表格高级权限](https://www.feishu.cn/hc/zh-CN/articles/588604550568)。
+	TimeZone       string `json:"time_zone,omitempty"`       // 多维表格的时区
+	FormulaType    int64  `json:"formula_type,omitempty"`    // 多维表格的公式字段类型。可结合[字段相关 API](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/create)使用。可选值有: 不支持指定公式字段类型支持指定公式字段类型
+	AdvanceVersion string `json:"advance_version,omitempty"` // 文档高级权限版本。可结合[自定义角色 API](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role/create)使用。可选值有: v1版本v2版本
 }
 
 // getBitableMetaResp ...

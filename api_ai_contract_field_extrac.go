@@ -22,8 +22,9 @@ import (
 	"io"
 )
 
-// ExtractAIContractField 支持从doc、docx和pdf文件类型中提取合同字段
+// ExtractAIContractField 支持从doc、docx和pdf文件类型中提取合同字段。
 //
+// 文件大小需要小于10M。
 // 单租户限流: 10QPS, 同租户下的应用没有限流, 共享本租户的 10QPS 限流
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/document_ai-v1/contract/field_extraction
@@ -62,9 +63,9 @@ func (r *Mock) UnMockAIExtractAIContractField() {
 
 // ExtractAIContractFieldReq ...
 type ExtractAIContractFieldReq struct {
-	File         io.Reader `json:"file,omitempty"`           // 合同字段解析的源文件, 当前只支持pdf, doc, docx三种类型的文件, 示例值: file binary
-	PdfPageLimit int64     `json:"pdf_page_limit,omitempty"` // pdf页数限制, 太长会导致latency增加, 最大允许100页, 示例值: 15
-	OcrMode      string    `json:"ocr_mode,omitempty"`       // ocr 参数, 当前支持force, pdf, unused三种格式, 示例值: "auto", 可选值有: force: pdf类型文件直接走OCR解析, auto: pdf类型文件先走本地解析, 无法解析（扫描/图片版）再走OCR, unused: 不调用OCR, 扫描/图片PDF返回不可解析信息
+	File         io.Reader `json:"file,omitempty"`           // 合同字段解析的源文件, 当前只支持pdf, doc, docx三种类型的文件示例值: file binary
+	PdfPageLimit int64     `json:"pdf_page_limit,omitempty"` // pdf页数限制, 太长会导致latency增加, 最大允许100页示例值: 15
+	OcrMode      string    `json:"ocr_mode,omitempty"`       // ocr 参数, 当前支持force, pdf, unused三种格式示例值: "auto"可选值有: pdf类型文件直接走OCR解析pdf类型文件先走本地解析, 无法解析（扫描/图片版）再走OCR不调用OCR, 扫描/图片PDF返回不可解析信息
 }
 
 // ExtractAIContractFieldResp ...
@@ -81,7 +82,7 @@ type ExtractAIContractFieldResp struct {
 
 // ExtractAIContractFieldRespBankInfo ...
 type ExtractAIContractFieldRespBankInfo struct {
-	BankType string                                   `json:"bank_type,omitempty"` // 甲乙方信息类型, 可选值有: buy_bank: 甲方银行, sell_bank: 乙方银行, third_bank: 第三方银行, unceratin_bank: 其他方银行
+	BankType string                                   `json:"bank_type,omitempty"` // 甲乙方信息类型可选值有: 甲方银行乙方银行第三方银行其他方银行
 	Value    *ExtractAIContractFieldRespBankInfoValue `json:"value,omitempty"`     // 值
 }
 
@@ -100,7 +101,7 @@ type ExtractAIContractFieldRespBankInfoValue struct {
 
 // ExtractAIContractFieldRespBodyInfo ...
 type ExtractAIContractFieldRespBodyInfo struct {
-	BodyType string                                   `json:"body_type,omitempty"` // 主体类型, 可选值有: buy: 甲方主体, sell: 乙方主体, third: 第三方、其他方主体
+	BodyType string                                   `json:"body_type,omitempty"` // 主体类型可选值有: 甲方主体乙方主体第三方、其他方主体
 	Value    *ExtractAIContractFieldRespBodyInfoValue `json:"value,omitempty"`     // 值
 }
 

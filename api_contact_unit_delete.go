@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// DeleteContactUnit 使用该接口删除单位, 需要有更新单位的权限。注意: 如果单位的单位类型被其它的业务使用, 不允许删除。
+// DeleteContactUnit 调用该接口删除指定单位。
+//
+// ## 注意事项
+// 如果单位类型被其他业务应用, 则不允许直接删除单位。例如, 在配置成员的组织架构可见范围时, 通过单位类型设置了可见范围, 那么该单位类型对应的单位就无法直接删除。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/delete
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/unit/delete
@@ -58,12 +61,11 @@ func (r *Mock) UnMockContactDeleteContactUnit() {
 
 // DeleteContactUnitReq ...
 type DeleteContactUnitReq struct {
-	UnitID string `path:"unit_id" json:"-"` // 单位ID, 示例值: "BU121"
+	UnitID string `path:"unit_id" json:"-"` // 单位 ID。当你在创建单位时, 可以在返回结果中获取单位 ID。你也可以调用[获取单位列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/list)接口, 获取单位 ID。示例值: "BU121"
 }
 
 // DeleteContactUnitResp ...
-type DeleteContactUnitResp struct {
-}
+type DeleteContactUnitResp struct{}
 
 // deleteContactUnitResp ...
 type deleteContactUnitResp struct {

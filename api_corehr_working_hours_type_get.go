@@ -58,7 +58,7 @@ func (r *Mock) UnMockCoreHRGetCoreHRWorkingHoursType() {
 
 // GetCoreHRWorkingHoursTypeReq ...
 type GetCoreHRWorkingHoursTypeReq struct {
-	WorkingHoursTypeID string `path:"working_hours_type_id" json:"-"` // 工时制度 ID, 示例值: "1212"
+	WorkingHoursTypeID string `path:"working_hours_type_id" json:"-"` // 工时制度 ID- 可通过[批量查询工时制度](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/list)获取示例值: "1212"
 }
 
 // GetCoreHRWorkingHoursTypeResp ...
@@ -71,10 +71,10 @@ type GetCoreHRWorkingHoursTypeRespWorkingHoursType struct {
 	ID                  string                                                      `json:"id,omitempty"`                     // 工时制度 ID
 	Code                string                                                      `json:"code,omitempty"`                   // 编码
 	Name                []*GetCoreHRWorkingHoursTypeRespWorkingHoursTypeName        `json:"name,omitempty"`                   // 名称
-	CountryRegionIDList []string                                                    `json:"country_region_id_list,omitempty"` // 国家/地区 ID 列表
+	CountryRegionIDList []string                                                    `json:"country_region_id_list,omitempty"` // 国家/地区 ID 列表- 可通过[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)获取
 	DefaultForJob       bool                                                        `json:"default_for_job,omitempty"`        // 职务默认值
 	Active              bool                                                        `json:"active,omitempty"`                 // 是否启用
-	CustomFields        []*GetCoreHRWorkingHoursTypeRespWorkingHoursTypeCustomField `json:"custom_fields,omitempty"`          // 自定义字段
+	CustomFields        []*GetCoreHRWorkingHoursTypeRespWorkingHoursTypeCustomField `json:"custom_fields,omitempty"`          // 自定义字段- 具体支持的对象请参考[自定义字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide)
 }
 
 // GetCoreHRWorkingHoursTypeRespWorkingHoursTypeCustomField ...

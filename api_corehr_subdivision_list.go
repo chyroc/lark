@@ -60,9 +60,9 @@ func (r *Mock) UnMockCoreHRGetCoreHRSubdivisionList() {
 
 // GetCoreHRSubdivisionListReq ...
 type GetCoreHRSubdivisionListReq struct {
-	PageToken       *string `query:"page_token" json:"-"`        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 1231231987
-	PageSize        int64   `query:"page_size" json:"-"`         // 分页大小, 示例值: 100
-	CountryRegionID *string `query:"country_region_id" json:"-"` // 国家/地区id, 填写后只查询该国家/地区下的省份/行政区, 示例值: 100
+	PageToken       *string `query:"page_token" json:"-"`        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 1231231987
+	PageSize        int64   `query:"page_size" json:"-"`         // 分页大小示例值: 100
+	CountryRegionID *string `query:"country_region_id" json:"-"` // 国家/地区id, 填写后只查询该国家/地区下的省份/行政区示例值: 100
 }
 
 // GetCoreHRSubdivisionListResp ...
@@ -76,8 +76,8 @@ type GetCoreHRSubdivisionListResp struct {
 type GetCoreHRSubdivisionListRespItem struct {
 	ID              string                                           `json:"id,omitempty"`                // 省份/行政区id
 	Name            []*GetCoreHRSubdivisionListRespItemName          `json:"name,omitempty"`              // 省份/行政区名称
-	CountryRegionID string                                           `json:"country_region_id,omitempty"` // 所属国家/地区id, 详细信息可通过[查询国家/地区信息]接口查询获得
-	SubdivisionType *GetCoreHRSubdivisionListRespItemSubdivisionType `json:"subdivision_type,omitempty"`  // 行政区类型, 枚举值可通过文档[飞书人事枚举常量]行政区类型（subdivision_type）枚举定义部分获得
+	CountryRegionID string                                           `json:"country_region_id,omitempty"` // 所属国家/地区id, 详细信息可通过【查询国家/地区信息】接口查询获得
+	SubdivisionType *GetCoreHRSubdivisionListRespItemSubdivisionType `json:"subdivision_type,omitempty"`  // 行政区类型, 枚举值可通过文档【飞书人事枚举常量】行政区类型（subdivision_type）枚举定义部分获得
 }
 
 // GetCoreHRSubdivisionListRespItemName ...

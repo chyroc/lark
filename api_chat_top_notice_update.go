@@ -21,12 +21,12 @@ import (
 	"context"
 )
 
-// UpdateChatTopNotice 更新会话中的群置顶信息, 可以将群中的某一条消息, 或者群公告置顶显示。
+// UpdateChatTopNotice 更新群组中的群置顶信息, 可以将群中的某一条消息, 或群公告置顶展示。
 //
-// 注意事项:
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
-// - 机器人或授权用户必须在群组中
-// - 更新内部群置顶时, 操作者须与群组在同一租户下
+// ## 前提条件
+// 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// ## 使用限制
+// 调用接口的机器人或者用户必须要在群组内, 且和该群组属于同一租户。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-top_notice/put_top_notice
 // new doc: https://open.feishu.cn/document/server-docs/group/chat/put_top_notice
@@ -64,19 +64,18 @@ func (r *Mock) UnMockChatUpdateChatTopNotice() {
 
 // UpdateChatTopNoticeReq ...
 type UpdateChatTopNoticeReq struct {
-	ChatID        string                                 `path:"chat_id" json:"-"`          // 待修改置顶的群 ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值: "oc_5ad11d72b830411d72b836c20"
-	ChatTopNotice []*UpdateChatTopNoticeReqChatTopNotice `json:"chat_top_notice,omitempty"` // 要进行发布的群置顶
+	ChatID        string                                 `path:"chat_id" json:"-"`          // 群 ID。获取方式: [创建群](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create), 从返回结果中获取该群的 chat_id。- 调用[获取用户或机器人所在的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list)接口, 可以查询用户或机器人所在群的 chat_id。- 调用[搜索对用户或机器人可见的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search), 可搜索用户或机器人所在的群、对用户或机器人公开的群的 chat_id。示例值: "oc_5ad11d72b830411d72b836c20"
+	ChatTopNotice []*UpdateChatTopNoticeReqChatTopNotice `json:"chat_top_notice,omitempty"` // 群置顶配置
 }
 
 // UpdateChatTopNoticeReqChatTopNotice ...
 type UpdateChatTopNoticeReqChatTopNotice struct {
-	ActionType *string `json:"action_type,omitempty"` // 置顶的类型, 注意: 选择 [消息类型] 时必须填写`message_id`字段, 选择 [群公告类型] 时, 不填写 `message_id`, 示例值: "2", 可选值有: 1: 消息类型, 2: 群公告类型, 默认值: `2`
-	MessageID  *string `json:"message_id,omitempty"`  // 消息ID, 详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2), 示例值: "om_dc13264520392913993dd051dba21dcf"
+	ActionType *string `json:"action_type,omitempty"` // 置顶类型示例值: "2"可选值有: 消息类型, 必需填写 `message_id` 群公告类型, 无需填写 `message_id`默认值: `2
+	MessageID  *string `json:"message_id,omitempty"`  // 消息 ID。ID 获取方式: - 调用[发送消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)接口后, 从响应结果的 `message_id` 参数获取。- 监听[接收消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive)事件, 当触发该事件后可以从事件体内获取消息的 `message_id`。- 调用[获取会话历史消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/list)接口, 从响应结果的 `message_id` 参数获取。示例值: "om_dc13264520392913993dd051dba21dcf"
 }
 
 // UpdateChatTopNoticeResp ...
-type UpdateChatTopNoticeResp struct {
-}
+type UpdateChatTopNoticeResp struct{}
 
 // updateChatTopNoticeResp ...
 type updateChatTopNoticeResp struct {

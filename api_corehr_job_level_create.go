@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// CreateCoreHRJobLevel 创建职级
+// CreateCoreHRJobLevel 该接口通过传入职级名称、职级数值等参数, 创建单个职级对象
+//
+// 适用场景:
+// - 适用于HR系统中新增职级的场景
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/create
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/job-management/job_level/create
@@ -58,31 +61,33 @@ func (r *Mock) UnMockCoreHRCreateCoreHRJobLevel() {
 
 // CreateCoreHRJobLevelReq ...
 type CreateCoreHRJobLevelReq struct {
-	ClientToken  *string                               `query:"client_token" json:"-"`  // 根据client_token是否一致来判断是否为同一请求, 示例值: 12454646
-	LevelOrder   int64                                 `json:"level_order,omitempty"`   // 职级数值, 示例值: 9999
-	Code         *string                               `json:"code,omitempty"`          // 编码, 示例值: "VQzo/BSonp8l6PmcZ+VlDhkd2595LMkhyBAGX6HAlCY="
-	Name         []*CreateCoreHRJobLevelReqName        `json:"name,omitempty"`          // 名称
-	Description  []*CreateCoreHRJobLevelReqDescription `json:"description,omitempty"`   // 描述
-	Active       bool                                  `json:"active,omitempty"`        // 是否启用, 示例值: true
-	CustomFields []*CreateCoreHRJobLevelReqCustomField `json:"custom_fields,omitempty"` // 自定义字段
+	ClientToken  *string                               `query:"client_token" json:"-"`  // 根据client_token是否一致来判断是否为同一请求示例值: 12454646
+	LevelOrder   int64                                 `json:"level_order,omitempty"`   // 职级数值, 单位: 级。该字段主要用来在职级大小, 职级的数值越大, 代表职级越高- 最小值0, 最大值99999999示例值: 9999
+	Code         *string                               `json:"code,omitempty"`          // 职级编码。非必填字段, 如果非空值会校验全局唯一性, 如果传空值则不参与全局校验。示例值: "VQzo/BSonp8l6PmcZ+VlDhkd2595LMkhyBAGX6HAlCY="
+	Name         []*CreateCoreHRJobLevelReqName        `json:"name,omitempty"`          // 职级名称, 注意事项: 目前name最大元素个数为2, 仅支持中、英文- 包含lang（语言）和value（职级名称）两个子参数, 新建时需同时提供
+	Description  []*CreateCoreHRJobLevelReqDescription `json:"description,omitempty"`   // 描述- 包含lang（语言）和value（职级描述）两个子参数, 更新时需同时提供
+	Active       bool                                  `json:"active,omitempty"`        // 是否启用, true为启用, false为停用示例值: true
+	CustomFields []*CreateCoreHRJobLevelReqCustomField `json:"custom_fields,omitempty"` // 自定义字段（目前职级暂不支持该功能）- 包含field_name （字段名）和value（字段值）两个子参数, 新建时需同时提供
+	JobGrade     []string                              `json:"job_grade,omitempty"`     // 职等 ID 列表示例值: ["4692446793125560154"]
+	PathwayIDs   []string                              `json:"pathway_ids,omitempty"`   // 通道ID, 详情可以参考[【获取通道信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pathway/batch_get)示例值: ["4719519211875096301"]
 }
 
 // CreateCoreHRJobLevelReqCustomField ...
 type CreateCoreHRJobLevelReqCustomField struct {
-	FieldName string `json:"field_name,omitempty"` // 字段名, 示例值: "name"
-	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05"), 示例值: "Sandy"
+	FieldName string `json:"field_name,omitempty"` // 字段名- 最小1字符, 最大200字符示例值: "name"
+	Value     string `json:"value,omitempty"`      // 字段值, 为 JSON 转义后的字符串。- 最小1字符, 最大200字符注意: 具体传值方式参见[获取自定义字段的元数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide)示例值: "\"Sandy\""
 }
 
 // CreateCoreHRJobLevelReqDescription ...
 type CreateCoreHRJobLevelReqDescription struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 示例值: "zh-CN"
-	Value string `json:"value,omitempty"` // 名称信息的内容, 示例值: "张三"
+	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 中文用zh-CN, 英文用en-US示例值: "zh-CN"
+	Value string `json:"value,omitempty"` // 名称信息的内容- 最小1字符, 最大200字符示例值: "普通职级"
 }
 
 // CreateCoreHRJobLevelReqName ...
 type CreateCoreHRJobLevelReqName struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 示例值: "zh-CN"
-	Value string `json:"value,omitempty"` // 名称信息的内容, 示例值: "张三"
+	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 中文用zh-CN, 英文用en-US。示例值: "zh-CN"
+	Value string `json:"value,omitempty"` // 名称信息的内容。注意事项: 职级中英文名称会有全局唯一校验- 名称不能包含「/」「；」「;」「\」「'」字符- 最少1个字符, 最多200个字符示例值: "P5"
 }
 
 // CreateCoreHRJobLevelResp ...
@@ -93,18 +98,20 @@ type CreateCoreHRJobLevelResp struct {
 // CreateCoreHRJobLevelRespJobLevel ...
 type CreateCoreHRJobLevelRespJobLevel struct {
 	ID           string                                         `json:"id,omitempty"`            // 职级 ID
-	LevelOrder   int64                                          `json:"level_order,omitempty"`   // 职级数值
+	LevelOrder   int64                                          `json:"level_order,omitempty"`   // 职级数值, 单位: 级。该字段主要用来在职级大小排序, 职级的数值越大, 代表职级越高
 	Code         string                                         `json:"code,omitempty"`          // 编码
 	Name         []*CreateCoreHRJobLevelRespJobLevelName        `json:"name,omitempty"`          // 名称
 	Description  []*CreateCoreHRJobLevelRespJobLevelDescription `json:"description,omitempty"`   // 描述
 	Active       bool                                           `json:"active,omitempty"`        // 是否启用
-	CustomFields []*CreateCoreHRJobLevelRespJobLevelCustomField `json:"custom_fields,omitempty"` // 自定义字段
+	CustomFields []*CreateCoreHRJobLevelRespJobLevelCustomField `json:"custom_fields,omitempty"` // 自定义字段(该功能暂不支持, 可忽略)
+	JobGrade     []string                                       `json:"job_grade,omitempty"`     // 职等 ID 列表
+	PathwayIDs   []string                                       `json:"pathway_ids,omitempty"`   // 通道ID, 详情可以参考[【获取通道信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pathway/batch_get)
 }
 
 // CreateCoreHRJobLevelRespJobLevelCustomField ...
 type CreateCoreHRJobLevelRespJobLevelCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名
-	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05")
+	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同。如: ```("\"123\"", "\"123.23\"", "\"true\"", [\"id1\", \"id2\"], \"2006-01-02 15:04:05\")``
 }
 
 // CreateCoreHRJobLevelRespJobLevelDescription ...

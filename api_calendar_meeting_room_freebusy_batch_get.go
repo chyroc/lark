@@ -86,7 +86,7 @@ type BatchGetCalendarMeetingRoomFreebusyRespFreeBusy struct {
 
 // BatchGetCalendarMeetingRoomFreebusyRespFreeBusyOrganizerInfo ...
 type BatchGetCalendarMeetingRoomFreebusyRespFreeBusyOrganizerInfo struct {
-	Name   string `json:"name,omitempty"`    // 组织者姓名。
+	Name   string `json:"name,omitempty"`    // 组织者姓名。使用应用身份创建的日程不会返回该信息。
 	OpenID string `json:"open_id,omitempty"` // 组织者的 open_id。
 }
 

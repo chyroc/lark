@@ -58,31 +58,31 @@ func (r *Mock) UnMockSearchCreateSearchSchema() {
 
 // CreateSearchSchemaReq ...
 type CreateSearchSchemaReq struct {
-	ValidateOnly *bool                             `query:"validate_only" json:"-"` // 是否只用来校验合法性, 示例值: true, 默认值: `false`
+	ValidateOnly *bool                             `query:"validate_only" json:"-"` // 是否只用来校验合法性示例值: true默认值: `false
 	Properties   []*CreateSearchSchemaReqPropertie `json:"properties,omitempty"`    // 数据范式的属性定义
 	Display      *CreateSearchSchemaReqDisplay     `json:"display,omitempty"`       // 数据展示相关配置
-	SchemaID     string                            `json:"schema_id,omitempty"`     // 用户自定义数据范式的唯一标识, 示例值: "jira_schema", 最大长度: `40` 字符, 正则校验: `^[a-zA-Z][a-zA-Z0-9-_].*$`
+	SchemaID     string                            `json:"schema_id,omitempty"`     // 用户自定义数据范式的唯一标识示例值: "jira_schema" 最大长度: `40` 字符- 正则校验: `^[a-zA-Z][a-zA-Z0-9-_].*$
 }
 
 // CreateSearchSchemaReqDisplay ...
 type CreateSearchSchemaReqDisplay struct {
-	CardKey       string                                       `json:"card_key,omitempty"`       // 搜索数据的展示卡片, 卡片详细信息请参考 [通用模块接入指南](/document/uAjLw4CM/ukTMukTMukTM/search-v2/common-template-intergration-handbook)  "请求创建数据范式"部分, 示例值: "search_common_card", 可选值有: search_common_card: 普通 common 卡片
+	CardKey       string                                       `json:"card_key,omitempty"`       // 搜索数据的展示卡片卡片详细信息请参考 [通用模块接入指南](/document/uAjLw4CM/ukTMukTMukTM/search-v2/common-template-intergration-handbook)  "请求创建数据范式"部分示例值: "search_common_card"可选值有: 普通 common 卡片
 	FieldsMapping []*CreateSearchSchemaReqDisplayFieldsMapping `json:"fields_mapping,omitempty"` // 数据字段名称和展示字段名称的映射关系。如果没有设置, 则只会展示 与展示字段名称同名的 数据字段
 }
 
 // CreateSearchSchemaReqDisplayFieldsMapping ...
 type CreateSearchSchemaReqDisplayFieldsMapping struct {
-	DisplayField string `json:"display_field,omitempty"` // 展示字段名称, 与 card_key 有关, 每个模版能展示的字段不同。该字段不能重复, 示例值: "summary"
-	DataField    string `json:"data_field,omitempty"`    // 数据字段的名称。需要确保该字段对应在 schema 属性定义中的 is_returnable 为 true, 否则无法展示。需要使用 ${xxx} 的规则来描述, 示例值: "${description}"
+	DisplayField string `json:"display_field,omitempty"` // 展示字段名称, 与 card_key 有关, 每个模版能展示的字段不同。该字段不能重复示例值: "summary"
+	DataField    string `json:"data_field,omitempty"`    // 数据字段的名称。需要确保该字段对应在 schema 属性定义中的 is_returnable 为 true, 否则无法展示。需要使用 ${xxx} 的规则来描述示例值: "${description}"
 }
 
 // CreateSearchSchemaReqPropertie ...
 type CreateSearchSchemaReqPropertie struct {
-	Name            string                                         `json:"name,omitempty"`             // 属性名, 示例值: "summary", 长度范围: `0` ～ `20` 字符
-	Type            string                                         `json:"type,omitempty"`             // 属性类型, 示例值: "text", 可选值有: text: 长文本类型, int: 64位整数类型, tag: 标签类型, timestamp: Unix 时间戳类型（单位为秒）, double: 浮点数类型（小数）, tinytext: 短文本类型, （utf8 编码）长度小于 140 的文本。在设置 search_options 时, 与 text 类型有区别, 支持更多召回策略, 长度范围: `0` ～ `60000` 字符
-	IsSearchable    *bool                                          `json:"is_searchable,omitempty"`    // 该属性是否可用作搜索, 默认为 false, 示例值: true
-	IsSortable      *bool                                          `json:"is_sortable,omitempty"`      // 该属性是否可用作搜索结果排序, 默认为 false。如果为 true, 需要再配置 sortOptions, 示例值: false
-	IsReturnable    *bool                                          `json:"is_returnable,omitempty"`    // 该属性是否可用作返回字段, 为 false 时, 该字段不会被召回和展示。默认为 false, 示例值: true
+	Name            string                                         `json:"name,omitempty"`             // 属性名示例值: "summary" 长度范围: `0` ～ `20` 字符
+	Type            string                                         `json:"type,omitempty"`             // 属性类型示例值: "text"可选值有: 长文本类型64位整数类型标签类型Unix 时间戳类型（单位为秒）浮点数类型（小数）短文本类型, （utf8 编码）长度小于 140 的文本。在设置 search_options 时, 与 text 类型有区别, 支持更多召回策略 长度范围: `0` ～ `60000` 字符
+	IsSearchable    *bool                                          `json:"is_searchable,omitempty"`    // 该属性是否可用作搜索, 默认为 false示例值: true
+	IsSortable      *bool                                          `json:"is_sortable,omitempty"`      // 该属性是否可用作搜索结果排序, 默认为 false。如果为 true, 需要再配置 sortOptions示例值: false
+	IsReturnable    *bool                                          `json:"is_returnable,omitempty"`    // 该属性是否可用作返回字段, 为 false 时, 该字段不会被召回和展示。默认为 false示例值: true
 	SortOptions     *CreateSearchSchemaReqPropertieSortOptions     `json:"sort_options,omitempty"`     // 属性排序的可选配置, 当 is_sortable 为 true 时, 该字段为必填字段
 	TypeDefinitions *CreateSearchSchemaReqPropertieTypeDefinitions `json:"type_definitions,omitempty"` // 相关类型数据的定义和约束
 	SearchOptions   *CreateSearchSchemaReqPropertieSearchOptions   `json:"search_options,omitempty"`   // 属性搜索的可选配置, 当 is_searchable 为 true 时, 该字段为必填参数
@@ -90,29 +90,29 @@ type CreateSearchSchemaReqPropertie struct {
 
 // CreateSearchSchemaReqPropertieSearchOptions ...
 type CreateSearchSchemaReqPropertieSearchOptions struct {
-	EnableSemanticMatch     *bool `json:"enable_semantic_match,omitempty"`      // 是否支持语义切词召回。默认不支持（推荐使用在长文本的场景）, 示例值: true
-	EnableExactMatch        *bool `json:"enable_exact_match,omitempty"`         // 是否支持精确匹配。默认不支持（推荐使用在短文本、需要精确查找的场景）, 示例值: false
-	EnablePrefixMatch       *bool `json:"enable_prefix_match,omitempty"`        // 是否支持前缀匹配（短文本的默认的分词/召回策略。前缀长度为 1-12）, 示例值: false
-	EnableNumberSuffixMatch *bool `json:"enable_number_suffix_match,omitempty"` // 是否支持数据后缀匹配。默认不支持（推荐使用在短文本、有数字后缀查找的场景。后缀长度为3-12）, 示例值: false
-	EnableCamelMatch        *bool `json:"enable_camel_match,omitempty"`         // 是否支持驼峰英文匹配。默认不支持（推荐使用在短文本, 且包含驼峰形式英文的查找场景）, 示例值: false
+	EnableSemanticMatch     *bool `json:"enable_semantic_match,omitempty"`      // 是否支持语义切词召回。默认不支持（推荐使用在长文本的场景）示例值: true
+	EnableExactMatch        *bool `json:"enable_exact_match,omitempty"`         // 是否支持精确匹配。默认不支持（推荐使用在短文本、需要精确查找的场景）示例值: false
+	EnablePrefixMatch       *bool `json:"enable_prefix_match,omitempty"`        // 是否支持前缀匹配（短文本的默认的分词/召回策略。前缀长度为 1-12）示例值: false
+	EnableNumberSuffixMatch *bool `json:"enable_number_suffix_match,omitempty"` // 是否支持数据后缀匹配。默认不支持（推荐使用在短文本、有数字后缀查找的场景。后缀长度为3-12）示例值: false
+	EnableCamelMatch        *bool `json:"enable_camel_match,omitempty"`         // 是否支持驼峰英文匹配。默认不支持（推荐使用在短文本, 且包含驼峰形式英文的查找场景）示例值: false
 }
 
 // CreateSearchSchemaReqPropertieSortOptions ...
 type CreateSearchSchemaReqPropertieSortOptions struct {
-	Priority *int64  `json:"priority,omitempty"` // 排序的优先级, 可选范围为 0~4, 0为最高优先级。如果优先级相同, 则随机进行排序。默认为0, 示例值: 0, 可选值有: 0: 最高优先级, 1: 次高优先级, 2: 次次高优先级, 3: 次低优先级, 4: 最低优先级, 默认值: `0`, 取值范围: `0` ～ `4`
-	Order    *string `json:"order,omitempty"`    // 排序的顺序。默认为 desc, 示例值: "asc", 可选值有: asc: 升序, desc: 降序, 默认值: `desc`
+	Priority *int64  `json:"priority,omitempty"` // 排序的优先级, 可选范围为 0~4, 0为最高优先级。如果优先级相同, 则随机进行排序。默认为0示例值: 0可选值有: 最高优先级次高优先级次次高优先级次低优先级最低优先级默认值: `0` 取值范围: `0` ～ `4
+	Order    *string `json:"order,omitempty"`    // 排序的顺序。默认为 desc示例值: "asc"可选值有: 升序降序默认值: `desc
 }
 
 // CreateSearchSchemaReqPropertieTypeDefinitions ...
 type CreateSearchSchemaReqPropertieTypeDefinitions struct {
-	Tag []*CreateSearchSchemaReqPropertieTypeDefinitionsTag `json:"tag,omitempty"` // 标签类型的定义, 最大长度: `100`
+	Tag []*CreateSearchSchemaReqPropertieTypeDefinitionsTag `json:"tag,omitempty"` // 标签类型的定义 最大长度: `100
 }
 
 // CreateSearchSchemaReqPropertieTypeDefinitionsTag ...
 type CreateSearchSchemaReqPropertieTypeDefinitionsTag struct {
-	Name  string `json:"name,omitempty"`  // tag 对应的枚举值名称, 示例值: "status", 最大长度: `20` 字符
-	Color string `json:"color,omitempty"` // 标签对应的颜色, 示例值: "blue", 可选值有: red: 含警示性、敏感性的提示信息, green: 表示成功、完成、完毕的提示信息, blue: 组件架构、职能等中性信息, grey: 中立系统提示信息（慎重使用）, yellow: 焦点信息、推广性信息
-	Text  string `json:"text,omitempty"`  // 标签中展示的文本, 示例值: "PASS", 最大长度: `8` 字符
+	Name  string `json:"name,omitempty"`  // tag 对应的枚举值名称示例值: "status" 最大长度: `20` 字符
+	Color string `json:"color,omitempty"` // 标签对应的颜色示例值: "blue"可选值有: 含警示性、敏感性的提示信息表示成功、完成、完毕的提示信息组件架构、职能等中性信息中立系统提示信息（慎重使用）焦点信息、推广性信息
+	Text  string `json:"text,omitempty"`  // 标签中展示的文本示例值: "PASS" 最大长度: `8` 字符
 }
 
 // CreateSearchSchemaResp ...
@@ -129,7 +129,7 @@ type CreateSearchSchemaRespSchema struct {
 
 // CreateSearchSchemaRespSchemaDisplay ...
 type CreateSearchSchemaRespSchemaDisplay struct {
-	CardKey       string                                              `json:"card_key,omitempty"`       // 搜索数据的展示卡片, 卡片详细信息请参考 [通用模块接入指南](/document/uAjLw4CM/ukTMukTMukTM/search-v2/common-template-intergration-handbook)  "请求创建数据范式"部分, 可选值有: search_common_card: 普通 common 卡片
+	CardKey       string                                              `json:"card_key,omitempty"`       // 搜索数据的展示卡片卡片详细信息请参考 [通用模块接入指南](/document/uAjLw4CM/ukTMukTMukTM/search-v2/common-template-intergration-handbook)  "请求创建数据范式"部分可选值有: 普通 common 卡片
 	FieldsMapping []*CreateSearchSchemaRespSchemaDisplayFieldsMapping `json:"fields_mapping,omitempty"` // 数据字段名称和展示字段名称的映射关系。如果没有设置, 则只会展示 与展示字段名称同名的 数据字段
 }
 
@@ -142,7 +142,7 @@ type CreateSearchSchemaRespSchemaDisplayFieldsMapping struct {
 // CreateSearchSchemaRespSchemaPropertie ...
 type CreateSearchSchemaRespSchemaPropertie struct {
 	Name            string                                                `json:"name,omitempty"`             // 属性名
-	Type            string                                                `json:"type,omitempty"`             // 属性类型, 可选值有: text: 长文本类型, int: 64位整数类型, tag: 标签类型, timestamp: Unix 时间戳类型（单位为秒）, double: 浮点数类型（小数）, tinytext: 短文本类型, （utf8 编码）长度小于 140 的文本。在设置 search_options 时, 与 text 类型有区别, 支持更多召回策略
+	Type            string                                                `json:"type,omitempty"`             // 属性类型可选值有: 长文本类型64位整数类型标签类型Unix 时间戳类型（单位为秒）浮点数类型（小数）短文本类型, （utf8 编码）长度小于 140 的文本。在设置 search_options 时, 与 text 类型有区别, 支持更多召回策略
 	IsSearchable    bool                                                  `json:"is_searchable,omitempty"`    // 该属性是否可用作搜索, 默认为 false
 	IsSortable      bool                                                  `json:"is_sortable,omitempty"`      // 该属性是否可用作搜索结果排序, 默认为 false。如果为 true, 需要再配置 sortOptions
 	IsReturnable    bool                                                  `json:"is_returnable,omitempty"`    // 该属性是否可用作返回字段, 为 false 时, 该字段不会被召回和展示。默认为 false
@@ -162,8 +162,8 @@ type CreateSearchSchemaRespSchemaPropertieSearchOptions struct {
 
 // CreateSearchSchemaRespSchemaPropertieSortOptions ...
 type CreateSearchSchemaRespSchemaPropertieSortOptions struct {
-	Priority int64  `json:"priority,omitempty"` // 排序的优先级, 可选范围为 0~4, 0为最高优先级。如果优先级相同, 则随机进行排序。默认为0, 可选值有: 0: 最高优先级, 1: 次高优先级, 2: 次次高优先级, 3: 次低优先级, 4: 最低优先级
-	Order    string `json:"order,omitempty"`    // 排序的顺序。默认为 desc, 可选值有: asc: 升序, desc: 降序
+	Priority int64  `json:"priority,omitempty"` // 排序的优先级, 可选范围为 0~4, 0为最高优先级。如果优先级相同, 则随机进行排序。默认为0可选值有: 最高优先级次高优先级次次高优先级次低优先级最低优先级
+	Order    string `json:"order,omitempty"`    // 排序的顺序。默认为 desc可选值有: 升序降序
 }
 
 // CreateSearchSchemaRespSchemaPropertieTypeDefinitions ...
@@ -174,7 +174,7 @@ type CreateSearchSchemaRespSchemaPropertieTypeDefinitions struct {
 // CreateSearchSchemaRespSchemaPropertieTypeDefinitionsTag ...
 type CreateSearchSchemaRespSchemaPropertieTypeDefinitionsTag struct {
 	Name  string `json:"name,omitempty"`  // tag 对应的枚举值名称
-	Color string `json:"color,omitempty"` // 标签对应的颜色, 可选值有: red: 含警示性、敏感性的提示信息, green: 表示成功、完成、完毕的提示信息, blue: 组件架构、职能等中性信息, grey: 中立系统提示信息（慎重使用）, yellow: 焦点信息、推广性信息
+	Color string `json:"color,omitempty"` // 标签对应的颜色可选值有: 含警示性、敏感性的提示信息表示成功、完成、完毕的提示信息组件架构、职能等中性信息中立系统提示信息（慎重使用）焦点信息、推广性信息
 	Text  string `json:"text,omitempty"`  // 标签中展示的文本
 }
 

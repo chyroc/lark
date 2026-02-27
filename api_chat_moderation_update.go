@@ -21,12 +21,15 @@ import (
 	"context"
 )
 
-// UpdateChatModeration 更新群组的发言权限设置, 可设置为全员可发言、仅管理员可发言  或 指定用户可发言。
+// UpdateChatModeration 更新指定群组的发言权限, 可设置为所有群成员可发言、仅群主或管理员可发言、指定群成员可发言。
 //
-// 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
-// - 若以用户授权调用接口, 当授权用户是群主时, 可更新群发言权限
-// - 若以租户授权调用接口(即以机器人身份调用接口), 当机器人是群主 或者 机器人是群组创建者、具备[更新应用所创建群的群信息]权限且仍在群内时, 可更新群发言权限
+// ## 前提条件
+// 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// ## 使用限制
+// - 如果以用户身份（user_access_token）调用本接口, 则该用户必须是群组的群主, 才可以更新群发言权限。
+// - 如果以应用身份（tenant_access_token）调用本接口, 则该应用机器人需要符合以下任一情况才可以更新群发言权限。
+// - 机器人是群组的群主。
+// - 机器人是群组的创建者、具备[更新应用所创建群的群信息（im:chat:operate_as_owner）] 权限, 且仍在群组内。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-moderation/update
 // new doc: https://open.feishu.cn/document/server-docs/group/chat/update
@@ -64,16 +67,15 @@ func (r *Mock) UnMockChatUpdateChatModeration() {
 
 // UpdateChatModerationReq ...
 type UpdateChatModerationReq struct {
-	ChatID               string   `path:"chat_id" json:"-"`                 // 群 ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值: "oc_a0553eda9014c201e6969b478895c230"
-	UserIDType           *IDType  `query:"user_id_type" json:"-"`           // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	ModerationSetting    *string  `json:"moderation_setting,omitempty"`     // 群发言模式（all_members/only_owner/moderator_list, 其中 moderator_list 表示部分用户可发言的模式）, 示例值: "moderator_list"
-	ModeratorAddedList   []string `json:"moderator_added_list,omitempty"`   // 选择部分用户可发言模式时, 添加的可发言用户列表（自动过滤不在群内的用户）。推荐使用 OpenID, 获取方式可参考文档[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), 示例值: ["4d7a3c6g"]
-	ModeratorRemovedList []string `json:"moderator_removed_list,omitempty"` // 选择部分用户可发言模式时, 移除的可发言用户列表（自动过滤不在群内的用户）。推荐使用 OpenID, 获取方式可参考文档[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), 示例值: ["4d7a3c6g"]
+	ChatID               string   `path:"chat_id" json:"-"`                 // 群 ID。获取方式: [创建群](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create), 从返回结果中获取该群的 chat_id。- 调用[获取用户或机器人所在的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list)接口, 可以查询用户或机器人所在群的 chat_id。- 调用[搜索对用户或机器人可见的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search), 可搜索用户或机器人所在的群、对用户或机器人公开的群的 chat_id。示例值: "oc_a0553eda9014c201e6969b478895c230"
+	UserIDType           *IDType  `query:"user_id_type" json:"-"`           // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	ModerationSetting    *string  `json:"moderation_setting,omitempty"`     // 群发言模式可选值有: all_members: 所有群成员可发言- only_owner: 仅群主或管理员可发言- moderator_list: 指定群成员可发言, 取该值时需要选择设置 `moderator_added_list` 和 `moderator_removed_list`示例值: "moderator_list"
+	ModeratorAddedList   []string `json:"moderator_added_list,omitempty"`   // 当 `moderation_setting ` 取值为 `moderator_list` 时, 以 ID 列表形式添加可发言的用户。注意: ID 类型与查询参数 user_id_type 取值一致, 推荐使用 OpenID, 获取方式可参考文档[如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。- 列表内的用户如果不在群组内, 则会被自动过滤掉。- 请求时, 请确保 `moderator_added_list` 和 `moderator_removed_list` 两个参数内的 ID 不重复。示例值: ["4d7a3c6g"]
+	ModeratorRemovedList []string `json:"moderator_removed_list,omitempty"` // 当 `moderation_setting ` 取值为 `moderator_list` 时, 以 ID 列表形式移除可发言的用户。注意: ID 类型与查询参数 user_id_type 取值一致, 推荐使用 OpenID, 获取方式可参考文档[如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。- 列表内的用户如果不在群组内, 则会被自动过滤掉。- 请求时, 请确保 `moderator_added_list` 和 `moderator_removed_list` 两个参数内的 ID 不重复。示例值: ["4d7a3c6g"]
 }
 
 // UpdateChatModerationResp ...
-type UpdateChatModerationResp struct {
-}
+type UpdateChatModerationResp struct{}
 
 // updateChatModerationResp ...
 type updateChatModerationResp struct {

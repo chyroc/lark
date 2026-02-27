@@ -21,12 +21,15 @@ import (
 	"context"
 )
 
-// JoinChat 用户或机器人主动加入群聊。
+// JoinChat 将当前调用接口的操作者（用户或机器人）加入指定群聊。
 //
-// 注意事项:
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
-// - 目前仅支持加入公开群
-// - 操作内部群时, 操作者须与群组在同一租户下
+// ## 前提条件
+// 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// ## 使用限制
+// - 调用该接口仅支持加入公开群。
+// 公开群是指的群类型, 你可以调用[获取群信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get)接口, 在返回结果中查看 `chat_type ` 参数取值是否为 `public`。
+// - 操作内部群时, 操作者必须与相应的群组在同一租户内。
+// 内部群是指的群标签, 你可以调用[获取群信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get)接口, 在返回结果中查看 `chat_tag ` 参数取值是否为 `inner `。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/me_join
 // new doc: https://open.feishu.cn/document/server-docs/group/chat-member/me_join
@@ -64,12 +67,11 @@ func (r *Mock) UnMockChatJoinChat() {
 
 // JoinChatReq ...
 type JoinChatReq struct {
-	ChatID string `path:"chat_id" json:"-"` // 群 ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 注意: 仅支持公开（Public）群类型, 对于已认证企业的飞书的群人数默认上限: 普通群5000人, 会议群3000人, 话题群5000人, 示例值: "oc_a0553eda9014c201e6969b478895c230"
+	ChatID string `path:"chat_id" json:"-"` // 群 ID。获取方式: [创建群](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create), 从返回结果中获取该群的 chat_id。- 调用[获取用户或机器人所在的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list)接口, 可以查询用户或机器人所在群的 chat_id。- 调用[搜索对用户或机器人可见的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search), 可搜索用户或机器人所在的群、对用户或机器人公开的群的 chat_id。注意: 仅支持公开群（public）, 你可以调用[获取群信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get)接口, 在返回结果中查看 `chat_type ` 参数取值是否为 `public`。- 群成员数量达到上限时无法进群。对于已认证企业的飞书的群人数默认上限: 普通群 5000 人, 会议群 3000 人, 话题群 5000 人。示例值: "oc_a0553eda9014c201e6969b478895c230"
 }
 
 // JoinChatResp ...
-type JoinChatResp struct {
-}
+type JoinChatResp struct{}
 
 // joinChatResp ...
 type joinChatResp struct {

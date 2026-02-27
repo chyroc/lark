@@ -71,7 +71,7 @@ type SendRawMessageOldReq struct {
 
 // SendRawMessageOldReqContent ...
 type SendRawMessageOldReqContent struct {
-	Text     string                 `json:"text,omitempty"`      // 文本消息内容, 文本消息中可以 at 个人或全体成员 at 全体成员: <at user_id="all">  </at>   at 个人: <at user_id="ou_xxxxxxx"></at>, user_id 为用户 user_id或者open_id
+	Text     string                 `json:"text,omitempty"`      // 文本消息内容, 文本消息中可以 at 个人或全体成员 at 全体成员: at 个人: user_id 为用户 user_id或者open_id
 	ImageKey string                 `json:"image_key,omitempty"` // image_key 可以通过图片上传接口获得
 	Post     *MessageContentPostAll `json:"post,omitempty"`      // 富文本消息
 }

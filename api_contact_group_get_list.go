@@ -21,7 +21,11 @@ import (
 	"context"
 )
 
-// GetContactGroupList 通过该接口可查询企业的用户组列表, 可分别查询普通用户组或动态用户组。如果应用的通讯录权限范围是“全部员工”, 则可获取企业全部用户组列表。如果应用的通讯录权限范围不是“全部员工”, 则仅可获取通讯录权限范围内的用户组。[点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// GetContactGroupList 调用该接口查询当前租户下的用户组列表, 列表内包含用户组的 ID、名字、成员数量和类型等信息。
+//
+// ## 注意事项
+// - 如果应用的通讯录权限范围设置为 全部员工, 则通过本接口可查询到租户内所有用户组的信息, 否则, 仅会查询到应用通讯录权限范围内的用户组信息。了解应用通讯录权限范围, 可参见[权限范围资源介绍](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// - 支持查询到普通用户组和动态用户组的信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/simplelist
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/group/simplelist
@@ -58,28 +62,28 @@ func (r *Mock) UnMockContactGetContactGroupList() {
 
 // GetContactGroupListReq ...
 type GetContactGroupListReq struct {
-	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 50, 默认值: `50`, 最大值: `100`
-	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: AQD9/Rn9eij9Pm39ED40/dk53s4Ebp882DYfFaPFbz00L4CMZJrqGdzNyc8BcZtDbwVUvRmQTvyMYicnGWrde9X56TgdBuS+JKiSIkdexPw=
-	Type      *int64  `query:"type" json:"-"`       // 用户组类型, 示例值: 1, 可选值有: 1: 普通用户组, 2: 动态用户组, 默认值: `1`
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 用于限制一次请求所返回的数据条目数。示例值: 50默认值: `50` 最大值: `100
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: AQD9/Rn9eij9Pm39ED40/dk53s4Ebp882DYfFaPFbz00L4CMZJrqGdzNyc8BcZtDbwVUvRmQTvyMYicnGWrde9X56TgdBuS+JKiSIkdexPw=
+	Type      *int64  `query:"type" json:"-"`       // 用户组类型。示例值: 1可选值有: 普通用户组动态用户组默认值: `1
 }
 
 // GetContactGroupListResp ...
 type GetContactGroupListResp struct {
-	Grouplist []*GetContactGroupListRespGroup `json:"grouplist,omitempty"`  // 用户组列表
+	Grouplist []*GetContactGroupListRespGroup `json:"grouplist,omitempty"`  // 用户组列表信息。
 	PageToken string                          `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	HasMore   bool                            `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
 // GetContactGroupListRespGroup ...
 type GetContactGroupListRespGroup struct {
-	ID                    string   `json:"id,omitempty"`                      // 用户组ID
-	Name                  string   `json:"name,omitempty"`                    // 用户组名字
-	Description           string   `json:"description,omitempty"`             // 用户组描述
-	MemberUserCount       int64    `json:"member_user_count,omitempty"`       // 用户组成员中用户的数量
-	MemberDepartmentCount int64    `json:"member_department_count,omitempty"` // 普通用户组成员中部门的数量, 动态用户组成员中没有部门。
-	Type                  int64    `json:"type,omitempty"`                    // 用户组的类型, 可选值有: 1: 普通用户组, 2: 动态用户组
-	DepartmentScopeList   []string `json:"department_scope_list,omitempty"`   // 部门范围
-	GroupID               string   `json:"group_id,omitempty"`                // 自定义用户组ID
+	ID                    string   `json:"id,omitempty"`                      // 用户组 ID, 该 ID 可用于删除、更新、查询用户组。
+	Name                  string   `json:"name,omitempty"`                    // 用户组名字。
+	Description           string   `json:"description,omitempty"`             // 用户组描述。
+	MemberUserCount       int64    `json:"member_user_count,omitempty"`       // 用户组成员中的用户数量。
+	MemberDepartmentCount int64    `json:"member_department_count,omitempty"` // 普通用户组成员中的部门数量。说明: 动态用户组成员中没有部门。
+	Type                  int64    `json:"type,omitempty"`                    // 用户组的类型。可选值有: 普通用户组动态用户组
+	DepartmentScopeList   []string `json:"department_scope_list,omitempty"`   // 部门范围, 以部门 ID 列表形式展示。
+	GroupID               string   `json:"group_id,omitempty"`                // 自定义用户组 ID。
 }
 
 // getContactGroupListResp ...

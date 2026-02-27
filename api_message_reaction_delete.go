@@ -21,11 +21,14 @@ import (
 	"context"
 )
 
-// DeleteMessageReaction 删除指定消息的表情回复（reaction即表情回复, 本文档统一用“reaction”代称）。
+// DeleteMessageReaction 删除指定消息的某一表情回复。
 //
-// 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
-// - 只能删除真实存在的reaction, 并且删除reaction请求的操作者必须是reaction的原始添加者
+// ## 前提条件
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// - 调用当前接口的机器人或者用户, 需要在待删除表情回复的消息所属的会话内。
+// ## 使用限制
+// - 已被撤回的消息无法添加表情回复。
+// - 调用当前接口的机器人或者用户, 只能删除由自己添加的表情回复, 且需要保证该表情回复真实存在于消息中。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/delete
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/message-reaction/delete
@@ -63,27 +66,27 @@ func (r *Mock) UnMockMessageDeleteMessageReaction() {
 
 // DeleteMessageReactionReq ...
 type DeleteMessageReactionReq struct {
-	MessageID  string `path:"message_id" json:"-"`  // 待删除reaction的消息ID, 详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2), 示例值: "om_8964d1b4*2b31383276113"
-	ReactionID string `path:"reaction_id" json:"-"` // 待删除reaction的资源id, 可通过调用[添加消息表情回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/create)接口或[获取消息表情回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/list)获得, 示例值: "ZCaCIjUBVVWSrm5L-3ZTw*sNa8dHVplEzzSfJVUVLMLcS_"
+	MessageID  string `path:"message_id" json:"-"`  // 待删除表情回复的消息 ID。ID 获取方式: - 调用[发送消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)接口后, 从响应结果的 `message_id` 参数获取。- 监听[接收消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive)事件, 当触发该事件后可以从事件体内获取消息的 `message_id`。- 调用[获取会话历史消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/list)接口, 从响应结果的 `message_id` 参数获取。示例值: "om_8964d1b4*2b31383276113"
+	ReactionID string `path:"reaction_id" json:"-"` // 待删除的表情回复 ID, 该 ID 获取方式: 调用[添加消息表情回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/create)接口添加表情回复后, 在返回结果中获取。- 调用[获取消息表情回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/list)接口, 获取某一表情回复的 ID。示例值: "ZCaCIjUBVVWSrm5L-3ZTw*sNa8dHVplEzzSfJVUVLMLcS_"
 }
 
 // DeleteMessageReactionResp ...
 type DeleteMessageReactionResp struct {
-	ReactionID   string                                 `json:"reaction_id,omitempty"`   // reaction资源ID
-	Operator     *DeleteMessageReactionRespOperator     `json:"operator,omitempty"`      // 添加reaction的操作人
-	ActionTime   string                                 `json:"action_time,omitempty"`   // reaction动作的的unix timestamp(单位:ms)
-	ReactionType *DeleteMessageReactionRespReactionType `json:"reaction_type,omitempty"` // reaction资源类型
+	ReactionID   string                                 `json:"reaction_id,omitempty"`   // 表情回复 ID。
+	Operator     *DeleteMessageReactionRespOperator     `json:"operator,omitempty"`      // 添加表情回复的操作人。
+	ActionTime   string                                 `json:"action_time,omitempty"`   // 添加消息表情回复的时间。Unix 时间戳, 单位: ms
+	ReactionType *DeleteMessageReactionRespReactionType `json:"reaction_type,omitempty"` // 表情类型
 }
 
 // DeleteMessageReactionRespOperator ...
 type DeleteMessageReactionRespOperator struct {
-	OperatorID   string `json:"operator_id,omitempty"`   // 操作人ID
-	OperatorType string `json:"operator_type,omitempty"` // 操作人身份, 用户或应用, 可选值有: app: "app", user: "user"
+	OperatorID   string `json:"operator_id,omitempty"`   // 操作人 ID, 具体的取值与 `operator_type` 相关: - 当 `operator_type` 取值 `app` 时返回机器人的应用 ID（app_id）。- 当 `operator_type` 取值 `user` 时返回用户的 open_id。
+	OperatorType string `json:"operator_type,omitempty"` // 操作人身份。可选值有: 应用用户
 }
 
 // DeleteMessageReactionRespReactionType ...
 type DeleteMessageReactionRespReactionType struct {
-	EmojiType string `json:"emoji_type,omitempty"` // emoji类型 [emoji类型列举](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/emojis-introduce)
+	EmojiType string `json:"emoji_type,omitempty"` // emoji 类型。emoji_type 值对应的表情参考[表情文案说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/emojis-introduce)。
 }
 
 // deleteMessageReactionResp ...

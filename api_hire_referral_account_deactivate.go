@@ -21,9 +21,10 @@ import (
 	"context"
 )
 
-// DeactivateHireReferralAccount 停用后, 对应的内推账号信息将无法通过接口[「内推账户余额变更事件」](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/events/assets_update)、[「提取内推账号余额」](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/withdraw)获取、修改
+// DeactivateHireReferralAccount 停用内推账户, 停用后, 将不再发送[「内推账户余额变更事件」](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/events/assets_update), 也无法通过[「提取内推账号余额」](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/withdraw)提取。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/deactivate
+// new doc: https://open.feishu.cn/document/hire-v1/referral_account/deactivate
 func (r *HireService) DeactivateHireReferralAccount(ctx context.Context, request *DeactivateHireReferralAccountReq, options ...MethodOptionFunc) (*DeactivateHireReferralAccountResp, *Response, error) {
 	if r.cli.mock.mockHireDeactivateHireReferralAccount != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#DeactivateHireReferralAccount mock enable")
@@ -57,19 +58,19 @@ func (r *Mock) UnMockHireDeactivateHireReferralAccount() {
 
 // DeactivateHireReferralAccountReq ...
 type DeactivateHireReferralAccountReq struct {
-	ReferralAccountID string `path:"referral_account_id" json:"-"` // 账户ID, 示例值: "6942778198054125570"
+	ReferralAccountID string `path:"referral_account_id" json:"-"` // 账户ID, 注册账户后获取: [注册内推账户](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/create)示例值: "6942778198054125570"
 }
 
 // DeactivateHireReferralAccountResp ...
 type DeactivateHireReferralAccountResp struct {
-	Account *DeactivateHireReferralAccountRespAccount `json:"account,omitempty"` // 账号信息
+	Account *DeactivateHireReferralAccountRespAccount `json:"account,omitempty"` // 账户信息
 }
 
 // DeactivateHireReferralAccountRespAccount ...
 type DeactivateHireReferralAccountRespAccount struct {
 	AccountID string                                          `json:"account_id,omitempty"` // 账户ID
 	Assets    *DeactivateHireReferralAccountRespAccountAssets `json:"assets,omitempty"`     // 账户资产
-	Status    int64                                           `json:"status,omitempty"`     // 账号状态, 可选值有: 1: 可用, 2: 停用
+	Status    int64                                           `json:"status,omitempty"`     // 账户状态可选值有: 可用停用
 }
 
 // DeactivateHireReferralAccountRespAccountAssets ...
@@ -79,7 +80,14 @@ type DeactivateHireReferralAccountRespAccountAssets struct {
 
 // DeactivateHireReferralAccountRespAccountAssetsConfirmedBonus ...
 type DeactivateHireReferralAccountRespAccountAssetsConfirmedBonus struct {
-	PointBonus int64 `json:"point_bonus,omitempty"` // 积分奖励
+	PointBonus int64                                                                   `json:"point_bonus,omitempty"` // 积分奖励
+	CashBonus  []*DeactivateHireReferralAccountRespAccountAssetsConfirmedBonusCashBonu `json:"cash_bonus,omitempty"`  // 现金奖励
+}
+
+// DeactivateHireReferralAccountRespAccountAssetsConfirmedBonusCashBonu ...
+type DeactivateHireReferralAccountRespAccountAssetsConfirmedBonusCashBonu struct {
+	CurrencyType string  `json:"currency_type,omitempty"` // 币种, 详情可查看: [枚举常量介绍](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/enum)中「币种（currency）枚举定义」
+	Amount       float64 `json:"amount,omitempty"`        // 数额, 保留到小数点后两位
 }
 
 // deactivateHireReferralAccountResp ...

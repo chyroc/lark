@@ -21,14 +21,16 @@ import (
 	"context"
 )
 
-// SendUrgentAppMessage 对指定消息进行应用内加急。
+// SendUrgentAppMessage 调用该接口把指定消息加急给目标用户, 加急仅在飞书客户端内通知。了解加急可参见[加急功能](https://www.feishu.cn/hc/zh-CN/articles/360024757913)。
 //
-// 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
-// - 不支持加急批量消息
-// - 只能加急机器人自己发送的消息
-// - 加急时机器人需要在加急消息所在的群中
-// - 加急用户的未读加急总数不能超过200条
+// ## 前提条件
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability) 。
+// - 确保机器人在被加急消息所属会话中。如果是群组, 还需要确保群管理中设置了 所有群成员可以加急, 或者设置了 仅群主或管理员可以加急 且机器人是管理员。
+// ## 使用限制
+// - 只能加急当前机器人自己发送的消息。
+// - 加急用户的未读加急总数不能超过 200 条。
+// - 不支持加急[批量发送的消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)。
+// - 加急[折叠会话](https://www.feishu.cn/hc/zh-CN/articles/360025267393)内的消息时, 仅会在应用内推送提醒通知。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/urgent_app
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/buzz-messages/urgent_app
@@ -65,14 +67,14 @@ func (r *Mock) UnMockMessageSendUrgentAppMessage() {
 
 // SendUrgentAppMessageReq ...
 type SendUrgentAppMessageReq struct {
-	MessageID  string   `path:"message_id" json:"-"`    // 待加急的消息ID, 详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2), 注意: 不支持批量消息ID（bm_xxx）, 示例值: "om_dc13264520392913993dd051dba21dcf"
-	UserIDType IDType   `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	UserIDList []string `json:"user_id_list,omitempty"` // 目标用户的ID, 列表不可为空；推荐使用 OpenID, 获取方式可参考文档[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), 注意: 请确保所填的用户ID正确, 并且用户在加急消息所在的群组中, 示例值: ["ou_6yf8af6bgb9100449565764t3382b168"]
+	MessageID  string   `path:"message_id" json:"-"`    // 待加急的消息 ID。ID 获取方式: - 调用[发送消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)接口后, 从响应结果的 `message_id` 参数获取。- 监听[接收消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive)事件, 当触发该事件后可以从事件体内获取消息的 `message_id`。- 调用[获取会话历史消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/list)接口, 从响应结果的 `message_id` 参数获取。注意: 不支持加急[批量发送的消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)（对应的消息ID 格式为 `bm_xxx`）。示例值: "om_dc13264520392913993dd051dba21dcf"
+	UserIDType IDType   `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDList []string `json:"user_id_list,omitempty"` // 加急的目标用户 ID 列表。ID 类型与查询参数 user_id_type 取值一致, 推荐使用 open_id。注意: 需要确保目标用户在加急消息所属的会话内。如果 ID 列表中有用户不在消息所属的会话内, 则接口会将这些无效的 ID 返回（响应参数 invalid_user_id_list）, 只加急有效的用户 ID。如果 ID 列表内的所有 ID 均无效, 则会返回 `230001` 错误码。  列表长度不能大于 200。示例值: ["ou_6yf8af6bgb9100449565764t3382b168"]
 }
 
 // SendUrgentAppMessageResp ...
 type SendUrgentAppMessageResp struct {
-	InvalidUserIDList []string `json:"invalid_user_id_list,omitempty"` // 无效的用户ID
+	InvalidUserIDList []string `json:"invalid_user_id_list,omitempty"` // 无效的用户 ID。当传入的用户 ID 列表内存在部分用户 ID 有效时, 将对有效的用户进行加急操作, 同时返回无效的用户 ID。当所有的用户 ID 无效时, 将返回 `230001` 错误码。
 }
 
 // sendUrgentAppMessageResp ...

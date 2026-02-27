@@ -21,9 +21,15 @@ import (
 	"context"
 )
 
-// EventV2CorehrJobUpdatedV1 飞书人事中「职务信息被更新」时将触发此事件。
+// EventV2CorehrJobUpdatedV1 飞书人事中「职务信息被更新」时将触发此事件。注意: 触发时间为职务实际生效时间, 如在 2022-01-01 更新职务, 职务生效时间设置为 2022-05-01, 事件将在 2022-05-01 进行推送。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=job&event=updated)
+//
+// - 该接口只会推送当前生效对象的变更事件。
+// - 未来生效的版本数据, 会在生效日期当天凌晨推送事件。例如: 今天为1月1日, 修改对象名称并填写1月10日生效, 则1月10日凌晨发送该对象变更事件。
+// - 收到事件后, 可通过[【批量查询职务】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/list)获取详细信息
+// - 以下字段变更会收到事件: job_faimly（关联的序列）、active（启用状态）、effective_time（生效时间）、expiration_time（失效时间）、description（描述）、name（职务名称）、code（职务编码）、job_title（职务头衔）、working_hours_type（工时制度）
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/events/updated
+// new doc: https://open.feishu.cn/document/corehr-v1/job-management/job/events/updated
 func (r *EventCallbackService) HandlerEventV2CorehrJobUpdatedV1(f EventV2CorehrJobUpdatedV1Handler) {
 	r.cli.eventHandler.eventV2CorehrJobUpdatedV1Handler = f
 }
@@ -33,5 +39,5 @@ type EventV2CorehrJobUpdatedV1Handler func(ctx context.Context, cli *Lark, schem
 
 // EventV2CorehrJobUpdatedV1 ...
 type EventV2CorehrJobUpdatedV1 struct {
-	JobID string `json:"job_id,omitempty"` // Job ID
+	JobID string `json:"job_id,omitempty"` // 职务 ID, 可通过[【查询单个职务】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/get)获取详细信息
 }

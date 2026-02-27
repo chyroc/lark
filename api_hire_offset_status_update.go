@@ -21,10 +21,22 @@ import (
 	"context"
 )
 
-// UpdateHireOfferStatus 通过 Offer ID 更新候选人 Offer 的状态。
+// UpdateHireOfferStatus 通过 Offer ID 更新候选人 Offer 的「Offer 审批状态」或 「Offer 发送和接受状态」。
 //
-// - 更新 Offer 审批状态, 需要在系统内「设置 - Offer 设置 - Offer 规则设置」开启「通过 OA 系统创建和审批 Offer」。如当前 Offer 已通过飞书招聘发起过审批, 则不可通过此接口更新 Offer 审批状态
-// - 更新 Offer 发送和接受状态, 需要在系统内「设置 - Offer 设置 - Offer 规则设置」开启「通过 OA 系统发送 Offer」；仅支持投递阶段在「待入职」之前更新；如当前 Offer 已通过飞书招聘发给过候选人, 则不可通过此接口更新 Offer 发送和接收状态
+// ## 注意事项
+// - 若当前 Offer 是通过飞书招聘发起的审批, 则不可通过此接口更新「Offer 审批状态」。
+// - 若当前 Offer 通过飞书招聘发送过候选人, 则不可通过此接口更新「Offer 发送和接受状态」。
+// - 若当前 Offer 所属投递阶段已进入「待入职」阶段, 则不可通过此接口更新「Offer 审批状态」和「Offer 发送和接受状态」。
+// ## 前提条件
+// - 更新 Offer 审批状态前, 请前往「飞书招聘」-「设置」-「Offer 设置」-「Offer 规则设置」开启「通过 OA 系统创建和审批 Offer」。
+// - 更新 Offer 发送和接受状态前, 请前往「飞书招聘」-「设置」-「Offer 设置」-「Offer 规则设置」开启「通过 OA 系统发送 Offer」。
+// ## Offer 状态说明
+// ### Offer 状态分类
+// - Offer 被创建后, 状态为`「Offer 已创建」`
+// - Offer 审批状态: `「Offer 审批中」`、`「Offer 审批通过」`、`「Offer 审批不通过」`、`「Offer 审批已撤回」`
+// - Offer 发送和接受状态: `「Offer 已发送」`、`「Offer 已失效」`、`「Offer 被候选人接受」`、`「Offer 被候选人拒绝」`
+// ### Offer 状态流转图
+// ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6faaeda86bbe8f1b9f2c7ef91062edd2_xU7rL7qrof.png)
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer/offer_status
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/offer/offer_status
@@ -61,16 +73,15 @@ func (r *Mock) UnMockHireUpdateHireOfferStatus() {
 
 // UpdateHireOfferStatusReq ...
 type UpdateHireOfferStatusReq struct {
-	OfferID                 string   `path:"offer_id" json:"-"`                    // offer ID, 示例值: "6930815272790114324"
-	OfferStatus             int64    `json:"offer_status,omitempty"`               // offer状态, 示例值: 6, 可选值有: 2: 审批中, 3: 审批已撤回, 4: 审批通过, 5: 审批不通过, 6: Offer已发出, 7: 候选人已接收, 8: 候选人已拒绝, 9: Offer 已失效
-	ExpirationDate          *string  `json:"expiration_date,omitempty"`            // offer 失效时间, 当反馈状态是「offer已发出」时为必填项, 示例值: "2023-01-01"
-	TerminationReasonIDList []string `json:"termination_reason_id_list,omitempty"` // 终止原因列表, 当反馈状态是「候选人已拒绝」时为必填项；最多传入50个, 示例值: ["6891560630172518670"]
-	TerminationReasonNote   *string  `json:"termination_reason_note,omitempty"`    // 终止备注, 示例值: "不符合期望"
+	OfferID                 string   `path:"offer_id" json:"-"`                    // Offer ID, 如何获取请参考[获取 Offer 列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer/list)示例值: "6930815272790114324"
+	OfferStatus             int64    `json:"offer_status,omitempty"`               // Offer 状态示例值: 6可选值有: Offer 审批中Offer 审批已撤回Offer 审批通过Offer 审批不通过Offer 已发送Offer 被候选人接受Offer 被候选人拒绝Offer 已失效Offer 已创建
+	ExpirationDate          *string  `json:"expiration_date,omitempty"`            // Offer 失效时间 注意: 当请求参数 offer_status 为「Offer 已发送」时必填 值格式: "YYYY-MM-DD"示例值: "2023-01-01"
+	TerminationReasonIDList []string `json:"termination_reason_id_list,omitempty"` // 终止原因 ID 列表, 可通过[获取终止投递原因](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/termination_reason/list)接口获取 最大长度: 50 注意: 当请求参数 offer_status 为「Offer 被候选人拒绝」时必填示例值: ["6891560630172518670"]
+	TerminationReasonNote   *string  `json:"termination_reason_note,omitempty"`    // Offer 终止备注信息示例值: "不符合期望"
 }
 
 // UpdateHireOfferStatusResp ...
-type UpdateHireOfferStatusResp struct {
-}
+type UpdateHireOfferStatusResp struct{}
 
 // updateHireOfferStatusResp ...
 type updateHireOfferStatusResp struct {

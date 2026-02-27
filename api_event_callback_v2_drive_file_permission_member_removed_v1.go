@@ -21,9 +21,11 @@ import (
 	"context"
 )
 
-// EventV2DriveFilePermissionMemberRemovedV1 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
+// EventV2DriveFilePermissionMemberRemovedV1 移除用户或群作为文件协作者时将触发此事件。
 //
-// 文件协作者移除用户/群时将触发此事件。
+// 了解事件订阅的配置流程和使用场景, 参考[事件概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
+// ## 前提条件
+// 添加该事件之前, 你需确保已调用[订阅云文档事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/subscribe)接口。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/file-collaborator-remove
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/event/list/file-collaborator-remove
@@ -35,5 +37,4 @@ func (r *EventCallbackService) HandlerEventV2DriveFilePermissionMemberRemovedV1(
 type EventV2DriveFilePermissionMemberRemovedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2DriveFilePermissionMemberRemovedV1) (string, error)
 
 // EventV2DriveFilePermissionMemberRemovedV1 ...
-type EventV2DriveFilePermissionMemberRemovedV1 struct {
-}
+type EventV2DriveFilePermissionMemberRemovedV1 struct{}

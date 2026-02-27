@@ -21,9 +21,13 @@ import (
 	"context"
 )
 
-// DeleteDepartment 该接口用于从通讯录中删除部门。
+// DeleteDepartment 调用该接口从通讯录中删除指定的部门。
 //
-// 应用需要同时拥有待删除部门及其父部门的通讯录授权。
+// ## 注意事项
+// - 应用需要同时拥有待删除部门及其父部门的通讯录权限范围。如何设置通讯录权限范围, 可参见[权限范围资源介绍](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// - 待删除的部门下边不能包含用户或子部门。
+// - 你可以调用[获取部门直属用户列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/find_by_department)接口, 查看部门下的用户信息。如果有存量用户, 可以根据实际情况调用[修改用户部分信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/patch)接口, 修改这部分用户的所属部门, 或者[删除用户](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/delete)。
+// - 你可以调用[获取子部门列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/children)接口, 查看部门下的子部门信息。如果有存量子部门, 可以根据实际情况调用[修改部门部分信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/patch)接口, 修改子部门的父部门, 或者[删除子部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/delete)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/delete
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/department/delete
@@ -60,13 +64,12 @@ func (r *Mock) UnMockContactDeleteDepartment() {
 
 // DeleteDepartmentReq ...
 type DeleteDepartmentReq struct {
-	DepartmentID     string            `path:"department_id" json:"-"`       // 部门ID, 需要与查询参数中传入的department_id_type类型保持一致, 示例值: "D096", 最大长度: `64` 字符, 正则校验: `^[a-zA-Z0-9][a-zA-Z0-9_\-@.]{0, 63}$`
-	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型, 示例值: open_department_id, 可选值有: department_id: 用来标识租户内一个唯一的部门, open_department_id: 用来在具体某个应用中标识一个部门, 同一个部门 在不同应用中的 open_department_id 相同。, 默认值: `open_department_id`
+	DepartmentID     string            `path:"department_id" json:"-"`       // 部门 ID, ID 类型需要与查询参数 department_id_type 的取值保持一致。ID 获取方式说明: 调用[创建部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/create)接口后, 可从返回结果中获取到部门 ID 信息。- 部门 API 提供了多种获取其他部门 ID 的方式, 如[获取子部门列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/children)、[获取父部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/parent)、[搜索部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/search), 你可以选择合适的 API 进行查询。示例值: "D096" 最大长度: `64` 字符- 正则校验: `^[a-zA-Z0-9][a-zA-Z0-9_\-@.]{0, 63}$
+	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中的部门 ID 类型。关于部门 ID 的详细介绍, 可参见[部门 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)。示例值: open_department_id可选值有: 支持用户自定义配置的部门 ID。自定义配置时可复用已删除的 department_id, 因此在未删除的部门范围内 department_id 具有唯一性。由系统自动生成的部门 ID, ID 前缀固定为 `od-`, 在租户内全局唯一。默认值: `open_department_id
 }
 
 // DeleteDepartmentResp ...
-type DeleteDepartmentResp struct {
-}
+type DeleteDepartmentResp struct{}
 
 // deleteDepartmentResp ...
 type deleteDepartmentResp struct {

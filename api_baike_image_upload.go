@@ -65,8 +65,8 @@ func (r *Mock) UnMockBaikeUploadBaikeImage() {
 
 // UploadBaikeImageReq ...
 type UploadBaikeImageReq struct {
-	Name string    `json:"name,omitempty"` // 文件名称, 当前仅支持上传图片且图片格式为以下六种: icon、bmp、gif、png、jpeg、webp, 示例值: "示例图片.png", 长度范围: `1` ～ `100` 字符
-	File io.Reader `json:"file,omitempty"` // 二进制文件内容, 高宽像素在 320-4096 像素之间, 大小在 3KB-10MB 的图片, 示例值: file binary
+	Name string    `json:"name,omitempty"` // 文件名称, 当前仅支持上传图片且图片格式为以下六种: icon、bmp、gif、png、jpeg、webp示例值: "示例图片.png" 长度范围: `1` ～ `100` 字符
+	File io.Reader `json:"file,omitempty"` // 二进制文件内容, 高宽像素在 320-4096 像素之间, 大小在 3KB-10MB 的图片示例值: file binary
 }
 
 // UploadBaikeImageResp ...

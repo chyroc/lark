@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// MergeSheetCell 该接口用于根据 spreadsheetToken 和维度信息合并单元格；单次操作不超过5000行, 100列。
+// MergeSheetCell 合并电子表格工作表中的单元格。
+//
+// ## 使用限制
+// 单次操作范围不可超过 5, 000 行、100 列。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ukDNzUjL5QzM14SO0MTN
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/data-operation/merge-cells
@@ -59,19 +62,20 @@ func (r *Mock) UnMockDriveMergeSheetCell() {
 
 // MergeSheetCellReq ...
 type MergeSheetCellReq struct {
-	SpreadSheetToken string `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token, 获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
-	Range            string `json:"range,omitempty"`           // 查询范围, 包含 sheetId 与单元格范围两部分, 目前支持四种索引方式, 详见 [在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
-	MergeType        string `json:"mergeType,omitempty"`       // 可选三个类型, "MERGE_ALL"  将所选区域直接合并、"MERGE_ROWS"  将所选区域按行合并、"MERGE_COLUMNS"  将所选区域按列合并响应
+	SpreadSheetToken string `path:"spreadsheetToken" json:"-"` // 电子表格的 token。可通过以下两种方式获取。了解更多, 参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。- 电子表格的 URL: https://sample.feishu.cn/sheets/[Iow7sNNEphp3WbtnbCscPqabcef]- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)
+	Range            string `json:"range,omitempty"`           // 要合并的单元格的范围, 格式为 `!:`。其中: `sheetId` 为工作表 ID, 通过[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 获取。- `:` 为工作表中单元格的范围, 数字表示行索引, 字母表示列索引。如 `A2:B2` 表示该工作表第 2 行的 A 列到 B 列。`range`支持四种写法, 详情参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。
+	MergeType        string `json:"mergeType,omitempty"`       // 指定合并单元格的方式。可选值: MERGE_ALL: 合并所有单元格, 即将选定区域内的所有单元格合并成一个单元格- MERGE_ROWS: 按行合并, 即在选定的区域内, 将同一行相邻的单元格合并成一个单元格- MERGE_COLUMNS: 按列合并, 即在选定的区域内, 将同一列中相邻的单元格合并成一个单元格
 }
 
 // MergeSheetCellResp ...
 type MergeSheetCellResp struct {
-	SpreadSheetToken string `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
+	SpreadSheetToken string `json:"spreadsheetToken,omitempty"` // 电子表格的 token
 }
 
 // mergeSheetCellResp ...
 type mergeSheetCellResp struct {
-	Code int64               `json:"code,omitempty"`
-	Msg  string              `json:"msg,omitempty"`
-	Data *MergeSheetCellResp `json:"data,omitempty"`
+	Code  int64               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string              `json:"msg,omitempty"`  // 错误描述
+	Data  *MergeSheetCellResp `json:"data,omitempty"`
+	Error *ErrorDetail        `json:"error,omitempty"`
 }

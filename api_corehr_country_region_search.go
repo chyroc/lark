@@ -21,9 +21,10 @@ import (
 	"context"
 )
 
-// SearchCoreHRCountryRegion 根据国家/地区 ID、状态批量查询国家/地区信息
+// SearchCoreHRCountryRegion 根据国家/地区 ID、状态, 批量查询国家/地区信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search
+// new doc: https://open.feishu.cn/document/corehr-v1/basic-infomation/location_data/search-4
 func (r *CoreHRService) SearchCoreHRCountryRegion(ctx context.Context, request *SearchCoreHRCountryRegionReq, options ...MethodOptionFunc) (*SearchCoreHRCountryRegionResp, *Response, error) {
 	if r.cli.mock.mockCoreHRSearchCoreHRCountryRegion != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#SearchCoreHRCountryRegion mock enable")
@@ -57,15 +58,15 @@ func (r *Mock) UnMockCoreHRSearchCoreHRCountryRegion() {
 
 // SearchCoreHRCountryRegionReq ...
 type SearchCoreHRCountryRegionReq struct {
-	PageSize            int64    `query:"page_size" json:"-"`              // 分页大小, 最大 100, 示例值: 100, 取值范围: `1` ～ `100`
-	PageToken           *string  `query:"page_token" json:"-"`             // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 6891251722631890445
-	CountryRegionIDList []string `json:"country_region_id_list,omitempty"` // 国家/地区 ID 列表, 不填写则返回全部列表, 示例值: ["6891251711631891445"], 最大长度: `100`
-	StatusList          []int64  `json:"status_list,omitempty"`            // 国家/地区数据的状态列表, 不填写则返回全部列表, 示例值: [1], 可选值有: 1: 生效, 0: 失效, 默认值: `[1]`, 最大长度: `2`
+	PageSize            int64    `query:"page_size" json:"-"`              // 分页大小, 最大 100示例值: 100 取值范围: `1` ～ `100
+	PageToken           *string  `query:"page_token" json:"-"`             // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 6862995772275688974
+	CountryRegionIDList []string `json:"country_region_id_list,omitempty"` // 国家/地区 ID 列表, 不填写则返回全部示例值: ["6862995791674344967"] 最大长度: `100
+	StatusList          []int64  `json:"status_list,omitempty"`            // 国家/地区数据的状态列表, 不填写则返回全部示例值: [1]可选值有: 生效失效默认值: `[1]` 最大长度: `2
 }
 
 // SearchCoreHRCountryRegionResp ...
 type SearchCoreHRCountryRegionResp struct {
-	Items     []*SearchCoreHRCountryRegionRespItem `json:"items,omitempty"`      // 查询的国家/地区信息
+	Items     []*SearchCoreHRCountryRegionRespItem `json:"items,omitempty"`      // 查询到的国家/地区列表
 	PageToken string                               `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	HasMore   bool                                 `json:"has_more,omitempty"`   // 是否还有更多项
 }
@@ -75,22 +76,22 @@ type SearchCoreHRCountryRegionRespItem struct {
 	CountryRegionID string                                       `json:"country_region_id,omitempty"` // 国家/地区 ID
 	Name            []*SearchCoreHRCountryRegionRespItemName     `json:"name,omitempty"`              // 国家/地区名称
 	FullName        []*SearchCoreHRCountryRegionRespItemFullName `json:"full_name,omitempty"`         // 国家/地区全称
-	Alpha2Code      string                                       `json:"alpha_2_code,omitempty"`      // 国家地区二字码
-	Alpha3Code      string                                       `json:"alpha_3_code,omitempty"`      // 国家地区三字码
+	Alpha2Code      string                                       `json:"alpha_2_code,omitempty"`      // 国家/地区两位字母编码（ISO 3166-1）
+	Alpha3Code      string                                       `json:"alpha_3_code,omitempty"`      // 国家/地区三位字母编码（ISO 3166-1）
 	GlobalCode      string                                       `json:"global_code,omitempty"`       // 国际电话区号
-	Status          int64                                        `json:"status,omitempty"`            // 状态, 可选值有: 1: 生效, 0: 失效
+	Status          int64                                        `json:"status,omitempty"`            // 状态可选值有: 生效失效
 }
 
 // SearchCoreHRCountryRegionRespItemFullName ...
 type SearchCoreHRCountryRegionRespItemFullName struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRCountryRegionRespItemName ...
 type SearchCoreHRCountryRegionRespItemName struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // searchCoreHRCountryRegionResp ...

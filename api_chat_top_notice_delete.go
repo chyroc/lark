@@ -21,12 +21,12 @@ import (
 	"context"
 )
 
-// DeleteChatTopNotice 撤销会话中的置顶。
+// DeleteChatTopNotice 撤销指定群组中的置顶消息或群公告。
 //
-// 注意事项:
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
-// - 机器人或授权用户必须在群组中
-// - 撤销内部群置顶时, 操作者须与群组在同一租户下
+// ## 前提条件
+// 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// ## 使用限制
+// 调用接口的机器人或者用户必须要在群组内, 且和该群组属于同一租户。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-top_notice/delete_top_notice
 // new doc: https://open.feishu.cn/document/server-docs/group/chat/delete_top_notice
@@ -64,12 +64,11 @@ func (r *Mock) UnMockChatDeleteChatTopNotice() {
 
 // DeleteChatTopNoticeReq ...
 type DeleteChatTopNoticeReq struct {
-	ChatID string `path:"chat_id" json:"-"` // 待撤销置顶的群 ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值: "oc_5ad11d72b830411d72b836c20"
+	ChatID string `path:"chat_id" json:"-"` // 群 ID。获取方式: [创建群](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create), 从返回结果中获取该群的 chat_id。- 调用[获取用户或机器人所在的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list)接口, 可以查询用户或机器人所在群的 chat_id。- 调用[搜索对用户或机器人可见的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search), 可搜索用户或机器人所在的群、对用户或机器人公开的群的 chat_id。示例值: "oc_5ad11d72b830411d72b836c20"
 }
 
 // DeleteChatTopNoticeResp ...
-type DeleteChatTopNoticeResp struct {
-}
+type DeleteChatTopNoticeResp struct{}
 
 // deleteChatTopNoticeResp ...
 type deleteChatTopNoticeResp struct {

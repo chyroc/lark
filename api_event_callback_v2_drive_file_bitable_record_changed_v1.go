@@ -21,45 +21,15 @@ import (
 	"context"
 )
 
-// EventV2DriveFileBitableRecordChangedV1 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
+// EventV2DriveFileBitableRecordChangedV1 多维表格记录变更事件。被订阅的多维表格记录发生变更时, 将会触发此事件。了解事件订阅的配置流程和使用场景, 参考[事件概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=drive&version=v1&resource=file&event=bitable_record_changed)
 //
-// 被订阅的多维表格记录发生变更将会触发此事件, 公式字段的值变化不会触发事件。
-// 概述:
-// :::html
-// <md-table>
-// <md-thead>
-// <tr>
-// <md-th>基本</md-th>
-// <md-th></md-th>
-// </tr>
-// </md-thead>
-// <md-tbody>
-// <md-tr>
-// <md-th>支持的应用类型</md-th>
-// <md-td>
-// custom, isv
-// </md-td>
-// </md-tr>
-// <md-tr>
-// <md-th>
-// 权限要求
-// </md-th>
-// <md-td>
-// 查看、评论、编辑和管理多维表格
-// 查看、评论、编辑和管理云空间中所有文件
-// </md-td>
-// </md-tr>
-// </md-tbody>
-// </md-table>
-// 如何订阅文档请点击查看 [订阅云文档事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/subscribe)。
-// 支持的记录变更类型:
-// | 变更类型         | action           |
-// | --------- | --------------- |
-// |新增行记录 | `record_added` |
-// |删除行记录 | `record_deleted` |
-// |修改行记录 | `record_edited` |
-// 回调结构中的 `field_value` 字段为 JSON 序列化后的字符串, 序列化前的结构请查看 [数据结构](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/development-guide/bitable-structure)
-// 回调示例:
+// - 多维表格中公式字段的值变化不会触发事件。
+// - 多维表格记录变更时, 事件体中不含公式字段的值。
+// - 被订阅的多维表格字段发生变更时, 也将同时触发[文件编辑](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/file-edited)事件。
+// ## 注意事项
+// 若应用是以应用身份（`tenant_access_token`） 订阅的事件, 在接收事件时需要同时申请应用和用户两个身份接收事件的权限。换言之, 要订阅本事件, 你需要在开发者后台, 为应用同时开通 应用身份 和 用户身份 的 `bitable:app` 或 `drive:drive` 权限。
+// ## 前提条件
+// 添加该事件之前, 你需确保已调用[订阅云文档事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/subscribe)接口。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/event/list/bitable-record-changed
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/event/list/bitable-record-changed
@@ -72,4 +42,88 @@ type EventV2DriveFileBitableRecordChangedV1Handler func(ctx context.Context, cli
 
 // EventV2DriveFileBitableRecordChangedV1 ...
 type EventV2DriveFileBitableRecordChangedV1 struct {
+	FileType         FileType                                              `json:"file_type,omitempty"`          // 文件类型, 即 bitable
+	FileToken        string                                                `json:"file_token,omitempty"`         // 多维表格 token
+	TableID          string                                                `json:"table_id,omitempty"`           // 发生变更的数据表 ID
+	Revision         int64                                                 `json:"revision,omitempty"`           // 多维表格数据表的版本号
+	OperatorID       *EventV2DriveFileBitableRecordChangedV1OperatorID     `json:"operator_id,omitempty"`        // 操作人 ID
+	ActionList       []*EventV2DriveFileBitableRecordChangedV1Action       `json:"action_list,omitempty"`        // 行变更操作列表
+	SubscriberIDList []*EventV2DriveFileBitableRecordChangedV1SubscriberID `json:"subscriber_id_list,omitempty"` // 订阅的用户列表
+	UpdateTime       int64                                                 `json:"update_time,omitempty"`        // 编辑时间（格式: 时间戳；单位: 秒）
+}
+
+// EventV2DriveFileBitableRecordChangedV1Action ...
+type EventV2DriveFileBitableRecordChangedV1Action struct {
+	RecordID    string                                                     `json:"record_id,omitempty"`    // 发生变更的记录 ID
+	Action      string                                                     `json:"action,omitempty"`       // 支持的记录变更类型。枚举值有: record_added: 新增行记录- record_deleted: 删除行记录- record_edited: 修改行记录
+	BeforeValue []*EventV2DriveFileBitableRecordChangedV1ActionBeforeValue `json:"before_value,omitempty"` // 发生变更前的记录值
+	AfterValue  []*EventV2DriveFileBitableRecordChangedV1ActionAfterValue  `json:"after_value,omitempty"`  // 发生变更后的字段
+}
+
+// EventV2DriveFileBitableRecordChangedV1ActionAfterValue ...
+type EventV2DriveFileBitableRecordChangedV1ActionAfterValue struct {
+	FieldID            string                                                                    `json:"field_id,omitempty"`             // 发生变更的字段 ID
+	FieldValue         string                                                                    `json:"field_value,omitempty"`          // 发生变更后的字段值。该字段为 JSON 序列化后的字符串, 序列化前的结构请参考 [数据结构](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/development-guide/bitable-structure)。
+	FieldIdentityValue *EventV2DriveFileBitableRecordChangedV1ActionAfterValueFieldIdentityValue `json:"field_identity_value,omitempty"` // 人员字段补充信息。有人员、创建人、修改人类型字段变更时返回
+}
+
+// EventV2DriveFileBitableRecordChangedV1ActionAfterValueFieldIdentityValue ...
+type EventV2DriveFileBitableRecordChangedV1ActionAfterValueFieldIdentityValue struct {
+	Users []*EventV2DriveFileBitableRecordChangedV1ActionAfterValueFieldIdentityValueUser `json:"users,omitempty"` // 用户列表
+}
+
+// EventV2DriveFileBitableRecordChangedV1ActionAfterValueFieldIdentityValueUser ...
+type EventV2DriveFileBitableRecordChangedV1ActionAfterValueFieldIdentityValueUser struct {
+	UserID    *EventV2DriveFileBitableRecordChangedV1ActionAfterValueFieldIdentityValueUserUserID `json:"user_id,omitempty"`    // 用户的 User ID
+	Name      string                                                                              `json:"name,omitempty"`       // 用户名称
+	EnName    string                                                                              `json:"en_name,omitempty"`    // 用户英文名称
+	AvatarURL string                                                                              `json:"avatar_url,omitempty"` // 用户头像 URL
+}
+
+// EventV2DriveFileBitableRecordChangedV1ActionAfterValueFieldIdentityValueUserUserID ...
+type EventV2DriveFileBitableRecordChangedV1ActionAfterValueFieldIdentityValueUserUserID struct {
+	UnionID string `json:"union_id,omitempty"` // 用户的 union id
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
+	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
+}
+
+// EventV2DriveFileBitableRecordChangedV1ActionBeforeValue ...
+type EventV2DriveFileBitableRecordChangedV1ActionBeforeValue struct {
+	FieldID            string                                                                     `json:"field_id,omitempty"`             // 发生变更的字段 ID
+	FieldValue         string                                                                     `json:"field_value,omitempty"`          // 发生变更后的字段值。该字段为 JSON 序列化后的字符串, 序列化前的结构请参考 [数据结构](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/development-guide/bitable-structure)。
+	FieldIdentityValue *EventV2DriveFileBitableRecordChangedV1ActionBeforeValueFieldIdentityValue `json:"field_identity_value,omitempty"` // 人员字段补充信息。有人员、创建人、修改人类型字段变更时返回
+}
+
+// EventV2DriveFileBitableRecordChangedV1ActionBeforeValueFieldIdentityValue ...
+type EventV2DriveFileBitableRecordChangedV1ActionBeforeValueFieldIdentityValue struct {
+	Users []*EventV2DriveFileBitableRecordChangedV1ActionBeforeValueFieldIdentityValueUser `json:"users,omitempty"` // 用户列表
+}
+
+// EventV2DriveFileBitableRecordChangedV1ActionBeforeValueFieldIdentityValueUser ...
+type EventV2DriveFileBitableRecordChangedV1ActionBeforeValueFieldIdentityValueUser struct {
+	UserID    *EventV2DriveFileBitableRecordChangedV1ActionBeforeValueFieldIdentityValueUserUserID `json:"user_id,omitempty"`    // 用户的 User ID
+	Name      string                                                                               `json:"name,omitempty"`       // 用户名称
+	EnName    string                                                                               `json:"en_name,omitempty"`    // 用户英文名称
+	AvatarURL string                                                                               `json:"avatar_url,omitempty"` // 用户头像 URL
+}
+
+// EventV2DriveFileBitableRecordChangedV1ActionBeforeValueFieldIdentityValueUserUserID ...
+type EventV2DriveFileBitableRecordChangedV1ActionBeforeValueFieldIdentityValueUserUserID struct {
+	UnionID string `json:"union_id,omitempty"` // 用户的 union id
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
+	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
+}
+
+// EventV2DriveFileBitableRecordChangedV1OperatorID ...
+type EventV2DriveFileBitableRecordChangedV1OperatorID struct {
+	UnionID string `json:"union_id,omitempty"` // 用户的 union id
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
+	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
+}
+
+// EventV2DriveFileBitableRecordChangedV1SubscriberID ...
+type EventV2DriveFileBitableRecordChangedV1SubscriberID struct {
+	UnionID string `json:"union_id,omitempty"` // 订阅者的 Union ID
+	UserID  string `json:"user_id,omitempty"`  // 订阅者的 User ID
+	OpenID  string `json:"open_id,omitempty"`  // 订阅者的 Open ID
 }

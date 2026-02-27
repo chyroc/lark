@@ -58,12 +58,12 @@ func (r *Mock) UnMockVCGetVCAlertList() {
 
 // GetVCAlertListReq ...
 type GetVCAlertListReq struct {
-	StartTime  string  `query:"start_time" json:"-"`  // 开始时间（unix时间, 单位秒）, 示例值: 1608888867
-	EndTime    string  `query:"end_time" json:"-"`    // 结束时间（unix时间, 单位秒）, 示例值: 1608888867
-	QueryType  *int64  `query:"query_type" json:"-"`  // 查询对象类型, 不填返回所有, 示例值: 1, 可选值有: 1: 会议室, 2: 企业会议室连接器, 3: SIP会议室系统
-	QueryValue *string `query:"query_value" json:"-"` // 查询对象ID, 会议室ID或企业会议室连接器ID, 示例值: omm_4de32cf10a4358788ff4e09e37ebbf9b
-	PageSize   *int64  `query:"page_size" json:"-"`   // 请求期望返回的告警记录数量, 不足则返回全部, 该值默认为 100, 最大为 1000, 示例值: 100, 最大值: `200`
-	PageToken  *string `query:"page_token" json:"-"`  // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 100
+	StartTime  string  `query:"start_time" json:"-"`  // 开始时间（unix时间, 单位秒）示例值: 1608888867
+	EndTime    string  `query:"end_time" json:"-"`    // 结束时间（unix时间, 单位秒）示例值: 1608888867
+	QueryType  *int64  `query:"query_type" json:"-"`  // 查询对象类型, 不填返回所有示例值: 1可选值有: 会议室企业会议室连接器SIP会议室系统
+	QueryValue *string `query:"query_value" json:"-"` // 查询对象ID, 会议室ID或企业会议室连接器ID示例值: omm_4de32cf10a4358788ff4e09e37ebbf9b
+	PageSize   *int64  `query:"page_size" json:"-"`   // 请求期望返回的告警记录数量, 不足则返回全部, 该值默认为 100, 最大为 1000示例值: 100 最大值: `200
+	PageToken  *string `query:"page_token" json:"-"`  // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 100
 }
 
 // GetVCAlertListResp ...
@@ -77,16 +77,16 @@ type GetVCAlertListResp struct {
 type GetVCAlertListRespItem struct {
 	AlertID              string                           `json:"alert_id,omitempty"`                // 告警ID
 	ResourceScope        string                           `json:"resource_scope,omitempty"`          // 触发告警规则的会议室/服务器具体的名称
-	MonitorTarget        int64                            `json:"monitor_target,omitempty"`          // 触发告警规则的监控对象, 可选值有: 1: 飞书会议室, 2: 飞书会议室签到板, 3: 飞书投屏盒子, 4: 飞书投屏, 5: sip会议室系统, 6: erc节点, 7: 飞书传感器
+	MonitorTarget        int64                            `json:"monitor_target,omitempty"`          // 触发告警规则的监控对象可选值有: 飞书会议室飞书会议室签到板飞书投屏盒子飞书投屏sip会议室系统erc节点飞书传感器
 	AlertStrategy        string                           `json:"alert_strategy,omitempty"`          // 告警规则的规则描述
 	AlertTime            string                           `json:"alert_time,omitempty"`              // 告警通知发生时间（unix时间, 单位秒）
-	AlertLevel           int64                            `json:"alert_level,omitempty"`             // 告警等级: 严重/警告/提醒, 可选值有: 0: 提醒, 1: 警告, 2: 严重
+	AlertLevel           int64                            `json:"alert_level,omitempty"`             // 告警等级: 严重/警告/提醒可选值有: 提醒警告严重
 	Contacts             []*GetVCAlertListRespItemContact `json:"contacts,omitempty"`                // 告警联系人
-	NotifyMethods        []int64                          `json:"notifyMethods,omitempty"`           // 通知方式, 可选值有: 0: 飞书机器人, 1: 邮件
+	NotifyMethods        []int64                          `json:"notifyMethods,omitempty"`           // 通知方式可选值有: 飞书机器人邮件
 	AlertRule            string                           `json:"alertRule,omitempty"`               // 规则名称
 	ProcessTime          string                           `json:"process_time,omitempty"`            // 处理时间
 	RecoverTime          string                           `json:"recover_time,omitempty"`            // 恢复时间
-	ProcessStatus        int64                            `json:"process_status,omitempty"`          // 处理状态: 待处理/处理中/已恢复, 可选值有: 0: 待处理（deprecated）, 1: 待处理, 2: 处理中, 3: 已恢复（deprecated）, 4: 已恢复
+	ProcessStatus        int64                            `json:"process_status,omitempty"`          // 处理状态: 待处理/处理中/已恢复可选值有: 待处理（deprecated）待处理处理中已恢复（deprecated）已恢复
 	AlertRuleID          string                           `json:"alert_rule_id,omitempty"`           // 告警规则ID
 	MonitorTargetRoomID  string                           `json:"monitor_target_room_id,omitempty"`  // 触发告警规则的会议室ID, 当触发告警规则的是会议室时返回该信息
 	MonitorTargetRoomMac string                           `json:"monitor_target_room_mac,omitempty"` // 触发告警规则的会议室主机Mac地址, 当monitor_target=1时返回该信息
@@ -94,7 +94,7 @@ type GetVCAlertListRespItem struct {
 
 // GetVCAlertListRespItemContact ...
 type GetVCAlertListRespItemContact struct {
-	ContactType int64  `json:"contact_type,omitempty"` // 联系人类型, 可选值有: 1: 用户, 2: 用户组, 3: 部门
+	ContactType int64  `json:"contact_type,omitempty"` // 联系人类型可选值有: 用户用户组部门
 	ContactName string `json:"contact_name,omitempty"` // 联系人名
 }
 

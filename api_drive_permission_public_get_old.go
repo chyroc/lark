@@ -24,7 +24,6 @@ import (
 // GetDrivePublicPermissionOld 该接口用于根据 filetoken 获取云文档的权限设置。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uITM3YjLyEzN24iMxcjN
-// new doc: https://open.feishu.cn/document/server-docs/historic-version/docs/drive/permission/get-document-sharing-settings-v2
 //
 // Deprecated
 func (r *DriveService) GetDrivePublicPermissionOld(ctx context.Context, request *GetDrivePublicPermissionOldReq, options ...MethodOptionFunc) (*GetDrivePublicPermissionOldResp, *Response, error) {

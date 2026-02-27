@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetOKRProgressRecord 根据 ID 获取 OKR 进展记录详情。
+// GetOKRProgressRecord 根据 ID 获取 OKR 进展记录详情, 接口返回进展记录的内容、更新时间以及进展百分比和状态。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/progress_record/get
 // new doc: https://open.feishu.cn/document/server-docs/okr-v1/progress_record/get
@@ -59,15 +59,16 @@ func (r *Mock) UnMockOKRGetOKRProgressRecord() {
 
 // GetOKRProgressRecordReq ...
 type GetOKRProgressRecordReq struct {
-	ProgressID string  `path:"progress_id" json:"-"`   // 待查询的 OKR进展记录 ID, 示例值: "7041857032248410131"
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	ProgressID string  `path:"progress_id" json:"-"`   // 待查询的 OKR进展记录, 可以通过调用“批量获取 OKR”或“获取用户的 OKR 列表”接口获取 示例值: "7041857032248410131"
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetOKRProgressRecordResp ...
 type GetOKRProgressRecordResp struct {
-	ProgressID string                           `json:"progress_id,omitempty"` // OKR 进展ID
-	ModifyTime string                           `json:"modify_time,omitempty"` // 进展更新时间 毫秒
-	Content    *GetOKRProgressRecordRespContent `json:"content,omitempty"`     // 进展 对应的 Content 详细内容
+	ProgressID   string                                `json:"progress_id,omitempty"`   // OKR 进展ID
+	ModifyTime   string                                `json:"modify_time,omitempty"`   // 进展更新时间 毫秒
+	Content      *GetOKRProgressRecordRespContent      `json:"content,omitempty"`       // 进展 对应的 Content 详细内容
+	ProgressRate *GetOKRProgressRecordRespProgressRate `json:"progress_rate,omitempty"` // 进展, 包括百分比和状态
 }
 
 // GetOKRProgressRecordRespContent ...
@@ -77,7 +78,7 @@ type GetOKRProgressRecordRespContent struct {
 
 // GetOKRProgressRecordRespContentBlock ...
 type GetOKRProgressRecordRespContentBlock struct {
-	Type      string                                         `json:"type,omitempty"`      // 文档元素类型, 可选值有: paragraph: 文本段落, gallery: 图片
+	Type      string                                         `json:"type,omitempty"`      // 文档元素类型可选值有: 文本段落图片
 	Paragraph *GetOKRProgressRecordRespContentBlockParagraph `json:"paragraph,omitempty"` // 文本段落
 	Gallery   *GetOKRProgressRecordRespContentBlockGallery   `json:"gallery,omitempty"`   // 图片
 }
@@ -103,7 +104,7 @@ type GetOKRProgressRecordRespContentBlockParagraph struct {
 
 // GetOKRProgressRecordRespContentBlockParagraphElement ...
 type GetOKRProgressRecordRespContentBlockParagraphElement struct {
-	Type     string                                                        `json:"type,omitempty"`     // 元素类型, 可选值有: textRun: 文本型元素, docsLink: 文档链接型元素, person: 艾特用户型元素
+	Type     string                                                        `json:"type,omitempty"`     // 元素类型可选值有: 文本型元素文档链接型元素艾特用户型元素
 	TextRun  *GetOKRProgressRecordRespContentBlockParagraphElementTextRun  `json:"textRun,omitempty"`  // 文本
 	DocsLink *GetOKRProgressRecordRespContentBlockParagraphElementDocsLink `json:"docsLink,omitempty"` // 飞书云文档
 	Person   *GetOKRProgressRecordRespContentBlockParagraphElementPerson   `json:"person,omitempty"`   // 艾特用户
@@ -163,9 +164,15 @@ type GetOKRProgressRecordRespContentBlockParagraphStyle struct {
 
 // GetOKRProgressRecordRespContentBlockParagraphStyleList ...
 type GetOKRProgressRecordRespContentBlockParagraphStyleList struct {
-	Type        string `json:"type,omitempty"`        // 列表类型, 可选值有: number: 有序列表, bullet: 无序列表, checkBox: 任务列表, checkedBox: 已完成的任务列表, indent: tab缩进
+	Type        string `json:"type,omitempty"`        // 列表类型可选值有: 有序列表无序列表任务列表已完成的任务列表tab缩进
 	IndentLevel int64  `json:"indentLevel,omitempty"` // 列表的缩进级别, 支持指定一行的缩进 除代码块以外的列表都支持设置缩进, 支持 1-16 级缩进, 取值范围: [1, 16]
 	Number      int64  `json:"number,omitempty"`      // 用于指定列表的行号, 仅对有序列表和代码块生效 如果为有序列表设置了缩进, 行号可能会显示为字母或者罗马数字
+}
+
+// GetOKRProgressRecordRespProgressRate ...
+type GetOKRProgressRecordRespProgressRate struct {
+	Percent float64 `json:"percent,omitempty"` // 进展百分比, 保留两位小数
+	Status  int64   `json:"status,omitempty"`  // 进展状态可选值有: 暂无正常风险延期
 }
 
 // getOKRProgressRecordResp ...

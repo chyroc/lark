@@ -21,9 +21,10 @@ import (
 	"context"
 )
 
-// EventV2CorehrContractUpdatedV1 合同更新
+// EventV2CorehrContractUpdatedV1 通过开放平台更新合同或者在飞书人事系统进行变更和续约等业务操作时, 会触发本事件{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=contract&event=updated)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/events/updated
+// new doc: https://open.feishu.cn/document/corehr-v1/contract/contract-events/updated
 func (r *EventCallbackService) HandlerEventV2CorehrContractUpdatedV1(f EventV2CorehrContractUpdatedV1Handler) {
 	r.cli.eventHandler.eventV2CorehrContractUpdatedV1Handler = f
 }
@@ -33,5 +34,5 @@ type EventV2CorehrContractUpdatedV1Handler func(ctx context.Context, cli *Lark, 
 
 // EventV2CorehrContractUpdatedV1 ...
 type EventV2CorehrContractUpdatedV1 struct {
-	ContractID string `json:"contract_id,omitempty"` // ID
+	ContractID string `json:"contract_id,omitempty"` // 合同ID, 该合同详细信息可通过[【合同信息查询接口】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/get)获取
 }

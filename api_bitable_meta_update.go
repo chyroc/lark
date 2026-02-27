@@ -21,10 +21,11 @@ import (
 	"context"
 )
 
-// UpdateBitableMeta 通过 app_token 更新多维表格元数据
+// UpdateBitableMeta 更新多维表格元数据, 包括多维表格的名称、是否开启高级权限。
 //
-// - 飞书文档、飞书表格、知识库中的多维表格不支持开启高级权限
-// - 此接口非原子操作, 先修改多维表格名字, 后开关高级权限。可能存在部分成功的情况
+// ## 注意事项
+// - 在线文档和电子表格中嵌入的多维表格、知识库中的多维表格不支持开启高级权限。
+// - 此接口非原子操作, 先修改多维表格名称, 后开关高级权限, 可能存在部分成功的情况。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/update
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app/update
@@ -62,9 +63,9 @@ func (r *Mock) UnMockBitableUpdateBitableMeta() {
 
 // UpdateBitableMetaReq ...
 type UpdateBitableMetaReq struct {
-	AppToken   string  `path:"app_token" json:"-"`    // Base app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
-	Name       *string `json:"name,omitempty"`        // 新的多维表格名字, 示例值: "新的多维表格名字"
-	IsAdvanced *bool   `json:"is_advanced,omitempty"` // 多维表格是否开启高级权限, 示例值: true
+	AppToken   string  `path:"app_token" json:"-"`    // 目标多维表格的 App token。该接口仅支持存储在云空间文件夹中的多维表格, 即 URL 以 feishu.cn/base 开头的多维表格形态。该类多维表格的 app_token 为 URL 下图高亮部分: ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_sTn7sVvhOB.png?height=766&lazyload=true&maxWidth=700&width=3004)示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
+	Name       *string `json:"name,omitempty"`        // 新的多维表格名称, 不传则不更新名称。示例值: "新的多维表格名称"
+	IsAdvanced *bool   `json:"is_advanced,omitempty"` // 多维表格是否开启高级权限。不传则不更新设置。可选值: true: 开启高级权限- false: 关闭高级权限示例值: true
 }
 
 // UpdateBitableMetaResp ...
@@ -74,8 +75,8 @@ type UpdateBitableMetaResp struct {
 
 // UpdateBitableMetaRespApp ...
 type UpdateBitableMetaRespApp struct {
-	AppToken   string `json:"app_token,omitempty"`   // 多维表格的 app_token
-	Name       string `json:"name,omitempty"`        // 多维表格的名字
+	AppToken   string `json:"app_token,omitempty"`   // 多维表格的唯一标识 app_token
+	Name       string `json:"name,omitempty"`        // 多维表格的名称
 	IsAdvanced bool   `json:"is_advanced,omitempty"` // 多维表格是否已开启高级权限
 	TimeZone   string `json:"time_zone,omitempty"`   // 文档时区
 }

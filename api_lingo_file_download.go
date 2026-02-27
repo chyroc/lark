@@ -25,6 +25,7 @@ import (
 // DownloadLingoFile 通过 file_token 下载原图片。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/lingo-v1/file/download
+// new doc: https://open.feishu.cn/document/lingo-v1/file/download
 func (r *LingoService) DownloadLingoFile(ctx context.Context, request *DownloadLingoFileReq, options ...MethodOptionFunc) (*DownloadLingoFileResp, *Response, error) {
 	if r.cli.mock.mockLingoDownloadLingoFile != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Lingo#DownloadLingoFile mock enable")
@@ -59,7 +60,7 @@ func (r *Mock) UnMockLingoDownloadLingoFile() {
 
 // DownloadLingoFileReq ...
 type DownloadLingoFileReq struct {
-	FileToken string `path:"file_token" json:"-"` // 需要下载的文件 token, 示例值: "boxbcEcmKiD3***vgqWTpvdc7jc"
+	FileToken string `path:"file_token" json:"-"` // 需要下载的文件 token示例值: "boxbcEcmKiD3***vgqWTpvdc7jc"
 }
 
 // downloadLingoFileResp ...

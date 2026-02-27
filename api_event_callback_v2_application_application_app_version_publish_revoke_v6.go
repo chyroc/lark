@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2ApplicationApplicationAppVersionPublishRevokeV6 通过订阅该事件, 可接收应用撤回发布申请事件
+// EventV2ApplicationApplicationAppVersionPublishRevokeV6 通过订阅该事件, 可接收应用撤回发布申请事件{使用示例}(url=/api/tools/api_explore/api_explore_config?project=application&version=v6&resource=application.app_version&event=publish_revoke)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-app_version/events/publish_revoke
 // new doc: https://open.feishu.cn/document/server-docs/application-v6/event/publish_revoke
@@ -43,13 +43,13 @@ type EventV2ApplicationApplicationAppVersionPublishRevokeV6 struct {
 // EventV2ApplicationApplicationAppVersionPublishRevokeV6CreatorID ...
 type EventV2ApplicationApplicationAppVersionPublishRevokeV6CreatorID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
 // EventV2ApplicationApplicationAppVersionPublishRevokeV6OperatorID ...
 type EventV2ApplicationApplicationAppVersionPublishRevokeV6OperatorID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }

@@ -58,9 +58,9 @@ func (r *Mock) UnMockApplicationGetApplicationRecommendRuleList() {
 
 // GetApplicationRecommendRuleListReq ...
 type GetApplicationRecommendRuleListReq struct {
-	PageSize   int64   `query:"page_size" json:"-"`    // 分页大小, 示例值: 10, 最大值: `50`
-	PageToken  *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "new-e11ee058b4a8ed2881da11ac7e37c4fc"
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	PageSize   int64   `query:"page_size" json:"-"`    // 分页大小示例值: 10 最大值: `50
+	PageToken  *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: "new-e11ee058b4a8ed2881da11ac7e37c4fc"
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: "open_id"可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetApplicationRecommendRuleListResp ...
@@ -74,7 +74,7 @@ type GetApplicationRecommendRuleListResp struct {
 type GetApplicationRecommendRuleListRespRule struct {
 	ID                            string                                                                 `json:"id,omitempty"`                               // 推荐规则 ID
 	Name                          string                                                                 `json:"name,omitempty"`                             // 推荐规则名称
-	Status                        string                                                                 `json:"status,omitempty"`                           // 推荐规则启用状态, 可选值有: open: 启用, closed: 停用
+	Status                        string                                                                 `json:"status,omitempty"`                           // 推荐规则启用状态可选值有: 启用停用
 	VisibilityInfo                *GetApplicationRecommendRuleListRespRuleVisibilityInfo                 `json:"visibility_info,omitempty"`                  // 推荐规则可见性信息
 	RecommendItemInfos            []*GetApplicationRecommendRuleListRespRuleRecommendItemInfo            `json:"recommend_item_infos,omitempty"`             // 不可移除推荐应用项列表
 	DistributedRecommendItemInfos []*GetApplicationRecommendRuleListRespRuleDistributedRecommendItemInfo `json:"distributed_recommend_item_infos,omitempty"` // 可移除推荐应用项列表
@@ -83,13 +83,13 @@ type GetApplicationRecommendRuleListRespRule struct {
 // GetApplicationRecommendRuleListRespRuleDistributedRecommendItemInfo ...
 type GetApplicationRecommendRuleListRespRuleDistributedRecommendItemInfo struct {
 	ItemID        string                                                                       `json:"item_id,omitempty"`        // 推荐应用项 ID
-	ItemType      string                                                                       `json:"item_type,omitempty"`      // 推荐应用项类型, 可选值有: application: 应用类型, link: 链接类型
+	ItemType      string                                                                       `json:"item_type,omitempty"`      // 推荐应用项类型可选值有: 应用类型链接类型
 	Name          string                                                                       `json:"name,omitempty"`           // 推荐应用项名称
 	Description   string                                                                       `json:"description,omitempty"`    // 推荐应用项描述
 	LinkURL       string                                                                       `json:"link_url,omitempty"`       // 链接类型应用项的跳转链接（应用类型该字段为空）
 	ClientID      string                                                                       `json:"client_id,omitempty"`      // 应用类型应用项的 app id（链接类型该字段为空）
 	IconURL       string                                                                       `json:"icon_url,omitempty"`       // 应用项图标链接
-	DefaultLocale string                                                                       `json:"default_locale,omitempty"` // 链接类型应用项的默认展示语种（应用类型该字段为空）, 可选值有: zh_cn: 简体中文, zh_hk: 繁体中文（中国香港）, zh_tw: 繁体中文（中国台湾）, en_us: 英文, ja_jp: 日文
+	DefaultLocale string                                                                       `json:"default_locale,omitempty"` // 链接类型应用项的默认展示语种（应用类型该字段为空）可选值有: 简体中文繁体中文（中国香港）繁体中文（中国台湾）英文日文
 	I18nName      *GetApplicationRecommendRuleListRespRuleDistributedRecommendItemInfoI18nName `json:"i18n_name,omitempty"`      // 应用项的多语种名称
 }
 
@@ -105,13 +105,13 @@ type GetApplicationRecommendRuleListRespRuleDistributedRecommendItemInfoI18nName
 // GetApplicationRecommendRuleListRespRuleRecommendItemInfo ...
 type GetApplicationRecommendRuleListRespRuleRecommendItemInfo struct {
 	ItemID        string                                                            `json:"item_id,omitempty"`        // 推荐应用项 ID
-	ItemType      string                                                            `json:"item_type,omitempty"`      // 推荐应用项类型, 可选值有: application: 应用类型, link: 链接类型
+	ItemType      string                                                            `json:"item_type,omitempty"`      // 推荐应用项类型可选值有: 应用类型链接类型
 	Name          string                                                            `json:"name,omitempty"`           // 推荐应用项名称
 	Description   string                                                            `json:"description,omitempty"`    // 推荐应用项描述
 	LinkURL       string                                                            `json:"link_url,omitempty"`       // 链接类型应用项的跳转链接（应用类型该字段为空）
 	ClientID      string                                                            `json:"client_id,omitempty"`      // 应用类型应用项的 app id（链接类型该字段为空）
 	IconURL       string                                                            `json:"icon_url,omitempty"`       // 应用项图标链接
-	DefaultLocale string                                                            `json:"default_locale,omitempty"` // 链接类型应用项的默认展示语种（应用类型该字段为空）, 可选值有: zh_cn: 简体中文, zh_hk: 繁体中文（中国香港）, zh_tw: 繁体中文（中国台湾）, en_us: 英文, ja_jp: 日文
+	DefaultLocale string                                                            `json:"default_locale,omitempty"` // 链接类型应用项的默认展示语种（应用类型该字段为空）可选值有: 简体中文繁体中文（中国香港）繁体中文（中国台湾）英文日文
 	I18nName      *GetApplicationRecommendRuleListRespRuleRecommendItemInfoI18nName `json:"i18n_name,omitempty"`      // 应用项的多语种名称
 }
 

@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// CreateBitableView 在数据表中新增一个视图
+// CreateBitableView 在多维表格数据表中新增一个视图, 可指定视图类型, 包括表格视图、看板视图、画册视图、甘特视图和表单视图。
+//
+// ## 使用限制
+// 视图最大支持数量为 200, 包括公共视图、锁定视图和个人视图。因此个人在多维表格中看到的视图数量可能仅是部分视图。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-view/create
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-view/create
@@ -59,10 +62,10 @@ func (r *Mock) UnMockBitableCreateBitableView() {
 
 // CreateBitableViewReq ...
 type CreateBitableViewReq struct {
-	AppToken string  `path:"app_token" json:"-"`  // base app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh", 最小长度: `1` 字符
-	TableID  string  `path:"table_id" json:"-"`   // table id, 示例值: "tblsRc9GRRXKqhvW"
-	ViewName string  `json:"view_name,omitempty"` // 视图名字, 示例值: "表格视图1"
-	ViewType *string `json:"view_type,omitempty"` // 视图类型, 示例值: "grid", 可选值有: grid: 表格视图, kanban: 看板视图, gallery: 画册视图, gantt: 甘特视图, form: 表单视图
+	AppToken string  `path:"app_token" json:"-"`  // 多维表格 App 的唯一标识。不同形态的多维表格, 其 `app_token` 的获取方式不同: 如果多维表格的 URL 以 [feishu.cn/base] 开头, 该多维表格的 `app_token` 是下图高亮部分: ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004)- 如果多维表格的 URL 以 [feishu.cn/wiki] 开头, 你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时, `obj_token` 字段的值才是多维表格的 `app_token`。了解更多, 参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。示例值: "appbcbWCzen6D8dezhoCH2RpMAh" 最小长度: `1` 字符
+	TableID  string  `path:"table_id" json:"-"`   // 多维表格数据表的唯一标识。获取方式: 你可通过多维表格 URL 获取 `table_id`, 下图高亮部分即为当前数据表的 `table_id`- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`  ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976)示例值: "tblsRc9GRRXKqhvW"
+	ViewName string  `json:"view_name,omitempty"` // 视图名称。名称不能包含特殊字符, 请确保其符合以下规则: 长度不超过 100 个字符- 不为空且不包含这些特殊符号: [ ]示例值: "表格视图 1"
+	ViewType *string `json:"view_type,omitempty"` // 视图类型, 不填默认为表格视图。示例值: "grid"可选值有: 表格视图看板视图画册视图甘特视图表单视图
 }
 
 // CreateBitableViewResp ...
@@ -72,8 +75,8 @@ type CreateBitableViewResp struct {
 
 // CreateBitableViewRespView ...
 type CreateBitableViewRespView struct {
-	ViewID   string `json:"view_id,omitempty"`   // 视图Id
-	ViewName string `json:"view_name,omitempty"` // 视图名字
+	ViewID   string `json:"view_id,omitempty"`   // 视图 ID
+	ViewName string `json:"view_name,omitempty"` // 视图名称
 	ViewType string `json:"view_type,omitempty"` // 视图类型
 }
 

@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// UpdateEmployeeTypeEnumPatch 更新自定义人员类型。
+// UpdateEmployeeTypeEnumPatch 调用该接口更新指定的自定义人员类型信息。
+//
+// ## 注意事项
+// 仅支持更新自定义的人员类型。默认包含的正式、实习、外包、劳务、顾问五个选项不支持更新。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/update
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/employee_type_enum/update
@@ -58,38 +61,38 @@ func (r *Mock) UnMockContactUpdateEmployeeTypeEnumPatch() {
 
 // UpdateEmployeeTypeEnumPatchReq ...
 type UpdateEmployeeTypeEnumPatchReq struct {
-	EnumID      string                                       `path:"enum_id" json:"-"`       // 枚举值id, 示例值: "exGeIjow7zIqWMy+ONkFxA["
-	Content     string                                       `json:"content,omitempty"`      // 枚举内容, 示例值: "专家", 长度范围: `1` ～ `100` 字符
-	EnumType    int64                                        `json:"enum_type,omitempty"`    // 类型, 示例值: 2, 可选值有: 1: 内置类型, 2: 自定义
-	EnumStatus  int64                                        `json:"enum_status,omitempty"`  // 使用状态, 示例值: 1, 可选值有: 1: 激活, 2: 未激活
-	I18nContent []*UpdateEmployeeTypeEnumPatchReqI18nContent `json:"i18n_content,omitempty"` // i18n定义
+	EnumID      string                                       `path:"enum_id" json:"-"`       // 自定义人员类型的选项 ID。你可以在新建人员类型时从返回值中获取, 你也可以调用[查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)接口, 获取选项的 ID。示例值: "exGeIjow7zIqWMy+ONkFxA["
+	Content     string                                       `json:"content,omitempty"`      // 选项内容。示例值: "专家" 长度范围: `1` ～ `100` 字符
+	EnumType    int64                                        `json:"enum_type,omitempty"`    // 选项类型。更新人员类型时固定取值为 `2` 即可。示例值: 2可选值有: 内置类型。该类型仅用于查询结果当中, 更新人员类型时不支持选择该类型。自定义。
+	EnumStatus  int64                                        `json:"enum_status,omitempty"`  // 选项的激活状态。只有已激活的选项可以用于配置用户属性。示例值: 1可选值有: 激活未激活
+	I18nContent []*UpdateEmployeeTypeEnumPatchReqI18nContent `json:"i18n_content,omitempty"` // 选项内容的国际化配置。说明: 在飞书客户端查看用户人员类型时, 系统会根据客户端语言环境, 自动展示相匹配的选项语言。如果相应语言不在选项国际化配置当中, 则会展示默认选项内容（即 content 字段）。- 不传值表示不更新原有配置。
 }
 
 // UpdateEmployeeTypeEnumPatchReqI18nContent ...
 type UpdateEmployeeTypeEnumPatchReqI18nContent struct {
-	Locale *string `json:"locale,omitempty"` // 语言版本, 示例值: "zh_cn"
-	Value  *string `json:"value,omitempty"`  // 字段名, 示例值: "专家（中文）"
+	Locale *string `json:"locale,omitempty"` // 语言版本。例如: zh_cn: 中文- en_us: 英文- ja_jp: 日文示例值: "zh_cn"
+	Value  *string `json:"value,omitempty"`  // 语言版本对应的内容。 长度范围: `1` 字符 ～ `100` 字符示例值: "专家（中文）"
 }
 
 // UpdateEmployeeTypeEnumPatchResp ...
 type UpdateEmployeeTypeEnumPatchResp struct {
-	EmployeeTypeEnum *UpdateEmployeeTypeEnumPatchRespEmployeeTypeEnum `json:"employee_type_enum,omitempty"` // 更新后的人员类型字段
+	EmployeeTypeEnum *UpdateEmployeeTypeEnumPatchRespEmployeeTypeEnum `json:"employee_type_enum,omitempty"` // 更新后的人员类型字段信息。
 }
 
 // UpdateEmployeeTypeEnumPatchRespEmployeeTypeEnum ...
 type UpdateEmployeeTypeEnumPatchRespEmployeeTypeEnum struct {
-	EnumID      string                                                        `json:"enum_id,omitempty"`      // 枚举值id
-	EnumValue   string                                                        `json:"enum_value,omitempty"`   // 枚举的编号值, 创建新的人员类型后, 系统生成对应编号。对应[创建用户接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)中用户信息的employee_type字段值
-	Content     string                                                        `json:"content,omitempty"`      // 枚举内容
-	EnumType    int64                                                         `json:"enum_type,omitempty"`    // 类型, 可选值有: 1: 内置类型, 2: 自定义
-	EnumStatus  int64                                                         `json:"enum_status,omitempty"`  // 使用状态, 可选值有: 1: 激活, 2: 未激活
-	I18nContent []*UpdateEmployeeTypeEnumPatchRespEmployeeTypeEnumI18nContent `json:"i18n_content,omitempty"` // i18n定义
+	EnumID      string                                                        `json:"enum_id,omitempty"`      // 人员类型的选项 ID。后续可以使用该 ID 更新、删除选项。
+	EnumValue   string                                                        `json:"enum_value,omitempty"`   // 选项的编号值, 由系统生成的编号。后续可使用该编号配置用户的人员类型属性。例如, 调用[创建用户](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)接口时, employee_type 参数值对应的就是当前的 enum_value。
+	Content     string                                                        `json:"content,omitempty"`      // 选项内容。
+	EnumType    int64                                                         `json:"enum_type,omitempty"`    // 选项类型。可选值有: 内置类型自定义
+	EnumStatus  int64                                                         `json:"enum_status,omitempty"`  // 选项的激活状态。可选值有: 激活未激活
+	I18nContent []*UpdateEmployeeTypeEnumPatchRespEmployeeTypeEnumI18nContent `json:"i18n_content,omitempty"` // 选项内容的国际化配置。
 }
 
 // UpdateEmployeeTypeEnumPatchRespEmployeeTypeEnumI18nContent ...
 type UpdateEmployeeTypeEnumPatchRespEmployeeTypeEnumI18nContent struct {
-	Locale string `json:"locale,omitempty"` // 语言版本
-	Value  string `json:"value,omitempty"`  // 字段名
+	Locale string `json:"locale,omitempty"` // 语言版本。例如: zh_cn: 中文- en_us: 英文- ja_jp: 日文
+	Value  string `json:"value,omitempty"`  // 语言版本对应的内容。
 }
 
 // updateEmployeeTypeEnumPatchResp ...

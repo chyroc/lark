@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetHireAttachment 根据人才简历附件 ID 获取招聘系统中附件的元信息, 比如文件名、创建时间、文件 URL 等, 可通过[获取人才信息接口](https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/talent/get)获取人才的简历附件
+// GetHireAttachment 根据附件 ID 和附件类型获取招聘系统中附件的信息, 比如附件名称、附件创建时间、附件下载地址等。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/attachment/get
@@ -58,8 +58,8 @@ func (r *Mock) UnMockHireGetHireAttachment() {
 
 // GetHireAttachmentReq ...
 type GetHireAttachmentReq struct {
-	AttachmentID string `path:"attachment_id" json:"-"` // 附件id, 示例值: "6435242341238"
-	Type         *int64 `query:"type" json:"-"`         // 附件类型, 示例值: 1, 可选值有: 1: 附件简历, 2: 候选人作品, 3: 自定义附件, 默认值: `1`
+	AttachmentID string `path:"attachment_id" json:"-"` // 附件 ID, 获取方式如下: 简历附件 ID/作品附件 ID: 通过[获取人才信息 V1](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/get)接口获取- 通用附件 ID: 通过[创建附件](https://open.feishu.cn/document/ukTMukTMukTM/uIDN1YjLyQTN24iM0UjN/create_attachment)、[获取 Offer 详情](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer/get)、[获取 Offer 信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/offer)接口获取示例值: "6960663240925956555"
+	Type         *int64 `query:"type" json:"-"`         // 附件类型示例值: 1可选值有: 简历附件, 人才上的简历附件。作品附件, 人才上的作品附件。通用附件, 通过[创建附件](https://open.feishu.cn/document/ukTMukTMukTM/uIDN1YjLyQTN24iM0UjN/create_attachment)、[获取 Offer 详情](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer/get)、[获取 Offer 信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/offer)接口获取。默认值: `1
 }
 
 // GetHireAttachmentResp ...
@@ -69,11 +69,11 @@ type GetHireAttachmentResp struct {
 
 // GetHireAttachmentRespAttachment ...
 type GetHireAttachmentRespAttachment struct {
-	ID         string `json:"id,omitempty"`          // 附件id
-	URL        string `json:"url,omitempty"`         // 附件的url
+	ID         string `json:"id,omitempty"`          // 附件 ID
+	URL        string `json:"url,omitempty"`         // 附件下载地址, 有效期为 30 分钟
 	Name       string `json:"name,omitempty"`        // 附件文件名
-	Mime       string `json:"mime,omitempty"`        // 媒体类型/MIME
-	CreateTime int64  `json:"create_time,omitempty"` // 附件创建时间（单位ms）
+	Mime       string `json:"mime,omitempty"`        // 附件媒体类型/MIME, 遵守统一标准, 请参考[百度百科-MIME](https://baike.baidu.com/item/MIME/2900607)
+	CreateTime int64  `json:"create_time,omitempty"` // 附件创建时间, 毫秒时间戳（int64类型）
 }
 
 // getHireAttachmentResp ...

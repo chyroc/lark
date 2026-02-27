@@ -58,13 +58,12 @@ func (r *Mock) UnMockMailDeleteMailGroupMember() {
 
 // DeleteMailGroupMemberReq ...
 type DeleteMailGroupMemberReq struct {
-	MailGroupID string `path:"mailgroup_id" json:"-"` // The unique ID or email address of a mail group, 示例值: "xxxxxxxxxxxxxxx or test_mail_group@xxx.xx"
-	MemberID    string `path:"member_id" json:"-"`    // The unique ID of a member in this mail group, 示例值: "xxxxxxxxxxxxxxx"
+	MailGroupID string `path:"mailgroup_id" json:"-"` // The unique ID or email address of a mail group示例值: "xxxxxxxxxxxxxxx or test_mail_group@xxx.xx"
+	MemberID    string `path:"member_id" json:"-"`    // The unique ID of a member in this mail group示例值: "xxxxxxxxxxxxxxx"
 }
 
 // DeleteMailGroupMemberResp ...
-type DeleteMailGroupMemberResp struct {
-}
+type DeleteMailGroupMemberResp struct{}
 
 // deleteMailGroupMemberResp ...
 type deleteMailGroupMemberResp struct {

@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// DeleteCoreHRCompany 删除公司。
+// DeleteCoreHRCompany 删除公司
+//
+// 删除后无法恢复, 并且在系统中无法搜索到对应公司信息, 请谨慎操作。
+// 如果公司存在关联的合同, 则不允许删除该公司。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/delete
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/company/delete
@@ -58,12 +61,11 @@ func (r *Mock) UnMockCoreHRDeleteCoreHRCompany() {
 
 // DeleteCoreHRCompanyReq ...
 type DeleteCoreHRCompanyReq struct {
-	CompanyID string `path:"company_id" json:"-"` // 需要删除的公司ID, 示例值: "341432424"
+	CompanyID string `path:"company_id" json:"-"` // 需要删除的公司ID。ID获取方式: 调用[【创建公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/create)[【批量查询公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list)等接口可以返回部门ID示例值: "341432424"
 }
 
 // DeleteCoreHRCompanyResp ...
-type DeleteCoreHRCompanyResp struct {
-}
+type DeleteCoreHRCompanyResp struct{}
 
 // deleteCoreHRCompanyResp ...
 type deleteCoreHRCompanyResp struct {

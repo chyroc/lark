@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// SendApprovalMessage 此接口可以用来通过飞书审批的Bot推送消息给用户, 当有新的审批待办, 或者审批待办的状态有更新时, 可以通过飞书审批的Bot告知用户。当然开发者也可以利用开放平台的能力自建一个全新的Bot, 用来推送审批相关信息。如果出现推送成功, 但是没有收到消息, 可能是因为开通了审批机器人的聚合推送。
+// SendApprovalMessage 此接口可以用来通过飞书审批的 Bot 推送消息给用户, 当有新的审批待办, 或者审批待办的状态有更新时, 可以通过飞书审批的 Bot 告知用户。如果出现推送成功, 但是没有收到消息, 可能是因为开通了审批机器人的聚合推送。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ugDNyYjL4QjM24CO0IjN
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/message/send-bot-messages
@@ -58,11 +58,79 @@ func (r *Mock) UnMockApprovalSendApprovalMessage() {
 
 // SendApprovalMessageReq ...
 type SendApprovalMessageReq struct {
+	TemplateID      string                                `header:"template_id" json:"-"`        // 模板编号, 具体参考模板列表的 模板编号 列。示例值: 1001
+	UserID          string                                `header:"user_id" json:"-"`            // 接收审批 Bot 消息的目标用户的 user_id。获取方式参见[如何获取用户的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。注意: user_id 和 open_id 需至少传入一个。示例值: b85s39b
+	OpenID          string                                `header:"open_id" json:"-"`            // 接收审批 Bot 消息的目标用户的 open_id。获取方式参见[如何获取用户的 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。注意: user_id 和 open_id 需至少传入一个。示例值: ou-8ec33278bc2
+	UUID            *string                               `header:"uuid" json:"-"`               // 自定义的幂等 ID, 最大长度为 64。你可以传入唯一的 UUID 以保证审批 Bot 消息只发送一次。说明: UUID 相同的请求, 1 小时内只会发送一次审批 Bot 消息。示例值: 1234567
+	ApprovalName    *string                               `header:"approval_name" json:"-"`      // 对应模板标题的 `{approval_name}` 参数。注意:- 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key）, 还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。- Key 需要以 `@i18n@` 开头。示例值: @i18n@1
+	TitleUserID     *string                               `header:"title_user_id" json:"-"`      // 对应模板标题的 `{title_user_id}`, 用来指定审批的申请人、审批人、评论人或者抄送人等。需传入用户 ID, ID 类型与 title_user_id_type 取值保持一致。示例值: b85s39b
+	TitleUserIDType *IDType                               `header:"title_user_id_type" json:"-"` // 指定 title_user_id 传入的用户 ID 类型。可选值有: user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。获取方式参见[如何获取用户的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。- open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。获取方式参见[如何获取用户的 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。默认值: user_id
+	Comment         *string                               `header:"comment" json:"-"`            // 评论区内容。- 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key）, 还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。- Key 需要以 `@i18n@` 开头。- 支持的语法参考[Markdown](https://open.feishu.cn/document/ukTMukTMukTM/uADOwUjLwgDM14CM4ATN#abc9b025)。示例值: @i18n@2
+	Content         *SendApprovalMessageReqContent        `header:"content" json:"-"`            // 审批 Bot 消息的内容。当模板的内容存在 `{user_id}`、`{department_id}` 或 `{summaries}` 等参数时, 可以通过当前参数配置对应的参数值。
+	Note            *string                               `header:"note" json:"-"`               // 备注。内容用于标注审批来源、访问限制等信息。注意: 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key）, 还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。- Key 需要以 `@i18n@` 开头。示例值: @i18n@5![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/2d5dca2615a65dadb6119027e9614c44_XOiwf7O08C.png?height=1456&lazyload=true&maxWidth=200&width=952)
+	SenderUserID    *string                               `header:"sender_user_id" json:"-"`     // 发送人的 user_id, 用于发送 IM 卡片。获取方式参考[如何获取用户的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。示例值: b85s39b
+	Text            *string                               `header:"text" json:"-"`               // 转发留言, 用于发送 IM 卡片发送一条留言。示例值: 请尽快完成审批![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/8ef4c5af656f58f92c9cf7721945342f_wLmZNKKY1v.png?height=1280&lazyload=true&maxWidth=200&width=622)
+	Actions         []*SendApprovalMessageReqAction       `header:"actions" json:"-"`            // 操作区, 最多可设置 2 个操作按钮。其中: 第一个按钮固定为 查看详情, 必传。- 第二个按钮自定义, 可选择传入。![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/0d9c4339d6296466f784e0dc880b4915_YLGpznrJAe.png?height=1384&lazyload=true&maxWidth=200&width=998)
+	ActionCallback  *SendApprovalMessageReqActionCallback `header:"action_callback" json:"-"`    // 快捷审批的回调配置。说明: 仅样式为橘黄色的模板支持快捷审批参数。
+	ActionConfigs   []*SendApprovalMessageReqActionConfig `header:"action_configs" json:"-"`     // 快捷审批的操作配置。说明: 仅样式为橘黄色的模板支持快捷审批参数。![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/9471d869446c112e6dfc33828208f545_8QMtl0q4Rm.png?height=1446&lazyload=true&maxWidth=200&width=938)
+	I18nResources   []*SendApprovalMessageReqI18nResource `header:"i18n_resources" json:"-"`     // 国际化文案。部分参数（如 approval_name、comment 或 note 等）设置了国际化文案 Key 后, 需要通过 i18n_resources 设置 Key:Value 关系为参数赋值。例如, approval_name取值为 @i18n@8, 则需要在 i18n_resources.texts 中传入 `@i18n@8: 审批实例名称` 为参数赋值。
 }
+
+// SendApprovalMessageReqAction ...
+type SendApprovalMessageReqAction struct {
+	ActionName string `header:"action_name" json:"-"` // 操作类型。其中: 第一个按钮的 action_name 固定取值 DETAIL。- 第二个按钮的 action_name 自定义配置。这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key）, 还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。Key 需要以 `@i18n@` 开头。示例值: @i18n@7
+	URL        string `header:"url" json:"-"`         // 默认链接, 不同的端配置不同的操作跳转 url, 链接必须包含 schema 才能生效。例如: https、http示例值: https://www.example.com
+	AndroidURL string `header:"android_url" json:"-"` // Android 端的跳转链接。示例值: https://www.example.com
+	IosURL     string `header:"ios_url" json:"-"`     // iOS 端的跳转链接。示例值: https://www.example.com
+	PcURL      string `header:"pc_url" json:"-"`      // PC 端的跳转链接。示例值: https://www.example.com
+}
+
+// SendApprovalMessageReqActionCallback ...
+type SendApprovalMessageReqActionCallback struct {
+	ActionCallbackURL   *string `header:"action_callback_url" json:"-"`   // 三方系统的操作回调 URL。待审批列表的任务审批人点击同意或者拒绝后, 审批中心调用该地址通知三方系统。示例值: http://www.example.cn/approval/openapi/instanceOperate
+	ActionCallbackToken *string `header:"action_callback_token" json:"-"` // 回调时带的 token, 用于业务系统验证请求来自审批。详情参见[事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。示例值: abc1234def6789
+	ActionCallbackKey   *string `header:"action_callback_key" json:"-"`   // 请求参数加密密钥, 如果配置了该参数, 则会对请求参数进行加密, 业务需要对请求进行解密。加解密算法详情参考[关联外部选项说明](https://open.feishu.cn/document/ukTMukTMukTM/uADM4QjLwADO04CMwgDN)。示例值: gfdqedvsadfgfsd
+	ActionContext       *string `header:"action_context" json:"-"`        // 操作上下文, 回调的时候会把该参数回传。示例值: test
+}
+
+// SendApprovalMessageReqActionConfig ...
+type SendApprovalMessageReqActionConfig struct {
+	ActionType       string  `header:"action_type" json:"-"`        // 操作类型。可选值有: APPROVE: 同意- REJECT: 拒绝- KEY: 任意英文字符串, 设置该值时, 需要设置 action_name 参数。示例值: APPROVE
+	ActionName       *string `header:"action_name" json:"-"`        // 操作名称。注意: 当 action_type 取值为 KEY 时, 则必须设置该参数值。- 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key）, 还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。- Key 需要以 `@i18n@` 开头。示例值: @i18n@8
+	IsNeedReason     *bool   `header:"is_need_reason" json:"-"`     // 是否需要填写审核意见。可选值有: true: 需要- false: 不需要取值为 true 时, 操作者在操作审批 Bot 消息后会跳转到意见填写页面。示例值: true
+	IsReasonRequired *bool   `header:"is_reason_required" json:"-"` // 意见是否为必填。示例值: true
+	IsNeedAttachment *bool   `header:"is_need_attachment" json:"-"` // 意见是否支持上传附件。示例值: true
+	NextStatus       *string `header:"next_status" json:"-"`        // 如果回调成功后, 审批 Bot 消息会更新成的状态。如果指定则飞书审批会在用户操作后, 把消息卡片的状态更新为 {next_status}。如果不指定则飞书审批不会主动更新消息卡片, 需自行更新卡片, 状态值参见[更新审批 Bot 消息](https://open.feishu.cn/document/ukTMukTMukTM/uAjNyYjLwYjM24CM2IjN)。示例值: APPROVED
+}
+
+// SendApprovalMessageReqContent ...
+type SendApprovalMessageReqContent struct {
+	UserID         *string                                  `header:"user_id" json:"-"`         // 审批申请人 ID。  - 参数为空时不显示申请人。- ID 类型与 user_id_type 取值保持一致。示例值: b85s39b
+	UserIDType     *IDType                                  `header:"user_id_type" json:"-"`    // 审批申请人 ID 的类型。可选值有: user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。获取方式参见[如何获取用户的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。- open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。获取方式参见[如何获取用户的 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。默认值: user_id
+	DepartmentID   *string                                  `header:"department_id" json:"-"`   // 审批申请人所属部门的 ID。部门 ID 介绍参见[部门 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#9c02ed7a)。注意: 仅支持传入 department_id, 不支持传入 open_department_id。- 如果设置了审批申请人 ID（user_id）, 且该用户仅属于一个部门, 则可以不传 department_id 参数。如果用户属于多个部门, 则必须传 department_id。示例值: D096
+	UserName       *string                                  `header:"user_name" json:"-"`       // 审批申请人的名称。注意: 该参数用于申请人不是真实用户的场景。如果传入了 user_id 则优先使用 user_id。- Key 需要以 `@i18n@` 开头。- 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key）, 还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。示例值: @i18n@3
+	DepartmentName *string                                  `header:"department_name" json:"-"` // 审批申请人所属的部门名称。注意: 该参数用于申请人部门不是真实部门的场景。如果传入了 department_id 则优先使用 department_id。- Key 需要以 `@i18n@` 开头。- 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key）, 还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。示例值: @i18n@4
+	Summaries      []*SendApprovalMessageReqContentSummarie `header:"summaries" json:"-"`       // 审批事由。最多可传入 5 个。
+}
+
+// SendApprovalMessageReqContentSummarie ...
+type SendApprovalMessageReqContentSummarie struct {
+	Summary *string `header:"summary" json:"-"` // 审批事由。- 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key）, 还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。- Key 需要以 `@i18n@` 开头。- 支持的语法参考[Markdown](https://open.feishu.cn/document/ukTMukTMukTM/uADOwUjLwgDM14CM4ATN#abc9b025)。示例值: @i18n@5
+}
+
+// SendApprovalMessageReqI18nResource ...
+type SendApprovalMessageReqI18nResource struct {
+	Locale    string                                   `header:"locale" json:"-"`     // 语言。可选值有: zh-CN: 中文- en-US: 英文- ja-JP: 日文示例值: zh-CN
+	IsDefault bool                                     `header:"is_default" json:"-"` // 当前语言是否为默认语言。默认语言需要在 texts 中传入所有的 Key:Value, 非默认语言如果缺失 Key, 则会使用默认语言代替。示例值: true
+	Texts     *SendApprovalMessageReqI18nResourceTexts `header:"texts" json:"-"`      // 文案的 Key:Value。Key 需要以 `@i18n@` 开头, 并按照各个参数的要求传入 Value。示例值: ```{"@i18n@1": "权限申请", "@i18n@2": "OA审批", "@i18n@3": "Permission"}``
+}
+
+// SendApprovalMessageReqI18nResourceTexts ...
+type SendApprovalMessageReqI18nResourceTexts struct{}
 
 // SendApprovalMessageResp ...
 type SendApprovalMessageResp struct {
-	MessageID string `json:"message_id,omitempty"` // 消息 id, 用于卡片更新
+	MessageID string `json:"message_id,omitempty"` // 消息 ID, 用于[更新审批 Bot 消息](https://open.feishu.cn/document/ukTMukTMukTM/uAjNyYjLwYjM24CM2IjN)
 }
 
 // sendApprovalMessageResp ...

@@ -62,42 +62,42 @@ func (r *Mock) UnMockPersonalSettingsCreatePersonalSettingsSystemStatus() {
 
 // CreatePersonalSettingsSystemStatusReq ...
 type CreatePersonalSettingsSystemStatusReq struct {
-	Title       string                                            `json:"title,omitempty"`        // 系统状态名称, 名称字符数要在1到20范围内。不同系统状态的title不能重复, 注意: 1中文=2英文=2其他语言字符=2字符, 示例值: "出差"
-	I18nTitle   *CreatePersonalSettingsSystemStatusReqI18nTitle   `json:"i18n_title,omitempty"`   // 系统状态国际化名称, 名称字符数要在1到20范围内。不同系统状态之间i18n_title中任何一种title都不能重复, 注意: 1中文=2英文=2其他语言字符=2字符
-	IconKey     string                                            `json:"icon_key,omitempty"`     // 图标, [了解icon_key可选值](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/personal_settings-v1/system_status/overview), 示例值: "GeneralBusinessTrip", 可选值有: GeneralDoNotDisturb: GeneralDoNotDisturb, GeneralInMeetingBusy: GeneralInMeetingBusy, Coffee: Coffee, GeneralBusinessTrip: GeneralBusinessTrip, GeneralWorkFromHome: GeneralWorkFromHome, StatusEnjoyLife: StatusEnjoyLife, GeneralTravellingCar: GeneralTravellingCar, StatusBus: StatusBus, StatusInFlight: StatusInFlight, Typing: Typing, EatingFood: EatingFood, SICK: SICK, GeneralSun: GeneralSun, GeneralMoonRest: GeneralMoonRest, StatusReading: StatusReading, Status_PrivateMessage: Status_PrivateMessage, StatusFlashOfInspiration: StatusFlashOfInspiration, GeneralVacation: GeneralVacation
-	Color       *string                                           `json:"color,omitempty"`        // 颜色, 示例值: "BLUE", 可选值有: BLUE: 蓝色, GRAY: 灰色, INDIGO: 靛青色, WATHET: 浅蓝色, GREEN: 绿色, TURQUOISE: 绿松石色, YELLOW: 黄色, LIME: 酸橙色, RED: 红色, ORANGE: 橙色, PURPLE: 紫色, VIOLET: 紫罗兰色, CARMINE: 胭脂红色, 默认值: `BLUE`
-	Priority    *int64                                            `json:"priority,omitempty"`     // 优先级, 数值越小, 客户端展示的优先级越高。不同系统状态的优先级不能一样, 示例值: 1, 默认值: `0`, 取值范围: `0` ～ `9`
+	Title       string                                            `json:"title,omitempty"`        // 系统状态名称, 名称字符数要在1到20范围内。不同系统状态的title不能重复。 注意: 1中文=2英文=2其他语言字符=2字符示例值: "出差"
+	I18nTitle   *CreatePersonalSettingsSystemStatusReqI18nTitle   `json:"i18n_title,omitempty"`   // 系统状态国际化名称, 名称字符数要在1到20范围内。不同系统状态之间i18n_title中任何一种title都不能重复。 注意: 1中文=2英文=2其他语言字符=2字符
+	IconKey     string                                            `json:"icon_key,omitempty"`     // 图标[了解icon_key可选值](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/personal_settings-v1/system_status/overview)示例值: "GeneralBusinessTrip"可选值有: GeneralDoNotDisturbGeneralInMeetingBusyCoffeeGeneralBusinessTripGeneralWorkFromHomeStatusEnjoyLifeGeneralTravellingCarStatusBusStatusInFlightTypingEatingFoodSICKGeneralSunGeneralMoonRestStatusReadingStatus_PrivateMessageStatusFlashOfInspirationGeneralVacation
+	Color       *string                                           `json:"color,omitempty"`        // 颜色示例值: "BLUE"可选值有: 蓝色灰色靛青色浅蓝色绿色绿松石色黄色酸橙色红色橙色紫色紫罗兰色胭脂红色默认值: `BLUE
+	Priority    *int64                                            `json:"priority,omitempty"`     // 优先级, 数值越小, 客户端展示的优先级越高。不同系统状态的优先级不能一样。示例值: 1默认值: `0` 取值范围: `0` ～ `9
 	SyncSetting *CreatePersonalSettingsSystemStatusReqSyncSetting `json:"sync_setting,omitempty"` // 同步设置
 }
 
 // CreatePersonalSettingsSystemStatusReqI18nTitle ...
 type CreatePersonalSettingsSystemStatusReqI18nTitle struct {
-	ZhCn *string `json:"zh_cn,omitempty"` // 中文名, 示例值: "出差"
-	EnUs *string `json:"en_us,omitempty"` // 英文名, 示例值: "On business trip"
-	JaJp *string `json:"ja_jp,omitempty"` // 日文名, 示例值: "出張中"
+	ZhCn *string `json:"zh_cn,omitempty"` // 中文名示例值: "出差"
+	EnUs *string `json:"en_us,omitempty"` // 英文名示例值: "On business trip"
+	JaJp *string `json:"ja_jp,omitempty"` // 日文名示例值: "出張中"
 }
 
 // CreatePersonalSettingsSystemStatusReqSyncSetting ...
 type CreatePersonalSettingsSystemStatusReqSyncSetting struct {
-	IsOpenByDefault *bool                                                        `json:"is_open_by_default,omitempty"` // 是否默认开启, 示例值: true, 默认值: `true`
-	Title           *string                                                      `json:"title,omitempty"`              // 同步设置名称, 名称字符数要在1到30范围内, 注意: 1中文=2英文=2其他语言字符=2字符, 示例值: "出差期间自动开启", 默认值: `自动开启`
-	I18nTitle       *CreatePersonalSettingsSystemStatusReqSyncSettingI18nTitle   `json:"i18n_title,omitempty"`         // 同步设置国际化名称, 名称字符数要在1到30范围内, 注意: 1中文=2英文=2其他语言字符=2字符
-	Explain         *string                                                      `json:"explain,omitempty"`            // 同步设置解释文案, 解释字符数要在1到60范围内, 注意: 1中文=2英文=2其他语言字符=2字符, 示例值: "出差审批通过后, 将自动开启并优先展示该状态。", 默认值: `从相关系统进行信息同步, 同步后将自动开启并优先展示该状态。`
-	I18nExplain     *CreatePersonalSettingsSystemStatusReqSyncSettingI18nExplain `json:"i18n_explain,omitempty"`       // 同步设置国际化解释文案, 解释字符数要在1到60范围内, 注意: 1中文=2英文=2其他语言字符=2字符
+	IsOpenByDefault *bool                                                        `json:"is_open_by_default,omitempty"` // 是否默认开启示例值: true默认值: `true
+	Title           *string                                                      `json:"title,omitempty"`              // 同步设置名称, 名称字符数要在1到30范围内。注意: 1中文=2英文=2其他语言字符=2字符示例值: "出差期间自动开启"默认值: `自动开启
+	I18nTitle       *CreatePersonalSettingsSystemStatusReqSyncSettingI18nTitle   `json:"i18n_title,omitempty"`         // 同步设置国际化名称, 名称字符数要在1到30范围内。注意: 1中文=2英文=2其他语言字符=2字符
+	Explain         *string                                                      `json:"explain,omitempty"`            // 同步设置解释文案, 解释字符数要在1到60范围内。注意: 1中文=2英文=2其他语言字符=2字符示例值: "出差审批通过后, 将自动开启并优先展示该状态。"默认值: `从相关系统进行信息同步, 同步后将自动开启并优先展示该状态。
+	I18nExplain     *CreatePersonalSettingsSystemStatusReqSyncSettingI18nExplain `json:"i18n_explain,omitempty"`       // 同步设置国际化解释文案, 解释字符数要在1到60范围内。注意: 1中文=2英文=2其他语言字符=2字符
 }
 
 // CreatePersonalSettingsSystemStatusReqSyncSettingI18nExplain ...
 type CreatePersonalSettingsSystemStatusReqSyncSettingI18nExplain struct {
-	ZhCn *string `json:"zh_cn,omitempty"` // 中文名, 示例值: "出差审批通过后, 该状态将自动开启并优先展示"
-	EnUs *string `json:"en_us,omitempty"` // 英文名, 示例值: "Auto-display after travel request is approved."
-	JaJp *string `json:"ja_jp,omitempty"` // 日文名, 示例值: "申請が承認されると、このステータスが優先的に表示されます"
+	ZhCn *string `json:"zh_cn,omitempty"` // 中文名示例值: "出差审批通过后, 该状态将自动开启并优先展示"
+	EnUs *string `json:"en_us,omitempty"` // 英文名示例值: "Auto-display after travel request is approved."
+	JaJp *string `json:"ja_jp,omitempty"` // 日文名示例值: "申請が承認されると、このステータスが優先的に表示されます"
 }
 
 // CreatePersonalSettingsSystemStatusReqSyncSettingI18nTitle ...
 type CreatePersonalSettingsSystemStatusReqSyncSettingI18nTitle struct {
-	ZhCn *string `json:"zh_cn,omitempty"` // 中文名, 示例值: "出差期间自动开启"
-	EnUs *string `json:"en_us,omitempty"` // 英文名, 示例值: "Auto display Business Trip"
-	JaJp *string `json:"ja_jp,omitempty"` // 日文名, 示例值: "出張中に自動的にオンにする"
+	ZhCn *string `json:"zh_cn,omitempty"` // 中文名示例值: "出差期间自动开启"
+	EnUs *string `json:"en_us,omitempty"` // 英文名示例值: "Auto display Business Trip"
+	JaJp *string `json:"ja_jp,omitempty"` // 日文名示例值: "出張中に自動的にオンにする"
 }
 
 // CreatePersonalSettingsSystemStatusResp ...
@@ -108,10 +108,10 @@ type CreatePersonalSettingsSystemStatusResp struct {
 // CreatePersonalSettingsSystemStatusRespSystemStatus ...
 type CreatePersonalSettingsSystemStatusRespSystemStatus struct {
 	SystemStatusID string                                                         `json:"system_status_id,omitempty"` // 系统状态ID
-	Title          string                                                         `json:"title,omitempty"`            // 系统状态名称, 名称字符数要在1到20范围内。不同系统状态的title不能重复, 注意: 1中文=2英文=2其他语言字符=2字符
-	I18nTitle      *CreatePersonalSettingsSystemStatusRespSystemStatusI18nTitle   `json:"i18n_title,omitempty"`       // 系统状态国际化名称, 名称字符数要在1到20范围内。不同系统状态之间i18n_title中任何一种title都不能重复, 注意: 1中文=2英文=2其他语言字符=2字符
-	IconKey        string                                                         `json:"icon_key,omitempty"`         // 图标, [了解icon_key可选值](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/personal_settings-v1/system_status/overview), 可选值有: GeneralDoNotDisturb: GeneralDoNotDisturb, GeneralInMeetingBusy: GeneralInMeetingBusy, Coffee: Coffee, GeneralBusinessTrip: GeneralBusinessTrip, GeneralWorkFromHome: GeneralWorkFromHome, StatusEnjoyLife: StatusEnjoyLife, GeneralTravellingCar: GeneralTravellingCar, StatusBus: StatusBus, StatusInFlight: StatusInFlight, Typing: Typing, EatingFood: EatingFood, SICK: SICK, GeneralSun: GeneralSun, GeneralMoonRest: GeneralMoonRest, StatusReading: StatusReading, Status_PrivateMessage: Status_PrivateMessage, StatusFlashOfInspiration: StatusFlashOfInspiration, GeneralVacation: GeneralVacation
-	Color          string                                                         `json:"color,omitempty"`            // 颜色, 可选值有: BLUE: 蓝色, GRAY: 灰色, INDIGO: 靛青色, WATHET: 浅蓝色, GREEN: 绿色, TURQUOISE: 绿松石色, YELLOW: 黄色, LIME: 酸橙色, RED: 红色, ORANGE: 橙色, PURPLE: 紫色, VIOLET: 紫罗兰色, CARMINE: 胭脂红色
+	Title          string                                                         `json:"title,omitempty"`            // 系统状态名称, 名称字符数要在1到20范围内。不同系统状态的title不能重复。 注意: 1中文=2英文=2其他语言字符=2字符
+	I18nTitle      *CreatePersonalSettingsSystemStatusRespSystemStatusI18nTitle   `json:"i18n_title,omitempty"`       // 系统状态国际化名称, 名称字符数要在1到20范围内。不同系统状态之间i18n_title中任何一种title都不能重复。 注意: 1中文=2英文=2其他语言字符=2字符
+	IconKey        string                                                         `json:"icon_key,omitempty"`         // 图标[了解icon_key可选值](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/personal_settings-v1/system_status/overview)可选值有: GeneralDoNotDisturbGeneralInMeetingBusyCoffeeGeneralBusinessTripGeneralWorkFromHomeStatusEnjoyLifeGeneralTravellingCarStatusBusStatusInFlightTypingEatingFoodSICKGeneralSunGeneralMoonRestStatusReadingStatus_PrivateMessageStatusFlashOfInspirationGeneralVacation
+	Color          string                                                         `json:"color,omitempty"`            // 颜色可选值有: 蓝色灰色靛青色浅蓝色绿色绿松石色黄色酸橙色红色橙色紫色紫罗兰色胭脂红色
 	Priority       int64                                                          `json:"priority,omitempty"`         // 优先级, 数值越小, 客户端展示的优先级越高。不同系统状态的优先级不能一样。
 	SyncSetting    *CreatePersonalSettingsSystemStatusRespSystemStatusSyncSetting `json:"sync_setting,omitempty"`     // 同步设置
 }
@@ -126,10 +126,10 @@ type CreatePersonalSettingsSystemStatusRespSystemStatusI18nTitle struct {
 // CreatePersonalSettingsSystemStatusRespSystemStatusSyncSetting ...
 type CreatePersonalSettingsSystemStatusRespSystemStatusSyncSetting struct {
 	IsOpenByDefault bool                                                                      `json:"is_open_by_default,omitempty"` // 是否默认开启
-	Title           string                                                                    `json:"title,omitempty"`              // 同步设置名称, 名称字符数要在1到30范围内, 注意: 1中文=2英文=2其他语言字符=2字符
-	I18nTitle       *CreatePersonalSettingsSystemStatusRespSystemStatusSyncSettingI18nTitle   `json:"i18n_title,omitempty"`         // 同步设置国际化名称, 名称字符数要在1到30范围内, 注意: 1中文=2英文=2其他语言字符=2字符
-	Explain         string                                                                    `json:"explain,omitempty"`            // 同步设置解释文案, 解释字符数要在1到60范围内, 注意: 1中文=2英文=2其他语言字符=2字符
-	I18nExplain     *CreatePersonalSettingsSystemStatusRespSystemStatusSyncSettingI18nExplain `json:"i18n_explain,omitempty"`       // 同步设置国际化解释文案, 解释字符数要在1到60范围内, 注意: 1中文=2英文=2其他语言字符=2字符
+	Title           string                                                                    `json:"title,omitempty"`              // 同步设置名称, 名称字符数要在1到30范围内。注意: 1中文=2英文=2其他语言字符=2字符
+	I18nTitle       *CreatePersonalSettingsSystemStatusRespSystemStatusSyncSettingI18nTitle   `json:"i18n_title,omitempty"`         // 同步设置国际化名称, 名称字符数要在1到30范围内。注意: 1中文=2英文=2其他语言字符=2字符
+	Explain         string                                                                    `json:"explain,omitempty"`            // 同步设置解释文案, 解释字符数要在1到60范围内。注意: 1中文=2英文=2其他语言字符=2字符
+	I18nExplain     *CreatePersonalSettingsSystemStatusRespSystemStatusSyncSettingI18nExplain `json:"i18n_explain,omitempty"`       // 同步设置国际化解释文案, 解释字符数要在1到60范围内。注意: 1中文=2英文=2其他语言字符=2字符
 }
 
 // CreatePersonalSettingsSystemStatusRespSystemStatusSyncSettingI18nExplain ...

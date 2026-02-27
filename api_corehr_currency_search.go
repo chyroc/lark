@@ -24,6 +24,7 @@ import (
 // SearchCoreHRCurrency 根据货币 ID、状态查询货币信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search
+// new doc: https://open.feishu.cn/document/corehr-v1/basic-infomation/currency/search
 func (r *CoreHRService) SearchCoreHRCurrency(ctx context.Context, request *SearchCoreHRCurrencyReq, options ...MethodOptionFunc) (*SearchCoreHRCurrencyResp, *Response, error) {
 	if r.cli.mock.mockCoreHRSearchCoreHRCurrency != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#SearchCoreHRCurrency mock enable")
@@ -57,15 +58,15 @@ func (r *Mock) UnMockCoreHRSearchCoreHRCurrency() {
 
 // SearchCoreHRCurrencyReq ...
 type SearchCoreHRCurrencyReq struct {
-	PageSize       int64    `query:"page_size" json:"-"`        // 分页大小, 最大 100, 示例值: 100, 取值范围: `1` ～ `100`
-	PageToken      *string  `query:"page_token" json:"-"`       // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 6891251722631890445
-	CurrencyIDList []string `json:"currency_id_list,omitempty"` // 货币 ID 列表, 不填写则返回全部列表, 示例值: ["6891251722611891445"], 最大长度: `100`
-	StatusList     []int64  `json:"status_list,omitempty"`      // 货币状态列表, 不填写则返回全部列表, 示例值: [1], 可选值有: 1: 生效, 0: 失效, 默认值: `[1]`, 最大长度: `2`
+	PageSize       int64    `query:"page_size" json:"-"`        // 分页大小, 最大 100示例值: 100 取值范围: `1` ～ `100
+	PageToken      *string  `query:"page_token" json:"-"`       // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 6891251722631890445
+	CurrencyIDList []string `json:"currency_id_list,omitempty"` // 货币 ID 列表, 不填写则返回全部列表示例值: ["6863329932261459464"] 最大长度: `100
+	StatusList     []int64  `json:"status_list,omitempty"`      // 货币状态列表, 不填写则返回全部列表示例值: [1]可选值有: 生效失效默认值: `[1]` 最大长度: `2
 }
 
 // SearchCoreHRCurrencyResp ...
 type SearchCoreHRCurrencyResp struct {
-	Items     []*SearchCoreHRCurrencyRespItem `json:"items,omitempty"`      // 查询的货币信息
+	Items     []*SearchCoreHRCurrencyRespItem `json:"items,omitempty"`      // 查询到的货币信息列表
 	PageToken string                          `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	HasMore   bool                            `json:"has_more,omitempty"`   // 是否还有更多项
 }
@@ -75,15 +76,15 @@ type SearchCoreHRCurrencyRespItem struct {
 	CurrencyID          string                                      `json:"currency_id,omitempty"`            // 货币 ID
 	CountryRegionIDList []string                                    `json:"country_region_id_list,omitempty"` // 货币所属国家/地区 ID 列表, 详细信息可通过[查询国家 / 地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)接口查询获得
 	CurrencyName        []*SearchCoreHRCurrencyRespItemCurrencyName `json:"currency_name,omitempty"`          // 货币名称
-	NumericCode         int64                                       `json:"numeric_code,omitempty"`           // 数字代码
-	CurrencyAlpha3Code  string                                      `json:"currency_alpha_3_code,omitempty"`  // 三位字母代码
-	Status              int64                                       `json:"status,omitempty"`                 // 状态, 可选值有: 1: 生效, 0: 失效
+	NumericCode         int64                                       `json:"numeric_code,omitempty"`           // 数字代码（ISO 4217）
+	CurrencyAlpha3Code  string                                      `json:"currency_alpha_3_code,omitempty"`  // 三位字母代码（ISO 4217）
+	Status              int64                                       `json:"status,omitempty"`                 // 状态可选值有: 生效失效
 }
 
 // SearchCoreHRCurrencyRespItemCurrencyName ...
 type SearchCoreHRCurrencyRespItemCurrencyName struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // searchCoreHRCurrencyResp ...

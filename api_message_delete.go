@@ -21,13 +21,18 @@ import (
 	"context"
 )
 
-// DeleteMessage 机器人撤回机器人自己发送的消息或群主撤回群内消息。
+// DeleteMessage 调用该接口撤回指定消息。调用接口的身份不同（身份通过 Authorization 请求头参数指定）, 可实现的效果不同:
 //
-// 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability), 撤回消息时机器人仍需要在会话内
-// - 机器人可以撤回单聊和群组内, 自己发送 且 发送时间不超过租户管理员配置的可撤回时限的消息（默认为24小时）
-// - 若机器人要撤回群内他人发送的消息, 则机器人必须是该群的群主、管理员 或者 创建者, 且消息发送时间不超过1年
-// - 无法撤回通过「[批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)」接口发送的消息
+// - 机器人可以撤回该机器人自己发送的消息。
+// - 群聊的群主可以撤回群内指定的消息。
+// ## 前提条件
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// - 撤回用户单聊内的消息时, 用户需要在机器人的[可用范围](https://open.feishu.cn/document/home/introduction-to-scope-and-authorization/availability)内。
+// - 撤回群组内的消息时, 机器人需要在该群组中。
+// ## 使用限制
+// - 无法撤回通过[批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)接口发送的消息, 撤回该接口发送的消息需要使用[批量撤回消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/batch_message/delete)接口。
+// - 撤回的消息需要符合由企业管理员设置的撤回时限。详情了解[管理员设置撤回和编辑消息权限](https://www.feishu.cn/hc/zh-CN/articles/325339752183)。
+// - 在群聊内的机器人如需撤回他人发送的消息, 则该机器人必须是该群的群主、管理员或者创建者, 且消息发送时间不超过 1 年。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/delete
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/message/delete
@@ -65,12 +70,11 @@ func (r *Mock) UnMockMessageDeleteMessage() {
 
 // DeleteMessageReq ...
 type DeleteMessageReq struct {
-	MessageID string `path:"message_id" json:"-"` // 待撤回的消息的ID, 示例值: "om_dc13264520392913993dd051dba21dcf"
+	MessageID string `path:"message_id" json:"-"` // 待撤回的消息 ID。ID 获取方式: - 调用[发送消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)接口后, 从响应结果的 `message_id` 参数获取。- 监听[接收消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive)事件, 当触发该事件后可以从事件体内获取消息的 `message_id`。- 调用[获取会话历史消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/list)接口, 从响应结果的 `message_id` 参数获取。示例值: "om_dc13264520392913993dd051dba21dcf"
 }
 
 // DeleteMessageResp ...
-type DeleteMessageResp struct {
-}
+type DeleteMessageResp struct{}
 
 // deleteMessageResp ...
 type deleteMessageResp struct {

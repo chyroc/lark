@@ -58,14 +58,14 @@ func (r *Mock) UnMockOKRUpdateOKRPeriod() {
 
 // UpdateOKRPeriodReq ...
 type UpdateOKRPeriodReq struct {
-	PeriodID string `path:"period_id" json:"-"` // 周期id, 示例值: "6969864184272078374"
-	Status   int64  `json:"status,omitempty"`   // 周期显示状态, 示例值: 1, 可选值有: 1: 正常状态, 2: 标记失效, 3: 隐藏周期
+	PeriodID string `path:"period_id" json:"-"` // 周期id示例值: "6969864184272078374"
+	Status   int64  `json:"status,omitempty"`   // 周期显示状态示例值: 1可选值有: 正常状态标记失效隐藏周期
 }
 
 // UpdateOKRPeriodResp ...
 type UpdateOKRPeriodResp struct {
 	PeriodID string `json:"period_id,omitempty"` // 周期规则id
-	Status   int64  `json:"status,omitempty"`    // 周期显示状态, 可选值有: 1: 正常状态, 2: 标记失效, 3: 隐藏周期
+	Status   int64  `json:"status,omitempty"`    // 周期显示状态可选值有: 正常状态标记失效隐藏周期
 }
 
 // updateOKRPeriodResp ...

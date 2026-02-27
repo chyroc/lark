@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// DeleteBitableAppRoleMember 删除自定义角色的协作者
+// DeleteBitableAppRoleMember 删除多维表格高级权限中自定义角色的协作者。
+//
+// ## 前提条件
+// 要调用协作者相关接口, 你需确保多维表格已开启高级权限并设置了自定义角色。你可通过[更新多维表格元数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/update)接口开启高级权限, 通过[新增自定义角色](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role/create)接口设置自定义角色。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role-member/delete
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/advanced-permission/app-role-member/delete
@@ -59,15 +62,14 @@ func (r *Mock) UnMockBitableDeleteBitableAppRoleMember() {
 
 // DeleteBitableAppRoleMemberReq ...
 type DeleteBitableAppRoleMemberReq struct {
-	AppToken     string  `path:"app_token" json:"-"`       // 多维表格的唯一标识符 [app_token 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#8121eebe), 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
-	RoleID       string  `path:"role_id" json:"-"`         // 自定义角色的id, 示例值: "roljRpwIUt"
-	MemberID     string  `path:"member_id" json:"-"`       // 协作者id, 示例值: "ou_7dab8a3d3cdcc9da365777c7ad53uew2"
-	MemberIDType *IDType `query:"member_id_type" json:"-"` // 协作者id类型, 与请求体中的member_id要对应, 示例值: open_id, 可选值有: open_id: 以open_id来识别协作者, union_id: 以union_id来识别协作者, user_id: 以user_id来识别协作者, chat_id: 以chat_id来识别协作者, department_id: 以department_id来识别协作者, open_department_id: 以open_department_id来识别协作者, 默认值: `open_id`
+	AppToken     string  `path:"app_token" json:"-"`       // 多维表格 App 的唯一标识。不同形态的多维表格, 其 `app_token` 的获取方式不同: 如果多维表格的 URL 以 [feishu.cn/base] 开头, 该多维表格的 `app_token` 是下图高亮部分: ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004)- 如果多维表格的 URL 以 [feishu.cn/wiki] 开头, 你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时, `obj_token` 字段的值才是多维表格的 `app_token`。了解更多, 参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
+	RoleID       string  `path:"role_id" json:"-"`         // 多维表格高级权限中自定义角色的唯一标识, 以 rol 开头。获取方式: 通过[列出自定义角色](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role/list)接口获取。示例值: "roljRpwIUt"
+	MemberID     string  `path:"member_id" json:"-"`       // 高级权限中自定义角色协作者的 ID, 需与查询参数中 member_id_type 的类型需一致。获取 ID 方式参考 member_id_type 参数描述。示例值: "ou_7dab8a3d3cdcc9da365777c7ad53uew2"
+	MemberIDType *IDType `query:"member_id_type" json:"-"` // 协作者 ID 的类型示例值: open_id可选值有: 以 open_id 来识别协作者。获取方式参考[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)以 union_id 来识别协作者。获取方式参考[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)以 user_id 来识别协作者。获取方式参考[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)以 chat_id 来识别协作者。获取方式参考[群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)以 department_id 来识别协作者。调用前, 请确保应用有部门的可见性, 参考[配置应用可用范围](https://open.feishu.cn/document/home/introduction-to-scope-and-authorization/availability)。获取 department_id 方式参考[部门资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)以 open_department_id 来识别协作者。调用前, 请确保应用有部门的可见性, 参考[配置应用可用范围](https://open.feishu.cn/document/home/introduction-to-scope-and-authorization/availability)。获取 open_department_id 方式参考[部门资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)默认值: `open_id
 }
 
 // DeleteBitableAppRoleMemberResp ...
-type DeleteBitableAppRoleMemberResp struct {
-}
+type DeleteBitableAppRoleMemberResp struct{}
 
 // deleteBitableAppRoleMemberResp ...
 type deleteBitableAppRoleMemberResp struct {

@@ -23,7 +23,12 @@ import (
 
 // GetVCMeetingRecording 获取一个会议的录制文件。
 //
-// 会议结束后并且收到了"录制完成"的事件方可获取录制文件；使用 user_access_token 只有会议owner（通过开放平台预约的会议即为预约人）有权限获取, 使用 tenant_access_token 可以获取租户范围下的录制文件；录制时间太短(<5s)有可能无法生成录制文件
+// ## 注意事项
+// - 会议结束后并且收到了[录制完成](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/recording_ready)的事件方可获取录制文件。
+// - 请求头 Authorization 参数不同 Token 说明:
+// - 使用 user_access_token 时, 只有会议归属人有权限获取录制文件。会议归属人是指[预约会议](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/reserve/apply)时, 请求参数传入的归属人（owner_id）。
+// - 使用 tenant_access_token 时, 可获取租户范围下的录制文件。
+// - 录制时间太短（小于 5s）有可能无法生成录制文件。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting-recording/get
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/meeting-recording/get
@@ -61,7 +66,7 @@ func (r *Mock) UnMockVCGetVCMeetingRecording() {
 
 // GetVCMeetingRecordingReq ...
 type GetVCMeetingRecordingReq struct {
-	MeetingID string `path:"meeting_id" json:"-"` // 会议ID（视频会议的唯一标识, 视频会议开始后才会产生）, 示例值: "6911188411932033028"
+	MeetingID string `path:"meeting_id" json:"-"` // 会议ID（视频会议的唯一标识, 视频会议开始后才会产生）示例值: "6911188411932033028"
 }
 
 // GetVCMeetingRecordingResp ...

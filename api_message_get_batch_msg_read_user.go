@@ -21,11 +21,13 @@ import (
 	"context"
 )
 
-// GetBatchSentMessageReadUser 发送批量消息请求后, 可以通过该接口查询批量消息推送的总人数和阅读人数。
+// GetBatchSentMessageReadUser [批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)后, 可通过该接口查询消息推送的总人数以及消息已读人数。
 //
-// 注意事项:
-// - 只能查询30天内通过[批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)接口产生的消息
-// - 该接口返回的数据为查询时刻的快照数据
+// ## 前提条件
+// 应用需要启用[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// ## 注意事项
+// - 只能查询 30 天内, 通过[批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)接口发送的消息。
+// - 该接口返回的数据为查询时刻的快照数据。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/batch_message/read_user
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/batch_message/read_user
@@ -62,12 +64,12 @@ func (r *Mock) UnMockMessageGetBatchSentMessageReadUser() {
 
 // GetBatchSentMessageReadUserReq ...
 type GetBatchSentMessageReadUserReq struct {
-	BatchMessageID string `path:"batch_message_id" json:"-"` // 待查询的批量消息任务 ID, 通过调用[批量发送消息接口](	/ssl:ttdoc/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)的返回值`message_id`中得到, 示例值: "bm_dc13264520392913993dd051dba21dcf"
+	BatchMessageID string `path:"batch_message_id" json:"-"` // 待查询的批量消息任务 ID, 该 ID 为[批量发送消息](/ssl:ttdoc/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)接口返回值中的 `message_id` 字段, 用于标识一次批量发送消息请求。示例值: "bm_dc13264520392913993dd051dba21dcf"
 }
 
 // GetBatchSentMessageReadUserResp ...
 type GetBatchSentMessageReadUserResp struct {
-	ReadUser *GetBatchSentMessageReadUserRespReadUser `json:"read_user,omitempty"` // 批量发送消息的用户阅读情况
+	ReadUser *GetBatchSentMessageReadUserRespReadUser `json:"read_user,omitempty"` // 批量发送消息的推送与阅读情况。
 }
 
 // GetBatchSentMessageReadUserRespReadUser ...

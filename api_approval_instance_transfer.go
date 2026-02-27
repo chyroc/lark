@@ -58,18 +58,17 @@ func (r *Mock) UnMockApprovalTransferApprovalInstance() {
 
 // TransferApprovalInstanceReq ...
 type TransferApprovalInstanceReq struct {
-	UserIDType     *IDType `query:"user_id_type" json:"-"`     // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	ApprovalCode   string  `json:"approval_code,omitempty"`    // 审批定义 Code, 示例值: "7C468A54-8745-2245-9675-08B7C63E7A85"
-	InstanceCode   string  `json:"instance_code,omitempty"`    // 审批实例 Code, 示例值: "81D31358-93AF-92D6-7425-01A5D67C4E71"
-	UserID         string  `json:"user_id,omitempty"`          // 根据user_id_type填写操作用户id, 示例值: "f7cb567e"
-	Comment        *string `json:"comment,omitempty"`          // 意见, 示例值: "OK"
-	TransferUserID string  `json:"transfer_user_id,omitempty"` // 根据user_id_type填写被转交人唯一 ID, 示例值: "f4ip317q"
-	TaskID         string  `json:"task_id,omitempty"`          // 任务 ID, 审批实例详情task_list中id, 示例值: "12345"
+	UserIDType     *IDType `query:"user_id_type" json:"-"`     // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	ApprovalCode   string  `json:"approval_code,omitempty"`    // 审批定义 Code。获取方式: 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后, 从响应参数 approval_code 获取。- 登录审批管理后台, 在指定审批定义的 URL 中获取, 具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。示例值: "7C468A54-8745-2245-9675-08B7C63E7A85"
+	InstanceCode   string  `json:"instance_code,omitempty"`    // 审批实例 Code。获取方式: 调用[创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create)接口后, 从响应参数 instance_code 获取。- 调用[批量获取审批实例 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list)接口, 获取所需的审批实例 Code。- 调用[查询实例列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/query), 设置过滤条件查询指定的审批实例 Code。示例值: "81D31358-93AF-92D6-7425-01A5D67C4E71"
+	UserID         string  `json:"user_id,omitempty"`          // 当前审批人的用户 ID, ID 类型与查询参数 user_id_type 取值一致。示例值: "f7cb567e"
+	Comment        *string `json:"comment,omitempty"`          // 审批意见示例值: "OK"
+	TransferUserID string  `json:"transfer_user_id,omitempty"` // 被转交人的用户 ID, ID 类型与查询参数 user_id_type 取值一致。示例值: "f4ip317q"
+	TaskID         string  `json:"task_id,omitempty"`          // 审批任务 ID, 调用[获取单个审批实例详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get), 从返回结果的 task_list 中获取所需的 id。示例值: "12345"
 }
 
 // TransferApprovalInstanceResp ...
-type TransferApprovalInstanceResp struct {
-}
+type TransferApprovalInstanceResp struct{}
 
 // transferApprovalInstanceResp ...
 type transferApprovalInstanceResp struct {

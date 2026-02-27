@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// DeleteCoreHRNationalIDType 删除国家证件类型。
+// DeleteCoreHRNationalIDType 删除国家证件类型, 已删除的数据将无法通过查询接口获取。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/national_id_type/delete
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/national_id_type/delete
@@ -58,12 +58,11 @@ func (r *Mock) UnMockCoreHRDeleteCoreHRNationalIDType() {
 
 // DeleteCoreHRNationalIDTypeReq ...
 type DeleteCoreHRNationalIDTypeReq struct {
-	NationalIDTypeID string `path:"national_id_type_id" json:"-"` // 需要删除的国家证件类型 ID, 示例值: "27837817381"
+	NationalIDTypeID string `path:"national_id_type_id" json:"-"` // 需要删除的国家证件类型 ID示例值: "27837817381"
 }
 
 // DeleteCoreHRNationalIDTypeResp ...
-type DeleteCoreHRNationalIDTypeResp struct {
-}
+type DeleteCoreHRNationalIDTypeResp struct{}
 
 // deleteCoreHRNationalIDTypeResp ...
 type deleteCoreHRNationalIDTypeResp struct {

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2VCMeetingJoinMeetingV1 发生在有人加入会议时[仅通过Open API预约的会议会产生此类事件]
+// EventV2VCMeetingJoinMeetingV1 发生在有人加入会议时【仅通过Open API预约的会议会产生此类事件】{使用示例}(url=/api/tools/api_explore/api_explore_config?project=vc&version=v1&resource=meeting&event=join_meeting)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/meeting/events/join_meeting
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/meeting/events/join_meeting
@@ -52,41 +52,41 @@ type EventV2VCMeetingJoinMeetingV1Meeting struct {
 // EventV2VCMeetingJoinMeetingV1MeetingHostUser ...
 type EventV2VCMeetingJoinMeetingV1MeetingHostUser struct {
 	ID       *EventV2VCMeetingJoinMeetingV1MeetingHostUserID `json:"id,omitempty"`        // 用户 ID
-	UserRole int64                                           `json:"user_role,omitempty"` // 用户会中角色, 可选值有: 1: 普通参会人, 2: 主持人, 3: 联席主持人
-	UserType int64                                           `json:"user_type,omitempty"` // 用户类型, 可选值有: 1: 飞书用户, 2: rooms用户, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
+	UserRole int64                                           `json:"user_role,omitempty"` // 用户会中角色可选值有: 普通参会人主持人联席主持人
+	UserType int64                                           `json:"user_type,omitempty"` // 用户类型可选值有: 飞书用户rooms用户文档用户neo单品用户neo单品游客用户pstn用户sip用户
 }
 
 // EventV2VCMeetingJoinMeetingV1MeetingHostUserID ...
 type EventV2VCMeetingJoinMeetingV1MeetingHostUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
 // EventV2VCMeetingJoinMeetingV1MeetingOwner ...
 type EventV2VCMeetingJoinMeetingV1MeetingOwner struct {
 	ID       *EventV2VCMeetingJoinMeetingV1MeetingOwnerID `json:"id,omitempty"`        // 用户 ID
-	UserRole int64                                        `json:"user_role,omitempty"` // 用户会中角色, 可选值有: 1: 普通参会人, 2: 主持人, 3: 联席主持人
-	UserType int64                                        `json:"user_type,omitempty"` // 用户类型, 可选值有: 1: 飞书用户, 2: rooms用户, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
+	UserRole int64                                        `json:"user_role,omitempty"` // 用户会中角色可选值有: 普通参会人主持人联席主持人
+	UserType int64                                        `json:"user_type,omitempty"` // 用户类型可选值有: 飞书用户rooms用户文档用户neo单品用户neo单品游客用户pstn用户sip用户
 }
 
 // EventV2VCMeetingJoinMeetingV1MeetingOwnerID ...
 type EventV2VCMeetingJoinMeetingV1MeetingOwnerID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
 // EventV2VCMeetingJoinMeetingV1Operator ...
 type EventV2VCMeetingJoinMeetingV1Operator struct {
 	ID       *EventV2VCMeetingJoinMeetingV1OperatorID `json:"id,omitempty"`        // 用户 ID
-	UserRole int64                                    `json:"user_role,omitempty"` // 用户会中角色, 可选值有: 1: 普通参会人, 2: 主持人, 3: 联席主持人
-	UserType int64                                    `json:"user_type,omitempty"` // 用户类型, 可选值有: 1: 飞书用户, 2: rooms用户, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
+	UserRole int64                                    `json:"user_role,omitempty"` // 用户会中角色可选值有: 普通参会人主持人联席主持人
+	UserType int64                                    `json:"user_type,omitempty"` // 用户类型可选值有: 飞书用户rooms用户文档用户neo单品用户neo单品游客用户pstn用户sip用户
 }
 
 // EventV2VCMeetingJoinMeetingV1OperatorID ...
 type EventV2VCMeetingJoinMeetingV1OperatorID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }

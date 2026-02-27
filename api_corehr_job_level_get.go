@@ -21,7 +21,11 @@ import (
 	"context"
 )
 
-// GetCoreHRJobLevel 根据 ID 查询单个职级
+// GetCoreHRJobLevel 该接口通过职级id 查询单个职级详情信息, 包括职级包含的名称、描述、启用状态等
+//
+// 注意事项: 数据库主从延迟 2s 以内, 直接创建职级后2s内调用此接口可能查询不到数据。
+// 使用建议: 该接口只支持查询单个职级, 如果你需要批量查询多个职级信息, 建议通过[【通过职级 ID 批量获取职级信息】](/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_level/batch_get
+// )获取职级信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/get
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/job-management/job_level/get
@@ -58,7 +62,7 @@ func (r *Mock) UnMockCoreHRGetCoreHRJobLevel() {
 
 // GetCoreHRJobLevelReq ...
 type GetCoreHRJobLevelReq struct {
-	JobLevelID string `path:"job_level_id" json:"-"` // 职级 ID, 示例值: "1515"
+	JobLevelID string `path:"job_level_id" json:"-"` // 职级ID。ID获取方式: 调用[【新建职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/create)[【查询租户的职级信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)等接口可以返回职级ID示例值: "1515"
 }
 
 // GetCoreHRJobLevelResp ...
@@ -69,12 +73,14 @@ type GetCoreHRJobLevelResp struct {
 // GetCoreHRJobLevelRespJobLevel ...
 type GetCoreHRJobLevelRespJobLevel struct {
 	ID           string                                      `json:"id,omitempty"`            // 职级 ID
-	LevelOrder   int64                                       `json:"level_order,omitempty"`   // 职级数值
+	LevelOrder   int64                                       `json:"level_order,omitempty"`   // 职级数值, 单位: 级
 	Code         string                                      `json:"code,omitempty"`          // 编码
 	Name         []*GetCoreHRJobLevelRespJobLevelName        `json:"name,omitempty"`          // 名称
 	Description  []*GetCoreHRJobLevelRespJobLevelDescription `json:"description,omitempty"`   // 描述
-	Active       bool                                        `json:"active,omitempty"`        // 是否启用
-	CustomFields []*GetCoreHRJobLevelRespJobLevelCustomField `json:"custom_fields,omitempty"` // 自定义字段
+	Active       bool                                        `json:"active,omitempty"`        // 是否启用, true为启用, false为停用
+	CustomFields []*GetCoreHRJobLevelRespJobLevelCustomField `json:"custom_fields,omitempty"` // 自定义字段（职级暂时不支持）
+	JobGrade     []string                                    `json:"job_grade,omitempty"`     // 职等 ID 列表
+	PathwayIDs   []string                                    `json:"pathway_ids,omitempty"`   // 通道ID, 详情可以参考[【获取通道信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pathway/batch_get)
 }
 
 // GetCoreHRJobLevelRespJobLevelCustomField ...
@@ -91,7 +97,7 @@ type GetCoreHRJobLevelRespJobLevelDescription struct {
 
 // GetCoreHRJobLevelRespJobLevelName ...
 type GetCoreHRJobLevelRespJobLevelName struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
+	Lang  string `json:"lang,omitempty"`  // 中文为zh-CN, 英文为en-US
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 

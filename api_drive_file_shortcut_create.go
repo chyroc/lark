@@ -23,7 +23,7 @@ import (
 
 // CreateDriveFileShortcut 创建指定文件的快捷方式到云空间的其它文件夹中。
 //
-// 使用限制:
+// ## 使用限制
 // 该接口不支持并发调用, 且调用频率上限为 5 QPS, 10000 次/天。否则会返回 1061045 错误码, 可通过稍后重试解决。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/create_shortcut
@@ -62,15 +62,15 @@ func (r *Mock) UnMockDriveCreateDriveFileShortcut() {
 
 // CreateDriveFileShortcutReq ...
 type CreateDriveFileShortcutReq struct {
-	UserIDType  *IDType                                `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	ParentToken string                                 `json:"parent_token,omitempty"` // 目标父文件夹的 token, 获取方式见[文件夹概述](https://open.feishu.cn/document/ukTMukTMukTM/ugTNzUjL4UzM14CO1MTN/folder-overview), 示例值: "fldbc5qgwyQnO0uedNllWuabcef"
+	UserIDType  *IDType                                `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	ParentToken string                                 `json:"parent_token,omitempty"` // 目标父文件夹的 token, 获取方式见[文件夹概述](https://open.feishu.cn/document/ukTMukTMukTM/ugTNzUjL4UzM14CO1MTN/folder-overview)示例值: "fldbc5qgwyQnO0uedNllWuabcef"
 	ReferEntity *CreateDriveFileShortcutReqReferEntity `json:"refer_entity,omitempty"` // 源文件的信息
 }
 
 // CreateDriveFileShortcutReqReferEntity ...
 type CreateDriveFileShortcutReqReferEntity struct {
-	ReferToken string `json:"refer_token,omitempty"` // 源文件的 token。获取方式见[文件概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/file-overview), 示例值: "doxbcGvhSVN0R6octqPwAEabcef"
-	ReferType  string `json:"refer_type,omitempty"`  // 源文件的类型, 示例值: "docx", 可选值有: file: 文件, docx: 新版文档, bitable: 多维表格, doc: 旧版文档, sheet: 电子表格, mindnote: 思维笔记, slides: 幻灯片类型
+	ReferToken string `json:"refer_token,omitempty"` // 源文件的 token。获取方式见[文件概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/file-overview)示例值: "doxbcGvhSVN0R6octqPwAEabcef"
+	ReferType  string `json:"refer_type,omitempty"`  // 源文件的类型示例值: "docx"可选值有: 文件新版文档多维表格旧版文档电子表格思维笔记幻灯片类型
 }
 
 // CreateDriveFileShortcutResp ...
@@ -82,7 +82,7 @@ type CreateDriveFileShortcutResp struct {
 type CreateDriveFileShortcutRespSuccShortcutNode struct {
 	Token        string                                                   `json:"token,omitempty"`         // 文件的 token
 	Name         string                                                   `json:"name,omitempty"`          // 文件名
-	Type         string                                                   `json:"type,omitempty"`          // 文件类型, 可选值参照请求体的`refer_type`
+	Type         string                                                   `json:"type,omitempty"`          // 文件类型, 可选值参照请求体的`refer_type
 	ParentToken  string                                                   `json:"parent_token,omitempty"`  // 父文件夹的 token
 	URL          string                                                   `json:"url,omitempty"`           // 访问链接
 	ShortcutInfo *CreateDriveFileShortcutRespSuccShortcutNodeShortcutInfo `json:"shortcut_info,omitempty"` // 快捷方式的源文件信息
@@ -93,7 +93,7 @@ type CreateDriveFileShortcutRespSuccShortcutNode struct {
 
 // CreateDriveFileShortcutRespSuccShortcutNodeShortcutInfo ...
 type CreateDriveFileShortcutRespSuccShortcutNodeShortcutInfo struct {
-	TargetType  string `json:"target_type,omitempty"`  // 快捷方式对应的源文件类型, 可选值参照请求体的 `refer_type`
+	TargetType  string `json:"target_type,omitempty"`  // 快捷方式对应的源文件类型, 可选值参照请求体的 `refer_type
 	TargetToken string `json:"target_token,omitempty"` // 快捷方式指向的源文件 token
 }
 

@@ -21,10 +21,12 @@ import (
 	"context"
 )
 
-// PrepareUploadDriveMedia 发送初始化请求, 以获取上传事务 ID 和分片策略, 为[上传素材分片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_part)做准备。平台固定以 4MB 的大小对素材进行分片。了解完整的分片上传素材流程, 参考[分片上传素材概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/multipart-upload-media/introduction)。
+// PrepareUploadDriveMedia 发送初始化请求, 以获取上传事务 ID 和分片策略, 为[上传素材分片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_part)做准备。平台固定以 4MB 的大小对素材进行分片。了解完整的分片上传素材流程, 参考[素材概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction)。
 //
+// ## 注意事项
 // 上传事务 ID 和上传进度在 24 小时内有效。请及时保存和恢复上传。
-// 该接口不支持较高并发, 且调用频率上限为 5 QPS。
+// ## 使用限制
+// 该接口调用频率上限为 5 QPS, 10000 次/天。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_prepare
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/media/multipart-upload-media/upload_prepare
@@ -62,11 +64,11 @@ func (r *Mock) UnMockDrivePrepareUploadDriveMedia() {
 
 // PrepareUploadDriveMediaReq ...
 type PrepareUploadDriveMediaReq struct {
-	FileName   string  `json:"file_name,omitempty"`   // 素材的文件名称, 示例值: "demo.jpeg", 最大长度: `250` 字符
-	ParentType string  `json:"parent_type,omitempty"` // 上传点的类型。你可根据上传的文件类型与云文档类型确定上传点类型。例如, 要将一张图片插入到新版文档（文件类型为 `docx`）中, 需指定上传点为 `docx_image`；要将一个附件上传到新版文档中, 需指定上传点为 `docx_file`, 示例值: "docx_image", 可选值有: doc_image: 旧版文档图片, docx_image: 新版文档图片, sheet_image: 电子表格图片, doc_file: 文档文件, docx_file: 新版文档文件, sheet_file: 电子表格文件, vc_virtual_background: vc 虚拟背景（灰度中, 暂未开放）, bitable_image: 多维表格图片, bitable_file: 多维表格文件, moments: 同事圈（灰度中, 暂未开放）, ccm_import_open: 云文档导入文件
-	ParentNode string  `json:"parent_node,omitempty"` // 上传点的 token, 即要上传的云文档的 token, 用于指定素材将要上传到的云文档或位置。参考 [素材概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction) 了解上传点类型与上传点 token 的对应关系, 示例值: "doccnFivLCfJfblZjGZtxgabcef"
-	Size       int64   `json:"size,omitempty"`        // 文件的大小, 单位为字节。可通过查看文件的属性获取, 示例值: 1024, 最小值: `0`
-	Extra      *string `json:"extra,omitempty"`       // 其它扩展信息, 示例值: "{\"test\":\"test\"}"
+	FileName   string  `json:"file_name,omitempty"`   // 素材的文件名称示例值: "demo.jpeg" 最大长度: `250` 字符
+	ParentType string  `json:"parent_type,omitempty"` // 上传点的类型。你可根据上传的文件类型与云文档类型确定上传点类型。例如, 要将一张图片插入到新版文档（文件类型为 `docx`）中, 需指定上传点为 `docx_image`；要将一个附件上传到新版文档中, 需指定上传点为 `docx_file`。示例值: "docx_image"可选值有: 旧版文档图片新版文档图片电子表格图片文档文件新版文档文件电子表格文件vc 虚拟背景（灰度中, 暂未开放）多维表格图片多维表格文件同事圈（灰度中, 暂未开放）云文档导入文件
+	ParentNode string  `json:"parent_node,omitempty"` // 上传点的 token, 即要上传的云文档的 token, 用于指定素材将要上传到的云文档或位置。参考 [素材概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction) 了解上传点类型与上传点 token 的对应关系。示例值: "doccnFivLCfJfblZjGZtxgabcef"
+	Size       int64   `json:"size,omitempty"`        // 文件的大小, 单位为字节示例值: 1024 最小值: `0
+	Extra      *string `json:"extra,omitempty"`       // 以下场景的上传点需通过该参数传入素材所在云文档的 token。extra 参数的格式为`"{\"drive_route_token\":\"素材所在云文档的 token\"}"`。详情参考[素材概述-extra 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction#3b8635d3)。示例值: "{\"drive_route_token\":\"doxcnXgNGAtaAraIRVeCfmabcef\"}"
 }
 
 // PrepareUploadDriveMediaResp ...

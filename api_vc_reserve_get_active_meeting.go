@@ -61,9 +61,9 @@ func (r *Mock) UnMockVCGetVCReserveActiveMeeting() {
 
 // GetVCReserveActiveMeetingReq ...
 type GetVCReserveActiveMeetingReq struct {
-	ReserveID        string  `path:"reserve_id" json:"-"`         // 预约ID（预约的唯一标识）, 示例值: "6911188411932033028"
-	WithParticipants *bool   `query:"with_participants" json:"-"` // 是否需要参会人列表, 默认为false, 示例值: false
-	UserIDType       *IDType `query:"user_id_type" json:"-"`      // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	ReserveID        string  `path:"reserve_id" json:"-"`         // 预约ID（预约的唯一标识）示例值: "6911188411932033028"
+	WithParticipants *bool   `query:"with_participants" json:"-"` // 是否需要参会人列表, 默认为false示例值: false
+	UserIDType       *IDType `query:"user_id_type" json:"-"`      // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetVCReserveActiveMeetingResp ...
@@ -82,7 +82,8 @@ type GetVCReserveActiveMeetingRespMeeting struct {
 	StartTime                   string                                             `json:"start_time,omitempty"`                    // 会议开始时间（unix时间, 单位sec）
 	EndTime                     string                                             `json:"end_time,omitempty"`                      // 会议结束时间（unix时间, 单位sec）
 	HostUser                    *GetVCReserveActiveMeetingRespMeetingHostUser      `json:"host_user,omitempty"`                     // 主持人
-	Status                      int64                                              `json:"status,omitempty"`                        // 会议状态, 可选值有: 1: 会议呼叫中, 2: 会议进行中, 3: 会议已结束
+	MeetingConnect              bool                                               `json:"meeting_connect,omitempty"`               // 该会议是否支持互通（注: 该字段内测中）
+	Status                      int64                                              `json:"status,omitempty"`                        // 会议状态可选值有: 会议呼叫中会议进行中会议已结束
 	ParticipantCount            string                                             `json:"participant_count,omitempty"`             // 参会峰值人数
 	ParticipantCountAccumulated string                                             `json:"participant_count_accumulated,omitempty"` // 累计参会人数
 	Participants                []*GetVCReserveActiveMeetingRespMeetingParticipant `json:"participants,omitempty"`                  // 参会人列表
@@ -102,7 +103,7 @@ type GetVCReserveActiveMeetingRespMeetingAbility struct {
 // GetVCReserveActiveMeetingRespMeetingHostUser ...
 type GetVCReserveActiveMeetingRespMeetingHostUser struct {
 	ID       string `json:"id,omitempty"`        // 用户ID
-	UserType int64  `json:"user_type,omitempty"` // 用户类型, 可选值有: 1: 飞书用户, 2: rooms用户, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
+	UserType int64  `json:"user_type,omitempty"` // 用户类型可选值有: 飞书用户rooms用户文档用户neo单品用户neo单品游客用户pstn用户sip用户
 }
 
 // GetVCReserveActiveMeetingRespMeetingParticipant ...
@@ -111,11 +112,11 @@ type GetVCReserveActiveMeetingRespMeetingParticipant struct {
 	FirstJoinTime     string `json:"first_join_time,omitempty"`     // 首次入会时间, 秒级Unix时间戳
 	FinalLeaveTime    string `json:"final_leave_time,omitempty"`    // 最终离会时间, 秒级Unix时间戳
 	InMeetingDuration string `json:"in_meeting_duration,omitempty"` // 累计在会中时间, 时间单位: 秒
-	UserType          int64  `json:"user_type,omitempty"`           // 用户类型, 可选值有: 1: 飞书用户, 2: rooms用户, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
+	UserType          int64  `json:"user_type,omitempty"`           // 用户类型可选值有: 飞书用户rooms用户文档用户neo单品用户neo单品游客用户pstn用户sip用户
 	IsHost            bool   `json:"is_host,omitempty"`             // 是否为主持人
 	IsCohost          bool   `json:"is_cohost,omitempty"`           // 是否为联席主持人
 	IsExternal        bool   `json:"is_external,omitempty"`         // 是否为外部参会人
-	Status            int64  `json:"status,omitempty"`              // 参会人状态, 可选值有: 1: 呼叫中, 2: 在会中, 3: 正在响铃, 4: 不在会中或已经离开会议
+	Status            int64  `json:"status,omitempty"`              // 参会人状态可选值有: 呼叫中在会中正在响铃不在会中或已经离开会议
 }
 
 // getVCReserveActiveMeetingResp ...

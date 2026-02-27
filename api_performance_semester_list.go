@@ -21,9 +21,10 @@ import (
 	"context"
 )
 
-// GetPerformanceSemesterList 获取周期的基本信息
+// GetPerformanceSemesterList 批量获取周期的基本信息, 如周期的名称、类型等信息。支持根据时间段、周期年份、周期类型等过滤条件进行筛选。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list
+// new doc: https://open.feishu.cn/document/performance-v1/review_config/semester_activity/semester/list
 func (r *PerformanceService) GetPerformanceSemesterList(ctx context.Context, request *GetPerformanceSemesterListReq, options ...MethodOptionFunc) (*GetPerformanceSemesterListResp, *Response, error) {
 	if r.cli.mock.mockPerformanceGetPerformanceSemesterList != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Performance#GetPerformanceSemesterList mock enable")
@@ -57,28 +58,39 @@ func (r *Mock) UnMockPerformanceGetPerformanceSemesterList() {
 
 // GetPerformanceSemesterListReq ...
 type GetPerformanceSemesterListReq struct {
-	StartTime *string `query:"start_time" json:"-"` // 查询范围的开始时间, 毫秒级时间戳。开始时间不能晚于结束时间, 示例值: 1630425599999
-	EndTime   *string `query:"end_time" json:"-"`   // 查询范围的结束时间, 毫秒级时间戳。结束时间不能早于开始时间, 示例值: 1630425599999
+	StartTime  *string `query:"start_time" json:"-"`   // 周期开始时间最小值, 毫秒时间戳, 小于该时间开始的周期会被过滤掉示例值: 1630425599999
+	EndTime    *string `query:"end_time" json:"-"`     // 周期结束时间最大值, 毫秒时间戳, 大于该时间结束的周期会被过滤掉示例值: 1640425000000
+	Year       *int64  `query:"year" json:"-"`         // 周期年份, 填写时按照周期年份筛选示例值: 2024 取值范围: `0` ～ `9999
+	TypeGroup  *string `query:"type_group" json:"-"`   // 周期类型分组, 填写时按照周期类型分组示例值: Annual可选值有: 年半年季度双月月非标准周期
+	Type       *string `query:"type" json:"-"`         // 周期类型, 填写时按照周期类型筛选示例值: April可选值有: 全年上半年下半年第一季度第二季度第三季度第四季度1-2 双月3-4 双月5-6 双月7-8 双月9-10 双月11-12 双月1月份2月份3月份4月份5月份6月份7月份8月份9月份10月份11月份12月份自定义
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetPerformanceSemesterListResp ...
 type GetPerformanceSemesterListResp struct {
-	Items []*GetPerformanceSemesterListRespItem `json:"items,omitempty"` // 周期 meta 信息列表
+	Items []*GetPerformanceSemesterListRespItem `json:"items,omitempty"` // 周期列表
 }
 
 // GetPerformanceSemesterListRespItem ...
 type GetPerformanceSemesterListRespItem struct {
-	ID         string                                  `json:"id,omitempty"`          // 绩效评估周期的 ID
-	Name       *GetPerformanceSemesterListRespItemName `json:"name,omitempty"`        // 绩效评估周期的名称
-	StartTime  string                                  `json:"start_time,omitempty"`  // 绩效评估周期的开始时间
-	EndTime    string                                  `json:"end_time,omitempty"`    // 绩效评估周期的结束时间
-	CreateTime string                                  `json:"create_time,omitempty"` // 绩效评估周期的创建时间
+	ID           string                                  `json:"id,omitempty"`             // 周期 ID
+	Year         int64                                   `json:"year,omitempty"`           // 周期年份
+	TypeGroup    string                                  `json:"type_group,omitempty"`     // 周期类型分组
+	Type         string                                  `json:"type,omitempty"`           // 周期类型
+	Name         *GetPerformanceSemesterListRespItemName `json:"name,omitempty"`           // 周期名称
+	Progress     string                                  `json:"progress,omitempty"`       // 周期状态可选值有: 初始化已启动
+	StartTime    string                                  `json:"start_time,omitempty"`     // 周期开始时间, 毫秒时间戳
+	EndTime      string                                  `json:"end_time,omitempty"`       // 周期结束时间, 毫秒时间戳
+	CreateTime   string                                  `json:"create_time,omitempty"`    // 周期创建时间, 毫秒时间戳
+	ModifyTime   string                                  `json:"modify_time,omitempty"`    // 周期更新时间, 毫秒时间戳
+	CreateUserID string                                  `json:"create_user_id,omitempty"` // 周期创建人 ID, 与入参 `user_id_type` 类型一致
+	ModifyUserID string                                  `json:"modify_user_id,omitempty"` // 周期更新人 ID, 与入参 `user_id_type` 类型一致
 }
 
 // GetPerformanceSemesterListRespItemName ...
 type GetPerformanceSemesterListRespItemName struct {
-	ZhCn string `json:"zh-CN,omitempty"` // 中文
-	EnUs string `json:"en-US,omitempty"` // 英文
+	ZhCn string `json:"zh-CN,omitempty"` // 周期中文名称
+	EnUs string `json:"en-US,omitempty"` // 周期英文名称
 }
 
 // getPerformanceSemesterListResp ...

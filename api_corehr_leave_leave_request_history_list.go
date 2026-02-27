@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetCoreHRLeaveRequestHistoryList 批量获取员工的请假记录数据。
+// GetCoreHRLeaveRequestHistoryList 批量获取员工的请假记录数据。对应页面为假勤管理-休假管理-[请假记录](https://example.feishu.cn/people/workforce-management/manage/leave/leave_admin/leave_request)
 //
 // 仅飞书人事企业版可用
 //
@@ -60,21 +60,30 @@ func (r *Mock) UnMockCoreHRGetCoreHRLeaveRequestHistoryList() {
 
 // GetCoreHRLeaveRequestHistoryListReq ...
 type GetCoreHRLeaveRequestHistoryListReq struct {
-	PageToken          *string  `query:"page_token" json:"-"`            // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: [1712932008000, "7356863257632491046"]
-	PageSize           int64    `query:"page_size" json:"-"`             // 分页大小, 示例值: 100
-	EmploymentIDList   []string `query:"employment_id_list" json:"-"`    // 员工 ID 列表, 最大 100 个（不传则默认查询全部员工）, 示例值: 6919733291281024522
-	InitiatorIDList    []string `query:"initiator_id_list" json:"-"`     // 休假发起人 ID 列表, 最大 100 个, 示例值: 6919733291281024523
-	LeaveRequestStatus []string `query:"leave_request_status" json:"-"`  // 请假记录的状态, 可选值有: 1: 已通过, 2: 审批中, 3: 审批中（更正）, 4: 审批中（取消休假）, 5: 审批中（返岗）, 6: 已返岗, 7: 已拒绝, 8: 已取消, 9: 已撤回, 示例值: 1
-	LeaveTypeIDList    []string `query:"leave_type_id_list" json:"-"`    // 假期类型 ID 列表, 枚举值可通过[获取假期类型列表]接口获取, 示例值: 4718803945687580501
-	LeaveStartDateMin  *string  `query:"leave_start_date_min" json:"-"`  // 休假开始时间晚于等于的日期, 示例值: 2022-07-20
-	LeaveStartDateMax  *string  `query:"leave_start_date_max" json:"-"`  // 休假开始时间早于等于的日期, 示例值: 2022-07-20
-	LeaveEndDateMin    *string  `query:"leave_end_date_min" json:"-"`    // 休假结束时间晚于等于的日期, 示例值: 2022-07-20
-	LeaveEndDateMax    *string  `query:"leave_end_date_max" json:"-"`    // 休假结束时间早于等于的日期, 示例值: 2022-07-20
-	LeaveSubmitDateMin *string  `query:"leave_submit_date_min" json:"-"` // 休假发起时间晚于等于的日期, 示例值: 2022-07-20
-	LeaveSubmitDateMax *string  `query:"leave_submit_date_max" json:"-"` // 休假发起时间早于等于的日期, 示例值: 2022-07-20
-	UserIDType         *IDType  `query:"user_id_type" json:"-"`          // 用户 ID 类型, 示例值: people_corehr_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_corehr_id: 以飞书人事的 ID 来识别用户, 默认值: `people_corehr_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	LeaveUpdateTimeMin *string  `query:"leave_update_time_min" json:"-"` // 请假记录更新时间晚于等于的时间, 示例值: 2022-10-24 10:00:00
-	LeaveUpdateTimeMax *string  `query:"leave_update_time_max" json:"-"` // 请假记录更新时间早于等于的时间, 示例值: 2022-10-24 10:00:00
+	PageToken                     *string  `query:"page_token" json:"-"`                         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: [1712932008000, "7356863257632491046"]
+	PageSize                      int64    `query:"page_size" json:"-"`                          // 分页大小示例值: 100
+	EmploymentIDList              []string `query:"employment_id_list" json:"-"`                 // 员工 ID 列表, 最大 100 个（不传则默认查询全部员工）, ID 类型与 user_id_type 一致。请注意: 此接口为get请求, 所以传入数组时需要满足get请求传入数组的规范, 例如employment_id_list=6919733291281024522&employment_id_list=6919733291281024523示例值: 6919733291281024522
+	InitiatorIDList               []string `query:"initiator_id_list" json:"-"`                  // 休假发起人 ID 列表, 最大 100 个, ID 类型与 user_id_type 一致。请注意: 此接口为get请求, 所以传入数组时需要满足get请求传入数组的规范, 例如initiator_id_list=6919733291281024522&initiator_id_list=6919733291281024523示例值: 6919733291281024522
+	LeaveRequestStatus            []string `query:"leave_request_status" json:"-"`               // 请假记录的状态, 不填为不过滤状态。请注意: 此接口为get请求, 所以传入数组时需要满足get请求传入数组的规范, 例如leave_request_status =1&leave_request_status=2可选值有: 1: 已通过- 2: 审批中- 3: 审批中（更正）- 4: 审批中（取消休假）- 5: 审批中（返岗）- 6: 已返岗- 7: 已拒绝- 8: 已取消- 9: 已撤回示例值: 1
+	LeaveTypeIDList               []string `query:"leave_type_id_list" json:"-"`                 // 假期类型 ID 列表, 枚举值可通过[获取假期类型列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/leave_types)接口获取。请注意: 此接口为get请求, 所以传入数组时需要满足get请求传入数组的规范, 例如leave_type_id_list =4718803945687580501&leave_type_id_list=4718803945687580500示例值: 4718803945687580501
+	LeaveStartDateMin             *string  `query:"leave_start_date_min" json:"-"`               // 休假开始时间晚于等于的日期, 格式为yyyy-MM-dd示例值: 2022-07-20
+	LeaveStartDateMax             *string  `query:"leave_start_date_max" json:"-"`               // 休假开始时间早于等于的日期, 格式为yyyy-MM-dd示例值: 2022-07-20
+	LeaveEndDateMin               *string  `query:"leave_end_date_min" json:"-"`                 // 休假结束时间晚于等于的日期, 格式为yyyy-MM-dd示例值: 2022-07-20
+	LeaveEndDateMax               *string  `query:"leave_end_date_max" json:"-"`                 // 休假结束时间早于等于的日期, 格式为yyyy-MM-dd示例值: 2022-07-20
+	LeaveSubmitDateMin            *string  `query:"leave_submit_date_min" json:"-"`              // 休假发起时间晚于等于的日期, 格式为yyyy-MM-dd示例值: 2022-07-20
+	LeaveSubmitDateMax            *string  `query:"leave_submit_date_max" json:"-"`              // 休假发起时间早于等于的日期, 格式为yyyy-MM-dd示例值: 2022-07-20
+	UserIDType                    *IDType  `query:"user_id_type" json:"-"`                       // 用户 ID 类型示例值: people_corehr_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `people_corehr_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	LeaveUpdateTimeMin            *string  `query:"leave_update_time_min" json:"-"`              // 请假记录更新时间晚于等于的时间, 格式为yyyy-MM-dd HH:mm:ss示例值: 2022-10-24 10:00:00
+	LeaveUpdateTimeMax            *string  `query:"leave_update_time_max" json:"-"`              // 请假记录更新时间早于等于的时间, 格式为yyyy-MM-dd HH:mm:ss示例值: 2022-10-24 10:00:00
+	ReturnDetail                  *bool    `query:"return_detail" json:"-"`                      // （暂未开放）是否返回请假详情, 若为true, 将在每条请假记录的details字段返回请假详情示例值: false默认值: `false
+	LeaveTermType                 *int64   `query:"leave_term_type" json:"-"`                    // 指定过滤长/短假类型, 0表示不过滤, 1表示仅获取短假, 2表示仅获取长假, 默认0示例值: 1默认值: `0
+	TimeZone                      *string  `query:"time_zone" json:"-"`                          // 请假记录所在时区示例值: Asia/Shanghai
+	DataSource                    *int64   `query:"data_source" json:"-"`                        // （暂未开放）请假记录数据源, 1表示中国大陆休假, 2表示海外休假, 不传或0表示不过滤示例值: 1
+	DbUpdateTimeMin               *string  `query:"db_update_time_min" json:"-"`                 // （暂未开放）请假记录DB更新时间晚于等于的时间, 格式为yyyy-MM-dd HH:mm:ss示例值: 2022-10-24 10:00:00
+	DbUpdateTimeMax               *string  `query:"db_update_time_max" json:"-"`                 // （暂未开放）请假记录DB更新时间早于等于的时间, 格式为yyyy-MM-dd HH:mm:ss示例值: 2022-10-24 10:00:00
+	WdNeedAmountZeroRecords       *bool    `query:"wd_need_amount_zero_records" json:"-"`        // WorkDay专用 是否返回0值的请假记录, 若为true, 将返回0值的请假记录示例值: false默认值: `false
+	WdNeedDeniedAndCanceledRecord *bool    `query:"wd_need_denied_and_canceled_record" json:"-"` // WorkDay专用 是否拒绝和取消的请假记录, 若为true, 将返回拒绝和取消的请假记录示例值: false默认值: `false
+	WdPaidType                    *IDType  `query:"wd_paid_type" json:"-"`                       // WorkDay专用 扣薪类型, 1不参与算薪 2影响算薪 3不影响算薪示例值: 1
 }
 
 // GetCoreHRLeaveRequestHistoryListResp ...
@@ -86,27 +95,57 @@ type GetCoreHRLeaveRequestHistoryListResp struct {
 
 // GetCoreHRLeaveRequestHistoryListRespLeaveRequest ...
 type GetCoreHRLeaveRequestHistoryListRespLeaveRequest struct {
-	LeaveRequestID     string                                                            `json:"leave_request_id,omitempty"`     // 请假记录ID
-	EmploymentID       string                                                            `json:"employment_id,omitempty"`        // 雇佣信息ID
-	EmploymentName     []*GetCoreHRLeaveRequestHistoryListRespLeaveRequestEmploymentName `json:"employment_name,omitempty"`      // 员工姓名
-	LeaveTypeID        string                                                            `json:"leave_type_id,omitempty"`        // 假期类型ID
-	LeaveTypeName      []*GetCoreHRLeaveRequestHistoryListRespLeaveRequestLeaveTypeName  `json:"leave_type_name,omitempty"`      // 假期类型名称
-	StartTime          string                                                            `json:"start_time,omitempty"`           // 假期开始时间, 格式可能为: 字符串日期: 如 "2022-09-09", 字符串日期加 morning/afternoon: 如 "2022-09-09 morning""
-	EndTime            string                                                            `json:"end_time,omitempty"`             // 假期结束时间, 格式可能为: 字符串日期: 如 "2022-09-09", 字符串日期加 morning/afternoon: 如 "2022-09-09 morning""
-	LeaveDuration      string                                                            `json:"leave_duration,omitempty"`       // 假期时长
-	LeaveDurationUnit  int64                                                             `json:"leave_duration_unit,omitempty"`  // 假期时长单位, 可选值有: 1: 天, 2: 小时
-	LeaveRequestStatus int64                                                             `json:"leave_request_status,omitempty"` // 请假记录的状态, 可选值有: 1: 已通过, 2: 审批中, 3: 审批中（更正）, 4: 审批中（取消休假）, 5: 审批中（返岗）, 6: 已返岗, 7: 已拒绝, 8: 已取消, 9: 已撤回
-	GrantSource        string                                                            `json:"grant_source,omitempty"`         // 数据来源, 可选值有: "manual": 手动创建, "system": 系统创建"
-	ReturnTime         string                                                            `json:"return_time,omitempty"`          // 返岗时间
-	SubmittedAt        string                                                            `json:"submitted_at,omitempty"`         // 发起时间
-	SubmittedBy        string                                                            `json:"submitted_by,omitempty"`         // 发起人
-	Notes              string                                                            `json:"notes,omitempty"`                // 备注
+	LeaveRequestID          string                                                                     `json:"leave_request_id,omitempty"`           // 请假记录ID
+	EmploymentID            string                                                                     `json:"employment_id,omitempty"`              // 员工ID, ID 类型与 user_id_type 一致
+	EmploymentName          []*GetCoreHRLeaveRequestHistoryListRespLeaveRequestEmploymentName          `json:"employment_name,omitempty"`            // 员工姓名
+	LeaveTypeID             string                                                                     `json:"leave_type_id,omitempty"`              // 假期类型ID
+	LeaveTypeName           []*GetCoreHRLeaveRequestHistoryListRespLeaveRequestLeaveTypeName           `json:"leave_type_name,omitempty"`            // 假期类型名称
+	StartTime               string                                                                     `json:"start_time,omitempty"`                 // 假期开始时间, 格式可能为: 字符串日期: 如 "2022-09-09" - 字符串日期加 morning/afternoon: 如 "2022-09-09 morning"" - 小时假如需返回精准到小时的时间格式, 请联系[技术支持](https://applink.feishu.cn/TLJpeNdW) 开通
+	EndTime                 string                                                                     `json:"end_time,omitempty"`                   // 假期结束时间, 格式可能为: 字符串日期: 如 "2022-09-09" - 字符串日期加 morning/afternoon: 如 "2022-09-09 morning"" - 小时假如需返回精准到小时的时间格式, 请联系[技术支持](https://applink.feishu.cn/TLJpeNdW) 开通
+	LeaveDuration           string                                                                     `json:"leave_duration,omitempty"`             // 假期时长
+	LeaveDurationUnit       int64                                                                      `json:"leave_duration_unit,omitempty"`        // 假期时长单位可选值有: 1: 天- 2: 小时
+	LeaveRequestStatus      int64                                                                      `json:"leave_request_status,omitempty"`       // 请假记录的状态可选值有: 1: 已通过- 2: 审批中- 3: 审批中（更正）- 4: 审批中（取消休假）- 5: 审批中（返岗）- 6: 已返岗- 7: 已拒绝- 8: 已取消- 9: 已撤回
+	GrantSource             string                                                                     `json:"grant_source,omitempty"`               // 数据来源可选值有: "manual": 手动创建- "system": 系统创建"
+	ReturnTime              string                                                                     `json:"return_time,omitempty"`                // 返岗时间, 格式为秒级时间戳
+	SubmittedAt             string                                                                     `json:"submitted_at,omitempty"`               // 发起时间, 格式为秒级时间戳
+	SubmittedBy             string                                                                     `json:"submitted_by,omitempty"`               // 发起人, ID 类型与 user_id_type 一致
+	Notes                   string                                                                     `json:"notes,omitempty"`                      // 备注
+	ApprovalDate            string                                                                     `json:"approval_date,omitempty"`              // 审批通过日期, 格式为yyyy-MM-dd
+	IsDeducted              bool                                                                       `json:"is_deducted,omitempty"`                // （暂未开放）是否带薪
+	Details                 []*GetCoreHRLeaveRequestHistoryListRespLeaveRequestDetail                  `json:"details,omitempty"`                    // 请假详情
+	LeaveTypeCode           string                                                                     `json:"leave_type_code,omitempty"`            // （暂未开放）假期类型枚举
+	ActualEndDate           string                                                                     `json:"actual_end_date,omitempty"`            // （暂未开放）实际结束日期, 格式为yyyy-MM-dd
+	EstimatedEndDate        string                                                                     `json:"estimated_end_date,omitempty"`         // （暂未开放）预估结束日期, 格式为yyyy-MM-dd
+	TimeZone                string                                                                     `json:"time_zone,omitempty"`                  // 时区
+	DataSource              int64                                                                      `json:"data_source,omitempty"`                // （暂未开放）请假记录数据来源
+	LeaveProcessID          []string                                                                   `json:"leave_process_id,omitempty"`           // 请假申请流程ID。注意: 导入的请假不会返回leave_process_id。可用于[获取单个流程详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/get)
+	LeaveCorrectProcessID   []string                                                                   `json:"leave_correct_process_id,omitempty"`   // 请假更正流程ID。可用于[获取单个流程详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/get)
+	LeaveCancelProcessID    []string                                                                   `json:"leave_cancel_process_id,omitempty"`    // 请假取消流程ID。可用于[获取单个流程详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/get)
+	LeaveReturnProcessID    []string                                                                   `json:"leave_return_process_id,omitempty"`    // 请假返岗流程ID。可用于[获取单个流程详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/get)
+	WdPaidType              IDType                                                                     `json:"wd_paid_type,omitempty"`               // WorkDay专用 扣薪类型, 1不参与算薪 2影响算薪 3不影响算薪
+	LeaveCorrectProcessInfo []*GetCoreHRLeaveRequestHistoryListRespLeaveRequestLeaveCorrectProcessInfo `json:"leave_correct_process_info,omitempty"` // 请假更正流程信息
+}
+
+// GetCoreHRLeaveRequestHistoryListRespLeaveRequestDetail ...
+type GetCoreHRLeaveRequestHistoryListRespLeaveRequestDetail struct {
+	LeaveRequestID    string `json:"leave_request_id,omitempty"`    // 请假记录id
+	LeaveDate         string `json:"leave_date,omitempty"`          // 假期发生日期
+	LeaveDuration     string `json:"leave_duration,omitempty"`      // 假期时长
+	LeaveDurationUnit int64  `json:"leave_duration_unit,omitempty"` // 假期时长单位, 1: 天, 2: 小时
+	PaidType          IDType `json:"paid_type,omitempty"`           // 是否影响算薪, 1: 不参与算薪计算, 非对应的日期类型或者无对应的假期计划, 2: 影响算薪, 3: 不影响算薪
 }
 
 // GetCoreHRLeaveRequestHistoryListRespLeaveRequestEmploymentName ...
 type GetCoreHRLeaveRequestHistoryListRespLeaveRequestEmploymentName struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
 	Value string `json:"value,omitempty"` // 名称信息的内容
+}
+
+// GetCoreHRLeaveRequestHistoryListRespLeaveRequestLeaveCorrectProcessInfo ...
+type GetCoreHRLeaveRequestHistoryListRespLeaveRequestLeaveCorrectProcessInfo struct {
+	ProcessID        string `json:"process_id,omitempty"`         // 流程id。注意: 导入的请假不会返回leave_process_id。详情可查看[获取单个流程详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/get)
+	ProcessStatus    string `json:"process_status,omitempty"`     // 流程状态可选值有- "inProgress": 审批中- "rejected": 已拒绝- "withdrawn": 已撤回- "passed": 已通过- "revoked": 已撤销- "toStart": 待发起
+	ProcessApplyTime string `json:"process_apply_time,omitempty"` // 流程发起时间
 }
 
 // GetCoreHRLeaveRequestHistoryListRespLeaveRequestLeaveTypeName ...

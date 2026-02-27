@@ -60,9 +60,9 @@ func (r *Mock) UnMockCoreHRGetCoreHRSubregionList() {
 
 // GetCoreHRSubregionListReq ...
 type GetCoreHRSubregionListReq struct {
-	PageToken     *string `query:"page_token" json:"-"`     // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 1231231987
-	PageSize      int64   `query:"page_size" json:"-"`      // 分页大小, 示例值: 100
-	SubdivisionID *string `query:"subdivision_id" json:"-"` // 省份/行政区id, 填写后只查询该省份/行政区下的城市/区域, 示例值: 100
+	PageToken     *string `query:"page_token" json:"-"`     // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 1231231987
+	PageSize      int64   `query:"page_size" json:"-"`      // 分页大小示例值: 100
+	SubdivisionID *string `query:"subdivision_id" json:"-"` // 省份/行政区id, 填写后只查询该省份/行政区下的城市/区域示例值: 100
 }
 
 // GetCoreHRSubregionListResp ...
@@ -76,7 +76,7 @@ type GetCoreHRSubregionListResp struct {
 type GetCoreHRSubregionListRespItem struct {
 	ID                  string                                `json:"id,omitempty"`                    // 城市/区域id
 	Name                []*GetCoreHRSubregionListRespItemName `json:"name,omitempty"`                  // 城市/区域名称
-	SubdivisionID       string                                `json:"subdivision_id,omitempty"`        // 所属省份/行政区id, 详细信息可通过[查询省份/行政区信息]接口查询获得
+	SubdivisionID       string                                `json:"subdivision_id,omitempty"`        // 所属省份/行政区id, 详细信息可通过【查询省份/行政区信息】接口查询获得
 	SuperiorSubregionID string                                `json:"superior_subregion_id,omitempty"` // 上级城市/区域区id
 }
 

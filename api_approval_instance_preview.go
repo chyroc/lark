@@ -21,7 +21,11 @@ import (
 	"context"
 )
 
-// PreviewApprovalInstance 提交审批前, 预览审批流程。或者发起审批后, 在某一审批节点预览后续流程。
+// PreviewApprovalInstance 在[创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create)之前, 可调用本接口预览审批流程数据。在[创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create)之后, 可调用本接口预览某一审批节点的后续流程数据。
+//
+// ## 使用说明
+// - 创建审批实例之前预览整个审批的流程数据, 调用方式与[创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create)接口类似, 需要传入审批定义 Code（approval_code）、审批提交人信息（user_id、department_id）、审批表单数据（form）参数, 进行预览。
+// - 创建审批实例之后预览审批实例内某一审批任务之后的流程数据, 需要传入审批实例 Code（instance_code）、审批任务 ID（task_id）、审批任务的审批人 ID（user_id）, 进行预览。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ukTM5UjL5ETO14SOxkTN/approval-preview
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/instance/approval-preview
@@ -58,13 +62,13 @@ func (r *Mock) UnMockApprovalPreviewApprovalInstance() {
 
 // PreviewApprovalInstanceReq ...
 type PreviewApprovalInstanceReq struct {
-	UserIDType   *IDType            `query:"user_id_type" json:"-"`  // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	ApprovalCode *string            `json:"approval_code,omitempty"` // 审批定义 Code
-	UserID       string             `json:"user_id,omitempty"`       // 发起审批用户, employeid或者openid
-	DepartmentID *string            `json:"department_id,omitempty"` // 发起审批用户部门, 如果用户只属于一个部门, 可以不填, 如果属于多个部门, 必须填其中一个部门
-	Form         ApprovalWidgetList `json:"form,omitempty"`          // JSON字符串, 控件值。提交审批之前, 查看预览流程时, 该字段必填
-	InstanceCode *string            `json:"instance_code,omitempty"` // 审批实例code
-	TaskID       *string            `json:"task_id,omitempty"`       // 若审批实例已存在, 则传递当前审批任务对应的task_id, 并且user_id需要传task的指派人
+	UserIDType   *IDType            `query:"user_id_type" json:"-"`  // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	ApprovalCode *string            `json:"approval_code,omitempty"` // 审批定义 Code。获取方式: 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后, 从响应参数 approval_code 获取。- 登录审批管理后台, 在指定审批定义的 URL 中获取, 具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。示例值: "7C468A54-8745-2245-9675-08B7C63E7A85"
+	UserID       string             `json:"user_id,omitempty"`       // 用户 ID, ID 类型与查询参数 user_id_type 的取值一致。- 在创建审批实例之前预览审批流程, 此处需要传入审批发起人的用户 ID。- 在创建审批实例之后预览某审批任务的后续流程, 此处需要传入审批任务审批人 ID。
+	DepartmentID *string            `json:"department_id,omitempty"` // 审批发起人所属的部门 ID。了解更多参见[部门 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#9c02ed7a)。注意: 如果用户只属于一个部门, 该参数选填。如果用户属于多个部门, 则必须填其中一个部门 ID。
+	Form         ApprovalWidgetList `json:"form,omitempty"`          // 审批表单的控件 JSON 值。注意: 在创建审批实例之前预览审批流程, 该参数必填。示例值: [{\"id\":\"widget16256287451710001\", \"type\": \"number\", \"value\":\"43\"}]
+	InstanceCode *string            `json:"instance_code,omitempty"` // 审批实例 Code。获取方式: [创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create) 后, 从返回结果中获取审批实例 Code。- 调用[批量获取审批实例 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list), 获取指定审批定义内的审批实例 Code。- 调用[查询实例列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/query), 设置过滤条件查询指定的审批实例 Code。示例值: "81D31358-93AF-92D6-7425-01A5D67C4E71"
+	TaskID       *string            `json:"task_id,omitempty"`       // 审批任务 ID。获取方式: 调用[获取单个审批实例详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get)接口, 在响应结果的 task_list 参数内获取 id。- 调用[查询任务列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/task/search)接口, 在响应结果中获取 task_id。注意: 在创建审批实例之后预览某审批任务的后续流程, 该参数必填, 并且 user_id 需要传入任务的审批人 ID。
 }
 
 // PreviewApprovalInstanceResp ...
@@ -74,14 +78,14 @@ type PreviewApprovalInstanceResp struct {
 
 // PreviewApprovalInstanceRespPreviewNode ...
 type PreviewApprovalInstanceRespPreviewNode struct {
-	UserIDList         []string `json:"user_id_list,omitempty"`          // 审批人id列表
-	EndCcIDList        []string `json:"end_cc_id_list,omitempty"`        // 审批结束抄送人id列表
-	NodeID             string   `json:"node_id,omitempty"`               // 节点id
-	NodeName           string   `json:"node_name,omitempty"`             // 节点名称
-	NodeType           string   `json:"node_type,omitempty"`             // 节点类型: AND: 会签 OR: 或签 AUTO_PASS:自动通过 AUTO_REJECT:自动拒绝 SEQUENTIAL:按顺序
-	CustomNodeID       string   `json:"custom_node_id,omitempty"`        // 用户自定义节点id
+	UserIDList         []string `json:"user_id_list,omitempty"`          // 审批人 ID 列表
+	EndCcIDList        []string `json:"end_cc_id_list,omitempty"`        // 审批结束抄送人 ID 列表
+	NodeID             string   `json:"node_id,omitempty"`               // 审批节点 ID
+	NodeName           string   `json:"node_name,omitempty"`             // 审批节点名称
+	NodeType           string   `json:"node_type,omitempty"`             // 审批节点类型。可能值有: - AND: 会签- OR: 或签- AUTO_PASS: 自动通过- AUTO_REJECT: 自动拒绝- SEQUENTIAL: 按顺序
+	CustomNodeID       string   `json:"custom_node_id,omitempty"`        // 用户自定义节点 ID
 	Comments           []string `json:"comments,omitempty"`              // 节点的说明信息
-	IsEmptyLogic       bool     `json:"is_empty_logic,omitempty"`        // 审批人是否为空, 若为空, 则user_id_list为兜底审批人id列表
+	IsEmptyLogic       bool     `json:"is_empty_logic,omitempty"`        // 审批人是否为空, 若为空, 则 user_id_list 为兜底审批人 ID 列表。
 	IsApproverTypeFree bool     `json:"is_approver_type_free,omitempty"` // 是否发起人自选节点
 	HasCcTypeFree      bool     `json:"has_cc_type_free,omitempty"`      // 节点是否支持抄送人自选
 }

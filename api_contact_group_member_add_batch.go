@@ -21,9 +21,13 @@ import (
 	"context"
 )
 
-// BatchAddContactGroupMember 向普通用户组中批量添加成员(目前仅支持添加用户, 暂不支持添加部门）, 如果应用的通讯录权限范围是“全部员工”, 则可将任何成员添加到任何用户组。如果应用的通讯录权限范围不是“全部员工”, 则仅可将通讯录权限范围中的成员添加到通讯录权限范围的用户组中, [点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// BatchAddContactGroupMember 调用该接口向指定的普通用户组内添加一个或多个成员。
 //
-// 请求体中的member_type, 目前仅支持user, 未来将支持department。
+// ## 注意事项
+// - 目前仅支持添加用户类型的成员, 暂不支持添加部门类型的成员。
+// - 如果应用的通讯录权限范围是 全部员工, 则可以将当前租户内的任何用户添加到任何用户组当中。如果应用的通讯录权限范围不是 全部员工, 则所要添加的用户以及对应的用户组, 均需要在应用的通讯录权限范围内。了解通讯录权限范围, 可参见[权限范围资源介绍](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// ## 使用限制
+// 单租户内单个普通用户组的成员数量上限为 100, 000。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group-member/batch_add
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/group-member/batch_add
@@ -60,26 +64,26 @@ func (r *Mock) UnMockContactBatchAddContactGroupMember() {
 
 // BatchAddContactGroupMemberReq ...
 type BatchAddContactGroupMemberReq struct {
-	GroupID string                                 `path:"group_id" json:"-"` // 用户组ID, 示例值: "test_group"
-	Members []*BatchAddContactGroupMemberReqMember `json:"members,omitempty"` // 待添加成员, 长度范围: `1` ～ `100`
+	GroupID string                                 `path:"group_id" json:"-"` // 用户组 ID。用户组 ID 可在创建用户组时从返回值中获取, 你也可以调用[查询用户组列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/simplelist)接口, 获取用户组的 ID。示例值: "test_group"
+	Members []*BatchAddContactGroupMemberReqMember `json:"members,omitempty"` // 待添加成员信息。 长度范围: `1` ～ `100
 }
 
 // BatchAddContactGroupMemberReqMember ...
 type BatchAddContactGroupMemberReqMember struct {
-	MemberID     string  `json:"member_id,omitempty"`      // 成员ID, 示例值: "u287xj12"
-	MemberType   string  `json:"member_type,omitempty"`    // 用户组成员的类型, 取值为 user或department, 示例值: "user"
-	MemberIDType *IDType `json:"member_id_type,omitempty"` // 当member_type为user时, member_id_type表示user_id_type, 可选值为open_id, union_id, user_id。仅在请求参数中有效, 响应体中不会返回此参数, 示例值: "user_id"
+	MemberID     string  `json:"member_id,omitempty"`      // 添加的用户 ID, ID 类型与 member_id_type 的取值保持一致。不同类型的 ID 获取方式可参见: [如何获取用户 open_id](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)- [如何获取用户 union_id](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)- [如何获取用户 user_id](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)示例值: "u287xj12"
+	MemberType   string  `json:"member_type,omitempty"`    // 用户组成员的类型, 目前仅支持选择 user, 表示用户类型。示例值: "user"
+	MemberIDType *IDType `json:"member_id_type,omitempty"` // 当 `member_type` 取值为 `user`时, 该参数必填, 需通过该参数设置用户 ID 类型。包括: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。- union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。- user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用中都保持一致。User ID 主要用于在不同的应用间打通用户数据。示例值: "user_id"
 }
 
 // BatchAddContactGroupMemberResp ...
 type BatchAddContactGroupMemberResp struct {
-	Results []*BatchAddContactGroupMemberRespResult `json:"results,omitempty"` // 成员添加操作结果
+	Results []*BatchAddContactGroupMemberRespResult `json:"results,omitempty"` // 添加成员的操作结果。
 }
 
 // BatchAddContactGroupMemberRespResult ...
 type BatchAddContactGroupMemberRespResult struct {
-	MemberID string `json:"member_id,omitempty"` // 成员ID
-	Code     int64  `json:"code,omitempty"`      // 结果响应码, 0表示成功
+	MemberID string `json:"member_id,omitempty"` // 成员 ID。ID 类型与请求参数中, 每一个成员对应的 member_id_type 取值保持一致。
+	Code     int64  `json:"code,omitempty"`      // 结果响应码, 取值为 `0` 表示成功。取值非 `0` 表示当前的 member_id 存在问题, 具体的错误码排查方案可参考本文的错误码列表或者[通用错误码](https://open.feishu.cn/document/ukTMukTMukTM/ugjM14COyUjL4ITN)。
 }
 
 // batchAddContactGroupMemberResp ...

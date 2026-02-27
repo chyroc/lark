@@ -21,7 +21,9 @@ import (
 	"context"
 )
 
-// CreateBitableApp 在指定目录下创建多维表格
+// CreateBitableApp 在指定文件夹中创建一个多维表格, 包含一个空白的数据表。
+//
+// 要基于模板创建多维表格, 可先获取模板多维表格 `app_token` 作为文件 token, 再调用[复制文件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/copy)接口创建多维表格。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/create
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app/create
@@ -59,9 +61,9 @@ func (r *Mock) UnMockBitableCreateBitableApp() {
 
 // CreateBitableAppReq ...
 type CreateBitableAppReq struct {
-	Name        *string `json:"name,omitempty"`         // 多维表格App名字, 示例值: "一篇新的多维表格"
-	FolderToken *string `json:"folder_token,omitempty"` // 多维表格App归属文件夹。默认为空, 表示多维表格将被创建在云空间根目录。关于如何获取 folder_token, 可参见[如何获取云文档资源相关 token](https://open.feishu.cn/document/server-docs/docs/faq#08bb5df6), 示例值: "fldbco*CIMltVc"
-	TimeZone    *string `json:"time_zone,omitempty"`    // 文档时区, [详见](https://feishu.feishu.cn/docx/YKRndTM7VoyDqpxqqeEcd67MnEf), 示例值: "Asia/Macau"
+	Name        *string `json:"name,omitempty"`         // 多维表格 App 名称。最长为 255 个字符。示例值: "一篇新的多维表格"
+	FolderToken *string `json:"folder_token,omitempty"` // 多维表格 App 归属文件夹。默认为空, 表示多维表格将被创建在云空间根目录。了解如何获取文件夹 Token, 参考[如何获取云文档资源相关 Token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。注意: 请确保调用身份拥有在该文件夹中的编辑权限。若应用使用的是 `tenant_access_token` 权限, 此处仅可指定应用创建的文件夹。详情参考[如何为应用开通云文档相关资源的权限](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-add-permissions-to-app)。示例值: "fldcnqquW1svRIYVT2Np6Iabcef"
+	TimeZone    *string `json:"time_zone,omitempty"`    // 文档时区, 详情参考[文档时区介绍](https://feishu.feishu.cn/docx/YKRndTM7VoyDqpxqqeEcd67MnEf)。示例值: "Asia/Macau"
 }
 
 // CreateBitableAppResp ...
@@ -71,11 +73,11 @@ type CreateBitableAppResp struct {
 
 // CreateBitableAppRespApp ...
 type CreateBitableAppRespApp struct {
-	AppToken       string `json:"app_token,omitempty"`        // 多维表格的 app_token
-	Name           string `json:"name,omitempty"`             // 多维表格的名字
+	AppToken       string `json:"app_token,omitempty"`        // 多维表格的唯一标识 app_token
+	Name           string `json:"name,omitempty"`             // 多维表格的名称
 	FolderToken    string `json:"folder_token,omitempty"`     // 多维表格 App 归属文件夹
-	URL            string `json:"url,omitempty"`              // 多维表格 App URL
-	DefaultTableID string `json:"default_table_id,omitempty"` // 默认的表格id
+	URL            string `json:"url,omitempty"`              // 多维表格 App 的 URL 链接
+	DefaultTableID string `json:"default_table_id,omitempty"` // 默认创建的数据表 ID
 	TimeZone       string `json:"time_zone,omitempty"`        // 文档时区
 }
 

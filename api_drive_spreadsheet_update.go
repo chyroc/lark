@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UpdateSpreadsheet 该接口用于修改电子表格的属性
+// UpdateSpreadsheet 该接口用于修改电子表格的属性。目前支持修改电子表格标题。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet/patch
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet/patch
@@ -59,13 +59,12 @@ func (r *Mock) UnMockDriveUpdateSpreadsheet() {
 
 // UpdateSpreadsheetReq ...
 type UpdateSpreadsheetReq struct {
-	SpreadSheetToken string  `path:"spreadsheet_token" json:"-"` // 表格的token, 示例值: "shtxxxxxxxxxxxxxxx"
-	Title            *string `json:"title,omitempty"`            // 表格标题, 示例值: "title"
+	SpreadSheetToken string  `path:"spreadsheet_token" json:"-"` // 电子表格的 token。可通过以下两种方式获取。了解更多, 参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。-  电子表格的 URL: https://sample.feishu.cn/sheets/[Iow7sNNEphp3WbtnbCscPqabcef]- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)示例值: "Iow7sNNEphp3WbtnbCscPqabcef"
+	Title            *string `json:"title,omitempty"`            // 新的电子表格标题。参数为空时, 表格标题将显示为“未命名表格”或本地语言环境对应内容。示例值: "Sales sheet"
 }
 
 // UpdateSpreadsheetResp ...
-type UpdateSpreadsheetResp struct {
-}
+type UpdateSpreadsheetResp struct{}
 
 // updateSpreadsheetResp ...
 type updateSpreadsheetResp struct {

@@ -59,8 +59,8 @@ func (r *Mock) UnMockMailGetPublicMailboxList() {
 
 // GetPublicMailboxListReq ...
 type GetPublicMailboxListReq struct {
-	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: xxx
-	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 10, 默认值: `20`, 最大值: `200`
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: xxx
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小示例值: 10默认值: `20` 最大值: `200
 }
 
 // GetPublicMailboxListResp ...
@@ -75,7 +75,7 @@ type GetPublicMailboxListRespItem struct {
 	PublicMailboxID string `json:"public_mailbox_id,omitempty"` // 公共邮箱唯一标识
 	Email           string `json:"email,omitempty"`             // 公共邮箱地址
 	Name            string `json:"name,omitempty"`              // 公共邮箱名称
-	Geo             string `json:"geo,omitempty"`               // 数据驻留地, 字段权限要求: 查看公共邮箱数据驻留地
+	Geo             string `json:"geo,omitempty"`               // 数据驻留地字段权限要求: 查看公共邮箱数据驻留地
 }
 
 // getPublicMailboxListResp ...

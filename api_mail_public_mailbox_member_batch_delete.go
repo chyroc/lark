@@ -58,13 +58,12 @@ func (r *Mock) UnMockMailBatchDeletePublicMailboxMember() {
 
 // BatchDeletePublicMailboxMemberReq ...
 type BatchDeletePublicMailboxMemberReq struct {
-	PublicMailboxID string   `path:"public_mailbox_id" json:"-"` // The unique ID or email address of a public mailbox, 示例值: "xxxxxxxxxxxxxxx or test_public_mailbox@xxx.xx"
-	MemberIDList    []string `json:"member_id_list,omitempty"`   // 本次调用删除的公共邮箱成员ID列表, 示例值: ["xxxxxxxxxxxxxxx"], 长度范围: `1` ～ `200`
+	PublicMailboxID string   `path:"public_mailbox_id" json:"-"` // The unique ID or email address of a public mailbox示例值: "xxxxxxxxxxxxxxx or test_public_mailbox@xxx.xx"
+	MemberIDList    []string `json:"member_id_list,omitempty"`   // 本次调用删除的公共邮箱成员ID列表示例值: ["xxxxxxxxxxxxxxx"] 长度范围: `1` ～ `200
 }
 
 // BatchDeletePublicMailboxMemberResp ...
-type BatchDeletePublicMailboxMemberResp struct {
-}
+type BatchDeletePublicMailboxMemberResp struct{}
 
 // batchDeletePublicMailboxMemberResp ...
 type batchDeletePublicMailboxMemberResp struct {

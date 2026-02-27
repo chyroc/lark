@@ -61,7 +61,7 @@ func (r *Mock) UnMockAIDetectFaceAttributes() {
 
 // DetectFaceAttributesReq ...
 type DetectFaceAttributesReq struct {
-	Image *string `json:"image,omitempty"` // 图片 base64 数据, 示例值: "图片 base64 后的字符串"
+	Image *string `json:"image,omitempty"` // 图片 base64 数据示例值: "图片 base64 后的字符串"
 }
 
 // DetectFaceAttributesResp ...

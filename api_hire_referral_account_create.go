@@ -21,9 +21,10 @@ import (
 	"context"
 )
 
-// CreateHireReferralAccount 支持通过内推人的手机号或邮箱注册「内推奖励账号」。注册后, 可获取对应内推人的账号 ID, 并查询、操作对应内推人的积分和奖励余额, 配合接口: [「内推账户余额变更事件」](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/events/assets_update)、[「全额提取内推账号余额」](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/withdraw)。如需停用账户, 可调用[「停用外部系统内推账户」](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/deactivate)
+// CreateHireReferralAccount 通过内推人的手机号或邮箱注册「内推奖励账户」。注册后, 可通过[查询内推账户](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/get_account_assets)接口获取内推账户 ID、积分余额、现金余额等, 可通过[「全额提取内推账号余额」](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/withdraw)接口提取账户余额, 可通过[启动内推账户](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/enable)、[「停用内推账户」](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/deactivate)接口启/停用账户。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/create
+// new doc: https://open.feishu.cn/document/hire-v1/referral_account/create
 func (r *HireService) CreateHireReferralAccount(ctx context.Context, request *CreateHireReferralAccountReq, options ...MethodOptionFunc) (*CreateHireReferralAccountResp, *Response, error) {
 	if r.cli.mock.mockHireCreateHireReferralAccount != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#CreateHireReferralAccount mock enable")
@@ -57,26 +58,26 @@ func (r *Mock) UnMockHireCreateHireReferralAccount() {
 
 // CreateHireReferralAccountReq ...
 type CreateHireReferralAccountReq struct {
-	Mobile *CreateHireReferralAccountReqMobile `json:"mobile,omitempty"` // 电话
-	Email  *string                             `json:"email,omitempty"`  // 邮箱, 示例值: "hire@open.com"
+	Mobile *CreateHireReferralAccountReqMobile `json:"mobile,omitempty"` // 电话, 该参数与 email 参数必传一个
+	Email  *string                             `json:"email,omitempty"`  // 邮箱, 该参数与 mobile 参数必传一个示例值: "hire@open.com"
 }
 
 // CreateHireReferralAccountReqMobile ...
 type CreateHireReferralAccountReqMobile struct {
-	Code   *string `json:"code,omitempty"`   // 国家代码, 示例值: "86"
-	Number *string `json:"number,omitempty"` // 手机号码, 示例值: "18900001111"
+	Code   *string `json:"code,omitempty"`   // 电话国际区号, 遵守国际统一标准, 请参考[百度百科-国际长途电话区号](https://baike.baidu.com/item/%E5%9B%BD%E9%99%85%E9%95%BF%E9%80%94%E7%94%B5%E8%AF%9D%E5%8C%BA%E5%8F%B7%E8%A1%A8/12803495?fr=ge_ala)示例值: "86"
+	Number *string `json:"number,omitempty"` // 手机号码, 在传 mobile 参数的情况下必传示例值: "18900001111"
 }
 
 // CreateHireReferralAccountResp ...
 type CreateHireReferralAccountResp struct {
-	Account *CreateHireReferralAccountRespAccount `json:"account,omitempty"` // 账号信息
+	Account *CreateHireReferralAccountRespAccount `json:"account,omitempty"` // 账户信息
 }
 
 // CreateHireReferralAccountRespAccount ...
 type CreateHireReferralAccountRespAccount struct {
-	AccountID string                                      `json:"account_id,omitempty"` // 账户ID
+	AccountID string                                      `json:"account_id,omitempty"` // 账户 ID
 	Assets    *CreateHireReferralAccountRespAccountAssets `json:"assets,omitempty"`     // 账户资产
-	Status    int64                                       `json:"status,omitempty"`     // 账号状态, 可选值有: 1: 可用, 2: 停用
+	Status    int64                                       `json:"status,omitempty"`     // 账户状态, 注册后默认是可用状态可选值有: 可用停用
 }
 
 // CreateHireReferralAccountRespAccountAssets ...
@@ -86,7 +87,14 @@ type CreateHireReferralAccountRespAccountAssets struct {
 
 // CreateHireReferralAccountRespAccountAssetsConfirmedBonus ...
 type CreateHireReferralAccountRespAccountAssetsConfirmedBonus struct {
-	PointBonus int64 `json:"point_bonus,omitempty"` // 积分奖励
+	PointBonus int64                                                               `json:"point_bonus,omitempty"` // 积分奖励
+	CashBonus  []*CreateHireReferralAccountRespAccountAssetsConfirmedBonusCashBonu `json:"cash_bonus,omitempty"`  // 现金奖励
+}
+
+// CreateHireReferralAccountRespAccountAssetsConfirmedBonusCashBonu ...
+type CreateHireReferralAccountRespAccountAssetsConfirmedBonusCashBonu struct {
+	CurrencyType string  `json:"currency_type,omitempty"` // 币种, 详情可查看: [枚举常量介绍](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/enum)中「币种（currency）枚举定义」
+	Amount       float64 `json:"amount,omitempty"`        // 数额, 保留到小数点后两位
 }
 
 // createHireReferralAccountResp ...

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UpdateContactJobFamily 该接口用于更新租户序列的信息。
+// UpdateContactJobFamily 调用该接口更新指定序列的信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_family/update
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/job_family/update
@@ -58,53 +58,53 @@ func (r *Mock) UnMockContactUpdateContactJobFamily() {
 
 // UpdateContactJobFamilyReq ...
 type UpdateContactJobFamilyReq struct {
-	JobFamilyID       string                                      `path:"job_family_id" json:"-"`         // 序列ID, 示例值: "mga5oa8ayjlpkzy"
-	Name              *string                                     `json:"name,omitempty"`                 // 序列名称。1-100字符, 支持中、英文及符号, 示例值: "产品", 长度范围: `1` ～ `100` 字符
-	Description       *string                                     `json:"description,omitempty"`          // 序列描述, 描述序列详情信息, 示例值: "负责产品策略制定的相关工作"
-	ParentJobFamilyID *string                                     `json:"parent_job_family_id,omitempty"` // 上级序列ID。需是该租户的序列ID列表中的值, 对应唯一的序列名称, 示例值: "mga5oa8ayjlpzjq"
-	Status            *bool                                       `json:"status,omitempty"`               // 是否启用, 示例值: true
-	I18nName          []*UpdateContactJobFamilyReqI18nName        `json:"i18n_name,omitempty"`            // 多语言序列名称
-	I18nDescription   []*UpdateContactJobFamilyReqI18nDescription `json:"i18n_description,omitempty"`     // 多语言描述
+	JobFamilyID       string                                      `path:"job_family_id" json:"-"`         // 序列 ID。获取方式: [创建序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_family/create)时可以从返回结果中获取（job_family_id）。- 调用[获取租户序列列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_family/list)接口获取序列 ID。示例值: "mga5oa8ayjlpkzy"
+	Name              *string                                     `json:"name,omitempty"`                 // 序列名称, 租户内唯一。取值支持中、英文及符号。默认值: 空, 表示不更新示例值: "产品" 长度范围: `1` ～ `100` 字符
+	Description       *string                                     `json:"description,omitempty"`          // 序列描述, 描述序列详情信息。字符长度上限为 5, 000。默认值: 空, 表示不更新示例值: "负责产品策略制定的相关工作"
+	ParentJobFamilyID *string                                     `json:"parent_job_family_id,omitempty"` // 上级序列 ID。你可以调用[获取租户序列列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_family/list)接口, 获取序列 ID。默认值: 空, 表示不更新示例值: "mga5oa8ayjlpzjq"
+	Status            *bool                                       `json:"status,omitempty"`               // 是否启用序列。可选值有: true: 启用- false: 禁用默认值: 空, 表示不更新示例值: true
+	I18nName          []*UpdateContactJobFamilyReqI18nName        `json:"i18n_name,omitempty"`            // 多语言序列名称。默认值: 空, 表示不更新
+	I18nDescription   []*UpdateContactJobFamilyReqI18nDescription `json:"i18n_description,omitempty"`     // 多语言序列描述。默认值: 空, 表示不更新
 }
 
 // UpdateContactJobFamilyReqI18nDescription ...
 type UpdateContactJobFamilyReqI18nDescription struct {
-	Locale *string `json:"locale,omitempty"` // 语言版本, 示例值: "zh_cn"
-	Value  *string `json:"value,omitempty"`  // 字段名, 示例值: "多语言内容"
+	Locale *string `json:"locale,omitempty"` // 语言版本。可选值有: zh_cn: 中文- en_us: 英语- ja_jp: 日语示例值: "zh_cn"
+	Value  *string `json:"value,omitempty"`  // 语言版本对应的值。示例值: "多语言内容"
 }
 
 // UpdateContactJobFamilyReqI18nName ...
 type UpdateContactJobFamilyReqI18nName struct {
-	Locale *string `json:"locale,omitempty"` // 语言版本, 示例值: "zh_cn"
-	Value  *string `json:"value,omitempty"`  // 字段名, 示例值: "多语言内容"
+	Locale *string `json:"locale,omitempty"` // 语言版本。可选值有: zh_cn: 中文- en_us: 英语- ja_jp: 日语示例值: "zh_cn"
+	Value  *string `json:"value,omitempty"`  // 语言版本对应的值。示例值: "多语言内容"
 }
 
 // UpdateContactJobFamilyResp ...
 type UpdateContactJobFamilyResp struct {
-	JobFamily *UpdateContactJobFamilyRespJobFamily `json:"job_family,omitempty"` // 更新后的序列信息
+	JobFamily *UpdateContactJobFamilyRespJobFamily `json:"job_family,omitempty"` // 更新后的序列信息。
 }
 
 // UpdateContactJobFamilyRespJobFamily ...
 type UpdateContactJobFamilyRespJobFamily struct {
-	Name              string                                                `json:"name,omitempty"`                 // 序列名称。1-100字符, 支持中、英文及符号
-	Description       string                                                `json:"description,omitempty"`          // 序列描述, 描述序列详情信息
-	ParentJobFamilyID string                                                `json:"parent_job_family_id,omitempty"` // 上级序列ID。需是该租户的序列ID列表中的值, 对应唯一的序列名称。
-	Status            bool                                                  `json:"status,omitempty"`               // 是否启用
-	I18nName          []*UpdateContactJobFamilyRespJobFamilyI18nName        `json:"i18n_name,omitempty"`            // 多语言序列名称
-	I18nDescription   []*UpdateContactJobFamilyRespJobFamilyI18nDescription `json:"i18n_description,omitempty"`     // 多语言描述
-	JobFamilyID       string                                                `json:"job_family_id,omitempty"`        // 职级序列ID
+	Name              string                                                `json:"name,omitempty"`                 // 序列名称。
+	Description       string                                                `json:"description,omitempty"`          // 序列描述。
+	ParentJobFamilyID string                                                `json:"parent_job_family_id,omitempty"` // 上级序列 ID。
+	Status            bool                                                  `json:"status,omitempty"`               // 是否启用序列。可能值有: true: 启用- false: 禁用
+	I18nName          []*UpdateContactJobFamilyRespJobFamilyI18nName        `json:"i18n_name,omitempty"`            // 多语言序列名称。
+	I18nDescription   []*UpdateContactJobFamilyRespJobFamilyI18nDescription `json:"i18n_description,omitempty"`     // 多语言序列描述。
+	JobFamilyID       string                                                `json:"job_family_id,omitempty"`        // 序列 ID。后续可通过该 ID 更新、查询、删除序列。
 }
 
 // UpdateContactJobFamilyRespJobFamilyI18nDescription ...
 type UpdateContactJobFamilyRespJobFamilyI18nDescription struct {
-	Locale string `json:"locale,omitempty"` // 语言版本
-	Value  string `json:"value,omitempty"`  // 字段名
+	Locale string `json:"locale,omitempty"` // 语言版本。
+	Value  string `json:"value,omitempty"`  // 语言版本对应的值。
 }
 
 // UpdateContactJobFamilyRespJobFamilyI18nName ...
 type UpdateContactJobFamilyRespJobFamilyI18nName struct {
-	Locale string `json:"locale,omitempty"` // 语言版本
-	Value  string `json:"value,omitempty"`  // 字段名
+	Locale string `json:"locale,omitempty"` // 语言版本。
+	Value  string `json:"value,omitempty"`  // 语言版本对应的值。
 }
 
 // updateContactJobFamilyResp ...

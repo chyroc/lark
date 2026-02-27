@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// UpdateContactFunctionalRoleMemberScope 通过该接口可设置本租户下角色成员的管理范围, 以便在审批等场景中应用。
+// UpdateContactFunctionalRoleMemberScope 调用该接口为指定角色内的一个或多个角色成员设置管理范围。管理范围是指角色成员可以管理的部门范围。
+//
+// ## 注意事项
+// 当前应用的通讯录权限范围需要包含待操作的用户与部门, 否则将会操作失败。如何设置通讯录权限范围, 可参见[权限范围资源介绍](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/functional_role-member/scopes
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/functional_role-member/scopes
@@ -58,22 +61,22 @@ func (r *Mock) UnMockContactUpdateContactFunctionalRoleMemberScope() {
 
 // UpdateContactFunctionalRoleMemberScopeReq ...
 type UpdateContactFunctionalRoleMemberScopeReq struct {
-	RoleID           string            `path:"role_id" json:"-"`             // 角色的唯一标识, 单租户下唯一, 示例值: "7vrj3vk70xk7v5r"
-	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型, 示例值: open_department_id, 可选值有: department_id: 以自定义department_id来标识部门, open_department_id: 以open_department_id来标识部门, 默认值: `open_department_id`
-	Members          []string          `json:"members,omitempty"`            // 角色修改的角色成员列表（一批用户的UserID列表), 示例值: ["ou-12832197382"], 长度范围: `1` ～ `100`
-	Departments      []string          `json:"departments,omitempty"`        // 角色内用户的管理范围, 示例值: ["ou-12343455"], 长度范围: `1` ～ `100`
+	RoleID           string            `path:"role_id" json:"-"`             // 角色 ID。获取方式: 在[创建角色](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/functional_role/create)时, 可从返回结果中获取。- 企业管理员可以在 [管理后台](https://feishu.cn/admin) > 组织架构 > 角色管理 页面, 在角色名称右侧获取角色 ID。示例值: "7vrj3vk70xk7v5r"
+	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中的部门 ID 类型。关于部门 ID 的详细介绍, 可参见[部门 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)。示例值: open_department_id可选值有: 支持用户自定义配置的部门 ID。自定义配置时可复用已删除的 department_id, 因此在未删除的部门范围内 department_id 具有唯一性。由系统自动生成的部门 ID, ID 前缀固定为 `od-`, 在租户内全局唯一。默认值: `open_department_id
+	Members          []string          `json:"members,omitempty"`            // 角色成员的用户 ID 列表, 以 `["xxx", "yyy"]` 数组格式进行传值。ID 类型需要和查询参数 user_id_type 的取值保持一致。示例值: ["ou-12832197382"] 长度范围: `1` ～ `100
+	Departments      []string          `json:"departments,omitempty"`        // 设置角色成员可管理的部门范围（部门 ID 列表）, 以 `["xxx", "yyy"]` 数组格式进行传值。ID 类型需要和查询参数 department_id_type 的取值保持一致。部门 API 提供了多种获取部门 ID 的方式, 如[获取子部门列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/children)、[获取父部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/parent)、[搜索部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/search), 你可以选择合适的 API 进行查询。注意: 不支持为角色成员设置根部门（部门 ID 为 0）的管理范围。示例值: ["ou-12343455"] 长度范围: `1` ～ `100
 }
 
 // UpdateContactFunctionalRoleMemberScopeResp ...
 type UpdateContactFunctionalRoleMemberScopeResp struct {
-	Results []*UpdateContactFunctionalRoleMemberScopeRespResult `json:"results,omitempty"` // 批量更新角色成员管理范围结果集
+	Results []*UpdateContactFunctionalRoleMemberScopeRespResult `json:"results,omitempty"` // 设置结果。
 }
 
 // UpdateContactFunctionalRoleMemberScopeRespResult ...
 type UpdateContactFunctionalRoleMemberScopeRespResult struct {
-	UserID string `json:"user_id,omitempty"` // 用户ID
-	Reason int64  `json:"reason,omitempty"`  // 成员处理结果, 可选值有: 1: 处理成功, 2: 用户ID无效, 3: 用户ID无权限, 4: 用户已存在在该角色中, 5: 用户不存在在该角色中, 6: 对该角色内该用户旧的管理范围无权限
+	UserID string `json:"user_id,omitempty"` // 用户 ID, ID 类型与查询参数 user_id_type 的取值保持一致。
+	Reason int64  `json:"reason,omitempty"`  // 成员处理结果。可选值有: 处理成功用户 ID 无效无权限操作该用户 ID用户已存在在该角色中用户不存在在该角色中无权限操作该角色成员旧的管理范围
 }
 
 // updateContactFunctionalRoleMemberScopeResp ...

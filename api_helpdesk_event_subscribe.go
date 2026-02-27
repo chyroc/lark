@@ -64,13 +64,12 @@ type SubscribeHelpdeskEventReq struct {
 
 // SubscribeHelpdeskEventReqEvent ...
 type SubscribeHelpdeskEventReqEvent struct {
-	Type    string `json:"type,omitempty"`    // 事件类型, 示例值: "helpdesk.ticket_message"
-	Subtype string `json:"subtype,omitempty"` // 事件子类型, 示例值: "ticket_message.created_v1"
+	Type    string `json:"type,omitempty"`    // 事件类型示例值: "helpdesk.ticket_message"
+	Subtype string `json:"subtype,omitempty"` // 事件子类型示例值: "ticket_message.created_v1"
 }
 
 // SubscribeHelpdeskEventResp ...
-type SubscribeHelpdeskEventResp struct {
-}
+type SubscribeHelpdeskEventResp struct{}
 
 // subscribeHelpdeskEventResp ...
 type subscribeHelpdeskEventResp struct {

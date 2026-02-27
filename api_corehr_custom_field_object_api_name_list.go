@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetCoreHRCustomFieldObjectApiNameList 获取「飞书人事」中的对象列表, 含系统预置对象与自定义对象。使用方式可参考[操作手册]如何通过 OpenAPI 维护自定义字段](https://feishu.feishu.cn/docx/QlUudBfCtosWMbxx3vxcOFDknn7)
+// GetCoreHRCustomFieldObjectApiNameList 获取「飞书人事」中的对象列表, 含系统预置对象与自定义对象。使用方式可参考[【操作手册】如何通过 OpenAPI 维护自定义字段](https://feishu.feishu.cn/docx/QlUudBfCtosWMbxx3vxcOFDknn7)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/list_object_api_name
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/list_object_api_name
@@ -58,8 +58,8 @@ func (r *Mock) UnMockCoreHRGetCoreHRCustomFieldObjectApiNameList() {
 
 // GetCoreHRCustomFieldObjectApiNameListReq ...
 type GetCoreHRCustomFieldObjectApiNameListReq struct {
-	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 11
-	PageSize  int64   `query:"page_size" json:"-"`  // 分页大小, 示例值: 100
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 11
+	PageSize  int64   `query:"page_size" json:"-"`  // 分页大小示例值: 100
 }
 
 // GetCoreHRCustomFieldObjectApiNameListResp ...
@@ -73,7 +73,7 @@ type GetCoreHRCustomFieldObjectApiNameListResp struct {
 type GetCoreHRCustomFieldObjectApiNameListRespItem struct {
 	ObjectApiName string                                             `json:"object_api_name,omitempty"` // 对象的唯一标识
 	Name          *GetCoreHRCustomFieldObjectApiNameListRespItemName `json:"name,omitempty"`            // 对象名称
-	IsOpen        bool                                               `json:"is_open,omitempty"`         // 是否启用, True 为已启用, False 为未启用
+	IsOpen        bool                                               `json:"is_open,omitempty"`         // 是否启用
 	CreateTime    string                                             `json:"create_time,omitempty"`     // 创建时间, 秒级时间戳
 	UpdateTime    string                                             `json:"update_time,omitempty"`     // 更新时间, 秒级时间戳
 }

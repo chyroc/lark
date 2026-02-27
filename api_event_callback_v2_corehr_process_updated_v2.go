@@ -21,11 +21,13 @@ import (
 	"context"
 )
 
-// EventV2CorehrProcessUpdatedV2 发起流程后会生成一个流程实例（process_id 是唯一标识）。流程中有审批人操作、流程数据更新、流程状态变化等都会触发事件, 比如流程发起后, 创建流程实例并生成节点每个人的待办任务, 可能会触发多条事件。
+// EventV2CorehrProcessUpdatedV2 流程实例是指用户发起的具体流程(process_id是其唯一标识), 流程实例在以下时机会触发信息变更事件: 流程中有审批人操作、流程数据更新、流程状态变化等。
 //
-// 你需要在应用内配置事件订阅, 并订阅该事件, 这样才可以在事件触发时接收到事件数据。了解事件订阅可参见[事件概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
+// 注意事项: 若节点中有多个人时, 可能会同时触发多个事件。例如流程运行到该节点, 同时为多个人都生成了待办任务, 就会导致触发多次事件（此功能不受数据权限范围控制）。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v2&resource=process&event=updated)
+// 休假类型流程的“撤销”的实例状态, 以及是否属于“更正流程”需要去休假的[批量查询员工请假记录](https://open.larkoffice.com/document/server-docs/corehr-v1/leave/leave_request_history?appId=cli_a7b01a4272581013) 接口查询
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/events/updated
+// new doc: https://open.feishu.cn/document/corehr-v1/process-form_variable_data/events/updated
 func (r *EventCallbackService) HandlerEventV2CorehrProcessUpdatedV2(f EventV2CorehrProcessUpdatedV2Handler) {
 	r.cli.eventHandler.eventV2CorehrProcessUpdatedV2Handler = f
 }
@@ -35,7 +37,9 @@ type EventV2CorehrProcessUpdatedV2Handler func(ctx context.Context, cli *Lark, s
 
 // EventV2CorehrProcessUpdatedV2 ...
 type EventV2CorehrProcessUpdatedV2 struct {
-	ProcessID string `json:"process_id,omitempty"` // 流程实例ID
-	Status    int64  `json:"status,omitempty"`     // 变更后状态: 1 发起/进行中, 9 完成, 2拒绝, 4 撤回, 8 撤销, 可选值有: 1: 发起/进行中, 9: 完成, 2: 拒绝, 4: 撤回, 8: 撤销
-	BizType   string `json:"biz_type,omitempty"`   // 业务类型, 详情请查看[业务类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process-approver/events/biz-type), 长度范围: `1` ～ `200` 字符
+	ProcessID        string `json:"process_id,omitempty"`         // 流程运行实例 id, 详细信息可通过[获取单个流程详情](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/get)获取
+	Status           int64  `json:"status,omitempty"`             // 变更后状态可选值有: 发起/进行中完成拒绝撤回撤销撤销中
+	BizType          string `json:"biz_type,omitempty"`           // 业务类型, 详情请查看[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/process-form_variable_data/access-guide) 长度范围: `1` ～ `200` 字符
+	FlowDefinitionID string `json:"flow_definition_id,omitempty"` // 流程定义id。流程定义是流程的模板, 由流程定义可以创建流程实例。示例值: "people_7023711013443944467_7382148112896872236"
+	Properties       int64  `json:"properties,omitempty"`         // 流程属性可选值有: 普通流程撤销流程更正流程
 }

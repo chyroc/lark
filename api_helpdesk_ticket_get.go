@@ -59,7 +59,7 @@ func (r *Mock) UnMockHelpdeskGetHelpdeskTicket() {
 
 // GetHelpdeskTicketReq ...
 type GetHelpdeskTicketReq struct {
-	TicketID string `path:"ticket_id" json:"-"` // ticket id, 示例值: "123456"
+	TicketID string `path:"ticket_id" json:"-"` // 工单 ID。可通过[查询全部工单详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list)获取示例值: "123456"
 }
 
 // GetHelpdeskTicketResp ...
@@ -69,7 +69,7 @@ type GetHelpdeskTicketResp struct {
 
 // GetHelpdeskTicketRespTicket ...
 type GetHelpdeskTicketRespTicket struct {
-	TicketID                   string                                            `json:"ticket_id,omitempty"`                     // 工单ID, [可以从工单列表里面取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list), [也可以订阅工单创建事件获取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created)
+	TicketID                   string                                            `json:"ticket_id,omitempty"`                     // 工单ID[可以从工单列表里面取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list)[也可以订阅工单创建事件获取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created)
 	HelpdeskID                 string                                            `json:"helpdesk_id,omitempty"`                   // 服务台ID
 	Guest                      *GetHelpdeskTicketRespTicketGuest                 `json:"guest,omitempty"`                         // 工单创建用户
 	Comments                   *GetHelpdeskTicketRespTicketComments              `json:"comments,omitempty"`                      // 备注
@@ -85,16 +85,17 @@ type GetHelpdeskTicketRespTicket struct {
 	Solve                      int64                                             `json:"solve,omitempty"`                         // 工单是否解决 1:没解决 2:已解决
 	ClosedBy                   *GetHelpdeskTicketRespTicketClosedBy              `json:"closed_by,omitempty"`                     // 关单用户ID
 	Collaborators              []*GetHelpdeskTicketRespTicketCollaborator        `json:"collaborators,omitempty"`                 // 工单协作者
-	CustomizedFields           []*GetHelpdeskTicketRespTicketCustomizedField     `json:"customized_fields,omitempty"`             // 自定义字段列表, 没有值时不设置, 下拉菜单的value对应工单字段里面的children.display_name, [获取全部工单自定义字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/list-ticket-customized-fields)
+	CustomizedFields           []*GetHelpdeskTicketRespTicketCustomizedField     `json:"customized_fields,omitempty"`             // 自定义字段列表, 没有值时不设置  下拉菜单的value对应工单字段里面的children.display_name[获取全部工单自定义字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/list-ticket-customized-fields)
 	AgentServiceDuration       float64                                           `json:"agent_service_duration,omitempty"`        // 客服服务时长, 客服最后一次回复时间距离客服进入时间间隔, 单位分钟
 	AgentFirstResponseDuration int64                                             `json:"agent_first_response_duration,omitempty"` // 客服首次回复时间距离客服进入时间的间隔(秒)
 	BotServiceDuration         int64                                             `json:"bot_service_duration,omitempty"`          // 机器人服务时间: 客服进入时间距离工单创建时间的间隔, 单位秒
-	AgentResolutionTime        int64                                             `json:"agent_resolution_time,omitempty"`         // 客服解决时长, 关单时间距离客服进入时间的间隔, 单位秒
-	ActualProcessingTime       int64                                             `json:"actual_processing_time,omitempty"`        // 工单实际处理时间: 从客服进入到关单, 单位秒
+	AgentResolutionTime        int64                                             `json:"agent_resolution_time,omitempty"`         // 客服解决时长, 从首位客服接入服务到工单关闭的用时, 单位秒
+	ActualProcessingTime       int64                                             `json:"actual_processing_time,omitempty"`        // 工单实际处理时长, 处理时长=解决时长-工单待定时长（将工单状态修改为待定后的时间）, 单位秒
 	AgentEntryTime             int64                                             `json:"agent_entry_time,omitempty"`              // 客服进入时间, 单位毫秒
 	AgentFirstResponseTime     int64                                             `json:"agent_first_response_time,omitempty"`     // 客服首次回复时间, 单位毫秒
 	AgentLastResponseTime      int64                                             `json:"agent_last_response_time,omitempty"`      // 客服最后回复时间, 单位毫秒
 	AgentOwner                 *GetHelpdeskTicketRespTicketAgentOwner            `json:"agent_owner,omitempty"`                   // 主责客服
+	Tags                       []*GetHelpdeskTicketRespTicketTag                 `json:"tags,omitempty"`                          // 工单标签（仅工单含有工单标签会返回）
 }
 
 // GetHelpdeskTicketRespTicketAgent ...
@@ -178,6 +179,12 @@ type GetHelpdeskTicketRespTicketGuest struct {
 	Department string `json:"department,omitempty"` // 所在部门名称
 	City       string `json:"city,omitempty"`       // 城市
 	Country    string `json:"country,omitempty"`    // 国家代号(CountryCode), 参考: http://www.mamicode.com/info-detail-2186501.html
+}
+
+// GetHelpdeskTicketRespTicketTag ...
+type GetHelpdeskTicketRespTicketTag struct {
+	ID   string `json:"id,omitempty"`   // 标签 ID
+	Name string `json:"name,omitempty"` // 标签
 }
 
 // getHelpdeskTicketResp ...

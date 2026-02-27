@@ -59,12 +59,11 @@ func (r *Mock) UnMockHelpdeskPreviewHelpdeskNotification() {
 
 // PreviewHelpdeskNotificationReq ...
 type PreviewHelpdeskNotificationReq struct {
-	NotificationID string `path:"notification_id" json:"-"` // 创建推送接口成功后返回的唯一id, 示例值: "6985032626234982420"
+	NotificationID string `path:"notification_id" json:"-"` // 创建推送接口成功后返回的唯一id示例值: "6985032626234982420"
 }
 
 // PreviewHelpdeskNotificationResp ...
-type PreviewHelpdeskNotificationResp struct {
-}
+type PreviewHelpdeskNotificationResp struct{}
 
 // previewHelpdeskNotificationResp ...
 type previewHelpdeskNotificationResp struct {

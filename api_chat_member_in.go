@@ -21,11 +21,12 @@ import (
 	"context"
 )
 
-// IsInChat 根据使用的access_token判断对应的用户或者机器人是否在群里。
+// IsInChat 根据使用的 access_token 判断对应的用户或者机器人是否在指定的群里。
 //
-// 注意事项:
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
-// - 获取内部群信息时, 操作者须与群组在同一租户下
+// ## 前提条件
+// 调用该接口的应用, 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// ## 使用限制
+// 获取内部群信息时, 操作者须与群组在同一租户下。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-members/is_in_chat
 // new doc: https://open.feishu.cn/document/server-docs/group/chat-member/is_in_chat
@@ -63,7 +64,7 @@ func (r *Mock) UnMockChatIsInChat() {
 
 // IsInChatReq ...
 type IsInChatReq struct {
-	ChatID string `path:"chat_id" json:"-"` // 群 ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值: "oc_a0553eda9014c201e6969b478895c230"
+	ChatID string `path:"chat_id" json:"-"` // 群 ID。获取方式: [创建群](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create), 从返回结果中获取该群的 chat_id。- 调用[获取用户或机器人所在的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list)接口, 可以查询用户或机器人所在群的 chat_id。- 调用[搜索对用户或机器人可见的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search), 可搜索用户或机器人所在的群、对用户或机器人公开的群的 chat_id。示例值: "oc_a0553eda9014c201e6969b478895c230"
 }
 
 // IsInChatResp ...

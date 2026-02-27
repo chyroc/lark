@@ -24,8 +24,8 @@ import (
 // CreateAttendanceUserApproval 由于部分企业使用的是自己的审批系统, 而不是飞书审批系统, 因此员工的请假、加班等数据无法流入到飞书考勤系统中, 导致员工在请假时间段内依然收到打卡提醒, 并且被记为缺卡。
 //
 // 对于这些只使用飞书考勤系统, 而未使用飞书审批系统的企业, 可以通过考勤开放接口的形式, 将三方审批结果数据回写到飞书考勤系统中。
-// - 目前支持写入加班、请假、出差和外出这四种审批结果, 写入只会追加(insert), 不会覆盖(update)（开放接口导入的加班假期记录, 在管理后台的假期加班里查不到, 可以在考勤统计报表查看, 或者通过[获取审批通过数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/query)来查询）
-// - 离职人员没有考勤组, 所以写入和返回的时间会有差异
+// 1. 目前支持写入加班、请假、出差和外出这四种审批结果, 写入只会追加(insert), 不会覆盖(update)（开放接口导入的加班假期记录, 在管理后台的假期加班里查不到, 可以在考勤统计报表查看, 或者通过[获取审批通过数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/query)来查询）
+// 2. 离职人员没有考勤组, 所以写入和返回的时间会有差异
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/create
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_approval/create
@@ -62,63 +62,93 @@ func (r *Mock) UnMockAttendanceCreateAttendanceUserApproval() {
 
 // CreateAttendanceUserApprovalReq ...
 type CreateAttendanceUserApprovalReq struct {
-	EmployeeType EmployeeType                                 `query:"employee_type" json:"-"` // 请求体和响应体中的 user_id 的员工工号类型, 示例值: employee_id, 可选值有: employee_id: 员工 employee ID, 即[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的用户 ID, employee_no: 员工工号, 即[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的工号
+	EmployeeType EmployeeType                                 `query:"employee_type" json:"-"` // 请求体和响应体中的 user_id 的员工ID类型。如果没有后台管理权限, 可使用[通过手机号或邮箱获取用户 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/batch_get_id)示例值: employee_id可选值有: 员工 employee ID, 即[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的用户 ID员工工号, 即[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的工号用户在某个应用中的身份, 可以参考[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)
 	UserApproval *CreateAttendanceUserApprovalReqUserApproval `json:"user_approval,omitempty"` // 审批信息
 }
 
 // CreateAttendanceUserApprovalReqUserApproval ...
 type CreateAttendanceUserApprovalReqUserApproval struct {
-	UserID        string                                                     `json:"user_id,omitempty"`        // 审批提交人 ID, 示例值: "abd754f7"
-	Date          string                                                     `json:"date,omitempty"`           // 审批作用日期, 示例值: "20210104"
+	UserID        string                                                     `json:"user_id,omitempty"`        // 审批提交人 ID。传入的ID类型需要与employee_type的取值一致示例值: "abd754f7"
+	Date          string                                                     `json:"date,omitempty"`           // 审批作用日期, 格式为yyyyMMdd示例值: "20210104"
 	Outs          []*CreateAttendanceUserApprovalReqUserApprovalOut          `json:"outs,omitempty"`           // 外出信息
 	Leaves        []*CreateAttendanceUserApprovalReqUserApprovalLeave        `json:"leaves,omitempty"`         // 请假信息
 	OvertimeWorks []*CreateAttendanceUserApprovalReqUserApprovalOvertimeWork `json:"overtime_works,omitempty"` // 加班信息
-	Trips         []*CreateAttendanceUserApprovalReqUserApprovalTrip         `json:"trips,omitempty"`          // 出差信息, 目前仅支持全天出差（未满全天则按全天计入）。如果你需要支持半天出差, 请咨询飞书技术支持。
-	TimeZone      *string                                                    `json:"time_zone,omitempty"`      // 计算时间所用的时区信息, 为空是0时区, 示例值: "0"
+	Trips         []*CreateAttendanceUserApprovalReqUserApprovalTrip         `json:"trips,omitempty"`          // 出差信息。目前仅支持全天出差（未满全天则按全天计入）。如果你需要支持半天出差, 请咨询[技术支持](https://applink.feishu.cn/TLJpeNdW)。
+	TimeZone      *string                                                    `json:"time_zone,omitempty"`      // 此字段不再使用, 以用户匹配的考勤组时区为准示例值: "0"
 }
 
 // CreateAttendanceUserApprovalReqUserApprovalLeave ...
 type CreateAttendanceUserApprovalReqUserApprovalLeave struct {
-	UniqID        *string    `json:"uniq_id,omitempty"`        // 假期类型唯一 ID, 代表一种假期类型, 长度小于 14, * 此ID对应假期类型(即: i18n_names), 因此需要保证唯一, 示例值: "6852582717813440527"
-	Unit          int64      `json:"unit,omitempty"`           // 假期时长单位, 示例值: 1, 可选值有: 1: 天, 2: 小时, 3: 半天, 4: 半小时
-	Interval      int64      `json:"interval,omitempty"`       // 假期时长（单位: 秒）, 暂未开放提供, 待后续提供, 示例值: 28800
-	StartTime     string     `json:"start_time,omitempty"`     // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 示例值: "2021-01-04 09:00:00"
-	EndTime       string     `json:"end_time,omitempty"`       // 结束时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 示例值: "2021-01-04 19:00:00"
+	UniqID        *string    `json:"uniq_id,omitempty"`        // 审批实例id示例值: "6852582717813440527"
+	Unit          int64      `json:"unit,omitempty"`           // 假期时长单位示例值: 1可选值有: 天小时半天半小时
+	Interval      int64      `json:"interval,omitempty"`       // 关联审批单假期时长, 单位为秒, 与unit无关示例值: 3600
+	StartTime     string     `json:"start_time,omitempty"`     // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss示例值: "2021-01-04 09:00:00"
+	EndTime       string     `json:"end_time,omitempty"`       // 结束时间, 时间格式为 yyyy-MM-dd HH:mm:ss示例值: "2021-01-04 19:00:00"
 	I18nNames     *I18nNames `json:"i18n_names,omitempty"`     // 假期多语言展示, 格式为 map, key 为 ["ch"、"en"、"ja"], 其中 ch 代表中文、en 代表英语、ja 代表日语
-	DefaultLocale string     `json:"default_locale,omitempty"` // 默认语言类型, 由于飞书客户端支持中、英、日三种语言, 当用户切换语言时, 如果假期名称没有所对应的语言, 会使用默认语言的名称, 示例值: "ch", 可选值有: ch: 中文, en: 英文, ja: 日文
-	Reason        string     `json:"reason,omitempty"`         // 请假理由, 必选字段, 示例值: "家里有事"
+	DefaultLocale string     `json:"default_locale,omitempty"` // 默认语言类型, 由于飞书客户端支持中、英、日三种语言, 当用户切换语言时, 如果假期名称没有所对应的语言, 会使用默认语言的名称示例值: "ch"可选值有: 中文英文日文
+	Reason        string     `json:"reason,omitempty"`         // 请假理由, 必选字段示例值: "家里有事"
+	IdempotentID  *string    `json:"idempotent_id,omitempty"`  // 请假记录的唯一幂等键, 用于避免请假记录重复创建, 可以填入三方的请假记录id示例值: "1233432312"
 }
 
 // CreateAttendanceUserApprovalReqUserApprovalOut ...
 type CreateAttendanceUserApprovalReqUserApprovalOut struct {
-	UniqID        string     `json:"uniq_id,omitempty"`        // 外出类型唯一 ID, 代表一种假期类型, 长度小于 14, * 此ID对应假期类型(即: i18n_names), 因此需要保证唯一, 示例值: "9496E43696967658A512969523E89870"
-	Unit          int64      `json:"unit,omitempty"`           // 外出时长单位, 示例值: 1, 可选值有: 1: 天, 2: 小时, 3: 半天, 4: 半小时
-	Interval      int64      `json:"interval,omitempty"`       // 外出时长（单位: 秒）, 示例值: 28800
-	StartTime     string     `json:"start_time,omitempty"`     // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 示例值: "2021-01-04 09:00:00"
-	EndTime       string     `json:"end_time,omitempty"`       // 结束时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 示例值: "2021-01-04 19:00:00"
-	I18nNames     *I18nNames `json:"i18n_names,omitempty"`     // 外出多语言展示, 格式为 map, key 为 ["ch"、"en"、"ja"], 其中 ch 代表中文、en 代表英语、ja 代表日语
-	DefaultLocale string     `json:"default_locale,omitempty"` // 默认语言类型, 由于飞书客户端支持中、英、日三种语言, 当用户切换语言时, 如果假期名称没有所对应的语言, 会使用默认语言的名称, 示例值: "ch"
-	Reason        string     `json:"reason,omitempty"`         // 外出理由, 示例值: "外出办事"
+	UniqID           string     `json:"uniq_id,omitempty"`            // 外出类型唯一 ID, 代表一种外出类型, 长度小于 14* 如何获取？可以选择填入三方的外出类型id。如市内外出、市外外出的id示例值: "9496E43696967658A512969523E89870"
+	Unit             int64      `json:"unit,omitempty"`               // 外出时长单位示例值: 1可选值有: 天小时半天半小时
+	Interval         int64      `json:"interval,omitempty"`           // 关联审批单外出时长, 单位为秒, 与unit无关示例值: 3600
+	StartTime        string     `json:"start_time,omitempty"`         // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss示例值: "2021-01-04 09:00:00"
+	EndTime          string     `json:"end_time,omitempty"`           // 结束时间, 时间格式为 yyyy-MM-dd HH:mm:ss示例值: "2021-01-04 19:00:00"
+	I18nNames        *I18nNames `json:"i18n_names,omitempty"`         // 外出多语言展示, 格式为 map, key 为 ["ch"、"en"、"ja"], 其中 ch 代表中文、en 代表英语、ja 代表日语
+	DefaultLocale    string     `json:"default_locale,omitempty"`     // 默认语言类型, 由于飞书客户端支持中、英、日三种语言, 当用户切换语言时, 如果假期名称没有所对应的语言, 会使用默认语言的名称示例值: "ch"
+	Reason           string     `json:"reason,omitempty"`             // 外出理由示例值: "外出办事"
+	IdempotentID     *string    `json:"idempotent_id,omitempty"`      // 外出记录的唯一幂等键, 用于避免外出记录重复创建, 可以填入三方的外出记录id示例值: "1233432312"
+	CorrectProcessID []string   `json:"correct_process_id,omitempty"` // 更正流程实例 ID。该字段由系统自动生成, 在写入审批结果时, 无需传入该参数。示例值: ["7304865941202929196"]
+	CancelProcessID  []string   `json:"cancel_process_id,omitempty"`  // 撤销流程实例 ID。该字段由系统自动生成, 在写入审批结果时, 无需传入该参数。示例值: ["7304865941202929196"]
+	ProcessID        []string   `json:"process_id,omitempty"`         // 发起流程实例 ID。该字段由系统自动生成, 在写入审批结果时, 无需传入该参数。示例值: ["7304865941202929196"]
 }
 
 // CreateAttendanceUserApprovalReqUserApprovalOvertimeWork ...
 type CreateAttendanceUserApprovalReqUserApprovalOvertimeWork struct {
-	Duration  float64 `json:"duration,omitempty"`   // 加班时长, 示例值: 1.5
-	Unit      int64   `json:"unit,omitempty"`       // 加班时长单位, 示例值: 1, 可选值有: 1: 天, 2: 小时, 3: 半天, 4: 半小时
-	Category  int64   `json:"category,omitempty"`   // 加班日期类型, 示例值: 2, 可选值有: 1: 工作日, 2: 休息日, 3: 节假日
-	Type      int64   `json:"type,omitempty"`       // 加班规则类型, 示例值: 1, 可选值有: 0: 不关联加班规则, 1: 调休, 2: 加班费, 3: 关联加班规则, 没有调休或加班费
-	StartTime string  `json:"start_time,omitempty"` // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 示例值: "2021-01-09 09:00:00"
-	EndTime   string  `json:"end_time,omitempty"`   // 结束时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 示例值: "2021-01-10 13:00:00"
-	Reason    *string `json:"reason,omitempty"`     // 加班事由, 示例值: "推进项目进度"
+	Duration         float64  `json:"duration,omitempty"`           // 加班时长, 如需使用此字段进行加班时长计算, 请联系[技术支持](https://applink.feishu.cn/TLJpeNdW)开通。默认采用start_time和end_time计算示例值: 1.5
+	Unit             int64    `json:"unit,omitempty"`               // 加班时长单位示例值: 1可选值有: 天小时半天半小时
+	Category         int64    `json:"category,omitempty"`           // 加班日期类型示例值: 2可选值有: 工作日休息日节假日
+	Type             int64    `json:"type,omitempty"`               // 加班规则类型示例值: 1可选值有: 仅记录调休加班费【该可选值已废弃】
+	StartTime        string   `json:"start_time,omitempty"`         // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss示例值: "2021-01-09 09:00:00"
+	EndTime          string   `json:"end_time,omitempty"`           // 结束时间, 时间格式为 yyyy-MM-dd HH:mm:ss示例值: "2021-01-10 13:00:00"
+	Reason           *string  `json:"reason,omitempty"`             // 加班事由示例值: "推进项目进度"
+	IdempotentID     *string  `json:"idempotent_id,omitempty"`      // 加班记录的唯一幂等键, 用于避免加班记录重复创建, 可以填入三方的加班记录id示例值: "1233432312"
+	CorrectProcessID []string `json:"correct_process_id,omitempty"` // 更正流程实例 ID。该字段由系统自动生成, 在写入审批结果时, 无需传入该参数。示例值: ["7304865941202929196"]
+	CancelProcessID  []string `json:"cancel_process_id,omitempty"`  // 撤销流程实例 ID。该字段由系统自动生成, 在写入审批结果时, 无需传入该参数。示例值: ["7304865941202929196"]
+	ProcessID        []string `json:"process_id,omitempty"`         // 发起流程实例 ID。该字段由系统自动生成, 在写入审批结果时, 无需传入该参数。示例值: ["7304865941202929196"]
 }
 
 // CreateAttendanceUserApprovalReqUserApprovalTrip ...
 type CreateAttendanceUserApprovalReqUserApprovalTrip struct {
-	StartTime        string `json:"start_time,omitempty"`         // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 示例值: "2021-01-04 09:00:00"
-	EndTime          string `json:"end_time,omitempty"`           // 结束时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 示例值: "2021-01-04 19:00:00"
-	Reason           string `json:"reason,omitempty"`             // 出差理由, 示例值: "培训"
-	ApprovePassTime  string `json:"approve_pass_time,omitempty"`  // 审批通过时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 示例值: "2021-01-04 12:00:00"
-	ApproveApplyTime string `json:"approve_apply_time,omitempty"` // 审批申请时间, 时间格式为 yyyy-MM-dd HH:mm:ss, 示例值: "2021-01-04 11:00:00"
+	StartTime        string                                                        `json:"start_time,omitempty"`         // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss示例值: "2021-01-04 09:00:00"
+	EndTime          string                                                        `json:"end_time,omitempty"`           // 结束时间, 时间格式为 yyyy-MM-dd HH:mm:ss示例值: "2021-01-04 19:00:00"
+	Reason           string                                                        `json:"reason,omitempty"`             // 出差理由示例值: "培训"
+	ApprovePassTime  string                                                        `json:"approve_pass_time,omitempty"`  // 审批通过时间, 时间格式为 yyyy-MM-dd HH:mm:ss示例值: "2021-01-04 12:00:00"
+	ApproveApplyTime string                                                        `json:"approve_apply_time,omitempty"` // 审批申请时间, 时间格式为 yyyy-MM-dd HH:mm:ss示例值: "2021-01-04 11:00:00"
+	IdempotentID     *string                                                       `json:"idempotent_id,omitempty"`      // 出差记录的唯一幂等键, 用于避免出差记录重复创建, 可以填入三方的出差记录id示例值: "1233432312"
+	CorrectProcessID []string                                                      `json:"correct_process_id,omitempty"` // 更正流程实例 ID。该字段由系统自动生成, 在写入审批结果时, 无需传入该参数。示例值: ["7304865941202929196"]
+	CancelProcessID  []string                                                      `json:"cancel_process_id,omitempty"`  // 撤销流程实例 ID。该字段由系统自动生成, 在写入审批结果时, 无需传入该参数。示例值: ["7304865941202929196"]
+	ProcessID        []string                                                      `json:"process_id,omitempty"`         // 发起流程实例 ID。该字段由系统自动生成, 在写入审批结果时, 无需传入该参数。示例值: ["7304865941202929196"]
+	Departure        *CreateAttendanceUserApprovalReqUserApprovalTripDeparture     `json:"departure,omitempty"`          // 出发地（只有一个）
+	Destinations     []*CreateAttendanceUserApprovalReqUserApprovalTripDestination `json:"destinations,omitempty"`       // 目的地（可写多个）
+	Transportation   []int64                                                       `json:"transportation,omitempty"`     // 交通工具（1 飞机, 2 火车, 3 汽车, 4 高铁/动车, 5 船, 6 其他）示例值: [1]
+	TripType         *int64                                                        `json:"trip_type,omitempty"`          // 出差类型(1:单程 2:往返)示例值: 1
+	Remarks          *string                                                       `json:"remarks,omitempty"`            // 出差备注示例值: "出差备注"
+}
+
+// CreateAttendanceUserApprovalReqUserApprovalTripDeparture ...
+type CreateAttendanceUserApprovalReqUserApprovalTripDeparture struct {
+	RegionLevel *string `json:"region_level,omitempty"` // 地理等级（国家｜省｜市｜区）l1: 国家级；l2: 省级；l3: 市级；l4: 区/县级示例值: "l1"
+	RegionID    *string `json:"region_id,omitempty"`    // 地理id可以通过[查询区/县信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-district/search)或[查询城市信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-city/search)获取（仅支持飞书人事企业版使用）示例值: "6863333418483058189"
+}
+
+// CreateAttendanceUserApprovalReqUserApprovalTripDestination ...
+type CreateAttendanceUserApprovalReqUserApprovalTripDestination struct {
+	RegionLevel *string `json:"region_level,omitempty"` // 地理等级（国家｜省｜市｜区）l1: 国家级；l2: 省级；l3: 市级；l4: 区/县级示例值: "l1"
+	RegionID    *string `json:"region_id,omitempty"`    // 地理id可以通过[查询区/县信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-district/search)或[查询城市信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-city/search)获取（仅支持飞书人事企业版使用）示例值: "6863333418483058189"
 }
 
 // CreateAttendanceUserApprovalResp ...
@@ -129,64 +159,94 @@ type CreateAttendanceUserApprovalResp struct {
 // CreateAttendanceUserApprovalRespUserApproval ...
 type CreateAttendanceUserApprovalRespUserApproval struct {
 	UserID        string                                                      `json:"user_id,omitempty"`        // 审批提交人 ID
-	Date          string                                                      `json:"date,omitempty"`           // 审批作用日期
+	Date          string                                                      `json:"date,omitempty"`           // 审批作用日期, 格式为yyyyMMdd
 	Outs          []*CreateAttendanceUserApprovalRespUserApprovalOut          `json:"outs,omitempty"`           // 外出信息
 	Leaves        []*CreateAttendanceUserApprovalRespUserApprovalLeave        `json:"leaves,omitempty"`         // 请假信息
 	OvertimeWorks []*CreateAttendanceUserApprovalRespUserApprovalOvertimeWork `json:"overtime_works,omitempty"` // 加班信息
 	Trips         []*CreateAttendanceUserApprovalRespUserApprovalTrip         `json:"trips,omitempty"`          // 出差信息
-	TimeZone      string                                                      `json:"time_zone,omitempty"`      // 计算时间所用的时区信息, 为空是0时区
+	TimeZone      string                                                      `json:"time_zone,omitempty"`      // 计算时间所用的时区信息
 }
 
 // CreateAttendanceUserApprovalRespUserApprovalLeave ...
 type CreateAttendanceUserApprovalRespUserApprovalLeave struct {
 	ApprovalID       string     `json:"approval_id,omitempty"`        // 审批实例 ID
-	UniqID           string     `json:"uniq_id,omitempty"`            // 假期类型唯一 ID, 代表一种假期类型, 长度小于 14, * 此ID对应假期类型(即: i18n_names), 因此需要保证唯一
-	Unit             int64      `json:"unit,omitempty"`               // 假期时长单位, 可选值有: 1: 天, 2: 小时, 3: 半天, 4: 半小时
-	Interval         int64      `json:"interval,omitempty"`           // 假期时长（单位: 秒）, 暂未开放提供, 待后续提供
+	UniqID           string     `json:"uniq_id,omitempty"`            // 假期类型唯一 ID, 代表一种假期类型, 长度小于 14* 此ID对应假期类型(即: i18n_names), 因此需要保证唯一
+	Unit             int64      `json:"unit,omitempty"`               // 假期时长单位可选值有: 天小时半天半小时
+	Interval         int64      `json:"interval,omitempty"`           // 关联审批单假期时长, 单位为秒, 与unit无关
 	StartTime        string     `json:"start_time,omitempty"`         // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss
 	EndTime          string     `json:"end_time,omitempty"`           // 结束时间, 时间格式为 yyyy-MM-dd HH:mm:ss
 	I18nNames        *I18nNames `json:"i18n_names,omitempty"`         // 假期多语言展示, 格式为 map, key 为 ["ch"、"en"、"ja"], 其中 ch 代表中文、en 代表英语、ja 代表日语
-	DefaultLocale    string     `json:"default_locale,omitempty"`     // 默认语言类型, 由于飞书客户端支持中、英、日三种语言, 当用户切换语言时, 如果假期名称没有所对应的语言, 会使用默认语言的名称, 可选值有: ch: 中文, en: 英文, ja: 日文
+	DefaultLocale    string     `json:"default_locale,omitempty"`     // 默认语言类型, 由于飞书客户端支持中、英、日三种语言, 当用户切换语言时, 如果假期名称没有所对应的语言, 会使用默认语言的名称可选值有: 中文英文日文
 	Reason           string     `json:"reason,omitempty"`             // 请假理由, 必选字段
 	ApprovePassTime  string     `json:"approve_pass_time,omitempty"`  // 审批通过时间, 时间格式为 yyyy-MM-dd HH:mm:ss
 	ApproveApplyTime string     `json:"approve_apply_time,omitempty"` // 审批申请时间, 时间格式为 yyyy-MM-dd HH:mm:ss
+	IdempotentID     string     `json:"idempotent_id,omitempty"`      // 请假记录的唯一幂等键, 响应体中无需关注
 }
 
 // CreateAttendanceUserApprovalRespUserApprovalOut ...
 type CreateAttendanceUserApprovalRespUserApprovalOut struct {
-	ApprovalID       string     `json:"approval_id,omitempty"`        // 审批实例 ID
-	UniqID           string     `json:"uniq_id,omitempty"`            // 外出类型唯一 ID, 代表一种假期类型, 长度小于 14, * 此ID对应假期类型(即: i18n_names), 因此需要保证唯一
-	Unit             int64      `json:"unit,omitempty"`               // 外出时长单位, 可选值有: 1: 天, 2: 小时, 3: 半天, 4: 半小时
-	Interval         int64      `json:"interval,omitempty"`           // 外出时长（单位: 秒）
+	ApprovalID       string     `json:"approval_id,omitempty"`        // 审批实例id 创建的时候无效字段无需传入
+	UniqID           string     `json:"uniq_id,omitempty"`            // 外出类型唯一 ID, 代表一种假期类型, 长度小于 14* 此ID对应外出类型(即: i18n_names), 因此需要保证唯一
+	Unit             int64      `json:"unit,omitempty"`               // 外出时长单位可选值有: 天小时半天半小时
+	Interval         int64      `json:"interval,omitempty"`           // 关联审批单外出时长, 单位为秒, 与unit无关
 	StartTime        string     `json:"start_time,omitempty"`         // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss
 	EndTime          string     `json:"end_time,omitempty"`           // 结束时间, 时间格式为 yyyy-MM-dd HH:mm:ss
 	I18nNames        *I18nNames `json:"i18n_names,omitempty"`         // 外出多语言展示, 格式为 map, key 为 ["ch"、"en"、"ja"], 其中 ch 代表中文、en 代表英语、ja 代表日语
 	DefaultLocale    string     `json:"default_locale,omitempty"`     // 默认语言类型, 由于飞书客户端支持中、英、日三种语言, 当用户切换语言时, 如果假期名称没有所对应的语言, 会使用默认语言的名称
 	Reason           string     `json:"reason,omitempty"`             // 外出理由
-	ApprovePassTime  string     `json:"approve_pass_time,omitempty"`  // 审批通过时间
-	ApproveApplyTime string     `json:"approve_apply_time,omitempty"` // 审批申请时间
+	ApprovePassTime  string     `json:"approve_pass_time,omitempty"`  // 审批通过时间, 时间格式为 yyyy-MM-dd HH:mm:ss
+	ApproveApplyTime string     `json:"approve_apply_time,omitempty"` // 审批申请时间, 时间格式为 yyyy-MM-dd HH:mm:ss
+	IdempotentID     string     `json:"idempotent_id,omitempty"`      // 外出记录的唯一幂等键, 响应体中无需关注
+	CorrectProcessID []string   `json:"correct_process_id,omitempty"` // 更正流程实例 ID。该字段由系统自动生成, 在写入审批结果时, 无需传入该参数。
+	CancelProcessID  []string   `json:"cancel_process_id,omitempty"`  // 撤销流程实例 ID。该字段由系统自动生成, 在写入审批结果时, 无需传入该参数。
+	ProcessID        []string   `json:"process_id,omitempty"`         // 发起流程实例 ID。该字段由系统自动生成, 在写入审批结果时, 无需传入该参数。
 }
 
 // CreateAttendanceUserApprovalRespUserApprovalOvertimeWork ...
 type CreateAttendanceUserApprovalRespUserApprovalOvertimeWork struct {
-	ApprovalID string  `json:"approval_id,omitempty"` // 审批实例 ID
-	Duration   float64 `json:"duration,omitempty"`    // 加班时长
-	Unit       int64   `json:"unit,omitempty"`        // 加班时长单位, 可选值有: 1: 天, 2: 小时, 3: 半天, 4: 半小时
-	Category   int64   `json:"category,omitempty"`    // 加班日期类型, 可选值有: 1: 工作日, 2: 休息日, 3: 节假日
-	Type       int64   `json:"type,omitempty"`        // 加班规则类型, 可选值有: 0: 不关联加班规则, 1: 调休, 2: 加班费, 3: 关联加班规则, 没有调休或加班费
-	StartTime  string  `json:"start_time,omitempty"`  // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss
-	EndTime    string  `json:"end_time,omitempty"`    // 结束时间, 时间格式为 yyyy-MM-dd HH:mm:ss
-	Reason     string  `json:"reason,omitempty"`      // 加班事由
+	ApprovalID       string   `json:"approval_id,omitempty"`        // 审批实例 ID
+	Duration         float64  `json:"duration,omitempty"`           // 加班时长
+	Unit             int64    `json:"unit,omitempty"`               // 加班时长单位可选值有: 天小时半天半小时
+	Category         int64    `json:"category,omitempty"`           // 加班日期类型可选值有: 工作日休息日节假日
+	Type             int64    `json:"type,omitempty"`               // 加班规则类型可选值有: 仅记录调休加班费关联加班规则, 没有调休或加班费
+	StartTime        string   `json:"start_time,omitempty"`         // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss
+	EndTime          string   `json:"end_time,omitempty"`           // 结束时间, 时间格式为 yyyy-MM-dd HH:mm:ss
+	Reason           string   `json:"reason,omitempty"`             // 加班事由
+	IdempotentID     string   `json:"idempotent_id,omitempty"`      // 加班记录的唯一幂等键, 响应体中无需关注
+	CorrectProcessID []string `json:"correct_process_id,omitempty"` // 更正流程实例 ID。该字段由系统自动生成, 在写入审批结果时, 无需传入该参数。
+	CancelProcessID  []string `json:"cancel_process_id,omitempty"`  // 撤销流程实例 ID。该字段由系统自动生成, 在写入审批结果时, 无需传入该参数。
+	ProcessID        []string `json:"process_id,omitempty"`         // 发起流程实例 ID。该字段由系统自动生成, 在写入审批结果时, 无需传入该参数。
 }
 
 // CreateAttendanceUserApprovalRespUserApprovalTrip ...
 type CreateAttendanceUserApprovalRespUserApprovalTrip struct {
-	ApprovalID       string `json:"approval_id,omitempty"`        // 审批实例 ID
-	StartTime        string `json:"start_time,omitempty"`         // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss
-	EndTime          string `json:"end_time,omitempty"`           // 结束时间, 时间格式为 yyyy-MM-dd HH:mm:ss
-	Reason           string `json:"reason,omitempty"`             // 出差理由
-	ApprovePassTime  string `json:"approve_pass_time,omitempty"`  // 审批通过时间, 时间格式为 yyyy-MM-dd HH:mm:ss
-	ApproveApplyTime string `json:"approve_apply_time,omitempty"` // 审批申请时间, 时间格式为 yyyy-MM-dd HH:mm:ss
+	ApprovalID       string                                                         `json:"approval_id,omitempty"`        // 审批实例id
+	StartTime        string                                                         `json:"start_time,omitempty"`         // 开始时间, 时间格式为 yyyy-MM-dd HH:mm:ss
+	EndTime          string                                                         `json:"end_time,omitempty"`           // 结束时间, 时间格式为 yyyy-MM-dd HH:mm:ss
+	Reason           string                                                         `json:"reason,omitempty"`             // 出差理由
+	ApprovePassTime  string                                                         `json:"approve_pass_time,omitempty"`  // 审批通过时间, 时间格式为 yyyy-MM-dd HH:mm:ss
+	ApproveApplyTime string                                                         `json:"approve_apply_time,omitempty"` // 审批申请时间, 时间格式为 yyyy-MM-dd HH:mm:ss
+	IdempotentID     string                                                         `json:"idempotent_id,omitempty"`      // 出差记录的唯一幂等键, 响应体中无需关注
+	CorrectProcessID []string                                                       `json:"correct_process_id,omitempty"` // 更正流程实例 ID。该字段由系统自动生成, 在写入审批结果时, 无需传入该参数。
+	CancelProcessID  []string                                                       `json:"cancel_process_id,omitempty"`  // 撤销流程实例 ID。该字段由系统自动生成, 在写入审批结果时, 无需传入该参数。
+	ProcessID        []string                                                       `json:"process_id,omitempty"`         // 发起流程实例 ID。该字段由系统自动生成, 在写入审批结果时, 无需传入该参数。
+	Departure        *CreateAttendanceUserApprovalRespUserApprovalTripDeparture     `json:"departure,omitempty"`          // 出发地（只有一个）
+	Destinations     []*CreateAttendanceUserApprovalRespUserApprovalTripDestination `json:"destinations,omitempty"`       // 目的地（可写多个）
+	Transportation   []int64                                                        `json:"transportation,omitempty"`     // 交通工具（1 飞机, 2 火车, 3 汽车, 4 高铁/动车, 5 船, 6 其他）
+	TripType         int64                                                          `json:"trip_type,omitempty"`          // 出差类型(1:单程 2:往返)
+	Remarks          string                                                         `json:"remarks,omitempty"`            // 出差备注
+}
+
+// CreateAttendanceUserApprovalRespUserApprovalTripDeparture ...
+type CreateAttendanceUserApprovalRespUserApprovalTripDeparture struct {
+	RegionLevel string `json:"region_level,omitempty"` // 地理等级（国家｜省｜市｜区）l1: 国家级；l2: 省级；l3: 市级；l4: 区/县级
+	RegionID    string `json:"region_id,omitempty"`    // 地理id
+}
+
+// CreateAttendanceUserApprovalRespUserApprovalTripDestination ...
+type CreateAttendanceUserApprovalRespUserApprovalTripDestination struct {
+	RegionLevel string `json:"region_level,omitempty"` // 地理等级（国家｜省｜市｜区）l1: 国家级；l2: 省级；l3: 市级；l4: 区/县级
+	RegionID    string `json:"region_id,omitempty"`    // 地理id
 }
 
 // createAttendanceUserApprovalResp ...

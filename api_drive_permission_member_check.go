@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// CheckDriveMemberPermission 该接口用于根据 filetoken 判断当前登录用户是否具有某权限。
+// CheckDriveMemberPermission 判断当前请求的应用或用户是否具有指定云文档的指定权限, 权限包括阅读、编辑、分享、评论、导出等权限。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-member/auth
 // new doc: https://open.feishu.cn/document/server-docs/docs/permission/permission-member/auth
@@ -59,14 +59,14 @@ func (r *Mock) UnMockDriveCheckDriveMemberPermission() {
 
 // CheckDriveMemberPermissionReq ...
 type CheckDriveMemberPermissionReq struct {
-	Token  string `path:"token" json:"-"`   // 文件的 token, 示例值: "doccnBKgoMyY5OMbUG6FioTXuBe"
-	Type   string `query:"type" json:"-"`   // 文件类型, 需要与文件的 token 相匹配, 示例值: doc, 可选值有: doc: 文档, sheet: 电子表格, file: 云空间文件, wiki: 知识库节点, bitable: 多维表格, docx: 新版文档, mindnote: 思维笔记, minutes: 妙记, slides: 幻灯片
-	Action string `query:"action" json:"-"` // 需要判断的权限, 示例值: view, 可选值有: view: 阅读, edit: 编辑, share: 分享, comment: 评论, export: 导出, copy: 拷贝, print: 打印, manage_public: 管理权限设置
+	Token  string `path:"token" json:"-"`   // 云文档的 token, 需要与 type 参数指定的云文档类型相匹配。可参考[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。示例值: "doccnBKgoMyY5OMbUG6Fioabcef"
+	Type   string `query:"type" json:"-"`   // 云文档类型, 需要与云文档的 token 相匹配。示例值: docx可选值有: 旧版文档。了解更多, 参考[新旧版本文档说明](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/docs/upgraded-docs-access-guide/upgraded-docs-openapi-access-guide)。电子表格云空间文件知识库节点多维表格新版文档思维笔记妙记幻灯片
+	Action string `query:"action" json:"-"` // 需要判断的权限示例值: view可选值有: 阅读编辑分享评论导出拷贝打印管理权限设置
 }
 
 // CheckDriveMemberPermissionResp ...
 type CheckDriveMemberPermissionResp struct {
-	AuthResult bool `json:"auth_result,omitempty"` // 是否有权限
+	AuthResult bool `json:"auth_result,omitempty"` // 当前应用或用户是否有指定的权限。可选值: true: 当前应用或用户具有该权限- false: 当前应用或用户没有该权限
 }
 
 // checkDriveMemberPermissionResp ...

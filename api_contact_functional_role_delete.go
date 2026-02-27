@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// DeleteContactFunctionalRole 通过本接口可以删除某个角色
+// DeleteContactFunctionalRole 调用该接口删除指定角色。
+//
+// ## 注意事项
+// 角色内如果有成员, 则不支持直接删除。你可以调用[查询角色下的所有成员信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/functional_role-member/list)接口, 查看角色内是否还有成员, 如果有, 可以调用[删除角色下的成员](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/functional_role-member/batch_delete)接口, 将角色成员删除后, 再删除角色。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/functional_role/delete
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/functional_role/delete
@@ -58,12 +61,11 @@ func (r *Mock) UnMockContactDeleteContactFunctionalRole() {
 
 // DeleteContactFunctionalRoleReq ...
 type DeleteContactFunctionalRoleReq struct {
-	RoleID string `path:"role_id" json:"-"` // 角色的唯一标识, 单租户下唯一, 示例值: "7vrj3vk70xk7v5r"
+	RoleID string `path:"role_id" json:"-"` // 角色 ID。获取方式: 在创建角色时, 可从返回结果中获取。- 企业管理员可以在 [管理后台](https://feishu.cn/admin) > 组织架构 > 角色管理 页面, 在角色名称右侧获取角色 ID。示例值: "7vrj3vk70xk7v5r"
 }
 
 // DeleteContactFunctionalRoleResp ...
-type DeleteContactFunctionalRoleResp struct {
-}
+type DeleteContactFunctionalRoleResp struct{}
 
 // deleteContactFunctionalRoleResp ...
 type deleteContactFunctionalRoleResp struct {

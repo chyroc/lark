@@ -58,12 +58,11 @@ func (r *Mock) UnMockMailClearPublicMailboxMember() {
 
 // ClearPublicMailboxMemberReq ...
 type ClearPublicMailboxMemberReq struct {
-	PublicMailboxID string `path:"public_mailbox_id" json:"-"` // 公共邮箱唯一标识或公共邮箱地址, 示例值: "xxxxxxxxxxxxxxx 或 test_public_mailbox@xxx.xx"
+	PublicMailboxID string `path:"public_mailbox_id" json:"-"` // 公共邮箱唯一标识或公共邮箱地址示例值: "xxxxxxxxxxxxxxx 或 test_public_mailbox@xxx.xx"
 }
 
 // ClearPublicMailboxMemberResp ...
-type ClearPublicMailboxMemberResp struct {
-}
+type ClearPublicMailboxMemberResp struct{}
 
 // clearPublicMailboxMemberResp ...
 type clearPublicMailboxMemberResp struct {

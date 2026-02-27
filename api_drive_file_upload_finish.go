@@ -23,7 +23,7 @@ import (
 
 // FinishUploadDriveFile 调用[上传分片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/upload_part)接口将分片全部上传完毕后, 你需调用本接口触发完成上传。否则将上传失败。了解完整的上传文件流程, 参考[上传文件概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/multipart-upload-file-/introduction)。
 //
-// 使用限制:
+// ## 使用限制
 // 该接口不支持并发调用, 且调用频率上限为 5 QPS, 10000 次/天。否则会返回 1061045 错误码, 可通过稍后重试解决。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/upload_finish
@@ -62,8 +62,8 @@ func (r *Mock) UnMockDriveFinishUploadDriveFile() {
 
 // FinishUploadDriveFileReq ...
 type FinishUploadDriveFileReq struct {
-	UploadID string `json:"upload_id,omitempty"` // 分片上传事务 ID。通过调用[分片上传文件-预上传](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/upload_prepare)接口获取, 示例值: "7111211691345512356"
-	BlockNum int64  `json:"block_num,omitempty"` // 分片的数量。通过调用[分片上传文件-预上传](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/upload_prepare)接口获取, 示例值: 1
+	UploadID string `json:"upload_id,omitempty"` // 分片上传事务 ID。通过调用[分片上传文件-预上传](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/upload_prepare)接口获取。示例值: "7111211691345512356"
+	BlockNum int64  `json:"block_num,omitempty"` // 分片的数量。通过调用[分片上传文件-预上传](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/upload_prepare)接口获取。示例值: 1
 }
 
 // FinishUploadDriveFileResp ...

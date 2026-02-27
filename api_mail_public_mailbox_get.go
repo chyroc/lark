@@ -58,7 +58,7 @@ func (r *Mock) UnMockMailGetPublicMailbox() {
 
 // GetPublicMailboxReq ...
 type GetPublicMailboxReq struct {
-	PublicMailboxID string `path:"public_mailbox_id" json:"-"` // 公共邮箱唯一标识或公共邮箱地址, 示例值: "xxxxxxxxxxxxxxx 或 test_public_mailbox@xxx.xx"
+	PublicMailboxID string `path:"public_mailbox_id" json:"-"` // 公共邮箱唯一标识或公共邮箱地址示例值: "xxxxxxxxxxxxxxx 或 test_public_mailbox@xxx.xx"
 }
 
 // GetPublicMailboxResp ...
@@ -66,7 +66,7 @@ type GetPublicMailboxResp struct {
 	PublicMailboxID string `json:"public_mailbox_id,omitempty"` // 公共邮箱唯一标识
 	Email           string `json:"email,omitempty"`             // 公共邮箱地址
 	Name            string `json:"name,omitempty"`              // 公共邮箱名称
-	Geo             string `json:"geo,omitempty"`               // 数据驻留地, 字段权限要求: 查看公共邮箱数据驻留地
+	Geo             string `json:"geo,omitempty"`               // 数据驻留地字段权限要求: 查看公共邮箱数据驻留地
 }
 
 // getPublicMailboxResp ...

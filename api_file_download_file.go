@@ -22,14 +22,15 @@ import (
 	"io"
 )
 
-// DownloadFile 下载文件接口, 只能下载应用自己上传的文件。
+// DownloadFile 通过已上传文件的 Key 下载文件。
 //
-// 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
-// - 只能下载机器人自己上传的文件
-// - 下载用户发送的资源, 请使用[获取消息中的资源文件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-resource/get)接口
-// - 下载的资源大小不能超过100M
-// - 如果需要Content-Disposition header, 发起请求的时候需要在header中设置Content-Type为application/json
+// ## 前提条件
+// 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// ## 使用限制
+// - 只能下载由当前机器人上传的文件。
+// - 下载的资源大小不能超过 100 MB。
+// - 该接口仅适用于通过文件的 Key 下载文件。如果你需要下载用户发送消息内的资源文件, 可使用[获取消息中的资源文件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-resource/get)接口。
+// - 如果需要 Content-Disposition header, 发起请求时需要在 header 中设置 Content-Type 为 application/json。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/file/get
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/file/get
@@ -66,7 +67,7 @@ func (r *Mock) UnMockFileDownloadFile() {
 
 // DownloadFileReq ...
 type DownloadFileReq struct {
-	FileKey string `path:"file_key" json:"-"` // 文件的key, 通过[上传文件](	/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/file/create)接口上传图片后获得, 示例值: "file_456a92d6-c6ea-4de4-ac3f-7afcf44ac78g"
+	FileKey string `path:"file_key" json:"-"` // 文件的 Key, 通过[上传文件](/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/reference/im-v1/file/create)接口上传文件后, 从返回结果中获取。示例值: "file_456a92d6-c6ea-4de4-ac3f-7afcf44ac78g"
 }
 
 // downloadFileResp ...

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2MeetingRoomMeetingRoomUpdatedV1 会议室属性更新将触发此事件。
+// EventV2MeetingRoomMeetingRoomUpdatedV1 会议室属性更新将触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=meeting_room&version=v1&resource=meeting_room&event=updated)
 //
 // 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
 //

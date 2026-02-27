@@ -60,9 +60,9 @@ func (r *Mock) UnMockAttendanceUpdateAttendanceRemedyApproval() {
 
 // UpdateAttendanceRemedyApprovalReq ...
 type UpdateAttendanceRemedyApprovalReq struct {
-	ApprovalID   string `json:"approval_id,omitempty"`   // 审批实例 ID, 获取方式: 1）[获取审批通过数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/query) 2）[写入审批结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/create) 3）[通知补卡审批发起（补卡情况下）](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task_remedy/create), 示例值: "6737202939523236113"
-	ApprovalType string `json:"approval_type,omitempty"` // 审批类型, leave: 请假, out: 外出, overtime: 加班, trip: 出差, remedy: 补卡, 示例值: "remedy"
-	Status       int64  `json:"status,omitempty"`        // 审批状态, `1`: 不通过, `2`: 通过, `4`: 撤销, 注意, 请假、外出、加班、出差只支持传撤销, 补卡支持传不通过、通过和撤销, 示例值: 4
+	ApprovalID   string `json:"approval_id,omitempty"`   // 审批实例 ID, 获取方式: 1）[获取审批通过数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/query) 2）[写入审批结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/create) 3）[通知补卡审批发起（补卡情况下）](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task_remedy/create)示例值: "6737202939523236113"
+	ApprovalType string `json:"approval_type,omitempty"` // 审批类型- `leave`: 请假- `out`: 外出- `overtime`: 加班- `trip`: 出差- `remedy`: 补卡示例值: "remedy"
+	Status       int64  `json:"status,omitempty"`        // 审批状态- `1`: 不通过- `2`: 通过- `4`: 撤销注意- 请假、外出、加班、出差只支持传撤销- 补卡支持传不通过、通过和撤销示例值: 4
 }
 
 // UpdateAttendanceRemedyApprovalResp ...
@@ -73,8 +73,8 @@ type UpdateAttendanceRemedyApprovalResp struct {
 // UpdateAttendanceRemedyApprovalRespApprovalInfo ...
 type UpdateAttendanceRemedyApprovalRespApprovalInfo struct {
 	ApprovalID   string `json:"approval_id,omitempty"`   // 审批实例 ID
-	ApprovalType string `json:"approval_type,omitempty"` // 审批类型, 可选值有: leave: 请假, overtime: 加班, trip: 出差, out: 外出, remedy: 补卡
-	Status       int64  `json:"status,omitempty"`        // 审批状态, 可选值有: 0: 待审批, 1: 未通过, 2: 已通过, 3: 已取消, 4: 已撤回
+	ApprovalType string `json:"approval_type,omitempty"` // 审批类型可选值有: 请假加班出差外出补卡
+	Status       int64  `json:"status,omitempty"`        // 审批状态可选值有: 待审批未通过已通过已取消已撤回
 }
 
 // updateAttendanceRemedyApprovalResp ...

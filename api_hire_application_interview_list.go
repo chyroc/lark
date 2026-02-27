@@ -60,10 +60,10 @@ func (r *Mock) UnMockHireGetHireApplicationInterviewList() {
 
 // GetHireApplicationInterviewListReq ...
 type GetHireApplicationInterviewListReq struct {
-	ApplicationID string  `path:"application_id" json:"-"` // 投递ID, 示例值: "6949805467799537964"
-	PageSize      int64   `query:"page_size" json:"-"`     // 分页大小, 不能超过 50, 示例值: 10
-	PageToken     *string `query:"page_token" json:"-"`    // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "xx"
-	UserIDType    *IDType `query:"user_id_type" json:"-"`  // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	ApplicationID string  `path:"application_id" json:"-"` // 投递ID示例值: "6949805467799537964"
+	PageSize      int64   `query:"page_size" json:"-"`     // 分页大小, 不能超过 50示例值: 10
+	PageToken     *string `query:"page_token" json:"-"`    // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: "xx"
+	UserIDType    *IDType `query:"user_id_type" json:"-"`  // 用户 ID 类型示例值: "open_id"可选值有: `open_id`: 用户的 open id- `union_id`: 用户的 union id- `user_id`: 用户的 user id默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetHireApplicationInterviewListResp ...
@@ -90,8 +90,8 @@ type GetHireApplicationInterviewListRespItemInterviewRecord struct {
 	Content        string                                                                `json:"content,omitempty"`          // 系统预设「记录」题目内容
 	MinJobLevelID  string                                                                `json:"min_job_level_id,omitempty"` // 建议定级下限的职级 ID
 	MaxJobLevelID  string                                                                `json:"max_job_level_id,omitempty"` // 建议定级上限的职级 ID
-	CommitStatus   int64                                                                 `json:"commit_status,omitempty"`    // 提交状态, 可选值有: `1`: 已提交, `2`: 未提交
-	Conclusion     int64                                                                 `json:"conclusion,omitempty"`       // 面试结论, 可选值有: `1`: 通过, `2`: 未通过, `3`: 未开始, `4`: 未提交, `5`: 未到场
+	CommitStatus   int64                                                                 `json:"commit_status,omitempty"`    // 提交状态可选值有: `1`: 已提交- `2`: 未提交
+	Conclusion     int64                                                                 `json:"conclusion,omitempty"`       // 面试结论可选值有: `1`: 通过- `2`: 未通过- `3`: 未开始- `4`: 未提交- `5`: 未到场
 	InterviewScore *GetHireApplicationInterviewListRespItemInterviewRecordInterviewScore `json:"interview_score,omitempty"`  // 面试评分
 }
 

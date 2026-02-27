@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2HireEcoBackgroundCheckCreatedV1 用户在招聘系统安排背调后, 系统会推送事件给对应的应用开发者。开发者可根据事件获取候选人信息、委托人信息和自定义字段信息, 并根据这些信息完成在三方服务商处的背调订单创建。
+// EventV2HireEcoBackgroundCheckCreatedV1 飞书招聘客户在招聘系统给候选人安排背调后, 系统会推送「创建背调」事件给对应的背调服务商。服务商可根据此事件获取该背调的候选人、委托人和自定义字段等信息, 并根据这些信息完成内部的背调订单的创建和绑定, 之后可通过[更新背调订单进度](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check/update_progress)、[回传背调订单的最终结果](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check/update_result)将背调信息回传给招聘系统。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=hire&version=v1&resource=eco_background_check&event=created)
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check/events/created
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/ecological-docking/eco_background_check/events/created
@@ -34,10 +34,10 @@ type EventV2HireEcoBackgroundCheckCreatedV1Handler func(ctx context.Context, cli
 
 // EventV2HireEcoBackgroundCheckCreatedV1 ...
 type EventV2HireEcoBackgroundCheckCreatedV1 struct {
-	BackgroundCheckID    string                                                   `json:"background_check_id,omitempty"`     // 背调 ID, 招聘系统内唯一
-	AccountID            string                                                   `json:"account_id,omitempty"`              // 账号 ID, 招聘系统内唯一
-	PackageID            string                                                   `json:"package_id,omitempty"`              // 套餐 ID
-	AdditionalItemIDList []string                                                 `json:"additional_item_id_list,omitempty"` // 附件调查项 ID 列表
+	BackgroundCheckID    string                                                   `json:"background_check_id,omitempty"`     // 背调 ID, 招聘系统内唯一。服务商可将此 ID与内部的背调订单绑定
+	AccountID            string                                                   `json:"account_id,omitempty"`              // 账号 ID, 招聘系统内唯一。可通过[账号绑定](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_account/events/created)事件获取
+	PackageID            string                                                   `json:"package_id,omitempty"`              // 套餐 ID, 通过[创建背调套餐和附加调查项](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check_package/create)传入
+	AdditionalItemIDList []string                                                 `json:"additional_item_id_list,omitempty"` // 附件调查项 ID 列表, 通过[创建背调套餐和附加调查项](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check_package/create)传入
 	Comment              string                                                   `json:"comment,omitempty"`                 // 备注
 	CandidateInfo        *EventV2HireEcoBackgroundCheckCreatedV1CandidateInfo     `json:"candidate_info,omitempty"`          // 候选人信息
 	ClientContactInfo    *EventV2HireEcoBackgroundCheckCreatedV1ClientContactInfo `json:"client_contact_info,omitempty"`     // 联系人（委托人）信息
@@ -55,7 +55,7 @@ type EventV2HireEcoBackgroundCheckCreatedV1CandidateInfo struct {
 
 // EventV2HireEcoBackgroundCheckCreatedV1CandidateInfoMobile ...
 type EventV2HireEcoBackgroundCheckCreatedV1CandidateInfoMobile struct {
-	Code   string `json:"code,omitempty"`   // 国家代码
+	Code   string `json:"code,omitempty"`   // 电话国家区号, 遵循国际统一标准, 可参考 [国际长途电话区号表](https://baike.baidu.com/item/%E5%9B%BD%E9%99%85%E9%95%BF%E9%80%94%E7%94%B5%E8%AF%9D%E5%8C%BA%E5%8F%B7%E8%A1%A8/12803495)
 	Number string `json:"number,omitempty"` // 手机号码
 }
 
@@ -68,12 +68,12 @@ type EventV2HireEcoBackgroundCheckCreatedV1ClientContactInfo struct {
 
 // EventV2HireEcoBackgroundCheckCreatedV1ClientContactInfoMobile ...
 type EventV2HireEcoBackgroundCheckCreatedV1ClientContactInfoMobile struct {
-	Code   string `json:"code,omitempty"`   // 国家代码
+	Code   string `json:"code,omitempty"`   // 电话国家区号, 遵循国际统一标准, 可参考 [国际长途电话区号表](https://baike.baidu.com/item/%E5%9B%BD%E9%99%85%E9%95%BF%E9%80%94%E7%94%B5%E8%AF%9D%E5%8C%BA%E5%8F%B7%E8%A1%A8/12803495)
 	Number string `json:"number,omitempty"` // 手机号码
 }
 
 // EventV2HireEcoBackgroundCheckCreatedV1CustomField ...
 type EventV2HireEcoBackgroundCheckCreatedV1CustomField struct {
-	Key   string `json:"key,omitempty"`   // 自定义字段标识
-	Value string `json:"value,omitempty"` // 自定义字段值
+	Key   string `json:"key,omitempty"`   // 自定义字段标识, 由[创建背调自定义字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check_custom_field/create)接口传入
+	Value string `json:"value,omitempty"` // 自定义字段值, 用户在发起背调时填入, 详情可参考[创建背调自定义字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check_custom_field/create)传入的自定义字段类型
 }

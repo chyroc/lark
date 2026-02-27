@@ -21,9 +21,10 @@ import (
 	"context"
 )
 
-// CreateSheetFilterView 根据传入的参数创建一个筛选视图。Id 和 名字可选, 不填的话会默认生成；range 必填。Id 长度为10, 由 0-9、a-z、A-Z 组合生成。名字长度不超过100。单个子表内的筛选视图个数不超过 150。
+// CreateSheetFilterView 指定电子表格工作表的筛选范围, 创建一个筛选视图。
 //
-// 筛选范围的设置参考: [筛选视图的筛选条件指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/filter-view-condition-user-guide)
+// ## 使用限制
+// 单个工作表中的筛选视图数量不得超过 150 个。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view/create
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet-filter_view/create
@@ -61,22 +62,22 @@ func (r *Mock) UnMockDriveCreateSheetFilterView() {
 
 // CreateSheetFilterViewReq ...
 type CreateSheetFilterViewReq struct {
-	SpreadSheetToken string  `path:"spreadsheet_token" json:"-"` // 表格 token, 示例值: "shtcnmBA*yGehy8"
-	SheetID          string  `path:"sheet_id" json:"-"`          // 子表 id, 示例值: "0b**12"
-	FilterViewID     *string `json:"filter_view_id,omitempty"`   // 筛选视图 id, 示例值: "pH9hbVcCXA"
-	FilterViewName   *string `json:"filter_view_name,omitempty"` // 筛选视图名字, 示例值: "筛选视图 1"
-	Range            *string `json:"range,omitempty"`            // 筛选视图的筛选范围, 示例值: "0b**12!C1:H14"
+	SpreadSheetToken string  `path:"spreadsheet_token" json:"-"` // 电子表格的 token。可通过以下两种方式获取。了解更多, 参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。- 电子表格的 URL: https://sample.feishu.cn/sheets/[Iow7sNNEphp3WbtnbCscPqabcef]- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)示例值: "Iow7sNNEphp3WbtnbCscPqabcef"
+	SheetID          string  `path:"sheet_id" json:"-"`          // 工作表 ID, 通过[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 获取。示例值: "8fe9d6"
+	FilterViewID     *string `json:"filter_view_id,omitempty"`   // 自定义筛选视图 ID。不填将由系统生成。长度需为 10 字符。字符可以是 0-9 数字、a-z、A-Z 字母或其组合。示例值: "pH9hbVcCXA"
+	FilterViewName   *string `json:"filter_view_name,omitempty"` // 自定义筛选视图名称。不填将由系统生成。长度不超过100 个字符。示例值: "筛选视图 1"
+	Range            *string `json:"range,omitempty"`            // 筛选视图的筛选范围。该参数必填, 请忽略必填列的“否”。支持以下五种写法, 了解更多, 参考[筛选指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter/filter-user-guide)。- `sheetId`: 填写实际的工作表 ID, 表示将筛选应用于整表- `sheetId!{开始行索引}:{结束行索引}`: 填写工作表 ID 和行数区间, 表示将筛选应用于整行- `sheetId!{开始列索引}:{结束列索引}`: 填写工作表 ID 和列的区间, 表示将筛选应用于整列- `sheetId!{开始单元格}:{结束单元格}`: 填写工作表 ID 和单元格区间, 表示将筛选应用于单元格选定的区域中- `sheetId!{开始单元格}:{结束列索引}`: 填写工作表 ID、起始单元格和结束列, 表示省略结束行, 使用表格的最后行作为结束行示例值: "8fe9d6!C1:H14"
 }
 
 // CreateSheetFilterViewResp ...
 type CreateSheetFilterViewResp struct {
-	FilterView *CreateSheetFilterViewRespFilterView `json:"filter_view,omitempty"` // 创建的筛选视图的 id 、name、range
+	FilterView *CreateSheetFilterViewRespFilterView `json:"filter_view,omitempty"` // 创建的筛选视图的信息
 }
 
 // CreateSheetFilterViewRespFilterView ...
 type CreateSheetFilterViewRespFilterView struct {
-	FilterViewID   string `json:"filter_view_id,omitempty"`   // 筛选视图 id
-	FilterViewName string `json:"filter_view_name,omitempty"` // 筛选视图名字
+	FilterViewID   string `json:"filter_view_id,omitempty"`   // 筛选视图 ID
+	FilterViewName string `json:"filter_view_name,omitempty"` // 筛选视图名称
 	Range          string `json:"range,omitempty"`            // 筛选视图的筛选范围
 }
 

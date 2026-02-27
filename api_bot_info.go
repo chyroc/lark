@@ -59,12 +59,11 @@ func (r *Mock) UnMockBotGetBotInfo() {
 }
 
 // GetBotInfoReq ...
-type GetBotInfoReq struct {
-}
+type GetBotInfoReq struct{}
 
 // GetBotInfoResp ...
 type GetBotInfoResp struct {
-	ActivateStatus int64    `json:"activate_status,omitempty"` // app 当前状态, 0: 初始化, 租户待安装, 1: 租户停用, 2: 租户启用, 3: 安装后待启用, 4: 升级待启用, 5: license过期停用, 6: Lark套餐到期或降级停用
+	ActivateStatus int64    `json:"activate_status,omitempty"` // app 当前状态。0: 初始化, 租户待安装1: 租户停用2: 租户启用3: 安装后待启用4: 升级待启用5: license过期停用6: Lark套餐到期或降级停用
 	AppName        string   `json:"app_name,omitempty"`        // app 名称
 	AvatarURL      string   `json:"avatar_url,omitempty"`      // app 图像地址
 	IpWhiteList    []string `json:"ip_white_list,omitempty"`   // app 的 IP 白名单地址

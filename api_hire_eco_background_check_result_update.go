@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UpdateHireEcoBackgroundCheckResult 回传背调的最终结果, 终版报告。 回传背调结果后, 若租户未启用报告审批功能, 则背调订单状态将会变成已完成。 若启用报告审批功能, 则在管理员审批通过终版报告后, 订单状态流转为已完成。
+// UpdateHireEcoBackgroundCheckResult 回传背调的最终结果和终版报告。回传后, 若租户未启用背调报告审批功能, 则背调订单状态将会直接变成「已完成」。若启用背调报告审批功能, 则在管理员审批通过后, 订单状态流转为「已完成」。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check/update_result
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/ecological-docking/eco_background_check/update_result
@@ -58,22 +58,21 @@ func (r *Mock) UnMockHireUpdateHireEcoBackgroundCheckResult() {
 
 // UpdateHireEcoBackgroundCheckResultReq ...
 type UpdateHireEcoBackgroundCheckResultReq struct {
-	BackgroundCheckID string                                             `json:"background_check_id,omitempty"` // 背调 ID, 示例值: "6931286400470354183"
-	Result            string                                             `json:"result,omitempty"`              // 背调结果, 示例值: "无差异"
-	ResultTime        string                                             `json:"result_time,omitempty"`         // 背调结果时间, 示例值: "1660123456789"
+	BackgroundCheckID string                                             `json:"background_check_id,omitempty"` // 背调 ID。可通过[创建背调](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check/events/created)事件获取示例值: "6931286400470354183"
+	Result            string                                             `json:"result,omitempty"`              // 背调结果示例值: "无差异"
+	ResultTime        string                                             `json:"result_time,omitempty"`         // 背调结果时间。毫秒时间戳示例值: "1660123456789"
 	ReportFileList    []*UpdateHireEcoBackgroundCheckResultReqReportFile `json:"report_file_list,omitempty"`    // 报告列表
 }
 
 // UpdateHireEcoBackgroundCheckResultReqReportFile ...
 type UpdateHireEcoBackgroundCheckResultReqReportFile struct {
-	ReportName    string `json:"report_name,omitempty"`     // 报告名称, 示例值: "阶段报告.pdf"
-	ReportURL     string `json:"report_url,omitempty"`      // 报告地址；当report_url_type 为空或为 1 时需为可下载 pdf 的链接；为 2 时为预览型链接, 示例值: "https://xxxxx/xxxxxx/xxxx.pdf"
-	ReportURLType *int64 `json:"report_url_type,omitempty"` // 报告地址类型；枚举值 1 或为空时为可下载的 pdf 链接, 2 为预览型链接, 示例值: 1, 可选值有: 1: 可下载的链接, 2: 外链型链接
+	ReportName    string `json:"report_name,omitempty"`     // 报告名称示例值: "阶段报告.pdf"
+	ReportURL     string `json:"report_url,omitempty"`      // 报告地址；当report_url_type 为空或为 1 时需为可下载的 pdf 链接；为 2 时为预览型链接示例值: "https://xxxxx/xxxxxx/xxxx.pdf"
+	ReportURLType *int64 `json:"report_url_type,omitempty"` // 报告地址类型；枚举值为空或 1 时为可下载的 pdf 链接, 2 为预览型链接示例值: 1可选值有: 可下载的链接外链型链接
 }
 
 // UpdateHireEcoBackgroundCheckResultResp ...
-type UpdateHireEcoBackgroundCheckResultResp struct {
-}
+type UpdateHireEcoBackgroundCheckResultResp struct{}
 
 // updateHireEcoBackgroundCheckResultResp ...
 type updateHireEcoBackgroundCheckResultResp struct {

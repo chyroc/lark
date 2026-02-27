@@ -61,7 +61,7 @@ func (r *Mock) UnMockACSGetACSAccessRecordPhoto() {
 
 // GetACSAccessRecordPhotoReq ...
 type GetACSAccessRecordPhotoReq struct {
-	AccessRecordID string `path:"access_record_id" json:"-"` // 门禁访问记录 ID, 示例值: "6939433228970082591"
+	AccessRecordID string `path:"access_record_id" json:"-"` // 门禁访问记录 ID示例值: "6939433228970082591"
 }
 
 // getACSAccessRecordPhotoResp ...

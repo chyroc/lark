@@ -59,8 +59,8 @@ func (r *Mock) UnMockDriveGetDriveFileStatistics() {
 
 // GetDriveFileStatisticsReq ...
 type GetDriveFileStatisticsReq struct {
-	FileToken string   `path:"file_token" json:"-"` // 文件 token。了解如何获取文件 token, 参考[文件概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/file-overview), 示例值: "doccnfYZzTlvXqZIGTdAHKabcef"
-	FileType  FileType `query:"file_type" json:"-"` // 文件类型, 示例值: doc, 可选值有: doc: 旧版文档, sheet: 电子表格, mindnote: 思维笔记, bitable: 多维表格, wiki: 知识库文档, file: 文件, docx: 新版文档
+	FileToken string   `path:"file_token" json:"-"` // 文件 token。了解如何获取文件 token, 参考[文件概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/file-overview)。示例值: "doccnfYZzTlvXqZIGTdAHKabcef"
+	FileType  FileType `query:"file_type" json:"-"` // 文件类型示例值: doc可选值有: 旧版文档电子表格思维笔记多维表格知识库文档文件新版文档
 }
 
 // GetDriveFileStatisticsResp ...

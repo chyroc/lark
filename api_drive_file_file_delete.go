@@ -24,11 +24,11 @@ import (
 // DeleteDriveFile 删除用户在云空间内的文件或者文件夹。文件或文件夹被删除后, 会进入回收站中。
 //
 // 如果你删除的是文件夹, 该接口将异步执行, 同时返回该异步任务的 ID。你可使用[查询异步任务状态](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/task_check)接口查询任务执行的状态。
-// 前提条件:
+// ## 前提条件
 // 要删除文件, 需要确保应用或用户具有以下两种权限之一:
 // - 该应用或用户是文件所有者并且具有该文件所在父文件夹的编辑权限。
 // - 该应用或用户并非文件所有者, 但是该文件所在父文件夹的所有者或者拥有该父文件夹的所有权限（full access）。
-// 使用限制:
+// ## 使用限制
 // 该接口不支持并发调用, 且调用频率上限为 5 QPS, 10000 次/天。否则会返回 1061045 错误码, 可通过稍后重试解决。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/delete
@@ -67,8 +67,8 @@ func (r *Mock) UnMockDriveDeleteDriveFile() {
 
 // DeleteDriveFileReq ...
 type DeleteDriveFileReq struct {
-	FileToken string `path:"file_token" json:"-"` // 需要删除的文件或文件夹 token, 了解如何获取文件 token, 参考[文件概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/file-overview), 了解如何获取文件夹 token, 参考[文件夹概述](https://open.feishu.cn/document/ukTMukTMukTM/ugTNzUjL4UzM14CO1MTN/folder-overview), 示例值: "boxcnrHpsg1QDqXAAAyachabcef"
-	Type      string `query:"type" json:"-"`      // 被删除文件的类型, 示例值: file, 可选值有: file: 文件类型, docx: 新版文档类型, bitable: 多维表格类型, folder: 文件夹类型, doc: 文档类型, sheet: 电子表格类型, mindnote: 思维笔记类型, shortcut: 快捷方式类型, slides: 幻灯片
+	FileToken string `path:"file_token" json:"-"` // 需要删除的文件或文件夹 token。了解如何获取文件 token, 参考[文件概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/file-overview)。了解如何获取文件夹 token, 参考[文件夹概述](https://open.feishu.cn/document/ukTMukTMukTM/ugTNzUjL4UzM14CO1MTN/folder-overview)。示例值: "boxcnrHpsg1QDqXAAAyachabcef"
+	Type      string `query:"type" json:"-"`      // 被删除文件的类型示例值: file可选值有: 文件类型新版文档类型多维表格类型文件夹类型文档类型电子表格类型思维笔记类型快捷方式类型幻灯片
 }
 
 // DeleteDriveFileResp ...

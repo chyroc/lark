@@ -62,7 +62,7 @@ func (r *Mock) UnMockEHRDownloadEHRAttachments() {
 
 // DownloadEHRAttachmentsReq ...
 type DownloadEHRAttachmentsReq struct {
-	Token string `path:"token" json:"-"` // 文件 token, 示例值: "09bf7b924f9a4a69875788891b5970d8"
+	Token string `path:"token" json:"-"` // 文件 token示例值: "09bf7b924f9a4a69875788891b5970d8"
 }
 
 // downloadEHRAttachmentsResp ...

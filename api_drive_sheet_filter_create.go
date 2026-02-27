@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// CreateSheetFilter 在子表内创建筛选。
-//
-// 参数值可参考[筛选指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter/filter-user-guide)
+// CreateSheetFilter 在电子表格工作表的指定范围内, 设置筛选条件, 创建筛选。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter/create
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet-filter/create
@@ -61,23 +59,22 @@ func (r *Mock) UnMockDriveCreateSheetFilter() {
 
 // CreateSheetFilterReq ...
 type CreateSheetFilterReq struct {
-	SpreadSheetToken string                         `path:"spreadsheet_token" json:"-"` // 表格 token, 示例值: "shtcnmBA\*yGehy8"
-	SheetID          string                         `path:"sheet_id" json:"-"`          // 子表 id, 示例值: "0b\**12"
-	Range            string                         `json:"range,omitempty"`            // 筛选应用范围, 示例值: "xxxxxx!C1:H14"
-	Col              string                         `json:"col,omitempty"`              // 设置筛选条件的列, 示例值: "E"
-	Condition        *CreateSheetFilterReqCondition `json:"condition,omitempty"`        // 筛选的条件
+	SpreadSheetToken string                         `path:"spreadsheet_token" json:"-"` // 电子表格的 token。可通过以下两种方式获取。了解更多, 参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。- 电子表格的 URL: https://sample.feishu.cn/sheets/[Iow7sNNEphp3WbtnbCscPqabcef]- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)示例值: "Iow7sNNEphp3WbtnbCscPqabcef"
+	SheetID          string                         `path:"sheet_id" json:"-"`          // 工作表 ID, 通过[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 获取。示例值: "8fe9d6"
+	Range            string                         `json:"range,omitempty"`            // 设置筛选的应用范围。支持以下五种写法, 了解更多, 参考[筛选指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter/filter-user-guide)。- `sheetId`: 填写实际的工作表 ID, 表示将筛选应用于整表- `sheetId!{开始行索引}:{结束行索引}` : 填写工作表 ID 和行数区间, 表示将筛选应用于整行- `sheetId!{开始列索引}:{结束列索引}`: 填写工作表 ID 和列的区间, 表示将筛选应用于整列- `sheetId!{开始单元格}:{结束单元格}`: 填写工作表 ID 和单元格区间, 表示将筛选应用于单元格选定的区域中- `sheetId!{开始单元格}:{结束列索引}`: 填写工作表 ID、起始单元格和结束列, 表示省略结束行, 使用表格的最后行作为结束行示例值: "8fe9d6!A1:H14"
+	Col              string                         `json:"col,omitempty"`              // 设置应用筛选条件的列。示例值: "E"
+	Condition        *CreateSheetFilterReqCondition `json:"condition,omitempty"`        // 设置筛选条件。
 }
 
 // CreateSheetFilterReqCondition ...
 type CreateSheetFilterReqCondition struct {
-	FilterType  string   `json:"filter_type,omitempty"`  // 筛选类型, 示例值: "number"
-	CompareType *string  `json:"compare_type,omitempty"` // 比较类型, 示例值: "less"
-	Expected    []string `json:"expected,omitempty"`     // 筛选参数, 示例值: 6
+	FilterType  string   `json:"filter_type,omitempty"`  // 筛选类型, 枚举值如下所示。了解更多, 参考[筛选指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter/filter-user-guide)。- multiValue : 多值筛选- number : 数字筛选- text : 文本筛选- color : 颜色筛选- clear : 清除某列的筛选条件示例值: "number"
+	CompareType *string  `json:"compare_type,omitempty"` // 比较类型示例值: "less"
+	Expected    []string `json:"expected,omitempty"`     // 筛选参数示例值: ["50%"]
 }
 
 // CreateSheetFilterResp ...
-type CreateSheetFilterResp struct {
-}
+type CreateSheetFilterResp struct{}
 
 // createSheetFilterResp ...
 type createSheetFilterResp struct {

@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// QuerySheetFilterViewCondition 查询一个筛选视图的所有筛选条件, 返回筛选视图的筛选范围内的筛选条件。
-//
-// 筛选条件含义可参考 [筛选视图的筛选条件指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/filter-view-condition-user-guide)
+// QuerySheetFilterViewCondition 查询指定筛选视图的所有筛选条件, 包括筛选的类型、比较类型、筛选参数等。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/query
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet-filter_view/spreadsheet-sheet-filter_view-condition/query
@@ -61,22 +59,22 @@ func (r *Mock) UnMockDriveQuerySheetFilterViewCondition() {
 
 // QuerySheetFilterViewConditionReq ...
 type QuerySheetFilterViewConditionReq struct {
-	SpreadSheetToken string `path:"spreadsheet_token" json:"-"` // 表格 token, 示例值: "shtcnmBA*yGehy8"
-	SheetID          string `path:"sheet_id" json:"-"`          // 子表 id, 示例值: "0b**12"
-	FilterViewID     string `path:"filter_view_id" json:"-"`    // 筛选视图 id, 示例值: "pH9hbVcCXA"
+	SpreadSheetToken string `path:"spreadsheet_token" json:"-"` // 电子表格的 token。可通过以下两种方式获取。了解更多, 参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。- 电子表格的 URL: https://sample.feishu.cn/sheets/[Iow7sNNEphp3WbtnbCscPqabcef]- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)示例值: "Iow7sNNEphp3WbtnbCscPqabcef"
+	SheetID          string `path:"sheet_id" json:"-"`          // 工作表 ID, 通过[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 获取。示例值: "8fe9d6"
+	FilterViewID     string `path:"filter_view_id" json:"-"`    // 筛选视图 ID。通过[查询筛选视图](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view/query)获取。示例值: "pH9hbVcCXA"
 }
 
 // QuerySheetFilterViewConditionResp ...
 type QuerySheetFilterViewConditionResp struct {
-	Items []*QuerySheetFilterViewConditionRespItem `json:"items,omitempty"` // 筛选视图设置的所有筛选条件
+	Items []*QuerySheetFilterViewConditionRespItem `json:"items,omitempty"` // 筛选视图的所有筛选条件
 }
 
 // QuerySheetFilterViewConditionRespItem ...
 type QuerySheetFilterViewConditionRespItem struct {
-	ConditionID string   `json:"condition_id,omitempty"` // 设置筛选条件的列, 使用字母号
-	FilterType  string   `json:"filter_type,omitempty"`  // 筛选类型
-	CompareType string   `json:"compare_type,omitempty"` // 比较类型
-	Expected    []string `json:"expected,omitempty"`     // 筛选参数
+	ConditionID string   `json:"condition_id,omitempty"` // 设置了筛选条件的列
+	FilterType  string   `json:"filter_type,omitempty"`  // 筛选类型。枚举值如下所示。了解更多, 参考[筛选条件指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/filter-view-condition-user-guide)。- hiddenValue: 隐藏值筛选- number: 数字筛选- text: 文本筛选- color: 颜色筛选
+	CompareType string   `json:"compare_type,omitempty"` // 比较类型。了解更多, 参考[筛选条件指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/filter-view-condition-user-guide)。
+	Expected    []string `json:"expected,omitempty"`     // 筛选参数。了解更多, 参考[筛选条件指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view-condition/filter-view-condition-user-guide)。
 }
 
 // querySheetFilterViewConditionResp ...

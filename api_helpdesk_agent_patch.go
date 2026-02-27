@@ -59,13 +59,12 @@ func (r *Mock) UnMockHelpdeskUpdateHelpdeskAgent() {
 
 // UpdateHelpdeskAgentReq ...
 type UpdateHelpdeskAgentReq struct {
-	AgentID string `path:"agent_id" json:"-"` // 客服id, 示例值: "ou_14777d82ffef0f707de5a8c7ff2c5ebe"
-	Status  *int64 `json:"status,omitempty"`  // agent status, 1: 在线；2: 离线, 示例值: 1
+	AgentID string `path:"agent_id" json:"-"` // 客服id示例值: "ou_14777d82ffef0f707de5a8c7ff2c5ebe"
+	Status  *int64 `json:"status,omitempty"`  // agent status, 1: 在线；2: 离线示例值: 1
 }
 
 // UpdateHelpdeskAgentResp ...
-type UpdateHelpdeskAgentResp struct {
-}
+type UpdateHelpdeskAgentResp struct{}
 
 // updateHelpdeskAgentResp ...
 type updateHelpdeskAgentResp struct {

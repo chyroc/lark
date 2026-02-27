@@ -58,37 +58,36 @@ func (r *Mock) UnMockVCUpdateVCRoom() {
 
 // UpdateVCRoomReq ...
 type UpdateVCRoomReq struct {
-	RoomID       string                     `path:"room_id" json:"-"`         // 会议室ID, 示例值: "omm_4de32cf10a4358788ff4e09e37ebbf9b", 长度范围: `1` ～ `100` 字符
-	UserIDType   *IDType                    `query:"user_id_type" json:"-"`   // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 长度范围: `0` ～ `10` 字符, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	Name         *string                    `json:"name,omitempty"`           // 会议室名称, 示例值: "测试会议室"
-	Capacity     *int64                     `json:"capacity,omitempty"`       // 会议室能容纳的人数, 示例值: 10
-	Description  *string                    `json:"description,omitempty"`    // 会议室的相关描述, 示例值: "测试会议室描述"
-	CustomRoomID *string                    `json:"custom_room_id,omitempty"` // 自定义的会议室ID, 示例值: "1234"
-	RoomLevelID  *string                    `json:"room_level_id,omitempty"`  // 层级ID, 示例值: "omb_4ad1a2c7a2fbc5fc9570f38456931293"
+	RoomID       string                     `path:"room_id" json:"-"`         // 会议室ID示例值: "omm_4de32cf10a4358788ff4e09e37ebbf9b" 长度范围: `1` ～ `100` 字符
+	UserIDType   *IDType                    `query:"user_id_type" json:"-"`   // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id` 长度范围: `0` ～ `10` 字符当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	Name         *string                    `json:"name,omitempty"`           // 会议室名称示例值: "测试会议室"
+	Capacity     *int64                     `json:"capacity,omitempty"`       // 会议室能容纳的人数示例值: 10
+	Description  *string                    `json:"description,omitempty"`    // 会议室的相关描述示例值: "测试会议室描述"
+	CustomRoomID *string                    `json:"custom_room_id,omitempty"` // 自定义的会议室ID示例值: "1234"
+	RoomLevelID  *string                    `json:"room_level_id,omitempty"`  // 层级ID示例值: "omb_4ad1a2c7a2fbc5fc9570f38456931293"
 	RoomStatus   *UpdateVCRoomReqRoomStatus `json:"room_status,omitempty"`    // 会议室状态
 	Device       []*UpdateVCRoomReqDevice   `json:"device,omitempty"`         // 设施信息列表
 }
 
 // UpdateVCRoomReqDevice ...
 type UpdateVCRoomReqDevice struct {
-	Name string `json:"name,omitempty"` // 设施名称, 示例值: "电话"
+	Name string `json:"name,omitempty"` // 设施名称示例值: "电话"
 }
 
 // UpdateVCRoomReqRoomStatus ...
 type UpdateVCRoomReqRoomStatus struct {
-	Status           bool     `json:"status,omitempty"`             // 是否启用会议室, 示例值: true
-	ScheduleStatus   *bool    `json:"schedule_status,omitempty"`    // 会议室未来状态为启用或禁用（请忽略, 该字段用于查询接口的返回值）, 示例值: true
-	DisableStartTime *string  `json:"disable_start_time,omitempty"` // 禁用开始时间（unix时间, 单位sec）, 示例值: "1652356050"
-	DisableEndTime   *string  `json:"disable_end_time,omitempty"`   // 禁用结束时间（unix时间, 单位sec, 数值0表示永久禁用）, 示例值: "1652442450"
-	DisableReason    *string  `json:"disable_reason,omitempty"`     // 禁用原因, 示例值: "测试占用"
-	ContactIDs       []string `json:"contact_ids,omitempty"`        // 联系人列表, id类型由user_id_type参数决定, 示例值: ["ou_3ec3f6a28a0d08c45d895276e8e5e19b"]
-	DisableNotice    *bool    `json:"disable_notice,omitempty"`     // 是否在禁用时发送通知给预定了该会议室的员工, 示例值: true
-	ResumeNotice     *bool    `json:"resume_notice,omitempty"`      // 是否在恢复启用时发送通知给联系人, 示例值: true
+	Status           bool     `json:"status,omitempty"`             // 是否启用会议室示例值: true
+	ScheduleStatus   *bool    `json:"schedule_status,omitempty"`    // 会议室未来状态为启用或禁用（请忽略, 该字段用于查询接口的返回值）示例值: true
+	DisableStartTime *string  `json:"disable_start_time,omitempty"` // 禁用开始时间（unix时间, 单位sec）示例值: "1652356050"
+	DisableEndTime   *string  `json:"disable_end_time,omitempty"`   // 禁用结束时间（unix时间, 单位sec, 数值0表示永久禁用）示例值: "1652442450"
+	DisableReason    *string  `json:"disable_reason,omitempty"`     // 禁用原因示例值: "测试占用"
+	ContactIDs       []string `json:"contact_ids,omitempty"`        // 联系人列表, id类型由user_id_type参数决定示例值: ["ou_3ec3f6a28a0d08c45d895276e8e5e19b"]
+	DisableNotice    *bool    `json:"disable_notice,omitempty"`     // 是否在禁用时发送通知给预定了该会议室的员工示例值: true
+	ResumeNotice     *bool    `json:"resume_notice,omitempty"`      // 是否在恢复启用时发送通知给联系人示例值: true
 }
 
 // UpdateVCRoomResp ...
-type UpdateVCRoomResp struct {
-}
+type UpdateVCRoomResp struct{}
 
 // updateVCRoomResp ...
 type updateVCRoomResp struct {

@@ -21,7 +21,12 @@ import (
 	"context"
 )
 
-// CreateContactUnit 该接口用于创建单位。注意: 单位功能属于旗舰版付费功能, 企业需开通对应版本才可以创建单位, 不同版本请参考[飞书版本对比](https://www.feishu.cn/service)。
+// CreateContactUnit 调用该接口创建一个单位。
+//
+// ## 前提条件
+// 单位属于付费功能, 企业需要开通对应的飞书版本才可以使用。了解更多, 可参见[单位管理](https://www.feishu.cn/hc/zh-CN/articles/333548009177)。
+// ## 使用限制
+// 单租户内单位总数上限为 1, 000。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/create
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/unit/create
@@ -58,14 +63,14 @@ func (r *Mock) UnMockContactCreateContactUnit() {
 
 // CreateContactUnitReq ...
 type CreateContactUnitReq struct {
-	UnitID   *string `json:"unit_id,omitempty"`   // 单位ID。可自定义, 不传时默认自动生成。1-64字节范围大小, 需为数字字母, 示例值: "BU121"
-	Name     string  `json:"name,omitempty"`      // 单位的名字, 长度范围为1-100个字符, 示例值: "消费者事业部"
-	UnitType string  `json:"unit_type,omitempty"` // 单位类型, 长度范围为1-100个字符, 创建后不可修改, 示例值: "子公司"
+	UnitID   *string `json:"unit_id,omitempty"`   // 自定义单位 ID, 租户内唯一, 创建后不可修改。 1 ~ 64 个字符, 仅支持字母、数字。默认值: 空, 若不传值则由系统自动生成一个默认 ID。示例值: "BU121"
+	Name     string  `json:"name,omitempty"`      // 单位名字。 1 ~ 100 个字符。注意: 在租户内, 传入的 name 和 unit_type 不允许同时重复。例如, 已存在一个名字 `A`、类型 `A`的单位, 此时再创建一个名字 `A`、类型 `A` 的单位将会创建失败。示例值: "消费者事业部"
+	UnitType string  `json:"unit_type,omitempty"` // 自定义单位类型, 创建后不可修改。 1 ~ 100 个字符。注意: 在租户内, 传入的 name 和 unit_type 不允许同时重复。例如, 已存在一个名字 `A`、类型 `A`的单位, 此时再创建一个名字 `A`、类型 `A` 的单位将会创建失败。示例值: "子公司"
 }
 
 // CreateContactUnitResp ...
 type CreateContactUnitResp struct {
-	UnitID string `json:"unit_id,omitempty"` // 单位ID, 可自定义
+	UnitID string `json:"unit_id,omitempty"` // 单位 ID。后续可使用该 ID  对单位进行修改、删除、查询以及绑定部门等操作。
 }
 
 // createContactUnitResp ...

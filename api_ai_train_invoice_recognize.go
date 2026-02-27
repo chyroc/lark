@@ -24,9 +24,11 @@ import (
 
 // RecognizeAITrainInvoice 火车票识别接口, 支持JPG/JPEG/PNG/PDF/OFD五种文件类型的一次性的识别。
 //
+// 文件大小需要小于10M。
 // 单租户限流: 10QPS, 同租户下的应用没有限流, 共享本租户的 10QPS 限流
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/document_ai-v1/train_invoice/recognize
+// new doc: https://open.feishu.cn/document/ai/document_ai-v1/train_invoice/recognize
 func (r *AIService) RecognizeAITrainInvoice(ctx context.Context, request *RecognizeAITrainInvoiceReq, options ...MethodOptionFunc) (*RecognizeAITrainInvoiceResp, *Response, error) {
 	if r.cli.mock.mockAIRecognizeAITrainInvoice != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] AI#RecognizeAITrainInvoice mock enable")
@@ -61,7 +63,7 @@ func (r *Mock) UnMockAIRecognizeAITrainInvoice() {
 
 // RecognizeAITrainInvoiceReq ...
 type RecognizeAITrainInvoiceReq struct {
-	File io.Reader `json:"file,omitempty"` // 识别的火车票源文件, 示例值: file binary
+	File io.Reader `json:"file,omitempty"` // 识别的火车票源文件示例值: file binary
 }
 
 // RecognizeAITrainInvoiceResp ...
@@ -76,7 +78,7 @@ type RecognizeAITrainInvoiceRespTrainInvoice struct {
 
 // RecognizeAITrainInvoiceRespTrainInvoiceEntity ...
 type RecognizeAITrainInvoiceRespTrainInvoiceEntity struct {
-	Type  string `json:"type,omitempty"`  // 识别的字段种类, 可选值有: start_station: 出发站, end_station: 到达站, train_num: 车次编号, name: 火车票姓名, seat_num: 座位号, ticket_num: 车票编号, total_amount: 价格, time: 出发时间
+	Type  string `json:"type,omitempty"`  // 识别的字段种类可选值有: 出发站到达站车次编号火车票姓名座位号车票编号价格出发时间金额座位号座位类型身份证号售卖号售卖车站
 	Value string `json:"value,omitempty"` // 识别出字段的文本信息
 }
 

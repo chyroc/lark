@@ -21,8 +21,9 @@ import (
 	"context"
 )
 
-// GetDriveDocRawContent 此接口只支持查询旧版文档纯文本内容。要查询新版文档（文档类型: `docx`）的纯文本内容, 使用[获取文档纯文本内容](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/raw_content)接口。
+// GetDriveDocRawContent :::warning
 //
+// 此接口只支持查询旧版文档纯文本内容。要查询新版文档（文档类型: `docx`）的纯文本内容, 使用[获取文档纯文本内容](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/raw_content)接口。
 // 该接口用于获取文档的纯文本内容, 不包含富文本格式信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ukzNzUjL5czM14SO3MTN
