@@ -71,19 +71,19 @@ type BatchSetSheetValueReq struct {
 
 // BatchSetSheetValueReqValueRange ...
 type BatchSetSheetValueReqValueRange struct {
-	Range  string                                 `json:"range,omitempty"`  // 写入数据的范围。格式为 `!:`。其中: `sheetId` 为工作表 ID, 通过[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 获取。- `:` 为工作表中单元格的范围, 数字表示行索引, 字母表示列索引。如 `A2:B2` 表示该工作表第 2 行的 A 列到 B 列。`range`支持四种写法, 详情参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。  注意: `range` 所指定的范围需要大于等于写入的数据所占用的范围。
-	Values *BatchSetSheetValueReqValueRangeValues `json:"values,omitempty"` // 写入的数据。如要写入公式、超链接、email、@人等, 可参考[电子表格支持写入的数据类型](https://open.feishu.cn/document/ukTMukTMukTM/ugjN1UjL4YTN14CO2UTN)。
+	Range  string           `json:"range,omitempty"`  // 写入数据的范围。格式为 `<sheetId>!<开始位置>:<结束位置>`。其中: `sheetId` 为工作表 ID, 通过[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 获取。- `<开始位置>:<结束位置>` 为工作表中单元格的范围, 数字表示行索引, 字母表示列索引。如 `A2:B2` 表示该工作表第 2 行的 A 列到 B 列。`range`支持四种写法, 详情参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。  注意: `range` 所指定的范围需要大于等于写入的数据所占用的范围。
+	Values [][]SheetContent `json:"values,omitempty"` // 写入的数据。如要写入公式、超链接、email、@人等, 可参考[电子表格支持写入的数据类型](https://open.feishu.cn/document/ukTMukTMukTM/ugjN1UjL4YTN14CO2UTN)。
 }
 
 // BatchSetSheetValueResp ...
 type BatchSetSheetValueResp struct {
-	Responses        *BatchSetSheetValueRespResponses `json:"responses,omitempty"`        // 所有写入数据的范围
-	Revision         int64                            `json:"revision,omitempty"`         // 工作表的版本号。从 0 开始计数, 更新一次版本号加一。
-	SpreadSheetToken string                           `json:"spreadsheetToken,omitempty"` // 电子表格的 token
+	Responses        []*BatchSetSheetValueRespResponse `json:"responses,omitempty"`        // 所有写入数据的范围
+	Revision         int64                             `json:"revision,omitempty"`         // 工作表的版本号。从 0 开始计数, 更新一次版本号加一。
+	SpreadSheetToken string                            `json:"spreadsheetToken,omitempty"` // 电子表格的 token
 }
 
-// BatchSetSheetValueRespResponses ...
-type BatchSetSheetValueRespResponses struct {
+// BatchSetSheetValueRespResponse ...
+type BatchSetSheetValueRespResponse struct {
 	SpreadSheetToken string `json:"spreadsheetToken,omitempty"` // 电子表格的 token
 	UpdatedRange     string `json:"updatedRange,omitempty"`     // 写入的范围
 	UpdatedRows      int64  `json:"updatedRows,omitempty"`      // 写入的行数
