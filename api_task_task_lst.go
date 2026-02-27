@@ -25,7 +25,8 @@ import (
 //
 // 目前只支持列取任务界面上“我负责的”任务。返回的任务数据按照任务在”我负责的“界面中”自定义拖拽“的顺序排序。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/list
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/list
+// new doc: https://open.feishu.cn/document/task-v2/task/list
 func (r *TaskService) GetTaskList(ctx context.Context, request *GetTaskListReq, options ...MethodOptionFunc) (*GetTaskListResp, *Response, error) {
 	if r.cli.mock.mockTaskGetTaskList != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#GetTaskList mock enable")
@@ -59,11 +60,11 @@ func (r *Mock) UnMockTaskGetTaskList() {
 
 // GetTaskListReq ...
 type GetTaskListReq struct {
-	PageSize   *int64  `query:"page_size" json:"-"`    // 每页的任务数量, 示例值: 50, 默认值: `50`, 取值范围: `1` ～ `100`
-	PageToken  *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: aWQ9NzEwMjMzMjMxMDE=
-	Completed  *bool   `query:"completed" json:"-"`    // 是否按任务完成进行过滤。填写true表示只列出已完成任务；填写false表示只列出未完成任务。不填写表示不过滤, 示例值: true
-	Type       *string `query:"type" json:"-"`         // 列取任务的类型, 目前只支持"my_tasks", 即“我负责的”, 示例值: my_tasks, 默认值: `my_tasks`
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 默认值: `open_id`
+	PageSize   *int64  `query:"page_size" json:"-"`    // 每页的任务数量示例值: 50默认值: `50` 取值范围: `1` ～ `100`
+	PageToken  *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: aWQ9NzEwMjMzMjMxMDE=
+	Completed  *bool   `query:"completed" json:"-"`    // 是否按任务完成进行过滤。填写true表示只列出已完成任务；填写false表示只列出未完成任务。不填写表示不过滤。示例值: true
+	Type       *string `query:"type" json:"-"`         // 列取任务的类型, 目前只支持"my_tasks", 即“我负责的”。示例值: my_tasks默认值: `my_tasks`
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id默认值: `open_id`
 }
 
 // GetTaskListResp ...
@@ -90,7 +91,7 @@ type GetTaskListRespItem struct {
 	RepeatRule     string                             `json:"repeat_rule,omitempty"`      // 如果任务为重复任务, 返回重复任务的配置
 	ParentTaskGuid string                             `json:"parent_task_guid,omitempty"` // 如果当前任务为某个任务的子任务, 返回父任务的guid
 	Mode           int64                              `json:"mode,omitempty"`             // 任务的模式。1 - 会签任务；2 - 或签任务
-	Source         int64                              `json:"source,omitempty"`           // 任务创建的来源, 可选值有: 0: 未知来源, 1: 任务中心, 2: 群组任务/消息转任务, 6: 通过开放平台以tenant_access_token授权创建的任务, 7: 通过开放平台以user_access_token授权创建的任务, 8: 文档任务
+	Source         int64                              `json:"source,omitempty"`           // 任务创建的来源可选值有: 未知来源任务中心群组任务/消息转任务通过开放平台以tenant_access_token授权创建的任务通过开放平台以user_access_token授权创建的任务文档任务
 	CustomComplete *GetTaskListRespItemCustomComplete `json:"custom_complete,omitempty"`  // 任务的自定义完成配置
 	TaskID         string                             `json:"task_id,omitempty"`          // 任务界面上的代码
 	CreatedAt      string                             `json:"created_at,omitempty"`       // 任务创建时间戳(ms)
@@ -230,14 +231,14 @@ type GetTaskListRespItemCustomFieldMemberValue struct {
 
 // GetTaskListRespItemDependencie ...
 type GetTaskListRespItemDependencie struct {
-	Type     string `json:"type,omitempty"`      // 依赖类型, 可选值有: prev: 前置依赖, next: 后置依赖
+	Type     string `json:"type,omitempty"`      // 依赖类型可选值有: 前置依赖后置依赖
 	TaskGuid string `json:"task_guid,omitempty"` // 依赖任务的GUID
 }
 
 // GetTaskListRespItemDue ...
 type GetTaskListRespItemDue struct {
-	Timestamp string `json:"timestamp,omitempty"`  // 截止时间/日期的时间戳, 距1970-01-01 00:00:00 UTC的毫秒数。如果截止时间是一个日期, 需要把日期转换成时间戳, 并设置 is_all_day=true
-	IsAllDay  bool   `json:"is_all_day,omitempty"` // 是否截止到一个日期。如果设为true, timestamp中只有日期的部分会被解析和存储。
+	Timestamp string `json:"timestamp,omitempty"`  // 截止时间/日期的时间戳, 距1970-01-01 00:00:00的毫秒数。- 如果是截止日期（`is_all_day` 取值为 true）, 则该时间戳转换为具体时间后, 只需精确到天。例如 `1724284800000` 转换为具体时间为 `2024-08-22`。- 如果是截止时间（`is_all_day` 取值为 false）, 则该时间戳转换为具体时间后, 精确到秒。例如 `1724284800000` 转换为具体时间为 `2024-08-22 08:00:00 UTC+8`。
+	IsAllDay  bool   `json:"is_all_day,omitempty"` // 是否截止到一个日期。可能值有: true: 截止日期, `timestamp` 转换为具体时间后精确到天。- false: 截止时间, `timestamp` 转换为具体时间后精确到秒。
 }
 
 // GetTaskListRespItemMember ...
@@ -278,7 +279,7 @@ type GetTaskListRespItemOriginPlatformI18nName struct {
 // GetTaskListRespItemReminder ...
 type GetTaskListRespItemReminder struct {
 	ID                 string `json:"id,omitempty"`                   // 提醒时间设置的 ID
-	RelativeFireMinute int64  `json:"relative_fire_minute,omitempty"` // 相对于截止时间的提醒时间分钟数。例如30表示截止时间前30分钟提醒；0表示截止时提醒。
+	RelativeFireMinute int64  `json:"relative_fire_minute,omitempty"` // 相对于截止时间的提醒时间分钟数。例如30表示截止时间前30分钟提醒；0表示截止时提醒。注意: 该参数值可能为负值。例如, 在客户端创建的任务未设置具体截止时间, 则该任务的截止时间默认为当天 00:00, 如果任务提醒时间为当天 18:00, 则 `relative_fire_minute` 返回值为 -1080。
 }
 
 // GetTaskListRespItemStart ...

@@ -37,12 +37,10 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Task
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateTask(ctx, &lark.CreateTaskReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
-
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {
@@ -50,7 +48,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Task
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskCreateTask(func(ctx context.Context, request *lark.CreateTaskReq, options ...lark.MethodOptionFunc) (*lark.CreateTaskResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -62,7 +59,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskGetTask(func(ctx context.Context, request *lark.GetTaskReq, options ...lark.MethodOptionFunc) (*lark.GetTaskResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -74,7 +70,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskUpdateTask(func(ctx context.Context, request *lark.UpdateTaskReq, options ...lark.MethodOptionFunc) (*lark.UpdateTaskResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -86,7 +81,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskDeleteTask(func(ctx context.Context, request *lark.DeleteTaskReq, options ...lark.MethodOptionFunc) (*lark.DeleteTaskResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -98,7 +92,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskAddTaskMember(func(ctx context.Context, request *lark.AddTaskMemberReq, options ...lark.MethodOptionFunc) (*lark.AddTaskMemberResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -110,7 +103,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskRemoveTaskMember(func(ctx context.Context, request *lark.RemoveTaskMemberReq, options ...lark.MethodOptionFunc) (*lark.RemoveTaskMemberResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -122,7 +114,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskGetTaskList(func(ctx context.Context, request *lark.GetTaskListReq, options ...lark.MethodOptionFunc) (*lark.GetTaskListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -134,7 +125,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskAddTaskTasklist(func(ctx context.Context, request *lark.AddTaskTasklistReq, options ...lark.MethodOptionFunc) (*lark.AddTaskTasklistResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -146,7 +136,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskRemoveTaskTasklist(func(ctx context.Context, request *lark.RemoveTaskTasklistReq, options ...lark.MethodOptionFunc) (*lark.RemoveTaskTasklistResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -158,7 +147,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskAddTaskReminder(func(ctx context.Context, request *lark.AddTaskReminderReq, options ...lark.MethodOptionFunc) (*lark.AddTaskReminderResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -170,7 +158,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskRemoveTaskReminder(func(ctx context.Context, request *lark.RemoveTaskReminderReq, options ...lark.MethodOptionFunc) (*lark.RemoveTaskReminderResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -182,7 +169,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskAddTaskDependency(func(ctx context.Context, request *lark.AddTaskDependencyReq, options ...lark.MethodOptionFunc) (*lark.AddTaskDependencyResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -194,7 +180,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskRemoveTaskDependency(func(ctx context.Context, request *lark.RemoveTaskDependencyReq, options ...lark.MethodOptionFunc) (*lark.RemoveTaskDependencyResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -206,7 +191,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskCreateTaskSubtask(func(ctx context.Context, request *lark.CreateTaskSubtaskReq, options ...lark.MethodOptionFunc) (*lark.CreateTaskSubtaskResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -218,7 +202,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskGetTaskSubtaskList(func(ctx context.Context, request *lark.GetTaskSubtaskListReq, options ...lark.MethodOptionFunc) (*lark.GetTaskSubtaskListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -230,7 +213,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskCreateTaskTasklist(func(ctx context.Context, request *lark.CreateTaskTasklistReq, options ...lark.MethodOptionFunc) (*lark.CreateTaskTasklistResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -242,7 +224,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskGetTaskTasklist(func(ctx context.Context, request *lark.GetTaskTasklistReq, options ...lark.MethodOptionFunc) (*lark.GetTaskTasklistResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -254,7 +235,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskUpdateTaskTasklist(func(ctx context.Context, request *lark.UpdateTaskTasklistReq, options ...lark.MethodOptionFunc) (*lark.UpdateTaskTasklistResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -266,7 +246,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskDeleteTaskTasklist(func(ctx context.Context, request *lark.DeleteTaskTasklistReq, options ...lark.MethodOptionFunc) (*lark.DeleteTaskTasklistResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -278,7 +257,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskAddTaskTasklistMember(func(ctx context.Context, request *lark.AddTaskTasklistMemberReq, options ...lark.MethodOptionFunc) (*lark.AddTaskTasklistMemberResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -290,7 +268,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskRemoveTaskTasklistMember(func(ctx context.Context, request *lark.RemoveTaskTasklistMemberReq, options ...lark.MethodOptionFunc) (*lark.RemoveTaskTasklistMemberResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -302,7 +279,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskGetTaskTaskListOfTasklist(func(ctx context.Context, request *lark.GetTaskTaskListOfTasklistReq, options ...lark.MethodOptionFunc) (*lark.GetTaskTaskListOfTasklistResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -314,7 +290,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskGetTaskTasklistList(func(ctx context.Context, request *lark.GetTaskTasklistListReq, options ...lark.MethodOptionFunc) (*lark.GetTaskTasklistListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -326,7 +301,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskCreateTaskTasklistActivitySubscription(func(ctx context.Context, request *lark.CreateTaskTasklistActivitySubscriptionReq, options ...lark.MethodOptionFunc) (*lark.CreateTaskTasklistActivitySubscriptionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -338,7 +312,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskGetTaskTasklistActivitySubscription(func(ctx context.Context, request *lark.GetTaskTasklistActivitySubscriptionReq, options ...lark.MethodOptionFunc) (*lark.GetTaskTasklistActivitySubscriptionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -350,7 +323,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskUpdateTaskTasklistActivitySubscription(func(ctx context.Context, request *lark.UpdateTaskTasklistActivitySubscriptionReq, options ...lark.MethodOptionFunc) (*lark.UpdateTaskTasklistActivitySubscriptionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -362,7 +334,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskDeleteTaskTasklistActivitySubscription(func(ctx context.Context, request *lark.DeleteTaskTasklistActivitySubscriptionReq, options ...lark.MethodOptionFunc) (*lark.DeleteTaskTasklistActivitySubscriptionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -374,7 +345,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskGetTaskTasklistActivitySubscriptionList(func(ctx context.Context, request *lark.GetTaskTasklistActivitySubscriptionListReq, options ...lark.MethodOptionFunc) (*lark.GetTaskTasklistActivitySubscriptionListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -386,7 +356,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskCreateTaskComment(func(ctx context.Context, request *lark.CreateTaskCommentReq, options ...lark.MethodOptionFunc) (*lark.CreateTaskCommentResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -398,7 +367,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskGetTaskComment(func(ctx context.Context, request *lark.GetTaskCommentReq, options ...lark.MethodOptionFunc) (*lark.GetTaskCommentResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -410,7 +378,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskUpdateTaskComment(func(ctx context.Context, request *lark.UpdateTaskCommentReq, options ...lark.MethodOptionFunc) (*lark.UpdateTaskCommentResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -422,7 +389,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskDeleteTaskComment(func(ctx context.Context, request *lark.DeleteTaskCommentReq, options ...lark.MethodOptionFunc) (*lark.DeleteTaskCommentResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -434,7 +400,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskGetTaskCommentList(func(ctx context.Context, request *lark.GetTaskCommentListReq, options ...lark.MethodOptionFunc) (*lark.GetTaskCommentListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -446,7 +411,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskUploadTaskAttachment(func(ctx context.Context, request *lark.UploadTaskAttachmentReq, options ...lark.MethodOptionFunc) (*lark.UploadTaskAttachmentResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -458,7 +422,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskGetTaskAttachment(func(ctx context.Context, request *lark.GetTaskAttachmentReq, options ...lark.MethodOptionFunc) (*lark.GetTaskAttachmentResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -470,7 +433,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskDeleteTaskAttachment(func(ctx context.Context, request *lark.DeleteTaskAttachmentReq, options ...lark.MethodOptionFunc) (*lark.DeleteTaskAttachmentResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -482,7 +444,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskGetTaskAttachmentList(func(ctx context.Context, request *lark.GetTaskAttachmentListReq, options ...lark.MethodOptionFunc) (*lark.GetTaskAttachmentListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -494,7 +455,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskCreateTaskSection(func(ctx context.Context, request *lark.CreateTaskSectionReq, options ...lark.MethodOptionFunc) (*lark.CreateTaskSectionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -506,7 +466,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskGetTaskSection(func(ctx context.Context, request *lark.GetTaskSectionReq, options ...lark.MethodOptionFunc) (*lark.GetTaskSectionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -518,7 +477,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskUpdateTaskSection(func(ctx context.Context, request *lark.UpdateTaskSectionReq, options ...lark.MethodOptionFunc) (*lark.UpdateTaskSectionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -530,7 +488,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskDeleteTaskSection(func(ctx context.Context, request *lark.DeleteTaskSectionReq, options ...lark.MethodOptionFunc) (*lark.DeleteTaskSectionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -542,7 +499,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskGetTaskSectionList(func(ctx context.Context, request *lark.GetTaskSectionListReq, options ...lark.MethodOptionFunc) (*lark.GetTaskSectionListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -554,7 +510,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskGetTaskTaskListOfSection(func(ctx context.Context, request *lark.GetTaskTaskListOfSectionReq, options ...lark.MethodOptionFunc) (*lark.GetTaskTaskListOfSectionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -566,7 +521,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskAddTaskCustomField(func(ctx context.Context, request *lark.AddTaskCustomFieldReq, options ...lark.MethodOptionFunc) (*lark.AddTaskCustomFieldResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -578,7 +532,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskRemoveTaskCustomField(func(ctx context.Context, request *lark.RemoveTaskCustomFieldReq, options ...lark.MethodOptionFunc) (*lark.RemoveTaskCustomFieldResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -590,7 +543,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskCreateTaskCustomFieldOption(func(ctx context.Context, request *lark.CreateTaskCustomFieldOptionReq, options ...lark.MethodOptionFunc) (*lark.CreateTaskCustomFieldOptionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -602,7 +554,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskUpdateTaskCustomFieldOption(func(ctx context.Context, request *lark.UpdateTaskCustomFieldOptionReq, options ...lark.MethodOptionFunc) (*lark.UpdateTaskCustomFieldOptionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -612,7 +563,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
-
 	})
 
 	t.Run("response is failed", func(t *testing.T) {
@@ -620,14 +570,12 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Task
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateTask(ctx, &lark.CreateTaskReq{})
 			as.NotNil(err)
 			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetTask(ctx, &lark.GetTaskReq{
 				TaskGuid: "x",
 			})
@@ -636,7 +584,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateTask(ctx, &lark.UpdateTaskReq{
 				TaskGuid: "x",
 			})
@@ -645,7 +592,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeleteTask(ctx, &lark.DeleteTaskReq{
 				TaskGuid: "x",
 			})
@@ -654,7 +600,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.AddTaskMember(ctx, &lark.AddTaskMemberReq{
 				TaskGuid: "x",
 			})
@@ -663,7 +608,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.RemoveTaskMember(ctx, &lark.RemoveTaskMemberReq{
 				TaskGuid: "x",
 			})
@@ -672,14 +616,12 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetTaskList(ctx, &lark.GetTaskListReq{})
 			as.NotNil(err)
 			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.AddTaskTasklist(ctx, &lark.AddTaskTasklistReq{
 				TaskGuid: "x",
 			})
@@ -688,7 +630,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.RemoveTaskTasklist(ctx, &lark.RemoveTaskTasklistReq{
 				TaskGuid: "x",
 			})
@@ -697,7 +638,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.AddTaskReminder(ctx, &lark.AddTaskReminderReq{
 				TaskGuid: "x",
 			})
@@ -706,7 +646,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.RemoveTaskReminder(ctx, &lark.RemoveTaskReminderReq{
 				TaskGuid: "x",
 			})
@@ -715,7 +654,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.AddTaskDependency(ctx, &lark.AddTaskDependencyReq{
 				TaskGuid: "x",
 			})
@@ -724,7 +662,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.RemoveTaskDependency(ctx, &lark.RemoveTaskDependencyReq{
 				TaskGuid: "x",
 			})
@@ -733,7 +670,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateTaskSubtask(ctx, &lark.CreateTaskSubtaskReq{
 				TaskGuid: "x",
 			})
@@ -742,7 +678,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetTaskSubtaskList(ctx, &lark.GetTaskSubtaskListReq{
 				TaskGuid: "x",
 			})
@@ -751,14 +686,12 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateTaskTasklist(ctx, &lark.CreateTaskTasklistReq{})
 			as.NotNil(err)
 			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetTaskTasklist(ctx, &lark.GetTaskTasklistReq{
 				TasklistGuid: "x",
 			})
@@ -767,7 +700,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateTaskTasklist(ctx, &lark.UpdateTaskTasklistReq{
 				TasklistGuid: "x",
 			})
@@ -776,7 +708,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeleteTaskTasklist(ctx, &lark.DeleteTaskTasklistReq{
 				TasklistGuid: "x",
 			})
@@ -785,7 +716,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.AddTaskTasklistMember(ctx, &lark.AddTaskTasklistMemberReq{
 				TasklistGuid: "x",
 			})
@@ -794,7 +724,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.RemoveTaskTasklistMember(ctx, &lark.RemoveTaskTasklistMemberReq{
 				TasklistGuid: "x",
 			})
@@ -803,7 +732,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetTaskTaskListOfTasklist(ctx, &lark.GetTaskTaskListOfTasklistReq{
 				TasklistGuid: "x",
 			})
@@ -812,14 +740,12 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetTaskTasklistList(ctx, &lark.GetTaskTasklistListReq{})
 			as.NotNil(err)
 			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateTaskTasklistActivitySubscription(ctx, &lark.CreateTaskTasklistActivitySubscriptionReq{
 				TasklistGuid: "x",
 			})
@@ -828,7 +754,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetTaskTasklistActivitySubscription(ctx, &lark.GetTaskTasklistActivitySubscriptionReq{
 				TasklistGuid:             "x",
 				ActivitySubscriptionGuid: "x",
@@ -838,7 +763,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateTaskTasklistActivitySubscription(ctx, &lark.UpdateTaskTasklistActivitySubscriptionReq{
 				TasklistGuid:             "x",
 				ActivitySubscriptionGuid: "x",
@@ -848,7 +772,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeleteTaskTasklistActivitySubscription(ctx, &lark.DeleteTaskTasklistActivitySubscriptionReq{
 				TasklistGuid:             "x",
 				ActivitySubscriptionGuid: "x",
@@ -858,7 +781,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetTaskTasklistActivitySubscriptionList(ctx, &lark.GetTaskTasklistActivitySubscriptionListReq{
 				TasklistGuid: "x",
 			})
@@ -867,14 +789,12 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateTaskComment(ctx, &lark.CreateTaskCommentReq{})
 			as.NotNil(err)
 			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetTaskComment(ctx, &lark.GetTaskCommentReq{
 				CommentID: "x",
 			})
@@ -883,7 +803,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateTaskComment(ctx, &lark.UpdateTaskCommentReq{
 				CommentID: "x",
 			})
@@ -892,7 +811,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeleteTaskComment(ctx, &lark.DeleteTaskCommentReq{
 				CommentID: "x",
 			})
@@ -901,21 +819,18 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetTaskCommentList(ctx, &lark.GetTaskCommentListReq{})
 			as.NotNil(err)
 			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UploadTaskAttachment(ctx, &lark.UploadTaskAttachmentReq{})
 			as.NotNil(err)
 			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetTaskAttachment(ctx, &lark.GetTaskAttachmentReq{
 				AttachmentGuid: "x",
 			})
@@ -924,7 +839,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeleteTaskAttachment(ctx, &lark.DeleteTaskAttachmentReq{
 				AttachmentGuid: "x",
 			})
@@ -933,21 +847,18 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetTaskAttachmentList(ctx, &lark.GetTaskAttachmentListReq{})
 			as.NotNil(err)
 			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateTaskSection(ctx, &lark.CreateTaskSectionReq{})
 			as.NotNil(err)
 			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetTaskSection(ctx, &lark.GetTaskSectionReq{
 				SectionGuid: "x",
 			})
@@ -956,7 +867,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateTaskSection(ctx, &lark.UpdateTaskSectionReq{
 				SectionGuid: "x",
 			})
@@ -965,7 +875,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeleteTaskSection(ctx, &lark.DeleteTaskSectionReq{
 				SectionGuid: "x",
 			})
@@ -974,14 +883,12 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetTaskSectionList(ctx, &lark.GetTaskSectionListReq{})
 			as.NotNil(err)
 			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetTaskTaskListOfSection(ctx, &lark.GetTaskTaskListOfSectionReq{
 				SectionGuid: "x",
 			})
@@ -990,7 +897,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.AddTaskCustomField(ctx, &lark.AddTaskCustomFieldReq{
 				CustomFieldGuid: "x",
 			})
@@ -999,7 +905,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.RemoveTaskCustomField(ctx, &lark.RemoveTaskCustomFieldReq{
 				CustomFieldGuid: "x",
 			})
@@ -1008,7 +913,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateTaskCustomFieldOption(ctx, &lark.CreateTaskCustomFieldOptionReq{
 				CustomFieldGuid: "x",
 			})
@@ -1017,7 +921,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateTaskCustomFieldOption(ctx, &lark.UpdateTaskCustomFieldOptionReq{
 				CustomFieldGuid: "x",
 				OptionGuid:      "x",
@@ -1025,7 +928,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
-
 	})
 
 	t.Run("fake request is failed", func(t *testing.T) {
@@ -1036,14 +938,12 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateTask(ctx, &lark.CreateTaskReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetTask(ctx, &lark.GetTaskReq{
 				TaskGuid: "x",
 			})
@@ -1052,7 +952,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateTask(ctx, &lark.UpdateTaskReq{
 				TaskGuid: "x",
 			})
@@ -1061,7 +960,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeleteTask(ctx, &lark.DeleteTaskReq{
 				TaskGuid: "x",
 			})
@@ -1070,7 +968,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.AddTaskMember(ctx, &lark.AddTaskMemberReq{
 				TaskGuid: "x",
 			})
@@ -1079,7 +976,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.RemoveTaskMember(ctx, &lark.RemoveTaskMemberReq{
 				TaskGuid: "x",
 			})
@@ -1088,14 +984,12 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetTaskList(ctx, &lark.GetTaskListReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.AddTaskTasklist(ctx, &lark.AddTaskTasklistReq{
 				TaskGuid: "x",
 			})
@@ -1104,7 +998,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.RemoveTaskTasklist(ctx, &lark.RemoveTaskTasklistReq{
 				TaskGuid: "x",
 			})
@@ -1113,7 +1006,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.AddTaskReminder(ctx, &lark.AddTaskReminderReq{
 				TaskGuid: "x",
 			})
@@ -1122,7 +1014,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.RemoveTaskReminder(ctx, &lark.RemoveTaskReminderReq{
 				TaskGuid: "x",
 			})
@@ -1131,7 +1022,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.AddTaskDependency(ctx, &lark.AddTaskDependencyReq{
 				TaskGuid: "x",
 			})
@@ -1140,7 +1030,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.RemoveTaskDependency(ctx, &lark.RemoveTaskDependencyReq{
 				TaskGuid: "x",
 			})
@@ -1149,7 +1038,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateTaskSubtask(ctx, &lark.CreateTaskSubtaskReq{
 				TaskGuid: "x",
 			})
@@ -1158,7 +1046,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetTaskSubtaskList(ctx, &lark.GetTaskSubtaskListReq{
 				TaskGuid: "x",
 			})
@@ -1167,14 +1054,12 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateTaskTasklist(ctx, &lark.CreateTaskTasklistReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetTaskTasklist(ctx, &lark.GetTaskTasklistReq{
 				TasklistGuid: "x",
 			})
@@ -1183,7 +1068,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateTaskTasklist(ctx, &lark.UpdateTaskTasklistReq{
 				TasklistGuid: "x",
 			})
@@ -1192,7 +1076,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeleteTaskTasklist(ctx, &lark.DeleteTaskTasklistReq{
 				TasklistGuid: "x",
 			})
@@ -1201,7 +1084,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.AddTaskTasklistMember(ctx, &lark.AddTaskTasklistMemberReq{
 				TasklistGuid: "x",
 			})
@@ -1210,7 +1092,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.RemoveTaskTasklistMember(ctx, &lark.RemoveTaskTasklistMemberReq{
 				TasklistGuid: "x",
 			})
@@ -1219,7 +1100,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetTaskTaskListOfTasklist(ctx, &lark.GetTaskTaskListOfTasklistReq{
 				TasklistGuid: "x",
 			})
@@ -1228,14 +1108,12 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetTaskTasklistList(ctx, &lark.GetTaskTasklistListReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateTaskTasklistActivitySubscription(ctx, &lark.CreateTaskTasklistActivitySubscriptionReq{
 				TasklistGuid: "x",
 			})
@@ -1244,7 +1122,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetTaskTasklistActivitySubscription(ctx, &lark.GetTaskTasklistActivitySubscriptionReq{
 				TasklistGuid:             "x",
 				ActivitySubscriptionGuid: "x",
@@ -1254,7 +1131,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateTaskTasklistActivitySubscription(ctx, &lark.UpdateTaskTasklistActivitySubscriptionReq{
 				TasklistGuid:             "x",
 				ActivitySubscriptionGuid: "x",
@@ -1264,7 +1140,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeleteTaskTasklistActivitySubscription(ctx, &lark.DeleteTaskTasklistActivitySubscriptionReq{
 				TasklistGuid:             "x",
 				ActivitySubscriptionGuid: "x",
@@ -1274,7 +1149,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetTaskTasklistActivitySubscriptionList(ctx, &lark.GetTaskTasklistActivitySubscriptionListReq{
 				TasklistGuid: "x",
 			})
@@ -1283,14 +1157,12 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateTaskComment(ctx, &lark.CreateTaskCommentReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetTaskComment(ctx, &lark.GetTaskCommentReq{
 				CommentID: "x",
 			})
@@ -1299,7 +1171,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateTaskComment(ctx, &lark.UpdateTaskCommentReq{
 				CommentID: "x",
 			})
@@ -1308,7 +1179,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeleteTaskComment(ctx, &lark.DeleteTaskCommentReq{
 				CommentID: "x",
 			})
@@ -1317,21 +1187,18 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetTaskCommentList(ctx, &lark.GetTaskCommentListReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UploadTaskAttachment(ctx, &lark.UploadTaskAttachmentReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetTaskAttachment(ctx, &lark.GetTaskAttachmentReq{
 				AttachmentGuid: "x",
 			})
@@ -1340,7 +1207,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeleteTaskAttachment(ctx, &lark.DeleteTaskAttachmentReq{
 				AttachmentGuid: "x",
 			})
@@ -1349,21 +1215,18 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetTaskAttachmentList(ctx, &lark.GetTaskAttachmentListReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateTaskSection(ctx, &lark.CreateTaskSectionReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetTaskSection(ctx, &lark.GetTaskSectionReq{
 				SectionGuid: "x",
 			})
@@ -1372,7 +1235,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateTaskSection(ctx, &lark.UpdateTaskSectionReq{
 				SectionGuid: "x",
 			})
@@ -1381,7 +1243,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeleteTaskSection(ctx, &lark.DeleteTaskSectionReq{
 				SectionGuid: "x",
 			})
@@ -1390,14 +1251,12 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetTaskSectionList(ctx, &lark.GetTaskSectionListReq{})
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetTaskTaskListOfSection(ctx, &lark.GetTaskTaskListOfSectionReq{
 				SectionGuid: "x",
 			})
@@ -1406,7 +1265,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.AddTaskCustomField(ctx, &lark.AddTaskCustomFieldReq{
 				CustomFieldGuid: "x",
 			})
@@ -1415,7 +1273,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.RemoveTaskCustomField(ctx, &lark.RemoveTaskCustomFieldReq{
 				CustomFieldGuid: "x",
 			})
@@ -1424,7 +1281,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateTaskCustomFieldOption(ctx, &lark.CreateTaskCustomFieldOptionReq{
 				CustomFieldGuid: "x",
 			})
@@ -1433,7 +1289,6 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateTaskCustomFieldOption(ctx, &lark.UpdateTaskCustomFieldOptionReq{
 				CustomFieldGuid: "x",
 				OptionGuid:      "x",
@@ -1441,6 +1296,5 @@ func Test_Task_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal("fake raw request", err.Error())
 		})
-
 	})
 }
