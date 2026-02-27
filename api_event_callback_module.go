@@ -339,6 +339,7 @@ type eventHandler struct {
 
 func (r *eventHandler) clone() *eventHandler {
 	return &eventHandler{
+
 		eventV1AddBotHandler:                                          r.eventV1AddBotHandler,
 		eventV1AddUserToChatHandler:                                   r.eventV1AddUserToChatHandler,
 		eventV1AppOpenHandler:                                         r.eventV1AppOpenHandler,
@@ -1398,6 +1399,30 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 			return err
 		}
 		req.eventV2CorehrContractUpdatedV1 = event
+	case EventType("card.action.trigger"):
+		event := new(EventV2CardActionTrigger)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CardActionTrigger = event
+	case EventType("corehr.offboarding.checklist_updated_v2"):
+		event := new(EventV2CorehrOffboardingChecklistUpdatedV2)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrOffboardingChecklistUpdatedV2 = event
+	case EventType("corehr.offboarding.status_updated_v2"):
+		event := new(EventV2CorehrOffboardingStatusUpdatedV2)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrOffboardingStatusUpdatedV2 = event
+	case EventType("corehr.offboarding.updated_v2"):
+		event := new(EventV2CorehrOffboardingUpdatedV2)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrOffboardingUpdatedV2 = event
 
 	}
 
@@ -1477,12 +1502,18 @@ func (r *EventCallbackService) parserEventV1(req *eventReq) error {
 			return fmt.Errorf("lark event unmarshal event %s failed", bs)
 		}
 		req.eventV1WorkApproval = event
-	case EventType("leave_approval"):
+	case EventType("leave_approvalV2"):
 		event := new(EventV1LeaveApprovalV2)
 		if err := json.Unmarshal(bs, event); err != nil {
 			return fmt.Errorf("lark event unmarshal event %s failed", bs)
 		}
 		req.eventV1LeaveApprovalV2 = event
+	case EventType("leave_approval_revert"):
+		event := new(EventV1LeaveApprovalRevert)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+		req.eventV1LeaveApprovalRevert = event
 
 	case EventType("third_party_meeting_room_event_updated"):
 		event := new(EventV1ThirdPartyMeetingRoomEventUpdated)
