@@ -21,18 +21,24 @@ import (
 	"context"
 )
 
-// SendEphemeralMessage 用于机器人在群会话中发送仅指定用户可见的消息卡片。卡片上将展示"仅对你可见"标识。
+// SendEphemeralMessage 调用该接口, 可以使应用机器人在指定群聊中发送仅指定用户可见的卡片消息。卡片上将展示 仅对你可见 标识, 如下图所示。
 //
-// ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/b0ec0ce45942463381457edc7b62e144_RXYCFtfUtb.png?lazyload=true&width=1592&height=486)
-// 使用场景:
-// 临时消息卡片多用于群聊中用户与机器人交互的中间态。例如在群聊中用户需要使用待办事项类bot创建一条提醒, bot 发送了可设置提醒日期和提醒内容的一张可交互的消息卡片, 此卡片在没有设置为临时卡片的情况下为群内全员可见, 即群内可看见该用户与 bot 交互的过程。而设置为临时卡片后, 交互过程仅该用户可见, 群内其他成员只会看到最终设置完成的提醒卡片。
-// 通过临时消息卡片, 可以减少消息对群聊中不相关用户的打扰, 有效降低群消息的噪声。
-// 需要启用[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)；需要机器人在会话群里。
-// - 仅触发临时卡片的用户自己可见。
-// - 不支持转发。
-// - 只能在群聊使用。
-// - 仅在用户处于在线状态的飞书客户端上可见。
-// - 临时消息卡片的[呈现能力](https://open.feishu.cn/document/ukTMukTMukTM/uEjNwUjLxYDM14SM2ATN)、[交互能力](https://open.feishu.cn/document/ukTMukTMukTM/uYjNwUjL2YDM14iN2ATN)与消息卡片一致。
+// ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/b0ec0ce45942463381457edc7b62e144_RXYCFtfUtb.png?height=486&lazyload=true&maxWidth=592&width=1592)
+// ## 使用场景
+// 仅特定人可见卡片一般作为临时的交互卡片使用, 交互过程仅该用户可见, 群内其他成员只会看到最终设置完成的提醒卡片, 可以减少消息对群聊中不相关用户的打扰, 有效降低群消息的噪声。
+// 具体场景示例: 在群聊内, 管理员需要通过机器人推送的待办事项表单卡片, 设置提醒日期和提醒内容。设置完成后再将卡片推送给全部群成员。该过程中, 机器人可以先通过本接口推送仅群管理员可见的表单卡片, 待管理员与卡片完成交互后, 机器人再调用[删除仅特定人可见的消息卡片](https://open.feishu.cn/document/ukTMukTMukTM/uITOyYjLykjM24iM5IjN)接口, 删除该卡片消息, 并将完善后的待办事项卡片发送给全部群成员查看。
+// ## 前提条件
+// 调用该接口前, 请确保你的应用已启用[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)且机器人在会话群里。
+// ## 频率限制
+// 对同一个群组发送仅特定人可见的消息卡片时, 该接口的调用频率上限是 40 QPS。
+// ## 使用限制
+// - 该接口不支持群模式为话题的话题群（topic）, 仅支持普通对话群组（group）。相关概念参考[群组基本概念](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/chat/chat-info/intro)。
+// - 该接口不支持[为卡片局部配置多语言](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/configure-multi-language-content#559f0561), 仅支持[为卡片全局配置多语言](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/configure-multi-language-content#ae4b3cb1)。
+// - 通过本接口发送的卡片:
+// - 不支持转发
+// - 只能发送给群聊中的特定用户, 且该用户不会收到消息通知
+// - 仅在处于在线状态的用户的飞书客户端上可见
+// - 如果卡片中使用了@指定人语法, 被@的成员将不会收到提及通知
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uETOyYjLxkjM24SM5IjN
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/message-card/send-message-cards-that-are-only-visible-to-certain-people
@@ -69,12 +75,12 @@ func (r *Mock) UnMockMessageSendEphemeralMessage() {
 
 // SendEphemeralMessageReq ...
 type SendEphemeralMessageReq struct {
-	ChatID  string              `json:"chat_id,omitempty"`  // 发送临时消息的群ID可通过事件推送获取
-	OpenID  string              `json:"open_id,omitempty"`  // 指定发送临时消息卡片的用户, 其他人将无法看到临时消息卡片；只需要填 open_id、email、user_id中的一个即可, 推荐使用 OpenID, 获取方式可参考文档[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid) （服务端依次读取字段的顺序为 open_id > user_id > email）
-	UserID  string              `json:"user_id,omitempty"`  // 指定发送临时消息卡片的用户, 其他人将无法看到临时消息卡片；只需要填 open_id、email、user_id中的一个即可, 推荐使用 OpenID, 获取方式可参考文档[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid) （服务端依次读取字段的顺序为 open_id > user_id > email）
-	Email   string              `json:"email,omitempty"`    // 指定发送临时消息卡片的用户, 其他人将无法看到临时消息卡片；只需要填 open_id、email、user_id中的一个即可, 推荐使用 OpenID, 获取方式可参考文档[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid) （服务端依次读取字段的顺序为 open_id > user_id > email）
-	MsgType MsgType             `json:"msg_type,omitempty"` // 消息的类型, 此处固定填 "interactive"
-	Card    *MessageContentCard `json:"card,omitempty"`     // 消息卡片的描述内容, 具体参考 [基础结构](https://open.feishu.cn/document/ukTMukTMukTM/uEjNwUjLxYDM14SM2ATN)
+	ChatID  string              `json:"chat_id,omitempty"`  // 目标群 ID。仅支持群模式为对话的普通群, 不支持话题群。群 ID 获取方式参见[群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)。  示例值: oc_5ad573a6411d72b8305fda3a9c1abcef
+	OpenID  *string             `json:"open_id,omitempty"`  // 可见卡片的用户 open_id。ID 获取方式参考[如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。注意: 你仅需填写 `open_id`、`email`、或 `user_id` 其中之一, 且三个字段不可同时为空。若填写多个, 字段生效的顺序为 `open_id` > `user_id` > `email`。 推荐使用 `open_id` 字段。  示例值: ou_449b53ad6aee526f7ed311b216aabcef
+	UserID  *string             `json:"user_id,omitempty"`  // 可见卡片的用户 user_id。ID 获取方式参考[如何获取 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。注意: 你仅需填写 `open_id`、`email`、或 `user_id` 其中之一, 且三个字段不可同时为空。若填写多个, 字段生效的顺序为 `open_id` > `user_id` > `email`。 推荐使用 `open_id` 字段。  示例值: gg895344
+	Email   *string             `json:"email,omitempty"`    // 可见卡片的用户邮箱地址。注意: 你仅需填写 `open_id`、`email`、或 `user_id` 其中之一, 且三个字段不可同时为空。若填写多个, 字段生效的顺序为 `open_id` > `user_id` > `email`。 推荐使用 `open_id` 字段。  示例值: zhangmin@feishu.com
+	MsgType MsgType             `json:"msg_type,omitempty"` // 消息的类型, 固定取值 `interactive`。  示例值: interactive
+	Card    *MessageContentCard `json:"card,omitempty"`     // 消息卡片的内容。支持[卡片 JSON](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-structure) 或[搭建工具](https://open.feishu.cn/cardkit?from=open_docs)构建的卡片模板。  - 要使用卡片 JSON, 参考[卡片 JSON 结构](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-structure)。示例值可参考下文的请求体示例。  - 要使用[搭建工具](https://open.feishu.cn/cardkit?from=open_docs)构建的卡片模板, 你需传入 `type` 和 `data` 参数。详情参考下文示例。
 }
 
 // SendEphemeralMessageResp ...

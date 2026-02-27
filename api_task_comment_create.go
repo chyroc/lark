@@ -21,12 +21,12 @@ import (
 	"context"
 )
 
-// CreateTaskComment 为一个任务创建评论, 或者回复该任务的某个评论。
+// CreateTaskComment 该接口用于创建和回复任务的评论。当parent_id字段为0时, 为创建评论；当parent_id不为0时, 为回复某条评论。
 //
-// 若要创建一个回复评论, 需要在创建时设置`reply_to_comment_id`字段。被回复的评论和新建的评论必须属于同一个任务。
-// 对任务进行评论时需要评论的读取权限。详情见[清单功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/overview)中的“清单是如何鉴权的？“章节。
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-comment/create
+// new doc: https://open.feishu.cn/document/server-docs/task-v1/task-comment/create
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/task-v2/comment/create
+// Deprecated
 func (r *TaskService) CreateTaskComment(ctx context.Context, request *CreateTaskCommentReq, options ...MethodOptionFunc) (*CreateTaskCommentResp, *Response, error) {
 	if r.cli.mock.mockTaskCreateTaskComment != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#CreateTaskComment mock enable")
@@ -37,7 +37,7 @@ func (r *TaskService) CreateTaskComment(ctx context.Context, request *CreateTask
 		Scope:                 "Task",
 		API:                   "CreateTaskComment",
 		Method:                "POST",
-		URL:                   r.cli.openBaseURL + "/open-apis/task/v2/comments",
+		URL:                   r.cli.openBaseURL + "/open-apis/task/v1/tasks/:task_id/comments",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
@@ -61,35 +61,27 @@ func (r *Mock) UnMockTaskCreateTaskComment() {
 
 // CreateTaskCommentReq ...
 type CreateTaskCommentReq struct {
-	UserIDType       *IDType `query:"user_id_type" json:"-"`        // 用户 ID 类型, 示例值: open_id, 默认值: `open_id`
-	Content          string  `json:"content,omitempty"`             // 评论内容。不允许为空, 最长3000个utf8字符, 示例值: "这是一条评论。"
-	ReplyToCommentID *string `json:"reply_to_comment_id,omitempty"` // 回复给评论的评论ID。如果不填写表示创建非回复评论, 示例值: "6937231762296684564", 最大长度: `20` 字符
-	ResourceType     *string `json:"resource_type,omitempty"`       // 评论归属的资源类型, 目前只支持任务“task”, 默认为"task", 示例值: "task", 默认值: `task`
-	ResourceID       *string `json:"resource_id,omitempty"`         // 评论归属的资源ID。当归属资源类型为"task"时, 这里应填写任务的GUID, 示例值: "ccb55625-95d2-2e80-655f-0e40bf67953f", 最大长度: `100` 字符
+	TaskID          string  `path:"task_id" json:"-"`            // 任务 ID示例值: "83912691-2e43-47fc-94a4-d512e03984fa"
+	UserIDType      *IDType `query:"user_id_type" json:"-"`      // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	Content         *string `json:"content,omitempty"`           // 评论内容。评论内容和富文本评论内容同时存在时只使用富文本评论内容。示例值: "举杯邀明月, 对影成三人" 长度范围: `0` ～ `65536` 字符
+	ParentID        *string `json:"parent_id,omitempty"`         // 评论的父ID, 创建评论时若不为空则为某条评论的回复, 若为空则不是回复示例值: "6937231762296684564"
+	CreateMilliTime *string `json:"create_milli_time,omitempty"` // 评论创建的时间戳, 单位为毫秒, 用于展示, 创建时不用填写示例值: "1657075055135"
+	RichContent     *string `json:"rich_content,omitempty"`      // 富文本评论内容。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)示例值: "举杯邀明月, 对影成三人<at id=7058204817822318612></at>" 长度范围: `0` ～ `65536` 字符
 }
 
 // CreateTaskCommentResp ...
 type CreateTaskCommentResp struct {
-	Comment *CreateTaskCommentRespComment `json:"comment,omitempty"` // 创建的评论详情
+	Comment *CreateTaskCommentRespComment `json:"comment,omitempty"` // 返回创建好的任务评论
 }
 
 // CreateTaskCommentRespComment ...
 type CreateTaskCommentRespComment struct {
-	ID               string                               `json:"id,omitempty"`                  // 评论id
-	Content          string                               `json:"content,omitempty"`             // 评论内容
-	Creator          *CreateTaskCommentRespCommentCreator `json:"creator,omitempty"`             // 评论创建人
-	ReplyToCommentID string                               `json:"reply_to_comment_id,omitempty"` // 评论回复评论的id。如果不是回复评论, 则为空。
-	CreatedAt        string                               `json:"created_at,omitempty"`          // 评论创建时间戳（ms)
-	UpdatedAt        string                               `json:"updated_at,omitempty"`          // 评论更新时间戳（ms）
-	ResourceType     string                               `json:"resource_type,omitempty"`       // 任务关联的资源类型
-	ResourceID       string                               `json:"resource_id,omitempty"`         // 任务关联的资源ID
-}
-
-// CreateTaskCommentRespCommentCreator ...
-type CreateTaskCommentRespCommentCreator struct {
-	ID   string `json:"id,omitempty"`   // 表示member的id
-	Type string `json:"type,omitempty"` // 成员的类型
-	Role string `json:"role,omitempty"` // 成员角色
+	Content         string `json:"content,omitempty"`           // 评论内容。评论内容和富文本评论内容同时存在时只使用富文本评论内容。
+	ParentID        string `json:"parent_id,omitempty"`         // 评论的父ID, 创建评论时若不为空则为某条评论的回复, 若为空则不是回复
+	ID              string `json:"id,omitempty"`                // 评论ID, 由飞书服务器发号
+	CreateMilliTime string `json:"create_milli_time,omitempty"` // 评论创建的时间戳, 单位为毫秒, 用于展示, 创建时不用填写
+	RichContent     string `json:"rich_content,omitempty"`      // 富文本评论内容。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
+	CreatorID       string `json:"creator_id,omitempty"`        // 评论的创建者 ID。在创建评论时无需填充该字段
 }
 
 // createTaskCommentResp ...
