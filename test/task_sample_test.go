@@ -623,7 +623,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 
 			_, _, err := moduleCli.CreateTask(ctx, &lark.CreateTaskReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -632,7 +632,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TaskGuid: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -641,7 +641,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TaskGuid: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -650,7 +650,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TaskGuid: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -659,7 +659,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TaskGuid: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -668,14 +668,14 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TaskGuid: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetTaskList(ctx, &lark.GetTaskListReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -684,7 +684,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TaskGuid: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -693,7 +693,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TaskGuid: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -702,7 +702,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TaskGuid: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -711,7 +711,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TaskGuid: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -720,7 +720,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TaskGuid: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -729,7 +729,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TaskGuid: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -738,7 +738,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TaskGuid: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -747,14 +747,14 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TaskGuid: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.CreateTaskTasklist(ctx, &lark.CreateTaskTasklistReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -763,7 +763,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TasklistGuid: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -772,7 +772,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TasklistGuid: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -781,7 +781,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TasklistGuid: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -790,7 +790,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TasklistGuid: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -799,7 +799,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TasklistGuid: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -808,14 +808,14 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TasklistGuid: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetTaskTasklistList(ctx, &lark.GetTaskTasklistListReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -863,14 +863,14 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TasklistGuid: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.CreateTaskComment(ctx, &lark.CreateTaskCommentReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -879,7 +879,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				CommentID: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -888,7 +888,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				CommentID: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -897,21 +897,21 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				CommentID: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetTaskCommentList(ctx, &lark.GetTaskCommentListReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.UploadTaskAttachment(ctx, &lark.UploadTaskAttachmentReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -920,7 +920,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				AttachmentGuid: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -929,21 +929,21 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				AttachmentGuid: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetTaskAttachmentList(ctx, &lark.GetTaskAttachmentListReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.CreateTaskSection(ctx, &lark.CreateTaskSectionReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -952,7 +952,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				SectionGuid: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -961,7 +961,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				SectionGuid: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -970,14 +970,14 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				SectionGuid: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetTaskSectionList(ctx, &lark.GetTaskSectionListReq{})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -986,7 +986,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				SectionGuid: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -995,7 +995,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				CustomFieldGuid: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1004,7 +1004,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				CustomFieldGuid: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1013,7 +1013,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				CustomFieldGuid: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1023,7 +1023,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				OptionGuid:      "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 	})
