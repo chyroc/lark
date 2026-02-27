@@ -21,10 +21,10 @@ import (
 	"context"
 )
 
-// CreateApprovalExternalApproval 审批定义是审批的描述, 包括审批名称、图标、描述等基础信息。创建好审批定义, 用户就可以在审批应用的发起页中看到审批, 如果用户点击发起, 则会跳转到配置的发起三方系统地址去发起审批。
+// CreateApprovalExternalApproval 三方审批定义用于设置审批的名称、描述等基本信息, 以及三方审批系统的审批发起页、回调 URL 等信息, 使企业员工在飞书审批内即可发起并操作三方审批。
 //
-// 另外, 审批定义还配置了审批操作时的回调地址: 审批人在待审批列表中进行[同意][拒绝]操作时, 审批中心会调用回调地址通知三方系统。
-// 注意, 审批中心不负责审批流程的流转, 只负责展示、操作、消息通知。因此审批定义创建时没有审批流程的信息。
+// ## 注意事项
+// 飞书审批中心不负责审批流程的流转, 只负责审批的展示、状态操作、消息通知。因此, 创建三方审批定义时, 没有审批流程的参数配置项。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_approval/create
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/external_approval/create
@@ -61,60 +61,60 @@ func (r *Mock) UnMockApprovalCreateApprovalExternalApproval() {
 
 // CreateApprovalExternalApprovalReq ...
 type CreateApprovalExternalApprovalReq struct {
-	DepartmentIDType *DepartmentIDType                                `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型, 示例值: open_department_id, 可选值有: department_id: 以自定义department_id来标识部门, open_department_id: 以open_department_id来标识部门, 默认值: `open_department_id`
-	UserIDType       *IDType                                          `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	ApprovalName     string                                           `json:"approval_name,omitempty"`      // 审批名称的国际化文案 Key, 以 @i18n@ 开头, 长度不得少于 9 个字符, 示例值: "@i18n@1"
-	ApprovalCode     string                                           `json:"approval_code,omitempty"`      // 审批定义 code, 用户自定义, 定义的唯一标识, 如果不存在该 code, 则创建, 否则更新, 示例值: "permission_test"
-	GroupCode        string                                           `json:"group_code,omitempty"`         // 审批定义所属审批分组, 用户自定义； 如果group_code当前不存在, 则会新建审批分组； 如果group_code已经存在, 则会使用group_name更新审批分组名称, 示例值: "work_group"
-	GroupName        *string                                          `json:"group_name,omitempty"`         // 分组名称, 值的格式是 i18n key, 文案放在 i18n_resource； 如果是 group_code 当前不存在, 则该 group_name 必填, 否则, 如果填写了则会更新分组名称, 不填则不更新分组名称； 审批发起页 审批定义的分组名称来自该字段, 示例值: "@i18n@2"
-	Description      *string                                          `json:"description,omitempty"`        // 审批定义的说明, 值的格式是 i18n key, 文案放在 i18n_resource； 审批发起页 审批定义的说明内容来自该字段, 示例值: "@i18n@2"
-	External         *CreateApprovalExternalApprovalReqExternal       `json:"external,omitempty"`           // 三方审批相关
-	Viewers          []*CreateApprovalExternalApprovalReqViewer       `json:"viewers,omitempty"`            // 可见人列表（最大支持长度200）, 可通知配置多个可见人, 只有在配置的范围内用户可以在审批发起页看到该审批, 默认不传, 则是任何人不可见
+	DepartmentIDType *DepartmentIDType                                `query:"department_id_type" json:"-"` // 此次调用中的部门 ID 类型。关于部门 ID 的详细介绍, 可参见[部门 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)。示例值: open_department_id可选值有: 支持用户自定义配置的部门 ID。自定义配置时可复用已删除的 department_id, 因此在未删除的部门范围内 department_id 具有唯一性。由系统自动生成的部门 ID, ID 前缀固定为 `od-`, 在租户内全局唯一。默认值: `open_department_id`
+	UserIDType       *IDType                                          `query:"user_id_type" json:"-"`       // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	ApprovalName     string                                           `json:"approval_name,omitempty"`      // 三方审批定义名称。- 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key）, 还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。- 该参数需要以 @i18n@ 开头, 长度不得少于 9 个字符。示例值: "@i18n@demoname"
+	ApprovalCode     string                                           `json:"approval_code,omitempty"`      // 应用自定义Code, 最大支持128字符, 用于唯一关联三方审批定义, 具体说明: 如果传入的值系统可以匹配到已存在的审批定义 approval_code, 则调用该接口会更新相应的审批定义。- 如果传入的值系统匹配不到任何审批定义 approval_code, 则会新建一个审批定义, 并返回新建的审批定义真实的 approval_code（并非通过该参数传入的值）。示例值: "F46EB460-9476-4789-9524-ECD564291234"
+	GroupCode        *string                                          `json:"group_code,omitempty"`         // 审批定义所属审批分组, 用户自定义。具体说明: 如果传入的 group_code 当前不存在, 则会新建审批分组。- 如果 group_code 已经存在, 则会使用 group_name 更新审批分组名称。- 更新审批定义时可以不传该字段, 会继续使用当前绑定的分组。示例值: "work_group"
+	GroupName        *string                                          `json:"group_name,omitempty"`         // 审批分组名称, 审批发起页的审批定义分组名称来自该字段。具体说明: 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key）, 还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。- 该参数需要以 @i18n@ 开头。- 如果 group_code 当前不存在, 则该 group_name 必填, 表示新建审批分组时设置分组名称。- 如果 group_code 存在, 则会更新分组名称, 不填则不更新分组名称。示例值: "@i18n@2"
+	Description      *string                                          `json:"description,omitempty"`        // 审批定义的说明, 后续企业员工发起审批时, 该说明会在审批发起页展示。- 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key）, 还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。- 该参数需要以 @i18n@ 开头。示例值: "@i18n@2"
+	External         *CreateApprovalExternalApprovalReqExternal       `json:"external,omitempty"`           // 三方审批相关信息。
+	Viewers          []*CreateApprovalExternalApprovalReqViewer       `json:"viewers,omitempty"`            // 审批可见人列表, 列表长度上限 200, 只有在审批可见人列表内的用户, 才可以在审批发起页看到该审批。若该参数不传值, 则表示任何人不可见。
 	I18nResources    []*CreateApprovalExternalApprovalReqI18nResource `json:"i18n_resources,omitempty"`     // 国际化文案
-	Managers         []string                                         `json:"managers,omitempty"`           // 根据user_id_type填写流程管理员id列表（最大支持长度200）, 示例值: ["19a294c2"]
+	Managers         []string                                         `json:"managers,omitempty"`           // 设置审批流程管理员的用户 ID, 最多支持设置 200 个。ID 类型与查询参数 user_id_type 取值一致。示例值: ["19a294c2"]
 }
 
 // CreateApprovalExternalApprovalReqExternal ...
 type CreateApprovalExternalApprovalReqExternal struct {
-	BizName                     *string `json:"biz_name,omitempty"`                      // 列表中用于提示审批来自哪里, i18n key, 注意不需要“来自”前缀, 审批中心会拼上前缀, 示例值: "@i18n@3"
-	BizType                     *string `json:"biz_type,omitempty"`                      // 审批定义业务类别, 示例值: "permission"
-	CreateLinkMobile            *string `json:"create_link_mobile,omitempty"`            // 移动端发起链接, 如果设置了该链接, 则会在移动端审批发起页展示该审批, 用户点击后会跳转到该链接进行发起； 如果不填, 则在mobile端不显示该审批, 示例值: "https://applink.feishu.cn/client/mini_program/open?appId=cli_9c90fc38e07a9101&path=pages/approval-form/index?id=9999"
-	CreateLinkPc                *string `json:"create_link_pc,omitempty"`                // PC端发起链接, 如果设置了该链接, 则会在PC端审批发起页展示该审批, 用户点击后会跳转到该链接进行发起； 如果不填, 则在PC端不显示该审批；, 示例值: "https://applink.feishu.cn/client/mini_program/open?mode=appCenter&appId=cli_9c90fc38e07a9101&path=pc/pages/create-form/index?id=9999"
-	SupportPc                   *bool   `json:"support_pc,omitempty"`                    // 审批实例、审批任务、审批抄送是否要在PC端展示, 如果为 true, 则PC端列表会展示该定义下的实例信息, 否则, 不展示, 示例值: true
-	SupportMobile               *bool   `json:"support_mobile,omitempty"`                // 审批实例、审批任务、审批抄送是否要在移动端展示, 如果为 true, 则移动端列表会展示该定义下的实例信息, 否则, 不展示； support_pc和support_mobile不可都为false, 否则不展示, 示例值: true
-	SupportBatchRead            *bool   `json:"support_batch_read,omitempty"`            // 是否支持批量已读, 示例值: true
-	EnableMarkReaded            *bool   `json:"enable_mark_readed,omitempty"`            // 是否支持标注可读（该字段无效）, 示例值: true
-	EnableQuickOperate          *bool   `json:"enable_quick_operate,omitempty"`          // 是否支持快速操作, 示例值: true
-	ActionCallbackURL           *string `json:"action_callback_url,omitempty"`           // 三方系统的操作回调 url, [待审批]列表的任务审批人点同意或拒绝操作后, 审批中心调用该地址通知三方系统, 回调地址相关信息可参见: [三方审批快捷审批回调](https://open.feishu.cn/document/ukTMukTMukTM/ukjNyYjL5YjM24SO2IjN/quick-approval-callback), 示例值: "http://www.feishu.cn/approval/openapi/instanceOperate"
-	ActionCallbackToken         *string `json:"action_callback_token,omitempty"`         // 回调时带的 token, 用于业务系统验证请求来自审批, 具体参考 [开放平台文档](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM), 示例值: "sdjkljkx9lsadf110"
-	ActionCallbackKey           *string `json:"action_callback_key,omitempty"`           // 请求参数加密密钥, 如果配置了该参数, 则会对请求参数进行加密, 业务需要对请求进行解密, 加解密算法参考 [关联外部选项说明](https://open.feishu.cn/document/ukTMukTMukTM/uADM4QjLwADO04CMwgDN), 示例值: "gfdqedvsadfgfsd"
-	AllowBatchOperate           *bool   `json:"allow_batch_operate,omitempty"`           // 是否支持批量审批, 示例值: true
-	ExcludeEfficiencyStatistics *bool   `json:"exclude_efficiency_statistics,omitempty"` // 审批流程数据是否不纳入效率统计, 示例值: true
+	BizName                     *string `json:"biz_name,omitempty"`                      // 列表中用于提示审批来自哪个三方系统。注意: 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key）, 还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。- 该参数需要以 @i18n@ 开头。- 在 i18n_resources 中为该参数赋值时, 无需设置 来自 前缀, 审批中心默认会拼接 来自 前缀。示例值: "@i18n@3"
+	BizType                     *string `json:"biz_type,omitempty"`                      // 审批定义业务类别, 自定义设置。示例值: "permission"
+	CreateLinkMobile            *string `json:"create_link_mobile,omitempty"`            // 移动端发起三方审批的链接。- 如果设置了该链接, 则在移动端发起审批时, 会跳转到该链接对应的三方审批发起页。- 如果不设置该链接, 则在移动端不显示该审批。示例值: "https://applink.feishu.cn/client/mini_program/open?appId=cli_9c90fc38e07a9101&path=pages/approval-form/index?id=9999"
+	CreateLinkPc                *string `json:"create_link_pc,omitempty"`                // PC端发起三方审批的链接。- 如果设置了该链接, 则在 PC 端发起审批时, 会跳转到该链接对应的三方审批发起页。- 如果不设置该链接, 则在 PC 端不显示该审批。示例值: "https://applink.feishu.cn/client/mini_program/open?mode=appCenter&appId=cli_9c90fc38e07a9101&path=pc/pages/create-form/index?id=9999"
+	SupportPc                   *bool   `json:"support_pc,omitempty"`                    // 审批定义是否要在 PC 端的发起审批页面展示, 如果为 true 则展示, 否则不展示, 默认为false。注意: support_pc 和 support_mobile 不可都为 false。示例值: true
+	SupportMobile               *bool   `json:"support_mobile,omitempty"`                // 审批定义是否要在移动端的发起审批页面展示, 如果为 true 则展示, 否则不展示, 默认为false。注意: support_pc 和 support_mobile 不可都为 false。示例值: true
+	SupportBatchRead            *bool   `json:"support_batch_read,omitempty"`            // 是否支持批量已读, 默认为false示例值: true
+	EnableMarkReaded            *bool   `json:"enable_mark_readed,omitempty"`            // 是否支持标注可读注意: 该字段无效, 暂不支持使用。示例值: true
+	EnableQuickOperate          *bool   `json:"enable_quick_operate,omitempty"`          // 是否支持快速操作注意: 该字段无效, 暂不支持使用。示例值: true
+	ActionCallbackURL           *string `json:"action_callback_url,omitempty"`           // 三方系统的操作回调 URL, 待审批 实例的任务审批人点击同意或拒绝操作后, 审批中心调用该 URL 通知三方系统, 回调地址相关信息可参见[三方审批快捷审批回调](https://open.feishu.cn/document/ukTMukTMukTM/ukjNyYjL5YjM24SO2IjN/quick-approval-callback)。示例值: "http://www.feishu.cn/approval/openapi/instanceOperate"
+	ActionCallbackToken         *string `json:"action_callback_token,omitempty"`         // 回调时带的 token, 用于业务系统验证请求来自审批中心。示例值: "sdjkljkx9lsadf110"
+	ActionCallbackKey           *string `json:"action_callback_key,omitempty"`           // 请求参数加密密钥。如果配置了该参数, 则会对请求参数进行加密, 接收请求后需要对请求进行解密。加解密算法参考[关联外部选项说明](https://open.feishu.cn/document/ukTMukTMukTM/uADM4QjLwADO04CMwgDN)。示例值: "gfdqedvsadfgfsd"
+	AllowBatchOperate           *bool   `json:"allow_batch_operate,omitempty"`           // 是否支持批量审批。取值为 true 时, 审批人在处理该定义下的审批任务时可以批量处理多个任务, 默认为false。示例值: true
+	ExcludeEfficiencyStatistics *bool   `json:"exclude_efficiency_statistics,omitempty"` // 审批流程数据是否不纳入效率统计, 默认为false示例值: true
 }
 
 // CreateApprovalExternalApprovalReqI18nResource ...
 type CreateApprovalExternalApprovalReqI18nResource struct {
-	Locale    string                                               `json:"locale,omitempty"`     // 语言可选值有: zh-CN: 中文 en-US: 英文 ja-JP: 日文, 示例值: "zh-CN", 可选值有: zh-CN: 中文, en-US: 英文, ja-JP: 日文
-	Texts     []*CreateApprovalExternalApprovalReqI18nResourceText `json:"texts,omitempty"`      // 文案 key, value, i18n key 以 @i18n@ 开头； 该字段主要用于做国际化, 允许用户同时传多个语言的文案, 审批中心会根据用户当前的语音环境使用对应的文案, 如果没有传用户当前的语音环境文案, 则会使用默认的语言文案, 示例值: { "@i18n@1": "权限申请", "@i18n@2": "OA审批", "@i18n@3": "Permission" }
-	IsDefault bool                                                 `json:"is_default,omitempty"` // 是否默认语言, 默认语言需要包含所有key, 非默认语言如果key不存在会使用默认语言代替, 示例值: true
+	Locale    string                                               `json:"locale,omitempty"`     // 语言。示例值: "zh-CN"可选值有: 中文英文日文繁体中文（中国香港）繁体中文（中国台湾）德语西班牙语法语印度尼西亚语意大利语韩语葡萄牙语泰语越南语马来语俄语
+	Texts     []*CreateApprovalExternalApprovalReqI18nResourceText `json:"texts,omitempty"`      // 文案的 Key:Value。Key 需要以 @i18n@ 开头, 并按照各个参数的要求传入 Value。说明: 该字段主要用于适配国际化, 允许同时设置多个语言的文案, 审批中心会根据实际用户当前的语音环境使用匹配的文案。如果没有设置用户当前的语音环境文案, 则会使用默认的语言文案。示例值: { "@i18n@1": "权限申请", "@i18n@2": "OA审批", "@i18n@3": "Permission" }
+	IsDefault bool                                                 `json:"is_default,omitempty"` // 是否为默认语言。默认语言需要包含所有所需的文案 Key, 非默认语言如果 Key 不存在, 则会使用默认语言代替。示例值: true
 }
 
 // CreateApprovalExternalApprovalReqI18nResourceText ...
 type CreateApprovalExternalApprovalReqI18nResourceText struct {
-	Key   string `json:"key,omitempty"`   // 文案key, 示例值: "@i18n@1"
-	Value string `json:"value,omitempty"` // 文案, 示例值: "people"
+	Key   string `json:"key,omitempty"`   // 文案 Key, 需要和各个参数 Key 相匹配。示例值: "@i18n@2"
+	Value string `json:"value,omitempty"` // 文案 Value, 即文案 Key 对应的参数值。示例值: "people"
 }
 
 // CreateApprovalExternalApprovalReqViewer ...
 type CreateApprovalExternalApprovalReqViewer struct {
-	ViewerType         *string `json:"viewer_type,omitempty"`          // 可见人类型, 示例值: "USER", 可选值有: TENANT: 租户内可见, DEPARTMENT: 指定部门, USER: 指定用户, NONE: 任何人都不可见
-	ViewerUserID       *string `json:"viewer_user_id,omitempty"`       // 当 viewer_type 是 USER, 根据user_id_type填写用户id, 示例值: "19a294c2"
-	ViewerDepartmentID *string `json:"viewer_department_id,omitempty"` // 当 viewer_type 为DEPARTMENT, 根据department_id_type填写部门id, 示例值: "od-ac9d697abfa990b715dcc33d58a62a9d"
+	ViewerType         *string `json:"viewer_type,omitempty"`          // 可见人类型, 生效优先级NONE>TENANT>指定范围示例值: "USER"可选值有: 租户内可见指定部门指定用户任何人都不可见
+	ViewerUserID       *string `json:"viewer_user_id,omitempty"`       // 当 viewer_type 取值为 USER 时, 需指定用户 ID。ID 类型与查询参数 user_id_type 取值保持一致。示例值: "19a294c2"
+	ViewerDepartmentID *string `json:"viewer_department_id,omitempty"` // 当 viewer_type 取值为 DEPARTMENT 时, 需指定部门 ID。ID 类型与查询参数 department_id_type 取值保持一致。示例值: "od-ac9d697abfa990b715dcc33d58a62a9d"
 }
 
 // CreateApprovalExternalApprovalResp ...
 type CreateApprovalExternalApprovalResp struct {
-	ApprovalCode string `json:"approval_code,omitempty"` // 审批定义code, 审批生成的唯一标识, 用于三方审批实例同步时使用
+	ApprovalCode string `json:"approval_code,omitempty"` // 审批定义 Code。注意: 在传入已存在的审批定义 Code 进行更新操作的场景中, 该参数返回的 Code 可能与传入的 Code 不同。如果不同, 请继续使用你传入的 Code, 而不是该参数返回的 Code。
 }
 
 // createApprovalExternalApprovalResp ...
