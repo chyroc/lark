@@ -40,6 +40,7 @@ func (r *OKRService) UploadOKRImage(ctx context.Context, request *UploadOKRImage
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 		NeedUserAccessToken:   true,
+		IsFile:                true,
 	}
 	resp := new(uploadOKRImageResp)
 

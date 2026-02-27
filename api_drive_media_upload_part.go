@@ -44,6 +44,7 @@ func (r *DriveService) PartUploadDriveMedia(ctx context.Context, request *PartUp
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 		NeedUserAccessToken:   true,
+		IsFile:                true,
 	}
 	resp := new(partUploadDriveMediaResp)
 
