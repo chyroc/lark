@@ -21,6 +21,7 @@ import (
 	"math/rand"
 	"testing"
 
+	"github.com/chyroc/lark"
 	"github.com/chyroc/lark/doc"
 	"github.com/chyroc/lark/larkext"
 	"github.com/stretchr/testify/assert"
@@ -42,10 +43,18 @@ func Test_UpdateDoc(t *testing.T) {
 	client := AppAllPermission.Ins()
 
 	f, err := larkext.NewRootFolder(ctx, client)
-	as.Nil(err)
+	if !as.Nil(err) {
+		return
+	}
 
 	docIns, err := f.NewDoc(ctx, "docs")
-	as.Nil(err)
+	if err != nil && lark.GetErrorCode(err) == 95054 {
+		t.Skipf("skip because CreateDriveDoc is deprecated: %v", err)
+		return
+	}
+	if !as.Nil(err) || !as.NotNil(docIns) {
+		return
+	}
 	fmt.Println(docIns.DocURL())
 
 	// 最后删除这个 doc
@@ -68,7 +77,9 @@ func Test_UpdateDoc(t *testing.T) {
 
 	// 找到这个文本的位置
 	text1Location, err := docIns.GetParagraphElementLocation(ctx, doc.TextRunParagraphElement(text1))
-	as.Nil(err)
+	if !as.Nil(err) {
+		return
+	}
 
 	// 插入一段行内元素
 	as.Nil(docIns.Update(ctx,
@@ -89,7 +100,9 @@ func Test_UpdateDoc(t *testing.T) {
 	paragraph, err := docIns.GetParagraph(ctx, doc.Paragraph(
 		doc.TextRunParagraphElement(text1),
 	))
-	as.Nil(err)
+	if !as.Nil(err) {
+		return
+	}
 
 	// 更新段落
 	as.Nil(docIns.Update(ctx,
@@ -107,7 +120,9 @@ func Test_UpdateDoc(t *testing.T) {
 	))
 
 	tableSize2, err := docIns.GetTableBySize(ctx, doc.EmptyTableBlock(2, 2).Table)
-	as.Nil(err)
+	if !as.Nil(err) {
+		return
+	}
 
 	// 插入一行
 	as.Nil(docIns.Update(ctx,
@@ -156,7 +171,12 @@ func Test_UpdateDoc(t *testing.T) {
 	))
 
 	tableSize2, err = docIns.GetTableBySize(ctx, doc.EmptyTableBlock(2, 2).Table)
-	as.Nil(err)
+	if !as.Nil(err) || !as.NotNil(tableSize2) {
+		return
+	}
+	if !as.NotEmpty(tableSize2.MergedCells) {
+		return
+	}
 
 	// 取消表格
 	as.Nil(docIns.Update(ctx,
