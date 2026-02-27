@@ -63,7 +63,7 @@ func (r *Mock) UnMockCoreHRGetCoreHRProcessList() {
 type GetCoreHRProcessListReq struct {
 	Statuses         []int64 `query:"statuses" json:"-"`           // 查询流程状态列表。如需一次查询多个状态值, 可通过将同一参数名多次传递, 并且每次传递不同的参数值。例如:https://{url}?statuses=1&statuses=2可选值: 1: 进行中- 2: 已拒绝- 4: 已撤回- 8: 已撤销- 9: 已完成- 15: 撤销中示例值: 1
 	PageToken        *string `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 7278949005675988535
-	PageSize         int64   `query:"page_size" json:"-"`          // 分页大小, 取值范围: 1 ～ 100示例值: 10 最大值: `100
+	PageSize         int64   `query:"page_size" json:"-"`          // 分页大小, 取值范围: 1 ～ 100示例值: 10 最大值: `100`
 	ModifyTimeFrom   string  `query:"modify_time_from" json:"-"`   // 流程实例修改时间的查询起始值, 闭区间。修改时间的更新时机: 流程中有审批人操作、流程数据更新、流程状态变化等单位: ms。从 1970 年 1 月 1 日 (UTC/GMT的午夜) 开始经过的毫秒数注意: 起始时间和终止时间跨度要小于 31 天示例值: 1547654251506
 	ModifyTimeTo     string  `query:"modify_time_to" json:"-"`     // 流程实例修改时间的查询终止值, 闭区间修改时间的更新时机: 流程中有审批人操作、流程数据更新、流程状态变化等单位: ms。从 1970 年 1 月 1 日 (UTC/GMT的午夜) 开始经过的毫秒数注意: 起始时间和终止时间跨度要小于 31 天示例值: 1547654251506
 	FlowDefinitionID *string `query:"flow_definition_id" json:"-"` // 流程定义ID可通过[获取单个流程详情](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/get)查询流程实例对应的流程定义ID示例值: people_6961286846093788680_7081951411982077732

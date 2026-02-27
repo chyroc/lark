@@ -65,7 +65,7 @@ type GetCalendarEventInstanceListReq struct {
 	EventID    string  `path:"event_id" json:"-"`    // 日程 ID。创建日程时会返回日程 ID。你也可以调用以下接口获取某一日历的 ID。- [获取日程列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/list)- [搜索日程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/search)示例值: "75d28f9b-e35c-4230-8a83-4a661497db54_0"
 	StartTime  string  `query:"start_time" json:"-"` // 开始时间, Unix 时间戳, 单位为秒。该参数与 end_time 用于设置时间范围, 即重复日程的查询区间为 （start_time, end_time）注意: start_time 与 end_time 之间的时间区间不能超过 2年。示例值: 1631777271
 	EndTime    string  `query:"end_time" json:"-"`   // 结束时间, Unix 时间戳, 单位为秒。该参数与 start_time 用于设置时间范围, 即重复日程的查询区间为 （start_time, end_time）注意: start_time 与 end_time 之间的时间区间不能超过 2年。示例值: 1631777271
-	PageSize   *int64  `query:"page_size" json:"-"`  // 一次调用返回的日程数量上限。示例值: 10默认值: `50` 取值范围: `10` ～ `500
+	PageSize   *int64  `query:"page_size" json:"-"`  // 一次调用返回的日程数量上限。示例值: 10默认值: `50` 取值范围: `10` ～ `500`
 	PageToken  *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eVQrYzJBNDNONlk4VFZBZVlSdzlKdFJ4bVVHVExENDNKVHoxaVdiVnViQT0=
 }
 

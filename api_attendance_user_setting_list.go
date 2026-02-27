@@ -61,7 +61,7 @@ func (r *Mock) UnMockAttendanceGetAttendanceUserSettingList() {
 // GetAttendanceUserSettingListReq ...
 type GetAttendanceUserSettingListReq struct {
 	EmployeeType EmployeeType `query:"employee_type" json:"-"` // 请求体中的 user_ids 和响应体中的 user_id 的员工ID类型。如果没有后台管理权限, 可使用[通过手机号或邮箱获取用户 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/batch_get_id)示例值: employee_id可选值有: 员工 employee ID, 即[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的用户 ID员工工号, 即[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的工号
-	UserIDs      []string     `json:"user_ids,omitempty"`      // employee_no 或 employee_id 列表, 对应employee_type示例值: ["abd754f7"] 最大长度: `100
+	UserIDs      []string     `json:"user_ids,omitempty"`      // employee_no 或 employee_id 列表, 对应employee_type示例值: ["abd754f7"] 最大长度: `100`
 }
 
 // GetAttendanceUserSettingListResp ...

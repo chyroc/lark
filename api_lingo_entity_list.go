@@ -59,7 +59,7 @@ func (r *Mock) UnMockLingoGetLingoEntityList() {
 
 // GetLingoEntityListReq ...
 type GetLingoEntityListReq struct {
-	PageSize   *int64  `query:"page_size" json:"-"`    // 分页大小示例值: 20默认值: `20` 取值范围: `1` ～ `100
+	PageSize   *int64  `query:"page_size" json:"-"`    // 分页大小示例值: 20默认值: `20` 取值范围: `1` ～ `100`
 	PageToken  *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 408ecac018b2e3518db37275e812aad7bb8ad3e755fc886f322ac6c430ba
 	Provider   *string `query:"provider" json:"-"`     // 相关外部系统【可用来过滤词条数据】示例值: 星云 长度范围: `2` ～ `32` 字符
 	RepoID     *string `query:"repo_id" json:"-"`      // 词库 id(不传时默认返回全员词库数据)如以应用身份拉取非全员词库的词条, 需要在“词库设置”页面添加应用；若以用户身份拉取非全员词库的词条, 该用户需要拥有对应词库的可见权限。示例值: 7152790921053274113

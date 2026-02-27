@@ -59,7 +59,7 @@ func (r *Mock) UnMockHelpdeskGetHelpdeskFAQ() {
 
 // GetHelpdeskFAQReq ...
 type GetHelpdeskFAQReq struct {
-	ID string `path:"id" json:"-"` // 知识库ID, 示例值: "6856395634652479491"
+	ID string `path:"id" json:"-"` // 知识库ID示例值: "6856395634652479491"
 }
 
 // GetHelpdeskFAQResp ...
@@ -74,7 +74,7 @@ type GetHelpdeskFAQRespFAQ struct {
 	HelpdeskID     string                                 `json:"helpdesk_id,omitempty"`     // 服务台ID
 	Question       string                                 `json:"question,omitempty"`        // 问题
 	Answer         string                                 `json:"answer,omitempty"`          // 答案
-	AnswerRichText []*GetHelpdeskFAQRespFAQAnswerRichText `json:"answer_richtext,omitempty"` // 富文本答案
+	AnswerRichtext []*GetHelpdeskFAQRespFAQAnswerRichtext `json:"answer_richtext,omitempty"` // 富文本答案
 	CreateTime     int64                                  `json:"create_time,omitempty"`     // 创建时间
 	UpdateTime     int64                                  `json:"update_time,omitempty"`     // 修改时间
 	Categories     []*HelpdeskCategory                    `json:"categories,omitempty"`      // 分类
@@ -84,8 +84,8 @@ type GetHelpdeskFAQRespFAQ struct {
 	CreateUser     *GetHelpdeskFAQRespFAQCreateUser       `json:"create_user,omitempty"`     // 创建用户
 }
 
-// GetHelpdeskFAQRespFAQAnswerRichText ...
-type GetHelpdeskFAQRespFAQAnswerRichText struct {
+// GetHelpdeskFAQRespFAQAnswerRichtext ...
+type GetHelpdeskFAQRespFAQAnswerRichtext struct {
 	Content string `json:"content,omitempty"` // 内容
 	Type    string `json:"type,omitempty"`    // 类型
 }

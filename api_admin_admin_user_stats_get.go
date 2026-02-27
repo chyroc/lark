@@ -68,7 +68,7 @@ type GetAdminUserStatsReq struct {
 	EndDate          string            `query:"end_date" json:"-"`           // 终止日期（包含）, 格式是YYYY-mm-dd。起止日期之间相差不能超过31天（包含31天）示例值: 2020-02-15
 	DepartmentID     *string           `query:"department_id" json:"-"`      // 部门的 ID, 取决于department_id_type示例值: od-382e2793cfc9471f892e8a672987654c
 	UserID           *string           `query:"user_id" json:"-"`            // 用户的open_id, user_id或者union_id, 取决于user_id_type示例值: ou_7dab8a3d3cdcc9da365777c7ad535d62
-	PageSize         *int64            `query:"page_size" json:"-"`          // 分页大小示例值: 10 取值范围: `1` ～ `60
+	PageSize         *int64            `query:"page_size" json:"-"`          // 分页大小示例值: 10 取值范围: `1` ～ `60`
 	PageToken        *string           `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 2
 	TargetGeo        *string           `query:"target_geo" json:"-"`         // 需跨域访问的Geo数据, 每个Geo仅包含本Geo数据, 不传默认查本地数据, 调用前需要先开通FG（cn、us、sg、jp）, 每次只能查一个Geo数据示例值: cn
 }

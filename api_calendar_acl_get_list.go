@@ -66,7 +66,7 @@ type GetCalendarACLListReq struct {
 	CalendarID string  `path:"calendar_id" json:"-"`   // 日历 ID。创建共享日历时会返回日历 ID。你也可以调用以下接口获取某一日历的 ID。- [查询主日历信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/primary)- [查询日历列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/list)- [搜索日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/search)示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	PageToken  *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: xxx
-	PageSize   *int64  `query:"page_size" json:"-"`    // 分页大小, 即一次请求返回的最大条目数。注意: 最小值 10, 即取值小于 10 时统一按 10 处理。示例值: 10默认值: `20` 最大值: `50
+	PageSize   *int64  `query:"page_size" json:"-"`    // 分页大小, 即一次请求返回的最大条目数。注意: 最小值 10, 即取值小于 10 时统一按 10 处理。示例值: 10默认值: `20` 最大值: `50`
 }
 
 // GetCalendarACLListResp ...

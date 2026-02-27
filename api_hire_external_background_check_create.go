@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// CreateHireExternalBackgroundCheck 导入来自其他系统的背调信息, 创建为外部背调。
+// CreateHireExternalBackgroundCheck 创建外部背调, 可用于导入来自其他系统的背调信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_background_check/create
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/get-candidates/import-external-system-information/create-2
@@ -58,35 +58,34 @@ func (r *Mock) UnMockHireCreateHireExternalBackgroundCheck() {
 
 // CreateHireExternalBackgroundCheckReq ...
 type CreateHireExternalBackgroundCheckReq struct {
-	ExternalID            *string  `json:"external_id,omitempty"`             // 外部系统背调主键 （仅用于幂等）, 示例值: "123"
-	ExternalApplicationID string   `json:"external_application_id,omitempty"` // 外部投递 ID, 示例值: "1234111"
-	Date                  *int64   `json:"date,omitempty"`                    // 背调日期, 示例值: 1626602069393
-	Name                  *string  `json:"name,omitempty"`                    // 背调名字, 示例值: "测试.pdf"
-	Result                *string  `json:"result,omitempty"`                  // 背调结果, 示例值: "1"
-	AttachmentIDList      []string `json:"attachment_id_list,omitempty"`      // 背调附件ID列表, 示例值: ["7249929009008494908"]
+	ExternalID            *string  `json:"external_id,omitempty"`             // 外部系统背调主键 （仅用于幂等）- 若不传此值, 则不进行幂等校验- 若传此值, 则用于幂等校验, 同一`external_id` 24小时内仅可创建一次示例值: "7003247299220982060"
+	ExternalApplicationID string   `json:"external_application_id,omitempty"` // 外部投递 ID, 可通过[查询外部投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_application/list)接口获取示例值: "7003247299220982060"
+	Date                  *int64   `json:"date,omitempty"`                    // 背调日期, 毫秒时间戳（字段类型为: int64）示例值: 1626602069392
+	Name                  *string  `json:"name,omitempty"`                    // 背调名称示例值: "张三的背调"
+	Result                *string  `json:"result,omitempty"`                  // 背调结果示例值: "已通过"
+	AttachmentIDList      []string `json:"attachment_id_list,omitempty"`      // 背调附件 ID 列表, 可通过[创建附件](https://open.feishu.cn/document/ukTMukTMukTM/uIDN1YjLyQTN24iM0UjN/create_attachment)接口返回示例值: ["7249929009008494908"]
 }
 
 // CreateHireExternalBackgroundCheckResp ...
 type CreateHireExternalBackgroundCheckResp struct {
-	ExternalBackgroundCheck *CreateHireExternalBackgroundCheckRespExternalBackgroundCheck `json:"external_background_check,omitempty"` // 外部背调信息
+	ExternalBackgroundCheck *CreateHireExternalBackgroundCheckRespExternalBackgroundCheck `json:"external_background_check,omitempty"` // 外部背调
 }
 
 // CreateHireExternalBackgroundCheckRespExternalBackgroundCheck ...
 type CreateHireExternalBackgroundCheckRespExternalBackgroundCheck struct {
-	ID                    string                                                                    `json:"id,omitempty"`                      // 外部背调 ID
-	ExternalApplicationID string                                                                    `json:"external_application_id,omitempty"` // 外部投递 ID
-	Date                  int64                                                                     `json:"date,omitempty"`                    // 背调日期
-	Name                  string                                                                    `json:"name,omitempty"`                    // 背调名字
+	ID                    string                                                                    `json:"id,omitempty"`                      // 外部背调 ID（由飞书招聘系统生成）, 详情可查看: [查询外部背调列表](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_background_check/batch_query)
+	ExternalApplicationID string                                                                    `json:"external_application_id,omitempty"` // 外部投递 ID, 详情可查看: [查询外部投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_application/list)
+	Date                  int64                                                                     `json:"date,omitempty"`                    // 背调日期, 毫秒时间戳（字段类型为: int64）
+	Name                  string                                                                    `json:"name,omitempty"`                    // 背调名称
 	Result                string                                                                    `json:"result,omitempty"`                  // 背调结果
-	AttachmentIDList      []string                                                                  `json:"attachment_id_list,omitempty"`      // 背调附件ID列表
-	AttachmentList        []*CreateHireExternalBackgroundCheckRespExternalBackgroundCheckAttachment `json:"attachment_list,omitempty"`         // 背调附件
+	AttachmentList        []*CreateHireExternalBackgroundCheckRespExternalBackgroundCheckAttachment `json:"attachment_list,omitempty"`         // 背调附件列表
 }
 
 // CreateHireExternalBackgroundCheckRespExternalBackgroundCheckAttachment ...
 type CreateHireExternalBackgroundCheckRespExternalBackgroundCheckAttachment struct {
-	ID   string `json:"id,omitempty"`   // 附件 ID
-	Name string `json:"name,omitempty"` // 附件名字
-	Size int64  `json:"size,omitempty"` // 附件大小
+	ID   string `json:"id,omitempty"`   // 附件 ID, 详情可查看: [获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get)
+	Name string `json:"name,omitempty"` // 附件名称
+	Size int64  `json:"size,omitempty"` // 附件大小（单位: 字节）
 }
 
 // createHireExternalBackgroundCheckResp ...

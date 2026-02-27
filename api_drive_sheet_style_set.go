@@ -21,7 +21,11 @@ import (
 	"context"
 )
 
-// SetSheetStyle 该接口用于根据 spreadsheetToken 、range 和样式信息更新单元格样式；单次写入不超过5000行, 100列。建议在设置边框样式时, 每次更新的单元格数量不要超过30000个。
+// SetSheetStyle 设置单元格中数据的样式。支持设置字体、背景、边框等样式。
+//
+// ## 使用限制
+// - 单次设置的范围不可超过 5, 000 行 100 列。
+// - 在设置边框样式时, 单次更新的单元格数量不可超过 30, 000 个。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ukjMzUjL5IzM14SOyMTN
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/data-operation/set-cell-style
@@ -59,51 +63,57 @@ func (r *Mock) UnMockDriveSetSheetStyle() {
 
 // SetSheetStyleReq ...
 type SetSheetStyleReq struct {
-	SpreadSheetToken string                       `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token, 详见 [在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
-	AppendStyle      *SetSheetStyleReqAppendStyle `json:"appendStyle,omitempty"`     // 设置单元格样式
+	SpreadSheetToken string                       `path:"spreadsheetToken" json:"-"` // 电子表格的 token。可通过以下两种方式获取。了解更多, 参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。- 电子表格的 URL: https://sample.feishu.cn/sheets/[Iow7sNNEphp3WbtnbCscPqabcef]- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)          示例值: "Iow7sNNEphp3WbtnbCscPqabcef"
+	AppendStyle      *SetSheetStyleReqAppendStyle `json:"appendStyle,omitempty"`     // 设置单元格样式。
 }
 
 // SetSheetStyleReqAppendStyle ...
 type SetSheetStyleReqAppendStyle struct {
-	Range string                            `json:"range,omitempty"` // 查询范围, 包含 sheetId 与单元格范围两部分, 目前支持四种索引方式, 详见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	Range string                            `json:"range,omitempty"` // ⁣设置样式的范围。格式为 `<sheetId>!<开始位置>:<结束位置>`。其中: `sheetId` 为工作表 ID, 通过[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 获取。- `<开始位置>:<结束位置>` 为工作表中单元格的范围, 数字表示行索引, 字母表示列索引。如 `A2:B2` 表示该工作表第 2 行的 A 列到 B 列。`range`支持四种写法, 详情参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。
 	Style *SetSheetStyleReqAppendStyleStyle `json:"style,omitempty"` // 需要更新的样式
 }
 
 // SetSheetStyleReqAppendStyleStyle ...
 type SetSheetStyleReqAppendStyleStyle struct {
 	Font           *SetSheetStyleReqAppendStyleStyleFont `json:"font,omitempty"`           // 字体相关样式
-	TextDecoration *int64                                `json:"textDecoration,omitempty"` // 文本装饰, 0 默认, 1 下划线, 2 删除线, 3 下划线和删除线
-	Formatter      *string                               `json:"formatter,omitempty"`      // 数字格式, 详见附录 [sheet支持数字格式类型](https://open.feishu.cn/document/ukTMukTMukTM/uMjM2UjLzIjN14yMyYTN)
-	HAlign         *int64                                `json:"hAlign,omitempty"`         // 水平对齐, 0 左对齐, 1 中对齐, 2 右对齐
-	VAlign         *int64                                `json:"vAlign,omitempty"`         // 垂直对齐, 0 上对齐, 1 中对齐, 2 下对齐
-	ForeColor      *string                               `json:"foreColor,omitempty"`      // 字体颜色
-	BackColor      *string                               `json:"backColor,omitempty"`      // 背景颜色
-	BorderType     *string                               `json:"borderType,omitempty"`     // 边框类型, 可选 "FULL_BORDER", "OUTER_BORDER", "INNER_BORDER", "NO_BORDER", "LEFT_BORDER", "RIGHT_BORDER", "TOP_BORDER", "BOTTOM_BORDER"
-	BorderColor    *string                               `json:"borderColor,omitempty"`    // 边框颜色
-	Clean          *bool                                 `json:"clean,omitempty"`          // 是否清除所有格式, 默认 false
+	TextDecoration *int64                                `json:"textDecoration,omitempty"` // 文本的其它样式, 可选值: 0: 默认样式, 不加下划线和删除线- 1: 下划线- 2: 删除线- 3: 下划线和删除线
+	Formatter      *string                               `json:"formatter,omitempty"`      // 数字格式, 详见[电子表格支持的数字格式类型](https://open.feishu.cn/document/ukTMukTMukTM/uMjM2UjLzIjN14yMyYTN)。
+	HAlign         *int64                                `json:"hAlign,omitempty"`         // 水平对齐方式。可选值: 0: 左对齐- 1: 中对齐- 2: 右对齐
+	VAlign         *int64                                `json:"vAlign,omitempty"`         // 垂直对齐方式。可选值: 0: 上对齐- 1: 中对齐- 2: 下对齐
+	ForeColor      *string                               `json:"foreColor,omitempty"`      // 字体颜色, 用十六进制颜色代码表示。
+	BackColor      *string                               `json:"backColor,omitempty"`      // 背景颜色, 用十六进制颜色代码表示。
+	BorderType     *string                               `json:"borderType,omitempty"`     // 边框类型, 可选值: FULL_BORDER: 全边框, 即四周都有边框- OUTER_BORDER: 外边框, 只有外侧有边框- INNER_BORDER: 内边框, 只有内部有边框- NO_BORDER: 无边框, 即没有任何边框- LEFT_BORDER: 左边框, 只有左侧有边框- RIGHT_BORDER: 右边框, 只有右侧有边框- TOP_BORDER: 上边框, 只有顶部有边框- BOTTOM_BORDER: 下边框, 只有底部有边框
+	BorderColor    *string                               `json:"borderColor,omitempty"`    // 边框颜色, 用十六进制颜色代码表示。
+	Clean          *bool                                 `json:"clean,omitempty"`          // 是否清除所有格式。默认值为 false。
 }
 
 // SetSheetStyleReqAppendStyleStyleFont ...
 type SetSheetStyleReqAppendStyleStyleFont struct {
-	Bold     *bool   `json:"bold,omitempty"`     // 是否加粗
-	Italic   *bool   `json:"italic,omitempty"`   // 是否斜体
-	FontSize *string `json:"fontSize,omitempty"` // 字体大小 字号大小为9~36 行距固定为1.5, 如:10pt/1.5
-	Clean    *bool   `json:"clean,omitempty"`    // 清除 font 格式, 默认 false
+	Bold     *bool   `json:"bold,omitempty"`     // 是否加粗。默认值 false。
+	Italic   *bool   `json:"italic,omitempty"`   // 是否斜体。默认值 false。
+	FontSize *string `json:"fontSize,omitempty"` // 字体大小, 如 10pt/1.5。其中 10pt 表示字号, 取值范围为 [9, 36]pt。1.5 为行距, 固定为 1.5px。
+	Clean    *bool   `json:"clean,omitempty"`    // 是否清除字体格式, 默认为 false。
 }
 
 // SetSheetStyleResp ...
 type SetSheetStyleResp struct {
-	SpreadSheetToken string `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
+	Updates *SetSheetStyleRespUpdates `json:"updates,omitempty"` // 更新的单元格信息
+}
+
+// SetSheetStyleRespUpdates ...
+type SetSheetStyleRespUpdates struct {
+	Revision         int64  `json:"revision,omitempty"`         // 工作表的版本号。从 0 开始计数, 更新一次版本号加一。
+	SpreadSheetToken string `json:"spreadsheetToken,omitempty"` // 电子表格的 token
 	UpdatedRange     string `json:"updatedRange,omitempty"`     // 设置样式的范围
 	UpdatedRows      int64  `json:"updatedRows,omitempty"`      // 设置样式的行数
 	UpdatedColumns   int64  `json:"updatedColumns,omitempty"`   // 设置样式的列数
 	UpdatedCells     int64  `json:"updatedCells,omitempty"`     // 设置样式的单元格总数
-	Revision         int64  `json:"revision,omitempty"`         // sheet 的版本号
 }
 
 // setSheetStyleResp ...
 type setSheetStyleResp struct {
-	Code int64              `json:"code,omitempty"`
-	Msg  string             `json:"msg,omitempty"`
-	Data *SetSheetStyleResp `json:"data,omitempty"`
+	Code  int64              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string             `json:"msg,omitempty"`  // 错误描述
+	Data  *SetSheetStyleResp `json:"data,omitempty"`
+	Error *ErrorDetail       `json:"error,omitempty"`
 }

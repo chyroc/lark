@@ -21,10 +21,12 @@ import (
 	"context"
 )
 
-// EventV2ApplicationApplicationVisibilityAddedV6 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
+// EventV2ApplicationApplicationVisibilityAddedV6 以下场景会触发该事件, 事件体内包含对应用户的 ID 信息。
 //
-// 仅当企业的用户通过「普通成员安装」方式获得应用可用性时推送此事件。
-// - 订阅前提: 需要是应用商店应用
+// - 员工免审安装商店应用。功能介绍参见[员工免审安装应用](https://open.feishu.cn/document/uAjLw4CM/uYjL24iN/platform-overveiw/develop-process/configuring-employee-review-free-installation)。
+// - 员工免审加入商店应用可用范围。当员工免审安装商店应用后, 企业内其他员工在该应用详情页内获取应用时, 员工会加入应用可用范围内, 并触发该事件。
+// ## 使用限制
+// 应用必须是商店应用, 且应用需要订阅该事件。了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/event/app-availability-scope-extended
 // new doc: https://open.feishu.cn/document/server-docs/application-v6/event/app-availability-scope-extended
@@ -37,11 +39,12 @@ type EventV2ApplicationApplicationVisibilityAddedV6Handler func(ctx context.Cont
 
 // EventV2ApplicationApplicationVisibilityAddedV6 ...
 type EventV2ApplicationApplicationVisibilityAddedV6 struct {
-	Source int64                                                 `json:"source,omitempty"` // 事件来源, 为 1 时代表通过普通成员安装增加可见性. 如: 1
-	Users  []*EventV2ApplicationApplicationVisibilityAddedV6User `json:"users,omitempty"`
+	Source int64                                                 `json:"source,omitempty"`  // 该字段暂无实际含义, 可忽略
+	UserID *EventV2ApplicationApplicationVisibilityAddedV6UserID `json:"user_id,omitempty"` // 用户 ID
 }
 
-// EventV2ApplicationApplicationVisibilityAddedV6User ...
-type EventV2ApplicationApplicationVisibilityAddedV6User struct {
-	UserID map[string]interface{} `json:"user_id,omitempty"` // 开通的用户 id
+// EventV2ApplicationApplicationVisibilityAddedV6UserID ...
+type EventV2ApplicationApplicationVisibilityAddedV6UserID struct {
+	OpenID  string `json:"open_id,omitempty"`  // 用户的 open_id, 了解不同用户 ID 类型参考[用户身份概述](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+	UnionID string `json:"union_id,omitempty"` // 用户的 union_id, 了解不同用户 ID 类型参考[用户身份概述](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 }

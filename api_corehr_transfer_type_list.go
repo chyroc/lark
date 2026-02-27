@@ -59,7 +59,7 @@ func (r *Mock) UnMockCoreHRGetCoreHRTransferTypeList() {
 // GetCoreHRTransferTypeListReq ...
 type GetCoreHRTransferTypeListReq struct {
 	Active                       *bool    `query:"active" json:"-"`                          // 异动类型状态示例值: true
-	TransferTypeUniqueIdentifier []string `query:"transfer_type_unique_identifier" json:"-"` // 异动类型唯一标识, 多条时最多数量为10示例值: job_status_change 最大长度: `10
+	TransferTypeUniqueIdentifier []string `query:"transfer_type_unique_identifier" json:"-"` // 异动类型唯一标识, 多条时最多数量为10示例值: job_status_change 最大长度: `10`
 }
 
 // GetCoreHRTransferTypeListResp ...

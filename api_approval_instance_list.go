@@ -58,7 +58,7 @@ func (r *Mock) UnMockApprovalGetApprovalInstanceList() {
 
 // GetApprovalInstanceListReq ...
 type GetApprovalInstanceListReq struct {
-	PageSize     *int64  `query:"page_size" json:"-"`     // 分页大小, 用于指定一次请求所返回的数据量上限。示例值: 100默认值: `100` 取值范围: `1` ～ `100
+	PageSize     *int64  `query:"page_size" json:"-"`     // 分页大小, 用于指定一次请求所返回的数据量上限。示例值: 100默认值: `100` 取值范围: `1` ～ `100`
 	PageToken    *string `query:"page_token" json:"-"`    // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: nF1ZXJ5VGhlbkZldGNoCgAAAAAA6PZwFmUzSldvTC1yU
 	ApprovalCode string  `query:"approval_code" json:"-"` // 审批定义 Code。获取方式: 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后, 从响应参数 approval_code 获取。- 登录审批管理后台, 在指定审批定义的 URL 中获取, 具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。示例值: 7C468A54-8745-2245-9675-08B7C63E7A85
 	StartTime    int64   `query:"start_time" json:"-"`    // 审批实例创建时间的开始区间, 毫秒时间戳。说明: start_time 与 end_time 组成时间区间查询条件, 接口会返回在该时间区间内创建的审批实例数据。单次查询时间范围不要超过10小时示例值: 1567690398020

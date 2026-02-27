@@ -60,10 +60,10 @@ func (r *Mock) UnMockDriveGetDriveFileViewRecordList() {
 // GetDriveFileViewRecordListReq ...
 type GetDriveFileViewRecordListReq struct {
 	FileToken    string   `path:"file_token" json:"-"`      // 文件 token。获取方式参考[文件概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/file-overview)。示例值: "XIHSdYSI7oMEU1xrsnxc8fabcef"
-	PageSize     int64    `query:"page_size" json:"-"`      // 分页大小示例值: 10 取值范围: `1` ～ `50
+	PageSize     int64    `query:"page_size" json:"-"`      // 分页大小示例值: 10 取值范围: `1` ～ `50`
 	PageToken    *string  `query:"page_token" json:"-"`     // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 1674037112--7189934631754563585
 	FileType     FileType `query:"file_type" json:"-"`      // 文件类型示例值: docx可选值有: 旧版文档新版文档电子表格多维表格思维笔记知识库文档文件
-	ViewerIDType *IDType  `query:"viewer_id_type" json:"-"` // 返回的访问者 ID 的类型。当值为`user_id`时, 字段权限要求: 获取用户 user ID示例值: open_id可选值有: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)默认值: `open_id
+	ViewerIDType *IDType  `query:"viewer_id_type" json:"-"` // 返回的访问者 ID 的类型。当值为`user_id`时, 字段权限要求: 获取用户 user ID示例值: open_id可选值有: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)默认值: `open_id`
 }
 
 // GetDriveFileViewRecordListResp ...

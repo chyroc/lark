@@ -21,10 +21,13 @@ import (
 	"context"
 )
 
-// CopyDriveFile 将文件复制到用户云空间的其他文件夹中。不支持复制文件夹。
+// CopyDriveFile 将用户云空间中的文件复制至其它文件夹下。该接口为异步接口。
 //
-// 如果目标文件夹是我的空间, 则复制的文件会在「我的空间」的「归我所有」列表里。
-// 该接口不支持并发拷贝多个文件, 且调用频率上限为 5QPS 且 10000次/天
+// ## 使用限制
+// - 不支持复制文件夹。
+// - 云空间中文件夹（包括根文件夹, 即根目录）的单层节点上限为 1500 个。超过此限制时, 接口将返回 1062507 错误码。可通过将文件复制到不同文件夹中解决。
+// - 云空间中所有层级的节点总和的上限为 40 万个。
+// - 该接口不支持并发调用, 且调用频率上限为 5QPS 且 10000次/天。否则会返回 1061045 错误码, 可通过稍后重试解决。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/copy
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/file/copy
@@ -62,42 +65,42 @@ func (r *Mock) UnMockDriveCopyDriveFile() {
 
 // CopyDriveFileReq ...
 type CopyDriveFileReq struct {
-	FileToken   string                   `path:"file_token" json:"-"`    // 被复制的文件token, 示例值: "doccngpahSdXrFPIBD4XdIabcef"
-	UserIDType  *IDType                  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	Name        string                   `json:"name,omitempty"`         // 被复制文件的新名称, 示例值: "test.txt"
-	Type        *string                  `json:"type,omitempty"`         // 被复制文件的类型, 如果该值为空或者与文件实际类型不匹配, 接口会返回失败, 示例值: "doc", 可选值有: file: 文件类型, doc: 文档类型, sheet: 电子表格类型, bitable: 多维表格类型, docx: 新版文档类型, mindnote: 思维笔记类型, slides: 幻灯片类型
-	FolderToken string                   `json:"folder_token,omitempty"` // 文件被复制到的目标文件夹token, 示例值: "fldbcO1UuPz8VwnpPx5a92abcef"
-	Extra       []*CopyDriveFileReqExtra `json:"extra,omitempty"`        // 用户自定义请求附加参数, 用于实现特殊的复制语义
+	FileToken   string                   `path:"file_token" json:"-"`    // 被复制的源文件的 token。了解如何获取文件 token, 参考[文件概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/file-overview)。示例值: "doccngpahSdXrFPIBD4XdIabcef"
+	UserIDType  *IDType                  `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	Name        string                   `json:"name,omitempty"`         // 复制的新文件的名称 最大长度为 `256` 字节示例值: "Demo copy"
+	Type        *string                  `json:"type,omitempty"`         // 被复制的源文件的类型。必须与 `file_token` 对应的源文件实际类型一致。注意: 该参数为必填, 请忽略左侧必填列的“否”。若该参数值为空或与实际文件类型不匹配, 接口将返回失败。示例值: "docx"可选值有: 文件类型旧版文档。了解更多, 参考[新旧版本文档说明](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/docs/upgraded-docs-access-guide/upgraded-docs-openapi-access-guide)。电子表格类型多维表格类型新版文档类型思维笔记类型幻灯片类型
+	FolderToken string                   `json:"folder_token,omitempty"` // 目标文件夹的 token。若传入根文件夹 token, 表示复制的新文件将被创建在云空间根目录。了解如何获取文件夹 token, 参考[文件夹概述](https://open.feishu.cn/document/ukTMukTMukTM/ugTNzUjL4UzM14CO1MTN/folder-overview)。示例值: "fldbcO1UuPz8VwnpPx5a92abcef"
+	Extra       []*CopyDriveFileReqExtra `json:"extra,omitempty"`        // 自定义请求附加参数, 用于实现特殊的复制语义
 }
 
 // CopyDriveFileReqExtra ...
 type CopyDriveFileReqExtra struct {
-	Key   string `json:"key,omitempty"`   // 自定义属性键对象, 示例值: "target_type"
-	Value string `json:"value,omitempty"` // 自定义属性值对象, 示例值: "docx"
+	Key   string `json:"key,omitempty"`   // 自定义属性键对象示例值: "target_type"
+	Value string `json:"value,omitempty"` // 自定义属性值对象示例值: "docx"
 }
 
 // CopyDriveFileResp ...
 type CopyDriveFileResp struct {
-	File *CopyDriveFileRespFile `json:"file,omitempty"` // 复制后的文件资源
+	File *CopyDriveFileRespFile `json:"file,omitempty"` // 复制的新文件信息
 }
 
 // CopyDriveFileRespFile ...
 type CopyDriveFileRespFile struct {
-	Token        string                             `json:"token,omitempty"`         // 文件标识
-	Name         string                             `json:"name,omitempty"`          // 文件名
-	Type         string                             `json:"type,omitempty"`          // 文件类型
-	ParentToken  string                             `json:"parent_token,omitempty"`  // 父文件夹标识
-	URL          string                             `json:"url,omitempty"`           // 在浏览器中查看的链接
-	ShortcutInfo *CopyDriveFileRespFileShortcutInfo `json:"shortcut_info,omitempty"` // 快捷方式文件信息
-	CreatedTime  string                             `json:"created_time,omitempty"`  // 文件创建时间
-	ModifiedTime string                             `json:"modified_time,omitempty"` // 文件最近修改时间
-	OwnerID      string                             `json:"owner_id,omitempty"`      // 文件所有者
+	Token        string                             `json:"token,omitempty"`         // 复制的新文件 token
+	Name         string                             `json:"name,omitempty"`          // 新文件的名称
+	Type         string                             `json:"type,omitempty"`          // 新文件的类型
+	ParentToken  string                             `json:"parent_token,omitempty"`  // 新文件的父文件夹 token
+	URL          string                             `json:"url,omitempty"`           // 文件在浏览器中的 URL 链接
+	ShortcutInfo *CopyDriveFileRespFileShortcutInfo `json:"shortcut_info,omitempty"` // 快捷方式文件信息（该参数不会返回）
+	CreatedTime  string                             `json:"created_time,omitempty"`  // 文件创建时间（该参数不会返回）
+	ModifiedTime string                             `json:"modified_time,omitempty"` // 文件最近修改时间（该参数不会返回）
+	OwnerID      string                             `json:"owner_id,omitempty"`      // 文件所有者（该参数不会返回）
 }
 
 // CopyDriveFileRespFileShortcutInfo ...
 type CopyDriveFileRespFileShortcutInfo struct {
-	TargetType  string `json:"target_type,omitempty"`  // 快捷方式指向的原文件类型
-	TargetToken string `json:"target_token,omitempty"` // 快捷方式指向的原文件token
+	TargetType  string `json:"target_type,omitempty"`  // 快捷方式指向的源文件类型
+	TargetToken string `json:"target_token,omitempty"` // 快捷方式指向的源文件 token
 }
 
 // copyDriveFileResp ...

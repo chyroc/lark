@@ -21,9 +21,11 @@ import (
 	"context"
 )
 
-// EventV2DriveFileTitleUpdatedV1 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
+// EventV2DriveFileTitleUpdatedV1 云文档标题变更事件。被订阅的云文档标题发生变更时, 将会触发此事件。
 //
-// 文件标题变更时将触发此事件。
+// 了解事件订阅的使用场景和配置流程, 参考 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
+// ## 前提条件
+// 添加该事件之前, 你需确保已调用[订阅云文档事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/subscribe)接口。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/file-title-update
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/event/list/file-title-update
@@ -36,14 +38,14 @@ type EventV2DriveFileTitleUpdatedV1Handler func(ctx context.Context, cli *Lark, 
 
 // EventV2DriveFileTitleUpdatedV1 ...
 type EventV2DriveFileTitleUpdatedV1 struct {
-	FileToken  string                                    `json:"file_token,omitempty"` // 文件token. 如: doccnxxxxxx
-	FileType   FileType                                  `json:"file_type,omitempty"`  // 文件类型, 目前有doc、sheet. 如: doc
-	OperatorID *EventV2DriveFileTitleUpdatedV1OperatorID `json:"operator_id,omitempty"`
+	FileType   FileType                                  `json:"file_type,omitempty"`   // 云文档类型, 支持以下枚举: doc: 旧版文档。已不推荐使用- docx: 文档- sheet: 电子表格- bitable: 多维表格- slides: 幻灯片- file: 文件
+	FileToken  string                                    `json:"file_token,omitempty"`  // 云文档 token
+	OperatorID *EventV2DriveFileTitleUpdatedV1OperatorID `json:"operator_id,omitempty"` // 操作人 ID
 }
 
 // EventV2DriveFileTitleUpdatedV1OperatorID ...
 type EventV2DriveFileTitleUpdatedV1OperatorID struct {
-	OpenID  string `json:"open_id,omitempty"`  // 如: ou_xxxxxx
-	UnionID string `json:"union_id,omitempty"` // 如: on_xxxxxx
-	UserID  string `json:"user_id,omitempty"`  // 如: xxxxxx
+	UnionID string `json:"union_id,omitempty"` // 用户的 Union ID
+	UserID  string `json:"user_id,omitempty"`  // 用户的 User ID  字段权限要求: 获取用户 user ID
+	OpenID  string `json:"open_id,omitempty"`  // 用户的 Open ID
 }

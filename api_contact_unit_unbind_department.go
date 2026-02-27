@@ -63,7 +63,7 @@ func (r *Mock) UnMockContactUnbindContactUnitDepartment() {
 type UnbindContactUnitDepartmentReq struct {
 	UnitID           string            `json:"unit_id,omitempty"`            // 单位 ID。当你在创建单位时, 可以在返回结果中获取单位 ID。你也可以调用[获取单位列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/list)接口, 获取单位 ID。示例值: "BU121"
 	DepartmentID     string            `json:"department_id,omitempty"`      // 待解除关联的部门 ID。ID 类型与 department_id_type 的取值保持一致。部门 API 提供了多种获取部门 ID 的方式, 如[获取子部门列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/children)、[获取父部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/parent)、[搜索部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/search), 你可以选择合适的 API 进行查询。示例值: "od-4e6ac4d14bcd5071a37a39de902c7141"
-	DepartmentIDType *DepartmentIDType `json:"department_id_type,omitempty"` // 此次调用中的部门 ID 类型。关于部门 ID 的详细介绍, 可参见[部门 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)。示例值: "open_department_id"可选值有: 支持用户自定义配置的部门 ID。自定义配置时可复用已删除的 department_id, 因此在未删除的部门范围内 department_id 具有唯一性。由系统自动生成的部门 ID, ID 前缀固定为 `od-`, 在租户内全局唯一。默认值: `open_department_id
+	DepartmentIDType *DepartmentIDType `json:"department_id_type,omitempty"` // 此次调用中的部门 ID 类型。关于部门 ID 的详细介绍, 可参见[部门 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)。示例值: "open_department_id"可选值有: 支持用户自定义配置的部门 ID。自定义配置时可复用已删除的 department_id, 因此在未删除的部门范围内 department_id 具有唯一性。由系统自动生成的部门 ID, ID 前缀固定为 `od-`, 在租户内全局唯一。默认值: `open_department_id`
 }
 
 // UnbindContactUnitDepartmentResp ...

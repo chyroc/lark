@@ -22,11 +22,20 @@ import (
 	"io"
 )
 
-// UploadImage 上传图片接口, 支持上传 JPEG、PNG、WEBP、GIF、TIFF、BMP、ICO格式图片。
+// UploadImage 调用本接口将图片上传至飞书开放平台, 支持上传 JPG、JPEG、PNG、WEBP、GIF、BMP、ICO、TIFF、HEIC 格式的图片, 但需要注意 TIFF、HEIC 上传后会被转为 JPG 格式。
 //
-// 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
-// - 图片大小不得超过10M, 且不支持上传大小为0的图片
+// ## 使用场景
+// 如果需要发送图片消息, 或者将图片作为头像, 则需要先调用本接口将图片上传至开放平台, 平台会返回一个图片标识（image_key）, 后续使用该 Key 值调用其他 API。例如:
+// - [发送消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)时, 如果需要发送图片, 则需要先调用本接口上传图片（上传时图片类型需要选择 用于发送消息）, 并使用返回结果中的 image_key 发送图片消息。
+// - [创建用户](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/create)时, 如果需要设置用户头像, 则需要先调用本接口将头像上传（上传时图片类型需要选择 用于设置头像）, 并使用返回结果中的 image_key 设置头像。
+// ## 前提条件
+// 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// ## 使用限制
+// - 上传的图片大小不能超过 10 MB, 且不支持上传大小为 0 的图片。
+// - 上传图片的分辨率限制:
+// --GIF 图片分辨率不能超过 2000 x 2000, 其他图片分辨率不能超过 12000 x 12000。
+// --用于设置头像的图片分辨率不能超过 4096 x 4096。
+// 如需上传高分辨率图片, 可使用[上传文件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/file/create)接口, 将图片作为文件进行上传。注意该方式不支持将图片文件设置为头像。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/image/create
@@ -64,13 +73,13 @@ func (r *Mock) UnMockFileUploadImage() {
 
 // UploadImageReq ...
 type UploadImageReq struct {
-	ImageType ImageType `json:"image_type,omitempty"` // 图片类型, 示例值: "message", 可选值有: message: 用于发送消息, avatar: 用于设置头像
-	Image     io.Reader `json:"image,omitempty"`      // 图片内容, 注意: 上传的图片大小不能超过10MB, 示例值: 二进制文件
+	ImageType string    `json:"image_type,omitempty"` // 图片类型示例值: "message"可选值有: 用于发送消息用于设置头像
+	Image     io.Reader `json:"image,omitempty"`      // 图片内容。传值方式可以参考请求体示例。注意: 上传的图片大小不能超过 10 MB, 也不能上传大小为 0 的图片。- 分辨率限制:-GIF 图片分辨率不能超过 2000 x 2000, 其他图片分辨率不能超过 12000 x 12000。--用于设置头像的图片分辨率不能超过 4096 x 4096。示例值: 二进制文件
 }
 
 // UploadImageResp ...
 type UploadImageResp struct {
-	ImageKey string `json:"image_key,omitempty"` // 图片的key
+	ImageKey string `json:"image_key,omitempty"` // 图片的 Key
 }
 
 // uploadImageResp ...

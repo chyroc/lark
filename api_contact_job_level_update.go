@@ -61,7 +61,7 @@ type UpdateContactJobLevelReq struct {
 	JobLevelID      string                                     `path:"job_level_id" json:"-"`      // 职级 ID。获取方式: 创建职级时, 可以从返回结果中获取职级 ID。- 调用[获取租户职级列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_level/list)接口, 查找指定职级的 ID 信息。示例值: "mga5oa8ayjlp9rb"
 	Name            *string                                    `json:"name,omitempty"`             // 职级的通用名称。如果未设置多语言名称, 则默认展示该名称。默认值: 空, 表示不更新。示例值: "高级专家" 长度范围: `1` ～ `255` 字符
 	Description     *string                                    `json:"description,omitempty"`      // 职级的通用描述。如果未设置多语言描述, 则默认展示该描述。默认值: 空, 表示不更新。示例值: "公司内部中高级职称, 有一定专业技术能力的人员"
-	Order           *int64                                     `json:"order,omitempty"`            // 职级排序。数值越小, 排序越靠前。默认值: 空, 表示不更新。示例值: 200 取值范围: `100` ～ `100000
+	Order           *int64                                     `json:"order,omitempty"`            // 职级排序。数值越小, 排序越靠前。默认值: 空, 表示不更新。示例值: 200 取值范围: `100` ～ `100000`
 	Status          *bool                                      `json:"status,omitempty"`           // 是否启用该职级。可选值有: true: 启用- false: 不启用默认值: 空, 表示不更新。示例值: true
 	I18nName        []*UpdateContactJobLevelReqI18nName        `json:"i18n_name,omitempty"`        // 多语言职级名称。
 	I18nDescription []*UpdateContactJobLevelReqI18nDescription `json:"i18n_description,omitempty"` // 多语言职级描述。

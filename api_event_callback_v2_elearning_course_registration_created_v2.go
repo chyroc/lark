@@ -36,15 +36,15 @@ type EventV2ElearningCourseRegistrationCreatedV2Handler func(ctx context.Context
 type EventV2ElearningCourseRegistrationCreatedV2 struct {
 	CourseID                   string                                              `json:"course_id,omitempty"`                     // 课程ID
 	Learner                    *EventV2ElearningCourseRegistrationCreatedV2Learner `json:"learner,omitempty"`                       // 课程学员信息
-	EnrollAt                   int64                                               `json:"enroll_at,omitempty"`                     // 加入学习时间戳（秒） 取值范围: `0` ～ `4294967295
+	EnrollAt                   int64                                               `json:"enroll_at,omitempty"`                     // 加入学习时间戳（秒） 取值范围: `0` ～ `4294967295`
 	EnrollType                 int64                                               `json:"enroll_type,omitempty"`                   // 注册类型可选值有: 被管理员指派学员自主加入按照规则自动加入学员申请被批准加入
-	LearningDuration           int64                                               `json:"learning_duration,omitempty"`             // 学习时长, 单位: 秒 取值范围: `0` ～ `4294967295
-	FinishedAt                 int64                                               `json:"finished_at,omitempty"`                   // 完成时间戳（秒） 取值范围: `0` ～ `4294967295
+	LearningDuration           int64                                               `json:"learning_duration,omitempty"`             // 学习时长, 单位: 秒 取值范围: `0` ～ `4294967295`
+	FinishedAt                 int64                                               `json:"finished_at,omitempty"`                   // 完成时间戳（秒） 取值范围: `0` ～ `4294967295`
 	LearningState              int64                                               `json:"learning_state,omitempty"`                // 完成状态可选值有: 课程未开始课程学习中课程已通过课程不合格
-	CompulsoryLessonIDs        []string                                            `json:"compulsory_lesson_ids,omitempty"`         // 必修章节id列表 长度范围: `0` ～ `65535
-	LearnedCompulsoryLessonIDs []string                                            `json:"learned_compulsory_lesson_ids,omitempty"` // 已完成的必修章节id列表 长度范围: `0` ～ `65535
-	OptionalLessonIDs          []string                                            `json:"optional_lesson_ids,omitempty"`           // 选修章节id列表 长度范围: `0` ～ `65535
-	LearnedOptionalLessonIDs   []string                                            `json:"learned_optional_lesson_ids,omitempty"`   // 已完成的选修章节id列表 长度范围: `0` ～ `65535
+	CompulsoryLessonIDs        []string                                            `json:"compulsory_lesson_ids,omitempty"`         // 必修章节id列表 长度范围: `0` ～ `65535`
+	LearnedCompulsoryLessonIDs []string                                            `json:"learned_compulsory_lesson_ids,omitempty"` // 已完成的必修章节id列表 长度范围: `0` ～ `65535`
+	OptionalLessonIDs          []string                                            `json:"optional_lesson_ids,omitempty"`           // 选修章节id列表 长度范围: `0` ～ `65535`
+	LearnedOptionalLessonIDs   []string                                            `json:"learned_optional_lesson_ids,omitempty"`   // 已完成的选修章节id列表 长度范围: `0` ～ `65535`
 }
 
 // EventV2ElearningCourseRegistrationCreatedV2Learner ...

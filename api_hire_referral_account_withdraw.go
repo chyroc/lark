@@ -21,9 +21,10 @@ import (
 	"context"
 )
 
-// WithdrawHireReferralAccount 支持通过账号 ID 全额提取内推账号下的积分或现金奖励。调用前, 请确认已完成[「注册外部系统内推账户」](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/create)并获取到账号 ID。提现后, 内推人的对应积分或现金余额将变为 0, 扣减后对应奖励将在招聘系统同步标记为「已发放」
+// WithdrawHireReferralAccount 通过账户 ID 全额提取内推账户下的积分/现金。全额提现后, 内推人在飞书招聘系统中的积分/现金余额会变为 0, 对应的积分/现金奖励状态也会变为「已发放」。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/withdraw
+// new doc: https://open.feishu.cn/document/hire-v1/referral_account/withdraw
 func (r *HireService) WithdrawHireReferralAccount(ctx context.Context, request *WithdrawHireReferralAccountReq, options ...MethodOptionFunc) (*WithdrawHireReferralAccountResp, *Response, error) {
 	if r.cli.mock.mockHireWithdrawHireReferralAccount != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#WithdrawHireReferralAccount mock enable")
@@ -57,21 +58,28 @@ func (r *Mock) UnMockHireWithdrawHireReferralAccount() {
 
 // WithdrawHireReferralAccountReq ...
 type WithdrawHireReferralAccountReq struct {
-	ReferralAccountID string  `path:"referral_account_id" json:"-"`  // 账户ID, 示例值: "6942778198054125570"
-	WithdrawBonusType []int64 `json:"withdraw_bonus_type,omitempty"` // 请求提现的奖励类型, 示例值: [1], 可选值有: 1: 积分
-	ExternalOrderID   *string `json:"external_order_id,omitempty"`   // 提现单ID, 请求时由请求方提供, 后续关于本次提现操作的交互都以此提现单ID为标识进行, 需要保证唯一, 用于保证提现的幂等性, 传入重复ID会返回对应提现单提取的金额明细, 示例值: "6942778198054125570"
+	ReferralAccountID string  `path:"referral_account_id" json:"-"`  // 账户 ID, 通过[注册内推账户](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/create)生成示例值: "6942778198054125570"
+	WithdrawBonusType []int64 `json:"withdraw_bonus_type,omitempty"` // 提取的奖励类型示例值: [1]可选值有: 积分现金
+	ExternalOrderID   string  `json:"external_order_id,omitempty"`   // 外部提取单 ID, 由请求方提供, 用于保证接口的幂等性, 需要保证唯一。传入重复 ID 会返回原 ID 对应的提取详情示例值: "6942778198054125570"
 }
 
 // WithdrawHireReferralAccountResp ...
 type WithdrawHireReferralAccountResp struct {
-	ExternalOrderID   string                                            `json:"external_order_id,omitempty"`  // 请求时传入的提现单ID
-	TransTime         string                                            `json:"trans_time,omitempty"`         // 交易时间戳, 需要保存, 用于统一交易时间, 方便对账
-	WithdrawalDetails *WithdrawHireReferralAccountRespWithdrawalDetails `json:"withdrawal_details,omitempty"` // 本次提现金额明细
+	ExternalOrderID   string                                            `json:"external_order_id,omitempty"`  // 提取单 ID
+	TransTime         string                                            `json:"trans_time,omitempty"`         // 交易时间, 毫秒时间戳
+	WithdrawalDetails *WithdrawHireReferralAccountRespWithdrawalDetails `json:"withdrawal_details,omitempty"` // 提取详情
 }
 
 // WithdrawHireReferralAccountRespWithdrawalDetails ...
 type WithdrawHireReferralAccountRespWithdrawalDetails struct {
-	PointBonus int64 `json:"point_bonus,omitempty"` // 积分奖励
+	PointBonus int64                                                       `json:"point_bonus,omitempty"` // 提取的积分数量
+	CashBonus  []*WithdrawHireReferralAccountRespWithdrawalDetailsCashBonu `json:"cash_bonus,omitempty"`  // 提取的现金奖励
+}
+
+// WithdrawHireReferralAccountRespWithdrawalDetailsCashBonu ...
+type WithdrawHireReferralAccountRespWithdrawalDetailsCashBonu struct {
+	CurrencyType string  `json:"currency_type,omitempty"` // 币种, 详情可查看: [枚举常量介绍](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/enum)中「币种（currency）枚举定义」
+	Amount       float64 `json:"amount,omitempty"`        // 数额, 保留到小数点后两位
 }
 
 // withdrawHireReferralAccountResp ...

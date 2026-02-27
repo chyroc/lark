@@ -21,7 +21,11 @@ import (
 	"context"
 )
 
-// GetCoreHRCompanyList 批量查询公司。
+// GetCoreHRCompanyList 分页查询公司, 可分页遍历全量公司数据。
+//
+// 延迟说明:
+// - 数据库主从延迟2s以内, 即: 直接创建公司后2s内调用此接口可能查询不到数据
+// - 响应体registered_office_address_info （注册地址）、office_address_info （办公地址）下的full_address_local_script（完整地址, 本地文字）、full_address_western_script（完整地址, 西方文字）字段为计算字段, 延迟5s以内, 堆积时会延长
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/company/list
@@ -58,8 +62,8 @@ func (r *Mock) UnMockCoreHRGetCoreHRCompanyList() {
 
 // GetCoreHRCompanyListReq ...
 type GetCoreHRCompanyListReq struct {
-	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 1231231987
-	PageSize  int64   `query:"page_size" json:"-"`  // 分页大小, 示例值: 100
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 1231231987
+	PageSize  int64   `query:"page_size" json:"-"`  // 分页大小示例值: 100
 }
 
 // GetCoreHRCompanyListResp ...
@@ -72,17 +76,17 @@ type GetCoreHRCompanyListResp struct {
 // GetCoreHRCompanyListRespItem ...
 type GetCoreHRCompanyListRespItem struct {
 	ID                          string                                                   `json:"id,omitempty"`                             // 公司 ID
-	HiberarchyCommon            *GetCoreHRCompanyListRespItemHiberarchyCommon            `json:"hiberarchy_common,omitempty"`              // 层级关系, 内层字段见实体
-	Type                        *GetCoreHRCompanyListRespItemType                        `json:"type,omitempty"`                           // 性质, 枚举值可通过文档[飞书人事枚举常量](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)公司类型（company_type）枚举定义部分获得
-	IndustryList                []*GetCoreHRCompanyListRespItemIndustry                  `json:"industry_list,omitempty"`                  // 行业, 枚举值可通过文档[飞书人事枚举常量](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)行业（industry）枚举定义部分获得
+	HiberarchyCommon            *GetCoreHRCompanyListRespItemHiberarchyCommon            `json:"hiberarchy_common,omitempty"`              // 公司基本信息, 该结构维护了公司的名称、编码、启用状态、上级公司等基础信息。
+	Type                        *GetCoreHRCompanyListRespItemType                        `json:"type,omitempty"`                           // 公司性质, 通过[获取字段详情](https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)查询获取。请求参数: object_api_name=company；custom_api_name=type。
+	IndustryList                []*GetCoreHRCompanyListRespItemIndustry                  `json:"industry_list,omitempty"`                  // 所在行业, 通过[获取字段详情](https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)查询获取。请求参数: object_api_name=company；custom_api_name=industry。
 	LegalRepresentative         []*GetCoreHRCompanyListRespItemLegalRepresentative       `json:"legal_representative,omitempty"`           // 法定代表人
 	PostCode                    string                                                   `json:"post_code,omitempty"`                      // 邮编
 	TaxPayerID                  string                                                   `json:"tax_payer_id,omitempty"`                   // 纳税人识别号
 	Confidential                bool                                                     `json:"confidential,omitempty"`                   // 是否保密
-	SubTypeList                 []*GetCoreHRCompanyListRespItemSubType                   `json:"sub_type_list,omitempty"`                  // 主体类型, 枚举值可通过文档[飞书人事枚举常量](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)主体类型（company_sub_type）枚举定义部分获得
+	SubTypeList                 []*GetCoreHRCompanyListRespItemSubType                   `json:"sub_type_list,omitempty"`                  // 公司主体类型, 通过[获取字段详情](https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)查询获取。请求参数: object_api_name=company；custom_api_name=subtype。
 	BranchCompany               bool                                                     `json:"branch_company,omitempty"`                 // 是否为分公司
 	PrimaryManager              []*GetCoreHRCompanyListRespItemPrimaryManager            `json:"primary_manager,omitempty"`                // 主要负责人
-	CustomFields                []*GetCoreHRCompanyListRespItemCustomField               `json:"custom_fields,omitempty"`                  // 自定义字段
+	CustomFields                []*GetCoreHRCompanyListRespItemCustomField               `json:"custom_fields,omitempty"`                  // 自定义字段（该功能暂不支持, 可忽略）
 	Currency                    *GetCoreHRCompanyListRespItemCurrency                    `json:"currency,omitempty"`                       // 默认币种
 	Phone                       *GetCoreHRCompanyListRespItemPhone                       `json:"phone,omitempty"`                          // 电话
 	Fax                         *GetCoreHRCompanyListRespItemFax                         `json:"fax,omitempty"`                            // 传真
@@ -94,11 +98,11 @@ type GetCoreHRCompanyListRespItem struct {
 
 // GetCoreHRCompanyListRespItemCurrency ...
 type GetCoreHRCompanyListRespItemCurrency struct {
-	ID                 string                                              `json:"id,omitempty"`                    // 货币id
-	CountryRegionID    string                                              `json:"country_region_id,omitempty"`     // 货币所属国家/地区id, 详细信息可通过[查询国家/地区信息](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/location_data/list)接口查询获得
-	CurrencyName       []*GetCoreHRCompanyListRespItemCurrencyCurrencyName `json:"currency_name,omitempty"`         // 货币名称
-	NumericCode        int64                                               `json:"numeric_code,omitempty"`          // 数字代码
-	CurrencyAlpha3Code string                                              `json:"currency_alpha_3_code,omitempty"` // 三位字母代码
+	ID                  string                                              `json:"id,omitempty"`                     // 货币id
+	CurrencyName        []*GetCoreHRCompanyListRespItemCurrencyCurrencyName `json:"currency_name,omitempty"`          // 货币名称
+	NumericCode         int64                                               `json:"numeric_code,omitempty"`           // 对应币种的指代代码, 通过[查询货币信息v2](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)查询获取。
+	CurrencyAlpha3Code  string                                              `json:"currency_alpha_3_code,omitempty"`  // 法定货币对应代码, 如CNY、USD等, 通过[查询货币信息v2](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)查询获取。
+	CountryRegionIDList []string                                            `json:"country_region_id_list,omitempty"` // 货币所属国家/地区 ID 列表, 详细信息可通过[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)接口查询获得
 }
 
 // GetCoreHRCompanyListRespItemCurrencyCurrencyName ...
@@ -115,7 +119,7 @@ type GetCoreHRCompanyListRespItemCustomField struct {
 
 // GetCoreHRCompanyListRespItemFax ...
 type GetCoreHRCompanyListRespItemFax struct {
-	AreaCode    *GetCoreHRCompanyListRespItemFaxAreaCode `json:"area_code,omitempty"`    // 区号
+	AreaCode    *GetCoreHRCompanyListRespItemFaxAreaCode `json:"area_code,omitempty"`    // 区号对应的数字, 可通过[获取字段详情](https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)查询获取。请求参数: object_api_name=phone；custom_api_name=international_area_code
 	PhoneNumber string                                   `json:"phone_number,omitempty"` // 号码
 }
 
@@ -133,17 +137,15 @@ type GetCoreHRCompanyListRespItemFaxAreaCodeDisplay struct {
 
 // GetCoreHRCompanyListRespItemHiberarchyCommon ...
 type GetCoreHRCompanyListRespItemHiberarchyCommon struct {
-	ParentID       string                                                     `json:"parent_id,omitempty"`       // 上级 ID
-	Name           []*GetCoreHRCompanyListRespItemHiberarchyCommonName        `json:"name,omitempty"`            // 名称
-	Type           *GetCoreHRCompanyListRespItemHiberarchyCommonType          `json:"type,omitempty"`            // 组织类型, 枚举值可通过文档[飞书人事枚举常量](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)组织类型（organization_type）枚举定义部分获得
+	ParentID       string                                                     `json:"parent_id,omitempty"`       // 上级 ID- 若查询的是一级公司, 则该字段不展示
+	Name           []*GetCoreHRCompanyListRespItemHiberarchyCommonName        `json:"name,omitempty"`            // 公司名称
+	Type           *GetCoreHRCompanyListRespItemHiberarchyCommonType          `json:"type,omitempty"`            // 组织类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)组织类型（organization_type）枚举定义部分获得- 该接口固定返回常量值: company
 	Active         bool                                                       `json:"active,omitempty"`          // 是否启用
-	EffectiveTime  string                                                     `json:"effective_time,omitempty"`  // 生效时间
-	ExpirationTime string                                                     `json:"expiration_time,omitempty"` // 失效时间
+	EffectiveTime  string                                                     `json:"effective_time,omitempty"`  // 当前版本生效日期- 返回格式: YYYY-MM-DD 00:00:00（最小单位到日）- 日期范围:1900-01-01 00:00:00～9999-12-31 23:59:59
+	ExpirationTime string                                                     `json:"expiration_time,omitempty"` // 当前版本失效日期- 返回格式: YYYY-MM-DD 00:00:00（最小单位到日）- 日期范围:1900-01-01 00:00:00～9999-12-31 23:59:59
 	Code           string                                                     `json:"code,omitempty"`            // 编码
 	Description    []*GetCoreHRCompanyListRespItemHiberarchyCommonDescription `json:"description,omitempty"`     // 描述
-	TreeOrder      string                                                     `json:"tree_order,omitempty"`      // 树形排序
-	ListOrder      string                                                     `json:"list_order,omitempty"`      // 列表排序
-	CustomFields   []*GetCoreHRCompanyListRespItemHiberarchyCommonCustomField `json:"custom_fields,omitempty"`   // 自定义字段
+	CustomFields   []*GetCoreHRCompanyListRespItemHiberarchyCommonCustomField `json:"custom_fields,omitempty"`   // 自定义字段（该功能暂不支持, 可忽略）
 }
 
 // GetCoreHRCompanyListRespItemHiberarchyCommonCustomField ...
@@ -202,12 +204,52 @@ type GetCoreHRCompanyListRespItemOfficeAddres struct {
 
 // GetCoreHRCompanyListRespItemOfficeAddressInfo ...
 type GetCoreHRCompanyListRespItemOfficeAddressInfo struct {
-	PostalCode string `json:"postal_code,omitempty"` // 邮政编码
+	FullAddressLocalScript   string                                                      `json:"full_address_local_script,omitempty"`   // 完整地址（本地文字）
+	FullAddressWesternScript string                                                      `json:"full_address_western_script,omitempty"` // 完整地址（西方文字）
+	ID                       string                                                      `json:"id,omitempty"`                          // 地址ID
+	CountryRegionID          string                                                      `json:"country_region_id,omitempty"`           // 国家 / 地区id。各国家/地区填写字段可参考[地址填写规则](https://bytedance.larkoffice.com/wiki/GoL4wAKAXis3OWku72YcEjTxnKe?sheet=0sMjoP)查询。国家/地区id可通过[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)查询获取。
+	RegionID                 string                                                      `json:"region_id,omitempty"`                   // 主要行政区id。可通过[查询省份/主要行政区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region_subdivision/search)查询获取。
+	CityID                   string                                                      `json:"city_id,omitempty"`                     // 城市id, 可通过[查询城市信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-city/search)查询获取。
+	DistinctID               string                                                      `json:"distinct_id,omitempty"`                 // 区/县id, 可通过[查询区/县信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-district/search)查询获取。
+	AddressLine1             string                                                      `json:"address_line1,omitempty"`               // 地址行 1
+	AddressLine2             string                                                      `json:"address_line2,omitempty"`               // 地址行 2
+	AddressLine3             string                                                      `json:"address_line3,omitempty"`               // 地址行 3
+	AddressLine4             string                                                      `json:"address_line4,omitempty"`               // 地址行 4
+	AddressLine5             string                                                      `json:"address_line5,omitempty"`               // 地址行 5
+	AddressLine6             string                                                      `json:"address_line6,omitempty"`               // 地址行 6
+	AddressLine7             string                                                      `json:"address_line7,omitempty"`               // 地址行 7
+	AddressLine8             string                                                      `json:"address_line8,omitempty"`               // 地址行 8
+	AddressLine9             string                                                      `json:"address_line9,omitempty"`               // 地址行 9
+	LocalAddressLine1        string                                                      `json:"local_address_line1,omitempty"`         // 地址行 1（非拉丁语系的本地文字）
+	LocalAddressLine2        string                                                      `json:"local_address_line2,omitempty"`         // 地址行 2（非拉丁语系的本地文字）
+	LocalAddressLine3        string                                                      `json:"local_address_line3,omitempty"`         // 地址行 3（非拉丁语系的本地文字）
+	LocalAddressLine4        string                                                      `json:"local_address_line4,omitempty"`         // 地址行 4（非拉丁语系的本地文字）
+	LocalAddressLine5        string                                                      `json:"local_address_line5,omitempty"`         // 地址行 5（非拉丁语系的本地文字）
+	LocalAddressLine6        string                                                      `json:"local_address_line6,omitempty"`         // 地址行 6（非拉丁语系的本地文字）
+	LocalAddressLine7        string                                                      `json:"local_address_line7,omitempty"`         // 地址行 7（非拉丁语系的本地文字）
+	LocalAddressLine8        string                                                      `json:"local_address_line8,omitempty"`         // 地址行 8（非拉丁语系的本地文字）
+	LocalAddressLine9        string                                                      `json:"local_address_line9,omitempty"`         // 地址行 9（非拉丁语系的本地文字）
+	PostalCode               string                                                      `json:"postal_code,omitempty"`                 // 邮政编码
+	AddressTypeList          []*GetCoreHRCompanyListRespItemOfficeAddressInfoAddressType `json:"address_type_list,omitempty"`           // 地址类型
+	IsPrimary                bool                                                        `json:"is_primary,omitempty"`                  // 主要地址
+	IsPublic                 bool                                                        `json:"is_public,omitempty"`                   // 公开地址
+}
+
+// GetCoreHRCompanyListRespItemOfficeAddressInfoAddressType ...
+type GetCoreHRCompanyListRespItemOfficeAddressInfoAddressType struct {
+	EnumName string                                                             `json:"enum_name,omitempty"` // 枚举值
+	Display  []*GetCoreHRCompanyListRespItemOfficeAddressInfoAddressTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+}
+
+// GetCoreHRCompanyListRespItemOfficeAddressInfoAddressTypeDisplay ...
+type GetCoreHRCompanyListRespItemOfficeAddressInfoAddressTypeDisplay struct {
+	Lang  string `json:"lang,omitempty"`  // 语言
+	Value string `json:"value,omitempty"` // 内容
 }
 
 // GetCoreHRCompanyListRespItemPhone ...
 type GetCoreHRCompanyListRespItemPhone struct {
-	AreaCode    *GetCoreHRCompanyListRespItemPhoneAreaCode `json:"area_code,omitempty"`    // 区号
+	AreaCode    *GetCoreHRCompanyListRespItemPhoneAreaCode `json:"area_code,omitempty"`    // 区号对应的数字, 可通过[获取字段详情](https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)查询获取。请求参数: object_api_name=phone；custom_api_name=international_area_code
 	PhoneNumber string                                     `json:"phone_number,omitempty"` // 号码
 }
 
@@ -237,7 +279,47 @@ type GetCoreHRCompanyListRespItemRegisteredOfficeAddres struct {
 
 // GetCoreHRCompanyListRespItemRegisteredOfficeAddressInfo ...
 type GetCoreHRCompanyListRespItemRegisteredOfficeAddressInfo struct {
-	PostalCode string `json:"postal_code,omitempty"` // 邮政编码
+	FullAddressLocalScript   string                                                                `json:"full_address_local_script,omitempty"`   // 完整地址（本地文字）
+	FullAddressWesternScript string                                                                `json:"full_address_western_script,omitempty"` // 完整地址（西方文字）
+	ID                       string                                                                `json:"id,omitempty"`                          // 地址ID
+	CountryRegionID          string                                                                `json:"country_region_id,omitempty"`           // 国家 / 地区id。各国家/地区填写字段可参考[地址填写规则](https://bytedance.larkoffice.com/wiki/GoL4wAKAXis3OWku72YcEjTxnKe?sheet=0sMjoP)查询。国家/地区id可通过[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)查询获取。
+	RegionID                 string                                                                `json:"region_id,omitempty"`                   // 主要行政区id。可通过[查询省份/主要行政区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region_subdivision/search)查询获取。
+	CityID                   string                                                                `json:"city_id,omitempty"`                     // 城市id, 可通过[查询城市信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-city/search)查询获取。
+	DistinctID               string                                                                `json:"distinct_id,omitempty"`                 // 区/县id, 可通过[查询区/县信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-district/search)查询获取。
+	AddressLine1             string                                                                `json:"address_line1,omitempty"`               // 地址行 1
+	AddressLine2             string                                                                `json:"address_line2,omitempty"`               // 地址行 2
+	AddressLine3             string                                                                `json:"address_line3,omitempty"`               // 地址行 3
+	AddressLine4             string                                                                `json:"address_line4,omitempty"`               // 地址行 4
+	AddressLine5             string                                                                `json:"address_line5,omitempty"`               // 地址行 5
+	AddressLine6             string                                                                `json:"address_line6,omitempty"`               // 地址行 6
+	AddressLine7             string                                                                `json:"address_line7,omitempty"`               // 地址行 7
+	AddressLine8             string                                                                `json:"address_line8,omitempty"`               // 地址行 8
+	AddressLine9             string                                                                `json:"address_line9,omitempty"`               // 地址行 9
+	LocalAddressLine1        string                                                                `json:"local_address_line1,omitempty"`         // 地址行 1（非拉丁语系的本地文字）
+	LocalAddressLine2        string                                                                `json:"local_address_line2,omitempty"`         // 地址行 2（非拉丁语系的本地文字）
+	LocalAddressLine3        string                                                                `json:"local_address_line3,omitempty"`         // 地址行 3（非拉丁语系的本地文字）
+	LocalAddressLine4        string                                                                `json:"local_address_line4,omitempty"`         // 地址行 4（非拉丁语系的本地文字）
+	LocalAddressLine5        string                                                                `json:"local_address_line5,omitempty"`         // 地址行 5（非拉丁语系的本地文字）
+	LocalAddressLine6        string                                                                `json:"local_address_line6,omitempty"`         // 地址行 6（非拉丁语系的本地文字）
+	LocalAddressLine7        string                                                                `json:"local_address_line7,omitempty"`         // 地址行 7（非拉丁语系的本地文字）
+	LocalAddressLine8        string                                                                `json:"local_address_line8,omitempty"`         // 地址行 8（非拉丁语系的本地文字）
+	LocalAddressLine9        string                                                                `json:"local_address_line9,omitempty"`         // 地址行 9（非拉丁语系的本地文字）
+	PostalCode               string                                                                `json:"postal_code,omitempty"`                 // 邮政编码
+	AddressTypeList          []*GetCoreHRCompanyListRespItemRegisteredOfficeAddressInfoAddressType `json:"address_type_list,omitempty"`           // 地址类型
+	IsPrimary                bool                                                                  `json:"is_primary,omitempty"`                  // 主要地址
+	IsPublic                 bool                                                                  `json:"is_public,omitempty"`                   // 公开地址
+}
+
+// GetCoreHRCompanyListRespItemRegisteredOfficeAddressInfoAddressType ...
+type GetCoreHRCompanyListRespItemRegisteredOfficeAddressInfoAddressType struct {
+	EnumName string                                                                       `json:"enum_name,omitempty"` // 枚举值
+	Display  []*GetCoreHRCompanyListRespItemRegisteredOfficeAddressInfoAddressTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+}
+
+// GetCoreHRCompanyListRespItemRegisteredOfficeAddressInfoAddressTypeDisplay ...
+type GetCoreHRCompanyListRespItemRegisteredOfficeAddressInfoAddressTypeDisplay struct {
+	Lang  string `json:"lang,omitempty"`  // 语言
+	Value string `json:"value,omitempty"` // 内容
 }
 
 // GetCoreHRCompanyListRespItemSubType ...

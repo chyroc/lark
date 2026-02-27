@@ -21,7 +21,11 @@ import (
 	"context"
 )
 
-// BatchDeleteHireEcoAccountCustomField 删除用户在服务商处的身份标示字段（如用户在服务商处的租户 ID）。删除后, 不影响已添加帐号对应的自定义字段的值。但在添加新帐号时, 将不能再使用此自定义字段。删除不支持撤销, 对应的 key 将无法再次复用。
+// BatchDeleteHireEcoAccountCustomField 飞书招聘的背调或笔试服务商, 可通过此接口删除账号自定义字段（如客户在服务商处的租户 ID、账号 ID等）。
+//
+// * 删除操作不支持撤销, 对应的自定义字段的 key 将无法重复使用。
+// * 该接口不支持删除所有的自定义字段——即须保留至少一个自定义字段。如需删除所有字段, 可先通过[创建账号自定义字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_account_custom_field/create)接口新增, 然后将多余的自定义字段删除。
+// * 删除后, 客户已有账号的自定义字段的值不受影响, 只影响添加新账号时的表单展示。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_account_custom_field/batch_delete
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/ecological-docking/eco_account_custom_field/batch_delete
@@ -58,13 +62,12 @@ func (r *Mock) UnMockHireBatchDeleteHireEcoAccountCustomField() {
 
 // BatchDeleteHireEcoAccountCustomFieldReq ...
 type BatchDeleteHireEcoAccountCustomFieldReq struct {
-	Scope              *int64   `json:"scope,omitempty"`                 // 适用范围, 示例值: 1, 可选值有: 1: 背调, 2: 笔试
-	CustomFieldKeyList []string `json:"custom_field_key_list,omitempty"` // 要删除的自定义字段的 key 列表, 示例值: ["7230753910687080000"]
+	Scope              int64    `json:"scope,omitempty"`                 // 适用范围示例值: 1可选值有: 背调笔试
+	CustomFieldKeyList []string `json:"custom_field_key_list,omitempty"` // 要删除的自定义字段的 key 列表示例值: ["account_token_v1"]
 }
 
 // BatchDeleteHireEcoAccountCustomFieldResp ...
-type BatchDeleteHireEcoAccountCustomFieldResp struct {
-}
+type BatchDeleteHireEcoAccountCustomFieldResp struct{}
 
 // batchDeleteHireEcoAccountCustomFieldResp ...
 type batchDeleteHireEcoAccountCustomFieldResp struct {

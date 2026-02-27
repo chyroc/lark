@@ -63,7 +63,7 @@ func (r *Mock) UnMockContactBatchDeleteContactFunctionalRoleMember() {
 type BatchDeleteContactFunctionalRoleMemberReq struct {
 	RoleID     string   `path:"role_id" json:"-"`       // 角色 ID。获取方式: 在[创建角色](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/functional_role/create)时, 可从返回结果中获取。- 企业管理员可以在 [管理后台](https://feishu.cn/admin) > 组织架构 > 角色管理 页面, 在角色名称右侧获取角色 ID。示例值: "7vrj3vk70xk7v5r"
 	UserIDType *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	Members    []string `json:"members,omitempty"`      // 待删除角色成员的用户 ID 列表, 以 `["xxx", "yyy"]` 数组格式进行传值。ID 类型需要和查询参数 user_id_type 的取值保持一致。示例值: ["ou-12832197382"] 长度范围: `1` ～ `100
+	Members    []string `json:"members,omitempty"`      // 待删除角色成员的用户 ID 列表, 以 `["xxx", "yyy"]` 数组格式进行传值。ID 类型需要和查询参数 user_id_type 的取值保持一致。示例值: ["ou-12832197382"] 长度范围: `1` ～ `100`
 }
 
 // BatchDeleteContactFunctionalRoleMemberResp ...

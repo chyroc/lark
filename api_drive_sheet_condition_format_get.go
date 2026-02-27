@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetSheetConditionFormat 该接口用于根据sheetId查询详细的条件格式信息, 最多支持同时查询10个sheetId。
+// GetSheetConditionFormat 根据工作表 ID 获取详细的条件格式信息, 最多支持同时查询 10 个工作表的条件格式。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/conditionformat/condition-format-get
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/conditionformat/condition-format-get
@@ -35,7 +35,7 @@ func (r *DriveService) GetSheetConditionFormat(ctx context.Context, request *Get
 		Scope:                 "Drive",
 		API:                   "GetSheetConditionFormat",
 		Method:                "GET",
-		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/condition_formats",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v2/spreadsheets/:spreadsheet_token/condition_formats",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
@@ -59,42 +59,13 @@ func (r *Mock) UnMockDriveGetSheetConditionFormat() {
 
 // GetSheetConditionFormatReq ...
 type GetSheetConditionFormatReq struct {
-	SpreadSheetToken string   `path:"spreadsheetToken" json:"-"`        // spreadsheet 的 token, 获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
-	SheetIDs         []string `query:"sheet_ids" join_sep:"," json:"-"` // 工作表ID, 可以通过[获取表格元数据](https://open.feishu.cn/document/ukTMukTMukTM/uETMzUjLxEzM14SMxMTN)接口获取, 多个ID用逗号分隔, 如xxxID1, xxxID2
+	SpreadSheetToken string   `path:"spreadsheet_token" json:"-"` // 电子表格的 token。可通过以下两种方式获取。了解更多, 参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。-  电子表格的 URL: https://sample.feishu.cn/sheets/[Iow7sNNEphp3WbtnbCscPqabcef]- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)
+	SheetIDs         []string `query:"sheet_ids" json:"-"`        // 电子表格工作表的 ID。调用[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query)获取 ID。多个 ID 使用逗号分隔。    示例值: `xxxID1, xxxID2`
 }
 
 // GetSheetConditionFormatResp ...
 type GetSheetConditionFormatResp struct {
-	SheetConditionFormats []*GetSheetConditionFormatRespSheetConditionFormat `json:"sheet_condition_formats,omitempty"` // 表格的条件格式信息
-}
-
-// GetSheetConditionFormatRespSheetConditionFormat ...
-type GetSheetConditionFormatRespSheetConditionFormat struct {
-	SheetID         string                                                          `json:"sheet_id,omitempty"`         // sheet的id
-	ConditionFormat *GetSheetConditionFormatRespSheetConditionFormatConditionFormat `json:"condition_format,omitempty"` // 一个条件格式的详细信息
-}
-
-// GetSheetConditionFormatRespSheetConditionFormatConditionFormat ...
-type GetSheetConditionFormatRespSheetConditionFormatConditionFormat struct {
-	CfID     string                                                               `json:"cf_id,omitempty"`     // 条件格式的id
-	Ranges   []string                                                             `json:"ranges,omitempty"`    // 条件格式应用的范围, 支持: sheetId（整表）；sheetId!1:2（整行）；sheetId!A:B（整列）；sheetId!A1:B2（普通范围）；sheetId!A1:C（应用至最后一行）。应用范围不能超过表格的行总数和列总数
-	RuleType string                                                               `json:"rule_type,omitempty"` // 条件格式规则类型, 目前只有7种: *containsBlanks（为空）、notContainsBlanks（不为空）、duplicateValues（重复值）、uniqueValues（唯一值）、cellIs（限定值范围）、containsText（包含内容）、timePeriod（日期）*
-	Attrs    []*SheetRuleAttr                                                     `json:"attrs,omitempty"`     // rule_type对应的具体属性信息, 详见 [条件格式指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/conditionformat/condition-format-guide)
-	Style    *GetSheetConditionFormatRespSheetConditionFormatConditionFormatStyle `json:"style,omitempty"`     // 条件格式样式, 只支持以下样式
-}
-
-// GetSheetConditionFormatRespSheetConditionFormatConditionFormatStyle ...
-type GetSheetConditionFormatRespSheetConditionFormatConditionFormatStyle struct {
-	Font           *GetSheetConditionFormatRespSheetConditionFormatConditionFormatStyleFont `json:"font,omitempty"`            // 字体样式
-	TextDecoration int64                                                                    `json:"text_decoration,omitempty"` // 文本装饰, 0 默认, 1 下划线, 2 删除线, 3 下划线和删除线
-	ForeColor      string                                                                   `json:"fore_color,omitempty"`      // 字体颜色
-	BackColor      string                                                                   `json:"back_color,omitempty"`      // 背景颜色
-}
-
-// GetSheetConditionFormatRespSheetConditionFormatConditionFormatStyleFont ...
-type GetSheetConditionFormatRespSheetConditionFormatConditionFormatStyleFont struct {
-	Bold   bool `json:"bold,omitempty"`   // 加粗
-	Italic bool `json:"italic,omitempty"` // 斜体
+	SheetConditionFormats []interface{} `json:"sheet_condition_formats,omitempty"` // 表格的条件格式信息
 }
 
 // getSheetConditionFormatResp ...

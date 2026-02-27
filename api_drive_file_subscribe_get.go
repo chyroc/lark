@@ -21,9 +21,14 @@ import (
 	"context"
 )
 
-// GetSubscribeDriveFile 该接口仅支持文档拥有者和文档管理者查询文档的订阅状态（但目前文档管理者仅能接收到文件编辑事件）。可订阅的文档类型为旧版文档、新版文档、电子表格和多维表格。在调用该接口之前请确保正确[配置事件回调网址和订阅事件类型](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM#2eb3504a), 事件类型参考[事件列表](https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-list)。
+// GetSubscribeDriveFile 该接口用于查询云文档事件的订阅状态。了解事件订阅的配置流程和使用场景, 参考[事件概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。了解云文档支持的事件类型, 参考[事件列表](https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-list)。
+//
+// ## 前提条件
+// - 调用接口前, 请确保应用或用户为文档所有者或文档管理者。文档的通知事件仅支持文档拥有者和文档管理者订阅。
+// - 调用接口前, 请确保正确配置订阅方式并添加了事件。详情参考[配置订阅方式](https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-subscription-configure-/request-url-configuration-case)和[添加事件](https://open.feishu.cn/document/ukTMukTMukTM/uYDNxYjL2QTM24iN0EjN/event-subscription-configure-/subscription-event-case)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/get_subscribe
+// new doc: https://open.feishu.cn/document/docs/drive-v1/event/get_subscribe
 func (r *DriveService) GetSubscribeDriveFile(ctx context.Context, request *GetSubscribeDriveFileReq, options ...MethodOptionFunc) (*GetSubscribeDriveFileResp, *Response, error) {
 	if r.cli.mock.mockDriveGetSubscribeDriveFile != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetSubscribeDriveFile mock enable")
@@ -58,14 +63,14 @@ func (r *Mock) UnMockDriveGetSubscribeDriveFile() {
 
 // GetSubscribeDriveFileReq ...
 type GetSubscribeDriveFileReq struct {
-	FileToken string   `path:"file_token" json:"-"`  // 文档token, 示例值: "doccnxxxxxxxxxxxxxxxxxxxxxx"
-	FileType  FileType `query:"file_type" json:"-"`  // 文档类型, 示例值: doc, 可选值有: doc: 文档, docx: docx文档, sheet: 表格, bitable: 多维表格, file: 文件, folder: 文件夹
-	EventType *string  `query:"event_type" json:"-"` // 事件类型, 订阅为folder类型时必填, 示例值: file.created_in_folder_v1
+	FileToken string   `path:"file_token" json:"-"`  // 云文档的 token。了解如何获取各类云文档的 token, 参考[云空间常见问题](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/faq)。示例值: "doccnfYZzTlvXqZIGTdAHKabcef"
+	FileType  FileType `query:"file_type" json:"-"`  // 文档类型示例值: docx可选值有: 旧版文档。已不推荐使用新版文档电子表格多维表格文件文件夹幻灯片
+	EventType *string  `query:"event_type" json:"-"` // 事件类型, `file_type` 为 `folder `（文件夹）时必填 `file.created_in_folder_v1`示例值: file.created_in_folder_v1
 }
 
 // GetSubscribeDriveFileResp ...
 type GetSubscribeDriveFileResp struct {
-	IsSubseribe bool `json:"is_subseribe,omitempty"` // 是否有订阅, 取值 true 表示已订阅；false 表示未订阅
+	IsSubscribe bool `json:"is_subscribe,omitempty"` // 是否有订阅, 取值 true 表示已订阅；false 表示未订阅
 }
 
 // getSubscribeDriveFileResp ...

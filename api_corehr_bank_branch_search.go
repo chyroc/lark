@@ -58,13 +58,13 @@ func (r *Mock) UnMockCoreHRSearchCoreHRBankBranch() {
 
 // SearchCoreHRBankBranchReq ...
 type SearchCoreHRBankBranchReq struct {
-	PageSize           int64    `query:"page_size" json:"-"`             // 分页大小, 最大 100示例值: 100 取值范围: `1` ～ `100
+	PageSize           int64    `query:"page_size" json:"-"`             // 分页大小, 最大 100示例值: 100 取值范围: `1` ～ `100`
 	PageToken          *string  `query:"page_token" json:"-"`            // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: MDBK00000120
-	BankIDList         []string `json:"bank_id_list,omitempty"`          // 银行 ID 列表, 可通过[查询银行信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-bank/search)列举, 或从[批量查询员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)等接口返回的 `person_info.bank_account_list.bank_id_v2` 字段中获取示例值: ["MDBH00000080"] 最大长度: `100
-	BankBranchIDList   []string `json:"bank_branch_id_list,omitempty"`   // 支行 ID 列表, 可通过[批量查询员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)等接口返回的 `person_info.bank_account_list.bank_branch_id_v2` 字段获取示例值: ["MDBK00061194"] 最大长度: `100
-	BankBranchNameList []string `json:"bank_branch_name_list,omitempty"` // 支行名称列表, 支持对支行名称精确搜索示例值: ["招商银行北京分行"] 最大长度: `100
-	CodeList           []string `json:"code_list,omitempty"`             // 金融分支机构编码（联行号）列表, 支持对金融分支机构编码精确搜索示例值: ["308100005019"] 最大长度: `100
-	StatusList         []int64  `json:"status_list,omitempty"`           // 状态列表示例值: [1]可选值有: 生效失效默认值: `[1]` 最大长度: `2
+	BankIDList         []string `json:"bank_id_list,omitempty"`          // 银行 ID 列表, 可通过[查询银行信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-bank/search)列举, 或从[批量查询员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)等接口返回的 `person_info.bank_account_list.bank_id_v2` 字段中获取示例值: ["MDBH00000080"] 最大长度: `100`
+	BankBranchIDList   []string `json:"bank_branch_id_list,omitempty"`   // 支行 ID 列表, 可通过[批量查询员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)等接口返回的 `person_info.bank_account_list.bank_branch_id_v2` 字段获取示例值: ["MDBK00061194"] 最大长度: `100`
+	BankBranchNameList []string `json:"bank_branch_name_list,omitempty"` // 支行名称列表, 支持对支行名称精确搜索示例值: ["招商银行北京分行"] 最大长度: `100`
+	CodeList           []string `json:"code_list,omitempty"`             // 金融分支机构编码（联行号）列表, 支持对金融分支机构编码精确搜索示例值: ["308100005019"] 最大长度: `100`
+	StatusList         []int64  `json:"status_list,omitempty"`           // 状态列表示例值: [1]可选值有: 生效失效默认值: `[1]` 最大长度: `2`
 	UpdateStartTime    *string  `json:"update_start_time,omitempty"`     // 最早更新时间示例值: "2020-01-01 00:00:00"
 	UpdateEndTime      *string  `json:"update_end_time,omitempty"`       // 最晚更新时间示例值: "2024-01-01 00:00:00"
 }

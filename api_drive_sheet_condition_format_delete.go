@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// DeleteSheetConditionFormat 该接口用于删除已有的条件格式, 单次最多支持删除10个条件格式, 每个条件格式的删除会返回成功或者失败, 失败的情况包括各种参数的校验。
+// DeleteSheetConditionFormat 删除已有的条件格式。支持跨工作表删除多个条件格式。
+//
+// ## 使用限制
+// 单次调用该接口, 最多支持删除 10 个条件格式。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/conditionformat/condition-format-delete
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/conditionformat/condition-format-delete
@@ -35,7 +38,7 @@ func (r *DriveService) DeleteSheetConditionFormat(ctx context.Context, request *
 		Scope:                 "Drive",
 		API:                   "DeleteSheetConditionFormat",
 		Method:                "DELETE",
-		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/condition_formats/batch_delete",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v2/spreadsheets/:spreadsheet_token/condition_formats/batch_delete",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
@@ -59,32 +62,19 @@ func (r *Mock) UnMockDriveDeleteSheetConditionFormat() {
 
 // DeleteSheetConditionFormatReq ...
 type DeleteSheetConditionFormatReq struct {
-	SpreadSheetToken string                                   `path:"spreadsheetToken" json:"-"` // sheet 的 token, 获取方式见 [在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
-	SheetCfIDs       *DeleteSheetConditionFormatReqSheetCfIDs `json:"sheet_cf_ids,omitempty"`    // 表格条件格式id
-}
-
-// DeleteSheetConditionFormatReqSheetCfIDs ...
-type DeleteSheetConditionFormatReqSheetCfIDs struct {
-	SheetID string `json:"sheet_id,omitempty"` // sheet的id
-	CfID    string `json:"cf_id,omitempty"`    // 条件格式id
+	SpreadSheetToken string   `path:"spreadsheet_token" json:"-"` // 电子表格的 token。可通过以下两种方式获取。了解更多, 参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。-  电子表格的 URL: https://sample.feishu.cn/sheets/[Iow7sNNEphp3WbtnbCscPqabcef]- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)
+	SheetCfIDs       []string `json:"sheet_cf_ids,omitempty"`     // 要删除的电子表格条件格式的 ID。最多可删除 10 个条件格式。注意: 响应体中将返回每个条件格式的删除结果, 包括成功或具体的失败信息。
 }
 
 // DeleteSheetConditionFormatResp ...
 type DeleteSheetConditionFormatResp struct {
-	Responses []*DeleteSheetConditionFormatRespResponse `json:"responses,omitempty"` // 响应
-}
-
-// DeleteSheetConditionFormatRespResponse ...
-type DeleteSheetConditionFormatRespResponse struct {
-	SheetID string `json:"sheet_id,omitempty"` // sheet的Id
-	CfID    string `json:"cf_id,omitempty"`    // 条件格式id
-	ResCode int64  `json:"res_code,omitempty"` // 条件格式删除状态码, 0表示成功, 非0表示失败
-	ResMsg  string `json:"res_msg,omitempty"`  // 条件格式删除返回的状态信息, 空表示成功, 非空表示失败原因
+	Responses []interface{} `json:"responses,omitempty"` // 响应信息
 }
 
 // deleteSheetConditionFormatResp ...
 type deleteSheetConditionFormatResp struct {
-	Code int64                           `json:"code,omitempty"`
-	Msg  string                          `json:"msg,omitempty"`
-	Data *DeleteSheetConditionFormatResp `json:"data,omitempty"`
+	Code  int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败。
+	Msg   string                          `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteSheetConditionFormatResp `json:"data,omitempty"` // /
+	Error *ErrorDetail                    `json:"error,omitempty"`
 }

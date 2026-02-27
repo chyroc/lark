@@ -21,7 +21,9 @@ import (
 	"context"
 )
 
-// GetCoreHRLocation 根据 ID 查询单个地点。
+// GetCoreHRLocation 该接口用于根据地点 ID查询地点信息, 信息包含地点名称、描述、地点用途、工时制度、区域设置、时区以及关联的地址信息等。
+//
+// 延迟说明: 数据库主从延迟 2s 以内, 即: 直接创建地点后2s内调用此接口可能查询不到数据。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/get
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/location/get
@@ -58,7 +60,7 @@ func (r *Mock) UnMockCoreHRGetCoreHRLocation() {
 
 // GetCoreHRLocationReq ...
 type GetCoreHRLocationReq struct {
-	LocationID string `path:"location_id" json:"-"` // 地点 ID, 示例值: "1215"
+	LocationID string `path:"location_id" json:"-"` // 地点维护管理员在 飞书人事系统, 组织管理模块维护的地点记录 ID。ID获取方式: 调用[【创建地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/create)[【批量分页查询地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)等接口可以返回地点ID示例值: "1215"
 }
 
 // GetCoreHRLocationResp ...
@@ -68,15 +70,15 @@ type GetCoreHRLocationResp struct {
 
 // GetCoreHRLocationRespLocation ...
 type GetCoreHRLocationRespLocation struct {
-	ID                 string                                         `json:"id,omitempty"`                    // 实体在CoreHR内部的唯一键
-	HiberarchyCommon   *GetCoreHRLocationRespLocationHiberarchyCommon `json:"hiberarchy_common,omitempty"`     // 层级关系, 内层字段见实体
+	ID                 string                                         `json:"id,omitempty"`                    // 地点维护管理员在 飞书人事系统, 组织管理模块维护的地点记录 ID。
+	HiberarchyCommon   *GetCoreHRLocationRespLocationHiberarchyCommon `json:"hiberarchy_common,omitempty"`     // 地点基本信息, 该结构维护了地点的名称、编码、启用状态、上级地点 等基础信息。
 	LocationUsageList  []*GetCoreHRLocationRespLocationLocationUsage  `json:"location_usage_list,omitempty"`   // 地点用途
 	Address            []*GetCoreHRLocationRespLocationAddres         `json:"address,omitempty"`               // 地址
-	WorkingHoursTypeID string                                         `json:"working_hours_type_id,omitempty"` // 工时制度
-	EffectiveTime      string                                         `json:"effective_time,omitempty"`        // 生效时间
-	ExpirationTime     string                                         `json:"expiration_time,omitempty"`       // 失效时间
-	CustomFields       []*GetCoreHRLocationRespLocationCustomField    `json:"custom_fields,omitempty"`         // 自定义字段
-	Locale             *GetCoreHRLocationRespLocationLocale           `json:"locale,omitempty"`                // 区域设置
+	WorkingHoursTypeID string                                         `json:"working_hours_type_id,omitempty"` // 工时制度 ID, 枚举值及详细信息可通过[【批量查询工时制度】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/list)接口查询获得
+	EffectiveTime      string                                         `json:"effective_time,omitempty"`        // 当前版本生效日期- 返回格式: YYYY-MM-DD 00:00:00（最小单位到日）- 日期范围:1900-01-01 00:00:00～9999-12-31 00:00:00- 详情可以参考[时间轴介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/about-timeline-version)- 该字段和data.hiberarchy_common.effective_time值相同
+	ExpirationTime     string                                         `json:"expiration_time,omitempty"`       // 当前版本失效日期- 返回格式: YYYY-MM-DD（最小单位到日）- 日期范围:1900-01-01～9999-12-31- 详情可以参考[时间轴介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/about-timeline-version)- 该字段和data.hiberarchy_common.expiration_time值相同
+	CustomFields       []*GetCoreHRLocationRespLocationCustomField    `json:"custom_fields,omitempty"`         // 自定义字段（该功能暂不支持, 可忽略）
+	Locale             *GetCoreHRLocationRespLocationLocale           `json:"locale,omitempty"`                // 区域设置ID, 枚举值及详细信息可通过[【批量查询枚举信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询获得。- 请求参数object_api_name=location；custom_api_name=locale
 	TimeZoneID         string                                         `json:"time_zone_id,omitempty"`          // 时区
 	DisplayLanguageID  string                                         `json:"display_language_id,omitempty"`   // 默认显示语言
 }
@@ -86,10 +88,10 @@ type GetCoreHRLocationRespLocationAddres struct {
 	FullAddressLocalScript   string                                            `json:"full_address_local_script,omitempty"`   // 完整地址（本地文字）
 	FullAddressWesternScript string                                            `json:"full_address_western_script,omitempty"` // 完整地址（西方文字）
 	ID                       string                                            `json:"id,omitempty"`                          // 地址ID
-	CountryRegionID          string                                            `json:"country_region_id,omitempty"`           // 国家 / 地区
-	RegionID                 string                                            `json:"region_id,omitempty"`                   // 主要行政区
-	CityID                   string                                            `json:"city_id,omitempty"`                     // 城市, 该字段已作废, 请使用 city_id_v2 字段
-	DistinctID               string                                            `json:"distinct_id,omitempty"`                 // 区/县, 该字段已作废, 请使用 district_id_v2 字段
+	CountryRegionID          string                                            `json:"country_region_id,omitempty"`           // 国家 / 地区 ID可通过[【查询国家/地区信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)接口获取
+	RegionID                 string                                            `json:"region_id,omitempty"`                   // 主要行政区 ID可通过[【查询省份/行政区信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region_subdivision/search)接口获取
+	CityID                   string                                            `json:"city_id,omitempty"`                     // 城市
+	DistinctID               string                                            `json:"distinct_id,omitempty"`                 // 区/县
 	AddressLine1             string                                            `json:"address_line1,omitempty"`               // 地址行 1
 	AddressLine2             string                                            `json:"address_line2,omitempty"`               // 地址行 2
 	AddressLine3             string                                            `json:"address_line3,omitempty"`               // 地址行 3
@@ -109,7 +111,7 @@ type GetCoreHRLocationRespLocationAddres struct {
 	LocalAddressLine8        string                                            `json:"local_address_line8,omitempty"`         // 地址行 8（非拉丁语系的本地文字）
 	LocalAddressLine9        string                                            `json:"local_address_line9,omitempty"`         // 地址行 9（非拉丁语系的本地文字）
 	PostalCode               string                                            `json:"postal_code,omitempty"`                 // 邮政编码
-	AddressTypeList          []*GetCoreHRLocationRespLocationAddresAddressType `json:"address_type_list,omitempty"`           // 地址类型
+	AddressTypeList          []*GetCoreHRLocationRespLocationAddresAddressType `json:"address_type_list,omitempty"`           // 地址类型枚举值可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "address" - custom_api_name = "address_type"
 	IsPrimary                bool                                              `json:"is_primary,omitempty"`                  // 主要地址
 	IsPublic                 bool                                              `json:"is_public,omitempty"`                   // 公开地址
 	CustomFields             []*GetCoreHRLocationRespLocationAddresCustomField `json:"custom_fields,omitempty"`               // 自定义字段
@@ -123,64 +125,62 @@ type GetCoreHRLocationRespLocationAddresAddressType struct {
 
 // GetCoreHRLocationRespLocationAddresAddressTypeDisplay ...
 type GetCoreHRLocationRespLocationAddresAddressTypeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
+	Lang  string `json:"lang,omitempty"`  // 语言- 中文用zh-CN, 英文用en-US。
 	Value string `json:"value,omitempty"` // 内容
 }
 
 // GetCoreHRLocationRespLocationAddresCustomField ...
 type GetCoreHRLocationRespLocationAddresCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名
-	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(123, 123.23, true, [\"id1\", \"id2\], 2006-01-02 15:04:05])
+	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同。如: ```("\"123\"", "\"123.23\"", "\"true\"", [\"id1\", \"id2\"], \"2006-01-02 15:04:05\")```
 }
 
 // GetCoreHRLocationRespLocationCustomField ...
 type GetCoreHRLocationRespLocationCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名
-	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(123, 123.23, true, [\"id1\", \"id2\], 2006-01-02 15:04:05])
+	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同。如: ```("\"123\"", "\"123.23\"", "\"true\"", [\"id1\", \"id2\"], \"2006-01-02 15:04:05\")```
 }
 
 // GetCoreHRLocationRespLocationHiberarchyCommon ...
 type GetCoreHRLocationRespLocationHiberarchyCommon struct {
-	ParentID       string                                                      `json:"parent_id,omitempty"`       // 上级地点
+	ParentID       string                                                      `json:"parent_id,omitempty"`       // 上级地点ID- 可通过[查询单个地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/get)获取详情。- 若查询的是一级地点, 则该字段不展示
 	Name           []*GetCoreHRLocationRespLocationHiberarchyCommonName        `json:"name,omitempty"`            // 名称
-	Type           *GetCoreHRLocationRespLocationHiberarchyCommonType          `json:"type,omitempty"`            // 类型
+	Type           *GetCoreHRLocationRespLocationHiberarchyCommonType          `json:"type,omitempty"`            // 组织类型
 	Active         bool                                                        `json:"active,omitempty"`          // 启用
-	EffectiveTime  string                                                      `json:"effective_time,omitempty"`  // 生效时间
-	ExpirationTime string                                                      `json:"expiration_time,omitempty"` // 失效时间
+	EffectiveTime  string                                                      `json:"effective_time,omitempty"`  // 当前版本生效日期- 返回格式: YYYY-MM-DD 00:00:00（最小单位到日）- 日期范围:1900-01-01 00:00:00～9999-12-31 00:00:00- 详情可以参考[时间轴介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/about-timeline-version)- 该字段和data. effective_time返回值相同
+	ExpirationTime string                                                      `json:"expiration_time,omitempty"` // 当前版本失效日期- 返回格式: YYYY-MM-DD 00:00:00（最小单位到日）- 日期范围:1900-01-01 00:00:00～9999-12-31 00:00:00- 系统默认为失效日期当天的 00:00:00 失效- 详情可以参考[时间轴介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/about-timeline-version)
 	Code           string                                                      `json:"code,omitempty"`            // 编码
 	Description    []*GetCoreHRLocationRespLocationHiberarchyCommonDescription `json:"description,omitempty"`     // 描述
-	TreeOrder      string                                                      `json:"tree_order,omitempty"`      // 树形排序
-	ListOrder      string                                                      `json:"list_order,omitempty"`      // 列表排序
-	CustomFields   []*GetCoreHRLocationRespLocationHiberarchyCommonCustomField `json:"custom_fields,omitempty"`   // 自定义字段
+	CustomFields   []*GetCoreHRLocationRespLocationHiberarchyCommonCustomField `json:"custom_fields,omitempty"`   // 自定义字段（该功能暂不支持, 可忽略）
 }
 
 // GetCoreHRLocationRespLocationHiberarchyCommonCustomField ...
 type GetCoreHRLocationRespLocationHiberarchyCommonCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名
-	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(123, 123.23, true, [\"id1\", \"id2\], 2006-01-02 15:04:05])
+	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同。如: ```("\"123\"", "\"123.23\"", "\"true\"", [\"id1\", \"id2\"], \"2006-01-02 15:04:05\")```
 }
 
 // GetCoreHRLocationRespLocationHiberarchyCommonDescription ...
 type GetCoreHRLocationRespLocationHiberarchyCommonDescription struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
+	Lang  string `json:"lang,omitempty"`  // 语言- 中文用zh-CN, 英文用en-US。
 	Value string `json:"value,omitempty"` // 内容
 }
 
 // GetCoreHRLocationRespLocationHiberarchyCommonName ...
 type GetCoreHRLocationRespLocationHiberarchyCommonName struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言- 中文用zh-CN, 英文用en-US。
+	Value string `json:"value,omitempty"` // 内容- 名称不能包含「/」「；」「;」字符- xx中英文名称会有全局唯一校验
 }
 
 // GetCoreHRLocationRespLocationHiberarchyCommonType ...
 type GetCoreHRLocationRespLocationHiberarchyCommonType struct {
-	EnumName string                                                      `json:"enum_name,omitempty"` // 枚举值
+	EnumName string                                                      `json:"enum_name,omitempty"` // 组织类型, 枚举值及详细信息可通过[【批量查询枚举信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询获得。- 请求参数object_api_name=organization；custom_api_name=org_type- 该接口返回固定常量location
 	Display  []*GetCoreHRLocationRespLocationHiberarchyCommonTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
 // GetCoreHRLocationRespLocationHiberarchyCommonTypeDisplay ...
 type GetCoreHRLocationRespLocationHiberarchyCommonTypeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
+	Lang  string `json:"lang,omitempty"`  // 语言- 中文用zh-CN, 英文用en-US。
 	Value string `json:"value,omitempty"` // 内容
 }
 
@@ -192,19 +192,19 @@ type GetCoreHRLocationRespLocationLocale struct {
 
 // GetCoreHRLocationRespLocationLocaleDisplay ...
 type GetCoreHRLocationRespLocationLocaleDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
+	Lang  string `json:"lang,omitempty"`  // 语言- 中文用zh-CN, 英文用en-US。
 	Value string `json:"value,omitempty"` // 内容
 }
 
 // GetCoreHRLocationRespLocationLocationUsage ...
 type GetCoreHRLocationRespLocationLocationUsage struct {
-	EnumName string                                               `json:"enum_name,omitempty"` // 枚举值
+	EnumName string                                               `json:"enum_name,omitempty"` // 地点用途 ID, 枚举值及详细信息可通过[【批量查询地点用途】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询获得。- 请求参数object_api_name=location；custom_api_name=location_usage
 	Display  []*GetCoreHRLocationRespLocationLocationUsageDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
 // GetCoreHRLocationRespLocationLocationUsageDisplay ...
 type GetCoreHRLocationRespLocationLocationUsageDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
+	Lang  string `json:"lang,omitempty"`  // 语言- 中文用zh-CN, 英文用en-US。
 	Value string `json:"value,omitempty"` // 内容
 }
 

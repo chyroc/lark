@@ -74,7 +74,7 @@ type UpdateBitableFieldReq struct {
 
 // UpdateBitableFieldReqDescription ...
 type UpdateBitableFieldReqDescription struct {
-	DisableSync *bool   `json:"disable_sync,omitempty"` // 是否禁止同步该描述, 只在新增、修改字段时生效。枚举值: true: 表示禁止同步该描述内容到表单的问题描述- false: 允许同步该描述示例值: true默认值: `true
+	DisableSync *bool   `json:"disable_sync,omitempty"` // 是否禁止同步该描述, 只在新增、修改字段时生效。枚举值: true: 表示禁止同步该描述内容到表单的问题描述- false: 允许同步该描述示例值: true默认值: `true`
 	Text        *string `json:"text,omitempty"`         // 字段描述内容示例值: "这是一个字段描述"
 }
 
@@ -127,7 +127,7 @@ type UpdateBitableFieldReqPropertyLocation struct {
 type UpdateBitableFieldReqPropertyOption struct {
 	Name  *string `json:"name,omitempty"`  // 选项名称示例值: "红色"
 	ID    *string `json:"id,omitempty"`    // 选项 ID示例值: "optKl35lnG"
-	Color *int64  `json:"color,omitempty"` // 选项颜色, 详情参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。示例值: 0 取值范围: `0` ～ `54
+	Color *int64  `json:"color,omitempty"` // 选项颜色, 详情参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。示例值: 0 取值范围: `0` ～ `54`
 }
 
 // UpdateBitableFieldReqPropertyRating ...
@@ -147,8 +147,8 @@ type UpdateBitableFieldReqPropertyTypeUiProperty struct {
 	CurrencyCode   *string                                            `json:"currency_code,omitempty"`   // 货币币种示例值: "CNY" 长度范围: `0` ～ `20` 字符
 	Formatter      *string                                            `json:"formatter,omitempty"`       // 数字、公式字段的显示格式示例值: "0" 长度范围: `0` ～ `50` 字符
 	RangeCustomize *bool                                              `json:"range_customize,omitempty"` // 进度等字段是否支持自定义范围示例值: true
-	Min            *float64                                           `json:"min,omitempty"`             // 进度、评分等字段的数据范围最小值示例值: 1 取值范围: `0` ～ `1
-	Max            *float64                                           `json:"max,omitempty"`             // 进度、评分等字段的数据范围最大值示例值: 100 取值范围: `1` ～ `100
+	Min            *float64                                           `json:"min,omitempty"`             // 进度、评分等字段的数据范围最小值示例值: 1 取值范围: `0` ～ `1`
+	Max            *float64                                           `json:"max,omitempty"`             // 进度、评分等字段的数据范围最大值示例值: 100 取值范围: `1` ～ `100`
 	DateFormatter  *string                                            `json:"date_formatter,omitempty"`  // 日期、创建时间、最后更新时间字段的显示格式示例值: "yyyy/MM/dd" 长度范围: `0` ～ `50` 字符
 	Rating         *UpdateBitableFieldReqPropertyTypeUiPropertyRating `json:"rating,omitempty"`          // 评分字段的相关设置
 }

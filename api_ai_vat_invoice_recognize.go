@@ -24,9 +24,11 @@ import (
 
 // RecognizeAIVatInvoice 增值税发票识别接口, 支持JPG/JPEG/PNG/PDF/BMP/OFD六种文件类型的一次性的识别。
 //
+// 文件大小需要小于10M。
 // 单租户限流: 10QPS, 同租户下的应用没有限流, 共享本租户的 10QPS 限流
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/document_ai-v1/vat_invoice/recognize
+// new doc: https://open.feishu.cn/document/ai/document_ai-v1/vat_invoice/recognize
 func (r *AIService) RecognizeAIVatInvoice(ctx context.Context, request *RecognizeAIVatInvoiceReq, options ...MethodOptionFunc) (*RecognizeAIVatInvoiceResp, *Response, error) {
 	if r.cli.mock.mockAIRecognizeAIVatInvoice != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] AI#RecognizeAIVatInvoice mock enable")
@@ -61,7 +63,7 @@ func (r *Mock) UnMockAIRecognizeAIVatInvoice() {
 
 // RecognizeAIVatInvoiceReq ...
 type RecognizeAIVatInvoiceReq struct {
-	File io.Reader `json:"file,omitempty"` // 识别的增值税发票文件（支持JPG/JPEG/PNG/PDF/BMP/OFD）, 示例值: file binary
+	File io.Reader `json:"file,omitempty"` // 识别的增值税发票文件（支持JPG/JPEG/PNG/PDF/BMP/OFD）示例值: file binary
 }
 
 // RecognizeAIVatInvoiceResp ...
@@ -76,8 +78,9 @@ type RecognizeAIVatInvoiceRespVatInvoice struct {
 
 // RecognizeAIVatInvoiceRespVatInvoiceEntity ...
 type RecognizeAIVatInvoiceRespVatInvoiceEntity struct {
-	Type  string `json:"type,omitempty"`  // 识别的实体类型, 可选值有: invoice_name: 发票抬头, invoice_code: 发票代码, invoice_no: 发票号码, invoice_date: 开票日期, total_price: 合计金额（不含税）, total_tax: 合计税额, big_total_price_and_tax: 合计总额（大写）, check_code: 校验码, total_price_and_tax: 合计总额, buyer_name: 购买方名称, buyer_taxpayer_no: 购买方纳税人识别号, buyer_address_phone: 购买方地址&电话所有人, buyer_account: 购买方开户行&账号, seller_name: 销售方名称, seller_taxpayer_no: 销售方纳税人识别号, seller_address_phone: 销售方地址&电话, seller_account: 销售方开户行&账号, payee: 收款人
-	Value string `json:"value,omitempty"` // 识别出字段的文本信息
+	Type  string                `json:"type,omitempty"`  // 识别的实体类型可选值有: 发票抬头发票代码发票号码开票日期合计金额（不含税）合计税额合计总额（大写）校验码合计总额购买方名称购买方纳税人识别号购买方地址&电话所有人购买方开户行&账号销售方名称销售方纳税人识别号销售方地址&电话销售方开户行&账号收款人开票日期密码区备注复核人开票人是否盖章印章内销售方名称印章内销售方纳税人识别号印章名称机器编号
+	Value string                `json:"value,omitempty"` // 识别出字段的文本信息
+	Items [][]map[string]string `json:"items,omitempty"` // 识别出的票据详细信息
 }
 
 // recognizeAIVatInvoiceResp ...

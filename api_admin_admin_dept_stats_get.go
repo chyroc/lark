@@ -67,7 +67,7 @@ type GetAdminDeptStatsReq struct {
 	EndDate            string           `query:"end_date" json:"-"`             // 终止日期（包含）, 格式是YYYY-mm-dd, 与起止日期start_date之间相差不能超过91天（包含91天）（CN UTC+8, 非CN UTC+0）示例值: 2020-02-15
 	DepartmentID       string           `query:"department_id" json:"-"`        // 部门的 ID, 取决于department_id_type, 仅支持根部门及其下前4级子部门（通过管理后台部门详情获取）示例值: od-382e2793cfc9471f892e8a672987654c
 	ContainsChildDept  bool             `query:"contains_child_dept" json:"-"`  // 是否包含子部门, 如果该值为false, 则只查出本部门直属用户活跃和功能使用数据；如果该值为true, 则查出该部门以及其子部门（子部门层级最多不超过根部门下的前4级）的用户活跃和功能使用数据示例值: false
-	PageSize           *int64           `query:"page_size" json:"-"`            // 默认值是10, 表示每页返回10条数据示例值: 10 取值范围: `1` ～ `20
+	PageSize           *int64           `query:"page_size" json:"-"`            // 默认值是10, 表示每页返回10条数据示例值: 10 取值范围: `1` ～ `20`
 	PageToken          *string          `query:"page_token" json:"-"`           // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: "2"
 	TargetGeo          *string          `query:"target_geo" json:"-"`           // 需跨域访问的Geo数据, 每个Geo仅包含本Geo数据, 不传默认查本地数据, 调用前需要先开通FG(cn、sg、jp、us)示例值: cn
 	WithProductVersion *bool            `query:"with_product_version" json:"-"` // 是否返回分产品版本数据, 默认false, 不返回示例值: true(默认是false)

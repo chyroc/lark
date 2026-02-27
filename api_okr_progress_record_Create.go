@@ -61,12 +61,12 @@ func (r *Mock) UnMockOKRCreateOKRProgressRecord() {
 type CreateOKRProgressRecordReq struct {
 	UserIDType      *IDType                                 `query:"user_id_type" json:"-"`      // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	SourceTitle     string                                  `json:"source_title,omitempty"`      // 进展来源示例值: "周报系统"
-	SourceURL       string                                  `json:"source_url,omitempty"`        // 进展来源链接示例值: "https://www.zhoubao.com" 正则校验: `^https?://.*$
+	SourceURL       string                                  `json:"source_url,omitempty"`        // 进展来源链接示例值: "https://www.zhoubao.com" 正则校验: `^https?://.*$`
 	TargetID        string                                  `json:"target_id,omitempty"`         // 目标 id, 与 target_type 对应, 可通过 OKR 内容相关接口获取示例值: "7041430377642082323"
 	TargetType      int64                                   `json:"target_type,omitempty"`       // 目标类型示例值: 2可选值有: okr的Ookr的KR
 	Content         *CreateOKRProgressRecordReqContent      `json:"content,omitempty"`           // 进展详情 富文本格式
-	SourceURLPc     *string                                 `json:"source_url_pc,omitempty"`     // pc进展来源链接示例值: "open.feishu.cn" 正则校验: `^https?://.*$
-	SourceURLMobile *string                                 `json:"source_url_mobile,omitempty"` // mobile进展来源链接示例值: "open.feishu.cn" 正则校验: `^https?://.*$
+	SourceURLPc     *string                                 `json:"source_url_pc,omitempty"`     // pc进展来源链接示例值: "open.feishu.cn" 正则校验: `^https?://.*$`
+	SourceURLMobile *string                                 `json:"source_url_mobile,omitempty"` // mobile进展来源链接示例值: "open.feishu.cn" 正则校验: `^https?://.*$`
 	ProgressRate    *CreateOKRProgressRecordReqProgressRate `json:"progress_rate,omitempty"`     // 进展, 包括百分比和状态
 }
 
@@ -170,7 +170,7 @@ type CreateOKRProgressRecordReqContentBlockParagraphStyleList struct {
 
 // CreateOKRProgressRecordReqProgressRate ...
 type CreateOKRProgressRecordReqProgressRate struct {
-	Percent *float64 `json:"percent,omitempty"` // 进展百分比, 保留两位小数示例值: 50.21默认值: `0` 取值范围: `-99999999999` ～ `99999999999
+	Percent *float64 `json:"percent,omitempty"` // 进展百分比, 保留两位小数示例值: 50.21默认值: `0` 取值范围: `-99999999999` ～ `99999999999`
 	Status  *int64   `json:"status,omitempty"`  // 进展状态示例值: 0可选值有: 暂无正常风险延期
 }
 

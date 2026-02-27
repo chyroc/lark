@@ -63,7 +63,7 @@ func (r *Mock) UnMockDriveGetWikiSpace() {
 // GetWikiSpaceReq ...
 type GetWikiSpaceReq struct {
 	SpaceID string  `path:"space_id" json:"-"` // 知识空间 ID。可通过以下两种方式获取。了解更多, 参考[知识库概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-overview)。- 调用 [获取知识空间列表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/list)获取- 如果你是知识库管理员, 可以进入知识库设置页面, 复制地址栏的数字部分: https://sample.feishu.cn/wiki/settings/[6870403571079249922]示例值: "6870403571079249922"
-	Lang    *string `query:"lang" json:"-"`    // 当查询我的文档库时, 指定返回的文档库名称展示语言。示例值: zh可选值有: 简体中文印尼语德语英语西班牙语法语意大利语葡萄牙语越南语俄语印地语泰语韩语日语繁体中文（中国香港）繁体中文（中国台湾）默认值: `en
+	Lang    *string `query:"lang" json:"-"`    // 当查询我的文档库时, 指定返回的文档库名称展示语言。示例值: zh可选值有: 简体中文印尼语德语英语西班牙语法语意大利语葡萄牙语越南语俄语印地语泰语韩语日语繁体中文（中国香港）繁体中文（中国台湾）默认值: `en`
 }
 
 // GetWikiSpaceResp ...

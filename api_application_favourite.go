@@ -60,7 +60,7 @@ func (r *Mock) UnMockApplicationGetApplicationFavourite() {
 type GetApplicationFavouriteReq struct {
 	Language  *string `query:"language" json:"-"`   // 应用信息的语言版本示例值: "zh_cn"可选值有: 中文英文日文
 	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: "new-e11ee058b4a8ed2881da11ac7e37c4fc"
-	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小示例值: 10默认值: `10
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小示例值: 10默认值: `10`
 }
 
 // GetApplicationFavouriteResp ...

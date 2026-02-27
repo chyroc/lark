@@ -21,7 +21,13 @@ import (
 	"context"
 )
 
-// GetSheetValue 该接口用于根据 spreadsheetToken 和 range 读取表格单个范围的值, 返回数据限制为10M。
+// GetSheetValue 读取电子表格中单个指定范围的数据。
+//
+// ## 使用限制
+// - 该接口返回数据的最大限制为 10 MB。
+// - 该接口不支持获取跨表引用和数组公式的计算结果。
+// ## 前提条件
+// 调用此接口前, 请确保当前调用身份（tenant_access_token 或 user_access_token）已有电子表格的阅读、编辑等文档权限, 否则接口将返回 HTTP 403 或 400 状态码。了解更多, 参考[如何为应用或用户开通文档权限](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#16c6475a)。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ugTMzUjL4EzM14COxMTN
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/data-operation/reading-a-single-range
@@ -59,31 +65,32 @@ func (r *Mock) UnMockDriveGetSheetValue() {
 
 // GetSheetValueReq ...
 type GetSheetValueReq struct {
-	SpreadSheetToken     string  `path:"spreadsheetToken" json:"-"`      // spreadsheet 的 token, 详见电子表格[概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
-	Range                string  `path:"range" json:"-"`                 // 查询范围, 包含 sheetId 与单元格范围两部分, 详见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。若查询范围中使用形如 `<sheetId>!<开始单元格>:<结束列>`的范围时, 仅支持获取100列数据
-	ValueRenderOption    *string `query:"valueRenderOption" json:"-"`    // 指定单元格数据的格式。可选值为如下所示。当参数缺省时, 默认不进行公式计算, 返回公式本身；数值不进行数字格式化, valueRenderOption=ToString: 返回纯文本的值（数值类型除外）, valueRenderOption=FormattedValue: 计算并格式化单元格, valueRenderOption=Formula: 单元格中含有公式时, 返回公式本身, valueRenderOption=UnformattedValue: 计算但不对单元格进行格式化
-	DateTimeRenderOption *string `query:"dateTimeRenderOption" json:"-"` // 指定数据类型为日期、时间、或时间日期的单元格数据的格式, 当参数缺省时, 默认返回浮点数值, 整数部分为自 1899 年 12 月 30 日以来的天数；小数部分为该时间占 24 小时的份额。例如: 若时间为 1900 年 1 月 1 日中午 12 点, 则默认返回 2.5。其中, 2 表示 1900 年 1 月 1 日为 1899 年12 月 30 日之后的 2 天；0.5 表示 12 点占 24 小时的二分之一, 即 12/24=0.5, dateTimeRenderOption=FormattedString: 计算并对时间、日期类型数据进行格式化, 但不会对数字进行格式化。将返回格式化后的字符串。详见[电子表格常见问题](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/guide/sheets-faq)
-	UserIDType           *IDType `query:"user_id_type" json:"-"`         // 当单元格中包含@用户等涉及用户信息的元素时, 该参数可指定返回的用户 ID 类型。默认为 lark_id, 建议选择 open_id 或 union_id。了解更多, 参考[用户身份概述](https://open.feishu.cn/document/home/user-identity-introduction/introduction), open_id: 用户在应用内的身份。 同一个 user_id 在不同应用中的 open_id 不同, 其值统一以 ou_ 为前缀, 如`ou_c99c5f35d542efc7ee492afe11af19ef`, union_id: 用户在同一应用服务商提供的多个应用间的统一身份。
+	SpreadSheetToken     string  `path:"spreadsheetToken" json:"-"`      // 电子表格的 token。可通过以下两种方式获取。了解更多, 参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。- 电子表格的 URL: https://sample.feishu.cn/sheets/[Iow7sNNEphp3WbtnbCscPqabcef]- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)      示例值: "Iow7sNNEphp3WbtnbCscPqabcef"
+	Range                string  `path:"range" json:"-"`                 // 查询范围。格式为 `<sheetId>!<开始位置>:<结束位置>`。其中: `sheetId` 为工作表 ID, 通过[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 获取- `<开始位置>:<结束位置>` 为工作表中单元格的范围, 数字表示行索引, 字母表示列索引。如 `A2:B2` 表示该工作表第 2 行的 A 列到 B 列。`range`支持四种写法, 详情参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)注意: 若使用 `<sheetId>!<开始单元格>:<结束列>` 和 `<sheetId>!<开始列>:<结束列>` 的写法时, 仅支持获取 100 列数据。        示例值: "Q7PlXT!A1:B2"
+	ValueRenderOption    *string `query:"valueRenderOption" json:"-"`    // 指定单元格数据的格式。可选值如下所示。当参数缺省时, 默认不进行公式计算, 返回公式本身, 且单元格为数值格式。- ToString: 返回纯文本的值（数值类型除外）- Formula: 单元格中含有公式时, 返回公式本身- FormattedValue: 计算并格式化单元格- UnformattedValue: 计算但不对单元格进行格式化
+	DateTimeRenderOption *string `query:"dateTimeRenderOption" json:"-"` // 指定数据类型为日期、时间、或时间日期的单元格数据的格式。- 若不传值, 默认返回浮点数值, 整数部分为自 1899 年 12 月 30 日以来的天数；小数部分为该时间占 24 小时的份额。例如: 若时间为 1900 年 1 月 1 日中午 12 点, 则默认返回 2.5。其中, 2 表示 1900 年 1 月 1 日为 1899 年12 月 30 日之后的 2 天；0.5 表示 12 点占 24 小时的二分之一, 即 12/24=0.5。- 可选值为 FormattedString, 此时接口将计算并对日期、时间、或时间日期类型的数据格式化并返回格式化后的字符串, 但不会对数字进行格式化。
+	UserIDType           *IDType `query:"user_id_type" json:"-"`         // 当单元格中包含@用户等涉及用户信息的元素时, 该参数可指定返回的用户 ID 类型。默认为 `lark_id`, 建议选择 `open_id` 或 `union_id`。了解更多, 参考[用户身份概述](https://open.feishu.cn/document/home/user-identity-introduction/introduction)。可选值: `open_id`: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。了解更多: [如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)- `union_id`: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。了解更多: [如何获取 Union ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)
 }
 
 // GetSheetValueResp ...
 type GetSheetValueResp struct {
-	Revision         int64                        `json:"revision,omitempty"`         // sheet 的版本号
-	SpreadSheetToken string                       `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token, 详见电子表格[概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
-	ValueRange       *GetSheetValueRespValueRange `json:"valueRange,omitempty"`       // 值与范围
+	Revision         int64                        `json:"revision,omitempty"`         // 工作表的版本号。从 0 开始计数, 更新一次版本号加一。
+	SpreadSheetToken string                       `json:"spreadsheetToken,omitempty"` // 表格的 token
+	ValueRange       *GetSheetValueRespValueRange `json:"valueRange,omitempty"`       // 读取的值与范围
 }
 
 // GetSheetValueRespValueRange ...
 type GetSheetValueRespValueRange struct {
-	MajorDimension string           `json:"majorDimension,omitempty"` // 插入维度
-	Range          string           `json:"range,omitempty"`          // 返回数据的范围, 为空时表示查询范围没有数据
-	Revision       int64            `json:"revision,omitempty"`       // sheet 的版本号
-	Values         [][]SheetContent `json:"values,omitempty"`         // 查询得到的值
+	MajorDimension string           `json:"majorDimension,omitempty"` // 返回的 values 数组中数据的呈现维度。固定取值 ROWS, 即数据为从左到右、从上到下的读取顺序。
+	Range          string           `json:"range,omitempty"`          // 读取的范围。为空时表示查询范围没有数据。
+	Revision       int64            `json:"revision,omitempty"`       // 工作表的版本号。从 0 开始计数, 更新一次版本号加一。
+	Values         [][]SheetContent `json:"values,omitempty"`         // 指定范围中的数据
 }
 
 // getSheetValueResp ...
 type getSheetValueResp struct {
-	Code int64              `json:"code,omitempty"`
-	Msg  string             `json:"msg,omitempty"`
-	Data *GetSheetValueResp `json:"data,omitempty"`
+	Code  int64              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string             `json:"msg,omitempty"`  // 错误描述
+	Data  *GetSheetValueResp `json:"data,omitempty"`
+	Error *ErrorDetail       `json:"error,omitempty"`
 }

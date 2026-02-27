@@ -60,17 +60,17 @@ func (r *Mock) UnMockVCUpdateVCReserveConfigForm() {
 type UpdateVCReserveConfigFormReq struct {
 	ReserveConfigID   string                                         `path:"reserve_config_id" json:"-"`    // 会议室或层级ID示例值: "omm_3c5dd7e09bac0c1758fcf9511bd1a771"
 	UserIDType        *IDType                                        `query:"user_id_type" json:"-"`        // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	ScopeType         int64                                          `json:"scope_type,omitempty"`          // 1代表层级, 2代表会议室示例值: 2 取值范围: `1` ～ `2
+	ScopeType         int64                                          `json:"scope_type,omitempty"`          // 1代表层级, 2代表会议室示例值: 2 取值范围: `1` ～ `2`
 	ReserveFormConfig *UpdateVCReserveConfigFormReqReserveFormConfig `json:"reserve_form_config,omitempty"` // 预定表单设置
 }
 
 // UpdateVCReserveConfigFormReqReserveFormConfig ...
 type UpdateVCReserveConfigFormReqReserveFormConfig struct {
 	IfCoverChildScope *bool                                                        `json:"if_cover_child_scope,omitempty"` // 是否覆盖子层级及会议室示例值: true
-	ReserveForm       bool                                                         `json:"reserve_form,omitempty"`         // 预定表单开关, true表示打开, false表示关闭示例值: false默认值: `false
+	ReserveForm       bool                                                         `json:"reserve_form,omitempty"`         // 预定表单开关, true表示打开, false表示关闭示例值: false默认值: `false`
 	NotifiedUsers     []*UpdateVCReserveConfigFormReqReserveFormConfigNotifiedUser `json:"notified_users,omitempty"`       // 通知人列表
 	NotifiedTime      *int64                                                       `json:"notified_time,omitempty"`        // 最晚于会议开始前 notified_time收到通知（单位: 分/时/天）示例值: 3
-	TimeUnit          *int64                                                       `json:"time_unit,omitempty"`            // 时间单位, 1为分钟；2为小时；3为天, 默认为天示例值: 3 取值范围: `1` ～ `3
+	TimeUnit          *int64                                                       `json:"time_unit,omitempty"`            // 时间单位, 1为分钟；2为小时；3为天, 默认为天示例值: 3 取值范围: `1` ～ `3`
 }
 
 // UpdateVCReserveConfigFormReqReserveFormConfigNotifiedUser ...

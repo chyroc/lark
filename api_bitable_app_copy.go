@@ -21,7 +21,11 @@ import (
 	"context"
 )
 
-// CopyBitableApp 复制一个多维表格, 可以指定复制到某个有权限的文件夹下
+// CopyBitableApp 复制一个多维表格, 可以指定复制到某个有权限的文件夹下。
+//
+// 当多维表格记录数超 50, 000 条可复制上限时, 仅可复制多维表格结构。
+// ## 前提条件
+// 调用此接口前, 请确保当前调用身份（tenant_access_token 或 user_access_token）已有多维表格和目标文件夹的阅读、编辑等文档权限, 否则接口将返回 HTTP 403 或 400 状态码。了解更多, 参考[如何为应用或用户开通云文档权限](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#16c6475a)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/copy
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app/copy
@@ -59,11 +63,11 @@ func (r *Mock) UnMockBitableCopyBitableApp() {
 
 // CopyBitableAppReq ...
 type CopyBitableAppReq struct {
-	AppToken       string  `path:"app_token" json:"-"`        // [多维表格 App token](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#8121eebe), 示例值: "S404b*e9PQsYDWYcNryFn0g"
-	Name           *string `json:"name,omitempty"`            // 多维表格 App 名字, 示例值: "一篇新的多维表格"
-	FolderToken    *string `json:"folder_token,omitempty"`    // [多维表格 App 归属文件夹 ](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df), 示例值: "fldbco*CIMltVc"
-	WithoutContent *bool   `json:"without_content,omitempty"` // 是否复制多维表格内容, 取值: * true: 不复制, * false: 复制, 示例值: false
-	TimeZone       *string `json:"time_zone,omitempty"`       // 文档时区, [详见](https://feishu.feishu.cn/docx/YKRndTM7VoyDqpxqqeEcd67MnEf), 示例值: "Asia/Shanghai"
+	AppToken       string  `path:"app_token" json:"-"`        // 要复制的多维表格 App 的唯一标识。不同形态的多维表格, 其 app_token 的获取方式不同, 参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview)获取。示例值: "AW3Qbtr2cakCnesXzXVbbsrIcVT "
+	Name           *string `json:"name,omitempty"`            // 多维表格 App 的名称示例值: "一篇新的多维表格"
+	FolderToken    *string `json:"folder_token,omitempty"`    // 了解如何获取文件夹 Token, 参考[如何获取云文档资源相关 Token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。注意: 请确保调用身份拥有在该文件夹中的编辑权限。若应用使用的是 `tenant_access_token` 权限, 此处仅可指定应用创建的文件夹。详情参考[如何为应用开通云文档相关资源的权限](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-add-permissions-to-app)。示例值: "fldcnqquW1svRIYVT2Np6Iabcef"
+	WithoutContent *bool   `json:"without_content,omitempty"` // 是否复制多维表格中的内容, 默认 false, 即复制多维表格中的内容。可取值: * true: 不复制* false: 复制示例值: false
+	TimeZone       *string `json:"time_zone,omitempty"`       // 文档时区, 详情参考[文档时区介绍](https://feishu.feishu.cn/docx/YKRndTM7VoyDqpxqqeEcd67MnEf)。示例值: "Asia/Shanghai"
 }
 
 // CopyBitableAppResp ...
@@ -73,12 +77,11 @@ type CopyBitableAppResp struct {
 
 // CopyBitableAppRespApp ...
 type CopyBitableAppRespApp struct {
-	AppToken       string `json:"app_token,omitempty"`        // 多维表格的 app_token
-	Name           string `json:"name,omitempty"`             // 多维表格的名字
-	FolderToken    string `json:"folder_token,omitempty"`     // 多维表格 App 归属文件夹
-	URL            string `json:"url,omitempty"`              // 多维表格 App URL
-	DefaultTableID string `json:"default_table_id,omitempty"` // 默认的表格id
-	TimeZone       string `json:"time_zone,omitempty"`        // 文档时区
+	AppToken    string `json:"app_token,omitempty"`    // 多维表格的唯一标识 app_token
+	Name        string `json:"name,omitempty"`         // 多维表格的名称
+	FolderToken string `json:"folder_token,omitempty"` // 多维表格 App 归属文件夹
+	URL         string `json:"url,omitempty"`          // 多维表格 App 的 URL 链接
+	TimeZone    string `json:"time_zone,omitempty"`    // 文档时区
 }
 
 // copyBitableAppResp ...

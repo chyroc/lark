@@ -21,10 +21,11 @@ import (
 	"context"
 )
 
-// EventV1RemedyApproval 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
+// EventV1RemedyApproval 审批定义的表单包含 补卡控件组 时, 该定义下的审批实例通过时, 触发该事件。
 //
-// 补卡申请审批通过后触发此事件。 你可以在「打卡」应用里提交补卡申请。
-// * 依赖权限: [访问审批应用] 或 [查看、创建、更新、删除审批应用相关信息]
+// ## 前提条件
+// - 应用已配置事件订阅, 了解事件订阅可参见[事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
+// - 应用已调用[订阅审批事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/subscribe)接口, 订阅了审批实例对应的审批定义 Code。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/attendance-record-correction
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/event/special-event/attendance-record-correction
@@ -37,17 +38,17 @@ type EventV1RemedyApprovalHandler func(ctx context.Context, cli *Lark, schema st
 
 // EventV1RemedyApproval ...
 type EventV1RemedyApproval struct {
-	Object *EventV1RemedyApprovalObject `json:"object,omitempty"` // 为当前的数据, 事件的标准格式
+	Object *EventV1RemedyApprovalObject `json:"object,omitempty"` // 事件详细信息。
 }
 
 // EventV1RemedyApprovalObject ...
 type EventV1RemedyApprovalObject struct {
-	Type         string `json:"type,omitempty"`          // 类型. 如: remedy_approval_v2
-	InstanceCode string `json:"instance_code,omitempty"` // 审批实例code
-	EmployeeID   string `json:"employee_id,omitempty"`   // 用户id
-	StartTime    int64  `json:"start_time,omitempty"`    // 审批发起时间, 单位: 秒. 如: 0
-	EndTime      int64  `json:"end_time,omitempty"`      // 审批结束时间, 单位: 秒. 如: 0
-	RemedyTime   int64  `json:"remedy_time,omitempty"`   // 补卡时间, 单位: 毫秒. 如: 0
-	RemedyReason string `json:"remedy_reason,omitempty"` // 补卡原因
-	Status       string `json:"status,omitempty"`        // 实例状态
+	EmployeeID   string `json:"employee_id,omitempty"`   // 审批发起人的 user_id。你可以调用[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口, 通过 user_id 获取用户信息。
+	InstanceCode string `json:"instance_code,omitempty"` // 审批实例 Code。可调用[获取单个审批实例详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get)接口查询审批实例详情。
+	StartTime    int64  `json:"start_time,omitempty"`    // 审批发起时间, 秒级时间戳。
+	EndTime      int64  `json:"end_time,omitempty"`      // 审批结束时间, 秒级时间戳。
+	RemedyTime   int64  `json:"remedy_time,omitempty"`   // 补卡时间, 毫秒级时间戳。
+	RemedyReason string `json:"remedy_reason,omitempty"` // 补卡原因。
+	Status       string `json:"status,omitempty"`        // 审批实例状态。审批实例通过时取值为 `APPROVED`
+	Type         string `json:"type,omitempty"`          // 固定取值 `remedy_approval_v2`
 }

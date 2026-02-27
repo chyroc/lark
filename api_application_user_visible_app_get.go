@@ -60,7 +60,7 @@ func (r *Mock) UnMockApplicationGetApplicationUserVisibleApp() {
 type GetApplicationUserVisibleAppReq struct {
 	PageToken *string `query:"page_token" json:"-"` // 分页起始位置标示, 不填表示从头开始。
 	PageSize  *int64  `query:"page_size" json:"-"`  // 单页需求最大个数（最大 100）, 0 自动最大个数。
-	Lang      *string `query:"lang" json:"-"`       // 优先展示的应用信息的语言版本, zh_cn: 简体中文, zh_hk: 繁体中文（中国香港）, zh_tw: 繁体中文（中国台湾）, en_us: 英文, ja_jp: 日文, ko_kr: 韩语, es_es: 西班牙语, pt-br: 葡萄牙语（巴西）, th_th: 泰语, vi_vn: 越南语, id_id: 印尼语
+	Lang      *string `query:"lang" json:"-"`       // 优先展示的应用信息的语言版本。- zh_cn: 简体中文- zh_hk: 繁体中文（中国香港）- zh_tw: 繁体中文（中国台湾）- en_us: 英文- ja_jp: 日文- ko_kr: 韩语- es_es: 西班牙语- pt-br: 葡萄牙语（巴西）- th_th: 泰语- vi_vn: 越南语- id_id: 印尼语
 	OpenID    *string `query:"open_id" json:"-"`    // 目标用户 open_id。
 	UserID    *string `query:"user_id" json:"-"`    // 目标用户 user_id, 与 open_id 至少给其中之一, user_id 优先于 open_id。
 }
@@ -77,15 +77,16 @@ type GetApplicationUserVisibleAppResp struct {
 
 // GetApplicationUserVisibleAppRespAppList ...
 type GetApplicationUserVisibleAppRespAppList struct {
-	AppID                string `json:"app_id,omitempty"`                 // 应用 ID
-	PrimaryLanguage      string `json:"primary_language,omitempty"`       // 应用首选语言
-	AppName              string `json:"app_name,omitempty"`               // 应用名称
-	Description          string `json:"description,omitempty"`            // 应用描述
-	AvatarURL            string `json:"avatar_url,omitempty"`             // 应用 icon
-	AppSceneType         int64  `json:"app_scene_type,omitempty"`         // 应用类型, 0: 企业自建应用；1: 应用商店应用
-	Status               int64  `json:"status,omitempty"`                 // 启停状态, 0: 停用；1: 启用
-	MobileDefaultAbility int64  `json:"mobile_default_ability,omitempty"` // 移动端默认的应用功能, 0: 未开启；1: 小程序；2: H5；8: 机器人
-	PcDefaultAbility     int64  `json:"pc_default_ability,omitempty"`     // PC客户端默认的应用功能, 0: 未开启；1: 小程序；2: H5；8: 机器人
+	AppID                string      `json:"app_id,omitempty"`                 // 应用 ID
+	PrimaryLanguage      string      `json:"primary_language,omitempty"`       // 应用首选语言
+	AppName              string      `json:"app_name,omitempty"`               // 应用名称
+	Description          string      `json:"description,omitempty"`            // 应用描述
+	AvatarURL            string      `json:"avatar_url,omitempty"`             // 应用 icon
+	AppSceneType         int64       `json:"app_scene_type,omitempty"`         // 应用类型, 0: 企业自建应用；1: 应用商店应用
+	Status               int64       `json:"status,omitempty"`                 // 启停状态, 0: 停用；1: 启用
+	MobileDefaultAbility int64       `json:"mobile_default_ability,omitempty"` // 移动端默认的应用功能, 0: 未开启；1: 小程序；2: H5；8: 机器人
+	PcDefaultAbility     int64       `json:"pc_default_ability,omitempty"`     // PC客户端默认的应用功能, 0: 未开启；1: 小程序；2: H5；8: 机器人
+	CreateSource         interface{} `json:"create_source,omitempty"`          // 应用创建来源: `developer_console`: 开发者后台；`base`: 多维表格自动化流程创建的应用；`app_engine`: 飞书应用引擎；`bot_builder`: 机器人助手；`aily`: aily(智能伙伴搭建平台)；`unknown`: 未知来源
 }
 
 // getApplicationUserVisibleAppResp ...

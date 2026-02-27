@@ -59,7 +59,7 @@ func (r *Mock) UnMockHireGetHireAttachment() {
 // GetHireAttachmentReq ...
 type GetHireAttachmentReq struct {
 	AttachmentID string `path:"attachment_id" json:"-"` // 附件 ID, 获取方式如下: 简历附件 ID/作品附件 ID: 通过[获取人才信息 V1](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/get)接口获取- 通用附件 ID: 通过[创建附件](https://open.feishu.cn/document/ukTMukTMukTM/uIDN1YjLyQTN24iM0UjN/create_attachment)、[获取 Offer 详情](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer/get)、[获取 Offer 信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/offer)接口获取示例值: "6960663240925956555"
-	Type         *int64 `query:"type" json:"-"`         // 附件类型示例值: 1可选值有: 简历附件, 人才上的简历附件。作品附件, 人才上的作品附件。通用附件, 通过[创建附件](https://open.feishu.cn/document/ukTMukTMukTM/uIDN1YjLyQTN24iM0UjN/create_attachment)、[获取 Offer 详情](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer/get)、[获取 Offer 信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/offer)接口获取。默认值: `1
+	Type         *int64 `query:"type" json:"-"`         // 附件类型示例值: 1可选值有: 简历附件, 人才上的简历附件。作品附件, 人才上的作品附件。通用附件, 通过[创建附件](https://open.feishu.cn/document/ukTMukTMukTM/uIDN1YjLyQTN24iM0UjN/create_attachment)、[获取 Offer 详情](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer/get)、[获取 Offer 信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/offer)接口获取。默认值: `1`
 }
 
 // GetHireAttachmentResp ...

@@ -21,7 +21,16 @@ import (
 	"context"
 )
 
-// CreateDriveMemberPermission 该接口用于根据文件的 token 给用户增加文档的权限。
+// CreateDriveMemberPermission 为指定云文档添加协作者, 协作者可以是用户、群组、部门、用户组等。
+//
+// ## 前提条件
+// - 调用该接口需要调用身份有该云文档添加协作者的权限。添加协作者的权限可通过云文档设置中的 谁可以查看、添加、移除协作者 等选项进行控制。
+// - 调用该接口时, 需要调用身份与被授权对象 互相可见, 例如:
+// - 添加用户协作者: 需要调用身份与被授权对象为联系人或同组织内可搜索, 且互相未屏蔽。
+// - 添加群协作者: 需要调用身份在群内。要使用 `tenant_access_token` 身份添加群协作者, 则需要将该应用作为机器人添加至群组中, 使应用对群可见。详细步骤参考[如何为应用开通云文档相关资源的权限](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-add-permissions-to-app)。
+// - 添加部门协作者: 需要调用身份对部门可见。由于应用对企业内的组织架构都不可见, 所以暂不支持通过 `tenant_access_token`  添加部门协作者。
+// ## 注意事项
+// 不支持将应用直接添加到文件夹作为协作者（添加成功后实际仍然没有权限）。如果希望给应用授予文件夹的权限, 请将应用作为群机器人添加到群组内, 然后授予该群组可管理权限。详细步骤参考[如何为应用开通云文档相关资源的权限](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-add-permissions-to-app)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-member/create
 // new doc: https://open.feishu.cn/document/server-docs/docs/permission/permission-member/create
@@ -59,13 +68,13 @@ func (r *Mock) UnMockDriveCreateDriveMemberPermission() {
 
 // CreateDriveMemberPermissionReq ...
 type CreateDriveMemberPermissionReq struct {
-	Token            string  `path:"token" json:"-"`              // 文件的 token, 获取方式见 [如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6), 示例值: "doccnBKgoMyY5OMbUG6FioTXuBe"
-	Type             string  `query:"type" json:"-"`              // 文件类型, 需要与文件的 token 相匹配, 示例值: doc, 可选值有: doc: 文档, sheet: 电子表格, file: 云空间文件, wiki: 知识库节点, bitable: 多维表格, docx: 新版文档, folder: 文件夹, mindnote: 思维笔记, minutes: 妙记, slides: 幻灯片
-	NeedNotification *bool   `query:"need_notification" json:"-"` // 添加权限后是否通知对方, 注意: 使用`tenant_access_token`访问不支持该参数, 示例值: false, 默认值: `false`
-	MemberType       string  `json:"member_type,omitempty"`       // 协作者 ID 类型, 与协作者 ID 需要对应, 示例值: "openid", 可选值有: email: 飞书邮箱, openid: 开放平台 ID, unionid: 开放平台 UnionID, openchat: 开放平台群组 ID, opendepartmentid: 开放平台部门 ID, userid: 用户自定义 ID, groupid: 自定义用户组 ID, wikispaceid: 知识空间 ID, 注意: 仅知识库文档支持该参数, 当需要操作知识库文档里的「知识库成员」类型协作者时传该参数
-	MemberID         string  `json:"member_id,omitempty"`         // 协作者 ID, 与协作者 ID 类型需要对应, 示例值: "ou_67e5ecb64ce1c0bd94612c17999db411"
-	Perm             string  `json:"perm,omitempty"`              // 协作者对应的权限角色, 注意: 妙记还不支持可管理角色, 示例值: "view", 可选值有: view: 可阅读角色, edit: 可编辑角色, full_access: 可管理角色
-	Type2            *string `json:"type2,omitempty"`             // 协作者类型, 注意: 当 `member_type` 参数为 `wikispaceid` 时必须传该参数, 默认值: "", 示例值: "user", 可选值有: user: 用户, chat: 群组, department: 组织架构, group: 用户组, wiki_space_member: 知识库成员, 注意: 在知识库启用了成员分组功能后不支持该参数, wiki_space_viewer: 知识库可阅读成员, 注意: 仅在知识库启用了成员分组功能后才支持该参数, wiki_space_editor: 知识库可编辑成员, 注意: 仅在知识库启用了成员分组功能后才支持该参数
+	Token            string  `path:"token" json:"-"`              // 云文档的 token, 需要与 type 参数指定的云文档类型相匹配。可参考[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。示例值: "doccnBKgoMyY5OMbUG6FioTXuBe"
+	Type             string  `query:"type" json:"-"`              // 云文档类型, 需要与云文档的 token 相匹配。示例值: docx可选值有: 旧版文档。了解更多, 参考[新旧版本文档说明](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/docs/upgraded-docs-access-guide/upgraded-docs-openapi-access-guide)。电子表格云空间文件知识库节点多维表格新版文档文件夹。使用 tenant_access_token 调用时, 需确保文件夹所有者为应用或应用拥有文件夹的可管理权限, 你需要将应用作为群机器人添加至群内, 然后授予该群组可管理权限。详细步骤参考[如何为应用开通云文档相关资源的权限](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-add-permissions-to-app)思维笔记妙记。目前妙记还不支持 full_access 权限角色幻灯片
+	NeedNotification *bool   `query:"need_notification" json:"-"` // 添加权限后是否通知对方。可选值: true: 通知对方- false: 不通知注意: 仅当使用 user_access_token 调用时, 该参数有效。示例值: false默认值: `false`
+	MemberType       string  `json:"member_type,omitempty"`       // 协作者 ID 类型, 与协作者 ID 需要对应示例值: "openid"可选值有: 飞书邮箱开放平台 Open ID    - 获取应用 OpenID, 参考[如何获取应用 open_id](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#6dbaa8df)    - 获取用户 OpenID, 参考[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)开放平台 Union ID。获取方式参考[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)开放平台群组 ID。获取方式参考[群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)开放平台部门 ID。仅当使用 user_access_token 调用时, 该参数有效。获取方式参考[部门资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)用户 ID。获取方式参考[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)自定义用户组 ID。获取方式参考[用户组资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/overview)知识空间 ID。仅知识库文档支持该参数, 当需要操作知识库文档里的「知识库成员」类型协作者时传该参数。获取方式参考[知识库概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-overview)
+	MemberID         string  `json:"member_id,omitempty"`         // 协作者 ID, 该 ID 的类型与 member_type 指定的值需要保持一致。示例值: "ou_1234567890abcdef1234567890abcdef"
+	Perm             string  `json:"perm,omitempty"`              // 协作者对应的权限角色。示例值: "view"可选值有: 可阅读角色可编辑角色可管理角色。暂不支持妙记。
+	PermType         *string `json:"perm_type,omitempty"`         // 协作者的权限角色类型。当云文档类型为 wiki 即知识库节点时, 该参数有效。示例值: "container"可选值有: 当前页面及子页面仅当前页面, 当且仅当在知识库文档中该参数有效默认值: `container`
 }
 
 // CreateDriveMemberPermissionResp ...
@@ -75,10 +84,11 @@ type CreateDriveMemberPermissionResp struct {
 
 // CreateDriveMemberPermissionRespMember ...
 type CreateDriveMemberPermissionRespMember struct {
-	MemberType string `json:"member_type,omitempty"` // 协作者 ID 类型, 与协作者 ID 需要对应, 可选值有: email: 飞书邮箱, openid: 开放平台 ID, unionid: 开放平台 UnionID, openchat: 开放平台群组 ID, opendepartmentid: 开放平台部门 ID, userid: 用户自定义 ID, groupid: 自定义用户组 ID, wikispaceid: 知识空间 ID
+	MemberType string `json:"member_type,omitempty"` // 协作者 ID 类型, 与协作者 ID 需要对应可选值有: 飞书邮箱开放平台 ID开放平台 UnionID开放平台群组 ID开放平台部门 ID用户自定义 ID自定义用户组 ID知识空间 ID
 	MemberID   string `json:"member_id,omitempty"`   // 协作者 ID, 与协作者 ID 类型需要对应
-	Perm       string `json:"perm,omitempty"`        // 协作者对应的权限角色, 注意: 妙记还不支持可管理角色, 可选值有: view: 可阅读角色, edit: 可编辑角色, full_access: 可管理角色
-	Type       string `json:"type,omitempty"`        // 协作者类型, 可选值有: user: 用户, chat: 群组, department: 组织架构, group: 用户组, wiki_space_member: 知识库成员, wiki_space_viewer: 知识库可阅读成员, wiki_space_editor: 知识库可编辑成员
+	Perm       string `json:"perm,omitempty"`        // 协作者对应的权限角色可选值有: 可阅读角色可编辑角色可管理角色
+	PermType   string `json:"perm_type,omitempty"`   // 协作者的权限角色类型可选值有: 当前页面及子页面仅当前页面, 当且仅当在知识库文档中该参数有效
+	Type       string `json:"type,omitempty"`        // 协作者类型可选值有: 用户群组组织架构用户组知识库成员知识库可阅读成员知识库可编辑成员
 }
 
 // createDriveMemberPermissionResp ...

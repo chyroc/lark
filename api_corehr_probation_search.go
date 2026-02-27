@@ -58,10 +58,10 @@ func (r *Mock) UnMockCoreHRSearchCoreHRProbation() {
 
 // SearchCoreHRProbationReq ...
 type SearchCoreHRProbationReq struct {
-	PageSize                      int64             `query:"page_size" json:"-"`                         // 分页大小, 最大 100示例值: 100 取值范围: `1` ～ `100
+	PageSize                      int64             `query:"page_size" json:"-"`                         // 分页大小, 最大 100示例值: 100 取值范围: `1` ～ `100`
 	PageToken                     *string           `query:"page_token" json:"-"`                        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 6891251722631890445
 	UserIDType                    *IDType           `query:"user_id_type" json:"-"`                      // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	DepartmentIDType              *DepartmentIDType `query:"department_id_type" json:"-"`                // 此次调用中使用的部门 ID 类型示例值: open_department_id可选值有: 以 open_department_id 来标识部门以 department_id 来标识部门以 people_corehr_department_id 来标识部门默认值: `open_department_id
+	DepartmentIDType              *DepartmentIDType `query:"department_id_type" json:"-"`                // 此次调用中使用的部门 ID 类型示例值: open_department_id可选值有: 以 open_department_id 来标识部门以 department_id 来标识部门以 people_corehr_department_id 来标识部门默认值: `open_department_id`
 	EmploymentIDs                 []string          `json:"employment_ids,omitempty"`                    // 雇佣 ID 列表, 可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取示例值: ["7140964208476371111"]
 	DepartmentIDs                 []string          `json:"department_ids,omitempty"`                    // 部门 ID 列表, 可通过[【批量查询部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)接口获取示例值: ["7140964208476371121"]
 	ProbationStartDateStart       *string           `json:"probation_start_date_start,omitempty"`        // 试用期开始日期 - 搜索范围开始, 需要与搜索范围结束一同使用, 格式: "YYYY-MM-DD"示例值: "2022-05-18"
@@ -74,7 +74,7 @@ type SearchCoreHRProbationReq struct {
 	InitiatingTimeEnd             *string           `json:"initiating_time_end,omitempty"`               // 转正发起日期 - 搜索范围结束, 格式: "YYYY-MM-DD"示例值: "2022-11-20"
 	ProbationStatus               *string           `json:"probation_status,omitempty"`                  // 试用期状态示例值: "approved"可选值有: 审批中已拒绝待发起转正审批通过已转正已离职
 	FinalAssessmentResult         *string           `json:"final_assessment_result,omitempty"`           // 试用期最终考核结果示例值: "approved"可选值有: 通过不通过
-	FinalAssessmentGrade          *string           `json:"final_assessment_grade,omitempty"`            // 试用期最终考核等级, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name: probation_management- custom_api_name: final_assessment_grade 字段权限要求: 按照试用期考核等级搜索 (corehr:probation.grade.search:read)示例值: "grade_a"
+	FinalAssessmentGrade          *string           `json:"final_assessment_grade,omitempty"`            // 试用期最终考核等级, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name: probation_management- custom_api_name: final_assessment_grade <b>字段权限要求: </b>  按照试用期考核等级搜索 (corehr:probation.grade.search:read)示例值: "grade_a"
 }
 
 // SearchCoreHRProbationResp ...

@@ -68,7 +68,7 @@ type PrepareUploadDriveFileReq struct {
 	FileName   string `json:"file_name,omitempty"`   // 文件的名称示例值: "test.txt" 最大长度: `250` 字符
 	ParentType string `json:"parent_type,omitempty"` // 上传点的类型。取固定值 explorer, 表示将文件上传至云空间中。示例值: "explorer"可选值有: 云空间
 	ParentNode string `json:"parent_node,omitempty"` // 云空间中文件夹的 token。了解如何获取文件夹 token, 参考[文件夹概述](https://open.feishu.cn/document/ukTMukTMukTM/ugTNzUjL4UzM14CO1MTN/folder-overview)。示例值: "fldbcO1UuPz8VwnpPx5a92abcef"
-	Size       int64  `json:"size,omitempty"`        // 文件的大小, 单位为字节。示例值: 1024 最小值: `0
+	Size       int64  `json:"size,omitempty"`        // 文件的大小, 单位为字节。示例值: 1024 最小值: `0`
 }
 
 // PrepareUploadDriveFileResp ...

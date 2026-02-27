@@ -74,7 +74,7 @@ type CreateCoreHREmploymentReq struct {
 	WorkEmailList        []*CreateCoreHREmploymentReqWorkEmail          `json:"work_email_list,omitempty"`        // 工作邮箱列表- 只有当满足下面所有条件时, 才在工作信息页面可见: - is_primary = "true"  - is_public = "true"  - email_usage = "work"
 	ReasonForOffboarding *CreateCoreHREmploymentReqReasonForOffboarding `json:"reason_for_offboarding,omitempty"` // 离职原因- 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: - object_api_name: employment  - custom_api_name: reason_for_offboarding
 	AtsApplicationID     *string                                        `json:"ats_application_id,omitempty"`     // 招聘投递 ID, 详细信息可以通过[【获取投递信息】](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get)接口查询获得示例值: "6838119494196871234"
-	Rehire               *CreateCoreHREmploymentReqRehire               `json:"rehire,omitempty"`                 // 是否离职重聘 - `to_be_confirmed`: 待确认, 系统会判断该员工是否存在历史雇佣记录, 如果存在且需要二次确认时会调用失败, 并返回历史雇佣记录 - `no`: 否, 系统直接标为非离职重聘人员, 不再做重复判断 - `yes`: 是, 要求历史雇佣信息 ID 必填示例值: `no`默认值: `to_be_confirmed
+	Rehire               *CreateCoreHREmploymentReqRehire               `json:"rehire,omitempty"`                 // 是否离职重聘 - `to_be_confirmed`: 待确认, 系统会判断该员工是否存在历史雇佣记录, 如果存在且需要二次确认时会调用失败, 并返回历史雇佣记录 - `no`: 否, 系统直接标为非离职重聘人员, 不再做重复判断 - `yes`: 是, 要求历史雇佣信息 ID 必填示例值: `no`默认值: `to_be_confirmed`
 	RehireEmploymentID   *string                                        `json:"rehire_employment_id,omitempty"`   // 历史雇佣信息 ID, 可通过[【批量查询员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)获得；类型不跟随 user_id_type示例值: "7051837122449425964"
 }
 

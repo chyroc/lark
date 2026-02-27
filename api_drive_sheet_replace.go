@@ -71,7 +71,7 @@ type ReplaceSheetReq struct {
 
 // ReplaceSheetReqFindCondition ...
 type ReplaceSheetReqFindCondition struct {
-	Range           string `json:"range,omitempty"`             // 查找范围。格式为 `!:`。其中: `sheetId` 为工作表 ID, 通过[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 获取- `:` 为工作表中单元格的范围, 数字表示行索引, 字母表示列索引。如 `A2:B2` 表示该工作表第 2 行的 A 列到 B 列。`range`支持四种写法, 详情参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)示例值: "PNIfrm!A1:C5"
+	Range           string `json:"range,omitempty"`             // 查找范围。格式为 `<sheetId>!<开始位置>:<结束位置>`。其中: `sheetId` 为工作表 ID, 通过[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 获取- `<开始位置>:<结束位置>` 为工作表中单元格的范围, 数字表示行索引, 字母表示列索引。如 `A2:B2` 表示该工作表第 2 行的 A 列到 B 列。`range`支持四种写法, 详情参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)示例值: "PNIfrm!A1:C5"
 	MatchCase       *bool  `json:"match_case,omitempty"`        // 是否忽略查找字符串的大小写, 默认为 false。- `true`: 忽略字符串中字母大小写差异- `false`: 区分字符串中字母大小写示例值: true
 	MatchEntireCell *bool  `json:"match_entire_cell,omitempty"` // 字符串是否需要完全匹配整个单元格, 默认值为 false。- `true`: 完全匹配单元格, 比如 `find` 参数 取值为 "hello", 则单元格中的内容必须为 "hello" 才会匹配替换- `false`: 允许部分匹配单元格, 比如 `find` 取值为 "hello", 则单元格中的内容包含 "hello" 即可匹配替换示例值: false
 	SearchByRegex   *bool  `json:"search_by_regex,omitempty"`   // 是否使用正则表达式查找, 默认值为 false。- `true`: 使用正则表达式- `false`: 不使用正则表达式示例值: false

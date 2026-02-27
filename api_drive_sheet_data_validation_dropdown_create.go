@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// CreateSheetDataValidationDropdown 该接口根据 spreadsheetToken 、range 和下拉列表属性给单元格设置下拉列表规则；单次设置范围不超过5000行, 100列。当一个数据区域中已有数据, 支持将有效数据直接转为选项。
+// CreateSheetDataValidationDropdown 在电子表格工作表中为指定区域添加下拉列表选项, 并设置下拉列表的属性, 包括是否支持多选、设置下拉选项样式等。若一个数据区域中已有数据, 支持将有效数据直接转为下拉列表中的选项。
+//
+// ## 使用限制
+// 单次调用该接口, 最多支持为 5, 000 行、100 列设置下拉列表。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/datavalidation/set-dropdown
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/datavalidation/set-dropdown
@@ -59,32 +62,31 @@ func (r *Mock) UnMockDriveCreateSheetDataValidationDropdown() {
 
 // CreateSheetDataValidationDropdownReq ...
 type CreateSheetDataValidationDropdownReq struct {
-	SpreadSheetToken   string                                              `path:"spreadsheetToken" json:"-"`    // spreadsheet 的 token, 获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
-	Range              string                                              `json:"range,omitempty"`              // 查询范围, 包含 sheetId 与单元格范围两部分, 目前支持四种索引方式, 详见 [在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
-	DataValidationType string                                              `json:"dataValidationType,omitempty"` // 下拉列表填"list"
+	SpreadSheetToken   string                                              `path:"spreadsheetToken" json:"-"`    // 电子表格的 token。可通过以下两种方式获取。了解更多, 参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。-  电子表格的 URL: https://sample.feishu.cn/sheets/[Iow7sNNEphp3WbtnbCscPqabcef]- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)
+	Range              string                                              `json:"range,omitempty"`              // 设置下拉选项的范围。格式为 `<sheetId>!<开始位置>:<结束位置>`。其中: `sheetId` 为工作表 ID, 通过[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 获取。- `<开始位置>:<结束位置>` 为工作表中单元格的范围, 数字表示行索引, 字母表示列索引。如 `A2:B2` 表示该工作表第 2 行的 A 列到 B 列。`range`支持四种写法, 详情参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。          示例值: "8fe9d6!C1:H14"
+	DataValidationType string                                              `json:"dataValidationType,omitempty"` // 数据验证的类型。支持下拉列表, 请填写 "list"。
 	DataValidation     *CreateSheetDataValidationDropdownReqDataValidation `json:"dataValidation,omitempty"`     // 下拉列表规则属性
 }
 
 // CreateSheetDataValidationDropdownReqDataValidation ...
 type CreateSheetDataValidationDropdownReqDataValidation struct {
-	ConditionValues []string                                                   `json:"conditionValues,omitempty"` // 下拉列表选项值, 需为字符串, 不能包含", ", 选项值最长100字符, 选项个数最多500个
-	Options         *CreateSheetDataValidationDropdownReqDataValidationOptions `json:"options,omitempty"`         // 可选属性
+	ConditionValues []string                                                   `json:"conditionValues,omitempty"` // 下拉列表选项的值。           单个值需为字符串类型且不能包含 ", "- 单个值的长度不可超过 100 字符- 选项值的个数不可超过 500 个      示例值: ["2", "89", "3", "2"]
+	Options         *CreateSheetDataValidationDropdownReqDataValidationOptions `json:"options,omitempty"`         // 下拉选项其它配置, 包括是否支持多选、是否设置下拉选项样式等。
 }
 
 // CreateSheetDataValidationDropdownReqDataValidationOptions ...
 type CreateSheetDataValidationDropdownReqDataValidationOptions struct {
-	MultipleValues     *bool    `json:"multipleValues,omitempty"`     // 单选填false, 多选填true, 不填默认为false
-	HighlightValidData *bool    `json:"highlightValidData,omitempty"` // 是否设置颜色和胶囊样式, 不填默认为false
-	Colors             []string `json:"colors,omitempty"`             // 当highlightValidData为true时, color需填颜色, 与conditionValues中的值一一对应。需是RGB16进制格式, 如"#fffd00"
+	MultipleValues     *bool    `json:"multipleValues,omitempty"`     // 是否支持多选选项。可选值: - false: 不支持多选- true: 支持多选          默认值: false, 即不支持多选选项
+	HighlightValidData *bool    `json:"highlightValidData,omitempty"` // 是否为下拉选项设置颜色。可选值: - false: 不设置颜色- true: 为下拉选项设置颜色。需进一步配置 colors 参数          默认值: false, 即不设置颜色
+	Colors             []string `json:"colors,omitempty"`             // 指定下拉选项的颜色。格式为 RGB 16 进制, 如 "#fffd00"。当 `highlightValidData` 为 true 时, 该参数必填。颜色将与 conditionValues 中的值按顺序一一对应。示例值: ["#1FB6C1", "#F006C2", "#FB16C3", "#FFB6C1"]
 }
 
 // CreateSheetDataValidationDropdownResp ...
-type CreateSheetDataValidationDropdownResp struct {
-}
+type CreateSheetDataValidationDropdownResp struct{}
 
 // createSheetDataValidationDropdownResp ...
 type createSheetDataValidationDropdownResp struct {
-	Code  int64                                  `json:"code,omitempty"` // 状态码, 0代表成功
+	Code  int64                                  `json:"code,omitempty"` // 状态码, 0 代表成功
 	Msg   *string                                `json:"msg,omitempty"`  // 状态信息
 	Data  *CreateSheetDataValidationDropdownResp `json:"data,omitempty"`
 	Error *ErrorDetail                           `json:"error,omitempty"`

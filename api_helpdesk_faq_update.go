@@ -62,22 +62,27 @@ func (r *Mock) UnMockHelpdeskUpdateHelpdeskFAQ() {
 
 // UpdateHelpdeskFAQReq ...
 type UpdateHelpdeskFAQReq struct {
-	ID  string                   `path:"id" json:"-"`   // 知识库ID, 示例值: "6856395634652479491"
+	ID  string                   `path:"id" json:"-"`   // 知识库ID示例值: "6856395634652479491"
 	FAQ *UpdateHelpdeskFAQReqFAQ `json:"faq,omitempty"` // 修改的知识库内容
 }
 
 // UpdateHelpdeskFAQReqFAQ ...
 type UpdateHelpdeskFAQReqFAQ struct {
-	CategoryID     *string  `json:"category_id,omitempty"`     // 知识库分类ID, 示例值: "6836004780707807251"
-	Question       string   `json:"question,omitempty"`        // 问题, 示例值: "问题"
-	Answer         *string  `json:"answer,omitempty"`          // 答案, 示例值: "答案"
-	AnswerRichText *string  `json:"answer_richtext,omitempty"` // 富文本答案和答案必须有一个必填。Json Array格式, 富文本结构请见[了解更多: 富文本](https://open.feishu.cn/document/ukTMukTMukTM/uITM0YjLyEDN24iMxQjN), 示例值: "{\"content\":\"这只是一个测试, 医保问题\", \"type\":\"text\"}"
-	Tags           []string `json:"tags,omitempty"`            // 相似问题, 示例值: ["测试", "问题"]
+	CategoryID     *string                                  `json:"category_id,omitempty"`     // 知识库分类ID示例值: "6836004780707807251"
+	Question       string                                   `json:"question,omitempty"`        // 问题示例值: "问题"
+	Answer         *string                                  `json:"answer,omitempty"`          // 答案示例值: "答案"
+	AnswerRichtext []*UpdateHelpdeskFAQReqFAQAnswerRichtext `json:"answer_richtext,omitempty"` // 富文本答案和答案必须有一个必填。Json Array格式, 富文本结构请见[了解更多: 富文本](https://open.feishu.cn/document/ukTMukTMukTM/uITM0YjLyEDN24iMxQjN)示例值: [{"content":"答案", "type":"text"}, {"content":"\n", "type":"text"}]
+	Tags           []string                                 `json:"tags,omitempty"`            // 相似问题示例值: ["测试", "问题"]
+}
+
+// UpdateHelpdeskFAQReqFAQAnswerRichtext ...
+type UpdateHelpdeskFAQReqFAQAnswerRichtext struct {
+	Content *string `json:"content,omitempty"` // 内容示例值: "这是一个答案"
+	Type    *string `json:"type,omitempty"`    // 内容类型。可选值: text、hyperlink、img、line break示例值: "text"
 }
 
 // UpdateHelpdeskFAQResp ...
-type UpdateHelpdeskFAQResp struct {
-}
+type UpdateHelpdeskFAQResp struct{}
 
 // updateHelpdeskFAQResp ...
 type updateHelpdeskFAQResp struct {

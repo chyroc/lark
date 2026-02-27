@@ -64,7 +64,7 @@ func (r *Mock) UnMockApplicationUpdateApplicationAppVisibilityV6() {
 // UpdateApplicationAppVisibilityV6Req ...
 type UpdateApplicationAppVisibilityV6Req struct {
 	AppID            string                                               `path:"app_id" json:"-"`              // 应用id示例值: "cli_9b445f5258795107"
-	DepartmentIDType *DepartmentIDType                                    `query:"department_id_type" json:"-"` // 部门id 类型示例值: open_department_id可选值有: 以open_department_id标识部门以department_id标识部门默认值: `open_department_id
+	DepartmentIDType *DepartmentIDType                                    `query:"department_id_type" json:"-"` // 部门id 类型示例值: open_department_id可选值有: 以open_department_id标识部门以department_id标识部门默认值: `open_department_id`
 	UserIDType       *IDType                                              `query:"user_id_type" json:"-"`       // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	AddVisibleList   *UpdateApplicationAppVisibilityV6ReqAddVisibleList   `json:"add_visible_list,omitempty"`   // 添加可用人员列表, 如果参数is_visible_to_all不设置且当前已经是全员可见, 或者参数is_visible_to_all设置为true, 则该参数不生效
 	DelVisibleList   *UpdateApplicationAppVisibilityV6ReqDelVisibleList   `json:"del_visible_list,omitempty"`   // 删除可用人员列表, 如果参数is_visible_to_all不设置且当前已经是全员可见, 或者参数is_visible_to_all设置为true, 则该参数不生效
@@ -75,30 +75,30 @@ type UpdateApplicationAppVisibilityV6Req struct {
 
 // UpdateApplicationAppVisibilityV6ReqAddInvisibleList ...
 type UpdateApplicationAppVisibilityV6ReqAddInvisibleList struct {
-	UserIDs       []string `json:"user_ids,omitempty"`       // 成员id列表 id类型根据user_id_type参数指定相同的成员不能在30s内重复添加到禁用列表, 否则会导致调用失败示例值: ["ou_84aad35d084aa403a838cf73ee18467"] 最大长度: `100
-	DepartmentIDs []string `json:"department_ids,omitempty"` // 部门id列表 id类型根据department_id_type参数指定示例值: ["od-4e6ac4d14bcd5071a37a39de902c7141"] 最大长度: `100
-	GroupIDs      []string `json:"group_ids,omitempty"`      // 用户组id列表示例值: ["g193821"] 最大长度: `100
+	UserIDs       []string `json:"user_ids,omitempty"`       // 成员id列表 id类型根据user_id_type参数指定相同的成员不能在30s内重复添加到禁用列表, 否则会导致调用失败示例值: ["ou_84aad35d084aa403a838cf73ee18467"] 最大长度: `100`
+	DepartmentIDs []string `json:"department_ids,omitempty"` // 部门id列表 id类型根据department_id_type参数指定示例值: ["od-4e6ac4d14bcd5071a37a39de902c7141"] 最大长度: `100`
+	GroupIDs      []string `json:"group_ids,omitempty"`      // 用户组id列表示例值: ["g193821"] 最大长度: `100`
 }
 
 // UpdateApplicationAppVisibilityV6ReqAddVisibleList ...
 type UpdateApplicationAppVisibilityV6ReqAddVisibleList struct {
-	UserIDs       []string `json:"user_ids,omitempty"`       // 成员id列表 id类型根据user_id_type参数指定示例值: ["ou_84aad35d084aa403a838cf73ee18467"] 最大长度: `100
-	DepartmentIDs []string `json:"department_ids,omitempty"` // 部门id列表 id类型根据department_id_type参数指定示例值: ["od-4e6ac4d14bcd5071a37a39de902c7141"] 最大长度: `100
-	GroupIDs      []string `json:"group_ids,omitempty"`      // 用户组id列表示例值: ["g193821"] 最大长度: `100
+	UserIDs       []string `json:"user_ids,omitempty"`       // 成员id列表 id类型根据user_id_type参数指定示例值: ["ou_84aad35d084aa403a838cf73ee18467"] 最大长度: `100`
+	DepartmentIDs []string `json:"department_ids,omitempty"` // 部门id列表 id类型根据department_id_type参数指定示例值: ["od-4e6ac4d14bcd5071a37a39de902c7141"] 最大长度: `100`
+	GroupIDs      []string `json:"group_ids,omitempty"`      // 用户组id列表示例值: ["g193821"] 最大长度: `100`
 }
 
 // UpdateApplicationAppVisibilityV6ReqDelInvisibleList ...
 type UpdateApplicationAppVisibilityV6ReqDelInvisibleList struct {
-	UserIDs       []string `json:"user_ids,omitempty"`       // 成员id列表 id类型根据user_id_type参数指定示例值: ["ou_84aad35d084aa403a838cf73ee18467"] 最大长度: `100
-	DepartmentIDs []string `json:"department_ids,omitempty"` // 部门id列表 id类型根据department_id_type参数指定示例值: ["od-4e6ac4d14bcd5071a37a39de902c7141"] 最大长度: `100
-	GroupIDs      []string `json:"group_ids,omitempty"`      // 用户组id列表示例值: ["g193821"] 最大长度: `100
+	UserIDs       []string `json:"user_ids,omitempty"`       // 成员id列表 id类型根据user_id_type参数指定示例值: ["ou_84aad35d084aa403a838cf73ee18467"] 最大长度: `100`
+	DepartmentIDs []string `json:"department_ids,omitempty"` // 部门id列表 id类型根据department_id_type参数指定示例值: ["od-4e6ac4d14bcd5071a37a39de902c7141"] 最大长度: `100`
+	GroupIDs      []string `json:"group_ids,omitempty"`      // 用户组id列表示例值: ["g193821"] 最大长度: `100`
 }
 
 // UpdateApplicationAppVisibilityV6ReqDelVisibleList ...
 type UpdateApplicationAppVisibilityV6ReqDelVisibleList struct {
-	UserIDs       []string `json:"user_ids,omitempty"`       // 成员id列表 id类型根据user_id_type参数指定示例值: ["ou_84aad35d084aa403a838cf73ee18467"] 最大长度: `100
-	DepartmentIDs []string `json:"department_ids,omitempty"` // 部门id列表 id类型根据department_id_type参数指定示例值: ["od-4e6ac4d14bcd5071a37a39de902c7141"] 最大长度: `100
-	GroupIDs      []string `json:"group_ids,omitempty"`      // 用户组id示例值: ["g193821"] 最大长度: `100
+	UserIDs       []string `json:"user_ids,omitempty"`       // 成员id列表 id类型根据user_id_type参数指定示例值: ["ou_84aad35d084aa403a838cf73ee18467"] 最大长度: `100`
+	DepartmentIDs []string `json:"department_ids,omitempty"` // 部门id列表 id类型根据department_id_type参数指定示例值: ["od-4e6ac4d14bcd5071a37a39de902c7141"] 最大长度: `100`
+	GroupIDs      []string `json:"group_ids,omitempty"`      // 用户组id示例值: ["g193821"] 最大长度: `100`
 }
 
 // UpdateApplicationAppVisibilityV6Resp ...

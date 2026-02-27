@@ -22,9 +22,10 @@ import (
 	"io"
 )
 
-// PartUploadDriveFile 上传对应的文件块。
+// PartUploadDriveFile 根据 [预上传](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/upload_prepare)接口返回的上传事务 ID 和分片策略上传对应的文件分片。上传完成后, 你需调用[分片上传文件（完成上传）](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/upload_finish)触发完成上传。了解完整的上传文件流程, 参考[分片上传文件概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/multipart-upload-file-/introduction)。
 //
-// 该接口不支持太高的并发, 且调用频率上限为5QPS
+// ## 使用限制
+// 该接口不支持并发调用, 且调用频率上限为 5 QPS, 10000 次/天。否则会返回 1061045 错误码, 可通过稍后重试解决。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/upload_part
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/upload/multipart-upload-file-/upload_part
@@ -43,7 +44,6 @@ func (r *DriveService) PartUploadDriveFile(ctx context.Context, request *PartUpl
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 		NeedUserAccessToken:   true,
-		IsFile:                true,
 	}
 	resp := new(partUploadDriveFileResp)
 
@@ -63,16 +63,15 @@ func (r *Mock) UnMockDrivePartUploadDriveFile() {
 
 // PartUploadDriveFileReq ...
 type PartUploadDriveFileReq struct {
-	UploadID string    `json:"upload_id,omitempty"` // 分片上传事务ID, 示例值: "7111211691345512356"
-	Seq      int64     `json:"seq,omitempty"`       // 块号, 从0开始计数, 示例值: 0
-	Size     int64     `json:"size,omitempty"`      // 块大小（以字节为单位）, 示例值: 4194304
-	Checksum *string   `json:"checksum,omitempty"`  // 文件分块adler32校验和(可选), 示例值: "3248270248"
-	File     io.Reader `json:"file,omitempty"`      // 文件分片二进制内容, 示例值: file binary
+	UploadID string    `json:"upload_id,omitempty"` // 分片上传事务 ID。通过调用[分片上传文件-预上传](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/upload_prepare)接口获取。示例值: "7111211691345512356"
+	Seq      int64     `json:"seq,omitempty"`       // 文件分片的序号, 从 0 开始计数。示例值: 0
+	Size     int64     `json:"size,omitempty"`      // 分片的大小, 单位为字节。示例值: 4194304
+	Checksum *string   `json:"checksum,omitempty"`  // 文件分片的 Adler-32 校验和示例值: "3248270248"
+	File     io.Reader `json:"file,omitempty"`      // 文件分片的二进制内容示例值: file binary
 }
 
 // PartUploadDriveFileResp ...
-type PartUploadDriveFileResp struct {
-}
+type PartUploadDriveFileResp struct{}
 
 // partUploadDriveFileResp ...
 type partUploadDriveFileResp struct {

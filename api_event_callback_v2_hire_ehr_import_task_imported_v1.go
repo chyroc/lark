@@ -21,12 +21,9 @@ import (
 	"context"
 )
 
-// EventV2HireEHRImportTaskImportedV1 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
+// EventV2HireEHRImportTaskImportedV1 当用户在招聘系统中对候选人的投递操作「导入 e-HR」后, 将会触发该事件, 推送候选人信息至订阅系统。如需接收到该事件, 则需先配置事件订阅。详情参考 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=hire&version=v1&resource=ehr_import_task&event=imported)
 //
-// 注意该事件仅通知变更相关 ID, 需要配合另外的查询接口反查实际的数据, 当导入完成后, 需调用[更新 e-HR 导入任务](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/ehr_import_task/patch) 完成任务。
-// 在用户点击「导入 e-HR」后, 推送候选人信息至订阅系统。
-// - 依赖权限: [更新导入 e-HR 任务]
-// - 搭配使用: [获取投递信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get) [更新 e-HR 导入任务](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/ehr_import_task/patch)
+// 该事件仅通知变更相关 ID, 需要配合另外的查询接口反查实际的数据, 当导入完成后, 需调用[更新 e-HR 导入任务结果](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/ehr_import_task/patch)完成任务。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/event/import-ehr
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/onboard/events/import-ehr
@@ -39,11 +36,24 @@ type EventV2HireEHRImportTaskImportedV1Handler func(ctx context.Context, cli *La
 
 // EventV2HireEHRImportTaskImportedV1 ...
 type EventV2HireEHRImportTaskImportedV1 struct {
-	TaskID           string                 `json:"task_id,omitempty"`            // 导入任务 ID. 如: 6914551145542568199
-	ApplicationID    string                 `json:"application_id,omitempty"`     // 投递 ID. 如: 6694104661676296462
-	EHRDepartmentID  string                 `json:"ehr_department_id,omitempty"`  // 导入部门 ID. 如: 6694104661676263694
-	EHRDepartment    map[string]interface{} `json:"ehr_department,omitempty"`     // 导入部门的飞书 ID
-	EHRRequirementID string                 `json:"ehr_requirement_id,omitempty"` // 招聘需求 ID. 如: 6960663240925956636
-	OperatorID       string                 `json:"operator_id,omitempty"`        // 操作人的飞书招聘 user_id. 如: 6887868781834536462
-	OperatorUserID   map[string]interface{} `json:"operator_user_id,omitempty"`   // 操作人的飞书 user_id
+	TaskID           string                                            `json:"task_id,omitempty"`            // 导入任务 ID
+	ApplicationID    string                                            `json:"application_id,omitempty"`     // 投递 ID, 详情请参考[获取投递信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get)
+	EHRDepartmentID  string                                            `json:"ehr_department_id,omitempty"`  // 导入部门 ID, 类型为 `people_admin_department_id`, 已不推荐使用, 请使用 ehr_department 字段的部门数据
+	EHRRequirementID string                                            `json:"ehr_requirement_id,omitempty"` // 招聘需求 ID, 详情请参考[获取招聘需求信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_requirement/list_by_id)
+	OperatorID       string                                            `json:"operator_id,omitempty"`        // 操作人的飞书招聘 user_id, 类型为`people_admin_id`, 已不推荐使用, 请使用 operator_user_id 字段的用户数据
+	OperatorUserID   *EventV2HireEHRImportTaskImportedV1OperatorUserID `json:"operator_user_id,omitempty"`   // 操作用户, 用户资源详情请参考[用户资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/field-overview), 如何获取用户信息请参考[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)
+	EHRDepartment    *EventV2HireEHRImportTaskImportedV1EHRDepartment  `json:"ehr_department,omitempty"`     // 导入部门, 部门资源详情请参考[部门资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview), 如何获取部门请参考[获取单个部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/get)
+}
+
+// EventV2HireEHRImportTaskImportedV1EHRDepartment ...
+type EventV2HireEHRImportTaskImportedV1EHRDepartment struct {
+	DepartmentID     string `json:"department_id,omitempty"`      // 导入部门的部门 ID
+	OpenDepartmentID string `json:"open_department_id,omitempty"` // 导入部门的飞书部门 ID
+}
+
+// EventV2HireEHRImportTaskImportedV1OperatorUserID ...
+type EventV2HireEHRImportTaskImportedV1OperatorUserID struct {
+	UnionID string `json:"union_id,omitempty"` // 用户的 union id
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
+	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }

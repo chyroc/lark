@@ -21,12 +21,12 @@ import (
 	"context"
 )
 
-// GetTaskCommentList 给定一个资源, 返回该资源的评论列表。
+// GetTaskCommentList 该接口用于查询任务评论列表, 支持分页, 最大值为100。
 //
-// 支持分页。评论可以按照创建时间的正序（asc, 从最老到最新）, 或者逆序（desc, 从最老到最新）, 返回数据。
-// 获取任务的评论列表需要任务的读取权限, 详见[任务是如何鉴权的？](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/faq)
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-comment/list
+// new doc: https://open.feishu.cn/document/server-docs/task-v1/task-comment/list
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/task-v2/comment/list
+// Deprecated
 func (r *TaskService) GetTaskCommentList(ctx context.Context, request *GetTaskCommentListReq, options ...MethodOptionFunc) (*GetTaskCommentListResp, *Response, error) {
 	if r.cli.mock.mockTaskGetTaskCommentList != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#GetTaskCommentList mock enable")
@@ -37,7 +37,7 @@ func (r *TaskService) GetTaskCommentList(ctx context.Context, request *GetTaskCo
 		Scope:                 "Task",
 		API:                   "GetTaskCommentList",
 		Method:                "GET",
-		URL:                   r.cli.openBaseURL + "/open-apis/task/v2/comments",
+		URL:                   r.cli.openBaseURL + "/open-apis/task/v1/tasks/:task_id/comments",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
@@ -61,38 +61,28 @@ func (r *Mock) UnMockTaskGetTaskCommentList() {
 
 // GetTaskCommentListReq ...
 type GetTaskCommentListReq struct {
-	PageSize     *int64  `query:"page_size" json:"-"`     // 分页大小, 默认为50, 示例值: 50, 默认值: `50`, 取值范围: `1` ～ `100`
-	PageToken    *string `query:"page_token" json:"-"`    // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: aWQ9NzEwMjMzMjMxMDE=, 最大长度: `100` 字符
-	ResourceType *string `query:"resource_type" json:"-"` // 要获取评论列表的资源类型, 目前只支持"task", 默认为"task", 示例值: task, 默认值: `task`
-	ResourceID   string  `query:"resource_id" json:"-"`   // 要获取评论的资源ID。例如要获取任务的评论列表, 此处应该填写任务全局唯一ID, 示例值: d300a75f-c56a-4be9-80d1-e47653028ceb
-	Direction    *string `query:"direction" json:"-"`     // 返回数据的排序方式。"asc"表示从最老到最新顺序返回；"desc"表示从最新到最老顺序返回。默认为"asc", 示例值: asc, 可选值有: asc: 评论发表时间升序, desc: 评论发表时间降序, 默认值: `asc`
-	UserIDType   *IDType `query:"user_id_type" json:"-"`  // 用户 ID 类型, 示例值: open_id, 默认值: `open_id`
+	TaskID        string  `path:"task_id" json:"-"`         // 任务id示例值: ""83912691-2e43-47fc-94a4-d512e03984fa""
+	PageSize      *int64  `query:"page_size" json:"-"`      // 分页大小示例值: 10 最大值: `100`
+	PageToken     *string `query:"page_token" json:"-"`     // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: "MTYzMTg3ODUxNQ=="
+	ListDirection *int64  `query:"list_direction" json:"-"` // 评论排序标记, 可按照评论时间从小到大查询, 或者评论时间从大到小查询, 不填默认按照从小到大示例值: 0可选值有: 按照回复时间从小到大查询按照回复时间从大到小查询默认值: `0`
+	UserIDType    *IDType `query:"user_id_type" json:"-"`   // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetTaskCommentListResp ...
 type GetTaskCommentListResp struct {
-	Items     []*GetTaskCommentListRespItem `json:"items,omitempty"`      // 评论列表数据
+	Items     []*GetTaskCommentListRespItem `json:"items,omitempty"`      // 返回的评论列表
 	PageToken string                        `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	HasMore   bool                          `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
 // GetTaskCommentListRespItem ...
 type GetTaskCommentListRespItem struct {
-	ID               string                             `json:"id,omitempty"`                  // 评论id
-	Content          string                             `json:"content,omitempty"`             // 评论内容
-	Creator          *GetTaskCommentListRespItemCreator `json:"creator,omitempty"`             // 评论创建人
-	ReplyToCommentID string                             `json:"reply_to_comment_id,omitempty"` // 被回复的评论的ID, 如果不是回复评论, 则为空。
-	CreatedAt        string                             `json:"created_at,omitempty"`          // 评论创建时间戳（ms)
-	UpdatedAt        string                             `json:"updated_at,omitempty"`          // 评论更新时间戳（ms）
-	ResourceType     string                             `json:"resource_type,omitempty"`       // 任务关联的资源类型
-	ResourceID       string                             `json:"resource_id,omitempty"`         // 任务关联的资源ID
-}
-
-// GetTaskCommentListRespItemCreator ...
-type GetTaskCommentListRespItemCreator struct {
-	ID   string `json:"id,omitempty"`   // 表示member的id
-	Type string `json:"type,omitempty"` // 成员的类型
-	Role string `json:"role,omitempty"` // 成员角色
+	Content         string `json:"content,omitempty"`           // 评论内容。评论内容和富文本评论内容同时存在时只使用富文本评论内容。
+	ParentID        string `json:"parent_id,omitempty"`         // 评论的父ID, 创建评论时若不为空则为某条评论的回复, 若为空则不是回复
+	ID              string `json:"id,omitempty"`                // 评论ID, 由飞书服务器发号
+	CreateMilliTime string `json:"create_milli_time,omitempty"` // 评论创建的时间戳, 单位为毫秒, 用于展示, 创建时不用填写
+	RichContent     string `json:"rich_content,omitempty"`      // 富文本评论内容。语法格式参见[Markdown模块](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/markdown-module)
+	CreatorID       string `json:"creator_id,omitempty"`        // 评论的创建者 ID。在创建评论时无需填充该字段
 }
 
 // getTaskCommentListResp ...

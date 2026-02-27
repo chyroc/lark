@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetBitableFieldList 根据 app_token 和 table_id, 获取数据表的所有字段
+// GetBitableFieldList 获取多维表格数据表中的的所有字段。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/list
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-field/list
@@ -59,12 +59,12 @@ func (r *Mock) UnMockBitableGetBitableFieldList() {
 
 // GetBitableFieldListReq ...
 type GetBitableFieldListReq struct {
-	AppToken         string  `path:"app_token" json:"-"`            // Base app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
-	TableID          string  `path:"table_id" json:"-"`             // table id, 示例值: "tblsRc9GRRXKqhvW"
-	ViewID           *string `query:"view_id" json:"-"`             // 视图 ID, 示例值: vewOVMEXPF
-	TextFieldAsArray *bool   `query:"text_field_as_array" json:"-"` // 控制字段描述（多行文本格式）数据的返回格式, true 表示以数组富文本形式返回, 示例值: true
-	PageToken        *string `query:"page_token" json:"-"`          // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: fldwJ4YrtB
-	PageSize         *int64  `query:"page_size" json:"-"`           // 分页大小, 示例值: 10, 默认值: `20`, 最大值: `100`
+	AppToken         string  `path:"app_token" json:"-"`            // 多维表格 App 的唯一标识。不同形态的多维表格, 其 `app_token` 的获取方式不同: 如果多维表格的 URL 以 [feishu.cn/base] 开头, 该多维表格的 `app_token` 是下图高亮部分: ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004)- 如果多维表格的 URL 以 [feishu.cn/wiki] 开头, 你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时, `obj_token` 字段的值才是多维表格的 `app_token`。了解更多, 参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
+	TableID          string  `path:"table_id" json:"-"`             // 多维表格数据表的唯一标识。获取方式: 你可通过多维表格 URL 获取 `table_id`, 下图高亮部分即为当前数据表的 `table_id`- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`  ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976)示例值: "tblsRc9GRRXKqhvW"
+	ViewID           *string `query:"view_id" json:"-"`             // 多维表格中视图的唯一标识。获取方式: 在多维表格的 URL 地址栏中, `view_id` 是下图中高亮部分: ![view_id.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/140668632c97e0095832219001d17c54_DJMgVH9x2S.png?height=748&lazyload=true&width=2998)- 通过[列出视图](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-view/list)接口获取。暂时无法获取到嵌入到云文档中的多维表格的 `view_id`。注意: 当 `filter` 参数 或 `sort` 参数不为空时, 请求视为对数据表中的全部数据做条件过滤, 指定的 `view_id` 会被忽略。示例值: vewOVMEXPF
+	TextFieldAsArray *bool   `query:"text_field_as_array" json:"-"` // 控制字段描述 `description` 数据的返回格式, 默认为 false。true 表示 `description` 将以数组形式返回, 如: ```json{    "description": [        {            "text": "字段的描述", "type": "text"        }    ]}```示例值: true
+	PageToken        *string `query:"page_token" json:"-"`          // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: fldwJ4YrtB
+	PageSize         *int64  `query:"page_size" json:"-"`           // 分页大小示例值: 10默认值: `20` 最大值: `100`
 }
 
 // GetBitableFieldListResp ...
@@ -77,20 +77,14 @@ type GetBitableFieldListResp struct {
 
 // GetBitableFieldListRespItem ...
 type GetBitableFieldListRespItem struct {
-	FieldName   string                                  `json:"field_name,omitempty"`  // 多维表格字段名, 请注意: 1. 名称中的首尾空格将会被去除。
-	Type        int64                                   `json:"type,omitempty"`        // 多维表格字段类型, 可选值有: 1: 多行文本, 2: 数字, 3: 单选, 4: 多选, 5: 日期, 7: 复选框, 11: 人员, 13: 电话号码, 15: 超链接, 17: 附件, 18: 关联, 20: 公式, 21: 双向关联, 22: 地理位置, 23: 群组, 1001: 创建时间, 1002: 最后更新时间, 1003: 创建人, 1004: 修改人, 1005: 自动编号
-	Property    *GetBitableFieldListRespItemProperty    `json:"property,omitempty"`    // 字段属性, 具体参考: [字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)
-	Description *GetBitableFieldListRespItemDescription `json:"description,omitempty"` // 字段的描述
-	IsPrimary   bool                                    `json:"is_primary,omitempty"`  // 是否是索引列
-	FieldID     string                                  `json:"field_id,omitempty"`    // 多维表格字段 id
-	UiType      string                                  `json:"ui_type,omitempty"`     // 字段在界面上的展示类型, 例如进度字段是数字的一种展示形态, 可选值有: Text: 多行文本, Barcode: 条码, Number: 数字, Progress: 进度, Currency: 货币, Rating: 评分, SingleSelect: 单选, MultiSelect: 多选, DateTime: 日期, Checkbox: 复选框, User: 人员, GroupChat: 群组, Phone: 电话号码, Url: 超链接, Attachment: 附件, SingleLink: 单向关联, Formula: 公式, DuplexLink: 双向关联, Location: 地理位置, CreatedTime: 创建时间, ModifiedTime: 最后更新时间, CreatedUser: 创建人, ModifiedUser: 修改人, AutoNumber: 自动编号
-	IsHidden    bool                                    `json:"is_hidden,omitempty"`   // 是否是隐藏字段
-}
-
-// GetBitableFieldListRespItemDescription ...
-type GetBitableFieldListRespItemDescription struct {
-	DisableSync bool   `json:"disable_sync,omitempty"` // 是否禁止同步, 如果为true, 表示禁止同步该描述内容到表单的问题描述, 注意: 该字段在列出字段时不生效。只在新增、修改字段时生效。
-	Text        string `json:"text,omitempty"`         // 字段描述内容
+	FieldName   string                               `json:"field_name,omitempty"`  // 多维表格字段名称。名称中的首尾空格将会被去除。
+	Type        int64                                `json:"type,omitempty"`        // 多维表格字段类型可选值有: 文本数字单选多选日期复选框人员电话号码超链接附件关联公式双向关联地理位置群组创建时间最后更新时间创建人修改人自动编号
+	Property    *GetBitableFieldListRespItemProperty `json:"property,omitempty"`    // 字段属性, 具体可参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。
+	Description interface{}                          `json:"description,omitempty"` // 字段的描述。可能是数组或字符串类型。由请求参数 `text_field_as_array` 决定。
+	IsPrimary   bool                                 `json:"is_primary,omitempty"`  // 是否是索引列
+	FieldID     string                               `json:"field_id,omitempty"`    // 多维表格字段 ID
+	UiType      string                               `json:"ui_type,omitempty"`     // 字段在界面上的展示类型, 例如进度字段是数字的一种展示形态。了解更多, 参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。可选值有: 多行文本条码数字进度货币评分单选多选日期复选框人员群组电话号码超链接附件单向关联公式双向关联地理位置创建时间最后更新时间创建人修改人自动编号
+	IsHidden    bool                                 `json:"is_hidden,omitempty"`   // 是否是隐藏字段
 }
 
 // GetBitableFieldListRespItemProperty ...
@@ -100,7 +94,7 @@ type GetBitableFieldListRespItemProperty struct {
 	DateFormatter     string                                               `json:"date_formatter,omitempty"`     // 日期、创建时间、最后更新时间字段的显示格式
 	AutoFill          bool                                                 `json:"auto_fill,omitempty"`          // 日期字段中新纪录自动填写创建时间
 	Multiple          bool                                                 `json:"multiple,omitempty"`           // 人员字段中允许添加多个成员, 单向关联、双向关联中允许添加多个记录
-	TableID           string                                               `json:"table_id,omitempty"`           // 单向关联、双向关联字段中关联的数据表的id
+	TableID           string                                               `json:"table_id,omitempty"`           // 单向关联、双向关联字段中关联的数据表的 ID
 	TableName         string                                               `json:"table_name,omitempty"`         // 单向关联、双向关联字段中关联的数据表的名字
 	BackFieldName     string                                               `json:"back_field_name,omitempty"`    // 双向关联字段中关联的数据表中对应的双向关联字段的名字
 	AutoSerial        *GetBitableFieldListRespItemPropertyAutoSerial       `json:"auto_serial,omitempty"`        // 自动编号类型
@@ -112,6 +106,8 @@ type GetBitableFieldListRespItemProperty struct {
 	RangeCustomize    bool                                                 `json:"range_customize,omitempty"`    // 进度等字段是否支持自定义范围
 	CurrencyCode      string                                               `json:"currency_code,omitempty"`      // 货币币种
 	Rating            *GetBitableFieldListRespItemPropertyRating           `json:"rating,omitempty"`             // 评分字段的相关设置
+	Type              *GetBitableFieldListRespItemPropertyType             `json:"type,omitempty"`               // 设置公式字段的数据类型注意: 非所有多维表格都支持该能力。请参考[获取多维表格元数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/get)接口返回的formula_type 判断, 当 `formula_type` 等于 2 时, 表示需要设置该字段。
+	FilterInfo        *GetBitableFieldListRespItemPropertyFilterInfo       `json:"filter_info,omitempty"`        // 查找引用关系
 }
 
 // GetBitableFieldListRespItemPropertyAllowedEditModes ...
@@ -122,19 +118,40 @@ type GetBitableFieldListRespItemPropertyAllowedEditModes struct {
 
 // GetBitableFieldListRespItemPropertyAutoSerial ...
 type GetBitableFieldListRespItemPropertyAutoSerial struct {
-	Type    string                                                 `json:"type,omitempty"`    // 自动编号类型, 可选值有: custom: 自定义编号, auto_increment_number: 自增数字
+	Type    string                                                 `json:"type,omitempty"`    // 自动编号类型可选值有: 自定义编号自增数字
 	Options []*GetBitableFieldListRespItemPropertyAutoSerialOption `json:"options,omitempty"` // 自动编号规则列表
 }
 
 // GetBitableFieldListRespItemPropertyAutoSerialOption ...
 type GetBitableFieldListRespItemPropertyAutoSerialOption struct {
-	Type  string `json:"type,omitempty"`  // 自动编号的可选规则项类型, 可选值有: system_number: 自增数字位, value范围1-9, fixed_text: 固定字符, 最大长度: 20, created_time: 创建时间, 支持格式 "yyyyMMdd"、"yyyyMM"、"yyyy"、"MMdd"、"MM"、"dd"
+	Type  string `json:"type,omitempty"`  // 自动编号的可选规则项类型可选值有: 自增数字位, value范围1-9固定字符, 最大长度: 20创建时间, 支持格式 "yyyyMMdd"、"yyyyMM"、"yyyy"、"MMdd"、"MM"、"dd"
 	Value string `json:"value,omitempty"` // 与自动编号的可选规则项类型相对应的取值
+}
+
+// GetBitableFieldListRespItemPropertyFilterInfo ...
+type GetBitableFieldListRespItemPropertyFilterInfo struct {
+	TargetTable string                                                   `json:"target_table,omitempty"` // 引用表格
+	FilterInfo  *GetBitableFieldListRespItemPropertyFilterInfoFilterInfo `json:"filter_info,omitempty"`  // 查找条件
+}
+
+// GetBitableFieldListRespItemPropertyFilterInfoFilterInfo ...
+type GetBitableFieldListRespItemPropertyFilterInfoFilterInfo struct {
+	Conjunction string                                                              `json:"conjunction,omitempty"` // 多个筛选条件的关系可选值有: 与或
+	Conditions  []*GetBitableFieldListRespItemPropertyFilterInfoFilterInfoCondition `json:"conditions,omitempty"`  // 筛选条件
+}
+
+// GetBitableFieldListRespItemPropertyFilterInfoFilterInfoCondition ...
+type GetBitableFieldListRespItemPropertyFilterInfoFilterInfoCondition struct {
+	FieldID     string `json:"field_id,omitempty"`     // 用于过滤的字段唯一ID
+	Operator    string `json:"operator,omitempty"`     // 过滤操作的类型可选值有: 等于不等于包含不包含为空不为空大于大于等于小于小于等于
+	Value       string `json:"value,omitempty"`        // 筛选值
+	ConditionID string `json:"condition_id,omitempty"` // 过滤条件的唯一ID
+	FieldType   int64  `json:"field_type,omitempty"`   // 用于过滤的字段类型
 }
 
 // GetBitableFieldListRespItemPropertyLocation ...
 type GetBitableFieldListRespItemPropertyLocation struct {
-	InputType string `json:"input_type,omitempty"` // 地理位置输入限制, 可选值有: only_mobile: 只允许移动端上传, not_limit: 无限制
+	InputType string `json:"input_type,omitempty"` // 地理位置输入限制可选值有: 只允许移动端上传无限制
 }
 
 // GetBitableFieldListRespItemPropertyOption ...
@@ -146,6 +163,29 @@ type GetBitableFieldListRespItemPropertyOption struct {
 
 // GetBitableFieldListRespItemPropertyRating ...
 type GetBitableFieldListRespItemPropertyRating struct {
+	Symbol string `json:"symbol,omitempty"` // 评分字段的符号展示
+}
+
+// GetBitableFieldListRespItemPropertyType ...
+type GetBitableFieldListRespItemPropertyType struct {
+	DataType   int64                                              `json:"data_type,omitempty"`   // 公式字段对应的数据类型可选值有: 文本（默认值）、条码数字（默认值）、进度、货币、评分单选多选日期复选框人员电话号码超链接附件单向关联公式双向关联地理位置群组创建时间最后更新时间创建人修改人自动编号
+	UiProperty *GetBitableFieldListRespItemPropertyTypeUiProperty `json:"ui_property,omitempty"` // 公式数据属性
+	UiType     string                                             `json:"ui_type,omitempty"`     // 公式字段在界面上的展示类型, 例如进度字段是数字的一种展示形态。了解更多, 参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。可选值有: 数字进度货币评分日期
+}
+
+// GetBitableFieldListRespItemPropertyTypeUiProperty ...
+type GetBitableFieldListRespItemPropertyTypeUiProperty struct {
+	CurrencyCode   string                                                   `json:"currency_code,omitempty"`   // 货币币种
+	Formatter      string                                                   `json:"formatter,omitempty"`       // 数字、公式字段的显示格式
+	RangeCustomize bool                                                     `json:"range_customize,omitempty"` // 进度等字段是否支持自定义范围
+	Min            float64                                                  `json:"min,omitempty"`             // 进度、评分等字段的数据范围最小值
+	Max            float64                                                  `json:"max,omitempty"`             // 进度、评分等字段的数据范围最大值
+	DateFormatter  string                                                   `json:"date_formatter,omitempty"`  // 日期、创建时间、最后更新时间字段的显示格式
+	Rating         *GetBitableFieldListRespItemPropertyTypeUiPropertyRating `json:"rating,omitempty"`          // 评分字段的相关设置
+}
+
+// GetBitableFieldListRespItemPropertyTypeUiPropertyRating ...
+type GetBitableFieldListRespItemPropertyTypeUiPropertyRating struct {
 	Symbol string `json:"symbol,omitempty"` // 评分字段的符号展示
 }
 

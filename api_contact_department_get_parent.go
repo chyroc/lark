@@ -69,7 +69,7 @@ type GetParentDepartmentReq struct {
 	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中的部门 ID 类型。关于部门 ID 的详细介绍, 可参见[部门 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)。默认值: open_department_id示例值: open_department_id可选值有: 支持用户自定义配置的部门 ID。自定义配置时可复用已删除的 department_id, 因此在未删除的部门范围内 department_id 具有唯一性。由系统自动生成的部门 ID, ID 前缀固定为 `od-`, 在租户内全局唯一。
 	DepartmentID     string            `query:"department_id" json:"-"`      // 部门 ID。ID 类型需要与查询参数 department_id_type 的取值保持一致。当你在创建部门时, 可从返回结果中获取到部门 ID 信息, 你也可以调用[搜索部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/search)接口, 获取所需的部门 ID。示例值: od-4e6ac4d14bcd5071a37a39de902c7141
 	PageToken        *string           `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: AQD9/Rn9eij9Pm39ED40/RD/cIFmu77WxpxPB/2oHfQLZ%2BG8JG6tK7%2BZnHiT7COhD2hMSICh/eBl7cpzU6JEC3J7COKNe4jrQ8ExwBCR
-	PageSize         *int64            `query:"page_size" json:"-"`          // 分页大小, 用于限制一次请求所返回的数据条目数。示例值: 10默认值: `20` 最大值: `50
+	PageSize         *int64            `query:"page_size" json:"-"`          // 分页大小, 用于限制一次请求所返回的数据条目数。示例值: 10默认值: `20` 最大值: `50`
 }
 
 // GetParentDepartmentResp ...

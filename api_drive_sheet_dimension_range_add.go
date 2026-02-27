@@ -21,7 +21,11 @@ import (
 	"context"
 )
 
-// AddSheetDimensionRange 该接口用于根据 spreadsheetToken 和长度, 在末尾增加空行/列；单次操作不超过5000行或列。
+// AddSheetDimensionRange 该接口用于在电子表格工作表中增加空白行或列。
+//
+// ## 使用限制
+// - 单次调用该接口, 最多支持增加 5000 行或列。
+// - 该接口仅支持在工作表的行末尾或列末尾新增行列。要在指定位置新增行列, 你需使用[插入行列](https://open.feishu.cn/document/ukTMukTMukTM/uQjMzUjL0IzM14CNyMTN)。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUjMzUjL1IzM14SNyMTN
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/sheet-rowcol/add-rows-or-columns
@@ -35,7 +39,7 @@ func (r *DriveService) AddSheetDimensionRange(ctx context.Context, request *AddS
 		Scope:                 "Drive",
 		API:                   "AddSheetDimensionRange",
 		Method:                "POST",
-		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/dimension_range",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v2/spreadsheets/:spreadsheet_token/dimension_range",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
@@ -59,21 +63,21 @@ func (r *Mock) UnMockDriveAddSheetDimensionRange() {
 
 // AddSheetDimensionRangeReq ...
 type AddSheetDimensionRangeReq struct {
-	SpreadSheetToken string                              `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token, 详见 [在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
-	Dimension        *AddSheetDimensionRangeReqDimension `json:"dimension,omitempty"`       // 需要增加行列的维度信息
+	SpreadSheetToken string                              `path:"spreadsheet_token" json:"-"` // 电子表格的 token。可通过以下两种方式获取。了解更多, 参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。-  电子表格的 URL: https://sample.feishu.cn/sheets/[Iow7sNNEphp3WbtnbCscPqabcef]- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)
+	Dimension        *AddSheetDimensionRangeReqDimension `json:"dimension,omitempty"`        // 需要增加行列的维度信息
 }
 
 // AddSheetDimensionRangeReqDimension ...
 type AddSheetDimensionRangeReqDimension struct {
-	SheetID        string `json:"sheetId,omitempty"`        // sheetId
-	MajorDimension string `json:"majorDimension,omitempty"` // 可选 ROWS、COLUMNS
-	Length         int64  `json:"length,omitempty"`         // 要增加的行/列数, 0<length<5000
+	SheetID        string `json:"sheetId,omitempty"`        // 电子表格工作表的 ID。调用[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query)获取 ID。
+	MajorDimension string `json:"majorDimension,omitempty"` // 更新的维度。可选值: - `ROWS`: 行  - `COLUMNS`: 列
+	Length         int64  `json:"length,omitempty"`         // 要增加的行数或列数。取值范围为 (0, 5000]。
 }
 
 // AddSheetDimensionRangeResp ...
 type AddSheetDimensionRangeResp struct {
-	AddCount       int64  `json:"addCount,omitempty"`       // 增加的行/列数
-	MajorDimension string `json:"majorDimension,omitempty"` // 插入维度
+	AddCount       int64  `json:"addCount,omitempty"`       // 增加的行数或列数
+	MajorDimension string `json:"majorDimension,omitempty"` // 增加的表格维度。枚举值: - `ROWS`: 行  - `COLUMNS`: 列
 }
 
 // addSheetDimensionRangeResp ...

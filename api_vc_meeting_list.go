@@ -69,7 +69,7 @@ type GetVCMeetingListReq struct {
 	UserID                  *string `query:"user_id" json:"-"`                   // 按参会飞书用户筛选（最多一个筛选条件, 如果设置多个, 参数校验会失败）示例值: ou_3ec3f6a28a0d08c45d895276e8e5e19b
 	RoomID                  *string `query:"room_id" json:"-"`                   // 按参会Rooms筛选（最多一个筛选条件, 如果设置多个, 参数校验会失败）示例值: omm_eada1d61a550955240c28757e7dec3af
 	MeetingType             *int64  `query:"meeting_type" json:"-"`              // 按会议类型筛选（最多一个筛选条件, 如果设置多个, 参数校验会失败）示例值: 2可选值有: 全部类型（默认）视频会议本地投屏
-	PageSize                *int64  `query:"page_size" json:"-"`                 // 分页尺寸大小示例值: 20默认值: `20` 取值范围: `20` ～ `100
+	PageSize                *int64  `query:"page_size" json:"-"`                 // 分页尺寸大小示例值: 20默认值: `20` 取值范围: `20` ～ `100`
 	PageToken               *string `query:"page_token" json:"-"`                // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 20
 	IncludeExternalMeetings *bool   `query:"include_external_meetings" json:"-"` // 是否查询外部会议（不传默认为不查询）示例值: false
 	IncludeWebinar          *bool   `query:"include_webinar" json:"-"`           // 是否查询网络研讨会（不传默认为不查询）示例值: false

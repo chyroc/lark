@@ -21,21 +21,24 @@ import (
 	"context"
 )
 
-// EventV1ApprovalTask 审批人同意/拒绝/转交/退回 审批任务后, 会向开发者推送审批任务状态消息。
+// EventV1ApprovalTask 审批任务状态发生变更时会触发该事件。状态变更包括:
 //
-// - 用户创建审批后, 推送第一个审批节点的审批任务[PENDING]状态
-// - 如果当前节点是会签(AND)节点
-// - 	任一审批任务被同意, 推送该任务的[APPROVED]状态
-// - 	任一审批任务被拒绝, 推送该任务的[REJECTED]状态, 当前节点其他剩余任务的[DONE]状态
-// - 如果当前节点是或签(OR)节点
-// - 任一审批任务被同意, 推送该任务的[APPROVED]状态, 当前节点其他剩余任务的[DONE]状态, 下一个节点所有任务的[PENDING]状态
-// - 任一审批任务被拒绝, 推送该任务的[REJECTED]状态, 当前节点其他所有任务的[DONE]状态
-// - 如果用户对审批任务进行转交, 推送该任务的[TRANSFERRED]状态, 和被转交人任务的[PENDING]状态
-// - 发起人撤回审批后, 推送剩余所有任务的[DONE]状态
-// - 审批定义被管理员删除后, 推送剩余所有任务的[DONE]状态
-// - 如果用户对审批任务进行退回, 推送该任务的[ROLLBACK]状态, 和被退回人任务的[PENDING]状态
-// - 如果进行中的审批任务超时未处理被关闭, 推送该任务的[OVERTIME_CLOSE]状态
-// - 如果超时已关闭的审批任务被手动恢复, 推送该任务的[OVERTIME_RECOVER]状态
+// - 用户创建审批实例后, 推送第一个审批节点的审批任务 `PENDING` 状态。
+// - 如果当前审批节点是会签（AND）节点:
+// - 	任一审批任务被同意, 推送该任务的 `APPROVED`（已通过）状态, 并推送当前节点剩余任务的 `PENDING` 状态。
+// - 	任一审批任务被拒绝, 推送该任务的 `REJECTED`（已拒绝）状态, 并推送当前节点剩余任务的 `DONE` 状态。
+// - 如果当前节点是或签（OR）节点:
+// - 任一审批任务被同意, 推送该任务的 `APPROVED`（已通过）状态, 并推送当前节点剩余任务的 `DONE`（已完成）状态、下一个节点所有任务的 `PENDING`（进行中）状态。
+// - 任一审批任务被拒绝, 推送该任务的 `REJECTED`（已拒绝）状态, 并推送当前节点剩余任务的 `DONE`（已完成）状态。
+// - 如果用户对审批任务进行转交, 推送该任务的 `TRANSFERRED`（已转交）状态, 和被转交人任务的 `PENDING`（进行中）状态。
+// - 发起人撤回审批后, 推送剩余所有任务的 `DONE`（已完成）状态。
+// - 审批定义被管理员删除后, 推送剩余所有任务的 `DONE`（已完成）状态。
+// - 如果用户对审批任务进行退回, 推送该任务的 `ROLLBACK`（已退回）状态, 和被退回人任务的 `PENDING`（进行中）状态。
+// - 如果进行中的审批任务超时未处理被关闭, 推送该任务的 `OVERTIME_CLOSE`（超时未处理被关闭）状态。
+// - 如果超时已关闭的审批任务被手动恢复, 推送该任务的 `OVERTIME_RECOVER`（超时已关闭的任务被手动恢复）状态。
+// ## 前提条件
+// - 应用已配置事件订阅, 了解事件订阅可参见[事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
+// - 应用已调用[订阅审批事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/subscribe)接口, 订阅了审批实例对应的审批定义 Code。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/common-event/approval-task-event
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/event/common-event/approval-task-event
@@ -48,17 +51,17 @@ type EventV1ApprovalTaskHandler func(ctx context.Context, cli *Lark, schema stri
 
 // EventV1ApprovalTask ...
 type EventV1ApprovalTask struct {
-	AppID        string `json:"app_id,omitempty"`  // 如: cli_xxx
-	OpenID       string `json:"open_id,omitempty"` // 如: ou_xxx
-	TenantKey    string `json:"tenant_key,omitempty"`
-	Type         string `json:"type,omitempty"`          // approval_task 固定字段
-	ApprovalCode string `json:"approval_code,omitempty"` // 审批定义 Code
-	InstanceCode string `json:"instance_code,omitempty"` // 审批实例 Code
-	TaskID       string `json:"task_id,omitempty"`       // 审批任务 ID
-	UserID       string `json:"user_id,omitempty"`       // 操作人 ID（当 task 为自动通过类型时, user_id 为空）
-	Status       string `json:"status,omitempty"`        // 任务状态 REVERTED - 已还原 PENDING - 进行中 APPROVED - 已通过 REJECTED - 已拒绝 TRANSFERRED - 已转交 ROLLBACK - 已退回 DONE - 已完成
-	OperateTime  string `json:"operate_time,omitempty"`  // 事件发生时间
-	Extra        string `json:"extra,omitempty"`         // 扩展数据, 当前只有退回事件才有此字段, rollback_node_ids退回的节点列表, rollback_custom_node_ids用户自定义配置的节点列表
-	CustomKey    string `json:"custom_key,omitempty"`    // 节点自定义ID
-	DefKey       string `json:"def_key,omitempty"`       // 节点系统生成唯一ID
+	AppID        string `json:"app_id,omitempty"`        // 应用的 App ID。可调用[获取应用信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/get)接口查询应用详细信息。
+	OpenID       string `json:"open_id,omitempty"`       // 审批任务操作人的 open_id。你可以调用[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口, 通过 open_id 获取用户信息。说明: 如果审批任务为自动通过类型, open_id 会返回空值。
+	TenantKey    string `json:"tenant_key,omitempty"`    // 企业唯一标识。
+	Type         string `json:"type,omitempty"`          // 事件类型。固定取值 `approval_task`
+	ApprovalCode string `json:"approval_code,omitempty"` // 审批定义 Code。可调用[查看指定审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get)接口查询审批定义详情。
+	InstanceCode string `json:"instance_code,omitempty"` // 审批实例 Code。可调用[获取单个审批实例详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get)接口查询审批实例详情。
+	TaskID       string `json:"task_id,omitempty"`       // 审批任务 ID。
+	UserID       string `json:"user_id,omitempty"`       // 审批任务操作人的 user_id。你可以调用[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口, 通过 user_id 获取用户信息。说明: 如果审批任务为自动通过类型, user_id 会返回空值。
+	Status       string `json:"status,omitempty"`        // 审批任务状态。可能值有: REVERTED: 已还原- PENDING: 进行中- APPROVED: 已通过- REJECTED: 已拒绝- TRANSFERRED: 已转交- ROLLBACK: 已退回- DONE: 已完成- OVERTIME_CLOSE: 超时未处理被关闭- OVERTIME_RECOVER: 超时已关闭的任务被手动恢复
+	OperateTime  string `json:"operate_time,omitempty"`  // 事件发生事件, 毫秒级时间戳。
+	CustomKey    string `json:"custom_key,omitempty"`    // 审批节点的自定义 ID。节点未设置自定义 ID 时返回空值。
+	DefKey       string `json:"def_key,omitempty"`       // 系统生成的审批节点唯一 ID。
+	Extra        string `json:"extra,omitempty"`         // 扩展数据。目前仅任务被退回时才有此字段, 其中: rollback_node_ids: 退回的节点列表- rollback_custom_node_ids: 用户自定义配置的节点列表
 }

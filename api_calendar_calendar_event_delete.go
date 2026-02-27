@@ -64,14 +64,13 @@ func (r *Mock) UnMockCalendarDeleteCalendarEvent() {
 
 // DeleteCalendarEventReq ...
 type DeleteCalendarEventReq struct {
-	CalendarID       string `path:"calendar_id" json:"-"`        // 日程所在的日历 ID。了解更多, 参见[日历 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
-	EventID          string `path:"event_id" json:"-"`           // 日程 ID, 创建日程时会返回日程 ID。你也可以调用以下接口获取某一日历的 ID, [获取日程列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/list), [搜索日程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/search), 示例值: "xxxxxxxxx_0"
-	NeedNotification *bool  `query:"need_notification" json:"-"` // 删除日程是否给日程参与人发送 Bot 通知, 默认值: true, 示例值: false, 可选值有: true: 发送, false: 不发送
+	CalendarID       string  `path:"calendar_id" json:"-"`        // 日程所在的日历 ID。了解更多, 参见[日历 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction)。示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	EventID          string  `path:"event_id" json:"-"`           // 日程 ID。获取方式: [创建日程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/create)会返回日程 ID- [获取日程列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/list)- [搜索日程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/search)示例值: "xxxxxxxxx_0"
+	NeedNotification *string `query:"need_notification" json:"-"` // 删除日程是否给日程参与人发送 Bot 通知。默认值: true示例值: false可选值有: 发送不发送
 }
 
 // DeleteCalendarEventResp ...
-type DeleteCalendarEventResp struct {
-}
+type DeleteCalendarEventResp struct{}
 
 // deleteCalendarEventResp ...
 type deleteCalendarEventResp struct {

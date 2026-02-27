@@ -72,7 +72,7 @@ func (r *Mock) UnMockDriveUpdateDocxBlock() {
 type UpdateDocxBlockReq struct {
 	DocumentID                 string                                        `path:"document_id" json:"-"`                     // 文档的唯一标识。点击[这里](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)了解如何获取文档的 `document_id`示例值: "doxcnePuYufKa49ISjhD8Iabcef"
 	BlockID                    string                                        `path:"block_id" json:"-"`                        // Block 的唯一标识。你可调用[获取文档所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/list)获取文档中块的 block_id示例值: "doxcnO6UW6wAw2qIcYf4hZabcef"
-	DocumentRevisionID         *int64                                        `query:"document_revision_id" json:"-"`           // 要操作的文档版本。-1 表示文档最新版本。文档创建后, 版本为 1。你需确保你已拥有文档的编辑权限。你可通过调用[获取文档基本信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/get)获取文档的最新 revision_id示例值:1默认值: `-1` 最小值: `-1
+	DocumentRevisionID         *int64                                        `query:"document_revision_id" json:"-"`           // 要操作的文档版本。-1 表示文档最新版本。文档创建后, 版本为 1。你需确保你已拥有文档的编辑权限。你可通过调用[获取文档基本信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/get)获取文档的最新 revision_id示例值:1默认值: `-1` 最小值: `-1`
 	ClientToken                *string                                       `query:"client_token" json:"-"`                   // 操作的唯一标识, 与接口返回值的 client_token 相对应, 用于幂等的进行更新操作。此值为空表示将发起一次新的请求, 此值非空表示幂等的进行更新操作示例值: "0e2633a3-aa1a-4171-af9e-0768ff863566"
 	UserIDType                 *IDType                                       `query:"user_id_type" json:"-"`                   // 用户 ID 类型示例值: "open_id"可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	UpdateTextElements         *UpdateDocxBlockReqUpdateTextElements         `json:"update_text_elements,omitempty"`           // 更新文本元素请求
@@ -95,42 +95,42 @@ type UpdateDocxBlockReq struct {
 
 // UpdateDocxBlockReqDeleteGridColumn ...
 type UpdateDocxBlockReqDeleteGridColumn struct {
-	ColumnIndex int64 `json:"column_index,omitempty"` // 删除列索引, 从 0 开始, 如 0 表示删除第一列（-1表示删除最后一列）示例值: 0 最小值: `-1
+	ColumnIndex int64 `json:"column_index,omitempty"` // 删除列索引, 从 0 开始, 如 0 表示删除第一列（-1表示删除最后一列）示例值: 0 最小值: `-1`
 }
 
 // UpdateDocxBlockReqDeleteTableColumns ...
 type UpdateDocxBlockReqDeleteTableColumns struct {
-	ColumnStartIndex int64 `json:"column_start_index,omitempty"` // 列开始索引（区间左闭右开）示例值: 0 最小值: `0
-	ColumnEndIndex   int64 `json:"column_end_index,omitempty"`   // 列结束索引（区间左闭右开）示例值: 1 最小值: `1
+	ColumnStartIndex int64 `json:"column_start_index,omitempty"` // 列开始索引（区间左闭右开）示例值: 0 最小值: `0`
+	ColumnEndIndex   int64 `json:"column_end_index,omitempty"`   // 列结束索引（区间左闭右开）示例值: 1 最小值: `1`
 }
 
 // UpdateDocxBlockReqDeleteTableRows ...
 type UpdateDocxBlockReqDeleteTableRows struct {
-	RowStartIndex int64 `json:"row_start_index,omitempty"` // 行开始索引（区间左闭右开）示例值: 0 最小值: `0
-	RowEndIndex   int64 `json:"row_end_index,omitempty"`   // 行结束索引（区间左闭右开）示例值: 1 最小值: `1
+	RowStartIndex int64 `json:"row_start_index,omitempty"` // 行开始索引（区间左闭右开）示例值: 0 最小值: `0`
+	RowEndIndex   int64 `json:"row_end_index,omitempty"`   // 行结束索引（区间左闭右开）示例值: 1 最小值: `1`
 }
 
 // UpdateDocxBlockReqInsertGridColumn ...
 type UpdateDocxBlockReqInsertGridColumn struct {
-	ColumnIndex int64 `json:"column_index,omitempty"` // 插入列索引, 从 1 开始, 如 1 表示在第一列后插入, 注意不允许传 0（-1表示在最后一列后插入）示例值: 1 最小值: `-1
+	ColumnIndex int64 `json:"column_index,omitempty"` // 插入列索引, 从 1 开始, 如 1 表示在第一列后插入, 注意不允许传 0（-1表示在最后一列后插入）示例值: 1 最小值: `-1`
 }
 
 // UpdateDocxBlockReqInsertTableColumn ...
 type UpdateDocxBlockReqInsertTableColumn struct {
-	ColumnIndex int64 `json:"column_index,omitempty"` // 插入的列在表格中的索引。（-1表示在表格末尾插入一列）示例值:1 最小值: `-1
+	ColumnIndex int64 `json:"column_index,omitempty"` // 插入的列在表格中的索引。（-1表示在表格末尾插入一列）示例值:1 最小值: `-1`
 }
 
 // UpdateDocxBlockReqInsertTableRow ...
 type UpdateDocxBlockReqInsertTableRow struct {
-	RowIndex int64 `json:"row_index,omitempty"` // 插入的行在表格中的索引。（-1表示在表格末尾插入一行）示例值:1 最小值: `-1
+	RowIndex int64 `json:"row_index,omitempty"` // 插入的行在表格中的索引。（-1表示在表格末尾插入一行）示例值:1 最小值: `-1`
 }
 
 // UpdateDocxBlockReqMergeTableCells ...
 type UpdateDocxBlockReqMergeTableCells struct {
-	RowStartIndex    int64 `json:"row_start_index,omitempty"`    // 行起始索引（区间左闭右开）示例值: 0 最小值: `0
-	RowEndIndex      int64 `json:"row_end_index,omitempty"`      // 行结束索引（区间左闭右开）示例值: 1 最小值: `1
-	ColumnStartIndex int64 `json:"column_start_index,omitempty"` // 列起始索引（区间左闭右开）示例值: 0 最小值: `0
-	ColumnEndIndex   int64 `json:"column_end_index,omitempty"`   // 列结束索引（区间左闭右开）示例值: 1 最小值: `1
+	RowStartIndex    int64 `json:"row_start_index,omitempty"`    // 行起始索引（区间左闭右开）示例值: 0 最小值: `0`
+	RowEndIndex      int64 `json:"row_end_index,omitempty"`      // 行结束索引（区间左闭右开）示例值: 1 最小值: `1`
+	ColumnStartIndex int64 `json:"column_start_index,omitempty"` // 列起始索引（区间左闭右开）示例值: 0 最小值: `0`
+	ColumnEndIndex   int64 `json:"column_end_index,omitempty"`   // 列结束索引（区间左闭右开）示例值: 1 最小值: `1`
 }
 
 // UpdateDocxBlockReqReplaceFile ...
@@ -154,19 +154,19 @@ type UpdateDocxBlockReqReplaceImageCaption struct {
 
 // UpdateDocxBlockReqUnmergeTableCells ...
 type UpdateDocxBlockReqUnmergeTableCells struct {
-	RowIndex    int64 `json:"row_index,omitempty"`    // table 行索引示例值: 0 最小值: `0
-	ColumnIndex int64 `json:"column_index,omitempty"` // table 列索引示例值: 0 最小值: `0
+	RowIndex    int64 `json:"row_index,omitempty"`    // table 行索引示例值: 0 最小值: `0`
+	ColumnIndex int64 `json:"column_index,omitempty"` // table 列索引示例值: 0 最小值: `0`
 }
 
 // UpdateDocxBlockReqUpdateGridColumnWidthRatio ...
 type UpdateDocxBlockReqUpdateGridColumnWidthRatio struct {
-	WidthRatios []int64 `json:"width_ratios,omitempty"` // 更新列宽比例时, 需要传入所有列宽占比, 单位 %示例值: 50 长度范围: `1` ～ `99
+	WidthRatios []int64 `json:"width_ratios,omitempty"` // 更新列宽比例时, 需要传入所有列宽占比, 单位 %示例值: 50 长度范围: `1` ～ `99`
 }
 
 // UpdateDocxBlockReqUpdateTableProperty ...
 type UpdateDocxBlockReqUpdateTableProperty struct {
-	ColumnWidth  *int64 `json:"column_width,omitempty"`  // 表格列宽, 单位像素（px）示例值: 100 最小值: `50
-	ColumnIndex  *int64 `json:"column_index,omitempty"`  // 需要修改列宽的表格列的索引示例值: 0 最小值: `0
+	ColumnWidth  *int64 `json:"column_width,omitempty"`  // 表格列宽, 单位像素（px）示例值: 100 最小值: `50`
+	ColumnIndex  *int64 `json:"column_index,omitempty"`  // 需要修改列宽的表格列的索引示例值: 0 最小值: `0`
 	HeaderRow    *bool  `json:"header_row,omitempty"`    // 设置首行为标题行示例值: false
 	HeaderColumn *bool  `json:"header_column,omitempty"` // 设置首列为标题列示例值: false
 }
@@ -179,14 +179,14 @@ type UpdateDocxBlockReqUpdateTask struct {
 
 // UpdateDocxBlockReqUpdateText ...
 type UpdateDocxBlockReqUpdateText struct {
-	Elements []*DocxTextElement `json:"elements,omitempty"` // 更新的文本元素列表。单次更新中: reminder 上限 30 个- mention_doc 上限 50 个- mention_user 上限 100 个 最小长度: `1
+	Elements []*DocxTextElement `json:"elements,omitempty"` // 更新的文本元素列表。单次更新中: reminder 上限 30 个- mention_doc 上限 50 个- mention_user 上限 100 个 最小长度: `1`
 	Style    *DocxTextStyle     `json:"style,omitempty"`    // 更新的文本样式
 	Fields   []int64            `json:"fields,omitempty"`   // 文本样式中要更新的字段, 必须至少指定一个字段。例如, 要调整 Block 对齐方式, 请设置 fields 为 [1]示例值: [1]可选值有: 修改 Block 的对齐方式修改 todo 的完成状态。支持对 Todo 和 Task 块进行修改文本的折叠状态。支持对 Heading1~9、和有子块的 Text、Ordered、Bullet、Todo 和 Task 块进行修改代码块的语言类型。仅支持对 Code 块进行修改代码块是否自动换行。支持对 Code 块进行修改块背景色首行缩进级别。仅支持对 Text 块进行修改。
 }
 
 // UpdateDocxBlockReqUpdateTextElements ...
 type UpdateDocxBlockReqUpdateTextElements struct {
-	Elements []*DocxTextElement `json:"elements,omitempty"` // 更新后的文本元素列表, 单次更新中: reminder 元素上限 30 个- mention_doc 元素上限 50 个- mention_user 元素上限 100 个 最小长度: `1
+	Elements []*DocxTextElement `json:"elements,omitempty"` // 更新后的文本元素列表, 单次更新中: reminder 元素上限 30 个- mention_doc 元素上限 50 个- mention_user 元素上限 100 个 最小长度: `1`
 }
 
 // UpdateDocxBlockReqUpdateTextStyle ...
@@ -197,11 +197,11 @@ type UpdateDocxBlockReqUpdateTextStyle struct {
 
 // UpdateDocxBlockReqUpdateTextStyleStyle ...
 type UpdateDocxBlockReqUpdateTextStyleStyle struct {
-	Align            *int64  `json:"align,omitempty"`             // 对齐方式示例值: 1可选值有: 居左排版居中排版居右排版默认值: `1
-	Done             *bool   `json:"done,omitempty"`              // todo 的完成状态。支持对 Todo 块进行修改示例值: true默认值: `false
-	Folded           *bool   `json:"folded,omitempty"`            // 文本的折叠状态。支持对 Heading1~9、和有子块的 Text、Ordered、Bullet 和 Todo 块进行修改示例值: true默认值: `false
+	Align            *int64  `json:"align,omitempty"`             // 对齐方式示例值: 1可选值有: 居左排版居中排版居右排版默认值: `1`
+	Done             *bool   `json:"done,omitempty"`              // todo 的完成状态。支持对 Todo 块进行修改示例值: true默认值: `false`
+	Folded           *bool   `json:"folded,omitempty"`            // 文本的折叠状态。支持对 Heading1~9、和有子块的 Text、Ordered、Bullet 和 Todo 块进行修改示例值: true默认值: `false`
 	Language         *int64  `json:"language,omitempty"`          // 代码块的语言类型。仅支持对 Code 块进行修改示例值: 1可选值有: PlainTextABAPAdaApacheApexAssembly LanguageBashCSharpC++CCOBOLCSSCoffeeScriptDDartDelphiDjangoDockerfileErlangFortranFoxProGoGroovyHTMLHTMLBarsHTTPHaskellJSONJavaJavaScriptJuliaKotlinLateXLispLogoLuaMATLABMakefileMarkdownNginxObjective-COpenEdgeABLPHPPerlPostScriptPower ShellPrologProtoBufPythonRRPGRubyRustSASSCSSSQLScalaSchemeScratchShellSwiftThriftTypeScriptVBScriptVisual BasicXMLYAMLCMakeDiffGherkinGraphQLOpenGL Shading LanguagePropertiesSolidityTOML
-	Wrap             *bool   `json:"wrap,omitempty"`              // 代码块是否自动换行。支持对 Code 块进行修改示例值: true默认值: `false
+	Wrap             *bool   `json:"wrap,omitempty"`              // 代码块是否自动换行。支持对 Code 块进行修改示例值: true默认值: `false`
 	BackgroundColor  *string `json:"background_color,omitempty"`  // 块的背景色示例值: "LightGrayBackground"可选值有: 浅灰色浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色灰色中红色中橙色中黄色中绿色中蓝色中紫色
 	IndentationLevel *string `json:"indentation_level,omitempty"` // 首行缩进级别。仅支持对 Text 块进行修改。示例值: "NoIndent"可选值有: 无缩进一级缩进
 }

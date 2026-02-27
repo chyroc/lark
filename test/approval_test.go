@@ -120,7 +120,9 @@ func Test_UnmarshalGetApprovalInstance(t *testing.T) {
 	err := json.Unmarshal([]byte(s), res)
 	as.Nil(err)
 	as.NotNil(res)
-	as.Equal("1", ptrValueString(res.Timeline[0].Ext.UserID))
+	ext := map[string]string{}
+	as.Nil(json.Unmarshal([]byte(res.Timeline[0].Ext), &ext))
+	as.Equal("1", ext["user_id"])
 	printData(res)
 }
 

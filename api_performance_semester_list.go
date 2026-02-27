@@ -60,7 +60,7 @@ func (r *Mock) UnMockPerformanceGetPerformanceSemesterList() {
 type GetPerformanceSemesterListReq struct {
 	StartTime  *string `query:"start_time" json:"-"`   // 周期开始时间最小值, 毫秒时间戳, 小于该时间开始的周期会被过滤掉示例值: 1630425599999
 	EndTime    *string `query:"end_time" json:"-"`     // 周期结束时间最大值, 毫秒时间戳, 大于该时间结束的周期会被过滤掉示例值: 1640425000000
-	Year       *int64  `query:"year" json:"-"`         // 周期年份, 填写时按照周期年份筛选示例值: 2024 取值范围: `0` ～ `9999
+	Year       *int64  `query:"year" json:"-"`         // 周期年份, 填写时按照周期年份筛选示例值: 2024 取值范围: `0` ～ `9999`
 	TypeGroup  *string `query:"type_group" json:"-"`   // 周期类型分组, 填写时按照周期类型分组示例值: Annual可选值有: 年半年季度双月月非标准周期
 	Type       *string `query:"type" json:"-"`         // 周期类型, 填写时按照周期类型筛选示例值: April可选值有: 全年上半年下半年第一季度第二季度第三季度第四季度1-2 双月3-4 双月5-6 双月7-8 双月9-10 双月11-12 双月1月份2月份3月份4月份5月份6月份7月份8月份9月份10月份11月份12月份自定义
 	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID

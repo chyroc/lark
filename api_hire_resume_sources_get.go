@@ -58,8 +58,8 @@ func (r *Mock) UnMockHireGetHireResumeSource() {
 
 // GetHireResumeSourceReq ...
 type GetHireResumeSourceReq struct {
-	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 10, 最大值: `100`
-	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 1
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小 默认值: 1000示例值: 10 最大值: `100`
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: "6794694704606185741"
 }
 
 // GetHireResumeSourceResp ...
@@ -71,11 +71,11 @@ type GetHireResumeSourceResp struct {
 
 // GetHireResumeSourceRespItem ...
 type GetHireResumeSourceRespItem struct {
-	ID               string `json:"id,omitempty"`                 // 来源 ID
-	ZhName           string `json:"zh_name,omitempty"`            // 中文名
-	EnName           string `json:"en_name,omitempty"`            // 英文名
-	ActiveStatus     int64  `json:"active_status,omitempty"`      // 启用状态, 可选值有: 1: 已启用, 2: 已禁用
-	ResumeSourceType int64  `json:"resume_source_type,omitempty"` // 来源类型, 可选值有: 10000: 内推, 10001: 猎头, 10002: 内部来源, 10003: 第三方招聘网站, 10004: 社交媒体, 10005: 线下来源, 10006: 其他, 10007: 外部推荐, 10008: 员工转岗, 10009: 实习生转正
+	ID               string `json:"id,omitempty"`                 // 简历来源 ID
+	ZhName           string `json:"zh_name,omitempty"`            // 简历来源中文名称
+	EnName           string `json:"en_name,omitempty"`            // 简历来源英文名称
+	ActiveStatus     int64  `json:"active_status,omitempty"`      // 启用状态可选值有: 已启用已禁用
+	ResumeSourceType string `json:"resume_source_type,omitempty"` // 来源类型可选值有: 内推猎头内部来源第三方招聘网站社交媒体线下来源其他外部推荐员工转岗实习生转正
 }
 
 // getHireResumeSourceResp ...

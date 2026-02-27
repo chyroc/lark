@@ -60,8 +60,8 @@ func (r *Mock) UnMockCoreHRGetCoreHRDepartmentParentList() {
 
 // GetCoreHRDepartmentParentListReq ...
 type GetCoreHRDepartmentParentListReq struct {
-	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门 ID 类型示例值: open_department_id可选值有: 【飞书】用来在具体某个应用中标识一个部门, 同一个department_id 在不同应用中的 open_department_id 相同。【飞书】用来标识租户内一个唯一的部门。【飞书人事】用来标识「飞书人事」中的部门。默认值: `open_department_id
-	DepartmentIDList []string          `json:"department_id_list,omitempty"` // 部门 ID 列表, 一次性最多传入 100 个部门 ID- 调用[【创建部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/create)[【搜索部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/search)等接口可以返回部门ID示例值: ["6893014062142064111"] 长度范围: `1` ～ `100
+	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门 ID 类型示例值: open_department_id可选值有: 【飞书】用来在具体某个应用中标识一个部门, 同一个department_id 在不同应用中的 open_department_id 相同。【飞书】用来标识租户内一个唯一的部门。【飞书人事】用来标识「飞书人事」中的部门。默认值: `open_department_id`
+	DepartmentIDList []string          `json:"department_id_list,omitempty"` // 部门 ID 列表, 一次性最多传入 100 个部门 ID- 调用[【创建部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/create)[【搜索部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/search)等接口可以返回部门ID示例值: ["6893014062142064111"] 长度范围: `1` ～ `100`
 }
 
 // GetCoreHRDepartmentParentListResp ...

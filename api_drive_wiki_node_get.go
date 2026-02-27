@@ -63,7 +63,7 @@ func (r *Mock) UnMockDriveGetWikiNode() {
 // GetWikiNodeReq ...
 type GetWikiNodeReq struct {
 	Token   string  `query:"token" json:"-"`    // 知识库节点或对应云文档的实际 token。- 知识库节点 token: 如果 URL 链接中 token 前为 wiki, 该 token 为知识库的节点 token。- 云文档实际 token: 如果 URL 链接中 token 前为 docx、base、sheets 等非 wiki 类型, 则说明该 token 是当前云文档的实际 token。了解更多, 请参考[文档常见问题-如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)。注意: 使用云文档 token 查询时, 需要对 obj_type 参数传入文档对应的类型。示例值: wikcnKQ1k3p8Vabcef数据校验规则**: 长度范围: `0` ～ `999` 字符
-	ObjType *string `query:"obj_type" json:"-"` // 文档类型。不传时默认以 wiki 类型查询。示例值: docx可选值有: 旧版文档新版文档表格思维导图多维表格文件幻灯片知识库节点默认值: `wiki
+	ObjType *string `query:"obj_type" json:"-"` // 文档类型。不传时默认以 wiki 类型查询。示例值: docx可选值有: 旧版文档新版文档表格思维导图多维表格文件幻灯片知识库节点默认值: `wiki`
 }
 
 // GetWikiNodeResp ...

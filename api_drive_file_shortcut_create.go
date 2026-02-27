@@ -82,7 +82,7 @@ type CreateDriveFileShortcutResp struct {
 type CreateDriveFileShortcutRespSuccShortcutNode struct {
 	Token        string                                                   `json:"token,omitempty"`         // 文件的 token
 	Name         string                                                   `json:"name,omitempty"`          // 文件名
-	Type         string                                                   `json:"type,omitempty"`          // 文件类型, 可选值参照请求体的`refer_type
+	Type         string                                                   `json:"type,omitempty"`          // 文件类型, 可选值参照请求体的`refer_type`
 	ParentToken  string                                                   `json:"parent_token,omitempty"`  // 父文件夹的 token
 	URL          string                                                   `json:"url,omitempty"`           // 访问链接
 	ShortcutInfo *CreateDriveFileShortcutRespSuccShortcutNodeShortcutInfo `json:"shortcut_info,omitempty"` // 快捷方式的源文件信息
@@ -93,7 +93,7 @@ type CreateDriveFileShortcutRespSuccShortcutNode struct {
 
 // CreateDriveFileShortcutRespSuccShortcutNodeShortcutInfo ...
 type CreateDriveFileShortcutRespSuccShortcutNodeShortcutInfo struct {
-	TargetType  string `json:"target_type,omitempty"`  // 快捷方式对应的源文件类型, 可选值参照请求体的 `refer_type
+	TargetType  string `json:"target_type,omitempty"`  // 快捷方式对应的源文件类型, 可选值参照请求体的 `refer_type`
 	TargetToken string `json:"target_token,omitempty"` // 快捷方式指向的源文件 token
 }
 

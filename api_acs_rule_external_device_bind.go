@@ -59,7 +59,7 @@ func (r *Mock) UnMockACSDeviceBindACSRuleExternal() {
 // DeviceBindACSRuleExternalReq ...
 type DeviceBindACSRuleExternalReq struct {
 	DeviceID string   `json:"device_id,omitempty"` // 设备id示例值: "6939433228970082593"
-	RuleIDs  []string `json:"rule_ids,omitempty"`  // 权限组id列表示例值: ["7298933941867135276"] 长度范围: `0` ～ `10000
+	RuleIDs  []string `json:"rule_ids,omitempty"`  // 权限组id列表示例值: ["7298933941867135276"] 长度范围: `0` ～ `10000`
 }
 
 // DeviceBindACSRuleExternalResp ...

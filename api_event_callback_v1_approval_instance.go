@@ -21,16 +21,19 @@ import (
 	"context"
 )
 
-// EventV1ApprovalInstance 审批实例状态变更事件, 会在实例状态变更后, 向开发者推送审批实例状态消息。
+// EventV1ApprovalInstance 审批实例状态发生变更时会触发该事件。状态变更包括:
 //
-// - 用户创建审批后, 推送[PENDING]状态
-// - 任一审批人拒绝后, 推送[REJECTED]状态
-// - 流程中所有人同意后, 推送[APPROVED]状态
-// - 发起人撤回审批后, 推送[CANCELED]状态
-// - 审批定义被管理员删除后, 推送[DELETED]状态
-// - 发起人撤销已通过的审批, 推送[REVERTED]状态
-// - 审批实例超时未处理被关闭, 推送[OVERTIME_CLOSE]状态
-// - 已超时的审批实例手动恢复, 推送[OVERTIME_RECOVER]状态
+// - 用户创建审批后, 触发该事件并推送 PENDING（审批中）状态。
+// - 审批实例内, 任一审批人拒绝审批任务后, 触发该事件并推送 REJECTED（已拒绝）状态。
+// - 审批实例内, 所有审批任务均同意后, 触发该事件并推送 APPROVED（已通过）状态。
+// - 发起人撤回审批后, 推送 CANCELED（已撤回）状态。
+// - 审批定义下存在审批中的审批实例时, 若该审批定义被管理员删除, 则触发该事件并推送 DELETED（已删除）状态。
+// - 发起人撤销已通过的审批时, 触发该事件并推送 REVERTED（已撤销）状态（该方式触发的事件中的 `operate_time` 字段数据类型为 int64, 而不是字符串）。
+// - 审批实例超时未处理被关闭, 触发该事件并推送 OVERTIME_CLOSE（超时被关闭）状态。
+// - 已超时的审批实例被手动恢复, 触发该事件并推送 OVERTIME_RECOVER（超时实例被恢复）状态。
+// ## 前提条件
+// - 应用已配置事件订阅, 了解事件订阅可参见[事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
+// - 应用已调用[订阅审批事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/subscribe)接口, 订阅了审批实例对应的审批定义 Code。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/common-event/approval-instance-event
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/event/common-event/approval-instance-event
@@ -43,12 +46,13 @@ type EventV1ApprovalInstanceHandler func(ctx context.Context, cli *Lark, schema 
 
 // EventV1ApprovalInstance ...
 type EventV1ApprovalInstance struct {
-	AppID               string `json:"app_id,omitempty"` // 如: cli_xxx
-	TenantKey           string `json:"tenant_key,omitempty"`
-	Type                string `json:"type,omitempty"`                  // approval_instance 固定字段
-	ApprovalCode        string `json:"approval_code,omitempty"`         // 审批定义 Code
-	InstanceCode        string `json:"instance_code,omitempty"`         // 审批实例 Code
-	Status              string `json:"status,omitempty"`                // 实例状态 PENDING - 审批中 APPROVED - 已通过 REJECTED - 已拒绝 CANCELED -  已撤回 DELETED - 已删除 REVERTED - 已撤销 OVERTIME_CLOSE - 超时被关闭 OVERTIME_RECOVER - 超时实例被恢复
-	InstanceOperateTime string `json:"instance_operate_time,omitempty"` // 事件发生时间
-	UUID                string `json:"uuid,omitempty"`                  // 审批实例自定义唯一ID, 接口创建审批时候传入。
+	AppID               string `json:"app_id,omitempty"`                // 应用的 App ID。可调用[获取应用信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/get)接口查询应用详细信息。
+	TenantKey           string `json:"tenant_key,omitempty"`            // 企业唯一标识。
+	Type                string `json:"type,omitempty"`                  // 事件类型。固定取值 `approval_instance`
+	ApprovalCode        string `json:"approval_code,omitempty"`         // 审批定义 Code。可调用[查看指定审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get)接口查询审批定义详情。
+	InstanceCode        string `json:"instance_code,omitempty"`         // 审批实例 Code。可调用[获取单个审批实例详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get)接口查询审批实例详情。
+	Status              string `json:"status,omitempty"`                // 审批实例状态。可能值有: PENDING: 审批中- APPROVED: 已通过- REJECTED: 已拒绝- CANCELED: 已撤回- DELETED: 已删除- REVERTED: 已撤销- OVERTIME_CLOSE: 超时被关闭- OVERTIME_RECOVER: 超时实例被恢复
+	OperateTime         string `json:"operate_time,omitempty"`          // 事件发生时间, 毫秒级时间戳。注意: 当发起人撤销已通过的审批, 推送 `REVERTED` 状态时, 该该字段数据类型为 int64, 而不是 string。
+	InstanceOperateTime string `json:"instance_operate_time,omitempty"` // 事件发生事件, 毫秒级时间戳。
+	UUID                string `json:"uuid,omitempty"`                  // 如果[创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create)时传入了 uuid, 则此处返回该实例的 uuid。
 }

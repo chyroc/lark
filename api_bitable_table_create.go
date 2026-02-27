@@ -72,7 +72,7 @@ type CreateBitableTableReq struct {
 type CreateBitableTableReqTable struct {
 	Name            *string                            `json:"name,omitempty"`              // 数据表名称。该字段必填。注意: 名称中的首尾空格将会被默认去除- 数据表名称不可以包含 `/ \ ? * : [ ]` 等特殊字符示例值: "一个新的数据表" 长度范围: `1` ～ `100` 字符
 	DefaultViewName *string                            `json:"default_view_name,omitempty"` // 默认表格视图的名称。注意: 名称中的首尾空格将会被去除- 名称中不允许包含 [ ] 两个字符示例值: "表格视图"
-	Fields          []*CreateBitableTableReqTableField `json:"fields,omitempty"`            // 数据表的初始字段。了解如何填写字段, 参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。注意: 如果传入了 `default_view_name` 字段, 则必须传入  `fields` 字段- 如果不传 `default_view_name` 字段, 则 `fields` 字段为可选字段- 若  `default_view_name` 字段和 `fields` 字段都不传, 将会创建一个仅包含索引字段的空数据表。- 数据表的第一个字段为索引字段。索引字段仅支持以下类型: - 1: 多行文本    - 2: 数字  - 5: 日期  - 13: 电话号码  - 15: 超链接  - 20: 公式  - 22: 地理位置  长度范围: `1` ～ `300
+	Fields          []*CreateBitableTableReqTableField `json:"fields,omitempty"`            // 数据表的初始字段。了解如何填写字段, 参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。注意: 如果传入了 `default_view_name` 字段, 则必须传入  `fields` 字段- 如果不传 `default_view_name` 字段, 则 `fields` 字段为可选字段- 若  `default_view_name` 字段和 `fields` 字段都不传, 将会创建一个仅包含索引字段的空数据表。- 数据表的第一个字段为索引字段。索引字段仅支持以下类型: - 1: 多行文本    - 2: 数字  - 5: 日期  - 13: 电话号码  - 15: 超链接  - 20: 公式  - 22: 地理位置  长度范围: `1` ～ `300`
 }
 
 // CreateBitableTableReqTableField ...
@@ -86,7 +86,7 @@ type CreateBitableTableReqTableField struct {
 
 // CreateBitableTableReqTableFieldDescription ...
 type CreateBitableTableReqTableFieldDescription struct {
-	DisableSync *bool   `json:"disable_sync,omitempty"` // 是否禁止同步, 如果为true, 表示禁止同步该描述内容到表单的问题描述示例值: true默认值: `true
+	DisableSync *bool   `json:"disable_sync,omitempty"` // 是否禁止同步, 如果为true, 表示禁止同步该描述内容到表单的问题描述示例值: true默认值: `true`
 	Text        *string `json:"text,omitempty"`         // 字段描述内容, 支持换行\n示例值: "请按 name_id 格式填写\n例如: “Alice_20202020”"
 }
 
@@ -138,7 +138,7 @@ type CreateBitableTableReqTableFieldPropertyLocation struct {
 type CreateBitableTableReqTableFieldPropertyOption struct {
 	Name  *string `json:"name,omitempty"`  // 选项名示例值: "红色"
 	ID    *string `json:"id,omitempty"`    // 选项 ID, 创建时不可指定 ID示例值: "optKl35lnG"
-	Color *int64  `json:"color,omitempty"` // 选项颜色, 详情参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。示例值: 0 取值范围: `0` ～ `54
+	Color *int64  `json:"color,omitempty"` // 选项颜色, 详情参考[字段编辑指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/guide)。示例值: 0 取值范围: `0` ～ `54`
 }
 
 // CreateBitableTableReqTableFieldPropertyRating ...

@@ -21,13 +21,14 @@ import (
 	"context"
 )
 
-// ReplyRawMessage 回复指定消息, 支持文本、富文本、卡片、群名片、个人名片、图片、视频、文件等多种消息类型。
+// ReplyRawMessage 调用该接口回复指定消息。回复的内容支持文本、富文本、卡片、群名片、个人名片、图片、视频、文件等多种类型。
 //
-// 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
-// - 回复私聊消息, 需要机器人对用户有[可用性](https://open.feishu.cn/document/home/introduction-to-scope-and-authorization/availability)
-// - 回复群组消息, 需要机器人在群中
-// - 为避免对用户造成打扰, 向同一用户发送消息的限频为 [5 QPS], 向同一群组发送消息的限频为群内机器人共享 [5 QPS]
+// ## 前提条件
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// - 回复用户消息（即单聊消息）时, 用户需要在机器人的[可用范围](https://open.feishu.cn/document/home/introduction-to-scope-and-authorization/availability)内。
+// - 回复群消息时, 机器人需要在群中, 且拥有发言权限。
+// ## 使用限制
+// 为避免消息发送频繁对用户造成打扰, 向同一用户发送消息的限频为 [5 QPS]、向同一群组发送消息的限频为群内机器人共享 [5 QPS]。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/reply
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/message/reply
@@ -64,29 +65,29 @@ func (r *Mock) UnMockMessageReplyRawMessage() {
 
 // ReplyRawMessageReq ...
 type ReplyRawMessageReq struct {
-	MessageID     string  `path:"message_id" json:"-"`       // 待回复的消息的ID, 详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2), 示例值: "om_dc13264520392913993dd051dba21dcf"
-	Content       string  `json:"content,omitempty"`         // 消息内容 json 格式, 格式说明参考: [发送消息内容](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json), 示例值: "`{\"text\":\"test content\"}`"
-	MsgType       MsgType `json:"msg_type,omitempty"`        // 消息类型, 包括: text、post、image、file、audio、media、sticker、interactive、share_card、share_user, 示例值: "text"
-	ReplyInThread *bool   `json:"reply_in_thread,omitempty"` // 是否以话题形式回复；若要回复的消息已经是话题消息, 则默认以话题形式进行回复, 示例值: false, 默认值: `false`
-	UUID          *string `json:"uuid,omitempty"`            // 由开发者生成的唯一字符串序列, 用于回复消息请求去重；持有相同uuid的请求1小时内至多成功执行一次, 示例值: "选填, 每次调用前请更换, 如a0d69e20-1dd1-458b-k525-dfeca4015204", 最大长度: `50` 字符
+	MessageID     string  `path:"message_id" json:"-"`       // 待回复的消息的 ID。ID 获取方式: - 调用[发送消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)接口后, 从响应结果的 `message_id` 参数获取。- 监听[接收消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive)事件, 当触发该事件后可以从事件体内获取消息的 `message_id`。- 调用[获取会话历史消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/list)接口, 从响应结果的 `message_id` 参数获取。示例值: "om_dc13264520392913993dd051dba21dcf"
+	Content       string  `json:"content,omitempty"`         // 消息内容, JSON 结构序列化后的字符串。该参数的取值与 `msg_type` 对应, 例如 `msg_type` 取值为 `text`, 则该参数需要传入文本类型的内容。注意: JSON 字符串需进行转义。例如, 换行符 `\n` 转义后为 `\\n`。- 文本消息请求体最大不能超过 150 KB。- 卡片消息、富文本消息请求体最大不能超过 30 KB。- 如果使用卡片模板（template_id）发送消息, 实际大小也包含模板对应的卡片数据大小。- 如果消息中包含样式标签, 会使实际消息体长度大于您输入的请求体长度。- 图片需要先[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create), 然后使用图片的 Key 发消息。- 音频、视频、文件需要先[上传文件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/file/create), 然后使用文件的 Key 发消息。了解不同类型的消息内容格式、使用限制, 可参见[发送消息内容](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)。示例值: "`{\"text\":\"test content\"}`"
+	MsgType       MsgType `json:"msg_type,omitempty"`        // 消息类型。可选值有: text: 文本- post: 富文本- image: 图片- file: 文件- audio: 语音- media: 视频- sticker: 表情包- interactive: 卡片- share_chat: 分享群名片- share_user: 分享个人名片不同消息类型的详细介绍, 参见[发送消息内容](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)。示例值: "text"
+	ReplyInThread *bool   `json:"reply_in_thread,omitempty"` // 是否以话题形式回复。取值为 true 时将以话题形式回复。注意: 如果要回复的消息已经是话题形式的消息, 则默认以话题形式进行回复。示例值: false默认值: `false`
+	UUID          *string `json:"uuid,omitempty"`            // 自定义设置的唯一字符串序列, 用于在回复消息时请求去重。不填则表示不去重。持有相同 uuid 的请求, 在 1 小时内至多成功回复一条消息。注意: 你可以参考示例值自定义参数值。当回复的内容不同时, 如果传入了该参数, 则需要在每次请求时都更换该参数的取值。示例值: "选填, 每次调用前请更换, 如a0d69e20-1dd1-458b-k525-dfeca4015204" 最大长度: `50` 字符
 }
 
 // ReplyRawMessageResp ...
 type ReplyRawMessageResp struct {
-	MessageID      string       `json:"message_id,omitempty"`       // 消息id, 说明参见: [消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
-	RootID         string       `json:"root_id,omitempty"`          // 根消息id, 用于回复消息场景, 说明参见: [消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
-	ParentID       string       `json:"parent_id,omitempty"`        // 父消息的id, 用于回复消息场景, 说明参见: [消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
-	ThreadID       string       `json:"thread_id,omitempty"`        // 消息所属的话题 ID（不返回说明该消息非话题消息）, 说明参见: [话题介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/thread-introduction)
-	MsgType        MsgType      `json:"msg_type,omitempty"`         // 消息类型 包括: text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等, 类型定义请参考[接收消息内容](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/events/message_content)
-	CreateTime     string       `json:"create_time,omitempty"`      // 消息生成的时间戳（毫秒）
-	UpdateTime     string       `json:"update_time,omitempty"`      // 消息更新的时间戳（毫秒）
-	Deleted        bool         `json:"deleted,omitempty"`          // 消息是否被撤回
-	Updated        bool         `json:"updated,omitempty"`          // 消息是否被更新
-	ChatID         string       `json:"chat_id,omitempty"`          // 所属的群
-	Sender         *Sender      `json:"sender,omitempty"`           // 发送者, 可以是用户或应用
-	Body           *MessageBody `json:"body,omitempty"`             // 消息内容
-	Mentions       []*Mention   `json:"mentions,omitempty"`         // 被@的用户或机器人的id列表
-	UpperMessageID string       `json:"upper_message_id,omitempty"` // 合并转发消息中, 上一层级的消息id message_id, 说明参见: [消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	MessageID      string       `json:"message_id,omitempty"`       // 消息 ID。成功回复消息后, 由系统生成的唯一 ID 标识。后续对消息的管理维护操作均需要使用该 ID。
+	RootID         string       `json:"root_id,omitempty"`          // 根消息 ID。在有多个回复的消息树中, `root_id` 为根消息的 `message_id`。如果回复的是话题, 则 `root_id` 为话题内根消息的 `message_id`。关于 `root_id` 的更多说明, 参见[消息管理概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro)。
+	ParentID       string       `json:"parent_id,omitempty"`        // 父消息 ID。在有多个回复的消息树中, `parent_id` 为当前消息上一层的消息 `message_id`。如果回复的是话题, 则 `parent_id` 始终为话题内根消息的 `message_id`。关于 `parent_id` 的更多说明, 参见[消息管理概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro)。
+	ThreadID       string       `json:"thread_id,omitempty"`        // 消息所属的话题 ID（不返回说明该消息不是话题形式的消息）。了解话题可参见[话题概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/thread-introduction)。
+	MsgType        MsgType      `json:"msg_type,omitempty"`         // 消息类型。可能值有: text: 文本- post: 富文本- image: 图片- file: 文件- audio: 语音- media: 视频- sticker: 表情包- interactive: 卡片- share_chat: 分享群名片- share_user: 分享个人名片
+	CreateTime     string       `json:"create_time,omitempty"`      // 消息生成的时间戳。单位: 毫秒
+	UpdateTime     string       `json:"update_time,omitempty"`      // 消息更新的时间戳。单位: 毫秒
+	Deleted        bool         `json:"deleted,omitempty"`          // 当前消息是否被撤回。回复消息时只会返回 false, 表示未被撤回。
+	Updated        bool         `json:"updated,omitempty"`          // 当前消息是否被更新。回复消息时只会返回 false, 表示未被更新。
+	ChatID         string       `json:"chat_id,omitempty"`          // 消息所属的群 ID。你可以调用[获取群信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get)接口, 根据群 ID 获取群详情。
+	Sender         *Sender      `json:"sender,omitempty"`           // 当前消息的发送者信息。
+	Body           *MessageBody `json:"body,omitempty"`             // 通过 `body` 内的 `content` 参数, 返回当前的消息内容。
+	Mentions       []*Mention   `json:"mentions,omitempty"`         // 发送的消息内, 被 @ 的用户列表。
+	UpperMessageID string       `json:"upper_message_id,omitempty"` // 合并转发消息中, 上一层级的消息 ID, 仅在合并转发场景会有返回值。了解 upper_message_id 可参见[消息管理概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro)。
 }
 
 // replyRawMessageResp ...

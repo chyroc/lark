@@ -67,11 +67,11 @@ type CreateHelpdeskFAQReq struct {
 
 // CreateHelpdeskFAQReqFAQ ...
 type CreateHelpdeskFAQReqFAQ struct {
-	CategoryID     *string  `json:"category_id,omitempty"`     // 知识库分类ID, 示例值: "6836004780707807251"
-	Question       string   `json:"question,omitempty"`        // 问题, 示例值: "问题"
-	Answer         *string  `json:"answer,omitempty"`          // 答案, 示例值: "答案"
-	AnswerRichText *string  `json:"answer_richtext,omitempty"` // 富文本答案和答案必须有一个必填。Json Array格式, 富文本结构请见[了解更多: 富文本](https://open.feishu.cn/document/ukTMukTMukTM/uITM0YjLyEDN24iMxQjN), 示例值: "{\"content\":\"这只是一个测试, 医保问题\", \"type\":\"text\"}"
-	Tags           []string `json:"tags,omitempty"`            // 相似问题, 示例值: ["问", "题"]
+	CategoryID     *string  `json:"category_id,omitempty"`     // 知识库分类ID示例值: "6836004780707807251"
+	Question       string   `json:"question,omitempty"`        // 问题示例值: "问题"
+	Answer         *string  `json:"answer,omitempty"`          // 答案示例值: "答案"
+	AnswerRichtext *string  `json:"answer_richtext,omitempty"` // 富文本答案和答案必须有一个必填。Json Array格式, 富文本结构请见[了解更多: 富文本](https://open.feishu.cn/document/ukTMukTMukTM/uITM0YjLyEDN24iMxQjN)。注意: 以下示例值未转义, 使用时请注意转义。示例值: "[{\"content\":\"答案\", \"type\":\"text\"}, {\"content\":\"这只是一个测试, 医保问题\", \"type\":\"text\"}]"
+	Tags           []string `json:"tags,omitempty"`            // 相似问题示例值: ["问", "题"]
 }
 
 // CreateHelpdeskFAQResp ...
@@ -86,7 +86,7 @@ type CreateHelpdeskFAQRespFAQ struct {
 	HelpdeskID     string                                    `json:"helpdesk_id,omitempty"`     // 服务台ID
 	Question       string                                    `json:"question,omitempty"`        // 问题
 	Answer         string                                    `json:"answer,omitempty"`          // 答案
-	AnswerRichText []*CreateHelpdeskFAQRespFAQAnswerRichText `json:"answer_richtext,omitempty"` // 富文本答案
+	AnswerRichtext []*CreateHelpdeskFAQRespFAQAnswerRichtext `json:"answer_richtext,omitempty"` // 富文本答案
 	CreateTime     int64                                     `json:"create_time,omitempty"`     // 创建时间
 	UpdateTime     int64                                     `json:"update_time,omitempty"`     // 修改时间
 	Categories     []*HelpdeskCategory                       `json:"categories,omitempty"`      // 分类
@@ -96,8 +96,8 @@ type CreateHelpdeskFAQRespFAQ struct {
 	CreateUser     *CreateHelpdeskFAQRespFAQCreateUser       `json:"create_user,omitempty"`     // 创建用户
 }
 
-// CreateHelpdeskFAQRespFAQAnswerRichText ...
-type CreateHelpdeskFAQRespFAQAnswerRichText struct {
+// CreateHelpdeskFAQRespFAQAnswerRichtext ...
+type CreateHelpdeskFAQRespFAQAnswerRichtext struct {
 	Content string `json:"content,omitempty"` // 内容
 	Type    string `json:"type,omitempty"`    // 类型
 }

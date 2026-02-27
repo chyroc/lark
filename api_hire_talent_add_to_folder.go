@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// AddHireTalentToFolder 将人才加入指定文件夹。
+// AddHireTalentToFolder 根据人才 ID 列表将人才加入指定文件夹。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/add_to_folder
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/talent/add_to_folder
@@ -58,13 +58,13 @@ func (r *Mock) UnMockHireAddHireTalentToFolder() {
 
 // AddHireTalentToFolderReq ...
 type AddHireTalentToFolderReq struct {
-	TalentIDList []string `json:"talent_id_list,omitempty"` // 人才 ID 列表, 示例值: ["7039620186502138157"], 最大长度: `50`
-	FolderID     *string  `json:"folder_id,omitempty"`      // 文件夹 ID, 示例值: "7039620186502138156"
+	TalentIDList []string `json:"talent_id_list,omitempty"` // 人才 ID 列表, 可通过[获取人才列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/list)接口获得示例值: ["7039620186502138157"] 长度范围: `1` ～ `200`
+	FolderID     string   `json:"folder_id,omitempty"`      // 文件夹 ID, 可通过[获取人才文件夹列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_folder/list)接口获取示例值: "7039620186502138156"
 }
 
 // AddHireTalentToFolderResp ...
 type AddHireTalentToFolderResp struct {
-	TalentIDList []string `json:"talent_id_list,omitempty"` // 人才 ID 列表
+	TalentIDList []string `json:"talent_id_list,omitempty"` // 人才 ID 列表, 详情请查看: [获取人才信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/get)
 	FolderID     string   `json:"folder_id,omitempty"`      // 文件夹 ID
 }
 

@@ -63,7 +63,7 @@ func (r *Mock) UnMockContactBatchDeleteContactGroupMember() {
 // BatchDeleteContactGroupMemberReq ...
 type BatchDeleteContactGroupMemberReq struct {
 	GroupID string                                    `path:"group_id" json:"-"` // 用户组 ID。用户组 ID 可在创建用户组时从返回值中获取, 你也可以调用[查询用户组列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/simplelist)接口, 获取用户组的 ID。示例值: "test_group"
-	Members []*BatchDeleteContactGroupMemberReqMember `json:"members,omitempty"` // 待移除成员信息。 长度范围: `1` ～ `100
+	Members []*BatchDeleteContactGroupMemberReqMember `json:"members,omitempty"` // 待移除成员信息。 长度范围: `1` ～ `100`
 }
 
 // BatchDeleteContactGroupMemberReqMember ...

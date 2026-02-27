@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// SetSheetValueImage 该接口用于根据 spreadsheetToken 和 range 向单个格子写入图片。
+// SetSheetValueImage 向电子表格某个工作表的单个指定单元格写入图片, 支持传入图片的二进制流, 支持多种图片格式。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDNxYjL1QTM24SN0EjN
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/data-operation/write-images
@@ -59,22 +59,23 @@ func (r *Mock) UnMockDriveSetSheetValueImage() {
 
 // SetSheetValueImageReq ...
 type SetSheetValueImageReq struct {
-	SpreadSheetToken string `path:"spreadsheetToken" json:"-"` // spreadsheet的token, 获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
-	Range            string `json:"range,omitempty"`           // 查询范围  range=<sheetId>!<开始格子>:<结束格子> 如: xxxx!A1:D5, 详见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。此处限定为一个格子, 如: xxxx!A1:A1
-	Image            []byte `json:"image,omitempty"`           // 需要写入的图片二进制流, 支持  "PNG", "JPEG", "JPG", "GIF", "BMP", "JFIF", "EXIF", "TIFF", "BPG", "HEIC" 等图片格式
-	Name             string `json:"name,omitempty"`            // 写入的图片名字
+	SpreadSheetToken string `path:"spreadsheetToken" json:"-"` // 电子表格的 token。可通过以下两种方式获取。了解更多, 参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。- 电子表格的 URL: https://sample.feishu.cn/sheets/[Iow7sNNEphp3WbtnbCscPqabcef]- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)      示例值: "Iow7sNNEphp3WbtnbCscPqabcef"
+	Range            string `json:"range,omitempty"`           // 指定写入图片的单元格。格式为`<sheetId>!<开始单元格>:<结束单元格>`。其中: `sheetId` 为工作表 ID, 通过[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 获取- `<开始单元格>:<结束单元格>` 用于指定单元格, 开始单元格与结束单元格需保持一致, 如: `A1:A1`。其中, 数字表示行索引, 字母表示列索引。如 `A1:A1` 表示该工作表第 1 行 A 列的单元格。了解更多, 参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	Image            []byte `json:"image,omitempty"`           // 需要写入的图片的二进制流, 支持 "PNG"、"JPEG"、"JPG"、"GIF"、"BMP"、"JFIF"、"EXIF"、 "TIFF"、"BPG"、"HEIC" 等图片格式。
+	Name             string `json:"name,omitempty"`            // 写入的图片名称。注意: 该参数需加后缀名, 如 `test.png`。支持的后缀名有: "PNG"、"JPEG"、"JPG"、"GIF"、"BMP"、"JFIF"、"EXIF"、 "TIFF"、"BPG"、"HEIC"。不区分大小写。
 }
 
 // SetSheetValueImageResp ...
 type SetSheetValueImageResp struct {
-	SpreadSheetToken string `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
-	Revision         int64  `json:"revision,omitempty"`         // spreadsheet 的版本号
-	UpdateRange      string `json:"updateRange,omitempty"`      // 写入图片的range
+	SpreadSheetToken string `json:"spreadsheetToken,omitempty"` // 电子表格的 token
+	UpdatedRange     string `json:"updatedRange,omitempty"`     // 写入图片的范围
+	Revision         int64  `json:"revision,omitempty"`         // 工作表的版本号。从 0 开始计数, 更新一次版本号加一。
 }
 
 // setSheetValueImageResp ...
 type setSheetValueImageResp struct {
-	Code int64                   `json:"code,omitempty"`
-	Msg  string                  `json:"msg,omitempty"`
-	Data *SetSheetValueImageResp `json:"data,omitempty"`
+	Code  int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                  `json:"msg,omitempty"`  // 错误描述
+	Data  *SetSheetValueImageResp `json:"data,omitempty"`
+	Error *ErrorDetail            `json:"error,omitempty"`
 }

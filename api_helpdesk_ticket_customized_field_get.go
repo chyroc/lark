@@ -59,7 +59,7 @@ func (r *Mock) UnMockHelpdeskGetHelpdeskTicketCustomizedField() {
 
 // GetHelpdeskTicketCustomizedFieldReq ...
 type GetHelpdeskTicketCustomizedFieldReq struct {
-	TicketCustomizedFieldID string `path:"ticket_customized_field_id" json:"-"` // 工单自定义字段ID, 示例值: "6948728206392295444"
+	TicketCustomizedFieldID string `path:"ticket_customized_field_id" json:"-"` // 工单自定义字段ID示例值: "6948728206392295444"
 }
 
 // GetHelpdeskTicketCustomizedFieldResp ...
@@ -78,7 +78,6 @@ type GetHelpdeskTicketCustomizedFieldResp struct {
 	UpdatedAt               string                                         `json:"updated_at,omitempty"`                 // 更新时间
 	CreatedBy               *GetHelpdeskTicketCustomizedFieldRespCreatedBy `json:"created_by,omitempty"`                 // 创建用户
 	UpdatedBy               *GetHelpdeskTicketCustomizedFieldRespUpdatedBy `json:"updated_by,omitempty"`                 // 更新用户
-	DropdownAllowMultiple   bool                                           `json:"dropdown_allow_multiple,omitempty"`    // 是否支持多选, 仅在字段类型是dropdown的时候有效
 }
 
 // GetHelpdeskTicketCustomizedFieldRespCreatedBy ...
@@ -91,17 +90,18 @@ type GetHelpdeskTicketCustomizedFieldRespCreatedBy struct {
 
 // GetHelpdeskTicketCustomizedFieldRespUpdatedBy ...
 type GetHelpdeskTicketCustomizedFieldRespUpdatedBy struct {
-	ID              string                  `json:"id,omitempty"`               // 用户ID
-	AvatarURL       string                  `json:"avatar_url,omitempty"`       // 用户头像url
-	Name            string                  `json:"name,omitempty"`             // 用户名
-	Email           string                  `json:"email,omitempty"`            // 用户邮箱
-	DropdownOptions *HelpdeskDropdownOption `json:"dropdown_options,omitempty"` // 下拉列表选项
+	ID        string `json:"id,omitempty"`         // 用户ID
+	AvatarURL string `json:"avatar_url,omitempty"` // 用户头像url
+	Name      string `json:"name,omitempty"`       // 用户名
+	Email     string `json:"email,omitempty"`      // 用户邮箱
 }
 
 // getHelpdeskTicketCustomizedFieldResp ...
 type getHelpdeskTicketCustomizedFieldResp struct {
-	Code  int64                                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg   string                                `json:"msg,omitempty"`  // 错误描述
-	Data  *GetHelpdeskTicketCustomizedFieldResp `json:"data,omitempty"`
-	Error *ErrorDetail                          `json:"error,omitempty"`
+	Code                  int64                                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg                   string                                `json:"msg,omitempty"`  // 错误描述
+	Data                  *GetHelpdeskTicketCustomizedFieldResp `json:"data,omitempty"`
+	DropdownOptions       *HelpdeskDropdownOption               `json:"dropdown_options,omitempty"`        // 下拉列表选项
+	DropdownAllowMultiple bool                                  `json:"dropdown_allow_multiple,omitempty"` // 是否支持多选, 仅在字段类型是dropdown的时候有效
+	Error                 *ErrorDetail                          `json:"error,omitempty"`
 }

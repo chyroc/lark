@@ -75,14 +75,14 @@ type GetCoreHRLeaveRequestHistoryListReq struct {
 	UserIDType                    *IDType  `query:"user_id_type" json:"-"`                       // 用户 ID 类型示例值: people_corehr_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `people_corehr_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	LeaveUpdateTimeMin            *string  `query:"leave_update_time_min" json:"-"`              // 请假记录更新时间晚于等于的时间, 格式为yyyy-MM-dd HH:mm:ss示例值: 2022-10-24 10:00:00
 	LeaveUpdateTimeMax            *string  `query:"leave_update_time_max" json:"-"`              // 请假记录更新时间早于等于的时间, 格式为yyyy-MM-dd HH:mm:ss示例值: 2022-10-24 10:00:00
-	ReturnDetail                  *bool    `query:"return_detail" json:"-"`                      // （暂未开放）是否返回请假详情, 若为true, 将在每条请假记录的details字段返回请假详情示例值: false默认值: `false
-	LeaveTermType                 *int64   `query:"leave_term_type" json:"-"`                    // 指定过滤长/短假类型, 0表示不过滤, 1表示仅获取短假, 2表示仅获取长假, 默认0示例值: 1默认值: `0
+	ReturnDetail                  *bool    `query:"return_detail" json:"-"`                      // （暂未开放）是否返回请假详情, 若为true, 将在每条请假记录的details字段返回请假详情示例值: false默认值: `false`
+	LeaveTermType                 *int64   `query:"leave_term_type" json:"-"`                    // 指定过滤长/短假类型, 0表示不过滤, 1表示仅获取短假, 2表示仅获取长假, 默认0示例值: 1默认值: `0`
 	TimeZone                      *string  `query:"time_zone" json:"-"`                          // 请假记录所在时区示例值: Asia/Shanghai
 	DataSource                    *int64   `query:"data_source" json:"-"`                        // （暂未开放）请假记录数据源, 1表示中国大陆休假, 2表示海外休假, 不传或0表示不过滤示例值: 1
 	DbUpdateTimeMin               *string  `query:"db_update_time_min" json:"-"`                 // （暂未开放）请假记录DB更新时间晚于等于的时间, 格式为yyyy-MM-dd HH:mm:ss示例值: 2022-10-24 10:00:00
 	DbUpdateTimeMax               *string  `query:"db_update_time_max" json:"-"`                 // （暂未开放）请假记录DB更新时间早于等于的时间, 格式为yyyy-MM-dd HH:mm:ss示例值: 2022-10-24 10:00:00
-	WdNeedAmountZeroRecords       *bool    `query:"wd_need_amount_zero_records" json:"-"`        // WorkDay专用 是否返回0值的请假记录, 若为true, 将返回0值的请假记录示例值: false默认值: `false
-	WdNeedDeniedAndCanceledRecord *bool    `query:"wd_need_denied_and_canceled_record" json:"-"` // WorkDay专用 是否拒绝和取消的请假记录, 若为true, 将返回拒绝和取消的请假记录示例值: false默认值: `false
+	WdNeedAmountZeroRecords       *bool    `query:"wd_need_amount_zero_records" json:"-"`        // WorkDay专用 是否返回0值的请假记录, 若为true, 将返回0值的请假记录示例值: false默认值: `false`
+	WdNeedDeniedAndCanceledRecord *bool    `query:"wd_need_denied_and_canceled_record" json:"-"` // WorkDay专用 是否拒绝和取消的请假记录, 若为true, 将返回拒绝和取消的请假记录示例值: false默认值: `false`
 	WdPaidType                    *IDType  `query:"wd_paid_type" json:"-"`                       // WorkDay专用 扣薪类型, 1不参与算薪 2影响算薪 3不影响算薪示例值: 1
 }
 

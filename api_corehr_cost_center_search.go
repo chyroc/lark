@@ -62,14 +62,14 @@ func (r *Mock) UnMockCoreHRSearchCoreHRCostCenter() {
 
 // SearchCoreHRCostCenterReq ...
 type SearchCoreHRCostCenterReq struct {
-	PageSize           int64    `query:"page_size" json:"-"`             // 分页大小, 最大 100示例值: 100 取值范围: `1` ～ `100
+	PageSize           int64    `query:"page_size" json:"-"`             // 分页大小, 最大 100示例值: 100 取值范围: `1` ～ `100`
 	PageToken          *string  `query:"page_token" json:"-"`            // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 6891251722631890445
 	UserIDType         *IDType  `query:"user_id_type" json:"-"`          // 用户 ID 类型示例值: people_corehr_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `people_corehr_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	CostCenterIDList   []string `json:"cost_center_id_list,omitempty"`   // 成本中心ID 列表- 一次性最多传入100个成本中心ID示例值: ["7140964208476371111"]
 	NameList           []string `json:"name_list,omitempty"`             // 成长中心名称列表, 精确匹配示例值: ["技术部成本中心"]
 	Code               *string  `json:"code,omitempty"`                  // 成本中心编码示例值: "MDPD00000023"
 	ParentCostCenterID *string  `json:"parent_cost_center_id,omitempty"` // 上级成本中心ID, 可用于查询直接下级成本中心示例值: "6862995757234914824"
-	GetAllVersion      *bool    `json:"get_all_version,omitempty"`       // 是否获取所有成本中心版本, true 为获取成本中心所有版本记录, false 为仅获取当前生效的成本中心记录, 默认为 false当填写 true 并输入其他查询条件时, 返回的是所有符合查询条件的版本信息示例值: true默认值: `false
+	GetAllVersion      *bool    `json:"get_all_version,omitempty"`       // 是否获取所有成本中心版本, true 为获取成本中心所有版本记录, false 为仅获取当前生效的成本中心记录, 默认为 false当填写 true 并输入其他查询条件时, 返回的是所有符合查询条件的版本信息示例值: true默认值: `false`
 }
 
 // SearchCoreHRCostCenterResp ...

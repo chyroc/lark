@@ -65,7 +65,7 @@ type GetHireApplicationListReq struct {
 	JobID           *string `query:"job_id" json:"-"`            // 职位 ID, 可通过[获取职位列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/list)接口获取示例值: 7334134355464633
 	LockStatus      []int64 `query:"lock_status" json:"-"`       // 锁定状态, 无默认值, 不传该参数则不对锁定状态进行筛选示例值: 1可选值有: 未锁定锁定在其他职位锁定在当前职位
 	PageToken       *string `query:"page_token" json:"-"`        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eVQrYzJBNDNONlk4VFZBZVlSdzlKdFJ4bVVHVExENDNKVHoxaVdiVnViQT0
-	PageSize        *int64  `query:"page_size" json:"-"`         // 分页大小 最大值: 200示例值: 100默认值: `10
+	PageSize        *int64  `query:"page_size" json:"-"`         // 分页大小 最大值: 200示例值: 100默认值: `10`
 	UpdateStartTime *string `query:"update_start_time" json:"-"` // 最早更新时间, 毫秒时间戳示例值: 1618500278663
 	UpdateEndTime   *string `query:"update_end_time" json:"-"`   // 最晚更新时间, 毫秒时间戳示例值: 1618500278663
 }

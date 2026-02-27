@@ -63,7 +63,7 @@ func (r *Mock) UnMockCalendarGetCalendarList() {
 
 // GetCalendarListReq ...
 type GetCalendarListReq struct {
-	PageSize  *int64  `query:"page_size" json:"-"`  // 一次请求要求返回的最大日历数量。实际返回的日历数量可能小于该值, 也可能为空, 可以根据响应体里的has_more字段来判断是否还有更多日历。示例值: `50`默认值: `500` 取值范围: `50` ～ `1000
+	PageSize  *int64  `query:"page_size" json:"-"`  // 一次请求要求返回的最大日历数量。实际返回的日历数量可能小于该值, 也可能为空, 可以根据响应体里的has_more字段来判断是否还有更多日历。示例值: `50`默认值: `500` 取值范围: `50` ～ `1000`
 	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: ListCalendarsPageToken_xxx
 	SyncToken *string `query:"sync_token" json:"-"` // 增量同步标记, 第一次请求不填。当分页查询结束（page_token 返回值为空）时, 接口会返回 sync_token 字段, 下次调用可使用该 sync_token 增量获取日历变更数据。默认值: 空示例值: ListCalendarsSyncToken_xxx
 }

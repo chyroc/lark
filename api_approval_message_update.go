@@ -21,9 +21,12 @@ import (
 	"context"
 )
 
-// UpdateApprovalMessage 此接口可以根据审批bot消息id及相应状态, 更新相应的审批bot消息, 只可用于更新待审批模板的bot消息。例如, 给用户推送了审批待办消息, 当用户处理该消息后, 可以将之前推送的Bot消息更新为已审批。
+// UpdateApprovalMessage 调用[发送审批 Bot 消息](https://open.feishu.cn/document/ukTMukTMukTM/ugDNyYjL4QjM24CO0IjN)接口后, 可根据审批 Bot 消息 ID 及审批相应的状态, 更新审批 Bot 消息。例如, 给审批人推送了审批待办消息, 当审批人通过审批后, 可以将之前推送的 Bot 消息更新为已审批。
 //
-// 注意: 该接口只能更新模板为 1008「收到审批待办」的卡片。
+// ## 使用限制
+// - 只能更新审批状态, 以及审批同意或拒绝后的标题或者查看详情的文案。
+// - 只能更新模板为 1008「收到审批待办」的卡片。
+// - 只支持更新 30 天以内的审批 bot 消息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uAjNyYjLwYjM24CM2IjN
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/message/update-bot-messages
@@ -60,16 +63,23 @@ func (r *Mock) UnMockApprovalUpdateApprovalMessage() {
 
 // UpdateApprovalMessageReq ...
 type UpdateApprovalMessageReq struct {
-	MessageID        string  `json:"message_id,omitempty"`         // 卡片 id, 发送卡片时会拿到
-	Status           string  `json:"status,omitempty"`             // 状态类型, 用于更新第一个action文字内容, 枚举: APPROVED:-已同意 REJECTED:-已拒绝 CANCELLED:-已撤回 FORWARDED:-已转交 ROLLBACK:-已回退 ADD:-已加签 DELETED:-已删除 PROCESSED:-已处理 CUSTOM:-自定义按钮状态
-	StatusName       *string `json:"status_name,omitempty"`        // status=CUSTOM时可以自定义审批同意/拒绝后title状态
-	DetailActionName *string `json:"detail_action_name,omitempty"` // status=CUSTOM时可以自定义审批同意/拒绝后“查看详情按钮名称”
-	I18nResources    *string `json:"i18n_resources,omitempty"`     // i18n国际化文案
+	MessageID        string                                  `json:"message_id,omitempty"`         // 待更新的审批 Bot 消息 ID。调用[发送审批 Bot 消息](https://open.feishu.cn/document/ukTMukTMukTM/ugDNyYjL4QjM24CO0IjN)接口后, 从返回结果中获取消息 ID。
+	Status           string                                  `json:"status,omitempty"`             // 状态类型, 用于更新消息内第一个 `action` 的文字内容。可选值有: APPROVED: 已同意- REJECTED: 已拒绝- CANCELLED: 已撤回- FORWARDED: 已转交- ROLLBACK: 已回退- ADD: 已加签- DELETED: 已删除- PROCESSED: 已处理- CUSTOM: 自定义按钮状态
+	StatusName       *string                                 `json:"status_name,omitempty"`        // 当 status 取值 CUSTOM 时, 可以自定义审批同意或拒绝后 title 内容。      注意:- 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key）, 还需要在 i18n_resources.texts 参数中以 Key: Value 格式进行赋值。- Key 需要以 `@i18n@` 开头。示例值: @i18n@1
+	DetailActionName *string                                 `json:"detail_action_name,omitempty"` // 当 status 取值 CUSTOM 时, 可以自定义审批同意或拒绝后 查看详情 按钮名称。   注意:- 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key）, 还需要在 i18n_resources.texts 参数中以 Key: Value 格式进行赋值。- Key 需要以 `@i18n@` 开头。示例值: @i18n@2
+	I18nResources    []*UpdateApprovalMessageReqI18nResource `json:"i18n_resources,omitempty"`     // 国际化文案。status_name、detail_action_name 参数设置了国际化文案 Key 后, 需要通过 i18n_resources 设置 Key: value 关系为参数赋值。例如, status_name取值为 @i18n@1, 则需要在 i18n_resources.texts 中传入 `@i18n@1: 已废弃` 为参数赋值。
+}
+
+// UpdateApprovalMessageReqI18nResource ...
+type UpdateApprovalMessageReqI18nResource struct {
+	Locale    string                 `json:"locale,omitempty"`     // 语言。可选值有: zh-CN: 中文- en-US: 英文- ja-JP: 日文示例值: zh-CN
+	IsDefault bool                   `json:"is_default,omitempty"` // 当前语言是否为默认语言。默认语言需要在 texts 中传入所有的 Key: Value, 非默认语言如果缺失 Key, 则会使用默认语言代替。示例值: true
+	Texts     map[string]interface{} `json:"texts,omitempty"`      // 文案的 Key:Value。Key 需要以 `@i18n@` 开头, 并按照各个参数的要求传入 Value。示例值: ```{"@i18n@1": "demotext1", "@i18n@2": "demotext2"}```
 }
 
 // UpdateApprovalMessageResp ...
 type UpdateApprovalMessageResp struct {
-	MessageID string `json:"message_id,omitempty"` // 消息 id, 用于卡片更新、撤回
+	MessageID string `json:"message_id,omitempty"` // 消息 ID, 用于继续更新审批 Bot 消息
 }
 
 // updateApprovalMessageResp ...

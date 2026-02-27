@@ -59,11 +59,11 @@ func (r *Mock) UnMockHelpdeskGetHelpdeskFAQList() {
 
 // GetHelpdeskFAQListReq ...
 type GetHelpdeskFAQListReq struct {
-	CategoryID *string `query:"category_id" json:"-"` // 知识库分类ID, 示例值: 6856395522433908739
-	Status     *string `query:"status" json:"-"`      // 搜索条件: 知识库状态 1:在线 0:删除, 可恢复 2: 删除, 不可恢复, 示例值: 1
-	Search     *string `query:"search" json:"-"`      // 搜索条件: 关键词, 匹配问题标题, 问题关键字, 用户姓名, 示例值: 点餐
-	PageToken  *string `query:"page_token" json:"-"`  // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 6856395634652479491
-	PageSize   *int64  `query:"page_size" json:"-"`   // 示例值: 10, 默认值: `20`, 最大值: `100`
+	CategoryID *string `query:"category_id" json:"-"` // 知识库分类ID示例值: 6856395522433908739
+	Status     *string `query:"status" json:"-"`      // 搜索条件: 知识库状态 1:在线 0:删除, 可恢复 2: 删除, 不可恢复示例值: 1
+	Search     *string `query:"search" json:"-"`      // 搜索条件: 关键词, 匹配问题标题, 问题关键字, 用户姓名示例值: 点餐
+	PageToken  *string `query:"page_token" json:"-"`  // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 6856395634652479491
+	PageSize   *int64  `query:"page_size" json:"-"`   // 示例值: 10默认值: `20` 最大值: `100`
 }
 
 // GetHelpdeskFAQListResp ...
@@ -82,7 +82,7 @@ type GetHelpdeskFAQListRespItem struct {
 	HelpdeskID     string                                      `json:"helpdesk_id,omitempty"`     // 服务台ID
 	Question       string                                      `json:"question,omitempty"`        // 问题
 	Answer         string                                      `json:"answer,omitempty"`          // 答案
-	AnswerRichText []*GetHelpdeskFAQListRespItemAnswerRichText `json:"answer_richtext,omitempty"` // 富文本答案。该字段支持 text、hyperlink、img、line break 四种类型, 不同类型包含的参数信息可能不同, 详情可参见[富文本](https://open.feishu.cn/document/ukTMukTMukTM/uITM0YjLyEDN24iMxQjN)。
+	AnswerRichtext []*GetHelpdeskFAQListRespItemAnswerRichtext `json:"answer_richtext,omitempty"` // 富文本答案。该字段支持 text、hyperlink、img、line break 四种类型, 不同类型包含的参数信息可能不同, 详情可参见[富文本](https://open.feishu.cn/document/ukTMukTMukTM/uITM0YjLyEDN24iMxQjN)。
 	CreateTime     int64                                       `json:"create_time,omitempty"`     // 创建时间
 	UpdateTime     int64                                       `json:"update_time,omitempty"`     // 修改时间
 	Categories     []*HelpdeskCategory                         `json:"categories,omitempty"`      // 分类
@@ -92,8 +92,8 @@ type GetHelpdeskFAQListRespItem struct {
 	CreateUser     *GetHelpdeskFAQListRespItemCreateUser       `json:"create_user,omitempty"`     // 创建用户
 }
 
-// GetHelpdeskFAQListRespItemAnswerRichText ...
-type GetHelpdeskFAQListRespItemAnswerRichText struct {
+// GetHelpdeskFAQListRespItemAnswerRichtext ...
+type GetHelpdeskFAQListRespItemAnswerRichtext struct {
 	Content string `json:"content,omitempty"` // 内容
 	Type    string `json:"type,omitempty"`    // 类型
 }

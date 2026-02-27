@@ -21,10 +21,13 @@ import (
 	"context"
 )
 
-// EventV1ApprovalCc 创建抄送或者被抄送人已读抄送后, 会向开发者推送消息。
+// EventV1ApprovalCc 当审批实例内创建抄送或者被抄送人已读时, 会触发该事件。
 //
-// - 创建抄送, 推送 "operate" 为 "CREATE" 的事件。
-// - 被抄送人已读抄送, 推送 "operate" 为 "READ" 的事件。
+// - 创建抄送时, 该事件的 `operate` 参数取值为 CREATE。
+// - 被抄送人已读时, 该事件的 `operate` 参数取值为 READ。
+// ## 前提条件
+// - 应用已配置事件订阅, 了解事件订阅可参见[事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
+// - 应用已调用[订阅审批事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/subscribe)接口, 订阅了审批实例对应的审批定义 Code。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/common-event/approval-cc-event
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/event/common-event/approval-cc-event
@@ -37,14 +40,14 @@ type EventV1ApprovalCcHandler func(ctx context.Context, cli *Lark, schema string
 
 // EventV1ApprovalCc ...
 type EventV1ApprovalCc struct {
-	AppID        string `json:"app_id,omitempty"` // 如: cli_xxx
-	TenantKey    string `json:"tenant_key,omitempty"`
-	Type         string `json:"type,omitempty"`          // approval_cc 固定字段
-	ApprovalCode string `json:"approval_code,omitempty"` // 审批定义 Code
-	InstanceCode string `json:"instance_code,omitempty"` // 审批实例 Code
-	ID           string `json:"id,omitempty"`            // 抄送 ID
-	UserID       string `json:"user_id,omitempty"`       // 被抄送人
-	CreateTime   int64  `json:"create_time,omitempty"`   // 抄送时间
-	Operate      string `json:"operate,omitempty"`       // 操作类型  CREATE: 抄送  READ: 已读
-	From         string `json:"from,omitempty"`          // 抄送人, 可能为空
+	AppID        string `json:"app_id,omitempty"`        // 应用的 App ID。可调用[获取应用信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/get)接口查询应用详细信息。
+	TenantKey    string `json:"tenant_key,omitempty"`    // 企业唯一标识。
+	Type         string `json:"type,omitempty"`          // 事件类型。固定取值 `approval_cc`
+	ApprovalCode string `json:"approval_code,omitempty"` // 审批定义 Code。可调用[查看指定审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get)接口查询审批定义详情。
+	InstanceCode string `json:"instance_code,omitempty"` // 审批实例 Code。可调用[获取单个审批实例详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get)接口查询审批实例详情。
+	ID           string `json:"id,omitempty"`            // 抄送 ID。
+	UserID       string `json:"user_id,omitempty"`       // 被抄送人的 user_id。你可以调用[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口, 通过 user_id 获取用户信息。
+	CreateTime   int64  `json:"create_time,omitempty"`   // 抄送时间, 毫秒级时间戳。
+	Operate      string `json:"operate,omitempty"`       // 操作类型。可能值有: CREATE: 创建抄送- READ: 抄送人已读
+	From         string `json:"from,omitempty"`          // 执行抄送操作的用户 user_id, 可能为空。你可以调用[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口, 通过 user_id 获取用户信息。
 }

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// SearchDriveFile 该接口用于根据搜索关键词（search_key）对当前用户可见的文件进行搜索。
+// SearchDriveFile 该接口用于根据搜索关键词（search_key）对当前用户可见的云文档进行搜索。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ugDM4UjL4ADO14COwgTN
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/search/document-search
@@ -32,14 +32,13 @@ func (r *DriveService) SearchDriveFile(ctx context.Context, request *SearchDrive
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "Drive",
-		API:                   "SearchDriveFile",
-		Method:                "POST",
-		URL:                   r.cli.openBaseURL + "/open-apis/suite/docs-api/search/object",
-		Body:                  request,
-		MethodOption:          newMethodOption(options),
-		NeedTenantAccessToken: true,
-		NeedUserAccessToken:   true,
+		Scope:               "Drive",
+		API:                 "SearchDriveFile",
+		Method:              "POST",
+		URL:                 r.cli.openBaseURL + "/open-apis/suite/docs-api/search/object",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
+		NeedUserAccessToken: true,
 	}
 	resp := new(searchDriveFileResp)
 
@@ -59,27 +58,27 @@ func (r *Mock) UnMockDriveSearchDriveFile() {
 
 // SearchDriveFileReq ...
 type SearchDriveFileReq struct {
-	SearchKey string   `json:"search_key,omitempty"` // 指定搜索的关键字
+	SearchKey string   `json:"search_key,omitempty"` // 指定搜索的关键字。
 	Count     *int64   `json:"count,omitempty"`      // 指定搜索返回的文件数量。取值范围为 [0, 50]。
-	Offset    *int64   `json:"offset,omitempty"`     // 指定搜索的偏移量, 该参数最小为 0, 即不偏移。该参数的值与返回的文件数量之和不得小于或等于 200（即 offset + count < 200）。
-	OwnerIDs  []string `json:"owner_ids,omitempty"`  // 文件所有者的用户 ID。了解更多, 参考[如何获取 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。
+	Offset    *int64   `json:"offset,omitempty"`     // 指定搜索的偏移量, 该参数最小为 0, 即不偏移。该参数的值与返回的文件数量之和不得大于或等于 200（即 offset + count < 200）。
+	OwnerIDs  []string `json:"owner_ids,omitempty"`  // 文件所有者的 Open ID。了解更多, 参考[如何获取 Open ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)。
 	ChatIDs   []string `json:"chat_ids,omitempty"`   // 文件所在群的 ID。了解更多, 参考[群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)。
-	DocsTypes []string `json:"docs_types,omitempty"` // 文件类型, 支持以下枚举: `doc`: 旧版文档, `sheet`: 电子表格, `slide`: 幻灯片, `bitable`: 多维表格, `mindnote`: 思维笔记, `file`: 文件
+	DocsTypes []string `json:"docs_types,omitempty"` // 文件类型, 支持以下枚举: `doc`: 文档, 包括旧版文档（doc）和新版文档（docx）- `sheet`: 电子表格- `slides`: 幻灯片- `bitable`: 多维表格- `mindnote`: 思维笔记- `file`: 文件
 }
 
 // SearchDriveFileResp ...
 type SearchDriveFileResp struct {
-	DocsEntities []*SearchDriveFileRespDocsEntity `json:"docs_entities,omitempty"` // 包含搜索关键词的文件列表。
-	HasMore      bool                             `json:"has_more,omitempty"`      // 结果列表后是否还有数据。
-	Total        int64                            `json:"total,omitempty"`         // 包含搜索关键词的文件总数量。
+	DocsEntities []*SearchDriveFileRespDocsEntity `json:"docs_entities,omitempty"` // 包含搜索关键词的文件列表
+	HasMore      bool                             `json:"has_more,omitempty"`      // 结果列表后是否还有数据
+	Total        int64                            `json:"total,omitempty"`         // 包含搜索关键词的文件总数量
 }
 
 // SearchDriveFileRespDocsEntity ...
 type SearchDriveFileRespDocsEntity struct {
-	DocsToken string   `json:"docs_token,omitempty"` // 文件的 token。
-	DocsType  string   `json:"docs_type,omitempty"`  // 文件的类型。
-	Title     string   `json:"title,omitempty"`      // 文件的标题。
-	OwnerID   []string `json:"owner_id,omitempty"`   // 文件的所有者。
+	DocsToken string `json:"docs_token,omitempty"` // 文件的 token
+	DocsType  string `json:"docs_type,omitempty"`  // 文件的类型
+	Title     string `json:"title,omitempty"`      // 文件的标题
+	OwnerID   string `json:"owner_id,omitempty"`   // 文件的所有者
 }
 
 // searchDriveFileResp ...

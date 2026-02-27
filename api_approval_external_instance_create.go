@@ -85,8 +85,8 @@ type CreateApprovalExternalInstanceReq struct {
 	UpdateTime             string                                                   `json:"update_time,omitempty"`              // 审批实例最近更新时间, Unix 毫秒时间戳, 用于推送数据版本控制。如果 update_mode 值为 UPDATE, 则仅当传过来的 update_time 有变化时（变大）, 才会更新审批中心中的审批实例信息。      说明: 使用该参数主要用来避免并发时, 旧数据更新了新数据。示例值: "1556468012678"
 	DisplayMethod          *string                                                  `json:"display_method,omitempty"`           // 列表页打开审批实例的方式。示例值: "BROWSER"可选值有: 跳转系统默认浏览器打开飞书中侧边抽屉打开飞书内嵌页面打开以托管打开（即托管在飞书审批中心打开）
 	UpdateMode             *string                                                  `json:"update_mode,omitempty"`              // 更新方式。      - 当 update_mode 取值为 REPLACE 时, 每次都以当前推送的数据为最终数据, 会删掉审批中心中, 不在本次推送数据中的多余的任务、抄送数据。- 当 update_mode 取值为 UPDATE 时, 不会删除审批中心的数据, 而只进行新增、更新实例与任务数据。默认值: REPLACE示例值: "UPDATE"可选值有: 全量替换增量更新
-	TaskList               []*CreateApprovalExternalInstanceReqTask                 `json:"task_list,omitempty"`                // 任务列表 最大长度: `300
-	CcList                 []*CreateApprovalExternalInstanceReqCc                   `json:"cc_list,omitempty"`                  // 抄送列表 最大长度: `200
+	TaskList               []*CreateApprovalExternalInstanceReqTask                 `json:"task_list,omitempty"`                // 任务列表 最大长度: `300`
+	CcList                 []*CreateApprovalExternalInstanceReqCc                   `json:"cc_list,omitempty"`                  // 抄送列表 最大长度: `200`
 	I18nResources          []*CreateApprovalExternalInstanceReqI18nResource         `json:"i18n_resources,omitempty"`           // 国际化文案
 	TrusteeshipURLToken    *string                                                  `json:"trusteeship_url_token,omitempty"`    // 单据托管认证 token, 托管回调会附带此 token, 帮助业务认证。示例值: "788981c886b1c28ac29d1e68efd60683d6d90dfce80938ee9453e2a5f3e9e306"
 	TrusteeshipUserIDType  *IDType                                                  `json:"trusteeship_user_id_type,omitempty"` // 用户的类型, 会影响请求参数用户标识域的选择, 包括加签操作回传的目标用户, 目前仅支持 user_id。示例值: "user_id"
@@ -155,7 +155,7 @@ type CreateApprovalExternalInstanceReqTask struct {
 	ActionContext     *string                                              `json:"action_context,omitempty"`     // 操作上下文。当用户操作审批时, 回调请求中会包含该参数, 用于传递该任务的上下文数据。示例值: "123456"
 	ActionConfigs     []*CreateApprovalExternalInstanceReqTaskActionConfig `json:"action_configs,omitempty"`     // 任务级别的快捷审批操作配置。      注意: 快捷审批目前仅支持在飞书移动端操作。
 	DisplayMethod     *string                                              `json:"display_method,omitempty"`     // 审批中心列表页打开审批任务的方式。示例值: "BROWSER"可选值有: 跳转系统默认浏览器打开飞书中侧边抽屉打开飞书内嵌页面打开以托管模式打开
-	ExcludeStatistics *bool                                                `json:"exclude_statistics,omitempty"` // 三方审批任务是否不纳入效率统计。可选值有: true: 不纳入效率统计- false: 纳入效率统计示例值: false默认值: `false
+	ExcludeStatistics *bool                                                `json:"exclude_statistics,omitempty"` // 三方审批任务是否不纳入效率统计。可选值有: true: 不纳入效率统计- false: 纳入效率统计示例值: false默认值: `false`
 	NodeID            *string                                              `json:"node_id,omitempty"`            // 审批节点 ID。必须同时满足: 一个审批流程内, 每个节点 ID 唯一。例如, 一个流程下直属上级、隔级上级等节点的 node_id 均不一样。- 同一个三方审批定义内, 不同审批实例中的相同节点, node_id 要保持不变。例如, 用户 A 和用户 B 分别发起了请假申请, 这两个审批实例中的直属上级节点的 node_id 应该保持一致。示例值: "node"
 	NodeName          *string                                              `json:"node_name,omitempty"`          // 节点名称。说明: - 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key）, 还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。- Key 需要以 @i18n@ 开头。示例值: "i18n@name"
 	GenerateType      *string                                              `json:"generate_type,omitempty"`      // 任务生成类型, 可不填, 但是不要填空字符串示例值: "EXTERNAL_CONSIGN"可选值有: 给代理人生成的任务系统生成的默认任务

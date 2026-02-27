@@ -58,10 +58,10 @@ func (r *Mock) UnMockCoreHRSearchCoreHRCurrency() {
 
 // SearchCoreHRCurrencyReq ...
 type SearchCoreHRCurrencyReq struct {
-	PageSize       int64    `query:"page_size" json:"-"`        // 分页大小, 最大 100示例值: 100 取值范围: `1` ～ `100
+	PageSize       int64    `query:"page_size" json:"-"`        // 分页大小, 最大 100示例值: 100 取值范围: `1` ～ `100`
 	PageToken      *string  `query:"page_token" json:"-"`       // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 6891251722631890445
-	CurrencyIDList []string `json:"currency_id_list,omitempty"` // 货币 ID 列表, 不填写则返回全部列表示例值: ["6863329932261459464"] 最大长度: `100
-	StatusList     []int64  `json:"status_list,omitempty"`      // 货币状态列表, 不填写则返回全部列表示例值: [1]可选值有: 生效失效默认值: `[1]` 最大长度: `2
+	CurrencyIDList []string `json:"currency_id_list,omitempty"` // 货币 ID 列表, 不填写则返回全部列表示例值: ["6863329932261459464"] 最大长度: `100`
+	StatusList     []int64  `json:"status_list,omitempty"`      // 货币状态列表, 不填写则返回全部列表示例值: [1]可选值有: 生效失效默认值: `[1]` 最大长度: `2`
 }
 
 // SearchCoreHRCurrencyResp ...

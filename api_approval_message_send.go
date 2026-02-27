@@ -120,13 +120,10 @@ type SendApprovalMessageReqContentSummarie struct {
 
 // SendApprovalMessageReqI18nResource ...
 type SendApprovalMessageReqI18nResource struct {
-	Locale    string                                   `header:"locale" json:"-"`     // 语言。可选值有: zh-CN: 中文- en-US: 英文- ja-JP: 日文示例值: zh-CN
-	IsDefault bool                                     `header:"is_default" json:"-"` // 当前语言是否为默认语言。默认语言需要在 texts 中传入所有的 Key:Value, 非默认语言如果缺失 Key, 则会使用默认语言代替。示例值: true
-	Texts     *SendApprovalMessageReqI18nResourceTexts `header:"texts" json:"-"`      // 文案的 Key:Value。Key 需要以 `@i18n@` 开头, 并按照各个参数的要求传入 Value。示例值: ```{"@i18n@1": "权限申请", "@i18n@2": "OA审批", "@i18n@3": "Permission"}``
+	Locale    string      `header:"locale" json:"-"`     // 语言。可选值有: zh-CN: 中文- en-US: 英文- ja-JP: 日文示例值: zh-CN
+	IsDefault bool        `header:"is_default" json:"-"` // 当前语言是否为默认语言。默认语言需要在 texts 中传入所有的 Key:Value, 非默认语言如果缺失 Key, 则会使用默认语言代替。示例值: true
+	Texts     interface{} `header:"texts" json:"-"`      // 文案的 Key:Value。Key 需要以 `@i18n@` 开头, 并按照各个参数的要求传入 Value。示例值: ```{"@i18n@1": "权限申请", "@i18n@2": "OA审批", "@i18n@3": "Permission"}```
 }
-
-// SendApprovalMessageReqI18nResourceTexts ...
-type SendApprovalMessageReqI18nResourceTexts struct{}
 
 // SendApprovalMessageResp ...
 type SendApprovalMessageResp struct {

@@ -85,9 +85,9 @@ type EventV2VCMeetingAllMeetingStartedV1MeetingOwnerID struct {
 // EventV2VCMeetingAllMeetingStartedV1MeetingSecuritySetting ...
 type EventV2VCMeetingAllMeetingStartedV1MeetingSecuritySetting struct {
 	SecurityLevel                  int64    `json:"security_level,omitempty"`                      // 安全级别可选值有: 所有人可加入仅企业内用户可加入仅指定联系人和群可加入仅主持人可参会（锁定会议）
-	GroupIDs                       []string `json:"group_ids,omitempty"`                           // 允许入会的群组ID列表 长度范围: `0` ～ `200
-	UserIDs                        []string `json:"user_ids,omitempty"`                            // 允许入会的用户ID列表 长度范围: `0` ～ `200
-	RoomIDs                        []string `json:"room_ids,omitempty"`                            // 允许入会的会议室ID列表 长度范围: `0` ～ `200
+	GroupIDs                       []string `json:"group_ids,omitempty"`                           // 允许入会的群组ID列表 长度范围: `0` ～ `200`
+	UserIDs                        []string `json:"user_ids,omitempty"`                            // 允许入会的用户ID列表 长度范围: `0` ～ `200`
+	RoomIDs                        []string `json:"room_ids,omitempty"`                            // 允许入会的会议室ID列表 长度范围: `0` ～ `200`
 	HasSetSecurityContactsAndGroup bool     `json:"has_set_security_contacts_and_group,omitempty"` // 是否设置了仅指定联系人和群组可参会
 }
 

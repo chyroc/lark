@@ -24,7 +24,8 @@ import (
 
 // PartUploadDriveMedia 根据 [预上传](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_prepare)接口返回的上传事务 ID 和分片策略上传对应的素材分片。上传完成后, 你可调用 [分片上传素材（完成上传）](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_finish)触发完成上传。
 //
-// 该接口不支持较高并发, 且调用频率上限为 5 QPS。
+// ## 使用限制
+// 该接口调用频率上限为 5 QPS, 10000 次/天。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_part
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/media/multipart-upload-media/upload_part
@@ -43,7 +44,6 @@ func (r *DriveService) PartUploadDriveMedia(ctx context.Context, request *PartUp
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 		NeedUserAccessToken:   true,
-		IsFile:                true,
 	}
 	resp := new(partUploadDriveMediaResp)
 
@@ -63,16 +63,15 @@ func (r *Mock) UnMockDrivePartUploadDriveMedia() {
 
 // PartUploadDriveMediaReq ...
 type PartUploadDriveMediaReq struct {
-	UploadID string    `json:"upload_id,omitempty"` // 分片上传事务的 ID。通过调用[分片上传素材（预上传）](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_prepare)接口获取, 示例值: "7111211691345512356"
-	Seq      int64     `json:"seq,omitempty"`       // 块号, 从 0 开始计数, 示例值: 0
-	Size     int64     `json:"size,omitempty"`      // 块的大小, 单位为字节, 示例值: 4194304
-	Checksum *string   `json:"checksum,omitempty"`  // 素材文件的 Adler-32 校验和, 示例值: "3248270248"
-	File     io.Reader `json:"file,omitempty"`      // 素材文件分片的二进制内容, 示例值: file binary
+	UploadID string    `json:"upload_id,omitempty"` // 分片上传事务的 ID。通过调用[分片上传素材（预上传）](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_prepare)接口获取。示例值: "7111211691345512356"
+	Seq      int64     `json:"seq,omitempty"`       // 块号, 从 0 开始计数。示例值: 0
+	Size     int64     `json:"size,omitempty"`      // 块的大小, 单位为字节。示例值: 4194304
+	Checksum *string   `json:"checksum,omitempty"`  // 素材文件的 Adler-32 校验和示例值: "3248270248"
+	File     io.Reader `json:"file,omitempty"`      // 素材文件分片的二进制内容示例值: file binary
 }
 
 // PartUploadDriveMediaResp ...
-type PartUploadDriveMediaResp struct {
-}
+type PartUploadDriveMediaResp struct{}
 
 // partUploadDriveMediaResp ...
 type partUploadDriveMediaResp struct {

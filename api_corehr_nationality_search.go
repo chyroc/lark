@@ -58,11 +58,11 @@ func (r *Mock) UnMockCoreHRSearchCoreHRNationality() {
 
 // SearchCoreHRNationalityReq ...
 type SearchCoreHRNationalityReq struct {
-	PageSize            int64    `query:"page_size" json:"-"`              // 分页大小, 最大 100示例值: 100 取值范围: `1` ～ `100
+	PageSize            int64    `query:"page_size" json:"-"`              // 分页大小, 最大 100示例值: 100 取值范围: `1` ～ `100`
 	PageToken           *string  `query:"page_token" json:"-"`             // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 7075702743846897196
-	NationalityIDList   []string `json:"nationality_id_list,omitempty"`    // 国籍 ID 列表, 可从[批量查询员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)接口返回的 `person_info.nationality_id_v2` 等字段中获取, 不填则返回全部示例值: ["7075702743923361324"] 最大长度: `100
-	CountryRegionIDList []string `json:"country_region_id_list,omitempty"` // 国家 / 地区 ID 列表, 可通过[查询国家 / 地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)接口查询, 不填则返回全部示例值: ["6862995791674344967"] 最大长度: `100
-	StatusList          []int64  `json:"status_list,omitempty"`            // 状态列表示例值: [1]可选值有: 生效失效默认值: `[1]` 最大长度: `2
+	NationalityIDList   []string `json:"nationality_id_list,omitempty"`    // 国籍 ID 列表, 可从[批量查询员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)接口返回的 `person_info.nationality_id_v2` 等字段中获取, 不填则返回全部示例值: ["7075702743923361324"] 最大长度: `100`
+	CountryRegionIDList []string `json:"country_region_id_list,omitempty"` // 国家 / 地区 ID 列表, 可通过[查询国家 / 地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)接口查询, 不填则返回全部示例值: ["6862995791674344967"] 最大长度: `100`
+	StatusList          []int64  `json:"status_list,omitempty"`            // 状态列表示例值: [1]可选值有: 生效失效默认值: `[1]` 最大长度: `2`
 }
 
 // SearchCoreHRNationalityResp ...

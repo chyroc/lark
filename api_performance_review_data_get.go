@@ -65,10 +65,10 @@ type GetPerformanceReviewDataReq struct {
 	UserIDType         *IDType  `query:"user_id_type" json:"-"`          // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以 people_admin_id 来识别用户默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	StartTime          string   `json:"start_time,omitempty"`            // 周期开始时间最小值, 毫秒时间戳, 小于该时间开始的周期会被过滤掉 注意: 当填写了 `semester_id_list` 参数时, 此参数无效示例值: "1430425599999"
 	EndTime            string   `json:"end_time,omitempty"`              // 周期结束时间最大值, 毫秒时间戳, 大于该时间结束的周期会被过滤掉 注意: 当填写了 `semester_id_list` 参数时, 此参数无效示例值: "1630425599999"
-	StageTypes         []string `json:"stage_types,omitempty"`           // 环节类型, 目前仅支持终评环节、结果沟通环节、查看绩效结果环节（不传默认包含所有的环节）示例值: ["leader_review"]可选值有: 终评环节结果沟通环节查看绩效结果环节 最大长度: `50
-	StageProgress      []int64  `json:"stage_progress,omitempty"`        // 环节状态, 填写时按照指定状态获取绩效结果, 不填查询所有状态的绩效结果示例值: [1]可选值有: 未开始, 任务的开始时间未到达待完成, 任务的开始时间到达而截止时间未到达, 且任务未完成已截止, 任务的截止时间已到达, 且任务未完成已完成, 任务已完成已复议 最大长度: `50
-	SemesterIDList     []string `json:"semester_id_list,omitempty"`      // 评估周期 ID 列表, 可通过[获取周期](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)接口获取示例值: ["6992035450862224940"] 最大长度: `50
-	RevieweeUserIDList []string `json:"reviewee_user_id_list,omitempty"` // 被评估人 ID 列表, 与入参 `user_id_type` 类型一致示例值: ["ou_838b193464e10df19f1e1b3853698cca"] 最大长度: `50
+	StageTypes         []string `json:"stage_types,omitempty"`           // 环节类型, 目前仅支持终评环节、结果沟通环节、查看绩效结果环节（不传默认包含所有的环节）示例值: ["leader_review"]可选值有: 终评环节结果沟通环节查看绩效结果环节 最大长度: `50`
+	StageProgress      []int64  `json:"stage_progress,omitempty"`        // 环节状态, 填写时按照指定状态获取绩效结果, 不填查询所有状态的绩效结果示例值: [1]可选值有: 未开始, 任务的开始时间未到达待完成, 任务的开始时间到达而截止时间未到达, 且任务未完成已截止, 任务的截止时间已到达, 且任务未完成已完成, 任务已完成已复议 最大长度: `50`
+	SemesterIDList     []string `json:"semester_id_list,omitempty"`      // 评估周期 ID 列表, 可通过[获取周期](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)接口获取示例值: ["6992035450862224940"] 最大长度: `50`
+	RevieweeUserIDList []string `json:"reviewee_user_id_list,omitempty"` // 被评估人 ID 列表, 与入参 `user_id_type` 类型一致示例值: ["ou_838b193464e10df19f1e1b3853698cca"] 最大长度: `50`
 	UpdatedLaterThan   *string  `json:"updated_later_than,omitempty"`    // 环节更新时间最早时间, 毫秒时间戳, 可筛选出在此时间之后, 有内容提交的环节数据示例值: "1630425599999"
 }
 

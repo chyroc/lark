@@ -41,7 +41,7 @@ type EventV2DriveFileCreatedInFolderV1 struct {
 	FileToken     string                                       `json:"file_token,omitempty"`     // 文件的 token, 获取方式见 [如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)示例值: docxnBKgoMyY5OMbUG6FioTXuBe 长度范围: `22` ～ `27` 字符
 	FolderToken   string                                       `json:"folder_token,omitempty"`   // 文件夹 Token。获取方式见[文件夹概述](https://open.feishu.cn/document/ukTMukTMukTM/ugTNzUjL4UzM14CO1MTN/folder-overview) 长度范围: `22` ～ `27` 字符
 	OperatorID    *EventV2DriveFileCreatedInFolderV1OperatorID `json:"operator_id,omitempty"`    // 操作者的用户 ID
-	SubscriberIDs []string                                     `json:"subscriber_ids,omitempty"` // 订阅者的用户 ID 列表 长度范围: `0` ～ `100
+	SubscriberIDs []string                                     `json:"subscriber_ids,omitempty"` // 订阅者的用户 ID 列表 长度范围: `0` ～ `100`
 }
 
 // EventV2DriveFileCreatedInFolderV1OperatorID ...

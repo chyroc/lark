@@ -35,7 +35,7 @@ type EventV2VCReserveConfigUpdatedV1Handler func(ctx context.Context, cli *Lark,
 // EventV2VCReserveConfigUpdatedV1 ...
 type EventV2VCReserveConfigUpdatedV1 struct {
 	ScopeID            string                                             `json:"scope_id,omitempty"`             // 会议室或层级id
-	ScopeType          int64                                              `json:"scope_type,omitempty"`           // 1代表层级, 2代表会议室 取值范围: `1` ～ `2
+	ScopeType          int64                                              `json:"scope_type,omitempty"`           // 1代表层级, 2代表会议室 取值范围: `1` ～ `2`
 	ApproveConfig      *EventV2VCReserveConfigUpdatedV1ApproveConfig      `json:"approve_config,omitempty"`       // 预定审批设置
 	TimeConfig         *EventV2VCReserveConfigUpdatedV1TimeConfig         `json:"time_config,omitempty"`          // 预定时间设置
 	ReserveScopeConfig *EventV2VCReserveConfigUpdatedV1ReserveScopeConfig `json:"reserve_scope_config,omitempty"` // 预定范围设置
@@ -43,8 +43,8 @@ type EventV2VCReserveConfigUpdatedV1 struct {
 
 // EventV2VCReserveConfigUpdatedV1ApproveConfig ...
 type EventV2VCReserveConfigUpdatedV1ApproveConfig struct {
-	ApprovalSwitch    int64                                                   `json:"approval_switch,omitempty"`    // 预定审批开关, 0关闭, 1打开 取值范围: `0` ～ `1
-	ApprovalCondition int64                                                   `json:"approval_condition,omitempty"` // 预定审批条件, 0所有预定需要审批, 1满足条件需审批 取值范围: `0` ～ `1
+	ApprovalSwitch    int64                                                   `json:"approval_switch,omitempty"`    // 预定审批开关, 0关闭, 1打开 取值范围: `0` ～ `1`
+	ApprovalCondition int64                                                   `json:"approval_condition,omitempty"` // 预定审批条件, 0所有预定需要审批, 1满足条件需审批 取值范围: `0` ～ `1`
 	MeetingDuration   float64                                                 `json:"meeting_duration,omitempty"`   // 超过 meeting_duration小时需要审批
 	Approvers         []*EventV2VCReserveConfigUpdatedV1ApproveConfigApprover `json:"approvers,omitempty"`          // 审批人列表
 }
@@ -63,7 +63,7 @@ type EventV2VCReserveConfigUpdatedV1ApproveConfigApproverUserID struct {
 
 // EventV2VCReserveConfigUpdatedV1ReserveScopeConfig ...
 type EventV2VCReserveConfigUpdatedV1ReserveScopeConfig struct {
-	AllowAllUsers int64                                                         `json:"allow_all_users,omitempty"` // 可预定成员范围, 0部分成员, 1全部成员 取值范围: `0` ～ `1
+	AllowAllUsers int64                                                         `json:"allow_all_users,omitempty"` // 可预定成员范围, 0部分成员, 1全部成员 取值范围: `0` ～ `1`
 	AllowUsers    []*EventV2VCReserveConfigUpdatedV1ReserveScopeConfigAllowUser `json:"allow_users,omitempty"`     // 可预定成员列表
 	AllowDepts    []*EventV2VCReserveConfigUpdatedV1ReserveScopeConfigAllowDept `json:"allow_depts,omitempty"`     // 可预定部门列表
 }
@@ -87,10 +87,10 @@ type EventV2VCReserveConfigUpdatedV1ReserveScopeConfigAllowUserUserID struct {
 
 // EventV2VCReserveConfigUpdatedV1TimeConfig ...
 type EventV2VCReserveConfigUpdatedV1TimeConfig struct {
-	TimeSwitch    int64  `json:"time_switch,omitempty"`     // 预定时间开关: 0 代表关闭, 1 代表开启 取值范围: `0` ～ `1
-	DaysInAdvance int64  `json:"days_in_advance,omitempty"` // 最早可提前  days_in_advance 预定会议室（单位: 天, 取值范围[1-730]） 说明: 不填写时, 默认更新为 365
-	OpeningHour   string `json:"opening_hour,omitempty"`    // 开放当天可于  opening_hour 开始预定（单位: 秒, 取值范围[0, 86400]） 说明: 1.  不填写时默认更新为  28800  2.  如果填写的值不是 60  的倍数, 则自动会更新为离其最近的 60 整数倍的值。
-	StartTime     string `json:"start_time,omitempty"`      // 每日可预定时间范围的开始时间（单位: 秒, 取值范围[0, 86400]） 说明: 1.  不填写时, 默认更新为 0, 此时填写的  end_time 不得小于 30。 2.  当 start_time 与  end_time 均填写时, end_time 至少超过  start_time 30 。 3.  如果填写的值不是 60 的倍数, 则自动会更新为离其最近的 60 整数倍的值。
-	EndTime       string `json:"end_time,omitempty"`        // 每日可预定时间范围结束时间（单位: 秒, 取值范围[0, 86400]） 说明: 1.  不填写时, 默认更新为 86400, 此时填写的 start_time 不得大于等于 86370 。 2.  当 start_time 与  end_time 均填写时, end_time 至少要超过  start_time 30。 3.  如果填写的值不是  60 的倍数, 则自动会更新为离其最近的 60 整数倍的值。
-	MaxDuration   int64  `json:"max_duration,omitempty"`    // 单次会议室可预定时长上限（单位: 小时, 取值范围[1, 99]） 说明: 不填写时默认更新为 2
+	TimeSwitch    int64  `json:"time_switch,omitempty"`     // 预定时间开关: 0 代表关闭, 1 代表开启 取值范围: `0` ～ `1`
+	DaysInAdvance int64  `json:"days_in_advance,omitempty"` // 最早可提前  days_in_advance 预定会议室（单位: 天, 取值范围[1-730]） <b>说明</b>: 不填写时, 默认更新为 365
+	OpeningHour   string `json:"opening_hour,omitempty"`    // 开放当天可于  opening_hour 开始预定（单位: 秒, 取值范围[0, 86400]） <b>说明</b>: 1.  不填写时默认更新为  28800  2.  如果填写的值不是 60  的倍数, 则自动会更新为离其最近的 60 整数倍的值。
+	StartTime     string `json:"start_time,omitempty"`      // 每日可预定时间范围的开始时间（单位: 秒, 取值范围[0, 86400]） <b>说明</b>: 1.  不填写时, 默认更新为 0, 此时填写的  end_time 不得小于 30。 2.  当 start_time 与  end_time 均填写时, end_time 至少超过  start_time 30 。 3.  如果填写的值不是 60 的倍数, 则自动会更新为离其最近的 60 整数倍的值。
+	EndTime       string `json:"end_time,omitempty"`        // 每日可预定时间范围结束时间（单位: 秒, 取值范围[0, 86400]） <b>说明</b>: 1.  不填写时, 默认更新为 86400, 此时填写的 start_time 不得大于等于 86370 。 2.  当 start_time 与  end_time 均填写时, end_time 至少要超过  start_time 30。 3.  如果填写的值不是  60 的倍数, 则自动会更新为离其最近的 60 整数倍的值。
+	MaxDuration   int64  `json:"max_duration,omitempty"`    // 单次会议室可预定时长上限（单位: 小时, 取值范围[1, 99]） <b>说明</b>: 不填写时默认更新为 2
 }

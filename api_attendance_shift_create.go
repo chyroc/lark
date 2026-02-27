@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// CreateAttendanceShift 班次是描述一次考勤任务时间规则的统称, 比如一天打多少次卡, 每次卡的上下班时间, 晚到多长时间算迟到, 晚到多长时间算缺卡等。
+// CreateAttendanceShift 班次是描述一次考勤任务时间规则的统称, 比如一天打多少次卡, 每次卡的上下班时间, 晚到多长时间算迟到, 晚到多长时间算缺卡等。在假勤设置-[班次设置](https://example.feishu.cn/people/workforce-management/setting/group/shifts)中点击班次名称可以进行班次详情查看。如果入参中传入了班次id, 那么支持编辑班次的能力
 //
 // - 创建一个考勤组前, 必须先创建一个或者多个班次。
 // - 一个公司内的班次是共享的, 你可以直接引用他人创建的班次, 但是需要注意的是, 若他人修改了班次, 会影响到你的考勤组及其考勤结果。
@@ -61,55 +61,89 @@ func (r *Mock) UnMockAttendanceCreateAttendanceShift() {
 
 // CreateAttendanceShiftReq ...
 type CreateAttendanceShiftReq struct {
-	ShiftName          string                                       `json:"shift_name,omitempty"`            // 班次名称, 示例值: "早班"
-	PunchTimes         int64                                        `json:"punch_times,omitempty"`           // 打卡次数, 示例值: 1
-	SubShiftLeaderIDs  []string                                     `json:"sub_shift_leader_ids,omitempty"`  // 排班组子负责人id列表, 示例值: ["员工id:dd31248a或者员工工号:456123"]
-	IsFlexible         *bool                                        `json:"is_flexible,omitempty"`           // 是否弹性打卡, 示例值: false
-	FlexibleMinutes    *int64                                       `json:"flexible_minutes,omitempty"`      // 弹性打卡时间, 设置[上班最多可晚到]与[下班最多可早走]时间, 如果不设置flexible_rule则生效, 示例值: 60
-	FlexibleRule       []*CreateAttendanceShiftReqFlexibleRule      `json:"flexible_rule,omitempty"`         // 弹性打卡时间设置
-	NoNeedOff          *bool                                        `json:"no_need_off,omitempty"`           // 不需要打下班卡, 示例值: true
-	PunchTimeRule      []*CreateAttendanceShiftReqPunchTimeRule     `json:"punch_time_rule,omitempty"`       // 打卡规则
-	LateOffLateOnRule  []*CreateAttendanceShiftReqLateOffLateOnRule `json:"late_off_late_on_rule,omitempty"` // 晚走晚到规则
-	RestTimeRule       []*CreateAttendanceShiftReqRestTimeRule      `json:"rest_time_rule,omitempty"`        // 休息规则
-	OvertimeRule       []*CreateAttendanceShiftReqOvertimeRule      `json:"overtime_rule,omitempty"`         // 打卡规则
-	AllowPunchApproval *bool                                        `json:"allow_punch_approval,omitempty"`  // 是否允许在非打卡时段申请打卡, 示例值: false
+	EmployeeType              *EmployeeType                                      `query:"employee_type" json:"-"`                // 请求体中的 user_ids 和响应体中的 user_id 的员工ID类型。如果没有后台管理权限, 可使用[通过手机号或邮箱获取用户 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/batch_get_id)示例值: employee_id可选值有: 员工 employee ID, 即[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的用户 ID, 或者[通过手机号或邮箱获取用户 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/batch_get_id)获取的userid。员工工号, 即[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的工号
+	ShiftName                 string                                             `json:"shift_name,omitempty"`                   // 班次名称, 不可重复示例值: "早班"
+	PunchTimes                int64                                              `json:"punch_times,omitempty"`                  // 打卡次数（历史字段, 已无用, 以punch_time_rule为准）示例值: 1
+	SubShiftLeaderIDs         []string                                           `json:"sub_shift_leader_ids,omitempty"`         // 班次负责人, 与employee_type类型对应示例值: ["456123"]
+	IsFlexible                *bool                                              `json:"is_flexible,omitempty"`                  // 是否弹性打卡, 默认为false, 不开启示例值: false
+	FlexibleMinutes           *int64                                             `json:"flexible_minutes,omitempty"`             // 弹性打卡时间, 单位: 分钟, 设置【上班最多可晚到】与【下班最多可早走】时间。仅当未设置 flexible_rule 参数时, 该参数生效。如果设置了 flexible_rule 参数, 则该参数不生效示例值: 60
+	FlexibleRule              []*CreateAttendanceShiftReqFlexibleRule            `json:"flexible_rule,omitempty"`                // 弹性打卡时间设置
+	NoNeedOff                 *bool                                              `json:"no_need_off,omitempty"`                  // true为不需要打下班卡。默认为false, 需要下班打卡示例值: true
+	PunchTimeRule             []*CreateAttendanceShiftReqPunchTimeRule           `json:"punch_time_rule,omitempty"`              // 打卡规则
+	LateOffLateOnRule         []*CreateAttendanceShiftReqLateOffLateOnRule       `json:"late_off_late_on_rule,omitempty"`        // 晚走晚到规则（仅飞书人事企业版可用）
+	RestTimeRule              []*CreateAttendanceShiftReqRestTimeRule            `json:"rest_time_rule,omitempty"`               // 休息规则
+	OvertimeRule              []*CreateAttendanceShiftReqOvertimeRule            `json:"overtime_rule,omitempty"`                // 加班时段（仅飞书人事企业版可用）
+	DayType                   *int64                                             `json:"day_type,omitempty"`                     // 日期类型, 【是否弹性打卡 = ture】时, 不可设置为“休息日”  可选值: 1: 工作日 2: 休息日。默认值: 1示例值: 1
+	OvertimeRestTimeRule      []*CreateAttendanceShiftReqOvertimeRestTimeRule    `json:"overtime_rest_time_rule,omitempty"`      // 班外休息规则
+	LateMinutesAsSeriousLate  *int64                                             `json:"late_minutes_as_serious_late,omitempty"` // 晚到多久记为严重迟到。单位: 分钟（优先级高于data.shift.punch_time_rule.late_minutes_as_serious_late）示例值: 40
+	ShiftMiddleTimeRule       *CreateAttendanceShiftReqShiftMiddleTimeRule       `json:"shift_middle_time_rule,omitempty"`       // 半天分割规则（仅飞书人事企业版可用）
+	ShiftAttendanceTimeConfig *CreateAttendanceShiftReqShiftAttendanceTimeConfig `json:"shift_attendance_time_config,omitempty"` // 应出勤配置（灰度中, 暂未开放）
+	LateOffLateOnSetting      *CreateAttendanceShiftReqLateOffLateOnSetting      `json:"late_off_late_on_setting,omitempty"`     // 晚走次日晚到配置规则
+	ID                        *string                                            `json:"id,omitempty"`                           // 班次id(更新班次时需要传递), 获取方式: 1）[按名称查询班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/query) 2）[创建班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/create)示例值: "6919358778597097404"
 }
 
 // CreateAttendanceShiftReqFlexibleRule ...
 type CreateAttendanceShiftReqFlexibleRule struct {
-	FlexibleEarlyMinutes int64 `json:"flexible_early_minutes,omitempty"` // 下班最多可早走（上班早到几分钟, 下班可早走几分钟）, 示例值: 60
-	FlexibleLateMinutes  int64 `json:"flexible_late_minutes,omitempty"`  // 上班最多可晚到（上班晚到几分钟, 下班须晚走几分钟）, 示例值: 60
+	FlexibleEarlyMinutes int64 `json:"flexible_early_minutes,omitempty"` // 下班最多可早走, 单位: 分钟（上班早到几分钟, 下班可早走几分钟）示例值: 60
+	FlexibleLateMinutes  int64 `json:"flexible_late_minutes,omitempty"`  // 上班最多可晚到, 单位: 分钟（上班晚到几分钟, 下班须晚走几分钟）示例值: 60
 }
 
 // CreateAttendanceShiftReqLateOffLateOnRule ...
 type CreateAttendanceShiftReqLateOffLateOnRule struct {
-	LateOffMinutes int64 `json:"late_off_minutes,omitempty"` // 晚走多久, 示例值: 60
-	LateOnMinutes  int64 `json:"late_on_minutes,omitempty"`  // 晚到多久, 示例值: 30
+	LateOffMinutes int64 `json:"late_off_minutes,omitempty"` // 晚走多久。单位: 分钟示例值: 60
+	LateOnMinutes  int64 `json:"late_on_minutes,omitempty"`  // 晚到多久。单位: 分钟示例值: 30
+}
+
+// CreateAttendanceShiftReqLateOffLateOnSetting ...
+type CreateAttendanceShiftReqLateOffLateOnSetting struct {
+	LateOffBaseOnTimeType *int64 `json:"late_off_base_on_time_type,omitempty"` // 当日晚走时间计算规则示例值: 0可选值有: 弹性规则固定规则默认值: `0`
+	LateOnBaseOnTimeType  *int64 `json:"late_on_base_on_time_type,omitempty"`  // 次日晚到时间计算规则示例值: 0可选值有: 固定规则弹性规则默认值: `0`
+}
+
+// CreateAttendanceShiftReqOvertimeRestTimeRule ...
+type CreateAttendanceShiftReqOvertimeRestTimeRule struct {
+	RestBeginTime string `json:"rest_begin_time,omitempty"` // 休息开始示例值: "13:00"
+	RestEndTime   string `json:"rest_end_time,omitempty"`   // 休息结束示例值: "14:00"
 }
 
 // CreateAttendanceShiftReqOvertimeRule ...
 type CreateAttendanceShiftReqOvertimeRule struct {
-	OnOvertime  string `json:"on_overtime,omitempty"`  // 上班时间, 示例值: "9:00"
-	OffOvertime string `json:"off_overtime,omitempty"` // 下班时间, 示例值: "18:00"
+	OnOvertime  string `json:"on_overtime,omitempty"`  // 开始时间示例值: "9:00"
+	OffOvertime string `json:"off_overtime,omitempty"` // 结束时间示例值: "18:00"
 }
 
 // CreateAttendanceShiftReqPunchTimeRule ...
 type CreateAttendanceShiftReqPunchTimeRule struct {
-	OnTime                   string `json:"on_time,omitempty"`                      // 上班时间, 示例值: "9:00"
-	OffTime                  string `json:"off_time,omitempty"`                     // 下班时间, 示例值: "18:00, 第二天凌晨2点, 26:00"
-	LateMinutesAsLate        int64  `json:"late_minutes_as_late,omitempty"`         // 晚到多久记为迟到, 示例值: 30
-	LateMinutesAsLack        int64  `json:"late_minutes_as_lack,omitempty"`         // 晚到多久记为缺卡, 示例值: 60
-	OnAdvanceMinutes         int64  `json:"on_advance_minutes,omitempty"`           // 最早多久可打上班卡, 示例值: 60
-	EarlyMinutesAsEarly      int64  `json:"early_minutes_as_early,omitempty"`       // 早退多久记为早退, 示例值: 30
-	EarlyMinutesAsLack       int64  `json:"early_minutes_as_lack,omitempty"`        // 早退多久记为缺卡, 示例值: 60
-	OffDelayMinutes          int64  `json:"off_delay_minutes,omitempty"`            // 最晚多久可打下班卡, 示例值: 60
-	LateMinutesAsSeriousLate *int64 `json:"late_minutes_as_serious_late,omitempty"` // 晚到多久记为严重迟到, 示例值: 40
+	OnTime                   string `json:"on_time,omitempty"`                      // 上班时间示例值: "9:00"
+	OffTime                  string `json:"off_time,omitempty"`                     // 下班时间。如果下班时间跨天, 则需要在 24 小时的基础上累加时间。例如, 第二天凌晨 2 点取值为 26:00示例值: "18:00"
+	LateMinutesAsLate        int64  `json:"late_minutes_as_late,omitempty"`         // 晚到多久记为迟到。单位: 分钟示例值: 30
+	LateMinutesAsLack        int64  `json:"late_minutes_as_lack,omitempty"`         // 晚到多久记为缺卡。单位: 分钟示例值: 60
+	OnAdvanceMinutes         int64  `json:"on_advance_minutes,omitempty"`           // 最早多久可打上班卡。最大值为 720。单位: 分钟示例值: 60
+	EarlyMinutesAsEarly      int64  `json:"early_minutes_as_early,omitempty"`       // 早退多久记为早退。单位: 分钟示例值: 30
+	EarlyMinutesAsLack       int64  `json:"early_minutes_as_lack,omitempty"`        // 早退多久记为缺卡。单位: 分钟示例值: 60
+	OffDelayMinutes          int64  `json:"off_delay_minutes,omitempty"`            // 最晚多久可打下班卡。最大值为 960。单位: 分钟示例值: 60
+	LateMinutesAsSeriousLate *int64 `json:"late_minutes_as_serious_late,omitempty"` // 晚到多久记为严重迟到。单位: 分钟示例值: 40
+	NoNeedOn                 *bool  `json:"no_need_on,omitempty"`                   // true为不需要打上班卡, 这里需要特别注意, 第一段打卡规则须为false。后续可按需配置示例值: true
+	NoNeedOff                *bool  `json:"no_need_off,omitempty"`                  // true为不需要打下班卡。默认为false, 需要下班打卡（优先级高于data.shift.no_need_off）示例值: true
 }
 
 // CreateAttendanceShiftReqRestTimeRule ...
 type CreateAttendanceShiftReqRestTimeRule struct {
-	RestBeginTime string `json:"rest_begin_time,omitempty"` // 休息开始, 示例值: "13:00"
-	RestEndTime   string `json:"rest_end_time,omitempty"`   // 休息结束, 示例值: "14:00"
+	RestBeginTime string `json:"rest_begin_time,omitempty"` // 休息开始示例值: "13:00"
+	RestEndTime   string `json:"rest_end_time,omitempty"`   // 休息结束示例值: "14:00"
+}
+
+// CreateAttendanceShiftReqShiftAttendanceTimeConfig ...
+type CreateAttendanceShiftReqShiftAttendanceTimeConfig struct {
+	AttendanceTime    *float64 `json:"attendance_time,omitempty"`     // 应出勤时长示例值: 1默认值: `1` 取值范围: `0` ～ `3`
+	OnAttendanceTime  *float64 `json:"on_attendance_time,omitempty"`  // 上半天应出勤时长示例值: 1默认值: `1` 取值范围: `0` ～ `3`
+	OffAttendanceTime *float64 `json:"off_attendance_time,omitempty"` // 下半天应出勤时长示例值: 1默认值: `1` 取值范围: `0` ～ `3`
+}
+
+// CreateAttendanceShiftReqShiftMiddleTimeRule ...
+type CreateAttendanceShiftReqShiftMiddleTimeRule struct {
+	MiddleTimeType  *int64  `json:"middle_time_type,omitempty"`  // 半天分割类型示例值: 0可选值有: 按全天班次时长（含休息）的中点分割按全天班次时长（不含休息）的中点分割按休息时间分割按固定时间点分割默认值: `0`
+	FixedMiddleTime *string `json:"fixed_middle_time,omitempty"` // 固定分割时间点（middle_time_type 为 3 时有效）示例值: "12:00"
 }
 
 // CreateAttendanceShiftResp ...
@@ -119,31 +153,49 @@ type CreateAttendanceShiftResp struct {
 
 // CreateAttendanceShiftRespShift ...
 type CreateAttendanceShiftRespShift struct {
-	ShiftID            string                                             `json:"shift_id,omitempty"`              // 班次 ID
-	ShiftName          string                                             `json:"shift_name,omitempty"`            // 班次名称
-	PunchTimes         int64                                              `json:"punch_times,omitempty"`           // 打卡次数
-	SubShiftLeaderIDs  []string                                           `json:"sub_shift_leader_ids,omitempty"`  // 排班组子负责人id列表
-	IsFlexible         bool                                               `json:"is_flexible,omitempty"`           // 是否弹性打卡
-	FlexibleMinutes    int64                                              `json:"flexible_minutes,omitempty"`      // 弹性打卡时间, 设置[上班最多可晚到]与[下班最多可早走]时间, 如果不设置flexible_rule则生效
-	FlexibleRule       []*CreateAttendanceShiftRespShiftFlexibleRule      `json:"flexible_rule,omitempty"`         // 弹性打卡时间设置
-	NoNeedOff          bool                                               `json:"no_need_off,omitempty"`           // 不需要打下班卡
-	PunchTimeRule      []*CreateAttendanceShiftRespShiftPunchTimeRule     `json:"punch_time_rule,omitempty"`       // 打卡规则
-	LateOffLateOnRule  []*CreateAttendanceShiftRespShiftLateOffLateOnRule `json:"late_off_late_on_rule,omitempty"` // 晚走晚到规则
-	RestTimeRule       []*CreateAttendanceShiftRespShiftRestTimeRule      `json:"rest_time_rule,omitempty"`        // 休息规则
-	OvertimeRule       []*CreateAttendanceShiftRespShiftOvertimeRule      `json:"overtime_rule,omitempty"`         // 打卡规则（暂不支持）
-	AllowPunchApproval bool                                               `json:"allow_punch_approval,omitempty"`  // 是否允许在非打卡时段申请打卡
+	ShiftID                   string                                                   `json:"shift_id,omitempty"`                     // 班次 ID, 调用本接口系统自动生成
+	ShiftName                 string                                                   `json:"shift_name,omitempty"`                   // 班次名称, 对应入参的班次名称
+	PunchTimes                int64                                                    `json:"punch_times,omitempty"`                  // 打卡次数
+	SubShiftLeaderIDs         []string                                                 `json:"sub_shift_leader_ids,omitempty"`         // 班次负责人, 与employee_type类型对应
+	IsFlexible                bool                                                     `json:"is_flexible,omitempty"`                  // 是否弹性打卡
+	FlexibleMinutes           int64                                                    `json:"flexible_minutes,omitempty"`             // 弹性打卡时间, 单位: 分钟, 设置【上班最多可晚到】与【下班最多可早走】时间, 如果不设置flexible_rule则生效
+	FlexibleRule              []*CreateAttendanceShiftRespShiftFlexibleRule            `json:"flexible_rule,omitempty"`                // 弹性打卡时间设置
+	NoNeedOff                 bool                                                     `json:"no_need_off,omitempty"`                  // 不需要打下班卡
+	PunchTimeRule             []*CreateAttendanceShiftRespShiftPunchTimeRule           `json:"punch_time_rule,omitempty"`              // 打卡规则
+	LateOffLateOnRule         []*CreateAttendanceShiftRespShiftLateOffLateOnRule       `json:"late_off_late_on_rule,omitempty"`        // 晚走晚到规则
+	RestTimeRule              []*CreateAttendanceShiftRespShiftRestTimeRule            `json:"rest_time_rule,omitempty"`               // 休息规则
+	OvertimeRule              []*CreateAttendanceShiftRespShiftOvertimeRule            `json:"overtime_rule,omitempty"`                // 打卡规则（暂不支持）
+	DayType                   int64                                                    `json:"day_type,omitempty"`                     // 日期类型, 【是否弹性打卡 = ture】时, 不可设置为“休息日”  可选值: 1: 工作日 2: 休息日。默认值: 1
+	OvertimeRestTimeRule      []*CreateAttendanceShiftRespShiftOvertimeRestTimeRule    `json:"overtime_rest_time_rule,omitempty"`      // 班外休息规则
+	LateMinutesAsSeriousLate  int64                                                    `json:"late_minutes_as_serious_late,omitempty"` // 晚到多久记为严重迟到。单位: 分钟（优先级高于data.shift.punch_time_rule.late_minutes_as_serious_late）
+	ShiftMiddleTimeRule       *CreateAttendanceShiftRespShiftShiftMiddleTimeRule       `json:"shift_middle_time_rule,omitempty"`       // 半天分割规则
+	ShiftAttendanceTimeConfig *CreateAttendanceShiftRespShiftShiftAttendanceTimeConfig `json:"shift_attendance_time_config,omitempty"` // 应出勤配置（灰度中, 暂未开放）
+	LateOffLateOnSetting      *CreateAttendanceShiftRespShiftLateOffLateOnSetting      `json:"late_off_late_on_setting,omitempty"`     // 晚走次日晚到配置规则
+	ID                        string                                                   `json:"id,omitempty"`                           // 班次id(更新班次时需要传递)
 }
 
 // CreateAttendanceShiftRespShiftFlexibleRule ...
 type CreateAttendanceShiftRespShiftFlexibleRule struct {
-	FlexibleEarlyMinutes int64 `json:"flexible_early_minutes,omitempty"` // 下班最多可早走（上班早到几分钟, 下班可早走几分钟）
-	FlexibleLateMinutes  int64 `json:"flexible_late_minutes,omitempty"`  // 上班最多可晚到（上班晚到几分钟, 下班须晚走几分钟）
+	FlexibleEarlyMinutes int64 `json:"flexible_early_minutes,omitempty"` // 下班最多可早走, 单位: 分钟（上班早到几分钟, 下班可早走几分钟）
+	FlexibleLateMinutes  int64 `json:"flexible_late_minutes,omitempty"`  // 上班最多可晚到, 单位: 分钟（上班晚到几分钟, 下班须晚走几分钟）
 }
 
 // CreateAttendanceShiftRespShiftLateOffLateOnRule ...
 type CreateAttendanceShiftRespShiftLateOffLateOnRule struct {
-	LateOffMinutes int64 `json:"late_off_minutes,omitempty"` // 晚走多久
-	LateOnMinutes  int64 `json:"late_on_minutes,omitempty"`  // 晚到多久
+	LateOffMinutes int64 `json:"late_off_minutes,omitempty"` // 晚走多久, 单位: 分钟
+	LateOnMinutes  int64 `json:"late_on_minutes,omitempty"`  // 晚到多久, 单位: 分钟
+}
+
+// CreateAttendanceShiftRespShiftLateOffLateOnSetting ...
+type CreateAttendanceShiftRespShiftLateOffLateOnSetting struct {
+	LateOffBaseOnTimeType int64 `json:"late_off_base_on_time_type,omitempty"` // 当日晚走时间计算规则可选值有: 弹性规则固定规则
+	LateOnBaseOnTimeType  int64 `json:"late_on_base_on_time_type,omitempty"`  // 次日晚到时间计算规则可选值有: 固定规则弹性规则
+}
+
+// CreateAttendanceShiftRespShiftOvertimeRestTimeRule ...
+type CreateAttendanceShiftRespShiftOvertimeRestTimeRule struct {
+	RestBeginTime string `json:"rest_begin_time,omitempty"` // 休息开始
+	RestEndTime   string `json:"rest_end_time,omitempty"`   // 休息结束
 }
 
 // CreateAttendanceShiftRespShiftOvertimeRule ...
@@ -156,19 +208,34 @@ type CreateAttendanceShiftRespShiftOvertimeRule struct {
 type CreateAttendanceShiftRespShiftPunchTimeRule struct {
 	OnTime                   string `json:"on_time,omitempty"`                      // 上班时间
 	OffTime                  string `json:"off_time,omitempty"`                     // 下班时间
-	LateMinutesAsLate        int64  `json:"late_minutes_as_late,omitempty"`         // 晚到多久记为迟到
-	LateMinutesAsLack        int64  `json:"late_minutes_as_lack,omitempty"`         // 晚到多久记为缺卡
-	OnAdvanceMinutes         int64  `json:"on_advance_minutes,omitempty"`           // 最早多久可打上班卡
-	EarlyMinutesAsEarly      int64  `json:"early_minutes_as_early,omitempty"`       // 早退多久记为早退
-	EarlyMinutesAsLack       int64  `json:"early_minutes_as_lack,omitempty"`        // 早退多久记为缺卡
-	OffDelayMinutes          int64  `json:"off_delay_minutes,omitempty"`            // 最晚多久可打下班卡
-	LateMinutesAsSeriousLate int64  `json:"late_minutes_as_serious_late,omitempty"` // 晚到多久记为严重迟到
+	LateMinutesAsLate        int64  `json:"late_minutes_as_late,omitempty"`         // 晚到多久记为迟到, 单位: 分钟
+	LateMinutesAsLack        int64  `json:"late_minutes_as_lack,omitempty"`         // 晚到多久记为缺卡, 单位: 分钟
+	OnAdvanceMinutes         int64  `json:"on_advance_minutes,omitempty"`           // 最早多久可打上班卡, 单位: 分钟
+	EarlyMinutesAsEarly      int64  `json:"early_minutes_as_early,omitempty"`       // 早退多久记为早退, 单位: 分钟
+	EarlyMinutesAsLack       int64  `json:"early_minutes_as_lack,omitempty"`        // 早退多久记为缺卡, 单位: 分钟
+	OffDelayMinutes          int64  `json:"off_delay_minutes,omitempty"`            // 最晚多久可打下班卡, 单位: 分钟
+	LateMinutesAsSeriousLate int64  `json:"late_minutes_as_serious_late,omitempty"` // 晚到多久记为严重迟到。单位: 分钟
+	NoNeedOn                 bool   `json:"no_need_on,omitempty"`                   // 是否不需要打上班卡
+	NoNeedOff                bool   `json:"no_need_off,omitempty"`                  // 是否不需要打下班卡（优先级高于data.shift.no_need_off）
 }
 
 // CreateAttendanceShiftRespShiftRestTimeRule ...
 type CreateAttendanceShiftRespShiftRestTimeRule struct {
 	RestBeginTime string `json:"rest_begin_time,omitempty"` // 休息开始
 	RestEndTime   string `json:"rest_end_time,omitempty"`   // 休息结束
+}
+
+// CreateAttendanceShiftRespShiftShiftAttendanceTimeConfig ...
+type CreateAttendanceShiftRespShiftShiftAttendanceTimeConfig struct {
+	AttendanceTime    float64 `json:"attendance_time,omitempty"`     // 应出勤时长
+	OnAttendanceTime  float64 `json:"on_attendance_time,omitempty"`  // 上半天应出勤时长
+	OffAttendanceTime float64 `json:"off_attendance_time,omitempty"` // 下半天应出勤时长
+}
+
+// CreateAttendanceShiftRespShiftShiftMiddleTimeRule ...
+type CreateAttendanceShiftRespShiftShiftMiddleTimeRule struct {
+	MiddleTimeType  int64  `json:"middle_time_type,omitempty"`  // 半天分割类型可选值有: 按全天班次时长（含休息）的中点分割按全天班次时长（不含休息）的中点分割按休息时间分割按固定时间点分割
+	FixedMiddleTime string `json:"fixed_middle_time,omitempty"` // 固定分割时间点（middle_time_type 为 3 时有效）
 }
 
 // createAttendanceShiftResp ...

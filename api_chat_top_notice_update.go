@@ -70,7 +70,7 @@ type UpdateChatTopNoticeReq struct {
 
 // UpdateChatTopNoticeReqChatTopNotice ...
 type UpdateChatTopNoticeReqChatTopNotice struct {
-	ActionType *string `json:"action_type,omitempty"` // 置顶类型示例值: "2"可选值有: 消息类型, 必需填写 `message_id` 群公告类型, 无需填写 `message_id`默认值: `2
+	ActionType *string `json:"action_type,omitempty"` // 置顶类型示例值: "2"可选值有: 消息类型, 必需填写 `message_id` 群公告类型, 无需填写 `message_id`默认值: `2`
 	MessageID  *string `json:"message_id,omitempty"`  // 消息 ID。ID 获取方式: - 调用[发送消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)接口后, 从响应结果的 `message_id` 参数获取。- 监听[接收消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive)事件, 当触发该事件后可以从事件体内获取消息的 `message_id`。- 调用[获取会话历史消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/list)接口, 从响应结果的 `message_id` 参数获取。示例值: "om_dc13264520392913993dd051dba21dcf"
 }
 

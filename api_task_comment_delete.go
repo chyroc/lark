@@ -21,12 +21,12 @@ import (
 	"context"
 )
 
-// DeleteTaskComment 删除一条评论。
+// DeleteTaskComment 该接口用于通过评论ID删除评论。
 //
-// 评论被删除后, 将无法进行任何操作, 也无法恢复。
-// 需要评论归属任务的读取权限, 并且只能删除自己发送的评论。详情见[任务功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/overview)中的“任务是如何鉴权的？”章节。
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-comment/delete
+// new doc: https://open.feishu.cn/document/server-docs/task-v1/task-comment/delete
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/task-v2/comment/delete
+// Deprecated
 func (r *TaskService) DeleteTaskComment(ctx context.Context, request *DeleteTaskCommentReq, options ...MethodOptionFunc) (*DeleteTaskCommentResp, *Response, error) {
 	if r.cli.mock.mockTaskDeleteTaskComment != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#DeleteTaskComment mock enable")
@@ -37,7 +37,7 @@ func (r *TaskService) DeleteTaskComment(ctx context.Context, request *DeleteTask
 		Scope:                 "Task",
 		API:                   "DeleteTaskComment",
 		Method:                "DELETE",
-		URL:                   r.cli.openBaseURL + "/open-apis/task/v2/comments/:comment_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/task/v1/tasks/:task_id/comments/:comment_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
@@ -61,12 +61,12 @@ func (r *Mock) UnMockTaskDeleteTaskComment() {
 
 // DeleteTaskCommentReq ...
 type DeleteTaskCommentReq struct {
-	CommentID string `path:"comment_id" json:"-"` // 要删除的评论id, 示例值: "7198104824246747156"
+	TaskID    string `path:"task_id" json:"-"`    // 任务ID示例值: "83912691-2e43-47fc-94a4-d512e03984fa"
+	CommentID string `path:"comment_id" json:"-"` // 评论ID示例值: "6937231762296684564"
 }
 
 // DeleteTaskCommentResp ...
-type DeleteTaskCommentResp struct {
-}
+type DeleteTaskCommentResp struct{}
 
 // deleteTaskCommentResp ...
 type deleteTaskCommentResp struct {

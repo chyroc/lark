@@ -21,10 +21,11 @@ import (
 	"context"
 )
 
-// EventV2ApprovalApprovalUpdatedV4 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
+// EventV2ApprovalApprovalUpdatedV4 审批定义的基础信息、表单设计或流程设计等信息发生变更时, 触发该事件。
 //
-// 「审批」定义更新时触发此事件
-// * 依赖权限: [访问审批应用] 或 [查看、创建、更新、删除审批应用相关信息]
+// ## 前提条件
+// - 应用已配置事件订阅, 了解事件订阅可参见[事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
+// - 应用已调用[订阅审批事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/subscribe)接口, 订阅了审批实例对应的审批定义 Code。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/custom-approval-event
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/event/common-event/custom-approval-event
@@ -37,17 +38,17 @@ type EventV2ApprovalApprovalUpdatedV4Handler func(ctx context.Context, cli *Lark
 
 // EventV2ApprovalApprovalUpdatedV4 ...
 type EventV2ApprovalApprovalUpdatedV4 struct {
-	Object *EventV2ApprovalApprovalUpdatedV4Object `json:"object,omitempty"` // 为当前的数据, 事件的标准格式
+	Object *EventV2ApprovalApprovalUpdatedV4Object `json:"object,omitempty"` // 事件详细数据
 }
 
 // EventV2ApprovalApprovalUpdatedV4Object ...
 type EventV2ApprovalApprovalUpdatedV4Object struct {
-	ApprovalID       string `json:"approval_id,omitempty"`        // 审批定义id
-	ApprovalCode     string `json:"approval_code,omitempty"`      // 审批定义code
-	VersionID        string `json:"version_id,omitempty"`         // 审批定义版本号
-	WidgetGroupType  int64  `json:"widget_group_type,omitempty"`  // 控件组类型, 0表示未使用. 如: 0
-	FormDefinitionID string `json:"form_definition_id,omitempty"` // 表单定义ID
-	ProcessObj       string `json:"process_obj,omitempty"`        // 审批流程设计
-	Timestamp        string `json:"timestamp,omitempty"`          // 时间
+	ApprovalCode     string `json:"approval_code,omitempty"`      // 审批定义 Code
+	ApprovalID       string `json:"approval_id,omitempty"`        // 审批定义 ID
 	Extra            string `json:"extra,omitempty"`              // 扩展字段
+	FormDefinitionID string `json:"form_definition_id,omitempty"` // 表单定义 ID
+	ProcessObj       string `json:"process_obj,omitempty"`        // 审批流程表单 JSON 数据
+	Timestamp        int64  `json:"timestamp,omitempty"`          // 审批定义更新时间, 秒级时间戳
+	VersionID        string `json:"version_id,omitempty"`         // 审批定义的版本号
+	WidgetGroupType  int64  `json:"widget_group_type,omitempty"`  // 控件组类型, 返回 0 表示未使用
 }

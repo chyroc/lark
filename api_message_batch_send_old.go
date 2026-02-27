@@ -23,18 +23,15 @@ import (
 
 // BatchSendOldRawMessage 给多个用户或者多个部门中的成员发送消息。
 //
-// 注意事项:
-// - 应用需要启用[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
-// - 接口权限说明:
-// --必须拥有获取与发送单聊、群组消息权限, 或者以应用的身份发消息权限
-// --至少拥有一个批量发送消息权限:
-// --给用户发送需要拥有 给多个用户批量发消息 权限
-// --给部门成员发送需要拥有 给一个或多个部门的成员批量发消息 权限
-// - 应用需要拥有对所发送用户或部门的[可用性](https://open.feishu.cn/document/home/introduction-to-scope-and-authorization/availability)
-// - 通过该接口发送的消息 不支持更新以及回复等操作
-// - 只能发送给用户, 无法发送给群组
-// - 异步接口, 会有一定延迟, 每个应用待发送的消息按顺序处理, 请合理安排批量发送范围和顺序。发送消息给单个用户的场景请使用[发送消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)接口
-// - 单个应用每天通过该接口发送的总消息条数不超过50万
+// ## 前提条件
+// - 应用需要启用[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// - 批量发送消息时, 指定的部门或用户需要在机器人的[可用范围](https://open.feishu.cn/document/home/introduction-to-scope-and-authorization/availability)内。
+// ## 使用限制
+// - 该接口仅支持向用户发送消息, 无法向群组发送消息。
+// - 通过该接口发送的消息, 具备独立的消息 ID（以 `bm-` 为前缀）, 该类消息不支持编辑、回复等操作, 仅支持[批量撤回消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/batch_message/delete)、[查询批量消息推送和阅读人数](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/batch_message/read_user)、[查询批量消息整体进度](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/batch_message/get_progress)。
+// - 单个应用每天通过该接口发送的消息总条目数不能超过 50 万条。
+// - 该接口为异步接口, 会有一定延迟。每个应用待发送的消息按顺序处理, 请合理安排批量发送的范围和顺序。
+// 如果只需要向单个用户或者群聊发送消息, 或者业务要求发送消息不能有延迟, 请使用[发送消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)接口。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/batch_message/send-messages-in-batches
@@ -71,22 +68,22 @@ func (r *Mock) UnMockMessageBatchSendOldRawMessage() {
 
 // BatchSendOldRawMessageReq ...
 type BatchSendOldRawMessageReq struct {
-	MsgType       MsgType     `json:"msg_type,omitempty"`       // 消息类型, 支持多种消息类型, 详见[消息类型及内容示例](	/ssl:ttdoc/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM#42562565)
-	Content       interface{} `json:"content,omitempty"`        // 消息内容, 支持除卡片消息外的多种消息内容, 详见[消息类型及内容示例](	/ssl:ttdoc/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM#42562565)
-	Card          interface{} `json:"card,omitempty"`           // 卡片消息内容   注意: card和content字段必须二选一
-	DepartmentIDs []string    `json:"department_ids,omitempty"` // 支持[自定义部门ID](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology#3c3e6267)和open_department_id, 列表长度小于等于 200    注意: 部门下的所有子部门包含的成员也会收到消息  示例值: ["3dceba33a33226", "d502aaa9514059", "od-5b91c9affb665451a16b90b4be367efa"]
-	OpenIDs       []string    `json:"open_ids,omitempty"`       // 用户 open_id 列表, 长度小于等于 200；ID获取方式可参考文档[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)   示例值: ["ou_18eac85d35a26f989317ad4f02e8bbbb", "ou_461cf042d9eedaa60d445f26dc747d5e"]
-	UserIDs       []string    `json:"user_ids,omitempty"`       // 用户 user_id 列表, 长度小于等于 200；ID获取方式可参考文档[如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)  （对应 V3 接口的 employee_ids ）  示例值: ["7cdcc7c2", "ca51d83b"]
-	UnionIDs      []string    `json:"union_ids,omitempty"`      // 用户 union_ids 列表, 长度小于等于 200；ID获取方式可参考文档[如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)    示例值: ["on_cad4860e7af114fb4ff6c5d496d1dd76", "on_gdcq860e7af114fb4ff6c5d496dabcet"]
+	MsgType       MsgType     `json:"msg_type,omitempty"`       // 消息类型。支持的消息类型有: - text: 文本- image: 图片- post: 富文本- share_chat: 分享群名片- interactive: 卡片  注意: - 如果 `msg_type` 取值为 text、image、post 或者 share_chat, 则消息内容需要传入 `content` 参数内。- 如果 `msg_type` 取值为 interactive, 则消息内容需要传入 `card` 参数内。- 富文本类型（post）的消息, 不支持使用 `md` 标签。各类型的内容如何配置, 参见[发送消息内容](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json), 但需要确保符合当前接口的要求。例如, 仅支持以上 5 种消息类型、批量发送富文本消息时不支持 `md` 标签等。  示例值: text
+	Content       interface{} `json:"content,omitempty"`        // 消息内容, JSON 结构。该参数的取值与 `msg_type` 对应, 例如 `msg_type` 取值为 `text`, 则该参数需要传入文本类型的内容。注意: 该参数仅在 `msg_type` 取值为 text、image、post 或者 share_chat 时需要传入值。如果 `msg_type` 取值为 interactive, 则消息内容需要传入到 `card` 参数。- 文本消息请求体最大不能超过 150 KB。- 富文本消息请求体最大不能超过 30 KB。- 文本消息（text）仅在该接口中不支持加粗、斜体、下划线、删除线样式。- 如果消息中包含样式标签, 会使实际消息体长度大于您输入的请求体长度。- 图片需要先[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create), 然后使用图片的 Key 发消息。- 该接口直接传入 JSON 结构的消息内容即可, 无需进行转义。   了解各类型消息的内容格式、使用限制, 可参见[发送消息内容](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)。   示例值: { "text": "要发送的文本消息" }
+	Card          interface{} `json:"card,omitempty"`           // 卡片内容, JSON 结构。  注意: 该参数的取值与 `msg_type` 对应, 仅当 `msg_type` 取值为 interactive 时, 需要将卡片内容传入当前参数。当 `msg_type` 取值不为 interactive 时, 消息内容需要传入到 `content` 参数。- 卡片消息请求体最大不能超过 30 KB。- 如果使用卡片模板（template_id）发送消息, 实际大小也包含模板对应的卡片数据大小。- 该接口直接传入 JSON 结构的消息内容即可, 无需进行转义。了解更多参见[发送卡片](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/send-feishu-card)。  示例值: {"elements":[{"tag":"div", "text":{"content":"This is the plain text", "tag":"plain_text"}}], "header":{"template":"blue", "title":{"content":"This is the title", "tag":"plain_text"}}}
+	DepartmentIDs []string    `json:"department_ids,omitempty"` // 部门 ID 列表。列表内支持传入部门 department_id 和 open_department_id, 部门 ID 介绍与获取方式, 参见[部门资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)的 部门 ID 章节。  注意: 不支持传入根部门 ID（根部门 ID 为 `0`）。- 列表长度不能超过 200。- 请求时, 消息会发送给 ID 对应部门内的所有成员, 包括部门下的所有子部门成员。- `department_ids`、`open_ids`、`user_ids`、`union_ids` 四个字段至少需要填写其中一个。  示例值: ["3dceba33a33226", "d502aaa9514059", "od-5b91c9affb665451a16b90b4be367efa"]
+	OpenIDs       []string    `json:"open_ids,omitempty"`       // 用户 open_id 列表。open_id 获取方式参见[如何获取自己的 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。  注意: - 列表长度不能超过 200。- `department_ids`、`open_ids`、`user_ids`、`union_ids` 四个字段至少需要填写其中一个。  示例值: ["ou_18eac85d35a26f989317ad4f02e8bbbb", "ou_461cf042d9eedaa60d445f26dc747d5e"]
+	UserIDs       []string    `json:"user_ids,omitempty"`       // 用户 user_id 列表。user_id 获取方式参见[如何获取自己的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。  注意: - 列表长度不能超过 200。- `department_ids`、`open_ids`、`user_ids`、`union_ids` 四个字段至少需要填写其中一个。  示例值: ["7cdcc7c2", "ca51d83b"]
+	UnionIDs      []string    `json:"union_ids,omitempty"`      // 用户 union_id 列表。union_id 获取方式参见[如何获取自己的 Union ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)。  注意: - 列表长度不能超过 200。- `department_ids`、`open_ids`、`user_ids`、`union_ids` 四个字段至少需要填写其中一个。  示例值: ["on_cad4860e7af114fb4ff6c5d496d1dd76", "on_gdcq860e7af114fb4ff6c5d496dabcet"]
 }
 
 // BatchSendOldRawMessageResp ...
 type BatchSendOldRawMessageResp struct {
-	MessageID            string   `json:"message_id,omitempty"`             // 批量消息 ID
-	InvalidDepartmentIDs []string `json:"invalid_department_ids,omitempty"` // 不合法的部门 ID 列表
-	InvalidOpenIDs       []string `json:"invalid_open_ids,omitempty"`       // 不合法的 open_id 列表
-	InvalidUserIDs       []string `json:"invalid_user_ids,omitempty"`       // 不合法的 user_id 列表（对应V3接口的invalid_employee_ids）
-	InvalidUnionIDs      []string `json:"invalid_union_ids,omitempty"`      // 不合法的 union_id 列表
+	MessageID            string   `json:"message_id,omitempty"`             // 批量消息任务 ID, 批量发送消息的任务唯一标识, 以 `bm-` 开头（与一般的消息 ID `om_` 不同, 注意区分）。
+	InvalidDepartmentIDs []string `json:"invalid_department_ids,omitempty"` // 不合法的部门 ID 列表。请求时传入的 department_ids 列表内存在部分部门 ID 无效时, 会将这部分 ID 通过该参数返回, 同时会向正确的部门 ID 批量发送消息。
+	InvalidOpenIDs       []string `json:"invalid_open_ids,omitempty"`       // 不合法的 open_id 列表。请求时传入的 open_ids 列表内存在部分用户 open_id 无效时, 会将这部分 ID 通过该参数返回, 同时会向正确的用户 ID 批量发送消息。
+	InvalidUserIDs       []string `json:"invalid_user_ids,omitempty"`       // 不合法的 user_id 列表。请求时传入的 user_ids 列表内存在部分用户 user_id 无效时, 会将这部分 ID 通过该参数返回, 同时会向正确的用户 ID 批量发送消息。
+	InvalidUnionIDs      []string `json:"invalid_union_ids,omitempty"`      // 不合法的 union_id 列表。请求时传入的 union_ids 列表内存在部分用户 union_id 无效时, 会将这部分 ID 通过该参数返回, 同时会向正确的用户 ID 批量发送消息。
 }
 
 // batchSendOldRawMessageResp ...

@@ -21,7 +21,9 @@ import (
 	"context"
 )
 
-// UpdateBitableTableFormField 该接口用于更新表单中的问题项
+// UpdateBitableTableFormField 更新表单中的问题项。
+//
+// 表单视图是多维表格的一种视图类型。每个表单都有唯一标识 `form_id`, 即当前视图的 `view_id`。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-form-field/patch
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/form/patch
@@ -59,29 +61,45 @@ func (r *Mock) UnMockBitableUpdateBitableTableFormField() {
 
 // UpdateBitableTableFormFieldReq ...
 type UpdateBitableTableFormFieldReq struct {
-	AppToken    string  `path:"app_token" json:"-"`     // 多维表格文档 Token, 示例值: "bascnCMII2ORej2RItqpZZUNMIe"
-	TableID     string  `path:"table_id" json:"-"`      // 表格 ID, 示例值: "tblsRc9GRRXKqhvW"
-	FormID      string  `path:"form_id" json:"-"`       // 表单 ID, 示例值: "vewTpR1urY"
-	FieldID     string  `path:"field_id" json:"-"`      // 表单问题 ID, 示例值: "fldjX7dUj5"
-	PreFieldID  *string `json:"pre_field_id,omitempty"` // 上一个表单问题 ID, 用于支持调整表单问题的顺序, 通过前一个表单问题的 field_id 来确定位置；如果 pre_field_id 为空字符串, 则说明要排到首个表单问题, 示例值: "fldjX7dUj5"
-	Title       *string `json:"title,omitempty"`        // 表单问题, 示例值: "多行文本"
-	Description *string `json:"description,omitempty"`  // 问题描述, 示例值: "多行文本描述"
-	Required    *bool   `json:"required,omitempty"`     // 是否必填, 示例值: true
-	Visible     *bool   `json:"visible,omitempty"`      // 是否可见, 当值为 false 时, 不允许更新其他字段, 示例值: true
+	AppToken        string                                           `path:"app_token" json:"-"`         // 多维表格 App 的唯一标识。不同形态的多维表格, 其 `app_token` 的获取方式不同: 如果多维表格的 URL 以 [feishu.cn/base] 开头, 该多维表格的 `app_token` 是下图高亮部分: ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004)- 如果多维表格的 URL 以 [feishu.cn/wiki] 开头, 你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时, `obj_token` 字段的值才是多维表格的 `app_token`。了解更多, 参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。示例值: "bascnCMII2ORej2RItqpZZUNMIe"
+	TableID         string                                           `path:"table_id" json:"-"`          // 多维表格数据表的唯一标识。获取方式: 你可通过多维表格 URL 获取 `table_id`, 下图高亮部分即为当前数据表的 `table_id`- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`  ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976)示例值: "tblsRc9GRRXKqhvW"
+	FormID          string                                           `path:"form_id" json:"-"`           // 多维表格中表单的唯一标识。表单也是视图的一种, 其获取方式与获取 `view_id` 相同: 在多维表格的 URL 地址栏中, `form_id` 是下图中高亮部分: ![view_id.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/140668632c97e0095832219001d17c54_DJMgVH9x2S.png?height=748&lazyload=true&width=2998)- 通过[列出视图](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-view/list)接口获取。暂时无法获取到嵌入到云文档中的多维表格的 `form_id`示例值: "vewTpR1urY"
+	FieldID         string                                           `path:"field_id" json:"-"`          // 表单问题的唯一标识。表单中的问题本质上是表单视图中的字段, 因此你可通过[列出字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/list)接口获取表单问题的唯一标识。示例值: "fldjX7dUj5"
+	PreFieldID      *string                                          `json:"pre_field_id,omitempty"`     // 要更新的表单问题的前一个表单问题的 `field_id`, 用于更新当前表单问题的位置。若该字段为空字符串, 则表示将该表单问题的顺序排至首个位置。示例值: "fldjX7dUj5"
+	Title           *string                                          `json:"title,omitempty"`            // 表单问题示例值: "任务名称"
+	Description     *string                                          `json:"description,omitempty"`      // 问题描述示例值: "请概述该任务"
+	Required        *bool                                            `json:"required,omitempty"`         // 该问题是否必填。可选值: true: 必填- false: 非必填示例值: true
+	Visible         *bool                                            `json:"visible,omitempty"`          // 该问题是否可见。当值为 false 时, 不允许更新其他字段。可选值: true: 可见- false: 不可见示例值: true
+	RichDescription []*UpdateBitableTableFormFieldReqRichDescription `json:"rich_description,omitempty"` // 富文本描述 长度范围: `1` ～ `500`
+}
+
+// UpdateBitableTableFormFieldReqRichDescription ...
+type UpdateBitableTableFormFieldReqRichDescription struct {
+	SegmentType string  `json:"segment_type,omitempty"` // 元素类型示例值: "text"可选值有: 纯文本链接 长度范围: `1` ～ `100` 字符
+	Text        string  `json:"text,omitempty"`         // 文本值示例值: "这是一个开放性问题" 长度范围: `1` ～ `1000` 字符
+	Link        *string `json:"link,omitempty"`         // 链接示例值: "https://open.larkoffice.com/" 长度范围: `1` ～ `1000` 字符
 }
 
 // UpdateBitableTableFormFieldResp ...
 type UpdateBitableTableFormFieldResp struct {
-	Field *UpdateBitableTableFormFieldRespField `json:"field,omitempty"` // 更新后的表单问题项
+	Fields *UpdateBitableTableFormFieldRespFields `json:"fields,omitempty"` // 更新后的field值
 }
 
-// UpdateBitableTableFormFieldRespField ...
-type UpdateBitableTableFormFieldRespField struct {
-	PreFieldID  string `json:"pre_field_id,omitempty"` // 上一个表单问题 ID, 用于支持调整表单问题的顺序, 通过前一个表单问题的 field_id 来确定位置；如果 pre_field_id 为空字符串, 则说明要排到首个表单问题
-	Title       string `json:"title,omitempty"`        // 表单问题
-	Description string `json:"description,omitempty"`  // 问题描述
-	Required    bool   `json:"required,omitempty"`     // 是否必填
-	Visible     bool   `json:"visible,omitempty"`      // 是否可见, 当值为 false 时, 不允许更新其他字段。
+// UpdateBitableTableFormFieldRespFields ...
+type UpdateBitableTableFormFieldRespFields struct {
+	PreFieldID      string                                                  `json:"pre_field_id,omitempty"`     // 上一个表单问题 ID
+	Title           string                                                  `json:"title,omitempty"`            // 表单问题
+	Description     string                                                  `json:"description,omitempty"`      // 问题描述
+	Required        bool                                                    `json:"required,omitempty"`         // 是否必填
+	Visible         bool                                                    `json:"visible,omitempty"`          // 是否可见
+	RichDescription []*UpdateBitableTableFormFieldRespFieldsRichDescription `json:"rich_description,omitempty"` // 富文本描述
+}
+
+// UpdateBitableTableFormFieldRespFieldsRichDescription ...
+type UpdateBitableTableFormFieldRespFieldsRichDescription struct {
+	SegmentType string `json:"segment_type,omitempty"` // 元素类型可选值有: 纯文本链接
+	Text        string `json:"text,omitempty"`         // 文本值
+	Link        string `json:"link,omitempty"`         // 链接
 }
 
 // updateBitableTableFormFieldResp ...

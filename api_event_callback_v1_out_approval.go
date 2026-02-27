@@ -21,10 +21,15 @@ import (
 	"context"
 )
 
-// EventV1OutApproval 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
+// EventV1OutApproval 审批定义的表单包含 外出控件组 时, 该定义下的审批实例在 通过 或者 通过并撤销 时, 会触发该事件。
 //
-// 「审批」应用的表单里如果包含 [外出控件组], 则在此表单审批通过后触发此事件。
-// * 依赖权限: [访问审批应用] 或 [查看、创建、更新、删除审批应用相关信息]
+// ## 前提条件
+// - 应用已配置事件订阅, 了解事件订阅可参见[事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
+// - 应用已调用[订阅审批事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/subscribe)接口, 订阅了审批实例对应的审批定义 Code。
+// ## 使用说明
+// 订阅该事件（事件类型为 out_approval）后, 可以接收到两个事件:
+// - 事件类型（type 为 out_approval）指外出审批通过事件。
+// - 事件类型（type 为 out_approval_revert）指外出审批通过并撤销事件。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/out-of-office
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/event/special-event/out-of-office
@@ -37,27 +42,21 @@ type EventV1OutApprovalHandler func(ctx context.Context, cli *Lark, schema strin
 
 // EventV1OutApproval ...
 type EventV1OutApproval struct {
-	AppID         string                                 `json:"app_id,omitempty"` // 如: cli_9e28cb7ba56a100e
-	I18nResources []*EventV1OutApprovalEventI18nResource `json:"i18n_resources,omitempty"`
-	InstanceCode  string                                 `json:"instance_code,omitempty"` // 此审批的唯一标识. 如: 59558CEE-CEF4-45C9-A2C3-DCBF8BEC7341
-	OutImage      string                                 `json:"out_image,omitempty"`
-	OutInterval   int64                                  `json:"out_interval,omitempty"`   // 外出时长, 单位秒. 如: 10800
-	OutName       string                                 `json:"out_name,omitempty"`       // 通过i18n_resources里的信息换取相应语言的文案. 如: @i18n@someKey
-	OutReason     string                                 `json:"out_reason,omitempty"`     // 如: 外出事由
-	OutStartTime  string                                 `json:"out_start_time,omitempty"` // 如: 2020-05-15 15:00:00
-	OutEndTime    string                                 `json:"out_end_time,omitempty"`   // 如: 2020-05-15 18:00:00
-	OutUnit       string                                 `json:"out_unit,omitempty"`       // 外出时长的单位, HOUR 小时, DAY 天, HALF_DAY 半天. 如: HOUR
-	StartTime     int64                                  `json:"start_time,omitempty"`     // 审批开始时间, 单位: 秒. 如: 1589527346
-	EndTime       int64                                  `json:"end_time,omitempty"`       // 审批结束时间, 单位: 秒. 如: 1589527354
-	TenantKey     string                                 `json:"tenant_key,omitempty"`     // 企业唯一标识. 如: 2d520d3b434f175e
-	Type          string                                 `json:"type,omitempty"`           // 事件类型. 如: out_approval
-	OpenID        string                                 `json:"open_id,omitempty"`        // 申请发起人open_id. 如: ou_xxx
-	UserID        string                                 `json:"user_id,omitempty"`        // 申请发起人. 如: g6964gd3
-}
-
-// EventV1OutApprovalEventI18nResource ...
-type EventV1OutApprovalEventI18nResource struct {
-	IsDefault bool              `json:"is_default,omitempty"` // 如: true
-	Locale    string            `json:"locale,omitempty"`     // 如: zh_cn
-	Texts     map[string]string `json:"texts,omitempty"`
+	AppID         string   `json:"app_id,omitempty"`         // 应用的 App ID。可调用[获取应用信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/get)接口查询应用详细信息。
+	StartTime     int64    `json:"start_time,omitempty"`     // 审批开始时间, 秒级时间戳。
+	EndTime       int64    `json:"end_time,omitempty"`       // 审批结束时间, 秒级时间戳。
+	I18nResources []string `json:"i18n_resources,omitempty"` // 外出类型选项的国际化文案。
+	InstanceCode  string   `json:"instance_code,omitempty"`  // 审批实例 Code。可调用[获取单个审批实例详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get)接口查询审批实例详情。
+	ApprovalCode  string   `json:"approval_code,omitempty"`  // 审批定义 Code。可调用[查看指定审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get)接口查询审批定义详情。
+	OpenID        string   `json:"open_id,omitempty"`        // 审批发起人的 open_id。你可以调用[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口, 通过 open_id 获取用户信息。
+	OutStartTime  string   `json:"out_start_time,omitempty"` // 外出开始时间。示例格式: 2025-01-14 19:00:00
+	OutEndTime    string   `json:"out_end_time,omitempty"`   // 外出结束时间。示例格式: 2025-01-14 19:00:00
+	OutImage      string   `json:"out_image,omitempty"`      // 外出拍照的图片。
+	OutInterval   int64    `json:"out_interval,omitempty"`   // 外出时长。单位: 秒
+	OutName       string   `json:"out_name,omitempty"`       // 外出类型, 需要根据该参数返回的数值, 从 `i18n_resources` 参数中获取对应的外出类型文案。
+	OutReason     string   `json:"out_reason,omitempty"`     // 外出事由。
+	OutUnit       string   `json:"out_unit,omitempty"`       // 外出时长的单位, 该单位对应填写表单时显示的时长单位。例如表单的外出时长单位是小时, 则这里取值 HOUR。- HOUR: 小时- DAY: 天- HALR_DAY: 半天
+	TenantKey     string   `json:"tenant_key,omitempty"`     // 租户 Key, 是企业的唯一标识。
+	Type          string   `json:"type,omitempty"`           // 事件类型。固定值 `out_approval`
+	UserID        string   `json:"user_id,omitempty"`        // 审批发起人的 user_id。你可以调用[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口, 通过 user_id 获取用户信息。
 }
