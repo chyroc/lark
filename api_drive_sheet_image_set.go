@@ -19,7 +19,6 @@ package lark
 
 import (
 	"context"
-	"io"
 )
 
 // SetSheetValueImage 向电子表格某个工作表的单个指定单元格写入图片, 支持传入图片的二进制流, 支持多种图片格式。

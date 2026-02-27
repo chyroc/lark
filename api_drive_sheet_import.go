@@ -19,7 +19,6 @@ package lark
 
 import (
 	"context"
-	"io"
 )
 
 // ImportSheet >  为了更好地提升该接口的安全性, 我们对其进行了升级, 请尽快迁移至[新版本](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/import_task/import-user-guide)

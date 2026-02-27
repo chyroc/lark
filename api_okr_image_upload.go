@@ -19,7 +19,6 @@ package lark
 
 import (
 	"context"
-	"io"
 )
 
 // UploadOKRImage 上传图片, 以获取在进展记录富文本中使用的 token。成功调用该接口后, 你可继续调用[创建 OKR 进展记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/progress_record/create)或[更新 OKR 进展记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/progress_record/update), 将返回的 `url`参数和`file_token` 参数传入 `imageList` 参数中。

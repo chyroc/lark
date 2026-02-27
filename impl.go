@@ -39,6 +39,7 @@ type Lark struct {
 	wwwBaseURL          string
 	isEnableLogID       bool
 	noBlocking          bool
+	disableErrorLog     bool
 	apiMiddlewares      []ApiMiddleware
 
 	httpClient       HttpClient
@@ -53,6 +54,7 @@ type Lark struct {
 	// service
 	ACS              *ACSService
 	AI               *AIService
+	APaaS            *APaaSService
 	Admin            *AdminService
 	AppLink          *AppLinkService
 	Application      *ApplicationService
@@ -76,6 +78,7 @@ type Lark struct {
 	HumanAuth        *HumanAuthService
 	Jssdk            *JssdkService
 	Lingo            *LingoService
+	MDM              *MDMService
 	Mail             *MailService
 	Message          *MessageService
 	Mina             *MinaService
@@ -84,8 +87,10 @@ type Lark struct {
 	Passport         *PassportService
 	Performance      *PerformanceService
 	PersonalSettings *PersonalSettingsService
+	Report           *ReportService
 	Search           *SearchService
 	Task             *TaskService
+	TaskV1           *TaskV1Service
 	Tenant           *TenantService
 	VC               *VCService
 	Verification     *VerificationService
@@ -108,6 +113,7 @@ func (r *Lark) init() {
 
 	r.ACS = &ACSService{cli: r}
 	r.AI = &AIService{cli: r}
+	r.APaaS = &APaaSService{cli: r}
 	r.Admin = &AdminService{cli: r}
 	r.AppLink = &AppLinkService{cli: r}
 	r.Application = &ApplicationService{cli: r}
@@ -131,6 +137,7 @@ func (r *Lark) init() {
 	r.HumanAuth = &HumanAuthService{cli: r}
 	r.Jssdk = &JssdkService{cli: r}
 	r.Lingo = &LingoService{cli: r}
+	r.MDM = &MDMService{cli: r}
 	r.Mail = &MailService{cli: r}
 	r.Message = &MessageService{cli: r}
 	r.Mina = &MinaService{cli: r}
@@ -139,11 +146,14 @@ func (r *Lark) init() {
 	r.Passport = &PassportService{cli: r}
 	r.Performance = &PerformanceService{cli: r}
 	r.PersonalSettings = &PersonalSettingsService{cli: r}
+	r.Report = &ReportService{cli: r}
 	r.Search = &SearchService{cli: r}
 	r.Task = &TaskService{cli: r}
+	r.TaskV1 = &TaskV1Service{cli: r}
 	r.Tenant = &TenantService{cli: r}
 	r.VC = &VCService{cli: r}
 	r.Verification = &VerificationService{cli: r}
+
 }
 
 func (r *Lark) clone(tenantKey string) *Lark {
@@ -163,6 +173,7 @@ func (r *Lark) clone(tenantKey string) *Lark {
 		wwwBaseURL:          r.wwwBaseURL,
 		isEnableLogID:       r.isEnableLogID,
 		noBlocking:          r.noBlocking,
+		disableErrorLog:     r.disableErrorLog,
 		httpClient:          r.httpClient,
 		logger:              r.logger,
 		logLevel:            r.logLevel,
@@ -177,43 +188,45 @@ func (r *Lark) clone(tenantKey string) *Lark {
 	return r2
 }
 
-type (
-	ACSService              struct{ cli *Lark }
-	AIService               struct{ cli *Lark }
-	AdminService            struct{ cli *Lark }
-	AppLinkService          struct{ cli *Lark }
-	ApplicationService      struct{ cli *Lark }
-	ApprovalService         struct{ cli *Lark }
-	AttendanceService       struct{ cli *Lark }
-	AuthService             struct{ cli *Lark }
-	BaikeService            struct{ cli *Lark }
-	BitableService          struct{ cli *Lark }
-	BotService              struct{ cli *Lark }
-	CalendarService         struct{ cli *Lark }
-	ChatService             struct{ cli *Lark }
-	ContactService          struct{ cli *Lark }
-	CoreHRService           struct{ cli *Lark }
-	DriveService            struct{ cli *Lark }
-	EHRService              struct{ cli *Lark }
-	EventService            struct{ cli *Lark }
-	EventCallbackService    struct{ cli *Lark }
-	FileService             struct{ cli *Lark }
-	HelpdeskService         struct{ cli *Lark }
-	HireService             struct{ cli *Lark }
-	HumanAuthService        struct{ cli *Lark }
-	JssdkService            struct{ cli *Lark }
-	LingoService            struct{ cli *Lark }
-	MailService             struct{ cli *Lark }
-	MessageService          struct{ cli *Lark }
-	MinaService             struct{ cli *Lark }
-	MinutesService          struct{ cli *Lark }
-	OKRService              struct{ cli *Lark }
-	PassportService         struct{ cli *Lark }
-	PerformanceService      struct{ cli *Lark }
-	PersonalSettingsService struct{ cli *Lark }
-	SearchService           struct{ cli *Lark }
-	TaskService             struct{ cli *Lark }
-	TenantService           struct{ cli *Lark }
-	VCService               struct{ cli *Lark }
-	VerificationService     struct{ cli *Lark }
-)
+type ACSService struct{ cli *Lark }
+type AIService struct{ cli *Lark }
+type APaaSService struct{ cli *Lark }
+type AdminService struct{ cli *Lark }
+type AppLinkService struct{ cli *Lark }
+type ApplicationService struct{ cli *Lark }
+type ApprovalService struct{ cli *Lark }
+type AttendanceService struct{ cli *Lark }
+type AuthService struct{ cli *Lark }
+type BaikeService struct{ cli *Lark }
+type BitableService struct{ cli *Lark }
+type BotService struct{ cli *Lark }
+type CalendarService struct{ cli *Lark }
+type ChatService struct{ cli *Lark }
+type ContactService struct{ cli *Lark }
+type CoreHRService struct{ cli *Lark }
+type DriveService struct{ cli *Lark }
+type EHRService struct{ cli *Lark }
+type EventService struct{ cli *Lark }
+type EventCallbackService struct{ cli *Lark }
+type FileService struct{ cli *Lark }
+type HelpdeskService struct{ cli *Lark }
+type HireService struct{ cli *Lark }
+type HumanAuthService struct{ cli *Lark }
+type JssdkService struct{ cli *Lark }
+type LingoService struct{ cli *Lark }
+type MDMService struct{ cli *Lark }
+type MailService struct{ cli *Lark }
+type MessageService struct{ cli *Lark }
+type MinaService struct{ cli *Lark }
+type MinutesService struct{ cli *Lark }
+type OKRService struct{ cli *Lark }
+type PassportService struct{ cli *Lark }
+type PerformanceService struct{ cli *Lark }
+type PersonalSettingsService struct{ cli *Lark }
+type ReportService struct{ cli *Lark }
+type SearchService struct{ cli *Lark }
+type TaskService struct{ cli *Lark }
+type TaskV1Service struct{ cli *Lark }
+type TenantService struct{ cli *Lark }
+type VCService struct{ cli *Lark }
+type VerificationService struct{ cli *Lark }
