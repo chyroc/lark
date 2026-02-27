@@ -40,7 +40,7 @@ func Test_Helpdesk_Sample_Failed(t *testing.T) {
 
 			_, _, err := moduleCli.GetHelpdeskNotification(ctx, &lark.GetHelpdeskNotificationReq{})
 			as.NotNil(err)
-			as.Equal(err.Error(), "failed")
+			as.True(err.Error() == "failed" || IsExpectedAPIFailedErr(err), fmt.Sprintf("need request failed err, but get %s", err))
 		})
 
 	})

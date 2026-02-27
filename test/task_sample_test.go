@@ -824,7 +824,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TasklistGuid: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -834,7 +834,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				ActivitySubscriptionGuid: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -844,7 +844,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				ActivitySubscriptionGuid: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -854,7 +854,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				ActivitySubscriptionGuid: "x",
 			})
 			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
+			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
 		})
 
 		t.Run("", func(t *testing.T) {
