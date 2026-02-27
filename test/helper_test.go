@@ -177,14 +177,6 @@ func IsExpectedAPIFailedErr(err error) bool {
 	return false
 }
 
-func SkipRealAPITest(t *testing.T) {
-	t.Helper()
-	if os.Getenv("LARK_RUN_REAL_API_TESTS") == "1" {
-		return
-	}
-	t.Skip("real Feishu API tests disabled; set LARK_RUN_REAL_API_TESTS=1 to enable")
-}
-
 func readFile(filename string) []byte {
 	filename = strings.TrimLeft(filename, ".")
 	filename = strings.TrimLeft(filename, "/")
