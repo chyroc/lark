@@ -21,7 +21,9 @@ import (
 	"context"
 )
 
-// GetSheetFilterView 获取指定筛选视图 id 的名字和筛选范围。
+// GetSheetFilterView 获取指定筛选视图的信息, 包括 ID、名称和筛选范围。
+//
+// 要获取所有筛选视图的信息, 可调用[查询筛选视图](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view/query)。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view/get
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet-filter_view/get
@@ -59,20 +61,20 @@ func (r *Mock) UnMockDriveGetSheetFilterView() {
 
 // GetSheetFilterViewReq ...
 type GetSheetFilterViewReq struct {
-	SpreadSheetToken string `path:"spreadsheet_token" json:"-"` // 表格 token, 示例值: "shtcnmBA*yGehy8"
-	SheetID          string `path:"sheet_id" json:"-"`          // 子表 id, 示例值: "0b**12"
-	FilterViewID     string `path:"filter_view_id" json:"-"`    // 筛选视图 id, 示例值: "pH9hbVcCXA"
+	SpreadSheetToken string `path:"spreadsheet_token" json:"-"` // 电子表格的 token。可通过以下两种方式获取。了解更多, 参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。- 电子表格的 URL: https://sample.feishu.cn/sheets/[Iow7sNNEphp3WbtnbCscPqabcef]- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)示例值: "Iow7sNNEphp3WbtnbCscPqabcef"
+	SheetID          string `path:"sheet_id" json:"-"`          // 工作表 ID, 通过[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 获取。示例值: "8fe9d6"
+	FilterViewID     string `path:"filter_view_id" json:"-"`    // 筛选视图 ID。通过[查询筛选视图](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter_view/query)获取。示例值: "pH9hbVcCXA"
 }
 
 // GetSheetFilterViewResp ...
 type GetSheetFilterViewResp struct {
-	FilterView *GetSheetFilterViewRespFilterView `json:"filter_view,omitempty"` // 筛选视图信息, 包括 id、name、range
+	FilterView *GetSheetFilterViewRespFilterView `json:"filter_view,omitempty"` // 筛选视图的信息
 }
 
 // GetSheetFilterViewRespFilterView ...
 type GetSheetFilterViewRespFilterView struct {
-	FilterViewID   string `json:"filter_view_id,omitempty"`   // 筛选视图 id
-	FilterViewName string `json:"filter_view_name,omitempty"` // 筛选视图名字
+	FilterViewID   string `json:"filter_view_id,omitempty"`   // 筛选视图 ID
+	FilterViewName string `json:"filter_view_name,omitempty"` // 筛选视图名称
 	Range          string `json:"range,omitempty"`            // 筛选视图的筛选范围
 }
 

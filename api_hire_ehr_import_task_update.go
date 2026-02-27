@@ -21,7 +21,9 @@ import (
 	"context"
 )
 
-// UpdateHireEHRImportTask 在处理完导入 e-HR 事件后, 可调用该接口, 更新  e-HR 导入任务结果。
+// UpdateHireEHRImportTask 在处理完[导入 e-HR](
+//
+// /ssl:ttdoc/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/event/import-ehr)事件后, 可调用该接口, 更新  e-HR 导入任务结果。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/ehr_import_task/patch
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/onboard/patch-2
@@ -58,15 +60,14 @@ func (r *Mock) UnMockHireUpdateHireEHRImportTask() {
 
 // UpdateHireEHRImportTaskReq ...
 type UpdateHireEHRImportTaskReq struct {
-	EHRImportTaskID string  `path:"ehr_import_task_id" json:"-"` // 导入任务 ID, 示例值: "623455234"
-	FailReason      *string `json:"fail_reason,omitempty"`       // 失败原因, 仅在导入结果为失败时可用, 示例值: "当前 HC 不可用"
-	RedirectURL     *string `json:"redirect_url,omitempty"`      // 跳转链接, 若需返回跳转链接, 请前往飞书招聘「设置 - 生态对接 - e-HR / OA 办公系统 - 『导入 e-HR』功能设置」中开启「支持对接的 e-HR / OA 系统返回外部链接」开关, 示例值: "https://example.com"
-	State           int64   `json:"state,omitempty"`             // 导入结果, 示例值: 2, 可选值有: 1: 导入成功, 2: 导入失败
+	EHRImportTaskID string  `path:"ehr_import_task_id" json:"-"` // 导入任务 ID, 任务 ID 来源于导入 e-HR 事件中的 task_id, 详情参考[导入 e-HR](/ssl:ttdoc/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/event/import-ehr)示例值: "6914551145542568199"
+	FailReason      *string `json:"fail_reason,omitempty"`       // 失败原因, 仅在导入结果为失败时可用示例值: "当前 HC 不可用"
+	RedirectURL     *string `json:"redirect_url,omitempty"`      // 跳转链接, 若需返回跳转链接, 请前往「飞书招聘」-「设置」-「生态对接」- 「e-HR / OA 办公系统」 - 「导入 e-HR」功能设置中开启「支持对接的 e-HR / OA 系统返回外部链接」开关示例值: "https://example.com"
+	State           int64   `json:"state,omitempty"`             // 导入结果示例值: 2可选值有: 导入成功导入失败
 }
 
 // UpdateHireEHRImportTaskResp ...
-type UpdateHireEHRImportTaskResp struct {
-}
+type UpdateHireEHRImportTaskResp struct{}
 
 // updateHireEHRImportTaskResp ...
 type updateHireEHRImportTaskResp struct {

@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// DeleteCoreHRJob 删除职务。
+// DeleteCoreHRJob 你可以通过该接口删除一个职务信息。
+//
+// 删除后无法恢复, 并且在系统中无法搜索到对应职务信息, 请谨慎操作。
+// 删除对象时请确认有无在职员工、待入职单据、职级、序列、岗位等数据关联此对象, 如有会导致删除失败。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/delete
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/job-management/job/delete
@@ -58,12 +61,11 @@ func (r *Mock) UnMockCoreHRDeleteCoreHRJob() {
 
 // DeleteCoreHRJobReq ...
 type DeleteCoreHRJobReq struct {
-	JobID string `path:"job_id" json:"-"` // 需要删除的职务 ID, 示例值: "67163716371"
+	JobID string `path:"job_id" json:"-"` // 需要删除的职务 ID。ID获取方式: 调用[【创建职务】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/create)[【批量查询职务】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/list)等可以返回职务ID- 也可以通过[【事件】创建职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/events/created) [【事件】更新职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/events/updated) 获取ID示例值: "67163716371"
 }
 
 // DeleteCoreHRJobResp ...
-type DeleteCoreHRJobResp struct {
-}
+type DeleteCoreHRJobResp struct{}
 
 // deleteCoreHRJobResp ...
 type deleteCoreHRJobResp struct {

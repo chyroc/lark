@@ -66,10 +66,11 @@ func (r *Mock) UnMockDriveDeleteWikiSpaceMember() {
 
 // DeleteWikiSpaceMemberReq ...
 type DeleteWikiSpaceMemberReq struct {
-	SpaceID    string `path:"space_id" json:"-"`     // 知识空间id, 示例值: "7008061636015554580"
-	MemberID   string `path:"member_id" json:"-"`    // 成员id, 值的类型由请求体的 member_type 参数决定, 示例值: "g64fb7g7"
-	MemberType string `json:"member_type,omitempty"` // “openchat” - 群id, “userid” - 用户id, “email” - 邮箱, “opendepartmentid” - 部门id, “openid” - 应用openid, “unionid” - [unionid](/:ssltoken/home/user-identity-introduction/union-id, ), 示例值: "userid"
-	MemberRole string `json:"member_role,omitempty"` // 角色: “admin” - 管理员, “member” - 成员, 示例值: "admin"
+	SpaceID    string  `path:"space_id" json:"-"`     // 知识空间id示例值: "7008061636015554580"
+	MemberID   string  `path:"member_id" json:"-"`    // 成员id, 值的类型由请求体的 member_type 参数决定示例值: "g64fb7g7"
+	MemberType string  `json:"member_type,omitempty"` // “openchat” - 群id “userid” - 用户id“email” - 邮箱“opendepartmentid” - 部门id“openid” - 应用openid“unionid” - [unionid](/:ssltoken/home/user-identity-introduction/union-id)示例值: "userid"
+	MemberRole string  `json:"member_role,omitempty"` // 角色:“admin” - 管理员“member” - 成员示例值: "admin"
+	Type       *string `json:"type,omitempty"`        // 知识库协作者类型（暂不支持）示例值: "user"可选值有: 用户群组组织架构
 }
 
 // DeleteWikiSpaceMemberResp ...
@@ -79,9 +80,10 @@ type DeleteWikiSpaceMemberResp struct {
 
 // DeleteWikiSpaceMemberRespMember ...
 type DeleteWikiSpaceMemberRespMember struct {
-	MemberType string `json:"member_type,omitempty"` // “openchat” - 群id, “userid” - 用户id, “email” - 邮箱, “opendepartmentid” - 部门id, “openid” - 应用openid, “unionid” - [unionid](/:ssltoken/home/user-identity-introduction/union-id, )
+	MemberType string `json:"member_type,omitempty"` // “openchat” - 群id “userid” - 用户id“email” - 邮箱“opendepartmentid” - 部门id“openid” - 应用openid“unionid” - [unionid](/:ssltoken/home/user-identity-introduction/union-id)
 	MemberID   string `json:"member_id,omitempty"`   // 用户id, 值的类型由上面的 member_type 参数决定
-	MemberRole string `json:"member_role,omitempty"` // 角色: “admin” - 管理员, “member” - 成员
+	MemberRole string `json:"member_role,omitempty"` // 角色:“admin” - 管理员“member” - 成员
+	Type       string `json:"type,omitempty"`        // 知识库协作者类型（暂不支持）可选值有: 用户群组组织架构
 }
 
 // deleteWikiSpaceMemberResp ...

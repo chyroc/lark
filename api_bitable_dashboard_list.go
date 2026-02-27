@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// GetBitableDashboardList 根据 app_token, 获取多维表格下的所有仪表盘
+// GetBitableDashboardList 获取多维表格中的所有仪表盘。
+//
+// ## 前提条件
+// 调用此接口前, 请确保当前调用身份（tenant_access_token 或 user_access_token）已有多维表格的阅读等文档权限, 否则接口将返回 HTTP 403 或 400 状态码。了解更多, 参考[如何为应用或用户开通文档权限](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#16c6475a)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-dashboard/list
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-dashboard/list
@@ -59,9 +62,9 @@ func (r *Mock) UnMockBitableGetBitableDashboardList() {
 
 // GetBitableDashboardListReq ...
 type GetBitableDashboardListReq struct {
-	AppToken  string  `path:"app_token" json:"-"`   // 多维表格文档 Token, 示例值: "bascng7vrxcxpig7geggXiCtadY"
-	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 10, 最大值: `500`
-	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: blknkqrP3RqUkcAW
+	AppToken  string  `path:"app_token" json:"-"`   // 多维表格 App 的唯一标识。不同形态的多维表格, 其 `app_token` 的获取方式不同: 如果多维表格的 URL 以 [feishu.cn/base] 开头, 该多维表格的 `app_token` 是下图高亮部分: ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004)- 如果多维表格的 URL 以 [feishu.cn/wiki] 开头, 你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时, `obj_token` 字段的值才是多维表格的 `app_token`。了解更多, 参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。示例值: "bascng7vrxcxpig7geggXiCtadY"
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小示例值: 10 最大值: `500
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: blknkqrP3RqUkcAW
 }
 
 // GetBitableDashboardListResp ...
@@ -74,7 +77,7 @@ type GetBitableDashboardListResp struct {
 // GetBitableDashboardListRespDashboard ...
 type GetBitableDashboardListRespDashboard struct {
 	BlockID string `json:"block_id,omitempty"` // 仪表盘 ID
-	Name    string `json:"name,omitempty"`     // 仪表盘名字
+	Name    string `json:"name,omitempty"`     // 仪表盘名称
 }
 
 // getBitableDashboardListResp ...

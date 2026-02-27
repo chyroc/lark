@@ -21,16 +21,17 @@ import (
 	"context"
 )
 
-// CreateApprovalExternalInstance 审批中心不负责审批的流转, 审批的流转在三方系统, 三方系统在审批流转后生成的审批实例、审批任务、审批抄送数据同步到审批中心。
+// CreateApprovalExternalInstance 审批中心不负责审批的流转, 审批的流转在三方系统。本接口用于把三方系统在审批流转后生成的审批实例、审批任务、审批抄送数据同步到审批中心。
 //
-// 用户可以在审批中心中浏览三方系统同步过来的实例、任务、抄送信息, 并且可以跳转回三方系统进行更详细的查看和操作, 其中实例信息在[已发起]列表, 任务信息在[待审批]和[已审批]列表, 抄送信息在[抄送我]列表。
+// ## 实现效果
+// 调用本接口同步三方审批实例后, 企业员工可以在审批中心浏览同步过来的审批实例、任务、抄送信息, 并可以跳转回三方系统查看和操作审批, 其中, 实例信息在审批中心的 已发起 列表、任务信息在 待办 和 已办 列表、抄送信息在 抄送我 列表。
 // :::html
-// <img src="//sf3-cn.feishucdn.com/obj/open-platform-opendoc/9dff4434afbeb0ef69de7f36b9a6e995_z5iwmTzEgg.png" alt="" style="zoom:17%;" />
-// <img src="//sf3-cn.feishucdn.com/obj/open-platform-opendoc/ca6e0e984a7a6d64e1b16a0bac4bf868_tfqjCiaJQM.png" alt="" style="zoom:17%;" />
-// <img src="//sf3-cn.feishucdn.com/obj/open-platform-opendoc/529377e238df78d391bbd22e962ad195_T7eefLI1GA.png" alt="" style="zoom:17%;" />
-// 对于审批任务, 三方系统也可以配置审批任务的回调接口, 这样审批人可以在审批中心中直接进行审批操作, 审批中心会回调三方系统, 三方系统收到回调后更新任务信息, 并将新的任务信息同步回审批中心, 形成闭环。
+// <img src="//sf3-cn.feishucdn.com/obj/open-platform-opendoc/1ae6658510d5bf5370cf9d92675d052e_ICznPXHJRl.png" alt="" style="zoom:40%;" />
+// [创建三方审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_approval/create)时如果设置了三方审批回调 URL, 对于审批任务, 可以配置[三方快捷审批回调](https://open.feishu.cn/document/ukTMukTMukTM/ukjNyYjL5YjM24SO2IjN/quick-approval-callback), 这样审批人可以在审批中心直接进行审批操作, 审批中心会将审批结果回调至三方系统, 三方系统收到回调后更新任务信息, 并将新的任务信息同步回审批中心, 形成闭环。
 // :::html
-// <img src="//sf3-cn.feishucdn.com/obj/open-platform-opendoc/721c35428bc1187db3318c572f9979ad_je75QpElcg.png" alt=""  style="zoom:25%;" />
+// <img src="//sf3-cn.feishucdn.com/obj/open-platform-opendoc/80ed32b0bbb5d18cf1159e4534fc80eb_Dm49iUKXUp.png" alt=""  style="zoom:17%;" />
+// ## 注意事项
+// 需确保审批实例内各类实体（实例、任务、抄送） ID 在审批实例内的唯一性, 不属于同一实体之间的 ID 也要确保唯一性。如果实例 ID、任务 ID、抄送 ID 重复, 则会导致在审批中心任务看不到对应的审批数据。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_instance/create
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/external_instance/create
@@ -67,126 +68,128 @@ func (r *Mock) UnMockApprovalCreateApprovalExternalInstance() {
 
 // CreateApprovalExternalInstanceReq ...
 type CreateApprovalExternalInstanceReq struct {
-	ApprovalCode           string                                                   `json:"approval_code,omitempty"`            // 审批定义 code, 创建审批定义返回的值, 表示该实例属于哪个流程；该字段会影响到列表中该实例的标题, 标题取自对应定义的 name 字段, 示例值: "81D31358-93AF-92D6-7425-01A5D67C4E71"
-	Status                 string                                                   `json:"status,omitempty"`                   // 审批实例状态, 示例值: "PENDING", 可选值有: PENDING: 审批中, APPROVED: 审批流程结束, 结果为同意, REJECTED: 审批流程结束, 结果为拒绝, CANCELED: 审批发起人撤回, DELETED: 审批被删除, HIDDEN: 状态隐藏(不显示状态), TERMINATED: 审批终止
-	Extra                  *string                                                  `json:"extra,omitempty"`                    // 审批实例扩展 JSON。单据编号通过传business_key字段来实现, 示例值: "{\"xxx\":\"xxx\", \"business_key\":\"xxx\"}"
-	InstanceID             string                                                   `json:"instance_id,omitempty"`              // 审批实例唯一标识, 用户自定义, 需确保证租户和应用下都唯一, 示例值: "24492654"
-	Links                  *CreateApprovalExternalInstanceReqLink                   `json:"links,omitempty"`                    // 审批实例链接集合, 用于[已发起]列表的跳转, 跳转回三方系统； pc_link 和 mobile_link 必须填一个, 填写的是哪一端的链接, 即会跳转到该链接, 不受平台影响
-	Title                  *string                                                  `json:"title,omitempty"`                    // 审批展示名称, 如果填写了该字段, 则审批列表中的审批名称使用该字段, 如果不填该字段, 则审批名称使用审批定义的名称, 示例值: "@i18n@1"
-	Form                   []*CreateApprovalExternalInstanceReqForm                 `json:"form,omitempty"`                     // 用户提交审批时填写的表单数据, 用于所有审批列表中展示。可传多个值, 但审批中心pc展示前2个, 移动端展示前3个, 长度不超过2048字符, 示例值: [{ "name": "@i18n@2", "value": "@i18n@3" }]
-	UserID                 *string                                                  `json:"user_id,omitempty"`                  // 审批发起人 user_id, 发起人可在[已发起]列表中看到所有已发起的审批; 在[待审批], [已审批][抄送我]列表中, 该字段展示审批是谁发起的, 示例值: "a987sf9s"
-	UserName               *string                                                  `json:"user_name,omitempty"`                // 审批发起人 用户名, 如果发起人不是真实的用户（例如是某个部门）, 没有 user_id, 则可以使用该字段传名称, 示例值: "@i18n@9"
-	OpenID                 *string                                                  `json:"open_id,omitempty"`                  // 审批发起人 open id, 示例值: "ou_be73cbc0ee35eb6ca54e9e7cc14998c1"
-	DepartmentID           *string                                                  `json:"department_id,omitempty"`            // 发起人部门, 用于列表中展示发起人所属部门。不传则不展示。如果用户没加入任何部门, 传 "", 将展示租户名称传 department_name 展示部门名称, 示例值: "od-8ec33278bc2"
-	DepartmentName         *string                                                  `json:"department_name,omitempty"`          // 审批发起人 部门, 如果发起人不是真实的用户（例如是某个部门）, 没有 department_id, 则可以使用该字段传名称, 示例值: "@i18n@10"
-	StartTime              string                                                   `json:"start_time,omitempty"`               // 审批发起时间, Unix毫秒时间戳, 示例值: "1556468012678"
-	EndTime                string                                                   `json:"end_time,omitempty"`                 // 审批实例结束时间: 未结束的审批为 0, Unix毫秒时间戳, 示例值: "1556468012678"
-	UpdateTime             string                                                   `json:"update_time,omitempty"`              // 审批实例最近更新时间；用于推送数据版本控制如果 update_mode 值为 UPDATE, 则只有传过来的 update_time 有变化时（变大）, 才会更新审批中心中的审批实例信息。使用该字段主要用来避免并发时老的数据更新了新的数据, 示例值: "1556468012678"
-	DisplayMethod          *string                                                  `json:"display_method,omitempty"`           // 列表页打开审批实例的方式, 示例值: "BROWSER", 可选值有: BROWSER: 跳转系统默认浏览器打开, SIDEBAR: 飞书中侧边抽屉打开, NORMAL: 飞书内嵌页面打开, TRUSTEESHIP: 以托管打开
-	UpdateMode             *string                                                  `json:"update_mode,omitempty"`              // 更新方式, 当 update_mode=REPLACE时, 每次都以当前推送的数据为最终数据, 会删掉审批中心中多余的任务、抄送数据（不在这次推送的数据中）; 当 update_mode=UPDATE时, 则不会删除审批中心的数据, 而只是进行新增和更新实例、任务数据, 示例值: "UPDATE", 可选值有: REPLACE: 全量替换, 默认值, UPDATE: 增量更新
-	TaskList               []*CreateApprovalExternalInstanceReqTask                 `json:"task_list,omitempty"`                // 任务列表, 最大长度: `300`
-	CcList                 []*CreateApprovalExternalInstanceReqCc                   `json:"cc_list,omitempty"`                  // 抄送列表, 最大长度: `200`
+	ApprovalCode           string                                                   `json:"approval_code,omitempty"`            // 审批定义 Code。[创建三方审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/external_approval/create)的返回值, 用来指定当前实例属于的审批定义。      说明: 如果在当前接口设置了 title 参数, 则审批实例名称按照 title 展示。如果未设置 title, 审批实例的标题取自对应审批定义（approval_code）的 name 参数。示例值: "81D31358-93AF-92D6-7425-01A5D67C4E71"
+	Status                 string                                                   `json:"status,omitempty"`                   // 审批实例状态示例值: "PENDING"可选值有: 审批中审批流程结束, 结果为同意审批流程结束, 结果为拒绝审批发起人撤回审批被删除状态隐藏（不显示状态）审批终止
+	Extra                  *string                                                  `json:"extra,omitempty"`                    // 审批实例扩展参数, JSON 格式, 传值时需要压缩转义为字符串。单据编号通过传 business_key 参数来实现。注意: 以下示例值未转义, 使用时请注意转义。你可查看请求体示例中转义后的 extra 示例值。示例值: "{\"xxx\":\"xxx\", \"business_key\":\"xxx\"}"
+	InstanceID             string                                                   `json:"instance_id,omitempty"`              // 审批实例唯一标识, 自定义设置。需确保证在当前企业和应用内唯一。示例值: "24492654"
+	Links                  *CreateApprovalExternalInstanceReqLink                   `json:"links,omitempty"`                    // 审批实例链接信息。设置的链接用于在审批中心 已发起 列表内点击跳转, 跳回三方审批系统查看审批详情。
+	Title                  *string                                                  `json:"title,omitempty"`                    // 审批展示名称。      说明: 如果填写了该参数, 则审批列表中的审批名称使用该参数。如果不填该参数, 则审批名称使用审批定义的名称。- 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key）, 还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。- Key 需要以 @i18n@ 开头。示例值: "@i18n@1"
+	Form                   []*CreateApprovalExternalInstanceReqForm                 `json:"form,omitempty"`                     // 用户提交审批时填写的表单数据, 用于所有审批列表中展示。可传多个值, 最多展示前 3 个, 长度不超过 2048 字符。![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/69fd0009295b654b28ba2fb46727b4aa_KWIEEvsNPu.png?height=294&maxWidth=200&width=626)示例值: [{ "name": "@i18n@2", "value": "@i18n@3" }]
+	UserID                 *string                                                  `json:"user_id,omitempty"`                  // 审批发起人 user_id。发起人可在审批中心的 已发起 列表中看到所有已发起的审批。在 待办、已办、抄送我 列表中, 该字段用来展示审批的发起人。获取方式参见[如何获取用户的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。      注意: 审批发起人的 open_id 和 user_id 需至少传入一个。示例值: "a987sf9s"
+	UserName               *string                                                  `json:"user_name,omitempty"`                // 审批发起人的用户名。如果发起人不是真实的用户（例如是某个部门）, 没有 user_id, 则可以使用该参数传入一个名称。      说明: - 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key）, 还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。- Key 需要以 @i18n@ 开头。示例值: "@i18n@9"
+	OpenID                 *string                                                  `json:"open_id,omitempty"`                  // 审批发起人 open_id。发起人可在审批中心的 已发起 列表中看到所有已发起的审批。在 待办、已办、抄送我 列表中, 该字段用来展示审批的发起人。获取方式参见[如何获取用户的 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。      注意: 审批发起人的 open_id 和 user_id 需至少传入一个。示例值: "ou_be73cbc0ee35eb6ca54e9e7cc14998c1"
+	DepartmentID           *string                                                  `json:"department_id,omitempty"`            // 发起人的部门 ID, 用于在审批中心列表中展示发起人的所属部门, 不传值则不展示。获取方式参见[部门 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#9c02ed7a)。      说明: 如果用户没加入任何部门, 传 `""`, 默认展示企业名称。如果传入 department_name 参数, 则展示对应的部门名称。示例值: "od-8ec33278bc2"
+	DepartmentName         *string                                                  `json:"department_name,omitempty"`          // 审批发起人的部门名称。如果发起人不是真实的用户或没有部门, 则可以使用该参数传入部门名称。说明: - 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key）, 还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。- Key 需要以 @i18n@ 开头。示例值: "@i18n@10"
+	StartTime              string                                                   `json:"start_time,omitempty"`               // 审批发起时间, Unix 毫秒时间戳。示例值: "1556468012678"
+	EndTime                string                                                   `json:"end_time,omitempty"`                 // 审批实例结束时间。未结束的审批为 0, Unix 毫秒时间戳。示例值: "1556468012678"
+	UpdateTime             string                                                   `json:"update_time,omitempty"`              // 审批实例最近更新时间, Unix 毫秒时间戳, 用于推送数据版本控制。如果 update_mode 值为 UPDATE, 则仅当传过来的 update_time 有变化时（变大）, 才会更新审批中心中的审批实例信息。      说明: 使用该参数主要用来避免并发时, 旧数据更新了新数据。示例值: "1556468012678"
+	DisplayMethod          *string                                                  `json:"display_method,omitempty"`           // 列表页打开审批实例的方式。示例值: "BROWSER"可选值有: 跳转系统默认浏览器打开飞书中侧边抽屉打开飞书内嵌页面打开以托管打开（即托管在飞书审批中心打开）
+	UpdateMode             *string                                                  `json:"update_mode,omitempty"`              // 更新方式。      - 当 update_mode 取值为 REPLACE 时, 每次都以当前推送的数据为最终数据, 会删掉审批中心中, 不在本次推送数据中的多余的任务、抄送数据。- 当 update_mode 取值为 UPDATE 时, 不会删除审批中心的数据, 而只进行新增、更新实例与任务数据。默认值: REPLACE示例值: "UPDATE"可选值有: 全量替换增量更新
+	TaskList               []*CreateApprovalExternalInstanceReqTask                 `json:"task_list,omitempty"`                // 任务列表 最大长度: `300
+	CcList                 []*CreateApprovalExternalInstanceReqCc                   `json:"cc_list,omitempty"`                  // 抄送列表 最大长度: `200
 	I18nResources          []*CreateApprovalExternalInstanceReqI18nResource         `json:"i18n_resources,omitempty"`           // 国际化文案
-	TrusteeshipURLToken    *string                                                  `json:"trusteeship_url_token,omitempty"`    // 单据托管认证token, 托管回调会附带此token, 帮助业务方认证, 示例值: "788981c886b1c28ac29d1e68efd60683d6d90dfce80938ee9453e2a5f3e9e306"
-	TrusteeshipUserIDType  *IDType                                                  `json:"trusteeship_user_id_type,omitempty"` // 用户的类型, 会影响请求参数用户标识域的选择, 包括加签操作回传的目标用户, 目前仅支持 "user_id", 示例值: "user_id"
-	TrusteeshipURLs        *CreateApprovalExternalInstanceReqTrusteeshipURLs        `json:"trusteeship_urls,omitempty"`         // 单据托管回调接入方的接口的URL地址
-	TrusteeshipCacheConfig *CreateApprovalExternalInstanceReqTrusteeshipCacheConfig `json:"trusteeship_cache_config,omitempty"` // 托管预缓存策略
+	TrusteeshipURLToken    *string                                                  `json:"trusteeship_url_token,omitempty"`    // 单据托管认证 token, 托管回调会附带此 token, 帮助业务认证。示例值: "788981c886b1c28ac29d1e68efd60683d6d90dfce80938ee9453e2a5f3e9e306"
+	TrusteeshipUserIDType  *IDType                                                  `json:"trusteeship_user_id_type,omitempty"` // 用户的类型, 会影响请求参数用户标识域的选择, 包括加签操作回传的目标用户, 目前仅支持 user_id。示例值: "user_id"
+	TrusteeshipURLs        *CreateApprovalExternalInstanceReqTrusteeshipURLs        `json:"trusteeship_urls,omitempty"`         // 单据托管回调接入方的接口 URL 地址。
+	TrusteeshipCacheConfig *CreateApprovalExternalInstanceReqTrusteeshipCacheConfig `json:"trusteeship_cache_config,omitempty"` // 托管预缓存策略。
+	ResourceRegion         *string                                                  `json:"resource_region,omitempty"`          // 资源所在地区, 内部统计用字段, 不需要填示例值: "cn"
 }
 
 // CreateApprovalExternalInstanceReqCc ...
 type CreateApprovalExternalInstanceReqCc struct {
-	CcID          string                                   `json:"cc_id,omitempty"`          // 审批实例内唯一标识, 示例值: "123456"
-	UserID        *string                                  `json:"user_id,omitempty"`        // 抄送人 employee id, 示例值: "12345"
-	OpenID        *string                                  `json:"open_id,omitempty"`        // 抄送人 open id, 和user id 二者至少填一个, 示例值: "ou_be73cbc0ee35eb6ca54e9e7cc14998c1"
-	Links         *CreateApprovalExternalInstanceReqCcLink `json:"links,omitempty"`          // 跳转链接, 用于[抄送我的]列表中的跳转pc_link 和 mobile_link 必须填一个, 填写的是哪一端的链接, 即会跳转到该链接, 不受平台影响
-	ReadStatus    string                                   `json:"read_status,omitempty"`    // 阅读状态, 空值表示不支持已读未读: 示例值: "READ", 可选值有: READ: 已读, UNREAD: 未读
-	Extra         *string                                  `json:"extra,omitempty"`          // 扩展 json, 示例值: "{\"xxx\":\"xxx\"}"
-	Title         *string                                  `json:"title,omitempty"`          // 抄送任务名称, 示例值: "xxx"
-	CreateTime    string                                   `json:"create_time,omitempty"`    // 抄送发起时间, Unix 毫秒时间戳, 示例值: "1556468012678"
-	UpdateTime    string                                   `json:"update_time,omitempty"`    // 抄送最近更新时间, 用于推送数据版本控制更新策略同 instance 的update_time, 示例值: "1556468012678"
-	DisplayMethod *string                                  `json:"display_method,omitempty"` // 列表页打开审批任务的方式, 示例值: "BROWSER", 可选值有: BROWSER: 跳转系统默认浏览器打开, SIDEBAR: 飞书中侧边抽屉打开, NORMAL: 飞书内嵌页面打开, TRUSTEESHIP: 以托管模式打开
+	CcID          string                                   `json:"cc_id,omitempty"`          // 审批实例内抄送唯一标识。示例值: "123456"
+	UserID        *string                                  `json:"user_id,omitempty"`        // 抄送人的 user_id。获取方式参见[如何获取用户的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。      注意: 抄送人的 open_id 和 user_id 需至少传入一个。示例值: "12345"
+	OpenID        *string                                  `json:"open_id,omitempty"`        // 抄送人的 open_id。获取方式参见[如何获取用户的 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。      注意: 抄送人的 open_id 和 user_id 需至少传入一个。示例值: "ou_be73cbc0ee35eb6ca54e9e7cc14998c1"
+	Links         *CreateApprovalExternalInstanceReqCcLink `json:"links,omitempty"`          // 审批抄送跳转链接。设置的链接用于在审批中心 抄送我 列表内点击跳转, 跳回三方审批系统查看审批抄送详情。
+	ReadStatus    string                                   `json:"read_status,omitempty"`    // 抄送人的阅读状态示例值: "READ"可选值有: 已读未读
+	Extra         *string                                  `json:"extra,omitempty"`          // 扩展字段。JSON 格式, 传值时需要压缩转义为字符串。示例值: "{\"xxx\":\"xxx\"}"
+	Title         *string                                  `json:"title,omitempty"`          // 抄送任务名称。示例值: "xxx"
+	CreateTime    string                                   `json:"create_time,omitempty"`    // 抄送发起时间, Unix 毫秒时间戳。示例值: "1556468012678"
+	UpdateTime    string                                   `json:"update_time,omitempty"`    // 抄送最近更新时间, Unix 毫秒时间戳, 用于推送数据版本。如果 update_mode 值为 UPDATE, 则仅当传过来的 update_time 有变化时（变大）, 才会更新审批中心中的审批实例信息。示例值: "1556468012678"
+	DisplayMethod *string                                  `json:"display_method,omitempty"` // 列表页打开审批任务的方式。示例值: "BROWSER"可选值有: 跳转系统默认浏览器打开飞书中侧边抽屉打开飞书内嵌页面打开以托管模式打开
 }
 
 // CreateApprovalExternalInstanceReqCcLink ...
 type CreateApprovalExternalInstanceReqCcLink struct {
-	PcLink     string  `json:"pc_link,omitempty"`     // pc 端的跳转链接, 当用户使用飞书 pc 端时, 使用该字段进行跳转, 示例值: "https://applink.feishu.cn/client/mini_program/open?mode=appCenter&appId=cli_9c90fc38e07a9101&path=pc/pages/detail?id=1234"
-	MobileLink *string `json:"mobile_link,omitempty"` // 移动端 跳转链接, 当用户使用飞书 移动端时, 使用该字段进行跳转, 示例值: "https://applink.feishu.cn/client/mini_program/open?appId=cli_9c90fc38e07a9101&path=pages/detail?id=1234"
+	PcLink     string  `json:"pc_link,omitempty"`     // PC 端的三方审批实例跳转链接。      说明: - 当用户使用飞书 PC 端查看审批抄送时, 通过该字段进行跳转。- pc_link 和 mobile_link 至少填一个。示例值: "https://applink.feishu.cn/client/mini_program/open?mode=appCenter&appId=cli_9c90fc38e07a9101&path=pc/pages/detail?id=1234"
+	MobileLink *string `json:"mobile_link,omitempty"` // 移动端的三方审批实例跳转链接。      说明: - 当用户使用飞书移动端查看审批抄送时, 通过该字段进行跳转。- pc_link 和 mobile_link 至少填一个。示例值: "https://applink.feishu.cn/client/mini_program/open?appId=cli_9c90fc38e07a9101&path=pages/detail?id=1234"
 }
 
 // CreateApprovalExternalInstanceReqForm ...
 type CreateApprovalExternalInstanceReqForm struct {
-	Name  *string `json:"name,omitempty"`  // 表单字段名称, 示例值: "@i18n@2"
-	Value *string `json:"value,omitempty"` // 表单值, 示例值: "@i18n@3"
+	Name  *string `json:"name,omitempty"`  // 表单字段名称。说明: - 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key）, 还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。- Key 需要以 @i18n@ 开头。示例值: "@i18n@2"
+	Value *string `json:"value,omitempty"` // 表单值。      说明: - 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key）, 还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。- Key 需要以 @i18n@ 开头。示例值: "@i18n@3"
 }
 
 // CreateApprovalExternalInstanceReqI18nResource ...
 type CreateApprovalExternalInstanceReqI18nResource struct {
-	Locale    string                                               `json:"locale,omitempty"`     // 语言可选值有: zh-CN: 中文 en-US: 英文 ja-JP: 日文, 示例值: "zh-CN", 可选值有: zh-CN: 中文, en-US: 英文, ja-JP: 日文
-	Texts     []*CreateApprovalExternalInstanceReqI18nResourceText `json:"texts,omitempty"`      // 文案 key, value, i18n key 以 @i18n@ 开头； 该字段主要用于做国际化, 允许用户同时传多个语言的文案, 审批中心会根据用户当前的语音环境使用对应的文案, 如果没有传用户当前的语音环境文案, 则会使用默认的语言文案, 示例值: { "@i18n@1": "权限申请", "@i18n@2": "OA审批", "@i18n@3": "Permission" }
-	IsDefault bool                                                 `json:"is_default,omitempty"` // 是否默认语言, 默认语言需要包含所有key, 非默认语言如果key不存在会使用默认语言代替, 示例值: true
+	Locale    string                                               `json:"locale,omitempty"`     // 语言示例值: "zh-CN"可选值有: 中文英文日文繁体中文（中国香港）繁体中文（中国台湾）德语西班牙语法语印度尼西亚语意大利语韩语葡萄牙语泰语越南语马来语俄语
+	Texts     []*CreateApprovalExternalInstanceReqI18nResourceText `json:"texts,omitempty"`      // 文案的 Key:Value。Key 需要以 @i18n@ 开头, 并按照各个参数的要求传入 Value。该字段主要用于做国际化, 允许用户同时传多个语言的文案, 审批中心会根据用户当前的语言环境使用对应的文案, 如果没有传用户当前的语言环境文案, 则会使用默认的语言文案。示例值: { "@i18n@1": "权限申请", "@i18n@2": "OA审批", "@i18n@3": "Permission" }
+	IsDefault bool                                                 `json:"is_default,omitempty"` // 是否为默认语言。默认语言需要包含所有所需的文案 Key, 非默认语言如果 Key 不存在, 则会使用默认语言代替。示例值: true
 }
 
 // CreateApprovalExternalInstanceReqI18nResourceText ...
 type CreateApprovalExternalInstanceReqI18nResourceText struct {
-	Key   string `json:"key,omitempty"`   // 文案key, 示例值: "@i18n@1"
-	Value string `json:"value,omitempty"` // 文案, 示例值: "people"
+	Key   string `json:"key,omitempty"`   // 文案 Key, 需要和各个参数 Key 相匹配。示例值: "@i18n@1"
+	Value string `json:"value,omitempty"` // 文案 Value, 即文案 Key 对应的参数值。示例值: "people"
 }
 
 // CreateApprovalExternalInstanceReqLink ...
 type CreateApprovalExternalInstanceReqLink struct {
-	PcLink     string  `json:"pc_link,omitempty"`     // pc 端的跳转链接, 当用户使用飞书 pc 端时, 使用该字段进行跳转, 托管的链接保持不变, 示例值: "https://applink.feishu.cn/client/mini_program/open?mode=appCenter&appId=cli_9c90fc38e07a9101&path=pc/pages/detail?id=1234"
-	MobileLink *string `json:"mobile_link,omitempty"` // 移动端 跳转链接, 当用户使用飞书 移动端时, 使用该字段进行跳转, 托管的链接保持不变, 示例值: "https://applink.feishu.cn/client/mini_program/open?appId=cli_9c90fc38e07a9101&path=pages/detail?id=1234"
+	PcLink     string  `json:"pc_link,omitempty"`     // PC 端的三方审批实例跳转链接。      说明: - 当用户使用飞书 PC 端查看实例详情时, 通过该链接进行跳转。- pc_link 和 mobile_link 至少填一个。示例值: "https://applink.feishu.cn/client/mini_program/open?mode=appCenter&appId=cli_9c90fc38e07a9101&path=pc/pages/detail?id=1234"
+	MobileLink *string `json:"mobile_link,omitempty"` // 移动端的三方审批实例跳转链接。      说明: - 当用户使用飞书移动端查看实例详情时, 通过该链接进行跳转。- pc_link 和 mobile_link 至少填一个。示例值: "https://applink.feishu.cn/client/mini_program/open?appId=cli_9c90fc38e07a9101&path=pages/detail?id=1234"
 }
 
 // CreateApprovalExternalInstanceReqTask ...
 type CreateApprovalExternalInstanceReqTask struct {
-	TaskID            string                                               `json:"task_id,omitempty"`            // 审批实例内的唯一标识, 用于更新审批任务时定位数据, 示例值: "112534"
-	UserID            *string                                              `json:"user_id,omitempty"`            // 审批人 user_id, 和 open_id 二者至少填一个。该任务会出现在审批人的[待审批]或[已审批]列表中, 示例值: "a987sf9s"
-	OpenID            *string                                              `json:"open_id,omitempty"`            // 审批人 open_id, 和 user_id 二者至少填一个, 示例值: "ou_be73cbc0ee35eb6ca54e9e7cc14998c1"
-	Title             *string                                              `json:"title,omitempty"`              // 审批任务名称, 示例值: "i18n1"
-	Links             *CreateApprovalExternalInstanceReqTaskLinks          `json:"links,omitempty"`              // [待审批]或[已审批]中使用的跳转链接, 用于跳转回三方系统pc_link 和 mobile_link 必须填一个, 填写的是哪一端的链接, 即会跳转到该链接, 不受平台影响
-	Status            string                                               `json:"status,omitempty"`             // 任务状态, 示例值: "PENDING", 可选值有: PENDING: 待审批, APPROVED: 任务同意, REJECTED: 任务拒绝, TRANSFERRED: 任务转交, DONE: 任务通过但审批人未操作；审批人看不到这个任务, 若想要看到, 可以通过抄送该人.
-	Extra             *string                                              `json:"extra,omitempty"`              // 扩展 json, 任务结束原因需传complete_reason字段。枚举值与对应说明: approved: 同意, rejected: 拒绝, node_auto_reject: （因逻辑判断产生的）自动拒绝, specific_rollback: 退回（包括退回到发起人、退回到中间任一审批人）, add: 并加签（添加新审批人, 和我一起审批）, add_pre: 前加签（添加新审批人, 在我之前审批）, add_post: 后加签（添加新审批人, 在我之后审批）, delete_assignee: 减签, forward_resign: 转交（转给其他人审批）, recall: 撤销（撤回单据, 单据失效）, delete : 删除审批单, admin_forward: 管理员在后台操作转交, system_forward: 系统自动转交, auto_skip: 自动通过, manual_skip: 手动跳过, submit_again: 重新提交任务, restart: 重新启动流程, others: 其他（作为兜底）, 示例值: "{\"xxx\":\"xxx\", \"complete_reason\":\"approved\"}"
-	CreateTime        string                                               `json:"create_time,omitempty"`        // 任务创建时间, Unix 毫秒时间戳, 示例值: "1556468012678"
-	EndTime           string                                               `json:"end_time,omitempty"`           // 任务完成时间: 未结束的审批为 0, Unix 毫秒时间戳, 示例值: "1556468012678"
-	UpdateTime        *string                                              `json:"update_time,omitempty"`        // task最近更新时间, 用于推送数据版本控制； 更新策略同 instance 中的 update_time, 示例值: "1556468012678"
-	ActionContext     *string                                              `json:"action_context,omitempty"`     // 操作上下文, 当用户操作时, 回调请求中带上该参数, 用于传递该任务的上下文数据, 示例值: "123456"
-	ActionConfigs     []*CreateApprovalExternalInstanceReqTaskActionConfig `json:"action_configs,omitempty"`     // 任务级别操作配置, 快捷审批目前支持移动端操作
-	DisplayMethod     *string                                              `json:"display_method,omitempty"`     // 列表页打开审批任务的方式, 示例值: "BROWSER", 可选值有: BROWSER: 跳转系统默认浏览器打开, SIDEBAR: 飞书中侧边抽屉打开, NORMAL: 飞书内嵌页面打开, TRUSTEESHIP: 以托管模式打开
-	ExcludeStatistics *bool                                                `json:"exclude_statistics,omitempty"` // 三方任务支持不纳入效率统计, false: 纳入效率统计, true: 不纳入效率统计, 示例值: false, 默认值: `false`
-	NodeID            *string                                              `json:"node_id,omitempty"`            // 节点id: 必须同时满足, 一个流程内, 每个节点id唯一。如一个流程下「直属上级」、「隔级上级」等每个节点的Node_id均不一样, 同一个流程定义内, 不同审批实例中的相同节点, Node_id要保持不变。例如张三和李四分别发起了请假申请, 这2个审批实例中的「直属上级」节点的node_id应该保持一致, 示例值: "node"
-	NodeName          *string                                              `json:"node_name,omitempty"`          // 节点名称, 如「财务审批」「法务审批」, 支持中英日三种语言。示例: i18n@name。需要在i18n_resources中传该名称对应的国际化文案, 示例值: "i18n@name"
+	TaskID            string                                               `json:"task_id,omitempty"`            // 审批实例内, 审批任务的唯一标识, 用于更新审批任务时定位数据。示例值: "112534"
+	UserID            *string                                              `json:"user_id,omitempty"`            // 审批人 user_id, 获取方式参见[如何获取用户的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。      说明: - 该任务会出现在审批人的飞书审批中心 待办 或 已办 的列表中。- user_id 与 open_id 需至少传入一个。示例值: "a987sf9s"
+	OpenID            *string                                              `json:"open_id,omitempty"`            // 审批人 open_id, 获取方式参见[如何获取用户的 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。      说明: - 该任务会出现在审批人的飞书审批中心 待办 或 已办 的列表中。- user_id 与 open_id 需至少传入一个。示例值: "ou_be73cbc0ee35eb6ca54e9e7cc14998c1"
+	Title             *string                                              `json:"title,omitempty"`              // 审批任务名称。      说明: 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key）, 还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。- Key 需要以 @i18n@ 开头。示例值: "@i18n@4"
+	Links             *CreateApprovalExternalInstanceReqTaskLinks          `json:"links,omitempty"`              // 在审批中心 待办、已办 中使用的三方审批跳转链接, 用于跳转回三方审批系统查看任务详情。
+	Status            string                                               `json:"status,omitempty"`             // 任务状态示例值: "PENDING"可选值有: 待审批任务同意任务拒绝任务转交任务通过但审批人未操作。审批人看不到该任务时, 如需查看可抄送至该审批人。
+	Extra             *string                                              `json:"extra,omitempty"`              // 扩展字段。JSON 格式, 传值时需要压缩转义为字符串。任务结束原因需传 complete_reason 参数, 枚举值说明: - approved: 同意  - rejected: 拒绝  - node_auto_reject: 因逻辑判断产生的自动拒绝  - specific_rollback: 退回（包括退回到发起人、退回到中间任一审批人）  - add: 并加签（添加新审批人, 与我一起审批）  - add_pre: 前加签（添加新审批人, 在我之前审批）  - add_post: 后加签（添加新审批人, 在我之后审批）  - delete_assignee: 减签  - forward: 手动转交  - forward_resign: 离职自动转交  - recall: 撤销（撤回单据, 单据失效）  - delete : 删除审批单  - admin_forward: 管理员在后台操作转交  - system_forward: 系统自动转交  - auto_skip: 自动通过  - manual_skip: 手动跳过  - submit_again: 重新提交任务  - restart: 重新启动流程  - others: 其他示例值: "{\"xxx\":\"xxx\", \"complete_reason\":\"approved\"}"
+	CreateTime        string                                               `json:"create_time,omitempty"`        // 任务创建时间, Unix 毫秒时间戳。示例值: "1556468012678"
+	EndTime           string                                               `json:"end_time,omitempty"`           // 任务完成时间。未结束的审批为 0, Unix 毫秒时间戳。示例值: "1556468012678"
+	UpdateTime        *string                                              `json:"update_time,omitempty"`        // 任务最近更新时间, Unix 毫秒时间戳, 用于推送数据版本控制。如果 update_mode 值为 UPDATE, 则仅当传过来的 update_time 有变化时（变大）, 才会更新审批中心中的审批任务信息。示例值: "1556468012678"
+	ActionContext     *string                                              `json:"action_context,omitempty"`     // 操作上下文。当用户操作审批时, 回调请求中会包含该参数, 用于传递该任务的上下文数据。示例值: "123456"
+	ActionConfigs     []*CreateApprovalExternalInstanceReqTaskActionConfig `json:"action_configs,omitempty"`     // 任务级别的快捷审批操作配置。      注意: 快捷审批目前仅支持在飞书移动端操作。
+	DisplayMethod     *string                                              `json:"display_method,omitempty"`     // 审批中心列表页打开审批任务的方式。示例值: "BROWSER"可选值有: 跳转系统默认浏览器打开飞书中侧边抽屉打开飞书内嵌页面打开以托管模式打开
+	ExcludeStatistics *bool                                                `json:"exclude_statistics,omitempty"` // 三方审批任务是否不纳入效率统计。可选值有: true: 不纳入效率统计- false: 纳入效率统计示例值: false默认值: `false
+	NodeID            *string                                              `json:"node_id,omitempty"`            // 审批节点 ID。必须同时满足: 一个审批流程内, 每个节点 ID 唯一。例如, 一个流程下直属上级、隔级上级等节点的 node_id 均不一样。- 同一个三方审批定义内, 不同审批实例中的相同节点, node_id 要保持不变。例如, 用户 A 和用户 B 分别发起了请假申请, 这两个审批实例中的直属上级节点的 node_id 应该保持一致。示例值: "node"
+	NodeName          *string                                              `json:"node_name,omitempty"`          // 节点名称。说明: - 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key）, 还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。- Key 需要以 @i18n@ 开头。示例值: "i18n@name"
+	GenerateType      *string                                              `json:"generate_type,omitempty"`      // 任务生成类型, 可不填, 但是不要填空字符串示例值: "EXTERNAL_CONSIGN"可选值有: 给代理人生成的任务系统生成的默认任务
 }
 
 // CreateApprovalExternalInstanceReqTaskActionConfig ...
 type CreateApprovalExternalInstanceReqTaskActionConfig struct {
-	ActionType       string  `json:"action_type,omitempty"`        // 操作类型, 每个任务都可以配置2个操作, 会展示审批列表中, 当用户操作时, 回调请求会带上该字段, 表示用户进行了同意操作还是拒绝操作, 可选值有: APPROVE: 同意, REJECT: 拒绝, {KEY}: 任意字符串, 如果使用任意字符串, 则需要提供 action_name, 示例值: "APPROVE"
-	ActionName       *string `json:"action_name,omitempty"`        // 操作名称, i18n key 用于前台展示, 如果 action_type 不是 APPROVAL和REJECT, 则必须提供该字段, 用于展示特定的操作名称, 示例值: "@i18n@5"
-	IsNeedReason     *bool   `json:"is_need_reason,omitempty"`     // 是否需要意见, 如果为true, 则用户操作时, 会跳转到 意见填写页面, 示例值: false
-	IsReasonRequired *bool   `json:"is_reason_required,omitempty"` // 审批意见是否必填, 示例值: false
-	IsNeedAttachment *bool   `json:"is_need_attachment,omitempty"` // 意见是否支持上传附件, 示例值: false
+	ActionType       string  `json:"action_type,omitempty"`        // 操作类型。每个任务都可以配置两个操作（同意、拒绝或任意中的两个）, 操作会展示审批列表中。当用户操作时, 回调请求会包含该字段, 三方审批可接受到审批人的操作数据。可选值有: 同意拒绝任意字符串。如果使用任意字符串, 则需要提供 action_name示例值: "APPROVE"
+	ActionName       *string `json:"action_name,omitempty"`        // 操作名称。如果 action_type 不等于 APPROVAL 或 REJECT, 则必须提供该字段, 用于展示特定的操作名称。          说明: - 这里传入的是国际化文案 Key（即 i18n_resources.texts 参数中的 Key）, 还需要在 i18n_resources.texts 参数中以 Key:Value 格式进行赋值。- Key 需要以 @i18n@ 开头。示例值: "@i18n@5"
+	IsNeedReason     *bool   `json:"is_need_reason,omitempty"`     // 是否需要审批意见。取值为 true 时, 审批人在审批中心操作任务后, 还需要跳转填写审批意见。示例值: false
+	IsReasonRequired *bool   `json:"is_reason_required,omitempty"` // 审批意见是否必填示例值: false
+	IsNeedAttachment *bool   `json:"is_need_attachment,omitempty"` // 审批意见是否支持上传附件示例值: false
 }
 
 // CreateApprovalExternalInstanceReqTaskLinks ...
 type CreateApprovalExternalInstanceReqTaskLinks struct {
-	PcLink     string  `json:"pc_link,omitempty"`     // pc 端的跳转链接, 当用户使用飞书 pc 端时, 使用该字段进行跳转, 示例值: "https://applink.feishu.cn/client/mini_program/open?mode=appCenter&appId=cli_9c90fc38e07a9101&path=pc/pages/detail?id=1234"
-	MobileLink *string `json:"mobile_link,omitempty"` // 移动端 跳转链接, 当用户使用飞书 移动端时, 使用该字段进行跳转, 示例值: "https://applink.feishu.cn/client/mini_program/open?appId=cli_9c90fc38e07a9101&path=pages/detail?id=1234"
+	PcLink     string  `json:"pc_link,omitempty"`     // PC 端的跳转链接。      说明: - 当用户使用飞书 PC 端查看任务详情时, 通过该链接进行跳转。- pc_link 和 mobile_link 至少填一个。示例值: "https://applink.feishu.cn/client/mini_program/open?mode=appCenter&appId=cli_9c90fc38e07a9101&path=pc/pages/detail?id=1234"
+	MobileLink *string `json:"mobile_link,omitempty"` // 移动端的跳转链接。      说明: - 当用户使用飞书移动端查看任务详情时, 通过该链接进行跳转。- pc_link 和 mobile_link 至少填一个。示例值: "https://applink.feishu.cn/client/mini_program/open?appId=cli_9c90fc38e07a9101&path=pages/detail?id=1234"
 }
 
 // CreateApprovalExternalInstanceReqTrusteeshipCacheConfig ...
 type CreateApprovalExternalInstanceReqTrusteeshipCacheConfig struct {
-	FormPolicy         *string `json:"form_policy,omitempty"`           // 托管预缓存策略, 示例值: "DISABLE", 可选值有: DISABLE: 不启用, 默认, IMMUTABLE: 表单不会随流程进行改变, BY_NODE: 跟随流程节点变更更新缓存, BY_USER: 对于每个待办任务存储一份
-	FormVaryWithLocale *bool   `json:"form_vary_with_locale,omitempty"` // 表单是否随国际化改变, 示例值: false
-	FormVersion        *string `json:"form_version,omitempty"`          // 当前使用的表单版本号, 保证表单改变后, 版本号增加, 实际值为int64整数, 示例值: "1"
+	FormPolicy         *string `json:"form_policy,omitempty"`           // 托管预缓存策略。示例值: "DISABLE"可选值有: 不启用, 默认表单不会随流程进行改变跟随流程节点变更更新缓存对于每个待办任务存储一份
+	FormVaryWithLocale *bool   `json:"form_vary_with_locale,omitempty"` // 表单是否随国际化改变。示例值: false
+	FormVersion        *string `json:"form_version,omitempty"`          // 当前使用的表单版本号, 保证表单改变后, 版本号增加, 实际值为 int64 整数。示例值: "1"
 }
 
 // CreateApprovalExternalInstanceReqTrusteeshipURLs ...
 type CreateApprovalExternalInstanceReqTrusteeshipURLs struct {
-	FormDetailURL       *string `json:"form_detail_url,omitempty"`        // 获取表单schema相关数据的url地址, 示例值: "https://#{your_domain}/api/form_detail"
-	ActionDefinitionURL *string `json:"action_definition_url,omitempty"`  // 表示获取审批操作区数据的url地址, 示例值: "https://#{your_domain}/api/action_definition"
-	ApprovalNodeURL     *string `json:"approval_node_url,omitempty"`      // 获取审批记录相关数据的url地址, 示例值: "https://#{your_domain}/api/approval_node"
-	ActionCallbackURL   *string `json:"action_callback_url,omitempty"`    // 进行审批操作时回调的url地址, 示例值: "https://#{your_domain}/api/action_callback"
-	PullBusinessDataURL *string `json:"pull_business_data_url,omitempty"` // 获取托管动态数据url 地址, 使用该接口时必须要保证历史托管单据的数据中都同步了该接口地址, 如果历史单据中没有该接口需要重新同步历史托管单据的数据来更新该URL。该接口用于飞书审批前端和业务线进行交互使用, 只有使用审批前端的特定组件(由飞书审批前端提供的组件, 并且需要和业务线进行接口交互的组件)才会需要, 示例值: "https://#{your_domain}/api/pull_business_data"
+	FormDetailURL       *string `json:"form_detail_url,omitempty"`        // 获取表单 schema 相关数据的 URL 地址。示例值: "https://#{your_domain}/api/form_detail"
+	ActionDefinitionURL *string `json:"action_definition_url,omitempty"`  // 表示获取审批操作区数据的 URL 地址。示例值: "https://#{your_domain}/api/action_definition"
+	ApprovalNodeURL     *string `json:"approval_node_url,omitempty"`      // 获取审批记录相关数据的 URL 地址。示例值: "https://#{your_domain}/api/approval_node"
+	ActionCallbackURL   *string `json:"action_callback_url,omitempty"`    // 进行审批操作时回调的 URL 地址。示例值: "https://#{your_domain}/api/action_callback"
+	PullBusinessDataURL *string `json:"pull_business_data_url,omitempty"` // 获取托管动态数据 URL 地址。使用该接口时, 必须要保证历史托管单据的数据中都同步了该接口地址。如果历史单据中没有该接口, 需要重新同步历史托管单据的数据来更新该 URL。该接口用于飞书审批前端和业务进行交互使用, 只有使用审批前端的特定组件（由飞书审批前端提供的组件, 并且需要和业务进行接口交互的组件）才会需要。示例值: "https://#{your_domain}/api/pull_business_data"
 }
 
 // CreateApprovalExternalInstanceResp ...
@@ -196,126 +199,128 @@ type CreateApprovalExternalInstanceResp struct {
 
 // CreateApprovalExternalInstanceRespData ...
 type CreateApprovalExternalInstanceRespData struct {
-	ApprovalCode           string                                                        `json:"approval_code,omitempty"`            // 审批定义 code, 创建审批定义返回的值, 表示该实例属于哪个流程；该字段会影响到列表中该实例的标题, 标题取自对应定义的 name 字段
-	Status                 string                                                        `json:"status,omitempty"`                   // 审批实例状态, 可选值有: PENDING: 审批中, APPROVED: 审批流程结束, 结果为同意, REJECTED: 审批流程结束, 结果为拒绝, CANCELED: 审批发起人撤回, DELETED: 审批被删除, HIDDEN: 状态隐藏(不显示状态), TERMINATED: 审批终止
-	Extra                  string                                                        `json:"extra,omitempty"`                    // 审批实例扩展 JSON。单据编号通过传business_key字段来实现
-	InstanceID             string                                                        `json:"instance_id,omitempty"`              // 审批实例唯一标识, 用户自定义, 需确保证租户下唯一
-	Links                  *CreateApprovalExternalInstanceRespDataLink                   `json:"links,omitempty"`                    // 审批实例链接集合, 用于[已发起]列表的跳转, 跳转回三方系统； pc_link 和 mobile_link 必须填一个, 填写的是哪一端的链接, 即会跳转到该链接, 不受平台影响
-	Title                  string                                                        `json:"title,omitempty"`                    // 审批展示名称, 如果填写了该字段, 则审批列表中的审批名称使用该字段, 如果不填该字段, 则审批名称使用审批定义的名称
-	Form                   []*CreateApprovalExternalInstanceRespDataForm                 `json:"form,omitempty"`                     // 用户提交审批时填写的表单数据, 用于所有审批列表中展示。可传多个值, 但审批中心pc展示前2个, 移动端展示前3个, 长度不超过2048字符
-	UserID                 string                                                        `json:"user_id,omitempty"`                  // 审批发起人 user_id, 发起人可在[已发起]列表中看到所有已发起的审批; 在[待审批], [已审批][抄送我]列表中, 该字段展示审批是谁发起的。审批发起人 open id。
-	UserName               string                                                        `json:"user_name,omitempty"`                // 审批发起人 用户名, 如果发起人不是真实的用户（例如是某个部门）, 没有 user_id, 则可以使用该字段传名称
-	OpenID                 string                                                        `json:"open_id,omitempty"`                  // 审批发起人 open id。
-	DepartmentID           string                                                        `json:"department_id,omitempty"`            // 发起人部门, 用于列表中展示发起人所属部门。不传则不展示。如果用户没加入任何部门, 传 "", 将展示租户名称传 department_name 展示部门名称
-	DepartmentName         string                                                        `json:"department_name,omitempty"`          // 审批发起人 部门, 如果发起人不是真实的用户（例如是某个部门）, 没有 department_id, 则可以使用该字段传名称
-	StartTime              string                                                        `json:"start_time,omitempty"`               // 审批发起时间, Unix毫秒时间戳
-	EndTime                string                                                        `json:"end_time,omitempty"`                 // 审批实例结束时间: 未结束的审批为 0, Unix毫秒时间戳
-	UpdateTime             string                                                        `json:"update_time,omitempty"`              // 审批实例最近更新时间；用于推送数据版本控制如果 update_mode 值为 UPDATE, 则只有传过来的 update_time 有变化时（变大）, 才会更新审批中心中的审批实例信息。使用该字段主要用来避免并发时老的数据更新了新的数据
-	DisplayMethod          string                                                        `json:"display_method,omitempty"`           // 列表页打开审批实例的方式, 可选值有: BROWSER: 跳转系统默认浏览器打开, SIDEBAR: 飞书中侧边抽屉打开, NORMAL: 飞书内嵌页面打开, TRUSTEESHIP: 以托管打开
-	UpdateMode             string                                                        `json:"update_mode,omitempty"`              // 更新方式, 当 update_mode=REPLACE时, 每次都以当前推送的数据为最终数据, 会删掉审批中心中多余的任务、抄送数据（不在这次推送的数据中）; 当 update_mode=UPDATE时, 则不会删除审批中心的数据, 而只是进行新增和更新实例、任务数据, 可选值有: REPLACE: 全量替换, 默认值, UPDATE: 增量更新
+	ApprovalCode           string                                                        `json:"approval_code,omitempty"`            // 审批定义 Code
+	Status                 string                                                        `json:"status,omitempty"`                   // 审批实例状态可选值有: 审批中审批流程结束, 结果为同意审批流程结束, 结果为拒绝审批发起人撤回审批被删除状态隐藏（不显示状态）审批终止
+	Extra                  string                                                        `json:"extra,omitempty"`                    // 审批实例扩展 JSON。单据编号通过传 business_key 字段来实现。
+	InstanceID             string                                                        `json:"instance_id,omitempty"`              // 审批实例唯一标识, 与请求时传入的 instance_id 一致。
+	Links                  *CreateApprovalExternalInstanceRespDataLink                   `json:"links,omitempty"`                    // 审批实例链接信息。设置的链接用于在审批中心 已发起 列表内点击跳转, 跳回三方审批系统查看审批详情。
+	Title                  string                                                        `json:"title,omitempty"`                    // 审批展示名称。说明: 如果请求时传入了 title 参数, 则审批列表中的审批名称使用该参数值。如果请求时未传入 title 参数, 则审批名称使用审批定义的名称。- 这里返回的是 i18n_resources.texts 参数的 key, 对应的取值需要参见返回的 i18n_resources.texts.value。
+	Form                   []*CreateApprovalExternalInstanceRespDataForm                 `json:"form,omitempty"`                     // 用户提交审批时填写的表单数据, 用于所有审批列表中展示。可传多个值, 最多展示前 3 个。
+	UserID                 string                                                        `json:"user_id,omitempty"`                  // 审批发起人 user_id。发起人可在审批中心的 已发起 列表中看到所有已发起的审批。在 待办、已办、抄送我 列表中, 该字段用来展示审批的发起人。
+	UserName               string                                                        `json:"user_name,omitempty"`                // 审批发起人的用户名。如果发起人不是真实的用户（例如是某个部门）, 没有 user_id, 则可以使用该参数传入一个名称。说明: 这里返回的是 i18n_resources.texts 参数的 key, 对应的取值需要参见返回的 i18n_resources.texts.value。
+	OpenID                 string                                                        `json:"open_id,omitempty"`                  // 审批发起人 open_id。发起人可在审批中心的 已发起 列表中看到所有已发起的审批。在 待办、已办、抄送我 列表中, 该字段用来展示审批的发起人。
+	DepartmentID           string                                                        `json:"department_id,omitempty"`            // 发起人的部门 ID, 用于在审批中心列表中展示发起人的所属部门, 不传值则不展示。说明: 如果用户没加入任何部门, 请求时传 `""` 默认展示企业名称。如果请求时传入 department_name 参数, 则展示对应的部门名称。
+	DepartmentName         string                                                        `json:"department_name,omitempty"`          // 审批发起人的部门名称。如果发起人不是真实的用户或没有部门, 则可以使用该参数传入部门名称。说明: 这里返回的是 i18n_resources.texts 参数的 key, 对应的取值需要参见返回的 i18n_resources.texts.value。
+	StartTime              string                                                        `json:"start_time,omitempty"`               // 审批发起时间, Unix 毫秒时间戳。
+	EndTime                string                                                        `json:"end_time,omitempty"`                 // 审批实例结束时间。未结束的审批为 0, Unix 毫秒时间戳。
+	UpdateTime             string                                                        `json:"update_time,omitempty"`              // 审批实例最近更新时间, Unix 毫秒时间戳, 用于推送数据版本控制。如果 update_mode 值为 UPDATE, 则仅当传过来的 update_time 有变化时（变大）, 才会更新审批中心中的审批实例信息。      说明: 使用该参数主要用来避免并发时, 旧数据更新了新数据。
+	DisplayMethod          string                                                        `json:"display_method,omitempty"`           // 列表页打开审批实例的方式可选值有: 跳转系统默认浏览器打开飞书中侧边抽屉打开飞书内嵌页面打开以托管打开
+	UpdateMode             string                                                        `json:"update_mode,omitempty"`              // 更新方式。      - 当 update_mode 取值为 REPLACE 时, 每次都以当前推送的数据为最终数据, 会删掉审批中心中, 不在本次推送数据中的多余的任务、抄送数据。- 当 update_mode 取值为 UPDATE 时, 不会删除审批中心的数据, 而只进行新增、更新实例与任务数据。可选值有: 全量替换增量更新
 	TaskList               []*CreateApprovalExternalInstanceRespDataTask                 `json:"task_list,omitempty"`                // 任务列表
 	CcList                 []*CreateApprovalExternalInstanceRespDataCc                   `json:"cc_list,omitempty"`                  // 抄送列表
 	I18nResources          []*CreateApprovalExternalInstanceRespDataI18nResource         `json:"i18n_resources,omitempty"`           // 国际化文案
-	TrusteeshipURLToken    string                                                        `json:"trusteeship_url_token,omitempty"`    // 单据托管认证token, 托管回调会附带此token, 帮助业务方认证
-	TrusteeshipUserIDType  IDType                                                        `json:"trusteeship_user_id_type,omitempty"` // 用户的类型, 会影响请求参数用户标识域的选择, 包括加签操作回传的目标用户, 目前仅支持 "user_id"
-	TrusteeshipURLs        *CreateApprovalExternalInstanceRespDataTrusteeshipURLs        `json:"trusteeship_urls,omitempty"`         // 单据托管回调接入方的接口的URL地址
+	TrusteeshipURLToken    string                                                        `json:"trusteeship_url_token,omitempty"`    // 单据托管认证 token, 托管回调会附带此 token, 帮助业务认证。
+	TrusteeshipUserIDType  IDType                                                        `json:"trusteeship_user_id_type,omitempty"` // 用户的类型, 会影响请求参数用户标识域的选择, 包括加签操作回传的目标用户, 目前仅支持 user_id。
+	TrusteeshipURLs        *CreateApprovalExternalInstanceRespDataTrusteeshipURLs        `json:"trusteeship_urls,omitempty"`         // 单据托管回调接入方的接口 URL 地址
 	TrusteeshipCacheConfig *CreateApprovalExternalInstanceRespDataTrusteeshipCacheConfig `json:"trusteeship_cache_config,omitempty"` // 托管预缓存策略
+	ResourceRegion         string                                                        `json:"resource_region,omitempty"`          // 资源所在地区, 内部统计用字段, 不需要填
 }
 
 // CreateApprovalExternalInstanceRespDataCc ...
 type CreateApprovalExternalInstanceRespDataCc struct {
-	CcID          string                                        `json:"cc_id,omitempty"`          // 审批实例内唯一标识
-	UserID        string                                        `json:"user_id,omitempty"`        // 抄送人 employee id
-	OpenID        string                                        `json:"open_id,omitempty"`        // 抄送人 open id
-	Links         *CreateApprovalExternalInstanceRespDataCcLink `json:"links,omitempty"`          // 跳转链接, 用于[抄送我的]列表中的跳转pc_link 和 mobile_link 必须填一个, 填写的是哪一端的链接, 即会跳转到该链接, 不受平台影响
-	ReadStatus    string                                        `json:"read_status,omitempty"`    // 阅读状态, 空值表示不支持已读未读: 可选值有: READ: 已读, UNREAD: 未读
-	Extra         string                                        `json:"extra,omitempty"`          // 扩展 json
+	CcID          string                                        `json:"cc_id,omitempty"`          // 审批实例内抄送唯一标识
+	UserID        string                                        `json:"user_id,omitempty"`        // 抄送人的 user_id
+	OpenID        string                                        `json:"open_id,omitempty"`        // 抄送人的 open_id
+	Links         *CreateApprovalExternalInstanceRespDataCcLink `json:"links,omitempty"`          // 审批抄送跳转链接。设置的链接用于在审批中心 抄送我 列表内点击跳转, 跳回三方审批系统查看审批抄送详情。
+	ReadStatus    string                                        `json:"read_status,omitempty"`    // 抄送人的阅读状态可选值有: 已读未读
+	Extra         string                                        `json:"extra,omitempty"`          // 扩展字段 JSON
 	Title         string                                        `json:"title,omitempty"`          // 抄送任务名称
-	CreateTime    string                                        `json:"create_time,omitempty"`    // 抄送发起时间, Unix 毫秒时间戳
-	UpdateTime    string                                        `json:"update_time,omitempty"`    // 抄送最近更新时间, 用于推送数据版本控制更新策略同 instance 的update_time
-	DisplayMethod string                                        `json:"display_method,omitempty"` // 列表页打开审批任务的方式, 可选值有: BROWSER: 跳转系统默认浏览器打开, SIDEBAR: 飞书中侧边抽屉打开, NORMAL: 飞书内嵌页面打开, TRUSTEESHIP: 以托管模式打开
+	CreateTime    string                                        `json:"create_time,omitempty"`    // 抄送发起时间, Unix 毫秒时间戳。
+	UpdateTime    string                                        `json:"update_time,omitempty"`    // 抄送最近更新时间, Unix 毫秒时间戳, 用于推送数据版本。如果 update_mode 值为 UPDATE, 则仅当传过来的 update_time 有变化时（变大）, 才会更新审批中心中的审批实例信息。
+	DisplayMethod string                                        `json:"display_method,omitempty"` // 列表页打开审批任务的方式可选值有: 跳转系统默认浏览器打开飞书中侧边抽屉打开飞书内嵌页面打开以托管模式打开
 }
 
 // CreateApprovalExternalInstanceRespDataCcLink ...
 type CreateApprovalExternalInstanceRespDataCcLink struct {
-	PcLink     string `json:"pc_link,omitempty"`     // pc 端的跳转链接, 当用户使用飞书 pc 端时, 使用该字段进行跳转
-	MobileLink string `json:"mobile_link,omitempty"` // 移动端 跳转链接, 当用户使用飞书 移动端时, 使用该字段进行跳转
+	PcLink     string `json:"pc_link,omitempty"`     // PC 端的三方审批实例跳转链接。当用户使用飞书 PC 端查看审批抄送时, 通过该字段进行跳转。
+	MobileLink string `json:"mobile_link,omitempty"` // 移动端的三方审批实例跳转链接。当用户使用飞书移动端查看审批抄送时, 通过该字段进行跳转。
 }
 
 // CreateApprovalExternalInstanceRespDataForm ...
 type CreateApprovalExternalInstanceRespDataForm struct {
-	Name  string `json:"name,omitempty"`  // 表单字段名称
-	Value string `json:"value,omitempty"` // 表单值
+	Name  string `json:"name,omitempty"`  // 表单字段名称。这里返回的是 i18n_resources.texts 参数的 key, 对应的取值需要参见返回的 i18n_resources.texts.value。
+	Value string `json:"value,omitempty"` // 表单值。这里返回的是 i18n_resources.texts 参数的 key, 对应的取值需要参见返回的 i18n_resources.texts.value。
 }
 
 // CreateApprovalExternalInstanceRespDataI18nResource ...
 type CreateApprovalExternalInstanceRespDataI18nResource struct {
-	Locale    string                                                    `json:"locale,omitempty"`     // 语言可选值有: zh-CN: 中文 en-US: 英文 ja-JP: 日文, 可选值有: zh-CN: 中文, en-US: 英文, ja-JP: 日文
-	Texts     []*CreateApprovalExternalInstanceRespDataI18nResourceText `json:"texts,omitempty"`      // 文案 key, value, i18n key 以 @i18n@ 开头； 该字段主要用于做国际化, 允许用户同时传多个语言的文案, 审批中心会根据用户当前的语音环境使用对应的文案, 如果没有传用户当前的语音环境文案, 则会使用默认的语言文案。
-	IsDefault bool                                                      `json:"is_default,omitempty"` // 是否默认语言, 默认语言需要包含所有key, 非默认语言如果key不存在会使用默认语言代替
+	Locale    string                                                    `json:"locale,omitempty"`     // 语言可选值有: 中文英文日文繁体中文（中国香港）繁体中文（中国台湾）德语西班牙语法语印度尼西亚语意大利语韩语葡萄牙语泰语越南语马来语俄语
+	Texts     []*CreateApprovalExternalInstanceRespDataI18nResourceText `json:"texts,omitempty"`      // 文案的 Key:Value。Key 需要以 @i18n@ 开头, 并按照各个参数的要求传入 Value。该字段主要用于做国际化, 允许用户同时传多个语言的文案, 审批中心会根据用户当前的语音环境使用对应的文案, 如果没有传用户当前的语音环境文案, 则会使用默认的语言文案。
+	IsDefault bool                                                      `json:"is_default,omitempty"` // 是否为默认语言。默认语言需要包含所有所需的文案 Key, 非默认语言如果 Key 不存在, 则会使用默认语言代替。
 }
 
 // CreateApprovalExternalInstanceRespDataI18nResourceText ...
 type CreateApprovalExternalInstanceRespDataI18nResourceText struct {
-	Key   string `json:"key,omitempty"`   // 文案key
-	Value string `json:"value,omitempty"` // 文案
+	Key   string `json:"key,omitempty"`   // 文案 Key, 和各个参数 Key 相匹配。
+	Value string `json:"value,omitempty"` // 文案 Value, 即文案 Key 对应的参数值。
 }
 
 // CreateApprovalExternalInstanceRespDataLink ...
 type CreateApprovalExternalInstanceRespDataLink struct {
-	PcLink     string `json:"pc_link,omitempty"`     // pc 端的跳转链接, 当用户使用飞书 pc 端时, 使用该字段进行跳转
-	MobileLink string `json:"mobile_link,omitempty"` // 移动端 跳转链接, 当用户使用飞书 移动端时, 使用该字段进行跳转
+	PcLink     string `json:"pc_link,omitempty"`     // PC 端的三方审批实例跳转链接。当用户使用飞书 PC 端查看实例详情时, 通过该链接进行跳转。
+	MobileLink string `json:"mobile_link,omitempty"` // 移动端的三方审批实例跳转链接。当用户使用飞书移动端查看实例详情时, 通过该链接进行跳转。
 }
 
 // CreateApprovalExternalInstanceRespDataTask ...
 type CreateApprovalExternalInstanceRespDataTask struct {
-	TaskID            string                                                    `json:"task_id,omitempty"`            // 审批实例内的唯一标识, 用于更新审批任务时定位数据
-	UserID            string                                                    `json:"user_id,omitempty"`            // 审批人 user_id。该任务会出现在审批人的[待审批]或[已审批]列表中
-	OpenID            string                                                    `json:"open_id,omitempty"`            // 审批人 open_id
-	Title             string                                                    `json:"title,omitempty"`              // 审批任务名称
-	Links             *CreateApprovalExternalInstanceRespDataTaskLinks          `json:"links,omitempty"`              // [待审批]或[已审批]中使用的跳转链接, 用于跳转回三方系统pc_link 和 mobile_link 必须填一个, 填写的是哪一端的链接, 即会跳转到该链接, 不受平台影响
-	Status            string                                                    `json:"status,omitempty"`             // 任务状态, 可选值有: PENDING: 待审批, APPROVED: 任务同意, REJECTED: 任务拒绝, TRANSFERRED: 任务转交, DONE: 任务通过但审批人未操作；审批人看不到这个任务, 若想要看到, 可以通过抄送该人.
-	Extra             string                                                    `json:"extra,omitempty"`              // 扩展 json, 任务结束原因需传complete_reason字段。枚举值与对应说明: approved: 同意, rejected: 拒绝, node_auto_reject: （因逻辑判断产生的）自动拒绝, specific_rollback: 退回（包括退回到发起人、退回到中间任一审批人）, add: 并加签（添加新审批人, 和我一起审批）, add_pre: 前加签（添加新审批人, 在我之前审批）, add_post: 后加签（添加新审批人, 在我之后审批）, delete_assignee: 减签, forward_resign: 转交（转给其他人审批）, recall: 撤销（撤回单据, 单据失效）, delete : 删除审批单, admin_forward: 管理员在后台操作转交, system_forward: 系统自动转交, auto_skip: 自动通过, manual_skip: 手动跳过, submit_again: 重新提交任务, restart: 重新启动流程, others: 其他（作为兜底）
-	CreateTime        string                                                    `json:"create_time,omitempty"`        // 任务创建时间, Unix 毫秒时间戳
-	EndTime           string                                                    `json:"end_time,omitempty"`           // 任务完成时间: 未结束的审批为 0, Unix 毫秒时间戳
-	UpdateTime        string                                                    `json:"update_time,omitempty"`        // task最近更新时间, 用于推送数据版本控制； 更新策略同 instance 中的 update_time
-	ActionContext     string                                                    `json:"action_context,omitempty"`     // 操作上下文, 当用户操作时, 回调请求中带上该参数, 用于传递该任务的上下文数据
-	ActionConfigs     []*CreateApprovalExternalInstanceRespDataTaskActionConfig `json:"action_configs,omitempty"`     // 任务级别操作配置, 快捷审批目前支持移动端操作
-	DisplayMethod     string                                                    `json:"display_method,omitempty"`     // 列表页打开审批任务的方式, 可选值有: BROWSER: 跳转系统默认浏览器打开, SIDEBAR: 飞书中侧边抽屉打开, NORMAL: 飞书内嵌页面打开, TRUSTEESHIP: 以托管模式打开
-	ExcludeStatistics bool                                                      `json:"exclude_statistics,omitempty"` // 三方任务支持不纳入效率统计, false: 纳入效率统计, true: 不纳入效率统计
-	NodeID            string                                                    `json:"node_id,omitempty"`            // 节点id: 必须同时满足, 一个流程内, 每个节点id唯一。如一个流程下「直属上级」、「隔级上级」等每个节点的Node_id均不一样, 同一个流程定义内, 不同审批实例中的相同节点, Node_id要保持不变。例如张三和李四分别发起了请假申请, 这2个审批实例中的「直属上级」节点的node_id应该保持一致
-	NodeName          string                                                    `json:"node_name,omitempty"`          // 节点名称, 如「财务审批」「法务审批」, 支持中英日三种语言。示例: i18n@name。需要在i18n_resources中传该名称对应的国际化文案
+	TaskID            string                                                    `json:"task_id,omitempty"`            // 审批实例内, 审批任务的唯一标识, 用于更新审批任务时定位数据。
+	UserID            string                                                    `json:"user_id,omitempty"`            // 审批人 user_id, 该任务会出现在审批人的飞书审批中心 待办 或 已办 的列表中。
+	OpenID            string                                                    `json:"open_id,omitempty"`            // 审批人 open_id, 该任务会出现在审批人的飞书审批中心 待办 或 已办 的列表中。
+	Title             string                                                    `json:"title,omitempty"`              // 审批任务名称。这里返回的是 i18n_resources.texts 参数的 key, 对应的取值需要参见返回的 i18n_resources.texts.value。
+	Links             *CreateApprovalExternalInstanceRespDataTaskLinks          `json:"links,omitempty"`              // 在审批中心 待办、已办 中使用的三方审批跳转链接, 用于跳转回三方审批系统查看任务详情。
+	Status            string                                                    `json:"status,omitempty"`             // 任务状态可选值有: 待审批任务同意任务拒绝任务转交任务通过但审批人未操作。审批人看不到该任务时, 如需查看可抄送至该审批人。
+	Extra             string                                                    `json:"extra,omitempty"`              // 扩展字段。JSON 格式, 传值时需要压缩转义为字符串。任务结束原因需传 complete_reason 参数, 枚举值说明: - approved: 同意  - rejected: 拒绝  - node_auto_reject: 因逻辑判断产生的自动拒绝  - specific_rollback: 退回（包括退回到发起人、退回到中间任一审批人）  - add: 并加签（添加新审批人, 与我一起审批）  - add_pre: 前加签（添加新审批人, 在我之前审批）  - add_post: 后加签（添加新审批人, 在我之后审批）  - delete_assignee: 减签  - forward: 手动转交  - forward_resign: 离职自动转交  - recall: 撤销（撤回单据, 单据失效）  - delete : 删除审批单  - admin_forward: 管理员在后台操作转交  - system_forward: 系统自动转交  - auto_skip: 自动通过  - manual_skip: 手动跳过  - submit_again: 重新提交任务  - restart: 重新启动流程  - others: 其他
+	CreateTime        string                                                    `json:"create_time,omitempty"`        // 任务创建时间, Unix 毫秒时间戳。
+	EndTime           string                                                    `json:"end_time,omitempty"`           // 任务完成时间。未结束的审批为 0, Unix 毫秒时间戳。
+	UpdateTime        string                                                    `json:"update_time,omitempty"`        // 任务最近更新时间, Unix 毫秒时间戳, 用于推送数据版本控制。如果 update_mode 值为 UPDATE, 则仅当传过来的 update_time 有变化时（变大）, 才会更新审批中心中的审批任务信息。
+	ActionContext     string                                                    `json:"action_context,omitempty"`     // 操作上下文。当用户操作审批时, 回调请求中会包含该参数, 用于传递该任务的上下文数据。
+	ActionConfigs     []*CreateApprovalExternalInstanceRespDataTaskActionConfig `json:"action_configs,omitempty"`     // 任务级别的快捷审批操作配置。      注意: 快捷审批目前仅支持在飞书移动端操作。
+	DisplayMethod     string                                                    `json:"display_method,omitempty"`     // 列表页打开审批任务的方式可选值有: 跳转系统默认浏览器打开飞书中侧边抽屉打开飞书内嵌页面打开以托管模式打开
+	ExcludeStatistics bool                                                      `json:"exclude_statistics,omitempty"` // 三方审批任务是否不纳入效率统计。可能值有: true: 不纳入效率统计- false: 纳入效率统计
+	NodeID            string                                                    `json:"node_id,omitempty"`            // 审批节点 ID。必须同时满足: 一个审批流程内, 每个节点 ID 唯一。例如, 一个流程下直属上级、隔级上级等节点的 node_id 均不一样。- 同一个三方审批定义内, 不同审批实例中的相同节点, node_id 要保持不变。例如, 用户 A 和用户 B 分别发起了请假申请, 这两个审批实例中的直属上级节点的 node_id 应该保持一致。
+	NodeName          string                                                    `json:"node_name,omitempty"`          // 节点名称, 这里返回的是 i18n_resources.texts 参数的 key, 对应的取值需要参见返回的 i18n_resources.texts.value。
+	GenerateType      string                                                    `json:"generate_type,omitempty"`      // 任务生成类型可选值有: 给代理人生成的任务默认情况, 可不填, 但是不要填空字符串
 }
 
 // CreateApprovalExternalInstanceRespDataTaskActionConfig ...
 type CreateApprovalExternalInstanceRespDataTaskActionConfig struct {
-	ActionType       string `json:"action_type,omitempty"`        // 操作类型, 每个任务都可以配置2个操作, 会展示审批列表中, 当用户操作时, 回调请求会带上该字段, 表示用户进行了同意操作还是拒绝操作, 可选值有: APPROVE: 同意, REJECT: 拒绝, {KEY}: 任意字符串, 如果使用任意字符串, 则需要提供 action_name
-	ActionName       string `json:"action_name,omitempty"`        // 操作名称, i18n key 用于前台展示, 如果 action_type 不是 APPROVAL和REJECT, 则必须提供该字段, 用于展示特定的操作名称
-	IsNeedReason     bool   `json:"is_need_reason,omitempty"`     // 是否需要意见, 如果为true, 则用户操作时, 会跳转到 意见填写页面
+	ActionType       string `json:"action_type,omitempty"`        // 操作类型。每个任务都可以配置两个操作（同意、拒绝或任意中的两个）, 操作会展示审批列表中。当用户操作时, 回调请求会包含该字段, 三方审批可接受到审批人的操作数据。可能值有: 同意拒绝任意字符串。如果使用任意字符串, 则需要提供 action_name
+	ActionName       string `json:"action_name,omitempty"`        // 操作名称。如果 action_type 不等于 APPROVAL 或 REJECT, 则必须提供该字段, 用于展示特定的操作名称。          说明: 这里返回的是 i18n_resources.texts 参数的 key, 对应的取值需要参见返回的 i18n_resources.texts.value。
+	IsNeedReason     bool   `json:"is_need_reason,omitempty"`     // 是否需要审批意见。取值为 true 时, 审批人在审批中心操作任务后, 还需要跳转填写审批意见。
 	IsReasonRequired bool   `json:"is_reason_required,omitempty"` // 审批意见是否必填
 	IsNeedAttachment bool   `json:"is_need_attachment,omitempty"` // 意见是否支持上传附件
 }
 
 // CreateApprovalExternalInstanceRespDataTaskLinks ...
 type CreateApprovalExternalInstanceRespDataTaskLinks struct {
-	PcLink     string `json:"pc_link,omitempty"`     // pc 端的跳转链接, 当用户使用飞书 pc 端时, 使用该字段进行跳转
-	MobileLink string `json:"mobile_link,omitempty"` // 移动端 跳转链接, 当用户使用飞书 移动端时, 使用该字段进行跳转
+	PcLink     string `json:"pc_link,omitempty"`     // PC 端的跳转链接。当用户使用飞书 PC 端查看任务详情时, 通过该链接进行跳转。
+	MobileLink string `json:"mobile_link,omitempty"` // 移动端的跳转链接。当用户使用飞书移动端查看任务详情时, 通过该链接进行跳转。
 }
 
 // CreateApprovalExternalInstanceRespDataTrusteeshipCacheConfig ...
 type CreateApprovalExternalInstanceRespDataTrusteeshipCacheConfig struct {
-	FormPolicy         string `json:"form_policy,omitempty"`           // 托管预缓存策略, 可选值有: DISABLE: 不启用, 默认, IMMUTABLE: 表单不会随流程进行改变, BY_NODE: 跟随流程节点变更更新缓存, BY_USER: 对于每个待办任务存储一份
+	FormPolicy         string `json:"form_policy,omitempty"`           // 托管预缓存策略可选值有: 不启用, 默认表单不会随流程进行改变跟随流程节点变更更新缓存对于每个待办任务存储一份
 	FormVaryWithLocale bool   `json:"form_vary_with_locale,omitempty"` // 表单是否随国际化改变
-	FormVersion        string `json:"form_version,omitempty"`          // 当前使用的表单版本号, 保证表单改变后, 版本号增加, 实际值为int64整数
+	FormVersion        string `json:"form_version,omitempty"`          // 当前使用的表单版本号, 保证表单改变后, 版本号增加, 实际值为 int64 整数。
 }
 
 // CreateApprovalExternalInstanceRespDataTrusteeshipURLs ...
 type CreateApprovalExternalInstanceRespDataTrusteeshipURLs struct {
-	FormDetailURL       string `json:"form_detail_url,omitempty"`        // 获取表单schema相关数据的url地址
-	ActionDefinitionURL string `json:"action_definition_url,omitempty"`  // 表示获取审批操作区数据的url地址
-	ApprovalNodeURL     string `json:"approval_node_url,omitempty"`      // 获取审批记录相关数据的url地址
-	ActionCallbackURL   string `json:"action_callback_url,omitempty"`    // 进行审批操作时回调的url地址
-	PullBusinessDataURL string `json:"pull_business_data_url,omitempty"` // 获取托管动态数据url 地址, 使用该接口时必须要保证历史托管单据的数据中都同步了该接口地址, 如果历史单据中没有该接口需要重新同步历史托管单据的数据来更新该URL。该接口用于飞书审批前端和业务线进行交互使用, 只有使用审批前端的特定组件(由飞书审批前端提供的组件, 并且需要和业务线进行接口交互的组件)才会需要
+	FormDetailURL       string `json:"form_detail_url,omitempty"`        // 获取表单 schema 相关数据的 URL 地址
+	ActionDefinitionURL string `json:"action_definition_url,omitempty"`  // 表示获取审批操作区数据的 URL 地址
+	ApprovalNodeURL     string `json:"approval_node_url,omitempty"`      // 获取审批记录相关数据的 URL 地址
+	ActionCallbackURL   string `json:"action_callback_url,omitempty"`    // 进行审批操作时回调的 URL 地址
+	PullBusinessDataURL string `json:"pull_business_data_url,omitempty"` // 获取托管动态数据 URL 地址。使用该接口时, 必须要保证历史托管单据的数据中都同步了该接口地址。如果历史单据中没有该接口, 需要重新同步历史托管单据的数据来更新该 URL。该接口用于飞书审批前端和业务进行交互使用, 只有使用审批前端的特定组件（由飞书审批前端提供的组件, 并且需要和业务进行接口交互的组件）才会需要。
 }
 
 // createApprovalExternalInstanceResp ...

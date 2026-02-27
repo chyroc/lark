@@ -59,9 +59,9 @@ func (r *Mock) UnMockHelpdeskGetHelpdeskCategoryList() {
 
 // GetHelpdeskCategoryListReq ...
 type GetHelpdeskCategoryListReq struct {
-	Lang    *string `query:"lang" json:"-"`     // 知识库分类语言, 示例值: "zh_cn"
-	OrderBy *int64  `query:"order_by" json:"-"` // 排序键。1: 根据知识库分类更新时间排序, 示例值: 1
-	Asc     *bool   `query:"asc" json:"-"`      // 顺序。true: 正序；false: 反序, 示例值: true
+	Lang    *string `query:"lang" json:"-"`     // 知识库分类语言示例值: "zh_cn"
+	OrderBy *int64  `query:"order_by" json:"-"` // 排序键。1: 根据知识库分类更新时间排序示例值: 1
+	Asc     *bool   `query:"asc" json:"-"`      // 顺序。true: 正序；false: 反序示例值: true
 }
 
 // GetHelpdeskCategoryListResp ...

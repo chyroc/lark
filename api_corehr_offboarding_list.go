@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetCoreHROffboardingList 查询「飞书人事」-「离职设置」中的离职原因。
+// GetCoreHROffboardingList 该接口用于查询[离职配置](https://people.feishu.cn/people/hr-settings/dimission/setting)> 离职原因的选项信息, 包括离职原因选项的唯一标识、名称和启用状态等信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/query
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/offboarding/query
@@ -58,8 +58,8 @@ func (r *Mock) UnMockCoreHRGetCoreHROffboardingList() {
 
 // GetCoreHROffboardingListReq ...
 type GetCoreHROffboardingListReq struct {
-	Active                            *bool    `json:"active,omitempty"`                               // 是否启用, 示例值: true
-	OffboardingReasonUniqueIdentifier []string `json:"offboarding_reason_unique_identifier,omitempty"` // 离职原因唯一标识列表, 用于过滤, 最大20个, 示例值: ["offboarding_reason_unique_identifier"]
+	Active                            *bool    `json:"active,omitempty"`                               // 离职原因状态, 为空时默认搜索所有状态的离职原因。可选项有:-true: 启用-false: 停用示例值: true
+	OffboardingReasonUniqueIdentifier []string `json:"offboarding_reason_unique_identifier,omitempty"` // 离职原因唯一标识列表, 用于过滤离职原因, 为空时默认搜索所有离职原因, 最多支持20个示例值: ["offboarding_reason_unique_identifier"]
 }
 
 // GetCoreHROffboardingListResp ...
@@ -69,12 +69,12 @@ type GetCoreHROffboardingListResp struct {
 
 // GetCoreHROffboardingListRespItem ...
 type GetCoreHROffboardingListRespItem struct {
-	OffboardingReasonUniqueIdentifier       string                                  `json:"offboarding_reason_unique_identifier,omitempty"`        // 离职原因唯一标识
+	OffboardingReasonUniqueIdentifier       string                                  `json:"offboarding_reason_unique_identifier,omitempty"`        // 离职原因唯一标识, 可用于开放平台[操作员工离职](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/submit)、[搜索离职信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/search)等接口入参中的离职原因。
 	Name                                    []*GetCoreHROffboardingListRespItemName `json:"name,omitempty"`                                        // 名称
-	Active                                  bool                                    `json:"active,omitempty"`                                      // 是否启用, true为启用
+	Active                                  bool                                    `json:"active,omitempty"`                                      // 是否启用, 可选项有: true- false
 	ParentOffboardingReasonUniqueIdentifier string                                  `json:"parent_offboarding_reason_unique_identifier,omitempty"` // 当前离职原因的父级原因唯一标识
-	CreatedTime                             string                                  `json:"created_time,omitempty"`                                // 创建时间
-	UpdatedTime                             string                                  `json:"updated_time,omitempty"`                                // 更新时间
+	CreatedTime                             string                                  `json:"created_time,omitempty"`                                // 创建时间, 格式: "YYYY-MM-DD HH-mm-ss"
+	UpdatedTime                             string                                  `json:"updated_time,omitempty"`                                // 更新时间, 格式: "YYYY-MM-DD HH-mm-ss"
 }
 
 // GetCoreHROffboardingListRespItemName ...

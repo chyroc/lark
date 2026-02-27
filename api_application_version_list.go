@@ -58,12 +58,12 @@ func (r *Mock) UnMockApplicationGetApplicationVersionList() {
 
 // GetApplicationVersionListReq ...
 type GetApplicationVersionListReq struct {
-	AppID      string  `path:"app_id" json:"-"`        // 应用的 app_id, 需要查询其他应用版本信息时, 必须申请[获取应用版本信息](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)权限, 仅查询本应用版本信息时, 可填入 "me" 或者应用自身 app_id, 示例值: "cli_9b445f5258795107"
-	Lang       string  `query:"lang" json:"-"`         // 应用信息的语言版本, 示例值: zh_cn, 可选值有: zh_cn: 中文, en_us: 英文, ja_jp: 日文, 最小长度: `1` 字符
-	PageSize   *int64  `query:"page_size" json:"-"`    // 分页大小, 示例值: 10, 默认值: `20`, 取值范围: `1` ～ `50`
-	PageToken  *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: new-e3c5a0627cdf0c2e057da7257b90376a
-	Order      *int64  `query:"order" json:"-"`        // 0: 按照时间倒序 1: 按照时间正序, 示例值: 0, 默认值: `0`
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	AppID      string  `path:"app_id" json:"-"`        // 应用的 app_id, 需要查询其他应用版本信息时, 必须申请[获取应用版本信息](https://open.feishu.cn/document/ukTMukTMukTM/uQjN3QjL0YzN04CN2cDN)权限, 仅查询本应用版本信息时, 可填入 "me" 或者应用自身 app_id示例值: "cli_9b445f5258795107"
+	Lang       string  `query:"lang" json:"-"`         // 应用信息的语言版本示例值: zh_cn可选值有: 中文英文日文 最小长度: `1` 字符
+	PageSize   *int64  `query:"page_size" json:"-"`    // 分页大小示例值: 10默认值: `20` 取值范围: `1` ～ `50
+	PageToken  *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: new-e3c5a0627cdf0c2e057da7257b90376a
+	Order      *int64  `query:"order" json:"-"`        // 0: 按照时间倒序 1: 按照时间正序示例值: 0默认值: `0
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetApplicationVersionListResp ...
@@ -75,22 +75,23 @@ type GetApplicationVersionListResp struct {
 
 // GetApplicationVersionListRespItem ...
 type GetApplicationVersionListRespItem struct {
-	AppID            string                                    `json:"app_id,omitempty"`            // 应用 id
-	Version          string                                    `json:"version,omitempty"`           // 在开发者后台填入的应用版本号
-	VersionID        string                                    `json:"version_id,omitempty"`        // 唯一标识应用版本的 ID
-	AppName          string                                    `json:"app_name,omitempty"`          // 应用默认名称
-	AvatarURL        string                                    `json:"avatar_url,omitempty"`        // 应用头像 url
-	Description      string                                    `json:"description,omitempty"`       // 应用默认描述
-	Scopes           []*GetApplicationVersionListRespItemScope `json:"scopes,omitempty"`            // 应用权限列表
-	BackHomeURL      string                                    `json:"back_home_url,omitempty"`     // 后台主页地址
-	I18n             []*GetApplicationVersionListRespItemI18n  `json:"i18n,omitempty"`              // 应用的国际化信息列表
-	CommonCategories []string                                  `json:"common_categories,omitempty"` // 应用分类的国际化描述
-	Events           []string                                  `json:"events,omitempty"`            // 应用已订阅开放平台事件列表
-	Status           int64                                     `json:"status,omitempty"`            // 版本状态, 可选值有: 0: 未知状态, 1: 审核通过, 2: 审核拒绝, 3: 审核中, 4: 未提交审核
-	CreateTime       string                                    `json:"create_time,omitempty"`       // 版本创建时间（单位: s）
-	PublishTime      string                                    `json:"publish_time,omitempty"`      // 版本发布时间（单位: s）
-	Ability          *GetApplicationVersionListRespItemAbility `json:"ability,omitempty"`           // 当前版本下应用开启的能力
-	Remark           *GetApplicationVersionListRespItemRemark  `json:"remark,omitempty"`            // 跟随应用版本的信息
+	AppID            string                                        `json:"app_id,omitempty"`            // 应用 id
+	Version          string                                        `json:"version,omitempty"`           // 在开发者后台填入的应用版本号
+	VersionID        string                                        `json:"version_id,omitempty"`        // 唯一标识应用版本的 ID
+	AppName          string                                        `json:"app_name,omitempty"`          // 应用默认名称
+	AvatarURL        string                                        `json:"avatar_url,omitempty"`        // 应用头像 url
+	Description      string                                        `json:"description,omitempty"`       // 应用默认描述
+	Scopes           []*GetApplicationVersionListRespItemScope     `json:"scopes,omitempty"`            // 应用权限列表
+	BackHomeURL      string                                        `json:"back_home_url,omitempty"`     // 后台主页地址
+	I18n             []*GetApplicationVersionListRespItemI18n      `json:"i18n,omitempty"`              // 应用的国际化信息列表
+	CommonCategories []string                                      `json:"common_categories,omitempty"` // 应用分类的国际化描述
+	Events           []string                                      `json:"events,omitempty"`            // 应用已订阅开放平台事件列表
+	Status           int64                                         `json:"status,omitempty"`            // 版本状态可选值有: 未知状态审核通过审核拒绝审核中未提交审核
+	CreateTime       string                                        `json:"create_time,omitempty"`       // 版本创建时间（单位: s）
+	PublishTime      string                                        `json:"publish_time,omitempty"`      // 版本发布时间（单位: s）
+	Ability          *GetApplicationVersionListRespItemAbility     `json:"ability,omitempty"`           // 当前版本下应用开启的能力
+	Remark           *GetApplicationVersionListRespItemRemark      `json:"remark,omitempty"`            // 跟随应用版本的信息
+	EventInfos       []*GetApplicationVersionListRespItemEventInfo `json:"event_infos,omitempty"`       // 应用已订阅事件详情列表
 }
 
 // GetApplicationVersionListRespItemAbility ...
@@ -116,12 +117,12 @@ type GetApplicationVersionListRespItemAbilityCloudDoc struct {
 	SpaceURL string                                                  `json:"space_url,omitempty"` // 云空间重定向 url
 	I18n     []*GetApplicationVersionListRespItemAbilityCloudDocI18n `json:"i18n,omitempty"`      // 国际化信息
 	IconURL  string                                                  `json:"icon_url,omitempty"`  // 图标链接
-	Mode     int64                                                   `json:"mode,omitempty"`      // 云文档支持模式, 可选值有: 0: 未知, 1: 移动端
+	Mode     int64                                                   `json:"mode,omitempty"`      // 云文档支持模式可选值有: 未知移动端
 }
 
 // GetApplicationVersionListRespItemAbilityCloudDocI18n ...
 type GetApplicationVersionListRespItemAbilityCloudDocI18n struct {
-	I18nKey          string `json:"i18n_key,omitempty"`          // 国际化语言的 key, 可选值有: zh_cn: 中文, en_us: 英文, ja_jp: 日文
+	I18nKey          string `json:"i18n_key,omitempty"`          // 国际化语言的 key可选值有: 中文英文日文
 	Name             string `json:"name,omitempty"`              // 云文档国际化名称
 	ReadDescription  string `json:"read_description,omitempty"`  // 云文档国际化读权限说明
 	WriteDescription string `json:"write_description,omitempty"` // 云文档国际化写权限说明
@@ -137,13 +138,13 @@ type GetApplicationVersionListRespItemAbilityDocsBlock struct {
 
 // GetApplicationVersionListRespItemAbilityDocsBlockI18n ...
 type GetApplicationVersionListRespItemAbilityDocsBlockI18n struct {
-	I18nKey string `json:"i18n_key,omitempty"` // 国际化语言的 key, 可选值有: zh_cn: 中文, en_us: 英文, ja_jp: 日文
+	I18nKey string `json:"i18n_key,omitempty"` // 国际化语言的 key可选值有: 中文英文日文
 	Name    string `json:"name,omitempty"`     // 名称
 }
 
 // GetApplicationVersionListRespItemAbilityGadget ...
 type GetApplicationVersionListRespItemAbilityGadget struct {
-	EnablePcMode         int64    `json:"enable_pc_mode,omitempty"`          // pc 支持的小程序模式, bit 位表示, 可选值有: 1: sidebar 模式, 2: pc 模式, 4: 主导航模式
+	EnablePcMode         int64    `json:"enable_pc_mode,omitempty"`          // pc 支持的小程序模式, bit 位表示可选值有: sidebar 模式pc 模式主导航模式
 	SchemaURLs           []string `json:"schema_urls,omitempty"`             // schema url 列表
 	PcUseMobilePkg       bool     `json:"pc_use_mobile_pkg,omitempty"`       // pc 端是否使用小程序版本
 	PcVersion            string   `json:"pc_version,omitempty"`              // pc 的小程序版本号
@@ -161,7 +162,7 @@ type GetApplicationVersionListRespItemAbilityMessageAction struct {
 
 // GetApplicationVersionListRespItemAbilityMessageActionI18n ...
 type GetApplicationVersionListRespItemAbilityMessageActionI18n struct {
-	I18nKey string `json:"i18n_key,omitempty"` // 国际化语言的 key, 可选值有: zh_cn: 中文, en_us: 英文, ja_jp: 日文
+	I18nKey string `json:"i18n_key,omitempty"` // 国际化语言的 key可选值有: 中文英文日文
 	Name    string `json:"name,omitempty"`     // 国际化名称
 }
 
@@ -202,9 +203,16 @@ type GetApplicationVersionListRespItemAbilityWorkplaceWidget struct {
 	MinLarkVersion string `json:"min_lark_version,omitempty"` // 最低兼容飞书版本号
 }
 
+// GetApplicationVersionListRespItemEventInfo ...
+type GetApplicationVersionListRespItemEventInfo struct {
+	EventType        string `json:"event_type,omitempty"`        // 事件类型, 事件唯一标识
+	EventName        string `json:"event_name,omitempty"`        // 事件名称
+	EventDescription string `json:"event_description,omitempty"` // 事件描述
+}
+
 // GetApplicationVersionListRespItemI18n ...
 type GetApplicationVersionListRespItemI18n struct {
-	I18nKey     string `json:"i18n_key,omitempty"`    // 国际化语言的 key, 可选值有: zh_cn: 中文, en_us: 英文, ja_jp: 日文
+	I18nKey     string `json:"i18n_key,omitempty"`    // 国际化语言的 key可选值有: 中文英文日文繁体中文(中国香港)繁体中文(中国台湾)印度尼西亚语马来语德语西班牙语法语意大利语葡萄牙语(巴西)越南语俄语泰语韩语
 	Name        string `json:"name,omitempty"`        // 应用国际化名称
 	Description string `json:"description,omitempty"` // 应用国际化描述（副标题）
 	HelpUse     string `json:"help_use,omitempty"`    // 国际化帮助文档链接
@@ -240,9 +248,10 @@ type GetApplicationVersionListRespItemRemarkVisibilityVisibleList struct {
 
 // GetApplicationVersionListRespItemScope ...
 type GetApplicationVersionListRespItemScope struct {
-	Scope       string `json:"scope,omitempty"`       // 应用权限
-	Description string `json:"description,omitempty"` // 应用权限的国际化描述
-	Level       int64  `json:"level,omitempty"`       // 权限等级描述, 可选值有: 1: 普通权限, 2: 高级权限, 3: 超敏感权限, 0: 未知等级
+	Scope       string   `json:"scope,omitempty"`       // 应用权限
+	Description string   `json:"description,omitempty"` // 应用权限的国际化描述
+	Level       int64    `json:"level,omitempty"`       // 权限等级描述可选值有: 普通权限高级权限超敏感权限未知等级
+	TokenTypes  []string `json:"token_types,omitempty"` // 返回用户身份类型user、应用身份类型tenant。如果两种类型都支持, 则同时返回两个。可选值有: 应用身份类型用户身份类型
 }
 
 // getApplicationVersionListResp ...

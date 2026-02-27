@@ -25,14 +25,8 @@ import (
 //
 // - 网页组件只适用于自建应用, 暂不支持商店应用。
 // - 网页组件适用于普通web网页, 不建议在小程序webview中调用此组件
-// 准备工作:
-// - 在开发者后台[创建一个企业自建应用](https://open.feishu.cn/document/home/introduction-to-custom-app-development/self-built-application-development-process)。
-// - 引入组件库。在网页 html 中引入如下代码:
-// ```html
-// <script src="https://lf1-cdn-tos.bytegoofy.com/goofy/locl/lark/external_js_sdk/h5-js-sdk-1.2.12.js"></script>
-// ```
-// ::: warning
-// 若要使用成员卡片组件, SDK需要在`<body>`加载后引入。
+// ## 前提条件
+// 你已参考[云文档组件](https://open.feishu.cn/document/uYjL24iN/uYDO3YjL2gzN24iN3cjN/introduction)、[成员名片组件](https://open.feishu.cn/document/uYjL24iN/uQDO3YjL0gzN24CN4cjN/profile-component)、[搜索组件](https://open.feishu.cn/document/uYjL24iN/uQDO3YjL0gzN24CN4cjN/selector)的接入文档, 创建了一个企业自建应用, 并引入了组件库。
 //
 // doc: https://open.feishu.cn/document/uYjL24iN/uUDO3YjL1gzN24SN4cjN
 // new doc: https://open.feishu.cn/document/common-capabilities/web-components/component-sdk-authentication-process
@@ -69,13 +63,12 @@ func (r *Mock) UnMockJssdkGetJssdkTicket() {
 }
 
 // GetJssdkTicketReq ...
-type GetJssdkTicketReq struct {
-}
+type GetJssdkTicketReq struct{}
 
 // GetJssdkTicketResp ...
 type GetJssdkTicketResp struct {
-	ExpireIn int64  `json:"expire_in,omitempty"` // jsapi_ticket 的有效时间
-	Ticket   string `json:"ticket,omitempty"`    // jsapi_ticket
+	ExpireIn int64  `json:"expire_in,omitempty"` // jsapi_ticket 的有效时间。单位: 秒
+	Ticket   string `json:"ticket,omitempty"`    // jsapi_ticket, 在有效时间内可重复使用
 }
 
 // getJssdkTicketResp ...

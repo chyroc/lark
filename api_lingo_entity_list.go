@@ -24,6 +24,7 @@ import (
 // GetLingoEntityList 分页拉取词条列表数据, 支持拉取租户内(或指定词库内)的全部词条。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/lingo-v1/entity/list
+// new doc: https://open.feishu.cn/document/lingo-v1/entity/list
 func (r *LingoService) GetLingoEntityList(ctx context.Context, request *GetLingoEntityListReq, options ...MethodOptionFunc) (*GetLingoEntityListResp, *Response, error) {
 	if r.cli.mock.mockLingoGetLingoEntityList != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Lingo#GetLingoEntityList mock enable")
@@ -58,11 +59,11 @@ func (r *Mock) UnMockLingoGetLingoEntityList() {
 
 // GetLingoEntityListReq ...
 type GetLingoEntityListReq struct {
-	PageSize   *int64  `query:"page_size" json:"-"`    // 分页大小, 示例值: 20, 默认值: `20`, 取值范围: `1` ～ `100`
-	PageToken  *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 408ecac018b2e3518db37275e812aad7bb8ad3e755fc886f322ac6c430ba
-	Provider   *string `query:"provider" json:"-"`     // 相关外部系统[可用来过滤词条数据], 示例值: 星云, 长度范围: `2` ～ `32` 字符
-	RepoID     *string `query:"repo_id" json:"-"`      // 词库 id(不传时默认返回全员词库数据), 如以应用身份拉取非全员词库的词条, 需要在“词库设置”页面添加应用；若以用户身份拉取非全员词库的词条, 该用户需要拥有对应词库的可见权限, 示例值: 7152790921053274113
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	PageSize   *int64  `query:"page_size" json:"-"`    // 分页大小示例值: 20默认值: `20` 取值范围: `1` ～ `100
+	PageToken  *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 408ecac018b2e3518db37275e812aad7bb8ad3e755fc886f322ac6c430ba
+	Provider   *string `query:"provider" json:"-"`     // 相关外部系统【可用来过滤词条数据】示例值: 星云 长度范围: `2` ～ `32` 字符
+	RepoID     *string `query:"repo_id" json:"-"`      // 词库 id(不传时默认返回全员词库数据)如以应用身份拉取非全员词库的词条, 需要在“词库设置”页面添加应用；若以用户身份拉取非全员词库的词条, 该用户需要拥有对应词库的可见权限。示例值: 7152790921053274113
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetLingoEntityListResp ...
@@ -104,7 +105,7 @@ type GetLingoEntityListRespEntityAliaseDisplayStatus struct {
 
 // GetLingoEntityListRespEntityI18nDesc ...
 type GetLingoEntityListRespEntityI18nDesc struct {
-	Language    int64  `json:"language,omitempty"`    // 语言类型, 可选值有: 1: 中文, 2: 英文, 3: 日文
+	Language    int64  `json:"language,omitempty"`    // 语言类型可选值有: 中文英文日文
 	Description string `json:"description,omitempty"` // 纯文本释义
 	RichText    string `json:"rich_text,omitempty"`   // 富文本描述
 }
@@ -135,7 +136,7 @@ type GetLingoEntityListRespEntityRelatedMeta struct {
 	Oncalls         []*GetLingoEntityListRespEntityRelatedMetaOncall         `json:"oncalls,omitempty"`         // 相关服务中的相关值班号
 	Links           []*GetLingoEntityListRespEntityRelatedMetaLink           `json:"links,omitempty"`           // 相关链接
 	Abbreviations   []*GetLingoEntityListRespEntityRelatedMetaAbbreviation   `json:"abbreviations,omitempty"`   // 相关词条
-	Classifications []*GetLingoEntityListRespEntityRelatedMetaClassification `json:"classifications,omitempty"` // 当前词条所属分类, 词条只能属于二级分类, 且每个一级分类下只能选择一个二级分类。
+	Classifications []*GetLingoEntityListRespEntityRelatedMetaClassification `json:"classifications,omitempty"` // 当前词条所属分类 词条只能属于二级分类, 且每个一级分类下只能选择一个二级分类。
 	Images          []*GetLingoEntityListRespEntityRelatedMetaImage          `json:"images,omitempty"`          // 上传的相关图片
 }
 

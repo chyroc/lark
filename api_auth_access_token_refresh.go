@@ -21,11 +21,18 @@ import (
 	"context"
 )
 
-// RefreshAccessToken user_access_token 的最大有效期是 2小时左右。当 user_access_token 过期时, 可以调用本接口获取新的 user_access_token。
+// RefreshAccessToken 本接口已成为历史版本, 不推荐使用。请使用最新版本: [刷新 user_access_token ](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/authentication-management/access-token/refresh-user-access-token)
 //
-// 刷新后请更新本地user_access_token和refresh_token, 不要继续使用旧值重复刷新。保证参数是最新值
+// </md-alert>。
+// user_access_token 的最大有效期是 2小时左右。当 user_access_token 过期时, 可以调用本接口获取新的 user_access_token。
+// :::html
+// <md-alert type="tip">
+// 调用本接口刷新 user_access_token 后, 请更新你本地保存的 user_access_token 以及用于刷新 token 的 refresh_token 参数值, 不要继续使用旧值重复刷新, 否则可能会因为 token 失效导致接口调用失败。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/authen-v1/oidc-refresh_access_token/create
+// new doc: https://open.feishu.cn/document/historic-version/authen/create-4
+//
+// Deprecated
 func (r *AuthService) RefreshAccessToken(ctx context.Context, request *RefreshAccessTokenReq, options ...MethodOptionFunc) (*RefreshAccessTokenResp, *Response, error) {
 	if r.cli.mock.mockAuthRefreshAccessToken != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Auth#RefreshAccessToken mock enable")
@@ -60,7 +67,7 @@ func (r *Mock) UnMockAuthRefreshAccessToken() {
 // RefreshAccessTokenReq ...
 type RefreshAccessTokenReq struct {
 	GrantType    string `json:"grant_type,omitempty"`    // 授权类型, 固定值: 示例值: "refresh_token"
-	RefreshToken string `json:"refresh_token,omitempty"` // 刷新和获取user_access_token接口均返回 `refresh_token`, 每次请求, 请注意使用最新获取到的`refresh_token`, 示例值: "ur-oQ0mMq6MCcueAv0pwx2fQQhxqv__CbLu6G8ySFwafeKww2Def2BJdOkW3.9gCFM.LBQgFri901QaqeuL"
+	RefreshToken string `json:"refresh_token,omitempty"` // 刷新和获取user_access_token接口均返回 `refresh_token`, 每次请求, 请注意使用最新获取到的`refresh_token`示例值: "ur-h4_5nUXdJ4O8rqfGe.YJCwM13Gjc557xUG20hkk00f7K"
 }
 
 // RefreshAccessTokenResp ...

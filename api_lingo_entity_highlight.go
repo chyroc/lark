@@ -24,6 +24,7 @@ import (
 // HighlightLingoEntity 传入一句话, 智能识别句中对应的词条, 并返回词条位置和 entity_id, 可在外部系统中快速实现词条智能高亮。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/lingo-v1/entity/highlight
+// new doc: https://open.feishu.cn/document/lingo-v1/entity/highlight
 func (r *LingoService) HighlightLingoEntity(ctx context.Context, request *HighlightLingoEntityReq, options ...MethodOptionFunc) (*HighlightLingoEntityResp, *Response, error) {
 	if r.cli.mock.mockLingoHighlightLingoEntity != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Lingo#HighlightLingoEntity mock enable")
@@ -58,7 +59,7 @@ func (r *Mock) UnMockLingoHighlightLingoEntity() {
 
 // HighlightLingoEntityReq ...
 type HighlightLingoEntityReq struct {
-	Text string `json:"text,omitempty"` // 需要识别词条的内容（不超过1000字）, 示例值: "词典是飞书提供的一款知识管理工具", 长度范围: `1` ～ `1000` 字符
+	Text string `json:"text,omitempty"` // 需要识别词条的内容（不超过1000字）示例值: "词典是飞书提供的一款知识管理工具" 长度范围: `1` ～ `1000` 字符
 }
 
 // HighlightLingoEntityResp ...

@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// CreateContactJobLevel 该接口可以创建职级。
+// CreateContactJobLevel 调用该接口创建一个职级。职级是用户属性之一, 用于标识用户的职位级别, 例如 P1、P2、P3、P4。
+//
+// ## 使用限制
+// 单租户内职级数量总数上限为 10, 000, 但需要注意, 如果总数超过 4, 000, 则无法在[管理后台](https://feishu.cn/admin)打开职级列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_level/create
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/job_level/create
@@ -58,52 +61,52 @@ func (r *Mock) UnMockContactCreateContactJobLevel() {
 
 // CreateContactJobLevelReq ...
 type CreateContactJobLevelReq struct {
-	Name            string                                     `json:"name,omitempty"`             // 职级名称, 示例值: "高级专家", 长度范围: `1` ～ `255` 字符
-	Description     *string                                    `json:"description,omitempty"`      // 职级描述, 示例值: "公司内部中高级职称, 有一定专业技术能力的人员"
-	Order           *int64                                     `json:"order,omitempty"`            // 职级的排序, 可填入自然数100-100000的数值, 系统按照数值大小从小到大排序。不填写该字段时, 默认新增排序在当前职级列表中最后位（最大值）, 示例值: 200, 取值范围: `100` ～ `100000`
-	Status          bool                                       `json:"status,omitempty"`           // 是否启用, 示例值: true
-	I18nName        []*CreateContactJobLevelReqI18nName        `json:"i18n_name,omitempty"`        // 多语言名称
-	I18nDescription []*CreateContactJobLevelReqI18nDescription `json:"i18n_description,omitempty"` // 多语言描述
+	Name            string                                     `json:"name,omitempty"`             // 职级名称。通用名称, 如果未设置多语言名称, 则默认展示该名称。示例值: "高级专家" 长度范围: `1` ～ `255` 字符
+	Description     *string                                    `json:"description,omitempty"`      // 职级描述。字符长度上限 5, 000。通用描述, 如果未设置多语言描述, 则默认展示该描述。默认值: 空示例值: "公司内部中高级职称, 有一定专业技术能力的人员"
+	Order           *int64                                     `json:"order,omitempty"`            // 职级排序。数值越小, 排序越靠前。默认值: 空。如果不传入该值, 则默认职级排在列表最后位（即 order 取值为当前职级列表内的最大值）。示例值: 200 取值范围: `100` ～ `100000
+	Status          bool                                       `json:"status,omitempty"`           // 是否启用该职级。可选值有: true: 启用- false: 不启用说明: 只有启用了的职级可以设置为用户属性。示例值: true
+	I18nName        []*CreateContactJobLevelReqI18nName        `json:"i18n_name,omitempty"`        // 多语言职级名称。默认值: 空, 表示不设置多语言名称。
+	I18nDescription []*CreateContactJobLevelReqI18nDescription `json:"i18n_description,omitempty"` // 多语言职级描述。默认值: 空, 表示不设置多语言描述。
 }
 
 // CreateContactJobLevelReqI18nDescription ...
 type CreateContactJobLevelReqI18nDescription struct {
-	Locale *string `json:"locale,omitempty"` // 语言版本, 示例值: "zh_cn"
-	Value  *string `json:"value,omitempty"`  // 字段名, 示例值: "多语言内容"
+	Locale *string `json:"locale,omitempty"` // 语言版本。例如: zh_cn: 中文- en_us: 英语- ja_jp: 日语示例值: "zh_cn"
+	Value  *string `json:"value,omitempty"`  // 语言版本对应的职级描述。示例值: "多语言内容"
 }
 
 // CreateContactJobLevelReqI18nName ...
 type CreateContactJobLevelReqI18nName struct {
-	Locale *string `json:"locale,omitempty"` // 语言版本, 示例值: "zh_cn"
-	Value  *string `json:"value,omitempty"`  // 字段名, 示例值: "多语言内容"
+	Locale *string `json:"locale,omitempty"` // 语言版本。例如: zh_cn: 中文- en_us: 英语- ja_jp: 日语示例值: "zh_cn"
+	Value  *string `json:"value,omitempty"`  // 语言版本对应的职级名称。示例值: "多语言内容"
 }
 
 // CreateContactJobLevelResp ...
 type CreateContactJobLevelResp struct {
-	JobLevel *CreateContactJobLevelRespJobLevel `json:"job_level,omitempty"` // 职级信息
+	JobLevel *CreateContactJobLevelRespJobLevel `json:"job_level,omitempty"` // 职级信息。
 }
 
 // CreateContactJobLevelRespJobLevel ...
 type CreateContactJobLevelRespJobLevel struct {
-	Name            string                                              `json:"name,omitempty"`             // 职级名称
-	Description     string                                              `json:"description,omitempty"`      // 职级描述
-	Order           int64                                               `json:"order,omitempty"`            // 职级的排序, 可填入自然数100-100000的数值, 系统按照数值大小从小到大排序。不填写该字段时, 默认新增排序在当前职级列表中最后位（最大值）
-	Status          bool                                                `json:"status,omitempty"`           // 是否启用
-	JobLevelID      string                                              `json:"job_level_id,omitempty"`     // 职级ID
-	I18nName        []*CreateContactJobLevelRespJobLevelI18nName        `json:"i18n_name,omitempty"`        // 多语言名称
-	I18nDescription []*CreateContactJobLevelRespJobLevelI18nDescription `json:"i18n_description,omitempty"` // 多语言描述
+	Name            string                                              `json:"name,omitempty"`             // 职级名称。
+	Description     string                                              `json:"description,omitempty"`      // 职级描述。
+	Order           int64                                               `json:"order,omitempty"`            // 职级排序, 数值越小, 排序越靠前。
+	Status          bool                                                `json:"status,omitempty"`           // 是否启用职级。可能值有: true: 启用- false: 不启用
+	JobLevelID      string                                              `json:"job_level_id,omitempty"`     // 职级 ID。后续可通过该 ID 删除、更新、查询职级。
+	I18nName        []*CreateContactJobLevelRespJobLevelI18nName        `json:"i18n_name,omitempty"`        // 多语言名称。
+	I18nDescription []*CreateContactJobLevelRespJobLevelI18nDescription `json:"i18n_description,omitempty"` // 多语言描述。
 }
 
 // CreateContactJobLevelRespJobLevelI18nDescription ...
 type CreateContactJobLevelRespJobLevelI18nDescription struct {
-	Locale string `json:"locale,omitempty"` // 语言版本
-	Value  string `json:"value,omitempty"`  // 字段名
+	Locale string `json:"locale,omitempty"` // 语言版本。
+	Value  string `json:"value,omitempty"`  // 语言版本对应的描述。
 }
 
 // CreateContactJobLevelRespJobLevelI18nName ...
 type CreateContactJobLevelRespJobLevelI18nName struct {
-	Locale string `json:"locale,omitempty"` // 语言版本
-	Value  string `json:"value,omitempty"`  // 字段名
+	Locale string `json:"locale,omitempty"` // 语言版本。
+	Value  string `json:"value,omitempty"`  // 语言版本对应的名称。
 }
 
 // createContactJobLevelResp ...

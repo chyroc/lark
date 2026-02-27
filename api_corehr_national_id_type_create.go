@@ -58,38 +58,38 @@ func (r *Mock) UnMockCoreHRCreateCoreHRNationalIDType() {
 
 // CreateCoreHRNationalIDTypeReq ...
 type CreateCoreHRNationalIDTypeReq struct {
-	ClientToken               *string                                                   `query:"client_token" json:"-"`                // 根据client_token是否一致来判断是否为同一请求, 示例值: 12454646
-	CountryRegionID           string                                                    `json:"country_region_id,omitempty"`           // 国家 / 地区, 示例值: "6862995747139225096"
+	ClientToken               *string                                                   `query:"client_token" json:"-"`                // 根据client_token是否一致来判断是否为同一请求示例值: 12454646
+	CountryRegionID           string                                                    `json:"country_region_id,omitempty"`           // 国家 / 地区示例值: "6862995747139225096"
 	Name                      []*CreateCoreHRNationalIDTypeReqName                      `json:"name,omitempty"`                        // 名称
-	Active                    bool                                                      `json:"active,omitempty"`                      // 是否启用, 示例值: true
-	ValidationRule            string                                                    `json:"validation_rule,omitempty"`             // 校验规则, 示例值: "^\d{9}$"
+	Active                    bool                                                      `json:"active,omitempty"`                      // 是否启用示例值: true
+	ValidationRule            string                                                    `json:"validation_rule,omitempty"`             // 校验规则（正则表达式）, 若不设置校验, 可以传入".*"示例值: "^\d{9}$"
 	ValidationRuleDescription []*CreateCoreHRNationalIDTypeReqValidationRuleDescription `json:"validation_rule_description,omitempty"` // 校验规则描述
-	Code                      string                                                    `json:"code,omitempty"`                        // 编码, 示例值: "AUS-TFN"
+	Code                      string                                                    `json:"code,omitempty"`                        // 编码示例值: "AUS-TFN"
 	IdentificationType        *CreateCoreHRNationalIDTypeReqIdentificationType          `json:"identification_type,omitempty"`         // 证件类型
-	CustomFields              []*CreateCoreHRNationalIDTypeReqCustomField               `json:"custom_fields,omitempty"`               // 自定义字段
+	CustomFields              []*CreateCoreHRNationalIDTypeReqCustomField               `json:"custom_fields,omitempty"`               // 自定义字段（暂不支持）
 }
 
 // CreateCoreHRNationalIDTypeReqCustomField ...
 type CreateCoreHRNationalIDTypeReqCustomField struct {
-	FieldName string `json:"field_name,omitempty"` // 字段名, 示例值: "name"
-	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05"), 示例值: "Sandy"
+	FieldName string `json:"field_name,omitempty"` // 字段名示例值: "name"
+	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05")示例值: "\"Sandy\""
 }
 
 // CreateCoreHRNationalIDTypeReqIdentificationType ...
 type CreateCoreHRNationalIDTypeReqIdentificationType struct {
-	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "type_1"
+	EnumName string `json:"enum_name,omitempty"` // 枚举值示例值: "type_1"
 }
 
 // CreateCoreHRNationalIDTypeReqName ...
 type CreateCoreHRNationalIDTypeReqName struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 示例值: "zh-CN"
-	Value string `json:"value,omitempty"` // 名称信息的内容, 示例值: "张三"
+	Lang  string `json:"lang,omitempty"`  // 名称信息的语言示例值: "zh-CN"
+	Value string `json:"value,omitempty"` // 名称信息的内容示例值: "张三"
 }
 
 // CreateCoreHRNationalIDTypeReqValidationRuleDescription ...
 type CreateCoreHRNationalIDTypeReqValidationRuleDescription struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 示例值: "zh-CN"
-	Value string `json:"value,omitempty"` // 名称信息的内容, 示例值: "张三"
+	Lang  string `json:"lang,omitempty"`  // 名称信息的语言示例值: "zh-CN"
+	Value string `json:"value,omitempty"` // 名称信息的内容示例值: "张三"
 }
 
 // CreateCoreHRNationalIDTypeResp ...
@@ -103,11 +103,11 @@ type CreateCoreHRNationalIDTypeRespNationalIDType struct {
 	CountryRegionID           string                                                                   `json:"country_region_id,omitempty"`           // 国家 / 地区
 	Name                      []*CreateCoreHRNationalIDTypeRespNationalIDTypeName                      `json:"name,omitempty"`                        // 名称
 	Active                    bool                                                                     `json:"active,omitempty"`                      // 是否启用
-	ValidationRule            string                                                                   `json:"validation_rule,omitempty"`             // 校验规则
+	ValidationRule            string                                                                   `json:"validation_rule,omitempty"`             // 校验规则（正则表达式）
 	ValidationRuleDescription []*CreateCoreHRNationalIDTypeRespNationalIDTypeValidationRuleDescription `json:"validation_rule_description,omitempty"` // 校验规则描述
 	Code                      string                                                                   `json:"code,omitempty"`                        // 编码
 	IdentificationType        *CreateCoreHRNationalIDTypeRespNationalIDTypeIdentificationType          `json:"identification_type,omitempty"`         // 证件类型
-	CustomFields              []*CreateCoreHRNationalIDTypeRespNationalIDTypeCustomField               `json:"custom_fields,omitempty"`               // 自定义字段
+	CustomFields              []*CreateCoreHRNationalIDTypeRespNationalIDTypeCustomField               `json:"custom_fields,omitempty"`               // 自定义字段（暂不支持）
 }
 
 // CreateCoreHRNationalIDTypeRespNationalIDTypeCustomField ...

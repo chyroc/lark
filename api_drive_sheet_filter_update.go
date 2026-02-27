@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// UpdateSheetFilter 更新子表筛选范围中的列筛选条件。
-//
-// 参数值可参考[筛选指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter/filter-user-guide)
+// UpdateSheetFilter 在电子表格工作表筛选范围中, 更新指定列的筛选条件。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter/update
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet-filter/update
@@ -61,22 +59,21 @@ func (r *Mock) UnMockDriveUpdateSheetFilter() {
 
 // UpdateSheetFilterReq ...
 type UpdateSheetFilterReq struct {
-	SpreadSheetToken string                         `path:"spreadsheet_token" json:"-"` // 表格 token, 示例值: "shtcnmBA\*yGehy8"
-	SheetID          string                         `path:"sheet_id" json:"-"`          // 子表 id, 示例值: "0b\**12"
-	Col              string                         `json:"col,omitempty"`              // 更新筛选条件的列, 示例值: "E"
-	Condition        *UpdateSheetFilterReqCondition `json:"condition,omitempty"`        // 筛选条件
+	SpreadSheetToken string                         `path:"spreadsheet_token" json:"-"` // 电子表格的 token。可通过以下两种方式获取。了解更多, 参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。- 电子表格的 URL: https://sample.feishu.cn/sheets/[Iow7sNNEphp3WbtnbCscPqabcef]- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)示例值: "Iow7sNNEphp3WbtnbCscPqabcef"
+	SheetID          string                         `path:"sheet_id" json:"-"`          // 工作表 ID, 通过[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 获取。示例值: "8fe9d6"
+	Col              string                         `json:"col,omitempty"`              // 指定要更新筛选条件的列。示例值: "G"
+	Condition        *UpdateSheetFilterReqCondition `json:"condition,omitempty"`        // 设置筛选条件。
 }
 
 // UpdateSheetFilterReqCondition ...
 type UpdateSheetFilterReqCondition struct {
-	FilterType  string   `json:"filter_type,omitempty"`  // 筛选类型, 示例值: "number"
-	CompareType *string  `json:"compare_type,omitempty"` // 比较类型, 示例值: "less"
-	Expected    []string `json:"expected,omitempty"`     // 筛选参数, 示例值: 6
+	FilterType  string   `json:"filter_type,omitempty"`  // 筛选类型, 枚举值如下所示。了解更多, 参考[筛选指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter/filter-user-guide)。- multiValue : 多值筛选- number : 数字筛选- text : 文本筛选- color : 颜色筛选- clear : 清除某列的筛选条件示例值: "text"
+	CompareType *string  `json:"compare_type,omitempty"` // 比较类型。不同筛选类型的比较类型的枚举值不同, 详情参考[筛选指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter/filter-user-guide)。示例值: "beginsWith"
+	Expected    []string `json:"expected,omitempty"`     // 筛选参数。不同筛选类型的筛选参数限制不同, 详情参考[筛选指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-filter/filter-user-guide)。示例值: ["a"]
 }
 
 // UpdateSheetFilterResp ...
-type UpdateSheetFilterResp struct {
-}
+type UpdateSheetFilterResp struct{}
 
 // updateSheetFilterResp ...
 type updateSheetFilterResp struct {

@@ -21,7 +21,9 @@ import (
 	"context"
 )
 
-// CreateHireApplication 根据人才 ID 和职位 ID 创建投递。
+// CreateHireApplication 为人才在特定职位上创建投递。
+//
+// 若创建投递的简历来源类型属于「员工转岗」或「实习生转正」, 则人才需处于已入职状态。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/create
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/application/create
@@ -58,17 +60,18 @@ func (r *Mock) UnMockHireCreateHireApplication() {
 
 // CreateHireApplicationReq ...
 type CreateHireApplicationReq struct {
-	UserIDType                       *IDType  `query:"user_id_type" json:"-"`                         // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	TalentID                         string   `json:"talent_id,omitempty"`                            // 人才ID, 示例值: "12312312312"
-	JobID                            string   `json:"job_id,omitempty"`                               // 职位ID, 示例值: "12312312312"
-	UserID                           *string  `json:"user_id,omitempty"`                              // 人员ID, 仅在投递来源为属于「员工转岗」或「实习生转正」时, 需传入该字段。校验数据无误后, 会成为招聘方维护的一条人才、员工关联关系记录；创建其他来源投递时, 不会进行人员与人才绑定, 示例值: "6930815272790114324"
-	ResumeSourceID                   *string  `json:"resume_source_id,omitempty"`                     // 简历来源 ID, 可通过「获取简历来源」接口查询。若简历来源类型属于「员工转岗」或「实习生转正」, 人才需处于已入职状态, 示例值: "7115289562569591070"
-	ApplicationPreferredCityCodeList []string `json:"application_preferred_city_code_list,omitempty"` // 意向投递城市列表, 可从「获取职位信息」返回的工作地点列表获取, 示例值: ["CN_1"]
+	UserIDType                       *IDType  `query:"user_id_type" json:"-"`                         // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	TalentID                         string   `json:"talent_id,omitempty"`                            // 人才 ID, 可通过[获取人才列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/list)获取示例值: "6889020179456689671"
+	JobID                            string   `json:"job_id,omitempty"`                               // 职位 ID, 可通过[获取职位列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/list)获取示例值: "6889330484657424647"
+	UserID                           *string  `json:"user_id,omitempty"`                              // 人员 ID, 与入参 `user_id_type` 类型一致。注意: 若投递来源为属于「员工转岗」或「实习生转正」时必填, 创建投递成功后会将该员工和对应人才进行绑定；创建其他来源投递时, 不会进行人员与人才绑定。示例值: "6930815272790114324"
+	ResumeSourceID                   *string  `json:"resume_source_id,omitempty"`                     // 简历来源 ID, 可通过[获取简历来源列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/resume_source/list)获取示例值: "7115289562569591070"
+	ApplicationPreferredCityCodeList []string `json:"application_preferred_city_code_list,omitempty"` // 意向投递城市列表, 可通过[查询地点列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/query)获取到对应的城市编码示例值: ["CN_1"]
+	DeliveryType                     *int64   `json:"delivery_type,omitempty"`                        // 投递方式示例值: 1可选值有: HR 寻访候选人主动投递
 }
 
 // CreateHireApplicationResp ...
 type CreateHireApplicationResp struct {
-	ID string `json:"id,omitempty"` // 投递ID
+	ID string `json:"id,omitempty"` // 投递 ID, 详情请参考[获取投递信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get)
 }
 
 // createHireApplicationResp ...

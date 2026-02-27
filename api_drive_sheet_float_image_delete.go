@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// DeleteSheetFloatImage 删除 float_image_id 对应的浮动图片。
+// DeleteSheetFloatImage 删除电子表格工作表内指定的浮动图片。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/delete
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet-float_image/delete
@@ -59,14 +59,13 @@ func (r *Mock) UnMockDriveDeleteSheetFloatImage() {
 
 // DeleteSheetFloatImageReq ...
 type DeleteSheetFloatImageReq struct {
-	SpreadSheetToken string `path:"spreadsheet_token" json:"-"` // 表格 token, 示例值: "shtcnmBA*yGehy8"
-	SheetID          string `path:"sheet_id" json:"-"`          // 子表 id, 示例值: "0b**12"
-	FloatImageID     string `path:"float_image_id" json:"-"`    // 浮动图片 id, 示例值: "ye06SS14ph"
+	SpreadSheetToken string `path:"spreadsheet_token" json:"-"` // 电子表格的 token。可通过以下两种方式获取。了解更多, 参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。-  电子表格的 URL: https://sample.feishu.cn/sheets/[Iow7sNNEphp3WbtnbCscPqabcef]- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)示例值: "Iow7sNNEphp3WbtnbCscPqabcef"
+	SheetID          string `path:"sheet_id" json:"-"`          // 电子表格工作表的 ID。调用[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query)获取 ID。示例值: "0beg12"
+	FloatImageID     string `path:"float_image_id" json:"-"`    // 工作表内浮动图片的唯一标识。通过[查询浮动图片](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/query)接口获取。示例值: "ye06SS14ph"
 }
 
 // DeleteSheetFloatImageResp ...
-type DeleteSheetFloatImageResp struct {
-}
+type DeleteSheetFloatImageResp struct{}
 
 // deleteSheetFloatImageResp ...
 type deleteSheetFloatImageResp struct {

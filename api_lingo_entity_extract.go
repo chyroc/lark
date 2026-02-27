@@ -60,7 +60,7 @@ func (r *Mock) UnMockLingoExtractLingoEntity() {
 
 // ExtractLingoEntityReq ...
 type ExtractLingoEntityReq struct {
-	Text *string `json:"text,omitempty"` // 需要被提取词条的文本（不会过滤租户中已成为词条的内容）, 示例值: "飞书词典是一部高效汇聚企业内各类信息, 并可由企业成员参与编辑的在线词典", 最大长度: `128` 字符
+	Text *string `json:"text,omitempty"` // 需要被提取词条的文本（不会过滤租户中已成为词条的内容）示例值: "飞书词典是一部高效汇聚企业内各类信息, 并可由企业成员参与编辑的在线词典" 最大长度: `128` 字符
 }
 
 // ExtractLingoEntityResp ...

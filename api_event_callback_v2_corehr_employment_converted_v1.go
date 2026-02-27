@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2CorehrEmploymentConvertedV1 当员工转正完成时触发该事件
+// EventV2CorehrEmploymentConvertedV1 当员工转正生效时触发该事件{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=employment&event=converted)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employment/events/converted
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/probation/converted
@@ -34,5 +34,5 @@ type EventV2CorehrEmploymentConvertedV1Handler func(ctx context.Context, cli *La
 
 // EventV2CorehrEmploymentConvertedV1 ...
 type EventV2CorehrEmploymentConvertedV1 struct {
-	EmploymentID string `json:"employment_id,omitempty"` // 主对象ID
+	EmploymentID string `json:"employment_id,omitempty"` // 雇佣ID, 可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
 }

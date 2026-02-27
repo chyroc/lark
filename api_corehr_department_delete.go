@@ -21,10 +21,15 @@ import (
 	"context"
 )
 
-// DeleteCoreHRDepartment 删除部门
+// DeleteCoreHRDepartment 可以通过该接口通过部门ID删除一个部门记录
+//
+// 删除后无法恢复, 并且在系统中无法查看到对应部门信息, 请谨慎操作。
+// 该接口不再推荐使用, 请使用[【删除部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/delete)接口。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/delete
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/department/delete
+//
+// Deprecated
 func (r *CoreHRService) DeleteCoreHRDepartment(ctx context.Context, request *DeleteCoreHRDepartmentReq, options ...MethodOptionFunc) (*DeleteCoreHRDepartmentResp, *Response, error) {
 	if r.cli.mock.mockCoreHRDeleteCoreHRDepartment != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHRDepartment mock enable")
@@ -58,12 +63,11 @@ func (r *Mock) UnMockCoreHRDeleteCoreHRDepartment() {
 
 // DeleteCoreHRDepartmentReq ...
 type DeleteCoreHRDepartmentReq struct {
-	DepartmentID string `path:"department_id" json:"-"` // 需要删除的部门 ID, 示例值: "341143141"
+	DepartmentID string `path:"department_id" json:"-"` // 需要删除的部门 ID, 可通过[【搜索部门信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/search)接口查询获得示例值: "341143141"
 }
 
 // DeleteCoreHRDepartmentResp ...
-type DeleteCoreHRDepartmentResp struct {
-}
+type DeleteCoreHRDepartmentResp struct{}
 
 // deleteCoreHRDepartmentResp ...
 type deleteCoreHRDepartmentResp struct {

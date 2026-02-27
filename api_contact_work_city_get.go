@@ -21,9 +21,10 @@ import (
 	"context"
 )
 
-// GetContactWorkCity 此接口可用于获取单个工作城市信息。
+// GetContactWorkCity 调用该接口获取指定工作城市的信息, 包括工作城市的 ID、名称、多语言名称以及启用状态。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/work_city/get
+// new doc: https://open.feishu.cn/document/contact-v3/work_city/get
 func (r *ContactService) GetContactWorkCity(ctx context.Context, request *GetContactWorkCityReq, options ...MethodOptionFunc) (*GetContactWorkCityResp, *Response, error) {
 	if r.cli.mock.mockContactGetContactWorkCity != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#GetContactWorkCity mock enable")
@@ -58,26 +59,26 @@ func (r *Mock) UnMockContactGetContactWorkCity() {
 
 // GetContactWorkCityReq ...
 type GetContactWorkCityReq struct {
-	WorkCityID string `path:"work_city_id" json:"-"` // 工作城市ID, 示例值: "dd39369b19b9"
+	WorkCityID string `path:"work_city_id" json:"-"` // 工作城市 ID。你可以调用[获取租户工作城市列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/work_city/list)接口, 获取工作城市 ID。示例值: "dd39369b19b9"
 }
 
 // GetContactWorkCityResp ...
 type GetContactWorkCityResp struct {
-	WorkCity *GetContactWorkCityRespWorkCity `json:"work_city,omitempty"` // 工作城市信息
+	WorkCity *GetContactWorkCityRespWorkCity `json:"work_city,omitempty"` // 工作城市信息。
 }
 
 // GetContactWorkCityRespWorkCity ...
 type GetContactWorkCityRespWorkCity struct {
-	WorkCityID string                                    `json:"work_city_id,omitempty"` // 工作城市ID
-	Name       string                                    `json:"name,omitempty"`         // 工作城市名称。1-100字符, 支持中、英文及符号
-	I18nName   []*GetContactWorkCityRespWorkCityI18nName `json:"i18n_name,omitempty"`    // 多语言工作城市
-	Status     bool                                      `json:"status,omitempty"`       // 是否启用
+	WorkCityID string                                    `json:"work_city_id,omitempty"` // 工作城市 ID。
+	Name       string                                    `json:"name,omitempty"`         // 工作城市名称。
+	I18nName   []*GetContactWorkCityRespWorkCityI18nName `json:"i18n_name,omitempty"`    // 多语言工作城市名称。
+	Status     bool                                      `json:"status,omitempty"`       // 是否启用工作城市。可能值有: true: 启用- false: 禁用
 }
 
 // GetContactWorkCityRespWorkCityI18nName ...
 type GetContactWorkCityRespWorkCityI18nName struct {
-	Locale string `json:"locale,omitempty"` // 语言
-	Value  string `json:"value,omitempty"`  // 多语言内容
+	Locale string `json:"locale,omitempty"` // 语言版本。例如: zh_cn: 中文- en_us: 英语- ja_jp: 日语
+	Value  string `json:"value,omitempty"`  // 多语言版本对应的值。
 }
 
 // getContactWorkCityResp ...

@@ -22,8 +22,9 @@ import (
 	"io"
 )
 
-// DownloadDriveExportTask 根据[查询导出任务结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/get)返回的导出文件的 token, 下载导出产物到本地。了解完整的导出文件步骤, 参考[导出飞书云文档概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/export-user-guide)。
+// DownloadDriveExportTask 根据[查询导出任务结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/get)返回的导出文件的 token, 下载导出产物到本地。了解完整的导出文件步骤, 参考[导出云文档概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/export-user-guide)。
 //
+// ## 注意事项
 // 你需及时下载导出的文件。在导出任务结束 10 分钟后, 导出的文件将被删除, 导致无法下载。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/download
@@ -62,7 +63,7 @@ func (r *Mock) UnMockDriveDownloadDriveExportTask() {
 
 // DownloadDriveExportTaskReq ...
 type DownloadDriveExportTaskReq struct {
-	FileToken string `path:"file_token" json:"-"` // 导出的文件的 token。可通过调用[查询导出任务结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/get)获取该参数的值, 示例值: "boxcnxe5OdjlAkNgSNdsJvabcef"
+	FileToken string `path:"file_token" json:"-"` // 导出的文件的 token。可通过调用[查询导出任务结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/export_task/get)获取该参数的值。示例值: "boxcnxe5OdjlAkNgSNdsJvabcef"
 }
 
 // downloadDriveExportTaskResp ...

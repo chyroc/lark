@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2CalendarCalendarACLCreatedV4 当订阅的日历上有访问控制被创建时, 将会触发此事件。
+// EventV2CalendarCalendarACLCreatedV4 当订阅的日历上有访问控制被创建时, 将会触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=calendar&version=v4&resource=calendar.acl&event=created)
 //
 // 你需要先为用户[订阅日历访问控制变更事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-acl/subscription), 并且需要在应用中配置事件订阅, 这样才可以在事件触发时接收到事件数据。了解事件订阅参见[事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
 //
@@ -37,21 +37,21 @@ type EventV2CalendarCalendarACLCreatedV4Handler func(ctx context.Context, cli *L
 // EventV2CalendarCalendarACLCreatedV4 ...
 type EventV2CalendarCalendarACLCreatedV4 struct {
 	ACLID      string                                       `json:"acl_id,omitempty"`       // 访问控制 ID。该 ID 在单个日历实体内唯一, 不同日历实体可能存在重复的访问控制 ID。
-	Role       CalendarRole                                 `json:"role,omitempty"`         // 对日历的访问权限, 可选值有: unknown: 未知权限。, free_busy_reader: 游客, 只能看到忙碌、空闲信息。, reader: 订阅者, 可查看所有日程详情。, writer: 编辑者, 可创建及修改日程。, owner: 管理员, 可管理日历及共享设置。
+	Role       CalendarRole                                 `json:"role,omitempty"`         // 对日历的访问权限。可选值有: 未知权限。游客, 只能看到忙碌、空闲信息。订阅者, 可查看所有日程详情。编辑者, 可创建及修改日程。管理员, 可管理日历及共享设置。
 	Scope      *EventV2CalendarCalendarACLCreatedV4Scope    `json:"scope,omitempty"`        // 权限生效范围。
 	UserIDList []*EventV2CalendarCalendarACLCreatedV4UserID `json:"user_id_list,omitempty"` // 需要推送事件的用户列表。
 }
 
 // EventV2CalendarCalendarACLCreatedV4Scope ...
 type EventV2CalendarCalendarACLCreatedV4Scope struct {
-	Type   string                                          `json:"type,omitempty"`    // 权限生效范围的类型, 可选值有: user: 用户
+	Type   string                                          `json:"type,omitempty"`    // 权限生效范围的类型。可选值有: 用户
 	UserID *EventV2CalendarCalendarACLCreatedV4ScopeUserID `json:"user_id,omitempty"` // 用户 ID
 }
 
 // EventV2CalendarCalendarACLCreatedV4ScopeUserID ...
 type EventV2CalendarCalendarACLCreatedV4ScopeUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 

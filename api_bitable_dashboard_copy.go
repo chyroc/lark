@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// CopyBitableDashboard 该接口用于根据现有仪表盘复制出新的仪表盘
+// CopyBitableDashboard 基于现有仪表盘复制出新的仪表盘。
+//
+// ## 前提条件
+// 调用此接口前, 请确保当前调用身份（tenant_access_token 或 user_access_token）已有原多维表格的阅读权限, 否则接口将返回 HTTP 403 或 400 状态码。了解更多, 参考[如何为应用或用户开通文档权限](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#16c6475a)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-dashboard/copy
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-dashboard/copy
@@ -59,15 +62,15 @@ func (r *Mock) UnMockBitableCopyBitableDashboard() {
 
 // CopyBitableDashboardReq ...
 type CopyBitableDashboardReq struct {
-	AppToken string `path:"app_token" json:"-"` // 多维表格 token, 示例值: "basbcldP5xZeskcHDFZQfeToydb"
-	BlockID  string `path:"block_id" json:"-"`  // 多维表格 block_id, 示例值: "blkEsvEEaNllY2UV"
-	Name     string `json:"name,omitempty"`     // 仪表盘名称, 示例值: "Dashboard"
+	AppToken string `path:"app_token" json:"-"` // 多维表格 App 的唯一标识。不同形态的多维表格, 其 `app_token` 的获取方式不同: 如果多维表格的 URL 以 [feishu.cn/base] 开头, 该多维表格的 `app_token` 是下图高亮部分: ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004)- 如果多维表格的 URL 以 [feishu.cn/wiki] 开头, 你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时, `obj_token` 字段的值才是多维表格的 `app_token`。了解更多, 参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。示例值: "basbcldP5xZeskcHDFZQfeToydb"
+	BlockID  string `path:"block_id" json:"-"`  // 多维表格仪表盘的唯一标识, 以 blk 开头。获取方式: 在多维表格的 URL 地址栏中, `block_id` 是下图中高亮部分: ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a966d15323ee73c66b1e9a31d34ae6c7_x3ctncH2nO.png?height=575&lazyload=true&width=1397)  - 通过[列出仪表盘](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-dashboard/list)接口获取示例值: "blkEsvEEaNllY2UV"
+	Name     string `json:"name,omitempty"`     // 新的仪表盘名称示例值: "New Dashboard"
 }
 
 // CopyBitableDashboardResp ...
 type CopyBitableDashboardResp struct {
-	BlockID string `json:"block_id,omitempty"` // 多维表格 block_id
-	Name    string `json:"name,omitempty"`     // block 名称
+	BlockID string `json:"block_id,omitempty"` // 新的仪表盘的 block_id
+	Name    string `json:"name,omitempty"`     // 新的仪表盘名称
 }
 
 // copyBitableDashboardResp ...

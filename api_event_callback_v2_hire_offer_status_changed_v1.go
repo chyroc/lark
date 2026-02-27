@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// EventV2HireOfferStatusChangedV1 当 Offer 状态发生变更时将触发该事件。
+// EventV2HireOfferStatusChangedV1 当 Offer 状态发生变更时发送该事件。除 Offer 创建时不会发送以外, 其它 Offer 状态变更均会发送事件, Offer 状态变更场景可参考「Offer 状态流转图」。注意: 仅推送正式 Offer 的状态变更信息, 实习 Offer 相关状态不推送。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=hire&version=v1&resource=offer&event=status_changed)
+//
+// ### Offer 状态流转图
+// ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6faaeda86bbe8f1b9f2c7ef91062edd2_xU7rL7qrof.png)
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer/events/status_changed
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/offer/events/status_changed
@@ -34,5 +37,5 @@ type EventV2HireOfferStatusChangedV1Handler func(ctx context.Context, cli *Lark,
 
 // EventV2HireOfferStatusChangedV1 ...
 type EventV2HireOfferStatusChangedV1 struct {
-	OfferID string `json:"offer_id,omitempty"` // 发生状态变更的 OfferID
+	OfferID string `json:"offer_id,omitempty"` // 发生状态变更的 OfferID, 可通过[获取 Offer 详情](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer/get)接口获取 Offer 详情
 }

@@ -21,10 +21,10 @@ import (
 	"context"
 )
 
-// DeleteBitableTable 删除一个数据表, 最后一张数据表不允许被删除。
+// DeleteBitableTable 通过 app_token 和 table_id 删除指定的多维表格数据表。
 //
-// ::: note
-// 首次调用请参考 [云文档接口快速入门](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)[多维表格接口接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification)
+// ## 注意事项
+// 如果多维表格中只剩最后一张数据表, 则不允许被删除。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/delete
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table/delete
@@ -62,13 +62,12 @@ func (r *Mock) UnMockBitableDeleteBitableTable() {
 
 // DeleteBitableTableReq ...
 type DeleteBitableTableReq struct {
-	AppToken string `path:"app_token" json:"-"` // 多维表格的唯一标识符 [app_token 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#8121eebe), 示例值: "appbcbWCzen6D8dezhoCH2RpMAh", 最小长度: `1` 字符
-	TableID  string `path:"table_id" json:"-"`  // 多维表格数据表的唯一标识符 [table_id 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#735fe883), 示例值: "tblsRc9GRRXKqhvW"
+	AppToken string `path:"app_token" json:"-"` // 多维表格 App 的唯一标识。不同形态的多维表格, 其 `app_token` 的获取方式不同: 如果多维表格的 URL 以 [feishu.cn/base] 开头, 该多维表格的 `app_token` 是下图高亮部分: ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004)- 如果多维表格的 URL 以 [feishu.cn/wiki] 开头, 你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时, `obj_token` 字段的值才是多维表格的 `app_token`。了解更多, 参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。示例值: "appbcbWCzen6D8dezhoCH2RpMAh" 最小长度: `1` 字符
+	TableID  string `path:"table_id" json:"-"`  // 多维表格数据表的唯一标识。获取方式: 你可通过多维表格 URL 获取 `table_id`, 下图高亮部分即为当前数据表的 `table_id`- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`  ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976)示例值: "tblsRc9GRRXKqhvW"
 }
 
 // DeleteBitableTableResp ...
-type DeleteBitableTableResp struct {
-}
+type DeleteBitableTableResp struct{}
 
 // deleteBitableTableResp ...
 type deleteBitableTableResp struct {

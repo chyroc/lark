@@ -21,12 +21,7 @@ import (
 	"context"
 )
 
-// EventV2HireApplicationStageChangedV1 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
-//
-// 注意该事件仅通知变更投递id及阶段id, 需要配合另外的查询接口反查实际的投递或阶段信息。
-// 当招聘的投递发生阶段转移时, 触发该事件。
-// - 依赖权限: [获取投递信息]
-// - 搭配使用: [获取投递信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get)
+// EventV2HireApplicationStageChangedV1 当投递阶段发生变更时, 会触发此事件。了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=hire&version=v1&resource=application&event=stage_changed)
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/event/application-stage-changed
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/event/application-stage-changed
@@ -39,8 +34,8 @@ type EventV2HireApplicationStageChangedV1Handler func(ctx context.Context, cli *
 
 // EventV2HireApplicationStageChangedV1 ...
 type EventV2HireApplicationStageChangedV1 struct {
-	ApplicationID string `json:"application_id,omitempty"`  // 投递 ID. 如: 6914551145542568199
-	OriginStageID string `json:"origin_stage_id,omitempty"` // 旧阶段. 如: 6694104661676296462
-	TargetStageID string `json:"target_stage_id,omitempty"` // 新阶段. 如: 6694104661676263694
-	UpdateTime    int64  `json:"update_time,omitempty"`     // 更新时间. 如: 1614848458499
+	ApplicationID string `json:"application_id,omitempty"`  // 投递 ID, 详情请参考[获取投递信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get)
+	OriginStageID string `json:"origin_stage_id,omitempty"` // 投递阶段转移前的阶段 ID, 详情请参考[获取招聘流程信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_process/list)
+	TargetStageID string `json:"target_stage_id,omitempty"` // 投递阶段转移后的阶段 ID, 详情请参考[获取招聘流程信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_process/list)
+	UpdateTime    int64  `json:"update_time,omitempty"`     // 投递阶段变更时间戳（单位: 毫秒）
 }

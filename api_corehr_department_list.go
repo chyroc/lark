@@ -21,10 +21,15 @@ import (
 	"context"
 )
 
-// GetCoreHRDepartmentList 批量查询部门。
+// GetCoreHRDepartmentList 批量查询部门信息, 包括部门基本信息、自定义字段信息等
+//
+// 本接口不再推荐使用（不支持更复杂的字段鉴权功能）, 请使用[批量查询部门V2](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)接口（支持对成本中心、部门负责人、自定义字段鉴权）。
+// 延迟说明: 数据库主从延迟2s以内, 即: 直接创建部门后2s内调用此接口可能查询不到数据。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/list
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/department/list
+//
+// Deprecated
 func (r *CoreHRService) GetCoreHRDepartmentList(ctx context.Context, request *GetCoreHRDepartmentListReq, options ...MethodOptionFunc) (*GetCoreHRDepartmentListResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRDepartmentList != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRDepartmentList mock enable")
@@ -58,12 +63,12 @@ func (r *Mock) UnMockCoreHRGetCoreHRDepartmentList() {
 
 // GetCoreHRDepartmentListReq ...
 type GetCoreHRDepartmentListReq struct {
-	PageToken        *string           `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "6966234786251671053"
-	PageSize         int64             `query:"page_size" json:"-"`          // 分页大小, 示例值: 100
-	DepartmentIDList []string          `query:"department_id_list" json:"-"` // 部门ID列表, 示例值: 7094136522860922111
-	NameList         []string          `query:"name_list" json:"-"`          // 部门名称列表, 需精确匹配, 示例值: 后端研发部
-	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: people_corehr_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_corehr_id: 以飞书人事的 ID 来识别用户, 默认值: `people_corehr_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门 ID 类型, 示例值: people_corehr_department_id, 可选值有: open_department_id: 以 open_department_id 来标识部门, department_id: 以 department_id 来标识部门, people_corehr_department_id: 以 people_corehr_department_id 来标识部门, 默认值: `people_corehr_department_id`
+	PageToken        *string           `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: "6966234786251671053"
+	PageSize         int64             `query:"page_size" json:"-"`          // 分页大小示例值: 100
+	DepartmentIDList []string          `query:"department_id_list" json:"-"` // 部门ID列表示例值: 7094136522860922111
+	NameList         []string          `query:"name_list" json:"-"`          // 部门名称列表, 需精确匹配示例值: 后端研发部
+	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型示例值: people_corehr_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `people_corehr_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门 ID 类型示例值: people_corehr_department_id可选值有: 以 open_department_id 来标识部门以 department_id 来标识部门以 people_corehr_department_id 来标识部门默认值: `people_corehr_department_id
 }
 
 // GetCoreHRDepartmentListResp ...
@@ -76,20 +81,20 @@ type GetCoreHRDepartmentListResp struct {
 // GetCoreHRDepartmentListRespItem ...
 type GetCoreHRDepartmentListRespItem struct {
 	ID               string                                           `json:"id,omitempty"`                // 部门 ID
-	SubType          *GetCoreHRDepartmentListRespItemSubType          `json:"sub_type,omitempty"`          // 部门子类型, 枚举值可通过文档[飞书人事枚举常量](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)部门子类型（department_sub_type）枚举定义部分获得
-	Manager          string                                           `json:"manager,omitempty"`           // 部门负责人 ID, 枚举值及详细信息可通过[批量查询雇佣信息]接口查询获得
+	SubType          *GetCoreHRDepartmentListRespItemSubType          `json:"sub_type,omitempty"`          // 部门子类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)部门子类型（department_sub_type）枚举定义部分获得
+	Manager          string                                           `json:"manager,omitempty"`           // 部门负责人 ID, 枚举值及详细信息可通过[【批量查询员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)查询获得
 	IsConfidential   bool                                             `json:"is_confidential,omitempty"`   // 是否保密
-	HiberarchyCommon *GetCoreHRDepartmentListRespItemHiberarchyCommon `json:"hiberarchy_common,omitempty"` // 层级关系, 内层字段见实体
+	HiberarchyCommon *GetCoreHRDepartmentListRespItemHiberarchyCommon `json:"hiberarchy_common,omitempty"` // 组织实体公共字段, 包括名称、描述、上级、启停用状态、生效日期、编码等基础信息
 	EffectiveTime    string                                           `json:"effective_time,omitempty"`    // 生效时间
 	ExpirationTime   string                                           `json:"expiration_time,omitempty"`   // 失效时间
-	CustomFields     []*GetCoreHRDepartmentListRespItemCustomField    `json:"custom_fields,omitempty"`     // 自定义字段
-	CostCenterID     string                                           `json:"cost_center_id,omitempty"`    // 成本中心id
-	StaffingModel    *GetCoreHRDepartmentListRespItemStaffingModel    `json:"staffing_model,omitempty"`    // 是否使用职务
+	CustomFields     []*GetCoreHRDepartmentListRespItemCustomField    `json:"custom_fields,omitempty"`     // 自定义字段, 枚举值可通过[获取自定义字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query)获取
+	CostCenterID     string                                           `json:"cost_center_id,omitempty"`    // 成本中心 ID, 可以通过[搜索成本中心信息](https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/cost_center/search)接口获取对应的成本中心信息
+	StaffingModel    *GetCoreHRDepartmentListRespItemStaffingModel    `json:"staffing_model,omitempty"`    // 岗职务模式
 }
 
 // GetCoreHRDepartmentListRespItemCustomField ...
 type GetCoreHRDepartmentListRespItemCustomField struct {
-	FieldName string `json:"field_name,omitempty"` // 字段名
+	FieldName string `json:"field_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
 	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05")
 }
 
@@ -97,20 +102,20 @@ type GetCoreHRDepartmentListRespItemCustomField struct {
 type GetCoreHRDepartmentListRespItemHiberarchyCommon struct {
 	ParentID       string                                                        `json:"parent_id,omitempty"`       // 上级组织 ID
 	Name           []*GetCoreHRDepartmentListRespItemHiberarchyCommonName        `json:"name,omitempty"`            // 名称
-	Type           *GetCoreHRDepartmentListRespItemHiberarchyCommonType          `json:"type,omitempty"`            // 组织类型, 枚举值可通过文档[飞书人事枚举常量](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)组织类型（organization_type）枚举定义部分获得
+	Type           *GetCoreHRDepartmentListRespItemHiberarchyCommonType          `json:"type,omitempty"`            // 组织类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)组织类型（organization_type）枚举定义部分获得
 	Active         bool                                                          `json:"active,omitempty"`          // 是否启用
 	EffectiveTime  string                                                        `json:"effective_time,omitempty"`  // 生效时间
 	ExpirationTime string                                                        `json:"expiration_time,omitempty"` // 失效时间
 	Code           string                                                        `json:"code,omitempty"`            // 编码
 	Description    []*GetCoreHRDepartmentListRespItemHiberarchyCommonDescription `json:"description,omitempty"`     // 描述
-	TreeOrder      string                                                        `json:"tree_order,omitempty"`      // 树形排序, 代表同层级的部门排序序号。新建的部门, 该字段默认为空, 有两种情况会自动写入值: 管理员在部门管理页面上拖动排序；, 定时任务更新该字段为空的数据, 3分钟/次
-	ListOrder      string                                                        `json:"list_order,omitempty"`      // 列表排序, 代表所有部门的混排序号。新建的部门, 该字段默认为空, 有两种情况会自动写入值: 管理员在部门管理页面上拖动排序；, 定时任务更新该字段为空的数据, 3分钟/次
-	CustomFields   []*GetCoreHRDepartmentListRespItemHiberarchyCommonCustomField `json:"custom_fields,omitempty"`   // 自定义字段
+	TreeOrder      string                                                        `json:"tree_order,omitempty"`      // 树形排序, 代表同层级的部门排序序号。新建的部门, 该字段默认为空, 有两种情况会自动写入值: 管理员在部门管理页面上拖动排序；- 定时任务更新该字段为空的数据, 3分钟/次
+	ListOrder      string                                                        `json:"list_order,omitempty"`      // 列表排序, 代表所有部门的混排序号。新建的部门, 该字段默认为空, 有两种情况会自动写入值: 管理员在部门管理页面上拖动排序；- 定时任务更新该字段为空的数据, 3分钟/次
+	CustomFields   []*GetCoreHRDepartmentListRespItemHiberarchyCommonCustomField `json:"custom_fields,omitempty"`   // 自定义字段, 枚举值可通过[获取自定义字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query)获取
 }
 
 // GetCoreHRDepartmentListRespItemHiberarchyCommonCustomField ...
 type GetCoreHRDepartmentListRespItemHiberarchyCommonCustomField struct {
-	FieldName string `json:"field_name,omitempty"` // 字段名
+	FieldName string `json:"field_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
 	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05")
 }
 
@@ -140,7 +145,7 @@ type GetCoreHRDepartmentListRespItemHiberarchyCommonTypeDisplay struct {
 
 // GetCoreHRDepartmentListRespItemStaffingModel ...
 type GetCoreHRDepartmentListRespItemStaffingModel struct {
-	EnumName string                                                 `json:"enum_name,omitempty"` // 枚举值
+	EnumName string                                                 `json:"enum_name,omitempty"` // 枚举值: job、non_job、position
 	Display  []*GetCoreHRDepartmentListRespItemStaffingModelDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 

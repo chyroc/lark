@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetDriveFileVersionList 获取文档所有版本。
+// GetDriveFileVersionList 获取文档或电子表格的版本列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-version/list
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/file-version/list
@@ -59,11 +59,11 @@ func (r *Mock) UnMockDriveGetDriveFileVersionList() {
 
 // GetDriveFileVersionListReq ...
 type GetDriveFileVersionListReq struct {
-	FileToken  string  `path:"file_token" json:"-"`    // 源文档token, 如何获取文档Token可以参考[如何获取云文档相关token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6), 示例值: "doxbcyvqZlSc9WlHvQMlSJwUrsb"
-	PageSize   int64   `query:"page_size" json:"-"`    // 分页大小, 示例值: 20, 最大值: `100`
-	PageToken  *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 1665739388
-	ObjType    string  `query:"obj_type" json:"-"`     // 原文档类型, 示例值: docx, 可选值有: docx: 新版文档, sheet: 电子表格
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	FileToken  string  `path:"file_token" json:"-"`    // 源文档的 token。获取方式参考 [如何获取云文档相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。示例值: "doxbcyvqZlSc9WlHvQMlSJabcef"
+	PageSize   int64   `query:"page_size" json:"-"`    // 分页大小示例值: 20 最大值: `100
+	PageToken  *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 1665739388
+	ObjType    string  `query:"obj_type" json:"-"`     // 源文档的类型示例值: docx可选值有: 新版文档电子表格
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetDriveFileVersionListResp ...
@@ -75,16 +75,16 @@ type GetDriveFileVersionListResp struct {
 
 // GetDriveFileVersionListRespItem ...
 type GetDriveFileVersionListRespItem struct {
-	Name        string `json:"name,omitempty"`         // 版本文档标题
-	Version     string `json:"version,omitempty"`      // 版本文档版本号
-	ParentToken string `json:"parent_token,omitempty"` // 创建版本的文档Token, 如何获取文档Token可以参考[如何获取云文档相关token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
-	OwnerID     string `json:"owner_id,omitempty"`     // 版本文档所有者id, user_id
-	CreatorID   string `json:"creator_id,omitempty"`   // 版本文档创建者id, user_id
-	CreateTime  string `json:"create_time,omitempty"`  // 版本文档创建时间
-	UpdateTime  string `json:"update_time,omitempty"`  // 版本文档更新时间
-	Status      string `json:"status,omitempty"`       // 版本文档状态, 可选值有: 0: 正常状态, 1: 删除状态, 2: 回收站状态
-	ObjType     string `json:"obj_type,omitempty"`     // 版本文档类型, 可选值有: docx: 新版文档, sheet: 电子表格
-	ParentType  string `json:"parent_type,omitempty"`  // 源文档类型, 可选值有: docx: 新版文档, sheet: 电子表格
+	Name        string `json:"name,omitempty"`         // 版本文档的标题
+	Version     string `json:"version,omitempty"`      // 版本文档的版本标识
+	ParentToken string `json:"parent_token,omitempty"` // 当前版本对应的源文档的 token
+	OwnerID     string `json:"owner_id,omitempty"`     // 版本文档的所有者的 ID
+	CreatorID   string `json:"creator_id,omitempty"`   // 版本文档的创建者的 ID
+	CreateTime  string `json:"create_time,omitempty"`  // 版本文档的创建时间, Unix 时间戳, 单位为秒
+	UpdateTime  string `json:"update_time,omitempty"`  // 版本文档的更新时间
+	Status      string `json:"status,omitempty"`       // 版本文档的状态可选值有: 正常状态删除状态回收站状态
+	ObjType     string `json:"obj_type,omitempty"`     // 版本文档的类型可选值有: 新版文档电子表格
+	ParentType  string `json:"parent_type,omitempty"`  // 源文档的类型可选值有: 新版文档电子表格
 }
 
 // getDriveFileVersionListResp ...

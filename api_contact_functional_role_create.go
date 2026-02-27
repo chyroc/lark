@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// CreateContactFunctionalRole 通过”创建角色“接口可批量完成角色创建, 新增角色同步展示至租户的管理后台-角色管理模块。
+// CreateContactFunctionalRole 调用该接口创建一个角色。
+//
+// ## 使用限制
+// 同一租户下, 角色数量上限为 500。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/functional_role/create
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/functional_role/create
@@ -58,12 +61,12 @@ func (r *Mock) UnMockContactCreateContactFunctionalRole() {
 
 // CreateContactFunctionalRoleReq ...
 type CreateContactFunctionalRoleReq struct {
-	RoleName string `json:"role_name,omitempty"` // 角色名称, 在单租户下唯一, 示例值: "考勤管理员", 长度范围: `1` ～ `50` 字符
+	RoleName string `json:"role_name,omitempty"` // 角色名称。在同一租户下角色名称唯一, 不能重复创建。示例值: "考勤管理员" 长度范围: `1` ～ `50` 字符
 }
 
 // CreateContactFunctionalRoleResp ...
 type CreateContactFunctionalRoleResp struct {
-	RoleID string `json:"role_id,omitempty"` // 角色ID, 在单租户下唯一
+	RoleID string `json:"role_id,omitempty"` // 角色 ID, 是角色在当前租户下的唯一标识。注意: 建议你在本地保存该 ID, 后续可通过该 ID 删除、修改角色。
 }
 
 // createContactFunctionalRoleResp ...

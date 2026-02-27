@@ -24,7 +24,6 @@ import (
 // TransferDriveMemberPermission 该接口用于根据文档信息和用户信息转移文档的所有者。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQzNzUjL0czM14CN3MTN
-// new doc: https://open.feishu.cn/document/server-docs/historic-version/docs/drive/permission/transfer-ownership
 //
 // Deprecated
 func (r *DriveService) TransferDriveMemberPermission(ctx context.Context, request *TransferDriveMemberPermissionReq, options ...MethodOptionFunc) (*TransferDriveMemberPermissionResp, *Response, error) {
@@ -71,7 +70,7 @@ type TransferDriveMemberPermissionReq struct {
 // TransferDriveMemberPermissionReqOwner ...
 type TransferDriveMemberPermissionReqOwner struct {
 	MemberType string `json:"member_type,omitempty"` // 用户类型, 可选 email、openid、userid、unionid
-	MemberID   string `json:"member_id,omitempty"`   // 用户类型下的值, 获取方式见 [如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)
+	MemberID   string `json:"member_id,omitempty"`   // 用户类型下的值, 获取方式见 [如何获得 User ID、Open ID 和 Union ID？](https://open.feishu.cn/document/home/user-identity-introduction/how-to-get)
 }
 
 // TransferDriveMemberPermissionResp ...

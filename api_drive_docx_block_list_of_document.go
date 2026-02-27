@@ -24,6 +24,8 @@ import (
 // GetDocxBlockListOfDocument 获取文档所有块的富文本内容并分页返回。
 //
 // 应用频率限制: 单个应用调用频率上限为每秒 5 次, 超过该频率限制, 接口将返回 HTTP 状态码 400 及错误码 99991400。当请求被限频, 应用需要处理限频状态码, 并使用指数退避算法或其它一些频控策略降低对 API 的调用速率。
+// ## 前提条件
+// 调用此接口前, 请确保当前调用身份（tenant_access_token 或 user_access_token）已有云文档的阅读、编辑等文档权限, 否则接口将返回 HTTP 403 或 400 状态码。了解更多, 参考[如何为应用或用户开通文档权限](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#16c6475a)。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/list
 // new doc: https://open.feishu.cn/document/server-docs/docs/docs/docx-v1/document/list
@@ -61,11 +63,11 @@ func (r *Mock) UnMockDriveGetDocxBlockListOfDocument() {
 
 // GetDocxBlockListOfDocumentReq ...
 type GetDocxBlockListOfDocumentReq struct {
-	DocumentID         string  `path:"document_id" json:"-"`           // 文档的唯一标识。点击[这里](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)了解如何获取文档的 `document_id`, 示例值: "doxbcmEtbFrbbq10nPNu8gabcef"
-	PageSize           *int64  `query:"page_size" json:"-"`            // 分页大小, 示例值: 500, 默认值: `500`, 最大值: `500`
-	PageToken          *string `query:"page_token" json:"-"`           // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "aw7DoMKBFMOGwqHCrcO8w6jCmMOvw6ILeADCvsKNw57Di8O5XGV3LG4_w5HCqhFxSnDCrCzCn0BgZcOYUg85EMOYcEAcwqYOw4ojw5QFwofCu8KoIMO3K8Ktw4IuNMOBBHNYw4bCgCV3U1zDu8K-J8KSR8Kgw7Y0fsKZdsKvW3d9w53DnkHDrcO5bDkYwrvDisOEPcOtVFJ-I03CnsOILMOoAmLDknd6dsKqG1bClAjDuS3CvcOTwo7Dg8OrwovDsRdqIcKxw5HDohTDtXN9w5rCkWo"
-	DocumentRevisionID *int64  `query:"document_revision_id" json:"-"` // 查询的文档版本, 1 表示文档最新版本。文档创建后, 版本为 1。若查询的版本为文档最新版本, 则需要持有文档的阅读权限；若查询的版本为文档的历史版本, 则需要持有文档的编辑权限。你可通过调用[获取文档基本信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/get)获取文档的 revision_id, 示例值:1, 默认值: `-1`, 最小值: `-1`
-	UserIDType         *IDType `query:"user_id_type" json:"-"`         // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	DocumentID         string  `path:"document_id" json:"-"`           // 文档的唯一标识。点击[这里](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)了解如何获取文档的 `document_id`示例值: "doxbcmEtbFrbbq10nPNu8gabcef"
+	PageSize           *int64  `query:"page_size" json:"-"`            // 分页大小示例值: 500默认值: `500` 最大值: `500
+	PageToken          *string `query:"page_token" json:"-"`           // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: "aw7DoMKBFMOGwqHCrcO8w6jCmMOvw6ILeADCvsKNw57Di8O5XGV3LG4_w5HCqhFxSnDCrCzCn0BgZcOYUg85EMOYcEAcwqYOw4ojw5QFwofCu8KoIMO3K8Ktw4IuNMOBBHNYw4bCgCV3U1zDu8K-J8KSR8Kgw7Y0fsKZdsKvW3d9w53DnkHDrcO5bDkYwrvDisOEPcOtVFJ-I03CnsOILMOoAmLDknd6dsKqG1bClAjDuS3CvcOTwo7Dg8OrwovDsRdqIcKxw5HDohTDtXN9w5rCkWo"
+	DocumentRevisionID *int64  `query:"document_revision_id" json:"-"` // 查询的文档版本, 1 表示文档最新版本。文档创建后, 版本为 1。- 若查询的版本为文档最新版本, 则需要持有文档的阅读权限；- 若查询的版本为文档的历史版本, 则需要持有文档的编辑权限。你可通过调用[获取文档基本信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/get)获取文档的 revision_id示例值:1默认值: `-1` 最小值: `-1
+	UserIDType         *IDType `query:"user_id_type" json:"-"`         // 用户 ID 类型示例值: "open_id"可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetDocxBlockListOfDocumentResp ...

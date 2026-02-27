@@ -59,12 +59,12 @@ func (r *Mock) UnMockVCGetVCExportTask() {
 
 // GetVCExportTaskReq ...
 type GetVCExportTaskReq struct {
-	TaskID string `path:"task_id" json:"-"` // 任务id, 示例值: "7108646852144136212"
+	TaskID string `path:"task_id" json:"-"` // 任务id示例值: "7108646852144136212"
 }
 
 // GetVCExportTaskResp ...
 type GetVCExportTaskResp struct {
-	Status    int64  `json:"status,omitempty"`     // 任务状态, 可选值有: 1: 处理中, 2: 失败, 3: 完成
+	Status    int64  `json:"status,omitempty"`     // 任务状态可选值有: 处理中失败完成
 	URL       string `json:"url,omitempty"`        // 文件下载地址
 	FileToken string `json:"file_token,omitempty"` // 文件token
 	FailMsg   string `json:"fail_msg,omitempty"`   // 失败信息

@@ -21,9 +21,10 @@ import (
 	"context"
 )
 
-// EventV2CorehrProbationUpdatedV2 当试用期记录状态发生变更时, 触发该事件。
+// EventV2CorehrProbationUpdatedV2 当试用期记录状态发生变更时, 触发该事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v2&resource=probation&event=updated)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/probation/events/updated
+// new doc: https://open.feishu.cn/document/corehr-v1/probation/probation-events/updated
 func (r *EventCallbackService) HandlerEventV2CorehrProbationUpdatedV2(f EventV2CorehrProbationUpdatedV2Handler) {
 	r.cli.eventHandler.eventV2CorehrProbationUpdatedV2Handler = f
 }
@@ -33,7 +34,7 @@ type EventV2CorehrProbationUpdatedV2Handler func(ctx context.Context, cli *Lark,
 
 // EventV2CorehrProbationUpdatedV2 ...
 type EventV2CorehrProbationUpdatedV2 struct {
-	EmploymentID           string `json:"employment_id,omitempty"`             // 雇佣 ID
-	ProbationStatus        string `json:"probation_status,omitempty"`          // 试用期状态, 可选值有: pending: 审批中, rejected: 已拒绝, waiting: 待发起转正, approved: 审批通过, converted: 已转正, offboarded: 已离职
-	ActualProbationEndDate string `json:"actual_probation_end_date,omitempty"` // 试用期实际结束日期
+	EmploymentID           string `json:"employment_id,omitempty"`             // 雇佣 ID, 可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
+	ProbationStatus        string `json:"probation_status,omitempty"`          // 试用期状态可选值有: 审批中已拒绝待发起转正审批通过已转正已离职
+	ActualProbationEndDate string `json:"actual_probation_end_date,omitempty"` // 试用期实际结束日期, 格式: "YYYY-MM-DD"
 }

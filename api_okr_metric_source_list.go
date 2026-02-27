@@ -60,8 +60,8 @@ func (r *Mock) UnMockOKRGetOKRMetricSourceList() {
 
 // GetOKRMetricSourceListReq ...
 type GetOKRMetricSourceListReq struct {
-	PageToken *string `query:"page_token" json:"-"` // 页码标识, 获取第一页传空, 每次查询会返回下一页的page_token, 示例值: "6969864184272078374"
-	PageSize  *int64  `query:"page_size" json:"-"`  // 每页获取记录数, 示例值: "10"
+	PageToken *string `query:"page_token" json:"-"` // 页码标识, 获取第一页传空, 每次查询会返回下一页的page_token示例值: "6969864184272078374"
+	PageSize  *int64  `query:"page_size" json:"-"`  // 每页获取记录数示例值: "10"
 }
 
 // GetOKRMetricSourceListResp ...

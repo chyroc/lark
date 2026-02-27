@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2ACSAccessRecordCreatedV1 门禁设备识别用户成功后发送该事件给订阅应用。
+// EventV2ACSAccessRecordCreatedV1 门禁设备识别用户成功后发送该事件给订阅应用。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=acs&version=v1&resource=access_record&event=created)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/acs-v1/access_record/events/created
 // new doc: https://open.feishu.cn/document/server-docs/acs-v1/access_record/events/created
@@ -45,6 +45,6 @@ type EventV2ACSAccessRecordCreatedV1 struct {
 // EventV2ACSAccessRecordCreatedV1UserID ...
 type EventV2ACSAccessRecordCreatedV1UserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }

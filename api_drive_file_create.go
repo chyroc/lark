@@ -23,8 +23,8 @@ import (
 
 // CreateDriveFile 该接口用于在云空间指定文件夹中创建电子表格或者多维表格。
 //
-// 推荐你使用[创建表格](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet/create)或[创建多维表格](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/create)接口, 能力和权限拆分力度更细。
-// 使用限制:
+// 该接口为历史版本, 已不推荐使用。推荐你使用[创建表格](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet/create)或[创建多维表格](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/create)接口, 能力和权限拆分力度更细。
+// ## 使用限制
 // - 云空间中根目录或文件夹的单层节点上限为 1500 个。超过此限制时, 接口将返回 1062507 错误码。可通过将文件新建到不同文件夹中解决。
 // - 云空间中所有层级的节点总和的上限为 40 万个。
 // - 该接口不支持并发调用, 且调用频率上限为 5QPS 且 10000次/天。否则会返回 1061045 错误码, 可通过稍后重试解决。
@@ -32,6 +32,8 @@ import (
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQTNzUjL0UzM14CN1MTN
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/file/create-online-document
+//
+// Deprecated
 func (r *DriveService) CreateDriveFile(ctx context.Context, request *CreateDriveFileReq, options ...MethodOptionFunc) (*CreateDriveFileResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateDriveFile != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#CreateDriveFile mock enable")
@@ -68,7 +70,7 @@ func (r *Mock) UnMockDriveCreateDriveFile() {
 type CreateDriveFileReq struct {
 	FolderToken string `path:"folderToken" json:"-"` // 指定新建文件所属的文件夹或云空间根目录的 token。了解如何获取文件夹 token, 参考[文件夹概述](https://open.feishu.cn/document/ukTMukTMukTM/ugTNzUjL4UzM14CO1MTN/folder-overview)。
 	Title       string `json:"title,omitempty"`      // 创建的文件的标题。
-	Type        string `json:"type,omitempty"`       // 需要创建的文件的类型, 可选值: sheet: 电子表格, bitable: 多维表格
+	Type        string `json:"type,omitempty"`       // 需要创建的文件的类型, 可选值: sheet: 电子表格- bitable: 多维表格
 }
 
 // CreateDriveFileResp ...

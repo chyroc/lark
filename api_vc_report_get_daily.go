@@ -60,9 +60,9 @@ func (r *Mock) UnMockVCGetVCDailyReport() {
 
 // GetVCDailyReportReq ...
 type GetVCDailyReportReq struct {
-	StartTime string `query:"start_time" json:"-"` // 开始时间（unix时间, 单位sec）, 示例值: 1608888867
-	EndTime   string `query:"end_time" json:"-"`   // 结束时间（unix时间, 单位sec）, 示例值: 1608888966
-	Unit      *int64 `query:"unit" json:"-"`       // 数据驻留地（传参前提是租户存在多个驻留地数据且开通了该查询功能）, 示例值: 0, 可选值有: 0: 中国大陆, 1: 美国, 2: 新加坡, 3: 日本
+	StartTime string `query:"start_time" json:"-"` // 开始时间（unix时间, 单位sec）示例值: 1608888867
+	EndTime   string `query:"end_time" json:"-"`   // 结束时间（unix时间, 单位sec）示例值: 1608888966
+	Unit      *int64 `query:"unit" json:"-"`       // 数据驻留地（传参前提是租户存在多个驻留地数据且开通了该查询功能）示例值: 0可选值有: 中国大陆美国新加坡日本
 }
 
 // GetVCDailyReportResp ...

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetAttendanceUserStatsView 查询开发者定制的日度统计或月度统计的统计报表表头设置信息。
+// GetAttendanceUserStatsView 查询考勤统计支持的日度统计或月度统计的统计表头。报表的表头信息可以在考勤统计-[报表](https://example.feishu.cn/people/workforce-management/manage/statistics/report)中查询到具体的报表信息, 此接口专门用于查询表头数据。注意此接口和[查询统计表头](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_stats_field/query)基本相同, 区别点在于在兼容历史统计视图模型（历史统计数据模型可以按用户ID设置, 后续统计升级为仅支持租户维度）
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_stats_view/query
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_stats_data/query
@@ -58,10 +58,10 @@ func (r *Mock) UnMockAttendanceGetAttendanceUserStatsView() {
 
 // GetAttendanceUserStatsViewReq ...
 type GetAttendanceUserStatsViewReq struct {
-	EmployeeType EmployeeType `query:"employee_type" json:"-"` // 响应体中的 user_id 的员工工号类型, 示例值: employee_id, 可选值有: employee_id: 员工 employee ID, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID, employee_no: 员工工号, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号
-	Locale       string       `json:"locale,omitempty"`        // 语言类型, 示例值: "zh", 可选值有: en: 英语, ja: 日语, zh: 中文
-	StatsType    string       `json:"stats_type,omitempty"`    // 统计类型, 示例值: "daily", 可选值有: daily: 日度统计, month: 月度统计
-	UserID       *string      `json:"user_id,omitempty"`       // 操作者的用户id, * 必填字段(系统升级后, 新系统要求必填), 示例值: "dd31248a"
+	EmployeeType EmployeeType `query:"employee_type" json:"-"` // 响应体中的 user_id 的员工ID类型。如果没有后台管理权限, 可使用[通过手机号或邮箱获取用户 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/batch_get_id)示例值: employee_id可选值有: 员工 employee ID, 即[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的用户 ID员工工号, 即[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的工号
+	Locale       string       `json:"locale,omitempty"`        // 语言类型示例值: "zh"可选值有: 英语日语中文
+	StatsType    string       `json:"stats_type,omitempty"`    // 统计类型示例值: "daily"可选值有: 日度统计月度统计
+	UserID       *string      `json:"user_id,omitempty"`       // 操作者的用户id, 对应employee_type* 必填字段(系统升级后, 新系统要求必填)示例值: "dd31248a"
 }
 
 // GetAttendanceUserStatsViewResp ...
@@ -71,9 +71,9 @@ type GetAttendanceUserStatsViewResp struct {
 
 // GetAttendanceUserStatsViewRespView ...
 type GetAttendanceUserStatsViewRespView struct {
-	ViewID    string                                    `json:"view_id,omitempty"`    // 视图 ID
-	StatsType string                                    `json:"stats_type,omitempty"` // 视图类型, 可选值有: daily: 日度统计, month: 月度统计
-	UserID    string                                    `json:"user_id,omitempty"`    // 操作者的用户id
+	ViewID    string                                    `json:"view_id,omitempty"`    // 视图 ID, 可用于[更新统计设置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_stats_view/update)
+	StatsType string                                    `json:"stats_type,omitempty"` // 视图类型可选值有: 日度统计月度统计
+	UserID    string                                    `json:"user_id,omitempty"`    // 操作者的用户id, 对应employee_type
 	Items     []*GetAttendanceUserStatsViewRespViewItem `json:"items,omitempty"`      // 用户设置字段
 }
 
@@ -87,9 +87,9 @@ type GetAttendanceUserStatsViewRespViewItem struct {
 // GetAttendanceUserStatsViewRespViewItemChildItem ...
 type GetAttendanceUserStatsViewRespViewItemChildItem struct {
 	Code       string `json:"code,omitempty"`        // 子标题编号
-	Value      string `json:"value,omitempty"`       // 开关字段, 0: 关闭, 1: 开启（非开关字段场景: code = 51501 可选值为1-6）
+	Value      string `json:"value,omitempty"`       // 开关字段, 0: 关闭, 1: 开启
 	Title      string `json:"title,omitempty"`       // 子标题名称
-	ColumnType int64  `json:"column_type,omitempty"` // 列类型
+	ColumnType int64  `json:"column_type,omitempty"` // 列类型* `0`: 未知（默认）* `1`: 复选框* `2`: 文本
 	ReadOnly   bool   `json:"read_only,omitempty"`   // 是否只读
 	MinValue   string `json:"min_value,omitempty"`   // 最小值
 	MaxValue   string `json:"max_value,omitempty"`   // 最大值

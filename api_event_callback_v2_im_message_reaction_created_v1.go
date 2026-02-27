@@ -21,12 +21,15 @@ import (
 	"context"
 )
 
-// EventV2IMMessageReactionCreatedV1 消息被添加某一个表情回复后触发此事件。
+// EventV2IMMessageReactionCreatedV1 应用订阅该事件后, 消息被添加表情回复时会触发此事件。事件体包含被添加表情回复的消息 message_id、添加表情回复的操作人 ID、表情类型、添加时间等信息。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=im&version=v1&resource=message.reaction&event=created)
 //
-// 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
-// - 具备[获取单聊、群组消息] 或 [获取与发送单聊、群组消息]权限, 并订阅 [消息与群组] 分类下的 [消息被reaction] 事件才可接收推送
-// - 机器人只能收到所在群聊内的消息被添加表情回复事件
+// ## 前提条件
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// - 应用需要配置事件订阅并订阅该事件, 才能接收到事件数据。详情参见[事件概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
+// ## 使用限制
+// 订阅该事件的机器人, 只能收到机器人所在会话内的消息被添加表情回复的事件。
+// ## 注意事项
+// 在应用内订阅该事件时, 事件名称为 `消息被reaction`。你也可以通过事件类型 `im.message.reaction.created_v1` 搜索该事件。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/events/created
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/message-reaction/event/created
@@ -39,22 +42,22 @@ type EventV2IMMessageReactionCreatedV1Handler func(ctx context.Context, cli *Lar
 
 // EventV2IMMessageReactionCreatedV1 ...
 type EventV2IMMessageReactionCreatedV1 struct {
-	MessageID    string                                         `json:"message_id,omitempty"`    // 消息的 open_message_id
-	ReactionType *EventV2IMMessageReactionCreatedV1ReactionType `json:"reaction_type,omitempty"` // 表情回复的资源类型
-	OperatorType string                                         `json:"operator_type,omitempty"` // 操作人类型, 注意事项: 如果操作人类型是"user", 则会返回 [user_id], 如果操作人类型是"app", 则会返回 [app_id]
-	UserID       *EventV2IMMessageReactionCreatedV1UserID       `json:"user_id,omitempty"`       // 用户 ID
-	AppID        string                                         `json:"app_id,omitempty"`        // 应用 ID
-	ActionTime   string                                         `json:"action_time,omitempty"`   // 添加表情回复时间戳（单位: ms）
+	MessageID    string                                         `json:"message_id,omitempty"`    // 消息 ID。调用[获取指定消息的内容](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/get)接口, 可通过 message_id 获取消息内容。
+	ReactionType *EventV2IMMessageReactionCreatedV1ReactionType `json:"reaction_type,omitempty"` // 表情回复的资源类型。
+	OperatorType string                                         `json:"operator_type,omitempty"` // 操作人类型。可能值有: user: 用户, 此时 user_id 参数有返回值。- app: 应用, 此时 app_id 参数有返回值。
+	UserID       *EventV2IMMessageReactionCreatedV1UserID       `json:"user_id,omitempty"`       // 用户 ID。调用[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口, 可通过用户 ID 获取用户信息。
+	AppID        string                                         `json:"app_id,omitempty"`        // 应用 ID。调用[获取应用信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/get)接口, 可通过 app_id 获取应用信息。
+	ActionTime   string                                         `json:"action_time,omitempty"`   // 添加表情回复的时间戳。单位: ms
 }
 
 // EventV2IMMessageReactionCreatedV1ReactionType ...
 type EventV2IMMessageReactionCreatedV1ReactionType struct {
-	EmojiType string `json:"emoji_type,omitempty"` // emoji类型 [emoji类型列举](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/emojis-introduce)
+	EmojiType string `json:"emoji_type,omitempty"` // emoji 类型。emoji_type 值对应的表情可参见[表情文案说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/emojis-introduce)。
 }
 
 // EventV2IMMessageReactionCreatedV1UserID ...
 type EventV2IMMessageReactionCreatedV1UserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }

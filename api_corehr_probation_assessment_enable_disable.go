@@ -24,6 +24,7 @@ import (
 // EnableDisableCoreHRProbationAssessment 启用/停用试用期考核功能, 启用后系统功能中针对试用期考核相关的字段会自动启用, 并可通过接口更新试用期考核结果
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/probation/enable_disable_assessment
+// new doc: https://open.feishu.cn/document/corehr-v1/probation/enable_disable_assessment
 func (r *CoreHRService) EnableDisableCoreHRProbationAssessment(ctx context.Context, request *EnableDisableCoreHRProbationAssessmentReq, options ...MethodOptionFunc) (*EnableDisableCoreHRProbationAssessmentResp, *Response, error) {
 	if r.cli.mock.mockCoreHREnableDisableCoreHRProbationAssessment != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#EnableDisableCoreHRProbationAssessment mock enable")
@@ -57,13 +58,12 @@ func (r *Mock) UnMockCoreHREnableDisableCoreHRProbationAssessment() {
 
 // EnableDisableCoreHRProbationAssessmentReq ...
 type EnableDisableCoreHRProbationAssessmentReq struct {
-	Active bool    `json:"active,omitempty"`  // 启用 / 停用状态。启用后可在试用期管理页面中可见试用期考核相关的字段, 示例值: true
-	AppURL *string `json:"app_url,omitempty"` // 试用期考核系统入口链接, 当启用功能时该字段必填, 示例值: "https://qwe111.feishuapp.bytedance.net/ae/ui/apps/176612345027111/appPages/l11bsrwss13yt?dataGrid%41pye4fsbajo21l=%7B%7D&key=ffm41o1&dataGrid%41wmv98t29vif3kj=%1B%7D"
+	Active bool    `json:"active,omitempty"`  // 启用 / 停用状态。启用后可在试用期管理页面中可见试用期考核相关的字段。示例值: true
+	AppURL *string `json:"app_url,omitempty"` // 试用期考核系统入口链接, 当启用功能时该字段必填。示例值: "https://qwe111.feishuapp.bytedance.net/ae/ui/apps/176612345027111/appPages/l11bsrwss13yt?dataGrid%41pye4fsbajo21l=%7B%7D&key=ffm41o1&dataGrid%41wmv98t29vif3kj=%1B%7D"
 }
 
 // EnableDisableCoreHRProbationAssessmentResp ...
-type EnableDisableCoreHRProbationAssessmentResp struct {
-}
+type EnableDisableCoreHRProbationAssessmentResp struct{}
 
 // enableDisableCoreHRProbationAssessmentResp ...
 type enableDisableCoreHRProbationAssessmentResp struct {

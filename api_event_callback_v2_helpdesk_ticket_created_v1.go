@@ -21,7 +21,9 @@ import (
 	"context"
 )
 
-// EventV2HelpdeskTicketCreatedV1 可监听服务台的工单创建事件。需使用订阅接口订阅: [事件订阅](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/event/subscribe)
+// EventV2HelpdeskTicketCreatedV1 可监听服务台的工单创建事件。需使用订阅接口订阅: [事件订阅](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/event/subscribe){使用示例}(url=/api/tools/api_explore/api_explore_config?project=helpdesk&version=v1&resource=ticket&event=created)
+//
+// 服务台同一个工单存在机器人阶段和人工阶段, 从机器人阶段转人工后, 不会生成新的工单, 而是变更原工单的stage。如果监听工单变更, 可以订阅[工单变更事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/updated)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/ticket-management/ticket/events/created
@@ -34,7 +36,7 @@ type EventV2HelpdeskTicketCreatedV1Handler func(ctx context.Context, cli *Lark, 
 
 // EventV2HelpdeskTicketCreatedV1 ...
 type EventV2HelpdeskTicketCreatedV1 struct {
-	TicketID         string                                           `json:"ticket_id,omitempty"`         // 工单ID, [可以从工单列表里面取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list), [也可以订阅工单创建事件获取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created)
+	TicketID         string                                           `json:"ticket_id,omitempty"`         // 工单ID[可以从工单列表里面取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list)[也可以订阅工单创建事件获取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created)
 	HelpdeskID       string                                           `json:"helpdesk_id,omitempty"`       // 服务台id
 	Guest            *EventV2HelpdeskTicketCreatedV1Guest             `json:"guest,omitempty"`             // 用户id
 	Stage            int64                                            `json:"stage,omitempty"`             // 工单阶段: 1. 机器人 2. 人工
@@ -45,7 +47,7 @@ type EventV2HelpdeskTicketCreatedV1 struct {
 	ClosedAt         int64                                            `json:"closed_at,omitempty"`         // 关单时间
 	Channel          int64                                            `json:"channel,omitempty"`           // 工单渠道, 描述: 9: Open API 2: 二维码 14: 分享 13: 搜索 其他数字: 其他渠道
 	Solve            int64                                            `json:"solve,omitempty"`             // 工单是否解决 1:没解决 2:已解决
-	CustomizedFields []*EventV2HelpdeskTicketCreatedV1CustomizedField `json:"customized_fields,omitempty"` // 自定义字段
+	CustomizedFields []*EventV2HelpdeskTicketCreatedV1CustomizedField `json:"customized_fields,omitempty"` // 自定义字段注意: 该事件不会返回该值, 你可以获取 ticket_id 后调用[查询指定工单详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get)接口查询自定义字段信息。
 	ChatID           string                                           `json:"chat_id,omitempty"`           // oc_xxxxxxx
 }
 
@@ -69,6 +71,6 @@ type EventV2HelpdeskTicketCreatedV1Guest struct {
 // EventV2HelpdeskTicketCreatedV1GuestID ...
 type EventV2HelpdeskTicketCreatedV1GuestID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }

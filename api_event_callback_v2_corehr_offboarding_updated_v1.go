@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// EventV2CorehrOffboardingUpdatedV1 在离职发起审批和产生审批结果时触发该事件, 审批结果产生的场景包括撤销、审批通过、审批拒绝。
+// EventV2CorehrOffboardingUpdatedV1 在发起离职审批、产生审批结果、离职生效、离职状态回退等离职申请状态变更时触发该事件推送对应消息。审批结果产生的场景包括撤销、通过、拒绝审批。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=offboarding&event=updated)
+//
+// 注意: 该事件缺少数据范围控制和直接离职消息, 不推荐使用该事件。优先使用[离职申请状态变更（新）](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/offboarding/events/status_updated)
+// 你需要在应用中配置事件订阅, 这样才可以在事件触发时接收到事件数据。了解事件订阅可参见[事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/events/updated
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/offboarding/updated
@@ -34,16 +37,16 @@ type EventV2CorehrOffboardingUpdatedV1Handler func(ctx context.Context, cli *Lar
 
 // EventV2CorehrOffboardingUpdatedV1 ...
 type EventV2CorehrOffboardingUpdatedV1 struct {
-	EmploymentID  string                                         `json:"employment_id,omitempty"`  // 员工 ID
-	TargetUserID  *EventV2CorehrOffboardingUpdatedV1TargetUserID `json:"target_user_id,omitempty"` // 用户 ID
-	OffboardingID string                                         `json:"offboarding_id,omitempty"` // 离职记录 ID
-	ProcessID     string                                         `json:"process_id,omitempty"`     // 离职发起后的审批流程实例 ID
-	Status        int64                                          `json:"status,omitempty"`         // 离职状态, 可选值有: 1: 离职发起/审批中, 2: 已撤销, 3: 已拒绝, 4: 审批通过, 5: 已生效（生效日期后自动生效）
+	EmploymentID  string                                         `json:"employment_id,omitempty"`  // 离职员工雇佣ID, 可通过[批量查询员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)获取员工信息。
+	TargetUserID  *EventV2CorehrOffboardingUpdatedV1TargetUserID `json:"target_user_id,omitempty"` // 离职员工的用户 ID
+	OffboardingID string                                         `json:"offboarding_id,omitempty"` // 离职记录ID, 每条离职记录的唯一标识。
+	ProcessID     string                                         `json:"process_id,omitempty"`     // 离职申请流程的实例 ID, 可用于[查询流程相关信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/list), 例如: 作为[获取单个流程详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/list)的process_id查询流程详情。
+	Status        int64                                          `json:"status,omitempty"`         // 离职状态可选值有: 离职发起/审批中已撤销已拒绝审批通过已生效（生效日期后自动生效）
 }
 
 // EventV2CorehrOffboardingUpdatedV1TargetUserID ...
 type EventV2CorehrOffboardingUpdatedV1TargetUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }

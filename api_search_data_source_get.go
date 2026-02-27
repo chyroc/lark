@@ -58,7 +58,7 @@ func (r *Mock) UnMockSearchGetSearchDataSource() {
 
 // GetSearchDataSourceReq ...
 type GetSearchDataSourceReq struct {
-	DataSourceID string `path:"data_source_id" json:"-"` // 数据源的唯一标识, 示例值: "6953903108179099667"
+	DataSourceID string `path:"data_source_id" json:"-"` // 数据源的唯一标识示例值: "6953903108179099667"
 }
 
 // GetSearchDataSourceResp ...
@@ -70,14 +70,14 @@ type GetSearchDataSourceResp struct {
 type GetSearchDataSourceRespDataSource struct {
 	ID               string                                            `json:"id,omitempty"`                // 数据源的唯一标识
 	Name             string                                            `json:"name,omitempty"`              // data_source的展示名称
-	State            int64                                             `json:"state,omitempty"`             // 数据源状态, 0-已上线, 1-未上线。如果未填, 默认是未上线状态, 可选值有: 0: 已上线, 1: 未上线
+	State            int64                                             `json:"state,omitempty"`             // 数据源状态, 0-已上线, 1-未上线。如果未填, 默认是未上线状态。可选值有: 已上线未上线
 	Description      string                                            `json:"description,omitempty"`       // 对于数据源的描述
 	CreateTime       string                                            `json:"create_time,omitempty"`       // 创建时间, 使用Unix时间戳, 单位为“秒”
 	UpdateTime       string                                            `json:"update_time,omitempty"`       // 更新时间, 使用Unix时间戳, 单位为“秒”
 	IsExceedQuota    bool                                              `json:"is_exceed_quota,omitempty"`   // 是否超限
 	IconURL          string                                            `json:"icon_url,omitempty"`          // 数据源在 search tab 上的展示图标路径, 建议使用png或jpeg格式, 否则可能无法在客户端正常展示
 	Template         string                                            `json:"template,omitempty"`          // 数据源采用的展示模版名称
-	SearchableFields []string                                          `json:"searchable_fields,omitempty"` // [已废弃, 如有定制需要请使用“数据范式”接口]描述哪些字段可以被搜索
+	SearchableFields []string                                          `json:"searchable_fields,omitempty"` // 【已废弃, 如有定制需要请使用“数据范式”接口】描述哪些字段可以被搜索
 	I18nName         *GetSearchDataSourceRespDataSourceI18nName        `json:"i18n_name,omitempty"`         // 数据源的国际化展示名称
 	I18nDescription  *GetSearchDataSourceRespDataSourceI18nDescription `json:"i18n_description,omitempty"`  // 数据源的国际化描述
 	SchemaID         string                                            `json:"schema_id,omitempty"`         // 数据源关联的 schema 标识

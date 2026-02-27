@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// GetSpreadsheet 该接口用于获取电子表格的基础信息。
+// GetSpreadsheet 根据电子表格 token 获取电子表格的基础信息, 包括电子表格的所有者、URL 链接等。
+//
+// ## 前提条件
+// 调用此接口前, 请确保当前调用身份（tenant_access_token 或 user_access_token）已有电子表格的阅读、编辑等文档权限, 否则接口将返回 HTTP 403 或 400 状态码。了解更多, 参考[如何为应用或用户开通文档权限](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#16c6475a)。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet/get
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet/get
@@ -59,21 +62,21 @@ func (r *Mock) UnMockDriveGetSpreadsheet() {
 
 // GetSpreadsheetReq ...
 type GetSpreadsheetReq struct {
-	SpreadSheetToken string  `path:"spreadsheet_token" json:"-"` // 表格的token, 示例值: "shtxxxxxxxxxxxxxxx"
-	UserIDType       *IDType `query:"user_id_type" json:"-"`     // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	SpreadSheetToken string  `path:"spreadsheet_token" json:"-"` // 电子表格的 token。可通过以下两种方式获取。了解更多, 参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。-  电子表格的 URL: https://sample.feishu.cn/sheets/[Iow7sNNEphp3WbtnbCscPqabcef]- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)示例值: "Iow7sNNEphp3WbtnbCscPqabcef"
+	UserIDType       *IDType `query:"user_id_type" json:"-"`     // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetSpreadsheetResp ...
 type GetSpreadsheetResp struct {
-	Spreadsheet *GetSpreadsheetRespSpreadsheet `json:"spreadsheet,omitempty"` // 电子表格属性
+	Spreadsheet *GetSpreadsheetRespSpreadsheet `json:"spreadsheet,omitempty"` // 电子表格的基础信息
 }
 
 // GetSpreadsheetRespSpreadsheet ...
 type GetSpreadsheetRespSpreadsheet struct {
 	Title   string `json:"title,omitempty"`    // 电子表格标题
-	OwnerID string `json:"owner_id,omitempty"` // 电子表格owner
-	Token   string `json:"token,omitempty"`    // 电子表格token
-	URL     string `json:"url,omitempty"`      // 电子表格url
+	OwnerID string `json:"owner_id,omitempty"` // 电子表格的所有者 ID。ID 类型由查询参数 user_id_type 决定。
+	Token   string `json:"token,omitempty"`    // 电子表格 token
+	URL     string `json:"url,omitempty"`      // 电子表格的 URL 链接
 }
 
 // getSpreadsheetResp ...

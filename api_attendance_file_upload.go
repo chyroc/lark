@@ -22,7 +22,7 @@ import (
 	"io"
 )
 
-// UploadAttendanceFile 上传文件并获取文件 ID, 可用于“修改用户设置”接口中的 face_key 参数。
+// UploadAttendanceFile 上传用户人脸照片并获取文件 ID, 对应小程序端的人脸录入功能
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/file/upload
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_setting/upload
@@ -60,8 +60,8 @@ func (r *Mock) UnMockAttendanceUploadAttendanceFile() {
 
 // UploadAttendanceFileReq ...
 type UploadAttendanceFileReq struct {
-	FileName string    `query:"file_name" json:"-"` // 带后缀的文件名, 示例值: 人脸照片.jpg
-	File     io.Reader `json:"file,omitempty"`      // 文件内容, 示例值: 二进制文件
+	FileName string    `query:"file_name" json:"-"` // 带后缀的文件名示例值: 人脸照片.jpg
+	File     io.Reader `json:"file,omitempty"`      // 文件内容示例值: 二进制文件
 }
 
 // UploadAttendanceFileResp ...

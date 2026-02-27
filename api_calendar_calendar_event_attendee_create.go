@@ -68,40 +68,40 @@ func (r *Mock) UnMockCalendarCreateCalendarEventAttendee() {
 
 // CreateCalendarEventAttendeeReq ...
 type CreateCalendarEventAttendeeReq struct {
-	CalendarID             string                                    `path:"calendar_id" json:"-"`                // 日程对应的日历 ID。了解更多, 参见[日历 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
-	EventID                string                                    `path:"event_id" json:"-"`                   // 日程 ID, 创建日程时会返回日程 ID。你也可以调用以下接口获取某一日历的 ID, [获取日程列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/list), [搜索日程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/search), 示例值: "xxxxxxxxx_0"
-	UserIDType             *IDType                                   `query:"user_id_type" json:"-"`              // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	Attendees              []*CreateCalendarEventAttendeeReqAttendee `json:"attendees,omitempty"`                 // 新增参与人列表, 注意: 单次请求可设置的参与人数量（含会议室）上限为 1000, 单次请求可设置的会议室数量上限为 100。
-	NeedNotification       *bool                                     `json:"need_notification,omitempty"`         // 是否给参与人发送 Bot 通知, 可选值有: true（默认值）: 发送, false: 不发送, 示例值: false
-	InstanceStartTimeAdmin *string                                   `json:"instance_start_time_admin,omitempty"` // 使用管理员身份访问时, 要修改的日程实例, 注意: 该参数仅用于修改重复日程中的某一日程实例, 非重复日程无需填此字段, 你可以调用[获取重复日程实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/instances)接口, 获取重复日程中某一日程实例的 event_id。该参数取值为 event_id 的时间戳后缀。例如查询到的日程实例 ID 为 `2cf525f0-1e67-4b04-ad4d-30b7f003903c_1713168000`, 则当前的 `instance_start_time_admin` 取值为 `1713168000`, 默认值: 空, 示例值: "1647320400"
-	IsEnableAdmin          *bool                                     `json:"is_enable_admin,omitempty"`           // 是否启用会议室管理员身份（需先在管理后台设置某成员为会议室管理员), 可选值有: true: 启用, false（默认值）: 不启用, 说明: 开启后, 本次请求只处理会议室数据, 其他参与人操作不会生效, 示例值: false
-	AddOperatorToAttendee  *bool                                     `json:"add_operator_to_attendee,omitempty"`  // 是否添加会议室联系人（operate_id）到日程参与人, 可选值有: true（默认值）: 启用, false: 不启用, 示例值: false
+	CalendarID             string                                    `path:"calendar_id" json:"-"`                // 日程对应的日历 ID。了解更多, 参见[日历 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction)。示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	EventID                string                                    `path:"event_id" json:"-"`                   // 日程 ID。创建日程时会返回日程 ID。你也可以调用以下接口获取某一日历的 ID。- [获取日程列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/list)- [搜索日程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/search)示例值: "xxxxxxxxx_0"
+	UserIDType             *IDType                                   `query:"user_id_type" json:"-"`              // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	Attendees              []*CreateCalendarEventAttendeeReqAttendee `json:"attendees,omitempty"`                 // 新增参与人列表。注意: 单次请求可设置的参与人数量（含会议室）上限为 1000。- 单次请求可设置的会议室数量上限为 100。
+	NeedNotification       *bool                                     `json:"need_notification,omitempty"`         // 是否给参与人发送 Bot 通知。可选值有: true（默认值）: 发送- false: 不发送示例值: false
+	InstanceStartTimeAdmin *string                                   `json:"instance_start_time_admin,omitempty"` // 使用管理员身份访问时, 要修改的日程实例。注意: 该参数仅用于修改重复日程中的某一日程实例, 非重复日程无需填此字段。- 你可以调用[获取重复日程实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/instances)接口, 获取重复日程中某一日程实例的 event_id。该参数取值为 event_id 的时间戳后缀。例如查询到的日程实例 ID 为 `2cf525f0-1e67-4b04-ad4d-30b7f003903c_1713168000`, 则当前的 `instance_start_time_admin` 取值为 `1713168000`。默认值: 空示例值: "1647320400"
+	IsEnableAdmin          *bool                                     `json:"is_enable_admin,omitempty"`           // 是否启用会议室管理员身份（需先在管理后台设置某成员为会议室管理员)。可选值有: true: 启用- false（默认值）: 不启用说明: 开启后, 本次请求只处理会议室数据, 其他参与人操作不会生效。示例值: false
+	AddOperatorToAttendee  *bool                                     `json:"add_operator_to_attendee,omitempty"`  // 是否添加会议室联系人（operate_id）到日程参与人。可选值有: true（默认值）: 启用- false: 不启用示例值: false
 }
 
 // CreateCalendarEventAttendeeReqAttendee ...
 type CreateCalendarEventAttendeeReqAttendee struct {
-	Type                  *CalendarEventAttendeeType                                     `json:"type,omitempty"`                   // 参与人类型, 示例值: "user", 可选值有: user: 用户, chat: 群组, resource: 会议室, third_party: 外部邮箱
-	IsOptional            *bool                                                          `json:"is_optional,omitempty"`            // 参与人是否为可选参加, 可选值有: true: 是, false: 否, 注意: 无法编辑群参与人的此字段, 示例值: true, 默认值: `false`
-	UserID                *string                                                        `json:"user_id,omitempty"`                // 用户 ID。当选择用户类型参与人（type 取值为 user）时, 需要传入该参数。传入的用户 ID 类型需要和 user_id_type 的值保持一致。关于用户 ID 可参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 示例值: "ou_xxxxxxxx"
-	ChatID                *string                                                        `json:"chat_id,omitempty"`                // 群组 ID。当选择群组类型参与人（type 取值为 chat）时, 需要传入该参数。关于群组 ID 可参见[群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值: "oc_xxxxxxxxx"
-	RoomID                *string                                                        `json:"room_id,omitempty"`                // 会议室 ID。当选择会议室类型参与人（type 取值为 resource）时, 需要传入该参数, 你可以通过以下接口获取指定会议室 ID: [查询会议室列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/list), [搜索会议室](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/search), 示例值: "omm_xxxxxxxx"
-	ThirdPartyEmail       *string                                                        `json:"third_party_email,omitempty"`      // 邮箱地址。当选择外部邮箱类型参与人（type 取值为 third_party）时, 需要传入该参数, 示例值: "wangwu@email.com"
-	OperateID             *string                                                        `json:"operate_id,omitempty"`             // 会议室联系人 ID。传入的用户 ID 类型需要和 user_id_type 的值保持一致。关于用户 ID 可参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 说明: 如果当前日程是基于应用身份创建的, 则在添加会议室类型参与人时, 需要通过该参数指定会议室的联系人, 该联系人会在日程会议室信息中展示, 默认值: 空, 示例值: "ou_xxxxxxxx"
-	ResourceCustomization []*CreateCalendarEventAttendeeReqAttendeeResourceCustomization `json:"resource_customization,omitempty"` // 会议室的个性化配置, 在选择会议室类型参与人时, 如果会议室有预定表单, 则可以通过该参数配置表单信息, 当前添加的参与人不涉及会议室个性化配置时, 无需设置该参数。
-	ApprovalReason        *string                                                        `json:"approval_reason,omitempty"`        // 申请预定审批会议室的原因。参数配置说明: 仅使用用户身份（user_access_token）预定审批会议室时, 该字段生效, 对于申请预定审批会议室的场景, 不传该值会直接预约失败, 如果使用应用身份（tenant_access_token）预定审批会议室, 会直接失败, 默认值: 空, 示例值: "申请原因", 最大长度: `200` 字符
+	Type                  *CalendarEventAttendeeType                                     `json:"type,omitempty"`                   // 参与人类型。示例值: "user"可选值有: 用户群组会议室外部邮箱
+	IsOptional            *bool                                                          `json:"is_optional,omitempty"`            // 参与人是否为可选参加。可选值有: true: 是- false: 否注意: 无法编辑会议室类型参与人的此字段。示例值: true默认值: `false
+	UserID                *string                                                        `json:"user_id,omitempty"`                // 用户 ID。当选择用户类型参与人（type 取值为 user）时, 需要传入该参数。传入的用户 ID 类型需要和 user_id_type 的值保持一致。关于用户 ID 可参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)。示例值: "ou_xxxxxxxx"
+	ChatID                *string                                                        `json:"chat_id,omitempty"`                // 群组 ID。当选择群组类型参与人（type 取值为 chat）时, 需要传入该参数。关于群组 ID 可参见[群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)。示例值: "oc_xxxxxxxxx"
+	RoomID                *string                                                        `json:"room_id,omitempty"`                // 会议室 ID。当选择会议室类型参与人（type 取值为 resource）时, 需要传入该参数。你可以通过以下接口获取指定会议室 ID: [查询会议室列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/list)- [搜索会议室](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/search)示例值: "omm_xxxxxxxx"
+	ThirdPartyEmail       *string                                                        `json:"third_party_email,omitempty"`      // 邮箱地址。当选择外部邮箱类型参与人（type 取值为 third_party）时, 需要传入该参数。示例值: "wangwu@email.com"
+	OperateID             *string                                                        `json:"operate_id,omitempty"`             // 会议室联系人 ID。传入的用户 ID 类型需要和 user_id_type 的值保持一致。关于用户 ID 可参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)。说明: 如果当前日程是基于应用身份创建的, 则在添加会议室类型参与人时, 需要通过该参数指定会议室的联系人, 该联系人会在日程会议室信息中展示。默认值: 空示例值: "ou_xxxxxxxx"
+	ResourceCustomization []*CreateCalendarEventAttendeeReqAttendeeResourceCustomization `json:"resource_customization,omitempty"` // 会议室的个性化配置。- 在选择会议室类型参与人时, 如果会议室有预定表单, 则可以通过该参数配置表单信息。- 当前添加的参与人不涉及会议室个性化配置时, 无需设置该参数。
+	ApprovalReason        *string                                                        `json:"approval_reason,omitempty"`        // 申请预定审批会议室的原因。参数配置说明: 仅使用用户身份（user_access_token）预定审批会议室时, 该字段生效。- 对于申请预定审批会议室的场景, 不传该值会直接预约失败。-  如果使用应用身份（tenant_access_token）预定审批会议室, 会直接失败。默认值: 空示例值: "申请原因" 最大长度: `200` 字符
 }
 
 // CreateCalendarEventAttendeeReqAttendeeResourceCustomization ...
 type CreateCalendarEventAttendeeReqAttendeeResourceCustomization struct {
-	IndexKey     string                                                               `json:"index_key,omitempty"`     // 表单内配置的唯一 ID, 示例值: "16281481596100"
-	InputContent *string                                                              `json:"input_content,omitempty"` // 当配置类型为填空时, 需要填入该参数, 示例值: "xxx"
-	Options      []*CreateCalendarEventAttendeeReqAttendeeResourceCustomizationOption `json:"options,omitempty"`       // 每个配置的选项。
+	IndexKey     string                                                               `json:"index_key,omitempty"`     // 表单内配置的唯一 ID。示例值: "16281481596100"
+	InputContent *string                                                              `json:"input_content,omitempty"` // 当配置类型为填空时, 需要填入该参数。示例值: "xxx"
+	Options      []*CreateCalendarEventAttendeeReqAttendeeResourceCustomizationOption `json:"options,omitempty"`       // 每个配置的选项。示例值: 无
 }
 
 // CreateCalendarEventAttendeeReqAttendeeResourceCustomizationOption ...
 type CreateCalendarEventAttendeeReqAttendeeResourceCustomizationOption struct {
-	OptionKey     *string `json:"option_key,omitempty"`     // 选项的唯一 ID, 示例值: "16281481596185"
-	OthersContent *string `json:"others_content,omitempty"` // 当选项类型为其它选项时, 需要填入该参数, 示例值: "xxx"
+	OptionKey     *string `json:"option_key,omitempty"`     // 选项的唯一 ID。示例值: "16281481596185"
+	OthersContent *string `json:"others_content,omitempty"` // 当选项类型为其它选项时, 需要填入该参数。示例值: "xxx"
 }
 
 // CreateCalendarEventAttendeeResp ...
@@ -111,26 +111,26 @@ type CreateCalendarEventAttendeeResp struct {
 
 // CreateCalendarEventAttendeeRespAttendee ...
 type CreateCalendarEventAttendeeRespAttendee struct {
-	Type                  CalendarEventAttendeeType                                       `json:"type,omitempty"`                   // 参与人类型, 可选值有: user: 用户, chat: 群组, resource: 会议室, third_party: 外部邮箱
+	Type                  CalendarEventAttendeeType                                       `json:"type,omitempty"`                   // 参与人类型。可选值有: 用户群组会议室外部邮箱
 	AttendeeID            string                                                          `json:"attendee_id,omitempty"`            // 参与人 ID。日程参与人在当前日程内的唯一标识, 后续可通过该 ID 删除日程参与人, 或用于查询群组类型参与人的群成员信息。
-	RsvpStatus            string                                                          `json:"rsvp_status,omitempty"`            // 参与人 RSVP 状态, 即日程回复状态, 可选值有: needs_action: 参与人尚未回复状态, 或表示会议室预约中, accept: 参与人回复接受, 或表示会议室预约成功, tentative: 参与人回复待定, decline: 参与人回复拒绝, 或表示会议室预约失败, removed: 参与人或会议室已经从日程中被移除
+	RsvpStatus            string                                                          `json:"rsvp_status,omitempty"`            // 参与人 RSVP 状态, 即日程回复状态。可选值有: 参与人尚未回复状态, 或表示会议室预约中参与人回复接受, 或表示会议室预约成功参与人回复待定参与人回复拒绝, 或表示会议室预约失败参与人或会议室已经从日程中被移除
 	IsOptional            bool                                                            `json:"is_optional,omitempty"`            // 参与人是否为可选参加, 该参数值对群组的群成员不生效。
 	IsOrganizer           bool                                                            `json:"is_organizer,omitempty"`           // 参与人是否为日程组织者。
 	IsExternal            bool                                                            `json:"is_external,omitempty"`            // 参与人是否为外部参与人。外部参与人不支持编辑。
 	DisplayName           string                                                          `json:"display_name,omitempty"`           // 参与人名称。
 	ChatMembers           []*CreateCalendarEventAttendeeRespAttendeeChatMember            `json:"chat_members,omitempty"`           // 群成员, 当参与人类型为群组（type 为 chat）时有效。群成员不支持编辑。
-	UserID                string                                                          `json:"user_id,omitempty"`                // 用户类型参与人的用户 ID, ID 类型与 user_id_type 的值保持一致。关于用户 ID 可参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 注意: 当 is_external 返回为 true 时, 此字段只会返回 open_id 或者 union_id。
+	UserID                string                                                          `json:"user_id,omitempty"`                // 用户类型参与人的用户 ID, ID 类型与 user_id_type 的值保持一致。关于用户 ID 可参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)。注意: 当 is_external 返回为 true 时, 此字段只会返回 open_id 或者 union_id。
 	ChatID                string                                                          `json:"chat_id,omitempty"`                // 群组类型参与人的群组 ID。关于群组 ID 可参见[群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)。
 	RoomID                string                                                          `json:"room_id,omitempty"`                // 会议室类型参与人的会议室 ID。
 	ThirdPartyEmail       string                                                          `json:"third_party_email,omitempty"`      // 外部邮箱类型参与人的邮箱地址。
 	OperateID             string                                                          `json:"operate_id,omitempty"`             // 如果日程是使用应用身份创建的, 在添加会议室时, 指定的会议室联系人 ID。ID 类型与 user_id_type 的值保持一致。
 	ResourceCustomization []*CreateCalendarEventAttendeeRespAttendeeResourceCustomization `json:"resource_customization,omitempty"` // 会议室的个性化配置。
-	ApprovalReason        string                                                          `json:"approval_reason,omitempty"`        // 申请预定审批会议室的原因。参数配置说明: 仅使用用户身份（user_access_token）预定审批会议室时, 该字段生效, 对于申请预定审批会议室的场景, 不传该值会直接预约失败, 如果使用应用身份（tenant_access_token）预定审批会议室, 会直接失败。
+	ApprovalReason        string                                                          `json:"approval_reason,omitempty"`        // 申请预定审批会议室的原因。参数配置说明: 仅使用用户身份（user_access_token）预定审批会议室时, 该字段生效。- 对于申请预定审批会议室的场景, 不传该值会直接预约失败。-  如果使用应用身份（tenant_access_token）预定审批会议室, 会直接失败。
 }
 
 // CreateCalendarEventAttendeeRespAttendeeChatMember ...
 type CreateCalendarEventAttendeeRespAttendeeChatMember struct {
-	RsvpStatus  string `json:"rsvp_status,omitempty"`  // 参与人 RSVP 状态, 可选值有: needs_action: 参与人尚未回复状态, 或表示会议室预约中, accept: 参与人回复接受, 或表示会议室预约成功, tentative: 参与人回复待定, decline: 参与人回复拒绝, 或表示会议室预约失败, removed: 参与人或会议室已经从日程中被移除
+	RsvpStatus  string `json:"rsvp_status,omitempty"`  // 参与人 RSVP 状态。可选值有: 参与人尚未回复状态, 或表示会议室预约中参与人回复接受, 或表示会议室预约成功参与人回复待定参与人回复拒绝, 或表示会议室预约失败参与人或会议室已经从日程中被移除
 	IsOptional  bool   `json:"is_optional,omitempty"`  // 参与人是否为可选参加。
 	DisplayName string `json:"display_name,omitempty"` // 参与人名称。
 	IsOrganizer bool   `json:"is_organizer,omitempty"` // 参与人是否为日程组织者。

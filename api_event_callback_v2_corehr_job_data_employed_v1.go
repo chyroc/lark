@@ -21,7 +21,12 @@ import (
 	"context"
 )
 
-// EventV2CorehrJobDataEmployedV1 在「飞书人事」将待入职员工手动操作“完成入职”后, 触发该事件。
+// EventV2CorehrJobDataEmployedV1 以下业务场景会触发此事件:
+//
+// - 开放平台[操作员工完成入职](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/complete)接口
+// - 开放平台[添加人员](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/create)接口
+// - 「飞书人事-人员管理-入职」将待入职员工操作“完成入职”
+// - 「飞书人事-人员管理-花名册」操作”添加人员”或”导入人员”{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=job_data&event=employed)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/events/employed
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/pre_hire/employed
@@ -34,14 +39,14 @@ type EventV2CorehrJobDataEmployedV1Handler func(ctx context.Context, cli *Lark, 
 
 // EventV2CorehrJobDataEmployedV1 ...
 type EventV2CorehrJobDataEmployedV1 struct {
-	JobDataID    string                                      `json:"job_data_id,omitempty"`    // 主对象 ID
-	EmploymentID string                                      `json:"employment_id,omitempty"`  // 员工雇佣 ID
-	TargetUserID *EventV2CorehrJobDataEmployedV1TargetUserID `json:"target_user_id,omitempty"` // 用户 ID
+	JobDataID    string                                      `json:"job_data_id,omitempty"`    // 任职记录 ID, 详细信息可通过[【获取任职记录】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/get)接口查询
+	EmploymentID string                                      `json:"employment_id,omitempty"`  // 雇佣记录 ID, 详细信息可通过[【查询员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)接口查询
+	TargetUserID *EventV2CorehrJobDataEmployedV1TargetUserID `json:"target_user_id,omitempty"` // 用户 ID（备注: 入职后开通飞书账号成功, 会生成飞书通讯录相关ID, 但由于开通过程是异步, 本事件不保证一定返回, 如未返回, 说明飞书账号开通失败, 业务需兼容处理）
 }
 
 // EventV2CorehrJobDataEmployedV1TargetUserID ...
 type EventV2CorehrJobDataEmployedV1TargetUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UploadOKRImage 上传进展记录图片。
+// UploadOKRImage 上传图片, 以获取在进展记录富文本中使用的 token。成功调用该接口后, 你可继续调用[创建 OKR 进展记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/progress_record/create)或[更新 OKR 进展记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/progress_record/update), 将返回的 `url`参数和`file_token` 参数传入 `imageList` 参数中。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/image/upload
 // new doc: https://open.feishu.cn/document/server-docs/okr-v1/progress_record/upload
@@ -59,14 +59,13 @@ func (r *Mock) UnMockOKRUploadOKRImage() {
 
 // UploadOKRImageReq ...
 type UploadOKRImageReq struct {
-	Data       *UploadOKRImageReqData `json:"data,omitempty"`        // 图片, 示例值: file binary
-	TargetID   string                 `json:"target_id,omitempty"`   // 图片的目标ID, 示例值: "6974586812998174252"
-	TargetType int64                  `json:"target_type,omitempty"` // 图片使用的目标类型, 示例值: 1, 可选值有: 2: okr的O, 3: okr的KR
+	Data       *UploadOKRImageReqData `json:"data,omitempty"`        // 图片二进制文件。目前仅支持上传 JPG、JPEG、PNG、WEBP、GIF、BMP、ICO、TIFF、HEIC 格式的图片。示例值: file binary
+	TargetID   string                 `json:"target_id,omitempty"`   // 插入图片所在的待创建/修改的进展记录对应的目标 ID, 可以通过调用“批量获取 OKR”或“获取用户的 OKR 列表”接口获取对应的 Objective 或 KR 的 ID。示例值: "6974586812998174252"
+	TargetType int64                  `json:"target_type,omitempty"` // 插入图片所在的待创建/修改的进展记录对应的目标类型示例值: 2可选值有: okr的Ookr的KR
 }
 
 // UploadOKRImageReqData ...
-type UploadOKRImageReqData struct {
-}
+type UploadOKRImageReqData struct{}
 
 // UploadOKRImageResp ...
 type UploadOKRImageResp struct {

@@ -21,14 +21,15 @@ import (
 	"context"
 )
 
-// UpdateDriveDocContent 此接口只支持编辑旧版文档内容。要编辑新版文档（文档类型: `docx`）的内容, 调用以下接口:
+// UpdateDriveDocContent :::warning
 //
+// 此接口只支持编辑旧版文档内容。要编辑新版文档（文档类型: `docx`）的内容, 调用以下接口:
 // - [创建块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block-children/create)
 // - [更新块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/patch)
 // - [批量更新块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/batch_update)
 // - [删除块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block-children/batch_delete)
 // 该接口用于批量编辑更新文档内容, 包括更新标题、范围删除、插入内容。
-// 前提条件:
+// ## 前提条件
 // 在使用此接口前, 请仔细阅读[文档概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/docs-doc-overview)和[准备接入文档 API](https://open.feishu.cn/document/ukTMukTMukTM/ugzNzUjL4czM14CO3MTN/guide/getting-start)了解文档调用的规则和约束, 确保你的文档数据不会丢失或出错。
 // 文档数据结构定义可参考: [文档数据结构概述](https://open.feishu.cn/document/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN)。
 //
@@ -76,8 +77,7 @@ type UpdateDriveDocContentReq struct {
 }
 
 // UpdateDriveDocContentResp ...
-type UpdateDriveDocContentResp struct {
-}
+type UpdateDriveDocContentResp struct{}
 
 // updateDriveDocContentResp ...
 type updateDriveDocContentResp struct {

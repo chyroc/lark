@@ -58,7 +58,7 @@ func (r *Mock) UnMockVCSearchVCRoomLevel() {
 
 // SearchVCRoomLevelReq ...
 type SearchVCRoomLevelReq struct {
-	CustomLevelIDs []string `query:"custom_level_ids" json:"-"` // 用于查询指定会议室层级的自定义会议室层级ID, 示例值: 1000, 1001
+	CustomLevelIDs []string `query:"custom_level_ids" json:"-"` // 用于查询指定会议室层级的自定义会议室层级ID示例值: 1000, 1001
 }
 
 // SearchVCRoomLevelResp ...

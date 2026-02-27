@@ -58,8 +58,8 @@ func (r *Mock) UnMockOKRCreateOKRPeriod() {
 
 // CreateOKRPeriodReq ...
 type CreateOKRPeriodReq struct {
-	PeriodRuleID string `json:"period_rule_id,omitempty"` // 周期规则 id, 示例值: "6969864184272078374"
-	StartMonth   string `json:"start_month,omitempty"`    // 周期起始年月, 示例值: "2022-01"
+	PeriodRuleID string `json:"period_rule_id,omitempty"` // 周期规则 id示例值: "6969864184272078374"
+	StartMonth   string `json:"start_month,omitempty"`    // 周期起始年月示例值: "2022-01"
 }
 
 // CreateOKRPeriodResp ...

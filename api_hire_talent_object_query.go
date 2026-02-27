@@ -21,7 +21,11 @@ import (
 	"context"
 )
 
-// QueryHireTalentObject 获取人才字段。
+// QueryHireTalentObject 获取全部人才字段详细信息, 包含字段名称、字段描述、字段类型、启用状态等信息。
+//
+// ## 概念说明
+// 在「飞书招聘」-「设置」-「候选人字段管理」中, 人才中的字段按照模块进行组织, 一个模块下可以包含多个字段, 对应人才字段类型中`模块`类型, 如下图所示。
+// ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/ef34f907d66c16101567d67d48b08b06_NDaFV3Wupm.png?maxWidth=500)
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/talent/query
@@ -57,12 +61,11 @@ func (r *Mock) UnMockHireQueryHireTalentObject() {
 }
 
 // QueryHireTalentObjectReq ...
-type QueryHireTalentObjectReq struct {
-}
+type QueryHireTalentObjectReq struct{}
 
 // QueryHireTalentObjectResp ...
 type QueryHireTalentObjectResp struct {
-	Items []*QueryHireTalentObjectRespItem `json:"items,omitempty"` // 数据列表
+	Items []*QueryHireTalentObjectRespItem `json:"items,omitempty"` // 模块列表
 }
 
 // QueryHireTalentObjectRespItem ...
@@ -71,9 +74,9 @@ type QueryHireTalentObjectRespItem struct {
 	Name         *QueryHireTalentObjectRespItemName        `json:"name,omitempty"`          // 模块名称
 	Description  *QueryHireTalentObjectRespItemDescription `json:"description,omitempty"`   // 模块描述
 	Setting      *QueryHireTalentObjectRespItemSetting     `json:"setting,omitempty"`       // 模块信息
-	IsCustomized bool                                      `json:"is_customized,omitempty"` // 是否是自定义模块
+	IsCustomized bool                                      `json:"is_customized,omitempty"` // 是否是自定义模块- `true` 为自定义模块- `false` 为系统预置模块
 	IsRequired   bool                                      `json:"is_required,omitempty"`   // 是否必填
-	ActiveStatus int64                                     `json:"active_status,omitempty"` // 是否启用, 可选值有: 1: 已启用, 2: 已停用
+	ActiveStatus int64                                     `json:"active_status,omitempty"` // 模块是否启用可选值有: 已启用已停用
 	ChildrenList []*QueryHireTalentObjectRespItemChildren  `json:"children_list,omitempty"` // 字段列表
 }
 
@@ -82,34 +85,34 @@ type QueryHireTalentObjectRespItemChildren struct {
 	ID           string                                            `json:"id,omitempty"`            // 字段 ID
 	Name         *QueryHireTalentObjectRespItemChildrenName        `json:"name,omitempty"`          // 字段名称
 	Description  *QueryHireTalentObjectRespItemChildrenDescription `json:"description,omitempty"`   // 字段描述
-	Setting      *QueryHireTalentObjectRespItemChildrenSetting     `json:"setting,omitempty"`       // 字段信息
+	Setting      *QueryHireTalentObjectRespItemChildrenSetting     `json:"setting,omitempty"`       // 字段配置信息
 	ParentID     string                                            `json:"parent_id,omitempty"`     // 所属模块 ID
-	IsCustomized bool                                              `json:"is_customized,omitempty"` // 是否是自定义字段
+	IsCustomized bool                                              `json:"is_customized,omitempty"` // 是否是自定义字段- `true` 为自定义字段- `false` 为系统预置字段
 	IsRequired   bool                                              `json:"is_required,omitempty"`   // 是否必填
-	ActiveStatus int64                                             `json:"active_status,omitempty"` // 是否启用, 可选值有: 1: 已启用, 2: 已停用
+	ActiveStatus int64                                             `json:"active_status,omitempty"` // 字段是否启用可选值有: 已启用已停用
 }
 
 // QueryHireTalentObjectRespItemChildrenDescription ...
 type QueryHireTalentObjectRespItemChildrenDescription struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	EnUs string `json:"en_us,omitempty"` // 英文
+	ZhCn string `json:"zh_cn,omitempty"` // 字段中文描述
+	EnUs string `json:"en_us,omitempty"` // 字段英文描述
 }
 
 // QueryHireTalentObjectRespItemChildrenName ...
 type QueryHireTalentObjectRespItemChildrenName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	EnUs string `json:"en_us,omitempty"` // 英文
+	ZhCn string `json:"zh_cn,omitempty"` // 字段中文名称
+	EnUs string `json:"en_us,omitempty"` // 字段英文名称
 }
 
 // QueryHireTalentObjectRespItemChildrenSetting ...
 type QueryHireTalentObjectRespItemChildrenSetting struct {
-	ObjectType int64                                               `json:"object_type,omitempty"` // 字段类型, 可选值有: 1: 单行文本, 2: 多行文本, 3: 单选, 4: 多选, 5: 日期, 6: 月份选择, 7: 年份选择, 8: 时间段, 9: 数字, 10: 默认字段, 11: 模块, 13: 附件
+	ObjectType int64                                               `json:"object_type,omitempty"` // 字段类型 注意: 字段级别的字段类型不能取值 `11` 模块可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块日期附件
 	Config     *QueryHireTalentObjectRespItemChildrenSettingConfig `json:"config,omitempty"`      // 配置信息
 }
 
 // QueryHireTalentObjectRespItemChildrenSettingConfig ...
 type QueryHireTalentObjectRespItemChildrenSettingConfig struct {
-	Options []*QueryHireTalentObjectRespItemChildrenSettingConfigOption `json:"options,omitempty"` // 选项信息
+	Options []*QueryHireTalentObjectRespItemChildrenSettingConfigOption `json:"options,omitempty"` // 选项信息, 当字段类型为 `单选` 或 `多选` 时该字段有值
 }
 
 // QueryHireTalentObjectRespItemChildrenSettingConfigOption ...
@@ -117,42 +120,42 @@ type QueryHireTalentObjectRespItemChildrenSettingConfigOption struct {
 	Key          string                                                               `json:"key,omitempty"`           // 选项 ID
 	Name         *QueryHireTalentObjectRespItemChildrenSettingConfigOptionName        `json:"name,omitempty"`          // 选项名称
 	Description  *QueryHireTalentObjectRespItemChildrenSettingConfigOptionDescription `json:"description,omitempty"`   // 选项描述
-	ActiveStatus int64                                                                `json:"active_status,omitempty"` // 是否启用, 可选值有: 1: 已启用, 2: 已停用
+	ActiveStatus int64                                                                `json:"active_status,omitempty"` // 选项是否启用可选值有: 已启用已停用
 }
 
 // QueryHireTalentObjectRespItemChildrenSettingConfigOptionDescription ...
 type QueryHireTalentObjectRespItemChildrenSettingConfigOptionDescription struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	EnUs string `json:"en_us,omitempty"` // 英文
+	ZhCn string `json:"zh_cn,omitempty"` // 选项中文描述
+	EnUs string `json:"en_us,omitempty"` // 选项英文描述
 }
 
 // QueryHireTalentObjectRespItemChildrenSettingConfigOptionName ...
 type QueryHireTalentObjectRespItemChildrenSettingConfigOptionName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	EnUs string `json:"en_us,omitempty"` // 英文
+	ZhCn string `json:"zh_cn,omitempty"` // 选项中文名称
+	EnUs string `json:"en_us,omitempty"` // 选项英文名称
 }
 
 // QueryHireTalentObjectRespItemDescription ...
 type QueryHireTalentObjectRespItemDescription struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	EnUs string `json:"en_us,omitempty"` // 英文
+	ZhCn string `json:"zh_cn,omitempty"` // 模块中文描述
+	EnUs string `json:"en_us,omitempty"` // 模块英文描述
 }
 
 // QueryHireTalentObjectRespItemName ...
 type QueryHireTalentObjectRespItemName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	EnUs string `json:"en_us,omitempty"` // 英文
+	ZhCn string `json:"zh_cn,omitempty"` // 模块中文名称
+	EnUs string `json:"en_us,omitempty"` // 模块英文名称
 }
 
 // QueryHireTalentObjectRespItemSetting ...
 type QueryHireTalentObjectRespItemSetting struct {
-	ObjectType int64                                       `json:"object_type,omitempty"` // 字段类型, 可选值有: 1: 单行文本, 2: 多行文本, 3: 单选, 4: 多选, 5: 日期, 6: 月份选择, 7: 年份选择, 8: 时间段, 9: 数字, 10: 默认字段, 11: 模块, 13: 附件
-	Config     *QueryHireTalentObjectRespItemSettingConfig `json:"config,omitempty"`      // 配置信息
+	ObjectType int64                                       `json:"object_type,omitempty"` // 字段类型 注意: 模块级别的字段类型只能取值 `11` 模块可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块日期附件
+	Config     *QueryHireTalentObjectRespItemSettingConfig `json:"config,omitempty"`      // 模块配置信息
 }
 
 // QueryHireTalentObjectRespItemSettingConfig ...
 type QueryHireTalentObjectRespItemSettingConfig struct {
-	Options []*QueryHireTalentObjectRespItemSettingConfigOption `json:"options,omitempty"` // 选项信息
+	Options []*QueryHireTalentObjectRespItemSettingConfigOption `json:"options,omitempty"` // 选项信息, 模块下该字段不会有值
 }
 
 // QueryHireTalentObjectRespItemSettingConfigOption ...
@@ -160,19 +163,19 @@ type QueryHireTalentObjectRespItemSettingConfigOption struct {
 	Key          string                                                       `json:"key,omitempty"`           // 选项 ID
 	Name         *QueryHireTalentObjectRespItemSettingConfigOptionName        `json:"name,omitempty"`          // 选项名称
 	Description  *QueryHireTalentObjectRespItemSettingConfigOptionDescription `json:"description,omitempty"`   // 选项描述
-	ActiveStatus int64                                                        `json:"active_status,omitempty"` // 是否启用, 可选值有: 1: 已启用, 2: 已停用
+	ActiveStatus int64                                                        `json:"active_status,omitempty"` // 选项是否启用可选值有: 已启用已停用
 }
 
 // QueryHireTalentObjectRespItemSettingConfigOptionDescription ...
 type QueryHireTalentObjectRespItemSettingConfigOptionDescription struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	EnUs string `json:"en_us,omitempty"` // 英文
+	ZhCn string `json:"zh_cn,omitempty"` // 选项中文描述
+	EnUs string `json:"en_us,omitempty"` // 选项英文描述
 }
 
 // QueryHireTalentObjectRespItemSettingConfigOptionName ...
 type QueryHireTalentObjectRespItemSettingConfigOptionName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	EnUs string `json:"en_us,omitempty"` // 英文
+	ZhCn string `json:"zh_cn,omitempty"` // 选项中文名称
+	EnUs string `json:"en_us,omitempty"` // 选项英文名称
 }
 
 // queryHireTalentObjectResp ...

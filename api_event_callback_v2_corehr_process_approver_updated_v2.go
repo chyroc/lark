@@ -21,11 +21,12 @@ import (
 	"context"
 )
 
-// EventV2CorehrProcessApproverUpdatedV2 单个审批任务的状态变化会触发该事件。例如, 审批任务从待办变为已完成。审批任务（approver_id 是唯一标识）, 比如一个多人会签节点, 会分别生成多人的审批任务。
+// EventV2CorehrProcessApproverUpdatedV2 单个审批任务的状态变化会触发该事件。例如, 审批任务从待办变为已完成。审批任务（approver_id 是唯一标识）, 比如一个多人会签节点, 会分别生成多人的审批任务（此功能不受数据权限范围控制）。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v2&resource=process.approver&event=updated)
 //
 // 你需要在应用内配置事件订阅, 并订阅该事件, 这样才可以在事件触发时接收到事件数据。了解事件订阅可参见[事件概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process-approver/events/updated
+// new doc: https://open.feishu.cn/document/corehr-v1/process-form_variable_data/events/updated-2
 func (r *EventCallbackService) HandlerEventV2CorehrProcessApproverUpdatedV2(f EventV2CorehrProcessApproverUpdatedV2Handler) {
 	r.cli.eventHandler.eventV2CorehrProcessApproverUpdatedV2Handler = f
 }
@@ -35,12 +36,13 @@ type EventV2CorehrProcessApproverUpdatedV2Handler func(ctx context.Context, cli 
 
 // EventV2CorehrProcessApproverUpdatedV2 ...
 type EventV2CorehrProcessApproverUpdatedV2 struct {
-	ProcessID        string `json:"process_id,omitempty"`         // 流程实例ID
+	ProcessID        string `json:"process_id,omitempty"`         // 流程运行实例 id, 详细信息可通过[获取单个流程详情](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/get)获取
 	ApproverID       string `json:"approver_id,omitempty"`        // 单据ID
-	Type             int64  `json:"type,omitempty"`               // 单据类型, 可选值有: 1: 审批单, 5: 表单
-	Status           int64  `json:"status,omitempty"`             // 单据状态, 可选值有: 1: 待办, 3: 已完成, 2: 拒绝, 4: 取消
-	BizType          string `json:"biz_type,omitempty"`           // 业务类型, 详情请查看[业务类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process-approver/events/biz-type), 长度范围: `1` ～ `200` 字符
+	Type             int64  `json:"type,omitempty"`               // 单据类型可选值有: 审批单表单
+	Status           int64  `json:"status,omitempty"`             // 单据状态可选值有: 待办已完成拒绝取消已干预
+	BizType          string `json:"biz_type,omitempty"`           // 业务类型, 详情请查看[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/process-form_variable_data/access-guide) 长度范围: `1` ～ `200` 字符
 	FlowDefinitionID string `json:"flow_definition_id,omitempty"` // 流程定义id
 	NodeDefinitionID string `json:"node_definition_id,omitempty"` // 节点定义id
-	NodeID           string `json:"node_id,omitempty"`            // 节点id
+	NodeID           string `json:"node_id,omitempty"`            // 节点id（已废弃, 请使用node_id_str字段)
+	NodeIDStr        string `json:"node_id_str,omitempty"`        // 节点id
 }

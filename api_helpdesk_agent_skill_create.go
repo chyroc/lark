@@ -62,17 +62,17 @@ func (r *Mock) UnMockHelpdeskCreateHelpdeskAgentSkill() {
 
 // CreateHelpdeskAgentSkillReq ...
 type CreateHelpdeskAgentSkillReq struct {
-	Name     *string                            `json:"name,omitempty"`      // 技能名, 示例值: "test-skill"
+	Name     *string                            `json:"name,omitempty"`      // 技能名示例值: "test-skill"
 	Rules    []*CreateHelpdeskAgentSkillReqRule `json:"rules,omitempty"`     // 技能rules
-	AgentIDs []string                           `json:"agent_ids,omitempty"` // 客服 ids, 示例值: ["ou_ea21d7f018e1155d960e40d33191f966"]
+	AgentIDs []string                           `json:"agent_ids,omitempty"` // 客服 ids示例值: ["ou_ea21d7f018e1155d960e40d33191f966"]
 }
 
 // CreateHelpdeskAgentSkillReqRule ...
 type CreateHelpdeskAgentSkillReqRule struct {
-	ID               *string `json:"id,omitempty"`                // rule id, 参考[获取客服技能rules](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_skill_rule/list) 用于获取rules options, 示例值: "test-skill-id"
-	SelectedOperator *int64  `json:"selected_operator,omitempty"` // 运算符比较, 参考[客服技能运算符选项](https://open.feishu.cn/document/ukTMukTMukTM/ucDOyYjL3gjM24yN4IjN/operator-options), 示例值: 8
-	Operand          *string `json:"operand,omitempty"`           // rule 操作数的值, 示例值: "{\"selected_departments\":[{\"id\":\"部门ID\", \"name\":\"IT\"}]}"
-	Category         *int64  `json:"category,omitempty"`          // rule 类型, 1-知识库, 2-工单信息, 3-用户飞书信息, 示例值: 3
+	ID               *string `json:"id,omitempty"`                // rule id, 参考[获取客服技能rules](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_skill_rule/list) 用于获取rules options示例值: "test-skill-id"
+	SelectedOperator *int64  `json:"selected_operator,omitempty"` // 运算符比较, 参考[客服技能运算符选项](https://open.feishu.cn/document/ukTMukTMukTM/ucDOyYjL3gjM24yN4IjN/operator-options)示例值: 8
+	Operand          *string `json:"operand,omitempty"`           // rule 操作数的值示例值: "{\"selected_departments\":[{\"id\":\"部门ID\", \"name\":\"IT\"}]}"
+	Category         *int64  `json:"category,omitempty"`          // rule 类型, 1-知识库, 2-工单信息, 3-用户飞书信息示例值: 3
 }
 
 // CreateHelpdeskAgentSkillResp ...

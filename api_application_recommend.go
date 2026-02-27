@@ -58,10 +58,10 @@ func (r *Mock) UnMockApplicationGetApplicationRecommend() {
 
 // GetApplicationRecommendReq ...
 type GetApplicationRecommendReq struct {
-	Language      *string `query:"language" json:"-"`       // 应用信息的语言版本, 示例值: "zh_cn", 可选值有: zh_cn: 中文, en_us: 英文, ja_jp: 日文
-	RecommendType *string `query:"recommend_type" json:"-"` // 推荐应用类型, 默认为用户不可移除的推荐应用列表, 示例值: "user_unremovable", 可选值有: user_unremovable: 用户不可移除的推荐应用列表, user_removable: 用户可移除的推荐应用列表, 默认值: `user_unremovable`
-	PageToken     *string `query:"page_token" json:"-"`     // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "new-e11ee058b4a8ed2881da11ac7e37c4fc"
-	PageSize      *int64  `query:"page_size" json:"-"`      // 分页大小, 示例值: 10, 默认值: `10`
+	Language      *string `query:"language" json:"-"`       // 应用信息的语言版本示例值: "zh_cn"可选值有: 中文英文日文
+	RecommendType *string `query:"recommend_type" json:"-"` // 推荐应用类型, 默认为用户不可移除的推荐应用列表示例值: "user_unremovable"可选值有: 用户不可移除的推荐应用列表用户可移除的推荐应用列表默认值: `user_unremovable
+	PageToken     *string `query:"page_token" json:"-"`     // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: "new-e11ee058b4a8ed2881da11ac7e37c4fc"
+	PageSize      *int64  `query:"page_size" json:"-"`      // 分页大小示例值: 10默认值: `10
 }
 
 // GetApplicationRecommendResp ...
@@ -78,14 +78,14 @@ type GetApplicationRecommendRespApp struct {
 	AppID       string                                      `json:"app_id,omitempty"`       // 应用ID
 	AppName     string                                      `json:"app_name,omitempty"`     // 应用名
 	Description string                                      `json:"description,omitempty"`  // 应用描述
-	AppType     string                                      `json:"app_type,omitempty"`     // 应用类型, 可选值有: app: 普通应用, shortcut: 快捷入口
+	AppType     string                                      `json:"app_type,omitempty"`     // 应用类型可选值有: 普通应用快捷入口
 	AvatarURL   string                                      `json:"avatar_url,omitempty"`   // 应用图标
 	OpenMethods []*GetApplicationRecommendRespAppOpenMethod `json:"open_methods,omitempty"` // 可以打开应用的方式, 包含移动端小程序applink、移动端网页applink、PC端小程序applink、移动端小程序applink、PC端网页applink、机器人applink
 }
 
 // GetApplicationRecommendRespAppOpenMethod ...
 type GetApplicationRecommendRespAppOpenMethod struct {
-	Type    string `json:"type,omitempty"`    // applink类型, 可选值有: mobile_gadget: 移动端小程序, mobile_web: 移动端Web, pc_gadget: pc端小程序, pc_web: pc端web, bot: 机器人
+	Type    string `json:"type,omitempty"`    // applink类型可选值有: 移动端小程序移动端Webpc端小程序pc端web机器人
 	Applink string `json:"applink,omitempty"` // applink链接
 }
 

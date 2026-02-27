@@ -21,12 +21,12 @@ import (
 	"context"
 )
 
-// GetChatAnnouncement 获取会话中的群公告信息, 公告信息格式与[旧版云文档](https://open.feishu.cn/document/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN)格式相同。
+// GetChatAnnouncement 获取指定群组中的群公告信息, 公告信息格式与[旧版云文档](https://open.feishu.cn/document/ukTMukTMukTM/uAzM5YjLwMTO24CMzkjN)格式相同。
 //
-// 注意事项:
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
-// - 机器人或授权用户必须在群里
-// - 获取内部群信息时, 操作者须与群组在同一租户下
+// ## 前提条件
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// - 调用当前接口的用户或者机器人必须在对应的群组内。
+// - 获取内部群信息时, 调用当前接口的用户或者机器人必须与对应群组在同一租户下。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-announcement/get
 // new doc: https://open.feishu.cn/document/server-docs/group/chat-announcement/get
@@ -64,20 +64,20 @@ func (r *Mock) UnMockChatGetChatAnnouncement() {
 
 // GetChatAnnouncementReq ...
 type GetChatAnnouncementReq struct {
-	ChatID     string  `path:"chat_id" json:"-"`       // 待获取公告的群 ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 注意: 不支持P2P单聊, 示例值: "oc_5ad11d72b830411d72b836c20"
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	ChatID     string  `path:"chat_id" json:"-"`       // 群 ID。获取方式: [创建群](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create), 从返回结果中获取该群的 chat_id。- 调用[获取用户或机器人所在的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list)接口, 可以查询用户或机器人所在群的 chat_id。- 调用[搜索对用户或机器人可见的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search), 可搜索用户或机器人所在的群、对用户或机器人公开的群的 chat_id。注意: 单聊（群类型为 `p2p`）不支持获取群公告。示例值: "oc_5ad11d72b830411d72b836c20"
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetChatAnnouncementResp ...
 type GetChatAnnouncementResp struct {
-	Content        string `json:"content,omitempty"`          // 云文档序列化信息
-	Revision       string `json:"revision,omitempty"`         // 文档当前版本号 纯数字
+	Content        string `json:"content,omitempty"`          // 群公告内容, 以旧版云文档序列化数据结构展示, 数据结构详情参考: [编辑旧版文档内容](https://open.feishu.cn/document/ukTMukTMukTM/uYDM2YjL2AjN24iNwYjN)- [旧版文档数据结构参考](https://open.feishu.cn/document/ukTMukTMukTM/ukDM2YjL5AjN24SOwYjN)
+	Revision       string `json:"revision,omitempty"`         // 文档当前版本号
 	CreateTime     string `json:"create_time,omitempty"`      // 文档生成的时间戳（秒）
 	UpdateTime     string `json:"update_time,omitempty"`      // 文档更新的时间戳（秒）
-	OwnerIDType    IDType `json:"owner_id_type,omitempty"`    // 文档所有者的 ID 类型, 如果所有者是用户, 则与查询参数中的user_id_type 相同；取值为`open_id` `user_id` `union_id` 其中之一, 不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 如果所有者是机器人, 为机器人应用的 `app_id`, 详情参见  [获取应用身份访问凭证](https://open.feishu.cn/document/ukTMukTMukTM/ukDNz4SO0MjL5QzM/g), 可选值有: user_id: 以 user_id 来识别用户, union_id: 以 union_id 来识别用户, open_id: 以 open_id 来识别用户, app_id: 以 app_id 来识别机器人应用
-	OwnerID        string `json:"owner_id,omitempty"`         // 文档所有者 ID, ID 值与owner_id_type 中的ID类型对应
-	ModifierIDType IDType `json:"modifier_id_type,omitempty"` // 文档最新修改者 id 类型, 如果修改者是用户, 则与查询参数中的user_id_type 相同；取值为`open_id` `user_id` `union_id` 其中之一, 不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 如果修改者是机器人, 为机器人应用的 `app_id`, 详情参见  [获取应用身份访问凭证](https://open.feishu.cn/document/ukTMukTMukTM/ukDNz4SO0MjL5QzM/g), 可选值有: user_id: 以 user_id 来识别用户, union_id: 以 union_id 来识别用户, open_id: 以 open_id 来识别用户, app_id: 以 app_id 来识别应用
-	ModifierID     string `json:"modifier_id,omitempty"`      // 文档最新修改者 ID, ID 值与modifier_id_type 中的ID类型对应
+	OwnerIDType    IDType `json:"owner_id_type,omitempty"`    // 文档所有者的 ID 类型- 如果所有者是用户, 则类型与查询参数中的 user_id_type 相同, 取值为`open_id` `user_id` `union_id` 其中之一, 不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)。- 如果所有者是机器人, 为机器人应用的 `app_id`, 详情参见  [获取应用身份访问凭证](https://open.feishu.cn/document/ukTMukTMukTM/ukDNz4SO0MjL5QzM/g)。可选值有: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。飞书开放平台应用的唯一标识。在创建应用时, 由系统自动生成, 用户不能自行修改。
+	OwnerID        string `json:"owner_id,omitempty"`         // 文档所有者 ID, ID 类型与 owner_id_type 取值一致。
+	ModifierIDType IDType `json:"modifier_id_type,omitempty"` // 文档最新修改者 ID 类型。 - 如果修改者是用户, 则类型与查询参数中的 user_id_type 相同, 取值为`open_id` `user_id` `union_id` 其中之一, 不同 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)。- 如果修改者是机器人, 为机器人应用的 `app_id`, 详情参见  [获取应用身份访问凭证](https://open.feishu.cn/document/ukTMukTMukTM/ukDNz4SO0MjL5QzM/g)。可选值有: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。飞书开放平台应用的唯一标识。在创建应用时, 由系统自动生成, 用户不能自行修改。
+	ModifierID     string `json:"modifier_id,omitempty"`      // 文档最新修改者 ID, ID 类型与 modifier_id_type 取值一致。
 }
 
 // getChatAnnouncementResp ...

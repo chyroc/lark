@@ -21,11 +21,15 @@ import (
 	"context"
 )
 
-// GetContactCustomAttrList 获取企业自定义的用户字段配置信息
+// GetContactCustomAttrList 调用该接口查询当前企业内自定义用户字段的配置信息。
 //
-// 此接口仅返回字段来源为“通用信息”的字段, 如字段来源标注为“人事”的字段不会返回。
-// 调用该接口前, 需要先确认[企业管理员](https://www.feishu.cn/hc/zh-CN/articles/360049067822)在[企业管理后台 - 组织架构 - 成员字段管理](http://www.feishu.cn/admin/contacts/employee-field-new/custom) 自定义字段管理栏开启了“允许开放平台API调用“。
-// ![通讯录.gif](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/544738c94f13ef0b9ebaff53a5133cc7_E9EGMkXyzX.gif)
+// ## 使用限制
+// - 仅当企业管理员在[管理后台](https://feishu.cn/admin/index) > 组织架构 > 字段管理 页面添加了自定义用户字段, 并且在 API 调用设置 中开启了 允许开放平台通讯录 API 调用 开关, 当前接口才会获取到自定义用户字段数据。本接口只能获取「文本」、「网页」、「单选选项」、「电话」这几个类型的自定义字段。
+// ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/ff455a6ad3fe53ac3e4c512e0482c73e_FIi4pTe2Gx.png?lazyload=true&width=2396&height=964&maxWidth=600)
+// - 仅可获取字段来源为 通用信息 的自定义用户字段数据。如果字段来源为 人事, 则无法通过该接口查询到对应的数据。
+// ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/2e57bd3ac8533f916feda61d0a34965b_XwtsHxoUZQ.png?lazyload=true&width=2362&height=866&maxWidth=600)
+// - 仅可获取字段归属为 成员 的自定义字段数据。如果字段归属为 部门, 则无法通过该接口查询到对应的数据。
+// ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a3e64baf78ef60738544dd85be933e4a_oj7BfyLARE.png?lazyload=true&width=2362&height=866&maxWidth=600)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/custom_attr/list
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/custom_attr/list
@@ -62,43 +66,43 @@ func (r *Mock) UnMockContactGetContactCustomAttrList() {
 
 // GetContactCustomAttrListReq ...
 type GetContactCustomAttrListReq struct {
-	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 10, 默认值: `20`, 取值范围: `1` ～ `100`
-	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: AQD9/Rn9eij9Pm39ED40/RYU5lvOM4s6zgbeeNNaWd%2BVKwAsoreeRWk0J2noGvJy
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 用于限制一次请求所返回的数据条目数。示例值: 10默认值: `20` 取值范围: `1` ～ `100
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: AQD9/Rn9eij9Pm39ED40/RYU5lvOM4s6zgbeeNNaWd%2BVKwAsoreeRWk0J2noGvJy
 }
 
 // GetContactCustomAttrListResp ...
 type GetContactCustomAttrListResp struct {
-	Items     []*GetContactCustomAttrListRespItem `json:"items,omitempty"`      // 自定义字段定义
+	Items     []*GetContactCustomAttrListRespItem `json:"items,omitempty"`      // 自定义字段信息集合。
 	PageToken string                              `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	HasMore   bool                                `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
 // GetContactCustomAttrListRespItem ...
 type GetContactCustomAttrListRespItem struct {
-	ID       string                                      `json:"id,omitempty"`        // 自定义字段id
-	Type     string                                      `json:"type,omitempty"`      // 自定义字段类型, 可选值有: `TEXT`: 纯文本, 用于纯文本描述人员, 如备注, `HREF`: 静态 URL, 用于人员 Profile 跳转链接, `ENUMERATION`: 枚举, 用于结构化描述人员, 如民族, `GENERIC_USER`: 用户, 用于描述人和人关系, 如 HRBP, `PICTURE_ENUM`: 枚举图片, 以结构化的图片描述人员, 如在人员 Profile 展示荣誉徽章
-	Options  *GetContactCustomAttrListRespItemOptions    `json:"options,omitempty"`   // 选项定义, 当type为`ENUMERATION`或者`PICTURE_ENUM`时此项有值, 列举所有可选项
-	I18nName []*GetContactCustomAttrListRespItemI18nName `json:"i18n_name,omitempty"` // 自定义字段的字段名称
+	ID       string                                      `json:"id,omitempty"`        // 自定义字段 ID。
+	Type     string                                      `json:"type,omitempty"`      // 自定义字段类型。可能值有: `TEXT`: 文本类型- `HREF`: 网页类型- `ENUMERATION`: 枚举类型- `GENERIC_USER`: 用户类型- `PICTURE_ENUM`: 图片类型关于自定义字段类型的更多信息, 可参见[自定义用户字段资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/custom_attr/overview)。
+	Options  *GetContactCustomAttrListRespItemOptions    `json:"options,omitempty"`   // 选项定义, 当 type 为 `ENUMERATION` 或者 `PICTURE_ENUM` 时此项有值, 将列举所有可选项。
+	I18nName []*GetContactCustomAttrListRespItemI18nName `json:"i18n_name,omitempty"` // 自定义字段的字段名称。
 }
 
 // GetContactCustomAttrListRespItemI18nName ...
 type GetContactCustomAttrListRespItemI18nName struct {
-	Locale string `json:"locale,omitempty"` // 语言版本
-	Value  string `json:"value,omitempty"`  // 字段名
+	Locale string `json:"locale,omitempty"` // 语言版本。可能值有: zh_cn: 中文- en_us: 英文- ja_jp: 日文
+	Value  string `json:"value,omitempty"`  // 语言版本对应的字段名称。
 }
 
 // GetContactCustomAttrListRespItemOptions ...
 type GetContactCustomAttrListRespItemOptions struct {
-	DefaultOptionID string                                           `json:"default_option_id,omitempty"` // 默认选项id
-	OptionType      string                                           `json:"option_type,omitempty"`       // 选项类型, 可选值有: TEXT: 文本选项, PICTURE: 图片选项
-	Options         []*GetContactCustomAttrListRespItemOptionsOption `json:"options,omitempty"`           // 选项列表
+	DefaultOptionID string                                           `json:"default_option_id,omitempty"` // 默认选项 ID。
+	OptionType      string                                           `json:"option_type,omitempty"`       // 选项类型。可选值有: 文本选项图片选项
+	Options         []*GetContactCustomAttrListRespItemOptionsOption `json:"options,omitempty"`           // 选项列表。
 }
 
 // GetContactCustomAttrListRespItemOptionsOption ...
 type GetContactCustomAttrListRespItemOptionsOption struct {
-	ID    string `json:"id,omitempty"`    // 枚举类型选项id
-	Value string `json:"value,omitempty"` // 枚举选项值, 当option_type为`TEXT`为文本值, 当option_type为`PICTURE`时为图片链接
-	Name  string `json:"name,omitempty"`  // 名称, 仅option_type为PICTURE时有效
+	ID    string `json:"id,omitempty"`    // 枚举类型选项 ID。
+	Value string `json:"value,omitempty"` // 选项值。- 当 option_type 为 `TEXT` 时, 取值为文本值。- 当 option_type 为 `PICTURE` 时, 取值为图片链接。
+	Name  string `json:"name,omitempty"`  // 图片名称, 仅 option_type 为 PICTURE 时有效。
 }
 
 // getContactCustomAttrListResp ...

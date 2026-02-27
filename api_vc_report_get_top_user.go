@@ -60,12 +60,12 @@ func (r *Mock) UnMockVCGetVCTopUserReport() {
 
 // GetVCTopUserReportReq ...
 type GetVCTopUserReportReq struct {
-	StartTime  string  `query:"start_time" json:"-"`   // 开始时间（unix时间, 单位sec）, 示例值: 1608888867
-	EndTime    string  `query:"end_time" json:"-"`     // 结束时间（unix时间, 单位sec）, 示例值: 1608889966
-	Limit      int64   `query:"limit" json:"-"`        // 取前多少位, 示例值: 10
-	OrderBy    int64   `query:"order_by" json:"-"`     // 排序依据（降序）, 示例值: 1, 可选值有: 1: 会议数量, 2: 会议时长
-	Unit       *int64  `query:"unit" json:"-"`         // 数据驻留地（传参前提是租户存在多个驻留地数据且开通了该查询功能）, 示例值: 0, 可选值有: 0: 中国大陆, 1: 美国, 2: 新加坡, 3: 日本
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	StartTime  string  `query:"start_time" json:"-"`   // 开始时间（unix时间, 单位sec）示例值: 1608888867
+	EndTime    string  `query:"end_time" json:"-"`     // 结束时间（unix时间, 单位sec）示例值: 1608889966
+	Limit      int64   `query:"limit" json:"-"`        // 取前多少位示例值: 10
+	OrderBy    int64   `query:"order_by" json:"-"`     // 排序依据（降序）示例值: 1可选值有: 会议数量会议时长
+	Unit       *int64  `query:"unit" json:"-"`         // 数据驻留地（传参前提是租户存在多个驻留地数据且开通了该查询功能）示例值: 0可选值有: 中国大陆美国新加坡日本
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetVCTopUserReportResp ...
@@ -77,7 +77,7 @@ type GetVCTopUserReportResp struct {
 type GetVCTopUserReportRespTopUserReport struct {
 	ID              string `json:"id,omitempty"`               // 用户ID
 	Name            string `json:"name,omitempty"`             // 用户名
-	UserType        int64  `json:"user_type,omitempty"`        // 用户类型, 可选值有: 1: 飞书用户, 2: rooms用户, 3: 文档用户, 4: neo单品用户, 5: neo单品游客用户, 6: pstn用户, 7: sip用户
+	UserType        int64  `json:"user_type,omitempty"`        // 用户类型可选值有: 飞书用户rooms用户文档用户neo单品用户neo单品游客用户pstn用户sip用户
 	MeetingCount    string `json:"meeting_count,omitempty"`    // 会议数量
 	MeetingDuration string `json:"meeting_duration,omitempty"` // 会议时长（单位min）
 }

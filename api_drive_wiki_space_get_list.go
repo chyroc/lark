@@ -23,9 +23,10 @@ import (
 
 // GetWikiSpaceList 此接口用于获取有权限访问的知识空间列表。
 //
-// 此接口为分页接口。由于权限过滤, 可能返回列表为空, 但分页标记（has_more）为true, 可以继续分页请求。
-// 对于知识空间各项属性描述请参阅[获取知识空间信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get)
-// 使用tenant access token调用时, 请确认应用/机器人拥有部分知识空间的访问权限, 否则返回列表容易为空。参阅[如何将应用添加为知识库管理员（成员）](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/wiki-qa#b5da330b)。
+// ## 注意事项
+// - 使用 tenant access token 调用时, 请确认应用或机器人拥有部分知识空间的访问权限, 否则返回列表为空。参阅[如何将应用添加为知识库管理员（成员）](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/wiki-qa#b5da330b)。
+// - 此接口为分页接口。由于权限过滤, 可能返回列表为空, 但当分页标记（has_more）为 true 时, 可以继续分页请求。
+// - 此接口不会返回我的文档库。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/list
 // new doc: https://open.feishu.cn/document/server-docs/docs/wiki-v2/space/list
@@ -63,8 +64,8 @@ func (r *Mock) UnMockDriveGetWikiSpaceList() {
 
 // GetWikiSpaceListReq ...
 type GetWikiSpaceListReq struct {
-	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 10, 最大值: `50`
-	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 1565676577122621
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小示例值: 10默认值: `20` 最大值: `50
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 1565676577122621
 }
 
 // GetWikiSpaceListResp ...
@@ -76,11 +77,12 @@ type GetWikiSpaceListResp struct {
 
 // GetWikiSpaceListRespItem ...
 type GetWikiSpaceListRespItem struct {
-	Name        string `json:"name,omitempty"`        // 知识空间名称
-	Description string `json:"description,omitempty"` // 知识空间描述
-	SpaceID     string `json:"space_id,omitempty"`    // 知识空间id
-	SpaceType   string `json:"space_type,omitempty"`  // 表示知识空间类型（团队空间 或 个人空间）, 可选值有: team: 团队空间, person: 个人空间
-	Visibility  string `json:"visibility,omitempty"`  // 表示知识空间可见性（公开空间 或 私有空间）, 可选值有: public: 公开空间, private: 私有空间
+	Name        string `json:"name,omitempty"`         // 知识空间名称
+	Description string `json:"description,omitempty"`  // 知识空间描述
+	SpaceID     string `json:"space_id,omitempty"`     // 知识空间 ID
+	SpaceType   string `json:"space_type,omitempty"`   // 表示知识空间类型可选值有: 团队空间, 归团队（多人）管理, 可添加多个管理员个人空间（旧版, 已下线）, 归个人管理。一人仅可拥有一个, 无法添加其他管理员我的文档库, 归个人管理。一人仅可拥有一个, 无法添加其他管理员
+	Visibility  string `json:"visibility,omitempty"`   // 表示知识空间可见性可选值有: 公开空间, 租户内所有用户可见, 默认为成员权限。无法额外添加成员, 但可以添加管理员私有空间, 仅对知识空间管理员、成员可见, 需要手动添加管理员、成员
+	OpenSharing string `json:"open_sharing,omitempty"` // 表示知识空间的分享状态可选值有: 打开, 即知识空间发布到互联网关闭, 即知识空间未发布到互联网
 }
 
 // getWikiSpaceListResp ...

@@ -23,6 +23,7 @@ import (
 
 // GetApplicationUsageTrend 查询应用在指定时间段内企业员工的使用趋势信息。
 //
+// :::warning
 // 此接口目前仅支持小程序的使用情况查询, 不支持网页应用和机器人应用的使用情况查询;仅支持查询自建应用, 不支持查询商店应用
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uITN0YjLyUDN24iM1QjN

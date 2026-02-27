@@ -24,7 +24,9 @@ import (
 // CreateAttendanceGroup 考勤组, 是对部门或者员工在某个特定场所及特定时间段内的出勤情况（包括上下班、迟到、早退、病假、婚假、丧假、公休、工作时间、加班情况等）的一种规则设定。
 //
 // 通过设置考勤组, 可以从部门、员工两个维度, 来设定考勤方式、考勤时间、考勤地点等考勤规则。
-// 出于安全考虑, 目前通过该接口只允许修改自己创建的考勤组。
+// 对应功能同设置-假勤设置-[考勤组](https://example.feishu.cn/people/workforce-management/setting/group/list)的“新建”功能
+// 注意: 此接口在修改时为数据覆盖, 需要传入全部的考勤组信息
+// 出于安全考虑, 如果传入操作人, 该接口只允许修改操作人有权限的考勤组。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/create
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/group/create
@@ -61,267 +63,326 @@ func (r *Mock) UnMockAttendanceCreateAttendanceGroup() {
 
 // CreateAttendanceGroupReq ...
 type CreateAttendanceGroupReq struct {
-	EmployeeType EmployeeType                   `query:"employee_type" json:"-"` // 用户 ID 的类型, 示例值: employee_id, 可选值有: employee_id: 员工 employee ID, 即[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的用户 ID, employee_no: 员工工号, 即[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的工号
-	DeptType     string                         `query:"dept_type" json:"-"`     // 部门 ID 的类型, 示例值: open_id, 可选值有: open_id: 暂时只支持部门的 openid
-	Group        *CreateAttendanceGroupReqGroup `json:"group,omitempty"`         // 6921319402260496386
-	OperatorID   *string                        `json:"operator_id,omitempty"`   // 操作人uid, 如果您未操作[考勤管理后台“API 接入”流程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/attendance-development-guidelines), 则此字段为必填字段, 示例值: "dd31248a"
+	EmployeeType EmployeeType                   `query:"employee_type" json:"-"` // 响应体中的 user_id 的员工ID类型。如果没有后台管理权限, 可使用[通过手机号或邮箱获取用户 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/batch_get_id)示例值: employee_id可选值有: 员工 employee ID, 即[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的用户 ID员工工号, 即[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的工号
+	DeptType     string                         `query:"dept_type" json:"-"`     // 部门 ID 的类型示例值: open_id可选值有: 暂时只支持部门的 openid。具体概念请参考[部门资源介绍](https://open.larkoffice.com/document/server-docs/contact-v3/department/field-overview)中的open_department_id
+	Group        *CreateAttendanceGroupReqGroup `json:"group,omitempty"`         // 考勤组信息
+	OperatorID   *string                        `json:"operator_id,omitempty"`   // 操作人uid, 对应employee_type, 如果您未操作[考勤管理后台“API 接入”流程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/attendance-development-guidelines), 则此字段为必填字段示例值: "dd31248a"
 }
 
 // CreateAttendanceGroupReqGroup ...
 type CreateAttendanceGroupReqGroup struct {
-	GroupID                 *string                                               `json:"group_id,omitempty"`                    // 考勤组 ID（仅修改时提供）, 需要从“获取打卡结果”的接口中获取 groupId, 示例值: "6919358128597097404"
-	GroupName               string                                                `json:"group_name,omitempty"`                  // 考勤组名称, 示例值: "开心考勤"
-	TimeZone                string                                                `json:"time_zone,omitempty"`                   // 时区, 示例值: "Asia/Shanghai"
-	BindDeptIDs             []string                                              `json:"bind_dept_ids,omitempty"`               // 绑定的部门 ID（与「need_punch_members」同时使用时, 以当前字段为准）, 示例值: ["od-fcb45c28a45311afd440b7869541fce8"]
-	ExceptDeptIDs           []string                                              `json:"except_dept_ids,omitempty"`             // 排除的部门 ID（该字段已下线）, 示例值: ["od-fcb45c28a45311afd440b7869541fce8"]
-	BindUserIDs             []string                                              `json:"bind_user_ids,omitempty"`               // 绑定的用户 ID（与「need_punch_members」同时使用时, 以当前字段为准）, 示例值: ["52aa1fa1"]
-	ExceptUserIDs           []string                                              `json:"except_user_ids,omitempty"`             // 排除的用户 ID（该字段已下线）, 示例值: ["52aa1fa1"]
-	GroupLeaderIDs          []string                                              `json:"group_leader_ids,omitempty"`            // 考勤主负责人 ID 列表, 必选字段（需至少拥有考勤组管理员权限）, 示例值: ["2bg4a9be"]
-	SubGroupLeaderIDs       []string                                              `json:"sub_group_leader_ids,omitempty"`        // 考勤子负责人 ID 列表, 示例值: ["52aa1fa1"]
-	AllowOutPunch           *bool                                                 `json:"allow_out_punch,omitempty"`             // 是否允许外勤打卡, 示例值: true
-	OutPunchNeedApproval    *bool                                                 `json:"out_punch_need_approval,omitempty"`     // 外勤打卡需审批（需要允许外勤打卡才能设置生效）, 示例值: true
-	OutPunchNeedRemark      *bool                                                 `json:"out_punch_need_remark,omitempty"`       // 外勤打卡需填写备注（需要允许外勤打卡才能设置生效）, 示例值: true
-	OutPunchNeedPhoto       *bool                                                 `json:"out_punch_need_photo,omitempty"`        // 外勤打卡需拍照（需要允许外勤打卡才能设置生效）, 示例值: true
-	OutPunchAllowedHideAddr *bool                                                 `json:"out_punch_allowed_hide_addr,omitempty"` // 外勤打卡允许员工隐藏详细地址（需要允许外勤打卡才能设置生效）, 示例值: true
-	AllowPcPunch            *bool                                                 `json:"allow_pc_punch,omitempty"`              // 是否允许 PC 端打卡, 示例值: true
-	AllowRemedy             *bool                                                 `json:"allow_remedy,omitempty"`                // 是否限制补卡, 示例值: true
-	RemedyLimit             *bool                                                 `json:"remedy_limit,omitempty"`                // 是否限制补卡次数, 示例值: true
-	RemedyLimitCount        *int64                                                `json:"remedy_limit_count,omitempty"`          // 补卡次数, 示例值: 3
-	RemedyDateLimit         *bool                                                 `json:"remedy_date_limit,omitempty"`           // 是否限制补卡时间, 示例值: true
-	RemedyDateNum           *int64                                                `json:"remedy_date_num,omitempty"`             // 补卡时间, 几天内补卡, 示例值: 3
-	AllowRemedyTypeLack     *bool                                                 `json:"allow_remedy_type_lack,omitempty"`      // 允许缺卡补卡（需要允许补卡才能设置生效）, 示例值: true
-	AllowRemedyTypeLate     *bool                                                 `json:"allow_remedy_type_late,omitempty"`      // 允许迟到补卡（需要允许补卡才能设置生效）, 示例值: true
-	AllowRemedyTypeEarly    *bool                                                 `json:"allow_remedy_type_early,omitempty"`     // 允许早退补卡（需要允许补卡才能设置生效）, 示例值: true
-	AllowRemedyTypeNormal   *bool                                                 `json:"allow_remedy_type_normal,omitempty"`    // 允许正常补卡（需要允许补卡才能设置生效）, 示例值: true
-	ShowCumulativeTime      *bool                                                 `json:"show_cumulative_time,omitempty"`        // 是否展示累计时长, 示例值: true
-	ShowOverTime            *bool                                                 `json:"show_over_time,omitempty"`              // 是否展示加班时长, 示例值: true
-	HideStaffPunchTime      *bool                                                 `json:"hide_staff_punch_time,omitempty"`       // 是否隐藏员工打卡详情, 示例值: true
-	FacePunch               *bool                                                 `json:"face_punch,omitempty"`                  // 是否开启人脸识别打卡, 示例值: true
-	FacePunchCfg            *int64                                                `json:"face_punch_cfg,omitempty"`              // 人脸识别打卡规则, 可选值有: * 1: 每次打卡均需人脸识别, * 2: 疑似作弊打卡时需要人脸识别, 示例值: 1
-	FaceLiveNeedAction      *bool                                                 `json:"face_live_need_action,omitempty"`       // 人脸打卡规则, 可选值有: * false: 表示开启活体验证, * true: 表示动作验证, 仅在 face_punch_cfg = 1 时有效, 示例值: false
-	FaceDowngrade           *bool                                                 `json:"face_downgrade,omitempty"`              // 人脸识别失败时是否允许普通拍照打卡, 示例值: true
-	ReplaceBasicPic         *bool                                                 `json:"replace_basic_pic,omitempty"`           // 人脸识别失败时是否允许替换基准图片, 示例值: true
-	Machines                []*CreateAttendanceGroupReqGroupMachine               `json:"machines,omitempty"`                    // 考勤机列表
-	GpsRange                *int64                                                `json:"gps_range,omitempty"`                   // GPS 打卡的有效范围（不建议使用）, 示例值: 300
-	Locations               []*CreateAttendanceGroupReqGroupLocation              `json:"locations,omitempty"`                   // 地址列表（仅追加, 不会覆盖之前的列表）
-	GroupType               int64                                                 `json:"group_type,omitempty"`                  // 考勤类型, 可选值有: * 0: 固定班制, * 2: 排班制, * 3: 自由班制, 示例值: 0
-	PunchDayShiftIDs        []string                                              `json:"punch_day_shift_ids,omitempty"`         // 固定班制必须填, 示例值: ["xxx"]
-	FreePunchCfg            *CreateAttendanceGroupReqGroupFreePunchCfg            `json:"free_punch_cfg,omitempty"`              // 配置自由班制
-	CalendarID              int64                                                 `json:"calendar_id,omitempty"`                 // 国家日历  ID, 可选值有: * 0: 不根据国家日历排休, * 1: 中国大陆, * 2: 美国, * 3: 日本, * 4: 印度, * 5: 新加坡, 示例值: 1
-	NeedPunchSpecialDays    []*CreateAttendanceGroupReqGroupNeedPunchSpecialDay   `json:"need_punch_special_days,omitempty"`     // 必须打卡的特殊日期
-	NoNeedPunchSpecialDays  []*CreateAttendanceGroupReqGroupNoNeedPunchSpecialDay `json:"no_need_punch_special_days,omitempty"`  // 无需打卡的特殊日期
-	WorkDayNoPunchAsLack    *bool                                                 `json:"work_day_no_punch_as_lack,omitempty"`   // 自由班制下工作日不打卡是否记为缺卡, 示例值: true
-	EffectNow               *bool                                                 `json:"effect_now,omitempty"`                  // 是否立即生效, 默认 false, 示例值: true
-	RemedyPeriodType        *int64                                                `json:"remedy_period_type,omitempty"`          // 补卡周期类型, 示例值: 0
-	RemedyPeriodCustomDate  *int64                                                `json:"remedy_period_custom_date,omitempty"`   // 补卡自定义周期起始日期, 示例值: 1
-	PunchType               *int64                                                `json:"punch_type,omitempty"`                  // 打卡类型, 位运算, 即如需设置 1 和 2 两种打卡类型, 则需要传入加和值 3, 可选值: * 1: GPS 打卡, * 2: Wi-Fi 打卡, * 4: 考勤机打卡, * 8: IP 打卡, 示例值: 1
-	RestClockInNeedApproval *bool                                                 `json:"rest_clockIn_need_approval,omitempty"`  // 休息日打卡需审批。当设置 `rest_clockIn_need_approval=true` 时, 休息日一天开始时间会被重置为 4:00, 示例值: true
-	ClockInNeedPhoto        *bool                                                 `json:"clockIn_need_photo,omitempty"`          // 每次打卡均需拍照, 示例值: true
-	MemberStatusChange      *CreateAttendanceGroupReqGroupMemberStatusChange      `json:"member_status_change,omitempty"`        // 人员异动打卡设置
-	LeaveNeedPunch          *bool                                                 `json:"leave_need_punch,omitempty"`            // 请假离岗或返岗是否需打卡, 示例值: false
-	LeaveNeedPunchCfg       *CreateAttendanceGroupReqGroupLeaveNeedPunchCfg       `json:"leave_need_punch_cfg,omitempty"`        // 请假离岗或返岗打卡规则
-	GoOutNeedPunch          *int64                                                `json:"go_out_need_punch,omitempty"`           // 外出期间是否需打卡, 示例值: 0
-	GoOutNeedPunchCfg       *CreateAttendanceGroupReqGroupGoOutNeedPunchCfg       `json:"go_out_need_punch_cfg,omitempty"`       // 外出期间打卡规则
-	TravelNeedPunch         *int64                                                `json:"travel_need_punch,omitempty"`           // 出差期间是否需打卡, 示例值: 0
-	TravelNeedPunchCfg      *CreateAttendanceGroupReqGroupTravelNeedPunchCfg      `json:"travel_need_punch_cfg,omitempty"`       // 出差期间打卡规则
-	NeedPunchMembers        []*CreateAttendanceGroupReqGroupNeedPunchMember       `json:"need_punch_members,omitempty"`          // 需要打卡的人员集合（仅当不传「bind_dept_ids」和「bind_user_ids」时, 才会使用该字段）
-	NoNeedPunchMembers      []*CreateAttendanceGroupReqGroupNoNeedPunchMember     `json:"no_need_punch_members,omitempty"`       // 无需打卡的人员集合（仅当不传「bind_default_dept_ids」和「bind_default_user_ids」时, 才会使用该字段）
-	SaveAutoChanges         *bool                                                 `json:"save_auto_changes,omitempty"`           // 是否允许保存有冲突人员的考勤组。如果 true, 则冲突人员将被自动拉入到当前设置的考勤组中, 并从原考勤组中移除；如果 false, 则需手动调整冲突人员。默认为 false, 示例值: false
-	OrgChangeAutoAdjust     *bool                                                 `json:"org_change_auto_adjust,omitempty"`      // 当有新员工入职或人员异动, 符合条件的人员是否自动加入考勤组, 示例值: false
-	BindDefaultDeptIDs      []string                                              `json:"bind_default_dept_ids,omitempty"`       // 参与无需打卡的部门 ID 列表（与「no_need_punch_members」同时使用时, 以当前字段为准）, 示例值: ["od-fcb45c28a45311afd440b7869541fce8"]
-	BindDefaultUserIDs      []string                                              `json:"bind_default_user_ids,omitempty"`       // 参与无需打卡的人员 ID 列表（与「no_need_punch_members」同时使用时, 以当前字段为准）, 示例值: ["dd31248a"]
+	GroupID                   *string                                               `json:"group_id,omitempty"`                      // 考勤组 ID（仅修改时提供）, 需要从[按名称查询考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/search)或[查询所有考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/list)接口中获取 groupId。如果不填的话, 会创建新的考勤组。示例值: "6919358128597097404"
+	GroupName                 string                                                `json:"group_name,omitempty"`                    // 考勤组名称示例值: "开心考勤"
+	TimeZone                  string                                                `json:"time_zone,omitempty"`                     // 时区示例值: "Asia/Shanghai"
+	BindDeptIDs               []string                                              `json:"bind_dept_ids,omitempty"`                 // 绑定的部门 ID（与「need_punch_members」同时使用时, 以当前字段为准）。对应dept_type示例值: ["od-fcb45c28a45311afd440b7869541fce8"]
+	ExceptDeptIDs             []string                                              `json:"except_dept_ids,omitempty"`               // 排除的部门 ID（该字段已下线）示例值: ["od-fcb45c28a45311afd440b7869541fce8"]
+	BindUserIDs               []string                                              `json:"bind_user_ids,omitempty"`                 // 绑定的用户 ID（与「need_punch_members」同时使用时, 以当前字段为准）, 对应employee_type示例值: ["52aa1fa1"]
+	ExceptUserIDs             []string                                              `json:"except_user_ids,omitempty"`               // 排除的用户 ID（该字段已下线）示例值: ["52aa1fa1"]
+	GroupLeaderIDs            []string                                              `json:"group_leader_ids,omitempty"`              // 考勤主负责人 ID 列表, 必选字段（需至少拥有考勤组管理员权限）, 对应employee_type示例值: ["2bg4a9be"]
+	SubGroupLeaderIDs         []string                                              `json:"sub_group_leader_ids,omitempty"`          // 考勤子负责人 ID 列表, 对应employee_type示例值: ["52aa1fa1"]
+	AllowOutPunch             *bool                                                 `json:"allow_out_punch,omitempty"`               // 是否允许外勤打卡, 默认为空示例值: true
+	OutPunchNeedApproval      *bool                                                 `json:"out_punch_need_approval,omitempty"`       // 外勤打卡需审批（需要允许外勤打卡才能设置生效）, 默认为空示例值: true
+	OutPunchNeedPostApproval  *bool                                                 `json:"out_punch_need_post_approval,omitempty"`  // 外勤打卡需审批, 先打卡后审批（需要允许外勤打卡才能设置生效）示例值: true
+	OutPunchNeedRemark        *bool                                                 `json:"out_punch_need_remark,omitempty"`         // 外勤打卡需填写备注（需要允许外勤打卡才能设置生效）, 默认为空示例值: true
+	OutPunchNeedPhoto         *bool                                                 `json:"out_punch_need_photo,omitempty"`          // 外勤打卡需拍照（需要允许外勤打卡才能设置生效）, 默认为空示例值: true
+	OutPunchAllowedHideAddr   *bool                                                 `json:"out_punch_allowed_hide_addr,omitempty"`   // 外勤打卡允许员工隐藏详细地址（需要允许外勤打卡才能设置生效）, 默认为空示例值: true
+	OutPunchAllowedAdjustAddr *bool                                                 `json:"out_punch_allowed_adjust_addr,omitempty"` // 外勤打卡允许微调地址（需要允许外勤打卡才能设置生效）示例值: true
+	AdjustRange               *int64                                                `json:"adjust_range,omitempty"`                  // 微调范围, 默认为 50 米示例值: 50
+	AllowPcPunch              *bool                                                 `json:"allow_pc_punch,omitempty"`                // 是否允许 PC 端打卡, 默认为空示例值: true
+	AllowRemedy               *bool                                                 `json:"allow_remedy,omitempty"`                  // 是否限制补卡, 默认为空示例值: true
+	RemedyLimit               *bool                                                 `json:"remedy_limit,omitempty"`                  // 是否限制补卡次数, 默认为空示例值: true
+	RemedyLimitCount          *int64                                                `json:"remedy_limit_count,omitempty"`            // 补卡次数, 默认为空示例值: 3
+	RemedyDateLimit           *bool                                                 `json:"remedy_date_limit,omitempty"`             // 是否限制补卡时间, 默认为空示例值: true
+	RemedyDateNum             *int64                                                `json:"remedy_date_num,omitempty"`               // 补卡时间, 几天内补卡, 默认为空示例值: 3
+	AllowRemedyTypeLack       *bool                                                 `json:"allow_remedy_type_lack,omitempty"`        // 允许缺卡补卡（需要允许补卡才能设置生效）, 默认为空示例值: true
+	AllowRemedyTypeLate       *bool                                                 `json:"allow_remedy_type_late,omitempty"`        // 允许迟到补卡（需要允许补卡才能设置生效）, 默认为空示例值: true
+	AllowRemedyTypeEarly      *bool                                                 `json:"allow_remedy_type_early,omitempty"`       // 允许早退补卡（需要允许补卡才能设置生效）, 默认为空示例值: true
+	AllowRemedyTypeNormal     *bool                                                 `json:"allow_remedy_type_normal,omitempty"`      // 允许正常补卡（需要允许补卡才能设置生效）, 默认为空示例值: true
+	ShowCumulativeTime        *bool                                                 `json:"show_cumulative_time,omitempty"`          // 是否展示累计时长, 默认为空示例值: true
+	ShowOverTime              *bool                                                 `json:"show_over_time,omitempty"`                // 是否展示加班时长, 默认为空示例值: true
+	HideStaffPunchTime        *bool                                                 `json:"hide_staff_punch_time,omitempty"`         // 是否隐藏员工打卡详情, 默认为空示例值: true
+	HideClockInRule           *bool                                                 `json:"hide_clock_in_rule,omitempty"`            // 是否隐藏打卡规则（仅灰度租户有效, 如需使用请联系技术支持）示例值: false
+	FacePunch                 *bool                                                 `json:"face_punch,omitempty"`                    // 是否开启人脸识别打卡, 默认为空示例值: true
+	FacePunchCfg              *int64                                                `json:"face_punch_cfg,omitempty"`                // 人脸识别打卡规则, 默认为空可选值有: * 1: 每次打卡均需人脸识别* 2: 疑似作弊打卡时需要人脸识别示例值: 1
+	FaceLiveNeedAction        *bool                                                 `json:"face_live_need_action,omitempty"`         // 人脸打卡规则, 默认为空可选值有: * false: 表示开启活体验证 * true: 表示动作验证, 仅在 face_punch_cfg = 1 时有效示例值: false
+	FaceDowngrade             *bool                                                 `json:"face_downgrade,omitempty"`                // 人脸识别失败时是否允许普通拍照打卡, 默认为空示例值: true
+	ReplaceBasicPic           *bool                                                 `json:"replace_basic_pic,omitempty"`             // 人脸识别失败时是否允许替换基准图片, 默认为空示例值: true
+	AntiCheatPunchConfig      *CreateAttendanceGroupReqGroupAntiCheatPunchConfig    `json:"anti_cheat_punch_config,omitempty"`       // 防作弊打卡配置, 不传入时默认关闭/不更新（仅灰度租户有效, 如需使用请联系技术支持）
+	Machines                  []*CreateAttendanceGroupReqGroupMachine               `json:"machines,omitempty"`                      // 考勤机列表
+	GpsRange                  *int64                                                `json:"gps_range,omitempty"`                     // GPS 打卡的有效范围示例值: 300
+	Locations                 []*CreateAttendanceGroupReqGroupLocation              `json:"locations,omitempty"`                     // 地址列表（仅追加, 不会覆盖之前的列表）
+	GroupType                 int64                                                 `json:"group_type,omitempty"`                    // 考勤类型可选值有: * 1: 固定班制* 2: 排班制* 3: 自由班制示例值: 1
+	PunchDayShiftIDs          []string                                              `json:"punch_day_shift_ids,omitempty"`           // 班次 ID 列表。当考勤类型参数（group_type）设置为固定班制时, 必须填够 7 个（从周一至周日）。当考勤类型参数（group_type）设置为排班制或自由班制时, 请传入空数组。班次 ID 可以通过[查询所有班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/list) 和[按名称查询班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/query) 获取。休息日填0示例值: ["xxx", "0", "xxx", "xxx", "0", "xxx", "xxx", "xxx"]
+	FreePunchCfg              *CreateAttendanceGroupReqGroupFreePunchCfg            `json:"free_punch_cfg,omitempty"`                // 配置自由班制
+	CalendarID                int64                                                 `json:"calendar_id,omitempty"`                   // 国家日历  ID可选值有: * 0: 不根据国家日历排休* 1: 中国大陆* 2: 美国* 3: 日本* 4: 印度* 5: 新加坡示例值: 1
+	NeedPunchSpecialDays      []*CreateAttendanceGroupReqGroupNeedPunchSpecialDay   `json:"need_punch_special_days,omitempty"`       // 必须打卡的特殊日期
+	NoNeedPunchSpecialDays    []*CreateAttendanceGroupReqGroupNoNeedPunchSpecialDay `json:"no_need_punch_special_days,omitempty"`    // 无需打卡的特殊日期
+	WorkDayNoPunchAsLack      *bool                                                 `json:"work_day_no_punch_as_lack,omitempty"`     // 自由班制下工作日不打卡是否记为缺卡, 默认为空示例值: true
+	EffectNow                 *bool                                                 `json:"effect_now,omitempty"`                    // 是否立即生效, 默认 false示例值: true
+	RemedyPeriodType          *int64                                                `json:"remedy_period_type,omitempty"`            // 补卡周期类型* 1: 按月* 2: 自定义示例值: 1
+	RemedyPeriodCustomDate    *int64                                                `json:"remedy_period_custom_date,omitempty"`     // 补卡自定义周期起始日期, 范围0-28号示例值: 1
+	PunchType                 *int64                                                `json:"punch_type,omitempty"`                    // 打卡类型。位运算, 即如需设置 1 和 2 两种打卡类型, 则需要传入加和值 3。可选值: * 1: GPS 打卡* 2: Wi-Fi 打卡* 4: 考勤机打卡* 8: IP 打卡示例值: 1
+	RestClockInNeedApproval   *bool                                                 `json:"rest_clockIn_need_approval,omitempty"`    // 休息日打卡需审批。当设置 `rest_clockIn_need_approval=true` 时, 休息日一天开始时间会被重置为 4:00。默认为空示例值: true
+	ClockInNeedPhoto          *bool                                                 `json:"clockIn_need_photo,omitempty"`            // 每次打卡均需拍照, 默认为空示例值: true
+	MemberStatusChange        *CreateAttendanceGroupReqGroupMemberStatusChange      `json:"member_status_change,omitempty"`          // 人员异动打卡设置
+	LeaveNeedPunch            *bool                                                 `json:"leave_need_punch,omitempty"`              // 请假离岗或返岗是否需打卡, 默认为空示例值: false
+	LeaveNeedPunchCfg         *CreateAttendanceGroupReqGroupLeaveNeedPunchCfg       `json:"leave_need_punch_cfg,omitempty"`          // 请假离岗或返岗打卡规则, 单位: 分钟
+	GoOutNeedPunch            *int64                                                `json:"go_out_need_punch,omitempty"`             // 外出期间是否需打卡, 默认为0。0:无需打卡, 1:需在上下班时间打卡, 2:需在离岗前或返岗后打卡示例值: 0
+	GoOutNeedPunchCfg         *CreateAttendanceGroupReqGroupGoOutNeedPunchCfg       `json:"go_out_need_punch_cfg,omitempty"`         // 外出期间打卡规则, 单位: 分钟
+	TravelNeedPunch           *int64                                                `json:"travel_need_punch,omitempty"`             // 出差期间是否需打卡, 默认为0。0:无需打卡, 1:需在上了下班时间打卡, 2:需在离岗前或返岗后打卡示例值: 0
+	TravelNeedPunchCfg        *CreateAttendanceGroupReqGroupTravelNeedPunchCfg      `json:"travel_need_punch_cfg,omitempty"`         // 出差期间打卡规则, 单位: 分钟
+	NeedPunchMembers          []*CreateAttendanceGroupReqGroupNeedPunchMember       `json:"need_punch_members,omitempty"`            // 需要打卡的人员集合（仅当不传「bind_dept_ids」和「bind_user_ids」时, 才会使用该字段）
+	NoNeedPunchMembers        []*CreateAttendanceGroupReqGroupNoNeedPunchMember     `json:"no_need_punch_members,omitempty"`         // 无需打卡的人员集合（仅当不传「bind_default_dept_ids」和「bind_default_user_ids」时, 才会使用该字段）
+	SaveAutoChanges           *bool                                                 `json:"save_auto_changes,omitempty"`             // 是否允许保存有冲突人员的考勤组。如果 true, 则冲突人员将被自动拉入到当前设置的考勤组中, 并从原考勤组中移除；如果 false, 则需手动调整冲突人员。默认为 false。示例值: false
+	OrgChangeAutoAdjust       *bool                                                 `json:"org_change_auto_adjust,omitempty"`        // 当有新员工入职或人员异动, 符合条件的人员是否自动加入考勤组。默认为空示例值: false
+	BindDefaultDeptIDs        []string                                              `json:"bind_default_dept_ids,omitempty"`         // 参与无需打卡的部门 ID 列表（与「no_need_punch_members」同时使用时, 以当前字段为准）, 对应dept_type示例值: ["od-fcb45c28a45311afd440b7869541fce8"]
+	BindDefaultUserIDs        []string                                              `json:"bind_default_user_ids,omitempty"`         // 参与无需打卡的人员 ID 列表（与「no_need_punch_members」同时使用时, 以当前字段为准）, 对应employee_type示例值: ["dd31248a"]
+	OvertimeClockCfg          *CreateAttendanceGroupReqGroupOvertimeClockCfg        `json:"overtime_clock_cfg,omitempty"`            // 加班打卡规则
+	NewCalendarID             *string                                               `json:"new_calendar_id,omitempty"`               // 节假日id, （如果考勤组使用了自定义节假日, 请用此参数传入节假日id, 可在假勤设置-节假日模块页面路径获取）示例值: "7302191700771358252"
+	AllowApplyPunch           *bool                                                 `json:"allow_apply_punch,omitempty"`             // 定位不准时是否允许申请打卡示例值: true
+	ClockInAbnormalSettings   *CreateAttendanceGroupReqGroupClockInAbnormalSettings `json:"clock_in_abnormal_settings,omitempty"`    // 异常卡豁免配置
+}
+
+// CreateAttendanceGroupReqGroupAntiCheatPunchConfig ...
+type CreateAttendanceGroupReqGroupAntiCheatPunchConfig struct {
+	InterceptSuspectedCheatPunch bool   `json:"intercept_suspected_cheat_punch,omitempty"` // 是否拦截疑似作弊打卡, 不传入时默认关闭/不更新；关闭时, 其余防作弊开关都会关闭示例值: true
+	CheckCheatSoftwarePunch      *bool  `json:"check_cheat_software_punch,omitempty"`      // 是否校验疑似作弊软件打卡, 不传入时默认关闭/不更新示例值: true
+	CheckBuddyPunch              *bool  `json:"check_buddy_punch,omitempty"`               // 是否校验疑似他人代打卡, 不传入时默认关闭/不更新示例值: true
+	CheckSimulateWifiPunch       *bool  `json:"check_simulate_wifi_punch,omitempty"`       // 是否校验疑似模拟 WI-FI 打卡, 不传入时默认关闭/不更新（仅灰度租户有效, 如需使用请联系技术支持）示例值: true
+	CheckChangeDevicePunch       *bool  `json:"check_change_device_punch,omitempty"`       // 是否校验更换设备打卡, 不传入时默认关闭/不更新示例值: true
+	AllowChangeDeviceNum         *int64 `json:"allow_change_device_num,omitempty"`         // 同一考勤人员最多可绑定打卡设备数量上限, 开启校验更换设备打卡时必填示例值: 1 取值范围: `1` ～ `3
+	SuspectedCheatHandleMethod   *int64 `json:"suspected_cheat_handle_method,omitempty"`   // 疑似作弊打卡时的处理方式, 开启拦截疑似作弊打卡时必填示例值: 1可选值有: 使用人脸识别打卡仅记录疑似作弊信息 取值范围: `1` ～ `2
+}
+
+// CreateAttendanceGroupReqGroupClockInAbnormalSettings ...
+type CreateAttendanceGroupReqGroupClockInAbnormalSettings struct {
+	IgnoreUntilLatestClockout *bool `json:"ignore_until_latest_clockout,omitempty"` // 在最晚下班打卡之前忽略异常卡（仅灰度租户有效, 如需使用请联系技术支持）示例值: false
 }
 
 // CreateAttendanceGroupReqGroupFreePunchCfg ...
 type CreateAttendanceGroupReqGroupFreePunchCfg struct {
-	FreeStartTime        string `json:"free_start_time,omitempty"`           // 自由班制打卡开始时间, 示例值: "7:00"
-	FreeEndTime          string `json:"free_end_time,omitempty"`             // 自由班制打卡结束时间, 示例值: "18:00"
-	PunchDay             int64  `json:"punch_day,omitempty"`                 // 打卡的时间, 为 7 位数字, 每一位依次代表周一到周日, 0 为不上班, 1 为上班, 示例值: 1111100
-	WorkDayNoPunchAsLack *bool  `json:"work_day_no_punch_as_lack,omitempty"` // 工作日不打卡是否记为缺卡, 示例值: true
-	WorkHoursDemand      *bool  `json:"work_hours_demand,omitempty"`         // 工作日出勤是否需满足时长要求, 示例值: false
-	WorkHours            *int64 `json:"work_hours,omitempty"`                // 每日工作时长（分钟), 范围[0, 1440], 示例值: 480
+	FreeStartTime        string `json:"free_start_time,omitempty"`           // 自由班制打卡开始时间, 格式为x点x分, 注意这里小时如果小于10点, 是不需要补零的示例值: "7:00"
+	FreeEndTime          string `json:"free_end_time,omitempty"`             // 自由班制打卡结束时间, 格式为x点x分, 注意这里小时如果小于10点, 是不需要补零的示例值: "18:00"
+	PunchDay             int64  `json:"punch_day,omitempty"`                 // 打卡的时间, 为 7 位数字, 每一位依次代表周一到周日, 0 为不上班, 1 为上班示例值: 1111100
+	WorkDayNoPunchAsLack *bool  `json:"work_day_no_punch_as_lack,omitempty"` // 工作日不打卡是否记为缺卡, 默认为空示例值: true
+	WorkHoursDemand      *bool  `json:"work_hours_demand,omitempty"`         // 工作日出勤是否需满足时长要求, 默认为空示例值: false
+	WorkHours            *int64 `json:"work_hours,omitempty"`                // 每日工作时长（分钟）, 范围[0, 1440]示例值: 480
 }
 
 // CreateAttendanceGroupReqGroupGoOutNeedPunchCfg ...
 type CreateAttendanceGroupReqGroupGoOutNeedPunchCfg struct {
-	LateMinutesAsLate   *int64 `json:"late_minutes_as_late,omitempty"`   // 晚到超过多久记为迟到, 示例值: 0
-	LateMinutesAsLack   *int64 `json:"late_minutes_as_lack,omitempty"`   // 晚到超过多久记为缺卡, 示例值: 0
-	EarlyMinutesAsEarly *int64 `json:"early_minutes_as_early,omitempty"` // 早走超过多久记为早退, 示例值: 0
-	EarlyMinutesAsLack  *int64 `json:"early_minutes_as_lack,omitempty"`  // 早走超过多久记为缺卡, 示例值: 0
+	LateMinutesAsLate   *int64 `json:"late_minutes_as_late,omitempty"`   // 晚到超过多久记为迟到示例值: 0
+	LateMinutesAsLack   *int64 `json:"late_minutes_as_lack,omitempty"`   // 晚到超过多久记为缺卡示例值: 0
+	EarlyMinutesAsEarly *int64 `json:"early_minutes_as_early,omitempty"` // 早走超过多久记为早退示例值: 0
+	EarlyMinutesAsLack  *int64 `json:"early_minutes_as_lack,omitempty"`  // 早走超过多久记为缺卡示例值: 0
+	NotDuringShift      *bool  `json:"not_during_shift,omitempty"`       // 班次中间外出, 无需在离岗前或返岗后打卡（仅灰度租户有效, 如需使用请联系技术支持）示例值: false
 }
 
 // CreateAttendanceGroupReqGroupLeaveNeedPunchCfg ...
 type CreateAttendanceGroupReqGroupLeaveNeedPunchCfg struct {
-	LateMinutesAsLate   *int64 `json:"late_minutes_as_late,omitempty"`   // 晚到超过多久记为迟到, 示例值: 0
-	LateMinutesAsLack   *int64 `json:"late_minutes_as_lack,omitempty"`   // 晚到超过多久记为缺卡, 示例值: 0
-	EarlyMinutesAsEarly *int64 `json:"early_minutes_as_early,omitempty"` // 早走超过多久记为早退, 示例值: 0
-	EarlyMinutesAsLack  *int64 `json:"early_minutes_as_lack,omitempty"`  // 早走超过多久记为缺卡, 示例值: 0
+	LateMinutesAsLate   *int64 `json:"late_minutes_as_late,omitempty"`   // 晚到超过多久记为迟到示例值: 0
+	LateMinutesAsLack   *int64 `json:"late_minutes_as_lack,omitempty"`   // 晚到超过多久记为缺卡示例值: 0
+	EarlyMinutesAsEarly *int64 `json:"early_minutes_as_early,omitempty"` // 早走超过多久记为早退示例值: 0
+	EarlyMinutesAsLack  *int64 `json:"early_minutes_as_lack,omitempty"`  // 早走超过多久记为缺卡示例值: 0
+	NotDuringShift      *bool  `json:"not_during_shift,omitempty"`       // 班次中间请假, 无需在离岗前或返岗后打卡（仅灰度租户有效, 如需使用请联系技术支持）示例值: false
 }
 
 // CreateAttendanceGroupReqGroupLocation ...
 type CreateAttendanceGroupReqGroupLocation struct {
-	LocationName string   `json:"location_name,omitempty"` // 地址名称, 示例值: "浙江省杭州市余杭区五常街道木桥头西溪八方城"
-	LocationType int64    `json:"location_type,omitempty"` // 地址类型, 可选值有: * 1: GPS, * 2: Wi-Fi, * 8: IP, 示例值: 1
-	Latitude     *float64 `json:"latitude,omitempty"`      // 地址纬度, 示例值: 30.28994
-	Longitude    *float64 `json:"longitude,omitempty"`     // 地址经度, 示例值: 120.04509
-	Ssid         *string  `json:"ssid,omitempty"`          // Wi-Fi 名称, 示例值: "TP-Link-af12ca"
-	Bssid        *string  `json:"bssid,omitempty"`         // Wi-Fi 的 MAC 地址, 示例值: "08:00:20:0A:8C:6D"
-	MapType      *int64   `json:"map_type,omitempty"`      // 地图类型, 1: 高德, 2: 谷歌, 示例值: 1
-	Address      *string  `json:"address,omitempty"`       // 地址名称, 示例值: "北京市海淀区中航广场"
-	Ip           *string  `json:"ip,omitempty"`            // IP 地址, 示例值: "122.224.123.146"
-	Feature      *string  `json:"feature,omitempty"`       // 额外信息, 例如: 运营商信息, 示例值: "中国电信"
-	GpsRange     *int64   `json:"gps_range,omitempty"`     // GPS 打卡的有效范围, 示例值: 300
+	LocationName string   `json:"location_name,omitempty"` // 地址名称示例值: "浙江省杭州市余杭区五常街道木桥头西溪八方城"
+	LocationType int64    `json:"location_type,omitempty"` // 地址类型可选值有: * 1: GPS* 2: Wi-Fi* 8: IP示例值: 1
+	Latitude     *float64 `json:"latitude,omitempty"`      // 地址纬度（需配合gps_range使用）示例值: 30.28994
+	Longitude    *float64 `json:"longitude,omitempty"`     // 地址经度（需配合gps_range使用）示例值: 120.04509
+	Ssid         *string  `json:"ssid,omitempty"`          // Wi-Fi 名称示例值: "TP-Link-af12ca"
+	Bssid        *string  `json:"bssid,omitempty"`         // Wi-Fi 的 MAC 地址示例值: "08:00:20:0A:8C:6D"
+	MapType      *int64   `json:"map_type,omitempty"`      // 地图类型, 1: 高德, 2: 谷歌示例值: 1
+	Address      *string  `json:"address,omitempty"`       // 地址名称示例值: "北京市海淀区中航广场"
+	Ip           *string  `json:"ip,omitempty"`            // IP 地址示例值: "122.224.123.146"
+	Feature      *string  `json:"feature,omitempty"`       // 额外信息, 例如: 运营商信息示例值: "中国电信"
+	GpsRange     *int64   `json:"gps_range,omitempty"`     // GPS 打卡的有效范围（历史无效字段）示例值: 300
 }
 
 // CreateAttendanceGroupReqGroupMachine ...
 type CreateAttendanceGroupReqGroupMachine struct {
-	MachineSn   string `json:"machine_sn,omitempty"`   // 考勤机序列号, 示例值: "FS0701"
-	MachineName string `json:"machine_name,omitempty"` // 考勤机名称, 示例值: "创实 9 楼"
+	MachineSn   string `json:"machine_sn,omitempty"`   // 考勤机序列号示例值: "FS0701"
+	MachineName string `json:"machine_name,omitempty"` // 考勤机名称示例值: "创实 9 楼"
 }
 
 // CreateAttendanceGroupReqGroupMemberStatusChange ...
 type CreateAttendanceGroupReqGroupMemberStatusChange struct {
-	OnboardingOnNoNeedPunch   *bool `json:"onboarding_on_no_need_punch,omitempty"`   // 是否入职日上班无需打卡, 示例值: false
-	OnboardingOffNoNeedPunch  *bool `json:"onboarding_off_no_need_punch,omitempty"`  // 是否入职日下班无需打卡, 示例值: false
-	OffboardingOnNoNeedPunch  *bool `json:"offboarding_on_no_need_punch,omitempty"`  // 是否离职日上班无需打卡, 示例值: false
-	OffboardingOffNoNeedPunch *bool `json:"offboarding_off_no_need_punch,omitempty"` // 是否离职日下班无需打卡, 示例值: false
+	OnboardingOnNoNeedPunch   *bool `json:"onboarding_on_no_need_punch,omitempty"`   // 是否入职日上班无需打卡, 默认为空示例值: false
+	OnboardingOffNoNeedPunch  *bool `json:"onboarding_off_no_need_punch,omitempty"`  // 是否入职日下班无需打卡, 默认为空示例值: false
+	OffboardingOnNoNeedPunch  *bool `json:"offboarding_on_no_need_punch,omitempty"`  // 是否离职日上班无需打卡, 默认为空示例值: false
+	OffboardingOffNoNeedPunch *bool `json:"offboarding_off_no_need_punch,omitempty"` // 是否离职日下班无需打卡, 默认为空示例值: false
 }
 
 // CreateAttendanceGroupReqGroupNeedPunchMember ...
 type CreateAttendanceGroupReqGroupNeedPunchMember struct {
-	RuleScopeType  *int64                                                      `json:"rule_scope_type,omitempty"`  // 圈人方式: 0 无 1全部 2自定义, 示例值: 0, 默认值: `0`
+	RuleScopeType  *int64                                                      `json:"rule_scope_type,omitempty"`  // 圈人方式: * `0`: 无 * `1`: 全部 * `2`: 自定义示例值: 0默认值: `0
 	ScopeGroupList *CreateAttendanceGroupReqGroupNeedPunchMemberScopeGroupList `json:"scope_group_list,omitempty"` // 圈人规则列表
 }
 
 // CreateAttendanceGroupReqGroupNeedPunchMemberScopeGroupList ...
 type CreateAttendanceGroupReqGroupNeedPunchMemberScopeGroupList struct {
-	ScopeValueType     *int64                                                             `json:"scope_value_type,omitempty"`      // 类型: * 1: 部门, * 2:人员, * 3: 国家地区, * 4: 员工类型, * 5: 工作城市, * 6: 职级, * 7: 序列, * 8: 职务（企业版）, * 9: 工时制度（企业版）, * 100: 自定义字段（企业版）, 示例值: 1
-	OperationType      *int64                                                             `json:"operation_type,omitempty"`        // 范围类型（是否包含）, 示例值: 1
+	ScopeValueType     *int64                                                             `json:"scope_value_type,omitempty"`      // 类型: * 1: 部门* 2:人员* 3: 国家地区* 4: 员工类型* 5: 工作城市* 6: 职级* 7: 序列* 8: 职务（企业版）* 9: 工时制度（企业版）* 100: 自定义字段（企业版）示例值: 1
+	OperationType      *int64                                                             `json:"operation_type,omitempty"`        // 范围类型（是否包含）* 1: 包含* 2: 不包含* 3: 相等* 4: 小于等于* 5: 大于等于* 6: 大于* 7: 小于* 8: 不相等示例值: 1
 	Right              []*CreateAttendanceGroupReqGroupNeedPunchMemberScopeGroupListRight `json:"right,omitempty"`                 // 如果是人员/部门类型 不需要使用该字段
-	Name               *string                                                            `json:"name,omitempty"`                  // 名称, 示例值: "中国大陆"
-	MemberIDs          []string                                                           `json:"member_ids,omitempty"`            // 部门/人员 ID 列表（根据 scope_value_type 判断为部门或人员）, 示例值: ["ec8ddg56"]
-	CustomFieldID      *string                                                            `json:"custom_field_ID,omitempty"`       // 企业版自定义字段唯一键 ID, 需要从飞书人事获取, 示例值: "123213123"
-	CustomFieldObjType *string                                                            `json:"custom_field_obj_type,omitempty"` // 企业版自定义字段对象类型, * "Employment": 主数据对象, 员工雇佣信息, * "Person": 主数据对象, 个人, 示例值: "employment"
+	Name               *string                                                            `json:"name,omitempty"`                  // 名称示例值: "中国大陆"
+	MemberIDs          []string                                                           `json:"member_ids,omitempty"`            // 部门/人员 ID 列表（根据 scope_value_type 判断为部门或人员）示例值: ["ec8ddg56"]
+	CustomFieldID      *string                                                            `json:"custom_field_ID,omitempty"`       // 企业版自定义字段唯一键 ID, 需要从飞书人事获取（暂不支持）示例值: "123213123"
+	CustomFieldObjType *string                                                            `json:"custom_field_obj_type,omitempty"` // 企业版自定义字段对象类型（暂不支持）* "Employment": 主数据对象, 员工雇佣信息 * "Person": 主数据对象, 个人示例值: "employment"
 }
 
 // CreateAttendanceGroupReqGroupNeedPunchMemberScopeGroupListRight ...
 type CreateAttendanceGroupReqGroupNeedPunchMemberScopeGroupListRight struct {
-	Key *string `json:"key,omitempty"` // 标识Key, 示例值: "CH"
+	Key *string `json:"key,omitempty"` // 标识Key示例值: "CH"
 }
 
 // CreateAttendanceGroupReqGroupNeedPunchSpecialDay ...
 type CreateAttendanceGroupReqGroupNeedPunchSpecialDay struct {
-	PunchDay int64  `json:"punch_day,omitempty"` // 打卡日期, 示例值: 20190101
-	ShiftID  string `json:"shift_id,omitempty"`  // 班次 ID, 示例值: "6919668827865513935"
+	PunchDay int64  `json:"punch_day,omitempty"` // 打卡日期, 格式为yyyyMMdd示例值: 20190101
+	ShiftID  string `json:"shift_id,omitempty"`  // 班次 ID, 可根据[查询所有班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/list) 和[按名称查询班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/query) 获得示例值: "6919668827865513935"
 }
 
 // CreateAttendanceGroupReqGroupNoNeedPunchMember ...
 type CreateAttendanceGroupReqGroupNoNeedPunchMember struct {
-	RuleScopeType  *int64                                                        `json:"rule_scope_type,omitempty"`  // 圈人方式: 0 无 1全部 2自定义, 示例值: 0, 默认值: `0`
+	RuleScopeType  *int64                                                        `json:"rule_scope_type,omitempty"`  // 圈人方式: * `0`: 无 * `1`: 全部 * `2`: 自定义示例值: 0默认值: `0
 	ScopeGroupList *CreateAttendanceGroupReqGroupNoNeedPunchMemberScopeGroupList `json:"scope_group_list,omitempty"` // 圈人规则列表
 }
 
 // CreateAttendanceGroupReqGroupNoNeedPunchMemberScopeGroupList ...
 type CreateAttendanceGroupReqGroupNoNeedPunchMemberScopeGroupList struct {
-	ScopeValueType     *int64                                                               `json:"scope_value_type,omitempty"`      // 类型: * 1: 部门, * 2:人员, * 3: 国家地区, * 4: 员工类型, * 5: 工作城市, * 6: 职级, * 7: 序列, * 8: 职务（企业版）, * 9: 工时制度（企业版）, * 100: 自定义字段（企业版）, 示例值: 1
-	OperationType      *int64                                                               `json:"operation_type,omitempty"`        // 范围类型（是否包含）, 示例值: 1
+	ScopeValueType     *int64                                                               `json:"scope_value_type,omitempty"`      // 类型: * 1: 部门* 2:人员* 3: 国家地区* 4: 员工类型* 5: 工作城市* 6: 职级* 7: 序列* 8: 职务（企业版）* 9: 工时制度（企业版）* 100: 自定义字段（企业版）示例值: 1
+	OperationType      *int64                                                               `json:"operation_type,omitempty"`        // 范围类型（是否包含）* 1: 包含* 2: 不包含* 3: 相等* 4: 小于等于* 5: 大于等于* 6: 大于* 7: 小于* 8: 不相等示例值: 1
 	Right              []*CreateAttendanceGroupReqGroupNoNeedPunchMemberScopeGroupListRight `json:"right,omitempty"`                 // 如果是人员/部门类型 不需要使用该字段
-	Name               *string                                                              `json:"name,omitempty"`                  // 名称, 示例值: "中国大陆"
-	MemberIDs          []string                                                             `json:"member_ids,omitempty"`            // 部门/人员 ID 列表（根据 scope_value_type 判断为部门或人员）, 示例值: ["ec8ddg56"]
-	CustomFieldID      *string                                                              `json:"custom_field_ID,omitempty"`       // 企业版自定义字段唯一键 ID, 需要从飞书人事获取, 示例值: "123213123"
-	CustomFieldObjType *string                                                              `json:"custom_field_obj_type,omitempty"` // 企业版自定义字段对象类型, * "Employment": 主数据对象, 员工雇佣信息, * "Person": 主数据对象, 个人, 示例值: "employment"
+	Name               *string                                                              `json:"name,omitempty"`                  // 名称示例值: "中国大陆"
+	MemberIDs          []string                                                             `json:"member_ids,omitempty"`            // 部门/人员 ID 列表（根据 scope_value_type 判断为部门或人员）示例值: ["ec8ddg56"]
+	CustomFieldID      *string                                                              `json:"custom_field_ID,omitempty"`       // 企业版自定义字段唯一键 ID, 需要从飞书人事获取（暂不支持）示例值: "123213123"
+	CustomFieldObjType *string                                                              `json:"custom_field_obj_type,omitempty"` // 企业版自定义字段对象类型（暂不支持）* "Employment": 主数据对象, 员工雇佣信息 * "Person": 主数据对象, 个人示例值: "employment"
 }
 
 // CreateAttendanceGroupReqGroupNoNeedPunchMemberScopeGroupListRight ...
 type CreateAttendanceGroupReqGroupNoNeedPunchMemberScopeGroupListRight struct {
-	Key *string `json:"key,omitempty"` // 标识Key, 示例值: "CH"
+	Key *string `json:"key,omitempty"` // 标识Key示例值: "CH"
 }
 
 // CreateAttendanceGroupReqGroupNoNeedPunchSpecialDay ...
 type CreateAttendanceGroupReqGroupNoNeedPunchSpecialDay struct {
-	PunchDay int64  `json:"punch_day,omitempty"` // 打卡日期, 示例值: 20190101
-	ShiftID  string `json:"shift_id,omitempty"`  // 班次 ID, 示例值: "6919668827865513935"
+	PunchDay int64  `json:"punch_day,omitempty"` // 打卡日期, 格式为yyyyMMdd示例值: 20190101
+	ShiftID  string `json:"shift_id,omitempty"`  // 班次 ID, 可根据[查询所有班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/list) 和[按名称查询班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/query) 获得示例值: "6919668827865513935"
+}
+
+// CreateAttendanceGroupReqGroupOvertimeClockCfg ...
+type CreateAttendanceGroupReqGroupOvertimeClockCfg struct {
+	AllowPunchApproval           *bool `json:"allow_punch_approval,omitempty"`               // 是否允许在非打卡时段申请打卡（仅灰度租户有效, 如需使用请联系技术支持）示例值: false
+	NeedClockOverTimeStartAndEnd *bool `json:"need_clock_over_time_start_and_end,omitempty"` // 加班开始和结束需打卡（仅灰度租户有效, 如需使用请联系技术支持）示例值: false
 }
 
 // CreateAttendanceGroupReqGroupTravelNeedPunchCfg ...
 type CreateAttendanceGroupReqGroupTravelNeedPunchCfg struct {
-	LateMinutesAsLate   *int64 `json:"late_minutes_as_late,omitempty"`   // 晚到超过多久记为迟到, 示例值: 0
-	LateMinutesAsLack   *int64 `json:"late_minutes_as_lack,omitempty"`   // 晚到超过多久记为缺卡, 示例值: 0
-	EarlyMinutesAsEarly *int64 `json:"early_minutes_as_early,omitempty"` // 早走超过多久记为早退, 示例值: 0
-	EarlyMinutesAsLack  *int64 `json:"early_minutes_as_lack,omitempty"`  // 早走超过多久记为缺卡, 示例值: 0
+	LateMinutesAsLate   *int64 `json:"late_minutes_as_late,omitempty"`   // 晚到超过多久记为迟到示例值: 0
+	LateMinutesAsLack   *int64 `json:"late_minutes_as_lack,omitempty"`   // 晚到超过多久记为缺卡示例值: 0
+	EarlyMinutesAsEarly *int64 `json:"early_minutes_as_early,omitempty"` // 早走超过多久记为早退示例值: 0
+	EarlyMinutesAsLack  *int64 `json:"early_minutes_as_lack,omitempty"`  // 早走超过多久记为缺卡示例值: 0
+	NotDuringShift      *bool  `json:"not_during_shift,omitempty"`       // 无需在出差离岗前或返岗后打卡（出差不生效）示例值: false
 }
 
 // CreateAttendanceGroupResp ...
 type CreateAttendanceGroupResp struct {
-	Group *CreateAttendanceGroupRespGroup `json:"group,omitempty"` // 6921319402260496386
+	Group *CreateAttendanceGroupRespGroup `json:"group,omitempty"` // 考勤组信息
 }
 
 // CreateAttendanceGroupRespGroup ...
 type CreateAttendanceGroupRespGroup struct {
-	GroupID                 string                                                 `json:"group_id,omitempty"`                    // 考勤组 ID（仅修改时提供）, 需要从“获取打卡结果”的接口中获取 groupId
-	GroupName               string                                                 `json:"group_name,omitempty"`                  // 考勤组名称
-	TimeZone                string                                                 `json:"time_zone,omitempty"`                   // 时区
-	BindDeptIDs             []string                                               `json:"bind_dept_ids,omitempty"`               // 绑定的部门 ID（与「need_punch_members」同时使用时, 以当前字段为准）
-	ExceptDeptIDs           []string                                               `json:"except_dept_ids,omitempty"`             // 排除的部门 ID（该字段已下线）
-	BindUserIDs             []string                                               `json:"bind_user_ids,omitempty"`               // 绑定的用户 ID（与「need_punch_members」同时使用时, 以当前字段为准）
-	ExceptUserIDs           []string                                               `json:"except_user_ids,omitempty"`             // 排除的用户 ID（该字段已下线）
-	GroupLeaderIDs          []string                                               `json:"group_leader_ids,omitempty"`            // 考勤主负责人 ID 列表, 必选字段（需至少拥有考勤组管理员权限）
-	SubGroupLeaderIDs       []string                                               `json:"sub_group_leader_ids,omitempty"`        // 考勤子负责人 ID 列表
-	AllowOutPunch           bool                                                   `json:"allow_out_punch,omitempty"`             // 是否允许外勤打卡
-	OutPunchNeedApproval    bool                                                   `json:"out_punch_need_approval,omitempty"`     // 外勤打卡需审批（需要允许外勤打卡才能设置生效）
-	OutPunchNeedRemark      bool                                                   `json:"out_punch_need_remark,omitempty"`       // 外勤打卡需填写备注（需要允许外勤打卡才能设置生效）
-	OutPunchNeedPhoto       bool                                                   `json:"out_punch_need_photo,omitempty"`        // 外勤打卡需拍照（需要允许外勤打卡才能设置生效）
-	OutPunchAllowedHideAddr bool                                                   `json:"out_punch_allowed_hide_addr,omitempty"` // 外勤打卡允许员工隐藏详细地址（需要允许外勤打卡才能设置生效）
-	AllowPcPunch            bool                                                   `json:"allow_pc_punch,omitempty"`              // 是否允许 PC 端打卡
-	AllowRemedy             bool                                                   `json:"allow_remedy,omitempty"`                // 是否限制补卡
-	RemedyLimit             bool                                                   `json:"remedy_limit,omitempty"`                // 是否限制补卡次数
-	RemedyLimitCount        int64                                                  `json:"remedy_limit_count,omitempty"`          // 补卡次数
-	RemedyDateLimit         bool                                                   `json:"remedy_date_limit,omitempty"`           // 是否限制补卡时间
-	RemedyDateNum           int64                                                  `json:"remedy_date_num,omitempty"`             // 补卡时间, 几天内补卡
-	AllowRemedyTypeLack     bool                                                   `json:"allow_remedy_type_lack,omitempty"`      // 允许缺卡补卡（需要允许补卡才能设置生效）
-	AllowRemedyTypeLate     bool                                                   `json:"allow_remedy_type_late,omitempty"`      // 允许迟到补卡（需要允许补卡才能设置生效）
-	AllowRemedyTypeEarly    bool                                                   `json:"allow_remedy_type_early,omitempty"`     // 允许早退补卡（需要允许补卡才能设置生效）
-	AllowRemedyTypeNormal   bool                                                   `json:"allow_remedy_type_normal,omitempty"`    // 允许正常补卡（需要允许补卡才能设置生效）
-	ShowCumulativeTime      bool                                                   `json:"show_cumulative_time,omitempty"`        // 是否展示累计时长
-	ShowOverTime            bool                                                   `json:"show_over_time,omitempty"`              // 是否展示加班时长
-	HideStaffPunchTime      bool                                                   `json:"hide_staff_punch_time,omitempty"`       // 是否隐藏员工打卡详情
-	FacePunch               bool                                                   `json:"face_punch,omitempty"`                  // 是否开启人脸识别打卡
-	FacePunchCfg            int64                                                  `json:"face_punch_cfg,omitempty"`              // 人脸识别打卡规则, 可选值有: * 1: 每次打卡均需人脸识别, * 2: 疑似作弊打卡时需要人脸识别
-	FaceLiveNeedAction      bool                                                   `json:"face_live_need_action,omitempty"`       // 人脸打卡规则, false: 开启活体验证 true: 0动作验证, 仅在 face_punch_cfg = 1 时有效
-	FaceDowngrade           bool                                                   `json:"face_downgrade,omitempty"`              // 人脸识别失败时是否允许普通拍照打卡
-	ReplaceBasicPic         bool                                                   `json:"replace_basic_pic,omitempty"`           // 人脸识别失败时是否允许替换基准图片
-	Machines                []*CreateAttendanceGroupRespGroupMachine               `json:"machines,omitempty"`                    // 考勤机列表
-	GpsRange                int64                                                  `json:"gps_range,omitempty"`                   // GPS 打卡的有效范围（不建议使用）
-	Locations               []*CreateAttendanceGroupRespGroupLocation              `json:"locations,omitempty"`                   // 地址列表（仅追加, 不会覆盖之前的列表）
-	GroupType               int64                                                  `json:"group_type,omitempty"`                  // 考勤类型, 可选值有: * 0: 固定班制, * 2: 排班制, * 3: 自由班制
-	PunchDayShiftIDs        []string                                               `json:"punch_day_shift_ids,omitempty"`         // 固定班制必须填
-	FreePunchCfg            *CreateAttendanceGroupRespGroupFreePunchCfg            `json:"free_punch_cfg,omitempty"`              // 配置自由班制
-	CalendarID              int64                                                  `json:"calendar_id,omitempty"`                 // 国家日历  ID, 可选值有: * 0: 不根据国家日历排休, * 1: 中国大陆, * 2: 美国, * 3: 日本, * 4: 印度, * 5: 新加坡
-	NeedPunchSpecialDays    []*CreateAttendanceGroupRespGroupNeedPunchSpecialDay   `json:"need_punch_special_days,omitempty"`     // 必须打卡的特殊日期
-	NoNeedPunchSpecialDays  []*CreateAttendanceGroupRespGroupNoNeedPunchSpecialDay `json:"no_need_punch_special_days,omitempty"`  // 无需打卡的特殊日期
-	WorkDayNoPunchAsLack    bool                                                   `json:"work_day_no_punch_as_lack,omitempty"`   // 自由班制下工作日不打卡是否记为缺卡
-	EffectNow               bool                                                   `json:"effect_now,omitempty"`                  // 是否立即生效, 默认 false
-	RemedyPeriodType        int64                                                  `json:"remedy_period_type,omitempty"`          // 补卡周期类型
-	RemedyPeriodCustomDate  int64                                                  `json:"remedy_period_custom_date,omitempty"`   // 补卡自定义周期起始日期
-	PunchType               int64                                                  `json:"punch_type,omitempty"`                  // 打卡类型, 位运算, 即如果设置了 1 和 2 两种打卡类型, 则对应的参数加和值为 3, 可选值: * 1: GPS 打卡, * 2: Wi-Fi 打卡, * 4: 考勤机打卡, * 8: IP 打卡
-	EffectTime              string                                                 `json:"effect_time,omitempty"`                 // 生效时间, 精确到秒的时间戳
-	FixshiftEffectTime      string                                                 `json:"fixshift_effect_time,omitempty"`        // 固定班次生效时间, 精确到秒的时间戳
-	MemberEffectTime        string                                                 `json:"member_effect_time,omitempty"`          // 参加考勤的人员、部门变动生效时间, 精确到秒的时间戳
-	RestClockInNeedApproval bool                                                   `json:"rest_clockIn_need_approval,omitempty"`  // 休息日打卡需审批
-	ClockInNeedPhoto        bool                                                   `json:"clockIn_need_photo,omitempty"`          // 每次打卡均需拍照
-	MemberStatusChange      *CreateAttendanceGroupRespGroupMemberStatusChange      `json:"member_status_change,omitempty"`        // 人员异动打卡设置
-	LeaveNeedPunch          bool                                                   `json:"leave_need_punch,omitempty"`            // 请假离岗或返岗是否需打卡
-	LeaveNeedPunchCfg       *CreateAttendanceGroupRespGroupLeaveNeedPunchCfg       `json:"leave_need_punch_cfg,omitempty"`        // 请假离岗或返岗打卡规则
-	GoOutNeedPunch          int64                                                  `json:"go_out_need_punch,omitempty"`           // 外出期间是否需打卡
-	GoOutNeedPunchCfg       *CreateAttendanceGroupRespGroupGoOutNeedPunchCfg       `json:"go_out_need_punch_cfg,omitempty"`       // 外出期间打卡规则
-	TravelNeedPunch         int64                                                  `json:"travel_need_punch,omitempty"`           // 出差期间是否需打卡
-	TravelNeedPunchCfg      *CreateAttendanceGroupRespGroupTravelNeedPunchCfg      `json:"travel_need_punch_cfg,omitempty"`       // 出差期间打卡规则
-	NeedPunchMembers        []*CreateAttendanceGroupRespGroupNeedPunchMember       `json:"need_punch_members,omitempty"`          // 需要打卡的人员集合（仅当不传「bind_dept_ids」和「bind_user_ids」时, 才会使用该字段）
-	NoNeedPunchMembers      []*CreateAttendanceGroupRespGroupNoNeedPunchMember     `json:"no_need_punch_members,omitempty"`       // 无需打卡的人员集合（仅当不传「bind_default_dept_ids」和「bind_default_user_ids」时, 才会使用该字段）
-	SaveAutoChanges         bool                                                   `json:"save_auto_changes,omitempty"`           // 是否允许保存有冲突人员的考勤组。如果 true, 则冲突人员将被自动拉入到当前设置的考勤组中, 并从原考勤组中移除；如果 false, 则需手动调整冲突人员。默认为 false。
-	OrgChangeAutoAdjust     bool                                                   `json:"org_change_auto_adjust,omitempty"`      // 当有新员工入职或人员异动, 符合条件的人员是否自动加入考勤组
-	BindDefaultDeptIDs      []string                                               `json:"bind_default_dept_ids,omitempty"`       // 参与无需打卡的部门 ID 列表（与「no_need_punch_members」同时使用时, 以当前字段为准）
-	BindDefaultUserIDs      []string                                               `json:"bind_default_user_ids,omitempty"`       // 参与无需打卡的人员 ID 列表（与「no_need_punch_members」同时使用时, 以当前字段为准）
+	GroupID                   string                                                 `json:"group_id,omitempty"`                      // 考勤组 ID, 可用于[按 ID 查询考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/get)
+	GroupName                 string                                                 `json:"group_name,omitempty"`                    // 考勤组名称
+	TimeZone                  string                                                 `json:"time_zone,omitempty"`                     // 时区
+	BindDeptIDs               []string                                               `json:"bind_dept_ids,omitempty"`                 // 绑定的部门 ID（与「need_punch_members」同时使用时, 以当前字段为准）。对应dept_type
+	ExceptDeptIDs             []string                                               `json:"except_dept_ids,omitempty"`               // 排除的部门 ID（该字段已下线）
+	BindUserIDs               []string                                               `json:"bind_user_ids,omitempty"`                 // 绑定的用户 ID（与「need_punch_members」同时使用时, 以当前字段为准）, 对应employee_type
+	ExceptUserIDs             []string                                               `json:"except_user_ids,omitempty"`               // 排除的用户 ID（该字段已下线）
+	GroupLeaderIDs            []string                                               `json:"group_leader_ids,omitempty"`              // 考勤主负责人 ID 列表, 必选字段（需至少拥有考勤组管理员权限）, 对应employee_type
+	SubGroupLeaderIDs         []string                                               `json:"sub_group_leader_ids,omitempty"`          // 考勤子负责人 ID 列表, 对应employee_type
+	AllowOutPunch             bool                                                   `json:"allow_out_punch,omitempty"`               // 是否允许外勤打卡
+	OutPunchNeedApproval      bool                                                   `json:"out_punch_need_approval,omitempty"`       // 外勤打卡需审批（需要允许外勤打卡才能设置生效）
+	OutPunchNeedPostApproval  bool                                                   `json:"out_punch_need_post_approval,omitempty"`  // 外勤打卡需审批, 先打卡后审批（需要允许外勤打卡才能设置生效）
+	OutPunchNeedRemark        bool                                                   `json:"out_punch_need_remark,omitempty"`         // 外勤打卡需填写备注（需要允许外勤打卡才能设置生效）
+	OutPunchNeedPhoto         bool                                                   `json:"out_punch_need_photo,omitempty"`          // 外勤打卡需拍照（需要允许外勤打卡才能设置生效）
+	OutPunchAllowedHideAddr   bool                                                   `json:"out_punch_allowed_hide_addr,omitempty"`   // 外勤打卡允许员工隐藏详细地址（需要允许外勤打卡才能设置生效）
+	OutPunchAllowedAdjustAddr bool                                                   `json:"out_punch_allowed_adjust_addr,omitempty"` // 外勤打卡允许微调地址（需要允许外勤打卡才能设置生效）
+	AdjustRange               int64                                                  `json:"adjust_range,omitempty"`                  // 微调范围, 默认为 50 米
+	AllowPcPunch              bool                                                   `json:"allow_pc_punch,omitempty"`                // 是否允许 PC 端打卡
+	AllowRemedy               bool                                                   `json:"allow_remedy,omitempty"`                  // 是否限制补卡
+	RemedyLimit               bool                                                   `json:"remedy_limit,omitempty"`                  // 是否限制补卡次数
+	RemedyLimitCount          int64                                                  `json:"remedy_limit_count,omitempty"`            // 补卡次数
+	RemedyDateLimit           bool                                                   `json:"remedy_date_limit,omitempty"`             // 是否限制补卡时间
+	RemedyDateNum             int64                                                  `json:"remedy_date_num,omitempty"`               // 补卡时间, 几天内补卡
+	AllowRemedyTypeLack       bool                                                   `json:"allow_remedy_type_lack,omitempty"`        // 允许缺卡补卡（需要允许补卡才能设置生效）
+	AllowRemedyTypeLate       bool                                                   `json:"allow_remedy_type_late,omitempty"`        // 允许迟到补卡（需要允许补卡才能设置生效）
+	AllowRemedyTypeEarly      bool                                                   `json:"allow_remedy_type_early,omitempty"`       // 允许早退补卡（需要允许补卡才能设置生效）
+	AllowRemedyTypeNormal     bool                                                   `json:"allow_remedy_type_normal,omitempty"`      // 允许正常补卡（需要允许补卡才能设置生效）
+	ShowCumulativeTime        bool                                                   `json:"show_cumulative_time,omitempty"`          // 是否展示累计时长
+	ShowOverTime              bool                                                   `json:"show_over_time,omitempty"`                // 是否展示加班时长
+	HideStaffPunchTime        bool                                                   `json:"hide_staff_punch_time,omitempty"`         // 是否隐藏员工打卡详情
+	HideClockInRule           bool                                                   `json:"hide_clock_in_rule,omitempty"`            // 是否隐藏打卡规则（仅灰度租户有效, 如需使用请联系技术支持）
+	FacePunch                 bool                                                   `json:"face_punch,omitempty"`                    // 是否开启人脸识别打卡
+	FacePunchCfg              int64                                                  `json:"face_punch_cfg,omitempty"`                // 人脸识别打卡规则可选值有: * 1: 每次打卡均需人脸识别* 2: 疑似作弊打卡时需要人脸识别
+	FaceLiveNeedAction        bool                                                   `json:"face_live_need_action,omitempty"`         // 人脸打卡规则, false: 开启活体验证 true: 0动作验证, 仅在 face_punch_cfg = 1 时有效
+	FaceDowngrade             bool                                                   `json:"face_downgrade,omitempty"`                // 人脸识别失败时是否允许普通拍照打卡
+	ReplaceBasicPic           bool                                                   `json:"replace_basic_pic,omitempty"`             // 人脸识别失败时是否允许替换基准图片
+	AntiCheatPunchConfig      *CreateAttendanceGroupRespGroupAntiCheatPunchConfig    `json:"anti_cheat_punch_config,omitempty"`       // 防作弊打卡配置
+	Machines                  []*CreateAttendanceGroupRespGroupMachine               `json:"machines,omitempty"`                      // 考勤机列表
+	GpsRange                  int64                                                  `json:"gps_range,omitempty"`                     // GPS 打卡的有效范围（不建议使用）
+	Locations                 []*CreateAttendanceGroupRespGroupLocation              `json:"locations,omitempty"`                     // 地址列表（仅追加, 不会覆盖之前的列表）
+	GroupType                 int64                                                  `json:"group_type,omitempty"`                    // 考勤类型可选值有: * 0: 固定班制* 2: 排班制* 3: 自由班制
+	PunchDayShiftIDs          []string                                               `json:"punch_day_shift_ids,omitempty"`           // 固定班制返回, 可用于[按 ID 查询班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/get)
+	FreePunchCfg              *CreateAttendanceGroupRespGroupFreePunchCfg            `json:"free_punch_cfg,omitempty"`                // 配置自由班制
+	CalendarID                int64                                                  `json:"calendar_id,omitempty"`                   // 国家日历  ID可选值有: * 0: 不根据国家日历排休* 1: 中国大陆* 2: 美国* 3: 日本* 4: 印度* 5: 新加坡
+	NeedPunchSpecialDays      []*CreateAttendanceGroupRespGroupNeedPunchSpecialDay   `json:"need_punch_special_days,omitempty"`       // 必须打卡的特殊日期
+	NoNeedPunchSpecialDays    []*CreateAttendanceGroupRespGroupNoNeedPunchSpecialDay `json:"no_need_punch_special_days,omitempty"`    // 无需打卡的特殊日期
+	WorkDayNoPunchAsLack      bool                                                   `json:"work_day_no_punch_as_lack,omitempty"`     // 自由班制下工作日不打卡是否记为缺卡
+	EffectNow                 bool                                                   `json:"effect_now,omitempty"`                    // 是否立即生效, 默认 false
+	RemedyPeriodType          int64                                                  `json:"remedy_period_type,omitempty"`            // 补卡周期类型
+	RemedyPeriodCustomDate    int64                                                  `json:"remedy_period_custom_date,omitempty"`     // 补卡自定义周期起始日期
+	PunchType                 int64                                                  `json:"punch_type,omitempty"`                    // 打卡类型。位运算, 即如果设置了 1 和 2 两种打卡类型, 则对应的参数加和值为 3。可选值: * 1: GPS 打卡* 2: Wi-Fi 打卡* 4: 考勤机打卡* 8: IP 打卡
+	EffectTime                string                                                 `json:"effect_time,omitempty"`                   // 生效时间, 精确到秒的时间戳
+	FixshiftEffectTime        string                                                 `json:"fixshift_effect_time,omitempty"`          // 固定班次生效时间, 精确到秒的时间戳
+	MemberEffectTime          string                                                 `json:"member_effect_time,omitempty"`            // 参加考勤的人员、部门变动生效时间, 精确到秒的时间戳
+	RestClockInNeedApproval   bool                                                   `json:"rest_clockIn_need_approval,omitempty"`    // 休息日打卡需审批
+	ClockInNeedPhoto          bool                                                   `json:"clockIn_need_photo,omitempty"`            // 每次打卡均需拍照
+	MemberStatusChange        *CreateAttendanceGroupRespGroupMemberStatusChange      `json:"member_status_change,omitempty"`          // 人员异动打卡设置
+	LeaveNeedPunch            bool                                                   `json:"leave_need_punch,omitempty"`              // 请假离岗或返岗是否需打卡
+	LeaveNeedPunchCfg         *CreateAttendanceGroupRespGroupLeaveNeedPunchCfg       `json:"leave_need_punch_cfg,omitempty"`          // 请假离岗或返岗打卡规则, 单位: 分钟
+	GoOutNeedPunch            int64                                                  `json:"go_out_need_punch,omitempty"`             // 外出期间是否需打卡
+	GoOutNeedPunchCfg         *CreateAttendanceGroupRespGroupGoOutNeedPunchCfg       `json:"go_out_need_punch_cfg,omitempty"`         // 外出期间打卡规则, 单位: 分钟
+	TravelNeedPunch           int64                                                  `json:"travel_need_punch,omitempty"`             // 出差期间是否需打卡
+	TravelNeedPunchCfg        *CreateAttendanceGroupRespGroupTravelNeedPunchCfg      `json:"travel_need_punch_cfg,omitempty"`         // 出差期间打卡规则, 单位: 分钟
+	NeedPunchMembers          []*CreateAttendanceGroupRespGroupNeedPunchMember       `json:"need_punch_members,omitempty"`            // 需要打卡的人员集合（仅当不传「bind_dept_ids」和「bind_user_ids」时, 才会使用该字段）
+	NoNeedPunchMembers        []*CreateAttendanceGroupRespGroupNoNeedPunchMember     `json:"no_need_punch_members,omitempty"`         // 无需打卡的人员集合（仅当不传「bind_default_dept_ids」和「bind_default_user_ids」时, 才会使用该字段）
+	SaveAutoChanges           bool                                                   `json:"save_auto_changes,omitempty"`             // 是否允许保存有冲突人员的考勤组。如果 true, 则冲突人员将被自动拉入到当前设置的考勤组中, 并从原考勤组中移除；如果 false, 则需手动调整冲突人员。默认为 false。
+	OrgChangeAutoAdjust       bool                                                   `json:"org_change_auto_adjust,omitempty"`        // 当有新员工入职或人员异动, 符合条件的人员是否自动加入考勤组
+	BindDefaultDeptIDs        []string                                               `json:"bind_default_dept_ids,omitempty"`         // 参与无需打卡的部门 ID 列表（与「no_need_punch_members」同时使用时, 以当前字段为准）, 对应dept_type
+	BindDefaultUserIDs        []string                                               `json:"bind_default_user_ids,omitempty"`         // 参与无需打卡的人员 ID 列表（与「no_need_punch_members」同时使用时, 以当前字段为准）, 对应employee_type
+	OvertimeClockCfg          *CreateAttendanceGroupRespGroupOvertimeClockCfg        `json:"overtime_clock_cfg,omitempty"`            // 加班打卡规则
+	NewCalendarID             string                                                 `json:"new_calendar_id,omitempty"`               // 节假日id, （如果考勤组使用了自定义节假日, 请用此参数传入节假日id, 可在假勤设置-节假日模块页面路径获取）
+	AllowApplyPunch           bool                                                   `json:"allow_apply_punch,omitempty"`             // 定位不准时是否允许申请打卡
+	ClockInAbnormalSettings   *CreateAttendanceGroupRespGroupClockInAbnormalSettings `json:"clock_in_abnormal_settings,omitempty"`    // 异常卡豁免配置
+}
+
+// CreateAttendanceGroupRespGroupAntiCheatPunchConfig ...
+type CreateAttendanceGroupRespGroupAntiCheatPunchConfig struct {
+	InterceptSuspectedCheatPunch bool  `json:"intercept_suspected_cheat_punch,omitempty"` // 是否拦截疑似作弊打卡, 默认关闭；关闭时, 其余防作弊开关都为关闭
+	CheckCheatSoftwarePunch      bool  `json:"check_cheat_software_punch,omitempty"`      // 是否校验疑似作弊软件打卡
+	CheckBuddyPunch              bool  `json:"check_buddy_punch,omitempty"`               // 是否校验疑似他人代打卡
+	CheckSimulateWifiPunch       bool  `json:"check_simulate_wifi_punch,omitempty"`       // 是否校验疑似模拟 WI-FI 打卡
+	CheckChangeDevicePunch       bool  `json:"check_change_device_punch,omitempty"`       // 是否校验更换设备打卡
+	AllowChangeDeviceNum         int64 `json:"allow_change_device_num,omitempty"`         // 同一考勤人员最多可绑定打卡设备数量上限, 开启校验更换设备打卡时必填
+	SuspectedCheatHandleMethod   int64 `json:"suspected_cheat_handle_method,omitempty"`   // 疑似作弊打卡时的处理方式, 开启拦截疑似作弊打卡时必填可选值有: 使用人脸识别打卡仅记录疑似作弊信息
+}
+
+// CreateAttendanceGroupRespGroupClockInAbnormalSettings ...
+type CreateAttendanceGroupRespGroupClockInAbnormalSettings struct {
+	IgnoreUntilLatestClockout bool `json:"ignore_until_latest_clockout,omitempty"` // 在最晚下班打卡之前忽略异常卡（仅灰度租户有效, 如需使用请联系技术支持）
 }
 
 // CreateAttendanceGroupRespGroupFreePunchCfg ...
@@ -340,6 +401,7 @@ type CreateAttendanceGroupRespGroupGoOutNeedPunchCfg struct {
 	LateMinutesAsLack   int64 `json:"late_minutes_as_lack,omitempty"`   // 晚到超过多久记为缺卡
 	EarlyMinutesAsEarly int64 `json:"early_minutes_as_early,omitempty"` // 早走超过多久记为早退
 	EarlyMinutesAsLack  int64 `json:"early_minutes_as_lack,omitempty"`  // 早走超过多久记为缺卡
+	NotDuringShift      bool  `json:"not_during_shift,omitempty"`       // 班次中间外出, 无需在离岗前或返岗后打卡（仅灰度租户有效, 如需使用请联系技术支持）
 }
 
 // CreateAttendanceGroupRespGroupLeaveNeedPunchCfg ...
@@ -348,13 +410,14 @@ type CreateAttendanceGroupRespGroupLeaveNeedPunchCfg struct {
 	LateMinutesAsLack   int64 `json:"late_minutes_as_lack,omitempty"`   // 晚到超过多久记为缺卡
 	EarlyMinutesAsEarly int64 `json:"early_minutes_as_early,omitempty"` // 早走超过多久记为早退
 	EarlyMinutesAsLack  int64 `json:"early_minutes_as_lack,omitempty"`  // 早走超过多久记为缺卡
+	NotDuringShift      bool  `json:"not_during_shift,omitempty"`       // 班次中间请假, 无需在离岗前或返岗后打卡（仅灰度租户有效, 如需使用请联系技术支持）
 }
 
 // CreateAttendanceGroupRespGroupLocation ...
 type CreateAttendanceGroupRespGroupLocation struct {
 	LocationID   string  `json:"location_id,omitempty"`   // 地址 ID
 	LocationName string  `json:"location_name,omitempty"` // 地址名称
-	LocationType int64   `json:"location_type,omitempty"` // 地址类型, 可选值有: * 1: GPS, * 2: Wi-Fi, * 8: IP
+	LocationType int64   `json:"location_type,omitempty"` // 地址类型可选值有: * 1: GPS* 2: Wi-Fi* 8: IP
 	Latitude     float64 `json:"latitude,omitempty"`      // 地址纬度
 	Longitude    float64 `json:"longitude,omitempty"`     // 地址经度
 	Ssid         string  `json:"ssid,omitempty"`          // Wi-Fi 名称
@@ -388,13 +451,13 @@ type CreateAttendanceGroupRespGroupNeedPunchMember struct {
 
 // CreateAttendanceGroupRespGroupNeedPunchMemberScopeGroupList ...
 type CreateAttendanceGroupRespGroupNeedPunchMemberScopeGroupList struct {
-	ScopeValueType     int64                                                               `json:"scope_value_type,omitempty"`      // 类型: * 1: 部门, * 2:人员, * 3: 国家地区, * 4: 员工类型, * 5: 工作城市, * 6: 职级, * 7: 序列, * 8: 职务（企业版）, * 9: 工时制度（企业版）, * 100: 自定义字段（企业版）
-	OperationType      int64                                                               `json:"operation_type,omitempty"`        // 范围类型（是否包含）
+	ScopeValueType     int64                                                               `json:"scope_value_type,omitempty"`      // 类型: * 1: 部门* 2:人员* 3: 国家地区* 4: 员工类型* 5: 工作城市* 6: 职级* 7: 序列* 8: 职务（企业版）* 9: 工时制度（企业版）* 100: 自定义字段（企业版）
+	OperationType      int64                                                               `json:"operation_type,omitempty"`        // 范围类型（是否包含）* 1: 包含* 2: 不包含* 3: 相等* 4: 小于等于* 5: 大于等于* 6: 大于* 7: 小于* 8: 不相等
 	Right              []*CreateAttendanceGroupRespGroupNeedPunchMemberScopeGroupListRight `json:"right,omitempty"`                 // 如果是人员/部门类型 不需要使用该字段
 	Name               string                                                              `json:"name,omitempty"`                  // 名称
 	MemberIDs          []string                                                            `json:"member_ids,omitempty"`            // 部门/人员 ID 列表（根据 scope_value_type 判断为部门或人员）
 	CustomFieldID      string                                                              `json:"custom_field_ID,omitempty"`       // 企业版自定义字段唯一键 ID, 需要从飞书人事那边获取
-	CustomFieldObjType string                                                              `json:"custom_field_obj_type,omitempty"` // 企业版自定义字段对象类型, * "Employment": 主数据对象, 员工雇佣信息, * "Person": 主数据对象, 个人
+	CustomFieldObjType string                                                              `json:"custom_field_obj_type,omitempty"` // 企业版自定义字段对象类型* "Employment": 主数据对象, 员工雇佣信息 * "Person": 主数据对象, 个人
 }
 
 // CreateAttendanceGroupRespGroupNeedPunchMemberScopeGroupListRight ...
@@ -405,7 +468,7 @@ type CreateAttendanceGroupRespGroupNeedPunchMemberScopeGroupListRight struct {
 // CreateAttendanceGroupRespGroupNeedPunchSpecialDay ...
 type CreateAttendanceGroupRespGroupNeedPunchSpecialDay struct {
 	PunchDay int64  `json:"punch_day,omitempty"` // 打卡日期
-	ShiftID  string `json:"shift_id,omitempty"`  // 班次 ID
+	ShiftID  string `json:"shift_id,omitempty"`  // 班次 ID, 可用于[按 ID 查询班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/get)
 }
 
 // CreateAttendanceGroupRespGroupNoNeedPunchMember ...
@@ -416,13 +479,13 @@ type CreateAttendanceGroupRespGroupNoNeedPunchMember struct {
 
 // CreateAttendanceGroupRespGroupNoNeedPunchMemberScopeGroupList ...
 type CreateAttendanceGroupRespGroupNoNeedPunchMemberScopeGroupList struct {
-	ScopeValueType     int64                                                                 `json:"scope_value_type,omitempty"`      // 类型: * 1: 部门, * 2:人员, * 3: 国家地区, * 4: 员工类型, * 5: 工作城市, * 6: 职级, * 7: 序列, * 8: 职务（企业版）, * 9: 工时制度（企业版）, * 100: 自定义字段（企业版）
-	OperationType      int64                                                                 `json:"operation_type,omitempty"`        // 范围类型（是否包含）
+	ScopeValueType     int64                                                                 `json:"scope_value_type,omitempty"`      // 类型: * 1: 部门* 2:人员* 3: 国家地区* 4: 员工类型* 5: 工作城市* 6: 职级* 7: 序列* 8: 职务（企业版）* 9: 工时制度（企业版）* 100: 自定义字段（企业版）
+	OperationType      int64                                                                 `json:"operation_type,omitempty"`        // 范围类型（是否包含）* 1: 包含* 2: 不包含* 3: 相等* 4: 小于等于* 5: 大于等于* 6: 大于* 7: 小于* 8: 不相等
 	Right              []*CreateAttendanceGroupRespGroupNoNeedPunchMemberScopeGroupListRight `json:"right,omitempty"`                 // 如果是人员/部门类型 不需要使用该字段
 	Name               string                                                                `json:"name,omitempty"`                  // 名称
 	MemberIDs          []string                                                              `json:"member_ids,omitempty"`            // 部门/人员id列表（具体类型根据scope_value_type判断）
 	CustomFieldID      string                                                                `json:"custom_field_ID,omitempty"`       // 企业版自定义字段唯一键 ID, 需要从飞书人事那边获取
-	CustomFieldObjType string                                                                `json:"custom_field_obj_type,omitempty"` // 企业版自定义字段对象类型, * "Employment": 主数据对象, 员工雇佣信息, * "Person": 主数据对象, 个人
+	CustomFieldObjType string                                                                `json:"custom_field_obj_type,omitempty"` // 企业版自定义字段对象类型* "Employment": 主数据对象, 员工雇佣信息 * "Person": 主数据对象, 个人
 }
 
 // CreateAttendanceGroupRespGroupNoNeedPunchMemberScopeGroupListRight ...
@@ -433,7 +496,13 @@ type CreateAttendanceGroupRespGroupNoNeedPunchMemberScopeGroupListRight struct {
 // CreateAttendanceGroupRespGroupNoNeedPunchSpecialDay ...
 type CreateAttendanceGroupRespGroupNoNeedPunchSpecialDay struct {
 	PunchDay int64  `json:"punch_day,omitempty"` // 打卡日期
-	ShiftID  string `json:"shift_id,omitempty"`  // 班次 ID
+	ShiftID  string `json:"shift_id,omitempty"`  // 班次 ID, 可用于[按 ID 查询班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/get)
+}
+
+// CreateAttendanceGroupRespGroupOvertimeClockCfg ...
+type CreateAttendanceGroupRespGroupOvertimeClockCfg struct {
+	AllowPunchApproval           bool `json:"allow_punch_approval,omitempty"`               // 是否允许在非打卡时段申请打卡（仅灰度租户有效, 如需使用请联系技术支持）
+	NeedClockOverTimeStartAndEnd bool `json:"need_clock_over_time_start_and_end,omitempty"` // 加班开始和结束需打卡（仅灰度租户有效, 如需使用请联系技术支持）
 }
 
 // CreateAttendanceGroupRespGroupTravelNeedPunchCfg ...
@@ -442,6 +511,7 @@ type CreateAttendanceGroupRespGroupTravelNeedPunchCfg struct {
 	LateMinutesAsLack   int64 `json:"late_minutes_as_lack,omitempty"`   // 晚到超过多久记为缺卡
 	EarlyMinutesAsEarly int64 `json:"early_minutes_as_early,omitempty"` // 早走超过多久记为早退
 	EarlyMinutesAsLack  int64 `json:"early_minutes_as_lack,omitempty"`  // 早走超过多久记为缺卡
+	NotDuringShift      bool  `json:"not_during_shift,omitempty"`       // 无需在出差离岗前或返岗后打卡（出差不生效）
 }
 
 // createAttendanceGroupResp ...

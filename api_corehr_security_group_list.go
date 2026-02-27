@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetCoreHRSecurityGroupList 批量查询「飞书人事」-「权限设置」-「角色设置」中的角色列表。
+// GetCoreHRSecurityGroupList 用于查询飞书人事中的角色列表（对应[飞书人事管理后台](https://people.feishu.cn/people/) - 设置 - 权限设置 - 角色设置中的角色列表）, 列表内包含角色 ID、名称、状态以及描述等信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/security_group/list
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/authorization/list
@@ -58,8 +58,8 @@ func (r *Mock) UnMockCoreHRGetCoreHRSecurityGroupList() {
 
 // GetCoreHRSecurityGroupListReq ...
 type GetCoreHRSecurityGroupListReq struct {
-	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 10
-	PageSize  int64   `query:"page_size" json:"-"`  // 分页大小, 示例值: 100
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 10
+	PageSize  int64   `query:"page_size" json:"-"`  // 分页大小示例值: 100
 }
 
 // GetCoreHRSecurityGroupListResp ...
@@ -71,12 +71,15 @@ type GetCoreHRSecurityGroupListResp struct {
 
 // GetCoreHRSecurityGroupListRespItem ...
 type GetCoreHRSecurityGroupListRespItem struct {
-	ID           string                                         `json:"id,omitempty"`            // 角色ID
-	Code         string                                         `json:"code,omitempty"`          // 角色code, 通常用于与其他系统进行交互
-	Name         *GetCoreHRSecurityGroupListRespItemName        `json:"name,omitempty"`          // 角色名称
-	ActiveStatus int64                                          `json:"active_status,omitempty"` // 状态, 1 = Inactive / 停用, 2 = Active / 启用, 3 = TobeActivated / 待启用
-	Description  *GetCoreHRSecurityGroupListRespItemDescription `json:"description,omitempty"`   // 角色描述
-	UpdateTime   string                                         `json:"update_time,omitempty"`   // 更新时间
+	ID            string                                             `json:"id,omitempty"`             // 角色ID
+	Code          string                                             `json:"code,omitempty"`           // 角色code, 通常用于与其他系统进行交互
+	Name          *GetCoreHRSecurityGroupListRespItemName            `json:"name,omitempty"`           // 角色名称
+	ActiveStatus  int64                                              `json:"active_status,omitempty"`  // 状态, 可能值有: 1 = Inactive / 停用- 2 = Active / 启用- 3 = TobeActivated / 待启用
+	Description   *GetCoreHRSecurityGroupListRespItemDescription     `json:"description,omitempty"`    // 角色描述
+	GroupType     int64                                              `json:"group_type,omitempty"`     // 角色类型- 3 = 组织类角色- 7 = 非组织类角色
+	CreatedBy     string                                             `json:"created_by,omitempty"`     // 创建人- 返回"sys"时, 表示角色是系统创建角色- 返回用户ID时, 表示是角色是用户自定义角色, 可以使用 [ID转换服务](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/common_data-id/convert) 换取 飞书人事的employment_id
+	UpdateTime    string                                             `json:"update_time,omitempty"`    // 更新时间
+	OrgTruncation []*GetCoreHRSecurityGroupListRespItemOrgTruncation `json:"org_truncation,omitempty"` // 组织管理维度
 }
 
 // GetCoreHRSecurityGroupListRespItemDescription ...
@@ -89,6 +92,13 @@ type GetCoreHRSecurityGroupListRespItemDescription struct {
 type GetCoreHRSecurityGroupListRespItemName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
+}
+
+// GetCoreHRSecurityGroupListRespItemOrgTruncation ...
+type GetCoreHRSecurityGroupListRespItemOrgTruncation struct {
+	OrgKey string `json:"org_key,omitempty"` // 组织管理维度名称
+	Type   int64  `json:"type,omitempty"`    // 下钻类型- 0 = 对当前管理维度及下级管理维度均有权限- 1 = 只对当前管理维度有权限, 不包含其下级管理维度
+	Depth  int64  `json:"depth,omitempty"`   // 下钻深度
 }
 
 // getCoreHRSecurityGroupListResp ...

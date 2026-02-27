@@ -21,7 +21,11 @@ import (
 	"context"
 )
 
-// DeleteContactGroup 通过该接口可删除企业中的用户组, 请注意删除用户组时应用的通讯录权限范围需为“全部员工”, 否则会删除失败, [点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// DeleteContactGroup 调用该接口删除指定用户组。
+//
+// ## 注意事项
+// - 应用的通讯录权限范围必须为全部员工, 否则会调用失败。了解应用通讯录权限范围, 可参见[权限范围资源介绍](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// - API 方式暂不支持删除动态用户组。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/delete
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/group/delete
@@ -58,12 +62,11 @@ func (r *Mock) UnMockContactDeleteContactGroup() {
 
 // DeleteContactGroupReq ...
 type DeleteContactGroupReq struct {
-	GroupID string `path:"group_id" json:"-"` // 需删除的用户组ID, 示例值: "g1837191"
+	GroupID string `path:"group_id" json:"-"` // 需删除的用户组 ID。用户组 ID 可在创建用户组时从返回值中获取, 你也可以调用[查询用户组列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/simplelist)接口, 获取用户组的 ID。示例值: "g1837191"
 }
 
 // DeleteContactGroupResp ...
-type DeleteContactGroupResp struct {
-}
+type DeleteContactGroupResp struct{}
 
 // deleteContactGroupResp ...
 type deleteContactGroupResp struct {

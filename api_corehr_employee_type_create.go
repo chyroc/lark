@@ -58,24 +58,24 @@ func (r *Mock) UnMockCoreHRCreateCoreHREmployeeType() {
 
 // CreateCoreHREmployeeTypeReq ...
 type CreateCoreHREmployeeTypeReq struct {
-	ClientToken         *string                                   `query:"client_token" json:"-"`          // 根据client_token是否一致来判断是否为同一请求, 示例值: 12454646
+	ClientToken         *string                                   `query:"client_token" json:"-"`          // 根据client_token是否一致来判断是否为同一请求示例值: 12454646
 	Name                []*CreateCoreHREmployeeTypeReqName        `json:"name,omitempty"`                  // 名称
-	DefaultEmployeeType bool                                      `json:"default_employee_type,omitempty"` // 是否为默认人员类型, 每个租户只能定义一个默认人员类型, 示例值: true
-	Active              bool                                      `json:"active,omitempty"`                // 启用, 示例值: true
-	Code                *string                                   `json:"code,omitempty"`                  // 编码, 示例值: "1245"
-	CustomFields        []*CreateCoreHREmployeeTypeReqCustomField `json:"custom_fields,omitempty"`         // 自定义字段
+	DefaultEmployeeType bool                                      `json:"default_employee_type,omitempty"` // 是否为默认人员类型, 每个租户只能定义一个默认人员类型示例值: true
+	Active              bool                                      `json:"active,omitempty"`                // 启用示例值: true
+	Code                *string                                   `json:"code,omitempty"`                  // 编码示例值: "1245"
+	CustomFields        []*CreateCoreHREmployeeTypeReqCustomField `json:"custom_fields,omitempty"`         // 自定义字段- 具体支持的对象请参考[自定义字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide)
 }
 
 // CreateCoreHREmployeeTypeReqCustomField ...
 type CreateCoreHREmployeeTypeReqCustomField struct {
-	FieldName string `json:"field_name,omitempty"` // 字段名, 示例值: "name"
-	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05"), 示例值: "Sandy"
+	FieldName string `json:"field_name,omitempty"` // 字段名示例值: "name"
+	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05")示例值: "\"Sandy\""
 }
 
 // CreateCoreHREmployeeTypeReqName ...
 type CreateCoreHREmployeeTypeReqName struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 示例值: "zh-CN"
-	Value string `json:"value,omitempty"` // 名称信息的内容, 示例值: "张三"
+	Lang  string `json:"lang,omitempty"`  // 名称信息的语言示例值: "zh-CN"
+	Value string `json:"value,omitempty"` // 名称信息的内容示例值: "张三"
 }
 
 // CreateCoreHREmployeeTypeResp ...
@@ -90,7 +90,7 @@ type CreateCoreHREmployeeTypeRespEmployeeType struct {
 	DefaultEmployeeType bool                                                   `json:"default_employee_type,omitempty"` // 是否为默认人员类型, 每个租户只能定义一个默认人员类型
 	Active              bool                                                   `json:"active,omitempty"`                // 启用
 	Code                string                                                 `json:"code,omitempty"`                  // 编码
-	CustomFields        []*CreateCoreHREmployeeTypeRespEmployeeTypeCustomField `json:"custom_fields,omitempty"`         // 自定义字段
+	CustomFields        []*CreateCoreHREmployeeTypeRespEmployeeTypeCustomField `json:"custom_fields,omitempty"`         // 自定义字段- 具体支持的对象请参考[自定义字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide)
 }
 
 // CreateCoreHREmployeeTypeRespEmployeeTypeCustomField ...

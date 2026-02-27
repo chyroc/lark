@@ -21,13 +21,14 @@ import (
 	"context"
 )
 
-// GetMessageReadUserList 查询消息的已读信息。
+// GetMessageReadUserList 查询指定消息是否已读。接口只返回已读用户的信息, 不返回未读用户的信息。
 //
-// 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
-// - 只能查询机器人自己发送, 且发送时间不超过7天的消息
-// - 查询消息已读信息时机器人仍需要在会话内
-// - 本接口不支持查询批量消息
+// ## 前提条件
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)  。
+// - 查询消息已读信息时, 机器人需要在待查询消息所在的会话内。
+// ## 使用限制
+// - 只能查询由当前机器人自己发送的、发送时间不超过 7 天的消息已读信息。
+// - 一次请求只能查询一条消息, 不支持批量查询。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/read_users
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/message/read_users
@@ -64,10 +65,10 @@ func (r *Mock) UnMockMessageGetMessageReadUserList() {
 
 // GetMessageReadUserListReq ...
 type GetMessageReadUserListReq struct {
-	MessageID  string  `path:"message_id" json:"-"`    // 待查询的消息的ID, 说明参见: [消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2), 注意: 不支持查询批量消息, 示例值: "om_dc13264520392913993dd051dba21dcf"
-	UserIDType IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	PageSize   *int64  `query:"page_size" json:"-"`    // 分页大小, 示例值: 20, 取值范围: `1` ～ `100`
-	PageToken  *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: GxmvlNRvP0NdQZpa7yIqf_Lv_QuBwTQ8tXkX7w-irAghVD_TvuYd1aoJ1LQph86O-XImC4X9j9FhUPhXQDvtrQ[
+	MessageID  string  `path:"message_id" json:"-"`    // 待查询的消息 ID。ID 获取方式: - 调用[发送消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)接口后, 从响应结果的 `message_id` 参数获取。- 监听[接收消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive)事件, 当触发该事件后可以从事件体内获取消息的 `message_id`。- 调用[获取会话历史消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/list)接口, 从响应结果的 `message_id` 参数获取。示例值: "om_dc13264520392913993dd051dba21dcf"
+	UserIDType IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	PageSize   *int64  `query:"page_size" json:"-"`    // 分页大小, 用于限制单次请求所返回的数据条目数。示例值: 20 取值范围: `1` ～ `100
+	PageToken  *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: GxmvlNRvP0NdQZpa7yIqf_Lv_QuBwTQ8tXkX7w-irAghVD_TvuYd1aoJ1LQph86O-XImC4X9j9FhUPhXQDvtrQ[
 }
 
 // GetMessageReadUserListResp ...
@@ -80,9 +81,9 @@ type GetMessageReadUserListResp struct {
 // GetMessageReadUserListRespItem ...
 type GetMessageReadUserListRespItem struct {
 	UserIDType IDType `json:"user_id_type,omitempty"` // 用户id类型
-	UserID     string `json:"user_id,omitempty"`      // 用户id
-	Timestamp  string `json:"timestamp,omitempty"`    // 阅读时间
-	TenantKey  string `json:"tenant_key,omitempty"`   // tenant key
+	UserID     string `json:"user_id,omitempty"`      // 用户 ID, ID 类型与查询参数 user_id_type 取值一致。
+	Timestamp  string `json:"timestamp,omitempty"`    // 已读消息的时间, 毫秒级时间戳。
+	TenantKey  string `json:"tenant_key,omitempty"`   // 租户唯一标识。该标识用来识别租户, 也可以用来获取租户访问凭证（tenant_access_token）。
 }
 
 // getMessageReadUserListResp ...

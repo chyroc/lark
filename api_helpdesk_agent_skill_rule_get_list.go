@@ -58,8 +58,7 @@ func (r *Mock) UnMockHelpdeskGetHelpdeskAgentSkillRuleList() {
 }
 
 // GetHelpdeskAgentSkillRuleListReq ...
-type GetHelpdeskAgentSkillRuleListReq struct {
-}
+type GetHelpdeskAgentSkillRuleListReq struct{}
 
 // GetHelpdeskAgentSkillRuleListResp ...
 type GetHelpdeskAgentSkillRuleListResp struct {
@@ -70,7 +69,7 @@ type GetHelpdeskAgentSkillRuleListResp struct {
 type GetHelpdeskAgentSkillRuleListRespRule struct {
 	ID              string  `json:"id,omitempty"`               // rule id, 参考[获取客服技能rules](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/agent_skill_rule/list) 用于获取rules options
 	OperatorOptions []int64 `json:"operator_options,omitempty"` // rule操作数value, [客服技能及运算符](https://open.feishu.cn/document/ukTMukTMukTM/ucDOyYjL3gjM24yN4IjN/operator-options)
-	Operand         string  `json:"operand,omitempty"`          // rule 操作数的值
+	Operand         string  `json:"operand,omitempty"`          // rule 操作数的值。该参数类型为泛型, 会指向多类型。
 	Category        int64   `json:"category,omitempty"`         // rule 类型, 1-知识库, 2-工单信息, 3-用户飞书信息
 	DisplayName     string  `json:"display_name,omitempty"`     // rule 名
 }

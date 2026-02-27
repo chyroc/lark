@@ -62,7 +62,7 @@ func (r *Mock) UnMockAIRecognizeAIBusinessCard() {
 
 // RecognizeAIBusinessCardReq ...
 type RecognizeAIBusinessCardReq struct {
-	File io.Reader `json:"file,omitempty"` // 识别名片的源文件（支持 JPG / PNG / PDF）, 示例值: file binary
+	File io.Reader `json:"file,omitempty"` // 识别名片的源文件（支持 JPG / PNG / PDF）示例值: file binary
 }
 
 // RecognizeAIBusinessCardResp ...
@@ -77,7 +77,7 @@ type RecognizeAIBusinessCardRespBusinessCard struct {
 
 // RecognizeAIBusinessCardRespBusinessCardEntity ...
 type RecognizeAIBusinessCardRespBusinessCardEntity struct {
-	Type  string `json:"type,omitempty"`  // 识别的字段种类, 可选值有: contact_names: 联系人名, company_names: 公司名, departments: 部门, job_titles: 职位, emails: 邮箱, websites: 网站, addresses: 地址, mobile_phones: 移动电话, work_phones: 工作电话, other_phones: 其他电话, faxes: 传真
+	Type  string `json:"type,omitempty"`  // 识别的字段种类可选值有: 联系人名公司名部门职位邮箱网站地址移动电话工作电话其他电话传真
 	Value string `json:"value,omitempty"` // 识别出字段的文本信息
 }
 

@@ -21,7 +21,9 @@ import (
 	"context"
 )
 
-// GetCoreHRJobDataList 批量查询人员的任职信息。
+// GetCoreHRJobDataList 批量查询员工的任职信息
+//
+// 当前接口为历史版本。推荐使用新版接口, 详情参见[批量查询员工任职信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employees-job_data/batch_get)、[获取任职信息列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employees-job_data/query)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/list
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/job_data/list
@@ -58,15 +60,15 @@ func (r *Mock) UnMockCoreHRGetCoreHRJobDataList() {
 
 // GetCoreHRJobDataListReq ...
 type GetCoreHRJobDataListReq struct {
-	PageToken        *string           `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 6994718879515739656
-	PageSize         int64             `query:"page_size" json:"-"`          // 分页大小, 示例值: 100
-	EmploymentID     *string           `query:"employment_id" json:"-"`      // 雇佣 ID, 示例值: 7072306364927985196
-	JobDataIDList    []string          `query:"job_data_id_list" json:"-"`   // 任职信息 ID 列表, 最大 100 个（不传则默认查询全部任职信息）, 示例值: 6919733291281024526, 最大长度: `100`
-	DepartmentID     *string           `query:"department_id" json:"-"`      // 部门 ID, 示例值: 6887868781834536462
-	JobID            *string           `query:"job_id" json:"-"`             // 职务 ID, 示例值: 6893014062142064135
-	GetAllVersion    *bool             `query:"get_all_version" json:"-"`    // 是否获取所有任职记录, true 为获取员工所有版本的任职记录, false 为仅获取当前生效的任职记录, 默认为 false, 示例值: false
-	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: people_corehr_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_corehr_id: 以飞书人事的 ID 来识别用户, 默认值: `people_corehr_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门 ID 类型, 示例值: open_department_id, 可选值有: open_department_id: 以 open_department_id 来标识部门, department_id: 以 department_id 来标识部门, people_corehr_department_id: 以 people_corehr_department_id 来标识部门, 默认值: `people_corehr_department_id`
+	PageToken        *string           `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 6994718879515739656
+	PageSize         int64             `query:"page_size" json:"-"`          // 分页大小示例值: 100
+	EmploymentID     *string           `query:"employment_id" json:"-"`      // 雇佣 ID, 可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)获取- 应与 user_id_type 类型一致示例值: 7072306364927985196
+	JobDataIDList    []string          `query:"job_data_id_list" json:"-"`   // 任职信息 ID 列表- 默认查询全部任职信息示例值: 6919733291281024526 最大长度: `100
+	DepartmentID     *string           `query:"department_id" json:"-"`      // 部门 ID- 应与 department_id_type 类型一致- 默认为空示例值: 6887868781834536462
+	JobID            *string           `query:"job_id" json:"-"`             // 职务 ID- 默认为空示例值: 6893014062142064135
+	GetAllVersion    *bool             `query:"get_all_version" json:"-"`    // 是否获取所有版本的任职记录- true 为获取员工所有版本的任职记录- false 为仅获取当前生效的任职记录- 默认为 false示例值: false
+	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型示例值: people_corehr_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `people_corehr_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门 ID 类型示例值: open_department_id可选值有: 以 open_department_id 来标识部门以 department_id 来标识部门以 people_corehr_department_id 来标识部门默认值: `people_corehr_department_id
 }
 
 // GetCoreHRJobDataListResp ...
@@ -80,32 +82,35 @@ type GetCoreHRJobDataListResp struct {
 type GetCoreHRJobDataListRespItem struct {
 	ID                       string                                             `json:"id,omitempty"`                          // 任职信息 ID
 	VersionID                string                                             `json:"version_id,omitempty"`                  // 任职记录版本 ID
-	JobLevelID               string                                             `json:"job_level_id,omitempty"`                // 职务级别 ID, 枚举值及详细信息可通过[查询单个职级](https://open.feishu.cn/document/server-docs/corehr-v1/job-management/job_level/get)接口查询获得
-	JobGradeID               string                                             `json:"job_grade_id,omitempty"`                // 职等ID
-	EmployeeTypeID           string                                             `json:"employee_type_id,omitempty"`            // 人员类型 ID, 枚举值及详细信息可通过[查询单个人员类型](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/employee_type/get)接口查询获得
-	WorkingHoursTypeID       string                                             `json:"working_hours_type_id,omitempty"`       // 工时制度 ID, 枚举值及详细信息可通过[查询单个工时制度](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/working_hours_type/get)接口查询获得
-	WorkLocationID           string                                             `json:"work_location_id,omitempty"`            // 工作地点 ID, 枚举值及详细信息可通过[查询单个地点](https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/location/get)接口查询获得
-	DepartmentID             string                                             `json:"department_id,omitempty"`               // 部门 ID, 枚举值及详细信息可通过[查询单个部门](https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/department/get)接口查询获得
-	JobID                    string                                             `json:"job_id,omitempty"`                      // 职务 ID, 枚举值及详细信息可通过[查询单个职务](https://open.feishu.cn/document/server-docs/corehr-v1/job-management/job/get)接口查询获得
+	JobLevelID               string                                             `json:"job_level_id,omitempty"`                // 职务级别 ID, 可通过[【查询单个职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/get)获取详细信息
+	JobGradeID               string                                             `json:"job_grade_id,omitempty"`                // 职等 ID, 可通过[【查询职等】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)获取详细信息
+	EmployeeTypeID           string                                             `json:"employee_type_id,omitempty"`            // 人员类型 ID, 可通过[【查询单个人员类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/get)获取详细信息
+	WorkingHoursTypeID       string                                             `json:"working_hours_type_id,omitempty"`       // 工时制度 ID, 可通过[【查询单个工时制度】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/get)获取详细信息
+	WorkLocationID           string                                             `json:"work_location_id,omitempty"`            // 工作地点 ID, 可通过[【查询单个地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/get)获取详细信息
+	DepartmentID             string                                             `json:"department_id,omitempty"`               // 部门 ID, 可通过[【批量查询部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)接口查询详细信息- 与 department_id_type 类型一致
+	JobID                    string                                             `json:"job_id,omitempty"`                      // 职务 ID, 可通过[【查询单个职务】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/get)获取详细信息
 	ProbationStartDate       string                                             `json:"probation_start_date,omitempty"`        // 试用期开始日期
 	ProbationEndDate         string                                             `json:"probation_end_date,omitempty"`          // 试用期结束日期（实际结束日期）
-	PrimaryJobData           bool                                               `json:"primary_job_data,omitempty"`            // 是否为主任职
-	EmploymentID             string                                             `json:"employment_id,omitempty"`               // 雇佣 ID
-	EffectiveTime            string                                             `json:"effective_time,omitempty"`              // 生效时间
-	ExpirationTime           string                                             `json:"expiration_time,omitempty"`             // 失效时间
-	JobFamilyID              string                                             `json:"job_family_id,omitempty"`               // 序列 ID, 枚举值及详细信息可通过[查询单个序列](https://open.feishu.cn/document/server-docs/corehr-v1/job-management/job_family/get)接口查询获得
-	AssignmentStartReason    *GetCoreHRJobDataListRespItemAssignmentStartReason `json:"assignment_start_reason,omitempty"`     // 任职原因, 枚举值可通过文档[飞书人事枚举常量](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)任职原因（assignment_start_reason）枚举定义部分获得
+	PrimaryJobData           bool                                               `json:"primary_job_data,omitempty"`            // 是否为主任职- true: 主职- false: 兼职, 建议使用兼职相关接口
+	EmploymentID             string                                             `json:"employment_id,omitempty"`               // 雇佣 ID, 可通过[【批量查询员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)获取详细信息- 与 user_id_type 类型一致
+	EffectiveTime            string                                             `json:"effective_time,omitempty"`              // 任职记录版本的生效时间
+	ExpirationTime           string                                             `json:"expiration_time,omitempty"`             // 任职记录版本的失效时间
+	JobFamilyID              string                                             `json:"job_family_id,omitempty"`               // 序列 ID, 可通过[【查询单个序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/get)获取详细信息
+	AssignmentStartReason    *GetCoreHRJobDataListRespItemAssignmentStartReason `json:"assignment_start_reason,omitempty"`     // 业务类型（原: 任职原因）- 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: - object_api_name: job_data  - custom_api_name: assignment_start_reason
 	ProbationExpectedEndDate string                                             `json:"probation_expected_end_date,omitempty"` // 预计试用期结束日期
-	ProbationOutcome         *GetCoreHRJobDataListRespItemProbationOutcome      `json:"probation_outcome,omitempty"`           // 试用期结果, 枚举值可通过文档[飞书人事枚举常量](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)试用期结果（probation_outcome）枚举定义部分获得
+	ProbationOutcome         *GetCoreHRJobDataListRespItemProbationOutcome      `json:"probation_outcome,omitempty"`           // 试用期结果- 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: - object_api_name: job_data  - custom_api_name: probation_outcome
 	WeeklyWorkingHours       int64                                              `json:"weekly_working_hours,omitempty"`        // 周工作时长
-	DirectManagerID          string                                             `json:"direct_manager_id,omitempty"`           // 实线主管的任职记录ID
-	DottedLineManagerIDList  []string                                           `json:"dotted_line_manager_id_list,omitempty"` // 虚线主管的任职记录ID
-	SecondDirectManagerID    string                                             `json:"second_direct_manager_id,omitempty"`    // 第二实线主管的任职记录ID
+	DirectManagerID          string                                             `json:"direct_manager_id,omitempty"`           // 实线主管的任职记录ID, 可通过[【查询单个任职信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/get)获取详细信息
+	DottedLineManagerIDList  []string                                           `json:"dotted_line_manager_id_list,omitempty"` // 虚线主管的任职记录ID, 可通过[【查询单个任职信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/get)获取详细信息
+	SecondDirectManagerID    string                                             `json:"second_direct_manager_id,omitempty"`    // 第二实线主管的任职记录ID, 可通过[【查询单个任职信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/get)获取详细信息
 	CostCenterRate           []*GetCoreHRJobDataListRespItemCostCenterRate      `json:"cost_center_rate,omitempty"`            // 成本中心分摊信息
 	WeeklyWorkingHoursV2     float64                                            `json:"weekly_working_hours_v2,omitempty"`     // 周工作时长v2
-	WorkShift                *GetCoreHRJobDataListRespItemWorkShift             `json:"work_shift,omitempty"`                  // 排班类型, 字段权限要求: 获取排班信息
-	CompensationType         *GetCoreHRJobDataListRespItemCompensationType      `json:"compensation_type,omitempty"`           // 薪资类型, 字段权限要求: 获取薪资类型
-	ServiceCompany           string                                             `json:"service_company,omitempty"`             // 任职公司, 字段权限要求: 获取任职公司
+	WorkShift                *GetCoreHRJobDataListRespItemWorkShift             `json:"work_shift,omitempty"`                  // 排班类型, 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "job_data"- custom_api_name = "work_shift"字段权限要求: 获取排班信息
+	CompensationType         *GetCoreHRJobDataListRespItemCompensationType      `json:"compensation_type,omitempty"`           // 薪资类型, 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "job_data"- custom_api_name = "compensation_type"字段权限要求: 获取薪资类型
+	ServiceCompany           string                                             `json:"service_company,omitempty"`             // 任职公司, 枚举值及详细信息可通过[【查询单个公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)接口查询获得字段权限要求: 获取任职公司
+	EmployeeSubtypeID        string                                             `json:"employee_subtype_id,omitempty"`         // 人员子类型 ID- 功能灰度中, 如有需求请联系[技术支持](https://applink.feishu.cn/TLJpeNdW)
+	PositionID               string                                             `json:"position_id,omitempty"`                 // 岗位 ID- 功能灰度中, 如有需求请联系[技术支持](https://applink.feishu.cn/TLJpeNdW)字段权限要求（满足任一）: 获取员工的岗位信息读写员工的岗位信息
+	JobDataReason            *GetCoreHRJobDataListRespItemJobDataReason         `json:"job_data_reason,omitempty"`             // 任职原因- 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: - object_api_name = "job_data"  - custom_api_name = "job_data_reason"字段权限要求: 读取任职原因
 }
 
 // GetCoreHRJobDataListRespItemAssignmentStartReason ...
@@ -134,8 +139,20 @@ type GetCoreHRJobDataListRespItemCompensationTypeDisplay struct {
 
 // GetCoreHRJobDataListRespItemCostCenterRate ...
 type GetCoreHRJobDataListRespItemCostCenterRate struct {
-	CostCenterID string `json:"cost_center_id,omitempty"` // 支持的成本中心id
+	CostCenterID string `json:"cost_center_id,omitempty"` // 成本中心 ID, 可以通过[搜索成本中心信息](https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/cost_center/search)接口获取对应的成本中心信息
 	Rate         int64  `json:"rate,omitempty"`           // 分摊比例
+}
+
+// GetCoreHRJobDataListRespItemJobDataReason ...
+type GetCoreHRJobDataListRespItemJobDataReason struct {
+	EnumName string                                              `json:"enum_name,omitempty"` // 枚举值
+	Display  []*GetCoreHRJobDataListRespItemJobDataReasonDisplay `json:"display,omitempty"`   // 枚举多语展示
+}
+
+// GetCoreHRJobDataListRespItemJobDataReasonDisplay ...
+type GetCoreHRJobDataListRespItemJobDataReasonDisplay struct {
+	Lang  string `json:"lang,omitempty"`  // 语言
+	Value string `json:"value,omitempty"` // 内容
 }
 
 // GetCoreHRJobDataListRespItemProbationOutcome ...

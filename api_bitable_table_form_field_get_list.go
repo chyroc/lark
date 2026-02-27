@@ -21,7 +21,9 @@ import (
 	"context"
 )
 
-// GetBitableTableFormFieldList 列出表单的所有问题项
+// GetBitableTableFormFieldList 列出表单中的所有问题项。
+//
+// 表单视图是多维表格的一种视图类型。每个表单都有唯一标识 `form_id`, 即当前视图的 `view_id`。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-form-field/list
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/form/list
@@ -59,11 +61,11 @@ func (r *Mock) UnMockBitableGetBitableTableFormFieldList() {
 
 // GetBitableTableFormFieldListReq ...
 type GetBitableTableFormFieldListReq struct {
-	AppToken  string  `path:"app_token" json:"-"`   // 多维表格文档 Token, 示例值: "bascnCMII2ORej2RItqpZZUNMIe"
-	TableID   string  `path:"table_id" json:"-"`    // 表格 ID, 示例值: "tblxI2tWaxP5dG7p"
-	FormID    string  `path:"form_id" json:"-"`     // 表单 ID, 示例值: "vewTpR1urY"
-	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 10, 最大值: `100`
-	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: vewTpR1urY
+	AppToken  string  `path:"app_token" json:"-"`   // 多维表格 App 的唯一标识。不同形态的多维表格, 其 `app_token` 的获取方式不同: 如果多维表格的 URL 以 [feishu.cn/base] 开头, 该多维表格的 `app_token` 是下图高亮部分: ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004)- 如果多维表格的 URL 以 [feishu.cn/wiki] 开头, 你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时, `obj_token` 字段的值才是多维表格的 `app_token`。了解更多, 参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。示例值: "bascnCMII2ORej2RItqpZZUNMIe"
+	TableID   string  `path:"table_id" json:"-"`    // 多维表格数据表的唯一标识。获取方式: 你可通过多维表格 URL 获取 `table_id`, 下图高亮部分即为当前数据表的 `table_id`- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`  ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976)示例值: "tblxI2tWaxP5dG7p"
+	FormID    string  `path:"form_id" json:"-"`     // 多维表格中表单的唯一标识。表单也是视图的一种, 其获取方式与获取 `view_id` 相同: 在多维表格的 URL 地址栏中, `form_id` 是下图中高亮部分: ![view_id.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/140668632c97e0095832219001d17c54_DJMgVH9x2S.png?height=748&lazyload=true&width=2998)- 通过[列出视图](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-view/list)接口获取。暂时无法获取到嵌入到云文档中的多维表格的 `form_id`示例值: "vewTpR1urY"
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小示例值: 10 最大值: `100
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: vewTpR1urY
 }
 
 // GetBitableTableFormFieldListResp ...
@@ -79,8 +81,8 @@ type GetBitableTableFormFieldListRespItem struct {
 	FieldID     string `json:"field_id,omitempty"`    // 表单问题 ID
 	Title       string `json:"title,omitempty"`       // 表单问题
 	Description string `json:"description,omitempty"` // 问题描述
-	Required    bool   `json:"required,omitempty"`    // 是否必填
-	Visible     bool   `json:"visible,omitempty"`     // 是否可见
+	Required    bool   `json:"required,omitempty"`    // 该问题是否必填。可选值: true: 必填- false: 非必填
+	Visible     bool   `json:"visible,omitempty"`     // 该问题是否可见。可选值: true: 可见- false: 不可见
 }
 
 // getBitableTableFormFieldListResp ...

@@ -58,8 +58,8 @@ func (r *Mock) UnMockCoreHRGetCoreHRTransferReasonList() {
 
 // GetCoreHRTransferReasonListReq ...
 type GetCoreHRTransferReasonListReq struct {
-	Active                         *bool    `query:"active" json:"-"`                            // 异动原因状态, 示例值: true
-	TransferReasonUniqueIdentifier []string `query:"transfer_reason_unique_identifier" json:"-"` // 异动原因唯一标识, 多条时最多数量为10, 示例值: voluntary_transfer, 最大长度: `10`
+	Active                         *bool    `query:"active" json:"-"`                            // 异动原因状态示例值: true
+	TransferReasonUniqueIdentifier []string `query:"transfer_reason_unique_identifier" json:"-"` // 异动原因唯一标识, 多条时最多数量为10示例值: voluntary_transfer 最大长度: `10
 }
 
 // GetCoreHRTransferReasonListResp ...

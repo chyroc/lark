@@ -26,6 +26,7 @@ import (
 // 也支持通过 provider 和 outer_id 删除对应的词条。此时路径中的 entity_id 为固定的 enterprise_0
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/lingo-v1/entity/delete
+// new doc: https://open.feishu.cn/document/lingo-v1/entity/delete
 func (r *LingoService) DeleteLingoEntity(ctx context.Context, request *DeleteLingoEntityReq, options ...MethodOptionFunc) (*DeleteLingoEntityResp, *Response, error) {
 	if r.cli.mock.mockLingoDeleteLingoEntity != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Lingo#DeleteLingoEntity mock enable")
@@ -59,14 +60,13 @@ func (r *Mock) UnMockLingoDeleteLingoEntity() {
 
 // DeleteLingoEntityReq ...
 type DeleteLingoEntityReq struct {
-	EntityID string  `path:"entity_id" json:"-"` // 词条 ID, 示例值: "enterprise_43742132363"
-	Provider *string `query:"provider" json:"-"` // 外部系统（使用时需要将路径中的词条 ID 固定为: enterprise_0, 且提供 provider 和 outer_id）, 示例值: 星云, 长度范围: `2` ～ `32` 字符
-	OuterID  *string `query:"outer_id" json:"-"` // 词条在外部系统中对应的唯一 ID（使用时需要将路径中的词条 ID 固定为: enterprise_0, 且提供 provider 和 outer_id）, 示例值: 123aaa, 长度范围: `1` ～ `64` 字符
+	EntityID string  `path:"entity_id" json:"-"` // 词条 ID示例值: "enterprise_43742132363"
+	Provider *string `query:"provider" json:"-"` // 外部系统（使用时需要将路径中的词条 ID 固定为: enterprise_0, 且提供 provider 和 outer_id）示例值: 星云 长度范围: `2` ～ `32` 字符
+	OuterID  *string `query:"outer_id" json:"-"` // 词条在外部系统中对应的唯一 ID（使用时需要将路径中的词条 ID 固定为: enterprise_0, 且提供 provider 和 outer_id）示例值: 123aaa 长度范围: `1` ～ `64` 字符
 }
 
 // DeleteLingoEntityResp ...
-type DeleteLingoEntityResp struct {
-}
+type DeleteLingoEntityResp struct{}
 
 // deleteLingoEntityResp ...
 type deleteLingoEntityResp struct {

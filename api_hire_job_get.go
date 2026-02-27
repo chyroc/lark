@@ -23,6 +23,8 @@ import (
 
 // GetHireJob 根据职位 ID 获取职位信息。
 //
+// 该接口不再更新, 推荐使用新接口: [获取职位详情](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/get_detail)
+//
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/get
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/recruitment-related-configuration/job/get
 func (r *HireService) GetHireJob(ctx context.Context, request *GetHireJobReq, options ...MethodOptionFunc) (*GetHireJobResp, *Response, error) {
@@ -58,11 +60,11 @@ func (r *Mock) UnMockHireGetHireJob() {
 
 // GetHireJobReq ...
 type GetHireJobReq struct {
-	JobID            string            `path:"job_id" json:"-"`              // 职位 ID, 请求Path中, 示例值: "6001"
-	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_admin_id: 以people_admin_id来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 部门ID类型, 示例值: open_department_id, 可选值有: open_department_id: 开放平台部门ID, department_id: 内部部门ID, 默认值: `open_department_id`
-	JobLevelIDType   *IDType           `query:"job_level_id_type" json:"-"`  // 此次调用中使用的「职级 ID」的类型, 示例值: 6942778198054125570, 可选值有: people_admin_job_level_id: 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。, job_level_id: 「飞书管理后台」适用的职级 ID, 通过[「获取租户职级列表」](https://open.feishu.cn/document/server-docs/contact-v3/job_level/list)接口获取, 默认值: `people_admin_job_level_id`
-	JobFamilyIDType  *IDType           `query:"job_family_id_type" json:"-"` // 此次调用中使用的「序列 ID」的类型, 示例值: 6942778198054125571, 可选值有: people_admin_job_category_id: 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。, job_family_id: 「飞书管理后台」适用的序列 ID, 通过[「获取租户序列列表」](https://open.feishu.cn/document/server-docs/contact-v3/job_family/list)接口获取, 默认值: `people_admin_job_category_id`
+	JobID            string            `path:"job_id" json:"-"`              // 职位 ID, 请求Path中示例值: "6001"
+	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以people_admin_id来识别用户默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 部门ID类型示例值: open_department_id可选值有: 开放平台部门ID内部部门ID默认值: `open_department_id
+	JobLevelIDType   *IDType           `query:"job_level_id_type" json:"-"`  // 此次调用中使用的「职级 ID」的类型示例值: 6942778198054125570可选值有: 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。「飞书管理后台」适用的职级 ID, 通过[「获取租户职级列表」](https://open.feishu.cn/document/server-docs/contact-v3/job_level/list)接口获取默认值: `people_admin_job_level_id
+	JobFamilyIDType  *IDType           `query:"job_family_id_type" json:"-"` // 此次调用中使用的「序列 ID」的类型示例值: 6942778198054125571可选值有: 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。「飞书管理后台」适用的序列 ID, 通过[「获取租户序列列表」](https://open.feishu.cn/document/server-docs/contact-v3/job_family/list)接口获取默认值: `people_admin_job_category_id
 }
 
 // GetHireJobResp ...
@@ -85,11 +87,11 @@ type GetHireJobRespJob struct {
 	HighlightList      []*GetHireJobRespJobHighlight      `json:"highlight_list,omitempty"`       // 职位亮点
 	JobCategory        *GetHireJobRespJobJobCategory      `json:"job_category,omitempty"`         // 职位序列
 	JobType            *GetHireJobRespJobJobType          `json:"job_type,omitempty"`             // 职位类别
-	ActiveStatus       int64                              `json:"active_status,omitempty"`        // 启用状态, 可选值有: 1: 启用, 2: 未启用
+	ActiveStatus       int64                              `json:"active_status,omitempty"`        // 启用状态可选值有: 启用未启用
 	CreateUserID       string                             `json:"create_user_id,omitempty"`       // 创建人ID, 若为空则为系统或其他对接系统创建
 	CreateTime         int64                              `json:"create_time,omitempty"`          // 创建时间 请使用create_timestamp
 	UpdateTime         int64                              `json:"update_time,omitempty"`          // 更新时间 请使用update_timestamp
-	ProcessType        int64                              `json:"process_type,omitempty"`         // 招聘流程类型, 可选值有: 1: 社招流程, 2: 校招流程
+	ProcessType        int64                              `json:"process_type,omitempty"`         // 招聘流程类型可选值有: 社招流程校招流程
 	ProcessID          string                             `json:"process_id,omitempty"`           // 招聘流程 ID
 	ProcessName        string                             `json:"process_name,omitempty"`         // 招聘流程中文名称
 	ProcessEnName      string                             `json:"process_en_name,omitempty"`      // 招聘流程英文名称
@@ -97,13 +99,13 @@ type GetHireJobRespJob struct {
 	JobFunction        *GetHireJobRespJobJobFunction      `json:"job_function,omitempty"`         // 职能分类
 	Subject            *GetHireJobRespJobSubject          `json:"subject,omitempty"`              // 职位项目
 	HeadCount          int64                              `json:"head_count,omitempty"`           // 招聘数量
-	Experience         int64                              `json:"experience,omitempty"`           // 工作年限, 可选值有: 1: 不限, 2: 应届毕业生, 3: 1年以下, 4: 1-3年, 5: 3-5年, 6: 5-7年, 7: 7-10年, 8: 10年以上
+	Experience         int64                              `json:"experience,omitempty"`           // 工作年限可选值有: 不限应届毕业生1年以下1-3年3-5年5-7年7-10年10年以上
 	ExpiryTime         int64                              `json:"expiry_time,omitempty"`          // 到期日期 请使用expiry_timestamp
 	MinSalary          int64                              `json:"min_salary,omitempty"`           // 最低薪资, 单位:k
 	MaxSalary          int64                              `json:"max_salary,omitempty"`           // 最高薪资, 单位:k
-	RequiredDegree     int64                              `json:"required_degree,omitempty"`      // 学历要求, 可选值有: 1: JuniorMiddleSchoolEducation, 2: 初中及以上, 3: 专职及以上, 4: 高中及以上, 5: 大专及以上, 6: 本科及以上, 7: 硕士及以上, 8: 博士及以上, 20: 不限
+	RequiredDegree     int64                              `json:"required_degree,omitempty"`      // 学历要求可选值有: JuniorMiddleSchoolEducation初中及以上专职及以上高中及以上大专及以上本科及以上硕士及以上博士及以上不限
 	CityList           []*GetHireJobRespJobCity           `json:"city_list,omitempty"`            // 工作地点列表
-	JobAttribute       int64                              `json:"job_attribute,omitempty"`        // 职位属性, 1是实体职位, 2是虚拟职位, 可选值有: 1: 实体职位, 2: 虚拟职位
+	JobAttribute       int64                              `json:"job_attribute,omitempty"`        // 职位属性, 1是实体职位, 2是虚拟职位可选值有: 实体职位虚拟职位
 	CreateTimestamp    string                             `json:"create_timestamp,omitempty"`     // 创建时间戳
 	UpdateTimestamp    string                             `json:"update_timestamp,omitempty"`     // 更新时间戳
 	ExpiryTimestamp    string                             `json:"expiry_timestamp,omitempty"`     // 到期时间戳
@@ -127,7 +129,7 @@ type GetHireJobRespJobCityName struct {
 type GetHireJobRespJobCustomizedData struct {
 	ObjectID   string                                `json:"object_id,omitempty"`   // 自定义字段 ID
 	Name       *GetHireJobRespJobCustomizedDataName  `json:"name,omitempty"`        // 字段名称
-	ObjectType int64                                 `json:"object_type,omitempty"` // 字段类型, 可选值有: 1: 单行文本, 2: 多行文本, 3: 单选, 4: 多选, 5: 日期, 6: 月份选择, 7: 年份选择, 8: 时间段, 9: 数字, 10: 默认字段, 11: 模块
+	ObjectType int64                                 `json:"object_type,omitempty"` // 字段类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块
 	Value      *GetHireJobRespJobCustomizedDataValue `json:"value,omitempty"`       // 自定义字段值
 }
 
@@ -184,7 +186,7 @@ type GetHireJobRespJobJobCategory struct {
 	ID           string `json:"id,omitempty"`            // 职位序列 ID
 	ZhName       string `json:"zh_name,omitempty"`       // 职位序列中文名称
 	EnName       string `json:"en_name,omitempty"`       // 职位序列英文名称
-	ActiveStatus int64  `json:"active_status,omitempty"` // 职位序列启用状态, 可选值有: 1: 启用, 2: 未启用
+	ActiveStatus int64  `json:"active_status,omitempty"` // 职位序列启用状态可选值有: 启用未启用
 }
 
 // GetHireJobRespJobJobFunction ...
@@ -211,7 +213,7 @@ type GetHireJobRespJobMaxJobLevel struct {
 	ID           string `json:"id,omitempty"`            // 职级 ID
 	ZhName       string `json:"zh_name,omitempty"`       // 职级中文名称
 	EnName       string `json:"en_name,omitempty"`       // 职级英文名称
-	ActiveStatus int64  `json:"active_status,omitempty"` // 职级启用状态, 可选值有: 1: 启用, 2: 未启用
+	ActiveStatus int64  `json:"active_status,omitempty"` // 职级启用状态可选值有: 启用未启用
 }
 
 // GetHireJobRespJobMinJobLevel ...
@@ -219,7 +221,7 @@ type GetHireJobRespJobMinJobLevel struct {
 	ID           string `json:"id,omitempty"`            // 职级 ID
 	ZhName       string `json:"zh_name,omitempty"`       // 职级中文名称
 	EnName       string `json:"en_name,omitempty"`       // 职级英文名称
-	ActiveStatus int64  `json:"active_status,omitempty"` // 职级启用状态, 可选值有: 1: 启用, 2: 未启用
+	ActiveStatus int64  `json:"active_status,omitempty"` // 职级启用状态可选值有: 启用未启用
 }
 
 // GetHireJobRespJobRecruitmentType ...
@@ -227,7 +229,7 @@ type GetHireJobRespJobRecruitmentType struct {
 	ID           string `json:"id,omitempty"`            // 雇佣类型 ID
 	ZhName       string `json:"zh_name,omitempty"`       // 雇佣类型中文名称
 	EnName       string `json:"en_name,omitempty"`       // 雇佣类型英文名称
-	ActiveStatus int64  `json:"active_status,omitempty"` // 雇佣类型启用状态, 可选值有: 1: 启用, 2: 未启用
+	ActiveStatus int64  `json:"active_status,omitempty"` // 雇佣类型启用状态可选值有: 启用未启用
 }
 
 // GetHireJobRespJobSubject ...

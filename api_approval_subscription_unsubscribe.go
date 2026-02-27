@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UnsubscribeApprovalSubscription 取消订阅 approval_code 后, 无法再收到该审批定义对应实例的事件通知
+// UnsubscribeApprovalSubscription 调用[订阅审批事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/subscribe)接口订阅审批定义 Code 后, 如果不再需要接收该审批定义下的事件订阅通知, 可以调用本接口取消订阅审批定义 Code, 取消后应用无法再收到该审批定义对应实例的事件通知。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/unsubscribe
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/event/event-interface/unsubscribe
@@ -58,12 +58,11 @@ func (r *Mock) UnMockApprovalUnsubscribeApprovalSubscription() {
 
 // UnsubscribeApprovalSubscriptionReq ...
 type UnsubscribeApprovalSubscriptionReq struct {
-	ApprovalCode string `path:"approval_code" json:"-"` // 审批定义唯一标识, 示例值: "7C468A54-8745-2245-9675-08B7C63E7A85"
+	ApprovalCode string `path:"approval_code" json:"-"` // 审批定义 Code。获取方式: 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后, 从响应参数 approval_code 获取。- 登录审批管理后台, 在指定审批定义的 URL 中获取, 具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。示例值: "7C468A54-8745-2245-9675-08B7C63E7A85"
 }
 
 // UnsubscribeApprovalSubscriptionResp ...
-type UnsubscribeApprovalSubscriptionResp struct {
-}
+type UnsubscribeApprovalSubscriptionResp struct{}
 
 // unsubscribeApprovalSubscriptionResp ...
 type unsubscribeApprovalSubscriptionResp struct {

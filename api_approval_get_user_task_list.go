@@ -59,11 +59,11 @@ func (r *Mock) UnMockApprovalGetApprovalUserTaskList() {
 
 // GetApprovalUserTaskListReq ...
 type GetApprovalUserTaskListReq struct {
-	PageSize   *int64  `query:"page_size" json:"-"`    // 分页大小, 示例值: 100, 默认值: `100`, 最大值: `200`
-	PageToken  *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "1"
-	UserID     string  `query:"user_id" json:"-"`      // 需要查询的 User ID, 示例值: "example_user_id"
-	Topic      string  `query:"topic" json:"-"`        // 需要查询的任务分组主题, 如「待办」、「已办」等, 示例值: "1", 可选值有: 1: 待办审批, 2: 已办审批, 3: 已发起审批, 17: 未读知会, 18: 已读知会
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	PageSize   *int64  `query:"page_size" json:"-"`    // 分页大小示例值: 100默认值: `100` 最大值: `200
+	PageToken  *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: "1"
+	UserID     string  `query:"user_id" json:"-"`      // 需要查询的 User ID示例值: "example_user_id"
+	Topic      string  `query:"topic" json:"-"`        // 需要查询的任务分组主题, 如「待办」、「已办」等示例值: "1"可选值有: 待办审批已办审批已发起审批未读知会已读知会
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: "open_id"可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetApprovalUserTaskListResp ...
@@ -82,14 +82,14 @@ type GetApprovalUserTaskListRespCount struct {
 
 // GetApprovalUserTaskListRespTask ...
 type GetApprovalUserTaskListRespTask struct {
-	Topic               string                               `json:"topic,omitempty"`                 // 任务所属的任务分组, 如「待办」、「已办」等, 可选值有: 1: 待办审批, 2: 已办审批, 3: 已发起审批, 17: 未读知会, 18: 已读知会
+	Topic               string                               `json:"topic,omitempty"`                 // 任务所属的任务分组, 如「待办」、「已办」等可选值有: 待办审批已办审批已发起审批未读知会已读知会
 	UserID              string                               `json:"user_id,omitempty"`               // 任务所属的用户 ID
 	Title               string                               `json:"title,omitempty"`                 // 任务题目
 	URLs                *GetApprovalUserTaskListRespTaskURLs `json:"urls,omitempty"`                  // 任务相关 URL
 	ProcessExternalID   string                               `json:"process_external_id,omitempty"`   // 流程三方 ID, 仅第三方流程, 需要在当前租户、当前 APP 内唯一
 	TaskExternalID      string                               `json:"task_external_id,omitempty"`      // 任务三方 ID, 仅第三方流程, 需要在当前流程实例内唯一
-	Status              string                               `json:"status,omitempty"`                // 任务状态, 可选值有: 1: 待办, 2: 已办, 17: 未读, 18: 已读, 33: 处理中, 标记完成用, 34: 撤回
-	ProcessStatus       string                               `json:"process_status,omitempty"`        // 流程实例状态, 可选值有: 0: 无流程状态, 不展示对应标签, 1: 流程实例流转中, 2: 已通过, 3: 已拒绝, 4: 已撤销, 5: 已终止
+	Status              string                               `json:"status,omitempty"`                // 任务状态可选值有: 待办已办未读已读处理中, 标记完成用撤回
+	ProcessStatus       string                               `json:"process_status,omitempty"`        // 流程实例状态可选值有: 无流程状态, 不展示对应标签流程实例流转中已通过已拒绝已撤销已终止
 	DefinitionCode      string                               `json:"definition_code,omitempty"`       // 流程定义 Code
 	Initiators          []string                             `json:"initiators,omitempty"`            // 发起人 ID 列表
 	InitiatorNames      []string                             `json:"initiator_names,omitempty"`       // 发起人姓名列表

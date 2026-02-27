@@ -23,7 +23,7 @@ import (
 
 // RecognizeSpeechStream 语音流式接口, 将整个音频文件分片进行传入模型。能够实时返回数据。建议每个音频分片的大小为 100-200ms。
 //
-// 单租户限流: 20 路（一个 stream_id 称为一路会话）, 同租户下的应用没有限流, 共享本租户的 20路限流。免费版不支持调用。
+// 全局租户总限流: 20 路（一个 stream_id 称为一路会话）。免费版不支持调用。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/speech_to_text-v1/speech/stream_recognize
 // new doc: https://open.feishu.cn/document/server-docs/ai/speech_to_text-v1/stream_recognize
@@ -66,16 +66,16 @@ type RecognizeSpeechStreamReq struct {
 
 // RecognizeSpeechStreamReqConfig ...
 type RecognizeSpeechStreamReqConfig struct {
-	StreamID   string `json:"stream_id,omitempty"`   // 仅包含字母数字和下划线的 16 位字符串作为同一数据流的标识, 用户生成, 示例值: "asd1234567890ddd"
-	SequenceID int64  `json:"sequence_id,omitempty"` // 数据流分片的序号, 序号从 0 开始, 每次请求递增 1, 示例值: 1
-	Action     int64  `json:"action,omitempty"`      // 数据流标记: 1 首包, 2 正常结束, 等待结果返回, 3 中断数据流不返回最终结果, 示例值: 1
-	Format     string `json:"format,omitempty"`      // 语音格式, 目前仅支持: pcm, 示例值: "pcm"
-	EngineType string `json:"engine_type,omitempty"` // 引擎类型, 目前仅支持: 16k_auto 中英混合, 示例值: "16k_auto"
+	StreamID   string `json:"stream_id,omitempty"`   // 仅包含字母数字和下划线的 16 位字符串作为同一数据流的标识, 用户生成示例值: "asd1234567890ddd"
+	SequenceID int64  `json:"sequence_id,omitempty"` // 数据流分片的序号, 序号从 0 开始, 每次请求递增 1示例值: 1
+	Action     int64  `json:"action,omitempty"`      // 数据流标记: 1 首包, 2 正常结束, 等待结果返回, 3 中断数据流不返回最终结果, 0 传输语音中间的数据包示例值: 1
+	Format     string `json:"format,omitempty"`      // 语音格式, 目前仅支持: pcm示例值: "pcm"
+	EngineType string `json:"engine_type,omitempty"` // 引擎类型, 目前仅支持: 16k_auto 中英混合示例值: "16k_auto"
 }
 
 // RecognizeSpeechStreamReqSpeech ...
 type RecognizeSpeechStreamReqSpeech struct {
-	Speech *string `json:"speech,omitempty"` // pcm格式音频文件（文件识别）或音频分片（流式识别）经base64编码后的内容, 示例值: "PdmrfE267Cd/Z9KpmNFh71A2PSJZxSp7+8upCg["
+	Speech *string `json:"speech,omitempty"` // pcm格式音频文件（文件识别）或音频分片（流式识别）经base64编码后的内容示例值: "PdmrfE267Cd/Z9KpmNFh71A2PSJZxSp7+8upCg["
 }
 
 // RecognizeSpeechStreamResp ...

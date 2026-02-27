@@ -21,7 +21,9 @@ import (
 	"context"
 )
 
-// BatchDeleteHireEcoExamPaper 删除指定帐号的指定试卷列表, 删除不影响已创建的笔试, 删除不存在的试卷时不会报错
+// BatchDeleteHireEcoExamPaper 飞书招聘的笔试服务商, 可通过该接口删除客户笔试帐号下的试卷列表。删除操作不影响已安排的笔试, 删除不存在的试卷时不会报错。
+//
+// 若被删除的试卷下存在已安排的笔试, 后续[创建试卷列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_exam_paper/create)时又传入被删除的试卷 ID, 并且修改了笔试开始/结束时间, 则会影响已安排笔试的笔试时间。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_exam_paper/batch_delete
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/ecological-docking/eco_exam_paper/batch_delete
@@ -58,13 +60,12 @@ func (r *Mock) UnMockHireBatchDeleteHireEcoExamPaper() {
 
 // BatchDeleteHireEcoExamPaperReq ...
 type BatchDeleteHireEcoExamPaperReq struct {
-	AccountID   string   `json:"account_id,omitempty"`    // 背调账号 ID, 可在「账号绑定」事件中获取, 示例值: "7147998241542539527"
-	PaperIDList []string `json:"paper_id_list,omitempty"` // 试卷 ID 列表, 示例值: ["7147998241542539526"]
+	AccountID   string   `json:"account_id,omitempty"`    // 笔试账号 ID, 可通过[账号绑定](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_account/events/created)事件获取示例值: "7147998241542539527"
+	PaperIDList []string `json:"paper_id_list,omitempty"` // 试卷 ID 列表。为通过[创建试卷列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_exam_paper/create)传入的 ID示例值: ["7147998241542539526"]
 }
 
 // BatchDeleteHireEcoExamPaperResp ...
-type BatchDeleteHireEcoExamPaperResp struct {
-}
+type BatchDeleteHireEcoExamPaperResp struct{}
 
 // batchDeleteHireEcoExamPaperResp ...
 type batchDeleteHireEcoExamPaperResp struct {

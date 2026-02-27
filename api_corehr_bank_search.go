@@ -21,9 +21,10 @@ import (
 	"context"
 )
 
-// SearchCoreHRBank 根据银行 ID 、银行名称查询银行信息
+// SearchCoreHRBank 根据银行 ID 、银行名称, 查询银行信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-bank/search
+// new doc: https://open.feishu.cn/document/corehr-v1/basic-infomation/basic_info-bank/search
 func (r *CoreHRService) SearchCoreHRBank(ctx context.Context, request *SearchCoreHRBankReq, options ...MethodOptionFunc) (*SearchCoreHRBankResp, *Response, error) {
 	if r.cli.mock.mockCoreHRSearchCoreHRBank != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#SearchCoreHRBank mock enable")
@@ -57,18 +58,18 @@ func (r *Mock) UnMockCoreHRSearchCoreHRBank() {
 
 // SearchCoreHRBankReq ...
 type SearchCoreHRBankReq struct {
-	PageSize        int64    `query:"page_size" json:"-"`         // 分页大小, 最大 100, 示例值: 100, 取值范围: `1` ～ `100`
-	PageToken       *string  `query:"page_token" json:"-"`        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 6891251722631890445
-	BankIDList      []string `json:"bank_id_list,omitempty"`      // 银行 ID 列表, 示例值: ["6891251722631891445"], 最大长度: `100`
-	BankNameList    []string `json:"bank_name_list,omitempty"`    // 银行名称列表, 支持对银行名称精确搜索, 示例值: ["招商银行"], 最大长度: `100`
-	StatusList      []int64  `json:"status_list,omitempty"`       // 状态列表, 示例值: [1], 可选值有: 1: 生效, 0: 失效, 默认值: `[1]`, 最大长度: `2`
-	UpdateStartTime *string  `json:"update_start_time,omitempty"` // 最早更新时间, 示例值: "2024-01-01 00:00:00"
-	UpdateEndTime   *string  `json:"update_end_time,omitempty"`   // 最晚更新时间, 示例值: "2024-01-01 00:00:00"
+	PageSize        int64    `query:"page_size" json:"-"`         // 分页大小, 最大 100示例值: 100 取值范围: `1` ～ `100
+	PageToken       *string  `query:"page_token" json:"-"`        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: MDBH00000100
+	BankIDList      []string `json:"bank_id_list,omitempty"`      // 银行 ID 列表, 可通过[批量查询员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)等接口返回的 `person_info.bank_account_list.bank_id_v2` 字段获取示例值: ["MDBH00000080"] 最大长度: `100
+	BankNameList    []string `json:"bank_name_list,omitempty"`    // 银行名称列表, 支持对银行名称精确搜索示例值: ["招商银行"] 最大长度: `100
+	StatusList      []int64  `json:"status_list,omitempty"`       // 状态列表示例值: [1]可选值有: 生效失效默认值: `[1]` 最大长度: `2
+	UpdateStartTime *string  `json:"update_start_time,omitempty"` // 最早更新时间示例值: "2020-01-01 00:00:00"
+	UpdateEndTime   *string  `json:"update_end_time,omitempty"`   // 最晚更新时间示例值: "2024-01-01 00:00:00"
 }
 
 // SearchCoreHRBankResp ...
 type SearchCoreHRBankResp struct {
-	Items     []*SearchCoreHRBankRespItem `json:"items,omitempty"`      // 查询的银行信息
+	Items     []*SearchCoreHRBankRespItem `json:"items,omitempty"`      // 查询到的银行列表
 	PageToken string                      `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	HasMore   bool                        `json:"has_more,omitempty"`   // 是否还有更多项
 }
@@ -79,15 +80,15 @@ type SearchCoreHRBankRespItem struct {
 	BankName        []*SearchCoreHRBankRespItemBankName `json:"bank_name,omitempty"`         // 银行名称
 	BankCode        string                              `json:"bank_code,omitempty"`         // 总行代码
 	CountryRegionID string                              `json:"country_region_id,omitempty"` // 国家 / 地区 ID, 可通过[查询国家 / 地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search) 接口查询
-	Status          int64                               `json:"status,omitempty"`            // 状态, 可选值有: 1: 生效, 0: 失效
+	Status          int64                               `json:"status,omitempty"`            // 状态可选值有: 生效失效
 	CreateTime      string                              `json:"create_time,omitempty"`       // 创建时间
 	UpdateTime      string                              `json:"update_time,omitempty"`       // 更新时间
 }
 
 // SearchCoreHRBankRespItemBankName ...
 type SearchCoreHRBankRespItemBankName struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // searchCoreHRBankResp ...

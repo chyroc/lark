@@ -60,12 +60,11 @@ func (r *Mock) UnMockCalendarDeleteCalendarExchangeBinding() {
 
 // DeleteCalendarExchangeBindingReq ...
 type DeleteCalendarExchangeBindingReq struct {
-	ExchangeBindingID string `path:"exchange_binding_id" json:"-"` // Exchange 绑定的唯一标识 ID。调用 [将 Exchange 账户绑定到飞书账户](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/exchange_binding/create) 绑定时, 可从返回结果中获取 exchange_binding_id, 示例值: "ZW1haWxfYWRtaW5fZXhhbXBsZUBvdXRsb29rLmNvbSBlbWFpbF9hY2NvdW50X2V4YW1wbGVAb3V0bG9vay5jb20="
+	ExchangeBindingID string `path:"exchange_binding_id" json:"-"` // Exchange 绑定的唯一标识 ID。调用 [将 Exchange 账户绑定到飞书账户](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/exchange_binding/create) 绑定时, 可从返回结果中获取 exchange_binding_id。示例值: "ZW1haWxfYWRtaW5fZXhhbXBsZUBvdXRsb29rLmNvbSBlbWFpbF9hY2NvdW50X2V4YW1wbGVAb3V0bG9vay5jb20="
 }
 
 // DeleteCalendarExchangeBindingResp ...
-type DeleteCalendarExchangeBindingResp struct {
-}
+type DeleteCalendarExchangeBindingResp struct{}
 
 // deleteCalendarExchangeBindingResp ...
 type deleteCalendarExchangeBindingResp struct {

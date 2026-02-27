@@ -26,6 +26,7 @@ import (
 // 也支持通过 provider 和 outer_id 返回对应实体的详情数据。此时路径中的 entity_id 为固定的 enterprise_0
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/lingo-v1/entity/get
+// new doc: https://open.feishu.cn/document/lingo-v1/entity/get
 func (r *LingoService) GetLingoEntity(ctx context.Context, request *GetLingoEntityReq, options ...MethodOptionFunc) (*GetLingoEntityResp, *Response, error) {
 	if r.cli.mock.mockLingoGetLingoEntity != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Lingo#GetLingoEntity mock enable")
@@ -60,10 +61,10 @@ func (r *Mock) UnMockLingoGetLingoEntity() {
 
 // GetLingoEntityReq ...
 type GetLingoEntityReq struct {
-	EntityID   string  `path:"entity_id" json:"-"`     // 词条 ID, 示例值: "enterprise_515879"
-	Provider   *string `query:"provider" json:"-"`     // 外部系统, 示例值: 星云, 长度范围: `2` ～ `32` 字符
-	OuterID    *string `query:"outer_id" json:"-"`     // 词条在外部系统中对应的唯一 ID, 示例值: 123aaa, 长度范围: `1` ～ `64` 字符
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	EntityID   string  `path:"entity_id" json:"-"`     // 词条 ID示例值: "enterprise_515879"
+	Provider   *string `query:"provider" json:"-"`     // 外部系统示例值: 星云 长度范围: `2` ～ `32` 字符
+	OuterID    *string `query:"outer_id" json:"-"`     // 词条在外部系统中对应的唯一 ID示例值: 123aaa 长度范围: `1` ～ `64` 字符
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetLingoEntityResp ...
@@ -103,7 +104,7 @@ type GetLingoEntityRespEntityAliaseDisplayStatus struct {
 
 // GetLingoEntityRespEntityI18nDesc ...
 type GetLingoEntityRespEntityI18nDesc struct {
-	Language    int64  `json:"language,omitempty"`    // 语言类型, 可选值有: 1: 中文, 2: 英文, 3: 日文
+	Language    int64  `json:"language,omitempty"`    // 语言类型可选值有: 中文英文日文
 	Description string `json:"description,omitempty"` // 纯文本释义
 	RichText    string `json:"rich_text,omitempty"`   // 富文本描述
 }
@@ -134,7 +135,7 @@ type GetLingoEntityRespEntityRelatedMeta struct {
 	Oncalls         []*GetLingoEntityRespEntityRelatedMetaOncall         `json:"oncalls,omitempty"`         // 相关服务中的相关值班号
 	Links           []*GetLingoEntityRespEntityRelatedMetaLink           `json:"links,omitempty"`           // 相关链接
 	Abbreviations   []*GetLingoEntityRespEntityRelatedMetaAbbreviation   `json:"abbreviations,omitempty"`   // 相关词条
-	Classifications []*GetLingoEntityRespEntityRelatedMetaClassification `json:"classifications,omitempty"` // 当前词条所属分类, 词条只能属于二级分类, 且每个一级分类下只能选择一个二级分类。
+	Classifications []*GetLingoEntityRespEntityRelatedMetaClassification `json:"classifications,omitempty"` // 当前词条所属分类 词条只能属于二级分类, 且每个一级分类下只能选择一个二级分类。
 	Images          []*GetLingoEntityRespEntityRelatedMetaImage          `json:"images,omitempty"`          // 上传的图片
 }
 

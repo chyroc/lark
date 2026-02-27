@@ -59,7 +59,7 @@ func (r *Mock) UnMockHelpdeskGetHelpdeskAgentSkill() {
 
 // GetHelpdeskAgentSkillReq ...
 type GetHelpdeskAgentSkillReq struct {
-	AgentSkillID string `path:"agent_skill_id" json:"-"` // agent skill id, 示例值: "6941215891786825756"
+	AgentSkillID string `path:"agent_skill_id" json:"-"` // agent skill id示例值: "6941215891786825756"
 }
 
 // GetHelpdeskAgentSkillResp ...

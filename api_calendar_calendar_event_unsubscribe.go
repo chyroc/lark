@@ -60,12 +60,11 @@ func (r *Mock) UnMockCalendarUnsubscribeCalendarEvent() {
 
 // UnsubscribeCalendarEventReq ...
 type UnsubscribeCalendarEventReq struct {
-	CalendarID string `path:"calendar_id" json:"-"` // 日历 ID。关于日历 ID 可参见[日历 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	CalendarID string `path:"calendar_id" json:"-"` // 日历 ID。关于日历 ID 可参见[日历 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction)。示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 }
 
 // UnsubscribeCalendarEventResp ...
-type UnsubscribeCalendarEventResp struct {
-}
+type UnsubscribeCalendarEventResp struct{}
 
 // unsubscribeCalendarEventResp ...
 type unsubscribeCalendarEventResp struct {

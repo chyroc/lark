@@ -21,9 +21,11 @@ import (
 	"context"
 )
 
-// EventV2HireApplicationDeletedV1 投递被删除后会推送该事件
+// EventV2HireApplicationDeletedV1 当投递被删除时, 触发该事件的推送。
 //
-// 注意该事件仅通知变更投递id及阶段id, 需要配合另外的查询接口反查实际的投递或阶段信息。
+// {使用示例}(url=/api/tools/api_explore/api_explore_config?project=hire&version=v1&resource=application&event=deleted)
+// - 需要在应用中配置事件订阅, 才可以在事件触发时接收到事件数据。了解事件订阅可参见[事件概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
+// - 该事件仅通知被删除投递ID, 目前暂不支持查询被删除的投递信息
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/events/deleted
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/event/deleted

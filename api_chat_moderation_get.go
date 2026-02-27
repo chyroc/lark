@@ -21,11 +21,12 @@ import (
 	"context"
 )
 
-// GetChatModeration 获取群发言模式、可发言用户名单等。
+// GetChatModeration 获取指定群组的发言模式、可发言用户名单等信息。
 //
-// 注意事项:
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
-// - 机器人 或 授权用户 必须在群里
+// ## 前提条件
+// 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// ## 使用限制
+// 调用本接口的用户或机器人必须要在对应的群组内。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-moderation/get
 // new doc: https://open.feishu.cn/document/server-docs/group/chat/get
@@ -63,25 +64,25 @@ func (r *Mock) UnMockChatGetChatModeration() {
 
 // GetChatModerationReq ...
 type GetChatModerationReq struct {
-	ChatID     string  `path:"chat_id" json:"-"`       // 群 ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值: "oc_a0553eda9014c201e6969b478895c230"
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	PageSize   *int64  `query:"page_size" json:"-"`    // 分页大小, 示例值: dmJCRHhpd3JRbGV1VEVNRFFyTitRWDY5ZFkybmYrMEUwMUFYT0VMMWdENEtuYUhsNUxGMDIwemtvdE5ORjBNQQ[
-	PageToken  *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 10, 最大值: `100`
+	ChatID     string  `path:"chat_id" json:"-"`       // 群 ID。获取方式: [创建群](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create), 从返回结果中获取该群的 chat_id。- 调用[获取用户或机器人所在的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list)接口, 可以查询用户或机器人所在群的 chat_id。- 调用[搜索对用户或机器人可见的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search), 可搜索用户或机器人所在的群、对用户或机器人公开的群的 chat_id。示例值: "oc_a0553eda9014c201e6969b478895c230"
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	PageSize   *int64  `query:"page_size" json:"-"`    // 分页大小, 用来限制一次请求返回的数据条目数。示例值: dmJCRHhpd3JRbGV1VEVNRFFyTitRWDY5ZFkybmYrMEUwMUFYT0VMMWdENEtuYUhsNUxGMDIwemtvdE5ORjBNQQ[
+	PageToken  *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 10 最大值: `100
 }
 
 // GetChatModerationResp ...
 type GetChatModerationResp struct {
-	ModerationSetting string                       `json:"moderation_setting,omitempty"` // 群发言模式（all_members/only_owner/moderator_list, 其中 moderator_list 表示部分用户可发言的模式）
+	ModerationSetting string                       `json:"moderation_setting,omitempty"` // 群发言模式, 可能值有: all_members: 所有群成员可发言- only_owner: 仅群主或管理员可发言- moderator_list: 指定群成员可发言
 	PageToken         string                       `json:"page_token,omitempty"`         // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	HasMore           bool                         `json:"has_more,omitempty"`           // 是否还有更多项
-	Items             []*GetChatModerationRespItem `json:"items,omitempty"`              // 可发言用户列表
+	Items             []*GetChatModerationRespItem `json:"items,omitempty"`              // 可发言用户列表, 当群发言模式为 `moderator_list` 时, 该参数有返回值。
 }
 
 // GetChatModerationRespItem ...
 type GetChatModerationRespItem struct {
 	UserIDType IDType `json:"user_id_type,omitempty"` // 可发言用户 ID 类型
-	UserID     string `json:"user_id,omitempty"`      // 可发言用户 ID
-	TenantKey  string `json:"tenant_key,omitempty"`   // 租户Key, 为租户在飞书上的唯一标识, 用来换取对应的tenant_access_token, 也可以用作租户在应用中的唯一标识
+	UserID     string `json:"user_id,omitempty"`      // 可发言用户 ID, ID 类型与查询参数 user_id_type 取值一致。
+	TenantKey  string `json:"tenant_key,omitempty"`   // 租户 Key, 为租户在飞书上的唯一标识, 用来换取对应的tenant_access_token, 也可以用作租户在应用中的唯一标识。
 }
 
 // getChatModerationResp ...

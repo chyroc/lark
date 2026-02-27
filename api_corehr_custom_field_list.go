@@ -21,7 +21,9 @@ import (
 	"context"
 )
 
-// GetCoreHRCustomFieldList 获取「飞书人事」具体对象下的自定义字段列表。注: 在「人员档案信息配置」-「个人信息」功能中添加的分组, 实际上是一个自定义对象, 可以通过该接口查询自定义对象的所有字段。使用方式可参考[操作手册]如何通过 OpenAPI 维护自定义字段](https://feishu.feishu.cn/docx/QlUudBfCtosWMbxx3vxcOFDknn7)
+// GetCoreHRCustomFieldList 根据对象的 API name, 获取「飞书人事」具体对象下的自定义字段列表
+//
+// 在人事设置[「人员档案配置」页面](https://people.feishu.cn/people/hr-settings/profile)添加的分组, 实际上都是自定义对象, 可以通过该接口查询分组内的所有字段。使用方式可参考「[如何通过 OpenAPI 维护自定义字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/how-to)」
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/query
@@ -58,7 +60,7 @@ func (r *Mock) UnMockCoreHRGetCoreHRCustomFieldList() {
 
 // GetCoreHRCustomFieldListReq ...
 type GetCoreHRCustomFieldListReq struct {
-	ObjectApiNameList []string `query:"object_api_name_list" json:"-"` // 所属对象 apiname, 支持一个或多个, 当前数量限制为 20 个, 示例值: person
+	ObjectApiNameList []string `query:"object_api_name_list" json:"-"` // 所属对象 API name, 支持一个或多个, 当前数量限制为 20 个。可从[获取飞书人事对象列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/list_object_api_name)接口列举所有对象及其 API name示例值: person
 }
 
 // GetCoreHRCustomFieldListResp ...
@@ -68,15 +70,15 @@ type GetCoreHRCustomFieldListResp struct {
 
 // GetCoreHRCustomFieldListRespItem ...
 type GetCoreHRCustomFieldListRespItem struct {
-	CustomApiName      string                                              `json:"custom_api_name,omitempty"`      // 自定义字段 apiname, 即自定义字段的唯一标识
+	CustomApiName      string                                              `json:"custom_api_name,omitempty"`      // 自定义字段 API name, 即自定义字段的唯一标识
 	Name               *GetCoreHRCustomFieldListRespItemName               `json:"name,omitempty"`                 // 自定义字段名称
 	Description        *GetCoreHRCustomFieldListRespItemDescription        `json:"description,omitempty"`          // 描述
 	IsOpen             bool                                                `json:"is_open,omitempty"`              // 是否启用
 	IsRequired         bool                                                `json:"is_required,omitempty"`          // 是否必填
 	IsUnique           bool                                                `json:"is_unique,omitempty"`            // 是否唯一
 	ObjectApiName      string                                              `json:"object_api_name,omitempty"`      // 所属对象 apiname
-	Type               int64                                               `json:"type,omitempty"`                 // 自定义字段类型, 可选值有: 1: 文本 Text, “文本”和“超链接”属于该类型, 2: 布尔 Boolean, 3: 数字 Number, 4: 枚举 Option, “单选”和“多选”为该类型, 5: 查找 Lookup, “人员（单选）”、“人员（多选）”和个人信息中的自定义分组为该类型, 6: 自动编码 Autonumber, 7: 日期时间 Datetime, 8: 附件 Attachment, “附件单选”和“附件多选”为该类型, 9: 图片 Image, 10: 计算字段 Calculated, 11: 反向查找 Backlookup
-	CommonSchemaConfig *GetCoreHRCustomFieldListRespItemCommonSchemaConfig `json:"common_schema_config,omitempty"` // 配置信息, 当前仅字段类型为「文本」、「布尔」、「数字」、「选项」、「日期时间」、「查找」、「附件」、「图片」时返回具体的配置信息, 其余类型的自定义字段暂不返回
+	Type               int64                                               `json:"type,omitempty"`                 // 字段类型可选值有: 1: 文本 Text, “文本”和“超链接”属于该类型- 2: 布尔 Boolean- 3: 数字 Number- 4: 枚举 Enum, “单选”和“多选”属于该类型- 5: 查找 Lookup, “人员（单选）”、“人员（多选）”及“人员档案管理”页面中用户添加的自定义分组属于该类型- 6: 自动编码 Auto Number- 7: 日期时间 Date Time- 8: 附件 Attachment, “附件单选”和“附件多选”为该类型- 9: 图片 Image- 10: 计算字段 Calculated- 11: 反向查找 Back Lookup
+	CommonSchemaConfig *GetCoreHRCustomFieldListRespItemCommonSchemaConfig `json:"common_schema_config,omitempty"` // 字段类型配置信息, 可以用来区分同一字段类型下的不同子类型。当前仅字段类型为「文本」「布尔」「数字」「枚举」「日期时间」「附件」「图片」时返回相应的配置信息, 其余类型暂不返回
 	CreateTime         string                                              `json:"create_time,omitempty"`          // 创建时间, 秒级时间戳
 	UpdateTime         string                                              `json:"update_time,omitempty"`          // 更新时间, 秒级时间戳
 }
@@ -90,17 +92,23 @@ type GetCoreHRCustomFieldListRespItemCommonSchemaConfig struct {
 	DateTimeFieldSetting   *GetCoreHRCustomFieldListRespItemCommonSchemaConfigDateTimeFieldSetting   `json:"date_time_field_setting,omitempty"`  // 日期时间配置信息
 	AttachmentFieldSetting *GetCoreHRCustomFieldListRespItemCommonSchemaConfigAttachmentFieldSetting `json:"attachment_field_setting,omitempty"` // 附件配置信息
 	ImageFieldSetting      *GetCoreHRCustomFieldListRespItemCommonSchemaConfigImageFieldSetting      `json:"image_field_setting,omitempty"`      // 图片配置信息
+	CalculatedFieldSetting *GetCoreHRCustomFieldListRespItemCommonSchemaConfigCalculatedFieldSetting `json:"calculated_field_setting,omitempty"` // 计算字段配置信息
 }
 
 // GetCoreHRCustomFieldListRespItemCommonSchemaConfigAttachmentFieldSetting ...
 type GetCoreHRCustomFieldListRespItemCommonSchemaConfigAttachmentFieldSetting struct {
 	IsMultiple bool     `json:"is_multiple,omitempty"` // 是否支持多个文件
-	FileType   FileType `json:"file_type,omitempty"`   // 文件类型枚举, 可选值有: `1`: jpeg, `2`: png, `3`: gif, `4`: pdf, `5`: docx, `6`: doc, `7`: csv, `8`: xls, `9`: txt, `10`: xlsx, `11`: mp4, `12`: pptx, `13`: ppt, `14`: json, `15`: zip, `16`: rar
+	FileType   FileType `json:"file_type,omitempty"`   // 废弃属性, 不建议使用, 通常为空值
+}
+
+// GetCoreHRCustomFieldListRespItemCommonSchemaConfigCalculatedFieldSetting ...
+type GetCoreHRCustomFieldListRespItemCommonSchemaConfigCalculatedFieldSetting struct {
+	Type int64 `json:"type,omitempty"` // 字段类型
 }
 
 // GetCoreHRCustomFieldListRespItemCommonSchemaConfigDateTimeFieldSetting ...
 type GetCoreHRCustomFieldListRespItemCommonSchemaConfigDateTimeFieldSetting struct {
-	DateTimeType int64 `json:"date_time_type,omitempty"` // 时间类型枚举, 可选值有: `1`: Date 日期, 如 2020-01-01, `2`: Time  时间, 如 11:52:00, `3`: Datetime 日期时间, 如 2020-01-01 11:52:00, `4`: CusDatetime // timestamp 时间戳
+	DateTimeType int64 `json:"date_time_type,omitempty"` // 时间类型枚举可选值有: `1`: Date 日期, 如 2020-01-01- `2`: Time  时间, 如 11:52:00- `3`: DateTime 日期时间, 如 2020-01-01 11:52:00- `4`: CusDateTime 时间戳
 }
 
 // GetCoreHRCustomFieldListRespItemCommonSchemaConfigEnumFieldSetting ...
@@ -111,7 +119,7 @@ type GetCoreHRCustomFieldListRespItemCommonSchemaConfigEnumFieldSetting struct {
 
 // GetCoreHRCustomFieldListRespItemCommonSchemaConfigEnumFieldSettingEnumFieldOption ...
 type GetCoreHRCustomFieldListRespItemCommonSchemaConfigEnumFieldSettingEnumFieldOption struct {
-	ApiName     string                                                                                        `json:"api_name,omitempty"`    // 选项 api_name
+	ApiName     string                                                                                        `json:"api_name,omitempty"`    // 枚举常量集 API name, 即一组选项集合的唯一标识。系统预置的枚举常量集可在[枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)文档中查询到
 	Name        *GetCoreHRCustomFieldListRespItemCommonSchemaConfigEnumFieldSettingEnumFieldOptionName        `json:"name,omitempty"`        // 选项名称
 	Description *GetCoreHRCustomFieldListRespItemCommonSchemaConfigEnumFieldSettingEnumFieldOptionDescription `json:"description,omitempty"` // 选项描述
 	IsOpen      bool                                                                                          `json:"is_open,omitempty"`     // 是否启用
@@ -131,21 +139,21 @@ type GetCoreHRCustomFieldListRespItemCommonSchemaConfigEnumFieldSettingEnumField
 
 // GetCoreHRCustomFieldListRespItemCommonSchemaConfigImageFieldSetting ...
 type GetCoreHRCustomFieldListRespItemCommonSchemaConfigImageFieldSetting struct {
-	ImageType    int64 `json:"image_type,omitempty"`    // 图片类型枚举, 可选值有: `1`: Avatar 头像, `2`: BadgePhoto 工卡照片, `3`: Logo 标志
-	DisplayStyle int64 `json:"display_style,omitempty"` // 显示样式, 可选值有: `1`: SquareImage 方形, `2`: RoundImage  圆形
+	ImageType    int64 `json:"image_type,omitempty"`    // 图片类型枚举可选值有: `1`: Avatar 头像- `2`: BadgePhoto 工卡照片- `3`: Logo 标志
+	DisplayStyle int64 `json:"display_style,omitempty"` // 显示样式可选值有: `1`: SquareImage 方形- `2`: RoundImage  圆形
 }
 
 // GetCoreHRCustomFieldListRespItemCommonSchemaConfigLookupFieldSetting ...
 type GetCoreHRCustomFieldListRespItemCommonSchemaConfigLookupFieldSetting struct {
-	LookupObjApiName string `json:"lookup_obj_api_name,omitempty"` // 查找字段对应的对象 apiname, 可通过[获取自定义字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query)接口获取这个对象中定义的自定义字段
-	IsMultiple       bool   `json:"is_multiple,omitempty"`         // 是否为多值
+	LookupObjApiName string `json:"lookup_obj_api_name,omitempty"` // 查找字段所引用对象的 API name。对于“人员（单选）”和“人员（多选）”, 其值为 `employment`。可通过[获取自定义字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query)接口传入此参数的值来查询自定义分组中定义的自定义字段
+	IsMultiple       bool   `json:"is_multiple,omitempty"`         // 是否为多值。例如“人员（单选）字段”此属性为 false, 而“人员（多选）”字段此属性为 true。
 }
 
 // GetCoreHRCustomFieldListRespItemCommonSchemaConfigNumberFieldSetting ...
 type GetCoreHRCustomFieldListRespItemCommonSchemaConfigNumberFieldSetting struct {
-	NumberFieldType    int64 `json:"number_field_type,omitempty"`    // 数字类型, 可选值有: `1`: Percent 百分比, `2`: Integer 整数, `3`: Value 数值（浮点数）, `4`: Money 金额（浮点数）
-	DecimalPlaces      int64 `json:"decimal_places,omitempty"`       // 小数部分位数（浮点数整数部分和小数部分分别最大30位）
-	RoundType          int64 `json:"round_type,omitempty"`           // 四舍五入规则, 可选值有: `0`: Round 四舍五入, `1`: Ceil 向上舍入, `2`: Floor 向下舍入
+	NumberFieldType    int64 `json:"number_field_type,omitempty"`    // 数字类型可选值有: `1`: Percent 百分比（定点小数）- `2`: Integer 整数- `3`: Value 数值（定点小数）- `4`: Money 金额（定点小数）
+	DecimalPlaces      int64 `json:"decimal_places,omitempty"`       // 小数点后的位数
+	RoundType          int64 `json:"round_type,omitempty"`           // 四舍五入规则可选值有: `0`: Round 四舍五入- `1`: Ceil 向上舍入- `2`: Floor 向下舍入
 	DecimalTotalPlaces int64 `json:"decimal_total_places,omitempty"` // 整数+小数总位数
 }
 
@@ -154,7 +162,7 @@ type GetCoreHRCustomFieldListRespItemCommonSchemaConfigTextFieldSetting struct {
 	IsMultilingual bool  `json:"is_multilingual,omitempty"` // 是否多语言
 	IsMultiline    bool  `json:"is_multiline,omitempty"`    // 是否多行
 	MaxLength      int64 `json:"max_length,omitempty"`      // 最大长度
-	IsURLType      bool  `json:"is_url_type,omitempty"`     // 是否是URL类型
+	IsURLType      bool  `json:"is_url_type,omitempty"`     // 是否是“超链接”类型
 }
 
 // GetCoreHRCustomFieldListRespItemDescription ...

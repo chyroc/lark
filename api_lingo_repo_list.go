@@ -26,6 +26,7 @@ import (
 // 如以应用身份获取, 需要在“词库设置”页面添加应用；若以用户身份获取, 该用户需要拥有对应词库的可见权限。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/lingo-v1/repo/list
+// new doc: https://open.feishu.cn/document/lingo-v1/repo/list
 func (r *LingoService) GetLingoRepoList(ctx context.Context, request *GetLingoRepoListReq, options ...MethodOptionFunc) (*GetLingoRepoListResp, *Response, error) {
 	if r.cli.mock.mockLingoGetLingoRepoList != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Lingo#GetLingoRepoList mock enable")
@@ -59,8 +60,7 @@ func (r *Mock) UnMockLingoGetLingoRepoList() {
 }
 
 // GetLingoRepoListReq ...
-type GetLingoRepoListReq struct {
-}
+type GetLingoRepoListReq struct{}
 
 // GetLingoRepoListResp ...
 type GetLingoRepoListResp struct {

@@ -58,14 +58,14 @@ func (r *Mock) UnMockAttendanceCreateAttendanceUserTaskRemedy() {
 
 // CreateAttendanceUserTaskRemedyReq ...
 type CreateAttendanceUserTaskRemedyReq struct {
-	EmployeeType EmployeeType `query:"employee_type" json:"-"` // 请求体和响应体中的 user_id 的员工工号类型, 示例值: employee_id, 可选值有: employee_id: 员工 employee ID, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID, employee_no: 员工工号, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号
-	UserID       string       `json:"user_id,omitempty"`       // 用户 ID, 示例值: "abd754f7"
-	RemedyDate   int64        `json:"remedy_date,omitempty"`   // 补卡日期, 示例值: 20210701
-	PunchNo      int64        `json:"punch_no,omitempty"`      // 第几次上下班, 0: 第 1 次上下班, 1: 第 2 次上下班, 2: 第 3 次上下班, 自由班制填 0, 示例值: 0
-	WorkType     int64        `json:"work_type,omitempty"`     // 上班 / 下班, 1: 上班, 2: 下班, 自由班制填 0, 示例值: 1
-	RemedyTime   string       `json:"remedy_time,omitempty"`   // 补卡时间, 时间格式为 yyyy-MM-dd HH:mm, 示例值: "2021-07-01 08:00"
-	Reason       string       `json:"reason,omitempty"`        // 补卡原因, 示例值: "忘记打卡"
-	Time         *string      `json:"time,omitempty"`          // 补卡时间, 精确到秒的时间戳, 示例值: "1611476284"
+	EmployeeType EmployeeType `query:"employee_type" json:"-"` // 响应体中的 user_id 的员工ID类型。如果没有后台管理权限, 可使用[通过手机号或邮箱获取用户 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/batch_get_id)示例值: employee_id可选值有: 员工 employee ID, 即[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的用户 ID员工工号, 即[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的工号
+	UserID       string       `json:"user_id,omitempty"`       // 用户 ID, 对应employee_type示例值: "abd754f7"
+	RemedyDate   int64        `json:"remedy_date,omitempty"`   // 补卡日期, 日期格式yyyyMMdd示例值: 20210701
+	PunchNo      int64        `json:"punch_no,omitempty"`      // 第几次上下班, 0: 第 1 次上下班, 1: 第 2 次上下班, 2: 第 3 次上下班, 自由班制填 0示例值: 0
+	WorkType     int64        `json:"work_type,omitempty"`     // 上班 / 下班, 1: 上班, 2: 下班, 自由班制填 0示例值: 1
+	RemedyTime   string       `json:"remedy_time,omitempty"`   // 补卡时间, 时间格式为 yyyy-MM-dd HH:mm示例值: "2021-07-01 08:00"
+	Reason       string       `json:"reason,omitempty"`        // 补卡原因示例值: "忘记打卡"
+	Time         *string      `json:"time,omitempty"`          // 字段已失效示例值: "-"
 }
 
 // CreateAttendanceUserTaskRemedyResp ...
@@ -75,18 +75,18 @@ type CreateAttendanceUserTaskRemedyResp struct {
 
 // CreateAttendanceUserTaskRemedyRespUserRemedy ...
 type CreateAttendanceUserTaskRemedyRespUserRemedy struct {
-	UserID     string `json:"user_id,omitempty"`     // 用户 ID
-	RemedyDate int64  `json:"remedy_date,omitempty"` // 补卡日期
+	UserID     string `json:"user_id,omitempty"`     // 用户 ID, 对应employee_type
+	RemedyDate int64  `json:"remedy_date,omitempty"` // 补卡日期, 日期格式yyyyMMdd
 	PunchNo    int64  `json:"punch_no,omitempty"`    // 第几次上下班, 0: 第 1 次上下班, 1: 第 2 次上下班, 2: 第 3 次上下班, 自由班制填 0
 	WorkType   int64  `json:"work_type,omitempty"`   // 上班 / 下班, 1: 上班, 2: 下班, 自由班制填 0
-	ApprovalID string `json:"approval_id,omitempty"` // 审批 ID
+	ApprovalID string `json:"approval_id,omitempty"` // 审批 ID, 可用于[通知审批状态更新](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/approval_info/process)
 	RemedyTime string `json:"remedy_time,omitempty"` // 补卡时间, 时间格式为 yyyy-MM-dd HH:mm
-	Status     int64  `json:"status,omitempty"`      // 补卡状态（默认为审批中）, 可选值有: 0: 审批中, 1: 未通过, 2: 已通过, 3: 已取消, 4: 通过后撤回
+	Status     int64  `json:"status,omitempty"`      // 无效字段, 默认数据全部返回的类型为审批中, 需要调用[通知审批状态更新](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/approval_info/process)可选值有: 审批中未通过已通过已取消通过后撤回
 	Reason     string `json:"reason,omitempty"`      // 补卡原因
-	Time       string `json:"time,omitempty"`        // 补卡时间, 精确到秒的时间戳
-	TimeZone   string `json:"time_zone,omitempty"`   // 补卡时考勤组时区
-	CreateTime string `json:"create_time,omitempty"` // 补卡发起时间, 精确到秒的时间戳
-	UpdateTime string `json:"update_time,omitempty"` // 补卡状态更新时间, 精确到秒的时间戳
+	Time       string `json:"time,omitempty"`        // 无效字段
+	TimeZone   string `json:"time_zone,omitempty"`   // 无效字段
+	CreateTime string `json:"create_time,omitempty"` // 无效字段
+	UpdateTime string `json:"update_time,omitempty"` // 无效字段
 }
 
 // createAttendanceUserTaskRemedyResp ...

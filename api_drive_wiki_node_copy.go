@@ -59,11 +59,11 @@ func (r *Mock) UnMockDriveCopyWikiNode() {
 
 // CopyWikiNodeReq ...
 type CopyWikiNodeReq struct {
-	SpaceID           string  `path:"space_id" json:"-"`             // 知识空间id, 示例值: "6946843325487912356"
-	NodeToken         string  `path:"node_token" json:"-"`           // 节点token, 示例值: "wikcnKQ1k3p**8Vabce"
-	TargetParentToken *string `json:"target_parent_token,omitempty"` // 目标父节点 Token, 目标知识空间 ID 与目标父节点 Token 不可同时为空, 示例值: "wikcnKQ1k3p**8Vabce"
-	TargetSpaceID     *string `json:"target_space_id,omitempty"`     // 目标知识空间 ID, 目标知识空间 ID 与目标父节点 Token 不可同时为空, 示例值: "6946843325487912356"
-	Title             *string `json:"title,omitempty"`               // 复制后的新标题。如果填空, 则新标题为空。如果不填, 则使用原节点标题, 示例值: "新标题。"
+	SpaceID           string  `path:"space_id" json:"-"`             // 知识空间id示例值: "6946843325487912356"
+	NodeToken         string  `path:"node_token" json:"-"`           // 节点token示例值: "wikcnKQ1k3p**8Vabce"
+	TargetParentToken *string `json:"target_parent_token,omitempty"` // 目标父节点 Token。- 目标知识空间 ID 与目标父节点 Token 不可同时为空。示例值: "wikcnKQ1k3p8Vabce"数据校验规则**: 长度范围: `0` ～ `999` 字符
+	TargetSpaceID     *string `json:"target_space_id,omitempty"`     // 目标知识空间 ID。- 目标知识空间 ID 与目标父节点 Token 不可同时为空。示例值: "6946843325487912356"
+	Title             *string `json:"title,omitempty"`               // 复制后的新标题。如果填空, 则新标题为空。如果不填, 则使用原节点标题。示例值: "新标题。"
 }
 
 // CopyWikiNodeResp ...
@@ -73,12 +73,12 @@ type CopyWikiNodeResp struct {
 
 // CopyWikiNodeRespNode ...
 type CopyWikiNodeRespNode struct {
-	SpaceID         string `json:"space_id,omitempty"`          // 知识空间id, [获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-overview)
+	SpaceID         string `json:"space_id,omitempty"`          // 知识空间id[获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-overview)
 	NodeToken       string `json:"node_token,omitempty"`        // 节点token
 	ObjToken        string `json:"obj_token,omitempty"`         // 对应文档类型的token, 可根据 obj_type 判断属于哪种文档类型。
-	ObjType         string `json:"obj_type,omitempty"`          // 文档类型, 对于快捷方式, 该字段是对应的实体的obj_type, 可选值有: doc: 旧版文档, sheet: 表格, mindnote: 思维导图, bitable: 多维表格, file: 文件, docx: 新版文档
+	ObjType         string `json:"obj_type,omitempty"`          // 文档类型, 对于快捷方式, 该字段是对应的实体的obj_type。可选值有: 旧版文档表格思维导图多维表格文件新版文档幻灯片
 	ParentNodeToken string `json:"parent_node_token,omitempty"` // 父节点 token。若当前节点为一级节点, 父节点 token 为空。
-	NodeType        string `json:"node_type,omitempty"`         // 节点类型, 可选值有: origin: 实体, shortcut: 快捷方式
+	NodeType        string `json:"node_type,omitempty"`         // 节点类型可选值有: 实体快捷方式
 	OriginNodeToken string `json:"origin_node_token,omitempty"` // 快捷方式对应的实体node_token, 当节点为快捷方式时, 该值不为空。
 	OriginSpaceID   string `json:"origin_space_id,omitempty"`   // 快捷方式对应的实体所在的space id
 	HasChild        bool   `json:"has_child,omitempty"`         // 是否有子节点
@@ -88,6 +88,7 @@ type CopyWikiNodeRespNode struct {
 	NodeCreateTime  string `json:"node_create_time,omitempty"`  // 节点创建时间
 	Creator         string `json:"creator,omitempty"`           // 节点创建者
 	Owner           string `json:"owner,omitempty"`             // 节点所有者
+	NodeCreator     string `json:"node_creator,omitempty"`      // 节点创建者
 }
 
 // copyWikiNodeResp ...

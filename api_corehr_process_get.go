@@ -21,9 +21,12 @@ import (
 	"context"
 )
 
-// GetCoreHRProcess 根据流程实例 id（process_id）获取单个流程详情。比如流程状态、流程发起人、流程发起时间、流程摘要、流程里的所有待办、已办、抄送任务等。
+// GetCoreHRProcess 根据流程实例 id（process_id）获取单个流程详情（此功能不受数据权限范围控制）。比如流程状态、流程发起人、流程发起时间、流程摘要、流程里的所有待办、已办、抄送任务等。
+//
+// 休假类型流程的“撤销”的实例状态, 以及是否属于“更正流程”需要去休假的[批量查询员工请假记录](https://open.larkoffice.com/document/server-docs/corehr-v1/leave/leave_request_history?appId=cli_a7b01a4272581013) 接口查询
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/get
+// new doc: https://open.feishu.cn/document/corehr-v1/process-form_variable_data/process-instance/get
 func (r *CoreHRService) GetCoreHRProcess(ctx context.Context, request *GetCoreHRProcessReq, options ...MethodOptionFunc) (*GetCoreHRProcessResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRProcess != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRProcess mock enable")
@@ -57,28 +60,34 @@ func (r *Mock) UnMockCoreHRGetCoreHRProcess() {
 
 // GetCoreHRProcessReq ...
 type GetCoreHRProcessReq struct {
-	ProcessID  string  `path:"process_id" json:"-"`    // 流程实例ID, 示例值: "7278949005675988535"
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_corehr_id: 以飞书人事的 ID 来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	ProcessID  string  `path:"process_id" json:"-"`    // 流程实例ID。可通过[查询流程实例列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/list)接口获取示例值: "7278949005675988535"
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetCoreHRProcessResp ...
 type GetCoreHRProcessResp struct {
-	ProcessID          string                                  `json:"process_id,omitempty"`           // 流程实例ID
-	Status             int64                                   `json:"status,omitempty"`               // 流程状态, 可选值有: 1: 进行中, 2: 拒绝, 4: 撤回, 8: 撤销, 9: 已完成
-	FlowTemplateID     string                                  `json:"flow_template_id,omitempty"`     // 业务类型ID
-	FlowTemplateName   *GetCoreHRProcessRespFlowTemplateName   `json:"flow_template_name,omitempty"`   // 业务类型名称
-	FlowDefinitionID   string                                  `json:"flow_definition_id,omitempty"`   // 流程定义ID
-	FlowDefinitionName *GetCoreHRProcessRespFlowDefinitionName `json:"flow_definition_name,omitempty"` // 流程定义名称
-	InitiatorID        string                                  `json:"initiator_id,omitempty"`         // 流程发起人ID
-	InitiatorName      *GetCoreHRProcessRespInitiatorName      `json:"initiator_name,omitempty"`       // 流程发起人姓名
-	CreateTime         string                                  `json:"create_time,omitempty"`          // 流程发起时间, Unix毫秒时间戳
-	CompleteTime       string                                  `json:"complete_time,omitempty"`        // 流程结束时间, Unix毫秒时间戳
-	StartLinks         *GetCoreHRProcessRespStartLinks         `json:"start_links,omitempty"`          // 发起单据地址
-	Abstracts          []*GetCoreHRProcessRespAbstract         `json:"abstracts,omitempty"`            // 流程摘要, 会随着流程流转发生变化
-	Todos              []*GetCoreHRProcessRespTodo             `json:"todos,omitempty"`                // 待办列表
-	CcList             []*GetCoreHRProcessRespCc               `json:"cc_list,omitempty"`              // 抄送列表
-	DoneList           []*GetCoreHRProcessRespDone             `json:"done_list,omitempty"`            // 已办列表
-	Properties         int64                                   `json:"properties,omitempty"`           // 普通流程或撤销流程等, 可选值有: 1: 普通流程, 2: 撤销流程
+	ProcessID                     string                                  `json:"process_id,omitempty"`                        // 流程实例ID
+	Status                        int64                                   `json:"status,omitempty"`                            // 流程状态可选值有: 进行中拒绝撤回撤销已完成撤销中
+	FlowTemplateID                string                                  `json:"flow_template_id,omitempty"`                  // 业务类型ID
+	FlowTemplateName              *GetCoreHRProcessRespFlowTemplateName   `json:"flow_template_name,omitempty"`                // 业务类型名称
+	FlowDefinitionID              string                                  `json:"flow_definition_id,omitempty"`                // 流程定义ID
+	FlowDefinitionName            *GetCoreHRProcessRespFlowDefinitionName `json:"flow_definition_name,omitempty"`              // 流程定义名称
+	InitiatorID                   string                                  `json:"initiator_id,omitempty"`                      // 流程发起人ID, 当发起人为系统时, 该字段返回为空
+	InitiatorName                 *GetCoreHRProcessRespInitiatorName      `json:"initiator_name,omitempty"`                    // 流程发起人姓名
+	CreateTime                    string                                  `json:"create_time,omitempty"`                       // 流程发起时间, Unix毫秒时间戳
+	CompleteTime                  string                                  `json:"complete_time,omitempty"`                     // 流程结束时间, Unix毫秒时间戳
+	StartLinks                    *GetCoreHRProcessRespStartLinks         `json:"start_links,omitempty"`                       // 发起单据地址
+	Abstracts                     []*GetCoreHRProcessRespAbstract         `json:"abstracts,omitempty"`                         // 流程摘要, 会随着流程流转发生变化
+	Todos                         []*GetCoreHRProcessRespTodo             `json:"todos,omitempty"`                             // 待办列表
+	CcList                        []*GetCoreHRProcessRespCc               `json:"cc_list,omitempty"`                           // 抄送列表
+	DoneList                      []*GetCoreHRProcessRespDone             `json:"done_list,omitempty"`                         // 已办列表
+	Properties                    int64                                   `json:"properties,omitempty"`                        // 普通流程或撤销流程等可选值有: 普通流程撤销流程, 返回这个属性的前提是在审批中心我发起的页面进行撤销操作更正流程, 返回这个属性的前提是在审批中心我发起的页面进行更正操作
+	SystemTodos                   []*GetCoreHRProcessRespSystemTodo       `json:"system_todos,omitempty"`                      // 系统待办列表
+	SystemDoneList                []*GetCoreHRProcessRespSystemDone       `json:"system_done_list,omitempty"`                  // 系统已办列表
+	CommentInfos                  []*GetCoreHRProcessRespCommentInfo      `json:"comment_infos,omitempty"`                     // 评论列表
+	OriginalProcessID             string                                  `json:"original_process_id,omitempty"`               // 更正或撤销流程的原流程ID
+	IsLastCompletedCorrectProcess bool                                    `json:"is_last_completed_correct_process,omitempty"` // 是否最新的「已完成」的更正流程
+	ProcessName                   *GetCoreHRProcessRespProcessName        `json:"process_name,omitempty"`                      // 流程实例名称, 取流程发起时的流程定义名称
 }
 
 // GetCoreHRProcessRespAbstract ...
@@ -129,11 +138,29 @@ type GetCoreHRProcessRespCcOperatorName struct {
 	EnUs string `json:"en_us,omitempty"` // 英文值
 }
 
+// GetCoreHRProcessRespCommentInfo ...
+type GetCoreHRProcessRespCommentInfo struct {
+	CommentorID   string                                        `json:"commentor_id,omitempty"`   // 评论人ID
+	CommentorName *GetCoreHRProcessRespCommentInfoCommentorName `json:"commentor_name,omitempty"` // 评论人姓名
+	CommentTime   string                                        `json:"comment_time,omitempty"`   // 评论时间, Unix毫秒时间戳
+	CommentMsg    string                                        `json:"comment_msg,omitempty"`    // 评论内容
+	AtUserIDs     []string                                      `json:"at_user_ids,omitempty"`    // 在评论中被提及（@）到的人的id列表
+	FileCount     int64                                         `json:"file_count,omitempty"`     // 评论中附件数量
+	ImageCount    int64                                         `json:"image_count,omitempty"`    // 评论中图片数量
+	CommentID     string                                        `json:"comment_id,omitempty"`     // 一条评论的唯一id
+}
+
+// GetCoreHRProcessRespCommentInfoCommentorName ...
+type GetCoreHRProcessRespCommentInfoCommentorName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文值
+	EnUs string `json:"en_us,omitempty"` // 英文值
+}
+
 // GetCoreHRProcessRespDone ...
 type GetCoreHRProcessRespDone struct {
 	ApproverID       string                                `json:"approver_id,omitempty"`        // 单据ID
-	Type             int64                                 `json:"type,omitempty"`               // 单据类型, 可选值有: 1: 审批单, 5: 表单
-	Status           int64                                 `json:"status,omitempty"`             // 单据状态, 可选值有: 3: 已完成, 2: 拒绝, 4: 取消
+	Type             int64                                 `json:"type,omitempty"`               // 单据类型可选值有: 审批单表单
+	Status           int64                                 `json:"status,omitempty"`             // 单据状态可选值有: 已完成拒绝取消
 	Links            *GetCoreHRProcessRespDoneLinks        `json:"links,omitempty"`              // 单据地址
 	OperatorID       string                                `json:"operator_id,omitempty"`        // 操作人ID
 	OperatorName     *GetCoreHRProcessRespDoneOperatorName `json:"operator_name,omitempty"`      // 操作人姓名
@@ -141,6 +168,7 @@ type GetCoreHRProcessRespDone struct {
 	CreateTime       string                                `json:"create_time,omitempty"`        // 创建时间, Unix毫秒时间戳
 	CompleteTime     string                                `json:"complete_time,omitempty"`      // 完成时间, Unix毫秒时间戳
 	NodeDefinitionID string                                `json:"node_definition_id,omitempty"` // 节点定义ID（注: 在回退场景, 同一个节点会对应多个节点实例）
+	ApprovalOpinion  string                                `json:"approval_opinion,omitempty"`   // 审批意见
 }
 
 // GetCoreHRProcessRespDoneLinks ...
@@ -180,6 +208,12 @@ type GetCoreHRProcessRespInitiatorName struct {
 	EnUs string `json:"en_us,omitempty"` // 英文值
 }
 
+// GetCoreHRProcessRespProcessName ...
+type GetCoreHRProcessRespProcessName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文值
+	EnUs string `json:"en_us,omitempty"` // 英文值
+}
+
 // GetCoreHRProcessRespStartLinks ...
 type GetCoreHRProcessRespStartLinks struct {
 	WebLink    string `json:"web_link,omitempty"`    // web端单据详情页地址
@@ -187,12 +221,75 @@ type GetCoreHRProcessRespStartLinks struct {
 	MobileLink string `json:"mobile_link,omitempty"` // 飞书移动端单据详情页地址
 }
 
+// GetCoreHRProcessRespSystemDone ...
+type GetCoreHRProcessRespSystemDone struct {
+	ApproverID       string                                      `json:"approver_id,omitempty"`        // 单据ID
+	Type             int64                                       `json:"type,omitempty"`               // 单据类型可选值有: 审批单表单
+	Status           int64                                       `json:"status,omitempty"`             // 单据状态可选值有: 已完成拒绝取消
+	Links            *GetCoreHRProcessRespSystemDoneLinks        `json:"links,omitempty"`              // 单据地址
+	OperatorName     *GetCoreHRProcessRespSystemDoneOperatorName `json:"operator_name,omitempty"`      // 操作人姓名
+	NodeName         *GetCoreHRProcessRespSystemDoneNodeName     `json:"node_name,omitempty"`          // 节点名称
+	CreateTime       string                                      `json:"create_time,omitempty"`        // 创建时间, Unix毫秒时间戳
+	CompleteTime     string                                      `json:"complete_time,omitempty"`      // 完成时间, Unix毫秒时间戳
+	NodeDefinitionID string                                      `json:"node_definition_id,omitempty"` // 节点定义ID（注: 在回退场景, 同一个节点会对应多个节点实例）
+	ApprovalOpinion  string                                      `json:"approval_opinion,omitempty"`   // 审批意见
+}
+
+// GetCoreHRProcessRespSystemDoneLinks ...
+type GetCoreHRProcessRespSystemDoneLinks struct {
+	WebLink    string `json:"web_link,omitempty"`    // web端单据详情页地址
+	PcLink     string `json:"pc_link,omitempty"`     // 飞书pc端单据详情页地址
+	MobileLink string `json:"mobile_link,omitempty"` // 飞书移动端单据详情页地址
+}
+
+// GetCoreHRProcessRespSystemDoneNodeName ...
+type GetCoreHRProcessRespSystemDoneNodeName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文值
+	EnUs string `json:"en_us,omitempty"` // 英文值
+}
+
+// GetCoreHRProcessRespSystemDoneOperatorName ...
+type GetCoreHRProcessRespSystemDoneOperatorName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文值
+	EnUs string `json:"en_us,omitempty"` // 英文值
+}
+
+// GetCoreHRProcessRespSystemTodo ...
+type GetCoreHRProcessRespSystemTodo struct {
+	ApproverID       string                                      `json:"approver_id,omitempty"`        // 单据ID
+	Type             int64                                       `json:"type,omitempty"`               // 单据类型可选值有: 审批单表单
+	Links            *GetCoreHRProcessRespSystemTodoLinks        `json:"links,omitempty"`              // 单据地址
+	OperatorName     *GetCoreHRProcessRespSystemTodoOperatorName `json:"operator_name,omitempty"`      // 操作人姓名
+	NodeName         *GetCoreHRProcessRespSystemTodoNodeName     `json:"node_name,omitempty"`          // 节点名称
+	CreateTime       string                                      `json:"create_time,omitempty"`        // 创建时间, Unix毫秒时间戳
+	NodeDefinitionID string                                      `json:"node_definition_id,omitempty"` // 节点定义ID（注: 在回退场景, 同一个节点会对应多个节点实例）
+}
+
+// GetCoreHRProcessRespSystemTodoLinks ...
+type GetCoreHRProcessRespSystemTodoLinks struct {
+	WebLink    string `json:"web_link,omitempty"`    // web端单据详情页地址
+	PcLink     string `json:"pc_link,omitempty"`     // 飞书pc端单据详情页地址
+	MobileLink string `json:"mobile_link,omitempty"` // 飞书移动端单据详情页地址
+}
+
+// GetCoreHRProcessRespSystemTodoNodeName ...
+type GetCoreHRProcessRespSystemTodoNodeName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文值
+	EnUs string `json:"en_us,omitempty"` // 英文值
+}
+
+// GetCoreHRProcessRespSystemTodoOperatorName ...
+type GetCoreHRProcessRespSystemTodoOperatorName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文值
+	EnUs string `json:"en_us,omitempty"` // 英文值
+}
+
 // GetCoreHRProcessRespTodo ...
 type GetCoreHRProcessRespTodo struct {
-	ApproverID       string                                `json:"approver_id,omitempty"`        // 单据ID
-	Type             int64                                 `json:"type,omitempty"`               // 单据类型, 可选值有: 1: 审批单, 5: 表单
+	ApproverID       string                                `json:"approver_id,omitempty"`        // 单据ID, 注意单据id和operator_id并不是一对一的
+	Type             int64                                 `json:"type,omitempty"`               // 单据类型可选值有: 审批单表单
 	Links            *GetCoreHRProcessRespTodoLinks        `json:"links,omitempty"`              // 单据地址
-	OperatorID       string                                `json:"operator_id,omitempty"`        // 操作人ID
+	OperatorID       string                                `json:"operator_id,omitempty"`        // 待办人ID, 每个节点下待办人标识唯一
 	OperatorName     *GetCoreHRProcessRespTodoOperatorName `json:"operator_name,omitempty"`      // 操作人姓名
 	NodeName         *GetCoreHRProcessRespTodoNodeName     `json:"node_name,omitempty"`          // 节点名称
 	CreateTime       string                                `json:"create_time,omitempty"`        // 创建时间, Unix毫秒时间戳

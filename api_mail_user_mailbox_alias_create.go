@@ -58,8 +58,8 @@ func (r *Mock) UnMockMailCreateMailUserMailboxAlias() {
 
 // CreateMailUserMailboxAliasReq ...
 type CreateMailUserMailboxAliasReq struct {
-	UserMailboxID string  `path:"user_mailbox_id" json:"-"` // 用户邮箱地址, 示例值: "user@xxx.xx"
-	EmailAlias    *string `json:"email_alias,omitempty"`    // 邮箱别名, 示例值: "xxx@xx.xxx"
+	UserMailboxID string  `path:"user_mailbox_id" json:"-"` // 用户邮箱地址示例值: "user@xxx.xx"
+	EmailAlias    *string `json:"email_alias,omitempty"`    // 邮箱别名示例值: "xxx@xx.xxx"
 }
 
 // CreateMailUserMailboxAliasResp ...

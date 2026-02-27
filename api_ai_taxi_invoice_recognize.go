@@ -24,9 +24,11 @@ import (
 
 // RecognizeAITaxiInvoice 出租车发票识别接口, 支持JPG/JPEG/PNG/PDF/OFD五种文件类型的一次性的识别。
 //
+// 文件大小需要小于10M。
 // 单租户限流: 10QPS, 同租户下的应用没有限流, 共享本租户的 10QPS 限流
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/document_ai-v1/taxi_invoice/recognize
+// new doc: https://open.feishu.cn/document/ai/document_ai-v1/taxi_invoice/recognize
 func (r *AIService) RecognizeAITaxiInvoice(ctx context.Context, request *RecognizeAITaxiInvoiceReq, options ...MethodOptionFunc) (*RecognizeAITaxiInvoiceResp, *Response, error) {
 	if r.cli.mock.mockAIRecognizeAITaxiInvoice != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] AI#RecognizeAITaxiInvoice mock enable")
@@ -61,7 +63,7 @@ func (r *Mock) UnMockAIRecognizeAITaxiInvoice() {
 
 // RecognizeAITaxiInvoiceReq ...
 type RecognizeAITaxiInvoiceReq struct {
-	File io.Reader `json:"file,omitempty"` // 识别的出租车票源文件, 示例值: file binary
+	File io.Reader `json:"file,omitempty"` // 识别的出租车票源文件示例值: file binary
 }
 
 // RecognizeAITaxiInvoiceResp ...
@@ -76,7 +78,7 @@ type RecognizeAITaxiInvoiceRespTaxiInvoice struct {
 
 // RecognizeAITaxiInvoiceRespTaxiInvoiceEntitie ...
 type RecognizeAITaxiInvoiceRespTaxiInvoiceEntitie struct {
-	Type  string `json:"type,omitempty"`  // 识别的字段种类, 可选值有: car_number: 车号, start_time: 上车时间, end_time: 下车时间, distance: 里程, start_date: 日期, total_amount: 出租车价格
+	Type  string `json:"type,omitempty"`  // 识别的字段种类可选值有: 车号上车时间下车时间里程日期出租车价格发票代码发票号码单价电召费附加费是否盖章印章内销售方名称印章内销售方税号发票名称印章名称
 	Value string `json:"value,omitempty"` // 识别出字段的文本信息
 }
 

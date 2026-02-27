@@ -21,9 +21,11 @@ import (
 	"context"
 )
 
-// DeleteEphemeralMessage 在群会话中删除仅指定用户可见的临时消息卡片。
+// DeleteEphemeralMessage 当发送的仅特定人可见的卡片消息已交互完成, 可调用本接口删除该卡片。删除后将不会在对应设备上留下任何痕迹。
 //
-// 临时卡片消息可以通过该接口进行显式删除, 临时卡片消息删除后将不会在该设备上留下任何痕迹。
+// ## 前提条件
+// - 应用需要启用[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// - 应用机器人需要在待操作的消息卡片所在的群聊中。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uITOyYjLykjM24iM5IjN
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/message-card/delete-message-cards-that-are-only-visible-to-certain-people
@@ -60,17 +62,16 @@ func (r *Mock) UnMockMessageDeleteEphemeralMessage() {
 
 // DeleteEphemeralMessageReq ...
 type DeleteEphemeralMessageReq struct {
-	MessageID string `json:"message_id,omitempty"` // 临时消息ID
+	MessageID string `json:"message_id,omitempty"` // 消息 ID。调用[发送仅特定人可见的消息卡片](https://open.feishu.cn/document/ukTMukTMukTM/uETOyYjLxkjM24SM5IjN)接口后, 在返回结果中获取。  示例值: om_5ad573a6411d72b8305fda3a9c15c70e
 }
 
 // DeleteEphemeralMessageResp ...
-type DeleteEphemeralMessageResp struct {
-}
+type DeleteEphemeralMessageResp struct{}
 
 // deleteEphemeralMessageResp ...
 type deleteEphemeralMessageResp struct {
-	Code  int64                       `json:"code,omitempty"`
-	Msg   string                      `json:"msg,omitempty"`
+	Code  int64                       `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg   string                      `json:"msg,omitempty"`  // 返回码描述
 	Data  *DeleteEphemeralMessageResp `json:"data,omitempty"`
 	Error *ErrorDetail                `json:"error,omitempty"`
 }

@@ -58,33 +58,32 @@ func (r *Mock) UnMockVCUpdateVCReserveConfigDisableInform() {
 
 // UpdateVCReserveConfigDisableInformReq ...
 type UpdateVCReserveConfigDisableInformReq struct {
-	ReserveConfigID string                                              `path:"reserve_config_id" json:"-"` // 会议室或层级ID, 可通过会议室或层级相关查询接口获取, 示例值: "omm_3c5dd7e09bac0c1758fcf9511bd1a771"
-	UserIDType      *IDType                                             `query:"user_id_type" json:"-"`     // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	ScopeType       int64                                               `json:"scope_type,omitempty"`       // 1表示会议室层级, 2表示会议室, 示例值: 2, 取值范围: `1` ～ `2`
+	ReserveConfigID string                                              `path:"reserve_config_id" json:"-"` // 会议室或层级ID, 可通过会议室或层级相关查询接口获取示例值: "omm_3c5dd7e09bac0c1758fcf9511bd1a771"
+	UserIDType      *IDType                                             `query:"user_id_type" json:"-"`     // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	ScopeType       int64                                               `json:"scope_type,omitempty"`       // 1表示会议室层级, 2表示会议室示例值: 2 取值范围: `1` ～ `2
 	DisableInform   *UpdateVCReserveConfigDisableInformReqDisableInform `json:"disable_inform,omitempty"`   // 禁用通知配置
 }
 
 // UpdateVCReserveConfigDisableInformReqDisableInform ...
 type UpdateVCReserveConfigDisableInformReqDisableInform struct {
-	IfCoverChildScope *bool                                                             `json:"if_cover_child_scope,omitempty"` // 是否覆盖子层级及会议室, 示例值: true
-	IfInform          bool                                                              `json:"if_inform,omitempty"`            // 禁用状态变更通知开关, 示例值: false, 默认值: `false`
+	IfCoverChildScope *bool                                                             `json:"if_cover_child_scope,omitempty"` // 是否覆盖子层级及会议室示例值: true
+	IfInform          bool                                                              `json:"if_inform,omitempty"`            // 禁用状态变更通知开关示例值: false默认值: `false
 	InformedUsers     []*UpdateVCReserveConfigDisableInformReqDisableInformInformedUser `json:"informed_users,omitempty"`       // 通知成员列表
 	InformedDepts     []*UpdateVCReserveConfigDisableInformReqDisableInformInformedDept `json:"informed_depts,omitempty"`       // 通知部门列表
 }
 
 // UpdateVCReserveConfigDisableInformReqDisableInformInformedDept ...
 type UpdateVCReserveConfigDisableInformReqDisableInformInformedDept struct {
-	DepartmentID string `json:"department_id,omitempty"` // 预定管理部门ID, 使用open_department_id, 示例值: "od-47d8b570b0a011e9679a755efcc5f61a"
+	DepartmentID string `json:"department_id,omitempty"` // 预定管理部门ID, 使用open_department_id示例值: "od-47d8b570b0a011e9679a755efcc5f61a"
 }
 
 // UpdateVCReserveConfigDisableInformReqDisableInformInformedUser ...
 type UpdateVCReserveConfigDisableInformReqDisableInformInformedUser struct {
-	UserID string `json:"user_id,omitempty"` // 预定管理员ID, 示例值: "ou_a27b07a9071d90577c0177bcec98f856"
+	UserID string `json:"user_id,omitempty"` // 预定管理员ID示例值: "ou_a27b07a9071d90577c0177bcec98f856"
 }
 
 // UpdateVCReserveConfigDisableInformResp ...
-type UpdateVCReserveConfigDisableInformResp struct {
-}
+type UpdateVCReserveConfigDisableInformResp struct{}
 
 // updateVCReserveConfigDisableInformResp ...
 type updateVCReserveConfigDisableInformResp struct {

@@ -21,9 +21,10 @@ import (
 	"context"
 )
 
-// SearchCoreHRCountryRegionSubdivision 根据省份/行政区 ID、状态批量查询行政区、省份、州等数据
+// SearchCoreHRCountryRegionSubdivision 根据国家/地区 ID、省份/主要行政区 ID、状态, 批量查询国家/地区下辖的一级行政区（如省份、直辖市、自治区、州等）数据
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region_subdivision/search
+// new doc: https://open.feishu.cn/document/corehr-v1/basic-infomation/location_data/search-3
 func (r *CoreHRService) SearchCoreHRCountryRegionSubdivision(ctx context.Context, request *SearchCoreHRCountryRegionSubdivisionReq, options ...MethodOptionFunc) (*SearchCoreHRCountryRegionSubdivisionResp, *Response, error) {
 	if r.cli.mock.mockCoreHRSearchCoreHRCountryRegionSubdivision != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#SearchCoreHRCountryRegionSubdivision mock enable")
@@ -57,34 +58,34 @@ func (r *Mock) UnMockCoreHRSearchCoreHRCountryRegionSubdivision() {
 
 // SearchCoreHRCountryRegionSubdivisionReq ...
 type SearchCoreHRCountryRegionSubdivisionReq struct {
-	PageSize                       int64    `query:"page_size" json:"-"`                          // 分页大小, 最大 100, 示例值: 100, 取值范围: `1` ～ `100`
-	PageToken                      *string  `query:"page_token" json:"-"`                         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 6891251722631890445
-	CountryRegionIDList            []string `json:"country_region_id_list,omitempty"`             // 国家/地区 ID 列表, 可通过[查询国家 / 地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)接口获取, 不填写则返回全部列表, 示例值: ["6891251722631891995"], 最大长度: `100`
-	CountryRegionSubdivisionIDList []string `json:"country_region_subdivision_id_list,omitempty"` // 省份/行政区 ID 列表, 不填写则返回全部列表, 示例值: ["6891251222631891995"], 最大长度: `100`
-	StatusList                     []int64  `json:"status_list,omitempty"`                        // 省份/行政区状态列表, 不填写则返回全部列表, 示例值: [1], 可选值有: 1: 生效, 0: 失效, 默认值: `[1]`, 最大长度: `2`
+	PageSize                       int64    `query:"page_size" json:"-"`                          // 分页大小, 最大 100示例值: 100 取值范围: `1` ～ `100
+	PageToken                      *string  `query:"page_token" json:"-"`                         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 6891251722631890445
+	CountryRegionIDList            []string `json:"country_region_id_list,omitempty"`             // 国家/地区 ID 列表, 可通过[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)接口获取, 不填写则返回全部示例值: ["6891251722631891995"] 最大长度: `100
+	CountryRegionSubdivisionIDList []string `json:"country_region_subdivision_id_list,omitempty"` // 省份/主要行政区 ID 列表, 不填写则返回全部示例值: ["6891251222631891995"] 最大长度: `100
+	StatusList                     []int64  `json:"status_list,omitempty"`                        // 状态列表, 不填写则返回全部示例值: [1]可选值有: 生效失效默认值: `[1]` 最大长度: `2
 }
 
 // SearchCoreHRCountryRegionSubdivisionResp ...
 type SearchCoreHRCountryRegionSubdivisionResp struct {
-	Items     []*SearchCoreHRCountryRegionSubdivisionRespItem `json:"items,omitempty"`      // 查询的省份/行政区信息
+	Items     []*SearchCoreHRCountryRegionSubdivisionRespItem `json:"items,omitempty"`      // 查询的省份/主要行政区信息
 	PageToken string                                          `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	HasMore   bool                                            `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
 // SearchCoreHRCountryRegionSubdivisionRespItem ...
 type SearchCoreHRCountryRegionSubdivisionRespItem struct {
-	CountryRegionSubdivisionID string                                                       `json:"country_region_subdivision_id,omitempty"` // 省份/行政区 ID
-	Name                       []*SearchCoreHRCountryRegionSubdivisionRespItemName          `json:"name,omitempty"`                          // 省份/行政区名称
+	CountryRegionSubdivisionID string                                                       `json:"country_region_subdivision_id,omitempty"` // 省份/主要行政区 ID
+	Name                       []*SearchCoreHRCountryRegionSubdivisionRespItemName          `json:"name,omitempty"`                          // 省份/主要行政区名称
 	CountryRegionID            string                                                       `json:"country_region_id,omitempty"`             // 所属国家/地区 ID, 详细信息可通过[查询国家 / 地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)接口查询获得
-	SubdivisionType            *SearchCoreHRCountryRegionSubdivisionRespItemSubdivisionType `json:"subdivision_type,omitempty"`              // 行政区类型, 枚举值可通过文档[枚举常量](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)行政区类型（subdivision_type）枚举定义部分获得
-	IsoCode                    string                                                       `json:"iso_code,omitempty"`                      // 省份/行政区三字码
-	Status                     int64                                                        `json:"status,omitempty"`                        // 状态, 可选值有: 1: 生效, 0: 失效
+	SubdivisionType            *SearchCoreHRCountryRegionSubdivisionRespItemSubdivisionType `json:"subdivision_type,omitempty"`              // 行政区类型, 枚举值可通过[枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant#402ea9a0)文档中行政区类型（subdivision_type）定义部分获得
+	IsoCode                    string                                                       `json:"iso_code,omitempty"`                      // 省份/主要行政区编码（ISO 3166-2）
+	Status                     int64                                                        `json:"status,omitempty"`                        // 状态可选值有: 生效失效
 }
 
 // SearchCoreHRCountryRegionSubdivisionRespItemName ...
 type SearchCoreHRCountryRegionSubdivisionRespItemName struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRCountryRegionSubdivisionRespItemSubdivisionType ...
@@ -95,8 +96,8 @@ type SearchCoreHRCountryRegionSubdivisionRespItemSubdivisionType struct {
 
 // SearchCoreHRCountryRegionSubdivisionRespItemSubdivisionTypeDisplay ...
 type SearchCoreHRCountryRegionSubdivisionRespItemSubdivisionTypeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // searchCoreHRCountryRegionSubdivisionResp ...

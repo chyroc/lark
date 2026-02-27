@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// TransferDriveOwnerPermission 该接口用于根据云文档 token 和用户信息转移文件的所有者。
-//
-// 个人文件夹下的文件转移所有者完成后, 默认会移动到新所有者的空间下
+// TransferDriveOwnerPermission 转移指定云文档的所有者。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-member/transfer_owner
 // new doc: https://open.feishu.cn/document/server-docs/docs/permission/permission-member/transfer_owner
@@ -61,19 +59,18 @@ func (r *Mock) UnMockDriveTransferDriveOwnerPermission() {
 
 // TransferDriveOwnerPermissionReq ...
 type TransferDriveOwnerPermissionReq struct {
-	Token            string  `path:"token" json:"-"`              // 文件的 token, 示例值: "doccnBKgoMyY5OMbUG6FioTXuBe"
-	Type             string  `query:"type" json:"-"`              // 文件类型, 需要与文件的 token 相匹配, 示例值: doc, 可选值有: doc: 文档, sheet: 电子表格, file: 云空间文件, wiki: 知识库节点, bitable: 多维表格, docx: 新版文档, mindnote: 思维笔记, minutes: 妙记, slides: 幻灯片
-	NeedNotification *bool   `query:"need_notification" json:"-"` // 是否需要通知新的文件所有者, 示例值: true, 默认值: `true`
-	RemoveOldOwner   *bool   `query:"remove_old_owner" json:"-"`  // 转移后是否需要移除原文件所有者的权限, 示例值: false, 默认值: `false`
-	StayPut          *bool   `query:"stay_put" json:"-"`          // 仅当文件在个人文件夹下, 此参数才会生效。如果设为`false`, 系统会将该内容移至新所有者的空间下。如果设为`true`, 则留在原位置, 示例值: false, 默认值: `false`
-	OldOwnerPerm     *string `query:"old_owner_perm" json:"-"`    // 仅当 remove_old_owner = false 时, 此参数才会生效 保留原文件所有者指定的权限角色, 示例值: view, 默认值: `full_access`
-	MemberType       string  `json:"member_type,omitempty"`       // 文件所有者的 ID 类型, 示例值: "openid", 可选值有: email: 飞书邮箱, openid: 开放平台ID, userid: 用户自定义ID
-	MemberID         string  `json:"member_id,omitempty"`         // 文件所有者的 ID, 与文件所有者的 ID 类型需要对应, 示例值: "ou_67e5ecb64ce1c0bd94612c17999db411"
+	Token            string  `path:"token" json:"-"`              // 云文档的 token, 需要与 type 参数指定的云文档类型相匹配。可参考[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。示例值: "doccnBKgoMyY5OMbUG6FioTXuBe"
+	Type             string  `query:"type" json:"-"`              // 云文档类型, 需要与云文档的 token 相匹配。示例值: docx可选值有: 旧版文档。了解更多, 参考[新旧版本文档说明](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/docs/upgraded-docs-access-guide/upgraded-docs-openapi-access-guide)。电子表格云空间文件知识库节点多维表格新版文档思维笔记妙记幻灯片文件夹
+	NeedNotification *bool   `query:"need_notification" json:"-"` // 是否需要通知新的文件所有者。仅当使用 user_access_token 调用时有效。可选值: `true`: 通知对方- `false`: 不通知示例值: true默认值: `true
+	RemoveOldOwner   *bool   `query:"remove_old_owner" json:"-"`  // 转移后是否需要移除原云文档所有者的权限。可选值: `true`: 移除原所有者权限- `false`: 不移除原所有者权限示例值: false默认值: `false
+	StayPut          *bool   `query:"stay_put" json:"-"`          // 在个人文件夹下的云文档是否仍留在原所有者个人文件夹下。可选值: `true`: 云文档留在原位置不变- `false`: 系统会将该内容移至新所有者的空间下注意: 仅当云文档在个人文件夹下时参数生效。示例值: false默认值: `false
+	OldOwnerPerm     *string `query:"old_owner_perm" json:"-"`    // 为原云文档所有者保留的具体权限。可选值: `view`: 可阅读角色- `edit`: 可编辑角色- `full_access`: 可管理角色注意: 仅当 `remove_old_owner` 为 `false` 时, 此参数才会生效。示例值: view默认值: `full_access
+	MemberType       string  `json:"member_type,omitempty"`       // 文件所有者的 ID 类型示例值: "openid"可选值有: 飞书邮箱开放平台 Open ID。参考[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)用户 ID。获取方式参考[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)
+	MemberID         string  `json:"member_id,omitempty"`         // 文件所有者的 ID, 与文件所有者的 ID 类型需要对应。示例值: "ou_67e5ecb64ce1c0bd94612c17999abcef"
 }
 
 // TransferDriveOwnerPermissionResp ...
-type TransferDriveOwnerPermissionResp struct {
-}
+type TransferDriveOwnerPermissionResp struct{}
 
 // transferDriveOwnerPermissionResp ...
 type transferDriveOwnerPermissionResp struct {

@@ -21,9 +21,9 @@ import (
 	"context"
 )
 
-// GetAttendanceUserStatsField 查询考勤统计支持的日度统计或月度统计的统计表头。
+// GetAttendanceUserStatsField 查询考勤统计支持的日度统计或月度统计的统计表头。报表的表头信息可以在考勤统计-[报表](https://example.feishu.cn/people/workforce-management/manage/statistics/report)中查询到具体的报表信息, 此接口专门用于查询表头数据
 //
-// 调用统计开放接口api目前不返回休假加班新增字段类型
+// 调用统计开放接口api目前不返回请假统计和加班统计的新增字段类型
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_stats_field/query
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_stats_data/query-2
@@ -60,11 +60,11 @@ func (r *Mock) UnMockAttendanceGetAttendanceUserStatsField() {
 
 // GetAttendanceUserStatsFieldReq ...
 type GetAttendanceUserStatsFieldReq struct {
-	EmployeeType EmployeeType `query:"employee_type" json:"-"` // 响应体中的 user_id 的员工工号类型, 示例值: employee_id, 可选值有: employee_id: 员工 employee ID, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID, employee_no: 员工工号, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号
-	Locale       string       `json:"locale,omitempty"`        // 语言类型, 示例值: "zh", 可选值有: en: 英语, ja: 日语, zh: 中文
-	StatsType    string       `json:"stats_type,omitempty"`    // 统计类型, 示例值: "daily", 可选值有: daily: 日度统计, month: 月度统计
-	StartDate    int64        `json:"start_date,omitempty"`    // 开始时间, 示例值: 20210316
-	EndDate      int64        `json:"end_date,omitempty"`      // 结束时间（时间间隔不超过 40 天）, 示例值: 20210323
+	EmployeeType EmployeeType `query:"employee_type" json:"-"` // 响应体中的 user_id 的员工ID类型。如果没有后台管理权限, 可使用[通过手机号或邮箱获取用户 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/batch_get_id)示例值: employee_id可选值有: 员工 employee ID, 即[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的用户 ID员工工号, 即[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的工号
+	Locale       string       `json:"locale,omitempty"`        // 语言类型示例值: "zh"可选值有: 英语日语中文
+	StatsType    string       `json:"stats_type,omitempty"`    // 统计类型示例值: "daily"可选值有: 日度统计月度统计
+	StartDate    int64        `json:"start_date,omitempty"`    // 开始时间, 格式为yyyyMMdd（无效字段）示例值: 20210316
+	EndDate      int64        `json:"end_date,omitempty"`      // 结束时间, 格式为yyyyMMdd（时间间隔不超过 40 天）（无效字段）示例值: 20210323
 }
 
 // GetAttendanceUserStatsFieldResp ...
@@ -74,22 +74,22 @@ type GetAttendanceUserStatsFieldResp struct {
 
 // GetAttendanceUserStatsFieldRespUserStatsField ...
 type GetAttendanceUserStatsFieldRespUserStatsField struct {
-	StatsType string                                                `json:"stats_type,omitempty"` // 统计类型, 可选值有: daily: 日度统计, month: 月度统计
-	UserID    string                                                `json:"user_id,omitempty"`    // 用户 ID
+	StatsType string                                                `json:"stats_type,omitempty"` // 统计类型可选值有: 日度统计月度统计
+	UserID    string                                                `json:"user_id,omitempty"`    // 用户 ID, 字段已废弃
 	Fields    []*GetAttendanceUserStatsFieldRespUserStatsFieldField `json:"fields,omitempty"`     // 字段列表
 }
 
 // GetAttendanceUserStatsFieldRespUserStatsFieldField ...
 type GetAttendanceUserStatsFieldRespUserStatsFieldField struct {
-	Code        string                                                          `json:"code,omitempty"`         // 字段编号
-	Title       string                                                          `json:"title,omitempty"`        // 字段名称
-	ChildFields []*GetAttendanceUserStatsFieldRespUserStatsFieldFieldChildField `json:"child_fields,omitempty"` // 子字段列表
+	Code        string                                                          `json:"code,omitempty"`         // 分组编号
+	Title       string                                                          `json:"title,omitempty"`        // 分组名称
+	ChildFields []*GetAttendanceUserStatsFieldRespUserStatsFieldFieldChildField `json:"child_fields,omitempty"` // 字段列表
 }
 
 // GetAttendanceUserStatsFieldRespUserStatsFieldFieldChildField ...
 type GetAttendanceUserStatsFieldRespUserStatsFieldFieldChildField struct {
-	Code     string `json:"code,omitempty"`      // 子字段编号
-	Title    string `json:"title,omitempty"`     // 子字段名称
+	Code     string `json:"code,omitempty"`      // 字段编号
+	Title    string `json:"title,omitempty"`     // 字段名称
 	TimeUnit string `json:"time_unit,omitempty"` // 时间单位(该字段已停止使用)
 }
 

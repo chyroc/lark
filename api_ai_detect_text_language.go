@@ -60,7 +60,7 @@ func (r *Mock) UnMockAIDetectTextLanguage() {
 
 // DetectTextLanguageReq ...
 type DetectTextLanguageReq struct {
-	Text string `json:"text,omitempty"` // 需要被识别语种的文本, 示例值: "你好"
+	Text string `json:"text,omitempty"` // 需要被识别语种的文本示例值: "你好"
 }
 
 // DetectTextLanguageResp ...

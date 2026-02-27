@@ -21,7 +21,9 @@ import (
 	"context"
 )
 
-// UpdateCoreHRJobLevel 更新职级。
+// UpdateCoreHRJobLevel 该接口通过职级ID更新单个职级信息, 包括职级数值、名称等信息。
+//
+// 所有非必填参数不传值时则不更新数据
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/patch
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/job-management/job_level/patch
@@ -58,32 +60,34 @@ func (r *Mock) UnMockCoreHRUpdateCoreHRJobLevel() {
 
 // UpdateCoreHRJobLevelReq ...
 type UpdateCoreHRJobLevelReq struct {
-	JobLevelID   string                                `path:"job_level_id" json:"-"`   // 级别ID, 示例值: "1616161616"
-	ClientToken  *string                               `query:"client_token" json:"-"`  // 根据client_token是否一致来判断是否为同一请求, 示例值: 12454646
-	LevelOrder   *int64                                `json:"level_order,omitempty"`   // 职级数值, 示例值: 9999
-	Code         *string                               `json:"code,omitempty"`          // 编码, 示例值: "VQzo/BSonp8l6PmcZ+VlDhkd2595LMkhyBAGX6HAlCY="
-	Name         []*UpdateCoreHRJobLevelReqName        `json:"name,omitempty"`          // 名称
-	Description  []*UpdateCoreHRJobLevelReqDescription `json:"description,omitempty"`   // 描述
-	Active       *bool                                 `json:"active,omitempty"`        // 是否启用, 示例值: true
-	CustomFields []*UpdateCoreHRJobLevelReqCustomField `json:"custom_fields,omitempty"` // 自定义字段
+	JobLevelID   string                                `path:"job_level_id" json:"-"`   // 职级ID。ID获取方式: 调用[【新建职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/create)[【查询租户的职级信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)等接口可以返回职级ID示例值: "1616161616"
+	ClientToken  *string                               `query:"client_token" json:"-"`  // 根据client_token是否一致来判断是否为同一请求示例值: 12454646
+	LevelOrder   *int64                                `json:"level_order,omitempty"`   // 职级数值, 单位: 级。该字段主要用来在职级大小, 职级的数值越大, 代表职级越高- 如果不填该字段则不更新示例值: 10
+	Code         *string                               `json:"code,omitempty"`          // 职级编码。非必填字段, 如果非空值会校验全局唯一性, 如果传空值则不参与全局校验。- 不传值时默认不更新此字段, 保持原值示例值: "J001"
+	Name         []*UpdateCoreHRJobLevelReqName        `json:"name,omitempty"`          // 职级名称, 注意事项: 包含lang（语言）和value（职级名称）两个子参数, 更新时需同时提供- 不传值时默认不更新此字段, 保持原值
+	Description  []*UpdateCoreHRJobLevelReqDescription `json:"description,omitempty"`   // 描述- 不传值时默认不更新此字段, 保持原值
+	Active       *bool                                 `json:"active,omitempty"`        // 是否启用, true为启用, false为停用- 不传值时默认不更新此字段, 保持原值示例值: true
+	CustomFields []*UpdateCoreHRJobLevelReqCustomField `json:"custom_fields,omitempty"` // 自定义字段（该字段暂时不支持）- 不传值时默认不更新此字段, 保持原值- 包含filed_name（字段名）和value（字段值）两个子参数, 更新时需同时提供
+	JobGrade     []string                              `json:"job_grade,omitempty"`     // 职等 ID 列表- 不传值时默认不更新此字段, 保持原值。示例值: ["4692446793125560154"]
+	PathwayIDs   []string                              `json:"pathway_ids,omitempty"`   // 通道ID, 详情可以参考[【获取通道信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pathway/batch_get)- 不传值时默认不更新此字段, 保持原值。示例值: ["4719519211875096301"]
 }
 
 // UpdateCoreHRJobLevelReqCustomField ...
 type UpdateCoreHRJobLevelReqCustomField struct {
-	FieldName string `json:"field_name,omitempty"` // 字段名, 示例值: "name"
-	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05"), 示例值: "Sandy"
+	FieldName string `json:"field_name,omitempty"` // 字段名- 最小1字符, 最大200字符示例值: "name"
+	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 具体传值方式参见[获取自定义字段的元数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide)- 最小1字符, 最大200字符示例值: "\"Sandy\""
 }
 
 // UpdateCoreHRJobLevelReqDescription ...
 type UpdateCoreHRJobLevelReqDescription struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 示例值: "zh-CN"
-	Value string `json:"value,omitempty"` // 名称信息的内容, 示例值: "张三"
+	Lang  string `json:"lang,omitempty"`  // 描述信息的语言- 最小1字符, 最大200字符示例值: "zh-CN"
+	Value string `json:"value,omitempty"` // 描述信息的内容- 最小1字符, 最大200字符示例值: "普通职级"
 }
 
 // UpdateCoreHRJobLevelReqName ...
 type UpdateCoreHRJobLevelReqName struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 示例值: "zh-CN"
-	Value string `json:"value,omitempty"` // 名称信息的内容, 示例值: "张三"
+	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 中文用zh-CN, 英文用en-US- 最小1字符, 最大200字符示例值: "zh-CN"
+	Value string `json:"value,omitempty"` // 名称信息的内容- 最小1字符, 最大200字符- 名称不能包含「/」「；」「;」「\」「'」字符示例值: "P5"
 }
 
 // UpdateCoreHRJobLevelResp ...
@@ -94,24 +98,26 @@ type UpdateCoreHRJobLevelResp struct {
 // UpdateCoreHRJobLevelRespJobLevel ...
 type UpdateCoreHRJobLevelRespJobLevel struct {
 	ID           string                                         `json:"id,omitempty"`            // 职级 ID
-	LevelOrder   int64                                          `json:"level_order,omitempty"`   // 职级数值
+	LevelOrder   int64                                          `json:"level_order,omitempty"`   // 职级数值, 单位: 级
 	Code         string                                         `json:"code,omitempty"`          // 编码
 	Name         []*UpdateCoreHRJobLevelRespJobLevelName        `json:"name,omitempty"`          // 名称
 	Description  []*UpdateCoreHRJobLevelRespJobLevelDescription `json:"description,omitempty"`   // 描述
 	Active       bool                                           `json:"active,omitempty"`        // 是否启用
-	CustomFields []*UpdateCoreHRJobLevelRespJobLevelCustomField `json:"custom_fields,omitempty"` // 自定义字段
+	CustomFields []*UpdateCoreHRJobLevelRespJobLevelCustomField `json:"custom_fields,omitempty"` // 自定义字段(该功能暂不支持, 可忽略)
+	JobGrade     []string                                       `json:"job_grade,omitempty"`     // 职等 ID 列表
+	PathwayIDs   []string                                       `json:"pathway_ids,omitempty"`   // 通道ID, 详情可以参考[【获取通道信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pathway/batch_get)
 }
 
 // UpdateCoreHRJobLevelRespJobLevelCustomField ...
 type UpdateCoreHRJobLevelRespJobLevelCustomField struct {
-	FieldName string `json:"field_name,omitempty"` // 字段名
-	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05")
+	FieldName string `json:"field_name,omitempty"` // 自定义字段 API Name, 即自定义字段的唯一标识
+	Value     string `json:"value,omitempty"`      // 自定义字段值
 }
 
 // UpdateCoreHRJobLevelRespJobLevelDescription ...
 type UpdateCoreHRJobLevelRespJobLevelDescription struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
-	Value string `json:"value,omitempty"` // 名称信息的内容
+	Lang  string `json:"lang,omitempty"`  // 描述信息的语言
+	Value string `json:"value,omitempty"` // 描述信息的内容
 }
 
 // UpdateCoreHRJobLevelRespJobLevelName ...

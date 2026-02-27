@@ -59,15 +59,16 @@ func (r *Mock) UnMockVCGetVCParticipantList() {
 
 // GetVCParticipantListReq ...
 type GetVCParticipantListReq struct {
-	MeetingStartTime string  `query:"meeting_start_time" json:"-"` // 会议开始时间（unix时间, 单位sec）, 示例值: 1655276858
-	MeetingEndTime   string  `query:"meeting_end_time" json:"-"`   // 会议结束时间（unix时间, 单位sec, 若是进行中会议可填当前时间, 否则填准确的会议结束时间）, 示例值: 1655276858
-	MeetingStatus    *int64  `query:"meeting_status" json:"-"`     // 会议状态（不传默认为已结束会议）, 示例值: 2, 可选值有: 1: 进行中, 2: 已结束, 3: 待召开
-	MeetingNo        string  `query:"meeting_no" json:"-"`         // 9位会议号, 示例值: 123456789
-	UserID           *string `query:"user_id" json:"-"`            // 按参会Lark用户筛选（最多一个筛选条件）, 示例值: ou_3ec3f6a28a0d08c45d895276e8e5e19b
-	RoomID           *string `query:"room_id" json:"-"`            // 按参会Rooms筛选（最多一个筛选条件）, 示例值: omm_eada1d61a550955240c28757e7dec3af
-	PageSize         *int64  `query:"page_size" json:"-"`          // 分页尺寸大小, 示例值: 20, 默认值: `20`, 取值范围: `20` ～ `100`
-	PageToken        *string `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 20
-	UserIDType       *IDType `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	MeetingStartTime string  `query:"meeting_start_time" json:"-"` // 会议开始时间（unix时间, 单位sec）示例值: 1655276858
+	MeetingEndTime   string  `query:"meeting_end_time" json:"-"`   // 会议结束时间（unix时间, 单位sec, 若是进行中会议可填当前时间, 否则填准确的会议结束时间）示例值: 1655276858
+	MeetingStatus    *int64  `query:"meeting_status" json:"-"`     // 会议状态（不传默认为已结束会议）示例值: 2可选值有: 进行中已结束待召开
+	MeetingNo        string  `query:"meeting_no" json:"-"`         // 9位会议号示例值: 123456789
+	UserID           *string `query:"user_id" json:"-"`            // 按参会飞书用户筛选（最多一个筛选条件）示例值: ou_3ec3f6a28a0d08c45d895276e8e5e19b
+	RoomID           *string `query:"room_id" json:"-"`            // 按参会Rooms筛选（最多一个筛选条件）示例值: omm_eada1d61a550955240c28757e7dec3af
+	PageSize         *int64  `query:"page_size" json:"-"`          // 分页尺寸大小示例值: 20默认值: `20` 取值范围: `20` ～ `100
+	PageToken        *string `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 20
+	WebinarUserRole  *string `query:"webinar_user_role" json:"-"`  // 查询网络研讨会时的观众类型, "0"为嘉宾, "3"为观众示例值: 0
+	UserIDType       *IDType `query:"user_id_type" json:"-"`       // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetVCParticipantListResp ...
@@ -79,32 +80,34 @@ type GetVCParticipantListResp struct {
 
 // GetVCParticipantListRespParticipant ...
 type GetVCParticipantListRespParticipant struct {
-	ParticipantName string `json:"participant_name,omitempty"` // 参会者
-	Department      string `json:"department,omitempty"`       // 部门
-	UserID          string `json:"user_id,omitempty"`          // 用户ID
-	MeetingRoomID   string `json:"meeting_room_id,omitempty"`  // 会议室ID
-	EmployeeID      string `json:"employee_id,omitempty"`      // 工号
-	Phone           string `json:"phone,omitempty"`            // 电话
-	Email           string `json:"email,omitempty"`            // 邮箱
-	Device          string `json:"device,omitempty"`           // 设备
-	AppVersion      string `json:"app_version,omitempty"`      // 客户端版本
-	PublicIp        string `json:"public_ip,omitempty"`        // 公网IP
-	InternalIp      string `json:"internal_ip,omitempty"`      // 内网IP
-	UseRtcProxy     bool   `json:"use_rtc_proxy,omitempty"`    // 代理服务
-	Location        string `json:"location,omitempty"`         // 位置
-	NetworkType     string `json:"network_type,omitempty"`     // 网络类型
-	Protocol        string `json:"protocol,omitempty"`         // 连接类型
-	Microphone      string `json:"microphone,omitempty"`       // 麦克风
-	Speaker         string `json:"speaker,omitempty"`          // 扬声器
-	Camera          string `json:"camera,omitempty"`           // 摄像头
-	Audio           bool   `json:"audio,omitempty"`            // 音频
-	Video           bool   `json:"video,omitempty"`            // 视频
-	Sharing         bool   `json:"sharing,omitempty"`          // 共享
-	JoinTime        string `json:"join_time,omitempty"`        // 入会时间
-	LeaveTime       string `json:"leave_time,omitempty"`       // 离会时间
-	TimeInMeeting   string `json:"time_in_meeting,omitempty"`  // 参会时长
-	LeaveReason     string `json:"leave_reason,omitempty"`     // 离会原因
-	AcceptStatus    int64  `json:"accept_status,omitempty"`    // 日程响应状态, 可选值有: 1: 接受, 2: 拒绝, 3: 待确认, 4: 未响应
+	ParticipantName string `json:"participant_name,omitempty"`  // 参会者
+	Department      string `json:"department,omitempty"`        // 部门
+	UserID          string `json:"user_id,omitempty"`           // 用户ID
+	MeetingRoomID   string `json:"meeting_room_id,omitempty"`   // 会议室ID
+	EmployeeID      string `json:"employee_id,omitempty"`       // 工号
+	Phone           string `json:"phone,omitempty"`             // 电话
+	Email           string `json:"email,omitempty"`             // 邮箱
+	Device          string `json:"device,omitempty"`            // 设备
+	AppVersion      string `json:"app_version,omitempty"`       // 客户端版本
+	PublicIp        string `json:"public_ip,omitempty"`         // 公网IP
+	InternalIp      string `json:"internal_ip,omitempty"`       // 内网IP
+	UseRtcProxy     bool   `json:"use_rtc_proxy,omitempty"`     // 代理服务
+	Location        string `json:"location,omitempty"`          // 位置
+	NetworkType     string `json:"network_type,omitempty"`      // 网络类型
+	Protocol        string `json:"protocol,omitempty"`          // 连接类型
+	Microphone      string `json:"microphone,omitempty"`        // 麦克风
+	Speaker         string `json:"speaker,omitempty"`           // 扬声器
+	Camera          string `json:"camera,omitempty"`            // 摄像头
+	Audio           bool   `json:"audio,omitempty"`             // 音频
+	Video           bool   `json:"video,omitempty"`             // 视频
+	Sharing         bool   `json:"sharing,omitempty"`           // 共享
+	JoinTime        string `json:"join_time,omitempty"`         // 入会时间, 格式见响应体示例
+	LeaveTime       string `json:"leave_time,omitempty"`        // 离会时间, 格式见响应体示例
+	TimeInMeeting   string `json:"time_in_meeting,omitempty"`   // 参会时长（秒）, 格式见响应体示例
+	LeaveReason     string `json:"leave_reason,omitempty"`      // 离会原因
+	AcceptStatus    int64  `json:"accept_status,omitempty"`     // 日程响应状态可选值有: 接受拒绝待确认未响应
+	IsExternal      bool   `json:"is_external,omitempty"`       // 是否为外部参会人
+	WebinarUserRole string `json:"webinar_user_role,omitempty"` // 网络研讨会中的角色, "0"为嘉宾, "3"为观众
 }
 
 // getVCParticipantListResp ...

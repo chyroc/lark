@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetDriveRootFolderMeta 该接口用于获取用户“我的空间”（root folder）的元数据, 包括文件夹的 token、ID 和文件夹所有者的 ID。
+// GetDriveRootFolderMeta 获取用户“我的空间”（根文件夹）的元数据, 包括根文件夹的 token、ID 和文件夹所有者的 ID。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ugTNzUjL4UzM14CO1MTN/get-root-folder-meta
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/folder/get-root-folder-meta
@@ -58,8 +58,7 @@ func (r *Mock) UnMockDriveGetDriveRootFolderMeta() {
 }
 
 // GetDriveRootFolderMetaReq ...
-type GetDriveRootFolderMetaReq struct {
-}
+type GetDriveRootFolderMetaReq struct{}
 
 // GetDriveRootFolderMetaResp ...
 type GetDriveRootFolderMetaResp struct {

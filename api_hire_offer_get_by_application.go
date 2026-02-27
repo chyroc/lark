@@ -23,6 +23,8 @@ import (
 
 // GetHireOfferByApplication 根据投递 ID 获取 Offer 信息。
 //
+// 注意: 该接口暂时不支持查询实习Offer
+//
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/offer
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/offer/offer
 func (r *HireService) GetHireOfferByApplication(ctx context.Context, request *GetHireOfferByApplicationReq, options ...MethodOptionFunc) (*GetHireOfferByApplicationResp, *Response, error) {
@@ -58,12 +60,12 @@ func (r *Mock) UnMockHireGetHireOfferByApplication() {
 
 // GetHireOfferByApplicationReq ...
 type GetHireOfferByApplicationReq struct {
-	ApplicationID      string            `path:"application_id" json:"-"`         // 投递ID, 示例值: "6949805467799537964"
-	UserIDType         *IDType           `query:"user_id_type" json:"-"`          // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	DepartmentIDType   *DepartmentIDType `query:"department_id_type" json:"-"`    // 此次调用中使用的部门 ID 的类型, 示例值: open_department_id, 可选值有: open_department_id: 以 open_department_id 来标识部门, department_id: 以 department_id 来标识部门, 默认值: `open_department_id`
-	JobLevelIDType     *IDType           `query:"job_level_id_type" json:"-"`     // 此次调用中使用的「职级 ID」的类型, 示例值: 6942778198054125570, 可选值有: people_admin_job_level_id: 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。, job_level_id: 「飞书管理后台」适用的职级 ID, 通过[「获取租户职级列表」](https://open.feishu.cn/document/server-docs/contact-v3/job_level/list)接口获取, 默认值: `people_admin_job_level_id`
-	JobFamilyIDType    *IDType           `query:"job_family_id_type" json:"-"`    // 此次调用中使用的「序列 ID」的类型, 示例值: 6942778198054125571, 可选值有: people_admin_job_category_id: 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。, job_family_id: 「飞书管理后台」适用的序列 ID, 通过[「获取租户序列列表」](https://open.feishu.cn/document/server-docs/contact-v3/job_family/list)接口获取, 默认值: `people_admin_job_category_id`
-	EmployeeTypeIDType *IDType           `query:"employee_type_id_type" json:"-"` // 此次调用中使用的「人员类型 ID」的类型, 示例值: 1, 可选值有: people_admin_employee_type_id: 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。, employee_type_enum_id: 「飞书管理后台」适用的人员类型 ID, 通过[「查询人员类型」](https://open.feishu.cn/document/server-docs/contact-v3/employee_type_enum/list)接口获取, 默认值: `people_admin_employee_type_id`
+	ApplicationID      string            `path:"application_id" json:"-"`         // 投递ID, 可通过[获取投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/list)获取示例值: "6949805467799537964"
+	UserIDType         *IDType           `query:"user_id_type" json:"-"`          // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	DepartmentIDType   *DepartmentIDType `query:"department_id_type" json:"-"`    // 此次调用中使用的部门 ID 类型。示例值: "open_department_id"可选值有: 【飞书】用来在具体某个应用中标识一个部门, 同一个department_id 在不同应用中的 open_department_id 相同【飞书】用来标识租户内一个唯一的部门默认值: `open_department_id
+	JobLevelIDType     *IDType           `query:"job_level_id_type" json:"-"`     // 此次调用中使用的「职级 ID」的类型示例值: "people_admin_job_level_id"可选值有: 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。「飞书管理后台」适用的职级 ID, 通过[获取租户职级列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_level/list)接口获取默认值: `people_admin_job_level_id
+	JobFamilyIDType    *IDType           `query:"job_family_id_type" json:"-"`    // 此次调用中使用的「序列 ID」的类型示例值: "people_admin_job_category_id"可选值有: 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。「飞书管理后台」适用的序列 ID, 通过[获取租户序列列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_family/list)接口获取默认值: `people_admin_job_category_id
+	EmployeeTypeIDType *IDType           `query:"employee_type_id_type" json:"-"` // 此次调用中使用的「人员类型 ID」的类型示例值: "people_admin_employee_type_id"可选值有: 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。「飞书管理后台」适用的人员类型 ID, 通过[查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)接口获取默认值: `people_admin_employee_type_id
 }
 
 // GetHireOfferByApplicationResp ...
@@ -73,70 +75,77 @@ type GetHireOfferByApplicationResp struct {
 
 // GetHireOfferByApplicationRespOffer ...
 type GetHireOfferByApplicationRespOffer struct {
-	ID                   string                                                `json:"id,omitempty"`                     // Offer id
-	ApplicationID        string                                                `json:"application_id,omitempty"`         // 投递id
+	ID                   string                                                `json:"id,omitempty"`                     // Offer ID
+	ApplicationID        string                                                `json:"application_id,omitempty"`         // 投递ID
 	BasicInfo            *GetHireOfferByApplicationRespOfferBasicInfo          `json:"basic_info,omitempty"`             // 基础信息
 	SalaryPlan           *GetHireOfferByApplicationRespOfferSalaryPlan         `json:"salary_plan,omitempty"`            // 薪酬计划
-	SchemaID             string                                                `json:"schema_id,omitempty"`              // 当前 Offer 使用的 schema
-	OfferStatus          int64                                                 `json:"offer_status,omitempty"`           // Offer 状态, 可选值有: 0: 所有, 1: 未申请, 2: 审批中, 3: 审批已撤回, 4: 审批通过, 5: 审批不通过, 6: Offer 已发出, 7: 候选人已接受, 8: 候选人已拒绝, 9: Offer 已失效, 10: 未审批, 11: 实习待入职（仅实习 Offer 具有）, 12: 实习已入职（仅实习 Offer 具有）, 13: 实习已离职（仅实习 Offer 具有）
+	SchemaID             string                                                `json:"schema_id,omitempty"`              // 当前 Offer 使用的 schema ID, 详情可参考: [获取 Offer 申请表信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer_application_form/get)
+	OfferStatus          int64                                                 `json:"offer_status,omitempty"`           // Offer 状态可选值有: 所有未申请审批中审批已撤回审批通过审批不通过Offer 已发出候选人已接受候选人已拒绝Offer 已失效未审批实习待入职（仅实习 Offer 具有）实习已入职（仅实习 Offer 具有）实习已离职（仅实习 Offer 具有）
 	JobInfo              *GetHireOfferByApplicationRespOfferJobInfo            `json:"job_info,omitempty"`               // 职位信息
 	CustomizedModuleList []*GetHireOfferByApplicationRespOfferCustomizedModule `json:"customized_module_list,omitempty"` // offer自定义模块列表
+	JobRequirementID     string                                                `json:"job_requirement_id,omitempty"`     // 招聘需求ID, 详情请查看: [获取招聘需求信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_requirement/list_by_id)
+	OfferSendRecordList  []*GetHireOfferByApplicationRespOfferOfferSendRecord  `json:"offer_send_record_list,omitempty"` // offer 发送记录列表（灰度中, 如需使用请联系客户经理申请灰度）
 }
 
 // GetHireOfferByApplicationRespOfferBasicInfo ...
 type GetHireOfferByApplicationRespOfferBasicInfo struct {
-	OfferType         int64                                                       `json:"offer_type,omitempty"`          // Offer 类型, 可选值有: 1: 社招offer, 2: 校招offer, 3: 实习offer, 4: 实习生转正offer
-	Remark            string                                                      `json:"remark,omitempty"`              // 备注
-	ExpireTime        int64                                                       `json:"expire_time,omitempty"`         // Offer 过期时间
-	OwnerUserID       string                                                      `json:"owner_user_id,omitempty"`       // Offer 负责人 ID
-	CreatorUserID     string                                                      `json:"creator_user_id,omitempty"`     // Offer 创建人 ID
-	EmployeeType      *GetHireOfferByApplicationRespOfferBasicInfoEmployeeType    `json:"employee_type,omitempty"`       // Offer 人员类型
-	CreateTime        string                                                      `json:"create_time,omitempty"`         // 创建时间
-	LeaderUserID      string                                                      `json:"leader_user_id,omitempty"`      // 直属上级 ID
-	OnboardDate       string                                                      `json:"onboard_date,omitempty"`        // 入职日期
-	DepartmentID      string                                                      `json:"department_id,omitempty"`       // 入职部门
-	ProbationMonth    int64                                                       `json:"probation_month,omitempty"`     // 试用期, 比如试用期6个月
-	ContractYear      int64                                                       `json:"contract_year,omitempty"`       // 合同期(年), 推荐使用「contract_period」, 如果Offer申请表中「合同期(年)」字段已停用, 则不可使用该字段
-	ContractPeriod    *GetHireOfferByApplicationRespOfferBasicInfoContractPeriod  `json:"contract_period,omitempty"`     // 合同期（年/月）
-	RecruitmentType   *GetHireOfferByApplicationRespOfferBasicInfoRecruitmentType `json:"recruitment_type,omitempty"`    // 雇员类型
-	Sequence          *GetHireOfferByApplicationRespOfferBasicInfoSequence        `json:"sequence,omitempty"`            // 序列
-	Level             *GetHireOfferByApplicationRespOfferBasicInfoLevel           `json:"level,omitempty"`               // 级别
-	OnboardAddress    *GetHireOfferByApplicationRespOfferBasicInfoOnboardAddress  `json:"onboard_address,omitempty"`     // 入职地点
-	WorkAddress       *GetHireOfferByApplicationRespOfferBasicInfoWorkAddress     `json:"work_address,omitempty"`        // 工作地点
-	CustomizeInfoList []*GetHireOfferByApplicationRespOfferBasicInfoCustomizeInfo `json:"customize_info_list,omitempty"` // 自定义字段信息
+	OfferType              int64                                                       `json:"offer_type,omitempty"`                // Offer 类型, 废弃字段可选值有: 社招offer校招offer实习offer实习生转正offer
+	Remark                 string                                                      `json:"remark,omitempty"`                    // 备注
+	ExpireTime             int64                                                       `json:"expire_time,omitempty"`               // Offer 过期时间, 毫秒级时间戳
+	OwnerUserID            string                                                      `json:"owner_user_id,omitempty"`             // Offer 负责人 ID, 与入参`user_id_type`类型一致
+	CreatorUserID          string                                                      `json:"creator_user_id,omitempty"`           // Offer 创建人 ID, 与入参`user_id_type`类型一致
+	EmployeeType           *GetHireOfferByApplicationRespOfferBasicInfoEmployeeType    `json:"employee_type,omitempty"`             // Offer 人员类型
+	CreateTime             string                                                      `json:"create_time,omitempty"`               // 创建时间, 毫秒级时间戳
+	LeaderUserID           string                                                      `json:"leader_user_id,omitempty"`            // 直属上级 ID, 与入参`user_id_type`类型一致
+	OnboardDate            string                                                      `json:"onboard_date,omitempty"`              // 入职日期, 格式为YYYY-MM-DD
+	DepartmentID           string                                                      `json:"department_id,omitempty"`             // 入职部门, 与入参中的`department_id_type`类型一致
+	ProbationMonth         int64                                                       `json:"probation_month,omitempty"`           // 试用期, 比如试用期6个月
+	ContractYear           int64                                                       `json:"contract_year,omitempty"`             // 合同期(年), 推荐使用「contract_period」
+	ContractPeriod         *GetHireOfferByApplicationRespOfferBasicInfoContractPeriod  `json:"contract_period,omitempty"`           // 合同期（年/月）
+	RecruitmentType        *GetHireOfferByApplicationRespOfferBasicInfoRecruitmentType `json:"recruitment_type,omitempty"`          // 雇员类型
+	Sequence               *GetHireOfferByApplicationRespOfferBasicInfoSequence        `json:"sequence,omitempty"`                  // 序列
+	Level                  *GetHireOfferByApplicationRespOfferBasicInfoLevel           `json:"level,omitempty"`                     // 级别
+	OnboardAddress         *GetHireOfferByApplicationRespOfferBasicInfoOnboardAddress  `json:"onboard_address,omitempty"`           // 入职地点
+	WorkAddress            *GetHireOfferByApplicationRespOfferBasicInfoWorkAddress     `json:"work_address,omitempty"`              // 工作地点
+	CustomizeInfoList      []*GetHireOfferByApplicationRespOfferBasicInfoCustomizeInfo `json:"customize_info_list,omitempty"`       // 自定义字段信息
+	PositionID             string                                                      `json:"position_id,omitempty"`               // 岗位 ID, 可通过[查询岗位信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/position/query) 获取（仅限飞书人事租户使用, 若链接无法打开, 则说明飞书人事未启用岗位, 请联系[技术支持](https://applink.feishu.cn/TLJpeNdW)开通）
+	JobOffered             string                                                      `json:"job_offered,omitempty"`               // 入职职位
+	JobGradeID             string                                                      `json:"job_grade_id,omitempty"`              // 职等 ID, 可通过[查询职等](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query) 获取（仅限飞书人事租户使用）
+	CommonAttachmentIDList []string                                                    `json:"common_attachment_id_list,omitempty"` // 通用附件 ID 列表, 可通过[获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get)接口获取附件的详细信息
+	PathwayID              string                                                      `json:"pathway_id,omitempty"`                // 通道 ID
 }
 
 // GetHireOfferByApplicationRespOfferBasicInfoContractPeriod ...
 type GetHireOfferByApplicationRespOfferBasicInfoContractPeriod struct {
-	PeriodType int64 `json:"period_type,omitempty"` // 合同周期类型, 可选值有: 1: 月, 2: 年
+	PeriodType int64 `json:"period_type,omitempty"` // 合同周期类型可选值有: 月年
 	Period     int64 `json:"period,omitempty"`      // 合同时长
 }
 
 // GetHireOfferByApplicationRespOfferBasicInfoCustomizeInfo ...
 type GetHireOfferByApplicationRespOfferBasicInfoCustomizeInfo struct {
-	ObjectID       string `json:"object_id,omitempty"`       // 自定义字段 ID
-	CustomizeValue string `json:"customize_value,omitempty"` // 自定义字段 value
+	ObjectID       string `json:"object_id,omitempty"`       // 自定义字段 ID, 详情请参考: [获取 Offer 申请表信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer_application_form/get)
+	CustomizeValue string `json:"customize_value,omitempty"` // 自定义字段 value （值为人员ID的自定义字段 value 暂不支持ID转换, 会以 people_admin_id 类型返回）
 }
 
 // GetHireOfferByApplicationRespOfferBasicInfoEmployeeType ...
 type GetHireOfferByApplicationRespOfferBasicInfoEmployeeType struct {
-	ID     string `json:"id,omitempty"`      // ID
-	ZhName string `json:"zh_name,omitempty"` // 中文名称
-	EnName string `json:"en_name,omitempty"` // 英文名称
+	ID     string `json:"id,omitempty"`      // 人员类型 ID, 与入参`employee_type_id_type` 类型一致
+	ZhName string `json:"zh_name,omitempty"` // 人员类型中文名称
+	EnName string `json:"en_name,omitempty"` // 人员类型英文名称
 }
 
 // GetHireOfferByApplicationRespOfferBasicInfoLevel ...
 type GetHireOfferByApplicationRespOfferBasicInfoLevel struct {
-	ID     string `json:"id,omitempty"`      // ID
-	ZhName string `json:"zh_name,omitempty"` // 中文名称
-	EnName string `json:"en_name,omitempty"` // 英文名称
+	ID     string `json:"id,omitempty"`      // 级别 ID, 与入参`job_level_id_type` 类型一致
+	ZhName string `json:"zh_name,omitempty"` // 级别中文名称
+	EnName string `json:"en_name,omitempty"` // 级别英文名称
 }
 
 // GetHireOfferByApplicationRespOfferBasicInfoOnboardAddress ...
 type GetHireOfferByApplicationRespOfferBasicInfoOnboardAddress struct {
-	ID       string                                                             `json:"id,omitempty"`       // ID
-	ZhName   string                                                             `json:"zh_name,omitempty"`  // 中文名称
-	EnName   string                                                             `json:"en_name,omitempty"`  // 英文名称
+	ID       string                                                             `json:"id,omitempty"`       // 入职地点 ID, 详情请参考: [获取地址列表](https://open.larkoffice.com/document/server-docs/hire-v1/recruitment-related-configuration/location/list)
+	ZhName   string                                                             `json:"zh_name,omitempty"`  // 入职地点中文名称
+	EnName   string                                                             `json:"en_name,omitempty"`  // 入职地点英文名称
 	District *GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressDistrict `json:"district,omitempty"` // 区域信息
 	City     *GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressCity     `json:"city,omitempty"`     // 城市信息
 	State    *GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressState    `json:"state,omitempty"`    // 省信息
@@ -145,55 +154,55 @@ type GetHireOfferByApplicationRespOfferBasicInfoOnboardAddress struct {
 
 // GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressCity ...
 type GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressCity struct {
-	ZhName       string `json:"zh_name,omitempty"`       // 中文名称
-	EnName       string `json:"en_name,omitempty"`       // 英文名称
-	Code         string `json:"code,omitempty"`          // 编码
-	LocationType int64  `json:"location_type,omitempty"` // 地址类型, 可选值有: 1: COUNTRY, 2: STATE, 3: CITY, 4: DISTRICT, 5: ADDRESS
+	ZhName       string `json:"zh_name,omitempty"`       // 城市中文名称
+	EnName       string `json:"en_name,omitempty"`       // 城市英文名称
+	Code         string `json:"code,omitempty"`          // 城市编码
+	LocationType int64  `json:"location_type,omitempty"` // 地址类型可选值有: COUNTRY（国家）STATE（省份/州）CITY（市）DISTRICT（区/县）ADDRESS（地址）
 }
 
 // GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressCountry ...
 type GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressCountry struct {
-	ZhName       string `json:"zh_name,omitempty"`       // 中文名称
-	EnName       string `json:"en_name,omitempty"`       // 英文名称
-	Code         string `json:"code,omitempty"`          // 编码
-	LocationType int64  `json:"location_type,omitempty"` // 地址类型, 可选值有: 1: COUNTRY, 2: STATE, 3: CITY, 4: DISTRICT, 5: ADDRESS
+	ZhName       string `json:"zh_name,omitempty"`       // 国家中文名称
+	EnName       string `json:"en_name,omitempty"`       // 国家英文名称
+	Code         string `json:"code,omitempty"`          // 国家编码
+	LocationType int64  `json:"location_type,omitempty"` // 地址类型可选值有: COUNTRY（国家）STATE（省份/州）CITY（市）DISTRICT（区/县）ADDRESS（地址）
 }
 
 // GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressDistrict ...
 type GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressDistrict struct {
-	ZhName       string `json:"zh_name,omitempty"`       // 中文名称
-	EnName       string `json:"en_name,omitempty"`       // 英文名称
-	Code         string `json:"code,omitempty"`          // 编码
+	ZhName       string `json:"zh_name,omitempty"`       // 区域中文名称
+	EnName       string `json:"en_name,omitempty"`       // 区域英文名称
+	Code         string `json:"code,omitempty"`          // 区域编码
 	LocationType int64  `json:"location_type,omitempty"` // 地址类型
 }
 
 // GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressState ...
 type GetHireOfferByApplicationRespOfferBasicInfoOnboardAddressState struct {
-	ZhName       string `json:"zh_name,omitempty"`       // 中文名称
-	EnName       string `json:"en_name,omitempty"`       // 英文名称
-	Code         string `json:"code,omitempty"`          // 编码
-	LocationType int64  `json:"location_type,omitempty"` // 地址类型, 可选值有: 1: COUNTRY, 2: STATE, 3: CITY, 4: DISTRICT, 5: ADDRESS
+	ZhName       string `json:"zh_name,omitempty"`       // 省中文名称
+	EnName       string `json:"en_name,omitempty"`       // 省英文名称
+	Code         string `json:"code,omitempty"`          // 省编码
+	LocationType int64  `json:"location_type,omitempty"` // 地址类型可选值有: COUNTRY（国家）STATE（省份/州）CITY（市）DISTRICT（区/县）ADDRESS（地址）
 }
 
 // GetHireOfferByApplicationRespOfferBasicInfoRecruitmentType ...
 type GetHireOfferByApplicationRespOfferBasicInfoRecruitmentType struct {
-	ID     string `json:"id,omitempty"`      // ID
-	ZhName string `json:"zh_name,omitempty"` // 中文名称
-	EnName string `json:"en_name,omitempty"` // 英文名称
+	ID     string `json:"id,omitempty"`      // 职位雇佣类型ID, 详情请参考: [枚举常量介绍](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/enum)中「职位性质/雇佣类型（recruitment_type）枚举定义」
+	ZhName string `json:"zh_name,omitempty"` // 雇员类型中文名称
+	EnName string `json:"en_name,omitempty"` // 雇员类型英文名称
 }
 
 // GetHireOfferByApplicationRespOfferBasicInfoSequence ...
 type GetHireOfferByApplicationRespOfferBasicInfoSequence struct {
-	ID     string `json:"id,omitempty"`      // ID
-	ZhName string `json:"zh_name,omitempty"` // 中文名称
-	EnName string `json:"en_name,omitempty"` // 英文名称
+	ID     string `json:"id,omitempty"`      // 序列 ID, 与入参`job_family_id_type` 类型一致
+	ZhName string `json:"zh_name,omitempty"` // 序列中文名称
+	EnName string `json:"en_name,omitempty"` // 序列英文名称
 }
 
 // GetHireOfferByApplicationRespOfferBasicInfoWorkAddress ...
 type GetHireOfferByApplicationRespOfferBasicInfoWorkAddress struct {
-	ID       string                                                          `json:"id,omitempty"`       // ID
-	ZhName   string                                                          `json:"zh_name,omitempty"`  // 中文名称
-	EnName   string                                                          `json:"en_name,omitempty"`  // 英文名称
+	ID       string                                                          `json:"id,omitempty"`       // 工作地点 ID, 详情请参考: [获取地址列表](https://open.larkoffice.com/document/server-docs/hire-v1/recruitment-related-configuration/location/list)
+	ZhName   string                                                          `json:"zh_name,omitempty"`  // 工作地点中文名称
+	EnName   string                                                          `json:"en_name,omitempty"`  // 工作地点英文名称
 	District *GetHireOfferByApplicationRespOfferBasicInfoWorkAddressDistrict `json:"district,omitempty"` // 区域信息
 	City     *GetHireOfferByApplicationRespOfferBasicInfoWorkAddressCity     `json:"city,omitempty"`     // 城市信息
 	State    *GetHireOfferByApplicationRespOfferBasicInfoWorkAddressState    `json:"state,omitempty"`    // 省信息
@@ -202,34 +211,34 @@ type GetHireOfferByApplicationRespOfferBasicInfoWorkAddress struct {
 
 // GetHireOfferByApplicationRespOfferBasicInfoWorkAddressCity ...
 type GetHireOfferByApplicationRespOfferBasicInfoWorkAddressCity struct {
-	ZhName       string `json:"zh_name,omitempty"`       // 中文名称
-	EnName       string `json:"en_name,omitempty"`       // 英文名称
-	Code         string `json:"code,omitempty"`          // 编码
-	LocationType int64  `json:"location_type,omitempty"` // 地址类型, 可选值有: 1: COUNTRY, 2: STATE, 3: CITY, 4: DISTRICT, 5: ADDRESS
+	ZhName       string `json:"zh_name,omitempty"`       // 城市中文名称
+	EnName       string `json:"en_name,omitempty"`       // 城市英文名称
+	Code         string `json:"code,omitempty"`          // 城市编码
+	LocationType int64  `json:"location_type,omitempty"` // 地址类型可选值有: COUNTRY（国家）STATE（省份/州）CITY（市）DISTRICT（区/县）ADDRESS（地址）
 }
 
 // GetHireOfferByApplicationRespOfferBasicInfoWorkAddressCountry ...
 type GetHireOfferByApplicationRespOfferBasicInfoWorkAddressCountry struct {
-	ZhName       string `json:"zh_name,omitempty"`       // 中文名称
-	EnName       string `json:"en_name,omitempty"`       // 英文名称
-	Code         string `json:"code,omitempty"`          // 编码
-	LocationType int64  `json:"location_type,omitempty"` // 地址类型, 可选值有: 1: COUNTRY, 2: STATE, 3: CITY, 4: DISTRICT, 5: ADDRESS
+	ZhName       string `json:"zh_name,omitempty"`       // 国家中文名称
+	EnName       string `json:"en_name,omitempty"`       // 国家英文名称
+	Code         string `json:"code,omitempty"`          // 国家编码
+	LocationType int64  `json:"location_type,omitempty"` // 地址类型可选值有: COUNTRY（国家）STATE（省份/州）CITY（市）DISTRICT（区/县）ADDRESS（地址）
 }
 
 // GetHireOfferByApplicationRespOfferBasicInfoWorkAddressDistrict ...
 type GetHireOfferByApplicationRespOfferBasicInfoWorkAddressDistrict struct {
-	ZhName       string `json:"zh_name,omitempty"`       // 中文名称
-	EnName       string `json:"en_name,omitempty"`       // 英文名称
-	Code         string `json:"code,omitempty"`          // 编码
+	ZhName       string `json:"zh_name,omitempty"`       // 区域中文名称
+	EnName       string `json:"en_name,omitempty"`       // 区域英文名称
+	Code         string `json:"code,omitempty"`          // 区域编码
 	LocationType int64  `json:"location_type,omitempty"` // 地址类型
 }
 
 // GetHireOfferByApplicationRespOfferBasicInfoWorkAddressState ...
 type GetHireOfferByApplicationRespOfferBasicInfoWorkAddressState struct {
-	ZhName       string `json:"zh_name,omitempty"`       // 中文名称
-	EnName       string `json:"en_name,omitempty"`       // 英文名称
-	Code         string `json:"code,omitempty"`          // 编码
-	LocationType int64  `json:"location_type,omitempty"` // 地址类型, 可选值有: 1: COUNTRY, 2: STATE, 3: CITY, 4: DISTRICT, 5: ADDRESS
+	ZhName       string `json:"zh_name,omitempty"`       // 省中文名称
+	EnName       string `json:"en_name,omitempty"`       // 省英文名称
+	Code         string `json:"code,omitempty"`          // 省编码
+	LocationType int64  `json:"location_type,omitempty"` // 地址类型可选值有: COUNTRY（国家）STATE（省份/州）CITY（市）DISTRICT（区/县）ADDRESS（地址）
 }
 
 // GetHireOfferByApplicationRespOfferCustomizedModule ...
@@ -241,7 +250,7 @@ type GetHireOfferByApplicationRespOfferCustomizedModule struct {
 // GetHireOfferByApplicationRespOfferCustomizedModuleObject ...
 type GetHireOfferByApplicationRespOfferCustomizedModuleObject struct {
 	ObjectID       string `json:"object_id,omitempty"`       // 自定义字段ID
-	CustomizeValue string `json:"customize_value,omitempty"` // 自定义字段Value
+	CustomizeValue string `json:"customize_value,omitempty"` // 自定义字段Value（值为人员ID的自定义字段 value 暂不支持ID转换, 会以 people_admin_id 类型返回）
 }
 
 // GetHireOfferByApplicationRespOfferJobInfo ...
@@ -250,17 +259,70 @@ type GetHireOfferByApplicationRespOfferJobInfo struct {
 	JobName string `json:"job_name,omitempty"` // Offer 职位名称
 }
 
+// GetHireOfferByApplicationRespOfferOfferSendRecord ...
+type GetHireOfferByApplicationRespOfferOfferSendRecord struct {
+	OfferSendRecordID  string                                                               `json:"offer_send_record_id,omitempty"` // offer 发送记录 id
+	OperatorUserID     string                                                               `json:"operator_user_id,omitempty"`     // 操作人 ID, 与入参`user_id_type`类型一致
+	SendTime           string                                                               `json:"send_time,omitempty"`            // offer 发送时间, 毫秒时间戳
+	OfferLetterStatus  int64                                                                `json:"offer_letter_status,omitempty"`  // offer 状态可选值有: 已创建已接受已拒绝已过期已作废
+	EmailInfo          *GetHireOfferByApplicationRespOfferOfferSendRecordEmailInfo          `json:"email_info,omitempty"`           // offer 邮件信息
+	AcceptanceList     []*GetHireOfferByApplicationRespOfferOfferSendRecordAcceptance       `json:"acceptance_list,omitempty"`      // Offer 跟进记录
+	OfferFileList      []*GetHireOfferByApplicationRespOfferOfferSendRecordOfferFile        `json:"offer_file_list,omitempty"`      // offer 文件列表
+	OfferSignatureInfo *GetHireOfferByApplicationRespOfferOfferSendRecordOfferSignatureInfo `json:"offer_signature_info,omitempty"` // offer 签署信息
+}
+
+// GetHireOfferByApplicationRespOfferOfferSendRecordAcceptance ...
+type GetHireOfferByApplicationRespOfferOfferSendRecordAcceptance struct {
+	OperatorType int64  `json:"operator_type,omitempty"` // 操作类型可选值有: HR 操作候选人操作
+	Conclusion   int64  `json:"conclusion,omitempty"`    // offer 接受或拒绝的结果可选值有: 接受拒绝
+	Memo         string `json:"memo,omitempty"`          // 备注, 如果是拒绝, 则展示拒绝原因
+	OperateTime  string `json:"operate_time,omitempty"`  // 操作时间, 毫秒时间戳
+}
+
+// GetHireOfferByApplicationRespOfferOfferSendRecordEmailInfo ...
+type GetHireOfferByApplicationRespOfferOfferSendRecordEmailInfo struct {
+	CcEmailList       []string `json:"cc_email_list,omitempty"`       // 抄送人邮件列表
+	ReceiverEmailList []string `json:"receiver_email_list,omitempty"` // 接收人邮件列表
+	Content           string   `json:"content,omitempty"`             // 邮件内容
+}
+
+// GetHireOfferByApplicationRespOfferOfferSendRecordOfferFile ...
+type GetHireOfferByApplicationRespOfferOfferSendRecordOfferFile struct {
+	ID                   string `json:"id,omitempty"`                      // 文件 id, 可通过[获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get)接口获取, 查询参数 type 传枚举值 3, 通用附件
+	FileTemplateID       string `json:"file_template_id,omitempty"`        // 文件模板 id, 暂无接口可通过该 ID 获取对应信息
+	FileTemplateName     string `json:"file_template_name,omitempty"`      // 文件模板名称
+	FileTemplateTypeID   string `json:"file_template_type_id,omitempty"`   // 文件模板类型 id, 暂无接口可通过该 ID 获取对应信息
+	FileTemplateTypeName string `json:"file_template_type_name,omitempty"` // 文件模板类型名称
+}
+
+// GetHireOfferByApplicationRespOfferOfferSendRecordOfferSignatureInfo ...
+type GetHireOfferByApplicationRespOfferOfferSendRecordOfferSignatureInfo struct {
+	ID              string                                                                           `json:"id,omitempty"`               // 电子签信息 id, 暂无接口可通过该 ID 获取对应信息
+	SignatureStatus int64                                                                            `json:"signature_status,omitempty"` // 电子签签署状态可选值有: 未签署所有签署人已签署部分签署人已签署已拒绝已失效
+	AttachmentList  []*GetHireOfferByApplicationRespOfferOfferSendRecordOfferSignatureInfoAttachment `json:"attachment_list,omitempty"`  // 电子签附件列表
+}
+
+// GetHireOfferByApplicationRespOfferOfferSendRecordOfferSignatureInfoAttachment ...
+type GetHireOfferByApplicationRespOfferOfferSendRecordOfferSignatureInfoAttachment struct {
+	ID                   string `json:"id,omitempty"`                      // 文件 id, 可通过[获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get)接口获取, 查询参数 type 传枚举值 3, 通用附件
+	FileName             string `json:"file_name,omitempty"`               // 文件名称
+	FileTemplateID       string `json:"file_template_id,omitempty"`        // 文件模板 id, 暂无接口可通过该 ID 获取对应信息
+	FileTemplateName     string `json:"file_template_name,omitempty"`      // 文件模板名称
+	FileTemplateTypeID   string `json:"file_template_type_id,omitempty"`   // 文件模板类型 id, 暂无接口可通过该 ID 获取对应信息
+	FileTemplateTypeName string `json:"file_template_type_name,omitempty"` // 文件模板类型名称
+}
+
 // GetHireOfferByApplicationRespOfferSalaryPlan ...
 type GetHireOfferByApplicationRespOfferSalaryPlan struct {
 	Currency                  string                                                       `json:"currency,omitempty"`                    // 币种
-	BasicSalary               string                                                       `json:"basic_salary,omitempty"`                // 基本薪资, 为JSON 格式, amount 代表基本薪资的金额, peroid 代表基本薪资的周期单位, 如: "{\"amount\":\"10000\", "\period\":2}"
+	BasicSalary               string                                                       `json:"basic_salary,omitempty"`                // 基本薪资, 为JSON 格式, amount 代表基本薪资的金额, peroid 代表基本薪资的周期单位, 如: `{"amount":"10000", "period":2}`。peroid 可选值有:- 1 : 日薪- 2 : 月薪
 	ProbationSalaryPercentage string                                                       `json:"probation_salary_percentage,omitempty"` // 试用期百分比
 	AwardSalaryMultiple       string                                                       `json:"award_salary_multiple,omitempty"`       // 年终奖月数
 	OptionShares              string                                                       `json:"option_shares,omitempty"`               // 期权股数
 	QuarterlyBonus            string                                                       `json:"quarterly_bonus,omitempty"`             // 季度奖金额
 	HalfYearBonus             string                                                       `json:"half_year_bonus,omitempty"`             // 半年奖金额
 	TotalAnnualCash           string                                                       `json:"total_annual_cash,omitempty"`           // 年度现金总额(数量, 非公式)
-	CustomizeInfoList         []*GetHireOfferByApplicationRespOfferSalaryPlanCustomizeInfo `json:"customize_info_list,omitempty"`         // 自定义字段的 value 信息
+	CustomizeInfoList         []*GetHireOfferByApplicationRespOfferSalaryPlanCustomizeInfo `json:"customize_info_list,omitempty"`         // 自定义字段的 value 信息, 详情可参考: [获取 Offer 申请表信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer_application_form/get) 中的自定义字段
 }
 
 // GetHireOfferByApplicationRespOfferSalaryPlanCustomizeInfo ...

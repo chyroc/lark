@@ -58,8 +58,8 @@ func (r *Mock) UnMockSearchGetSearchDataSourceItem() {
 
 // GetSearchDataSourceItemReq ...
 type GetSearchDataSourceItemReq struct {
-	DataSourceID string `path:"data_source_id" json:"-"` // 数据源的id, 示例值: "service_ticket"
-	ItemID       string `path:"item_id" json:"-"`        // 数据记录的唯一标识, 示例值: "01010111"
+	DataSourceID string `path:"data_source_id" json:"-"` // 数据源的id示例值: "service_ticket"
+	ItemID       string `path:"item_id" json:"-"`        // 数据记录的唯一标识注意: 该字段大小写敏感。- 如果调用成功但返回结果为空数据, 请检查该字段传值是否正确。示例值: "01010111"
 }
 
 // GetSearchDataSourceItemResp ...
@@ -78,14 +78,14 @@ type GetSearchDataSourceItemRespItem struct {
 
 // GetSearchDataSourceItemRespItemACL ...
 type GetSearchDataSourceItemRespItemACL struct {
-	Access string `json:"access,omitempty"` // 权限类型, 优先级: Deny > Allow, 可选值有: allow: 允许访问, deny: 禁止访问
-	Value  string `json:"value,omitempty"`  // 设置的权限值, 例如 userID, 依赖 type 描述, 注: 在 type 为 user 且 access 为 allow 时, 可填 "everyone" 来表示该数据项对全员可见；
-	Type   string `json:"type,omitempty"`   // 权限值类型, 可选值有: user: 访问权限控制中指定“用户”可以访问或拒绝访问该条数据, group: (已下线)访问权限控制中指定“用户组”可以访问或拒绝访问该条数据, open_id: 用户的open_id
+	Access string `json:"access,omitempty"` // 权限类型, 优先级: Deny > Allow。可选值有: 允许访问禁止访问
+	Value  string `json:"value,omitempty"`  // 设置的权限值, 例如 userID, 依赖 type 描述。注: 在 type 为 user 且 access 为 allow 时, 可填 "everyone" 来表示该数据项对全员可见；
+	Type   string `json:"type,omitempty"`   // 权限值类型可选值有: 用户在租户内的身份ID, 详细说明请参考: https://open.feishu.cn/document/home/user-identity-introduction/introduction用户在应用内的身份ID, 详细说明请参考: https://open.feishu.cn/document/home/user-identity-introduction/introduction用户在同一应用开发商提供的多个应用间的统一身份ID, 详细说明请参考: https://open.feishu.cn/document/home/user-identity-introduction/introduction部门在租户内的唯一ID, 详细说明请参考: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0部门在应用内的唯一ID, 详细说明请参考: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0GroupID（灰度中, 对部分租户开放）AppGroupID（灰度中, 对部分租户开放）访问权限控制中指定“用户”可以访问或拒绝访问该条数据(已下线)访问权限控制中指定“用户组”可以访问或拒绝访问该条数据
 }
 
 // GetSearchDataSourceItemRespItemContent ...
 type GetSearchDataSourceItemRespItemContent struct {
-	Format      string `json:"format,omitempty"`       // 内容的格式, 可选值有: html: html格式, plaintext: 纯文本格式
+	Format      string `json:"format,omitempty"`       // 内容的格式可选值有: html格式纯文本格式
 	ContentData string `json:"content_data,omitempty"` // 全文数据
 }
 

@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// DeleteCoreHRLocation 删除地点。
+// DeleteCoreHRLocation 删除地点信息
+//
+// 删除后无法恢复, 并且在系统中无法搜索到对应地点信息, 请谨慎操作。
+// - 删除对象时请确认有无在职员工、异动单据、待入职单据关联此对象, 如有会导致删除失败。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/delete
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/location/delete
@@ -58,12 +61,11 @@ func (r *Mock) UnMockCoreHRDeleteCoreHRLocation() {
 
 // DeleteCoreHRLocationReq ...
 type DeleteCoreHRLocationReq struct {
-	LocationID string `path:"location_id" json:"-"` // 需要删除的地点 ID, 示例值: "4312443243"
+	LocationID string `path:"location_id" json:"-"` // 需要删除的地点 ID。ID获取方式: 调用[【创建地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/create)[【批量分页查询地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)等接口可以返回地点ID示例值: "4312443243"
 }
 
 // DeleteCoreHRLocationResp ...
-type DeleteCoreHRLocationResp struct {
-}
+type DeleteCoreHRLocationResp struct{}
 
 // deleteCoreHRLocationResp ...
 type deleteCoreHRLocationResp struct {

@@ -58,23 +58,22 @@ func (r *Mock) UnMockApprovalAddApprovalInstanceSign() {
 
 // AddApprovalInstanceSignReq ...
 type AddApprovalInstanceSignReq struct {
-	ApprovalCode   string   `json:"approval_code,omitempty"`     // 审批定义 Code
-	InstanceCode   string   `json:"instance_code,omitempty"`     // 审批实例 Code
-	UserID         string   `json:"user_id,omitempty"`           // 操作用户
-	TaskID         string   `json:"task_id,omitempty"`           // 任务 ID 审批实例详情task_list中id, 详情请参考[](https://open.feishu.cn/document/ukTMukTMukTM/uEDNyUjLxQjM14SM0ITN)
-	Comment        *string  `json:"comment,omitempty"`           // 意见
-	AddSignUserIDs []string `json:"add_sign_user_ids,omitempty"` // 被加签人id
-	AddSignType    int64    `json:"add_sign_type,omitempty"`     // 1/2/3分别代表前加签/后加签/并加签
-	ApprovalMethod *int64   `json:"approval_method,omitempty"`   // 仅在前加签、后加签时需要填写, 1/2 分别代表或签/会签
+	ApprovalCode   string   `json:"approval_code,omitempty"`     // 审批定义 Code 获取方式: 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后, 从响应参数 approval_code 获取。- 登录审批管理后台, 在指定审批定义的 URL 中获取, 具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。
+	InstanceCode   string   `json:"instance_code,omitempty"`     // 审批实例 Code 获取方式: 调用[创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create)接口后, 从响应参数 instance_code 获取。- 调用[批量获取审批实例 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list)接口, 获取所需的审批实例 Code。- 调用[查询实例列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/query), 设置过滤条件查询指定的审批实例 Code。
+	UserID         string   `json:"user_id,omitempty"`           // 操作用户的 user_id, 获取方式参考[如何获取 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。
+	TaskID         string   `json:"task_id,omitempty"`           // 审批任务 ID, 调用[获取单个审批实例详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get), 从返回结果的 task_list 中获取所需的 id。
+	Comment        *string  `json:"comment,omitempty"`           // 审核意见
+	AddSignUserIDs []string `json:"add_sign_user_ids,omitempty"` // 被加签人的 user_id, 可以指定多个。获取方式参考[如何获取 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。
+	AddSignType    int64    `json:"add_sign_type,omitempty"`     // 加签方式, 可选值有: - 1: 前加签, 在当前操作用户之前审批。- 2: 后加签, 加签后自动通过当前审批, 并流转至被加签人。- 3: 并加签, 和当前操作用户共同审批。
+	ApprovalMethod *int64   `json:"approval_method,omitempty"`   // 仅在前加签、后加签时, 需要填写该参数。可选值有: - 1: 或签, 一名审批人同意或拒绝即可。- 2: 会签, 需要所有审批人同意或拒绝。
 }
 
 // AddApprovalInstanceSignResp ...
-type AddApprovalInstanceSignResp struct {
-}
+type AddApprovalInstanceSignResp struct{}
 
 // addApprovalInstanceSignResp ...
 type addApprovalInstanceSignResp struct {
-	Code  int64                        `json:"code,omitempty"` // 错误码, 非0表示失败
+	Code  int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                       `json:"msg,omitempty"`  // 返回码的描述
 	Data  *AddApprovalInstanceSignResp `json:"data,omitempty"`
 	Error *ErrorDetail                 `json:"error,omitempty"`

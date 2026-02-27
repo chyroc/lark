@@ -58,8 +58,8 @@ func (r *Mock) UnMockCoreHRGetCoreHRWorkingHoursTypeList() {
 
 // GetCoreHRWorkingHoursTypeListReq ...
 type GetCoreHRWorkingHoursTypeListReq struct {
-	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 1231231987
-	PageSize  int64   `query:"page_size" json:"-"`  // 分页大小, 示例值: 100
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 1231231987
+	PageSize  int64   `query:"page_size" json:"-"`  // 分页大小- 格式: 整数- 范围: （0, 2000）示例值: 100
 }
 
 // GetCoreHRWorkingHoursTypeListResp ...
@@ -74,10 +74,10 @@ type GetCoreHRWorkingHoursTypeListRespItem struct {
 	ID                  string                                              `json:"id,omitempty"`                     // 工时制度 ID
 	Code                string                                              `json:"code,omitempty"`                   // 编码
 	Name                []*GetCoreHRWorkingHoursTypeListRespItemName        `json:"name,omitempty"`                   // 名称
-	CountryRegionIDList []string                                            `json:"country_region_id_list,omitempty"` // 国家/地区 ID 列表
+	CountryRegionIDList []string                                            `json:"country_region_id_list,omitempty"` // 国家/地区 ID 列表- 可通过[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)获取
 	DefaultForJob       bool                                                `json:"default_for_job,omitempty"`        // 职务默认值
 	Active              bool                                                `json:"active,omitempty"`                 // 是否启用
-	CustomFields        []*GetCoreHRWorkingHoursTypeListRespItemCustomField `json:"custom_fields,omitempty"`          // 自定义字段
+	CustomFields        []*GetCoreHRWorkingHoursTypeListRespItemCustomField `json:"custom_fields,omitempty"`          // 自定义字段- 具体支持的对象请参考[自定义字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide)
 }
 
 // GetCoreHRWorkingHoursTypeListRespItemCustomField ...

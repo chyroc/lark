@@ -58,12 +58,11 @@ func (r *Mock) UnMockSearchDeleteSearchSchema() {
 
 // DeleteSearchSchemaReq ...
 type DeleteSearchSchemaReq struct {
-	SchemaID string `path:"schema_id" json:"-"` // 用户自定义数据范式的唯一标识, 示例值: "custom_schema_id", 最大长度: `40` 字符, 正则校验: `^[a-zA-Z][a-zA-Z0-9-_].*$`
+	SchemaID string `path:"schema_id" json:"-"` // 用户自定义数据范式的唯一标识示例值: "custom_schema_id" 最大长度: `40` 字符- 正则校验: `^[a-zA-Z][a-zA-Z0-9-_].*$
 }
 
 // DeleteSearchSchemaResp ...
-type DeleteSearchSchemaResp struct {
-}
+type DeleteSearchSchemaResp struct{}
 
 // deleteSearchSchemaResp ...
 type deleteSearchSchemaResp struct {

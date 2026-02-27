@@ -59,7 +59,7 @@ func (r *Mock) UnMockCoreHRDownloadCoreHRPersonFile() {
 
 // DownloadCoreHRPersonFileReq ...
 type DownloadCoreHRPersonFileReq struct {
-	ID string `path:"id" json:"-"` // 上传文件ID, 示例值: "150018109586e8ea745e47ae8feb3722dbe1d03a181336393633393133303431393831343930373235150100"
+	ID string `path:"id" json:"-"` // 上传文件ID示例值: "150018109586e8ea745e47ae8feb3722dbe1d03a181336393633393133303431393831343930373235150100"
 }
 
 // downloadCoreHRPersonFileResp ...

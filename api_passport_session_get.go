@@ -58,8 +58,8 @@ func (r *Mock) UnMockPassportGetPassportSession() {
 
 // GetPassportSessionReq ...
 type GetPassportSessionReq struct {
-	UserIDType *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	UserIDs    []string `json:"user_ids,omitempty"`     // 用户 ID, 示例值: ["47f621ff"], 最大长度: `100`
+	UserIDType *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDs    []string `json:"user_ids,omitempty"`     // 用户 ID示例值: ["47f621ff"] 最大长度: `100
 }
 
 // GetPassportSessionResp ...
@@ -70,8 +70,9 @@ type GetPassportSessionResp struct {
 // GetPassportSessionRespMaskSession ...
 type GetPassportSessionRespMaskSession struct {
 	CreateTime   string `json:"create_time,omitempty"`   // 创建时间
-	TerminalType int64  `json:"terminal_type,omitempty"` // 客户端类型, 可选值有: 0: 未知, 1: 个人电脑, 2: 浏览器, 3: 安卓手机, 4: Apple手机, 5: 服务端
+	TerminalType int64  `json:"terminal_type,omitempty"` // 客户端类型可选值有: 未知个人电脑浏览器安卓手机Apple手机服务端旧版小程序端其他移动端
 	UserID       string `json:"user_id,omitempty"`       // 用户ID
+	Sid          string `json:"sid,omitempty"`           // 需要登出的 session 标识符
 }
 
 // getPassportSessionResp ...

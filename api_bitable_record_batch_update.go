@@ -21,7 +21,12 @@ import (
 	"context"
 )
 
-// BatchUpdateBitableRecord 该接口用于更新数据表中的多条记录, 单次调用最多更新 500 条记录。
+// BatchUpdateBitableRecord 更新数据表中的多条记录, 单次调用最多更新 1, 000 条记录。
+//
+// ## 前提条件
+// 调用此接口前, 请确保当前调用身份（tenant_access_token 或 user_access_token）已有多维表格的编辑等文档权限, 否则接口将返回 HTTP 403 或 400 状态码。了解更多, 参考[如何为应用或用户开通文档权限](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#16c6475a)。
+// ## 注意事项
+// 从其它数据源同步的数据表, 不支持对记录进行增加、删除、和修改操作。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/batch_update
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-record/batch_update
@@ -59,49 +64,54 @@ func (r *Mock) UnMockBitableBatchUpdateBitableRecord() {
 
 // BatchUpdateBitableRecordReq ...
 type BatchUpdateBitableRecordReq struct {
-	AppToken   string                               `path:"app_token" json:"-"`     // base app token, 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
-	TableID    string                               `path:"table_id" json:"-"`      // table id, 示例值: "tblsRc9GRRXKqhvW"
-	UserIDType *IDType                              `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	Records    []*BatchUpdateBitableRecordReqRecord `json:"records,omitempty"`      // 记录
+	AppToken               string                               `path:"app_token" json:"-"`                 // 多维表格 App 的唯一标识。不同形态的多维表格, 其 app_token 的获取方式不同: 如果多维表格的 URL 以 [feishu.cn/base] 开头, 该多维表格的 app_token 是下图高亮部分: ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004)- 如果多维表格的 URL 以 [feishu.cn/wiki] 开头, 你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 obj_type 的值为 bitable 时, obj_token 字段的值才是多维表格的 app_token。了解更多, 参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
+	TableID                string                               `path:"table_id" json:"-"`                  // 多维表格数据表的唯一标识。获取方式: 你可通过多维表格 URL 获取 `table_id`, 下图高亮部分即为当前数据表的 `table_id`- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`  ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976)示例值: "tblsRc9GRRXKqhvW"
+	UserIDType             *IDType                              `query:"user_id_type" json:"-"`             // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	IgnoreConsistencyCheck *bool                                `query:"ignore_consistency_check" json:"-"` // 是否忽略一致性读写检查, 默认为 false, 即在进行读写操作时, 系统将确保读取到的数据和写入的数据是一致的。可选值: true: 忽略读写一致性检查, 提高性能, 但可能会导致某些节点的数据不同步, 出现暂时不一致- false: 开启读写一致性检查, 确保数据在读写过程中一致示例值: true
+	Records                []*BatchUpdateBitableRecordReqRecord `json:"records,omitempty"`                  // 要更新的记录
 }
 
 // BatchUpdateBitableRecordReqRecord ...
 type BatchUpdateBitableRecordReqRecord struct {
-	RecordID *string                `json:"record_id,omitempty"` // 一条记录的唯一标识 ID。参考[record_id 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#15d8db94) 获取 record_id。该参数必填, 请忽略左侧必填列的否, 示例值: "recqwIwhc6"
-	Fields   map[string]interface{} `json:"fields,omitempty"`    // 数据表的字段, 即数据表的列, 当前接口支持的字段类型请参考[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#31f78a3c), 不同类型字段的数据结构请参考[数据结构概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/development-guide/bitable-structure), 示例值: {"多行文本":"HelloWorld"}
+	Fields    map[string]interface{} `json:"fields,omitempty"`     // 要更新的记录的数据。你需先指定数据表中的字段（即指定列）, 再传入正确格式的数据作为一条记录。注意: 该接口支持的字段类型及其描述如下所示: 文本: 原值展示, 不支持 markdown 语法- 数字: 填写数字格式的值- 单选: 填写选项值, 对于新的选项值, 将会创建一个新的选项- 多选: 填写多个选项值, 对于新的选项值, 将会创建一个新的选项。如果填写多个相同的新选项值, 将会创建多个相同的选项- 日期: 填写毫秒级时间戳- 复选框: 填写 true 或 false- 条码- 人员: 填写用户的 open_id、union_id 或 user_id, 类型需要与 user_id_type 指定的类型一致- 电话号码: 填写文本内容- 超链接: 参考以下示例, text 为文本值, link 为 URL 链接- 附件: 填写附件 token, 需要先调用[上传素材](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_all)或[分片上传素材](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_prepare)接口将附件上传至该多维表格中- 单向关联: 填写被关联表的记录 ID- 双向关联: 填写被关联表的记录 ID- 地理位置: 填写经纬度坐标不同类型字段的数据结构请参考[数据结构概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/development-guide/bitable-structure)。示例值: {"多行文本":"HelloWorld"}
+	RecordID  *string                `json:"record_id,omitempty"`  // 数据表中一条记录的唯一标识。通过[查询记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/search)接口获取。该参数必填, 请忽略左侧必填列的“否”示例值: "recqwIwhc6"
+	SharedURL *string                `json:"shared_url,omitempty"` // 记录分享链接, 本接口中该参数无效, 请忽略示例值: "https://www.example.com/record/WVoXrzIaqeorcJcHgzAcg8AQnNd"
+	RecordURL *string                `json:"record_url,omitempty"` // 记录链接。本接口中该参数无效, 请忽略示例值: "https://www.example.com/record/WVoXrzIaqeorcJcHgzAcg8AQnNd"
 }
 
 // BatchUpdateBitableRecordResp ...
 type BatchUpdateBitableRecordResp struct {
-	Records []*BatchUpdateBitableRecordRespRecord `json:"records,omitempty"` // 记录
+	Records []*BatchUpdateBitableRecordRespRecord `json:"records,omitempty"` // 记录更新后的内容
 }
 
 // BatchUpdateBitableRecordRespRecord ...
 type BatchUpdateBitableRecordRespRecord struct {
-	RecordID         string                                            `json:"record_id,omitempty"`          // 一条记录的唯一标识 id [record_id 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#15d8db94)
-	CreatedBy        *BatchUpdateBitableRecordRespRecordCreatedBy      `json:"created_by,omitempty"`         // 该记录的创建人
-	CreatedTime      int64                                             `json:"created_time,omitempty"`       // 该记录的创建时间
-	LastModifiedBy   *BatchUpdateBitableRecordRespRecordLastModifiedBy `json:"last_modified_by,omitempty"`   // 该记录最新一次更新的修改人
-	LastModifiedTime int64                                             `json:"last_modified_time,omitempty"` // 该记录最近一次的更新时间
-	Fields           map[string]interface{}                            `json:"fields,omitempty"`             // 数据表的字段, 即数据表的列, 当前接口支持的字段类型请参考[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#31f78a3c), 不同类型字段的数据结构请参考[数据结构概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/development-guide/bitable-structure)
+	Fields           map[string]interface{}                            `json:"fields,omitempty"`             // 成功更新的记录的数据
+	RecordID         string                                            `json:"record_id,omitempty"`          // 更新记录的 ID
+	CreatedBy        *BatchUpdateBitableRecordRespRecordCreatedBy      `json:"created_by,omitempty"`         // 该记录的创建人。本接口不返回该参数
+	CreatedTime      int64                                             `json:"created_time,omitempty"`       // 该记录的创建时间。本接口不返回该参数
+	LastModifiedBy   *BatchUpdateBitableRecordRespRecordLastModifiedBy `json:"last_modified_by,omitempty"`   // 该记录最新一次更新的修改人。本接口不返回该参数
+	LastModifiedTime int64                                             `json:"last_modified_time,omitempty"` // 该记录最近一次的更新时间。本接口不返回该参数
+	SharedURL        string                                            `json:"shared_url,omitempty"`         // 记录分享链接。本接口不返回该参数, 批量获取记录接口将返回该参数
+	RecordURL        string                                            `json:"record_url,omitempty"`         // 记录链接。本接口不返回该参数, 批量获取记录接口将返回该参数
 }
 
 // BatchUpdateBitableRecordRespRecordCreatedBy ...
 type BatchUpdateBitableRecordRespRecordCreatedBy struct {
-	ID        string `json:"id,omitempty"`         // 用户id, id类型等于user_id_type所指定的类型。
+	ID        string `json:"id,omitempty"`         // 用户 ID, ID 类型与 `user_id_type` 所指定的类型一致
 	Name      string `json:"name,omitempty"`       // 用户的中文名称
 	EnName    string `json:"en_name,omitempty"`    // 用户的英文名称
 	Email     string `json:"email,omitempty"`      // 用户的邮箱
-	AvatarURL string `json:"avatar_url,omitempty"` // 头像链接, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
+	AvatarURL string `json:"avatar_url,omitempty"` // 头像链接字段权限要求（满足任一）: 获取用户基本信息以应用身份访问通讯录读取通讯录以应用身份读取通讯录
 }
 
 // BatchUpdateBitableRecordRespRecordLastModifiedBy ...
 type BatchUpdateBitableRecordRespRecordLastModifiedBy struct {
-	ID        string `json:"id,omitempty"`         // 用户id, id类型等于user_id_type所指定的类型。
+	ID        string `json:"id,omitempty"`         // 用户 ID, ID 类型与 `user_id_type` 所指定的类型一致
 	Name      string `json:"name,omitempty"`       // 用户的中文名称
 	EnName    string `json:"en_name,omitempty"`    // 用户的英文名称
 	Email     string `json:"email,omitempty"`      // 用户的邮箱
-	AvatarURL string `json:"avatar_url,omitempty"` // 头像链接, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户基本信息, 以应用身份访问通讯录, 读取通讯录
+	AvatarURL string `json:"avatar_url,omitempty"` // 头像链接字段权限要求（满足任一）: 获取用户基本信息以应用身份访问通讯录读取通讯录以应用身份读取通讯录
 }
 
 // batchUpdateBitableRecordResp ...

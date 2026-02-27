@@ -23,12 +23,12 @@ import (
 
 // MoveDocsToWiki 该接口允许移动云空间文档至知识空间, 并挂载在指定位置
 //
-// 移动操作 ###:
+// ### 移动操作 ###
 // 移动后, 文档将从“我的空间”或“共享空间”转移至“知识库”后, 无法从下列入口查看到文档:
 // - 云空间主页: 快速访问
 // - 我的空间
 // - 共享空间
-// 权限变更 ###:
+// ### 权限变更 ###
 // 移动后, 文档会向所有可查看“页面树”的用户显示, 默认继承父页面的权限设置。
 // </md-alert
 // 此接口为异步接口。若移动已完成（或文档已在Wiki中）, 则直接返回结果（Wiki token）。若尚未完成, 则返回task id。请使用[获取任务结果](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/task/get)接口进行查询。
@@ -73,11 +73,11 @@ func (r *Mock) UnMockDriveMoveDocsToWiki() {
 
 // MoveDocsToWikiReq ...
 type MoveDocsToWikiReq struct {
-	SpaceID         string  `path:"space_id" json:"-"`           // 知识库id, 示例值: "1565676577122621"
-	ParentWikiToken *string `json:"parent_wiki_token,omitempty"` // 节点的父亲token, 传空或不传时将移动为知识空间一级节点, 示例值: "wikcnKQ1k3p**8Vabce"
-	ObjType         string  `json:"obj_type,omitempty"`          // 文档类型, 示例值: "doc", 可选值有: doc: 旧版文档, sheet: 表格, bitable: 多维表格, mindnote: 思维导图, docx: 新版文档, file: 文件
-	ObjToken        string  `json:"obj_token,omitempty"`         // 文档token, 示例值: "doccnzAaOD**Wabcdef"
-	Apply           *bool   `json:"apply,omitempty"`             // 没有权限时, 是否申请移动文档, 如果申请移动, 文档将在处理人同意时自动移动至指定位置, 示例值: true
+	SpaceID         string  `path:"space_id" json:"-"`           // 知识库id示例值: "1565676577122621"
+	ParentWikiToken *string `json:"parent_wiki_token,omitempty"` // 节点的父亲token。传空或不传时将移动为知识空间一级节点。示例值: "wikcnKQ1k3p**8Vabce"
+	ObjType         string  `json:"obj_type,omitempty"`          // 文档类型示例值: "doc"可选值有: 旧版文档表格多维表格思维导图新版文档文件slides（幻灯片）
+	ObjToken        string  `json:"obj_token,omitempty"`         // 文档token示例值: "doccnzAaOD**Wabcdef"
+	Apply           *bool   `json:"apply,omitempty"`             // 没有权限时, 是否申请移动文档。如果申请移动, 文档将在处理人同意时自动移动至指定位置。示例值: true
 }
 
 // MoveDocsToWikiResp ...

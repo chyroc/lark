@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// DeleteCoreHREmployeeType 删除人员类型。
+// DeleteCoreHREmployeeType 删除人员类型。删除之后查询接口不能获取到已删除的数据。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/delete
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/employee_type/delete
@@ -58,12 +58,11 @@ func (r *Mock) UnMockCoreHRDeleteCoreHREmployeeType() {
 
 // DeleteCoreHREmployeeTypeReq ...
 type DeleteCoreHREmployeeTypeReq struct {
-	EmployeeTypeID string `path:"employee_type_id" json:"-"` // 需要删除的人员类型ID, 示例值: "434343434"
+	EmployeeTypeID string `path:"employee_type_id" json:"-"` // 需要删除的人员类型ID- 可通过[批量查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)获取示例值: "434343434"
 }
 
 // DeleteCoreHREmployeeTypeResp ...
-type DeleteCoreHREmployeeTypeResp struct {
-}
+type DeleteCoreHREmployeeTypeResp struct{}
 
 // deleteCoreHREmployeeTypeResp ...
 type deleteCoreHREmployeeTypeResp struct {

@@ -21,7 +21,9 @@ import (
 	"context"
 )
 
-// CreateHireEcoExamLoginInfo 回传笔试安排结果, 如果安排成功需返回笔试链接和登录凭证
+// CreateHireEcoExamLoginInfo 飞书招聘的笔试服务商, 在收到[创建笔试](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_exam/events/created)事件并安排笔试后, 应通过本接口
+//
+// 回传笔试安排结果。若安排成功, 须返回笔试链接；若笔试链接需要登录鉴权, 则须返回登录凭证（`username`, `password`)。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_exam/login_info
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/ecological-docking/eco_exam/login_info
@@ -58,22 +60,21 @@ func (r *Mock) UnMockHireCreateHireEcoExamLoginInfo() {
 
 // CreateHireEcoExamLoginInfoReq ...
 type CreateHireEcoExamLoginInfoReq struct {
-	ExamID        string                                      `path:"exam_id" json:"-"`          // exam id, 示例值: "7178536692385679677"
-	Result        *int64                                      `json:"result,omitempty"`          // 状态码, 0-成功 非零-错误码, 示例值: 0
-	Msg           *string                                     `json:"msg,omitempty"`             // 成功或失败的描述信息, 示例值: "success"
+	ExamID        string                                      `path:"exam_id" json:"-"`          // 笔试 ID。可通过[创建笔试](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_exam/events/created)事件获取示例值: "7178536692385679677"
+	Result        *int64                                      `json:"result,omitempty"`          // 状态码。 * 0: 成功* 非0: 服务商内部的失败错误码示例值: 0
+	Msg           *string                                     `json:"msg,omitempty"`             // 安排成功或失败的描述信息示例值: "success"
 	ExamLoginInfo *CreateHireEcoExamLoginInfoReqExamLoginInfo `json:"exam_login_info,omitempty"` // 笔试作答信息
 }
 
 // CreateHireEcoExamLoginInfoReqExamLoginInfo ...
 type CreateHireEcoExamLoginInfoReqExamLoginInfo struct {
-	ExamURL  string  `json:"exam_url,omitempty"` // 笔试链接。如果返回的链接是附带候选人唯一标识且无需登录鉴权的, 可只返回此地址, 示例值: "https://xxxx/xxxx/xxxx"
-	Username *string `json:"username,omitempty"` // 用户名, 示例值: "waxsdfbhg"
-	Password *string `json:"password,omitempty"` // 密码, 示例值: "xxxxxx"
+	ExamURL  string  `json:"exam_url,omitempty"` // 笔试链接。若返回的链接已经附带候选人唯一标识且无需登录鉴权, 可只返回此链接示例值: "https://xxxx/xxxx/xxxx"
+	Username *string `json:"username,omitempty"` // 登录用户名。 注意: 若笔试链接需要登录鉴权, 须返回此登录凭证示例值: "waxsdfbhg"
+	Password *string `json:"password,omitempty"` // 登录密码。 注意: 若笔试链接需要登录鉴权, 须返回此登录凭证示例值: "xxxxxx"
 }
 
 // CreateHireEcoExamLoginInfoResp ...
-type CreateHireEcoExamLoginInfoResp struct {
-}
+type CreateHireEcoExamLoginInfoResp struct{}
 
 // createHireEcoExamLoginInfoResp ...
 type createHireEcoExamLoginInfoResp struct {

@@ -21,7 +21,12 @@ import (
 	"context"
 )
 
-// ActiveCoreHRCostCenter 启用或停用成本中心
+// ActiveCoreHRCostCenter 该接口支持对单个成本中心进行启用和停用操作。
+//
+// - 停用成本中心时请确认有无在职员工、异动单据、待入职单据关联此成本中心, 如有会导致停用失败。
+// - 若启/停用的生效时间当天不存在版本则会自动生成一个版本。
+// - 若启/停用的生效时间当天存在版本则会修改该版本。
+// - 详情可以参考[时间轴介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/about-timeline-version)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/patch
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/cost_center/patch
@@ -58,40 +63,40 @@ func (r *Mock) UnMockCoreHRActiveCoreHRCostCenter() {
 
 // ActiveCoreHRCostCenterReq ...
 type ActiveCoreHRCostCenterReq struct {
-	CostCenterID    string  `path:"cost_center_id" json:"-"`    // 成本中心ID, 示例值: "6862995757234914824"
-	UserIDType      *IDType `query:"user_id_type" json:"-"`     // 用户 ID 类型, 示例值: people_corehr_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_corehr_id: 以飞书人事的 ID 来识别用户, 默认值: `people_corehr_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	EffectiveTime   string  `json:"effective_time,omitempty"`   // 生效时间, 示例值: "2020-01-01"
-	Active          bool    `json:"active,omitempty"`           // 启用停用状态, 示例值: true
-	OperationReason string  `json:"operation_reason,omitempty"` // 操作原因, 示例值: "强行操作"
+	CostCenterID    string  `path:"cost_center_id" json:"-"`    // 成本中心ID, 可通过[【搜索成本中心信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)接口查询获得示例值: "6862995757234914824"
+	UserIDType      *IDType `query:"user_id_type" json:"-"`     // 用户 ID 类型示例值: people_corehr_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `people_corehr_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	EffectiveTime   string  `json:"effective_time,omitempty"`   // 版本生效日期- 填写格式: YYYY-MM-DD- 系统默认为填写日期当天的 00:00:00 生效 - 该接口只支持到最小单位为日- 日期范围要求:1900-01-01～9999-12-31- 详情可以参考[时间轴介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/about-timeline-version)示例值: "2020-01-01"
+	Active          bool    `json:"active,omitempty"`           // 启用停用状态示例值: true
+	OperationReason string  `json:"operation_reason,omitempty"` // 操作原因示例值: "强行操作"
 }
 
 // ActiveCoreHRCostCenterResp ...
 type ActiveCoreHRCostCenterResp struct {
-	CostCenter *ActiveCoreHRCostCenterRespCostCenter `json:"cost_center,omitempty"` // 成本中心结果
+	CostCenter *ActiveCoreHRCostCenterRespCostCenter `json:"cost_center,omitempty"` // 成本中心结果；操作成本中心的详情信息
 }
 
 // ActiveCoreHRCostCenterRespCostCenter ...
 type ActiveCoreHRCostCenterRespCostCenter struct {
-	CostCenterID       string                                             `json:"cost_center_id,omitempty"`        // 成本中心ID
+	CostCenterID       string                                             `json:"cost_center_id,omitempty"`        // 成本中心ID- 详细信息可通过[【搜索成本中心信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)接口查询获得
 	Name               []*ActiveCoreHRCostCenterRespCostCenterName        `json:"name,omitempty"`                  // 成本中心名称
 	Code               string                                             `json:"code,omitempty"`                  // 编码
-	ParentCostCenterID string                                             `json:"parent_cost_center_id,omitempty"` // 上级成本中心ID
-	Managers           []string                                           `json:"managers,omitempty"`              // 成本中心负责人ID 列表
+	ParentCostCenterID string                                             `json:"parent_cost_center_id,omitempty"` // 上级成本中心ID, 详细信息可通过[【搜索成本中心信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)接口查询获得
+	Managers           []string                                           `json:"managers,omitempty"`              // 成本中心负责人ID 列表- 详细信息可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search) 或 [【批量查询员工】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get) 接口获取
 	Description        []*ActiveCoreHRCostCenterRespCostCenterDescription `json:"description,omitempty"`           // 成本中心描述
-	EffectiveTime      string                                             `json:"effective_time,omitempty"`        // 生效时间
-	ExpirationTime     string                                             `json:"expiration_time,omitempty"`       // 过期时间
-	Active             bool                                               `json:"active,omitempty"`                // 当前实体是否启用
+	EffectiveTime      string                                             `json:"effective_time,omitempty"`        // 版本生效日期- 返回格式: YYYY-MM-DD（最小单位到日）- 日期范围:1900-01-01～9999-12-31
+	ExpirationTime     string                                             `json:"expiration_time,omitempty"`       // 版本失效日期- 返回格式: YYYY-MM-DD（最小单位到日）- 日期范围:1900-01-01～9999-12-31
+	Active             bool                                               `json:"active,omitempty"`                // 成本中心启用状态, true为启用, false为停用
 }
 
 // ActiveCoreHRCostCenterRespCostCenterDescription ...
 type ActiveCoreHRCostCenterRespCostCenterDescription struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
+	Lang  string `json:"lang,omitempty"`  // 信息的语言, 支持中文和英文。中文用zh-CN；英文用en-US
 	Value string `json:"value,omitempty"` // 内容
 }
 
 // ActiveCoreHRCostCenterRespCostCenterName ...
 type ActiveCoreHRCostCenterRespCostCenterName struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
+	Lang  string `json:"lang,omitempty"`  // 信息的语言, 支持中文和英文。中文用zh-CN；英文用en-US
 	Value string `json:"value,omitempty"` // 内容
 }
 

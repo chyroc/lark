@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetContactUnitList 通过该接口获取企业的单位列表, 需获取单位的权限。
+// GetContactUnitList 调用该接口获取当前租户内的单位列表。列表内主要包含各单位的 ID、名字、类型信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/list
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/unit/list
@@ -58,22 +58,22 @@ func (r *Mock) UnMockContactGetContactUnitList() {
 
 // GetContactUnitListReq ...
 type GetContactUnitListReq struct {
-	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 50, 默认值: `50`, 最大值: `100`
-	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: AQD9/Rn9eij9Pm39ED40/dk53s4Ebp882DYfFaPFbz00L4CMZJrqGdzNyc8BcZtDbwVUvRmQTvyMYicnGWrde9X56TgdBuS+JKiSIkdexPw=
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 用于限制一次请求所返回的数据条目数。示例值: 50默认值: `50` 最大值: `100
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: AQD9/Rn9eij9Pm39ED40/dk53s4Ebp882DYfFaPFbz00L4CMZJrqGdzNyc8BcZtDbwVUvRmQTvyMYicnGWrde9X56TgdBuS+JKiSIkdexPw=
 }
 
 // GetContactUnitListResp ...
 type GetContactUnitListResp struct {
-	Unitlist  []*GetContactUnitListRespUnit `json:"unitlist,omitempty"`   // 单位列表
+	Unitlist  []*GetContactUnitListRespUnit `json:"unitlist,omitempty"`   // 单位列表。
 	HasMore   bool                          `json:"has_more,omitempty"`   // 是否还有更多项
 	PageToken string                        `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 }
 
 // GetContactUnitListRespUnit ...
 type GetContactUnitListRespUnit struct {
-	UnitID   string `json:"unit_id,omitempty"`   // 单位ID
-	Name     string `json:"name,omitempty"`      // 单位的名字
-	UnitType string `json:"unit_type,omitempty"` // 单位的类型
+	UnitID   string `json:"unit_id,omitempty"`   // 单位 ID。
+	Name     string `json:"name,omitempty"`      // 单位名字。
+	UnitType string `json:"unit_type,omitempty"` // 单位类型。
 }
 
 // getContactUnitListResp ...

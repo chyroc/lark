@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// DeleteCoreHRJobLevel 删除职级
+// DeleteCoreHRJobLevel 可以通过该接口通过职级ID删除一个职级对象。
+//
+// - 删除对象时请确认有无在职员工、待入职单据、职务等关联此对象, 如有会导致删除失败。
+// 删除后无法恢复, 并且在系统中无法查看到对应职级信息, 请谨慎操作。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/delete
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/job-management/job_level/delete
@@ -58,12 +61,11 @@ func (r *Mock) UnMockCoreHRDeleteCoreHRJobLevel() {
 
 // DeleteCoreHRJobLevelReq ...
 type DeleteCoreHRJobLevelReq struct {
-	JobLevelID string `path:"job_level_id" json:"-"` // 需要删除的职级 ID, 示例值: "5423452542"
+	JobLevelID string `path:"job_level_id" json:"-"` // 需要删除的职级 ID。ID获取方式: 调用[【新建职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/create)[【查询租户的职级信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)等接口可以返回职级ID示例值: "5423452542"
 }
 
 // DeleteCoreHRJobLevelResp ...
-type DeleteCoreHRJobLevelResp struct {
-}
+type DeleteCoreHRJobLevelResp struct{}
 
 // deleteCoreHRJobLevelResp ...
 type deleteCoreHRJobLevelResp struct {

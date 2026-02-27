@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// MoveSheetDimension 该接口用于移动行列, 行列被移动到目标位置后, 原本在目标位置的行列会对应右移或下移。
+// MoveSheetDimension 该接口用于移动行或列。行或列被移动到目标位置后, 原本在目标位置的行列会对应右移或下移。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/move_dimension
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/sheet-rowcol/move_dimension
@@ -59,22 +59,21 @@ func (r *Mock) UnMockDriveMoveSheetDimension() {
 
 // MoveSheetDimensionReq ...
 type MoveSheetDimensionReq struct {
-	SpreadSheetToken string                       `path:"spreadsheet_token" json:"-"`  // 表格 token, 示例值: "shtcnmBA\*yGehy8"
-	SheetID          string                       `path:"sheet_id" json:"-"`           // 子表 id, 示例值: "0b\**12"
-	Source           *MoveSheetDimensionReqSource `json:"source,omitempty"`            // 移动源位置参数
-	DestinationIndex *int64                       `json:"destination_index,omitempty"` // 移动的目标位置行或者列号, 示例值: 4
+	SpreadSheetToken string                       `path:"spreadsheet_token" json:"-"`  // 电子表格的 token。可通过以下两种方式获取。了解更多, 参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。-  电子表格的 URL: https://sample.feishu.cn/sheets/[Iow7sNNEphp3WbtnbCscPqabcef]- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)示例值: "Iow7sNNEphp3WbtnbCscPqabcef"
+	SheetID          string                       `path:"sheet_id" json:"-"`           // 工作表的 ID。调用[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query)获取 ID示例值: "2jm6f6"
+	Source           *MoveSheetDimensionReqSource `json:"source,omitempty"`            // 移动源位置信息
+	DestinationIndex *int64                       `json:"destination_index,omitempty"` // 移动的目标位置行或者列示例值: 4
 }
 
 // MoveSheetDimensionReqSource ...
 type MoveSheetDimensionReqSource struct {
-	MajorDimension *string `json:"major_dimension,omitempty"` // 操作行还是列, 取值: ROWS、COLUMNS, 示例值: "ROWS"
-	StartIndex     *int64  `json:"start_index,omitempty"`     // 起始行或者列号, 示例值: 0
-	EndIndex       *int64  `json:"end_index,omitempty"`       // 结束行或者列号, 示例值: 1
+	MajorDimension *string `json:"major_dimension,omitempty"` // 移动的维度。可选值: `ROWS`: 行- `COLUMNS`: 列示例值: "ROWS"
+	StartIndex     *int64  `json:"start_index,omitempty"`     // 要移动的行或列的起始位置。从 0 开始计数。若 `startIndex` 为 3, 则从第 4 行或列开始移动。包含第 4 行或列。示例值: 0
+	EndIndex       *int64  `json:"end_index,omitempty"`       // 要移动的行或列结束的位置。从 0 开始计数。若 `endIndex` 为 7, 则要移动的范围至第 8 行或列结束。包含第 8 行或列。示例: 当 `majorDimension`为 `ROWS`、 `startIndex` 为 3、`endIndex ` 为 7 时, 则移动第 4、5、6、7、8 行, 共 5 行。示例值: 1
 }
 
 // MoveSheetDimensionResp ...
-type MoveSheetDimensionResp struct {
-}
+type MoveSheetDimensionResp struct{}
 
 // moveSheetDimensionResp ...
 type moveSheetDimensionResp struct {

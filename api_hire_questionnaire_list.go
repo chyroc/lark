@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetHireQuestionnaireList 获取面试满意度问卷列表。
+// GetHireQuestionnaireList 批量获取面试满意度问卷信息, 包含问卷完成情况、问卷题目及问卷题目作答内容等信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/questionnaire/list
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/interview/list-2
@@ -58,30 +58,30 @@ func (r *Mock) UnMockHireGetHireQuestionnaireList() {
 
 // GetHireQuestionnaireListReq ...
 type GetHireQuestionnaireListReq struct {
-	PageToken       *string `query:"page_token" json:"-"`        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 1231231987
-	PageSize        *int64  `query:"page_size" json:"-"`         // 分页大小, 示例值: 100, 默认值: `1`
-	ApplicationID   *string `query:"application_id" json:"-"`    // 投递 ID, 示例值: 6985833807195212076
-	InterviewID     *string `query:"interview_id" json:"-"`      // 面试 ID, 示例值: 7038435261598763308
-	UpdateStartTime *string `query:"update_start_time" json:"-"` // 最早更新时间, 示例值: 1638848468868
-	UpdateEndTime   *string `query:"update_end_time" json:"-"`   // 最晚更新时间, 示例值: 1638848468869
+	PageToken       *string `query:"page_token" json:"-"`        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eyJvZmZzZXQiOjEsInRpbWVzdGFtcCI6MTcyMzU1OTE4OTg1NCwiaWQiOm51bGx9
+	PageSize        *int64  `query:"page_size" json:"-"`         // 分页大小示例值: 100默认值: `20` 最大值: `100
+	ApplicationID   *string `query:"application_id" json:"-"`    // 投递 ID, 用于筛选指定投递下的数据, 可通过[获取投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/list)接口获取 注意: 当「飞书招聘」-「设置」-「面试设置」-「面试满意度问卷设置」中, 通过邮件向候选人发送问卷时机选择为「面试流程结束后」时, 仅可通过该参数进行筛选- 该参数不可以和 `interview_id` 参数同时填写示例值: 6985833807195212076
+	InterviewID     *string `query:"interview_id" json:"-"`      // 面试 ID, 用于筛选指定面试下的数据, 可通过[获取面试信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview/list)接口或[获取人才面试信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview/get_by_talent)接口获取 注意: 当「飞书招聘」-「设置」-「面试设置」-「面试满意度问卷设置」中, 通过邮件向候选人发送问卷时机选择为「每次面试结束后」或者「第一次面试结束后」时, 仅可通过该参数进行筛选- 该参数不可以和 `application_id` 参数同时填写示例值: 7038435261598763308
+	UpdateStartTime *string `query:"update_start_time" json:"-"` // 最早更新时间, 毫秒时间戳示例值: 1638848468868
+	UpdateEndTime   *string `query:"update_end_time" json:"-"`   // 最晚更新时间, 毫秒时间戳示例值: 1638848468869
 }
 
 // GetHireQuestionnaireListResp ...
 type GetHireQuestionnaireListResp struct {
 	HasMore   bool                                `json:"has_more,omitempty"`   // 是否还有更多项
 	PageToken string                              `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-	Items     []*GetHireQuestionnaireListRespItem `json:"items,omitempty"`      // 满意度评价列表
+	Items     []*GetHireQuestionnaireListRespItem `json:"items,omitempty"`      // 满意度问卷列表
 }
 
 // GetHireQuestionnaireListRespItem ...
 type GetHireQuestionnaireListRespItem struct {
-	QuestionnaireID string                                      `json:"questionnaire_id,omitempty"` // 问卷 ID
-	ApplicationID   string                                      `json:"application_id,omitempty"`   // 投递 ID；当「面试满意度问卷发送时间」选项选择「面试流程结束后」, 将返回 投递 ID
-	InterviewID     string                                      `json:"interview_id,omitempty"`     // 面试 ID；当「面试满意度问卷发送时间」选项选择「第一次面试后」、「每次面试后」将返回 面试 ID
-	Version         int64                                       `json:"version,omitempty"`          // 问卷版本
+	QuestionnaireID string                                      `json:"questionnaire_id,omitempty"` // 满意度问卷 ID
+	ApplicationID   string                                      `json:"application_id,omitempty"`   // 投递 ID, 详情可查看: [获取投递信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get)
+	InterviewID     string                                      `json:"interview_id,omitempty"`     // 面试 ID, 详情可查看: [获取面试信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview/list)
+	Version         int64                                       `json:"version,omitempty"`          // 满意度问卷版本
 	Questions       []*GetHireQuestionnaireListRespItemQuestion `json:"questions,omitempty"`        // 题目列表
 	HasAnswers      bool                                        `json:"has_answers,omitempty"`      // 是否完成作答
-	UpdateTime      string                                      `json:"update_time,omitempty"`      // 更新时间
+	UpdateTime      string                                      `json:"update_time,omitempty"`      // 满意度问卷更新时间, 毫秒时间戳
 }
 
 // GetHireQuestionnaireListRespItemQuestion ...
@@ -91,11 +91,11 @@ type GetHireQuestionnaireListRespItemQuestion struct {
 	QuestionEnName         string                                                          `json:"question_en_name,omitempty"`          // 题目英文名称
 	QuestionDesc           string                                                          `json:"question_desc,omitempty"`             // 题目中文描述
 	QuestionEnDesc         string                                                          `json:"question_en_desc,omitempty"`          // 题目英文描述
-	QuestionType           int64                                                           `json:"question_type,omitempty"`             // 题目类型, 可选值有: 1: 单选题, 2: 多选题, 3: 描述题, 4: 评分题
-	IsRequired             bool                                                            `json:"is_required,omitempty"`               // 是否必填
-	SelectOptionResultList []*GetHireQuestionnaireListRespItemQuestionSelectOptionResult   `json:"select_option_result_list,omitempty"` // 选项题回答列表（单选题及多选题）
-	FiveStartScoringResult *GetHireQuestionnaireListRespItemQuestionFiveStartScoringResult `json:"five_start_scoring_result,omitempty"` // 评分题回答
-	DescriptionResult      string                                                          `json:"description_result,omitempty"`        // 描述题回答
+	QuestionType           int64                                                           `json:"question_type,omitempty"`             // 题目类型可选值有: 单选题多选题描述题评分题
+	IsRequired             bool                                                            `json:"is_required,omitempty"`               // 题目是否必填
+	SelectOptionResultList []*GetHireQuestionnaireListRespItemQuestionSelectOptionResult   `json:"select_option_result_list,omitempty"` // 选项题回答列表 说明: 当题目类型为 `单选题` 或者 `多选题` 时该字段有值
+	FiveStartScoringResult *GetHireQuestionnaireListRespItemQuestionFiveStartScoringResult `json:"five_start_scoring_result,omitempty"` // 评分题回答 说明: 当题目类型为 `评分题` 时该字段有值
+	DescriptionResult      string                                                          `json:"description_result,omitempty"`        // 描述题回答 说明: 当题目类型为 `描述题` 时该字段有值
 }
 
 // GetHireQuestionnaireListRespItemQuestionFiveStartScoringResult ...
@@ -104,7 +104,7 @@ type GetHireQuestionnaireListRespItemQuestionFiveStartScoringResult struct {
 	HighestScoreEnDesc string  `json:"highest_score_en_desc,omitempty"` // 最高分英文描述
 	LowestScoreDesc    string  `json:"lowest_score_desc,omitempty"`     // 最低分中文描述
 	LowestScoreEnDesc  string  `json:"lowest_score_en_desc,omitempty"`  // 最低分英文描述
-	ScoreResult        float64 `json:"score_result,omitempty"`          // 评分分数
+	ScoreResult        float64 `json:"score_result,omitempty"`          // 评分分数（整数）
 }
 
 // GetHireQuestionnaireListRespItemQuestionSelectOptionResult ...
@@ -114,7 +114,7 @@ type GetHireQuestionnaireListRespItemQuestionSelectOptionResult struct {
 	OptionEnName string `json:"option_en_name,omitempty"` // 选项英文名称
 	OptionDesc   string `json:"option_desc,omitempty"`    // 选项中文描述
 	OptionEnDesc string `json:"option_en_desc,omitempty"` // 选项英文描述
-	IsSelected   bool   `json:"is_selected,omitempty"`    // 是否选择
+	IsSelected   bool   `json:"is_selected,omitempty"`    // 是否选中
 }
 
 // getHireQuestionnaireListResp ...

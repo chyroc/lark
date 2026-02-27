@@ -24,6 +24,7 @@ import (
 // SearchApplicationCustomWorkplaceAccessData 获取定制工作台访问数据
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/workplace-v1/custom_workplace_access_data/search
+// new doc: https://open.feishu.cn/document/workplace-v1/workplace_access_data/search-3
 func (r *ApplicationService) SearchApplicationCustomWorkplaceAccessData(ctx context.Context, request *SearchApplicationCustomWorkplaceAccessDataReq, options ...MethodOptionFunc) (*SearchApplicationCustomWorkplaceAccessDataResp, *Response, error) {
 	if r.cli.mock.mockApplicationSearchApplicationCustomWorkplaceAccessData != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#SearchApplicationCustomWorkplaceAccessData mock enable")
@@ -57,11 +58,11 @@ func (r *Mock) UnMockApplicationSearchApplicationCustomWorkplaceAccessData() {
 
 // SearchApplicationCustomWorkplaceAccessDataReq ...
 type SearchApplicationCustomWorkplaceAccessDataReq struct {
-	FromDate          string  `query:"from_date" json:"-"`           // 数据检索开始时间, 精确到日。格式yyyy-MM-dd, 示例值: 2023-03-01
-	ToDate            string  `query:"to_date" json:"-"`             // 数据检索结束时间, 精确到日。格式yyyy-MM-dd, 示例值: 2023-03-22
-	PageSize          int64   `query:"page_size" json:"-"`           // 分页大小, 最小为 1, 最大为 200, 默认为 20, 示例值: 20, 默认值: `20`, 取值范围: `1` ～ `100`
-	PageToken         *string `query:"page_token" json:"-"`          // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: ddowkdkl9w2d
-	CustomWorkplaceID *string `query:"custom_workplace_id" json:"-"` // 定制工作台id, 非必填。不填时, 返回所有定制工作台数据, 如何获取定制工作台ID: 可前往 飞书管理后台 > 工作台 > 定制工作台, 点击指定工作台的 设置 进入设置页面；鼠标连续点击三次顶部的 设置 字样即可出现 ID, 复制 ID 即可, 示例值: tpl_647184b585400013254c4ea6
+	FromDate          string  `query:"from_date" json:"-"`           // 数据检索开始时间, 精确到日。格式yyyy-MM-dd示例值: 2023-03-01
+	ToDate            string  `query:"to_date" json:"-"`             // 数据检索结束时间, 精确到日。格式yyyy-MM-dd。示例值: 2023-03-22
+	PageSize          int64   `query:"page_size" json:"-"`           // 分页大小, 最小为 1, 最大为 200, 默认为 20。示例值: 20默认值: `20` 取值范围: `1` ～ `100
+	PageToken         *string `query:"page_token" json:"-"`          // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: ddowkdkl9w2d
+	CustomWorkplaceID *string `query:"custom_workplace_id" json:"-"` // 定制工作台id, 非必填。不填时, 返回所有定制工作台数据。如何获取定制工作台ID: 可前往 飞书管理后台 > 工作台 > 定制工作台, 点击指定工作台的 设置 进入设置页面；鼠标连续点击三次顶部的 设置 字样即可出现 ID, 复制 ID 即可示例值: tpl_647184b585400013254c4ea6
 }
 
 // SearchApplicationCustomWorkplaceAccessDataResp ...

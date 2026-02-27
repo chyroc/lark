@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## 支持的接口
 
-API 总数: 1098, 事件总数: 152
+API 总数: 1120, 事件总数: 152
 
 <details>
   <summary>
@@ -86,10 +86,10 @@ API 总数: 1098, 事件总数: 152
   - DetectTextLanguage
   - DetectFaceAttributes
 - APaaS
+  - AddAssigneeAPaaSApprovalTask
   - AgreeAPaaSApprovalTask
   - RejectAPaaSApprovalTask
   - TransferAPaaSApprovalTask
-  - AddAssigneeAPaaSApprovalTask
 - Admin
   - AdminResetPassword
   - GetAdminDeptStats
@@ -232,6 +232,11 @@ API 总数: 1098, 事件总数: 152
   - GetAccessToken
   - RefreshAccessToken
   - GetUserInfo
+  - GenOAuthURL
+  - GetAppAccessToken
+  - GetAppTicket
+  - GetTenantAccessToken
+  - SetAppTicket
 - Baike
   - CreateBaikeDraft
   - CreateBaikeUpdate
@@ -495,14 +500,12 @@ API 总数: 1098, 事件总数: 152
   - QueryCoreHRJobData
   - BatchGetCoreHRJobData
   - GetCoreHRJobDataList
-  - GetCoreHRDepartment
-  - SearchCoreHRDepartment
-  - QueryCoreHRDepartmentTimeline
-  - BatchQueryCoreHRDepartmentTimeline
   - GetCoreHRDepartmentParentList
+  - SearchCoreHRDepartment
   - CreateCoreHRDepartment
   - DeleteCoreHRDepartment
   - UpdateCoreHRDepartment
+  - GetCoreHRDepartment
   - BatchGetCoreHRDepartment
   - GetCoreHRDepartmentList
   - BatchGetCoreHRLocation
@@ -529,7 +532,6 @@ API 总数: 1098, 事件总数: 152
   - UpdateCoreHRJobLevel
   - GetCoreHRJobLevel
   - GetCoreHRJobLevelList
-  - QueryCoreHRJobGrade
   - BatchGetCoreHRJobFamily
   - CreateCoreHRJobFamily
   - DeleteCoreHRJobFamily
@@ -543,7 +545,6 @@ API 总数: 1098, 事件总数: 152
   - GetCoreHRJobListV2
   - GetCoreHRJob
   - GetCoreHRJobList
-  - SearchCoreHRPreHire
   - CreateCoreHRPreHire
   - DeleteCoreHRPreHire
   - UpdateCoreHRPreHire
@@ -578,17 +579,22 @@ API 总数: 1098, 事件总数: 152
   - GetCoreHRSecurityGroupBp
   - SearchCoreHRAssignedUser
   - GetCoreHRAuthorization
+  - GetCoreHRAuthorizationList
   - GetCoreHRSecurityGroupList
   - GetCoreHRProcessList
   - GetCoreHRProcess
   - GetCoreHRProcessFormVariableData
-  - QueryCoreHRCompensationArchive
-  - GetCoreHRCompensationItemList
+  - MatchCoreHRCompensationStandard
+  - BatchQueryCoreHRDepartmentTimeline
+  - GetCoreHRCompensationChangeReasonList
   - GetCoreHRCompensationIndicatorList
   - GetCoreHRCompensationItemCategoryList
-  - MatchCoreHRCompensationStandard
+  - GetCoreHRCompensationItemList
   - GetCoreHRCompensationPlanList
-  - GetCoreHRCompensationChangeReasonList
+  - QueryCoreHRCompensationArchive
+  - QueryCoreHRDepartmentTimeline
+  - QueryCoreHRJobGrade
+  - SearchCoreHRPreHire
 - Drive
   - GetDriveRootFolderMeta
   - GetDriveFileList
@@ -668,7 +674,6 @@ API 总数: 1098, 事件总数: 152
   - UpdateDriveDocContent
   - GetDriveDocRawContent
   - GetDriveDocMeta
-  - GetWhiteboardNodeList
   - UpdateSpreadsheet
   - GetSpreadsheet
   - CreateSpreadsheet
@@ -747,16 +752,13 @@ API 总数: 1098, 事件总数: 152
   - UpdateDriveMemberPermissionOld
   - TransferDriveMemberPermission
   - CheckDriveMemberPermissionOld
+  - GetWhiteboardNodeList
 - EHR
   - GetEHREmployeeList
   - DownloadEHRAttachments
 - Event
   - GetEventOutboundIpList
 - EventCallback
-  - EventV2CorehrOffboardingUpdatedV2
-  - EventV2CorehrOffboardingStatusUpdatedV2
-  - EventV2CorehrOffboardingChecklistUpdatedV2
-  - EventV2CardActionTrigger
   - EventV2ElearningCourseRegistrationCreatedV2
   - EventV2ElearningCourseRegistrationUpdatedV2
   - EventV2ElearningCourseRegistrationDeletedV2
@@ -905,6 +907,10 @@ API 总数: 1098, 事件总数: 152
   - EventV2HireReferralAccountAssetsUpdateV1
   - EventV2CorehrContractDeletedV1
   - EventV2CorehrContractUpdatedV1
+  - EventV2CardActionTrigger
+  - EventV2CorehrOffboardingChecklistUpdatedV2
+  - EventV2CorehrOffboardingStatusUpdatedV2
+  - EventV2CorehrOffboardingUpdatedV2
 - File
   - UploadImage
   - DownloadImage
@@ -984,7 +990,6 @@ API 总数: 1098, 事件总数: 152
   - AddHireTalentToFolder
   - GetHireTalentFolderList
   - BatchGetHireTalent
-  - GetHireTalentList
   - GetHireJobProcessList
   - CreateHireApplication
   - TerminateHireApplication
@@ -1033,6 +1038,7 @@ API 总数: 1098, 事件总数: 152
   - DeactivateHireReferralAccount
   - WithdrawHireReferralAccount
   - ReconcileHireReferralAccount
+  - GetHireTalentList
 - HumanAuth
   - GetFaceVerifyAuthResult
   - UploadFaceVerifyImage
@@ -1040,6 +1046,7 @@ API 总数: 1098, 事件总数: 152
   - CreateIdentity
 - Jssdk
   - GetJssdkTicket
+  - GenerateJssdkSignature
 - Lingo
   - CreateLingoDraft
   - UpdateLingoDraft
@@ -1139,16 +1146,18 @@ API 总数: 1098, 事件总数: 152
   - GetMessageSpecialFocusUnread
   - BatchUpdateURLPreview
   - CreateAppFeedCard
-  - UpdateAppFeedCard
+  - CreateIMTag
+  - CreateIMTagRelation
   - DeleteAppFeedCard
-  - UpdateAppFeedCardButton
+  - DeleteIMTagRelation
   - InstantReminderAppFeedCard
   - ListIMTagRelation
-  - CreateIMTag
-  - UpdateIMTag
   - MGetIMTag
-  - CreateIMTagRelation
-  - DeleteIMTagRelation
+  - Reply
+  - Send
+  - UpdateAppFeedCard
+  - UpdateAppFeedCardButton
+  - UpdateIMTag
 - Mina
   - MinaCodeToSession
 - Minutes
@@ -1166,13 +1175,13 @@ API 总数: 1098, 事件总数: 152
   - GetOKRProgressRecord
   - CreateOKRProgressRecord
   - UploadOKRImage
-  - GetOKRReview
   - GetOKRMetricSourceList
   - GetOKRMetricSourceTableList
   - BatchUpdateOKRMetricSourceTableItem
   - UpdateOKRMetricSourceTableItem
   - GetOKRMetricSourceTableItem
   - GetOKRMetricSourceTableItemList
+  - GetOKRReview
 - Passport
   - GetPassportSession
 - Performance
@@ -1189,8 +1198,8 @@ API 总数: 1098, 事件总数: 152
   - BatchClosePersonalSettingsSystemStatus
 - Report
   - QueryReportRule
-  - RemoveReportView
   - QueryReportTask
+  - RemoveReportView
 - Search
   - SearchMessage
   - SearchApp
@@ -1208,76 +1217,89 @@ API 总数: 1098, 事件总数: 152
   - GetSearchSchema
   - CreateSearchSchema
 - Task
+  - CreateTaskFollower
+  - DeleteTaskFollower
+  - BatchDeleteTaskFollower
+  - GetTaskFollowerList
+  - CreateTaskCollaborator
+  - DeleteTaskCollaborator
+  - BatchDeleteTaskCollaborator
+  - GetTaskCollaboratorList
+  - CreateTaskReminder
+  - GetTaskReminderList
+  - DeleteTaskReminder
   - CreateTask
   - GetTask
-  - UpdateTask
-  - DeleteTask
-  - AddTaskMember
-  - RemoveTaskMember
   - GetTaskList
-  - AddTaskTasklist
-  - RemoveTaskTasklist
-  - AddTaskReminder
-  - RemoveTaskReminder
-  - AddTaskDependency
-  - RemoveTaskDependency
-  - CreateTaskSubtask
-  - GetTaskSubtaskList
-  - CreateTaskTasklist
-  - GetTaskTasklist
-  - UpdateTaskTasklist
-  - DeleteTaskTasklist
-  - AddTaskTasklistMember
-  - RemoveTaskTasklistMember
-  - GetTaskTaskListOfTasklist
-  - GetTaskTasklistList
-  - CreateTaskTasklistActivitySubscription
-  - GetTaskTasklistActivitySubscription
-  - UpdateTaskTasklistActivitySubscription
-  - DeleteTaskTasklistActivitySubscription
-  - GetTaskTasklistActivitySubscriptionList
+  - DeleteTask
+  - UpdateTask
+  - CompleteTask
+  - UncompleteTask
   - CreateTaskComment
   - GetTaskComment
-  - UpdateTaskComment
-  - DeleteTaskComment
   - GetTaskCommentList
-  - UploadTaskAttachment
-  - GetTaskAttachment
-  - DeleteTaskAttachment
-  - GetTaskAttachmentList
-  - CreateTaskSection
-  - GetTaskSection
-  - UpdateTaskSection
-  - DeleteTaskSection
-  - GetTaskSectionList
-  - GetTaskTaskListOfSection
+  - DeleteTaskComment
+  - UpdateTaskComment
   - AddTaskCustomField
-  - RemoveTaskCustomField
+  - AddTaskDependency
+  - AddTaskMember
+  - AddTaskReminder
+  - AddTaskTasklist
+  - AddTaskTasklistMember
   - CreateTaskCustomFieldOption
+  - CreateTaskSection
+  - CreateTaskSubtask
+  - CreateTaskTasklist
+  - CreateTaskTasklistActivitySubscription
+  - DeleteTaskAttachment
+  - DeleteTaskSection
+  - DeleteTaskTasklist
+  - DeleteTaskTasklistActivitySubscription
+  - GetTaskAttachment
+  - GetTaskAttachmentList
+  - GetTaskSection
+  - GetTaskSectionList
+  - GetTaskSubtaskList
+  - GetTaskTaskListOfSection
+  - GetTaskTaskListOfTasklist
+  - GetTaskTasklist
+  - GetTaskTasklistActivitySubscription
+  - GetTaskTasklistActivitySubscriptionList
+  - GetTaskTasklistList
+  - RemoveTaskCustomField
+  - RemoveTaskDependency
+  - RemoveTaskMember
+  - RemoveTaskReminder
+  - RemoveTaskTasklist
+  - RemoveTaskTasklistMember
   - UpdateTaskCustomFieldOption
+  - UpdateTaskSection
+  - UpdateTaskTasklist
+  - UpdateTaskTasklistActivitySubscription
+  - UploadTaskAttachment
 - TaskV1
-  - CreateTaskV1Follower
-  - DeleteTaskV1Follower
-  - BatchDeleteTaskV1Follower
-  - GetTaskFollowerV1List
-  - CreateTaskV1Collaborator
-  - DeleteTaskV1Collaborator
   - BatchDeleteTaskV1Collaborator
-  - GetTaskV1CollaboratorList
-  - CreateTaskV1Reminder
-  - GetTaskV1ReminderList
-  - DeleteTaskV1Reminder
-  - CreateTaskV1
-  - GetTaskV1
-  - GetTaskV1List
-  - DeleteTaskV1
-  - UpdateTaskV1
+  - BatchDeleteTaskV1Follower
   - CompleteTaskV1
-  - UncompleteTaskV1
+  - CreateTaskV1
+  - CreateTaskV1Collaborator
   - CreateTaskV1Comment
+  - CreateTaskV1Follower
+  - CreateTaskV1Reminder
+  - DeleteTaskV1
+  - DeleteTaskV1Collaborator
+  - DeleteTaskV1Comment
+  - DeleteTaskV1Follower
+  - DeleteTaskV1Reminder
+  - GetTaskFollowerV1List
+  - GetTaskV1
+  - GetTaskV1CollaboratorList
   - GetTaskV1Comment
   - GetTaskV1CommentList
-  - DeleteTaskV1Comment
+  - GetTaskV1List
+  - GetTaskV1ReminderList
+  - UncompleteTaskV1
+  - UpdateTaskV1
   - UpdateTaskV1Comment
 - Tenant
   - GetTenantProductAssignInfo

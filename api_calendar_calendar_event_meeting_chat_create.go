@@ -29,6 +29,7 @@ import (
 // - 日程需要添加了至少 2 个参与人, 且不隐藏参与人列表。你可以调用[获取日程参与人列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/list)接口获取日程的参与人情况；可以调用[获取日程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/get)接口, 查看日程参与人权限信息（attendee_ability）。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-meeting_chat/create
+// new doc: https://open.feishu.cn/document/calendar-v4/calendar-event-meeting_chat/create
 func (r *CalendarService) CreateCalendarEventMeetingChat(ctx context.Context, request *CreateCalendarEventMeetingChatReq, options ...MethodOptionFunc) (*CreateCalendarEventMeetingChatResp, *Response, error) {
 	if r.cli.mock.mockCalendarCreateCalendarEventMeetingChat != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Calendar#CreateCalendarEventMeetingChat mock enable")
@@ -63,8 +64,8 @@ func (r *Mock) UnMockCalendarCreateCalendarEventMeetingChat() {
 
 // CreateCalendarEventMeetingChatReq ...
 type CreateCalendarEventMeetingChatReq struct {
-	CalendarID string `path:"calendar_id" json:"-"` // 日程所在的日历 ID。了解更多, 参见[日历 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值: "feishu.cn_xxx@group.calendar.feishu.cn"
-	EventID    string `path:"event_id" json:"-"`    // 日程 ID, 创建日程时会返回日程 ID。你也可以调用以下接口获取某一日历的 ID, [获取日程列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/list), [搜索日程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/search), 示例值: "75d28f9b-e35c-4230-8a83-123_0"
+	CalendarID string `path:"calendar_id" json:"-"` // 日程所在的日历 ID。了解更多, 参见[日历 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction)。示例值: "feishu.cn_xxx@group.calendar.feishu.cn"
+	EventID    string `path:"event_id" json:"-"`    // 日程 ID。创建日程时会返回日程 ID。你也可以调用以下接口获取某一日历的 ID。- [获取日程列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/list)- [搜索日程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/search)示例值: "75d28f9b-e35c-4230-8a83-123_0"
 }
 
 // CreateCalendarEventMeetingChatResp ...

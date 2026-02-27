@@ -26,6 +26,7 @@ import (
 // 飞书词典目前为二级分类体系, 每个词条可添加多个二级分类, 但选择的二级分类必须从属于不同的一级分类。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/lingo-v1/classification/list
+// new doc: https://open.feishu.cn/document/lingo-v1/classification/list
 func (r *LingoService) GetLingoClassificationList(ctx context.Context, request *GetLingoClassificationListReq, options ...MethodOptionFunc) (*GetLingoClassificationListResp, *Response, error) {
 	if r.cli.mock.mockLingoGetLingoClassificationList != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Lingo#GetLingoClassificationList mock enable")
@@ -60,9 +61,9 @@ func (r *Mock) UnMockLingoGetLingoClassificationList() {
 
 // GetLingoClassificationListReq ...
 type GetLingoClassificationListReq struct {
-	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 20, 默认值: `20`, 取值范围: `1` ～ `500`
-	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 408ecac018b2e3518db37275e812aad7bb8ad3e755fc886f322ac6c430ba
-	RepoID    *string `query:"repo_id" json:"-"`    // 词库ID（不传默认范围为全员词库）, 如以应用身份获取非全员词库中的分类, 需要在“词库设置”页面添加应用；若以用户身份获取非全员词库中的分类, 该用户需要拥有对应词库的可见权限, 示例值: 7202510112396640276
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小示例值: 20默认值: `20` 取值范围: `1` ～ `500
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 408ecac018b2e3518db37275e812aad7bb8ad3e755fc886f322ac6c430ba
+	RepoID    *string `query:"repo_id" json:"-"`    // 词库ID（不传默认范围为全员词库）如以应用身份获取非全员词库中的分类, 需要在“词库设置”页面添加应用；若以用户身份获取非全员词库中的分类, 该用户需要拥有对应词库的可见权限。示例值: 7202510112396640276
 }
 
 // GetLingoClassificationListResp ...
@@ -82,7 +83,7 @@ type GetLingoClassificationListRespItem struct {
 
 // GetLingoClassificationListRespItemI18nName ...
 type GetLingoClassificationListRespItemI18nName struct {
-	Language int64  `json:"language,omitempty"` // 语言类型, 可选值有: 1: 中文, 2: 英文, 3: 日文
+	Language int64  `json:"language,omitempty"` // 语言类型可选值有: 中文英文日文
 	Name     string `json:"name,omitempty"`     // 分类名
 }
 

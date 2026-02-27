@@ -60,9 +60,9 @@ func (r *Mock) UnMockHelpdeskDownloadHelpdeskTicketImage() {
 
 // DownloadHelpdeskTicketImageReq ...
 type DownloadHelpdeskTicketImageReq struct {
-	TicketID string `query:"ticket_id" json:"-"` // 工单ID, 示例值: 12345
-	MsgID    string `query:"msg_id" json:"-"`    // 消息ID, [查询消息ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket-message/list), 示例值: 12345
-	Index    *int64 `query:"index" json:"-"`     // index, 当消息类型为post时, 需指定图片index, index从0开始。当消息类型为img时, 无需index, 示例值: 0
+	TicketID string `query:"ticket_id" json:"-"` // 工单ID示例值: 12345
+	MsgID    string `query:"msg_id" json:"-"`    // 消息ID[查询消息ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket-message/list)示例值: 12345
+	Index    *int64 `query:"index" json:"-"`     // index, 当消息类型为post时, 需指定图片index, index从0开始。当消息类型为img时, 无需index示例值: 0
 }
 
 // downloadHelpdeskTicketImageResp ...

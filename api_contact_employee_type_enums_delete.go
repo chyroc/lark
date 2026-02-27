@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// DeleteEmployeeTypeEnum 删除自定义人员类型。
+// DeleteEmployeeTypeEnum 调用该接口删除指定的自定义人员类型。
+//
+// ## 注意事项
+// 仅支持删除自定义的人员类型。默认包含的正式、实习、外包、劳务、顾问五个选项不支持删除。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/delete
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/employee_type_enum/delete
@@ -58,12 +61,11 @@ func (r *Mock) UnMockContactDeleteEmployeeTypeEnum() {
 
 // DeleteEmployeeTypeEnumReq ...
 type DeleteEmployeeTypeEnumReq struct {
-	EnumID string `path:"enum_id" json:"-"` // 枚举值id, 示例值: "exGeIjow7zIqWMy+ONkFxA=="
+	EnumID string `path:"enum_id" json:"-"` // 自定义人员类型的选项 ID。你可以在新建人员类型时从返回值中获取, 你也可以调用[查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)接口, 获取选项的 ID。示例值: "exGeIjow7zIqWMy+ONkFxA=="
 }
 
 // DeleteEmployeeTypeEnumResp ...
-type DeleteEmployeeTypeEnumResp struct {
-}
+type DeleteEmployeeTypeEnumResp struct{}
 
 // deleteEmployeeTypeEnumResp ...
 type deleteEmployeeTypeEnumResp struct {

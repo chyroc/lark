@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// CancelHireEcoBackgroundCheck 调用此接口将会将系统订单状态变成已终止, 已终止订单将不会响应[「更新背调进度」](https://open.feishu.cn/document/server-docs/hire-v1/ecological-docking/eco_background_check/update_progress)和[「回传背调订单的最终结果」](https://open.feishu.cn/document/server-docs/hire-v1/ecological-docking/eco_background_check/update_result)。 建议在回调终止背调订单之前, 推送账号进度为「已终止」
+// CancelHireEcoBackgroundCheck 调用此接口将会将背调订单状态变成已终止, 已终止订单将将无法通过[更新背调订单进度](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check/update_progress)和[回传背调订单的最终结果](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check/update_result)修改订单进度和最终结果。 调用此接口前, 建议先调用[更新背调订单进度](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check/update_progress)接口将订单进度更新为「已终止」。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check/cancel
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/ecological-docking/eco_background_check/cancel
@@ -58,12 +58,11 @@ func (r *Mock) UnMockHireCancelHireEcoBackgroundCheck() {
 
 // CancelHireEcoBackgroundCheckReq ...
 type CancelHireEcoBackgroundCheckReq struct {
-	BackgroundCheckID string `json:"background_check_id,omitempty"` // 背调 ID, 示例值: "6931286400470354183"
+	BackgroundCheckID string `json:"background_check_id,omitempty"` // 背调 ID。可通过[创建背调](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check/events/created)事件获取示例值: "6931286400470354183"
 }
 
 // CancelHireEcoBackgroundCheckResp ...
-type CancelHireEcoBackgroundCheckResp struct {
-}
+type CancelHireEcoBackgroundCheckResp struct{}
 
 // cancelHireEcoBackgroundCheckResp ...
 type cancelHireEcoBackgroundCheckResp struct {

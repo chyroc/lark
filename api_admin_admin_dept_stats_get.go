@@ -24,7 +24,8 @@ import (
 // GetAdminDeptStats 该接口用于获取部门维度的用户活跃和功能使用数据, 即IM（即时通讯）、日历、云文档、音视频会议、邮箱功能的使用数据。
 //
 // - 只有企业自建应用才有权限调用此接口
-// - 当天的数据会在第二天的早上九点半产出（UTC+8）
+// - 当天的数据会在第二天的早上九点半产出（CN时区: UTC+8, 非CN时区: UTC+0）
+// - 数据权限范围配置: 目前只支持给每个应用配置部门级别数据权限范围, 默认包含子部门（应用数据权限在开放平台配置）
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/admin-v1/admin_dept_stat/list
 // new doc: https://open.feishu.cn/document/server-docs/admin-v1/data-report-management/list
@@ -61,14 +62,15 @@ func (r *Mock) UnMockAdminGetAdminDeptStats() {
 
 // GetAdminDeptStatsReq ...
 type GetAdminDeptStatsReq struct {
-	DepartmentIDType  DepartmentIDType `query:"department_id_type" json:"-"`  // 部门ID类型, 示例值: open_department_id, 可选值有: department_id: 部门的 ID, open_department_id: 部门的 Open ID
-	StartDate         string           `query:"start_date" json:"-"`          // 起始日期（包含）, 格式是YYYY-mm-dd, 示例值: 2020-02-15
-	EndDate           string           `query:"end_date" json:"-"`            // 终止日期（包含）, 格式是YYYY-mm-dd, 起止日期之间相差不能超过91天（包含91天）, 示例值: 2020-02-15
-	DepartmentID      string           `query:"department_id" json:"-"`       // 部门的 ID, 取决于department_id_type, 仅支持根部门及其下前4级子部门, 示例值: od-382e2793cfc9471f892e8a672987654c
-	ContainsChildDept bool             `query:"contains_child_dept" json:"-"` // 是否包含子部门, 如果该值为false, 则只查出本部门直属用户活跃和功能使用数据；如果该值为true, 则查出该部门以及其子部门（子部门层级最多不超过根部门下的前4级）的用户活跃和功能使用数据, 示例值: false
-	PageSize          *int64           `query:"page_size" json:"-"`           // 分页大小, 示例值: 10, 取值范围: `1` ～ `20`
-	PageToken         *string          `query:"page_token" json:"-"`          // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 2
-	TargetGeo         *string          `query:"target_geo" json:"-"`          // 需跨域访问的Geo数据, 每个Geo仅包含本Geo数据, 不传默认查本地数据, 调用前需要先开通FG(cn、sg、jp、us), 示例值: cn
+	DepartmentIDType   DepartmentIDType `query:"department_id_type" json:"-"`   // 部门ID类型示例值: open_department_id可选值有: 部门的 ID部门的 Open ID
+	StartDate          string           `query:"start_date" json:"-"`           // 起始日期（包含）, 格式是YYYY-mm-dd（CN UTC+8, 非CN UTC+0）示例值: 2020-02-15
+	EndDate            string           `query:"end_date" json:"-"`             // 终止日期（包含）, 格式是YYYY-mm-dd, 与起止日期start_date之间相差不能超过91天（包含91天）（CN UTC+8, 非CN UTC+0）示例值: 2020-02-15
+	DepartmentID       string           `query:"department_id" json:"-"`        // 部门的 ID, 取决于department_id_type, 仅支持根部门及其下前4级子部门（通过管理后台部门详情获取）示例值: od-382e2793cfc9471f892e8a672987654c
+	ContainsChildDept  bool             `query:"contains_child_dept" json:"-"`  // 是否包含子部门, 如果该值为false, 则只查出本部门直属用户活跃和功能使用数据；如果该值为true, 则查出该部门以及其子部门（子部门层级最多不超过根部门下的前4级）的用户活跃和功能使用数据示例值: false
+	PageSize           *int64           `query:"page_size" json:"-"`            // 默认值是10, 表示每页返回10条数据示例值: 10 取值范围: `1` ～ `20
+	PageToken          *string          `query:"page_token" json:"-"`           // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: "2"
+	TargetGeo          *string          `query:"target_geo" json:"-"`           // 需跨域访问的Geo数据, 每个Geo仅包含本Geo数据, 不传默认查本地数据, 调用前需要先开通FG(cn、sg、jp、us)示例值: cn
+	WithProductVersion *bool            `query:"with_product_version" json:"-"` // 是否返回分产品版本数据, 默认false, 不返回示例值: true(默认是false)
 }
 
 // GetAdminDeptStatsResp ...
@@ -105,8 +107,8 @@ type GetAdminDeptStatsRespItem struct {
 	CreateCalNum         int64  `json:"create_cal_num,omitempty"`          // 创建日程数
 	AvgCreateCalNum      string `json:"avg_create_cal_num,omitempty"`      // 人均创建日程数
 	VCDau                int64  `json:"vc_dau,omitempty"`                  // 音视频会议活跃人数
-	VCDuration           int64  `json:"vc_duration,omitempty"`             // 会议时长: 企业内员工参与通话与会议的总时长（分钟）
-	AvgVCDuration        string `json:"avg_vc_duration,omitempty"`         // 人均会议时长（分钟）
+	VCDuration           int64  `json:"vc_duration,omitempty"`             // 会议时长: 企业内员工参与通话与会议的总时长（分钟, 不包括会议室的时长）
+	AvgVCDuration        string `json:"avg_vc_duration,omitempty"`         // 人均会议时长（分钟, 不包含会议室的时长）
 	AvgDuration          string `json:"avg_duration,omitempty"`            // 人均飞书使用时长（分钟）
 	TaskDau              int64  `json:"task_dau,omitempty"`                // 任务活跃人数
 	CreateTaskUserNum    int64  `json:"create_task_user_num,omitempty"`    // 创建任务人数
@@ -118,6 +120,11 @@ type GetAdminDeptStatsRespItem struct {
 	EmailReceiveExtCount string `json:"email_receive_ext_count,omitempty"` // 来自外部收件数
 	EmailSendInCount     string `json:"email_send_in_count,omitempty"`     // 对内发件数
 	EmailReceiveInCount  string `json:"email_receive_in_count,omitempty"`  // 来自内部收件数
+	SearchActiveDau      string `json:"search_active_dau,omitempty"`       // 大搜搜索活跃人数
+	TotalSearchCount     int64  `json:"total_search_count,omitempty"`      // 总搜索次数（在飞书主端搜索框发起过搜索请求的会话数）
+	QuickSearchCount     string `json:"quick_search_count,omitempty"`      // 综搜次数（在飞书主端搜索框的综合搜索发起过搜索请求的会话数）
+	TabSearchCount       string `json:"tab_search_count,omitempty"`        // 垂搜次数（在飞书主端搜索框的垂类搜索tab（例如消息tab、云文档tab）发起过搜索请求的会话数）
+	ProductVersion       string `json:"product_version,omitempty"`         // 产品版本名称
 }
 
 // getAdminDeptStatsResp ...

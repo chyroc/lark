@@ -64,19 +64,18 @@ func (r *Mock) UnMockCalendarDeleteCalendarEventAttendee() {
 
 // DeleteCalendarEventAttendeeReq ...
 type DeleteCalendarEventAttendeeReq struct {
-	CalendarID             string   `path:"calendar_id" json:"-"`                // 日程对应的日历 ID。了解更多, 参见[日历 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction), 示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
-	EventID                string   `path:"event_id" json:"-"`                   // 日程 ID, 创建日程时会返回日程 ID。你也可以调用以下接口获取某一日历的 ID, [获取日程列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/list), [搜索日程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/search), 示例值: "xxxxxxxxx_0"
-	UserIDType             *IDType  `query:"user_id_type" json:"-"`              // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	AttendeeIDs            []string `json:"attendee_ids,omitempty"`              // 需要删除的参与人 ID 列表, 添加日程参与人时, 会返回参与人 ID（attendee_id）, 你也可以调用[获取日程参与人列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/list)接口, 查询指定日程的参与人 ID, 一次最多删除500个参与人（与delete_ids一起计算）, 示例值: ["user_xxxxx"]
-	DeleteIDs              []string `json:"delete_ids,omitempty"`                // 参与人类型对应的 ID, 该 ID 是 attendee_ids 字段的补充字段, 一次最多删除500个参与人（与attendee_ids一起计算）
-	NeedNotification       *bool    `json:"need_notification,omitempty"`         // 删除日程参与人时, 是否向参与人发送 Bot 通知, 可选值有: true（默认值）: 发送, false: 不发送, 示例值: false
-	InstanceStartTimeAdmin *string  `json:"instance_start_time_admin,omitempty"` // 使用管理员身份访问时, 要修改的实例（仅用于重复日程修改其中的一个实例, 非重复日程无需填此字段）, 示例值: "1647320400"
-	IsEnableAdmin          *bool    `json:"is_enable_admin,omitempty"`           // 是否启用会议室管理员身份（需先在管理后台设置某人为会议室管理员）, 可选值有: true: 启用, false（默认值）: 不启用, 示例值: false
+	CalendarID             string   `path:"calendar_id" json:"-"`                // 日程对应的日历 ID。了解更多, 参见[日历 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction)。示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	EventID                string   `path:"event_id" json:"-"`                   // 日程 ID。创建日程时会返回日程 ID。你也可以调用以下接口获取某一日历的 ID。- [获取日程列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/list)- [搜索日程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/search)示例值: "xxxxxxxxx_0"
+	UserIDType             *IDType  `query:"user_id_type" json:"-"`              // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	AttendeeIDs            []string `json:"attendee_ids,omitempty"`              // 需要删除的参与人 ID 列表。添加日程参与人时, 会返回参与人 ID（attendee_id）, 你也可以调用[获取日程参与人列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/list)接口, 查询指定日程的参与人 ID。- 一次最多删除500个参与人（与delete_ids一起计算）示例值: ["user_xxxxx"]
+	DeleteIDs              []string `json:"delete_ids,omitempty"`                // 参与人类型对应的 ID, 该 ID 是 attendee_ids 字段的补充字段。- 一次最多删除500个参与人（与attendee_ids一起计算）
+	NeedNotification       *bool    `json:"need_notification,omitempty"`         // 删除日程参与人时, 是否向参与人发送 Bot 通知。可选值有: true（默认值）: 发送- false: 不发送示例值: false
+	InstanceStartTimeAdmin *string  `json:"instance_start_time_admin,omitempty"` // 使用管理员身份访问时, 要修改的实例（仅用于重复日程修改其中的一个实例, 非重复日程无需填此字段）。示例值: "1647320400"
+	IsEnableAdmin          *bool    `json:"is_enable_admin,omitempty"`           // 是否启用会议室管理员身份（需先在管理后台设置某人为会议室管理员）。可选值有: true: 启用- false（默认值）: 不启用示例值: false
 }
 
 // DeleteCalendarEventAttendeeResp ...
-type DeleteCalendarEventAttendeeResp struct {
-}
+type DeleteCalendarEventAttendeeResp struct{}
 
 // deleteCalendarEventAttendeeResp ...
 type deleteCalendarEventAttendeeResp struct {

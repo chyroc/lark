@@ -21,8 +21,9 @@ import (
 	"context"
 )
 
-// GetDriveDocMeta 此接口只支持查询旧版文档元信息。要查询新版文档（`docx` 类型）元信息, 使用[获取文档元数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/meta/batch_query)接口。
+// GetDriveDocMeta :::warning
 //
+// 此接口只支持查询旧版文档元信息。要查询新版文档（`docx` 类型）元信息, 使用[获取文档元数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/meta/batch_query)接口。
 // 该接口用于根据 docToken 获取元数据。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uczN3UjL3czN14yN3cTN
@@ -78,6 +79,7 @@ type GetDriveDocMetaResp struct {
 	IsExternal     bool   `json:"is_external,omitempty"`      // 是否外部文档
 	IsPined        bool   `json:"is_pined,omitempty"`         // 是否在接口调用者目录里快速访问
 	IsStared       bool   `json:"is_stared,omitempty"`        // 是否在接口调用者目录里收藏
+	IsUpgraded     bool   `json:"is_upgraded,omitempty"`      // 文档是否被升级为新版文档 新旧文档的差异详见: [新旧版本说明](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/docs/upgraded-docs-access-guide/upgraded-docs-openapi-access-guide) 如何接入新版文档详见: [文档概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview) 默认值: false
 	ObjType        string `json:"obj_type,omitempty"`         // 文档类型, 固定是doc
 	Owner          string `json:"owner,omitempty"`            // 当前所有者open_id
 	OwnerUserName  string `json:"owner_user_name,omitempty"`  // 当前所有者用户名
@@ -85,6 +87,7 @@ type GetDriveDocMetaResp struct {
 	TenantID       string `json:"tenant_id,omitempty"`        // 文档所在租户id
 	Title          string `json:"title,omitempty"`            // 文档名称
 	Type           int64  `json:"type,omitempty"`             // 文档类型, 固定是2
+	UpgradedToken  string `json:"upgraded_token,omitempty"`   // 升级后的文档 token, 对应新版文档接口中的 `document_id` 示例值: AcJ3d2QM1onnE4xjcZAcP7abcef
 	URL            string `json:"url,omitempty"`              // 文档url
 }
 

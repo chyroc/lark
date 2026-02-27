@@ -21,9 +21,10 @@ import (
 	"context"
 )
 
-// EventV2ContactCustomAttrEventUpdatedV3 通过该事件订阅成员字段变更。old_object 展示更新字段的原始值。
+// EventV2ContactCustomAttrEventUpdatedV3 当成员字段发生变更时（变更动作包括「打开/关闭」开关、「增加/删除」成员字段）, 会触发该事件。事件体的 old_object 展示字段的原始值, object 展示字段的更新值。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=contact&version=v3&resource=custom_attr_event&event=updated)
 //
-// 触发事件的动作有「打开/关闭」开关、「增加/删除」成员字段。
+// ## 前提条件
+// 你需要在应用中配置事件订阅, 这样才可以在事件触发时接收到事件数据。了解事件订阅可参见[事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/custom_attr_event/events/updated
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/custom_attr/events/updated

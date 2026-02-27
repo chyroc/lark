@@ -21,7 +21,9 @@ import (
 	"context"
 )
 
-// BatchUpdateHireEcoAccountCustomField 更新用户在服务商处的身份标示字段（如用户在服务商处的租户 ID）, 此方法只会更新同一 scope 内 key 一致的自定义字段。
+// BatchUpdateHireEcoAccountCustomField 飞书招聘的背调或笔试服务商, 可通过此接口更新账号自定义字段（比如客户在服务商处的租户 ID、账号 ID等）的名称和描述。
+//
+// 更新操作仅影响客户已有账号的自定义字段展示, 但不影响自定义字段的值。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_account_custom_field/batch_update
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/ecological-docking/eco_account_custom_field/batch_update
@@ -58,33 +60,32 @@ func (r *Mock) UnMockHireBatchUpdateHireEcoAccountCustomField() {
 
 // BatchUpdateHireEcoAccountCustomFieldReq ...
 type BatchUpdateHireEcoAccountCustomFieldReq struct {
-	Scope           int64                                                 `json:"scope,omitempty"`             // 适用范围, 示例值: 1, 可选值有: 1: 背调, 2: 笔试
+	Scope           int64                                                 `json:"scope,omitempty"`             // 适用范围示例值: 1可选值有: 背调笔试
 	CustomFieldList []*BatchUpdateHireEcoAccountCustomFieldReqCustomField `json:"custom_field_list,omitempty"` // 自定义字段列表
 }
 
 // BatchUpdateHireEcoAccountCustomFieldReqCustomField ...
 type BatchUpdateHireEcoAccountCustomFieldReqCustomField struct {
-	Key         string                                                         `json:"key,omitempty"`         // 自定义字段的标识, 同一 scope 内须唯一, 示例值: "org_id"
-	Name        *BatchUpdateHireEcoAccountCustomFieldReqCustomFieldName        `json:"name,omitempty"`        // 自定义字段的名称, 用户在添加账号表单看到的控件标题
-	IsRequired  bool                                                           `json:"is_required,omitempty"` // 是否必填, 示例值: true
-	Description *BatchUpdateHireEcoAccountCustomFieldReqCustomFieldDescription `json:"description,omitempty"` // 自定义字段的描述, 用户在添加账号表单看到的 place holder
+	Key         string                                                         `json:"key,omitempty"`         // 当前`scope`下已存在的自定义字段的标识示例值: "account_token"
+	Name        *BatchUpdateHireEcoAccountCustomFieldReqCustomFieldName        `json:"name,omitempty"`        // 自定义字段的名称。用户在「飞书招聘」-「设置」-「生态对接」-「笔试/背景调查」下添加账号时看到的表单控件标题
+	IsRequired  bool                                                           `json:"is_required,omitempty"` // 是否必填。 可选值有: * `true`: 必填 * `false`: 非必填注意: 该字段在当前接口暂不生效示例值: true
+	Description *BatchUpdateHireEcoAccountCustomFieldReqCustomFieldDescription `json:"description,omitempty"` // 自定义字段的描述。用户在「飞书招聘」-「设置」-「生态对接」-「笔试/背景调查」下添加账号时看到的控件提示信息
 }
 
 // BatchUpdateHireEcoAccountCustomFieldReqCustomFieldDescription ...
 type BatchUpdateHireEcoAccountCustomFieldReqCustomFieldDescription struct {
-	ZhCn *string `json:"zh_cn,omitempty"` // 中文, 示例值: "测试"
-	EnUs *string `json:"en_us,omitempty"` // 英文, 示例值: "test"
+	ZhCn *string `json:"zh_cn,omitempty"` // 中文名称示例值: "账号的唯一标识, 可联系客服获取"
+	EnUs *string `json:"en_us,omitempty"` // 英文名称示例值: "The unique identifier of the account can be obtained by contacting the customer service"
 }
 
 // BatchUpdateHireEcoAccountCustomFieldReqCustomFieldName ...
 type BatchUpdateHireEcoAccountCustomFieldReqCustomFieldName struct {
-	ZhCn *string `json:"zh_cn,omitempty"` // 中文, 示例值: "测试"
-	EnUs *string `json:"en_us,omitempty"` // 英文, 示例值: "test"
+	ZhCn *string `json:"zh_cn,omitempty"` // 自定义字段中文名称示例值: "账号token"
+	EnUs *string `json:"en_us,omitempty"` // 自定义字段英文名称示例值: "Account token"
 }
 
 // BatchUpdateHireEcoAccountCustomFieldResp ...
-type BatchUpdateHireEcoAccountCustomFieldResp struct {
-}
+type BatchUpdateHireEcoAccountCustomFieldResp struct{}
 
 // batchUpdateHireEcoAccountCustomFieldResp ...
 type batchUpdateHireEcoAccountCustomFieldResp struct {

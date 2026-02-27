@@ -21,15 +21,16 @@ import (
 	"context"
 )
 
-// BatchGetUserByID 通过该接口, 可使用手机号/邮箱获取用户的 ID 信息, 具体获取支持的 ID 类型包括 open_id、user_id、union_id, 可通过查询参数指定。
+// BatchGetUserByID 调用该接口通过手机号或邮箱获取一个或多个用户的 ID （包括 user_id、open_id、union_id）与状态信息。
 //
-// 不返回用户 ID 的情况说明:
-// - 查询的手机号或者邮箱不存在。
-// - 未开通 获取用户 user ID 权限, 将无法返回用户的 user_id。
-// - 无权限查看用户信息。你需要在应用详情页配置数据权限, 详情参见[配置应用数据权限](https://open.feishu.cn/document/home/introduction-to-scope-and-authorization/configure-app-data-permissions)。
-// - 使用企业邮箱查询将无法返回用户 ID, 需要使用用户的邮箱地址。
-// - 在请求头 Authorization 中, 传入的 Token 有误。例如, Token 对应的应用与实际所需应用不一致。
-// - 所查询的用户已离职。
+// ## 注意事项
+// 请求后不返回用户 ID 的可能原因:
+// - 请求头 Authorization 传入的 tenant_access_token 有误。例如, tenant_access_token 对应的应用与实际所需应用不一致。
+// - 输入的手机号或者邮箱不存在。
+// - 应用未开通 获取用户 user ID API 权限。
+// - 应用无权限查看用户信息。你需要在应用详情页为应用配置数据权限, 具体说明参见[配置应用数据权限](https://open.feishu.cn/document/home/introduction-to-scope-and-authorization/configure-app-data-permissions)。
+// - 使用企业邮箱查询将无法返回用户 ID, 必须使用用户的邮箱地址。
+// - 所查询的用户已离职, 如果请求参数 include_resigned 取值为 false, 则不会返回离职用户 ID。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/batch_get_id
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/user/batch_get_id
@@ -66,32 +67,32 @@ func (r *Mock) UnMockContactBatchGetUserByID() {
 
 // BatchGetUserByIDReq ...
 type BatchGetUserByIDReq struct {
-	UserIDType      *IDType  `query:"user_id_type" json:"-"`     // 用户 ID 类型, 示例值: user_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	Emails          []string `json:"emails,omitempty"`           // 要查询的用户邮箱（不支持企业邮箱）, 最多 50 条, 注意, emails与mobiles相互独立, 每条用户邮箱返回对应的用户ID, 本接口返回的用户ID数量为emails数量与mobiles数量的和, 示例值: ["abc@z.com"], 最大长度: `50`
-	Mobiles         []string `json:"mobiles,omitempty"`          // 要查询的用户手机号, 最多 50 条, 注意, 1. emails与mobiles相互独立, 每条用户手机号返回对应的用户ID, 2.  非中国大陆地区的手机号需要添加以 “+” 开头的国家 / 地区代码, 示例值: ["13812345678"], 最大长度: `50`
-	IncludeResigned *bool    `json:"include_resigned,omitempty"` // 查询结果是否包含离职员工。取值为 true 后可查询离职用户的 ID, 示例值: true, 默认值: `false`
+	UserIDType      *IDType  `query:"user_id_type" json:"-"`     // 用户 ID 类型示例值: user_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	Emails          []string `json:"emails,omitempty"`           // 要查询的用户邮箱, 最多可传入 50 条。注意: 不支持企业邮箱。- emails 与 mobiles 两个参数相互独立, 即每个用户邮箱会返回对应的用户信息, 每个手机号也会返回对应的用户信息。- 本接口返回的用户 ID 数量为 emails 数量与 mobiles 数量之和。默认值: 空示例值: ["zhangsan@z.com"] 最大长度: `50
+	Mobiles         []string `json:"mobiles,omitempty"`          // 要查询的用户手机号, 最多可传入 50 条。注意: 非中国大陆地区的手机号需要添加以 “+” 开头的国家或地区代码。- emails 与 mobiles 两个参数相互独立, 即每个用户邮箱会返回对应的用户信息, 每个手机号也会返回对应的用户信息。- 本接口返回的用户 ID 数量为 emails 数量与 mobiles 数量之和。默认值: 空示例值: ["13011111111"] 最大长度: `50
+	IncludeResigned *bool    `json:"include_resigned,omitempty"` // 查询结果是否包含离职员工的用户信息。可选值有: true: 包含- false: 不包含示例值: true默认值: `false
 }
 
 // BatchGetUserByIDResp ...
 type BatchGetUserByIDResp struct {
-	UserList []*BatchGetUserByIDRespUser `json:"user_list,omitempty"` // 手机号或者邮箱对应的用户id信息
+	UserList []*BatchGetUserByIDRespUser `json:"user_list,omitempty"` // 手机号或者邮箱对应的用户 ID 信息。
 }
 
 // BatchGetUserByIDRespUser ...
 type BatchGetUserByIDRespUser struct {
-	UserID string                          `json:"user_id,omitempty"` // 用户id, 值为user_id_type所指定的类型。如果查询的手机号、邮箱不存在, 或者无权限查看对应的用户, 则不返回此项。
-	Mobile string                          `json:"mobile,omitempty"`  // 手机号, 通过手机号查询时返回
-	Email  string                          `json:"email,omitempty"`   // 邮箱, 通过邮箱查询时返回
-	Status *BatchGetUserByIDRespUserStatus `json:"status,omitempty"`  // 用户状态, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取用户受雇信息, 以应用身份访问通讯录, 读取通讯录
+	UserID string                          `json:"user_id,omitempty"` // 用户 ID, ID 类型与查询参数 user_id_type 的取值保持一致。例如, user_id_type 取值为 open_id, 则该参数的用户 ID 值为用户的 open_id。不同用户 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)。
+	Mobile string                          `json:"mobile,omitempty"`  // 手机号, 通过手机号查询时会返回该值。
+	Email  string                          `json:"email,omitempty"`   // 邮箱, 通过邮箱查询时会返回该值。
+	Status *BatchGetUserByIDRespUserStatus `json:"status,omitempty"`  // 用户状态。通过 is_frozen、is_resigned、is_activated、is_exited 布尔值类型参数进行展示。用户状态的转关逻辑可参见[用户资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/field-overview#4302b5a1)。字段权限要求（满足任一）: 获取用户受雇信息以应用身份访问通讯录读取通讯录以应用身份读取通讯录
 }
 
 // BatchGetUserByIDRespUserStatus ...
 type BatchGetUserByIDRespUserStatus struct {
-	IsFrozen    bool `json:"is_frozen,omitempty"`    // 是否冻结
-	IsResigned  bool `json:"is_resigned,omitempty"`  // 是否离职
-	IsActivated bool `json:"is_activated,omitempty"` // 是否激活
-	IsExited    bool `json:"is_exited,omitempty"`    // 是否主动退出, 主动退出一段时间后用户会自动转为已离职
-	IsUnjoin    bool `json:"is_unjoin,omitempty"`    // 是否未加入, 需要用户自主确认才能加入团队
+	IsFrozen    bool `json:"is_frozen,omitempty"`    // 是否为冻结状态。可能值有: true: 是- false: 否
+	IsResigned  bool `json:"is_resigned,omitempty"`  // 是否为离职状态。可能值有: true: 是- false: 否
+	IsActivated bool `json:"is_activated,omitempty"` // 是否为激活状态。可能值有: true: 是- false: 否
+	IsExited    bool `json:"is_exited,omitempty"`    // 是否为主动退出状态。主动退出一段时间后用户状态会自动转为已离职。可能值有: true: 是- false: 否
+	IsUnjoin    bool `json:"is_unjoin,omitempty"`    // 是否为未加入状态, 需要用户自主确认才能加入企业或团队。可能值有: true: 是- false: 否
 }
 
 // batchGetUserByIDResp ...

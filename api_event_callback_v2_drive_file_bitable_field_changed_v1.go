@@ -21,7 +21,13 @@ import (
 	"context"
 )
 
-// EventV2DriveFileBitableFieldChangedV1 多维表格字段变更
+// EventV2DriveFileBitableFieldChangedV1 多维表格字段变更事件。被订阅的多维表格字段发生变更时, 将会触发此事件。了解事件订阅的配置流程和使用场景, 参考[事件概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=drive&version=v1&resource=file&event=bitable_field_changed)
+//
+// 被订阅的多维表格字段发生变更时, 也将同时触发[文件编辑](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/file-edited)事件。
+// ## 注意事项
+// 若应用是以应用身份（`tenant_access_token`） 订阅的事件, 在接收事件时需要同时申请应用和用户两个身份接收事件的权限。换言之, 要订阅本事件, 你需要在开发者后台, 为应用同时开通 应用身份 和 用户身份 的 `bitable:app` 或 `drive:drive` 权限。
+// ## 前提条件
+// 添加该事件之前, 你需确保已调用[订阅云文档事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/subscribe)接口。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/events/bitable_field_changed
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/event/list/bitable_field_changed
@@ -34,19 +40,19 @@ type EventV2DriveFileBitableFieldChangedV1Handler func(ctx context.Context, cli 
 
 // EventV2DriveFileBitableFieldChangedV1 ...
 type EventV2DriveFileBitableFieldChangedV1 struct {
-	FileType         FileType                                             `json:"file_type,omitempty"`          // 文档类型
-	FileToken        string                                               `json:"file_token,omitempty"`         // 文档token
-	TableID          string                                               `json:"table_id,omitempty"`           // 多维表格数据表ID
+	FileType         FileType                                             `json:"file_type,omitempty"`          // 云文档类型
+	FileToken        string                                               `json:"file_token,omitempty"`         // 多维表格 token
+	TableID          string                                               `json:"table_id,omitempty"`           // 多维表格数据表 ID
 	OperatorID       *EventV2DriveFileBitableFieldChangedV1OperatorID     `json:"operator_id,omitempty"`        // 用户 ID
-	ActionList       []*EventV2DriveFileBitableFieldChangedV1Action       `json:"action_list,omitempty"`        // 字段变更操作列表
+	ActionList       []*EventV2DriveFileBitableFieldChangedV1Action       `json:"action_list,omitempty"`        // 字段变更操作类型列表
 	Revision         int64                                                `json:"revision,omitempty"`           // 多维表格数据表的版本号
-	SubscriberIDList []*EventV2DriveFileBitableFieldChangedV1SubscriberID `json:"subscriber_id_list,omitempty"` // 订阅用户id列表
+	SubscriberIDList []*EventV2DriveFileBitableFieldChangedV1SubscriberID `json:"subscriber_id_list,omitempty"` // 订阅用户 ID 列表
 	UpdateTime       int64                                                `json:"update_time,omitempty"`        // 字段变更时间
 }
 
 // EventV2DriveFileBitableFieldChangedV1Action ...
 type EventV2DriveFileBitableFieldChangedV1Action struct {
-	Action      string                                                  `json:"action,omitempty"`       // 操作类型, action目前有三种, field_added表示有新增字段操作, field_edited表示有更新字段操作, field_delete表示有删除字段操作
+	Action      string                                                  `json:"action,omitempty"`       // 字段变更类型。枚举值有: field_added: 新增字段- field_edited: 修改字段- field_deleted: 删除字段
 	FieldID     string                                                  `json:"field_id,omitempty"`     // 字段 ID
 	BeforeValue *EventV2DriveFileBitableFieldChangedV1ActionBeforeValue `json:"before_value,omitempty"` // 操作前的字段值
 	AfterValue  *EventV2DriveFileBitableFieldChangedV1ActionAfterValue  `json:"after_value,omitempty"`  // 操作后的字段值
@@ -92,7 +98,7 @@ type EventV2DriveFileBitableFieldChangedV1ActionAfterValuePropertyAutoSerialOpti
 // EventV2DriveFileBitableFieldChangedV1ActionAfterValuePropertyOption ...
 type EventV2DriveFileBitableFieldChangedV1ActionAfterValuePropertyOption struct {
 	Name  string `json:"name,omitempty"`  // 选项名
-	ID    string `json:"id,omitempty"`    // 选项ID
+	ID    string `json:"id,omitempty"`    // 选项 ID
 	Color int64  `json:"color,omitempty"` // 选项颜色
 }
 
@@ -136,20 +142,20 @@ type EventV2DriveFileBitableFieldChangedV1ActionBeforeValuePropertyAutoSerialOpt
 // EventV2DriveFileBitableFieldChangedV1ActionBeforeValuePropertyOption ...
 type EventV2DriveFileBitableFieldChangedV1ActionBeforeValuePropertyOption struct {
 	Name  string `json:"name,omitempty"`  // 选项名
-	ID    string `json:"id,omitempty"`    // 选项ID
+	ID    string `json:"id,omitempty"`    // 选项 ID
 	Color int64  `json:"color,omitempty"` // 选项颜色
 }
 
 // EventV2DriveFileBitableFieldChangedV1OperatorID ...
 type EventV2DriveFileBitableFieldChangedV1OperatorID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
 // EventV2DriveFileBitableFieldChangedV1SubscriberID ...
 type EventV2DriveFileBitableFieldChangedV1SubscriberID struct {
-	UnionID string `json:"union_id,omitempty"` // union id
-	UserID  string `json:"user_id,omitempty"`  // user id
-	OpenID  string `json:"open_id,omitempty"`  // open id
+	UnionID string `json:"union_id,omitempty"` // 订阅者的 Union ID
+	UserID  string `json:"user_id,omitempty"`  // 订阅者的 User ID
+	OpenID  string `json:"open_id,omitempty"`  // 订阅者的 Open ID
 }

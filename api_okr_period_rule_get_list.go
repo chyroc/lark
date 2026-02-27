@@ -57,8 +57,7 @@ func (r *Mock) UnMockOKRGetOKRPeriodRuleList() {
 }
 
 // GetOKRPeriodRuleListReq ...
-type GetOKRPeriodRuleListReq struct {
-}
+type GetOKRPeriodRuleListReq struct{}
 
 // GetOKRPeriodRuleListResp ...
 type GetOKRPeriodRuleListResp struct {
@@ -68,7 +67,7 @@ type GetOKRPeriodRuleListResp struct {
 // GetOKRPeriodRuleListRespPeriodRule ...
 type GetOKRPeriodRuleListRespPeriodRule struct {
 	PeriodRuleID string `json:"period_rule_id,omitempty"` // 周期规则ID
-	Type         string `json:"type,omitempty"`           // 周期类型, year: 年度周期, month: 月度周期
+	Type         string `json:"type,omitempty"`           // 周期类型- year: 年度周期- month: 月度周期
 	Length       int64  `json:"length,omitempty"`         // 周期长度（月)
 	FirstMonth   int64  `json:"first_month,omitempty"`    // 每年首个开始月份
 }

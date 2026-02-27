@@ -63,12 +63,11 @@ func (r *Mock) UnMockCalendarDeleteCalendar() {
 
 // DeleteCalendarReq ...
 type DeleteCalendarReq struct {
-	CalendarID string `path:"calendar_id" json:"-"` // 日历 ID, 创建共享日历时会返回日历 ID。你也可以调用以下接口获取某一日历的 ID, [查询主日历信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/primary), [查询日历列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/list), [搜索日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/search), 示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	CalendarID string `path:"calendar_id" json:"-"` // 日历 ID。创建共享日历时会返回日历 ID。你也可以调用以下接口获取某一日历的 ID。- [查询主日历信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/primary)- [查询日历列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/list)- [搜索日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/search)示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
 }
 
 // DeleteCalendarResp ...
-type DeleteCalendarResp struct {
-}
+type DeleteCalendarResp struct{}
 
 // deleteCalendarResp ...
 type deleteCalendarResp struct {

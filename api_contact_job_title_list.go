@@ -21,9 +21,10 @@ import (
 	"context"
 )
 
-// GetContactJobTitleList 此接口可用于获取租户下职务列表信息。
+// GetContactJobTitleList 调用该接口获取当前租户下的职务信息, 包括职务的 ID、名称、多语言名称以及启用状态。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_title/list
+// new doc: https://open.feishu.cn/document/contact-v3/job_title/list
 func (r *ContactService) GetContactJobTitleList(ctx context.Context, request *GetContactJobTitleListReq, options ...MethodOptionFunc) (*GetContactJobTitleListResp, *Response, error) {
 	if r.cli.mock.mockContactGetContactJobTitleList != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#GetContactJobTitleList mock enable")
@@ -58,29 +59,29 @@ func (r *Mock) UnMockContactGetContactJobTitleList() {
 
 // GetContactJobTitleListReq ...
 type GetContactJobTitleListReq struct {
-	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 10, 默认值: `10`, 取值范围: `1` ～ `50`
-	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "xxx"
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 用于限制一次请求所返回的数据条目数。示例值: 10默认值: `10` 取值范围: `1` ～ `50
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: "xxx"
 }
 
 // GetContactJobTitleListResp ...
 type GetContactJobTitleListResp struct {
-	Items     []*GetContactJobTitleListRespItem `json:"items,omitempty"`      // 职务列表
+	Items     []*GetContactJobTitleListRespItem `json:"items,omitempty"`      // 职务列表。
 	PageToken string                            `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	HasMore   bool                              `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
 // GetContactJobTitleListRespItem ...
 type GetContactJobTitleListRespItem struct {
-	JobTitleID string                                    `json:"job_title_id,omitempty"` // 职务ID
-	Name       string                                    `json:"name,omitempty"`         // 职务名称。1-100字符, 支持中、英文及符号
-	I18nName   []*GetContactJobTitleListRespItemI18nName `json:"i18n_name,omitempty"`    // 多语言职务名称
-	Status     bool                                      `json:"status,omitempty"`       // 是否启用
+	JobTitleID string                                    `json:"job_title_id,omitempty"` // 职务 ID。
+	Name       string                                    `json:"name,omitempty"`         // 职务名称。
+	I18nName   []*GetContactJobTitleListRespItemI18nName `json:"i18n_name,omitempty"`    // 多语言职务名称。
+	Status     bool                                      `json:"status,omitempty"`       // 是否启用职务。可能值有: true: 启用- false: 禁用
 }
 
 // GetContactJobTitleListRespItemI18nName ...
 type GetContactJobTitleListRespItemI18nName struct {
-	Locale string `json:"locale,omitempty"` // 语言
-	Value  string `json:"value,omitempty"`  // 多语言内容
+	Locale string `json:"locale,omitempty"` // 语言版本。例如: zh_cn: 中文- en_us: 英语- ja_jp: 日语
+	Value  string `json:"value,omitempty"`  // 多语言版本对应的值。
 }
 
 // getContactJobTitleListResp ...

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2HireEcoExamCreatedV1 用户在招聘系统安排笔试后, 系统会推送事件给对应的开发者应用。开发者可根据事件获取候选人信息和试卷信息, 并根据这些信息完成在三方服务商处的笔试订单创建。
+// EventV2HireEcoExamCreatedV1 飞书招聘客户在招聘系统安排笔试后, 系统会推送「创建笔试」事件给对应的笔试服务商应用。服务商可根据此事件获取该场笔试的候选人信息和试卷信息, 并根据这些信息为候选人安排笔试, 之后可通过[回传笔试安排结果](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_exam/login_info)将笔试安排结果回传给招聘系统。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=hire&version=v1&resource=eco_exam&event=created)
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_exam/events/created
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/ecological-docking/eco_exam/events/created
@@ -35,8 +35,8 @@ type EventV2HireEcoExamCreatedV1Handler func(ctx context.Context, cli *Lark, sch
 // EventV2HireEcoExamCreatedV1 ...
 type EventV2HireEcoExamCreatedV1 struct {
 	ExamID        string                                    `json:"exam_id,omitempty"`        // 笔试 ID, 招聘系统内唯一
-	AccountID     string                                    `json:"account_id,omitempty"`     // 账号 ID, 招聘系统内唯一
-	PaperID       string                                    `json:"paper_id,omitempty"`       // 试卷 ID
+	AccountID     string                                    `json:"account_id,omitempty"`     // 账号 ID, 招聘系统内唯一, 可通过[账号绑定](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_account/events/created)事件获取
+	PaperID       string                                    `json:"paper_id,omitempty"`       // 试卷 ID, 通过[创建试卷列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_exam_paper/create)接口传入
 	CandidateInfo *EventV2HireEcoExamCreatedV1CandidateInfo `json:"candidate_info,omitempty"` // 候选人信息
 }
 
@@ -49,6 +49,6 @@ type EventV2HireEcoExamCreatedV1CandidateInfo struct {
 
 // EventV2HireEcoExamCreatedV1CandidateInfoMobile ...
 type EventV2HireEcoExamCreatedV1CandidateInfoMobile struct {
-	Code   string `json:"code,omitempty"`   // 国家代码
+	Code   string `json:"code,omitempty"`   // 电话国家区号, 遵循国际统一标准, 可参考 [国际长途电话区号表](https://baike.baidu.com/item/%E5%9B%BD%E9%99%85%E9%95%BF%E9%80%94%E7%94%B5%E8%AF%9D%E5%8C%BA%E5%8F%B7%E8%A1%A8/12803495)
 	Number string `json:"number,omitempty"` // 手机号码
 }

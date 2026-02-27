@@ -57,13 +57,12 @@ func (r *Mock) UnMockAuthResendAppTicket() {
 
 // ResendAppTicketReq ...
 type ResendAppTicketReq struct {
-	AppID     string `json:"app_id,omitempty"`     // 应用唯一标识, 创建应用后获得。有关`app_id` 的详细介绍。请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)介绍, 示例值: "cli_slkdjalasdkjasd"
-	AppSecret string `json:"app_secret,omitempty"` // 应用秘钥, 创建应用后获得。有关 `app_secret` 的详细介绍, 请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)介绍, 示例值: "dskLLdkasdjlasdKK"
+	AppID     string `json:"app_id,omitempty"`     // 应用唯一标识, 创建应用后获得。有关`app_id` 的详细介绍。请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)介绍      示例值: "cli_slkdjalasdkjasd"
+	AppSecret string `json:"app_secret,omitempty"` // 应用秘钥, 创建应用后获得。有关 `app_secret` 的详细介绍, 请参考[通用参数](https://open.feishu.cn/document/ukTMukTMukTM/uYTM5UjL2ETO14iNxkTN/terminology)介绍      示例值: "dskLLdkasdjlasdKK"
 }
 
 // ResendAppTicketResp ...
-type ResendAppTicketResp struct {
-}
+type ResendAppTicketResp struct{}
 
 // resendAppTicketResp ...
 type resendAppTicketResp struct {

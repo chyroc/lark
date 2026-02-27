@@ -21,9 +21,7 @@ import (
 	"context"
 )
 
-// GetSheetFloatImage 根据 float_image_id 获取对应浮动图片的信息。
-//
-// 浮动图片参考: [浮动图片指南](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/float-image-user-guide)
+// GetSheetFloatImage 获取电子表格工作表内指定浮动图片的参数信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/get
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet-float_image/get
@@ -61,25 +59,25 @@ func (r *Mock) UnMockDriveGetSheetFloatImage() {
 
 // GetSheetFloatImageReq ...
 type GetSheetFloatImageReq struct {
-	SpreadSheetToken string `path:"spreadsheet_token" json:"-"` // 表格 token, 示例值: "shtcnmBA*yGehy8"
-	SheetID          string `path:"sheet_id" json:"-"`          // 子表 id, 示例值: "0b**12"
-	FloatImageID     string `path:"float_image_id" json:"-"`    // 浮动图片 id, 示例值: "ye06SS14ph"
+	SpreadSheetToken string `path:"spreadsheet_token" json:"-"` // 电子表格的 token。可通过以下两种方式获取。了解更多, 参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。-  电子表格的 URL: https://sample.feishu.cn/sheets/[Iow7sNNEphp3WbtnbCscPqabcef]- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)示例值: "Iow7sNNEphp3WbtnbCscPqabcef"
+	SheetID          string `path:"sheet_id" json:"-"`          // 电子表格工作表的 ID。调用[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query)获取 ID。示例值: "0beg12"
+	FloatImageID     string `path:"float_image_id" json:"-"`    // 工作表内浮动图片的唯一标识。通过[查询浮动图片](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet-float_image/query)接口获取。示例值: "ye06SS14ph"
 }
 
 // GetSheetFloatImageResp ...
 type GetSheetFloatImageResp struct {
-	FloatImage *GetSheetFloatImageRespFloatImage `json:"float_image,omitempty"` // 浮动图片信息
+	FloatImage *GetSheetFloatImageRespFloatImage `json:"float_image,omitempty"` // 浮动图片的相关参数
 }
 
 // GetSheetFloatImageRespFloatImage ...
 type GetSheetFloatImageRespFloatImage struct {
-	FloatImageID    string  `json:"float_image_id,omitempty"`    // 浮动图片 id
-	FloatImageToken string  `json:"float_image_token,omitempty"` // [更新时不用传, 创建需要]浮动图片 token, 需要先上传图片到表格获得此 token 之后再进行浮动图片的相关操作
-	Range           string  `json:"range,omitempty"`             // 浮动图片的左上角单元格定位, 只支持一个单元格
-	Width           float64 `json:"width,omitempty"`             // 浮动图片的宽度, 大于等于 20px
-	Height          float64 `json:"height,omitempty"`            // 浮动图片的高度, 大于等于 20px
-	OffsetX         float64 `json:"offset_x,omitempty"`          // 浮动图片左上角所在位置相对于所在单元格左上角的横向偏移, 大于等于0且小于所在单元格的宽度
-	OffsetY         float64 `json:"offset_y,omitempty"`          // 浮动图片左上角所在位置相对于所在单元格左上角的纵向偏移, 大于等于0且小于所在单元格的高度
+	FloatImageID    string  `json:"float_image_id,omitempty"`    // 浮动图片的唯一标识。用于对图片进行增删改查操作。
+	FloatImageToken string  `json:"float_image_token,omitempty"` // 浮动图片的 token, 用于图片的上传和下载操作。你可通过该 token, 调用[下载素材](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/download)接口下载图片。
+	Range           string  `json:"range,omitempty"`             // 浮动图片左上角所在单元格位置
+	Width           float64 `json:"width,omitempty"`             // 浮动图片的宽度, 单位为像素。
+	Height          float64 `json:"height,omitempty"`            // 浮动图片的高度, 单位为像素。
+	OffsetX         float64 `json:"offset_x,omitempty"`          // 浮动图片左上角距离所在单元格左上角的横向偏移, 单位为像素。
+	OffsetY         float64 `json:"offset_y,omitempty"`          // 浮动图片左上角距离所在单元格左上角的纵向偏移, 单位为像素。
 }
 
 // getSheetFloatImageResp ...

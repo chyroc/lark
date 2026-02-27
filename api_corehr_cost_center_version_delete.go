@@ -21,7 +21,9 @@ import (
 	"context"
 )
 
-// DeleteCoreHRCostCenterVersion 撤销成本中心版本
+// DeleteCoreHRCostCenterVersion 该接口支持通过成本中心的版本ID撤销成本中心版本信息
+//
+// 撤销后无法恢复, 并且在系统中无法搜索到对应成本中心版本信息, 请谨慎操作。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center-version/delete
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/cost_center/cost_center-version/delete
@@ -58,14 +60,13 @@ func (r *Mock) UnMockCoreHRDeleteCoreHRCostCenterVersion() {
 
 // DeleteCoreHRCostCenterVersionReq ...
 type DeleteCoreHRCostCenterVersionReq struct {
-	CostCenterID    string `path:"cost_center_id" json:"-"`    // 成本中心ID, 示例值: "6862995757234914824"
-	VersionID       string `path:"version_id" json:"-"`        // 版本ID, 示例值: "6862995757234914824"
-	OperationReason string `json:"operation_reason,omitempty"` // 操作原因, 示例值: "随着组织架构调整, 该成本中心不再使用"
+	CostCenterID    string `path:"cost_center_id" json:"-"`    // 成本中心ID, 可通过[【搜索成本中心信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)接口查询获得示例值: "6862995757234914824"
+	VersionID       string `path:"version_id" json:"-"`        // 版本ID, 可通过[【搜索成本中心信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)接口查询获得示例值: "6862995757234914824"
+	OperationReason string `json:"operation_reason,omitempty"` // 操作原因示例值: "随着组织架构调整, 该成本中心不再使用"
 }
 
 // DeleteCoreHRCostCenterVersionResp ...
-type DeleteCoreHRCostCenterVersionResp struct {
-}
+type DeleteCoreHRCostCenterVersionResp struct{}
 
 // deleteCoreHRCostCenterVersionResp ...
 type deleteCoreHRCostCenterVersionResp struct {

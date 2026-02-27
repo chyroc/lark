@@ -58,9 +58,9 @@ func (r *Mock) UnMockVCGetVCScopeConfig() {
 
 // GetVCScopeConfigReq ...
 type GetVCScopeConfigReq struct {
-	ScopeType  int64   `query:"scope_type" json:"-"`   // 查询节点范围, 示例值: 1, 可选值有: 1: 会议室层级, 2: 会议室
-	ScopeID    string  `query:"scope_id" json:"-"`     // 查询节点ID: 如果scope_type为1, 则为层级ID, 如果scope_type为2, 则为会议室ID, 示例值: omm_608d34d82d531b27fa993902d350a307
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	ScopeType  int64   `query:"scope_type" json:"-"`   // 查询节点范围示例值: 1可选值有: 会议室层级会议室
+	ScopeID    string  `query:"scope_id" json:"-"`     // 查询节点ID: 如果scope_type为1, 则为层级ID, 如果scope_type为2, 则为会议室ID示例值: omm_608d34d82d531b27fa993902d350a307
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetVCScopeConfigResp ...
@@ -71,7 +71,7 @@ type GetVCScopeConfigResp struct {
 
 // GetVCScopeConfigRespCurrentConfig ...
 type GetVCScopeConfigRespCurrentConfig struct {
-	ScopeType   int64                                         `json:"scope_type,omitempty"`   // 查询节点范围, 可选值有: 1: 会议室层级, 2: 会议室
+	ScopeType   int64                                         `json:"scope_type,omitempty"`   // 查询节点范围可选值有: 会议室层级会议室
 	ScopeID     string                                        `json:"scope_id,omitempty"`     // 查询节点ID: 如果scope_type为1, 则为层级ID, 如果scope_type为2, 则为会议室ID
 	ScopeConfig *GetVCScopeConfigRespCurrentConfigScopeConfig `json:"scope_config,omitempty"` // 节点配置
 }
@@ -99,7 +99,7 @@ type GetVCScopeConfigRespCurrentConfigScopeConfigDigitalSignage struct {
 type GetVCScopeConfigRespCurrentConfigScopeConfigDigitalSignageMaterial struct {
 	ID           string `json:"id,omitempty"`            // 素材ID, 当设置新素材时, 无需传递该字段
 	Name         string `json:"name,omitempty"`          // 素材名称
-	MaterialType int64  `json:"material_type,omitempty"` // 素材类型, 可选值有: 1: 图片, 2: 视频, 3: GIF
+	MaterialType int64  `json:"material_type,omitempty"` // 素材类型可选值有: 图片视频GIF
 	URL          string `json:"url,omitempty"`           // 素材url
 	Duration     int64  `json:"duration,omitempty"`      // 播放时长（单位sec）, 取值1~43200
 	Cover        string `json:"cover,omitempty"`         // 素材封面url
@@ -122,7 +122,7 @@ type GetVCScopeConfigRespCurrentConfigScopeConfigRoomBoxDigitalSignage struct {
 type GetVCScopeConfigRespCurrentConfigScopeConfigRoomBoxDigitalSignageMaterial struct {
 	ID           string `json:"id,omitempty"`            // 素材ID, 当设置新素材时, 无需传递该字段
 	Name         string `json:"name,omitempty"`          // 素材名称
-	MaterialType int64  `json:"material_type,omitempty"` // 素材类型, 可选值有: 1: 图片, 2: 视频, 3: GIF
+	MaterialType int64  `json:"material_type,omitempty"` // 素材类型可选值有: 图片视频GIF
 	URL          string `json:"url,omitempty"`           // 素材url
 	Duration     int64  `json:"duration,omitempty"`      // 播放时长（单位sec）, 取值1~43200
 	Cover        string `json:"cover,omitempty"`         // 素材封面url
@@ -145,7 +145,7 @@ type GetVCScopeConfigRespCurrentConfigScopeConfigRoomStatus struct {
 
 // GetVCScopeConfigRespOriginConfig ...
 type GetVCScopeConfigRespOriginConfig struct {
-	ScopeType   int64                                        `json:"scope_type,omitempty"`   // 查询节点范围, 可选值有: 1: 会议室层级, 2: 会议室
+	ScopeType   int64                                        `json:"scope_type,omitempty"`   // 查询节点范围可选值有: 会议室层级会议室
 	ScopeID     string                                       `json:"scope_id,omitempty"`     // 查询节点ID: 如果scope_type为1, 则为层级ID, 如果scope_type为2, 则为会议室ID
 	ScopeConfig *GetVCScopeConfigRespOriginConfigScopeConfig `json:"scope_config,omitempty"` // 节点配置
 }
@@ -173,7 +173,7 @@ type GetVCScopeConfigRespOriginConfigScopeConfigDigitalSignage struct {
 type GetVCScopeConfigRespOriginConfigScopeConfigDigitalSignageMaterial struct {
 	ID           string `json:"id,omitempty"`            // 素材ID, 当设置新素材时, 无需传递该字段
 	Name         string `json:"name,omitempty"`          // 素材名称
-	MaterialType int64  `json:"material_type,omitempty"` // 素材类型, 可选值有: 1: 图片, 2: 视频, 3: GIF
+	MaterialType int64  `json:"material_type,omitempty"` // 素材类型可选值有: 图片视频GIF
 	URL          string `json:"url,omitempty"`           // 素材url
 	Duration     int64  `json:"duration,omitempty"`      // 播放时长（单位sec）, 取值1~43200
 	Cover        string `json:"cover,omitempty"`         // 素材封面url
@@ -196,7 +196,7 @@ type GetVCScopeConfigRespOriginConfigScopeConfigRoomBoxDigitalSignage struct {
 type GetVCScopeConfigRespOriginConfigScopeConfigRoomBoxDigitalSignageMaterial struct {
 	ID           string `json:"id,omitempty"`            // 素材ID, 当设置新素材时, 无需传递该字段
 	Name         string `json:"name,omitempty"`          // 素材名称
-	MaterialType int64  `json:"material_type,omitempty"` // 素材类型, 可选值有: 1: 图片, 2: 视频, 3: GIF
+	MaterialType int64  `json:"material_type,omitempty"` // 素材类型可选值有: 图片视频GIF
 	URL          string `json:"url,omitempty"`           // 素材url
 	Duration     int64  `json:"duration,omitempty"`      // 播放时长（单位sec）, 取值1~43200
 	Cover        string `json:"cover,omitempty"`         // 素材封面url

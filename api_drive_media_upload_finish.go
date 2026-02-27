@@ -21,9 +21,10 @@ import (
 	"context"
 )
 
-// FinishUploadDriveMedia 调用[上传分片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_part)接口将分片全部上传完毕后, 你可调用本接口触发完成上传。了解完整的分片上传素材流程, 参考[分片上传素材概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/multipart-upload-media/introduction)。
+// FinishUploadDriveMedia 调用[上传分片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_part)接口将分片全部上传完毕后, 你需调用本接口触发完成上传。了解完整的分片上传素材流程, 参考[素材概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/introduction)。
 //
-// 该接口不支持较高并发, 且调用频率上限为 5 QPS。
+// ## 使用限制
+// 该接口调用频率上限为 5 QPS, 10000 次/天。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_finish
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/media/multipart-upload-media/upload_finish
@@ -61,8 +62,8 @@ func (r *Mock) UnMockDriveFinishUploadDriveMedia() {
 
 // FinishUploadDriveMediaReq ...
 type FinishUploadDriveMediaReq struct {
-	UploadID string `json:"upload_id,omitempty"` // 分片上传事务 ID。通过调用[分片上传素材（预上传）](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_prepare)接口获取, 示例值: "7111211691345512356"
-	BlockNum int64  `json:"block_num,omitempty"` // 分片数量。通过调用[分片上传素材（预上传）](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_prepare)接口获取, 示例值: 1
+	UploadID string `json:"upload_id,omitempty"` // 分片上传事务 ID。通过调用[分片上传素材（预上传）](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_prepare)接口获取。示例值: "7111211691345512356"
+	BlockNum int64  `json:"block_num,omitempty"` // 分片数量。通过调用[分片上传素材（预上传）](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_prepare)接口获取。示例值: 1
 }
 
 // FinishUploadDriveMediaResp ...

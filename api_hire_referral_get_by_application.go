@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetHireReferralByApplication 根据投递 ID 获取内推信息。
+// GetHireReferralByApplication 根据投递 ID 获取内推信息, 包含内推人信息、内推创建时间等。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral/get_by_application
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/get-candidates/referral/get_by_application
@@ -58,8 +58,8 @@ func (r *Mock) UnMockHireGetHireReferralByApplication() {
 
 // GetHireReferralByApplicationReq ...
 type GetHireReferralByApplicationReq struct {
-	ApplicationID string  `query:"application_id" json:"-"` // 投递的 ID, 示例值: 6134134355464633
-	UserIDType    *IDType `query:"user_id_type" json:"-"`   // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_admin_id: 以people_admin_id来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	ApplicationID string  `query:"application_id" json:"-"` // 投递 ID, 可通过[获取投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/list)获取示例值: 6134134355464633
+	UserIDType    *IDType `query:"user_id_type" json:"-"`   // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以people_admin_id来识别用户默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetHireReferralByApplicationResp ...
@@ -69,23 +69,23 @@ type GetHireReferralByApplicationResp struct {
 
 // GetHireReferralByApplicationRespReferral ...
 type GetHireReferralByApplicationRespReferral struct {
-	ID             string                                                `json:"id,omitempty"`               // 内推的 ID
+	ID             string                                                `json:"id,omitempty"`               // 内推 ID
 	ApplicationID  string                                                `json:"application_id,omitempty"`   // 投递 ID
-	CreateTime     int64                                                 `json:"create_time,omitempty"`      // 创建时间（ms）
-	ReferralUserID string                                                `json:"referral_user_id,omitempty"` // 内推人的 ID
+	CreateTime     int64                                                 `json:"create_time,omitempty"`      // 创建时间(int64类型), 毫秒时间戳
+	ReferralUserID string                                                `json:"referral_user_id,omitempty"` // 内推人 ID, 与`user_id_type`类型一致
 	ReferralUser   *GetHireReferralByApplicationRespReferralReferralUser `json:"referral_user,omitempty"`    // 内推人信息
 }
 
 // GetHireReferralByApplicationRespReferralReferralUser ...
 type GetHireReferralByApplicationRespReferralReferralUser struct {
-	ID   string                                                    `json:"id,omitempty"`   // ID
-	Name *GetHireReferralByApplicationRespReferralReferralUserName `json:"name,omitempty"` // 名称
+	ID   string                                                    `json:"id,omitempty"`   // 内推人ID, 同`referral_user_id`, 与`user_id_type`类型一致
+	Name *GetHireReferralByApplicationRespReferralReferralUserName `json:"name,omitempty"` // 内推人姓名
 }
 
 // GetHireReferralByApplicationRespReferralReferralUserName ...
 type GetHireReferralByApplicationRespReferralReferralUserName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	EnUs string `json:"en_us,omitempty"` // 英文
+	ZhCn string `json:"zh_cn,omitempty"` // 中文姓名
+	EnUs string `json:"en_us,omitempty"` // 英文姓名
 }
 
 // getHireReferralByApplicationResp ...

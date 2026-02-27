@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// CreateHireExternalInterview 导入来自其他系统的面试信息, 创建为外部面试。
+// CreateHireExternalInterview 创建外部面试, 可用于导入来自其他系统的面试信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_interview/create
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/get-candidates/import-external-system-information/create-3
@@ -58,11 +58,31 @@ func (r *Mock) UnMockHireCreateHireExternalInterview() {
 
 // CreateHireExternalInterviewReq ...
 type CreateHireExternalInterviewReq struct {
-	ExternalID            *string `json:"external_id,omitempty"`             // 外部系统面试主键 （仅用于幂等）, 示例值: "123"
-	ExternalApplicationID string  `json:"external_application_id,omitempty"` // 外部投递 ID, 示例值: "6960663240925956437"
-	ParticipateStatus     *int64  `json:"participate_status,omitempty"`      // 参与状态, 示例值: 1, 可选值有: 1: 未参与, 2: 参与, 3: 爽约
-	BeginTime             *int64  `json:"begin_time,omitempty"`              // 开始时间, 示例值: 1618500278638
-	EndTime               *int64  `json:"end_time,omitempty"`                // 结束时间, 示例值: 1618500278639
+	ExternalID            *string                                              `json:"external_id,omitempty"`             // 外部系统面试主键 （仅用于幂等）- 若不传此值, 则不进行幂等校验- 若传此值, 则用于幂等校验, 同一`external_id` 24小时内仅可创建一次示例值: "7396034232747641133"
+	ExternalApplicationID string                                               `json:"external_application_id,omitempty"` // 外部投递 ID, 可通过[查询外部投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_application/list)接口获取示例值: "6960663240925956437"
+	ParticipateStatus     *int64                                               `json:"participate_status,omitempty"`      // 参与状态示例值: 1可选值有: 未参与参与爽约
+	BeginTime             *int64                                               `json:"begin_time,omitempty"`              // 开始时间, 毫秒时间戳（字段类型为: int64）示例值: 1618500278638
+	EndTime               *int64                                               `json:"end_time,omitempty"`                // 结束时间, 毫秒时间戳（字段类型为: int64）示例值: 1618500278639
+	InterviewAssessments  []*CreateHireExternalInterviewReqInterviewAssessment `json:"interview_assessments,omitempty"`   // 面试评价列表
+}
+
+// CreateHireExternalInterviewReqInterviewAssessment ...
+type CreateHireExternalInterviewReqInterviewAssessment struct {
+	Username                *string                                                                 `json:"username,omitempty"`                  // 面试官姓名示例值: "张三"
+	Conclusion              *int64                                                                  `json:"conclusion,omitempty"`                // 面试结论示例值: 1可选值有: 不通过通过待定
+	AssessmentDimensionList []*CreateHireExternalInterviewReqInterviewAssessmentAssessmentDimension `json:"assessment_dimension_list,omitempty"` // 评价维度列表
+	Content                 *string                                                                 `json:"content,omitempty"`                   // 综合评价示例值: "第一次面试"
+}
+
+// CreateHireExternalInterviewReqInterviewAssessmentAssessmentDimension ...
+type CreateHireExternalInterviewReqInterviewAssessmentAssessmentDimension struct {
+	Score          *int64   `json:"score,omitempty"`           // 打分题分数（当维度类型为「打分题」时使用）示例值: 99
+	Option         *string  `json:"option,omitempty"`          // 单选选项（当维度类型为「单选题」时使用）示例值: "选项1"
+	Options        []string `json:"options,omitempty"`         // 多选选项（当维度类型为「多选题」时使用）示例值: ["选项1"]
+	Content        *string  `json:"content,omitempty"`         // 描述内容（当维度类型为「描述题」时使用）示例值: "不错的面试内容"
+	AssessmentType *int64   `json:"assessment_type,omitempty"` // 维度类型示例值: 1可选值有: 打分题单选题描述题多选题
+	Title          *string  `json:"title,omitempty"`           // 维度标题示例值: "面试测试"
+	Description    *string  `json:"description,omitempty"`     // 维度描述示例值: "这是一次测试"
 }
 
 // CreateHireExternalInterviewResp ...
@@ -72,11 +92,32 @@ type CreateHireExternalInterviewResp struct {
 
 // CreateHireExternalInterviewRespExternalInterview ...
 type CreateHireExternalInterviewRespExternalInterview struct {
-	ExternalApplicationID string `json:"external_application_id,omitempty"` // 外部投递 ID
-	ID                    string `json:"id,omitempty"`                      // 外部面试 ID
-	ParticipateStatus     int64  `json:"participate_status,omitempty"`      // 参与状态, 可选值有: 1: 未参与, 2: 参与, 3: 爽约
-	BeginTime             int64  `json:"begin_time,omitempty"`              // 开始时间
-	EndTime               int64  `json:"end_time,omitempty"`                // 结束时间
+	ExternalApplicationID string                                                                 `json:"external_application_id,omitempty"` // 外部投递 ID
+	ID                    string                                                                 `json:"id,omitempty"`                      // 外部面试 ID（由飞书招聘系统生成）
+	ParticipateStatus     int64                                                                  `json:"participate_status,omitempty"`      // 参与状态可选值有: 未参与参与爽约
+	BeginTime             int64                                                                  `json:"begin_time,omitempty"`              // 开始时间, 毫秒时间戳（字段类型为: int64）
+	EndTime               int64                                                                  `json:"end_time,omitempty"`                // 结束时间, 毫秒时间戳（字段类型为: int64）
+	InterviewAssessments  []*CreateHireExternalInterviewRespExternalInterviewInterviewAssessment `json:"interview_assessments,omitempty"`   // 面试评价列表
+}
+
+// CreateHireExternalInterviewRespExternalInterviewInterviewAssessment ...
+type CreateHireExternalInterviewRespExternalInterviewInterviewAssessment struct {
+	ID                      string                                                                                    `json:"id,omitempty"`                        // 外部面评 ID
+	Username                string                                                                                    `json:"username,omitempty"`                  // 面试官姓名
+	Conclusion              int64                                                                                     `json:"conclusion,omitempty"`                // 面试结果可选值有: 不通过通过待定
+	AssessmentDimensionList []*CreateHireExternalInterviewRespExternalInterviewInterviewAssessmentAssessmentDimension `json:"assessment_dimension_list,omitempty"` // 评价维度列表
+	Content                 string                                                                                    `json:"content,omitempty"`                   // 综合评价
+}
+
+// CreateHireExternalInterviewRespExternalInterviewInterviewAssessmentAssessmentDimension ...
+type CreateHireExternalInterviewRespExternalInterviewInterviewAssessmentAssessmentDimension struct {
+	Score          int64    `json:"score,omitempty"`           // 打分题分数（当维度类型为「打分题」时使用）
+	Option         string   `json:"option,omitempty"`          // 单选选项（当维度类型为「单选题」时使用）
+	Options        []string `json:"options,omitempty"`         // 多选选项（当维度类型为「多选题」时使用）
+	Content        string   `json:"content,omitempty"`         // 描述内容（当维度类型为「描述题」时使用）
+	AssessmentType int64    `json:"assessment_type,omitempty"` // 维度类型可选值有: 打分题单选题描述题多选题
+	Title          string   `json:"title,omitempty"`           // 维度标题
+	Description    string   `json:"description,omitempty"`     // 维度描述
 }
 
 // createHireExternalInterviewResp ...

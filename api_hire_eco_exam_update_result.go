@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// UpdateHiredEcoExamResult 回传笔试结果。回传笔试结果后, 若需更新笔试结果, 可再次调用该接口更新笔试结果, 更新后的数据将覆盖原数据。用户若已在飞书招聘完成阅卷, 不再支持回传笔试结果。
+// UpdateHiredEcoExamResult 飞书招聘的笔试服务商, 可通过该接口回传候选人的笔试结果。回传笔试结果后, 候选人在飞书招聘内的笔试状态将变为「已作答」。
+//
+// * 该接口支持重复调用, 每次调用将覆盖前序调用回传的笔试结果。如回传后需更新笔试结果, 可再次调用该接口。
+// * 若客户已在飞书招聘内完成阅卷, 则无法再调用该接口更新笔试结果。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_exam/update_result
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/ecological-docking/eco_exam/update_result
@@ -58,30 +61,29 @@ func (r *Mock) UnMockHireUpdateHiredEcoExamResult() {
 
 // UpdateHiredEcoExamResultReq ...
 type UpdateHiredEcoExamResultReq struct {
-	ExamID     string                               `path:"exam_id" json:"-"`      // exam id, 示例值: "7178536692385679677"
-	Result     string                               `json:"result,omitempty"`      // 笔试结果, 推荐传"0"-"100" 的数字(字符串格式), 如"60", "90", 该字段表示该场笔试考生考试的成绩, 示例值: "60.5"
-	ResultTime *string                              `json:"result_time,omitempty"` // 笔试结果时间, 示例值: "1658676234053"
+	ExamID     string                               `path:"exam_id" json:"-"`      // 笔试 ID, 可通过[创建笔试](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_exam/events/created)事件获取示例值: "7178536692385679677"
+	Result     string                               `json:"result,omitempty"`      // 笔试结果。表示该场笔试考生的笔试成绩, 推荐传 "0"-"100" 的数字（字符串格式）, 如 "60"、"90" 等示例值: "60.5"
+	ResultTime *string                              `json:"result_time,omitempty"` // 笔试结果时间, 毫秒时间戳示例值: "1658676234053"
 	ReportList []*UpdateHiredEcoExamResultReqReport `json:"report_list,omitempty"` // 报告列表
 	DetailList []*UpdateHiredEcoExamResultReqDetail `json:"detail_list,omitempty"` // 详细评价结果
 }
 
 // UpdateHiredEcoExamResultReqDetail ...
 type UpdateHiredEcoExamResultReqDetail struct {
-	ID     *string `json:"id,omitempty"`     // 评价 ID, 示例值: "pj001"
-	Name   string  `json:"name,omitempty"`   // 评价名称, 示例值: "基本功"
-	Result string  `json:"result,omitempty"` // 评价结果, 示例值: "优秀"
+	ID     *string `json:"id,omitempty"`     // 评价项 ID, 由调用方自定义示例值: "pj001"
+	Name   string  `json:"name,omitempty"`   // 评价项名称, 由调用方自定义。 单次调用支持传入多个相同的评价项名称, 结果将在「飞书招聘」-「候选人详情」-「笔试卡片」中并列展示示例值: "基本功"
+	Result string  `json:"result,omitempty"` // 评价结果, 由调用方自定义示例值: "优秀"
 }
 
 // UpdateHiredEcoExamResultReqReport ...
 type UpdateHiredEcoExamResultReqReport struct {
-	Name       string  `json:"name,omitempty"`        // 报告名称, 示例值: "阶段报告.pdf"
-	URL        string  `json:"url,omitempty"`         // 报告链接, 示例值: "https://xxxxx/xxxxxx/xxxx.pdf"
-	AnswerTime *string `json:"answer_time,omitempty"` // 作答完成时间(毫秒时间戳), 示例值: "1658676234053"
+	Name       string  `json:"name,omitempty"`        // 报告名称示例值: "张三的笔试结果.pdf"
+	URL        string  `json:"url,omitempty"`         // 报告链接示例值: "https://xxxxx/xxxxxx/xxxx.pdf"
+	AnswerTime *string `json:"answer_time,omitempty"` // 作答完成时间, 毫秒时间戳示例值: "1658676234053"
 }
 
 // UpdateHiredEcoExamResultResp ...
-type UpdateHiredEcoExamResultResp struct {
-}
+type UpdateHiredEcoExamResultResp struct{}
 
 // updateHiredEcoExamResultResp ...
 type updateHiredEcoExamResultResp struct {

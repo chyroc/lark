@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2HelpdeskTicketMessageCreatedV1 该消息事件属于工单消息事件。需使用订阅接口订阅: [事件订阅](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/event/subscribe)。
+// EventV2HelpdeskTicketMessageCreatedV1 该消息事件属于工单消息事件。需使用订阅接口订阅: [事件订阅](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/event/subscribe)。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=helpdesk&version=v1&resource=ticket_message&event=created)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_message/events/created
 // new doc: https://open.feishu.cn/document/server-docs/helpdesk-v1/ticket-management/ticket-message/events/created
@@ -58,18 +58,18 @@ type EventV2HelpdeskTicketMessageCreatedV1Content struct {
 // EventV2HelpdeskTicketMessageCreatedV1SenderID ...
 type EventV2HelpdeskTicketMessageCreatedV1SenderID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
 // EventV2HelpdeskTicketMessageCreatedV1Ticket ...
 type EventV2HelpdeskTicketMessageCreatedV1Ticket struct {
-	TicketID                   string                                                            `json:"ticket_id,omitempty"`                     // 工单ID, [可以从工单列表里面取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list), [也可以订阅工单创建事件获取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created)
+	TicketID                   string                                                            `json:"ticket_id,omitempty"`                     // 工单ID[可以从工单列表里面取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list)[也可以订阅工单创建事件获取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created)
 	Comments                   *EventV2HelpdeskTicketMessageCreatedV1TicketComments              `json:"comments,omitempty"`                      // 备注
 	TicketType                 int64                                                             `json:"ticket_type,omitempty"`                   // 工单阶段: 1. 机器人 2. 人工
 	Status                     int64                                                             `json:"status,omitempty"`                        // 工单状态, 1: 已创建 2: 处理中 3: 排队中 4: 待定 5: 待用户响应 50: 被机器人关闭 51: 被客服关闭 52: 用户自己关闭
 	DissatisfactionReason      *EventV2HelpdeskTicketMessageCreatedV1TicketDissatisfactionReason `json:"dissatisfaction_reason,omitempty"`        // 不满意原因
-	CustomizedFields           []*EventV2HelpdeskTicketMessageCreatedV1TicketCustomizedField     `json:"customized_fields,omitempty"`             // 自定义字段列表, 没有值时不设置, 下拉菜单的value对应工单字段里面的children.display_name, [获取全部工单自定义字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/list-ticket-customized-fields)
+	CustomizedFields           []*EventV2HelpdeskTicketMessageCreatedV1TicketCustomizedField     `json:"customized_fields,omitempty"`             // 自定义字段列表, 没有值时不设置  下拉菜单的value对应工单字段里面的children.display_name[获取全部工单自定义字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/list-ticket-customized-fields)
 	AgentServiceDuration       float64                                                           `json:"agent_service_duration,omitempty"`        // 客服服务时长, 客服最后一次回复时间距离客服进入时间间隔, 单位分钟
 	AgentFirstResponseDuration int64                                                             `json:"agent_first_response_duration,omitempty"` // 客服首次回复时间距离客服进入时间的间隔(秒)
 	BotServiceDuration         int64                                                             `json:"bot_service_duration,omitempty"`          // 机器人服务时间: 客服进入时间距离工单创建时间的间隔, 单位秒

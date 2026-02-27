@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UpdateContactJobLevel 该接口用于更新职级信息。
+// UpdateContactJobLevel 调用该接口更新指定职级的信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_level/update
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/job_level/update
@@ -58,53 +58,53 @@ func (r *Mock) UnMockContactUpdateContactJobLevel() {
 
 // UpdateContactJobLevelReq ...
 type UpdateContactJobLevelReq struct {
-	JobLevelID      string                                     `path:"job_level_id" json:"-"`      // 职级ID, 示例值: "mga5oa8ayjlp9rb"
-	Name            *string                                    `json:"name,omitempty"`             // 职级名称, 示例值: "高级专家", 长度范围: `1` ～ `255` 字符
-	Description     *string                                    `json:"description,omitempty"`      // 职级描述, 示例值: "公司内部中高级职称, 有一定专业技术能力的人员"
-	Order           *int64                                     `json:"order,omitempty"`            // 职级的排序, 可填入自然数100-100000的数值, 系统按照数值大小从小到大排序。不填写该字段时, 默认新增排序在当前职级列表中最后位（最大值）, 示例值: 200, 取值范围: `100` ～ `100000`
-	Status          *bool                                      `json:"status,omitempty"`           // 是否启用, 示例值: true
-	I18nName        []*UpdateContactJobLevelReqI18nName        `json:"i18n_name,omitempty"`        // 多语言名称
-	I18nDescription []*UpdateContactJobLevelReqI18nDescription `json:"i18n_description,omitempty"` // 多语言描述
+	JobLevelID      string                                     `path:"job_level_id" json:"-"`      // 职级 ID。获取方式: 创建职级时, 可以从返回结果中获取职级 ID。- 调用[获取租户职级列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_level/list)接口, 查找指定职级的 ID 信息。示例值: "mga5oa8ayjlp9rb"
+	Name            *string                                    `json:"name,omitempty"`             // 职级的通用名称。如果未设置多语言名称, 则默认展示该名称。默认值: 空, 表示不更新。示例值: "高级专家" 长度范围: `1` ～ `255` 字符
+	Description     *string                                    `json:"description,omitempty"`      // 职级的通用描述。如果未设置多语言描述, 则默认展示该描述。默认值: 空, 表示不更新。示例值: "公司内部中高级职称, 有一定专业技术能力的人员"
+	Order           *int64                                     `json:"order,omitempty"`            // 职级排序。数值越小, 排序越靠前。默认值: 空, 表示不更新。示例值: 200 取值范围: `100` ～ `100000
+	Status          *bool                                      `json:"status,omitempty"`           // 是否启用该职级。可选值有: true: 启用- false: 不启用默认值: 空, 表示不更新。示例值: true
+	I18nName        []*UpdateContactJobLevelReqI18nName        `json:"i18n_name,omitempty"`        // 多语言职级名称。
+	I18nDescription []*UpdateContactJobLevelReqI18nDescription `json:"i18n_description,omitempty"` // 多语言职级描述。
 }
 
 // UpdateContactJobLevelReqI18nDescription ...
 type UpdateContactJobLevelReqI18nDescription struct {
-	Locale *string `json:"locale,omitempty"` // 语言版本, 示例值: "zh_cn"
-	Value  *string `json:"value,omitempty"`  // 字段名, 示例值: "多语言内容"
+	Locale *string `json:"locale,omitempty"` // 语言版本。例如: zh_cn: 中文- en_us: 英语- ja_jp: 日语示例值: "zh_cn"
+	Value  *string `json:"value,omitempty"`  // 语言版本对应的职级描述。示例值: "多语言内容"
 }
 
 // UpdateContactJobLevelReqI18nName ...
 type UpdateContactJobLevelReqI18nName struct {
-	Locale *string `json:"locale,omitempty"` // 语言版本, 示例值: "zh_cn"
-	Value  *string `json:"value,omitempty"`  // 字段名, 示例值: "多语言内容"
+	Locale *string `json:"locale,omitempty"` // 语言版本。例如: zh_cn: 中文- en_us: 英语- ja_jp: 日语默认值: 空, 表示不更新。示例值: "zh_cn"
+	Value  *string `json:"value,omitempty"`  // 语言版本对应的职级名称。默认值: 空, 表示不更新。示例值: "多语言内容"
 }
 
 // UpdateContactJobLevelResp ...
 type UpdateContactJobLevelResp struct {
-	JobLevel *UpdateContactJobLevelRespJobLevel `json:"job_level,omitempty"` // 职级信息
+	JobLevel *UpdateContactJobLevelRespJobLevel `json:"job_level,omitempty"` // 职级信息。
 }
 
 // UpdateContactJobLevelRespJobLevel ...
 type UpdateContactJobLevelRespJobLevel struct {
-	Name            string                                              `json:"name,omitempty"`             // 职级名称
-	Description     string                                              `json:"description,omitempty"`      // 职级描述
-	Order           int64                                               `json:"order,omitempty"`            // 职级的排序, 可填入自然数100-100000的数值, 系统按照数值大小从小到大排序。不填写该字段时, 默认新增排序在当前职级列表中最后位（最大值）
-	Status          bool                                                `json:"status,omitempty"`           // 是否启用
-	JobLevelID      string                                              `json:"job_level_id,omitempty"`     // 职级ID
-	I18nName        []*UpdateContactJobLevelRespJobLevelI18nName        `json:"i18n_name,omitempty"`        // 多语言名称
-	I18nDescription []*UpdateContactJobLevelRespJobLevelI18nDescription `json:"i18n_description,omitempty"` // 多语言描述
+	Name            string                                              `json:"name,omitempty"`             // 职级名称。
+	Description     string                                              `json:"description,omitempty"`      // 职级描述。
+	Order           int64                                               `json:"order,omitempty"`            // 职级排序。数值越小, 排序越靠前。
+	Status          bool                                                `json:"status,omitempty"`           // 是否启用职级。可能值有: true: 启用false: 不启用
+	JobLevelID      string                                              `json:"job_level_id,omitempty"`     // 职级 ID。后续可通过该 ID 删除、更新、查询职级。
+	I18nName        []*UpdateContactJobLevelRespJobLevelI18nName        `json:"i18n_name,omitempty"`        // 多语言名称。
+	I18nDescription []*UpdateContactJobLevelRespJobLevelI18nDescription `json:"i18n_description,omitempty"` // 多语言描述。
 }
 
 // UpdateContactJobLevelRespJobLevelI18nDescription ...
 type UpdateContactJobLevelRespJobLevelI18nDescription struct {
-	Locale string `json:"locale,omitempty"` // 语言版本
-	Value  string `json:"value,omitempty"`  // 字段名
+	Locale string `json:"locale,omitempty"` // 语言版本。
+	Value  string `json:"value,omitempty"`  // 语言版本对应的描述。
 }
 
 // UpdateContactJobLevelRespJobLevelI18nName ...
 type UpdateContactJobLevelRespJobLevelI18nName struct {
-	Locale string `json:"locale,omitempty"` // 语言版本
-	Value  string `json:"value,omitempty"`  // 字段名
+	Locale string `json:"locale,omitempty"` // 语言版本。
+	Value  string `json:"value,omitempty"`  // 语言版本对应的名称。
 }
 
 // updateContactJobLevelResp ...

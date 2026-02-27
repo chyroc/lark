@@ -24,6 +24,8 @@ import (
 // DeleteDriveMemberPermissionOld 该接口用于根据 filetoken 移除文档协作者的权限。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYTN3UjL2UzN14iN1cTN
+//
+// Deprecated
 func (r *DriveService) DeleteDriveMemberPermissionOld(ctx context.Context, request *DeleteDriveMemberPermissionOldReq, options ...MethodOptionFunc) (*DeleteDriveMemberPermissionOldResp, *Response, error) {
 	if r.cli.mock.mockDriveDeleteDriveMemberPermissionOld != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#DeleteDriveMemberPermissionOld mock enable")

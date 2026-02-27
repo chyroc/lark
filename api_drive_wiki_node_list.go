@@ -63,10 +63,10 @@ func (r *Mock) UnMockDriveGetWikiNodeList() {
 
 // GetWikiNodeListReq ...
 type GetWikiNodeListReq struct {
-	SpaceID         string  `path:"space_id" json:"-"`           // 知识空间id, 示例值: "6946843325487906839"
-	PageSize        *int64  `query:"page_size" json:"-"`         // 分页大小, 示例值: 10, 最大值: `50`
-	PageToken       *string `query:"page_token" json:"-"`        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 6946843325487456878
-	ParentNodeToken *string `query:"parent_node_token" json:"-"` // 父节点token, 示例值: wikcnKQ1k3p**8Vabce
+	SpaceID         string  `path:"space_id" json:"-"`           // [知识空间id](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-overview), 如果查询我的文档库可替换为`my_library`示例值: "6946843325487906839"
+	PageSize        *int64  `query:"page_size" json:"-"`         // 分页大小示例值: 10 最大值: `50
+	PageToken       *string `query:"page_token" json:"-"`        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 6946843325487456878
+	ParentNodeToken *string `query:"parent_node_token" json:"-"` // 父节点token示例值: wikcnKQ1k3p**8Vabce
 }
 
 // GetWikiNodeListResp ...
@@ -78,12 +78,12 @@ type GetWikiNodeListResp struct {
 
 // GetWikiNodeListRespItem ...
 type GetWikiNodeListRespItem struct {
-	SpaceID         string `json:"space_id,omitempty"`          // 知识空间id, [获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-overview)
+	SpaceID         string `json:"space_id,omitempty"`          // 知识空间id[获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-overview)
 	NodeToken       string `json:"node_token,omitempty"`        // 节点token
 	ObjToken        string `json:"obj_token,omitempty"`         // 对应文档类型的token, 可根据 obj_type 判断属于哪种文档类型。
-	ObjType         string `json:"obj_type,omitempty"`          // 文档类型, 对于快捷方式, 该字段是对应的实体的obj_type, 可选值有: doc: 旧版文档, sheet: 表格, mindnote: 思维导图, bitable: 多维表格, file: 文件, docx: 新版文档
+	ObjType         string `json:"obj_type,omitempty"`          // 文档类型, 对于快捷方式, 该字段是对应的实体的obj_type。可选值有: 旧版文档表格思维导图多维表格文件新版文档幻灯片
 	ParentNodeToken string `json:"parent_node_token,omitempty"` // 父节点 token。若当前节点为一级节点, 父节点 token 为空。
-	NodeType        string `json:"node_type,omitempty"`         // 节点类型, 可选值有: origin: 实体, shortcut: 快捷方式
+	NodeType        string `json:"node_type,omitempty"`         // 节点类型可选值有: 实体快捷方式
 	OriginNodeToken string `json:"origin_node_token,omitempty"` // 快捷方式对应的实体node_token, 当节点为快捷方式时, 该值不为空。
 	OriginSpaceID   string `json:"origin_space_id,omitempty"`   // 快捷方式对应的实体所在的space id
 	HasChild        bool   `json:"has_child,omitempty"`         // 是否有子节点
@@ -93,6 +93,7 @@ type GetWikiNodeListRespItem struct {
 	NodeCreateTime  string `json:"node_create_time,omitempty"`  // 节点创建时间
 	Creator         string `json:"creator,omitempty"`           // 节点创建者
 	Owner           string `json:"owner,omitempty"`             // 节点所有者
+	NodeCreator     string `json:"node_creator,omitempty"`      // 节点创建者
 }
 
 // getWikiNodeListResp ...

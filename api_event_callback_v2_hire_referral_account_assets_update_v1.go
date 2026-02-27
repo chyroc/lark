@@ -21,13 +21,14 @@ import (
 	"context"
 )
 
-// EventV2HireReferralAccountAssetsUpdateV1 当内推账号余额发生变更时, 触发该事件。
+// EventV2HireReferralAccountAssetsUpdateV1 当内推账户余额发生变更（增加或者减少）时, 触发该事件。该事件将推送变更后的账户余额信息。收到事件后, 如需将余额提现到三方平台发放给用户, 请使用接口 [全额提取内推账户余额](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/withdraw)。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=hire&version=v1&resource=referral_account&event=assets_update)
 //
-// - 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
-// - 订阅前, 请确认已完成[「注册外部系统内推账户」](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/create), 约定需推送的内推账号范围。收到事件后, 如需将余额充值到三方平台发放给用户, 请使用接口[「全额扣减内推奖励的积分总额」](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/withdraw)
-// 配合接口: [注册外部系统内推账户](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/create)、[全额扣减内推奖励的积分总额](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/withdraw)
+// 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
+// ## 前提条件
+// 订阅前, 请确认已完成 [注册内推账户](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/create)。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/events/assets_update
+// new doc: https://open.feishu.cn/document/hire-v1/referral_account/events/assets_update
 func (r *EventCallbackService) HandlerEventV2HireReferralAccountAssetsUpdateV1(f EventV2HireReferralAccountAssetsUpdateV1Handler) {
 	r.cli.eventHandler.eventV2HireReferralAccountAssetsUpdateV1Handler = f
 }
@@ -37,9 +38,9 @@ type EventV2HireReferralAccountAssetsUpdateV1Handler func(ctx context.Context, c
 
 // EventV2HireReferralAccountAssetsUpdateV1 ...
 type EventV2HireReferralAccountAssetsUpdateV1 struct {
-	AccountID  string                                          `json:"account_id,omitempty"`  // 账户ID, 同一用户在同一租户同一应用中账户唯一
+	AccountID  string                                          `json:"account_id,omitempty"`  // 账户 ID, 同一用户在同一租户同一应用中账户唯一
 	Assets     *EventV2HireReferralAccountAssetsUpdateV1Assets `json:"assets,omitempty"`      // 账户余额信息
-	ModifyTime string                                          `json:"modify_time,omitempty"` // 变更时间
+	ModifyTime string                                          `json:"modify_time,omitempty"` // 变更事件戳（单位: 毫秒）
 }
 
 // EventV2HireReferralAccountAssetsUpdateV1Assets ...
@@ -49,5 +50,12 @@ type EventV2HireReferralAccountAssetsUpdateV1Assets struct {
 
 // EventV2HireReferralAccountAssetsUpdateV1AssetsConfirmedBonus ...
 type EventV2HireReferralAccountAssetsUpdateV1AssetsConfirmedBonus struct {
-	PointBonus int64 `json:"point_bonus,omitempty"` // 积分奖励
+	PointBonus int64                                                                   `json:"point_bonus,omitempty"` // 积分奖励
+	CashBonus  []*EventV2HireReferralAccountAssetsUpdateV1AssetsConfirmedBonusCashBonu `json:"cash_bonus,omitempty"`  // 现金奖励
+}
+
+// EventV2HireReferralAccountAssetsUpdateV1AssetsConfirmedBonusCashBonu ...
+type EventV2HireReferralAccountAssetsUpdateV1AssetsConfirmedBonusCashBonu struct {
+	CurrencyType string  `json:"currency_type,omitempty"` // 币种, 详情可查看: [枚举常量介绍](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/enum)中「币种（currency）枚举定义」
+	Amount       float64 `json:"amount,omitempty"`        // 数额, 保留到小数点后两位
 }

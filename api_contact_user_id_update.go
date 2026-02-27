@@ -21,9 +21,13 @@ import (
 	"context"
 )
 
-// UpdateUserID 此接口可用于更新用户ID(user_id)。新的用户ID(user_id)需要保证企业内未被占用。
+// UpdateUserID 调用该接口更新用户的 user_id。
+//
+// ## 注意事项
+// 更新后的用户 user_id 需要保证在当前租户内未被占用。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/update_user_id
+// new doc: https://open.feishu.cn/document/contact-v3/user/update_user_id
 func (r *ContactService) UpdateUserID(ctx context.Context, request *UpdateUserIDReq, options ...MethodOptionFunc) (*UpdateUserIDResp, *Response, error) {
 	if r.cli.mock.mockContactUpdateUserID != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#UpdateUserID mock enable")
@@ -57,14 +61,13 @@ func (r *Mock) UnMockContactUpdateUserID() {
 
 // UpdateUserIDReq ...
 type UpdateUserIDReq struct {
-	UserID     string  `path:"user_id" json:"-"`       // 用户ID, ID类型与user_id_type一致, 示例值: "ou-938e3e4fdc5e1993bee01250076f0cc2"
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	NewUserID  string  `json:"new_user_id,omitempty"`  // 自定义新用户ID(user_id), 示例值: "3e3cf96b"
+	UserID     string  `path:"user_id" json:"-"`       // 用户 ID, ID 类型与查询参数 user_id_type 的取值保持一致。示例值: "ou-938e3e4fdc5e1993bee01250076f0cc2"
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	NewUserID  string  `json:"new_user_id,omitempty"`  // 自定义新的用户 user_id。长度不能超过 64 字符。示例值: "3e3cf96b"
 }
 
 // UpdateUserIDResp ...
-type UpdateUserIDResp struct {
-}
+type UpdateUserIDResp struct{}
 
 // updateUserIDResp ...
 type updateUserIDResp struct {

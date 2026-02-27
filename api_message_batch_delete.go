@@ -21,13 +21,14 @@ import (
 	"context"
 )
 
-// BatchDeleteMessage 批量撤回通过[批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)接口发送的消息。
+// BatchDeleteMessage 该接口用于撤回通过[批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)接口发送的消息。
 //
-// 注意事项:
-// - 应用需要启用[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
-// - 撤回单条发送的消息请使用[撤回消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/delete)接口
-// - 不支持撤回发出时间超过1天的消息
-// - 一次调用涉及大量消息, 所以为异步接口, 会有一定延迟
+// ## 前提条件
+// 应用需要启用[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// ## 使用限制
+// - 仅支持撤回通过[批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)接口发送的消息。如果你需要撤回单条消息, 请使用[撤回消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/delete)接口。
+// - 不支持撤回时间较久的消息。撤回的消息需要符合由企业管理员设置的撤回时限。详情了解[管理员设置撤回和编辑消息权限](https://www.feishu.cn/hc/zh-CN/articles/325339752183)。
+// - 该接口为异步接口, 会有一定延迟。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/batch_message/delete
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/batch_message/delete
@@ -64,12 +65,11 @@ func (r *Mock) UnMockMessageBatchDeleteMessage() {
 
 // BatchDeleteMessageReq ...
 type BatchDeleteMessageReq struct {
-	BatchMessageID string `path:"batch_message_id" json:"-"` // 待撤回的批量消息任务 ID, 为[批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)接口返回值中的`message_id`字段, 用于标识一次批量发送消息请求, 示例值: "bm-dc13264520392913993dd051dba21dcf"
+	BatchMessageID string `path:"batch_message_id" json:"-"` // 待撤回的批量消息任务 ID, 该 ID 为[批量发送消息](https://open.feishu.cn/document/ukTMukTMukTM/ucDO1EjL3gTNx4yN4UTM)接口返回值中的`message_id`字段, 用于标识一次批量发送消息请求。示例值: "bm-dc13264520392913993dd051dba21dcf"
 }
 
 // BatchDeleteMessageResp ...
-type BatchDeleteMessageResp struct {
-}
+type BatchDeleteMessageResp struct{}
 
 // batchDeleteMessageResp ...
 type batchDeleteMessageResp struct {

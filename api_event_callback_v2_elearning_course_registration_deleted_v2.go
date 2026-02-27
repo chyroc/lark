@@ -21,9 +21,10 @@ import (
 	"context"
 )
 
-// EventV2ElearningCourseRegistrationDeletedV2 课程学习进度删除时触发
+// EventV2ElearningCourseRegistrationDeletedV2 课程学习进度删除时触发{使用示例}(url=/api/tools/api_explore/api_explore_config?project=elearning&version=v2&resource=course_registration&event=deleted)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/elearning-v2/course_registration/events/deleted
+// new doc: https://open.feishu.cn/document/elearning-v2/course_registration/events/deleted
 func (r *EventCallbackService) HandlerEventV2ElearningCourseRegistrationDeletedV2(f EventV2ElearningCourseRegistrationDeletedV2Handler) {
 	r.cli.eventHandler.eventV2ElearningCourseRegistrationDeletedV2Handler = f
 }
@@ -47,6 +48,6 @@ type EventV2ElearningCourseRegistrationDeletedV2Learner struct {
 // EventV2ElearningCourseRegistrationDeletedV2LearnerUserID ...
 type EventV2ElearningCourseRegistrationDeletedV2LearnerUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }

@@ -21,7 +21,12 @@ import (
 	"context"
 )
 
-// EventV2CorehrPersonCreatedV1 个人信息创建
+// EventV2CorehrPersonCreatedV1 目前以下场景会触发该事件:
+//
+// - 调用[【创建个人信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/person/create)、[【添加人员】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/create)接口
+// - 人事系统【添加人员】、【导入人员】功能{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=person&event=created)
+// - 目前事件不保证有序
+// - 创建个人信息后, 可能同时触发计算字段的变更, 所以也会发送[【更新个人信息事件】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/person/events/updated)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/person/events/created
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/person/created

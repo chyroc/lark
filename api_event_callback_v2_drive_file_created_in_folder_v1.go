@@ -21,9 +21,11 @@ import (
 	"context"
 )
 
-// EventV2DriveFileCreatedInFolderV1 当用户订阅的文件夹下有新建文件时将触发此事件。
+// EventV2DriveFileCreatedInFolderV1 当用户订阅的文件夹下有新建文件时将触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=drive&version=v1&resource=file&event=created_in_folder)
 //
-// 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
+// 了解事件订阅的使用场景和配置流程, 参考[事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
+// ## 前提条件
+// 添加该事件之前, 你需确保已调用[订阅云文档事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/subscribe)接口。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/event/list/file-created-in-folder
 func (r *EventCallbackService) HandlerEventV2DriveFileCreatedInFolderV1(f EventV2DriveFileCreatedInFolderV1Handler) {
@@ -35,4 +37,16 @@ type EventV2DriveFileCreatedInFolderV1Handler func(ctx context.Context, cli *Lar
 
 // EventV2DriveFileCreatedInFolderV1 ...
 type EventV2DriveFileCreatedInFolderV1 struct {
+	FileType      FileType                                     `json:"file_type,omitempty"`      // 文件类型, 与文件的 file_token 相匹配示例值: docx    可选值有: 旧版文档新版文档电子表格多维表格幻灯片文件 长度范围: `1` ～ `50` 字符
+	FileToken     string                                       `json:"file_token,omitempty"`     // 文件的 token, 获取方式见 [如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)示例值: docxnBKgoMyY5OMbUG6FioTXuBe 长度范围: `22` ～ `27` 字符
+	FolderToken   string                                       `json:"folder_token,omitempty"`   // 文件夹 Token。获取方式见[文件夹概述](https://open.feishu.cn/document/ukTMukTMukTM/ugTNzUjL4UzM14CO1MTN/folder-overview) 长度范围: `22` ～ `27` 字符
+	OperatorID    *EventV2DriveFileCreatedInFolderV1OperatorID `json:"operator_id,omitempty"`    // 操作者的用户 ID
+	SubscriberIDs []string                                     `json:"subscriber_ids,omitempty"` // 订阅者的用户 ID 列表 长度范围: `0` ～ `100
+}
+
+// EventV2DriveFileCreatedInFolderV1OperatorID ...
+type EventV2DriveFileCreatedInFolderV1OperatorID struct {
+	UnionID string `json:"union_id,omitempty"` // 用户的 union id
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
+	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }

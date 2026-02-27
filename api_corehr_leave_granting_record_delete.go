@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// DeleteCoreHRLeaveGrantingRecord 删除飞书人事休假系统中的假期发放记录（仅支持删除发放来源是「手动发放」或「外部系统发放」的记录）。
+// DeleteCoreHRLeaveGrantingRecord 删除飞书人事休假系统中的发放记录, 假勤管理-休假管理-[发放记录](https://example.feishu.cn/people/workforce-management/manage/leave/leave_admin/granting_record)（仅支持删除发放来源是「手动发放」或「外部系统发放」的记录）。
 //
 // 仅飞书人事企业版可用
 //
@@ -60,12 +60,11 @@ func (r *Mock) UnMockCoreHRDeleteCoreHRLeaveGrantingRecord() {
 
 // DeleteCoreHRLeaveGrantingRecordReq ...
 type DeleteCoreHRLeaveGrantingRecordReq struct {
-	LeaveGrantingRecordID string `path:"leave_granting_record_id" json:"-"` // 假期发放记录 ID, 示例值: "6893014062142064135"
+	LeaveGrantingRecordID string `path:"leave_granting_record_id" json:"-"` // 假期发放记录 ID, 从[创建假期发放记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave_granting_record/create)中可以获得示例值: "6893014062142064135"
 }
 
 // DeleteCoreHRLeaveGrantingRecordResp ...
-type DeleteCoreHRLeaveGrantingRecordResp struct {
-}
+type DeleteCoreHRLeaveGrantingRecordResp struct{}
 
 // deleteCoreHRLeaveGrantingRecordResp ...
 type deleteCoreHRLeaveGrantingRecordResp struct {

@@ -21,10 +21,13 @@ import (
 	"context"
 )
 
-// SubscribeApprovalSubscription 应用订阅 approval_code 后, 该应用就可以收到该审批定义对应实例的事件通知。同一应用只需要订阅一次, 无需重复订阅。
+// SubscribeApprovalSubscription 当应用[订阅审批事件](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)后, 需要调用该接口指定审批定义 Code（approval_code）开启订阅, 开启后应用才可以接收该审批定义对应的事件。
 //
-// 当应用不希望再收到审批事件时, 可以使用取消订阅接口进行取消, 取消后将不再给应用推送消息。
-// 订阅和取消订阅都是应用维度的, 多个应用可以同时订阅同一个 approval_code, 每个应用都能收到审批事件。
+// ## 注意事项
+// - 该接口仅用于开启应用接收审批事件, 实际使用时应用还需要订阅所需的审批事件。例如订阅[审批实例状态变更](https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/common-event/approval-instance-event)事件。
+// - 同一应用只需要调用该接口一次即可, 无需重复调用该接口。
+// - 当应用不再需要接收审批事件时, 可以调用[取消订阅审批事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/unsubscribe)接口, 进行取消, 取消后该应用将不再会收到事件订阅消息。
+// - 订阅和取消订阅接口的实现都是面向应用的, 多个应用可以同时订阅同一个审批定义 Code（approval_code）, 每个应用在都能收到审批事件。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/subscribe
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/event/event-interface/subscribe
@@ -61,12 +64,11 @@ func (r *Mock) UnMockApprovalSubscribeApprovalSubscription() {
 
 // SubscribeApprovalSubscriptionReq ...
 type SubscribeApprovalSubscriptionReq struct {
-	ApprovalCode string `path:"approval_code" json:"-"` // 审批定义唯一标识, 示例值: "7C468A54-8745-2245-9675-08B7C63E7A85"
+	ApprovalCode string `path:"approval_code" json:"-"` // 审批定义 Code。获取方式: 调用[创建审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/create)接口后, 从响应参数 approval_code 获取。- 登录审批管理后台, 在指定审批定义的 URL 中获取, 具体操作参见[什么是 Approval Code](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/overview-of-approval-resources#8151e0ae)。示例值: "7C468A54-8745-2245-9675-08B7C63E7A85"
 }
 
 // SubscribeApprovalSubscriptionResp ...
-type SubscribeApprovalSubscriptionResp struct {
-}
+type SubscribeApprovalSubscriptionResp struct{}
 
 // subscribeApprovalSubscriptionResp ...
 type subscribeApprovalSubscriptionResp struct {

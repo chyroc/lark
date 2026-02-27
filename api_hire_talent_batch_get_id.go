@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// BatchGetHireTalent 通过手机号或邮箱获取人才 ID。
+// BatchGetHireTalent 通过手机号、邮箱、证件号, 批量查询人才ID
+//
+// - 入参的手机号、邮箱、证件号至少需要传一种, 否则无法查询到人才数据
+// - 入参的手机号、邮箱、证件号是AND的逻辑关系。也就是当条件同时满足时才会返回人才数据。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/batch_get_id
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/talent/batch_get_id
@@ -58,11 +61,11 @@ func (r *Mock) UnMockHireBatchGetHireTalent() {
 
 // BatchGetHireTalentReq ...
 type BatchGetHireTalentReq struct {
-	MobileCode               *string  `json:"mobile_code,omitempty"`                // 手机国家区号, 默认值: 86, 即中国大陆地区, 示例值: "86"
-	MobileNumberList         []string `json:"mobile_number_list,omitempty"`         // 手机号, 区号均采用 mobile_code 参数的值, 最多 100 个, 示例值: ["182900291190"]
-	EmailList                []string `json:"email_list,omitempty"`                 // 邮箱信息列表, 最多 100 个, 示例值: ["foo@bytedance.com"]
-	IdentificationType       *int64   `json:"identification_type,omitempty"`        // 证件类型, 可参考招聘枚举常量文档下的 IdentificationType 枚举定义, 示例值: 1
-	IdentificationNumberList []string `json:"identification_number_list,omitempty"` // 证件号, 示例值: ["130xxxxxxx"]
+	MobileCode               *string  `json:"mobile_code,omitempty"`                // 国际区号, 遵守国际统一标准, 请参考[百度百科-国际长途电话区号](https://baike.baidu.com/item/%E5%9B%BD%E9%99%85%E9%95%BF%E9%80%94%E7%94%B5%E8%AF%9D%E5%8C%BA%E5%8F%B7%E8%A1%A8/12803495?fr=ge_ala)。传入手机号但没传区号的情况下, 默认为中国大陆区号: "86"示例值: "86"
+	MobileNumberList         []string `json:"mobile_number_list,omitempty"`         // 手机号列表示例值: ["182900291190"]
+	EmailList                []string `json:"email_list,omitempty"`                 // 邮箱列表示例值: ["foo@bytedance.com"]
+	IdentificationType       *int64   `json:"identification_type,omitempty"`        // 证件类型, 枚举定义详见文档: [枚举常量介绍](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/enum)的 IdentificationType。传入证件号的情况下必须传入该参数示例值: 1
+	IdentificationNumberList []string `json:"identification_number_list,omitempty"` // 证件号列表示例值: ["510403xxxxxxxx"]
 }
 
 // BatchGetHireTalentResp ...
@@ -72,12 +75,13 @@ type BatchGetHireTalentResp struct {
 
 // BatchGetHireTalentRespTalent ...
 type BatchGetHireTalentRespTalent struct {
-	TalentID             string `json:"talent_id,omitempty"`             // 人才 ID
-	MobileCode           string `json:"mobile_code,omitempty"`           // 手机国家区号
-	MobileNumber         string `json:"mobile_number,omitempty"`         // 手机号
-	Email                string `json:"email,omitempty"`                 // 邮箱
-	IdentificationType   int64  `json:"identification_type,omitempty"`   // 证件类型, 可参考招聘枚举常量 IdentificationType 枚举定义
-	IdentificationNumber string `json:"identification_number,omitempty"` // 证件号
+	TalentID             string `json:"talent_id,omitempty"`             // 人才 ID, 详情请查看: [获取人才信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/get)
+	MobileCode           string `json:"mobile_code,omitempty"`           // 国际区号, 遵守国际统一标准, 请参考[百度百科-国际长途电话区号](https://baike.baidu.com/item/%E5%9B%BD%E9%99%85%E9%95%BF%E9%80%94%E7%94%B5%E8%AF%9D%E5%8C%BA%E5%8F%B7%E8%A1%A8/12803495?fr=ge_ala), 仅当入参传入`mobile_number_list `时返回
+	MobileNumber         string `json:"mobile_number,omitempty"`         // 手机号, 仅当入参传入`mobile_number_list`时返回
+	Email                string `json:"email,omitempty"`                 // 邮箱, 仅当入参传入`email_list `时返回
+	IdentificationType   int64  `json:"identification_type,omitempty"`   // 证件类型, 枚举定义详见文档: [枚举常量介绍](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/enum)的 IdentificationType, 仅当入参传入`identification_number_list `时返回
+	IdentificationNumber string `json:"identification_number,omitempty"` // 证件号, 仅当入参传入`identification_number_list `时返回
+	IsOnboarded          bool   `json:"is_onboarded,omitempty"`          // 是否已入职可选值有: 未入职已入职字段权限要求: 获取人才入职状态
 }
 
 // batchGetHireTalentResp ...

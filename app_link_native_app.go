@@ -28,6 +28,7 @@ import (
 // - [iOS](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/native-integration/open-scene-introduction/protocol-components/native-integrated-application/ios-)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/uYjL24iN/applink-protocol/supported-protocol/open-a-native-app
+// new doc: https://open.feishu.cn/document/applink-protocol/supported-protocol/open-a-native-app
 func (r *AppLinkService) OpenNativeApp(req *OpenNativeAppReq) string {
 	return internal.JoinAppLinkURL("https://applink.feishu.cn/client/native_app/open", req)
 }

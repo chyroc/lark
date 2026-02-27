@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2HireEcoAccountCreatedV1 招聘管理员添加三方服务商帐号时, 系统会推送事件给应用开发者, 开发者可根据事件获取用户添加的帐号类型（背调 或 笔试）和 帐号自定义字段信息, 并根据这些信息识别用户在服务商处的身份, 完成三方服务商帐号 和 招聘帐号之间的绑定, 并根据用户服务商身份推送对应的背调套餐或试卷列表。
+// EventV2HireEcoAccountCreatedV1 飞书招聘客户在「飞书招聘」-「设置」-「生态对接」-「笔试/背景调查」添加三方服务商账号时, 系统会推送「账号绑定」事件给服务商。服务商可通过本事件获取客户添加的账号类型、飞书招聘账号 ID 和 账号自定义字段信息, 并根据这些信息识别出客户在服务商处的身份, 从而完成客户的服务商账号和飞书招聘账号之间的绑定。之后服务商可依据账号绑定关系向客户推送对应的背调套餐或试卷列表。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=hire&version=v1&resource=eco_account&event=created)
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_account/events/created
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/ecological-docking/eco_account/events/created
@@ -34,15 +34,15 @@ type EventV2HireEcoAccountCreatedV1Handler func(ctx context.Context, cli *Lark, 
 
 // EventV2HireEcoAccountCreatedV1 ...
 type EventV2HireEcoAccountCreatedV1 struct {
-	Scope           int64                                        `json:"scope,omitempty"`             // 账号类型, 可选值有: 1: 背调账号, 2: 笔试账号
+	Scope           int64                                        `json:"scope,omitempty"`             // 账号类型可选值有: 背调账号笔试账号
 	AccountID       string                                       `json:"account_id,omitempty"`        // 账号 ID, 招聘系统内唯一
 	AccountName     string                                       `json:"account_name,omitempty"`      // 账号名称
-	UsageList       []int64                                      `json:"usage_list,omitempty"`        // 账号适用范围, 1-社招, 2-校招
+	UsageList       []int64                                      `json:"usage_list,omitempty"`        // 账号适用范围 可选值有: * `1`: 社招 * `2`: 校招
 	CustomFieldList []*EventV2HireEcoAccountCreatedV1CustomField `json:"custom_field_list,omitempty"` // 自定义字段键值对
 }
 
 // EventV2HireEcoAccountCreatedV1CustomField ...
 type EventV2HireEcoAccountCreatedV1CustomField struct {
-	Key   string `json:"key,omitempty"`   // 自定义字段的标识
-	Value string `json:"value,omitempty"` // 自定义字段的值
+	Key   string `json:"key,omitempty"`   // 自定义字段的标识。通过[创建账号自定义字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_account_custom_field/create)接口推送到招聘系统内
+	Value string `json:"value,omitempty"` // 客户填写的自定义字段的值
 }

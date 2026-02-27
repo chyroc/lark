@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// RemoveApprovalComment 删除某审批实例下的全部评论与评论回复。
+// RemoveApprovalComment 清空某审批实例下的全部评论与评论回复, 包括显示为已删除的评论。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance-comment/remove
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/instance-comment/remove
@@ -58,15 +58,15 @@ func (r *Mock) UnMockApprovalRemoveApprovalComment() {
 
 // RemoveApprovalCommentReq ...
 type RemoveApprovalCommentReq struct {
-	InstanceID string  `path:"instance_id" json:"-"`   // 审批实例code（或者租户自定义审批实例ID）, 示例值: "6A123516-FB88-470D-A428-9AF58B71B3C0"
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	UserID     *string `query:"user_id" json:"-"`      // 根据user_id_type填写用户ID, 示例值: "ou_806a18fb5bdf525e38ba219733bdbd73"
+	InstanceID string  `path:"instance_id" json:"-"`   // 审批实例 Code。获取方式: [创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create) 后, 从返回结果中获取审批实例 Code。- 调用[批量获取审批实例 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/list), 获取指定审批定义内的审批实例 Code。- 调用[查询实例列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/query), 设置过滤条件查询指定的审批实例 Code。说明: 支持传入自定义审批实例 ID。示例值: "6A123516-FB88-470D-A428-9AF58B71B3C0"
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: user_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserID     *string `query:"user_id" json:"-"`      // 用户 ID, ID 类型与 user_id_type 取值一致。示例值: ou_806a18fb5bdf525e38ba219733bdbd73
 }
 
 // RemoveApprovalCommentResp ...
 type RemoveApprovalCommentResp struct {
-	InstanceID string `json:"instance_id,omitempty"` // 审批实例code
-	ExternalID string `json:"external_id,omitempty"` // 租户自定义审批实例ID
+	InstanceID string `json:"instance_id,omitempty"` // 审批实例 Code
+	ExternalID string `json:"external_id,omitempty"` // 自定义审批实例 ID
 }
 
 // removeApprovalCommentResp ...

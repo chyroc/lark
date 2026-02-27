@@ -21,9 +21,10 @@ import (
 	"context"
 )
 
-// EventV2HireEHRImportTaskForInternshipOfferImportedV1 飞书招聘系统内用户选择实习 Offer 导入 e-HR 系统之后, 将推送候选人信息至订阅系统中。可以使用实习 Offer id[更新实习 Offer 入/离职状态](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer/intern_offer_status)
+// EventV2HireEHRImportTaskForInternshipOfferImportedV1 飞书招聘系统内用户选择实习 Offer 导入 e-HR 系统之后, 将通过该事件推送候选人信息。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=hire&version=v1&resource=ehr_import_task_for_internship_offer&event=imported)
 //
-// 搭配使用: [更新 e-HR 导入任务结果](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/ehr_import_task/patch)更新本次导入事件的结果
+// - 需通过 [更新 e-HR 导入任务结果](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/ehr_import_task/patch) 更新本次导入e-HR任务的结果
+// - 可以使用`offer_id ` [更新实习 Offer 入/离职状态](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer/intern_offer_status)
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/ehr_import_task_for_internship_offer/events/imported
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/onboard/events/imported
@@ -37,24 +38,24 @@ type EventV2HireEHRImportTaskForInternshipOfferImportedV1Handler func(ctx contex
 // EventV2HireEHRImportTaskForInternshipOfferImportedV1 ...
 type EventV2HireEHRImportTaskForInternshipOfferImportedV1 struct {
 	TaskID          string                                                              `json:"task_id,omitempty"`           // 导入任务 ID
-	ApplicationID   string                                                              `json:"application_id,omitempty"`    // 投递 ID
-	OfferID         string                                                              `json:"offer_id,omitempty"`          // Offer ID
-	PreOnboardID    string                                                              `json:"pre_onboard_id,omitempty"`    // 实习 ID
-	EHRDepartmentID string                                                              `json:"ehr_department_id,omitempty"` // 导入部门 ID
-	OperatorID      string                                                              `json:"operator_id,omitempty"`       // 操作人的飞书招聘 user_id
-	OperatorUserID  *EventV2HireEHRImportTaskForInternshipOfferImportedV1OperatorUserID `json:"operator_user_id,omitempty"`  // 用户 ID
-	EHRDepartment   *EventV2HireEHRImportTaskForInternshipOfferImportedV1EHRDepartment  `json:"ehr_department,omitempty"`    // saas 部门ID
+	ApplicationID   string                                                              `json:"application_id,omitempty"`    // 投递 ID, 详情请参考[获取投递信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get)
+	OfferID         string                                                              `json:"offer_id,omitempty"`          // Offer ID, 详情请参考[获取 Offer 详情](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer/get)
+	PreOnboardID    string                                                              `json:"pre_onboard_id,omitempty"`    // 入职ID（实习）
+	EHRDepartmentID string                                                              `json:"ehr_department_id,omitempty"` // 导入部门 ID, 等同于`ehr_department. department_id`字段
+	OperatorID      string                                                              `json:"operator_id,omitempty"`       // 操作人的用户user id, 等同于`operator_user_id.user_id`字段
+	OperatorUserID  *EventV2HireEHRImportTaskForInternshipOfferImportedV1OperatorUserID `json:"operator_user_id,omitempty"`  // 操作人用户 ID
+	EHRDepartment   *EventV2HireEHRImportTaskForInternshipOfferImportedV1EHRDepartment  `json:"ehr_department,omitempty"`    // 导入部门ID
 }
 
 // EventV2HireEHRImportTaskForInternshipOfferImportedV1EHRDepartment ...
 type EventV2HireEHRImportTaskForInternshipOfferImportedV1EHRDepartment struct {
-	DepartmentID     string `json:"department_id,omitempty"`      // 部门ID
-	OpenDepartmentID string `json:"open_department_id,omitempty"` // 部门 Open ID
+	DepartmentID     string `json:"department_id,omitempty"`      // 导入部门的部门 ID
+	OpenDepartmentID string `json:"open_department_id,omitempty"` // 导入部门的飞书部门 ID
 }
 
 // EventV2HireEHRImportTaskForInternshipOfferImportedV1OperatorUserID ...
 type EventV2HireEHRImportTaskForInternshipOfferImportedV1OperatorUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }

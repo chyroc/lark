@@ -21,12 +21,14 @@ import (
 	"context"
 )
 
-// CreateMessageReaction 给指定消息添加指定类型的表情回复（reaction即表情回复, 本文档统一用“reaction”代称）。
+// CreateMessageReaction 给指定消息添加指定类型的表情回复。
 //
-// 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
-// - 待添加reaction的消息要真实存在, 不能被撤回
-// - 给消息添加reaction, 需要reaction的发送方（机器人或者用户）在消息所在的会话内
+// ## 前提条件
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// - 调用当前接口的机器人或者用户, 需要在待添加表情回复的消息所属的会话内。
+// ## 使用限制
+// - 已被撤回的消息无法添加表情回复。
+// - [系统消息（system）](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json#e159cb73)无法添加表情回复。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/create
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/message-reaction/create
@@ -64,32 +66,32 @@ func (r *Mock) UnMockMessageCreateMessageReaction() {
 
 // CreateMessageReactionReq ...
 type CreateMessageReactionReq struct {
-	MessageID    string                                `path:"message_id" json:"-"`     // 待添加reaction的消息ID, 详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2), 示例值: "om_a8f2294ba1a38afaac9d"
-	ReactionType *CreateMessageReactionReqReactionType `json:"reaction_type,omitempty"` // reaction资源类型
+	MessageID    string                                `path:"message_id" json:"-"`     // 待添加表情回复的消息 ID。ID 获取方式: - 调用[发送消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)接口后, 从响应结果的 `message_id` 参数获取。- 监听[接收消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive)事件, 当触发该事件后可以从事件体内获取消息的 `message_id`。- 调用[获取会话历史消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/list)接口, 从响应结果的 `message_id` 参数获取。示例值: "om_a8f2294ba1a38afaac9d"
+	ReactionType *CreateMessageReactionReqReactionType `json:"reaction_type,omitempty"` // 表情类型
 }
 
 // CreateMessageReactionReqReactionType ...
 type CreateMessageReactionReqReactionType struct {
-	EmojiType string `json:"emoji_type,omitempty"` // emoji类型 [emoji类型列举](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/emojis-introduce), 示例值: "SMILE"
+	EmojiType string `json:"emoji_type,omitempty"` // emoji 类型。支持的表情与对应的 emoji_type 值参见[表情文案说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/emojis-introduce)。示例值: "SMILE"
 }
 
 // CreateMessageReactionResp ...
 type CreateMessageReactionResp struct {
-	ReactionID   string                                 `json:"reaction_id,omitempty"`   // reaction资源ID
-	Operator     *CreateMessageReactionRespOperator     `json:"operator,omitempty"`      // 添加reaction的操作人
-	ActionTime   string                                 `json:"action_time,omitempty"`   // reaction动作的的unix timestamp(单位:ms)
-	ReactionType *CreateMessageReactionRespReactionType `json:"reaction_type,omitempty"` // reaction资源类型
+	ReactionID   string                                 `json:"reaction_id,omitempty"`   // 表情回复 ID。为消息添加表情回复后, 会获得该表情回复的唯一标识 ID, 后续使用该 ID 可以[删除消息表情回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/delete)。
+	Operator     *CreateMessageReactionRespOperator     `json:"operator,omitempty"`      // 添加消息表情回复的操作人。
+	ActionTime   string                                 `json:"action_time,omitempty"`   // 添加消息表情回复的时间。Unix 时间戳, 单位: ms
+	ReactionType *CreateMessageReactionRespReactionType `json:"reaction_type,omitempty"` // 表情类型
 }
 
 // CreateMessageReactionRespOperator ...
 type CreateMessageReactionRespOperator struct {
-	OperatorID   string `json:"operator_id,omitempty"`   // 操作人ID
-	OperatorType string `json:"operator_type,omitempty"` // 操作人身份, 用户或应用, 可选值有: app: "app", user: "user"
+	OperatorID   string `json:"operator_id,omitempty"`   // 操作人 ID, 具体的取值与 `operator_type` 相关: - 当 `operator_type` 取值 `app` 时返回机器人的应用 ID（app_id）。- 当 `operator_type` 取值 `user` 时返回用户的 open_id。
+	OperatorType string `json:"operator_type,omitempty"` // 操作人身份。可选值有: 应用用户
 }
 
 // CreateMessageReactionRespReactionType ...
 type CreateMessageReactionRespReactionType struct {
-	EmojiType string `json:"emoji_type,omitempty"` // emoji类型 [emoji类型列举](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/emojis-introduce)
+	EmojiType string `json:"emoji_type,omitempty"` // emoji 类型。emoji_type 值对应的表情参考[表情文案说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message-reaction/emojis-introduce)。
 }
 
 // createMessageReactionResp ...

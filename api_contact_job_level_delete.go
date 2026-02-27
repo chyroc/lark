@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// DeleteContactJobLevel 该接口用于删除职级。
+// DeleteContactJobLevel 调用该接口删除指定的职级。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_level/delete
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/job_level/delete
@@ -58,12 +58,11 @@ func (r *Mock) UnMockContactDeleteContactJobLevel() {
 
 // DeleteContactJobLevelReq ...
 type DeleteContactJobLevelReq struct {
-	JobLevelID string `path:"job_level_id" json:"-"` // 职级ID, 示例值: "mga5oa8ayjlp9rb"
+	JobLevelID string `path:"job_level_id" json:"-"` // 职级 ID。获取方式: 创建职级时, 可以从返回结果中获取职级 ID。- 调用[获取租户职级列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_level/list)接口, 查找指定职级的 ID 信息。示例值: "mga5oa8ayjlp9rb"
 }
 
 // DeleteContactJobLevelResp ...
-type DeleteContactJobLevelResp struct {
-}
+type DeleteContactJobLevelResp struct{}
 
 // deleteContactJobLevelResp ...
 type deleteContactJobLevelResp struct {

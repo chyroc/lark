@@ -59,7 +59,7 @@ func (r *Mock) UnMockHelpdeskGetHelpdeskAgentSchedule() {
 
 // GetHelpdeskAgentScheduleReq ...
 type GetHelpdeskAgentScheduleReq struct {
-	AgentID string `path:"agent_id" json:"-"` // 客服 id, 示例值: "	客服 id"
+	AgentID string `path:"agent_id" json:"-"` // 客服 id示例值: "客服 id"
 }
 
 // GetHelpdeskAgentScheduleResp ...

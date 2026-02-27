@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// GetSheetList 该接口用于获取电子表格下所有工作表及其属性。
+// GetSheetList 根据电子表格 token 获取表格中所有工作表及其属性信息, 包括工作表 ID、标题、索引位置、是否被隐藏等。
+//
+// ## 前提条件
+// 调用此接口前, 请确保当前调用身份（tenant_access_token 或 user_access_token）已有电子表格的阅读、编辑等文档权限, 否则接口将返回 HTTP 403 或 400 状态码。了解更多, 参考[如何为应用或用户开通文档权限](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#16c6475a)。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet/query
@@ -59,7 +62,7 @@ func (r *Mock) UnMockDriveGetSheetList() {
 
 // GetSheetListReq ...
 type GetSheetListReq struct {
-	SpreadSheetToken string `path:"spreadsheet_token" json:"-"` // 电子表格的token, 示例值: "shtxxxxxxxxxxxxxxxx"
+	SpreadSheetToken string `path:"spreadsheet_token" json:"-"` // 电子表格的 token。可通过以下两种方式获取。了解更多, 参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。-  电子表格的 URL: https://sample.feishu.cn/sheets/[Iow7sNNEphp3WbtnbCscPqabcef]- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)示例值: "Iow7sNNEphp3WbtnbCscPqabcef"
 }
 
 // GetSheetListResp ...
@@ -69,13 +72,13 @@ type GetSheetListResp struct {
 
 // GetSheetListRespSheet ...
 type GetSheetListRespSheet struct {
-	SheetID        string                               `json:"sheet_id,omitempty"`        // 工作表id
+	SheetID        string                               `json:"sheet_id,omitempty"`        // 工作表 ID
 	Title          string                               `json:"title,omitempty"`           // 工作表标题
 	Index          int64                                `json:"index,omitempty"`           // 工作表索引位置, 索引从 0 开始计数。
-	Hidden         bool                                 `json:"hidden,omitempty"`          // 工作表是否被隐藏, `true`: 表示被隐藏, `false`: 表示未被隐藏
-	GridProperties *GetSheetListRespSheetGridProperties `json:"grid_properties,omitempty"` // 单元格属性, 仅当 `resource_type=sheet` 时返回
-	ResourceType   string                               `json:"resource_type,omitempty"`   // 工作表类型, `sheet`: 工作表, `bitable`: 多维表格, [多维表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview), `#UNSUPPORTED_TYPE`: 不支持的类型
-	Merges         []*GetSheetListRespSheetMerge        `json:"merges,omitempty"`          // 合并单元格的相关信息
+	Hidden         bool                                 `json:"hidden,omitempty"`          // 工作表是否被隐藏- `true`: 被隐藏- `false`: 未被隐藏
+	GridProperties *GetSheetListRespSheetGridProperties `json:"grid_properties,omitempty"` // 单元格属性, 仅当 `resource_type` 为 `sheet` 即工作表类型为电子表格时返回。
+	ResourceType   string                               `json:"resource_type,omitempty"`   // 工作表类型- `sheet`: 工作表- `bitable`: 多维表格。详情参考[多维表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview)- `#UNSUPPORTED_TYPE`: 不支持的类型
+	Merges         []*GetSheetListRespSheetMerge        `json:"merges,omitempty"`          // 合并单元格的相关信息。没有合并单元格则不返回。
 }
 
 // GetSheetListRespSheetGridProperties ...
@@ -88,10 +91,10 @@ type GetSheetListRespSheetGridProperties struct {
 
 // GetSheetListRespSheetMerge ...
 type GetSheetListRespSheetMerge struct {
-	StartRowIndex    int64 `json:"start_row_index,omitempty"`    // 起始行
-	EndRowIndex      int64 `json:"end_row_index,omitempty"`      // 结束行
-	StartColumnIndex int64 `json:"start_column_index,omitempty"` // 起始列
-	EndColumnIndex   int64 `json:"end_column_index,omitempty"`   // 结束列
+	StartRowIndex    int64 `json:"start_row_index,omitempty"`    // 起始行, 从 0 开始计数
+	EndRowIndex      int64 `json:"end_row_index,omitempty"`      // 结束行, 从 0 开始计数
+	StartColumnIndex int64 `json:"start_column_index,omitempty"` // 起始列, 从 0 开始计数。
+	EndColumnIndex   int64 `json:"end_column_index,omitempty"`   // 结束列, 从 0 开始计数。
 }
 
 // getSheetListResp ...

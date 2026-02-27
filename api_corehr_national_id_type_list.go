@@ -58,11 +58,11 @@ func (r *Mock) UnMockCoreHRGetCoreHRNationalIDTypeList() {
 
 // GetCoreHRNationalIDTypeListReq ...
 type GetCoreHRNationalIDTypeListReq struct {
-	PageToken          *string `query:"page_token" json:"-"`          // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 1231231987
-	PageSize           int64   `query:"page_size" json:"-"`           // 分页大小, 示例值: 100
-	IdentificationType *string `query:"identification_type" json:"-"` // 证件类型, 示例值: regular_passport
-	Code               *string `query:"code" json:"-"`                // 证件类型编码, 示例值: MYS-ID
-	CountryRegionID    *string `query:"country_region_id" json:"-"`   // 国家地区ID, 示例值: 6862995749043439111
+	PageToken          *string `query:"page_token" json:"-"`          // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 1231231987
+	PageSize           int64   `query:"page_size" json:"-"`           // 分页大小示例值: 100
+	IdentificationType *string `query:"identification_type" json:"-"` // 证件类型示例值: regular_passport
+	Code               *string `query:"code" json:"-"`                // 证件类型编码示例值: MYS-ID
+	CountryRegionID    *string `query:"country_region_id" json:"-"`   // 国家地区ID示例值: 6862995749043439111
 }
 
 // GetCoreHRNationalIDTypeListResp ...
@@ -75,14 +75,14 @@ type GetCoreHRNationalIDTypeListResp struct {
 // GetCoreHRNationalIDTypeListRespItem ...
 type GetCoreHRNationalIDTypeListRespItem struct {
 	ID                        string                                                          `json:"id,omitempty"`                          // 证件类型 ID
-	CountryRegionID           string                                                          `json:"country_region_id,omitempty"`           // 国家 / 地区
+	CountryRegionID           string                                                          `json:"country_region_id,omitempty"`           // 国家 / 地区ID, 可通过[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)获取对应的国家/地区信息
 	Name                      []*GetCoreHRNationalIDTypeListRespItemName                      `json:"name,omitempty"`                        // 名称
 	Active                    bool                                                            `json:"active,omitempty"`                      // 是否启用
-	ValidationRule            string                                                          `json:"validation_rule,omitempty"`             // 校验规则
+	ValidationRule            string                                                          `json:"validation_rule,omitempty"`             // 校验规则（正则表达式）
 	ValidationRuleDescription []*GetCoreHRNationalIDTypeListRespItemValidationRuleDescription `json:"validation_rule_description,omitempty"` // 校验规则描述
 	Code                      string                                                          `json:"code,omitempty"`                        // 编码
 	IdentificationType        *GetCoreHRNationalIDTypeListRespItemIdentificationType          `json:"identification_type,omitempty"`         // 证件类型
-	CustomFields              []*GetCoreHRNationalIDTypeListRespItemCustomField               `json:"custom_fields,omitempty"`               // 自定义字段
+	CustomFields              []*GetCoreHRNationalIDTypeListRespItemCustomField               `json:"custom_fields,omitempty"`               // 自定义字段（暂不支持）
 }
 
 // GetCoreHRNationalIDTypeListRespItemCustomField ...

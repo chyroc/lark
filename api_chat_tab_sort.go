@@ -21,13 +21,15 @@ import (
 	"context"
 )
 
-// SortChatTab 会话标签页排序。
+// SortChatTab 调整指定会话内的多个会话标签页排列顺序。
 //
-// 注意事项:
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
-// - 机器人或授权用户必须在群里
-// - 消息标签页强制固定为第一顺位, 不参与排序, 但是请求体中必须包含该标签页的Tab ID
-// - 操作内部群时, 操作者须与群组在同一租户下
+// ## 前提条件
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// - 调用当前接口的用户或者机器人必须在对应的会话内。
+// ## 使用限制
+// - 会话内消息类型的标签页固定为第一顺位, 不参与排序, 但需要注意请求时 tab_ids 必须包含消息类型标签页的 ID。
+// - 如果群组配置了 仅群主和群管理员可以管理标签页, 则仅群主或者群管理员可以调整会话标签页排序。
+// - 操作内部群时, 操作者须与群组在同一租户下。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/sort_tabs
 // new doc: https://open.feishu.cn/document/server-docs/group/chat-tab/sort_tabs
@@ -65,8 +67,8 @@ func (r *Mock) UnMockChatSortChatTab() {
 
 // SortChatTabReq ...
 type SortChatTabReq struct {
-	ChatID string   `path:"chat_id" json:"-"`  // 群ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 注意: 支持群模式为`p2p`与`group`的群ID, 示例值: "oc_a0553eda9014c201e6969b478895c230"
-	TabIDs []string `json:"tab_ids,omitempty"` // 会话标签页ID列表, Tab ID可以在[添加会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/create)与[拉取会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/list_tabs)的返回值中获取, 注意: 必须包含该会话中全部的Tab ID, 示例值: ["6936075528890826780"]
+	ChatID string   `path:"chat_id" json:"-"`  // 群 ID。获取方式: [创建群](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create), 从返回结果中获取该群的 chat_id。- 调用[获取用户或机器人所在的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list)接口, 可以查询用户或机器人所在群的 chat_id。- 调用[搜索对用户或机器人可见的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search), 可搜索用户或机器人所在的群、对用户或机器人公开的群的 chat_id。注意: 仅支持群模式为 群组（group）、单聊（p2p） 的群组 ID。你可以调用[获取群信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get)接口, 在返回结果中查看 `chat_mode` 参数取值是否为 `group`、`p2p`。示例值: "oc_a0553eda9014c201e6969b478895c230"
+	TabIDs []string `json:"tab_ids,omitempty"` // 会话标签页 ID 列表, ID 可以在[添加会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/create)或者[拉取会话标签页](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-tab/list_tabs)接口返回值中获取。注意: 必须包含会话内全部标签页的 ID。- 当前参数的排序, 对应会话内从左往右的排序。- 会话内消息类型的标签页固定在第一顺位。示例值: ["6936075528890826780"]
 }
 
 // SortChatTabResp ...
@@ -76,24 +78,25 @@ type SortChatTabResp struct {
 
 // SortChatTabRespChatTab ...
 type SortChatTabRespChatTab struct {
-	TabID      string                            `json:"tab_id,omitempty"`      // Tab ID
-	TabName    string                            `json:"tab_name,omitempty"`    // Tab名称, 注意: 会话标签页的名称不能超过30个字符
-	TabType    string                            `json:"tab_type,omitempty"`    // Tab类型, 可选值有: message: 消息类型, doc_list: 云文档列表, doc: 文档, pin: Pin, meeting_minute: 会议纪要, chat_announcement: 群公告, url: URL, file: 文件
-	TabContent *SortChatTabRespChatTabTabContent `json:"tab_content,omitempty"` // Tab内容
-	TabConfig  *SortChatTabRespChatTabTabConfig  `json:"tab_config,omitempty"`  // Tab的配置
+	TabID      string                            `json:"tab_id,omitempty"`      // 会话标签页 ID
+	TabName    string                            `json:"tab_name,omitempty"`    // 会话标签页名称
+	TabType    string                            `json:"tab_type,omitempty"`    // 会话标签页类型可选值有: 消息类型云文档列表文档Pin会议纪要群公告URL文件合并类型, 包含文件、Doc文档、URL链接合并类型, 包含图片、视频任务
+	TabContent *SortChatTabRespChatTabTabContent `json:"tab_content,omitempty"` // 会话标签页内容
+	TabConfig  *SortChatTabRespChatTabTabConfig  `json:"tab_config,omitempty"`  // 会话标签页配置
 }
 
 // SortChatTabRespChatTabTabConfig ...
 type SortChatTabRespChatTabTabConfig struct {
-	IconKey   string `json:"icon_key,omitempty"`    // 群Tab图标
-	IsBuiltIn bool   `json:"is_built_in,omitempty"` // 群tab是否App内嵌打开
+	IconKey   string `json:"icon_key,omitempty"`    // 会话标签页图标。可调用[下载图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/get)（只能下载由当前机器人上传的图片）, 将图标下载至本地查看
+	IsBuiltIn bool   `json:"is_built_in,omitempty"` // 会话标签页是否在 App 内嵌打开
 }
 
 // SortChatTabRespChatTabTabContent ...
 type SortChatTabRespChatTabTabContent struct {
-	URL           string `json:"url,omitempty"`            // URL类型
-	Doc           string `json:"doc,omitempty"`            // Doc链接
-	MeetingMinute string `json:"meeting_minute,omitempty"` // 会议纪要
+	URL           string `json:"url,omitempty"`            // url 类型标签页对应的 URL 地址
+	Doc           string `json:"doc,omitempty"`            // 文档类型标签页对应的云文档链接
+	MeetingMinute string `json:"meeting_minute,omitempty"` // 会议纪要类型标签页对应的会议纪要地址
+	Task          string `json:"task,omitempty"`           // 任务
 }
 
 // sortChatTabResp ...

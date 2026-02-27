@@ -21,17 +21,17 @@ import (
 	"context"
 )
 
-// UpdateChat 更新群头像、群名称、群描述、群配置、转让群主等。
+// UpdateChat 更新指定群的信息, 包括群头像、群名称、群描述、群配置以及群主等。
 //
-// 注意事项:
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
-// - 对于群主/群管理员 或 创建群组且具备 [更新应用所创建群的群信息] 权限的机器人, 可更新所有信息
+// ## 前提条件
+// 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// ## 使用限制
+// - 对于群主和群管理员, 或是创建群组且具备 [更新应用所创建群的群信息（im:chat:operate_as_owner）] 权限的机器人, 可调用本接口更新所有信息。
 // - 对于不满足上述权限条件的群成员或机器人:
-// - 若未开启 [仅群主和群管理员可编辑群信息] 配置, 仅可更新群头像、群名称、群描述、群国际化名称信息
-// - 若开启了 [仅群主和群管理员可编辑群信息] 配置, 任何群信息都不能修改
-// - 如果同时更新 [邀请用户或机器人入群权限] 和 [群分享权限] 这两项设置需要满足以下条件:
-// - 若未开启 [仅群主和管理员可以邀请用户或机器人入群], 需要设置 [群分享权限] 为 [允许分享]
-// - 若开启了 [仅群主和管理员可以邀请用户或机器人入群], 需要设置 [群分享权限] 为 [不允许分享]
+// - 如果群设置中配置了 所有群成员可编辑群信息, 则仅可更新群头像、群名称、群描述、群国际化名称信息。
+// - 如果群设置中配置了 仅群主和群管理员可编辑群信息, 则无法修改任何群信息。
+// ## 注意事项
+// 调用该接口时, 未传值的请求参数默认不更新, 保持原有群信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/update
 // new doc: https://open.feishu.cn/document/server-docs/group/chat/update-2
@@ -69,38 +69,38 @@ func (r *Mock) UnMockChatUpdateChat() {
 
 // UpdateChatReq ...
 type UpdateChatReq struct {
-	ChatID                 string                              `path:"chat_id" json:"-"`                   // 群 ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 注意: 仅支持群模式为`group`的群组ID, 示例值: "oc_a0553eda9014c201e6969b478895c230"
-	UserIDType             *IDType                             `query:"user_id_type" json:"-"`             // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	Avatar                 *string                             `json:"avatar,omitempty"`                   // 群头像对应的 Image Key, 可通过[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)获取（注意: 上传图片的 [image_type] 需要指定为 [avatar]）, 示例值: "default-avatar_44ae0ca3-e140-494b-956f-78091e348435"
-	Name                   *string                             `json:"name,omitempty"`                     // 群名称, 示例值: "群聊"
-	Description            *string                             `json:"description,omitempty"`              // 群描述, 示例值: "测试群描述"
-	I18nNames              *I18nNames                          `json:"i18n_names,omitempty"`               // 群国际化名称
-	AddMemberPermission    *AddMemberPermission                `json:"add_member_permission,omitempty"`    // 邀请用户或机器人入群权限, 注意: 若值设置为`only_owner`, 则share_card_permission只能设置为`not_allowed`, 若值设置为`all_members`, 则share_card_permission只能设置为`allowed`, 可选值有: `only_owner`: 仅群主和管理员, `all_members`: 所有成员, 示例值: "all_members"
-	ShareCardPermission    *ShareCardPermission                `json:"share_card_permission,omitempty"`    // 群分享权限, 可选值有: `allowed`: 允许, `not_allowed`: 不允许, 示例值: "allowed"
-	AtAllPermission        *AtAllPermission                    `json:"at_all_permission,omitempty"`        // at 所有人权限, 可选值有: `only_owner`: 仅群主和管理员, `all_members`: 所有成员, 示例值: "all_members"
-	EditPermission         *EditPermission                     `json:"edit_permission,omitempty"`          // 群编辑权限, 可选值有: `only_owner`: 仅群主和管理员, `all_members`: 所有成员, 示例值: "all_members"
-	OwnerID                *string                             `json:"owner_id,omitempty"`                 // 新群主 ID, 不转让群主时无需填写。ID类型推荐使用 OpenID, 获取方式可参考文档[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), 示例值: "4d7a3c6g"
-	JoinMessageVisibility  *MessageVisibility                  `json:"join_message_visibility,omitempty"`  // 入群消息可见性, 可选值有: `only_owner`: 仅群主和管理员可见, `all_members`: 所有成员可见, `not_anyone`: 任何人均不可见, 示例值: "only_owner"
-	LeaveMessageVisibility *MessageVisibility                  `json:"leave_message_visibility,omitempty"` // 出群消息可见性, 可选值有: `only_owner`: 仅群主和管理员可见, `all_members`: 所有成员可见, `not_anyone`: 任何人均不可见, 示例值: "only_owner"
-	MembershipApproval     *MembershipApproval                 `json:"membership_approval,omitempty"`      // 加群审批, 可选值有: `no_approval_required`: 无需审批, `approval_required`: 需要审批, 示例值: "no_approval_required"
-	RestrictedModeSetting  *UpdateChatReqRestrictedModeSetting `json:"restricted_mode_setting,omitempty"`  // 保密模式设置
-	ChatType               *ChatType                           `json:"chat_type,omitempty"`                // 群类型, 可选值有: `private`: 私有群, `public`: 公开群, 示例值: "private"
-	GroupMessageType       *MsgType                            `json:"group_message_type,omitempty"`       // 群消息形式, 示例值: "chat", 可选值有: chat: 对话消息, thread: 话题消息
-	UrgentSetting          *string                             `json:"urgent_setting,omitempty"`           // 谁可以加急, 示例值: "all_members", 可选值有: only_owner: 仅群主和管理员, all_members: 所有成员
-	VideoConferenceSetting *string                             `json:"video_conference_setting,omitempty"` // 谁可以发起视频会议, 示例值: "all_members", 可选值有: only_owner: 仅群主和管理员, all_members: 所有成员
+	ChatID                 string                              `path:"chat_id" json:"-"`                    // 群 ID。获取方式: [创建群](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create), 从返回结果中获取该群的 chat_id。- 调用[获取用户或机器人所在的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list)接口, 可以查询用户或机器人所在群的 chat_id。- 调用[搜索对用户或机器人可见的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search), 可搜索用户或机器人所在的群、对用户或机器人公开的群的 chat_id。注意: 仅支持群模式为 `group` 的群组 ID。你可以调用[获取群信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get)接口, 在返回结果中查看 `chat_mode` 参数取值是否为 `group`。示例值: "oc_a0553eda9014c201e6969b478895c230"
+	UserIDType             *IDType                             `query:"user_id_type" json:"-"`              // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	Avatar                 *string                             `json:"avatar,omitempty"`                    // 群头像对应的 Image Key, 可通过[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create)获取（注意: 上传图片的 [image_type] 需要指定为 [avatar]）示例值: "default-avatar_44ae0ca3-e140-494b-956f-78091e348435"
+	Name                   *string                             `json:"name,omitempty"`                      // 群名称注意: 建议群名称不超过 60 字符- 公开群名称的长度不得少于 2 个字符示例值: "群聊"
+	Description            *string                             `json:"description,omitempty"`               // 群描述, 建议不超过 100 字符示例值: "测试群描述"
+	I18nNames              *I18nNames                          `json:"i18n_names,omitempty"`                // 群国际化名称, 建议不超过 60 字符
+	AddMemberPermission    *AddMemberPermission                `json:"add_member_permission,omitempty"`     // 谁可以添加群成员, 群成员包括用户或机器人可选值有: `only_owner`: 仅群主和管理员- `all_members`: 所有成员注意: `add_member_permission` 和 `share_card_permission` 两个参数必须同步配置。- 如果 `add_member_permission` 值为 `only_owner`, 则 `share_card_permission` 只能设置为 `not_allowed`。- 如果 `add_member_permission` 值为`all_members`, 则 `share_card_permission` 只能设置为 `allowed`。示例值: "all_members"
+	ShareCardPermission    *ShareCardPermission                `json:"share_card_permission,omitempty"`     // 是否允许分享群可选值有: `allowed`: 允许- `not_allowed`: 不允许注意: `add_member_permission` 和 `share_card_permission` 两个参数必须同步配置。- 如果 `add_member_permission` 值为 `only_owner`, 则 `share_card_permission` 只能设置为 `not_allowed`。- 如果 `add_member_permission` 值为`all_members`, 则 `share_card_permission` 只能设置为 `allowed`。示例值: "allowed"
+	AtAllPermission        *AtAllPermission                    `json:"at_all_permission,omitempty"`         // 谁可以 at 所有人可选值有: `only_owner`: 仅群主和管理员- `all_members`: 所有成员示例值: "all_members"
+	EditPermission         *EditPermission                     `json:"edit_permission,omitempty"`           // 谁可以编辑群信息可选值有: `only_owner`: 仅群主和管理员- `all_members`: 所有成员示例值: "all_members"
+	OwnerID                *string                             `json:"owner_id,omitempty"`                  // 新群主的用户 ID, 不转让群主时无需填写。ID 类型与查询参数 user_id_type 取值一致, ID 类型推荐使用 OpenID, 获取方式可参考文档[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。示例值: "4d7a3c6g"
+	JoinMessageVisibility  *MessageVisibility                  `json:"join_message_visibility,omitempty"`   // 成员入群提示消息的可见性可选值有: `only_owner`: 仅群主和管理员可见- `all_members`: 所有成员可见- `not_anyone`: 任何人均不可见示例值: "only_owner"
+	LeaveMessageVisibility *MessageVisibility                  `json:"leave_message_visibility,omitempty"`  // 成员退群提示消息的可见性可选值有: `only_owner`: 仅群主和管理员可见- `all_members`: 所有成员可见- `not_anyone`: 任何人均不可见示例值: "only_owner"
+	MembershipApproval     *MembershipApproval                 `json:"membership_approval,omitempty"`       // 加群是否需要审批可选值有: `no_approval_required`: 无需审批- `approval_required`: 需要审批示例值: "no_approval_required"
+	RestrictedModeSetting  *UpdateChatReqRestrictedModeSetting `json:"restricted_mode_setting,omitempty"`   // 保密模式设置注意: 保密模式适用于企业旗舰版。适用版本与功能介绍参见[会话保密模式](https://www.feishu.cn/hc/zh-CN/articles/418691056559)。
+	ChatType               *ChatType                           `json:"chat_type,omitempty"`                 // 群类型可选值有: `private`: 私有群- `public`: 公开群示例值: "private"
+	GroupMessageType       *MsgType                            `json:"group_message_type,omitempty"`        // 群消息形式示例值: "chat"可选值有: 对话消息话题消息
+	UrgentSetting          *string                             `json:"urgent_setting,omitempty"`            // 谁可以加急示例值: "all_members"可选值有: 仅群主和管理员所有成员
+	VideoConferenceSetting *string                             `json:"video_conference_setting,omitempty"`  // 谁可以发起视频会议示例值: "all_members"可选值有: 仅群主和管理员所有成员
+	HideMemberCountSetting *string                             `json:"hide_member_count_setting,omitempty"` // 隐藏群成员人数设置示例值: "all_members"可选值有: 所有群成员可见仅群主群管理员可见
 }
 
 // UpdateChatReqRestrictedModeSetting ...
 type UpdateChatReqRestrictedModeSetting struct {
-	Status                         *bool   `json:"status,omitempty"`                            // 保密模式是否开启, 注意: status为true时, screenshot_has_permission_setting、download_has_permission_setting、message_has_permission_setting不能全为all_members, status为false时, screenshot_has_permission_setting、download_has_permission_setting、message_has_permission_setting不能存在not_anyone, 示例值: false
-	ScreenshotHasPermissionSetting *string `json:"screenshot_has_permission_setting,omitempty"` // 允许截屏录屏, 示例值: "all_members", 可选值有: all_members: 所有成员允许截屏录屏, not_anyone: 所有成员禁止截屏录屏
-	DownloadHasPermissionSetting   *string `json:"download_has_permission_setting,omitempty"`   // 允许下载消息中图片、视频和文件, 示例值: "all_members", 可选值有: all_members: 所有成员允许下载资源, not_anyone: 所有成员禁止下载资源
-	MessageHasPermissionSetting    *string `json:"message_has_permission_setting,omitempty"`    // 允许复制和转发消息, 示例值: "all_members", 可选值有: all_members: 所有成员允许复制和转发消息, not_anyone: 所有成员禁止复制和转发消息
+	Status                         *bool   `json:"status,omitempty"`                            // 保密模式是否开启可选值有: true: 开启。设置为 ture 时, `screenshot_has_permission_setting`、`download_has_permission_setting`、`message_has_permission_setting` 不能全为 `all_members`。- false: 不开启。设置为 false 时, `screenshot_has_permission_setting`、`download_has_permission_setting`、`message_has_permission_setting` 不能存在 `not_anyone`。示例值: false
+	ScreenshotHasPermissionSetting *string `json:"screenshot_has_permission_setting,omitempty"` // 允许截屏录屏示例值: "all_members"可选值有: 所有成员允许截屏录屏所有成员禁止截屏录屏
+	DownloadHasPermissionSetting   *string `json:"download_has_permission_setting,omitempty"`   // 允许下载消息中图片、视频和文件示例值: "all_members"可选值有: 所有成员允许下载资源所有成员禁止下载资源
+	MessageHasPermissionSetting    *string `json:"message_has_permission_setting,omitempty"`    // 允许复制和转发消息示例值: "all_members"可选值有: 所有成员允许复制和转发消息所有成员禁止复制和转发消息
 }
 
 // UpdateChatResp ...
-type UpdateChatResp struct {
-}
+type UpdateChatResp struct{}
 
 // updateChatResp ...
 type updateChatResp struct {

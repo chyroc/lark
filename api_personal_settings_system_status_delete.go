@@ -62,12 +62,11 @@ func (r *Mock) UnMockPersonalSettingsDeletePersonalSettingsSystemStatus() {
 
 // DeletePersonalSettingsSystemStatusReq ...
 type DeletePersonalSettingsSystemStatusReq struct {
-	SystemStatusID string `path:"system_status_id" json:"-"` // 系统状态ID, [获取系统状态ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/personal_settings-v1/system_status/list), 示例值: "7101214603622940633"
+	SystemStatusID string `path:"system_status_id" json:"-"` // 系统状态ID[获取系统状态ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/personal_settings-v1/system_status/list)示例值: "7101214603622940633"
 }
 
 // DeletePersonalSettingsSystemStatusResp ...
-type DeletePersonalSettingsSystemStatusResp struct {
-}
+type DeletePersonalSettingsSystemStatusResp struct{}
 
 // deletePersonalSettingsSystemStatusResp ...
 type deletePersonalSettingsSystemStatusResp struct {

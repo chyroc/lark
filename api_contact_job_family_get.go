@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetContactJobFamily 该接口用于获取单个序列信息。
+// GetContactJobFamily 调用该接口获取指定序列的信息, 包括序列的名称、描述、启用状态以及 ID 等。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_family/get
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/job_family/get
@@ -58,35 +58,35 @@ func (r *Mock) UnMockContactGetContactJobFamily() {
 
 // GetContactJobFamilyReq ...
 type GetContactJobFamilyReq struct {
-	JobFamilyID string `path:"job_family_id" json:"-"` // 序列ID, 示例值: "mga5oa8ayjlp9rb"
+	JobFamilyID string `path:"job_family_id" json:"-"` // 序列 ID。获取方式: [创建序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_family/create)时可以从返回结果中获取（job_family_id）。- 调用[获取租户序列列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_family/list)接口获取序列 ID。示例值: "mga5oa8ayjlp9rb"
 }
 
 // GetContactJobFamilyResp ...
 type GetContactJobFamilyResp struct {
-	JobFamily *GetContactJobFamilyRespJobFamily `json:"job_family,omitempty"` // 序列信息
+	JobFamily *GetContactJobFamilyRespJobFamily `json:"job_family,omitempty"` // 序列信息。
 }
 
 // GetContactJobFamilyRespJobFamily ...
 type GetContactJobFamilyRespJobFamily struct {
-	Name              string                                             `json:"name,omitempty"`                 // 序列名称。1-100字符, 支持中、英文及符号
-	Description       string                                             `json:"description,omitempty"`          // 序列描述, 描述序列详情信息
-	ParentJobFamilyID string                                             `json:"parent_job_family_id,omitempty"` // 上级序列ID。需是该租户的序列ID列表中的值, 对应唯一的序列名称。
-	Status            bool                                               `json:"status,omitempty"`               // 是否启用
-	I18nName          []*GetContactJobFamilyRespJobFamilyI18nName        `json:"i18n_name,omitempty"`            // 多语言序列名称
-	I18nDescription   []*GetContactJobFamilyRespJobFamilyI18nDescription `json:"i18n_description,omitempty"`     // 多语言描述
-	JobFamilyID       string                                             `json:"job_family_id,omitempty"`        // 职级序列ID
+	Name              string                                             `json:"name,omitempty"`                 // 序列名称。
+	Description       string                                             `json:"description,omitempty"`          // 序列描述。
+	ParentJobFamilyID string                                             `json:"parent_job_family_id,omitempty"` // 上级序列 ID。
+	Status            bool                                               `json:"status,omitempty"`               // 是否启用序列。可能值有: true: 启用- false: 禁用
+	I18nName          []*GetContactJobFamilyRespJobFamilyI18nName        `json:"i18n_name,omitempty"`            // 多语言序列名称。
+	I18nDescription   []*GetContactJobFamilyRespJobFamilyI18nDescription `json:"i18n_description,omitempty"`     // 多语言序列描述。
+	JobFamilyID       string                                             `json:"job_family_id,omitempty"`        // 序列 ID。
 }
 
 // GetContactJobFamilyRespJobFamilyI18nDescription ...
 type GetContactJobFamilyRespJobFamilyI18nDescription struct {
-	Locale string `json:"locale,omitempty"` // 语言版本
-	Value  string `json:"value,omitempty"`  // 字段名
+	Locale string `json:"locale,omitempty"` // 语言版本。可能值有: zh_cn: 中文- en_us: 英语- ja_jp: 日语
+	Value  string `json:"value,omitempty"`  // 语言版本对应的值。
 }
 
 // GetContactJobFamilyRespJobFamilyI18nName ...
 type GetContactJobFamilyRespJobFamilyI18nName struct {
-	Locale string `json:"locale,omitempty"` // 语言版本
-	Value  string `json:"value,omitempty"`  // 字段名
+	Locale string `json:"locale,omitempty"` // 语言版本。可能值有: zh_cn: 中文- en_us: 英语- ja_jp: 日语
+	Value  string `json:"value,omitempty"`  // 语言版本对应的值。
 }
 
 // getContactJobFamilyResp ...

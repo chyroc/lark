@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetCoreHRLeaveTypeList 获取休假设置后台配置的假期类型列表（比如年假、事假、婚假等）。
+// GetCoreHRLeaveTypeList 获取休假设置后台配置的假期类型列表（比如年假、事假、婚假等）。对应页面功能为设置-假勤设置-[假期类型](https://example.feishu.cn/people/workforce-management/setting/leave/leave_admin/leave_type)
 //
 // 仅飞书人事企业版可用
 //
@@ -60,10 +60,10 @@ func (r *Mock) UnMockCoreHRGetCoreHRLeaveTypeList() {
 
 // GetCoreHRLeaveTypeListReq ...
 type GetCoreHRLeaveTypeListReq struct {
-	PageToken  *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
-	PageSize   int64   `query:"page_size" json:"-"`    // 分页大小, 示例值: 100
-	Status     *string `query:"status" json:"-"`       // 假期类型状态（不传则为全部）, 可选值有: 1: 已启用, 2: 已停用, 示例值: 1
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: people_corehr_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_corehr_id: 以飞书人事的 ID 来识别用户, 默认值: `people_corehr_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	PageToken  *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+	PageSize   int64   `query:"page_size" json:"-"`    // 分页大小示例值: 100
+	Status     *string `query:"status" json:"-"`       // 假期类型状态（不传则为全部）可选值有: 1: 已启用- 2: 已停用示例值: 1
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: people_corehr_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `people_corehr_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetCoreHRLeaveTypeListResp ...
@@ -75,14 +75,14 @@ type GetCoreHRLeaveTypeListResp struct {
 
 // GetCoreHRLeaveTypeListRespLeaveType ...
 type GetCoreHRLeaveTypeListRespLeaveType struct {
-	LeaveTypeID      string                                              `json:"leave_type_id,omitempty"`      // 假期类型ID
+	LeaveTypeID      string                                              `json:"leave_type_id,omitempty"`      // 假期类型ID, 可用于* [创建假期发放记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave_granting_record/create)* [批量查询员工请假记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/leave_request_history)* [通过过期时间获取发放记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/leave_employ_expire_record/get)* [修改发放记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/leave_accrual_record/patch)
 	LeaveTypeName    []*GetCoreHRLeaveTypeListRespLeaveTypeLeaveTypeName `json:"leave_type_name,omitempty"`    // 假期类型名称
-	Status           int64                                               `json:"status,omitempty"`             // 假期类型状态, 可选值有: 1: 已启用, 2: 已停用
+	Status           int64                                               `json:"status,omitempty"`             // 假期类型状态可选值有: 1: 已启用- 2: 已停用
 	LeaveSubtypeList []*GetCoreHRLeaveTypeListRespLeaveTypeLeaveSubtype  `json:"leave_subtype_list,omitempty"` // 假期子类列表
-	CreatedAt        string                                              `json:"created_at,omitempty"`         // 假期类型的创建时间
-	CreatedBy        string                                              `json:"created_by,omitempty"`         // 假期类型的创建人, 值为创建人的员工 ID
-	UpdatedAt        string                                              `json:"updated_at,omitempty"`         // 假期类型的更新时间
-	UpdatedBy        string                                              `json:"updated_by,omitempty"`         // 假期类型的更新人, 值为更新人的员工 ID
+	CreatedAt        string                                              `json:"created_at,omitempty"`         // 假期类型的创建时间, 格式为秒级时间戳
+	CreatedBy        string                                              `json:"created_by,omitempty"`         // 假期类型的创建人, 值为创建人的员工 ID。与入参 user_id_type 类型一致
+	UpdatedAt        string                                              `json:"updated_at,omitempty"`         // 假期类型的更新时间, 格式为秒级时间戳
+	UpdatedBy        string                                              `json:"updated_by,omitempty"`         // 假期类型的更新人, 值为更新人的员工 ID。与入参 user_id_type 类型一致
 }
 
 // GetCoreHRLeaveTypeListRespLeaveTypeLeaveSubtype ...

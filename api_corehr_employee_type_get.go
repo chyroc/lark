@@ -58,7 +58,7 @@ func (r *Mock) UnMockCoreHRGetCoreHREmployeeType() {
 
 // GetCoreHREmployeeTypeReq ...
 type GetCoreHREmployeeTypeReq struct {
-	EmployeeTypeID string `path:"employee_type_id" json:"-"` // 雇员类型ID, 示例值: "1"
+	EmployeeTypeID string `path:"employee_type_id" json:"-"` // 雇员类型ID- 可通过[批量查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)获取示例值: "1"
 }
 
 // GetCoreHREmployeeTypeResp ...
@@ -73,7 +73,7 @@ type GetCoreHREmployeeTypeRespEmployeeType struct {
 	DefaultEmployeeType bool                                                `json:"default_employee_type,omitempty"` // 是否为默认人员类型, 每个租户只能定义一个默认人员类型
 	Active              bool                                                `json:"active,omitempty"`                // 启用
 	Code                string                                              `json:"code,omitempty"`                  // 编码
-	CustomFields        []*GetCoreHREmployeeTypeRespEmployeeTypeCustomField `json:"custom_fields,omitempty"`         // 自定义字段
+	CustomFields        []*GetCoreHREmployeeTypeRespEmployeeTypeCustomField `json:"custom_fields,omitempty"`         // 自定义字段- 具体支持的对象请参考[自定义字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide)
 }
 
 // GetCoreHREmployeeTypeRespEmployeeTypeCustomField ...

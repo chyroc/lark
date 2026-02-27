@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2ApplicationApplicationFeedbackCreatedV6 当应用收到新反馈时, 触发该事件
+// EventV2ApplicationApplicationFeedbackCreatedV6 当应用收到新反馈时, 触发该事件{使用示例}(url=/api/tools/api_explore/api_explore_config?project=application&version=v6&resource=application.feedback&event=created)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application-feedback/events/created
 // new doc: https://open.feishu.cn/document/server-docs/application-v6/event/created-2
@@ -42,7 +42,7 @@ type EventV2ApplicationApplicationFeedbackCreatedV6 struct {
 	FaultType    []int64                                               `json:"fault_type,omitempty"`    // 故障类型列表: 1: 黑屏 2: 白屏 3: 无法打开小程序  4: 卡顿 5: 小程序闪退 6: 页面加载慢 7: 死机 8: 其他异常
 	FaultTime    string                                                `json:"fault_time,omitempty"`    // 故障时间, 格式为yyyy-mm-dd hh:mm:ss
 	Source       int64                                                 `json:"source,omitempty"`        // 反馈来源: 1: 小程序 2: 网页应用 3: 机器人 4: webSDK
-	Contact      string                                                `json:"contact,omitempty"`       // 用户填写的联系方式, 字段权限要求（满足任一）: 获取用户邮箱信息, 获取用户手机号
+	Contact      string                                                `json:"contact,omitempty"`       // 用户填写的联系方式字段权限要求（满足任一）: 获取用户邮箱信息获取用户手机号
 	Description  string                                                `json:"description,omitempty"`   // 反馈详情
 	Images       []string                                              `json:"images,omitempty"`        // 反馈图片url列表, url 过期时间三天
 	FeedbackID   string                                                `json:"feedback_id,omitempty"`   // 应用反馈 ID, 应用反馈记录唯一标识
@@ -52,6 +52,6 @@ type EventV2ApplicationApplicationFeedbackCreatedV6 struct {
 // EventV2ApplicationApplicationFeedbackCreatedV6UserID ...
 type EventV2ApplicationApplicationFeedbackCreatedV6UserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }

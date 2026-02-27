@@ -24,9 +24,11 @@ import (
 
 // RecognizeAIBankCard 银行卡识别接口, 支持JPG/JPEG/PNG/BMP四种文件类型的一次性的识别。
 //
+// 文件大小需要小于10M。
 // 单租户限流: 10QPS, 同租户下的应用没有限流, 共享本租户的 10QPS 限流
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/document_ai-v1/bank_card/recognize
+// new doc: https://open.feishu.cn/document/ai/document_ai-v1/bank_card/recognize
 func (r *AIService) RecognizeAIBankCard(ctx context.Context, request *RecognizeAIBankCardReq, options ...MethodOptionFunc) (*RecognizeAIBankCardResp, *Response, error) {
 	if r.cli.mock.mockAIRecognizeAIBankCard != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] AI#RecognizeAIBankCard mock enable")
@@ -61,7 +63,7 @@ func (r *Mock) UnMockAIRecognizeAIBankCard() {
 
 // RecognizeAIBankCardReq ...
 type RecognizeAIBankCardReq struct {
-	File io.Reader `json:"file,omitempty"` // 识别的银行卡源文件, 示例值: file binary
+	File io.Reader `json:"file,omitempty"` // 识别的银行卡源文件示例值: file binary
 }
 
 // RecognizeAIBankCardResp ...
@@ -76,7 +78,7 @@ type RecognizeAIBankCardRespBankCard struct {
 
 // RecognizeAIBankCardRespBankCardEntitie ...
 type RecognizeAIBankCardRespBankCardEntitie struct {
-	Type  string `json:"type,omitempty"`  // 识别的字段种类, 可选值有: card_number: 银行卡卡号, date_of_expiry: 有效日期
+	Type  string `json:"type,omitempty"`  // 识别的字段种类可选值有: 银行卡卡号有效日期
 	Value string `json:"value,omitempty"` // 识别出字段的文本信息
 }
 

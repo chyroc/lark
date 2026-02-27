@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// DeleteCoreHRContract 删除合同。
+// DeleteCoreHRContract 通过本接口可以删除合同数据, 删除后即无法查询到。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/delete
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/contract/delete
@@ -58,12 +58,11 @@ func (r *Mock) UnMockCoreHRDeleteCoreHRContract() {
 
 // DeleteCoreHRContractReq ...
 type DeleteCoreHRContractReq struct {
-	ContractID string `path:"contract_id" json:"-"` // 需要删除的合同 ID, 示例值: "4137834332"
+	ContractID string `path:"contract_id" json:"-"` // 需要删除的合同 ID, 该ID可以通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取示例值: "7091849027838838316"
 }
 
 // DeleteCoreHRContractResp ...
-type DeleteCoreHRContractResp struct {
-}
+type DeleteCoreHRContractResp struct{}
 
 // deleteCoreHRContractResp ...
 type deleteCoreHRContractResp struct {

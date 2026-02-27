@@ -23,10 +23,11 @@ import (
 
 // PrepareUploadDriveFile 发送初始化请求, 以获取上传事务 ID 和分片策略, 为[上传分片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/upload_part)做准备。平台固定以 4MB 的大小对文件进行分片。了解完整的上传文件流程, 参考[上传文件概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/multipart-upload-file-/introduction)。
 //
-// 注意事项:
+// ## 注意事项
 // 上传事务 ID 和上传进度在 24 小时内有效。请及时保存和恢复上传。
-// 使用限制:
-// 该接口不支持并发调用, 且调用频率上限为 5 QPS, 10000 次/天。否则会返回 1061045 错误码, 可通过稍后重试解决。
+// ## 使用限制
+// - 该接口不支持并发调用, 且调用频率上限为 5 QPS, 10000 次/天。否则会返回 1061045 错误码, 可通过稍后重试解决。
+// - 上传文件的大小限制因飞书版本而异, 详情参考[文件上传、在线预览的大小及格式要求](https://www.feishu.cn/hc/zh-CN/articles/360049067549-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0-%E5%9C%A8%E7%BA%BF%E9%A2%84%E8%A7%88%E7%9A%84%E5%A4%A7%E5%B0%8F%E5%8F%8A%E6%A0%BC%E5%BC%8F%E8%A6%81%E6%B1%82)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/upload_prepare
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/upload/multipart-upload-file-/upload_prepare
@@ -64,10 +65,10 @@ func (r *Mock) UnMockDrivePrepareUploadDriveFile() {
 
 // PrepareUploadDriveFileReq ...
 type PrepareUploadDriveFileReq struct {
-	FileName   string `json:"file_name,omitempty"`   // 文件的名称, 示例值: "test.txt", 最大长度: `250` 字符
-	ParentType string `json:"parent_type,omitempty"` // 上传点的类型。取固定值 explorer, 表示将文件上传至云空间中, 示例值: "explorer", 可选值有: explorer: 云空间
-	ParentNode string `json:"parent_node,omitempty"` // 云空间中文件夹的 token。了解如何获取文件夹 token, 参考[文件夹概述](https://open.feishu.cn/document/ukTMukTMukTM/ugTNzUjL4UzM14CO1MTN/folder-overview), 示例值: "fldbcO1UuPz8VwnpPx5a92abcef"
-	Size       int64  `json:"size,omitempty"`        // 文件的大小, 单位为字节, 示例值: 1024, 最小值: `0`
+	FileName   string `json:"file_name,omitempty"`   // 文件的名称示例值: "test.txt" 最大长度: `250` 字符
+	ParentType string `json:"parent_type,omitempty"` // 上传点的类型。取固定值 explorer, 表示将文件上传至云空间中。示例值: "explorer"可选值有: 云空间
+	ParentNode string `json:"parent_node,omitempty"` // 云空间中文件夹的 token。了解如何获取文件夹 token, 参考[文件夹概述](https://open.feishu.cn/document/ukTMukTMukTM/ugTNzUjL4UzM14CO1MTN/folder-overview)。示例值: "fldbcO1UuPz8VwnpPx5a92abcef"
+	Size       int64  `json:"size,omitempty"`        // 文件的大小, 单位为字节。示例值: 1024 最小值: `0
 }
 
 // PrepareUploadDriveFileResp ...

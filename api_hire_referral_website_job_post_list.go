@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetHireReferralWebsiteJobPostList 获取内推官网下的职位列表。自定义数据暂不支持列表获取, 请从「获取内推官网下职位广告详情」接口获取。
+// GetHireReferralWebsiteJobPostList 获取内推官网下的职位列表, 包含职位广告ID、职位广告名称、职位信息等。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_website-job_post/list
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/get-candidates/referral/list
@@ -58,17 +58,17 @@ func (r *Mock) UnMockHireGetHireReferralWebsiteJobPostList() {
 
 // GetHireReferralWebsiteJobPostListReq ...
 type GetHireReferralWebsiteJobPostListReq struct {
-	ProcessType      *int64            `query:"process_type" json:"-"`       // 招聘流程类型, 示例值: 1, 可选值有: 1: 社招, 2: 校招
-	PageToken        *string           `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: eyJvZmZzZXQiOjEwLCJ0aW1lc3RhbXAiOjE2Mjc1NTUyMjM2NzIsImlkIjpudWxsfQ[
-	PageSize         *int64            `query:"page_size" json:"-"`          // 每页获取记录数量, 最大10, 示例值: 10, 最大值: `10`
-	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门 ID 的类型, 示例值: open_department_id, 可选值有: open_department_id: 以 open_department_id 来标识部门, department_id: 以 department_id 来标识部门, 默认值: `open_department_id`
-	JobLevelIDType   *IDType           `query:"job_level_id_type" json:"-"`  // 此次调用中使用的「职级 ID」的类型, 示例值: 6942778198054125570, 可选值有: people_admin_job_level_id: 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。, job_level_id: 「飞书管理后台」适用的职级 ID, 通过[「获取租户职级列表」](https://open.feishu.cn/document/server-docs/contact-v3/job_level/list)接口获取, 默认值: `people_admin_job_level_id`
+	ProcessType      *int64            `query:"process_type" json:"-"`       // 招聘流程类型示例值: 1可选值有: 社招校招
+	PageToken        *string           `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eyJvZmZzZXQiOjEwLCJ0aW1lc3RhbXAiOjE2Mjc1NTUyMjM2NzIsImlkIjpudWxsfQ[
+	PageSize         *int64            `query:"page_size" json:"-"`          // 每页获取记录数量示例值: 10默认值: `10` 最大值: `10
+	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 指定查询结果中的部门 ID 类型。关于部门 ID 的详细介绍, 可参见[部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)。示例值: open_department_id可选值有: 由系统自动生成的部门 ID, ID 前缀固定为 od-, 在租户内全局唯一。支持用户自定义配置的部门 ID。自定义配置时可复用已删除的 department_id, 因此在未删除的部门范围内 department_id 具有唯一性。默认值: `open_department_id
+	JobLevelIDType   *IDType           `query:"job_level_id_type" json:"-"`  // 此次调用中使用的「职级 ID」的类型示例值: job_level_id可选值有: 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。「飞书管理后台」适用的职级 ID, 通过[获取租户职级列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_level/list)接口获取默认值: `people_admin_job_level_id
 }
 
 // GetHireReferralWebsiteJobPostListResp ...
 type GetHireReferralWebsiteJobPostListResp struct {
-	Items     []*GetHireReferralWebsiteJobPostListRespItem `json:"items,omitempty"`      // 列表
+	Items     []*GetHireReferralWebsiteJobPostListRespItem `json:"items,omitempty"`      // 职位广告列表
 	HasMore   bool                                         `json:"has_more,omitempty"`   // 是否还有更多项
 	PageToken string                                       `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 }
@@ -76,127 +76,127 @@ type GetHireReferralWebsiteJobPostListResp struct {
 // GetHireReferralWebsiteJobPostListRespItem ...
 type GetHireReferralWebsiteJobPostListRespItem struct {
 	ID                 string                                                       `json:"id,omitempty"`                   // 职位广告 ID
-	Title              string                                                       `json:"title,omitempty"`                // 标题
+	Title              string                                                       `json:"title,omitempty"`                // 职位名称
 	JobID              string                                                       `json:"job_id,omitempty"`               // 职位 ID
 	JobCode            string                                                       `json:"job_code,omitempty"`             // 职位编码
-	JobExpireTime      string                                                       `json:"job_expire_time,omitempty"`      // 职位过期时间, 「null」代表「长期有效」
-	JobActiveStatus    int64                                                        `json:"job_active_status,omitempty"`    // 职位状态, 可选值有: 1: 启用态, 2: 禁用态
-	JobProcessType     int64                                                        `json:"job_process_type,omitempty"`     // 职位流程类型, 可选值有: 1: 社招, 2: 校招
-	JobRecruitmentType *GetHireReferralWebsiteJobPostListRespItemJobRecruitmentType `json:"job_recruitment_type,omitempty"` // 职位雇佣类型
-	JobDepartment      *GetHireReferralWebsiteJobPostListRespItemJobDepartment      `json:"job_department,omitempty"`       // 职位部门
-	JobType            *GetHireReferralWebsiteJobPostListRespItemJobType            `json:"job_type,omitempty"`             // 职位类型
+	JobExpireTime      string                                                       `json:"job_expire_time,omitempty"`      // 职位到期时间, 毫秒时间戳, 空代表「长期有效」
+	JobActiveStatus    int64                                                        `json:"job_active_status,omitempty"`    // 职位状态可选值有: 启用态禁用态
+	JobProcessType     int64                                                        `json:"job_process_type,omitempty"`     // 职位流程类型可选值有: 社招校招
+	JobRecruitmentType *GetHireReferralWebsiteJobPostListRespItemJobRecruitmentType `json:"job_recruitment_type,omitempty"` // 雇佣类型, 请参考[枚举常量介绍](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/enum)
+	JobDepartment      *GetHireReferralWebsiteJobPostListRespItemJobDepartment      `json:"job_department,omitempty"`       // 部门
+	JobType            *GetHireReferralWebsiteJobPostListRespItemJobType            `json:"job_type,omitempty"`             // 职位类别
 	MinJobLevel        *GetHireReferralWebsiteJobPostListRespItemMinJobLevel        `json:"min_job_level,omitempty"`        // 最低职级
 	MaxJobLevel        *GetHireReferralWebsiteJobPostListRespItemMaxJobLevel        `json:"max_job_level,omitempty"`        // 最高职级
-	Address            *GetHireReferralWebsiteJobPostListRespItemAddress            `json:"address,omitempty"`              // 职位地址
-	MinSalary          string                                                       `json:"min_salary,omitempty"`           // 月薪范围-最低薪资
-	MaxSalary          string                                                       `json:"max_salary,omitempty"`           // 月薪范围-最高薪资
-	RequiredDegree     int64                                                        `json:"required_degree,omitempty"`      // 学历要求, 可选值有: 1: 小学及以上, 2: 初中及以上, 3: 专职及以上, 4: 高中及以上, 5: 大专及以上, 6: 本科及以上, 7: 硕士及以上, 8: 博士及以上, 20: 不限
-	Experience         int64                                                        `json:"experience,omitempty"`           // 经验, 可选值有: 1: 不限, 2: 应届毕业生, 3: 1年以下, 4: 1-3年, 5: 3-5年, 6: 5-7年, 7: 7-10年, 8: 10年以上
-	Headcount          int64                                                        `json:"headcount,omitempty"`            // 数量
-	HighLightList      []*GetHireReferralWebsiteJobPostListRespItemHighLight        `json:"high_light_list,omitempty"`      // 职位亮点
+	Address            *GetHireReferralWebsiteJobPostListRespItemAddress            `json:"address,omitempty"`              // 职位地址, 废弃字段, 请使用`address_list`字段
+	MinSalary          string                                                       `json:"min_salary,omitempty"`           // 月薪范围-最低薪资, 单位: K, 精度: 整数
+	MaxSalary          string                                                       `json:"max_salary,omitempty"`           // 月薪范围-最高薪资, 单位: K, 精度: 整数
+	RequiredDegree     int64                                                        `json:"required_degree,omitempty"`      // 学历要求可选值有: 小学及以上初中及以上专职及以上高中及以上大专及以上本科及以上硕士及以上博士及以上不限
+	Experience         int64                                                        `json:"experience,omitempty"`           // 工作经验可选值有: 不限应届毕业生1年以下1-3年3-5年5-7年7-10年10年以上
+	Headcount          int64                                                        `json:"headcount,omitempty"`            // 招聘数量
+	HighLightList      []*GetHireReferralWebsiteJobPostListRespItemHighLight        `json:"high_light_list,omitempty"`      // 职位亮点列表, 详情请参考: [枚举常量介绍](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/enum)
 	Description        string                                                       `json:"description,omitempty"`          // 职位描述
 	Requirement        string                                                       `json:"requirement,omitempty"`          // 职位要求
 	Creator            *GetHireReferralWebsiteJobPostListRespItemCreator            `json:"creator,omitempty"`              // 创建人
-	CreateTime         string                                                       `json:"create_time,omitempty"`          // 创建时间
-	ModifyTime         string                                                       `json:"modify_time,omitempty"`          // 修改时间
-	CustomizedDataList []*GetHireReferralWebsiteJobPostListRespItemCustomizedData   `json:"customized_data_list,omitempty"` // 自定义字段
+	CreateTime         string                                                       `json:"create_time,omitempty"`          // 创建时间, 毫秒时间戳
+	ModifyTime         string                                                       `json:"modify_time,omitempty"`          // 修改时间, 毫秒时间戳
+	CustomizedDataList []*GetHireReferralWebsiteJobPostListRespItemCustomizedData   `json:"customized_data_list,omitempty"` // 自定义字段列表, 详情可参考: [获取职位模板](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_schema/list)
 	JobFunction        *GetHireReferralWebsiteJobPostListRespItemJobFunction        `json:"job_function,omitempty"`         // 职能分类
-	AddressList        []*GetHireReferralWebsiteJobPostListRespItemAddress          `json:"address_list,omitempty"`         // 职位广告地址列表
+	AddressList        []*GetHireReferralWebsiteJobPostListRespItemAddress          `json:"address_list,omitempty"`         // 职位地址列表
 }
 
 // GetHireReferralWebsiteJobPostListRespItemAddress ...
 type GetHireReferralWebsiteJobPostListRespItemAddress struct {
-	ID       string                                                    `json:"id,omitempty"`       // ID
-	Name     *GetHireReferralWebsiteJobPostListRespItemAddressName     `json:"name,omitempty"`     // 名称
+	ID       string                                                    `json:"id,omitempty"`       // 职位地址ID, 详情请参考: [获取地址列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/list)
+	Name     *GetHireReferralWebsiteJobPostListRespItemAddressName     `json:"name,omitempty"`     // 职位地址名称
 	District *GetHireReferralWebsiteJobPostListRespItemAddressDistrict `json:"district,omitempty"` // 区域信息
 	City     *GetHireReferralWebsiteJobPostListRespItemAddressCity     `json:"city,omitempty"`     // 城市信息
-	State    *GetHireReferralWebsiteJobPostListRespItemAddressState    `json:"state,omitempty"`    // 省信息
+	State    *GetHireReferralWebsiteJobPostListRespItemAddressState    `json:"state,omitempty"`    // 省份信息
 	Country  *GetHireReferralWebsiteJobPostListRespItemAddressCountry  `json:"country,omitempty"`  // 国家信息
 }
 
 // GetHireReferralWebsiteJobPostListRespItemAddressCity ...
 type GetHireReferralWebsiteJobPostListRespItemAddressCity struct {
-	Code string                                                    `json:"code,omitempty"` // 编码
-	Name *GetHireReferralWebsiteJobPostListRespItemAddressCityName `json:"name,omitempty"` // 名称
+	Code string                                                    `json:"code,omitempty"` // 城市编码
+	Name *GetHireReferralWebsiteJobPostListRespItemAddressCityName `json:"name,omitempty"` // 城市名称
 }
 
 // GetHireReferralWebsiteJobPostListRespItemAddressCityName ...
 type GetHireReferralWebsiteJobPostListRespItemAddressCityName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	EnUs string `json:"en_us,omitempty"` // 英文
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名称
+	EnUs string `json:"en_us,omitempty"` // 英文名称
 }
 
 // GetHireReferralWebsiteJobPostListRespItemAddressCountry ...
 type GetHireReferralWebsiteJobPostListRespItemAddressCountry struct {
-	Code string                                                       `json:"code,omitempty"` // 编码
-	Name *GetHireReferralWebsiteJobPostListRespItemAddressCountryName `json:"name,omitempty"` // 名称
+	Code string                                                       `json:"code,omitempty"` // 国家编码
+	Name *GetHireReferralWebsiteJobPostListRespItemAddressCountryName `json:"name,omitempty"` // 国家名称
 }
 
 // GetHireReferralWebsiteJobPostListRespItemAddressCountryName ...
 type GetHireReferralWebsiteJobPostListRespItemAddressCountryName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	EnUs string `json:"en_us,omitempty"` // 英文
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名称
+	EnUs string `json:"en_us,omitempty"` // 英文名称
 }
 
 // GetHireReferralWebsiteJobPostListRespItemAddressDistrict ...
 type GetHireReferralWebsiteJobPostListRespItemAddressDistrict struct {
-	Code string                                                        `json:"code,omitempty"` // 编码
-	Name *GetHireReferralWebsiteJobPostListRespItemAddressDistrictName `json:"name,omitempty"` // 名称
+	Code string                                                        `json:"code,omitempty"` // 区域编码
+	Name *GetHireReferralWebsiteJobPostListRespItemAddressDistrictName `json:"name,omitempty"` // 区域名称
 }
 
 // GetHireReferralWebsiteJobPostListRespItemAddressDistrictName ...
 type GetHireReferralWebsiteJobPostListRespItemAddressDistrictName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	EnUs string `json:"en_us,omitempty"` // 英文
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名称
+	EnUs string `json:"en_us,omitempty"` // 英文名称
 }
 
 // GetHireReferralWebsiteJobPostListRespItemAddressName ...
 type GetHireReferralWebsiteJobPostListRespItemAddressName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	EnUs string `json:"en_us,omitempty"` // 英文
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名称
+	EnUs string `json:"en_us,omitempty"` // 英文名称
 }
 
 // GetHireReferralWebsiteJobPostListRespItemAddressState ...
 type GetHireReferralWebsiteJobPostListRespItemAddressState struct {
-	Code string                                                     `json:"code,omitempty"` // 编码
-	Name *GetHireReferralWebsiteJobPostListRespItemAddressStateName `json:"name,omitempty"` // 名称
+	Code string                                                     `json:"code,omitempty"` // 省份编码
+	Name *GetHireReferralWebsiteJobPostListRespItemAddressStateName `json:"name,omitempty"` // 省份名称
 }
 
 // GetHireReferralWebsiteJobPostListRespItemAddressStateName ...
 type GetHireReferralWebsiteJobPostListRespItemAddressStateName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	EnUs string `json:"en_us,omitempty"` // 英文
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名称
+	EnUs string `json:"en_us,omitempty"` // 英文名称
 }
 
 // GetHireReferralWebsiteJobPostListRespItemCreator ...
 type GetHireReferralWebsiteJobPostListRespItemCreator struct {
-	ID   string                                                `json:"id,omitempty"`   // ID
-	Name *GetHireReferralWebsiteJobPostListRespItemCreatorName `json:"name,omitempty"` // 名称
+	ID   string                                                `json:"id,omitempty"`   // 创建人ID, 与`user_id_type`类型一致
+	Name *GetHireReferralWebsiteJobPostListRespItemCreatorName `json:"name,omitempty"` // 创建人名称
 }
 
 // GetHireReferralWebsiteJobPostListRespItemCreatorName ...
 type GetHireReferralWebsiteJobPostListRespItemCreatorName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	EnUs string `json:"en_us,omitempty"` // 英文
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名称
+	EnUs string `json:"en_us,omitempty"` // 英文名称
 }
 
 // GetHireReferralWebsiteJobPostListRespItemCustomizedData ...
 type GetHireReferralWebsiteJobPostListRespItemCustomizedData struct {
 	ObjectID   string                                                        `json:"object_id,omitempty"`   // 自定义字段 ID
 	Name       *GetHireReferralWebsiteJobPostListRespItemCustomizedDataName  `json:"name,omitempty"`        // 字段名称
-	ObjectType int64                                                         `json:"object_type,omitempty"` // 字段类型, 可选值有: 1: 单行文本, 2: 多行文本, 3: 单选, 4: 多选, 5: 日期, 6: 月份选择, 7: 年份选择, 8: 时间段, 9: 数字, 10: 默认字段
+	ObjectType int64                                                         `json:"object_type,omitempty"` // 字段类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段
 	Value      *GetHireReferralWebsiteJobPostListRespItemCustomizedDataValue `json:"value,omitempty"`       // 自定义字段值
 }
 
 // GetHireReferralWebsiteJobPostListRespItemCustomizedDataName ...
 type GetHireReferralWebsiteJobPostListRespItemCustomizedDataName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	EnUs string `json:"en_us,omitempty"` // 英文
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名称
+	EnUs string `json:"en_us,omitempty"` // 英文名称
 }
 
 // GetHireReferralWebsiteJobPostListRespItemCustomizedDataValue ...
 type GetHireReferralWebsiteJobPostListRespItemCustomizedDataValue struct {
-	Content    string                                                                 `json:"content,omitempty"`     // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
+	Content    string                                                                 `json:"content,omitempty"`     // 当字段类型为单行文本、多行文本、默认字段时, 从此字段取值
 	Option     *GetHireReferralWebsiteJobPostListRespItemCustomizedDataValueOption    `json:"option,omitempty"`      // 当字段类型为单选时, 从此字段取值
 	OptionList []*GetHireReferralWebsiteJobPostListRespItemCustomizedDataValueOption  `json:"option_list,omitempty"` // 当字段类型为多选时, 从此字段取值
 	TimeRange  *GetHireReferralWebsiteJobPostListRespItemCustomizedDataValueTimeRange `json:"time_range,omitempty"`  // 当字段类型为时间段时, 从此字段取值
@@ -212,98 +212,98 @@ type GetHireReferralWebsiteJobPostListRespItemCustomizedDataValueOption struct {
 
 // GetHireReferralWebsiteJobPostListRespItemCustomizedDataValueOptionName ...
 type GetHireReferralWebsiteJobPostListRespItemCustomizedDataValueOptionName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	EnUs string `json:"en_us,omitempty"` // 英文
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名称
+	EnUs string `json:"en_us,omitempty"` // 英文名称
 }
 
 // GetHireReferralWebsiteJobPostListRespItemCustomizedDataValueTimeRange ...
 type GetHireReferralWebsiteJobPostListRespItemCustomizedDataValueTimeRange struct {
-	StartTime string `json:"start_time,omitempty"` // 开始时间
-	EndTime   string `json:"end_time,omitempty"`   // 结束时间
+	StartTime string `json:"start_time,omitempty"` // 开始时间, 毫秒时间戳
+	EndTime   string `json:"end_time,omitempty"`   // 结束时间, 毫秒时间戳
 }
 
 // GetHireReferralWebsiteJobPostListRespItemHighLight ...
 type GetHireReferralWebsiteJobPostListRespItemHighLight struct {
-	ID   string                                                  `json:"id,omitempty"`   // ID
-	Name *GetHireReferralWebsiteJobPostListRespItemHighLightName `json:"name,omitempty"` // 名称
+	ID   string                                                  `json:"id,omitempty"`   // 职位亮点ID
+	Name *GetHireReferralWebsiteJobPostListRespItemHighLightName `json:"name,omitempty"` // 职位亮点名称
 }
 
 // GetHireReferralWebsiteJobPostListRespItemHighLightName ...
 type GetHireReferralWebsiteJobPostListRespItemHighLightName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	EnUs string `json:"en_us,omitempty"` // 英文
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名称
+	EnUs string `json:"en_us,omitempty"` // 英文名称
 }
 
 // GetHireReferralWebsiteJobPostListRespItemJobDepartment ...
 type GetHireReferralWebsiteJobPostListRespItemJobDepartment struct {
-	ID   string                                                      `json:"id,omitempty"`   // ID
-	Name *GetHireReferralWebsiteJobPostListRespItemJobDepartmentName `json:"name,omitempty"` // 名称
+	ID   string                                                      `json:"id,omitempty"`   // 部门ID, 与`department_id_type`类型一致
+	Name *GetHireReferralWebsiteJobPostListRespItemJobDepartmentName `json:"name,omitempty"` // 部门名称
 }
 
 // GetHireReferralWebsiteJobPostListRespItemJobDepartmentName ...
 type GetHireReferralWebsiteJobPostListRespItemJobDepartmentName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	EnUs string `json:"en_us,omitempty"` // 英文
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名称
+	EnUs string `json:"en_us,omitempty"` // 英文名称
 }
 
 // GetHireReferralWebsiteJobPostListRespItemJobFunction ...
 type GetHireReferralWebsiteJobPostListRespItemJobFunction struct {
-	ID   string                                                    `json:"id,omitempty"`   // ID
-	Name *GetHireReferralWebsiteJobPostListRespItemJobFunctionName `json:"name,omitempty"` // 名称
+	ID   string                                                    `json:"id,omitempty"`   // 职能分类 ID, 详情请查看: [获取职能分类列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_function/list)
+	Name *GetHireReferralWebsiteJobPostListRespItemJobFunctionName `json:"name,omitempty"` // 职能分类名称
 }
 
 // GetHireReferralWebsiteJobPostListRespItemJobFunctionName ...
 type GetHireReferralWebsiteJobPostListRespItemJobFunctionName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	EnUs string `json:"en_us,omitempty"` // 英文
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名称
+	EnUs string `json:"en_us,omitempty"` // 英文名称
 }
 
 // GetHireReferralWebsiteJobPostListRespItemJobRecruitmentType ...
 type GetHireReferralWebsiteJobPostListRespItemJobRecruitmentType struct {
-	ID   string                                                           `json:"id,omitempty"`   // ID
-	Name *GetHireReferralWebsiteJobPostListRespItemJobRecruitmentTypeName `json:"name,omitempty"` // 名称
+	ID   string                                                           `json:"id,omitempty"`   // 雇佣类型ID
+	Name *GetHireReferralWebsiteJobPostListRespItemJobRecruitmentTypeName `json:"name,omitempty"` // 雇佣类型名称
 }
 
 // GetHireReferralWebsiteJobPostListRespItemJobRecruitmentTypeName ...
 type GetHireReferralWebsiteJobPostListRespItemJobRecruitmentTypeName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	EnUs string `json:"en_us,omitempty"` // 英文
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名称
+	EnUs string `json:"en_us,omitempty"` // 英文名称
 }
 
 // GetHireReferralWebsiteJobPostListRespItemJobType ...
 type GetHireReferralWebsiteJobPostListRespItemJobType struct {
-	ID   string                                                `json:"id,omitempty"`   // ID
-	Name *GetHireReferralWebsiteJobPostListRespItemJobTypeName `json:"name,omitempty"` // 名称
+	ID   string                                                `json:"id,omitempty"`   // 职位类别ID, 详情请参考: [获取职位类别列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_type/list)
+	Name *GetHireReferralWebsiteJobPostListRespItemJobTypeName `json:"name,omitempty"` // 职位类别名称
 }
 
 // GetHireReferralWebsiteJobPostListRespItemJobTypeName ...
 type GetHireReferralWebsiteJobPostListRespItemJobTypeName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	EnUs string `json:"en_us,omitempty"` // 英文
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名称
+	EnUs string `json:"en_us,omitempty"` // 英文名称
 }
 
 // GetHireReferralWebsiteJobPostListRespItemMaxJobLevel ...
 type GetHireReferralWebsiteJobPostListRespItemMaxJobLevel struct {
-	ID   string                                                    `json:"id,omitempty"`   // 职级ID
-	Name *GetHireReferralWebsiteJobPostListRespItemMaxJobLevelName `json:"name,omitempty"` // 职级名称
+	ID   string                                                    `json:"id,omitempty"`   // 最高职级 ID, 与入参`job_level_id_type` 类型一致
+	Name *GetHireReferralWebsiteJobPostListRespItemMaxJobLevelName `json:"name,omitempty"` // 最高职级名称
 }
 
 // GetHireReferralWebsiteJobPostListRespItemMaxJobLevelName ...
 type GetHireReferralWebsiteJobPostListRespItemMaxJobLevelName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 职级中文名称
-	EnUs string `json:"en_us,omitempty"` // 职级英文名称
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名称
+	EnUs string `json:"en_us,omitempty"` // 英文名称
 }
 
 // GetHireReferralWebsiteJobPostListRespItemMinJobLevel ...
 type GetHireReferralWebsiteJobPostListRespItemMinJobLevel struct {
-	ID   string                                                    `json:"id,omitempty"`   // 职级ID
-	Name *GetHireReferralWebsiteJobPostListRespItemMinJobLevelName `json:"name,omitempty"` // 职级名称
+	ID   string                                                    `json:"id,omitempty"`   // 最低职级 ID, 与入参`job_level_id_type` 类型一致
+	Name *GetHireReferralWebsiteJobPostListRespItemMinJobLevelName `json:"name,omitempty"` // 最低职级名称
 }
 
 // GetHireReferralWebsiteJobPostListRespItemMinJobLevelName ...
 type GetHireReferralWebsiteJobPostListRespItemMinJobLevelName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 职级中文名称
-	EnUs string `json:"en_us,omitempty"` // 职级英文名称
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名称
+	EnUs string `json:"en_us,omitempty"` // 英文名称
 }
 
 // getHireReferralWebsiteJobPostListResp ...

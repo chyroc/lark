@@ -62,10 +62,10 @@ func (r *Mock) UnMockDriveUpdateWikiSpaceSetting() {
 
 // UpdateWikiSpaceSettingReq ...
 type UpdateWikiSpaceSettingReq struct {
-	SpaceID         string  `path:"space_id" json:"-"`          // 知识空间id, 示例值: "1565676577122621"
-	CreateSetting   *string `json:"create_setting,omitempty"`   // 谁可以创建空间的一级页面: "admin_and_member" = 管理员和成员 "admin"  - 仅管理员, 示例值: "admin/admin_and_member"
-	SecuritySetting *string `json:"security_setting,omitempty"` // 可阅读用户可否创建副本/打印/导出/复制: "allow" - 允许 "not_allow" - 不允许, 示例值: "allow/not_allow"
-	CommentSetting  *string `json:"comment_setting,omitempty"`  // 可阅读用户可否评论: "allow" - 允许 "not_allow" - 不允许, 示例值: "allow/not_allow"
+	SpaceID         string  `path:"space_id" json:"-"`          // 知识空间id示例值: "1565676577122621"
+	CreateSetting   *string `json:"create_setting,omitempty"`   // 谁可以创建空间的一级页面: "admin_and_member" = 管理员和成员 "admin"  - 仅管理员示例值: "admin/admin_and_member"
+	SecuritySetting *string `json:"security_setting,omitempty"` // 可阅读用户可否创建副本/打印/导出/复制: "allow" - 允许 "not_allow" - 不允许示例值: "allow/not_allow"
+	CommentSetting  *string `json:"comment_setting,omitempty"`  // 可阅读用户可否评论: "allow" - 允许 "not_allow" - 不允许示例值: "allow/not_allow"
 }
 
 // UpdateWikiSpaceSettingResp ...

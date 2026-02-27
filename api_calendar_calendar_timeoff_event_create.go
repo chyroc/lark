@@ -60,13 +60,13 @@ func (r *Mock) UnMockCalendarCreateCalendarTimeoffEvent() {
 
 // CreateCalendarTimeoffEventReq ...
 type CreateCalendarTimeoffEventReq struct {
-	UserIDType  *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	UserID      string  `json:"user_id,omitempty"`      // 用户 ID。ID 类型需要与 user_id_type 的值保持一致。关于用户 ID 可参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction), 示例值: "ou_XXXXXXXXXX"
-	Timezone    string  `json:"timezone,omitempty"`     // 时区信息, 示例值: "Asia/Shanghai"
-	StartTime   string  `json:"start_time,omitempty"`   // 请假开始时间。支持以下任一格式: 秒级时间戳: 通过时间戳设置的请假日程为普通日程, 即按小时请假。取值示例 `1609430400`, 日期格式: 通过日期设置的请假日程为全天日程。取值示例 `2021-01-01`, 注意: start_time 和 end_time 所选用的时间格式必须保持一致, 否则无效, 示例值: "2021-01-01"
-	EndTime     string  `json:"end_time,omitempty"`     // 请假结束时间。支持以下任一格式: 秒级时间戳: 通过时间戳设置的请假日程为普通日程, 即按小时请假。取值示例 `1609430400`, 日期格式: 通过日期设置的请假日程为全天日程。取值示例 `2021-01-01`, 注意: start_time 和 end_time 所选用的时间格式必须保持一致, 否则无效, 示例值: "2021-01-01"
-	Title       *string `json:"title,omitempty"`        // 自定义请假日程标题, 默认值: 空, 使用默认标题, 示例值: "请假中(全天) / 1-Day Time Off"
-	Description *string `json:"description,omitempty"`  // 自定义请假日程描述, 默认值: 空, 使用默认描述, 示例值: "若删除此日程, 飞书中相应的“请假”标签将自动消失, 而请假系统中的休假申请不会被撤销。"
+	UserIDType  *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserID      string  `json:"user_id,omitempty"`      // 用户 ID。ID 类型需要与 user_id_type 的值保持一致。关于用户 ID 可参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)。示例值: "ou_XXXXXXXXXX"
+	Timezone    string  `json:"timezone,omitempty"`     // 时区信息。示例值: "Asia/Shanghai"
+	StartTime   string  `json:"start_time,omitempty"`   // 请假开始时间。支持以下任一格式: 秒级时间戳: 通过时间戳设置的请假日程为普通日程, 即按小时请假。取值示例 `1609430400`- 日期格式: 通过日期设置的请假日程为全天日程。取值示例 `2021-01-01`注意: start_time 和 end_time 所选用的时间格式必须保持一致, 否则无效。示例值: "2021-01-01"
+	EndTime     string  `json:"end_time,omitempty"`     // 请假结束时间。支持以下任一格式: 秒级时间戳: 通过时间戳设置的请假日程为普通日程, 即按小时请假。取值示例 `1609430400`- 日期格式: 通过日期设置的请假日程为全天日程。取值示例 `2021-01-01`注意: start_time 和 end_time 所选用的时间格式必须保持一致, 否则无效。示例值: "2021-01-01"
+	Title       *string `json:"title,omitempty"`        // 自定义请假日程标题。默认值: 空, 使用默认标题示例值: "请假中(全天) / 1-Day Time Off"
+	Description *string `json:"description,omitempty"`  // 自定义请假日程描述。默认值: 空, 使用默认描述示例值: "若删除此日程, 飞书中相应的“请假”标签将自动消失, 而请假系统中的休假申请不会被撤销。"
 }
 
 // CreateCalendarTimeoffEventResp ...
@@ -74,8 +74,8 @@ type CreateCalendarTimeoffEventResp struct {
 	TimeoffEventID string `json:"timeoff_event_id,omitempty"` // 请假日程 ID。后续可以使用该 ID 删除请假日程。
 	UserID         string `json:"user_id,omitempty"`          // 用户 ID。关于用户 ID 可参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)。
 	Timezone       string `json:"timezone,omitempty"`         // 时区信息。
-	StartTime      string `json:"start_time,omitempty"`       // 请假开始时间。可能返回的时间格式: 秒级时间戳, 例如 `1609430400`, 日期, 例如 `2021-01-01`
-	EndTime        string `json:"end_time,omitempty"`         // 请假结束时间。可能返回的时间格式: 秒级时间戳, 例如 `1609430400`, 日期, 例如 `2021-01-01`
+	StartTime      string `json:"start_time,omitempty"`       // 请假开始时间。可能返回的时间格式: 秒级时间戳, 例如 `1609430400`- 日期, 例如 `2021-01-01
+	EndTime        string `json:"end_time,omitempty"`         // 请假结束时间。可能返回的时间格式: 秒级时间戳, 例如 `1609430400`- 日期, 例如 `2021-01-01
 	Title          string `json:"title,omitempty"`            // 请假日程标题。
 	Description    string `json:"description,omitempty"`      // 请假日程描述。
 }

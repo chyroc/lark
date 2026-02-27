@@ -21,16 +21,10 @@ import (
 	"context"
 )
 
-// GetWikiSpace 此接口用于根据知识空间ID来查询知识空间的信息。
+// GetWikiSpace 此接口用于根据知识空间 ID 查询知识空间的信息, 包括空间的类型、可见性、分享状态等。
 //
-// 空间类型（type）:
-// - 个人空间: 归个人管理。一人仅可拥有一个个人空间, 无法添加其他管理员。
-// - 团队空间: 归团队（多人)管理, 可添加多个管理员。
-// 空间可见性（visibility）:
-// - 公开空间: 租户所有用户可见, 默认为成员权限。无法额外添加成员, 但可以添加管理员。
-// - 私有空间: 仅对知识空间管理员、成员可见, 需要手动添加管理员、成员。
-// 本接口要求知识库权限:
-// - 需要为知识空间成员（管理员）
+// ## 前提条件
+// 调用此接口前, 请确保应用或用户为知识空间的成员或管理员。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get
 // new doc: https://open.feishu.cn/document/server-docs/docs/wiki-v2/space/get
@@ -68,7 +62,8 @@ func (r *Mock) UnMockDriveGetWikiSpace() {
 
 // GetWikiSpaceReq ...
 type GetWikiSpaceReq struct {
-	SpaceID string `path:"space_id" json:"-"` // 知识空间id, 示例值: "6870403571079249922"
+	SpaceID string  `path:"space_id" json:"-"` // 知识空间 ID。可通过以下两种方式获取。了解更多, 参考[知识库概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-overview)。- 调用 [获取知识空间列表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/list)获取- 如果你是知识库管理员, 可以进入知识库设置页面, 复制地址栏的数字部分: https://sample.feishu.cn/wiki/settings/[6870403571079249922]示例值: "6870403571079249922"
+	Lang    *string `query:"lang" json:"-"`    // 当查询我的文档库时, 指定返回的文档库名称展示语言。示例值: zh可选值有: 简体中文印尼语德语英语西班牙语法语意大利语葡萄牙语越南语俄语印地语泰语韩语日语繁体中文（中国香港）繁体中文（中国台湾）默认值: `en
 }
 
 // GetWikiSpaceResp ...
@@ -78,11 +73,12 @@ type GetWikiSpaceResp struct {
 
 // GetWikiSpaceRespSpace ...
 type GetWikiSpaceRespSpace struct {
-	Name        string `json:"name,omitempty"`        // 知识空间名称
-	Description string `json:"description,omitempty"` // 知识空间描述
-	SpaceID     string `json:"space_id,omitempty"`    // 知识空间id
-	SpaceType   string `json:"space_type,omitempty"`  // 表示知识空间类型（团队空间 或 个人空间）, 可选值有: team: 团队空间, person: 个人空间
-	Visibility  string `json:"visibility,omitempty"`  // 表示知识空间可见性（公开空间 或 私有空间）, 可选值有: public: 公开空间, private: 私有空间
+	Name        string `json:"name,omitempty"`         // 知识空间名称
+	Description string `json:"description,omitempty"`  // 知识空间描述
+	SpaceID     string `json:"space_id,omitempty"`     // 知识空间 ID
+	SpaceType   string `json:"space_type,omitempty"`   // 表示知识空间类型可选值有: 团队空间, 归团队（多人）管理, 可添加多个管理员个人空间（旧版, 已下线）, 归个人管理。一人仅可拥有一个, 无法添加其他管理员我的文档库, 归个人管理。一人仅可拥有一个, 无法添加其他管理员
+	Visibility  string `json:"visibility,omitempty"`   // 表示知识空间可见性可选值有: 公开空间。租户所有用户可见, 默认为成员权限。无法额外添加成员, 但可以添加管理员私有空间。仅对知识空间管理员、成员可见, 需要手动添加管理员、成员
+	OpenSharing string `json:"open_sharing,omitempty"` // 表示知识空间的分享状态可选值有: 打开, 即知识空间发布到互联网关闭, 即知识空间未发布到互联网
 }
 
 // getWikiSpaceResp ...

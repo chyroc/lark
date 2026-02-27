@@ -22,11 +22,12 @@ import (
 	"io"
 )
 
-// RecognizeAIVehicleInvoice 机动车发票识别接口, 支持JPG/JPEG/PNG/BMP四种文件类型的一次性的识别。
+// RecognizeAIVehicleInvoice 机动车发票识别接口, 支持JPG/JPEG/PNG/BMP四种文件类型的一次性的识别。文件大小需要小于10M。
 //
 // 单租户限流: 10QPS, 同租户下的应用没有限流, 共享本租户的 10QPS 限流
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/document_ai-v1/vehicle_invoice/recognize
+// new doc: https://open.feishu.cn/document/ai/document_ai-v1/vehicle_invoice/recognize
 func (r *AIService) RecognizeAIVehicleInvoice(ctx context.Context, request *RecognizeAIVehicleInvoiceReq, options ...MethodOptionFunc) (*RecognizeAIVehicleInvoiceResp, *Response, error) {
 	if r.cli.mock.mockAIRecognizeAIVehicleInvoice != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] AI#RecognizeAIVehicleInvoice mock enable")
@@ -62,7 +63,7 @@ func (r *Mock) UnMockAIRecognizeAIVehicleInvoice() {
 
 // RecognizeAIVehicleInvoiceReq ...
 type RecognizeAIVehicleInvoiceReq struct {
-	File io.Reader `json:"file,omitempty"` // 识别的机动车发票源文件, 示例值: file binary
+	File io.Reader `json:"file,omitempty"` // 识别的机动车发票源文件示例值: file binary
 }
 
 // RecognizeAIVehicleInvoiceResp ...
@@ -77,7 +78,7 @@ type RecognizeAIVehicleInvoiceRespVehicleInvoice struct {
 
 // RecognizeAIVehicleInvoiceRespVehicleInvoiceEntitie ...
 type RecognizeAIVehicleInvoiceRespVehicleInvoiceEntitie struct {
-	Type  string `json:"type,omitempty"`  // 识别的字段种类, 可选值有: invoice_code: 发票代码, invoice_num: 发票号码, date: 开票日期, print_code: 机打代码, print_num: 机打号码, machine_num: 机器编码, buyer_name: 购买方名称, buyer_id: 购买方纳税人识别号, vehicle_type: 车辆类型, product_model: 厂牌型号, certificate_num: 合格证号, engine_num: 发动机号码, vin: 车架号, total_price: 价税合计, total_price_little: 小写金额, saler_name: 销货单位名称, saler_id: 销售方纳税人识别号, saler_addr: 地址, tax_rate: 税率, tax: 税额, price: 不含税价格
+	Type  string `json:"type,omitempty"`  // 识别的字段种类可选值有: 发票代码发票号码开票日期机打代码机打号码机器编码购买方名称购买方纳税人识别号车辆类型厂牌型号合格证号发动机号码车架号价税合计小写金额销货单位名称销售方纳税人识别号地址税率税额不含税价格
 	Value string `json:"value,omitempty"` // 识别出字段的文本信息
 }
 

@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// BatchDeleteHireEcoBackgroundCheckCustomField 删除用户在发起背调时的自定义字段, 删除不影响已创建的背调, 删除后对应的自定义字段的 key 不能再复用。
+// BatchDeleteHireEcoBackgroundCheckCustomField 删除用户在发起背调时展示的表单自定义字段。
+//
+// * 删除操作不影响已创建的背调。
+// * 该账号下被删除的自定义字段的key（详见[创建背调自定义字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check_custom_field/create)）不能被重复使用。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check_custom_field/batch_delete
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/ecological-docking/eco_background_check_custom_field/batch_delete
@@ -58,12 +61,11 @@ func (r *Mock) UnMockHireBatchDeleteHireEcoBackgroundCheckCustomField() {
 
 // BatchDeleteHireEcoBackgroundCheckCustomFieldReq ...
 type BatchDeleteHireEcoBackgroundCheckCustomFieldReq struct {
-	AccountID string `json:"account_id,omitempty"` // 背调账号 ID, 可在「账号绑定」事件中获取, 示例值: "a001"
+	AccountID string `json:"account_id,omitempty"` // 背调账号 ID, 可通过[账号绑定](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_account/events/created)事件获取示例值: "6995842370159937061"
 }
 
 // BatchDeleteHireEcoBackgroundCheckCustomFieldResp ...
-type BatchDeleteHireEcoBackgroundCheckCustomFieldResp struct {
-}
+type BatchDeleteHireEcoBackgroundCheckCustomFieldResp struct{}
 
 // batchDeleteHireEcoBackgroundCheckCustomFieldResp ...
 type batchDeleteHireEcoBackgroundCheckCustomFieldResp struct {

@@ -24,7 +24,7 @@ import (
 // MoveDriveFile 将文件或者文件夹移动到用户云空间的其他位置。
 //
 // 如果你移动的是文件夹, 该接口将异步执行, 同时返回该异步任务的 ID。你可使用[查询异步任务状态](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/task_check)接口查询任务执行的状态。
-// 使用限制:
+// ## 使用限制
 // 该接口不支持并发调用, 且调用频率上限为 5 QPS 且 10000次/天。否则会返回 1061045 错误码, 可通过稍后重试解决。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/move
@@ -63,9 +63,9 @@ func (r *Mock) UnMockDriveMoveDriveFile() {
 
 // MoveDriveFileReq ...
 type MoveDriveFileReq struct {
-	FileToken   string  `path:"file_token" json:"-"`    // 需要移动的文件或文件夹 token, 了解如何获取文件 token, 参考[文件概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/file-overview), 了解如何获取文件夹 token, 参考[文件夹概述](https://open.feishu.cn/document/ukTMukTMukTM/ugTNzUjL4UzM14CO1MTN/folder-overview), 示例值: "boxcnrHpsg1QDqXAAAyachabcef"
-	Type        *string `json:"type,omitempty"`         // 文件类型。该参数为必填, 请忽略左侧必填列的“否”。如果该值为空或者与文件实际类型不匹配, 接口会返回失败, 示例值: "file", 可选值有: file: 普通文件类型, docx: 新版文档类型, bitable: 多维表格类型, doc: 文档类型, sheet: 电子表格类型, mindnote: 思维笔记类型, folder: 文件夹类型, slides: 幻灯片类型
-	FolderToken *string `json:"folder_token,omitempty"` // 目标文件夹的 token。了解如何获取文件夹 token, 参考[文件夹概述](https://open.feishu.cn/document/ukTMukTMukTM/ugTNzUjL4UzM14CO1MTN/folder-overview), 示例值: "fldbcO1UuPz8VwnpPx5a92abcef"
+	FileToken   string  `path:"file_token" json:"-"`    // 需要移动的文件或文件夹 token。了解如何获取文件 token, 参考[文件概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/file-overview)。了解如何获取文件夹 token, 参考[文件夹概述](https://open.feishu.cn/document/ukTMukTMukTM/ugTNzUjL4UzM14CO1MTN/folder-overview)。示例值: "boxcnrHpsg1QDqXAAAyachabcef"
+	Type        *string `json:"type,omitempty"`         // 文件类型。该参数为必填, 请忽略左侧必填列的“否”。如果该值为空或者与文件实际类型不匹配, 接口会返回失败。示例值: "file"可选值有: 普通文件类型新版文档类型多维表格类型文档类型电子表格类型思维笔记类型文件夹类型幻灯片类型
+	FolderToken *string `json:"folder_token,omitempty"` // 目标文件夹的 token。了解如何获取文件夹 token, 参考[文件夹概述](https://open.feishu.cn/document/ukTMukTMukTM/ugTNzUjL4UzM14CO1MTN/folder-overview)。示例值: "fldbcO1UuPz8VwnpPx5a92abcef"
 }
 
 // MoveDriveFileResp ...

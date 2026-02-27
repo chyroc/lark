@@ -59,7 +59,7 @@ func (r *Mock) UnMockHelpdeskGetHelpdeskTicketCustomizedFields() {
 
 // GetHelpdeskTicketCustomizedFieldsReq ...
 type GetHelpdeskTicketCustomizedFieldsReq struct {
-	VisibleOnly *bool `query:"visible_only" json:"-"` // visible only, 示例值: true
+	VisibleOnly *bool `query:"visible_only" json:"-"` // visible only示例值: true
 }
 
 // GetHelpdeskTicketCustomizedFieldsResp ...
@@ -75,7 +75,7 @@ type GetHelpdeskTicketCustomizedFieldsRespTicketCustomizedField struct {
 	KeyName                 string                                                               `json:"key_name,omitempty"`                   // 键名
 	DisplayName             string                                                               `json:"display_name,omitempty"`               // 名称
 	Position                string                                                               `json:"position,omitempty"`                   // 字段在列表后台管理列表中的位置
-	FieldType               string                                                               `json:"field_type,omitempty"`                 // 类型, string - 单行文本, multiline - 多行文本, dropdown - 下拉列表, dropdown_nested - 级联下拉
+	FieldType               string                                                               `json:"field_type,omitempty"`                 // 类型string - 单行文本multiline - 多行文本dropdown - 下拉列表dropdown_nested - 级联下拉
 	Description             string                                                               `json:"description,omitempty"`                // 描述
 	Visible                 bool                                                                 `json:"visible,omitempty"`                    // 是否可见
 	Editable                bool                                                                 `json:"editable,omitempty"`                   // 是否可以修改

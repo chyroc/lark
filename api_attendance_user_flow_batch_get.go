@@ -21,8 +21,17 @@ import (
 	"context"
 )
 
-// BatchGetAttendanceUserFlow 批量查询授权内员工的实际打卡流水记录。例如, 企业给一个员工设定的班次是上午 9 点和下午 6 点各打一次上下班卡, 但是该员工在这期间打了多次卡, 该接口会把所有的打卡记录都返回。
+// BatchGetAttendanceUserFlow 通过用户 ID 获取用户的打卡流水记录。返回信息主要包含:
 //
+// * 用户id和创建者id
+// * 记录信息
+// * 打卡位置信息、时间信息
+// * 打卡方式信息
+// * GPS 打卡: location_name（定位地址信息）
+// * Wi-Fi 打卡: ssid（wifi名称）、bssid（mac地址）
+// * 考勤机打卡: device_id（考勤机设备id）
+// 对应页面功能打卡管理-[打卡记录](https://example.feishu.cn/people/workforce-management/manage/statistics/flow)
+// 这里只返回有效的打卡流水, 无效或待生效的不会返回
 // 如果只需获取打卡结果, 而不需要详细的打卡数据, 可使用“获取打卡结果”的接口。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_flow/query
@@ -60,11 +69,11 @@ func (r *Mock) UnMockAttendanceBatchGetAttendanceUserFlow() {
 
 // BatchGetAttendanceUserFlowReq ...
 type BatchGetAttendanceUserFlowReq struct {
-	EmployeeType          EmployeeType `query:"employee_type" json:"-"`           // 请求体中的 user_ids 和响应体中的 user_id 的员工工号类型, 示例值: employee_id, 可选值有: employee_id: 员工 employee ID, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID, employee_no: 员工工号, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号
-	IncludeTerminatedUser *bool        `query:"include_terminated_user" json:"-"` // 由于新入职用户可以复用已离职用户的employee_no/employee_id。如果true, 返回employee_no/employee_id对应的所有在职+离职用户数据；如果false, 只返回employee_no/employee_id对应的在职或最近一个离职用户数据, 示例值: true
-	UserIDs               []string     `json:"user_ids,omitempty"`                // employee_no 或 employee_id 列表, 长度不超过 50, 示例值: ["abd754f7"]
-	CheckTimeFrom         string       `json:"check_time_from,omitempty"`         // 查询的起始时间, 时间戳, 示例值: "1566641088"
-	CheckTimeTo           string       `json:"check_time_to,omitempty"`           // 查询的结束时间, 时间戳, 示例值: "1566641088"
+	EmployeeType          EmployeeType `query:"employee_type" json:"-"`           // 请求体中的 user_ids 和响应体中的 user_id 的员工ID类型。如果没有后台管理权限, 可使用[通过手机号或邮箱获取用户 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/batch_get_id)示例值: employee_id可选值有: 员工 employee ID, 即[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的用户 ID员工工号, 即[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的工号
+	IncludeTerminatedUser *bool        `query:"include_terminated_user" json:"-"` // 由于新入职用户可以复用已离职用户的employee_no/employee_id。如果true, 返回employee_no/employee_id对应的所有在职+离职用户数据；如果false, 只返回employee_no/employee_id对应的在职或最近一个离职用户数据示例值: true
+	UserIDs               []string     `json:"user_ids,omitempty"`                // employee_no 或 employee_id 列表, 长度不超过 50示例值: ["abd754f7"]
+	CheckTimeFrom         string       `json:"check_time_from,omitempty"`         // 查询的起始时间, 秒级时间戳示例值: "1566641088"
+	CheckTimeTo           string       `json:"check_time_to,omitempty"`           // 查询的结束时间, 秒级时间戳示例值: "1566641088"
 }
 
 // BatchGetAttendanceUserFlowResp ...
@@ -74,19 +83,22 @@ type BatchGetAttendanceUserFlowResp struct {
 
 // BatchGetAttendanceUserFlowRespUserFlowResult ...
 type BatchGetAttendanceUserFlowRespUserFlowResult struct {
-	UserID       string   `json:"user_id,omitempty"`       // 用户 ID
-	CreatorID    string   `json:"creator_id,omitempty"`    // 记录创建者 ID
+	UserID       string   `json:"user_id,omitempty"`       // 用户 ID, 对应employee_type
+	CreatorID    string   `json:"creator_id,omitempty"`    // 记录创建者 ID, 对应employee_type
 	LocationName string   `json:"location_name,omitempty"` // 打卡位置名称信息
-	CheckTime    string   `json:"check_time,omitempty"`    // 打卡时间, 精确到秒的时间戳
+	CheckTime    string   `json:"check_time,omitempty"`    // 打卡时间, 秒级时间戳
 	Comment      string   `json:"comment,omitempty"`       // 打卡备注
-	RecordID     string   `json:"record_id,omitempty"`     // 打卡记录 ID
+	RecordID     string   `json:"record_id,omitempty"`     // 对应打卡流水记录ID
 	Ssid         string   `json:"ssid,omitempty"`          // 打卡 Wi-Fi 的 SSID
 	Bssid        string   `json:"bssid,omitempty"`         // 打卡 Wi-Fi 的 MAC 地址
 	IsField      bool     `json:"is_field,omitempty"`      // 是否为外勤打卡
 	IsWifi       bool     `json:"is_wifi,omitempty"`       // 是否为 Wi-Fi 打卡
-	Type         int64    `json:"type,omitempty"`          // 记录生成方式, 可选值有: 0: 用户打卡, 1: 管理员修改, 2: 用户补卡, 3: 系统自动生成, 4: 下班免打卡, 5: 考勤机, 6: 极速打卡, 7: 考勤开放平台导入
+	Type         int64    `json:"type,omitempty"`          // 记录生成方式, 在开放平台调用时, 此参数无效, 内部值始终是7可选值有: 用户打卡管理员修改用户补卡系统自动生成下班免打卡考勤机极速打卡考勤开放平台导入
 	PhotoURLs    []string `json:"photo_urls,omitempty"`    // 打卡照片列表
-	CheckResult  string   `json:"check_result,omitempty"`  // 打卡结果, 可选值有: NoNeedCheck: 无需打卡, SystemCheck: 系统打卡, Normal: 正常, Early: 早退, Late: 迟到, SeriousLate: 严重迟到, Lack: 缺卡, Invalid: 无效, None: 无状态, Todo: 尚未打卡
+	DeviceID     string   `json:"device_id,omitempty"`     // 打卡设备ID（只支持小程序打卡, 导入时无效）
+	CheckResult  string   `json:"check_result,omitempty"`  // 无效字段。如需获取打卡结果请使用[获取打卡结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task/query)可选值有: 无需打卡系统打卡正常早退迟到严重迟到缺卡无效无状态尚未打卡
+	ExternalID   string   `json:"external_id,omitempty"`   // 用户导入的外部打卡记录ID
+	IdempotentID string   `json:"idempotent_id,omitempty"` // 唯一幂等键
 }
 
 // batchGetAttendanceUserFlowResp ...

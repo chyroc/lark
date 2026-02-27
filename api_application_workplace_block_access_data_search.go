@@ -24,6 +24,7 @@ import (
 // SearchApplicationWorkplaceBlockAccessData 获取定制工作台小组件访问数据
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/workplace-v1/workplace_block_access_data/search
+// new doc: https://open.feishu.cn/document/workplace-v1/workplace_access_data/search-2
 func (r *ApplicationService) SearchApplicationWorkplaceBlockAccessData(ctx context.Context, request *SearchApplicationWorkplaceBlockAccessDataReq, options ...MethodOptionFunc) (*SearchApplicationWorkplaceBlockAccessDataResp, *Response, error) {
 	if r.cli.mock.mockApplicationSearchApplicationWorkplaceBlockAccessData != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#SearchApplicationWorkplaceBlockAccessData mock enable")
@@ -57,11 +58,11 @@ func (r *Mock) UnMockApplicationSearchApplicationWorkplaceBlockAccessData() {
 
 // SearchApplicationWorkplaceBlockAccessDataReq ...
 type SearchApplicationWorkplaceBlockAccessDataReq struct {
-	FromDate  string  `query:"from_date" json:"-"`  // 数据检索开始时间, 精确到日。格式yyyy-MM-dd, 示例值: 2023-02-01
-	ToDate    string  `query:"to_date" json:"-"`    // 数据检索结束时间, 精确到日。格式yyyy-MM-dd, 示例值: 2023-03-02
-	PageSize  int64   `query:"page_size" json:"-"`  // 分页大小, 最小为 1, 最大为 200, 默认为 20, 示例值: 20, 默认值: `20`, 取值范围: `1` ～ `200`
-	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: ddowkdkl9w2d
-	BlockID   *string `query:"block_id" json:"-"`   // 小组件id（BlockID）, 可前往 飞书管理后台 > 工作台 > 定制工作台, 选择指定的工作台并进入工作台编辑器, 点击某个小组件, 即可查看页面右侧面板中该小组件名称下方的“BlockID”, 示例值: 283438293839422334
+	FromDate  string  `query:"from_date" json:"-"`  // 数据检索开始时间, 精确到日。格式yyyy-MM-dd。示例值: 2023-02-01
+	ToDate    string  `query:"to_date" json:"-"`    // 数据检索结束时间, 精确到日。格式yyyy-MM-dd。示例值: 2023-03-02
+	PageSize  int64   `query:"page_size" json:"-"`  // 分页大小, 最小为 1, 最大为 200, 默认为 20。示例值: 20默认值: `20` 取值范围: `1` ～ `200
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: ddowkdkl9w2d
+	BlockID   *string `query:"block_id" json:"-"`   // 小组件id（BlockID）。可前往 飞书管理后台 > 工作台 > 定制工作台, 选择指定的工作台并进入工作台编辑器, 点击某个小组件, 即可查看页面右侧面板中该小组件名称下方的“BlockID”示例值: 283438293839422334
 }
 
 // SearchApplicationWorkplaceBlockAccessDataResp ...

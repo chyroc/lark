@@ -21,7 +21,9 @@ import (
 	"context"
 )
 
-// GetBitableTableForm 获取表单的所有元数据项
+// GetBitableTableForm 获取表单的所有元数据, 包括表单名称、描述、是否共享等。
+//
+// 表单视图是多维表格的一种视图类型。每个表单都有唯一标识 `form_id`, 即当前视图的 `view_id`。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-form/get
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/form/get
@@ -59,9 +61,9 @@ func (r *Mock) UnMockBitableGetBitableTableForm() {
 
 // GetBitableTableFormReq ...
 type GetBitableTableFormReq struct {
-	AppToken string `path:"app_token" json:"-"` // 多维表格文档 Token, 示例值: "bascnv1jIEppJdTCn3jOosabcef"
-	TableID  string `path:"table_id" json:"-"`  // 表格 ID, 示例值: "tblz8nadEUdxNMt5"
-	FormID   string `path:"form_id" json:"-"`   // 表单 ID, 示例值: "vew6oMbAa4"
+	AppToken string `path:"app_token" json:"-"` // 多维表格 App 的唯一标识。不同形态的多维表格, 其 `app_token` 的获取方式不同: 如果多维表格的 URL 以 [feishu.cn/base] 开头, 该多维表格的 `app_token` 是下图高亮部分: ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004)- 如果多维表格的 URL 以 [feishu.cn/wiki] 开头, 你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时, `obj_token` 字段的值才是多维表格的 `app_token`。了解更多, 参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。示例值: "bascnv1jIEppJdTCn3jOosabcef"
+	TableID  string `path:"table_id" json:"-"`  // 多维表格数据表的唯一标识。获取方式: 你可通过多维表格 URL 获取 `table_id`, 下图高亮部分即为当前数据表的 `table_id`- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`  ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976)示例值: "tblz8nadEUdxNMt5"
+	FormID   string `path:"form_id" json:"-"`   // 多维表格中表单的唯一标识。表单也是视图的一种, 其获取方式与获取 `view_id` 相同: 在多维表格的 URL 地址栏中, `form_id` 是下图中高亮部分: ![view_id.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/140668632c97e0095832219001d17c54_DJMgVH9x2S.png?height=748&lazyload=true&width=2998)- 通过[列出视图](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-view/list)接口获取。暂时无法获取到嵌入到云文档中的多维表格的 `form_id`示例值: "vew6oMbAa4"
 }
 
 // GetBitableTableFormResp ...
@@ -73,10 +75,10 @@ type GetBitableTableFormResp struct {
 type GetBitableTableFormRespForm struct {
 	Name            string `json:"name,omitempty"`              // 表单名称
 	Description     string `json:"description,omitempty"`       // 表单描述
-	Shared          bool   `json:"shared,omitempty"`            // 是否开启共享
-	SharedURL       string `json:"shared_url,omitempty"`        // 分享 URL
-	SharedLimit     string `json:"shared_limit,omitempty"`      // 分享范围限制, 可选值有: off: 仅邀请的人可填写, tenant_editable: 组织内获得链接的人可填写, anyone_editable: 互联网上获得链接的人可填写
-	SubmitLimitOnce bool   `json:"submit_limit_once,omitempty"` // 填写次数限制一次
+	Shared          bool   `json:"shared,omitempty"`            // 是否开启表单分享, 使表单支持填写。可选值: true: 支持填写- false: 不支持填写
+	SharedURL       string `json:"shared_url,omitempty"`        // 分享 URL 链接
+	SharedLimit     string `json:"shared_limit,omitempty"`      // 分享范围限制可选值有: 仅邀请的人可填写组织内获得链接的人可填写互联网上获得链接的人可填写
+	SubmitLimitOnce bool   `json:"submit_limit_once,omitempty"` // 是否将填写次数限制为一次。可选值: true: 设置表单仅支持填写一次- false: 不限制表单填写次数
 }
 
 // getBitableTableFormResp ...

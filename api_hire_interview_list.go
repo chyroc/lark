@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetHireInterviewList 根据投递 ID 或面试时间获取面试信息。
+// GetHireInterviewList 获取面试信息。可通过「投递 ID」、「面试 ID」以及「面试开始时间」进行条件筛选, 筛选条件不能同时为空。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview/list
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/interview/list
@@ -58,14 +58,14 @@ func (r *Mock) UnMockHireGetHireInterviewList() {
 
 // GetHireInterviewListReq ...
 type GetHireInterviewListReq struct {
-	PageSize       *int64  `query:"page_size" json:"-"`         // 分页大小, 示例值: 10, 默认值: `10`, 最大值: `100`
-	PageToken      *string `query:"page_token" json:"-"`        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: xx
-	ApplicationID  *string `query:"application_id" json:"-"`    // 投递 ID, 示例值: 6134134355464633
-	InterviewID    *string `query:"interview_id" json:"-"`      // 面试 ID, 示例值: 6888217964693309704
-	StartTime      *string `query:"start_time" json:"-"`        // 最早开始时间, 格式为时间戳, 示例值: 1609489908000
-	EndTime        *string `query:"end_time" json:"-"`          // 最晚开始时间, 格式为时间戳, 示例值: 1610489908000
-	JobLevelIDType *IDType `query:"job_level_id_type" json:"-"` // 此次调用中使用的「职级 ID」的类型, 示例值: 6942778198054125570, 可选值有: people_admin_job_level_id: 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。, job_level_id: 「飞书管理后台」适用的职级 ID, 通过[「获取租户职级列表」](https://open.feishu.cn/document/server-docs/contact-v3/job_level/list)接口获取, 默认值: `people_admin_job_level_id`
-	UserIDType     *IDType `query:"user_id_type" json:"-"`      // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	PageSize       *int64  `query:"page_size" json:"-"`         // 分页大小示例值: 10默认值: `10` 最大值: `100
+	PageToken      *string `query:"page_token" json:"-"`        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eyJiaXpfdGltZSI6MTcxMDAzNjAwMDAwMCwiaWQiOiI3MzQzMDI3OTMyODE4NjcxOTE2In0
+	ApplicationID  *string `query:"application_id" json:"-"`    // 投递 ID, 可通过[获取投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/list)接口获取（不允许 application_id、interview_id、start_time、end_time 同时为空）示例值: 6134134355464633
+	InterviewID    *string `query:"interview_id" json:"-"`      // 面试 ID（不允许 application_id、interview_id、start_time、end_time 同时为空）示例值: 6888217964693309704
+	StartTime      *string `query:"start_time" json:"-"`        // 面试最早开始时间, 毫秒时间戳, 必须大于 0（不允许 application_id、interview_id、start_time、end_time 同时为空）示例值: 1609489908000
+	EndTime        *string `query:"end_time" json:"-"`          // 面试最晚开始时间, 毫秒时间戳, 必须大于 0（不允许 application_id、interview_id、start_time、end_time 同时为空）示例值: 1610489908000
+	JobLevelIDType *IDType `query:"job_level_id_type" json:"-"` // 此次调用中使用的「职级 ID」的类型示例值: people_admin_hob_level_id可选值有: 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。「飞书管理后台」适用的职级 ID, 通过[获取租户职级列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_level/list)接口获取默认值: `people_admin_job_level_id
+	UserIDType     *IDType `query:"user_id_type" json:"-"`      // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetHireInterviewListResp ...
@@ -78,38 +78,38 @@ type GetHireInterviewListResp struct {
 // GetHireInterviewListRespItem ...
 type GetHireInterviewListRespItem struct {
 	ID                         string                                          `json:"id,omitempty"`                           // 面试 ID
-	BeginTime                  int64                                           `json:"begin_time,omitempty"`                   // 面试开始时间（ms）
-	EndTime                    int64                                           `json:"end_time,omitempty"`                     // 面试结束时间（ms）
+	BeginTime                  int64                                           `json:"begin_time,omitempty"`                   // 面试开始时间, 毫秒时间戳
+	EndTime                    int64                                           `json:"end_time,omitempty"`                     // 面试结束时间, 毫秒时间戳
 	Round                      int64                                           `json:"round,omitempty"`                        // 面试轮次
-	InterviewRecordList        []*GetHireInterviewListRespItemInterviewRecord  `json:"interview_record_list,omitempty"`        // 面试记录信息
-	FeedbackSubmitTime         int64                                           `json:"feedback_submit_time,omitempty"`         // 面试评价提交时间
-	StageID                    string                                          `json:"stage_id,omitempty"`                     // 面试关联的投递阶段
-	ApplicationID              string                                          `json:"application_id,omitempty"`               // 投递 ID
+	InterviewRecordList        []*GetHireInterviewListRespItemInterviewRecord  `json:"interview_record_list,omitempty"`        // 面试评价信息
+	FeedbackSubmitTime         int64                                           `json:"feedback_submit_time,omitempty"`         // 面试评价提交时间, 毫秒时间戳
+	StageID                    string                                          `json:"stage_id,omitempty"`                     // 面试关联的投递阶段, 详情请查看: [获取招聘流程信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_process/list)
+	ApplicationID              string                                          `json:"application_id,omitempty"`               // 投递 ID, 详情参考[获取投递信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_application/create)
 	Stage                      *GetHireInterviewListRespItemStage              `json:"stage,omitempty"`                        // 阶段信息
-	Creator                    *GetHireInterviewListRespItemCreator            `json:"creator,omitempty"`                      // 创建人
-	BizCreateTime              int64                                           `json:"biz_create_time,omitempty"`              // 创建时间（ms）
-	BizModifyTime              int64                                           `json:"biz_modify_time,omitempty"`              // 最近更新时间（ms）
-	InterviewRoundSummary      int64                                           `json:"interview_round_summary,omitempty"`      // 面试状态, 可选值有: 2: 未开始, 3: 全部未评价, 4: 全部通过, 5: 全部淘汰, 6: 爽约, 7: 部分评价且均评价通过, 8: 部分评价且评价中有通过有淘汰的, 9: 部分评价且均评价淘汰, 10: 所有面试官都提交评价且评价中有通过有淘汰的
+	Creator                    *GetHireInterviewListRespItemCreator            `json:"creator,omitempty"`                      // 创建人信息
+	BizCreateTime              int64                                           `json:"biz_create_time,omitempty"`              // 创建时间, 毫秒时间戳
+	BizModifyTime              int64                                           `json:"biz_modify_time,omitempty"`              // 最近更新时间, 毫秒时间戳
+	InterviewRoundSummary      int64                                           `json:"interview_round_summary,omitempty"`      // 面试状态可选值有: 未开始全部未评价全部通过全部淘汰爽约部分评价且均评价通过部分评价且评价中有通过有淘汰的部分评价且均评价淘汰所有面试官都提交评价且评价中有通过有淘汰的部分评价且评价中有通过和待定的部分评价且评价中有淘汰和待定的部分评级且评价均为待定部分评价且评价中有通过、待定和淘汰的所有面试官都提交评价且评价中有通过和待定的所有面试官都提交评价且评价中有待定和淘汰的所有面试官都提交评价且评价均为待定所有面试官都提交评价且评价中有通过、待定、淘汰的
 	InterviewArrangementID     string                                          `json:"interview_arrangement_id,omitempty"`     // 面试安排 ID
-	InterviewType              int64                                           `json:"interview_type,omitempty"`               // 面试类型, 可选值有: 1: 现场面试, 2: 电话面试, 3: 视频面试
+	InterviewType              int64                                           `json:"interview_type,omitempty"`               // 面试类型可选值有: 现场面试电话面试视频面试
 	TalentTimeZone             *GetHireInterviewListRespItemTalentTimeZone     `json:"talent_time_zone,omitempty"`             // 候选人时区
 	ContactUser                *GetHireInterviewListRespItemContactUser        `json:"contact_user,omitempty"`                 // 面试联系人
 	ContactMobile              string                                          `json:"contact_mobile,omitempty"`               // 面试联系人电话
 	Remark                     string                                          `json:"remark,omitempty"`                       // 备注
 	Address                    *GetHireInterviewListRespItemAddress            `json:"address,omitempty"`                      // 面试地点
-	VideoType                  int64                                           `json:"video_type,omitempty"`                   // 视频面试工具, 可选值有: 1: Zoom, 2: 牛客技术类型, 3: 牛客非技术类型, 4: 赛码, 5: 飞书, 8: Hackerrank, 9: 飞书（含代码考核）, 100: 不使用系统工具
-	ArrangementStatus          int64                                           `json:"arrangement_status,omitempty"`           // 当安排类型为集中面试时, 此值表示集中面试的安排状态, 可选值有: 1: 未开始, 2: 进行中, 3: 已结束
-	ArrangementType            int64                                           `json:"arrangement_type,omitempty"`             // 安排类型, 可选值有: 1: 社招单面, 2: 集中面试
-	ArrangementAppointmentKind int64                                           `json:"arrangement_appointment_kind,omitempty"` // 安排方式（是否使用自助约面）, 可选值有: 1: 直接安排, 2: 自助约面
+	VideoType                  int64                                           `json:"video_type,omitempty"`                   // 视频面试工具可选值有: Zoom牛客技术类型牛客非技术类型赛码飞书Hackerrank飞书（含代码考核）不使用系统工具
+	ArrangementStatus          int64                                           `json:"arrangement_status,omitempty"`           // 当安排类型为集中面试时, 此值表示集中面试的安排状态。非集中面试该字段无含义。可选值有: 未开始进行中已结束
+	ArrangementType            int64                                           `json:"arrangement_type,omitempty"`             // 安排类型可选值有: 社招单面集中面试
+	ArrangementAppointmentKind int64                                           `json:"arrangement_appointment_kind,omitempty"` // 安排方式（是否使用自助约面）可选值有: 直接安排自助约面
 	MeetingRoomList            []*GetHireInterviewListRespItemMeetingRoom      `json:"meeting_room_list,omitempty"`            // 面试会议室
-	InterviewRoundType         *GetHireInterviewListRespItemInterviewRoundType `json:"interview_round_type,omitempty"`         // 面试轮次类型
+	InterviewRoundType         *GetHireInterviewListRespItemInterviewRoundType `json:"interview_round_type,omitempty"`         // 面试轮次类型, 详情可查看: [获取面试轮次类型列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview_round_type/list)
 }
 
 // GetHireInterviewListRespItemAddress ...
 type GetHireInterviewListRespItemAddress struct {
-	ID       string                                       `json:"id,omitempty"`       // 地址 ID
+	ID       string                                       `json:"id,omitempty"`       // 地址 ID, 可通过[获取地址列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/list)获取
 	Name     *GetHireInterviewListRespItemAddressName     `json:"name,omitempty"`     // 地址名称
-	District *GetHireInterviewListRespItemAddressDistrict `json:"district,omitempty"` // 区域
+	District *GetHireInterviewListRespItemAddressDistrict `json:"district,omitempty"` // 地址区域
 	City     *GetHireInterviewListRespItemAddressCity     `json:"city,omitempty"`     // 城市
 	State    *GetHireInterviewListRespItemAddressState    `json:"state,omitempty"`    // 省
 	Country  *GetHireInterviewListRespItemAddressCountry  `json:"country,omitempty"`  // 国家
@@ -117,158 +117,158 @@ type GetHireInterviewListRespItemAddress struct {
 
 // GetHireInterviewListRespItemAddressCity ...
 type GetHireInterviewListRespItemAddressCity struct {
-	Code string                                       `json:"code,omitempty"` // 编码
-	Name *GetHireInterviewListRespItemAddressCityName `json:"name,omitempty"` // 名称
+	Code string                                       `json:"code,omitempty"` // 城市编码
+	Name *GetHireInterviewListRespItemAddressCityName `json:"name,omitempty"` // 城市名称
 }
 
 // GetHireInterviewListRespItemAddressCityName ...
 type GetHireInterviewListRespItemAddressCityName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	EnUs string `json:"en_us,omitempty"` // 英文
+	ZhCn string `json:"zh_cn,omitempty"` // 城市中文名称
+	EnUs string `json:"en_us,omitempty"` // 城市英文名称
 }
 
 // GetHireInterviewListRespItemAddressCountry ...
 type GetHireInterviewListRespItemAddressCountry struct {
-	Code string                                          `json:"code,omitempty"` // 编码
-	Name *GetHireInterviewListRespItemAddressCountryName `json:"name,omitempty"` // 名称
+	Code string                                          `json:"code,omitempty"` // 国家编码
+	Name *GetHireInterviewListRespItemAddressCountryName `json:"name,omitempty"` // 国家名称
 }
 
 // GetHireInterviewListRespItemAddressCountryName ...
 type GetHireInterviewListRespItemAddressCountryName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	EnUs string `json:"en_us,omitempty"` // 英文
+	ZhCn string `json:"zh_cn,omitempty"` // 国家中文名称
+	EnUs string `json:"en_us,omitempty"` // 国家英文名称
 }
 
 // GetHireInterviewListRespItemAddressDistrict ...
 type GetHireInterviewListRespItemAddressDistrict struct {
-	Code string                                           `json:"code,omitempty"` // 编码
-	Name *GetHireInterviewListRespItemAddressDistrictName `json:"name,omitempty"` // 名称
+	Code string                                           `json:"code,omitempty"` // 地址编码
+	Name *GetHireInterviewListRespItemAddressDistrictName `json:"name,omitempty"` // 区域名称
 }
 
 // GetHireInterviewListRespItemAddressDistrictName ...
 type GetHireInterviewListRespItemAddressDistrictName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	EnUs string `json:"en_us,omitempty"` // 英文
+	ZhCn string `json:"zh_cn,omitempty"` // 区域中文名称
+	EnUs string `json:"en_us,omitempty"` // 区域英文名称
 }
 
 // GetHireInterviewListRespItemAddressName ...
 type GetHireInterviewListRespItemAddressName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	EnUs string `json:"en_us,omitempty"` // 英文
+	ZhCn string `json:"zh_cn,omitempty"` // 地址中文名称
+	EnUs string `json:"en_us,omitempty"` // 地址英文名称
 }
 
 // GetHireInterviewListRespItemAddressState ...
 type GetHireInterviewListRespItemAddressState struct {
-	Code string                                        `json:"code,omitempty"` // 编码
-	Name *GetHireInterviewListRespItemAddressStateName `json:"name,omitempty"` // 名称
+	Code string                                        `json:"code,omitempty"` // 省编码
+	Name *GetHireInterviewListRespItemAddressStateName `json:"name,omitempty"` // 省名称
 }
 
 // GetHireInterviewListRespItemAddressStateName ...
 type GetHireInterviewListRespItemAddressStateName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	EnUs string `json:"en_us,omitempty"` // 英文
+	ZhCn string `json:"zh_cn,omitempty"` // 省中文名称
+	EnUs string `json:"en_us,omitempty"` // 省英文名称
 }
 
 // GetHireInterviewListRespItemContactUser ...
 type GetHireInterviewListRespItemContactUser struct {
-	ID   string                                       `json:"id,omitempty"`   // ID
-	Name *GetHireInterviewListRespItemContactUserName `json:"name,omitempty"` // 名称
+	ID   string                                       `json:"id,omitempty"`   // 面试联系人 ID, 与入参`user_id_type`类型一致
+	Name *GetHireInterviewListRespItemContactUserName `json:"name,omitempty"` // 面试联系人姓名
 }
 
 // GetHireInterviewListRespItemContactUserName ...
 type GetHireInterviewListRespItemContactUserName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	EnUs string `json:"en_us,omitempty"` // 英文
+	ZhCn string `json:"zh_cn,omitempty"` // 面试联系人中文姓名
+	EnUs string `json:"en_us,omitempty"` // 面试联系人英文姓名
 }
 
 // GetHireInterviewListRespItemCreator ...
 type GetHireInterviewListRespItemCreator struct {
-	ID   string                                   `json:"id,omitempty"`   // ID
-	Name *GetHireInterviewListRespItemCreatorName `json:"name,omitempty"` // 名称
+	ID   string                                   `json:"id,omitempty"`   // 创建人 ID, 与入参`user_id_type`类型一致
+	Name *GetHireInterviewListRespItemCreatorName `json:"name,omitempty"` // 创建人姓名
 }
 
 // GetHireInterviewListRespItemCreatorName ...
 type GetHireInterviewListRespItemCreatorName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	EnUs string `json:"en_us,omitempty"` // 英文
+	ZhCn string `json:"zh_cn,omitempty"` // 创建人中文姓名
+	EnUs string `json:"en_us,omitempty"` // 创建人英文姓名
 }
 
 // GetHireInterviewListRespItemInterviewRecord ...
 type GetHireInterviewListRespItemInterviewRecord struct {
-	ID             string                                                     `json:"id,omitempty"`              // 面试记录 ID
-	UserID         string                                                     `json:"user_id,omitempty"`         // 面试官用户 ID
-	Content        string                                                     `json:"content,omitempty"`         // 系统预设「记录」题目内容
-	CommitStatus   int64                                                      `json:"commit_status,omitempty"`   // 提交状态, 可选值有: 1: 已提交, 2: 未提交
-	Conclusion     int64                                                      `json:"conclusion,omitempty"`      // 面试结论, 可选值有: 1: 通过, 2: 未通过, 3: 未开始, 4: 未提交, 5: 未到场
+	ID             string                                                     `json:"id,omitempty"`              // 面试评价 ID
+	UserID         string                                                     `json:"user_id,omitempty"`         // 面试官用户 ID, 与入参`user_id_type`类型一致
+	Content        string                                                     `json:"content,omitempty"`         // 系统预设题目内容, 来自面试评价表中预设字段「记录」, 详情参考[获取面试评价表列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview_feedback_form/list)
+	CommitStatus   int64                                                      `json:"commit_status,omitempty"`   // 面试评价的提交状态可选值有: 已提交未提交
+	Conclusion     int64                                                      `json:"conclusion,omitempty"`      // 面试结论可选值有: 通过未通过未开始未提交未到场待定
 	InterviewScore *GetHireInterviewListRespItemInterviewRecordInterviewScore `json:"interview_score,omitempty"` // 面试评分
 	Interviewer    *GetHireInterviewListRespItemInterviewRecordInterviewer    `json:"interviewer,omitempty"`     // 面试官信息
 }
 
 // GetHireInterviewListRespItemInterviewRecordInterviewScore ...
 type GetHireInterviewListRespItemInterviewRecordInterviewScore struct {
-	ID            string `json:"id,omitempty"`             // 面试评分 ID
+	ID            string `json:"id,omitempty"`             // 面试评分 ID, 对应[获取面试评价表列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview_feedback_form/list)接口返回数据中的 `data.items.modules.dimensions.option_items.id` 字段
 	Level         int64  `json:"level,omitempty"`          // 分数级别
-	ZhName        string `json:"zh_name,omitempty"`        // 中文名称
-	ZhDescription string `json:"zh_description,omitempty"` // 中文描述
-	EnName        string `json:"en_name,omitempty"`        // 英文名称
-	EnDescription string `json:"en_description,omitempty"` // 英文描述
+	ZhName        string `json:"zh_name,omitempty"`        // 面试评分中文名称
+	ZhDescription string `json:"zh_description,omitempty"` // 面试评分中文描述
+	EnName        string `json:"en_name,omitempty"`        // 面试评分英文名称
+	EnDescription string `json:"en_description,omitempty"` // 面试评分英文描述
 }
 
 // GetHireInterviewListRespItemInterviewRecordInterviewer ...
 type GetHireInterviewListRespItemInterviewRecordInterviewer struct {
-	ID   string                                                      `json:"id,omitempty"`   // ID
-	Name *GetHireInterviewListRespItemInterviewRecordInterviewerName `json:"name,omitempty"` // 名称
+	ID   string                                                      `json:"id,omitempty"`   // 面试官 ID, 与入参`user_id_type`类型一致
+	Name *GetHireInterviewListRespItemInterviewRecordInterviewerName `json:"name,omitempty"` // 面试官姓名
 }
 
 // GetHireInterviewListRespItemInterviewRecordInterviewerName ...
 type GetHireInterviewListRespItemInterviewRecordInterviewerName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	EnUs string `json:"en_us,omitempty"` // 英文
+	ZhCn string `json:"zh_cn,omitempty"` // 面试官中文姓名
+	EnUs string `json:"en_us,omitempty"` // 面试官英文姓名
 }
 
 // GetHireInterviewListRespItemInterviewRoundType ...
 type GetHireInterviewListRespItemInterviewRoundType struct {
-	ID   string                                              `json:"id,omitempty"`   // ID
-	Name *GetHireInterviewListRespItemInterviewRoundTypeName `json:"name,omitempty"` // 名称
+	ID   string                                              `json:"id,omitempty"`   // 面试轮次类型 ID
+	Name *GetHireInterviewListRespItemInterviewRoundTypeName `json:"name,omitempty"` // 面试轮次类型名称
 }
 
 // GetHireInterviewListRespItemInterviewRoundTypeName ...
 type GetHireInterviewListRespItemInterviewRoundTypeName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	EnUs string `json:"en_us,omitempty"` // 英文
+	ZhCn string `json:"zh_cn,omitempty"` // 面试轮次类型中文名称
+	EnUs string `json:"en_us,omitempty"` // 面试轮次类型英文名称
 }
 
 // GetHireInterviewListRespItemMeetingRoom ...
 type GetHireInterviewListRespItemMeetingRoom struct {
-	RoomID         string `json:"room_id,omitempty"`         // 会议室 ID
+	RoomID         string `json:"room_id,omitempty"`         // 会议室 ID, 详情可查看: [查询会议室列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/list)
 	RoomName       string `json:"room_name,omitempty"`       // 会议室名称
 	BuildingName   string `json:"building_name,omitempty"`   // 建筑名称
-	ReservedStatus int64  `json:"reserved_status,omitempty"` // 会议室预定状态, 可选值有: 1: 预约中, 2: 预约成功, 3: 预约失败
+	ReservedStatus int64  `json:"reserved_status,omitempty"` // 会议室预定状态可选值有: 预约中预约成功预约失败
 	FloorName      string `json:"floor_name,omitempty"`      // 楼层
 }
 
 // GetHireInterviewListRespItemStage ...
 type GetHireInterviewListRespItemStage struct {
-	ID   string                                 `json:"id,omitempty"`   // ID
-	Name *GetHireInterviewListRespItemStageName `json:"name,omitempty"` // 名称
+	ID   string                                 `json:"id,omitempty"`   // 投递阶段 ID, 详情请查看: [获取招聘流程信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_process/list)
+	Name *GetHireInterviewListRespItemStageName `json:"name,omitempty"` // 阶段信息名称
 }
 
 // GetHireInterviewListRespItemStageName ...
 type GetHireInterviewListRespItemStageName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	EnUs string `json:"en_us,omitempty"` // 英文
+	ZhCn string `json:"zh_cn,omitempty"` // 阶段信息中文名称
+	EnUs string `json:"en_us,omitempty"` // 阶段信息英文名称
 }
 
 // GetHireInterviewListRespItemTalentTimeZone ...
 type GetHireInterviewListRespItemTalentTimeZone struct {
 	Code string                                          `json:"code,omitempty"` // 编码
-	Name *GetHireInterviewListRespItemTalentTimeZoneName `json:"name,omitempty"` // 名称
+	Name *GetHireInterviewListRespItemTalentTimeZoneName `json:"name,omitempty"` // 候选人时区名称
 }
 
 // GetHireInterviewListRespItemTalentTimeZoneName ...
 type GetHireInterviewListRespItemTalentTimeZoneName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 中文
-	EnUs string `json:"en_us,omitempty"` // 英文
+	ZhCn string `json:"zh_cn,omitempty"` // 候选人中文时区名称
+	EnUs string `json:"en_us,omitempty"` // 候选人英文时区名称
 }
 
 // getHireInterviewListResp ...

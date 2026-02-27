@@ -59,15 +59,14 @@ func (r *Mock) UnMockDriveDeleteDriveComment() {
 
 // DeleteDriveCommentReq ...
 type DeleteDriveCommentReq struct {
-	FileToken string   `path:"file_token" json:"-"` // 文档 Token, 示例值: "doxbcdl03Vsxhm7Qmnj110abcef"
-	CommentID string   `path:"comment_id" json:"-"` // 评论 ID, 示例值: "6916106822734578184"
-	ReplyID   string   `path:"reply_id" json:"-"`   // 回复 ID, 示例值: "6916106822734594568"
-	FileType  FileType `query:"file_type" json:"-"` // 文档类型, 示例值: doc, 可选值有: doc: 文档, sheet: 表格, file: 文件, docx: 新版文档
+	FileToken string   `path:"file_token" json:"-"` // 文档 Token示例值: "doxbcdl03Vsxhm7Qmnj110abcef"
+	CommentID string   `path:"comment_id" json:"-"` // 评论 ID示例值: "6916106822734578184"
+	ReplyID   string   `path:"reply_id" json:"-"`   // 回复 ID示例值: "6916106822734594568"
+	FileType  FileType `query:"file_type" json:"-"` // 云文档类型示例值: doc可选值有: 旧版文档, 已不推荐使用新版文档表格文件幻灯片
 }
 
 // DeleteDriveCommentResp ...
-type DeleteDriveCommentResp struct {
-}
+type DeleteDriveCommentResp struct{}
 
 // deleteDriveCommentResp ...
 type deleteDriveCommentResp struct {

@@ -39,19 +39,19 @@ import (
 // |-app_id|string|应用 ID|
 // |-tenant_key|string|租户 Key|
 // |event|-|事件体|
-// |-employee_id|string|员工 ID|
-// |-employee_no|string|员工工号|
+// |-employee_id|string|[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的用户 ID|
+// |-employee_no|string|[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的工号|
 // |-location_name|string|打卡位置名称信息|
 // |-check_time|string|打卡时间, 精确到秒的时间戳|
 // |-comment|string|打卡备注|
 // |-record_id|string|打卡记录 ID|
-// |-longitude|float|打卡经度|
-// |-latitude|float|打卡纬度|
+// |-longitude|float|打卡经度。注意: 目前暂不支持返回经纬度|
+// |-latitude|float|打卡纬度。注意: 目前暂不支持返回经纬度|
 // |-ssid|string|打卡 Wi-Fi 的 SSID|
 // |-bssid|string|打卡 Wi-Fi 的 MAC 地址|
 // |-is_field|boolean|是否为外勤打卡|
 // |-is_wifi|boolean|是否为 Wi-Fi 打卡|
-// |-type|int|记录生成方式, 可用值: [0（用户自己打卡）, 1（管理员修改）, 2（用户补卡）, 3（系统自动生成）, 4（下班免打卡）, 5（考勤机打卡）, 6（极速打卡）, 7（考勤开放平台导入）]|
+// |-type|int|记录生成方式, 可用值: 【0（用户自己打卡）, 1（管理员修改）, 2（用户补卡）, 3（系统自动生成）, 4（下班免打卡）, 5（考勤机打卡）, 6（极速打卡）, 7（考勤开放平台导入）】|
 // |-photo_urls|string\[\]|打卡照片列表|
 // |-risk_result|int|疑似作弊打卡行为, 0: 无疑似作弊, 1: 疑似使用作弊软件, 2: 疑似使用他人的设备打卡, 3: 疑似多人使用同一设备打卡|
 // 回调示例
@@ -66,5 +66,4 @@ func (r *EventCallbackService) HandlerEventV2AttendanceUserFlowCreatedV1(f Event
 type EventV2AttendanceUserFlowCreatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2AttendanceUserFlowCreatedV1) (string, error)
 
 // EventV2AttendanceUserFlowCreatedV1 ...
-type EventV2AttendanceUserFlowCreatedV1 struct {
-}
+type EventV2AttendanceUserFlowCreatedV1 struct{}

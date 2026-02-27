@@ -21,9 +21,13 @@ import (
 	"context"
 )
 
-// UpdateDepartmentID 此接口可用户更新部门ID(department_id)。新的部门ID(department_id)需要确认在企业内未被占用。
+// UpdateDepartmentID 调用该接口可以更新部门的自定义 ID, 即 department_id。
+//
+// ## 注意事项
+// 本接口仅支持使用应用身份（tenant_access_token）调用。调用时, 应用的通讯录权限范围内需要包含当前被操作的部门。了解权限范围参见[权限范围资源介绍](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/update_department_id
+// new doc: https://open.feishu.cn/document/contact-v3/department/update_department_id
 func (r *ContactService) UpdateDepartmentID(ctx context.Context, request *UpdateDepartmentIDReq, options ...MethodOptionFunc) (*UpdateDepartmentIDResp, *Response, error) {
 	if r.cli.mock.mockContactUpdateDepartmentID != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#UpdateDepartmentID mock enable")
@@ -57,14 +61,13 @@ func (r *Mock) UnMockContactUpdateDepartmentID() {
 
 // UpdateDepartmentIDReq ...
 type UpdateDepartmentIDReq struct {
-	DepartmentID     string            `path:"department_id" json:"-"`       // 需要更新的部门ID, ID类型与department_id_type中一致, 示例值: "od-d6b83d25c129775723a36f52495c4f81", 最大长度: `64` 字符, 正则校验: `^[a-zA-Z0-9][a-zA-Z0-9_\-@.]{0, 63}$`
-	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型, 示例值: open_department_id, 可选值有: department_id: 以自定义department_id来标识部门, open_department_id: 以open_department_id来标识部门
-	NewDepartmentID  string            `json:"new_department_id,omitempty"`  // 新的部门自定义ID(department_id), 示例值: "NewDevDepartID", 最大长度: `128` 字符, 正则校验: `^0|[^od][A-Za-z0-9]*`
+	DepartmentID     string            `path:"department_id" json:"-"`       // 需要更新自定义 ID 的部门 ID, 该 ID 类型需要与查询参数 department_id_type 的取值一致。ID 获取方式说明: 调用[创建部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/create)接口后, 可从返回结果中获取到部门 ID 信息。- 部门 API 提供了多种获取其他部门 ID 的方式, 如[获取子部门列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/children)、[获取父部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/parent)、[搜索部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/search), 你可以选择合适的 API 进行查询。示例值: "od-d6b83d25c129775723a36f52495c4f81" 最大长度: `64` 字符- 正则校验: `^[a-zA-Z0-9][a-zA-Z0-9_\-@.]{0, 63}$
+	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中的部门 ID 类型。关于部门 ID 的详细介绍, 可参见[部门 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)。默认值: open_department_id示例值: open_department_id可选值有: 支持用户自定义配置的部门 ID。自定义配置时可复用已删除的 department_id, 因此在未删除的部门范围内 department_id 具有唯一性。由系统自动生成的部门 ID, ID 前缀固定为 `od-`, 在租户内全局唯一。
+	NewDepartmentID  string            `json:"new_department_id,omitempty"`  // 新的自定义部门 ID, 即部门的 department_id。注意: 不能以 `od-` 开头。- 不能设置为 `0`。- 不能与其他未删除部门的 department_id 重复。示例值: "NewDevDepartID" 最大长度: `128` 字符- 正则校验: `^0|[^od][A-Za-z0-9]*
 }
 
 // UpdateDepartmentIDResp ...
-type UpdateDepartmentIDResp struct {
-}
+type UpdateDepartmentIDResp struct{}
 
 // updateDepartmentIDResp ...
 type updateDepartmentIDResp struct {

@@ -24,9 +24,8 @@ import (
 // GetDriveFileList 该接口用于获取用户云空间指定文件夹中文件信息清单。文件的信息包括名称、类型、token、创建时间、所有者 ID 等。
 //
 // 了解如何让应用（tenant_access_token）访问个人云空间中的文件夹, 参考[云空间常见问题](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/faq)。
-// 使用限制:
-// - 本接口暂不支持返回快捷方式（shortcut）类型的文件。
-// - 本接口仅支持获取当前层级的文件信息, 不支持递归获取子文件夹中的文件信息清单。
+// ## 使用限制
+// 本接口仅支持获取当前层级的文件信息, 不支持递归获取子文件夹中的文件信息清单。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/folder/list
@@ -64,12 +63,12 @@ func (r *Mock) UnMockDriveGetDriveFileList() {
 
 // GetDriveFileListReq ...
 type GetDriveFileListReq struct {
-	PageSize    *int64  `query:"page_size" json:"-"`    // 指定每页显示的数据项的数量。若获取根目录下的清单, 将返回全部数据, 不支持分页, 示例值: 50, 最大值: `200`
-	PageToken   *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: MTY1NTA3MTA1OXw3MTA4NDc2MDc1NzkyOTI0Nabcef
-	FolderToken *string `query:"folder_token" json:"-"` // 文件夹的 token。不填写或填空字符串, 将获取用户云空间根目录下的清单, 且不支持分页。了解如何获取文件夹 token, 参考[文件夹概述](https://open.feishu.cn/document/ukTMukTMukTM/ugTNzUjL4UzM14CO1MTN/folder-overview), 示例值: fldbcO1UuPz8VwnpPx5a9abcef
-	OrderBy     *string `query:"order_by" json:"-"`     // 定义清单中文件的排序方式, 示例值: EditedTime, 可选值有: EditedTime: 按编辑时间排序, CreatedTime: 按创建时间排序, 默认值: `EditedTime`
-	Direction   *string `query:"direction" json:"-"`    // 定义清单中文件的排序规则, 示例值: DESC, 可选值有: ASC: 按升序排序, DESC: 按降序排序, 默认值: `DESC`
-	UserIDType  *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	PageSize    *int64  `query:"page_size" json:"-"`    // 指定每页显示的数据项的数量, 默认值为100。若获取根目录下的清单, 将返回全部数据示例值: 50 最大值: `200
+	PageToken   *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: MTY1NTA3MTA1OXw3MTA4NDc2MDc1NzkyOTI0Nabcef
+	FolderToken *string `query:"folder_token" json:"-"` // 文件夹的 token。不填写或填空字符串, 将获取用户云空间根目录下的清单, 且不支持分页和返回快捷方式。了解如何获取文件夹 token, 参考[文件夹概述](https://open.feishu.cn/document/ukTMukTMukTM/ugTNzUjL4UzM14CO1MTN/folder-overview)。示例值: fldbcO1UuPz8VwnpPx5a9abcef
+	OrderBy     *string `query:"order_by" json:"-"`     // 定义清单中文件的排序方式示例值: EditedTime可选值有: 按编辑时间排序按创建时间排序默认值: `EditedTime
+	Direction   *string `query:"direction" json:"-"`    // 定义清单中文件的排序规则, 与 order_by 配合使用示例值: DESC可选值有: 按升序排序按降序排序默认值: `DESC
+	UserIDType  *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetDriveFileListResp ...
@@ -83,10 +82,10 @@ type GetDriveFileListResp struct {
 type GetDriveFileListRespFile struct {
 	Token        string                                `json:"token,omitempty"`         // 文件标识
 	Name         string                                `json:"name,omitempty"`          // 文件名
-	Type         string                                `json:"type,omitempty"`          // 文件类型。可选值有: `doc`: 旧版文档, `sheet`: 表格, `mindnote`: 思维导图, `bitable`: 多维表格, `file`: 文件, `docx`: 新版文档, `folder`: 文件夹, `shortcut`: 快捷方式（暂不支持）
+	Type         string                                `json:"type,omitempty"`          // 文件类型。可选值有: `doc`: 旧版文档- `sheet`: 表格- `mindnote`: 思维导图- `bitable`: 多维表格- `file`: 文件- `docx`: 新版文档- `folder`: 文件夹- `shortcut`: 快捷方式
 	ParentToken  string                                `json:"parent_token,omitempty"`  // 父文件夹标识
 	URL          string                                `json:"url,omitempty"`           // 文件在浏览器中的 URL 链接
-	ShortcutInfo *GetDriveFileListRespFileShortcutInfo `json:"shortcut_info,omitempty"` // 快捷方式类型文件的信息（暂不支持）
+	ShortcutInfo *GetDriveFileListRespFileShortcutInfo `json:"shortcut_info,omitempty"` // 快捷方式类型文件的信息
 	CreatedTime  string                                `json:"created_time,omitempty"`  // 文件创建时间, 秒级时间戳
 	ModifiedTime string                                `json:"modified_time,omitempty"` // 文件最近修改时间, 秒级时间戳
 	OwnerID      string                                `json:"owner_id,omitempty"`      // 文件所有者的 ID。ID 类型由查询参数中的 `user_id_type` 决定
@@ -94,7 +93,7 @@ type GetDriveFileListRespFile struct {
 
 // GetDriveFileListRespFileShortcutInfo ...
 type GetDriveFileListRespFileShortcutInfo struct {
-	TargetType  string `json:"target_type,omitempty"`  // 快捷方式指向的原文件类型, 包括: `doc`: 旧版文档, `sheet`: 表格, `mindnote`: 思维导图, `bitable`: 多维表格, `file`: 文件, `docx`: 新版文档
+	TargetType  string `json:"target_type,omitempty"`  // 快捷方式指向的原文件类型, 包括: `doc`: 旧版文档- `sheet`: 表格- `mindnote`: 思维导图- `bitable`: 多维表格- `file`: 文件- `docx`: 新版文档
 	TargetToken string `json:"target_token,omitempty"` // 快捷方式指向的原文件 token
 }
 

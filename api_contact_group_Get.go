@@ -21,7 +21,13 @@ import (
 	"context"
 )
 
-// GetContactGroup 根据用户组 ID 查询某个用户组的基本信息, 支持查询普通用户组和动态用户组。请确保应用的通讯录权限范围里包括该用户组或者是“全部员工”, [点击了解通讯录权限范围](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// GetContactGroup 调用该接口通过用户组 ID 查询指定用户组的基本信息, 包括用户组名称、成员数量和类型等。
+//
+// ## 注意事项
+// - 应用的通讯录权限范围需要符合以下任一设置, 才可以成功调用本接口。了解应用通讯录权限范围, 可参见[权限范围资源介绍](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
+// - 通讯录权限范围设置为 全部员工。
+// - 由企业管理员在管理后台设置应用可见范围内包含当前待查询的用户组, 然后应用的通讯录权限范围设置为 与应用的可用范围一致。
+// - 支持查询普通用户组和动态用户组。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/get
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/group/get
@@ -58,24 +64,24 @@ func (r *Mock) UnMockContactGetContactGroup() {
 
 // GetContactGroupReq ...
 type GetContactGroupReq struct {
-	GroupID          string            `path:"group_id" json:"-"`            // 用户组ID, 示例值: "g193821"
-	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型, 示例值: open_department_id, 可选值有: open_department_id: 以open_department_id来标识部门, department_id: 以自定义department_id来标识部门
+	GroupID          string            `path:"group_id" json:"-"`            // 用户组 ID。用户组 ID 可在创建用户组时从返回值中获取, 你也可以调用[查询用户组列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/simplelist)接口, 获取用户组的 ID。示例值: "g193821"
+	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中的部门 ID 类型。关于部门 ID 的详细介绍, 可参见[部门 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)。示例值: open_department_id可选值有: 由系统自动生成的部门 ID, ID 前缀固定为 `od-`, 在租户内全局唯一。支持用户自定义配置的部门 ID。自定义配置时可复用已删除的 department_id, 因此在未删除的部门范围内 department_id 具有唯一性。
 }
 
 // GetContactGroupResp ...
 type GetContactGroupResp struct {
-	Group *GetContactGroupRespGroup `json:"group,omitempty"` // 用户组详情
+	Group *GetContactGroupRespGroup `json:"group,omitempty"` // 用户组详情。
 }
 
 // GetContactGroupRespGroup ...
 type GetContactGroupRespGroup struct {
-	ID                    string `json:"id,omitempty"`                      // 用户组ID
-	Name                  string `json:"name,omitempty"`                    // 用户组名字
-	Description           string `json:"description,omitempty"`             // 用户组描述
-	MemberUserCount       int64  `json:"member_user_count,omitempty"`       // 用户组成员中用户的数量
-	MemberDepartmentCount int64  `json:"member_department_count,omitempty"` // 普通用户组成员中部门的数量, 动态用户组成员中没有部门。
-	Type                  int64  `json:"type,omitempty"`                    // 用户组的类型, 可选值有: 1: 普通用户组, 2: 动态用户组
+	ID                    string `json:"id,omitempty"`                      // 用户组 ID。
+	Name                  string `json:"name,omitempty"`                    // 用户组名字。
+	Description           string `json:"description,omitempty"`             // 用户组描述。
+	MemberUserCount       int64  `json:"member_user_count,omitempty"`       // 用户组成员中的用户数量。
+	MemberDepartmentCount int64  `json:"member_department_count,omitempty"` // 普通用户组内成员中的部门数量。说明: 动态用户组成员中没有部门。
+	Type                  int64  `json:"type,omitempty"`                    // 用户组的类型。可选值有: 普通用户组动态用户组
 }
 
 // getContactGroupResp ...

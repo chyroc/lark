@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetContactJobLevel 该接口可以获取单个职级的信息。
+// GetContactJobLevel 调用该接口获取指定职级的信息, 包括职级名称、描述、排序、状态以及多语言等。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_level/get
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/job_level/get
@@ -58,35 +58,35 @@ func (r *Mock) UnMockContactGetContactJobLevel() {
 
 // GetContactJobLevelReq ...
 type GetContactJobLevelReq struct {
-	JobLevelID string `path:"job_level_id" json:"-"` // 职级ID, 示例值: "mga5oa8ayjlp9rb"
+	JobLevelID string `path:"job_level_id" json:"-"` // 职级 ID。获取方式: 创建职级时, 可以从返回结果中获取职级 ID。- 调用[获取租户职级列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_level/list)接口, 查找指定职级的 ID 信息。示例值: "mga5oa8ayjlp9rb"
 }
 
 // GetContactJobLevelResp ...
 type GetContactJobLevelResp struct {
-	JobLevel *GetContactJobLevelRespJobLevel `json:"job_level,omitempty"` // 职级信息
+	JobLevel *GetContactJobLevelRespJobLevel `json:"job_level,omitempty"` // 职级信息。
 }
 
 // GetContactJobLevelRespJobLevel ...
 type GetContactJobLevelRespJobLevel struct {
-	Name            string                                           `json:"name,omitempty"`             // 职级名称
-	Description     string                                           `json:"description,omitempty"`      // 职级描述
-	Order           int64                                            `json:"order,omitempty"`            // 职级的排序, 可填入自然数100-100000的数值, 系统按照数值大小从小到大排序。不填写该字段时, 默认新增排序在当前职级列表中最后位（最大值）
-	Status          bool                                             `json:"status,omitempty"`           // 是否启用
-	JobLevelID      string                                           `json:"job_level_id,omitempty"`     // 职级ID
-	I18nName        []*GetContactJobLevelRespJobLevelI18nName        `json:"i18n_name,omitempty"`        // 多语言名称
-	I18nDescription []*GetContactJobLevelRespJobLevelI18nDescription `json:"i18n_description,omitempty"` // 多语言描述
+	Name            string                                           `json:"name,omitempty"`             // 职级名称。
+	Description     string                                           `json:"description,omitempty"`      // 职级描述。
+	Order           int64                                            `json:"order,omitempty"`            // 职级排序。数值越小, 排序越靠前。
+	Status          bool                                             `json:"status,omitempty"`           // 是否启用职级。可能值有: true: 启用- false: 不启用
+	JobLevelID      string                                           `json:"job_level_id,omitempty"`     // 职级 ID。后续可通过该 ID 删除、更新、查询职级。
+	I18nName        []*GetContactJobLevelRespJobLevelI18nName        `json:"i18n_name,omitempty"`        // 多语言名称。
+	I18nDescription []*GetContactJobLevelRespJobLevelI18nDescription `json:"i18n_description,omitempty"` // 多语言描述。
 }
 
 // GetContactJobLevelRespJobLevelI18nDescription ...
 type GetContactJobLevelRespJobLevelI18nDescription struct {
-	Locale string `json:"locale,omitempty"` // 语言版本
-	Value  string `json:"value,omitempty"`  // 字段名
+	Locale string `json:"locale,omitempty"` // 语言版本。
+	Value  string `json:"value,omitempty"`  // 语言版本对应的描述。
 }
 
 // GetContactJobLevelRespJobLevelI18nName ...
 type GetContactJobLevelRespJobLevelI18nName struct {
-	Locale string `json:"locale,omitempty"` // 语言版本
-	Value  string `json:"value,omitempty"`  // 字段名
+	Locale string `json:"locale,omitempty"` // 语言版本。
+	Value  string `json:"value,omitempty"`  // 语言版本对应的名称。
 }
 
 // getContactJobLevelResp ...

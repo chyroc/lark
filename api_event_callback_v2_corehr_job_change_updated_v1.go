@@ -21,7 +21,9 @@ import (
 	"context"
 )
 
-// EventV2CorehrJobChangeUpdatedV1 在异动审批状态变更、异动生效时都会触发该事件, 审批结果产生的场景包括撤销、审批通过、审批拒绝。
+// EventV2CorehrJobChangeUpdatedV1 在异动审批状态变更、异动生效时都会触发该事件, 审批结果产生的场景包括撤销、审批通过、审批拒绝。本事件没有数据范围鉴权。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=job_change&event=updated)
+//
+// 本事件不再推荐使用, 请使用新版本[异动状态变更事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_change/events/status_updated)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_change/events/updated
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/job_change/updated
@@ -34,21 +36,21 @@ type EventV2CorehrJobChangeUpdatedV1Handler func(ctx context.Context, cli *Lark,
 
 // EventV2CorehrJobChangeUpdatedV1 ...
 type EventV2CorehrJobChangeUpdatedV1 struct {
-	EmploymentID                   string                                       `json:"employment_id,omitempty"`                     // 雇员ID
-	TargetUserID                   *EventV2CorehrJobChangeUpdatedV1TargetUserID `json:"target_user_id,omitempty"`                    // 用户 ID
-	JobChangeID                    string                                       `json:"job_change_id,omitempty"`                     // 异动记录 id
-	TransferMode                   int64                                        `json:"transfer_mode,omitempty"`                     // 异动属性/方式, 可选值有: 1: 直接异动: 无需审批的异动, 操作后异动状态为「无需审批」, 2: 发起异动: 需要走异动流程
-	TransferTypeUniqueIdentifier   string                                       `json:"transfer_type_unique_identifier,omitempty"`   // 异动类型唯一标识
-	TransferReasonUniqueIdentifier string                                       `json:"transfer_reason_unique_identifier,omitempty"` // 异动原因唯一标识
+	EmploymentID                   string                                       `json:"employment_id,omitempty"`                     // 雇员ID, 可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
+	TargetUserID                   *EventV2CorehrJobChangeUpdatedV1TargetUserID `json:"target_user_id,omitempty"`                    // 用户 ID, 飞书相关ID, 可通过[【通讯录接口】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/field-overview)接口获取
+	JobChangeID                    string                                       `json:"job_change_id,omitempty"`                     // 异动记录 id, 可通过接口[搜索异动信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_change/search)获取详细信息
+	TransferMode                   int64                                        `json:"transfer_mode,omitempty"`                     // 异动属性/方式可选值有: 直接异动: 无需审批的异动, 操作后异动状态为「无需审批」发起异动: 需要走异动流程
+	TransferTypeUniqueIdentifier   string                                       `json:"transfer_type_unique_identifier,omitempty"`   // 异动类型唯一标识, 可通过接口[获取异动类型列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/transfer_type/query)获取
+	TransferReasonUniqueIdentifier string                                       `json:"transfer_reason_unique_identifier,omitempty"` // 异动原因唯一标识, 可通过接口[获取异动原因列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/transfer_reason/query)获取详细信息
 	ProcessID                      string                                       `json:"process_id,omitempty"`                        // 异动发起后的审批流程 id, 如果是直接异动, 则无需要审批流程id
-	EffectiveDate                  string                                       `json:"effective_date,omitempty"`                    // 异动生效日期
-	Status                         int64                                        `json:"status,omitempty"`                            // 异动状态, 可选值有: 1: 异动发起 = 审批中状态, 2: 已撤销, 3: 已拒绝, 4: 审批通过, 5: 已生效（到了生效日期后就生效）, 6: 无需审批
+	EffectiveDate                  string                                       `json:"effective_date,omitempty"`                    // 异动生效日期, 格式: "YYYY-MM-DD"- 示例: 2022-04-03
+	Status                         int64                                        `json:"status,omitempty"`                            // 异动状态可选值有: 异动发起 = 审批中状态已撤销已拒绝审批通过已生效（到了生效日期后就生效）无需审批
 	TransferKey                    string                                       `json:"transfer_key,omitempty"`                      // 异动记录标识符
 }
 
 // EventV2CorehrJobChangeUpdatedV1TargetUserID ...
 type EventV2CorehrJobChangeUpdatedV1TargetUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }

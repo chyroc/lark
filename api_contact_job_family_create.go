@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// CreateContactJobFamily 该接口用于创建租户内的序列信息。
+// CreateContactJobFamily 调用该接口创建一个序列。序列是用户属性之一, 用来定义用户的工作类型, 例如产品、研发、运营等。
+//
+// ## 使用限制
+// 单租户内序列数量总数上限为 10, 000, 但需要注意, 如果总数超过 4, 000, 则无法在[管理后台](https://feishu.cn/admin)打开序列列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_family/create
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/job_family/create
@@ -58,52 +61,52 @@ func (r *Mock) UnMockContactCreateContactJobFamily() {
 
 // CreateContactJobFamilyReq ...
 type CreateContactJobFamilyReq struct {
-	Name              string                                      `json:"name,omitempty"`                 // 序列名称。1-100字符, 支持中、英文及符号, 示例值: "产品", 长度范围: `1` ～ `100` 字符
-	Description       *string                                     `json:"description,omitempty"`          // 序列描述, 描述序列详情信息, 示例值: "负责产品策略制定的相关工作"
-	ParentJobFamilyID *string                                     `json:"parent_job_family_id,omitempty"` // 上级序列ID。需是该租户的序列ID列表中的值, 对应唯一的序列名称, 示例值: "mga5oa8ayjlpzjq"
-	Status            bool                                        `json:"status,omitempty"`               // 是否启用, 示例值: true
-	I18nName          []*CreateContactJobFamilyReqI18nName        `json:"i18n_name,omitempty"`            // 多语言序列名称
-	I18nDescription   []*CreateContactJobFamilyReqI18nDescription `json:"i18n_description,omitempty"`     // 多语言描述
+	Name              string                                      `json:"name,omitempty"`                 // 序列名称, 租户内唯一。取值支持中、英文及符号。示例值: "产品" 长度范围: `1` ～ `100` 字符
+	Description       *string                                     `json:"description,omitempty"`          // 序列描述, 描述序列详情信息。字符长度上限为 5, 000。默认值: 空示例值: "负责产品策略制定的相关工作"
+	ParentJobFamilyID *string                                     `json:"parent_job_family_id,omitempty"` // 上级序列 ID。如果你需要为某一序列添加子序列, 则需要传入该参数值。你可以调用[获取租户序列列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_family/list)接口, 获取序列 ID。默认值: 空, 表示该序列没有上级序列。示例值: "mga5oa8ayjlpzjq"
+	Status            bool                                        `json:"status,omitempty"`               // 是否启用序列。可选值有: true: 启用- false: 禁用示例值: true
+	I18nName          []*CreateContactJobFamilyReqI18nName        `json:"i18n_name,omitempty"`            // 多语言序列名称。
+	I18nDescription   []*CreateContactJobFamilyReqI18nDescription `json:"i18n_description,omitempty"`     // 多语言序列描述。
 }
 
 // CreateContactJobFamilyReqI18nDescription ...
 type CreateContactJobFamilyReqI18nDescription struct {
-	Locale *string `json:"locale,omitempty"` // 语言版本, 示例值: "zh_cn"
-	Value  *string `json:"value,omitempty"`  // 字段名, 示例值: "多语言内容"
+	Locale *string `json:"locale,omitempty"` // 语言版本。可选值有: zh_cn: 中文- en_us: 英语- ja_jp: 日语示例值: "zh_cn"
+	Value  *string `json:"value,omitempty"`  // 语言版本对应的值。示例值: "多语言内容"
 }
 
 // CreateContactJobFamilyReqI18nName ...
 type CreateContactJobFamilyReqI18nName struct {
-	Locale *string `json:"locale,omitempty"` // 语言版本, 示例值: "zh_cn"
-	Value  *string `json:"value,omitempty"`  // 字段名, 示例值: "多语言内容"
+	Locale *string `json:"locale,omitempty"` // 语言版本。可选值有: zh_cn: 中文- en_us: 英语- ja_jp: 日语示例值: "zh_cn"
+	Value  *string `json:"value,omitempty"`  // 语言版本对应的值。示例值: "多语言内容"
 }
 
 // CreateContactJobFamilyResp ...
 type CreateContactJobFamilyResp struct {
-	JobFamily *CreateContactJobFamilyRespJobFamily `json:"job_family,omitempty"` // 序列信息
+	JobFamily *CreateContactJobFamilyRespJobFamily `json:"job_family,omitempty"` // 序列信息。
 }
 
 // CreateContactJobFamilyRespJobFamily ...
 type CreateContactJobFamilyRespJobFamily struct {
-	Name              string                                                `json:"name,omitempty"`                 // 序列名称。1-100字符, 支持中、英文及符号
-	Description       string                                                `json:"description,omitempty"`          // 序列描述, 描述序列详情信息
-	ParentJobFamilyID string                                                `json:"parent_job_family_id,omitempty"` // 上级序列ID。需是该租户的序列ID列表中的值, 对应唯一的序列名称。
-	Status            bool                                                  `json:"status,omitempty"`               // 是否启用
-	I18nName          []*CreateContactJobFamilyRespJobFamilyI18nName        `json:"i18n_name,omitempty"`            // 多语言序列名称
-	I18nDescription   []*CreateContactJobFamilyRespJobFamilyI18nDescription `json:"i18n_description,omitempty"`     // 多语言描述
-	JobFamilyID       string                                                `json:"job_family_id,omitempty"`        // 职级序列ID
+	Name              string                                                `json:"name,omitempty"`                 // 序列名称。
+	Description       string                                                `json:"description,omitempty"`          // 序列描述。
+	ParentJobFamilyID string                                                `json:"parent_job_family_id,omitempty"` // 上级序列 ID。
+	Status            bool                                                  `json:"status,omitempty"`               // 是否启用序列。可能值有: true: 启用- false: 禁用
+	I18nName          []*CreateContactJobFamilyRespJobFamilyI18nName        `json:"i18n_name,omitempty"`            // 多语言序列名称。
+	I18nDescription   []*CreateContactJobFamilyRespJobFamilyI18nDescription `json:"i18n_description,omitempty"`     // 多语言序列描述。
+	JobFamilyID       string                                                `json:"job_family_id,omitempty"`        // 序列 ID。后续可通过该 ID 更新、查询、删除序列。
 }
 
 // CreateContactJobFamilyRespJobFamilyI18nDescription ...
 type CreateContactJobFamilyRespJobFamilyI18nDescription struct {
-	Locale string `json:"locale,omitempty"` // 语言版本
-	Value  string `json:"value,omitempty"`  // 字段名
+	Locale string `json:"locale,omitempty"` // 语言版本。
+	Value  string `json:"value,omitempty"`  // 语言版本对应的值。
 }
 
 // CreateContactJobFamilyRespJobFamilyI18nName ...
 type CreateContactJobFamilyRespJobFamilyI18nName struct {
-	Locale string `json:"locale,omitempty"` // 语言版本
-	Value  string `json:"value,omitempty"`  // 字段名
+	Locale string `json:"locale,omitempty"` // 语言版本。
+	Value  string `json:"value,omitempty"`  // 语言版本对应的值。
 }
 
 // createContactJobFamilyResp ...

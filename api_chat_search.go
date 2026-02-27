@@ -21,11 +21,10 @@ import (
 	"context"
 )
 
-// SearchChat 根据使用的 access_token 搜索对用户或机器人可见的群列表, 包括: 用户或机器人所在的群、对用户或机器人公开的群。
+// SearchChat 获取当前身份（用户或机器人）可见的群列表, 包括当前身份所在的群、对当前身份公开的群。支持关键词搜索、分页搜索。
 //
-// 搜索可获得的群信息包括: 群ID（chat_id）、群名称、群描述等。
-// 注意事项:
-// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
+// ## 前提条件
+// 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search
 // new doc: https://open.feishu.cn/document/server-docs/group/chat/search
@@ -63,29 +62,30 @@ func (r *Mock) UnMockChatSearchChat() {
 
 // SearchChatReq ...
 type SearchChatReq struct {
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	Query      *string `query:"query" json:"-"`        // 关键词, 注意事项: 关键词支持匹配群国际化名称、群成员名称, 支持使用多语种搜索, 支持拼音、前缀等模糊搜索, 关键词为空值或长度超过`64`个字符时将返回空的结果, 示例值: abc
-	PageToken  *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: dmJCRHhpd3JRbGV1VEVNRFFyTitRWDY5ZFkybmYrMEUwMUFYT0VMMWdENEtuYUhsNUxGMDIwemtvdE5ORjBNQQ[
-	PageSize   *int64  `query:"page_size" json:"-"`    // 分页大小, 示例值: 10, 默认值: `20`, 最大值: `100`
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	Query      *string `query:"query" json:"-"`        // 关键词注意: 关键词支持匹配群国际化名称、群成员名称- 支持使用多语种搜索（飞书客户端内支持的多语种）- 支持拼音、前缀等模糊搜索- 关键词为空值或长度超过 `64` 个字符时将返回空的结果- 关键词中尽量不要包含 `-` 符号。如果必须包含该符号, 请在传值时添加双引号, 例如 `“Example-0”`。示例值: abc
+	PageToken  *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: dmJCRHhpd3JRbGV1VEVNRFFyTitRWDY5ZFkybmYrMEUwMUFYT0VMMWdENEtuYUhsNUxGMDIwemtvdE5ORjBNQQ[
+	PageSize   *int64  `query:"page_size" json:"-"`    // 分页大小, 用来限制一次请求所返回的数据条目数。示例值: 10默认值: `20` 最大值: `100
 }
 
 // SearchChatResp ...
 type SearchChatResp struct {
-	Items     []*SearchChatRespItem `json:"items,omitempty"`      // chat 列表
+	Items     []*SearchChatRespItem `json:"items,omitempty"`      // 群组列表
 	PageToken string                `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	HasMore   bool                  `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
 // SearchChatRespItem ...
 type SearchChatRespItem struct {
-	ChatID      string `json:"chat_id,omitempty"`       // 群组 ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
+	ChatID      string `json:"chat_id,omitempty"`       // 群组 ID, 调用[获取群信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get)接口, 根据群组 ID 可获取群详细信息。
 	Avatar      string `json:"avatar,omitempty"`        // 群头像 URL
 	Name        string `json:"name,omitempty"`          // 群名称
 	Description string `json:"description,omitempty"`   // 群描述
-	OwnerID     string `json:"owner_id,omitempty"`      // 群主 ID
-	OwnerIDType IDType `json:"owner_id_type,omitempty"` // 群主 ID 类型
+	OwnerID     string `json:"owner_id,omitempty"`      // 群主的用户 ID, ID 类型与 owner_id_type 相对应。注意: 群主为机器人时无返回值。
+	OwnerIDType IDType `json:"owner_id_type,omitempty"` // 群主的用户 ID 类型, 类型分为 user_id、open_id、union_id。各类型 ID 介绍参考[用户身份概述](https://open.feishu.cn/document/home/user-identity-introduction/introduction)。注意: 群主为机器人时无返回值。
 	External    bool   `json:"external,omitempty"`      // 是否是外部群
-	TenantKey   string `json:"tenant_key,omitempty"`    // 租户Key, 为租户在飞书上的唯一标识, 用来换取对应的tenant_access_token, 也可以用作租户在应用中的唯一标识
+	TenantKey   string `json:"tenant_key,omitempty"`    // 租户 Key, 为租户在飞书上的唯一标识, 用来换取对应的tenant_access_token, 也可以用作租户在应用中的唯一标识。
+	ChatStatus  string `json:"chat_status,omitempty"`   // 群状态可选值有: 正常解散解散并保留
 }
 
 // searchChatResp ...

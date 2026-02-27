@@ -21,7 +21,9 @@ import (
 	"context"
 )
 
-// BatchCreateAttendanceUserDailyShift 班表是用来描述考勤组内人员每天按哪个班次进行上班。目前班表支持按一个整月对一位或多位人员进行排班。
+// BatchCreateAttendanceUserDailyShift 排班表是用来描述考勤组内人员每天按哪个班次进行上班。目前排班表支持按x月y日对一位或多位人员进行排班。当用户的排班数据不存在时会进行创建, 当用户的排班数据存在时会按照入参信息进行修改。注意: 每人每天只能在一个考勤组中。
+//
+// 注意: 如果返回code=0, 但是msg返回如{人员: [日期, 日期]}格式, 代表人员在排班日期下未生效。这种一般是考勤组id与人员不匹配造成。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_daily_shift/batch_create
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_daily_shift/batch_create
@@ -58,18 +60,19 @@ func (r *Mock) UnMockAttendanceBatchCreateAttendanceUserDailyShift() {
 
 // BatchCreateAttendanceUserDailyShiftReq ...
 type BatchCreateAttendanceUserDailyShiftReq struct {
-	EmployeeType    EmployeeType                                            `query:"employee_type" json:"-"`     // 请求体和响应体中的 user_id 的员工工号类型, 示例值: employee_id, 可选值有: employee_id: 员工 employee ID, 即[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的用户 ID, employee_no: 员工工号, 即[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的工号
-	UserDailyShifts []*BatchCreateAttendanceUserDailyShiftReqUserDailyShift `json:"user_daily_shifts,omitempty"` // 班表信息列表（数量限制50以内）
-	OperatorID      *string                                                 `json:"operator_id,omitempty"`       // 操作人uid, 如果您未操作[考勤管理后台“API 接入”流程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/attendance-development-guidelines), 则此字段为必填字段, 示例值: "dd31248a"
+	EmployeeType    EmployeeType                                            `query:"employee_type" json:"-"`     // 请求体和响应体中的 user_id 的员工ID类型。如果没有后台管理权限, 可使用[通过手机号或邮箱获取用户 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/batch_get_id)示例值: employee_id可选值有: 员工 employee ID, 即[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的用户 ID, 或者[通过手机号或邮箱获取用户 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/batch_get_id)获取的userid。员工工号, 即[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的工号
+	UserDailyShifts []*BatchCreateAttendanceUserDailyShiftReqUserDailyShift `json:"user_daily_shifts,omitempty"` // 排班表信息列表（数量限制50以内）
+	OperatorID      *string                                                 `json:"operator_id,omitempty"`       // 操作人uid, 与employee_type对应。如果您未操作[考勤管理后台“API 接入”流程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/attendance-development-guidelines), 则此字段为必填字段示例值: "dd31248a"
 }
 
 // BatchCreateAttendanceUserDailyShiftReqUserDailyShift ...
 type BatchCreateAttendanceUserDailyShiftReqUserDailyShift struct {
-	GroupID string `json:"group_id,omitempty"` // 考勤组 ID, 获取方式: 1）[创建或修改考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/create) 2）[按名称查询考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/search) 3）[获取打卡结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task/query), 示例值: "6737202939523236110"
-	ShiftID string `json:"shift_id,omitempty"` // 班次 ID, 获取方式: 1）[按名称查询班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/query) 2）[创建班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/create), 示例值: "6753520403404030215"
-	Month   int64  `json:"month,omitempty"`    // 月份, 示例值: 202101
-	UserID  string `json:"user_id,omitempty"`  // 用户 ID, 示例值: "abd754f7"
-	DayNo   int64  `json:"day_no,omitempty"`   // 日期, 示例值: 21
+	GroupID         string `json:"group_id,omitempty"`          // 考勤组 ID, 获取方式: 1）[创建或修改考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/create) 2）[按名称查询考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/search) 3）[获取打卡结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task/query)示例值: "6737202939523236110"
+	ShiftID         string `json:"shift_id,omitempty"`          // 班次 ID, 获取方式: 1）[按名称查询班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/query) 2）[创建班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/create)。传入0代表休息。示例值: "6753520403404030215"
+	Month           int64  `json:"month,omitempty"`             // 月份, 格式yyyyMM示例值: 202101
+	UserID          string `json:"user_id,omitempty"`           // 用户 ID, 与employee_type对应示例值: "abd754f7"
+	DayNo           int64  `json:"day_no,omitempty"`            // 日期示例值: 21
+	IsClearSchedule *bool  `json:"is_clear_schedule,omitempty"` // 是否清空班次 (此字段优先于 shift_id, 若为true, shift_id 将失效)示例值: true
 }
 
 // BatchCreateAttendanceUserDailyShiftResp ...
@@ -79,11 +82,12 @@ type BatchCreateAttendanceUserDailyShiftResp struct {
 
 // BatchCreateAttendanceUserDailyShiftRespUserDailyShift ...
 type BatchCreateAttendanceUserDailyShiftRespUserDailyShift struct {
-	GroupID string `json:"group_id,omitempty"` // 考勤组 ID, 获取方式: 1）[创建或修改考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/create) 2）[按名称查询考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/search) 3）[获取打卡结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task/query)
-	ShiftID string `json:"shift_id,omitempty"` // 班次 ID, 获取方式: 1）[按名称查询班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/query) 2）[创建班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/create)
-	Month   int64  `json:"month,omitempty"`    // 月份
-	UserID  string `json:"user_id,omitempty"`  // 用户 ID
-	DayNo   int64  `json:"day_no,omitempty"`   // 日期
+	GroupID         string `json:"group_id,omitempty"`          // 考勤组 ID, 可用于[按 ID 查询考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/get)
+	ShiftID         string `json:"shift_id,omitempty"`          // 班次 ID, 可用于[按 ID 查询班次](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/shift/get)
+	Month           int64  `json:"month,omitempty"`             // 月份
+	UserID          string `json:"user_id,omitempty"`           // 用户 ID, 与employee_type对应
+	DayNo           int64  `json:"day_no,omitempty"`            // 日期
+	IsClearSchedule bool   `json:"is_clear_schedule,omitempty"` // 是否清空班次 (此字段优先于 shift_id, 若为true, shift_id 将失效)
 }
 
 // batchCreateAttendanceUserDailyShiftResp ...

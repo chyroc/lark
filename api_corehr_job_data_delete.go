@@ -23,6 +23,8 @@ import (
 
 // DeleteCoreHRJobData 删除人员的任职信息。
 //
+// 删除后无法恢复, 并且在系统中无法查询到对应任职信息, 请谨慎操作。
+//
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/delete
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/job_data/delete
 func (r *CoreHRService) DeleteCoreHRJobData(ctx context.Context, request *DeleteCoreHRJobDataReq, options ...MethodOptionFunc) (*DeleteCoreHRJobDataResp, *Response, error) {
@@ -58,12 +60,11 @@ func (r *Mock) UnMockCoreHRDeleteCoreHRJobData() {
 
 // DeleteCoreHRJobDataReq ...
 type DeleteCoreHRJobDataReq struct {
-	JobDataID string `path:"job_data_id" json:"-"` // 需要删除的任职信息 ID, 示例值: "467642764726472"
+	JobDataID string `path:"job_data_id" json:"-"` // 需要删除的任职信息 ID- 通过[【批量查询员工任职】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employees-job_data/batch_get)可以获得示例值: "467642764726472"
 }
 
 // DeleteCoreHRJobDataResp ...
-type DeleteCoreHRJobDataResp struct {
-}
+type DeleteCoreHRJobDataResp struct{}
 
 // deleteCoreHRJobDataResp ...
 type deleteCoreHRJobDataResp struct {

@@ -21,9 +21,10 @@ import (
 	"context"
 )
 
-// GetCoreHRAuthorization 查询「飞书人事」-「权限设置」中的单个用户授权信息。
+// GetCoreHRAuthorization 查询[飞书人事管理后台](https://people.feishu.cn/people/)里 -「设置」-「权限设置」中的单个用户授权信息。授权信息中包括员工ID、被授权的角色等信息。
 //
-// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/authorization/get_by_param
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/authorization/query-user-authorization
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/authorization/query-user-authorization
 func (r *CoreHRService) GetCoreHRAuthorization(ctx context.Context, request *GetCoreHRAuthorizationReq, options ...MethodOptionFunc) (*GetCoreHRAuthorizationResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRAuthorization != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRAuthorization mock enable")
@@ -57,13 +58,12 @@ func (r *Mock) UnMockCoreHRGetCoreHRAuthorization() {
 
 // GetCoreHRAuthorizationReq ...
 type GetCoreHRAuthorizationReq struct {
-	EmploymentID string  `query:"employment_id" json:"-"` // 被授权用户的 ID, 默认为飞书人事中的 [employment_id]。你也可以使用 user_id_type 中声明的另外 3 种 ID, >, 如果你需要使用工号, 可以使用 [ID转换服务](https://open.larkoffice.com/document/server-docs/corehr-v1/common_data-id/search?appId=cli_9c04f2177d799101) 换取 [employment_id], 示例值: 67489937334909845
-	UserIDType   *IDType `query:"user_id_type" json:"-"`  // 用户 ID 类型, 示例值: people_corehr_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_corehr_id: 以飞书人事的 ID 来识别用户, 默认值: `people_corehr_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	EmploymentID string  `query:"employment_id" json:"-"` // 被授权用户的 ID, ID类型与user_id_type的取值意义一致。默认为飞书人事中的 [employment_id]。  > 如果你需要不同类型的ID进行转换, 可以使用 [ID转换服务](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/common_data-id/convert) 换取 [employment_id]示例值: 67489937334909845
+	UserIDType   *IDType `query:"user_id_type" json:"-"`  // 用户 ID 类型示例值: people_corehr_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `people_corehr_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetCoreHRAuthorizationResp ...
-type GetCoreHRAuthorizationResp struct {
-}
+type GetCoreHRAuthorizationResp struct{}
 
 // getCoreHRAuthorizationResp ...
 type getCoreHRAuthorizationResp struct {

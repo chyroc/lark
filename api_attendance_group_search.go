@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// SearchAttendanceGroup 按考勤组名称查询考勤组摘要信息。查询条件支持名称精确匹配和模糊匹配两种方式。查询结果按考勤组修改时间 desc 排序, 且最大记录数为 10 条。
+// SearchAttendanceGroup 按考勤组名称查询考勤组摘要信息。查询条件支持名称精确匹配和模糊匹配两种方式。查询结果按考勤组修改时间 desc 排序, 且最大记录数为 10 条。对应页面设置-假勤设置-[考勤组](https://example.feishu.cn/people/workforce-management/setting/group/list)的名称搜索功能
 //
 // 该接口依赖的数据和考勤组主数据间存在数据同步延时（正常数据同步 2 秒以内）, 因此在使用该接口时需注意评估数据延迟潜在风险。
 //
@@ -60,7 +60,7 @@ func (r *Mock) UnMockAttendanceSearchAttendanceGroup() {
 
 // SearchAttendanceGroupReq ...
 type SearchAttendanceGroupReq struct {
-	GroupName string `json:"group_name,omitempty"` // 考勤组名称, 示例值: "考勤组1"
+	GroupName string `json:"group_name,omitempty"` // 考勤组名称示例值: "考勤组1"
 }
 
 // SearchAttendanceGroupResp ...
@@ -70,7 +70,7 @@ type SearchAttendanceGroupResp struct {
 
 // SearchAttendanceGroupRespGroup ...
 type SearchAttendanceGroupRespGroup struct {
-	GroupID   string `json:"group_id,omitempty"`   // 考勤组 ID
+	GroupID   string `json:"group_id,omitempty"`   // 考勤组 ID, 可用于[按 ID 查询考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/get)
 	GroupName string `json:"group_name,omitempty"` // 考勤组名称
 }
 

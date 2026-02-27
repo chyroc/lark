@@ -21,7 +21,13 @@ import (
 	"context"
 )
 
-// EventV2IMMessageRecalledV1 消息被撤回后触发此事件。
+// EventV2IMMessageRecalledV1 机器人所在会话内的消息被撤回时触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=im&version=v1&resource=message&event=recalled)
+//
+// ## 前提条件
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// - 你需要在应用中配置事件订阅, 这样才可以在事件触发时接收到事件数据。了解事件订阅可参见[事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
+// ## 使用限制
+// 机器人只能接收到自己所在会话（单聊、群聊）内的消息撤回事件。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/recalled
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/message/events/recalled
@@ -34,8 +40,8 @@ type EventV2IMMessageRecalledV1Handler func(ctx context.Context, cli *Lark, sche
 
 // EventV2IMMessageRecalledV1 ...
 type EventV2IMMessageRecalledV1 struct {
-	MessageID  string `json:"message_id,omitempty"`  // 消息ID
-	ChatID     string `json:"chat_id,omitempty"`     // 群ID
-	RecallTime string `json:"recall_time,omitempty"` // 撤回时间
-	RecallType string `json:"recall_type,omitempty"` // 撤回类型, 可选值有: message_owner: 消息发送者撤回, group_owner: 群主撤回, group_manager: 群管理员撤回, enterprise_manager: 企业管理员撤回
+	MessageID  string `json:"message_id,omitempty"`  // 被撤回的消息 ID。
+	ChatID     string `json:"chat_id,omitempty"`     // 消息所在的群组 ID。调用[获取群信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get)接口, 可通过 ID 获取群组信息。
+	RecallTime string `json:"recall_time,omitempty"` // 撤回的时间, 毫秒级时间戳。
+	RecallType string `json:"recall_type,omitempty"` // 撤回类型可选值有: 消息发送者撤回群主撤回群管理员撤回企业管理员撤回
 }

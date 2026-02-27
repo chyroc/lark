@@ -24,9 +24,11 @@ import (
 
 // RecognizeAIHkmMainlandTravelPermit 港澳居民来往内地通行证识别接口, 支持JPG/JPEG/PNG/BMP四种文件类型的一次性的识别。
 //
+// 文件大小需要小于10M。
 // 单租户限流: 10QPS, 同租户下的应用没有限流, 共享本租户的 10QPS 限流
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/document_ai-v1/hkm_mainland_travel_permit/recognize
+// new doc: https://open.feishu.cn/document/ai/document_ai-v1/hkm_mainland_travel_permit/recognize
 func (r *AIService) RecognizeAIHkmMainlandTravelPermit(ctx context.Context, request *RecognizeAIHkmMainlandTravelPermitReq, options ...MethodOptionFunc) (*RecognizeAIHkmMainlandTravelPermitResp, *Response, error) {
 	if r.cli.mock.mockAIRecognizeAIHkmMainlandTravelPermit != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] AI#RecognizeAIHkmMainlandTravelPermit mock enable")
@@ -61,7 +63,7 @@ func (r *Mock) UnMockAIRecognizeAIHkmMainlandTravelPermit() {
 
 // RecognizeAIHkmMainlandTravelPermitReq ...
 type RecognizeAIHkmMainlandTravelPermitReq struct {
-	File io.Reader `json:"file,omitempty"` // 识别的港澳居民来往内地通行证源文件, 示例值: file binary
+	File io.Reader `json:"file,omitempty"` // 识别的港澳居民来往内地通行证源文件示例值: file binary
 }
 
 // RecognizeAIHkmMainlandTravelPermitResp ...
@@ -76,7 +78,7 @@ type RecognizeAIHkmMainlandTravelPermitRespHkmMainlandTravelPermit struct {
 
 // RecognizeAIHkmMainlandTravelPermitRespHkmMainlandTravelPermitEntitie ...
 type RecognizeAIHkmMainlandTravelPermitRespHkmMainlandTravelPermitEntitie struct {
-	Type  string `json:"type,omitempty"`  // 识别的字段种类, 可选值有: full_name_cn: 中文姓名, full_name_en: 英文格式姓名, date_of_birth: 出生日期, date_of_expiry: 有效期至, card_number: 证件号码
+	Type  string `json:"type,omitempty"`  // 识别的字段种类可选值有: 中文姓名英文格式姓名出生日期有效期至证件号码
 	Value string `json:"value,omitempty"` // 识别出字段的文本信息
 }
 

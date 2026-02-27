@@ -59,23 +59,23 @@ func (r *Mock) UnMockHelpdeskGetHelpdeskTicketList() {
 
 // GetHelpdeskTicketListReq ...
 type GetHelpdeskTicketListReq struct {
-	TicketID        *string  `query:"ticket_id" json:"-"`         // 搜索条件: 工单ID, 示例值: 123456
-	AgentID         *string  `query:"agent_id" json:"-"`          // 搜索条件: 客服id, 示例值: ou_b5de90429xxx
-	ClosedByID      *string  `query:"closed_by_id" json:"-"`      // 搜索条件: 关单客服id, 示例值: ou_b5de90429xxx
-	Type            *int64   `query:"type" json:"-"`              // 搜索条件: 工单类型 1:bot 2:人工, 示例值: 1
-	Channel         *int64   `query:"channel" json:"-"`           // 搜索条件: 工单渠道, 示例值: 0
-	Solved          *int64   `query:"solved" json:"-"`            // 搜索条件: 工单是否解决 1:没解决 2:已解决, 示例值: 1
-	Score           *int64   `query:"score" json:"-"`             // 搜索条件: 工单评分, 示例值: 1
-	StatusList      []int64  `query:"status_list" json:"-"`       // 搜索条件: 工单状态列表, 示例值: 1
-	GuestName       *string  `query:"guest_name" json:"-"`        // 搜索条件: 用户名称, 示例值: abc
-	GuestID         *string  `query:"guest_id" json:"-"`          // 搜索条件: 用户id, 示例值: ou_b5de90429xxx
-	Tags            []string `query:"tags" json:"-"`              // 搜索条件: 用户标签列表, 示例值: 备注
-	Page            *int64   `query:"page" json:"-"`              // 页数, 从1开始, 默认为1, 示例值: 1
-	PageSize        *int64   `query:"page_size" json:"-"`         // 当前页大小, 最大为200, 默认为20。分页查询最多累计返回一万条数据, 超过一万条请更改查询条件, 推荐通过时间查询, 示例值: 20
-	CreateTimeStart *int64   `query:"create_time_start" json:"-"` // 搜索条件: 工单创建起始时间 ms (也需要填上create_time_end), 相当于>=create_time_start, 示例值: 1616920429000
-	CreateTimeEnd   *int64   `query:"create_time_end" json:"-"`   // 搜索条件: 工单创建结束时间 ms (也需要填上create_time_start), 相当于<=create_time_end, 示例值: 1616920429000
-	UpdateTimeStart *int64   `query:"update_time_start" json:"-"` // 搜索条件: 工单修改起始时间 ms (也需要填上update_time_end), 示例值: 1616920429000
-	UpdateTimeEnd   *int64   `query:"update_time_end" json:"-"`   // 搜索条件: 工单修改结束时间 ms(也需要填上update_time_start), 示例值: 1616920429000
+	TicketID        *string  `query:"ticket_id" json:"-"`         // 搜索条件: 工单ID示例值: 123456
+	AgentID         *string  `query:"agent_id" json:"-"`          // 搜索条件: 客服id示例值: ou_b5de90429xxx
+	ClosedByID      *string  `query:"closed_by_id" json:"-"`      // 搜索条件: 关单客服id示例值: ou_b5de90429xxx
+	Type            *int64   `query:"type" json:"-"`              // 搜索条件: 工单类型 1:bot 2:人工示例值: 1
+	Channel         *int64   `query:"channel" json:"-"`           // 搜索条件: 工单渠道示例值: 0
+	Solved          *int64   `query:"solved" json:"-"`            // 搜索条件: 工单是否解决 1:没解决 2:已解决示例值: 1
+	Score           *int64   `query:"score" json:"-"`             // 搜索条件: 工单评分示例值: 1
+	StatusList      []int64  `query:"status_list" json:"-"`       // 搜索条件: 工单状态列表示例值: 1
+	GuestName       *string  `query:"guest_name" json:"-"`        // 搜索条件: 用户名称示例值: abc
+	GuestID         *string  `query:"guest_id" json:"-"`          // 搜索条件: 用户id示例值: ou_b5de90429xxx
+	Tags            []string `query:"tags" json:"-"`              // 搜索条件: 用户标签列表示例值: 备注
+	Page            *int64   `query:"page" json:"-"`              // 页数, 从1开始, 默认为1示例值: 1
+	PageSize        *int64   `query:"page_size" json:"-"`         // 当前页大小, 最大为200, 默认为20。分页查询最多累计返回一万条数据, 超过一万条请更改查询条件, 推荐通过时间查询。示例值: 20
+	CreateTimeStart *int64   `query:"create_time_start" json:"-"` // 搜索条件: 工单创建起始时间 ms (也需要填上create_time_end), 相当于>=create_time_start示例值: 1616920429000
+	CreateTimeEnd   *int64   `query:"create_time_end" json:"-"`   // 搜索条件: 工单创建结束时间 ms (也需要填上create_time_start), 相当于<=create_time_end示例值: 1616920429000
+	UpdateTimeStart *int64   `query:"update_time_start" json:"-"` // 搜索条件: 工单修改起始时间 ms (也需要填上update_time_end)示例值: 1616920429000
+	UpdateTimeEnd   *int64   `query:"update_time_end" json:"-"`   // 搜索条件: 工单修改结束时间 ms(也需要填上update_time_start)示例值: 1616920429000
 }
 
 // GetHelpdeskTicketListResp ...
@@ -86,7 +86,7 @@ type GetHelpdeskTicketListResp struct {
 
 // GetHelpdeskTicketListRespTicket ...
 type GetHelpdeskTicketListRespTicket struct {
-	TicketID                   string                                                `json:"ticket_id,omitempty"`                     // 工单ID, [可以从工单列表里面取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list), [也可以订阅工单创建事件获取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created)
+	TicketID                   string                                                `json:"ticket_id,omitempty"`                     // 工单ID[可以从工单列表里面取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/list)[也可以订阅工单创建事件获取](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/events/created)
 	HelpdeskID                 string                                                `json:"helpdesk_id,omitempty"`                   // 服务台ID
 	Guest                      *GetHelpdeskTicketListRespTicketGuest                 `json:"guest,omitempty"`                         // 工单创建用户
 	Comments                   *GetHelpdeskTicketListRespTicketComments              `json:"comments,omitempty"`                      // 备注
@@ -102,7 +102,7 @@ type GetHelpdeskTicketListRespTicket struct {
 	Solve                      int64                                                 `json:"solve,omitempty"`                         // 工单是否解决 1:没解决 2:已解决
 	ClosedBy                   *GetHelpdeskTicketListRespTicketClosedBy              `json:"closed_by,omitempty"`                     // 关单用户ID
 	Collaborators              []*GetHelpdeskTicketListRespTicketCollaborator        `json:"collaborators,omitempty"`                 // 工单协作者
-	CustomizedFields           []*GetHelpdeskTicketListRespTicketCustomizedField     `json:"customized_fields,omitempty"`             // 自定义字段列表, 没有值时不设置, 下拉菜单的value对应工单字段里面的children.display_name, [获取全部工单自定义字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/list-ticket-customized-fields)
+	CustomizedFields           []*GetHelpdeskTicketListRespTicketCustomizedField     `json:"customized_fields,omitempty"`             // 自定义字段列表, 没有值时不设置  下拉菜单的value对应工单字段里面的children.display_name[获取全部工单自定义字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket_customized_field/list-ticket-customized-fields)
 	AgentServiceDuration       float64                                               `json:"agent_service_duration,omitempty"`        // 客服服务时长, 客服最后一次回复时间距离客服进入时间间隔, 单位分钟
 	AgentFirstResponseDuration int64                                                 `json:"agent_first_response_duration,omitempty"` // 客服首次回复时间距离客服进入时间的间隔(秒)
 	BotServiceDuration         int64                                                 `json:"bot_service_duration,omitempty"`          // 机器人服务时间: 客服进入时间距离工单创建时间的间隔, 单位秒

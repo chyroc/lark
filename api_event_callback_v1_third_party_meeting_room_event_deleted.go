@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV1ThirdPartyMeetingRoomEventDeleted 当添加了第三方会议室的日程发生变动时（创建/更新/删除）触发此事件。
+// EventV1ThirdPartyMeetingRoomEventDeleted 当添加了第三方会议室的日程发生变动时（创建/更新/删除）触发此事件, 其中更新日程时, 仅当更新日程时间后触发此事件。
 //
 // 了解事件订阅的使用场景和配置流程, 可参见[事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
 //
@@ -36,4 +36,32 @@ type EventV1ThirdPartyMeetingRoomEventDeletedHandler func(ctx context.Context, c
 
 // EventV1ThirdPartyMeetingRoomEventDeleted ...
 type EventV1ThirdPartyMeetingRoomEventDeleted struct {
+	AppID        string                                             `json:"app_id,omitempty"`        // 应用 ID
+	TenantKey    string                                             `json:"tenant_key,omitempty"`    // 租户 Key
+	Type         string                                             `json:"type,omitempty"`          // 事件类型
+	EventTime    string                                             `json:"event_time,omitempty"`    // 事件发生时间
+	Uid          string                                             `json:"uid,omitempty"`           // 日程的唯一标识
+	OriginalTime int64                                              `json:"original_time,omitempty"` // 重复日程的例外日程的唯一标识, 时间戳格式。
+	EventID      string                                             `json:"event_id,omitempty"`      // 日程 ID, 格式为 `{Uid}_{Original time}`, `{Uid}` 是日程的唯一标识, `{Original time}` 是日程实例原始时间, 非重复性日程和重复性日程取值为 0, 重复性日程的例外日程取值为具体时间戳。
+	Start        *EventV1ThirdPartyMeetingRoomEventDeletedStart     `json:"start,omitempty"`         // 日程开始时间
+	End          *EventV1ThirdPartyMeetingRoomEventDeletedEnd       `json:"end,omitempty"`           // 日程结束时间
+	MeetingRooms []string                                           `json:"meeting_rooms,omitempty"` // 日程关联的会议室
+	Organizer    *EventV1ThirdPartyMeetingRoomEventDeletedOrganizer `json:"organizer,omitempty"`     // 日程的组织者
+}
+
+// EventV1ThirdPartyMeetingRoomEventDeletedEnd ...
+type EventV1ThirdPartyMeetingRoomEventDeletedEnd struct {
+	TimeStamp string `json:"time_stamp,omitempty"` // 日程结束时间戳
+}
+
+// EventV1ThirdPartyMeetingRoomEventDeletedOrganizer ...
+type EventV1ThirdPartyMeetingRoomEventDeletedOrganizer struct {
+	OpenID  string `json:"open_id,omitempty"`  // 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。
+	UserID  string `json:"user_id,omitempty"`  // 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。应用申请了 获取用户 user ID（contact:user.employee_id:readonly） 权限后才会返回。
+	UnionID string `json:"union_id,omitempty"` // 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。
+}
+
+// EventV1ThirdPartyMeetingRoomEventDeletedStart ...
+type EventV1ThirdPartyMeetingRoomEventDeletedStart struct {
+	TimeStamp string `json:"time_stamp,omitempty"` // 日程开始时间戳
 }

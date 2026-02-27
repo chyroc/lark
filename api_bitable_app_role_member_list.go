@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// GetBitableAppRoleMemberList 列出自定义角色的协作者
+// GetBitableAppRoleMemberList 列出多维表格高级权限中自定义角色的协作者。
+//
+// ## 前提条件
+// 要调用协作者相关接口, 你需确保多维表格已开启高级权限并设置了自定义角色。你可通过[更新多维表格元数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/update)接口开启高级权限, 通过[新增自定义角色](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role/create)接口设置自定义角色。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role-member/list
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/advanced-permission/app-role-member/list
@@ -59,10 +62,10 @@ func (r *Mock) UnMockBitableGetBitableAppRoleMemberList() {
 
 // GetBitableAppRoleMemberListReq ...
 type GetBitableAppRoleMemberListReq struct {
-	AppToken  string  `path:"app_token" json:"-"`   // 多维表格的唯一标识符 [app_token 参数说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/bitable/notification#8121eebe), 示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
-	RoleID    string  `path:"role_id" json:"-"`     // 自定义角色的id, 示例值: "roljRpwIUt"
-	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 100, 最大值: `100`
-	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: xxxxx
+	AppToken  string  `path:"app_token" json:"-"`   // 多维表格 App 的唯一标识。不同形态的多维表格, 其 `app_token` 的获取方式不同: 如果多维表格的 URL 以 [feishu.cn/base] 开头, 该多维表格的 `app_token` 是下图高亮部分: ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004)- 如果多维表格的 URL 以 [feishu.cn/wiki] 开头, 你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时, `obj_token` 字段的值才是多维表格的 `app_token`。了解更多, 参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。示例值: "appbcbWCzen6D8dezhoCH2RpMAh"
+	RoleID    string  `path:"role_id" json:"-"`     // 多维表格高级权限中自定义角色的唯一标识, 以 rol 开头。获取方式: 通过[列出自定义角色](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role/list)接口获取。示例值: "roljRpwIUt"
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小示例值: 100 最大值: `100
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eVQrYzJBNDNONlk4VFZBZVlSdzlKdFJ4bVVHVExENDNKVHoxaVdiVnViQT0
 }
 
 // GetBitableAppRoleMemberListResp ...
@@ -75,15 +78,15 @@ type GetBitableAppRoleMemberListResp struct {
 
 // GetBitableAppRoleMemberListRespItem ...
 type GetBitableAppRoleMemberListRespItem struct {
-	OpenID           string `json:"open_id,omitempty"`            // 用户的 open_id
-	UnionID          string `json:"union_id,omitempty"`           // 用户的 union_id
-	UserID           string `json:"user_id,omitempty"`            // 用户的 user_id
-	ChatID           string `json:"chat_id,omitempty"`            // 群聊的 chat_id
-	DepartmentID     string `json:"department_id,omitempty"`      // 部门的 department_id
-	OpenDepartmentID string `json:"open_department_id,omitempty"` // 部门的 open_department_id
-	MemberName       string `json:"member_name,omitempty"`        // 协作者名字
-	MemberEnName     string `json:"member_en_name,omitempty"`     // 协作者英文名
-	MemberType       string `json:"member_type,omitempty"`        // 协作者类型, 可选值有: user: 用户, chat: 群组, department: 部门
+	OpenID           string `json:"open_id,omitempty"`            // 协作者的 open_id
+	UnionID          string `json:"union_id,omitempty"`           // 协作者的 union_id
+	UserID           string `json:"user_id,omitempty"`            // 协作者的 user_id
+	ChatID           string `json:"chat_id,omitempty"`            // 协作者为一个群聊, 群聊的 chat_id
+	DepartmentID     string `json:"department_id,omitempty"`      // 协作者为一个部门, 部门的 department_id
+	OpenDepartmentID string `json:"open_department_id,omitempty"` // 协作者为一个部门, 部门的 open_department_id
+	MemberName       string `json:"member_name,omitempty"`        // 协作者的名称
+	MemberEnName     string `json:"member_en_name,omitempty"`     // 协作者的英文名称
+	MemberType       string `json:"member_type,omitempty"`        // 协作者的类型可选值有: 用户群组部门
 }
 
 // getBitableAppRoleMemberListResp ...

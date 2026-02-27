@@ -21,7 +21,9 @@ import (
 	"context"
 )
 
-// SearchCoreHROffboarding 搜索离职信息, 该接口会按照应用拥有的「员工数据」的权限范围返回数据, 请确定在「开发者后台 - 权限管理 - 数据权限」中有申请「员工资源」权限范围
+// SearchCoreHROffboarding 该接口支持根据员工ID、离职审批发起时间和离职日期等字段搜索离职信息, 可获取包括离职日期、离职原因、离职状态和流程审批状态等信息。
+//
+// 注意: 该接口会按照应用拥有的「员工数据」的权限范围返回数据, 请确定在「开发者后台 - 权限管理 - 数据权限-飞书人事（企业版）数据权限」中申请了「员工资源」权限范围。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/search
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/offboarding/search
@@ -58,19 +60,21 @@ func (r *Mock) UnMockCoreHRSearchCoreHROffboarding() {
 
 // SearchCoreHROffboardingReq ...
 type SearchCoreHROffboardingReq struct {
-	PageSize                     int64    `query:"page_size" json:"-"`                       // 分页大小, 最大 100, 示例值: 100, 取值范围: `1` ～ `100`
-	PageToken                    *string  `query:"page_token" json:"-"`                      // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 6891251722631890445
-	UserIDType                   *IDType  `query:"user_id_type" json:"-"`                    // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_corehr_id: 以飞书人事的 ID 来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	EmploymentIDs                []string `json:"employment_ids,omitempty"`                  // 雇佣 ID 列表, 为空默认查询所有离职人员, 示例值: ["7140964208476371111"]
-	ApplyInitiatingTimeStart     *string  `json:"apply_initiating_time_start,omitempty"`     // 离职审批发起时间 - 搜索范围开始, 需要与搜索范围结束一同使用, 请按照时间戳格式传入, 示例值: "1672578336"
-	ApplyInitiatingTimeEnd       *string  `json:"apply_initiating_time_end,omitempty"`       // 离职审批发起时间 - 搜索范围结束, 请按照时间戳格式传入, 示例值: "1674133537"
-	ExpectedOffboardingDateStart *string  `json:"expected_offboarding_date_start,omitempty"` // 期望离职日期 - 搜索范围开始, 需要与搜索范围结束一同使用, 示例值: "2022-01-01"
-	ExpectedOffboardingDateEnd   *string  `json:"expected_offboarding_date_end,omitempty"`   // 期望离职日期 - 搜索范围结束, 示例值: "2022-01-01"
-	OffboardingDateStart         *string  `json:"offboarding_date_start,omitempty"`          // 离职日期 - 搜索范围开始, 需要与搜索范围结束一同使用, 示例值: "2022-01-01"
-	OffboardingDateEnd           *string  `json:"offboarding_date_end,omitempty"`            // 离职日期 - 搜索范围结束, 示例值: "2022-01-01"
-	Statuses                     []string `json:"statuses,omitempty"`                        // 离职状态, 多个状态之间为「或」的关系, 示例值: ["Approving"], 可选值有: Approving: Approving  审批中, Approved: Approved  审批通过, Offboarded: Offboarded  已离职, Rejected: Rejected  已拒绝, Withdrawn: Withdrawn  已撤销, NoNeedApproval: NoNeedApproval  无需审批, 最大长度: `10`
-	Reasons                      []string `json:"reasons,omitempty"`                         // 离职原因列表, 可以通过[查询员工离职原因列表]接口获取, 查询时不返回下级原因相关的离职信息, <b>字段权限要求: </b>, 按照离职原因搜索(corehr:employment.offboarding_reason.search:read), 示例值: ["voluntary"]
-	EmployeeReasons              []string `json:"employee_reasons,omitempty"`                // 离职原因（员工）列表, 可以通过[查询员工离职原因列表]接口获取, 查询时不返回下级原因相关的离职信息, <b>字段权限要求: </b>, 按照离职原因搜索(corehr:employment.offboarding_reason.search:read), 示例值: ["voluntary"]
+	PageSize                     int64    `query:"page_size" json:"-"`                       // 分页大小, 最大 100示例值: 100 取值范围: `1` ～ `100
+	PageToken                    *string  `query:"page_token" json:"-"`                      // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 6891251722631890445
+	UserIDType                   *IDType  `query:"user_id_type" json:"-"`                    // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	EmploymentIDs                []string `json:"employment_ids,omitempty"`                  // 雇佣 ID 列表, ID类型与查询参数 user_id_type取值一致: 当user_id_type取值为open_id时, ID获取方式参考[如何获取自己的Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。- 当user_id_type取值为user_id时, ID获取方式参考[如何获取自己的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。- 当user_id_type取值为union_id时, ID获取方式参考[如何获取自己的 Union ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)。- 当user_id_type取值为people_corehr_id时, 先参考[如何获取自己的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)获取User ID。然后通过[ID 转换](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/common_data-id/convert)获取雇佣ID。示例值: ["7140964208476371111"]
+	ApplyInitiatingTimeStart     *string  `json:"apply_initiating_time_start,omitempty"`     // 离职审批发起时间（搜索的起始范围）, 请按照秒级时间戳格式传入。该字段非必填, 需要与离职审批发起时间（搜索的结束范围）一同使用。示例值: "1672578336"
+	ApplyInitiatingTimeEnd       *string  `json:"apply_initiating_time_end,omitempty"`       // 离职审批发起时间（搜索的结束范围）, 请按照秒级时间戳格式传入。该字段非必填, 需要与离职审批发起时间（搜索的起始范围）一同使用。示例值: "1674133537"
+	ApplyFinishedTimeStart       *string  `json:"apply_finished_time_start,omitempty"`       // 离职审批结束时间（搜索的起始范围）, 请按照秒级时间戳格式传入。该字段非必填, 需要与离职审批结束时间（搜索的结束范围）一同使用。示例值: "1641007353"
+	ApplyFinishedTimeEnd         *string  `json:"apply_finished_time_end,omitempty"`         // 离职审批结束时间 （搜索的结束范围）, 请按照秒级时间戳格式传入。该字段非必填, 需要与离职审批结束时间（搜索的起始范围）一同使用。示例值: "1641007353"
+	ExpectedOffboardingDateStart *string  `json:"expected_offboarding_date_start,omitempty"` // 期望离职日期（搜索的起始范围）, 请按日期格式传入。该字段非必填, 需要与期望离职日期（搜索的结束范围）一同使用示例值: "2022-01-01"
+	ExpectedOffboardingDateEnd   *string  `json:"expected_offboarding_date_end,omitempty"`   // 期望离职日期（搜索的结束范围）, 请按日期格式传入。该字段非必填, 需要与期望离职日期（搜索的起始范围）一同使用。示例值: "2022-01-01"
+	OffboardingDateStart         *string  `json:"offboarding_date_start,omitempty"`          // 离职日期（搜索的起始范围）, 请按日期格式传入。该字段非必填, 需要与离职日期（搜索的结束范围）一同使用。示例值: "2022-01-01"
+	OffboardingDateEnd           *string  `json:"offboarding_date_end,omitempty"`            // 离职日期（搜索的结束范围）, 该字段非必填, 需要与离职日期（搜索的起始范围）一同使用。示例值: "2022-01-01"
+	Statuses                     []string `json:"statuses,omitempty"`                        // 离职状态, 多个状态之间为「或」的关系。为空时默认搜索所有状态的离职信息。示例值: ["Approving"]可选值有: 审批中审批通过已离职已拒绝已撤销无需审批 最大长度: `10
+	Reasons                      []string `json:"reasons,omitempty"`                         // 离职原因列表, 可以通过[【查询员工离职原因列表】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/query)接口获取, 查询时不返回下级原因相关的离职信息。为空时默认搜索所有离职数据。 字段权限要求: 按照离职原因搜索corehr:employment.offboarding_reason.search:read, 确认已开通该权限。示例值: ["voluntary"]
+	EmployeeReasons              []string `json:"employee_reasons,omitempty"`                // 离职原因（员工）列表, 可以通过[【查询员工离职原因列表】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/query)接口获取, 查询时不返回下级原因相关的离职信息。为空时默认搜索所有离职数据。 字段权限要求: 按照离职原因搜索示例值: ["voluntary"]
 }
 
 // SearchCoreHROffboardingResp ...
@@ -82,43 +86,56 @@ type SearchCoreHROffboardingResp struct {
 
 // SearchCoreHROffboardingRespItem ...
 type SearchCoreHROffboardingRespItem struct {
-	InitiatingType       string                                               `json:"initiating_type,omitempty"`       // 离职发起类型, 包括:
-	Status               string                                               `json:"status,omitempty"`                // 离职状态, 可选值有: Approving: 审批中, Approved: 审批通过, Offboarded: 已离职, Rejected: 已拒绝, Withdrawn: 已撤销, NoNeedApproval: 无需审批
+	InitiatingType       string                                               `json:"initiating_type,omitempty"`       // 离职发起类型, 可选项包括:offboarding_initiated_by_self: 员工申请离职-offboarding_initiated_by_others: 代发起离职申请-offboarding_directly: 直接离职
+	Status               string                                               `json:"status,omitempty"`                // 离职状态可选值有: 审批中审批通过已离职已拒绝已撤销无需审批
 	ApplicationInfo      *SearchCoreHROffboardingRespItemApplicationInfo      `json:"application_info,omitempty"`      // 离职审批信息
 	OffboardingInfo      *SearchCoreHROffboardingRespItemOffboardingInfo      `json:"offboarding_info,omitempty"`      // 员工离职信息
 	OffboardingChecklist *SearchCoreHROffboardingRespItemOffboardingChecklist `json:"offboarding_checklist,omitempty"` // 离职办理流程信息
+	OffboardingID        string                                               `json:"offboarding_id,omitempty"`        // 离职唯一标识
 }
 
 // SearchCoreHROffboardingRespItemApplicationInfo ...
 type SearchCoreHROffboardingRespItemApplicationInfo struct {
-	ApplyInitiatorID    string `json:"apply_initiator_id,omitempty"`    // 离职审批发起人的雇佣 ID
+	ApplyInitiatorID    string `json:"apply_initiator_id,omitempty"`    // 离职审批发起人的雇佣 ID。ID 类型与查询参数 user_id_type 的取值一致。例如, 当user_id_type为user_id时, 该字段取员工的user_id, 若user_id_type为people_corehr_id时, 则取该员工的人事雇佣ID。
 	ApplyInitiatingTime string `json:"apply_initiating_time,omitempty"` // 离职申请流程发起时间
 	ApplyFinishTime     string `json:"apply_finish_time,omitempty"`     // 离职申请流程结束时间
-	ProcessID           string `json:"process_id,omitempty"`            // 流程 ID
+	ProcessID           string `json:"process_id,omitempty"`            // 流程 ID。可用于[查询流程相关信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/list), 例如: 作为[获取单个流程详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/list)的process_id查询流程详情。
 }
 
 // SearchCoreHROffboardingRespItemOffboardingChecklist ...
 type SearchCoreHROffboardingRespItemOffboardingChecklist struct {
-	ChecklistStatus     string `json:"checklist_status,omitempty"`      // 离职办理状态, 可选值有: AntiBegin: 未发起, Approving: 审批中, Finished: 完成办理, Rejected: 已拒绝, Withdrawn: 已撤销
+	ChecklistStatus     string `json:"checklist_status,omitempty"`      // 离职流转状态, 可选值有: AntiBegin: 未发起- Approving: 进行中- Finished: 已完成- Rejected: 已拒绝- Withdrawn: 已撤销
 	ChecklistStartTime  string `json:"checklist_start_time,omitempty"`  // 离职流转开始时间
 	ChecklistFinishTime string `json:"checklist_finish_time,omitempty"` // 离职流转结束时间
-	ChecklistProcessID  string `json:"checklist_process_id,omitempty"`  // 离职流转流程实例 ID
+	ChecklistProcessID  string `json:"checklist_process_id,omitempty"`  // 离职流转流程实例 ID。可用于[查询流程相关信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/list), 例如: 作为[获取单个流程详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/list)的process_id查询流程详情。
 }
 
 // SearchCoreHROffboardingRespItemOffboardingInfo ...
 type SearchCoreHROffboardingRespItemOffboardingInfo struct {
-	EmploymentID              string                                                        `json:"employment_id,omitempty"`               // 离职员工的雇佣 ID
-	HrbpID                    []string                                                      `json:"hrbp_id,omitempty"`                     // 员工的 hrbp 列表, 所有的 hrbp
-	ExpectedOffboardingDate   string                                                        `json:"expected_offboarding_date,omitempty"`   // 期望离职日期
-	OffboardingDate           string                                                        `json:"offboarding_date,omitempty"`            // 离职日期
-	Reason                    *SearchCoreHROffboardingRespItemOffboardingInfoReason         `json:"reason,omitempty"`                      // 离职原因, 字段权限要求: 获取员工离职原因
-	ReasonExplanation         string                                                        `json:"reason_explanation,omitempty"`          // 离职原因说明, 字段权限要求: 获取员工离职原因
-	EmployeeReason            *SearchCoreHROffboardingRespItemOffboardingInfoEmployeeReason `json:"employee_reason,omitempty"`             // 离职原因（员工）, 字段权限要求: 获取员工离职原因
-	EmployeeReasonExplanation string                                                        `json:"employee_reason_explanation,omitempty"` // 离职原因说明（员工）, 字段权限要求: 获取员工离职原因
-	AddBlockList              string                                                        `json:"add_block_list,omitempty"`              // 是否加入离职屏蔽名单, 字段权限要求（满足任一）: 获取离职屏蔽名单, 读写离职屏蔽名单
-	BlockReason               *SearchCoreHROffboardingRespItemOffboardingInfoBlockReason    `json:"block_reason,omitempty"`                // 屏蔽原因, 字段权限要求（满足任一）: 获取离职屏蔽名单, 读写离职屏蔽名单
-	BlockReasonExplanation    string                                                        `json:"block_reason_explanation,omitempty"`    // 屏蔽原因说明, 字段权限要求（满足任一）: 获取离职屏蔽名单, 读写离职屏蔽名单
-	CustomFields              []*SearchCoreHROffboardingRespItemOffboardingInfoCustomField  `json:"custom_fields,omitempty"`               // 自定义字段, 字段权限要求: 获取离职信息自定义字段信息
+	EmploymentID                 string                                                        `json:"employment_id,omitempty"`                   // 离职员工的雇佣 ID, ID类型与查询参数 user_id_type取值一致: 1、当user_id_type取值为open_id时, ID获取方式参考[如何获取自己的Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。2、当user_id_type取值为user_id时, ID获取方式参考[如何获取自己的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。3、当user_id_type取值为union_id时, ID获取方式参考[如何获取自己的 Union ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)。4、当user_id_type取值为people_corehr_id时, 先参考[如何获取自己的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)获取User ID。然后通过[ID 转换](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/common_data-id/convert)获取雇佣ID。
+	HrbpID                       []string                                                      `json:"hrbp_id,omitempty"`                         // 员工的 hrbp 列表, ID类型与查询参数 user_id_type取值一致: 1、当user_id_type取值为open_id时, ID获取方式参考[如何获取自己的Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。2、当user_id_type取值为user_id时, ID获取方式参考[如何获取自己的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。3、当user_id_type取值为union_id时, ID获取方式参考[如何获取自己的 Union ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)。4、当user_id_type取值为people_corehr_id时, 先参考[如何获取自己的 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)获取User ID。然后通过[ID 转换](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/common_data-id/convert)获取雇佣ID。
+	ExpectedOffboardingDate      string                                                        `json:"expected_offboarding_date,omitempty"`       // 期望离职日期
+	OffboardingDate              string                                                        `json:"offboarding_date,omitempty"`                // 离职日期
+	Reason                       *SearchCoreHROffboardingRespItemOffboardingInfoReason         `json:"reason,omitempty"`                          // 离职原因字段权限要求: 获取员工离职原因
+	ReasonExplanation            string                                                        `json:"reason_explanation,omitempty"`              // 离职原因说明字段权限要求: 获取员工离职原因
+	EmployeeReason               *SearchCoreHROffboardingRespItemOffboardingInfoEmployeeReason `json:"employee_reason,omitempty"`                 // 离职原因（员工）字段权限要求: 获取员工离职原因
+	EmployeeReasonExplanation    string                                                        `json:"employee_reason_explanation,omitempty"`     // 离职原因说明（员工）字段权限要求: 获取员工离职原因
+	AddBlockList                 string                                                        `json:"add_block_list,omitempty"`                  // 是否加入离职屏蔽名单。注意: 该字段为字符类型。可选值有:true: 是-false: 否字段权限要求（满足任一）: 获取离职屏蔽名单读写离职屏蔽名单
+	BlockReason                  *SearchCoreHROffboardingRespItemOffboardingInfoBlockReason    `json:"block_reason,omitempty"`                    // 屏蔽原因, 枚举值可查询[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口获取, 按如下参数查询即可:object_api_name= "offboarding_info"custom_api_name= "block_reason"字段权限要求（满足任一）: 获取离职屏蔽名单读写离职屏蔽名单
+	BlockReasonExplanation       string                                                        `json:"block_reason_explanation,omitempty"`        // 屏蔽原因说明字段权限要求（满足任一）: 获取离职屏蔽名单读写离职屏蔽名单
+	CustomFields                 []*SearchCoreHROffboardingRespItemOffboardingInfoCustomField  `json:"custom_fields,omitempty"`                   // 自定义字段字段权限要求: 获取离职信息自定义字段信息
+	RetainAccount                bool                                                          `json:"retain_account,omitempty"`                  // 离职是否保留飞书账号字段权限要求（满足任一）: 获取离职后是否保留账号字段读写离职后是否保留账号字段
+	SocialInsuranceEndDate       string                                                        `json:"social_insurance_end_date,omitempty"`       // 社保停保年月, 按YYYY-MM的日期格式返回字段权限要求: 获取离职申请的社保信息
+	ProvidentFundEndDate         string                                                        `json:"provident_fund_end_date,omitempty"`         // 公积金截止年月, 按YYYY-MM的日期格式返回字段权限要求: 获取离职申请的社保信息
+	EnforceNoncompeteAgreement   bool                                                          `json:"enforce_noncompete_agreement,omitempty"`    // 是否启动竞业字段权限要求: 获取离职申请的竞业信息
+	NoncompeteAgreementID        string                                                        `json:"noncompete_agreement_id,omitempty"`         // 竞业合同ID, 可以通过[查询单个合同](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/get)获取详细的合同信息字段权限要求: 获取离职申请的竞业信息
+	NoncompeteAgreementCompany   string                                                        `json:"noncompete_agreement_company,omitempty"`    // 竞业公司ID, 可以通过[查询单个公司](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)获取详细的公司信息字段权限要求: 获取离职申请的竞业信息
+	NoncompeteAgreementStartDate string                                                        `json:"noncompete_agreement_start_date,omitempty"` // 竞业开始日期字段权限要求: 获取离职申请的竞业信息
+	NoncompeteAgreementEndDate   string                                                        `json:"noncompete_agreement_end_date,omitempty"`   // 竞业结束日期字段权限要求: 获取离职申请的竞业信息
+	SignType                     *SearchCoreHROffboardingRespItemOffboardingInfoSignType       `json:"sign_type,omitempty"`                       // 签署方式, 枚举值可查询[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口获取, 按如下参数查询即可:object_api_name= "offboarding_info"custom_api_name= "sign_type"字段权限要求: 获取离职申请的电子签相关字段
+	SignatureFile                string                                                        `json:"signature_file,omitempty"`                  // 签署文件ID列表字段权限要求: 获取离职申请的电子签相关字段
+	LastAttendanceDate           string                                                        `json:"last_attendance_date,omitempty"`            // 最后出勤日字段权限要求: 获取离职申请的最后出勤日
+	IsTransferWithWorkforce      bool                                                          `json:"is_transfer_with_workforce,omitempty"`      // 是否带编转移
 }
 
 // SearchCoreHROffboardingRespItemOffboardingInfoBlockReason ...
@@ -135,9 +152,9 @@ type SearchCoreHROffboardingRespItemOffboardingInfoBlockReasonDisplay struct {
 
 // SearchCoreHROffboardingRespItemOffboardingInfoCustomField ...
 type SearchCoreHROffboardingRespItemOffboardingInfoCustomField struct {
-	CustomApiName string                                                         `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
+	CustomApiName string                                                         `json:"custom_api_name,omitempty"` // 自定义字段的唯一标识
 	Name          *SearchCoreHROffboardingRespItemOffboardingInfoCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
-	Type          int64                                                          `json:"type,omitempty"`            // 自定义字段类型
+	Type          int64                                                          `json:"type,omitempty"`            // 自定义字段类型。可选值有:1: 文本类型, 包括超链接字段-2: 布尔类型-3: 数字类型-4: 枚举类型-5: Lookup类型, 如离职人员、竞业公司等-8: 时间类型-9: 附件类型注意: 不支持的字段类型未给出说明。
 	Value         string                                                         `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
@@ -167,6 +184,18 @@ type SearchCoreHROffboardingRespItemOffboardingInfoReason struct {
 
 // SearchCoreHROffboardingRespItemOffboardingInfoReasonDisplay ...
 type SearchCoreHROffboardingRespItemOffboardingInfoReasonDisplay struct {
+	Lang  string `json:"lang,omitempty"`  // 语言
+	Value string `json:"value,omitempty"` // 内容
+}
+
+// SearchCoreHROffboardingRespItemOffboardingInfoSignType ...
+type SearchCoreHROffboardingRespItemOffboardingInfoSignType struct {
+	EnumName string                                                           `json:"enum_name,omitempty"` // 枚举值
+	Display  []*SearchCoreHROffboardingRespItemOffboardingInfoSignTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+}
+
+// SearchCoreHROffboardingRespItemOffboardingInfoSignTypeDisplay ...
+type SearchCoreHROffboardingRespItemOffboardingInfoSignTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }

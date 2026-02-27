@@ -21,9 +21,14 @@ import (
 	"context"
 )
 
-// EventV2CorehrJobCreatedV1 飞书人事中「职务被创建」时将触发此事件。
+// EventV2CorehrJobCreatedV1 飞书人事中「职务被创建」时将触发此事件。注意: 触发时间为职务实际生效时间, 如在 2022-01-01 创建职务, 职务生效时间设置为 2022-05-01, 事件将在 2022-05-01 进行推送。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=job&event=created)
+//
+// -- 该接口只会推送当前生效职务的变更事件。
+// - 未来生效的版本数据, 会在生效日期当天凌晨推送事件。例如: 今天为1月1日, 新建职务1月10日生效, 则1月10日凌晨发送该对象创建事件。
+// - 收到事件后, 可通过[【批量查询职务】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/list)获取详细信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/events/created
+// new doc: https://open.feishu.cn/document/corehr-v1/job-management/job/events/created
 func (r *EventCallbackService) HandlerEventV2CorehrJobCreatedV1(f EventV2CorehrJobCreatedV1Handler) {
 	r.cli.eventHandler.eventV2CorehrJobCreatedV1Handler = f
 }
@@ -33,5 +38,5 @@ type EventV2CorehrJobCreatedV1Handler func(ctx context.Context, cli *Lark, schem
 
 // EventV2CorehrJobCreatedV1 ...
 type EventV2CorehrJobCreatedV1 struct {
-	JobID string `json:"job_id,omitempty"` // Job ID
+	JobID string `json:"job_id,omitempty"` // 职务 ID, 可通过[【查询单个职务】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/get)获取详细信息
 }

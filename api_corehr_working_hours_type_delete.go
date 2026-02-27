@@ -58,12 +58,11 @@ func (r *Mock) UnMockCoreHRDeleteCoreHRWorkingHoursType() {
 
 // DeleteCoreHRWorkingHoursTypeReq ...
 type DeleteCoreHRWorkingHoursTypeReq struct {
-	WorkingHoursTypeID string `path:"working_hours_type_id" json:"-"` // 需要删除的工时制度 ID, 示例值: "325325254"
+	WorkingHoursTypeID string `path:"working_hours_type_id" json:"-"` // 需要删除的工时制度 ID- 可通过[批量查询工时制度](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/list)获取示例值: "325325254"
 }
 
 // DeleteCoreHRWorkingHoursTypeResp ...
-type DeleteCoreHRWorkingHoursTypeResp struct {
-}
+type DeleteCoreHRWorkingHoursTypeResp struct{}
 
 // deleteCoreHRWorkingHoursTypeResp ...
 type deleteCoreHRWorkingHoursTypeResp struct {

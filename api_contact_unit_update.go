@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UpdateContactUnit 调用该接口, 需要有更新单位的权限。注意: 单位功能属于旗舰版付费功能, 企业需开通对应版本才可以修改单位。
+// UpdateContactUnit 调用该接口修改指定单位的名字。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/patch
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/unit/patch
@@ -58,13 +58,12 @@ func (r *Mock) UnMockContactUpdateContactUnit() {
 
 // UpdateContactUnitReq ...
 type UpdateContactUnitReq struct {
-	UnitID string  `path:"unit_id" json:"-"` // 单位ID, 示例值: "BU121"
-	Name   *string `json:"name,omitempty"`   // 单位的名字, 示例值: "消费者事业部"
+	UnitID string  `path:"unit_id" json:"-"` // 单位 ID。当你在创建单位时, 可以在返回结果中获取单位 ID。你也可以调用[获取单位列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/unit/list)接口, 获取单位 ID。示例值: "BU121"
+	Name   *string `json:"name,omitempty"`   // 单位名字。 1 ~ 100 个字符。注意: 请求时该参数必填, 请忽略 必填 列的 否。- 相同单位类型下, 设置的单位名称不能重复。示例值: "消费者事业部"
 }
 
 // UpdateContactUnitResp ...
-type UpdateContactUnitResp struct {
-}
+type UpdateContactUnitResp struct{}
 
 // updateContactUnitResp ...
 type updateContactUnitResp struct {

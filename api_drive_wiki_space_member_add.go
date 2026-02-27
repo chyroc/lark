@@ -23,12 +23,12 @@ import (
 
 // AddWikiSpaceMember 添加知识空间成员或管理员。
 //
-// 使用tenant access token操作时, 无法使用部门ID(opendepartmentid)添加知识空间成员。
-// 知识空间具有[类型](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-overview)和[可见性](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-overview)的概念。不同的类型或可见性可以对本操作做出限制:
-// - 可见性限制: 公开知识空间（visibility为public）对租户所有用户可见, 因此不支持再添加成员, 但可以添加管理员。
-// - 类型限制: 个人知识空间 （type为person）为个人管理的知识空间, 不支持添加其他管理员（包括应用/机器人）。但可以添加成员。
-// 知识空间权限要求, 当前用户或应用:
-// - 为知识空间管理员
+// ## 前提条件
+// 调用此接口前, 请确保调用身份对应的应用或用户为知识空间的管理员。
+// ## 注意事项
+// - 使用 tenant access token 身份操作时, 无法使用部门 ID (opendepartmentid) 添加知识空间成员。
+// - 公开知识空间（即 visibility [可见性](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-overview)为 public 的空间）对租户所有用户可见, 因此不支持再添加成员, 但可以添加管理员。
+// - 个人知识空间 （即 type [类型](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-overview)为 person 的空间）为个人管理的知识空间, 不支持添加其他管理员（包括应用/机器人）。但可以添加成员。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-member/create
 // new doc: https://open.feishu.cn/document/server-docs/docs/wiki-v2/space-member/create
@@ -66,11 +66,11 @@ func (r *Mock) UnMockDriveAddWikiSpaceMember() {
 
 // AddWikiSpaceMemberReq ...
 type AddWikiSpaceMemberReq struct {
-	SpaceID          string `path:"space_id" json:"-"`           // 知识空间id, 示例值: "1565676577122621"
-	NeedNotification *bool  `query:"need_notification" json:"-"` // 添加权限后是否通知对方, 示例值: true
-	MemberType       string `json:"member_type,omitempty"`       // “openchat” - 群id, “userid” - 用户id, “email” - 邮箱, “opendepartmentid” - 部门id, “openid” - 应用openid, “unionid” - [unionid](/:ssltoken/home/user-identity-introduction/union-id, ), 示例值: "userid"
-	MemberID         string `json:"member_id,omitempty"`         // 用户id, 值的类型由上面的 member_type 参数决定, 示例值: "1565676577122621"
-	MemberRole       string `json:"member_role,omitempty"`       // 角色: “admin” - 管理员, “member” - 成员, 示例值: "admin"
+	SpaceID          string `path:"space_id" json:"-"`           // 知识空间 ID。可通过以下两种方式获取。了解更多, 参考[知识库概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-overview)。- 调用 [获取知识空间列表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/list)获取- 如果你是知识库管理员, 可以进入知识库设置页面, 复制地址栏的数字部分: https://sample.feishu.cn/wiki/settings/[6870403571079249922]示例值: "1565676577122621"
+	NeedNotification *bool  `query:"need_notification" json:"-"` // 添加权限后是否通知对方示例值: true
+	MemberType       string `json:"member_type,omitempty"`       // 要添加的成员或管理员的身份类型。可选值: openchat: 群组 ID。参考[群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)获取- userid: 用户 ID。详情参考[如何获取 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)- email: 用户邮箱- opendepartmentid: 部门 ID。参考[部门资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)获取- openid: 用户的 Open ID。详情参考[如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)- unionid: 用户的 Union ID。详情参考[如何获取 Union ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)示例值: "openid"
+	MemberID         string `json:"member_id,omitempty"`         // 成员或管理员的 ID, 值的类型由 member_type 参数决定。参考 member_type 的描述获取不同类型的 ID。示例值: "ou_449b53ad6aee526f7ed311b216aabcef"
+	MemberRole       string `json:"member_role,omitempty"`       // 成员的角色类型。可选值:- admin: 管理员- member: 成员示例值: "admin"
 }
 
 // AddWikiSpaceMemberResp ...
@@ -80,9 +80,10 @@ type AddWikiSpaceMemberResp struct {
 
 // AddWikiSpaceMemberRespMember ...
 type AddWikiSpaceMemberRespMember struct {
-	MemberType string `json:"member_type,omitempty"` // “openchat” - 群id, “userid” - 用户id, “email” - 邮箱, “opendepartmentid” - 部门id, “openid” - 应用openid, “unionid” - [unionid](/:ssltoken/home/user-identity-introduction/union-id, )
-	MemberID   string `json:"member_id,omitempty"`   // 用户id, 值的类型由上面的 member_type 参数决定
-	MemberRole string `json:"member_role,omitempty"` // 角色: “admin” - 管理员, “member” - 成员
+	MemberType string `json:"member_type,omitempty"` // 要添加的成员或管理员的身份类型。枚举值: openchat: 群组 ID。参考[群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)获取- userid: 用户 ID。详情参考[如何获取 User ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)- email: 用户邮箱- opendepartmentid: 部门 ID。参考[部门资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)获取- openid: 用户的 Open ID。详情参考[如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)- unionid: 用户的 Union ID。详情参考[如何获取 Union ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)
+	MemberID   string `json:"member_id,omitempty"`   // 成员或管理员的 ID, 值的类型由 member_type 参数决定。
+	MemberRole string `json:"member_role,omitempty"` // 成员的角色类型。可选值:- admin: 管理员- member: 成员
+	Type       string `json:"type,omitempty"`        // 知识库协作者类型（未来支持）可选值有: 用户群组组织架构
 }
 
 // addWikiSpaceMemberResp ...

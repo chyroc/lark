@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// GetCoreHRJobFamilyList 批量查询序列。
+// GetCoreHRJobFamilyList 该接口支持获取租户下的所有序列信息。
+//
+// 延迟说明: 数据库主从延迟 2s 以内, 即: 直接创建序列后2s内调用此接口可能查询不到数据。
+// 使用建议: 序列数量过多时, 可以通过多次循环调用该接口获取所有序列详情信息, 包括序列编码、名称等。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/job-management/job_family/list
@@ -58,8 +61,8 @@ func (r *Mock) UnMockCoreHRGetCoreHRJobFamilyList() {
 
 // GetCoreHRJobFamilyListReq ...
 type GetCoreHRJobFamilyListReq struct {
-	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 1231231987
-	PageSize  int64   `query:"page_size" json:"-"`  // 分页大小, 示例值: 100
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 1231231987
+	PageSize  int64   `query:"page_size" json:"-"`  // 分页大小, 最大值支持传100- 最少1个字符, 最多200个字符示例值: 100
 }
 
 // GetCoreHRJobFamilyListResp ...
@@ -74,22 +77,31 @@ type GetCoreHRJobFamilyListRespItem struct {
 	ID             string                                       `json:"id,omitempty"`              // 序列 ID
 	Name           []*GetCoreHRJobFamilyListRespItemName        `json:"name,omitempty"`            // 名称
 	Active         bool                                         `json:"active,omitempty"`          // 是否启用
-	ParentID       string                                       `json:"parent_id,omitempty"`       // 上级序列 ID, 枚举值及详细信息可通过[批量查询序列]接口查询获得
-	EffectiveTime  string                                       `json:"effective_time,omitempty"`  // 生效时间
-	ExpirationTime string                                       `json:"expiration_time,omitempty"` // 失效时间
-	Code           string                                       `json:"code,omitempty"`            // 编码
-	CustomFields   []*GetCoreHRJobFamilyListRespItemCustomField `json:"custom_fields,omitempty"`   // 自定义字段
+	Selectable     bool                                         `json:"selectable,omitempty"`      // 可选
+	ParentID       string                                       `json:"parent_id,omitempty"`       // 上级序列 ID, 详细信息可通过[【查询单个序列】](/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/get)接口查询获得（若查询的是一级序列, 则该字段不展示）
+	PathwayIDs     []string                                     `json:"pathway_ids,omitempty"`     // 通道ID, 详情可以参考[【获取通道信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pathway/batch_get)
+	EffectiveTime  string                                       `json:"effective_time,omitempty"`  // 当前版本生效时间- 返回格式: YYYY-MM-DD 00:00:00（最小单位到日）- 日期范围:1900-01-01 00:00:00～9999-12-31 00:00:00
+	ExpirationTime string                                       `json:"expiration_time,omitempty"` // 当前版本失效时间- 返回格式: YYYY-MM-DD 00:00:00（最小单位到日）- 日期范围:1900-01-01 00:00:00～9999-12-31 00:00:00
+	Code           string                                       `json:"code,omitempty"`            // 序列编码
+	Description    []*GetCoreHRJobFamilyListRespItemDescription `json:"description,omitempty"`     // 描述
+	CustomFields   []*GetCoreHRJobFamilyListRespItemCustomField `json:"custom_fields,omitempty"`   // 自定义字段（暂时不支持该功能）
 }
 
 // GetCoreHRJobFamilyListRespItemCustomField ...
 type GetCoreHRJobFamilyListRespItemCustomField struct {
-	FieldName string `json:"field_name,omitempty"` // 字段名
+	FieldName string `json:"field_name,omitempty"` // 自定义字段 API Name, 即自定义字段的唯一标识
 	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05")
+}
+
+// GetCoreHRJobFamilyListRespItemDescription ...
+type GetCoreHRJobFamilyListRespItemDescription struct {
+	Lang  string `json:"lang,omitempty"`  // 语言
+	Value string `json:"value,omitempty"` // 内容
 }
 
 // GetCoreHRJobFamilyListRespItemName ...
 type GetCoreHRJobFamilyListRespItemName struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言
+	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 中文zh-CN, 英文en-US
 	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 

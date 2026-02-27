@@ -23,12 +23,14 @@ import (
 
 // DeleteMessagePin 移除一条指定消息的 Pin。
 //
-// 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
-// - 移除Pin消息时, 机器人必须在对应的群组中
-// - 若消息未被Pin或已被撤回, 返回成功信息
-// - 不能移除一条对操作者不可见的Pin消息
-// - 对同一条消息移除Pin的操作不能超过[5 QPS]
+// ## 前提条件
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// - 移除 Pin 消息时, 机器人必须在消息所属的会话内。
+// ## 使用限制
+// - 当前操作者不可见的消息无法移除 Pin。
+// - 对同一条消息移除 Pin 的操作不能超过 5 QPS。
+// ## 注意事项
+// 如果消息未被 Pin 或已被撤回, 则该接口返回成功信息 `"msg": "success"`。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/pin/delete
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/pin/delete
@@ -66,12 +68,11 @@ func (r *Mock) UnMockMessageDeleteMessagePin() {
 
 // DeleteMessagePinReq ...
 type DeleteMessagePinReq struct {
-	MessageID string `path:"message_id" json:"-"` // 待移除Pin的消息ID, 详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2), 示例值: "om_dc13264520392913993dd051dba21dcf"
+	MessageID string `path:"message_id" json:"-"` // 待移除 Pin 的消息 ID。ID 获取方式: - 调用[发送消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)接口后, 从响应结果的 `message_id` 参数获取。- 监听[接收消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive)事件, 当触发该事件后可以从事件体内获取消息的 `message_id`。- 调用[获取会话历史消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/list)接口, 从响应结果的 `message_id` 参数获取。示例值: "om_dc13264520392913993dd051dba21dcf"
 }
 
 // DeleteMessagePinResp ...
-type DeleteMessagePinResp struct {
-}
+type DeleteMessagePinResp struct{}
 
 // deleteMessagePinResp ...
 type deleteMessagePinResp struct {

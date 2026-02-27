@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// UnbindDepartmentChat 通过该接口将部门群转为普通群。
+// UnbindDepartmentChat 调用该接口将指定部门的部门群转为普通群。
+//
+// ## 注意事项
+// 应用的通讯录权限范围内需要包含当前操作的部门。了解权限范围, 参见[权限范围资源介绍](https://open.feishu.cn/document/ukTMukTMukTM/uETNz4SM1MjLxUzM/v3/guides/scope_authority)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/unbind_department_chat
 // new doc: https://open.feishu.cn/document/server-docs/contact-v3/department/unbind_department_chat
@@ -58,13 +61,12 @@ func (r *Mock) UnMockContactUnbindDepartmentChat() {
 
 // UnbindDepartmentChatReq ...
 type UnbindDepartmentChatReq struct {
-	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型, 默认为"open_department_id", 示例值: open_department_id, 可选值有: department_id: 用来标识租户内一个唯一的部门, open_department_id: 用来在具体某个应用中标识一个部门, 同一个部门 在不同应用中的 open_department_id 相同。
-	DepartmentID     string            `json:"department_id,omitempty"`      // 部门ID, 示例值: "D096"
+	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中的部门 ID 类型。关于部门 ID 的详细介绍, 可参见[部门 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)。默认值: open_department_id示例值: open_department_id可选值有: 支持用户自定义配置的部门 ID。自定义配置时可复用已删除的 department_id, 因此在未删除的部门范围内 department_id 具有唯一性。由系统自动生成的部门 ID, ID 前缀固定为 `od-`, 在租户内全局唯一。
+	DepartmentID     string            `json:"department_id,omitempty"`      // 部门 ID, ID 类型需要与查询参数 department_id_type 的取值保持一致。ID 获取方式说明: 调用[创建部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/create)接口后, 可从返回结果中获取到部门 ID 信息。- 部门 API 提供了多种获取其他部门 ID 的方式, 如[获取子部门列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/children)、[获取父部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/parent)、[搜索部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/search), 你可以选择合适的 API 进行查询。示例值: "D096"
 }
 
 // UnbindDepartmentChatResp ...
-type UnbindDepartmentChatResp struct {
-}
+type UnbindDepartmentChatResp struct{}
 
 // unbindDepartmentChatResp ...
 type unbindDepartmentChatResp struct {

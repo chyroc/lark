@@ -29,9 +29,9 @@ import (
 // 用户进群、出群后触发此事件。
 // * 特殊说明: 只有开启机器人能力并且机器人所在的群发生上述变化时才能触发此事件。
 // 事件包括三个类型:
-// - 用户进群 - add_user_to_chat
-// - 用户出群 - remove_user_from_chat
-// - 撤销加人 - revoke_add_user_from_chat
+// 1. 用户进群 - add_user_to_chat
+// 2. 用户出群 - remove_user_from_chat
+// 3. 撤销加人 - revoke_add_user_from_chat
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQDOwUjL0gDM14CN4ATN/event/user-joins-or-leave-group
 func (r *EventCallbackService) HandlerEventV1RemoveUserFromChat(f EventV1RemoveUserFromChatHandler) {

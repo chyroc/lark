@@ -21,7 +21,9 @@ import (
 	"context"
 )
 
-// CreateCoreHRCostCenterVersion 创建成本中心版本
+// CreateCoreHRCostCenterVersion 创建成本中心版本；每次调用可创建一个成本中心版本, 可定义成本中心的名称, 描述, 上级成本, 成本中心负责人, 版本生效时间等信息, 接口内会做相关规则的校验
+//
+// 非必填字段, 不传时默认为空
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center-version/create
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/cost_center/cost_center-version/create
@@ -58,26 +60,27 @@ func (r *Mock) UnMockCoreHRCreateCoreHRCostCenterVersion() {
 
 // CreateCoreHRCostCenterVersionReq ...
 type CreateCoreHRCostCenterVersionReq struct {
-	CostCenterID       string                                         `path:"cost_center_id" json:"-"`         // 成本中心ID, 示例值: "6862995757234914824"
-	UserIDType         *IDType                                        `query:"user_id_type" json:"-"`          // 用户 ID 类型, 示例值: people_corehr_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_corehr_id: 以飞书人事的 ID 来识别用户, 默认值: `people_corehr_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	CostCenterID       string                                         `path:"cost_center_id" json:"-"`         // 成本中心ID, 可通过[【搜索成本中心信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)接口查询获得示例值: "6862995757234914824"
+	UserIDType         *IDType                                        `query:"user_id_type" json:"-"`          // 用户 ID 类型示例值: people_corehr_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `people_corehr_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	Name               []*CreateCoreHRCostCenterVersionReqName        `json:"name,omitempty"`                  // 成本中心名称
-	ParentCostCenterID *string                                        `json:"parent_cost_center_id,omitempty"` // 上级成本中心ID, 示例值: "6862995757234914824"
-	Managers           []string                                       `json:"managers,omitempty"`              // 成本中心负责人ID 列表, 示例值: ["6862995757234914824"]
+	Code               *string                                        `json:"code,omitempty"`                  // 成本中心编码(不能与其他记录的编码重复)- 开启自动编码时, 以自动生成的编码值为准, 传入值不生效- 未开启自动编码时, 编码字段值以传入值为准- 新建版本不支持将code设置为空, 如需要将 code 设置为空请使用[【更正成本中心版本】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center-version/patch)示例值: "MDPD00000023"
+	ParentCostCenterID *string                                        `json:"parent_cost_center_id,omitempty"` // 上级成本中心ID, 可通过[【搜索成本中心信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)接口查询获得示例值: "6862995757234914824"
+	Managers           []string                                       `json:"managers,omitempty"`              // 成本中心负责人ID 列表, 可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取示例值: ["6862995757234914824"]
 	Description        []*CreateCoreHRCostCenterVersionReqDescription `json:"description,omitempty"`           // 成本中心描述
-	EffectiveTime      string                                         `json:"effective_time,omitempty"`        // 生效时间, 示例值: "2020-01-01"
-	OperationReason    string                                         `json:"operation_reason,omitempty"`      // 操作原因, 示例值: "过期作废"
+	EffectiveTime      string                                         `json:"effective_time,omitempty"`        // 版本生效时间- 填写格式: YYYY-MM-DD - 系统默认为填写日期当天的 00:00:00 生效 - 该接口只支持到最小单位为日- 日期范围要求:1900-01-01～9999-12-31 - 详情可以参考[时间轴介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/about-timeline-version)示例值: "2020-01-01"
+	OperationReason    string                                         `json:"operation_reason,omitempty"`      // 操作原因示例值: "过期作废"
 }
 
 // CreateCoreHRCostCenterVersionReqDescription ...
 type CreateCoreHRCostCenterVersionReqDescription struct {
-	Lang  string `json:"lang,omitempty"`  // 语言, 示例值: "zh-CN"
-	Value string `json:"value,omitempty"` // 内容, 示例值: "张三"
+	Lang  string `json:"lang,omitempty"`  // 信息的语言, 支持中文和英文。中文用zh-CN；英文用en-US示例值: "zh-CN"
+	Value string `json:"value,omitempty"` // 文本内容示例值: "基础架构相关业务"
 }
 
 // CreateCoreHRCostCenterVersionReqName ...
 type CreateCoreHRCostCenterVersionReqName struct {
-	Lang  string `json:"lang,omitempty"`  // 语言, 示例值: "zh-CN"
-	Value string `json:"value,omitempty"` // 内容, 示例值: "张三"
+	Lang  string `json:"lang,omitempty"`  // 信息的语言, 支持中文和英文。中文用zh-CN；英文用en-US示例值: "zh-CN"
+	Value string `json:"value,omitempty"` // 文本内容示例值: "基础架构"
 }
 
 // CreateCoreHRCostCenterVersionResp ...
@@ -91,24 +94,24 @@ type CreateCoreHRCostCenterVersionRespVersion struct {
 	VersionID          string                                                 `json:"version_id,omitempty"`            // 成本中心版本ID
 	Name               []*CreateCoreHRCostCenterVersionRespVersionName        `json:"name,omitempty"`                  // 成本中心名称
 	Code               string                                                 `json:"code,omitempty"`                  // 编码
-	ParentCostCenterID string                                                 `json:"parent_cost_center_id,omitempty"` // 上级成本中心ID
-	Managers           []string                                               `json:"managers,omitempty"`              // 成本中心负责人ID 列表
+	ParentCostCenterID string                                                 `json:"parent_cost_center_id,omitempty"` // 上级成本中心ID, 详细信息可通过[【搜索成本中心信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)接口查询获得
+	Managers           []string                                               `json:"managers,omitempty"`              // 成本中心负责人ID 列表, 详细信息可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
 	Description        []*CreateCoreHRCostCenterVersionRespVersionDescription `json:"description,omitempty"`           // 成本中心描述
-	EffectiveTime      string                                                 `json:"effective_time,omitempty"`        // 生效时间
-	ExpirationTime     string                                                 `json:"expiration_time,omitempty"`       // 过期时间
+	EffectiveTime      string                                                 `json:"effective_time,omitempty"`        // 版本生效日期- 返回格式: YYYY-MM-DD 00:00:00（最小单位到日）- 日期范围:1900-01-01 00:00:00～9999-12-31 23:59:59- 详情可以参考[时间轴介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/about-timeline-version)
+	ExpirationTime     string                                                 `json:"expiration_time,omitempty"`       // 版本失效日期- 返回格式: YYYY-MM-DD 00:00:00（最小单位到日）- 日期范围:1900-01-01 00:00:00～9999-12-31 23:59:59- 详情可以参考[时间轴介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/about-timeline-version)
 	Active             bool                                                   `json:"active,omitempty"`                // 当前实体是否启用
 }
 
 // CreateCoreHRCostCenterVersionRespVersionDescription ...
 type CreateCoreHRCostCenterVersionRespVersionDescription struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 信息的语言, 支持中文和英文。中文用zh-CN；英文用en-US
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // CreateCoreHRCostCenterVersionRespVersionName ...
 type CreateCoreHRCostCenterVersionRespVersionName struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 信息的语言, 支持中文和英文。中文用zh-CN；英文用en-US
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // createCoreHRCostCenterVersionResp ...

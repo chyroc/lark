@@ -61,14 +61,13 @@ func (r *Mock) UnMockDriveUpdateWikiNodeTitle() {
 
 // UpdateWikiNodeTitleReq ...
 type UpdateWikiNodeTitleReq struct {
-	SpaceID   string `path:"space_id" json:"-"`   // 知识空间ID, 示例值: "6946843325487912356"
-	NodeToken string `path:"node_token" json:"-"` // 节点token, 示例值: "wikcnKQ1k3pcuo5uSK4t8Vabcef"
-	Title     string `json:"title,omitempty"`     // 节点新标题, 示例值: "新标题"
+	SpaceID   string `path:"space_id" json:"-"`   // 知识空间ID示例值: "6946843325487912356"
+	NodeToken string `path:"node_token" json:"-"` // 节点token示例值: "wikcnKQ1k3pcuo5uSK4t8Vabcef"
+	Title     string `json:"title,omitempty"`     // 节点新标题示例值: "新标题"
 }
 
 // UpdateWikiNodeTitleResp ...
-type UpdateWikiNodeTitleResp struct {
-}
+type UpdateWikiNodeTitleResp struct{}
 
 // updateWikiNodeTitleResp ...
 type updateWikiNodeTitleResp struct {

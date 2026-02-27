@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2VCRoomLevelDeletedV1 当删除会议室成层级时, 会触发该事件。
+// EventV2VCRoomLevelDeletedV1 当删除会议室层级时, 会触发该事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=vc&version=v1&resource=room_level&event=deleted)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room_level/events/deleted
 // new doc: https://open.feishu.cn/document/server-docs/vc-v1/room_level/events/deleted
@@ -34,6 +34,6 @@ type EventV2VCRoomLevelDeletedV1Handler func(ctx context.Context, cli *Lark, sch
 
 // EventV2VCRoomLevelDeletedV1 ...
 type EventV2VCRoomLevelDeletedV1 struct {
-	RoomLevelID string `json:"room_level_id,omitempty"` // 层级ID, 长度范围: `1` ～ `100` 字符
+	RoomLevelID string `json:"room_level_id,omitempty"` // 层级ID 长度范围: `1` ～ `100` 字符
 	DeleteChild bool   `json:"delete_child,omitempty"`  // 是否删除所有子层级
 }

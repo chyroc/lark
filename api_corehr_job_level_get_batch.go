@@ -21,9 +21,14 @@ import (
 	"context"
 )
 
-// BatchGetCoreHRJobLevel 通过职级 ID 批量获取职级信息
+// BatchGetCoreHRJobLevel 该接口支持通过职级ID或职级Code批量查询职级详情信息, 包括名称、描述、启用状态等。
+//
+// - 如果你只需要单一职级查询场景, 建议通过[【查询单个职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/get)获取职级信息。
+// - 职级ID和职级Code可一起使用, 之间为 AND 关系
+// - 数据库主从延迟 2s 以内, 即: 直接创建职级后2s内调用此接口可能查询不到数据。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_level/batch_get
+// new doc: https://open.feishu.cn/document/corehr-v1/job-management/job_level/batch_get
 func (r *CoreHRService) BatchGetCoreHRJobLevel(ctx context.Context, request *BatchGetCoreHRJobLevelReq, options ...MethodOptionFunc) (*BatchGetCoreHRJobLevelResp, *Response, error) {
 	if r.cli.mock.mockCoreHRBatchGetCoreHRJobLevel != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#BatchGetCoreHRJobLevel mock enable")
@@ -57,7 +62,8 @@ func (r *Mock) UnMockCoreHRBatchGetCoreHRJobLevel() {
 
 // BatchGetCoreHRJobLevelReq ...
 type BatchGetCoreHRJobLevelReq struct {
-	JobLevelIDs []string `json:"job_level_ids,omitempty"` // 职级 ID 列表, 示例值: ["1515"], 长度范围: `1` ～ `100`
+	JobLevelIDs   []string `json:"job_level_ids,omitempty"`   // 职级 ID 列表- 职级 ID 列表和职级 Code 列表至少有一项有值, 否则接口将调用失败。- 未设置时表示不筛选该条件- ID获取方式: 调用[【创建职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_level/events/created)[【批量查询职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)等接口可以返回职级ID示例值: ["1515"] 长度范围: `0` ～ `100
+	JobLevelCodes []string `json:"job_level_codes,omitempty"` // 职级 Code 列表- 职级 ID 列表和职级 Code 列表至少有一项有值, 否则接口将调用失败。- 未设置时表示不筛选该条件- Code获取方式: 调用[【创建职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_level/events/created)[【批量查询职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)等接口可以返回职级Code示例值: ["13715"] 长度范围: `0` ～ `100
 }
 
 // BatchGetCoreHRJobLevelResp ...
@@ -72,16 +78,18 @@ type BatchGetCoreHRJobLevelRespItem struct {
 	Code         string                                       `json:"code,omitempty"`          // 编码
 	Name         []*BatchGetCoreHRJobLevelRespItemName        `json:"name,omitempty"`          // 名称
 	Description  []*BatchGetCoreHRJobLevelRespItemDescription `json:"description,omitempty"`   // 描述
-	Active       bool                                         `json:"active,omitempty"`        // 启用
-	CustomFields []*BatchGetCoreHRJobLevelRespItemCustomField `json:"custom_fields,omitempty"` // 自定义字段
+	Active       bool                                         `json:"active,omitempty"`        // 停启用状态。停用为false, 启用为true
+	CustomFields []*BatchGetCoreHRJobLevelRespItemCustomField `json:"custom_fields,omitempty"` // 自定义字段（目前职级暂不支持该功能）
+	JobGrade     []string                                     `json:"job_grade,omitempty"`     // 职等 ID 列表
+	PathwayIDs   []string                                     `json:"pathway_ids,omitempty"`   // 通道ID, 详情可以参考[【获取通道信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pathway/batch_get)
 }
 
 // BatchGetCoreHRJobLevelRespItemCustomField ...
 type BatchGetCoreHRJobLevelRespItemCustomField struct {
 	CustomApiName string                                         `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
 	Name          *BatchGetCoreHRJobLevelRespItemCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
-	Type          int64                                          `json:"type,omitempty"`            // 自定义字段类型
-	Value         string                                         `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
+	Type          int64                                          `json:"type,omitempty"`            // 自定义字段类型。自定义字段详细见[【获取自定义字段列表】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query)
+	Value         string                                         `json:"value,omitempty"`           // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如"2334.00", "文本", "{\"zh-CN\":\"部门3\"}")- 自定义字段详细见[【获取自定义字段列表】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query)
 }
 
 // BatchGetCoreHRJobLevelRespItemCustomFieldName ...
@@ -92,14 +100,14 @@ type BatchGetCoreHRJobLevelRespItemCustomFieldName struct {
 
 // BatchGetCoreHRJobLevelRespItemDescription ...
 type BatchGetCoreHRJobLevelRespItemDescription struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // BatchGetCoreHRJobLevelRespItemName ...
 type BatchGetCoreHRJobLevelRespItemName struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // batchGetCoreHRJobLevelResp ...

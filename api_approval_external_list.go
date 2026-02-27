@@ -21,8 +21,10 @@ import (
 	"context"
 )
 
-// GetApprovalExternalList 该接口用于获取三方审批的状态。用户传入查询条件, 接口返回满足条件的审批实例的状态。该接口支持多种参数的组合, 包括如下组合:
+// GetApprovalExternalList 该接口用于获取三方审批的状态。用户传入查询条件, 接口返回满足条件的审批实例的状态。
 //
+// ## 提示
+// 该接口支持多种参数的组合, 具体请参考请求体示例:
 // - 通过 instance_ids 获取指定实例的任务状态
 // - 通过 user_ids 获取指定用户的任务状态
 // - 通过 status 获取指定状态的所有任务
@@ -63,12 +65,12 @@ func (r *Mock) UnMockApprovalGetApprovalExternalList() {
 
 // GetApprovalExternalListReq ...
 type GetApprovalExternalListReq struct {
-	PageSize      *int64   `query:"page_size" json:"-"`      // 分页大小, 示例值: 100, 默认值: `50`, 最大值: `500`
-	PageToken     *string  `query:"page_token" json:"-"`     // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: nF1ZXJ5VGhlbkZldGNoCgAAAAAA6PZwFmUzSldvTC1yU
-	ApprovalCodes []string `json:"approval_codes,omitempty"` // 审批定义 Code, 用于指定只获取这些定义下的数据, 示例值: ["E78F1022-A166-447C-8320-E151DA90D70F"], 最大长度: `20`
-	InstanceIDs   []string `json:"instance_ids,omitempty"`   // 审批实例 ID, 用于指定只获取这些实例下的数据, 最多支持 20 个, 示例值: ["oa_159160304"]
-	UserIDs       []string `json:"user_ids,omitempty"`       // 审批人 user_id, 用于指定只获取这些用户的数据, 示例值: ["112321"]
-	Status        *string  `json:"status,omitempty"`         // 审批任务状态, 用于指定获取该状态下的数据, 示例值: "PENDING", 可选值有: PENDING: 审批中, APPROVED: 审批流程结束, 结果为同意, REJECTED: 审批流程结束, 结果为拒绝, TRANSFERRED: 任务转交, DONE: 任务通过但审批人未操作；审批人看不到这个任务, 若想要看到, 可以通过抄送该人.
+	PageSize      *int64   `query:"page_size" json:"-"`      // 分页大小示例值: 100默认值: `50` 最大值: `500
+	PageToken     *string  `query:"page_token" json:"-"`     // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: nF1ZXJ5VGhlbkZldGNoCgAAAAAA6PZwFmUzSldvTC1yU
+	ApprovalCodes []string `json:"approval_codes,omitempty"` // 审批定义 Code, 用于指定只获取这些定义下的数据示例值: ["E78F1022-A166-447C-8320-E151DA90D70F"] 最大长度: `20
+	InstanceIDs   []string `json:"instance_ids,omitempty"`   // 审批实例 ID, 用于指定只获取这些实例下的数据, 最多支持 20 个示例值: ["oa_159160304"]
+	UserIDs       []string `json:"user_ids,omitempty"`       // 审批人 user_id, 用于指定只获取这些用户的数据示例值: ["112321"]
+	Status        *string  `json:"status,omitempty"`         // 审批任务状态, 用于指定获取该状态下的数据示例值: "PENDING"可选值有: 审批中审批流程结束, 结果为同意审批流程结束, 结果为拒绝任务转交任务通过但审批人未操作；审批人看不到这个任务, 若想要看到, 可以通过抄送该人.
 }
 
 // GetApprovalExternalListResp ...
@@ -83,7 +85,7 @@ type GetApprovalExternalListRespData struct {
 	InstanceID   string                                 `json:"instance_id,omitempty"`   // 审批实例 ID
 	ApprovalID   string                                 `json:"approval_id,omitempty"`   // 审批的id
 	ApprovalCode string                                 `json:"approval_code,omitempty"` // 审批对应的 approval_code
-	Status       string                                 `json:"status,omitempty"`        // 审批实例当前的状态, 可选值有: PENDING: 审批中, APPROVED: 审批流程结束, 结果为同意, REJECTED: 审批流程结束, 结果为拒绝, CANCELED: 审批发起人撤回, DELETED: 审批被删除, HIDDEN: 状态隐藏(不显示状态)
+	Status       string                                 `json:"status,omitempty"`        // 审批实例当前的状态可选值有: 审批中审批流程结束, 结果为同意审批流程结束, 结果为拒绝审批发起人撤回审批被删除状态隐藏(不显示状态)
 	UpdateTime   string                                 `json:"update_time,omitempty"`   // 审批实例最后更新时间, 单位 毫秒
 	Tasks        []*GetApprovalExternalListRespDataTask `json:"tasks,omitempty"`         // 审批实例下的审批任务
 }
@@ -91,7 +93,7 @@ type GetApprovalExternalListRespData struct {
 // GetApprovalExternalListRespDataTask ...
 type GetApprovalExternalListRespDataTask struct {
 	ID         string `json:"id,omitempty"`          // 审批任务 ID
-	Status     string `json:"status,omitempty"`      // 审批任务状态, 可选值有: PENDING: 审批中, APPROVED: 审批流程结束, 结果为同意, REJECTED: 审批流程结束, 结果为拒绝, TRANSFERRED: 任务转交, DONE: 任务通过但审批人未操作；审批人看不到这个任务, 若想要看到, 可以通过抄送该人.
+	Status     string `json:"status,omitempty"`      // 审批任务状态可选值有: 审批中审批流程结束, 结果为同意审批流程结束, 结果为拒绝任务转交任务通过但审批人未操作；审批人看不到这个任务, 若想要看到, 可以通过抄送该人.
 	UpdateTime string `json:"update_time,omitempty"` // 审批任务最后更新时间, 单位 毫秒
 }
 

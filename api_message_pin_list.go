@@ -21,13 +21,14 @@ import (
 	"context"
 )
 
-// GetMessagePinList 获取所在群内指定时间范围内的所有 Pin 消息。
+// GetMessagePinList 获取指定群、指定时间范围内的所有 Pin 消息。
 //
-// 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
-// - 获取Pin消息时, 机器人必须在群组中
-// - 获取的Pin消息按Pin的创建时间降序排列
-// - 接口默认限流为[50 QPS]
+// ## 前提条件
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// - 获取 Pin 消息时, 机器人必须在消息所属的会话内。
+// ## 注意事项
+// - 获取的 Pin 消息按 Pin 的创建时间降序排列。
+// - 接口默认限流为 50 QPS。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/pin/list
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/pin/list
@@ -65,27 +66,27 @@ func (r *Mock) UnMockMessageGetMessagePinList() {
 
 // GetMessagePinListReq ...
 type GetMessagePinListReq struct {
-	ChatID    string  `query:"chat_id" json:"-"`    // 待获取Pin消息的Chat ID, 详情参见[群ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 示例值: oc_234jsi43d3ssi993d43545f
-	StartTime *string `query:"start_time" json:"-"` // Pin信息的起始时间（毫秒级时间戳）。若未填写默认获取到群聊内最早的Pin信息, 示例值: 1658632251800
-	EndTime   *string `query:"end_time" json:"-"`   // Pin信息的结束时间（毫秒级时间戳）。若未填写默认从群聊内最新的Pin信息开始获取, 注意: `end_time`值应大于`start_time`值, 示例值: 1658731646425
-	PageSize  *int64  `query:"page_size" json:"-"`  // 此次调用中使用的分页的大小, 示例值: 20, 默认值: `20`, 取值范围: `1` ～ `50`
-	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: GxmvlNRvP0NdQZpa7yIqf_Lv_QuBwTQ8tXkX7w-irAghVD_TvuYd1aoJ1LQph86O-XImC4X9j9FhUPhXQDvtrQ[
+	ChatID    string  `query:"chat_id" json:"-"`    // 待获取 Pin 消息的群组 ID。获取方式参见[群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)。示例值: oc_234jsi43d3ssi993d43545f
+	StartTime *string `query:"start_time" json:"-"` // 获取 Pin 消息的起始时间, 毫秒级时间戳。注意: 若未传值默认获取到群聊内最早的 Pin 消息。- 传值时需小于 `end_time` 值。示例值: 1658632251800
+	EndTime   *string `query:"end_time" json:"-"`   // 获取 Pin 消息的结束时间, 毫秒级时间戳。注意: 若未传值默认从群聊内最新的 Pin 消息开始获取。- 传值时需大于 `start_time` 值。示例值: 1658731646425
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 用于限制一次请求返回的数据条目数。示例值: 20默认值: `20` 取值范围: `1` ～ `50
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: GxmvlNRvP0NdQZpa7yIqf_Lv_QuBwTQ8tXkX7w-irAghVD_TvuYd1aoJ1LQph86O-XImC4X9j9FhUPhXQDvtrQ[
 }
 
 // GetMessagePinListResp ...
 type GetMessagePinListResp struct {
-	Items     []*GetMessagePinListRespItem `json:"items,omitempty"`      // Pin的操作信息
+	Items     []*GetMessagePinListRespItem `json:"items,omitempty"`      // Pin 的操作信息
 	HasMore   bool                         `json:"has_more,omitempty"`   // 是否还有更多项
 	PageToken string                       `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 }
 
 // GetMessagePinListRespItem ...
 type GetMessagePinListRespItem struct {
-	MessageID      string `json:"message_id,omitempty"`       // Pin的消息ID
-	ChatID         string `json:"chat_id,omitempty"`          // Pin消息所在的群聊ID
-	OperatorID     string `json:"operator_id,omitempty"`      // Pin的操作人ID
-	OperatorIDType IDType `json:"operator_id_type,omitempty"` // Pin的操作人ID类型。当Pin的操作人为用户时, 为]open_id[；当Pin的操作人为机器人时, 为]app_id[
-	CreateTime     string `json:"create_time,omitempty"`      // Pin的创建时间（毫秒级时间戳）
+	MessageID      string `json:"message_id,omitempty"`       // Pin 的消息 ID
+	ChatID         string `json:"chat_id,omitempty"`          // Pin 消息所在的群聊 ID
+	OperatorID     string `json:"operator_id,omitempty"`      // Pin 的操作人 ID
+	OperatorIDType IDType `json:"operator_id_type,omitempty"` // Pin 的操作人 ID 类型。可能值有: open_id: 表示操作人为用户, 此时 `operator_id` 返回值为用户的 open_id。- app_id: 表示操作人为应用, 此时 `operator_id` 返回值为应用的 app_id。
+	CreateTime     string `json:"create_time,omitempty"`      // Pin 的创建时间（毫秒级时间戳）
 }
 
 // getMessagePinListResp ...

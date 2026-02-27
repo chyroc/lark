@@ -23,13 +23,18 @@ import (
 
 // GetDepartmentListOld 该接口用于获取当前部门子部门列表。[常见问题答疑](https://open.feishu.cn/document/ugTN1YjL4UTN24CO1UjN/uQzN1YjL0cTN24CN3UjN)。
 //
+// 本接口为历史版本接口, 不再维护。推荐接口:
+// - 查询指定部门的详细信息, 可调用[获取单个部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/get)、[批量获取部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/batch)。
+// - 查询当前部门下子部门信息, 可调用[获取子部门列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/children)。
+// - 查询当前部门的父部门信息, 可调用[获取父部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/parent)。
+// - 通过关键词搜索部门, 可调用[搜索部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/search)。
 // - 使用 user_access_token 时, 返回该用户组织架构可见性范围（[登陆企业管理后台进行权限配置](https://www.feishu.cn/admin/security/permission/visibility)）内的所有可见部门。当进行递归查询时, 只筛查最多1000个部门的可见性。
 // - 使用
 // tenant_access_token 则基于应用的通讯录权限范围进行权限校验与过滤。由于
 // parent_department_id 是非必填参数, 填与不填存在<b>两种数据权限校验与返回</b>情况:
-// - 、请求设置了
+// 1、请求设置了
 // parent_department_id 为A（根部门0）, 会检验A是否在通讯录权限内, 若在( parent_department_id=0 时会校验是否为全员权限）, 则返回部门下子部门列表（根据fetch_child决定是否递归）, 否则返回无部门通讯录权限错误码。
-// - 、请求未带
+// 2、请求未带
 // parent_department_id 参数, 如通讯录范围为全员权限, 只返回根部门ID(部门ID为0), 否则返回根据通讯录范围配置的部门ID及子部门(根据
 // fetch_child 决定是否递归)。
 //
@@ -71,12 +76,12 @@ func (r *Mock) UnMockContactGetDepartmentListOld() {
 
 // GetDepartmentListOldReq ...
 type GetDepartmentListOldReq struct {
-	UserIDType         *IDType           `query:"user_id_type" json:"-"`         // 用户 ID 类型, 示例值: "open_id", 可选值有: `open_id`: 用户的 open id, `union_id`: 用户的 union id, `user_id`: 用户的 user id, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	DepartmentIDType   *DepartmentIDType `query:"department_id_type" json:"-"`   // 此次调用中使用的部门ID的类型, 示例值: "open_department_id", 可选值有: `department_id`: 以自定义department_id来标识部门, `open_department_id`: 以open_department_id来标识部门, 默认值: `open_department_id`
-	ParentDepartmentID *string           `query:"parent_department_id" json:"-"` // 父部门的ID, 填上获取部门下所有子部门, 此处填写的 ID 必须是 department_id_type 指定的 ID, 示例值: "od-4e6ac4d14bcd5071a37a39de902c7141"
-	FetchChild         *bool             `query:"fetch_child" json:"-"`          // 是否递归获取子部门, 示例值: 是否递归获取子部门, 默认值: false
-	PageToken          *string           `query:"page_token" json:"-"`           // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "AQD9/Rn9eij9Pm39ED40/RD/cIFmu77WxpxPB/2oHfQLZ%2BG8JG6tK7%2BZnHiT7COhD2hMSICh/eBl7cpzU6JEC3J7COKNe4jrQ8ExwBCR"
-	PageSize           *int64            `query:"page_size" json:"-"`            // 分页大小, 示例值: 10, 最大值: `50`
+	UserIDType         *IDType           `query:"user_id_type" json:"-"`         // 用户 ID 类型示例值: "open_id"可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	DepartmentIDType   *DepartmentIDType `query:"department_id_type" json:"-"`   // 此次调用中使用的部门ID的类型示例值: "open_department_id"可选值有: 以自定义department_id来标识部门以open_department_id来标识部门默认值: `open_department_id
+	ParentDepartmentID *string           `query:"parent_department_id" json:"-"` // 父部门的ID, 填上获取部门下所有子部门, 此处填写的 ID 必须是 department_id_type 指定的 ID。示例值: "od-4e6ac4d14bcd5071a37a39de902c7141"
+	FetchChild         *bool             `query:"fetch_child" json:"-"`          // 是否递归获取子部门示例值: 是否递归获取子部门, 默认值: false
+	PageSize           *int64            `query:"page_size" json:"-"`            // 分页大小示例值: 10默认值: `10` 最大值: `50
+	PageToken          *string           `query:"page_token" json:"-"`           // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: "AQD9/Rn9eij9Pm39ED40/RD/cIFmu77WxpxPB/2oHfQLZ%2BG8JG6tK7%2BZnHiT7COhD2hMSICh/eBl7cpzU6JEC3J7COKNe4jrQ8ExwBCR"
 }
 
 // GetDepartmentListOldResp ...
@@ -88,29 +93,39 @@ type GetDepartmentListOldResp struct {
 
 // GetDepartmentListOldRespItem ...
 type GetDepartmentListOldRespItem struct {
-	Name               string                                `json:"name,omitempty"`                 // 部门名称, 注意: 不可包含斜杠, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 读取通讯录, 以应用身份访问通讯录
-	I18nName           *GetDepartmentListOldRespItemI18nName `json:"i18n_name,omitempty"`            // 国际化的部门名称, 注意: 不可包含斜杠, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 读取通讯录, 以应用身份访问通讯录
-	ParentDepartmentID string                                `json:"parent_department_id,omitempty"` // 父部门的ID, * 在根部门下创建新部门, 该参数值为 “0”, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门组织架构信息, 读取通讯录, 以应用身份访问通讯录
-	DepartmentID       string                                `json:"department_id,omitempty"`        // 本部门的自定义部门ID, 注意: 除需要满足正则规则外, 同时不能以`od-`开头, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 读取通讯录, 以应用身份访问通讯录
-	OpenDepartmentID   string                                `json:"open_department_id,omitempty"`   // 部门的open_id, 类型与通过请求的查询参数传入的department_id_type相同
-	LeaderUserID       string                                `json:"leader_user_id,omitempty"`       // 部门主管用户ID, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门组织架构信息, 读取通讯录, 以应用身份访问通讯录
-	ChatID             string                                `json:"chat_id,omitempty"`              // 部门群ID, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 读取通讯录, 以应用身份访问通讯录
-	Order              string                                `json:"order,omitempty"`                // 部门的排序, 即部门在其同级部门的展示顺序, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门组织架构信息, 读取通讯录, 以应用身份访问通讯录
-	UnitIDs            []string                              `json:"unit_ids,omitempty"`             // 部门单位自定义ID列表, 当前只支持一个, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门组织架构信息, 读取通讯录, 以应用身份访问通讯录
-	MemberCount        int64                                 `json:"member_count,omitempty"`         // 部门下用户的个数, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门组织架构信息, 读取通讯录, 以应用身份访问通讯录
-	Status             *GetDepartmentListOldRespItemStatus   `json:"status,omitempty"`               // 部门状态, 字段权限要求（满足任一）: 以应用身份读取通讯录, 获取部门基础信息, 读取通讯录, 以应用身份访问通讯录
+	Name                   string                                `json:"name,omitempty"`                      // 部门名称。字段权限要求（满足任一）: 以应用身份读取通讯录获取部门基础信息以应用身份访问通讯录读取通讯录
+	I18nName               *GetDepartmentListOldRespItemI18nName `json:"i18n_name,omitempty"`                 // 国际化的部门名称。字段权限要求（满足任一）: 以应用身份读取通讯录获取部门基础信息以应用身份访问通讯录读取通讯录
+	ParentDepartmentID     string                                `json:"parent_department_id,omitempty"`      // 父部门的 ID。取值为 0 表示当前部门的父部门为根部门。字段权限要求（满足任一）: 以应用身份读取通讯录获取通讯录部门组织架构信息以应用身份访问通讯录读取通讯录
+	DepartmentID           string                                `json:"department_id,omitempty"`             // 当前部门的自定义部门 ID。字段权限要求（满足任一）: 以应用身份读取通讯录获取部门基础信息以应用身份访问通讯录读取通讯录
+	OpenDepartmentID       string                                `json:"open_department_id,omitempty"`        // 部门的 open_department_id。
+	LeaderUserID           string                                `json:"leader_user_id,omitempty"`            // 部门主管的 open_id。关于用户 ID 的说明可参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)。字段权限要求（满足任一）: 以应用身份读取通讯录获取通讯录部门组织架构信息以应用身份访问通讯录读取通讯录
+	ChatID                 string                                `json:"chat_id,omitempty"`                   // 部门群 ID。字段权限要求（满足任一）: 以应用身份读取通讯录获取部门基础信息以应用身份访问通讯录读取通讯录
+	Order                  string                                `json:"order,omitempty"`                     // 部门的排序, 即部门在其同级部门的展示顺序。取值越小排序越靠前。字段权限要求（满足任一）: 以应用身份读取通讯录获取通讯录部门组织架构信息以应用身份访问通讯录读取通讯录
+	UnitIDs                []string                              `json:"unit_ids,omitempty"`                  // 部门单位的自定义 ID 列表。字段权限要求（满足任一）: 以应用身份读取通讯录获取通讯录部门组织架构信息以应用身份访问通讯录读取通讯录
+	MemberCount            int64                                 `json:"member_count,omitempty"`              // 部门下用户的个数。字段权限要求（满足任一）: 以应用身份读取通讯录获取通讯录部门组织架构信息以应用身份访问通讯录读取通讯录
+	Status                 *GetDepartmentListOldRespItemStatus   `json:"status,omitempty"`                    // 部门状态。字段权限要求（满足任一）: 以应用身份读取通讯录获取部门基础信息以应用身份访问通讯录读取通讯录
+	Leaders                []*GetDepartmentListOldRespItemLeader `json:"leaders,omitempty"`                   // 部门负责人信息。
+	GroupChatEmployeeTypes []int64                               `json:"group_chat_employee_types,omitempty"` // 部门群雇员类型限制。当该字段列表为空时, 表示为无任何雇员类型。类型字段可包含以下值: 1: 正式员工- 2: 实习生- 3: 外包- 4: 劳务- 5: 顾问- 6: 其他自定义类型字段。你可以调用[获取人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)接口, 获取到该租户的自定义员工类型的名称。
+	DepartmentHrbps        []string                              `json:"department_hrbps,omitempty"`          // 部门HRBP字段权限要求: 查询部门 HRBP 信息
+	PrimaryMemberCount     int64                                 `json:"primary_member_count,omitempty"`      // 部门下主属用户的个数。字段权限要求（满足任一）: 以应用身份读取通讯录获取通讯录部门组织架构信息以应用身份访问通讯录读取通讯录
 }
 
 // GetDepartmentListOldRespItemI18nName ...
 type GetDepartmentListOldRespItemI18nName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // 部门的中文名
-	JaJp string `json:"ja_jp,omitempty"` // 部门的日文名
-	EnUs string `json:"en_us,omitempty"` // 部门的英文名
+	ZhCn string `json:"zh_cn,omitempty"` // 部门的中文名。
+	JaJp string `json:"ja_jp,omitempty"` // 部门的日文名。
+	EnUs string `json:"en_us,omitempty"` // 部门的英文名。
+}
+
+// GetDepartmentListOldRespItemLeader ...
+type GetDepartmentListOldRespItemLeader struct {
+	LeaderType int64  `json:"leaderType,omitempty"` // 负责人类型。可选值有: 主负责人。副负责人。
+	LeaderID   string `json:"leaderID,omitempty"`   // 负责人的用户 open_id。了解用户 ID 可参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)。字段权限要求（满足任一）: 以应用身份读取通讯录获取通讯录部门组织架构信息以应用身份访问通讯录读取通讯录
 }
 
 // GetDepartmentListOldRespItemStatus ...
 type GetDepartmentListOldRespItemStatus struct {
-	IsDeleted bool `json:"is_deleted,omitempty"` // 是否被删除
+	IsDeleted bool `json:"is_deleted,omitempty"` // 是否被删除。可能值: true: 是- false: 否
 }
 
 // getDepartmentListOldResp ...

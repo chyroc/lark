@@ -21,7 +21,9 @@ import (
 	"context"
 )
 
-// GetAttendanceUserSettingList 批量查询授权内员工的用户设置信息, 包括人脸照片文件 ID、人脸照片更新时间。
+// GetAttendanceUserSettingList 批量查询授权内员工的用户设置信息, 包括人脸照片文件 ID、人脸照片更新时间。对应页面假勤设置-[人脸识别](https://example.feishu.cn/people/workforce-management/setting/group/security)。根据返回的face_key可以下载人脸信息[下载用户人脸识别照片
+//
+// ](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/file/download)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_setting/query
 // new doc: https://open.feishu.cn/document/server-docs/attendance-v1/user_setting/query
@@ -58,8 +60,8 @@ func (r *Mock) UnMockAttendanceGetAttendanceUserSettingList() {
 
 // GetAttendanceUserSettingListReq ...
 type GetAttendanceUserSettingListReq struct {
-	EmployeeType EmployeeType `query:"employee_type" json:"-"` // 请求体中的 user_ids 和响应体中的 user_id 的员工工号类型, 示例值: employee_id, 可选值有: employee_id: 员工 employee ID, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的用户 ID, employee_no: 员工工号, 即飞书管理后台 > 组织架构 > 成员与部门 > 成员详情中的工号
-	UserIDs      []string     `json:"user_ids,omitempty"`      // employee_no 或 employee_id 列表, 示例值: ["abd754f7"], 最大长度: `100`
+	EmployeeType EmployeeType `query:"employee_type" json:"-"` // 请求体中的 user_ids 和响应体中的 user_id 的员工ID类型。如果没有后台管理权限, 可使用[通过手机号或邮箱获取用户 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/batch_get_id)示例值: employee_id可选值有: 员工 employee ID, 即[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的用户 ID员工工号, 即[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的工号
+	UserIDs      []string     `json:"user_ids,omitempty"`      // employee_no 或 employee_id 列表, 对应employee_type示例值: ["abd754f7"] 最大长度: `100
 }
 
 // GetAttendanceUserSettingListResp ...
@@ -69,8 +71,8 @@ type GetAttendanceUserSettingListResp struct {
 
 // GetAttendanceUserSettingListRespUserSetting ...
 type GetAttendanceUserSettingListRespUserSetting struct {
-	UserID            string `json:"user_id,omitempty"`              // 用户 ID
-	FaceKey           string `json:"face_key,omitempty"`             // 人脸照片文件 ID, 获取方式: [文件上传](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/file/upload)
+	UserID            string `json:"user_id,omitempty"`              // 用户 ID, 对应employee_type
+	FaceKey           string `json:"face_key,omitempty"`             // 人脸照片文件 ID, 可用于: [下载用户人脸识别照片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/file/download)
 	FaceKeyUpdateTime string `json:"face_key_update_time,omitempty"` // 人脸照片更新时间, 精确到秒的时间戳
 }
 

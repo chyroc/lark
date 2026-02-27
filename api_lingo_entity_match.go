@@ -24,6 +24,7 @@ import (
 // MatchLingoEntity 将关键词与词条名、别名精准匹配, 并返回对应的 词条 ID。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/lingo-v1/entity/match
+// new doc: https://open.feishu.cn/document/lingo-v1/entity/match
 func (r *LingoService) MatchLingoEntity(ctx context.Context, request *MatchLingoEntityReq, options ...MethodOptionFunc) (*MatchLingoEntityResp, *Response, error) {
 	if r.cli.mock.mockLingoMatchLingoEntity != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Lingo#MatchLingoEntity mock enable")
@@ -58,8 +59,8 @@ func (r *Mock) UnMockLingoMatchLingoEntity() {
 
 // MatchLingoEntityReq ...
 type MatchLingoEntityReq struct {
-	RepoID *string `query:"repo_id" json:"-"` // 词库ID(不传时默认在全员词库内搜索), 如以应用身份搜索非全员词库中的词条, 需要在“词库设置”页面添加应用；若以用户身份搜索非全员词库中的词条, 该用户需要拥有对应词库的可见权限, 示例值: 7202510112396640276
-	Word   string  `json:"word,omitempty"`    // 搜索关键词, 将与词条名、别名进行精准匹配, 示例值: "飞书词典", 长度范围: `1` ～ `100` 字符
+	RepoID *string `query:"repo_id" json:"-"` // 词库ID(不传时默认在全员词库内搜索)如以应用身份搜索非全员词库中的词条, 需要在“词库设置”页面添加应用；若以用户身份搜索非全员词库中的词条, 该用户需要拥有对应词库的可见权限。示例值: 7202510112396640276
+	Word   string  `json:"word,omitempty"`    // 搜索关键词, 将与词条名、别名进行精准匹配示例值: "飞书词典" 长度范围: `1` ～ `100` 字符
 }
 
 // MatchLingoEntityResp ...
@@ -70,7 +71,7 @@ type MatchLingoEntityResp struct {
 // MatchLingoEntityRespResult ...
 type MatchLingoEntityRespResult struct {
 	EntityID string `json:"entity_id,omitempty"` // 词条 ID
-	Type     int64  `json:"type,omitempty"`      // 匹配中的字段, 可选值有: 0: 词条名, 1: 全称, 2: 别名
+	Type     int64  `json:"type,omitempty"`      // 匹配中的字段可选值有: 词条名全称别名
 }
 
 // matchLingoEntityResp ...

@@ -21,7 +21,9 @@ import (
 	"context"
 )
 
-// CreateSpreadsheet 在指定目录下创建表格
+// CreateSpreadsheet 在云空间指定目录下创建电子表格。可自定义表格标题。不支持带内容创建表格。
+//
+// 要基于模板创建电子表格, 可先获取模板电子表格的 `spreadsheet_token` 作为文件 token, 再调用[复制文件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/copy)接口创建电子表格。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet/create
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet/create
@@ -59,21 +61,21 @@ func (r *Mock) UnMockDriveCreateSpreadsheet() {
 
 // CreateSpreadsheetReq ...
 type CreateSpreadsheetReq struct {
-	Title       *string `json:"title,omitempty"`        // 表格标题, 示例值: "title", 长度范围: `0` ～ `255` 字符
-	FolderToken *string `json:"folder_token,omitempty"` // 文件夹token, 获取方式见[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN), 示例值: "fldcnMsNb*hIW9IjG1LVswg"
+	Title       *string `json:"title,omitempty"`        // 表格标题示例值: "Sales sheet" 长度范围: `0` ～ `255` 字符
+	FolderToken *string `json:"folder_token,omitempty"` // 文件夹 token。你可通过以下两种方式获取文件夹的 token: 文件夹的 URL: https://sample.feishu.cn/drive/folder/[fldbcO1UuPz8VwnpPx5a92abcef]- 调用开放平台接口获取: - 调用[获取我的空间（root folder）元数据](https://open.feishu.cn/document/ukTMukTMukTM/ugTNzUjL4UzM14CO1MTN/get-root-folder-meta)接口获取根目录（即根文件夹）的 token。    - 继续调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)接口, 获取根目录下文件夹的 token。提示: 要在知识库中创建电子表格, 你需调用[创建知识空间节点](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-node/create)接口, 并选择表格（sheet）类型。示例值: "fldbcO1UuPz8VwnpPx5a92abcef"
 }
 
 // CreateSpreadsheetResp ...
 type CreateSpreadsheetResp struct {
-	Spreadsheet *CreateSpreadsheetRespSpreadsheet `json:"spreadsheet,omitempty"` // 表格
+	Spreadsheet *CreateSpreadsheetRespSpreadsheet `json:"spreadsheet,omitempty"` // 电子表格的基础信息
 }
 
 // CreateSpreadsheetRespSpreadsheet ...
 type CreateSpreadsheetRespSpreadsheet struct {
-	Title            string `json:"title,omitempty"`             // 表格标题
-	FolderToken      string `json:"folder_token,omitempty"`      // 文件夹token, 获取方式见[如何获取云文档资源相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN)
-	URL              string `json:"url,omitempty"`               // 文档url
-	SpreadSheetToken string `json:"spreadsheet_token,omitempty"` // 表格token
+	Title            string `json:"title,omitempty"`             // 电子表格标题
+	FolderToken      string `json:"folder_token,omitempty"`      // 文件夹 token
+	URL              string `json:"url,omitempty"`               // 电子表格的 URL 链接
+	SpreadSheetToken string `json:"spreadsheet_token,omitempty"` // 电子表格 token
 }
 
 // createSpreadsheetResp ...

@@ -21,7 +21,12 @@ import (
 	"context"
 )
 
-// GetTenantProductAssignInfo 获取租户下待分配的席位列表, 包含席位名称、席位ID、数量及对应有效期。
+// GetTenantProductAssignInfo 获取租户下待分配的席位列表（仅返回未满的席位）, 包含席位名称、席位ID、数量及对应有效期。
+//
+// 返回的待分配席位范围为: ​
+// 1. 客户当前已订阅且处于生效状态的席位（注: 不包含增购的、尚未生效的未来席位）；​
+// 2. 客户已订阅且未来生效的全新订阅席位。​
+// 即增购的未来席位不在本接口返回的待分配席位列表范围内。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/tenant-v2/tenant-product_assign_info/query
 // new doc: https://open.feishu.cn/document/server-docs/tenant-v2/tenant-product_assign_info/query
@@ -57,8 +62,7 @@ func (r *Mock) UnMockTenantGetTenantProductAssignInfo() {
 }
 
 // GetTenantProductAssignInfoReq ...
-type GetTenantProductAssignInfoReq struct {
-}
+type GetTenantProductAssignInfoReq struct{}
 
 // GetTenantProductAssignInfoResp ...
 type GetTenantProductAssignInfoResp struct {
