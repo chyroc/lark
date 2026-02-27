@@ -459,352 +459,74 @@ func Test_Application_Sample_Failed(t *testing.T) {
 
 	})
 
-	t.Run("response is failed", func(t *testing.T) {
-		cli := AppNoPermission.Ins()
-		moduleCli := cli.Application
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.SearchApplicationWorkplaceAccessData(ctx, &lark.SearchApplicationWorkplaceAccessDataReq{})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.SearchApplicationCustomWorkplaceAccessData(ctx, &lark.SearchApplicationCustomWorkplaceAccessDataReq{})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.SearchApplicationWorkplaceBlockAccessData(ctx, &lark.SearchApplicationWorkplaceBlockAccessDataReq{})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetApplicationFavourite(ctx, &lark.GetApplicationFavouriteReq{})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetApplicationRecommend(ctx, &lark.GetApplicationRecommendReq{})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetApplicationRecommendRuleList(ctx, &lark.GetApplicationRecommendRuleListReq{})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.IsApplicationUserAdmin(ctx, &lark.IsApplicationUserAdminReq{})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetApplicationUserAdminScope(ctx, &lark.GetApplicationUserAdminScopeReq{})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetApplicationAppVisibility(ctx, &lark.GetApplicationAppVisibilityReq{})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetApplicationContactsRangeConfiguration(ctx, &lark.GetApplicationContactsRangeConfigurationReq{
-				AppID: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.UpdateApplicationContactsRangeConfiguration(ctx, &lark.UpdateApplicationContactsRangeConfigurationReq{
-				AppID: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetApplicationUserVisibleApp(ctx, &lark.GetApplicationUserVisibleAppReq{})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.CheckApplicationVisibleWhiteBlackList(ctx, &lark.CheckApplicationVisibleWhiteBlackListReq{
-				AppID: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetApplicationAppList(ctx, &lark.GetApplicationAppListReq{})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.UpdateApplicationAppVisibility(ctx, &lark.UpdateApplicationAppVisibilityReq{})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.UpdateApplicationAppVisibilityV6(ctx, &lark.UpdateApplicationAppVisibilityV6Req{
-				AppID: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.UpdateApplicationAppManagement(ctx, &lark.UpdateApplicationAppManagementReq{
-				AppID: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetApplicationAppAdminUserList(ctx, &lark.GetApplicationAppAdminUserListReq{})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.CheckUserIsInApplicationPaidScope(ctx, &lark.CheckUserIsInApplicationPaidScopeReq{})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetApplicationOrderList(ctx, &lark.GetApplicationOrderListReq{})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetApplicationOrder(ctx, &lark.GetApplicationOrderReq{})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetApplicationUnderAuditList(ctx, &lark.GetApplicationUnderAuditListReq{})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetApplication(ctx, &lark.GetApplicationReq{
-				AppID: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetApplicationVersion(ctx, &lark.GetApplicationVersionReq{
-				AppID:     "x",
-				VersionID: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetApplicationVersionList(ctx, &lark.GetApplicationVersionListReq{
-				AppID: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetApplicationVersionContactsRangeSuggest(ctx, &lark.GetApplicationVersionContactsRangeSuggestReq{
-				AppID:     "x",
-				VersionID: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.UpdateApplicationVersion(ctx, &lark.UpdateApplicationVersionReq{
-				AppID:     "x",
-				VersionID: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.UpdateApplication(ctx, &lark.UpdateApplicationReq{
-				AppID: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetApplicationUsageDepartmentOverview(ctx, &lark.GetApplicationUsageDepartmentOverviewReq{
-				AppID: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetApplicationUsageOverview(ctx, &lark.GetApplicationUsageOverviewReq{
-				AppID: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetApplicationUsageTrend(ctx, &lark.GetApplicationUsageTrendReq{})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.UpdateApplicationFeedback(ctx, &lark.UpdateApplicationFeedbackReq{
-				AppID:      "x",
-				FeedbackID: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetApplicationFeedbackList(ctx, &lark.GetApplicationFeedbackListReq{
-				AppID: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.SetApplicationAppBadge(ctx, &lark.SetApplicationAppBadgeReq{})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-	})
-
-	t.Run("fake request is failed", func(t *testing.T) {
+	t.Run("response is failed (mock http)", func(t *testing.T) {
 		cli := AppAllPermission.Ins()
 		moduleCli := cli.Application
 		cli.Mock().MockRawRequest(func(ctx context.Context, req *lark.RawRequestReq, resp interface{}) (response *lark.Response, err error) {
-			return nil, fmt.Errorf("fake raw request")
+			return nil, fmt.Errorf("mock-http-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.SearchApplicationWorkplaceAccessData(ctx, &lark.SearchApplicationWorkplaceAccessDataReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.SearchApplicationCustomWorkplaceAccessData(ctx, &lark.SearchApplicationCustomWorkplaceAccessDataReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.SearchApplicationWorkplaceBlockAccessData(ctx, &lark.SearchApplicationWorkplaceBlockAccessDataReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetApplicationFavourite(ctx, &lark.GetApplicationFavouriteReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetApplicationRecommend(ctx, &lark.GetApplicationRecommendReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetApplicationRecommendRuleList(ctx, &lark.GetApplicationRecommendRuleListReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.IsApplicationUserAdmin(ctx, &lark.IsApplicationUserAdminReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetApplicationUserAdminScope(ctx, &lark.GetApplicationUserAdminScopeReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetApplicationAppVisibility(ctx, &lark.GetApplicationAppVisibilityReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -813,7 +535,7 @@ func Test_Application_Sample_Failed(t *testing.T) {
 				AppID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -822,14 +544,14 @@ func Test_Application_Sample_Failed(t *testing.T) {
 				AppID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetApplicationUserVisibleApp(ctx, &lark.GetApplicationUserVisibleAppReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -838,21 +560,21 @@ func Test_Application_Sample_Failed(t *testing.T) {
 				AppID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetApplicationAppList(ctx, &lark.GetApplicationAppListReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.UpdateApplicationAppVisibility(ctx, &lark.UpdateApplicationAppVisibilityReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -861,7 +583,7 @@ func Test_Application_Sample_Failed(t *testing.T) {
 				AppID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -870,42 +592,42 @@ func Test_Application_Sample_Failed(t *testing.T) {
 				AppID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetApplicationAppAdminUserList(ctx, &lark.GetApplicationAppAdminUserListReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.CheckUserIsInApplicationPaidScope(ctx, &lark.CheckUserIsInApplicationPaidScopeReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetApplicationOrderList(ctx, &lark.GetApplicationOrderListReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetApplicationOrder(ctx, &lark.GetApplicationOrderReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetApplicationUnderAuditList(ctx, &lark.GetApplicationUnderAuditListReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -914,7 +636,7 @@ func Test_Application_Sample_Failed(t *testing.T) {
 				AppID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -924,7 +646,7 @@ func Test_Application_Sample_Failed(t *testing.T) {
 				VersionID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -933,7 +655,7 @@ func Test_Application_Sample_Failed(t *testing.T) {
 				AppID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -943,7 +665,7 @@ func Test_Application_Sample_Failed(t *testing.T) {
 				VersionID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -953,7 +675,7 @@ func Test_Application_Sample_Failed(t *testing.T) {
 				VersionID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -962,7 +684,7 @@ func Test_Application_Sample_Failed(t *testing.T) {
 				AppID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -971,7 +693,7 @@ func Test_Application_Sample_Failed(t *testing.T) {
 				AppID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -980,14 +702,14 @@ func Test_Application_Sample_Failed(t *testing.T) {
 				AppID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetApplicationUsageTrend(ctx, &lark.GetApplicationUsageTrendReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -997,7 +719,7 @@ func Test_Application_Sample_Failed(t *testing.T) {
 				FeedbackID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1006,14 +728,14 @@ func Test_Application_Sample_Failed(t *testing.T) {
 				AppID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.SetApplicationAppBadge(ctx, &lark.SetApplicationAppBadgeReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 	})

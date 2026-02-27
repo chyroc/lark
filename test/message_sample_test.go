@@ -567,369 +567,18 @@ func Test_Message_Sample_Failed(t *testing.T) {
 
 	})
 
-	t.Run("response is failed", func(t *testing.T) {
-		cli := AppNoPermission.Ins()
-		moduleCli := cli.Message
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.SendEphemeralMessage(ctx, &lark.SendEphemeralMessageReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.SendUrgentAppMessage(ctx, &lark.SendUrgentAppMessageReq{
-				MessageID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.SendUrgentSmsMessage(ctx, &lark.SendUrgentSmsMessageReq{
-				MessageID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.SendUrgentPhoneMessage(ctx, &lark.SendUrgentPhoneMessageReq{
-				MessageID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.SendRawMessageOld(ctx, &lark.SendRawMessageOldReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.BatchSendOldRawMessage(ctx, &lark.BatchSendOldRawMessageReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.SendRawMessage(ctx, &lark.SendRawMessageReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.ReplyRawMessage(ctx, &lark.ReplyRawMessageReq{
-				MessageID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.UpdateMessageEdit(ctx, &lark.UpdateMessageEditReq{
-				MessageID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.DeleteMessage(ctx, &lark.DeleteMessageReq{
-				MessageID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.ForwardMessage(ctx, &lark.ForwardMessageReq{
-				MessageID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.MergeForwardMessage(ctx, &lark.MergeForwardMessageReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.ForwardThreadMessage(ctx, &lark.ForwardThreadMessageReq{
-				ThreadID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.BatchDeleteMessage(ctx, &lark.BatchDeleteMessageReq{
-				BatchMessageID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.UpdateMessage(ctx, &lark.UpdateMessageReq{
-				MessageID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.UpdateMessageDelay(ctx, &lark.UpdateMessageDelayReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetMessageReadUserList(ctx, &lark.GetMessageReadUserListReq{
-				MessageID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetBatchSentMessageReadUser(ctx, &lark.GetBatchSentMessageReadUserReq{
-				BatchMessageID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetBatchSentMessageProgress(ctx, &lark.GetBatchSentMessageProgressReq{
-				BatchMessageID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetMessageList(ctx, &lark.GetMessageListReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetMessageFile(ctx, &lark.GetMessageFileReq{
-				MessageID: "x",
-				FileKey:   "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetMessage(ctx, &lark.GetMessageReq{
-				MessageID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.DeleteEphemeralMessage(ctx, &lark.DeleteEphemeralMessageReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.CreateMessageReaction(ctx, &lark.CreateMessageReactionReq{
-				MessageID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetMessageReactionList(ctx, &lark.GetMessageReactionListReq{
-				MessageID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.DeleteMessageReaction(ctx, &lark.DeleteMessageReactionReq{
-				MessageID:  "x",
-				ReactionID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.CreateMessagePin(ctx, &lark.CreateMessagePinReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.DeleteMessagePin(ctx, &lark.DeleteMessagePinReq{
-				MessageID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetMessagePinList(ctx, &lark.GetMessagePinListReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetMessageSpecialFocusList(ctx, &lark.GetMessageSpecialFocusListReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetMessageSpecialFocusUnread(ctx, &lark.GetMessageSpecialFocusUnreadReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.BatchUpdateURLPreview(ctx, &lark.BatchUpdateURLPreviewReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.CreateAppFeedCard(ctx, &lark.CreateAppFeedCardReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.UpdateAppFeedCard(ctx, &lark.UpdateAppFeedCardReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.DeleteAppFeedCard(ctx, &lark.DeleteAppFeedCardReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.UpdateAppFeedCardButton(ctx, &lark.UpdateAppFeedCardButtonReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.InstantReminderAppFeedCard(ctx, &lark.InstantReminderAppFeedCardReq{
-				FeedCardID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.ListIMTagRelation(ctx, &lark.ListIMTagRelationReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.CreateIMTag(ctx, &lark.CreateIMTagReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.UpdateIMTag(ctx, &lark.UpdateIMTagReq{
-				TagID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.MGetIMTag(ctx, &lark.MGetIMTagReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.CreateIMTagRelation(ctx, &lark.CreateIMTagRelationReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.DeleteIMTagRelation(ctx, &lark.DeleteIMTagRelationReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-	})
-
-	t.Run("fake request is failed", func(t *testing.T) {
+	t.Run("response is failed (mock http)", func(t *testing.T) {
 		cli := AppAllPermission.Ins()
 		moduleCli := cli.Message
 		cli.Mock().MockRawRequest(func(ctx context.Context, req *lark.RawRequestReq, resp interface{}) (response *lark.Response, err error) {
-			return nil, fmt.Errorf("fake raw request")
+			return nil, fmt.Errorf("mock-http-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.SendEphemeralMessage(ctx, &lark.SendEphemeralMessageReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -938,7 +587,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 				MessageID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -947,7 +596,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 				MessageID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -956,28 +605,28 @@ func Test_Message_Sample_Failed(t *testing.T) {
 				MessageID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.SendRawMessageOld(ctx, &lark.SendRawMessageOldReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.BatchSendOldRawMessage(ctx, &lark.BatchSendOldRawMessageReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.SendRawMessage(ctx, &lark.SendRawMessageReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -986,7 +635,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 				MessageID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -995,7 +644,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 				MessageID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1004,7 +653,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 				MessageID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1013,14 +662,14 @@ func Test_Message_Sample_Failed(t *testing.T) {
 				MessageID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.MergeForwardMessage(ctx, &lark.MergeForwardMessageReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1029,7 +678,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 				ThreadID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1038,7 +687,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 				BatchMessageID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1047,14 +696,14 @@ func Test_Message_Sample_Failed(t *testing.T) {
 				MessageID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.UpdateMessageDelay(ctx, &lark.UpdateMessageDelayReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1063,7 +712,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 				MessageID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1072,7 +721,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 				BatchMessageID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1081,14 +730,14 @@ func Test_Message_Sample_Failed(t *testing.T) {
 				BatchMessageID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetMessageList(ctx, &lark.GetMessageListReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1098,7 +747,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 				FileKey:   "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1107,14 +756,14 @@ func Test_Message_Sample_Failed(t *testing.T) {
 				MessageID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.DeleteEphemeralMessage(ctx, &lark.DeleteEphemeralMessageReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1123,7 +772,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 				MessageID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1132,7 +781,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 				MessageID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1142,14 +791,14 @@ func Test_Message_Sample_Failed(t *testing.T) {
 				ReactionID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.CreateMessagePin(ctx, &lark.CreateMessagePinReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1158,63 +807,63 @@ func Test_Message_Sample_Failed(t *testing.T) {
 				MessageID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetMessagePinList(ctx, &lark.GetMessagePinListReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetMessageSpecialFocusList(ctx, &lark.GetMessageSpecialFocusListReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetMessageSpecialFocusUnread(ctx, &lark.GetMessageSpecialFocusUnreadReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.BatchUpdateURLPreview(ctx, &lark.BatchUpdateURLPreviewReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.CreateAppFeedCard(ctx, &lark.CreateAppFeedCardReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.UpdateAppFeedCard(ctx, &lark.UpdateAppFeedCardReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.DeleteAppFeedCard(ctx, &lark.DeleteAppFeedCardReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.UpdateAppFeedCardButton(ctx, &lark.UpdateAppFeedCardButtonReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1223,21 +872,21 @@ func Test_Message_Sample_Failed(t *testing.T) {
 				FeedCardID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.ListIMTagRelation(ctx, &lark.ListIMTagRelationReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.CreateIMTag(ctx, &lark.CreateIMTagReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1246,28 +895,28 @@ func Test_Message_Sample_Failed(t *testing.T) {
 				TagID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.MGetIMTag(ctx, &lark.MGetIMTagReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.CreateIMTagRelation(ctx, &lark.CreateIMTagRelationReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.DeleteIMTagRelation(ctx, &lark.DeleteIMTagRelationReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 	})

@@ -1,5 +1,9 @@
 package test
 
+import "context"
+
+var ctx = context.Background()
+
 func ptrStringNoNonePtr(s string) *string {
 	if s == "" {
 		return nil

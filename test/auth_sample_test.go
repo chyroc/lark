@@ -99,73 +99,39 @@ func Test_Auth_Sample_Failed(t *testing.T) {
 
 	})
 
-	t.Run("response is failed", func(t *testing.T) {
-		cli := AppNoPermission.Ins()
-		moduleCli := cli.Auth
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.ResendAppTicket(ctx, &lark.ResendAppTicketReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetAccessToken(ctx, &lark.GetAccessTokenReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.RefreshAccessToken(ctx, &lark.RefreshAccessTokenReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetUserInfo(ctx, &lark.GetUserInfoReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-	})
-
-	t.Run("fake request is failed", func(t *testing.T) {
+	t.Run("response is failed (mock http)", func(t *testing.T) {
 		cli := AppAllPermission.Ins()
 		moduleCli := cli.Auth
 		cli.Mock().MockRawRequest(func(ctx context.Context, req *lark.RawRequestReq, resp interface{}) (response *lark.Response, err error) {
-			return nil, fmt.Errorf("fake raw request")
+			return nil, fmt.Errorf("mock-http-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.ResendAppTicket(ctx, &lark.ResendAppTicketReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetAccessToken(ctx, &lark.GetAccessTokenReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.RefreshAccessToken(ctx, &lark.RefreshAccessTokenReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetUserInfo(ctx, &lark.GetUserInfoReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 	})

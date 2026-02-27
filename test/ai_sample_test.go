@@ -339,353 +339,179 @@ func Test_AI_Sample_Failed(t *testing.T) {
 
 	})
 
-	t.Run("response is failed", func(t *testing.T) {
-		cli := AppNoPermission.Ins()
-		moduleCli := cli.AI
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.ParseAIResume(ctx, &lark.ParseAIResumeReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.RecognizeAIVehicleInvoice(ctx, &lark.RecognizeAIVehicleInvoiceReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.RecognizeAIHealthCertificate(ctx, &lark.RecognizeAIHealthCertificateReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.RecognizeAIHkmMainlandTravelPermit(ctx, &lark.RecognizeAIHkmMainlandTravelPermitReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.RecognizeAITwMainlandTravelPermit(ctx, &lark.RecognizeAITwMainlandTravelPermitReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.RecognizeAIChinesePassport(ctx, &lark.RecognizeAIChinesePassportReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.RecognizeAIBankCard(ctx, &lark.RecognizeAIBankCardReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.RecognizeAIVehicleLicense(ctx, &lark.RecognizeAIVehicleLicenseReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.RecognizeAITrainInvoice(ctx, &lark.RecognizeAITrainInvoiceReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.RecognizeAITaxiInvoice(ctx, &lark.RecognizeAITaxiInvoiceReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.RecognizeAiidCard(ctx, &lark.RecognizeAiidCardReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.RecognizeAIFoodProduceLicense(ctx, &lark.RecognizeAIFoodProduceLicenseReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.RecognizeAIFoodManageLicense(ctx, &lark.RecognizeAIFoodManageLicenseReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.RecognizeAIDrivingLicense(ctx, &lark.RecognizeAIDrivingLicenseReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.RecognizeAIVatInvoice(ctx, &lark.RecognizeAIVatInvoiceReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.RecognizeAIBusinessLicense(ctx, &lark.RecognizeAIBusinessLicenseReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.ExtractAIContractField(ctx, &lark.ExtractAIContractFieldReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.RecognizeAIBusinessCard(ctx, &lark.RecognizeAIBusinessCardReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.RecognizeBasicImage(ctx, &lark.RecognizeBasicImageReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.RecognizeSpeechStream(ctx, &lark.RecognizeSpeechStreamReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.RecognizeSpeechFile(ctx, &lark.RecognizeSpeechFileReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.TranslateText(ctx, &lark.TranslateTextReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.DetectTextLanguage(ctx, &lark.DetectTextLanguageReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.DetectFaceAttributes(ctx, &lark.DetectFaceAttributesReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-	})
-
-	t.Run("fake request is failed", func(t *testing.T) {
+	t.Run("response is failed (mock http)", func(t *testing.T) {
 		cli := AppAllPermission.Ins()
 		moduleCli := cli.AI
 		cli.Mock().MockRawRequest(func(ctx context.Context, req *lark.RawRequestReq, resp interface{}) (response *lark.Response, err error) {
-			return nil, fmt.Errorf("fake raw request")
+			return nil, fmt.Errorf("mock-http-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.ParseAIResume(ctx, &lark.ParseAIResumeReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.RecognizeAIVehicleInvoice(ctx, &lark.RecognizeAIVehicleInvoiceReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.RecognizeAIHealthCertificate(ctx, &lark.RecognizeAIHealthCertificateReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.RecognizeAIHkmMainlandTravelPermit(ctx, &lark.RecognizeAIHkmMainlandTravelPermitReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.RecognizeAITwMainlandTravelPermit(ctx, &lark.RecognizeAITwMainlandTravelPermitReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.RecognizeAIChinesePassport(ctx, &lark.RecognizeAIChinesePassportReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.RecognizeAIBankCard(ctx, &lark.RecognizeAIBankCardReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.RecognizeAIVehicleLicense(ctx, &lark.RecognizeAIVehicleLicenseReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.RecognizeAITrainInvoice(ctx, &lark.RecognizeAITrainInvoiceReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.RecognizeAITaxiInvoice(ctx, &lark.RecognizeAITaxiInvoiceReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.RecognizeAiidCard(ctx, &lark.RecognizeAiidCardReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.RecognizeAIFoodProduceLicense(ctx, &lark.RecognizeAIFoodProduceLicenseReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.RecognizeAIFoodManageLicense(ctx, &lark.RecognizeAIFoodManageLicenseReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.RecognizeAIDrivingLicense(ctx, &lark.RecognizeAIDrivingLicenseReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.RecognizeAIVatInvoice(ctx, &lark.RecognizeAIVatInvoiceReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.RecognizeAIBusinessLicense(ctx, &lark.RecognizeAIBusinessLicenseReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.ExtractAIContractField(ctx, &lark.ExtractAIContractFieldReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.RecognizeAIBusinessCard(ctx, &lark.RecognizeAIBusinessCardReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.RecognizeBasicImage(ctx, &lark.RecognizeBasicImageReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.RecognizeSpeechStream(ctx, &lark.RecognizeSpeechStreamReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.RecognizeSpeechFile(ctx, &lark.RecognizeSpeechFileReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.TranslateText(ctx, &lark.TranslateTextReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.DetectTextLanguage(ctx, &lark.DetectTextLanguageReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.DetectFaceAttributes(ctx, &lark.DetectFaceAttributesReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 	})

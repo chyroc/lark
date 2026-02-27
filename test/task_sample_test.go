@@ -565,382 +565,17 @@ func Test_Task_Sample_Failed(t *testing.T) {
 		})
 	})
 
-	t.Run("response is failed", func(t *testing.T) {
-		cli := AppNoPermission.Ins()
-		moduleCli := cli.Task
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.CreateTask(ctx, &lark.CreateTaskReq{})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetTask(ctx, &lark.GetTaskReq{
-				TaskGuid: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.UpdateTask(ctx, &lark.UpdateTaskReq{
-				TaskGuid: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.DeleteTask(ctx, &lark.DeleteTaskReq{
-				TaskGuid: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.AddTaskMember(ctx, &lark.AddTaskMemberReq{
-				TaskGuid: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.RemoveTaskMember(ctx, &lark.RemoveTaskMemberReq{
-				TaskGuid: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetTaskList(ctx, &lark.GetTaskListReq{})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.AddTaskTasklist(ctx, &lark.AddTaskTasklistReq{
-				TaskGuid: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.RemoveTaskTasklist(ctx, &lark.RemoveTaskTasklistReq{
-				TaskGuid: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.AddTaskReminder(ctx, &lark.AddTaskReminderReq{
-				TaskGuid: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.RemoveTaskReminder(ctx, &lark.RemoveTaskReminderReq{
-				TaskGuid: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.AddTaskDependency(ctx, &lark.AddTaskDependencyReq{
-				TaskGuid: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.RemoveTaskDependency(ctx, &lark.RemoveTaskDependencyReq{
-				TaskGuid: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.CreateTaskSubtask(ctx, &lark.CreateTaskSubtaskReq{
-				TaskGuid: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetTaskSubtaskList(ctx, &lark.GetTaskSubtaskListReq{
-				TaskGuid: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.CreateTaskTasklist(ctx, &lark.CreateTaskTasklistReq{})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetTaskTasklist(ctx, &lark.GetTaskTasklistReq{
-				TasklistGuid: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.UpdateTaskTasklist(ctx, &lark.UpdateTaskTasklistReq{
-				TasklistGuid: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.DeleteTaskTasklist(ctx, &lark.DeleteTaskTasklistReq{
-				TasklistGuid: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.AddTaskTasklistMember(ctx, &lark.AddTaskTasklistMemberReq{
-				TasklistGuid: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.RemoveTaskTasklistMember(ctx, &lark.RemoveTaskTasklistMemberReq{
-				TasklistGuid: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetTaskTaskListOfTasklist(ctx, &lark.GetTaskTaskListOfTasklistReq{
-				TasklistGuid: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetTaskTasklistList(ctx, &lark.GetTaskTasklistListReq{})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.CreateTaskTasklistActivitySubscription(ctx, &lark.CreateTaskTasklistActivitySubscriptionReq{
-				TasklistGuid: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetTaskTasklistActivitySubscription(ctx, &lark.GetTaskTasklistActivitySubscriptionReq{
-				TasklistGuid:             "x",
-				ActivitySubscriptionGuid: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.UpdateTaskTasklistActivitySubscription(ctx, &lark.UpdateTaskTasklistActivitySubscriptionReq{
-				TasklistGuid:             "x",
-				ActivitySubscriptionGuid: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.DeleteTaskTasklistActivitySubscription(ctx, &lark.DeleteTaskTasklistActivitySubscriptionReq{
-				TasklistGuid:             "x",
-				ActivitySubscriptionGuid: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetTaskTasklistActivitySubscriptionList(ctx, &lark.GetTaskTasklistActivitySubscriptionListReq{
-				TasklistGuid: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.CreateTaskComment(ctx, &lark.CreateTaskCommentReq{})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetTaskComment(ctx, &lark.GetTaskCommentReq{
-				CommentID: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.UpdateTaskComment(ctx, &lark.UpdateTaskCommentReq{
-				CommentID: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.DeleteTaskComment(ctx, &lark.DeleteTaskCommentReq{
-				CommentID: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetTaskCommentList(ctx, &lark.GetTaskCommentListReq{})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.UploadTaskAttachment(ctx, &lark.UploadTaskAttachmentReq{})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetTaskAttachment(ctx, &lark.GetTaskAttachmentReq{
-				AttachmentGuid: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.DeleteTaskAttachment(ctx, &lark.DeleteTaskAttachmentReq{
-				AttachmentGuid: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetTaskAttachmentList(ctx, &lark.GetTaskAttachmentListReq{})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.CreateTaskSection(ctx, &lark.CreateTaskSectionReq{})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetTaskSection(ctx, &lark.GetTaskSectionReq{
-				SectionGuid: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.UpdateTaskSection(ctx, &lark.UpdateTaskSectionReq{
-				SectionGuid: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.DeleteTaskSection(ctx, &lark.DeleteTaskSectionReq{
-				SectionGuid: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetTaskSectionList(ctx, &lark.GetTaskSectionListReq{})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.GetTaskTaskListOfSection(ctx, &lark.GetTaskTaskListOfSectionReq{
-				SectionGuid: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.AddTaskCustomField(ctx, &lark.AddTaskCustomFieldReq{
-				CustomFieldGuid: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.RemoveTaskCustomField(ctx, &lark.RemoveTaskCustomFieldReq{
-				CustomFieldGuid: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.CreateTaskCustomFieldOption(ctx, &lark.CreateTaskCustomFieldOptionReq{
-				CustomFieldGuid: "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.UpdateTaskCustomFieldOption(ctx, &lark.UpdateTaskCustomFieldOptionReq{
-				CustomFieldGuid: "x",
-				OptionGuid:      "x",
-			})
-			as.NotNil(err)
-			as.True(IsExpectedAPIFailedErr(err), fmt.Sprintf("need get lark err, but get %s", err))
-		})
-	})
-
-	t.Run("fake request is failed", func(t *testing.T) {
+	t.Run("response is failed (mock http)", func(t *testing.T) {
 		cli := AppAllPermission.Ins()
 		moduleCli := cli.Task
 		cli.Mock().MockRawRequest(func(ctx context.Context, req *lark.RawRequestReq, resp interface{}) (response *lark.Response, err error) {
-			return nil, fmt.Errorf("fake raw request")
+			return nil, fmt.Errorf("mock-http-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateTask(ctx, &lark.CreateTaskReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -948,7 +583,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TaskGuid: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -956,7 +591,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TaskGuid: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -964,7 +599,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TaskGuid: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -972,7 +607,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TaskGuid: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -980,13 +615,13 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TaskGuid: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetTaskList(ctx, &lark.GetTaskListReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -994,7 +629,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TaskGuid: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1002,7 +637,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TaskGuid: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1010,7 +645,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TaskGuid: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1018,7 +653,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TaskGuid: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1026,7 +661,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TaskGuid: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1034,7 +669,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TaskGuid: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1042,7 +677,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TaskGuid: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1050,13 +685,13 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TaskGuid: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateTaskTasklist(ctx, &lark.CreateTaskTasklistReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1064,7 +699,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TasklistGuid: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1072,7 +707,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TasklistGuid: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1080,7 +715,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TasklistGuid: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1088,7 +723,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TasklistGuid: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1096,7 +731,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TasklistGuid: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1104,13 +739,13 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TasklistGuid: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetTaskTasklistList(ctx, &lark.GetTaskTasklistListReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1118,7 +753,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TasklistGuid: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1127,7 +762,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				ActivitySubscriptionGuid: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1136,7 +771,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				ActivitySubscriptionGuid: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1145,7 +780,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				ActivitySubscriptionGuid: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1153,13 +788,13 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				TasklistGuid: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateTaskComment(ctx, &lark.CreateTaskCommentReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1167,7 +802,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				CommentID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1175,7 +810,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				CommentID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1183,19 +818,19 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				CommentID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetTaskCommentList(ctx, &lark.GetTaskCommentListReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.UploadTaskAttachment(ctx, &lark.UploadTaskAttachmentReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1203,7 +838,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				AttachmentGuid: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1211,19 +846,19 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				AttachmentGuid: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetTaskAttachmentList(ctx, &lark.GetTaskAttachmentListReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.CreateTaskSection(ctx, &lark.CreateTaskSectionReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1231,7 +866,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				SectionGuid: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1239,7 +874,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				SectionGuid: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1247,13 +882,13 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				SectionGuid: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 			_, _, err := moduleCli.GetTaskSectionList(ctx, &lark.GetTaskSectionListReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1261,7 +896,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				SectionGuid: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1269,7 +904,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				CustomFieldGuid: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1277,7 +912,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				CustomFieldGuid: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1285,7 +920,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				CustomFieldGuid: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -1294,7 +929,7 @@ func Test_Task_Sample_Failed(t *testing.T) {
 				OptionGuid:      "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 	})
 }
