@@ -37,12 +37,10 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Drive
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetDriveRootFolderMeta(ctx, &lark.GetDriveRootFolderMetaReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
-
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {
@@ -50,7 +48,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Drive
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetDriveRootFolderMeta(func(ctx context.Context, request *lark.GetDriveRootFolderMetaReq, options ...lark.MethodOptionFunc) (*lark.GetDriveRootFolderMetaResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -62,7 +59,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetDriveFileList(func(ctx context.Context, request *lark.GetDriveFileListReq, options ...lark.MethodOptionFunc) (*lark.GetDriveFileListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -74,7 +70,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetDriveFolderMeta(func(ctx context.Context, request *lark.GetDriveFolderMetaReq, options ...lark.MethodOptionFunc) (*lark.GetDriveFolderMetaResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -86,7 +81,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveCreateDriveFolder(func(ctx context.Context, request *lark.CreateDriveFolderReq, options ...lark.MethodOptionFunc) (*lark.CreateDriveFolderResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -98,7 +92,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetDriveFileMeta(func(ctx context.Context, request *lark.GetDriveFileMetaReq, options ...lark.MethodOptionFunc) (*lark.GetDriveFileMetaResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -110,7 +103,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveCreateDriveFile(func(ctx context.Context, request *lark.CreateDriveFileReq, options ...lark.MethodOptionFunc) (*lark.CreateDriveFileResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -122,7 +114,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveCopyDriveFile(func(ctx context.Context, request *lark.CopyDriveFileReq, options ...lark.MethodOptionFunc) (*lark.CopyDriveFileResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -134,7 +125,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveMoveDriveFile(func(ctx context.Context, request *lark.MoveDriveFileReq, options ...lark.MethodOptionFunc) (*lark.MoveDriveFileResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -146,7 +136,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveDeleteDriveFile(func(ctx context.Context, request *lark.DeleteDriveFileReq, options ...lark.MethodOptionFunc) (*lark.DeleteDriveFileResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -158,7 +147,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetDriveFileStatistics(func(ctx context.Context, request *lark.GetDriveFileStatisticsReq, options ...lark.MethodOptionFunc) (*lark.GetDriveFileStatisticsResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -170,7 +158,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveCreateDriveFileShortcut(func(ctx context.Context, request *lark.CreateDriveFileShortcutReq, options ...lark.MethodOptionFunc) (*lark.CreateDriveFileShortcutResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -182,7 +169,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetDriveFileTask(func(ctx context.Context, request *lark.GetDriveFileTaskReq, options ...lark.MethodOptionFunc) (*lark.GetDriveFileTaskResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -194,7 +180,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveUploadDriveMedia(func(ctx context.Context, request *lark.UploadDriveMediaReq, options ...lark.MethodOptionFunc) (*lark.UploadDriveMediaResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -206,7 +191,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveDownloadDriveMedia(func(ctx context.Context, request *lark.DownloadDriveMediaReq, options ...lark.MethodOptionFunc) (*lark.DownloadDriveMediaResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -218,7 +202,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDrivePrepareUploadDriveMedia(func(ctx context.Context, request *lark.PrepareUploadDriveMediaReq, options ...lark.MethodOptionFunc) (*lark.PrepareUploadDriveMediaResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -230,7 +213,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDrivePartUploadDriveMedia(func(ctx context.Context, request *lark.PartUploadDriveMediaReq, options ...lark.MethodOptionFunc) (*lark.PartUploadDriveMediaResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -242,7 +224,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveFinishUploadDriveMedia(func(ctx context.Context, request *lark.FinishUploadDriveMediaReq, options ...lark.MethodOptionFunc) (*lark.FinishUploadDriveMediaResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -254,7 +235,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetDocxDocument(func(ctx context.Context, request *lark.GetDocxDocumentReq, options ...lark.MethodOptionFunc) (*lark.GetDocxDocumentResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -266,7 +246,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetDocxDocumentRawContent(func(ctx context.Context, request *lark.GetDocxDocumentRawContentReq, options ...lark.MethodOptionFunc) (*lark.GetDocxDocumentRawContentResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -278,7 +257,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetDocxBlockListOfDocument(func(ctx context.Context, request *lark.GetDocxBlockListOfDocumentReq, options ...lark.MethodOptionFunc) (*lark.GetDocxBlockListOfDocumentResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -290,7 +268,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveCreateDocx(func(ctx context.Context, request *lark.CreateDocxReq, options ...lark.MethodOptionFunc) (*lark.CreateDocxResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -302,7 +279,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetDocxBlock(func(ctx context.Context, request *lark.GetDocxBlockReq, options ...lark.MethodOptionFunc) (*lark.GetDocxBlockResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -314,7 +290,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveCreateDocxBlock(func(ctx context.Context, request *lark.CreateDocxBlockReq, options ...lark.MethodOptionFunc) (*lark.CreateDocxBlockResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -326,7 +301,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveUpdateDocxBlock(func(ctx context.Context, request *lark.UpdateDocxBlockReq, options ...lark.MethodOptionFunc) (*lark.UpdateDocxBlockResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -338,7 +312,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveBatchDeleteDocxBlock(func(ctx context.Context, request *lark.BatchDeleteDocxBlockReq, options ...lark.MethodOptionFunc) (*lark.BatchDeleteDocxBlockResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -350,7 +323,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetDocxBlockListOfBlock(func(ctx context.Context, request *lark.GetDocxBlockListOfBlockReq, options ...lark.MethodOptionFunc) (*lark.GetDocxBlockListOfBlockResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -362,7 +334,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveSubscribeDriveFile(func(ctx context.Context, request *lark.SubscribeDriveFileReq, options ...lark.MethodOptionFunc) (*lark.SubscribeDriveFileResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -374,7 +345,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveUnsubscribeDriveFile(func(ctx context.Context, request *lark.UnsubscribeDriveFileReq, options ...lark.MethodOptionFunc) (*lark.UnsubscribeDriveFileResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -386,7 +356,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetSubscribeDriveFile(func(ctx context.Context, request *lark.GetSubscribeDriveFileReq, options ...lark.MethodOptionFunc) (*lark.GetSubscribeDriveFileResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -398,7 +367,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveSearchDriveFile(func(ctx context.Context, request *lark.SearchDriveFileReq, options ...lark.MethodOptionFunc) (*lark.SearchDriveFileResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -410,7 +378,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveDeleteDriveSheetFile(func(ctx context.Context, request *lark.DeleteDriveSheetFileReq, options ...lark.MethodOptionFunc) (*lark.DeleteDriveSheetFileResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -422,7 +389,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetDriveFolderChildren(func(ctx context.Context, request *lark.GetDriveFolderChildrenReq, options ...lark.MethodOptionFunc) (*lark.GetDriveFolderChildrenResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -434,7 +400,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveCreateDriveExportTask(func(ctx context.Context, request *lark.CreateDriveExportTaskReq, options ...lark.MethodOptionFunc) (*lark.CreateDriveExportTaskResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -446,7 +411,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetDriveExportTask(func(ctx context.Context, request *lark.GetDriveExportTaskReq, options ...lark.MethodOptionFunc) (*lark.GetDriveExportTaskResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -458,7 +422,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveDownloadDriveExportTask(func(ctx context.Context, request *lark.DownloadDriveExportTaskReq, options ...lark.MethodOptionFunc) (*lark.DownloadDriveExportTaskResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -470,7 +433,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetDriveFileViewRecordList(func(ctx context.Context, request *lark.GetDriveFileViewRecordListReq, options ...lark.MethodOptionFunc) (*lark.GetDriveFileViewRecordListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -482,7 +444,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveCreateDriveFileVersion(func(ctx context.Context, request *lark.CreateDriveFileVersionReq, options ...lark.MethodOptionFunc) (*lark.CreateDriveFileVersionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -494,7 +455,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveDeleteDriveFileVersion(func(ctx context.Context, request *lark.DeleteDriveFileVersionReq, options ...lark.MethodOptionFunc) (*lark.DeleteDriveFileVersionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -506,7 +466,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetDriveFileVersion(func(ctx context.Context, request *lark.GetDriveFileVersionReq, options ...lark.MethodOptionFunc) (*lark.GetDriveFileVersionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -518,7 +477,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetDriveFileVersionList(func(ctx context.Context, request *lark.GetDriveFileVersionListReq, options ...lark.MethodOptionFunc) (*lark.GetDriveFileVersionListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -530,7 +488,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveDownloadDriveFile(func(ctx context.Context, request *lark.DownloadDriveFileReq, options ...lark.MethodOptionFunc) (*lark.DownloadDriveFileResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -542,7 +499,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveUploadDriveFile(func(ctx context.Context, request *lark.UploadDriveFileReq, options ...lark.MethodOptionFunc) (*lark.UploadDriveFileResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -554,7 +510,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDrivePrepareUploadDriveFile(func(ctx context.Context, request *lark.PrepareUploadDriveFileReq, options ...lark.MethodOptionFunc) (*lark.PrepareUploadDriveFileResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -566,7 +521,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDrivePartUploadDriveFile(func(ctx context.Context, request *lark.PartUploadDriveFileReq, options ...lark.MethodOptionFunc) (*lark.PartUploadDriveFileResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -578,7 +532,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveFinishUploadDriveFile(func(ctx context.Context, request *lark.FinishUploadDriveFileReq, options ...lark.MethodOptionFunc) (*lark.FinishUploadDriveFileResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -590,7 +543,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveCreateDriveMemberPermissionOld(func(ctx context.Context, request *lark.CreateDriveMemberPermissionOldReq, options ...lark.MethodOptionFunc) (*lark.CreateDriveMemberPermissionOldResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -602,7 +554,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveTransferDriveOwnerPermission(func(ctx context.Context, request *lark.TransferDriveOwnerPermissionReq, options ...lark.MethodOptionFunc) (*lark.TransferDriveOwnerPermissionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -614,7 +565,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveCheckDriveMemberPermission(func(ctx context.Context, request *lark.CheckDriveMemberPermissionReq, options ...lark.MethodOptionFunc) (*lark.CheckDriveMemberPermissionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -626,7 +576,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetDriveMemberPermissionList(func(ctx context.Context, request *lark.GetDriveMemberPermissionListReq, options ...lark.MethodOptionFunc) (*lark.GetDriveMemberPermissionListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -638,7 +587,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetDriveMemberPermissionListOld(func(ctx context.Context, request *lark.GetDriveMemberPermissionListOldReq, options ...lark.MethodOptionFunc) (*lark.GetDriveMemberPermissionListOldResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -650,7 +598,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveCreateDriveMemberPermission(func(ctx context.Context, request *lark.CreateDriveMemberPermissionReq, options ...lark.MethodOptionFunc) (*lark.CreateDriveMemberPermissionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -662,7 +609,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveUpdateDriveMemberPermission(func(ctx context.Context, request *lark.UpdateDriveMemberPermissionReq, options ...lark.MethodOptionFunc) (*lark.UpdateDriveMemberPermissionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -674,7 +620,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveDeleteDriveMemberPermission(func(ctx context.Context, request *lark.DeleteDriveMemberPermissionReq, options ...lark.MethodOptionFunc) (*lark.DeleteDriveMemberPermissionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -686,7 +631,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetDrivePublicPermissionOld(func(ctx context.Context, request *lark.GetDrivePublicPermissionOldReq, options ...lark.MethodOptionFunc) (*lark.GetDrivePublicPermissionOldResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -698,7 +642,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveCreateDrivePermissionPublicPassword(func(ctx context.Context, request *lark.CreateDrivePermissionPublicPasswordReq, options ...lark.MethodOptionFunc) (*lark.CreateDrivePermissionPublicPasswordResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -710,7 +653,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveUpdateDrivePermissionPublicPassword(func(ctx context.Context, request *lark.UpdateDrivePermissionPublicPasswordReq, options ...lark.MethodOptionFunc) (*lark.UpdateDrivePermissionPublicPasswordResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -722,7 +664,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveDeleteDrivePermissionPublicPassword(func(ctx context.Context, request *lark.DeleteDrivePermissionPublicPasswordReq, options ...lark.MethodOptionFunc) (*lark.DeleteDrivePermissionPublicPasswordResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -734,7 +675,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetDrivePublicPermission(func(ctx context.Context, request *lark.GetDrivePublicPermissionReq, options ...lark.MethodOptionFunc) (*lark.GetDrivePublicPermissionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -746,7 +686,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveUpdateDrivePublicPermission(func(ctx context.Context, request *lark.UpdateDrivePublicPermissionReq, options ...lark.MethodOptionFunc) (*lark.UpdateDrivePublicPermissionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -758,7 +697,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetDrivePublicPermissionV2(func(ctx context.Context, request *lark.GetDrivePublicPermissionV2Req, options ...lark.MethodOptionFunc) (*lark.GetDrivePublicPermissionV2Resp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -770,7 +708,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveUpdateDrivePublicPermissionV2(func(ctx context.Context, request *lark.UpdateDrivePublicPermissionV2Req, options ...lark.MethodOptionFunc) (*lark.UpdateDrivePublicPermissionV2Resp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -782,7 +719,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveBatchGetDriveMediaTmpDownloadURL(func(ctx context.Context, request *lark.BatchGetDriveMediaTmpDownloadURLReq, options ...lark.MethodOptionFunc) (*lark.BatchGetDriveMediaTmpDownloadURLResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -794,7 +730,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetDriveCommentList(func(ctx context.Context, request *lark.GetDriveCommentListReq, options ...lark.MethodOptionFunc) (*lark.GetDriveCommentListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -806,7 +741,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveCreateDriveComment(func(ctx context.Context, request *lark.CreateDriveCommentReq, options ...lark.MethodOptionFunc) (*lark.CreateDriveCommentResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -818,7 +752,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetDriveComment(func(ctx context.Context, request *lark.GetDriveCommentReq, options ...lark.MethodOptionFunc) (*lark.GetDriveCommentResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -830,7 +763,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveBatchGetDriveComment(func(ctx context.Context, request *lark.BatchGetDriveCommentReq, options ...lark.MethodOptionFunc) (*lark.BatchGetDriveCommentResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -842,7 +774,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetDriveCommentReplyList(func(ctx context.Context, request *lark.GetDriveCommentReplyListReq, options ...lark.MethodOptionFunc) (*lark.GetDriveCommentReplyListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -854,7 +785,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveUpdateDriveComment(func(ctx context.Context, request *lark.UpdateDriveCommentReq, options ...lark.MethodOptionFunc) (*lark.UpdateDriveCommentResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -866,7 +796,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveDeleteDriveComment(func(ctx context.Context, request *lark.DeleteDriveCommentReq, options ...lark.MethodOptionFunc) (*lark.DeleteDriveCommentResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -878,7 +807,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveUpdateDriveCommentPatch(func(ctx context.Context, request *lark.UpdateDriveCommentPatchReq, options ...lark.MethodOptionFunc) (*lark.UpdateDriveCommentPatchResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -890,7 +818,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetDriveFileSubscription(func(ctx context.Context, request *lark.GetDriveFileSubscriptionReq, options ...lark.MethodOptionFunc) (*lark.GetDriveFileSubscriptionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -902,7 +829,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveCreateDriveFileSubscription(func(ctx context.Context, request *lark.CreateDriveFileSubscriptionReq, options ...lark.MethodOptionFunc) (*lark.CreateDriveFileSubscriptionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -914,7 +840,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveUpdateDriveFileSubscription(func(ctx context.Context, request *lark.UpdateDriveFileSubscriptionReq, options ...lark.MethodOptionFunc) (*lark.UpdateDriveFileSubscriptionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -926,7 +851,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveCreateDriveDoc(func(ctx context.Context, request *lark.CreateDriveDocReq, options ...lark.MethodOptionFunc) (*lark.CreateDriveDocResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -938,7 +862,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetDriveDocContent(func(ctx context.Context, request *lark.GetDriveDocContentReq, options ...lark.MethodOptionFunc) (*lark.GetDriveDocContentResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -950,7 +873,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveUpdateDriveDocContent(func(ctx context.Context, request *lark.UpdateDriveDocContentReq, options ...lark.MethodOptionFunc) (*lark.UpdateDriveDocContentResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -962,7 +884,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetDriveDocRawContent(func(ctx context.Context, request *lark.GetDriveDocRawContentReq, options ...lark.MethodOptionFunc) (*lark.GetDriveDocRawContentResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -974,7 +895,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetDriveDocMeta(func(ctx context.Context, request *lark.GetDriveDocMetaReq, options ...lark.MethodOptionFunc) (*lark.GetDriveDocMetaResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -986,19 +906,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockDriveGetWhiteboardNodeList(func(ctx context.Context, request *lark.GetWhiteboardNodeListReq, options ...lark.MethodOptionFunc) (*lark.GetWhiteboardNodeListResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockDriveGetWhiteboardNodeList()
-
-			_, _, err := moduleCli.GetWhiteboardNodeList(ctx, &lark.GetWhiteboardNodeListReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveUpdateSpreadsheet(func(ctx context.Context, request *lark.UpdateSpreadsheetReq, options ...lark.MethodOptionFunc) (*lark.UpdateSpreadsheetResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1010,7 +917,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetSpreadsheet(func(ctx context.Context, request *lark.GetSpreadsheetReq, options ...lark.MethodOptionFunc) (*lark.GetSpreadsheetResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1022,7 +928,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveCreateSpreadsheet(func(ctx context.Context, request *lark.CreateSpreadsheetReq, options ...lark.MethodOptionFunc) (*lark.CreateSpreadsheetResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1034,7 +939,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetSheetMeta(func(ctx context.Context, request *lark.GetSheetMetaReq, options ...lark.MethodOptionFunc) (*lark.GetSheetMetaResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1046,7 +950,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveUpdateSheetProperty(func(ctx context.Context, request *lark.UpdateSheetPropertyReq, options ...lark.MethodOptionFunc) (*lark.UpdateSheetPropertyResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1058,7 +961,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetSheet(func(ctx context.Context, request *lark.GetSheetReq, options ...lark.MethodOptionFunc) (*lark.GetSheetResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1070,7 +972,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetSheetList(func(ctx context.Context, request *lark.GetSheetListReq, options ...lark.MethodOptionFunc) (*lark.GetSheetListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1082,7 +983,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveBatchUpdateSheet(func(ctx context.Context, request *lark.BatchUpdateSheetReq, options ...lark.MethodOptionFunc) (*lark.BatchUpdateSheetResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1094,7 +994,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveImportSheet(func(ctx context.Context, request *lark.ImportSheetReq, options ...lark.MethodOptionFunc) (*lark.ImportSheetResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1106,7 +1005,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveCreateDriveImportTask(func(ctx context.Context, request *lark.CreateDriveImportTaskReq, options ...lark.MethodOptionFunc) (*lark.CreateDriveImportTaskResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1118,7 +1016,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetDriveImportTask(func(ctx context.Context, request *lark.GetDriveImportTaskReq, options ...lark.MethodOptionFunc) (*lark.GetDriveImportTaskResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1130,7 +1027,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveMoveSheetDimension(func(ctx context.Context, request *lark.MoveSheetDimensionReq, options ...lark.MethodOptionFunc) (*lark.MoveSheetDimensionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1142,7 +1038,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDrivePrependSheetValue(func(ctx context.Context, request *lark.PrependSheetValueReq, options ...lark.MethodOptionFunc) (*lark.PrependSheetValueResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1154,7 +1049,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveAppendSheetValue(func(ctx context.Context, request *lark.AppendSheetValueReq, options ...lark.MethodOptionFunc) (*lark.AppendSheetValueResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1166,7 +1060,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveInsertSheetDimensionRange(func(ctx context.Context, request *lark.InsertSheetDimensionRangeReq, options ...lark.MethodOptionFunc) (*lark.InsertSheetDimensionRangeResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1178,7 +1071,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveAddSheetDimensionRange(func(ctx context.Context, request *lark.AddSheetDimensionRangeReq, options ...lark.MethodOptionFunc) (*lark.AddSheetDimensionRangeResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1190,7 +1082,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveUpdateSheetDimensionRange(func(ctx context.Context, request *lark.UpdateSheetDimensionRangeReq, options ...lark.MethodOptionFunc) (*lark.UpdateSheetDimensionRangeResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1202,7 +1093,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveDeleteSheetDimensionRange(func(ctx context.Context, request *lark.DeleteSheetDimensionRangeReq, options ...lark.MethodOptionFunc) (*lark.DeleteSheetDimensionRangeResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1214,7 +1104,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetSheetValue(func(ctx context.Context, request *lark.GetSheetValueReq, options ...lark.MethodOptionFunc) (*lark.GetSheetValueResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1226,7 +1115,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveBatchGetSheetValue(func(ctx context.Context, request *lark.BatchGetSheetValueReq, options ...lark.MethodOptionFunc) (*lark.BatchGetSheetValueResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1238,7 +1126,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveSetSheetValue(func(ctx context.Context, request *lark.SetSheetValueReq, options ...lark.MethodOptionFunc) (*lark.SetSheetValueResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1250,7 +1137,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveBatchSetSheetValue(func(ctx context.Context, request *lark.BatchSetSheetValueReq, options ...lark.MethodOptionFunc) (*lark.BatchSetSheetValueResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1262,7 +1148,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveSetSheetStyle(func(ctx context.Context, request *lark.SetSheetStyleReq, options ...lark.MethodOptionFunc) (*lark.SetSheetStyleResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1274,7 +1159,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveBatchSetSheetStyle(func(ctx context.Context, request *lark.BatchSetSheetStyleReq, options ...lark.MethodOptionFunc) (*lark.BatchSetSheetStyleResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1286,7 +1170,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveMergeSheetCell(func(ctx context.Context, request *lark.MergeSheetCellReq, options ...lark.MethodOptionFunc) (*lark.MergeSheetCellResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1298,7 +1181,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveUnmergeSheetCell(func(ctx context.Context, request *lark.UnmergeSheetCellReq, options ...lark.MethodOptionFunc) (*lark.UnmergeSheetCellResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1310,7 +1192,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveSetSheetValueImage(func(ctx context.Context, request *lark.SetSheetValueImageReq, options ...lark.MethodOptionFunc) (*lark.SetSheetValueImageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1322,7 +1203,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveFindSheet(func(ctx context.Context, request *lark.FindSheetReq, options ...lark.MethodOptionFunc) (*lark.FindSheetResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1334,7 +1214,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveReplaceSheet(func(ctx context.Context, request *lark.ReplaceSheetReq, options ...lark.MethodOptionFunc) (*lark.ReplaceSheetResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1346,7 +1225,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveCreateSheetConditionFormat(func(ctx context.Context, request *lark.CreateSheetConditionFormatReq, options ...lark.MethodOptionFunc) (*lark.CreateSheetConditionFormatResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1358,7 +1236,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetSheetConditionFormat(func(ctx context.Context, request *lark.GetSheetConditionFormatReq, options ...lark.MethodOptionFunc) (*lark.GetSheetConditionFormatResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1370,7 +1247,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveUpdateSheetConditionFormat(func(ctx context.Context, request *lark.UpdateSheetConditionFormatReq, options ...lark.MethodOptionFunc) (*lark.UpdateSheetConditionFormatResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1382,7 +1258,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveDeleteSheetConditionFormat(func(ctx context.Context, request *lark.DeleteSheetConditionFormatReq, options ...lark.MethodOptionFunc) (*lark.DeleteSheetConditionFormatResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1394,7 +1269,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveCreateSheetProtectedDimension(func(ctx context.Context, request *lark.CreateSheetProtectedDimensionReq, options ...lark.MethodOptionFunc) (*lark.CreateSheetProtectedDimensionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1406,7 +1280,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetSheetProtectedDimension(func(ctx context.Context, request *lark.GetSheetProtectedDimensionReq, options ...lark.MethodOptionFunc) (*lark.GetSheetProtectedDimensionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1418,7 +1291,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveUpdateSheetProtectedDimension(func(ctx context.Context, request *lark.UpdateSheetProtectedDimensionReq, options ...lark.MethodOptionFunc) (*lark.UpdateSheetProtectedDimensionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1430,7 +1302,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveDeleteSheetProtectedDimension(func(ctx context.Context, request *lark.DeleteSheetProtectedDimensionReq, options ...lark.MethodOptionFunc) (*lark.DeleteSheetProtectedDimensionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1442,7 +1313,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveCreateSheetDataValidationDropdown(func(ctx context.Context, request *lark.CreateSheetDataValidationDropdownReq, options ...lark.MethodOptionFunc) (*lark.CreateSheetDataValidationDropdownResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1454,7 +1324,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveDeleteSheetDataValidationDropdown(func(ctx context.Context, request *lark.DeleteSheetDataValidationDropdownReq, options ...lark.MethodOptionFunc) (*lark.DeleteSheetDataValidationDropdownResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1466,7 +1335,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveUpdateSheetDataValidationDropdown(func(ctx context.Context, request *lark.UpdateSheetDataValidationDropdownReq, options ...lark.MethodOptionFunc) (*lark.UpdateSheetDataValidationDropdownResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1478,7 +1346,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetSheetDataValidationDropdown(func(ctx context.Context, request *lark.GetSheetDataValidationDropdownReq, options ...lark.MethodOptionFunc) (*lark.GetSheetDataValidationDropdownResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1490,7 +1357,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveCreateSheetFilter(func(ctx context.Context, request *lark.CreateSheetFilterReq, options ...lark.MethodOptionFunc) (*lark.CreateSheetFilterResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1502,7 +1368,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveDeleteSheetFilter(func(ctx context.Context, request *lark.DeleteSheetFilterReq, options ...lark.MethodOptionFunc) (*lark.DeleteSheetFilterResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1514,7 +1379,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveUpdateSheetFilter(func(ctx context.Context, request *lark.UpdateSheetFilterReq, options ...lark.MethodOptionFunc) (*lark.UpdateSheetFilterResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1526,7 +1390,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetSheetFilter(func(ctx context.Context, request *lark.GetSheetFilterReq, options ...lark.MethodOptionFunc) (*lark.GetSheetFilterResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1538,7 +1401,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveCreateSheetFilterView(func(ctx context.Context, request *lark.CreateSheetFilterViewReq, options ...lark.MethodOptionFunc) (*lark.CreateSheetFilterViewResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1550,7 +1412,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveDeleteSheetFilterView(func(ctx context.Context, request *lark.DeleteSheetFilterViewReq, options ...lark.MethodOptionFunc) (*lark.DeleteSheetFilterViewResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1562,7 +1423,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveUpdateSheetFilterView(func(ctx context.Context, request *lark.UpdateSheetFilterViewReq, options ...lark.MethodOptionFunc) (*lark.UpdateSheetFilterViewResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1574,7 +1434,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetSheetFilterView(func(ctx context.Context, request *lark.GetSheetFilterViewReq, options ...lark.MethodOptionFunc) (*lark.GetSheetFilterViewResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1586,7 +1445,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveQuerySheetFilterView(func(ctx context.Context, request *lark.QuerySheetFilterViewReq, options ...lark.MethodOptionFunc) (*lark.QuerySheetFilterViewResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1598,7 +1456,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveCreateSheetFilterViewCondition(func(ctx context.Context, request *lark.CreateSheetFilterViewConditionReq, options ...lark.MethodOptionFunc) (*lark.CreateSheetFilterViewConditionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1610,7 +1467,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveDeleteSheetFilterViewCondition(func(ctx context.Context, request *lark.DeleteSheetFilterViewConditionReq, options ...lark.MethodOptionFunc) (*lark.DeleteSheetFilterViewConditionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1622,7 +1478,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveUpdateSheetFilterViewCondition(func(ctx context.Context, request *lark.UpdateSheetFilterViewConditionReq, options ...lark.MethodOptionFunc) (*lark.UpdateSheetFilterViewConditionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1634,7 +1489,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetSheetFilterViewCondition(func(ctx context.Context, request *lark.GetSheetFilterViewConditionReq, options ...lark.MethodOptionFunc) (*lark.GetSheetFilterViewConditionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1646,7 +1500,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveQuerySheetFilterViewCondition(func(ctx context.Context, request *lark.QuerySheetFilterViewConditionReq, options ...lark.MethodOptionFunc) (*lark.QuerySheetFilterViewConditionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1658,7 +1511,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveCreateSheetFloatImage(func(ctx context.Context, request *lark.CreateSheetFloatImageReq, options ...lark.MethodOptionFunc) (*lark.CreateSheetFloatImageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1670,7 +1522,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveDeleteSheetFloatImage(func(ctx context.Context, request *lark.DeleteSheetFloatImageReq, options ...lark.MethodOptionFunc) (*lark.DeleteSheetFloatImageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1682,7 +1533,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveUpdateSheetFloatImage(func(ctx context.Context, request *lark.UpdateSheetFloatImageReq, options ...lark.MethodOptionFunc) (*lark.UpdateSheetFloatImageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1694,7 +1544,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetSheetFloatImage(func(ctx context.Context, request *lark.GetSheetFloatImageReq, options ...lark.MethodOptionFunc) (*lark.GetSheetFloatImageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1706,7 +1555,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveQuerySheetFloatImage(func(ctx context.Context, request *lark.QuerySheetFloatImageReq, options ...lark.MethodOptionFunc) (*lark.QuerySheetFloatImageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1718,7 +1566,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveCreateWikiSpace(func(ctx context.Context, request *lark.CreateWikiSpaceReq, options ...lark.MethodOptionFunc) (*lark.CreateWikiSpaceResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1730,7 +1577,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetWikiSpaceList(func(ctx context.Context, request *lark.GetWikiSpaceListReq, options ...lark.MethodOptionFunc) (*lark.GetWikiSpaceListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1742,7 +1588,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetWikiSpace(func(ctx context.Context, request *lark.GetWikiSpaceReq, options ...lark.MethodOptionFunc) (*lark.GetWikiSpaceResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1754,7 +1599,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveUpdateWikiSpaceSetting(func(ctx context.Context, request *lark.UpdateWikiSpaceSettingReq, options ...lark.MethodOptionFunc) (*lark.UpdateWikiSpaceSettingResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1766,7 +1610,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveDeleteWikiSpaceMember(func(ctx context.Context, request *lark.DeleteWikiSpaceMemberReq, options ...lark.MethodOptionFunc) (*lark.DeleteWikiSpaceMemberResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1778,7 +1621,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveAddWikiSpaceMember(func(ctx context.Context, request *lark.AddWikiSpaceMemberReq, options ...lark.MethodOptionFunc) (*lark.AddWikiSpaceMemberResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1790,7 +1632,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveCreateWikiNode(func(ctx context.Context, request *lark.CreateWikiNodeReq, options ...lark.MethodOptionFunc) (*lark.CreateWikiNodeResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1802,7 +1643,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetWikiNodeList(func(ctx context.Context, request *lark.GetWikiNodeListReq, options ...lark.MethodOptionFunc) (*lark.GetWikiNodeListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1814,7 +1654,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveMoveWikiNode(func(ctx context.Context, request *lark.MoveWikiNodeReq, options ...lark.MethodOptionFunc) (*lark.MoveWikiNodeResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1826,7 +1665,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveUpdateWikiNodeTitle(func(ctx context.Context, request *lark.UpdateWikiNodeTitleReq, options ...lark.MethodOptionFunc) (*lark.UpdateWikiNodeTitleResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1838,7 +1676,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveCopyWikiNode(func(ctx context.Context, request *lark.CopyWikiNodeReq, options ...lark.MethodOptionFunc) (*lark.CopyWikiNodeResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1850,7 +1687,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetWikiNode(func(ctx context.Context, request *lark.GetWikiNodeReq, options ...lark.MethodOptionFunc) (*lark.GetWikiNodeResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1862,7 +1698,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveMoveDocsToWiki(func(ctx context.Context, request *lark.MoveDocsToWikiReq, options ...lark.MethodOptionFunc) (*lark.MoveDocsToWikiResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1874,7 +1709,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveGetWikiTask(func(ctx context.Context, request *lark.GetWikiTaskReq, options ...lark.MethodOptionFunc) (*lark.GetWikiTaskResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1886,7 +1720,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveDeleteDriveMemberPermissionOld(func(ctx context.Context, request *lark.DeleteDriveMemberPermissionOldReq, options ...lark.MethodOptionFunc) (*lark.DeleteDriveMemberPermissionOldResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1898,7 +1731,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveUpdateDriveMemberPermissionOld(func(ctx context.Context, request *lark.UpdateDriveMemberPermissionOldReq, options ...lark.MethodOptionFunc) (*lark.UpdateDriveMemberPermissionOldResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1910,7 +1742,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveTransferDriveMemberPermission(func(ctx context.Context, request *lark.TransferDriveMemberPermissionReq, options ...lark.MethodOptionFunc) (*lark.TransferDriveMemberPermissionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1922,7 +1753,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockDriveCheckDriveMemberPermissionOld(func(ctx context.Context, request *lark.CheckDriveMemberPermissionOldReq, options ...lark.MethodOptionFunc) (*lark.CheckDriveMemberPermissionOldResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -1932,7 +1762,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
-
 	})
 
 	t.Run("response is failed (mock http)", func(t *testing.T) {
@@ -1943,21 +1772,18 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetDriveRootFolderMeta(ctx, &lark.GetDriveRootFolderMetaReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetDriveFileList(ctx, &lark.GetDriveFileListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetDriveFolderMeta(ctx, &lark.GetDriveFolderMetaReq{
 				FolderToken: "x",
 			})
@@ -1966,21 +1792,18 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateDriveFolder(ctx, &lark.CreateDriveFolderReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetDriveFileMeta(ctx, &lark.GetDriveFileMetaReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateDriveFile(ctx, &lark.CreateDriveFileReq{
 				FolderToken: "x",
 			})
@@ -1989,7 +1812,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CopyDriveFile(ctx, &lark.CopyDriveFileReq{
 				FileToken: "x",
 			})
@@ -1998,7 +1820,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.MoveDriveFile(ctx, &lark.MoveDriveFileReq{
 				FileToken: "x",
 			})
@@ -2007,7 +1828,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeleteDriveFile(ctx, &lark.DeleteDriveFileReq{
 				FileToken: "x",
 			})
@@ -2016,7 +1836,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetDriveFileStatistics(ctx, &lark.GetDriveFileStatisticsReq{
 				FileToken: "x",
 			})
@@ -2025,28 +1844,24 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateDriveFileShortcut(ctx, &lark.CreateDriveFileShortcutReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetDriveFileTask(ctx, &lark.GetDriveFileTaskReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UploadDriveMedia(ctx, &lark.UploadDriveMediaReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DownloadDriveMedia(ctx, &lark.DownloadDriveMediaReq{
 				FileToken: "x",
 			})
@@ -2055,28 +1870,24 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.PrepareUploadDriveMedia(ctx, &lark.PrepareUploadDriveMediaReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.PartUploadDriveMedia(ctx, &lark.PartUploadDriveMediaReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.FinishUploadDriveMedia(ctx, &lark.FinishUploadDriveMediaReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetDocxDocument(ctx, &lark.GetDocxDocumentReq{
 				DocumentID: "x",
 			})
@@ -2085,7 +1896,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetDocxDocumentRawContent(ctx, &lark.GetDocxDocumentRawContentReq{
 				DocumentID: "x",
 			})
@@ -2094,7 +1904,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetDocxBlockListOfDocument(ctx, &lark.GetDocxBlockListOfDocumentReq{
 				DocumentID: "x",
 			})
@@ -2103,14 +1912,12 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateDocx(ctx, &lark.CreateDocxReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetDocxBlock(ctx, &lark.GetDocxBlockReq{
 				DocumentID: "x",
 				BlockID:    "x",
@@ -2120,7 +1927,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateDocxBlock(ctx, &lark.CreateDocxBlockReq{
 				DocumentID: "x",
 				BlockID:    "x",
@@ -2130,7 +1936,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateDocxBlock(ctx, &lark.UpdateDocxBlockReq{
 				DocumentID: "x",
 				BlockID:    "x",
@@ -2140,7 +1945,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.BatchDeleteDocxBlock(ctx, &lark.BatchDeleteDocxBlockReq{
 				DocumentID: "x",
 				BlockID:    "x",
@@ -2150,7 +1954,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetDocxBlockListOfBlock(ctx, &lark.GetDocxBlockListOfBlockReq{
 				DocumentID: "x",
 				BlockID:    "x",
@@ -2160,7 +1963,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.SubscribeDriveFile(ctx, &lark.SubscribeDriveFileReq{
 				FileToken: "x",
 			})
@@ -2169,7 +1971,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UnsubscribeDriveFile(ctx, &lark.UnsubscribeDriveFileReq{
 				FileToken: "x",
 			})
@@ -2178,7 +1979,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetSubscribeDriveFile(ctx, &lark.GetSubscribeDriveFileReq{
 				FileToken: "x",
 			})
@@ -2187,14 +1987,12 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.SearchDriveFile(ctx, &lark.SearchDriveFileReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeleteDriveSheetFile(ctx, &lark.DeleteDriveSheetFileReq{
 				SpreadSheetToken: "x",
 			})
@@ -2203,7 +2001,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetDriveFolderChildren(ctx, &lark.GetDriveFolderChildrenReq{
 				FolderToken: "x",
 			})
@@ -2212,14 +2009,12 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateDriveExportTask(ctx, &lark.CreateDriveExportTaskReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetDriveExportTask(ctx, &lark.GetDriveExportTaskReq{
 				Ticket: "x",
 			})
@@ -2228,7 +2023,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DownloadDriveExportTask(ctx, &lark.DownloadDriveExportTaskReq{
 				FileToken: "x",
 			})
@@ -2237,7 +2031,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetDriveFileViewRecordList(ctx, &lark.GetDriveFileViewRecordListReq{
 				FileToken: "x",
 			})
@@ -2246,7 +2039,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateDriveFileVersion(ctx, &lark.CreateDriveFileVersionReq{
 				FileToken: "x",
 			})
@@ -2255,7 +2047,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeleteDriveFileVersion(ctx, &lark.DeleteDriveFileVersionReq{
 				FileToken: "x",
 				VersionID: "x",
@@ -2265,7 +2056,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetDriveFileVersion(ctx, &lark.GetDriveFileVersionReq{
 				FileToken: "x",
 				VersionID: "x",
@@ -2275,7 +2065,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetDriveFileVersionList(ctx, &lark.GetDriveFileVersionListReq{
 				FileToken: "x",
 			})
@@ -2284,7 +2073,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DownloadDriveFile(ctx, &lark.DownloadDriveFileReq{
 				FileToken: "x",
 			})
@@ -2293,42 +2081,36 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UploadDriveFile(ctx, &lark.UploadDriveFileReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.PrepareUploadDriveFile(ctx, &lark.PrepareUploadDriveFileReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.PartUploadDriveFile(ctx, &lark.PartUploadDriveFileReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.FinishUploadDriveFile(ctx, &lark.FinishUploadDriveFileReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateDriveMemberPermissionOld(ctx, &lark.CreateDriveMemberPermissionOldReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.TransferDriveOwnerPermission(ctx, &lark.TransferDriveOwnerPermissionReq{
 				Token: "x",
 			})
@@ -2337,7 +2119,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CheckDriveMemberPermission(ctx, &lark.CheckDriveMemberPermissionReq{
 				Token: "x",
 			})
@@ -2346,7 +2127,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetDriveMemberPermissionList(ctx, &lark.GetDriveMemberPermissionListReq{
 				Token: "x",
 			})
@@ -2355,14 +2135,12 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetDriveMemberPermissionListOld(ctx, &lark.GetDriveMemberPermissionListOldReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateDriveMemberPermission(ctx, &lark.CreateDriveMemberPermissionReq{
 				Token: "x",
 			})
@@ -2371,7 +2149,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateDriveMemberPermission(ctx, &lark.UpdateDriveMemberPermissionReq{
 				Token:    "x",
 				MemberID: "x",
@@ -2381,7 +2158,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeleteDriveMemberPermission(ctx, &lark.DeleteDriveMemberPermissionReq{
 				Token:    "x",
 				MemberID: "x",
@@ -2391,14 +2167,12 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetDrivePublicPermissionOld(ctx, &lark.GetDrivePublicPermissionOldReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateDrivePermissionPublicPassword(ctx, &lark.CreateDrivePermissionPublicPasswordReq{
 				Token: "x",
 			})
@@ -2407,7 +2181,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateDrivePermissionPublicPassword(ctx, &lark.UpdateDrivePermissionPublicPasswordReq{
 				Token: "x",
 			})
@@ -2416,7 +2189,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeleteDrivePermissionPublicPassword(ctx, &lark.DeleteDrivePermissionPublicPasswordReq{
 				Token: "x",
 			})
@@ -2425,7 +2197,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetDrivePublicPermission(ctx, &lark.GetDrivePublicPermissionReq{
 				Token: "x",
 			})
@@ -2434,7 +2205,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateDrivePublicPermission(ctx, &lark.UpdateDrivePublicPermissionReq{
 				Token: "x",
 			})
@@ -2443,7 +2213,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetDrivePublicPermissionV2(ctx, &lark.GetDrivePublicPermissionV2Req{
 				Token: "x",
 			})
@@ -2452,7 +2221,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateDrivePublicPermissionV2(ctx, &lark.UpdateDrivePublicPermissionV2Req{
 				Token: "x",
 			})
@@ -2461,14 +2229,12 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.BatchGetDriveMediaTmpDownloadURL(ctx, &lark.BatchGetDriveMediaTmpDownloadURLReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetDriveCommentList(ctx, &lark.GetDriveCommentListReq{
 				FileToken: "x",
 			})
@@ -2477,7 +2243,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateDriveComment(ctx, &lark.CreateDriveCommentReq{
 				FileToken: "x",
 			})
@@ -2486,7 +2251,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetDriveComment(ctx, &lark.GetDriveCommentReq{
 				FileToken: "x",
 				CommentID: "x",
@@ -2496,7 +2260,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.BatchGetDriveComment(ctx, &lark.BatchGetDriveCommentReq{
 				FileToken: "x",
 			})
@@ -2505,7 +2268,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetDriveCommentReplyList(ctx, &lark.GetDriveCommentReplyListReq{
 				FileToken: "x",
 				CommentID: "x",
@@ -2515,7 +2277,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateDriveComment(ctx, &lark.UpdateDriveCommentReq{
 				FileToken: "x",
 				CommentID: "x",
@@ -2526,7 +2287,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeleteDriveComment(ctx, &lark.DeleteDriveCommentReq{
 				FileToken: "x",
 				CommentID: "x",
@@ -2537,7 +2297,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateDriveCommentPatch(ctx, &lark.UpdateDriveCommentPatchReq{
 				FileToken: "x",
 				CommentID: "x",
@@ -2547,7 +2306,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetDriveFileSubscription(ctx, &lark.GetDriveFileSubscriptionReq{
 				FileToken:      "x",
 				SubscriptionID: "x",
@@ -2557,7 +2315,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateDriveFileSubscription(ctx, &lark.CreateDriveFileSubscriptionReq{
 				FileToken: "x",
 			})
@@ -2566,7 +2323,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateDriveFileSubscription(ctx, &lark.UpdateDriveFileSubscriptionReq{
 				FileToken:      "x",
 				SubscriptionID: "x",
@@ -2576,14 +2332,12 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateDriveDoc(ctx, &lark.CreateDriveDocReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetDriveDocContent(ctx, &lark.GetDriveDocContentReq{
 				DocToken: "x",
 			})
@@ -2592,7 +2346,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateDriveDocContent(ctx, &lark.UpdateDriveDocContentReq{
 				DocToken: "x",
 			})
@@ -2601,7 +2354,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetDriveDocRawContent(ctx, &lark.GetDriveDocRawContentReq{
 				DocToken: "x",
 			})
@@ -2610,7 +2362,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetDriveDocMeta(ctx, &lark.GetDriveDocMetaReq{
 				DocToken: "x",
 			})
@@ -2619,16 +2370,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetWhiteboardNodeList(ctx, &lark.GetWhiteboardNodeListReq{
-				WhiteboardID: "x",
-			})
-			as.NotNil(err)
-			as.Equal("mock-http-failed", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateSpreadsheet(ctx, &lark.UpdateSpreadsheetReq{
 				SpreadSheetToken: "x",
 			})
@@ -2637,7 +2378,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetSpreadsheet(ctx, &lark.GetSpreadsheetReq{
 				SpreadSheetToken: "x",
 			})
@@ -2646,14 +2386,12 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateSpreadsheet(ctx, &lark.CreateSpreadsheetReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetSheetMeta(ctx, &lark.GetSheetMetaReq{
 				SpreadSheetToken: "x",
 			})
@@ -2662,7 +2400,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateSheetProperty(ctx, &lark.UpdateSheetPropertyReq{
 				SpreadSheetToken: "x",
 			})
@@ -2671,7 +2408,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetSheet(ctx, &lark.GetSheetReq{
 				SpreadSheetToken: "x",
 				SheetID:          "x",
@@ -2681,7 +2417,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetSheetList(ctx, &lark.GetSheetListReq{
 				SpreadSheetToken: "x",
 			})
@@ -2690,7 +2425,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.BatchUpdateSheet(ctx, &lark.BatchUpdateSheetReq{
 				SpreadSheetToken: "x",
 			})
@@ -2699,21 +2433,18 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.ImportSheet(ctx, &lark.ImportSheetReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateDriveImportTask(ctx, &lark.CreateDriveImportTaskReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetDriveImportTask(ctx, &lark.GetDriveImportTaskReq{
 				Ticket: "x",
 			})
@@ -2722,7 +2453,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.MoveSheetDimension(ctx, &lark.MoveSheetDimensionReq{
 				SpreadSheetToken: "x",
 				SheetID:          "x",
@@ -2732,7 +2462,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.PrependSheetValue(ctx, &lark.PrependSheetValueReq{
 				SpreadSheetToken: "x",
 			})
@@ -2741,7 +2470,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.AppendSheetValue(ctx, &lark.AppendSheetValueReq{
 				SpreadSheetToken: "x",
 			})
@@ -2750,7 +2478,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.InsertSheetDimensionRange(ctx, &lark.InsertSheetDimensionRangeReq{
 				SpreadSheetToken: "x",
 			})
@@ -2759,7 +2486,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.AddSheetDimensionRange(ctx, &lark.AddSheetDimensionRangeReq{
 				SpreadSheetToken: "x",
 			})
@@ -2768,7 +2494,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateSheetDimensionRange(ctx, &lark.UpdateSheetDimensionRangeReq{
 				SpreadSheetToken: "x",
 			})
@@ -2777,7 +2502,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeleteSheetDimensionRange(ctx, &lark.DeleteSheetDimensionRangeReq{
 				SpreadSheetToken: "x",
 			})
@@ -2786,7 +2510,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetSheetValue(ctx, &lark.GetSheetValueReq{
 				SpreadSheetToken: "x",
 				Range:            "x",
@@ -2796,7 +2519,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.BatchGetSheetValue(ctx, &lark.BatchGetSheetValueReq{
 				SpreadSheetToken: "x",
 			})
@@ -2805,7 +2527,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.SetSheetValue(ctx, &lark.SetSheetValueReq{
 				SpreadSheetToken: "x",
 			})
@@ -2814,7 +2535,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.BatchSetSheetValue(ctx, &lark.BatchSetSheetValueReq{
 				SpreadSheetToken: "x",
 			})
@@ -2823,7 +2543,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.SetSheetStyle(ctx, &lark.SetSheetStyleReq{
 				SpreadSheetToken: "x",
 			})
@@ -2832,7 +2551,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.BatchSetSheetStyle(ctx, &lark.BatchSetSheetStyleReq{
 				SpreadSheetToken: "x",
 			})
@@ -2841,7 +2559,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.MergeSheetCell(ctx, &lark.MergeSheetCellReq{
 				SpreadSheetToken: "x",
 			})
@@ -2850,7 +2567,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UnmergeSheetCell(ctx, &lark.UnmergeSheetCellReq{
 				SpreadSheetToken: "x",
 			})
@@ -2859,7 +2575,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.SetSheetValueImage(ctx, &lark.SetSheetValueImageReq{
 				SpreadSheetToken: "x",
 			})
@@ -2868,7 +2583,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.FindSheet(ctx, &lark.FindSheetReq{
 				SpreadSheetToken: "x",
 				SheetID:          "x",
@@ -2878,7 +2592,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.ReplaceSheet(ctx, &lark.ReplaceSheetReq{
 				SpreadSheetToken: "x",
 				SheetID:          "x",
@@ -2888,7 +2601,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateSheetConditionFormat(ctx, &lark.CreateSheetConditionFormatReq{
 				SpreadSheetToken: "x",
 			})
@@ -2897,7 +2609,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetSheetConditionFormat(ctx, &lark.GetSheetConditionFormatReq{
 				SpreadSheetToken: "x",
 			})
@@ -2906,7 +2617,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateSheetConditionFormat(ctx, &lark.UpdateSheetConditionFormatReq{
 				SpreadSheetToken: "x",
 			})
@@ -2915,7 +2625,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeleteSheetConditionFormat(ctx, &lark.DeleteSheetConditionFormatReq{
 				SpreadSheetToken: "x",
 			})
@@ -2924,7 +2633,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateSheetProtectedDimension(ctx, &lark.CreateSheetProtectedDimensionReq{
 				SpreadSheetToken: "x",
 			})
@@ -2933,7 +2641,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetSheetProtectedDimension(ctx, &lark.GetSheetProtectedDimensionReq{
 				SpreadSheetToken: "x",
 			})
@@ -2942,7 +2649,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateSheetProtectedDimension(ctx, &lark.UpdateSheetProtectedDimensionReq{
 				SpreadSheetToken: "x",
 			})
@@ -2951,7 +2657,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeleteSheetProtectedDimension(ctx, &lark.DeleteSheetProtectedDimensionReq{
 				SpreadSheetToken: "x",
 			})
@@ -2960,7 +2665,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateSheetDataValidationDropdown(ctx, &lark.CreateSheetDataValidationDropdownReq{
 				SpreadSheetToken: "x",
 			})
@@ -2969,7 +2673,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeleteSheetDataValidationDropdown(ctx, &lark.DeleteSheetDataValidationDropdownReq{
 				SpreadSheetToken: "x",
 			})
@@ -2978,7 +2681,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateSheetDataValidationDropdown(ctx, &lark.UpdateSheetDataValidationDropdownReq{
 				SpreadSheetToken: "x",
 				SheetID:          "x",
@@ -2988,7 +2690,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetSheetDataValidationDropdown(ctx, &lark.GetSheetDataValidationDropdownReq{
 				SpreadSheetToken: "x",
 			})
@@ -2997,7 +2698,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateSheetFilter(ctx, &lark.CreateSheetFilterReq{
 				SpreadSheetToken: "x",
 				SheetID:          "x",
@@ -3007,7 +2707,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeleteSheetFilter(ctx, &lark.DeleteSheetFilterReq{
 				SpreadSheetToken: "x",
 				SheetID:          "x",
@@ -3017,7 +2716,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateSheetFilter(ctx, &lark.UpdateSheetFilterReq{
 				SpreadSheetToken: "x",
 				SheetID:          "x",
@@ -3027,7 +2725,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetSheetFilter(ctx, &lark.GetSheetFilterReq{
 				SpreadSheetToken: "x",
 				SheetID:          "x",
@@ -3037,7 +2734,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateSheetFilterView(ctx, &lark.CreateSheetFilterViewReq{
 				SpreadSheetToken: "x",
 				SheetID:          "x",
@@ -3047,7 +2743,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeleteSheetFilterView(ctx, &lark.DeleteSheetFilterViewReq{
 				SpreadSheetToken: "x",
 				SheetID:          "x",
@@ -3058,7 +2753,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateSheetFilterView(ctx, &lark.UpdateSheetFilterViewReq{
 				SpreadSheetToken: "x",
 				SheetID:          "x",
@@ -3069,7 +2763,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetSheetFilterView(ctx, &lark.GetSheetFilterViewReq{
 				SpreadSheetToken: "x",
 				SheetID:          "x",
@@ -3080,7 +2773,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.QuerySheetFilterView(ctx, &lark.QuerySheetFilterViewReq{
 				SpreadSheetToken: "x",
 				SheetID:          "x",
@@ -3090,7 +2782,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateSheetFilterViewCondition(ctx, &lark.CreateSheetFilterViewConditionReq{
 				SpreadSheetToken: "x",
 				SheetID:          "x",
@@ -3101,7 +2792,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeleteSheetFilterViewCondition(ctx, &lark.DeleteSheetFilterViewConditionReq{
 				SpreadSheetToken: "x",
 				SheetID:          "x",
@@ -3113,7 +2803,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateSheetFilterViewCondition(ctx, &lark.UpdateSheetFilterViewConditionReq{
 				SpreadSheetToken: "x",
 				SheetID:          "x",
@@ -3125,7 +2814,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetSheetFilterViewCondition(ctx, &lark.GetSheetFilterViewConditionReq{
 				SpreadSheetToken: "x",
 				SheetID:          "x",
@@ -3137,7 +2825,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.QuerySheetFilterViewCondition(ctx, &lark.QuerySheetFilterViewConditionReq{
 				SpreadSheetToken: "x",
 				SheetID:          "x",
@@ -3148,7 +2835,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateSheetFloatImage(ctx, &lark.CreateSheetFloatImageReq{
 				SpreadSheetToken: "x",
 				SheetID:          "x",
@@ -3158,7 +2844,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeleteSheetFloatImage(ctx, &lark.DeleteSheetFloatImageReq{
 				SpreadSheetToken: "x",
 				SheetID:          "x",
@@ -3169,7 +2854,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateSheetFloatImage(ctx, &lark.UpdateSheetFloatImageReq{
 				SpreadSheetToken: "x",
 				SheetID:          "x",
@@ -3180,7 +2864,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetSheetFloatImage(ctx, &lark.GetSheetFloatImageReq{
 				SpreadSheetToken: "x",
 				SheetID:          "x",
@@ -3191,7 +2874,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.QuerySheetFloatImage(ctx, &lark.QuerySheetFloatImageReq{
 				SpreadSheetToken: "x",
 				SheetID:          "x",
@@ -3201,21 +2883,18 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateWikiSpace(ctx, &lark.CreateWikiSpaceReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetWikiSpaceList(ctx, &lark.GetWikiSpaceListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetWikiSpace(ctx, &lark.GetWikiSpaceReq{
 				SpaceID: "x",
 			})
@@ -3224,7 +2903,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateWikiSpaceSetting(ctx, &lark.UpdateWikiSpaceSettingReq{
 				SpaceID: "x",
 			})
@@ -3233,7 +2911,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeleteWikiSpaceMember(ctx, &lark.DeleteWikiSpaceMemberReq{
 				SpaceID:  "x",
 				MemberID: "x",
@@ -3243,7 +2920,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.AddWikiSpaceMember(ctx, &lark.AddWikiSpaceMemberReq{
 				SpaceID: "x",
 			})
@@ -3252,7 +2928,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateWikiNode(ctx, &lark.CreateWikiNodeReq{
 				SpaceID: "x",
 			})
@@ -3261,7 +2936,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetWikiNodeList(ctx, &lark.GetWikiNodeListReq{
 				SpaceID: "x",
 			})
@@ -3270,7 +2944,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.MoveWikiNode(ctx, &lark.MoveWikiNodeReq{
 				SpaceID:   "x",
 				NodeToken: "x",
@@ -3280,7 +2953,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateWikiNodeTitle(ctx, &lark.UpdateWikiNodeTitleReq{
 				SpaceID:   "x",
 				NodeToken: "x",
@@ -3290,7 +2962,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CopyWikiNode(ctx, &lark.CopyWikiNodeReq{
 				SpaceID:   "x",
 				NodeToken: "x",
@@ -3300,14 +2971,12 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetWikiNode(ctx, &lark.GetWikiNodeReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.MoveDocsToWiki(ctx, &lark.MoveDocsToWikiReq{
 				SpaceID: "x",
 			})
@@ -3316,7 +2985,6 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetWikiTask(ctx, &lark.GetWikiTaskReq{
 				TaskID: "x",
 			})
@@ -3325,32 +2993,27 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeleteDriveMemberPermissionOld(ctx, &lark.DeleteDriveMemberPermissionOldReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateDriveMemberPermissionOld(ctx, &lark.UpdateDriveMemberPermissionOldReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.TransferDriveMemberPermission(ctx, &lark.TransferDriveMemberPermissionReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CheckDriveMemberPermissionOld(ctx, &lark.CheckDriveMemberPermissionOldReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
-
 	})
 }

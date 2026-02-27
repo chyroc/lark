@@ -37,12 +37,10 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Hire
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetHireJobConfig(ctx, &lark.GetHireJobConfigReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
-
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {
@@ -50,7 +48,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Hire
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireGetHireJobConfig(func(ctx context.Context, request *lark.GetHireJobConfigReq, options ...lark.MethodOptionFunc) (*lark.GetHireJobConfigResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -62,7 +59,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireCreateHireJob(func(ctx context.Context, request *lark.CreateHireJobReq, options ...lark.MethodOptionFunc) (*lark.CreateHireJobResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -74,7 +70,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireUpdateHireJob(func(ctx context.Context, request *lark.UpdateHireJobReq, options ...lark.MethodOptionFunc) (*lark.UpdateHireJobResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -86,7 +81,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireUpdateHireJobConfig(func(ctx context.Context, request *lark.UpdateHireJobConfigReq, options ...lark.MethodOptionFunc) (*lark.UpdateHireJobConfigResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -98,7 +92,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireGetHireJob(func(ctx context.Context, request *lark.GetHireJobReq, options ...lark.MethodOptionFunc) (*lark.GetHireJobResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -110,7 +103,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireGetHireJobManager(func(ctx context.Context, request *lark.GetHireJobManagerReq, options ...lark.MethodOptionFunc) (*lark.GetHireJobManagerResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -122,7 +114,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireQueryHireTalentObject(func(ctx context.Context, request *lark.QueryHireTalentObjectReq, options ...lark.MethodOptionFunc) (*lark.QueryHireTalentObjectResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -134,7 +125,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireGetHireTalent(func(ctx context.Context, request *lark.GetHireTalentReq, options ...lark.MethodOptionFunc) (*lark.GetHireTalentResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -146,7 +136,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireGetHireAttachment(func(ctx context.Context, request *lark.GetHireAttachmentReq, options ...lark.MethodOptionFunc) (*lark.GetHireAttachmentResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -158,7 +147,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireGetHireAttachmentPreview(func(ctx context.Context, request *lark.GetHireAttachmentPreviewReq, options ...lark.MethodOptionFunc) (*lark.GetHireAttachmentPreviewResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -170,7 +158,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireGetHireReferralWebsiteJobPostList(func(ctx context.Context, request *lark.GetHireReferralWebsiteJobPostListReq, options ...lark.MethodOptionFunc) (*lark.GetHireReferralWebsiteJobPostListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -182,7 +169,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireGetHireReferralWebsiteJobPost(func(ctx context.Context, request *lark.GetHireReferralWebsiteJobPostReq, options ...lark.MethodOptionFunc) (*lark.GetHireReferralWebsiteJobPostResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -194,7 +180,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireGetHireReferralByApplication(func(ctx context.Context, request *lark.GetHireReferralByApplicationReq, options ...lark.MethodOptionFunc) (*lark.GetHireReferralByApplicationResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -206,7 +191,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireCreateHireExternalApplication(func(ctx context.Context, request *lark.CreateHireExternalApplicationReq, options ...lark.MethodOptionFunc) (*lark.CreateHireExternalApplicationResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -218,7 +202,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireUpdateHireExternalApplication(func(ctx context.Context, request *lark.UpdateHireExternalApplicationReq, options ...lark.MethodOptionFunc) (*lark.UpdateHireExternalApplicationResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -230,7 +213,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireDeleteHireExternalApplication(func(ctx context.Context, request *lark.DeleteHireExternalApplicationReq, options ...lark.MethodOptionFunc) (*lark.DeleteHireExternalApplicationResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -242,7 +224,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireCreateHireExternalInterview(func(ctx context.Context, request *lark.CreateHireExternalInterviewReq, options ...lark.MethodOptionFunc) (*lark.CreateHireExternalInterviewResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -254,7 +235,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireCreateHireExternalInterviewAssessment(func(ctx context.Context, request *lark.CreateHireExternalInterviewAssessmentReq, options ...lark.MethodOptionFunc) (*lark.CreateHireExternalInterviewAssessmentResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -266,7 +246,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireCreateHireExternalBackgroundCheck(func(ctx context.Context, request *lark.CreateHireExternalBackgroundCheckReq, options ...lark.MethodOptionFunc) (*lark.CreateHireExternalBackgroundCheckResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -278,7 +257,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireAddHireTalentToFolder(func(ctx context.Context, request *lark.AddHireTalentToFolderReq, options ...lark.MethodOptionFunc) (*lark.AddHireTalentToFolderResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -290,7 +268,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireGetHireTalentFolderList(func(ctx context.Context, request *lark.GetHireTalentFolderListReq, options ...lark.MethodOptionFunc) (*lark.GetHireTalentFolderListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -302,7 +279,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireBatchGetHireTalent(func(ctx context.Context, request *lark.BatchGetHireTalentReq, options ...lark.MethodOptionFunc) (*lark.BatchGetHireTalentResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -314,19 +290,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockHireGetHireTalentList(func(ctx context.Context, request *lark.GetHireTalentListReq, options ...lark.MethodOptionFunc) (*lark.GetHireTalentListResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockHireGetHireTalentList()
-
-			_, _, err := moduleCli.GetHireTalentList(ctx, &lark.GetHireTalentListReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireGetHireJobProcessList(func(ctx context.Context, request *lark.GetHireJobProcessListReq, options ...lark.MethodOptionFunc) (*lark.GetHireJobProcessListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -338,7 +301,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireCreateHireApplication(func(ctx context.Context, request *lark.CreateHireApplicationReq, options ...lark.MethodOptionFunc) (*lark.CreateHireApplicationResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -350,7 +312,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireTerminateHireApplication(func(ctx context.Context, request *lark.TerminateHireApplicationReq, options ...lark.MethodOptionFunc) (*lark.TerminateHireApplicationResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -362,7 +323,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireGetHireApplication(func(ctx context.Context, request *lark.GetHireApplicationReq, options ...lark.MethodOptionFunc) (*lark.GetHireApplicationResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -374,7 +334,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireGetHireApplicationList(func(ctx context.Context, request *lark.GetHireApplicationListReq, options ...lark.MethodOptionFunc) (*lark.GetHireApplicationListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -386,7 +345,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireGetHireEvaluationList(func(ctx context.Context, request *lark.GetHireEvaluationListReq, options ...lark.MethodOptionFunc) (*lark.GetHireEvaluationListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -398,7 +356,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireGetHireQuestionnaireList(func(ctx context.Context, request *lark.GetHireQuestionnaireListReq, options ...lark.MethodOptionFunc) (*lark.GetHireQuestionnaireListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -410,7 +367,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireGetHireInterviewList(func(ctx context.Context, request *lark.GetHireInterviewListReq, options ...lark.MethodOptionFunc) (*lark.GetHireInterviewListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -422,7 +378,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireCreateHireOffer(func(ctx context.Context, request *lark.CreateHireOfferReq, options ...lark.MethodOptionFunc) (*lark.CreateHireOfferResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -434,7 +389,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireUpdateHireOffer(func(ctx context.Context, request *lark.UpdateHireOfferReq, options ...lark.MethodOptionFunc) (*lark.UpdateHireOfferResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -446,7 +400,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireGetHireOfferByApplication(func(ctx context.Context, request *lark.GetHireOfferByApplicationReq, options ...lark.MethodOptionFunc) (*lark.GetHireOfferByApplicationResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -458,7 +411,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireGetHireOffer(func(ctx context.Context, request *lark.GetHireOfferReq, options ...lark.MethodOptionFunc) (*lark.GetHireOfferResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -470,7 +422,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireGetHireOfferList(func(ctx context.Context, request *lark.GetHireOfferListReq, options ...lark.MethodOptionFunc) (*lark.GetHireOfferListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -482,7 +433,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireUpdateHireOfferStatus(func(ctx context.Context, request *lark.UpdateHireOfferStatusReq, options ...lark.MethodOptionFunc) (*lark.UpdateHireOfferStatusResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -494,7 +444,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireUpdateHireOfferInternStatus(func(ctx context.Context, request *lark.UpdateHireOfferInternStatusReq, options ...lark.MethodOptionFunc) (*lark.UpdateHireOfferInternStatusResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -506,7 +455,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireGetHireApplicationInterviewList(func(ctx context.Context, request *lark.GetHireApplicationInterviewListReq, options ...lark.MethodOptionFunc) (*lark.GetHireApplicationInterviewListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -518,7 +466,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireGetHireOfferSchema(func(ctx context.Context, request *lark.GetHireOfferSchemaReq, options ...lark.MethodOptionFunc) (*lark.GetHireOfferSchemaResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -530,7 +477,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireUpdateHireEHRImportTask(func(ctx context.Context, request *lark.UpdateHireEHRImportTaskReq, options ...lark.MethodOptionFunc) (*lark.UpdateHireEHRImportTaskResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -542,7 +488,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireMakeHireTransferOnboardByApplication(func(ctx context.Context, request *lark.MakeHireTransferOnboardByApplicationReq, options ...lark.MethodOptionFunc) (*lark.MakeHireTransferOnboardByApplicationResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -554,7 +499,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireUpdateHireEmployee(func(ctx context.Context, request *lark.UpdateHireEmployeeReq, options ...lark.MethodOptionFunc) (*lark.UpdateHireEmployeeResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -566,7 +510,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireGetHireEmployeeByApplication(func(ctx context.Context, request *lark.GetHireEmployeeByApplicationReq, options ...lark.MethodOptionFunc) (*lark.GetHireEmployeeByApplicationResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -578,7 +521,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireGetHireEmployee(func(ctx context.Context, request *lark.GetHireEmployeeReq, options ...lark.MethodOptionFunc) (*lark.GetHireEmployeeResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -590,7 +532,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireCreateHireNote(func(ctx context.Context, request *lark.CreateHireNoteReq, options ...lark.MethodOptionFunc) (*lark.CreateHireNoteResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -602,7 +543,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireUpdateHireNote(func(ctx context.Context, request *lark.UpdateHireNoteReq, options ...lark.MethodOptionFunc) (*lark.UpdateHireNoteResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -614,7 +554,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireGetHireNote(func(ctx context.Context, request *lark.GetHireNoteReq, options ...lark.MethodOptionFunc) (*lark.GetHireNoteResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -626,7 +565,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireGetHireNoteList(func(ctx context.Context, request *lark.GetHireNoteListReq, options ...lark.MethodOptionFunc) (*lark.GetHireNoteListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -638,7 +576,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireGetHireResumeSource(func(ctx context.Context, request *lark.GetHireResumeSourceReq, options ...lark.MethodOptionFunc) (*lark.GetHireResumeSourceResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -650,7 +587,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireCreateHireEcoAccountCustomField(func(ctx context.Context, request *lark.CreateHireEcoAccountCustomFieldReq, options ...lark.MethodOptionFunc) (*lark.CreateHireEcoAccountCustomFieldResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -662,7 +598,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireBatchUpdateHireEcoAccountCustomField(func(ctx context.Context, request *lark.BatchUpdateHireEcoAccountCustomFieldReq, options ...lark.MethodOptionFunc) (*lark.BatchUpdateHireEcoAccountCustomFieldResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -674,7 +609,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireBatchDeleteHireEcoAccountCustomField(func(ctx context.Context, request *lark.BatchDeleteHireEcoAccountCustomFieldReq, options ...lark.MethodOptionFunc) (*lark.BatchDeleteHireEcoAccountCustomFieldResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -686,7 +620,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireCreateHireEcoBackgroundCheckCustomField(func(ctx context.Context, request *lark.CreateHireEcoBackgroundCheckCustomFieldReq, options ...lark.MethodOptionFunc) (*lark.CreateHireEcoBackgroundCheckCustomFieldResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -698,7 +631,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireBatchUpdateHireEcoBackgroundCheckCustomField(func(ctx context.Context, request *lark.BatchUpdateHireEcoBackgroundCheckCustomFieldReq, options ...lark.MethodOptionFunc) (*lark.BatchUpdateHireEcoBackgroundCheckCustomFieldResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -710,7 +642,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireBatchDeleteHireEcoBackgroundCheckCustomField(func(ctx context.Context, request *lark.BatchDeleteHireEcoBackgroundCheckCustomFieldReq, options ...lark.MethodOptionFunc) (*lark.BatchDeleteHireEcoBackgroundCheckCustomFieldResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -722,7 +653,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireCreateHireEcoBackgroundCheckPackage(func(ctx context.Context, request *lark.CreateHireEcoBackgroundCheckPackageReq, options ...lark.MethodOptionFunc) (*lark.CreateHireEcoBackgroundCheckPackageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -734,7 +664,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireBatchUpdateHireEcoBackgroundCheckPackage(func(ctx context.Context, request *lark.BatchUpdateHireEcoBackgroundCheckPackageReq, options ...lark.MethodOptionFunc) (*lark.BatchUpdateHireEcoBackgroundCheckPackageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -746,7 +675,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireBatchDeleteHireEcoBackgroundCheckPackage(func(ctx context.Context, request *lark.BatchDeleteHireEcoBackgroundCheckPackageReq, options ...lark.MethodOptionFunc) (*lark.BatchDeleteHireEcoBackgroundCheckPackageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -758,7 +686,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireUpdateHireEcoBackgroundCheckProgress(func(ctx context.Context, request *lark.UpdateHireEcoBackgroundCheckProgressReq, options ...lark.MethodOptionFunc) (*lark.UpdateHireEcoBackgroundCheckProgressResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -770,7 +697,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireUpdateHireEcoBackgroundCheckResult(func(ctx context.Context, request *lark.UpdateHireEcoBackgroundCheckResultReq, options ...lark.MethodOptionFunc) (*lark.UpdateHireEcoBackgroundCheckResultResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -782,7 +708,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireCancelHireEcoBackgroundCheck(func(ctx context.Context, request *lark.CancelHireEcoBackgroundCheckReq, options ...lark.MethodOptionFunc) (*lark.CancelHireEcoBackgroundCheckResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -794,7 +719,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireCreateHireEcoExamPaper(func(ctx context.Context, request *lark.CreateHireEcoExamPaperReq, options ...lark.MethodOptionFunc) (*lark.CreateHireEcoExamPaperResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -806,7 +730,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireBatchUpdateHireEcoExamPaper(func(ctx context.Context, request *lark.BatchUpdateHireEcoExamPaperReq, options ...lark.MethodOptionFunc) (*lark.BatchUpdateHireEcoExamPaperResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -818,7 +741,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireBatchDeleteHireEcoExamPaper(func(ctx context.Context, request *lark.BatchDeleteHireEcoExamPaperReq, options ...lark.MethodOptionFunc) (*lark.BatchDeleteHireEcoExamPaperResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -830,7 +752,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireCreateHireEcoExamLoginInfo(func(ctx context.Context, request *lark.CreateHireEcoExamLoginInfoReq, options ...lark.MethodOptionFunc) (*lark.CreateHireEcoExamLoginInfoResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -842,7 +763,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireUpdateHiredEcoExamResult(func(ctx context.Context, request *lark.UpdateHiredEcoExamResultReq, options ...lark.MethodOptionFunc) (*lark.UpdateHiredEcoExamResultResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -854,7 +774,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireCreateHireReferralAccount(func(ctx context.Context, request *lark.CreateHireReferralAccountReq, options ...lark.MethodOptionFunc) (*lark.CreateHireReferralAccountResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -866,7 +785,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireDeactivateHireReferralAccount(func(ctx context.Context, request *lark.DeactivateHireReferralAccountReq, options ...lark.MethodOptionFunc) (*lark.DeactivateHireReferralAccountResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -878,7 +796,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireWithdrawHireReferralAccount(func(ctx context.Context, request *lark.WithdrawHireReferralAccountReq, options ...lark.MethodOptionFunc) (*lark.WithdrawHireReferralAccountResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -890,7 +807,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockHireReconcileHireReferralAccount(func(ctx context.Context, request *lark.ReconcileHireReferralAccountReq, options ...lark.MethodOptionFunc) (*lark.ReconcileHireReferralAccountResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -900,7 +816,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
-
 	})
 
 	t.Run("response is failed (mock http)", func(t *testing.T) {
@@ -911,7 +826,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetHireJobConfig(ctx, &lark.GetHireJobConfigReq{
 				JobID: "x",
 			})
@@ -920,14 +834,12 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateHireJob(ctx, &lark.CreateHireJobReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateHireJob(ctx, &lark.UpdateHireJobReq{
 				JobID: "x",
 			})
@@ -936,7 +848,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateHireJobConfig(ctx, &lark.UpdateHireJobConfigReq{
 				JobID: "x",
 			})
@@ -945,7 +856,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetHireJob(ctx, &lark.GetHireJobReq{
 				JobID: "x",
 			})
@@ -954,7 +864,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetHireJobManager(ctx, &lark.GetHireJobManagerReq{
 				JobID:     "x",
 				ManagerID: "x",
@@ -964,14 +873,12 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.QueryHireTalentObject(ctx, &lark.QueryHireTalentObjectReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetHireTalent(ctx, &lark.GetHireTalentReq{
 				TalentID: "x",
 			})
@@ -980,7 +887,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetHireAttachment(ctx, &lark.GetHireAttachmentReq{
 				AttachmentID: "x",
 			})
@@ -989,7 +895,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetHireAttachmentPreview(ctx, &lark.GetHireAttachmentPreviewReq{
 				AttachmentID: "x",
 			})
@@ -998,14 +903,12 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetHireReferralWebsiteJobPostList(ctx, &lark.GetHireReferralWebsiteJobPostListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetHireReferralWebsiteJobPost(ctx, &lark.GetHireReferralWebsiteJobPostReq{
 				JobPostID: "x",
 			})
@@ -1014,21 +917,18 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetHireReferralByApplication(ctx, &lark.GetHireReferralByApplicationReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateHireExternalApplication(ctx, &lark.CreateHireExternalApplicationReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateHireExternalApplication(ctx, &lark.UpdateHireExternalApplicationReq{
 				ExternalApplicationID: "x",
 			})
@@ -1037,7 +937,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeleteHireExternalApplication(ctx, &lark.DeleteHireExternalApplicationReq{
 				ExternalApplicationID: "x",
 			})
@@ -1046,70 +945,54 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateHireExternalInterview(ctx, &lark.CreateHireExternalInterviewReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateHireExternalInterviewAssessment(ctx, &lark.CreateHireExternalInterviewAssessmentReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateHireExternalBackgroundCheck(ctx, &lark.CreateHireExternalBackgroundCheckReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.AddHireTalentToFolder(ctx, &lark.AddHireTalentToFolderReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetHireTalentFolderList(ctx, &lark.GetHireTalentFolderListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.BatchGetHireTalent(ctx, &lark.BatchGetHireTalentReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetHireTalentList(ctx, &lark.GetHireTalentListReq{})
-			as.NotNil(err)
-			as.Equal("mock-http-failed", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetHireJobProcessList(ctx, &lark.GetHireJobProcessListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateHireApplication(ctx, &lark.CreateHireApplicationReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.TerminateHireApplication(ctx, &lark.TerminateHireApplicationReq{
 				ApplicationID: "x",
 			})
@@ -1118,7 +1001,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetHireApplication(ctx, &lark.GetHireApplicationReq{
 				ApplicationID: "x",
 			})
@@ -1127,42 +1009,36 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetHireApplicationList(ctx, &lark.GetHireApplicationListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetHireEvaluationList(ctx, &lark.GetHireEvaluationListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetHireQuestionnaireList(ctx, &lark.GetHireQuestionnaireListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetHireInterviewList(ctx, &lark.GetHireInterviewListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateHireOffer(ctx, &lark.CreateHireOfferReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateHireOffer(ctx, &lark.UpdateHireOfferReq{
 				OfferID: "x",
 			})
@@ -1171,7 +1047,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetHireOfferByApplication(ctx, &lark.GetHireOfferByApplicationReq{
 				ApplicationID: "x",
 			})
@@ -1180,7 +1055,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetHireOffer(ctx, &lark.GetHireOfferReq{
 				OfferID: "x",
 			})
@@ -1189,14 +1063,12 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetHireOfferList(ctx, &lark.GetHireOfferListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateHireOfferStatus(ctx, &lark.UpdateHireOfferStatusReq{
 				OfferID: "x",
 			})
@@ -1205,7 +1077,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateHireOfferInternStatus(ctx, &lark.UpdateHireOfferInternStatusReq{
 				OfferID: "x",
 			})
@@ -1214,7 +1085,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetHireApplicationInterviewList(ctx, &lark.GetHireApplicationInterviewListReq{
 				ApplicationID: "x",
 			})
@@ -1223,7 +1093,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetHireOfferSchema(ctx, &lark.GetHireOfferSchemaReq{
 				OfferSchemaID: "x",
 			})
@@ -1232,7 +1101,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateHireEHRImportTask(ctx, &lark.UpdateHireEHRImportTaskReq{
 				EHRImportTaskID: "x",
 			})
@@ -1241,7 +1109,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.MakeHireTransferOnboardByApplication(ctx, &lark.MakeHireTransferOnboardByApplicationReq{
 				ApplicationID: "x",
 			})
@@ -1250,7 +1117,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateHireEmployee(ctx, &lark.UpdateHireEmployeeReq{
 				EmployeeID: "x",
 			})
@@ -1259,14 +1125,12 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetHireEmployeeByApplication(ctx, &lark.GetHireEmployeeByApplicationReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetHireEmployee(ctx, &lark.GetHireEmployeeReq{
 				EmployeeID: "x",
 			})
@@ -1275,14 +1139,12 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateHireNote(ctx, &lark.CreateHireNoteReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateHireNote(ctx, &lark.UpdateHireNoteReq{
 				NoteID: "x",
 			})
@@ -1291,7 +1153,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetHireNote(ctx, &lark.GetHireNoteReq{
 				NoteID: "x",
 			})
@@ -1300,126 +1161,108 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetHireNoteList(ctx, &lark.GetHireNoteListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetHireResumeSource(ctx, &lark.GetHireResumeSourceReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateHireEcoAccountCustomField(ctx, &lark.CreateHireEcoAccountCustomFieldReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.BatchUpdateHireEcoAccountCustomField(ctx, &lark.BatchUpdateHireEcoAccountCustomFieldReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.BatchDeleteHireEcoAccountCustomField(ctx, &lark.BatchDeleteHireEcoAccountCustomFieldReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateHireEcoBackgroundCheckCustomField(ctx, &lark.CreateHireEcoBackgroundCheckCustomFieldReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.BatchUpdateHireEcoBackgroundCheckCustomField(ctx, &lark.BatchUpdateHireEcoBackgroundCheckCustomFieldReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.BatchDeleteHireEcoBackgroundCheckCustomField(ctx, &lark.BatchDeleteHireEcoBackgroundCheckCustomFieldReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateHireEcoBackgroundCheckPackage(ctx, &lark.CreateHireEcoBackgroundCheckPackageReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.BatchUpdateHireEcoBackgroundCheckPackage(ctx, &lark.BatchUpdateHireEcoBackgroundCheckPackageReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.BatchDeleteHireEcoBackgroundCheckPackage(ctx, &lark.BatchDeleteHireEcoBackgroundCheckPackageReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateHireEcoBackgroundCheckProgress(ctx, &lark.UpdateHireEcoBackgroundCheckProgressReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateHireEcoBackgroundCheckResult(ctx, &lark.UpdateHireEcoBackgroundCheckResultReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CancelHireEcoBackgroundCheck(ctx, &lark.CancelHireEcoBackgroundCheckReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateHireEcoExamPaper(ctx, &lark.CreateHireEcoExamPaperReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.BatchUpdateHireEcoExamPaper(ctx, &lark.BatchUpdateHireEcoExamPaperReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.BatchDeleteHireEcoExamPaper(ctx, &lark.BatchDeleteHireEcoExamPaperReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateHireEcoExamLoginInfo(ctx, &lark.CreateHireEcoExamLoginInfoReq{
 				ExamID: "x",
 			})
@@ -1428,7 +1271,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateHiredEcoExamResult(ctx, &lark.UpdateHiredEcoExamResultReq{
 				ExamID: "x",
 			})
@@ -1437,14 +1279,12 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateHireReferralAccount(ctx, &lark.CreateHireReferralAccountReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeactivateHireReferralAccount(ctx, &lark.DeactivateHireReferralAccountReq{
 				ReferralAccountID: "x",
 			})
@@ -1453,7 +1293,6 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.WithdrawHireReferralAccount(ctx, &lark.WithdrawHireReferralAccountReq{
 				ReferralAccountID: "x",
 			})
@@ -1462,11 +1301,9 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.ReconcileHireReferralAccount(ctx, &lark.ReconcileHireReferralAccountReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
-
 	})
 }

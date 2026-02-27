@@ -339,7 +339,6 @@ type eventHandler struct {
 
 func (r *eventHandler) clone() *eventHandler {
 	return &eventHandler{
-
 		eventV1AddBotHandler:                                          r.eventV1AddBotHandler,
 		eventV1AddUserToChatHandler:                                   r.eventV1AddUserToChatHandler,
 		eventV1AppOpenHandler:                                         r.eventV1AppOpenHandler,
@@ -656,769 +655,749 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 	}
 
 	switch req.Header.EventType {
-
-	case EventTypeV2ACSAccessRecordCreatedV1:
-		event := new(EventV2ACSAccessRecordCreatedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2ACSAccessRecordCreatedV1 = event
-	case EventTypeV2ACSUserUpdatedV1:
-		event := new(EventV2ACSUserUpdatedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2ACSUserUpdatedV1 = event
-	case EventTypeV2ApplicationApplicationAppVersionAuditV6:
-		event := new(EventV2ApplicationApplicationAppVersionAuditV6)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2ApplicationApplicationAppVersionAuditV6 = event
-	case EventTypeV2ApplicationApplicationAppVersionPublishApplyV6:
-		event := new(EventV2ApplicationApplicationAppVersionPublishApplyV6)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2ApplicationApplicationAppVersionPublishApplyV6 = event
-	case EventTypeV2ApplicationApplicationAppVersionPublishRevokeV6:
-		event := new(EventV2ApplicationApplicationAppVersionPublishRevokeV6)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2ApplicationApplicationAppVersionPublishRevokeV6 = event
-	case EventTypeV2ApplicationApplicationCreatedV6:
-		event := new(EventV2ApplicationApplicationCreatedV6)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2ApplicationApplicationCreatedV6 = event
-	case EventTypeV2ApplicationApplicationFeedbackCreatedV6:
-		event := new(EventV2ApplicationApplicationFeedbackCreatedV6)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2ApplicationApplicationFeedbackCreatedV6 = event
-	case EventTypeV2ApplicationApplicationFeedbackUpdatedV6:
-		event := new(EventV2ApplicationApplicationFeedbackUpdatedV6)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2ApplicationApplicationFeedbackUpdatedV6 = event
-	case EventTypeV2ApplicationApplicationVisibilityAddedV6:
-		event := new(EventV2ApplicationApplicationVisibilityAddedV6)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2ApplicationApplicationVisibilityAddedV6 = event
-	case EventTypeV2ApplicationBotMenuV6:
-		event := new(EventV2ApplicationBotMenuV6)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2ApplicationBotMenuV6 = event
-	case EventTypeV2ApprovalApprovalUpdatedV4:
-		event := new(EventV2ApprovalApprovalUpdatedV4)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2ApprovalApprovalUpdatedV4 = event
-	case EventTypeV2AttendanceUserFlowCreatedV1:
-		event := new(EventV2AttendanceUserFlowCreatedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2AttendanceUserFlowCreatedV1 = event
-	case EventTypeV2AttendanceUserTaskUpdatedV1:
-		event := new(EventV2AttendanceUserTaskUpdatedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2AttendanceUserTaskUpdatedV1 = event
-	case EventTypeV2CalendarCalendarACLCreatedV4:
-		event := new(EventV2CalendarCalendarACLCreatedV4)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2CalendarCalendarACLCreatedV4 = event
-	case EventTypeV2CalendarCalendarACLDeletedV4:
-		event := new(EventV2CalendarCalendarACLDeletedV4)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2CalendarCalendarACLDeletedV4 = event
-	case EventTypeV2CalendarCalendarChangedV4:
-		event := new(EventV2CalendarCalendarChangedV4)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2CalendarCalendarChangedV4 = event
-	case EventTypeV2CalendarCalendarEventChangedV4:
-		event := new(EventV2CalendarCalendarEventChangedV4)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2CalendarCalendarEventChangedV4 = event
-	case EventTypeV2CardActionTrigger:
-		event := new(EventV2CardActionTrigger)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2CardActionTrigger = event
-	case EventTypeV2ContactCustomAttrEventUpdatedV3:
-		event := new(EventV2ContactCustomAttrEventUpdatedV3)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2ContactCustomAttrEventUpdatedV3 = event
-	case EventTypeV2ContactDepartmentCreatedV3:
-		event := new(EventV2ContactDepartmentCreatedV3)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2ContactDepartmentCreatedV3 = event
-	case EventTypeV2ContactDepartmentDeletedV3:
-		event := new(EventV2ContactDepartmentDeletedV3)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2ContactDepartmentDeletedV3 = event
-	case EventTypeV2ContactDepartmentUpdatedV3:
-		event := new(EventV2ContactDepartmentUpdatedV3)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2ContactDepartmentUpdatedV3 = event
-	case EventTypeV2ContactEmployeeTypeEnumActivedV3:
-		event := new(EventV2ContactEmployeeTypeEnumActivedV3)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2ContactEmployeeTypeEnumActivedV3 = event
-	case EventTypeV2ContactEmployeeTypeEnumCreatedV3:
-		event := new(EventV2ContactEmployeeTypeEnumCreatedV3)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2ContactEmployeeTypeEnumCreatedV3 = event
-	case EventTypeV2ContactEmployeeTypeEnumDeactivatedV3:
-		event := new(EventV2ContactEmployeeTypeEnumDeactivatedV3)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2ContactEmployeeTypeEnumDeactivatedV3 = event
-	case EventTypeV2ContactEmployeeTypeEnumDeletedV3:
-		event := new(EventV2ContactEmployeeTypeEnumDeletedV3)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2ContactEmployeeTypeEnumDeletedV3 = event
-	case EventTypeV2ContactEmployeeTypeEnumUpdatedV3:
-		event := new(EventV2ContactEmployeeTypeEnumUpdatedV3)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2ContactEmployeeTypeEnumUpdatedV3 = event
-	case EventTypeV2ContactScopeUpdatedV3:
-		event := new(EventV2ContactScopeUpdatedV3)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2ContactScopeUpdatedV3 = event
-	case EventTypeV2ContactUserCreatedV3:
-		event := new(EventV2ContactUserCreatedV3)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2ContactUserCreatedV3 = event
-	case EventTypeV2ContactUserDeletedV3:
-		event := new(EventV2ContactUserDeletedV3)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2ContactUserDeletedV3 = event
-	case EventTypeV2ContactUserUpdatedV3:
-		event := new(EventV2ContactUserUpdatedV3)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2ContactUserUpdatedV3 = event
-	case EventTypeV2CorehrContractCreatedV1:
-		event := new(EventV2CorehrContractCreatedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2CorehrContractCreatedV1 = event
-	case EventTypeV2CorehrContractDeletedV1:
-		event := new(EventV2CorehrContractDeletedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2CorehrContractDeletedV1 = event
-	case EventTypeV2CorehrContractUpdatedV1:
-		event := new(EventV2CorehrContractUpdatedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2CorehrContractUpdatedV1 = event
-	case EventTypeV2CorehrDepartmentCreatedV1:
-		event := new(EventV2CorehrDepartmentCreatedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2CorehrDepartmentCreatedV1 = event
-	case EventTypeV2CorehrDepartmentDeletedV1:
-		event := new(EventV2CorehrDepartmentDeletedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2CorehrDepartmentDeletedV1 = event
-	case EventTypeV2CorehrDepartmentUpdatedV1:
-		event := new(EventV2CorehrDepartmentUpdatedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2CorehrDepartmentUpdatedV1 = event
-	case EventTypeV2CorehrEmploymentConvertedV1:
-		event := new(EventV2CorehrEmploymentConvertedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2CorehrEmploymentConvertedV1 = event
-	case EventTypeV2CorehrEmploymentCreatedV1:
-		event := new(EventV2CorehrEmploymentCreatedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2CorehrEmploymentCreatedV1 = event
-	case EventTypeV2CorehrEmploymentDeletedV1:
-		event := new(EventV2CorehrEmploymentDeletedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2CorehrEmploymentDeletedV1 = event
-	case EventTypeV2CorehrEmploymentResignedV1:
-		event := new(EventV2CorehrEmploymentResignedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2CorehrEmploymentResignedV1 = event
-	case EventTypeV2CorehrEmploymentUpdatedV1:
-		event := new(EventV2CorehrEmploymentUpdatedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2CorehrEmploymentUpdatedV1 = event
-	case EventTypeV2CorehrJobChangeUpdatedV1:
-		event := new(EventV2CorehrJobChangeUpdatedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2CorehrJobChangeUpdatedV1 = event
-	case EventTypeV2CorehrJobCreatedV1:
-		event := new(EventV2CorehrJobCreatedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2CorehrJobCreatedV1 = event
-	case EventTypeV2CorehrJobDataChangedV1:
-		event := new(EventV2CorehrJobDataChangedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2CorehrJobDataChangedV1 = event
-	case EventTypeV2CorehrJobDataEmployedV1:
-		event := new(EventV2CorehrJobDataEmployedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2CorehrJobDataEmployedV1 = event
-	case EventTypeV2CorehrJobDeletedV1:
-		event := new(EventV2CorehrJobDeletedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2CorehrJobDeletedV1 = event
-	case EventTypeV2CorehrJobUpdatedV1:
-		event := new(EventV2CorehrJobUpdatedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2CorehrJobUpdatedV1 = event
-	case EventTypeV2CorehrOffboardingChecklistUpdatedV2:
-		event := new(EventV2CorehrOffboardingChecklistUpdatedV2)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2CorehrOffboardingChecklistUpdatedV2 = event
-	case EventTypeV2CorehrOffboardingStatusUpdatedV2:
-		event := new(EventV2CorehrOffboardingStatusUpdatedV2)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2CorehrOffboardingStatusUpdatedV2 = event
-	case EventTypeV2CorehrOffboardingUpdatedV1:
-		event := new(EventV2CorehrOffboardingUpdatedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2CorehrOffboardingUpdatedV1 = event
-	case EventTypeV2CorehrOffboardingUpdatedV2:
-		event := new(EventV2CorehrOffboardingUpdatedV2)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2CorehrOffboardingUpdatedV2 = event
-	case EventTypeV2CorehrOrgRoleAuthorizationUpdatedV1:
-		event := new(EventV2CorehrOrgRoleAuthorizationUpdatedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2CorehrOrgRoleAuthorizationUpdatedV1 = event
-	case EventTypeV2CorehrPersonCreatedV1:
-		event := new(EventV2CorehrPersonCreatedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2CorehrPersonCreatedV1 = event
-	case EventTypeV2CorehrPersonDeletedV1:
-		event := new(EventV2CorehrPersonDeletedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2CorehrPersonDeletedV1 = event
-	case EventTypeV2CorehrPersonUpdatedV1:
-		event := new(EventV2CorehrPersonUpdatedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2CorehrPersonUpdatedV1 = event
-	case EventTypeV2CorehrPreHireUpdatedV1:
-		event := new(EventV2CorehrPreHireUpdatedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2CorehrPreHireUpdatedV1 = event
-	case EventTypeV2CorehrProbationUpdatedV2:
-		event := new(EventV2CorehrProbationUpdatedV2)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2CorehrProbationUpdatedV2 = event
-	case EventTypeV2CorehrProcessApproverUpdatedV2:
-		event := new(EventV2CorehrProcessApproverUpdatedV2)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2CorehrProcessApproverUpdatedV2 = event
-	case EventTypeV2CorehrProcessCcUpdatedV2:
-		event := new(EventV2CorehrProcessCcUpdatedV2)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2CorehrProcessCcUpdatedV2 = event
-	case EventTypeV2CorehrProcessNodeUpdatedV2:
-		event := new(EventV2CorehrProcessNodeUpdatedV2)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2CorehrProcessNodeUpdatedV2 = event
-	case EventTypeV2CorehrProcessUpdatedV2:
-		event := new(EventV2CorehrProcessUpdatedV2)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2CorehrProcessUpdatedV2 = event
-	case EventTypeV2DriveFileBitableFieldChangedV1:
-		event := new(EventV2DriveFileBitableFieldChangedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2DriveFileBitableFieldChangedV1 = event
-	case EventTypeV2DriveFileBitableRecordChangedV1:
-		event := new(EventV2DriveFileBitableRecordChangedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2DriveFileBitableRecordChangedV1 = event
-	case EventTypeV2DriveFileCreatedInFolderV1:
-		event := new(EventV2DriveFileCreatedInFolderV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2DriveFileCreatedInFolderV1 = event
-	case EventTypeV2DriveFileDeletedV1:
-		event := new(EventV2DriveFileDeletedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2DriveFileDeletedV1 = event
-	case EventTypeV2DriveFileEditV1:
-		event := new(EventV2DriveFileEditV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2DriveFileEditV1 = event
-	case EventTypeV2DriveFilePermissionMemberAddedV1:
-		event := new(EventV2DriveFilePermissionMemberAddedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2DriveFilePermissionMemberAddedV1 = event
-	case EventTypeV2DriveFilePermissionMemberRemovedV1:
-		event := new(EventV2DriveFilePermissionMemberRemovedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2DriveFilePermissionMemberRemovedV1 = event
-	case EventTypeV2DriveFileReadV1:
-		event := new(EventV2DriveFileReadV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2DriveFileReadV1 = event
-	case EventTypeV2DriveFileTitleUpdatedV1:
-		event := new(EventV2DriveFileTitleUpdatedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2DriveFileTitleUpdatedV1 = event
-	case EventTypeV2DriveFileTrashedV1:
-		event := new(EventV2DriveFileTrashedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2DriveFileTrashedV1 = event
-	case EventTypeV2ElearningCourseRegistrationCreatedV2:
+	case EventType("elearning.course_registration.created_v2"):
 		event := new(EventV2ElearningCourseRegistrationCreatedV2)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
 		req.eventV2ElearningCourseRegistrationCreatedV2 = event
-	case EventTypeV2ElearningCourseRegistrationDeletedV2:
-		event := new(EventV2ElearningCourseRegistrationDeletedV2)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2ElearningCourseRegistrationDeletedV2 = event
-	case EventTypeV2ElearningCourseRegistrationUpdatedV2:
+	case EventType("elearning.course_registration.updated_v2"):
 		event := new(EventV2ElearningCourseRegistrationUpdatedV2)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
 		req.eventV2ElearningCourseRegistrationUpdatedV2 = event
-	case EventTypeV2HelpdeskNotificationApproveV1:
-		event := new(EventV2HelpdeskNotificationApproveV1)
+	case EventType("elearning.course_registration.deleted_v2"):
+		event := new(EventV2ElearningCourseRegistrationDeletedV2)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventV2HelpdeskNotificationApproveV1 = event
-	case EventTypeV2HelpdeskTicketCreatedV1:
-		event := new(EventV2HelpdeskTicketCreatedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2HelpdeskTicketCreatedV1 = event
-	case EventTypeV2HelpdeskTicketMessageCreatedV1:
-		event := new(EventV2HelpdeskTicketMessageCreatedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2HelpdeskTicketMessageCreatedV1 = event
-	case EventTypeV2HelpdeskTicketUpdatedV1:
-		event := new(EventV2HelpdeskTicketUpdatedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2HelpdeskTicketUpdatedV1 = event
-	case EventTypeV2HireApplicationDeletedV1:
-		event := new(EventV2HireApplicationDeletedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2HireApplicationDeletedV1 = event
-	case EventTypeV2HireApplicationStageChangedV1:
-		event := new(EventV2HireApplicationStageChangedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2HireApplicationStageChangedV1 = event
-	case EventTypeV2HireEHRImportTaskForInternshipOfferImportedV1:
-		event := new(EventV2HireEHRImportTaskForInternshipOfferImportedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2HireEHRImportTaskForInternshipOfferImportedV1 = event
-	case EventTypeV2HireEHRImportTaskImportedV1:
-		event := new(EventV2HireEHRImportTaskImportedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2HireEHRImportTaskImportedV1 = event
-	case EventTypeV2HireEcoAccountCreatedV1:
-		event := new(EventV2HireEcoAccountCreatedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2HireEcoAccountCreatedV1 = event
-	case EventTypeV2HireEcoBackgroundCheckCanceledV1:
-		event := new(EventV2HireEcoBackgroundCheckCanceledV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2HireEcoBackgroundCheckCanceledV1 = event
-	case EventTypeV2HireEcoBackgroundCheckCreatedV1:
-		event := new(EventV2HireEcoBackgroundCheckCreatedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2HireEcoBackgroundCheckCreatedV1 = event
-	case EventTypeV2HireEcoExamCreatedV1:
-		event := new(EventV2HireEcoExamCreatedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2HireEcoExamCreatedV1 = event
-	case EventTypeV2HireOfferStatusChangedV1:
-		event := new(EventV2HireOfferStatusChangedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2HireOfferStatusChangedV1 = event
-	case EventTypeV2HireReferralAccountAssetsUpdateV1:
-		event := new(EventV2HireReferralAccountAssetsUpdateV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2HireReferralAccountAssetsUpdateV1 = event
-	case EventTypeV2IMChatDisbandedV1:
-		event := new(EventV2IMChatDisbandedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2IMChatDisbandedV1 = event
-	case EventTypeV2IMChatMemberBotAddedV1:
-		event := new(EventV2IMChatMemberBotAddedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2IMChatMemberBotAddedV1 = event
-	case EventTypeV2IMChatMemberBotDeletedV1:
-		event := new(EventV2IMChatMemberBotDeletedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2IMChatMemberBotDeletedV1 = event
-	case EventTypeV2IMChatMemberUserAddedV1:
-		event := new(EventV2IMChatMemberUserAddedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2IMChatMemberUserAddedV1 = event
-	case EventTypeV2IMChatMemberUserDeletedV1:
-		event := new(EventV2IMChatMemberUserDeletedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2IMChatMemberUserDeletedV1 = event
-	case EventTypeV2IMChatMemberUserWithdrawnV1:
-		event := new(EventV2IMChatMemberUserWithdrawnV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2IMChatMemberUserWithdrawnV1 = event
-	case EventTypeV2IMChatUpdatedV1:
-		event := new(EventV2IMChatUpdatedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2IMChatUpdatedV1 = event
-	case EventTypeV2IMMessageReactionCreatedV1:
-		event := new(EventV2IMMessageReactionCreatedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2IMMessageReactionCreatedV1 = event
-	case EventTypeV2IMMessageReactionDeletedV1:
-		event := new(EventV2IMMessageReactionDeletedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2IMMessageReactionDeletedV1 = event
-	case EventTypeV2IMMessageReadV1:
-		event := new(EventV2IMMessageReadV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2IMMessageReadV1 = event
-	case EventTypeV2IMMessageRecalledV1:
-		event := new(EventV2IMMessageRecalledV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2IMMessageRecalledV1 = event
-	case EventTypeV2IMMessageReceiveV1:
-		event := new(EventV2IMMessageReceiveV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2IMMessageReceiveV1 = event
-	case EventTypeV2MeetingRoomMeetingRoomCreatedV1:
-		event := new(EventV2MeetingRoomMeetingRoomCreatedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2MeetingRoomMeetingRoomCreatedV1 = event
-	case EventTypeV2MeetingRoomMeetingRoomDeletedV1:
-		event := new(EventV2MeetingRoomMeetingRoomDeletedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2MeetingRoomMeetingRoomDeletedV1 = event
-	case EventTypeV2MeetingRoomMeetingRoomStatusChangedV1:
-		event := new(EventV2MeetingRoomMeetingRoomStatusChangedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2MeetingRoomMeetingRoomStatusChangedV1 = event
-	case EventTypeV2MeetingRoomMeetingRoomUpdatedV1:
-		event := new(EventV2MeetingRoomMeetingRoomUpdatedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2MeetingRoomMeetingRoomUpdatedV1 = event
-	case EventTypeV2TaskTaskCommentUpdatedV1:
-		event := new(EventV2TaskTaskCommentUpdatedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2TaskTaskCommentUpdatedV1 = event
-	case EventTypeV2TaskTaskUpdateTenantV1:
-		event := new(EventV2TaskTaskUpdateTenantV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2TaskTaskUpdateTenantV1 = event
-	case EventTypeV2TaskTaskUpdatedV1:
-		event := new(EventV2TaskTaskUpdatedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2TaskTaskUpdatedV1 = event
-	case EventTypeV2URLPreviewGet:
+		req.eventV2ElearningCourseRegistrationDeletedV2 = event
+	case EventType("url.preview.get"):
 		event := new(EventV2URLPreviewGet)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
 		req.eventV2URLPreviewGet = event
-	case EventTypeV2VCMeetingAllMeetingEndedV1:
-		event := new(EventV2VCMeetingAllMeetingEndedV1)
+	case EventType("hire.application.stage_changed_v1"):
+		event := new(EventV2HireApplicationStageChangedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventV2VCMeetingAllMeetingEndedV1 = event
-	case EventTypeV2VCMeetingAllMeetingStartedV1:
-		event := new(EventV2VCMeetingAllMeetingStartedV1)
+		req.eventV2HireApplicationStageChangedV1 = event
+	case EventType("hire.application.deleted_v1"):
+		event := new(EventV2HireApplicationDeletedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventV2VCMeetingAllMeetingStartedV1 = event
-	case EventTypeV2VCMeetingJoinMeetingV1:
-		event := new(EventV2VCMeetingJoinMeetingV1)
+		req.eventV2HireApplicationDeletedV1 = event
+	case EventType("corehr.job.created_v1"):
+		event := new(EventV2CorehrJobCreatedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventV2VCMeetingJoinMeetingV1 = event
-	case EventTypeV2VCMeetingLeaveMeetingV1:
-		event := new(EventV2VCMeetingLeaveMeetingV1)
+		req.eventV2CorehrJobCreatedV1 = event
+	case EventType("corehr.job.updated_v1"):
+		event := new(EventV2CorehrJobUpdatedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventV2VCMeetingLeaveMeetingV1 = event
-	case EventTypeV2VCMeetingMeetingEndedV1:
-		event := new(EventV2VCMeetingMeetingEndedV1)
+		req.eventV2CorehrJobUpdatedV1 = event
+	case EventType("corehr.job.deleted_v1"):
+		event := new(EventV2CorehrJobDeletedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventV2VCMeetingMeetingEndedV1 = event
-	case EventTypeV2VCMeetingMeetingStartedV1:
+		req.eventV2CorehrJobDeletedV1 = event
+	case EventType("corehr.process.updated_v2"):
+		event := new(EventV2CorehrProcessUpdatedV2)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrProcessUpdatedV2 = event
+	case EventType("corehr.process.node.updated_v2"):
+		event := new(EventV2CorehrProcessNodeUpdatedV2)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrProcessNodeUpdatedV2 = event
+	case EventType("corehr.process.approver.updated_v2"):
+		event := new(EventV2CorehrProcessApproverUpdatedV2)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrProcessApproverUpdatedV2 = event
+	case EventType("corehr.process.cc.updated_v2"):
+		event := new(EventV2CorehrProcessCcUpdatedV2)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrProcessCcUpdatedV2 = event
+	case EventType("contact.custom_attr_event.updated_v3"):
+		event := new(EventV2ContactCustomAttrEventUpdatedV3)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ContactCustomAttrEventUpdatedV3 = event
+	case EventType("application.application.created_v6"):
+		event := new(EventV2ApplicationApplicationCreatedV6)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ApplicationApplicationCreatedV6 = event
+
+	case EventType("application.application.visibility.added_v6"):
+		event := new(EventV2ApplicationApplicationVisibilityAddedV6)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ApplicationApplicationVisibilityAddedV6 = event
+	case EventType("application.application.app_version.publish_apply_v6"):
+		event := new(EventV2ApplicationApplicationAppVersionPublishApplyV6)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ApplicationApplicationAppVersionPublishApplyV6 = event
+	case EventType("application.application.app_version.publish_revoke_v6"):
+		event := new(EventV2ApplicationApplicationAppVersionPublishRevokeV6)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ApplicationApplicationAppVersionPublishRevokeV6 = event
+	case EventType("application.application.app_version.audit_v6"):
+		event := new(EventV2ApplicationApplicationAppVersionAuditV6)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ApplicationApplicationAppVersionAuditV6 = event
+
+	case EventType("drive.file.created_in_folder_v1"):
+		event := new(EventV2DriveFileCreatedInFolderV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2DriveFileCreatedInFolderV1 = event
+	case EventType("drive.file.bitable_field_changed_v1"):
+		event := new(EventV2DriveFileBitableFieldChangedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2DriveFileBitableFieldChangedV1 = event
+	case EventType("drive.file.bitable_record_changed_v1"):
+		event := new(EventV2DriveFileBitableRecordChangedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2DriveFileBitableRecordChangedV1 = event
+	case EventType("drive.file.title_updated_v1"):
+		event := new(EventV2DriveFileTitleUpdatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2DriveFileTitleUpdatedV1 = event
+	case EventType("drive.file.read_v1"):
+		event := new(EventV2DriveFileReadV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2DriveFileReadV1 = event
+	case EventType("drive.file.edit_v1"):
+		event := new(EventV2DriveFileEditV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2DriveFileEditV1 = event
+	case EventType("drive.file.permission_member_added_v1"):
+		event := new(EventV2DriveFilePermissionMemberAddedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2DriveFilePermissionMemberAddedV1 = event
+	case EventType("drive.file.permission_member_removed_v1"):
+		event := new(EventV2DriveFilePermissionMemberRemovedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2DriveFilePermissionMemberRemovedV1 = event
+	case EventType("drive.file.trashed_v1"):
+		event := new(EventV2DriveFileTrashedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2DriveFileTrashedV1 = event
+	case EventType("drive.file.deleted_v1"):
+		event := new(EventV2DriveFileDeletedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2DriveFileDeletedV1 = event
+	case EventType("approval.approval.updated_v4"):
+		event := new(EventV2ApprovalApprovalUpdatedV4)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ApprovalApprovalUpdatedV4 = event
+
+	case EventType("meeting_room.meeting_room.created_v1"):
+		event := new(EventV2MeetingRoomMeetingRoomCreatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2MeetingRoomMeetingRoomCreatedV1 = event
+	case EventType("meeting_room.meeting_room.updated_v1"):
+		event := new(EventV2MeetingRoomMeetingRoomUpdatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2MeetingRoomMeetingRoomUpdatedV1 = event
+	case EventType("meeting_room.meeting_room.status_changed_v1"):
+		event := new(EventV2MeetingRoomMeetingRoomStatusChangedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2MeetingRoomMeetingRoomStatusChangedV1 = event
+	case EventType("meeting_room.meeting_room.deleted_v1"):
+		event := new(EventV2MeetingRoomMeetingRoomDeletedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2MeetingRoomMeetingRoomDeletedV1 = event
+
+	case EventType("application.application.feedback.created_v6"):
+		event := new(EventV2ApplicationApplicationFeedbackCreatedV6)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ApplicationApplicationFeedbackCreatedV6 = event
+	case EventType("application.application.feedback.updated_v6"):
+		event := new(EventV2ApplicationApplicationFeedbackUpdatedV6)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ApplicationApplicationFeedbackUpdatedV6 = event
+	case EventType("task.task.update_tenant_v1"):
+		event := new(EventV2TaskTaskUpdateTenantV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2TaskTaskUpdateTenantV1 = event
+	case EventType("task.task.updated_v1"):
+		event := new(EventV2TaskTaskUpdatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2TaskTaskUpdatedV1 = event
+	case EventType("task.task.comment.updated_v1"):
+		event := new(EventV2TaskTaskCommentUpdatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2TaskTaskCommentUpdatedV1 = event
+	case EventType("helpdesk.ticket_message.created_v1"):
+		event := new(EventV2HelpdeskTicketMessageCreatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2HelpdeskTicketMessageCreatedV1 = event
+	case EventType("helpdesk.ticket.created_v1"):
+		event := new(EventV2HelpdeskTicketCreatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2HelpdeskTicketCreatedV1 = event
+	case EventType("helpdesk.ticket.updated_v1"):
+		event := new(EventV2HelpdeskTicketUpdatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2HelpdeskTicketUpdatedV1 = event
+	case EventType("helpdesk.notification.approve_v1"):
+		event := new(EventV2HelpdeskNotificationApproveV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2HelpdeskNotificationApproveV1 = event
+	case EventType("contact.department.created_v3"):
+		event := new(EventV2ContactDepartmentCreatedV3)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ContactDepartmentCreatedV3 = event
+	case EventType("contact.department.deleted_v3"):
+		event := new(EventV2ContactDepartmentDeletedV3)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ContactDepartmentDeletedV3 = event
+	case EventType("contact.department.updated_v3"):
+		event := new(EventV2ContactDepartmentUpdatedV3)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ContactDepartmentUpdatedV3 = event
+	case EventType("contact.user.updated_v3"):
+		event := new(EventV2ContactUserUpdatedV3)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ContactUserUpdatedV3 = event
+	case EventType("contact.user.created_v3"):
+		event := new(EventV2ContactUserCreatedV3)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ContactUserCreatedV3 = event
+	case EventType("contact.user.deleted_v3"):
+		event := new(EventV2ContactUserDeletedV3)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ContactUserDeletedV3 = event
+	case EventType("contact.scope.updated_v3"):
+		event := new(EventV2ContactScopeUpdatedV3)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ContactScopeUpdatedV3 = event
+	case EventType("contact.employee_type_enum.created_v3"):
+		event := new(EventV2ContactEmployeeTypeEnumCreatedV3)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ContactEmployeeTypeEnumCreatedV3 = event
+	case EventType("contact.employee_type_enum.actived_v3"):
+		event := new(EventV2ContactEmployeeTypeEnumActivedV3)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ContactEmployeeTypeEnumActivedV3 = event
+	case EventType("contact.employee_type_enum.deactivated_v3"):
+		event := new(EventV2ContactEmployeeTypeEnumDeactivatedV3)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ContactEmployeeTypeEnumDeactivatedV3 = event
+	case EventType("contact.employee_type_enum.updated_v3"):
+		event := new(EventV2ContactEmployeeTypeEnumUpdatedV3)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ContactEmployeeTypeEnumUpdatedV3 = event
+	case EventType("contact.employee_type_enum.deleted_v3"):
+		event := new(EventV2ContactEmployeeTypeEnumDeletedV3)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ContactEmployeeTypeEnumDeletedV3 = event
+	case EventType("im.message.receive_v1"):
+		event := new(EventV2IMMessageReceiveV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2IMMessageReceiveV1 = event
+	case EventType("im.message.message_read_v1"):
+		event := new(EventV2IMMessageReadV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2IMMessageReadV1 = event
+	case EventType("im.message.reaction.deleted_v1"):
+		event := new(EventV2IMMessageReactionDeletedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2IMMessageReactionDeletedV1 = event
+	case EventType("im.message.reaction.created_v1"):
+		event := new(EventV2IMMessageReactionCreatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2IMMessageReactionCreatedV1 = event
+	case EventType("im.chat.disbanded_v1"):
+		event := new(EventV2IMChatDisbandedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2IMChatDisbandedV1 = event
+	case EventType("im.chat.updated_v1"):
+		event := new(EventV2IMChatUpdatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2IMChatUpdatedV1 = event
+	case EventType("im.chat.member.bot.added_v1"):
+		event := new(EventV2IMChatMemberBotAddedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2IMChatMemberBotAddedV1 = event
+	case EventType("im.chat.member.bot.deleted_v1"):
+		event := new(EventV2IMChatMemberBotDeletedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2IMChatMemberBotDeletedV1 = event
+	case EventType("im.chat.member.user.added_v1"):
+		event := new(EventV2IMChatMemberUserAddedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2IMChatMemberUserAddedV1 = event
+	case EventType("im.chat.member.user.withdrawn_v1"):
+		event := new(EventV2IMChatMemberUserWithdrawnV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2IMChatMemberUserWithdrawnV1 = event
+	case EventType("im.chat.member.user.deleted_v1"):
+		event := new(EventV2IMChatMemberUserDeletedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2IMChatMemberUserDeletedV1 = event
+	case EventType("vc.meeting.meeting_started_v1"):
 		event := new(EventV2VCMeetingMeetingStartedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
 		req.eventV2VCMeetingMeetingStartedV1 = event
-	case EventTypeV2VCMeetingRecordingEndedV1:
-		event := new(EventV2VCMeetingRecordingEndedV1)
+	case EventType("vc.meeting.meeting_ended_v1"):
+		event := new(EventV2VCMeetingMeetingEndedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventV2VCMeetingRecordingEndedV1 = event
-	case EventTypeV2VCMeetingRecordingReadyV1:
-		event := new(EventV2VCMeetingRecordingReadyV1)
+		req.eventV2VCMeetingMeetingEndedV1 = event
+	case EventType("vc.meeting.join_meeting_v1"):
+		event := new(EventV2VCMeetingJoinMeetingV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventV2VCMeetingRecordingReadyV1 = event
-	case EventTypeV2VCMeetingRecordingStartedV1:
+		req.eventV2VCMeetingJoinMeetingV1 = event
+	case EventType("vc.meeting.leave_meeting_v1"):
+		event := new(EventV2VCMeetingLeaveMeetingV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2VCMeetingLeaveMeetingV1 = event
+	case EventType("vc.meeting.recording_started_v1"):
 		event := new(EventV2VCMeetingRecordingStartedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
 		req.eventV2VCMeetingRecordingStartedV1 = event
-	case EventTypeV2VCMeetingShareEndedV1:
-		event := new(EventV2VCMeetingShareEndedV1)
+	case EventType("vc.meeting.recording_ended_v1"):
+		event := new(EventV2VCMeetingRecordingEndedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventV2VCMeetingShareEndedV1 = event
-	case EventTypeV2VCMeetingShareStartedV1:
+		req.eventV2VCMeetingRecordingEndedV1 = event
+	case EventType("vc.meeting.recording_ready_v1"):
+		event := new(EventV2VCMeetingRecordingReadyV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2VCMeetingRecordingReadyV1 = event
+	case EventType("vc.meeting.share_started_v1"):
 		event := new(EventV2VCMeetingShareStartedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
 		req.eventV2VCMeetingShareStartedV1 = event
-	case EventTypeV2VCReserveConfigUpdatedV1:
-		event := new(EventV2VCReserveConfigUpdatedV1)
+	case EventType("vc.meeting.share_ended_v1"):
+		event := new(EventV2VCMeetingShareEndedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventV2VCReserveConfigUpdatedV1 = event
-	case EventTypeV2VCRoomCreatedV1:
+		req.eventV2VCMeetingShareEndedV1 = event
+	case EventType("acs.access_record.created_v1"):
+		event := new(EventV2ACSAccessRecordCreatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ACSAccessRecordCreatedV1 = event
+	case EventType("acs.user.updated_v1"):
+		event := new(EventV2ACSUserUpdatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ACSUserUpdatedV1 = event
+	case EventType("calendar.calendar.acl.created_v4"):
+		event := new(EventV2CalendarCalendarACLCreatedV4)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CalendarCalendarACLCreatedV4 = event
+	case EventType("calendar.calendar.acl.deleted_v4"):
+		event := new(EventV2CalendarCalendarACLDeletedV4)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CalendarCalendarACLDeletedV4 = event
+	case EventType("calendar.calendar.event.changed_v4"):
+		event := new(EventV2CalendarCalendarEventChangedV4)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CalendarCalendarEventChangedV4 = event
+	case EventType("calendar.calendar.changed_v4"):
+		event := new(EventV2CalendarCalendarChangedV4)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CalendarCalendarChangedV4 = event
+
+	case EventType("attendance.user_task.updated_v1"):
+		event := new(EventV2AttendanceUserTaskUpdatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2AttendanceUserTaskUpdatedV1 = event
+	case EventType("attendance.user_flow.created_v1"):
+		event := new(EventV2AttendanceUserFlowCreatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2AttendanceUserFlowCreatedV1 = event
+	case EventType("im.message.recalled_v1"):
+		event := new(EventV2IMMessageRecalledV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2IMMessageRecalledV1 = event
+	case EventType("vc.room.created_v1"):
 		event := new(EventV2VCRoomCreatedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
 		req.eventV2VCRoomCreatedV1 = event
-	case EventTypeV2VCRoomDeletedV1:
+	case EventType("vc.room.deleted_v1"):
 		event := new(EventV2VCRoomDeletedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
 		req.eventV2VCRoomDeletedV1 = event
-	case EventTypeV2VCRoomLevelCreatedV1:
-		event := new(EventV2VCRoomLevelCreatedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2VCRoomLevelCreatedV1 = event
-	case EventTypeV2VCRoomLevelDeletedV1:
-		event := new(EventV2VCRoomLevelDeletedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2VCRoomLevelDeletedV1 = event
-	case EventTypeV2VCRoomLevelUpdatedV1:
-		event := new(EventV2VCRoomLevelUpdatedV1)
-		if err := req.unmarshalEvent(event); err != nil {
-			return err
-		}
-		req.eventV2VCRoomLevelUpdatedV1 = event
-	case EventTypeV2VCRoomUpdatedV1:
+	case EventType("vc.room.updated_v1"):
 		event := new(EventV2VCRoomUpdatedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
 		req.eventV2VCRoomUpdatedV1 = event
+	case EventType("vc.meeting.all_meeting_started_v1"):
+		event := new(EventV2VCMeetingAllMeetingStartedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2VCMeetingAllMeetingStartedV1 = event
+	case EventType("vc.meeting.all_meeting_ended_v1"):
+		event := new(EventV2VCMeetingAllMeetingEndedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2VCMeetingAllMeetingEndedV1 = event
+	case EventType("vc.room_level.created_v1"):
+		event := new(EventV2VCRoomLevelCreatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2VCRoomLevelCreatedV1 = event
+	case EventType("vc.room_level.deleted_v1"):
+		event := new(EventV2VCRoomLevelDeletedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2VCRoomLevelDeletedV1 = event
+	case EventType("vc.room_level.updated_v1"):
+		event := new(EventV2VCRoomLevelUpdatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2VCRoomLevelUpdatedV1 = event
+	case EventType("vc.reserve_config.updated_v1"):
+		event := new(EventV2VCReserveConfigUpdatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2VCReserveConfigUpdatedV1 = event
+	case EventType("application.bot.menu_v6"):
+		event := new(EventV2ApplicationBotMenuV6)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2ApplicationBotMenuV6 = event
+	case EventType("hire.offer.status_changed_v1"):
+		event := new(EventV2HireOfferStatusChangedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2HireOfferStatusChangedV1 = event
+	case EventType("corehr.employment.created_v1"):
+		event := new(EventV2CorehrEmploymentCreatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrEmploymentCreatedV1 = event
+	case EventType("corehr.employment.updated_v1"):
+		event := new(EventV2CorehrEmploymentUpdatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrEmploymentUpdatedV1 = event
+	case EventType("corehr.employment.deleted_v1"):
+		event := new(EventV2CorehrEmploymentDeletedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrEmploymentDeletedV1 = event
+	case EventType("corehr.person.created_v1"):
+		event := new(EventV2CorehrPersonCreatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrPersonCreatedV1 = event
+	case EventType("corehr.person.updated_v1"):
+		event := new(EventV2CorehrPersonUpdatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrPersonUpdatedV1 = event
+	case EventType("corehr.person.deleted_v1"):
+		event := new(EventV2CorehrPersonDeletedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrPersonDeletedV1 = event
+	case EventType("corehr.department.created_v1"):
+		event := new(EventV2CorehrDepartmentCreatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrDepartmentCreatedV1 = event
+	case EventType("corehr.department.updated_v1"):
+		event := new(EventV2CorehrDepartmentUpdatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrDepartmentUpdatedV1 = event
+	case EventType("corehr.department.deleted_v1"):
+		event := new(EventV2CorehrDepartmentDeletedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrDepartmentDeletedV1 = event
+	case EventType("corehr.job_data.employed_v1"):
+		event := new(EventV2CorehrJobDataEmployedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrJobDataEmployedV1 = event
+	case EventType("corehr.contract.created_v1"):
+		event := new(EventV2CorehrContractCreatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrContractCreatedV1 = event
+	case EventType("corehr.employment.converted_v1"):
+		event := new(EventV2CorehrEmploymentConvertedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrEmploymentConvertedV1 = event
+	case EventType("corehr.job_change.updated_v1"):
+		event := new(EventV2CorehrJobChangeUpdatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrJobChangeUpdatedV1 = event
+	case EventType("corehr.job_data.changed_v1"):
+		event := new(EventV2CorehrJobDataChangedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrJobDataChangedV1 = event
+	case EventType("corehr.offboarding.updated_v1"):
+		event := new(EventV2CorehrOffboardingUpdatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrOffboardingUpdatedV1 = event
+	case EventType("corehr.employment.resigned_v1"):
+		event := new(EventV2CorehrEmploymentResignedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrEmploymentResignedV1 = event
+	case EventType("corehr.org_role_authorization.updated_v1"):
+		event := new(EventV2CorehrOrgRoleAuthorizationUpdatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrOrgRoleAuthorizationUpdatedV1 = event
+	case EventType("hire.ehr_import_task_for_internship_offer.imported_v1"):
+		event := new(EventV2HireEHRImportTaskForInternshipOfferImportedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2HireEHRImportTaskForInternshipOfferImportedV1 = event
+	case EventType("hire.ehr_import_task.imported_v1"):
+		event := new(EventV2HireEHRImportTaskImportedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2HireEHRImportTaskImportedV1 = event
+	case EventType("corehr.probation.updated_v2"):
+		event := new(EventV2CorehrProbationUpdatedV2)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrProbationUpdatedV2 = event
+	case EventType("corehr.pre_hire.updated_v1"):
+		event := new(EventV2CorehrPreHireUpdatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrPreHireUpdatedV1 = event
+	case EventType("hire.eco_account.created_v1"):
+		event := new(EventV2HireEcoAccountCreatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2HireEcoAccountCreatedV1 = event
+	case EventType("hire.eco_background_check.created_v1"):
+		event := new(EventV2HireEcoBackgroundCheckCreatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2HireEcoBackgroundCheckCreatedV1 = event
+	case EventType("hire.eco_background_check.canceled_v1"):
+		event := new(EventV2HireEcoBackgroundCheckCanceledV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2HireEcoBackgroundCheckCanceledV1 = event
+	case EventType("hire.eco_exam.created_v1"):
+		event := new(EventV2HireEcoExamCreatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2HireEcoExamCreatedV1 = event
+	case EventType("hire.referral_account.assets_update_v1"):
+		event := new(EventV2HireReferralAccountAssetsUpdateV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2HireReferralAccountAssetsUpdateV1 = event
+	case EventType("corehr.contract.deleted_v1"):
+		event := new(EventV2CorehrContractDeletedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrContractDeletedV1 = event
+	case EventType("corehr.contract.updated_v1"):
+		event := new(EventV2CorehrContractUpdatedV1)
+		if err := req.unmarshalEvent(event); err != nil {
+			return err
+		}
+		req.eventV2CorehrContractUpdatedV1 = event
 
 	}
 
@@ -1442,156 +1421,155 @@ func (r *EventCallbackService) parserEventV1(req *eventReq) error {
 	}
 
 	switch v1type.Type {
-	case EventTypeV1AddBot:
-		event := new(EventV1AddBot)
-		if err := json.Unmarshal(bs, event); err != nil {
-			return fmt.Errorf("lark event unmarshal event %s failed", bs)
-		}
-		req.eventV1AddBot = event
-	case EventTypeV1AddUserToChat:
-		event := new(EventV1AddUserToChat)
-		if err := json.Unmarshal(bs, event); err != nil {
-			return fmt.Errorf("lark event unmarshal event %s failed", bs)
-		}
-		req.eventV1AddUserToChat = event
-	case EventTypeV1AppOpen:
+
+	case EventType("app_open"):
 		event := new(EventV1AppOpen)
 		if err := json.Unmarshal(bs, event); err != nil {
 			return fmt.Errorf("lark event unmarshal event %s failed", bs)
 		}
 		req.eventV1AppOpen = event
-	case EventTypeV1AppStatusChange:
+	case EventType("app_status_change"):
 		event := new(EventV1AppStatusChange)
 		if err := json.Unmarshal(bs, event); err != nil {
 			return fmt.Errorf("lark event unmarshal event %s failed", bs)
 		}
 		req.eventV1AppStatusChange = event
-	case EventTypeV1AppTicket:
-		event := new(EventV1AppTicket)
-		if err := json.Unmarshal(bs, event); err != nil {
-			return fmt.Errorf("lark event unmarshal event %s failed", bs)
-		}
-		req.eventV1AppTicket = event
-	case EventTypeV1AppUninstalled:
-		event := new(EventV1AppUninstalled)
-		if err := json.Unmarshal(bs, event); err != nil {
-			return fmt.Errorf("lark event unmarshal event %s failed", bs)
-		}
-		req.eventV1AppUninstalled = event
-	case EventTypeV1ApprovalCc:
-		event := new(EventV1ApprovalCc)
-		if err := json.Unmarshal(bs, event); err != nil {
-			return fmt.Errorf("lark event unmarshal event %s failed", bs)
-		}
-		req.eventV1ApprovalCc = event
-	case EventTypeV1ApprovalInstance:
-		event := new(EventV1ApprovalInstance)
-		if err := json.Unmarshal(bs, event); err != nil {
-			return fmt.Errorf("lark event unmarshal event %s failed", bs)
-		}
-		req.eventV1ApprovalInstance = event
-	case EventTypeV1ApprovalTask:
-		event := new(EventV1ApprovalTask)
-		if err := json.Unmarshal(bs, event); err != nil {
-			return fmt.Errorf("lark event unmarshal event %s failed", bs)
-		}
-		req.eventV1ApprovalTask = event
-	case EventTypeV1ChatDisband:
-		event := new(EventV1ChatDisband)
-		if err := json.Unmarshal(bs, event); err != nil {
-			return fmt.Errorf("lark event unmarshal event %s failed", bs)
-		}
-		req.eventV1ChatDisband = event
-	case EventTypeV1LeaveApprovalRevert:
-		event := new(EventV1LeaveApprovalRevert)
-		if err := json.Unmarshal(bs, event); err != nil {
-			return fmt.Errorf("lark event unmarshal event %s failed", bs)
-		}
-		req.eventV1LeaveApprovalRevert = event
-	case EventTypeV1LeaveApprovalV2:
-		event := new(EventV1LeaveApprovalV2)
-		if err := json.Unmarshal(bs, event); err != nil {
-			return fmt.Errorf("lark event unmarshal event %s failed", bs)
-		}
-		req.eventV1LeaveApprovalV2 = event
-	case EventTypeV1OrderPaid:
+	case EventType("order_paid"):
 		event := new(EventV1OrderPaid)
 		if err := json.Unmarshal(bs, event); err != nil {
 			return fmt.Errorf("lark event unmarshal event %s failed", bs)
 		}
 		req.eventV1OrderPaid = event
-	case EventTypeV1OutApproval:
+	case EventType("app_ticket"):
+		event := new(EventV1AppTicket)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+		req.eventV1AppTicket = event
+	case EventType("app_uninstalled"):
+		event := new(EventV1AppUninstalled)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+		req.eventV1AppUninstalled = event
+
+	case EventType("out_approval"):
 		event := new(EventV1OutApproval)
 		if err := json.Unmarshal(bs, event); err != nil {
 			return fmt.Errorf("lark event unmarshal event %s failed", bs)
 		}
 		req.eventV1OutApproval = event
-	case EventTypeV1P2PChatCreate:
-		event := new(EventV1P2PChatCreate)
-		if err := json.Unmarshal(bs, event); err != nil {
-			return fmt.Errorf("lark event unmarshal event %s failed", bs)
-		}
-		req.eventV1P2PChatCreate = event
-	case EventTypeV1ReceiveMessage:
-		event := new(EventV1ReceiveMessage)
-		if err := json.Unmarshal(bs, event); err != nil {
-			return fmt.Errorf("lark event unmarshal event %s failed", bs)
-		}
-		req.eventV1ReceiveMessage = event
-	case EventTypeV1RemedyApproval:
+	case EventType("approval.instance.remedy_group_update_v4"):
 		event := new(EventV1RemedyApproval)
 		if err := json.Unmarshal(bs, event); err != nil {
 			return fmt.Errorf("lark event unmarshal event %s failed", bs)
 		}
 		req.eventV1RemedyApproval = event
-	case EventTypeV1RemoveBot:
-		event := new(EventV1RemoveBot)
-		if err := json.Unmarshal(bs, event); err != nil {
-			return fmt.Errorf("lark event unmarshal event %s failed", bs)
-		}
-		req.eventV1RemoveBot = event
-	case EventTypeV1RemoveUserFromChat:
-		event := new(EventV1RemoveUserFromChat)
-		if err := json.Unmarshal(bs, event); err != nil {
-			return fmt.Errorf("lark event unmarshal event %s failed", bs)
-		}
-		req.eventV1RemoveUserFromChat = event
-	case EventTypeV1RevokeAddUserFromChat:
-		event := new(EventV1RevokeAddUserFromChat)
-		if err := json.Unmarshal(bs, event); err != nil {
-			return fmt.Errorf("lark event unmarshal event %s failed", bs)
-		}
-		req.eventV1RevokeAddUserFromChat = event
-	case EventTypeV1ShiftApproval:
+	case EventType("shift_approval"):
 		event := new(EventV1ShiftApproval)
 		if err := json.Unmarshal(bs, event); err != nil {
 			return fmt.Errorf("lark event unmarshal event %s failed", bs)
 		}
 		req.eventV1ShiftApproval = event
-	case EventTypeV1ThirdPartyMeetingRoomEventCreated:
-		event := new(EventV1ThirdPartyMeetingRoomEventCreated)
-		if err := json.Unmarshal(bs, event); err != nil {
-			return fmt.Errorf("lark event unmarshal event %s failed", bs)
-		}
-		req.eventV1ThirdPartyMeetingRoomEventCreated = event
-	case EventTypeV1ThirdPartyMeetingRoomEventDeleted:
-		event := new(EventV1ThirdPartyMeetingRoomEventDeleted)
-		if err := json.Unmarshal(bs, event); err != nil {
-			return fmt.Errorf("lark event unmarshal event %s failed", bs)
-		}
-		req.eventV1ThirdPartyMeetingRoomEventDeleted = event
-	case EventTypeV1ThirdPartyMeetingRoomEventUpdated:
-		event := new(EventV1ThirdPartyMeetingRoomEventUpdated)
-		if err := json.Unmarshal(bs, event); err != nil {
-			return fmt.Errorf("lark event unmarshal event %s failed", bs)
-		}
-		req.eventV1ThirdPartyMeetingRoomEventUpdated = event
-	case EventTypeV1WorkApproval:
+	case EventType("work_approval"):
 		event := new(EventV1WorkApproval)
 		if err := json.Unmarshal(bs, event); err != nil {
 			return fmt.Errorf("lark event unmarshal event %s failed", bs)
 		}
 		req.eventV1WorkApproval = event
+	case EventType("leave_approval"):
+		event := new(EventV1LeaveApprovalV2)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+		req.eventV1LeaveApprovalV2 = event
+
+	case EventType("third_party_meeting_room_event_updated"):
+		event := new(EventV1ThirdPartyMeetingRoomEventUpdated)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+		req.eventV1ThirdPartyMeetingRoomEventUpdated = event
+	case EventType("third_party_meeting_room_event_deleted"):
+		event := new(EventV1ThirdPartyMeetingRoomEventDeleted)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+		req.eventV1ThirdPartyMeetingRoomEventDeleted = event
+
+	case EventType("third_party_meeting_room_event_created"):
+		event := new(EventV1ThirdPartyMeetingRoomEventCreated)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+		req.eventV1ThirdPartyMeetingRoomEventCreated = event
+
+	case EventType("add_bot"):
+		event := new(EventV1AddBot)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+		req.eventV1AddBot = event
+	case EventType("remove_bot"):
+		event := new(EventV1RemoveBot)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+		req.eventV1RemoveBot = event
+	case EventType("p2p_chat_create"):
+		event := new(EventV1P2PChatCreate)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+		req.eventV1P2PChatCreate = event
+	case EventType("message"):
+		event := new(EventV1ReceiveMessage)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+		req.eventV1ReceiveMessage = event
+	case EventType("add_user_to_chat"):
+		event := new(EventV1AddUserToChat)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+		req.eventV1AddUserToChat = event
+	case EventType("remove_user_from_chat"):
+		event := new(EventV1RemoveUserFromChat)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+		req.eventV1RemoveUserFromChat = event
+	case EventType("revoke_add_user_from_chat"):
+		event := new(EventV1RevokeAddUserFromChat)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+		req.eventV1RevokeAddUserFromChat = event
+	case EventType("chat_disband"):
+		event := new(EventV1ChatDisband)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+		req.eventV1ChatDisband = event
+	case EventType("approval_instance"):
+		event := new(EventV1ApprovalInstance)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+		req.eventV1ApprovalInstance = event
+	case EventType("approval_task"):
+		event := new(EventV1ApprovalTask)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+		req.eventV1ApprovalTask = event
+	case EventType("approval_cc"):
+		event := new(EventV1ApprovalCc)
+		if err := json.Unmarshal(bs, event); err != nil {
+			return fmt.Errorf("lark event unmarshal event %s failed", bs)
+		}
+		req.eventV1ApprovalCc = event
 
 	}
 
