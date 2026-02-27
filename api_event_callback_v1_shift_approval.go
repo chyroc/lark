@@ -37,4 +37,17 @@ func (r *EventCallbackService) HandlerEventV1ShiftApproval(f EventV1ShiftApprova
 type EventV1ShiftApprovalHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1ShiftApproval) (string, error)
 
 // EventV1ShiftApproval ...
-type EventV1ShiftApproval struct{}
+type EventV1ShiftApproval struct {
+	AppID        string `json:"app_id,omitempty"`        // 应用的 App ID。
+	TenantKey    string `json:"tenant_key,omitempty"`    // 租户 Key, 是企业的唯一标识。
+	Type         string `json:"type,omitempty"`          // 事件类型, 固定取值 `shift_approval`
+	InstanceCode string `json:"instance_code,omitempty"` // 审批实例 Code。可调用[获取单个审批实例详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get)接口查询审批实例详情。
+	ApprovalCode string `json:"approval_code,omitempty"` // 审批定义 Code。可调用[查看指定审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get)接口查询审批定义详情。
+	EmployeeID   string `json:"employee_id,omitempty"`   // 审批提交人的 user_id。
+	OpenID       string `json:"open_id,omitempty"`       // 审批提交人的 open_id。
+	StartTime    int64  `json:"start_time,omitempty"`    // 审批发起时间, 秒级时间戳。
+	EndTime      int64  `json:"end_time,omitempty"`      // 审批结束时间, 秒级时间戳。
+	ShiftTime    string `json:"shift_time,omitempty"`    // 换班时间。示例格式 `2018-12-01 12:00:00`
+	ReturnTime   string `json:"return_time,omitempty"`   // 还班时间。示例格式 `2018-12-01 12:00:00`
+	ShiftReason  string `json:"shift_reason,omitempty"`  // 换班事由。
+}

@@ -45,4 +45,14 @@ func (r *EventCallbackService) HandlerEventV1ApprovalInstance(f EventV1ApprovalI
 type EventV1ApprovalInstanceHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1ApprovalInstance) (string, error)
 
 // EventV1ApprovalInstance ...
-type EventV1ApprovalInstance struct{}
+type EventV1ApprovalInstance struct {
+	AppID               string `json:"app_id,omitempty"`                // 应用的 App ID。可调用[获取应用信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/get)接口查询应用详细信息。
+	TenantKey           string `json:"tenant_key,omitempty"`            // 企业唯一标识。
+	Type                string `json:"type,omitempty"`                  // 事件类型。固定取值 `approval_instance`
+	ApprovalCode        string `json:"approval_code,omitempty"`         // 审批定义 Code。可调用[查看指定审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get)接口查询审批定义详情。
+	InstanceCode        string `json:"instance_code,omitempty"`         // 审批实例 Code。可调用[获取单个审批实例详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get)接口查询审批实例详情。
+	Status              string `json:"status,omitempty"`                // 审批实例状态。可能值有: PENDING: 审批中- APPROVED: 已通过- REJECTED: 已拒绝- CANCELED: 已撤回- DELETED: 已删除- REVERTED: 已撤销- OVERTIME_CLOSE: 超时被关闭- OVERTIME_RECOVER: 超时实例被恢复
+	OperateTime         string `json:"operate_time,omitempty"`          // 事件发生时间, 毫秒级时间戳。注意: 当发起人撤销已通过的审批, 推送 `REVERTED` 状态时, 该该字段数据类型为 int64, 而不是 string。
+	InstanceOperateTime string `json:"instance_operate_time,omitempty"` // 事件发生事件, 毫秒级时间戳。
+	UUID                string `json:"uuid,omitempty"`                  // 如果[创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create)时传入了 uuid, 则此处返回该实例的 uuid。
+}

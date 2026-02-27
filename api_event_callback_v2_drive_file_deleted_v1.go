@@ -37,4 +37,15 @@ func (r *EventCallbackService) HandlerEventV2DriveFileDeletedV1(f EventV2DriveFi
 type EventV2DriveFileDeletedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2DriveFileDeletedV1) (string, error)
 
 // EventV2DriveFileDeletedV1 ...
-type EventV2DriveFileDeletedV1 struct{}
+type EventV2DriveFileDeletedV1 struct {
+	FileType   FileType                             `json:"file_type,omitempty"`   // 云文档类型, 支持以下枚举: doc: 旧版文档。已不推荐使用- docx: 新版文档- sheet: 电子表格- bitable: 多维表格- slides: 幻灯片- file: 文件
+	FileToken  string                               `json:"file_token,omitempty"`  // 云文档 token
+	OperatorID *EventV2DriveFileDeletedV1OperatorID `json:"operator_id,omitempty"` // 操作人 ID
+}
+
+// EventV2DriveFileDeletedV1OperatorID ...
+type EventV2DriveFileDeletedV1OperatorID struct {
+	UnionID string `json:"union_id,omitempty"` // 用户的 Union ID
+	UserID  string `json:"user_id,omitempty"`  // 用户的 User ID  字段权限要求: 获取用户 user ID
+	OpenID  string `json:"open_id,omitempty"`  // 用户的 Open ID
+}

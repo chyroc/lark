@@ -50,4 +50,18 @@ func (r *EventCallbackService) HandlerEventV1ApprovalTask(f EventV1ApprovalTaskH
 type EventV1ApprovalTaskHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1ApprovalTask) (string, error)
 
 // EventV1ApprovalTask ...
-type EventV1ApprovalTask struct{}
+type EventV1ApprovalTask struct {
+	AppID        string `json:"app_id,omitempty"`        // 应用的 App ID。可调用[获取应用信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/get)接口查询应用详细信息。
+	OpenID       string `json:"open_id,omitempty"`       // 审批任务操作人的 open_id。你可以调用[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口, 通过 open_id 获取用户信息。说明: 如果审批任务为自动通过类型, open_id 会返回空值。
+	TenantKey    string `json:"tenant_key,omitempty"`    // 企业唯一标识。
+	Type         string `json:"type,omitempty"`          // 事件类型。固定取值 `approval_task`
+	ApprovalCode string `json:"approval_code,omitempty"` // 审批定义 Code。可调用[查看指定审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get)接口查询审批定义详情。
+	InstanceCode string `json:"instance_code,omitempty"` // 审批实例 Code。可调用[获取单个审批实例详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get)接口查询审批实例详情。
+	TaskID       string `json:"task_id,omitempty"`       // 审批任务 ID。
+	UserID       string `json:"user_id,omitempty"`       // 审批任务操作人的 user_id。你可以调用[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口, 通过 user_id 获取用户信息。说明: 如果审批任务为自动通过类型, user_id 会返回空值。
+	Status       string `json:"status,omitempty"`        // 审批任务状态。可能值有: REVERTED: 已还原- PENDING: 进行中- APPROVED: 已通过- REJECTED: 已拒绝- TRANSFERRED: 已转交- ROLLBACK: 已退回- DONE: 已完成- OVERTIME_CLOSE: 超时未处理被关闭- OVERTIME_RECOVER: 超时已关闭的任务被手动恢复
+	OperateTime  string `json:"operate_time,omitempty"`  // 事件发生事件, 毫秒级时间戳。
+	CustomKey    string `json:"custom_key,omitempty"`    // 审批节点的自定义 ID。节点未设置自定义 ID 时返回空值。
+	DefKey       string `json:"def_key,omitempty"`       // 系统生成的审批节点唯一 ID。
+	Extra        string `json:"extra,omitempty"`         // 扩展数据。目前仅任务被退回时才有此字段, 其中: rollback_node_ids: 退回的节点列表- rollback_custom_node_ids: 用户自定义配置的节点列表
+}

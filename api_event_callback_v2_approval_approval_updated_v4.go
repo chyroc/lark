@@ -37,4 +37,18 @@ func (r *EventCallbackService) HandlerEventV2ApprovalApprovalUpdatedV4(f EventV2
 type EventV2ApprovalApprovalUpdatedV4Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2ApprovalApprovalUpdatedV4) (string, error)
 
 // EventV2ApprovalApprovalUpdatedV4 ...
-type EventV2ApprovalApprovalUpdatedV4 struct{}
+type EventV2ApprovalApprovalUpdatedV4 struct {
+	Object *EventV2ApprovalApprovalUpdatedV4Object `json:"object,omitempty"` // 事件详细数据
+}
+
+// EventV2ApprovalApprovalUpdatedV4Object ...
+type EventV2ApprovalApprovalUpdatedV4Object struct {
+	ApprovalCode     string `json:"approval_code,omitempty"`      // 审批定义 Code
+	ApprovalID       string `json:"approval_id,omitempty"`        // 审批定义 ID
+	Extra            string `json:"extra,omitempty"`              // 扩展字段
+	FormDefinitionID string `json:"form_definition_id,omitempty"` // 表单定义 ID
+	ProcessObj       string `json:"process_obj,omitempty"`        // 审批流程表单 JSON 数据
+	Timestamp        int64  `json:"timestamp,omitempty"`          // 审批定义更新时间, 秒级时间戳
+	VersionID        string `json:"version_id,omitempty"`         // 审批定义的版本号
+	WidgetGroupType  int64  `json:"widget_group_type,omitempty"`  // 控件组类型, 返回 0 表示未使用
+}

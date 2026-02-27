@@ -37,4 +37,18 @@ func (r *EventCallbackService) HandlerEventV1RemedyApproval(f EventV1RemedyAppro
 type EventV1RemedyApprovalHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1RemedyApproval) (string, error)
 
 // EventV1RemedyApproval ...
-type EventV1RemedyApproval struct{}
+type EventV1RemedyApproval struct {
+	Object *EventV1RemedyApprovalObject `json:"object,omitempty"` // 事件详细信息。
+}
+
+// EventV1RemedyApprovalObject ...
+type EventV1RemedyApprovalObject struct {
+	EmployeeID   string `json:"employee_id,omitempty"`   // 审批发起人的 user_id。你可以调用[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口, 通过 user_id 获取用户信息。
+	InstanceCode string `json:"instance_code,omitempty"` // 审批实例 Code。可调用[获取单个审批实例详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get)接口查询审批实例详情。
+	StartTime    int64  `json:"start_time,omitempty"`    // 审批发起时间, 秒级时间戳。
+	EndTime      int64  `json:"end_time,omitempty"`      // 审批结束时间, 秒级时间戳。
+	RemedyTime   int64  `json:"remedy_time,omitempty"`   // 补卡时间, 毫秒级时间戳。
+	RemedyReason string `json:"remedy_reason,omitempty"` // 补卡原因。
+	Status       string `json:"status,omitempty"`        // 审批实例状态。审批实例通过时取值为 `APPROVED`
+	Type         string `json:"type,omitempty"`          // 固定取值 `remedy_approval_v2`
+}

@@ -37,4 +37,24 @@ func (r *EventCallbackService) HandlerEventV2DriveFilePermissionMemberAddedV1(f 
 type EventV2DriveFilePermissionMemberAddedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2DriveFilePermissionMemberAddedV1) (string, error)
 
 // EventV2DriveFilePermissionMemberAddedV1 ...
-type EventV2DriveFilePermissionMemberAddedV1 struct{}
+type EventV2DriveFilePermissionMemberAddedV1 struct {
+	ChatList   []interface{}                                      `json:"chat_list,omitempty"`   // 添加的群 ID 列表
+	FileType   FileType                                           `json:"file_type,omitempty"`   // 云文档类型, 支持以下枚举: doc: 旧版文档。已不推荐使用- docx: 新版文档- sheet: 电子表格- bitable: 多维表格- slides: 幻灯片- file: 文件
+	FileToken  string                                             `json:"file_token,omitempty"`  // 云文档 token
+	OperatorID *EventV2DriveFilePermissionMemberAddedV1OperatorID `json:"operator_id,omitempty"` // 操作人 ID
+	UserList   []*EventV2DriveFilePermissionMemberAddedV1User     `json:"user_list,omitempty"`   // 添加的用户 ID 列表
+}
+
+// EventV2DriveFilePermissionMemberAddedV1OperatorID ...
+type EventV2DriveFilePermissionMemberAddedV1OperatorID struct {
+	UnionID string `json:"union_id,omitempty"` // 用户的 Union ID
+	UserID  string `json:"user_id,omitempty"`  // 用户的 User ID  字段权限要求: 获取用户 user ID
+	OpenID  string `json:"open_id,omitempty"`  // 用户的 Open ID
+}
+
+// EventV2DriveFilePermissionMemberAddedV1User ...
+type EventV2DriveFilePermissionMemberAddedV1User struct {
+	UnionID string `json:"union_id,omitempty"` // 用户的 Union ID
+	UserID  string `json:"user_id,omitempty"`  // 用户的 User ID  字段权限要求: 获取用户 user ID
+	OpenID  string `json:"open_id,omitempty"`  // 用户的 Open ID
+}
