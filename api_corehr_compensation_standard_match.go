@@ -21,9 +21,11 @@ import (
 	"context"
 )
 
-// MatchCoreHRCompensationStandard 根据员工获取匹配的薪资标准信息。
+// MatchCoreHRCompensationStandard - 调用此接口来获取员工匹配的薪资标准信息
 //
-// 该接口会按照应用拥有的「薪资标准资源」的权限范围返回数据, 请确定在「开发者后台 - 权限管理 - 数据权限」中已申请「薪资标准资源」权限范围
+// - 请求时, 可选传递员工的部门 ID、职级 ID、职务ID 、序列 ID 等筛选条件, 用于匹配薪资标准
+// - 此接口将返回员工可匹配到的薪资标准全部信息, 包括薪资标准表 ID、薪级薪等、薪资带宽、薪资标准值等
+// 该接口会按照应用拥有的「薪资标准资源」的权限范围返回数据, 请确定在「开发者后台 - 权限管理 - 数据权限-飞书人事(企业版)数据权限范围」中已申请「薪资标准资源」权限范围
 //
 // doc: https://open.feishu.cn/document/server-docs/corehr-v1/compensation_standard/match
 func (r *CoreHRService) MatchCoreHRCompensationStandard(ctx context.Context, request *MatchCoreHRCompensationStandardReq, options ...MethodOptionFunc) (*MatchCoreHRCompensationStandardResp, *Response, error) {
@@ -40,6 +42,7 @@ func (r *CoreHRService) MatchCoreHRCompensationStandard(ctx context.Context, req
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(matchCoreHRCompensationStandardResp)
 
@@ -59,29 +62,30 @@ func (r *Mock) UnMockCoreHRMatchCoreHRCompensationStandard() {
 
 // MatchCoreHRCompensationStandardReq ...
 type MatchCoreHRCompensationStandardReq struct {
-	UserIDType         *IDType           `query:"user_id_type" json:"-"`          // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_corehr_id: 以飞书人事的ID来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	DepartmentIDType   *DepartmentIDType `query:"department_id_type" json:"-"`    // 此次调用中使用的部门 ID 类型, 示例值: open_department_id, 可选值有: open_department_id: [飞书]用来在具体某个应用中标识一个部门, 同一个department_id 在不同应用中的 open_department_id 相同。, department_id: [飞书]用来标识租户内一个唯一的部门。, people_corehr_department_id: [飞书人事]用来标识「飞书人事」中的部门。, 默认值: `people_corehr_department_id`
-	EmploymentID       string            `query:"employment_id" json:"-"`         // 雇员ID, 可通过接口[批量查询员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)获取, 示例值: 7124293751317038636
-	ReferenceObjectApi *string           `query:"reference_object_api" json:"-"`  // 薪资标准的关联对象, 项目或者指标, 示例值: cpst_item, 可选值有: cpst_item: 薪资项目, cpst_indicator: 薪资统计指标
-	ReferenceObjectID  string            `query:"reference_object_id" json:"-"`   // 薪资标准关联对象ID, 示例值: 7156853394442044972
-	DepartmentID       *string           `query:"department_id" json:"-"`         // 部门ID, 可通过接口[批量查询部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/list)获取, 示例值: od-53899868dd0da32292a2d809f0518c8f
-	WorkLocationID     *string           `query:"work_location_id" json:"-"`      // 工作地点ID, 可通过接口[批量查询地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)获取, 示例值: 7094869485965870636
-	CompanyID          *string           `query:"company_id" json:"-"`            // 公司ID, 可通过接口[批量查询公司](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list)获取, 示例值: 7091599096804394540
-	JobFamilyID        *string           `query:"job_family_id" json:"-"`         // 职务序列ID, 可通过接口[批量查询职务序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)获取, 示例值: 7039313681989502508
-	JobLevelID         *string           `query:"job_level_id" json:"-"`          // 职级ID, 可通过接口[批量查询职务级别](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)获取, 示例值: 7086415175263258156
-	EmployeeTypeID     *string           `query:"employee_type_id" json:"-"`      // 人员类型ID, 可通过接口[批量查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)获取, 示例值: 7039310401359775276
-	RecruitmentType    *string           `query:"recruitment_type" json:"-"`      // 招聘类型, 示例值: experienced_professionals, 可选值有: experienced_professionals: 社招, recent_graduates: 校招, routine_intern: 日常实习
-	CpstChangeReasonID *string           `query:"cpst_change_reason_id" json:"-"` // 定调薪原因ID, 示例值: 6967639606963471117
-	CpstPlanID         *string           `query:"cpst_plan_id" json:"-"`          // 薪资方案ID, 示例值: 6967639606963471118
-	CpstSalaryLevelID  *string           `query:"cpst_salary_level_id" json:"-"`  // 薪级薪等ID, 示例值: 6967639606963471119
-	EffectiveTime      *string           `query:"effective_time" json:"-"`        // 生效时间, 示例值: 1660924800000
+	UserIDType         *IDType           `query:"user_id_type" json:"-"`          // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的ID来识别用户默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	DepartmentIDType   *DepartmentIDType `query:"department_id_type" json:"-"`    // 此次调用中使用的部门 ID 类型, 传入部门ID时传入示例值: open_department_id可选值有: 【飞书】用来在具体某个应用中标识一个部门, 同一个department_id 在不同应用中的 open_department_id 相同。【飞书】用来标识租户内一个唯一的部门。【飞书人事】用来标识「飞书人事」中的部门。默认值: `people_corehr_department_id`
+	EmploymentID       *string           `query:"employment_id" json:"-"`         // 雇员ID, 可通过接口[【批量查询员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)获取示例值: 7124293751317038636
+	ReferenceObjectApi *string           `query:"reference_object_api" json:"-"`  // 薪资标准的关联对象, 项目或者指标示例值: cpst_item可选值有: 薪资项目薪资统计指标
+	ReferenceObjectID  string            `query:"reference_object_id" json:"-"`   // 薪资标准表关联对象ID, 即薪资项目/统计指标ID, 可通过接口[【批量查询薪资项】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)、[【批量查询薪资统计指标】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/indicator/list)获取示例值: 7156853394442044972
+	DepartmentID       *string           `query:"department_id" json:"-"`         // 部门ID, 可通过接口[【批量查询部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/list)获取示例值: od-53899868dd0da32292a2d809f0518c8f
+	WorkLocationID     *string           `query:"work_location_id" json:"-"`      // 工作地点ID, 可通过接口[【批量查询地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)获取示例值: 7094869485965870636
+	CompanyID          *string           `query:"company_id" json:"-"`            // 公司ID, 可通过接口[【批量查询公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list)获取示例值: 7091599096804394540
+	JobFamilyID        *string           `query:"job_family_id" json:"-"`         // 职务序列ID, 可通过接口[【批量查询职务序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)获取示例值: 7039313681989502508
+	JobID              *string           `query:"job_id" json:"-"`                // 职务ID, 可通过接口[【批量查询职务】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/list)示例值: 7342883436321097257
+	JobLevelID         *string           `query:"job_level_id" json:"-"`          // 职级ID, 可通过接口[【批量查询职务级别】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)获取示例值: 7086415175263258156
+	EmployeeTypeID     *string           `query:"employee_type_id" json:"-"`      // 人员类型ID, 可通过接口[【批量查询人员类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)获取示例值: 7039310401359775276
+	RecruitmentType    *string           `query:"recruitment_type" json:"-"`      // 招聘类型示例值: experienced_professionals可选值有: 社招校招日常实习
+	CpstChangeReasonID *string           `query:"cpst_change_reason_id" json:"-"` // 定调薪原因ID, 可通过接口[【批量查询定调薪原因】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list)获取示例值: 6967639606963471117
+	CpstPlanID         *string           `query:"cpst_plan_id" json:"-"`          // 薪资方案ID, 可通过接口[【批量查询薪资方案】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list)获取示例值: 6967639606963471118
+	CpstSalaryLevelID  *string           `query:"cpst_salary_level_id" json:"-"`  // 薪级薪等ID示例值: 6967639606963471119
+	EffectiveTime      *string           `query:"effective_time" json:"-"`        // 生效时间（毫秒级时间戳）示例值: 1660924800000
 }
 
 // MatchCoreHRCompensationStandardResp ...
 type MatchCoreHRCompensationStandardResp struct {
 	StandardID    string                                    `json:"standard_id,omitempty"`    // 薪资标准表ID
 	Grade         *MatchCoreHRCompensationStandardRespGrade `json:"grade,omitempty"`          // 薪资等级
-	EffectiveTime string                                    `json:"effective_time,omitempty"` // 生效时间
+	EffectiveTime string                                    `json:"effective_time,omitempty"` // 生效时间（毫秒级时间戳）
 }
 
 // MatchCoreHRCompensationStandardRespGrade ...
@@ -95,7 +99,7 @@ type MatchCoreHRCompensationStandardRespGrade struct {
 
 // MatchCoreHRCompensationStandardRespGradeCurrency ...
 type MatchCoreHRCompensationStandardRespGradeCurrency struct {
-	CurrencyID string                                                `json:"currency_id,omitempty"` // 币种ID
+	CurrencyID string                                                `json:"currency_id,omitempty"` // 币种ID, 可通过接口[【查询货币信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)获取
 	Code       string                                                `json:"code,omitempty"`        // 币种code
 	Name       *MatchCoreHRCompensationStandardRespGradeCurrencyName `json:"name,omitempty"`        // 币种名称
 }
@@ -128,13 +132,13 @@ type MatchCoreHRCompensationStandardRespGradeGradeStandardValueBandWidth struct 
 
 // MatchCoreHRCompensationStandardRespGradeGradeStandardValueReferenceObject ...
 type MatchCoreHRCompensationStandardRespGradeGradeStandardValueReferenceObject struct {
-	ApiName string `json:"api_name,omitempty"` // cpst_item(项目)、 cpst_indicator(指标), 可选值有: cpst_item: 项目, cpst_indicator: 指标
-	ID      string `json:"id,omitempty"`       // 值列表 例如部门ID
+	ApiName string `json:"api_name,omitempty"` // cpst_item(项目)、 cpst_indicator(指标)可选值有: 项目指标
+	ID      string `json:"id,omitempty"`       // 值列表 例如薪资项和薪资统计指标ID
 }
 
 // MatchCoreHRCompensationStandardRespGradeGradeStandardValueStandardType ...
 type MatchCoreHRCompensationStandardRespGradeGradeStandardValueStandardType struct {
-	ApiName string `json:"api_name,omitempty"` // 薪资标准类型, 可选值有: standard_value: standard_value, bandwidth_and_standard_value: bandwidth_and_standard_value, bandwidth_upper_and_lower_limit: bandwidth_upper_and_lower_limit
+	ApiName string `json:"api_name,omitempty"` // 薪资标准类型可选值有: 标准值上下限和标准值上下限
 }
 
 // matchCoreHRCompensationStandardResp ...

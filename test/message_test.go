@@ -499,7 +499,7 @@ func Test_EphemeralMessage(t *testing.T) {
 
 	resp, res, err := AppAllPermission.Ins().Message.SendEphemeralMessage(ctx, &lark.SendEphemeralMessageReq{
 		ChatID:  ChatForSendMessage.ChatID,
-		UserID:  UserAdmin.UserID,
+		UserID:  ptrString(UserAdmin.UserID),
 		MsgType: "interactive",
 		Card: &lark.MessageContentCard{
 			Header: &lark.MessageContentCardHeader{

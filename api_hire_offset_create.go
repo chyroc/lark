@@ -21,7 +21,11 @@ import (
 	"context"
 )
 
-// CreateHireOffer 创建 Offer 时, 需传入本文档中标注为必传的参数, 其余参数是否必传参考「获取 Offer 申请表模板信息」的参数定义。
+// CreateHireOffer 传入 Offer 基本信息, 创建 Offer。
+//
+// ## 注意事项
+// - 创建 Offer 时, 需传入本文档中标注为必传的参数, 其余参数是否必传参考[获取 Offer 申请表信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer_application_form/get)的参数定义或在「飞书招聘」-「设置」-「Offer 设置」-「Offer 申请表设置」中进行查看。
+// - 若客户购买了飞书人事, 且「飞书招聘」-「设置」-「Offer 设置」-「Offer 审批设置」中「Offer 薪酬信息来源」配置为“飞书人事「企业版」基础薪酬设置”, 该接口将无法创建薪酬信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer/create
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/offer/create
@@ -58,14 +62,14 @@ func (r *Mock) UnMockHireCreateHireOffer() {
 
 // CreateHireOfferReq ...
 type CreateHireOfferReq struct {
-	UserIDType         *IDType                             `query:"user_id_type" json:"-"`          // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_admin_id: 以people_admin_id来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	DepartmentIDType   *DepartmentIDType                   `query:"department_id_type" json:"-"`    // 此次调用中使用的部门 ID 的类型, 示例值: department_id, 可选值有: open_department_id: 以 open_department_id 来标识部门, department_id: 以 department_id 来标识部门, 默认值: `open_department_id`
-	JobLevelIDType     *IDType                             `query:"job_level_id_type" json:"-"`     // 此次调用中使用的「职级 ID」的类型, 示例值: 6942778198054125570, 可选值有: people_admin_job_level_id: 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。, job_level_id: 「飞书管理后台」适用的职级 ID, 通过[「获取租户职级列表」](https://open.feishu.cn/document/server-docs/contact-v3/job_level/list)接口获取, 默认值: `people_admin_job_level_id`
-	JobFamilyIDType    *IDType                             `query:"job_family_id_type" json:"-"`    // 此次调用中使用的「序列 ID」的类型, 示例值: 6942778198054125571, 可选值有: people_admin_job_category_id: 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。, job_family_id: 「飞书管理后台」适用的序列 ID, 通过[「获取租户序列列表」](https://open.feishu.cn/document/server-docs/contact-v3/job_family/list)接口获取, 默认值: `people_admin_job_category_id`
-	EmployeeTypeIDType *IDType                             `query:"employee_type_id_type" json:"-"` // 此次调用中使用的「人员类型 ID」的类型, 示例值: 1, 可选值有: people_admin_employee_type_id: 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。, employee_type_enum_id: 「飞书管理后台」适用的人员类型 ID, 通过[「查询人员类型」](https://open.feishu.cn/document/server-docs/contact-v3/employee_type_enum/list)接口获取, 默认值: `people_admin_employee_type_id`
-	ApplicationID      string                              `json:"application_id,omitempty"`        // 投递 ID, 示例值: "7013552389293279532"
-	SchemaID           string                              `json:"schema_id,omitempty"`             // Offer 申请表模板 ID, 用于描述申请表单结构的元数据定义, 即对申请表内容的描述。用户每一次更改 Offer 申请表模板信息, 都会生成新的 schema_id, 创建 Offer 时应传入最新的 schema_id, 可先从职位设置中拿到offer申请表ID, 再从「获取Offer申请表模板信息」接口中获取最新的模板ID, 示例值: "7013318077945596204"
-	OfferType          *int64                              `json:"offer_type,omitempty"`            // Offer 类型, 示例值: 1, 可选值有: 1: 正式 Offer, 2: 实习 Offer
+	UserIDType         *IDType                             `query:"user_id_type" json:"-"`          // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以people_admin_id来识别用户默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	DepartmentIDType   *DepartmentIDType                   `query:"department_id_type" json:"-"`    // 此次调用中使用的部门 ID 类型。示例值: "department_id"可选值有: 【飞书】用来在具体某个应用中标识一个部门, 同一个department_id 在不同应用中的 open_department_id 相同【飞书】用来标识租户内一个唯一的部门默认值: `open_department_id`
+	JobLevelIDType     *IDType                             `query:"job_level_id_type" json:"-"`     // 此次调用中使用的「职级 ID」的类型示例值: "department_id"可选值有: 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。「飞书管理后台」适用的职级 ID, 通过[获取租户职级列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_level/list)接口获取默认值: `people_admin_job_level_id`
+	JobFamilyIDType    *IDType                             `query:"job_family_id_type" json:"-"`    // 此次调用中使用的「序列 ID」的类型示例值: "people_admin_job_category_id"可选值有: 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。「飞书管理后台」适用的序列 ID, 通过[获取租户序列列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_family/list)接口获取默认值: `people_admin_job_category_id`
+	EmployeeTypeIDType *IDType                             `query:"employee_type_id_type" json:"-"` // 此次调用中使用的「人员类型 ID」的类型示例值: "people_admin_employee_type_id"可选值有: 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。「飞书管理后台」适用的人员类型 ID, 通过[查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)接口获取默认值: `people_admin_employee_type_id`
+	ApplicationID      string                              `json:"application_id,omitempty"`        // 投递 ID, 详情请参考: [获取投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/list)示例值: "7013552389293279532"
+	SchemaID           *string                             `json:"schema_id,omitempty"`             // Offer 申请表模板 ID, 用于描述申请表单结构的元数据定义, 即对申请表内容的描述。用户每一次更改 Offer 申请表模板信息, 都会生成新的 schema_id, 创建 Offer 时应传入最新的 schema_id, 可先从[获取职位设置](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/config)中拿到offer申请表ID, 再从[获取 Offer 申请表信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer_application_form/get)接口中获取最新的模板ID。不填则会自动填充最新模版ID。示例值: "7013318077945596204"
+	OfferType          *int64                              `json:"offer_type,omitempty"`            // Offer 类型示例值: 1可选值有: 正式 Offer实习 Offer
 	BasicInfo          *CreateHireOfferReqBasicInfo        `json:"basic_info,omitempty"`            // Offer 基本信息
 	SalaryInfo         *CreateHireOfferReqSalaryInfo       `json:"salary_info,omitempty"`           // Offer 薪资信息
 	CustomizedInfoList []*CreateHireOfferReqCustomizedInfo `json:"customized_info_list,omitempty"`  // 自定义信息
@@ -73,48 +77,53 @@ type CreateHireOfferReq struct {
 
 // CreateHireOfferReqBasicInfo ...
 type CreateHireOfferReqBasicInfo struct {
-	DepartmentID          string                                     `json:"department_id,omitempty"`          // 部门 ID, 示例值: "od-6b394871807047c7023ebfc1ff37cd3a"
-	LeaderUserID          string                                     `json:"leader_user_id,omitempty"`         // 直属上级 ID, 示例值: "ou_ce613028fe74745421f5dc320bb9c709"
-	EmploymentJobID       *string                                    `json:"employment_job_id,omitempty"`      // 职务 ID, 示例值: "123"
-	EmployeeTypeID        *string                                    `json:"employee_type_id,omitempty"`       // 人员类型 ID, 示例值: "2"
-	JobFamilyID           *string                                    `json:"job_family_id,omitempty"`          // 职位序列 ID, 示例值: "6807407987381831949"
-	JobLevelID            *string                                    `json:"job_level_id,omitempty"`           // 职位级别 ID, 示例值: "6807407987381881101"
-	ProbationMonth        *int64                                     `json:"probation_month,omitempty"`        // 试用期, 示例值: 3
-	ContractYear          *int64                                     `json:"contract_year,omitempty"`          // 合同期(年), 推荐使用「contract_period」, 如果Offer申请表中「合同期(年)」字段已停用, 则不可使用该字段, 示例值: 3
-	ContractPeriod        *CreateHireOfferReqBasicInfoContractPeriod `json:"contract_period,omitempty"`        // 合同期（年/月）
-	ExpectedOnboardDate   *string                                    `json:"expected_onboard_date,omitempty"`  // 预计入职日期, 示例值: "{\"date\":\"2022-04-07\"}"
-	OnboardAddressID      *string                                    `json:"onboard_address_id,omitempty"`     // 入职地点 ID, 示例值: "6897079709306259719"
-	WorkAddressID         *string                                    `json:"work_address_id,omitempty"`        // 办公地点 ID, 示例值: "6897079709306259719"
-	OwnerUserID           string                                     `json:"owner_user_id,omitempty"`          // Offer负责人 ID, 示例值: "ou_ce613028fe74745421f5dc320bb9c709"
-	RecommendedWords      *string                                    `json:"recommended_words,omitempty"`      // Offer 推荐语, 示例值: "十分优秀, 推荐入职"
-	JobRequirementID      *string                                    `json:"job_requirement_id,omitempty"`     // 招聘需求 ID, 示例值: "2342352224"
-	JobProcessTypeID      *int64                                     `json:"job_process_type_id,omitempty"`    // 招聘流程类型 ID, 示例值: 2
-	AttachmentIDList      []string                                   `json:"attachment_id_list,omitempty"`     // 附件ID列表, 示例值: ["6792436415209817600"]
-	AttachmentDescription *string                                    `json:"attachment_description,omitempty"` // 附件描述, 示例值: "张三的简历"
-	OperatorUserID        string                                     `json:"operator_user_id,omitempty"`       // Offer操作人 ID, 示例值: "ou_ce613028fe74745421f5dc320bb9c709"
+	DepartmentID           string                                     `json:"department_id,omitempty"`             // 部门 ID, 与入参中的`department_id_type`类型一致, 详情请查看: [获取部门信息列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/list)示例值: "od-6b394871807047c7023ebfc1ff37cd3a"
+	LeaderUserID           string                                     `json:"leader_user_id,omitempty"`            // 直属上级 ID, 与入参`user_id_type`类型一致示例值: "ou_ce613028fe74745421f5dc320bb9c709"
+	EmploymentJobID        *string                                    `json:"employment_job_id,omitempty"`         // 职务 ID, 可通过[批量查询职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/list)接口获取。请注意: 仅支持开通飞书人事企业版的客户使用示例值: "6807407987381831949"
+	EmployeeTypeID         *string                                    `json:"employee_type_id,omitempty"`          // 人员类型 ID, 与入参`employee_type_id_type` 类型一致示例值: "6807407987381831949"
+	JobFamilyID            *string                                    `json:"job_family_id,omitempty"`             // 职位序列 ID, 通过[获取租户序列列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_family/list)接口获取示例值: "6807407987381831949"
+	JobLevelID             *string                                    `json:"job_level_id,omitempty"`              // 职位级别 ID, 通过[获取租户职级列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_level/list)接口获取示例值: "6807407987381881101"
+	ProbationMonth         *int64                                     `json:"probation_month,omitempty"`           // 试用期（月）示例值: 3
+	ContractYear           *int64                                     `json:"contract_year,omitempty"`             // 合同期(年), 推荐使用「contract_period」示例值: 3
+	ContractPeriod         *CreateHireOfferReqBasicInfoContractPeriod `json:"contract_period,omitempty"`           // 合同期（年/月）
+	ExpectedOnboardDate    *string                                    `json:"expected_onboard_date,omitempty"`     // 预计入职日期。以下示例值未转义, 使用时请注意转义示例值: "{\"date\":\"2022-04-07\"}"
+	OnboardAddressID       *string                                    `json:"onboard_address_id,omitempty"`        // 入职地点 ID, 详情请参考: [获取地址列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/list)示例值: "6897079709306259719"
+	WorkAddressID          *string                                    `json:"work_address_id,omitempty"`           // 办公地点 ID, 详情请参考: [获取地址列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/list)示例值: "6897079709306259719"
+	OwnerUserID            string                                     `json:"owner_user_id,omitempty"`             // Offer负责人 ID, 与入参`user_id_type`类型一致示例值: "ou_ce613028fe74745421f5dc320bb9c709"
+	RecommendedWords       *string                                    `json:"recommended_words,omitempty"`         // Offer 推荐语示例值: "十分优秀, 推荐入职"
+	JobRequirementID       *string                                    `json:"job_requirement_id,omitempty"`        // 招聘需求 ID, 详情请查看: [获取招聘需求列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_requirement/list)示例值: "2342352224"
+	JobProcessTypeID       *int64                                     `json:"job_process_type_id,omitempty"`       // 招聘流程类型 ID, 可选值: 「1:社招, 2:校招」示例值: 2
+	AttachmentIDList       []string                                   `json:"attachment_id_list,omitempty"`        // 附件 ID 列表, 暂无获取附件 ID 的方式, 请勿使用示例值: ["6792436415209817600"]
+	CommonAttachmentIDList []string                                   `json:"common_attachment_id_list,omitempty"` // 通用附件 ID 列表, 可使用[创建附件](https://open.feishu.cn/document/ukTMukTMukTM/uIDN1YjLyQTN24iM0UjN/create_attachment)接口创建的附件示例值: ["7483412052430997804"]
+	AttachmentDescription  *string                                    `json:"attachment_description,omitempty"`    // 附件描述示例值: "张三的简历"
+	OperatorUserID         string                                     `json:"operator_user_id,omitempty"`          // Offer操作人 ID, 与入参`user_id_type`类型一致示例值: "ou_ce613028fe74745421f5dc320bb9c709"
+	PositionID             *string                                    `json:"position_id,omitempty"`               // 岗位 ID, 可通过[查询岗位信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/position/query) 获取（仅限飞书人事租户使用, 若链接无法打开, 则说明飞书人事未启用岗位, 请联系[技术支持](https://applink.feishu.cn/TLJpeNdW)开通）示例值: "6897079709306259719"
+	JobOffered             *string                                    `json:"job_offered,omitempty"`               // 入职职位示例值: "入职职位"
+	JobGradeID             *string                                    `json:"job_grade_id,omitempty"`              // 职等 ID, 可通过[查询职等](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query) 获取（仅限飞书人事租户使用）示例值: "6897079709306259720"
+	PathwayID              *string                                    `json:"pathway_id,omitempty"`                // 通道 ID示例值: "6897079709306259719"
 }
 
 // CreateHireOfferReqBasicInfoContractPeriod ...
 type CreateHireOfferReqBasicInfoContractPeriod struct {
-	PeriodType int64 `json:"period_type,omitempty"` // 合同周期类型, 示例值: 1, 可选值有: 1: 月, 2: 年
-	Period     int64 `json:"period,omitempty"`      // 合同时长, 示例值: 3, 取值范围: `0` ～ `100`
+	PeriodType int64 `json:"period_type,omitempty"` // 合同周期类型示例值: 1可选值有: 月年
+	Period     int64 `json:"period,omitempty"`      // 合同时长示例值: 3 取值范围: `0` ～ `100`
 }
 
 // CreateHireOfferReqCustomizedInfo ...
 type CreateHireOfferReqCustomizedInfo struct {
-	ID    *string `json:"id,omitempty"`    // 自定义字段 ID, 示例值: "6972464088568269100"
-	Value *string `json:"value,omitempty"` // 自定义字段信息, 以字符串形式传入, 如: 1. 单选: "1", 2. 多选: "[\"1\", \"2\"]", 3. 日期: "{"date":"2022-01-01"}", 4. 年份选择: "{"date":"2022"}", 5. 月份选择: "{"date":"2022-01"}", 6. 单行文本: "xxx ", 7. 多行文本: "xxx ", 8. 数字: "123", 9. 金额: "123.1", 示例值: "1"
+	ID    *string `json:"id,omitempty"`    // 自定义字段 ID示例值: "6972464088568269100"
+	Value *string `json:"value,omitempty"` // 自定义字段信息, 以字符串形式传入, 如: 1. 单选: "1"2. 多选: "[\"1\", \"2\"]"3. 日期: "{"date":"2022-01-01"}"4. 年份选择: "{"date":"2022"}"5. 月份选择: "{"date":"2022-01"}"6. 单行文本: "xxx "7. 多行文本: "xxx "8. 数字: "123"9. 金额: "123.1"10. 附件: "[{\"common_attachment_id\":\"通用附件 ID\"}, ...]"示例值: "1"
 }
 
 // CreateHireOfferReqSalaryInfo ...
 type CreateHireOfferReqSalaryInfo struct {
-	Currency                  string  `json:"currency,omitempty"`                    // 币种, 示例值: "CNY"
-	BasicSalary               *string `json:"basic_salary,omitempty"`                // 基本工资, 当启用 Offer 申请表中的「薪资信息」模块时, 「基本工资」字段为必传项, 示例值: "1000000"
-	ProbationSalaryPercentage *string `json:"probation_salary_percentage,omitempty"` // 试用期百分比, 示例值: "0.8"
-	AwardSalaryMultiple       *string `json:"award_salary_multiple,omitempty"`       // 年终奖月数, 示例值: "3"
-	OptionShares              *string `json:"option_shares,omitempty"`               // 期权股数, 示例值: "30"
-	QuarterlyBonus            *string `json:"quarterly_bonus,omitempty"`             // 季度奖金额, 示例值: "3000"
-	HalfYearBonus             *string `json:"half_year_bonus,omitempty"`             // 半年奖金额, 示例值: "10000"
+	Currency                  string  `json:"currency,omitempty"`                    // 币种示例值: "CNY"
+	BasicSalary               *string `json:"basic_salary,omitempty"`                // 基本工资, 当启用 Offer 申请表中的「薪资信息」模块时, 「基本工资」字段为必传项示例值: "1000000"
+	ProbationSalaryPercentage *string `json:"probation_salary_percentage,omitempty"` // 试用期薪资百分比示例值: "0.8"
+	AwardSalaryMultiple       *string `json:"award_salary_multiple,omitempty"`       // 年终奖月数示例值: "3"
+	OptionShares              *string `json:"option_shares,omitempty"`               // 期权股数示例值: "30"
+	QuarterlyBonus            *string `json:"quarterly_bonus,omitempty"`             // 季度奖金额, 单位元、支持小数点后两位示例值: "3000"
+	HalfYearBonus             *string `json:"half_year_bonus,omitempty"`             // 半年奖金额, 单位元、支持小数点后两位示例值: "10000"
 }
 
 // CreateHireOfferResp ...
@@ -122,7 +131,7 @@ type CreateHireOfferResp struct {
 	OfferID            string                               `json:"offer_id,omitempty"`             // Offer ID
 	ApplicationID      string                               `json:"application_id,omitempty"`       // 投递 ID
 	SchemaID           string                               `json:"schema_id,omitempty"`            // Offer 申请表模板 ID, 用于描述申请表单结构的元数据定义, 即对申请表内容的描述。用户每一次更改 Offer 申请表模板信息, 都会生成新的 schema_id, 创建 Offer 时应传入最新的 schema_id, 可从「获取Offer申请表模板信息」接口中获取
-	OfferType          int64                                `json:"offer_type,omitempty"`           // Offer 类型, 可选值有: 1: 正式 Offer, 2: 实习 Offer
+	OfferType          int64                                `json:"offer_type,omitempty"`           // Offer 类型可选值有: 正式 Offer实习 Offer
 	BasicInfo          *CreateHireOfferRespBasicInfo        `json:"basic_info,omitempty"`           // Offer 基本信息
 	SalaryInfo         *CreateHireOfferRespSalaryInfo       `json:"salary_info,omitempty"`          // Offer 薪资信息
 	CustomizedInfoList []*CreateHireOfferRespCustomizedInfo `json:"customized_info_list,omitempty"` // 自定义信息
@@ -130,37 +139,42 @@ type CreateHireOfferResp struct {
 
 // CreateHireOfferRespBasicInfo ...
 type CreateHireOfferRespBasicInfo struct {
-	DepartmentID          string                                      `json:"department_id,omitempty"`          // 部门 ID
-	LeaderUserID          string                                      `json:"leader_user_id,omitempty"`         // 直属上级 ID
-	EmploymentJobID       string                                      `json:"employment_job_id,omitempty"`      // 职务 ID
-	EmployeeTypeID        string                                      `json:"employee_type_id,omitempty"`       // 人员类型 ID
-	JobFamilyID           string                                      `json:"job_family_id,omitempty"`          // 职位序列 ID
-	JobLevelID            string                                      `json:"job_level_id,omitempty"`           // 职位级别 ID
-	ProbationMonth        int64                                       `json:"probation_month,omitempty"`        // 试用期
-	ContractYear          int64                                       `json:"contract_year,omitempty"`          // 合同期(年), 推荐使用「contract_period」, 如果Offer申请表中「合同期(年)」字段已停用, 则不可使用该字段
-	ContractPeriod        *CreateHireOfferRespBasicInfoContractPeriod `json:"contract_period,omitempty"`        // 合同期（年/月）
-	ExpectedOnboardDate   string                                      `json:"expected_onboard_date,omitempty"`  // 预计入职日期
-	OnboardAddressID      string                                      `json:"onboard_address_id,omitempty"`     // 入职地点 ID
-	WorkAddressID         string                                      `json:"work_address_id,omitempty"`        // 办公地点 ID
-	OwnerUserID           string                                      `json:"owner_user_id,omitempty"`          // Offer负责人 ID
-	RecommendedWords      string                                      `json:"recommended_words,omitempty"`      // Offer 推荐语
-	JobRequirementID      string                                      `json:"job_requirement_id,omitempty"`     // 招聘需求 ID
-	JobProcessTypeID      int64                                       `json:"job_process_type_id,omitempty"`    // 招聘流程类型 ID
-	AttachmentIDList      []string                                    `json:"attachment_id_list,omitempty"`     // 附件ID列表
-	AttachmentDescription string                                      `json:"attachment_description,omitempty"` // 附件描述
-	OperatorUserID        string                                      `json:"operator_user_id,omitempty"`       // Offer操作人 ID
+	DepartmentID           string                                      `json:"department_id,omitempty"`             // 部门 ID
+	LeaderUserID           string                                      `json:"leader_user_id,omitempty"`            // 直属上级 ID, 与入参`user_id_type`类型一致
+	EmploymentJobID        string                                      `json:"employment_job_id,omitempty"`         // 职务 ID
+	EmployeeTypeID         string                                      `json:"employee_type_id,omitempty"`          // 人员类型 ID
+	JobFamilyID            string                                      `json:"job_family_id,omitempty"`             // 职位序列 ID, 通过[获取租户序列列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_family/list)接口获取
+	JobLevelID             string                                      `json:"job_level_id,omitempty"`              // 职位级别 ID
+	ProbationMonth         int64                                       `json:"probation_month,omitempty"`           // 试用期
+	ContractYear           int64                                       `json:"contract_year,omitempty"`             // 合同期(年), 推荐使用「contract_period」
+	ContractPeriod         *CreateHireOfferRespBasicInfoContractPeriod `json:"contract_period,omitempty"`           // 合同期（年/月）
+	ExpectedOnboardDate    string                                      `json:"expected_onboard_date,omitempty"`     // 预计入职日期
+	OnboardAddressID       string                                      `json:"onboard_address_id,omitempty"`        // 入职地点 ID
+	WorkAddressID          string                                      `json:"work_address_id,omitempty"`           // 办公地点 ID
+	OwnerUserID            string                                      `json:"owner_user_id,omitempty"`             // Offer负责人 ID, 与入参`user_id_type`类型一致
+	RecommendedWords       string                                      `json:"recommended_words,omitempty"`         // Offer 推荐语
+	JobRequirementID       string                                      `json:"job_requirement_id,omitempty"`        // 招聘需求 ID
+	JobProcessTypeID       int64                                       `json:"job_process_type_id,omitempty"`       // 招聘流程类型 ID, 详情请查看: [获取招聘流程信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_process/list)
+	AttachmentIDList       []string                                    `json:"attachment_id_list,omitempty"`        // 附件 ID 列表（废弃）
+	CommonAttachmentIDList []string                                    `json:"common_attachment_id_list,omitempty"` // 通用附件 ID 列表, 可通过[获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get)接口获取附件的详细信息
+	AttachmentDescription  string                                      `json:"attachment_description,omitempty"`    // 附件描述
+	OperatorUserID         string                                      `json:"operator_user_id,omitempty"`          // Offer操作人 ID, 与入参`user_id_type`类型一致
+	PositionID             string                                      `json:"position_id,omitempty"`               // 岗位 ID, 可通过[查询岗位信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/position/query) 获取（仅限飞书人事租户使用, 若链接无法打开, 则说明飞书人事未启用岗位, 请联系[技术支持](https://applink.feishu.cn/TLJpeNdW)开通）
+	JobOffered             string                                      `json:"job_offered,omitempty"`               // 入职职位
+	JobGradeID             string                                      `json:"job_grade_id,omitempty"`              // 职等 ID
+	PathwayID              string                                      `json:"pathway_id,omitempty"`                // 通道 ID
 }
 
 // CreateHireOfferRespBasicInfoContractPeriod ...
 type CreateHireOfferRespBasicInfoContractPeriod struct {
-	PeriodType int64 `json:"period_type,omitempty"` // 合同周期类型, 可选值有: 1: 月, 2: 年
+	PeriodType int64 `json:"period_type,omitempty"` // 合同周期类型可选值有: 月年
 	Period     int64 `json:"period,omitempty"`      // 合同时长
 }
 
 // CreateHireOfferRespCustomizedInfo ...
 type CreateHireOfferRespCustomizedInfo struct {
 	ID    string `json:"id,omitempty"`    // 自定义字段 ID
-	Value string `json:"value,omitempty"` // 自定义字段信息, 以字符串形式传入, 如: 1. 单选: "1", 2. 多选: "[\"1\", \"2\"]", 3. 日期: "{"date":"2022-01-01"}", 4. 年份选择: "{"date":"2022"}", 5. 月份选择: "{"date":"2022-01"}", 6. 单行文本: "xxx ", 7. 多行文本: "xxx ", 8. 数字: "123", 9. 金额: "123.1"
+	Value string `json:"value,omitempty"` // 自定义字段信息, 以字符串形式传入, 如: 1. 单选: "1"2. 多选: "[\"1\", \"2\"]"3. 日期: "{"date":"2022-01-01"}"4. 年份选择: "{"date":"2022"}"5. 月份选择: "{"date":"2022-01"}"6. 单行文本: "xxx "7. 多行文本: "xxx "8. 数字: "123"9. 金额: "123.1"
 }
 
 // CreateHireOfferRespSalaryInfo ...
