@@ -30,4 +30,5 @@ jobs:
 
     - name: Test (No Real Feishu API Calls)
       run: |
-        go test ./... -count=1
+        go list ./... | grep -v '^github.com/chyroc/lark/test$' | xargs -r go test -count=1
+        go test ./test -count=1 -run 'Test_.*_Sample_Failed'
