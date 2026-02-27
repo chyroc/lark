@@ -40,7 +40,6 @@ func (r *DriveService) SetSheetValueImage(ctx context.Context, request *SetSheet
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 		NeedUserAccessToken:   true,
-		IsFile:                true,
 	}
 	resp := new(setSheetValueImageResp)
 
