@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 1018, Event Count: 148
+API Count: 1120, Event Count: 152
 
 <details>
   <summary>
@@ -85,6 +85,11 @@ API Count: 1018, Event Count: 148
   - TranslateText
   - DetectTextLanguage
   - DetectFaceAttributes
+- APaaS
+  - AddAssigneeAPaaSApprovalTask
+  - AgreeAPaaSApprovalTask
+  - RejectAPaaSApprovalTask
+  - TransferAPaaSApprovalTask
 - Admin
   - AdminResetPassword
   - GetAdminDeptStats
@@ -227,6 +232,11 @@ API Count: 1018, Event Count: 148
   - GetAccessToken
   - RefreshAccessToken
   - GetUserInfo
+  - GenOAuthURL
+  - GetAppAccessToken
+  - GetAppTicket
+  - GetTenantAccessToken
+  - SetAppTicket
 - Baike
   - CreateBaikeDraft
   - CreateBaikeUpdate
@@ -575,6 +585,16 @@ API Count: 1018, Event Count: 148
   - GetCoreHRProcess
   - GetCoreHRProcessFormVariableData
   - MatchCoreHRCompensationStandard
+  - BatchQueryCoreHRDepartmentTimeline
+  - GetCoreHRCompensationChangeReasonList
+  - GetCoreHRCompensationIndicatorList
+  - GetCoreHRCompensationItemCategoryList
+  - GetCoreHRCompensationItemList
+  - GetCoreHRCompensationPlanList
+  - QueryCoreHRCompensationArchive
+  - QueryCoreHRDepartmentTimeline
+  - QueryCoreHRJobGrade
+  - SearchCoreHRPreHire
 - Drive
   - GetDriveRootFolderMeta
   - GetDriveFileList
@@ -732,6 +752,7 @@ API Count: 1018, Event Count: 148
   - UpdateDriveMemberPermissionOld
   - TransferDriveMemberPermission
   - CheckDriveMemberPermissionOld
+  - GetWhiteboardNodeList
 - EHR
   - GetEHREmployeeList
   - DownloadEHRAttachments
@@ -886,6 +907,10 @@ API Count: 1018, Event Count: 148
   - EventV2HireReferralAccountAssetsUpdateV1
   - EventV2CorehrContractDeletedV1
   - EventV2CorehrContractUpdatedV1
+  - EventV2CardActionTrigger
+  - EventV2CorehrOffboardingChecklistUpdatedV2
+  - EventV2CorehrOffboardingStatusUpdatedV2
+  - EventV2CorehrOffboardingUpdatedV2
 - File
   - UploadImage
   - DownloadImage
@@ -1013,6 +1038,7 @@ API Count: 1018, Event Count: 148
   - DeactivateHireReferralAccount
   - WithdrawHireReferralAccount
   - ReconcileHireReferralAccount
+  - GetHireTalentList
 - HumanAuth
   - GetFaceVerifyAuthResult
   - UploadFaceVerifyImage
@@ -1020,6 +1046,7 @@ API Count: 1018, Event Count: 148
   - CreateIdentity
 - Jssdk
   - GetJssdkTicket
+  - GenerateJssdkSignature
 - Lingo
   - CreateLingoDraft
   - UpdateLingoDraft
@@ -1036,6 +1063,9 @@ API Count: 1018, Event Count: 148
   - GetLingoRepoList
   - UploadLingoFile
   - DownloadLingoFile
+- MDM
+  - BindMDMUserAuthDataRelation
+  - UnbindMDMUserAuthDataRelation
 - Mail
   - GetMailUser
   - CreateMailGroup
@@ -1114,6 +1144,20 @@ API Count: 1018, Event Count: 148
   - GetMessagePinList
   - GetMessageSpecialFocusList
   - GetMessageSpecialFocusUnread
+  - BatchUpdateURLPreview
+  - CreateAppFeedCard
+  - CreateIMTag
+  - CreateIMTagRelation
+  - DeleteAppFeedCard
+  - DeleteIMTagRelation
+  - InstantReminderAppFeedCard
+  - ListIMTagRelation
+  - MGetIMTag
+  - Reply
+  - Send
+  - UpdateAppFeedCard
+  - UpdateAppFeedCardButton
+  - UpdateIMTag
 - Mina
   - MinaCodeToSession
 - Minutes
@@ -1137,6 +1181,7 @@ API Count: 1018, Event Count: 148
   - UpdateOKRMetricSourceTableItem
   - GetOKRMetricSourceTableItem
   - GetOKRMetricSourceTableItemList
+  - GetOKRReview
 - Passport
   - GetPassportSession
 - Performance
@@ -1151,6 +1196,10 @@ API Count: 1018, Event Count: 148
   - GetPersonalSettingsSystemStatusList
   - BatchOpenPersonalSettingsSystemStatus
   - BatchClosePersonalSettingsSystemStatus
+- Report
+  - QueryReportRule
+  - QueryReportTask
+  - RemoveReportView
 - Search
   - SearchMessage
   - SearchApp
@@ -1191,6 +1240,67 @@ API Count: 1018, Event Count: 148
   - GetTaskCommentList
   - DeleteTaskComment
   - UpdateTaskComment
+  - AddTaskCustomField
+  - AddTaskDependency
+  - AddTaskMember
+  - AddTaskReminder
+  - AddTaskTasklist
+  - AddTaskTasklistMember
+  - CreateTaskCustomFieldOption
+  - CreateTaskSection
+  - CreateTaskSubtask
+  - CreateTaskTasklist
+  - CreateTaskTasklistActivitySubscription
+  - DeleteTaskAttachment
+  - DeleteTaskSection
+  - DeleteTaskTasklist
+  - DeleteTaskTasklistActivitySubscription
+  - GetTaskAttachment
+  - GetTaskAttachmentList
+  - GetTaskSection
+  - GetTaskSectionList
+  - GetTaskSubtaskList
+  - GetTaskTaskListOfSection
+  - GetTaskTaskListOfTasklist
+  - GetTaskTasklist
+  - GetTaskTasklistActivitySubscription
+  - GetTaskTasklistActivitySubscriptionList
+  - GetTaskTasklistList
+  - RemoveTaskCustomField
+  - RemoveTaskDependency
+  - RemoveTaskMember
+  - RemoveTaskReminder
+  - RemoveTaskTasklist
+  - RemoveTaskTasklistMember
+  - UpdateTaskCustomFieldOption
+  - UpdateTaskSection
+  - UpdateTaskTasklist
+  - UpdateTaskTasklistActivitySubscription
+  - UploadTaskAttachment
+- TaskV1
+  - BatchDeleteTaskV1Collaborator
+  - BatchDeleteTaskV1Follower
+  - CompleteTaskV1
+  - CreateTaskV1
+  - CreateTaskV1Collaborator
+  - CreateTaskV1Comment
+  - CreateTaskV1Follower
+  - CreateTaskV1Reminder
+  - DeleteTaskV1
+  - DeleteTaskV1Collaborator
+  - DeleteTaskV1Comment
+  - DeleteTaskV1Follower
+  - DeleteTaskV1Reminder
+  - GetTaskFollowerV1List
+  - GetTaskV1
+  - GetTaskV1CollaboratorList
+  - GetTaskV1Comment
+  - GetTaskV1CommentList
+  - GetTaskV1List
+  - GetTaskV1ReminderList
+  - UncompleteTaskV1
+  - UpdateTaskV1
+  - UpdateTaskV1Comment
 - Tenant
   - GetTenantProductAssignInfo
   - GetTenant
