@@ -24,6 +24,20 @@ import (
 	"github.com/chyroc/lark"
 )
 
+const aiAPIFrequencyLimitErrCode int64 = 99991400
+
+func skipIfAIFrequencyLimited(t *testing.T, err error) bool {
+	if err == nil {
+		return false
+	}
+	code := lark.GetErrorCode(err)
+	if code == aiAPIFrequencyLimitErrCode || strings.Contains(strings.ToLower(err.Error()), "frequency limit") {
+		t.Skipf("skip flaky ai api check due to frequency limit: %v", err)
+		return true
+	}
+	return false
+}
+
 func Test_AI(t *testing.T) {
 	as := assert.New(t)
 
@@ -35,10 +49,17 @@ func Test_AI(t *testing.T) {
 			Text: "Some checks haven’t completed yet",
 		})
 		printData(resp)
+		if skipIfAIFrequencyLimited(t, err) {
+			return
+		}
 		as.Nil(err)
-		as.NotNil(resp)
+		if !as.NotNil(resp) {
+			return
+		}
 		as.Equal("en", strings.ToLower(resp.Language))
-		as.NotEmpty(response.LogID)
+		if response != nil {
+			as.NotEmpty(response.LogID)
+		}
 	})
 
 	t.Run("", func(t *testing.T) {
@@ -49,10 +70,17 @@ func Test_AI(t *testing.T) {
 			Glossary:       nil,
 		})
 		printData(resp)
+		if skipIfAIFrequencyLimited(t, err) {
+			return
+		}
 		as.Nil(err)
-		as.NotNil(resp)
+		if !as.NotNil(resp) {
+			return
+		}
 		as.Contains([]string{"country", "national"}, strings.ToLower(resp.Text))
-		as.NotEmpty(response.LogID)
+		if response != nil {
+			as.NotEmpty(response.LogID)
+		}
 	})
 
 	t.Run("", func(t *testing.T) {
@@ -61,8 +89,13 @@ func Test_AI(t *testing.T) {
 			Image: &runImageText,
 		})
 		printData(resp)
+		if skipIfAIFrequencyLimited(t, err) {
+			return
+		}
 		as.Nil(err)
-		as.NotNil(resp)
+		if !as.NotNil(resp) {
+			return
+		}
 		as.Len(resp.TextList, 1)
 		as.Equal("Run", resp.TextList[0])
 	})
@@ -73,8 +106,13 @@ func Test_AI(t *testing.T) {
 			Image: &runImageText,
 		})
 		printData(resp)
+		if skipIfAIFrequencyLimited(t, err) {
+			return
+		}
 		as.Nil(err)
-		as.NotNil(resp)
+		if !as.NotNil(resp) {
+			return
+		}
 		as.Len(resp.TextList, 1)
 		as.Equal("Run", resp.TextList[0])
 	})

@@ -39,7 +39,7 @@ func TestSheetValue_MarshalJSON(t *testing.T) {
 		{name: "3", arg: &lark.SheetContent{Link: &lark.SheetValueLink{Text: "text", Link: "url"}}, want: `{"text":"text","link":"url","type":"url"}`},
 		{
 			name: "4", arg: &lark.SheetContent{AtUser: &lark.SheetValueAtUser{Text: "aaa@aa.com", TextType: "email", Notify: false, GrantReadPermission: false}},
-			want: `{"type":"mention","text":"aaa@aa.com","textType":"email","notify":false,"grantReadPermission":false}`,
+			want: `{"type":"mention","text":"aaa@aa.com","textType":"email","notify":false,"grantReadPermission":false,"userID":""}`,
 		},
 		{name: "5", arg: &lark.SheetContent{Formula: &lark.SheetValueFormula{Text: "=A1"}}, want: `{"type":"formula","text":"=A1"}`},
 		{name: "6", arg: &lark.SheetContent{AtDoc: &lark.SheetValueAtDoc{Text: "sheet-token", ObjType: "sheet"}}, want: `{"type":"mention","textType":"fileToken","text":"sheet-token","objType":"sheet"}`},

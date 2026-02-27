@@ -21,6 +21,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/chyroc/lark"
 	"github.com/chyroc/lark/larkext"
 	"github.com/stretchr/testify/assert"
 )
@@ -30,10 +31,18 @@ func Test_LarkExt_Doc(t *testing.T) {
 
 	larkClient := AppAllPermission.Ins()
 	folderClient, err := larkext.NewRootFolder(ctx, larkClient)
-	as.Nil(err)
+	if !as.Nil(err) {
+		return
+	}
 
 	docClient, err := folderClient.NewDoc(ctx, "doc title")
-	as.Nil(err)
+	if err != nil && lark.GetErrorCode(err) == 95054 {
+		t.Skipf("skip because CreateDriveDoc is deprecated: %v", err)
+		return
+	}
+	if !as.Nil(err) || !as.NotNil(docClient) {
+		return
+	}
 	defer func() {
 		_, err := docClient.Delete(ctx)
 		as.Nil(err)
@@ -42,7 +51,9 @@ func Test_LarkExt_Doc(t *testing.T) {
 	t.Run("meta", func(t *testing.T) {
 		meta, err := docClient.Meta(ctx)
 		as.Nil(err)
-		as.NotNil(meta)
+		if !as.NotNil(meta) {
+			return
+		}
 	})
 
 	t.Run("raw-content", func(t *testing.T) {

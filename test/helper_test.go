@@ -160,6 +160,23 @@ func IsInCI() bool {
 	return os.Getenv("IN_CI") != ""
 }
 
+func IsExpectedAPIFailedErr(err error) bool {
+	if err == nil {
+		return false
+	}
+	if lark.GetErrorCode(err) > 0 {
+		return true
+	}
+	msg := strings.ToLower(err.Error())
+	if strings.Contains(msg, "404 page not found") {
+		return true
+	}
+	if strings.Contains(msg, "invalid json") {
+		return true
+	}
+	return false
+}
+
 func readFile(filename string) []byte {
 	filename = strings.TrimLeft(filename, ".")
 	filename = strings.TrimLeft(filename, "/")

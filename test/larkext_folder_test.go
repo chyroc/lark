@@ -20,6 +20,7 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/chyroc/lark"
 	"github.com/chyroc/lark/larkext"
 	"github.com/stretchr/testify/assert"
 )
@@ -29,7 +30,9 @@ func Test_FolderExt(t *testing.T) {
 	ctx := context.Background()
 	larkCli := AppAllPermission.Ins()
 	f, err := larkext.NewRootFolder(ctx, larkCli)
-	as.Nil(err)
+	if !as.Nil(err) {
+		return
+	}
 
 	t.Run("meta", func(t *testing.T) {
 		meta1, err := larkext.NewFolder(larkCli, "").Meta(ctx)
@@ -64,7 +67,13 @@ func Test_FolderExt(t *testing.T) {
 
 	t.Run("new-doc doc-self-delete", func(t *testing.T) {
 		doc, err := f.NewDoc(ctx, fmt.Sprintf("rand %d", randInt64()))
-		as.Nil(err)
+		if err != nil && lark.GetErrorCode(err) == 95054 {
+			t.Skipf("skip because CreateDriveDoc is deprecated: %v", err)
+			return
+		}
+		if !as.Nil(err) || !as.NotNil(doc) {
+			return
+		}
 
 		_, err = doc.Delete(ctx)
 		as.Nil(err)
@@ -72,7 +81,13 @@ func Test_FolderExt(t *testing.T) {
 
 	t.Run("new-doc folder-delete", func(t *testing.T) {
 		doc, err := f.NewDoc(ctx, fmt.Sprintf("rand %d", randInt64()))
-		as.Nil(err)
+		if err != nil && lark.GetErrorCode(err) == 95054 {
+			t.Skipf("skip because CreateDriveDoc is deprecated: %v", err)
+			return
+		}
+		if !as.Nil(err) || !as.NotNil(doc) {
+			return
+		}
 
 		as.Nil(f.DeleteDoc(ctx, doc.DocToken()))
 	})
