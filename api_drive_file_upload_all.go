@@ -45,6 +45,7 @@ func (r *DriveService) UploadDriveFile(ctx context.Context, request *UploadDrive
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 		NeedUserAccessToken:   true,
+		IsFile:                true,
 	}
 	resp := new(uploadDriveFileResp)
 
