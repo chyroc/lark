@@ -69,7 +69,7 @@ type GetMessagePinListReq struct {
 	ChatID    string  `query:"chat_id" json:"-"`    // 待获取 Pin 消息的群组 ID。获取方式参见[群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)。示例值: oc_234jsi43d3ssi993d43545f
 	StartTime *string `query:"start_time" json:"-"` // 获取 Pin 消息的起始时间, 毫秒级时间戳。注意: 若未传值默认获取到群聊内最早的 Pin 消息。- 传值时需小于 `end_time` 值。示例值: 1658632251800
 	EndTime   *string `query:"end_time" json:"-"`   // 获取 Pin 消息的结束时间, 毫秒级时间戳。注意: 若未传值默认从群聊内最新的 Pin 消息开始获取。- 传值时需大于 `start_time` 值。示例值: 1658731646425
-	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 用于限制一次请求返回的数据条目数。示例值: 20默认值: `20` 取值范围: `1` ～ `50
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 用于限制一次请求返回的数据条目数。示例值: 20默认值: `20` 取值范围: `1` ～ `50`
 	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: GxmvlNRvP0NdQZpa7yIqf_Lv_QuBwTQ8tXkX7w-irAghVD_TvuYd1aoJ1LQph86O-XImC4X9j9FhUPhXQDvtrQ[
 }
 

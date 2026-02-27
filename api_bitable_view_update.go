@@ -69,20 +69,20 @@ type UpdateBitableViewReq struct {
 // UpdateBitableViewReqProperty ...
 type UpdateBitableViewReqProperty struct {
 	FilterInfo      *UpdateBitableViewReqPropertyFilterInfo      `json:"filter_info,omitempty"`      // 筛选条件
-	HiddenFields    []string                                     `json:"hidden_fields,omitempty"`    // 隐藏字段 ID 列表示例值: ["fldmeqmpVA"] 最大长度: `300
+	HiddenFields    []string                                     `json:"hidden_fields,omitempty"`    // 隐藏字段 ID 列表示例值: ["fldmeqmpVA"] 最大长度: `300`
 	HierarchyConfig *UpdateBitableViewReqPropertyHierarchyConfig `json:"hierarchy_config,omitempty"` // 表格视图层级结构设置
 }
 
 // UpdateBitableViewReqPropertyFilterInfo ...
 type UpdateBitableViewReqPropertyFilterInfo struct {
-	Conjunction string                                             `json:"conjunction,omitempty"` // 多个筛选条件的关系, 表示条件之间的逻辑连接词示例值: "and"可选值有: 与或默认值: `and
-	Conditions  []*UpdateBitableViewReqPropertyFilterInfoCondition `json:"conditions,omitempty"`  // 筛选条件集合 最大长度: `50
+	Conjunction string                                             `json:"conjunction,omitempty"` // 多个筛选条件的关系, 表示条件之间的逻辑连接词示例值: "and"可选值有: 与或默认值: `and`
+	Conditions  []*UpdateBitableViewReqPropertyFilterInfoCondition `json:"conditions,omitempty"`  // 筛选条件集合 最大长度: `50`
 }
 
 // UpdateBitableViewReqPropertyFilterInfoCondition ...
 type UpdateBitableViewReqPropertyFilterInfoCondition struct {
 	FieldID  string  `json:"field_id,omitempty"` // 用于筛选的字段的 ID。可通过[列出字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-field/list)接口获取示例值: "fldmeqmpVA"
-	Operator string  `json:"operator,omitempty"` // 筛选操作的类型, 条件运算符示例值: "is"可选值有: 等于不等于（不支持日期字段）包含（不支持日期字段）不包含（不支持日期字段）为空不为空大于大于等于（不支持日期字段）小于小于等于（不支持日期字段）默认值: `is
+	Operator string  `json:"operator,omitempty"` // 筛选操作的类型, 条件运算符示例值: "is"可选值有: 等于不等于（不支持日期字段）包含（不支持日期字段）不包含（不支持日期字段）为空不为空大于大于等于（不支持日期字段）小于小于等于（不支持日期字段）默认值: `is`
 	Value    *string `json:"value,omitempty"`    // 条件的值, 可以是单个值或多个值的数组。不同字段类型和不同的 operator 可填的值不同。详情参考[字段目标值（value）填写说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/record-filter-guide#3e0fd644)。示例值: "`[\"text content\"]`"
 }
 

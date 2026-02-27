@@ -111,7 +111,7 @@ type CreateCoreHRJobLevelRespJobLevel struct {
 // CreateCoreHRJobLevelRespJobLevelCustomField ...
 type CreateCoreHRJobLevelRespJobLevelCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名
-	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同。如: ```("\"123\"", "\"123.23\"", "\"true\"", [\"id1\", \"id2\"], \"2006-01-02 15:04:05\")``
+	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同。如: ```("\"123\"", "\"123.23\"", "\"true\"", [\"id1\", \"id2\"], \"2006-01-02 15:04:05\")```
 }
 
 // CreateCoreHRJobLevelRespJobLevelDescription ...

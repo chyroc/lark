@@ -21,12 +21,19 @@ import (
 	"context"
 )
 
-// EventV1AppOpen 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
+// EventV1AppOpen 当前租户首次安装并启用应用时, 触发当前事件。启用应用包含以下场景:
 //
-// 当租户第一次安装并启用此应用时触发此事件, 启用应用包含以下场景:
-// - 当租户管理员后台首次开通应用
-// - 租户内的普通成员首次安装此应用
-// 只有应用商店应用才能订阅此事件。自建应用无此事件。
+// - 租户管理员在后台首次开通应用
+// - 租户普通成员首次申请安装应用
+// - 租户普通成员免审安装应用
+// ## 前提条件
+// 你必须为应用订阅该事件, 才会在事件触发时接收到事件信息。详情了解[事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
+// ## 使用限制
+// - 只有商店应用才能订阅此事件。自建应用无此事件。
+// - 不同启用场景所返回的参数不同, 具体说明如下:
+// --应用由租户管理员直接安装, 返回 `installer` 参数, 不返回 `installer_employee` 参数。
+// --应用由租户普通成员发起申请, 待租户管理员通过审批后安装, 返回 `installer` 参数, 不返回 `installer_employee` 参数。
+// --应用由普通成员免审安装, 返回 `installer_employee` 参数, 不返回 `installer` 参数。了解免审安装应用参考[员工免审安装应用](https://open.feishu.cn/document/uAjLw4CM/uYjL24iN/platform-overveiw/develop-process/configuring-employee-review-free-installation)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/event/app-first-enabled
 // new doc: https://open.feishu.cn/document/server-docs/application-v6/event/app-first-enabled
@@ -39,25 +46,15 @@ type EventV1AppOpenHandler func(ctx context.Context, cli *Lark, schema string, h
 
 // EventV1AppOpen ...
 type EventV1AppOpen struct {
-	AppID             string                                `json:"app_id,omitempty"`             // 开通的应用ID. 如: cli_xxx
-	TenantKey         string                                `json:"tenant_key,omitempty"`         // 开通应用的企业唯一标识. 如: xxx
-	Type              string                                `json:"type,omitempty"`               // 事件类型. 如: app_open
-	Applicants        []*EventV1AppOpenEventApplicant       `json:"applicants,omitempty"`         // 应用的申请者, 可能有多个
-	Installer         *EventV1AppOpenEventInstaller         `json:"installer,omitempty"`          // 当应用被管理员安装时, 返回此字段。如果是自动安装或由普通成员获取时, 没有此字段
-	InstallerEmployee *EventV1AppOpenEventInstallerEmployee `json:"installer_employee,omitempty"` // 当应用被普通成员安装时, 返回此字段
+	AppID             string                          `json:"app_id,omitempty"`             // 开通的应用ID. 如: cli_xxx
+	TenantKey         string                          `json:"tenant_key,omitempty"`         // 开通应用的企业唯一标识. 如: xxx
+	Type              string                          `json:"type,omitempty"`               // 事件类型. 如: app_open
+	Applicants        []*EventV1AppOpenEventApplicant `json:"applicants,omitempty"`         // 应用的申请者, 可能有多个
+	Installer         map[string]interface{}          `json:"installer,omitempty"`          // 租户管理员直接安装应用、租户普通成员申请安装应用时, 返回此字段。
+	InstallerEmployee map[string]interface{}          `json:"installer_employee,omitempty"` // 租户普通成员免审安装应用时, 返回此字段。
 }
 
 // EventV1AppOpenEventApplicant ...
 type EventV1AppOpenEventApplicant struct {
-	OpenID string `json:"open_id,omitempty"` // 用户对此应用的唯一标识, 同一用户对不同应用的open_id不同. 如: xxx
-}
-
-// EventV1AppOpenEventInstaller ...
-type EventV1AppOpenEventInstaller struct {
-	OpenID string `json:"open_id,omitempty"` // 用户对此应用的唯一标识, 同一用户对不同应用的open_id不同. 如: xxx
-}
-
-// EventV1AppOpenEventInstallerEmployee ...
-type EventV1AppOpenEventInstallerEmployee struct {
 	OpenID string `json:"open_id,omitempty"` // 用户对此应用的唯一标识, 同一用户对不同应用的open_id不同. 如: xxx
 }

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UpdateSheetDataValidationDropdown 该接口根据 spreadsheetToken 、sheetId、dataValidationId 更新下拉列表的属性。
+// UpdateSheetDataValidationDropdown 更新电子表格工作表中单个下拉列表的设置, 支持更新下拉列表的选项和属性, 包括是否支持多选、下拉选项的样式等。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/datavalidation/update-datavalidation
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/datavalidation/update-datavalidation
@@ -35,7 +35,7 @@ func (r *DriveService) UpdateSheetDataValidationDropdown(ctx context.Context, re
 		Scope:                 "Drive",
 		API:                   "UpdateSheetDataValidationDropdown",
 		Method:                "PUT",
-		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/dataValidation/:sheetId/:dataValidationId",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/dataValidation/:sheetId",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
@@ -59,52 +59,51 @@ func (r *Mock) UnMockDriveUpdateSheetDataValidationDropdown() {
 
 // UpdateSheetDataValidationDropdownReq ...
 type UpdateSheetDataValidationDropdownReq struct {
-	SpreadSheetToken   string                                              `path:"spreadsheetToken" json:"-"`    // spreadsheet 的 token, 获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
-	SheetID            string                                              `path:"sheetId" json:"-"`             // 子sheet唯一识别参数
-	DataValidationID   int64                                               `path:"dataValidationId" json:"-"`    // sheet中下拉列表的唯一标示id
-	DataValidationType string                                              `json:"dataValidationType,omitempty"` // 下拉列表填"list"
+	SpreadSheetToken   string                                              `path:"spreadsheetToken" json:"-"`    // 电子表格的 token。可通过以下两种方式获取。了解更多, 参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。-  电子表格的 URL: https://sample.feishu.cn/sheets/[Iow7sNNEphp3WbtnbCscPqabcef]- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)
+	SheetID            string                                              `path:"sheetId" json:"-"`             // 电子表格工作表的 ID。调用[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query)获取 ID。
+	Ranges             []string                                            `json:"ranges,omitempty"`             // 更新的范围。格式为 `<sheetId>!<开始位置>:<结束位置>`。其中: `sheetId` 为工作表 ID, 通过[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 获取- `<开始位置>:<结束位置>` 为工作表中单元格的范围, 数字表示行索引, 字母表示列索引。如 `A2:B2` 表示该工作表第 2 行的 A 列到 B 列。`range`支持四种写法, 详情参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)注意: 如果该范围没有设置下拉列表, 更新实际上会转换为设置下拉列表。
+	DataValidationType string                                              `json:"dataValidationType,omitempty"` // 数据验证的类型。支持下拉列表, 请填写 "list"。
 	DataValidation     *UpdateSheetDataValidationDropdownReqDataValidation `json:"dataValidation,omitempty"`     // 下拉列表规则属性
 }
 
 // UpdateSheetDataValidationDropdownReqDataValidation ...
 type UpdateSheetDataValidationDropdownReqDataValidation struct {
-	ConditionValues []string                                                   `json:"conditionValues,omitempty"` // 下拉列表选项值, 需为字符串, 不能包含", ", 选项值最长100字符, 选项个数最多500个
-	Options         *UpdateSheetDataValidationDropdownReqDataValidationOptions `json:"options,omitempty"`         // 可选属性
+	ConditionValues []string                                                   `json:"conditionValues,omitempty"` // 下拉列表选项的值           单个值需为字符串类型且不能包含 ", "- 单个值的长度不可超过 100 字节- 选项值的个数不可超过 500 个      示例值: ["2", "89", "3", "2"]
+	Options         *UpdateSheetDataValidationDropdownReqDataValidationOptions `json:"options,omitempty"`         // 下拉选项其它配置, 包括是否支持多选、是否设置下拉选项样式等。
 }
 
 // UpdateSheetDataValidationDropdownReqDataValidationOptions ...
 type UpdateSheetDataValidationDropdownReqDataValidationOptions struct {
-	MultipleValues     *bool    `json:"multipleValues,omitempty"`     // 单选填false, 多选填true, 不填默认为false
-	HighlightValidData *bool    `json:"highlightValidData,omitempty"` // 是否设置颜色和胶囊样式, 不填默认为false
-	Colors             []string `json:"colors,omitempty"`             // 当highlightValidData为true时, color需填颜色, 与conditionValues中的值一一对应。需是RGB16进制格式, 如"#fffd00"
+	MultipleValues     *bool    `json:"multipleValues,omitempty"`     // 是否支持多选选项。可选值: - false: 不支持多选- true: 支持多选          默认值: false, 即不支持多选选项
+	HighlightValidData *bool    `json:"highlightValidData,omitempty"` // 是否为下拉选项设置颜色。可选值: - false: 不设置颜色- true: 为下拉选项设置颜色。需进一步配置 colors 参数          默认值: false, 即不设置颜色
+	Colors             []string `json:"colors,omitempty"`             // 指定下拉选项的颜色。格式为 RGB 十六进制, 如 "#fffd00"。当 `highlightValidData` 为 true 时, 该参数必填。颜色将与 conditionValues 中的值按顺序一一对应。示例值: ["#1FB6C1", "#F006C2", "#FB16C3", "#FFB6C1"]
 }
 
 // UpdateSheetDataValidationDropdownResp ...
 type UpdateSheetDataValidationDropdownResp struct {
-	SpreadSheetToken string                                               `json:" spreadsheetToken,omitempty"` // spreadsheet的token
-	SheetID          string                                               `json:" sheetId,omitempty"`          // 工作表 sheet 的 id
-	DataValidation   *UpdateSheetDataValidationDropdownRespDataValidation `json:"dataValidation,omitempty"`
+	SpreadSheetToken string                                               `json:"spreadsheetToken,omitempty"` // 电子表格的 token
+	SheetID          string                                               `json:"sheetId,omitempty"`          // 工作表的 ID
+	DataValidation   *UpdateSheetDataValidationDropdownRespDataValidation `json:"dataValidation,omitempty"`   // 下拉列表规则的属性
 }
 
 // UpdateSheetDataValidationDropdownRespDataValidation ...
 type UpdateSheetDataValidationDropdownRespDataValidation struct {
-	DataValidationID   int64                                                       `json:"dataValidationId,omitempty"`   // 唯一标示id
-	DataValidationType string                                                      `json:"dataValidationType,omitempty"` // 下拉列表为"list"
-	ConditionValues    []string                                                    `json:"conditionValues,omitempty"`    // 下拉列表选项值
-	Options            *UpdateSheetDataValidationDropdownRespDataValidationOptions `json:"options,omitempty"`            // 可选属性
+	DataValidationType string                                                      `json:"dataValidationType,omitempty"` // 数据验证的类型。下拉列表为 "list"。
+	ConditionValues    []string                                                    `json:"conditionValues,omitempty"`    // 下拉列表选项的值
+	Options            *UpdateSheetDataValidationDropdownRespDataValidationOptions `json:"options,omitempty"`            // 下拉选项其它配置, 包括是否支持多选、是否设置下拉选项样式等。
 }
 
 // UpdateSheetDataValidationDropdownRespDataValidationOptions ...
 type UpdateSheetDataValidationDropdownRespDataValidationOptions struct {
-	MultipleValues     *bool             `json:"multipleValues,omitempty"`     // 单选填false, 多选填true
-	HighlightValidData *bool             `json:"highlightValidData,omitempty"` // 是否设置颜色和胶囊样式
-	ColorValueMap      map[string]string `json:"colorValueMap,omitempty"`      // 当highlightValidData为true时, colorValueMap的key与conditionValues中的值一一对应, value为对应的颜色参数。
+	MultipleValues     bool              `json:"multipleValues,omitempty"`     // 是否支持多选选项。可选值: false: 不支持多选- true: 支持多选
+	HighlightValidData bool              `json:"highlightValidData,omitempty"` // 是否为下拉选项设置颜色。可选值: false: 不设置颜色- true: 为下拉选项设置颜色
+	ColorValueMap      map[string]string `json:"colorValueMap,omitempty"`      // 指定的下拉选项的颜色。格式为 RGB 十六进制, 如 "#fffd00"。颜色将与 conditionValues 中的值按顺序一一对应。
 }
 
 // updateSheetDataValidationDropdownResp ...
 type updateSheetDataValidationDropdownResp struct {
-	Code  int64                                  `json:"code,omitempty"` // 状态码, 0代表成功
-	Msg   *string                                `json:"msg,omitempty"`  // 状态信息
-	Data  *UpdateSheetDataValidationDropdownResp `json:"data,omitempty"`
+	Code  int64                                  `json:"code,omitempty"` // 状态码, 0 代表成功
+	Msg   string                                 `json:"msg,omitempty"`  // 状态信息
+	Data  *UpdateSheetDataValidationDropdownResp `json:"data,omitempty"` // 返回数据
 	Error *ErrorDetail                           `json:"error,omitempty"`
 }

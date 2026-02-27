@@ -62,7 +62,7 @@ func (r *Mock) UnMockApplicationUpdateApplicationContactsRangeConfiguration() {
 type UpdateApplicationContactsRangeConfigurationReq struct {
 	AppID             string                                                        `path:"app_id" json:"-"`               // 应用id示例值: "cli_dsfjksdfee1"
 	UserIDType        *IDType                                                       `query:"user_id_type" json:"-"`        // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	DepartmentIDType  *DepartmentIDType                                             `query:"department_id_type" json:"-"`  // 部门id类型示例值: open_department_id可选值有: 以open_department_id标识部门以department_id标识部门默认值: `open_department_id
+	DepartmentIDType  *DepartmentIDType                                             `query:"department_id_type" json:"-"`  // 部门id类型示例值: open_department_id可选值有: 以open_department_id标识部门以department_id标识部门默认值: `open_department_id`
 	ContactsRangeType string                                                        `json:"contacts_range_type,omitempty"` // 更新范围方式示例值: "some"可选值有: 与应用可用性始终保持一致部分成员全部成员范围
 	AddVisibleList    *UpdateApplicationContactsRangeConfigurationReqAddVisibleList `json:"add_visible_list,omitempty"`    // 通讯录权限范围新增列表仅contacts_range_type为some 时生效并进行增量更新
 	DelVisibleList    *UpdateApplicationContactsRangeConfigurationReqDelVisibleList `json:"del_visible_list,omitempty"`    // 从通讯录权限范围删除的列表仅contacts_range_type为some 时生效并进行增量更新
@@ -70,16 +70,16 @@ type UpdateApplicationContactsRangeConfigurationReq struct {
 
 // UpdateApplicationContactsRangeConfigurationReqAddVisibleList ...
 type UpdateApplicationContactsRangeConfigurationReqAddVisibleList struct {
-	UserIDs       []string `json:"user_ids,omitempty"`       // 成员id列表 id类型根据user_id_type参数指定示例值: ["ou_7dab8a3d3cdcc9da365777c7ad535d62"] 最大长度: `100
-	DepartmentIDs []string `json:"department_ids,omitempty"` // 部门id列表 id类型根据department_id_type参数指定示例值: ["od-4e6ac4d14bcd5071a37a39de902c7141"] 最大长度: `100
-	GroupIDs      []string `json:"group_ids,omitempty"`      // 用户组列表示例值: ["g12334"] 最大长度: `100
+	UserIDs       []string `json:"user_ids,omitempty"`       // 成员id列表 id类型根据user_id_type参数指定示例值: ["ou_7dab8a3d3cdcc9da365777c7ad535d62"] 最大长度: `100`
+	DepartmentIDs []string `json:"department_ids,omitempty"` // 部门id列表 id类型根据department_id_type参数指定示例值: ["od-4e6ac4d14bcd5071a37a39de902c7141"] 最大长度: `100`
+	GroupIDs      []string `json:"group_ids,omitempty"`      // 用户组列表示例值: ["g12334"] 最大长度: `100`
 }
 
 // UpdateApplicationContactsRangeConfigurationReqDelVisibleList ...
 type UpdateApplicationContactsRangeConfigurationReqDelVisibleList struct {
-	UserIDs       []string `json:"user_ids,omitempty"`       // 成员id列表 id类型根据user_id_type参数指定示例值: ["ou_7dab8a3d3cdcc9da365777c7ad535d62"] 最大长度: `100
-	DepartmentIDs []string `json:"department_ids,omitempty"` // 部门id列表 id类型根据department_id_type参数指定示例值: ["od-4e6ac4d14bcd5071a37a39de902c7141"] 最大长度: `100
-	GroupIDs      []string `json:"group_ids,omitempty"`      // 用户组列表示例值: ["g12334"] 最大长度: `100
+	UserIDs       []string `json:"user_ids,omitempty"`       // 成员id列表 id类型根据user_id_type参数指定示例值: ["ou_7dab8a3d3cdcc9da365777c7ad535d62"] 最大长度: `100`
+	DepartmentIDs []string `json:"department_ids,omitempty"` // 部门id列表 id类型根据department_id_type参数指定示例值: ["od-4e6ac4d14bcd5071a37a39de902c7141"] 最大长度: `100`
+	GroupIDs      []string `json:"group_ids,omitempty"`      // 用户组列表示例值: ["g12334"] 最大长度: `100`
 }
 
 // UpdateApplicationContactsRangeConfigurationResp ...

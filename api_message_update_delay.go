@@ -22,19 +22,28 @@ import (
 	"encoding/json"
 )
 
-// UpdateMessageDelay 用户对消息卡片完成交互操作后, 对指定用户更新卡片内容, 给与及时反馈。
+// UpdateMessageDelay 用户点击卡片进行交互、你的服务端在收到并响应卡片的回调请求后, 可调用该接口延时更新卡片。
 //
-// 使用场景:
-// - 用户点击卡片后业务方需要处理较长时间, 无法在3s内及时返回需要展示的卡片内容。
-// - 只更新一部分收到这张卡片成员（同一个`message_id`）看到的卡片内容。延迟更新使用交互回传事件中的`token`来指定目标更新的消息, 无需额外关注原消息的`message_id`。
-// <b>注意事项</b>:
-// - 需要用户主动交互触发, 不支持无条件更新
-// - 延迟更新使用的token有效期为30分钟, 超时则无法更新卡片
-// - 调用延迟更新接口需要晚于同步返回, 否则会出现不可预测行为
-// 服务端处理时, 可先立即 return 空串, 再在30分钟内调用延迟更新接口更新卡片
-// - 只能更新用户交互对应卡片, 不允许更新其他卡片
-// - 卡片内容经转换后不能超过100KB
-// - 同一token仅能使用3次
+// ## 使用场景
+// 本接口适用于以下场景:
+// - 用户与卡片交互后, 无法在 3 秒内立即更新卡片。可调用本接口在 30 分钟内延时更新。
+// - 用户与卡片交互后, 需要仅更新部分指定用户接收到的卡片。
+// ## 延时更新消息卡片流程
+// 调用本接口前, 你需参考下图, 了解整体更新流程:
+// 1. 用户点击交互组件, 与卡片进行交互
+// 2. 飞书服务器发送[卡片回传交互](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-callback-communication)回调
+// 3. 你的服务器需要在接收回调的 3 秒内先以 HTTP 200 状态码响应该回调, 在响应时设置 HTTP Body 为 `"{}"` 或者返回自定义 Toast 结构体
+// 5. 在[卡片回传交互](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-callback-communication)回调请求中获取 token 参数, 调用本接口, 在 30 分钟内更新卡片。
+// :::warning
+// 延时更新卡片必须在响应回调之后进行, 并行执行或提前执行会出现更新失败或更新后立即复原的情况。
+// ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/39672c58aadbb0ea3e97d8b01401bcb1_8IVLvqd5H3.png?height=500&lazyload=true&maxWidth=600&width=1846)
+// ## 使用限制
+// - 延时更新所需的 token 有效期为 30 分钟, 超时则无法更新卡片, 且同一个 token 只能使用 2 次, 超过使用次数则无法更新卡片。
+// - 只能更新当前应用机器人发送的、用户交互的卡片, 不允许更新其他卡片。
+// - 卡片大小需控制在 30KB 以内。对于搭建工具搭建的卡片模板, 需确保模板中的 JSON 代码长度和变量长度之和控制在 30 KB 以内。如果卡片使用了循环容器, 循环容器的 JSON 长度 = 卡片模板中循环容器的 JSON 长度 × 循环的次数。
+// ## 前提条件
+// - 应用需要[启用机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// - 你已参考[处理卡片回调-方式二: 延时更新卡片](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/handle-card-callbacks#8ba7bbc3), 在 3 秒内以 `HTTP 200` 状态码响应了卡片回传交互请求。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMDO1YjLzgTN24yM4UjN
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/message-card/delay-update-message-card
@@ -71,14 +80,14 @@ func (r *Mock) UnMockMessageUpdateMessageDelay() {
 
 // UpdateMessageDelayReq ...
 type UpdateMessageDelayReq struct {
-	Token string                     `json:"token,omitempty"` // 用于更新卡片的token, 不是tenant_access_token（可通过[卡片交互返回内容](https://open.feishu.cn/document/ukTMukTMukTM/uEzNwUjLxcDM14SM3ATN)获取）
-	Card  *UpdateMessageDelayReqCard `json:"card,omitempty"`  // 消息卡片的描述内容, 具体参考[卡片结构](https://open.feishu.cn/document/ukTMukTMukTM/uEjNwUjLxYDM14SM2ATN)
+	Token string                     `json:"token,omitempty"` // [卡片回传交互](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-callback-communication)回调中包含的 token 参数值。  示例值: "c-295ee57216a5dc9de90fefd0aadb4b1d7dxxxx"
+	Card  *UpdateMessageDelayReqCard `json:"card,omitempty"`  // 消息卡片的内容, 可以是[卡片 JSON 数据](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-structure), 也可以传入[卡片搭建工具](https://open.feishu.cn/cardkit?from=open_docs_overview)搭建的卡片相关信息。详情参考下方的请求体示例。
 }
 
 // UpdateMessageDelayReqCard ...
 type UpdateMessageDelayReqCard struct {
-	Card    interface{} `json:"card,omitempty"`     // 消息卡片的描述内容, 具体参考[卡片结构](https://open.feishu.cn/document/ukTMukTMukTM/uEjNwUjLxYDM14SM2ATN)
-	OpenIDs []string    `json:"open_ids,omitempty"` // 指定需要更新的用户, 共享卡片默认更新所有人卡片, 无需填写该字段。推荐使用 OpenID, 获取方式可参考文档[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)
+	Card    interface{} `json:"card,omitempty"`     // 消息卡片的内容, 可以是[卡片 JSON 数据](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-structure), 也可以传入[卡片搭建工具](https://open.feishu.cn/cardkit?from=open_docs_overview)搭建的卡片相关信息。详情参考下方的请求体示例。
+	OpenIDs []string    `json:"open_ids,omitempty"` // 用户的 open_id 列表, 用于定义接收更新卡片的用户范围。获取方式参考[如何获取自己的 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。  示例值: ["ou_5ad573a6411d72b8305fda3a9c15xxxx"]  注意: 该参数仅支持[卡片 JSON 1.0 结构](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-structure), 且仅在卡片的 `config.update_multi` 参数设置为` false`（即独享卡片）时可用。- 当卡片 `config.update_multi` 为 `false` 时, 该参数必填；若为 `true`（即共享卡片）, 请勿使用该参数, 否则可能导致卡片更新异常。
 }
 
 func (r UpdateMessageDelayReqCard) MarshalJSON() ([]byte, error) {
@@ -95,8 +104,7 @@ func (r UpdateMessageDelayReqCard) MarshalJSON() ([]byte, error) {
 }
 
 // UpdateMessageDelayResp ...
-type UpdateMessageDelayResp struct {
-}
+type UpdateMessageDelayResp struct{}
 
 // updateMessageDelayResp ...
 type updateMessageDelayResp struct {

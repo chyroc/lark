@@ -62,7 +62,7 @@ func (r *Mock) UnMockCoreHRGetCoreHRPreHireList() {
 type GetCoreHRPreHireListReq struct {
 	PageToken  *string  `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 1231231987
 	PageSize   int64    `query:"page_size" json:"-"`    // 分页大小, 最大值100, 最小值 1示例值: 100
-	PreHireIDs []string `query:"pre_hire_ids" json:"-"` // 待入职ID列表, 可通过[搜索待入职](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/search)接口获取示例值: 7140964208476371 最大长度: `10
+	PreHireIDs []string `query:"pre_hire_ids" json:"-"` // 待入职ID列表, 可通过[搜索待入职](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/search)接口获取示例值: 7140964208476371 最大长度: `10`
 }
 
 // GetCoreHRPreHireListResp ...

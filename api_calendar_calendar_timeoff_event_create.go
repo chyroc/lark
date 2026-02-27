@@ -74,8 +74,8 @@ type CreateCalendarTimeoffEventResp struct {
 	TimeoffEventID string `json:"timeoff_event_id,omitempty"` // 请假日程 ID。后续可以使用该 ID 删除请假日程。
 	UserID         string `json:"user_id,omitempty"`          // 用户 ID。关于用户 ID 可参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)。
 	Timezone       string `json:"timezone,omitempty"`         // 时区信息。
-	StartTime      string `json:"start_time,omitempty"`       // 请假开始时间。可能返回的时间格式: 秒级时间戳, 例如 `1609430400`- 日期, 例如 `2021-01-01
-	EndTime        string `json:"end_time,omitempty"`         // 请假结束时间。可能返回的时间格式: 秒级时间戳, 例如 `1609430400`- 日期, 例如 `2021-01-01
+	StartTime      string `json:"start_time,omitempty"`       // 请假开始时间。可能返回的时间格式: 秒级时间戳, 例如 `1609430400`- 日期, 例如 `2021-01-01`
+	EndTime        string `json:"end_time,omitempty"`         // 请假结束时间。可能返回的时间格式: 秒级时间戳, 例如 `1609430400`- 日期, 例如 `2021-01-01`
 	Title          string `json:"title,omitempty"`            // 请假日程标题。
 	Description    string `json:"description,omitempty"`      // 请假日程描述。
 }

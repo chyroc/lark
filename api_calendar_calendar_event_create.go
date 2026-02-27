@@ -64,82 +64,103 @@ func (r *Mock) UnMockCalendarCreateCalendarEvent() {
 
 // CreateCalendarEventReq ...
 type CreateCalendarEventReq struct {
-	CalendarID       string                              `path:"calendar_id" json:"-"`        // 日历 ID, 创建共享日历时会返回日历 ID。你也可以调用以下接口获取某一日历的 ID, [查询主日历信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/primary), [查询日历列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/list), [搜索日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/search), 示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
-	IdempotencyKey   *string                             `query:"idempotency_key" json:"-"`   // 创建日程的幂等 key, 该 key 在应用和日历维度下唯一, 用于避免重复创建资源。建议按照示例值的格式进行取值, 示例值: 25fdf41b-8c80-2ce1-e94c-de8b5e7aa7e6, 长度范围: `32` ～ `128` 字符
-	UserIDType       *IDType                             `query:"user_id_type" json:"-"`      // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	Summary          *string                             `json:"summary,omitempty"`           // 日程标题, 示例值: "日程标题", 最大长度: `1000` 字符
-	Description      *string                             `json:"description,omitempty"`       // 日程描述, 注意: 目前 API 方式不支持编辑富文本描述。如果日程描述通过客户端编辑为富文本内容, 则使用 API 更新描述会导致富文本格式丢失, 示例值: "日程描述", 最大长度: `40960` 字符
-	NeedNotification *bool                               `json:"need_notification,omitempty"` // 更新日程时, 是否给日程参与人发送 Bot 通知, 可选值有: true: 发送通知, false: 不发送通知, 默认值: true, 示例值: false
+	CalendarID       string                              `path:"calendar_id" json:"-"`        // 日历 ID。创建共享日历时会返回日历 ID。你也可以调用以下接口获取某一日历的 ID。- [查询主日历信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/primary)- [查询日历列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/list)- [搜索日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/search)示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
+	IdempotencyKey   *string                             `query:"idempotency_key" json:"-"`   // 创建日程的幂等 key, 该 key 在应用和日历维度下唯一, 用于避免重复创建资源。建议按照示例值的格式进行取值。示例值: 25fdf41b-8c80-2ce1-e94c-de8b5e7aa7e6 长度范围: `32` ～ `128` 字符
+	UserIDType       *IDType                             `query:"user_id_type" json:"-"`      // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	Summary          *string                             `json:"summary,omitempty"`           // 日程标题。注意: 为确保数据安全, 系统会自动检测日程标题内容, 当包含 晋升、绩效、述职、调薪、调级、复议、申诉、校准、答辩 中任一关键词时, 该日程不会生成会议纪要。示例值: "日程标题" 最大长度: `1000` 字符
+	Description      *string                             `json:"description,omitempty"`       // 日程描述。支持解析Html标签。注意: 可以通过Html标签来实现部分富文本格式, 但是客户端生成的富文本格式并不是通过Html标签实现, 如果通过客户端生成富文本描述后, 再通过API更新描述, 会导致客户端原来的富文本格式丢失。示例值: "日程描述" 最大长度: `40960` 字符
+	NeedNotification *bool                               `json:"need_notification,omitempty"` // 更新日程时, 是否给日程参与人发送 Bot 通知。可选值有: true: 发送通知- false: 不发送通知默认值: true示例值: false
 	StartTime        *CreateCalendarEventReqStartTime    `json:"start_time,omitempty"`        // 日程开始时间。
 	EndTime          *CreateCalendarEventReqEndTime      `json:"end_time,omitempty"`          // 日程结束时间。
 	Vchat            *CreateCalendarEventReqVchat        `json:"vchat,omitempty"`             // 视频会议信息。
-	Visibility       *string                             `json:"visibility,omitempty"`        // 日程公开范围, 新建日程默认为 `default`, 注意: 该参数仅在新建日程时, 对所有参与人生效。如果后续更新日程修改了该参数值, 则仅对当前身份生效, 示例值: "default", 可选值有: default: 默认权限, 即跟随日历权限, 默认仅向他人显示是否忙碌, public: 公开, 显示日程详情, private: 私密, 仅自己可见详情
-	AttendeeAbility  *string                             `json:"attendee_ability,omitempty"`  // 参与人权限, 默认值: none, 示例值: "can_see_others", 可选值有: none: 无法编辑日程、无法邀请其他参与人、无法查看参与人列表, can_see_others: 无法编辑日程、无法邀请其他参与人、可以查看参与人列表, can_invite_others: 无法编辑日程、可以邀请其他参与人、可以查看参与人列表, can_modify_event: 可以编辑日程、可以邀请其他参与人、可以查看参与人列表
-	FreeBusyStatus   *string                             `json:"free_busy_status,omitempty"`  // 日程占用的忙闲状态, 新建日程默认为 `busy`, 注意: 该参数仅在新建日程时, 对所有参与人生效。如果后续更新日程时修改了该参数值, 则仅对当前身份生效, 示例值: "busy", 可选值有: busy: 忙碌, free: 空闲
+	Visibility       *string                             `json:"visibility,omitempty"`        // 日程公开范围, 新建日程默认为 `default`。注意: 该参数仅在新建日程时, 对所有参与人生效。如果后续更新日程修改了该参数值, 则仅对当前身份生效。示例值: "default"可选值有: 默认权限, 即跟随日历权限, 默认仅向他人显示是否忙碌公开, 显示日程详情私密, 仅自己可见详情
+	AttendeeAbility  *string                             `json:"attendee_ability,omitempty"`  // 参与人权限。默认值: none示例值: "can_see_others"可选值有: 无法编辑日程、无法邀请其他参与人、无法查看参与人列表无法编辑日程、无法邀请其他参与人、可以查看参与人列表无法编辑日程、可以邀请其他参与人、可以查看参与人列表可以编辑日程、可以邀请其他参与人、可以查看参与人列表
+	FreeBusyStatus   *string                             `json:"free_busy_status,omitempty"`  // 日程占用的忙闲状态, 新建日程默认为 `busy`。注意: 该参数仅在新建日程时, 对所有参与人生效。如果后续更新日程时修改了该参数值, 则仅对当前身份生效。示例值: "busy"可选值有: 忙碌空闲
 	Location         *CreateCalendarEventReqLocation     `json:"location,omitempty"`          // 日程地点, 不传值则默认为空。
-	Color            *int64                              `json:"color,omitempty"`             // 日程颜色, 取值通过颜色 RGB 值的 int32 表示, 注意: 该参数仅对当前身份生效, 客户端展示时会映射到色板上最接近的一种颜色, 取值为 0 或 -1 时, 默认跟随日历颜色, 示例值:1
+	Color            *int64                              `json:"color,omitempty"`             // 日程颜色, 取值通过颜色 RGB 值的 int32 表示。注意: 该参数仅对当前身份生效。- 客户端展示时会映射到色板上最接近的一种颜色。- 取值为 0 或 -1 时, 默认跟随日历颜色。示例值:1
 	Reminders        []*CreateCalendarEventReqReminder   `json:"reminders,omitempty"`         // 日程提醒列表。不传值则默认为空。
-	Recurrence       *string                             `json:"recurrence,omitempty"`        // 重复日程的重复性规则, 规则设置方式参考[rfc5545](https://datatracker.ietf.org/doc/html/rfc5545#section-3.3.10), 默认值: 空, 表示当前日程不是重复日程, 注意: COUNT 和, UNTIL 不支持同时出现, 预定会议室重复日程长度不得超过两年, 示例值: "FREQ=DAILY;INTERVAL=1", 最大长度: `2000` 字符
+	Recurrence       *string                             `json:"recurrence,omitempty"`        // 重复日程的重复性规则, 规则设置方式参考[rfc5545](https://datatracker.ietf.org/doc/html/rfc5545#section-3.3.10)。默认值: 空, 表示当前日程不是重复日程。注意: COUNT 和  UNTIL 不支持同时出现。- 预定会议室重复日程长度不得超过两年。示例值: "FREQ=DAILY;INTERVAL=1" 最大长度: `2000` 字符
 	Schemas          []*CreateCalendarEventReqSchema     `json:"schemas,omitempty"`           // 日程自定义信息, 控制日程详情页的 UI 展示。不传值则默认为空。
-	Attachments      []*CreateCalendarEventReqAttachment `json:"attachments,omitempty"`       // 日程附件
+	Attachments      []*CreateCalendarEventReqAttachment `json:"attachments,omitempty"`       // 日程附件。
+	EventCheckIn     *CreateCalendarEventReqEventCheckIn `json:"event_check_in,omitempty"`    // 日程签到设置, 为空则不进行日程签到设置。
 }
 
 // CreateCalendarEventReqAttachment ...
 type CreateCalendarEventReqAttachment struct {
-	FileToken *string `json:"file_token,omitempty"` // 附件token, 参考[上传素材](https://open.larkoffice.com/document/server-docs/docs/drive-v1/media/upload_all)获取file_token, 注意: parent_type传入固定值 "calendar", parent_node传入日历ID且与本接口日历ID保持一致, 附件校验规则: 附件总大小不超过25MB, 示例值: "xAAAAA"
+	FileToken *string `json:"file_token,omitempty"` // 附件 Token。调用[上传素材](https://open.larkoffice.com/document/server-docs/docs/drive-v1/media/upload_all)接口, 获取附件的 file_token。在调用上传素材接口时需要注意: `parent_type` 需传入固定值 `calendar`。- `parent_node` 需传入与当前接口一致的日历 ID。附件校验规则: 附件总大小不超过 25 MB。示例值: "xAAAAA"
 }
 
 // CreateCalendarEventReqEndTime ...
 type CreateCalendarEventReqEndTime struct {
-	Date      *string `json:"date,omitempty"`      // 结束时间, 仅全天日程使用该字段, [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) 格式, 例如, 2018-09-01, 注意: 该参数不能与 `timestamp` 同时指定, 示例值: "2018-09-01"
-	Timestamp *string `json:"timestamp,omitempty"` // 秒级时间戳, 用于设置具体的结束时间。例如, 1602504000 表示 2020/10/12 20:00:00（UTC +8 时区）, 注意: 该参数不能与 `date` 同时指定, 示例值: "1602504000"
-	Timezone  *string `json:"timezone,omitempty"`  // 时区。使用 IANA Time Zone Database 标准, 例如 Asia/Shanghai, 全天日程时区固定为UTC +0, 非全天日程时区默认为 Asia/Shanghai, 示例值: "Asia/Shanghai"
+	Date      *string `json:"date,omitempty"`      // 结束时间, 仅全天日程使用该字段, [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) 格式, 例如, 2018-09-01。注意: 该参数不能与 `timestamp` 同时指定。示例值: "2018-09-01"
+	Timestamp *string `json:"timestamp,omitempty"` // 秒级时间戳, 用于设置具体的结束时间。例如, 1602504000 表示 2020/10/12 20:00:00（UTC +8 时区）。注意: 该参数不能与 `date` 同时指定。示例值: "1602504000"
+	Timezone  *string `json:"timezone,omitempty"`  // 时区。使用 IANA Time Zone Database 标准, 例如 Asia/Shanghai。- 全天日程时区固定为UTC +0- 非全天日程时区默认为 Asia/Shanghai示例值: "Asia/Shanghai"
+}
+
+// CreateCalendarEventReqEventCheckIn ...
+type CreateCalendarEventReqEventCheckIn struct {
+	EnableCheckIn       bool                                                `json:"enable_check_in,omitempty"`       // 是否启用日程签到。示例值: true
+	CheckInStartTime    *CreateCalendarEventReqEventCheckInCheckInStartTime `json:"check_in_start_time,omitempty"`   // 日程签到开始时间。注意: 签到开始时间不能大于或者等于签到结束时间。
+	CheckInEndTime      *CreateCalendarEventReqEventCheckInCheckInEndTime   `json:"check_in_end_time,omitempty"`     // 日程签到结束时间。注意: 签到开始时间不能大于或者等于签到结束时间。
+	NeedNotifyAttendees *bool                                               `json:"need_notify_attendees,omitempty"` // 签到开始时是否自动发送签到通知给参与者示例值: false默认值: `false`
+}
+
+// CreateCalendarEventReqEventCheckInCheckInEndTime ...
+type CreateCalendarEventReqEventCheckInCheckInEndTime struct {
+	TimeType string `json:"time_type,omitempty"` // 偏移量(分钟)相对于的日程时间节点类型。示例值: "after_event_end"可选值有: 日程开始前日程开始后日程结束后
+	Duration int64  `json:"duration,omitempty"`  // 相对于日程开始或者结束的偏移量(分钟)。- 目前取值只能为列表[0, 5, 15, 30, 60]之一, 0表示立即开始。- 当time_type为before_event_start, duration不能取0示例值: 0 取值范围: `0` ～ `60`
+}
+
+// CreateCalendarEventReqEventCheckInCheckInStartTime ...
+type CreateCalendarEventReqEventCheckInCheckInStartTime struct {
+	TimeType string `json:"time_type,omitempty"` // 偏移量(分钟)相对于的日程时间节点类型。示例值: "before_event_start"可选值有: 日程开始前日程开始后日程结束后
+	Duration int64  `json:"duration,omitempty"`  // 相对于日程开始或者结束的偏移量(分钟)。- 目前取值只能为列表[0, 5, 15, 30, 60]之一, 0表示立即开始。- 当time_type为before_event_start, duration不能取0示例值: 15 取值范围: `0` ～ `60`
 }
 
 // CreateCalendarEventReqLocation ...
 type CreateCalendarEventReqLocation struct {
-	Name      *string  `json:"name,omitempty"`      // 地点名称, 示例值: "地点名称", 长度范围: `1` ～ `512` 字符
-	Address   *string  `json:"address,omitempty"`   // 地点地址, 示例值: "地点地址", 长度范围: `1` ～ `255` 字符
-	Latitude  *float64 `json:"latitude,omitempty"`  // 地点坐标纬度信息, 对于国内的地点, 采用 GCJ-02 标准, 对于海外的地点, 采用 WGS84 标准, 示例值: 1.100000023841858
-	Longitude *float64 `json:"longitude,omitempty"` // 地点坐标经度信息, 对于国内的地点, 采用 GCJ-02 标准, 对于海外的地点, 采用 WGS84 标准, 示例值: 2.200000047683716
+	Name      *string  `json:"name,omitempty"`      // 地点名称。示例值: "地点名称" 长度范围: `1` ～ `512` 字符
+	Address   *string  `json:"address,omitempty"`   // 地点地址。示例值: "地点地址" 长度范围: `1` ～ `255` 字符
+	Latitude  *float64 `json:"latitude,omitempty"`  // 地点坐标纬度信息。- 对于国内的地点, 采用 GCJ-02 标准。- 对于海外的地点, 采用 WGS84 标准。示例值: 1.100000023841858
+	Longitude *float64 `json:"longitude,omitempty"` // 地点坐标经度信息。- 对于国内的地点, 采用 GCJ-02 标准。- 对于海外的地点, 采用 WGS84 标准。示例值: 2.200000047683716
 }
 
 // CreateCalendarEventReqReminder ...
 type CreateCalendarEventReqReminder struct {
-	Minutes *int64 `json:"minutes,omitempty"` // 日程提醒时间的偏移量, 正数时表示在日程开始前 X 分钟提醒, 负数时表示在日程开始后 X 分钟提醒, 注意: 新建或更新日程时传入该字段, 仅对当前身份生效, 不会对日程的其他参与人生效, 示例值: 5, 取值范围: `-20160` ～ `20160`
+	Minutes *int64 `json:"minutes,omitempty"` // 日程提醒时间的偏移量。- 正数时表示在日程开始前 X 分钟提醒。- 负数时表示在日程开始后 X 分钟提醒。注意: 新建或更新日程时传入该字段, 仅对当前身份生效, 不会对日程的其他参与人生效。示例值: 5 取值范围: `-20160` ～ `20160`
 }
 
 // CreateCalendarEventReqSchema ...
 type CreateCalendarEventReqSchema struct {
-	UiName   *string `json:"ui_name,omitempty"`   // UI 名称, 可选值有: ForwardIcon: 日程转发按钮, MeetingChatIcon: 会议群聊按钮, MeetingMinutesIcon: 会议纪要按钮, MeetingVideo: 视频会议区域, RSVP: 接受、拒绝、待定区域, Attendee: 参与者区域, OrganizerOrCreator: 组织者或创建者区域, 示例值: "ForwardIcon"
-	UiStatus *string `json:"ui_status,omitempty"` // UI 项的状态。目前只支持选择 `hide`, 示例值: "hide", 可选值有: hide: 隐藏显示, readonly: 只读, editable: 可编辑, unknown: 未知 UI 项自定义状态。该参数仅用于读取时兼容, 不支持作为请求参数值传入
-	AppLink  *string `json:"app_link,omitempty"`  // 按钮点击后跳转的链接, 注意: 兼容性参数, 只读, 因此暂不支持传入该请求参数, 示例值: "https://applink.feishu.cn/client/calendar/event/detail?calendarId=xxxxxx&key=xxxxxx&originalTime=xxxxxx&startTime=xxxxxx", 最大长度: `2000` 字符
+	UiName   *string `json:"ui_name,omitempty"`   // UI 名称。可选值有: ForwardIcon: 日程转发按钮 - MeetingChatIcon: 会议群聊按钮 - MeetingMinutesIcon: 会议纪要按钮 - MeetingVideo: 视频会议区域 - RSVP: 接受、拒绝、待定区域 - Attendee: 参与者区域 - OrganizerOrCreator: 组织者或创建者区域示例值: "ForwardIcon"
+	UiStatus *string `json:"ui_status,omitempty"` // UI 项的状态。目前只支持选择 `hide`。示例值: "hide"可选值有: 隐藏显示只读可编辑未知 UI 项自定义状态。该参数仅用于读取时兼容, 不支持作为请求参数值传入
+	AppLink  *string `json:"app_link,omitempty"`  // 按钮点击后跳转的链接。注意: 兼容性参数, 只读, 因此暂不支持传入该请求参数。示例值: "https://applink.feishu.cn/client/calendar/event/detail?calendarId=xxxxxx&key=xxxxxx&originalTime=xxxxxx&startTime=xxxxxx" 最大长度: `2000` 字符
 }
 
 // CreateCalendarEventReqStartTime ...
 type CreateCalendarEventReqStartTime struct {
-	Date      *string `json:"date,omitempty"`      // 开始时间, 仅全天日程使用该字段, [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) 格式, 例如, 2018-09-01, 注意: 该参数不能与 `timestamp` 同时指定, 示例值: "2018-09-01"
-	Timestamp *string `json:"timestamp,omitempty"` // 秒级时间戳, 用于设置具体的开始时间。例如, 1602504000 表示 2020/10/12 20:00:00（UTC +8 时区）, 注意: 该参数不能与 `date` 同时指定, 示例值: "1602504000"
-	Timezone  *string `json:"timezone,omitempty"`  // 时区。使用 IANA Time Zone Database 标准, 例如 Asia/Shanghai, 全天日程时区固定为UTC +0, 非全天日程时区默认为 Asia/Shanghai, 示例值: "Asia/Shanghai"
+	Date      *string `json:"date,omitempty"`      // 开始时间, 仅全天日程使用该字段, [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) 格式, 例如, 2018-09-01。注意: 该参数不能与 `timestamp` 同时指定。示例值: "2018-09-01"
+	Timestamp *string `json:"timestamp,omitempty"` // 秒级时间戳, 用于设置具体的开始时间。例如, 1602504000 表示 2020/10/12 20:00:00（UTC +8 时区）。注意: 该参数不能与 `date` 同时指定。示例值: "1602504000"
+	Timezone  *string `json:"timezone,omitempty"`  // 时区。使用 IANA Time Zone Database 标准, 例如 Asia/Shanghai。- 全天日程时区固定为UTC +0- 非全天日程时区默认为 Asia/Shanghai示例值: "Asia/Shanghai"
 }
 
 // CreateCalendarEventReqVchat ...
 type CreateCalendarEventReqVchat struct {
-	VCType          *string                                     `json:"vc_type,omitempty"`          // 视频会议类型。如果无需视频会议, 则必须传入 `no_meeting`, 默认值: 空, 表示在首次添加日程参与人时, 会自动生成飞书视频会议 URL, 示例值: "third_party", 可选值有: vc: 飞书视频会议。取该类型时, vchat 内的其他字段均无效。, third_party: 第三方链接视频会议。取该类型时, 仅生效 vchat 内的 icon_type、description、meeting_url 字段。, no_meeting: 无视频会议。取该类型时, vchat 内的其他字段均无效。, lark_live: 飞书直播。该值用于客户端, 不支持通过 API 调用, 只读。, unknown: 未知类型。该值用于客户端做兼容使用, 不支持通过 API 调用, 只读。
-	IconType        *string                                     `json:"icon_type,omitempty"`        // 第三方视频会议的 icon 类型, 默认值: default, 示例值: "vc", 可选值有: vc: 飞书视频会议 icon。, live: 直播视频会议 icon。, default: 默认 icon。
-	Description     *string                                     `json:"description,omitempty"`      // 第三方视频会议文案, 默认值: 空, 为空展示默认文案, 示例值: "发起视频会议", 长度范围: `0` ～ `500` 字符
-	MeetingURL      *string                                     `json:"meeting_url,omitempty"`      // 视频会议 URL, 示例值: "https://example.com", 长度范围: `1` ～ `2000` 字符
-	MeetingSettings *CreateCalendarEventReqVchatMeetingSettings `json:"meeting_settings,omitempty"` // 飞书视频会议（VC）的会前设置, 需满足以下全部条件: 当 `vc_type` 为 `vc` 时生效, 需要有日程的编辑权限。
+	VCType          *string                                     `json:"vc_type,omitempty"`          // 视频会议类型。如果无需视频会议, 则必须传入 `no_meeting`。默认值: 空, 表示在首次添加日程参与人时, 会自动生成飞书视频会议 URL。示例值: "third_party"可选值有: 飞书视频会议。取该类型时, vchat 内的其他字段均无效。第三方链接视频会议。取该类型时, 仅生效 vchat 内的 icon_type、description、meeting_url 字段。无视频会议。取该类型时, vchat 内的其他字段均无效。飞书直播。该值用于客户端, 不支持通过 API 调用, 只读。未知类型。该值用于客户端做兼容使用, 不支持通过 API 调用, 只读。
+	IconType        *string                                     `json:"icon_type,omitempty"`        // 第三方视频会议的 icon 类型。默认值: default示例值: "vc"可选值有: 飞书视频会议 icon。直播视频会议 icon。默认 icon。
+	Description     *string                                     `json:"description,omitempty"`      // 第三方视频会议文案。默认值: 空, 为空展示默认文案。示例值: "发起视频会议" 长度范围: `0` ～ `500` 字符
+	MeetingURL      *string                                     `json:"meeting_url,omitempty"`      // 视频会议 URL。示例值: "https://example.com" 长度范围: `1` ～ `2000` 字符
+	MeetingSettings *CreateCalendarEventReqVchatMeetingSettings `json:"meeting_settings,omitempty"` // 飞书视频会议（VC）的会前设置, 需满足以下全部条件: 当 `vc_type` 为 `vc` 时生效。- 需要有日程的编辑权限。
 }
 
 // CreateCalendarEventReqVchatMeetingSettings ...
 type CreateCalendarEventReqVchatMeetingSettings struct {
-	OwnerID               *string  `json:"owner_id,omitempty"`                // 设置会议 owner 的用户 ID, ID 类型需和 user_id, _type 保持一致, 该参数需满足以下全部条件才会生效: 应用身份（tenant_access_token）请求, 且在应用日历上操作日程, 首次将日程设置为 VC 会议时, 才能设置owner, owner 不能为非用户身份, owner 不能为外部租户用户身份, 示例值: "ou_7d8a6e6df7621556ce0d21922b676706ccs"
-	JoinMeetingPermission *string  `json:"join_meeting_permission,omitempty"` // 设置入会范围, 默认值: anyone_can_join, 示例值: "only_organization_employees", 可选值有: anyone_can_join: 所有人可以加入会议, only_organization_employees: 仅企业内的用户可以加入会议, only_event_attendees: 仅日程参与者可以加入会议
-	AssignHosts           []string `json:"assign_hosts,omitempty"`            // 通过用户 ID 指定主持人, ID 类型需和 user_id, _type 保持一致, 注意: 仅日程组织者可以指定主持人, 主持人不能是非用户身份, 主持人不能是外部租户用户身份, 在应用日历上操作日程时, 不允许指定主持人, 示例值: ["ou_7d8a6e6df7621556ce0d21922b676706ccs"], 最大长度: `10`
-	AutoRecord            *bool    `json:"auto_record,omitempty"`             // 是否开启自动录制, 可选值有: true: 开启, false（默认值）: 不开启, 示例值: false
-	OpenLobby             *bool    `json:"open_lobby,omitempty"`              // 是否开启等候室, 可选值有: true（默认值）: 开启, false: 不开启, 示例值: true
-	AllowAttendeesStart   *bool    `json:"allow_attendees_start,omitempty"`   // 是否允许日程参与者发起会议, 可选值有: true（默认值）: 允许, false: 不允许, 注意: 应用日历上操作日程时, 该字段必须为 true, 否则没有人能发起会议, 示例值: true
+	OwnerID               *string  `json:"owner_id,omitempty"`                // 设置会议 owner 的用户 ID, ID 类型需和 user_id_type 保持一致。该参数需满足以下全部条件才会生效: 应用身份（tenant_access_token）请求, 且在应用日历上操作日程。- 首次将日程设置为 VC 会议时, 才能设置owner。- owner 不能为非用户身份。- owner 不能为外部租户用户身份。示例值: "ou_7d8a6e6df7621556ce0d21922b676706ccs"
+	JoinMeetingPermission *string  `json:"join_meeting_permission,omitempty"` // 设置入会范围。默认值: anyone_can_join示例值: "only_organization_employees"可选值有: 所有人可以加入会议仅企业内的用户可以加入会议仅日程参与者可以加入会议
+	AssignHosts           []string `json:"assign_hosts,omitempty"`            // 通过用户 ID 指定主持人, ID 类型需和 user_id_type 保持一致。注意: 仅日程组织者可以指定主持人。- 主持人不能是非用户身份。- 主持人不能是外部租户用户身份。- 在应用日历上操作日程时, 不允许指定主持人。示例值: ["ou_7d8a6e6df7621556ce0d21922b676706ccs"] 最大长度: `10`
+	AutoRecord            *bool    `json:"auto_record,omitempty"`             // 是否开启自动录制。可选值有: true: 开启- false（默认值）: 不开启示例值: false
+	OpenLobby             *bool    `json:"open_lobby,omitempty"`              // 是否开启等候室。可选值有: true（默认值）: 开启- false: 不开启示例值: true
+	AllowAttendeesStart   *bool    `json:"allow_attendees_start,omitempty"`   // 是否允许日程参与者发起会议。可选值有: true（默认值）: 允许- false: 不允许注意: 应用日历上操作日程时, 该字段必须为 true, 否则没有人能发起会议。示例值: true
 }
 
 // CreateCalendarEventResp ...
@@ -153,18 +174,17 @@ type CreateCalendarEventRespEvent struct {
 	OrganizerCalendarID string                                      `json:"organizer_calendar_id,omitempty"` // 该日程组织者的日历 ID。关于日历 ID 的说明可参见[日历 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction)。
 	Summary             string                                      `json:"summary,omitempty"`               // 日程标题。
 	Description         string                                      `json:"description,omitempty"`           // 日程描述。
-	NeedNotification    bool                                        `json:"need_notification,omitempty"`     // 更新日程是否给日程参与人发送 Bot 通知。
 	StartTime           *CreateCalendarEventRespEventStartTime      `json:"start_time,omitempty"`            // 日程开始时间。
 	EndTime             *CreateCalendarEventRespEventEndTime        `json:"end_time,omitempty"`              // 日程结束时间。
 	Vchat               *CreateCalendarEventRespEventVchat          `json:"vchat,omitempty"`                 // 视频会议信息。
-	Visibility          string                                      `json:"visibility,omitempty"`            // 日程公开范围。新建的日程默认为 `default`, 且仅在新建日程时, 对所有参与人生效。如果后续更新日程时修改该参数值, 则仅对当前身份生效, 可选值有: default: 默认权限, 跟随日历权限, 即默认仅向他人显示是否忙碌, public: 公开, 显示日程详情, private: 私密, 仅自己可见详情
-	AttendeeAbility     string                                      `json:"attendee_ability,omitempty"`      // 参与人权限, 可选值有: none: 无法编辑日程、无法邀请其他参与人、无法查看参与人列表, can_see_others: 无法编辑日程、无法邀请其他参与人、可以查看参与人列表, can_invite_others: 无法编辑日程、可以邀请其他参与人、可以查看参与人列表, can_modify_event: 可以编辑日程、可以邀请其他参与人、可以查看参与人列表
-	FreeBusyStatus      string                                      `json:"free_busy_status,omitempty"`      // 日程占用的忙闲状态。新建日程默认为 `busy`, 且仅新建日程时, 对所有参与人生效。如果后续更新日程时修改了该参数值, 则仅对当前身份生效, 可选值有: busy: 忙碌, free: 空闲
+	Visibility          string                                      `json:"visibility,omitempty"`            // 日程公开范围。新建的日程默认为 `default`, 且仅在新建日程时, 对所有参与人生效。如果后续更新日程时修改该参数值, 则仅对当前身份生效。可选值有: 默认权限, 跟随日历权限, 即默认仅向他人显示是否忙碌公开, 显示日程详情私密, 仅自己可见详情
+	AttendeeAbility     string                                      `json:"attendee_ability,omitempty"`      // 参与人权限。可选值有: 无法编辑日程、无法邀请其他参与人、无法查看参与人列表无法编辑日程、无法邀请其他参与人、可以查看参与人列表无法编辑日程、可以邀请其他参与人、可以查看参与人列表可以编辑日程、可以邀请其他参与人、可以查看参与人列表
+	FreeBusyStatus      string                                      `json:"free_busy_status,omitempty"`      // 日程占用的忙闲状态。新建日程默认为 `busy`, 且仅新建日程时, 对所有参与人生效。如果后续更新日程时修改了该参数值, 则仅对当前身份生效。可选值有: 忙碌空闲
 	Location            *CreateCalendarEventRespEventLocation       `json:"location,omitempty"`              // 日程地点。
-	Color               int64                                       `json:"color,omitempty"`                 // 日程颜色, 由颜色 RGB 值的 int32 表示, 说明: 仅对当前身份生效, 取值为 0 或 -1 时, 表示默认跟随日历颜色, 客户端展示时会映射到色板上最接近的一种颜色。
+	Color               int64                                       `json:"color,omitempty"`                 // 日程颜色, 由颜色 RGB 值的 int32 表示。说明: 仅对当前身份生效。- 取值为 0 或 -1 时, 表示默认跟随日历颜色。- 客户端展示时会映射到色板上最接近的一种颜色。
 	Reminders           []*CreateCalendarEventRespEventReminder     `json:"reminders,omitempty"`             // 日程提醒列表。
 	Recurrence          string                                      `json:"recurrence,omitempty"`            // 重复日程的重复性规则, 规则格式可参见 [rfc5545](https://datatracker.ietf.org/doc/html/rfc5545#section-3.3.10)。
-	Status              string                                      `json:"status,omitempty"`                // 日程状态, 可选值有: tentative: 未回应, confirmed: 已确认, cancelled: 日程已取消
+	Status              string                                      `json:"status,omitempty"`                // 日程状态。可选值有: 未回应已确认日程已取消
 	IsException         bool                                        `json:"is_exception,omitempty"`          // 日程是否是一个重复日程的例外日程。了解例外日程, 可参见[例外日程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/introduction#71c5ec78)。
 	RecurringEventID    string                                      `json:"recurring_event_id,omitempty"`    // 例外日程对应的原重复日程的 event_id。
 	CreateTime          string                                      `json:"create_time,omitempty"`           // 日程的创建时间（秒级时间戳）。
@@ -172,6 +192,7 @@ type CreateCalendarEventRespEvent struct {
 	EventOrganizer      *CreateCalendarEventRespEventEventOrganizer `json:"event_organizer,omitempty"`       // 日程组织者信息。
 	AppLink             string                                      `json:"app_link,omitempty"`              // 日程的 app_link, 用于跳转到具体的某个日程。
 	Attachments         []*CreateCalendarEventRespEventAttachment   `json:"attachments,omitempty"`           // 日程附件
+	EventCheckIn        *CreateCalendarEventRespEventEventCheckIn   `json:"event_check_in,omitempty"`        // 日程签到设置。
 }
 
 // CreateCalendarEventRespEventAttachment ...
@@ -189,6 +210,26 @@ type CreateCalendarEventRespEventEndTime struct {
 	Timezone  string `json:"timezone,omitempty"`  // 时区。使用 IANA Time Zone Database 标准。
 }
 
+// CreateCalendarEventRespEventEventCheckIn ...
+type CreateCalendarEventRespEventEventCheckIn struct {
+	EnableCheckIn       bool                                                      `json:"enable_check_in,omitempty"`       // 是否启用日程签到。
+	CheckInStartTime    *CreateCalendarEventRespEventEventCheckInCheckInStartTime `json:"check_in_start_time,omitempty"`   // 日程签到开始时间。
+	CheckInEndTime      *CreateCalendarEventRespEventEventCheckInCheckInEndTime   `json:"check_in_end_time,omitempty"`     // 日程签到结束时间。
+	NeedNotifyAttendees bool                                                      `json:"need_notify_attendees,omitempty"` // 签到开始时是否自动发送签到通知给参与者
+}
+
+// CreateCalendarEventRespEventEventCheckInCheckInEndTime ...
+type CreateCalendarEventRespEventEventCheckInCheckInEndTime struct {
+	TimeType string `json:"time_type,omitempty"` // 偏移量(分钟)相对于的日程时间节点类型。可选值有: 日程开始前日程开始后日程结束后
+	Duration int64  `json:"duration,omitempty"`  // 相对于日程开始或者结束的偏移量(分钟)。
+}
+
+// CreateCalendarEventRespEventEventCheckInCheckInStartTime ...
+type CreateCalendarEventRespEventEventCheckInCheckInStartTime struct {
+	TimeType string `json:"time_type,omitempty"` // 偏移量(分钟)相对于的日程时间节点类型。可选值有: 日程开始前日程开始后日程结束后
+	Duration int64  `json:"duration,omitempty"`  // 相对于日程开始或者结束的偏移量(分钟)。
+}
+
 // CreateCalendarEventRespEventEventOrganizer ...
 type CreateCalendarEventRespEventEventOrganizer struct {
 	UserID      string `json:"user_id,omitempty"`      // 日程组织者 user ID。
@@ -199,19 +240,19 @@ type CreateCalendarEventRespEventEventOrganizer struct {
 type CreateCalendarEventRespEventLocation struct {
 	Name      string  `json:"name,omitempty"`      // 地点名称。
 	Address   string  `json:"address,omitempty"`   // 地点地址。
-	Latitude  float64 `json:"latitude,omitempty"`  // 地点坐标纬度信息, 对于国内的地点, 采用 GCJ-02 标准, 对于海外的地点, 采用 WGS84 标准
-	Longitude float64 `json:"longitude,omitempty"` // 地点坐标经度信息, 对于国内的地点, 采用 GCJ-02 标准, 对于海外的地点, 采用 WGS84 标准
+	Latitude  float64 `json:"latitude,omitempty"`  // 地点坐标纬度信息。- 对于国内的地点, 采用 GCJ-02 标准- 对于海外的地点, 采用 WGS84 标准
+	Longitude float64 `json:"longitude,omitempty"` // 地点坐标经度信息。- 对于国内的地点, 采用 GCJ-02 标准- 对于海外的地点, 采用 WGS84 标准
 }
 
 // CreateCalendarEventRespEventReminder ...
 type CreateCalendarEventRespEventReminder struct {
-	Minutes int64 `json:"minutes,omitempty"` // 日程提醒时间的偏移量。该参数仅对当前身份生效, 正数时表示在日程开始前 X 分钟提醒, 负数时表示在日程开始后 X 分钟提醒。
+	Minutes int64 `json:"minutes,omitempty"` // 日程提醒时间的偏移量。该参数仅对当前身份生效。- 正数时表示在日程开始前 X 分钟提醒。- 负数时表示在日程开始后 X 分钟提醒。
 }
 
 // CreateCalendarEventRespEventSchema ...
 type CreateCalendarEventRespEventSchema struct {
-	UiName   string `json:"ui_name,omitempty"`   // UI 名称。可能值: ForwardIcon: 日程转发按钮, MeetingChatIcon: 会议群聊按钮, MeetingMinutesIcon: 会议纪要按钮, MeetingVideo: 视频会议区域, RSVP: 接受、拒绝、待定区域, Attendee: 参与者区域, OrganizerOrCreator: 组织者或创建者区域
-	UiStatus string `json:"ui_status,omitempty"` // UI项自定义状态, 可选值有: hide: 隐藏显示, readonly: 只读, editable: 可编辑, unknown: 未知 UI 项自定义状态, 仅用于读取时兼容
+	UiName   string `json:"ui_name,omitempty"`   // UI 名称。可能值: ForwardIcon: 日程转发按钮 - MeetingChatIcon: 会议群聊按钮 - MeetingMinutesIcon: 会议纪要按钮 - MeetingVideo: 视频会议区域 - RSVP: 接受、拒绝、待定区域 - Attendee: 参与者区域 - OrganizerOrCreator: 组织者或创建者区域
+	UiStatus string `json:"ui_status,omitempty"` // UI项自定义状态。可选值有: 隐藏显示只读可编辑未知 UI 项自定义状态, 仅用于读取时兼容
 	AppLink  string `json:"app_link,omitempty"`  // 按钮点击后跳转的链接。
 }
 
@@ -224,8 +265,8 @@ type CreateCalendarEventRespEventStartTime struct {
 
 // CreateCalendarEventRespEventVchat ...
 type CreateCalendarEventRespEventVchat struct {
-	VCType          string                                            `json:"vc_type,omitempty"`          // 视频会议类型, 可以为空, 表示在首次添加日程参与人时, 会自动生成飞书视频会议 URL, 可选值有: vc: 飞书视频会议。, third_party: 第三方链接视频会议。, no_meeting: 无视频会议。, lark_live: 飞书直播, 只读参数。, unknown: 未知类型, 用于兼容的只读参数。
-	IconType        string                                            `json:"icon_type,omitempty"`        // 第三方视频会议 icon 类型, 可以为空, 表示展示默认 icon, 可选值有: vc: 飞书视频会议 icon。, live: 直播视频会议 icon。, default: 默认 icon。
+	VCType          string                                            `json:"vc_type,omitempty"`          // 视频会议类型, 可以为空, 表示在首次添加日程参与人时, 会自动生成飞书视频会议 URL。可选值有: 飞书视频会议。第三方链接视频会议。无视频会议。飞书直播, 只读参数。未知类型, 用于兼容的只读参数。
+	IconType        string                                            `json:"icon_type,omitempty"`        // 第三方视频会议 icon 类型, 可以为空, 表示展示默认 icon。可选值有: 飞书视频会议 icon。直播视频会议 icon。默认 icon。
 	Description     string                                            `json:"description,omitempty"`      // 第三方视频会议文案。
 	MeetingURL      string                                            `json:"meeting_url,omitempty"`      // 视频会议 URL。
 	MeetingSettings *CreateCalendarEventRespEventVchatMeetingSettings `json:"meeting_settings,omitempty"` // 飞书视频会议（VC）的会前设置。
@@ -234,7 +275,7 @@ type CreateCalendarEventRespEventVchat struct {
 // CreateCalendarEventRespEventVchatMeetingSettings ...
 type CreateCalendarEventRespEventVchatMeetingSettings struct {
 	OwnerID               string   `json:"owner_id,omitempty"`                // 会议 owner 的用户 ID 信息。
-	JoinMeetingPermission string   `json:"join_meeting_permission,omitempty"` // 设置入会范围, 可选值有: anyone_can_join: 所有人可以加入会议, only_organization_employees: 仅企业内的用户可以加入会议, only_event_attendees: 仅日程参与者可以加入会议
+	JoinMeetingPermission string   `json:"join_meeting_permission,omitempty"` // 设置入会范围。可选值有: 所有人可以加入会议仅企业内的用户可以加入会议仅日程参与者可以加入会议
 	Password              string   `json:"password,omitempty"`                // 设置会议密码, 仅支持 4-9 位数字
 	AssignHosts           []string `json:"assign_hosts,omitempty"`            // 主持人的用户 ID 信息。
 	AutoRecord            bool     `json:"auto_record,omitempty"`             // 是否开启自动录制。

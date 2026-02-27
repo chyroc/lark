@@ -59,10 +59,10 @@ func (r *Mock) UnMockHelpdeskSearchHelpdeskFAQ() {
 
 // SearchHelpdeskFAQReq ...
 type SearchHelpdeskFAQReq struct {
-	Query     string  `query:"query" json:"-"`      // 搜索query, query内容如果不是英文, 包含中文空格等有两种编码策略: 1. url编码 2. base64编码, 同时加上base64=true参数, 示例值: wifi
-	Base64    *string `query:"base64" json:"-"`     // 是否转换为base64, 输入true表示是, 不填写表示否, 示例值: true
-	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 6936004780707807251
-	PageSize  *int64  `query:"page_size" json:"-"`  // 示例值: 10, 默认值: `20`, 最大值: `100`
+	Query     string  `query:"query" json:"-"`      // 搜索query, query内容如果不是英文, 包含中文空格等有两种编码策略: 1. url编码 2. base64编码, 同时加上base64=true参数示例值: wifi
+	Base64    *string `query:"base64" json:"-"`     // 是否转换为base64, 输入true表示是, 不填写表示否示例值: true
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 6936004780707807251
+	PageSize  *int64  `query:"page_size" json:"-"`  // 示例值: 10默认值: `20` 最大值: `100`
 }
 
 // SearchHelpdeskFAQResp ...
@@ -79,7 +79,7 @@ type SearchHelpdeskFAQRespItem struct {
 	HelpdeskID     string                                     `json:"helpdesk_id,omitempty"`     // 服务台ID
 	Question       string                                     `json:"question,omitempty"`        // 问题
 	Answer         string                                     `json:"answer,omitempty"`          // 答案
-	AnswerRichText []*SearchHelpdeskFAQRespItemAnswerRichText `json:"answer_richtext,omitempty"` // 富文本答案
+	AnswerRichtext []*SearchHelpdeskFAQRespItemAnswerRichtext `json:"answer_richtext,omitempty"` // 富文本答案
 	CreateTime     int64                                      `json:"create_time,omitempty"`     // 创建时间
 	UpdateTime     int64                                      `json:"update_time,omitempty"`     // 修改时间
 	Categories     []*HelpdeskCategory                        `json:"categories,omitempty"`      // 分类
@@ -89,8 +89,8 @@ type SearchHelpdeskFAQRespItem struct {
 	CreateUser     *SearchHelpdeskFAQRespItemCreateUser       `json:"create_user,omitempty"`     // 创建用户
 }
 
-// SearchHelpdeskFAQRespItemAnswerRichText ...
-type SearchHelpdeskFAQRespItemAnswerRichText struct {
+// SearchHelpdeskFAQRespItemAnswerRichtext ...
+type SearchHelpdeskFAQRespItemAnswerRichtext struct {
 	Content string `json:"content,omitempty"` // 内容
 	Type    string `json:"type,omitempty"`    // 类型
 }

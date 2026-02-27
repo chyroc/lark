@@ -21,11 +21,15 @@ import (
 	"context"
 )
 
-// EventV1LeaveApprovalV2 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
+// EventV1LeaveApprovalV2 审批定义的表单包含 请假控件组 时, 该定义下的审批实例在 通过 或者 通过并撤销 时, 会触发该事件。
 //
-// 「审批」应用的表单里如果包含 [请假控件组], 则在此表单审批通过后触发此事件。
-// * 特殊说明: 如果你订阅了此事件, 会收到2条消息, 其 [type] 分别为 [leave_approval]、 [leave_approvalV2] 。这两个事件的 [uuid] 不同、 [instance_code] 相同。
-// * 依赖权限: [访问审批应用] 或 [查看、创建、更新、删除审批应用相关信息]
+// ## 前提条件
+// - 应用已配置事件订阅, 了解事件订阅可参见[事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
+// - 应用已调用[订阅审批事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/subscribe)接口, 订阅了审批实例对应的审批定义 Code。
+// ## 使用说明
+// 订阅该事件（事件类型为 leave_approval）后, 可在如下场景接收到事件:
+// - 请假审批通过时, 会收到 2 条事件消息, 其事件类型（type）分别为 `leave_approval`、`leave_approvalV2`, 这 2 条事件包含的 `uuid` 参数值不同, `instance_code` 参数值相同。你可以根据需要选择任一事件消息获取请假审批通过的详细数据。
+// - 请假审批通过并撤销时, 会收到 1 条事件消息, 事件类型（type）为 `leave_approval_revert`。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/leave
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/event/special-event/leave
@@ -38,32 +42,10 @@ type EventV1LeaveApprovalV2Handler func(ctx context.Context, cli *Lark, schema s
 
 // EventV1LeaveApprovalV2 ...
 type EventV1LeaveApprovalV2 struct {
-	AppID                  string                                     `json:"app_id,omitempty"`                    // 如: cli_xxx
-	TenantKey              string                                     `json:"tenant_key,omitempty"`                // 如: xxx
-	Type                   string                                     `json:"type,omitempty"`                      // 如: leave_approvalV2
-	InstanceCode           string                                     `json:"instance_code,omitempty"`             // 审批实例Code. 如: xxx
-	UserID                 string                                     `json:"user_id,omitempty"`                   // 用户id. 如: xxx
-	OpenID                 string                                     `json:"open_id,omitempty"`                   // 用户open_id. 如: ou_xxx
-	OriginInstanceCode     string                                     `json:"origin_instance_code,omitempty"`      // 销假单关联的原始单据. 如: xxxx
-	StartTime              int64                                      `json:"start_time,omitempty"`                // 审批发起时间, 单位: 秒. 如: 1564590532
-	EndTime                int64                                      `json:"end_time,omitempty"`                  // 审批结束时间, 单位: 秒. 如: 1564590532
-	LeaveFeedingArriveLate int64                                      `json:"leave_feeding_arrive_late,omitempty"` // 上班晚到（哺乳假相关）. 如: 0
-	LeaveFeedingLeaveEarly int64                                      `json:"leave_feeding_leave_early,omitempty"` // 下班早走（哺乳假相关）. 如: 0
-	LeaveFeedingRestDaily  int64                                      `json:"leave_feeding_rest_daily,omitempty"`  // 每日休息（哺乳假相关）. 如: 0
-	LeaveName              string                                     `json:"leave_name,omitempty"`                // 假期名称. 如: @i18n@123456
-	LeaveUnit              string                                     `json:"leave_unit,omitempty"`                // 请假最小时长. 如: DAY
-	LeaveStartTime         string                                     `json:"leave_start_time,omitempty"`          // 请假开始时间. 如: 2019-10-01 00:00:00
-	LeaveEndTime           string                                     `json:"leave_end_time,omitempty"`            // 请假结束时间. 如: 2019-10-02 00:00:00
-	LeaveDetail            [][]string                                 `json:"leave_detail,omitempty"`              // 具体的请假明细时间
-	LeaveRange             [][]string                                 `json:"leave_range,omitempty"`               // 具体的请假时间范围
-	LeaveInterval          int64                                      `json:"leave_interval,omitempty"`            // 请假时长, 单位（秒）. 如: 86400
-	LeaveReason            string                                     `json:"leave_reason,omitempty"`              // 请假事由. 如: abc
-	I18nResources          []*EventV1LeaveApprovalV2EventI18nResource `json:"i18n_resources,omitempty"`            // 国际化文案
-}
-
-// EventV1LeaveApprovalV2EventI18nResource ...
-type EventV1LeaveApprovalV2EventI18nResource struct {
-	Locale    string            `json:"locale,omitempty"`     // 如: en_us
-	IsDefault bool              `json:"is_default,omitempty"` // 如: true
-	Texts     map[string]string `json:"texts,omitempty"`
+	AppID        string `json:"app_id,omitempty"`        // 应用的 App ID。可调用[获取应用信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/get)接口查询应用详细信息。
+	InstanceCode string `json:"instance_code,omitempty"` // 审批实例 Code。可调用[获取单个审批实例详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get)接口查询审批实例详情。
+	ApprovalCode string `json:"approval_code,omitempty"` // 审批定义 Code。可调用[查看指定审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get)接口查询审批定义详情。
+	OperateTime  string `json:"operate_time,omitempty"`  // 撤销操作时间, 秒级时间戳。
+	TenantKey    string `json:"tenant_key,omitempty"`    // 租户 Key, 是企业的唯一标识。
+	Type         string `json:"type,omitempty"`          // 事件类型。固定值 `leave_approval_revert`
 }

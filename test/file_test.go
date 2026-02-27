@@ -33,7 +33,7 @@ func Test_File(t *testing.T) {
 		as.Nil(err)
 		defer f.Close()
 		resp, _, err := AppAllPermission.Ins().File.UploadImage(ctx, &lark.UploadImageReq{
-			ImageType: lark.ImageTypeMessage,
+			ImageType: string(lark.ImageTypeMessage),
 			Image:     f,
 		})
 		printData(resp, err)

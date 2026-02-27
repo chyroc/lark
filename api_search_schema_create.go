@@ -58,10 +58,10 @@ func (r *Mock) UnMockSearchCreateSearchSchema() {
 
 // CreateSearchSchemaReq ...
 type CreateSearchSchemaReq struct {
-	ValidateOnly *bool                             `query:"validate_only" json:"-"` // 是否只用来校验合法性示例值: true默认值: `false
+	ValidateOnly *bool                             `query:"validate_only" json:"-"` // 是否只用来校验合法性示例值: true默认值: `false`
 	Properties   []*CreateSearchSchemaReqPropertie `json:"properties,omitempty"`    // 数据范式的属性定义
 	Display      *CreateSearchSchemaReqDisplay     `json:"display,omitempty"`       // 数据展示相关配置
-	SchemaID     string                            `json:"schema_id,omitempty"`     // 用户自定义数据范式的唯一标识示例值: "jira_schema" 最大长度: `40` 字符- 正则校验: `^[a-zA-Z][a-zA-Z0-9-_].*$
+	SchemaID     string                            `json:"schema_id,omitempty"`     // 用户自定义数据范式的唯一标识示例值: "jira_schema" 最大长度: `40` 字符- 正则校验: `^[a-zA-Z][a-zA-Z0-9-_].*$`
 }
 
 // CreateSearchSchemaReqDisplay ...
@@ -99,13 +99,13 @@ type CreateSearchSchemaReqPropertieSearchOptions struct {
 
 // CreateSearchSchemaReqPropertieSortOptions ...
 type CreateSearchSchemaReqPropertieSortOptions struct {
-	Priority *int64  `json:"priority,omitempty"` // 排序的优先级, 可选范围为 0~4, 0为最高优先级。如果优先级相同, 则随机进行排序。默认为0示例值: 0可选值有: 最高优先级次高优先级次次高优先级次低优先级最低优先级默认值: `0` 取值范围: `0` ～ `4
-	Order    *string `json:"order,omitempty"`    // 排序的顺序。默认为 desc示例值: "asc"可选值有: 升序降序默认值: `desc
+	Priority *int64  `json:"priority,omitempty"` // 排序的优先级, 可选范围为 0~4, 0为最高优先级。如果优先级相同, 则随机进行排序。默认为0示例值: 0可选值有: 最高优先级次高优先级次次高优先级次低优先级最低优先级默认值: `0` 取值范围: `0` ～ `4`
+	Order    *string `json:"order,omitempty"`    // 排序的顺序。默认为 desc示例值: "asc"可选值有: 升序降序默认值: `desc`
 }
 
 // CreateSearchSchemaReqPropertieTypeDefinitions ...
 type CreateSearchSchemaReqPropertieTypeDefinitions struct {
-	Tag []*CreateSearchSchemaReqPropertieTypeDefinitionsTag `json:"tag,omitempty"` // 标签类型的定义 最大长度: `100
+	Tag []*CreateSearchSchemaReqPropertieTypeDefinitionsTag `json:"tag,omitempty"` // 标签类型的定义 最大长度: `100`
 }
 
 // CreateSearchSchemaReqPropertieTypeDefinitionsTag ...

@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// DeleteSheetDataValidationDropdown 该接口根据 spreadsheetToken 、range 移除选定数据范围单元格的下拉列表设置, 但保留选项文本。单个删除范围不超过5000单元格。单次请求range最大数量100个。
+// DeleteSheetDataValidationDropdown 删除电子表格工作表指定范围中下拉列表的设置, 但仍保留选项文本。
+//
+// ## 使用限制
+// 单次删除请求可指定多个范围, 单个范围指定的单元格不可超过 5, 000 个, 范围的总数不可超过 100 个。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/datavalidation/delete-datavalidation
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/datavalidation/delete-datavalidation
@@ -59,33 +62,32 @@ func (r *Mock) UnMockDriveDeleteSheetDataValidationDropdown() {
 
 // DeleteSheetDataValidationDropdownReq ...
 type DeleteSheetDataValidationDropdownReq struct {
-	SpreadSheetToken     string                                                     `path:"spreadsheetToken" json:"-"`      // spreadsheet 的 token, 获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
-	DataValidationRanges []*DeleteSheetDataValidationDropdownReqDataValidationRange `json:"dataValidationRanges,omitempty"` // 范围数组, 每个range 最大单元格数量5000, 每个range独立执行, 一个range的失败不影响其他range的执行。返回结果会返回每个range的执行结果
+	SpreadSheetToken     string                                                     `path:"spreadsheetToken" json:"-"`      // 电子表格的 token。可通过以下两种方式获取。了解更多, 参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。-  电子表格的 URL: https://sample.feishu.cn/sheets/[Iow7sNNEphp3WbtnbCscPqabcef]- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)
+	DataValidationRanges []*DeleteSheetDataValidationDropdownReqDataValidationRange `json:"dataValidationRanges,omitempty"` // 指定要删除的下拉列表的范围。可指定多个范围。  注意: 删除某个范围失败不影响其它范围的执行。响应体中将返回每个范围的执行结果。- 单个范围指定的单元格不可超过 5, 000 个, 范围的总数不可超过 100 个。
 }
 
 // DeleteSheetDataValidationDropdownReqDataValidationRange ...
 type DeleteSheetDataValidationDropdownReqDataValidationRange struct {
-	Range             string  `json:"range,omitempty"`             // 查询范围, 包含 sheetId 与单元格范围两部分, 目前支持四种索引方式, 详见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
-	DataValidationIDs []int64 `json:"dataValidationIds,omitempty"` // 指定需要删除的dataValidationIds
+	Range string `json:"range,omitempty"` // 要删除的下拉列表的范围。格式为 `<sheetId>!<开始位置>:<结束位置>`。其中: `sheetId` 为工作表 ID, 通过[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 获取- `<开始位置>:<结束位置>` 为工作表中单元格的范围, 数字表示行索引, 字母表示列索引。如 `A2:B2` 表示该工作表第 2 行的 A 列到 B 列。`range`支持四种写法, 详情参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
 }
 
 // DeleteSheetDataValidationDropdownResp ...
 type DeleteSheetDataValidationDropdownResp struct {
-	RangeResults []*DeleteSheetDataValidationDropdownRespRangeResult `json:"rangeResults,omitempty"`
+	RangeResults []*DeleteSheetDataValidationDropdownRespRangeResult `json:"rangeResults,omitempty"` // 删除下拉列表设置的结果
 }
 
 // DeleteSheetDataValidationDropdownRespRangeResult ...
 type DeleteSheetDataValidationDropdownRespRangeResult struct {
-	Range        string  `json:"range,omitempty"`        // 执行的range, 与请求入参中的range 对应
-	Msg          *string `json:"msg,omitempty"`          // 结果信息
-	Success      bool    `json:"success,omitempty"`      // 执行结果
-	UpdatedCells int64   `json:"updatedCells,omitempty"` // 影响的单元格数量
+	Range        string `json:"range,omitempty"`        // 要删除的范围, 与请求参数中 range 的值对应。
+	Msg          string `json:"msg,omitempty"`          // 结果信息
+	Success      []bool `json:"success,omitempty"`      // 是否成功删除该范围中的下拉列表设置。
+	UpdatedCells int64  `json:"updatedCells,omitempty"` // 影响的单元格总数
 }
 
 // deleteSheetDataValidationDropdownResp ...
 type deleteSheetDataValidationDropdownResp struct {
-	Code  int64                                  `json:"code,omitempty"` // 状态码, 0代表成功
-	Msg   *string                                `json:"msg,omitempty"`  // 状态信息
-	Data  *DeleteSheetDataValidationDropdownResp `json:"data,omitempty"`
+	Code  int64                                  `json:"code,omitempty"` // 状态码, 0 代表成功
+	Msg   string                                 `json:"msg,omitempty"`  // 状态信息
+	Data  *DeleteSheetDataValidationDropdownResp `json:"data,omitempty"` // 响应数据
 	Error *ErrorDetail                           `json:"error,omitempty"`
 }

@@ -61,8 +61,8 @@ func (r *Mock) UnMockCoreHRBatchGetCoreHrbpByEmployee() {
 // BatchGetCoreHrbpByEmployeeReq ...
 type BatchGetCoreHrbpByEmployeeReq struct {
 	UserIDType    *IDType  `query:"user_id_type" json:"-"`   // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	EmploymentIDs []string `json:"employment_ids,omitempty"` // 员工ID, ID类型与user_id_type的取值意义一致。  > 如果你需要不同类型的ID进行转换, 可以使用 [ID转换服务](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/common_data-id/convert) 换取 [employment_id]示例值: ["7140964208476371111"] 长度范围: `1` ～ `100
-	GetAll        *bool    `json:"get_all,omitempty"`        // 是否获取全部 BP, true 为获取员工所在部门及来自上级部门的全部 HRBP 和属地 BP, false 为仅获取员工的直属 HRBP 和属地 BP（当员工所在部门、属地无 BP 时, 会上钻找到最近的 BP）, 默认为 false示例值: true默认值: `false
+	EmploymentIDs []string `json:"employment_ids,omitempty"` // 员工ID, ID类型与user_id_type的取值意义一致。  > 如果你需要不同类型的ID进行转换, 可以使用 [ID转换服务](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/common_data-id/convert) 换取 [employment_id]示例值: ["7140964208476371111"] 长度范围: `1` ～ `100`
+	GetAll        *bool    `json:"get_all,omitempty"`        // 是否获取全部 BP, true 为获取员工所在部门及来自上级部门的全部 HRBP 和属地 BP, false 为仅获取员工的直属 HRBP 和属地 BP（当员工所在部门、属地无 BP 时, 会上钻找到最近的 BP）, 默认为 false示例值: true默认值: `false`
 }
 
 // BatchGetCoreHrbpByEmployeeResp ...

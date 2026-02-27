@@ -63,7 +63,7 @@ type RollbackApprovalInstanceReq struct {
 	TaskID         string   `json:"task_id,omitempty"`           // 当前需要回退的审批任务 ID。可调用[获取单个审批实例详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get), 从返回结果的 task_list 参数中获取任务 ID 以及任务状态必须为 PENDING。示例值: "7026591166355210260"
 	Reason         *string  `json:"reason,omitempty"`            // 退回原因示例值: "申请事项填写不具体, 请重新填写"
 	Extra          *string  `json:"extra,omitempty"`             // 扩展字段。注意: 灰度参数, 暂未开放使用。示例值: "demo"
-	TaskDefKeyList []string `json:"task_def_key_list,omitempty"` // 需要退回到的任务 node_key。可调用[获取单个审批实例详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get), 从返回结果的 timeline 参数中获取, 且动态类型 type 必须为 PASS。示例值: ["START", "APPROVAL_27997_285502", "APPROVAL_462205_2734554"] 长度范围: `1` ～ `100
+	TaskDefKeyList []string `json:"task_def_key_list,omitempty"` // 需要退回到的任务 node_key。可调用[获取单个审批实例详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get), 从返回结果的 timeline 参数中获取, 且动态类型 type 必须为 PASS。示例值: ["START", "APPROVAL_27997_285502", "APPROVAL_462205_2734554"] 长度范围: `1` ～ `100`
 }
 
 // RollbackApprovalInstanceResp ...

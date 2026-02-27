@@ -21,7 +21,9 @@ import (
 	"context"
 )
 
-// CreateCoreHRLocation 创建地点。
+// CreateCoreHRLocation 在系统中第一次创建地点数据
+//
+// 非必填字段, 不传时默认为空
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/create
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/location/create
@@ -58,101 +60,81 @@ func (r *Mock) UnMockCoreHRCreateCoreHRLocation() {
 
 // CreateCoreHRLocationReq ...
 type CreateCoreHRLocationReq struct {
-	ClientToken        *string                                  `query:"client_token" json:"-"`          // 根据client_token是否一致来判断是否为同一请求, 示例值: 12454646
-	HiberarchyCommon   *CreateCoreHRLocationReqHiberarchyCommon `json:"hiberarchy_common,omitempty"`     // 层级关系, 内层字段见实体
-	LocationUsageList  []*CreateCoreHRLocationReqLocationUsage  `json:"location_usage_list,omitempty"`   // 地点用途
+	ClientToken        *string                                  `query:"client_token" json:"-"`          // 操作的唯一标识, 用于幂等的进行更新操作, 格式为标准的 UUIDV4。此值为空表示将发起一次新的请求, 此值非空表示幂等的进行更新操作。示例值: "fe599b60-450f-46ff-b2ef-9f6675625b97"
+	HiberarchyCommon   *CreateCoreHRLocationReqHiberarchyCommon `json:"hiberarchy_common,omitempty"`     // 地点基本信息, 该结构维护了地点的名称、编码、启用状态、上级地点等基础信息。
+	LocationUsageList  []*CreateCoreHRLocationReqLocationUsage  `json:"location_usage_list,omitempty"`   // 地点用途(当地点用途是"工作地点"时, 地址必填)
 	Address            []*CreateCoreHRLocationReqAddres         `json:"address,omitempty"`               // 地址
-	WorkingHoursTypeID *string                                  `json:"working_hours_type_id,omitempty"` // 工时制度, 示例值: "4690238309151997779"
-	EffectiveTime      string                                   `json:"effective_time,omitempty"`        // 生效时间, 示例值: "2020-05-01 00:00:00"
-	ExpirationTime     *string                                  `json:"expiration_time,omitempty"`       // 失效时间, 示例值: "2020-05-02 00:00:00"
-	CustomFields       []*CreateCoreHRLocationReqCustomField    `json:"custom_fields,omitempty"`         // 自定义字段
-	Locale             *CreateCoreHRLocationReqLocale           `json:"locale,omitempty"`                // 区域设置, 示例值: zh_cn
-	TimeZoneID         *string                                  `json:"time_zone_id,omitempty"`          // 时区, 示例值: "123456789"
-	DisplayLanguageID  *string                                  `json:"display_language_id,omitempty"`   // 默认显示语言, 示例值: "123456789"
+	WorkingHoursTypeID *string                                  `json:"working_hours_type_id,omitempty"` // 工时制度 ID, 枚举值及详细信息可通过[【批量查询工时制度】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/list)接口查询获得示例值: "4690238309151997779"
+	EffectiveTime      string                                   `json:"effective_time,omitempty"`        // 版本生效日期- 填写格式: YYYY-MM-DD 00:00:00（系统会自动将时分秒改为00:00:00）- 系统默认为填写日期当天的 00:00:00 生效 - 该接口只支持到最小单位为日- 日期范围要求:1900-01-01 00:00:00～9999-12-31 23:59:59- 详情可以参考[时间轴介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/about-timeline-version)示例值: "2020-05-01 00:00:00"
+	Locale             *CreateCoreHRLocationReqLocale           `json:"locale,omitempty"`                // 区域设置ID, 枚举值及详细信息可通过[【批量查询枚举信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询获得。- 请求参数object_api_name=location；custom_api_name=locale示例值: zh_cn
+	TimeZoneID         *string                                  `json:"time_zone_id,omitempty"`          // 时区示例值: "123456789"
+	DisplayLanguageID  *string                                  `json:"display_language_id,omitempty"`   // 默认显示语言示例值: "123456789"
 }
 
 // CreateCoreHRLocationReqAddres ...
 type CreateCoreHRLocationReqAddres struct {
-	CountryRegionID   string                                      `json:"country_region_id,omitempty"`   // 国家 / 地区, 示例值: "6862995757234914824"
-	RegionID          *string                                     `json:"region_id,omitempty"`           // 主要行政区, 示例值: "6863326815667095047"
-	CityID            *string                                     `json:"city_id,omitempty"`             // 城市, 该字段已作废, 请使用 city_id_v2 字段, 示例值: "6863333254578046471"
-	DistinctID        *string                                     `json:"distinct_id,omitempty"`         // 区/县, 该字段已作废, 请使用 district_id_v2 字段, 示例值: "6863333516579440141"
-	LocalAddressLine1 *string                                     `json:"local_address_line1,omitempty"` // 地址行 1（非拉丁语系的本地文字）, 示例值: "丹佛测试地址-纽埃时区"
-	LocalAddressLine2 *string                                     `json:"local_address_line2,omitempty"` // 地址行 2（非拉丁语系的本地文字）, 示例值: "PoewH"
-	LocalAddressLine3 *string                                     `json:"local_address_line3,omitempty"` // 地址行 3（非拉丁语系的本地文字）, 示例值: "PoewH"
-	LocalAddressLine4 *string                                     `json:"local_address_line4,omitempty"` // 地址行 4（非拉丁语系的本地文字）, 示例值: "jmwJc"
-	LocalAddressLine5 *string                                     `json:"local_address_line5,omitempty"` // 地址行 5（非拉丁语系的本地文字）, 示例值: "jmwJc"
-	LocalAddressLine6 *string                                     `json:"local_address_line6,omitempty"` // 地址行 6（非拉丁语系的本地文字）, 示例值: "jmwJc"
-	LocalAddressLine7 *string                                     `json:"local_address_line7,omitempty"` // 地址行 7（非拉丁语系的本地文字）, 示例值: "jmwJc"
-	LocalAddressLine8 *string                                     `json:"local_address_line8,omitempty"` // 地址行 8（非拉丁语系的本地文字）, 示例值: "rafSu"
-	LocalAddressLine9 *string                                     `json:"local_address_line9,omitempty"` // 地址行 9（非拉丁语系的本地文字）, 示例值: "McPRG"
-	PostalCode        *string                                     `json:"postal_code,omitempty"`         // 邮政编码, 示例值: "611530"
-	AddressTypeList   []*CreateCoreHRLocationReqAddresAddressType `json:"address_type_list,omitempty"`   // 地址类型
-	IsPrimary         *bool                                       `json:"is_primary,omitempty"`          // 主要地址, 示例值: true
-	IsPublic          *bool                                       `json:"is_public,omitempty"`           // 公开地址, 示例值: true
-	CustomFields      []*CreateCoreHRLocationReqAddresCustomField `json:"custom_fields,omitempty"`       // 自定义字段
+	CountryRegionID   string                                      `json:"country_region_id,omitempty"`   // 国家 / 地区 ID可通过[【查询国家/地区信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)接口获取示例值: "6862995757234914824"
+	RegionID          *string                                     `json:"region_id,omitempty"`           // 主要行政区 ID可通过[【查询省份/行政区信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region_subdivision/search)接口获取示例值: "6863326815667095047"
+	CityID            *string                                     `json:"city_id,omitempty"`             // 城市ID。ID获取调用[【查询城市信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-city/search)等接口可以返回城市ID示例值: "6863333254578046471"
+	DistinctID        *string                                     `json:"distinct_id,omitempty"`         // 区县ID。ID获取调用[【查询区县信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-district/search)等接口可以返回区县ID示例值: "6863333516579440141"
+	AddressLine1      *string                                     `json:"address_line1,omitempty"`       // 地址行 1- 填写规则可见[【地址填写指南】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/basic-infomation/data-calculation-rules/address-completion-guidelines)示例值: "丹佛测试地址-纽埃时区"
+	AddressLine2      *string                                     `json:"address_line2,omitempty"`       // 地址行 2- 填写规则可见[【地址填写指南】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/basic-infomation/data-calculation-rules/address-completion-guidelines)示例值: "PoewH"
+	AddressLine3      *string                                     `json:"address_line3,omitempty"`       // 地址行 3- 填写规则可见[【地址填写指南】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/basic-infomation/data-calculation-rules/address-completion-guidelines)示例值: "PoewH"
+	AddressLine4      *string                                     `json:"address_line4,omitempty"`       // 地址行 4- 填写规则可见[【地址填写指南】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/basic-infomation/data-calculation-rules/address-completion-guidelines)示例值: "jmwJc"
+	AddressLine5      *string                                     `json:"address_line5,omitempty"`       // 地址行 5- 填写规则可见[【地址填写指南】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/basic-infomation/data-calculation-rules/address-completion-guidelines)示例值: "jmwJc"
+	AddressLine6      *string                                     `json:"address_line6,omitempty"`       // 地址行 6- 填写规则可见[【地址填写指南】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/basic-infomation/data-calculation-rules/address-completion-guidelines)示例值: "jmwJc"
+	AddressLine7      *string                                     `json:"address_line7,omitempty"`       // 地址行 7- 填写规则可见[【地址填写指南】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/basic-infomation/data-calculation-rules/address-completion-guidelines)示例值: "jmwJc"
+	AddressLine8      *string                                     `json:"address_line8,omitempty"`       // 地址行 8- 填写规则可见[【地址填写指南】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/basic-infomation/data-calculation-rules/address-completion-guidelines)示例值: "rafSu"
+	AddressLine9      *string                                     `json:"address_line9,omitempty"`       // 地址行 9- 填写规则可见[【地址填写指南】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/basic-infomation/data-calculation-rules/address-completion-guidelines)示例值: "McPRG"
+	LocalAddressLine1 *string                                     `json:"local_address_line1,omitempty"` // 地址行 1（非拉丁语系的本地文字）- 填写规则可见[【地址填写指南】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/basic-infomation/data-calculation-rules/address-completion-guidelines)示例值: "丹佛测试地址-纽埃时区"
+	LocalAddressLine2 *string                                     `json:"local_address_line2,omitempty"` // 地址行 2（非拉丁语系的本地文字）- 填写规则可见[【地址填写指南】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/basic-infomation/data-calculation-rules/address-completion-guidelines)示例值: "PoewH"
+	LocalAddressLine3 *string                                     `json:"local_address_line3,omitempty"` // 地址行 3（非拉丁语系的本地文字）- 填写规则可见[【地址填写指南】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/basic-infomation/data-calculation-rules/address-completion-guidelines)示例值: "PoewH"
+	LocalAddressLine4 *string                                     `json:"local_address_line4,omitempty"` // 地址行 4（非拉丁语系的本地文字）- 填写规则可见[【地址填写指南】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/basic-infomation/data-calculation-rules/address-completion-guidelines)示例值: "jmwJc"
+	LocalAddressLine5 *string                                     `json:"local_address_line5,omitempty"` // 地址行 5（非拉丁语系的本地文字）- 填写规则可见[【地址填写指南】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/basic-infomation/data-calculation-rules/address-completion-guidelines)示例值: "jmwJc"
+	LocalAddressLine6 *string                                     `json:"local_address_line6,omitempty"` // 地址行 6（非拉丁语系的本地文字）- 填写规则可见[【地址填写指南】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/basic-infomation/data-calculation-rules/address-completion-guidelines)示例值: "jmwJc"
+	LocalAddressLine7 *string                                     `json:"local_address_line7,omitempty"` // 地址行 7（非拉丁语系的本地文字）- 填写规则可见[【地址填写指南】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/basic-infomation/data-calculation-rules/address-completion-guidelines)示例值: "jmwJc"
+	LocalAddressLine8 *string                                     `json:"local_address_line8,omitempty"` // 地址行 8（非拉丁语系的本地文字）- 填写规则可见[【地址填写指南】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/basic-infomation/data-calculation-rules/address-completion-guidelines)示例值: "rafSu"
+	LocalAddressLine9 *string                                     `json:"local_address_line9,omitempty"` // 地址行 9（非拉丁语系的本地文字）- 填写规则可见[【地址填写指南】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/basic-infomation/data-calculation-rules/address-completion-guidelines)示例值: "McPRG"
+	PostalCode        *string                                     `json:"postal_code,omitempty"`         // 邮政编码示例值: "611530"
+	AddressTypeList   []*CreateCoreHRLocationReqAddresAddressType `json:"address_type_list,omitempty"`   // 地址类型, 枚举值及详细信息可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询获得。- 请求参数object_api_name=address；custom_api_name=address_type
+	IsPrimary         *bool                                       `json:"is_primary,omitempty"`          // 是否为主要地址示例值: true
+	IsPublic          *bool                                       `json:"is_public,omitempty"`           // 公开地址示例值: true
 }
 
 // CreateCoreHRLocationReqAddresAddressType ...
 type CreateCoreHRLocationReqAddresAddressType struct {
-	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
-}
-
-// CreateCoreHRLocationReqAddresCustomField ...
-type CreateCoreHRLocationReqAddresCustomField struct {
-	FieldName string `json:"field_name,omitempty"` // 字段名, 示例值: "name"
-	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(123, 123.23, true, [\"id1\", \"id2\], 2006-01-02 15:04:05]), 示例值: "Sandy"
-}
-
-// CreateCoreHRLocationReqCustomField ...
-type CreateCoreHRLocationReqCustomField struct {
-	FieldName string `json:"field_name,omitempty"` // 字段名, 示例值: "name"
-	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(123, 123.23, true, [\"id1\", \"id2\], 2006-01-02 15:04:05]), 示例值: "Sandy"
+	EnumName string `json:"enum_name,omitempty"` // 枚举值示例值: "registered_address"
 }
 
 // CreateCoreHRLocationReqHiberarchyCommon ...
 type CreateCoreHRLocationReqHiberarchyCommon struct {
-	ParentID       *string                                               `json:"parent_id,omitempty"`       // 上级组织, 示例值: "4719168654814483759"
-	Name           []*CreateCoreHRLocationReqHiberarchyCommonName        `json:"name,omitempty"`            // 名称
-	Type           *CreateCoreHRLocationReqHiberarchyCommonType          `json:"type,omitempty"`            // 组织类型
-	Active         bool                                                  `json:"active,omitempty"`          // 启用, 示例值: true
-	ExpirationTime *string                                               `json:"expiration_time,omitempty"` // 失效时间, 示例值: "2020-05-02 00:00:00"
-	Code           *string                                               `json:"code,omitempty"`            // 编码, 示例值: "12456"
-	Description    []*CreateCoreHRLocationReqHiberarchyCommonDescription `json:"description,omitempty"`     // 描述
-	CustomFields   []*CreateCoreHRLocationReqHiberarchyCommonCustomField `json:"custom_fields,omitempty"`   // 自定义字段
-}
-
-// CreateCoreHRLocationReqHiberarchyCommonCustomField ...
-type CreateCoreHRLocationReqHiberarchyCommonCustomField struct {
-	FieldName string `json:"field_name,omitempty"` // 字段名, 示例值: "name"
-	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(123, 123.23, true, [\"id1\", \"id2\], 2006-01-02 15:04:05]), 示例值: "Sandy"
+	ParentID    *string                                               `json:"parent_id,omitempty"`   // 上级地点ID。ID获取方式: 调用[【创建地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/create)[【批量分页查询地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)等接口可以返回地点ID示例值: "4719168654814483759"
+	Name        []*CreateCoreHRLocationReqHiberarchyCommonName        `json:"name,omitempty"`        // 地点名称- 名称不能包含「/」「；」「;」「\」「'」字符。- 地点中英文名称会有全局唯一校验
+	Active      bool                                                  `json:"active,omitempty"`      // 启用状态, true为启用, false为停用示例值: true
+	Code        *string                                               `json:"code,omitempty"`        // 地点编码 (不能与其他记录的编码重复)- 开启自动编码时, 以自动生成的编码值为准, 传入值不生效- 未开启自动编码时, 编码字段值以传入值为准示例值: "12456"
+	Description []*CreateCoreHRLocationReqHiberarchyCommonDescription `json:"description,omitempty"` // 描述
 }
 
 // CreateCoreHRLocationReqHiberarchyCommonDescription ...
 type CreateCoreHRLocationReqHiberarchyCommonDescription struct {
-	Lang  string `json:"lang,omitempty"`  // 语言, 示例值: "zh-CN"
-	Value string `json:"value,omitempty"` // 内容, 示例值: "刘梓新"
+	Lang  string `json:"lang,omitempty"`  // 语言- 中文用zh-CN, 英文用en-US。示例值: "zh-CN"
+	Value string `json:"value,omitempty"` // 内容示例值: "刘梓新"
 }
 
 // CreateCoreHRLocationReqHiberarchyCommonName ...
 type CreateCoreHRLocationReqHiberarchyCommonName struct {
-	Lang  string `json:"lang,omitempty"`  // 语言, 示例值: "zh-CN"
-	Value string `json:"value,omitempty"` // 内容, 示例值: "刘梓新"
-}
-
-// CreateCoreHRLocationReqHiberarchyCommonType ...
-type CreateCoreHRLocationReqHiberarchyCommonType struct {
-	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
+	Lang  string `json:"lang,omitempty"`  // 语言- 中文用zh-CN, 英文用en-US。示例值: "zh-CN"
+	Value string `json:"value,omitempty"` // 内容示例值: "刘梓新"
 }
 
 // CreateCoreHRLocationReqLocale ...
 type CreateCoreHRLocationReqLocale struct {
-	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
+	EnumName string `json:"enum_name,omitempty"` // 枚举值示例值: "zh_cn"
 }
 
 // CreateCoreHRLocationReqLocationUsage ...
 type CreateCoreHRLocationReqLocationUsage struct {
-	EnumName string `json:"enum_name,omitempty"` // 枚举值, 示例值: "phone_type"
+	EnumName string `json:"enum_name,omitempty"` // 地点用途 ID, 枚举值及详细信息可通过[【批量查询地点用途】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询获得。- 请求参数object_api_name=location；custom_api_name=location_usage示例值: "work_space"
 }
 
 // CreateCoreHRLocationResp ...
@@ -163,14 +145,14 @@ type CreateCoreHRLocationResp struct {
 // CreateCoreHRLocationRespLocation ...
 type CreateCoreHRLocationRespLocation struct {
 	ID                 string                                            `json:"id,omitempty"`                    // 实体在CoreHR内部的唯一键
-	HiberarchyCommon   *CreateCoreHRLocationRespLocationHiberarchyCommon `json:"hiberarchy_common,omitempty"`     // 层级关系, 内层字段见实体
+	HiberarchyCommon   *CreateCoreHRLocationRespLocationHiberarchyCommon `json:"hiberarchy_common,omitempty"`     // 地点基本信息, 该结构维护了地点的名称、编码、启用状态、上级地点 等基础信息。
 	LocationUsageList  []*CreateCoreHRLocationRespLocationLocationUsage  `json:"location_usage_list,omitempty"`   // 地点用途
 	Address            []*CreateCoreHRLocationRespLocationAddres         `json:"address,omitempty"`               // 地址
-	WorkingHoursTypeID string                                            `json:"working_hours_type_id,omitempty"` // 工时制度
-	EffectiveTime      string                                            `json:"effective_time,omitempty"`        // 生效时间
-	ExpirationTime     string                                            `json:"expiration_time,omitempty"`       // 失效时间
+	WorkingHoursTypeID string                                            `json:"working_hours_type_id,omitempty"` // 工时制度 ID, 枚举值及详细信息可通过[【批量查询工时制度】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/list)接口查询获得
+	EffectiveTime      string                                            `json:"effective_time,omitempty"`        // 生效时间- 填写格式: YY-MM-DD 00:00:00- 生效时间, 系统默认为填写日期当天的 00:00:00 生效
+	ExpirationTime     string                                            `json:"expiration_time,omitempty"`       // 失效时间- 填写格式: YYYY-MM-DD 00:00:00- 本次编辑的记录版本失效的时间, 如果用户在本次操作的生效日期之后修改了地点信息, 则系统会将下一次操作的日期作为当前记录的失效时间。 - 系统默认为填写日期当天的 00:00:00 失效
 	CustomFields       []*CreateCoreHRLocationRespLocationCustomField    `json:"custom_fields,omitempty"`         // 自定义字段
-	Locale             *CreateCoreHRLocationRespLocationLocale           `json:"locale,omitempty"`                // 区域设置
+	Locale             *CreateCoreHRLocationRespLocationLocale           `json:"locale,omitempty"`                // 区域设置ID, 枚举值及详细信息可通过[【批量查询枚举信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)接口查询获得
 	TimeZoneID         string                                            `json:"time_zone_id,omitempty"`          // 时区
 	DisplayLanguageID  string                                            `json:"display_language_id,omitempty"`   // 默认显示语言
 }
@@ -180,10 +162,19 @@ type CreateCoreHRLocationRespLocationAddres struct {
 	FullAddressLocalScript   string                                               `json:"full_address_local_script,omitempty"`   // 完整地址（本地文字）
 	FullAddressWesternScript string                                               `json:"full_address_western_script,omitempty"` // 完整地址（西方文字）
 	ID                       string                                               `json:"id,omitempty"`                          // 地址ID
-	CountryRegionID          string                                               `json:"country_region_id,omitempty"`           // 国家 / 地区
-	RegionID                 string                                               `json:"region_id,omitempty"`                   // 主要行政区
-	CityID                   string                                               `json:"city_id,omitempty"`                     // 城市, 该字段已作废, 请使用 city_id_v2 字段
-	DistinctID               string                                               `json:"distinct_id,omitempty"`                 // 区/县, 该字段已作废, 请使用 district_id_v2 字段
+	CountryRegionID          string                                               `json:"country_region_id,omitempty"`           // 国家 / 地区 ID可通过[【查询国家/地区信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)接口获取
+	RegionID                 string                                               `json:"region_id,omitempty"`                   // 主要行政区 ID可通过[【查询省份/行政区信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region_subdivision/search)接口获取
+	CityID                   string                                               `json:"city_id,omitempty"`                     // 城市
+	DistinctID               string                                               `json:"distinct_id,omitempty"`                 // 区/县
+	AddressLine1             string                                               `json:"address_line1,omitempty"`               // 地址行 1
+	AddressLine2             string                                               `json:"address_line2,omitempty"`               // 地址行 2
+	AddressLine3             string                                               `json:"address_line3,omitempty"`               // 地址行 3
+	AddressLine4             string                                               `json:"address_line4,omitempty"`               // 地址行 4
+	AddressLine5             string                                               `json:"address_line5,omitempty"`               // 地址行 5
+	AddressLine6             string                                               `json:"address_line6,omitempty"`               // 地址行 6
+	AddressLine7             string                                               `json:"address_line7,omitempty"`               // 地址行 7
+	AddressLine8             string                                               `json:"address_line8,omitempty"`               // 地址行 8
+	AddressLine9             string                                               `json:"address_line9,omitempty"`               // 地址行 9
 	LocalAddressLine1        string                                               `json:"local_address_line1,omitempty"`         // 地址行 1（非拉丁语系的本地文字）
 	LocalAddressLine2        string                                               `json:"local_address_line2,omitempty"`         // 地址行 2（非拉丁语系的本地文字）
 	LocalAddressLine3        string                                               `json:"local_address_line3,omitempty"`         // 地址行 3（非拉丁语系的本地文字）
@@ -194,7 +185,7 @@ type CreateCoreHRLocationRespLocationAddres struct {
 	LocalAddressLine8        string                                               `json:"local_address_line8,omitempty"`         // 地址行 8（非拉丁语系的本地文字）
 	LocalAddressLine9        string                                               `json:"local_address_line9,omitempty"`         // 地址行 9（非拉丁语系的本地文字）
 	PostalCode               string                                               `json:"postal_code,omitempty"`                 // 邮政编码
-	AddressTypeList          []*CreateCoreHRLocationRespLocationAddresAddressType `json:"address_type_list,omitempty"`           // 地址类型
+	AddressTypeList          []*CreateCoreHRLocationRespLocationAddresAddressType `json:"address_type_list,omitempty"`           // 地址类型枚举值可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "address" - custom_api_name = "address_type"
 	IsPrimary                bool                                                 `json:"is_primary,omitempty"`                  // 主要地址
 	IsPublic                 bool                                                 `json:"is_public,omitempty"`                   // 公开地址
 	CustomFields             []*CreateCoreHRLocationRespLocationAddresCustomField `json:"custom_fields,omitempty"`               // 自定义字段
@@ -208,64 +199,62 @@ type CreateCoreHRLocationRespLocationAddresAddressType struct {
 
 // CreateCoreHRLocationRespLocationAddresAddressTypeDisplay ...
 type CreateCoreHRLocationRespLocationAddresAddressTypeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
+	Lang  string `json:"lang,omitempty"`  // 语言- 中文用zh-CN, 英文用en-US。
 	Value string `json:"value,omitempty"` // 内容
 }
 
 // CreateCoreHRLocationRespLocationAddresCustomField ...
 type CreateCoreHRLocationRespLocationAddresCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名
-	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(123, 123.23, true, [\"id1\", \"id2\], 2006-01-02 15:04:05])
+	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同。如: ```("\"123\"", "\"123.23\"", "\"true\"", [\"id1\", \"id2\"], \"2006-01-02 15:04:05\")```
 }
 
 // CreateCoreHRLocationRespLocationCustomField ...
 type CreateCoreHRLocationRespLocationCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名
-	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(123, 123.23, true, [\"id1\", \"id2\], 2006-01-02 15:04:05])
+	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同。如: ```("\"123\"", "\"123.23\"", "\"true\"", [\"id1\", \"id2\"], \"2006-01-02 15:04:05\")```
 }
 
 // CreateCoreHRLocationRespLocationHiberarchyCommon ...
 type CreateCoreHRLocationRespLocationHiberarchyCommon struct {
-	ParentID       string                                                         `json:"parent_id,omitempty"`       // 上级组织
+	ParentID       string                                                         `json:"parent_id,omitempty"`       // 上级地点, 在创建场景下, 该字段必填, 枚举值及详细信息可通过[【查询地点列表】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)接口查询获得
 	Name           []*CreateCoreHRLocationRespLocationHiberarchyCommonName        `json:"name,omitempty"`            // 名称
 	Type           *CreateCoreHRLocationRespLocationHiberarchyCommonType          `json:"type,omitempty"`            // 组织类型
 	Active         bool                                                           `json:"active,omitempty"`          // 启用
-	EffectiveTime  string                                                         `json:"effective_time,omitempty"`  // 生效时间
-	ExpirationTime string                                                         `json:"expiration_time,omitempty"` // 失效时间
+	EffectiveTime  string                                                         `json:"effective_time,omitempty"`  // 生效时间- 填写格式: YY-MM-DD 00:00:00- 生效时间, 系统默认为填写日期当天的 00:00:00 生效
+	ExpirationTime string                                                         `json:"expiration_time,omitempty"` // 失效时间- 填写格式: YYYY-MM-DD 00:00:00- 本次编辑的记录版本失效的时间, 如果用户在本次操作的生效日期之后修改了地点信息, 则系统会将下一次操作的日期作为当前记录的失效时间。 - 系统默认为填写日期当天的 00:00:00 失效
 	Code           string                                                         `json:"code,omitempty"`            // 编码
 	Description    []*CreateCoreHRLocationRespLocationHiberarchyCommonDescription `json:"description,omitempty"`     // 描述
-	TreeOrder      string                                                         `json:"tree_order,omitempty"`      // 树形排序, 代表同层级的部门排序序号
-	ListOrder      string                                                         `json:"list_order,omitempty"`      // 列表排序, 代表所有部门的混排序号
 	CustomFields   []*CreateCoreHRLocationRespLocationHiberarchyCommonCustomField `json:"custom_fields,omitempty"`   // 自定义字段
 }
 
 // CreateCoreHRLocationRespLocationHiberarchyCommonCustomField ...
 type CreateCoreHRLocationRespLocationHiberarchyCommonCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名
-	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(123, 123.23, true, [\"id1\", \"id2\], 2006-01-02 15:04:05])
+	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同。如: ```("\"123\"", "\"123.23\"", "\"true\"", [\"id1\", \"id2\"], \"2006-01-02 15:04:05\")```
 }
 
 // CreateCoreHRLocationRespLocationHiberarchyCommonDescription ...
 type CreateCoreHRLocationRespLocationHiberarchyCommonDescription struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
+	Lang  string `json:"lang,omitempty"`  // 语言- 中文用zh-CN, 英文用en-US。
 	Value string `json:"value,omitempty"` // 内容
 }
 
 // CreateCoreHRLocationRespLocationHiberarchyCommonName ...
 type CreateCoreHRLocationRespLocationHiberarchyCommonName struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
+	Lang  string `json:"lang,omitempty"`  // 语言- 中文用zh-CN, 英文用en-US。
 	Value string `json:"value,omitempty"` // 内容
 }
 
 // CreateCoreHRLocationRespLocationHiberarchyCommonType ...
 type CreateCoreHRLocationRespLocationHiberarchyCommonType struct {
-	EnumName string                                                         `json:"enum_name,omitempty"` // 枚举值
+	EnumName string                                                         `json:"enum_name,omitempty"` // 组织类型, 默认值为 location, 枚举值及详细信息可通过[【批量查询枚举类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)接口查询获得
 	Display  []*CreateCoreHRLocationRespLocationHiberarchyCommonTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
 // CreateCoreHRLocationRespLocationHiberarchyCommonTypeDisplay ...
 type CreateCoreHRLocationRespLocationHiberarchyCommonTypeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
+	Lang  string `json:"lang,omitempty"`  // 语言- 中文用zh-CN, 英文用en-US。
 	Value string `json:"value,omitempty"` // 内容
 }
 
@@ -277,20 +266,20 @@ type CreateCoreHRLocationRespLocationLocale struct {
 
 // CreateCoreHRLocationRespLocationLocaleDisplay ...
 type CreateCoreHRLocationRespLocationLocaleDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
+	Lang  string `json:"lang,omitempty"`  // 语言- 中文用zh-CN, 英文用en-US。
 	Value string `json:"value,omitempty"` // 内容
 }
 
 // CreateCoreHRLocationRespLocationLocationUsage ...
 type CreateCoreHRLocationRespLocationLocationUsage struct {
-	EnumName string                                                  `json:"enum_name,omitempty"` // 枚举值
+	EnumName string                                                  `json:"enum_name,omitempty"` // 枚举值, 地点用途 ID, 枚举值及详细信息可通过[【批量查询地点用途】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)接口查询获得
 	Display  []*CreateCoreHRLocationRespLocationLocationUsageDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
 // CreateCoreHRLocationRespLocationLocationUsageDisplay ...
 type CreateCoreHRLocationRespLocationLocationUsageDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言- 中文用zh-CN, 英文用en-US。
+	Value string `json:"value,omitempty"` // 工作地点
 }
 
 // createCoreHRLocationResp ...

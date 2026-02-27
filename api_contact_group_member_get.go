@@ -64,10 +64,10 @@ func (r *Mock) UnMockContactGetContactGroupMember() {
 // GetContactGroupMemberReq ...
 type GetContactGroupMemberReq struct {
 	GroupID      string  `path:"group_id" json:"-"`        // 用户组 ID。用户组 ID 可在创建用户组时从返回值中获取, 你也可以调用[查询用户组列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/simplelist)接口, 获取用户组的 ID。示例值: "g128187"
-	PageSize     *int64  `query:"page_size" json:"-"`      // 分页大小, 用于限制一次请求返回的最大条目数。示例值: 50默认值: `50` 最大值: `100
+	PageSize     *int64  `query:"page_size" json:"-"`      // 分页大小, 用于限制一次请求返回的最大条目数。示例值: 50默认值: `50` 最大值: `100`
 	PageToken    *string `query:"page_token" json:"-"`     // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: AQD9/Rn9eij9Pm39ED40/dk53s4Ebp882DYfFaPFbz00L4CMZJrqGdzNyc8BcZtDbwVUvRmQTvyMYicnGWrde9X56TgdBuS+JKiSIkdexPw=
-	MemberIDType *IDType `query:"member_id_type" json:"-"` // 用户组成员 ID 类型。- 当 `member_type` 取值为 `user`时, 该参数表示用户 ID 类型, 包括 open_id、union_id、user_id。- 当 `member_type` 取值为 `department`时, 该参数表示部门 ID 类型, 包括 department_id、open_department_id。示例值: open_id可选值有: 当 `member_type` 取值为 `user`时, 表示用户的 open_id。当 `member_type` 取值为 `department`时, 表示部门的 open_department_id。当 `member_type` 取值为 `user`时, 表示用户的 union_id。当 `member_type` 取值为 `user`时, 表示用户的 user_id。当 `member_type` 取值为 `department`时, 表示部门的 department_id。默认值: `open_id
-	MemberType   *string `query:"member_type" json:"-"`    // 用户组成员类型。示例值: user可选值有: 用户, 表示仅查询用户组内的用户类型成员。部门, 表示仅查询用户组内的部门类型成员。默认值: `user
+	MemberIDType *IDType `query:"member_id_type" json:"-"` // 用户组成员 ID 类型。- 当 `member_type` 取值为 `user`时, 该参数表示用户 ID 类型, 包括 open_id、union_id、user_id。- 当 `member_type` 取值为 `department`时, 该参数表示部门 ID 类型, 包括 department_id、open_department_id。示例值: open_id可选值有: 当 `member_type` 取值为 `user`时, 表示用户的 open_id。当 `member_type` 取值为 `department`时, 表示部门的 open_department_id。当 `member_type` 取值为 `user`时, 表示用户的 union_id。当 `member_type` 取值为 `user`时, 表示用户的 user_id。当 `member_type` 取值为 `department`时, 表示部门的 department_id。默认值: `open_id`
+	MemberType   *string `query:"member_type" json:"-"`    // 用户组成员类型。示例值: user可选值有: 用户, 表示仅查询用户组内的用户类型成员。部门, 表示仅查询用户组内的部门类型成员。默认值: `user`
 }
 
 // GetContactGroupMemberResp ...

@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// UpdateSheetDimensionRange 该接口用于根据 spreadsheetToken 和维度信息更新隐藏行列、单元格大小、行高列宽；单次操作不超过5000行或列。
+// UpdateSheetDimensionRange 该接口用于更新设置电子表格中行列的属性, 包括是否隐藏行列和设置行高列宽。
+//
+// ## 使用限制
+// 单次调用该接口, 最多支持设置 5000 行或列。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYjMzUjL2IzM14iNyMTN
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/sheet-rowcol/update-rows-or-columns
@@ -59,28 +62,27 @@ func (r *Mock) UnMockDriveUpdateSheetDimensionRange() {
 
 // UpdateSheetDimensionRangeReq ...
 type UpdateSheetDimensionRangeReq struct {
-	SpreadSheetToken    string                                           `path:"spreadsheetToken" json:"-"`     // spreadsheet 的 token, 获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	SpreadSheetToken    string                                           `path:"spreadsheetToken" json:"-"`     // 电子表格的 token。可通过以下两种方式获取。了解更多, 参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。-  电子表格的 URL: https://sample.feishu.cn/sheets/[Iow7sNNEphp3WbtnbCscPqabcef]- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)
 	Dimension           *UpdateSheetDimensionRangeReqDimension           `json:"dimension,omitempty"`           // 需要更新行列的维度信息
-	DimensionProperties *UpdateSheetDimensionRangeReqDimensionProperties `json:"dimensionProperties,omitempty"` // 需要更新行列的属性
+	DimensionProperties *UpdateSheetDimensionRangeReqDimensionProperties `json:"dimensionProperties,omitempty"` // 更新行或列的属性。至少写入以下参数之一
 }
 
 // UpdateSheetDimensionRangeReqDimension ...
 type UpdateSheetDimensionRangeReqDimension struct {
-	SheetID        string  `json:"sheetId,omitempty"`        // sheetId
-	MajorDimension *string `json:"majorDimension,omitempty"` // 默认 ROWS, 可选 ROWS、COLUMNS
-	StartIndex     int64   `json:"startIndex"`               // 开始的位置
-	EndIndex       int64   `json:"endIndex,omitempty"`       // 结束的位置
+	SheetID        string `json:"sheetId,omitempty"`        // 工作表的 ID。调用[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query)获取 ID
+	MajorDimension string `json:"majorDimension,omitempty"` // 更新的维度。可选值: `ROWS`: 行- `COLUMNS`: 列
+	StartIndex     int64  `json:"startIndex,omitempty"`     // 要更新的行或列的起始位置。从 1 开始计数。若 `startIndex` 为 3, 则从第 3 行或列开始更新属性。包含第 3 行或列。
+	EndIndex       int64  `json:"endIndex,omitempty"`       // 要更新的行或列结束的位置。从 1 开始计数。若 `endIndex` 为 7, 则更新至第 7 行结束。包含第 7 行。示例: 当 `majorDimension`为 `ROWS`、 `startIndex` 为 3、`endIndex ` 为 7 时, 则更新第 3、4、5、6、7 行的属性, 共更新 5 行。
 }
 
 // UpdateSheetDimensionRangeReqDimensionProperties ...
 type UpdateSheetDimensionRangeReqDimensionProperties struct {
-	Visible   *bool  `json:"visible,omitempty"`   // true 为显示, false 为隐藏行列
-	FixedSize *int64 `json:"fixedSize,omitempty"` // 行/列的大小
+	Visible   *bool  `json:"visible,omitempty"`   // 是否显示行或列。可选值: true: 显示行或列- false: 隐藏行或列
+	FixedSize *int64 `json:"fixedSize,omitempty"` // 行高或列宽。单位为像素。`fixedSize` 为 0 时, 等价于隐藏行或列。
 }
 
 // UpdateSheetDimensionRangeResp ...
-type UpdateSheetDimensionRangeResp struct {
-}
+type UpdateSheetDimensionRangeResp struct{}
 
 // updateSheetDimensionRangeResp ...
 type updateSheetDimensionRangeResp struct {

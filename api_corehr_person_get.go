@@ -61,7 +61,7 @@ func (r *Mock) UnMockCoreHRGetCoreHRPerson() {
 // GetCoreHRPersonReq ...
 type GetCoreHRPersonReq struct {
 	PersonID   string  `path:"person_id" json:"-"`     // Person ID示例值: "1616161616"
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 以people_employee_id来识别用户默认值: `open_id
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 以people_employee_id来识别用户默认值: `open_id`
 }
 
 // GetCoreHRPersonResp ...
@@ -80,7 +80,7 @@ type GetCoreHRPersonRespPerson struct {
 	DateOfBirth              string                                             `json:"date_of_birth,omitempty"`               // 出生日期
 	NationalityID            string                                             `json:"nationality_id,omitempty"`              // 国籍 ID
 	Race                     *GetCoreHRPersonRespPersonRace                     `json:"race,omitempty"`                        // 民族 / 种族, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "person"- custom_api_name = "race"
-	MaritalStatus            *GetCoreHRPersonRespPersonMaritalStatus            `json:"marital_status,omitempty"`              // 婚姻状况, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "person"- custom_api_name = "marital_status" 字段权限要求: 读写婚姻状况信息(corehr:person.marital_status:write)
+	MaritalStatus            *GetCoreHRPersonRespPersonMaritalStatus            `json:"marital_status,omitempty"`              // 婚姻状况, 枚举值 api_name 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "person"- custom_api_name = "marital_status" <b>字段权限要求: </b>  读写婚姻状况信息(corehr:person.marital_status:write)
 	PhoneList                []*GetCoreHRPersonRespPersonPhone                  `json:"phone_list,omitempty"`                  // 电话列表
 	AddressList              []*GetCoreHRPersonRespPersonAddress                `json:"address_list,omitempty"`                // 地址列表
 	EmailList                []*GetCoreHRPersonRespPersonEmail                  `json:"email_list,omitempty"`                  // 邮件列表

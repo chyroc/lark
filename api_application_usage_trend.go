@@ -70,8 +70,8 @@ type GetApplicationUsageTrendReq struct {
 
 // GetApplicationUsageTrendReqFilter ...
 type GetApplicationUsageTrendReqFilter struct {
-	Key   string `json:"key,omitempty"`   // 过滤字段, 支持`department_id
-	Op    string `json:"op,omitempty"`    // 过滤操作, 支持`in`、`=
+	Key   string `json:"key,omitempty"`   // 过滤字段, 支持`department_id`
+	Op    string `json:"op,omitempty"`    // 过滤操作, 支持`in`、`=`
 	Value string `json:"value,omitempty"` // 过滤字段值, 多个使用英文逗号分隔
 }
 

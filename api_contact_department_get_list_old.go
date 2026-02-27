@@ -77,10 +77,10 @@ func (r *Mock) UnMockContactGetDepartmentListOld() {
 // GetDepartmentListOldReq ...
 type GetDepartmentListOldReq struct {
 	UserIDType         *IDType           `query:"user_id_type" json:"-"`         // 用户 ID 类型示例值: "open_id"可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	DepartmentIDType   *DepartmentIDType `query:"department_id_type" json:"-"`   // 此次调用中使用的部门ID的类型示例值: "open_department_id"可选值有: 以自定义department_id来标识部门以open_department_id来标识部门默认值: `open_department_id
+	DepartmentIDType   *DepartmentIDType `query:"department_id_type" json:"-"`   // 此次调用中使用的部门ID的类型示例值: "open_department_id"可选值有: 以自定义department_id来标识部门以open_department_id来标识部门默认值: `open_department_id`
 	ParentDepartmentID *string           `query:"parent_department_id" json:"-"` // 父部门的ID, 填上获取部门下所有子部门, 此处填写的 ID 必须是 department_id_type 指定的 ID。示例值: "od-4e6ac4d14bcd5071a37a39de902c7141"
 	FetchChild         *bool             `query:"fetch_child" json:"-"`          // 是否递归获取子部门示例值: 是否递归获取子部门, 默认值: false
-	PageSize           *int64            `query:"page_size" json:"-"`            // 分页大小示例值: 10默认值: `10` 最大值: `50
+	PageSize           *int64            `query:"page_size" json:"-"`            // 分页大小示例值: 10默认值: `10` 最大值: `50`
 	PageToken          *string           `query:"page_token" json:"-"`           // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: "AQD9/Rn9eij9Pm39ED40/RD/cIFmu77WxpxPB/2oHfQLZ%2BG8JG6tK7%2BZnHiT7COhD2hMSICh/eBl7cpzU6JEC3J7COKNe4jrQ8ExwBCR"
 }
 

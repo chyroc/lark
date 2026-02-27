@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// DeleteSheetProtectedDimension 该接口用于根据保护范围ID删除保护范围, 最多支持同时删除10个ID。
+// DeleteSheetProtectedDimension 根据保护范围 ID 删除保护范围。
+//
+// ## 注意事项
+// 单次调用该接口, 最多支持删除 10 个保护范围。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYTM5YjL2ETO24iNxkjN
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/protect-range/delete-protection-scopes
@@ -59,13 +62,13 @@ func (r *Mock) UnMockDriveDeleteSheetProtectedDimension() {
 
 // DeleteSheetProtectedDimensionReq ...
 type DeleteSheetProtectedDimensionReq struct {
-	SpreadSheetToken string   `path:"spreadsheetToken" json:"-"` // sheet 的 token, 获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
-	ProtectIDs       []string `json:"protectIds,omitempty"`      // 需要删除的保护范围ID, 可以通过[获取表格元数据](https://open.feishu.cn/document/ukTMukTMukTM/uETMzUjLxEzM14SMxMTN)接口获取
+	SpreadSheetToken string   `path:"spreadsheetToken" json:"-"` // 电子表格的 token。可通过以下两种方式获取。了解更多, 参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。-  电子表格的 URL: https://sample.feishu.cn/sheets/[Iow7sNNEphp3WbtnbCscPqabcef]- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)      示例值: "Iow7sNNEphp3WbtnbCscPqabcef"
+	ProtectIDs       []string `json:"protectIds,omitempty"`      // 要删除的保护范围 ID, 可通过[获取表格元数据](https://open.feishu.cn/document/ukTMukTMukTM/uETMzUjLxEzM14SMxMTN) 获取。最多支持传入 10 个保护范围 ID。
 }
 
 // DeleteSheetProtectedDimensionResp ...
 type DeleteSheetProtectedDimensionResp struct {
-	DelProtectIDs []string `json:"delProtectIds,omitempty"` // 成功删除的保护范围ID
+	DelProtectIDs []string `json:"delProtectIds,omitempty"` // 成功删除的保护范围 ID
 }
 
 // deleteSheetProtectedDimensionResp ...

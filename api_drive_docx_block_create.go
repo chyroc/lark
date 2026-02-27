@@ -21,16 +21,20 @@ import (
 	"context"
 )
 
-// CreateDocxBlock 指定需要操作的块, 为其创建一批子块, 并插入到指定位置。如果操作成功, 接口将返回新创建子块的富文本内容。
+// CreateDocxBlock 在指定块的子块列表中, 新创建一批子块, 并放置到指定位置。如果操作成功, 接口将返回新创建子块的富文本内容。
 //
-// 在调用此接口前, 请仔细阅读[新版文档 OpenAPI 接口校验规则](https://bytedance.feishu.cn/docx/doxcnby5Y0yoACL3PdfZqrJEm6f#doxcnm0ooUe0s20GwwVB3a05rtb), 了解相关规则及约束。
 // 应用频率限制: 单个应用调用频率上限为每秒 3 次, 超过该频率限制, 接口将返回 HTTP 状态码 400 及错误码 99991400；
 // 文档频率限制: 单篇文档并发编辑上限为每秒 3 次, 超过该频率限制, 接口将返回 HTTP 状态码 429, 编辑操作包括:
 // - 创建块
+// - 创建嵌套块
 // - 删除块
 // - 更新块
 // - 批量更新块
 // 当请求被限频, 应用需要处理限频状态码, 并使用指数退避算法或其它一些频控策略降低对 API 的调用速率。
+// 要高效创建一批带有层级结构的子块或者创建带内容的表格等, 推荐使用[创建嵌套块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block-descendant/create)接口。
+// ## 前提条件
+// - 调用该接口前, 请参考[文档概述-基本概念](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)了解块的父子关系规则。
+// - 调用此接口前, 请确保当前调用身份（tenant_access_token 或 user_access_token）已有云文档的阅读、编辑等文档权限, 否则接口将返回 HTTP 403 或 400 状态码。了解更多, 参考[如何为应用或用户开通文档权限](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#16c6475a)。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block-children/create
 // new doc: https://open.feishu.cn/document/server-docs/docs/docs/docx-v1/document-block/create
@@ -68,25 +72,26 @@ func (r *Mock) UnMockDriveCreateDocxBlock() {
 
 // CreateDocxBlockReq ...
 type CreateDocxBlockReq struct {
-	DocumentID         string       `path:"document_id" json:"-"`           // 文档的唯一标识。对应新版文档 Token, [点击了解如何获取云文档 Token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6), 示例值: "doxcnePuYufKa49ISjhD8Ih0ikh"
-	BlockID            string       `path:"block_id" json:"-"`              // 父块的`block_id`, 表示为其创建一批子块。如果需要对文档树根节点创建子块, 可将`document_id`填入此处, 示例值: "doxcnO6UW6wAw2qIcYf4hZpFIth"
-	DocumentRevisionID *int64       `query:"document_revision_id" json:"-"` // 操作的文档版本, 1 表示文档最新版本。若此时操作的版本为文档最新版本, 则需要持有文档的阅读权限；若此时操作的版本为文档的历史版本, 则需要持有文档的编辑权限, 示例值:1, 默认值: `-1`, 最小值: `-1`
-	ClientToken        *string      `query:"client_token" json:"-"`         // 操作的唯一标识, 与接口返回值的 client_token 相对应, 用于幂等的进行更新操作。此值为空表示将发起一次新的请求, 此值非空表示幂等的进行更新操作, 示例值: "fe599b60-450f-46ff-b2ef-9f6675625b97"
-	UserIDType         *IDType      `query:"user_id_type" json:"-"`         // 用户 ID 类型, 示例值: "open_id", 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	Children           []*DocxBlock `json:"children,omitempty"`             // 添加的孩子列表, 长度范围: `1` ～ `50`
-	Index              *int64       `json:"index,omitempty"`                // 当前 block 在 children 中的插入位置, 起始值为 0, 最大值为原 children 长度, 示例值: 0, 默认值: `-1`
+	DocumentID         string       `path:"document_id" json:"-"`           // 文档的唯一标识。点击[这里](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)了解如何获取文档的 `document_id`示例值: "doxcnePuYufKa49ISjhD8Iabcef"
+	BlockID            string       `path:"block_id" json:"-"`              // 父块的`block_id`, 表示为其创建一批子块。如果需要对文档树根节点创建子块, 可将 `document_id` 填入此处。你可调用[获取文档所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/list)获取文档中块的 `block_id`。了解块的父子关系规则, 参考[文档概述-基本概念](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)示例值: "doxcnO6UW6wAw2qIcYf4hZabcef"
+	DocumentRevisionID *int64       `query:"document_revision_id" json:"-"` // 要操作的文档版本。-1 表示文档最新版本。文档创建后, 版本为 1。你需确保你已拥有文档的编辑权限。你可通过调用[获取文档基本信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document/get)获取文档的最新 `revision_id`示例值:1默认值: `-1` 最小值: `-1`
+	ClientToken        *string      `query:"client_token" json:"-"`         // 操作的唯一标识, 与接口返回值的 client_token 相对应, 用于幂等的进行更新操作。此值为空表示将发起一次新的请求, 此值非空表示幂等的进行更新操作示例值: "fe599b60-450f-46ff-b2ef-9f6675625b97"
+	UserIDType         *IDType      `query:"user_id_type" json:"-"`         // 用户 ID 类型示例值: "open_id"可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	Children           []*DocxBlock `json:"children,omitempty"`             // 添加的子块列表。了解块的父子关系规则, 参考[文档概述-基本概念](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-overview)。在一次请求中, 你最多可以创建 5 个电子表格（Sheet）块 长度范围: `1` ～ `50`
+	Index              *int64       `json:"index,omitempty"`                // 指定在某个块的子块列表中, 新创建的子块的放置位置。索引的起始值为 0, 表示子块列表的第一个位置；索引的最大值为某个块的子块数量, 表示子块列表的最后一个位置。例如: 一个块的子块列表中有 5 个子块, 那么它们的索引分别为 0、1、2、3、4。如果要在该块的子块列表的中放置一个新创建的子块, 并将其放置到第一个位置, 那么索引值应为 0；如果要将新创建的子块放置到最后一个位置, 那么索引值应为 -1示例值: 0默认值: `-1`
 }
 
 // CreateDocxBlockResp ...
 type CreateDocxBlockResp struct {
-	Children           []*DocxBlock `json:"children,omitempty"`             // 所添加的孩子的 Block 信息
+	Children           []*DocxBlock `json:"children,omitempty"`             // 所添加的子块信息
 	DocumentRevisionID int64        `json:"document_revision_id,omitempty"` // 当前 block children 创建成功后文档的版本号
 	ClientToken        string       `json:"client_token,omitempty"`         // 操作的唯一标识, 更新请求中使用此值表示幂等的进行此次更新
 }
 
 // createDocxBlockResp ...
 type createDocxBlockResp struct {
-	Code int64                `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string               `json:"msg,omitempty"`  // 错误描述
-	Data *CreateDocxBlockResp `json:"data,omitempty"`
+	Code  int64                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string               `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateDocxBlockResp `json:"data,omitempty"`
+	Error *ErrorDetail         `json:"error,omitempty"`
 }

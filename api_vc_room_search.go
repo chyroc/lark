@@ -63,7 +63,7 @@ type SearchVCRoomReq struct {
 	Keyword         *string  `json:"keyword,omitempty"`           // 会议室搜索关键词（当custom_room_ids为空时, 使用该字段进行查询）示例值: "测试会议室"
 	RoomLevelID     *string  `json:"room_level_id,omitempty"`     // 在该会议室层级下进行搜索（当custom_room_ids为空时, 使用该字段进行查询）示例值: "omb_4ad1a2c7a2fbc5fc9570f38456931293"
 	SearchLevelName *bool    `json:"search_level_name,omitempty"` // 搜索会议室是否可以包括层级名称（当custom_room_ids为空时, 使用 keyword 字段查询）示例值: true
-	PageSize        *int64   `json:"page_size,omitempty"`         // 分页大小, 该值默认为10, 最大为100（当custom_room_ids为空时, 使用该字段进行查询）示例值: 10默认值: `10` 取值范围: `1` ～ `100
+	PageSize        *int64   `json:"page_size,omitempty"`         // 分页大小, 该值默认为10, 最大为100（当custom_room_ids为空时, 使用该字段进行查询）示例值: 10默认值: `10` 取值范围: `1` ～ `100`
 	PageToken       *string  `json:"page_token,omitempty"`        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: "0"
 }
 

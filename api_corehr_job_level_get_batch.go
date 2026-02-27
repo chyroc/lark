@@ -62,8 +62,8 @@ func (r *Mock) UnMockCoreHRBatchGetCoreHRJobLevel() {
 
 // BatchGetCoreHRJobLevelReq ...
 type BatchGetCoreHRJobLevelReq struct {
-	JobLevelIDs   []string `json:"job_level_ids,omitempty"`   // 职级 ID 列表- 职级 ID 列表和职级 Code 列表至少有一项有值, 否则接口将调用失败。- 未设置时表示不筛选该条件- ID获取方式: 调用[【创建职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_level/events/created)[【批量查询职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)等接口可以返回职级ID示例值: ["1515"] 长度范围: `0` ～ `100
-	JobLevelCodes []string `json:"job_level_codes,omitempty"` // 职级 Code 列表- 职级 ID 列表和职级 Code 列表至少有一项有值, 否则接口将调用失败。- 未设置时表示不筛选该条件- Code获取方式: 调用[【创建职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_level/events/created)[【批量查询职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)等接口可以返回职级Code示例值: ["13715"] 长度范围: `0` ～ `100
+	JobLevelIDs   []string `json:"job_level_ids,omitempty"`   // 职级 ID 列表- 职级 ID 列表和职级 Code 列表至少有一项有值, 否则接口将调用失败。- 未设置时表示不筛选该条件- ID获取方式: 调用[【创建职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_level/events/created)[【批量查询职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)等接口可以返回职级ID示例值: ["1515"] 长度范围: `0` ～ `100`
+	JobLevelCodes []string `json:"job_level_codes,omitempty"` // 职级 Code 列表- 职级 ID 列表和职级 Code 列表至少有一项有值, 否则接口将调用失败。- 未设置时表示不筛选该条件- Code获取方式: 调用[【创建职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_level/events/created)[【批量查询职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)等接口可以返回职级Code示例值: ["13715"] 长度范围: `0` ～ `100`
 }
 
 // BatchGetCoreHRJobLevelResp ...

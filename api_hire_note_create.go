@@ -66,8 +66,8 @@ type CreateHireNoteReq struct {
 	ApplicationID       *string    `json:"application_id,omitempty"`        // 投递ID, 可通过[获取投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/list)获取示例值: "6891565253964859661"
 	CreatorID           *string    `json:"creator_id,omitempty"`            // 创建人ID, 请传入与`user_id_type`相匹配的ID示例值: "ou_f476cb099ac9227c9bae09ce46112579"
 	Content             string     `json:"content,omitempty"`               // 备注内容示例值: "这是一个备注"
-	Privacy             *int64     `json:"privacy,omitempty"`               // 备注私密属性（默认为公开）示例值: 1可选值有: 私密公开默认值: `2
-	NotifyMentionedUser *Mention   `json:"notify_mentioned_user,omitempty"` // 是否通知被@的用户示例值: false默认值: `false
+	Privacy             *int64     `json:"privacy,omitempty"`               // 备注私密属性（默认为公开）示例值: 1可选值有: 私密公开默认值: `2`
+	NotifyMentionedUser *Mention   `json:"notify_mentioned_user,omitempty"` // 是否通知被@的用户示例值: false默认值: `false`
 	MentionEntityList   []*Mention `json:"mention_entity_list,omitempty"`   // 被@用户列表
 }
 

@@ -23,8 +23,12 @@ import (
 
 // GetApplicationAppList 该接口用于查询企业安装的应用列表, 只能被企业自建应用调用。
 //
+// 该接口为旧版获取企业安装应用接口。推荐使用新版接口[获取企业安装的应用](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/list)。
+//
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYDN3UjL2QzN14iN0cTN
 // new doc: https://open.feishu.cn/document/server-docs/application-v6/admin/obtain-the-apps-installed-by-an-organization
+//
+// Deprecated
 func (r *ApplicationService) GetApplicationAppList(ctx context.Context, request *GetApplicationAppListReq, options ...MethodOptionFunc) (*GetApplicationAppListResp, *Response, error) {
 	if r.cli.mock.mockApplicationGetApplicationAppList != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#GetApplicationAppList mock enable")
@@ -76,15 +80,16 @@ type GetApplicationAppListResp struct {
 
 // GetApplicationAppListRespAppList ...
 type GetApplicationAppListRespAppList struct {
-	AppID                string `json:"app_id,omitempty"`                 // 应用 ID
-	PrimaryLanguage      string `json:"primary_language,omitempty"`       // 应用首选语言
-	AppName              string `json:"app_name,omitempty"`               // 应用名称
-	Description          string `json:"description,omitempty"`            // 应用描述
-	AvatarURL            string `json:"avatar_url,omitempty"`             // 应用 icon
-	AppSceneType         int64  `json:"app_scene_type,omitempty"`         // 应用类型, 0: 企业自建应用；1: 应用商店应用
-	Status               int64  `json:"status,omitempty"`                 // 启停状态, 0: 停用；1: 启用
-	MobileDefaultAbility int64  `json:"mobile_default_ability,omitempty"` // 移动端默认的应用功能, 0: 未开启；1: 小程序；2: H5；8: 机器人
-	PcDefaultAbility     int64  `json:"pc_default_ability,omitempty"`     // PC客户端默认的应用功能, 0: 未开启；1: 小程序；2: H5；8: 机器人
+	AppID                string      `json:"app_id,omitempty"`                 // 应用 ID
+	PrimaryLanguage      string      `json:"primary_language,omitempty"`       // 应用首选语言
+	AppName              string      `json:"app_name,omitempty"`               // 应用名称
+	Description          string      `json:"description,omitempty"`            // 应用描述
+	AvatarURL            string      `json:"avatar_url,omitempty"`             // 应用 icon
+	AppSceneType         int64       `json:"app_scene_type,omitempty"`         // 应用类型, 0: 企业自建应用；1: 应用商店应用
+	Status               int64       `json:"status,omitempty"`                 // 启停状态, 0: 停用；1: 启用
+	MobileDefaultAbility int64       `json:"mobile_default_ability,omitempty"` // 移动端默认的应用功能, 0: 未开启；1: 小程序；2: H5；8: 机器人
+	PcDefaultAbility     int64       `json:"pc_default_ability,omitempty"`     // PC客户端默认的应用功能, 0: 未开启；1: 小程序；2: H5；8: 机器人
+	CreateSource         interface{} `json:"create_source,omitempty"`          // 应用创建来源: `developer_console`: 开发者后台；`base`: 多维表格自动化流程创建的应用；`app_engine`: 飞书应用引擎；`bot_builder`: 机器人助手；`aily`: aily(智能伙伴搭建平台)；`unknown`: 未知来源
 }
 
 // getApplicationAppListResp ...

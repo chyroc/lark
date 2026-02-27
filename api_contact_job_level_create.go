@@ -63,7 +63,7 @@ func (r *Mock) UnMockContactCreateContactJobLevel() {
 type CreateContactJobLevelReq struct {
 	Name            string                                     `json:"name,omitempty"`             // 职级名称。通用名称, 如果未设置多语言名称, 则默认展示该名称。示例值: "高级专家" 长度范围: `1` ～ `255` 字符
 	Description     *string                                    `json:"description,omitempty"`      // 职级描述。字符长度上限 5, 000。通用描述, 如果未设置多语言描述, 则默认展示该描述。默认值: 空示例值: "公司内部中高级职称, 有一定专业技术能力的人员"
-	Order           *int64                                     `json:"order,omitempty"`            // 职级排序。数值越小, 排序越靠前。默认值: 空。如果不传入该值, 则默认职级排在列表最后位（即 order 取值为当前职级列表内的最大值）。示例值: 200 取值范围: `100` ～ `100000
+	Order           *int64                                     `json:"order,omitempty"`            // 职级排序。数值越小, 排序越靠前。默认值: 空。如果不传入该值, 则默认职级排在列表最后位（即 order 取值为当前职级列表内的最大值）。示例值: 200 取值范围: `100` ～ `100000`
 	Status          bool                                       `json:"status,omitempty"`           // 是否启用该职级。可选值有: true: 启用- false: 不启用说明: 只有启用了的职级可以设置为用户属性。示例值: true
 	I18nName        []*CreateContactJobLevelReqI18nName        `json:"i18n_name,omitempty"`        // 多语言职级名称。默认值: 空, 表示不设置多语言名称。
 	I18nDescription []*CreateContactJobLevelReqI18nDescription `json:"i18n_description,omitempty"` // 多语言职级描述。默认值: 空, 表示不设置多语言描述。

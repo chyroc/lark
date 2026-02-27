@@ -21,9 +21,13 @@ import (
 	"context"
 )
 
-// CreateSheetProtectedDimension 该接口用于根据 spreadsheetToken 和维度信息增加多个保护范围；单次操作不超过5000行或列。
+// CreateSheetProtectedDimension 在电子表格工作表中设置多个保护范围, 支持对行或列设置保护范围。
 //
-// 仅支持设置保护行或保护列, 暂不支持设置保护单元格
+// ## 基本概念
+// 设置保护范围指对工作表中的任意行或列进行保护, 并可设置其他协作者是否有权限编辑该数据, 有效保障数据信息安全。
+// ## 使用限制
+// - 单次调用该接口, 最多支持为 5, 000 行或列设置保护范围。
+// - 仅支持对行或列设置保护范围, 暂不支持对单元格设置保护范围。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ugDNzUjL4QzM14CO0MTN
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/protect-range/add-locked-cells
@@ -37,7 +41,7 @@ func (r *DriveService) CreateSheetProtectedDimension(ctx context.Context, reques
 		Scope:                 "Drive",
 		API:                   "CreateSheetProtectedDimension",
 		Method:                "POST",
-		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v2/spreadsheets/:spreadsheetToken/protected_dimension",
+		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v2/spreadsheets/:spreadsheet_token/protected_dimension",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
@@ -61,47 +65,30 @@ func (r *Mock) UnMockDriveCreateSheetProtectedDimension() {
 
 // CreateSheetProtectedDimensionReq ...
 type CreateSheetProtectedDimensionReq struct {
-	SpreadSheetToken      string                                                   `path:"spreadsheetToken" json:"-"`       // spreadsheet 的 token, 获取方式见 [在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
-	UserIDType            *IDType                                                  `query:"user_id_type" json:"-"`          // 请求的用户id类型, 可选open_id, union_id
-	AddProtectedDimension []*CreateSheetProtectedDimensionReqAddProtectedDimension `json:"addProtectedDimension,omitempty"` // 需要增加保护范围的维度信息, 可多个范围
+	SpreadSheetToken      string                                                 `path:"spreadsheet_token" json:"-"`      // 电子表格的 token。可通过以下两种方式获取。了解更多, 参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。-  电子表格的 URL: https://sample.feishu.cn/sheets/[Iow7sNNEphp3WbtnbCscPqabcef]- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)      示例值: "Iow7sNNEphp3WbtnbCscPqabcef"
+	UserIDType            *IDType                                                `query:"user_id_type" json:"-"`          // 指定请求体中 users 字段对应的用户 ID 类型。可选值如下所示。了解更多, 参考[用户身份概述](https://open.feishu.cn/document/home/user-identity-introduction/introduction)。可选值: `open_id`: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。了解更多: [如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)- `union_id`: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。了解更多: [如何获取 Union ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)        注意: 若要在请求体中传入 users 参数, user_id_type 参数必填。
+	AddProtectedDimension *CreateSheetProtectedDimensionReqAddProtectedDimension `json:"addProtectedDimension,omitempty"` // 需要增加保护范围的维度信息。最多支持传入 50 个维度信息。
 }
 
 // CreateSheetProtectedDimensionReqAddProtectedDimension ...
 type CreateSheetProtectedDimensionReqAddProtectedDimension struct {
-	Dimension *CreateSheetProtectedDimensionReqAddProtectedDimensionDimension `json:"dimension,omitempty"` // 需要保护行列的维度信息
-	Editors   []int64                                                         `json:"editors,omitempty"`   // 允许编辑保护范围的用户的 userID
-	Users     []string                                                        `json:"users,omitempty"`     // 允许编辑保护范围的用户的id, id类型取决于user_id_type
-	LockInfo  *string                                                         `json:"lockInfo,omitempty"`  // 保护范围的信息
+	Dimension *CreateSheetProtectedDimensionReqAddProtectedDimensionDimension `json:"dimension,omitempty"` // 要保护的行或列的信息
+	Editors   []int64                                                         `json:"editors,omitempty"`   // 允许编辑保护范围的用户的 `lark_id`。该字段已不推荐使用, 你可使用 `users` 参数代替。
+	Users     []string                                                        `json:"users,omitempty"`     // 允许编辑保护范围的用户的 ID。ID 类型取决于查询参数 `user_id_type` 的取值。
+	LockInfo  *string                                                         `json:"lockInfo,omitempty"`  // 保护范围的备注信息
 }
 
 // CreateSheetProtectedDimensionReqAddProtectedDimensionDimension ...
 type CreateSheetProtectedDimensionReqAddProtectedDimensionDimension struct {
-	SheetID        string  `json:"sheetId,omitempty"`        // sheetId
-	MajorDimension *string `json:"majorDimension,omitempty"` // 默认 ROWS, 可选 ROWS、COLUMNS
-	StartIndex     int64   `json:"startIndex"`               // 开始的位置
-	EndIndex       int64   `json:"endIndex,omitempty"`       // 结束的位置
+	SheetID        string  `json:"sheetId,omitempty"`        // 电子表格工作表的 ID。调用[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query)获取 ID。
+	MajorDimension *string `json:"majorDimension,omitempty"` // 更新的维度, 默认 ROWS。可选值: ROWS: 行- COLUMNS: 列
+	StartIndex     int64   `json:"startIndex,omitempty"`     // 开始的行或列的索引。从 1 开始计数。若 `startIndex` 为 3, 则从第 3 行或列开始保护。包含第 3 行或列。
+	EndIndex       int64   `json:"endIndex,omitempty"`       // 结束的行或列的索引。从 1 开始计数。若 `endIndex` 为 7, 则保护到第 7 行或列。包含第 7 行或列。
 }
 
 // CreateSheetProtectedDimensionResp ...
 type CreateSheetProtectedDimensionResp struct {
-	AddProtectedDimension []*CreateSheetProtectedDimensionRespAddProtectedDimension `json:"addProtectedDimension,omitempty"` // 需要增加保护范围的维度信息, 可多个范围
-}
-
-// CreateSheetProtectedDimensionRespAddProtectedDimension ...
-type CreateSheetProtectedDimensionRespAddProtectedDimension struct {
-	Dimension *CreateSheetProtectedDimensionRespAddProtectedDimensionDimension `json:"dimension,omitempty"` // 需要保护行列的维度信息
-	Editors   []int64                                                          `json:"editors,omitempty"`   // 允许编辑保护范围的用户的 userID
-	Users     []string                                                         `json:"users,omitempty"`     // 允许编辑保护范围的用户的id, id类型取决于user_id_type
-	LockInfo  string                                                           `json:"lockInfo,omitempty"`  // 保护范围的信息
-	ProtectID string                                                           `json:"protectId,omitempty"` // 保护区域的唯一 uid, 可用做后续解除保护
-}
-
-// CreateSheetProtectedDimensionRespAddProtectedDimensionDimension ...
-type CreateSheetProtectedDimensionRespAddProtectedDimensionDimension struct {
-	SheetID        string `json:"sheetId,omitempty"`        // sheetId
-	MajorDimension string `json:"majorDimension,omitempty"` // 默认 ROWS, 可选 ROWS、COLUMNS
-	StartIndex     int64  `json:"startIndex"`               // 开始的位置
-	EndIndex       int64  `json:"endIndex,omitempty"`       // 结束的位置
+	AddProtectedDimension []interface{} `json:"addProtectedDimension,omitempty"` // 保护范围的维度信息
 }
 
 // createSheetProtectedDimensionResp ...

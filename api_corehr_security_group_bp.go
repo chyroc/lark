@@ -58,7 +58,7 @@ func (r *Mock) UnMockCoreHRGetCoreHRSecurityGroupBp() {
 
 // GetCoreHRSecurityGroupBpReq ...
 type GetCoreHRSecurityGroupBpReq struct {
-	DepartmentIDType *DepartmentIDType                  `query:"department_id_type" json:"-"` // 此次调用中使用的部门 ID 类型示例值: people_corehr_department_id可选值有: 以 open_department_id 来标识部门以 department_id 来标识部门以 people_corehr_department_id 来标识部门默认值: `people_corehr_department_id
+	DepartmentIDType *DepartmentIDType                  `query:"department_id_type" json:"-"` // 此次调用中使用的部门 ID 类型示例值: people_corehr_department_id可选值有: 以 open_department_id 来标识部门以 department_id 来标识部门以 people_corehr_department_id 来标识部门默认值: `people_corehr_department_id`
 	ItemList         []*GetCoreHRSecurityGroupBpReqItem `json:"item_list,omitempty"`          // 角色列表, 一次最多支持查询 50 个
 	UpdatedAtGte     *string                            `json:"updated_at_gte,omitempty"`     // 授权时间大于示例值: "1729773628"
 	UpdatedAtLte     *string                            `json:"updated_at_lte,omitempty"`     // 授权时间小于示例值: "1729773628"

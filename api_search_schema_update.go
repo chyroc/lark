@@ -58,7 +58,7 @@ func (r *Mock) UnMockSearchUpdateSearchSchema() {
 
 // UpdateSearchSchemaReq ...
 type UpdateSearchSchemaReq struct {
-	SchemaID string                        `path:"schema_id" json:"-"` // 用户自定义数据范式的唯一标识示例值: "custom_schema_id" 最大长度: `40` 字符- 正则校验: `^[a-zA-Z][a-zA-Z0-9-_].*$
+	SchemaID string                        `path:"schema_id" json:"-"` // 用户自定义数据范式的唯一标识示例值: "custom_schema_id" 最大长度: `40` 字符- 正则校验: `^[a-zA-Z][a-zA-Z0-9-_].*$`
 	Display  *UpdateSearchSchemaReqDisplay `json:"display,omitempty"`  // 数据展示相关配置
 }
 

@@ -21,13 +21,15 @@ import (
 	"context"
 )
 
-// SendRawMessage 给指定用户或者会话发送消息, 支持文本、富文本、可交互的[消息卡片](https://open.feishu.cn/document/ukTMukTMukTM/uczM3QjL3MzN04yNzcDN)、群名片、个人名片、图片、视频、音频、文件、表情包。
+// SendRawMessage 调用该接口向指定用户或者群聊发送消息。支持发送的消息类型包括文本、富文本、卡片、群名片、个人名片、图片、视频、音频、文件以及表情包等。
 //
-// 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
-// - 给用户发送消息, 需要机器人对用户有[可用性](https://open.feishu.cn/document/home/introduction-to-scope-and-authorization/availability)
-// - 给群组发送消息, 需要机器人在群组中
-// - 为避免对用户造成打扰, 向同一用户发送消息的限频为 [5 QPS], 向同一群组发送消息的限频为群内机器人共享 [5 QPS]
+// ## 前提条件
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。 开启能力后需要发布版本才能生效, 参考 [发布应用](https://open.feishu.cn/document/home/introduction-to-custom-app-development/self-built-application-development-process#baf09c7d)。
+// - 给用户发送消息时, 用户需要在机器人的[可用范围](https://open.feishu.cn/document/home/introduction-to-scope-and-authorization/availability)内。
+// - 给群组发送消息时, 机器人需要在该群组中, 且在群组内拥有发言权限。
+// ## 使用限制
+// - 为避免消息发送频繁对用户造成打扰, 向同一用户发送消息的限频为 [5 QPS]、向同一群组发送消息的限频为群内机器人共享 [5 QPS]。
+// - 该接口仅支持在开发者后台创建的应用机器人调用, 群自定义机器人无法调用该接口。了解群自定义机器人的使用方式, 参见[自定义机器人使用指南](https://open.feishu.cn/document/ukTMukTMukTM/ucTM5YjL3ETO24yNxkjN)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/message/create
@@ -64,29 +66,29 @@ func (r *Mock) UnMockMessageSendRawMessage() {
 
 // SendRawMessageReq ...
 type SendRawMessageReq struct {
-	ReceiveIDType IDType  `query:"receive_id_type" json:"-"` // 消息接收者id类型 open_id/user_id/union_id/email/chat_id, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。, email: 以用户的真实邮箱来标识用户。, chat_id: 以群ID来标识群聊。[了解更多: 如何获取群ID ](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description), 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	ReceiveID     string  `json:"receive_id,omitempty"`      // 消息接收者的ID, ID类型应与查询参数[receive_id_type] 对应；推荐使用 OpenID, 获取方式可参考文档[如何获取 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), 示例值: "ou_7d8a6e6df7621556ce0d21922b676706ccs"
-	MsgType       MsgType `json:"msg_type,omitempty"`        // 消息类型 包括: text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等, 类型定义请参考[发送消息内容](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json), 示例值: "text"
-	Content       string  `json:"content,omitempty"`         // 消息内容, JSON结构序列化后的字符串。不同msg_type对应不同内容, 具体格式说明参考: [发送消息内容](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json), 注意: JSON字符串需进行转义, 如换行符转义后为`\\n`, 文本消息请求体最大不能超过150KB, 卡片及富文本消息请求体最大不能超过30KB, 示例值: "`{\"text\":\"test content\"}`"
-	UUID          *string `json:"uuid,omitempty"`            // 由开发者生成的唯一字符串序列, 用于发送消息请求去重；持有相同uuid的请求1小时内至多成功发送一条消息, 示例值: "选填, 每次调用前请更换, 如a0d69e20-1dd1-458b-k525-dfeca4015204", 最大长度: `50` 字符
+	ReceiveIDType IDType  `query:"receive_id_type" json:"-"` // 消息接收者 ID 类型。支持 open_id/union_id/user_id/email/chat_id示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)。以用户的真实邮箱来标识用户。以群 ID 来标识群聊。[了解更多: 如何获取群 ID ](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	ReceiveID     string  `json:"receive_id,omitempty"`      // 消息接收者的 ID, ID 类型与查询参数 `receive_id_type` 的取值一致。注意事项: 给用户发送消息时, 用户需要在机器人的[可用范围](https://open.feishu.cn/document/home/introduction-to-scope-and-authorization/availability)内。例如, 你需要给企业全员发送消息, 则需要将应用的可用范围设置为全体员工。- 给群组发送消息时, 机器人需要在该群组中, 且在群组内拥有发言权限。- 如果消息接收者为用户, 推荐使用用户的 `open_id`。示例值: "ou_7d8a6e6df7621556ce0d21922b676706ccs"
+	MsgType       MsgType `json:"msg_type,omitempty"`        // 消息类型。可选值有: text: 文本- post: 富文本- image: 图片- file: 文件- audio: 语音- media: 视频- sticker: 表情包- interactive: 卡片- share_chat: 分享群名片（被分享的群名片有效期为 7 天）- share_user: 分享个人名片- system: 系统消息。该类型仅支持在机器人单聊内推送系统消息, 不支持在群聊内使用, 例如下图所示突出新会话。    ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/e7ed7bb87180295d347fa58d76b077f5_lw9oqM4Cot.png)不同消息类型的详细介绍, 参见[发送消息内容](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)。示例值: "text"
+	Content       string  `json:"content,omitempty"`         // 消息内容, JSON 结构序列化后的字符串。该参数的取值与 `msg_type` 对应, 例如 `msg_type` 取值为 `text`, 则该参数需要传入文本类型的内容。注意: JSON 字符串需进行转义。例如, 换行符 `\n` 转义后为 `\\n`。- 文本消息请求体最大不能超过 150 KB。- 卡片消息、富文本消息请求体最大不能超过 30 KB。    - 如果使用卡片模板（template_id）发送消息, 实际大小也包含模板对应的卡片数据大小。    - 如果消息中包含样式标签, 会使实际消息体长度大于您输入的请求体长度。- 图片需要先[上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create), 然后使用图片的 Key 发消息。- 音频、视频、文件需要先[上传文件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/file/create), 然后使用文件的 Key 发消息。注意不能使用云文档[上传素材](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_all)接口返回的 file_token。了解不同类型的消息内容格式、使用限制, 可参见[发送消息内容](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)。示例值: "{\"text\":\"test content\"}"
+	UUID          *string `json:"uuid,omitempty"`            // 自定义设置的唯一字符串序列, 用于在发送消息时请求去重。持有相同 uuid 的请求, 在 1 小时内至多成功发送一条消息。注意: 你可以参考示例值自定义参数值。当发送不同的消息内容时, 如果传入了该参数, 则需要在每次请求时都更换该参数的取值。示例值: "选填, 每次调用前请更换, 如a0d69e20-1dd1-458b-k525-dfeca4015204" 最大长度: `50` 字符
 }
 
 // SendRawMessageResp ...
 type SendRawMessageResp struct {
-	MessageID      string       `json:"message_id,omitempty"`       // 消息id, 说明参见: [消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
-	RootID         string       `json:"root_id,omitempty"`          // 根消息id, 用于回复消息场景, 说明参见: [消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
-	ParentID       string       `json:"parent_id,omitempty"`        // 父消息的id, 用于回复消息场景, 说明参见: [消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
-	ThreadID       string       `json:"thread_id,omitempty"`        // 消息所属的话题 ID
-	MsgType        MsgType      `json:"msg_type,omitempty"`         // 消息类型 包括: text、post、image、file、audio、media、sticker、interactive、share_chat、share_user等, 类型定义请参考[接收消息内容](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/events/message_content)
-	CreateTime     string       `json:"create_time,omitempty"`      // 消息生成的时间戳（毫秒）
-	UpdateTime     string       `json:"update_time,omitempty"`      // 消息更新的时间戳（毫秒）
-	Deleted        bool         `json:"deleted,omitempty"`          // 消息是否被撤回
-	Updated        bool         `json:"updated,omitempty"`          // 消息是否被更新
-	ChatID         string       `json:"chat_id,omitempty"`          // 所属的群
-	Sender         *Sender      `json:"sender,omitempty"`           // 发送者, 可以是用户或应用
-	Body           *MessageBody `json:"body,omitempty"`             // 消息内容
-	Mentions       []*Mention   `json:"mentions,omitempty"`         // 被@的用户或机器人的id列表
-	UpperMessageID string       `json:"upper_message_id,omitempty"` // 合并转发消息中, 上一层级的消息id message_id, 说明参见: [消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	MessageID      string       `json:"message_id,omitempty"`       // 消息 ID。成功发送消息后, 由系统生成的唯一 ID 标识。后续对消息的管理维护操作均需要使用该 ID。
+	RootID         string       `json:"root_id,omitempty"`          // 根消息 ID, 仅在回复消息场景会有返回值。了解 root_id 可参见[消息管理概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro)。
+	ParentID       string       `json:"parent_id,omitempty"`        // 父消息 ID, 仅在回复消息场景会有返回值。了解 parent_id 可参见[消息管理概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro)。
+	ThreadID       string       `json:"thread_id,omitempty"`        // 消息所属的话题 ID, 仅在话题场景会有返回值。了解话题可参见[话题概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/thread-introduction)。
+	MsgType        MsgType      `json:"msg_type,omitempty"`         // 消息类型。可能值有: text: 文本- post: 富文本- image: 图片- file: 文件- audio: 语音- media: 视频- sticker: 表情包- interactive: 卡片- share_chat: 分享群名片（被分享的群名片有效期为 7 天）- share_user: 分享个人名片- system: 系统消息
+	CreateTime     string       `json:"create_time,omitempty"`      // 消息生成的时间戳。单位: 毫秒
+	UpdateTime     string       `json:"update_time,omitempty"`      // 消息更新的时间戳。单位: 毫秒
+	Deleted        bool         `json:"deleted,omitempty"`          // 消息是否被撤回。发送消息时只会返回 false, 表示未被撤回。
+	Updated        bool         `json:"updated,omitempty"`          // 消息是否被更新。发送消息时只会返回 false, 表示未被更新。
+	ChatID         string       `json:"chat_id,omitempty"`          // 消息所属的群 ID。你可以调用[获取群信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get)接口, 根据群 ID 获取群详情。
+	Sender         *Sender      `json:"sender,omitempty"`           // 消息的发送者信息。
+	Body           *MessageBody `json:"body,omitempty"`             // 通过 `body` 内的 `content` 参数, 返回所发送的消息内容。
+	Mentions       []*Mention   `json:"mentions,omitempty"`         // 发送的消息内, 被 @ 的用户列表。
+	UpperMessageID string       `json:"upper_message_id,omitempty"` // 合并转发消息中, 上一层级的消息 ID, 仅在合并转发场景会有返回值。了解 upper_message_id 可参见[消息管理概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro)。
 }
 
 // sendRawMessageResp ...

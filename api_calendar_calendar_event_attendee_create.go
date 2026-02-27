@@ -81,7 +81,7 @@ type CreateCalendarEventAttendeeReq struct {
 // CreateCalendarEventAttendeeReqAttendee ...
 type CreateCalendarEventAttendeeReqAttendee struct {
 	Type                  *CalendarEventAttendeeType                                     `json:"type,omitempty"`                   // 参与人类型。示例值: "user"可选值有: 用户群组会议室外部邮箱
-	IsOptional            *bool                                                          `json:"is_optional,omitempty"`            // 参与人是否为可选参加。可选值有: true: 是- false: 否注意: 无法编辑会议室类型参与人的此字段。示例值: true默认值: `false
+	IsOptional            *bool                                                          `json:"is_optional,omitempty"`            // 参与人是否为可选参加。可选值有: true: 是- false: 否注意: 无法编辑会议室类型参与人的此字段。示例值: true默认值: `false`
 	UserID                *string                                                        `json:"user_id,omitempty"`                // 用户 ID。当选择用户类型参与人（type 取值为 user）时, 需要传入该参数。传入的用户 ID 类型需要和 user_id_type 的值保持一致。关于用户 ID 可参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)。示例值: "ou_xxxxxxxx"
 	ChatID                *string                                                        `json:"chat_id,omitempty"`                // 群组 ID。当选择群组类型参与人（type 取值为 chat）时, 需要传入该参数。关于群组 ID 可参见[群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)。示例值: "oc_xxxxxxxxx"
 	RoomID                *string                                                        `json:"room_id,omitempty"`                // 会议室 ID。当选择会议室类型参与人（type 取值为 resource）时, 需要传入该参数。你可以通过以下接口获取指定会议室 ID: [查询会议室列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/list)- [搜索会议室](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/search)示例值: "omm_xxxxxxxx"

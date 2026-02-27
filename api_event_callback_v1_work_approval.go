@@ -21,10 +21,15 @@ import (
 	"context"
 )
 
-// EventV1WorkApproval 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
+// EventV1WorkApproval 审批定义的表单包含 加班控件组 时, 该定义下的审批实例在 通过 或者 通过并撤销 时, 会触发该事件。
 //
-// 「审批」应用的表单里如果包含 [加班控件组], 则在此表单审批通过后触发此事件。
-// * 依赖权限: [访问审批应用] 或 [查看、创建、更新、删除审批应用相关信息]
+// ## 前提条件
+// - 应用已配置事件订阅, 了解事件订阅可参见[事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
+// - 应用已调用[订阅审批事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/subscribe)接口, 订阅了审批实例对应的审批定义 Code。
+// ## 使用说明
+// 订阅该事件（事件类型为 work_approval）后, 可以接收到两个事件:
+// - 事件类型（type 为 work_approval）指加班审批通过事件。
+// - 事件类型（type 为 work_approval_revert）指加班审批通过并撤销事件。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/overtime
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/event/special-event/overtime
@@ -37,25 +42,36 @@ type EventV1WorkApprovalHandler func(ctx context.Context, cli *Lark, schema stri
 
 // EventV1WorkApproval ...
 type EventV1WorkApproval struct {
-	AppID               string                          `json:"app_id,omitempty"`                 // 如: cli_xxx
-	TenantKey           string                          `json:"tenant_key,omitempty"`             // 如: xxx
-	Type                string                          `json:"type,omitempty"`                   // 如: work_approval
-	InstanceCode        string                          `json:"instance_code,omitempty"`          // 审批实例Code. 如: xxx
-	EmployeeID          string                          `json:"employee_id,omitempty"`            // 用户id. 如: xxx
-	OpenID              string                          `json:"open_id,omitempty"`                // 用户open_id. 如: ou_xxx
-	StartTime           int64                           `json:"start_time,omitempty"`             // 审批发起时间, 单位: 秒. 如: 1502199207
-	EndTime             int64                           `json:"end_time,omitempty"`               // 审批结束时间, 单位: 秒. 如: 1502199307
-	WorkType            string                          `json:"work_type,omitempty"`              // 加班类型. 如: xxx
-	WorkStartTime       string                          `json:"work_start_time,omitempty"`        // 加班开始时间. 如: 2018-12-01 12:00:00
-	WorkEndTime         string                          `json:"work_end_time,omitempty"`          // 加班结束时间. 如: 2018-12-02 12:00:00
-	WorkInterval        int64                           `json:"work_interval,omitempty"`          // 加班时长, 单位（秒）. 如: 7200
-	WorkReason          string                          `json:"work_reason,omitempty"`            // 加班事由. 如: xxx
-	AllowMultiTimeRange int64                           `json:"allow_multi_time_range,omitempty"` // 1:存在多时段, 0:不存在多时段. 如: 1
-	TimeRange           []*EventV1WorkApprovalTimeRange `json:"time_range,omitempty"`             // 多时段, allow_multi_time_range为1时存在该字段
+	AllowMultiTimeRange   int64                          `json:"allow_multi_time_range,omitempty"`   // 是否存在多时段。可能值有: 1: 存在多时段- 0: 不存在多时段
+	AppID                 string                         `json:"app_id,omitempty"`                   // 应用的 App ID。可调用[获取应用信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/get)接口查询应用详细信息。
+	ApprovalCode          string                         `json:"approval_code,omitempty"`            // 审批定义 Code。可调用[查看指定审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get)接口查询审批定义详情。
+	InstanceCode          string                         `json:"instance_code,omitempty"`            // 审批实例 Code。可调用[获取单个审批实例详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get)接口查询审批实例详情。
+	EmployeeID            string                         `json:"employee_id,omitempty"`              // 审批提交人的 user_id。你可以调用[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口, 通过 user_id 获取用户信息。
+	OpenID                string                         `json:"open_id,omitempty"`                  // 审批提交人的 open_id。你可以调用[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口, 通过 user_id 获取用户信息。
+	StartTime             int64                          `json:"start_time,omitempty"`               // 审批开始时间, 秒级时间戳。
+	EndTime               int64                          `json:"end_time,omitempty"`                 // 审批结束时间, 秒级时间戳。
+	TenantKey             string                         `json:"tenant_key,omitempty"`               // 租户 Key, 是企业的唯一标识。
+	Type                  string                         `json:"type,omitempty"`                     // 事件类型。固定值 `work_approval`
+	TimeRange             *EventV1WorkApprovalTimeRange  `json:"time_range,omitempty"`               // 多时段信息, 参数 `allow_multi_time_range` 取值为 1 时该字段有返回值。
+	WorkDetail            *EventV1WorkApprovalWorkDetail `json:"work_detail,omitempty"`              // 每日加班明细。
+	WorkStartTime         string                         `json:"work_start_time,omitempty"`          // 加班开始时间。示例格式: 2018-12-01 12:00:00
+	WorkEndTime           string                         `json:"work_end_time,omitempty"`            // 加班结束时间。示例格式: 2018-12-02 12:00:00
+	WorkInterval          int64                          `json:"work_interval,omitempty"`            // 加班时长。单位: 秒
+	WorkMultiImitateUsers []interface{}                  `json:"work_multi_imitate_users,omitempty"` // 代多人提交用户列表。
+	WorkReason            string                         `json:"work_reason,omitempty"`              // 加班事由。
+	WorkType              string                         `json:"work_type,omitempty"`                // 加班类型。
 }
 
 // EventV1WorkApprovalTimeRange ...
 type EventV1WorkApprovalTimeRange struct {
-	WorkStartTime string `json:"work_start_time,omitempty"` // 加班开始时间. 如: 2018-12-01 12:00:00
-	WorkEndTime   string `json:"work_end_time,omitempty"`   // 加班结束时间. 如: 2018-12-02 12:00:00
+	WorkStartTime string `json:"work_start_time,omitempty"` // 加班开始时间。示例格式: 2018-12-01 12:00:00
+	WorkEndTime   string `json:"work_end_time,omitempty"`   // 加班结束时间。示例格式: 2018-12-02 12:00:00
+}
+
+// EventV1WorkApprovalWorkDetail ...
+type EventV1WorkApprovalWorkDetail struct {
+	Start          string `json:"start,omitempty"`           // 加班开始时间, 仅精确到天。示例格式: 2018-12-01 00:00
+	End            string `json:"end,omitempty"`             // 加班结束时间, 仅精确到天。示例格式: 2018-12-01 00:00
+	RuleAssociated int64  `json:"rule_associated,omitempty"` // 加班类型。可能值有: 0: 无（未关联加班规则）- 1: 调休假- 2: 加班费- 3: 无（已关联加班规则）
+	Interval       int64  `json:"interval,omitempty"`        // 每日加班时长。单位: 秒
 }

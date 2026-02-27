@@ -67,11 +67,11 @@ type CreateACSRuleExternalReq struct {
 type CreateACSRuleExternalReqRule struct {
 	ID           *string                                  `json:"id,omitempty"`            // 权限组id示例值: "34252345234523"
 	Name         *string                                  `json:"name,omitempty"`          // 权限组名称示例值: "南门"
-	Devices      []*CreateACSRuleExternalReqRuleDevice    `json:"devices,omitempty"`       // 权限组包含的设备 长度范围: `0` ～ `5000
+	Devices      []*CreateACSRuleExternalReqRuleDevice    `json:"devices,omitempty"`       // 权限组包含的设备 长度范围: `0` ～ `5000`
 	UserCount    *string                                  `json:"user_count,omitempty"`    // 权限组包含的员工个数示例值: "3"
-	Users        []*CreateACSRuleExternalReqRuleUser      `json:"users,omitempty"`         // 权限组包含的员工列表 长度范围: `0` ～ `10000
+	Users        []*CreateACSRuleExternalReqRuleUser      `json:"users,omitempty"`         // 权限组包含的员工列表 长度范围: `0` ～ `10000`
 	VisitorCount *string                                  `json:"visitor_count,omitempty"` // 权限组包含的访客个数示例值: "3"
-	Visitors     []*CreateACSRuleExternalReqRuleVisitor   `json:"visitors,omitempty"`      // 权限组包含的访客列表 长度范围: `0` ～ `10000
+	Visitors     []*CreateACSRuleExternalReqRuleVisitor   `json:"visitors,omitempty"`      // 权限组包含的访客列表 长度范围: `0` ～ `10000`
 	RemindFace   *bool                                    `json:"remind_face,omitempty"`   // 是否通知人员录入示例值: false
 	OpeningTime  *CreateACSRuleExternalReqRuleOpeningTime `json:"opening_time,omitempty"`  // 开门时间段
 	IsTemp       *bool                                    `json:"is_temp,omitempty"`       // 是否为临时权限组示例值: false
@@ -86,20 +86,20 @@ type CreateACSRuleExternalReqRuleDevice struct {
 // CreateACSRuleExternalReqRuleOpeningTime ...
 type CreateACSRuleExternalReqRuleOpeningTime struct {
 	ValidDay *CreateACSRuleExternalReqRuleOpeningTimeValidDay  `json:"valid_day,omitempty"` // 有效日期
-	Weekdays []int64                                           `json:"weekdays,omitempty"`  // 有效星期示例值: [1, 2, 3] 长度范围: `0` ～ `7
-	DayTimes []*CreateACSRuleExternalReqRuleOpeningTimeDayTime `json:"day_times,omitempty"` // 有效时间 长度范围: `0` ～ `1
+	Weekdays []int64                                           `json:"weekdays,omitempty"`  // 有效星期示例值: [1, 2, 3] 长度范围: `0` ～ `7`
+	DayTimes []*CreateACSRuleExternalReqRuleOpeningTimeDayTime `json:"day_times,omitempty"` // 有效时间 长度范围: `0` ～ `1`
 }
 
 // CreateACSRuleExternalReqRuleOpeningTimeDayTime ...
 type CreateACSRuleExternalReqRuleOpeningTimeDayTime struct {
-	StartHhmm int64 `json:"start_hhmm,omitempty"` // 起始时间示例值: 1200 取值范围: `0` ～ `2400
-	EndHhmm   int64 `json:"end_hhmm,omitempty"`   // 结束时间示例值: 1400 取值范围: `0` ～ `2400
+	StartHhmm int64 `json:"start_hhmm,omitempty"` // 起始时间示例值: 1200 取值范围: `0` ～ `2400`
+	EndHhmm   int64 `json:"end_hhmm,omitempty"`   // 结束时间示例值: 1400 取值范围: `0` ～ `2400`
 }
 
 // CreateACSRuleExternalReqRuleOpeningTimeValidDay ...
 type CreateACSRuleExternalReqRuleOpeningTimeValidDay struct {
-	StartDay int64 `json:"start_day,omitempty"` // 权限开始时间示例值: 1699031483 取值范围: `1000000000` ～ `2147483647
-	EndDay   int64 `json:"end_day,omitempty"`   // 权限结束时间示例值: 1699931483 取值范围: `1000000000` ～ `2147483647
+	StartDay int64 `json:"start_day,omitempty"` // 权限开始时间示例值: 1699031483 取值范围: `1000000000` ～ `2147483647`
+	EndDay   int64 `json:"end_day,omitempty"`   // 权限结束时间示例值: 1699931483 取值范围: `1000000000` ～ `2147483647`
 }
 
 // CreateACSRuleExternalReqRuleUser ...

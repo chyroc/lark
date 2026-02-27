@@ -60,7 +60,7 @@ func (r *Mock) UnMockApplicationUpdateApplication() {
 type UpdateApplicationReq struct {
 	AppID            string   `path:"app_id" json:"-"`             // 应用的 id示例值: "cli_9b445f5258795107"
 	Lang             string   `query:"lang" json:"-"`              // 指定返回的语言示例值: zh_cn可选值有: 中文英文日文
-	CommonCategories []string `json:"common_categories,omitempty"` // 应用分类的国际化描述示例值: ["分析工具"] 长度范围: `1` ～ `3
+	CommonCategories []string `json:"common_categories,omitempty"` // 应用分类的国际化描述示例值: ["分析工具"] 长度范围: `1` ～ `3`
 }
 
 // UpdateApplicationResp ...

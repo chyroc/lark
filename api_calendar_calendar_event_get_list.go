@@ -65,7 +65,7 @@ func (r *Mock) UnMockCalendarGetCalendarEventList() {
 // GetCalendarEventListReq ...
 type GetCalendarEventListReq struct {
 	CalendarID string  `path:"calendar_id" json:"-"`   // 日历 ID。关于日历 ID 可参见[日历 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction)。示例值: "feishu.cn_xxxxxxxxxx@group.calendar.feishu.cn"
-	PageSize   *int64  `query:"page_size" json:"-"`    // 一次请求要求返回的最大日程数量。实际返回的日程数量可能小于该值, 也可能为空, 可以根据响应体里的has_more字段来判断是否还有更多日程。示例值: 50默认值: `500` 取值范围: `50` ～ `1000
+	PageSize   *int64  `query:"page_size" json:"-"`    // 一次请求要求返回的最大日程数量。实际返回的日程数量可能小于该值, 也可能为空, 可以根据响应体里的has_more字段来判断是否还有更多日程。示例值: 50默认值: `500` 取值范围: `50` ～ `1000`
 	AnchorTime *string `query:"anchor_time" json:"-"`  // 时间锚点, Unix 时间戳（秒）。anchor_time 用于设置一个时间点, 以便直接拉取该时间点之后的日程数据, 从而避免拉取全量日程数据。可使用 page_token 或 sync_token 进行分页或增量拉取 anchor_time 之后的所有日程数据。使用说明: 对于单次日程, 会获取到 日程结束时间 >= anchor_time 的日程信息。- 对于重复性日程, 目前设置 anchor_time 后均会获取到, 包括在 anchor_time 之前的已结束的历史重复性日程。- 对于例外日程, 会获取到 original_time >= anchor_time 以及 日程结束时间 >= anchor_time 的日程信息, 其中 original_time 从例外日程 ID 中获取, ID 结构为 `{uid}_{original_time}`。注意: 该参数不可与 start_time 和 end_time 一起使用。默认值: 空示例值: 1609430400
 	PageToken  *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: ListCalendarsPageToken_1632452910_1632539310
 	SyncToken  *string `query:"sync_token" json:"-"`   // 增量同步标记, 第一次请求不填。当分页查询结束（page_token 返回值为空）时, 接口会返回 sync_token 字段, 下次调用可使用该 sync_token 增量获取日历变更数据。默认值: 空示例值: ListCalendarsSyncToken_1632452910

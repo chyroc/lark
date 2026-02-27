@@ -62,7 +62,7 @@ type CreateSearchDataSourceReq struct {
 	State            *int64                                    `json:"state,omitempty"`             // 数据源状态, 0-已上线, 1-未上线。如果未填, 默认是未上线状态。示例值: 0可选值有: 已上线未上线
 	Description      *string                                   `json:"description,omitempty"`       // 对于数据源的描述示例值: "搜索客服工单数据"
 	IconURL          *string                                   `json:"icon_url,omitempty"`          // 数据源在 search tab 上的展示图标路径, 建议使用png或jpeg格式, 否则可能无法在客户端正常展示示例值: "https://www.xxx.com/open.jpg"
-	Template         *string                                   `json:"template,omitempty"`          // 数据源采用的展示模版名称示例值: "search_common_card"默认值: `search_common_card
+	Template         *string                                   `json:"template,omitempty"`          // 数据源采用的展示模版名称示例值: "search_common_card"默认值: `search_common_card`
 	SearchableFields []string                                  `json:"searchable_fields,omitempty"` // 【已废弃, 如有定制需要请使用“数据范式”接口】描述哪些字段可以被搜索示例值: 【已废弃, 如有定制需要请使用“数据范式”接口】["field1", "field2"]
 	I18nName         *CreateSearchDataSourceReqI18nName        `json:"i18n_name,omitempty"`         // 数据源的国际化展示名称
 	I18nDescription  *CreateSearchDataSourceReqI18nDescription `json:"i18n_description,omitempty"`  // 数据源的国际化描述

@@ -21,9 +21,11 @@ import (
 	"context"
 )
 
-// EventV2DriveFileReadV1 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
+// EventV2DriveFileReadV1 文件已读事件。云文档被打开时, 将触发此事件。
 //
-// 文件被打开将触发此事件。
+// 了解事件订阅的配置流程和使用场景, 参考[事件概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
+// ## 前提条件
+// 添加该事件之前, 你需确保已调用[订阅云文档事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/subscribe)接口。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/file-read
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/event/list/file-read
@@ -35,15 +37,4 @@ func (r *EventCallbackService) HandlerEventV2DriveFileReadV1(f EventV2DriveFileR
 type EventV2DriveFileReadV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2DriveFileReadV1) (string, error)
 
 // EventV2DriveFileReadV1 ...
-type EventV2DriveFileReadV1 struct {
-	FileToken      string                              `json:"file_token,omitempty"` // 文件token. 如: doccnxxxxxx
-	FileType       FileType                            `json:"file_type,omitempty"`  // 文件类型, 目前有doc、sheet. 如: doc
-	OperatorIDList []*EventV2DriveFileReadV1OperatorID `json:"operator_id_list,omitempty"`
-}
-
-// EventV2DriveFileReadV1OperatorID ...
-type EventV2DriveFileReadV1OperatorID struct {
-	OpenID  string `json:"open_id,omitempty"`  // 如: ou_xxxxxx
-	UnionID string `json:"union_id,omitempty"` // 如: on_xxxxxx
-	UserID  string `json:"user_id,omitempty"`  // 如: xxxxxx
-}
+type EventV2DriveFileReadV1 struct{}

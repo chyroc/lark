@@ -66,8 +66,8 @@ type GetMessageListReq struct {
 	ContainerID     string          `query:"container_id" json:"-"`      // 容器 ID。ID 类型与 container_id_type 取值一致。- 群聊或单聊的 ID 获取方式参见[群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)。- 话题 ID 获取参见[话题概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/thread-introduction)的 如何获取 thread_id 章节。示例值: oc_234jsi43d3ssi993d43545f
 	StartTime       *string         `query:"start_time" json:"-"`        // 待查询历史信息的起始时间, 秒级时间戳。注意: `thread` 容器类型暂不支持获取指定时间范围内的消息。示例值: 1608594809
 	EndTime         *string         `query:"end_time" json:"-"`          // 待查询历史信息的结束时间, 秒级时间戳。注意: `thread` 容器类型暂不支持获取指定时间范围内的消息。示例值: 1609296809
-	SortType        *string         `query:"sort_type" json:"-"`         // 消息排序方式。注意: 使用 `page_token` 分页请求时, 排序方式（`sort_type`）均与第一次请求一致, 不支持中途改换排序方式。示例值: ByCreateTimeAsc可选值有: 按消息创建时间升序排列按消息创建时间降序排列默认值: `ByCreateTimeAsc
-	PageSize        *int64          `query:"page_size" json:"-"`         // 分页大小, 即单次请求所返回的数据条目数。示例值: 20默认值: `20` 取值范围: `1` ～ `50
+	SortType        *string         `query:"sort_type" json:"-"`         // 消息排序方式。注意: 使用 `page_token` 分页请求时, 排序方式（`sort_type`）均与第一次请求一致, 不支持中途改换排序方式。示例值: ByCreateTimeAsc可选值有: 按消息创建时间升序排列按消息创建时间降序排列默认值: `ByCreateTimeAsc`
+	PageSize        *int64          `query:"page_size" json:"-"`         // 分页大小, 即单次请求所返回的数据条目数。示例值: 20默认值: `20` 取值范围: `1` ～ `50`
 	PageToken       *string         `query:"page_token" json:"-"`        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: GxmvlNRvP0NdQZpa7yIqf_Lv_QuBwTQ8tXkX7w-irAghVD_TvuYd1aoJ1LQph86O-XImC4X9j9FhUPhXQDvtrQ[
 }
 

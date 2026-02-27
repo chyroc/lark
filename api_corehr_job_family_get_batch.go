@@ -62,8 +62,8 @@ func (r *Mock) UnMockCoreHRBatchGetCoreHRJobFamily() {
 
 // BatchGetCoreHRJobFamilyReq ...
 type BatchGetCoreHRJobFamilyReq struct {
-	JobFamilyIDs   []string `json:"job_family_ids,omitempty"`   // 序列ID列表。- 序列 ID 列表和序列 Code 列表至少有一项有值, 否则接口将调用失败。- 未设置时表示不筛选该条件- ID获取方式: 调用[【创建序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/create)[【批量查询序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)等接口可以返回序列ID示例值: ["1554548"] 长度范围: `0` ～ `100
-	JobFamilyCodes []string `json:"job_family_codes,omitempty"` // 序列 Code 列表。- 序列 ID 列表和序列 Code 列表至少有一项有值, 否则接口将调用失败。- 未设置时表示不筛选该条件- Code获取方式: 调用[【创建序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/create)[【批量查询序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)等接口可以返回序列Code示例值: ["122348"] 长度范围: `0` ～ `100
+	JobFamilyIDs   []string `json:"job_family_ids,omitempty"`   // 序列ID列表。- 序列 ID 列表和序列 Code 列表至少有一项有值, 否则接口将调用失败。- 未设置时表示不筛选该条件- ID获取方式: 调用[【创建序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/create)[【批量查询序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)等接口可以返回序列ID示例值: ["1554548"] 长度范围: `0` ～ `100`
+	JobFamilyCodes []string `json:"job_family_codes,omitempty"` // 序列 Code 列表。- 序列 ID 列表和序列 Code 列表至少有一项有值, 否则接口将调用失败。- 未设置时表示不筛选该条件- Code获取方式: 调用[【创建序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/create)[【批量查询序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)等接口可以返回序列Code示例值: ["122348"] 长度范围: `0` ～ `100`
 }
 
 // BatchGetCoreHRJobFamilyResp ...

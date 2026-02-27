@@ -69,7 +69,7 @@ func (r *Mock) UnMockChatGenChatShareLink() {
 // GenChatShareLinkReq ...
 type GenChatShareLinkReq struct {
 	ChatID         string  `path:"chat_id" json:"-"`          // 群 ID。获取方式: [创建群](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create), 从返回结果中获取该群的 chat_id。- 调用[获取用户或机器人所在的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list)接口, 可以查询用户或机器人所在群的 chat_id。- 调用[搜索对用户或机器人可见的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search), 可搜索用户或机器人所在的群、对用户或机器人公开的群的 chat_id。注意: 单聊、密聊、团队群不支持分享群链接示例值: "oc_a0553eda9014c201e6969b478895c230"
-	ValidityPeriod *string `json:"validity_period,omitempty"` // 群分享链接有效时长示例值: "week"可选值有: 有效期 7 天有效期 1 年永久有效默认值: `week
+	ValidityPeriod *string `json:"validity_period,omitempty"` // 群分享链接有效时长示例值: "week"可选值有: 有效期 7 天有效期 1 年永久有效默认值: `week`
 }
 
 // GenChatShareLinkResp ...

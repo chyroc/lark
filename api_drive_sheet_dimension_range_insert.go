@@ -21,9 +21,10 @@ import (
 	"context"
 )
 
-// InsertSheetDimensionRange 该接口用于根据 spreadsheetToken 和维度信息 插入空行/列。
+// InsertSheetDimensionRange 该接口用于在电子表格的指定位置插入空白行或列。
 //
-// 如 startIndex=3, endIndex=7, 则从第 4 行开始开始插入行列, 一直到第 7 行, 共插入 4 行；单次操作不超过5000行或列。
+// ## 使用限制
+// 单次调用该接口, 最多支持插入 5000 行或列。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQjMzUjL0IzM14CNyMTN
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/sheet-rowcol/insert-rows-or-columns
@@ -61,22 +62,21 @@ func (r *Mock) UnMockDriveInsertSheetDimensionRange() {
 
 // InsertSheetDimensionRangeReq ...
 type InsertSheetDimensionRangeReq struct {
-	SpreadSheetToken string                                 `path:"spreadsheetToken" json:"-"` // spreadsheet 的 token, 获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
+	SpreadSheetToken string                                 `path:"spreadsheetToken" json:"-"` // 电子表格的 token。可通过以下两种方式获取。了解更多, 参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。-  电子表格的 URL: https://sample.feishu.cn/sheets/[Iow7sNNEphp3WbtnbCscPqabcef]- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)
 	Dimension        *InsertSheetDimensionRangeReqDimension `json:"dimension,omitempty"`       // 需要插入行列的维度信息
-	InheritStyle     *string                                `json:"inheritStyle,omitempty"`    // BEFORE 或 AFTER, 不填为不继承 style
+	InheritStyle     *string                                `json:"inheritStyle,omitempty"`    // 插入的空白行或列是否继承表中的单元格样式。不填或设置为空即不继承任何样式, 为默认空白样式。可选值: `BEFORE`: 继承起始位置的单元格的样式  - `AFTER`: 继承结束位置的单元格的样式
 }
 
 // InsertSheetDimensionRangeReqDimension ...
 type InsertSheetDimensionRangeReqDimension struct {
-	SheetID        string  `json:"sheetId,omitempty"`        // sheet 的 Id
-	MajorDimension *string `json:"majorDimension,omitempty"` // 默认 ROWS, 可选 ROWS、COLUMNS
-	StartIndex     int64   `json:"startIndex"`               // 开始的位置
-	EndIndex       int64   `json:"endIndex,omitempty"`       // 结束的位置
+	SheetID        string `json:"sheetId,omitempty"`        // 电子表格工作表的 ID。调用[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query)获取 ID。
+	MajorDimension string `json:"majorDimension,omitempty"` // 要更新的维度。可选值: `ROWS`: 行  - `COLUMNS`: 列
+	StartIndex     int64  `json:"startIndex,omitempty"`     // 插入的行或列的起始位置。从 0 开始计数。若 `startIndex` 为 3, 则从第 4 行或列开始插入空行或列。包含第 4 行或列。
+	EndIndex       int64  `json:"endIndex,omitempty"`       // 插入的行或列结束的位置。从 0 开始计数。若 `endIndex` 为 7, 则从第 8 行结束插入行。第 8 行不再插入空行。 示例: 当 `majorDimension`为 `ROWS`、 `startIndex` 为 3、`endIndex ` 为 7 时, 则在第 4、5、6、7 行插入空白行, 共插入 4 行。
 }
 
 // InsertSheetDimensionRangeResp ...
-type InsertSheetDimensionRangeResp struct {
-}
+type InsertSheetDimensionRangeResp struct{}
 
 // insertSheetDimensionRangeResp ...
 type insertSheetDimensionRangeResp struct {

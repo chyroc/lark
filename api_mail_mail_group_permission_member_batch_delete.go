@@ -59,7 +59,7 @@ func (r *Mock) UnMockMailBatchDeleteMailGroupPermissionMember() {
 // BatchDeleteMailGroupPermissionMemberReq ...
 type BatchDeleteMailGroupPermissionMemberReq struct {
 	MailGroupID            string   `path:"mailgroup_id" json:"-"`               // The unique ID or email address of a mail group示例值: "xxxxxxxxxxxxxxx or test_mail_group@xxx.xx"
-	PermissionMemberIDList []string `json:"permission_member_id_list,omitempty"` // 本次调用删除的权限成员ID列表示例值: ["xxxxxxxxxxxxxxx"] 长度范围: `1` ～ `200
+	PermissionMemberIDList []string `json:"permission_member_id_list,omitempty"` // 本次调用删除的权限成员ID列表示例值: ["xxxxxxxxxxxxxxx"] 长度范围: `1` ～ `200`
 }
 
 // BatchDeleteMailGroupPermissionMemberResp ...

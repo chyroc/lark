@@ -75,7 +75,7 @@ type GetBitableRecordListReq struct {
 	DisplayFormulaRef *bool   `query:"display_formula_ref" json:"-"` // 默认值为false, 返回当前字段的默认类型和结果；当该参数的值为true时, 公式 和 查找引用 类型的字段, 将会以 被引用字段 的格式返回示例值: true
 	AutomaticFields   *bool   `query:"automatic_fields" json:"-"`    // 控制是否返回自动计算的字段, 例如 `created_by`/`created_time`/`last_modified_by`/`last_modified_time`, true 表示返回示例值: true
 	PageToken         *string `query:"page_token" json:"-"`          // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: recn0hoyXL
-	PageSize          *int64  `query:"page_size" json:"-"`           // 分页大小示例值: 10默认值: `20` 最大值: `500
+	PageSize          *int64  `query:"page_size" json:"-"`           // 分页大小示例值: 10默认值: `20` 最大值: `500`
 }
 
 // GetBitableRecordListResp ...

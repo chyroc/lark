@@ -21,9 +21,10 @@ import (
 	"context"
 )
 
-// ReconcileHireReferralAccount 定时将时间段内的账户充值信息同步到招聘, 与招聘实际提取金额做对比, 保证系统异常或其他意外情况发生时, 双方系统可及时监控到充值异常等错误
+// ReconcileHireReferralAccount 对一段时间内的内推账户积分提现数据进行对账, 调用方需传入调用方系统的内推账户积分变动信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/reconciliation
+// new doc: https://open.feishu.cn/document/hire-v1/referral_account/reconciliation
 func (r *HireService) ReconcileHireReferralAccount(ctx context.Context, request *ReconcileHireReferralAccountReq, options ...MethodOptionFunc) (*ReconcileHireReferralAccountResp, *Response, error) {
 	if r.cli.mock.mockHireReconcileHireReferralAccount != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#ReconcileHireReferralAccount mock enable")
@@ -57,15 +58,15 @@ func (r *Mock) UnMockHireReconcileHireReferralAccount() {
 
 // ReconcileHireReferralAccountReq ...
 type ReconcileHireReferralAccountReq struct {
-	StartTransTime *string                                       `json:"start_trans_time,omitempty"` // 按时间范围进行对账时 时间段的起始交易时间, 示例值: "1685416831621"
-	EndTransTime   *string                                       `json:"end_trans_time,omitempty"`   // 按时间范围进行对账时 时间段的截止交易时间, 示例值: "1685416831622"
-	TradeDetails   []*ReconcileHireReferralAccountReqTradeDetail `json:"trade_details,omitempty"`    // 交易信息
+	StartTransTime string                                        `json:"start_trans_time,omitempty"` // 对账时段的起始交易时间, 毫秒时间戳示例值: "1685416831621"
+	EndTransTime   string                                        `json:"end_trans_time,omitempty"`   // 对账时段的截止交易时间, 毫秒时间戳示例值: "1685416831622"
+	TradeDetails   []*ReconcileHireReferralAccountReqTradeDetail `json:"trade_details,omitempty"`    // 账户积分变动信息
 }
 
 // ReconcileHireReferralAccountReqTradeDetail ...
 type ReconcileHireReferralAccountReqTradeDetail struct {
-	AccountID               string `json:"account_id,omitempty"`                 // 账户ID, 示例值: "6930815272790114324"
-	TotalRechargeRewardInfo *int64 `json:"total_recharge_reward_info,omitempty"` // 时间段内该账户在积分商城的实际充值金额
+	AccountID               string `json:"account_id,omitempty"`                 // 内推账户ID, 通过[注册内推账户](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/create)生成示例值: "6930815272790114324"
+	TotalRechargeRewardInfo *int64 `json:"total_recharge_reward_info,omitempty"` // 时段内该账户发生在调用方系统的积分之和
 }
 
 // ReconcileHireReferralAccountResp ...
@@ -75,9 +76,9 @@ type ReconcileHireReferralAccountResp struct {
 
 // ReconcileHireReferralAccountRespCheckFailed ...
 type ReconcileHireReferralAccountRespCheckFailed struct {
-	AccountID               string `json:"account_id,omitempty"`                 // 账户ID
-	TotalWithdrawRewardInfo int64  `json:"total_withdraw_reward_info,omitempty"` // 招聘系统内的提取金额
-	TotalRechargeRewardInfo int64  `json:"total_recharge_reward_info,omitempty"` // 商城实际充值金额
+	AccountID               string `json:"account_id,omitempty"`                 // 内推账户ID
+	TotalWithdrawRewardInfo int64  `json:"total_withdraw_reward_info,omitempty"` // 飞书招聘系统内的账户积分提取数量, 若该时段内未发生任何提取记录, 则该字段不返回
+	TotalRechargeRewardInfo int64  `json:"total_recharge_reward_info,omitempty"` // 调用方系统的积分变动数量
 }
 
 // reconcileHireReferralAccountResp ...

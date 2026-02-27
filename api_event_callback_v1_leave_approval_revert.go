@@ -21,7 +21,15 @@ import (
 	"context"
 )
 
-// EventV1LeaveApprovalRevert 请假撤销消息
+// EventV1LeaveApprovalRevert 审批定义的表单包含 请假控件组 时, 该定义下的审批实例在 通过 或者 通过并撤销 时, 会触发该事件。
+//
+// ## 前提条件
+// - 应用已配置事件订阅, 了解事件订阅可参见[事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
+// - 应用已调用[订阅审批事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/subscribe)接口, 订阅了审批实例对应的审批定义 Code。
+// ## 使用说明
+// 订阅该事件（事件类型为 leave_approval）后, 可在如下场景接收到事件:
+// - 请假审批通过时, 会收到 2 条事件消息, 其事件类型（type）分别为 `leave_approval`、`leave_approvalV2`, 这 2 条事件包含的 `uuid` 参数值不同, `instance_code` 参数值相同。你可以根据需要选择任一事件消息获取请假审批通过的详细数据。
+// - 请假审批通过并撤销时, 会收到 1 条事件消息, 事件类型（type）为 `leave_approval_revert`。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/leave
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/event/special-event/leave
@@ -34,10 +42,10 @@ type EventV1LeaveApprovalRevertHandler func(ctx context.Context, cli *Lark, sche
 
 // EventV1LeaveApprovalRevert ...
 type EventV1LeaveApprovalRevert struct {
-	AppID        string `json:"app_id,omitempty"`        // 如: cli_xxx
-	TenantKey    string `json:"tenant_key,omitempty"`    // 如: xxx
-	Type         string `json:"type,omitempty"`          // 如: leave_approval_revert
-	InstanceCode string `json:"instance_code,omitempty"` // 审批实例Code. 如: xxx
-	OperateTime  int64  `json:"operate_time,omitempty"`  // 如: 1564590532
-	Status       string `json:"status,omitempty"`        // 如: REVERTED
+	AppID        string `json:"app_id,omitempty"`        // 应用的 App ID。可调用[获取应用信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/application/get)接口查询应用详细信息。
+	InstanceCode string `json:"instance_code,omitempty"` // 审批实例 Code。可调用[获取单个审批实例详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/get)接口查询审批实例详情。
+	ApprovalCode string `json:"approval_code,omitempty"` // 审批定义 Code。可调用[查看指定审批定义](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/get)接口查询审批定义详情。
+	OperateTime  string `json:"operate_time,omitempty"`  // 撤销操作时间, 秒级时间戳。
+	TenantKey    string `json:"tenant_key,omitempty"`    // 租户 Key, 是企业的唯一标识。
+	Type         string `json:"type,omitempty"`          // 事件类型。固定值 `leave_approval_revert`
 }

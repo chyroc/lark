@@ -21,10 +21,11 @@ import (
 	"context"
 )
 
-// EventV1ShiftApproval 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
+// EventV1ShiftApproval 审批定义的表单包含 换班控件组 时, 该定义下的审批实例被通过, 会触发该事件。
 //
-// 包含换班控件组的换班申请审批通过后触发此事件。
-// * 依赖权限: [访问审批应用] 或 [查看、创建、更新、删除审批应用相关信息]
+// ## 前提条件
+// - 应用已配置事件订阅, 了解事件订阅可参见[事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
+// - 应用已调用[订阅审批事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/subscribe)接口, 订阅了审批实例对应的审批定义 Code。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/shift-change
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/event/special-event/shift-change
@@ -36,16 +37,4 @@ func (r *EventCallbackService) HandlerEventV1ShiftApproval(f EventV1ShiftApprova
 type EventV1ShiftApprovalHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1ShiftApproval) (string, error)
 
 // EventV1ShiftApproval ...
-type EventV1ShiftApproval struct {
-	AppID        string `json:"app_id,omitempty"`        // 如: cli_xxx
-	TenantKey    string `json:"tenant_key,omitempty"`    // 如: xxx
-	Type         string `json:"type,omitempty"`          // 如: shift_approval
-	InstanceCode string `json:"instance_code,omitempty"` // 审批实例Code. 如: xxx
-	EmployeeID   string `json:"employee_id,omitempty"`   // 用户id. 如: xxx
-	OpenID       string `json:"open_id,omitempty"`       // 用户open_id. 如: ou_xxx
-	StartTime    int64  `json:"start_time,omitempty"`    // 审批发起时间, 单位: 秒. 如: 1502199207
-	EndTime      int64  `json:"end_time,omitempty"`      // 审批结束时间, 单位: 秒. 如: 1502199307
-	ShiftTime    string `json:"shift_time,omitempty"`    // 换班时间. 如: 2018-12-01 12:00:00
-	ReturnTime   string `json:"return_time,omitempty"`   // 还班时间. 如: 2018-12-02 12:00:00
-	ShiftReason  string `json:"shift_reason,omitempty"`  // 换班事由. 如: xxx
-}
+type EventV1ShiftApproval struct{}

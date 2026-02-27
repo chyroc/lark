@@ -176,7 +176,7 @@ func (r *Sheet) insertDimension(ctx context.Context, majorDimension, sheetID str
 		SpreadSheetToken: r.token,
 		Dimension: &lark.InsertSheetDimensionRangeReqDimension{
 			SheetID:        sheetID,
-			MajorDimension: ptrString(majorDimension),
+			MajorDimension: majorDimension,
 			StartIndex:     startIndex,
 			EndIndex:       count,
 		},
@@ -224,7 +224,7 @@ func (r *Sheet) appendDimension(ctx context.Context, cellRange string, values []
 		SpreadSheetToken: r.token,
 		ValueRange: &lark.AppendSheetValueReqValueRange{
 			Range:  cellRange,
-			Values: values,
+			Values: sheetValuesToInterfaces(values),
 		},
 	})
 	return err
@@ -247,7 +247,7 @@ func (r *Sheet) updateDimension(ctx context.Context, dimension, sheetID string, 
 		SpreadSheetToken: r.token,
 		Dimension: &lark.UpdateSheetDimensionRangeReqDimension{
 			SheetID:        sheetID,
-			MajorDimension: &dimension,
+			MajorDimension: dimension,
 			StartIndex:     startIndex,
 			EndIndex:       startIndex + count - 1,
 		},
@@ -299,11 +299,16 @@ func (r *Sheet) setCellStyle(ctx context.Context, cellRange string, style *lark.
 }
 
 func (r *Sheet) batchSetCellStyle(ctx context.Context, styles []*lark.BatchSetSheetStyleReqData) error {
-	_, _, err := r.larkClient.Drive.BatchSetSheetStyle(ctx, &lark.BatchSetSheetStyleReq{
-		SpreadSheetToken: r.token,
-		Data:             styles,
-	})
-	return err
+	for _, style := range styles {
+		_, _, err := r.larkClient.Drive.BatchSetSheetStyle(ctx, &lark.BatchSetSheetStyleReq{
+			SpreadSheetToken: r.token,
+			Data:             []*lark.BatchSetSheetStyleReqData{style},
+		})
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 func (r *Sheet) mergeCell(ctx context.Context, cellRange, mergeType string) error {
@@ -331,10 +336,22 @@ func (r *Sheet) setSheetValue(ctx context.Context, cellRange string, contents []
 		SpreadSheetToken: r.token,
 		ValueRange: &lark.SetSheetValueReqValueRange{
 			Range:  cellRange,
-			Values: contents,
+			Values: sheetValuesToInterfaces(contents),
 		},
 	})
 	return err
+}
+
+func sheetValuesToInterfaces(values [][]lark.SheetContent) [][]interface{} {
+	res := make([][]interface{}, 0, len(values))
+	for _, row := range values {
+		tmp := make([]interface{}, 0, len(row))
+		for _, cell := range row {
+			tmp = append(tmp, cell)
+		}
+		res = append(res, tmp)
+	}
+	return res
 }
 
 func (r *Sheet) batchSetSheetValue(ctx context.Context, values []*lark.BatchSetSheetValueReqValueRange) error {

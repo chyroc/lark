@@ -61,7 +61,7 @@ func (r *Mock) UnMockOKRGetOKRPeriodList() {
 // GetOKRPeriodListReq ...
 type GetOKRPeriodListReq struct {
 	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: xaasdasdax
-	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 默认10示例值: 10默认值: `10
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 默认10示例值: 10默认值: `10`
 }
 
 // GetOKRPeriodListResp ...

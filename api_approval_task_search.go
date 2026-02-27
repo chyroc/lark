@@ -66,7 +66,7 @@ func (r *Mock) UnMockApprovalSearchApprovalTask() {
 
 // SearchApprovalTaskReq ...
 type SearchApprovalTaskReq struct {
-	PageSize           *int64   `query:"page_size" json:"-"`            // 分页大小。如果当前页包含被撤销实例内的任务, 则查询结果中每页的数据条目数可能小于 page_size 值。例如, page_size 取值为 10, 实际查询结果中当前页只显示 6 条数据, 则表示有 4 条数据是被撤销实例内的任务。示例值: 10默认值: `10` 取值范围: `5` ～ `200
+	PageSize           *int64   `query:"page_size" json:"-"`            // 分页大小。如果当前页包含被撤销实例内的任务, 则查询结果中每页的数据条目数可能小于 page_size 值。例如, page_size 取值为 10, 实际查询结果中当前页只显示 6 条数据, 则表示有 4 条数据是被撤销实例内的任务。示例值: 10默认值: `10` 取值范围: `5` ～ `200`
 	PageToken          *string  `query:"page_token" json:"-"`           // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: nF1ZXJ5VGhlbkZldGNoCgAAAAAA6PZwFmUzSldvTC1yU
 	UserIDType         *IDType  `query:"user_id_type" json:"-"`         // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	UserID             *string  `json:"user_id,omitempty"`              // 任务审批人 ID, ID 类型与查询参数 user_id_type 保持一致。示例值: "lwiu098wj"
@@ -80,7 +80,7 @@ type SearchApprovalTaskReq struct {
 	TaskStartTimeTo    *string  `json:"task_start_time_to,omitempty"`   // 任务查询结束时间, Unix 毫秒时间戳。与 task_start_time_from 参数构成时间段查询条件, 仅会返回在该时间段内的审批任务。注意: 查询时间跨度不得大于 30 天, 开始和结束时间必须同时设置或者同时不设置。示例值: "1547654251506"
 	Locale             *string  `json:"locale,omitempty"`               // 语言。示例值: "zh-CN"可选值有: 中文英文日文
 	TaskStatusList     []string `json:"task_status_list,omitempty"`     // 查询多种状态的任务, 当填写此参数时, task_status 参数将失效。可选值有: `PENDING`: 审批中- `REJECTED`: 拒绝- `APPROVED`: 通过- `TRANSFERRED`: 转交- `DONE`: 已完成- `RM_REPEAT`: 去重- `PROCESSED`: 已处理示例值: ["PENDING"]
-	Order              *int64   `json:"order,omitempty"`                // 按任务时间排序示例值: 2可选值有: 按审批任务更新时间（update_time）倒排。按审批任务更新时间（update_time）正排。按审批任务开始时间（start_time）倒排。按审批任务开始时间（start_time）正排。默认值: `2
+	Order              *int64   `json:"order,omitempty"`                // 按任务时间排序示例值: 2可选值有: 按审批任务更新时间（update_time）倒排。按审批任务更新时间（update_time）正排。按审批任务开始时间（start_time）倒排。按审批任务开始时间（start_time）正排。默认值: `2`
 }
 
 // SearchApprovalTaskResp ...

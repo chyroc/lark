@@ -21,15 +21,19 @@ import (
 	"context"
 )
 
-// EventV2IMMessageReceiveV1 机器人接收到用户发送的消息后触发此事件。
+// EventV2IMMessageReceiveV1 机器人接收到用户发送的消息后触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=im&version=v1&resource=message&event=receive)
 //
-// 注意事项:
-// - 需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability), 并订阅 [消息与群组] 分类下的 [接收消息v2.0] 事件才可接收推送
-// - 同时, 将根据应用具备的权限, 判断可推送的信息:
-// --当具备[获取用户发给机器人的单聊消息]或者[读取用户发给机器人的单聊消息] 权限, 可接收与机器人单聊会话中用户发送的所有消息
-// --当具备[获取群组中所有消息] 权限时, 可接收与机器人所在群聊会话中用户发送的所有消息（不包含机器人发送的消息）
-// --当具备[获取用户在群组中@机器人的消息]或者[接收群聊中@机器人消息事件] 权限时, 可接收机器人所在群聊中用户 @ 机器人的消息
-// --当具备[获取客户端用户代理信息]权限时, 可获取`user_agent` 用户代理信息
+// ## 前提条件
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)
+// - 你需要在应用中配置事件订阅, 订阅 [消息与群组] 分类下的 [接收消息v2.0] 事件才可接收推送。了解事件订阅可参见[事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
+// ## 注意事项
+// - 系统会根据应用具备的权限, 判断可推送的信息:
+// - 当具备[获取用户发给机器人的单聊消息（
+// im:message.p2p_msg）] 或者 [读取用户发给机器人的单聊消息（im:message.p2p_msg:readonly）] 权限, 可接收与机器人单聊会话中用户发送的所有消息
+// - 当具备[获取群组中所有消息（im:message.group_msg
+// ）] 权限时, 可接收与机器人所在群聊会话中用户发送的所有消息（不包含机器人发送的消息）
+// - 当具备[获取用户在群组中@机器人的消息（im:message.group_at_msg）] 或者 [接收群聊中@机器人消息事件（im:message.group_at_msg:readonly）] 权限时, 可接收机器人所在群聊中用户 @ 机器人的消息
+// - 当具备 [获取客户端用户代理信息（im:user_agent:read）] 权限时, 可获取`user_agent` 用户代理信息
 // - 特殊情况下可能会收到重复的推送, 如有幂等需求请使用 [message_id]去重, 不要依赖event_id
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive
@@ -49,38 +53,38 @@ type EventV2IMMessageReceiveV1 struct {
 
 // EventV2IMMessageReceiveV1Message ...
 type EventV2IMMessageReceiveV1Message struct {
-	MessageID   string                                     `json:"message_id,omitempty"`   // 消息的open_message_id, 说明参见: [消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
-	RootID      string                                     `json:"root_id,omitempty"`      // 根消息id, 用于回复消息场景, 说明参见: [消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
-	ParentID    string                                     `json:"parent_id,omitempty"`    // 父消息的id, 用于回复消息场景, 说明参见: [消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2)
+	MessageID   string                                     `json:"message_id,omitempty"`   // 消息 ID。由系统生成的唯一 ID 标识, 基于该 ID 可以[回复消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/reply) 或其他管理消息的操作。
+	RootID      string                                     `json:"root_id,omitempty"`      // 根消息 ID, 仅在回复消息场景会有返回值。了解 root_id 可参见[消息管理概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro)。
+	ParentID    string                                     `json:"parent_id,omitempty"`    // 父消息 ID, 仅在回复消息场景会有返回值。了解 parent_id 可参见[消息管理概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro)。
 	CreateTime  string                                     `json:"create_time,omitempty"`  // 消息发送时间（毫秒）
 	UpdateTime  string                                     `json:"update_time,omitempty"`  // 消息更新时间（毫秒）
-	ChatID      string                                     `json:"chat_id,omitempty"`      // 消息所在的群组 ID
-	ThreadID    string                                     `json:"thread_id,omitempty"`    // 消息所属的话题 ID（不返回说明该消息非话题消息）, 说明参见: [话题介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/thread-introduction)
-	ChatType    ChatMode                                   `json:"chat_type,omitempty"`    // 消息所在的群组类型, 可选值有: `p2p`: 单聊, `group`: 群组
-	MessageType MsgType                                    `json:"message_type,omitempty"` // 消息类型
-	Content     string                                     `json:"content,omitempty"`      // 消息内容, JSON 格式, [各类型消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/events/message_content)
+	ChatID      string                                     `json:"chat_id,omitempty"`      // 消息所在的群组 ID。调用[获取群信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get)接口, 可通过 ID 获取群组信息。
+	ThreadID    string                                     `json:"thread_id,omitempty"`    // 消息所属的话题 ID（不返回说明该消息非话题消息）。了解话题可参见[话题概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/thread-introduction)。
+	ChatType    ChatType                                   `json:"chat_type,omitempty"`    // 消息所在的群组类型可能值有: `p2p`: 单聊- `group`: 群组
+	MessageType MsgType                                    `json:"message_type,omitempty"` // 消息类型, 可能返回的消息类型以及详细介绍, 参见[接收消息内容](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/events/message_content)。
+	Content     string                                     `json:"content,omitempty"`      // 消息内容, JSON 结构序列化后的字符串, 不同消息类型（`msg_type`）对应不同内容。
 	Mentions    []*EventV2IMMessageReceiveV1MessageMention `json:"mentions,omitempty"`     // 被提及用户的信息
-	UserAgent   string                                     `json:"user_agent,omitempty"`   // 用户代理数据, 仅在接收事件的机器人具备[获取客户端用户代理信息]权限时返回
+	UserAgent   string                                     `json:"user_agent,omitempty"`   // 用户代理数据, 仅在接收事件的机器人具备[获取客户端用户代理信息（im:user_agent:read）]权限时返回
 }
 
 // EventV2IMMessageReceiveV1MessageMention ...
 type EventV2IMMessageReceiveV1MessageMention struct {
-	Key       string                                     `json:"key,omitempty"`        // mention key
-	ID        *EventV2IMMessageReceiveV1MessageMentionID `json:"id,omitempty"`         // 用户 ID
-	Name      string                                     `json:"name,omitempty"`       // 用户姓名
+	Key       string                                     `json:"key,omitempty"`        // 被提及用户序号。例如, 第 3 个被 @ 到的成员, 取值为 `@_user_3`
+	ID        *EventV2IMMessageReceiveV1MessageMentionID `json:"id,omitempty"`         // 被提及用户 ID。调用[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口, 可通过 ID 获取用户信息。
+	Name      string                                     `json:"name,omitempty"`       // 被提及用户姓名
 	TenantKey string                                     `json:"tenant_key,omitempty"` // tenant key, 为租户在飞书上的唯一标识, 用来换取对应的tenant_access_token, 也可以用作租户在应用里面的唯一标识
 }
 
 // EventV2IMMessageReceiveV1MessageMentionID ...
 type EventV2IMMessageReceiveV1MessageMentionID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
 // EventV2IMMessageReceiveV1Sender ...
 type EventV2IMMessageReceiveV1Sender struct {
-	SenderID   *EventV2IMMessageReceiveV1SenderSenderID `json:"sender_id,omitempty"`   // 用户 ID
+	SenderID   *EventV2IMMessageReceiveV1SenderSenderID `json:"sender_id,omitempty"`   // 用户 ID。调用[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口, 可通过 ID 获取用户信息。
 	SenderType string                                   `json:"sender_type,omitempty"` // 消息发送者类型。目前只支持用户(user)发送的消息。
 	TenantKey  string                                   `json:"tenant_key,omitempty"`  // tenant key, 为租户在飞书上的唯一标识, 用来换取对应的tenant_access_token, 也可以用作租户在应用里面的唯一标识
 }
@@ -88,6 +92,6 @@ type EventV2IMMessageReceiveV1Sender struct {
 // EventV2IMMessageReceiveV1SenderSenderID ...
 type EventV2IMMessageReceiveV1SenderSenderID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
-	UserID  string `json:"user_id,omitempty"`  // 用户的 user id, 字段权限要求: 获取用户 user ID
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }

@@ -21,10 +21,13 @@ import (
 	"context"
 )
 
-// EventV1ApprovalCc 创建抄送或者被抄送人已读抄送后, 会向开发者推送消息。
+// EventV1ApprovalCc 当审批实例内创建抄送或者被抄送人已读时, 会触发该事件。
 //
-// - 创建抄送, 推送 "operate" 为 "CREATE" 的事件。
-// - 被抄送人已读抄送, 推送 "operate" 为 "READ" 的事件。
+// - 创建抄送时, 该事件的 `operate` 参数取值为 CREATE。
+// - 被抄送人已读时, 该事件的 `operate` 参数取值为 READ。
+// ## 前提条件
+// - 应用已配置事件订阅, 了解事件订阅可参见[事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
+// - 应用已调用[订阅审批事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/approval/subscribe)接口, 订阅了审批实例对应的审批定义 Code。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDO24iM4YjLygjN/event/common-event/approval-cc-event
 // new doc: https://open.feishu.cn/document/server-docs/approval-v4/event/common-event/approval-cc-event
@@ -36,15 +39,4 @@ func (r *EventCallbackService) HandlerEventV1ApprovalCc(f EventV1ApprovalCcHandl
 type EventV1ApprovalCcHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV1, event *EventV1ApprovalCc) (string, error)
 
 // EventV1ApprovalCc ...
-type EventV1ApprovalCc struct {
-	AppID        string `json:"app_id,omitempty"` // 如: cli_xxx
-	TenantKey    string `json:"tenant_key,omitempty"`
-	Type         string `json:"type,omitempty"`          // approval_cc 固定字段
-	ApprovalCode string `json:"approval_code,omitempty"` // 审批定义 Code
-	InstanceCode string `json:"instance_code,omitempty"` // 审批实例 Code
-	ID           string `json:"id,omitempty"`            // 抄送 ID
-	UserID       string `json:"user_id,omitempty"`       // 被抄送人
-	CreateTime   int64  `json:"create_time,omitempty"`   // 抄送时间
-	Operate      string `json:"operate,omitempty"`       // 操作类型  CREATE: 抄送  READ: 已读
-	From         string `json:"from,omitempty"`          // 抄送人, 可能为空
-}
+type EventV1ApprovalCc struct{}

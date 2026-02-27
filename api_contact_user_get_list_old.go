@@ -70,10 +70,10 @@ func (r *Mock) UnMockContactGetUserListOld() {
 // GetUserListOldReq ...
 type GetUserListOldReq struct {
 	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型示例值: "open_id"可选值有: `open_id`: 用户的 open id- `union_id`: 用户的 union id- `user_id`: 用户的 user id默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型示例值: "open_department_id"可选值有: `department_id`: 以自定义department_id来标识部门- `open_department_id`: 以open_department_id来标识部门默认值: `open_department_id
+	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型示例值: "open_department_id"可选值有: `department_id`: 以自定义department_id来标识部门- `open_department_id`: 以open_department_id来标识部门默认值: `open_department_id`
 	DepartmentID     *string           `query:"department_id" json:"-"`      // 填写该字段表示获取部门下所有用户, 选填。示例值: "od-xxxxxxxxxxxxx"
 	PageToken        *string           `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: "AQD9/Rn9eij9Pm39ED40/dk53s4Ebp882DYfFaPFbz00L4CMZJrqGdzNyc8BcZtDbwVUvRmQTvyMYicnGWrde9X56TgdBuS%2BJKiSIkdexPw="
-	PageSize         *int64            `query:"page_size" json:"-"`          // 分页大小示例值: 10 最大值: `100
+	PageSize         *int64            `query:"page_size" json:"-"`          // 分页大小示例值: 10 最大值: `100`
 }
 
 // GetUserListOldResp ...

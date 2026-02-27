@@ -21,7 +21,10 @@ import (
 	"context"
 )
 
-// UpdateCoreHRJob 更新职务。
+// UpdateCoreHRJob 可以通过职务ID更新单个职务详情信息, 例如职务名称、描述等。
+//
+// - 如果传入生效时间当天不存在版本则会自动生成一个版本。
+// - 如果传入生效时间当天存在版本则会修改该版本。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/patch
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/job-management/job/patch
@@ -58,43 +61,43 @@ func (r *Mock) UnMockCoreHRUpdateCoreHRJob() {
 
 // UpdateCoreHRJobReq ...
 type UpdateCoreHRJobReq struct {
-	JobID              string                           `path:"job_id" json:"-"`                 // 职务ID, 示例值: "1616161616"
-	ClientToken        *string                          `query:"client_token" json:"-"`          // 根据client_token是否一致来判断是否为同一请求, 示例值: 12454646
-	Code               *string                          `json:"code,omitempty"`                  // 编码, 示例值: "JP422119"
-	Name               []*UpdateCoreHRJobReqName        `json:"name,omitempty"`                  // 名称
-	Description        []*UpdateCoreHRJobReqDescription `json:"description,omitempty"`           // 描述
-	Active             *bool                            `json:"active,omitempty"`                // 是否启用, 示例值: true
-	JobTitle           []*UpdateCoreHRJobReqJobTitle    `json:"job_title,omitempty"`             // 职务头衔
-	JobFamilyIDList    []string                         `json:"job_family_id_list,omitempty"`    // 职务序列 ID 列表, 枚举值及详细信息可通过[批量查询职务序列]接口查询获得, 示例值: ["4719519211875096301"]
-	JobLevelIDList     []string                         `json:"job_level_id_list,omitempty"`     // 职务级别 ID 列表, 枚举值及详细信息可通过[批量查询职务级别]接口查询获得, 示例值: ["4719519212005299950"]
-	WorkingHoursTypeID *string                          `json:"working_hours_type_id,omitempty"` // 工时制度 ID, 枚举值及详细信息可通过[批量查询工时制度]接口查询获得, 示例值: "6890452208593372679"
-	EffectiveTime      *string                          `json:"effective_time,omitempty"`        // 生效时间, 示例值: "2020-01-01 00:00:00"
-	ExpirationTime     *string                          `json:"expiration_time,omitempty"`       // 失效时间, 示例值: "2021-01-01 00:00:00"
-	CustomFields       []*UpdateCoreHRJobReqCustomField `json:"custom_fields,omitempty"`         // 自定义字段
+	JobID              string                           `path:"job_id" json:"-"`                 // 职务ID。ID获取方式: 调用[【创建职务】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/create)[【批量查询职务】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/list)等可以返回职务ID- 也可以通过[【事件】创建职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/events/created) [【事件】更新职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/events/updated) 获取ID示例值: "1616161616"
+	ClientToken        *string                          `query:"client_token" json:"-"`          // 根据client_token是否一致来判断是否为同一请求示例值: 12454646
+	Code               *string                          `json:"code,omitempty"`                  // 职务编码 (不能与其他记录的编码重复), 当开启自动编码时, 该字段会失效。- 不传值时默认不更新此字段, 保持原值示例值: "JP422119"
+	Name               []*UpdateCoreHRJobReqName        `json:"name,omitempty"`                  // 职务名称。注意事项: 名称不能包含「/」「；」「;」「\」「'」字符- xx中英文名称会有全局唯一校验（已停用职务也会校验）- 不传值时默认不更新此字段, 保持原值- 包含lang（语言）和value（序列名称）两个子参数, 更新时需同时提供
+	Description        []*UpdateCoreHRJobReqDescription `json:"description,omitempty"`           // 描述- 不传值时默认不更新此字段, 保持原值- 包含lang（语言）和value（序列名称）两个子参数, 更新时需同时提供
+	Active             *bool                            `json:"active,omitempty"`                // 是否启用, true为启用, fasle为停用。不传值时默认不更新此字段, 保持原值示例值: true
+	JobTitle           []*UpdateCoreHRJobReqJobTitle    `json:"job_title,omitempty"`             // 职务头衔- 不传值时默认不更新此字段, 保持原值- 包含lang（语言）和value（序列名称）两个子参数, 更新时需同时提供
+	PathwayID          *string                          `json:"pathway_id,omitempty"`            // 通道ID, 详情可以参考[【获取通道信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pathway/batch_get)- 不传值时默认不更新此字段, 保持原值示例值: "4719519211875096301"
+	JobFamilyIDList    []string                         `json:"job_family_id_list,omitempty"`    // 职务序列 ID 列表。ID获取方式: 调用[【新建序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/create)[【查询租户的序列信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)等接口可以返回序列ID- 不传值时默认不更新此字段, 保持原值示例值: ["4719519211875096301"]
+	JobLevelIDList     []string                         `json:"job_level_id_list,omitempty"`     // 职务级别 ID 列表。ID获取方式: 调用[【新建职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/create)[【查询租户的职级信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)等接口可以返回职级ID- 不传值时默认不更新此字段, 保持原值示例值: ["4719519212005299950"]
+	WorkingHoursTypeID *string                          `json:"working_hours_type_id,omitempty"` // 工时制度 ID, 枚举值及详细信息可通过[【批量查询工时制度】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/list)接口查询获得- 不传值时默认不更新此字段, 保持原值示例值: "6890452208593372679"
+	EffectiveTime      *string                          `json:"effective_time,omitempty"`        // 版本生效日期- 填写格式: YYYY-MM-DD 00:00:00（系统会自动将时分秒改为00:00:00）- 系统默认为填写日期当天的 00:00:00 生效 - 该接口只支持到最小单位为日- 日期范围要求:1900-01-01 00:00:00～9999-12-31 23:59:59- 不传值时默认不更新此字段, 保持原值示例值: "2020-01-01 00:00:00"
+	CustomFields       []*UpdateCoreHRJobReqCustomField `json:"custom_fields,omitempty"`         // 自定义字段, 格式参考: [【自定义字段说明】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide)岗位、职务、自定义组织模块- 不传值时默认不更新此字段, 保持原值
 }
 
 // UpdateCoreHRJobReqCustomField ...
 type UpdateCoreHRJobReqCustomField struct {
-	FieldName string `json:"field_name,omitempty"` // 字段名, 示例值: "name"
-	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05"), 示例值: "Sandy"
+	FieldName string `json:"field_name,omitempty"` // 字段名- 最小1字符, 最大200字符示例值: "name"
+	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05")- 最小1字符, 最大200字符示例值: "\"Sandy\""
 }
 
 // UpdateCoreHRJobReqDescription ...
 type UpdateCoreHRJobReqDescription struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 示例值: "zh-CN"
-	Value string `json:"value,omitempty"` // 名称信息的内容, 示例值: "张三"
+	Lang  string `json:"lang,omitempty"`  // 语言信息, 中文用zh-CN, 英文用en-US。最小1字符, 最大200字符示例值: "zh-CN"
+	Value string `json:"value,omitempty"` // 描述信息的内容。最小1字符, 最大200字符示例值: "负责后端开发工作"
 }
 
 // UpdateCoreHRJobReqJobTitle ...
 type UpdateCoreHRJobReqJobTitle struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 示例值: "zh-CN"
-	Value string `json:"value,omitempty"` // 名称信息的内容, 示例值: "张三"
+	Lang  string `json:"lang,omitempty"`  // 语言信息, 中文用zh-CN, 英文用en-US。最小1字符, 最大200字符示例值: "zh-CN"
+	Value string `json:"value,omitempty"` // 头衔信息的内容。最小1字符, 最大200字符示例值: "高级"
 }
 
 // UpdateCoreHRJobReqName ...
 type UpdateCoreHRJobReqName struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 示例值: "zh-CN"
-	Value string `json:"value,omitempty"` // 名称信息的内容, 示例值: "张三"
+	Lang  string `json:"lang,omitempty"`  // 语言信息, 中文用zh-CN, 英文用en-US。最小1字符, 最大200字符示例值: "zh-CN"
+	Value string `json:"value,omitempty"` // 名称信息的内容。最小1字符, 最大200字符示例值: "软件工程师"
 }
 
 // UpdateCoreHRJobResp ...
@@ -108,14 +111,15 @@ type UpdateCoreHRJobRespJob struct {
 	Code               string                               `json:"code,omitempty"`                  // 编码
 	Name               []*UpdateCoreHRJobRespJobName        `json:"name,omitempty"`                  // 名称
 	Description        []*UpdateCoreHRJobRespJobDescription `json:"description,omitempty"`           // 描述
-	Active             bool                                 `json:"active,omitempty"`                // 是否启用
+	Active             bool                                 `json:"active,omitempty"`                // 是否启用, true为启用, fasle为停用
 	JobTitle           []*UpdateCoreHRJobRespJobJobTitle    `json:"job_title,omitempty"`             // 职务头衔
-	JobFamilyIDList    []string                             `json:"job_family_id_list,omitempty"`    // 职务序列 ID 列表, 枚举值及详细信息可通过[批量查询职务序列]接口查询获得
-	JobLevelIDList     []string                             `json:"job_level_id_list,omitempty"`     // 职务级别 ID 列表, 枚举值及详细信息可通过[批量查询职务级别]接口查询获得
-	WorkingHoursTypeID string                               `json:"working_hours_type_id,omitempty"` // 工时制度 ID, 枚举值及详细信息可通过[批量查询工时制度]接口查询获得
-	EffectiveTime      string                               `json:"effective_time,omitempty"`        // 生效时间
-	ExpirationTime     string                               `json:"expiration_time,omitempty"`       // 失效时间
-	CustomFields       []*UpdateCoreHRJobRespJobCustomField `json:"custom_fields,omitempty"`         // 自定义字段
+	PathwayID          string                               `json:"pathway_id,omitempty"`            // 通道ID, 详情可以参考[【获取通道信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pathway/batch_get)
+	JobFamilyIDList    []string                             `json:"job_family_id_list,omitempty"`    // 职务序列 ID 列表- 可通过[批量查询序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_family/batch_get)获取详情
+	JobLevelIDList     []string                             `json:"job_level_id_list,omitempty"`     // 职务级别 ID 列表- 可通过[批量查询职级](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_level/batch_get)获取详情
+	WorkingHoursTypeID string                               `json:"working_hours_type_id,omitempty"` // 工时制度 ID, 枚举值及详细信息可通过[【批量查询工时制度】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/list)接口查询获得
+	EffectiveTime      string                               `json:"effective_time,omitempty"`        // 当前版本生效日期- 返回格式: YYYY-MM-DD 00:00:00（最小单位到日）- 日期范围:1900-01-01 00:00:00～9999-12-31 00:00:00
+	ExpirationTime     string                               `json:"expiration_time,omitempty"`       // 当前版本失效日期- 返回格式: YYYY-MM-DD 00:00:00（最小单位到日）- 日期范围:1900-01-01 00:00:00～9999-12-31 00:00:00
+	CustomFields       []*UpdateCoreHRJobRespJobCustomField `json:"custom_fields,omitempty"`         // 自定义字段, 格式参考: [【自定义字段说明】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide)岗位、职务、自定义组织模块
 }
 
 // UpdateCoreHRJobRespJobCustomField ...

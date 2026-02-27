@@ -55,7 +55,15 @@ func Test_SheetExt(t *testing.T) {
 
 	meta, err := sheetClient.Meta(ctx)
 	as.Nil(err)
-	defaultSheetID := meta.Sheets[0].SheetID
+	defaultSheetID := ""
+	if len(meta.Sheets) > 0 {
+		if m, ok := meta.Sheets[0].(map[string]interface{}); ok {
+			if v, ok := m["sheetId"].(string); ok {
+				defaultSheetID = v
+			}
+		}
+	}
+	as.NotEmpty(defaultSheetID)
 	as.Equal(sheetClient.SheetToken(), meta.SpreadSheetToken)
 
 	t.Run("set title", func(t *testing.T) {

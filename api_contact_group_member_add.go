@@ -65,7 +65,7 @@ func (r *Mock) UnMockContactAddContactGroupMember() {
 // AddContactGroupMemberReq ...
 type AddContactGroupMemberReq struct {
 	GroupID      string `path:"group_id" json:"-"`        // 用户组 ID。用户组 ID 可在创建用户组时从返回值中获取, 你也可以调用[查询用户组列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/simplelist)接口, 获取用户组的 ID。示例值: "g281721"
-	MemberType   string `json:"member_type,omitempty"`    // 用户组成员的类型, 目前仅支持选择 user。示例值: "user"可选值有: 用户类型。默认值: `user
+	MemberType   string `json:"member_type,omitempty"`    // 用户组成员的类型, 目前仅支持选择 user。示例值: "user"可选值有: 用户类型。默认值: `user`
 	MemberIDType IDType `json:"member_id_type,omitempty"` // 当 `member_type` 取值为 `user`时, 通过该参数设置用户 ID 类型。示例值: "open_id"可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用中都保持一致。User ID 主要用于在不同的应用间打通用户数据。
 	MemberID     string `json:"member_id,omitempty"`      // 添加的用户 ID, ID 类型与 member_id_type 的取值保持一致。不同类型的 ID 获取方式可参见: [如何获取用户 open_id](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)- [如何获取用户 union_id](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)- [如何获取用户 user_id](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)示例值: "ou_7dab8a3d3cdcc9da365777c7ad535d62"
 }

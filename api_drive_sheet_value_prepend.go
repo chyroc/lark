@@ -21,7 +21,13 @@ import (
 	"context"
 )
 
-// PrependSheetValue 根据 [SpreadsheetToken](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview#6d80ef81) 在其特定工作表的指定范围的开始位置上方增加若干行, 并填充相应的数据。这里的工作表和范围是通过接口请求体中的`range`属性来确定的, 例如:
+// PrependSheetValue 在电子表格工作表的指定范围的起始位置上方增加若干行, 并在该范围中填充数据。
+//
+// ## 使用限制
+// - 单次写入数据不可超过 5, 000 行、100 列。
+// - 每个单元格不可超过 50, 000 字符, 由于服务端会增加控制字符, 因此推荐每个单元格不超过 40, 000 字符。
+// ## 前提条件
+// 调用此接口前, 请确保当前调用身份（tenant_access_token 或 user_access_token）已有电子表格的编辑等文档权限, 否则接口将返回 HTTP 403 或 400 状态码。了解更多, 参考[如何为应用或用户开通文档权限](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#16c6475a)。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIjMzUjLyIzM14iMyMTN
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/data-operation/prepend-data
@@ -59,37 +65,38 @@ func (r *Mock) UnMockDrivePrependSheetValue() {
 
 // PrependSheetValueReq ...
 type PrependSheetValueReq struct {
-	SpreadSheetToken string                          `path:"spreadsheetToken" json:"-"` // sheet的token, 获取方式见 [在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
-	ValueRange       *PrependSheetValueReqValueRange `json:"valueRange,omitempty"`      // 值与范围
+	SpreadSheetToken string                          `path:"spreadsheetToken" json:"-"` // 电子表格的 token。可通过以下两种方式获取。了解更多, 参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。- 电子表格的 URL: https://sample.feishu.cn/sheets/[Iow7sNNEphp3WbtnbCscPqabcef]- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)          示例值: "Iow7sNNEphp3WbtnbCscPqabcef"
+	ValueRange       *PrependSheetValueReqValueRange `json:"valueRange,omitempty"`      // 指定工作表中的范围和在该范围中插入的数据。
 }
 
 // PrependSheetValueReqValueRange ...
 type PrependSheetValueReqValueRange struct {
-	Range  string           `json:"range,omitempty"`  // ⁣插入范围, 包含 sheetId 与单元格范围两部分, 目前支持四种索引方式, 详见 [在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview), range所表示的范围需要大于等于values占用的范围。
-	Values [][]SheetContent `json:"values,omitempty"` // 需要写入的值, 如要写入公式、超链接、email、@人等, 可详看附录[sheet 支持写入数据类型](https://open.feishu.cn/document/ukTMukTMukTM/ugjN1UjL4YTN14CO2UTN)
+	Range  string          `json:"range,omitempty"`  // 指定范围, 用于写入数据。格式为 `<sheetId>!<开始位置>:<结束位置>`。其中: `sheetId` 为工作表 ID, 通过[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query) 获取。- `<开始位置>:<结束位置>` 为工作表中单元格的范围, 数字表示行索引, 字母表示列索引。如 `A2:B2` 表示该工作表第 2 行的 A 列到 B 列。`range`支持四种写法, 详情参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。  注意: `range` 所指定的范围需要大于等于插入的数据所占用的范围。但最终增加的行数由 `value` 决定。示例值: `8fe9d6!A2:B5`。该示例值表示在 ID 为 `8fe9d6` 的工作表的第二行（由起始行 A2 决定）上方新增至多四行, 在新增行的 A 列和 B 列插入数据。若插入的数据仅有三行, 则最终将在第二行上方新增三行。
+	Values [][]interface{} `json:"values,omitempty"` // 插入的数据。如要写入公式、超链接、email、@人等, 可参考[支持写入数据类型](https://open.feishu.cn/document/ukTMukTMukTM/ugjN1UjL4YTN14CO2UTN)。
 }
 
 // PrependSheetValueResp ...
 type PrependSheetValueResp struct {
-	SpreadSheetToken string                        `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
-	TableRange       string                        `json:"tableRange,omitempty"`       // 写入的范围
-	Revision         int64                         `json:"revision,omitempty"`         // sheet 的版本号
-	Updates          *PrependSheetValueRespUpdates `json:"updates,omitempty"`          // 插入数据的范围、行列数等
+	SpreadSheetToken string                        `json:"spreadsheetToken,omitempty"` // 电子表格的 token
+	TableRange       string                        `json:"tableRange,omitempty"`       // 插入数据的范围
+	Revision         int64                         `json:"revision,omitempty"`         // 工作表的版本号。从 0 开始计数, 更新一次版本号加一。
+	Updates          *PrependSheetValueRespUpdates `json:"updates,omitempty"`          // 插入数据的范围、更新的行列总数等
 }
 
 // PrependSheetValueRespUpdates ...
 type PrependSheetValueRespUpdates struct {
-	SpreadSheetToken string `json:"spreadsheetToken,omitempty"` // spreadsheet 的 token
-	UpdatedRange     string `json:"updatedRange,omitempty"`     // 写入的范围
-	UpdatedRows      int64  `json:"updatedRows,omitempty"`      // 写入的行数
-	UpdatedColumns   int64  `json:"updatedColumns,omitempty"`   // 写入的列数
-	UpdatedCells     int64  `json:"updatedCells,omitempty"`     // 写入的单元格总数
-	Revision         int64  `json:"revision,omitempty"`         // sheet 的版本号
+	SpreadSheetToken string `json:"spreadsheetToken,omitempty"` // 电子表格的 token
+	UpdatedRange     string `json:"updatedRange,omitempty"`     // 插入数据的范围
+	UpdatedRows      int64  `json:"updatedRows,omitempty"`      // 更新的行总数
+	UpdatedColumns   int64  `json:"updatedColumns,omitempty"`   // 更新的列总数
+	UpdatedCells     int64  `json:"updatedCells,omitempty"`     // 更新的单元格总数
+	Revision         int64  `json:"revision,omitempty"`         // 工作表的版本号。从 0 开始计数, 更新一次版本号加一。
 }
 
 // prependSheetValueResp ...
 type prependSheetValueResp struct {
-	Code int64                  `json:"code,omitempty"`
-	Msg  string                 `json:"msg,omitempty"`
-	Data *PrependSheetValueResp `json:"data,omitempty"`
+	Code  int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                 `json:"msg,omitempty"`  // 错误描述
+	Data  *PrependSheetValueResp `json:"data,omitempty"`
+	Error *ErrorDetail           `json:"error,omitempty"`
 }

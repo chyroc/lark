@@ -68,14 +68,14 @@ type SetApplicationAppBadgeReq struct {
 
 // SetApplicationAppBadgeReqMobile ...
 type SetApplicationAppBadgeReqMobile struct {
-	WebApp *int64 `json:"web_app,omitempty"` // h5能力的badge数量示例值: 1 取值范围: `0` ～ `2147483647
-	Gadget *int64 `json:"gadget,omitempty"`  // 小程序能力的badge数量示例值: 2 取值范围: `0` ～ `2147483647
+	WebApp *int64 `json:"web_app,omitempty"` // h5能力的badge数量示例值: 1 取值范围: `0` ～ `2147483647`
+	Gadget *int64 `json:"gadget,omitempty"`  // 小程序能力的badge数量示例值: 2 取值范围: `0` ～ `2147483647`
 }
 
 // SetApplicationAppBadgeReqPc ...
 type SetApplicationAppBadgeReqPc struct {
-	WebApp *int64 `json:"web_app,omitempty"` // h5能力的badge数量示例值: 1 取值范围: `0` ～ `2147483647
-	Gadget *int64 `json:"gadget,omitempty"`  // 小程序能力的badge数量示例值: 2 取值范围: `0` ～ `2147483647
+	WebApp *int64 `json:"web_app,omitempty"` // h5能力的badge数量示例值: 1 取值范围: `0` ～ `2147483647`
+	Gadget *int64 `json:"gadget,omitempty"`  // 小程序能力的badge数量示例值: 2 取值范围: `0` ～ `2147483647`
 }
 
 // SetApplicationAppBadgeResp ...

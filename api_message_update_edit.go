@@ -21,13 +21,16 @@ import (
 	"context"
 )
 
-// UpdateMessageEdit 编辑已发送的消息内容, 当前支持编辑文本、富文本消息。如需更新消息卡片, 请参考[更新应用发送的消息卡片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/patch)。
+// UpdateMessageEdit 调用该接口编辑已发送的消息内容, 支持编辑文本、富文本消息。如需编辑卡片消息, 请使用[更新应用发送的消息卡片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/patch)接口。
 //
-// 注意事项:
-// - 一条消息最多可编辑20次
-// - 仅可编辑操作者自己发送的消息
-// - 不可编辑已撤回, 已删除, 超出可编辑时间的消息
-// - 操作者必须在消息所属的群中且具备发言权限才可以编辑消息
+// ## 前提条件
+// - 应用需要开启[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
+// - 编辑用户单聊内的消息时, 用户需要在机器人的[可用范围](https://open.feishu.cn/document/home/introduction-to-scope-and-authorization/availability)内。
+// - 编辑群组内的消息时, 机器人需要在该群组中, 且拥有发言权限。
+// ## 使用限制
+// - 一条消息最多可编辑 20 次。
+// - 仅可编辑当前操作者自己发送的消息。
+// - 不可编辑已撤回, 已删除, 超出可编辑时间的消息。可编辑时间由企业管理员设定, 详情了解[管理员设置撤回和编辑消息权限](https://www.feishu.cn/hc/zh-CN/articles/325339752183)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/update
 // new doc: https://open.feishu.cn/document/server-docs/im-v1/message/update
@@ -64,36 +67,27 @@ func (r *Mock) UnMockMessageUpdateMessageEdit() {
 
 // UpdateMessageEditReq ...
 type UpdateMessageEditReq struct {
-	MessageID string  `path:"message_id" json:"-"` // 待编辑的消息的ID, 仅支持文本（text）或富文本（post）消息, 详情参见[消息ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#ac79c1c2), 示例值: "om_dc13264520392913993dd051dba21dcf"
-	MsgType   MsgType `json:"msg_type,omitempty"`  // 消息的类型, 当前仅支持文本（text）和富文本（post）类型, 示例值: "text"
-	Content   string  `json:"content,omitempty"`   // 消息内容, JSON结构序列化后的字符串。不同msg_type对应不同内容, 具体格式说明参考: [发送消息Content](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json), 注意: JSON字符串需进行转义, 如换行符转义后为`\\n`, 文本消息请求体最大不能超过150KB, 富文本消息请求体最大不能超过30KB, 示例值: "{\"text\":\"test content\"}"
+	MessageID string  `path:"message_id" json:"-"` // 待编辑的消息 ID, 仅支持编辑文本（text）、富文本（post）消息。ID 获取方式: - 调用[发送消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)接口后, 从响应结果的 `message_id` 参数获取。- 监听[接收消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive)事件, 当触发该事件后可以从事件体内获取消息的 `message_id`。- 调用[获取会话历史消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/list)接口, 从响应结果的 `message_id` 参数获取。示例值: "om_dc13264520392913993dd051dba21dcf"
+	MsgType   MsgType `json:"msg_type,omitempty"`  // 消息类型。可选值有: text: 文本- post: 富文本示例值: "text"
+	Content   string  `json:"content,omitempty"`   // 消息内容, JSON 结构序列化后的字符串。该参数的取值与 `msg_type` 对应, 例如 `msg_type` 取值为 `text`, 则该参数需要传入文本类型的内容。注意: JSON字符串需进行转义, 如换行符转义后为`\\n`- 文本消息请求体最大不能超过 150 KB- 富文本消息请求体最大不能超过 30 KB- 如果消息中包含样式标签, 会使实际消息体长度大于您输入的请求体长度。了解不同类型的消息内容格式、使用限制, 可参见[发送消息内容](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/im-v1/message/create_json)。示例值: "{\"text\":\"test content\"}"
 }
 
 // UpdateMessageEditResp ...
 type UpdateMessageEditResp struct {
-	MessageID      string                          `json:"message_id,omitempty"`       // 消息id open_message_id
-	RootID         string                          `json:"root_id,omitempty"`          // 根消息id open_message_id
-	ParentID       string                          `json:"parent_id,omitempty"`        // 父消息的id open_message_id
-	ThreadID       string                          `json:"thread_id,omitempty"`        // 消息所属的话题 ID（不返回说明该消息非话题消息）, 说明参见: [话题介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/thread-introduction)
-	MsgType        MsgType                         `json:"msg_type,omitempty"`         // 消息类型 text post card image等等
-	CreateTime     string                          `json:"create_time,omitempty"`      // 消息生成的时间戳(毫秒)
-	UpdateTime     string                          `json:"update_time,omitempty"`      // 消息更新的时间戳
-	Deleted        bool                            `json:"deleted,omitempty"`          // 消息是否被撤回
-	Updated        bool                            `json:"updated,omitempty"`          // 消息是否被更新
-	ChatID         string                          `json:"chat_id,omitempty"`          // 所属的群
-	Sender         *Sender                         `json:"sender,omitempty"`           // 发送者, 可以是用户或应用
-	Body           *MessageBody                    `json:"body,omitempty"`             // 消息内容, JSON结构
-	Mentions       []*UpdateMessageEditRespMention `json:"mentions,omitempty"`         // 被艾特的人或应用的id
-	UpperMessageID string                          `json:"upper_message_id,omitempty"` // 合并消息的上一层级消息id open_message_id
-}
-
-// UpdateMessageEditRespMention ...
-type UpdateMessageEditRespMention struct {
-	Key       string `json:"key,omitempty"`        // mention key
-	ID        string `json:"id,omitempty"`         // 用户或机器人的 open_id
-	IDType    IDType `json:"id_type,omitempty"`    // 被@的用户或机器人 id 类型, 目前仅支持 `open_id` ([什么是 Open ID？](https://open.feishu.cn/document/home/user-identity-introduction/open-id))
-	Name      string `json:"name,omitempty"`       // 被at用户的姓名
-	TenantKey string `json:"tenant_key,omitempty"` // tenant key
+	MessageID      string       `json:"message_id,omitempty"`       // 消息 ID。后续对消息的管理维护操作均需要使用该 ID。
+	RootID         string       `json:"root_id,omitempty"`          // 根消息 ID。在有多个回复的消息树中, `root_id` 为根消息的 `message_id`。关于 `root_id` 的更多说明, 参见[消息管理概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro)。
+	ParentID       string       `json:"parent_id,omitempty"`        // 父消息 ID。在有多个回复的消息树中, `parent_id` 为当前消息上一层的消息 `message_id`。如果是某一话题内的消息, 则 `parent_id` 始终为话题内根消息的 `message_id`。关于 `parent_id` 的更多说明, 参见[消息管理概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro)。
+	ThreadID       string       `json:"thread_id,omitempty"`        // 消息所属的话题 ID（不返回说明该消息不是话题形式的消息）。了解话题可参见[话题概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/thread-introduction)。
+	MsgType        MsgType      `json:"msg_type,omitempty"`         // 消息类型。可能值有: text: 文本- post: 富文本
+	CreateTime     string       `json:"create_time,omitempty"`      // 消息生成的时间戳。单位: 毫秒
+	UpdateTime     string       `json:"update_time,omitempty"`      // 消息更新的时间戳。单位: 毫秒
+	Deleted        bool         `json:"deleted,omitempty"`          // 当前消息是否被撤回。编辑消息时只会返回 false, 表示未被撤回。
+	Updated        bool         `json:"updated,omitempty"`          // 当前消息是否被更新。编辑消息时只会返回 false, 表示未被更新。
+	ChatID         string       `json:"chat_id,omitempty"`          // 消息所属的群 ID。你可以调用[获取群信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/get)接口, 根据群 ID 获取群详情。
+	Sender         *Sender      `json:"sender,omitempty"`           // 消息发送者的信息。
+	Body           *MessageBody `json:"body,omitempty"`             // 通过 `body` 内的 `content` 参数, 返回当前的消息内容。
+	Mentions       []*Mention   `json:"mentions,omitempty"`         // 消息内被 @ 的用户列表。
+	UpperMessageID string       `json:"upper_message_id,omitempty"` // 合并转发消息中, 上一层级的消息 ID, 仅在合并转发场景会有返回值。了解 upper_message_id 可参见[消息管理概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro)。
 }
 
 // updateMessageEditResp ...

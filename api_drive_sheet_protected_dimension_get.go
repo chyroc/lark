@@ -21,10 +21,11 @@ import (
 	"context"
 )
 
-// GetSheetProtectedDimension 该接口用于根据保护范围ID查询详细的保护行列信息, 最多支持同时查询5个ID。
+// GetSheetProtectedDimension 获取电子表格工作表中指定保护范围的信息, 包括保护的行列索引、支持编辑的用户 ID、保护范围的备注等。
 //
-// - 仅支持获取保护行或保护列, 暂不支持获取保护单元格
-// - 不支持获取包含多个区域的保护范围
+// ## 使用限制
+// - 单次调用该接口, 最多支持获取 5 个保护范围的信息。
+// - 不支持获取包含多个区域的保护范围。即如果一个保护范围中添加了多个区域, 例如 B22:B26 和 C26:C28, 则不支持调用该接口获取。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQTM5YjL0ETO24CNxkjN
 // new doc: https://open.feishu.cn/document/server-docs/docs/sheets-v3/protect-range/retrieve-protection-scopes
@@ -62,47 +63,20 @@ func (r *Mock) UnMockDriveGetSheetProtectedDimension() {
 
 // GetSheetProtectedDimensionReq ...
 type GetSheetProtectedDimensionReq struct {
-	SpreadSheetToken string   `path:"spreadsheetToken" json:"-"`         // spreadsheet 的 token, 获取方式见[在线表格开发指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)
-	ProtectIDs       []string `query:"protectIds" join_sep:"," json:"-"` // 保护范围ID, 可以通过[获取表格元数据](https://open.feishu.cn/document/ukTMukTMukTM/uETMzUjLxEzM14SMxMTN)接口获取, 多个ID用逗号分隔, 如xxxID1, xxxID2
-	MemberType       *string  `query:"memberType" json:"-"`              // 返回的用户类型, 可选userId, openId, unionId, 默认使用userId
+	SpreadSheetToken string  `path:"spreadsheetToken" json:"-"` // 电子表格的 token。可通过以下两种方式获取。了解更多, 参考[电子表格概述](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/overview)。-  电子表格的 URL: https://sample.feishu.cn/sheets/[Iow7sNNEphp3WbtnbCscPqabcef]- 调用[获取文件夹中的文件清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/list)      示例值: "Iow7sNNEphp3WbtnbCscPqabcef"
+	ProtectIDs       string  `query:"protectIds" json:"-"`      // 保护范围的 ID, 可通过[获取表格元数据](https://open.feishu.cn/document/ukTMukTMukTM/uETMzUjLxEzM14SMxMTN)接口获取。多个 ID 之间用逗号分隔。最多可传入 5 个 ID。  示例值: "7379738014546812456, 7379738014546812456"
+	MemberType       *string `query:"memberType" json:"-"`      // 返回的用户 ID 的类型。默认为 `userId`, 建议选择 `openId`。了解更多, 参考[用户身份概述](https://open.feishu.cn/document/home/user-identity-introduction/introduction)。可选值: `userId`: 即 `lark_id`, 为全局 ID, 标识用户的物理用户身份。- `openId`: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。了解更多: [如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)- `unionId`: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。了解更多: [如何获取 Union ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)
 }
 
 // GetSheetProtectedDimensionResp ...
 type GetSheetProtectedDimensionResp struct {
-	ProtectedRanges *GetSheetProtectedDimensionRespProtectedRanges `json:"protectedRanges,omitempty"` // 保护范围
-}
-
-// GetSheetProtectedDimensionRespProtectedRanges ...
-type GetSheetProtectedDimensionRespProtectedRanges struct {
-	ProtectID string                                                  `json:"protectId,omitempty"` // 保护范围ID
-	Dimension *GetSheetProtectedDimensionRespProtectedRangesDimension `json:"dimension,omitempty"` // 保护范围, 如果为空, 则为保护子表
-	SheetID   string                                                  `json:"sheetId,omitempty"`   // sheet的id
-	LockInfo  string                                                  `json:"lockInfo,omitempty"`  // 保护说明
-	Editors   *GetSheetProtectedDimensionRespProtectedRangesEditors   `json:"editors,omitempty"`   // 用户信息
-}
-
-// GetSheetProtectedDimensionRespProtectedRangesDimension ...
-type GetSheetProtectedDimensionRespProtectedRangesDimension struct {
-	SheetID        string `json:"sheetId,omitempty"`        // sheet 的 id
-	StartIndex     int64  `json:"startIndex,omitempty"`     // 保护行列起始下标, 下标从1开始
-	EndIndex       int64  `json:"endIndex,omitempty"`       // 保护行列终止下标, 下标从1开始
-	MajorDimension string `json:"majorDimension,omitempty"` // 保护范围的维度, COLUMNS为保护列, ROWS为保护行
-}
-
-// GetSheetProtectedDimensionRespProtectedRangesEditors ...
-type GetSheetProtectedDimensionRespProtectedRangesEditors struct {
-	Users []*GetSheetProtectedDimensionRespProtectedRangesEditorsUser `json:"users,omitempty"` // 用户信息列表
-}
-
-// GetSheetProtectedDimensionRespProtectedRangesEditorsUser ...
-type GetSheetProtectedDimensionRespProtectedRangesEditorsUser struct {
-	MemberType string `json:"memberType,omitempty"` // 用户类型
-	MemberID   string `json:"memberId,omitempty"`   // 用户ID
+	ProtectedRanges []interface{} `json:"protectedRanges,omitempty"` // 保护范围的信息
 }
 
 // getSheetProtectedDimensionResp ...
 type getSheetProtectedDimensionResp struct {
-	Code int64                           `json:"code,omitempty"`
-	Msg  string                          `json:"msg,omitempty"`
-	Data *GetSheetProtectedDimensionResp `json:"data,omitempty"`
+	Code  int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                          `json:"msg,omitempty"`  // 错误描述
+	Data  *GetSheetProtectedDimensionResp `json:"data,omitempty"`
+	Error *ErrorDetail                    `json:"error,omitempty"`
 }

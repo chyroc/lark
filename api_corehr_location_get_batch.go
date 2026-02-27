@@ -60,7 +60,7 @@ func (r *Mock) UnMockCoreHRBatchGetCoreHRLocation() {
 
 // BatchGetCoreHRLocationReq ...
 type BatchGetCoreHRLocationReq struct {
-	LocationIDs []string `json:"location_ids,omitempty"` // 地点 ID 列表, 地点维护管理员在 飞书人事系统, 组织管理模块维护的地点记录 ID。ID获取方式: 调用[【创建地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/create)[【批量分页查询地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)等接口可以返回地点ID示例值: ["1215"] 长度范围: `1` ～ `100
+	LocationIDs []string `json:"location_ids,omitempty"` // 地点 ID 列表, 地点维护管理员在 飞书人事系统, 组织管理模块维护的地点记录 ID。ID获取方式: 调用[【创建地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/create)[【批量分页查询地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)等接口可以返回地点ID示例值: ["1215"] 长度范围: `1` ～ `100`
 }
 
 // BatchGetCoreHRLocationResp ...
@@ -132,7 +132,7 @@ type BatchGetCoreHRLocationRespItemAddresCustomField struct {
 	CustomApiName string                                               `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
 	Name          *BatchGetCoreHRLocationRespItemAddresCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                                `json:"type,omitempty"`            // 自定义字段类型, 详细见[获取自定义字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query)
-	Value         string                                               `json:"value,omitempty"`           // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同。如: ```("\"123\"", "\"123.23\"", "\"true\"", [\"id1\", \"id2\"], \"2006-01-02 15:04:05\")``
+	Value         string                                               `json:"value,omitempty"`           // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同。如: ```("\"123\"", "\"123.23\"", "\"true\"", [\"id1\", \"id2\"], \"2006-01-02 15:04:05\")```
 }
 
 // BatchGetCoreHRLocationRespItemAddresCustomFieldName ...
@@ -146,7 +146,7 @@ type BatchGetCoreHRLocationRespItemCustomField struct {
 	CustomApiName string                                         `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
 	Name          *BatchGetCoreHRLocationRespItemCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                          `json:"type,omitempty"`            // 自定义字段类型, 详细见[获取自定义字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query)
-	Value         string                                         `json:"value,omitempty"`           // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同。如: ```("\"123\"", "\"123.23\"", "\"true\"", [\"id1\", \"id2\"], \"2006-01-02 15:04:05\")``
+	Value         string                                         `json:"value,omitempty"`           // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同。如: ```("\"123\"", "\"123.23\"", "\"true\"", [\"id1\", \"id2\"], \"2006-01-02 15:04:05\")```
 }
 
 // BatchGetCoreHRLocationRespItemCustomFieldName ...
@@ -173,7 +173,7 @@ type BatchGetCoreHRLocationRespItemHiberarchyCommon struct {
 // BatchGetCoreHRLocationRespItemHiberarchyCommonCustomField ...
 type BatchGetCoreHRLocationRespItemHiberarchyCommonCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 自定义字段 API Name, 即自定义字段的唯一标识
-	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同。如: ```("\"123\"", "\"123.23\"", "\"true\"", [\"id1\", \"id2\"], \"2006-01-02 15:04:05\")``
+	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同。如: ```("\"123\"", "\"123.23\"", "\"true\"", [\"id1\", \"id2\"], \"2006-01-02 15:04:05\")```
 }
 
 // BatchGetCoreHRLocationRespItemHiberarchyCommonDescription ...

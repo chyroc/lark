@@ -150,8 +150,8 @@ type CreateAttendanceGroupReqGroupAntiCheatPunchConfig struct {
 	CheckBuddyPunch              *bool  `json:"check_buddy_punch,omitempty"`               // 是否校验疑似他人代打卡, 不传入时默认关闭/不更新示例值: true
 	CheckSimulateWifiPunch       *bool  `json:"check_simulate_wifi_punch,omitempty"`       // 是否校验疑似模拟 WI-FI 打卡, 不传入时默认关闭/不更新（仅灰度租户有效, 如需使用请联系技术支持）示例值: true
 	CheckChangeDevicePunch       *bool  `json:"check_change_device_punch,omitempty"`       // 是否校验更换设备打卡, 不传入时默认关闭/不更新示例值: true
-	AllowChangeDeviceNum         *int64 `json:"allow_change_device_num,omitempty"`         // 同一考勤人员最多可绑定打卡设备数量上限, 开启校验更换设备打卡时必填示例值: 1 取值范围: `1` ～ `3
-	SuspectedCheatHandleMethod   *int64 `json:"suspected_cheat_handle_method,omitempty"`   // 疑似作弊打卡时的处理方式, 开启拦截疑似作弊打卡时必填示例值: 1可选值有: 使用人脸识别打卡仅记录疑似作弊信息 取值范围: `1` ～ `2
+	AllowChangeDeviceNum         *int64 `json:"allow_change_device_num,omitempty"`         // 同一考勤人员最多可绑定打卡设备数量上限, 开启校验更换设备打卡时必填示例值: 1 取值范围: `1` ～ `3`
+	SuspectedCheatHandleMethod   *int64 `json:"suspected_cheat_handle_method,omitempty"`   // 疑似作弊打卡时的处理方式, 开启拦截疑似作弊打卡时必填示例值: 1可选值有: 使用人脸识别打卡仅记录疑似作弊信息 取值范围: `1` ～ `2`
 }
 
 // CreateAttendanceGroupReqGroupClockInAbnormalSettings ...
@@ -218,7 +218,7 @@ type CreateAttendanceGroupReqGroupMemberStatusChange struct {
 
 // CreateAttendanceGroupReqGroupNeedPunchMember ...
 type CreateAttendanceGroupReqGroupNeedPunchMember struct {
-	RuleScopeType  *int64                                                      `json:"rule_scope_type,omitempty"`  // 圈人方式: * `0`: 无 * `1`: 全部 * `2`: 自定义示例值: 0默认值: `0
+	RuleScopeType  *int64                                                      `json:"rule_scope_type,omitempty"`  // 圈人方式: * `0`: 无 * `1`: 全部 * `2`: 自定义示例值: 0默认值: `0`
 	ScopeGroupList *CreateAttendanceGroupReqGroupNeedPunchMemberScopeGroupList `json:"scope_group_list,omitempty"` // 圈人规则列表
 }
 
@@ -246,7 +246,7 @@ type CreateAttendanceGroupReqGroupNeedPunchSpecialDay struct {
 
 // CreateAttendanceGroupReqGroupNoNeedPunchMember ...
 type CreateAttendanceGroupReqGroupNoNeedPunchMember struct {
-	RuleScopeType  *int64                                                        `json:"rule_scope_type,omitempty"`  // 圈人方式: * `0`: 无 * `1`: 全部 * `2`: 自定义示例值: 0默认值: `0
+	RuleScopeType  *int64                                                        `json:"rule_scope_type,omitempty"`  // 圈人方式: * `0`: 无 * `1`: 全部 * `2`: 自定义示例值: 0默认值: `0`
 	ScopeGroupList *CreateAttendanceGroupReqGroupNoNeedPunchMemberScopeGroupList `json:"scope_group_list,omitempty"` // 圈人规则列表
 }
 

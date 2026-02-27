@@ -60,7 +60,7 @@ func (r *Mock) UnMockCoreHRGetCoreHRLeaveBalanceList() {
 
 // GetCoreHRLeaveBalanceListReq ...
 type GetCoreHRLeaveBalanceListReq struct {
-	PageToken        *string  `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: `{"eu_nc":"[\"6994333322503669260\"]"}
+	PageToken        *string  `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: `{"eu_nc":"[\"6994333322503669260\"]"}`
 	PageSize         int64    `query:"page_size" json:"-"`          // 分页大小示例值: 20
 	AsOfDate         *string  `query:"as_of_date" json:"-"`         // 查询截止日期, 即截止到某天余额数据的日期（不传则默认为当天）。格式为yyyy-MM-dd示例值: 2022-07-29
 	EmploymentIDList []string `query:"employment_id_list" json:"-"` // 员工 ID 列表, 最大 100 个（不传则默认查询全部员工）, 对应user_id_type。请注意: 此接口为get请求, 所以传入数组时需要满足get请求传入数组的规范, 例如employment_id_list=6919733291281024522&employment_id_list=6919733291281024523示例值: 6919733291281024526

@@ -62,7 +62,7 @@ func (r *Mock) UnMockApprovalUploadApprovalFile() {
 
 // UploadApprovalFileReq ...
 type UploadApprovalFileReq struct {
-	Name    string    `json:"name,omitempty"`    // 文件名, 需包含文件扩展名。例如 `文件.doc
+	Name    string    `json:"name,omitempty"`    // 文件名, 需包含文件扩展名。例如 `文件.doc`
 	Type    string    `json:"type,omitempty"`    // 文件类型。取值 image（图片）或 attachment（附件）
 	Content io.Reader `json:"content,omitempty"` // 文件
 }

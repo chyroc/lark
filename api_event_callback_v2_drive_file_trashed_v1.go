@@ -21,9 +21,11 @@ import (
 	"context"
 )
 
-// EventV2DriveFileTrashedV1 了解事件订阅的使用场景和配置流程, 请点击查看 [事件订阅概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)
+// EventV2DriveFileTrashedV1 被订阅的文件被删除到回收站时, 将触发此事件。
 //
-// 文件被删除到回收站将触发此事件。
+// 了解事件订阅的配置流程和使用场景, 参考[事件概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
+// ## 前提条件
+// 添加该事件之前, 你需确保已调用[订阅云文档事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file/subscribe)接口。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/event/delete-file-to-trash-can
 // new doc: https://open.feishu.cn/document/server-docs/docs/drive-v1/event/list/delete-file-to-trash-can
@@ -35,15 +37,4 @@ func (r *EventCallbackService) HandlerEventV2DriveFileTrashedV1(f EventV2DriveFi
 type EventV2DriveFileTrashedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2DriveFileTrashedV1) (string, error)
 
 // EventV2DriveFileTrashedV1 ...
-type EventV2DriveFileTrashedV1 struct {
-	FileToken  string                               `json:"file_token,omitempty"`  // 文件token. 如: doccnxxxxxx
-	FileType   FileType                             `json:"file_type,omitempty"`   // 文件类型, 目前有doc、sheet、docx、bitable. 如: doc
-	OperatorID *EventV2DriveFileTrashedV1OperatorID `json:"operator_id,omitempty"` // 操作者id
-}
-
-// EventV2DriveFileTrashedV1OperatorID ...
-type EventV2DriveFileTrashedV1OperatorID struct {
-	OpenID  string `json:"open_id,omitempty"`  // 如: ou_xxxxxx
-	UnionID string `json:"union_id,omitempty"` // 如: on_xxxxxx
-	UserID  string `json:"user_id,omitempty"`  // 如: xxxxxx
-}
+type EventV2DriveFileTrashedV1 struct{}

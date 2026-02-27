@@ -165,7 +165,7 @@ type UpdateOKRProgressRecordReqContentBlockParagraphStyleList struct {
 
 // UpdateOKRProgressRecordReqProgressRate ...
 type UpdateOKRProgressRecordReqProgressRate struct {
-	Percent *float64 `json:"percent,omitempty"` // 进展百分比, 保留两位小数示例值: 50.21默认值: `0` 取值范围: `-99999999999` ～ `99999999999
+	Percent *float64 `json:"percent,omitempty"` // 进展百分比, 保留两位小数示例值: 50.21默认值: `0` 取值范围: `-99999999999` ～ `99999999999`
 	Status  *int64   `json:"status,omitempty"`  // 进展状态示例值: 0可选值有: 暂无正常风险延期
 }
 
