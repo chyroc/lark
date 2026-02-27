@@ -146,6 +146,10 @@ type RawRequestReq struct {
 
 // 把可读的 RawRequestReq ，解析为 http 请求的参数 rawHttpRequestParam
 func (r *Lark) parseRawHttpRequest(ctx context.Context, req *RawRequestReq) (*rawHttpRequest, error) {
+	if req.MethodOption == nil {
+		req.MethodOption = new(MethodOption)
+	}
+
 	// 0 init
 	rawHttpReq := &rawHttpRequest{
 		Scope:   req.Scope,

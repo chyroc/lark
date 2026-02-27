@@ -63,7 +63,6 @@ func Test_DriveFile(t *testing.T) {
 	{
 		resp, _, err := AppAllPermission.Ins().Drive.DownloadDriveFile(ctx, &lark.DownloadDriveFileReq{
 			FileToken: fileToken,
-			Range:     [2]int64{},
 		})
 		as.Nil(err)
 		as.NotNil(resp)
