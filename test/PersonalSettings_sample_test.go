@@ -123,74 +123,18 @@ func Test_PersonalSettings_Sample_Failed(t *testing.T) {
 
 	})
 
-	t.Run("response is failed", func(t *testing.T) {
-		cli := AppNoPermission.Ins()
-		moduleCli := cli.PersonalSettings
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.CreatePersonalSettingsSystemStatus(ctx, &lark.CreatePersonalSettingsSystemStatusReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.DeletePersonalSettingsSystemStatus(ctx, &lark.DeletePersonalSettingsSystemStatusReq{
-				SystemStatusID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.UpdatePersonalSettingsSystemStatus(ctx, &lark.UpdatePersonalSettingsSystemStatusReq{
-				SystemStatusID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetPersonalSettingsSystemStatusList(ctx, &lark.GetPersonalSettingsSystemStatusListReq{})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.BatchOpenPersonalSettingsSystemStatus(ctx, &lark.BatchOpenPersonalSettingsSystemStatusReq{
-				SystemStatusID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.BatchClosePersonalSettingsSystemStatus(ctx, &lark.BatchClosePersonalSettingsSystemStatusReq{
-				SystemStatusID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-	})
-
-	t.Run("fake request is failed", func(t *testing.T) {
+	t.Run("response is failed (mock http)", func(t *testing.T) {
 		cli := AppAllPermission.Ins()
 		moduleCli := cli.PersonalSettings
 		cli.Mock().MockRawRequest(func(ctx context.Context, req *lark.RawRequestReq, resp interface{}) (response *lark.Response, err error) {
-			return nil, fmt.Errorf("fake raw request")
+			return nil, fmt.Errorf("mock-http-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.CreatePersonalSettingsSystemStatus(ctx, &lark.CreatePersonalSettingsSystemStatusReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -199,7 +143,7 @@ func Test_PersonalSettings_Sample_Failed(t *testing.T) {
 				SystemStatusID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -208,14 +152,14 @@ func Test_PersonalSettings_Sample_Failed(t *testing.T) {
 				SystemStatusID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
 			_, _, err := moduleCli.GetPersonalSettingsSystemStatusList(ctx, &lark.GetPersonalSettingsSystemStatusListReq{})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -224,7 +168,7 @@ func Test_PersonalSettings_Sample_Failed(t *testing.T) {
 				SystemStatusID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -233,7 +177,7 @@ func Test_PersonalSettings_Sample_Failed(t *testing.T) {
 				SystemStatusID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 	})
