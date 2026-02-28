@@ -361,6 +361,7 @@ type Mock struct {
   mockContactGetContactUnit func(ctx context.Context, request *GetContactUnitReq, options ...MethodOptionFunc) (*GetContactUnitResp, *Response, error)
   mockContactGetContactUnitDepartmentList func(ctx context.Context, request *GetContactUnitDepartmentListReq, options ...MethodOptionFunc) (*GetContactUnitDepartmentListResp, *Response, error)
   mockContactGetContactUnitList func(ctx context.Context, request *GetContactUnitListReq, options ...MethodOptionFunc) (*GetContactUnitListResp, *Response, error)
+  mockContactGetContactV2Task func(ctx context.Context, request *GetContactV2TaskReq, options ...MethodOptionFunc) (*GetContactV2TaskResp, *Response, error)
   mockContactGetContactWorkCity func(ctx context.Context, request *GetContactWorkCityReq, options ...MethodOptionFunc) (*GetContactWorkCityResp, *Response, error)
   mockContactGetContactWorkCityList func(ctx context.Context, request *GetContactWorkCityListReq, options ...MethodOptionFunc) (*GetContactWorkCityListResp, *Response, error)
   mockContactGetDepartment func(ctx context.Context, request *GetDepartmentReq, options ...MethodOptionFunc) (*GetDepartmentResp, *Response, error)
