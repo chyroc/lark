@@ -81,12 +81,12 @@ func Test_APaaS_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			cli.Mock().MockAPaaSAddAssigneeAPaaSApprovalTask(func(ctx context.Context, request *lark.AddAssigneeAPaaSApprovalTaskReq, options ...lark.MethodOptionFunc) (*lark.AddAssigneeAPaaSApprovalTaskResp, *lark.Response, error) {
+			cli.Mock().MockAPaaSAddAPaaSApprovalTaskAssignee(func(ctx context.Context, request *lark.AddAPaaSApprovalTaskAssigneeReq, options ...lark.MethodOptionFunc) (*lark.AddAPaaSApprovalTaskAssigneeResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAPaaSAddAssigneeAPaaSApprovalTask()
+			defer cli.Mock().UnMockAPaaSAddAPaaSApprovalTaskAssignee()
 
-			_, _, err := moduleCli.AddAssigneeAPaaSApprovalTask(ctx, &lark.AddAssigneeAPaaSApprovalTaskReq{})
+			_, _, err := moduleCli.AddAPaaSApprovalTaskAssignee(ctx, &lark.AddAPaaSApprovalTaskAssigneeReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -124,7 +124,7 @@ func Test_APaaS_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-			_, _, err := moduleCli.AddAssigneeAPaaSApprovalTask(ctx, &lark.AddAssigneeAPaaSApprovalTaskReq{
+			_, _, err := moduleCli.AddAPaaSApprovalTaskAssignee(ctx, &lark.AddAPaaSApprovalTaskAssigneeReq{
 				ApprovalTaskID: "x",
 			})
 			as.NotNil(err)
