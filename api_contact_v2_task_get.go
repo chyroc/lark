@@ -28,6 +28,8 @@ import (
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDOwUjL1gDM14SN4ATN
 // new doc: https://open.feishu.cn/document/server-docs/historic-version//import-api/query-the-execution-status-of-a-batch-task
+//
+// Deprecated
 func (r *ContactService) GetContactV2Task(ctx context.Context, request *GetContactV2TaskReq, options ...MethodOptionFunc) (*GetContactV2TaskResp, *Response, error) {
 	if r.cli.mock.mockContactGetContactV2Task != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#GetContactV2Task mock enable")
