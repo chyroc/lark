@@ -64,7 +64,7 @@ type Mock struct {
   mockAIRecognizeSpeechFile func(ctx context.Context, request *RecognizeSpeechFileReq, options ...MethodOptionFunc) (*RecognizeSpeechFileResp, *Response, error)
   mockAIRecognizeSpeechStream func(ctx context.Context, request *RecognizeSpeechStreamReq, options ...MethodOptionFunc) (*RecognizeSpeechStreamResp, *Response, error)
   mockAITranslateText func(ctx context.Context, request *TranslateTextReq, options ...MethodOptionFunc) (*TranslateTextResp, *Response, error)
-  mockAPaaSAddAssigneeAPaaSApprovalTask func(ctx context.Context, request *AddAssigneeAPaaSApprovalTaskReq, options ...MethodOptionFunc) (*AddAssigneeAPaaSApprovalTaskResp, *Response, error)
+  mockAPaaSAddAPaaSApprovalTaskAssignee func(ctx context.Context, request *AddAPaaSApprovalTaskAssigneeReq, options ...MethodOptionFunc) (*AddAPaaSApprovalTaskAssigneeResp, *Response, error)
   mockAPaaSAgreeAPaaSApprovalTask func(ctx context.Context, request *AgreeAPaaSApprovalTaskReq, options ...MethodOptionFunc) (*AgreeAPaaSApprovalTaskResp, *Response, error)
   mockAPaaSRejectAPaaSApprovalTask func(ctx context.Context, request *RejectAPaaSApprovalTaskReq, options ...MethodOptionFunc) (*RejectAPaaSApprovalTaskResp, *Response, error)
   mockAPaaSTransferAPaaSApprovalTask func(ctx context.Context, request *TransferAPaaSApprovalTaskReq, options ...MethodOptionFunc) (*TransferAPaaSApprovalTaskResp, *Response, error)
