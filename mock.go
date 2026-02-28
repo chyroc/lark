@@ -320,6 +320,7 @@ type Mock struct {
   mockChatUpdateChatTopNotice func(ctx context.Context, request *UpdateChatTopNoticeReq, options ...MethodOptionFunc) (*UpdateChatTopNoticeResp, *Response, error)
   mockContactAddContactGroupMember func(ctx context.Context, request *AddContactGroupMemberReq, options ...MethodOptionFunc) (*AddContactGroupMemberResp, *Response, error)
   mockContactBatchAddContactGroupMember func(ctx context.Context, request *BatchAddContactGroupMemberReq, options ...MethodOptionFunc) (*BatchAddContactGroupMemberResp, *Response, error)
+  mockContactBatchAddContactV2User       func(ctx context.Context, request *BatchAddContactV2UserReq, options ...MethodOptionFunc) (*BatchAddContactV2UserResp, *Response, error)
   mockContactBatchCreateContactFunctionalRoleMember func(ctx context.Context, request *BatchCreateContactFunctionalRoleMemberReq, options ...MethodOptionFunc) (*BatchCreateContactFunctionalRoleMemberResp, *Response, error)
   mockContactBatchDeleteContactFunctionalRoleMember func(ctx context.Context, request *BatchDeleteContactFunctionalRoleMemberReq, options ...MethodOptionFunc) (*BatchDeleteContactFunctionalRoleMemberResp, *Response, error)
   mockContactBatchDeleteContactGroupMember func(ctx context.Context, request *BatchDeleteContactGroupMemberReq, options ...MethodOptionFunc) (*BatchDeleteContactGroupMemberResp, *Response, error)
