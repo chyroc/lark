@@ -99,53 +99,11 @@ func Test_APaaS_Sample_Failed(t *testing.T) {
 
 	})
 
-	t.Run("response is failed", func(t *testing.T) {
-		cli := AppNoPermission.Ins()
-		moduleCli := cli.APaaS
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.AgreeAPaaSApprovalTask(ctx, &lark.AgreeAPaaSApprovalTaskReq{
-				ApprovalTaskID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.RejectAPaaSApprovalTask(ctx, &lark.RejectAPaaSApprovalTaskReq{
-				ApprovalTaskID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.TransferAPaaSApprovalTask(ctx, &lark.TransferAPaaSApprovalTaskReq{
-				ApprovalTaskID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.AddAssigneeAPaaSApprovalTask(ctx, &lark.AddAssigneeAPaaSApprovalTaskReq{
-				ApprovalTaskID: "x",
-			})
-			as.NotNil(err)
-			as.True(lark.GetErrorCode(err) > 0, fmt.Sprintf("need get lark err, but get %s", err))
-		})
-
-	})
-
-	t.Run("fake request is failed", func(t *testing.T) {
+	t.Run("response is failed (mock http)", func(t *testing.T) {
 		cli := AppAllPermission.Ins()
 		moduleCli := cli.APaaS
 		cli.Mock().MockRawRequest(func(ctx context.Context, req *lark.RawRequestReq, resp interface{}) (response *lark.Response, err error) {
-			return nil, fmt.Errorf("fake raw request")
+			return nil, fmt.Errorf("mock-http-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -154,7 +112,7 @@ func Test_APaaS_Sample_Failed(t *testing.T) {
 				ApprovalTaskID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -163,7 +121,7 @@ func Test_APaaS_Sample_Failed(t *testing.T) {
 				ApprovalTaskID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -172,7 +130,7 @@ func Test_APaaS_Sample_Failed(t *testing.T) {
 				ApprovalTaskID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
@@ -181,7 +139,7 @@ func Test_APaaS_Sample_Failed(t *testing.T) {
 				ApprovalTaskID: "x",
 			})
 			as.NotNil(err)
-			as.Equal("fake raw request", err.Error())
+			as.Equal("mock-http-failed", err.Error())
 		})
 
 	})

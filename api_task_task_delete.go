@@ -26,7 +26,8 @@ import (
 // 删除后任务无法再被获取到。
 // 删除任务需要任务的可编辑权限。详情见[任务功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/overview)中的“任务是如何鉴权的？”章节。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/delete
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/delete
+// new doc: https://open.feishu.cn/document/task-v2/task/delete
 func (r *TaskService) DeleteTask(ctx context.Context, request *DeleteTaskReq, options ...MethodOptionFunc) (*DeleteTaskResp, *Response, error) {
 	if r.cli.mock.mockTaskDeleteTask != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#DeleteTask mock enable")
@@ -61,12 +62,11 @@ func (r *Mock) UnMockTaskDeleteTask() {
 
 // DeleteTaskReq ...
 type DeleteTaskReq struct {
-	TaskGuid string `path:"task_guid" json:"-"` // 要删除的任务guid, 示例值: "e297ddff-06ca-4166-b917-4ce57cd3a7a0", 最大长度: `100` 字符
+	TaskGuid string `path:"task_guid" json:"-"` // 要删除的任务guid示例值: "e297ddff-06ca-4166-b917-4ce57cd3a7a0" 最大长度: `100` 字符
 }
 
 // DeleteTaskResp ...
-type DeleteTaskResp struct {
-}
+type DeleteTaskResp struct{}
 
 // deleteTaskResp ...
 type deleteTaskResp struct {

@@ -25,7 +25,8 @@ import (
 //
 // 获取任务详情需要调用身份拥有对任务的可读取权限。详情见[任务功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/overview)中的“任务是如何鉴权的？”章节。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/get
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/get
+// new doc: https://open.feishu.cn/document/task-v2/task/get
 func (r *TaskService) GetTask(ctx context.Context, request *GetTaskReq, options ...MethodOptionFunc) (*GetTaskResp, *Response, error) {
 	if r.cli.mock.mockTaskGetTask != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#GetTask mock enable")
@@ -60,8 +61,8 @@ func (r *Mock) UnMockTaskGetTask() {
 
 // GetTaskReq ...
 type GetTaskReq struct {
-	TaskGuid   string  `path:"task_guid" json:"-"`     // 要获取的任务guid, 示例值: "e297ddff-06ca-4166-b917-4ce57cd3a7a0", 最大长度: `100` 字符
-	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 默认值: `open_id`
+	TaskGuid   string  `path:"task_guid" json:"-"`     // 要获取的任务guid示例值: "e297ddff-06ca-4166-b917-4ce57cd3a7a0" 最大长度: `100` 字符
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id默认值: `open_id`
 }
 
 // GetTaskResp ...
@@ -71,33 +72,40 @@ type GetTaskResp struct {
 
 // GetTaskRespTask ...
 type GetTaskRespTask struct {
-	Guid           string                         `json:"guid,omitempty"`             // 任务guid, 任务的唯一ID
-	Summary        string                         `json:"summary,omitempty"`          // 任务标题
-	Description    string                         `json:"description,omitempty"`      // 任务描述
-	Due            *GetTaskRespTaskDue            `json:"due,omitempty"`              // 任务截止时间
-	Reminders      []*GetTaskRespTaskReminder     `json:"reminders,omitempty"`        // 任务的提醒配置列表。目前每个任务最多有1个。
-	Creator        *GetTaskRespTaskCreator        `json:"creator,omitempty"`          // 任务创建者
-	Members        []*GetTaskRespTaskMember       `json:"members,omitempty"`          // 任务成员列表
-	CompletedAt    string                         `json:"completed_at,omitempty"`     // 任务完成的时间戳(ms)
-	Attachments    []*GetTaskRespTaskAttachment   `json:"attachments,omitempty"`      // 任务的附件列表
-	Origin         *GetTaskRespTaskOrigin         `json:"origin,omitempty"`           // 任务关联的第三方平台来源信息。创建是设置后就不可更改。
-	Extra          string                         `json:"extra,omitempty"`            // 任务附带的自定义数据。
-	Tasklists      []*GetTaskRespTaskTasklist     `json:"tasklists,omitempty"`        // 任务所属清单的名字。调用者只能看到有权限访问的清单的列表。
-	RepeatRule     string                         `json:"repeat_rule,omitempty"`      // 如果任务为重复任务, 返回重复任务的配置
-	ParentTaskGuid string                         `json:"parent_task_guid,omitempty"` // 如果当前任务为某个任务的子任务, 返回父任务的guid
-	Mode           int64                          `json:"mode,omitempty"`             // 任务的模式。1 - 会签任务；2 - 或签任务
-	Source         int64                          `json:"source,omitempty"`           // 任务创建的来源, 可选值有: 0: 未知来源, 1: 任务中心, 2: 群组任务/消息转任务, 6: 通过开放平台以tenant_access_token授权创建的任务, 7: 通过开放平台以user_access_token授权创建的任务, 8: 文档任务
-	CustomComplete *GetTaskRespTaskCustomComplete `json:"custom_complete,omitempty"`  // 任务的自定义完成配置
-	TaskID         string                         `json:"task_id,omitempty"`          // 任务界面上的代码
-	CreatedAt      string                         `json:"created_at,omitempty"`       // 任务创建时间戳(ms)
-	UpdatedAt      string                         `json:"updated_at,omitempty"`       // 任务最后一次更新的时间戳(ms)
-	Status         string                         `json:"status,omitempty"`           // 任务的状态, 支持"todo"和"done"两种状态
-	URL            string                         `json:"url,omitempty"`              // 任务的分享链接
-	Start          *GetTaskRespTaskStart          `json:"start,omitempty"`            // 任务的开始时间
-	SubtaskCount   int64                          `json:"subtask_count,omitempty"`    // 该任务的子任务的个数。
-	IsMilestone    bool                           `json:"is_milestone,omitempty"`     // 是否是里程碑任务
-	CustomFields   []*GetTaskRespTaskCustomField  `json:"custom_fields,omitempty"`    // 任务的自定义字段值
-	Dependencies   []*GetTaskRespTaskDependencie  `json:"dependencies,omitempty"`     // 任务依赖
+	Guid            string                            `json:"guid,omitempty"`             // 任务guid, 任务的唯一ID
+	Summary         string                            `json:"summary,omitempty"`          // 任务标题
+	Description     string                            `json:"description,omitempty"`      // 任务描述
+	Due             *GetTaskRespTaskDue               `json:"due,omitempty"`              // 任务截止时间
+	Reminders       []*GetTaskRespTaskReminder        `json:"reminders,omitempty"`        // 任务的提醒配置列表。目前每个任务最多有1个。
+	Creator         *GetTaskRespTaskCreator           `json:"creator,omitempty"`          // 任务创建者
+	Members         []*GetTaskRespTaskMember          `json:"members,omitempty"`          // 任务成员列表
+	CompletedAt     string                            `json:"completed_at,omitempty"`     // 任务完成的时间戳(ms)
+	Attachments     []*GetTaskRespTaskAttachment      `json:"attachments,omitempty"`      // 任务的附件列表
+	Origin          *GetTaskRespTaskOrigin            `json:"origin,omitempty"`           // 任务关联的第三方平台来源信息。创建是设置后就不可更改。
+	Extra           string                            `json:"extra,omitempty"`            // 任务附带的自定义数据。
+	Tasklists       []*GetTaskRespTaskTasklist        `json:"tasklists,omitempty"`        // 任务所属清单的名字。调用者只能看到有权限访问的清单的列表。
+	RepeatRule      string                            `json:"repeat_rule,omitempty"`      // 如果任务为重复任务, 返回重复任务的配置
+	ParentTaskGuid  string                            `json:"parent_task_guid,omitempty"` // 如果当前任务为某个任务的子任务, 返回父任务的guid
+	Mode            int64                             `json:"mode,omitempty"`             // 任务的模式。1 - 会签任务；2 - 或签任务
+	Source          int64                             `json:"source,omitempty"`           // 任务创建的来源可选值有: 未知来源任务中心群组任务/消息转任务通过开放平台以tenant_access_token授权创建的任务通过开放平台以user_access_token授权创建的任务文档任务
+	CustomComplete  *GetTaskRespTaskCustomComplete    `json:"custom_complete,omitempty"`  // 任务的自定义完成配置
+	TaskID          string                            `json:"task_id,omitempty"`          // 任务界面上的代码
+	CreatedAt       string                            `json:"created_at,omitempty"`       // 任务创建时间戳(ms)
+	UpdatedAt       string                            `json:"updated_at,omitempty"`       // 任务最后一次更新的时间戳(ms)
+	Status          string                            `json:"status,omitempty"`           // 任务的状态, 支持"todo"和"done"两种状态
+	URL             string                            `json:"url,omitempty"`              // 任务的分享链接
+	Start           *GetTaskRespTaskStart             `json:"start,omitempty"`            // 任务的开始时间
+	SubtaskCount    int64                             `json:"subtask_count,omitempty"`    // 该任务的子任务的个数。
+	IsMilestone     bool                              `json:"is_milestone,omitempty"`     // 是否是里程碑任务
+	CustomFields    []*GetTaskRespTaskCustomField     `json:"custom_fields,omitempty"`    // 任务的自定义字段值
+	Dependencies    []*GetTaskRespTaskDependencie     `json:"dependencies,omitempty"`     // 任务依赖
+	AssigneeRelated []*GetTaskRespTaskAssigneeRelated `json:"assignee_related,omitempty"` // 任务执行者相关信息, 如会签任务各执行者完成时间等
+}
+
+// GetTaskRespTaskAssigneeRelated ...
+type GetTaskRespTaskAssigneeRelated struct {
+	ID          string `json:"id,omitempty"`           // 任务执行者的id
+	CompletedAt string `json:"completed_at,omitempty"` // 会签任务中执行者完成的时间戳(ms)
 }
 
 // GetTaskRespTaskAttachment ...
@@ -123,6 +131,7 @@ type GetTaskRespTaskAttachmentUploader struct {
 	ID   string `json:"id,omitempty"`   // 表示member的id
 	Type string `json:"type,omitempty"` // 成员的类型
 	Role string `json:"role,omitempty"` // 角色
+	Name string `json:"name,omitempty"` // 成员名称
 }
 
 // GetTaskRespTaskCreator ...
@@ -130,6 +139,7 @@ type GetTaskRespTaskCreator struct {
 	ID   string `json:"id,omitempty"`   // 表示member的id
 	Type string `json:"type,omitempty"` // 成员的类型
 	Role string `json:"role,omitempty"` // 成员角色
+	Name string `json:"name,omitempty"` // 成员名称
 }
 
 // GetTaskRespTaskCustomComplete ...
@@ -223,18 +233,19 @@ type GetTaskRespTaskCustomFieldMemberValue struct {
 	ID   string `json:"id,omitempty"`   // 表示member的id
 	Type string `json:"type,omitempty"` // 成员的类型
 	Role string `json:"role,omitempty"` // 成员角色
+	Name string `json:"name,omitempty"` // 成员名称
 }
 
 // GetTaskRespTaskDependencie ...
 type GetTaskRespTaskDependencie struct {
-	Type     string `json:"type,omitempty"`      // 依赖类型, 可选值有: prev: 前置依赖, next: 后置依赖
+	Type     string `json:"type,omitempty"`      // 依赖类型可选值有: 前置依赖后置依赖
 	TaskGuid string `json:"task_guid,omitempty"` // 依赖任务的GUID
 }
 
 // GetTaskRespTaskDue ...
 type GetTaskRespTaskDue struct {
-	Timestamp string `json:"timestamp,omitempty"`  // 截止时间/日期的时间戳, 距1970-01-01 00:00:00的毫秒数。如果截止时间是一个日期, 需要把日期转换成时间戳, 并设置 is_all_day=true
-	IsAllDay  bool   `json:"is_all_day,omitempty"` // 是否截止到一个日期。如果设为true, timestamp中只有日期的部分会被解析和存储。
+	Timestamp string `json:"timestamp,omitempty"`  // 截止时间/日期的时间戳, 距1970-01-01 00:00:00的毫秒数。- 如果是截止日期（`is_all_day` 取值为 true）, 则该时间戳转换为具体时间后, 只需精确到天。例如 `1724284800000` 转换为具体时间为 `2024-08-22`。- 如果是截止时间（`is_all_day` 取值为 false）, 则该时间戳转换为具体时间后, 精确到秒。例如 `1724284800000` 转换为具体时间为 `2024-08-22 08:00:00 UTC+8`。
+	IsAllDay  bool   `json:"is_all_day,omitempty"` // 是否截止到一个日期。可能值有: true: 截止日期, `timestamp` 转换为具体时间后精确到天。- false: 截止时间, `timestamp` 转换为具体时间后精确到秒。
 }
 
 // GetTaskRespTaskMember ...
@@ -242,6 +253,7 @@ type GetTaskRespTaskMember struct {
 	ID   string `json:"id,omitempty"`   // 表示member的id
 	Type string `json:"type,omitempty"` // 成员的类型
 	Role string `json:"role,omitempty"` // 成员角色
+	Name string `json:"name,omitempty"` // 成员名称
 }
 
 // GetTaskRespTaskOrigin ...
@@ -275,7 +287,7 @@ type GetTaskRespTaskOriginPlatformI18nName struct {
 // GetTaskRespTaskReminder ...
 type GetTaskRespTaskReminder struct {
 	ID                 string `json:"id,omitempty"`                   // 提醒时间设置的 ID
-	RelativeFireMinute int64  `json:"relative_fire_minute,omitempty"` // 相对于截止时间的提醒时间分钟数。例如30表示截止时间前30分钟提醒；0表示截止时提醒。
+	RelativeFireMinute int64  `json:"relative_fire_minute,omitempty"` // 相对于截止时间的提醒时间分钟数。例如30表示截止时间前30分钟提醒；0表示截止时提醒。注意: 该参数值可能为负值。例如, 在客户端创建的任务未设置具体截止时间, 则该任务的截止时间默认为当天 00:00, 如果任务提醒时间为当天 18:00, 则 `relative_fire_minute` 返回值为 -1080。
 }
 
 // GetTaskRespTaskStart ...

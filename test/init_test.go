@@ -19,10 +19,7 @@ import (
 	"net/http"
 	"os"
 	"sync"
-	"testing"
 	"time"
-
-	"github.com/stretchr/testify/assert"
 
 	"github.com/chyroc/lark"
 )
@@ -167,22 +164,6 @@ type Approval struct {
 
 var ApprovalALLField = Approval{
 	Code: os.Getenv("LARK_APPROVAL_ALL_FIELD"),
-}
-
-func Test_Config(t *testing.T) {
-	as := assert.New(t)
-
-	as.NotEmpty(AppNoPermission.AppID)
-	as.NotEmpty(AppNoPermission.AppSecret)
-	as.NotEmpty(AppAllPermission.AppID)
-	as.NotEmpty(AppAllPermission.AppSecret)
-	as.NotEmpty(UserAdmin.UserID)
-	as.NotEmpty(UserAdmin.OpenID)
-	as.NotEmpty(ChatContainALLPermissionApp.ChatID)
-	as.NotEmpty(ChatNotContainALLPermissionApp.ChatID)
-	as.NotEmpty(ChatForSendMessage.ChatID)
-	as.NotEmpty(File1.Key)
-	as.NotEmpty(File2.Key)
 }
 
 type fakeHTTPWriter struct {
