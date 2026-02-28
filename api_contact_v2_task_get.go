@@ -60,37 +60,36 @@ func (r *Mock) UnMockContactGetContactV2Task() {
 }
 
 // GetContactV2TaskReq ...
-type GetContactV2TaskReq struct {
-}
+type GetContactV2TaskReq struct{}
 
 // GetContactV2TaskResp ...
 type GetContactV2TaskResp struct {
-	TaskID     interface{}                   `json:"task_id,omitempty"`     // 异步任务 ID。
-	Type       interface{}                   `json:"type,omitempty"`        // 任务类型, 目前有两种, 添加用户时为 add_user, 添加部门时为 add_department。
-	Status     interface{}                   `json:"status,omitempty"`      // 任务当前执行状态, 小于 9: 正在执行过程中, 9: 执行完成, 10: 执行失败。
-	Progress   interface{}                   `json:"progress,omitempty"`    // 任务执行进度百分比。
-	TotalNum   int64                         `json:"total_num,omitempty"`   // 任务总条数。
-	SuccessNum interface{}                   `json:"success_num,omitempty"` // 任务当前执行成功的条数。
-	FailNum    interface{}                   `json:"fail_num,omitempty"`    // 任务当前执行失败的条数。
-	CreateTime interface{}                   `json:"create_time,omitempty"` // 任务创建时间, 以秒为单位的 Unix 时间戳。
-	FinishTime interface{}                   `json:"finish_time,omitempty"` // 任务完成时间, 以秒为单位的 Unix 时间戳, 当任务未完成时不返回此字段。
-	TaskInfo   *GetContactV2TaskRespTaskInfo `json:"task_info,omitempty"`   // 任务执行结果列表, 当任务非正常执行完成时不返回此字段。 列表中的执行结果顺序和创建任务时请求体中的子任务顺序一致。
+	TaskID     string                          `json:"task_id,omitempty"`     // 异步任务 ID。
+	Type       string                          `json:"type,omitempty"`        // 任务类型, 目前有两种, 添加用户时为 add_user, 添加部门时为 add_department。
+	Status     int64                           `json:"status,omitempty"`      // 任务当前执行状态, 小于 9: 正在执行过程中, 9: 执行完成, 10: 执行失败。
+	Progress   int64                           `json:"progress,omitempty"`    // 任务执行进度百分比。
+	TotalNum   int64                           `json:"total_num,omitempty"`   // 任务总条数。
+	SuccessNum int64                           `json:"success_num,omitempty"` // 任务当前执行成功的条数。
+	FailNum    int64                           `json:"fail_num,omitempty"`    // 任务当前执行失败的条数。
+	CreateTime int64                           `json:"create_time,omitempty"` // 任务创建时间, 以秒为单位的 Unix 时间戳。
+	FinishTime int64                           `json:"finish_time,omitempty"` // 任务完成时间, 以秒为单位的 Unix 时间戳, 当任务未完成时不返回此字段。
+	TaskInfo   []*GetContactV2TaskRespTaskInfo `json:"task_info,omitempty"`   // 任务执行结果列表, 当任务非正常执行完成时不返回此字段。 列表中的执行结果顺序和创建任务时请求体中的子任务顺序一致。
 }
 
 // GetContactV2TaskRespTaskInfo ...
 type GetContactV2TaskRespTaskInfo struct {
-	Code         int64       `json:"code,omitempty"`          // 子任务返回码, 非 0 表示失败。
-	Msg          interface{} `json:"msg,omitempty"`           // 对子任务返回码的文本描述。
-	Action       interface{} `json:"action,omitempty"`        // 子任务进行的操作, 1: 添加, 2: 更新。子任务执行失败时不返回此字段。
-	Name         interface{} `json:"name,omitempty"`          // 子任务请求名称, 用户操作时为用户名, 部门操作时为部门名。
-	Email        interface{} `json:"email,omitempty"`         // 请求时的用户邮箱。
-	Mobile       interface{} `json:"mobile,omitempty"`        // 请求时的用户手机号。
-	UserID       interface{} `json:"user_id,omitempty"`       // 请求时的用户企业内唯一标识。 当请求时没有填写 user_id 字段并且子任务执行成功时, 字段值为系统生成的唯一标识。
-	Departments  []string    `json:"departments,omitempty"`   // 请求时的用户所属部门。
-	OpenID       string      `json:"open_id,omitempty"`       // 生成的用户 open_id, 子任务执行失败时不返回此字段。
-	DepartmentID interface{} `json:"department_id,omitempty"` // 请求时的自定义部门 ID。 当请求时没有填写自定义 ID 字段并且子任务执行成功时, 字段值为系统生成的部门 ID。
-	ParentID     interface{} `json:"parent_id,omitempty"`     // 请求时的父部门 ID。
-	ChatID       interface{} `json:"chat_id,omitempty"`       // 部门群 ID, 部门群不存在时不返回此字段。
+	Code         int64    `json:"code,omitempty"`          // 子任务返回码, 非 0 表示失败。
+	Msg          string   `json:"msg,omitempty"`           // 对子任务返回码的文本描述。
+	Action       int64    `json:"action,omitempty"`        // 子任务进行的操作, 1: 添加, 2: 更新。子任务执行失败时不返回此字段。
+	Name         string   `json:"name,omitempty"`          // 子任务请求名称, 用户操作时为用户名, 部门操作时为部门名。
+	Email        string   `json:"email,omitempty"`         // 请求时的用户邮箱。
+	Mobile       string   `json:"mobile,omitempty"`        // 请求时的用户手机号。
+	UserID       string   `json:"user_id,omitempty"`       // 请求时的用户企业内唯一标识。 当请求时没有填写 user_id 字段并且子任务执行成功时, 字段值为系统生成的唯一标识。
+	Departments  []string `json:"departments,omitempty"`   // 请求时的用户所属部门。
+	OpenID       string   `json:"open_id,omitempty"`       // 生成的用户 open_id, 子任务执行失败时不返回此字段。
+	DepartmentID string   `json:"department_id,omitempty"` // 请求时的自定义部门 ID。 当请求时没有填写自定义 ID 字段并且子任务执行成功时, 字段值为系统生成的部门 ID。
+	ParentID     string   `json:"parent_id,omitempty"`     // 请求时的父部门 ID。
+	ChatID       string   `json:"chat_id,omitempty"`       // 部门群 ID, 部门群不存在时不返回此字段。
 }
 
 // getContactV2TaskResp ...
