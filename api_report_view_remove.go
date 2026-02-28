@@ -64,8 +64,7 @@ type RemoveReportViewReq struct {
 }
 
 // RemoveReportViewResp ...
-type RemoveReportViewResp struct {
-}
+type RemoveReportViewResp struct{}
 
 // removeReportViewResp ...
 type removeReportViewResp struct {

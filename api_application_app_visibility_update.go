@@ -83,8 +83,7 @@ type UpdateApplicationAppVisibilityReqDelUser struct {
 }
 
 // UpdateApplicationAppVisibilityResp ...
-type UpdateApplicationAppVisibilityResp struct {
-}
+type UpdateApplicationAppVisibilityResp struct{}
 
 // updateApplicationAppVisibilityResp ...
 type updateApplicationAppVisibilityResp struct {

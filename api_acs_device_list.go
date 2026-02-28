@@ -57,8 +57,7 @@ func (r *Mock) UnMockACSGetACSDeviceList() {
 }
 
 // GetACSDeviceListReq ...
-type GetACSDeviceListReq struct {
-}
+type GetACSDeviceListReq struct{}
 
 // GetACSDeviceListResp ...
 type GetACSDeviceListResp struct {

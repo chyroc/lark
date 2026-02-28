@@ -66,8 +66,7 @@ type DeleteTaskV1ReminderReq struct {
 }
 
 // DeleteTaskV1ReminderResp ...
-type DeleteTaskV1ReminderResp struct {
-}
+type DeleteTaskV1ReminderResp struct{}
 
 // deleteTaskV1ReminderResp ...
 type deleteTaskV1ReminderResp struct {

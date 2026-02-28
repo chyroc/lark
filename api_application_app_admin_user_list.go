@@ -57,8 +57,7 @@ func (r *Mock) UnMockApplicationGetApplicationAppAdminUserList() {
 }
 
 // GetApplicationAppAdminUserListReq ...
-type GetApplicationAppAdminUserListReq struct {
-}
+type GetApplicationAppAdminUserListReq struct{}
 
 // GetApplicationAppAdminUserListResp ...
 type GetApplicationAppAdminUserListResp struct {

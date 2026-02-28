@@ -68,8 +68,7 @@ type RemoveTaskCustomFieldReq struct {
 }
 
 // RemoveTaskCustomFieldResp ...
-type RemoveTaskCustomFieldResp struct {
-}
+type RemoveTaskCustomFieldResp struct{}
 
 // removeTaskCustomFieldResp ...
 type removeTaskCustomFieldResp struct {

@@ -66,8 +66,7 @@ type DeleteTaskV1CommentReq struct {
 }
 
 // DeleteTaskV1CommentResp ...
-type DeleteTaskV1CommentResp struct {
-}
+type DeleteTaskV1CommentResp struct{}
 
 // deleteTaskV1CommentResp ...
 type deleteTaskV1CommentResp struct {
