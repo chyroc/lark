@@ -65,8 +65,7 @@ type DeleteTaskSectionReq struct {
 }
 
 // DeleteTaskSectionResp ...
-type DeleteTaskSectionResp struct {
-}
+type DeleteTaskSectionResp struct{}
 
 // deleteTaskSectionResp ...
 type deleteTaskSectionResp struct {

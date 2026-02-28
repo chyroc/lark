@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // GetAilyAppSkill 该 API 用于查询某个 Aily 应用的特定技能详情
@@ -26,9 +26,8 @@ import (
 // 更多信息及示例代码, 可参考 [Aily 技能 OpenAPI 接口说明](https://bytedance.larkoffice.com/wiki/ZkKnwxogliNj3ik9ppEc0cFUnAd)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/aily-v1/app-skill/get
-// 
 func (r *AilyService) GetAilyAppSkill(ctx context.Context, request *GetAilyAppSkillReq, options ...MethodOptionFunc) (*GetAilyAppSkillResp, *Response, error) {
-if r.cli.mock.mockAilyGetAilyAppSkill != nil {
+	if r.cli.mock.mockAilyGetAilyAppSkill != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Aily#GetAilyAppSkill mock enable")
 		return r.cli.mock.mockAilyGetAilyAppSkill(ctx, request, options...)
 	}
@@ -37,12 +36,11 @@ if r.cli.mock.mockAilyGetAilyAppSkill != nil {
 		Scope:                 "Aily",
 		API:                   "GetAilyAppSkill",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/aily/v1/apps/:app_id/skills/:skill_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/aily/v1/apps/:app_id/skills/:skill_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getAilyAppSkillResp)
 
@@ -54,53 +52,37 @@ if r.cli.mock.mockAilyGetAilyAppSkill != nil {
 func (r *Mock) MockAilyGetAilyAppSkill(f func(ctx context.Context, request *GetAilyAppSkillReq, options ...MethodOptionFunc) (*GetAilyAppSkillResp, *Response, error)) {
 	r.mockAilyGetAilyAppSkill = f
 }
+
 // UnMockAilyGetAilyAppSkill un-mock AilyGetAilyAppSkill method
 func (r *Mock) UnMockAilyGetAilyAppSkill() {
 	r.mockAilyGetAilyAppSkill = nil
 }
 
-
 // GetAilyAppSkillReq ...
-type GetAilyAppSkillReq struct { 
-AppID string `path:"app_id" json:"-"` // Aily 应用 ID（`spring_xxx__c`）, 可以在 Aily 应用开发页面的浏览器地址里获取示例值: "spring_e7004f87f1__c" 长度范围: `0` ～ `64` 字符
-SkillID string `path:"skill_id" json:"-"` // 技能 ID；可通过技能编辑页面的浏览器地址栏获取（`skill_xxx`）示例值: "skill_6cc6166178ca" 长度范围: `0` ～ `32` 字符
+type GetAilyAppSkillReq struct {
+	AppID   string `path:"app_id" json:"-"`   // Aily 应用 ID（`spring_xxx__c`）, 可以在 Aily 应用开发页面的浏览器地址里获取示例值: "spring_e7004f87f1__c" 长度范围: `0` ～ `64` 字符
+	SkillID string `path:"skill_id" json:"-"` // 技能 ID；可通过技能编辑页面的浏览器地址栏获取（`skill_xxx`）示例值: "skill_6cc6166178ca" 长度范围: `0` ～ `32` 字符
 }
-
-
-
-
 
 // GetAilyAppSkillResp ...
-type GetAilyAppSkillResp struct { 
-Skill *GetAilyAppSkillRespSkill `json:"skill,omitempty"` // 技能信息
+type GetAilyAppSkillResp struct {
+	Skill *GetAilyAppSkillRespSkill `json:"skill,omitempty"` // 技能信息
 }
-
-
-
-
 
 // GetAilyAppSkillRespSkill ...
-type GetAilyAppSkillRespSkill struct { 
-ID string `json:"id,omitempty"` // 技能 ID
-Label string `json:"label,omitempty"` // 技能名称
-Description string `json:"description,omitempty"` // 技能描述
-Samples []string `json:"samples,omitempty"` // 用户提问示例
-InputSchema string `json:"input_schema,omitempty"` // 技能入参定义
-OutputSchema string `json:"output_schema,omitempty"` // 技能出参定义
+type GetAilyAppSkillRespSkill struct {
+	ID           string   `json:"id,omitempty"`            // 技能 ID
+	Label        string   `json:"label,omitempty"`         // 技能名称
+	Description  string   `json:"description,omitempty"`   // 技能描述
+	Samples      []string `json:"samples,omitempty"`       // 用户提问示例
+	InputSchema  string   `json:"input_schema,omitempty"`  // 技能入参定义
+	OutputSchema string   `json:"output_schema,omitempty"` // 技能出参定义
 }
-
-
-
-
 
 // getAilyAppSkillResp ...
-type getAilyAppSkillResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *GetAilyAppSkillResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type getAilyAppSkillResp struct {
+	Code  int64                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string               `json:"msg,omitempty"`  // 错误描述
+	Data  *GetAilyAppSkillResp `json:"data,omitempty"`
+	Error *ErrorDetail         `json:"error,omitempty"`
 }
-
-
-
-

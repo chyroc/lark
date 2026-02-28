@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // RemoveTaskTasklistMembers 移除清单的一个或多个协作成员。通过设置`members`字段表示要移除的成员信息。关于member的格式, 详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 如何表示任务和清单的成员？”章节。
@@ -29,9 +29,8 @@ import (
 // 需要清单编辑权限。详情见[清单功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/overview)中的“清单是如何鉴权的？“章节。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/remove_members
-// 
 func (r *TaskService) RemoveTaskTasklistMembers(ctx context.Context, request *RemoveTaskTasklistMembersReq, options ...MethodOptionFunc) (*RemoveTaskTasklistMembersResp, *Response, error) {
-if r.cli.mock.mockTaskRemoveTaskTasklistMembers != nil {
+	if r.cli.mock.mockTaskRemoveTaskTasklistMembers != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#RemoveTaskTasklistMembers mock enable")
 		return r.cli.mock.mockTaskRemoveTaskTasklistMembers(ctx, request, options...)
 	}
@@ -40,12 +39,11 @@ if r.cli.mock.mockTaskRemoveTaskTasklistMembers != nil {
 		Scope:                 "Task",
 		API:                   "RemoveTaskTasklistMembers",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/task/v2/tasklists/:tasklist_guid/remove_members",
+		URL:                   r.cli.openBaseURL + "/open-apis/task/v2/tasklists/:tasklist_guid/remove_members",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(removeTaskTasklistMembersResp)
 
@@ -57,100 +55,68 @@ if r.cli.mock.mockTaskRemoveTaskTasklistMembers != nil {
 func (r *Mock) MockTaskRemoveTaskTasklistMembers(f func(ctx context.Context, request *RemoveTaskTasklistMembersReq, options ...MethodOptionFunc) (*RemoveTaskTasklistMembersResp, *Response, error)) {
 	r.mockTaskRemoveTaskTasklistMembers = f
 }
+
 // UnMockTaskRemoveTaskTasklistMembers un-mock TaskRemoveTaskTasklistMembers method
 func (r *Mock) UnMockTaskRemoveTaskTasklistMembers() {
 	r.mockTaskRemoveTaskTasklistMembers = nil
 }
 
-
 // RemoveTaskTasklistMembersReq ...
-type RemoveTaskTasklistMembersReq struct { 
-TasklistGuid string `path:"tasklist_guid" json:"-"` // 要移除协作人的清单全局唯一ID示例值: "d300a75f-c56a-4be9-80d1-e47653028ceb" 最大长度: `100` 字符
-UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id默认值: `open_id`
-Members []*RemoveTaskTasklistMembersReqMember `json:"members,omitempty"` // 要移除的member列表。关于member的格式, 详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 如何表示任务和清单的成员？”章节。 长度范围: `1` ～ `500`
+type RemoveTaskTasklistMembersReq struct {
+	TasklistGuid string                                `path:"tasklist_guid" json:"-"` // 要移除协作人的清单全局唯一ID示例值: "d300a75f-c56a-4be9-80d1-e47653028ceb" 最大长度: `100` 字符
+	UserIDType   *IDType                               `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id默认值: `open_id`
+	Members      []*RemoveTaskTasklistMembersReqMember `json:"members,omitempty"`      // 要移除的member列表。关于member的格式, 详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 如何表示任务和清单的成员？”章节。 长度范围: `1` ～ `500`
 }
-
-
-
-
 
 // RemoveTaskTasklistMembersReqMember ...
-type RemoveTaskTasklistMembersReqMember struct { 
-ID *string `json:"id,omitempty"` // 表示member的id示例值: "ou_2cefb2f014f8d0c6c2d2eb7bafb0e54f" 最大长度: `100` 字符
-Type *string `json:"type,omitempty"` // 成员的类型, 支持: 普通用户, 此时member的id是一个表示用户的ID, 比如open_id。具体格式取决于user_id_type参数群组, 此时member的id是一个Open Chat ID应用, 此时member的id是一个应用的ID示例值: "user"默认值: `user`
-Role *string `json:"role,omitempty"` // 清单角色。移除清单成员时该字段不需要填写。示例值: "editor" 最大长度: `20` 字符
+type RemoveTaskTasklistMembersReqMember struct {
+	ID   *string `json:"id,omitempty"`   // 表示member的id示例值: "ou_2cefb2f014f8d0c6c2d2eb7bafb0e54f" 最大长度: `100` 字符
+	Type *string `json:"type,omitempty"` // 成员的类型, 支持: 普通用户, 此时member的id是一个表示用户的ID, 比如open_id。具体格式取决于user_id_type参数群组, 此时member的id是一个Open Chat ID应用, 此时member的id是一个应用的ID示例值: "user"默认值: `user`
+	Role *string `json:"role,omitempty"` // 清单角色。移除清单成员时该字段不需要填写。示例值: "editor" 最大长度: `20` 字符
 }
-
-
-
-
 
 // RemoveTaskTasklistMembersResp ...
-type RemoveTaskTasklistMembersResp struct { 
-Tasklist *RemoveTaskTasklistMembersRespTasklist `json:"tasklist,omitempty"` // 修改完成后的清单实体
+type RemoveTaskTasklistMembersResp struct {
+	Tasklist *RemoveTaskTasklistMembersRespTasklist `json:"tasklist,omitempty"` // 修改完成后的清单实体
 }
-
-
-
-
 
 // RemoveTaskTasklistMembersRespTasklist ...
-type RemoveTaskTasklistMembersRespTasklist struct { 
-Guid string `json:"guid,omitempty"` // 清单的全局唯一ID
-Name string `json:"name,omitempty"` // 清单名
-Creator *RemoveTaskTasklistMembersRespTasklistCreator `json:"creator,omitempty"` // 清单创建者
-Owner *RemoveTaskTasklistMembersRespTasklistOwner `json:"owner,omitempty"` // 清单所有者
-Members []*RemoveTaskTasklistMembersRespTasklistMember `json:"members,omitempty"` // 清单协作成员列表
-URL string `json:"url,omitempty"` // 该清单分享的applink
-CreatedAt string `json:"created_at,omitempty"` // 清单创建时间戳(ms)
-UpdatedAt string `json:"updated_at,omitempty"` // 清单最后一次更新时间戳（ms)
+type RemoveTaskTasklistMembersRespTasklist struct {
+	Guid      string                                         `json:"guid,omitempty"`       // 清单的全局唯一ID
+	Name      string                                         `json:"name,omitempty"`       // 清单名
+	Creator   *RemoveTaskTasklistMembersRespTasklistCreator  `json:"creator,omitempty"`    // 清单创建者
+	Owner     *RemoveTaskTasklistMembersRespTasklistOwner    `json:"owner,omitempty"`      // 清单所有者
+	Members   []*RemoveTaskTasklistMembersRespTasklistMember `json:"members,omitempty"`    // 清单协作成员列表
+	URL       string                                         `json:"url,omitempty"`        // 该清单分享的applink
+	CreatedAt string                                         `json:"created_at,omitempty"` // 清单创建时间戳(ms)
+	UpdatedAt string                                         `json:"updated_at,omitempty"` // 清单最后一次更新时间戳（ms)
 }
-
-
-
-
 
 // RemoveTaskTasklistMembersRespTasklistCreator ...
-type RemoveTaskTasklistMembersRespTasklistCreator struct { 
-ID string `json:"id,omitempty"` // 表示member的id
-Type string `json:"type,omitempty"` // 成员类型
-Role string `json:"role,omitempty"` // 成员角色
+type RemoveTaskTasklistMembersRespTasklistCreator struct {
+	ID   string `json:"id,omitempty"`   // 表示member的id
+	Type string `json:"type,omitempty"` // 成员类型
+	Role string `json:"role,omitempty"` // 成员角色
 }
-
-
-
-
 
 // RemoveTaskTasklistMembersRespTasklistMember ...
-type RemoveTaskTasklistMembersRespTasklistMember struct { 
-ID string `json:"id,omitempty"` // 表示member的id
-Type string `json:"type,omitempty"` // 成员类型
-Role string `json:"role,omitempty"` // 成员角色
+type RemoveTaskTasklistMembersRespTasklistMember struct {
+	ID   string `json:"id,omitempty"`   // 表示member的id
+	Type string `json:"type,omitempty"` // 成员类型
+	Role string `json:"role,omitempty"` // 成员角色
 }
-
-
-
-
 
 // RemoveTaskTasklistMembersRespTasklistOwner ...
-type RemoveTaskTasklistMembersRespTasklistOwner struct { 
-ID string `json:"id,omitempty"` // 表示member的id
-Type string `json:"type,omitempty"` // 成员类型
-Role string `json:"role,omitempty"` // 成员角色
+type RemoveTaskTasklistMembersRespTasklistOwner struct {
+	ID   string `json:"id,omitempty"`   // 表示member的id
+	Type string `json:"type,omitempty"` // 成员类型
+	Role string `json:"role,omitempty"` // 成员角色
 }
-
-
-
-
 
 // removeTaskTasklistMembersResp ...
-type removeTaskTasklistMembersResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *RemoveTaskTasklistMembersResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type removeTaskTasklistMembersResp struct {
+	Code  int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                         `json:"msg,omitempty"`  // 错误描述
+	Data  *RemoveTaskTasklistMembersResp `json:"data,omitempty"`
+	Error *ErrorDetail                   `json:"error,omitempty"`
 }
-
-
-
-

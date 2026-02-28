@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListSecurityAndComplianceOpenapiLogData 该接口用于获取OpenAPI审计日志数据
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/security_and_compliance-v1/openapi_log/list_data
-// 
 func (r *SecurityAndComplianceService) ListSecurityAndComplianceOpenapiLogData(ctx context.Context, request *ListSecurityAndComplianceOpenapiLogDataReq, options ...MethodOptionFunc) (*ListSecurityAndComplianceOpenapiLogDataResp, *Response, error) {
-if r.cli.mock.mockSecurityAndComplianceListSecurityAndComplianceOpenapiLogData != nil {
+	if r.cli.mock.mockSecurityAndComplianceListSecurityAndComplianceOpenapiLogData != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] SecurityAndCompliance#ListSecurityAndComplianceOpenapiLogData mock enable")
 		return r.cli.mock.mockSecurityAndComplianceListSecurityAndComplianceOpenapiLogData(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockSecurityAndComplianceListSecurityAndComplianceOpenapiLogData !
 		Scope:                 "SecurityAndCompliance",
 		API:                   "ListSecurityAndComplianceOpenapiLogData",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/security_and_compliance/v1/openapi_logs/list_data",
+		URL:                   r.cli.openBaseURL + "/open-apis/security_and_compliance/v1/openapi_logs/list_data",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(listSecurityAndComplianceOpenapiLogDataResp)
 
@@ -51,73 +49,53 @@ if r.cli.mock.mockSecurityAndComplianceListSecurityAndComplianceOpenapiLogData !
 func (r *Mock) MockSecurityAndComplianceListSecurityAndComplianceOpenapiLogData(f func(ctx context.Context, request *ListSecurityAndComplianceOpenapiLogDataReq, options ...MethodOptionFunc) (*ListSecurityAndComplianceOpenapiLogDataResp, *Response, error)) {
 	r.mockSecurityAndComplianceListSecurityAndComplianceOpenapiLogData = f
 }
+
 // UnMockSecurityAndComplianceListSecurityAndComplianceOpenapiLogData un-mock SecurityAndComplianceListSecurityAndComplianceOpenapiLogData method
 func (r *Mock) UnMockSecurityAndComplianceListSecurityAndComplianceOpenapiLogData() {
 	r.mockSecurityAndComplianceListSecurityAndComplianceOpenapiLogData = nil
 }
 
-
 // ListSecurityAndComplianceOpenapiLogDataReq ...
-type ListSecurityAndComplianceOpenapiLogDataReq struct { 
-ApiKeys []string `json:"api_keys,omitempty"` // 飞书开放平台定义的API, 参考: [API列表](https://open.feishu.cn/document/server-docs/api-call-guide/server-api-list)示例值: ["POST/open-apis/authen/v1/access_token"] 最大长度: `100`
-StartTime *int64 `json:"start_time,omitempty"` // 以秒为单位的起始时间戳示例值: 1610613336
-EndTime *int64 `json:"end_time,omitempty"` // 以秒为单位的终止时间戳示例值: 1610613336
-AppID *string `json:"app_id,omitempty"` // 调用OpenAPI的应用唯一标识, 可以前往 [开发者后台](https://open.feishu.cn/app) > 应用详情页 > 凭证与基础信息中获取 app_id示例值: "cli_xxx"
-PageSize *int64 `json:"page_size,omitempty"` // 分页大小示例值: 20 取值范围: `1` ～ `100`
-PageToken *string `json:"page_token,omitempty"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: "xxx"
+type ListSecurityAndComplianceOpenapiLogDataReq struct {
+	ApiKeys   []string `json:"api_keys,omitempty"`   // 飞书开放平台定义的API, 参考: [API列表](https://open.feishu.cn/document/server-docs/api-call-guide/server-api-list)示例值: ["POST/open-apis/authen/v1/access_token"] 最大长度: `100`
+	StartTime *int64   `json:"start_time,omitempty"` // 以秒为单位的起始时间戳示例值: 1610613336
+	EndTime   *int64   `json:"end_time,omitempty"`   // 以秒为单位的终止时间戳示例值: 1610613336
+	AppID     *string  `json:"app_id,omitempty"`     // 调用OpenAPI的应用唯一标识, 可以前往 [开发者后台](https://open.feishu.cn/app) > 应用详情页 > 凭证与基础信息中获取 app_id示例值: "cli_xxx"
+	PageSize  *int64   `json:"page_size,omitempty"`  // 分页大小示例值: 20 取值范围: `1` ～ `100`
+	PageToken *string  `json:"page_token,omitempty"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: "xxx"
 }
-
-
-
-
 
 // ListSecurityAndComplianceOpenapiLogDataResp ...
-type ListSecurityAndComplianceOpenapiLogDataResp struct { 
-Items []*ListSecurityAndComplianceOpenapiLogDataRespItem `json:"items,omitempty"` // openapi日志列表
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
+type ListSecurityAndComplianceOpenapiLogDataResp struct {
+	Items     []*ListSecurityAndComplianceOpenapiLogDataRespItem `json:"items,omitempty"`      // openapi日志列表
+	PageToken string                                             `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	HasMore   bool                                               `json:"has_more,omitempty"`   // 是否还有更多项
 }
-
-
-
-
 
 // ListSecurityAndComplianceOpenapiLogDataRespItem ...
-type ListSecurityAndComplianceOpenapiLogDataRespItem struct { 
-ID string `json:"id,omitempty"` // openapi日志唯一标识
-ApiKey string `json:"api_key,omitempty"` // 飞书开放平台定义的API
-EventTime int64 `json:"event_time,omitempty"` // 日志产生的时间, 以秒为单位的时间戳
-AppID string `json:"app_id,omitempty"` // 调用OpenAPI的应用唯一标识
-Ip string `json:"ip,omitempty"` // 发起调用api的ip地址
-LogDetail *ListSecurityAndComplianceOpenapiLogDataRespItemLogDetail `json:"log_detail,omitempty"` // openapi调用日志详情
+type ListSecurityAndComplianceOpenapiLogDataRespItem struct {
+	ID        string                                                    `json:"id,omitempty"`         // openapi日志唯一标识
+	ApiKey    string                                                    `json:"api_key,omitempty"`    // 飞书开放平台定义的API
+	EventTime int64                                                     `json:"event_time,omitempty"` // 日志产生的时间, 以秒为单位的时间戳
+	AppID     string                                                    `json:"app_id,omitempty"`     // 调用OpenAPI的应用唯一标识
+	Ip        string                                                    `json:"ip,omitempty"`         // 发起调用api的ip地址
+	LogDetail *ListSecurityAndComplianceOpenapiLogDataRespItemLogDetail `json:"log_detail,omitempty"` // openapi调用日志详情
 }
-
-
-
-
 
 // ListSecurityAndComplianceOpenapiLogDataRespItemLogDetail ...
-type ListSecurityAndComplianceOpenapiLogDataRespItemLogDetail struct { 
-Path string `json:"path,omitempty"` // http请求路径
-Method string `json:"method,omitempty"` // http请求方法
-QueryParam string `json:"query_param,omitempty"` // http查询参数
-Payload string `json:"payload,omitempty"` // http请求体
-StatusCode int64 `json:"status_code,omitempty"` // http状态码
-Response string `json:"response,omitempty"` // http响应体, 仅返回code, msg, error信息等
+type ListSecurityAndComplianceOpenapiLogDataRespItemLogDetail struct {
+	Path       string `json:"path,omitempty"`        // http请求路径
+	Method     string `json:"method,omitempty"`      // http请求方法
+	QueryParam string `json:"query_param,omitempty"` // http查询参数
+	Payload    string `json:"payload,omitempty"`     // http请求体
+	StatusCode int64  `json:"status_code,omitempty"` // http状态码
+	Response   string `json:"response,omitempty"`    // http响应体, 仅返回code, msg, error信息等
 }
-
-
-
-
 
 // listSecurityAndComplianceOpenapiLogDataResp ...
-type listSecurityAndComplianceOpenapiLogDataResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *ListSecurityAndComplianceOpenapiLogDataResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type listSecurityAndComplianceOpenapiLogDataResp struct {
+	Code  int64                                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                       `json:"msg,omitempty"`  // 错误描述
+	Data  *ListSecurityAndComplianceOpenapiLogDataResp `json:"data,omitempty"`
+	Error *ErrorDetail                                 `json:"error,omitempty"`
 }
-
-
-
-

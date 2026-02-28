@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateCorehrPathwayActive 对通道进行 启用 或 停用 操作
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pathway/active
-// 
 func (r *CorehrService) CreateCorehrPathwayActive(ctx context.Context, request *CreateCorehrPathwayActiveReq, options ...MethodOptionFunc) (*CreateCorehrPathwayActiveResp, *Response, error) {
-if r.cli.mock.mockCorehrCreateCorehrPathwayActive != nil {
+	if r.cli.mock.mockCorehrCreateCorehrPathwayActive != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Corehr#CreateCorehrPathwayActive mock enable")
 		return r.cli.mock.mockCorehrCreateCorehrPathwayActive(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockCorehrCreateCorehrPathwayActive != nil {
 		Scope:                 "Corehr",
 		API:                   "CreateCorehrPathwayActive",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/corehr/v2/pathways/active",
+		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/pathways/active",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createCorehrPathwayActiveResp)
 
@@ -51,38 +49,25 @@ if r.cli.mock.mockCorehrCreateCorehrPathwayActive != nil {
 func (r *Mock) MockCorehrCreateCorehrPathwayActive(f func(ctx context.Context, request *CreateCorehrPathwayActiveReq, options ...MethodOptionFunc) (*CreateCorehrPathwayActiveResp, *Response, error)) {
 	r.mockCorehrCreateCorehrPathwayActive = f
 }
+
 // UnMockCorehrCreateCorehrPathwayActive un-mock CorehrCreateCorehrPathwayActive method
 func (r *Mock) UnMockCorehrCreateCorehrPathwayActive() {
 	r.mockCorehrCreateCorehrPathwayActive = nil
 }
 
-
 // CreateCorehrPathwayActiveReq ...
-type CreateCorehrPathwayActiveReq struct { 
-PathwayID string `json:"pathway_id,omitempty"` // 通道ID。ID获取方式- 调用[创建通道接口](/document-mod/index?fullPath=%2FuAjLw4CM%2FukTMukTMukTM%2Fcorehr-v2%2Fpathway%2Fcreate)后, 从响应结果的`pathway_id`获取。- 监听[通道创建事件](/document-mod/index?fullPath=/uAjLw4CM/ukTMukTMukTM/corehr-v2/pathway/events/created), 当触发该事件后可从事件体内获取`pathway_id`- 监听[通道更新事件](/document-mod/index?fullPath=/uAjLw4CM/ukTMukTMukTM/corehr-v2/pathway/events/updated), 当触发该事件后可从事件体内获取`pathway_id`- 监听[通道删除事件](/document-mod/index?fullPath=%2FuAjLw4CM%2FukTMukTMukTM%2Fcorehr-v2%2Fpathway%2Fevents%2Fdeleted), 当触发该事件后可从事件体内获取`pathway_id`示例值: "6862995757234914823"
-Active bool `json:"active,omitempty"` // 停启用状态；true: 启用, false: 停用示例值: true
+type CreateCorehrPathwayActiveReq struct {
+	PathwayID string `json:"pathway_id,omitempty"` // 通道ID。ID获取方式- 调用[创建通道接口](/document-mod/index?fullPath=%2FuAjLw4CM%2FukTMukTMukTM%2Fcorehr-v2%2Fpathway%2Fcreate)后, 从响应结果的`pathway_id`获取。- 监听[通道创建事件](/document-mod/index?fullPath=/uAjLw4CM/ukTMukTMukTM/corehr-v2/pathway/events/created), 当触发该事件后可从事件体内获取`pathway_id`- 监听[通道更新事件](/document-mod/index?fullPath=/uAjLw4CM/ukTMukTMukTM/corehr-v2/pathway/events/updated), 当触发该事件后可从事件体内获取`pathway_id`- 监听[通道删除事件](/document-mod/index?fullPath=%2FuAjLw4CM%2FukTMukTMukTM%2Fcorehr-v2%2Fpathway%2Fevents%2Fdeleted), 当触发该事件后可从事件体内获取`pathway_id`示例值: "6862995757234914823"
+	Active    bool   `json:"active,omitempty"`     // 停启用状态；true: 启用, false: 停用示例值: true
 }
-
-
-
-
 
 // CreateCorehrPathwayActiveResp ...
-type CreateCorehrPathwayActiveResp struct { 
-}
-
-
-
-
+type CreateCorehrPathwayActiveResp struct{}
 
 // createCorehrPathwayActiveResp ...
-type createCorehrPathwayActiveResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateCorehrPathwayActiveResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createCorehrPathwayActiveResp struct {
+	Code  int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                         `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateCorehrPathwayActiveResp `json:"data,omitempty"`
+	Error *ErrorDetail                   `json:"error,omitempty"`
 }
-
-
-
-

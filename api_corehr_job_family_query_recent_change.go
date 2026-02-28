@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // QueryCorehrJobFamilyRecentChange 查询指定时间范围内当前生效信息发生变更的序列, 即只有序列前生效版本的生效时间在查询时间范围内, 才返回该序列id
@@ -29,9 +29,8 @@ import (
 // - 未来生效的版本数据, 会在生效日期当天凌晨产生变更事件。例如: 今天为1月1日, 新建序列 1月10日生效, 则1月10日凌晨 1点之后可查询到
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_family/query_recent_change
-// 
 func (r *CorehrService) QueryCorehrJobFamilyRecentChange(ctx context.Context, request *QueryCorehrJobFamilyRecentChangeReq, options ...MethodOptionFunc) (*QueryCorehrJobFamilyRecentChangeResp, *Response, error) {
-if r.cli.mock.mockCorehrQueryCorehrJobFamilyRecentChange != nil {
+	if r.cli.mock.mockCorehrQueryCorehrJobFamilyRecentChange != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Corehr#QueryCorehrJobFamilyRecentChange mock enable")
 		return r.cli.mock.mockCorehrQueryCorehrJobFamilyRecentChange(ctx, request, options...)
 	}
@@ -40,11 +39,10 @@ if r.cli.mock.mockCorehrQueryCorehrJobFamilyRecentChange != nil {
 		Scope:                 "Corehr",
 		API:                   "QueryCorehrJobFamilyRecentChange",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/corehr/v2/job_families/query_recent_change",
+		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/job_families/query_recent_change",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(queryCorehrJobFamilyRecentChangeResp)
 
@@ -56,44 +54,32 @@ if r.cli.mock.mockCorehrQueryCorehrJobFamilyRecentChange != nil {
 func (r *Mock) MockCorehrQueryCorehrJobFamilyRecentChange(f func(ctx context.Context, request *QueryCorehrJobFamilyRecentChangeReq, options ...MethodOptionFunc) (*QueryCorehrJobFamilyRecentChangeResp, *Response, error)) {
 	r.mockCorehrQueryCorehrJobFamilyRecentChange = f
 }
+
 // UnMockCorehrQueryCorehrJobFamilyRecentChange un-mock CorehrQueryCorehrJobFamilyRecentChange method
 func (r *Mock) UnMockCorehrQueryCorehrJobFamilyRecentChange() {
 	r.mockCorehrQueryCorehrJobFamilyRecentChange = nil
 }
 
-
 // QueryCorehrJobFamilyRecentChangeReq ...
-type QueryCorehrJobFamilyRecentChangeReq struct { 
-PageSize int64 `query:"page_size" json:"-"` // 分页大小, 最大 2000示例值: 100 取值范围: `1` ～ `2000`
-PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 6891251722631890445
-StartDate string `query:"start_date" json:"-"` // 查询的开始时间, 支持"yyyy-MM-dd HH:MM:SS"示例值: 2024-01-01 00:00:00
-EndDate string `query:"end_date" json:"-"` // 查询的结束时间, 格式 "yyyy-MM-dd HH:MM:SS"示例值: 2024-04-01 00:00:00
+type QueryCorehrJobFamilyRecentChangeReq struct {
+	PageSize  int64   `query:"page_size" json:"-"`  // 分页大小, 最大 2000示例值: 100 取值范围: `1` ～ `2000`
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 6891251722631890445
+	StartDate string  `query:"start_date" json:"-"` // 查询的开始时间, 支持"yyyy-MM-dd HH:MM:SS"示例值: 2024-01-01 00:00:00
+	EndDate   string  `query:"end_date" json:"-"`   // 查询的结束时间, 格式 "yyyy-MM-dd HH:MM:SS"示例值: 2024-04-01 00:00:00
 }
-
-
-
-
 
 // QueryCorehrJobFamilyRecentChangeResp ...
-type QueryCorehrJobFamilyRecentChangeResp struct { 
-JobFamilyIDs []string `json:"job_family_ids,omitempty"` // 序列 ID 列表, 其中包含新建、更新以及删除的ID列表。- 非删除的数据, 可通过[批量查询序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_family/batch_get)获取详情
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
-DeletedJobFamilyIDs []string `json:"deleted_job_family_ids,omitempty"` // 目标查询时间范围内被删除的序列列表, 该列表是  job_family_ids 的子集, 便于获取在指定的[start_date, end_date+1) 的范围内被删除的序列 IDs。- 由于对应的序列已经被删除, 无法通过 ID 查询到历史数据。
+type QueryCorehrJobFamilyRecentChangeResp struct {
+	JobFamilyIDs        []string `json:"job_family_ids,omitempty"`         // 序列 ID 列表, 其中包含新建、更新以及删除的ID列表。- 非删除的数据, 可通过[批量查询序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_family/batch_get)获取详情
+	PageToken           string   `json:"page_token,omitempty"`             // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	HasMore             bool     `json:"has_more,omitempty"`               // 是否还有更多项
+	DeletedJobFamilyIDs []string `json:"deleted_job_family_ids,omitempty"` // 目标查询时间范围内被删除的序列列表, 该列表是  job_family_ids 的子集, 便于获取在指定的[start_date, end_date+1) 的范围内被删除的序列 IDs。- 由于对应的序列已经被删除, 无法通过 ID 查询到历史数据。
 }
-
-
-
-
 
 // queryCorehrJobFamilyRecentChangeResp ...
-type queryCorehrJobFamilyRecentChangeResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *QueryCorehrJobFamilyRecentChangeResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type queryCorehrJobFamilyRecentChangeResp struct {
+	Code  int64                                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                `json:"msg,omitempty"`  // 错误描述
+	Data  *QueryCorehrJobFamilyRecentChangeResp `json:"data,omitempty"`
+	Error *ErrorDetail                          `json:"error,omitempty"`
 }
-
-
-
-

@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // UpdateCardkitCardElement 通过传入 `card_id`（卡片实体 ID）和 `element_id`（组件 ID）, 更新卡片实体中对应组件的属性。
@@ -29,9 +29,8 @@ import (
 // - 调用该接口的应用身份（tenant_access_token）需与创建目标卡片实体的应用身份一致。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card-element/patch
-// 
 func (r *CardkitService) UpdateCardkitCardElement(ctx context.Context, request *UpdateCardkitCardElementReq, options ...MethodOptionFunc) (*UpdateCardkitCardElementResp, *Response, error) {
-if r.cli.mock.mockCardkitUpdateCardkitCardElement != nil {
+	if r.cli.mock.mockCardkitUpdateCardkitCardElement != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Cardkit#UpdateCardkitCardElement mock enable")
 		return r.cli.mock.mockCardkitUpdateCardkitCardElement(ctx, request, options...)
 	}
@@ -40,11 +39,10 @@ if r.cli.mock.mockCardkitUpdateCardkitCardElement != nil {
 		Scope:                 "Cardkit",
 		API:                   "UpdateCardkitCardElement",
 		Method:                "PATCH",
-		URL:   r.cli.openBaseURL + "/open-apis/cardkit/v1/cards/:card_id/elements/:element_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/cardkit/v1/cards/:card_id/elements/:element_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(updateCardkitCardElementResp)
 
@@ -56,41 +54,28 @@ if r.cli.mock.mockCardkitUpdateCardkitCardElement != nil {
 func (r *Mock) MockCardkitUpdateCardkitCardElement(f func(ctx context.Context, request *UpdateCardkitCardElementReq, options ...MethodOptionFunc) (*UpdateCardkitCardElementResp, *Response, error)) {
 	r.mockCardkitUpdateCardkitCardElement = f
 }
+
 // UnMockCardkitUpdateCardkitCardElement un-mock CardkitUpdateCardkitCardElement method
 func (r *Mock) UnMockCardkitUpdateCardkitCardElement() {
 	r.mockCardkitUpdateCardkitCardElement = nil
 }
 
-
 // UpdateCardkitCardElementReq ...
-type UpdateCardkitCardElementReq struct { 
-CardID string `path:"card_id" json:"-"` // 卡片实体 ID。通过[创建卡片实体](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card/create)获取示例值: "7355439197428236291" 长度范围: `1` ～ `20` 字符
-ElementID string `path:"element_id" json:"-"` // 要更新的组件的 ID。对应 JSON 代码中的 `element_id` 属性, 由开发者自定义。示例值: "markdown_1" 长度范围: `1` ～ `20` 字符
-PartialElement string `json:"partial_element,omitempty"` // 组件的新的配置项字段。传入 `element_id` 参数后, 原组件的 ID 将更新。注意: 不支持修改 `tag` 参数。 - 以下示例值未转义, 使用时请注意将其转为 JSON 序列化后的字符串。- 仅支持[卡片 JSON 2.0 结构](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-structure)。示例值: "{\"content\":\"更新后的组件文本\"}" 长度范围: `1` ～ `1000000` 字符
-UUID *string `json:"uuid,omitempty"` // 幂等 ID, 可通过传入唯一的 UUID 以保证相同批次的操作只进行一次。示例值: "a0d69e20-1dd1-458b-k525-dfeca4015204" 长度范围: `1` ～ `64` 字符
-Sequence int64 `json:"sequence,omitempty"` // 操作卡片的序号。用于保证多次更新的时序性。注意: 请确保在通过卡片 OpenAPI 操作同一张卡片时, sequence 的值相较于上一次操作严格递增。 int32 范围（ `1`~`2147483647`）内的正整数。示例值: 1
+type UpdateCardkitCardElementReq struct {
+	CardID         string  `path:"card_id" json:"-"`          // 卡片实体 ID。通过[创建卡片实体](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card/create)获取示例值: "7355439197428236291" 长度范围: `1` ～ `20` 字符
+	ElementID      string  `path:"element_id" json:"-"`       // 要更新的组件的 ID。对应 JSON 代码中的 `element_id` 属性, 由开发者自定义。示例值: "markdown_1" 长度范围: `1` ～ `20` 字符
+	PartialElement string  `json:"partial_element,omitempty"` // 组件的新的配置项字段。传入 `element_id` 参数后, 原组件的 ID 将更新。注意: 不支持修改 `tag` 参数。 - 以下示例值未转义, 使用时请注意将其转为 JSON 序列化后的字符串。- 仅支持[卡片 JSON 2.0 结构](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-structure)。示例值: "{\"content\":\"更新后的组件文本\"}" 长度范围: `1` ～ `1000000` 字符
+	UUID           *string `json:"uuid,omitempty"`            // 幂等 ID, 可通过传入唯一的 UUID 以保证相同批次的操作只进行一次。示例值: "a0d69e20-1dd1-458b-k525-dfeca4015204" 长度范围: `1` ～ `64` 字符
+	Sequence       int64   `json:"sequence,omitempty"`        // 操作卡片的序号。用于保证多次更新的时序性。注意: 请确保在通过卡片 OpenAPI 操作同一张卡片时, sequence 的值相较于上一次操作严格递增。 int32 范围（ `1`~`2147483647`）内的正整数。示例值: 1
 }
-
-
-
-
 
 // UpdateCardkitCardElementResp ...
-type UpdateCardkitCardElementResp struct { 
-}
-
-
-
-
+type UpdateCardkitCardElementResp struct{}
 
 // updateCardkitCardElementResp ...
-type updateCardkitCardElementResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *UpdateCardkitCardElementResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type updateCardkitCardElementResp struct {
+	Code  int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                        `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateCardkitCardElementResp `json:"data,omitempty"`
+	Error *ErrorDetail                  `json:"error,omitempty"`
 }
-
-
-
-

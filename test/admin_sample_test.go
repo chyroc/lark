@@ -37,12 +37,10 @@ func Test_Admin_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Admin
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.AdminResetPassword(ctx, &lark.AdminResetPasswordReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
-
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {
@@ -50,7 +48,6 @@ func Test_Admin_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Admin
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockAdminAdminResetPassword(func(ctx context.Context, request *lark.AdminResetPasswordReq, options ...lark.MethodOptionFunc) (*lark.AdminResetPasswordResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -62,7 +59,6 @@ func Test_Admin_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockAdminGetAdminDeptStats(func(ctx context.Context, request *lark.GetAdminDeptStatsReq, options ...lark.MethodOptionFunc) (*lark.GetAdminDeptStatsResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -74,7 +70,6 @@ func Test_Admin_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockAdminGetAdminUserStats(func(ctx context.Context, request *lark.GetAdminUserStatsReq, options ...lark.MethodOptionFunc) (*lark.GetAdminUserStatsResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -86,7 +81,6 @@ func Test_Admin_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockAdminUploadAdminBadgeImage(func(ctx context.Context, request *lark.UploadAdminBadgeImageReq, options ...lark.MethodOptionFunc) (*lark.UploadAdminBadgeImageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -98,7 +92,6 @@ func Test_Admin_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockAdminCreateAdminBadge(func(ctx context.Context, request *lark.CreateAdminBadgeReq, options ...lark.MethodOptionFunc) (*lark.CreateAdminBadgeResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -110,7 +103,6 @@ func Test_Admin_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockAdminUpdateAdminBadge(func(ctx context.Context, request *lark.UpdateAdminBadgeReq, options ...lark.MethodOptionFunc) (*lark.UpdateAdminBadgeResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -122,7 +114,6 @@ func Test_Admin_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockAdminGetAdminBadgeList(func(ctx context.Context, request *lark.GetAdminBadgeListReq, options ...lark.MethodOptionFunc) (*lark.GetAdminBadgeListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -134,7 +125,6 @@ func Test_Admin_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockAdminGetAdminBadge(func(ctx context.Context, request *lark.GetAdminBadgeReq, options ...lark.MethodOptionFunc) (*lark.GetAdminBadgeResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -146,7 +136,6 @@ func Test_Admin_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockAdminCreateAdminBadgeGrant(func(ctx context.Context, request *lark.CreateAdminBadgeGrantReq, options ...lark.MethodOptionFunc) (*lark.CreateAdminBadgeGrantResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -158,7 +147,6 @@ func Test_Admin_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockAdminUpdateAdminBadgeGrant(func(ctx context.Context, request *lark.UpdateAdminBadgeGrantReq, options ...lark.MethodOptionFunc) (*lark.UpdateAdminBadgeGrantResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -170,7 +158,6 @@ func Test_Admin_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockAdminGetAdminBadgeGrantList(func(ctx context.Context, request *lark.GetAdminBadgeGrantListReq, options ...lark.MethodOptionFunc) (*lark.GetAdminBadgeGrantListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -182,7 +169,6 @@ func Test_Admin_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockAdminGetAdminBadgeGrant(func(ctx context.Context, request *lark.GetAdminBadgeGrantReq, options ...lark.MethodOptionFunc) (*lark.GetAdminBadgeGrantResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -194,7 +180,6 @@ func Test_Admin_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockAdminDeleteAdminBadgeGrant(func(ctx context.Context, request *lark.DeleteAdminBadgeGrantReq, options ...lark.MethodOptionFunc) (*lark.DeleteAdminBadgeGrantResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -204,7 +189,6 @@ func Test_Admin_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
-
 	})
 
 	t.Run("response is failed (mock http)", func(t *testing.T) {
@@ -215,42 +199,36 @@ func Test_Admin_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.AdminResetPassword(ctx, &lark.AdminResetPasswordReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetAdminDeptStats(ctx, &lark.GetAdminDeptStatsReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetAdminUserStats(ctx, &lark.GetAdminUserStatsReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UploadAdminBadgeImage(ctx, &lark.UploadAdminBadgeImageReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateAdminBadge(ctx, &lark.CreateAdminBadgeReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateAdminBadge(ctx, &lark.UpdateAdminBadgeReq{
 				BadgeID: "x",
 			})
@@ -259,14 +237,12 @@ func Test_Admin_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetAdminBadgeList(ctx, &lark.GetAdminBadgeListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetAdminBadge(ctx, &lark.GetAdminBadgeReq{
 				BadgeID: "x",
 			})
@@ -275,7 +251,6 @@ func Test_Admin_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateAdminBadgeGrant(ctx, &lark.CreateAdminBadgeGrantReq{
 				BadgeID: "x",
 			})
@@ -284,7 +259,6 @@ func Test_Admin_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateAdminBadgeGrant(ctx, &lark.UpdateAdminBadgeGrantReq{
 				BadgeID: "x",
 				GrantID: "x",
@@ -294,7 +268,6 @@ func Test_Admin_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetAdminBadgeGrantList(ctx, &lark.GetAdminBadgeGrantListReq{
 				BadgeID: "x",
 			})
@@ -303,7 +276,6 @@ func Test_Admin_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetAdminBadgeGrant(ctx, &lark.GetAdminBadgeGrantReq{
 				BadgeID: "x",
 				GrantID: "x",
@@ -313,7 +285,6 @@ func Test_Admin_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeleteAdminBadgeGrant(ctx, &lark.DeleteAdminBadgeGrantReq{
 				BadgeID: "x",
 				GrantID: "x",
@@ -321,6 +292,5 @@ func Test_Admin_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
-
 	})
 }

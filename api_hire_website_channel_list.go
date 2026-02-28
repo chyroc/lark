@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListHireWebsiteChannel 根据官网 ID 获取推广渠道列表, 支持分页查询。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website-channel/list
-// 
 func (r *HireService) ListHireWebsiteChannel(ctx context.Context, request *ListHireWebsiteChannelReq, options ...MethodOptionFunc) (*ListHireWebsiteChannelResp, *Response, error) {
-if r.cli.mock.mockHireListHireWebsiteChannel != nil {
+	if r.cli.mock.mockHireListHireWebsiteChannel != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#ListHireWebsiteChannel mock enable")
 		return r.cli.mock.mockHireListHireWebsiteChannel(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockHireListHireWebsiteChannel != nil {
 		Scope:                 "Hire",
 		API:                   "ListHireWebsiteChannel",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/websites/:website_id/channels",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/websites/:website_id/channels",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(listHireWebsiteChannelResp)
 
@@ -51,54 +49,38 @@ if r.cli.mock.mockHireListHireWebsiteChannel != nil {
 func (r *Mock) MockHireListHireWebsiteChannel(f func(ctx context.Context, request *ListHireWebsiteChannelReq, options ...MethodOptionFunc) (*ListHireWebsiteChannelResp, *Response, error)) {
 	r.mockHireListHireWebsiteChannel = f
 }
+
 // UnMockHireListHireWebsiteChannel un-mock HireListHireWebsiteChannel method
 func (r *Mock) UnMockHireListHireWebsiteChannel() {
 	r.mockHireListHireWebsiteChannel = nil
 }
 
-
 // ListHireWebsiteChannelReq ...
-type ListHireWebsiteChannelReq struct { 
-WebsiteID string `path:"website_id" json:"-"` // 官网 ID, 可通过[获取招聘官网列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website/list)获取示例值: "1618209327096"
-PageSize *int64 `query:"page_size" json:"-"` // 分页大小示例值: 100默认值: `10` 最大值: `200`
-PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eyJvZmZzZXQiOjEwLCJ0aW1NTUyMjM2NzIsImlkIjpudWxsfQ
+type ListHireWebsiteChannelReq struct {
+	WebsiteID string  `path:"website_id" json:"-"`  // 官网 ID, 可通过[获取招聘官网列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website/list)获取示例值: "1618209327096"
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小示例值: 100默认值: `10` 最大值: `200`
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eyJvZmZzZXQiOjEwLCJ0aW1NTUyMjM2NzIsImlkIjpudWxsfQ
 }
-
-
-
-
 
 // ListHireWebsiteChannelResp ...
-type ListHireWebsiteChannelResp struct { 
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-WebsiteChannelList []*ListHireWebsiteChannelRespWebsiteChannel `json:"website_channel_list,omitempty"` // 官网推广渠道列表
+type ListHireWebsiteChannelResp struct {
+	HasMore            bool                                        `json:"has_more,omitempty"`             // 是否还有更多项
+	PageToken          string                                      `json:"page_token,omitempty"`           // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	WebsiteChannelList []*ListHireWebsiteChannelRespWebsiteChannel `json:"website_channel_list,omitempty"` // 官网推广渠道列表
 }
-
-
-
-
 
 // ListHireWebsiteChannelRespWebsiteChannel ...
-type ListHireWebsiteChannelRespWebsiteChannel struct { 
-ID string `json:"id,omitempty"` // 推广渠道 ID
-Name string `json:"name,omitempty"` // 推广渠道名称
-Link string `json:"link,omitempty"` // 推广渠道链接
-Code string `json:"code,omitempty"` // 推广渠道推广码
+type ListHireWebsiteChannelRespWebsiteChannel struct {
+	ID   string `json:"id,omitempty"`   // 推广渠道 ID
+	Name string `json:"name,omitempty"` // 推广渠道名称
+	Link string `json:"link,omitempty"` // 推广渠道链接
+	Code string `json:"code,omitempty"` // 推广渠道推广码
 }
-
-
-
-
 
 // listHireWebsiteChannelResp ...
-type listHireWebsiteChannelResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *ListHireWebsiteChannelResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type listHireWebsiteChannelResp struct {
+	Code  int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                      `json:"msg,omitempty"`  // 错误描述
+	Data  *ListHireWebsiteChannelResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }
-
-
-
-

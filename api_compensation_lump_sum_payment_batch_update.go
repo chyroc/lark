@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // BatchUpdateCompensationLumpSumPayment 通过传入的一次性支付记录数据, 校验并更正一次性支付记录, 并返回更正失败原因
@@ -28,9 +28,8 @@ import (
 // - 仅当出现非预期异常时, 响应体 code 才会为非 0
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/lump_sum_payment/batch_update
-// 
 func (r *CompensationService) BatchUpdateCompensationLumpSumPayment(ctx context.Context, request *BatchUpdateCompensationLumpSumPaymentReq, options ...MethodOptionFunc) (*BatchUpdateCompensationLumpSumPaymentResp, *Response, error) {
-if r.cli.mock.mockCompensationBatchUpdateCompensationLumpSumPayment != nil {
+	if r.cli.mock.mockCompensationBatchUpdateCompensationLumpSumPayment != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Compensation#BatchUpdateCompensationLumpSumPayment mock enable")
 		return r.cli.mock.mockCompensationBatchUpdateCompensationLumpSumPayment(ctx, request, options...)
 	}
@@ -39,11 +38,10 @@ if r.cli.mock.mockCompensationBatchUpdateCompensationLumpSumPayment != nil {
 		Scope:                 "Compensation",
 		API:                   "BatchUpdateCompensationLumpSumPayment",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/compensation/v1/lump_sum_payment/batch_update",
+		URL:                   r.cli.openBaseURL + "/open-apis/compensation/v1/lump_sum_payment/batch_update",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(batchUpdateCompensationLumpSumPaymentResp)
 
@@ -55,85 +53,61 @@ if r.cli.mock.mockCompensationBatchUpdateCompensationLumpSumPayment != nil {
 func (r *Mock) MockCompensationBatchUpdateCompensationLumpSumPayment(f func(ctx context.Context, request *BatchUpdateCompensationLumpSumPaymentReq, options ...MethodOptionFunc) (*BatchUpdateCompensationLumpSumPaymentResp, *Response, error)) {
 	r.mockCompensationBatchUpdateCompensationLumpSumPayment = f
 }
+
 // UnMockCompensationBatchUpdateCompensationLumpSumPayment un-mock CompensationBatchUpdateCompensationLumpSumPayment method
 func (r *Mock) UnMockCompensationBatchUpdateCompensationLumpSumPayment() {
 	r.mockCompensationBatchUpdateCompensationLumpSumPayment = nil
 }
 
-
 // BatchUpdateCompensationLumpSumPaymentReq ...
-type BatchUpdateCompensationLumpSumPaymentReq struct { 
-Records []*BatchUpdateCompensationLumpSumPaymentReqRecord `json:"records,omitempty"` // 要更正的一次性支付记录列表 长度范围: `0` ～ `500`
+type BatchUpdateCompensationLumpSumPaymentReq struct {
+	Records []*BatchUpdateCompensationLumpSumPaymentReqRecord `json:"records,omitempty"` // 要更正的一次性支付记录列表 长度范围: `0` ～ `500`
 }
-
-
-
-
 
 // BatchUpdateCompensationLumpSumPaymentReqRecord ...
-type BatchUpdateCompensationLumpSumPaymentReqRecord struct { 
-ID *string `json:"id,omitempty"` // 一次性支付记录 id（通过[【查询一次性支付记录】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/lump_sum_payment/query) 接口进行查询）示例值: "7397033607132351532" 长度范围: `0` ～ `255` 字符
-TotalAmount int64 `json:"total_amount,omitempty"` // 总金额, 字符串表达的数字, 单位为该一次性支付记录 currency_id 对应的币种示例值: "2000.00" 长度范围: `0` ～ `255` 字符
-BindingPeriod *int64 `json:"binding_period,omitempty"` // 绑定期, 单位为月示例值: 2 取值范围: `0` ～ `2147483647`
-CurrencyID string `json:"currency_id,omitempty"` // 币种 id（通过[【查询币种】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)) 接口进行查询）示例值: "6863329932261459464" 长度范围: `0` ～ `255` 字符
-IssuanceFrequency int64 `json:"issuance_frequency,omitempty"` // 发放次数, 必须与 details 的长度一致示例值: 3 取值范围: `0` ～ `2147483647`
-Remark *string `json:"remark,omitempty"` // 备注示例值: "该员工奖金数据不正确, 予以更正" 长度范围: `0` ～ `3000` 字符
-ReferencePeriodStartDate *string `json:"reference_period_start_date,omitempty"` // 所属期开始日期示例值: "2024-08-01" 长度范围: `0` ～ `255` 字符
-ReferencePeriodEndDate *string `json:"reference_period_end_date,omitempty"` // 所属期结束日期示例值: "2024-08-01" 长度范围: `0` ～ `255` 字符
-Details []*BatchUpdateCompensationLumpSumPaymentReqRecordDetail `json:"details,omitempty"` // 发放明细列表 长度范围: `0` ～ `2147483647`
-BindingPeriodDecimal *string `json:"binding_period_decimal,omitempty"` // 绑定期带小数示例值: "12" 长度范围: `0` ～ `255` 字符
-OperationSource *string `json:"operation_source,omitempty"` // 操作来源示例值: "apaas_spot" 长度范围: `0` ～ `255` 字符
+type BatchUpdateCompensationLumpSumPaymentReqRecord struct {
+	ID                       *string                                                 `json:"id,omitempty"`                          // 一次性支付记录 id（通过[【查询一次性支付记录】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/lump_sum_payment/query) 接口进行查询）示例值: "7397033607132351532" 长度范围: `0` ～ `255` 字符
+	TotalAmount              int64                                                   `json:"total_amount,omitempty"`                // 总金额, 字符串表达的数字, 单位为该一次性支付记录 currency_id 对应的币种示例值: "2000.00" 长度范围: `0` ～ `255` 字符
+	BindingPeriod            *int64                                                  `json:"binding_period,omitempty"`              // 绑定期, 单位为月示例值: 2 取值范围: `0` ～ `2147483647`
+	CurrencyID               string                                                  `json:"currency_id,omitempty"`                 // 币种 id（通过[【查询币种】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)) 接口进行查询）示例值: "6863329932261459464" 长度范围: `0` ～ `255` 字符
+	IssuanceFrequency        int64                                                   `json:"issuance_frequency,omitempty"`          // 发放次数, 必须与 details 的长度一致示例值: 3 取值范围: `0` ～ `2147483647`
+	Remark                   *string                                                 `json:"remark,omitempty"`                      // 备注示例值: "该员工奖金数据不正确, 予以更正" 长度范围: `0` ～ `3000` 字符
+	ReferencePeriodStartDate *string                                                 `json:"reference_period_start_date,omitempty"` // 所属期开始日期示例值: "2024-08-01" 长度范围: `0` ～ `255` 字符
+	ReferencePeriodEndDate   *string                                                 `json:"reference_period_end_date,omitempty"`   // 所属期结束日期示例值: "2024-08-01" 长度范围: `0` ～ `255` 字符
+	Details                  []*BatchUpdateCompensationLumpSumPaymentReqRecordDetail `json:"details,omitempty"`                     // 发放明细列表 长度范围: `0` ～ `2147483647`
+	BindingPeriodDecimal     *string                                                 `json:"binding_period_decimal,omitempty"`      // 绑定期带小数示例值: "12" 长度范围: `0` ～ `255` 字符
+	OperationSource          *string                                                 `json:"operation_source,omitempty"`            // 操作来源示例值: "apaas_spot" 长度范围: `0` ～ `255` 字符
 }
-
-
-
-
 
 // BatchUpdateCompensationLumpSumPaymentReqRecordDetail ...
-type BatchUpdateCompensationLumpSumPaymentReqRecordDetail struct { 
-ID *string `json:"id,omitempty"` // 一次性支付记录明细id, 若需要基于已有记录进行更正, 请传入（通过[【查询一次性支付记录】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/lump_sum_payment/query) 接口进行查询）示例值: "7395133551102200876" 长度范围: `0` ～ `255` 字符
-IssuanceAmount *string `json:"issuance_amount,omitempty"` // 一次性支付明细发放金额, 可转数字的字符串, 单位为该一次性支付记录 currency_id 对应的币种示例值: "2000.00" 长度范围: `0` ～ `255` 字符
-IssuanceStatus *string `json:"issuance_status,omitempty"` // 发放状态示例值: "to_be_issued"可选值有: 应发放不发放 长度范围: `0` ～ `255` 字符
-IssuanceWay *string `json:"issuance_way,omitempty"` // 发放方式示例值: "with_salary"可选值有: 随工资发放现金发放随年终奖发放
-IssuanceTime *string `json:"issuance_time,omitempty"` // 发放时间示例值: "2024-08-20" 长度范围: `0` ～ `255` 字符
-BelongTime *string `json:"belong_time,omitempty"` // 申请发放日期示例值: "2025-01-20" 长度范围: `0` ～ `255` 字符
-IssuanceCountryRegionID *string `json:"issuance_country_region_id,omitempty"` // 发放国家ID（可通过[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)进行查询）示例值: "6862995757234914824" 长度范围: `0` ～ `255` 字符
-IssuancePayGroupID *string `json:"issuance_pay_group_id,omitempty"` // 发放薪资组ID（可通过[获取薪资组基本信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list)进行查询）示例值: "6862995757234914824" 长度范围: `0` ～ `255` 字符
+type BatchUpdateCompensationLumpSumPaymentReqRecordDetail struct {
+	ID                      *string `json:"id,omitempty"`                         // 一次性支付记录明细id, 若需要基于已有记录进行更正, 请传入（通过[【查询一次性支付记录】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/lump_sum_payment/query) 接口进行查询）示例值: "7395133551102200876" 长度范围: `0` ～ `255` 字符
+	IssuanceAmount          *string `json:"issuance_amount,omitempty"`            // 一次性支付明细发放金额, 可转数字的字符串, 单位为该一次性支付记录 currency_id 对应的币种示例值: "2000.00" 长度范围: `0` ～ `255` 字符
+	IssuanceStatus          *string `json:"issuance_status,omitempty"`            // 发放状态示例值: "to_be_issued"可选值有: 应发放不发放 长度范围: `0` ～ `255` 字符
+	IssuanceWay             *string `json:"issuance_way,omitempty"`               // 发放方式示例值: "with_salary"可选值有: 随工资发放现金发放随年终奖发放
+	IssuanceTime            *string `json:"issuance_time,omitempty"`              // 发放时间示例值: "2024-08-20" 长度范围: `0` ～ `255` 字符
+	BelongTime              *string `json:"belong_time,omitempty"`                // 申请发放日期示例值: "2025-01-20" 长度范围: `0` ～ `255` 字符
+	IssuanceCountryRegionID *string `json:"issuance_country_region_id,omitempty"` // 发放国家ID（可通过[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)进行查询）示例值: "6862995757234914824" 长度范围: `0` ～ `255` 字符
+	IssuancePayGroupID      *string `json:"issuance_pay_group_id,omitempty"`      // 发放薪资组ID（可通过[获取薪资组基本信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list)进行查询）示例值: "6862995757234914824" 长度范围: `0` ～ `255` 字符
 }
-
-
-
-
 
 // BatchUpdateCompensationLumpSumPaymentResp ...
-type BatchUpdateCompensationLumpSumPaymentResp struct { 
-OperateResults []*BatchUpdateCompensationLumpSumPaymentRespOperateResult `json:"operate_results,omitempty"` // 每条记录的操作结果。对于创建成功的记录, 会返回创建后的一次性支付记录id
+type BatchUpdateCompensationLumpSumPaymentResp struct {
+	OperateResults []*BatchUpdateCompensationLumpSumPaymentRespOperateResult `json:"operate_results,omitempty"` // 每条记录的操作结果。对于创建成功的记录, 会返回创建后的一次性支付记录id
 }
-
-
-
-
 
 // BatchUpdateCompensationLumpSumPaymentRespOperateResult ...
-type BatchUpdateCompensationLumpSumPaymentRespOperateResult struct { 
-ID string `json:"id,omitempty"` // 操作的记录的 id
-UniqueID string `json:"unique_id,omitempty"` // 操作的记录的 unique_id
-Code int64 `json:"code,omitempty"` // 操作结果状态码可选值有: "Success" 操作成功"The bonus to be changed does not exist" 要更改的奖金不存在"Idempotent ID conflict" 幂等id冲突"The total amount format is incorrect" 总金额格式不正确"Only use the number of decimal places specified in the bonus item rules" 仅限使用奖金项规则中规定的小数位数"The sum of the bonus details does not equal the total amount" 奖金明细金额之和不等于总金额"issuance frequency not equal to size of details" 奖金明细总数不等于发放次数"The number of issuances is less than or equal to 0" 发放次数小于等于0"The currency is empty or does not exist" 币种为空或不存在"Notes are too long" 备注超长"The bonus details amount format is incorrect" 奖金明细金额格式不正确"The bonus details payment time format is incorrect" 奖金明细的发放时间格式不正确"The bonus details are issued in an illegal manner" 奖金明细的发放方式不合法"The bonus details are not in a valid payment status" 奖金明细的发放状态不合法"Employees are not covered by the bonus rules" 员工不在奖金项规则适用范围之内"The method of awarding bonus details is not covered by the bonus item rules" 奖金明细的发放方式不在奖金项规则适用范围之内"Bonus item rules do not support configuration of binding period" 奖金项规则不支持配置绑定期"The bonus details payment status is "paid", and cannot be modified" 奖金明细发放状态为「已发放」, 不支持修改"The bonus item rules already include the currency, and other currencies cannot be specified" 奖金项规则已包含币种, 不支持指定其他币种"The salary item does not exist" 薪酬项不存在"Employee does not exist" 员工不存在"The bonus details payment status is "paid", and deletion is not supported" 奖金明细发放状态为「已发放」, 不支持删除"Bonus rules do not allow multiple awards" 奖金项规则不允许多次发放"No data permission" 无数据权限"Only positive integers are allowed for the binding period" 绑定期只允许正整数"This bonus does not currently support custom binding periods. Please configure and write according to the rules for the binding period of the salary item" 该奖金暂不支持自定义绑定期, 请按照薪酬项绑定期规则配置写入"The application issuance date must not be later than the issuance date" 申请发放日期不得晚于发放日期"The application payment date format of the bonus details is incorrect" 奖金明细的申请发放日期格式不正确"The binding period and the ownership period start and end dates do not match"       绑定期和所属期开始结束日期不匹配
-Message string `json:"message,omitempty"` // 操作结果描述
+type BatchUpdateCompensationLumpSumPaymentRespOperateResult struct {
+	ID       string `json:"id,omitempty"`        // 操作的记录的 id
+	UniqueID string `json:"unique_id,omitempty"` // 操作的记录的 unique_id
+	Code     int64  `json:"code,omitempty"`      // 操作结果状态码可选值有: "Success" 操作成功"The bonus to be changed does not exist" 要更改的奖金不存在"Idempotent ID conflict" 幂等id冲突"The total amount format is incorrect" 总金额格式不正确"Only use the number of decimal places specified in the bonus item rules" 仅限使用奖金项规则中规定的小数位数"The sum of the bonus details does not equal the total amount" 奖金明细金额之和不等于总金额"issuance frequency not equal to size of details" 奖金明细总数不等于发放次数"The number of issuances is less than or equal to 0" 发放次数小于等于0"The currency is empty or does not exist" 币种为空或不存在"Notes are too long" 备注超长"The bonus details amount format is incorrect" 奖金明细金额格式不正确"The bonus details payment time format is incorrect" 奖金明细的发放时间格式不正确"The bonus details are issued in an illegal manner" 奖金明细的发放方式不合法"The bonus details are not in a valid payment status" 奖金明细的发放状态不合法"Employees are not covered by the bonus rules" 员工不在奖金项规则适用范围之内"The method of awarding bonus details is not covered by the bonus item rules" 奖金明细的发放方式不在奖金项规则适用范围之内"Bonus item rules do not support configuration of binding period" 奖金项规则不支持配置绑定期"The bonus details payment status is "paid", and cannot be modified" 奖金明细发放状态为「已发放」, 不支持修改"The bonus item rules already include the currency, and other currencies cannot be specified" 奖金项规则已包含币种, 不支持指定其他币种"The salary item does not exist" 薪酬项不存在"Employee does not exist" 员工不存在"The bonus details payment status is "paid", and deletion is not supported" 奖金明细发放状态为「已发放」, 不支持删除"Bonus rules do not allow multiple awards" 奖金项规则不允许多次发放"No data permission" 无数据权限"Only positive integers are allowed for the binding period" 绑定期只允许正整数"This bonus does not currently support custom binding periods. Please configure and write according to the rules for the binding period of the salary item" 该奖金暂不支持自定义绑定期, 请按照薪酬项绑定期规则配置写入"The application issuance date must not be later than the issuance date" 申请发放日期不得晚于发放日期"The application payment date format of the bonus details is incorrect" 奖金明细的申请发放日期格式不正确"The binding period and the ownership period start and end dates do not match"       绑定期和所属期开始结束日期不匹配
+	Message  string `json:"message,omitempty"`   // 操作结果描述
 }
-
-
-
-
 
 // batchUpdateCompensationLumpSumPaymentResp ...
-type batchUpdateCompensationLumpSumPaymentResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *BatchUpdateCompensationLumpSumPaymentResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type batchUpdateCompensationLumpSumPaymentResp struct {
+	Code  int64                                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                     `json:"msg,omitempty"`  // 错误描述
+	Data  *BatchUpdateCompensationLumpSumPaymentResp `json:"data,omitempty"`
+	Error *ErrorDetail                               `json:"error,omitempty"`
 }
-
-
-
-

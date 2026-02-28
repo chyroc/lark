@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // DeleteHireWebsiteChannel 根据招聘官网 ID 和推广渠道 ID 删除推广渠道。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website-channel/delete
-// 
 func (r *HireService) DeleteHireWebsiteChannel(ctx context.Context, request *DeleteHireWebsiteChannelReq, options ...MethodOptionFunc) (*DeleteHireWebsiteChannelResp, *Response, error) {
-if r.cli.mock.mockHireDeleteHireWebsiteChannel != nil {
+	if r.cli.mock.mockHireDeleteHireWebsiteChannel != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#DeleteHireWebsiteChannel mock enable")
 		return r.cli.mock.mockHireDeleteHireWebsiteChannel(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockHireDeleteHireWebsiteChannel != nil {
 		Scope:                 "Hire",
 		API:                   "DeleteHireWebsiteChannel",
 		Method:                "DELETE",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/websites/:website_id/channels/:channel_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/websites/:website_id/channels/:channel_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(deleteHireWebsiteChannelResp)
 
@@ -51,38 +49,25 @@ if r.cli.mock.mockHireDeleteHireWebsiteChannel != nil {
 func (r *Mock) MockHireDeleteHireWebsiteChannel(f func(ctx context.Context, request *DeleteHireWebsiteChannelReq, options ...MethodOptionFunc) (*DeleteHireWebsiteChannelResp, *Response, error)) {
 	r.mockHireDeleteHireWebsiteChannel = f
 }
+
 // UnMockHireDeleteHireWebsiteChannel un-mock HireDeleteHireWebsiteChannel method
 func (r *Mock) UnMockHireDeleteHireWebsiteChannel() {
 	r.mockHireDeleteHireWebsiteChannel = nil
 }
 
-
 // DeleteHireWebsiteChannelReq ...
-type DeleteHireWebsiteChannelReq struct { 
-WebsiteID string `path:"website_id" json:"-"` // 官网 ID, 可通过[获取招聘官网列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website/list)获取示例值: "1618209327096"
-ChannelID string `path:"channel_id" json:"-"` // 推广渠道 ID, 可通过[获取推广渠道列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website-channel/list)获取示例值: "7085989097067563300"
+type DeleteHireWebsiteChannelReq struct {
+	WebsiteID string `path:"website_id" json:"-"` // 官网 ID, 可通过[获取招聘官网列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website/list)获取示例值: "1618209327096"
+	ChannelID string `path:"channel_id" json:"-"` // 推广渠道 ID, 可通过[获取推广渠道列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website-channel/list)获取示例值: "7085989097067563300"
 }
-
-
-
-
 
 // DeleteHireWebsiteChannelResp ...
-type DeleteHireWebsiteChannelResp struct { 
-}
-
-
-
-
+type DeleteHireWebsiteChannelResp struct{}
 
 // deleteHireWebsiteChannelResp ...
-type deleteHireWebsiteChannelResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *DeleteHireWebsiteChannelResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type deleteHireWebsiteChannelResp struct {
+	Code  int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                        `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteHireWebsiteChannelResp `json:"data,omitempty"`
+	Error *ErrorDetail                  `json:"error,omitempty"`
 }
-
-
-
-

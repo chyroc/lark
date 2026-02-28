@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // DeleteHireTripartiteAgreement 删除投递的三方协议。
@@ -27,9 +27,8 @@ import (
 // 在「飞书招聘」-「设置」-「候选人流程管理」-「三方协议设置」中勾选了「通过 API 维护三方协议」。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/tripartite_agreement/delete
-// 
 func (r *HireService) DeleteHireTripartiteAgreement(ctx context.Context, request *DeleteHireTripartiteAgreementReq, options ...MethodOptionFunc) (*DeleteHireTripartiteAgreementResp, *Response, error) {
-if r.cli.mock.mockHireDeleteHireTripartiteAgreement != nil {
+	if r.cli.mock.mockHireDeleteHireTripartiteAgreement != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#DeleteHireTripartiteAgreement mock enable")
 		return r.cli.mock.mockHireDeleteHireTripartiteAgreement(ctx, request, options...)
 	}
@@ -38,11 +37,10 @@ if r.cli.mock.mockHireDeleteHireTripartiteAgreement != nil {
 		Scope:                 "Hire",
 		API:                   "DeleteHireTripartiteAgreement",
 		Method:                "DELETE",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/tripartite_agreements/:tripartite_agreement_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/tripartite_agreements/:tripartite_agreement_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(deleteHireTripartiteAgreementResp)
 
@@ -54,37 +52,24 @@ if r.cli.mock.mockHireDeleteHireTripartiteAgreement != nil {
 func (r *Mock) MockHireDeleteHireTripartiteAgreement(f func(ctx context.Context, request *DeleteHireTripartiteAgreementReq, options ...MethodOptionFunc) (*DeleteHireTripartiteAgreementResp, *Response, error)) {
 	r.mockHireDeleteHireTripartiteAgreement = f
 }
+
 // UnMockHireDeleteHireTripartiteAgreement un-mock HireDeleteHireTripartiteAgreement method
 func (r *Mock) UnMockHireDeleteHireTripartiteAgreement() {
 	r.mockHireDeleteHireTripartiteAgreement = nil
 }
 
-
 // DeleteHireTripartiteAgreementReq ...
-type DeleteHireTripartiteAgreementReq struct { 
-TripartiteAgreementID string `path:"tripartite_agreement_id" json:"-"` // 三方协议 ID, 由[创建三方协议](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/tripartite_agreement/create)接口返回或通过[获取三方协议](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/tripartite_agreement/list)获取示例值: "6930815272790114324"
+type DeleteHireTripartiteAgreementReq struct {
+	TripartiteAgreementID string `path:"tripartite_agreement_id" json:"-"` // 三方协议 ID, 由[创建三方协议](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/tripartite_agreement/create)接口返回或通过[获取三方协议](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/tripartite_agreement/list)获取示例值: "6930815272790114324"
 }
-
-
-
-
 
 // DeleteHireTripartiteAgreementResp ...
-type DeleteHireTripartiteAgreementResp struct { 
-}
-
-
-
-
+type DeleteHireTripartiteAgreementResp struct{}
 
 // deleteHireTripartiteAgreementResp ...
-type deleteHireTripartiteAgreementResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *DeleteHireTripartiteAgreementResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type deleteHireTripartiteAgreementResp struct {
+	Code  int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                             `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteHireTripartiteAgreementResp `json:"data,omitempty"`
+	Error *ErrorDetail                       `json:"error,omitempty"`
 }
-
-
-
-

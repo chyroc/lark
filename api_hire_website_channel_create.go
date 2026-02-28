@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateHireWebsiteChannel 新建指定官网的推广渠道。每个官网可以新建多个推广渠道, 每个推广渠道具有不同的推广链接和推广码。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website-channel/create
-// 
 func (r *HireService) CreateHireWebsiteChannel(ctx context.Context, request *CreateHireWebsiteChannelReq, options ...MethodOptionFunc) (*CreateHireWebsiteChannelResp, *Response, error) {
-if r.cli.mock.mockHireCreateHireWebsiteChannel != nil {
+	if r.cli.mock.mockHireCreateHireWebsiteChannel != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#CreateHireWebsiteChannel mock enable")
 		return r.cli.mock.mockHireCreateHireWebsiteChannel(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockHireCreateHireWebsiteChannel != nil {
 		Scope:                 "Hire",
 		API:                   "CreateHireWebsiteChannel",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/websites/:website_id/channels",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/websites/:website_id/channels",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createHireWebsiteChannelResp)
 
@@ -51,42 +49,30 @@ if r.cli.mock.mockHireCreateHireWebsiteChannel != nil {
 func (r *Mock) MockHireCreateHireWebsiteChannel(f func(ctx context.Context, request *CreateHireWebsiteChannelReq, options ...MethodOptionFunc) (*CreateHireWebsiteChannelResp, *Response, error)) {
 	r.mockHireCreateHireWebsiteChannel = f
 }
+
 // UnMockHireCreateHireWebsiteChannel un-mock HireCreateHireWebsiteChannel method
 func (r *Mock) UnMockHireCreateHireWebsiteChannel() {
 	r.mockHireCreateHireWebsiteChannel = nil
 }
 
-
 // CreateHireWebsiteChannelReq ...
-type CreateHireWebsiteChannelReq struct { 
-WebsiteID string `path:"website_id" json:"-"` // 官网 ID, 可通过[获取招聘官网列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website/list)获取示例值: "1618209327096"
-ChannelName string `json:"channel_name,omitempty"` // 推广渠道名称示例值: "微信推广渠道"
+type CreateHireWebsiteChannelReq struct {
+	WebsiteID   string `path:"website_id" json:"-"`    // 官网 ID, 可通过[获取招聘官网列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website/list)获取示例值: "1618209327096"
+	ChannelName string `json:"channel_name,omitempty"` // 推广渠道名称示例值: "微信推广渠道"
 }
-
-
-
-
 
 // CreateHireWebsiteChannelResp ...
-type CreateHireWebsiteChannelResp struct { 
-ID string `json:"id,omitempty"` // 推广渠道 ID
-Name string `json:"name,omitempty"` // 推广渠道名称
-Link string `json:"link,omitempty"` // 推广渠道链接
-Code string `json:"code,omitempty"` // 推广渠道推广码
+type CreateHireWebsiteChannelResp struct {
+	ID   string `json:"id,omitempty"`   // 推广渠道 ID
+	Name string `json:"name,omitempty"` // 推广渠道名称
+	Link string `json:"link,omitempty"` // 推广渠道链接
+	Code string `json:"code,omitempty"` // 推广渠道推广码
 }
-
-
-
-
 
 // createHireWebsiteChannelResp ...
-type createHireWebsiteChannelResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateHireWebsiteChannelResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createHireWebsiteChannelResp struct {
+	Code  int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                        `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateHireWebsiteChannelResp `json:"data,omitempty"`
+	Error *ErrorDetail                  `json:"error,omitempty"`
 }
-
-
-
-

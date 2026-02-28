@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // BatchRemoveApaasApplicationRoleMemberAuthorization 批量删除角色成员授权
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/application-role-member/batch_remove_authorization
-// 
 func (r *ApaasService) BatchRemoveApaasApplicationRoleMemberAuthorization(ctx context.Context, request *BatchRemoveApaasApplicationRoleMemberAuthorizationReq, options ...MethodOptionFunc) (*BatchRemoveApaasApplicationRoleMemberAuthorizationResp, *Response, error) {
-if r.cli.mock.mockApaasBatchRemoveApaasApplicationRoleMemberAuthorization != nil {
+	if r.cli.mock.mockApaasBatchRemoveApaasApplicationRoleMemberAuthorization != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Apaas#BatchRemoveApaasApplicationRoleMemberAuthorization mock enable")
 		return r.cli.mock.mockApaasBatchRemoveApaasApplicationRoleMemberAuthorization(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockApaasBatchRemoveApaasApplicationRoleMemberAuthorization != nil
 		Scope:                 "Apaas",
 		API:                   "BatchRemoveApaasApplicationRoleMemberAuthorization",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/apaas/v1/applications/:namespace/roles/:role_api_name/member/batch_remove_authorization",
+		URL:                   r.cli.openBaseURL + "/open-apis/apaas/v1/applications/:namespace/roles/:role_api_name/member/batch_remove_authorization",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(batchRemoveApaasApplicationRoleMemberAuthorizationResp)
 
@@ -51,40 +49,27 @@ if r.cli.mock.mockApaasBatchRemoveApaasApplicationRoleMemberAuthorization != nil
 func (r *Mock) MockApaasBatchRemoveApaasApplicationRoleMemberAuthorization(f func(ctx context.Context, request *BatchRemoveApaasApplicationRoleMemberAuthorizationReq, options ...MethodOptionFunc) (*BatchRemoveApaasApplicationRoleMemberAuthorizationResp, *Response, error)) {
 	r.mockApaasBatchRemoveApaasApplicationRoleMemberAuthorization = f
 }
+
 // UnMockApaasBatchRemoveApaasApplicationRoleMemberAuthorization un-mock ApaasBatchRemoveApaasApplicationRoleMemberAuthorization method
 func (r *Mock) UnMockApaasBatchRemoveApaasApplicationRoleMemberAuthorization() {
 	r.mockApaasBatchRemoveApaasApplicationRoleMemberAuthorization = nil
 }
 
-
 // BatchRemoveApaasApplicationRoleMemberAuthorizationReq ...
-type BatchRemoveApaasApplicationRoleMemberAuthorizationReq struct { 
-Namespace string `path:"namespace" json:"-"` // 应用命名空间示例值: "package_test__c" 长度范围: `0` ～ `255` 字符
-RoleApiName string `path:"role_api_name" json:"-"` // 角色 API 名称示例值: "adminRole" 长度范围: `0` ～ `255` 字符
-UserIDs []string `json:"user_ids,omitempty"` // 需要删除的用户 ID 列表, 使用飞书 aPaaS 的用户 ID示例值: ["1802412778084426"] 长度范围: `0` ～ `1000`
-DepartmentIDs []string `json:"department_ids,omitempty"` // 需要删除的部门 ID 列表, 使用飞书 aPaaS 的部门 ID示例值: ["1802412778084426"] 长度范围: `0` ～ `1000`
+type BatchRemoveApaasApplicationRoleMemberAuthorizationReq struct {
+	Namespace     string   `path:"namespace" json:"-"`       // 应用命名空间示例值: "package_test__c" 长度范围: `0` ～ `255` 字符
+	RoleApiName   string   `path:"role_api_name" json:"-"`   // 角色 API 名称示例值: "adminRole" 长度范围: `0` ～ `255` 字符
+	UserIDs       []string `json:"user_ids,omitempty"`       // 需要删除的用户 ID 列表, 使用飞书 aPaaS 的用户 ID示例值: ["1802412778084426"] 长度范围: `0` ～ `1000`
+	DepartmentIDs []string `json:"department_ids,omitempty"` // 需要删除的部门 ID 列表, 使用飞书 aPaaS 的部门 ID示例值: ["1802412778084426"] 长度范围: `0` ～ `1000`
 }
-
-
-
-
 
 // BatchRemoveApaasApplicationRoleMemberAuthorizationResp ...
-type BatchRemoveApaasApplicationRoleMemberAuthorizationResp struct { 
-}
-
-
-
-
+type BatchRemoveApaasApplicationRoleMemberAuthorizationResp struct{}
 
 // batchRemoveApaasApplicationRoleMemberAuthorizationResp ...
-type batchRemoveApaasApplicationRoleMemberAuthorizationResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *BatchRemoveApaasApplicationRoleMemberAuthorizationResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type batchRemoveApaasApplicationRoleMemberAuthorizationResp struct {
+	Code  int64                                                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                                  `json:"msg,omitempty"`  // 错误描述
+	Data  *BatchRemoveApaasApplicationRoleMemberAuthorizationResp `json:"data,omitempty"`
+	Error *ErrorDetail                                            `json:"error,omitempty"`
 }
-
-
-
-

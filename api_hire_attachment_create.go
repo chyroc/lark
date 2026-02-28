@@ -18,8 +18,8 @@
 package lark
 
 import (
-"context"
-"io"
+	"context"
+	"io"
 )
 
 // CreateHireAttachment 在招聘系统中上传附件文件, 上传的附件为通用附件。
@@ -28,9 +28,8 @@ import (
 // 文件大小不得超过 300 MB。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDN1YjLyQTN24iM0UjN/create_attachment
-// 
 func (r *HireService) CreateHireAttachment(ctx context.Context, request *CreateHireAttachmentReq, options ...MethodOptionFunc) (*CreateHireAttachmentResp, *Response, error) {
-if r.cli.mock.mockHireCreateHireAttachment != nil {
+	if r.cli.mock.mockHireCreateHireAttachment != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#CreateHireAttachment mock enable")
 		return r.cli.mock.mockHireCreateHireAttachment(ctx, request, options...)
 	}
@@ -39,12 +38,11 @@ if r.cli.mock.mockHireCreateHireAttachment != nil {
 		Scope:                 "Hire",
 		API:                   "CreateHireAttachment",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/attachments",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/attachments",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- IsFile: true,
-
+		NeedTenantAccessToken: true,
+		IsFile:                true,
 	}
 	resp := new(createHireAttachmentResp)
 
@@ -56,32 +54,25 @@ if r.cli.mock.mockHireCreateHireAttachment != nil {
 func (r *Mock) MockHireCreateHireAttachment(f func(ctx context.Context, request *CreateHireAttachmentReq, options ...MethodOptionFunc) (*CreateHireAttachmentResp, *Response, error)) {
 	r.mockHireCreateHireAttachment = f
 }
+
 // UnMockHireCreateHireAttachment un-mock HireCreateHireAttachment method
 func (r *Mock) UnMockHireCreateHireAttachment() {
 	r.mockHireCreateHireAttachment = nil
 }
 
-
 // CreateHireAttachmentReq ...
-type CreateHireAttachmentReq struct { 
-Content io.Reader `json:"content,omitempty"` // 文件二进制内容, 最大 300 MB
+type CreateHireAttachmentReq struct {
+	Content io.Reader `json:"content,omitempty"` // 文件二进制内容, 最大 300 MB
 }
-
-
-
-
 
 // createHireAttachmentResp ...
-type createHireAttachmentResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Message string `json:"message,omitempty"` // 错误描述
-Data *CreateHireAttachmentResp `json:"data,omitempty"` 
-Msg string `json:"msg,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createHireAttachmentResp struct {
+	Code    int64                     `json:"code,omitempty"`    // 错误码, 非 0 表示失败
+	Message string                    `json:"message,omitempty"` // 错误描述
+	Data    *CreateHireAttachmentResp `json:"data,omitempty"`
+	Msg     string                    `json:"msg,omitempty"`
+	Error   *ErrorDetail              `json:"error,omitempty"`
 }
-
-
-
 
 func (r *createHireAttachmentResp) SetReader(file io.Reader) {
 	if r.Data == nil {
@@ -90,10 +81,7 @@ func (r *createHireAttachmentResp) SetReader(file io.Reader) {
 	r.Data.File = file
 }
 
-
-
 // CreateHireAttachmentResp ...
 type CreateHireAttachmentResp struct {
 	File io.Reader `json:"file,omitempty"`
- }
-
+}

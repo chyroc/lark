@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // AddTaskTasklistMembers 向一个清单添加1个或多个协作成员。成员信息通过设置`members`字段实现。关于member的格式, 详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 如何表示任务和清单的成员？”章节。
@@ -31,9 +31,8 @@ import (
 // 需要清单编辑权限。详情见[清单功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/overview)中的“清单是如何鉴权的？“章节。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/add_members
-// 
 func (r *TaskService) AddTaskTasklistMembers(ctx context.Context, request *AddTaskTasklistMembersReq, options ...MethodOptionFunc) (*AddTaskTasklistMembersResp, *Response, error) {
-if r.cli.mock.mockTaskAddTaskTasklistMembers != nil {
+	if r.cli.mock.mockTaskAddTaskTasklistMembers != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#AddTaskTasklistMembers mock enable")
 		return r.cli.mock.mockTaskAddTaskTasklistMembers(ctx, request, options...)
 	}
@@ -42,12 +41,11 @@ if r.cli.mock.mockTaskAddTaskTasklistMembers != nil {
 		Scope:                 "Task",
 		API:                   "AddTaskTasklistMembers",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/task/v2/tasklists/:tasklist_guid/add_members",
+		URL:                   r.cli.openBaseURL + "/open-apis/task/v2/tasklists/:tasklist_guid/add_members",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(addTaskTasklistMembersResp)
 
@@ -59,100 +57,68 @@ if r.cli.mock.mockTaskAddTaskTasklistMembers != nil {
 func (r *Mock) MockTaskAddTaskTasklistMembers(f func(ctx context.Context, request *AddTaskTasklistMembersReq, options ...MethodOptionFunc) (*AddTaskTasklistMembersResp, *Response, error)) {
 	r.mockTaskAddTaskTasklistMembers = f
 }
+
 // UnMockTaskAddTaskTasklistMembers un-mock TaskAddTaskTasklistMembers method
 func (r *Mock) UnMockTaskAddTaskTasklistMembers() {
 	r.mockTaskAddTaskTasklistMembers = nil
 }
 
-
 // AddTaskTasklistMembersReq ...
-type AddTaskTasklistMembersReq struct { 
-TasklistGuid string `path:"tasklist_guid" json:"-"` // 要添加成员的清单的全局唯一ID示例值: "d300a75f-c56a-4be9-80d1-e47653028ceb"
-UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id默认值: `open_id`
-Members []*AddTaskTasklistMembersReqMember `json:"members,omitempty"` // 要添加的成员列表。关于member的格式, 详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 如何表示任务和清单的成员？”章节。 长度范围: `1` ～ `500`
+type AddTaskTasklistMembersReq struct {
+	TasklistGuid string                             `path:"tasklist_guid" json:"-"` // 要添加成员的清单的全局唯一ID示例值: "d300a75f-c56a-4be9-80d1-e47653028ceb"
+	UserIDType   *IDType                            `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id默认值: `open_id`
+	Members      []*AddTaskTasklistMembersReqMember `json:"members,omitempty"`      // 要添加的成员列表。关于member的格式, 详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 如何表示任务和清单的成员？”章节。 长度范围: `1` ～ `500`
 }
-
-
-
-
 
 // AddTaskTasklistMembersReqMember ...
-type AddTaskTasklistMembersReqMember struct { 
-ID *string `json:"id,omitempty"` // 表示member的id示例值: "ou_2cefb2f014f8d0c6c2d2eb7bafb0e54f" 最大长度: `100` 字符
-Type *string `json:"type,omitempty"` // 成员的类型, 支持: 普通用户, 此时member的id是一个表示用户的ID, 比如open_id。具体格式取决于user_id_type参数群组, 此时member的id是一个Open Chat ID应用, 此时member的id是一个应用的ID示例值: "user"默认值: `user`
-Role *string `json:"role,omitempty"` // 成员角色。支持: 可编辑可阅读默认为"viewer"。不能通过该字段设置清单所有者角色。示例值: "editor" 最大长度: `20` 字符
+type AddTaskTasklistMembersReqMember struct {
+	ID   *string `json:"id,omitempty"`   // 表示member的id示例值: "ou_2cefb2f014f8d0c6c2d2eb7bafb0e54f" 最大长度: `100` 字符
+	Type *string `json:"type,omitempty"` // 成员的类型, 支持: 普通用户, 此时member的id是一个表示用户的ID, 比如open_id。具体格式取决于user_id_type参数群组, 此时member的id是一个Open Chat ID应用, 此时member的id是一个应用的ID示例值: "user"默认值: `user`
+	Role *string `json:"role,omitempty"` // 成员角色。支持: 可编辑可阅读默认为"viewer"。不能通过该字段设置清单所有者角色。示例值: "editor" 最大长度: `20` 字符
 }
-
-
-
-
 
 // AddTaskTasklistMembersResp ...
-type AddTaskTasklistMembersResp struct { 
-Tasklist *AddTaskTasklistMembersRespTasklist `json:"tasklist,omitempty"` // 完成更新后的清单实体
+type AddTaskTasklistMembersResp struct {
+	Tasklist *AddTaskTasklistMembersRespTasklist `json:"tasklist,omitempty"` // 完成更新后的清单实体
 }
-
-
-
-
 
 // AddTaskTasklistMembersRespTasklist ...
-type AddTaskTasklistMembersRespTasklist struct { 
-Guid string `json:"guid,omitempty"` // 清单的全局唯一ID
-Name string `json:"name,omitempty"` // 清单名
-Creator *AddTaskTasklistMembersRespTasklistCreator `json:"creator,omitempty"` // 清单创建者
-Owner *AddTaskTasklistMembersRespTasklistOwner `json:"owner,omitempty"` // 清单所有者
-Members []*AddTaskTasklistMembersRespTasklistMember `json:"members,omitempty"` // 清单协作成员
-URL string `json:"url,omitempty"` // 该清单分享的applink
-CreatedAt string `json:"created_at,omitempty"` // 清单创建时间戳(ms)
-UpdatedAt string `json:"updated_at,omitempty"` // 清单最后一次更新时间戳（ms)
+type AddTaskTasklistMembersRespTasklist struct {
+	Guid      string                                      `json:"guid,omitempty"`       // 清单的全局唯一ID
+	Name      string                                      `json:"name,omitempty"`       // 清单名
+	Creator   *AddTaskTasklistMembersRespTasklistCreator  `json:"creator,omitempty"`    // 清单创建者
+	Owner     *AddTaskTasklistMembersRespTasklistOwner    `json:"owner,omitempty"`      // 清单所有者
+	Members   []*AddTaskTasklistMembersRespTasklistMember `json:"members,omitempty"`    // 清单协作成员
+	URL       string                                      `json:"url,omitempty"`        // 该清单分享的applink
+	CreatedAt string                                      `json:"created_at,omitempty"` // 清单创建时间戳(ms)
+	UpdatedAt string                                      `json:"updated_at,omitempty"` // 清单最后一次更新时间戳（ms)
 }
-
-
-
-
 
 // AddTaskTasklistMembersRespTasklistCreator ...
-type AddTaskTasklistMembersRespTasklistCreator struct { 
-ID string `json:"id,omitempty"` // 表示member的id
-Type string `json:"type,omitempty"` // 成员的类型
-Role string `json:"role,omitempty"` // 成员类型
+type AddTaskTasklistMembersRespTasklistCreator struct {
+	ID   string `json:"id,omitempty"`   // 表示member的id
+	Type string `json:"type,omitempty"` // 成员的类型
+	Role string `json:"role,omitempty"` // 成员类型
 }
-
-
-
-
 
 // AddTaskTasklistMembersRespTasklistMember ...
-type AddTaskTasklistMembersRespTasklistMember struct { 
-ID string `json:"id,omitempty"` // 表示member的id
-Type string `json:"type,omitempty"` // 成员的类型
-Role string `json:"role,omitempty"` // 成员角色
+type AddTaskTasklistMembersRespTasklistMember struct {
+	ID   string `json:"id,omitempty"`   // 表示member的id
+	Type string `json:"type,omitempty"` // 成员的类型
+	Role string `json:"role,omitempty"` // 成员角色
 }
-
-
-
-
 
 // AddTaskTasklistMembersRespTasklistOwner ...
-type AddTaskTasklistMembersRespTasklistOwner struct { 
-ID string `json:"id,omitempty"` // 表示member的id
-Type string `json:"type,omitempty"` // 成员的类型
-Role string `json:"role,omitempty"` // 清单角色
+type AddTaskTasklistMembersRespTasklistOwner struct {
+	ID   string `json:"id,omitempty"`   // 表示member的id
+	Type string `json:"type,omitempty"` // 成员的类型
+	Role string `json:"role,omitempty"` // 清单角色
 }
-
-
-
-
 
 // addTaskTasklistMembersResp ...
-type addTaskTasklistMembersResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *AddTaskTasklistMembersResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type addTaskTasklistMembersResp struct {
+	Code  int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                      `json:"msg,omitempty"`  // 错误描述
+	Data  *AddTaskTasklistMembersResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }
-
-
-
-

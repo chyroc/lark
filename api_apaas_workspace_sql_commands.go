@@ -18,28 +18,26 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateApaasWorkspaceSqlCommands 在工作空间下执行 SQL 语句
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/workspace/sql_commands
-// 
 func (r *ApaasService) CreateApaasWorkspaceSqlCommands(ctx context.Context, request *CreateApaasWorkspaceSqlCommandsReq, options ...MethodOptionFunc) (*CreateApaasWorkspaceSqlCommandsResp, *Response, error) {
-if r.cli.mock.mockApaasCreateApaasWorkspaceSqlCommands != nil {
+	if r.cli.mock.mockApaasCreateApaasWorkspaceSqlCommands != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Apaas#CreateApaasWorkspaceSqlCommands mock enable")
 		return r.cli.mock.mockApaasCreateApaasWorkspaceSqlCommands(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "Apaas",
-		API:                   "CreateApaasWorkspaceSqlCommands",
-		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/apaas/v1/workspaces/:workspace_id/sql_commands",
-		Body:                  request,
-		MethodOption:          newMethodOption(options),
- NeedUserAccessToken: true,
-
+		Scope:               "Apaas",
+		API:                 "CreateApaasWorkspaceSqlCommands",
+		Method:              "POST",
+		URL:                 r.cli.openBaseURL + "/open-apis/apaas/v1/workspaces/:workspace_id/sql_commands",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
+		NeedUserAccessToken: true,
 	}
 	resp := new(createApaasWorkspaceSqlCommandsResp)
 
@@ -51,39 +49,27 @@ if r.cli.mock.mockApaasCreateApaasWorkspaceSqlCommands != nil {
 func (r *Mock) MockApaasCreateApaasWorkspaceSqlCommands(f func(ctx context.Context, request *CreateApaasWorkspaceSqlCommandsReq, options ...MethodOptionFunc) (*CreateApaasWorkspaceSqlCommandsResp, *Response, error)) {
 	r.mockApaasCreateApaasWorkspaceSqlCommands = f
 }
+
 // UnMockApaasCreateApaasWorkspaceSqlCommands un-mock ApaasCreateApaasWorkspaceSqlCommands method
 func (r *Mock) UnMockApaasCreateApaasWorkspaceSqlCommands() {
 	r.mockApaasCreateApaasWorkspaceSqlCommands = nil
 }
 
-
 // CreateApaasWorkspaceSqlCommandsReq ...
-type CreateApaasWorkspaceSqlCommandsReq struct { 
-WorkspaceID string `path:"workspace_id" json:"-"` // 工作空间id, 可以从数据平台的 URL 中获取, 如 `https://apaas.feishu.cn/suda/workspace/workspace_aadimx5uzpsls/table-manage/main?tableId=table_1846786627963081&tab=objectManage` 中的 workspace_aadimx5uzpsls 就是 workspace_id示例值: "workspace_aadimx5uzpsls"
-Sql string `json:"sql,omitempty"` // 要执行的 SQL 语句示例值: "SELECT name FROM student"
+type CreateApaasWorkspaceSqlCommandsReq struct {
+	WorkspaceID string `path:"workspace_id" json:"-"` // 工作空间id, 可以从数据平台的 URL 中获取, 如 `https://apaas.feishu.cn/suda/workspace/workspace_aadimx5uzpsls/table-manage/main?tableId=table_1846786627963081&tab=objectManage` 中的 workspace_aadimx5uzpsls 就是 workspace_id示例值: "workspace_aadimx5uzpsls"
+	Sql         string `json:"sql,omitempty"`         // 要执行的 SQL 语句示例值: "SELECT name FROM student"
 }
-
-
-
-
 
 // CreateApaasWorkspaceSqlCommandsResp ...
-type CreateApaasWorkspaceSqlCommandsResp struct { 
-Result string `json:"result,omitempty"` // 如果是 SELECT 命令, 返回的是查询结果的 JSON 序列化字符串。如果是其他无返回的命令, 如 DELETE 等, result 为空。
+type CreateApaasWorkspaceSqlCommandsResp struct {
+	Result string `json:"result,omitempty"` // 如果是 SELECT 命令, 返回的是查询结果的 JSON 序列化字符串。如果是其他无返回的命令, 如 DELETE 等, result 为空。
 }
-
-
-
-
 
 // createApaasWorkspaceSqlCommandsResp ...
-type createApaasWorkspaceSqlCommandsResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateApaasWorkspaceSqlCommandsResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createApaasWorkspaceSqlCommandsResp struct {
+	Code  int64                                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                               `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateApaasWorkspaceSqlCommandsResp `json:"data,omitempty"`
+	Error *ErrorDetail                         `json:"error,omitempty"`
 }
-
-
-
-

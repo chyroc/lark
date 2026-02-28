@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // DeleteHireJobRequirement 删除指定的招聘需求, 请注意: 若该招聘需求已经关联到职位上, 则需先接触关联后, 才能删除招聘需求。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_requirement/delete
-// 
 func (r *HireService) DeleteHireJobRequirement(ctx context.Context, request *DeleteHireJobRequirementReq, options ...MethodOptionFunc) (*DeleteHireJobRequirementResp, *Response, error) {
-if r.cli.mock.mockHireDeleteHireJobRequirement != nil {
+	if r.cli.mock.mockHireDeleteHireJobRequirement != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#DeleteHireJobRequirement mock enable")
 		return r.cli.mock.mockHireDeleteHireJobRequirement(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockHireDeleteHireJobRequirement != nil {
 		Scope:                 "Hire",
 		API:                   "DeleteHireJobRequirement",
 		Method:                "DELETE",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/job_requirements/:job_requirement_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/job_requirements/:job_requirement_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(deleteHireJobRequirementResp)
 
@@ -51,37 +49,24 @@ if r.cli.mock.mockHireDeleteHireJobRequirement != nil {
 func (r *Mock) MockHireDeleteHireJobRequirement(f func(ctx context.Context, request *DeleteHireJobRequirementReq, options ...MethodOptionFunc) (*DeleteHireJobRequirementResp, *Response, error)) {
 	r.mockHireDeleteHireJobRequirement = f
 }
+
 // UnMockHireDeleteHireJobRequirement un-mock HireDeleteHireJobRequirement method
 func (r *Mock) UnMockHireDeleteHireJobRequirement() {
 	r.mockHireDeleteHireJobRequirement = nil
 }
 
-
 // DeleteHireJobRequirementReq ...
-type DeleteHireJobRequirementReq struct { 
-JobRequirementID string `path:"job_requirement_id" json:"-"` // 招聘需求ID, 可通过[获取招聘需求列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_requirement/list)获取示例值: "6949805467799537964"
+type DeleteHireJobRequirementReq struct {
+	JobRequirementID string `path:"job_requirement_id" json:"-"` // 招聘需求ID, 可通过[获取招聘需求列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_requirement/list)获取示例值: "6949805467799537964"
 }
-
-
-
-
 
 // DeleteHireJobRequirementResp ...
-type DeleteHireJobRequirementResp struct { 
-}
-
-
-
-
+type DeleteHireJobRequirementResp struct{}
 
 // deleteHireJobRequirementResp ...
-type deleteHireJobRequirementResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *DeleteHireJobRequirementResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type deleteHireJobRequirementResp struct {
+	Code  int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                        `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteHireJobRequirementResp `json:"data,omitempty"`
+	Error *ErrorDetail                  `json:"error,omitempty"`
 }
-
-
-
-

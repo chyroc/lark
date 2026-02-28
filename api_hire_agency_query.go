@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // QueryHireAgency 根据猎头供应商名称查询有合作关系的猎头供应商信息, 包含猎头供应商ID、名称、联系人等。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/agency/query
-// 
 func (r *HireService) QueryHireAgency(ctx context.Context, request *QueryHireAgencyReq, options ...MethodOptionFunc) (*QueryHireAgencyResp, *Response, error) {
-if r.cli.mock.mockHireQueryHireAgency != nil {
+	if r.cli.mock.mockHireQueryHireAgency != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#QueryHireAgency mock enable")
 		return r.cli.mock.mockHireQueryHireAgency(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockHireQueryHireAgency != nil {
 		Scope:                 "Hire",
 		API:                   "QueryHireAgency",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/agencies/query",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/agencies/query",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(queryHireAgencyResp)
 
@@ -51,61 +49,41 @@ if r.cli.mock.mockHireQueryHireAgency != nil {
 func (r *Mock) MockHireQueryHireAgency(f func(ctx context.Context, request *QueryHireAgencyReq, options ...MethodOptionFunc) (*QueryHireAgencyResp, *Response, error)) {
 	r.mockHireQueryHireAgency = f
 }
+
 // UnMockHireQueryHireAgency un-mock HireQueryHireAgency method
 func (r *Mock) UnMockHireQueryHireAgency() {
 	r.mockHireQueryHireAgency = nil
 }
 
-
 // QueryHireAgencyReq ...
-type QueryHireAgencyReq struct { 
-Name string `query:"name" json:"-"` // 猎头供应商名称, 精准匹配查询(区分大小写)示例值: 超越猎头公司
-UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+type QueryHireAgencyReq struct {
+	Name       string  `query:"name" json:"-"`         // 猎头供应商名称, 精准匹配查询(区分大小写)示例值: 超越猎头公司
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
-
-
-
-
 
 // QueryHireAgencyResp ...
-type QueryHireAgencyResp struct { 
-Items []*QueryHireAgencyRespItem `json:"items,omitempty"` // 猎头供应商信息
+type QueryHireAgencyResp struct {
+	Items []*QueryHireAgencyRespItem `json:"items,omitempty"` // 猎头供应商信息
 }
-
-
-
-
 
 // QueryHireAgencyRespItem ...
-type QueryHireAgencyRespItem struct { 
-ID string `json:"id,omitempty"` // 猎头供应商ID
-Name string `json:"name,omitempty"` // 猎头供应商名称
-ContactorID string `json:"contactor_id,omitempty"` // 猎头供应商联系人ID, 与`user_id_type`类型一致
-ContactorName *QueryHireAgencyRespItemContactorName `json:"contactor_name,omitempty"` // 猎头供应商联系人名称
+type QueryHireAgencyRespItem struct {
+	ID            string                                `json:"id,omitempty"`             // 猎头供应商ID
+	Name          string                                `json:"name,omitempty"`           // 猎头供应商名称
+	ContactorID   string                                `json:"contactor_id,omitempty"`   // 猎头供应商联系人ID, 与`user_id_type`类型一致
+	ContactorName *QueryHireAgencyRespItemContactorName `json:"contactor_name,omitempty"` // 猎头供应商联系人名称
 }
-
-
-
-
 
 // QueryHireAgencyRespItemContactorName ...
-type QueryHireAgencyRespItemContactorName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文名称
-EnUs string `json:"en_us,omitempty"` // 英文名称
+type QueryHireAgencyRespItemContactorName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名称
+	EnUs string `json:"en_us,omitempty"` // 英文名称
 }
-
-
-
-
 
 // queryHireAgencyResp ...
-type queryHireAgencyResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *QueryHireAgencyResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type queryHireAgencyResp struct {
+	Code  int64                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string               `json:"msg,omitempty"`  // 错误描述
+	Data  *QueryHireAgencyResp `json:"data,omitempty"`
+	Error *ErrorDetail         `json:"error,omitempty"`
 }
-
-
-
-

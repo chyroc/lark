@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListHireJobFunction 根据page_token与page_size对职能分类进行游标分页查询, 可查询到的信息包括: 职能分类ID、职能分类中英文名、启用状态, 可应用于职位基础信息绑定等场景
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_function/list
-// 
 func (r *HireService) ListHireJobFunction(ctx context.Context, request *ListHireJobFunctionReq, options ...MethodOptionFunc) (*ListHireJobFunctionResp, *Response, error) {
-if r.cli.mock.mockHireListHireJobFunction != nil {
+	if r.cli.mock.mockHireListHireJobFunction != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#ListHireJobFunction mock enable")
 		return r.cli.mock.mockHireListHireJobFunction(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockHireListHireJobFunction != nil {
 		Scope:                 "Hire",
 		API:                   "ListHireJobFunction",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/job_functions",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/job_functions",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(listHireJobFunctionResp)
 
@@ -51,63 +49,43 @@ if r.cli.mock.mockHireListHireJobFunction != nil {
 func (r *Mock) MockHireListHireJobFunction(f func(ctx context.Context, request *ListHireJobFunctionReq, options ...MethodOptionFunc) (*ListHireJobFunctionResp, *Response, error)) {
 	r.mockHireListHireJobFunction = f
 }
+
 // UnMockHireListHireJobFunction un-mock HireListHireJobFunction method
 func (r *Mock) UnMockHireListHireJobFunction() {
 	r.mockHireListHireJobFunction = nil
 }
 
-
 // ListHireJobFunctionReq ...
-type ListHireJobFunctionReq struct { 
-PageSize *int64 `query:"page_size" json:"-"` // 分页大小, 不能超过 50, 默认10示例值: 10 最大值: `50`
-PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eyJvZmZzZXQiOjEwLCJ0aW1lc3RhbXAiOjE2Mjc1NTUyMjM2NzIsImlkIjpudWxsfQ[
+type ListHireJobFunctionReq struct {
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 不能超过 50, 默认10示例值: 10 最大值: `50`
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eyJvZmZzZXQiOjEwLCJ0aW1lc3RhbXAiOjE2Mjc1NTUyMjM2NzIsImlkIjpudWxsfQ[
 }
-
-
-
-
 
 // ListHireJobFunctionResp ...
-type ListHireJobFunctionResp struct { 
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-Items []*ListHireJobFunctionRespItem `json:"items,omitempty"` // 列表
+type ListHireJobFunctionResp struct {
+	HasMore   bool                           `json:"has_more,omitempty"`   // 是否还有更多项
+	PageToken string                         `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	Items     []*ListHireJobFunctionRespItem `json:"items,omitempty"`      // 列表
 }
-
-
-
-
 
 // ListHireJobFunctionRespItem ...
-type ListHireJobFunctionRespItem struct { 
-ID string `json:"id,omitempty"` // 职能分类 ID
-Name *ListHireJobFunctionRespItemName `json:"name,omitempty"` // 职能分类名称
-ActiveStatus int64 `json:"active_status,omitempty"` // 启用状态可选值有: 启用未启用
-ParentID string `json:"parent_id,omitempty"` // 父级职能分类 ID
+type ListHireJobFunctionRespItem struct {
+	ID           string                           `json:"id,omitempty"`            // 职能分类 ID
+	Name         *ListHireJobFunctionRespItemName `json:"name,omitempty"`          // 职能分类名称
+	ActiveStatus int64                            `json:"active_status,omitempty"` // 启用状态可选值有: 启用未启用
+	ParentID     string                           `json:"parent_id,omitempty"`     // 父级职能分类 ID
 }
-
-
-
-
 
 // ListHireJobFunctionRespItemName ...
-type ListHireJobFunctionRespItemName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文
-EnUs string `json:"en_us,omitempty"` // 英文
+type ListHireJobFunctionRespItemName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文
+	EnUs string `json:"en_us,omitempty"` // 英文
 }
-
-
-
-
 
 // listHireJobFunctionResp ...
-type listHireJobFunctionResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *ListHireJobFunctionResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type listHireJobFunctionResp struct {
+	Code  int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                   `json:"msg,omitempty"`  // 错误描述
+	Data  *ListHireJobFunctionResp `json:"data,omitempty"`
+	Error *ErrorDetail             `json:"error,omitempty"`
 }
-
-
-
-

@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // GetCorehrDraft 用户通过『飞书人事-我的团队/人员管理-组织架构』 发起一个组织架构调整会根据 审批流配置发起 一个或多个审批。之后用户可以通过组织架构调整 ID 查询对应的流程ID, 以及审批流状态。如需查询单个审批的详情数据, 可通过[根据流程 ID 查询组织架构调整记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/approval_groups/get)获取。
@@ -27,9 +27,8 @@ import (
 // - 延迟说明: 数据库主从延迟2s以内, 即: 用户接收到流程状态变更消息后2s内调用此接口可能查询不到数据。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/draft/get
-// 
 func (r *CorehrService) GetCorehrDraft(ctx context.Context, request *GetCorehrDraftReq, options ...MethodOptionFunc) (*GetCorehrDraftResp, *Response, error) {
-if r.cli.mock.mockCorehrGetCorehrDraft != nil {
+	if r.cli.mock.mockCorehrGetCorehrDraft != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Corehr#GetCorehrDraft mock enable")
 		return r.cli.mock.mockCorehrGetCorehrDraft(ctx, request, options...)
 	}
@@ -38,11 +37,10 @@ if r.cli.mock.mockCorehrGetCorehrDraft != nil {
 		Scope:                 "Corehr",
 		API:                   "GetCorehrDraft",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/corehr/v2/drafts/:draft_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/drafts/:draft_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(getCorehrDraftResp)
 
@@ -54,51 +52,35 @@ if r.cli.mock.mockCorehrGetCorehrDraft != nil {
 func (r *Mock) MockCorehrGetCorehrDraft(f func(ctx context.Context, request *GetCorehrDraftReq, options ...MethodOptionFunc) (*GetCorehrDraftResp, *Response, error)) {
 	r.mockCorehrGetCorehrDraft = f
 }
+
 // UnMockCorehrGetCorehrDraft un-mock CorehrGetCorehrDraft method
 func (r *Mock) UnMockCorehrGetCorehrDraft() {
 	r.mockCorehrGetCorehrDraft = nil
 }
 
-
 // GetCorehrDraftReq ...
-type GetCorehrDraftReq struct { 
-DraftID string `path:"draft_id" json:"-"` // 组织架构调整 ID。用户在「飞书人事-我的团队/人员管理 -组织架构-发起调整」时生成的唯一 ID, 可通过「组织架构调整状态变更事件」的事件获取示例值: "6893014062142064111"
-UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+type GetCorehrDraftReq struct {
+	DraftID    string  `path:"draft_id" json:"-"`      // 组织架构调整 ID。用户在「飞书人事-我的团队/人员管理 -组织架构-发起调整」时生成的唯一 ID, 可通过「组织架构调整状态变更事件」的事件获取示例值: "6893014062142064111"
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
-
-
-
-
 
 // GetCorehrDraftResp ...
-type GetCorehrDraftResp struct { 
-DraftID string `json:"draft_id,omitempty"` // 组织架构调整 ID
-DraftStatus string `json:"draft_status,omitempty"` // 组织架构调整状态可选值有: 编辑中, [（流程中的组织架构调整不会是该状态）] 该状态是指用户在『飞书人事-我的团队/人员管理-组织架构-发起调整』 中进行编辑时的状态。审批中, 流程成功发起, 并等待审批人审批。 可以通过『飞书人事-审批-我发起的』 / 『飞书人事-我的团队/人员管理-组织架构-调整记录』 找到审批单据。已完成, [该状态不代表调整的记录生效完成] 由于记录可能是未来生效, 因此记录的状态需通过 人员异动变更事件 和 部门变更事件获取。    - 人员异动变更事件:[飞书人事-异动-事件](/ssl:/ttdoc/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_change/job-change-events)     - 部门变更事件: [飞书人事-组织管理-事件](/ssl:/ttdoc/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/events/created)     - 岗位变更事件: 【飞书人事-岗职务管理-岗位-事件】(岗位灰度内)已撤销, 用户主动撤销审批, 流程会进入已撤销状态。单次调整中的所有流程均为撤销态时, 调整才会流转为撤销态。
-ProcessInfos []*GetCorehrDraftRespProcessInfo `json:"process_infos,omitempty"` // 组织架构调整流程信息列表
+type GetCorehrDraftResp struct {
+	DraftID      string                           `json:"draft_id,omitempty"`      // 组织架构调整 ID
+	DraftStatus  string                           `json:"draft_status,omitempty"`  // 组织架构调整状态可选值有: 编辑中, [（流程中的组织架构调整不会是该状态）] 该状态是指用户在『飞书人事-我的团队/人员管理-组织架构-发起调整』 中进行编辑时的状态。审批中, 流程成功发起, 并等待审批人审批。 可以通过『飞书人事-审批-我发起的』 / 『飞书人事-我的团队/人员管理-组织架构-调整记录』 找到审批单据。已完成, [该状态不代表调整的记录生效完成] 由于记录可能是未来生效, 因此记录的状态需通过 人员异动变更事件 和 部门变更事件获取。    - 人员异动变更事件:[飞书人事-异动-事件](/ssl:/ttdoc/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_change/job-change-events)     - 部门变更事件: [飞书人事-组织管理-事件](/ssl:/ttdoc/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/events/created)     - 岗位变更事件: 【飞书人事-岗职务管理-岗位-事件】(岗位灰度内)已撤销, 用户主动撤销审批, 流程会进入已撤销状态。单次调整中的所有流程均为撤销态时, 调整才会流转为撤销态。
+	ProcessInfos []*GetCorehrDraftRespProcessInfo `json:"process_infos,omitempty"` // 组织架构调整流程信息列表
 }
-
-
-
-
 
 // GetCorehrDraftRespProcessInfo ...
-type GetCorehrDraftRespProcessInfo struct { 
-ProcessID string `json:"process_id,omitempty"` // 组织架构调整流程 ID。详情数据可通过[根据流程 ID 查询组织架构调整记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/approval_groups/get)获取。
-ApprovalGroupStatus string `json:"approval_group_status,omitempty"` // 组织架构调整流程状态 [（不建议使用, 推荐使用draft_status）]可选值有: 待发起, 是指该审批单据还未成功发起。审批中, 流程成功发起, 并等待审批人审批。 可以通过『飞书人事-审批-我发起的』 / 『飞书人事-我的团队/人员管理-组织架构-调整记录』 找到审批单据。 审批通过, 该单据已通过审批, 调整记录等待写入。 一方面, 组织架构调整支持拆单功能, 同一个调整可能发起多个审批, 当前审批单可能依赖其他审批通过才能写入。已完成, [该状态不代表调整的记录生效完成] 由于记录可能是未来生效, 因此记录的状态需通过 人员异动变更事件 和 部门变更事件获取。    - 人员异动变更事件: [飞书人事-异动-事件](/ssl:/ttdoc/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_change/job-change-events)    - 部门变更事件: [飞书人事-组织管理-事件](/ssl:/ttdoc/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/events/created)    - 岗位变更事件: 【飞书人事-岗职务管理-岗位-事件】(岗位灰度内)已拒绝: 审批未通过。已撤销, 用户主动撤销审批, 流程会进入已撤销状态。
+type GetCorehrDraftRespProcessInfo struct {
+	ProcessID           string `json:"process_id,omitempty"`            // 组织架构调整流程 ID。详情数据可通过[根据流程 ID 查询组织架构调整记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/approval_groups/get)获取。
+	ApprovalGroupStatus string `json:"approval_group_status,omitempty"` // 组织架构调整流程状态 [（不建议使用, 推荐使用draft_status）]可选值有: 待发起, 是指该审批单据还未成功发起。审批中, 流程成功发起, 并等待审批人审批。 可以通过『飞书人事-审批-我发起的』 / 『飞书人事-我的团队/人员管理-组织架构-调整记录』 找到审批单据。 审批通过, 该单据已通过审批, 调整记录等待写入。 一方面, 组织架构调整支持拆单功能, 同一个调整可能发起多个审批, 当前审批单可能依赖其他审批通过才能写入。已完成, [该状态不代表调整的记录生效完成] 由于记录可能是未来生效, 因此记录的状态需通过 人员异动变更事件 和 部门变更事件获取。    - 人员异动变更事件: [飞书人事-异动-事件](/ssl:/ttdoc/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_change/job-change-events)    - 部门变更事件: [飞书人事-组织管理-事件](/ssl:/ttdoc/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/events/created)    - 岗位变更事件: 【飞书人事-岗职务管理-岗位-事件】(岗位灰度内)已拒绝: 审批未通过。已撤销, 用户主动撤销审批, 流程会进入已撤销状态。
 }
-
-
-
-
 
 // getCorehrDraftResp ...
-type getCorehrDraftResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *GetCorehrDraftResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type getCorehrDraftResp struct {
+	Code  int64               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string              `json:"msg,omitempty"`  // 错误描述
+	Data  *GetCorehrDraftResp `json:"data,omitempty"`
+	Error *ErrorDetail        `json:"error,omitempty"`
 }
-
-
-
-

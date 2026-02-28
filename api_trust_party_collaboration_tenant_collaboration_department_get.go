@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // GetTrustPartyCollaborationTenantCollaborationDepartment 获取对方的关联组织部门详情, 需要对部门有可见性权限才可以获取。
@@ -27,9 +27,8 @@ import (
 // 使用 user_access_token 时, 按照 admin 管理后台关联组织列表中针对用户设置的可见性规则进行校验, 使用 tenant_access_token 时, 按照应用互通界面中针对应用设置的可见性规则进行校验。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/trust_party-v1/collaboration_tenant-collaboration_department/get
-// 
 func (r *TrustPartyService) GetTrustPartyCollaborationTenantCollaborationDepartment(ctx context.Context, request *GetTrustPartyCollaborationTenantCollaborationDepartmentReq, options ...MethodOptionFunc) (*GetTrustPartyCollaborationTenantCollaborationDepartmentResp, *Response, error) {
-if r.cli.mock.mockTrustPartyGetTrustPartyCollaborationTenantCollaborationDepartment != nil {
+	if r.cli.mock.mockTrustPartyGetTrustPartyCollaborationTenantCollaborationDepartment != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] TrustParty#GetTrustPartyCollaborationTenantCollaborationDepartment mock enable")
 		return r.cli.mock.mockTrustPartyGetTrustPartyCollaborationTenantCollaborationDepartment(ctx, request, options...)
 	}
@@ -38,12 +37,11 @@ if r.cli.mock.mockTrustPartyGetTrustPartyCollaborationTenantCollaborationDepartm
 		Scope:                 "TrustParty",
 		API:                   "GetTrustPartyCollaborationTenantCollaborationDepartment",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/trust_party/v1/collaboration_tenants/:target_tenant_key/collaboration_departments/:target_department_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/trust_party/v1/collaboration_tenants/:target_tenant_key/collaboration_departments/:target_department_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getTrustPartyCollaborationTenantCollaborationDepartmentResp)
 
@@ -55,97 +53,65 @@ if r.cli.mock.mockTrustPartyGetTrustPartyCollaborationTenantCollaborationDepartm
 func (r *Mock) MockTrustPartyGetTrustPartyCollaborationTenantCollaborationDepartment(f func(ctx context.Context, request *GetTrustPartyCollaborationTenantCollaborationDepartmentReq, options ...MethodOptionFunc) (*GetTrustPartyCollaborationTenantCollaborationDepartmentResp, *Response, error)) {
 	r.mockTrustPartyGetTrustPartyCollaborationTenantCollaborationDepartment = f
 }
+
 // UnMockTrustPartyGetTrustPartyCollaborationTenantCollaborationDepartment un-mock TrustPartyGetTrustPartyCollaborationTenantCollaborationDepartment method
 func (r *Mock) UnMockTrustPartyGetTrustPartyCollaborationTenantCollaborationDepartment() {
 	r.mockTrustPartyGetTrustPartyCollaborationTenantCollaborationDepartment = nil
 }
 
-
 // GetTrustPartyCollaborationTenantCollaborationDepartmentReq ...
-type GetTrustPartyCollaborationTenantCollaborationDepartmentReq struct { 
-TargetTenantKey string `path:"target_tenant_key" json:"-"` // 对方关联组织的tenant key, 可通过[管理员获取所有关联组织列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/collaboration_tenant/list)获取示例值: "4e6ac4d14bcd5071a37a39de902c7141"
-TargetDepartmentID string `path:"target_department_id" json:"-"` // 对方关联组织的部门, 需要与target_department_id_type中填写的值保持一致示例值: "od-4e6ac4d14bcd5071a37a39de902c7141"
-TargetDepartmentIDType *DepartmentIDType `query:"target_department_id_type" json:"-"` // 对方关联组织的入参部门类型示例值: department_id可选值有: 部门ID部门open ID默认值: `department_id`
+type GetTrustPartyCollaborationTenantCollaborationDepartmentReq struct {
+	TargetTenantKey        string            `path:"target_tenant_key" json:"-"`          // 对方关联组织的tenant key, 可通过[管理员获取所有关联组织列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/collaboration_tenant/list)获取示例值: "4e6ac4d14bcd5071a37a39de902c7141"
+	TargetDepartmentID     string            `path:"target_department_id" json:"-"`       // 对方关联组织的部门, 需要与target_department_id_type中填写的值保持一致示例值: "od-4e6ac4d14bcd5071a37a39de902c7141"
+	TargetDepartmentIDType *DepartmentIDType `query:"target_department_id_type" json:"-"` // 对方关联组织的入参部门类型示例值: department_id可选值有: 部门ID部门open ID默认值: `department_id`
 }
-
-
-
-
 
 // GetTrustPartyCollaborationTenantCollaborationDepartmentResp ...
-type GetTrustPartyCollaborationTenantCollaborationDepartmentResp struct { 
-TargetDepartment *GetTrustPartyCollaborationTenantCollaborationDepartmentRespTargetDepartment `json:"target_department,omitempty"` // 对方关联组织的部门
+type GetTrustPartyCollaborationTenantCollaborationDepartmentResp struct {
+	TargetDepartment *GetTrustPartyCollaborationTenantCollaborationDepartmentRespTargetDepartment `json:"target_department,omitempty"` // 对方关联组织的部门
 }
-
-
-
-
 
 // GetTrustPartyCollaborationTenantCollaborationDepartmentRespTargetDepartment ...
-type GetTrustPartyCollaborationTenantCollaborationDepartmentRespTargetDepartment struct { 
-OpenDepartmentID string `json:"open_department_id,omitempty"` // 关联组织的部门open id
-DepartmentID string `json:"department_id,omitempty"` // 关联组织的部门id
-Name string `json:"name,omitempty"` // 关联组织的部门名称
-I18nName *GetTrustPartyCollaborationTenantCollaborationDepartmentRespTargetDepartmentI18nName `json:"i18n_name,omitempty"` // 关联组织的的国际化部门名称
-Order string `json:"order,omitempty"` // 关联组织的部门排序
-Leaders []*GetTrustPartyCollaborationTenantCollaborationDepartmentRespTargetDepartmentLeader `json:"leaders,omitempty"` // 部门负责人, 必须对负责人有可见性权限才会返回
-ParentDepartmentID *GetTrustPartyCollaborationTenantCollaborationDepartmentRespTargetDepartmentParentDepartmentID `json:"parent_department_id,omitempty"` // 父部门ID, 必须对父部门有可见性权限才会返回
+type GetTrustPartyCollaborationTenantCollaborationDepartmentRespTargetDepartment struct {
+	OpenDepartmentID   string                                                                                         `json:"open_department_id,omitempty"`   // 关联组织的部门open id
+	DepartmentID       string                                                                                         `json:"department_id,omitempty"`        // 关联组织的部门id
+	Name               string                                                                                         `json:"name,omitempty"`                 // 关联组织的部门名称
+	I18nName           *GetTrustPartyCollaborationTenantCollaborationDepartmentRespTargetDepartmentI18nName           `json:"i18n_name,omitempty"`            // 关联组织的的国际化部门名称
+	Order              string                                                                                         `json:"order,omitempty"`                // 关联组织的部门排序
+	Leaders            []*GetTrustPartyCollaborationTenantCollaborationDepartmentRespTargetDepartmentLeader           `json:"leaders,omitempty"`              // 部门负责人, 必须对负责人有可见性权限才会返回
+	ParentDepartmentID *GetTrustPartyCollaborationTenantCollaborationDepartmentRespTargetDepartmentParentDepartmentID `json:"parent_department_id,omitempty"` // 父部门ID, 必须对父部门有可见性权限才会返回
 }
-
-
-
-
 
 // GetTrustPartyCollaborationTenantCollaborationDepartmentRespTargetDepartmentI18nName ...
-type GetTrustPartyCollaborationTenantCollaborationDepartmentRespTargetDepartmentI18nName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文名
-JaJp string `json:"ja_jp,omitempty"` // 日文名
-EnUs string `json:"en_us,omitempty"` // 英文名
+type GetTrustPartyCollaborationTenantCollaborationDepartmentRespTargetDepartmentI18nName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名
+	JaJp string `json:"ja_jp,omitempty"` // 日文名
+	EnUs string `json:"en_us,omitempty"` // 英文名
 }
-
-
-
-
 
 // GetTrustPartyCollaborationTenantCollaborationDepartmentRespTargetDepartmentLeader ...
-type GetTrustPartyCollaborationTenantCollaborationDepartmentRespTargetDepartmentLeader struct { 
-LeaderType int64 `json:"leader_type,omitempty"` // 负责人类型可选值有: 主负责人副负责人
-ID *GetTrustPartyCollaborationTenantCollaborationDepartmentRespTargetDepartmentLeaderID `json:"id,omitempty"` // 负责人ID
+type GetTrustPartyCollaborationTenantCollaborationDepartmentRespTargetDepartmentLeader struct {
+	LeaderType int64                                                                                `json:"leader_type,omitempty"` // 负责人类型可选值有: 主负责人副负责人
+	ID         *GetTrustPartyCollaborationTenantCollaborationDepartmentRespTargetDepartmentLeaderID `json:"id,omitempty"`          // 负责人ID
 }
-
-
-
-
 
 // GetTrustPartyCollaborationTenantCollaborationDepartmentRespTargetDepartmentLeaderID ...
-type GetTrustPartyCollaborationTenantCollaborationDepartmentRespTargetDepartmentLeaderID struct { 
-UserID string `json:"user_id,omitempty"` // 用户ID
-OpenID string `json:"open_id,omitempty"` // 用户open ID
-UnionID string `json:"union_id,omitempty"` // 用户union ID
+type GetTrustPartyCollaborationTenantCollaborationDepartmentRespTargetDepartmentLeaderID struct {
+	UserID  string `json:"user_id,omitempty"`  // 用户ID
+	OpenID  string `json:"open_id,omitempty"`  // 用户open ID
+	UnionID string `json:"union_id,omitempty"` // 用户union ID
 }
-
-
-
-
 
 // GetTrustPartyCollaborationTenantCollaborationDepartmentRespTargetDepartmentParentDepartmentID ...
-type GetTrustPartyCollaborationTenantCollaborationDepartmentRespTargetDepartmentParentDepartmentID struct { 
-DepartmentID string `json:"department_id,omitempty"` // 部门ID
-OpenDepartmentID string `json:"open_department_id,omitempty"` // 部门open ID
+type GetTrustPartyCollaborationTenantCollaborationDepartmentRespTargetDepartmentParentDepartmentID struct {
+	DepartmentID     string `json:"department_id,omitempty"`      // 部门ID
+	OpenDepartmentID string `json:"open_department_id,omitempty"` // 部门open ID
 }
-
-
-
-
 
 // getTrustPartyCollaborationTenantCollaborationDepartmentResp ...
-type getTrustPartyCollaborationTenantCollaborationDepartmentResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *GetTrustPartyCollaborationTenantCollaborationDepartmentResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type getTrustPartyCollaborationTenantCollaborationDepartmentResp struct {
+	Code  int64                                                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                                       `json:"msg,omitempty"`  // 错误描述
+	Data  *GetTrustPartyCollaborationTenantCollaborationDepartmentResp `json:"data,omitempty"`
+	Error *ErrorDetail                                                 `json:"error,omitempty"`
 }
-
-
-
-

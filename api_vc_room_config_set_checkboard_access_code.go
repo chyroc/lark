@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // SetVCRoomConfigCheckboardAccessCode 创建一个范围内的签到板部署码
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room_config/set_checkboard_access_code
-// 
 func (r *VCService) SetVCRoomConfigCheckboardAccessCode(ctx context.Context, request *SetVCRoomConfigCheckboardAccessCodeReq, options ...MethodOptionFunc) (*SetVCRoomConfigCheckboardAccessCodeResp, *Response, error) {
-if r.cli.mock.mockVCSetVCRoomConfigCheckboardAccessCode != nil {
+	if r.cli.mock.mockVCSetVCRoomConfigCheckboardAccessCode != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#SetVCRoomConfigCheckboardAccessCode mock enable")
 		return r.cli.mock.mockVCSetVCRoomConfigCheckboardAccessCode(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockVCSetVCRoomConfigCheckboardAccessCode != nil {
 		Scope:                 "VC",
 		API:                   "SetVCRoomConfigCheckboardAccessCode",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/vc/v1/room_configs/set_checkboard_access_code",
+		URL:                   r.cli.openBaseURL + "/open-apis/vc/v1/room_configs/set_checkboard_access_code",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(setVCRoomConfigCheckboardAccessCodeResp)
 
@@ -51,44 +49,32 @@ if r.cli.mock.mockVCSetVCRoomConfigCheckboardAccessCode != nil {
 func (r *Mock) MockVCSetVCRoomConfigCheckboardAccessCode(f func(ctx context.Context, request *SetVCRoomConfigCheckboardAccessCodeReq, options ...MethodOptionFunc) (*SetVCRoomConfigCheckboardAccessCodeResp, *Response, error)) {
 	r.mockVCSetVCRoomConfigCheckboardAccessCode = f
 }
+
 // UnMockVCSetVCRoomConfigCheckboardAccessCode un-mock VCSetVCRoomConfigCheckboardAccessCode method
 func (r *Mock) UnMockVCSetVCRoomConfigCheckboardAccessCode() {
 	r.mockVCSetVCRoomConfigCheckboardAccessCode = nil
 }
 
-
 // SetVCRoomConfigCheckboardAccessCodeReq ...
-type SetVCRoomConfigCheckboardAccessCodeReq struct { 
-Scope int64 `json:"scope,omitempty"` // 设置节点范围示例值: 5可选值有: 租户国家/地区城市建筑楼层会议室
-CountryID *string `json:"country_id,omitempty"` // 国家/地区ID scope为2, 3时需要此参数示例值: "1"
-DistrictID *string `json:"district_id,omitempty"` // 城市ID scope为3时需要此参数示例值: "2"
-BuildingID *string `json:"building_id,omitempty"` // 建筑ID scope为4, 5时需要此参数示例值: "3"
-FloorName *string `json:"floor_name,omitempty"` // 楼层 scope为5时需要此参数示例值: "4"
-RoomID *string `json:"room_id,omitempty"` // 会议室ID scope为6时需要此参数示例值: "67687262867363"
-ValidDay int64 `json:"valid_day,omitempty"` // 有效天数示例值: 1可选值有: 1天7天30天
+type SetVCRoomConfigCheckboardAccessCodeReq struct {
+	Scope      int64   `json:"scope,omitempty"`       // 设置节点范围示例值: 5可选值有: 租户国家/地区城市建筑楼层会议室
+	CountryID  *string `json:"country_id,omitempty"`  // 国家/地区ID scope为2, 3时需要此参数示例值: "1"
+	DistrictID *string `json:"district_id,omitempty"` // 城市ID scope为3时需要此参数示例值: "2"
+	BuildingID *string `json:"building_id,omitempty"` // 建筑ID scope为4, 5时需要此参数示例值: "3"
+	FloorName  *string `json:"floor_name,omitempty"`  // 楼层 scope为5时需要此参数示例值: "4"
+	RoomID     *string `json:"room_id,omitempty"`     // 会议室ID scope为6时需要此参数示例值: "67687262867363"
+	ValidDay   int64   `json:"valid_day,omitempty"`   // 有效天数示例值: 1可选值有: 1天7天30天
 }
-
-
-
-
 
 // SetVCRoomConfigCheckboardAccessCodeResp ...
-type SetVCRoomConfigCheckboardAccessCodeResp struct { 
-AccessCode string `json:"access_code,omitempty"` // 部署访问码
+type SetVCRoomConfigCheckboardAccessCodeResp struct {
+	AccessCode string `json:"access_code,omitempty"` // 部署访问码
 }
-
-
-
-
 
 // setVCRoomConfigCheckboardAccessCodeResp ...
-type setVCRoomConfigCheckboardAccessCodeResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *SetVCRoomConfigCheckboardAccessCodeResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type setVCRoomConfigCheckboardAccessCodeResp struct {
+	Code  int64                                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                   `json:"msg,omitempty"`  // 错误描述
+	Data  *SetVCRoomConfigCheckboardAccessCodeResp `json:"data,omitempty"`
+	Error *ErrorDetail                             `json:"error,omitempty"`
 }
-
-
-
-

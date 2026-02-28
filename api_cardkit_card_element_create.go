@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateCardkitCardElement 为指定卡片实体新增组件, 以扩展卡片内容, 如在卡片中添加一个点击按钮。
@@ -28,9 +28,8 @@ import (
 // - 调用该接口的应用身份（tenant_access_token）需与创建目标卡片实体的应用身份一致。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card-element/create
-// 
 func (r *CardkitService) CreateCardkitCardElement(ctx context.Context, request *CreateCardkitCardElementReq, options ...MethodOptionFunc) (*CreateCardkitCardElementResp, *Response, error) {
-if r.cli.mock.mockCardkitCreateCardkitCardElement != nil {
+	if r.cli.mock.mockCardkitCreateCardkitCardElement != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Cardkit#CreateCardkitCardElement mock enable")
 		return r.cli.mock.mockCardkitCreateCardkitCardElement(ctx, request, options...)
 	}
@@ -39,11 +38,10 @@ if r.cli.mock.mockCardkitCreateCardkitCardElement != nil {
 		Scope:                 "Cardkit",
 		API:                   "CreateCardkitCardElement",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/cardkit/v1/cards/:card_id/elements",
+		URL:                   r.cli.openBaseURL + "/open-apis/cardkit/v1/cards/:card_id/elements",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createCardkitCardElementResp)
 
@@ -55,42 +53,29 @@ if r.cli.mock.mockCardkitCreateCardkitCardElement != nil {
 func (r *Mock) MockCardkitCreateCardkitCardElement(f func(ctx context.Context, request *CreateCardkitCardElementReq, options ...MethodOptionFunc) (*CreateCardkitCardElementResp, *Response, error)) {
 	r.mockCardkitCreateCardkitCardElement = f
 }
+
 // UnMockCardkitCreateCardkitCardElement un-mock CardkitCreateCardkitCardElement method
 func (r *Mock) UnMockCardkitCreateCardkitCardElement() {
 	r.mockCardkitCreateCardkitCardElement = nil
 }
 
-
 // CreateCardkitCardElementReq ...
-type CreateCardkitCardElementReq struct { 
-CardID string `path:"card_id" json:"-"` // 要新增组件的卡片实体 ID。通过[创建卡片实体](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card/create)获取示例值: "7355439197428236291" 长度范围: `1` ～ `20` 字符
-Type string `json:"type,omitempty"` // 添加组件的方式。示例值: "insert_after"可选值有: 在目标组件前插入在目标组件后插入在卡片或容器组件末尾添加
-TargetElementID *string `json:"target_element_id,omitempty"` // 目标组件的 ID。 填写规则如下所示: 当 `type` 为 `insert_before`、`insert_after` 时, 字段必填, 为用于定位的目标组件-  当 `type` 为 `append` 时, 该字段仅支持容器类组件, 用于指定在末尾添加的目标组件。若未填写, 则默认在卡片 body 末尾添加示例值: "markdown_1" 长度范围: `0` ～ `20` 字符
-UUID *string `json:"uuid,omitempty"` // 幂等 ID, 可通过传入唯一的 UUID 以保证相同批次的操作只进行一次。示例值: "a0d69e20-1dd1-458b-k525-dfeca4015204" 长度范围: `1` ～ `64` 字符
-Sequence int64 `json:"sequence,omitempty"` // 操作卡片的序号。用于保证多次更新的时序性。注意: 请确保在通过卡片 OpenAPI 操作同一张卡片时, sequence 的值相较于上一次操作严格递增。 int32 范围（ `1`~`2147483647`）内的正整数。示例值: 1
-Elements []string `json:"elements,omitempty"` // 添加的组件列表。注意: 以下示例值未转义, 使用时请注意将其转为 JSON 序列化后的字符串。- 本参数仅支持[卡片 JSON 2.0 结构](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-structure)。示例值: "[{\"tag\":\"button\", \"element_id\":\"button_1\", \"text\":{\"tag\":\"plain_text\", \"content\":\"查看更多\"}, \"type\":\"default\", \"width\":\"default\", \"size\":\"medium\", \"behaviors\":[{\"type\":\"open_url\", \"default_url\":\"https://open.feishu.cn/?lang=zh-CN\", \"pc_url\":\"\", \"ios_url\":\"\", \"android_url\":\"\"}]}]" 长度范围: `1` ～ `1000000` 字符
+type CreateCardkitCardElementReq struct {
+	CardID          string   `path:"card_id" json:"-"`            // 要新增组件的卡片实体 ID。通过[创建卡片实体](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card/create)获取示例值: "7355439197428236291" 长度范围: `1` ～ `20` 字符
+	Type            string   `json:"type,omitempty"`              // 添加组件的方式。示例值: "insert_after"可选值有: 在目标组件前插入在目标组件后插入在卡片或容器组件末尾添加
+	TargetElementID *string  `json:"target_element_id,omitempty"` // 目标组件的 ID。 填写规则如下所示: 当 `type` 为 `insert_before`、`insert_after` 时, 字段必填, 为用于定位的目标组件-  当 `type` 为 `append` 时, 该字段仅支持容器类组件, 用于指定在末尾添加的目标组件。若未填写, 则默认在卡片 body 末尾添加示例值: "markdown_1" 长度范围: `0` ～ `20` 字符
+	UUID            *string  `json:"uuid,omitempty"`              // 幂等 ID, 可通过传入唯一的 UUID 以保证相同批次的操作只进行一次。示例值: "a0d69e20-1dd1-458b-k525-dfeca4015204" 长度范围: `1` ～ `64` 字符
+	Sequence        int64    `json:"sequence,omitempty"`          // 操作卡片的序号。用于保证多次更新的时序性。注意: 请确保在通过卡片 OpenAPI 操作同一张卡片时, sequence 的值相较于上一次操作严格递增。 int32 范围（ `1`~`2147483647`）内的正整数。示例值: 1
+	Elements        []string `json:"elements,omitempty"`          // 添加的组件列表。注意: 以下示例值未转义, 使用时请注意将其转为 JSON 序列化后的字符串。- 本参数仅支持[卡片 JSON 2.0 结构](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-structure)。示例值: "[{\"tag\":\"button\", \"element_id\":\"button_1\", \"text\":{\"tag\":\"plain_text\", \"content\":\"查看更多\"}, \"type\":\"default\", \"width\":\"default\", \"size\":\"medium\", \"behaviors\":[{\"type\":\"open_url\", \"default_url\":\"https://open.feishu.cn/?lang=zh-CN\", \"pc_url\":\"\", \"ios_url\":\"\", \"android_url\":\"\"}]}]" 长度范围: `1` ～ `1000000` 字符
 }
-
-
-
-
 
 // CreateCardkitCardElementResp ...
-type CreateCardkitCardElementResp struct { 
-}
-
-
-
-
+type CreateCardkitCardElementResp struct{}
 
 // createCardkitCardElementResp ...
-type createCardkitCardElementResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateCardkitCardElementResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createCardkitCardElementResp struct {
+	Code  int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                        `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateCardkitCardElementResp `json:"data,omitempty"`
+	Error *ErrorDetail                  `json:"error,omitempty"`
 }
-
-
-
-

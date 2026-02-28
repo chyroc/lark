@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListPerformanceMetricTag 批量获取指标的标签信息, 如标签名称、创建时间等信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/metric_tag/list
-// 
 func (r *PerformanceService) ListPerformanceMetricTag(ctx context.Context, request *ListPerformanceMetricTagReq, options ...MethodOptionFunc) (*ListPerformanceMetricTagResp, *Response, error) {
-if r.cli.mock.mockPerformanceListPerformanceMetricTag != nil {
+	if r.cli.mock.mockPerformanceListPerformanceMetricTag != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Performance#ListPerformanceMetricTag mock enable")
 		return r.cli.mock.mockPerformanceListPerformanceMetricTag(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockPerformanceListPerformanceMetricTag != nil {
 		Scope:                 "Performance",
 		API:                   "ListPerformanceMetricTag",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/performance/v2/metric_tags",
+		URL:                   r.cli.openBaseURL + "/open-apis/performance/v2/metric_tags",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(listPerformanceMetricTagResp)
 
@@ -51,65 +49,45 @@ if r.cli.mock.mockPerformanceListPerformanceMetricTag != nil {
 func (r *Mock) MockPerformanceListPerformanceMetricTag(f func(ctx context.Context, request *ListPerformanceMetricTagReq, options ...MethodOptionFunc) (*ListPerformanceMetricTagResp, *Response, error)) {
 	r.mockPerformanceListPerformanceMetricTag = f
 }
+
 // UnMockPerformanceListPerformanceMetricTag un-mock PerformanceListPerformanceMetricTag method
 func (r *Mock) UnMockPerformanceListPerformanceMetricTag() {
 	r.mockPerformanceListPerformanceMetricTag = nil
 }
 
-
 // ListPerformanceMetricTagReq ...
-type ListPerformanceMetricTagReq struct { 
-PageSize *int64 `query:"page_size" json:"-"` // 分页大小 默认值: 20示例值: 10 最大值: `50`
-PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eVQrYzJBNDNONlk4VFZBZVlSdzlKdFJ4bVVHVExENDNKVHoxaVdiVnViQT0=
-TagIDs []string `query:"tag_ids" json:"-"` // 指标标签 ID 列表, 传此参数时不进行分页, 不传时分页返回所有数据。示例值: 7283015566780547091 长度范围: `0` ～ `9999`
+type ListPerformanceMetricTagReq struct {
+	PageSize  *int64   `query:"page_size" json:"-"`  // 分页大小 默认值: 20示例值: 10 最大值: `50`
+	PageToken *string  `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eVQrYzJBNDNONlk4VFZBZVlSdzlKdFJ4bVVHVExENDNKVHoxaVdiVnViQT0=
+	TagIDs    []string `query:"tag_ids" json:"-"`    // 指标标签 ID 列表, 传此参数时不进行分页, 不传时分页返回所有数据。示例值: 7283015566780547091 长度范围: `0` ～ `9999`
 }
-
-
-
-
 
 // ListPerformanceMetricTagResp ...
-type ListPerformanceMetricTagResp struct { 
-Items []*ListPerformanceMetricTagRespItem `json:"items,omitempty"` // 指标标签列表
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
+type ListPerformanceMetricTagResp struct {
+	Items     []*ListPerformanceMetricTagRespItem `json:"items,omitempty"`      // 指标标签列表
+	PageToken string                              `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	HasMore   bool                                `json:"has_more,omitempty"`   // 是否还有更多项
 }
-
-
-
-
 
 // ListPerformanceMetricTagRespItem ...
-type ListPerformanceMetricTagRespItem struct { 
-TagID string `json:"tag_id,omitempty"` // 标签 ID
-TagName *ListPerformanceMetricTagRespItemTagName `json:"tag_name,omitempty"` // 标签名称
-Index int64 `json:"index,omitempty"` // 标签顺序
-CreateTime string `json:"create_time,omitempty"` // 创建时间戳（单位: 毫秒）
-UpdateTime string `json:"update_time,omitempty"` // 更新时间戳（单位: 毫秒）
+type ListPerformanceMetricTagRespItem struct {
+	TagID      string                                   `json:"tag_id,omitempty"`      // 标签 ID
+	TagName    *ListPerformanceMetricTagRespItemTagName `json:"tag_name,omitempty"`    // 标签名称
+	Index      int64                                    `json:"index,omitempty"`       // 标签顺序
+	CreateTime string                                   `json:"create_time,omitempty"` // 创建时间戳（单位: 毫秒）
+	UpdateTime string                                   `json:"update_time,omitempty"` // 更新时间戳（单位: 毫秒）
 }
-
-
-
-
 
 // ListPerformanceMetricTagRespItemTagName ...
-type ListPerformanceMetricTagRespItemTagName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 标签中文
-EnUs string `json:"en_us,omitempty"` // 标签英文
+type ListPerformanceMetricTagRespItemTagName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 标签中文
+	EnUs string `json:"en_us,omitempty"` // 标签英文
 }
-
-
-
-
 
 // listPerformanceMetricTagResp ...
-type listPerformanceMetricTagResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *ListPerformanceMetricTagResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type listPerformanceMetricTagResp struct {
+	Code  int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                        `json:"msg,omitempty"`  // 错误描述
+	Data  *ListPerformanceMetricTagResp `json:"data,omitempty"`
+	Error *ErrorDetail                  `json:"error,omitempty"`
 }
-
-
-
-

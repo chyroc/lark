@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateApaasUserTaskExpediting 对任务当前的处理人发起一次催办
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/user_task/expediting
-// 
 func (r *ApaasService) CreateApaasUserTaskExpediting(ctx context.Context, request *CreateApaasUserTaskExpeditingReq, options ...MethodOptionFunc) (*CreateApaasUserTaskExpeditingResp, *Response, error) {
-if r.cli.mock.mockApaasCreateApaasUserTaskExpediting != nil {
+	if r.cli.mock.mockApaasCreateApaasUserTaskExpediting != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Apaas#CreateApaasUserTaskExpediting mock enable")
 		return r.cli.mock.mockApaasCreateApaasUserTaskExpediting(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockApaasCreateApaasUserTaskExpediting != nil {
 		Scope:                 "Apaas",
 		API:                   "CreateApaasUserTaskExpediting",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/apaas/v1/user_tasks/:task_id/expediting",
+		URL:                   r.cli.openBaseURL + "/open-apis/apaas/v1/user_tasks/:task_id/expediting",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createApaasUserTaskExpeditingResp)
 
@@ -51,40 +49,27 @@ if r.cli.mock.mockApaasCreateApaasUserTaskExpediting != nil {
 func (r *Mock) MockApaasCreateApaasUserTaskExpediting(f func(ctx context.Context, request *CreateApaasUserTaskExpeditingReq, options ...MethodOptionFunc) (*CreateApaasUserTaskExpeditingResp, *Response, error)) {
 	r.mockApaasCreateApaasUserTaskExpediting = f
 }
+
 // UnMockApaasCreateApaasUserTaskExpediting un-mock ApaasCreateApaasUserTaskExpediting method
 func (r *Mock) UnMockApaasCreateApaasUserTaskExpediting() {
 	r.mockApaasCreateApaasUserTaskExpediting = nil
 }
 
-
 // CreateApaasUserTaskExpeditingReq ...
-type CreateApaasUserTaskExpeditingReq struct { 
-TaskID string `path:"task_id" json:"-"` // 任务ID, 可以通过[查询人工任务](/uAjLw4CM/ukTMukTMukTM/apaas-v1/user_task/query)获取示例值: "1234"
-OperatorUserID string `json:"operator_user_id,omitempty"` // 操作人kunlunUserID, 可通过Apaas用户管理页面获取示例值: "123"
-ExpeditingUserIDs []string `json:"expediting_user_ids,omitempty"` // 催办人的kunlunID列表, 可通过Apaas用户管理页面获取示例值: ["1234"] 长度范围: `1` ～ `20`
-Opinion *string `json:"opinion,omitempty"` // 催办理由示例值: "催办理由"
+type CreateApaasUserTaskExpeditingReq struct {
+	TaskID            string   `path:"task_id" json:"-"`              // 任务ID, 可以通过[查询人工任务](/uAjLw4CM/ukTMukTMukTM/apaas-v1/user_task/query)获取示例值: "1234"
+	OperatorUserID    string   `json:"operator_user_id,omitempty"`    // 操作人kunlunUserID, 可通过Apaas用户管理页面获取示例值: "123"
+	ExpeditingUserIDs []string `json:"expediting_user_ids,omitempty"` // 催办人的kunlunID列表, 可通过Apaas用户管理页面获取示例值: ["1234"] 长度范围: `1` ～ `20`
+	Opinion           *string  `json:"opinion,omitempty"`             // 催办理由示例值: "催办理由"
 }
-
-
-
-
 
 // CreateApaasUserTaskExpeditingResp ...
-type CreateApaasUserTaskExpeditingResp struct { 
-}
-
-
-
-
+type CreateApaasUserTaskExpeditingResp struct{}
 
 // createApaasUserTaskExpeditingResp ...
-type createApaasUserTaskExpeditingResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateApaasUserTaskExpeditingResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createApaasUserTaskExpeditingResp struct {
+	Code  int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                             `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateApaasUserTaskExpeditingResp `json:"data,omitempty"`
+	Error *ErrorDetail                       `json:"error,omitempty"`
 }
-
-
-
-

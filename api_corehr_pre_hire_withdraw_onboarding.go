@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateCorehrPreHireWithdrawOnboarding 通过本接口对指定待入职, 入职准备就绪的员工执行撤销入职操作, 对应入职管理页面撤销入职按钮
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/withdraw_onboarding
-// 
 func (r *CorehrService) CreateCorehrPreHireWithdrawOnboarding(ctx context.Context, request *CreateCorehrPreHireWithdrawOnboardingReq, options ...MethodOptionFunc) (*CreateCorehrPreHireWithdrawOnboardingResp, *Response, error) {
-if r.cli.mock.mockCorehrCreateCorehrPreHireWithdrawOnboarding != nil {
+	if r.cli.mock.mockCorehrCreateCorehrPreHireWithdrawOnboarding != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Corehr#CreateCorehrPreHireWithdrawOnboarding mock enable")
 		return r.cli.mock.mockCorehrCreateCorehrPreHireWithdrawOnboarding(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockCorehrCreateCorehrPreHireWithdrawOnboarding != nil {
 		Scope:                 "Corehr",
 		API:                   "CreateCorehrPreHireWithdrawOnboarding",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/corehr/v2/pre_hires/withdraw_onboarding",
+		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/pre_hires/withdraw_onboarding",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createCorehrPreHireWithdrawOnboardingResp)
 
@@ -51,39 +49,27 @@ if r.cli.mock.mockCorehrCreateCorehrPreHireWithdrawOnboarding != nil {
 func (r *Mock) MockCorehrCreateCorehrPreHireWithdrawOnboarding(f func(ctx context.Context, request *CreateCorehrPreHireWithdrawOnboardingReq, options ...MethodOptionFunc) (*CreateCorehrPreHireWithdrawOnboardingResp, *Response, error)) {
 	r.mockCorehrCreateCorehrPreHireWithdrawOnboarding = f
 }
+
 // UnMockCorehrCreateCorehrPreHireWithdrawOnboarding un-mock CorehrCreateCorehrPreHireWithdrawOnboarding method
 func (r *Mock) UnMockCorehrCreateCorehrPreHireWithdrawOnboarding() {
 	r.mockCorehrCreateCorehrPreHireWithdrawOnboarding = nil
 }
 
-
 // CreateCorehrPreHireWithdrawOnboardingReq ...
-type CreateCorehrPreHireWithdrawOnboardingReq struct { 
-PreHireID string `json:"pre_hire_id,omitempty"` // 待入职ID, 可以通过[搜索待入职人员信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/search)接口获得示例值: "7345005664477775407"
-WithdrawReason string `json:"withdraw_reason,omitempty"` // 撤销原因, 上限为500字示例值: "withdraw reason"
+type CreateCorehrPreHireWithdrawOnboardingReq struct {
+	PreHireID      string `json:"pre_hire_id,omitempty"`     // 待入职ID, 可以通过[搜索待入职人员信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/search)接口获得示例值: "7345005664477775407"
+	WithdrawReason string `json:"withdraw_reason,omitempty"` // 撤销原因, 上限为500字示例值: "withdraw reason"
 }
-
-
-
-
 
 // CreateCorehrPreHireWithdrawOnboardingResp ...
-type CreateCorehrPreHireWithdrawOnboardingResp struct { 
-Success bool `json:"success,omitempty"` // 是否成功撤销入职
+type CreateCorehrPreHireWithdrawOnboardingResp struct {
+	Success bool `json:"success,omitempty"` // 是否成功撤销入职
 }
-
-
-
-
 
 // createCorehrPreHireWithdrawOnboardingResp ...
-type createCorehrPreHireWithdrawOnboardingResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateCorehrPreHireWithdrawOnboardingResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createCorehrPreHireWithdrawOnboardingResp struct {
+	Code  int64                                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                     `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateCorehrPreHireWithdrawOnboardingResp `json:"data,omitempty"`
+	Error *ErrorDetail                               `json:"error,omitempty"`
 }
-
-
-
-

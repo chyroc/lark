@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // GetMinutesMinuteMedia 获取妙记的音视频文件
@@ -26,9 +26,8 @@ import (
 // 通过接口获取妙记音视频文件的下载链接（有效期1天）, 以进行批量下载
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/minutes-v1/minute-media/get
-// 
 func (r *MinutesService) GetMinutesMinuteMedia(ctx context.Context, request *GetMinutesMinuteMediaReq, options ...MethodOptionFunc) (*GetMinutesMinuteMediaResp, *Response, error) {
-if r.cli.mock.mockMinutesGetMinutesMinuteMedia != nil {
+	if r.cli.mock.mockMinutesGetMinutesMinuteMedia != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Minutes#GetMinutesMinuteMedia mock enable")
 		return r.cli.mock.mockMinutesGetMinutesMinuteMedia(ctx, request, options...)
 	}
@@ -37,12 +36,11 @@ if r.cli.mock.mockMinutesGetMinutesMinuteMedia != nil {
 		Scope:                 "Minutes",
 		API:                   "GetMinutesMinuteMedia",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/minutes/v1/minutes/:minute_token/media",
+		URL:                   r.cli.openBaseURL + "/open-apis/minutes/v1/minutes/:minute_token/media",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getMinutesMinuteMediaResp)
 
@@ -54,38 +52,26 @@ if r.cli.mock.mockMinutesGetMinutesMinuteMedia != nil {
 func (r *Mock) MockMinutesGetMinutesMinuteMedia(f func(ctx context.Context, request *GetMinutesMinuteMediaReq, options ...MethodOptionFunc) (*GetMinutesMinuteMediaResp, *Response, error)) {
 	r.mockMinutesGetMinutesMinuteMedia = f
 }
+
 // UnMockMinutesGetMinutesMinuteMedia un-mock MinutesGetMinutesMinuteMedia method
 func (r *Mock) UnMockMinutesGetMinutesMinuteMedia() {
 	r.mockMinutesGetMinutesMinuteMedia = nil
 }
 
-
 // GetMinutesMinuteMediaReq ...
-type GetMinutesMinuteMediaReq struct { 
-MinuteToken string `path:"minute_token" json:"-"` // 妙记唯一标识。可从妙记的 URL 链接中获取, 一般为最后一串字符: https://sample.feishu.cn/minutes/[obcnq3b9jl72l83w4f14xxxx]示例值: "obcnq3b9jl72l83w4f149w9c" 长度范围: `24` ～ `24` 字符
+type GetMinutesMinuteMediaReq struct {
+	MinuteToken string `path:"minute_token" json:"-"` // 妙记唯一标识。可从妙记的 URL 链接中获取, 一般为最后一串字符: https://sample.feishu.cn/minutes/[obcnq3b9jl72l83w4f14xxxx]示例值: "obcnq3b9jl72l83w4f149w9c" 长度范围: `24` ～ `24` 字符
 }
-
-
-
-
 
 // GetMinutesMinuteMediaResp ...
-type GetMinutesMinuteMediaResp struct { 
-DownloadURL string `json:"download_url,omitempty"` // 妙记音视频文件下载链接
+type GetMinutesMinuteMediaResp struct {
+	DownloadURL string `json:"download_url,omitempty"` // 妙记音视频文件下载链接
 }
-
-
-
-
 
 // getMinutesMinuteMediaResp ...
-type getMinutesMinuteMediaResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *GetMinutesMinuteMediaResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type getMinutesMinuteMediaResp struct {
+	Code  int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                     `json:"msg,omitempty"`  // 错误描述
+	Data  *GetMinutesMinuteMediaResp `json:"data,omitempty"`
+	Error *ErrorDetail               `json:"error,omitempty"`
 }
-
-
-
-

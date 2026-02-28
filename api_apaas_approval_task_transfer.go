@@ -65,8 +65,7 @@ type TransferAPaaSApprovalTaskReq struct {
 }
 
 // TransferAPaaSApprovalTaskResp ...
-type TransferAPaaSApprovalTaskResp struct {
-}
+type TransferAPaaSApprovalTaskResp struct{}
 
 // transferAPaaSApprovalTaskResp ...
 type transferAPaaSApprovalTaskResp struct {

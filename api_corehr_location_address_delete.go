@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // DeleteCorehrLocationAddress 删除地点地址
@@ -26,9 +26,8 @@ import (
 // 删除地点地址时请确认是否为主要地址或是否为最后一个地址, 如有会导致删除失败。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/location-address/delete
-// 
 func (r *CorehrService) DeleteCorehrLocationAddress(ctx context.Context, request *DeleteCorehrLocationAddressReq, options ...MethodOptionFunc) (*DeleteCorehrLocationAddressResp, *Response, error) {
-if r.cli.mock.mockCorehrDeleteCorehrLocationAddress != nil {
+	if r.cli.mock.mockCorehrDeleteCorehrLocationAddress != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Corehr#DeleteCorehrLocationAddress mock enable")
 		return r.cli.mock.mockCorehrDeleteCorehrLocationAddress(ctx, request, options...)
 	}
@@ -37,11 +36,10 @@ if r.cli.mock.mockCorehrDeleteCorehrLocationAddress != nil {
 		Scope:                 "Corehr",
 		API:                   "DeleteCorehrLocationAddress",
 		Method:                "DELETE",
-		URL:   r.cli.openBaseURL + "/open-apis/corehr/v2/locations/:location_id/addresses/:address_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/locations/:location_id/addresses/:address_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(deleteCorehrLocationAddressResp)
 
@@ -53,38 +51,25 @@ if r.cli.mock.mockCorehrDeleteCorehrLocationAddress != nil {
 func (r *Mock) MockCorehrDeleteCorehrLocationAddress(f func(ctx context.Context, request *DeleteCorehrLocationAddressReq, options ...MethodOptionFunc) (*DeleteCorehrLocationAddressResp, *Response, error)) {
 	r.mockCorehrDeleteCorehrLocationAddress = f
 }
+
 // UnMockCorehrDeleteCorehrLocationAddress un-mock CorehrDeleteCorehrLocationAddress method
 func (r *Mock) UnMockCorehrDeleteCorehrLocationAddress() {
 	r.mockCorehrDeleteCorehrLocationAddress = nil
 }
 
-
 // DeleteCorehrLocationAddressReq ...
-type DeleteCorehrLocationAddressReq struct { 
-LocationID string `path:"location_id" json:"-"` // 地点 ID。ID 获取方式: 调用[【创建地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/create)[【批量分页查询地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)等接口可以返回地点 ID示例值: "1616161616"
-AddressID string `path:"address_id" json:"-"` // 地址 ID。ID 获取方式: 调用[【创建地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/create)[【批量分页查询地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)[【添加地点地址】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/location-address/create)等接口可以返回地址 ID示例值: "1515151515"
+type DeleteCorehrLocationAddressReq struct {
+	LocationID string `path:"location_id" json:"-"` // 地点 ID。ID 获取方式: 调用[【创建地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/create)[【批量分页查询地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)等接口可以返回地点 ID示例值: "1616161616"
+	AddressID  string `path:"address_id" json:"-"`  // 地址 ID。ID 获取方式: 调用[【创建地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/create)[【批量分页查询地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)[【添加地点地址】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/location-address/create)等接口可以返回地址 ID示例值: "1515151515"
 }
-
-
-
-
 
 // DeleteCorehrLocationAddressResp ...
-type DeleteCorehrLocationAddressResp struct { 
-}
-
-
-
-
+type DeleteCorehrLocationAddressResp struct{}
 
 // deleteCorehrLocationAddressResp ...
-type deleteCorehrLocationAddressResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *DeleteCorehrLocationAddressResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type deleteCorehrLocationAddressResp struct {
+	Code  int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                           `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteCorehrLocationAddressResp `json:"data,omitempty"`
+	Error *ErrorDetail                     `json:"error,omitempty"`
 }
-
-
-
-

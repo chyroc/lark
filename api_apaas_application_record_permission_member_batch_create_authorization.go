@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // BatchCreateApaasApplicationRecordPermissionMemberAuthorization 批量创建记录权限授权
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/application-record_permission-member/batch_create_authorization
-// 
 func (r *ApaasService) BatchCreateApaasApplicationRecordPermissionMemberAuthorization(ctx context.Context, request *BatchCreateApaasApplicationRecordPermissionMemberAuthorizationReq, options ...MethodOptionFunc) (*BatchCreateApaasApplicationRecordPermissionMemberAuthorizationResp, *Response, error) {
-if r.cli.mock.mockApaasBatchCreateApaasApplicationRecordPermissionMemberAuthorization != nil {
+	if r.cli.mock.mockApaasBatchCreateApaasApplicationRecordPermissionMemberAuthorization != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Apaas#BatchCreateApaasApplicationRecordPermissionMemberAuthorization mock enable")
 		return r.cli.mock.mockApaasBatchCreateApaasApplicationRecordPermissionMemberAuthorization(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockApaasBatchCreateApaasApplicationRecordPermissionMemberAuthoriz
 		Scope:                 "Apaas",
 		API:                   "BatchCreateApaasApplicationRecordPermissionMemberAuthorization",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/apaas/v1/applications/:namespace/record_permissions/:record_permission_api_name/member/batch_create_authorization",
+		URL:                   r.cli.openBaseURL + "/open-apis/apaas/v1/applications/:namespace/record_permissions/:record_permission_api_name/member/batch_create_authorization",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(batchCreateApaasApplicationRecordPermissionMemberAuthorizationResp)
 
@@ -51,39 +49,26 @@ if r.cli.mock.mockApaasBatchCreateApaasApplicationRecordPermissionMemberAuthoriz
 func (r *Mock) MockApaasBatchCreateApaasApplicationRecordPermissionMemberAuthorization(f func(ctx context.Context, request *BatchCreateApaasApplicationRecordPermissionMemberAuthorizationReq, options ...MethodOptionFunc) (*BatchCreateApaasApplicationRecordPermissionMemberAuthorizationResp, *Response, error)) {
 	r.mockApaasBatchCreateApaasApplicationRecordPermissionMemberAuthorization = f
 }
+
 // UnMockApaasBatchCreateApaasApplicationRecordPermissionMemberAuthorization un-mock ApaasBatchCreateApaasApplicationRecordPermissionMemberAuthorization method
 func (r *Mock) UnMockApaasBatchCreateApaasApplicationRecordPermissionMemberAuthorization() {
 	r.mockApaasBatchCreateApaasApplicationRecordPermissionMemberAuthorization = nil
 }
 
-
 // BatchCreateApaasApplicationRecordPermissionMemberAuthorizationReq ...
-type BatchCreateApaasApplicationRecordPermissionMemberAuthorizationReq struct { 
-Namespace string `path:"namespace" json:"-"` // 应用命名空间示例值: "package_test__c" 长度范围: `0` ～ `255` 字符
-RecordPermissionApiName string `path:"record_permission_api_name" json:"-"` // 记录权限 API 名称示例值: "adminRecordPermission" 长度范围: `0` ～ `255` 字符
-UserIDs []string `json:"user_ids,omitempty"` // 需要新增的用户 ID 列表, 使用飞书 aPaaS 的用户 ID示例值: ["1802412778084426"] 长度范围: `0` ～ `1000`
+type BatchCreateApaasApplicationRecordPermissionMemberAuthorizationReq struct {
+	Namespace               string   `path:"namespace" json:"-"`                  // 应用命名空间示例值: "package_test__c" 长度范围: `0` ～ `255` 字符
+	RecordPermissionApiName string   `path:"record_permission_api_name" json:"-"` // 记录权限 API 名称示例值: "adminRecordPermission" 长度范围: `0` ～ `255` 字符
+	UserIDs                 []string `json:"user_ids,omitempty"`                  // 需要新增的用户 ID 列表, 使用飞书 aPaaS 的用户 ID示例值: ["1802412778084426"] 长度范围: `0` ～ `1000`
 }
-
-
-
-
 
 // BatchCreateApaasApplicationRecordPermissionMemberAuthorizationResp ...
-type BatchCreateApaasApplicationRecordPermissionMemberAuthorizationResp struct { 
-}
-
-
-
-
+type BatchCreateApaasApplicationRecordPermissionMemberAuthorizationResp struct{}
 
 // batchCreateApaasApplicationRecordPermissionMemberAuthorizationResp ...
-type batchCreateApaasApplicationRecordPermissionMemberAuthorizationResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *BatchCreateApaasApplicationRecordPermissionMemberAuthorizationResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type batchCreateApaasApplicationRecordPermissionMemberAuthorizationResp struct {
+	Code  int64                                                               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                                              `json:"msg,omitempty"`  // 错误描述
+	Data  *BatchCreateApaasApplicationRecordPermissionMemberAuthorizationResp `json:"data,omitempty"`
+	Error *ErrorDetail                                                        `json:"error,omitempty"`
 }
-
-
-
-

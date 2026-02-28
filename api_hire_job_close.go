@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CloseHireJob 关闭职位后, 职位所有的职位广告将同步从官网、内推、猎头渠道下线。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/close
-// 
 func (r *HireService) CloseHireJob(ctx context.Context, request *CloseHireJobReq, options ...MethodOptionFunc) (*CloseHireJobResp, *Response, error) {
-if r.cli.mock.mockHireCloseHireJob != nil {
+	if r.cli.mock.mockHireCloseHireJob != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#CloseHireJob mock enable")
 		return r.cli.mock.mockHireCloseHireJob(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockHireCloseHireJob != nil {
 		Scope:                 "Hire",
 		API:                   "CloseHireJob",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/jobs/:job_id/close",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/jobs/:job_id/close",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(closeHireJobResp)
 
@@ -51,37 +49,24 @@ if r.cli.mock.mockHireCloseHireJob != nil {
 func (r *Mock) MockHireCloseHireJob(f func(ctx context.Context, request *CloseHireJobReq, options ...MethodOptionFunc) (*CloseHireJobResp, *Response, error)) {
 	r.mockHireCloseHireJob = f
 }
+
 // UnMockHireCloseHireJob un-mock HireCloseHireJob method
 func (r *Mock) UnMockHireCloseHireJob() {
 	r.mockHireCloseHireJob = nil
 }
 
-
 // CloseHireJobReq ...
-type CloseHireJobReq struct { 
-JobID string `path:"job_id" json:"-"` // 职位 ID, 可通过[获取职位列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/list)接口获取示例值: "6960663240925956555"
+type CloseHireJobReq struct {
+	JobID string `path:"job_id" json:"-"` // 职位 ID, 可通过[获取职位列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/list)接口获取示例值: "6960663240925956555"
 }
-
-
-
-
 
 // CloseHireJobResp ...
-type CloseHireJobResp struct { 
-}
-
-
-
-
+type CloseHireJobResp struct{}
 
 // closeHireJobResp ...
-type closeHireJobResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CloseHireJobResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type closeHireJobResp struct {
+	Code  int64             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string            `json:"msg,omitempty"`  // 错误描述
+	Data  *CloseHireJobResp `json:"data,omitempty"`
+	Error *ErrorDetail      `json:"error,omitempty"`
 }
-
-
-
-

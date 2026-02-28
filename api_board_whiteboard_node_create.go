@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateBoardWhiteboardNode 创建画板节点, 支持批量创建、创建含父子关系的节点等。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/board-v1/whiteboard-node/create
-// 
 func (r *BoardService) CreateBoardWhiteboardNode(ctx context.Context, request *CreateBoardWhiteboardNodeReq, options ...MethodOptionFunc) (*CreateBoardWhiteboardNodeResp, *Response, error) {
-if r.cli.mock.mockBoardCreateBoardWhiteboardNode != nil {
+	if r.cli.mock.mockBoardCreateBoardWhiteboardNode != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Board#CreateBoardWhiteboardNode mock enable")
 		return r.cli.mock.mockBoardCreateBoardWhiteboardNode(ctx, request, options...)
 	}
@@ -35,12 +34,11 @@ if r.cli.mock.mockBoardCreateBoardWhiteboardNode != nil {
 		Scope:                 "Board",
 		API:                   "CreateBoardWhiteboardNode",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/board/v1/whiteboards/:whiteboard_id/nodes",
+		URL:                   r.cli.openBaseURL + "/open-apis/board/v1/whiteboards/:whiteboard_id/nodes",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(createBoardWhiteboardNodeResp)
 
@@ -52,966 +50,670 @@ if r.cli.mock.mockBoardCreateBoardWhiteboardNode != nil {
 func (r *Mock) MockBoardCreateBoardWhiteboardNode(f func(ctx context.Context, request *CreateBoardWhiteboardNodeReq, options ...MethodOptionFunc) (*CreateBoardWhiteboardNodeResp, *Response, error)) {
 	r.mockBoardCreateBoardWhiteboardNode = f
 }
+
 // UnMockBoardCreateBoardWhiteboardNode un-mock BoardCreateBoardWhiteboardNode method
 func (r *Mock) UnMockBoardCreateBoardWhiteboardNode() {
 	r.mockBoardCreateBoardWhiteboardNode = nil
 }
 
-
 // CreateBoardWhiteboardNodeReq ...
-type CreateBoardWhiteboardNodeReq struct { 
-WhiteboardID string `path:"whiteboard_id" json:"-"` // 画板唯一标识, 可通过云文档下的文档接口 [获取文档所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/list) 获取, `block_type` 为 43 的 block 即为画板, 对应的 block.token 就是画板的whiteboard_id示例值: "Ru8nwrWFOhEmaFbEU2VbPRsHcxb" 长度范围: `22` ～ `27` 字符
-ClientToken *string `query:"client_token" json:"-"` // 操作的唯一标识, 与接口返回值的 client_token 相对应, 用于幂等的进行更新操作。此值为空表示将发起一次新的请求, 此值非空表示幂等的进行更新操作示例值: fe599b60-450f-46ff-b2ef-9f6675625b9 长度范围: `10` ～ `64` 字符
-UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
-Nodes []*CreateBoardWhiteboardNodeReqNode `json:"nodes,omitempty"` // 子节点数据, 不允许传入空数组 长度范围: `1` ～ `3000`
+type CreateBoardWhiteboardNodeReq struct {
+	WhiteboardID string                              `path:"whiteboard_id" json:"-"` // 画板唯一标识, 可通过云文档下的文档接口 [获取文档所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/list) 获取, `block_type` 为 43 的 block 即为画板, 对应的 block.token 就是画板的whiteboard_id示例值: "Ru8nwrWFOhEmaFbEU2VbPRsHcxb" 长度范围: `22` ～ `27` 字符
+	ClientToken  *string                             `query:"client_token" json:"-"` // 操作的唯一标识, 与接口返回值的 client_token 相对应, 用于幂等的进行更新操作。此值为空表示将发起一次新的请求, 此值非空表示幂等的进行更新操作示例值: fe599b60-450f-46ff-b2ef-9f6675625b9 长度范围: `10` ～ `64` 字符
+	UserIDType   *IDType                             `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	Nodes        []*CreateBoardWhiteboardNodeReqNode `json:"nodes,omitempty"`        // 子节点数据, 不允许传入空数组 长度范围: `1` ～ `3000`
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNode ...
-type CreateBoardWhiteboardNodeReqNode struct { 
-ID *string `json:"id,omitempty"` // 节点 id, 用于唯一标识此节点, 不能重复, 在创建父子节点、关联其它节点做标记使用示例值: "o1:1" 长度范围: `0` ～ `100` 字符
-Type string `json:"type,omitempty"` // 节点图形类型示例值: "composite_shape"可选值有: 图片文本组合基础图形svg 图形连线表格对象生命线控制焦点分区类图实体关系图便签思维导图画笔组合片段
-ParentID *string `json:"parent_id,omitempty"` // 父节点 id, 必须是已存在的节点或者在本次创建的节点列表内示例值: "n1:1" 长度范围: `0` ～ `100` 字符
-X *float64 `json:"x,omitempty"` // 图形相对画布的 x 轴位置信息（存在父容器时为相对父容器的坐标, 父容器为组合图形 group 时, 坐标是穿透的）, 单位为 px示例值: 100默认值: `0` 取值范围: `-132070` ～ `132070`
-Y *float64 `json:"y,omitempty"` // 图形相对画布的 y 轴位置信息（存在父容器时为相对父容器的坐标, 父容器为组合图形 group 时, 坐标是穿透的）, 单位为 px示例值: 100默认值: `0` 取值范围: `-132070` ～ `132070`
-Angle *float64 `json:"angle,omitempty"` // 图形旋转角度, 单位度示例值: 100默认值: `0` 取值范围: `-180` ～ `180`
-Height *float64 `json:"height,omitempty"` // 图形高度, 单位为 px示例值: 100 取值范围: `0` ～ `132070`
-Text *CreateBoardWhiteboardNodeReqNodeText `json:"text,omitempty"` // 图形内文字（节点类型为 text_shape 时, 该字段不能为空）（节点类型为group、section, connector、paint、svg、activation时候, 该字段必须为空)
-Style *CreateBoardWhiteboardNodeReqNodeStyle `json:"style,omitempty"` // 图形样式(节点类型为group、paint时, 该字段必须为空)
-Image *CreateBoardWhiteboardNodeReqNodeImage `json:"image,omitempty"` // 图片
-CompositeShape *CreateBoardWhiteboardNodeReqNodeCompositeShape `json:"composite_shape,omitempty"` // 基础图形属性(节点的 type 为 composite_shape 时不可为空)
-Connector *CreateBoardWhiteboardNodeReqNodeConnector `json:"connector,omitempty"` // 连线属性(节点类型为connector时, 该字段不可为空)
-Width *float64 `json:"width,omitempty"` // 图形宽度, 单位为 px示例值: 100 取值范围: `0` ～ `132070`
-Section *CreateBoardWhiteboardNodeReqNodeSection `json:"section,omitempty"` // 分区属性
-Table *CreateBoardWhiteboardNodeReqNodeTable `json:"table,omitempty"` // 表格属性(节点类型为table、table_er、table_uml、combined_fragment时, 该字段不可为空)
-Locked *bool `json:"locked,omitempty"` // 图形是否锁定, 锁定后无法编辑图形, 默认false示例值: true
-ZIndex *int64 `json:"z_index,omitempty"` // 图形在兄弟节点中的层级, 层级大的会覆盖层级小的示例值: 1 取值范围: `0` ～ `10000`
-Lifeline *CreateBoardWhiteboardNodeReqNodeLifeline `json:"lifeline,omitempty"` // 生命对象属性(节点类型为life_line时, 该字段不可为空)
-Paint *CreateBoardWhiteboardNodeReqNodePaint `json:"paint,omitempty"` // 画笔属性(节点类型为paint时, 该字段不可为空)
-Svg *CreateBoardWhiteboardNodeReqNodeSvg `json:"svg,omitempty"` // svg图形属性(节点类型为svg时, 该字段不可为空)
-StickyNote *CreateBoardWhiteboardNodeReqNodeStickyNote `json:"sticky_note,omitempty"` // 便签图形属性
-MindMapNode *CreateBoardWhiteboardNodeReqNodeMindMapNode `json:"mind_map_node,omitempty"` // 思维导图节点属性
-MindMapRoot *CreateBoardWhiteboardNodeReqNodeMindMapRoot `json:"mind_map_root,omitempty"` // 思维导图根节点属性
+type CreateBoardWhiteboardNodeReqNode struct {
+	ID             *string                                         `json:"id,omitempty"`              // 节点 id, 用于唯一标识此节点, 不能重复, 在创建父子节点、关联其它节点做标记使用示例值: "o1:1" 长度范围: `0` ～ `100` 字符
+	Type           string                                          `json:"type,omitempty"`            // 节点图形类型示例值: "composite_shape"可选值有: 图片文本组合基础图形svg 图形连线表格对象生命线控制焦点分区类图实体关系图便签思维导图画笔组合片段
+	ParentID       *string                                         `json:"parent_id,omitempty"`       // 父节点 id, 必须是已存在的节点或者在本次创建的节点列表内示例值: "n1:1" 长度范围: `0` ～ `100` 字符
+	X              *float64                                        `json:"x,omitempty"`               // 图形相对画布的 x 轴位置信息（存在父容器时为相对父容器的坐标, 父容器为组合图形 group 时, 坐标是穿透的）, 单位为 px示例值: 100默认值: `0` 取值范围: `-132070` ～ `132070`
+	Y              *float64                                        `json:"y,omitempty"`               // 图形相对画布的 y 轴位置信息（存在父容器时为相对父容器的坐标, 父容器为组合图形 group 时, 坐标是穿透的）, 单位为 px示例值: 100默认值: `0` 取值范围: `-132070` ～ `132070`
+	Angle          *float64                                        `json:"angle,omitempty"`           // 图形旋转角度, 单位度示例值: 100默认值: `0` 取值范围: `-180` ～ `180`
+	Height         *float64                                        `json:"height,omitempty"`          // 图形高度, 单位为 px示例值: 100 取值范围: `0` ～ `132070`
+	Text           *CreateBoardWhiteboardNodeReqNodeText           `json:"text,omitempty"`            // 图形内文字（节点类型为 text_shape 时, 该字段不能为空）（节点类型为group、section, connector、paint、svg、activation时候, 该字段必须为空)
+	Style          *CreateBoardWhiteboardNodeReqNodeStyle          `json:"style,omitempty"`           // 图形样式(节点类型为group、paint时, 该字段必须为空)
+	Image          *CreateBoardWhiteboardNodeReqNodeImage          `json:"image,omitempty"`           // 图片
+	CompositeShape *CreateBoardWhiteboardNodeReqNodeCompositeShape `json:"composite_shape,omitempty"` // 基础图形属性(节点的 type 为 composite_shape 时不可为空)
+	Connector      *CreateBoardWhiteboardNodeReqNodeConnector      `json:"connector,omitempty"`       // 连线属性(节点类型为connector时, 该字段不可为空)
+	Width          *float64                                        `json:"width,omitempty"`           // 图形宽度, 单位为 px示例值: 100 取值范围: `0` ～ `132070`
+	Section        *CreateBoardWhiteboardNodeReqNodeSection        `json:"section,omitempty"`         // 分区属性
+	Table          *CreateBoardWhiteboardNodeReqNodeTable          `json:"table,omitempty"`           // 表格属性(节点类型为table、table_er、table_uml、combined_fragment时, 该字段不可为空)
+	Locked         *bool                                           `json:"locked,omitempty"`          // 图形是否锁定, 锁定后无法编辑图形, 默认false示例值: true
+	ZIndex         *int64                                          `json:"z_index,omitempty"`         // 图形在兄弟节点中的层级, 层级大的会覆盖层级小的示例值: 1 取值范围: `0` ～ `10000`
+	Lifeline       *CreateBoardWhiteboardNodeReqNodeLifeline       `json:"lifeline,omitempty"`        // 生命对象属性(节点类型为life_line时, 该字段不可为空)
+	Paint          *CreateBoardWhiteboardNodeReqNodePaint          `json:"paint,omitempty"`           // 画笔属性(节点类型为paint时, 该字段不可为空)
+	Svg            *CreateBoardWhiteboardNodeReqNodeSvg            `json:"svg,omitempty"`             // svg图形属性(节点类型为svg时, 该字段不可为空)
+	StickyNote     *CreateBoardWhiteboardNodeReqNodeStickyNote     `json:"sticky_note,omitempty"`     // 便签图形属性
+	MindMapNode    *CreateBoardWhiteboardNodeReqNodeMindMapNode    `json:"mind_map_node,omitempty"`   // 思维导图节点属性
+	MindMapRoot    *CreateBoardWhiteboardNodeReqNodeMindMapRoot    `json:"mind_map_root,omitempty"`   // 思维导图根节点属性
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeCompositeShape ...
-type CreateBoardWhiteboardNodeReqNodeCompositeShape struct { 
-Type string `json:"type,omitempty"` // 基础图形的具体类型示例值: "circle"可选值有: 全圆角矩形圆形六边形圆柱体平行四边形梯形三角形圆角矩形步骤菱形基础矩形五角星气泡五边形单向箭头文档图形组合片段云朵十字形步骤图形2预定义流程延迟图形跨页引用注释图形数据处理数据存储数据存储2数据存储3爆炸星型四角形六角形角色小人花括号组合片段2双向箭头数据处理（正方圆角矩形）矩形气泡手动输入图形流程图圆角矩形流程图全圆角矩形流程图判定流程图数据流程图数据库流程图手动操作流程图准备数据流外部实体数据流数据处理反向箭头（左箭头）反向花括号（左括号）消息队列水平方向圆柱体类图, 接口类图, 类目圆环扇形直角三角形八边形状态图, 开始状态图, 结束状态图, 并发组件组件2组件, 接口组件, 需求接口组件, 组装立方体边界控制实体数据库边界队列集合角色生命线对象生命线思维导图全圆角矩形思维导图圆角矩形思维导图文本图形
-Pie *CreateBoardWhiteboardNodeReqNodeCompositeShapePie `json:"pie,omitempty"` // 饼图属性, type=pie时需要设置
-CircularRing *CreateBoardWhiteboardNodeReqNodeCompositeShapeCircularRing `json:"circular_ring,omitempty"` // 圆环属性, type=circular_ring时需要设置
+type CreateBoardWhiteboardNodeReqNodeCompositeShape struct {
+	Type         string                                                      `json:"type,omitempty"`          // 基础图形的具体类型示例值: "circle"可选值有: 全圆角矩形圆形六边形圆柱体平行四边形梯形三角形圆角矩形步骤菱形基础矩形五角星气泡五边形单向箭头文档图形组合片段云朵十字形步骤图形2预定义流程延迟图形跨页引用注释图形数据处理数据存储数据存储2数据存储3爆炸星型四角形六角形角色小人花括号组合片段2双向箭头数据处理（正方圆角矩形）矩形气泡手动输入图形流程图圆角矩形流程图全圆角矩形流程图判定流程图数据流程图数据库流程图手动操作流程图准备数据流外部实体数据流数据处理反向箭头（左箭头）反向花括号（左括号）消息队列水平方向圆柱体类图, 接口类图, 类目圆环扇形直角三角形八边形状态图, 开始状态图, 结束状态图, 并发组件组件2组件, 接口组件, 需求接口组件, 组装立方体边界控制实体数据库边界队列集合角色生命线对象生命线思维导图全圆角矩形思维导图圆角矩形思维导图文本图形
+	Pie          *CreateBoardWhiteboardNodeReqNodeCompositeShapePie          `json:"pie,omitempty"`           // 饼图属性, type=pie时需要设置
+	CircularRing *CreateBoardWhiteboardNodeReqNodeCompositeShapeCircularRing `json:"circular_ring,omitempty"` // 圆环属性, type=circular_ring时需要设置
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeCompositeShapeCircularRing ...
-type CreateBoardWhiteboardNodeReqNodeCompositeShapeCircularRing struct { 
-StartRadialLineAngle float64 `json:"start_radial_line_angle,omitempty"` // 开始径向边角度, 水平向右x轴正方向为0度, 顺时针方向角度值递增示例值: 30.0 取值范围: `0.0` ～ `360.0`
-CentralAngle float64 `json:"central_angle,omitempty"` // 圆心角角度, 角度方向为始径向边逆时针方向示例值: 40.0 取值范围: `0.0` ～ `360.0`
-Radius float64 `json:"radius,omitempty"` // 半径长度示例值: 10 取值范围: `1` ～ `10000000000`
-SectorRatio *float64 `json:"sector_ratio,omitempty"` // 扇区占比, 0为一个圆周线, 1为一个圆盘示例值: 1默认值: `1` 取值范围: `0` ～ `1`
+type CreateBoardWhiteboardNodeReqNodeCompositeShapeCircularRing struct {
+	StartRadialLineAngle float64  `json:"start_radial_line_angle,omitempty"` // 开始径向边角度, 水平向右x轴正方向为0度, 顺时针方向角度值递增示例值: 30.0 取值范围: `0.0` ～ `360.0`
+	CentralAngle         float64  `json:"central_angle,omitempty"`           // 圆心角角度, 角度方向为始径向边逆时针方向示例值: 40.0 取值范围: `0.0` ～ `360.0`
+	Radius               float64  `json:"radius,omitempty"`                  // 半径长度示例值: 10 取值范围: `1` ～ `10000000000`
+	SectorRatio          *float64 `json:"sector_ratio,omitempty"`            // 扇区占比, 0为一个圆周线, 1为一个圆盘示例值: 1默认值: `1` 取值范围: `0` ～ `1`
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeCompositeShapePie ...
-type CreateBoardWhiteboardNodeReqNodeCompositeShapePie struct { 
-StartRadialLineAngle float64 `json:"start_radial_line_angle,omitempty"` // 开始径向边角度, 水平向右x轴正方向为0度, 顺时针方向角度值递增, 单位度示例值: 30.0 取值范围: `0.0` ～ `360.0`
-CentralAngle float64 `json:"central_angle,omitempty"` // 圆心角角度, 角度方向为始径向边逆时针方向, 单位度示例值: 40.0 取值范围: `0.0` ～ `360.0`
-Radius float64 `json:"radius,omitempty"` // 半径长度, 单位 px示例值: 10 取值范围: `1` ～ `10000000000`
-SectorRatio *float64 `json:"sector_ratio,omitempty"` // 扇区占比, 0为一个圆周线, 1为一个圆盘示例值: 1默认值: `1` 取值范围: `0` ～ `1`
+type CreateBoardWhiteboardNodeReqNodeCompositeShapePie struct {
+	StartRadialLineAngle float64  `json:"start_radial_line_angle,omitempty"` // 开始径向边角度, 水平向右x轴正方向为0度, 顺时针方向角度值递增, 单位度示例值: 30.0 取值范围: `0.0` ～ `360.0`
+	CentralAngle         float64  `json:"central_angle,omitempty"`           // 圆心角角度, 角度方向为始径向边逆时针方向, 单位度示例值: 40.0 取值范围: `0.0` ～ `360.0`
+	Radius               float64  `json:"radius,omitempty"`                  // 半径长度, 单位 px示例值: 10 取值范围: `1` ～ `10000000000`
+	SectorRatio          *float64 `json:"sector_ratio,omitempty"`            // 扇区占比, 0为一个圆周线, 1为一个圆盘示例值: 1默认值: `1` 取值范围: `0` ～ `1`
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeConnector ...
-type CreateBoardWhiteboardNodeReqNodeConnector struct { 
-Start *CreateBoardWhiteboardNodeReqNodeConnectorStart `json:"start,omitempty"` // 连线端点信息
-End *CreateBoardWhiteboardNodeReqNodeConnectorEnd `json:"end,omitempty"` // 连线端点信息
-Captions *CreateBoardWhiteboardNodeReqNodeConnectorCaptions `json:"captions,omitempty"` // 连线文本
-Shape *string `json:"shape,omitempty"` // 连线类型示例值: "straight"可选值有: 直线折线曲线直角折线 长度范围: `0` ～ `100` 字符
-TurningPoints []*CreateBoardWhiteboardNodeReqNodeConnectorTurningPoint `json:"turning_points,omitempty"` // 连线转向点 长度范围: `0` ～ `1000000`
-CaptionAutoDirection *bool `json:"caption_auto_direction,omitempty"` // 连线上的文本方向是否自动跟随连线方向示例值: true
-CaptionPosition *float64 `json:"caption_position,omitempty"` // 文本在连线上的相对位置, 范围0-1, 0表示在连线的起始点, 1表示在连线的终点示例值: 0.5 取值范围: `0` ～ `1`
+type CreateBoardWhiteboardNodeReqNodeConnector struct {
+	Start                *CreateBoardWhiteboardNodeReqNodeConnectorStart          `json:"start,omitempty"`                  // 连线端点信息
+	End                  *CreateBoardWhiteboardNodeReqNodeConnectorEnd            `json:"end,omitempty"`                    // 连线端点信息
+	Captions             *CreateBoardWhiteboardNodeReqNodeConnectorCaptions       `json:"captions,omitempty"`               // 连线文本
+	Shape                *string                                                  `json:"shape,omitempty"`                  // 连线类型示例值: "straight"可选值有: 直线折线曲线直角折线 长度范围: `0` ～ `100` 字符
+	TurningPoints        []*CreateBoardWhiteboardNodeReqNodeConnectorTurningPoint `json:"turning_points,omitempty"`         // 连线转向点 长度范围: `0` ～ `1000000`
+	CaptionAutoDirection *bool                                                    `json:"caption_auto_direction,omitempty"` // 连线上的文本方向是否自动跟随连线方向示例值: true
+	CaptionPosition      *float64                                                 `json:"caption_position,omitempty"`       // 文本在连线上的相对位置, 范围0-1, 0表示在连线的起始点, 1表示在连线的终点示例值: 0.5 取值范围: `0` ～ `1`
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeConnectorCaptions ...
-type CreateBoardWhiteboardNodeReqNodeConnectorCaptions struct { 
-Data []*CreateBoardWhiteboardNodeReqNodeConnectorCaptionsData `json:"data,omitempty"` // 文本 长度范围: `0` ～ `1024`
+type CreateBoardWhiteboardNodeReqNodeConnectorCaptions struct {
+	Data []*CreateBoardWhiteboardNodeReqNodeConnectorCaptionsData `json:"data,omitempty"` // 文本 长度范围: `0` ～ `1024`
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeConnectorCaptionsData ...
-type CreateBoardWhiteboardNodeReqNodeConnectorCaptionsData struct { 
-Text *string `json:"text,omitempty"` // 文字内容示例值: "文字内容" 长度范围: `0` ～ `1024` 字符
-FontWeight *string `json:"font_weight,omitempty"` // 文字字重示例值: "regular"可选值有: 常规加粗
-FontSize *int64 `json:"font_size,omitempty"` // 文字大小, 单位 px, 默认为 14 px示例值: 14
-HorizontalAlign *string `json:"horizontal_align,omitempty"` // 水平对齐示例值: "center"可选值有: 向左对齐居中对齐向右对齐
-VerticalAlign *string `json:"vertical_align,omitempty"` // 垂直对齐示例值: "mid"可选值有: 顶部对齐垂直居中底部对齐
-TextColor *string `json:"text_color,omitempty"` // 文字颜色, 16 进制 rgb 值示例值: "#6db5a3" 长度范围: `7` ～ `10` 字符
-TextBackgroundColor *string `json:"text_background_color,omitempty"` // 文字背景色, 16 进制 rgb 值示例值: "#6db5a3" 长度范围: `7` ～ `10` 字符
-LineThrough *bool `json:"line_through,omitempty"` // 是否存在删除线示例值: true
-Underline *bool `json:"underline,omitempty"` // 是否存在下划线示例值: true
-Italic *bool `json:"italic,omitempty"` // 是否斜体示例值: true
-Angle *int64 `json:"angle,omitempty"` // 文字旋转角度, 单位度示例值: 90可选值有: 文字旋转角度0度文字旋转角度90度文字旋转角度180度文字旋转角度270度 取值范围: `0` ～ `270`
-ThemeTextColorCode *int64 `json:"theme_text_color_code,omitempty"` // 文字颜色主题配色编码值示例值: 0 取值范围: `-2` ～ `100`
-ThemeTextBackgroundColorCode *int64 `json:"theme_text_background_color_code,omitempty"` // 文字背景颜色主题配色编码值示例值:1 取值范围: `-2` ～ `100`
-RichText *CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichText `json:"rich_text,omitempty"` // 富文本
-TextColorType *int64 `json:"text_color_type,omitempty"` // 文字颜色类型, 0=系统颜色（取theme_text_color_code）, 1=自定义颜色（取text_color）示例值: 0可选值有: 系统颜色自定义颜色
-TextBackgroundColorType *int64 `json:"text_background_color_type,omitempty"` // 文字背景颜色类型, 0=系统颜色（取theme_text_background_color_code）, 1=自定义颜色（取text_background_color）示例值: 0可选值有: 系统颜色自定义颜色
+type CreateBoardWhiteboardNodeReqNodeConnectorCaptionsData struct {
+	Text                         *string                                                        `json:"text,omitempty"`                             // 文字内容示例值: "文字内容" 长度范围: `0` ～ `1024` 字符
+	FontWeight                   *string                                                        `json:"font_weight,omitempty"`                      // 文字字重示例值: "regular"可选值有: 常规加粗
+	FontSize                     *int64                                                         `json:"font_size,omitempty"`                        // 文字大小, 单位 px, 默认为 14 px示例值: 14
+	HorizontalAlign              *string                                                        `json:"horizontal_align,omitempty"`                 // 水平对齐示例值: "center"可选值有: 向左对齐居中对齐向右对齐
+	VerticalAlign                *string                                                        `json:"vertical_align,omitempty"`                   // 垂直对齐示例值: "mid"可选值有: 顶部对齐垂直居中底部对齐
+	TextColor                    *string                                                        `json:"text_color,omitempty"`                       // 文字颜色, 16 进制 rgb 值示例值: "#6db5a3" 长度范围: `7` ～ `10` 字符
+	TextBackgroundColor          *string                                                        `json:"text_background_color,omitempty"`            // 文字背景色, 16 进制 rgb 值示例值: "#6db5a3" 长度范围: `7` ～ `10` 字符
+	LineThrough                  *bool                                                          `json:"line_through,omitempty"`                     // 是否存在删除线示例值: true
+	Underline                    *bool                                                          `json:"underline,omitempty"`                        // 是否存在下划线示例值: true
+	Italic                       *bool                                                          `json:"italic,omitempty"`                           // 是否斜体示例值: true
+	Angle                        *int64                                                         `json:"angle,omitempty"`                            // 文字旋转角度, 单位度示例值: 90可选值有: 文字旋转角度0度文字旋转角度90度文字旋转角度180度文字旋转角度270度 取值范围: `0` ～ `270`
+	ThemeTextColorCode           *int64                                                         `json:"theme_text_color_code,omitempty"`            // 文字颜色主题配色编码值示例值: 0 取值范围: `-2` ～ `100`
+	ThemeTextBackgroundColorCode *int64                                                         `json:"theme_text_background_color_code,omitempty"` // 文字背景颜色主题配色编码值示例值:1 取值范围: `-2` ～ `100`
+	RichText                     *CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichText `json:"rich_text,omitempty"`                        // 富文本
+	TextColorType                *int64                                                         `json:"text_color_type,omitempty"`                  // 文字颜色类型, 0=系统颜色（取theme_text_color_code）, 1=自定义颜色（取text_color）示例值: 0可选值有: 系统颜色自定义颜色
+	TextBackgroundColorType      *int64                                                         `json:"text_background_color_type,omitempty"`       // 文字背景颜色类型, 0=系统颜色（取theme_text_background_color_code）, 1=自定义颜色（取text_background_color）示例值: 0可选值有: 系统颜色自定义颜色
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichText ...
-type CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichText struct { 
-Paragraphs []*CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichTextParagraph `json:"paragraphs,omitempty"` // 段落列表 长度范围: `0` ～ `1000`
+type CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichText struct {
+	Paragraphs []*CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichTextParagraph `json:"paragraphs,omitempty"` // 段落列表 长度范围: `0` ～ `1000`
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichTextParagraph ...
-type CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichTextParagraph struct { 
-ParagraphType int64 `json:"paragraph_type,omitempty"` // 段落类别示例值: 0可选值有: 普通段落无序列表有序列表
-Elements []*CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichTextParagraphElement `json:"elements,omitempty"` // 元素列表 长度范围: `0` ～ `1000`
-Indent *int64 `json:"indent,omitempty"` // 缩进（单位: 字符）示例值: 0 取值范围: `0` ～ `100`
-ListBeginIndex *int64 `json:"list_begin_index,omitempty"` // 有序列表开始序号(第一个有序列表的序号为list_begin_index+1)例如: list_begin_index = 0, 则第一个有序列表的序号为1示例值: 0 取值范围: `0` ～ `10000`
-Quote *bool `json:"quote,omitempty"` // 引用示例值: true
+type CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichTextParagraph struct {
+	ParagraphType  int64                                                                            `json:"paragraph_type,omitempty"`   // 段落类别示例值: 0可选值有: 普通段落无序列表有序列表
+	Elements       []*CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichTextParagraphElement `json:"elements,omitempty"`         // 元素列表 长度范围: `0` ～ `1000`
+	Indent         *int64                                                                           `json:"indent,omitempty"`           // 缩进（单位: 字符）示例值: 0 取值范围: `0` ～ `100`
+	ListBeginIndex *int64                                                                           `json:"list_begin_index,omitempty"` // 有序列表开始序号(第一个有序列表的序号为list_begin_index+1)例如: list_begin_index = 0, 则第一个有序列表的序号为1示例值: 0 取值范围: `0` ～ `10000`
+	Quote          *bool                                                                            `json:"quote,omitempty"`            // 引用示例值: true
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichTextParagraphElement ...
-type CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichTextParagraphElement struct { 
-ElementType int64 `json:"element_type,omitempty"` // 元素类别示例值: 0可选值有: 文本链接@用户文档
-TextElement *CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichTextParagraphElementTextElement `json:"text_element,omitempty"` // 文本类别信息
-LinkElement *CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichTextParagraphElementLinkElement `json:"link_element,omitempty"` // 超链接类别信息
-MentionUserElement *Mention `json:"mention_user_element,omitempty"` // @用户类别信息
-MentionDocElement *CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichTextParagraphElementMentionDocElement `json:"mention_doc_element,omitempty"` // 文档类别信息
+type CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichTextParagraphElement struct {
+	ElementType        int64                                                                                           `json:"element_type,omitempty"`         // 元素类别示例值: 0可选值有: 文本链接@用户文档
+	TextElement        *CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichTextParagraphElementTextElement       `json:"text_element,omitempty"`         // 文本类别信息
+	LinkElement        *CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichTextParagraphElementLinkElement       `json:"link_element,omitempty"`         // 超链接类别信息
+	MentionUserElement *Mention                                                                                        `json:"mention_user_element,omitempty"` // @用户类别信息
+	MentionDocElement  *CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichTextParagraphElementMentionDocElement `json:"mention_doc_element,omitempty"`  // 文档类别信息
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichTextParagraphElementLinkElement ...
-type CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichTextParagraphElementLinkElement struct { 
-Herf string `json:"herf,omitempty"` // 链接示例值: "https://bytedance.larkoffice.com" 长度范围: `0` ～ `1000` 字符
-Text *string `json:"text,omitempty"` // 文字示例值: "示例文案" 长度范围: `0` ～ `10000` 字符
-TextStyle *CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichTextParagraphElementLinkElementTextStyle `json:"text_style,omitempty"` // 文字样式
+type CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichTextParagraphElementLinkElement struct {
+	Herf      string                                                                                             `json:"herf,omitempty"`       // 链接示例值: "https://bytedance.larkoffice.com" 长度范围: `0` ～ `1000` 字符
+	Text      *string                                                                                            `json:"text,omitempty"`       // 文字示例值: "示例文案" 长度范围: `0` ～ `10000` 字符
+	TextStyle *CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichTextParagraphElementLinkElementTextStyle `json:"text_style,omitempty"` // 文字样式
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichTextParagraphElementLinkElementTextStyle ...
-type CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichTextParagraphElementLinkElementTextStyle struct { 
-FontWeight *string `json:"font_weight,omitempty"` // 文字字重示例值: "bold" 长度范围: `0` ～ `10` 字符
-FontSize *int64 `json:"font_size,omitempty"` // 文字大小示例值: 14 取值范围: `0` ～ `1000`
-TextColor *string `json:"text_color,omitempty"` // 文字颜色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
-TextBackgroundColor *string `json:"text_background_color,omitempty"` // 文字背景色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
-LineThrough *bool `json:"line_through,omitempty"` // 是否存在删除线示例值: true
-Underline *bool `json:"underline,omitempty"` // 是否存在下划线示例值: true
-Italic *bool `json:"italic,omitempty"` // 是否斜体示例值: true
+type CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichTextParagraphElementLinkElementTextStyle struct {
+	FontWeight          *string `json:"font_weight,omitempty"`           // 文字字重示例值: "bold" 长度范围: `0` ～ `10` 字符
+	FontSize            *int64  `json:"font_size,omitempty"`             // 文字大小示例值: 14 取值范围: `0` ～ `1000`
+	TextColor           *string `json:"text_color,omitempty"`            // 文字颜色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
+	TextBackgroundColor *string `json:"text_background_color,omitempty"` // 文字背景色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
+	LineThrough         *bool   `json:"line_through,omitempty"`          // 是否存在删除线示例值: true
+	Underline           *bool   `json:"underline,omitempty"`             // 是否存在下划线示例值: true
+	Italic              *bool   `json:"italic,omitempty"`                // 是否斜体示例值: true
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichTextParagraphElementMentionDocElement ...
-type CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichTextParagraphElementMentionDocElement struct { 
-DocURL string `json:"doc_url,omitempty"` // 文档超链接示例值: "https://bytedance.larkoffice.com/wiki/xxxxx" 长度范围: `0` ～ `1000` 字符
-TextStyle *CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichTextParagraphElementMentionDocElementTextStyle `json:"text_style,omitempty"` // 文字样式
+type CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichTextParagraphElementMentionDocElement struct {
+	DocURL    string                                                                                                   `json:"doc_url,omitempty"`    // 文档超链接示例值: "https://bytedance.larkoffice.com/wiki/xxxxx" 长度范围: `0` ～ `1000` 字符
+	TextStyle *CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichTextParagraphElementMentionDocElementTextStyle `json:"text_style,omitempty"` // 文字样式
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichTextParagraphElementMentionDocElementTextStyle ...
-type CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichTextParagraphElementMentionDocElementTextStyle struct { 
-FontWeight *string `json:"font_weight,omitempty"` // 文字字重示例值: "bold" 长度范围: `0` ～ `10` 字符
-FontSize *int64 `json:"font_size,omitempty"` // 文字大小示例值: 14 取值范围: `0` ～ `1000`
-TextColor *string `json:"text_color,omitempty"` // 文字颜色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
-TextBackgroundColor *string `json:"text_background_color,omitempty"` // 文字背景色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
-LineThrough *bool `json:"line_through,omitempty"` // 是否存在删除线示例值: true
-Underline *bool `json:"underline,omitempty"` // 是否存在下划线示例值: true
-Italic *bool `json:"italic,omitempty"` // 是否斜体示例值: true
+type CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichTextParagraphElementMentionDocElementTextStyle struct {
+	FontWeight          *string `json:"font_weight,omitempty"`           // 文字字重示例值: "bold" 长度范围: `0` ～ `10` 字符
+	FontSize            *int64  `json:"font_size,omitempty"`             // 文字大小示例值: 14 取值范围: `0` ～ `1000`
+	TextColor           *string `json:"text_color,omitempty"`            // 文字颜色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
+	TextBackgroundColor *string `json:"text_background_color,omitempty"` // 文字背景色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
+	LineThrough         *bool   `json:"line_through,omitempty"`          // 是否存在删除线示例值: true
+	Underline           *bool   `json:"underline,omitempty"`             // 是否存在下划线示例值: true
+	Italic              *bool   `json:"italic,omitempty"`                // 是否斜体示例值: true
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichTextParagraphElementTextElement ...
-type CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichTextParagraphElementTextElement struct { 
-Text string `json:"text,omitempty"` // 文字示例值: "示例文案" 长度范围: `0` ～ `10000` 字符
-TextStyle *CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichTextParagraphElementTextElementTextStyle `json:"text_style,omitempty"` // 文字样式
+type CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichTextParagraphElementTextElement struct {
+	Text      string                                                                                             `json:"text,omitempty"`       // 文字示例值: "示例文案" 长度范围: `0` ～ `10000` 字符
+	TextStyle *CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichTextParagraphElementTextElementTextStyle `json:"text_style,omitempty"` // 文字样式
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichTextParagraphElementTextElementTextStyle ...
-type CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichTextParagraphElementTextElementTextStyle struct { 
-FontWeight *string `json:"font_weight,omitempty"` // 文字字重示例值: "bold" 长度范围: `0` ～ `10` 字符
-FontSize *int64 `json:"font_size,omitempty"` // 文字大小示例值: 14 取值范围: `0` ～ `1000`
-TextColor *string `json:"text_color,omitempty"` // 文字颜色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
-TextBackgroundColor *string `json:"text_background_color,omitempty"` // 文字背景色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
-LineThrough *bool `json:"line_through,omitempty"` // 是否存在删除线示例值: true
-Underline *bool `json:"underline,omitempty"` // 是否存在下划线示例值: true
-Italic *bool `json:"italic,omitempty"` // 是否斜体示例值: true
+type CreateBoardWhiteboardNodeReqNodeConnectorCaptionsDataRichTextParagraphElementTextElementTextStyle struct {
+	FontWeight          *string `json:"font_weight,omitempty"`           // 文字字重示例值: "bold" 长度范围: `0` ～ `10` 字符
+	FontSize            *int64  `json:"font_size,omitempty"`             // 文字大小示例值: 14 取值范围: `0` ～ `1000`
+	TextColor           *string `json:"text_color,omitempty"`            // 文字颜色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
+	TextBackgroundColor *string `json:"text_background_color,omitempty"` // 文字背景色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
+	LineThrough         *bool   `json:"line_through,omitempty"`          // 是否存在删除线示例值: true
+	Underline           *bool   `json:"underline,omitempty"`             // 是否存在下划线示例值: true
+	Italic              *bool   `json:"italic,omitempty"`                // 是否斜体示例值: true
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeConnectorEnd ...
-type CreateBoardWhiteboardNodeReqNodeConnectorEnd struct { 
-AttachedObject *CreateBoardWhiteboardNodeReqNodeConnectorEndAttachedObject `json:"attached_object,omitempty"` // 连接图形信息, 与position参数二选一, 同时设置时attached_object生效
-Position *CreateBoardWhiteboardNodeReqNodeConnectorEndPosition `json:"position,omitempty"` // 连线端点在画布内的坐标, position与attached_object二选一, position与attached_object 同时设置时 attached_object 生效
-ArrowStyle *string `json:"arrow_style,omitempty"` // 连线端点箭头样式示例值: "line_arrow"可选值有: 无箭头样式线型箭头三角形箭头空心三角形箭头圆形箭头空心圆形箭头菱形箭头空心菱形箭头单箭头多箭头精确单箭头零个或多个箭头零个或单个箭头单个或多个箭头x型箭头 长度范围: `0` ～ `100` 字符
+type CreateBoardWhiteboardNodeReqNodeConnectorEnd struct {
+	AttachedObject *CreateBoardWhiteboardNodeReqNodeConnectorEndAttachedObject `json:"attached_object,omitempty"` // 连接图形信息, 与position参数二选一, 同时设置时attached_object生效
+	Position       *CreateBoardWhiteboardNodeReqNodeConnectorEndPosition       `json:"position,omitempty"`        // 连线端点在画布内的坐标, position与attached_object二选一, position与attached_object 同时设置时 attached_object 生效
+	ArrowStyle     *string                                                     `json:"arrow_style,omitempty"`     // 连线端点箭头样式示例值: "line_arrow"可选值有: 无箭头样式线型箭头三角形箭头空心三角形箭头圆形箭头空心圆形箭头菱形箭头空心菱形箭头单箭头多箭头精确单箭头零个或多个箭头零个或单个箭头单个或多个箭头x型箭头 长度范围: `0` ～ `100` 字符
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeConnectorEndAttachedObject ...
-type CreateBoardWhiteboardNodeReqNodeConnectorEndAttachedObject struct { 
-ID *string `json:"id,omitempty"` // 连接图形的 id示例值: "o1:1" 长度范围: `0` ～ `100` 字符
-SnapTo *string `json:"snap_to,omitempty"` // 连接图形的方向示例值: "auto"可选值有: 连接方向自动匹配连接图形顶部方向连接图形右边方向连接图形底部方向连接图形左边方向 长度范围: `0` ～ `100` 字符
-Position *CreateBoardWhiteboardNodeReqNodeConnectorEndAttachedObjectPosition `json:"position,omitempty"` // 连接图形的相对坐标, 0-1
+type CreateBoardWhiteboardNodeReqNodeConnectorEndAttachedObject struct {
+	ID       *string                                                             `json:"id,omitempty"`       // 连接图形的 id示例值: "o1:1" 长度范围: `0` ～ `100` 字符
+	SnapTo   *string                                                             `json:"snap_to,omitempty"`  // 连接图形的方向示例值: "auto"可选值有: 连接方向自动匹配连接图形顶部方向连接图形右边方向连接图形底部方向连接图形左边方向 长度范围: `0` ～ `100` 字符
+	Position *CreateBoardWhiteboardNodeReqNodeConnectorEndAttachedObjectPosition `json:"position,omitempty"` // 连接图形的相对坐标, 0-1
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeConnectorEndAttachedObjectPosition ...
-type CreateBoardWhiteboardNodeReqNodeConnectorEndAttachedObjectPosition struct { 
-X *float64 `json:"x,omitempty"` // 点位置x坐标, 单位百分比示例值: 0.5 取值范围: `-1000000000000000000` ～ `1000000000000000000`
-Y *float64 `json:"y,omitempty"` // 点位置y坐标, 单位百分比示例值: 0.5 取值范围: `-10000000000000000000` ～ `100000000000000000000`
+type CreateBoardWhiteboardNodeReqNodeConnectorEndAttachedObjectPosition struct {
+	X *float64 `json:"x,omitempty"` // 点位置x坐标, 单位百分比示例值: 0.5 取值范围: `-1000000000000000000` ～ `1000000000000000000`
+	Y *float64 `json:"y,omitempty"` // 点位置y坐标, 单位百分比示例值: 0.5 取值范围: `-10000000000000000000` ～ `100000000000000000000`
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeConnectorEndPosition ...
-type CreateBoardWhiteboardNodeReqNodeConnectorEndPosition struct { 
-X *float64 `json:"x,omitempty"` // 点位置x坐标, 单位 px示例值: 10 取值范围: `-1000000000000000000` ～ `1000000000000000000`
-Y *float64 `json:"y,omitempty"` // 点位置y坐标, 单位 px示例值: 10 取值范围: `-10000000000000000000` ～ `100000000000000000000`
+type CreateBoardWhiteboardNodeReqNodeConnectorEndPosition struct {
+	X *float64 `json:"x,omitempty"` // 点位置x坐标, 单位 px示例值: 10 取值范围: `-1000000000000000000` ～ `1000000000000000000`
+	Y *float64 `json:"y,omitempty"` // 点位置y坐标, 单位 px示例值: 10 取值范围: `-10000000000000000000` ～ `100000000000000000000`
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeConnectorStart ...
-type CreateBoardWhiteboardNodeReqNodeConnectorStart struct { 
-AttachedObject *CreateBoardWhiteboardNodeReqNodeConnectorStartAttachedObject `json:"attached_object,omitempty"` // 连接图形信息, 与position参数二选一, 同时设置时attached_object生效
-Position *CreateBoardWhiteboardNodeReqNodeConnectorStartPosition `json:"position,omitempty"` // 连线端点在画布内的坐标, position与attached_object二选一, position与attached_object 同时设置时 attched_object 生效
-ArrowStyle *string `json:"arrow_style,omitempty"` // 连线端点箭头样式示例值: "line_arrow"可选值有: 无箭头样式线型箭头三角形箭头空心三角形箭头圆形箭头空心圆形箭头菱形箭头空心菱形箭头单箭头多箭头精确单箭头零个或多个箭头零个或单个箭头单个或多个箭头x型箭头 长度范围: `0` ～ `100` 字符
+type CreateBoardWhiteboardNodeReqNodeConnectorStart struct {
+	AttachedObject *CreateBoardWhiteboardNodeReqNodeConnectorStartAttachedObject `json:"attached_object,omitempty"` // 连接图形信息, 与position参数二选一, 同时设置时attached_object生效
+	Position       *CreateBoardWhiteboardNodeReqNodeConnectorStartPosition       `json:"position,omitempty"`        // 连线端点在画布内的坐标, position与attached_object二选一, position与attached_object 同时设置时 attched_object 生效
+	ArrowStyle     *string                                                       `json:"arrow_style,omitempty"`     // 连线端点箭头样式示例值: "line_arrow"可选值有: 无箭头样式线型箭头三角形箭头空心三角形箭头圆形箭头空心圆形箭头菱形箭头空心菱形箭头单箭头多箭头精确单箭头零个或多个箭头零个或单个箭头单个或多个箭头x型箭头 长度范围: `0` ～ `100` 字符
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeConnectorStartAttachedObject ...
-type CreateBoardWhiteboardNodeReqNodeConnectorStartAttachedObject struct { 
-ID *string `json:"id,omitempty"` // 连接图形的 id示例值: "o1:1" 长度范围: `0` ～ `100` 字符
-SnapTo *string `json:"snap_to,omitempty"` // 连接图形的方向示例值: "auto"可选值有: 连接方向自动匹配连接图形顶部方向连接图形右边方向连接图形底部方向连接图形左边方向 长度范围: `0` ～ `100` 字符
-Position *CreateBoardWhiteboardNodeReqNodeConnectorStartAttachedObjectPosition `json:"position,omitempty"` // 连接图形的相对坐标, 0-1
+type CreateBoardWhiteboardNodeReqNodeConnectorStartAttachedObject struct {
+	ID       *string                                                               `json:"id,omitempty"`       // 连接图形的 id示例值: "o1:1" 长度范围: `0` ～ `100` 字符
+	SnapTo   *string                                                               `json:"snap_to,omitempty"`  // 连接图形的方向示例值: "auto"可选值有: 连接方向自动匹配连接图形顶部方向连接图形右边方向连接图形底部方向连接图形左边方向 长度范围: `0` ～ `100` 字符
+	Position *CreateBoardWhiteboardNodeReqNodeConnectorStartAttachedObjectPosition `json:"position,omitempty"` // 连接图形的相对坐标, 0-1
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeConnectorStartAttachedObjectPosition ...
-type CreateBoardWhiteboardNodeReqNodeConnectorStartAttachedObjectPosition struct { 
-X *float64 `json:"x,omitempty"` // 点位置x坐标, 单位百分比示例值: 0.5 取值范围: `-1000000000000000000` ～ `1000000000000000000`
-Y *float64 `json:"y,omitempty"` // 点位置y坐标, 单位百分比示例值: 0.5 取值范围: `-10000000000000000000` ～ `100000000000000000000`
+type CreateBoardWhiteboardNodeReqNodeConnectorStartAttachedObjectPosition struct {
+	X *float64 `json:"x,omitempty"` // 点位置x坐标, 单位百分比示例值: 0.5 取值范围: `-1000000000000000000` ～ `1000000000000000000`
+	Y *float64 `json:"y,omitempty"` // 点位置y坐标, 单位百分比示例值: 0.5 取值范围: `-10000000000000000000` ～ `100000000000000000000`
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeConnectorStartPosition ...
-type CreateBoardWhiteboardNodeReqNodeConnectorStartPosition struct { 
-X *float64 `json:"x,omitempty"` // 点位置x坐标, 单位 px示例值: 10 取值范围: `-1000000000000000000` ～ `1000000000000000000`
-Y *float64 `json:"y,omitempty"` // 点位置y坐标, 单位 px示例值: 10 取值范围: `-10000000000000000000` ～ `100000000000000000000`
+type CreateBoardWhiteboardNodeReqNodeConnectorStartPosition struct {
+	X *float64 `json:"x,omitempty"` // 点位置x坐标, 单位 px示例值: 10 取值范围: `-1000000000000000000` ～ `1000000000000000000`
+	Y *float64 `json:"y,omitempty"` // 点位置y坐标, 单位 px示例值: 10 取值范围: `-10000000000000000000` ～ `100000000000000000000`
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeConnectorTurningPoint ...
-type CreateBoardWhiteboardNodeReqNodeConnectorTurningPoint struct { 
-X *float64 `json:"x,omitempty"` // 点位置x坐标, 单位 px示例值: 10 取值范围: `-1000000000000000000` ～ `1000000000000000000`
-Y *float64 `json:"y,omitempty"` // 点位置y坐标, 单位 px示例值: 10 取值范围: `-10000000000000000000` ～ `100000000000000000000`
+type CreateBoardWhiteboardNodeReqNodeConnectorTurningPoint struct {
+	X *float64 `json:"x,omitempty"` // 点位置x坐标, 单位 px示例值: 10 取值范围: `-1000000000000000000` ～ `1000000000000000000`
+	Y *float64 `json:"y,omitempty"` // 点位置y坐标, 单位 px示例值: 10 取值范围: `-10000000000000000000` ～ `100000000000000000000`
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeImage ...
-type CreateBoardWhiteboardNodeReqNodeImage struct { 
-Token string `json:"token,omitempty"` // 图片 token, 通过云文档下的素材上传接口 [上传素材](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_all) 上传图片后返回的 token示例值: "EeSHb3qs9oSBXoxvw33bqtOsczb" 长度范围: `22` ～ `27` 字符
+type CreateBoardWhiteboardNodeReqNodeImage struct {
+	Token string `json:"token,omitempty"` // 图片 token, 通过云文档下的素材上传接口 [上传素材](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/media/upload_all) 上传图片后返回的 token示例值: "EeSHb3qs9oSBXoxvw33bqtOsczb" 长度范围: `22` ～ `27` 字符
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeLifeline ...
-type CreateBoardWhiteboardNodeReqNodeLifeline struct { 
-Size *float64 `json:"size,omitempty"` // 生命线长度, 单位 px示例值: 10 取值范围: `0` ～ `1000000000`
-Type *string `json:"type,omitempty"` // 生命线类型示例值: "actor_lifeline" 长度范围: `0` ～ `1000000` 字符
+type CreateBoardWhiteboardNodeReqNodeLifeline struct {
+	Size *float64 `json:"size,omitempty"` // 生命线长度, 单位 px示例值: 10 取值范围: `0` ～ `1000000000`
+	Type *string  `json:"type,omitempty"` // 生命线类型示例值: "actor_lifeline" 长度范围: `0` ～ `1000000` 字符
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeMindMapNode ...
-type CreateBoardWhiteboardNodeReqNodeMindMapNode struct { 
-ParentID string `json:"parent_id,omitempty"` // 思维导图节点的父节点, 必须为思维导图节点示例值: "z1:1" 长度范围: `0` ～ `10000000` 字符
-Type *string `json:"type,omitempty"` // 思维导图节点图形类型示例值: "mind_map_text"可选值有: 思维导图文本节点类型思维导图全圆角矩形节点类型思维导图矩形节点类型
-ZIndex *int64 `json:"z_index,omitempty"` // 思维导图节点在兄弟节点中的位置index示例值: 2 取值范围: `0` ～ `10000`
-LayoutPosition *string `json:"layout_position,omitempty"` // 子节点相对根节点的方向（根节点下的子节点设置才生效）示例值: "left"可选值有: 思维导图节点在根节点左侧思维导图节点在根节点右侧思维导图节点在根节点上方思维导图节点在根节点下方
-Collapsed *bool `json:"collapsed,omitempty"` // 是否收起子节点示例值: true
+type CreateBoardWhiteboardNodeReqNodeMindMapNode struct {
+	ParentID       string  `json:"parent_id,omitempty"`       // 思维导图节点的父节点, 必须为思维导图节点示例值: "z1:1" 长度范围: `0` ～ `10000000` 字符
+	Type           *string `json:"type,omitempty"`            // 思维导图节点图形类型示例值: "mind_map_text"可选值有: 思维导图文本节点类型思维导图全圆角矩形节点类型思维导图矩形节点类型
+	ZIndex         *int64  `json:"z_index,omitempty"`         // 思维导图节点在兄弟节点中的位置index示例值: 2 取值范围: `0` ～ `10000`
+	LayoutPosition *string `json:"layout_position,omitempty"` // 子节点相对根节点的方向（根节点下的子节点设置才生效）示例值: "left"可选值有: 思维导图节点在根节点左侧思维导图节点在根节点右侧思维导图节点在根节点上方思维导图节点在根节点下方
+	Collapsed      *bool   `json:"collapsed,omitempty"`       // 是否收起子节点示例值: true
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeMindMapRoot ...
-type CreateBoardWhiteboardNodeReqNodeMindMapRoot struct { 
-Layout *string `json:"layout,omitempty"` // 思维导图布局方式示例值: "left_right"可选值有: 上下布局左右布局左树布局右树布局左右交替平衡树布局垂直时间线布局水平时间线布局
-Type *string `json:"type,omitempty"` // 思维导图根节点图形类型示例值: "mind_map_round_rect"可选值有: 思维导图文本节点类型思维导图全圆角矩形节点类型思维导图矩形节点类型
-LineStyle *string `json:"line_style,omitempty"` // 思维导图图形连接线样式示例值: "round_angle"可选值有: 曲线直角折线圆角折线
+type CreateBoardWhiteboardNodeReqNodeMindMapRoot struct {
+	Layout    *string `json:"layout,omitempty"`     // 思维导图布局方式示例值: "left_right"可选值有: 上下布局左右布局左树布局右树布局左右交替平衡树布局垂直时间线布局水平时间线布局
+	Type      *string `json:"type,omitempty"`       // 思维导图根节点图形类型示例值: "mind_map_round_rect"可选值有: 思维导图文本节点类型思维导图全圆角矩形节点类型思维导图矩形节点类型
+	LineStyle *string `json:"line_style,omitempty"` // 思维导图图形连接线样式示例值: "round_angle"可选值有: 曲线直角折线圆角折线
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodePaint ...
-type CreateBoardWhiteboardNodeReqNodePaint struct { 
-Type *string `json:"type,omitempty"` // 画笔类型示例值: "marker"可选值有: 马克笔高亮笔 长度范围: `0` ～ `100` 字符
-Lines []*CreateBoardWhiteboardNodeReqNodePaintLine `json:"lines,omitempty"` // 画板线段, 由系列坐标点表示 长度范围: `1` ～ `100000000`
-Width *int64 `json:"width,omitempty"` // 画笔粗细, 单位px示例值: 7 取值范围: `1` ～ `23`
-Color *string `json:"color,omitempty"` // 画笔颜色示例值: "#ffffff" 长度范围: `7` ～ `7` 字符
+type CreateBoardWhiteboardNodeReqNodePaint struct {
+	Type  *string                                      `json:"type,omitempty"`  // 画笔类型示例值: "marker"可选值有: 马克笔高亮笔 长度范围: `0` ～ `100` 字符
+	Lines []*CreateBoardWhiteboardNodeReqNodePaintLine `json:"lines,omitempty"` // 画板线段, 由系列坐标点表示 长度范围: `1` ～ `100000000`
+	Width *int64                                       `json:"width,omitempty"` // 画笔粗细, 单位px示例值: 7 取值范围: `1` ～ `23`
+	Color *string                                      `json:"color,omitempty"` // 画笔颜色示例值: "#ffffff" 长度范围: `7` ～ `7` 字符
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodePaintLine ...
-type CreateBoardWhiteboardNodeReqNodePaintLine struct { 
-X *float64 `json:"x,omitempty"` // 点位置x坐标, 单位 px示例值: 10 取值范围: `-1000000000000000000` ～ `1000000000000000000`
-Y *float64 `json:"y,omitempty"` // 点位置y坐标, 单位 px示例值: 10 取值范围: `-10000000000000000000` ～ `100000000000000000000`
+type CreateBoardWhiteboardNodeReqNodePaintLine struct {
+	X *float64 `json:"x,omitempty"` // 点位置x坐标, 单位 px示例值: 10 取值范围: `-1000000000000000000` ～ `1000000000000000000`
+	Y *float64 `json:"y,omitempty"` // 点位置y坐标, 单位 px示例值: 10 取值范围: `-10000000000000000000` ～ `100000000000000000000`
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeSection ...
-type CreateBoardWhiteboardNodeReqNodeSection struct { 
-Title *string `json:"title,omitempty"` // 分区标题示例值: "分区" 长度范围: `0` ～ `1024` 字符
+type CreateBoardWhiteboardNodeReqNodeSection struct {
+	Title *string `json:"title,omitempty"` // 分区标题示例值: "分区" 长度范围: `0` ～ `1024` 字符
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeStickyNote ...
-type CreateBoardWhiteboardNodeReqNodeStickyNote struct { 
-UserID *string `json:"user_id,omitempty"` // 用户id示例值: "12345678"
-ShowAuthorInfo *bool `json:"show_author_info,omitempty"` // 是否展示用户信息示例值: true
+type CreateBoardWhiteboardNodeReqNodeStickyNote struct {
+	UserID         *string `json:"user_id,omitempty"`          // 用户id示例值: "12345678"
+	ShowAuthorInfo *bool   `json:"show_author_info,omitempty"` // 是否展示用户信息示例值: true
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeStyle ...
-type CreateBoardWhiteboardNodeReqNodeStyle struct { 
-FillColor *string `json:"fill_color,omitempty"` // 填充颜色, 16 进制 rbg 值示例值: "#6db5a3" 长度范围: `7` ～ `10` 字符
-FillOpacity *float64 `json:"fill_opacity,omitempty"` // 填充透明度, 百分比示例值: 50 取值范围: `0` ～ `100`
-BorderStyle *string `json:"border_style,omitempty"` // 边框样式示例值: "solid"可选值有: 实线无边框虚线点状虚线
-BorderWidth *string `json:"border_width,omitempty"` // 边框宽度示例值: "narrow"可选值有: 极细细中粗
-BorderOpacity *float64 `json:"border_opacity,omitempty"` // 边框透明度, 百分比示例值: 50 取值范围: `0` ～ `100`
-HFlip *bool `json:"h_flip,omitempty"` // 水平翻折示例值: false
-VFlip *bool `json:"v_flip,omitempty"` // 垂直翻折示例值: false
-BorderColor *string `json:"border_color,omitempty"` // 边框颜色, 16 进制 rgb 值示例值: "#6db5a3" 长度范围: `7` ～ `10` 字符
-ThemeFillColorCode *int64 `json:"theme_fill_color_code,omitempty"` // 填充颜色主题配色编码值示例值: 3 取值范围: `-2` ～ `100`
-ThemeBorderColorCode *int64 `json:"theme_border_color_code,omitempty"` // 边框颜色主题配色编码值示例值: 4 取值范围: `-2` ～ `100`
-FillColorType *int64 `json:"fill_color_type,omitempty"` // 填充颜色类型: 0=系统颜色, 取theme_fill_color_code, 1=自定义颜色, 取fill_color示例值: 0可选值有: 系统颜色自定义颜色
-BorderColorType *int64 `json:"border_color_type,omitempty"` // 边框颜色类型: 0=系统颜色, 取theme_border_color_code, 1=自定义颜色, 取border_color示例值: 0可选值有: 系统颜色自定义颜色
+type CreateBoardWhiteboardNodeReqNodeStyle struct {
+	FillColor            *string  `json:"fill_color,omitempty"`              // 填充颜色, 16 进制 rbg 值示例值: "#6db5a3" 长度范围: `7` ～ `10` 字符
+	FillOpacity          *float64 `json:"fill_opacity,omitempty"`            // 填充透明度, 百分比示例值: 50 取值范围: `0` ～ `100`
+	BorderStyle          *string  `json:"border_style,omitempty"`            // 边框样式示例值: "solid"可选值有: 实线无边框虚线点状虚线
+	BorderWidth          *string  `json:"border_width,omitempty"`            // 边框宽度示例值: "narrow"可选值有: 极细细中粗
+	BorderOpacity        *float64 `json:"border_opacity,omitempty"`          // 边框透明度, 百分比示例值: 50 取值范围: `0` ～ `100`
+	HFlip                *bool    `json:"h_flip,omitempty"`                  // 水平翻折示例值: false
+	VFlip                *bool    `json:"v_flip,omitempty"`                  // 垂直翻折示例值: false
+	BorderColor          *string  `json:"border_color,omitempty"`            // 边框颜色, 16 进制 rgb 值示例值: "#6db5a3" 长度范围: `7` ～ `10` 字符
+	ThemeFillColorCode   *int64   `json:"theme_fill_color_code,omitempty"`   // 填充颜色主题配色编码值示例值: 3 取值范围: `-2` ～ `100`
+	ThemeBorderColorCode *int64   `json:"theme_border_color_code,omitempty"` // 边框颜色主题配色编码值示例值: 4 取值范围: `-2` ～ `100`
+	FillColorType        *int64   `json:"fill_color_type,omitempty"`         // 填充颜色类型: 0=系统颜色, 取theme_fill_color_code, 1=自定义颜色, 取fill_color示例值: 0可选值有: 系统颜色自定义颜色
+	BorderColorType      *int64   `json:"border_color_type,omitempty"`       // 边框颜色类型: 0=系统颜色, 取theme_border_color_code, 1=自定义颜色, 取border_color示例值: 0可选值有: 系统颜色自定义颜色
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeSvg ...
-type CreateBoardWhiteboardNodeReqNodeSvg struct { 
-SvgCode *string `json:"svg_code,omitempty"` // svg 代码示例值: "<svg width="100" height="100"><circle cx="50" cy="50" r="40" stroke="black" stroke-width="2" fill="red" /></svg>" 长度范围: `1` ～ `10000000000000000` 字符
+type CreateBoardWhiteboardNodeReqNodeSvg struct {
+	SvgCode *string `json:"svg_code,omitempty"` // svg 代码示例值: "<svg width="100" height="100"><circle cx="50" cy="50" r="40" stroke="black" stroke-width="2" fill="red" /></svg>" 长度范围: `1` ～ `10000000000000000` 字符
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeTable ...
-type CreateBoardWhiteboardNodeReqNodeTable struct { 
-Meta *CreateBoardWhiteboardNodeReqNodeTableMeta `json:"meta,omitempty"` // 元信息
-Title *string `json:"title,omitempty"` // 标题示例值: "表格" 长度范围: `0` ～ `1024` 字符
-Cells []*CreateBoardWhiteboardNodeReqNodeTableCell `json:"cells,omitempty"` // 单元格列表 长度范围: `0` ～ `10000`
+type CreateBoardWhiteboardNodeReqNodeTable struct {
+	Meta  *CreateBoardWhiteboardNodeReqNodeTableMeta   `json:"meta,omitempty"`  // 元信息
+	Title *string                                      `json:"title,omitempty"` // 标题示例值: "表格" 长度范围: `0` ～ `1024` 字符
+	Cells []*CreateBoardWhiteboardNodeReqNodeTableCell `json:"cells,omitempty"` // 单元格列表 长度范围: `0` ～ `10000`
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeTableCell ...
-type CreateBoardWhiteboardNodeReqNodeTableCell struct { 
-RowIndex int64 `json:"row_index,omitempty"` // 行下标, 从 1 开始示例值: 1 取值范围: `1` ～ `10000`
-ColIndex int64 `json:"col_index,omitempty"` // 列下标, 从 1 开始示例值: 1 取值范围: `1` ～ `10000`
-MergeInfo *CreateBoardWhiteboardNodeReqNodeTableCellMergeInfo `json:"merge_info,omitempty"` // 单元格合并信息
-Children []string `json:"children,omitempty"` // 单元格包含的子节点 id示例值: ["o1:1"] 长度范围: `0` ～ `3000`
-Text *CreateBoardWhiteboardNodeReqNodeTableCellText `json:"text,omitempty"` // 单元格内文字
-Style *CreateBoardWhiteboardNodeReqNodeTableCellStyle `json:"style,omitempty"` // 单元格样式, 设置后会覆盖表格样式
+type CreateBoardWhiteboardNodeReqNodeTableCell struct {
+	RowIndex  int64                                               `json:"row_index,omitempty"`  // 行下标, 从 1 开始示例值: 1 取值范围: `1` ～ `10000`
+	ColIndex  int64                                               `json:"col_index,omitempty"`  // 列下标, 从 1 开始示例值: 1 取值范围: `1` ～ `10000`
+	MergeInfo *CreateBoardWhiteboardNodeReqNodeTableCellMergeInfo `json:"merge_info,omitempty"` // 单元格合并信息
+	Children  []string                                            `json:"children,omitempty"`   // 单元格包含的子节点 id示例值: ["o1:1"] 长度范围: `0` ～ `3000`
+	Text      *CreateBoardWhiteboardNodeReqNodeTableCellText      `json:"text,omitempty"`       // 单元格内文字
+	Style     *CreateBoardWhiteboardNodeReqNodeTableCellStyle     `json:"style,omitempty"`      // 单元格样式, 设置后会覆盖表格样式
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeTableCellMergeInfo ...
-type CreateBoardWhiteboardNodeReqNodeTableCellMergeInfo struct { 
-RowSpan int64 `json:"row_span,omitempty"` // 从当前行索引起被合并的连续行数示例值: 2 取值范围: `1` ～ `10000`
-ColSpan int64 `json:"col_span,omitempty"` // 从当前列索引起被合并的连续列数示例值: 2 取值范围: `1` ～ `10000`
+type CreateBoardWhiteboardNodeReqNodeTableCellMergeInfo struct {
+	RowSpan int64 `json:"row_span,omitempty"` // 从当前行索引起被合并的连续行数示例值: 2 取值范围: `1` ～ `10000`
+	ColSpan int64 `json:"col_span,omitempty"` // 从当前列索引起被合并的连续列数示例值: 2 取值范围: `1` ～ `10000`
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeTableCellStyle ...
-type CreateBoardWhiteboardNodeReqNodeTableCellStyle struct { 
-FillColor *string `json:"fill_color,omitempty"` // 填充颜色, 16 进制 rbg 值示例值: "#6db5a3" 长度范围: `7` ～ `10` 字符
-FillOpacity *float64 `json:"fill_opacity,omitempty"` // 填充透明度, 百分比示例值: 50 取值范围: `0` ～ `100`
-BorderStyle *string `json:"border_style,omitempty"` // 边框样式示例值: "solid"可选值有: 实线无边框虚线点状虚线
-BorderWidth *string `json:"border_width,omitempty"` // 边框宽度示例值: "narrow"可选值有: 极细细中粗
-BorderOpacity *float64 `json:"border_opacity,omitempty"` // 边框透明度, 百分比示例值: 50 取值范围: `0` ～ `100`
-HFlip *bool `json:"h_flip,omitempty"` // 水平翻折示例值: false
-VFlip *bool `json:"v_flip,omitempty"` // 垂直翻折示例值: false
-BorderColor *string `json:"border_color,omitempty"` // 边框颜色, 16 进制 rgb 值示例值: "#6db5a3" 长度范围: `7` ～ `10` 字符
-ThemeFillColorCode *int64 `json:"theme_fill_color_code,omitempty"` // 填充颜色主题配色编码值示例值: 3 取值范围: `-2` ～ `100`
-ThemeBorderColorCode *int64 `json:"theme_border_color_code,omitempty"` // 边框颜色主题配色编码值示例值: 4 取值范围: `-2` ～ `100`
-FillColorType *int64 `json:"fill_color_type,omitempty"` // 填充颜色类型: 0=系统颜色, 取theme_fill_color_code, 1=自定义颜色, 取fill_color示例值: 0可选值有: 系统颜色自定义颜色
-BorderColorType *int64 `json:"border_color_type,omitempty"` // 边框颜色类型: 0=系统颜色, 取theme_border_color_code, 1=自定义颜色, 取border_color示例值: 0可选值有: 系统颜色自定义颜色
+type CreateBoardWhiteboardNodeReqNodeTableCellStyle struct {
+	FillColor            *string  `json:"fill_color,omitempty"`              // 填充颜色, 16 进制 rbg 值示例值: "#6db5a3" 长度范围: `7` ～ `10` 字符
+	FillOpacity          *float64 `json:"fill_opacity,omitempty"`            // 填充透明度, 百分比示例值: 50 取值范围: `0` ～ `100`
+	BorderStyle          *string  `json:"border_style,omitempty"`            // 边框样式示例值: "solid"可选值有: 实线无边框虚线点状虚线
+	BorderWidth          *string  `json:"border_width,omitempty"`            // 边框宽度示例值: "narrow"可选值有: 极细细中粗
+	BorderOpacity        *float64 `json:"border_opacity,omitempty"`          // 边框透明度, 百分比示例值: 50 取值范围: `0` ～ `100`
+	HFlip                *bool    `json:"h_flip,omitempty"`                  // 水平翻折示例值: false
+	VFlip                *bool    `json:"v_flip,omitempty"`                  // 垂直翻折示例值: false
+	BorderColor          *string  `json:"border_color,omitempty"`            // 边框颜色, 16 进制 rgb 值示例值: "#6db5a3" 长度范围: `7` ～ `10` 字符
+	ThemeFillColorCode   *int64   `json:"theme_fill_color_code,omitempty"`   // 填充颜色主题配色编码值示例值: 3 取值范围: `-2` ～ `100`
+	ThemeBorderColorCode *int64   `json:"theme_border_color_code,omitempty"` // 边框颜色主题配色编码值示例值: 4 取值范围: `-2` ～ `100`
+	FillColorType        *int64   `json:"fill_color_type,omitempty"`         // 填充颜色类型: 0=系统颜色, 取theme_fill_color_code, 1=自定义颜色, 取fill_color示例值: 0可选值有: 系统颜色自定义颜色
+	BorderColorType      *int64   `json:"border_color_type,omitempty"`       // 边框颜色类型: 0=系统颜色, 取theme_border_color_code, 1=自定义颜色, 取border_color示例值: 0可选值有: 系统颜色自定义颜色
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeTableCellText ...
-type CreateBoardWhiteboardNodeReqNodeTableCellText struct { 
-Text *string `json:"text,omitempty"` // 文字内容示例值: "文字内容" 长度范围: `0` ～ `1024` 字符
-FontWeight *string `json:"font_weight,omitempty"` // 文字字重示例值: "regular"可选值有: 常规加粗
-FontSize *int64 `json:"font_size,omitempty"` // 文字大小, 单位 px, 默认为 14 px示例值: 14
-HorizontalAlign *string `json:"horizontal_align,omitempty"` // 水平对齐示例值: "center"可选值有: 向左对齐居中对齐向右对齐
-VerticalAlign *string `json:"vertical_align,omitempty"` // 垂直对齐示例值: "mid"可选值有: 顶部对齐垂直居中底部对齐
-TextColor *string `json:"text_color,omitempty"` // 文字颜色, 16 进制 rgb 值示例值: "#6db5a3" 长度范围: `7` ～ `10` 字符
-TextBackgroundColor *string `json:"text_background_color,omitempty"` // 文字背景色, 16 进制 rgb 值示例值: "#6db5a3" 长度范围: `7` ～ `10` 字符
-LineThrough *bool `json:"line_through,omitempty"` // 是否存在删除线示例值: true
-Underline *bool `json:"underline,omitempty"` // 是否存在下划线示例值: true
-Italic *bool `json:"italic,omitempty"` // 是否斜体示例值: true
-Angle *int64 `json:"angle,omitempty"` // 文字旋转角度, 单位度示例值: 90可选值有: 文字旋转角度0度文字旋转角度90度文字旋转角度180度文字旋转角度270度 取值范围: `0` ～ `270`
-ThemeTextColorCode *int64 `json:"theme_text_color_code,omitempty"` // 文字颜色主题配色编码值示例值: 0 取值范围: `-2` ～ `100`
-ThemeTextBackgroundColorCode *int64 `json:"theme_text_background_color_code,omitempty"` // 文字背景颜色主题配色编码值示例值:1 取值范围: `-2` ～ `100`
-RichText *CreateBoardWhiteboardNodeReqNodeTableCellTextRichText `json:"rich_text,omitempty"` // 富文本
-TextColorType *int64 `json:"text_color_type,omitempty"` // 文字颜色类型, 0=系统颜色（取theme_text_color_code）, 1=自定义颜色（取text_color）示例值: 0可选值有: 系统颜色自定义颜色
-TextBackgroundColorType *int64 `json:"text_background_color_type,omitempty"` // 文字背景颜色类型, 0=系统颜色（取theme_text_background_color_code）, 1=自定义颜色（取text_background_color）示例值: 0可选值有: 系统颜色自定义颜色
+type CreateBoardWhiteboardNodeReqNodeTableCellText struct {
+	Text                         *string                                                `json:"text,omitempty"`                             // 文字内容示例值: "文字内容" 长度范围: `0` ～ `1024` 字符
+	FontWeight                   *string                                                `json:"font_weight,omitempty"`                      // 文字字重示例值: "regular"可选值有: 常规加粗
+	FontSize                     *int64                                                 `json:"font_size,omitempty"`                        // 文字大小, 单位 px, 默认为 14 px示例值: 14
+	HorizontalAlign              *string                                                `json:"horizontal_align,omitempty"`                 // 水平对齐示例值: "center"可选值有: 向左对齐居中对齐向右对齐
+	VerticalAlign                *string                                                `json:"vertical_align,omitempty"`                   // 垂直对齐示例值: "mid"可选值有: 顶部对齐垂直居中底部对齐
+	TextColor                    *string                                                `json:"text_color,omitempty"`                       // 文字颜色, 16 进制 rgb 值示例值: "#6db5a3" 长度范围: `7` ～ `10` 字符
+	TextBackgroundColor          *string                                                `json:"text_background_color,omitempty"`            // 文字背景色, 16 进制 rgb 值示例值: "#6db5a3" 长度范围: `7` ～ `10` 字符
+	LineThrough                  *bool                                                  `json:"line_through,omitempty"`                     // 是否存在删除线示例值: true
+	Underline                    *bool                                                  `json:"underline,omitempty"`                        // 是否存在下划线示例值: true
+	Italic                       *bool                                                  `json:"italic,omitempty"`                           // 是否斜体示例值: true
+	Angle                        *int64                                                 `json:"angle,omitempty"`                            // 文字旋转角度, 单位度示例值: 90可选值有: 文字旋转角度0度文字旋转角度90度文字旋转角度180度文字旋转角度270度 取值范围: `0` ～ `270`
+	ThemeTextColorCode           *int64                                                 `json:"theme_text_color_code,omitempty"`            // 文字颜色主题配色编码值示例值: 0 取值范围: `-2` ～ `100`
+	ThemeTextBackgroundColorCode *int64                                                 `json:"theme_text_background_color_code,omitempty"` // 文字背景颜色主题配色编码值示例值:1 取值范围: `-2` ～ `100`
+	RichText                     *CreateBoardWhiteboardNodeReqNodeTableCellTextRichText `json:"rich_text,omitempty"`                        // 富文本
+	TextColorType                *int64                                                 `json:"text_color_type,omitempty"`                  // 文字颜色类型, 0=系统颜色（取theme_text_color_code）, 1=自定义颜色（取text_color）示例值: 0可选值有: 系统颜色自定义颜色
+	TextBackgroundColorType      *int64                                                 `json:"text_background_color_type,omitempty"`       // 文字背景颜色类型, 0=系统颜色（取theme_text_background_color_code）, 1=自定义颜色（取text_background_color）示例值: 0可选值有: 系统颜色自定义颜色
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeTableCellTextRichText ...
-type CreateBoardWhiteboardNodeReqNodeTableCellTextRichText struct { 
-Paragraphs []*CreateBoardWhiteboardNodeReqNodeTableCellTextRichTextParagraph `json:"paragraphs,omitempty"` // 段落列表 长度范围: `0` ～ `1000`
+type CreateBoardWhiteboardNodeReqNodeTableCellTextRichText struct {
+	Paragraphs []*CreateBoardWhiteboardNodeReqNodeTableCellTextRichTextParagraph `json:"paragraphs,omitempty"` // 段落列表 长度范围: `0` ～ `1000`
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeTableCellTextRichTextParagraph ...
-type CreateBoardWhiteboardNodeReqNodeTableCellTextRichTextParagraph struct { 
-ParagraphType int64 `json:"paragraph_type,omitempty"` // 段落类别示例值: 0可选值有: 普通段落无序列表有序列表
-Elements []*CreateBoardWhiteboardNodeReqNodeTableCellTextRichTextParagraphElement `json:"elements,omitempty"` // 元素列表 长度范围: `0` ～ `1000`
-Indent *int64 `json:"indent,omitempty"` // 缩进（单位: 字符）示例值: 0 取值范围: `0` ～ `100`
-ListBeginIndex *int64 `json:"list_begin_index,omitempty"` // 有序列表开始序号(第一个有序列表的序号为list_begin_index+1)例如: list_begin_index = 0, 则第一个有序列表的序号为1示例值: 0 取值范围: `0` ～ `10000`
-Quote *bool `json:"quote,omitempty"` // 引用示例值: true
+type CreateBoardWhiteboardNodeReqNodeTableCellTextRichTextParagraph struct {
+	ParagraphType  int64                                                                    `json:"paragraph_type,omitempty"`   // 段落类别示例值: 0可选值有: 普通段落无序列表有序列表
+	Elements       []*CreateBoardWhiteboardNodeReqNodeTableCellTextRichTextParagraphElement `json:"elements,omitempty"`         // 元素列表 长度范围: `0` ～ `1000`
+	Indent         *int64                                                                   `json:"indent,omitempty"`           // 缩进（单位: 字符）示例值: 0 取值范围: `0` ～ `100`
+	ListBeginIndex *int64                                                                   `json:"list_begin_index,omitempty"` // 有序列表开始序号(第一个有序列表的序号为list_begin_index+1)例如: list_begin_index = 0, 则第一个有序列表的序号为1示例值: 0 取值范围: `0` ～ `10000`
+	Quote          *bool                                                                    `json:"quote,omitempty"`            // 引用示例值: true
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeTableCellTextRichTextParagraphElement ...
-type CreateBoardWhiteboardNodeReqNodeTableCellTextRichTextParagraphElement struct { 
-ElementType int64 `json:"element_type,omitempty"` // 元素类别示例值: 0可选值有: 文本链接@用户文档
-TextElement *CreateBoardWhiteboardNodeReqNodeTableCellTextRichTextParagraphElementTextElement `json:"text_element,omitempty"` // 文本类别信息
-LinkElement *CreateBoardWhiteboardNodeReqNodeTableCellTextRichTextParagraphElementLinkElement `json:"link_element,omitempty"` // 超链接类别信息
-MentionUserElement *Mention `json:"mention_user_element,omitempty"` // @用户类别信息
-MentionDocElement *CreateBoardWhiteboardNodeReqNodeTableCellTextRichTextParagraphElementMentionDocElement `json:"mention_doc_element,omitempty"` // 文档类别信息
+type CreateBoardWhiteboardNodeReqNodeTableCellTextRichTextParagraphElement struct {
+	ElementType        int64                                                                                   `json:"element_type,omitempty"`         // 元素类别示例值: 0可选值有: 文本链接@用户文档
+	TextElement        *CreateBoardWhiteboardNodeReqNodeTableCellTextRichTextParagraphElementTextElement       `json:"text_element,omitempty"`         // 文本类别信息
+	LinkElement        *CreateBoardWhiteboardNodeReqNodeTableCellTextRichTextParagraphElementLinkElement       `json:"link_element,omitempty"`         // 超链接类别信息
+	MentionUserElement *Mention                                                                                `json:"mention_user_element,omitempty"` // @用户类别信息
+	MentionDocElement  *CreateBoardWhiteboardNodeReqNodeTableCellTextRichTextParagraphElementMentionDocElement `json:"mention_doc_element,omitempty"`  // 文档类别信息
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeTableCellTextRichTextParagraphElementLinkElement ...
-type CreateBoardWhiteboardNodeReqNodeTableCellTextRichTextParagraphElementLinkElement struct { 
-Herf string `json:"herf,omitempty"` // 链接示例值: "https://bytedance.larkoffice.com" 长度范围: `0` ～ `1000` 字符
-Text *string `json:"text,omitempty"` // 文字示例值: "示例文案" 长度范围: `0` ～ `10000` 字符
-TextStyle *CreateBoardWhiteboardNodeReqNodeTableCellTextRichTextParagraphElementLinkElementTextStyle `json:"text_style,omitempty"` // 文字样式
+type CreateBoardWhiteboardNodeReqNodeTableCellTextRichTextParagraphElementLinkElement struct {
+	Herf      string                                                                                     `json:"herf,omitempty"`       // 链接示例值: "https://bytedance.larkoffice.com" 长度范围: `0` ～ `1000` 字符
+	Text      *string                                                                                    `json:"text,omitempty"`       // 文字示例值: "示例文案" 长度范围: `0` ～ `10000` 字符
+	TextStyle *CreateBoardWhiteboardNodeReqNodeTableCellTextRichTextParagraphElementLinkElementTextStyle `json:"text_style,omitempty"` // 文字样式
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeTableCellTextRichTextParagraphElementLinkElementTextStyle ...
-type CreateBoardWhiteboardNodeReqNodeTableCellTextRichTextParagraphElementLinkElementTextStyle struct { 
-FontWeight *string `json:"font_weight,omitempty"` // 文字字重示例值: "bold" 长度范围: `0` ～ `10` 字符
-FontSize *int64 `json:"font_size,omitempty"` // 文字大小示例值: 14 取值范围: `0` ～ `1000`
-TextColor *string `json:"text_color,omitempty"` // 文字颜色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
-TextBackgroundColor *string `json:"text_background_color,omitempty"` // 文字背景色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
-LineThrough *bool `json:"line_through,omitempty"` // 是否存在删除线示例值: true
-Underline *bool `json:"underline,omitempty"` // 是否存在下划线示例值: true
-Italic *bool `json:"italic,omitempty"` // 是否斜体示例值: true
+type CreateBoardWhiteboardNodeReqNodeTableCellTextRichTextParagraphElementLinkElementTextStyle struct {
+	FontWeight          *string `json:"font_weight,omitempty"`           // 文字字重示例值: "bold" 长度范围: `0` ～ `10` 字符
+	FontSize            *int64  `json:"font_size,omitempty"`             // 文字大小示例值: 14 取值范围: `0` ～ `1000`
+	TextColor           *string `json:"text_color,omitempty"`            // 文字颜色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
+	TextBackgroundColor *string `json:"text_background_color,omitempty"` // 文字背景色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
+	LineThrough         *bool   `json:"line_through,omitempty"`          // 是否存在删除线示例值: true
+	Underline           *bool   `json:"underline,omitempty"`             // 是否存在下划线示例值: true
+	Italic              *bool   `json:"italic,omitempty"`                // 是否斜体示例值: true
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeTableCellTextRichTextParagraphElementMentionDocElement ...
-type CreateBoardWhiteboardNodeReqNodeTableCellTextRichTextParagraphElementMentionDocElement struct { 
-DocURL string `json:"doc_url,omitempty"` // 文档超链接示例值: "https://bytedance.larkoffice.com/wiki/xxxxx" 长度范围: `0` ～ `1000` 字符
-TextStyle *CreateBoardWhiteboardNodeReqNodeTableCellTextRichTextParagraphElementMentionDocElementTextStyle `json:"text_style,omitempty"` // 文字样式
+type CreateBoardWhiteboardNodeReqNodeTableCellTextRichTextParagraphElementMentionDocElement struct {
+	DocURL    string                                                                                           `json:"doc_url,omitempty"`    // 文档超链接示例值: "https://bytedance.larkoffice.com/wiki/xxxxx" 长度范围: `0` ～ `1000` 字符
+	TextStyle *CreateBoardWhiteboardNodeReqNodeTableCellTextRichTextParagraphElementMentionDocElementTextStyle `json:"text_style,omitempty"` // 文字样式
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeTableCellTextRichTextParagraphElementMentionDocElementTextStyle ...
-type CreateBoardWhiteboardNodeReqNodeTableCellTextRichTextParagraphElementMentionDocElementTextStyle struct { 
-FontWeight *string `json:"font_weight,omitempty"` // 文字字重示例值: "bold" 长度范围: `0` ～ `10` 字符
-FontSize *int64 `json:"font_size,omitempty"` // 文字大小示例值: 14 取值范围: `0` ～ `1000`
-TextColor *string `json:"text_color,omitempty"` // 文字颜色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
-TextBackgroundColor *string `json:"text_background_color,omitempty"` // 文字背景色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
-LineThrough *bool `json:"line_through,omitempty"` // 是否存在删除线示例值: true
-Underline *bool `json:"underline,omitempty"` // 是否存在下划线示例值: true
-Italic *bool `json:"italic,omitempty"` // 是否斜体示例值: true
+type CreateBoardWhiteboardNodeReqNodeTableCellTextRichTextParagraphElementMentionDocElementTextStyle struct {
+	FontWeight          *string `json:"font_weight,omitempty"`           // 文字字重示例值: "bold" 长度范围: `0` ～ `10` 字符
+	FontSize            *int64  `json:"font_size,omitempty"`             // 文字大小示例值: 14 取值范围: `0` ～ `1000`
+	TextColor           *string `json:"text_color,omitempty"`            // 文字颜色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
+	TextBackgroundColor *string `json:"text_background_color,omitempty"` // 文字背景色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
+	LineThrough         *bool   `json:"line_through,omitempty"`          // 是否存在删除线示例值: true
+	Underline           *bool   `json:"underline,omitempty"`             // 是否存在下划线示例值: true
+	Italic              *bool   `json:"italic,omitempty"`                // 是否斜体示例值: true
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeTableCellTextRichTextParagraphElementTextElement ...
-type CreateBoardWhiteboardNodeReqNodeTableCellTextRichTextParagraphElementTextElement struct { 
-Text string `json:"text,omitempty"` // 文字示例值: "示例文案" 长度范围: `0` ～ `10000` 字符
-TextStyle *CreateBoardWhiteboardNodeReqNodeTableCellTextRichTextParagraphElementTextElementTextStyle `json:"text_style,omitempty"` // 文字样式
+type CreateBoardWhiteboardNodeReqNodeTableCellTextRichTextParagraphElementTextElement struct {
+	Text      string                                                                                     `json:"text,omitempty"`       // 文字示例值: "示例文案" 长度范围: `0` ～ `10000` 字符
+	TextStyle *CreateBoardWhiteboardNodeReqNodeTableCellTextRichTextParagraphElementTextElementTextStyle `json:"text_style,omitempty"` // 文字样式
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeTableCellTextRichTextParagraphElementTextElementTextStyle ...
-type CreateBoardWhiteboardNodeReqNodeTableCellTextRichTextParagraphElementTextElementTextStyle struct { 
-FontWeight *string `json:"font_weight,omitempty"` // 文字字重示例值: "bold" 长度范围: `0` ～ `10` 字符
-FontSize *int64 `json:"font_size,omitempty"` // 文字大小示例值: 14 取值范围: `0` ～ `1000`
-TextColor *string `json:"text_color,omitempty"` // 文字颜色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
-TextBackgroundColor *string `json:"text_background_color,omitempty"` // 文字背景色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
-LineThrough *bool `json:"line_through,omitempty"` // 是否存在删除线示例值: true
-Underline *bool `json:"underline,omitempty"` // 是否存在下划线示例值: true
-Italic *bool `json:"italic,omitempty"` // 是否斜体示例值: true
+type CreateBoardWhiteboardNodeReqNodeTableCellTextRichTextParagraphElementTextElementTextStyle struct {
+	FontWeight          *string `json:"font_weight,omitempty"`           // 文字字重示例值: "bold" 长度范围: `0` ～ `10` 字符
+	FontSize            *int64  `json:"font_size,omitempty"`             // 文字大小示例值: 14 取值范围: `0` ～ `1000`
+	TextColor           *string `json:"text_color,omitempty"`            // 文字颜色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
+	TextBackgroundColor *string `json:"text_background_color,omitempty"` // 文字背景色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
+	LineThrough         *bool   `json:"line_through,omitempty"`          // 是否存在删除线示例值: true
+	Underline           *bool   `json:"underline,omitempty"`             // 是否存在下划线示例值: true
+	Italic              *bool   `json:"italic,omitempty"`                // 是否斜体示例值: true
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeTableMeta ...
-type CreateBoardWhiteboardNodeReqNodeTableMeta struct { 
-RowSizes []float64 `json:"row_sizes,omitempty"` // 行高, 单位 px示例值: [10] 长度范围: `1` ～ `100`
-ColSizes []float64 `json:"col_sizes,omitempty"` // 列宽, 单位 px示例值: [10] 长度范围: `1` ～ `1000000`
-Style *CreateBoardWhiteboardNodeReqNodeTableMetaStyle `json:"style,omitempty"` // 整个表格的样式
-Text *CreateBoardWhiteboardNodeReqNodeTableMetaText `json:"text,omitempty"` // 整个表格的文字样式
+type CreateBoardWhiteboardNodeReqNodeTableMeta struct {
+	RowSizes []float64                                       `json:"row_sizes,omitempty"` // 行高, 单位 px示例值: [10] 长度范围: `1` ～ `100`
+	ColSizes []float64                                       `json:"col_sizes,omitempty"` // 列宽, 单位 px示例值: [10] 长度范围: `1` ～ `1000000`
+	Style    *CreateBoardWhiteboardNodeReqNodeTableMetaStyle `json:"style,omitempty"`     // 整个表格的样式
+	Text     *CreateBoardWhiteboardNodeReqNodeTableMetaText  `json:"text,omitempty"`      // 整个表格的文字样式
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeTableMetaStyle ...
-type CreateBoardWhiteboardNodeReqNodeTableMetaStyle struct { 
-FillColor *string `json:"fill_color,omitempty"` // 填充颜色, 16 进制 rbg 值示例值: "#6db5a3" 长度范围: `7` ～ `10` 字符
-FillOpacity *float64 `json:"fill_opacity,omitempty"` // 填充透明度, 百分比示例值: 50 取值范围: `0` ～ `100`
-BorderStyle *string `json:"border_style,omitempty"` // 边框样式示例值: "solid"可选值有: 实线无边框虚线点状虚线
-BorderWidth *string `json:"border_width,omitempty"` // 边框宽度示例值: "narrow"可选值有: 极细细中粗
-BorderOpacity *float64 `json:"border_opacity,omitempty"` // 边框透明度, 百分比示例值: 50 取值范围: `0` ～ `100`
-HFlip *bool `json:"h_flip,omitempty"` // 水平翻折示例值: false
-VFlip *bool `json:"v_flip,omitempty"` // 垂直翻折示例值: false
-BorderColor *string `json:"border_color,omitempty"` // 边框颜色, 16 进制 rgb 值示例值: "#6db5a3" 长度范围: `7` ～ `10` 字符
-ThemeFillColorCode *int64 `json:"theme_fill_color_code,omitempty"` // 填充颜色主题配色编码值示例值: 3 取值范围: `-2` ～ `100`
-ThemeBorderColorCode *int64 `json:"theme_border_color_code,omitempty"` // 边框颜色主题配色编码值示例值: 4 取值范围: `-2` ～ `100`
-FillColorType *int64 `json:"fill_color_type,omitempty"` // 填充颜色类型: 0=系统颜色, 取theme_fill_color_code, 1=自定义颜色, 取fill_color示例值: 0可选值有: 系统颜色自定义颜色
-BorderColorType *int64 `json:"border_color_type,omitempty"` // 边框颜色类型: 0=系统颜色, 取theme_border_color_code, 1=自定义颜色, 取border_color示例值: 0可选值有: 系统颜色自定义颜色
+type CreateBoardWhiteboardNodeReqNodeTableMetaStyle struct {
+	FillColor            *string  `json:"fill_color,omitempty"`              // 填充颜色, 16 进制 rbg 值示例值: "#6db5a3" 长度范围: `7` ～ `10` 字符
+	FillOpacity          *float64 `json:"fill_opacity,omitempty"`            // 填充透明度, 百分比示例值: 50 取值范围: `0` ～ `100`
+	BorderStyle          *string  `json:"border_style,omitempty"`            // 边框样式示例值: "solid"可选值有: 实线无边框虚线点状虚线
+	BorderWidth          *string  `json:"border_width,omitempty"`            // 边框宽度示例值: "narrow"可选值有: 极细细中粗
+	BorderOpacity        *float64 `json:"border_opacity,omitempty"`          // 边框透明度, 百分比示例值: 50 取值范围: `0` ～ `100`
+	HFlip                *bool    `json:"h_flip,omitempty"`                  // 水平翻折示例值: false
+	VFlip                *bool    `json:"v_flip,omitempty"`                  // 垂直翻折示例值: false
+	BorderColor          *string  `json:"border_color,omitempty"`            // 边框颜色, 16 进制 rgb 值示例值: "#6db5a3" 长度范围: `7` ～ `10` 字符
+	ThemeFillColorCode   *int64   `json:"theme_fill_color_code,omitempty"`   // 填充颜色主题配色编码值示例值: 3 取值范围: `-2` ～ `100`
+	ThemeBorderColorCode *int64   `json:"theme_border_color_code,omitempty"` // 边框颜色主题配色编码值示例值: 4 取值范围: `-2` ～ `100`
+	FillColorType        *int64   `json:"fill_color_type,omitempty"`         // 填充颜色类型: 0=系统颜色, 取theme_fill_color_code, 1=自定义颜色, 取fill_color示例值: 0可选值有: 系统颜色自定义颜色
+	BorderColorType      *int64   `json:"border_color_type,omitempty"`       // 边框颜色类型: 0=系统颜色, 取theme_border_color_code, 1=自定义颜色, 取border_color示例值: 0可选值有: 系统颜色自定义颜色
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeTableMetaText ...
-type CreateBoardWhiteboardNodeReqNodeTableMetaText struct { 
-Text *string `json:"text,omitempty"` // 文字内容示例值: "文字内容" 长度范围: `0` ～ `1024` 字符
-FontWeight *string `json:"font_weight,omitempty"` // 文字字重示例值: "regular"可选值有: 常规加粗
-FontSize *int64 `json:"font_size,omitempty"` // 文字大小, 单位 px, 默认为 14 px示例值: 14
-HorizontalAlign *string `json:"horizontal_align,omitempty"` // 水平对齐示例值: "center"可选值有: 向左对齐居中对齐向右对齐
-VerticalAlign *string `json:"vertical_align,omitempty"` // 垂直对齐示例值: "mid"可选值有: 顶部对齐垂直居中底部对齐
-TextColor *string `json:"text_color,omitempty"` // 文字颜色, 16 进制 rgb 值示例值: "#6db5a3" 长度范围: `7` ～ `10` 字符
-TextBackgroundColor *string `json:"text_background_color,omitempty"` // 文字背景色, 16 进制 rgb 值示例值: "#6db5a3" 长度范围: `7` ～ `10` 字符
-LineThrough *bool `json:"line_through,omitempty"` // 是否存在删除线示例值: true
-Underline *bool `json:"underline,omitempty"` // 是否存在下划线示例值: true
-Italic *bool `json:"italic,omitempty"` // 是否斜体示例值: true
-Angle *int64 `json:"angle,omitempty"` // 文字旋转角度, 单位度示例值: 90可选值有: 文字旋转角度0度文字旋转角度90度文字旋转角度180度文字旋转角度270度 取值范围: `0` ～ `270`
-ThemeTextColorCode *int64 `json:"theme_text_color_code,omitempty"` // 文字颜色主题配色编码值示例值: 0 取值范围: `-2` ～ `100`
-ThemeTextBackgroundColorCode *int64 `json:"theme_text_background_color_code,omitempty"` // 文字背景颜色主题配色编码值示例值:1 取值范围: `-2` ～ `100`
-RichText *CreateBoardWhiteboardNodeReqNodeTableMetaTextRichText `json:"rich_text,omitempty"` // 富文本
-TextColorType *int64 `json:"text_color_type,omitempty"` // 文字颜色类型, 0=系统颜色（取theme_text_color_code）, 1=自定义颜色（取text_color）示例值: 0可选值有: 系统颜色自定义颜色
-TextBackgroundColorType *int64 `json:"text_background_color_type,omitempty"` // 文字背景颜色类型, 0=系统颜色（取theme_text_background_color_code）, 1=自定义颜色（取text_background_color）示例值: 0可选值有: 系统颜色自定义颜色
+type CreateBoardWhiteboardNodeReqNodeTableMetaText struct {
+	Text                         *string                                                `json:"text,omitempty"`                             // 文字内容示例值: "文字内容" 长度范围: `0` ～ `1024` 字符
+	FontWeight                   *string                                                `json:"font_weight,omitempty"`                      // 文字字重示例值: "regular"可选值有: 常规加粗
+	FontSize                     *int64                                                 `json:"font_size,omitempty"`                        // 文字大小, 单位 px, 默认为 14 px示例值: 14
+	HorizontalAlign              *string                                                `json:"horizontal_align,omitempty"`                 // 水平对齐示例值: "center"可选值有: 向左对齐居中对齐向右对齐
+	VerticalAlign                *string                                                `json:"vertical_align,omitempty"`                   // 垂直对齐示例值: "mid"可选值有: 顶部对齐垂直居中底部对齐
+	TextColor                    *string                                                `json:"text_color,omitempty"`                       // 文字颜色, 16 进制 rgb 值示例值: "#6db5a3" 长度范围: `7` ～ `10` 字符
+	TextBackgroundColor          *string                                                `json:"text_background_color,omitempty"`            // 文字背景色, 16 进制 rgb 值示例值: "#6db5a3" 长度范围: `7` ～ `10` 字符
+	LineThrough                  *bool                                                  `json:"line_through,omitempty"`                     // 是否存在删除线示例值: true
+	Underline                    *bool                                                  `json:"underline,omitempty"`                        // 是否存在下划线示例值: true
+	Italic                       *bool                                                  `json:"italic,omitempty"`                           // 是否斜体示例值: true
+	Angle                        *int64                                                 `json:"angle,omitempty"`                            // 文字旋转角度, 单位度示例值: 90可选值有: 文字旋转角度0度文字旋转角度90度文字旋转角度180度文字旋转角度270度 取值范围: `0` ～ `270`
+	ThemeTextColorCode           *int64                                                 `json:"theme_text_color_code,omitempty"`            // 文字颜色主题配色编码值示例值: 0 取值范围: `-2` ～ `100`
+	ThemeTextBackgroundColorCode *int64                                                 `json:"theme_text_background_color_code,omitempty"` // 文字背景颜色主题配色编码值示例值:1 取值范围: `-2` ～ `100`
+	RichText                     *CreateBoardWhiteboardNodeReqNodeTableMetaTextRichText `json:"rich_text,omitempty"`                        // 富文本
+	TextColorType                *int64                                                 `json:"text_color_type,omitempty"`                  // 文字颜色类型, 0=系统颜色（取theme_text_color_code）, 1=自定义颜色（取text_color）示例值: 0可选值有: 系统颜色自定义颜色
+	TextBackgroundColorType      *int64                                                 `json:"text_background_color_type,omitempty"`       // 文字背景颜色类型, 0=系统颜色（取theme_text_background_color_code）, 1=自定义颜色（取text_background_color）示例值: 0可选值有: 系统颜色自定义颜色
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeTableMetaTextRichText ...
-type CreateBoardWhiteboardNodeReqNodeTableMetaTextRichText struct { 
-Paragraphs []*CreateBoardWhiteboardNodeReqNodeTableMetaTextRichTextParagraph `json:"paragraphs,omitempty"` // 段落列表 长度范围: `0` ～ `1000`
+type CreateBoardWhiteboardNodeReqNodeTableMetaTextRichText struct {
+	Paragraphs []*CreateBoardWhiteboardNodeReqNodeTableMetaTextRichTextParagraph `json:"paragraphs,omitempty"` // 段落列表 长度范围: `0` ～ `1000`
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeTableMetaTextRichTextParagraph ...
-type CreateBoardWhiteboardNodeReqNodeTableMetaTextRichTextParagraph struct { 
-ParagraphType int64 `json:"paragraph_type,omitempty"` // 段落类别示例值: 0可选值有: 普通段落无序列表有序列表
-Elements []*CreateBoardWhiteboardNodeReqNodeTableMetaTextRichTextParagraphElement `json:"elements,omitempty"` // 元素列表 长度范围: `0` ～ `1000`
-Indent *int64 `json:"indent,omitempty"` // 缩进（单位: 字符）示例值: 0 取值范围: `0` ～ `100`
-ListBeginIndex *int64 `json:"list_begin_index,omitempty"` // 有序列表开始序号(第一个有序列表的序号为list_begin_index+1)例如: list_begin_index = 0, 则第一个有序列表的序号为1示例值: 0 取值范围: `0` ～ `10000`
-Quote *bool `json:"quote,omitempty"` // 引用示例值: true
+type CreateBoardWhiteboardNodeReqNodeTableMetaTextRichTextParagraph struct {
+	ParagraphType  int64                                                                    `json:"paragraph_type,omitempty"`   // 段落类别示例值: 0可选值有: 普通段落无序列表有序列表
+	Elements       []*CreateBoardWhiteboardNodeReqNodeTableMetaTextRichTextParagraphElement `json:"elements,omitempty"`         // 元素列表 长度范围: `0` ～ `1000`
+	Indent         *int64                                                                   `json:"indent,omitempty"`           // 缩进（单位: 字符）示例值: 0 取值范围: `0` ～ `100`
+	ListBeginIndex *int64                                                                   `json:"list_begin_index,omitempty"` // 有序列表开始序号(第一个有序列表的序号为list_begin_index+1)例如: list_begin_index = 0, 则第一个有序列表的序号为1示例值: 0 取值范围: `0` ～ `10000`
+	Quote          *bool                                                                    `json:"quote,omitempty"`            // 引用示例值: true
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeTableMetaTextRichTextParagraphElement ...
-type CreateBoardWhiteboardNodeReqNodeTableMetaTextRichTextParagraphElement struct { 
-ElementType int64 `json:"element_type,omitempty"` // 元素类别示例值: 0可选值有: 文本链接@用户文档
-TextElement *CreateBoardWhiteboardNodeReqNodeTableMetaTextRichTextParagraphElementTextElement `json:"text_element,omitempty"` // 文本类别信息
-LinkElement *CreateBoardWhiteboardNodeReqNodeTableMetaTextRichTextParagraphElementLinkElement `json:"link_element,omitempty"` // 超链接类别信息
-MentionUserElement *Mention `json:"mention_user_element,omitempty"` // @用户类别信息
-MentionDocElement *CreateBoardWhiteboardNodeReqNodeTableMetaTextRichTextParagraphElementMentionDocElement `json:"mention_doc_element,omitempty"` // 文档类别信息
+type CreateBoardWhiteboardNodeReqNodeTableMetaTextRichTextParagraphElement struct {
+	ElementType        int64                                                                                   `json:"element_type,omitempty"`         // 元素类别示例值: 0可选值有: 文本链接@用户文档
+	TextElement        *CreateBoardWhiteboardNodeReqNodeTableMetaTextRichTextParagraphElementTextElement       `json:"text_element,omitempty"`         // 文本类别信息
+	LinkElement        *CreateBoardWhiteboardNodeReqNodeTableMetaTextRichTextParagraphElementLinkElement       `json:"link_element,omitempty"`         // 超链接类别信息
+	MentionUserElement *Mention                                                                                `json:"mention_user_element,omitempty"` // @用户类别信息
+	MentionDocElement  *CreateBoardWhiteboardNodeReqNodeTableMetaTextRichTextParagraphElementMentionDocElement `json:"mention_doc_element,omitempty"`  // 文档类别信息
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeTableMetaTextRichTextParagraphElementLinkElement ...
-type CreateBoardWhiteboardNodeReqNodeTableMetaTextRichTextParagraphElementLinkElement struct { 
-Herf string `json:"herf,omitempty"` // 链接示例值: "https://bytedance.larkoffice.com" 长度范围: `0` ～ `1000` 字符
-Text *string `json:"text,omitempty"` // 文字示例值: "示例文案" 长度范围: `0` ～ `10000` 字符
-TextStyle *CreateBoardWhiteboardNodeReqNodeTableMetaTextRichTextParagraphElementLinkElementTextStyle `json:"text_style,omitempty"` // 文字样式
+type CreateBoardWhiteboardNodeReqNodeTableMetaTextRichTextParagraphElementLinkElement struct {
+	Herf      string                                                                                     `json:"herf,omitempty"`       // 链接示例值: "https://bytedance.larkoffice.com" 长度范围: `0` ～ `1000` 字符
+	Text      *string                                                                                    `json:"text,omitempty"`       // 文字示例值: "示例文案" 长度范围: `0` ～ `10000` 字符
+	TextStyle *CreateBoardWhiteboardNodeReqNodeTableMetaTextRichTextParagraphElementLinkElementTextStyle `json:"text_style,omitempty"` // 文字样式
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeTableMetaTextRichTextParagraphElementLinkElementTextStyle ...
-type CreateBoardWhiteboardNodeReqNodeTableMetaTextRichTextParagraphElementLinkElementTextStyle struct { 
-FontWeight *string `json:"font_weight,omitempty"` // 文字字重示例值: "bold" 长度范围: `0` ～ `10` 字符
-FontSize *int64 `json:"font_size,omitempty"` // 文字大小示例值: 14 取值范围: `0` ～ `1000`
-TextColor *string `json:"text_color,omitempty"` // 文字颜色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
-TextBackgroundColor *string `json:"text_background_color,omitempty"` // 文字背景色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
-LineThrough *bool `json:"line_through,omitempty"` // 是否存在删除线示例值: true
-Underline *bool `json:"underline,omitempty"` // 是否存在下划线示例值: true
-Italic *bool `json:"italic,omitempty"` // 是否斜体示例值: true
+type CreateBoardWhiteboardNodeReqNodeTableMetaTextRichTextParagraphElementLinkElementTextStyle struct {
+	FontWeight          *string `json:"font_weight,omitempty"`           // 文字字重示例值: "bold" 长度范围: `0` ～ `10` 字符
+	FontSize            *int64  `json:"font_size,omitempty"`             // 文字大小示例值: 14 取值范围: `0` ～ `1000`
+	TextColor           *string `json:"text_color,omitempty"`            // 文字颜色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
+	TextBackgroundColor *string `json:"text_background_color,omitempty"` // 文字背景色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
+	LineThrough         *bool   `json:"line_through,omitempty"`          // 是否存在删除线示例值: true
+	Underline           *bool   `json:"underline,omitempty"`             // 是否存在下划线示例值: true
+	Italic              *bool   `json:"italic,omitempty"`                // 是否斜体示例值: true
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeTableMetaTextRichTextParagraphElementMentionDocElement ...
-type CreateBoardWhiteboardNodeReqNodeTableMetaTextRichTextParagraphElementMentionDocElement struct { 
-DocURL string `json:"doc_url,omitempty"` // 文档超链接示例值: "https://bytedance.larkoffice.com/wiki/xxxxx" 长度范围: `0` ～ `1000` 字符
-TextStyle *CreateBoardWhiteboardNodeReqNodeTableMetaTextRichTextParagraphElementMentionDocElementTextStyle `json:"text_style,omitempty"` // 文字样式
+type CreateBoardWhiteboardNodeReqNodeTableMetaTextRichTextParagraphElementMentionDocElement struct {
+	DocURL    string                                                                                           `json:"doc_url,omitempty"`    // 文档超链接示例值: "https://bytedance.larkoffice.com/wiki/xxxxx" 长度范围: `0` ～ `1000` 字符
+	TextStyle *CreateBoardWhiteboardNodeReqNodeTableMetaTextRichTextParagraphElementMentionDocElementTextStyle `json:"text_style,omitempty"` // 文字样式
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeTableMetaTextRichTextParagraphElementMentionDocElementTextStyle ...
-type CreateBoardWhiteboardNodeReqNodeTableMetaTextRichTextParagraphElementMentionDocElementTextStyle struct { 
-FontWeight *string `json:"font_weight,omitempty"` // 文字字重示例值: "bold" 长度范围: `0` ～ `10` 字符
-FontSize *int64 `json:"font_size,omitempty"` // 文字大小示例值: 14 取值范围: `0` ～ `1000`
-TextColor *string `json:"text_color,omitempty"` // 文字颜色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
-TextBackgroundColor *string `json:"text_background_color,omitempty"` // 文字背景色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
-LineThrough *bool `json:"line_through,omitempty"` // 是否存在删除线示例值: true
-Underline *bool `json:"underline,omitempty"` // 是否存在下划线示例值: true
-Italic *bool `json:"italic,omitempty"` // 是否斜体示例值: true
+type CreateBoardWhiteboardNodeReqNodeTableMetaTextRichTextParagraphElementMentionDocElementTextStyle struct {
+	FontWeight          *string `json:"font_weight,omitempty"`           // 文字字重示例值: "bold" 长度范围: `0` ～ `10` 字符
+	FontSize            *int64  `json:"font_size,omitempty"`             // 文字大小示例值: 14 取值范围: `0` ～ `1000`
+	TextColor           *string `json:"text_color,omitempty"`            // 文字颜色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
+	TextBackgroundColor *string `json:"text_background_color,omitempty"` // 文字背景色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
+	LineThrough         *bool   `json:"line_through,omitempty"`          // 是否存在删除线示例值: true
+	Underline           *bool   `json:"underline,omitempty"`             // 是否存在下划线示例值: true
+	Italic              *bool   `json:"italic,omitempty"`                // 是否斜体示例值: true
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeTableMetaTextRichTextParagraphElementTextElement ...
-type CreateBoardWhiteboardNodeReqNodeTableMetaTextRichTextParagraphElementTextElement struct { 
-Text string `json:"text,omitempty"` // 文字示例值: "示例文案" 长度范围: `0` ～ `10000` 字符
-TextStyle *CreateBoardWhiteboardNodeReqNodeTableMetaTextRichTextParagraphElementTextElementTextStyle `json:"text_style,omitempty"` // 文字样式
+type CreateBoardWhiteboardNodeReqNodeTableMetaTextRichTextParagraphElementTextElement struct {
+	Text      string                                                                                     `json:"text,omitempty"`       // 文字示例值: "示例文案" 长度范围: `0` ～ `10000` 字符
+	TextStyle *CreateBoardWhiteboardNodeReqNodeTableMetaTextRichTextParagraphElementTextElementTextStyle `json:"text_style,omitempty"` // 文字样式
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeTableMetaTextRichTextParagraphElementTextElementTextStyle ...
-type CreateBoardWhiteboardNodeReqNodeTableMetaTextRichTextParagraphElementTextElementTextStyle struct { 
-FontWeight *string `json:"font_weight,omitempty"` // 文字字重示例值: "bold" 长度范围: `0` ～ `10` 字符
-FontSize *int64 `json:"font_size,omitempty"` // 文字大小示例值: 14 取值范围: `0` ～ `1000`
-TextColor *string `json:"text_color,omitempty"` // 文字颜色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
-TextBackgroundColor *string `json:"text_background_color,omitempty"` // 文字背景色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
-LineThrough *bool `json:"line_through,omitempty"` // 是否存在删除线示例值: true
-Underline *bool `json:"underline,omitempty"` // 是否存在下划线示例值: true
-Italic *bool `json:"italic,omitempty"` // 是否斜体示例值: true
+type CreateBoardWhiteboardNodeReqNodeTableMetaTextRichTextParagraphElementTextElementTextStyle struct {
+	FontWeight          *string `json:"font_weight,omitempty"`           // 文字字重示例值: "bold" 长度范围: `0` ～ `10` 字符
+	FontSize            *int64  `json:"font_size,omitempty"`             // 文字大小示例值: 14 取值范围: `0` ～ `1000`
+	TextColor           *string `json:"text_color,omitempty"`            // 文字颜色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
+	TextBackgroundColor *string `json:"text_background_color,omitempty"` // 文字背景色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
+	LineThrough         *bool   `json:"line_through,omitempty"`          // 是否存在删除线示例值: true
+	Underline           *bool   `json:"underline,omitempty"`             // 是否存在下划线示例值: true
+	Italic              *bool   `json:"italic,omitempty"`                // 是否斜体示例值: true
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeText ...
-type CreateBoardWhiteboardNodeReqNodeText struct { 
-Text *string `json:"text,omitempty"` // 文字内容示例值: "文字内容" 长度范围: `0` ～ `1024` 字符
-FontWeight *string `json:"font_weight,omitempty"` // 文字字重示例值: "regular"可选值有: 常规加粗
-FontSize *int64 `json:"font_size,omitempty"` // 文字大小, 单位 px, 默认为 14 px示例值: 14
-HorizontalAlign *string `json:"horizontal_align,omitempty"` // 水平对齐示例值: "center"可选值有: 向左对齐居中对齐向右对齐
-VerticalAlign *string `json:"vertical_align,omitempty"` // 垂直对齐示例值: "mid"可选值有: 顶部对齐垂直居中底部对齐
-TextColor *string `json:"text_color,omitempty"` // 文字颜色, 16 进制 rgb 值示例值: "#6db5a3" 长度范围: `7` ～ `10` 字符
-TextBackgroundColor *string `json:"text_background_color,omitempty"` // 文字背景色, 16 进制 rgb 值示例值: "#6db5a3" 长度范围: `7` ～ `10` 字符
-LineThrough *bool `json:"line_through,omitempty"` // 是否存在删除线示例值: true
-Underline *bool `json:"underline,omitempty"` // 是否存在下划线示例值: true
-Italic *bool `json:"italic,omitempty"` // 是否斜体示例值: true
-Angle *int64 `json:"angle,omitempty"` // 文字旋转角度, 单位度示例值: 90可选值有: 文字旋转角度0度文字旋转角度90度文字旋转角度180度文字旋转角度270度 取值范围: `0` ～ `270`
-ThemeTextColorCode *int64 `json:"theme_text_color_code,omitempty"` // 文字颜色主题配色编码值示例值: 0 取值范围: `-2` ～ `100`
-ThemeTextBackgroundColorCode *int64 `json:"theme_text_background_color_code,omitempty"` // 文字背景颜色主题配色编码值示例值:1 取值范围: `-2` ～ `100`
-RichText *CreateBoardWhiteboardNodeReqNodeTextRichText `json:"rich_text,omitempty"` // 富文本（富文本有值时候会覆盖上面的text信息）如果整段文本只有一个样式, 不推荐使用富文本
-TextColorType *int64 `json:"text_color_type,omitempty"` // 文字颜色类型, 0=系统颜色（取theme_text_color_code）, 1=自定义颜色（取text_color）示例值: 0可选值有: 系统颜色自定义颜色
-TextBackgroundColorType *int64 `json:"text_background_color_type,omitempty"` // 文字背景颜色类型, 0=系统颜色（取theme_text_background_color_code）, 1=自定义颜色（取text_background_color）示例值: 0可选值有: 系统颜色自定义颜色
+type CreateBoardWhiteboardNodeReqNodeText struct {
+	Text                         *string                                       `json:"text,omitempty"`                             // 文字内容示例值: "文字内容" 长度范围: `0` ～ `1024` 字符
+	FontWeight                   *string                                       `json:"font_weight,omitempty"`                      // 文字字重示例值: "regular"可选值有: 常规加粗
+	FontSize                     *int64                                        `json:"font_size,omitempty"`                        // 文字大小, 单位 px, 默认为 14 px示例值: 14
+	HorizontalAlign              *string                                       `json:"horizontal_align,omitempty"`                 // 水平对齐示例值: "center"可选值有: 向左对齐居中对齐向右对齐
+	VerticalAlign                *string                                       `json:"vertical_align,omitempty"`                   // 垂直对齐示例值: "mid"可选值有: 顶部对齐垂直居中底部对齐
+	TextColor                    *string                                       `json:"text_color,omitempty"`                       // 文字颜色, 16 进制 rgb 值示例值: "#6db5a3" 长度范围: `7` ～ `10` 字符
+	TextBackgroundColor          *string                                       `json:"text_background_color,omitempty"`            // 文字背景色, 16 进制 rgb 值示例值: "#6db5a3" 长度范围: `7` ～ `10` 字符
+	LineThrough                  *bool                                         `json:"line_through,omitempty"`                     // 是否存在删除线示例值: true
+	Underline                    *bool                                         `json:"underline,omitempty"`                        // 是否存在下划线示例值: true
+	Italic                       *bool                                         `json:"italic,omitempty"`                           // 是否斜体示例值: true
+	Angle                        *int64                                        `json:"angle,omitempty"`                            // 文字旋转角度, 单位度示例值: 90可选值有: 文字旋转角度0度文字旋转角度90度文字旋转角度180度文字旋转角度270度 取值范围: `0` ～ `270`
+	ThemeTextColorCode           *int64                                        `json:"theme_text_color_code,omitempty"`            // 文字颜色主题配色编码值示例值: 0 取值范围: `-2` ～ `100`
+	ThemeTextBackgroundColorCode *int64                                        `json:"theme_text_background_color_code,omitempty"` // 文字背景颜色主题配色编码值示例值:1 取值范围: `-2` ～ `100`
+	RichText                     *CreateBoardWhiteboardNodeReqNodeTextRichText `json:"rich_text,omitempty"`                        // 富文本（富文本有值时候会覆盖上面的text信息）如果整段文本只有一个样式, 不推荐使用富文本
+	TextColorType                *int64                                        `json:"text_color_type,omitempty"`                  // 文字颜色类型, 0=系统颜色（取theme_text_color_code）, 1=自定义颜色（取text_color）示例值: 0可选值有: 系统颜色自定义颜色
+	TextBackgroundColorType      *int64                                        `json:"text_background_color_type,omitempty"`       // 文字背景颜色类型, 0=系统颜色（取theme_text_background_color_code）, 1=自定义颜色（取text_background_color）示例值: 0可选值有: 系统颜色自定义颜色
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeTextRichText ...
-type CreateBoardWhiteboardNodeReqNodeTextRichText struct { 
-Paragraphs []*CreateBoardWhiteboardNodeReqNodeTextRichTextParagraph `json:"paragraphs,omitempty"` // 段落列表 长度范围: `0` ～ `1000`
+type CreateBoardWhiteboardNodeReqNodeTextRichText struct {
+	Paragraphs []*CreateBoardWhiteboardNodeReqNodeTextRichTextParagraph `json:"paragraphs,omitempty"` // 段落列表 长度范围: `0` ～ `1000`
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeTextRichTextParagraph ...
-type CreateBoardWhiteboardNodeReqNodeTextRichTextParagraph struct { 
-ParagraphType int64 `json:"paragraph_type,omitempty"` // 段落类别示例值: 0可选值有: 普通段落无序列表有序列表
-Elements []*CreateBoardWhiteboardNodeReqNodeTextRichTextParagraphElement `json:"elements,omitempty"` // 段落的元素列表 长度范围: `0` ～ `1000`
-Indent *int64 `json:"indent,omitempty"` // 缩进（单位: 字符）示例值: 0 取值范围: `0` ～ `100`
-ListBeginIndex *int64 `json:"list_begin_index,omitempty"` // 有序列表开始序号(第一个有序列表的序号为list_begin_index+1)例如: list_begin_index = 0, 则第一个有序列表的序号为1示例值: 0 取值范围: `0` ～ `10000`
-Quote *bool `json:"quote,omitempty"` // 引用示例值: true
+type CreateBoardWhiteboardNodeReqNodeTextRichTextParagraph struct {
+	ParagraphType  int64                                                           `json:"paragraph_type,omitempty"`   // 段落类别示例值: 0可选值有: 普通段落无序列表有序列表
+	Elements       []*CreateBoardWhiteboardNodeReqNodeTextRichTextParagraphElement `json:"elements,omitempty"`         // 段落的元素列表 长度范围: `0` ～ `1000`
+	Indent         *int64                                                          `json:"indent,omitempty"`           // 缩进（单位: 字符）示例值: 0 取值范围: `0` ～ `100`
+	ListBeginIndex *int64                                                          `json:"list_begin_index,omitempty"` // 有序列表开始序号(第一个有序列表的序号为list_begin_index+1)例如: list_begin_index = 0, 则第一个有序列表的序号为1示例值: 0 取值范围: `0` ～ `10000`
+	Quote          *bool                                                           `json:"quote,omitempty"`            // 引用示例值: true
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeTextRichTextParagraphElement ...
-type CreateBoardWhiteboardNodeReqNodeTextRichTextParagraphElement struct { 
-ElementType int64 `json:"element_type,omitempty"` // 元素类别示例值: 0可选值有: 文本超链接@用户文档
-TextElement *CreateBoardWhiteboardNodeReqNodeTextRichTextParagraphElementTextElement `json:"text_element,omitempty"` // 文本元素信息（当前元素为文本类别时候需要填写当前字段）
-LinkElement *CreateBoardWhiteboardNodeReqNodeTextRichTextParagraphElementLinkElement `json:"link_element,omitempty"` // 超链接类别信息（当前元素为链接类别时候需要有当前字段）
-MentionUserElement *Mention `json:"mention_user_element,omitempty"` // @用户类别信息（当前元素为@用户类别时候需要有当前字段）
-MentionDocElement *CreateBoardWhiteboardNodeReqNodeTextRichTextParagraphElementMentionDocElement `json:"mention_doc_element,omitempty"` // 文档类别信息（当前元素为文档类别时候需要有当前字段）
+type CreateBoardWhiteboardNodeReqNodeTextRichTextParagraphElement struct {
+	ElementType        int64                                                                          `json:"element_type,omitempty"`         // 元素类别示例值: 0可选值有: 文本超链接@用户文档
+	TextElement        *CreateBoardWhiteboardNodeReqNodeTextRichTextParagraphElementTextElement       `json:"text_element,omitempty"`         // 文本元素信息（当前元素为文本类别时候需要填写当前字段）
+	LinkElement        *CreateBoardWhiteboardNodeReqNodeTextRichTextParagraphElementLinkElement       `json:"link_element,omitempty"`         // 超链接类别信息（当前元素为链接类别时候需要有当前字段）
+	MentionUserElement *Mention                                                                       `json:"mention_user_element,omitempty"` // @用户类别信息（当前元素为@用户类别时候需要有当前字段）
+	MentionDocElement  *CreateBoardWhiteboardNodeReqNodeTextRichTextParagraphElementMentionDocElement `json:"mention_doc_element,omitempty"`  // 文档类别信息（当前元素为文档类别时候需要有当前字段）
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeTextRichTextParagraphElementLinkElement ...
-type CreateBoardWhiteboardNodeReqNodeTextRichTextParagraphElementLinkElement struct { 
-Herf string `json:"herf,omitempty"` // 链接示例值: "https://bytedance.larkoffice.com" 长度范围: `0` ～ `1000` 字符
-Text *string `json:"text,omitempty"` // 超链接的文字（为空时会默认文字为超链接）示例值: "示例文案" 长度范围: `0` ～ `10000` 字符
-TextStyle *CreateBoardWhiteboardNodeReqNodeTextRichTextParagraphElementLinkElementTextStyle `json:"text_style,omitempty"` // 文字样式
+type CreateBoardWhiteboardNodeReqNodeTextRichTextParagraphElementLinkElement struct {
+	Herf      string                                                                            `json:"herf,omitempty"`       // 链接示例值: "https://bytedance.larkoffice.com" 长度范围: `0` ～ `1000` 字符
+	Text      *string                                                                           `json:"text,omitempty"`       // 超链接的文字（为空时会默认文字为超链接）示例值: "示例文案" 长度范围: `0` ～ `10000` 字符
+	TextStyle *CreateBoardWhiteboardNodeReqNodeTextRichTextParagraphElementLinkElementTextStyle `json:"text_style,omitempty"` // 文字样式
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeTextRichTextParagraphElementLinkElementTextStyle ...
-type CreateBoardWhiteboardNodeReqNodeTextRichTextParagraphElementLinkElementTextStyle struct { 
-FontWeight *string `json:"font_weight,omitempty"` // 文字字重 （regular: 常规, bold: 加粗）示例值: "bold" 长度范围: `0` ～ `10` 字符
-FontSize *int64 `json:"font_size,omitempty"` // 文字大小, 单位 px, 默认为 14 px示例值: 14 取值范围: `0` ～ `1000`
-TextColor *string `json:"text_color,omitempty"` // 文字颜色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
-TextBackgroundColor *string `json:"text_background_color,omitempty"` // 文字背景色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
-LineThrough *bool `json:"line_through,omitempty"` // 是否存在删除线示例值: true
-Underline *bool `json:"underline,omitempty"` // 是否存在下划线示例值: true
-Italic *bool `json:"italic,omitempty"` // 是否斜体示例值: true
+type CreateBoardWhiteboardNodeReqNodeTextRichTextParagraphElementLinkElementTextStyle struct {
+	FontWeight          *string `json:"font_weight,omitempty"`           // 文字字重 （regular: 常规, bold: 加粗）示例值: "bold" 长度范围: `0` ～ `10` 字符
+	FontSize            *int64  `json:"font_size,omitempty"`             // 文字大小, 单位 px, 默认为 14 px示例值: 14 取值范围: `0` ～ `1000`
+	TextColor           *string `json:"text_color,omitempty"`            // 文字颜色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
+	TextBackgroundColor *string `json:"text_background_color,omitempty"` // 文字背景色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
+	LineThrough         *bool   `json:"line_through,omitempty"`          // 是否存在删除线示例值: true
+	Underline           *bool   `json:"underline,omitempty"`             // 是否存在下划线示例值: true
+	Italic              *bool   `json:"italic,omitempty"`                // 是否斜体示例值: true
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeTextRichTextParagraphElementMentionDocElement ...
-type CreateBoardWhiteboardNodeReqNodeTextRichTextParagraphElementMentionDocElement struct { 
-DocURL string `json:"doc_url,omitempty"` // 文档超链接示例值: "https://bytedance.larkoffice.com/wiki/xxxxx" 长度范围: `0` ～ `1000` 字符
-TextStyle *CreateBoardWhiteboardNodeReqNodeTextRichTextParagraphElementMentionDocElementTextStyle `json:"text_style,omitempty"` // 文字样式
+type CreateBoardWhiteboardNodeReqNodeTextRichTextParagraphElementMentionDocElement struct {
+	DocURL    string                                                                                  `json:"doc_url,omitempty"`    // 文档超链接示例值: "https://bytedance.larkoffice.com/wiki/xxxxx" 长度范围: `0` ～ `1000` 字符
+	TextStyle *CreateBoardWhiteboardNodeReqNodeTextRichTextParagraphElementMentionDocElementTextStyle `json:"text_style,omitempty"` // 文字样式
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeTextRichTextParagraphElementMentionDocElementTextStyle ...
-type CreateBoardWhiteboardNodeReqNodeTextRichTextParagraphElementMentionDocElementTextStyle struct { 
-FontWeight *string `json:"font_weight,omitempty"` // 文字字重（regular: 常规, bold: 加粗）示例值: "bold" 长度范围: `0` ～ `10` 字符
-FontSize *int64 `json:"font_size,omitempty"` // 文字大小示例值: 14 取值范围: `0` ～ `1000`
-TextColor *string `json:"text_color,omitempty"` // 文字颜色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
-TextBackgroundColor *string `json:"text_background_color,omitempty"` // 文字背景色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
-LineThrough *bool `json:"line_through,omitempty"` // 是否存在删除线示例值: true
-Underline *bool `json:"underline,omitempty"` // 是否存在下划线示例值: true
-Italic *bool `json:"italic,omitempty"` // 是否斜体示例值: true
+type CreateBoardWhiteboardNodeReqNodeTextRichTextParagraphElementMentionDocElementTextStyle struct {
+	FontWeight          *string `json:"font_weight,omitempty"`           // 文字字重（regular: 常规, bold: 加粗）示例值: "bold" 长度范围: `0` ～ `10` 字符
+	FontSize            *int64  `json:"font_size,omitempty"`             // 文字大小示例值: 14 取值范围: `0` ～ `1000`
+	TextColor           *string `json:"text_color,omitempty"`            // 文字颜色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
+	TextBackgroundColor *string `json:"text_background_color,omitempty"` // 文字背景色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
+	LineThrough         *bool   `json:"line_through,omitempty"`          // 是否存在删除线示例值: true
+	Underline           *bool   `json:"underline,omitempty"`             // 是否存在下划线示例值: true
+	Italic              *bool   `json:"italic,omitempty"`                // 是否斜体示例值: true
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeTextRichTextParagraphElementTextElement ...
-type CreateBoardWhiteboardNodeReqNodeTextRichTextParagraphElementTextElement struct { 
-Text string `json:"text,omitempty"` // 文字（文字中不能包含换行符）示例值: "示例文案" 长度范围: `0` ～ `10000` 字符
-TextStyle *CreateBoardWhiteboardNodeReqNodeTextRichTextParagraphElementTextElementTextStyle `json:"text_style,omitempty"` // 文字样式
+type CreateBoardWhiteboardNodeReqNodeTextRichTextParagraphElementTextElement struct {
+	Text      string                                                                            `json:"text,omitempty"`       // 文字（文字中不能包含换行符）示例值: "示例文案" 长度范围: `0` ～ `10000` 字符
+	TextStyle *CreateBoardWhiteboardNodeReqNodeTextRichTextParagraphElementTextElementTextStyle `json:"text_style,omitempty"` // 文字样式
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeReqNodeTextRichTextParagraphElementTextElementTextStyle ...
-type CreateBoardWhiteboardNodeReqNodeTextRichTextParagraphElementTextElementTextStyle struct { 
-FontWeight *string `json:"font_weight,omitempty"` // 文字字重(可选值有: regular: 常规, bold: 加粗)示例值: "bold" 长度范围: `0` ～ `10` 字符
-FontSize *int64 `json:"font_size,omitempty"` // 文字大小, 单位 px, 默认为 14 px示例值: 14 取值范围: `0` ～ `1000`
-TextColor *string `json:"text_color,omitempty"` // 文字颜色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
-TextBackgroundColor *string `json:"text_background_color,omitempty"` // 文字背景色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
-LineThrough *bool `json:"line_through,omitempty"` // 是否存在删除线示例值: true
-Underline *bool `json:"underline,omitempty"` // 是否存在下划线示例值: false
-Italic *bool `json:"italic,omitempty"` // 是否斜体示例值: true
+type CreateBoardWhiteboardNodeReqNodeTextRichTextParagraphElementTextElementTextStyle struct {
+	FontWeight          *string `json:"font_weight,omitempty"`           // 文字字重(可选值有: regular: 常规, bold: 加粗)示例值: "bold" 长度范围: `0` ～ `10` 字符
+	FontSize            *int64  `json:"font_size,omitempty"`             // 文字大小, 单位 px, 默认为 14 px示例值: 14 取值范围: `0` ～ `1000`
+	TextColor           *string `json:"text_color,omitempty"`            // 文字颜色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
+	TextBackgroundColor *string `json:"text_background_color,omitempty"` // 文字背景色, 16 进制 rgb 值示例值: "#000000" 长度范围: `7` ～ `7` 字符
+	LineThrough         *bool   `json:"line_through,omitempty"`          // 是否存在删除线示例值: true
+	Underline           *bool   `json:"underline,omitempty"`             // 是否存在下划线示例值: false
+	Italic              *bool   `json:"italic,omitempty"`                // 是否斜体示例值: true
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodeResp ...
-type CreateBoardWhiteboardNodeResp struct { 
-IDs []string `json:"ids,omitempty"` // 所创建的节点 id 列表
-ClientToken string `json:"client_token,omitempty"` // 操作的唯一标识, 更新请求中使用此值表示幂等的进行此次更新
+type CreateBoardWhiteboardNodeResp struct {
+	IDs         []string `json:"ids,omitempty"`          // 所创建的节点 id 列表
+	ClientToken string   `json:"client_token,omitempty"` // 操作的唯一标识, 更新请求中使用此值表示幂等的进行此次更新
 }
-
-
-
-
 
 // createBoardWhiteboardNodeResp ...
-type createBoardWhiteboardNodeResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateBoardWhiteboardNodeResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createBoardWhiteboardNodeResp struct {
+	Code  int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                         `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateBoardWhiteboardNodeResp `json:"data,omitempty"`
+	Error *ErrorDetail                   `json:"error,omitempty"`
 }
-
-
-
-

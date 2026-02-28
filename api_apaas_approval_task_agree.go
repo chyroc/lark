@@ -63,8 +63,7 @@ type AgreeAPaaSApprovalTaskReq struct {
 }
 
 // AgreeAPaaSApprovalTaskResp ...
-type AgreeAPaaSApprovalTaskResp struct {
-}
+type AgreeAPaaSApprovalTaskResp struct{}
 
 // agreeAPaaSApprovalTaskResp ...
 type agreeAPaaSApprovalTaskResp struct {

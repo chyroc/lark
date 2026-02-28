@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateBoardWhiteboardNodePlantuml 用户可以将PlantUml/Mermaid图表导入画板进行协同编辑
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/board-v1/whiteboard-node/create_plantuml
-// 
 func (r *BoardService) CreateBoardWhiteboardNodePlantuml(ctx context.Context, request *CreateBoardWhiteboardNodePlantumlReq, options ...MethodOptionFunc) (*CreateBoardWhiteboardNodePlantumlResp, *Response, error) {
-if r.cli.mock.mockBoardCreateBoardWhiteboardNodePlantuml != nil {
+	if r.cli.mock.mockBoardCreateBoardWhiteboardNodePlantuml != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Board#CreateBoardWhiteboardNodePlantuml mock enable")
 		return r.cli.mock.mockBoardCreateBoardWhiteboardNodePlantuml(ctx, request, options...)
 	}
@@ -35,12 +34,11 @@ if r.cli.mock.mockBoardCreateBoardWhiteboardNodePlantuml != nil {
 		Scope:                 "Board",
 		API:                   "CreateBoardWhiteboardNodePlantuml",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/board/v1/whiteboards/:whiteboard_id/nodes/plantuml",
+		URL:                   r.cli.openBaseURL + "/open-apis/board/v1/whiteboards/:whiteboard_id/nodes/plantuml",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(createBoardWhiteboardNodePlantumlResp)
 
@@ -52,42 +50,30 @@ if r.cli.mock.mockBoardCreateBoardWhiteboardNodePlantuml != nil {
 func (r *Mock) MockBoardCreateBoardWhiteboardNodePlantuml(f func(ctx context.Context, request *CreateBoardWhiteboardNodePlantumlReq, options ...MethodOptionFunc) (*CreateBoardWhiteboardNodePlantumlResp, *Response, error)) {
 	r.mockBoardCreateBoardWhiteboardNodePlantuml = f
 }
+
 // UnMockBoardCreateBoardWhiteboardNodePlantuml un-mock BoardCreateBoardWhiteboardNodePlantuml method
 func (r *Mock) UnMockBoardCreateBoardWhiteboardNodePlantuml() {
 	r.mockBoardCreateBoardWhiteboardNodePlantuml = nil
 }
 
-
 // CreateBoardWhiteboardNodePlantumlReq ...
-type CreateBoardWhiteboardNodePlantumlReq struct { 
-WhiteboardID string `path:"whiteboard_id" json:"-"` // 画板唯一标识, 可通过云文档下的文档接口 [获取文档所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/list) 获取, `block_type` 为 43 的 block 即为画板, 对应的 block.token 就是画板的whiteboard_id示例值: "VF5Bwo7Z5icC0bk8EWbb57Vbckh" 长度范围: `22` ～ `27` 字符
-PlantUmlCode string `json:"plant_uml_code,omitempty"` // plant uml 代码示例值: "@startuml\nAlice -> Bob: Authentication Request\nBob --> Alice: Authentication Response\n@enduml" 长度范围: `1` ～ `1000000` 字符
-StyleType *int64 `json:"style_type,omitempty"` // 画板样式（默认为2 经典样式）示例值: 1可选值有: 画板样式（解析之后为多个画板节点, 粘贴到画板中, 不可对语法进行二次编辑）经典样式（解析之后为一张图片, 粘贴到画板中, 可对语法进行二次编辑）（只有PlantUml语法支持经典样式）
-SyntaxType *int64 `json:"syntax_type,omitempty"` // 语法类型（必传）示例值: 1可选值有: 未知Plantuml解析Mermaid解析
-DiagramType *int64 `json:"diagram_type,omitempty"` // PlantUml语法类型（传0会自动识别语法类型, plantUML语法补充超集GML不可自动识别）当syntax_type为2（Mermaid解析）时, diagram_type传 0, 默认为 0示例值: 0可选值有: 未知思维导图时序图活动图类图ER流程图用例图组件图ai流式生成流程图ai流式生成时序图plantUML语法补充超集GML
+type CreateBoardWhiteboardNodePlantumlReq struct {
+	WhiteboardID string `path:"whiteboard_id" json:"-"`   // 画板唯一标识, 可通过云文档下的文档接口 [获取文档所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/list) 获取, `block_type` 为 43 的 block 即为画板, 对应的 block.token 就是画板的whiteboard_id示例值: "VF5Bwo7Z5icC0bk8EWbb57Vbckh" 长度范围: `22` ～ `27` 字符
+	PlantUmlCode string `json:"plant_uml_code,omitempty"` // plant uml 代码示例值: "@startuml\nAlice -> Bob: Authentication Request\nBob --> Alice: Authentication Response\n@enduml" 长度范围: `1` ～ `1000000` 字符
+	StyleType    *int64 `json:"style_type,omitempty"`     // 画板样式（默认为2 经典样式）示例值: 1可选值有: 画板样式（解析之后为多个画板节点, 粘贴到画板中, 不可对语法进行二次编辑）经典样式（解析之后为一张图片, 粘贴到画板中, 可对语法进行二次编辑）（只有PlantUml语法支持经典样式）
+	SyntaxType   *int64 `json:"syntax_type,omitempty"`    // 语法类型（必传）示例值: 1可选值有: 未知Plantuml解析Mermaid解析
+	DiagramType  *int64 `json:"diagram_type,omitempty"`   // PlantUml语法类型（传0会自动识别语法类型, plantUML语法补充超集GML不可自动识别）当syntax_type为2（Mermaid解析）时, diagram_type传 0, 默认为 0示例值: 0可选值有: 未知思维导图时序图活动图类图ER流程图用例图组件图ai流式生成流程图ai流式生成时序图plantUML语法补充超集GML
 }
-
-
-
-
 
 // CreateBoardWhiteboardNodePlantumlResp ...
-type CreateBoardWhiteboardNodePlantumlResp struct { 
-NodeID string `json:"node_id,omitempty"` // 创建生成的plant uml节点id
+type CreateBoardWhiteboardNodePlantumlResp struct {
+	NodeID string `json:"node_id,omitempty"` // 创建生成的plant uml节点id
 }
-
-
-
-
 
 // createBoardWhiteboardNodePlantumlResp ...
-type createBoardWhiteboardNodePlantumlResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateBoardWhiteboardNodePlantumlResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createBoardWhiteboardNodePlantumlResp struct {
+	Code  int64                                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                 `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateBoardWhiteboardNodePlantumlResp `json:"data,omitempty"`
+	Error *ErrorDetail                           `json:"error,omitempty"`
 }
-
-
-
-

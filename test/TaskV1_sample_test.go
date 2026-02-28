@@ -37,12 +37,10 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		moduleCli := cli.TaskV1
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateTaskV1Follower(ctx, &lark.CreateTaskV1FollowerReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
-
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {
@@ -50,7 +48,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		moduleCli := cli.TaskV1
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskV1CreateTaskV1Follower(func(ctx context.Context, request *lark.CreateTaskV1FollowerReq, options ...lark.MethodOptionFunc) (*lark.CreateTaskV1FollowerResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -62,7 +59,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskV1DeleteTaskV1Follower(func(ctx context.Context, request *lark.DeleteTaskV1FollowerReq, options ...lark.MethodOptionFunc) (*lark.DeleteTaskV1FollowerResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -74,7 +70,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskV1BatchDeleteTaskV1Follower(func(ctx context.Context, request *lark.BatchDeleteTaskV1FollowerReq, options ...lark.MethodOptionFunc) (*lark.BatchDeleteTaskV1FollowerResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -86,7 +81,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskV1GetTaskFollowerV1List(func(ctx context.Context, request *lark.GetTaskFollowerV1ListReq, options ...lark.MethodOptionFunc) (*lark.GetTaskFollowerV1ListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -98,7 +92,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskV1CreateTaskV1Collaborator(func(ctx context.Context, request *lark.CreateTaskV1CollaboratorReq, options ...lark.MethodOptionFunc) (*lark.CreateTaskV1CollaboratorResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -110,7 +103,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskV1DeleteTaskV1Collaborator(func(ctx context.Context, request *lark.DeleteTaskV1CollaboratorReq, options ...lark.MethodOptionFunc) (*lark.DeleteTaskV1CollaboratorResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -122,7 +114,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskV1BatchDeleteTaskV1Collaborator(func(ctx context.Context, request *lark.BatchDeleteTaskV1CollaboratorReq, options ...lark.MethodOptionFunc) (*lark.BatchDeleteTaskV1CollaboratorResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -134,7 +125,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskV1GetTaskV1CollaboratorList(func(ctx context.Context, request *lark.GetTaskV1CollaboratorListReq, options ...lark.MethodOptionFunc) (*lark.GetTaskV1CollaboratorListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -146,7 +136,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskV1CreateTaskV1Reminder(func(ctx context.Context, request *lark.CreateTaskV1ReminderReq, options ...lark.MethodOptionFunc) (*lark.CreateTaskV1ReminderResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -158,7 +147,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskV1GetTaskV1ReminderList(func(ctx context.Context, request *lark.GetTaskV1ReminderListReq, options ...lark.MethodOptionFunc) (*lark.GetTaskV1ReminderListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -170,7 +158,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskV1DeleteTaskV1Reminder(func(ctx context.Context, request *lark.DeleteTaskV1ReminderReq, options ...lark.MethodOptionFunc) (*lark.DeleteTaskV1ReminderResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -182,7 +169,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskV1CreateTaskV1(func(ctx context.Context, request *lark.CreateTaskV1Req, options ...lark.MethodOptionFunc) (*lark.CreateTaskV1Resp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -194,7 +180,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskV1GetTaskV1(func(ctx context.Context, request *lark.GetTaskV1Req, options ...lark.MethodOptionFunc) (*lark.GetTaskV1Resp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -206,7 +191,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskV1GetTaskV1List(func(ctx context.Context, request *lark.GetTaskV1ListReq, options ...lark.MethodOptionFunc) (*lark.GetTaskV1ListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -218,7 +202,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskV1DeleteTaskV1(func(ctx context.Context, request *lark.DeleteTaskV1Req, options ...lark.MethodOptionFunc) (*lark.DeleteTaskV1Resp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -230,7 +213,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskV1UpdateTaskV1(func(ctx context.Context, request *lark.UpdateTaskV1Req, options ...lark.MethodOptionFunc) (*lark.UpdateTaskV1Resp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -242,7 +224,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskV1CompleteTaskV1(func(ctx context.Context, request *lark.CompleteTaskV1Req, options ...lark.MethodOptionFunc) (*lark.CompleteTaskV1Resp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -254,7 +235,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskV1UncompleteTaskV1(func(ctx context.Context, request *lark.UncompleteTaskV1Req, options ...lark.MethodOptionFunc) (*lark.UncompleteTaskV1Resp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -266,7 +246,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskV1CreateTaskV1Comment(func(ctx context.Context, request *lark.CreateTaskV1CommentReq, options ...lark.MethodOptionFunc) (*lark.CreateTaskV1CommentResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -278,7 +257,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskV1GetTaskV1Comment(func(ctx context.Context, request *lark.GetTaskV1CommentReq, options ...lark.MethodOptionFunc) (*lark.GetTaskV1CommentResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -290,7 +268,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskV1GetTaskV1CommentList(func(ctx context.Context, request *lark.GetTaskV1CommentListReq, options ...lark.MethodOptionFunc) (*lark.GetTaskV1CommentListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -302,7 +279,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskV1DeleteTaskV1Comment(func(ctx context.Context, request *lark.DeleteTaskV1CommentReq, options ...lark.MethodOptionFunc) (*lark.DeleteTaskV1CommentResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -314,7 +290,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockTaskV1UpdateTaskV1Comment(func(ctx context.Context, request *lark.UpdateTaskV1CommentReq, options ...lark.MethodOptionFunc) (*lark.UpdateTaskV1CommentResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -324,7 +299,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
-
 	})
 
 	t.Run("response is failed (mock http)", func(t *testing.T) {
@@ -335,7 +309,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateTaskV1Follower(ctx, &lark.CreateTaskV1FollowerReq{
 				TaskID: "x",
 			})
@@ -344,7 +317,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeleteTaskV1Follower(ctx, &lark.DeleteTaskV1FollowerReq{
 				TaskID:     "x",
 				FollowerID: "x",
@@ -354,7 +326,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.BatchDeleteTaskV1Follower(ctx, &lark.BatchDeleteTaskV1FollowerReq{
 				TaskID: "x",
 			})
@@ -363,7 +334,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetTaskFollowerV1List(ctx, &lark.GetTaskFollowerV1ListReq{
 				TaskID: "x",
 			})
@@ -372,7 +342,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateTaskV1Collaborator(ctx, &lark.CreateTaskV1CollaboratorReq{
 				TaskID: "x",
 			})
@@ -381,7 +350,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeleteTaskV1Collaborator(ctx, &lark.DeleteTaskV1CollaboratorReq{
 				TaskID:         "x",
 				CollaboratorID: "x",
@@ -391,7 +359,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.BatchDeleteTaskV1Collaborator(ctx, &lark.BatchDeleteTaskV1CollaboratorReq{
 				TaskID: "x",
 			})
@@ -400,7 +367,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetTaskV1CollaboratorList(ctx, &lark.GetTaskV1CollaboratorListReq{
 				TaskID: "x",
 			})
@@ -409,7 +375,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateTaskV1Reminder(ctx, &lark.CreateTaskV1ReminderReq{
 				TaskID: "x",
 			})
@@ -418,7 +383,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetTaskV1ReminderList(ctx, &lark.GetTaskV1ReminderListReq{
 				TaskID: "x",
 			})
@@ -427,7 +391,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeleteTaskV1Reminder(ctx, &lark.DeleteTaskV1ReminderReq{
 				TaskID:     "x",
 				ReminderID: "x",
@@ -437,14 +400,12 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateTaskV1(ctx, &lark.CreateTaskV1Req{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetTaskV1(ctx, &lark.GetTaskV1Req{
 				TaskID: "x",
 			})
@@ -453,14 +414,12 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetTaskV1List(ctx, &lark.GetTaskV1ListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeleteTaskV1(ctx, &lark.DeleteTaskV1Req{
 				TaskID: "x",
 			})
@@ -469,7 +428,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateTaskV1(ctx, &lark.UpdateTaskV1Req{
 				TaskID: "x",
 			})
@@ -478,7 +436,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CompleteTaskV1(ctx, &lark.CompleteTaskV1Req{
 				TaskID: "x",
 			})
@@ -487,7 +444,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UncompleteTaskV1(ctx, &lark.UncompleteTaskV1Req{
 				TaskID: "x",
 			})
@@ -496,7 +452,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateTaskV1Comment(ctx, &lark.CreateTaskV1CommentReq{
 				TaskID: "x",
 			})
@@ -505,7 +460,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetTaskV1Comment(ctx, &lark.GetTaskV1CommentReq{
 				TaskID:    "x",
 				CommentID: "x",
@@ -515,7 +469,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetTaskV1CommentList(ctx, &lark.GetTaskV1CommentListReq{
 				TaskID: "x",
 			})
@@ -524,7 +477,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeleteTaskV1Comment(ctx, &lark.DeleteTaskV1CommentReq{
 				TaskID:    "x",
 				CommentID: "x",
@@ -534,7 +486,6 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateTaskV1Comment(ctx, &lark.UpdateTaskV1CommentReq{
 				TaskID:    "x",
 				CommentID: "x",
@@ -542,6 +493,5 @@ func Test_TaskV1_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
-
 	})
 }

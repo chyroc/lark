@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // GetCorehrProcessFlowVariableData 根据流程实例 id（process_id）获取流程字段数据, 包括业务字段和自定义字段, 还有流程的数据（比如流程发起人、发起时间等）, 仅支持飞书人事、假勤相关业务流程。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/flow_variable_data
-// 
 func (r *CorehrService) GetCorehrProcessFlowVariableData(ctx context.Context, request *GetCorehrProcessFlowVariableDataReq, options ...MethodOptionFunc) (*GetCorehrProcessFlowVariableDataResp, *Response, error) {
-if r.cli.mock.mockCorehrGetCorehrProcessFlowVariableData != nil {
+	if r.cli.mock.mockCorehrGetCorehrProcessFlowVariableData != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Corehr#GetCorehrProcessFlowVariableData mock enable")
 		return r.cli.mock.mockCorehrGetCorehrProcessFlowVariableData(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockCorehrGetCorehrProcessFlowVariableData != nil {
 		Scope:                 "Corehr",
 		API:                   "GetCorehrProcessFlowVariableData",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/corehr/v2/processes/:process_id/flow_variable_data",
+		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/processes/:process_id/flow_variable_data",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(getCorehrProcessFlowVariableDataResp)
 
@@ -51,204 +49,140 @@ if r.cli.mock.mockCorehrGetCorehrProcessFlowVariableData != nil {
 func (r *Mock) MockCorehrGetCorehrProcessFlowVariableData(f func(ctx context.Context, request *GetCorehrProcessFlowVariableDataReq, options ...MethodOptionFunc) (*GetCorehrProcessFlowVariableDataResp, *Response, error)) {
 	r.mockCorehrGetCorehrProcessFlowVariableData = f
 }
+
 // UnMockCorehrGetCorehrProcessFlowVariableData un-mock CorehrGetCorehrProcessFlowVariableData method
 func (r *Mock) UnMockCorehrGetCorehrProcessFlowVariableData() {
 	r.mockCorehrGetCorehrProcessFlowVariableData = nil
 }
 
-
 // GetCorehrProcessFlowVariableDataReq ...
-type GetCorehrProcessFlowVariableDataReq struct { 
-ProcessID string `path:"process_id" json:"-"` // 流程实例ID。可通过[查询流程实例列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/list)接口获取示例值: "7341373094948242956"
-UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: people_corehr_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `people_corehr_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
-DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门 ID 类型示例值: people_corehr_department_id可选值有: 以 open_department_id 来标识部门以 department_id 来标识部门以 department_id 来标识部门默认值: `people_corehr_department_id`
-VariableKeys []string `query:"variable_keys" json:"-"` // 需要查询变量key示例值: changer
+type GetCorehrProcessFlowVariableDataReq struct {
+	ProcessID        string            `path:"process_id" json:"-"`          // 流程实例ID。可通过[查询流程实例列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/list)接口获取示例值: "7341373094948242956"
+	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型示例值: people_corehr_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `people_corehr_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门 ID 类型示例值: people_corehr_department_id可选值有: 以 open_department_id 来标识部门以 department_id 来标识部门以 department_id 来标识部门默认值: `people_corehr_department_id`
+	VariableKeys     []string          `query:"variable_keys" json:"-"`      // 需要查询变量key示例值: changer
 }
-
-
-
-
 
 // GetCorehrProcessFlowVariableDataResp ...
-type GetCorehrProcessFlowVariableDataResp struct { 
-FieldVariableValues []*GetCorehrProcessFlowVariableDataRespFieldVariableValue `json:"field_variable_values,omitempty"` // 流程数据
-ProcessID string `json:"process_id,omitempty"` // 流程实例id
+type GetCorehrProcessFlowVariableDataResp struct {
+	FieldVariableValues []*GetCorehrProcessFlowVariableDataRespFieldVariableValue `json:"field_variable_values,omitempty"` // 流程数据
+	ProcessID           string                                                    `json:"process_id,omitempty"`            // 流程实例id
 }
-
-
-
-
 
 // GetCorehrProcessFlowVariableDataRespFieldVariableValue ...
-type GetCorehrProcessFlowVariableDataRespFieldVariableValue struct { 
-VariableApiName string `json:"variable_api_name,omitempty"` // 变量唯一标识
-VariableName *GetCorehrProcessFlowVariableDataRespFieldVariableValueVariableName `json:"variable_name,omitempty"` // 变量名称
-VariableValue *GetCorehrProcessFlowVariableDataRespFieldVariableValueVariableValue `json:"variable_value,omitempty"` // 变量值
-SubValues []*GetCorehrProcessFlowVariableDataRespFieldVariableValueSubValue `json:"sub_values,omitempty"` // 在list_values和record_values中引用的变量
+type GetCorehrProcessFlowVariableDataRespFieldVariableValue struct {
+	VariableApiName string                                                               `json:"variable_api_name,omitempty"` // 变量唯一标识
+	VariableName    *GetCorehrProcessFlowVariableDataRespFieldVariableValueVariableName  `json:"variable_name,omitempty"`     // 变量名称
+	VariableValue   *GetCorehrProcessFlowVariableDataRespFieldVariableValueVariableValue `json:"variable_value,omitempty"`    // 变量值
+	SubValues       []*GetCorehrProcessFlowVariableDataRespFieldVariableValueSubValue    `json:"sub_values,omitempty"`        // 在list_values和record_values中引用的变量
 }
-
-
-
-
 
 // GetCorehrProcessFlowVariableDataRespFieldVariableValueSubValue ...
-type GetCorehrProcessFlowVariableDataRespFieldVariableValueSubValue struct { 
-Key string `json:"key,omitempty"` // 用于关联list和record类型变量值中的key
-Value *GetCorehrProcessFlowVariableDataRespFieldVariableValueSubValueValue `json:"value,omitempty"` // 变量值
+type GetCorehrProcessFlowVariableDataRespFieldVariableValueSubValue struct {
+	Key   string                                                               `json:"key,omitempty"`   // 用于关联list和record类型变量值中的key
+	Value *GetCorehrProcessFlowVariableDataRespFieldVariableValueSubValueValue `json:"value,omitempty"` // 变量值
 }
-
-
-
-
 
 // GetCorehrProcessFlowVariableDataRespFieldVariableValueSubValueValue ...
-type GetCorehrProcessFlowVariableDataRespFieldVariableValueSubValueValue struct { 
-TextValue string `json:"text_value,omitempty"` // 文本值
-BoolValue bool `json:"bool_value,omitempty"` // 布尔值
-NumberValue string `json:"number_value,omitempty"` // 数字值
-EnumValue string `json:"enum_value,omitempty"` // 枚举值, 这里是枚举的id
-DateValue string `json:"date_value,omitempty"` // 从 1970 开始的天数
-DateTimeValue string `json:"date_time_value,omitempty"` // 时间戳, 毫秒
-I18nValue *GetCorehrProcessFlowVariableDataRespFieldVariableValueSubValueValueI18nValue `json:"i18n_value,omitempty"` // 多语字段值
-ObjectValue *GetCorehrProcessFlowVariableDataRespFieldVariableValueSubValueValueObjectValue `json:"object_value,omitempty"` // 对象值, 包括对象id和对象类型
-UserValue string `json:"user_value,omitempty"` // 用户id, 根据user_type选择对应的用户id
-DepartmentValue string `json:"department_value,omitempty"` // 部门id, 根据入参选择对应的部门id
-RecordValues []*GetCorehrProcessFlowVariableDataRespFieldVariableValueSubValueValueRecordValue `json:"record_values,omitempty"` // 记录类型字段值
-EmploymentValue string `json:"employment_value,omitempty"` // 员工类型字段值, 为用户id, 根据入参选择返回的用户id
-ListValues []string `json:"list_values,omitempty"` // 数组类型值, 里面包含多个值, 每个元素都对应subValues中的数组下标
-FileValue *GetCorehrProcessFlowVariableDataRespFieldVariableValueSubValueValueFileValue `json:"file_value,omitempty"` // 文件类型字段值, 可通过主数据的文件下载Open API下载
+type GetCorehrProcessFlowVariableDataRespFieldVariableValueSubValueValue struct {
+	TextValue       string                                                                            `json:"text_value,omitempty"`       // 文本值
+	BoolValue       bool                                                                              `json:"bool_value,omitempty"`       // 布尔值
+	NumberValue     string                                                                            `json:"number_value,omitempty"`     // 数字值
+	EnumValue       string                                                                            `json:"enum_value,omitempty"`       // 枚举值, 这里是枚举的id
+	DateValue       string                                                                            `json:"date_value,omitempty"`       // 从 1970 开始的天数
+	DateTimeValue   string                                                                            `json:"date_time_value,omitempty"`  // 时间戳, 毫秒
+	I18nValue       *GetCorehrProcessFlowVariableDataRespFieldVariableValueSubValueValueI18nValue     `json:"i18n_value,omitempty"`       // 多语字段值
+	ObjectValue     *GetCorehrProcessFlowVariableDataRespFieldVariableValueSubValueValueObjectValue   `json:"object_value,omitempty"`     // 对象值, 包括对象id和对象类型
+	UserValue       string                                                                            `json:"user_value,omitempty"`       // 用户id, 根据user_type选择对应的用户id
+	DepartmentValue string                                                                            `json:"department_value,omitempty"` // 部门id, 根据入参选择对应的部门id
+	RecordValues    []*GetCorehrProcessFlowVariableDataRespFieldVariableValueSubValueValueRecordValue `json:"record_values,omitempty"`    // 记录类型字段值
+	EmploymentValue string                                                                            `json:"employment_value,omitempty"` // 员工类型字段值, 为用户id, 根据入参选择返回的用户id
+	ListValues      []string                                                                          `json:"list_values,omitempty"`      // 数组类型值, 里面包含多个值, 每个元素都对应subValues中的数组下标
+	FileValue       *GetCorehrProcessFlowVariableDataRespFieldVariableValueSubValueValueFileValue     `json:"file_value,omitempty"`       // 文件类型字段值, 可通过主数据的文件下载Open API下载
 }
-
-
-
-
 
 // GetCorehrProcessFlowVariableDataRespFieldVariableValueSubValueValueFileValue ...
-type GetCorehrProcessFlowVariableDataRespFieldVariableValueSubValueValueFileValue struct { 
-OpenFileID string `json:"open_file_id,omitempty"` // 用于主数据文件下载接口的id
-FileName string `json:"file_name,omitempty"` // 文件名称
-Length int64 `json:"length,omitempty"` // 文件大小, 单位: Byte
-MimeType string `json:"mime_type,omitempty"` // 文件类型, 如`application/pdf`
+type GetCorehrProcessFlowVariableDataRespFieldVariableValueSubValueValueFileValue struct {
+	OpenFileID string `json:"open_file_id,omitempty"` // 用于主数据文件下载接口的id
+	FileName   string `json:"file_name,omitempty"`    // 文件名称
+	Length     int64  `json:"length,omitempty"`       // 文件大小, 单位: Byte
+	MimeType   string `json:"mime_type,omitempty"`    // 文件类型, 如`application/pdf`
 }
-
-
-
-
 
 // GetCorehrProcessFlowVariableDataRespFieldVariableValueSubValueValueI18nValue ...
-type GetCorehrProcessFlowVariableDataRespFieldVariableValueSubValueValueI18nValue struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文值
-EnUs string `json:"en_us,omitempty"` // 英文值
+type GetCorehrProcessFlowVariableDataRespFieldVariableValueSubValueValueI18nValue struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文值
+	EnUs string `json:"en_us,omitempty"` // 英文值
 }
-
-
-
-
 
 // GetCorehrProcessFlowVariableDataRespFieldVariableValueSubValueValueObjectValue ...
-type GetCorehrProcessFlowVariableDataRespFieldVariableValueSubValueValueObjectValue struct { 
-WkID string `json:"wk_id,omitempty"` // wukong的对象唯一标识
-WkApiName string `json:"wk_api_name,omitempty"` // wukong的元数据唯一标识
+type GetCorehrProcessFlowVariableDataRespFieldVariableValueSubValueValueObjectValue struct {
+	WkID      string `json:"wk_id,omitempty"`       // wukong的对象唯一标识
+	WkApiName string `json:"wk_api_name,omitempty"` // wukong的元数据唯一标识
 }
-
-
-
-
 
 // GetCorehrProcessFlowVariableDataRespFieldVariableValueSubValueValueRecordValue ...
-type GetCorehrProcessFlowVariableDataRespFieldVariableValueSubValueValueRecordValue struct { 
-VariableApiName string `json:"variable_api_name,omitempty"` // 变量唯一标识
-SubValueKey string `json:"sub_value_key,omitempty"` // 变量值, 对应subValues中的key
-RecordID string `json:"record_id,omitempty"` // 记录唯一ID
+type GetCorehrProcessFlowVariableDataRespFieldVariableValueSubValueValueRecordValue struct {
+	VariableApiName string `json:"variable_api_name,omitempty"` // 变量唯一标识
+	SubValueKey     string `json:"sub_value_key,omitempty"`     // 变量值, 对应subValues中的key
+	RecordID        string `json:"record_id,omitempty"`         // 记录唯一ID
 }
-
-
-
-
 
 // GetCorehrProcessFlowVariableDataRespFieldVariableValueVariableName ...
-type GetCorehrProcessFlowVariableDataRespFieldVariableValueVariableName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文值
-EnUs string `json:"en_us,omitempty"` // 英文值
+type GetCorehrProcessFlowVariableDataRespFieldVariableValueVariableName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文值
+	EnUs string `json:"en_us,omitempty"` // 英文值
 }
-
-
-
-
 
 // GetCorehrProcessFlowVariableDataRespFieldVariableValueVariableValue ...
-type GetCorehrProcessFlowVariableDataRespFieldVariableValueVariableValue struct { 
-TextValue string `json:"text_value,omitempty"` // 文本值
-BoolValue bool `json:"bool_value,omitempty"` // 布尔值
-NumberValue string `json:"number_value,omitempty"` // 数字值
-EnumValue string `json:"enum_value,omitempty"` // 枚举值, 这里是枚举的id
-DateValue string `json:"date_value,omitempty"` // 从 1970 开始的天数
-DateTimeValue string `json:"date_time_value,omitempty"` // 时间戳, 毫秒
-I18nValue *GetCorehrProcessFlowVariableDataRespFieldVariableValueVariableValueI18nValue `json:"i18n_value,omitempty"` // 多语字段值
-ObjectValue *GetCorehrProcessFlowVariableDataRespFieldVariableValueVariableValueObjectValue `json:"object_value,omitempty"` // 对象值, 包括对象id和对象类型
-UserValue string `json:"user_value,omitempty"` // 用户id, 根据user_type选择对应的用户id
-DepartmentValue string `json:"department_value,omitempty"` // 部门id, 根据入参选择对应的部门id
-RecordValues []*GetCorehrProcessFlowVariableDataRespFieldVariableValueVariableValueRecordValue `json:"record_values,omitempty"` // 记录类型字段值
-EmploymentValue string `json:"employment_value,omitempty"` // 员工类型字段值, 为用户id, 根据入参选择返回的用户id
-ListValues []string `json:"list_values,omitempty"` // 数组类型值, 里面包含多个值, 每个元素都对应subValues中的数组下标
-FileValue *GetCorehrProcessFlowVariableDataRespFieldVariableValueVariableValueFileValue `json:"file_value,omitempty"` // 文件类型字段值, 可通过主数据的文件下载Open API下载
+type GetCorehrProcessFlowVariableDataRespFieldVariableValueVariableValue struct {
+	TextValue       string                                                                            `json:"text_value,omitempty"`       // 文本值
+	BoolValue       bool                                                                              `json:"bool_value,omitempty"`       // 布尔值
+	NumberValue     string                                                                            `json:"number_value,omitempty"`     // 数字值
+	EnumValue       string                                                                            `json:"enum_value,omitempty"`       // 枚举值, 这里是枚举的id
+	DateValue       string                                                                            `json:"date_value,omitempty"`       // 从 1970 开始的天数
+	DateTimeValue   string                                                                            `json:"date_time_value,omitempty"`  // 时间戳, 毫秒
+	I18nValue       *GetCorehrProcessFlowVariableDataRespFieldVariableValueVariableValueI18nValue     `json:"i18n_value,omitempty"`       // 多语字段值
+	ObjectValue     *GetCorehrProcessFlowVariableDataRespFieldVariableValueVariableValueObjectValue   `json:"object_value,omitempty"`     // 对象值, 包括对象id和对象类型
+	UserValue       string                                                                            `json:"user_value,omitempty"`       // 用户id, 根据user_type选择对应的用户id
+	DepartmentValue string                                                                            `json:"department_value,omitempty"` // 部门id, 根据入参选择对应的部门id
+	RecordValues    []*GetCorehrProcessFlowVariableDataRespFieldVariableValueVariableValueRecordValue `json:"record_values,omitempty"`    // 记录类型字段值
+	EmploymentValue string                                                                            `json:"employment_value,omitempty"` // 员工类型字段值, 为用户id, 根据入参选择返回的用户id
+	ListValues      []string                                                                          `json:"list_values,omitempty"`      // 数组类型值, 里面包含多个值, 每个元素都对应subValues中的数组下标
+	FileValue       *GetCorehrProcessFlowVariableDataRespFieldVariableValueVariableValueFileValue     `json:"file_value,omitempty"`       // 文件类型字段值, 可通过主数据的文件下载Open API下载
 }
-
-
-
-
 
 // GetCorehrProcessFlowVariableDataRespFieldVariableValueVariableValueFileValue ...
-type GetCorehrProcessFlowVariableDataRespFieldVariableValueVariableValueFileValue struct { 
-OpenFileID string `json:"open_file_id,omitempty"` // 用于主数据文件下载接口的id
-FileName string `json:"file_name,omitempty"` // 文件名称
-Length int64 `json:"length,omitempty"` // 文件大小, 单位: Byte
-MimeType string `json:"mime_type,omitempty"` // 文件类型, 如`application/pdf`
+type GetCorehrProcessFlowVariableDataRespFieldVariableValueVariableValueFileValue struct {
+	OpenFileID string `json:"open_file_id,omitempty"` // 用于主数据文件下载接口的id
+	FileName   string `json:"file_name,omitempty"`    // 文件名称
+	Length     int64  `json:"length,omitempty"`       // 文件大小, 单位: Byte
+	MimeType   string `json:"mime_type,omitempty"`    // 文件类型, 如`application/pdf`
 }
-
-
-
-
 
 // GetCorehrProcessFlowVariableDataRespFieldVariableValueVariableValueI18nValue ...
-type GetCorehrProcessFlowVariableDataRespFieldVariableValueVariableValueI18nValue struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文值
-EnUs string `json:"en_us,omitempty"` // 英文值
+type GetCorehrProcessFlowVariableDataRespFieldVariableValueVariableValueI18nValue struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文值
+	EnUs string `json:"en_us,omitempty"` // 英文值
 }
-
-
-
-
 
 // GetCorehrProcessFlowVariableDataRespFieldVariableValueVariableValueObjectValue ...
-type GetCorehrProcessFlowVariableDataRespFieldVariableValueVariableValueObjectValue struct { 
-WkID string `json:"wk_id,omitempty"` // wukong的对象唯一标识
-WkApiName string `json:"wk_api_name,omitempty"` // wukong的元数据唯一标识
+type GetCorehrProcessFlowVariableDataRespFieldVariableValueVariableValueObjectValue struct {
+	WkID      string `json:"wk_id,omitempty"`       // wukong的对象唯一标识
+	WkApiName string `json:"wk_api_name,omitempty"` // wukong的元数据唯一标识
 }
-
-
-
-
 
 // GetCorehrProcessFlowVariableDataRespFieldVariableValueVariableValueRecordValue ...
-type GetCorehrProcessFlowVariableDataRespFieldVariableValueVariableValueRecordValue struct { 
-VariableApiName string `json:"variable_api_name,omitempty"` // 变量唯一标识
-SubValueKey string `json:"sub_value_key,omitempty"` // 变量值, 对应subValues中的key
-RecordID string `json:"record_id,omitempty"` // 记录唯一ID
+type GetCorehrProcessFlowVariableDataRespFieldVariableValueVariableValueRecordValue struct {
+	VariableApiName string `json:"variable_api_name,omitempty"` // 变量唯一标识
+	SubValueKey     string `json:"sub_value_key,omitempty"`     // 变量值, 对应subValues中的key
+	RecordID        string `json:"record_id,omitempty"`         // 记录唯一ID
 }
-
-
-
-
 
 // getCorehrProcessFlowVariableDataResp ...
-type getCorehrProcessFlowVariableDataResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *GetCorehrProcessFlowVariableDataResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type getCorehrProcessFlowVariableDataResp struct {
+	Code  int64                                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                `json:"msg,omitempty"`  // 错误描述
+	Data  *GetCorehrProcessFlowVariableDataResp `json:"data,omitempty"`
+	Error *ErrorDetail                          `json:"error,omitempty"`
 }
-
-
-
-

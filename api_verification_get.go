@@ -57,8 +57,7 @@ func (r *Mock) UnMockVerificationGetVerification() {
 }
 
 // GetVerificationReq ...
-type GetVerificationReq struct {
-}
+type GetVerificationReq struct{}
 
 // GetVerificationResp ...
 type GetVerificationResp struct {

@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListDriveFileLike 获取指定云文档的点赞者列表并按点赞时间由近到远分页返回。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIzNzUjLyczM14iM3MTN/drive-v2/file-like/list
-// 
 func (r *DriveService) ListDriveFileLike(ctx context.Context, request *ListDriveFileLikeReq, options ...MethodOptionFunc) (*ListDriveFileLikeResp, *Response, error) {
-if r.cli.mock.mockDriveListDriveFileLike != nil {
+	if r.cli.mock.mockDriveListDriveFileLike != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#ListDriveFileLike mock enable")
 		return r.cli.mock.mockDriveListDriveFileLike(ctx, request, options...)
 	}
@@ -35,12 +34,11 @@ if r.cli.mock.mockDriveListDriveFileLike != nil {
 		Scope:                 "Drive",
 		API:                   "ListDriveFileLike",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/drive/v2/files/:file_token/likes",
+		URL:                   r.cli.openBaseURL + "/open-apis/drive/v2/files/:file_token/likes",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(listDriveFileLikeResp)
 
@@ -52,58 +50,42 @@ if r.cli.mock.mockDriveListDriveFileLike != nil {
 func (r *Mock) MockDriveListDriveFileLike(f func(ctx context.Context, request *ListDriveFileLikeReq, options ...MethodOptionFunc) (*ListDriveFileLikeResp, *Response, error)) {
 	r.mockDriveListDriveFileLike = f
 }
+
 // UnMockDriveListDriveFileLike un-mock DriveListDriveFileLike method
 func (r *Mock) UnMockDriveListDriveFileLike() {
 	r.mockDriveListDriveFileLike = nil
 }
 
-
 // ListDriveFileLikeReq ...
-type ListDriveFileLikeReq struct { 
-FileToken string `path:"file_token" json:"-"` // 需要查询点赞者列表的云文档 token。[点击了解如何获取云文档 Token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)示例值: "J6Lddz22AovnqkxWEXBcUJabcef"
-FileType FileType `query:"file_type" json:"-"` // 云文档类型, 如果该值为空或者与云文档实际类型不匹配, 接口会返回失败。示例值: doc可选值有: 旧版文档新版文档文件
-PageSize *int64 `query:"page_size" json:"-"` // 分页大小示例值: 10默认值: `10` 取值范围: `1` ～ `50`
-PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: aw7DoMKBFMOGwqHCrcO8w6jCmMOvw6ILeADCvsKNw57Di8O5XGV3LG4_w5HCqhFxSnDCrCzCn0BgZcOYUg85EMOYcEAcwqYOw4ojw5QFwofCu8KoIMO3K8Ktw4IuNMOBBHNYw4bCgCV3U1zDu8K-J8KSR8Kgw7Y0fsKZdsKvW3d9w53DnkHDrcO5bDkYwrvDisOEPcOtVFJ-I03CnsOILMOoAmLDknd6dsKqG1bClAjDuS3CvcOTwo7Dg8OrwovDsRdqIcKxw5HDohTDtXN9w5rCkWo
-UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+type ListDriveFileLikeReq struct {
+	FileToken  string   `path:"file_token" json:"-"`    // 需要查询点赞者列表的云文档 token。[点击了解如何获取云文档 Token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)示例值: "J6Lddz22AovnqkxWEXBcUJabcef"
+	FileType   FileType `query:"file_type" json:"-"`    // 云文档类型, 如果该值为空或者与云文档实际类型不匹配, 接口会返回失败。示例值: doc可选值有: 旧版文档新版文档文件
+	PageSize   *int64   `query:"page_size" json:"-"`    // 分页大小示例值: 10默认值: `10` 取值范围: `1` ～ `50`
+	PageToken  *string  `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: aw7DoMKBFMOGwqHCrcO8w6jCmMOvw6ILeADCvsKNw57Di8O5XGV3LG4_w5HCqhFxSnDCrCzCn0BgZcOYUg85EMOYcEAcwqYOw4ojw5QFwofCu8KoIMO3K8Ktw4IuNMOBBHNYw4bCgCV3U1zDu8K-J8KSR8Kgw7Y0fsKZdsKvW3d9w53DnkHDrcO5bDkYwrvDisOEPcOtVFJ-I03CnsOILMOoAmLDknd6dsKqG1bClAjDuS3CvcOTwo7Dg8OrwovDsRdqIcKxw5HDohTDtXN9w5rCkWo
+	UserIDType *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
-
-
-
-
 
 // ListDriveFileLikeResp ...
-type ListDriveFileLikeResp struct { 
-Items []*ListDriveFileLikeRespItem `json:"items,omitempty"` // 云文档的点赞者列表
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
+type ListDriveFileLikeResp struct {
+	Items     []*ListDriveFileLikeRespItem `json:"items,omitempty"`      // 云文档的点赞者列表
+	PageToken string                       `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	HasMore   bool                         `json:"has_more,omitempty"`   // 是否还有更多项
 }
-
-
-
-
 
 // ListDriveFileLikeRespItem ...
-type ListDriveFileLikeRespItem struct { 
-UserID string `json:"user_id,omitempty"` // 用户 ID。与查询参数 user_id_type 一致
-LastLikedTime string `json:"last_liked_time,omitempty"` // 用户最后点赞时间, 秒级时间戳
-UserName string `json:"user_name,omitempty"` // 用户名字, 用户信息被脱敏时此值不会返回字段权限要求（满足任一）: 获取用户基本信息以应用身份访问通讯录读取通讯录以应用身份读取通讯录
-UserEnName string `json:"user_en_name,omitempty"` // 用户英文名字, 用户信息被脱敏时此值不会返回字段权限要求（满足任一）: 获取用户基本信息以应用身份访问通讯录读取通讯录以应用身份读取通讯录
-UserAvatarURL string `json:"user_avatar_url,omitempty"` // 用户头像, 用户信息被脱敏时此值不会返回字段权限要求（满足任一）: 获取用户基本信息以应用身份访问通讯录读取通讯录以应用身份读取通讯录
-UserIsDesensitized bool `json:"user_is_desensitized,omitempty"` // 用户信息是否脱敏
+type ListDriveFileLikeRespItem struct {
+	UserID             string `json:"user_id,omitempty"`              // 用户 ID。与查询参数 user_id_type 一致
+	LastLikedTime      string `json:"last_liked_time,omitempty"`      // 用户最后点赞时间, 秒级时间戳
+	UserName           string `json:"user_name,omitempty"`            // 用户名字, 用户信息被脱敏时此值不会返回字段权限要求（满足任一）: 获取用户基本信息以应用身份访问通讯录读取通讯录以应用身份读取通讯录
+	UserEnName         string `json:"user_en_name,omitempty"`         // 用户英文名字, 用户信息被脱敏时此值不会返回字段权限要求（满足任一）: 获取用户基本信息以应用身份访问通讯录读取通讯录以应用身份读取通讯录
+	UserAvatarURL      string `json:"user_avatar_url,omitempty"`      // 用户头像, 用户信息被脱敏时此值不会返回字段权限要求（满足任一）: 获取用户基本信息以应用身份访问通讯录读取通讯录以应用身份读取通讯录
+	UserIsDesensitized bool   `json:"user_is_desensitized,omitempty"` // 用户信息是否脱敏
 }
-
-
-
-
 
 // listDriveFileLikeResp ...
-type listDriveFileLikeResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *ListDriveFileLikeResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type listDriveFileLikeResp struct {
+	Code  int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                 `json:"msg,omitempty"`  // 错误描述
+	Data  *ListDriveFileLikeResp `json:"data,omitempty"`
+	Error *ErrorDetail           `json:"error,omitempty"`
 }
-
-
-
-

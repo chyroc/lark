@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateAilySessionAilyMessage 该 API 用于向某个飞书 Aily 应用发送一条消息（Message）；每个消息从属于一个活跃的会话（Session）。
@@ -30,9 +30,8 @@ import (
 // - 运行（Run）: Aily 助手基于会话内消息进行意图判定、调用匹配的技能, 并返回技能执行后的结果消息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/aily-v1/aily_session-aily_message/create
-// 
 func (r *AilyService) CreateAilySessionAilyMessage(ctx context.Context, request *CreateAilySessionAilyMessageReq, options ...MethodOptionFunc) (*CreateAilySessionAilyMessageResp, *Response, error) {
-if r.cli.mock.mockAilyCreateAilySessionAilyMessage != nil {
+	if r.cli.mock.mockAilyCreateAilySessionAilyMessage != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Aily#CreateAilySessionAilyMessage mock enable")
 		return r.cli.mock.mockAilyCreateAilySessionAilyMessage(ctx, request, options...)
 	}
@@ -41,12 +40,11 @@ if r.cli.mock.mockAilyCreateAilySessionAilyMessage != nil {
 		Scope:                 "Aily",
 		API:                   "CreateAilySessionAilyMessage",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/aily/v1/sessions/:aily_session_id/messages",
+		URL:                   r.cli.openBaseURL + "/open-apis/aily/v1/sessions/:aily_session_id/messages",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(createAilySessionAilyMessageResp)
 
@@ -58,88 +56,64 @@ if r.cli.mock.mockAilyCreateAilySessionAilyMessage != nil {
 func (r *Mock) MockAilyCreateAilySessionAilyMessage(f func(ctx context.Context, request *CreateAilySessionAilyMessageReq, options ...MethodOptionFunc) (*CreateAilySessionAilyMessageResp, *Response, error)) {
 	r.mockAilyCreateAilySessionAilyMessage = f
 }
+
 // UnMockAilyCreateAilySessionAilyMessage un-mock AilyCreateAilySessionAilyMessage method
 func (r *Mock) UnMockAilyCreateAilySessionAilyMessage() {
 	r.mockAilyCreateAilySessionAilyMessage = nil
 }
 
-
 // CreateAilySessionAilyMessageReq ...
-type CreateAilySessionAilyMessageReq struct { 
-AilySessionID string `path:"aily_session_id" json:"-"` // 会话 ID；参考 [创建会话](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/aily-v1/aily_session/create) 接口示例值: "session_4dfunz7sp1g8m" 长度范围: `9` ～ `32` 字符- 正则校验: `session_[0-9a-hjkmnp-z]{1, 24}`
-IdempotentID string `json:"idempotent_id,omitempty"` // 幂等 ID（如使用 UUID 生成器或时间戳）, 同一会话下相同的幂等 ID 视为同一个消息（72h）示例值: "idempotent_id_1" 长度范围: `0` ～ `64` 字符
-ContentType string `json:"content_type,omitempty"` // 消息的类型, 包括 `MDX` | `TEXT` 等- `MDX` 能够表达富文本信息结构, 可参考 [Aily 消息节点 markdown 语法](https://bytedance.larkoffice.com/wiki/ZlHYw8jJci3o4dkkEZZcybM0nah)- `TEXT` 作为纯文本进行处理示例值: "MDX"可选值有: MDXTEXTGUI 卡片SmartCardJSON
-Content string `json:"content,omitempty"` // 消息内容示例值: "你好" 长度范围: `0` ～ `61440` 字符
-FileIDs []string `json:"file_ids,omitempty"` // 消息中包含的文件 ID 列表示例值: ["file_4d9nu1ev3a2rq"] 长度范围: `0` ～ `32`
-QuoteMessageID *string `json:"quote_message_id,omitempty"` // 引用的消息 ID示例值: "message_4de9bpg70qskh" 长度范围: `0` ～ `32` 字符- 正则校验: `message_[0-9a-hjkmnp-z]{1, 24}`
-Mentions []*Mention `json:"mentions,omitempty"` // 被@的实体 长度范围: `0` ～ `32`
+type CreateAilySessionAilyMessageReq struct {
+	AilySessionID  string     `path:"aily_session_id" json:"-"`   // 会话 ID；参考 [创建会话](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/aily-v1/aily_session/create) 接口示例值: "session_4dfunz7sp1g8m" 长度范围: `9` ～ `32` 字符- 正则校验: `session_[0-9a-hjkmnp-z]{1, 24}`
+	IdempotentID   string     `json:"idempotent_id,omitempty"`    // 幂等 ID（如使用 UUID 生成器或时间戳）, 同一会话下相同的幂等 ID 视为同一个消息（72h）示例值: "idempotent_id_1" 长度范围: `0` ～ `64` 字符
+	ContentType    string     `json:"content_type,omitempty"`     // 消息的类型, 包括 `MDX` | `TEXT` 等- `MDX` 能够表达富文本信息结构, 可参考 [Aily 消息节点 markdown 语法](https://bytedance.larkoffice.com/wiki/ZlHYw8jJci3o4dkkEZZcybM0nah)- `TEXT` 作为纯文本进行处理示例值: "MDX"可选值有: MDXTEXTGUI 卡片SmartCardJSON
+	Content        string     `json:"content,omitempty"`          // 消息内容示例值: "你好" 长度范围: `0` ～ `61440` 字符
+	FileIDs        []string   `json:"file_ids,omitempty"`         // 消息中包含的文件 ID 列表示例值: ["file_4d9nu1ev3a2rq"] 长度范围: `0` ～ `32`
+	QuoteMessageID *string    `json:"quote_message_id,omitempty"` // 引用的消息 ID示例值: "message_4de9bpg70qskh" 长度范围: `0` ～ `32` 字符- 正则校验: `message_[0-9a-hjkmnp-z]{1, 24}`
+	Mentions       []*Mention `json:"mentions,omitempty"`         // 被@的实体 长度范围: `0` ～ `32`
 }
-
-
-
-
 
 // CreateAilySessionAilyMessageResp ...
-type CreateAilySessionAilyMessageResp struct { 
-Message *CreateAilySessionAilyMessageRespMessage `json:"message,omitempty"` // 消息信息
+type CreateAilySessionAilyMessageResp struct {
+	Message *CreateAilySessionAilyMessageRespMessage `json:"message,omitempty"` // 消息信息
 }
-
-
-
-
 
 // CreateAilySessionAilyMessageRespMessage ...
-type CreateAilySessionAilyMessageRespMessage struct { 
-ID string `json:"id,omitempty"` // 消息 ID
-SessionID string `json:"session_id,omitempty"` // 会话 ID
-RunID string `json:"run_id,omitempty"` // 运行 ID
-ContentType string `json:"content_type,omitempty"` // 消息内容类型可选值有: MDXTEXTGUI 卡片SmartCardJSON
-Content string `json:"content,omitempty"` // 消息内容
-Files []*CreateAilySessionAilyMessageRespMessageFile `json:"files,omitempty"` // 消息中包含的文件
-QuoteMessageID string `json:"quote_message_id,omitempty"` // 引用的消息 ID
-Sender *Sender `json:"sender,omitempty"` // 发送者
-Mentions []*Mention `json:"mentions,omitempty"` // 被@的实体
-PlainText string `json:"plain_text,omitempty"` // 消息体的纯文本表达
-CreatedAt string `json:"created_at,omitempty"` // 消息的创建时间, 毫秒时间戳
-Status string `json:"status,omitempty"` // 状态可选值有: 生成中已完成
+type CreateAilySessionAilyMessageRespMessage struct {
+	ID             string                                         `json:"id,omitempty"`               // 消息 ID
+	SessionID      string                                         `json:"session_id,omitempty"`       // 会话 ID
+	RunID          string                                         `json:"run_id,omitempty"`           // 运行 ID
+	ContentType    string                                         `json:"content_type,omitempty"`     // 消息内容类型可选值有: MDXTEXTGUI 卡片SmartCardJSON
+	Content        string                                         `json:"content,omitempty"`          // 消息内容
+	Files          []*CreateAilySessionAilyMessageRespMessageFile `json:"files,omitempty"`            // 消息中包含的文件
+	QuoteMessageID string                                         `json:"quote_message_id,omitempty"` // 引用的消息 ID
+	Sender         *Sender                                        `json:"sender,omitempty"`           // 发送者
+	Mentions       []*Mention                                     `json:"mentions,omitempty"`         // 被@的实体
+	PlainText      string                                         `json:"plain_text,omitempty"`       // 消息体的纯文本表达
+	CreatedAt      string                                         `json:"created_at,omitempty"`       // 消息的创建时间, 毫秒时间戳
+	Status         string                                         `json:"status,omitempty"`           // 状态可选值有: 生成中已完成
 }
-
-
-
-
 
 // CreateAilySessionAilyMessageRespMessageFile ...
-type CreateAilySessionAilyMessageRespMessageFile struct { 
-ID string `json:"id,omitempty"` // 文件 ID
-MimeType string `json:"mime_type,omitempty"` // 文件类型, 参见[MIME 类型（IANA 媒体类型）](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Basics_of_HTTP/MIME_types)
-FileName string `json:"file_name,omitempty"` // 文件名
-Metadata string `json:"metadata,omitempty"` // 其他透传信息
-CreatedAt string `json:"created_at,omitempty"` // 文件的创建时间, 毫秒时间戳
-PreviewURL *CreateAilySessionAilyMessageRespMessageFilePreviewURL `json:"preview_url,omitempty"` // 文件预览链接
+type CreateAilySessionAilyMessageRespMessageFile struct {
+	ID         string                                                 `json:"id,omitempty"`          // 文件 ID
+	MimeType   string                                                 `json:"mime_type,omitempty"`   // 文件类型, 参见[MIME 类型（IANA 媒体类型）](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Basics_of_HTTP/MIME_types)
+	FileName   string                                                 `json:"file_name,omitempty"`   // 文件名
+	Metadata   string                                                 `json:"metadata,omitempty"`    // 其他透传信息
+	CreatedAt  string                                                 `json:"created_at,omitempty"`  // 文件的创建时间, 毫秒时间戳
+	PreviewURL *CreateAilySessionAilyMessageRespMessageFilePreviewURL `json:"preview_url,omitempty"` // 文件预览链接
 }
-
-
-
-
 
 // CreateAilySessionAilyMessageRespMessageFilePreviewURL ...
-type CreateAilySessionAilyMessageRespMessageFilePreviewURL struct { 
-URL string `json:"url,omitempty"` // 文件的 URL
-ExpiredAt string `json:"expired_at,omitempty"` // url 过期时间, 秒时间戳
+type CreateAilySessionAilyMessageRespMessageFilePreviewURL struct {
+	URL       string `json:"url,omitempty"`        // 文件的 URL
+	ExpiredAt string `json:"expired_at,omitempty"` // url 过期时间, 秒时间戳
 }
-
-
-
-
 
 // createAilySessionAilyMessageResp ...
-type createAilySessionAilyMessageResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateAilySessionAilyMessageResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createAilySessionAilyMessageResp struct {
+	Code  int64                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                            `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateAilySessionAilyMessageResp `json:"data,omitempty"`
+	Error *ErrorDetail                      `json:"error,omitempty"`
 }
-
-
-
-

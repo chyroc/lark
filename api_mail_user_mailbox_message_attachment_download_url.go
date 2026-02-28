@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // DownloadMailUserMailboxMessageAttachmentURL 获取附件下载链接
@@ -27,9 +27,8 @@ import (
 // 使用 tenant_access_token 时, 需要申请邮件数据资源的数据权限。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-message-attachment/download_url
-// 
 func (r *MailService) DownloadMailUserMailboxMessageAttachmentURL(ctx context.Context, request *DownloadMailUserMailboxMessageAttachmentURLReq, options ...MethodOptionFunc) (*DownloadMailUserMailboxMessageAttachmentURLResp, *Response, error) {
-if r.cli.mock.mockMailDownloadMailUserMailboxMessageAttachmentURL != nil {
+	if r.cli.mock.mockMailDownloadMailUserMailboxMessageAttachmentURL != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#DownloadMailUserMailboxMessageAttachmentURL mock enable")
 		return r.cli.mock.mockMailDownloadMailUserMailboxMessageAttachmentURL(ctx, request, options...)
 	}
@@ -38,12 +37,11 @@ if r.cli.mock.mockMailDownloadMailUserMailboxMessageAttachmentURL != nil {
 		Scope:                 "Mail",
 		API:                   "DownloadMailUserMailboxMessageAttachmentURL",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/messages/:message_id/attachments/download_url",
+		URL:                   r.cli.openBaseURL + "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/messages/:message_id/attachments/download_url",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(downloadMailUserMailboxMessageAttachmentURLResp)
 
@@ -55,51 +53,35 @@ if r.cli.mock.mockMailDownloadMailUserMailboxMessageAttachmentURL != nil {
 func (r *Mock) MockMailDownloadMailUserMailboxMessageAttachmentURL(f func(ctx context.Context, request *DownloadMailUserMailboxMessageAttachmentURLReq, options ...MethodOptionFunc) (*DownloadMailUserMailboxMessageAttachmentURLResp, *Response, error)) {
 	r.mockMailDownloadMailUserMailboxMessageAttachmentURL = f
 }
+
 // UnMockMailDownloadMailUserMailboxMessageAttachmentURL un-mock MailDownloadMailUserMailboxMessageAttachmentURL method
 func (r *Mock) UnMockMailDownloadMailUserMailboxMessageAttachmentURL() {
 	r.mockMailDownloadMailUserMailboxMessageAttachmentURL = nil
 }
 
-
 // DownloadMailUserMailboxMessageAttachmentURLReq ...
-type DownloadMailUserMailboxMessageAttachmentURLReq struct { 
-UserMailboxID string `path:"user_mailbox_id" json:"-"` // 用户邮箱地址 或 输入me代表当前调用接口用户示例值: "user@xxx.xx 或 me"
-MessageID string `path:"message_id" json:"-"` // 用户邮件 id, 获取方式见 [列出邮件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-message/list)示例值: "TUlHc1NoWFhJMXgyUi9VZTNVL3h6UnlkRUdzPQ=="
-AttachmentIDs []string `query:"attachment_ids" json:"-"` // 附件 id 列表示例值: YQqYbQHoQoDqXjxWKhJbo8Gicjf 长度范围: `1` ～ `20`
+type DownloadMailUserMailboxMessageAttachmentURLReq struct {
+	UserMailboxID string   `path:"user_mailbox_id" json:"-"` // 用户邮箱地址 或 输入me代表当前调用接口用户示例值: "user@xxx.xx 或 me"
+	MessageID     string   `path:"message_id" json:"-"`      // 用户邮件 id, 获取方式见 [列出邮件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-message/list)示例值: "TUlHc1NoWFhJMXgyUi9VZTNVL3h6UnlkRUdzPQ=="
+	AttachmentIDs []string `query:"attachment_ids" json:"-"` // 附件 id 列表示例值: YQqYbQHoQoDqXjxWKhJbo8Gicjf 长度范围: `1` ～ `20`
 }
-
-
-
-
 
 // DownloadMailUserMailboxMessageAttachmentURLResp ...
-type DownloadMailUserMailboxMessageAttachmentURLResp struct { 
-DownloadURLs []*DownloadMailUserMailboxMessageAttachmentURLRespDownloadURL `json:"download_urls,omitempty"` // 下载链接列表
-FailedIDs []string `json:"failed_ids,omitempty"` // 获取失败的附件 id 列表
+type DownloadMailUserMailboxMessageAttachmentURLResp struct {
+	DownloadURLs []*DownloadMailUserMailboxMessageAttachmentURLRespDownloadURL `json:"download_urls,omitempty"` // 下载链接列表
+	FailedIDs    []string                                                      `json:"failed_ids,omitempty"`    // 获取失败的附件 id 列表
 }
-
-
-
-
 
 // DownloadMailUserMailboxMessageAttachmentURLRespDownloadURL ...
-type DownloadMailUserMailboxMessageAttachmentURLRespDownloadURL struct { 
-AttachmentID string `json:"attachment_id,omitempty"` // 附件 id
-DownloadURL string `json:"download_url,omitempty"` // 下载链接
+type DownloadMailUserMailboxMessageAttachmentURLRespDownloadURL struct {
+	AttachmentID string `json:"attachment_id,omitempty"` // 附件 id
+	DownloadURL  string `json:"download_url,omitempty"`  // 下载链接
 }
-
-
-
-
 
 // downloadMailUserMailboxMessageAttachmentURLResp ...
-type downloadMailUserMailboxMessageAttachmentURLResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *DownloadMailUserMailboxMessageAttachmentURLResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type downloadMailUserMailboxMessageAttachmentURLResp struct {
+	Code  int64                                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                           `json:"msg,omitempty"`  // 错误描述
+	Data  *DownloadMailUserMailboxMessageAttachmentURLResp `json:"data,omitempty"`
+	Error *ErrorDetail                                     `json:"error,omitempty"`
 }
-
-
-
-

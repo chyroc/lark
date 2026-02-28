@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateCorehrLeaveWorkCalendarDate 获取工作日历每一天的日期详情, 如日期、日期类型等
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/work_calendar_date
-// 
 func (r *CorehrService) CreateCorehrLeaveWorkCalendarDate(ctx context.Context, request *CreateCorehrLeaveWorkCalendarDateReq, options ...MethodOptionFunc) (*CreateCorehrLeaveWorkCalendarDateResp, *Response, error) {
-if r.cli.mock.mockCorehrCreateCorehrLeaveWorkCalendarDate != nil {
+	if r.cli.mock.mockCorehrCreateCorehrLeaveWorkCalendarDate != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Corehr#CreateCorehrLeaveWorkCalendarDate mock enable")
 		return r.cli.mock.mockCorehrCreateCorehrLeaveWorkCalendarDate(ctx, request, options...)
 	}
@@ -35,12 +34,11 @@ if r.cli.mock.mockCorehrCreateCorehrLeaveWorkCalendarDate != nil {
 		Scope:                 "Corehr",
 		API:                   "CreateCorehrLeaveWorkCalendarDate",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/corehr/v1/leaves/work_calendar_date",
+		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/leaves/work_calendar_date",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(createCorehrLeaveWorkCalendarDateResp)
 
@@ -52,56 +50,40 @@ if r.cli.mock.mockCorehrCreateCorehrLeaveWorkCalendarDate != nil {
 func (r *Mock) MockCorehrCreateCorehrLeaveWorkCalendarDate(f func(ctx context.Context, request *CreateCorehrLeaveWorkCalendarDateReq, options ...MethodOptionFunc) (*CreateCorehrLeaveWorkCalendarDateResp, *Response, error)) {
 	r.mockCorehrCreateCorehrLeaveWorkCalendarDate = f
 }
+
 // UnMockCorehrCreateCorehrLeaveWorkCalendarDate un-mock CorehrCreateCorehrLeaveWorkCalendarDate method
 func (r *Mock) UnMockCorehrCreateCorehrLeaveWorkCalendarDate() {
 	r.mockCorehrCreateCorehrLeaveWorkCalendarDate = nil
 }
 
-
 // CreateCorehrLeaveWorkCalendarDateReq ...
-type CreateCorehrLeaveWorkCalendarDateReq struct { 
-WkCalendarIDs []string `json:"wk_calendar_ids,omitempty"` // 工作日历ID列表, 最多100；可以通过[获取工作日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/work_calendar) 获取工作日历ID示例值: ["7390282135276635692"] 长度范围: `1` ～ `100`
-Dates []string `json:"dates,omitempty"` // 日期, 格式: "2006-01-02", 最多50个；注意: 如果不传 ids 参数, 则必须传 dates 参数或 [begin_date, end_date]参数- 如果传 ids 参数, 则仅生效 ids 参数, 无需传 dates 参数或 [begin_date, end_date]参数示例值: ["2006-01-02"] 长度范围: `1` ～ `50`
-BeginDate *string `json:"begin_date,omitempty"` // 日期范围-开始日期, 格式: "2006-01-02"；需要和end_date一起使用；注意: 如果不传 ids 参数, 则必须传 dates 参数或 [begin_date, end_date]参数- 如果传 ids 参数, 则仅生效 ids 参数, 无需传 dates 参数或 [begin_date, end_date]参数示例值: "2006-01-02"
-EndDate *string `json:"end_date,omitempty"` // 日期范围-结束日期(含), 格式: "2006-01-02"；需要和begin_date一起使用示例值: "2006-01-02"
-Offset *int64 `json:"offset,omitempty"` // 分页示例值: 0
-Limit *int64 `json:"limit,omitempty"` // 分页大小示例值: 10
-IDs []string `json:"ids,omitempty"` // 日期id, 可使用响应体中的data.calendar_dates.id注意: 如果不传 ids 参数, 则必须传 dates 参数或 [begin_date, end_date]参数- 如果传 ids 参数, 则仅生效 ids 参数, 无需传 dates 参数或 [begin_date, end_date]参数示例值: ["7390282135276635692"] 长度范围: `0` ～ `1000`
+type CreateCorehrLeaveWorkCalendarDateReq struct {
+	WkCalendarIDs []string `json:"wk_calendar_ids,omitempty"` // 工作日历ID列表, 最多100；可以通过[获取工作日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/work_calendar) 获取工作日历ID示例值: ["7390282135276635692"] 长度范围: `1` ～ `100`
+	Dates         []string `json:"dates,omitempty"`           // 日期, 格式: "2006-01-02", 最多50个；注意: 如果不传 ids 参数, 则必须传 dates 参数或 [begin_date, end_date]参数- 如果传 ids 参数, 则仅生效 ids 参数, 无需传 dates 参数或 [begin_date, end_date]参数示例值: ["2006-01-02"] 长度范围: `1` ～ `50`
+	BeginDate     *string  `json:"begin_date,omitempty"`      // 日期范围-开始日期, 格式: "2006-01-02"；需要和end_date一起使用；注意: 如果不传 ids 参数, 则必须传 dates 参数或 [begin_date, end_date]参数- 如果传 ids 参数, 则仅生效 ids 参数, 无需传 dates 参数或 [begin_date, end_date]参数示例值: "2006-01-02"
+	EndDate       *string  `json:"end_date,omitempty"`        // 日期范围-结束日期(含), 格式: "2006-01-02"；需要和begin_date一起使用示例值: "2006-01-02"
+	Offset        *int64   `json:"offset,omitempty"`          // 分页示例值: 0
+	Limit         *int64   `json:"limit,omitempty"`           // 分页大小示例值: 10
+	IDs           []string `json:"ids,omitempty"`             // 日期id, 可使用响应体中的data.calendar_dates.id注意: 如果不传 ids 参数, 则必须传 dates 参数或 [begin_date, end_date]参数- 如果传 ids 参数, 则仅生效 ids 参数, 无需传 dates 参数或 [begin_date, end_date]参数示例值: ["7390282135276635692"] 长度范围: `0` ～ `1000`
 }
-
-
-
-
 
 // CreateCorehrLeaveWorkCalendarDateResp ...
-type CreateCorehrLeaveWorkCalendarDateResp struct { 
-CalendarDates []*CreateCorehrLeaveWorkCalendarDateRespCalendarDate `json:"calendar_dates,omitempty"` // 日期列表
+type CreateCorehrLeaveWorkCalendarDateResp struct {
+	CalendarDates []*CreateCorehrLeaveWorkCalendarDateRespCalendarDate `json:"calendar_dates,omitempty"` // 日期列表
 }
-
-
-
-
 
 // CreateCorehrLeaveWorkCalendarDateRespCalendarDate ...
-type CreateCorehrLeaveWorkCalendarDateRespCalendarDate struct { 
-CalendarID string `json:"calendar_id,omitempty"` // 工作日历ID
-Date string `json:"date,omitempty"` // 日期, 格式: "2006-01-02"
-DateType string `json:"date_type,omitempty"` // 日期类型可选值有: 休息日公共假日工作日
-ID string `json:"id,omitempty"` // 日期id
+type CreateCorehrLeaveWorkCalendarDateRespCalendarDate struct {
+	CalendarID string `json:"calendar_id,omitempty"` // 工作日历ID
+	Date       string `json:"date,omitempty"`        // 日期, 格式: "2006-01-02"
+	DateType   string `json:"date_type,omitempty"`   // 日期类型可选值有: 休息日公共假日工作日
+	ID         string `json:"id,omitempty"`          // 日期id
 }
-
-
-
-
 
 // createCorehrLeaveWorkCalendarDateResp ...
-type createCorehrLeaveWorkCalendarDateResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateCorehrLeaveWorkCalendarDateResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createCorehrLeaveWorkCalendarDateResp struct {
+	Code  int64                                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                 `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateCorehrLeaveWorkCalendarDateResp `json:"data,omitempty"`
+	Error *ErrorDetail                           `json:"error,omitempty"`
 }
-
-
-
-

@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // SearchHireTalentPool 获取人才库列表, 可获取的信息包括人才库 ID、人才库名称等。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_pool/search
-// 
 func (r *HireService) SearchHireTalentPool(ctx context.Context, request *SearchHireTalentPoolReq, options ...MethodOptionFunc) (*SearchHireTalentPoolResp, *Response, error) {
-if r.cli.mock.mockHireSearchHireTalentPool != nil {
+	if r.cli.mock.mockHireSearchHireTalentPool != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#SearchHireTalentPool mock enable")
 		return r.cli.mock.mockHireSearchHireTalentPool(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockHireSearchHireTalentPool != nil {
 		Scope:                 "Hire",
 		API:                   "SearchHireTalentPool",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/talent_pools/",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/talent_pools/",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(searchHireTalentPoolResp)
 
@@ -51,77 +49,53 @@ if r.cli.mock.mockHireSearchHireTalentPool != nil {
 func (r *Mock) MockHireSearchHireTalentPool(f func(ctx context.Context, request *SearchHireTalentPoolReq, options ...MethodOptionFunc) (*SearchHireTalentPoolResp, *Response, error)) {
 	r.mockHireSearchHireTalentPool = f
 }
+
 // UnMockHireSearchHireTalentPool un-mock HireSearchHireTalentPool method
 func (r *Mock) UnMockHireSearchHireTalentPool() {
 	r.mockHireSearchHireTalentPool = nil
 }
 
-
 // SearchHireTalentPoolReq ...
-type SearchHireTalentPoolReq struct { 
-PageSize *int64 `query:"page_size" json:"-"` // 分页大小示例值: 100默认值: `10` 最大值: `100`
-PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eyJvZmZzZXQiOjEwLCJ0aW1lc3RhbXAiOjE2Mjc1NTUyMjM2NzIsImlkIjpudWxsfQ==
-IDList []string `query:"id_list" json:"-"` // 人才库 ID 列表。当传入该参数时, 返回min(page_size, len(id_list))的人才库信息示例值: ["6930815272790114324", "6940815272790114325" 最大长度: `50`
+type SearchHireTalentPoolReq struct {
+	PageSize  *int64   `query:"page_size" json:"-"`  // 分页大小示例值: 100默认值: `10` 最大值: `100`
+	PageToken *string  `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eyJvZmZzZXQiOjEwLCJ0aW1lc3RhbXAiOjE2Mjc1NTUyMjM2NzIsImlkIjpudWxsfQ==
+	IDList    []string `query:"id_list" json:"-"`    // 人才库 ID 列表。当传入该参数时, 返回min(page_size, len(id_list))的人才库信息示例值: ["6930815272790114324", "6940815272790114325" 最大长度: `50`
 }
-
-
-
-
 
 // SearchHireTalentPoolResp ...
-type SearchHireTalentPoolResp struct { 
-Items []*SearchHireTalentPoolRespItem `json:"items,omitempty"` // 人才库列表
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
+type SearchHireTalentPoolResp struct {
+	Items     []*SearchHireTalentPoolRespItem `json:"items,omitempty"`      // 人才库列表
+	PageToken string                          `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	HasMore   bool                            `json:"has_more,omitempty"`   // 是否还有更多项
 }
-
-
-
-
 
 // SearchHireTalentPoolRespItem ...
-type SearchHireTalentPoolRespItem struct { 
-ID string `json:"id,omitempty"` // 人才库 ID
-I18nName *SearchHireTalentPoolRespItemI18nName `json:"i18n_name,omitempty"` // 人才库名称
-I18nDescription *SearchHireTalentPoolRespItemI18nDescription `json:"i18n_description,omitempty"` // 人才库描述
-ParentID string `json:"parent_id,omitempty"` // 父级人才库 ID
-IsPrivate int64 `json:"is_private,omitempty"` // 是否「部分用户可见」可选值有: 代表部分用户可见。具体而言, 只有满足授权条件的用户, 才能查看人才库。授权条件的维度包括: 角色、部门、用户代表全部用户可见。这里的全部用户指的是拥有「查看人才库」权限的用户
-CreateTime string `json:"create_time,omitempty"` // 人才库创建时间, 毫秒时间戳
-ModifyTime string `json:"modify_time,omitempty"` // 人才库修改时间, 毫秒时间戳
+type SearchHireTalentPoolRespItem struct {
+	ID              string                                       `json:"id,omitempty"`               // 人才库 ID
+	I18nName        *SearchHireTalentPoolRespItemI18nName        `json:"i18n_name,omitempty"`        // 人才库名称
+	I18nDescription *SearchHireTalentPoolRespItemI18nDescription `json:"i18n_description,omitempty"` // 人才库描述
+	ParentID        string                                       `json:"parent_id,omitempty"`        // 父级人才库 ID
+	IsPrivate       int64                                        `json:"is_private,omitempty"`       // 是否「部分用户可见」可选值有: 代表部分用户可见。具体而言, 只有满足授权条件的用户, 才能查看人才库。授权条件的维度包括: 角色、部门、用户代表全部用户可见。这里的全部用户指的是拥有「查看人才库」权限的用户
+	CreateTime      string                                       `json:"create_time,omitempty"`      // 人才库创建时间, 毫秒时间戳
+	ModifyTime      string                                       `json:"modify_time,omitempty"`      // 人才库修改时间, 毫秒时间戳
 }
-
-
-
-
 
 // SearchHireTalentPoolRespItemI18nDescription ...
-type SearchHireTalentPoolRespItemI18nDescription struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文描述
-EnUs string `json:"en_us,omitempty"` // 英文描述
+type SearchHireTalentPoolRespItemI18nDescription struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文描述
+	EnUs string `json:"en_us,omitempty"` // 英文描述
 }
-
-
-
-
 
 // SearchHireTalentPoolRespItemI18nName ...
-type SearchHireTalentPoolRespItemI18nName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 人才库中文名称
-EnUs string `json:"en_us,omitempty"` // 人才库英文名称
+type SearchHireTalentPoolRespItemI18nName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 人才库中文名称
+	EnUs string `json:"en_us,omitempty"` // 人才库英文名称
 }
-
-
-
-
 
 // searchHireTalentPoolResp ...
-type searchHireTalentPoolResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *SearchHireTalentPoolResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type searchHireTalentPoolResp struct {
+	Code  int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                    `json:"msg,omitempty"`  // 错误描述
+	Data  *SearchHireTalentPoolResp `json:"data,omitempty"`
+	Error *ErrorDetail              `json:"error,omitempty"`
 }
-
-
-
-

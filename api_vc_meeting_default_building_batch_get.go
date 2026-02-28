@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // GetVCMeetingDefaultBuildingBatchGet 该接口用于获取指定建筑物的详细信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ukzNyUjL5cjM14SO3ITN
-// 
 func (r *VCMeetingService) GetVCMeetingDefaultBuildingBatchGet(ctx context.Context, request *GetVCMeetingDefaultBuildingBatchGetReq, options ...MethodOptionFunc) (*GetVCMeetingDefaultBuildingBatchGetResp, *Response, error) {
-if r.cli.mock.mockVCMeetingGetVCMeetingDefaultBuildingBatchGet != nil {
+	if r.cli.mock.mockVCMeetingGetVCMeetingDefaultBuildingBatchGet != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] VCMeeting#GetVCMeetingDefaultBuildingBatchGet mock enable")
 		return r.cli.mock.mockVCMeetingGetVCMeetingDefaultBuildingBatchGet(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockVCMeetingGetVCMeetingDefaultBuildingBatchGet != nil {
 		Scope:                 "VCMeeting",
 		API:                   "GetVCMeetingDefaultBuildingBatchGet",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/meeting_room/building/batch_get",
+		URL:                   r.cli.openBaseURL + "/open-apis/meeting_room/building/batch_get",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(getVCMeetingDefaultBuildingBatchGetResp)
 
@@ -51,53 +49,37 @@ if r.cli.mock.mockVCMeetingGetVCMeetingDefaultBuildingBatchGet != nil {
 func (r *Mock) MockVCMeetingGetVCMeetingDefaultBuildingBatchGet(f func(ctx context.Context, request *GetVCMeetingDefaultBuildingBatchGetReq, options ...MethodOptionFunc) (*GetVCMeetingDefaultBuildingBatchGetResp, *Response, error)) {
 	r.mockVCMeetingGetVCMeetingDefaultBuildingBatchGet = f
 }
+
 // UnMockVCMeetingGetVCMeetingDefaultBuildingBatchGet un-mock VCMeetingGetVCMeetingDefaultBuildingBatchGet method
 func (r *Mock) UnMockVCMeetingGetVCMeetingDefaultBuildingBatchGet() {
 	r.mockVCMeetingGetVCMeetingDefaultBuildingBatchGet = nil
 }
 
-
 // GetVCMeetingDefaultBuildingBatchGetReq ...
-type GetVCMeetingDefaultBuildingBatchGetReq struct { 
-BuildingIDs []string `query:"building_ids" json:"-"` // 用于查询指定建筑物的 ID
-Fields *string `query:"fields" json:"-"` // 用于指定返回的字段名, 每个字段名之间用逗号 ", " 分隔, 如: “id, name”, "*" 表示返回全部字段, 可选字段有: "id, name, description, floors", 默认返回所有字段
+type GetVCMeetingDefaultBuildingBatchGetReq struct {
+	BuildingIDs []string `query:"building_ids" json:"-"` // 用于查询指定建筑物的 ID
+	Fields      *string  `query:"fields" json:"-"`       // 用于指定返回的字段名, 每个字段名之间用逗号 ", " 分隔, 如: “id, name”, "*" 表示返回全部字段, 可选字段有: "id, name, description, floors", 默认返回所有字段
 }
-
-
-
-
 
 // GetVCMeetingDefaultBuildingBatchGetResp ...
-type GetVCMeetingDefaultBuildingBatchGetResp struct { 
-Buildings []*GetVCMeetingDefaultBuildingBatchGetRespBuilding `json:"buildings,omitempty"` // 建筑列表
+type GetVCMeetingDefaultBuildingBatchGetResp struct {
+	Buildings []*GetVCMeetingDefaultBuildingBatchGetRespBuilding `json:"buildings,omitempty"` // 建筑列表
 }
-
-
-
-
 
 // GetVCMeetingDefaultBuildingBatchGetRespBuilding ...
-type GetVCMeetingDefaultBuildingBatchGetRespBuilding struct { 
-BuildingID string `json:"building_id,omitempty"` // 建筑物 ID
-Description string `json:"description,omitempty"` // 建筑物的相关描述
-Floors []string `json:"floors,omitempty"` // 属于当前建筑物的所有楼层列表
-Name string `json:"name,omitempty"` // 建筑物名称
-CountryID string `json:"country_id,omitempty"` // 所属国家 ID
-DistrictID string `json:"district_id,omitempty"` // 所属城市 ID
+type GetVCMeetingDefaultBuildingBatchGetRespBuilding struct {
+	BuildingID  string   `json:"building_id,omitempty"` // 建筑物 ID
+	Description string   `json:"description,omitempty"` // 建筑物的相关描述
+	Floors      []string `json:"floors,omitempty"`      // 属于当前建筑物的所有楼层列表
+	Name        string   `json:"name,omitempty"`        // 建筑物名称
+	CountryID   string   `json:"country_id,omitempty"`  // 所属国家 ID
+	DistrictID  string   `json:"district_id,omitempty"` // 所属城市 ID
 }
-
-
-
-
 
 // getVCMeetingDefaultBuildingBatchGetResp ...
-type getVCMeetingDefaultBuildingBatchGetResp struct { 
-Code int64 `json:"code,omitempty"` // 返回码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 返回码的描述, "success" 表示成功, 其他为错误提示信息
-Data *GetVCMeetingDefaultBuildingBatchGetResp `json:"data,omitempty"` // 返回业务信息
-Error *ErrorDetail `json:"error,omitempty"` 
+type getVCMeetingDefaultBuildingBatchGetResp struct {
+	Code  int64                                    `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg   string                                   `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
+	Data  *GetVCMeetingDefaultBuildingBatchGetResp `json:"data,omitempty"` // 返回业务信息
+	Error *ErrorDetail                             `json:"error,omitempty"`
 }
-
-
-
-

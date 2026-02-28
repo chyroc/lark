@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListPayrollPaygroup - 薪资组是按薪酬管理的纬度创建的组, 组内的员工由相同的HR处理薪酬相关工作, 通过薪资组可实现对薪资组人员的管理和在薪酬计算发放等环节的人员权限范围控制
@@ -26,9 +26,8 @@ import (
 // - 本接口返回所有薪资组的基本信息, 包括薪资组ID、薪资组名称、薪资组编码、薪资组状态等, 不含薪资组下的员工信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list
-// 
 func (r *PayrollService) ListPayrollPaygroup(ctx context.Context, request *ListPayrollPaygroupReq, options ...MethodOptionFunc) (*ListPayrollPaygroupResp, *Response, error) {
-if r.cli.mock.mockPayrollListPayrollPaygroup != nil {
+	if r.cli.mock.mockPayrollListPayrollPaygroup != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Payroll#ListPayrollPaygroup mock enable")
 		return r.cli.mock.mockPayrollListPayrollPaygroup(ctx, request, options...)
 	}
@@ -37,11 +36,10 @@ if r.cli.mock.mockPayrollListPayrollPaygroup != nil {
 		Scope:                 "Payroll",
 		API:                   "ListPayrollPaygroup",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/payroll/v1/paygroups",
+		URL:                   r.cli.openBaseURL + "/open-apis/payroll/v1/paygroups",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(listPayrollPaygroupResp)
 
@@ -53,63 +51,43 @@ if r.cli.mock.mockPayrollListPayrollPaygroup != nil {
 func (r *Mock) MockPayrollListPayrollPaygroup(f func(ctx context.Context, request *ListPayrollPaygroupReq, options ...MethodOptionFunc) (*ListPayrollPaygroupResp, *Response, error)) {
 	r.mockPayrollListPayrollPaygroup = f
 }
+
 // UnMockPayrollListPayrollPaygroup un-mock PayrollListPayrollPaygroup method
 func (r *Mock) UnMockPayrollListPayrollPaygroup() {
 	r.mockPayrollListPayrollPaygroup = nil
 }
 
-
 // ListPayrollPaygroupReq ...
-type ListPayrollPaygroupReq struct { 
-PageSize *int64 `query:"page_size" json:"-"` // 分页大小, 默认值100示例值: 50 取值范围: `1` ～ `2000`
-PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 6862995757234914824
+type ListPayrollPaygroupReq struct {
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 默认值100示例值: 50 取值范围: `1` ～ `2000`
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 6862995757234914824
 }
-
-
-
-
 
 // ListPayrollPaygroupResp ...
-type ListPayrollPaygroupResp struct { 
-Items []*ListPayrollPaygroupRespItem `json:"items,omitempty"` // 薪资组列表
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
+type ListPayrollPaygroupResp struct {
+	Items     []*ListPayrollPaygroupRespItem `json:"items,omitempty"`      // 薪资组列表
+	PageToken string                         `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	HasMore   bool                           `json:"has_more,omitempty"`   // 是否还有更多项
 }
-
-
-
-
 
 // ListPayrollPaygroupRespItem ...
-type ListPayrollPaygroupRespItem struct { 
-PayGroupID string `json:"pay_group_id,omitempty"` // 薪资组ID
-Name *ListPayrollPaygroupRespItemName `json:"name,omitempty"` // 薪资组名称
-Code string `json:"code,omitempty"` // 薪资组编码
-Status int64 `json:"status,omitempty"` // 薪资组状态可选值有: 启用禁用
+type ListPayrollPaygroupRespItem struct {
+	PayGroupID string                           `json:"pay_group_id,omitempty"` // 薪资组ID
+	Name       *ListPayrollPaygroupRespItemName `json:"name,omitempty"`         // 薪资组名称
+	Code       string                           `json:"code,omitempty"`         // 薪资组编码
+	Status     int64                            `json:"status,omitempty"`       // 薪资组状态可选值有: 启用禁用
 }
-
-
-
-
 
 // ListPayrollPaygroupRespItemName ...
-type ListPayrollPaygroupRespItemName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文名称
-EnUs string `json:"en_us,omitempty"` // 英文名称
+type ListPayrollPaygroupRespItemName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名称
+	EnUs string `json:"en_us,omitempty"` // 英文名称
 }
-
-
-
-
 
 // listPayrollPaygroupResp ...
-type listPayrollPaygroupResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *ListPayrollPaygroupResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type listPayrollPaygroupResp struct {
+	Code  int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                   `json:"msg,omitempty"`  // 错误描述
+	Data  *ListPayrollPaygroupResp `json:"data,omitempty"`
+	Error *ErrorDetail             `json:"error,omitempty"`
 }
-
-
-
-

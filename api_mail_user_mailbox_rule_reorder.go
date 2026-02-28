@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateMailUserMailboxRuleReorder 对收信规则进行排序
@@ -27,9 +27,8 @@ import (
 // 当使用该接口时, 需要传递所有规则 id
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-rule/reorder
-// 
 func (r *MailService) CreateMailUserMailboxRuleReorder(ctx context.Context, request *CreateMailUserMailboxRuleReorderReq, options ...MethodOptionFunc) (*CreateMailUserMailboxRuleReorderResp, *Response, error) {
-if r.cli.mock.mockMailCreateMailUserMailboxRuleReorder != nil {
+	if r.cli.mock.mockMailCreateMailUserMailboxRuleReorder != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#CreateMailUserMailboxRuleReorder mock enable")
 		return r.cli.mock.mockMailCreateMailUserMailboxRuleReorder(ctx, request, options...)
 	}
@@ -38,12 +37,11 @@ if r.cli.mock.mockMailCreateMailUserMailboxRuleReorder != nil {
 		Scope:                 "Mail",
 		API:                   "CreateMailUserMailboxRuleReorder",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/rules/reorder",
+		URL:                   r.cli.openBaseURL + "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/rules/reorder",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(createMailUserMailboxRuleReorderResp)
 
@@ -55,38 +53,25 @@ if r.cli.mock.mockMailCreateMailUserMailboxRuleReorder != nil {
 func (r *Mock) MockMailCreateMailUserMailboxRuleReorder(f func(ctx context.Context, request *CreateMailUserMailboxRuleReorderReq, options ...MethodOptionFunc) (*CreateMailUserMailboxRuleReorderResp, *Response, error)) {
 	r.mockMailCreateMailUserMailboxRuleReorder = f
 }
+
 // UnMockMailCreateMailUserMailboxRuleReorder un-mock MailCreateMailUserMailboxRuleReorder method
 func (r *Mock) UnMockMailCreateMailUserMailboxRuleReorder() {
 	r.mockMailCreateMailUserMailboxRuleReorder = nil
 }
 
-
 // CreateMailUserMailboxRuleReorderReq ...
-type CreateMailUserMailboxRuleReorderReq struct { 
-UserMailboxID string `path:"user_mailbox_id" json:"-"` // 用户邮箱地址, 使用 user_access_token 时可使用 me示例值: "user@xxx.xx 或 me"
-RuleIDs []string `json:"rule_ids,omitempty"` // 规则 id 列表, 获取方式见 [列出收信规则](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-rule/list)示例值: ["11111111"] 最小长度: `1`
+type CreateMailUserMailboxRuleReorderReq struct {
+	UserMailboxID string   `path:"user_mailbox_id" json:"-"` // 用户邮箱地址, 使用 user_access_token 时可使用 me示例值: "user@xxx.xx 或 me"
+	RuleIDs       []string `json:"rule_ids,omitempty"`       // 规则 id 列表, 获取方式见 [列出收信规则](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-rule/list)示例值: ["11111111"] 最小长度: `1`
 }
-
-
-
-
 
 // CreateMailUserMailboxRuleReorderResp ...
-type CreateMailUserMailboxRuleReorderResp struct { 
-}
-
-
-
-
+type CreateMailUserMailboxRuleReorderResp struct{}
 
 // createMailUserMailboxRuleReorderResp ...
-type createMailUserMailboxRuleReorderResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateMailUserMailboxRuleReorderResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createMailUserMailboxRuleReorderResp struct {
+	Code  int64                                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateMailUserMailboxRuleReorderResp `json:"data,omitempty"`
+	Error *ErrorDetail                          `json:"error,omitempty"`
 }
-
-
-
-

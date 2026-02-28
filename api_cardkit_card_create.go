@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateCardkitCard 基于卡片 JSON 代码或卡片搭建工具搭建的卡片, 创建卡片实体。用于后续通过卡片实体 ID（card_id）发送卡片、更新卡片等。
@@ -30,9 +30,8 @@ import (
 // - 卡片实体的有效期为 14 天。即创建卡片实体超出 14 天后, 你将无法调用相关接口操作卡片。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card/create
-// 
 func (r *CardkitService) CreateCardkitCard(ctx context.Context, request *CreateCardkitCardReq, options ...MethodOptionFunc) (*CreateCardkitCardResp, *Response, error) {
-if r.cli.mock.mockCardkitCreateCardkitCard != nil {
+	if r.cli.mock.mockCardkitCreateCardkitCard != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Cardkit#CreateCardkitCard mock enable")
 		return r.cli.mock.mockCardkitCreateCardkitCard(ctx, request, options...)
 	}
@@ -41,11 +40,10 @@ if r.cli.mock.mockCardkitCreateCardkitCard != nil {
 		Scope:                 "Cardkit",
 		API:                   "CreateCardkitCard",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/cardkit/v1/cards",
+		URL:                   r.cli.openBaseURL + "/open-apis/cardkit/v1/cards",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createCardkitCardResp)
 
@@ -57,47 +55,30 @@ if r.cli.mock.mockCardkitCreateCardkitCard != nil {
 func (r *Mock) MockCardkitCreateCardkitCard(f func(ctx context.Context, request *CreateCardkitCardReq, options ...MethodOptionFunc) (*CreateCardkitCardResp, *Response, error)) {
 	r.mockCardkitCreateCardkitCard = f
 }
+
 // UnMockCardkitCreateCardkitCard un-mock CardkitCreateCardkitCard method
 func (r *Mock) UnMockCardkitCreateCardkitCard() {
 	r.mockCardkitCreateCardkitCard = nil
 }
 
-
 // CreateCardkitCardReq ...
-type CreateCardkitCardReq struct { 
-Type string `json:"type,omitempty"` // 卡片类型。可选值: `card_json`: 由卡片 JSON 代码构建的卡片- `template`: 由[卡片搭建工具](https://open.feishu.cn/cardkit?from=open_docs)搭建的卡片模板示例值: "card_json" 长度范围: `1` ～ `50` 字符
-Data *CreateCardkitCardReqData `json:"data,omitempty"` // 卡片数据。需要与 `type` 指定的类型一致: 若 `type` 为 `card_json`, 则此处应传卡片 JSON 代码, 并确保将其转义为字符串。仅支持[卡片 JSON 2.0 结构](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-structure), 即你必须声明 `schema` 为 `2.0`- 若 `type` 为 `template`, 则此处应传卡片模板的数据, 并确保将其转义为字符串。仅支持新版卡片。即在搭建工具中, 卡片名称旁应有“新版”标识示例值: "请参考下文请求体示例" 长度范围: `1` ～ `3000000` 字符
+type CreateCardkitCardReq struct {
+	Type string                    `json:"type,omitempty"` // 卡片类型。可选值: `card_json`: 由卡片 JSON 代码构建的卡片- `template`: 由[卡片搭建工具](https://open.feishu.cn/cardkit?from=open_docs)搭建的卡片模板示例值: "card_json" 长度范围: `1` ～ `50` 字符
+	Data *CreateCardkitCardReqData `json:"data,omitempty"` // 卡片数据。需要与 `type` 指定的类型一致: 若 `type` 为 `card_json`, 则此处应传卡片 JSON 代码, 并确保将其转义为字符串。仅支持[卡片 JSON 2.0 结构](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-structure), 即你必须声明 `schema` 为 `2.0`- 若 `type` 为 `template`, 则此处应传卡片模板的数据, 并确保将其转义为字符串。仅支持新版卡片。即在搭建工具中, 卡片名称旁应有“新版”标识示例值: "请参考下文请求体示例" 长度范围: `1` ～ `3000000` 字符
 }
-
-
-
-
 
 // CreateCardkitCardReqData ...
-type CreateCardkitCardReqData struct { 
-}
-
-
-
-
+type CreateCardkitCardReqData struct{}
 
 // CreateCardkitCardResp ...
-type CreateCardkitCardResp struct { 
-CardID string `json:"card_id,omitempty"` // 创建的卡片实体 ID。后续可通过[发送消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)接口传入卡片实体 ID 发送卡片。
+type CreateCardkitCardResp struct {
+	CardID string `json:"card_id,omitempty"` // 创建的卡片实体 ID。后续可通过[发送消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)接口传入卡片实体 ID 发送卡片。
 }
-
-
-
-
 
 // createCardkitCardResp ...
-type createCardkitCardResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateCardkitCardResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createCardkitCardResp struct {
+	Code  int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                 `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateCardkitCardResp `json:"data,omitempty"`
+	Error *ErrorDetail           `json:"error,omitempty"`
 }
-
-
-
-

@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // BatchHireTalentPoolChangeTalentPool 对于同一个人才库, 可批量执行人才加入或移除操作
@@ -27,9 +27,8 @@ import (
 // - 执行移除操作: 当传入不存在人才 ID 时, 接口会报错返回不存在人才 ID 列表。 当人才未在人才库中时, 接口静默处理。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_pool/batch_change_talent_pool
-// 
 func (r *HireService) BatchHireTalentPoolChangeTalentPool(ctx context.Context, request *BatchHireTalentPoolChangeTalentPoolReq, options ...MethodOptionFunc) (*BatchHireTalentPoolChangeTalentPoolResp, *Response, error) {
-if r.cli.mock.mockHireBatchHireTalentPoolChangeTalentPool != nil {
+	if r.cli.mock.mockHireBatchHireTalentPoolChangeTalentPool != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#BatchHireTalentPoolChangeTalentPool mock enable")
 		return r.cli.mock.mockHireBatchHireTalentPoolChangeTalentPool(ctx, request, options...)
 	}
@@ -38,11 +37,10 @@ if r.cli.mock.mockHireBatchHireTalentPoolChangeTalentPool != nil {
 		Scope:                 "Hire",
 		API:                   "BatchHireTalentPoolChangeTalentPool",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/talent_pools/:talent_pool_id/batch_change_talent_pool",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/talent_pools/:talent_pool_id/batch_change_talent_pool",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(batchHireTalentPoolChangeTalentPoolResp)
 
@@ -54,39 +52,26 @@ if r.cli.mock.mockHireBatchHireTalentPoolChangeTalentPool != nil {
 func (r *Mock) MockHireBatchHireTalentPoolChangeTalentPool(f func(ctx context.Context, request *BatchHireTalentPoolChangeTalentPoolReq, options ...MethodOptionFunc) (*BatchHireTalentPoolChangeTalentPoolResp, *Response, error)) {
 	r.mockHireBatchHireTalentPoolChangeTalentPool = f
 }
+
 // UnMockHireBatchHireTalentPoolChangeTalentPool un-mock HireBatchHireTalentPoolChangeTalentPool method
 func (r *Mock) UnMockHireBatchHireTalentPoolChangeTalentPool() {
 	r.mockHireBatchHireTalentPoolChangeTalentPool = nil
 }
 
-
 // BatchHireTalentPoolChangeTalentPoolReq ...
-type BatchHireTalentPoolChangeTalentPoolReq struct { 
-TalentPoolID string `path:"talent_pool_id" json:"-"` // 人才库 ID, 可通过[获取人才库列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_pool/search)接口获取示例值: "6930815272790114325"
-TalentIDList []string `json:"talent_id_list,omitempty"` // 人才 ID 列表, 可通过[获取人才列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/list)接口获取示例值: ["6930815272790114324"] 长度范围: `1` ～ `50`
-OptionType int64 `json:"option_type,omitempty"` // 操作类型示例值: 1可选值有: 将人才添加至指定人才库将人才从指定人才库中移除
+type BatchHireTalentPoolChangeTalentPoolReq struct {
+	TalentPoolID string   `path:"talent_pool_id" json:"-"`  // 人才库 ID, 可通过[获取人才库列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_pool/search)接口获取示例值: "6930815272790114325"
+	TalentIDList []string `json:"talent_id_list,omitempty"` // 人才 ID 列表, 可通过[获取人才列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/list)接口获取示例值: ["6930815272790114324"] 长度范围: `1` ～ `50`
+	OptionType   int64    `json:"option_type,omitempty"`    // 操作类型示例值: 1可选值有: 将人才添加至指定人才库将人才从指定人才库中移除
 }
-
-
-
-
 
 // BatchHireTalentPoolChangeTalentPoolResp ...
-type BatchHireTalentPoolChangeTalentPoolResp struct { 
-}
-
-
-
-
+type BatchHireTalentPoolChangeTalentPoolResp struct{}
 
 // batchHireTalentPoolChangeTalentPoolResp ...
-type batchHireTalentPoolChangeTalentPoolResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *BatchHireTalentPoolChangeTalentPoolResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type batchHireTalentPoolChangeTalentPoolResp struct {
+	Code  int64                                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                   `json:"msg,omitempty"`  // 错误描述
+	Data  *BatchHireTalentPoolChangeTalentPoolResp `json:"data,omitempty"`
+	Error *ErrorDetail                             `json:"error,omitempty"`
 }
-
-
-
-

@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateIMMessagePushFollowUp 调用该接口在最新一条消息下方添加气泡样式的内容, 当消息接收者点击气泡或者新消息到达后, 气泡消失。
@@ -35,9 +35,8 @@ import (
 // 添加跟随气泡后, 会话内的用户点击气泡会自动转换为该用户发送的一条消息, 你可以为应用订阅[接收消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive)事件, 接收用户发送的消息并判断是否为跟随气泡的内容。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/push_follow_up
-// 
 func (r *IMService) CreateIMMessagePushFollowUp(ctx context.Context, request *CreateIMMessagePushFollowUpReq, options ...MethodOptionFunc) (*CreateIMMessagePushFollowUpResp, *Response, error) {
-if r.cli.mock.mockIMCreateIMMessagePushFollowUp != nil {
+	if r.cli.mock.mockIMCreateIMMessagePushFollowUp != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] IM#CreateIMMessagePushFollowUp mock enable")
 		return r.cli.mock.mockIMCreateIMMessagePushFollowUp(ctx, request, options...)
 	}
@@ -46,11 +45,10 @@ if r.cli.mock.mockIMCreateIMMessagePushFollowUp != nil {
 		Scope:                 "IM",
 		API:                   "CreateIMMessagePushFollowUp",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/im/v1/messages/:message_id/push_follow_up",
+		URL:                   r.cli.openBaseURL + "/open-apis/im/v1/messages/:message_id/push_follow_up",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createIMMessagePushFollowUpResp)
 
@@ -62,58 +60,37 @@ if r.cli.mock.mockIMCreateIMMessagePushFollowUp != nil {
 func (r *Mock) MockIMCreateIMMessagePushFollowUp(f func(ctx context.Context, request *CreateIMMessagePushFollowUpReq, options ...MethodOptionFunc) (*CreateIMMessagePushFollowUpResp, *Response, error)) {
 	r.mockIMCreateIMMessagePushFollowUp = f
 }
+
 // UnMockIMCreateIMMessagePushFollowUp un-mock IMCreateIMMessagePushFollowUp method
 func (r *Mock) UnMockIMCreateIMMessagePushFollowUp() {
 	r.mockIMCreateIMMessagePushFollowUp = nil
 }
 
-
 // CreateIMMessagePushFollowUpReq ...
-type CreateIMMessagePushFollowUpReq struct { 
-MessageID string `path:"message_id" json:"-"` // 机器人发送的消息 ID。ID 获取方式: - 调用[发送消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)接口后, 从响应结果的 `message_id` 参数获取。- 监听[接收消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive)事件, 当触发该事件后可以从事件体内获取消息的 `message_id`。- 调用[获取会话历史消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/list)接口, 从响应结果的 `message_id` 参数获取。示例值: "om_3210a18894e206715a4359115f4cf2f5"
-FollowUps []*CreateIMMessagePushFollowUpReqFollowUp `json:"follow_ups,omitempty"` // 跟随气泡列表。 长度范围: `1` ～ `3`
+type CreateIMMessagePushFollowUpReq struct {
+	MessageID string                                    `path:"message_id" json:"-"`  // 机器人发送的消息 ID。ID 获取方式: - 调用[发送消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)接口后, 从响应结果的 `message_id` 参数获取。- 监听[接收消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/events/receive)事件, 当触发该事件后可以从事件体内获取消息的 `message_id`。- 调用[获取会话历史消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/list)接口, 从响应结果的 `message_id` 参数获取。示例值: "om_3210a18894e206715a4359115f4cf2f5"
+	FollowUps []*CreateIMMessagePushFollowUpReqFollowUp `json:"follow_ups,omitempty"` // 跟随气泡列表。 长度范围: `1` ～ `3`
 }
-
-
-
-
 
 // CreateIMMessagePushFollowUpReqFollowUp ...
-type CreateIMMessagePushFollowUpReqFollowUp struct { 
-Content string `json:"content,omitempty"` // 气泡的内容。示例值: "你好" 长度范围: `1` ～ `200` 字符
-I18nContents []*CreateIMMessagePushFollowUpReqFollowUpI18nContent `json:"i18n_contents,omitempty"` // 气泡的多语言内容。 长度范围: `0` ～ `50`
+type CreateIMMessagePushFollowUpReqFollowUp struct {
+	Content      string                                               `json:"content,omitempty"`       // 气泡的内容。示例值: "你好" 长度范围: `1` ～ `200` 字符
+	I18nContents []*CreateIMMessagePushFollowUpReqFollowUpI18nContent `json:"i18n_contents,omitempty"` // 气泡的多语言内容。 长度范围: `0` ～ `50`
 }
-
-
-
-
 
 // CreateIMMessagePushFollowUpReqFollowUpI18nContent ...
-type CreateIMMessagePushFollowUpReqFollowUpI18nContent struct { 
-Content string `json:"content,omitempty"` // `language` 参数对应的内容。示例值: "hello" 长度范围: `1` ～ `200` 字符
-Language string `json:"language,omitempty"` // 语言类型。示例值: "en_us"可选值有: 英文简体中文繁体中文-香港繁体中文-台湾日语印尼语越南语泰语葡萄牙语西班牙语韩语德语法语意大利语俄语马来语
+type CreateIMMessagePushFollowUpReqFollowUpI18nContent struct {
+	Content  string `json:"content,omitempty"`  // `language` 参数对应的内容。示例值: "hello" 长度范围: `1` ～ `200` 字符
+	Language string `json:"language,omitempty"` // 语言类型。示例值: "en_us"可选值有: 英文简体中文繁体中文-香港繁体中文-台湾日语印尼语越南语泰语葡萄牙语西班牙语韩语德语法语意大利语俄语马来语
 }
-
-
-
-
 
 // CreateIMMessagePushFollowUpResp ...
-type CreateIMMessagePushFollowUpResp struct { 
-}
-
-
-
-
+type CreateIMMessagePushFollowUpResp struct{}
 
 // createIMMessagePushFollowUpResp ...
-type createIMMessagePushFollowUpResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateIMMessagePushFollowUpResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createIMMessagePushFollowUpResp struct {
+	Code  int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                           `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateIMMessagePushFollowUpResp `json:"data,omitempty"`
+	Error *ErrorDetail                     `json:"error,omitempty"`
 }
-
-
-
-

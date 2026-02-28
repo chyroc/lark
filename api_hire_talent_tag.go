@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateHireTalentTag 可为人才新增、删除标签。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/tag
-// 
 func (r *HireService) CreateHireTalentTag(ctx context.Context, request *CreateHireTalentTagReq, options ...MethodOptionFunc) (*CreateHireTalentTagResp, *Response, error) {
-if r.cli.mock.mockHireCreateHireTalentTag != nil {
+	if r.cli.mock.mockHireCreateHireTalentTag != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#CreateHireTalentTag mock enable")
 		return r.cli.mock.mockHireCreateHireTalentTag(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockHireCreateHireTalentTag != nil {
 		Scope:                 "Hire",
 		API:                   "CreateHireTalentTag",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/talents/:talent_id/tag",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/talents/:talent_id/tag",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createHireTalentTagResp)
 
@@ -51,39 +49,26 @@ if r.cli.mock.mockHireCreateHireTalentTag != nil {
 func (r *Mock) MockHireCreateHireTalentTag(f func(ctx context.Context, request *CreateHireTalentTagReq, options ...MethodOptionFunc) (*CreateHireTalentTagResp, *Response, error)) {
 	r.mockHireCreateHireTalentTag = f
 }
+
 // UnMockHireCreateHireTalentTag un-mock HireCreateHireTalentTag method
 func (r *Mock) UnMockHireCreateHireTalentTag() {
 	r.mockHireCreateHireTalentTag = nil
 }
 
-
 // CreateHireTalentTagReq ...
-type CreateHireTalentTagReq struct { 
-TalentID string `path:"talent_id" json:"-"` // 人才 ID, 可通过[批量获取人才ID](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/batch_get_id)获取示例值: "6960663240925956661"
-Operation int64 `json:"operation,omitempty"` // 操作类型示例值: 1可选值有: 新增删除
-TagIDList []string `json:"tag_id_list,omitempty"` // 标签 ID 列表, 可通过以下接口获取[获取人才标签信息列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_tag/list)示例值: ["6960663240925956661"]
+type CreateHireTalentTagReq struct {
+	TalentID  string   `path:"talent_id" json:"-"`    // 人才 ID, 可通过[批量获取人才ID](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/batch_get_id)获取示例值: "6960663240925956661"
+	Operation int64    `json:"operation,omitempty"`   // 操作类型示例值: 1可选值有: 新增删除
+	TagIDList []string `json:"tag_id_list,omitempty"` // 标签 ID 列表, 可通过以下接口获取[获取人才标签信息列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_tag/list)示例值: ["6960663240925956661"]
 }
-
-
-
-
 
 // CreateHireTalentTagResp ...
-type CreateHireTalentTagResp struct { 
-}
-
-
-
-
+type CreateHireTalentTagResp struct{}
 
 // createHireTalentTagResp ...
-type createHireTalentTagResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateHireTalentTagResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createHireTalentTagResp struct {
+	Code  int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                   `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateHireTalentTagResp `json:"data,omitempty"`
+	Error *ErrorDetail             `json:"error,omitempty"`
 }
-
-
-
-

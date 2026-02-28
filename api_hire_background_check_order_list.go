@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListHireBackgroundCheckOrder 根据投递 ID 或背调更新时间批量获取背调订单信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/background_check_order/list
-// 
 func (r *HireService) ListHireBackgroundCheckOrder(ctx context.Context, request *ListHireBackgroundCheckOrderReq, options ...MethodOptionFunc) (*ListHireBackgroundCheckOrderResp, *Response, error) {
-if r.cli.mock.mockHireListHireBackgroundCheckOrder != nil {
+	if r.cli.mock.mockHireListHireBackgroundCheckOrder != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#ListHireBackgroundCheckOrder mock enable")
 		return r.cli.mock.mockHireListHireBackgroundCheckOrder(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockHireListHireBackgroundCheckOrder != nil {
 		Scope:                 "Hire",
 		API:                   "ListHireBackgroundCheckOrder",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/background_check_orders",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/background_check_orders",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(listHireBackgroundCheckOrderResp)
 
@@ -51,229 +49,157 @@ if r.cli.mock.mockHireListHireBackgroundCheckOrder != nil {
 func (r *Mock) MockHireListHireBackgroundCheckOrder(f func(ctx context.Context, request *ListHireBackgroundCheckOrderReq, options ...MethodOptionFunc) (*ListHireBackgroundCheckOrderResp, *Response, error)) {
 	r.mockHireListHireBackgroundCheckOrder = f
 }
+
 // UnMockHireListHireBackgroundCheckOrder un-mock HireListHireBackgroundCheckOrder method
 func (r *Mock) UnMockHireListHireBackgroundCheckOrder() {
 	r.mockHireListHireBackgroundCheckOrder = nil
 }
 
-
 // ListHireBackgroundCheckOrderReq ...
-type ListHireBackgroundCheckOrderReq struct { 
-UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
-PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eyJvZmZzZXQiOjEsInRpbWVzdGFtcCI6MTY0MDc2NTYzMjA4OCwiaWQiOm51bGx9
-PageSize *int64 `query:"page_size" json:"-"` // 分页大小示例值: 100默认值: `10` 最大值: `100`
-ApplicationID *string `query:"application_id" json:"-"` // 投递 ID。可通过[获取投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/list)接口获取示例值: 6985833807195212076
-UpdateStartTime *string `query:"update_start_time" json:"-"` // 最早更新时间, 毫秒时间戳。需小于等于update_end_time示例值: 1638848468868
-UpdateEndTime *string `query:"update_end_time" json:"-"` // 最晚更新时间, 毫秒时间戳。需大于等于update_start_time示例值: 1638848468869
+type ListHireBackgroundCheckOrderReq struct {
+	UserIDType      *IDType `query:"user_id_type" json:"-"`      // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	PageToken       *string `query:"page_token" json:"-"`        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eyJvZmZzZXQiOjEsInRpbWVzdGFtcCI6MTY0MDc2NTYzMjA4OCwiaWQiOm51bGx9
+	PageSize        *int64  `query:"page_size" json:"-"`         // 分页大小示例值: 100默认值: `10` 最大值: `100`
+	ApplicationID   *string `query:"application_id" json:"-"`    // 投递 ID。可通过[获取投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/list)接口获取示例值: 6985833807195212076
+	UpdateStartTime *string `query:"update_start_time" json:"-"` // 最早更新时间, 毫秒时间戳。需小于等于update_end_time示例值: 1638848468868
+	UpdateEndTime   *string `query:"update_end_time" json:"-"`   // 最晚更新时间, 毫秒时间戳。需大于等于update_start_time示例值: 1638848468869
 }
-
-
-
-
 
 // ListHireBackgroundCheckOrderResp ...
-type ListHireBackgroundCheckOrderResp struct { 
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-Items []*ListHireBackgroundCheckOrderRespItem `json:"items,omitempty"` // 背调订单列表
+type ListHireBackgroundCheckOrderResp struct {
+	HasMore   bool                                    `json:"has_more,omitempty"`   // 是否还有更多项
+	PageToken string                                  `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	Items     []*ListHireBackgroundCheckOrderRespItem `json:"items,omitempty"`      // 背调订单列表
 }
-
-
-
-
 
 // ListHireBackgroundCheckOrderRespItem ...
-type ListHireBackgroundCheckOrderRespItem struct { 
-OrderID string `json:"order_id,omitempty"` // 背调订单 ID
-ApplicationID string `json:"application_id,omitempty"` // 投递 ID
-OrderStatus int64 `json:"order_status,omitempty"` // 背调状态可选值有: 已安排已完成已终止审批中审批已撤回审批通过审批未通过
-AccountThirdType int64 `json:"account_third_type,omitempty"` // 供应商类型可选值有: 八方锦程i背调轩渡自定义供应商
-Package string `json:"package,omitempty"` // 背调套餐名称
-Name string `json:"name,omitempty"` // 背调名称（仅用户手动录入的背调结果支持返回该字段）
-FeedbackInfoList []*ListHireBackgroundCheckOrderRespItemFeedbackInfo `json:"feedback_info_list,omitempty"` // 背调报告列表, 按照报告创建时间降序排列。可通过[更新背调订单进度](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check/update_progress)更新报告
-ProcessInfoList []*ListHireBackgroundCheckOrderRespItemProcessInfo `json:"process_info_list,omitempty"` // 背调进度列表, 按照更新时间降序排列。可通过[更新背调订单进度](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check/update_progress)更新进度
-UploadTime string `json:"upload_time,omitempty"` // 录入时间毫秒时间戳（仅用户手动录入的背调结果支持返回该字段）
-CandidateInfo *ListHireBackgroundCheckOrderRespItemCandidateInfo `json:"candidate_info,omitempty"` // 候选人信息
-CreatorInfo *ListHireBackgroundCheckOrderRespItemCreatorInfo `json:"creator_info,omitempty"` // 背调发起人信息
-ContactorInfo *ListHireBackgroundCheckOrderRespItemContactorInfo `json:"contactor_info,omitempty"` // 背调联系人信息
-BeginTime string `json:"begin_time,omitempty"` // 背调发起时间
-EndTime string `json:"end_time,omitempty"` // 背调结束时间
-Conclusion string `json:"conclusion,omitempty"` // 背调结论。为最后一次背调报告的结果
-ProviderInfo *ListHireBackgroundCheckOrderRespItemProviderInfo `json:"provider_info,omitempty"` // 供应商信息
-CustomFieldList []*ListHireBackgroundCheckOrderRespItemCustomField `json:"custom_field_list,omitempty"` // 自定义字段模板。数据来源于[创建背调自定义字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check_custom_field/create)
-CustomDataList []*ListHireBackgroundCheckOrderRespItemCustomData `json:"custom_data_list,omitempty"` // 自定义字段值
-ExtItemInfoList []*ListHireBackgroundCheckOrderRespItemExtItemInfo `json:"ext_item_info_list,omitempty"` // 背调调查附加项列表。数据来源于[创建背调套餐和附加调查项](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check_package/create)
-UpdateTime string `json:"update_time,omitempty"` // 订单更新时间
-Geo string `json:"geo,omitempty"` // 属地可选值有: 中国大陆新加坡美东日本
-LocationCode string `json:"location_code,omitempty"` // 预计入职地点的编码, 详见[查询地点列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/query)
-Remark string `json:"remark,omitempty"` // 备注
+type ListHireBackgroundCheckOrderRespItem struct {
+	OrderID          string                                              `json:"order_id,omitempty"`           // 背调订单 ID
+	ApplicationID    string                                              `json:"application_id,omitempty"`     // 投递 ID
+	OrderStatus      int64                                               `json:"order_status,omitempty"`       // 背调状态可选值有: 已安排已完成已终止审批中审批已撤回审批通过审批未通过
+	AccountThirdType int64                                               `json:"account_third_type,omitempty"` // 供应商类型可选值有: 八方锦程i背调轩渡自定义供应商
+	Package          string                                              `json:"package,omitempty"`            // 背调套餐名称
+	Name             string                                              `json:"name,omitempty"`               // 背调名称（仅用户手动录入的背调结果支持返回该字段）
+	FeedbackInfoList []*ListHireBackgroundCheckOrderRespItemFeedbackInfo `json:"feedback_info_list,omitempty"` // 背调报告列表, 按照报告创建时间降序排列。可通过[更新背调订单进度](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check/update_progress)更新报告
+	ProcessInfoList  []*ListHireBackgroundCheckOrderRespItemProcessInfo  `json:"process_info_list,omitempty"`  // 背调进度列表, 按照更新时间降序排列。可通过[更新背调订单进度](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check/update_progress)更新进度
+	UploadTime       string                                              `json:"upload_time,omitempty"`        // 录入时间毫秒时间戳（仅用户手动录入的背调结果支持返回该字段）
+	CandidateInfo    *ListHireBackgroundCheckOrderRespItemCandidateInfo  `json:"candidate_info,omitempty"`     // 候选人信息
+	CreatorInfo      *ListHireBackgroundCheckOrderRespItemCreatorInfo    `json:"creator_info,omitempty"`       // 背调发起人信息
+	ContactorInfo    *ListHireBackgroundCheckOrderRespItemContactorInfo  `json:"contactor_info,omitempty"`     // 背调联系人信息
+	BeginTime        string                                              `json:"begin_time,omitempty"`         // 背调发起时间
+	EndTime          string                                              `json:"end_time,omitempty"`           // 背调结束时间
+	Conclusion       string                                              `json:"conclusion,omitempty"`         // 背调结论。为最后一次背调报告的结果
+	ProviderInfo     *ListHireBackgroundCheckOrderRespItemProviderInfo   `json:"provider_info,omitempty"`      // 供应商信息
+	CustomFieldList  []*ListHireBackgroundCheckOrderRespItemCustomField  `json:"custom_field_list,omitempty"`  // 自定义字段模板。数据来源于[创建背调自定义字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check_custom_field/create)
+	CustomDataList   []*ListHireBackgroundCheckOrderRespItemCustomData   `json:"custom_data_list,omitempty"`   // 自定义字段值
+	ExtItemInfoList  []*ListHireBackgroundCheckOrderRespItemExtItemInfo  `json:"ext_item_info_list,omitempty"` // 背调调查附加项列表。数据来源于[创建背调套餐和附加调查项](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check_package/create)
+	UpdateTime       string                                              `json:"update_time,omitempty"`        // 订单更新时间
+	Geo              string                                              `json:"geo,omitempty"`                // 属地可选值有: 中国大陆新加坡美东日本
+	LocationCode     string                                              `json:"location_code,omitempty"`      // 预计入职地点的编码, 详见[查询地点列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/query)
+	Remark           string                                              `json:"remark,omitempty"`             // 备注
 }
-
-
-
-
 
 // ListHireBackgroundCheckOrderRespItemCandidateInfo ...
-type ListHireBackgroundCheckOrderRespItemCandidateInfo struct { 
-Name string `json:"name,omitempty"` // 姓名
-Mobile string `json:"mobile,omitempty"` // 手机号
-Email string `json:"email,omitempty"` // 邮箱
-FirstName string `json:"first_name,omitempty"` // 名字
-LastName string `json:"last_name,omitempty"` // 姓氏
+type ListHireBackgroundCheckOrderRespItemCandidateInfo struct {
+	Name      string `json:"name,omitempty"`       // 姓名
+	Mobile    string `json:"mobile,omitempty"`     // 手机号
+	Email     string `json:"email,omitempty"`      // 邮箱
+	FirstName string `json:"first_name,omitempty"` // 名字
+	LastName  string `json:"last_name,omitempty"`  // 姓氏
 }
-
-
-
-
 
 // ListHireBackgroundCheckOrderRespItemContactorInfo ...
-type ListHireBackgroundCheckOrderRespItemContactorInfo struct { 
-Name string `json:"name,omitempty"` // 姓名
-Mobile string `json:"mobile,omitempty"` // 手机号
-Email string `json:"email,omitempty"` // 邮箱
+type ListHireBackgroundCheckOrderRespItemContactorInfo struct {
+	Name   string `json:"name,omitempty"`   // 姓名
+	Mobile string `json:"mobile,omitempty"` // 手机号
+	Email  string `json:"email,omitempty"`  // 邮箱
 }
-
-
-
-
 
 // ListHireBackgroundCheckOrderRespItemCreatorInfo ...
-type ListHireBackgroundCheckOrderRespItemCreatorInfo struct { 
-UserID string `json:"user_id,omitempty"` // 发起人 ID, 与入参 user_id_type 类型一致
+type ListHireBackgroundCheckOrderRespItemCreatorInfo struct {
+	UserID string `json:"user_id,omitempty"` // 发起人 ID, 与入参 user_id_type 类型一致
 }
-
-
-
-
 
 // ListHireBackgroundCheckOrderRespItemCustomData ...
-type ListHireBackgroundCheckOrderRespItemCustomData struct { 
-Key string `json:"key,omitempty"` // 对应前文 *自定义字段模板* 的 key
-Value string `json:"value,omitempty"` // 用户填入的值
+type ListHireBackgroundCheckOrderRespItemCustomData struct {
+	Key   string `json:"key,omitempty"`   // 对应前文 *自定义字段模板* 的 key
+	Value string `json:"value,omitempty"` // 用户填入的值
 }
-
-
-
-
 
 // ListHireBackgroundCheckOrderRespItemCustomField ...
-type ListHireBackgroundCheckOrderRespItemCustomField struct { 
-Type string `json:"type,omitempty"` // 自定义字段类型可选值有: 单行文本, 最多100个汉字多行文本, 最多200个汉字数字布尔单选多选日期附件候选人简历
-Key string `json:"key,omitempty"` // 自定义字段的标识, 在同一账号内唯一
-Name *ListHireBackgroundCheckOrderRespItemCustomFieldName `json:"name,omitempty"` // 自定义字段的名称, 用户在安排背调表单看到的控件标题
-IsRequired bool `json:"is_required,omitempty"` // 是否必填
-Description *ListHireBackgroundCheckOrderRespItemCustomFieldDescription `json:"description,omitempty"` // 自定义字段的描述, 如果是输入控件, 为用户在安排背调表单看到的 placeholder 或 提示文字
-Options []*ListHireBackgroundCheckOrderRespItemCustomFieldOption `json:"options,omitempty"` // type 为 select 或 multiselect 时必填, 单选或多选的选项
+type ListHireBackgroundCheckOrderRespItemCustomField struct {
+	Type        string                                                      `json:"type,omitempty"`        // 自定义字段类型可选值有: 单行文本, 最多100个汉字多行文本, 最多200个汉字数字布尔单选多选日期附件候选人简历
+	Key         string                                                      `json:"key,omitempty"`         // 自定义字段的标识, 在同一账号内唯一
+	Name        *ListHireBackgroundCheckOrderRespItemCustomFieldName        `json:"name,omitempty"`        // 自定义字段的名称, 用户在安排背调表单看到的控件标题
+	IsRequired  bool                                                        `json:"is_required,omitempty"` // 是否必填
+	Description *ListHireBackgroundCheckOrderRespItemCustomFieldDescription `json:"description,omitempty"` // 自定义字段的描述, 如果是输入控件, 为用户在安排背调表单看到的 placeholder 或 提示文字
+	Options     []*ListHireBackgroundCheckOrderRespItemCustomFieldOption    `json:"options,omitempty"`     // type 为 select 或 multiselect 时必填, 单选或多选的选项
 }
-
-
-
-
 
 // ListHireBackgroundCheckOrderRespItemCustomFieldDescription ...
-type ListHireBackgroundCheckOrderRespItemCustomFieldDescription struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文描述
-EnUs string `json:"en_us,omitempty"` // 英文描述
+type ListHireBackgroundCheckOrderRespItemCustomFieldDescription struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文描述
+	EnUs string `json:"en_us,omitempty"` // 英文描述
 }
-
-
-
-
 
 // ListHireBackgroundCheckOrderRespItemCustomFieldName ...
-type ListHireBackgroundCheckOrderRespItemCustomFieldName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文名称
-EnUs string `json:"en_us,omitempty"` // 英文名称
+type ListHireBackgroundCheckOrderRespItemCustomFieldName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名称
+	EnUs string `json:"en_us,omitempty"` // 英文名称
 }
-
-
-
-
 
 // ListHireBackgroundCheckOrderRespItemCustomFieldOption ...
-type ListHireBackgroundCheckOrderRespItemCustomFieldOption struct { 
-Key string `json:"key,omitempty"` // 选项的 key
-Name *ListHireBackgroundCheckOrderRespItemCustomFieldOptionName `json:"name,omitempty"` // 选项的名称
+type ListHireBackgroundCheckOrderRespItemCustomFieldOption struct {
+	Key  string                                                     `json:"key,omitempty"`  // 选项的 key
+	Name *ListHireBackgroundCheckOrderRespItemCustomFieldOptionName `json:"name,omitempty"` // 选项的名称
 }
-
-
-
-
 
 // ListHireBackgroundCheckOrderRespItemCustomFieldOptionName ...
-type ListHireBackgroundCheckOrderRespItemCustomFieldOptionName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文名称
-EnUs string `json:"en_us,omitempty"` // 英文名称
+type ListHireBackgroundCheckOrderRespItemCustomFieldOptionName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名称
+	EnUs string `json:"en_us,omitempty"` // 英文名称
 }
-
-
-
-
 
 // ListHireBackgroundCheckOrderRespItemExtItemInfo ...
-type ListHireBackgroundCheckOrderRespItemExtItemInfo struct { 
-ID string `json:"id,omitempty"` // 附加项的ID
-Name string `json:"name,omitempty"` // 附加项的名称
+type ListHireBackgroundCheckOrderRespItemExtItemInfo struct {
+	ID   string `json:"id,omitempty"`   // 附加项的ID
+	Name string `json:"name,omitempty"` // 附加项的名称
 }
-
-
-
-
 
 // ListHireBackgroundCheckOrderRespItemFeedbackInfo ...
-type ListHireBackgroundCheckOrderRespItemFeedbackInfo struct { 
-ID string `json:"id,omitempty"` // 背调报告 ID
-AttachmentURL string `json:"attachment_url,omitempty"` // 背调信息附件下载链接（大部分供应商均支持该字段；该字段与「report_preview_url」同一供应商只能支持 1 种）, 有效期1小时
-ReportPreviewURL string `json:"report_preview_url,omitempty"` // 背调预览链接（该字段与「attachment_url」同一供应商只能支持 1 种）, 有效期由供应商控制
-Result string `json:"result,omitempty"` // 背调结果。招聘系统预置的背调结果有 红灯、黄灯、蓝灯、绿灯, 也可以是更新背调进度时推送的状态。
-ReportType int64 `json:"report_type,omitempty"` // 报告类型可选值有: 阶段性报告终版报告
-CreateTime string `json:"create_time,omitempty"` // 创建时间
-ReportName string `json:"report_name,omitempty"` // 报告名称
+type ListHireBackgroundCheckOrderRespItemFeedbackInfo struct {
+	ID               string `json:"id,omitempty"`                 // 背调报告 ID
+	AttachmentURL    string `json:"attachment_url,omitempty"`     // 背调信息附件下载链接（大部分供应商均支持该字段；该字段与「report_preview_url」同一供应商只能支持 1 种）, 有效期1小时
+	ReportPreviewURL string `json:"report_preview_url,omitempty"` // 背调预览链接（该字段与「attachment_url」同一供应商只能支持 1 种）, 有效期由供应商控制
+	Result           string `json:"result,omitempty"`             // 背调结果。招聘系统预置的背调结果有 红灯、黄灯、蓝灯、绿灯, 也可以是更新背调进度时推送的状态。
+	ReportType       int64  `json:"report_type,omitempty"`        // 报告类型可选值有: 阶段性报告终版报告
+	CreateTime       string `json:"create_time,omitempty"`        // 创建时间
+	ReportName       string `json:"report_name,omitempty"`        // 报告名称
 }
-
-
-
-
 
 // ListHireBackgroundCheckOrderRespItemProcessInfo ...
-type ListHireBackgroundCheckOrderRespItemProcessInfo struct { 
-Process string `json:"process,omitempty"` // 背调进度
-UpdateTime string `json:"update_time,omitempty"` // 进度更新时间
-EnProcess string `json:"en_process,omitempty"` // 英文背调进度
+type ListHireBackgroundCheckOrderRespItemProcessInfo struct {
+	Process    string `json:"process,omitempty"`     // 背调进度
+	UpdateTime string `json:"update_time,omitempty"` // 进度更新时间
+	EnProcess  string `json:"en_process,omitempty"`  // 英文背调进度
 }
-
-
-
-
 
 // ListHireBackgroundCheckOrderRespItemProviderInfo ...
-type ListHireBackgroundCheckOrderRespItemProviderInfo struct { 
-ProviderID string `json:"provider_id,omitempty"` // 供应商ID
-ProviderName *ListHireBackgroundCheckOrderRespItemProviderInfoProviderName `json:"provider_name,omitempty"` // 供应商名称信息
+type ListHireBackgroundCheckOrderRespItemProviderInfo struct {
+	ProviderID   string                                                        `json:"provider_id,omitempty"`   // 供应商ID
+	ProviderName *ListHireBackgroundCheckOrderRespItemProviderInfoProviderName `json:"provider_name,omitempty"` // 供应商名称信息
 }
-
-
-
-
 
 // ListHireBackgroundCheckOrderRespItemProviderInfoProviderName ...
-type ListHireBackgroundCheckOrderRespItemProviderInfoProviderName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文名称
-EnUs string `json:"en_us,omitempty"` // 英文名称
+type ListHireBackgroundCheckOrderRespItemProviderInfoProviderName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名称
+	EnUs string `json:"en_us,omitempty"` // 英文名称
 }
-
-
-
-
 
 // listHireBackgroundCheckOrderResp ...
-type listHireBackgroundCheckOrderResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *ListHireBackgroundCheckOrderResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type listHireBackgroundCheckOrderResp struct {
+	Code  int64                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                            `json:"msg,omitempty"`  // 错误描述
+	Data  *ListHireBackgroundCheckOrderResp `json:"data,omitempty"`
+	Error *ErrorDetail                      `json:"error,omitempty"`
 }
-
-
-
-

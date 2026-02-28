@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // QueryApaasApplicationEnvironmentVariable 查询基于飞书 aPaaS 开发的应用的环境变量列表
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/application-environment_variable/query
-// 
 func (r *ApaasService) QueryApaasApplicationEnvironmentVariable(ctx context.Context, request *QueryApaasApplicationEnvironmentVariableReq, options ...MethodOptionFunc) (*QueryApaasApplicationEnvironmentVariableResp, *Response, error) {
-if r.cli.mock.mockApaasQueryApaasApplicationEnvironmentVariable != nil {
+	if r.cli.mock.mockApaasQueryApaasApplicationEnvironmentVariable != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Apaas#QueryApaasApplicationEnvironmentVariable mock enable")
 		return r.cli.mock.mockApaasQueryApaasApplicationEnvironmentVariable(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockApaasQueryApaasApplicationEnvironmentVariable != nil {
 		Scope:                 "Apaas",
 		API:                   "QueryApaasApplicationEnvironmentVariable",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/apaas/v1/applications/:namespace/environment_variables/query",
+		URL:                   r.cli.openBaseURL + "/open-apis/apaas/v1/applications/:namespace/environment_variables/query",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(queryApaasApplicationEnvironmentVariableResp)
 
@@ -51,89 +49,61 @@ if r.cli.mock.mockApaasQueryApaasApplicationEnvironmentVariable != nil {
 func (r *Mock) MockApaasQueryApaasApplicationEnvironmentVariable(f func(ctx context.Context, request *QueryApaasApplicationEnvironmentVariableReq, options ...MethodOptionFunc) (*QueryApaasApplicationEnvironmentVariableResp, *Response, error)) {
 	r.mockApaasQueryApaasApplicationEnvironmentVariable = f
 }
+
 // UnMockApaasQueryApaasApplicationEnvironmentVariable un-mock ApaasQueryApaasApplicationEnvironmentVariable method
 func (r *Mock) UnMockApaasQueryApaasApplicationEnvironmentVariable() {
 	r.mockApaasQueryApaasApplicationEnvironmentVariable = nil
 }
 
-
 // QueryApaasApplicationEnvironmentVariableReq ...
-type QueryApaasApplicationEnvironmentVariableReq struct { 
-Namespace string `path:"namespace" json:"-"` // 应用命名空间示例值: "package_test__c"
-Filter *QueryApaasApplicationEnvironmentVariableReqFilter `json:"filter,omitempty"` // 过滤条件
-Limit *int64 `json:"limit,omitempty"` // 限制的条数, 默认为 500, 不可超过 500示例值: 10 取值范围: `0` ～ `500`
-Offset *int64 `json:"offset,omitempty"` // 返回记录的偏移量, 默认为 0, 即从查询到的第一个记录开始返回示例值: 0 取值范围: `0` ～ `9223372036854775807`
+type QueryApaasApplicationEnvironmentVariableReq struct {
+	Namespace string                                             `path:"namespace" json:"-"` // 应用命名空间示例值: "package_test__c"
+	Filter    *QueryApaasApplicationEnvironmentVariableReqFilter `json:"filter,omitempty"`   // 过滤条件
+	Limit     *int64                                             `json:"limit,omitempty"`    // 限制的条数, 默认为 500, 不可超过 500示例值: 10 取值范围: `0` ～ `500`
+	Offset    *int64                                             `json:"offset,omitempty"`   // 返回记录的偏移量, 默认为 0, 即从查询到的第一个记录开始返回示例值: 0 取值范围: `0` ～ `9223372036854775807`
 }
-
-
-
-
 
 // QueryApaasApplicationEnvironmentVariableReqFilter ...
-type QueryApaasApplicationEnvironmentVariableReqFilter struct { 
-QuickQuery *string `json:"quick_query,omitempty"` // 模糊查询关键词示例值: "Sample Text"
+type QueryApaasApplicationEnvironmentVariableReqFilter struct {
+	QuickQuery *string `json:"quick_query,omitempty"` // 模糊查询关键词示例值: "Sample Text"
 }
-
-
-
-
 
 // QueryApaasApplicationEnvironmentVariableResp ...
-type QueryApaasApplicationEnvironmentVariableResp struct { 
-Items []*QueryApaasApplicationEnvironmentVariableRespItem `json:"items,omitempty"` // 环境变量列表
-Total int64 `json:"total,omitempty"` // 符合查询条件的环境变量的总数
+type QueryApaasApplicationEnvironmentVariableResp struct {
+	Items []*QueryApaasApplicationEnvironmentVariableRespItem `json:"items,omitempty"` // 环境变量列表
+	Total int64                                               `json:"total,omitempty"` // 符合查询条件的环境变量的总数
 }
-
-
-
-
 
 // QueryApaasApplicationEnvironmentVariableRespItem ...
-type QueryApaasApplicationEnvironmentVariableRespItem struct { 
-ApiName string `json:"api_name,omitempty"` // 环境变量 API 名称
-Label *QueryApaasApplicationEnvironmentVariableRespItemLabel `json:"label,omitempty"` // 环境变量的名称
-Description string `json:"description,omitempty"` // 描述
-Value string `json:"value,omitempty"` // 返回 json marshal 后的字符串。 is_encrypted 为 「true」时, 依然可以获取返回值
-IsEncrypted bool `json:"is_encrypted,omitempty"` // 是否加密, 「type」取值为 text, float 时才有效
-ObjectApiName string `json:"object_api_name,omitempty"` // 对象的 API 名称, 「type」取值为 lookup, lookup_multi 时才有效
-ObjectLabel *QueryApaasApplicationEnvironmentVariableRespItemObjectLabel `json:"object_label,omitempty"` // 对象的名称, 「type」取值为 lookup, lookup_multi 时才有效
-CreatedAt int64 `json:"created_at,omitempty"` // 「创建时间」, 日期时间字段。 使用 Unix 时间戳, 单位为毫秒
-UpdatedAt int64 `json:"updated_at,omitempty"` // 「更新时间」, 日期时间字段。 使用 Unix 时间戳, 单位为毫秒
-Type string `json:"type,omitempty"` // 环境变量的类型, 可取值范围有: lookup, lookup_multi, text, float 等
+type QueryApaasApplicationEnvironmentVariableRespItem struct {
+	ApiName       string                                                       `json:"api_name,omitempty"`        // 环境变量 API 名称
+	Label         *QueryApaasApplicationEnvironmentVariableRespItemLabel       `json:"label,omitempty"`           // 环境变量的名称
+	Description   string                                                       `json:"description,omitempty"`     // 描述
+	Value         string                                                       `json:"value,omitempty"`           // 返回 json marshal 后的字符串。 is_encrypted 为 「true」时, 依然可以获取返回值
+	IsEncrypted   bool                                                         `json:"is_encrypted,omitempty"`    // 是否加密, 「type」取值为 text, float 时才有效
+	ObjectApiName string                                                       `json:"object_api_name,omitempty"` // 对象的 API 名称, 「type」取值为 lookup, lookup_multi 时才有效
+	ObjectLabel   *QueryApaasApplicationEnvironmentVariableRespItemObjectLabel `json:"object_label,omitempty"`    // 对象的名称, 「type」取值为 lookup, lookup_multi 时才有效
+	CreatedAt     int64                                                        `json:"created_at,omitempty"`      // 「创建时间」, 日期时间字段。 使用 Unix 时间戳, 单位为毫秒
+	UpdatedAt     int64                                                        `json:"updated_at,omitempty"`      // 「更新时间」, 日期时间字段。 使用 Unix 时间戳, 单位为毫秒
+	Type          string                                                       `json:"type,omitempty"`            // 环境变量的类型, 可取值范围有: lookup, lookup_multi, text, float 等
 }
-
-
-
-
 
 // QueryApaasApplicationEnvironmentVariableRespItemLabel ...
-type QueryApaasApplicationEnvironmentVariableRespItemLabel struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文内容
-EnUs string `json:"en_us,omitempty"` // 英文内容
+type QueryApaasApplicationEnvironmentVariableRespItemLabel struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文内容
+	EnUs string `json:"en_us,omitempty"` // 英文内容
 }
-
-
-
-
 
 // QueryApaasApplicationEnvironmentVariableRespItemObjectLabel ...
-type QueryApaasApplicationEnvironmentVariableRespItemObjectLabel struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文内容
-EnUs string `json:"en_us,omitempty"` // 英文内容
+type QueryApaasApplicationEnvironmentVariableRespItemObjectLabel struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文内容
+	EnUs string `json:"en_us,omitempty"` // 英文内容
 }
-
-
-
-
 
 // queryApaasApplicationEnvironmentVariableResp ...
-type queryApaasApplicationEnvironmentVariableResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *QueryApaasApplicationEnvironmentVariableResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type queryApaasApplicationEnvironmentVariableResp struct {
+	Code  int64                                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                        `json:"msg,omitempty"`  // 错误描述
+	Data  *QueryApaasApplicationEnvironmentVariableResp `json:"data,omitempty"`
+	Error *ErrorDetail                                  `json:"error,omitempty"`
 }
-
-
-
-

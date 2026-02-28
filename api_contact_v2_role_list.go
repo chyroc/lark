@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListContactV2Role :::html
@@ -26,9 +26,8 @@ import (
 // 该接口用于获取企业的用户角色列表。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYzMwUjL2MDM14iNzATN
-// 
 func (r *ContactService) ListContactV2Role(ctx context.Context, request *ListContactV2RoleReq, options ...MethodOptionFunc) (*ListContactV2RoleResp, *Response, error) {
-if r.cli.mock.mockContactListContactV2Role != nil {
+	if r.cli.mock.mockContactListContactV2Role != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Contact#ListContactV2Role mock enable")
 		return r.cli.mock.mockContactListContactV2Role(ctx, request, options...)
 	}
@@ -37,11 +36,10 @@ if r.cli.mock.mockContactListContactV2Role != nil {
 		Scope:                 "Contact",
 		API:                   "ListContactV2Role",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/contact/v2/role/list",
+		URL:                   r.cli.openBaseURL + "/open-apis/contact/v2/role/list",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(listContactV2RoleResp)
 
@@ -53,47 +51,30 @@ if r.cli.mock.mockContactListContactV2Role != nil {
 func (r *Mock) MockContactListContactV2Role(f func(ctx context.Context, request *ListContactV2RoleReq, options ...MethodOptionFunc) (*ListContactV2RoleResp, *Response, error)) {
 	r.mockContactListContactV2Role = f
 }
+
 // UnMockContactListContactV2Role un-mock ContactListContactV2Role method
 func (r *Mock) UnMockContactListContactV2Role() {
 	r.mockContactListContactV2Role = nil
 }
 
-
 // ListContactV2RoleReq ...
-type ListContactV2RoleReq struct { 
-}
-
-
-
-
+type ListContactV2RoleReq struct{}
 
 // ListContactV2RoleResp ...
-type ListContactV2RoleResp struct { 
-RoleList []*ListContactV2RoleRespRole `json:"role_list,omitempty"` // 角色列表
+type ListContactV2RoleResp struct {
+	RoleList []*ListContactV2RoleRespRole `json:"role_list,omitempty"` // 角色列表
 }
-
-
-
-
 
 // ListContactV2RoleRespRole ...
-type ListContactV2RoleRespRole struct { 
-ID string `json:"id,omitempty"` // 角色 ID
-Name string `json:"name,omitempty"` // 角色名称
+type ListContactV2RoleRespRole struct {
+	ID   string `json:"id,omitempty"`   // 角色 ID
+	Name string `json:"name,omitempty"` // 角色名称
 }
-
-
-
-
 
 // listContactV2RoleResp ...
-type listContactV2RoleResp struct { 
-Code int64 `json:"code,omitempty"` // 返回码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 返回码的描述
-Data *ListContactV2RoleResp `json:"data,omitempty"` // 返回业务数据
-Error *ErrorDetail `json:"error,omitempty"` 
+type listContactV2RoleResp struct {
+	Code  int64                  `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg   string                 `json:"msg,omitempty"`  // 返回码的描述
+	Data  *ListContactV2RoleResp `json:"data,omitempty"` // 返回业务数据
+	Error *ErrorDetail           `json:"error,omitempty"`
 }
-
-
-
-

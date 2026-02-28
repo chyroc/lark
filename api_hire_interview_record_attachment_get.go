@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // GetHireInterviewRecordAttachment 获取面试记录 PDF 附件, 包含相关投递基本信息、面试评价信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview_record-attachment/get
-// 
 func (r *HireService) GetHireInterviewRecordAttachment(ctx context.Context, request *GetHireInterviewRecordAttachmentReq, options ...MethodOptionFunc) (*GetHireInterviewRecordAttachmentResp, *Response, error) {
-if r.cli.mock.mockHireGetHireInterviewRecordAttachment != nil {
+	if r.cli.mock.mockHireGetHireInterviewRecordAttachment != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#GetHireInterviewRecordAttachment mock enable")
 		return r.cli.mock.mockHireGetHireInterviewRecordAttachment(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockHireGetHireInterviewRecordAttachment != nil {
 		Scope:                 "Hire",
 		API:                   "GetHireInterviewRecordAttachment",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/interview_records/attachments",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/interview_records/attachments",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(getHireInterviewRecordAttachmentResp)
 
@@ -51,53 +49,37 @@ if r.cli.mock.mockHireGetHireInterviewRecordAttachment != nil {
 func (r *Mock) MockHireGetHireInterviewRecordAttachment(f func(ctx context.Context, request *GetHireInterviewRecordAttachmentReq, options ...MethodOptionFunc) (*GetHireInterviewRecordAttachmentResp, *Response, error)) {
 	r.mockHireGetHireInterviewRecordAttachment = f
 }
+
 // UnMockHireGetHireInterviewRecordAttachment un-mock HireGetHireInterviewRecordAttachment method
 func (r *Mock) UnMockHireGetHireInterviewRecordAttachment() {
 	r.mockHireGetHireInterviewRecordAttachment = nil
 }
 
-
 // GetHireInterviewRecordAttachmentReq ...
-type GetHireInterviewRecordAttachmentReq struct { 
-ApplicationID string `query:"application_id" json:"-"` // 投递 ID, 可通过[获取投递信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get)接口获取示例值: 6949805467799537964
-InterviewRecordID *string `query:"interview_record_id" json:"-"` // 面试评价 ID, 可通过[获取面试信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview/list)接口获取, 若不填该参数, 则会获取入参投递下所有的面试评价示例值: 6969137186734393644
-Language *int64 `query:"language" json:"-"` // 面试评价语言, 用于指定附件的语言示例值: 1可选值有: 中文英文默认值: `1`
+type GetHireInterviewRecordAttachmentReq struct {
+	ApplicationID     string  `query:"application_id" json:"-"`      // 投递 ID, 可通过[获取投递信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get)接口获取示例值: 6949805467799537964
+	InterviewRecordID *string `query:"interview_record_id" json:"-"` // 面试评价 ID, 可通过[获取面试信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview/list)接口获取, 若不填该参数, 则会获取入参投递下所有的面试评价示例值: 6969137186734393644
+	Language          *int64  `query:"language" json:"-"`            // 面试评价语言, 用于指定附件的语言示例值: 1可选值有: 中文英文默认值: `1`
 }
-
-
-
-
 
 // GetHireInterviewRecordAttachmentResp ...
-type GetHireInterviewRecordAttachmentResp struct { 
-Attachment *GetHireInterviewRecordAttachmentRespAttachment `json:"attachment,omitempty"` // 附件信息
+type GetHireInterviewRecordAttachmentResp struct {
+	Attachment *GetHireInterviewRecordAttachmentRespAttachment `json:"attachment,omitempty"` // 附件信息
 }
-
-
-
-
 
 // GetHireInterviewRecordAttachmentRespAttachment ...
-type GetHireInterviewRecordAttachmentRespAttachment struct { 
-ID string `json:"id,omitempty"` // 附件 ID
-URL string `json:"url,omitempty"` // 附件下载地址, 有效期为 30 分钟
-Name string `json:"name,omitempty"` // 附件文件名
-Mime string `json:"mime,omitempty"` // 附件媒体类型/[MIME](https://baike.baidu.com/item/MIME/2900607?fr=ge_ala#2) 说明: 该接口固定返回 `application/pdf`
-CreateTime string `json:"create_time,omitempty"` // 附件创建时间, 毫秒时间戳
+type GetHireInterviewRecordAttachmentRespAttachment struct {
+	ID         string `json:"id,omitempty"`          // 附件 ID
+	URL        string `json:"url,omitempty"`         // 附件下载地址, 有效期为 30 分钟
+	Name       string `json:"name,omitempty"`        // 附件文件名
+	Mime       string `json:"mime,omitempty"`        // 附件媒体类型/[MIME](https://baike.baidu.com/item/MIME/2900607?fr=ge_ala#2) 说明: 该接口固定返回 `application/pdf`
+	CreateTime string `json:"create_time,omitempty"` // 附件创建时间, 毫秒时间戳
 }
-
-
-
-
 
 // getHireInterviewRecordAttachmentResp ...
-type getHireInterviewRecordAttachmentResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *GetHireInterviewRecordAttachmentResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type getHireInterviewRecordAttachmentResp struct {
+	Code  int64                                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                `json:"msg,omitempty"`  // 错误描述
+	Data  *GetHireInterviewRecordAttachmentResp `json:"data,omitempty"`
+	Error *ErrorDetail                          `json:"error,omitempty"`
 }
-
-
-
-

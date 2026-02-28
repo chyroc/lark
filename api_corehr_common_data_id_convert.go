@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateCorehrCommonDataIDConvert 该接口用来进行飞书人事和飞书通讯录、people admin 的各种 ID 转换（仅适用于飞书人事新链路租户）
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/common_data-id/convert
-// 
 func (r *CorehrService) CreateCorehrCommonDataIDConvert(ctx context.Context, request *CreateCorehrCommonDataIDConvertReq, options ...MethodOptionFunc) (*CreateCorehrCommonDataIDConvertResp, *Response, error) {
-if r.cli.mock.mockCorehrCreateCorehrCommonDataIDConvert != nil {
+	if r.cli.mock.mockCorehrCreateCorehrCommonDataIDConvert != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Corehr#CreateCorehrCommonDataIDConvert mock enable")
 		return r.cli.mock.mockCorehrCreateCorehrCommonDataIDConvert(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockCorehrCreateCorehrCommonDataIDConvert != nil {
 		Scope:                 "Corehr",
 		API:                   "CreateCorehrCommonDataIDConvert",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/corehr/v1/common_data/id/convert",
+		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/common_data/id/convert",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createCorehrCommonDataIDConvertResp)
 
@@ -51,52 +49,36 @@ if r.cli.mock.mockCorehrCreateCorehrCommonDataIDConvert != nil {
 func (r *Mock) MockCorehrCreateCorehrCommonDataIDConvert(f func(ctx context.Context, request *CreateCorehrCommonDataIDConvertReq, options ...MethodOptionFunc) (*CreateCorehrCommonDataIDConvertResp, *Response, error)) {
 	r.mockCorehrCreateCorehrCommonDataIDConvert = f
 }
+
 // UnMockCorehrCreateCorehrCommonDataIDConvert un-mock CorehrCreateCorehrCommonDataIDConvert method
 func (r *Mock) UnMockCorehrCreateCorehrCommonDataIDConvert() {
 	r.mockCorehrCreateCorehrCommonDataIDConvert = nil
 }
 
-
 // CreateCorehrCommonDataIDConvertReq ...
-type CreateCorehrCommonDataIDConvertReq struct { 
-IDTransformType int64 `query:"id_transform_type" json:"-"` // ID 转换类型示例值: 1可选值有: 飞书人事 -> 飞书通讯录飞书通讯录 -> 飞书人事people admin -> 飞书通讯录people admin -> 飞书人事
-IDType IDType `query:"id_type" json:"-"` // 要转换的ID类型示例值: user_id可选值有: 员工ID, 当选择 user_id 且 id_transform_type 为 1、2、4 时, feishu_user_id_type 必填部门ID, 当选择 department_id 且 id_transform_type 为 1、2、4 时, feishu_department_id_type 必填职级ID序列ID人员类型ID, people admin 的人员类型ID 即为飞书通讯录人员类型的  enum_value, 因此id_transform_type 为 3 时无须转换
-FeishuUserIDType *IDType `query:"feishu_user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
-FeishuDepartmentIDType *DepartmentIDType `query:"feishu_department_id_type" json:"-"` // 此次调用中使用的部门 ID 类型示例值: open_department_id可选值有: 以 open_department_id 来标识部门以 department_id 来标识部门默认值: `open_department_id`
-IDs []string `json:"ids,omitempty"` // ID 列表（最多传入 100 个 ID, ID 长度限制 50 个字符）示例值: ["6891251722631891445"] 长度范围: `1` ～ `100`
+type CreateCorehrCommonDataIDConvertReq struct {
+	IDTransformType        int64             `query:"id_transform_type" json:"-"`         // ID 转换类型示例值: 1可选值有: 飞书人事 -> 飞书通讯录飞书通讯录 -> 飞书人事people admin -> 飞书通讯录people admin -> 飞书人事
+	IDType                 IDType            `query:"id_type" json:"-"`                   // 要转换的ID类型示例值: user_id可选值有: 员工ID, 当选择 user_id 且 id_transform_type 为 1、2、4 时, feishu_user_id_type 必填部门ID, 当选择 department_id 且 id_transform_type 为 1、2、4 时, feishu_department_id_type 必填职级ID序列ID人员类型ID, people admin 的人员类型ID 即为飞书通讯录人员类型的  enum_value, 因此id_transform_type 为 3 时无须转换
+	FeishuUserIDType       *IDType           `query:"feishu_user_id_type" json:"-"`       // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	FeishuDepartmentIDType *DepartmentIDType `query:"feishu_department_id_type" json:"-"` // 此次调用中使用的部门 ID 类型示例值: open_department_id可选值有: 以 open_department_id 来标识部门以 department_id 来标识部门默认值: `open_department_id`
+	IDs                    []string          `json:"ids,omitempty"`                       // ID 列表（最多传入 100 个 ID, ID 长度限制 50 个字符）示例值: ["6891251722631891445"] 长度范围: `1` ～ `100`
 }
-
-
-
-
 
 // CreateCorehrCommonDataIDConvertResp ...
-type CreateCorehrCommonDataIDConvertResp struct { 
-Items []*CreateCorehrCommonDataIDConvertRespItem `json:"items,omitempty"` // ID 信息列表
+type CreateCorehrCommonDataIDConvertResp struct {
+	Items []*CreateCorehrCommonDataIDConvertRespItem `json:"items,omitempty"` // ID 信息列表
 }
-
-
-
-
 
 // CreateCorehrCommonDataIDConvertRespItem ...
-type CreateCorehrCommonDataIDConvertRespItem struct { 
-ID string `json:"id,omitempty"` // 传入的 ID
-TargetID string `json:"target_id,omitempty"` // 目标 ID 值
+type CreateCorehrCommonDataIDConvertRespItem struct {
+	ID       string `json:"id,omitempty"`        // 传入的 ID
+	TargetID string `json:"target_id,omitempty"` // 目标 ID 值
 }
-
-
-
-
 
 // createCorehrCommonDataIDConvertResp ...
-type createCorehrCommonDataIDConvertResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateCorehrCommonDataIDConvertResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createCorehrCommonDataIDConvertResp struct {
+	Code  int64                                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                               `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateCorehrCommonDataIDConvertResp `json:"data,omitempty"`
+	Error *ErrorDetail                         `json:"error,omitempty"`
 }
-
-
-
-

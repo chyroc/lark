@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateHireTalentBlocklistChangeTalentBlock 根据人才 ID 将人才加入或移除屏蔽名单。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_blocklist/change_talent_block
-// 
 func (r *HireService) CreateHireTalentBlocklistChangeTalentBlock(ctx context.Context, request *CreateHireTalentBlocklistChangeTalentBlockReq, options ...MethodOptionFunc) (*CreateHireTalentBlocklistChangeTalentBlockResp, *Response, error) {
-if r.cli.mock.mockHireCreateHireTalentBlocklistChangeTalentBlock != nil {
+	if r.cli.mock.mockHireCreateHireTalentBlocklistChangeTalentBlock != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#CreateHireTalentBlocklistChangeTalentBlock mock enable")
 		return r.cli.mock.mockHireCreateHireTalentBlocklistChangeTalentBlock(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockHireCreateHireTalentBlocklistChangeTalentBlock != nil {
 		Scope:                 "Hire",
 		API:                   "CreateHireTalentBlocklistChangeTalentBlock",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/talent_blocklist/change_talent_block",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/talent_blocklist/change_talent_block",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createHireTalentBlocklistChangeTalentBlockResp)
 
@@ -51,39 +49,26 @@ if r.cli.mock.mockHireCreateHireTalentBlocklistChangeTalentBlock != nil {
 func (r *Mock) MockHireCreateHireTalentBlocklistChangeTalentBlock(f func(ctx context.Context, request *CreateHireTalentBlocklistChangeTalentBlockReq, options ...MethodOptionFunc) (*CreateHireTalentBlocklistChangeTalentBlockResp, *Response, error)) {
 	r.mockHireCreateHireTalentBlocklistChangeTalentBlock = f
 }
+
 // UnMockHireCreateHireTalentBlocklistChangeTalentBlock un-mock HireCreateHireTalentBlocklistChangeTalentBlock method
 func (r *Mock) UnMockHireCreateHireTalentBlocklistChangeTalentBlock() {
 	r.mockHireCreateHireTalentBlocklistChangeTalentBlock = nil
 }
 
-
 // CreateHireTalentBlocklistChangeTalentBlockReq ...
-type CreateHireTalentBlocklistChangeTalentBlockReq struct { 
-TalentID string `json:"talent_id,omitempty"` // 人才 ID, 可通过[获取人才列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/list)接口获取示例值: "6930815272790114325"
-Option int64 `json:"option,omitempty"` // 操作类型示例值: 1可选值有: 加入屏蔽名单从屏蔽名单中移除
-Reason *string `json:"reason,omitempty"` // 屏蔽原因, 当`option`为`1`时必填示例值: "人才作弊"
+type CreateHireTalentBlocklistChangeTalentBlockReq struct {
+	TalentID string  `json:"talent_id,omitempty"` // 人才 ID, 可通过[获取人才列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/list)接口获取示例值: "6930815272790114325"
+	Option   int64   `json:"option,omitempty"`    // 操作类型示例值: 1可选值有: 加入屏蔽名单从屏蔽名单中移除
+	Reason   *string `json:"reason,omitempty"`    // 屏蔽原因, 当`option`为`1`时必填示例值: "人才作弊"
 }
-
-
-
-
 
 // CreateHireTalentBlocklistChangeTalentBlockResp ...
-type CreateHireTalentBlocklistChangeTalentBlockResp struct { 
-}
-
-
-
-
+type CreateHireTalentBlocklistChangeTalentBlockResp struct{}
 
 // createHireTalentBlocklistChangeTalentBlockResp ...
-type createHireTalentBlocklistChangeTalentBlockResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateHireTalentBlocklistChangeTalentBlockResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createHireTalentBlocklistChangeTalentBlockResp struct {
+	Code  int64                                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                          `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateHireTalentBlocklistChangeTalentBlockResp `json:"data,omitempty"`
+	Error *ErrorDetail                                    `json:"error,omitempty"`
 }
-
-
-
-

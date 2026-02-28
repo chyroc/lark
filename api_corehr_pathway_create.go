@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateCorehrPathway 创建通道, 可以定义通道的名称、编码和描述信息
@@ -26,9 +26,8 @@ import (
 // 非必填字段, 不传时默认为空
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pathway/create
-// 
 func (r *CorehrService) CreateCorehrPathway(ctx context.Context, request *CreateCorehrPathwayReq, options ...MethodOptionFunc) (*CreateCorehrPathwayResp, *Response, error) {
-if r.cli.mock.mockCorehrCreateCorehrPathway != nil {
+	if r.cli.mock.mockCorehrCreateCorehrPathway != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Corehr#CreateCorehrPathway mock enable")
 		return r.cli.mock.mockCorehrCreateCorehrPathway(ctx, request, options...)
 	}
@@ -37,11 +36,10 @@ if r.cli.mock.mockCorehrCreateCorehrPathway != nil {
 		Scope:                 "Corehr",
 		API:                   "CreateCorehrPathway",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/corehr/v2/pathways",
+		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/pathways",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createCorehrPathwayResp)
 
@@ -53,61 +51,41 @@ if r.cli.mock.mockCorehrCreateCorehrPathway != nil {
 func (r *Mock) MockCorehrCreateCorehrPathway(f func(ctx context.Context, request *CreateCorehrPathwayReq, options ...MethodOptionFunc) (*CreateCorehrPathwayResp, *Response, error)) {
 	r.mockCorehrCreateCorehrPathway = f
 }
+
 // UnMockCorehrCreateCorehrPathway un-mock CorehrCreateCorehrPathway method
 func (r *Mock) UnMockCorehrCreateCorehrPathway() {
 	r.mockCorehrCreateCorehrPathway = nil
 }
 
-
 // CreateCorehrPathwayReq ...
-type CreateCorehrPathwayReq struct { 
-ClientToken *string `query:"client_token" json:"-"` // 根据client_token是否一致来判断是否为同一请求示例值: 12454646
-Code *string `json:"code,omitempty"` // 编码示例值: "A01234"
-Names []*CreateCorehrPathwayReqName `json:"names,omitempty"` // 名称 长度范围: `0` ～ `2`
-Descriptions []*CreateCorehrPathwayReqDescription `json:"descriptions,omitempty"` // 描述 长度范围: `0` ～ `2`
+type CreateCorehrPathwayReq struct {
+	ClientToken  *string                              `query:"client_token" json:"-"` // 根据client_token是否一致来判断是否为同一请求示例值: 12454646
+	Code         *string                              `json:"code,omitempty"`         // 编码示例值: "A01234"
+	Names        []*CreateCorehrPathwayReqName        `json:"names,omitempty"`        // 名称 长度范围: `0` ～ `2`
+	Descriptions []*CreateCorehrPathwayReqDescription `json:"descriptions,omitempty"` // 描述 长度范围: `0` ～ `2`
 }
-
-
-
-
 
 // CreateCorehrPathwayReqDescription ...
-type CreateCorehrPathwayReqDescription struct { 
-Lang string `json:"lang,omitempty"` // 中文用zh-CN, 英文用en-US示例值: "zh-CN"
-Value string `json:"value,omitempty"` // 文本内容, 最长支持2000个字符示例值: "中文示例"
+type CreateCorehrPathwayReqDescription struct {
+	Lang  string `json:"lang,omitempty"`  // 中文用zh-CN, 英文用en-US示例值: "zh-CN"
+	Value string `json:"value,omitempty"` // 文本内容, 最长支持2000个字符示例值: "中文示例"
 }
-
-
-
-
 
 // CreateCorehrPathwayReqName ...
-type CreateCorehrPathwayReqName struct { 
-Lang string `json:"lang,omitempty"` // 中文用zh-CN, 英文用en-US示例值: "zh-CN"
-Value string `json:"value,omitempty"` // --文本内容, 最长支持255个字符- 名称不能包含「/」「；」「;」「\」「'」字符示例值: "中文示例"
+type CreateCorehrPathwayReqName struct {
+	Lang  string `json:"lang,omitempty"`  // 中文用zh-CN, 英文用en-US示例值: "zh-CN"
+	Value string `json:"value,omitempty"` // --文本内容, 最长支持255个字符- 名称不能包含「/」「；」「;」「\」「'」字符示例值: "中文示例"
 }
-
-
-
-
 
 // CreateCorehrPathwayResp ...
-type CreateCorehrPathwayResp struct { 
-PathwayID string `json:"pathway_id,omitempty"` // 通道ID
+type CreateCorehrPathwayResp struct {
+	PathwayID string `json:"pathway_id,omitempty"` // 通道ID
 }
-
-
-
-
 
 // createCorehrPathwayResp ...
-type createCorehrPathwayResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateCorehrPathwayResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createCorehrPathwayResp struct {
+	Code  int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                   `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateCorehrPathwayResp `json:"data,omitempty"`
+	Error *ErrorDetail             `json:"error,omitempty"`
 }
-
-
-
-

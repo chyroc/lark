@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // UpdateBaseAppRole 更新多维表格高级权限中自定义的角色。
@@ -29,9 +29,8 @@ import (
 // 要调用自定义角色相关接口, 你需确保多维表格已开启高级权限。你可通过[更新多维表格元数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/update)接口开启高级权限。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/advanced-permission/base-v2/app-role/update
-// 
 func (r *BaseService) UpdateBaseAppRole(ctx context.Context, request *UpdateBaseAppRoleReq, options ...MethodOptionFunc) (*UpdateBaseAppRoleResp, *Response, error) {
-if r.cli.mock.mockBaseUpdateBaseAppRole != nil {
+	if r.cli.mock.mockBaseUpdateBaseAppRole != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Base#UpdateBaseAppRole mock enable")
 		return r.cli.mock.mockBaseUpdateBaseAppRole(ctx, request, options...)
 	}
@@ -40,12 +39,11 @@ if r.cli.mock.mockBaseUpdateBaseAppRole != nil {
 		Scope:                 "Base",
 		API:                   "UpdateBaseAppRole",
 		Method:                "PUT",
-		URL:   r.cli.openBaseURL + "/open-apis/base/v2/apps/:app_token/roles/:role_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/base/v2/apps/:app_token/roles/:role_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(updateBaseAppRoleResp)
 
@@ -57,205 +55,141 @@ if r.cli.mock.mockBaseUpdateBaseAppRole != nil {
 func (r *Mock) MockBaseUpdateBaseAppRole(f func(ctx context.Context, request *UpdateBaseAppRoleReq, options ...MethodOptionFunc) (*UpdateBaseAppRoleResp, *Response, error)) {
 	r.mockBaseUpdateBaseAppRole = f
 }
+
 // UnMockBaseUpdateBaseAppRole un-mock BaseUpdateBaseAppRole method
 func (r *Mock) UnMockBaseUpdateBaseAppRole() {
 	r.mockBaseUpdateBaseAppRole = nil
 }
 
-
 // UpdateBaseAppRoleReq ...
-type UpdateBaseAppRoleReq struct { 
-AppToken string `path:"app_token" json:"-"` // 多维表格 App 的唯一标识。不同形态的多维表格, 其 `app_token` 的获取方式不同: 如果多维表格的 URL 以 [feishu.cn/base] 开头, 该多维表格的 `app_token` 是下图高亮部分: ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004)- 如果多维表格的 URL 以 [feishu.cn/wiki] 开头, 你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时, `obj_token` 字段的值才是多维表格的 `app_token`。了解更多, 参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。示例值: "appbcbWCzen6D8dezhoCH2RpMAh" 长度范围: `0` ～ `100` 字符
-RoleID string `path:"role_id" json:"-"` // 多维表格高级权限中自定义角色的唯一标识, 以 rol 开头。获取方式: 通过[列出自定义角色](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role/list)接口获取。示例值: "roljRpwIUt" 长度范围: `0` ～ `100` 字符
-RoleName string `json:"role_name,omitempty"` // 自定义角色名称示例值: "自定义权限1" 长度范围: `0` ～ `100` 字符
-TableRoles []*UpdateBaseAppRoleReqTableRole `json:"table_roles,omitempty"` // 针对数据表的权限设置, 未设置该字段的情况下, 保持旧值不变 长度范围: `0` ～ `100`
-BlockRoles []*UpdateBaseAppRoleReqBlockRole `json:"block_roles,omitempty"` // 针对仪表盘的权限设置。更新是, 未设置该字段的情况下, 保持旧值不变。设置`block_roles`为{}时, 将所有仪表盘更新为默认权限, 即所有仪表盘无权限。 长度范围: `0` ～ `100`
-BaseRule interface{} `json:"base_rule,omitempty"` // 多维表格点位的权限。更新时, 未设置`base_rule`字段时, 所有点位保持旧值。设置`base_rule`字段为{}时, 会将所有点位设置为默认值, 即所有点位有权限。可设置以下两种权限: `base_complex_edit` : 设置是否可以创建副本、下载、打印多维表格- `copy`: 设置是否可以复制多维表格内容该参数类型为 map, 其中 key 是权限点位名称, value 是权限开关。value 枚举值有: `0`: 无权限- `1`: 有权限注意: 仅高级权限为 v2 版本的多维表格支持该参数。是否是 v2 版本可调用[获取多维表格元数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/get)查看。示例值: {"base_complex_edit": 1, "copy": 0}
+type UpdateBaseAppRoleReq struct {
+	AppToken   string                           `path:"app_token" json:"-"`    // 多维表格 App 的唯一标识。不同形态的多维表格, 其 `app_token` 的获取方式不同: 如果多维表格的 URL 以 [feishu.cn/base] 开头, 该多维表格的 `app_token` 是下图高亮部分: ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004)- 如果多维表格的 URL 以 [feishu.cn/wiki] 开头, 你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时, `obj_token` 字段的值才是多维表格的 `app_token`。了解更多, 参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。示例值: "appbcbWCzen6D8dezhoCH2RpMAh" 长度范围: `0` ～ `100` 字符
+	RoleID     string                           `path:"role_id" json:"-"`      // 多维表格高级权限中自定义角色的唯一标识, 以 rol 开头。获取方式: 通过[列出自定义角色](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role/list)接口获取。示例值: "roljRpwIUt" 长度范围: `0` ～ `100` 字符
+	RoleName   string                           `json:"role_name,omitempty"`   // 自定义角色名称示例值: "自定义权限1" 长度范围: `0` ～ `100` 字符
+	TableRoles []*UpdateBaseAppRoleReqTableRole `json:"table_roles,omitempty"` // 针对数据表的权限设置, 未设置该字段的情况下, 保持旧值不变 长度范围: `0` ～ `100`
+	BlockRoles []*UpdateBaseAppRoleReqBlockRole `json:"block_roles,omitempty"` // 针对仪表盘的权限设置。更新是, 未设置该字段的情况下, 保持旧值不变。设置`block_roles`为{}时, 将所有仪表盘更新为默认权限, 即所有仪表盘无权限。 长度范围: `0` ～ `100`
+	BaseRule   interface{}                      `json:"base_rule,omitempty"`   // 多维表格点位的权限。更新时, 未设置`base_rule`字段时, 所有点位保持旧值。设置`base_rule`字段为{}时, 会将所有点位设置为默认值, 即所有点位有权限。可设置以下两种权限: `base_complex_edit` : 设置是否可以创建副本、下载、打印多维表格- `copy`: 设置是否可以复制多维表格内容该参数类型为 map, 其中 key 是权限点位名称, value 是权限开关。value 枚举值有: `0`: 无权限- `1`: 有权限注意: 仅高级权限为 v2 版本的多维表格支持该参数。是否是 v2 版本可调用[获取多维表格元数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/get)查看。示例值: {"base_complex_edit": 1, "copy": 0}
 }
-
-
-
-
 
 // UpdateBaseAppRoleReqBlockRole ...
-type UpdateBaseAppRoleReqBlockRole struct { 
-BlockID string `json:"block_id,omitempty"` // 多维表格仪表盘的唯一标识, 以 blk 开头。获取方式: 在多维表格的 URL 地址栏中, `block_id` 是下图中高亮部分: ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a966d15323ee73c66b1e9a31d34ae6c7_x3ctncH2nO.png?height=575&lazyload=true&width=1397)  - 通过[列出仪表盘](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-dashboard/list)接口获取示例值: "blknkqrP3RqUkcAW" 长度范围: `0` ～ `100` 字符
-BlockPerm int64 `json:"block_perm,omitempty"` // 仪表盘的权限示例值: 0可选值有: 无权限可阅读
+type UpdateBaseAppRoleReqBlockRole struct {
+	BlockID   string `json:"block_id,omitempty"`   // 多维表格仪表盘的唯一标识, 以 blk 开头。获取方式: 在多维表格的 URL 地址栏中, `block_id` 是下图中高亮部分: ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/a966d15323ee73c66b1e9a31d34ae6c7_x3ctncH2nO.png?height=575&lazyload=true&width=1397)  - 通过[列出仪表盘](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-dashboard/list)接口获取示例值: "blknkqrP3RqUkcAW" 长度范围: `0` ～ `100` 字符
+	BlockPerm int64  `json:"block_perm,omitempty"` // 仪表盘的权限示例值: 0可选值有: 无权限可阅读
 }
-
-
-
-
 
 // UpdateBaseAppRoleReqTableRole ...
-type UpdateBaseAppRoleReqTableRole struct { 
-TablePerm int64 `json:"table_perm,omitempty"` // 数据表权限。提示: 协作者可编辑自己的记录 和 可编辑指定字段 是 可编辑记录 的特殊情况, 可通过指定 `rec_rule` 或 `field_perm` 参数实现相同的效果。示例值: 0可选值有: 无权限仅可阅读可编辑可管理 取值范围: `0` ～ `4`
-TableName *string `json:"table_name,omitempty"` // 数据表名称示例值: "数据表1" 长度范围: `0` ～ `50` 字符
-TableID *string `json:"table_id,omitempty"` // 多维表格数据表的唯一标识。获取方式: 你可通过多维表格 URL 获取 `table_id`, 下图高亮部分即为当前数据表的 `table_id`- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`  ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976)示例值: "tblKz5D60T4JlfcT" 长度范围: `0` ～ `50` 字符
-RecRule *UpdateBaseAppRoleReqTableRoleRecRule `json:"rec_rule,omitempty"` // 记录筛选条件, 当 `table_perm` 为 1 或 2 时生效。用于指定可编辑或可阅读的记录。- rec_rule字段未设置、且 `table_perm `不变的情况下, 保持旧值。- 字段 value 为 {} 的情况下, 表示设置为默认值, 即全部可编辑或可阅读, 具体权限需结合 table_perm 参数。
-OtherRecRule *UpdateBaseAppRoleReqTableRoleOtherRecRule `json:"other_rec_rule,omitempty"` // 记录筛选条件, 在 `table_perm` 为 2 且`rec_rule.other_perm` 为 0 时生效。- 对于未命中 `rec_rule` 的记录, 通过 `other_rec_rule` 指定可阅读记录范围；此时, 既未命中 `rec_rule`、也未命中 `other_rec_rule` 的记录会被禁止阅读。- `other_rec_rule` 字段未设置、且 `table_perm` 与 `rec_rule` 不变的情况下, 将会保持旧值不变。- `other_rec_rule` 字段设置为 {} 时, 且 `table_perm` 与`rec_rule` 不变的情况下, 表示设置为默认值, 即非`rec_rule` 记录全部可阅读。注意: 仅高级权限为 v2 版本的多维表格支持该参数。是否是 v2 版本可调用[获取多维表格元数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/get)查看。
-FieldPerm interface{} `json:"field_perm,omitempty"` // 字段权限, 仅在 `table_perm` 为 1和 2 时生效。用于设置字段可编辑或可阅读。类型为 map, key 是字段名称, value 是字段权限。对于未设置的多维表格字段, 则为无权限。更新时, `field_perm` 未传值时, 将保留旧值不变。`field_perm` 传{}时, 则将所有字段设置为默认值可编辑或者可阅读, 默认值需结合`table_perm `字段。value 枚举值有: `1`: 可阅读- `2`: 可添加- `3`: 可编辑示例值: {"姓名": 1, "年龄": 2}
-AllowAddRecord *bool `json:"allow_add_record,omitempty"` // 新增记录权限, 仅在 `table_perm` 为 2 时生效, 用于设置记录是否可以新增。示例值: true默认值: `true`
-AllowDeleteRecord *bool `json:"allow_delete_record,omitempty"` // 删除记录权限, 仅在 `table_perm` 为 2 时生效, 用于设置记录是否可以删除。示例值: true默认值: `true`
-ViewPerm *int64 `json:"view_perm,omitempty"` // 设置视图的编辑权限。示例值: 2可选值有: 可阅读可编辑默认值: `2` 取值范围: `0` ～ `2`
-ViewRules interface{} `json:"view_rules,omitempty"` // 可读的视图集合, 仅在 `view_perm` 为 1 （视图为可阅读）时生效。更新时, 未设置该字段`view_rules `, 且 `view_perm` 未变化的情况下, 将保留旧值。设置该字段`view_rules `为{}, 且 `view_perm` 为1的情况下, 会将所有视图置为可读。该参数类型为 map, 其中 key 是[视图 ID](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#5b05b8ca), value 是视图对应的权限。value 枚举值有: `0`: 无权限- `1`: 可阅读注意: 仅高级权限为 v2 版本的多维表格支持该参数。是否是 v2 版本可调用[获取多维表格元数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/get)查看。示例值: {"vewEYknYcC": 0}
-FieldActionRules interface{} `json:"field_action_rules,omitempty"` // 更新字段的权限, 仅可配置单多选字段、附件字段。可选的点位有: `select_option_edit` : 选项配置点位, 配置是否可增删改单、多选选项, 未设置表示无权限。- `attachment_export`: 附件操作权限点位, 配置是否可导出附件, 未设置表示可导出。该参数类型为两层 map 结构, 其中 key 是字段点位权限, value 是字段权限集合。字段权限集合也是一个 map 结构, 其中 key 是字段名称, value 是字段点位权限: `0`: 无权限- `1`: 有权限注意: 仅高级权限为 v2 版本的多维表格支持该参数。是否是 v2 版本可调用[获取多维表格元数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/get)查看。示例值: {"select_option_edit": {"单选1":0}}
+type UpdateBaseAppRoleReqTableRole struct {
+	TablePerm         int64                                      `json:"table_perm,omitempty"`          // 数据表权限。提示: 协作者可编辑自己的记录 和 可编辑指定字段 是 可编辑记录 的特殊情况, 可通过指定 `rec_rule` 或 `field_perm` 参数实现相同的效果。示例值: 0可选值有: 无权限仅可阅读可编辑可管理 取值范围: `0` ～ `4`
+	TableName         *string                                    `json:"table_name,omitempty"`          // 数据表名称示例值: "数据表1" 长度范围: `0` ～ `50` 字符
+	TableID           *string                                    `json:"table_id,omitempty"`            // 多维表格数据表的唯一标识。获取方式: 你可通过多维表格 URL 获取 `table_id`, 下图高亮部分即为当前数据表的 `table_id`- 也可通过[列出数据表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table/list)接口获取 `table_id`  ![](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/18741fe2a0d3cafafaf9949b263bb57d_yD1wkOrSju.png?height=746&lazyload=true&maxWidth=700&width=2976)示例值: "tblKz5D60T4JlfcT" 长度范围: `0` ～ `50` 字符
+	RecRule           *UpdateBaseAppRoleReqTableRoleRecRule      `json:"rec_rule,omitempty"`            // 记录筛选条件, 当 `table_perm` 为 1 或 2 时生效。用于指定可编辑或可阅读的记录。- rec_rule字段未设置、且 `table_perm `不变的情况下, 保持旧值。- 字段 value 为 {} 的情况下, 表示设置为默认值, 即全部可编辑或可阅读, 具体权限需结合 table_perm 参数。
+	OtherRecRule      *UpdateBaseAppRoleReqTableRoleOtherRecRule `json:"other_rec_rule,omitempty"`      // 记录筛选条件, 在 `table_perm` 为 2 且`rec_rule.other_perm` 为 0 时生效。- 对于未命中 `rec_rule` 的记录, 通过 `other_rec_rule` 指定可阅读记录范围；此时, 既未命中 `rec_rule`、也未命中 `other_rec_rule` 的记录会被禁止阅读。- `other_rec_rule` 字段未设置、且 `table_perm` 与 `rec_rule` 不变的情况下, 将会保持旧值不变。- `other_rec_rule` 字段设置为 {} 时, 且 `table_perm` 与`rec_rule` 不变的情况下, 表示设置为默认值, 即非`rec_rule` 记录全部可阅读。注意: 仅高级权限为 v2 版本的多维表格支持该参数。是否是 v2 版本可调用[获取多维表格元数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/get)查看。
+	FieldPerm         interface{}                                `json:"field_perm,omitempty"`          // 字段权限, 仅在 `table_perm` 为 1和 2 时生效。用于设置字段可编辑或可阅读。类型为 map, key 是字段名称, value 是字段权限。对于未设置的多维表格字段, 则为无权限。更新时, `field_perm` 未传值时, 将保留旧值不变。`field_perm` 传{}时, 则将所有字段设置为默认值可编辑或者可阅读, 默认值需结合`table_perm `字段。value 枚举值有: `1`: 可阅读- `2`: 可添加- `3`: 可编辑示例值: {"姓名": 1, "年龄": 2}
+	AllowAddRecord    *bool                                      `json:"allow_add_record,omitempty"`    // 新增记录权限, 仅在 `table_perm` 为 2 时生效, 用于设置记录是否可以新增。示例值: true默认值: `true`
+	AllowDeleteRecord *bool                                      `json:"allow_delete_record,omitempty"` // 删除记录权限, 仅在 `table_perm` 为 2 时生效, 用于设置记录是否可以删除。示例值: true默认值: `true`
+	ViewPerm          *int64                                     `json:"view_perm,omitempty"`           // 设置视图的编辑权限。示例值: 2可选值有: 可阅读可编辑默认值: `2` 取值范围: `0` ～ `2`
+	ViewRules         interface{}                                `json:"view_rules,omitempty"`          // 可读的视图集合, 仅在 `view_perm` 为 1 （视图为可阅读）时生效。更新时, 未设置该字段`view_rules `, 且 `view_perm` 未变化的情况下, 将保留旧值。设置该字段`view_rules `为{}, 且 `view_perm` 为1的情况下, 会将所有视图置为可读。该参数类型为 map, 其中 key 是[视图 ID](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#5b05b8ca), value 是视图对应的权限。value 枚举值有: `0`: 无权限- `1`: 可阅读注意: 仅高级权限为 v2 版本的多维表格支持该参数。是否是 v2 版本可调用[获取多维表格元数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/get)查看。示例值: {"vewEYknYcC": 0}
+	FieldActionRules  interface{}                                `json:"field_action_rules,omitempty"`  // 更新字段的权限, 仅可配置单多选字段、附件字段。可选的点位有: `select_option_edit` : 选项配置点位, 配置是否可增删改单、多选选项, 未设置表示无权限。- `attachment_export`: 附件操作权限点位, 配置是否可导出附件, 未设置表示可导出。该参数类型为两层 map 结构, 其中 key 是字段点位权限, value 是字段权限集合。字段权限集合也是一个 map 结构, 其中 key 是字段名称, value 是字段点位权限: `0`: 无权限- `1`: 有权限注意: 仅高级权限为 v2 版本的多维表格支持该参数。是否是 v2 版本可调用[获取多维表格元数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app/get)查看。示例值: {"select_option_edit": {"单选1":0}}
 }
-
-
-
-
 
 // UpdateBaseAppRoleReqTableRoleOtherRecRule ...
-type UpdateBaseAppRoleReqTableRoleOtherRecRule struct { 
-Conditions []*UpdateBaseAppRoleReqTableRoleOtherRecRuleCondition `json:"conditions,omitempty"` // 记录筛选条件, 用于指定可阅读的记录。 长度范围: `0` ～ `10`
-Conjunction *string `json:"conjunction,omitempty"` // 多个筛选条件的关系示例值: "and"可选值有: 与或默认值: `and`
+type UpdateBaseAppRoleReqTableRoleOtherRecRule struct {
+	Conditions  []*UpdateBaseAppRoleReqTableRoleOtherRecRuleCondition `json:"conditions,omitempty"`  // 记录筛选条件, 用于指定可阅读的记录。 长度范围: `0` ～ `10`
+	Conjunction *string                                               `json:"conjunction,omitempty"` // 多个筛选条件的关系示例值: "and"可选值有: 与或默认值: `and`
 }
-
-
-
-
 
 // UpdateBaseAppRoleReqTableRoleOtherRecRuleCondition ...
-type UpdateBaseAppRoleReqTableRoleOtherRecRuleCondition struct { 
-FieldName string `json:"field_name,omitempty"` // 条件字段的名称。记录筛选条件是“创建人包含访问者本人”时, 此参数值为 ""。示例值: "单选"
-Operator *string `json:"operator,omitempty"` // 条件运算符示例值: "is"可选值有: 等于不等于包含不包含为空不为空默认值: `is`
-Value []string `json:"value,omitempty"` // 条件的值, 可以是单个值或多个值的数组。详情参考[字段目标值（value）填写说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/record-filter-guide#3e0fd644)。示例值: ["optbdVHf4q"] 长度范围: `0` ～ `50`
+type UpdateBaseAppRoleReqTableRoleOtherRecRuleCondition struct {
+	FieldName string   `json:"field_name,omitempty"` // 条件字段的名称。记录筛选条件是“创建人包含访问者本人”时, 此参数值为 ""。示例值: "单选"
+	Operator  *string  `json:"operator,omitempty"`   // 条件运算符示例值: "is"可选值有: 等于不等于包含不包含为空不为空默认值: `is`
+	Value     []string `json:"value,omitempty"`      // 条件的值, 可以是单个值或多个值的数组。详情参考[字段目标值（value）填写说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/record-filter-guide#3e0fd644)。示例值: ["optbdVHf4q"] 长度范围: `0` ～ `50`
 }
-
-
-
-
 
 // UpdateBaseAppRoleReqTableRoleRecRule ...
-type UpdateBaseAppRoleReqTableRoleRecRule struct { 
-Conditions []*UpdateBaseAppRoleReqTableRoleRecRuleCondition `json:"conditions,omitempty"` // 记录筛选条件, 用于指定可编辑或可阅读的记录。 长度范围: `0` ～ `10`
-Conjunction *string `json:"conjunction,omitempty"` // 多个筛选条件的关系示例值: "and"可选值有: 与或默认值: `and`
-OtherPerm *int64 `json:"other_perm,omitempty"` // 其他记录权限, 仅在 `table_perm` 为 2 （数据表权限为可编辑）时生效。- 当 `other_perm` 为 1 时, 表示未命中 `rec_rule` 的记录仅可阅读, 不可编辑- 当 `other_perm` 为 0 时, 表示既未命中 `rec_rule`、也未命中 `other_rec_rule` 的记录会被禁止阅读。即你可以通过 `other_rec_rule` 进一步指定可阅读的记录范围。示例值: 1可选值有: 禁止查看仅可阅读默认值: `0`
+type UpdateBaseAppRoleReqTableRoleRecRule struct {
+	Conditions  []*UpdateBaseAppRoleReqTableRoleRecRuleCondition `json:"conditions,omitempty"`  // 记录筛选条件, 用于指定可编辑或可阅读的记录。 长度范围: `0` ～ `10`
+	Conjunction *string                                          `json:"conjunction,omitempty"` // 多个筛选条件的关系示例值: "and"可选值有: 与或默认值: `and`
+	OtherPerm   *int64                                           `json:"other_perm,omitempty"`  // 其他记录权限, 仅在 `table_perm` 为 2 （数据表权限为可编辑）时生效。- 当 `other_perm` 为 1 时, 表示未命中 `rec_rule` 的记录仅可阅读, 不可编辑- 当 `other_perm` 为 0 时, 表示既未命中 `rec_rule`、也未命中 `other_rec_rule` 的记录会被禁止阅读。即你可以通过 `other_rec_rule` 进一步指定可阅读的记录范围。示例值: 1可选值有: 禁止查看仅可阅读默认值: `0`
 }
-
-
-
-
 
 // UpdateBaseAppRoleReqTableRoleRecRuleCondition ...
-type UpdateBaseAppRoleReqTableRoleRecRuleCondition struct { 
-FieldName string `json:"field_name,omitempty"` // 条件字段的名称。记录筛选条件是“创建人包含访问者本人”时, 此参数值为 ""。示例值: "单选"
-Operator *string `json:"operator,omitempty"` // 条件运算符示例值: "is"可选值有: 等于不等于包含不包含为空不为空默认值: `is`
-Value []string `json:"value,omitempty"` // 条件的值, 可以是单个值或多个值的数组。详情参考[字段目标值（value）填写说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/record-filter-guide#3e0fd644)。示例值: ["optbdVHf4q"] 长度范围: `0` ～ `50`
+type UpdateBaseAppRoleReqTableRoleRecRuleCondition struct {
+	FieldName string   `json:"field_name,omitempty"` // 条件字段的名称。记录筛选条件是“创建人包含访问者本人”时, 此参数值为 ""。示例值: "单选"
+	Operator  *string  `json:"operator,omitempty"`   // 条件运算符示例值: "is"可选值有: 等于不等于包含不包含为空不为空默认值: `is`
+	Value     []string `json:"value,omitempty"`      // 条件的值, 可以是单个值或多个值的数组。详情参考[字段目标值（value）填写说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/record-filter-guide#3e0fd644)。示例值: ["optbdVHf4q"] 长度范围: `0` ～ `50`
 }
-
-
-
-
 
 // UpdateBaseAppRoleResp ...
-type UpdateBaseAppRoleResp struct { 
-Role *UpdateBaseAppRoleRespRole `json:"role,omitempty"` // 自定义角色
+type UpdateBaseAppRoleResp struct {
+	Role *UpdateBaseAppRoleRespRole `json:"role,omitempty"` // 自定义角色
 }
-
-
-
-
 
 // UpdateBaseAppRoleRespRole ...
-type UpdateBaseAppRoleRespRole struct { 
-RoleName string `json:"role_name,omitempty"` // 自定义角色名称
-TableRoles []*UpdateBaseAppRoleRespRoleTableRole `json:"table_roles,omitempty"` // 针对数据表的权限设置
-RoleID string `json:"role_id,omitempty"` // 自定义权限的id
-BlockRoles []*UpdateBaseAppRoleRespRoleBlockRole `json:"block_roles,omitempty"` // block权限
-BaseRule interface{} `json:"base_rule,omitempty"` // 多维表格点位的权限。- 未设置时, 表示自定义角色拥有所有点位权限。- 设置时, 可设置以下两种权限: -  `base_complex_edit` : 设置是否可以创建副本、下载、打印多维表格    - `copy`: 设置是否可以复制多维表格内容该参数类型为 map, 其中 key 是权限点位名称, value 是权限开关。value 枚举值有: `0`: 无权限- `1`: 有权限
+type UpdateBaseAppRoleRespRole struct {
+	RoleName   string                                `json:"role_name,omitempty"`   // 自定义角色名称
+	TableRoles []*UpdateBaseAppRoleRespRoleTableRole `json:"table_roles,omitempty"` // 针对数据表的权限设置
+	RoleID     string                                `json:"role_id,omitempty"`     // 自定义权限的id
+	BlockRoles []*UpdateBaseAppRoleRespRoleBlockRole `json:"block_roles,omitempty"` // block权限
+	BaseRule   interface{}                           `json:"base_rule,omitempty"`   // 多维表格点位的权限。- 未设置时, 表示自定义角色拥有所有点位权限。- 设置时, 可设置以下两种权限: -  `base_complex_edit` : 设置是否可以创建副本、下载、打印多维表格    - `copy`: 设置是否可以复制多维表格内容该参数类型为 map, 其中 key 是权限点位名称, value 是权限开关。value 枚举值有: `0`: 无权限- `1`: 有权限
 }
-
-
-
-
 
 // UpdateBaseAppRoleRespRoleBlockRole ...
-type UpdateBaseAppRoleRespRoleBlockRole struct { 
-BlockID string `json:"block_id,omitempty"` // Block ID
-BlockPerm int64 `json:"block_perm,omitempty"` // Block权限可选值有: 无权限可阅读
-BlockType string `json:"block_type,omitempty"` // Block类型可选值有: 仪表盘
+type UpdateBaseAppRoleRespRoleBlockRole struct {
+	BlockID   string `json:"block_id,omitempty"`   // Block ID
+	BlockPerm int64  `json:"block_perm,omitempty"` // Block权限可选值有: 无权限可阅读
+	BlockType string `json:"block_type,omitempty"` // Block类型可选值有: 仪表盘
 }
-
-
-
-
 
 // UpdateBaseAppRoleRespRoleTableRole ...
-type UpdateBaseAppRoleRespRoleTableRole struct { 
-TablePerm int64 `json:"table_perm,omitempty"` // 数据表权限。提示: 协作者可编辑自己的记录 和 可编辑指定字段 是 可编辑记录 的特殊情况, 可通过指定 `rec_rule` 或 `field_perm` 参数实现相同的效果。可选值有: 无权限可阅读可编辑可管理
-TableName string `json:"table_name,omitempty"` // 数据表名
-TableID string `json:"table_id,omitempty"` // 数据表 ID。详情参考[数据表 table](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#8ff3bb0b)。
-RecRule *UpdateBaseAppRoleRespRoleTableRoleRecRule `json:"rec_rule,omitempty"` // 记录筛选条件, 当 `table_perm` 为 1 或 2 时生效。用于指定可编辑或可阅读的记录。
-OtherRecRule *UpdateBaseAppRoleRespRoleTableRoleOtherRecRule `json:"other_rec_rule,omitempty"` // 记录筛选条件, 在 `rec_rule.other_perm` 为 0 时生效。对于未命中 `rec_rule` 的记录, 通过 `other_rec_rule` 指定可阅读记录范围；此时, 既未命中 `rec_rule`、也未命中 `other_rec_rule` 的记录会被禁止阅读。
-FieldPerm interface{} `json:"field_perm,omitempty"` // 字段权限, 仅在 table_perm 为 2 时有意义, 设置字段可编辑或可阅读权限
-AllowAddRecord bool `json:"allow_add_record,omitempty"` // 新增记录权限, 仅在 table_perm 为 2 时有意义, 用于设置记录是否可以新增
-AllowDeleteRecord bool `json:"allow_delete_record,omitempty"` // 删除记录权限, 仅在 table_perm 为 2 时有意义, 用于设置记录是否可以删除
-ViewPerm int64 `json:"view_perm,omitempty"` // 视图权限可选值有: 可阅读可编辑
-ViewRules interface{} `json:"view_rules,omitempty"` // 可读的视图集合, 仅在 view_perm 为 1 （视图为可阅读）时生效。- 未设置时, 表示所有视图可读。- 设置后, 表示设置的视图可读, 未设置的视图无权限。该参数类型为 map, 其中 key 是视图 ID, value 是视图对应的权限。value 枚举值有: `0`: 无权限- `1`: 可阅读
-FieldActionRules interface{} `json:"field_action_rules,omitempty"` // 字段点位的权限配置, 仅可配置单多选字段、附件字段。点位的枚举值有: `select_option_edit` : 选项配置点位, 配置是否可增删改单、多选选项, 未设置表示无权限。- `attachment_export`: 附件操作权限点位, 配置是否可导出附件, 未设置表示可导出。该参数类型为两层 map 结构, 其中 key 是字段点位权限, value 是字段权限集合。字段权限集合也是一个 map 结构, 其中 key 是字段名称, value 是字段点位权限: `0`: 无权限- `1`: 有权限
+type UpdateBaseAppRoleRespRoleTableRole struct {
+	TablePerm         int64                                           `json:"table_perm,omitempty"`          // 数据表权限。提示: 协作者可编辑自己的记录 和 可编辑指定字段 是 可编辑记录 的特殊情况, 可通过指定 `rec_rule` 或 `field_perm` 参数实现相同的效果。可选值有: 无权限可阅读可编辑可管理
+	TableName         string                                          `json:"table_name,omitempty"`          // 数据表名
+	TableID           string                                          `json:"table_id,omitempty"`            // 数据表 ID。详情参考[数据表 table](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#8ff3bb0b)。
+	RecRule           *UpdateBaseAppRoleRespRoleTableRoleRecRule      `json:"rec_rule,omitempty"`            // 记录筛选条件, 当 `table_perm` 为 1 或 2 时生效。用于指定可编辑或可阅读的记录。
+	OtherRecRule      *UpdateBaseAppRoleRespRoleTableRoleOtherRecRule `json:"other_rec_rule,omitempty"`      // 记录筛选条件, 在 `rec_rule.other_perm` 为 0 时生效。对于未命中 `rec_rule` 的记录, 通过 `other_rec_rule` 指定可阅读记录范围；此时, 既未命中 `rec_rule`、也未命中 `other_rec_rule` 的记录会被禁止阅读。
+	FieldPerm         interface{}                                     `json:"field_perm,omitempty"`          // 字段权限, 仅在 table_perm 为 2 时有意义, 设置字段可编辑或可阅读权限
+	AllowAddRecord    bool                                            `json:"allow_add_record,omitempty"`    // 新增记录权限, 仅在 table_perm 为 2 时有意义, 用于设置记录是否可以新增
+	AllowDeleteRecord bool                                            `json:"allow_delete_record,omitempty"` // 删除记录权限, 仅在 table_perm 为 2 时有意义, 用于设置记录是否可以删除
+	ViewPerm          int64                                           `json:"view_perm,omitempty"`           // 视图权限可选值有: 可阅读可编辑
+	ViewRules         interface{}                                     `json:"view_rules,omitempty"`          // 可读的视图集合, 仅在 view_perm 为 1 （视图为可阅读）时生效。- 未设置时, 表示所有视图可读。- 设置后, 表示设置的视图可读, 未设置的视图无权限。该参数类型为 map, 其中 key 是视图 ID, value 是视图对应的权限。value 枚举值有: `0`: 无权限- `1`: 可阅读
+	FieldActionRules  interface{}                                     `json:"field_action_rules,omitempty"`  // 字段点位的权限配置, 仅可配置单多选字段、附件字段。点位的枚举值有: `select_option_edit` : 选项配置点位, 配置是否可增删改单、多选选项, 未设置表示无权限。- `attachment_export`: 附件操作权限点位, 配置是否可导出附件, 未设置表示可导出。该参数类型为两层 map 结构, 其中 key 是字段点位权限, value 是字段权限集合。字段权限集合也是一个 map 结构, 其中 key 是字段名称, value 是字段点位权限: `0`: 无权限- `1`: 有权限
 }
-
-
-
-
 
 // UpdateBaseAppRoleRespRoleTableRoleOtherRecRule ...
-type UpdateBaseAppRoleRespRoleTableRoleOtherRecRule struct { 
-Conditions []*UpdateBaseAppRoleRespRoleTableRoleOtherRecRuleCondition `json:"conditions,omitempty"` // 记录筛选条件
-Conjunction string `json:"conjunction,omitempty"` // 多个筛选条件的关系可选值有: 与或
-Perm int64 `json:"perm,omitempty"` // 规则筛选记录对应的权限可选值有: 仅可阅读可编辑
+type UpdateBaseAppRoleRespRoleTableRoleOtherRecRule struct {
+	Conditions  []*UpdateBaseAppRoleRespRoleTableRoleOtherRecRuleCondition `json:"conditions,omitempty"`  // 记录筛选条件
+	Conjunction string                                                     `json:"conjunction,omitempty"` // 多个筛选条件的关系可选值有: 与或
+	Perm        int64                                                      `json:"perm,omitempty"`        // 规则筛选记录对应的权限可选值有: 仅可阅读可编辑
 }
-
-
-
-
 
 // UpdateBaseAppRoleRespRoleTableRoleOtherRecRuleCondition ...
-type UpdateBaseAppRoleRespRoleTableRoleOtherRecRuleCondition struct { 
-FieldName string `json:"field_name,omitempty"` // 字段名
-Operator string `json:"operator,omitempty"` // 运算符可选值有: 等于不等于包含不包含为空不为空
-Value []string `json:"value,omitempty"` // 条件的值, 可以是单个值或多个值的数组。详情参考[字段目标值（value）填写说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/record-filter-guide#3e0fd644)。
-FieldType int64 `json:"field_type,omitempty"` // 字段类型
+type UpdateBaseAppRoleRespRoleTableRoleOtherRecRuleCondition struct {
+	FieldName string   `json:"field_name,omitempty"` // 字段名
+	Operator  string   `json:"operator,omitempty"`   // 运算符可选值有: 等于不等于包含不包含为空不为空
+	Value     []string `json:"value,omitempty"`      // 条件的值, 可以是单个值或多个值的数组。详情参考[字段目标值（value）填写说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/record-filter-guide#3e0fd644)。
+	FieldType int64    `json:"field_type,omitempty"` // 字段类型
 }
-
-
-
-
 
 // UpdateBaseAppRoleRespRoleTableRoleRecRule ...
-type UpdateBaseAppRoleRespRoleTableRoleRecRule struct { 
-Conditions []*UpdateBaseAppRoleRespRoleTableRoleRecRuleCondition `json:"conditions,omitempty"` // 记录筛选条件, 用于指定可编辑或可阅读的记录。
-Conjunction string `json:"conjunction,omitempty"` // 多个筛选条件的关系可选值有: 与或
-Perm int64 `json:"perm,omitempty"` // rec_rule 的记录对应的权限可选值有: 仅可阅读可编辑
-OtherPerm int64 `json:"other_perm,omitempty"` // 其他记录权限可选值有: 禁止查看仅可阅读
+type UpdateBaseAppRoleRespRoleTableRoleRecRule struct {
+	Conditions  []*UpdateBaseAppRoleRespRoleTableRoleRecRuleCondition `json:"conditions,omitempty"`  // 记录筛选条件, 用于指定可编辑或可阅读的记录。
+	Conjunction string                                                `json:"conjunction,omitempty"` // 多个筛选条件的关系可选值有: 与或
+	Perm        int64                                                 `json:"perm,omitempty"`        // rec_rule 的记录对应的权限可选值有: 仅可阅读可编辑
+	OtherPerm   int64                                                 `json:"other_perm,omitempty"`  // 其他记录权限可选值有: 禁止查看仅可阅读
 }
-
-
-
-
 
 // UpdateBaseAppRoleRespRoleTableRoleRecRuleCondition ...
-type UpdateBaseAppRoleRespRoleTableRoleRecRuleCondition struct { 
-FieldName string `json:"field_name,omitempty"` // 条件字段的名称。记录筛选条件是“创建人包含访问者本人”时, 此参数值为 ""。
-Operator string `json:"operator,omitempty"` // 条件运算符可选值有: 等于不等于包含不包含为空不为空
-Value []string `json:"value,omitempty"` // 条件的值, 可以是单个值或多个值的数组。详情参考[字段目标值（value）填写说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/record-filter-guide#3e0fd644)。
-FieldType int64 `json:"field_type,omitempty"` // 字段类型
+type UpdateBaseAppRoleRespRoleTableRoleRecRuleCondition struct {
+	FieldName string   `json:"field_name,omitempty"` // 条件字段的名称。记录筛选条件是“创建人包含访问者本人”时, 此参数值为 ""。
+	Operator  string   `json:"operator,omitempty"`   // 条件运算符可选值有: 等于不等于包含不包含为空不为空
+	Value     []string `json:"value,omitempty"`      // 条件的值, 可以是单个值或多个值的数组。详情参考[字段目标值（value）填写说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-table-record/record-filter-guide#3e0fd644)。
+	FieldType int64    `json:"field_type,omitempty"` // 字段类型
 }
-
-
-
-
 
 // updateBaseAppRoleResp ...
-type updateBaseAppRoleResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *UpdateBaseAppRoleResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type updateBaseAppRoleResp struct {
+	Code  int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                 `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateBaseAppRoleResp `json:"data,omitempty"`
+	Error *ErrorDetail           `json:"error,omitempty"`
 }
-
-
-
-

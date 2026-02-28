@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // GetTrustPartyCollaborationTenant 基于组织tenant key获取关联组织详情, 需要对对方组织有可见权限才可以获取。
@@ -27,9 +27,8 @@ import (
 // 使用 user_access_token 时, 按照 admin 管理后台关联组织列表中针对用户设置的可见性规则进行校验, 使用 tenant_access_token 时, 按照应用互通界面中针对应用设置的可见性规则进行校验。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/trust_party-v1/collaboration_tenant/get
-// 
 func (r *TrustPartyService) GetTrustPartyCollaborationTenant(ctx context.Context, request *GetTrustPartyCollaborationTenantReq, options ...MethodOptionFunc) (*GetTrustPartyCollaborationTenantResp, *Response, error) {
-if r.cli.mock.mockTrustPartyGetTrustPartyCollaborationTenant != nil {
+	if r.cli.mock.mockTrustPartyGetTrustPartyCollaborationTenant != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] TrustParty#GetTrustPartyCollaborationTenant mock enable")
 		return r.cli.mock.mockTrustPartyGetTrustPartyCollaborationTenant(ctx, request, options...)
 	}
@@ -38,12 +37,11 @@ if r.cli.mock.mockTrustPartyGetTrustPartyCollaborationTenant != nil {
 		Scope:                 "TrustParty",
 		API:                   "GetTrustPartyCollaborationTenant",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/trust_party/v1/collaboration_tenants/:target_tenant_key",
+		URL:                   r.cli.openBaseURL + "/open-apis/trust_party/v1/collaboration_tenants/:target_tenant_key",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getTrustPartyCollaborationTenantResp)
 
@@ -55,101 +53,69 @@ if r.cli.mock.mockTrustPartyGetTrustPartyCollaborationTenant != nil {
 func (r *Mock) MockTrustPartyGetTrustPartyCollaborationTenant(f func(ctx context.Context, request *GetTrustPartyCollaborationTenantReq, options ...MethodOptionFunc) (*GetTrustPartyCollaborationTenantResp, *Response, error)) {
 	r.mockTrustPartyGetTrustPartyCollaborationTenant = f
 }
+
 // UnMockTrustPartyGetTrustPartyCollaborationTenant un-mock TrustPartyGetTrustPartyCollaborationTenant method
 func (r *Mock) UnMockTrustPartyGetTrustPartyCollaborationTenant() {
 	r.mockTrustPartyGetTrustPartyCollaborationTenant = nil
 }
 
-
 // GetTrustPartyCollaborationTenantReq ...
-type GetTrustPartyCollaborationTenantReq struct { 
-TargetTenantKey string `path:"target_tenant_key" json:"-"` // 对方关联组织的tenant key, 可通过[管理员获取所有关联组织列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/collaboration_tenant/list)获取示例值: "4e6ac4d14bcd5071a37a39de902c7141"
+type GetTrustPartyCollaborationTenantReq struct {
+	TargetTenantKey string `path:"target_tenant_key" json:"-"` // 对方关联组织的tenant key, 可通过[管理员获取所有关联组织列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/collaboration_tenant/list)获取示例值: "4e6ac4d14bcd5071a37a39de902c7141"
 }
-
-
-
-
 
 // GetTrustPartyCollaborationTenantResp ...
-type GetTrustPartyCollaborationTenantResp struct { 
-TargetTenant *GetTrustPartyCollaborationTenantRespTargetTenant `json:"target_tenant,omitempty"` // 对方关联组织详情
+type GetTrustPartyCollaborationTenantResp struct {
+	TargetTenant *GetTrustPartyCollaborationTenantRespTargetTenant `json:"target_tenant,omitempty"` // 对方关联组织详情
 }
-
-
-
-
 
 // GetTrustPartyCollaborationTenantRespTargetTenant ...
-type GetTrustPartyCollaborationTenantRespTargetTenant struct { 
-TenantKey string `json:"tenant_key,omitempty"` // 关联组织的租户ID
-TenantName string `json:"tenant_name,omitempty"` // 目标组织的名称
-I18nTenantName *GetTrustPartyCollaborationTenantRespTargetTenantI18nTenantName `json:"i18n_tenant_name,omitempty"` // 目标组织的i18n名称
-TenantShortName string `json:"tenant_short_name,omitempty"` // 目标组织的简称
-I18nTenantShortName *GetTrustPartyCollaborationTenantRespTargetTenantI18nTenantShortName `json:"i18n_tenant_short_name,omitempty"` // 目标组织的i18n简称
-ConnectTime int64 `json:"connect_time,omitempty"` // 关联时间
-TenantTag string `json:"tenant_tag,omitempty"` // 标签
-I18nTenantTag *GetTrustPartyCollaborationTenantRespTargetTenantI18nTenantTag `json:"i18n_tenant_tag,omitempty"` // i18n标签
-Avatar *GetTrustPartyCollaborationTenantRespTargetTenantAvatar `json:"avatar,omitempty"` // 组织icon信息
-Brand string `json:"brand,omitempty"` // 组织品牌
+type GetTrustPartyCollaborationTenantRespTargetTenant struct {
+	TenantKey           string                                                               `json:"tenant_key,omitempty"`             // 关联组织的租户ID
+	TenantName          string                                                               `json:"tenant_name,omitempty"`            // 目标组织的名称
+	I18nTenantName      *GetTrustPartyCollaborationTenantRespTargetTenantI18nTenantName      `json:"i18n_tenant_name,omitempty"`       // 目标组织的i18n名称
+	TenantShortName     string                                                               `json:"tenant_short_name,omitempty"`      // 目标组织的简称
+	I18nTenantShortName *GetTrustPartyCollaborationTenantRespTargetTenantI18nTenantShortName `json:"i18n_tenant_short_name,omitempty"` // 目标组织的i18n简称
+	ConnectTime         int64                                                                `json:"connect_time,omitempty"`           // 关联时间
+	TenantTag           string                                                               `json:"tenant_tag,omitempty"`             // 标签
+	I18nTenantTag       *GetTrustPartyCollaborationTenantRespTargetTenantI18nTenantTag       `json:"i18n_tenant_tag,omitempty"`        // i18n标签
+	Avatar              *GetTrustPartyCollaborationTenantRespTargetTenantAvatar              `json:"avatar,omitempty"`                 // 组织icon信息
+	Brand               string                                                               `json:"brand,omitempty"`                  // 组织品牌
 }
-
-
-
-
 
 // GetTrustPartyCollaborationTenantRespTargetTenantAvatar ...
-type GetTrustPartyCollaborationTenantRespTargetTenantAvatar struct { 
-Avatar72 string `json:"avatar_72,omitempty"` // 72*72像素头像链接
-Avatar240 string `json:"avatar_240,omitempty"` // 240*240像素头像链接
-Avatar640 string `json:"avatar_640,omitempty"` // 640*640像素头像链接
-AvatarOrigin string `json:"avatar_origin,omitempty"` // 原始头像链接
+type GetTrustPartyCollaborationTenantRespTargetTenantAvatar struct {
+	Avatar72     string `json:"avatar_72,omitempty"`     // 72*72像素头像链接
+	Avatar240    string `json:"avatar_240,omitempty"`    // 240*240像素头像链接
+	Avatar640    string `json:"avatar_640,omitempty"`    // 640*640像素头像链接
+	AvatarOrigin string `json:"avatar_origin,omitempty"` // 原始头像链接
 }
-
-
-
-
 
 // GetTrustPartyCollaborationTenantRespTargetTenantI18nTenantName ...
-type GetTrustPartyCollaborationTenantRespTargetTenantI18nTenantName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文名
-JaJp string `json:"ja_jp,omitempty"` // 日文名
-EnUs string `json:"en_us,omitempty"` // 英文名
+type GetTrustPartyCollaborationTenantRespTargetTenantI18nTenantName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名
+	JaJp string `json:"ja_jp,omitempty"` // 日文名
+	EnUs string `json:"en_us,omitempty"` // 英文名
 }
-
-
-
-
 
 // GetTrustPartyCollaborationTenantRespTargetTenantI18nTenantShortName ...
-type GetTrustPartyCollaborationTenantRespTargetTenantI18nTenantShortName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文名
-JaJp string `json:"ja_jp,omitempty"` // 日文名
-EnUs string `json:"en_us,omitempty"` // 英文名
+type GetTrustPartyCollaborationTenantRespTargetTenantI18nTenantShortName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名
+	JaJp string `json:"ja_jp,omitempty"` // 日文名
+	EnUs string `json:"en_us,omitempty"` // 英文名
 }
-
-
-
-
 
 // GetTrustPartyCollaborationTenantRespTargetTenantI18nTenantTag ...
-type GetTrustPartyCollaborationTenantRespTargetTenantI18nTenantTag struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文名
-JaJp string `json:"ja_jp,omitempty"` // 日文名
-EnUs string `json:"en_us,omitempty"` // 英文名
+type GetTrustPartyCollaborationTenantRespTargetTenantI18nTenantTag struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名
+	JaJp string `json:"ja_jp,omitempty"` // 日文名
+	EnUs string `json:"en_us,omitempty"` // 英文名
 }
-
-
-
-
 
 // getTrustPartyCollaborationTenantResp ...
-type getTrustPartyCollaborationTenantResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *GetTrustPartyCollaborationTenantResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type getTrustPartyCollaborationTenantResp struct {
+	Code  int64                                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                `json:"msg,omitempty"`  // 错误描述
+	Data  *GetTrustPartyCollaborationTenantResp `json:"data,omitempty"`
+	Error *ErrorDetail                          `json:"error,omitempty"`
 }
-
-
-
-

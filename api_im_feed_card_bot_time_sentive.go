@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // UpdateIMFeedCardBotTimeSentive 可将机器人对话在消息列表中置顶展示, 打开飞书首页即可处理重要任务。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/group/im-v2/feed_card/bot_time_sentive
-// 
 func (r *IMService) UpdateIMFeedCardBotTimeSentive(ctx context.Context, request *UpdateIMFeedCardBotTimeSentiveReq, options ...MethodOptionFunc) (*UpdateIMFeedCardBotTimeSentiveResp, *Response, error) {
-if r.cli.mock.mockIMUpdateIMFeedCardBotTimeSentive != nil {
+	if r.cli.mock.mockIMUpdateIMFeedCardBotTimeSentive != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] IM#UpdateIMFeedCardBotTimeSentive mock enable")
 		return r.cli.mock.mockIMUpdateIMFeedCardBotTimeSentive(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockIMUpdateIMFeedCardBotTimeSentive != nil {
 		Scope:                 "IM",
 		API:                   "UpdateIMFeedCardBotTimeSentive",
 		Method:                "PATCH",
-		URL:   r.cli.openBaseURL + "/open-apis/im/v2/feed_cards/bot_time_sentive",
+		URL:                   r.cli.openBaseURL + "/open-apis/im/v2/feed_cards/bot_time_sentive",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(updateIMFeedCardBotTimeSentiveResp)
 
@@ -51,51 +49,35 @@ if r.cli.mock.mockIMUpdateIMFeedCardBotTimeSentive != nil {
 func (r *Mock) MockIMUpdateIMFeedCardBotTimeSentive(f func(ctx context.Context, request *UpdateIMFeedCardBotTimeSentiveReq, options ...MethodOptionFunc) (*UpdateIMFeedCardBotTimeSentiveResp, *Response, error)) {
 	r.mockIMUpdateIMFeedCardBotTimeSentive = f
 }
+
 // UnMockIMUpdateIMFeedCardBotTimeSentive un-mock IMUpdateIMFeedCardBotTimeSentive method
 func (r *Mock) UnMockIMUpdateIMFeedCardBotTimeSentive() {
 	r.mockIMUpdateIMFeedCardBotTimeSentive = nil
 }
 
-
 // UpdateIMFeedCardBotTimeSentiveReq ...
-type UpdateIMFeedCardBotTimeSentiveReq struct { 
-UserIDType IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
-TimeSensitive bool `json:"time_sensitive,omitempty"` // 即时提醒状态（设置为 true 后, 卡片在消息列表临时置顶；设置为 false, 消息卡片不置顶）示例值: true
-UserIDs []string `json:"user_ids,omitempty"` // 用户 ID 列表（ID 类型与 user_id_type 的取值一致。如果是商店应用, 因不支持获取用户 user ID 权限, 所以无法使用 user_id 类型的用户 ID）示例值: ["ou_9d2beb613c85a2412862a49a924558c5"] 长度范围: `1` ～ `50`
+type UpdateIMFeedCardBotTimeSentiveReq struct {
+	UserIDType    IDType   `query:"user_id_type" json:"-"`   // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	TimeSensitive bool     `json:"time_sensitive,omitempty"` // 即时提醒状态（设置为 true 后, 卡片在消息列表临时置顶；设置为 false, 消息卡片不置顶）示例值: true
+	UserIDs       []string `json:"user_ids,omitempty"`       // 用户 ID 列表（ID 类型与 user_id_type 的取值一致。如果是商店应用, 因不支持获取用户 user ID 权限, 所以无法使用 user_id 类型的用户 ID）示例值: ["ou_9d2beb613c85a2412862a49a924558c5"] 长度范围: `1` ～ `50`
 }
-
-
-
-
 
 // UpdateIMFeedCardBotTimeSentiveResp ...
-type UpdateIMFeedCardBotTimeSentiveResp struct { 
-FailedUserReasons []*UpdateIMFeedCardBotTimeSentiveRespFailedUserReason `json:"failed_user_reasons,omitempty"` // 失败原因
+type UpdateIMFeedCardBotTimeSentiveResp struct {
+	FailedUserReasons []*UpdateIMFeedCardBotTimeSentiveRespFailedUserReason `json:"failed_user_reasons,omitempty"` // 失败原因
 }
-
-
-
-
 
 // UpdateIMFeedCardBotTimeSentiveRespFailedUserReason ...
-type UpdateIMFeedCardBotTimeSentiveRespFailedUserReason struct { 
-ErrorCode int64 `json:"error_code,omitempty"` // 错误码
-ErrorMessage string `json:"error_message,omitempty"` // 错误信息
-UserID string `json:"user_id,omitempty"` // 用户id
+type UpdateIMFeedCardBotTimeSentiveRespFailedUserReason struct {
+	ErrorCode    int64  `json:"error_code,omitempty"`    // 错误码
+	ErrorMessage string `json:"error_message,omitempty"` // 错误信息
+	UserID       string `json:"user_id,omitempty"`       // 用户id
 }
-
-
-
-
 
 // updateIMFeedCardBotTimeSentiveResp ...
-type updateIMFeedCardBotTimeSentiveResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *UpdateIMFeedCardBotTimeSentiveResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type updateIMFeedCardBotTimeSentiveResp struct {
+	Code  int64                               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                              `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateIMFeedCardBotTimeSentiveResp `json:"data,omitempty"`
+	Error *ErrorDetail                        `json:"error,omitempty"`
 }
-
-
-
-

@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // UpdateApaasApplicationObjectRecord 编辑对象中的指定记录
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/application-object-record/patch
-// 
 func (r *ApaasService) UpdateApaasApplicationObjectRecord(ctx context.Context, request *UpdateApaasApplicationObjectRecordReq, options ...MethodOptionFunc) (*UpdateApaasApplicationObjectRecordResp, *Response, error) {
-if r.cli.mock.mockApaasUpdateApaasApplicationObjectRecord != nil {
+	if r.cli.mock.mockApaasUpdateApaasApplicationObjectRecord != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Apaas#UpdateApaasApplicationObjectRecord mock enable")
 		return r.cli.mock.mockApaasUpdateApaasApplicationObjectRecord(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockApaasUpdateApaasApplicationObjectRecord != nil {
 		Scope:                 "Apaas",
 		API:                   "UpdateApaasApplicationObjectRecord",
 		Method:                "PATCH",
-		URL:   r.cli.openBaseURL + "/open-apis/apaas/v1/applications/:namespace/objects/:object_api_name/records/:id",
+		URL:                   r.cli.openBaseURL + "/open-apis/apaas/v1/applications/:namespace/objects/:object_api_name/records/:id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(updateApaasApplicationObjectRecordResp)
 
@@ -51,40 +49,27 @@ if r.cli.mock.mockApaasUpdateApaasApplicationObjectRecord != nil {
 func (r *Mock) MockApaasUpdateApaasApplicationObjectRecord(f func(ctx context.Context, request *UpdateApaasApplicationObjectRecordReq, options ...MethodOptionFunc) (*UpdateApaasApplicationObjectRecordResp, *Response, error)) {
 	r.mockApaasUpdateApaasApplicationObjectRecord = f
 }
+
 // UnMockApaasUpdateApaasApplicationObjectRecord un-mock ApaasUpdateApaasApplicationObjectRecord method
 func (r *Mock) UnMockApaasUpdateApaasApplicationObjectRecord() {
 	r.mockApaasUpdateApaasApplicationObjectRecord = nil
 }
 
-
 // UpdateApaasApplicationObjectRecordReq ...
-type UpdateApaasApplicationObjectRecordReq struct { 
-Namespace string `path:"namespace" json:"-"` // 应用命名空间示例值: "package_test__c" 长度范围: `0` ～ `256` 字符
-ObjectApiName string `path:"object_api_name" json:"-"` // 对象唯一标识示例值: "user" 长度范围: `0` ～ `256` 字符
-ID string `path:"id" json:"-"` // 记录ID示例值: "1764024447556775"
-Record string `json:"record,omitempty"` // 创建对象使用的数据, 键为字段 API 名称, 值为字段值, 格式可参考字段值格式示例值: "{\"_id\":\"1798681438085228\", \"book_count\":\"3\", \"book_name\":\"showcase2\"}" 最小长度: `0` 字符
+type UpdateApaasApplicationObjectRecordReq struct {
+	Namespace     string `path:"namespace" json:"-"`       // 应用命名空间示例值: "package_test__c" 长度范围: `0` ～ `256` 字符
+	ObjectApiName string `path:"object_api_name" json:"-"` // 对象唯一标识示例值: "user" 长度范围: `0` ～ `256` 字符
+	ID            string `path:"id" json:"-"`              // 记录ID示例值: "1764024447556775"
+	Record        string `json:"record,omitempty"`         // 创建对象使用的数据, 键为字段 API 名称, 值为字段值, 格式可参考字段值格式示例值: "{\"_id\":\"1798681438085228\", \"book_count\":\"3\", \"book_name\":\"showcase2\"}" 最小长度: `0` 字符
 }
-
-
-
-
 
 // UpdateApaasApplicationObjectRecordResp ...
-type UpdateApaasApplicationObjectRecordResp struct { 
-}
-
-
-
-
+type UpdateApaasApplicationObjectRecordResp struct{}
 
 // updateApaasApplicationObjectRecordResp ...
-type updateApaasApplicationObjectRecordResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *UpdateApaasApplicationObjectRecordResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type updateApaasApplicationObjectRecordResp struct {
+	Code  int64                                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                  `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateApaasApplicationObjectRecordResp `json:"data,omitempty"`
+	Error *ErrorDetail                            `json:"error,omitempty"`
 }
-
-
-
-

@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateDirectoryCollaborationRule 管理员视角新增可搜可见规则。用户需具备关联组织管理员权限。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/collaboration_rule/create
-// 
 func (r *DirectoryService) CreateDirectoryCollaborationRule(ctx context.Context, request *CreateDirectoryCollaborationRuleReq, options ...MethodOptionFunc) (*CreateDirectoryCollaborationRuleResp, *Response, error) {
-if r.cli.mock.mockDirectoryCreateDirectoryCollaborationRule != nil {
+	if r.cli.mock.mockDirectoryCreateDirectoryCollaborationRule != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Directory#CreateDirectoryCollaborationRule mock enable")
 		return r.cli.mock.mockDirectoryCreateDirectoryCollaborationRule(ctx, request, options...)
 	}
@@ -35,12 +34,11 @@ if r.cli.mock.mockDirectoryCreateDirectoryCollaborationRule != nil {
 		Scope:                 "Directory",
 		API:                   "CreateDirectoryCollaborationRule",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/directory/v1/collaboration_rules",
+		URL:                   r.cli.openBaseURL + "/open-apis/directory/v1/collaboration_rules",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(createDirectoryCollaborationRuleResp)
 
@@ -52,62 +50,42 @@ if r.cli.mock.mockDirectoryCreateDirectoryCollaborationRule != nil {
 func (r *Mock) MockDirectoryCreateDirectoryCollaborationRule(f func(ctx context.Context, request *CreateDirectoryCollaborationRuleReq, options ...MethodOptionFunc) (*CreateDirectoryCollaborationRuleResp, *Response, error)) {
 	r.mockDirectoryCreateDirectoryCollaborationRule = f
 }
+
 // UnMockDirectoryCreateDirectoryCollaborationRule un-mock DirectoryCreateDirectoryCollaborationRule method
 func (r *Mock) UnMockDirectoryCreateDirectoryCollaborationRule() {
 	r.mockDirectoryCreateDirectoryCollaborationRule = nil
 }
 
-
 // CreateDirectoryCollaborationRuleReq ...
-type CreateDirectoryCollaborationRuleReq struct { 
-TargetTenantKey string `query:"target_tenant_key" json:"-"` // 对方组织的tenant key, 可通过[管理员获取所有关联组织列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/collaboration_tenant/list)获取示例值: test_key
-Subjects *CreateDirectoryCollaborationRuleReqSubjects `json:"subjects,omitempty"` // 实体数量之和需要小于100
-Objects *CreateDirectoryCollaborationRuleReqObjects `json:"objects,omitempty"` // 实体数量之和需要小于100
+type CreateDirectoryCollaborationRuleReq struct {
+	TargetTenantKey string                                       `query:"target_tenant_key" json:"-"` // 对方组织的tenant key, 可通过[管理员获取所有关联组织列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/collaboration_tenant/list)获取示例值: test_key
+	Subjects        *CreateDirectoryCollaborationRuleReqSubjects `json:"subjects,omitempty"`          // 实体数量之和需要小于100
+	Objects         *CreateDirectoryCollaborationRuleReqObjects  `json:"objects,omitempty"`           // 实体数量之和需要小于100
 }
-
-
-
-
 
 // CreateDirectoryCollaborationRuleReqObjects ...
-type CreateDirectoryCollaborationRuleReqObjects struct { 
-OpenUserIDs []string `json:"open_user_ids,omitempty"` // 用户 open id, 可以使用[获取关联组织双方共享成员范围](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/collboration_share_entity/list)和[获取关联组织的部门和成员信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/collaboration_tenant/visible_organization)来组合获取我方想要设置的关联组织部门/用户组和人员示例值: ["od-112121"] 长度范围: `0` ～ `100`
-OpenDepartmentIDs []string `json:"open_department_ids,omitempty"` // 部门 open id, 0代表全部成员；可以使用[获取关联组织双方共享成员范围](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/collboration_share_entity/list)和[获取关联组织的部门和成员信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/collaboration_tenant/visible_organization)来组合获取我方想要设置的关联组织部门/用户组和人员示例值: ["od-12121212"] 长度范围: `0` ～ `100`
-OpenGroupIDs []string `json:"open_group_ids,omitempty"` // 用户组 open id；可以使用[获取关联组织双方共享成员范围](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/collboration_share_entity/list)和[获取关联组织的部门和成员信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/collaboration_tenant/visible_organization)来组合获取我方想要设置的关联组织部门/用户组和人员示例值: ["od-12121"] 长度范围: `0` ～ `100`
+type CreateDirectoryCollaborationRuleReqObjects struct {
+	OpenUserIDs       []string `json:"open_user_ids,omitempty"`       // 用户 open id, 可以使用[获取关联组织双方共享成员范围](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/collboration_share_entity/list)和[获取关联组织的部门和成员信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/collaboration_tenant/visible_organization)来组合获取我方想要设置的关联组织部门/用户组和人员示例值: ["od-112121"] 长度范围: `0` ～ `100`
+	OpenDepartmentIDs []string `json:"open_department_ids,omitempty"` // 部门 open id, 0代表全部成员；可以使用[获取关联组织双方共享成员范围](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/collboration_share_entity/list)和[获取关联组织的部门和成员信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/collaboration_tenant/visible_organization)来组合获取我方想要设置的关联组织部门/用户组和人员示例值: ["od-12121212"] 长度范围: `0` ～ `100`
+	OpenGroupIDs      []string `json:"open_group_ids,omitempty"`      // 用户组 open id；可以使用[获取关联组织双方共享成员范围](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/collboration_share_entity/list)和[获取关联组织的部门和成员信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/collaboration_tenant/visible_organization)来组合获取我方想要设置的关联组织部门/用户组和人员示例值: ["od-12121"] 长度范围: `0` ～ `100`
 }
-
-
-
-
 
 // CreateDirectoryCollaborationRuleReqSubjects ...
-type CreateDirectoryCollaborationRuleReqSubjects struct { 
-OpenUserIDs []string `json:"open_user_ids,omitempty"` // 用户 open id, 可以从我方通讯录/组织架构接口中获得示例值: ["od-112121"] 长度范围: `0` ～ `100`
-OpenDepartmentIDs []string `json:"open_department_ids,omitempty"` // 部门 open id, 0代表全部成员, 可以从我方通讯录/组织架构接口中获得示例值: ["od-12121212"] 长度范围: `0` ～ `100`
-OpenGroupIDs []string `json:"open_group_ids,omitempty"` // 用户组 open id, 可以从我方通讯录/组织架构接口中获得示例值: ["od-12121"] 长度范围: `0` ～ `100`
+type CreateDirectoryCollaborationRuleReqSubjects struct {
+	OpenUserIDs       []string `json:"open_user_ids,omitempty"`       // 用户 open id, 可以从我方通讯录/组织架构接口中获得示例值: ["od-112121"] 长度范围: `0` ～ `100`
+	OpenDepartmentIDs []string `json:"open_department_ids,omitempty"` // 部门 open id, 0代表全部成员, 可以从我方通讯录/组织架构接口中获得示例值: ["od-12121212"] 长度范围: `0` ～ `100`
+	OpenGroupIDs      []string `json:"open_group_ids,omitempty"`      // 用户组 open id, 可以从我方通讯录/组织架构接口中获得示例值: ["od-12121"] 长度范围: `0` ～ `100`
 }
-
-
-
-
 
 // CreateDirectoryCollaborationRuleResp ...
-type CreateDirectoryCollaborationRuleResp struct { 
-AddRuleID string `json:"add_rule_id,omitempty"` // 添加的规则ID
+type CreateDirectoryCollaborationRuleResp struct {
+	AddRuleID string `json:"add_rule_id,omitempty"` // 添加的规则ID
 }
-
-
-
-
 
 // createDirectoryCollaborationRuleResp ...
-type createDirectoryCollaborationRuleResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateDirectoryCollaborationRuleResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createDirectoryCollaborationRuleResp struct {
+	Code  int64                                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateDirectoryCollaborationRuleResp `json:"data,omitempty"`
+	Error *ErrorDetail                          `json:"error,omitempty"`
 }
-
-
-
-

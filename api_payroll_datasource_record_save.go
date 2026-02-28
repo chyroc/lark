@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreatePayrollDatasourceRecordSave 参照数据源配置字段格式, 批量保存（创建或更新）数据记录。
@@ -32,9 +32,8 @@ import (
 // 3. 请确保写入的数据记录的数据源及字段都是被启用的。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/datasource_record/save
-// 
 func (r *PayrollService) CreatePayrollDatasourceRecordSave(ctx context.Context, request *CreatePayrollDatasourceRecordSaveReq, options ...MethodOptionFunc) (*CreatePayrollDatasourceRecordSaveResp, *Response, error) {
-if r.cli.mock.mockPayrollCreatePayrollDatasourceRecordSave != nil {
+	if r.cli.mock.mockPayrollCreatePayrollDatasourceRecordSave != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Payroll#CreatePayrollDatasourceRecordSave mock enable")
 		return r.cli.mock.mockPayrollCreatePayrollDatasourceRecordSave(ctx, request, options...)
 	}
@@ -43,12 +42,11 @@ if r.cli.mock.mockPayrollCreatePayrollDatasourceRecordSave != nil {
 		Scope:                 "Payroll",
 		API:                   "CreatePayrollDatasourceRecordSave",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/payroll/v1/datasource_records/save",
+		URL:                   r.cli.openBaseURL + "/open-apis/payroll/v1/datasource_records/save",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(createPayrollDatasourceRecordSaveResp)
 
@@ -60,60 +58,40 @@ if r.cli.mock.mockPayrollCreatePayrollDatasourceRecordSave != nil {
 func (r *Mock) MockPayrollCreatePayrollDatasourceRecordSave(f func(ctx context.Context, request *CreatePayrollDatasourceRecordSaveReq, options ...MethodOptionFunc) (*CreatePayrollDatasourceRecordSaveResp, *Response, error)) {
 	r.mockPayrollCreatePayrollDatasourceRecordSave = f
 }
+
 // UnMockPayrollCreatePayrollDatasourceRecordSave un-mock PayrollCreatePayrollDatasourceRecordSave method
 func (r *Mock) UnMockPayrollCreatePayrollDatasourceRecordSave() {
 	r.mockPayrollCreatePayrollDatasourceRecordSave = nil
 }
 
-
 // CreatePayrollDatasourceRecordSaveReq ...
-type CreatePayrollDatasourceRecordSaveReq struct { 
-SourceCode string `json:"source_code,omitempty"` // 数据源code。可从[获取外部数据源配置信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/datasource/list)或者 「飞书人事后台-设置-算薪数据设置-外部数据源配置」页面 获取示例值: "test__c"
-Records []*CreatePayrollDatasourceRecordSaveReqRecord `json:"records,omitempty"` // 需保存的记录列表 长度范围: `1` ～ `50`
+type CreatePayrollDatasourceRecordSaveReq struct {
+	SourceCode string                                        `json:"source_code,omitempty"` // 数据源code。可从[获取外部数据源配置信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/datasource/list)或者 「飞书人事后台-设置-算薪数据设置-外部数据源配置」页面 获取示例值: "test__c"
+	Records    []*CreatePayrollDatasourceRecordSaveReqRecord `json:"records,omitempty"`     // 需保存的记录列表 长度范围: `1` ～ `50`
 }
-
-
-
-
 
 // CreatePayrollDatasourceRecordSaveReqRecord ...
-type CreatePayrollDatasourceRecordSaveReqRecord struct { 
-ActiveStatus int64 `json:"active_status,omitempty"` // 记录的启停用状态。说明: 数据记录被停用后, 依旧可以被API保存、查询, 但无法被算薪使用。示例值: 1可选值有: 已启用已停用 取值范围: `1` ～ `100`
-FieldValues []*CreatePayrollDatasourceRecordSaveReqRecordFieldValue `json:"field_values,omitempty"` // 需创建或者更新记录的具体字段值列表: 必传字段: 根据记录的数据源的数据写入维度属性, 有不同的必传字段: 1. 算薪期间维度。“payroll_period”、“employment_id”字段必传, payroll_period格式: “2024-01”。2. 数据发生日期维度（灰度中）。“occur_day”、“employment_id”字段必传。occur_day格式: “2024-01-02”。3. 自定义数据周期维度（灰度中）。“custom_start”、“custom_end”、“employment_id”字段必传。custom_start、custom_end格式: “2024-01-02”。employment_id为飞书人事中员工的基本信息id, 可通过[搜索员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)获取- 其他自定字段按照诉求可选传入, 需保证写入的字段在配置中存在且启用。字段code不得重复传入, 且字段的值需符合类型对应的约束。
+type CreatePayrollDatasourceRecordSaveReqRecord struct {
+	ActiveStatus int64                                                   `json:"active_status,omitempty"` // 记录的启停用状态。说明: 数据记录被停用后, 依旧可以被API保存、查询, 但无法被算薪使用。示例值: 1可选值有: 已启用已停用 取值范围: `1` ～ `100`
+	FieldValues  []*CreatePayrollDatasourceRecordSaveReqRecordFieldValue `json:"field_values,omitempty"`  // 需创建或者更新记录的具体字段值列表: 必传字段: 根据记录的数据源的数据写入维度属性, 有不同的必传字段: 1. 算薪期间维度。“payroll_period”、“employment_id”字段必传, payroll_period格式: “2024-01”。2. 数据发生日期维度（灰度中）。“occur_day”、“employment_id”字段必传。occur_day格式: “2024-01-02”。3. 自定义数据周期维度（灰度中）。“custom_start”、“custom_end”、“employment_id”字段必传。custom_start、custom_end格式: “2024-01-02”。employment_id为飞书人事中员工的基本信息id, 可通过[搜索员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)获取- 其他自定字段按照诉求可选传入, 需保证写入的字段在配置中存在且启用。字段code不得重复传入, 且字段的值需符合类型对应的约束。
 }
-
-
-
-
 
 // CreatePayrollDatasourceRecordSaveReqRecordFieldValue ...
-type CreatePayrollDatasourceRecordSaveReqRecordFieldValue struct { 
-FieldCode string `json:"field_code,omitempty"` // 数据源字段编码, 请确保字段存在且是启用的。可从「查询外部数据源设置」API 或者 「飞书人事后台-设置-算薪数据设置-外部数据源配置」页面 获取示例值: "test__c"
-Value string `json:"value,omitempty"` // 字段值 通过string传输, 不允许输入空字符串, 请确保字段的值符合类型的约束。  示例值: "123"
-FieldType *int64 `json:"field_type,omitempty"` // 1. 不需要传入此字段, 这里只做文档说明用。2. 字段类型可从「查询外部数据源设置」的返回值中的datasources.fields. field_type中获取3. value的传值的格式需符合类型的约束: field_type=1: 金额。eg: "12.23"。目前仅支持人民币¥元, 超过设置的精度会被四舍五入；- field_type=2: 数值。eg: "12.23"。超过设置的精度会被四舍五入。- field_type=3: 文本。 eg: "我是一段文本"。文本字符个数不允许超过500, 一条记录的文本总的字符个数不允许超过3000.- field_type=4: 日期。除系统预置的payroll_period字段外的所有自定义字段, 日期格式均为“yyyy-mm-dd”, 示例: “2024-01-01”。但payroll_period代表算薪期间, 精确到月, 格式“yyyy-mm”, 示例: “2024-01”。- field_type=5: 百分比。百分比 "10" 代表10%, 最多保留两位小数, 超过后四舍五入示例值: 1 取值范围: `1` ～ `100`
+type CreatePayrollDatasourceRecordSaveReqRecordFieldValue struct {
+	FieldCode string `json:"field_code,omitempty"` // 数据源字段编码, 请确保字段存在且是启用的。可从「查询外部数据源设置」API 或者 「飞书人事后台-设置-算薪数据设置-外部数据源配置」页面 获取示例值: "test__c"
+	Value     string `json:"value,omitempty"`      // 字段值 通过string传输, 不允许输入空字符串, 请确保字段的值符合类型的约束。  示例值: "123"
+	FieldType *int64 `json:"field_type,omitempty"` // 1. 不需要传入此字段, 这里只做文档说明用。2. 字段类型可从「查询外部数据源设置」的返回值中的datasources.fields. field_type中获取3. value的传值的格式需符合类型的约束: field_type=1: 金额。eg: "12.23"。目前仅支持人民币¥元, 超过设置的精度会被四舍五入；- field_type=2: 数值。eg: "12.23"。超过设置的精度会被四舍五入。- field_type=3: 文本。 eg: "我是一段文本"。文本字符个数不允许超过500, 一条记录的文本总的字符个数不允许超过3000.- field_type=4: 日期。除系统预置的payroll_period字段外的所有自定义字段, 日期格式均为“yyyy-mm-dd”, 示例: “2024-01-01”。但payroll_period代表算薪期间, 精确到月, 格式“yyyy-mm”, 示例: “2024-01”。- field_type=5: 百分比。百分比 "10" 代表10%, 最多保留两位小数, 超过后四舍五入示例值: 1 取值范围: `1` ～ `100`
 }
-
-
-
-
 
 // CreatePayrollDatasourceRecordSaveResp ...
-type CreatePayrollDatasourceRecordSaveResp struct { 
-AffectCounts string `json:"affect_counts,omitempty"` // 变更的记录条数, 变更包含新建或者更新记录两种操作。（该字段为数字类型）
+type CreatePayrollDatasourceRecordSaveResp struct {
+	AffectCounts string `json:"affect_counts,omitempty"` // 变更的记录条数, 变更包含新建或者更新记录两种操作。（该字段为数字类型）
 }
-
-
-
-
 
 // createPayrollDatasourceRecordSaveResp ...
-type createPayrollDatasourceRecordSaveResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreatePayrollDatasourceRecordSaveResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createPayrollDatasourceRecordSaveResp struct {
+	Code  int64                                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                 `json:"msg,omitempty"`  // 错误描述
+	Data  *CreatePayrollDatasourceRecordSaveResp `json:"data,omitempty"`
+	Error *ErrorDetail                           `json:"error,omitempty"`
 }
-
-
-
-

@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListCompensationItem 批量查询薪资项
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list
-// 
 func (r *CompensationService) ListCompensationItem(ctx context.Context, request *ListCompensationItemReq, options ...MethodOptionFunc) (*ListCompensationItemResp, *Response, error) {
-if r.cli.mock.mockCompensationListCompensationItem != nil {
+	if r.cli.mock.mockCompensationListCompensationItem != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Compensation#ListCompensationItem mock enable")
 		return r.cli.mock.mockCompensationListCompensationItem(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockCompensationListCompensationItem != nil {
 		Scope:                 "Compensation",
 		API:                   "ListCompensationItem",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/compensation/v1/items",
+		URL:                   r.cli.openBaseURL + "/open-apis/compensation/v1/items",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(listCompensationItemResp)
 
@@ -51,79 +49,55 @@ if r.cli.mock.mockCompensationListCompensationItem != nil {
 func (r *Mock) MockCompensationListCompensationItem(f func(ctx context.Context, request *ListCompensationItemReq, options ...MethodOptionFunc) (*ListCompensationItemResp, *Response, error)) {
 	r.mockCompensationListCompensationItem = f
 }
+
 // UnMockCompensationListCompensationItem un-mock CompensationListCompensationItem method
 func (r *Mock) UnMockCompensationListCompensationItem() {
 	r.mockCompensationListCompensationItem = nil
 }
 
-
 // ListCompensationItemReq ...
-type ListCompensationItemReq struct { 
-PageSize int64 `query:"page_size" json:"-"` // 分页大小示例值: 100默认值: `100` 取值范围: `1` ～ `500`
-PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 5234233214
+type ListCompensationItemReq struct {
+	PageSize  int64   `query:"page_size" json:"-"`  // 分页大小示例值: 100默认值: `100` 取值范围: `1` ～ `500`
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 5234233214
 }
-
-
-
-
 
 // ListCompensationItemResp ...
-type ListCompensationItemResp struct { 
-Items []*ListCompensationItemRespItem `json:"items,omitempty"` // 薪资项信息列表
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
+type ListCompensationItemResp struct {
+	Items     []*ListCompensationItemRespItem `json:"items,omitempty"`      // 薪资项信息列表
+	PageToken string                          `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	HasMore   bool                            `json:"has_more,omitempty"`   // 是否还有更多项
 }
-
-
-
-
 
 // ListCompensationItemRespItem ...
-type ListCompensationItemRespItem struct { 
-ID string `json:"id,omitempty"` // 薪资项ID
-Name string `json:"name,omitempty"` // 薪资项名称
-Description string `json:"description,omitempty"` // 薪资项描述
-CategoryID string `json:"category_id,omitempty"` // 薪资项分类ID, 详细信息可以通过[批量获取薪资项分类信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item_category/list)接口查询获得
-ValueType string `json:"value_type,omitempty"` // 薪资项数值类型可选值有: 金额数值百分比
-PayOffFrequencyType string `json:"pay_off_frequency_type,omitempty"` // 发放频率可选值有: 年半年季度双月月双周周日小时
-DecimalPlaces int64 `json:"decimal_places,omitempty"` // 小数位数
-ActiveStatus int64 `json:"active_status,omitempty"` // 启用状态可选值有: 启用禁用
-I18nNames []*ListCompensationItemRespItemI18nName `json:"i18n_names,omitempty"` // 多语言名称
-I18nDescriptions []*ListCompensationItemRespItemI18nDescription `json:"i18n_descriptions,omitempty"` // 多语言描述
+type ListCompensationItemRespItem struct {
+	ID                  string                                         `json:"id,omitempty"`                     // 薪资项ID
+	Name                string                                         `json:"name,omitempty"`                   // 薪资项名称
+	Description         string                                         `json:"description,omitempty"`            // 薪资项描述
+	CategoryID          string                                         `json:"category_id,omitempty"`            // 薪资项分类ID, 详细信息可以通过[批量获取薪资项分类信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item_category/list)接口查询获得
+	ValueType           string                                         `json:"value_type,omitempty"`             // 薪资项数值类型可选值有: 金额数值百分比
+	PayOffFrequencyType string                                         `json:"pay_off_frequency_type,omitempty"` // 发放频率可选值有: 年半年季度双月月双周周日小时
+	DecimalPlaces       int64                                          `json:"decimal_places,omitempty"`         // 小数位数
+	ActiveStatus        int64                                          `json:"active_status,omitempty"`          // 启用状态可选值有: 启用禁用
+	I18nNames           []*ListCompensationItemRespItemI18nName        `json:"i18n_names,omitempty"`             // 多语言名称
+	I18nDescriptions    []*ListCompensationItemRespItemI18nDescription `json:"i18n_descriptions,omitempty"`      // 多语言描述
 }
-
-
-
-
 
 // ListCompensationItemRespItemI18nDescription ...
-type ListCompensationItemRespItemI18nDescription struct { 
-Locale string `json:"locale,omitempty"` // 语言版本, 例如: “zh-CN”、“en-US”
-Value string `json:"value,omitempty"` // 语言名称
+type ListCompensationItemRespItemI18nDescription struct {
+	Locale string `json:"locale,omitempty"` // 语言版本, 例如: “zh-CN”、“en-US”
+	Value  string `json:"value,omitempty"`  // 语言名称
 }
-
-
-
-
 
 // ListCompensationItemRespItemI18nName ...
-type ListCompensationItemRespItemI18nName struct { 
-Locale string `json:"locale,omitempty"` // 语言版本, 例如: “zh-CN”、“en-US”
-Value string `json:"value,omitempty"` // 语言名称
+type ListCompensationItemRespItemI18nName struct {
+	Locale string `json:"locale,omitempty"` // 语言版本, 例如: “zh-CN”、“en-US”
+	Value  string `json:"value,omitempty"`  // 语言名称
 }
-
-
-
-
 
 // listCompensationItemResp ...
-type listCompensationItemResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *ListCompensationItemResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type listCompensationItemResp struct {
+	Code  int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                    `json:"msg,omitempty"`  // 错误描述
+	Data  *ListCompensationItemResp `json:"data,omitempty"`
+	Error *ErrorDetail              `json:"error,omitempty"`
 }
-
-
-
-

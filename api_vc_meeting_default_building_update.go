@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateVCMeetingDefaultBuildingUpdate 该接口用于编辑建筑信息, 添加楼层, 删除楼层, 编辑楼层信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uETNwYjLxUDM24SM1AjN
-// 
 func (r *VCMeetingService) CreateVCMeetingDefaultBuildingUpdate(ctx context.Context, request *CreateVCMeetingDefaultBuildingUpdateReq, options ...MethodOptionFunc) (*CreateVCMeetingDefaultBuildingUpdateResp, *Response, error) {
-if r.cli.mock.mockVCMeetingCreateVCMeetingDefaultBuildingUpdate != nil {
+	if r.cli.mock.mockVCMeetingCreateVCMeetingDefaultBuildingUpdate != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] VCMeeting#CreateVCMeetingDefaultBuildingUpdate mock enable")
 		return r.cli.mock.mockVCMeetingCreateVCMeetingDefaultBuildingUpdate(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockVCMeetingCreateVCMeetingDefaultBuildingUpdate != nil {
 		Scope:                 "VCMeeting",
 		API:                   "CreateVCMeetingDefaultBuildingUpdate",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/meeting_room/building/update",
+		URL:                   r.cli.openBaseURL + "/open-apis/meeting_room/building/update",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createVCMeetingDefaultBuildingUpdateResp)
 
@@ -51,42 +49,29 @@ if r.cli.mock.mockVCMeetingCreateVCMeetingDefaultBuildingUpdate != nil {
 func (r *Mock) MockVCMeetingCreateVCMeetingDefaultBuildingUpdate(f func(ctx context.Context, request *CreateVCMeetingDefaultBuildingUpdateReq, options ...MethodOptionFunc) (*CreateVCMeetingDefaultBuildingUpdateResp, *Response, error)) {
 	r.mockVCMeetingCreateVCMeetingDefaultBuildingUpdate = f
 }
+
 // UnMockVCMeetingCreateVCMeetingDefaultBuildingUpdate un-mock VCMeetingCreateVCMeetingDefaultBuildingUpdate method
 func (r *Mock) UnMockVCMeetingCreateVCMeetingDefaultBuildingUpdate() {
 	r.mockVCMeetingCreateVCMeetingDefaultBuildingUpdate = nil
 }
 
-
 // CreateVCMeetingDefaultBuildingUpdateReq ...
-type CreateVCMeetingDefaultBuildingUpdateReq struct { 
-BuildingID string `json:"building_id,omitempty"` // 要更新的建筑ID
-Name *string `json:"name,omitempty"` // 建筑名称
-Floors []string `json:"floors,omitempty"` // 楼层列表
-CountryID *string `json:"country_id,omitempty"` // 国家/地区ID
-DistrictID *string `json:"district_id,omitempty"` // 城市ID
-CustomBuildingID *string `json:"custom_building_id,omitempty"` // 租户自定义建筑ID
+type CreateVCMeetingDefaultBuildingUpdateReq struct {
+	BuildingID       string   `json:"building_id,omitempty"`        // 要更新的建筑ID
+	Name             *string  `json:"name,omitempty"`               // 建筑名称
+	Floors           []string `json:"floors,omitempty"`             // 楼层列表
+	CountryID        *string  `json:"country_id,omitempty"`         // 国家/地区ID
+	DistrictID       *string  `json:"district_id,omitempty"`        // 城市ID
+	CustomBuildingID *string  `json:"custom_building_id,omitempty"` // 租户自定义建筑ID
 }
-
-
-
-
 
 // CreateVCMeetingDefaultBuildingUpdateResp ...
-type CreateVCMeetingDefaultBuildingUpdateResp struct { 
-}
-
-
-
-
+type CreateVCMeetingDefaultBuildingUpdateResp struct{}
 
 // createVCMeetingDefaultBuildingUpdateResp ...
-type createVCMeetingDefaultBuildingUpdateResp struct { 
-Code int64 `json:"code,omitempty"` // 返回码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 返回码的描述, "success" 表示成功, 其他为错误提示信息
-Data *CreateVCMeetingDefaultBuildingUpdateResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createVCMeetingDefaultBuildingUpdateResp struct {
+	Code  int64                                     `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg   string                                    `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
+	Data  *CreateVCMeetingDefaultBuildingUpdateResp `json:"data,omitempty"`
+	Error *ErrorDetail                              `json:"error,omitempty"`
 }
-
-
-
-

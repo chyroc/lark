@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateAilySessionRun 该 API 用于在某个飞书 Aily 应用会话（Session）上创建一次运行（Run）。
@@ -30,9 +30,8 @@ import (
 // - 运行（Run）: Aily 助手基于会话内消息进行意图判定、调用匹配的技能, 并返回技能执行后的结果消息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/aily-v1/aily_session-run/create
-// 
 func (r *AilyService) CreateAilySessionRun(ctx context.Context, request *CreateAilySessionRunReq, options ...MethodOptionFunc) (*CreateAilySessionRunResp, *Response, error) {
-if r.cli.mock.mockAilyCreateAilySessionRun != nil {
+	if r.cli.mock.mockAilyCreateAilySessionRun != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Aily#CreateAilySessionRun mock enable")
 		return r.cli.mock.mockAilyCreateAilySessionRun(ctx, request, options...)
 	}
@@ -41,12 +40,11 @@ if r.cli.mock.mockAilyCreateAilySessionRun != nil {
 		Scope:                 "Aily",
 		API:                   "CreateAilySessionRun",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/aily/v1/sessions/:aily_session_id/runs",
+		URL:                   r.cli.openBaseURL + "/open-apis/aily/v1/sessions/:aily_session_id/runs",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(createAilySessionRunResp)
 
@@ -58,70 +56,50 @@ if r.cli.mock.mockAilyCreateAilySessionRun != nil {
 func (r *Mock) MockAilyCreateAilySessionRun(f func(ctx context.Context, request *CreateAilySessionRunReq, options ...MethodOptionFunc) (*CreateAilySessionRunResp, *Response, error)) {
 	r.mockAilyCreateAilySessionRun = f
 }
+
 // UnMockAilyCreateAilySessionRun un-mock AilyCreateAilySessionRun method
 func (r *Mock) UnMockAilyCreateAilySessionRun() {
 	r.mockAilyCreateAilySessionRun = nil
 }
 
-
 // CreateAilySessionRunReq ...
-type CreateAilySessionRunReq struct { 
-XAilyBizUserID *string `header:"X-Aily-BizUserID" json:"-"` // 为标识创建会话的唯一用户 ID- 建议使用唯一内部 ID 或其他可标识用户唯一身份的字段（如飞书账号的 user_id）, 可用于分析来自 API 的具体用户示例值: "ou_5ad573a6411d72b8305fda3a9c15c70e" 长度范围: `0` ～ `64` 字符
-AilySessionID string `path:"aily_session_id" json:"-"` // 会话 ID；参考 [创建会话](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/aily-v1/aily_session/create) 接口示例值: "session_4dfunz7sp1g8m" 长度范围: `0` ～ `32` 字符- 正则校验: `session_[0-9a-hjkmnp-z]{1, 24}`
-AppID string `json:"app_id,omitempty"` // 为 Aily 应用 ID（`spring_xxx__c`）, 可以在 Aily 应用开发页面的浏览器地址里获取示例值: "spring_449d72db2f__c" 长度范围: `0` ～ `64` 字符
-SkillID *string `json:"skill_id,omitempty"` // 指定技能 ID（`skill_xxx`）, 可以在 Aily 技能配置页面的浏览器地址里获取> 指定技能后、能够节省意图匹配的耗时示例值: "skill_6cc6166178ca" 长度范围: `0` ～ `32` 字符
-SkillInput *string `json:"skill_input,omitempty"` // 指定技能 ID 时可以同时指定技能输入> 备注: 常用于工作流技能内指定自定义参数, `skill_input` 需要配合 `skill_id` 同时传递才能生效示例值: "{\"key\": \"value\"}" 长度范围: `0` ～ `255` 字符
-Metadata *string `json:"metadata,omitempty"` // 其他扩展的参数（JSON String）> 备注: `metadata` 传递的参数, 可以在后续 `GetRun` 调用中原样读取获得示例值: "{}" 长度范围: `0` ～ `255` 字符
+type CreateAilySessionRunReq struct {
+	XAilyBizUserID *string `header:"X-Aily-BizUserID" json:"-"` // 为标识创建会话的唯一用户 ID- 建议使用唯一内部 ID 或其他可标识用户唯一身份的字段（如飞书账号的 user_id）, 可用于分析来自 API 的具体用户示例值: "ou_5ad573a6411d72b8305fda3a9c15c70e" 长度范围: `0` ～ `64` 字符
+	AilySessionID  string  `path:"aily_session_id" json:"-"`    // 会话 ID；参考 [创建会话](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/aily-v1/aily_session/create) 接口示例值: "session_4dfunz7sp1g8m" 长度范围: `0` ～ `32` 字符- 正则校验: `session_[0-9a-hjkmnp-z]{1, 24}`
+	AppID          string  `json:"app_id,omitempty"`            // 为 Aily 应用 ID（`spring_xxx__c`）, 可以在 Aily 应用开发页面的浏览器地址里获取示例值: "spring_449d72db2f__c" 长度范围: `0` ～ `64` 字符
+	SkillID        *string `json:"skill_id,omitempty"`          // 指定技能 ID（`skill_xxx`）, 可以在 Aily 技能配置页面的浏览器地址里获取> 指定技能后、能够节省意图匹配的耗时示例值: "skill_6cc6166178ca" 长度范围: `0` ～ `32` 字符
+	SkillInput     *string `json:"skill_input,omitempty"`       // 指定技能 ID 时可以同时指定技能输入> 备注: 常用于工作流技能内指定自定义参数, `skill_input` 需要配合 `skill_id` 同时传递才能生效示例值: "{\"key\": \"value\"}" 长度范围: `0` ～ `255` 字符
+	Metadata       *string `json:"metadata,omitempty"`          // 其他扩展的参数（JSON String）> 备注: `metadata` 传递的参数, 可以在后续 `GetRun` 调用中原样读取获得示例值: "{}" 长度范围: `0` ～ `255` 字符
 }
-
-
-
-
 
 // CreateAilySessionRunResp ...
-type CreateAilySessionRunResp struct { 
-Run *CreateAilySessionRunRespRun `json:"run,omitempty"` // 运行信息
+type CreateAilySessionRunResp struct {
+	Run *CreateAilySessionRunRespRun `json:"run,omitempty"` // 运行信息
 }
-
-
-
-
 
 // CreateAilySessionRunRespRun ...
-type CreateAilySessionRunRespRun struct { 
-ID string `json:"id,omitempty"` // 运行 ID
-CreatedAt string `json:"created_at,omitempty"` // 运行的创建时间, 毫秒时间戳
-AppID string `json:"app_id,omitempty"` // 应用 ID
-SessionID string `json:"session_id,omitempty"` // 会话 ID
-Status string `json:"status,omitempty"` // 状态
-StartedAt string `json:"started_at,omitempty"` // 开始时间, 毫秒时间戳
-EndedAt string `json:"ended_at,omitempty"` // 结束时间, 毫秒时间戳
-Error *CreateAilySessionRunRespRunError `json:"error,omitempty"` // 失败时的错误信息
-Metadata string `json:"metadata,omitempty"` // 其他透传信息
+type CreateAilySessionRunRespRun struct {
+	ID        string                            `json:"id,omitempty"`         // 运行 ID
+	CreatedAt string                            `json:"created_at,omitempty"` // 运行的创建时间, 毫秒时间戳
+	AppID     string                            `json:"app_id,omitempty"`     // 应用 ID
+	SessionID string                            `json:"session_id,omitempty"` // 会话 ID
+	Status    string                            `json:"status,omitempty"`     // 状态
+	StartedAt string                            `json:"started_at,omitempty"` // 开始时间, 毫秒时间戳
+	EndedAt   string                            `json:"ended_at,omitempty"`   // 结束时间, 毫秒时间戳
+	Error     *CreateAilySessionRunRespRunError `json:"error,omitempty"`      // 失败时的错误信息
+	Metadata  string                            `json:"metadata,omitempty"`   // 其他透传信息
 }
-
-
-
-
 
 // CreateAilySessionRunRespRunError ...
-type CreateAilySessionRunRespRunError struct { 
-Code string `json:"code,omitempty"` // 错误码
-Message string `json:"message,omitempty"` // 错误信息
+type CreateAilySessionRunRespRunError struct {
+	Code    string `json:"code,omitempty"`    // 错误码
+	Message string `json:"message,omitempty"` // 错误信息
 }
-
-
-
-
 
 // createAilySessionRunResp ...
-type createAilySessionRunResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateAilySessionRunResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createAilySessionRunResp struct {
+	Code  int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                    `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateAilySessionRunResp `json:"data,omitempty"`
+	Error *ErrorDetail              `json:"error,omitempty"`
 }
-
-
-
-

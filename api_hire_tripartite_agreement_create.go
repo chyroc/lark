@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateHireTripartiteAgreement 在校招投递上创建三方协议。
@@ -29,9 +29,8 @@ import (
 // - 该投递的 Offer 办公地点在中国大陆。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/tripartite_agreement/create
-// 
 func (r *HireService) CreateHireTripartiteAgreement(ctx context.Context, request *CreateHireTripartiteAgreementReq, options ...MethodOptionFunc) (*CreateHireTripartiteAgreementResp, *Response, error) {
-if r.cli.mock.mockHireCreateHireTripartiteAgreement != nil {
+	if r.cli.mock.mockHireCreateHireTripartiteAgreement != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#CreateHireTripartiteAgreement mock enable")
 		return r.cli.mock.mockHireCreateHireTripartiteAgreement(ctx, request, options...)
 	}
@@ -40,11 +39,10 @@ if r.cli.mock.mockHireCreateHireTripartiteAgreement != nil {
 		Scope:                 "Hire",
 		API:                   "CreateHireTripartiteAgreement",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/tripartite_agreements",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/tripartite_agreements",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createHireTripartiteAgreementResp)
 
@@ -56,40 +54,28 @@ if r.cli.mock.mockHireCreateHireTripartiteAgreement != nil {
 func (r *Mock) MockHireCreateHireTripartiteAgreement(f func(ctx context.Context, request *CreateHireTripartiteAgreementReq, options ...MethodOptionFunc) (*CreateHireTripartiteAgreementResp, *Response, error)) {
 	r.mockHireCreateHireTripartiteAgreement = f
 }
+
 // UnMockHireCreateHireTripartiteAgreement un-mock HireCreateHireTripartiteAgreement method
 func (r *Mock) UnMockHireCreateHireTripartiteAgreement() {
 	r.mockHireCreateHireTripartiteAgreement = nil
 }
 
-
 // CreateHireTripartiteAgreementReq ...
-type CreateHireTripartiteAgreementReq struct { 
-ApplicationID string `json:"application_id,omitempty"` // 投递 ID, 可通过[获取投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/list)接口获取示例值: "6930815272790114325"
-State int64 `json:"state,omitempty"` // 三方协议状态示例值: 1可选值有: 未开始已申请学生处理中公司处理中学校处理中已终止已完成解约处理中已解约
-CreateTime string `json:"create_time,omitempty"` // 三方协议创建时间, 毫秒时间戳示例值: "1698292282660"
+type CreateHireTripartiteAgreementReq struct {
+	ApplicationID string `json:"application_id,omitempty"` // 投递 ID, 可通过[获取投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/list)接口获取示例值: "6930815272790114325"
+	State         int64  `json:"state,omitempty"`          // 三方协议状态示例值: 1可选值有: 未开始已申请学生处理中公司处理中学校处理中已终止已完成解约处理中已解约
+	CreateTime    string `json:"create_time,omitempty"`    // 三方协议创建时间, 毫秒时间戳示例值: "1698292282660"
 }
-
-
-
-
 
 // CreateHireTripartiteAgreementResp ...
-type CreateHireTripartiteAgreementResp struct { 
-ID string `json:"id,omitempty"` // 创建的三方协议的 id
+type CreateHireTripartiteAgreementResp struct {
+	ID string `json:"id,omitempty"` // 创建的三方协议的 id
 }
-
-
-
-
 
 // createHireTripartiteAgreementResp ...
-type createHireTripartiteAgreementResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateHireTripartiteAgreementResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createHireTripartiteAgreementResp struct {
+	Code  int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                             `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateHireTripartiteAgreementResp `json:"data,omitempty"`
+	Error *ErrorDetail                       `json:"error,omitempty"`
 }
-
-
-
-

@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // RemoveHireTalentToFolder 根据人才 ID 列表将人才从指定文件夹移除。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/remove_to_folder
-// 
 func (r *HireService) RemoveHireTalentToFolder(ctx context.Context, request *RemoveHireTalentToFolderReq, options ...MethodOptionFunc) (*RemoveHireTalentToFolderResp, *Response, error) {
-if r.cli.mock.mockHireRemoveHireTalentToFolder != nil {
+	if r.cli.mock.mockHireRemoveHireTalentToFolder != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#RemoveHireTalentToFolder mock enable")
 		return r.cli.mock.mockHireRemoveHireTalentToFolder(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockHireRemoveHireTalentToFolder != nil {
 		Scope:                 "Hire",
 		API:                   "RemoveHireTalentToFolder",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/talents/remove_to_folder",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/talents/remove_to_folder",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(removeHireTalentToFolderResp)
 
@@ -51,40 +49,28 @@ if r.cli.mock.mockHireRemoveHireTalentToFolder != nil {
 func (r *Mock) MockHireRemoveHireTalentToFolder(f func(ctx context.Context, request *RemoveHireTalentToFolderReq, options ...MethodOptionFunc) (*RemoveHireTalentToFolderResp, *Response, error)) {
 	r.mockHireRemoveHireTalentToFolder = f
 }
+
 // UnMockHireRemoveHireTalentToFolder un-mock HireRemoveHireTalentToFolder method
 func (r *Mock) UnMockHireRemoveHireTalentToFolder() {
 	r.mockHireRemoveHireTalentToFolder = nil
 }
 
-
 // RemoveHireTalentToFolderReq ...
-type RemoveHireTalentToFolderReq struct { 
-TalentIDList []string `json:"talent_id_list,omitempty"` // 人才 ID 列表, 可通过[获取人才列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/list)接口获得示例值: ["7381815850065463596"] 长度范围: `1` ～ `200`
-FolderID string `json:"folder_id,omitempty"` // 文件夹 ID, 可通过[获取人才文件夹列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_folder/list)接口获取示例值: "7039620186502138156"
+type RemoveHireTalentToFolderReq struct {
+	TalentIDList []string `json:"talent_id_list,omitempty"` // 人才 ID 列表, 可通过[获取人才列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/list)接口获得示例值: ["7381815850065463596"] 长度范围: `1` ～ `200`
+	FolderID     string   `json:"folder_id,omitempty"`      // 文件夹 ID, 可通过[获取人才文件夹列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_folder/list)接口获取示例值: "7039620186502138156"
 }
-
-
-
-
 
 // RemoveHireTalentToFolderResp ...
-type RemoveHireTalentToFolderResp struct { 
-TalentIDList []string `json:"talent_id_list,omitempty"` // 已成功移除的人才 ID 列表, 详情请查看: [获取人才信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/get)
-FolderID string `json:"folder_id,omitempty"` // 文件夹 ID
+type RemoveHireTalentToFolderResp struct {
+	TalentIDList []string `json:"talent_id_list,omitempty"` // 已成功移除的人才 ID 列表, 详情请查看: [获取人才信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/get)
+	FolderID     string   `json:"folder_id,omitempty"`      // 文件夹 ID
 }
-
-
-
-
 
 // removeHireTalentToFolderResp ...
-type removeHireTalentToFolderResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *RemoveHireTalentToFolderResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type removeHireTalentToFolderResp struct {
+	Code  int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                        `json:"msg,omitempty"`  // 错误描述
+	Data  *RemoveHireTalentToFolderResp `json:"data,omitempty"`
+	Error *ErrorDetail                  `json:"error,omitempty"`
 }
-
-
-
-

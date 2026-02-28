@@ -37,12 +37,10 @@ func Test_APaaS_Sample_Failed(t *testing.T) {
 		moduleCli := cli.APaaS
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.AgreeAPaaSApprovalTask(ctx, &lark.AgreeAPaaSApprovalTaskReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
-
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {
@@ -50,7 +48,6 @@ func Test_APaaS_Sample_Failed(t *testing.T) {
 		moduleCli := cli.APaaS
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockAPaaSAgreeAPaaSApprovalTask(func(ctx context.Context, request *lark.AgreeAPaaSApprovalTaskReq, options ...lark.MethodOptionFunc) (*lark.AgreeAPaaSApprovalTaskResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -62,7 +59,6 @@ func Test_APaaS_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockAPaaSRejectAPaaSApprovalTask(func(ctx context.Context, request *lark.RejectAPaaSApprovalTaskReq, options ...lark.MethodOptionFunc) (*lark.RejectAPaaSApprovalTaskResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -74,7 +70,6 @@ func Test_APaaS_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockAPaaSTransferAPaaSApprovalTask(func(ctx context.Context, request *lark.TransferAPaaSApprovalTaskReq, options ...lark.MethodOptionFunc) (*lark.TransferAPaaSApprovalTaskResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -86,7 +81,6 @@ func Test_APaaS_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockAPaaSAddAssigneeAPaaSApprovalTask(func(ctx context.Context, request *lark.AddAssigneeAPaaSApprovalTaskReq, options ...lark.MethodOptionFunc) (*lark.AddAssigneeAPaaSApprovalTaskResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -96,7 +90,6 @@ func Test_APaaS_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
-
 	})
 
 	t.Run("response is failed (mock http)", func(t *testing.T) {
@@ -107,7 +100,6 @@ func Test_APaaS_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.AgreeAPaaSApprovalTask(ctx, &lark.AgreeAPaaSApprovalTaskReq{
 				ApprovalTaskID: "x",
 			})
@@ -116,7 +108,6 @@ func Test_APaaS_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.RejectAPaaSApprovalTask(ctx, &lark.RejectAPaaSApprovalTaskReq{
 				ApprovalTaskID: "x",
 			})
@@ -125,7 +116,6 @@ func Test_APaaS_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.TransferAPaaSApprovalTask(ctx, &lark.TransferAPaaSApprovalTaskReq{
 				ApprovalTaskID: "x",
 			})
@@ -134,13 +124,11 @@ func Test_APaaS_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.AddAssigneeAPaaSApprovalTask(ctx, &lark.AddAssigneeAPaaSApprovalTaskReq{
 				ApprovalTaskID: "x",
 			})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
-
 	})
 }

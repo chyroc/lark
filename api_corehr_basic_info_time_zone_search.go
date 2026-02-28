@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // SearchCorehrBasicInfoTimeZone 根据时区 ID、状态, 批量查询时区信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-time_zone/search
-// 
 func (r *CorehrService) SearchCorehrBasicInfoTimeZone(ctx context.Context, request *SearchCorehrBasicInfoTimeZoneReq, options ...MethodOptionFunc) (*SearchCorehrBasicInfoTimeZoneResp, *Response, error) {
-if r.cli.mock.mockCorehrSearchCorehrBasicInfoTimeZone != nil {
+	if r.cli.mock.mockCorehrSearchCorehrBasicInfoTimeZone != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Corehr#SearchCorehrBasicInfoTimeZone mock enable")
 		return r.cli.mock.mockCorehrSearchCorehrBasicInfoTimeZone(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockCorehrSearchCorehrBasicInfoTimeZone != nil {
 		Scope:                 "Corehr",
 		API:                   "SearchCorehrBasicInfoTimeZone",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/corehr/v2/basic_info/time_zones/search",
+		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/basic_info/time_zones/search",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(searchCorehrBasicInfoTimeZoneResp)
 
@@ -51,66 +49,46 @@ if r.cli.mock.mockCorehrSearchCorehrBasicInfoTimeZone != nil {
 func (r *Mock) MockCorehrSearchCorehrBasicInfoTimeZone(f func(ctx context.Context, request *SearchCorehrBasicInfoTimeZoneReq, options ...MethodOptionFunc) (*SearchCorehrBasicInfoTimeZoneResp, *Response, error)) {
 	r.mockCorehrSearchCorehrBasicInfoTimeZone = f
 }
+
 // UnMockCorehrSearchCorehrBasicInfoTimeZone un-mock CorehrSearchCorehrBasicInfoTimeZone method
 func (r *Mock) UnMockCorehrSearchCorehrBasicInfoTimeZone() {
 	r.mockCorehrSearchCorehrBasicInfoTimeZone = nil
 }
 
-
 // SearchCorehrBasicInfoTimeZoneReq ...
-type SearchCorehrBasicInfoTimeZoneReq struct { 
-PageSize int64 `query:"page_size" json:"-"` // 分页大小, 最大 100示例值: 100 取值范围: `1` ～ `100`
-PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 6862995772275688974
-TimeZoneIDList []string `json:"time_zone_id_list,omitempty"` // 时区 ID 列表, 如果为空, 返回所有数据示例值: ["6862995813451171342"] 长度范围: `0` ～ `100`
-StatusList []int64 `json:"status_list,omitempty"` // 状态列表示例值: [1]可选值有: 生效失效默认值: `[1]` 长度范围: `0` ～ `2`
+type SearchCorehrBasicInfoTimeZoneReq struct {
+	PageSize       int64    `query:"page_size" json:"-"`         // 分页大小, 最大 100示例值: 100 取值范围: `1` ～ `100`
+	PageToken      *string  `query:"page_token" json:"-"`        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 6862995772275688974
+	TimeZoneIDList []string `json:"time_zone_id_list,omitempty"` // 时区 ID 列表, 如果为空, 返回所有数据示例值: ["6862995813451171342"] 长度范围: `0` ～ `100`
+	StatusList     []int64  `json:"status_list,omitempty"`       // 状态列表示例值: [1]可选值有: 生效失效默认值: `[1]` 长度范围: `0` ～ `2`
 }
-
-
-
-
 
 // SearchCorehrBasicInfoTimeZoneResp ...
-type SearchCorehrBasicInfoTimeZoneResp struct { 
-Items []*SearchCorehrBasicInfoTimeZoneRespItem `json:"items,omitempty"` // 查询到的时区列表
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
+type SearchCorehrBasicInfoTimeZoneResp struct {
+	Items     []*SearchCorehrBasicInfoTimeZoneRespItem `json:"items,omitempty"`      // 查询到的时区列表
+	PageToken string                                   `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	HasMore   bool                                     `json:"has_more,omitempty"`   // 是否还有更多项
 }
-
-
-
-
 
 // SearchCorehrBasicInfoTimeZoneRespItem ...
-type SearchCorehrBasicInfoTimeZoneRespItem struct { 
-TimeZoneID string `json:"time_zone_id,omitempty"` // 时区 ID
-Name []*SearchCorehrBasicInfoTimeZoneRespItemName `json:"name,omitempty"` // 时区名称
-TimeZoneCode string `json:"time_zone_code,omitempty"` // 编码
-UtcOffset string `json:"utc_offset,omitempty"` // UTC 时区偏移量（分钟）
-Status int64 `json:"status,omitempty"` // 状态可选值有: 生效失效
+type SearchCorehrBasicInfoTimeZoneRespItem struct {
+	TimeZoneID   string                                       `json:"time_zone_id,omitempty"`   // 时区 ID
+	Name         []*SearchCorehrBasicInfoTimeZoneRespItemName `json:"name,omitempty"`           // 时区名称
+	TimeZoneCode string                                       `json:"time_zone_code,omitempty"` // 编码
+	UtcOffset    string                                       `json:"utc_offset,omitempty"`     // UTC 时区偏移量（分钟）
+	Status       int64                                        `json:"status,omitempty"`         // 状态可选值有: 生效失效
 }
-
-
-
-
 
 // SearchCorehrBasicInfoTimeZoneRespItemName ...
-type SearchCorehrBasicInfoTimeZoneRespItemName struct { 
-Lang string `json:"lang,omitempty"` // 语言编码（IETF BCP 47）
-Value string `json:"value,omitempty"` // 文本内容
+type SearchCorehrBasicInfoTimeZoneRespItemName struct {
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
-
-
-
-
 
 // searchCorehrBasicInfoTimeZoneResp ...
-type searchCorehrBasicInfoTimeZoneResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *SearchCorehrBasicInfoTimeZoneResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type searchCorehrBasicInfoTimeZoneResp struct {
+	Code  int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                             `json:"msg,omitempty"`  // 错误描述
+	Data  *SearchCorehrBasicInfoTimeZoneResp `json:"data,omitempty"`
+	Error *ErrorDetail                       `json:"error,omitempty"`
 }
-
-
-
-

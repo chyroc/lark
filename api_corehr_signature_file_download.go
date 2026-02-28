@@ -18,16 +18,15 @@
 package lark
 
 import (
-"context"
-"io"
+	"context"
+	"io"
 )
 
 // DownloadCorehrSignatureFile 该接口用于下载电子签文件
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/signature_file/download
-// 
 func (r *CorehrService) DownloadCorehrSignatureFile(ctx context.Context, request *DownloadCorehrSignatureFileReq, options ...MethodOptionFunc) (*DownloadCorehrSignatureFileResp, *Response, error) {
-if r.cli.mock.mockCorehrDownloadCorehrSignatureFile != nil {
+	if r.cli.mock.mockCorehrDownloadCorehrSignatureFile != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Corehr#DownloadCorehrSignatureFile mock enable")
 		return r.cli.mock.mockCorehrDownloadCorehrSignatureFile(ctx, request, options...)
 	}
@@ -36,11 +35,10 @@ if r.cli.mock.mockCorehrDownloadCorehrSignatureFile != nil {
 		Scope:                 "Corehr",
 		API:                   "DownloadCorehrSignatureFile",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/corehr/v2/signature_files/:signature_file_id/download",
+		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/signature_files/:signature_file_id/download",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(downloadCorehrSignatureFileResp)
 
@@ -52,31 +50,24 @@ if r.cli.mock.mockCorehrDownloadCorehrSignatureFile != nil {
 func (r *Mock) MockCorehrDownloadCorehrSignatureFile(f func(ctx context.Context, request *DownloadCorehrSignatureFileReq, options ...MethodOptionFunc) (*DownloadCorehrSignatureFileResp, *Response, error)) {
 	r.mockCorehrDownloadCorehrSignatureFile = f
 }
+
 // UnMockCorehrDownloadCorehrSignatureFile un-mock CorehrDownloadCorehrSignatureFile method
 func (r *Mock) UnMockCorehrDownloadCorehrSignatureFile() {
 	r.mockCorehrDownloadCorehrSignatureFile = nil
 }
 
-
 // DownloadCorehrSignatureFileReq ...
-type DownloadCorehrSignatureFileReq struct { 
-SignatureFileID string `path:"signature_file_id" json:"-"` // 电子签文件id, [【获取电子签文件列表】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/signature_file/list)示例值: "6891251722631890445"
+type DownloadCorehrSignatureFileReq struct {
+	SignatureFileID string `path:"signature_file_id" json:"-"` // 电子签文件id, [【获取电子签文件列表】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/signature_file/list)示例值: "6891251722631890445"
 }
-
-
-
-
 
 // downloadCorehrSignatureFileResp ...
-type downloadCorehrSignatureFileResp struct { 
-Code int64 `json:"code,omitempty"` 
-Msg string `json:"msg,omitempty"` 
-Data *DownloadCorehrSignatureFileResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type downloadCorehrSignatureFileResp struct {
+	Code  int64                            `json:"code,omitempty"`
+	Msg   string                           `json:"msg,omitempty"`
+	Data  *DownloadCorehrSignatureFileResp `json:"data,omitempty"`
+	Error *ErrorDetail                     `json:"error,omitempty"`
 }
-
-
-
 
 func (r *downloadCorehrSignatureFileResp) SetReader(file io.Reader) {
 	if r.Data == nil {
@@ -85,10 +76,7 @@ func (r *downloadCorehrSignatureFileResp) SetReader(file io.Reader) {
 	r.Data.File = file
 }
 
-
-
 // DownloadCorehrSignatureFileResp ...
 type DownloadCorehrSignatureFileResp struct {
 	File io.Reader `json:"file,omitempty"`
- }
-
+}

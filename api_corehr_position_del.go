@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateCorehrPositionDelPosition 删除整条岗位记录
@@ -26,9 +26,8 @@ import (
 // 删除后不可恢复, 请谨慎操作
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/position/del_position
-// 
 func (r *CorehrService) CreateCorehrPositionDelPosition(ctx context.Context, request *CreateCorehrPositionDelPositionReq, options ...MethodOptionFunc) (*CreateCorehrPositionDelPositionResp, *Response, error) {
-if r.cli.mock.mockCorehrCreateCorehrPositionDelPosition != nil {
+	if r.cli.mock.mockCorehrCreateCorehrPositionDelPosition != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Corehr#CreateCorehrPositionDelPosition mock enable")
 		return r.cli.mock.mockCorehrCreateCorehrPositionDelPosition(ctx, request, options...)
 	}
@@ -37,11 +36,10 @@ if r.cli.mock.mockCorehrCreateCorehrPositionDelPosition != nil {
 		Scope:                 "Corehr",
 		API:                   "CreateCorehrPositionDelPosition",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/corehr/v2/positions/del_position",
+		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/positions/del_position",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createCorehrPositionDelPositionResp)
 
@@ -53,37 +51,24 @@ if r.cli.mock.mockCorehrCreateCorehrPositionDelPosition != nil {
 func (r *Mock) MockCorehrCreateCorehrPositionDelPosition(f func(ctx context.Context, request *CreateCorehrPositionDelPositionReq, options ...MethodOptionFunc) (*CreateCorehrPositionDelPositionResp, *Response, error)) {
 	r.mockCorehrCreateCorehrPositionDelPosition = f
 }
+
 // UnMockCorehrCreateCorehrPositionDelPosition un-mock CorehrCreateCorehrPositionDelPosition method
 func (r *Mock) UnMockCorehrCreateCorehrPositionDelPosition() {
 	r.mockCorehrCreateCorehrPositionDelPosition = nil
 }
 
-
 // CreateCorehrPositionDelPositionReq ...
-type CreateCorehrPositionDelPositionReq struct { 
-PositionID string `json:"position_id,omitempty"` // 岗位ID, 详细信息可通过[查询岗位信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/position/query)接口获得示例值: "6862995757234914824"
+type CreateCorehrPositionDelPositionReq struct {
+	PositionID string `json:"position_id,omitempty"` // 岗位ID, 详细信息可通过[查询岗位信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/position/query)接口获得示例值: "6862995757234914824"
 }
-
-
-
-
 
 // CreateCorehrPositionDelPositionResp ...
-type CreateCorehrPositionDelPositionResp struct { 
-}
-
-
-
-
+type CreateCorehrPositionDelPositionResp struct{}
 
 // createCorehrPositionDelPositionResp ...
-type createCorehrPositionDelPositionResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateCorehrPositionDelPositionResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createCorehrPositionDelPositionResp struct {
+	Code  int64                                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                               `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateCorehrPositionDelPositionResp `json:"data,omitempty"`
+	Error *ErrorDetail                         `json:"error,omitempty"`
 }
-
-
-
-

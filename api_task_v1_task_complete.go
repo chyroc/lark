@@ -67,8 +67,7 @@ type CompleteTaskV1Req struct {
 }
 
 // CompleteTaskV1Resp ...
-type CompleteTaskV1Resp struct {
-}
+type CompleteTaskV1Resp struct{}
 
 // completeTaskV1Resp ...
 type completeTaskV1Resp struct {

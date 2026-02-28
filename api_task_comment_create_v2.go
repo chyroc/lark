@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateTaskCommentV2 为一个任务创建评论, 或者回复该任务的某个评论。
@@ -27,9 +27,8 @@ import (
 // 对任务进行评论时需要评论的读取权限。详情见[清单功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/overview)中的“清单是如何鉴权的？“章节。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/comment/create
-// 
 func (r *TaskService) CreateTaskCommentV2(ctx context.Context, request *CreateTaskCommentV2Req, options ...MethodOptionFunc) (*CreateTaskCommentV2Resp, *Response, error) {
-if r.cli.mock.mockTaskCreateTaskCommentV2 != nil {
+	if r.cli.mock.mockTaskCreateTaskCommentV2 != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#CreateTaskCommentV2 mock enable")
 		return r.cli.mock.mockTaskCreateTaskCommentV2(ctx, request, options...)
 	}
@@ -38,12 +37,11 @@ if r.cli.mock.mockTaskCreateTaskCommentV2 != nil {
 		Scope:                 "Task",
 		API:                   "CreateTaskCommentV2",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/task/v2/comments",
+		URL:                   r.cli.openBaseURL + "/open-apis/task/v2/comments",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(createTaskCommentV2Resp)
 
@@ -55,69 +53,49 @@ if r.cli.mock.mockTaskCreateTaskCommentV2 != nil {
 func (r *Mock) MockTaskCreateTaskCommentV2(f func(ctx context.Context, request *CreateTaskCommentV2Req, options ...MethodOptionFunc) (*CreateTaskCommentV2Resp, *Response, error)) {
 	r.mockTaskCreateTaskCommentV2 = f
 }
+
 // UnMockTaskCreateTaskCommentV2 un-mock TaskCreateTaskCommentV2 method
 func (r *Mock) UnMockTaskCreateTaskCommentV2() {
 	r.mockTaskCreateTaskCommentV2 = nil
 }
 
-
 // CreateTaskCommentV2Req ...
-type CreateTaskCommentV2Req struct { 
-UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id默认值: `open_id`
-Content string `json:"content,omitempty"` // 评论内容。不允许为空, 最长3000个utf8字符。示例值: "这是一条评论。"
-ReplyToCommentID *string `json:"reply_to_comment_id,omitempty"` // 回复给评论的评论ID。如果不填写表示创建非回复评论。示例值: "6937231762296684564" 最大长度: `20` 字符
-ResourceType *string `json:"resource_type,omitempty"` // 评论归属的资源类型, 目前只支持任务“task”, 默认为"task"。示例值: "task"默认值: `task`
-ResourceID *string `json:"resource_id,omitempty"` // 评论归属的资源ID。当归属资源类型为"task"时, 这里应填写任务的GUID。示例值: "ccb55625-95d2-2e80-655f-0e40bf67953f" 最大长度: `100` 字符
+type CreateTaskCommentV2Req struct {
+	UserIDType       *IDType `query:"user_id_type" json:"-"`        // 用户 ID 类型示例值: open_id默认值: `open_id`
+	Content          string  `json:"content,omitempty"`             // 评论内容。不允许为空, 最长3000个utf8字符。示例值: "这是一条评论。"
+	ReplyToCommentID *string `json:"reply_to_comment_id,omitempty"` // 回复给评论的评论ID。如果不填写表示创建非回复评论。示例值: "6937231762296684564" 最大长度: `20` 字符
+	ResourceType     *string `json:"resource_type,omitempty"`       // 评论归属的资源类型, 目前只支持任务“task”, 默认为"task"。示例值: "task"默认值: `task`
+	ResourceID       *string `json:"resource_id,omitempty"`         // 评论归属的资源ID。当归属资源类型为"task"时, 这里应填写任务的GUID。示例值: "ccb55625-95d2-2e80-655f-0e40bf67953f" 最大长度: `100` 字符
 }
-
-
-
-
 
 // CreateTaskCommentV2Resp ...
-type CreateTaskCommentV2Resp struct { 
-Comment *CreateTaskCommentV2RespComment `json:"comment,omitempty"` // 创建的评论详情
+type CreateTaskCommentV2Resp struct {
+	Comment *CreateTaskCommentV2RespComment `json:"comment,omitempty"` // 创建的评论详情
 }
-
-
-
-
 
 // CreateTaskCommentV2RespComment ...
-type CreateTaskCommentV2RespComment struct { 
-ID string `json:"id,omitempty"` // 评论id
-Content string `json:"content,omitempty"` // 评论内容
-Creator *CreateTaskCommentV2RespCommentCreator `json:"creator,omitempty"` // 评论创建人
-ReplyToCommentID string `json:"reply_to_comment_id,omitempty"` // 评论回复评论的id。如果不是回复评论, 则为空。
-CreatedAt string `json:"created_at,omitempty"` // 评论创建时间戳（ms)
-UpdatedAt string `json:"updated_at,omitempty"` // 评论更新时间戳（ms）
-ResourceType string `json:"resource_type,omitempty"` // 任务关联的资源类型
-ResourceID string `json:"resource_id,omitempty"` // 任务关联的资源ID
+type CreateTaskCommentV2RespComment struct {
+	ID               string                                 `json:"id,omitempty"`                  // 评论id
+	Content          string                                 `json:"content,omitempty"`             // 评论内容
+	Creator          *CreateTaskCommentV2RespCommentCreator `json:"creator,omitempty"`             // 评论创建人
+	ReplyToCommentID string                                 `json:"reply_to_comment_id,omitempty"` // 评论回复评论的id。如果不是回复评论, 则为空。
+	CreatedAt        string                                 `json:"created_at,omitempty"`          // 评论创建时间戳（ms)
+	UpdatedAt        string                                 `json:"updated_at,omitempty"`          // 评论更新时间戳（ms）
+	ResourceType     string                                 `json:"resource_type,omitempty"`       // 任务关联的资源类型
+	ResourceID       string                                 `json:"resource_id,omitempty"`         // 任务关联的资源ID
 }
-
-
-
-
 
 // CreateTaskCommentV2RespCommentCreator ...
-type CreateTaskCommentV2RespCommentCreator struct { 
-ID string `json:"id,omitempty"` // 表示member的id
-Type string `json:"type,omitempty"` // 成员的类型
-Role string `json:"role,omitempty"` // 成员角色
+type CreateTaskCommentV2RespCommentCreator struct {
+	ID   string `json:"id,omitempty"`   // 表示member的id
+	Type string `json:"type,omitempty"` // 成员的类型
+	Role string `json:"role,omitempty"` // 成员角色
 }
-
-
-
-
 
 // createTaskCommentV2Resp ...
-type createTaskCommentV2Resp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateTaskCommentV2Resp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createTaskCommentV2Resp struct {
+	Code  int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                   `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateTaskCommentV2Resp `json:"data,omitempty"`
+	Error *ErrorDetail             `json:"error,omitempty"`
 }
-
-
-
-

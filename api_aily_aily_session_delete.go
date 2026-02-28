@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // DeleteAilySession 该 API 用于删除与某个飞书 Aily 应用的一次会话（Session）。
@@ -26,9 +26,8 @@ import (
 // 更多信息及示例代码, 可参考 [Aily OpenAPI 接入与接口说明](https://bytedance.larkoffice.com/wiki/UTU6wVTVGigefykjO1acAOOvnNc)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/aily-v1/aily_session/delete
-// 
 func (r *AilyService) DeleteAilySession(ctx context.Context, request *DeleteAilySessionReq, options ...MethodOptionFunc) (*DeleteAilySessionResp, *Response, error) {
-if r.cli.mock.mockAilyDeleteAilySession != nil {
+	if r.cli.mock.mockAilyDeleteAilySession != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Aily#DeleteAilySession mock enable")
 		return r.cli.mock.mockAilyDeleteAilySession(ctx, request, options...)
 	}
@@ -37,12 +36,11 @@ if r.cli.mock.mockAilyDeleteAilySession != nil {
 		Scope:                 "Aily",
 		API:                   "DeleteAilySession",
 		Method:                "DELETE",
-		URL:   r.cli.openBaseURL + "/open-apis/aily/v1/sessions/:aily_session_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/aily/v1/sessions/:aily_session_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(deleteAilySessionResp)
 
@@ -54,37 +52,24 @@ if r.cli.mock.mockAilyDeleteAilySession != nil {
 func (r *Mock) MockAilyDeleteAilySession(f func(ctx context.Context, request *DeleteAilySessionReq, options ...MethodOptionFunc) (*DeleteAilySessionResp, *Response, error)) {
 	r.mockAilyDeleteAilySession = f
 }
+
 // UnMockAilyDeleteAilySession un-mock AilyDeleteAilySession method
 func (r *Mock) UnMockAilyDeleteAilySession() {
 	r.mockAilyDeleteAilySession = nil
 }
 
-
 // DeleteAilySessionReq ...
-type DeleteAilySessionReq struct { 
-AilySessionID string `path:"aily_session_id" json:"-"` // 会话 ID示例值: "session_4dfunz7sp1g8m" 长度范围: `0` ～ `32` 字符- 正则校验: `session_[0-9a-hjkmnp-z]{1, 24}`
+type DeleteAilySessionReq struct {
+	AilySessionID string `path:"aily_session_id" json:"-"` // 会话 ID示例值: "session_4dfunz7sp1g8m" 长度范围: `0` ～ `32` 字符- 正则校验: `session_[0-9a-hjkmnp-z]{1, 24}`
 }
-
-
-
-
 
 // DeleteAilySessionResp ...
-type DeleteAilySessionResp struct { 
-}
-
-
-
-
+type DeleteAilySessionResp struct{}
 
 // deleteAilySessionResp ...
-type deleteAilySessionResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *DeleteAilySessionResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type deleteAilySessionResp struct {
+	Code  int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                 `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteAilySessionResp `json:"data,omitempty"`
+	Error *ErrorDetail           `json:"error,omitempty"`
 }
-
-
-
-

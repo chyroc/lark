@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListPayrollCostAllocationPlan 根据期间分页批量查询成本分摊方案, 仅返回期间内生效的方案列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/cost_allocation_plan/list
-// 
 func (r *PayrollService) ListPayrollCostAllocationPlan(ctx context.Context, request *ListPayrollCostAllocationPlanReq, options ...MethodOptionFunc) (*ListPayrollCostAllocationPlanResp, *Response, error) {
-if r.cli.mock.mockPayrollListPayrollCostAllocationPlan != nil {
+	if r.cli.mock.mockPayrollListPayrollCostAllocationPlan != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Payroll#ListPayrollCostAllocationPlan mock enable")
 		return r.cli.mock.mockPayrollListPayrollCostAllocationPlan(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockPayrollListPayrollCostAllocationPlan != nil {
 		Scope:                 "Payroll",
 		API:                   "ListPayrollCostAllocationPlan",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/payroll/v1/cost_allocation_plans",
+		URL:                   r.cli.openBaseURL + "/open-apis/payroll/v1/cost_allocation_plans",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(listPayrollCostAllocationPlanResp)
 
@@ -51,109 +49,73 @@ if r.cli.mock.mockPayrollListPayrollCostAllocationPlan != nil {
 func (r *Mock) MockPayrollListPayrollCostAllocationPlan(f func(ctx context.Context, request *ListPayrollCostAllocationPlanReq, options ...MethodOptionFunc) (*ListPayrollCostAllocationPlanResp, *Response, error)) {
 	r.mockPayrollListPayrollCostAllocationPlan = f
 }
+
 // UnMockPayrollListPayrollCostAllocationPlan un-mock PayrollListPayrollCostAllocationPlan method
 func (r *Mock) UnMockPayrollListPayrollCostAllocationPlan() {
 	r.mockPayrollListPayrollCostAllocationPlan = nil
 }
 
-
 // ListPayrollCostAllocationPlanReq ...
-type ListPayrollCostAllocationPlanReq struct { 
-PageSize int64 `query:"page_size" json:"-"` // 分页大小示例值: 50 取值范围: `1` ～ `100`
-PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 6823630319749592024
-PayPeriod string `query:"pay_period" json:"-"` // 期间, 生成成本分摊报表对应的年月。格式为 yyyy-MM示例值: 2023-11
+type ListPayrollCostAllocationPlanReq struct {
+	PageSize  int64   `query:"page_size" json:"-"`  // 分页大小示例值: 50 取值范围: `1` ～ `100`
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 6823630319749592024
+	PayPeriod string  `query:"pay_period" json:"-"` // 期间, 生成成本分摊报表对应的年月。格式为 yyyy-MM示例值: 2023-11
 }
-
-
-
-
 
 // ListPayrollCostAllocationPlanResp ...
-type ListPayrollCostAllocationPlanResp struct { 
-Items []*ListPayrollCostAllocationPlanRespItem `json:"items,omitempty"` // 方案
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
+type ListPayrollCostAllocationPlanResp struct {
+	Items     []*ListPayrollCostAllocationPlanRespItem `json:"items,omitempty"`      // 方案
+	PageToken string                                   `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	HasMore   bool                                     `json:"has_more,omitempty"`   // 是否还有更多项
 }
-
-
-
-
 
 // ListPayrollCostAllocationPlanRespItem ...
-type ListPayrollCostAllocationPlanRespItem struct { 
-ID string `json:"id,omitempty"` // 成本分摊方案id, 唯一标识
-Names []*ListPayrollCostAllocationPlanRespItemName `json:"names,omitempty"` // 方案名称
-ApplicableCountryRegion string `json:"applicable_country_region,omitempty"` // 适用国家ID, 通过[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)获取
-Dimensions []*ListPayrollCostAllocationPlanRespItemDimension `json:"dimensions,omitempty"` // 成本分摊方案对应的汇总维度列表
-CostItems []*ListPayrollCostAllocationPlanRespItemCostItem `json:"cost_items,omitempty"` // 成本分摊方案对应的成本项列表
+type ListPayrollCostAllocationPlanRespItem struct {
+	ID                      string                                            `json:"id,omitempty"`                        // 成本分摊方案id, 唯一标识
+	Names                   []*ListPayrollCostAllocationPlanRespItemName      `json:"names,omitempty"`                     // 方案名称
+	ApplicableCountryRegion string                                            `json:"applicable_country_region,omitempty"` // 适用国家ID, 通过[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)获取
+	Dimensions              []*ListPayrollCostAllocationPlanRespItemDimension `json:"dimensions,omitempty"`                // 成本分摊方案对应的汇总维度列表
+	CostItems               []*ListPayrollCostAllocationPlanRespItemCostItem  `json:"cost_items,omitempty"`                // 成本分摊方案对应的成本项列表
 }
-
-
-
-
 
 // ListPayrollCostAllocationPlanRespItemCostItem ...
-type ListPayrollCostAllocationPlanRespItemCostItem struct { 
-ID string `json:"id,omitempty"` // 成本项的唯一标识
-Name []*ListPayrollCostAllocationPlanRespItemCostItemName `json:"name,omitempty"` // 成本项名称
-EnableCorrect bool `json:"enable_correct,omitempty"` // 成本项是否启用更正
+type ListPayrollCostAllocationPlanRespItemCostItem struct {
+	ID            string                                               `json:"id,omitempty"`             // 成本项的唯一标识
+	Name          []*ListPayrollCostAllocationPlanRespItemCostItemName `json:"name,omitempty"`           // 成本项名称
+	EnableCorrect bool                                                 `json:"enable_correct,omitempty"` // 成本项是否启用更正
 }
-
-
-
-
 
 // ListPayrollCostAllocationPlanRespItemCostItemName ...
-type ListPayrollCostAllocationPlanRespItemCostItemName struct { 
-Locale string `json:"locale,omitempty"` // 语种
-Value string `json:"value,omitempty"` // 语种对应的值
-ID string `json:"id,omitempty"` // 名称对应的实体id
+type ListPayrollCostAllocationPlanRespItemCostItemName struct {
+	Locale string `json:"locale,omitempty"` // 语种
+	Value  string `json:"value,omitempty"`  // 语种对应的值
+	ID     string `json:"id,omitempty"`     // 名称对应的实体id
 }
-
-
-
-
 
 // ListPayrollCostAllocationPlanRespItemDimension ...
-type ListPayrollCostAllocationPlanRespItemDimension struct { 
-I18nNames []*ListPayrollCostAllocationPlanRespItemDimensionI18nName `json:"i18n_names,omitempty"` // 汇总维度信息
-ApiName string `json:"api_name,omitempty"` // 汇总维度字段名称
-ObjApiName string `json:"obj_api_name,omitempty"` // 汇总维度对象名称
+type ListPayrollCostAllocationPlanRespItemDimension struct {
+	I18nNames  []*ListPayrollCostAllocationPlanRespItemDimensionI18nName `json:"i18n_names,omitempty"`   // 汇总维度信息
+	ApiName    string                                                    `json:"api_name,omitempty"`     // 汇总维度字段名称
+	ObjApiName string                                                    `json:"obj_api_name,omitempty"` // 汇总维度对象名称
 }
-
-
-
-
 
 // ListPayrollCostAllocationPlanRespItemDimensionI18nName ...
-type ListPayrollCostAllocationPlanRespItemDimensionI18nName struct { 
-Locale string `json:"locale,omitempty"` // 语种
-Value string `json:"value,omitempty"` // 语种对应的值
-ID string `json:"id,omitempty"` // 名称对应的实体id
+type ListPayrollCostAllocationPlanRespItemDimensionI18nName struct {
+	Locale string `json:"locale,omitempty"` // 语种
+	Value  string `json:"value,omitempty"`  // 语种对应的值
+	ID     string `json:"id,omitempty"`     // 名称对应的实体id
 }
-
-
-
-
 
 // ListPayrollCostAllocationPlanRespItemName ...
-type ListPayrollCostAllocationPlanRespItemName struct { 
-Locale string `json:"locale,omitempty"` // 语种
-Value string `json:"value,omitempty"` // 语种对应的值
+type ListPayrollCostAllocationPlanRespItemName struct {
+	Locale string `json:"locale,omitempty"` // 语种
+	Value  string `json:"value,omitempty"`  // 语种对应的值
 }
-
-
-
-
 
 // listPayrollCostAllocationPlanResp ...
-type listPayrollCostAllocationPlanResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *ListPayrollCostAllocationPlanResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type listPayrollCostAllocationPlanResp struct {
+	Code  int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                             `json:"msg,omitempty"`  // 错误描述
+	Data  *ListPayrollCostAllocationPlanResp `json:"data,omitempty"`
+	Error *ErrorDetail                       `json:"error,omitempty"`
 }
-
-
-
-

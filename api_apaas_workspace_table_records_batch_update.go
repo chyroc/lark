@@ -18,28 +18,26 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // UpdateApaasWorkspaceTableRecordsBatchUpdate 批量更新数据表中的记录
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/workspace-table/records_batch_update
-// 
 func (r *ApaasService) UpdateApaasWorkspaceTableRecordsBatchUpdate(ctx context.Context, request *UpdateApaasWorkspaceTableRecordsBatchUpdateReq, options ...MethodOptionFunc) (*UpdateApaasWorkspaceTableRecordsBatchUpdateResp, *Response, error) {
-if r.cli.mock.mockApaasUpdateApaasWorkspaceTableRecordsBatchUpdate != nil {
+	if r.cli.mock.mockApaasUpdateApaasWorkspaceTableRecordsBatchUpdate != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Apaas#UpdateApaasWorkspaceTableRecordsBatchUpdate mock enable")
 		return r.cli.mock.mockApaasUpdateApaasWorkspaceTableRecordsBatchUpdate(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "Apaas",
-		API:                   "UpdateApaasWorkspaceTableRecordsBatchUpdate",
-		Method:                "PATCH",
-		URL:   r.cli.openBaseURL + "/open-apis/apaas/v1/workspaces/:workspace_id/tables/:table_name/records_batch_update",
-		Body:                  request,
-		MethodOption:          newMethodOption(options),
- NeedUserAccessToken: true,
-
+		Scope:               "Apaas",
+		API:                 "UpdateApaasWorkspaceTableRecordsBatchUpdate",
+		Method:              "PATCH",
+		URL:                 r.cli.openBaseURL + "/open-apis/apaas/v1/workspaces/:workspace_id/tables/:table_name/records_batch_update",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
+		NeedUserAccessToken: true,
 	}
 	resp := new(updateApaasWorkspaceTableRecordsBatchUpdateResp)
 
@@ -51,40 +49,28 @@ if r.cli.mock.mockApaasUpdateApaasWorkspaceTableRecordsBatchUpdate != nil {
 func (r *Mock) MockApaasUpdateApaasWorkspaceTableRecordsBatchUpdate(f func(ctx context.Context, request *UpdateApaasWorkspaceTableRecordsBatchUpdateReq, options ...MethodOptionFunc) (*UpdateApaasWorkspaceTableRecordsBatchUpdateResp, *Response, error)) {
 	r.mockApaasUpdateApaasWorkspaceTableRecordsBatchUpdate = f
 }
+
 // UnMockApaasUpdateApaasWorkspaceTableRecordsBatchUpdate un-mock ApaasUpdateApaasWorkspaceTableRecordsBatchUpdate method
 func (r *Mock) UnMockApaasUpdateApaasWorkspaceTableRecordsBatchUpdate() {
 	r.mockApaasUpdateApaasWorkspaceTableRecordsBatchUpdate = nil
 }
 
-
 // UpdateApaasWorkspaceTableRecordsBatchUpdateReq ...
-type UpdateApaasWorkspaceTableRecordsBatchUpdateReq struct { 
-WorkspaceID string `path:"workspace_id" json:"-"` // 工作空间id, 可以从数据平台的 URL 中获取, 如 `https://apaas.feishu.cn/suda/workspace/workspace_aadimx5uzpsls/table-manage/main?tableId=table_1846786627963081&tab=objectManage` 中的 workspace_aadimx5uzpsls 就是 workspace_id示例值: "workspace_aadimx5uzpsls"
-TableName string `path:"table_name" json:"-"` // 数据表表名, 可以从数据平台获取对应的数据表名。示例值: "table_name_1"
-Records []string `json:"records,omitempty"` // 要更新的数据记录列表, 单次支持最多 500条, 每行 record 都必须包含主键 _id, 且不同行要更新的字段需保持一致示例值: "[{\"_id\":\"657fade8-394d-4d86-aa35-0129e3bd7614\", \"age\":10}]"
+type UpdateApaasWorkspaceTableRecordsBatchUpdateReq struct {
+	WorkspaceID string   `path:"workspace_id" json:"-"` // 工作空间id, 可以从数据平台的 URL 中获取, 如 `https://apaas.feishu.cn/suda/workspace/workspace_aadimx5uzpsls/table-manage/main?tableId=table_1846786627963081&tab=objectManage` 中的 workspace_aadimx5uzpsls 就是 workspace_id示例值: "workspace_aadimx5uzpsls"
+	TableName   string   `path:"table_name" json:"-"`   // 数据表表名, 可以从数据平台获取对应的数据表名。示例值: "table_name_1"
+	Records     []string `json:"records,omitempty"`     // 要更新的数据记录列表, 单次支持最多 500条, 每行 record 都必须包含主键 _id, 且不同行要更新的字段需保持一致示例值: "[{\"_id\":\"657fade8-394d-4d86-aa35-0129e3bd7614\", \"age\":10}]"
 }
-
-
-
-
 
 // UpdateApaasWorkspaceTableRecordsBatchUpdateResp ...
-type UpdateApaasWorkspaceTableRecordsBatchUpdateResp struct { 
-RecordIDs []string `json:"record_ids,omitempty"` // 更新的记录唯一ID列表
+type UpdateApaasWorkspaceTableRecordsBatchUpdateResp struct {
+	RecordIDs []string `json:"record_ids,omitempty"` // 更新的记录唯一ID列表
 }
-
-
-
-
 
 // updateApaasWorkspaceTableRecordsBatchUpdateResp ...
-type updateApaasWorkspaceTableRecordsBatchUpdateResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *UpdateApaasWorkspaceTableRecordsBatchUpdateResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type updateApaasWorkspaceTableRecordsBatchUpdateResp struct {
+	Code  int64                                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                           `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateApaasWorkspaceTableRecordsBatchUpdateResp `json:"data,omitempty"`
+	Error *ErrorDetail                                     `json:"error,omitempty"`
 }
-
-
-
-

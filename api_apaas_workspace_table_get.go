@@ -18,28 +18,26 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // GetApaasWorkspaceTableGet 获取数据表详细信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/workspace-table/table_get
-// 
 func (r *ApaasService) GetApaasWorkspaceTableGet(ctx context.Context, request *GetApaasWorkspaceTableGetReq, options ...MethodOptionFunc) (*GetApaasWorkspaceTableGetResp, *Response, error) {
-if r.cli.mock.mockApaasGetApaasWorkspaceTableGet != nil {
+	if r.cli.mock.mockApaasGetApaasWorkspaceTableGet != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Apaas#GetApaasWorkspaceTableGet mock enable")
 		return r.cli.mock.mockApaasGetApaasWorkspaceTableGet(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "Apaas",
-		API:                   "GetApaasWorkspaceTableGet",
-		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/apaas/v1/workspaces/:workspace_id/tables/:table_name",
-		Body:                  request,
-		MethodOption:          newMethodOption(options),
- NeedUserAccessToken: true,
-
+		Scope:               "Apaas",
+		API:                 "GetApaasWorkspaceTableGet",
+		Method:              "GET",
+		URL:                 r.cli.openBaseURL + "/open-apis/apaas/v1/workspaces/:workspace_id/tables/:table_name",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
+		NeedUserAccessToken: true,
 	}
 	resp := new(getApaasWorkspaceTableGetResp)
 
@@ -51,58 +49,42 @@ if r.cli.mock.mockApaasGetApaasWorkspaceTableGet != nil {
 func (r *Mock) MockApaasGetApaasWorkspaceTableGet(f func(ctx context.Context, request *GetApaasWorkspaceTableGetReq, options ...MethodOptionFunc) (*GetApaasWorkspaceTableGetResp, *Response, error)) {
 	r.mockApaasGetApaasWorkspaceTableGet = f
 }
+
 // UnMockApaasGetApaasWorkspaceTableGet un-mock ApaasGetApaasWorkspaceTableGet method
 func (r *Mock) UnMockApaasGetApaasWorkspaceTableGet() {
 	r.mockApaasGetApaasWorkspaceTableGet = nil
 }
 
-
 // GetApaasWorkspaceTableGetReq ...
-type GetApaasWorkspaceTableGetReq struct { 
-WorkspaceID string `path:"workspace_id" json:"-"` // 工作空间id, 可以从数据平台的 URL 中获取, 如 https://apaas.feishu.cn/suda/workspace/workspace_aadimx5uzpsls/table-manage/main?tableId=table_1846786627963081&tab=objectManage 中的 workspace_aadimx5uzpsls 就是 workspace_id示例值: "workspace_aadimx5uzpsls"
-TableName string `path:"table_name" json:"-"` // 数据表表名示例值: "table_name_1"
+type GetApaasWorkspaceTableGetReq struct {
+	WorkspaceID string `path:"workspace_id" json:"-"` // 工作空间id, 可以从数据平台的 URL 中获取, 如 https://apaas.feishu.cn/suda/workspace/workspace_aadimx5uzpsls/table-manage/main?tableId=table_1846786627963081&tab=objectManage 中的 workspace_aadimx5uzpsls 就是 workspace_id示例值: "workspace_aadimx5uzpsls"
+	TableName   string `path:"table_name" json:"-"`   // 数据表表名示例值: "table_name_1"
 }
-
-
-
-
 
 // GetApaasWorkspaceTableGetResp ...
-type GetApaasWorkspaceTableGetResp struct { 
-Name string `json:"name,omitempty"` // 数据表名, 如 student
-Description string `json:"description,omitempty"` // 数据表描述
-Columns []*GetApaasWorkspaceTableGetRespColumn `json:"columns,omitempty"` // 数据表列
+type GetApaasWorkspaceTableGetResp struct {
+	Name        string                                 `json:"name,omitempty"`        // 数据表名, 如 student
+	Description string                                 `json:"description,omitempty"` // 数据表描述
+	Columns     []*GetApaasWorkspaceTableGetRespColumn `json:"columns,omitempty"`     // 数据表列
 }
-
-
-
-
 
 // GetApaasWorkspaceTableGetRespColumn ...
-type GetApaasWorkspaceTableGetRespColumn struct { 
-Name string `json:"name,omitempty"` // 列名
-Description string `json:"description,omitempty"` // 列描述
-DataType string `json:"data_type,omitempty"` // 数据库数据类型
-IsPrimaryKey bool `json:"is_primary_key,omitempty"` // 是否是主键
-IsUnique bool `json:"is_unique,omitempty"` // 是否唯一
-IsAutoIncrement bool `json:"is_auto_increment,omitempty"` // 是否是自增
-IsArray bool `json:"is_array,omitempty"` // 是否是数组类型
-IsAllowNull bool `json:"is_allow_null,omitempty"` // 是否允许为空
-DefaultValue string `json:"default_value,omitempty"` // 默认值
+type GetApaasWorkspaceTableGetRespColumn struct {
+	Name            string `json:"name,omitempty"`              // 列名
+	Description     string `json:"description,omitempty"`       // 列描述
+	DataType        string `json:"data_type,omitempty"`         // 数据库数据类型
+	IsPrimaryKey    bool   `json:"is_primary_key,omitempty"`    // 是否是主键
+	IsUnique        bool   `json:"is_unique,omitempty"`         // 是否唯一
+	IsAutoIncrement bool   `json:"is_auto_increment,omitempty"` // 是否是自增
+	IsArray         bool   `json:"is_array,omitempty"`          // 是否是数组类型
+	IsAllowNull     bool   `json:"is_allow_null,omitempty"`     // 是否允许为空
+	DefaultValue    string `json:"default_value,omitempty"`     // 默认值
 }
-
-
-
-
 
 // getApaasWorkspaceTableGetResp ...
-type getApaasWorkspaceTableGetResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *GetApaasWorkspaceTableGetResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type getApaasWorkspaceTableGetResp struct {
+	Code  int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                         `json:"msg,omitempty"`  // 错误描述
+	Data  *GetApaasWorkspaceTableGetResp `json:"data,omitempty"`
+	Error *ErrorDetail                   `json:"error,omitempty"`
 }
-
-
-
-

@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateCardkitCardIDConvert 将[消息 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro#44c58e1c)（ `message_id` ）转换为卡片实体 ID（`card_id`）。用于将由[发送消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)等接口返回的消息 ID 转换为卡片实体 ID, 以进一步对卡片进行全量更新、局部更新、或文本流式更新操作。
@@ -27,9 +27,8 @@ import (
 // ## 提示
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card/id_convert
-// 
 func (r *CardkitService) CreateCardkitCardIDConvert(ctx context.Context, request *CreateCardkitCardIDConvertReq, options ...MethodOptionFunc) (*CreateCardkitCardIDConvertResp, *Response, error) {
-if r.cli.mock.mockCardkitCreateCardkitCardIDConvert != nil {
+	if r.cli.mock.mockCardkitCreateCardkitCardIDConvert != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Cardkit#CreateCardkitCardIDConvert mock enable")
 		return r.cli.mock.mockCardkitCreateCardkitCardIDConvert(ctx, request, options...)
 	}
@@ -38,11 +37,10 @@ if r.cli.mock.mockCardkitCreateCardkitCardIDConvert != nil {
 		Scope:                 "Cardkit",
 		API:                   "CreateCardkitCardIDConvert",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/cardkit/v1/cards/id_convert",
+		URL:                   r.cli.openBaseURL + "/open-apis/cardkit/v1/cards/id_convert",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createCardkitCardIDConvertResp)
 
@@ -54,38 +52,26 @@ if r.cli.mock.mockCardkitCreateCardkitCardIDConvert != nil {
 func (r *Mock) MockCardkitCreateCardkitCardIDConvert(f func(ctx context.Context, request *CreateCardkitCardIDConvertReq, options ...MethodOptionFunc) (*CreateCardkitCardIDConvertResp, *Response, error)) {
 	r.mockCardkitCreateCardkitCardIDConvert = f
 }
+
 // UnMockCardkitCreateCardkitCardIDConvert un-mock CardkitCreateCardkitCardIDConvert method
 func (r *Mock) UnMockCardkitCreateCardkitCardIDConvert() {
 	r.mockCardkitCreateCardkitCardIDConvert = nil
 }
 
-
 // CreateCardkitCardIDConvertReq ...
-type CreateCardkitCardIDConvertReq struct { 
-MessageID string `json:"message_id,omitempty"` // 消息 ID。通过[发送消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)等接口获取。其消息类型（msg_type）需为卡片（interactive）示例值: "om_fbdf6ed2e17f1d98e78fb26c1370186e" 长度范围: `1` ～ `50` 字符
+type CreateCardkitCardIDConvertReq struct {
+	MessageID string `json:"message_id,omitempty"` // 消息 ID。通过[发送消息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/create)等接口获取。其消息类型（msg_type）需为卡片（interactive）示例值: "om_fbdf6ed2e17f1d98e78fb26c1370186e" 长度范围: `1` ～ `50` 字符
 }
-
-
-
-
 
 // CreateCardkitCardIDConvertResp ...
-type CreateCardkitCardIDConvertResp struct { 
-CardID string `json:"card_id,omitempty"` // 消息 ID 对应的卡片 ID。可用于对该卡片进行全量更新、局部更新、或文本流式更新操作
+type CreateCardkitCardIDConvertResp struct {
+	CardID string `json:"card_id,omitempty"` // 消息 ID 对应的卡片 ID。可用于对该卡片进行全量更新、局部更新、或文本流式更新操作
 }
-
-
-
-
 
 // createCardkitCardIDConvertResp ...
-type createCardkitCardIDConvertResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateCardkitCardIDConvertResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createCardkitCardIDConvertResp struct {
+	Code  int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                          `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateCardkitCardIDConvertResp `json:"data,omitempty"`
+	Error *ErrorDetail                    `json:"error,omitempty"`
 }
-
-
-
-

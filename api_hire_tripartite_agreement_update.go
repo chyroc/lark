@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // UpdateHireTripartiteAgreement 更新三方协议的状态及修改时间信息。
@@ -27,9 +27,8 @@ import (
 // 在「飞书招聘」-「设置」-「候选人流程管理」-「三方协议设置」中勾选了「通过 API 维护三方协议」。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/tripartite_agreement/update
-// 
 func (r *HireService) UpdateHireTripartiteAgreement(ctx context.Context, request *UpdateHireTripartiteAgreementReq, options ...MethodOptionFunc) (*UpdateHireTripartiteAgreementResp, *Response, error) {
-if r.cli.mock.mockHireUpdateHireTripartiteAgreement != nil {
+	if r.cli.mock.mockHireUpdateHireTripartiteAgreement != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#UpdateHireTripartiteAgreement mock enable")
 		return r.cli.mock.mockHireUpdateHireTripartiteAgreement(ctx, request, options...)
 	}
@@ -38,11 +37,10 @@ if r.cli.mock.mockHireUpdateHireTripartiteAgreement != nil {
 		Scope:                 "Hire",
 		API:                   "UpdateHireTripartiteAgreement",
 		Method:                "PUT",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/tripartite_agreements/:tripartite_agreement_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/tripartite_agreements/:tripartite_agreement_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(updateHireTripartiteAgreementResp)
 
@@ -54,39 +52,26 @@ if r.cli.mock.mockHireUpdateHireTripartiteAgreement != nil {
 func (r *Mock) MockHireUpdateHireTripartiteAgreement(f func(ctx context.Context, request *UpdateHireTripartiteAgreementReq, options ...MethodOptionFunc) (*UpdateHireTripartiteAgreementResp, *Response, error)) {
 	r.mockHireUpdateHireTripartiteAgreement = f
 }
+
 // UnMockHireUpdateHireTripartiteAgreement un-mock HireUpdateHireTripartiteAgreement method
 func (r *Mock) UnMockHireUpdateHireTripartiteAgreement() {
 	r.mockHireUpdateHireTripartiteAgreement = nil
 }
 
-
 // UpdateHireTripartiteAgreementReq ...
-type UpdateHireTripartiteAgreementReq struct { 
-TripartiteAgreementID string `path:"tripartite_agreement_id" json:"-"` // 三方协议 ID, 可通过[获取三方协议](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/tripartite_agreement/list)获取示例值: "7084008015948283905"
-State int64 `json:"state,omitempty"` // 三方协议状态示例值: 1可选值有: 未开始已申请学生处理中公司处理中学校处理中已终止已完成解约处理中已解约
-ModifyTime string `json:"modify_time,omitempty"` // 三方协议修改时间, 毫秒时间戳 注意: 不可小于创建时间或者上次修改时间示例值: "1698292282661"
+type UpdateHireTripartiteAgreementReq struct {
+	TripartiteAgreementID string `path:"tripartite_agreement_id" json:"-"` // 三方协议 ID, 可通过[获取三方协议](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/tripartite_agreement/list)获取示例值: "7084008015948283905"
+	State                 int64  `json:"state,omitempty"`                  // 三方协议状态示例值: 1可选值有: 未开始已申请学生处理中公司处理中学校处理中已终止已完成解约处理中已解约
+	ModifyTime            string `json:"modify_time,omitempty"`            // 三方协议修改时间, 毫秒时间戳 注意: 不可小于创建时间或者上次修改时间示例值: "1698292282661"
 }
-
-
-
-
 
 // UpdateHireTripartiteAgreementResp ...
-type UpdateHireTripartiteAgreementResp struct { 
-}
-
-
-
-
+type UpdateHireTripartiteAgreementResp struct{}
 
 // updateHireTripartiteAgreementResp ...
-type updateHireTripartiteAgreementResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *UpdateHireTripartiteAgreementResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type updateHireTripartiteAgreementResp struct {
+	Code  int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                             `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateHireTripartiteAgreementResp `json:"data,omitempty"`
+	Error *ErrorDetail                       `json:"error,omitempty"`
 }
-
-
-
-

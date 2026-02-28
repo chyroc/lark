@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // UpdateSecurityAndComplianceDeviceRecord 使用该接口在设备管理中修改一台设备的设备归属、设备状态等信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/security_and_compliance-v2/device_record/update
-// 
 func (r *SecurityAndComplianceService) UpdateSecurityAndComplianceDeviceRecord(ctx context.Context, request *UpdateSecurityAndComplianceDeviceRecordReq, options ...MethodOptionFunc) (*UpdateSecurityAndComplianceDeviceRecordResp, *Response, error) {
-if r.cli.mock.mockSecurityAndComplianceUpdateSecurityAndComplianceDeviceRecord != nil {
+	if r.cli.mock.mockSecurityAndComplianceUpdateSecurityAndComplianceDeviceRecord != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] SecurityAndCompliance#UpdateSecurityAndComplianceDeviceRecord mock enable")
 		return r.cli.mock.mockSecurityAndComplianceUpdateSecurityAndComplianceDeviceRecord(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockSecurityAndComplianceUpdateSecurityAndComplianceDeviceRecord !
 		Scope:                 "SecurityAndCompliance",
 		API:                   "UpdateSecurityAndComplianceDeviceRecord",
 		Method:                "PUT",
-		URL:   r.cli.openBaseURL + "/open-apis/security_and_compliance/v2/device_records/:device_record_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/security_and_compliance/v2/device_records/:device_record_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(updateSecurityAndComplianceDeviceRecordResp)
 
@@ -51,40 +49,27 @@ if r.cli.mock.mockSecurityAndComplianceUpdateSecurityAndComplianceDeviceRecord !
 func (r *Mock) MockSecurityAndComplianceUpdateSecurityAndComplianceDeviceRecord(f func(ctx context.Context, request *UpdateSecurityAndComplianceDeviceRecordReq, options ...MethodOptionFunc) (*UpdateSecurityAndComplianceDeviceRecordResp, *Response, error)) {
 	r.mockSecurityAndComplianceUpdateSecurityAndComplianceDeviceRecord = f
 }
+
 // UnMockSecurityAndComplianceUpdateSecurityAndComplianceDeviceRecord un-mock SecurityAndComplianceUpdateSecurityAndComplianceDeviceRecord method
 func (r *Mock) UnMockSecurityAndComplianceUpdateSecurityAndComplianceDeviceRecord() {
 	r.mockSecurityAndComplianceUpdateSecurityAndComplianceDeviceRecord = nil
 }
 
-
 // UpdateSecurityAndComplianceDeviceRecordReq ...
-type UpdateSecurityAndComplianceDeviceRecordReq struct { 
-DeviceRecordID string `path:"device_record_id" json:"-"` // 设备认证编码示例值: "7089353870308032531"
-Version string `query:"version" json:"-"` // 版本号示例值: 0
-DeviceOwnership int64 `json:"device_ownership,omitempty"` // 设备归属示例值: 0可选值有: 未知设备个人设备企业设备
-DeviceStatus int64 `json:"device_status,omitempty"` // 可信状态示例值: 0可选值有: 未知状态信任设备非信任设备
+type UpdateSecurityAndComplianceDeviceRecordReq struct {
+	DeviceRecordID  string `path:"device_record_id" json:"-"`  // 设备认证编码示例值: "7089353870308032531"
+	Version         string `query:"version" json:"-"`          // 版本号示例值: 0
+	DeviceOwnership int64  `json:"device_ownership,omitempty"` // 设备归属示例值: 0可选值有: 未知设备个人设备企业设备
+	DeviceStatus    int64  `json:"device_status,omitempty"`    // 可信状态示例值: 0可选值有: 未知状态信任设备非信任设备
 }
-
-
-
-
 
 // UpdateSecurityAndComplianceDeviceRecordResp ...
-type UpdateSecurityAndComplianceDeviceRecordResp struct { 
-}
-
-
-
-
+type UpdateSecurityAndComplianceDeviceRecordResp struct{}
 
 // updateSecurityAndComplianceDeviceRecordResp ...
-type updateSecurityAndComplianceDeviceRecordResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *UpdateSecurityAndComplianceDeviceRecordResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type updateSecurityAndComplianceDeviceRecordResp struct {
+	Code  int64                                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                       `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateSecurityAndComplianceDeviceRecordResp `json:"data,omitempty"`
+	Error *ErrorDetail                                 `json:"error,omitempty"`
 }
-
-
-
-

@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // QueryOKRReview 根据周期和用户查询复盘信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/review/query
-// 
 func (r *OKRService) QueryOKRReview(ctx context.Context, request *QueryOKRReviewReq, options ...MethodOptionFunc) (*QueryOKRReviewResp, *Response, error) {
-if r.cli.mock.mockOKRQueryOKRReview != nil {
+	if r.cli.mock.mockOKRQueryOKRReview != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] OKR#QueryOKRReview mock enable")
 		return r.cli.mock.mockOKRQueryOKRReview(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockOKRQueryOKRReview != nil {
 		Scope:                 "OKR",
 		API:                   "QueryOKRReview",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/okr/v1/reviews/query",
+		URL:                   r.cli.openBaseURL + "/open-apis/okr/v1/reviews/query",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(queryOKRReviewResp)
 
@@ -51,91 +49,59 @@ if r.cli.mock.mockOKRQueryOKRReview != nil {
 func (r *Mock) MockOKRQueryOKRReview(f func(ctx context.Context, request *QueryOKRReviewReq, options ...MethodOptionFunc) (*QueryOKRReviewResp, *Response, error)) {
 	r.mockOKRQueryOKRReview = f
 }
+
 // UnMockOKRQueryOKRReview un-mock OKRQueryOKRReview method
 func (r *Mock) UnMockOKRQueryOKRReview() {
 	r.mockOKRQueryOKRReview = nil
 }
 
-
 // QueryOKRReviewReq ...
-type QueryOKRReviewReq struct { 
-UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以people_admin_id来识别用户默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
-UserIDs []string `query:"user_ids" json:"-"` // 目标用户id列表, 最多5个示例值: ou-asdasdasdasdasd 最大长度: `5`
-PeriodIDs []string `query:"period_ids" json:"-"` // period_id列表, 最多5个示例值: 6951461264858777132 最大长度: `5`
+type QueryOKRReviewReq struct {
+	UserIDType *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以people_admin_id来识别用户默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDs    []string `query:"user_ids" json:"-"`     // 目标用户id列表, 最多5个示例值: ou-asdasdasdasdasd 最大长度: `5`
+	PeriodIDs  []string `query:"period_ids" json:"-"`   // period_id列表, 最多5个示例值: 6951461264858777132 最大长度: `5`
 }
-
-
-
-
 
 // QueryOKRReviewResp ...
-type QueryOKRReviewResp struct { 
-ReviewList []*QueryOKRReviewRespReview `json:"review_list,omitempty"` // OKR复盘 列表
+type QueryOKRReviewResp struct {
+	ReviewList []*QueryOKRReviewRespReview `json:"review_list,omitempty"` // OKR复盘 列表
 }
-
-
-
-
 
 // QueryOKRReviewRespReview ...
-type QueryOKRReviewRespReview struct { 
-UserID *QueryOKRReviewRespReviewUserID `json:"user_id,omitempty"` // 复盘的用户
-ReviewPeriodList []*QueryOKRReviewRespReviewReviewPeriod `json:"review_period_list,omitempty"` // 用户对应的OKR复盘列表
+type QueryOKRReviewRespReview struct {
+	UserID           *QueryOKRReviewRespReviewUserID         `json:"user_id,omitempty"`            // 复盘的用户
+	ReviewPeriodList []*QueryOKRReviewRespReviewReviewPeriod `json:"review_period_list,omitempty"` // 用户对应的OKR复盘列表
 }
-
-
-
-
 
 // QueryOKRReviewRespReviewReviewPeriod ...
-type QueryOKRReviewRespReviewReviewPeriod struct { 
-PeriodID string `json:"period_id,omitempty"` // 周期ID
-CycleReviewList []*QueryOKRReviewRespReviewReviewPeriodCycleReview `json:"cycle_review_list,omitempty"` // 复盘文档
-ProgressReportList []*QueryOKRReviewRespReviewReviewPeriodProgressReport `json:"progress_report_list,omitempty"` // 进展报告
+type QueryOKRReviewRespReviewReviewPeriod struct {
+	PeriodID           string                                                `json:"period_id,omitempty"`            // 周期ID
+	CycleReviewList    []*QueryOKRReviewRespReviewReviewPeriodCycleReview    `json:"cycle_review_list,omitempty"`    // 复盘文档
+	ProgressReportList []*QueryOKRReviewRespReviewReviewPeriodProgressReport `json:"progress_report_list,omitempty"` // 进展报告
 }
-
-
-
-
 
 // QueryOKRReviewRespReviewReviewPeriodCycleReview ...
-type QueryOKRReviewRespReviewReviewPeriodCycleReview struct { 
-URL string `json:"url,omitempty"` // 文档链接
-CreateTime string `json:"create_time,omitempty"` // 创建时间 毫秒
+type QueryOKRReviewRespReviewReviewPeriodCycleReview struct {
+	URL        string `json:"url,omitempty"`         // 文档链接
+	CreateTime string `json:"create_time,omitempty"` // 创建时间 毫秒
 }
-
-
-
-
 
 // QueryOKRReviewRespReviewReviewPeriodProgressReport ...
-type QueryOKRReviewRespReviewReviewPeriodProgressReport struct { 
-URL string `json:"url,omitempty"` // 文档链接
-CreateTime string `json:"create_time,omitempty"` // 创建时间 毫秒
+type QueryOKRReviewRespReviewReviewPeriodProgressReport struct {
+	URL        string `json:"url,omitempty"`         // 文档链接
+	CreateTime string `json:"create_time,omitempty"` // 创建时间 毫秒
 }
-
-
-
-
 
 // QueryOKRReviewRespReviewUserID ...
-type QueryOKRReviewRespReviewUserID struct { 
-OpenID string `json:"open_id,omitempty"` // 用户的 open_id
-UserID string `json:"user_id,omitempty"` // 用户的 user_id
+type QueryOKRReviewRespReviewUserID struct {
+	OpenID string `json:"open_id,omitempty"` // 用户的 open_id
+	UserID string `json:"user_id,omitempty"` // 用户的 user_id
 }
-
-
-
-
 
 // queryOKRReviewResp ...
-type queryOKRReviewResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *QueryOKRReviewResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type queryOKRReviewResp struct {
+	Code  int64               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string              `json:"msg,omitempty"`  // 错误描述
+	Data  *QueryOKRReviewResp `json:"data,omitempty"`
+	Error *ErrorDetail        `json:"error,omitempty"`
 }
-
-
-
-

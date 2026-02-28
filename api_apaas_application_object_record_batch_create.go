@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // BatchCreateApaasApplicationObjectRecord 一次新建多条对象中的记录
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/application-object-record/batch_create
-// 
 func (r *ApaasService) BatchCreateApaasApplicationObjectRecord(ctx context.Context, request *BatchCreateApaasApplicationObjectRecordReq, options ...MethodOptionFunc) (*BatchCreateApaasApplicationObjectRecordResp, *Response, error) {
-if r.cli.mock.mockApaasBatchCreateApaasApplicationObjectRecord != nil {
+	if r.cli.mock.mockApaasBatchCreateApaasApplicationObjectRecord != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Apaas#BatchCreateApaasApplicationObjectRecord mock enable")
 		return r.cli.mock.mockApaasBatchCreateApaasApplicationObjectRecord(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockApaasBatchCreateApaasApplicationObjectRecord != nil {
 		Scope:                 "Apaas",
 		API:                   "BatchCreateApaasApplicationObjectRecord",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/apaas/v1/applications/:namespace/objects/:object_api_name/records/batch_create",
+		URL:                   r.cli.openBaseURL + "/open-apis/apaas/v1/applications/:namespace/objects/:object_api_name/records/batch_create",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(batchCreateApaasApplicationObjectRecordResp)
 
@@ -51,63 +49,43 @@ if r.cli.mock.mockApaasBatchCreateApaasApplicationObjectRecord != nil {
 func (r *Mock) MockApaasBatchCreateApaasApplicationObjectRecord(f func(ctx context.Context, request *BatchCreateApaasApplicationObjectRecordReq, options ...MethodOptionFunc) (*BatchCreateApaasApplicationObjectRecordResp, *Response, error)) {
 	r.mockApaasBatchCreateApaasApplicationObjectRecord = f
 }
+
 // UnMockApaasBatchCreateApaasApplicationObjectRecord un-mock ApaasBatchCreateApaasApplicationObjectRecord method
 func (r *Mock) UnMockApaasBatchCreateApaasApplicationObjectRecord() {
 	r.mockApaasBatchCreateApaasApplicationObjectRecord = nil
 }
 
-
 // BatchCreateApaasApplicationObjectRecordReq ...
-type BatchCreateApaasApplicationObjectRecordReq struct { 
-Namespace string `path:"namespace" json:"-"` // 应用命名空间示例值: "package_test__c" 长度范围: `0` ～ `255` 字符
-ObjectApiName string `path:"object_api_name" json:"-"` // 对象唯一标识示例值: "user" 长度范围: `0` ～ `256` 字符
-Records []string `json:"records,omitempty"` // 记录详情列表, 格式为 List<Map<string, ANY>>, 操作记录数上限为 500 条示例值: "[{\"book_name\":\"name21\", \"book_count\":2}]"
+type BatchCreateApaasApplicationObjectRecordReq struct {
+	Namespace     string   `path:"namespace" json:"-"`       // 应用命名空间示例值: "package_test__c" 长度范围: `0` ～ `255` 字符
+	ObjectApiName string   `path:"object_api_name" json:"-"` // 对象唯一标识示例值: "user" 长度范围: `0` ～ `256` 字符
+	Records       []string `json:"records,omitempty"`        // 记录详情列表, 格式为 List<Map<string, ANY>>, 操作记录数上限为 500 条示例值: "[{\"book_name\":\"name21\", \"book_count\":2}]"
 }
-
-
-
-
 
 // BatchCreateApaasApplicationObjectRecordResp ...
-type BatchCreateApaasApplicationObjectRecordResp struct { 
-Items []*BatchCreateApaasApplicationObjectRecordRespItem `json:"items,omitempty"` // 处理结果
+type BatchCreateApaasApplicationObjectRecordResp struct {
+	Items []*BatchCreateApaasApplicationObjectRecordRespItem `json:"items,omitempty"` // 处理结果
 }
-
-
-
-
 
 // BatchCreateApaasApplicationObjectRecordRespItem ...
-type BatchCreateApaasApplicationObjectRecordRespItem struct { 
-Success bool `json:"success,omitempty"` // 是否成功
-ID string `json:"id,omitempty"` // 记录 ID
-Errors []*BatchCreateApaasApplicationObjectRecordRespItemError `json:"errors,omitempty"` // 权限错误时的细分 code
+type BatchCreateApaasApplicationObjectRecordRespItem struct {
+	Success bool                                                    `json:"success,omitempty"` // 是否成功
+	ID      string                                                  `json:"id,omitempty"`      // 记录 ID
+	Errors  []*BatchCreateApaasApplicationObjectRecordRespItemError `json:"errors,omitempty"`  // 权限错误时的细分 code
 }
-
-
-
-
 
 // BatchCreateApaasApplicationObjectRecordRespItemError ...
-type BatchCreateApaasApplicationObjectRecordRespItemError struct { 
-Code string `json:"code,omitempty"` // 错误码
-Message string `json:"message,omitempty"` // success
-SubCode string `json:"sub_code,omitempty"` // 权限错误时的细分 code
-Fields []string `json:"fields,omitempty"` // 权限错误时的涉及的字段 APIID 集合
+type BatchCreateApaasApplicationObjectRecordRespItemError struct {
+	Code    string   `json:"code,omitempty"`     // 错误码
+	Message string   `json:"message,omitempty"`  // success
+	SubCode string   `json:"sub_code,omitempty"` // 权限错误时的细分 code
+	Fields  []string `json:"fields,omitempty"`   // 权限错误时的涉及的字段 APIID 集合
 }
-
-
-
-
 
 // batchCreateApaasApplicationObjectRecordResp ...
-type batchCreateApaasApplicationObjectRecordResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *BatchCreateApaasApplicationObjectRecordResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type batchCreateApaasApplicationObjectRecordResp struct {
+	Code  int64                                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                       `json:"msg,omitempty"`  // 错误描述
+	Data  *BatchCreateApaasApplicationObjectRecordResp `json:"data,omitempty"`
+	Error *ErrorDetail                                 `json:"error,omitempty"`
 }
-
-
-
-

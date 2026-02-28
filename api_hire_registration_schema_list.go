@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListHireRegistrationSchema 根据适用场景获取信息登记表列表, 可获取到的信息包括登记表名称、登记表模块、登记表字段等
@@ -26,9 +26,8 @@ import (
 // 信息登记表配置请参考「飞书招聘」-「设置」-「候选人信息管理」- 「信息登记表设置」
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/registration_schema/list
-// 
 func (r *HireService) ListHireRegistrationSchema(ctx context.Context, request *ListHireRegistrationSchemaReq, options ...MethodOptionFunc) (*ListHireRegistrationSchemaResp, *Response, error) {
-if r.cli.mock.mockHireListHireRegistrationSchema != nil {
+	if r.cli.mock.mockHireListHireRegistrationSchema != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#ListHireRegistrationSchema mock enable")
 		return r.cli.mock.mockHireListHireRegistrationSchema(ctx, request, options...)
 	}
@@ -37,11 +36,10 @@ if r.cli.mock.mockHireListHireRegistrationSchema != nil {
 		Scope:                 "Hire",
 		API:                   "ListHireRegistrationSchema",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/registration_schemas",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/registration_schemas",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(listHireRegistrationSchemaResp)
 
@@ -53,230 +51,150 @@ if r.cli.mock.mockHireListHireRegistrationSchema != nil {
 func (r *Mock) MockHireListHireRegistrationSchema(f func(ctx context.Context, request *ListHireRegistrationSchemaReq, options ...MethodOptionFunc) (*ListHireRegistrationSchemaResp, *Response, error)) {
 	r.mockHireListHireRegistrationSchema = f
 }
+
 // UnMockHireListHireRegistrationSchema un-mock HireListHireRegistrationSchema method
 func (r *Mock) UnMockHireListHireRegistrationSchema() {
 	r.mockHireListHireRegistrationSchema = nil
 }
 
-
 // ListHireRegistrationSchemaReq ...
-type ListHireRegistrationSchemaReq struct { 
-PageSize *int64 `query:"page_size" json:"-"` // 分页大小示例值: 20默认值: `10` 最大值: `50`
-PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 6930815272790114324
-Scenario *int64 `query:"scenario" json:"-"` // 登记表适用场景；不填表示获取全部类型信息登记表示例值: 5可选值有: 面试登记表入职登记表信息更新登记表
+type ListHireRegistrationSchemaReq struct {
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小示例值: 20默认值: `10` 最大值: `50`
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 6930815272790114324
+	Scenario  *int64  `query:"scenario" json:"-"`   // 登记表适用场景；不填表示获取全部类型信息登记表示例值: 5可选值有: 面试登记表入职登记表信息更新登记表
 }
-
-
-
-
 
 // ListHireRegistrationSchemaResp ...
-type ListHireRegistrationSchemaResp struct { 
-Items []*ListHireRegistrationSchemaRespItem `json:"items,omitempty"` // 信息登记表列表
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
+type ListHireRegistrationSchemaResp struct {
+	Items     []*ListHireRegistrationSchemaRespItem `json:"items,omitempty"`      // 信息登记表列表
+	PageToken string                                `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	HasMore   bool                                  `json:"has_more,omitempty"`   // 是否还有更多项
 }
-
-
-
-
 
 // ListHireRegistrationSchemaRespItem ...
-type ListHireRegistrationSchemaRespItem struct { 
-ID string `json:"id,omitempty"` // 信息登记表 ID
-Name string `json:"name,omitempty"` // 信息登记表名称
-Scenarios []int64 `json:"scenarios,omitempty"` // 登记表适用场景可选值有: 面试登记表入职登记表信息更新登记表
-Objects []*ListHireRegistrationSchemaRespItemObject `json:"objects,omitempty"` // 模块列表
+type ListHireRegistrationSchemaRespItem struct {
+	ID        string                                      `json:"id,omitempty"`        // 信息登记表 ID
+	Name      string                                      `json:"name,omitempty"`      // 信息登记表名称
+	Scenarios []int64                                     `json:"scenarios,omitempty"` // 登记表适用场景可选值有: 面试登记表入职登记表信息更新登记表
+	Objects   []*ListHireRegistrationSchemaRespItemObject `json:"objects,omitempty"`   // 模块列表
 }
-
-
-
-
 
 // ListHireRegistrationSchemaRespItemObject ...
-type ListHireRegistrationSchemaRespItemObject struct { 
-ID string `json:"id,omitempty"` // 模块 ID
-Name *ListHireRegistrationSchemaRespItemObjectName `json:"name,omitempty"` // 模块名称
-Description *ListHireRegistrationSchemaRespItemObjectDescription `json:"description,omitempty"` // 模块描述
-Setting *ListHireRegistrationSchemaRespItemObjectSetting `json:"setting,omitempty"` // 模块信息
-IsCustomized bool `json:"is_customized,omitempty"` // 是否是自定义模块: `true`: 自定义模块- `false`: 系统预置模块
-IsRequired bool `json:"is_required,omitempty"` // 是否必填: `true`: 必填- `false`: 非必填
-IsVisible bool `json:"is_visible,omitempty"` // 是否可见: `true`: 可见- `false`: 不可见
-ActiveStatus int64 `json:"active_status,omitempty"` // 是否启用可选值有: 已启用已停用
-ChildrenList []*ListHireRegistrationSchemaRespItemObjectChildren `json:"children_list,omitempty"` // 字段列表
+type ListHireRegistrationSchemaRespItemObject struct {
+	ID           string                                               `json:"id,omitempty"`            // 模块 ID
+	Name         *ListHireRegistrationSchemaRespItemObjectName        `json:"name,omitempty"`          // 模块名称
+	Description  *ListHireRegistrationSchemaRespItemObjectDescription `json:"description,omitempty"`   // 模块描述
+	Setting      *ListHireRegistrationSchemaRespItemObjectSetting     `json:"setting,omitempty"`       // 模块信息
+	IsCustomized bool                                                 `json:"is_customized,omitempty"` // 是否是自定义模块: `true`: 自定义模块- `false`: 系统预置模块
+	IsRequired   bool                                                 `json:"is_required,omitempty"`   // 是否必填: `true`: 必填- `false`: 非必填
+	IsVisible    bool                                                 `json:"is_visible,omitempty"`    // 是否可见: `true`: 可见- `false`: 不可见
+	ActiveStatus int64                                                `json:"active_status,omitempty"` // 是否启用可选值有: 已启用已停用
+	ChildrenList []*ListHireRegistrationSchemaRespItemObjectChildren  `json:"children_list,omitempty"` // 字段列表
 }
-
-
-
-
 
 // ListHireRegistrationSchemaRespItemObjectChildren ...
-type ListHireRegistrationSchemaRespItemObjectChildren struct { 
-ID string `json:"id,omitempty"` // 字段 ID
-Name *ListHireRegistrationSchemaRespItemObjectChildrenName `json:"name,omitempty"` // 字段名称
-Description *ListHireRegistrationSchemaRespItemObjectChildrenDescription `json:"description,omitempty"` // 字段描述
-Setting *ListHireRegistrationSchemaRespItemObjectChildrenSetting `json:"setting,omitempty"` // 字段信息
-ParentID string `json:"parent_id,omitempty"` // 所属模块 ID, 即外层的object.id
-IsCustomized bool `json:"is_customized,omitempty"` // 是否是自定义字段: `true`: 自定义字段- `false`: 系统预置字段
-IsRequired bool `json:"is_required,omitempty"` // 是否必填: `true`: 必填- `false`: 非必填
-IsVisible bool `json:"is_visible,omitempty"` // 是否可见: `true`: 可见- `false`: 不可见
-ActiveStatus int64 `json:"active_status,omitempty"` // 是否启用可选值有: 已启用已停用
+type ListHireRegistrationSchemaRespItemObjectChildren struct {
+	ID           string                                                       `json:"id,omitempty"`            // 字段 ID
+	Name         *ListHireRegistrationSchemaRespItemObjectChildrenName        `json:"name,omitempty"`          // 字段名称
+	Description  *ListHireRegistrationSchemaRespItemObjectChildrenDescription `json:"description,omitempty"`   // 字段描述
+	Setting      *ListHireRegistrationSchemaRespItemObjectChildrenSetting     `json:"setting,omitempty"`       // 字段信息
+	ParentID     string                                                       `json:"parent_id,omitempty"`     // 所属模块 ID, 即外层的object.id
+	IsCustomized bool                                                         `json:"is_customized,omitempty"` // 是否是自定义字段: `true`: 自定义字段- `false`: 系统预置字段
+	IsRequired   bool                                                         `json:"is_required,omitempty"`   // 是否必填: `true`: 必填- `false`: 非必填
+	IsVisible    bool                                                         `json:"is_visible,omitempty"`    // 是否可见: `true`: 可见- `false`: 不可见
+	ActiveStatus int64                                                        `json:"active_status,omitempty"` // 是否启用可选值有: 已启用已停用
 }
-
-
-
-
 
 // ListHireRegistrationSchemaRespItemObjectChildrenDescription ...
-type ListHireRegistrationSchemaRespItemObjectChildrenDescription struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文描述
-EnUs string `json:"en_us,omitempty"` // 英文描述
+type ListHireRegistrationSchemaRespItemObjectChildrenDescription struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文描述
+	EnUs string `json:"en_us,omitempty"` // 英文描述
 }
-
-
-
-
 
 // ListHireRegistrationSchemaRespItemObjectChildrenName ...
-type ListHireRegistrationSchemaRespItemObjectChildrenName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文名称
-EnUs string `json:"en_us,omitempty"` // 英文名称
+type ListHireRegistrationSchemaRespItemObjectChildrenName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名称
+	EnUs string `json:"en_us,omitempty"` // 英文名称
 }
-
-
-
-
 
 // ListHireRegistrationSchemaRespItemObjectChildrenSetting ...
-type ListHireRegistrationSchemaRespItemObjectChildrenSetting struct { 
-ObjectType int64 `json:"object_type,omitempty"` // 字段类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块附件
-Config *ListHireRegistrationSchemaRespItemObjectChildrenSettingConfig `json:"config,omitempty"` // 配置信息
+type ListHireRegistrationSchemaRespItemObjectChildrenSetting struct {
+	ObjectType int64                                                          `json:"object_type,omitempty"` // 字段类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块附件
+	Config     *ListHireRegistrationSchemaRespItemObjectChildrenSettingConfig `json:"config,omitempty"`      // 配置信息
 }
-
-
-
-
 
 // ListHireRegistrationSchemaRespItemObjectChildrenSettingConfig ...
-type ListHireRegistrationSchemaRespItemObjectChildrenSettingConfig struct { 
-Options []*ListHireRegistrationSchemaRespItemObjectChildrenSettingConfigOption `json:"options,omitempty"` // 选项信息, 仅在字段类型object_type为单选、多选时有值
+type ListHireRegistrationSchemaRespItemObjectChildrenSettingConfig struct {
+	Options []*ListHireRegistrationSchemaRespItemObjectChildrenSettingConfigOption `json:"options,omitempty"` // 选项信息, 仅在字段类型object_type为单选、多选时有值
 }
-
-
-
-
 
 // ListHireRegistrationSchemaRespItemObjectChildrenSettingConfigOption ...
-type ListHireRegistrationSchemaRespItemObjectChildrenSettingConfigOption struct { 
-Key string `json:"key,omitempty"` // 选项 ID
-Name *ListHireRegistrationSchemaRespItemObjectChildrenSettingConfigOptionName `json:"name,omitempty"` // 选项名称
-Description *ListHireRegistrationSchemaRespItemObjectChildrenSettingConfigOptionDescription `json:"description,omitempty"` // 选项描述
-ActiveStatus int64 `json:"active_status,omitempty"` // 是否启用可选值有: 已启用已停用
+type ListHireRegistrationSchemaRespItemObjectChildrenSettingConfigOption struct {
+	Key          string                                                                          `json:"key,omitempty"`           // 选项 ID
+	Name         *ListHireRegistrationSchemaRespItemObjectChildrenSettingConfigOptionName        `json:"name,omitempty"`          // 选项名称
+	Description  *ListHireRegistrationSchemaRespItemObjectChildrenSettingConfigOptionDescription `json:"description,omitempty"`   // 选项描述
+	ActiveStatus int64                                                                           `json:"active_status,omitempty"` // 是否启用可选值有: 已启用已停用
 }
-
-
-
-
 
 // ListHireRegistrationSchemaRespItemObjectChildrenSettingConfigOptionDescription ...
-type ListHireRegistrationSchemaRespItemObjectChildrenSettingConfigOptionDescription struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文描述
-EnUs string `json:"en_us,omitempty"` // 英文描述
+type ListHireRegistrationSchemaRespItemObjectChildrenSettingConfigOptionDescription struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文描述
+	EnUs string `json:"en_us,omitempty"` // 英文描述
 }
-
-
-
-
 
 // ListHireRegistrationSchemaRespItemObjectChildrenSettingConfigOptionName ...
-type ListHireRegistrationSchemaRespItemObjectChildrenSettingConfigOptionName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文名称
-EnUs string `json:"en_us,omitempty"` // 英文名称
+type ListHireRegistrationSchemaRespItemObjectChildrenSettingConfigOptionName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名称
+	EnUs string `json:"en_us,omitempty"` // 英文名称
 }
-
-
-
-
 
 // ListHireRegistrationSchemaRespItemObjectDescription ...
-type ListHireRegistrationSchemaRespItemObjectDescription struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文描述
-EnUs string `json:"en_us,omitempty"` // 英文描述
+type ListHireRegistrationSchemaRespItemObjectDescription struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文描述
+	EnUs string `json:"en_us,omitempty"` // 英文描述
 }
-
-
-
-
 
 // ListHireRegistrationSchemaRespItemObjectName ...
-type ListHireRegistrationSchemaRespItemObjectName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文名称
-EnUs string `json:"en_us,omitempty"` // 英文名称
+type ListHireRegistrationSchemaRespItemObjectName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名称
+	EnUs string `json:"en_us,omitempty"` // 英文名称
 }
-
-
-
-
 
 // ListHireRegistrationSchemaRespItemObjectSetting ...
-type ListHireRegistrationSchemaRespItemObjectSetting struct { 
-ObjectType int64 `json:"object_type,omitempty"` // 字段类型, 在模块信息中该字段将固定返回`11`可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块附件
-Config *ListHireRegistrationSchemaRespItemObjectSettingConfig `json:"config,omitempty"` // 配置信息
+type ListHireRegistrationSchemaRespItemObjectSetting struct {
+	ObjectType int64                                                  `json:"object_type,omitempty"` // 字段类型, 在模块信息中该字段将固定返回`11`可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块附件
+	Config     *ListHireRegistrationSchemaRespItemObjectSettingConfig `json:"config,omitempty"`      // 配置信息
 }
-
-
-
-
 
 // ListHireRegistrationSchemaRespItemObjectSettingConfig ...
-type ListHireRegistrationSchemaRespItemObjectSettingConfig struct { 
-Options []*ListHireRegistrationSchemaRespItemObjectSettingConfigOption `json:"options,omitempty"` // 选项信息, 仅在类型`object_type`为单选、多选时有值
+type ListHireRegistrationSchemaRespItemObjectSettingConfig struct {
+	Options []*ListHireRegistrationSchemaRespItemObjectSettingConfigOption `json:"options,omitempty"` // 选项信息, 仅在类型`object_type`为单选、多选时有值
 }
-
-
-
-
 
 // ListHireRegistrationSchemaRespItemObjectSettingConfigOption ...
-type ListHireRegistrationSchemaRespItemObjectSettingConfigOption struct { 
-Key string `json:"key,omitempty"` // 选项 ID
-Name *ListHireRegistrationSchemaRespItemObjectSettingConfigOptionName `json:"name,omitempty"` // 选项名称
-Description *ListHireRegistrationSchemaRespItemObjectSettingConfigOptionDescription `json:"description,omitempty"` // 选项描述
-ActiveStatus int64 `json:"active_status,omitempty"` // 是否启用可选值有: 已启用已停用
+type ListHireRegistrationSchemaRespItemObjectSettingConfigOption struct {
+	Key          string                                                                  `json:"key,omitempty"`           // 选项 ID
+	Name         *ListHireRegistrationSchemaRespItemObjectSettingConfigOptionName        `json:"name,omitempty"`          // 选项名称
+	Description  *ListHireRegistrationSchemaRespItemObjectSettingConfigOptionDescription `json:"description,omitempty"`   // 选项描述
+	ActiveStatus int64                                                                   `json:"active_status,omitempty"` // 是否启用可选值有: 已启用已停用
 }
-
-
-
-
 
 // ListHireRegistrationSchemaRespItemObjectSettingConfigOptionDescription ...
-type ListHireRegistrationSchemaRespItemObjectSettingConfigOptionDescription struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文描述
-EnUs string `json:"en_us,omitempty"` // 英文描述
+type ListHireRegistrationSchemaRespItemObjectSettingConfigOptionDescription struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文描述
+	EnUs string `json:"en_us,omitempty"` // 英文描述
 }
-
-
-
-
 
 // ListHireRegistrationSchemaRespItemObjectSettingConfigOptionName ...
-type ListHireRegistrationSchemaRespItemObjectSettingConfigOptionName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文名称
-EnUs string `json:"en_us,omitempty"` // 英文名称
+type ListHireRegistrationSchemaRespItemObjectSettingConfigOptionName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名称
+	EnUs string `json:"en_us,omitempty"` // 英文名称
 }
-
-
-
-
 
 // listHireRegistrationSchemaResp ...
-type listHireRegistrationSchemaResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *ListHireRegistrationSchemaResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type listHireRegistrationSchemaResp struct {
+	Code  int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                          `json:"msg,omitempty"`  // 错误描述
+	Data  *ListHireRegistrationSchemaResp `json:"data,omitempty"`
+	Error *ErrorDetail                    `json:"error,omitempty"`
 }
-
-
-
-

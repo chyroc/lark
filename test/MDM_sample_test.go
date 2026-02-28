@@ -37,12 +37,10 @@ func Test_MDM_Sample_Failed(t *testing.T) {
 		moduleCli := cli.MDM
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.BindMDMUserAuthDataRelation(ctx, &lark.BindMDMUserAuthDataRelationReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
-
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {
@@ -50,7 +48,6 @@ func Test_MDM_Sample_Failed(t *testing.T) {
 		moduleCli := cli.MDM
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockMDMBindMDMUserAuthDataRelation(func(ctx context.Context, request *lark.BindMDMUserAuthDataRelationReq, options ...lark.MethodOptionFunc) (*lark.BindMDMUserAuthDataRelationResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -62,7 +59,6 @@ func Test_MDM_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockMDMUnbindMDMUserAuthDataRelation(func(ctx context.Context, request *lark.UnbindMDMUserAuthDataRelationReq, options ...lark.MethodOptionFunc) (*lark.UnbindMDMUserAuthDataRelationResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -72,7 +68,6 @@ func Test_MDM_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
-
 	})
 
 	t.Run("response is failed (mock http)", func(t *testing.T) {
@@ -83,18 +78,15 @@ func Test_MDM_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.BindMDMUserAuthDataRelation(ctx, &lark.BindMDMUserAuthDataRelationReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UnbindMDMUserAuthDataRelation(ctx, &lark.UnbindMDMUserAuthDataRelationReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
-
 	})
 }

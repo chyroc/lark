@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // QueryCompensationSocialArchive 通过用户ID列表和生效日期查询
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/social_archive/query
-// 
 func (r *CompensationService) QueryCompensationSocialArchive(ctx context.Context, request *QueryCompensationSocialArchiveReq, options ...MethodOptionFunc) (*QueryCompensationSocialArchiveResp, *Response, error) {
-if r.cli.mock.mockCompensationQueryCompensationSocialArchive != nil {
+	if r.cli.mock.mockCompensationQueryCompensationSocialArchive != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Compensation#QueryCompensationSocialArchive mock enable")
 		return r.cli.mock.mockCompensationQueryCompensationSocialArchive(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockCompensationQueryCompensationSocialArchive != nil {
 		Scope:                 "Compensation",
 		API:                   "QueryCompensationSocialArchive",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/compensation/v1/social_archive/query",
+		URL:                   r.cli.openBaseURL + "/open-apis/compensation/v1/social_archive/query",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(queryCompensationSocialArchiveResp)
 
@@ -51,125 +49,89 @@ if r.cli.mock.mockCompensationQueryCompensationSocialArchive != nil {
 func (r *Mock) MockCompensationQueryCompensationSocialArchive(f func(ctx context.Context, request *QueryCompensationSocialArchiveReq, options ...MethodOptionFunc) (*QueryCompensationSocialArchiveResp, *Response, error)) {
 	r.mockCompensationQueryCompensationSocialArchive = f
 }
+
 // UnMockCompensationQueryCompensationSocialArchive un-mock CompensationQueryCompensationSocialArchive method
 func (r *Mock) UnMockCompensationQueryCompensationSocialArchive() {
 	r.mockCompensationQueryCompensationSocialArchive = nil
 }
 
-
 // QueryCompensationSocialArchiveReq ...
-type QueryCompensationSocialArchiveReq struct { 
-UserIDType IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以people_corehr_id来识别用户默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
-UserIDList []string `json:"user_id_list,omitempty"` // 用户ID列表, 与入参 user_id_type 类型一致, 最少1个, 最大200示例值: ["7023711013443944467"] 长度范围: `0` ～ `200`
-EffectiveDate string `json:"effective_date,omitempty"` // 生效日期, 查询在该日期生效的社保档案, 格式为 YYYY-mm-dd, 长度为 10 字符示例值: "2024-01-01"
+type QueryCompensationSocialArchiveReq struct {
+	UserIDType    IDType   `query:"user_id_type" json:"-"`   // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以people_corehr_id来识别用户默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDList    []string `json:"user_id_list,omitempty"`   // 用户ID列表, 与入参 user_id_type 类型一致, 最少1个, 最大200示例值: ["7023711013443944467"] 长度范围: `0` ～ `200`
+	EffectiveDate string   `json:"effective_date,omitempty"` // 生效日期, 查询在该日期生效的社保档案, 格式为 YYYY-mm-dd, 长度为 10 字符示例值: "2024-01-01"
 }
-
-
-
-
 
 // QueryCompensationSocialArchiveResp ...
-type QueryCompensationSocialArchiveResp struct { 
-Archives []*QueryCompensationSocialArchiveRespArchive `json:"archives,omitempty"` // 参保档案列表
+type QueryCompensationSocialArchiveResp struct {
+	Archives []*QueryCompensationSocialArchiveRespArchive `json:"archives,omitempty"` // 参保档案列表
 }
-
-
-
-
 
 // QueryCompensationSocialArchiveRespArchive ...
-type QueryCompensationSocialArchiveRespArchive struct { 
-UserID string `json:"user_id,omitempty"` // 员工ID, 与入参 user_id_type 类型一致
-Details []*QueryCompensationSocialArchiveRespArchiveDetail `json:"details,omitempty"` // 员工参保档案, 包含社保、公积金档案
+type QueryCompensationSocialArchiveRespArchive struct {
+	UserID  string                                             `json:"user_id,omitempty"` // 员工ID, 与入参 user_id_type 类型一致
+	Details []*QueryCompensationSocialArchiveRespArchiveDetail `json:"details,omitempty"` // 员工参保档案, 包含社保、公积金档案
 }
-
-
-
-
 
 // QueryCompensationSocialArchiveRespArchiveDetail ...
-type QueryCompensationSocialArchiveRespArchiveDetail struct { 
-Description *QueryCompensationSocialArchiveRespArchiveDetailDescription `json:"description,omitempty"` // 调整说明
-InsuranceType string `json:"insurance_type,omitempty"` // 类型。social_insurance: 社保; provident_fund: 公积金可选值有: 社保公积金
-InsuranceStatus string `json:"insurance_status,omitempty"` // 参保状态, 非「参保」状态下, 基数、险种数据等为空可选值有: 参保不参保停保
-ID string `json:"id,omitempty"` // 员工参保档案ID
-Tid string `json:"tid,omitempty"` // 员工参保档案调整记录ID（根据档案生效时间查询对应年月的调整记录）
-PlanID string `json:"plan_id,omitempty"` // 参保方案ID, 详细信息可通过[查询参保方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/social_plan/query)接口获取
-PlanTid string `json:"plan_tid,omitempty"` // 参保方案版本ID
-LocationID string `json:"location_id,omitempty"` // 参保城市ID, 可通过[获取地点信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)接口查询详细信息
-CompanyID string `json:"company_id,omitempty"` // 社保缴纳主体ID, 可通过[获取公司主体](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/company/batch_get)接口查询详细信息
-AccountType string `json:"account_type,omitempty"` // 社保账户类型
-InsuranceAccount string `json:"insurance_account,omitempty"` // 社保账号
-BaseSalary string `json:"base_salary,omitempty"` // 申报缴纳基数, 单位: 元
-InsuranceDetails []*QueryCompensationSocialArchiveRespArchiveDetailInsuranceDetail `json:"insurance_details,omitempty"` // 险种数据详情
-EffectiveDate string `json:"effective_date,omitempty"` // 档案生效时间, yyyy-MM-dd
+type QueryCompensationSocialArchiveRespArchiveDetail struct {
+	Description      *QueryCompensationSocialArchiveRespArchiveDetailDescription       `json:"description,omitempty"`       // 调整说明
+	InsuranceType    string                                                            `json:"insurance_type,omitempty"`    // 类型。social_insurance: 社保; provident_fund: 公积金可选值有: 社保公积金
+	InsuranceStatus  string                                                            `json:"insurance_status,omitempty"`  // 参保状态, 非「参保」状态下, 基数、险种数据等为空可选值有: 参保不参保停保
+	ID               string                                                            `json:"id,omitempty"`                // 员工参保档案ID
+	Tid              string                                                            `json:"tid,omitempty"`               // 员工参保档案调整记录ID（根据档案生效时间查询对应年月的调整记录）
+	PlanID           string                                                            `json:"plan_id,omitempty"`           // 参保方案ID, 详细信息可通过[查询参保方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/social_plan/query)接口获取
+	PlanTid          string                                                            `json:"plan_tid,omitempty"`          // 参保方案版本ID
+	LocationID       string                                                            `json:"location_id,omitempty"`       // 参保城市ID, 可通过[获取地点信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)接口查询详细信息
+	CompanyID        string                                                            `json:"company_id,omitempty"`        // 社保缴纳主体ID, 可通过[获取公司主体](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/company/batch_get)接口查询详细信息
+	AccountType      string                                                            `json:"account_type,omitempty"`      // 社保账户类型
+	InsuranceAccount string                                                            `json:"insurance_account,omitempty"` // 社保账号
+	BaseSalary       string                                                            `json:"base_salary,omitempty"`       // 申报缴纳基数, 单位: 元
+	InsuranceDetails []*QueryCompensationSocialArchiveRespArchiveDetailInsuranceDetail `json:"insurance_details,omitempty"` // 险种数据详情
+	EffectiveDate    string                                                            `json:"effective_date,omitempty"`    // 档案生效时间, yyyy-MM-dd
 }
-
-
-
-
 
 // QueryCompensationSocialArchiveRespArchiveDetailDescription ...
-type QueryCompensationSocialArchiveRespArchiveDetailDescription struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 2024年社保基数调整
-EnUs string `json:"en_us,omitempty"` // 英文名称
+type QueryCompensationSocialArchiveRespArchiveDetailDescription struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 2024年社保基数调整
+	EnUs string `json:"en_us,omitempty"` // 英文名称
 }
-
-
-
-
 
 // QueryCompensationSocialArchiveRespArchiveDetailInsuranceDetail ...
-type QueryCompensationSocialArchiveRespArchiveDetailInsuranceDetail struct { 
-InsuranceID string `json:"insurance_id,omitempty"` // 险种ID, 可通过[获取险种配置列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/social_insurance/list)接口查询
-CompanyDeduction string `json:"company_deduction,omitempty"` // 企业缴纳金额, 单位: 元
-CompanySetting *QueryCompensationSocialArchiveRespArchiveDetailInsuranceDetailCompanySetting `json:"company_setting,omitempty"` // 企业缴纳配置
-PersonalDeduction string `json:"personal_deduction,omitempty"` // 个人缴纳金额, 单位: 元
-PersonalSetting *QueryCompensationSocialArchiveRespArchiveDetailInsuranceDetailPersonalSetting `json:"personal_setting,omitempty"` // 个人缴纳配置
-PaymentFrequency string `json:"payment_frequency,omitempty"` // 缴纳频率可选值有: 每年每月每季度
-PaymentMonths []int64 `json:"payment_months,omitempty"` // 缴纳月份, 1月～12月
+type QueryCompensationSocialArchiveRespArchiveDetailInsuranceDetail struct {
+	InsuranceID       string                                                                         `json:"insurance_id,omitempty"`       // 险种ID, 可通过[获取险种配置列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/social_insurance/list)接口查询
+	CompanyDeduction  string                                                                         `json:"company_deduction,omitempty"`  // 企业缴纳金额, 单位: 元
+	CompanySetting    *QueryCompensationSocialArchiveRespArchiveDetailInsuranceDetailCompanySetting  `json:"company_setting,omitempty"`    // 企业缴纳配置
+	PersonalDeduction string                                                                         `json:"personal_deduction,omitempty"` // 个人缴纳金额, 单位: 元
+	PersonalSetting   *QueryCompensationSocialArchiveRespArchiveDetailInsuranceDetailPersonalSetting `json:"personal_setting,omitempty"`   // 个人缴纳配置
+	PaymentFrequency  string                                                                         `json:"payment_frequency,omitempty"`  // 缴纳频率可选值有: 每年每月每季度
+	PaymentMonths     []int64                                                                        `json:"payment_months,omitempty"`     // 缴纳月份, 1月～12月
 }
-
-
-
-
 
 // QueryCompensationSocialArchiveRespArchiveDetailInsuranceDetailCompanySetting ...
-type QueryCompensationSocialArchiveRespArchiveDetailInsuranceDetailCompanySetting struct { 
-LowerLimit string `json:"lower_limit,omitempty"` // 基数下限, 浮点数, 保留二位小数, 单位: 元
-UpperLimit string `json:"upper_limit,omitempty"` // 基数上限, 浮点数, 保留二位小数, 单位: 元
-PaymentRatio string `json:"payment_ratio,omitempty"` // 缴纳比例, 浮点数, 默认填充到二位小数, 支持输入到四位, 单位为 %
-PaymentRoundingRule string `json:"payment_rounding_rule,omitempty"` // 缴纳金舍入规则。rounding: 四舍五入; round_up: 向上舍入; round_down: 向下舍入可选值有: 四舍五入向上舍入向下舍入
-PaymentDecimals int64 `json:"payment_decimals,omitempty"` // 缴纳金小数位数, 0位小数-6位小数之间选择
-FixedPayment string `json:"fixed_payment,omitempty"` // 附加固定金额, 浮点数, 保留二位小数, 单位: 元
+type QueryCompensationSocialArchiveRespArchiveDetailInsuranceDetailCompanySetting struct {
+	LowerLimit          string `json:"lower_limit,omitempty"`           // 基数下限, 浮点数, 保留二位小数, 单位: 元
+	UpperLimit          string `json:"upper_limit,omitempty"`           // 基数上限, 浮点数, 保留二位小数, 单位: 元
+	PaymentRatio        string `json:"payment_ratio,omitempty"`         // 缴纳比例, 浮点数, 默认填充到二位小数, 支持输入到四位, 单位为 %
+	PaymentRoundingRule string `json:"payment_rounding_rule,omitempty"` // 缴纳金舍入规则。rounding: 四舍五入; round_up: 向上舍入; round_down: 向下舍入可选值有: 四舍五入向上舍入向下舍入
+	PaymentDecimals     int64  `json:"payment_decimals,omitempty"`      // 缴纳金小数位数, 0位小数-6位小数之间选择
+	FixedPayment        string `json:"fixed_payment,omitempty"`         // 附加固定金额, 浮点数, 保留二位小数, 单位: 元
 }
-
-
-
-
 
 // QueryCompensationSocialArchiveRespArchiveDetailInsuranceDetailPersonalSetting ...
-type QueryCompensationSocialArchiveRespArchiveDetailInsuranceDetailPersonalSetting struct { 
-LowerLimit string `json:"lower_limit,omitempty"` // 基数下限, 浮点数, 保留二位小数, 单位: 元
-UpperLimit string `json:"upper_limit,omitempty"` // 基数上限, 浮点数, 保留二位小数, 单位: 元
-PaymentRatio string `json:"payment_ratio,omitempty"` // 缴纳比例, 浮点数, 默认填充到二位小数, 支持输入到四位, 单位为 %
-PaymentRoundingRule string `json:"payment_rounding_rule,omitempty"` // 缴纳金舍入规则。rounding: 四舍五入; round_up: 向上舍入; round_down: 向下舍入可选值有: 四舍五入向上舍入向下舍入
-PaymentDecimals int64 `json:"payment_decimals,omitempty"` // 缴纳金小数位数, 0位小数-6位小数之间选择
-FixedPayment string `json:"fixed_payment,omitempty"` // 附加固定金额, 浮点数, 保留二位小数, 单位: 元
+type QueryCompensationSocialArchiveRespArchiveDetailInsuranceDetailPersonalSetting struct {
+	LowerLimit          string `json:"lower_limit,omitempty"`           // 基数下限, 浮点数, 保留二位小数, 单位: 元
+	UpperLimit          string `json:"upper_limit,omitempty"`           // 基数上限, 浮点数, 保留二位小数, 单位: 元
+	PaymentRatio        string `json:"payment_ratio,omitempty"`         // 缴纳比例, 浮点数, 默认填充到二位小数, 支持输入到四位, 单位为 %
+	PaymentRoundingRule string `json:"payment_rounding_rule,omitempty"` // 缴纳金舍入规则。rounding: 四舍五入; round_up: 向上舍入; round_down: 向下舍入可选值有: 四舍五入向上舍入向下舍入
+	PaymentDecimals     int64  `json:"payment_decimals,omitempty"`      // 缴纳金小数位数, 0位小数-6位小数之间选择
+	FixedPayment        string `json:"fixed_payment,omitempty"`         // 附加固定金额, 浮点数, 保留二位小数, 单位: 元
 }
-
-
-
-
 
 // queryCompensationSocialArchiveResp ...
-type queryCompensationSocialArchiveResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *QueryCompensationSocialArchiveResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type queryCompensationSocialArchiveResp struct {
+	Code  int64                               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                              `json:"msg,omitempty"`  // 错误描述
+	Data  *QueryCompensationSocialArchiveResp `json:"data,omitempty"`
+	Error *ErrorDetail                        `json:"error,omitempty"`
 }
-
-
-
-

@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // DeleteCorehrEmployeesAdditionalJob 删除一条指定的员工兼职
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employees-additional_job/delete
-// 
 func (r *CorehrService) DeleteCorehrEmployeesAdditionalJob(ctx context.Context, request *DeleteCorehrEmployeesAdditionalJobReq, options ...MethodOptionFunc) (*DeleteCorehrEmployeesAdditionalJobResp, *Response, error) {
-if r.cli.mock.mockCorehrDeleteCorehrEmployeesAdditionalJob != nil {
+	if r.cli.mock.mockCorehrDeleteCorehrEmployeesAdditionalJob != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Corehr#DeleteCorehrEmployeesAdditionalJob mock enable")
 		return r.cli.mock.mockCorehrDeleteCorehrEmployeesAdditionalJob(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockCorehrDeleteCorehrEmployeesAdditionalJob != nil {
 		Scope:                 "Corehr",
 		API:                   "DeleteCorehrEmployeesAdditionalJob",
 		Method:                "DELETE",
-		URL:   r.cli.openBaseURL + "/open-apis/corehr/v2/employees/additional_jobs/:additional_job_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/employees/additional_jobs/:additional_job_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(deleteCorehrEmployeesAdditionalJobResp)
 
@@ -51,37 +49,24 @@ if r.cli.mock.mockCorehrDeleteCorehrEmployeesAdditionalJob != nil {
 func (r *Mock) MockCorehrDeleteCorehrEmployeesAdditionalJob(f func(ctx context.Context, request *DeleteCorehrEmployeesAdditionalJobReq, options ...MethodOptionFunc) (*DeleteCorehrEmployeesAdditionalJobResp, *Response, error)) {
 	r.mockCorehrDeleteCorehrEmployeesAdditionalJob = f
 }
+
 // UnMockCorehrDeleteCorehrEmployeesAdditionalJob un-mock CorehrDeleteCorehrEmployeesAdditionalJob method
 func (r *Mock) UnMockCorehrDeleteCorehrEmployeesAdditionalJob() {
 	r.mockCorehrDeleteCorehrEmployeesAdditionalJob = nil
 }
 
-
 // DeleteCorehrEmployeesAdditionalJobReq ...
-type DeleteCorehrEmployeesAdditionalJobReq struct { 
-AdditionalJobID string `path:"additional_job_id" json:"-"` // 兼职记录 ID示例值: "654637829201"
+type DeleteCorehrEmployeesAdditionalJobReq struct {
+	AdditionalJobID string `path:"additional_job_id" json:"-"` // 兼职记录 ID示例值: "654637829201"
 }
-
-
-
-
 
 // DeleteCorehrEmployeesAdditionalJobResp ...
-type DeleteCorehrEmployeesAdditionalJobResp struct { 
-}
-
-
-
-
+type DeleteCorehrEmployeesAdditionalJobResp struct{}
 
 // deleteCorehrEmployeesAdditionalJobResp ...
-type deleteCorehrEmployeesAdditionalJobResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *DeleteCorehrEmployeesAdditionalJobResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type deleteCorehrEmployeesAdditionalJobResp struct {
+	Code  int64                                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                  `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteCorehrEmployeesAdditionalJobResp `json:"data,omitempty"`
+	Error *ErrorDetail                            `json:"error,omitempty"`
 }
-
-
-
-

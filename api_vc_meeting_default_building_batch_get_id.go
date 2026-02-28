@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // GetVCMeetingDefaultBuildingBatchGetID 该接口用于根据租户自定义建筑 ID 查询建筑 ID。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQzMxYjL0MTM24CNzEjN
-// 
 func (r *VCMeetingService) GetVCMeetingDefaultBuildingBatchGetID(ctx context.Context, request *GetVCMeetingDefaultBuildingBatchGetIDReq, options ...MethodOptionFunc) (*GetVCMeetingDefaultBuildingBatchGetIDResp, *Response, error) {
-if r.cli.mock.mockVCMeetingGetVCMeetingDefaultBuildingBatchGetID != nil {
+	if r.cli.mock.mockVCMeetingGetVCMeetingDefaultBuildingBatchGetID != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] VCMeeting#GetVCMeetingDefaultBuildingBatchGetID mock enable")
 		return r.cli.mock.mockVCMeetingGetVCMeetingDefaultBuildingBatchGetID(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockVCMeetingGetVCMeetingDefaultBuildingBatchGetID != nil {
 		Scope:                 "VCMeeting",
 		API:                   "GetVCMeetingDefaultBuildingBatchGetID",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/meeting_room/building/batch_get_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/meeting_room/building/batch_get_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(getVCMeetingDefaultBuildingBatchGetIDResp)
 
@@ -51,48 +49,32 @@ if r.cli.mock.mockVCMeetingGetVCMeetingDefaultBuildingBatchGetID != nil {
 func (r *Mock) MockVCMeetingGetVCMeetingDefaultBuildingBatchGetID(f func(ctx context.Context, request *GetVCMeetingDefaultBuildingBatchGetIDReq, options ...MethodOptionFunc) (*GetVCMeetingDefaultBuildingBatchGetIDResp, *Response, error)) {
 	r.mockVCMeetingGetVCMeetingDefaultBuildingBatchGetID = f
 }
+
 // UnMockVCMeetingGetVCMeetingDefaultBuildingBatchGetID un-mock VCMeetingGetVCMeetingDefaultBuildingBatchGetID method
 func (r *Mock) UnMockVCMeetingGetVCMeetingDefaultBuildingBatchGetID() {
 	r.mockVCMeetingGetVCMeetingDefaultBuildingBatchGetID = nil
 }
 
-
 // GetVCMeetingDefaultBuildingBatchGetIDReq ...
-type GetVCMeetingDefaultBuildingBatchGetIDReq struct { 
-CustomBuildingIDs []string `query:"custom_building_ids" json:"-"` // 用于查询指定建筑物的租户自定义建筑ID
+type GetVCMeetingDefaultBuildingBatchGetIDReq struct {
+	CustomBuildingIDs []string `query:"custom_building_ids" json:"-"` // 用于查询指定建筑物的租户自定义建筑ID
 }
-
-
-
-
 
 // GetVCMeetingDefaultBuildingBatchGetIDResp ...
-type GetVCMeetingDefaultBuildingBatchGetIDResp struct { 
-Buildings []*GetVCMeetingDefaultBuildingBatchGetIDRespBuilding `json:"buildings,omitempty"` // 建筑列表
+type GetVCMeetingDefaultBuildingBatchGetIDResp struct {
+	Buildings []*GetVCMeetingDefaultBuildingBatchGetIDRespBuilding `json:"buildings,omitempty"` // 建筑列表
 }
-
-
-
-
 
 // GetVCMeetingDefaultBuildingBatchGetIDRespBuilding ...
-type GetVCMeetingDefaultBuildingBatchGetIDRespBuilding struct { 
-BuildingID string `json:"building_id,omitempty"` // 建筑物ID
-CustomBuildingID string `json:"custom_building_id,omitempty"` // 租户自定义建筑物ID
+type GetVCMeetingDefaultBuildingBatchGetIDRespBuilding struct {
+	BuildingID       string `json:"building_id,omitempty"`        // 建筑物ID
+	CustomBuildingID string `json:"custom_building_id,omitempty"` // 租户自定义建筑物ID
 }
-
-
-
-
 
 // getVCMeetingDefaultBuildingBatchGetIDResp ...
-type getVCMeetingDefaultBuildingBatchGetIDResp struct { 
-Code int64 `json:"code,omitempty"` // 返回码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 返回码的描述, "success" 表示成功, 其他为错误提示信息
-Data *GetVCMeetingDefaultBuildingBatchGetIDResp `json:"data,omitempty"` // 返回业务信息
-Error *ErrorDetail `json:"error,omitempty"` 
+type getVCMeetingDefaultBuildingBatchGetIDResp struct {
+	Code  int64                                      `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg   string                                     `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
+	Data  *GetVCMeetingDefaultBuildingBatchGetIDResp `json:"data,omitempty"` // 返回业务信息
+	Error *ErrorDetail                               `json:"error,omitempty"`
 }
-
-
-
-

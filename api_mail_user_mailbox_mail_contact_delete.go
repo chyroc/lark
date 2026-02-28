@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // DeleteUserMailboxMailContact 删除一个邮箱联系人
@@ -26,9 +26,8 @@ import (
 // 使用 tenant_access_token 时, 需要申请邮箱联系人资源的数据权限。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-mail_contact/delete
-// 
 func (r *MailService) DeleteUserMailboxMailContact(ctx context.Context, request *DeleteUserMailboxMailContactReq, options ...MethodOptionFunc) (*DeleteUserMailboxMailContactResp, *Response, error) {
-if r.cli.mock.mockMailDeleteUserMailboxMailContact != nil {
+	if r.cli.mock.mockMailDeleteUserMailboxMailContact != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#DeleteUserMailboxMailContact mock enable")
 		return r.cli.mock.mockMailDeleteUserMailboxMailContact(ctx, request, options...)
 	}
@@ -37,12 +36,11 @@ if r.cli.mock.mockMailDeleteUserMailboxMailContact != nil {
 		Scope:                 "Mail",
 		API:                   "DeleteUserMailboxMailContact",
 		Method:                "DELETE",
-		URL:   r.cli.openBaseURL + "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/mail_contacts/:mail_contact_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/mail_contacts/:mail_contact_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(deleteUserMailboxMailContactResp)
 
@@ -54,38 +52,25 @@ if r.cli.mock.mockMailDeleteUserMailboxMailContact != nil {
 func (r *Mock) MockMailDeleteUserMailboxMailContact(f func(ctx context.Context, request *DeleteUserMailboxMailContactReq, options ...MethodOptionFunc) (*DeleteUserMailboxMailContactResp, *Response, error)) {
 	r.mockMailDeleteUserMailboxMailContact = f
 }
+
 // UnMockMailDeleteUserMailboxMailContact un-mock MailDeleteUserMailboxMailContact method
 func (r *Mock) UnMockMailDeleteUserMailboxMailContact() {
 	r.mockMailDeleteUserMailboxMailContact = nil
 }
 
-
 // DeleteUserMailboxMailContactReq ...
-type DeleteUserMailboxMailContactReq struct { 
-UserMailboxID string `path:"user_mailbox_id" json:"-"` // 用户邮箱地址 或 输入me代表当前调用接口用户示例值: "用户邮箱地址 或 输入me代表当前调用接口用户"
-MailContactID string `path:"mail_contact_id" json:"-"` // 邮箱联系人 id, 获取方式见 [列出邮箱联系人](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-mail_contact/list)示例值: "123"
+type DeleteUserMailboxMailContactReq struct {
+	UserMailboxID string `path:"user_mailbox_id" json:"-"` // 用户邮箱地址 或 输入me代表当前调用接口用户示例值: "用户邮箱地址 或 输入me代表当前调用接口用户"
+	MailContactID string `path:"mail_contact_id" json:"-"` // 邮箱联系人 id, 获取方式见 [列出邮箱联系人](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-mail_contact/list)示例值: "123"
 }
-
-
-
-
 
 // DeleteUserMailboxMailContactResp ...
-type DeleteUserMailboxMailContactResp struct { 
-}
-
-
-
-
+type DeleteUserMailboxMailContactResp struct{}
 
 // deleteUserMailboxMailContactResp ...
-type deleteUserMailboxMailContactResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *DeleteUserMailboxMailContactResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type deleteUserMailboxMailContactResp struct {
+	Code  int64                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                            `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteUserMailboxMailContactResp `json:"data,omitempty"`
+	Error *ErrorDetail                      `json:"error,omitempty"`
 }
-
-
-
-

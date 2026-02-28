@@ -18,28 +18,26 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // GetMailUserMailboxEventSubscription 获取订阅状态
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-event/subscription
-// 
 func (r *MailService) GetMailUserMailboxEventSubscription(ctx context.Context, request *GetMailUserMailboxEventSubscriptionReq, options ...MethodOptionFunc) (*GetMailUserMailboxEventSubscriptionResp, *Response, error) {
-if r.cli.mock.mockMailGetMailUserMailboxEventSubscription != nil {
+	if r.cli.mock.mockMailGetMailUserMailboxEventSubscription != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#GetMailUserMailboxEventSubscription mock enable")
 		return r.cli.mock.mockMailGetMailUserMailboxEventSubscription(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "Mail",
-		API:                   "GetMailUserMailboxEventSubscription",
-		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/event/subscription",
-		Body:                  request,
-		MethodOption:          newMethodOption(options),
- NeedUserAccessToken: true,
-
+		Scope:               "Mail",
+		API:                 "GetMailUserMailboxEventSubscription",
+		Method:              "GET",
+		URL:                 r.cli.openBaseURL + "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/event/subscription",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
+		NeedUserAccessToken: true,
 	}
 	resp := new(getMailUserMailboxEventSubscriptionResp)
 
@@ -51,38 +49,26 @@ if r.cli.mock.mockMailGetMailUserMailboxEventSubscription != nil {
 func (r *Mock) MockMailGetMailUserMailboxEventSubscription(f func(ctx context.Context, request *GetMailUserMailboxEventSubscriptionReq, options ...MethodOptionFunc) (*GetMailUserMailboxEventSubscriptionResp, *Response, error)) {
 	r.mockMailGetMailUserMailboxEventSubscription = f
 }
+
 // UnMockMailGetMailUserMailboxEventSubscription un-mock MailGetMailUserMailboxEventSubscription method
 func (r *Mock) UnMockMailGetMailUserMailboxEventSubscription() {
 	r.mockMailGetMailUserMailboxEventSubscription = nil
 }
 
-
 // GetMailUserMailboxEventSubscriptionReq ...
-type GetMailUserMailboxEventSubscriptionReq struct { 
-UserMailboxID string `path:"user_mailbox_id" json:"-"` // 用户邮箱地址, 使用 user_access_token 时可使用 me示例值: "user@xxx.xx 或 me"
+type GetMailUserMailboxEventSubscriptionReq struct {
+	UserMailboxID string `path:"user_mailbox_id" json:"-"` // 用户邮箱地址, 使用 user_access_token 时可使用 me示例值: "user@xxx.xx 或 me"
 }
-
-
-
-
 
 // GetMailUserMailboxEventSubscriptionResp ...
-type GetMailUserMailboxEventSubscriptionResp struct { 
-EventTypes []int64 `json:"event_types,omitempty"` // 订阅的事件列表
+type GetMailUserMailboxEventSubscriptionResp struct {
+	EventTypes []int64 `json:"event_types,omitempty"` // 订阅的事件列表
 }
-
-
-
-
 
 // getMailUserMailboxEventSubscriptionResp ...
-type getMailUserMailboxEventSubscriptionResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *GetMailUserMailboxEventSubscriptionResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type getMailUserMailboxEventSubscriptionResp struct {
+	Code  int64                                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                   `json:"msg,omitempty"`  // 错误描述
+	Data  *GetMailUserMailboxEventSubscriptionResp `json:"data,omitempty"`
+	Error *ErrorDetail                             `json:"error,omitempty"`
 }
-
-
-
-

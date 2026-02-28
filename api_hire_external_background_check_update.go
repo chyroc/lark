@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // UpdateHireExternalBackgroundCheck 更新外部背调信息。
@@ -27,9 +27,8 @@ import (
 // 该接口会对原背调内容进行全量覆盖更新。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_background_check/update
-// 
 func (r *HireService) UpdateHireExternalBackgroundCheck(ctx context.Context, request *UpdateHireExternalBackgroundCheckReq, options ...MethodOptionFunc) (*UpdateHireExternalBackgroundCheckResp, *Response, error) {
-if r.cli.mock.mockHireUpdateHireExternalBackgroundCheck != nil {
+	if r.cli.mock.mockHireUpdateHireExternalBackgroundCheck != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#UpdateHireExternalBackgroundCheck mock enable")
 		return r.cli.mock.mockHireUpdateHireExternalBackgroundCheck(ctx, request, options...)
 	}
@@ -38,11 +37,10 @@ if r.cli.mock.mockHireUpdateHireExternalBackgroundCheck != nil {
 		Scope:                 "Hire",
 		API:                   "UpdateHireExternalBackgroundCheck",
 		Method:                "PUT",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/external_background_checks/:external_background_check_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/external_background_checks/:external_background_check_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(updateHireExternalBackgroundCheckResp)
 
@@ -54,68 +52,48 @@ if r.cli.mock.mockHireUpdateHireExternalBackgroundCheck != nil {
 func (r *Mock) MockHireUpdateHireExternalBackgroundCheck(f func(ctx context.Context, request *UpdateHireExternalBackgroundCheckReq, options ...MethodOptionFunc) (*UpdateHireExternalBackgroundCheckResp, *Response, error)) {
 	r.mockHireUpdateHireExternalBackgroundCheck = f
 }
+
 // UnMockHireUpdateHireExternalBackgroundCheck un-mock HireUpdateHireExternalBackgroundCheck method
 func (r *Mock) UnMockHireUpdateHireExternalBackgroundCheck() {
 	r.mockHireUpdateHireExternalBackgroundCheck = nil
 }
 
-
 // UpdateHireExternalBackgroundCheckReq ...
-type UpdateHireExternalBackgroundCheckReq struct { 
-ExternalBackgroundCheckID string `path:"external_background_check_id" json:"-"` // 外部背调 ID, 可通过[查询外部背调列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_background_check/batch_query)接口获取示例值: "6960663240925956660"
-ExternalApplicationID string `json:"external_application_id,omitempty"` // 外部投递 ID, 可通过[查询外部投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_application/list)接口获取示例值: "7003247299220982060"
-Date *int64 `json:"date,omitempty"` // 背调日期, 毫秒时间戳（字段类型为: int64）示例值: 1626602069393
-Name *string `json:"name,omitempty"` // 背调名称示例值: "张三的背调"
-Result *string `json:"result,omitempty"` // 背调结果示例值: "已通过"
-AttachmentIDList []string `json:"attachment_id_list,omitempty"` // 背调附件 ID 列表, 可通过[创建附件](https://open.feishu.cn/document/ukTMukTMukTM/uIDN1YjLyQTN24iM0UjN/create_attachment)接口返回示例值: ["7003247299220982060"]
+type UpdateHireExternalBackgroundCheckReq struct {
+	ExternalBackgroundCheckID string   `path:"external_background_check_id" json:"-"` // 外部背调 ID, 可通过[查询外部背调列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_background_check/batch_query)接口获取示例值: "6960663240925956660"
+	ExternalApplicationID     string   `json:"external_application_id,omitempty"`     // 外部投递 ID, 可通过[查询外部投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_application/list)接口获取示例值: "7003247299220982060"
+	Date                      *int64   `json:"date,omitempty"`                        // 背调日期, 毫秒时间戳（字段类型为: int64）示例值: 1626602069393
+	Name                      *string  `json:"name,omitempty"`                        // 背调名称示例值: "张三的背调"
+	Result                    *string  `json:"result,omitempty"`                      // 背调结果示例值: "已通过"
+	AttachmentIDList          []string `json:"attachment_id_list,omitempty"`          // 背调附件 ID 列表, 可通过[创建附件](https://open.feishu.cn/document/ukTMukTMukTM/uIDN1YjLyQTN24iM0UjN/create_attachment)接口返回示例值: ["7003247299220982060"]
 }
-
-
-
-
 
 // UpdateHireExternalBackgroundCheckResp ...
-type UpdateHireExternalBackgroundCheckResp struct { 
-ExternalBackgroundCheck *UpdateHireExternalBackgroundCheckRespExternalBackgroundCheck `json:"external_background_check,omitempty"` // 外部背调
+type UpdateHireExternalBackgroundCheckResp struct {
+	ExternalBackgroundCheck *UpdateHireExternalBackgroundCheckRespExternalBackgroundCheck `json:"external_background_check,omitempty"` // 外部背调
 }
-
-
-
-
 
 // UpdateHireExternalBackgroundCheckRespExternalBackgroundCheck ...
-type UpdateHireExternalBackgroundCheckRespExternalBackgroundCheck struct { 
-ID string `json:"id,omitempty"` // 外部背调 ID, 详情可查看: [查询外部背调列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_background_check/batch_query)
-ExternalApplicationID string `json:"external_application_id,omitempty"` // 外部投递 ID, 详情可查看: [查询外部投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_application/list)
-Date int64 `json:"date,omitempty"` // 背调日期, 毫秒时间戳（字段类型为: int64）
-Name string `json:"name,omitempty"` // 背调名称
-Result string `json:"result,omitempty"` // 背调结果
-AttachmentList []*UpdateHireExternalBackgroundCheckRespExternalBackgroundCheckAttachment `json:"attachment_list,omitempty"` // 背调附件列表
+type UpdateHireExternalBackgroundCheckRespExternalBackgroundCheck struct {
+	ID                    string                                                                    `json:"id,omitempty"`                      // 外部背调 ID, 详情可查看: [查询外部背调列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_background_check/batch_query)
+	ExternalApplicationID string                                                                    `json:"external_application_id,omitempty"` // 外部投递 ID, 详情可查看: [查询外部投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_application/list)
+	Date                  int64                                                                     `json:"date,omitempty"`                    // 背调日期, 毫秒时间戳（字段类型为: int64）
+	Name                  string                                                                    `json:"name,omitempty"`                    // 背调名称
+	Result                string                                                                    `json:"result,omitempty"`                  // 背调结果
+	AttachmentList        []*UpdateHireExternalBackgroundCheckRespExternalBackgroundCheckAttachment `json:"attachment_list,omitempty"`         // 背调附件列表
 }
-
-
-
-
 
 // UpdateHireExternalBackgroundCheckRespExternalBackgroundCheckAttachment ...
-type UpdateHireExternalBackgroundCheckRespExternalBackgroundCheckAttachment struct { 
-ID string `json:"id,omitempty"` // 附件 ID, 详情可查看: [获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get)
-Name string `json:"name,omitempty"` // 附件名称
-Size int64 `json:"size,omitempty"` // 附件大小（单位: 字节）
+type UpdateHireExternalBackgroundCheckRespExternalBackgroundCheckAttachment struct {
+	ID   string `json:"id,omitempty"`   // 附件 ID, 详情可查看: [获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get)
+	Name string `json:"name,omitempty"` // 附件名称
+	Size int64  `json:"size,omitempty"` // 附件大小（单位: 字节）
 }
-
-
-
-
 
 // updateHireExternalBackgroundCheckResp ...
-type updateHireExternalBackgroundCheckResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *UpdateHireExternalBackgroundCheckResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type updateHireExternalBackgroundCheckResp struct {
+	Code  int64                                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                 `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateHireExternalBackgroundCheckResp `json:"data,omitempty"`
+	Error *ErrorDetail                           `json:"error,omitempty"`
 }
-
-
-
-

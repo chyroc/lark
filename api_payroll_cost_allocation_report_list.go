@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListPayrollCostAllocationReport 根据算薪期间和成本分摊方案id获取成本分摊汇总数据。调用接口前, 需在payroll 系统中打开「财务过账」开关, 并且完成发布成本分摊报表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/cost_allocation_report/list
-// 
 func (r *PayrollService) ListPayrollCostAllocationReport(ctx context.Context, request *ListPayrollCostAllocationReportReq, options ...MethodOptionFunc) (*ListPayrollCostAllocationReportResp, *Response, error) {
-if r.cli.mock.mockPayrollListPayrollCostAllocationReport != nil {
+	if r.cli.mock.mockPayrollListPayrollCostAllocationReport != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Payroll#ListPayrollCostAllocationReport mock enable")
 		return r.cli.mock.mockPayrollListPayrollCostAllocationReport(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockPayrollListPayrollCostAllocationReport != nil {
 		Scope:                 "Payroll",
 		API:                   "ListPayrollCostAllocationReport",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/payroll/v1/cost_allocation_reports",
+		URL:                   r.cli.openBaseURL + "/open-apis/payroll/v1/cost_allocation_reports",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(listPayrollCostAllocationReportResp)
 
@@ -51,153 +49,101 @@ if r.cli.mock.mockPayrollListPayrollCostAllocationReport != nil {
 func (r *Mock) MockPayrollListPayrollCostAllocationReport(f func(ctx context.Context, request *ListPayrollCostAllocationReportReq, options ...MethodOptionFunc) (*ListPayrollCostAllocationReportResp, *Response, error)) {
 	r.mockPayrollListPayrollCostAllocationReport = f
 }
+
 // UnMockPayrollListPayrollCostAllocationReport un-mock PayrollListPayrollCostAllocationReport method
 func (r *Mock) UnMockPayrollListPayrollCostAllocationReport() {
 	r.mockPayrollListPayrollCostAllocationReport = nil
 }
 
-
 // ListPayrollCostAllocationReportReq ...
-type ListPayrollCostAllocationReportReq struct { 
-PageSize int64 `query:"page_size" json:"-"` // 分页大小示例值: 50 取值范围: `1` ～ `100`
-PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 6823630319749592415
-CostAllocationPlanID string `query:"cost_allocation_plan_id" json:"-"` // 成本分摊方案ID, 通过[批量查询成本分摊方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/cost_allocation_plan/list)获取示例值: 6823630319749580304
-PayPeriod string `query:"pay_period" json:"-"` // 期间, 成本分摊数据对应的年月, 格式 为yyyy-MM示例值: 2023-11
-ReportType int64 `query:"report_type" json:"-"` // 报表类型示例值: 1可选值有: 默认, 表示没有开通计提和实发功能时的报表类型, 开通计提和实发之后, 该类型报表将无法发布。计提实发
+type ListPayrollCostAllocationReportReq struct {
+	PageSize             int64   `query:"page_size" json:"-"`               // 分页大小示例值: 50 取值范围: `1` ～ `100`
+	PageToken            *string `query:"page_token" json:"-"`              // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 6823630319749592415
+	CostAllocationPlanID string  `query:"cost_allocation_plan_id" json:"-"` // 成本分摊方案ID, 通过[批量查询成本分摊方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/cost_allocation_plan/list)获取示例值: 6823630319749580304
+	PayPeriod            string  `query:"pay_period" json:"-"`              // 期间, 成本分摊数据对应的年月, 格式 为yyyy-MM示例值: 2023-11
+	ReportType           int64   `query:"report_type" json:"-"`             // 报表类型示例值: 1可选值有: 默认, 表示没有开通计提和实发功能时的报表类型, 开通计提和实发之后, 该类型报表将无法发布。计提实发
 }
-
-
-
-
 
 // ListPayrollCostAllocationReportResp ...
-type ListPayrollCostAllocationReportResp struct { 
-PayPeriod string `json:"pay_period,omitempty"` // 期间, 成本分摊报表对应的年月
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
-CostAllocationReportNames []*ListPayrollCostAllocationReportRespCostAllocationReportName `json:"cost_allocation_report_names,omitempty"` // 报表名称
-CostAllocationReportDatas []*ListPayrollCostAllocationReportRespCostAllocationReportData `json:"cost_allocation_report_datas,omitempty"` // 汇总数据
+type ListPayrollCostAllocationReportResp struct {
+	PayPeriod                 string                                                         `json:"pay_period,omitempty"`                   // 期间, 成本分摊报表对应的年月
+	PageToken                 string                                                         `json:"page_token,omitempty"`                   // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	HasMore                   bool                                                           `json:"has_more,omitempty"`                     // 是否还有更多项
+	CostAllocationReportNames []*ListPayrollCostAllocationReportRespCostAllocationReportName `json:"cost_allocation_report_names,omitempty"` // 报表名称
+	CostAllocationReportDatas []*ListPayrollCostAllocationReportRespCostAllocationReportData `json:"cost_allocation_report_datas,omitempty"` // 汇总数据
 }
-
-
-
-
 
 // ListPayrollCostAllocationReportRespCostAllocationReportData ...
-type ListPayrollCostAllocationReportRespCostAllocationReportData struct { 
-DataSummaryDimensions []*ListPayrollCostAllocationReportRespCostAllocationReportDataDataSummaryDimension `json:"data_summary_dimensions,omitempty"` // 数据维度汇总
-CompensationCostItem *ListPayrollCostAllocationReportRespCostAllocationReportDataCompensationCostItem `json:"compensation_cost_item,omitempty"` // 成本项数据
+type ListPayrollCostAllocationReportRespCostAllocationReportData struct {
+	DataSummaryDimensions []*ListPayrollCostAllocationReportRespCostAllocationReportDataDataSummaryDimension `json:"data_summary_dimensions,omitempty"` // 数据维度汇总
+	CompensationCostItem  *ListPayrollCostAllocationReportRespCostAllocationReportDataCompensationCostItem   `json:"compensation_cost_item,omitempty"`  // 成本项数据
 }
-
-
-
-
 
 // ListPayrollCostAllocationReportRespCostAllocationReportDataCompensationCostItem ...
-type ListPayrollCostAllocationReportRespCostAllocationReportDataCompensationCostItem struct { 
-NumberOfIndividualsForPayment int64 `json:"number_of_individuals_for_payment,omitempty"` // 发薪人数
-CompensationCosts []*ListPayrollCostAllocationReportRespCostAllocationReportDataCompensationCostItemCompensationCost `json:"compensation_costs,omitempty"` // 成本项数据
+type ListPayrollCostAllocationReportRespCostAllocationReportDataCompensationCostItem struct {
+	NumberOfIndividualsForPayment int64                                                                                              `json:"number_of_individuals_for_payment,omitempty"` // 发薪人数
+	CompensationCosts             []*ListPayrollCostAllocationReportRespCostAllocationReportDataCompensationCostItemCompensationCost `json:"compensation_costs,omitempty"`                // 成本项数据
 }
-
-
-
-
 
 // ListPayrollCostAllocationReportRespCostAllocationReportDataCompensationCostItemCompensationCost ...
-type ListPayrollCostAllocationReportRespCostAllocationReportDataCompensationCostItemCompensationCost struct { 
-CompensationCostValue string `json:"compensation_cost_value,omitempty"` // 成本项值
-I18nNames []*ListPayrollCostAllocationReportRespCostAllocationReportDataCompensationCostItemCompensationCostI18nName `json:"i18n_names,omitempty"` // 成本项名称
+type ListPayrollCostAllocationReportRespCostAllocationReportDataCompensationCostItemCompensationCost struct {
+	CompensationCostValue string                                                                                                     `json:"compensation_cost_value,omitempty"` // 成本项值
+	I18nNames             []*ListPayrollCostAllocationReportRespCostAllocationReportDataCompensationCostItemCompensationCostI18nName `json:"i18n_names,omitempty"`              // 成本项名称
 }
-
-
-
-
 
 // ListPayrollCostAllocationReportRespCostAllocationReportDataCompensationCostItemCompensationCostI18nName ...
-type ListPayrollCostAllocationReportRespCostAllocationReportDataCompensationCostItemCompensationCostI18nName struct { 
-Locale string `json:"locale,omitempty"` // 语种
-Value string `json:"value,omitempty"` // 语种对应的值
+type ListPayrollCostAllocationReportRespCostAllocationReportDataCompensationCostItemCompensationCostI18nName struct {
+	Locale string `json:"locale,omitempty"` // 语种
+	Value  string `json:"value,omitempty"`  // 语种对应的值
 }
-
-
-
-
 
 // ListPayrollCostAllocationReportRespCostAllocationReportDataDataSummaryDimension ...
-type ListPayrollCostAllocationReportRespCostAllocationReportDataDataSummaryDimension struct { 
-DimensionLevel int64 `json:"dimension_level,omitempty"` // 层级
-DimensionType int64 `json:"dimension_type,omitempty"` // 类型: 公司主体 - 1成本中心 - 2部门 - 3薪资组 - 4人员类型 - 5雇佣状态 - 6转正状态 - 7职务 - 8序列 - 9职级 - 10工时制度 - 11合同类型 - 12算薪项 - 13自定义维度 - 100
-DimensionValueID string `json:"dimension_value_id,omitempty"` // 维度ID, 需要根据dimension_type再次转换, 如: 当dimension_type为1时, 该值表示公司主体的ID。对应的接口映射如下: dimension_type = 1 [公司主体](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/company/batch_get)dimension_type = 2 [成本中心](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)dimension_type = 3 [部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/get)dimension_type = 4 [薪资组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list)dimension_type = 5 [人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/get)dimension_type = 8 [职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/get)dimension_type = 9 [序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_family/batch_get)dimension_type = 10 [职级](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_level/batch_get)dimension_type = 11 [工时制度](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/get)
-EnumDimension *ListPayrollCostAllocationReportRespCostAllocationReportDataDataSummaryDimensionEnumDimension `json:"enum_dimension,omitempty"` // 算薪项汇总维度时, 当算薪项是特定枚举值, 会使用该字段返回枚举值ID以及枚举值Key, 业务需要获取枚举对象的详情信息, 可根据ID去对应的对象中查找, 其中枚举对象的映射如下: workCalendar [工作日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/work_calendar) location [地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/location/batch_get)company [公司主体](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/company/batch_get)costCenter  [成本中心](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)department [部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/get)employeeType [人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/get)job [职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/get)jobFamily [序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_family/batch_get)jobLevel [职级](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_level/batch_get)workingHoursType [工时制度](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/get)
-DimensionValueLookupInfo *ListPayrollCostAllocationReportRespCostAllocationReportDataDataSummaryDimensionDimensionValueLookupInfo `json:"dimension_value_lookup_info,omitempty"` // 维度引用对象的基础信息, 当维度为引用类型字段才会有值, 目前支持的引用对象类型见type
-DimensionNames []*ListPayrollCostAllocationReportRespCostAllocationReportDataDataSummaryDimensionDimensionName `json:"dimension_names,omitempty"` // 维度名称, 算薪项、自定义维度使用
-DimensionTitles []*ListPayrollCostAllocationReportRespCostAllocationReportDataDataSummaryDimensionDimensionTitle `json:"dimension_titles,omitempty"` // 数据维度表头, 算薪项、自定义维度使用
+type ListPayrollCostAllocationReportRespCostAllocationReportDataDataSummaryDimension struct {
+	DimensionLevel           int64                                                                                                    `json:"dimension_level,omitempty"`             // 层级
+	DimensionType            int64                                                                                                    `json:"dimension_type,omitempty"`              // 类型: 公司主体 - 1成本中心 - 2部门 - 3薪资组 - 4人员类型 - 5雇佣状态 - 6转正状态 - 7职务 - 8序列 - 9职级 - 10工时制度 - 11合同类型 - 12算薪项 - 13自定义维度 - 100
+	DimensionValueID         string                                                                                                   `json:"dimension_value_id,omitempty"`          // 维度ID, 需要根据dimension_type再次转换, 如: 当dimension_type为1时, 该值表示公司主体的ID。对应的接口映射如下: dimension_type = 1 [公司主体](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/company/batch_get)dimension_type = 2 [成本中心](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)dimension_type = 3 [部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/get)dimension_type = 4 [薪资组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list)dimension_type = 5 [人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/get)dimension_type = 8 [职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/get)dimension_type = 9 [序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_family/batch_get)dimension_type = 10 [职级](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_level/batch_get)dimension_type = 11 [工时制度](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/get)
+	EnumDimension            *ListPayrollCostAllocationReportRespCostAllocationReportDataDataSummaryDimensionEnumDimension            `json:"enum_dimension,omitempty"`              // 算薪项汇总维度时, 当算薪项是特定枚举值, 会使用该字段返回枚举值ID以及枚举值Key, 业务需要获取枚举对象的详情信息, 可根据ID去对应的对象中查找, 其中枚举对象的映射如下: workCalendar [工作日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/work_calendar) location [地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/location/batch_get)company [公司主体](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/company/batch_get)costCenter  [成本中心](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)department [部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/get)employeeType [人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/get)job [职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/get)jobFamily [序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_family/batch_get)jobLevel [职级](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_level/batch_get)workingHoursType [工时制度](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/get)
+	DimensionValueLookupInfo *ListPayrollCostAllocationReportRespCostAllocationReportDataDataSummaryDimensionDimensionValueLookupInfo `json:"dimension_value_lookup_info,omitempty"` // 维度引用对象的基础信息, 当维度为引用类型字段才会有值, 目前支持的引用对象类型见type
+	DimensionNames           []*ListPayrollCostAllocationReportRespCostAllocationReportDataDataSummaryDimensionDimensionName          `json:"dimension_names,omitempty"`             // 维度名称, 算薪项、自定义维度使用
+	DimensionTitles          []*ListPayrollCostAllocationReportRespCostAllocationReportDataDataSummaryDimensionDimensionTitle         `json:"dimension_titles,omitempty"`            // 数据维度表头, 算薪项、自定义维度使用
 }
-
-
-
-
 
 // ListPayrollCostAllocationReportRespCostAllocationReportDataDataSummaryDimensionDimensionName ...
-type ListPayrollCostAllocationReportRespCostAllocationReportDataDataSummaryDimensionDimensionName struct { 
-Locale string `json:"locale,omitempty"` // 语种
-Value string `json:"value,omitempty"` // 语种对应的值
+type ListPayrollCostAllocationReportRespCostAllocationReportDataDataSummaryDimensionDimensionName struct {
+	Locale string `json:"locale,omitempty"` // 语种
+	Value  string `json:"value,omitempty"`  // 语种对应的值
 }
-
-
-
-
 
 // ListPayrollCostAllocationReportRespCostAllocationReportDataDataSummaryDimensionDimensionTitle ...
-type ListPayrollCostAllocationReportRespCostAllocationReportDataDataSummaryDimensionDimensionTitle struct { 
-Locale string `json:"locale,omitempty"` // 语种
-Value string `json:"value,omitempty"` // 语种对应的值
-ID string `json:"id,omitempty"` // 名称对应的实体id需要根据dimension_type再次转换, 如: 当dimension_type为13时, 该值表示算薪项的ID。对应的接口映射如下: dimension_type = 13 [算薪项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/acct_item/list)
+type ListPayrollCostAllocationReportRespCostAllocationReportDataDataSummaryDimensionDimensionTitle struct {
+	Locale string `json:"locale,omitempty"` // 语种
+	Value  string `json:"value,omitempty"`  // 语种对应的值
+	ID     string `json:"id,omitempty"`     // 名称对应的实体id需要根据dimension_type再次转换, 如: 当dimension_type为13时, 该值表示算薪项的ID。对应的接口映射如下: dimension_type = 13 [算薪项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/acct_item/list)
 }
-
-
-
-
 
 // ListPayrollCostAllocationReportRespCostAllocationReportDataDataSummaryDimensionDimensionValueLookupInfo ...
-type ListPayrollCostAllocationReportRespCostAllocationReportDataDataSummaryDimensionDimensionValueLookupInfo struct { 
-Type string `json:"type,omitempty"` // 引用对象类型, 类型对应的对象映射包括不仅限: type = company [公司主体](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/company/batch_get)type = cost_center [成本中心](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)type = department [部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/get)type = pay_group [薪资组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list)type = employee_type [人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/get)type = job [职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/get)type = job_family [序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_family/batch_get)type = job_level [职级](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_level/batch_get)type = working_hours_type [工时制度](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/get)
-ID string `json:"id,omitempty"` // 引用对象的id, 可根据相关API查询到对象的完整信息
-Code string `json:"code,omitempty"` // 引用对象的code, 目前下面的对象会有code: type = company [公司主体](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/company/batch_get)type = cost_center [成本中心](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)type = department [部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/get)type = job [职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/get)type = job_family [序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_family/batch_get)type = job_level [职级](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_level/batch_get)type = location [地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/location/batch_get)
+type ListPayrollCostAllocationReportRespCostAllocationReportDataDataSummaryDimensionDimensionValueLookupInfo struct {
+	Type string `json:"type,omitempty"` // 引用对象类型, 类型对应的对象映射包括不仅限: type = company [公司主体](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/company/batch_get)type = cost_center [成本中心](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)type = department [部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/get)type = pay_group [薪资组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list)type = employee_type [人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/get)type = job [职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/get)type = job_family [序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_family/batch_get)type = job_level [职级](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_level/batch_get)type = working_hours_type [工时制度](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/get)
+	ID   string `json:"id,omitempty"`   // 引用对象的id, 可根据相关API查询到对象的完整信息
+	Code string `json:"code,omitempty"` // 引用对象的code, 目前下面的对象会有code: type = company [公司主体](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/company/batch_get)type = cost_center [成本中心](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)type = department [部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/get)type = job [职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/get)type = job_family [序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_family/batch_get)type = job_level [职级](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_level/batch_get)type = location [地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/location/batch_get)
 }
-
-
-
-
 
 // ListPayrollCostAllocationReportRespCostAllocationReportDataDataSummaryDimensionEnumDimension ...
-type ListPayrollCostAllocationReportRespCostAllocationReportDataDataSummaryDimensionEnumDimension struct { 
-EnumValueID string `json:"enum_value_id,omitempty"` // 枚举对象ID
-EnumKey string `json:"enum_key,omitempty"` // 枚举对象
+type ListPayrollCostAllocationReportRespCostAllocationReportDataDataSummaryDimensionEnumDimension struct {
+	EnumValueID string `json:"enum_value_id,omitempty"` // 枚举对象ID
+	EnumKey     string `json:"enum_key,omitempty"`      // 枚举对象
 }
-
-
-
-
 
 // ListPayrollCostAllocationReportRespCostAllocationReportName ...
-type ListPayrollCostAllocationReportRespCostAllocationReportName struct { 
-Locale string `json:"locale,omitempty"` // 语种
-Value string `json:"value,omitempty"` // 语种对应的值
+type ListPayrollCostAllocationReportRespCostAllocationReportName struct {
+	Locale string `json:"locale,omitempty"` // 语种
+	Value  string `json:"value,omitempty"`  // 语种对应的值
 }
-
-
-
-
 
 // listPayrollCostAllocationReportResp ...
-type listPayrollCostAllocationReportResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *ListPayrollCostAllocationReportResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type listPayrollCostAllocationReportResp struct {
+	Code  int64                                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                               `json:"msg,omitempty"`  // 错误描述
+	Data  *ListPayrollCostAllocationReportResp `json:"data,omitempty"`
+	Error *ErrorDetail                         `json:"error,omitempty"`
 }
-
-
-
-

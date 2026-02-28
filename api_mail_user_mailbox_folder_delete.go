@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // DeleteMailUserMailboxFolder 删除邮箱文件夹
@@ -27,9 +27,8 @@ import (
 // 删除文件夹会将该文件夹下的邮件移至已删除中。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-folder/delete
-// 
 func (r *MailService) DeleteMailUserMailboxFolder(ctx context.Context, request *DeleteMailUserMailboxFolderReq, options ...MethodOptionFunc) (*DeleteMailUserMailboxFolderResp, *Response, error) {
-if r.cli.mock.mockMailDeleteMailUserMailboxFolder != nil {
+	if r.cli.mock.mockMailDeleteMailUserMailboxFolder != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#DeleteMailUserMailboxFolder mock enable")
 		return r.cli.mock.mockMailDeleteMailUserMailboxFolder(ctx, request, options...)
 	}
@@ -38,12 +37,11 @@ if r.cli.mock.mockMailDeleteMailUserMailboxFolder != nil {
 		Scope:                 "Mail",
 		API:                   "DeleteMailUserMailboxFolder",
 		Method:                "DELETE",
-		URL:   r.cli.openBaseURL + "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/folders/:folder_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/folders/:folder_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(deleteMailUserMailboxFolderResp)
 
@@ -55,38 +53,25 @@ if r.cli.mock.mockMailDeleteMailUserMailboxFolder != nil {
 func (r *Mock) MockMailDeleteMailUserMailboxFolder(f func(ctx context.Context, request *DeleteMailUserMailboxFolderReq, options ...MethodOptionFunc) (*DeleteMailUserMailboxFolderResp, *Response, error)) {
 	r.mockMailDeleteMailUserMailboxFolder = f
 }
+
 // UnMockMailDeleteMailUserMailboxFolder un-mock MailDeleteMailUserMailboxFolder method
 func (r *Mock) UnMockMailDeleteMailUserMailboxFolder() {
 	r.mockMailDeleteMailUserMailboxFolder = nil
 }
 
-
 // DeleteMailUserMailboxFolderReq ...
-type DeleteMailUserMailboxFolderReq struct { 
-UserMailboxID string `path:"user_mailbox_id" json:"-"` // 用户邮箱地址 或 输入me代表当前调用接口用户示例值: "user@xxx.xx 或 me"
-FolderID string `path:"folder_id" json:"-"` // 文件夹 id, id 获取方式见 [列出文邮箱文件夹](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-folder/list)示例值: "111111"
+type DeleteMailUserMailboxFolderReq struct {
+	UserMailboxID string `path:"user_mailbox_id" json:"-"` // 用户邮箱地址 或 输入me代表当前调用接口用户示例值: "user@xxx.xx 或 me"
+	FolderID      string `path:"folder_id" json:"-"`       // 文件夹 id, id 获取方式见 [列出文邮箱文件夹](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-folder/list)示例值: "111111"
 }
-
-
-
-
 
 // DeleteMailUserMailboxFolderResp ...
-type DeleteMailUserMailboxFolderResp struct { 
-}
-
-
-
-
+type DeleteMailUserMailboxFolderResp struct{}
 
 // deleteMailUserMailboxFolderResp ...
-type deleteMailUserMailboxFolderResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *DeleteMailUserMailboxFolderResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type deleteMailUserMailboxFolderResp struct {
+	Code  int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                           `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteMailUserMailboxFolderResp `json:"data,omitempty"`
+	Error *ErrorDetail                     `json:"error,omitempty"`
 }
-
-
-
-

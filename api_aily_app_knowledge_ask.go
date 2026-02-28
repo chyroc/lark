@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateAilyAppKnowledgeAsk 执行飞书 Aily 的数据知识问答, 返回基于指定数据知识的问答结果
@@ -28,9 +28,8 @@ import (
 // - 使用 `tenant_access_token` 无法对直连模式引入的飞书云文档执行数据知识问答
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/aily-v1/app-knowledge/ask
-// 
 func (r *AilyService) CreateAilyAppKnowledgeAsk(ctx context.Context, request *CreateAilyAppKnowledgeAskReq, options ...MethodOptionFunc) (*CreateAilyAppKnowledgeAskResp, *Response, error) {
-if r.cli.mock.mockAilyCreateAilyAppKnowledgeAsk != nil {
+	if r.cli.mock.mockAilyCreateAilyAppKnowledgeAsk != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Aily#CreateAilyAppKnowledgeAsk mock enable")
 		return r.cli.mock.mockAilyCreateAilyAppKnowledgeAsk(ctx, request, options...)
 	}
@@ -39,12 +38,11 @@ if r.cli.mock.mockAilyCreateAilyAppKnowledgeAsk != nil {
 		Scope:                 "Aily",
 		API:                   "CreateAilyAppKnowledgeAsk",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/aily/v1/apps/:app_id/knowledges/ask",
+		URL:                   r.cli.openBaseURL + "/open-apis/aily/v1/apps/:app_id/knowledges/ask",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(createAilyAppKnowledgeAskResp)
 
@@ -56,85 +54,57 @@ if r.cli.mock.mockAilyCreateAilyAppKnowledgeAsk != nil {
 func (r *Mock) MockAilyCreateAilyAppKnowledgeAsk(f func(ctx context.Context, request *CreateAilyAppKnowledgeAskReq, options ...MethodOptionFunc) (*CreateAilyAppKnowledgeAskResp, *Response, error)) {
 	r.mockAilyCreateAilyAppKnowledgeAsk = f
 }
+
 // UnMockAilyCreateAilyAppKnowledgeAsk un-mock AilyCreateAilyAppKnowledgeAsk method
 func (r *Mock) UnMockAilyCreateAilyAppKnowledgeAsk() {
 	r.mockAilyCreateAilyAppKnowledgeAsk = nil
 }
 
-
 // CreateAilyAppKnowledgeAskReq ...
-type CreateAilyAppKnowledgeAskReq struct { 
-AppID string `path:"app_id" json:"-"` // 飞书 Aily 平台的AppID, 通过飞书 Aily 平台创建应用获取示例值: "spring_5862e4fea8__c" 长度范围: `1` ～ `255` 字符
-Message *CreateAilyAppKnowledgeAskReqMessage `json:"message,omitempty"` // 输入消息（message包含content参数, 当前仅支持纯文本输入）
-DataAssetIDs []string `json:"data_asset_ids,omitempty"` // 控制知识问答所依据的数据知识范围, 默认值为空, 此时不限制数据知识范围示例值: ["asset_aadg2b5os5wjg"] 长度范围: `0` ～ `65535`
-DataAssetTagIDs []string `json:"data_asset_tag_ids,omitempty"` // 控制知识问答所依据的数据知识分类范围, 默认值为空, 此时不限制数据知识分类范围示例值: ["spring_5862e4fea8__c__asset_tag_aadg2b5ql4gbs"] 长度范围: `0` ～ `65535`
+type CreateAilyAppKnowledgeAskReq struct {
+	AppID           string                               `path:"app_id" json:"-"`              // 飞书 Aily 平台的AppID, 通过飞书 Aily 平台创建应用获取示例值: "spring_5862e4fea8__c" 长度范围: `1` ～ `255` 字符
+	Message         *CreateAilyAppKnowledgeAskReqMessage `json:"message,omitempty"`            // 输入消息（message包含content参数, 当前仅支持纯文本输入）
+	DataAssetIDs    []string                             `json:"data_asset_ids,omitempty"`     // 控制知识问答所依据的数据知识范围, 默认值为空, 此时不限制数据知识范围示例值: ["asset_aadg2b5os5wjg"] 长度范围: `0` ～ `65535`
+	DataAssetTagIDs []string                             `json:"data_asset_tag_ids,omitempty"` // 控制知识问答所依据的数据知识分类范围, 默认值为空, 此时不限制数据知识分类范围示例值: ["spring_5862e4fea8__c__asset_tag_aadg2b5ql4gbs"] 长度范围: `0` ～ `65535`
 }
-
-
-
-
 
 // CreateAilyAppKnowledgeAskReqMessage ...
-type CreateAilyAppKnowledgeAskReqMessage struct { 
-Content *string `json:"content,omitempty"` // 消息内容示例值: "推荐一部电影" 长度范围: `1` ～ `65535` 字符
+type CreateAilyAppKnowledgeAskReqMessage struct {
+	Content *string `json:"content,omitempty"` // 消息内容示例值: "推荐一部电影" 长度范围: `1` ～ `65535` 字符
 }
-
-
-
-
 
 // CreateAilyAppKnowledgeAskResp ...
-type CreateAilyAppKnowledgeAskResp struct { 
-Status string `json:"status,omitempty"` // 响应状态, 枚举值可选值有: 当前知识问答正在处理中当前知识问答处理完成
-FinishType string `json:"finish_type,omitempty"` // 结束类型, 枚举值可选值有: 执行数据知识问答执行标准问答对
-Message *CreateAilyAppKnowledgeAskRespMessage `json:"message,omitempty"` // 响应消息
-ProcessData *CreateAilyAppKnowledgeAskRespProcessData `json:"process_data,omitempty"` // 知识问答运行过程结构化数据, status=finished 且 finish_type=qa 时返回
-FAQResult *CreateAilyAppKnowledgeAskRespFAQResult `json:"faq_result,omitempty"` // 匹配标准问答对结果, status=finished 且 finish_type=faq时返回
-HasAnswer bool `json:"has_answer,omitempty"` // 是否有结果, true 则 代表 message 中的内容是通过配置知识而生成的
+type CreateAilyAppKnowledgeAskResp struct {
+	Status      string                                    `json:"status,omitempty"`       // 响应状态, 枚举值可选值有: 当前知识问答正在处理中当前知识问答处理完成
+	FinishType  string                                    `json:"finish_type,omitempty"`  // 结束类型, 枚举值可选值有: 执行数据知识问答执行标准问答对
+	Message     *CreateAilyAppKnowledgeAskRespMessage     `json:"message,omitempty"`      // 响应消息
+	ProcessData *CreateAilyAppKnowledgeAskRespProcessData `json:"process_data,omitempty"` // 知识问答运行过程结构化数据, status=finished 且 finish_type=qa 时返回
+	FAQResult   *CreateAilyAppKnowledgeAskRespFAQResult   `json:"faq_result,omitempty"`   // 匹配标准问答对结果, status=finished 且 finish_type=faq时返回
+	HasAnswer   bool                                      `json:"has_answer,omitempty"`   // 是否有结果, true 则 代表 message 中的内容是通过配置知识而生成的
 }
-
-
-
-
 
 // CreateAilyAppKnowledgeAskRespFAQResult ...
-type CreateAilyAppKnowledgeAskRespFAQResult struct { 
-Question string `json:"question,omitempty"` // 匹配问题
-Answer string `json:"answer,omitempty"` // 匹配描述
+type CreateAilyAppKnowledgeAskRespFAQResult struct {
+	Question string `json:"question,omitempty"` // 匹配问题
+	Answer   string `json:"answer,omitempty"`   // 匹配描述
 }
-
-
-
-
 
 // CreateAilyAppKnowledgeAskRespMessage ...
-type CreateAilyAppKnowledgeAskRespMessage struct { 
-Content string `json:"content,omitempty"` // 消息内容
+type CreateAilyAppKnowledgeAskRespMessage struct {
+	Content string `json:"content,omitempty"` // 消息内容
 }
-
-
-
-
 
 // CreateAilyAppKnowledgeAskRespProcessData ...
-type CreateAilyAppKnowledgeAskRespProcessData struct { 
-ChartDsls []string `json:"chart_dsls,omitempty"` // 有数据分析时, 根据数据生成的图表描述, 按markdown语义描述
-Chunks []string `json:"chunks,omitempty"` // 召回的知识视图切片的文本数据
-SqlData []string `json:"sql_data,omitempty"` // 有数据分析时, 查询到数据结果, 每个元素为 json 序列化后的数据结果
+type CreateAilyAppKnowledgeAskRespProcessData struct {
+	ChartDsls []string `json:"chart_dsls,omitempty"` // 有数据分析时, 根据数据生成的图表描述, 按markdown语义描述
+	Chunks    []string `json:"chunks,omitempty"`     // 召回的知识视图切片的文本数据
+	SqlData   []string `json:"sql_data,omitempty"`   // 有数据分析时, 查询到数据结果, 每个元素为 json 序列化后的数据结果
 }
-
-
-
-
 
 // createAilyAppKnowledgeAskResp ...
-type createAilyAppKnowledgeAskResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateAilyAppKnowledgeAskResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createAilyAppKnowledgeAskResp struct {
+	Code  int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                         `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateAilyAppKnowledgeAskResp `json:"data,omitempty"`
+	Error *ErrorDetail                   `json:"error,omitempty"`
 }
-
-
-
-

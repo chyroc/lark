@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListAilyAppSkill 该 API 用于查询某个 Aily 应用的技能列表
@@ -27,9 +27,8 @@ import (
 // 更多信息及示例代码, 可参考 [Aily 技能 OpenAPI 接口说明](https://bytedance.larkoffice.com/wiki/ZkKnwxogliNj3ik9ppEc0cFUnAd)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/aily-v1/app-skill/list
-// 
 func (r *AilyService) ListAilyAppSkill(ctx context.Context, request *ListAilyAppSkillReq, options ...MethodOptionFunc) (*ListAilyAppSkillResp, *Response, error) {
-if r.cli.mock.mockAilyListAilyAppSkill != nil {
+	if r.cli.mock.mockAilyListAilyAppSkill != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Aily#ListAilyAppSkill mock enable")
 		return r.cli.mock.mockAilyListAilyAppSkill(ctx, request, options...)
 	}
@@ -38,12 +37,11 @@ if r.cli.mock.mockAilyListAilyAppSkill != nil {
 		Scope:                 "Aily",
 		API:                   "ListAilyAppSkill",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/aily/v1/apps/:app_id/skills",
+		URL:                   r.cli.openBaseURL + "/open-apis/aily/v1/apps/:app_id/skills",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(listAilyAppSkillResp)
 
@@ -55,56 +53,40 @@ if r.cli.mock.mockAilyListAilyAppSkill != nil {
 func (r *Mock) MockAilyListAilyAppSkill(f func(ctx context.Context, request *ListAilyAppSkillReq, options ...MethodOptionFunc) (*ListAilyAppSkillResp, *Response, error)) {
 	r.mockAilyListAilyAppSkill = f
 }
+
 // UnMockAilyListAilyAppSkill un-mock AilyListAilyAppSkill method
 func (r *Mock) UnMockAilyListAilyAppSkill() {
 	r.mockAilyListAilyAppSkill = nil
 }
 
-
 // ListAilyAppSkillReq ...
-type ListAilyAppSkillReq struct { 
-AppID string `path:"app_id" json:"-"` // Aily 应用 ID（`spring_xxx__c`）, 可以在 Aily 应用开发页面的浏览器地址里获取示例值: "spring_e7004f87f1__c" 长度范围: `0` ～ `64` 字符
-PageSize *int64 `query:"page_size" json:"-"` // 本次请求获取的消息记录条数, 默认 20示例值: 10
-PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eVQrYzJBNDNONlk4VFZBZVlSdzlKdFJ4bVVHVExENDNKVHoxaVdiVnViQT0=
+type ListAilyAppSkillReq struct {
+	AppID     string  `path:"app_id" json:"-"`      // Aily 应用 ID（`spring_xxx__c`）, 可以在 Aily 应用开发页面的浏览器地址里获取示例值: "spring_e7004f87f1__c" 长度范围: `0` ～ `64` 字符
+	PageSize  *int64  `query:"page_size" json:"-"`  // 本次请求获取的消息记录条数, 默认 20示例值: 10
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eVQrYzJBNDNONlk4VFZBZVlSdzlKdFJ4bVVHVExENDNKVHoxaVdiVnViQT0=
 }
-
-
-
-
 
 // ListAilyAppSkillResp ...
-type ListAilyAppSkillResp struct { 
-Skills []*ListAilyAppSkillRespSkill `json:"skills,omitempty"` // 技能列表
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
+type ListAilyAppSkillResp struct {
+	Skills    []*ListAilyAppSkillRespSkill `json:"skills,omitempty"`     // 技能列表
+	PageToken string                       `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	HasMore   bool                         `json:"has_more,omitempty"`   // 是否还有更多项
 }
-
-
-
-
 
 // ListAilyAppSkillRespSkill ...
-type ListAilyAppSkillRespSkill struct { 
-ID string `json:"id,omitempty"` // 技能 ID
-Label string `json:"label,omitempty"` // 技能名称
-Description string `json:"description,omitempty"` // 技能描述
-Samples []string `json:"samples,omitempty"` // 用户提问示例
-InputSchema string `json:"input_schema,omitempty"` // 技能入参定义
-OutputSchema string `json:"output_schema,omitempty"` // 技能出参定义
+type ListAilyAppSkillRespSkill struct {
+	ID           string   `json:"id,omitempty"`            // 技能 ID
+	Label        string   `json:"label,omitempty"`         // 技能名称
+	Description  string   `json:"description,omitempty"`   // 技能描述
+	Samples      []string `json:"samples,omitempty"`       // 用户提问示例
+	InputSchema  string   `json:"input_schema,omitempty"`  // 技能入参定义
+	OutputSchema string   `json:"output_schema,omitempty"` // 技能出参定义
 }
-
-
-
-
 
 // listAilyAppSkillResp ...
-type listAilyAppSkillResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *ListAilyAppSkillResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type listAilyAppSkillResp struct {
+	Code  int64                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                `json:"msg,omitempty"`  // 错误描述
+	Data  *ListAilyAppSkillResp `json:"data,omitempty"`
+	Error *ErrorDetail          `json:"error,omitempty"`
 }
-
-
-
-

@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateApaasUserTaskRollback 对当前任务进行一次退回
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/user_task/rollback
-// 
 func (r *ApaasService) CreateApaasUserTaskRollback(ctx context.Context, request *CreateApaasUserTaskRollbackReq, options ...MethodOptionFunc) (*CreateApaasUserTaskRollbackResp, *Response, error) {
-if r.cli.mock.mockApaasCreateApaasUserTaskRollback != nil {
+	if r.cli.mock.mockApaasCreateApaasUserTaskRollback != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Apaas#CreateApaasUserTaskRollback mock enable")
 		return r.cli.mock.mockApaasCreateApaasUserTaskRollback(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockApaasCreateApaasUserTaskRollback != nil {
 		Scope:                 "Apaas",
 		API:                   "CreateApaasUserTaskRollback",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/apaas/v1/user_tasks/:task_id/rollback",
+		URL:                   r.cli.openBaseURL + "/open-apis/apaas/v1/user_tasks/:task_id/rollback",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createApaasUserTaskRollbackResp)
 
@@ -51,40 +49,27 @@ if r.cli.mock.mockApaasCreateApaasUserTaskRollback != nil {
 func (r *Mock) MockApaasCreateApaasUserTaskRollback(f func(ctx context.Context, request *CreateApaasUserTaskRollbackReq, options ...MethodOptionFunc) (*CreateApaasUserTaskRollbackResp, *Response, error)) {
 	r.mockApaasCreateApaasUserTaskRollback = f
 }
+
 // UnMockApaasCreateApaasUserTaskRollback un-mock ApaasCreateApaasUserTaskRollback method
 func (r *Mock) UnMockApaasCreateApaasUserTaskRollback() {
 	r.mockApaasCreateApaasUserTaskRollback = nil
 }
 
-
 // CreateApaasUserTaskRollbackReq ...
-type CreateApaasUserTaskRollbackReq struct { 
-TaskID string `path:"task_id" json:"-"` // 任务ID, 可以通过[查询人工任务](/uAjLw4CM/ukTMukTMukTM/apaas-v1/user_task/query)获取示例值: "1234"
-OperatorUserID string `json:"operator_user_id,omitempty"` // 操作人kunlunUserID, 可通过Apaas用户管理页面获取示例值: "1234"
-ToTaskID string `json:"to_task_id,omitempty"` // 退回到的任务ID, 可以通过[查询人工任务可退回的点](/uAjLw4CM/ukTMukTMukTM/apaas-v1/user_task/rollback_points)获取示例值: "1234"
-Opinion string `json:"opinion,omitempty"` // 退回原因示例值: "退回原因"
+type CreateApaasUserTaskRollbackReq struct {
+	TaskID         string `path:"task_id" json:"-"`           // 任务ID, 可以通过[查询人工任务](/uAjLw4CM/ukTMukTMukTM/apaas-v1/user_task/query)获取示例值: "1234"
+	OperatorUserID string `json:"operator_user_id,omitempty"` // 操作人kunlunUserID, 可通过Apaas用户管理页面获取示例值: "1234"
+	ToTaskID       string `json:"to_task_id,omitempty"`       // 退回到的任务ID, 可以通过[查询人工任务可退回的点](/uAjLw4CM/ukTMukTMukTM/apaas-v1/user_task/rollback_points)获取示例值: "1234"
+	Opinion        string `json:"opinion,omitempty"`          // 退回原因示例值: "退回原因"
 }
-
-
-
-
 
 // CreateApaasUserTaskRollbackResp ...
-type CreateApaasUserTaskRollbackResp struct { 
-}
-
-
-
-
+type CreateApaasUserTaskRollbackResp struct{}
 
 // createApaasUserTaskRollbackResp ...
-type createApaasUserTaskRollbackResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateApaasUserTaskRollbackResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createApaasUserTaskRollbackResp struct {
+	Code  int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                           `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateApaasUserTaskRollbackResp `json:"data,omitempty"`
+	Error *ErrorDetail                     `json:"error,omitempty"`
 }
-
-
-
-

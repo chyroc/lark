@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListAttendanceArchiveRule 查询所有归档规则, 对应后台假勤管理-考勤统计-报表-[归档报表](https://example.feishu.cn/people/workforce-management/manage/statistics/report)功能
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/archive_rule/list
-// 
 func (r *AttendanceService) ListAttendanceArchiveRule(ctx context.Context, request *ListAttendanceArchiveRuleReq, options ...MethodOptionFunc) (*ListAttendanceArchiveRuleResp, *Response, error) {
-if r.cli.mock.mockAttendanceListAttendanceArchiveRule != nil {
+	if r.cli.mock.mockAttendanceListAttendanceArchiveRule != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Attendance#ListAttendanceArchiveRule mock enable")
 		return r.cli.mock.mockAttendanceListAttendanceArchiveRule(ctx, request, options...)
 	}
@@ -35,12 +34,11 @@ if r.cli.mock.mockAttendanceListAttendanceArchiveRule != nil {
 		Scope:                 "Attendance",
 		API:                   "ListAttendanceArchiveRule",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/attendance/v1/archive_rule",
+		URL:                   r.cli.openBaseURL + "/open-apis/attendance/v1/archive_rule",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(listAttendanceArchiveRuleResp)
 
@@ -52,75 +50,51 @@ if r.cli.mock.mockAttendanceListAttendanceArchiveRule != nil {
 func (r *Mock) MockAttendanceListAttendanceArchiveRule(f func(ctx context.Context, request *ListAttendanceArchiveRuleReq, options ...MethodOptionFunc) (*ListAttendanceArchiveRuleResp, *Response, error)) {
 	r.mockAttendanceListAttendanceArchiveRule = f
 }
+
 // UnMockAttendanceListAttendanceArchiveRule un-mock AttendanceListAttendanceArchiveRule method
 func (r *Mock) UnMockAttendanceListAttendanceArchiveRule() {
 	r.mockAttendanceListAttendanceArchiveRule = nil
 }
 
-
 // ListAttendanceArchiveRuleReq ...
-type ListAttendanceArchiveRuleReq struct { 
-PageSize *int64 `query:"page_size" json:"-"` // 分页大小, 必填参数示例值: 10 取值范围: `1` ～ `50`
-PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: xxx
+type ListAttendanceArchiveRuleReq struct {
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 必填参数示例值: 10 取值范围: `1` ～ `50`
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: xxx
 }
-
-
-
-
 
 // ListAttendanceArchiveRuleResp ...
-type ListAttendanceArchiveRuleResp struct { 
-Items []*ListAttendanceArchiveRuleRespItem `json:"items,omitempty"` // 分页查询结果项
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
+type ListAttendanceArchiveRuleResp struct {
+	Items     []*ListAttendanceArchiveRuleRespItem `json:"items,omitempty"`      // 分页查询结果项
+	PageToken string                               `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	HasMore   bool                                 `json:"has_more,omitempty"`   // 是否还有更多项
 }
-
-
-
-
 
 // ListAttendanceArchiveRuleRespItem ...
-type ListAttendanceArchiveRuleRespItem struct { 
-ReportID string `json:"report_id,omitempty"` // 引用报表 ID, 暂时无用
-ReportName *ListAttendanceArchiveRuleRespItemReportName `json:"report_name,omitempty"` // 引用报表name
-ArchiveRuleID string `json:"archive_rule_id,omitempty"` // 归档报表规则ID, 可用于[查询归档报表表头](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/archive_rule/user_stats_fields_query)
-ArchiveRuleName *ListAttendanceArchiveRuleRespItemArchiveRuleName `json:"archive_rule_name,omitempty"` // 归档报表name
+type ListAttendanceArchiveRuleRespItem struct {
+	ReportID        string                                            `json:"report_id,omitempty"`         // 引用报表 ID, 暂时无用
+	ReportName      *ListAttendanceArchiveRuleRespItemReportName      `json:"report_name,omitempty"`       // 引用报表name
+	ArchiveRuleID   string                                            `json:"archive_rule_id,omitempty"`   // 归档报表规则ID, 可用于[查询归档报表表头](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/archive_rule/user_stats_fields_query)
+	ArchiveRuleName *ListAttendanceArchiveRuleRespItemArchiveRuleName `json:"archive_rule_name,omitempty"` // 归档报表name
 }
-
-
-
-
 
 // ListAttendanceArchiveRuleRespItemArchiveRuleName ...
-type ListAttendanceArchiveRuleRespItemArchiveRuleName struct { 
-Zh string `json:"zh,omitempty"` // 中文名称
-En string `json:"en,omitempty"` // 英文名称
-Ja string `json:"ja,omitempty"` // 日文名称
+type ListAttendanceArchiveRuleRespItemArchiveRuleName struct {
+	Zh string `json:"zh,omitempty"` // 中文名称
+	En string `json:"en,omitempty"` // 英文名称
+	Ja string `json:"ja,omitempty"` // 日文名称
 }
-
-
-
-
 
 // ListAttendanceArchiveRuleRespItemReportName ...
-type ListAttendanceArchiveRuleRespItemReportName struct { 
-Zh string `json:"zh,omitempty"` // 中文名称
-En string `json:"en,omitempty"` // 英文名称
-Ja string `json:"ja,omitempty"` // 日文名称
+type ListAttendanceArchiveRuleRespItemReportName struct {
+	Zh string `json:"zh,omitempty"` // 中文名称
+	En string `json:"en,omitempty"` // 英文名称
+	Ja string `json:"ja,omitempty"` // 日文名称
 }
-
-
-
-
 
 // listAttendanceArchiveRuleResp ...
-type listAttendanceArchiveRuleResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *ListAttendanceArchiveRuleResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type listAttendanceArchiveRuleResp struct {
+	Code  int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                         `json:"msg,omitempty"`  // 错误描述
+	Data  *ListAttendanceArchiveRuleResp `json:"data,omitempty"`
+	Error *ErrorDetail                   `json:"error,omitempty"`
 }
-
-
-
-

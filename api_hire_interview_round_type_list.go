@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListHireInterviewRoundType 根据职位流程查询面试轮次类型列表, 可以查询到的信息包括: 面试轮次类型名称、启用状态、关联的面试评价表信息。可应用于更新职位设置场景: [更新职位设置](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/update_config)
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview_round_type/list
-// 
 func (r *HireService) ListHireInterviewRoundType(ctx context.Context, request *ListHireInterviewRoundTypeReq, options ...MethodOptionFunc) (*ListHireInterviewRoundTypeResp, *Response, error) {
-if r.cli.mock.mockHireListHireInterviewRoundType != nil {
+	if r.cli.mock.mockHireListHireInterviewRoundType != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#ListHireInterviewRoundType mock enable")
 		return r.cli.mock.mockHireListHireInterviewRoundType(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockHireListHireInterviewRoundType != nil {
 		Scope:                 "Hire",
 		API:                   "ListHireInterviewRoundType",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/interview_round_types",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/interview_round_types",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(listHireInterviewRoundTypeResp)
 
@@ -51,84 +49,56 @@ if r.cli.mock.mockHireListHireInterviewRoundType != nil {
 func (r *Mock) MockHireListHireInterviewRoundType(f func(ctx context.Context, request *ListHireInterviewRoundTypeReq, options ...MethodOptionFunc) (*ListHireInterviewRoundTypeResp, *Response, error)) {
 	r.mockHireListHireInterviewRoundType = f
 }
+
 // UnMockHireListHireInterviewRoundType un-mock HireListHireInterviewRoundType method
 func (r *Mock) UnMockHireListHireInterviewRoundType() {
 	r.mockHireListHireInterviewRoundType = nil
 }
 
-
 // ListHireInterviewRoundTypeReq ...
-type ListHireInterviewRoundTypeReq struct { 
-ProcessType *int64 `query:"process_type" json:"-"` // 职位流程类型示例值: 1可选值有: 社招流程校招流程
+type ListHireInterviewRoundTypeReq struct {
+	ProcessType *int64 `query:"process_type" json:"-"` // 职位流程类型示例值: 1可选值有: 社招流程校招流程
 }
-
-
-
-
 
 // ListHireInterviewRoundTypeResp ...
-type ListHireInterviewRoundTypeResp struct { 
-ActiveStatus int64 `json:"active_status,omitempty"` // 面试轮次类型启用状态可选值有: 已启用未启用
-Items []*ListHireInterviewRoundTypeRespItem `json:"items,omitempty"` // 列表
+type ListHireInterviewRoundTypeResp struct {
+	ActiveStatus int64                                 `json:"active_status,omitempty"` // 面试轮次类型启用状态可选值有: 已启用未启用
+	Items        []*ListHireInterviewRoundTypeRespItem `json:"items,omitempty"`         // 列表
 }
-
-
-
-
 
 // ListHireInterviewRoundTypeRespItem ...
-type ListHireInterviewRoundTypeRespItem struct { 
-ID string `json:"id,omitempty"` // 面试轮次类型 ID。在面试轮次类型更新时, 类型 ID 也会更新
-BizID string `json:"biz_id,omitempty"` // 面试轮次类型对应的业务 ID。在面试轮次类型更新时, 业务 ID 保持不变
-Name *ListHireInterviewRoundTypeRespItemName `json:"name,omitempty"` // 面试轮次类型名称
-ProcessType int64 `json:"process_type,omitempty"` // 职位流程类型可选值有: 社招流程校招流程
-ActiveStatus int64 `json:"active_status,omitempty"` // 启用状态可选值有: 启用未启用
-InterviewAssessmentTemplateInfo *ListHireInterviewRoundTypeRespItemInterviewAssessmentTemplateInfo `json:"interview_assessment_template_info,omitempty"` // 面试评价表
+type ListHireInterviewRoundTypeRespItem struct {
+	ID                              string                                                             `json:"id,omitempty"`                                 // 面试轮次类型 ID。在面试轮次类型更新时, 类型 ID 也会更新
+	BizID                           string                                                             `json:"biz_id,omitempty"`                             // 面试轮次类型对应的业务 ID。在面试轮次类型更新时, 业务 ID 保持不变
+	Name                            *ListHireInterviewRoundTypeRespItemName                            `json:"name,omitempty"`                               // 面试轮次类型名称
+	ProcessType                     int64                                                              `json:"process_type,omitempty"`                       // 职位流程类型可选值有: 社招流程校招流程
+	ActiveStatus                    int64                                                              `json:"active_status,omitempty"`                      // 启用状态可选值有: 启用未启用
+	InterviewAssessmentTemplateInfo *ListHireInterviewRoundTypeRespItemInterviewAssessmentTemplateInfo `json:"interview_assessment_template_info,omitempty"` // 面试评价表
 }
-
-
-
-
 
 // ListHireInterviewRoundTypeRespItemInterviewAssessmentTemplateInfo ...
-type ListHireInterviewRoundTypeRespItemInterviewAssessmentTemplateInfo struct { 
-ID string `json:"id,omitempty"` // 面试评价表 ID。在面试评价表更新时, 评价表 ID 也会更新
-BizID string `json:"biz_id,omitempty"` // 面试评价表对应的业务 ID。在面试评价表更新时, 业务 ID 保持不变
-Name *ListHireInterviewRoundTypeRespItemInterviewAssessmentTemplateInfoName `json:"name,omitempty"` // 面试评价表名称
+type ListHireInterviewRoundTypeRespItemInterviewAssessmentTemplateInfo struct {
+	ID    string                                                                 `json:"id,omitempty"`     // 面试评价表 ID。在面试评价表更新时, 评价表 ID 也会更新
+	BizID string                                                                 `json:"biz_id,omitempty"` // 面试评价表对应的业务 ID。在面试评价表更新时, 业务 ID 保持不变
+	Name  *ListHireInterviewRoundTypeRespItemInterviewAssessmentTemplateInfoName `json:"name,omitempty"`   // 面试评价表名称
 }
-
-
-
-
 
 // ListHireInterviewRoundTypeRespItemInterviewAssessmentTemplateInfoName ...
-type ListHireInterviewRoundTypeRespItemInterviewAssessmentTemplateInfoName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 面试评价表中文名称
-EnUs string `json:"en_us,omitempty"` // 面试评价表英文名称
+type ListHireInterviewRoundTypeRespItemInterviewAssessmentTemplateInfoName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 面试评价表中文名称
+	EnUs string `json:"en_us,omitempty"` // 面试评价表英文名称
 }
-
-
-
-
 
 // ListHireInterviewRoundTypeRespItemName ...
-type ListHireInterviewRoundTypeRespItemName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 面试轮次类型中文名称
-EnUs string `json:"en_us,omitempty"` // 面试轮次类型英文名称
+type ListHireInterviewRoundTypeRespItemName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 面试轮次类型中文名称
+	EnUs string `json:"en_us,omitempty"` // 面试轮次类型英文名称
 }
-
-
-
-
 
 // listHireInterviewRoundTypeResp ...
-type listHireInterviewRoundTypeResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *ListHireInterviewRoundTypeResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type listHireInterviewRoundTypeResp struct {
+	Code  int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                          `json:"msg,omitempty"`  // 错误描述
+	Data  *ListHireInterviewRoundTypeResp `json:"data,omitempty"`
+	Error *ErrorDetail                    `json:"error,omitempty"`
 }
-
-
-
-

@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // UpdateBoardWhiteboardTheme 更新画板主题, 具体主题介绍可以参考[主题简介](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/board-v1/theme-introduction) 。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/board-v1/whiteboard/update_theme
-// 
 func (r *BoardService) UpdateBoardWhiteboardTheme(ctx context.Context, request *UpdateBoardWhiteboardThemeReq, options ...MethodOptionFunc) (*UpdateBoardWhiteboardThemeResp, *Response, error) {
-if r.cli.mock.mockBoardUpdateBoardWhiteboardTheme != nil {
+	if r.cli.mock.mockBoardUpdateBoardWhiteboardTheme != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Board#UpdateBoardWhiteboardTheme mock enable")
 		return r.cli.mock.mockBoardUpdateBoardWhiteboardTheme(ctx, request, options...)
 	}
@@ -35,12 +34,11 @@ if r.cli.mock.mockBoardUpdateBoardWhiteboardTheme != nil {
 		Scope:                 "Board",
 		API:                   "UpdateBoardWhiteboardTheme",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/board/v1/whiteboards/:whiteboard_id/update_theme",
+		URL:                   r.cli.openBaseURL + "/open-apis/board/v1/whiteboards/:whiteboard_id/update_theme",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(updateBoardWhiteboardThemeResp)
 
@@ -52,38 +50,25 @@ if r.cli.mock.mockBoardUpdateBoardWhiteboardTheme != nil {
 func (r *Mock) MockBoardUpdateBoardWhiteboardTheme(f func(ctx context.Context, request *UpdateBoardWhiteboardThemeReq, options ...MethodOptionFunc) (*UpdateBoardWhiteboardThemeResp, *Response, error)) {
 	r.mockBoardUpdateBoardWhiteboardTheme = f
 }
+
 // UnMockBoardUpdateBoardWhiteboardTheme un-mock BoardUpdateBoardWhiteboardTheme method
 func (r *Mock) UnMockBoardUpdateBoardWhiteboardTheme() {
 	r.mockBoardUpdateBoardWhiteboardTheme = nil
 }
 
-
 // UpdateBoardWhiteboardThemeReq ...
-type UpdateBoardWhiteboardThemeReq struct { 
-WhiteboardID string `path:"whiteboard_id" json:"-"` // 画板 id, 唯一标识, 可通过云文档下的文档接口 [获取文档所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/list) 获取, `block_type` 为 43 的 block 即为画板, 对应的 block.token 就是画板的whiteboard_id示例值: "KRy1wHU6dhmdWIbgkSIbqikMcQc" 长度范围: `22` ～ `27` 字符
-Theme *string `json:"theme,omitempty"` // 主题名称, 可选值有 classic、minimalist_gray、retro、vibrant_color、default示例值: "classic" 长度范围: `1` ～ `100000` 字符
+type UpdateBoardWhiteboardThemeReq struct {
+	WhiteboardID string  `path:"whiteboard_id" json:"-"` // 画板 id, 唯一标识, 可通过云文档下的文档接口 [获取文档所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/list) 获取, `block_type` 为 43 的 block 即为画板, 对应的 block.token 就是画板的whiteboard_id示例值: "KRy1wHU6dhmdWIbgkSIbqikMcQc" 长度范围: `22` ～ `27` 字符
+	Theme        *string `json:"theme,omitempty"`        // 主题名称, 可选值有 classic、minimalist_gray、retro、vibrant_color、default示例值: "classic" 长度范围: `1` ～ `100000` 字符
 }
-
-
-
-
 
 // UpdateBoardWhiteboardThemeResp ...
-type UpdateBoardWhiteboardThemeResp struct { 
-}
-
-
-
-
+type UpdateBoardWhiteboardThemeResp struct{}
 
 // updateBoardWhiteboardThemeResp ...
-type updateBoardWhiteboardThemeResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *UpdateBoardWhiteboardThemeResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type updateBoardWhiteboardThemeResp struct {
+	Code  int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                          `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateBoardWhiteboardThemeResp `json:"data,omitempty"`
+	Error *ErrorDetail                    `json:"error,omitempty"`
 }
-
-
-
-

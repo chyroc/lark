@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // QueryPayrollPaymentDetail 根据 __发薪活动 ID 列表__ 、__发薪日起止时间__ 和 __飞书人事雇佣 ID 列表__ 分页查询发薪明细列表和关联的算薪明细分段数据。
@@ -30,9 +30,8 @@ import (
 // 3. 开放接口中的「员工的飞书人事雇佣 ID 列表（employee_ids）」参数为必填。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/payment_detail/query
-// 
 func (r *PayrollService) QueryPayrollPaymentDetail(ctx context.Context, request *QueryPayrollPaymentDetailReq, options ...MethodOptionFunc) (*QueryPayrollPaymentDetailResp, *Response, error) {
-if r.cli.mock.mockPayrollQueryPayrollPaymentDetail != nil {
+	if r.cli.mock.mockPayrollQueryPayrollPaymentDetail != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Payroll#QueryPayrollPaymentDetail mock enable")
 		return r.cli.mock.mockPayrollQueryPayrollPaymentDetail(ctx, request, options...)
 	}
@@ -41,12 +40,11 @@ if r.cli.mock.mockPayrollQueryPayrollPaymentDetail != nil {
 		Scope:                 "Payroll",
 		API:                   "QueryPayrollPaymentDetail",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/payroll/v1/payment_detail/query",
+		URL:                   r.cli.openBaseURL + "/open-apis/payroll/v1/payment_detail/query",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(queryPayrollPaymentDetailResp)
 
@@ -58,122 +56,82 @@ if r.cli.mock.mockPayrollQueryPayrollPaymentDetail != nil {
 func (r *Mock) MockPayrollQueryPayrollPaymentDetail(f func(ctx context.Context, request *QueryPayrollPaymentDetailReq, options ...MethodOptionFunc) (*QueryPayrollPaymentDetailResp, *Response, error)) {
 	r.mockPayrollQueryPayrollPaymentDetail = f
 }
+
 // UnMockPayrollQueryPayrollPaymentDetail un-mock PayrollQueryPayrollPaymentDetail method
 func (r *Mock) UnMockPayrollQueryPayrollPaymentDetail() {
 	r.mockPayrollQueryPayrollPaymentDetail = nil
 }
 
-
 // QueryPayrollPaymentDetailReq ...
-type QueryPayrollPaymentDetailReq struct { 
-PageIndex int64 `json:"page_index,omitempty"` // 页码, 第一页从 1 开始示例值: 100 取值范围: `1` ～ `100000`
-PageSize int64 `json:"page_size,omitempty"` // 每页大小, 范围为: [1, 100]示例值: 10
-AcctItemIDs []string `json:"acct_item_ids,omitempty"` // 算薪项 ID 列表, 调用[批量查询算薪项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/acct_item/list)接口后, 可以从返回结果中获取到算薪项 ID。1. 当前参数传空时, 接口会返回发薪明细中所有的算薪项；2. 当前参数不为空时, 接口只返回发薪明细中与 acct_item_ids 存在交集的算薪项。示例值: ["7202076988667019333"] 长度范围: `0` ～ `100000`
-EmployeeIDs []string `json:"employee_ids,omitempty"` // 员工的飞书人事雇佣 ID 列表, __该参数为必填__, 调用[搜索员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口后, 可以从返回结果中获取到飞书人事雇佣 ID。注: 调用[搜索员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口时, 查询入参 user_id_type 应为  people_corehr_id。示例值: ["7202076988667019222"] 长度范围: `1` ～ `100`
-PayPeriodStartDate *string `json:"pay_period_start_date,omitempty"` // 发薪日开始时间, 格式: YYYY-MM-dd, [pay_period_start_date, pay_period_end_date] 是一个左闭右闭区间。示例值: "2024-01-01"
-PayPeriodEndDate *string `json:"pay_period_end_date,omitempty"` // 发薪日结束时间, 格式: YYYY-MM-dd, [pay_period_start_date, pay_period_end_date] 是一个左闭右闭区间。1. pay_period_start_date 不得晚于 pay_period_end_date 。2. [pay_period_start_date, pay_period_end_date] 最大间隔为 12 个月。示例值: "2024-01-31"
-ActivityIDs []string `json:"activity_ids,omitempty"` // 发薪活动 ID 列表, 调用[查询发薪活动列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/payment_activity/list)接口后, 可以从返回结果中获取到发薪活动 ID。示例值: ["7202076988667019308"] 长度范围: `0` ～ `50`
-IncludeSegmentData *bool `json:"include_segment_data,omitempty"` // 是否需要查询算薪明细的分段信息, 如果不传该参数或传 false, 那么只返回发薪活动明细数据；如果该参数传了 true, 那么同时返回发薪明细对应的算薪明细分段数据。示例值: false
+type QueryPayrollPaymentDetailReq struct {
+	PageIndex          int64    `json:"page_index,omitempty"`            // 页码, 第一页从 1 开始示例值: 100 取值范围: `1` ～ `100000`
+	PageSize           int64    `json:"page_size,omitempty"`             // 每页大小, 范围为: [1, 100]示例值: 10
+	AcctItemIDs        []string `json:"acct_item_ids,omitempty"`         // 算薪项 ID 列表, 调用[批量查询算薪项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/acct_item/list)接口后, 可以从返回结果中获取到算薪项 ID。1. 当前参数传空时, 接口会返回发薪明细中所有的算薪项；2. 当前参数不为空时, 接口只返回发薪明细中与 acct_item_ids 存在交集的算薪项。示例值: ["7202076988667019333"] 长度范围: `0` ～ `100000`
+	EmployeeIDs        []string `json:"employee_ids,omitempty"`          // 员工的飞书人事雇佣 ID 列表, __该参数为必填__, 调用[搜索员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口后, 可以从返回结果中获取到飞书人事雇佣 ID。注: 调用[搜索员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口时, 查询入参 user_id_type 应为  people_corehr_id。示例值: ["7202076988667019222"] 长度范围: `1` ～ `100`
+	PayPeriodStartDate *string  `json:"pay_period_start_date,omitempty"` // 发薪日开始时间, 格式: YYYY-MM-dd, [pay_period_start_date, pay_period_end_date] 是一个左闭右闭区间。示例值: "2024-01-01"
+	PayPeriodEndDate   *string  `json:"pay_period_end_date,omitempty"`   // 发薪日结束时间, 格式: YYYY-MM-dd, [pay_period_start_date, pay_period_end_date] 是一个左闭右闭区间。1. pay_period_start_date 不得晚于 pay_period_end_date 。2. [pay_period_start_date, pay_period_end_date] 最大间隔为 12 个月。示例值: "2024-01-31"
+	ActivityIDs        []string `json:"activity_ids,omitempty"`          // 发薪活动 ID 列表, 调用[查询发薪活动列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/payment_activity/list)接口后, 可以从返回结果中获取到发薪活动 ID。示例值: ["7202076988667019308"] 长度范围: `0` ～ `50`
+	IncludeSegmentData *bool    `json:"include_segment_data,omitempty"`  // 是否需要查询算薪明细的分段信息, 如果不传该参数或传 false, 那么只返回发薪活动明细数据；如果该参数传了 true, 那么同时返回发薪明细对应的算薪明细分段数据。示例值: false
 }
-
-
-
-
 
 // QueryPayrollPaymentDetailResp ...
-type QueryPayrollPaymentDetailResp struct { 
-PaymentDetails []*QueryPayrollPaymentDetailRespPaymentDetail `json:"payment_details,omitempty"` // 发薪明细列表
-Total int64 `json:"total,omitempty"` // 发薪明细总数
+type QueryPayrollPaymentDetailResp struct {
+	PaymentDetails []*QueryPayrollPaymentDetailRespPaymentDetail `json:"payment_details,omitempty"` // 发薪明细列表
+	Total          int64                                         `json:"total,omitempty"`           // 发薪明细总数
 }
-
-
-
-
 
 // QueryPayrollPaymentDetailRespPaymentDetail ...
-type QueryPayrollPaymentDetailRespPaymentDetail struct { 
-EmployeeID string `json:"employee_id,omitempty"` // 员工的飞书人事雇佣 ID, 调用[搜索员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口后, 可以从返回结果中获取到飞书人事雇佣 ID。注: 调用[搜索员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口时, 查询入参 user_id_type 应为  people_corehr_id。
-ActivityID string `json:"activity_id,omitempty"` // 发薪明细所在的发薪活动 ID, 调用[查询发薪活动列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/payment_activity/list)接口后, 可以从返回结果中获取到发薪活动 ID。
-PaymentAccountingItems []*QueryPayrollPaymentDetailRespPaymentDetailPaymentAccountingItem `json:"payment_accounting_items,omitempty"` // 发薪明细详情
+type QueryPayrollPaymentDetailRespPaymentDetail struct {
+	EmployeeID             string                                                             `json:"employee_id,omitempty"`              // 员工的飞书人事雇佣 ID, 调用[搜索员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口后, 可以从返回结果中获取到飞书人事雇佣 ID。注: 调用[搜索员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口时, 查询入参 user_id_type 应为  people_corehr_id。
+	ActivityID             string                                                             `json:"activity_id,omitempty"`              // 发薪明细所在的发薪活动 ID, 调用[查询发薪活动列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/payment_activity/list)接口后, 可以从返回结果中获取到发薪活动 ID。
+	PaymentAccountingItems []*QueryPayrollPaymentDetailRespPaymentDetailPaymentAccountingItem `json:"payment_accounting_items,omitempty"` // 发薪明细详情
 }
-
-
-
-
 
 // QueryPayrollPaymentDetailRespPaymentDetailPaymentAccountingItem ...
-type QueryPayrollPaymentDetailRespPaymentDetailPaymentAccountingItem struct { 
-ID string `json:"id,omitempty"` // 算薪项 ID, 调用[批量查询算薪项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/acct_item/list)接口后, 可以从返回结果中获取到算薪项 ID。注: 明细中返回的部分算薪项可能不存在于[批量查询算薪项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/acct_item/list)的接口结果中。
-AccountingItemNames []*QueryPayrollPaymentDetailRespPaymentDetailPaymentAccountingItemAccountingItemName `json:"accounting_item_names,omitempty"` // 算薪项名称
-AccountingItemValue *QueryPayrollPaymentDetailRespPaymentDetailPaymentAccountingItemAccountingItemValue `json:"accounting_item_value,omitempty"` // 算薪项值
-SegmentValues []*QueryPayrollPaymentDetailRespPaymentDetailPaymentAccountingItemSegmentValue `json:"segment_values,omitempty"` // 算薪项分段数据
-AccountingItemType int64 `json:"accounting_item_type,omitempty"` // 算薪项类型, 1-文本；2-金额；3-数值；4-百分比；5-日期；6-引用
+type QueryPayrollPaymentDetailRespPaymentDetailPaymentAccountingItem struct {
+	ID                  string                                                                               `json:"id,omitempty"`                    // 算薪项 ID, 调用[批量查询算薪项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/acct_item/list)接口后, 可以从返回结果中获取到算薪项 ID。注: 明细中返回的部分算薪项可能不存在于[批量查询算薪项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/acct_item/list)的接口结果中。
+	AccountingItemNames []*QueryPayrollPaymentDetailRespPaymentDetailPaymentAccountingItemAccountingItemName `json:"accounting_item_names,omitempty"` // 算薪项名称
+	AccountingItemValue *QueryPayrollPaymentDetailRespPaymentDetailPaymentAccountingItemAccountingItemValue  `json:"accounting_item_value,omitempty"` // 算薪项值
+	SegmentValues       []*QueryPayrollPaymentDetailRespPaymentDetailPaymentAccountingItemSegmentValue       `json:"segment_values,omitempty"`        // 算薪项分段数据
+	AccountingItemType  int64                                                                                `json:"accounting_item_type,omitempty"`  // 算薪项类型, 1-文本；2-金额；3-数值；4-百分比；5-日期；6-引用
 }
-
-
-
-
 
 // QueryPayrollPaymentDetailRespPaymentDetailPaymentAccountingItemAccountingItemName ...
-type QueryPayrollPaymentDetailRespPaymentDetailPaymentAccountingItemAccountingItemName struct { 
-Locale string `json:"locale,omitempty"` // 语种
-Value string `json:"value,omitempty"` // 语种对应的值
+type QueryPayrollPaymentDetailRespPaymentDetailPaymentAccountingItemAccountingItemName struct {
+	Locale string `json:"locale,omitempty"` // 语种
+	Value  string `json:"value,omitempty"`  // 语种对应的值
 }
-
-
-
-
 
 // QueryPayrollPaymentDetailRespPaymentDetailPaymentAccountingItemAccountingItemValue ...
-type QueryPayrollPaymentDetailRespPaymentDetailPaymentAccountingItemAccountingItemValue struct { 
-OriginalValue string `json:"original_value,omitempty"` // 算薪项数据原始值, 当发薪明细的数据来源为「人工导入」时, 如果当前算薪项类型为引用类型, 那么算薪项原始值可能为空。
-ReferenceValues []*QueryPayrollPaymentDetailRespPaymentDetailPaymentAccountingItemAccountingItemValueReferenceValue `json:"reference_values,omitempty"` // 引用类型算薪项展示值
+type QueryPayrollPaymentDetailRespPaymentDetailPaymentAccountingItemAccountingItemValue struct {
+	OriginalValue   string                                                                                              `json:"original_value,omitempty"`   // 算薪项数据原始值, 当发薪明细的数据来源为「人工导入」时, 如果当前算薪项类型为引用类型, 那么算薪项原始值可能为空。
+	ReferenceValues []*QueryPayrollPaymentDetailRespPaymentDetailPaymentAccountingItemAccountingItemValueReferenceValue `json:"reference_values,omitempty"` // 引用类型算薪项展示值
 }
-
-
-
-
 
 // QueryPayrollPaymentDetailRespPaymentDetailPaymentAccountingItemAccountingItemValueReferenceValue ...
-type QueryPayrollPaymentDetailRespPaymentDetailPaymentAccountingItemAccountingItemValueReferenceValue struct { 
-Locale string `json:"locale,omitempty"` // 语种
-Value string `json:"value,omitempty"` // 语种对应的值
+type QueryPayrollPaymentDetailRespPaymentDetailPaymentAccountingItemAccountingItemValueReferenceValue struct {
+	Locale string `json:"locale,omitempty"` // 语种
+	Value  string `json:"value,omitempty"`  // 语种对应的值
 }
-
-
-
-
 
 // QueryPayrollPaymentDetailRespPaymentDetailPaymentAccountingItemSegmentValue ...
-type QueryPayrollPaymentDetailRespPaymentDetailPaymentAccountingItemSegmentValue struct { 
-StartTime string `json:"start_time,omitempty"` // 分段开始时间-毫秒级时间戳, [start_time, end_time] 是一个左闭右闭区间。
-EndTime string `json:"end_time,omitempty"` // 分段结束时间-毫秒级时间戳, [start_time, end_time] 是一个左闭右闭区间。
-ReferenceValues []*QueryPayrollPaymentDetailRespPaymentDetailPaymentAccountingItemSegmentValueReferenceValue `json:"reference_values,omitempty"` // 引用类型算薪项分段展示值
-OriginalValue string `json:"original_value,omitempty"` // 算薪项分段原始值
+type QueryPayrollPaymentDetailRespPaymentDetailPaymentAccountingItemSegmentValue struct {
+	StartTime       string                                                                                       `json:"start_time,omitempty"`       // 分段开始时间-毫秒级时间戳, [start_time, end_time] 是一个左闭右闭区间。
+	EndTime         string                                                                                       `json:"end_time,omitempty"`         // 分段结束时间-毫秒级时间戳, [start_time, end_time] 是一个左闭右闭区间。
+	ReferenceValues []*QueryPayrollPaymentDetailRespPaymentDetailPaymentAccountingItemSegmentValueReferenceValue `json:"reference_values,omitempty"` // 引用类型算薪项分段展示值
+	OriginalValue   string                                                                                       `json:"original_value,omitempty"`   // 算薪项分段原始值
 }
-
-
-
-
 
 // QueryPayrollPaymentDetailRespPaymentDetailPaymentAccountingItemSegmentValueReferenceValue ...
-type QueryPayrollPaymentDetailRespPaymentDetailPaymentAccountingItemSegmentValueReferenceValue struct { 
-Locale string `json:"locale,omitempty"` // 语种
-Value string `json:"value,omitempty"` // 语种对应的值
+type QueryPayrollPaymentDetailRespPaymentDetailPaymentAccountingItemSegmentValueReferenceValue struct {
+	Locale string `json:"locale,omitempty"` // 语种
+	Value  string `json:"value,omitempty"`  // 语种对应的值
 }
-
-
-
-
 
 // queryPayrollPaymentDetailResp ...
-type queryPayrollPaymentDetailResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *QueryPayrollPaymentDetailResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type queryPayrollPaymentDetailResp struct {
+	Code  int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                         `json:"msg,omitempty"`  // 错误描述
+	Data  *QueryPayrollPaymentDetailResp `json:"data,omitempty"`
+	Error *ErrorDetail                   `json:"error,omitempty"`
 }
-
-
-
-

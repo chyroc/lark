@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // UpdateBitableAppWorkflow 开启或关闭自动化流程。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-workflow/update
-// 
 func (r *BitableService) UpdateBitableAppWorkflow(ctx context.Context, request *UpdateBitableAppWorkflowReq, options ...MethodOptionFunc) (*UpdateBitableAppWorkflowResp, *Response, error) {
-if r.cli.mock.mockBitableUpdateBitableAppWorkflow != nil {
+	if r.cli.mock.mockBitableUpdateBitableAppWorkflow != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Bitable#UpdateBitableAppWorkflow mock enable")
 		return r.cli.mock.mockBitableUpdateBitableAppWorkflow(ctx, request, options...)
 	}
@@ -35,12 +34,11 @@ if r.cli.mock.mockBitableUpdateBitableAppWorkflow != nil {
 		Scope:                 "Bitable",
 		API:                   "UpdateBitableAppWorkflow",
 		Method:                "PUT",
-		URL:   r.cli.openBaseURL + "/open-apis/bitable/v1/apps/:app_token/workflows/:workflow_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/bitable/v1/apps/:app_token/workflows/:workflow_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(updateBitableAppWorkflowResp)
 
@@ -52,39 +50,26 @@ if r.cli.mock.mockBitableUpdateBitableAppWorkflow != nil {
 func (r *Mock) MockBitableUpdateBitableAppWorkflow(f func(ctx context.Context, request *UpdateBitableAppWorkflowReq, options ...MethodOptionFunc) (*UpdateBitableAppWorkflowResp, *Response, error)) {
 	r.mockBitableUpdateBitableAppWorkflow = f
 }
+
 // UnMockBitableUpdateBitableAppWorkflow un-mock BitableUpdateBitableAppWorkflow method
 func (r *Mock) UnMockBitableUpdateBitableAppWorkflow() {
 	r.mockBitableUpdateBitableAppWorkflow = nil
 }
 
-
 // UpdateBitableAppWorkflowReq ...
-type UpdateBitableAppWorkflowReq struct { 
-AppToken string `path:"app_token" json:"-"` // 多维表格 App 的唯一标识。不同形态的多维表格, 其 `app_token` 的获取方式不同: 如果多维表格的 URL 以 [feishu.cn/base] 开头, 该多维表格的 `app_token` 是下图高亮部分: ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004)- 如果多维表格的 URL 以 [feishu.cn/wiki] 开头, 你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时, `obj_token` 字段的值才是多维表格的 `app_token`。了解更多, 参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。示例值: "appbcbWCzen6D8dezh"
-WorkflowID string `path:"workflow_id" json:"-"` // 自动化工作流 ID, 通过[列出自动化流程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-workflow/list)接口获取。示例值: "730887xxxx552638996"
-Status string `json:"status,omitempty"` // 自动化状态。可选值: Enable: 开启自动化流程- Disable: 关闭自动化流程示例值: "Enable"
+type UpdateBitableAppWorkflowReq struct {
+	AppToken   string `path:"app_token" json:"-"`   // 多维表格 App 的唯一标识。不同形态的多维表格, 其 `app_token` 的获取方式不同: 如果多维表格的 URL 以 [feishu.cn/base] 开头, 该多维表格的 `app_token` 是下图高亮部分: ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004)- 如果多维表格的 URL 以 [feishu.cn/wiki] 开头, 你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 `obj_type` 的值为 `bitable` 时, `obj_token` 字段的值才是多维表格的 `app_token`。了解更多, 参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。示例值: "appbcbWCzen6D8dezh"
+	WorkflowID string `path:"workflow_id" json:"-"` // 自动化工作流 ID, 通过[列出自动化流程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-workflow/list)接口获取。示例值: "730887xxxx552638996"
+	Status     string `json:"status,omitempty"`     // 自动化状态。可选值: Enable: 开启自动化流程- Disable: 关闭自动化流程示例值: "Enable"
 }
-
-
-
-
 
 // UpdateBitableAppWorkflowResp ...
-type UpdateBitableAppWorkflowResp struct { 
-}
-
-
-
-
+type UpdateBitableAppWorkflowResp struct{}
 
 // updateBitableAppWorkflowResp ...
-type updateBitableAppWorkflowResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *UpdateBitableAppWorkflowResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type updateBitableAppWorkflowResp struct {
+	Code  int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                        `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateBitableAppWorkflowResp `json:"data,omitempty"`
+	Error *ErrorDetail                  `json:"error,omitempty"`
 }
-
-
-
-

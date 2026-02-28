@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateHireApplicationRecover 根据投递 ID 将「已终止」投递进行恢复。
@@ -27,9 +27,8 @@ import (
 // 投递被终止, 且人才未入职、未锁在其他投递才可执行此接口进行恢复。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/recover
-// 
 func (r *HireService) CreateHireApplicationRecover(ctx context.Context, request *CreateHireApplicationRecoverReq, options ...MethodOptionFunc) (*CreateHireApplicationRecoverResp, *Response, error) {
-if r.cli.mock.mockHireCreateHireApplicationRecover != nil {
+	if r.cli.mock.mockHireCreateHireApplicationRecover != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#CreateHireApplicationRecover mock enable")
 		return r.cli.mock.mockHireCreateHireApplicationRecover(ctx, request, options...)
 	}
@@ -38,11 +37,10 @@ if r.cli.mock.mockHireCreateHireApplicationRecover != nil {
 		Scope:                 "Hire",
 		API:                   "CreateHireApplicationRecover",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/applications/:application_id/recover",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/applications/:application_id/recover",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createHireApplicationRecoverResp)
 
@@ -54,37 +52,24 @@ if r.cli.mock.mockHireCreateHireApplicationRecover != nil {
 func (r *Mock) MockHireCreateHireApplicationRecover(f func(ctx context.Context, request *CreateHireApplicationRecoverReq, options ...MethodOptionFunc) (*CreateHireApplicationRecoverResp, *Response, error)) {
 	r.mockHireCreateHireApplicationRecover = f
 }
+
 // UnMockHireCreateHireApplicationRecover un-mock HireCreateHireApplicationRecover method
 func (r *Mock) UnMockHireCreateHireApplicationRecover() {
 	r.mockHireCreateHireApplicationRecover = nil
 }
 
-
 // CreateHireApplicationRecoverReq ...
-type CreateHireApplicationRecoverReq struct { 
-ApplicationID string `path:"application_id" json:"-"` // 投递ID, 详情请参考: [获取投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/list)示例值: "12312312312"
+type CreateHireApplicationRecoverReq struct {
+	ApplicationID string `path:"application_id" json:"-"` // 投递ID, 详情请参考: [获取投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/list)示例值: "12312312312"
 }
-
-
-
-
 
 // CreateHireApplicationRecoverResp ...
-type CreateHireApplicationRecoverResp struct { 
-}
-
-
-
-
+type CreateHireApplicationRecoverResp struct{}
 
 // createHireApplicationRecoverResp ...
-type createHireApplicationRecoverResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateHireApplicationRecoverResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createHireApplicationRecoverResp struct {
+	Code  int64                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                            `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateHireApplicationRecoverResp `json:"data,omitempty"`
+	Error *ErrorDetail                      `json:"error,omitempty"`
 }
-
-
-
-

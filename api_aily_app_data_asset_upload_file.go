@@ -18,8 +18,8 @@
 package lark
 
 import (
-"context"
-"io"
+	"context"
+	"io"
 )
 
 // UploadAilyAppDataAssetFile 上传文件用于 Aily 的数据知识管理
@@ -31,9 +31,8 @@ import (
 // - 仅支持上传docx、txt、pdf、pptx类型的文件
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/aily-v1/app-data_asset/upload_file
-// 
 func (r *AilyService) UploadAilyAppDataAssetFile(ctx context.Context, request *UploadAilyAppDataAssetFileReq, options ...MethodOptionFunc) (*UploadAilyAppDataAssetFileResp, *Response, error) {
-if r.cli.mock.mockAilyUploadAilyAppDataAssetFile != nil {
+	if r.cli.mock.mockAilyUploadAilyAppDataAssetFile != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Aily#UploadAilyAppDataAssetFile mock enable")
 		return r.cli.mock.mockAilyUploadAilyAppDataAssetFile(ctx, request, options...)
 	}
@@ -42,13 +41,12 @@ if r.cli.mock.mockAilyUploadAilyAppDataAssetFile != nil {
 		Scope:                 "Aily",
 		API:                   "UploadAilyAppDataAssetFile",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/aily/v1/apps/:app_id/data_assets/upload_file",
+		URL:                   r.cli.openBaseURL + "/open-apis/aily/v1/apps/:app_id/data_assets/upload_file",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
- IsFile: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
+		IsFile:                true,
 	}
 	resp := new(uploadAilyAppDataAssetFileResp)
 
@@ -60,50 +58,34 @@ if r.cli.mock.mockAilyUploadAilyAppDataAssetFile != nil {
 func (r *Mock) MockAilyUploadAilyAppDataAssetFile(f func(ctx context.Context, request *UploadAilyAppDataAssetFileReq, options ...MethodOptionFunc) (*UploadAilyAppDataAssetFileResp, *Response, error)) {
 	r.mockAilyUploadAilyAppDataAssetFile = f
 }
+
 // UnMockAilyUploadAilyAppDataAssetFile un-mock AilyUploadAilyAppDataAssetFile method
 func (r *Mock) UnMockAilyUploadAilyAppDataAssetFile() {
 	r.mockAilyUploadAilyAppDataAssetFile = nil
 }
 
-
 // UploadAilyAppDataAssetFileReq ...
-type UploadAilyAppDataAssetFileReq struct { 
-AppID string `path:"app_id" json:"-"` // Aily 平台的应用的APPID, 可以直接从 Aily 应用的URL中获取。获取示例: /ai/{APPID}示例值: "spring_dsafdsaf__c" 长度范围: `0` ～ `255` 字符
-TenantType *string `query:"tenant_type" json:"-"` // 应用环境, 枚举值: `online`: 线上环境（默认值）- `dev`: 开发环境；目前只支持 `dev`示例值: dev 长度范围: `0` ～ `255` 字符
-File io.Reader `json:"file,omitempty"` // 需要上传的文件。仅支持上传 docx、txt、pdf、pptx 类型的文件。示例值: file binary
+type UploadAilyAppDataAssetFileReq struct {
+	AppID      string    `path:"app_id" json:"-"`       // Aily 平台的应用的APPID, 可以直接从 Aily 应用的URL中获取。获取示例: /ai/{APPID}示例值: "spring_dsafdsaf__c" 长度范围: `0` ～ `255` 字符
+	TenantType *string   `query:"tenant_type" json:"-"` // 应用环境, 枚举值: `online`: 线上环境（默认值）- `dev`: 开发环境；目前只支持 `dev`示例值: dev 长度范围: `0` ～ `255` 字符
+	File       io.Reader `json:"file,omitempty"`        // 需要上传的文件。仅支持上传 docx、txt、pdf、pptx 类型的文件。示例值: file binary
 }
-
-
-
-
 
 // UploadAilyAppDataAssetFileResp ...
-type UploadAilyAppDataAssetFileResp struct { 
-FileInfo *UploadAilyAppDataAssetFileRespFileInfo `json:"file_info,omitempty"` // 数据知识文件
+type UploadAilyAppDataAssetFileResp struct {
+	FileInfo *UploadAilyAppDataAssetFileRespFileInfo `json:"file_info,omitempty"` // 数据知识文件
 }
-
-
-
-
 
 // UploadAilyAppDataAssetFileRespFileInfo ...
-type UploadAilyAppDataAssetFileRespFileInfo struct { 
-Token string `json:"token,omitempty"` // 数据知识文件 token
-MimeType string `json:"mime_type,omitempty"` // 解析出的文件类型, 包括pdf、docx、pptx、txt
+type UploadAilyAppDataAssetFileRespFileInfo struct {
+	Token    string `json:"token,omitempty"`     // 数据知识文件 token
+	MimeType string `json:"mime_type,omitempty"` // 解析出的文件类型, 包括pdf、docx、pptx、txt
 }
-
-
-
-
 
 // uploadAilyAppDataAssetFileResp ...
-type uploadAilyAppDataAssetFileResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *UploadAilyAppDataAssetFileResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type uploadAilyAppDataAssetFileResp struct {
+	Code  int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                          `json:"msg,omitempty"`  // 错误描述
+	Data  *UploadAilyAppDataAssetFileResp `json:"data,omitempty"`
+	Error *ErrorDetail                    `json:"error,omitempty"`
 }
-
-
-
-

@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // DeleteCorehrJobGrade 删除职等
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/delete
-// 
 func (r *CorehrService) DeleteCorehrJobGrade(ctx context.Context, request *DeleteCorehrJobGradeReq, options ...MethodOptionFunc) (*DeleteCorehrJobGradeResp, *Response, error) {
-if r.cli.mock.mockCorehrDeleteCorehrJobGrade != nil {
+	if r.cli.mock.mockCorehrDeleteCorehrJobGrade != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Corehr#DeleteCorehrJobGrade mock enable")
 		return r.cli.mock.mockCorehrDeleteCorehrJobGrade(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockCorehrDeleteCorehrJobGrade != nil {
 		Scope:                 "Corehr",
 		API:                   "DeleteCorehrJobGrade",
 		Method:                "DELETE",
-		URL:   r.cli.openBaseURL + "/open-apis/corehr/v2/job_grades/:job_grade_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/job_grades/:job_grade_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(deleteCorehrJobGradeResp)
 
@@ -51,37 +49,24 @@ if r.cli.mock.mockCorehrDeleteCorehrJobGrade != nil {
 func (r *Mock) MockCorehrDeleteCorehrJobGrade(f func(ctx context.Context, request *DeleteCorehrJobGradeReq, options ...MethodOptionFunc) (*DeleteCorehrJobGradeResp, *Response, error)) {
 	r.mockCorehrDeleteCorehrJobGrade = f
 }
+
 // UnMockCorehrDeleteCorehrJobGrade un-mock CorehrDeleteCorehrJobGrade method
 func (r *Mock) UnMockCorehrDeleteCorehrJobGrade() {
 	r.mockCorehrDeleteCorehrJobGrade = nil
 }
 
-
 // DeleteCorehrJobGradeReq ...
-type DeleteCorehrJobGradeReq struct { 
-JobGradeID string `path:"job_grade_id" json:"-"` // 需要删除的职等ID。ID获取方式: 调用[【创建职等】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/create)[【查询租户的职等信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)等接口可以返回职等ID示例值: "1616161616"
+type DeleteCorehrJobGradeReq struct {
+	JobGradeID string `path:"job_grade_id" json:"-"` // 需要删除的职等ID。ID获取方式: 调用[【创建职等】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/create)[【查询租户的职等信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)等接口可以返回职等ID示例值: "1616161616"
 }
-
-
-
-
 
 // DeleteCorehrJobGradeResp ...
-type DeleteCorehrJobGradeResp struct { 
-}
-
-
-
-
+type DeleteCorehrJobGradeResp struct{}
 
 // deleteCorehrJobGradeResp ...
-type deleteCorehrJobGradeResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *DeleteCorehrJobGradeResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type deleteCorehrJobGradeResp struct {
+	Code  int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                    `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteCorehrJobGradeResp `json:"data,omitempty"`
+	Error *ErrorDetail              `json:"error,omitempty"`
 }
-
-
-
-

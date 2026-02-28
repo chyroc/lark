@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // UpdateTaskCommentV2 更新一条评论。
@@ -28,9 +28,8 @@ import (
 // 更新评论需要评论归属任务的读取权限, 并且只能更新自己创建的评论。详情见[任务功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/overview)中的“任务是如何鉴权的？”章节。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/comment/patch
-// 
 func (r *TaskService) UpdateTaskCommentV2(ctx context.Context, request *UpdateTaskCommentV2Req, options ...MethodOptionFunc) (*UpdateTaskCommentV2Resp, *Response, error) {
-if r.cli.mock.mockTaskUpdateTaskCommentV2 != nil {
+	if r.cli.mock.mockTaskUpdateTaskCommentV2 != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#UpdateTaskCommentV2 mock enable")
 		return r.cli.mock.mockTaskUpdateTaskCommentV2(ctx, request, options...)
 	}
@@ -39,12 +38,11 @@ if r.cli.mock.mockTaskUpdateTaskCommentV2 != nil {
 		Scope:                 "Task",
 		API:                   "UpdateTaskCommentV2",
 		Method:                "PATCH",
-		URL:   r.cli.openBaseURL + "/open-apis/task/v2/comments/:comment_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/task/v2/comments/:comment_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(updateTaskCommentV2Resp)
 
@@ -56,77 +54,53 @@ if r.cli.mock.mockTaskUpdateTaskCommentV2 != nil {
 func (r *Mock) MockTaskUpdateTaskCommentV2(f func(ctx context.Context, request *UpdateTaskCommentV2Req, options ...MethodOptionFunc) (*UpdateTaskCommentV2Resp, *Response, error)) {
 	r.mockTaskUpdateTaskCommentV2 = f
 }
+
 // UnMockTaskUpdateTaskCommentV2 un-mock TaskUpdateTaskCommentV2 method
 func (r *Mock) UnMockTaskUpdateTaskCommentV2() {
 	r.mockTaskUpdateTaskCommentV2 = nil
 }
 
-
 // UpdateTaskCommentV2Req ...
-type UpdateTaskCommentV2Req struct { 
-CommentID string `path:"comment_id" json:"-"` // 要更新的评论ID示例值: "7198104824246747156" 最大长度: `100` 字符
-UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id默认值: `open_id`
-Comment *UpdateTaskCommentV2ReqComment `json:"comment,omitempty"` // 要更新的评论数据。
-UpdateFields []string `json:"update_fields,omitempty"` // 要更新的字段, 支持评论内容示例值: ["content"]
+type UpdateTaskCommentV2Req struct {
+	CommentID    string                         `path:"comment_id" json:"-"`     // 要更新的评论ID示例值: "7198104824246747156" 最大长度: `100` 字符
+	UserIDType   *IDType                        `query:"user_id_type" json:"-"`  // 用户 ID 类型示例值: open_id默认值: `open_id`
+	Comment      *UpdateTaskCommentV2ReqComment `json:"comment,omitempty"`       // 要更新的评论数据。
+	UpdateFields []string                       `json:"update_fields,omitempty"` // 要更新的字段, 支持评论内容示例值: ["content"]
 }
-
-
-
-
 
 // UpdateTaskCommentV2ReqComment ...
-type UpdateTaskCommentV2ReqComment struct { 
-Content *string `json:"content,omitempty"` // 要更新的评论内容。如果更新该字段, 不允许设为空, 最大支持3000个utf8字符。示例值: "举杯邀明月, 对影成三人" 最大长度: `10000` 字符
+type UpdateTaskCommentV2ReqComment struct {
+	Content *string `json:"content,omitempty"` // 要更新的评论内容。如果更新该字段, 不允许设为空, 最大支持3000个utf8字符。示例值: "举杯邀明月, 对影成三人" 最大长度: `10000` 字符
 }
-
-
-
-
 
 // UpdateTaskCommentV2Resp ...
-type UpdateTaskCommentV2Resp struct { 
-Comment *UpdateTaskCommentV2RespComment `json:"comment,omitempty"` // 更新后的评论
+type UpdateTaskCommentV2Resp struct {
+	Comment *UpdateTaskCommentV2RespComment `json:"comment,omitempty"` // 更新后的评论
 }
-
-
-
-
 
 // UpdateTaskCommentV2RespComment ...
-type UpdateTaskCommentV2RespComment struct { 
-ID string `json:"id,omitempty"` // 评论id
-Content string `json:"content,omitempty"` // 评论内容
-Creator *UpdateTaskCommentV2RespCommentCreator `json:"creator,omitempty"` // 评论创建人
-ReplyToCommentID string `json:"reply_to_comment_id,omitempty"` // 被回复评论的id。如果不是回复评论, 则为空。
-CreatedAt string `json:"created_at,omitempty"` // 评论创建时间戳（ms)
-UpdatedAt string `json:"updated_at,omitempty"` // 评论更新时间戳（ms）
-ResourceType string `json:"resource_type,omitempty"` // 任务关联的资源类型
-ResourceID string `json:"resource_id,omitempty"` // 任务关联的资源ID
+type UpdateTaskCommentV2RespComment struct {
+	ID               string                                 `json:"id,omitempty"`                  // 评论id
+	Content          string                                 `json:"content,omitempty"`             // 评论内容
+	Creator          *UpdateTaskCommentV2RespCommentCreator `json:"creator,omitempty"`             // 评论创建人
+	ReplyToCommentID string                                 `json:"reply_to_comment_id,omitempty"` // 被回复评论的id。如果不是回复评论, 则为空。
+	CreatedAt        string                                 `json:"created_at,omitempty"`          // 评论创建时间戳（ms)
+	UpdatedAt        string                                 `json:"updated_at,omitempty"`          // 评论更新时间戳（ms）
+	ResourceType     string                                 `json:"resource_type,omitempty"`       // 任务关联的资源类型
+	ResourceID       string                                 `json:"resource_id,omitempty"`         // 任务关联的资源ID
 }
-
-
-
-
 
 // UpdateTaskCommentV2RespCommentCreator ...
-type UpdateTaskCommentV2RespCommentCreator struct { 
-ID string `json:"id,omitempty"` // 表示member的id
-Type string `json:"type,omitempty"` // 成员的类型
-Role string `json:"role,omitempty"` // 成员角色
+type UpdateTaskCommentV2RespCommentCreator struct {
+	ID   string `json:"id,omitempty"`   // 表示member的id
+	Type string `json:"type,omitempty"` // 成员的类型
+	Role string `json:"role,omitempty"` // 成员角色
 }
-
-
-
-
 
 // updateTaskCommentV2Resp ...
-type updateTaskCommentV2Resp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *UpdateTaskCommentV2Resp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type updateTaskCommentV2Resp struct {
+	Code  int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                   `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateTaskCommentV2Resp `json:"data,omitempty"`
+	Error *ErrorDetail             `json:"error,omitempty"`
 }
-
-
-
-

@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateCorehrPreHireComplete 操作待入职员工完成入职, 正式入职建立员工和公司/组织的雇佣关系
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/complete
-// 
 func (r *CorehrService) CreateCorehrPreHireComplete(ctx context.Context, request *CreateCorehrPreHireCompleteReq, options ...MethodOptionFunc) (*CreateCorehrPreHireCompleteResp, *Response, error) {
-if r.cli.mock.mockCorehrCreateCorehrPreHireComplete != nil {
+	if r.cli.mock.mockCorehrCreateCorehrPreHireComplete != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Corehr#CreateCorehrPreHireComplete mock enable")
 		return r.cli.mock.mockCorehrCreateCorehrPreHireComplete(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockCorehrCreateCorehrPreHireComplete != nil {
 		Scope:                 "Corehr",
 		API:                   "CreateCorehrPreHireComplete",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/corehr/v2/pre_hires/:pre_hire_id/complete",
+		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/pre_hires/:pre_hire_id/complete",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createCorehrPreHireCompleteResp)
 
@@ -51,38 +49,26 @@ if r.cli.mock.mockCorehrCreateCorehrPreHireComplete != nil {
 func (r *Mock) MockCorehrCreateCorehrPreHireComplete(f func(ctx context.Context, request *CreateCorehrPreHireCompleteReq, options ...MethodOptionFunc) (*CreateCorehrPreHireCompleteResp, *Response, error)) {
 	r.mockCorehrCreateCorehrPreHireComplete = f
 }
+
 // UnMockCorehrCreateCorehrPreHireComplete un-mock CorehrCreateCorehrPreHireComplete method
 func (r *Mock) UnMockCorehrCreateCorehrPreHireComplete() {
 	r.mockCorehrCreateCorehrPreHireComplete = nil
 }
 
-
 // CreateCorehrPreHireCompleteReq ...
-type CreateCorehrPreHireCompleteReq struct { 
-PreHireID string `path:"pre_hire_id" json:"-"` // 待入职ID, 可从[待入职列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/search)接口获取示例值: "7345005664477775407"
+type CreateCorehrPreHireCompleteReq struct {
+	PreHireID string `path:"pre_hire_id" json:"-"` // 待入职ID, 可从[待入职列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/search)接口获取示例值: "7345005664477775407"
 }
-
-
-
-
 
 // CreateCorehrPreHireCompleteResp ...
-type CreateCorehrPreHireCompleteResp struct { 
-Success bool `json:"success,omitempty"` // 是否成功完成入职
+type CreateCorehrPreHireCompleteResp struct {
+	Success bool `json:"success,omitempty"` // 是否成功完成入职
 }
-
-
-
-
 
 // createCorehrPreHireCompleteResp ...
-type createCorehrPreHireCompleteResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateCorehrPreHireCompleteResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createCorehrPreHireCompleteResp struct {
+	Code  int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                           `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateCorehrPreHireCompleteResp `json:"data,omitempty"`
+	Error *ErrorDetail                     `json:"error,omitempty"`
 }
-
-
-
-

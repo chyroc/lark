@@ -18,28 +18,26 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // UnsubscribeMailUserMailboxEvent 取消订阅
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-event/unsubscribe
-// 
 func (r *MailService) UnsubscribeMailUserMailboxEvent(ctx context.Context, request *UnsubscribeMailUserMailboxEventReq, options ...MethodOptionFunc) (*UnsubscribeMailUserMailboxEventResp, *Response, error) {
-if r.cli.mock.mockMailUnsubscribeMailUserMailboxEvent != nil {
+	if r.cli.mock.mockMailUnsubscribeMailUserMailboxEvent != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#UnsubscribeMailUserMailboxEvent mock enable")
 		return r.cli.mock.mockMailUnsubscribeMailUserMailboxEvent(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "Mail",
-		API:                   "UnsubscribeMailUserMailboxEvent",
-		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/event/unsubscribe",
-		Body:                  request,
-		MethodOption:          newMethodOption(options),
- NeedUserAccessToken: true,
-
+		Scope:               "Mail",
+		API:                 "UnsubscribeMailUserMailboxEvent",
+		Method:              "POST",
+		URL:                 r.cli.openBaseURL + "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/event/unsubscribe",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
+		NeedUserAccessToken: true,
 	}
 	resp := new(unsubscribeMailUserMailboxEventResp)
 
@@ -51,38 +49,25 @@ if r.cli.mock.mockMailUnsubscribeMailUserMailboxEvent != nil {
 func (r *Mock) MockMailUnsubscribeMailUserMailboxEvent(f func(ctx context.Context, request *UnsubscribeMailUserMailboxEventReq, options ...MethodOptionFunc) (*UnsubscribeMailUserMailboxEventResp, *Response, error)) {
 	r.mockMailUnsubscribeMailUserMailboxEvent = f
 }
+
 // UnMockMailUnsubscribeMailUserMailboxEvent un-mock MailUnsubscribeMailUserMailboxEvent method
 func (r *Mock) UnMockMailUnsubscribeMailUserMailboxEvent() {
 	r.mockMailUnsubscribeMailUserMailboxEvent = nil
 }
 
-
 // UnsubscribeMailUserMailboxEventReq ...
-type UnsubscribeMailUserMailboxEventReq struct { 
-UserMailboxID string `path:"user_mailbox_id" json:"-"` // 用户邮箱地址, 使用 user_access_token 时可使用 me示例值: "user@xxx.xx 或 me"
-EventType int64 `json:"event_type,omitempty"` // 事件类型示例值: 1可选值有: 邮件相关事件 取值范围: `1` ～ `1`
+type UnsubscribeMailUserMailboxEventReq struct {
+	UserMailboxID string `path:"user_mailbox_id" json:"-"` // 用户邮箱地址, 使用 user_access_token 时可使用 me示例值: "user@xxx.xx 或 me"
+	EventType     int64  `json:"event_type,omitempty"`     // 事件类型示例值: 1可选值有: 邮件相关事件 取值范围: `1` ～ `1`
 }
-
-
-
-
 
 // UnsubscribeMailUserMailboxEventResp ...
-type UnsubscribeMailUserMailboxEventResp struct { 
-}
-
-
-
-
+type UnsubscribeMailUserMailboxEventResp struct{}
 
 // unsubscribeMailUserMailboxEventResp ...
-type unsubscribeMailUserMailboxEventResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *UnsubscribeMailUserMailboxEventResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type unsubscribeMailUserMailboxEventResp struct {
+	Code  int64                                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                               `json:"msg,omitempty"`  // 错误描述
+	Data  *UnsubscribeMailUserMailboxEventResp `json:"data,omitempty"`
+	Error *ErrorDetail                         `json:"error,omitempty"`
 }
-
-
-
-

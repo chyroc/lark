@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // OpenHireJob 对于已关闭的职位, 可通过本接口重启职位。
@@ -26,9 +26,8 @@ import (
 // 在调用本接口前, 须在「飞书招聘」-「设置」-「职位管理」-「职位设置」中开启「通过 API 同步职位」开关, 否则将只能在招聘系统内重启职位。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/open
-// 
 func (r *HireService) OpenHireJob(ctx context.Context, request *OpenHireJobReq, options ...MethodOptionFunc) (*OpenHireJobResp, *Response, error) {
-if r.cli.mock.mockHireOpenHireJob != nil {
+	if r.cli.mock.mockHireOpenHireJob != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#OpenHireJob mock enable")
 		return r.cli.mock.mockHireOpenHireJob(ctx, request, options...)
 	}
@@ -37,11 +36,10 @@ if r.cli.mock.mockHireOpenHireJob != nil {
 		Scope:                 "Hire",
 		API:                   "OpenHireJob",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/jobs/:job_id/open",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/jobs/:job_id/open",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(openHireJobResp)
 
@@ -53,39 +51,26 @@ if r.cli.mock.mockHireOpenHireJob != nil {
 func (r *Mock) MockHireOpenHireJob(f func(ctx context.Context, request *OpenHireJobReq, options ...MethodOptionFunc) (*OpenHireJobResp, *Response, error)) {
 	r.mockHireOpenHireJob = f
 }
+
 // UnMockHireOpenHireJob un-mock HireOpenHireJob method
 func (r *Mock) UnMockHireOpenHireJob() {
 	r.mockHireOpenHireJob = nil
 }
 
-
 // OpenHireJobReq ...
-type OpenHireJobReq struct { 
-JobID string `path:"job_id" json:"-"` // 职位 ID, 可通过[获取职位列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/list)获取示例值: "6960663240925956555"
-ExpiryTime *int64 `json:"expiry_time,omitempty"` // 到期日期, 毫秒时间戳（int64类型） 注意: 当`is_never_expired`为`false`时该字段必填且大于当前时间示例值: 1830259120000
-IsNeverExpired bool `json:"is_never_expired,omitempty"` // 是否长期有效 可选值有: * `true`: 长期有效* `false`: 指定到期日期示例值: true
+type OpenHireJobReq struct {
+	JobID          string `path:"job_id" json:"-"`            // 职位 ID, 可通过[获取职位列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/list)获取示例值: "6960663240925956555"
+	ExpiryTime     *int64 `json:"expiry_time,omitempty"`      // 到期日期, 毫秒时间戳（int64类型） 注意: 当`is_never_expired`为`false`时该字段必填且大于当前时间示例值: 1830259120000
+	IsNeverExpired bool   `json:"is_never_expired,omitempty"` // 是否长期有效 可选值有: * `true`: 长期有效* `false`: 指定到期日期示例值: true
 }
-
-
-
-
 
 // OpenHireJobResp ...
-type OpenHireJobResp struct { 
-}
-
-
-
-
+type OpenHireJobResp struct{}
 
 // openHireJobResp ...
-type openHireJobResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *OpenHireJobResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type openHireJobResp struct {
+	Code  int64            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string           `json:"msg,omitempty"`  // 错误描述
+	Data  *OpenHireJobResp `json:"data,omitempty"`
+	Error *ErrorDetail     `json:"error,omitempty"`
 }
-
-
-
-

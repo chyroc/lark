@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListBitableAppBlockWorkflow 此接口用于返回多维表格中所有工作流, 多维表格管理员可通过此接口来管理表中的工作流
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-block_workflow/list
-// 
 func (r *BitableService) ListBitableAppBlockWorkflow(ctx context.Context, request *ListBitableAppBlockWorkflowReq, options ...MethodOptionFunc) (*ListBitableAppBlockWorkflowResp, *Response, error) {
-if r.cli.mock.mockBitableListBitableAppBlockWorkflow != nil {
+	if r.cli.mock.mockBitableListBitableAppBlockWorkflow != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Bitable#ListBitableAppBlockWorkflow mock enable")
 		return r.cli.mock.mockBitableListBitableAppBlockWorkflow(ctx, request, options...)
 	}
@@ -35,12 +34,11 @@ if r.cli.mock.mockBitableListBitableAppBlockWorkflow != nil {
 		Scope:                 "Bitable",
 		API:                   "ListBitableAppBlockWorkflow",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/bitable/v1/apps/:app_token/block_workflows",
+		URL:                   r.cli.openBaseURL + "/open-apis/bitable/v1/apps/:app_token/block_workflows",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(listBitableAppBlockWorkflowResp)
 
@@ -52,49 +50,33 @@ if r.cli.mock.mockBitableListBitableAppBlockWorkflow != nil {
 func (r *Mock) MockBitableListBitableAppBlockWorkflow(f func(ctx context.Context, request *ListBitableAppBlockWorkflowReq, options ...MethodOptionFunc) (*ListBitableAppBlockWorkflowResp, *Response, error)) {
 	r.mockBitableListBitableAppBlockWorkflow = f
 }
+
 // UnMockBitableListBitableAppBlockWorkflow un-mock BitableListBitableAppBlockWorkflow method
 func (r *Mock) UnMockBitableListBitableAppBlockWorkflow() {
 	r.mockBitableListBitableAppBlockWorkflow = nil
 }
 
-
 // ListBitableAppBlockWorkflowReq ...
-type ListBitableAppBlockWorkflowReq struct { 
-AppToken string `path:"app_token" json:"-"` // 多维表格 App 的唯一标识。不同形态的多维表格, 其 app_token 的获取方式不同: 如果多维表格的 URL 以 [feishu.cn/base] 开头, 该多维表格的 app_token 是下图高亮部分: ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004)- 如果多维表格的 URL 以 [feishu.cn/wiki] 开头, 你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 obj_type 的值为 bitable 时, obj_token 字段的值才是多维表格的 app_token。了解更多, 参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。示例值: "U9sGw5wyoiOIqdk1C4mcbYmMnbt" 长度范围: `1` ～ `200` 字符
+type ListBitableAppBlockWorkflowReq struct {
+	AppToken string `path:"app_token" json:"-"` // 多维表格 App 的唯一标识。不同形态的多维表格, 其 app_token 的获取方式不同: 如果多维表格的 URL 以 [feishu.cn/base] 开头, 该多维表格的 app_token 是下图高亮部分: ![app_token.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6916f8cfac4045ba6585b90e3afdfb0a_GxbfkJHZBa.png?height=766&lazyload=true&width=3004)- 如果多维表格的 URL 以 [feishu.cn/wiki] 开头, 你需调用知识库相关[获取知识空间节点信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space/get_node)接口获取多维表格的 app_token。当 obj_type 的值为 bitable 时, obj_token 字段的值才是多维表格的 app_token。了解更多, 参考[多维表格 app_token 获取方式](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/bitable-overview#-752212c)。示例值: "U9sGw5wyoiOIqdk1C4mcbYmMnbt" 长度范围: `1` ～ `200` 字符
 }
-
-
-
-
 
 // ListBitableAppBlockWorkflowResp ...
-type ListBitableAppBlockWorkflowResp struct { 
-Workflows []*ListBitableAppBlockWorkflowRespWorkflow `json:"workflows,omitempty"` // 工作流列表
+type ListBitableAppBlockWorkflowResp struct {
+	Workflows []*ListBitableAppBlockWorkflowRespWorkflow `json:"workflows,omitempty"` // 工作流列表
 }
-
-
-
-
 
 // ListBitableAppBlockWorkflowRespWorkflow ...
-type ListBitableAppBlockWorkflowRespWorkflow struct { 
-WorkflowID string `json:"workflow_id,omitempty"` // 工作流唯一键
-Title string `json:"title,omitempty"` // 工作流标题
-Status string `json:"status,omitempty"` // 工作流状态可选值有: 启用禁用
+type ListBitableAppBlockWorkflowRespWorkflow struct {
+	WorkflowID string `json:"workflow_id,omitempty"` // 工作流唯一键
+	Title      string `json:"title,omitempty"`       // 工作流标题
+	Status     string `json:"status,omitempty"`      // 工作流状态可选值有: 启用禁用
 }
-
-
-
-
 
 // listBitableAppBlockWorkflowResp ...
-type listBitableAppBlockWorkflowResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *ListBitableAppBlockWorkflowResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type listBitableAppBlockWorkflowResp struct {
+	Code  int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                           `json:"msg,omitempty"`  // 错误描述
+	Data  *ListBitableAppBlockWorkflowResp `json:"data,omitempty"`
+	Error *ErrorDetail                     `json:"error,omitempty"`
 }
-
-
-
-

@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // DeleteHireNote 根据备注 ID 删除备注。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/note/delete
-// 
 func (r *HireService) DeleteHireNote(ctx context.Context, request *DeleteHireNoteReq, options ...MethodOptionFunc) (*DeleteHireNoteResp, *Response, error) {
-if r.cli.mock.mockHireDeleteHireNote != nil {
+	if r.cli.mock.mockHireDeleteHireNote != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#DeleteHireNote mock enable")
 		return r.cli.mock.mockHireDeleteHireNote(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockHireDeleteHireNote != nil {
 		Scope:                 "Hire",
 		API:                   "DeleteHireNote",
 		Method:                "DELETE",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/notes/:note_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/notes/:note_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(deleteHireNoteResp)
 
@@ -51,37 +49,24 @@ if r.cli.mock.mockHireDeleteHireNote != nil {
 func (r *Mock) MockHireDeleteHireNote(f func(ctx context.Context, request *DeleteHireNoteReq, options ...MethodOptionFunc) (*DeleteHireNoteResp, *Response, error)) {
 	r.mockHireDeleteHireNote = f
 }
+
 // UnMockHireDeleteHireNote un-mock HireDeleteHireNote method
 func (r *Mock) UnMockHireDeleteHireNote() {
 	r.mockHireDeleteHireNote = nil
 }
 
-
 // DeleteHireNoteReq ...
-type DeleteHireNoteReq struct { 
-NoteID string `path:"note_id" json:"-"` // 备注 ID, 可通过[获取备注列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/note/list)获取示例值: "6996605821056812588"
+type DeleteHireNoteReq struct {
+	NoteID string `path:"note_id" json:"-"` // 备注 ID, 可通过[获取备注列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/note/list)获取示例值: "6996605821056812588"
 }
-
-
-
-
 
 // DeleteHireNoteResp ...
-type DeleteHireNoteResp struct { 
-}
-
-
-
-
+type DeleteHireNoteResp struct{}
 
 // deleteHireNoteResp ...
-type deleteHireNoteResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *DeleteHireNoteResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type deleteHireNoteResp struct {
+	Code  int64               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string              `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteHireNoteResp `json:"data,omitempty"`
+	Error *ErrorDetail        `json:"error,omitempty"`
 }
-
-
-
-

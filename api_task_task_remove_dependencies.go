@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // RemoveTaskDependencies 从一个任务移除一个或者多个依赖。移除时只需要输入要移除的`task_guid`即可。
@@ -27,9 +27,8 @@ import (
 // 移除任务依赖时, 需要当前任务的编辑权限。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/remove_dependencies
-// 
 func (r *TaskService) RemoveTaskDependencies(ctx context.Context, request *RemoveTaskDependenciesReq, options ...MethodOptionFunc) (*RemoveTaskDependenciesResp, *Response, error) {
-if r.cli.mock.mockTaskRemoveTaskDependencies != nil {
+	if r.cli.mock.mockTaskRemoveTaskDependencies != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#RemoveTaskDependencies mock enable")
 		return r.cli.mock.mockTaskRemoveTaskDependencies(ctx, request, options...)
 	}
@@ -38,12 +37,11 @@ if r.cli.mock.mockTaskRemoveTaskDependencies != nil {
 		Scope:                 "Task",
 		API:                   "RemoveTaskDependencies",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/task/v2/tasks/:task_guid/remove_dependencies",
+		URL:                   r.cli.openBaseURL + "/open-apis/task/v2/tasks/:task_guid/remove_dependencies",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(removeTaskDependenciesResp)
 
@@ -55,58 +53,38 @@ if r.cli.mock.mockTaskRemoveTaskDependencies != nil {
 func (r *Mock) MockTaskRemoveTaskDependencies(f func(ctx context.Context, request *RemoveTaskDependenciesReq, options ...MethodOptionFunc) (*RemoveTaskDependenciesResp, *Response, error)) {
 	r.mockTaskRemoveTaskDependencies = f
 }
+
 // UnMockTaskRemoveTaskDependencies un-mock TaskRemoveTaskDependencies method
 func (r *Mock) UnMockTaskRemoveTaskDependencies() {
 	r.mockTaskRemoveTaskDependencies = nil
 }
 
-
 // RemoveTaskDependenciesReq ...
-type RemoveTaskDependenciesReq struct { 
-TaskGuid string `path:"task_guid" json:"-"` // 要移除依赖的任务GUID示例值: "93b7bd05-35e6-4371-b3c9-6b7cbd7100c0"
-Dependencies []*RemoveTaskDependenciesReqDependencie `json:"dependencies,omitempty"` // 要移除的依赖 长度范围: `1` ～ `50`
+type RemoveTaskDependenciesReq struct {
+	TaskGuid     string                                  `path:"task_guid" json:"-"`     // 要移除依赖的任务GUID示例值: "93b7bd05-35e6-4371-b3c9-6b7cbd7100c0"
+	Dependencies []*RemoveTaskDependenciesReqDependencie `json:"dependencies,omitempty"` // 要移除的依赖 长度范围: `1` ～ `50`
 }
-
-
-
-
 
 // RemoveTaskDependenciesReqDependencie ...
-type RemoveTaskDependenciesReqDependencie struct { 
-TaskGuid string `json:"task_guid,omitempty"` // 依赖任务的GUID示例值: "93b7bd05-35e6-4371-b3c9-6b7cbd7100c0"
+type RemoveTaskDependenciesReqDependencie struct {
+	TaskGuid string `json:"task_guid,omitempty"` // 依赖任务的GUID示例值: "93b7bd05-35e6-4371-b3c9-6b7cbd7100c0"
 }
-
-
-
-
 
 // RemoveTaskDependenciesResp ...
-type RemoveTaskDependenciesResp struct { 
-Dependencies []*RemoveTaskDependenciesRespDependencie `json:"dependencies,omitempty"` // 移除之后的任务GUID
+type RemoveTaskDependenciesResp struct {
+	Dependencies []*RemoveTaskDependenciesRespDependencie `json:"dependencies,omitempty"` // 移除之后的任务GUID
 }
-
-
-
-
 
 // RemoveTaskDependenciesRespDependencie ...
-type RemoveTaskDependenciesRespDependencie struct { 
-Type string `json:"type,omitempty"` // 依赖类型可选值有: 前置依赖后置依赖
-TaskGuid string `json:"task_guid,omitempty"` // 依赖任务的GUID
+type RemoveTaskDependenciesRespDependencie struct {
+	Type     string `json:"type,omitempty"`      // 依赖类型可选值有: 前置依赖后置依赖
+	TaskGuid string `json:"task_guid,omitempty"` // 依赖任务的GUID
 }
-
-
-
-
 
 // removeTaskDependenciesResp ...
-type removeTaskDependenciesResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *RemoveTaskDependenciesResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type removeTaskDependenciesResp struct {
+	Code  int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                      `json:"msg,omitempty"`  // 错误描述
+	Data  *RemoveTaskDependenciesResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }
-
-
-
-

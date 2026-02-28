@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListHirePortalApplySchema 获取招聘官网申请表模板列表, 在官网申请职位时, 申请表需按照官网申请表模板的格式进行填写。
@@ -26,9 +26,8 @@ import (
 // 该功能尚在灰度阶段, 如需使用请联系客户经理申请灰度
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/portal_apply_schema/list
-// 
 func (r *HireService) ListHirePortalApplySchema(ctx context.Context, request *ListHirePortalApplySchemaReq, options ...MethodOptionFunc) (*ListHirePortalApplySchemaResp, *Response, error) {
-if r.cli.mock.mockHireListHirePortalApplySchema != nil {
+	if r.cli.mock.mockHireListHirePortalApplySchema != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#ListHirePortalApplySchema mock enable")
 		return r.cli.mock.mockHireListHirePortalApplySchema(ctx, request, options...)
 	}
@@ -37,12 +36,11 @@ if r.cli.mock.mockHireListHirePortalApplySchema != nil {
 		Scope:                 "Hire",
 		API:                   "ListHirePortalApplySchema",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/portal_apply_schemas",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/portal_apply_schemas",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(listHirePortalApplySchemaResp)
 
@@ -54,229 +52,149 @@ if r.cli.mock.mockHireListHirePortalApplySchema != nil {
 func (r *Mock) MockHireListHirePortalApplySchema(f func(ctx context.Context, request *ListHirePortalApplySchemaReq, options ...MethodOptionFunc) (*ListHirePortalApplySchemaResp, *Response, error)) {
 	r.mockHireListHirePortalApplySchema = f
 }
+
 // UnMockHireListHirePortalApplySchema un-mock HireListHirePortalApplySchema method
 func (r *Mock) UnMockHireListHirePortalApplySchema() {
 	r.mockHireListHirePortalApplySchema = nil
 }
 
-
 // ListHirePortalApplySchemaReq ...
-type ListHirePortalApplySchemaReq struct { 
-PageSize *int64 `query:"page_size" json:"-"` // 分页大小示例值: 20默认值: `10` 最大值: `50`
-PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 6930815272790114324
+type ListHirePortalApplySchemaReq struct {
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小示例值: 20默认值: `10` 最大值: `50`
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 6930815272790114324
 }
-
-
-
-
 
 // ListHirePortalApplySchemaResp ...
-type ListHirePortalApplySchemaResp struct { 
-Items []*ListHirePortalApplySchemaRespItem `json:"items,omitempty"` // 申请表模板列表
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
+type ListHirePortalApplySchemaResp struct {
+	Items     []*ListHirePortalApplySchemaRespItem `json:"items,omitempty"`      // 申请表模板列表
+	PageToken string                               `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	HasMore   bool                                 `json:"has_more,omitempty"`   // 是否还有更多项
 }
-
-
-
-
 
 // ListHirePortalApplySchemaRespItem ...
-type ListHirePortalApplySchemaRespItem struct { 
-ID string `json:"id,omitempty"` // 申请表模板 ID
-Name string `json:"name,omitempty"` // 申请表模板名称
-Scenarios []int64 `json:"scenarios,omitempty"` // 申请表模板适用场景可选值有: 面试登记表入职登记表信息更新登记表
-Objects []*ListHirePortalApplySchemaRespItemObject `json:"objects,omitempty"` // 模块列表
+type ListHirePortalApplySchemaRespItem struct {
+	ID        string                                     `json:"id,omitempty"`        // 申请表模板 ID
+	Name      string                                     `json:"name,omitempty"`      // 申请表模板名称
+	Scenarios []int64                                    `json:"scenarios,omitempty"` // 申请表模板适用场景可选值有: 面试登记表入职登记表信息更新登记表
+	Objects   []*ListHirePortalApplySchemaRespItemObject `json:"objects,omitempty"`   // 模块列表
 }
-
-
-
-
 
 // ListHirePortalApplySchemaRespItemObject ...
-type ListHirePortalApplySchemaRespItemObject struct { 
-ID string `json:"id,omitempty"` // 模块 ID
-Name *ListHirePortalApplySchemaRespItemObjectName `json:"name,omitempty"` // 模块名称
-Description *ListHirePortalApplySchemaRespItemObjectDescription `json:"description,omitempty"` // 模块描述
-Setting *ListHirePortalApplySchemaRespItemObjectSetting `json:"setting,omitempty"` // 模块信息
-IsCustomized bool `json:"is_customized,omitempty"` // 是否是自定义模块
-IsRequired bool `json:"is_required,omitempty"` // 是否必填
-IsVisible bool `json:"is_visible,omitempty"` // 是否可见
-ActiveStatus int64 `json:"active_status,omitempty"` // 是否启用可选值有: 已启用已停用
-ChildrenList []*ListHirePortalApplySchemaRespItemObjectChildren `json:"children_list,omitempty"` // 字段列表
+type ListHirePortalApplySchemaRespItemObject struct {
+	ID           string                                              `json:"id,omitempty"`            // 模块 ID
+	Name         *ListHirePortalApplySchemaRespItemObjectName        `json:"name,omitempty"`          // 模块名称
+	Description  *ListHirePortalApplySchemaRespItemObjectDescription `json:"description,omitempty"`   // 模块描述
+	Setting      *ListHirePortalApplySchemaRespItemObjectSetting     `json:"setting,omitempty"`       // 模块信息
+	IsCustomized bool                                                `json:"is_customized,omitempty"` // 是否是自定义模块
+	IsRequired   bool                                                `json:"is_required,omitempty"`   // 是否必填
+	IsVisible    bool                                                `json:"is_visible,omitempty"`    // 是否可见
+	ActiveStatus int64                                               `json:"active_status,omitempty"` // 是否启用可选值有: 已启用已停用
+	ChildrenList []*ListHirePortalApplySchemaRespItemObjectChildren  `json:"children_list,omitempty"` // 字段列表
 }
-
-
-
-
 
 // ListHirePortalApplySchemaRespItemObjectChildren ...
-type ListHirePortalApplySchemaRespItemObjectChildren struct { 
-ID string `json:"id,omitempty"` // 字段 ID
-Name *ListHirePortalApplySchemaRespItemObjectChildrenName `json:"name,omitempty"` // 字段名称
-Description *ListHirePortalApplySchemaRespItemObjectChildrenDescription `json:"description,omitempty"` // 字段描述
-Setting *ListHirePortalApplySchemaRespItemObjectChildrenSetting `json:"setting,omitempty"` // 字段信息
-ParentID string `json:"parent_id,omitempty"` // 所属模块 ID
-IsCustomized bool `json:"is_customized,omitempty"` // 是否是自定义字段
-IsRequired bool `json:"is_required,omitempty"` // 是否必填
-IsVisible bool `json:"is_visible,omitempty"` // 是否可见
-ActiveStatus int64 `json:"active_status,omitempty"` // 是否启用可选值有: 已启用已停用
+type ListHirePortalApplySchemaRespItemObjectChildren struct {
+	ID           string                                                      `json:"id,omitempty"`            // 字段 ID
+	Name         *ListHirePortalApplySchemaRespItemObjectChildrenName        `json:"name,omitempty"`          // 字段名称
+	Description  *ListHirePortalApplySchemaRespItemObjectChildrenDescription `json:"description,omitempty"`   // 字段描述
+	Setting      *ListHirePortalApplySchemaRespItemObjectChildrenSetting     `json:"setting,omitempty"`       // 字段信息
+	ParentID     string                                                      `json:"parent_id,omitempty"`     // 所属模块 ID
+	IsCustomized bool                                                        `json:"is_customized,omitempty"` // 是否是自定义字段
+	IsRequired   bool                                                        `json:"is_required,omitempty"`   // 是否必填
+	IsVisible    bool                                                        `json:"is_visible,omitempty"`    // 是否可见
+	ActiveStatus int64                                                       `json:"active_status,omitempty"` // 是否启用可选值有: 已启用已停用
 }
-
-
-
-
 
 // ListHirePortalApplySchemaRespItemObjectChildrenDescription ...
-type ListHirePortalApplySchemaRespItemObjectChildrenDescription struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文
-EnUs string `json:"en_us,omitempty"` // 英文
+type ListHirePortalApplySchemaRespItemObjectChildrenDescription struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文
+	EnUs string `json:"en_us,omitempty"` // 英文
 }
-
-
-
-
 
 // ListHirePortalApplySchemaRespItemObjectChildrenName ...
-type ListHirePortalApplySchemaRespItemObjectChildrenName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文
-EnUs string `json:"en_us,omitempty"` // 英文
+type ListHirePortalApplySchemaRespItemObjectChildrenName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文
+	EnUs string `json:"en_us,omitempty"` // 英文
 }
-
-
-
-
 
 // ListHirePortalApplySchemaRespItemObjectChildrenSetting ...
-type ListHirePortalApplySchemaRespItemObjectChildrenSetting struct { 
-ObjectType int64 `json:"object_type,omitempty"` // 字段类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块附件
-Config *ListHirePortalApplySchemaRespItemObjectChildrenSettingConfig `json:"config,omitempty"` // 配置信息
+type ListHirePortalApplySchemaRespItemObjectChildrenSetting struct {
+	ObjectType int64                                                         `json:"object_type,omitempty"` // 字段类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块附件
+	Config     *ListHirePortalApplySchemaRespItemObjectChildrenSettingConfig `json:"config,omitempty"`      // 配置信息
 }
-
-
-
-
 
 // ListHirePortalApplySchemaRespItemObjectChildrenSettingConfig ...
-type ListHirePortalApplySchemaRespItemObjectChildrenSettingConfig struct { 
-Options []*ListHirePortalApplySchemaRespItemObjectChildrenSettingConfigOption `json:"options,omitempty"` // 选项信息
+type ListHirePortalApplySchemaRespItemObjectChildrenSettingConfig struct {
+	Options []*ListHirePortalApplySchemaRespItemObjectChildrenSettingConfigOption `json:"options,omitempty"` // 选项信息
 }
-
-
-
-
 
 // ListHirePortalApplySchemaRespItemObjectChildrenSettingConfigOption ...
-type ListHirePortalApplySchemaRespItemObjectChildrenSettingConfigOption struct { 
-Key string `json:"key,omitempty"` // 选项 ID
-Name *ListHirePortalApplySchemaRespItemObjectChildrenSettingConfigOptionName `json:"name,omitempty"` // 选项名称
-Description *ListHirePortalApplySchemaRespItemObjectChildrenSettingConfigOptionDescription `json:"description,omitempty"` // 选项描述
-ActiveStatus int64 `json:"active_status,omitempty"` // 是否启用可选值有: 已启用已停用
+type ListHirePortalApplySchemaRespItemObjectChildrenSettingConfigOption struct {
+	Key          string                                                                         `json:"key,omitempty"`           // 选项 ID
+	Name         *ListHirePortalApplySchemaRespItemObjectChildrenSettingConfigOptionName        `json:"name,omitempty"`          // 选项名称
+	Description  *ListHirePortalApplySchemaRespItemObjectChildrenSettingConfigOptionDescription `json:"description,omitempty"`   // 选项描述
+	ActiveStatus int64                                                                          `json:"active_status,omitempty"` // 是否启用可选值有: 已启用已停用
 }
-
-
-
-
 
 // ListHirePortalApplySchemaRespItemObjectChildrenSettingConfigOptionDescription ...
-type ListHirePortalApplySchemaRespItemObjectChildrenSettingConfigOptionDescription struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文
-EnUs string `json:"en_us,omitempty"` // 英文
+type ListHirePortalApplySchemaRespItemObjectChildrenSettingConfigOptionDescription struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文
+	EnUs string `json:"en_us,omitempty"` // 英文
 }
-
-
-
-
 
 // ListHirePortalApplySchemaRespItemObjectChildrenSettingConfigOptionName ...
-type ListHirePortalApplySchemaRespItemObjectChildrenSettingConfigOptionName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文
-EnUs string `json:"en_us,omitempty"` // 英文
+type ListHirePortalApplySchemaRespItemObjectChildrenSettingConfigOptionName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文
+	EnUs string `json:"en_us,omitempty"` // 英文
 }
-
-
-
-
 
 // ListHirePortalApplySchemaRespItemObjectDescription ...
-type ListHirePortalApplySchemaRespItemObjectDescription struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文
-EnUs string `json:"en_us,omitempty"` // 英文
+type ListHirePortalApplySchemaRespItemObjectDescription struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文
+	EnUs string `json:"en_us,omitempty"` // 英文
 }
-
-
-
-
 
 // ListHirePortalApplySchemaRespItemObjectName ...
-type ListHirePortalApplySchemaRespItemObjectName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文
-EnUs string `json:"en_us,omitempty"` // 英文
+type ListHirePortalApplySchemaRespItemObjectName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文
+	EnUs string `json:"en_us,omitempty"` // 英文
 }
-
-
-
-
 
 // ListHirePortalApplySchemaRespItemObjectSetting ...
-type ListHirePortalApplySchemaRespItemObjectSetting struct { 
-ObjectType int64 `json:"object_type,omitempty"` // 字段类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块附件
-Config *ListHirePortalApplySchemaRespItemObjectSettingConfig `json:"config,omitempty"` // 配置信息
+type ListHirePortalApplySchemaRespItemObjectSetting struct {
+	ObjectType int64                                                 `json:"object_type,omitempty"` // 字段类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块附件
+	Config     *ListHirePortalApplySchemaRespItemObjectSettingConfig `json:"config,omitempty"`      // 配置信息
 }
-
-
-
-
 
 // ListHirePortalApplySchemaRespItemObjectSettingConfig ...
-type ListHirePortalApplySchemaRespItemObjectSettingConfig struct { 
-Options []*ListHirePortalApplySchemaRespItemObjectSettingConfigOption `json:"options,omitempty"` // 选项信息, 当字段类型为单选/多选时会返回该信息
+type ListHirePortalApplySchemaRespItemObjectSettingConfig struct {
+	Options []*ListHirePortalApplySchemaRespItemObjectSettingConfigOption `json:"options,omitempty"` // 选项信息, 当字段类型为单选/多选时会返回该信息
 }
-
-
-
-
 
 // ListHirePortalApplySchemaRespItemObjectSettingConfigOption ...
-type ListHirePortalApplySchemaRespItemObjectSettingConfigOption struct { 
-Key string `json:"key,omitempty"` // 选项 ID
-Name *ListHirePortalApplySchemaRespItemObjectSettingConfigOptionName `json:"name,omitempty"` // 选项名称
-Description *ListHirePortalApplySchemaRespItemObjectSettingConfigOptionDescription `json:"description,omitempty"` // 选项描述
-ActiveStatus int64 `json:"active_status,omitempty"` // 是否启用可选值有: 已启用已停用
+type ListHirePortalApplySchemaRespItemObjectSettingConfigOption struct {
+	Key          string                                                                 `json:"key,omitempty"`           // 选项 ID
+	Name         *ListHirePortalApplySchemaRespItemObjectSettingConfigOptionName        `json:"name,omitempty"`          // 选项名称
+	Description  *ListHirePortalApplySchemaRespItemObjectSettingConfigOptionDescription `json:"description,omitempty"`   // 选项描述
+	ActiveStatus int64                                                                  `json:"active_status,omitempty"` // 是否启用可选值有: 已启用已停用
 }
-
-
-
-
 
 // ListHirePortalApplySchemaRespItemObjectSettingConfigOptionDescription ...
-type ListHirePortalApplySchemaRespItemObjectSettingConfigOptionDescription struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文
-EnUs string `json:"en_us,omitempty"` // 英文
+type ListHirePortalApplySchemaRespItemObjectSettingConfigOptionDescription struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文
+	EnUs string `json:"en_us,omitempty"` // 英文
 }
-
-
-
-
 
 // ListHirePortalApplySchemaRespItemObjectSettingConfigOptionName ...
-type ListHirePortalApplySchemaRespItemObjectSettingConfigOptionName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文
-EnUs string `json:"en_us,omitempty"` // 英文
+type ListHirePortalApplySchemaRespItemObjectSettingConfigOptionName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文
+	EnUs string `json:"en_us,omitempty"` // 英文
 }
-
-
-
-
 
 // listHirePortalApplySchemaResp ...
-type listHirePortalApplySchemaResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *ListHirePortalApplySchemaResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type listHirePortalApplySchemaResp struct {
+	Code  int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                         `json:"msg,omitempty"`  // 错误描述
+	Data  *ListHirePortalApplySchemaResp `json:"data,omitempty"`
+	Error *ErrorDetail                   `json:"error,omitempty"`
 }
-
-
-
-

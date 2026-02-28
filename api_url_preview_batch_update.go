@@ -62,8 +62,7 @@ type BatchUpdateURLPreviewReq struct {
 }
 
 // BatchUpdateURLPreviewResp ...
-type BatchUpdateURLPreviewResp struct {
-}
+type BatchUpdateURLPreviewResp struct{}
 
 // batchUpdateURLPreviewResp ...
 type batchUpdateURLPreviewResp struct {

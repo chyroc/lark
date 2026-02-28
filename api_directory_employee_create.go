@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateDirectoryEmployee 本接口用于在企业下创建员工。支持传入姓名、手机号等信息, 生成在职状态的员工对象。
@@ -33,9 +33,8 @@ import (
 // - 创建员工后, 会发送邀请短信/邮件, 需被邀请人点击同意后才可加入企业。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/employee/create
-// 
 func (r *DirectoryService) CreateDirectoryEmployee(ctx context.Context, request *CreateDirectoryEmployeeReq, options ...MethodOptionFunc) (*CreateDirectoryEmployeeResp, *Response, error) {
-if r.cli.mock.mockDirectoryCreateDirectoryEmployee != nil {
+	if r.cli.mock.mockDirectoryCreateDirectoryEmployee != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Directory#CreateDirectoryEmployee mock enable")
 		return r.cli.mock.mockDirectoryCreateDirectoryEmployee(ctx, request, options...)
 	}
@@ -44,12 +43,11 @@ if r.cli.mock.mockDirectoryCreateDirectoryEmployee != nil {
 		Scope:                 "Directory",
 		API:                   "CreateDirectoryEmployee",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/directory/v1/employees",
+		URL:                   r.cli.openBaseURL + "/open-apis/directory/v1/employees",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(createDirectoryEmployeeResp)
 
@@ -61,183 +59,123 @@ if r.cli.mock.mockDirectoryCreateDirectoryEmployee != nil {
 func (r *Mock) MockDirectoryCreateDirectoryEmployee(f func(ctx context.Context, request *CreateDirectoryEmployeeReq, options ...MethodOptionFunc) (*CreateDirectoryEmployeeResp, *Response, error)) {
 	r.mockDirectoryCreateDirectoryEmployee = f
 }
+
 // UnMockDirectoryCreateDirectoryEmployee un-mock DirectoryCreateDirectoryEmployee method
 func (r *Mock) UnMockDirectoryCreateDirectoryEmployee() {
 	r.mockDirectoryCreateDirectoryEmployee = nil
 }
 
-
 // CreateDirectoryEmployeeReq ...
-type CreateDirectoryEmployeeReq struct { 
-EmployeeIDType *IDType `query:"employee_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)企业内在职员工的唯一标识。支持自定义, 未自定义时系统自动生成。ID支持修改。获取employee_id的方式: - 企业管理员在 管理后台 > 组织架构 > 成员与部门 页面, 点击 成员详情, 查询员工ID  - 通过 [批量获取员工列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/employee/filter) 的接口, 通过手机号或邮箱查询员工ID。默认值: `open_id`当值为 `employee_id`, 字段权限要求: 查看员工自定义 ID
-DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型示例值: open_department_id可选值有: 用来标识租户内一个唯一的部门用来在具体某个应用中标识一个部门, 同一个部门 在不同应用中的 open_department_id 相同。默认值: `open_department_id`
-Employee *CreateDirectoryEmployeeReqEmployee `json:"employee,omitempty"` // 创建员工对象
-Options *CreateDirectoryEmployeeReqOptions `json:"options,omitempty"` // 接口拓展选项
+type CreateDirectoryEmployeeReq struct {
+	EmployeeIDType   *IDType                             `query:"employee_id_type" json:"-"`   // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)企业内在职员工的唯一标识。支持自定义, 未自定义时系统自动生成。ID支持修改。获取employee_id的方式: - 企业管理员在 管理后台 > 组织架构 > 成员与部门 页面, 点击 成员详情, 查询员工ID  - 通过 [批量获取员工列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/employee/filter) 的接口, 通过手机号或邮箱查询员工ID。默认值: `open_id`当值为 `employee_id`, 字段权限要求: 查看员工自定义 ID
+	DepartmentIDType *DepartmentIDType                   `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型示例值: open_department_id可选值有: 用来标识租户内一个唯一的部门用来在具体某个应用中标识一个部门, 同一个部门 在不同应用中的 open_department_id 相同。默认值: `open_department_id`
+	Employee         *CreateDirectoryEmployeeReqEmployee `json:"employee,omitempty"`           // 创建员工对象
+	Options          *CreateDirectoryEmployeeReqOptions  `json:"options,omitempty"`            // 接口拓展选项
 }
-
-
-
-
 
 // CreateDirectoryEmployeeReqEmployee ...
-type CreateDirectoryEmployeeReqEmployee struct { 
-Name *CreateDirectoryEmployeeReqEmployeeName `json:"name,omitempty"` // 姓名
-Mobile *string `json:"mobile,omitempty"` // 员工的手机号, 最多可输入 255 字。注意: 1. 在企业内的在职员工中不可重复。2. 未认证企业仅支持添加中国大陆手机号, 通过飞书认证的企业允许添加海外手机号。3. 国际电话区号前缀中必须包含加号 +。示例值: "13011111111" 或 "+8613011111111"
-CustomEmployeeID *string `json:"custom_employee_id,omitempty"` // 企业内在职员工的唯一标识。支持自定义, 未自定义时系统自动生成。ID支持修改。注意: 1. 在职员工的ID不可重复2. ID不能包含空格示例值: "u273y71 长度范围: 1-64字符"
-AvatarKey *string `json:"avatar_key,omitempty"` // 员工的头像key。获取图片的key请使用 [上传图片 - 服务端 API - 开发文档 - 飞书开放平台](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create), 上传时图片类型需要选择 用于设置头像示例值: "8abc397a-9950-44ea-9302-e1d8fe00858g" 长度范围: `0` ～ `255` 字符
-Email *string `json:"email,omitempty"` // 员工在工作中的邮箱。注意: 1. 在企业内的在职员工中不可重复。2. 非中国大陆手机号成员必须同时添加邮箱。示例值: "zhangsan@gmail.com" 长度范围: `0` ～ `255` 字符
-EnterpriseEmail *string `json:"enterprise_email,omitempty"` // 员工的企业邮箱。请先确保已在管理后台启用飞书邮箱服务。企业邮箱的域名需要企业在管理后台申请并开启。如果企业没有开启对应域名的企业邮箱, 设置用户的企业邮箱会操作失败。示例值: "zhangsan@gmail.com" 长度范围: `0` ～ `255` 字符
-Gender *int64 `json:"gender,omitempty"` // 性别示例值: 1可选值有: 未知男女其他
-EmployeeOrderInDepartments []string `json:"employee_order_in_departments,omitempty"` // 员工在所属部门内的排序信息。 长度范围: `0` ～ `10`
-LeaderID *string `json:"leader_id,omitempty"` // 员工的直属上级ID, 与employee_id_type类型保持一致。注意: 1. 不可成环, 即A的上级是B, B的上级是A。2. 上级需要是一个在职的员工。示例值: "eeasdqwwe"
-DottedLineLeaderIDs []string `json:"dotted_line_leader_ids,omitempty"` // 员工的虚线上级ID, 与employee_id_type类型保持一致。注意: 1. 不可成环, 即A的上级是B, B的上级是A。2. 上级需要是一个在职的员工。示例值: ["hdsuqw"] 长度范围: `0` ～ `20`
-WorkCountryOrRegion *string `json:"work_country_or_region,omitempty"` // 工作地国家/地区码。获取国家/地区的编码请使用 [分页批量查询国家/地区](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/mdm-v3/country_region/list)。示例值: "MDM34234234"
-WorkPlaceID *string `json:"work_place_id,omitempty"` // 工作地点ID示例值: "eqwedas"
-WorkStation *CreateDirectoryEmployeeReqEmployeeWorkStation `json:"work_station,omitempty"` // 工位
-JobNumber *string `json:"job_number,omitempty"` // 工号。企业内在职员工的工号不可重复。示例值: "2845435 长度范围: 0-255字符"
-ExtensionNumber *string `json:"extension_number,omitempty"` // 分机号, 最多可输入 99 字。企业内所有员工的分机号不可重复。示例值: "2845435"
-JoinDate *string `json:"join_date,omitempty"` // 入职日期示例值: "2022-10-10 长度范围: 固定长度: 10 个字符, 固定格式: “yyyy-mm-dd”"
-EmploymentType *int64 `json:"employment_type,omitempty"` // 员工类型示例值: 1可选值有: 全职实习外包劳务顾问
-JobTitleID *string `json:"job_title_id,omitempty"` // 职务ID示例值: "wqedsaqw"
-CustomFieldValues []*CreateDirectoryEmployeeReqEmployeeCustomFieldValue `json:"custom_field_values,omitempty"` // 自定义字段 长度范围: `0` ～ `100`
+type CreateDirectoryEmployeeReqEmployee struct {
+	Name                       *CreateDirectoryEmployeeReqEmployeeName               `json:"name,omitempty"`                          // 姓名
+	Mobile                     *string                                               `json:"mobile,omitempty"`                        // 员工的手机号, 最多可输入 255 字。注意: 1. 在企业内的在职员工中不可重复。2. 未认证企业仅支持添加中国大陆手机号, 通过飞书认证的企业允许添加海外手机号。3. 国际电话区号前缀中必须包含加号 +。示例值: "13011111111" 或 "+8613011111111"
+	CustomEmployeeID           *string                                               `json:"custom_employee_id,omitempty"`            // 企业内在职员工的唯一标识。支持自定义, 未自定义时系统自动生成。ID支持修改。注意: 1. 在职员工的ID不可重复2. ID不能包含空格示例值: "u273y71 长度范围: 1-64字符"
+	AvatarKey                  *string                                               `json:"avatar_key,omitempty"`                    // 员工的头像key。获取图片的key请使用 [上传图片 - 服务端 API - 开发文档 - 飞书开放平台](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create), 上传时图片类型需要选择 用于设置头像示例值: "8abc397a-9950-44ea-9302-e1d8fe00858g" 长度范围: `0` ～ `255` 字符
+	Email                      *string                                               `json:"email,omitempty"`                         // 员工在工作中的邮箱。注意: 1. 在企业内的在职员工中不可重复。2. 非中国大陆手机号成员必须同时添加邮箱。示例值: "zhangsan@gmail.com" 长度范围: `0` ～ `255` 字符
+	EnterpriseEmail            *string                                               `json:"enterprise_email,omitempty"`              // 员工的企业邮箱。请先确保已在管理后台启用飞书邮箱服务。企业邮箱的域名需要企业在管理后台申请并开启。如果企业没有开启对应域名的企业邮箱, 设置用户的企业邮箱会操作失败。示例值: "zhangsan@gmail.com" 长度范围: `0` ～ `255` 字符
+	Gender                     *int64                                                `json:"gender,omitempty"`                        // 性别示例值: 1可选值有: 未知男女其他
+	EmployeeOrderInDepartments []string                                              `json:"employee_order_in_departments,omitempty"` // 员工在所属部门内的排序信息。 长度范围: `0` ～ `10`
+	LeaderID                   *string                                               `json:"leader_id,omitempty"`                     // 员工的直属上级ID, 与employee_id_type类型保持一致。注意: 1. 不可成环, 即A的上级是B, B的上级是A。2. 上级需要是一个在职的员工。示例值: "eeasdqwwe"
+	DottedLineLeaderIDs        []string                                              `json:"dotted_line_leader_ids,omitempty"`        // 员工的虚线上级ID, 与employee_id_type类型保持一致。注意: 1. 不可成环, 即A的上级是B, B的上级是A。2. 上级需要是一个在职的员工。示例值: ["hdsuqw"] 长度范围: `0` ～ `20`
+	WorkCountryOrRegion        *string                                               `json:"work_country_or_region,omitempty"`        // 工作地国家/地区码。获取国家/地区的编码请使用 [分页批量查询国家/地区](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/mdm-v3/country_region/list)。示例值: "MDM34234234"
+	WorkPlaceID                *string                                               `json:"work_place_id,omitempty"`                 // 工作地点ID示例值: "eqwedas"
+	WorkStation                *CreateDirectoryEmployeeReqEmployeeWorkStation        `json:"work_station,omitempty"`                  // 工位
+	JobNumber                  *string                                               `json:"job_number,omitempty"`                    // 工号。企业内在职员工的工号不可重复。示例值: "2845435 长度范围: 0-255字符"
+	ExtensionNumber            *string                                               `json:"extension_number,omitempty"`              // 分机号, 最多可输入 99 字。企业内所有员工的分机号不可重复。示例值: "2845435"
+	JoinDate                   *string                                               `json:"join_date,omitempty"`                     // 入职日期示例值: "2022-10-10 长度范围: 固定长度: 10 个字符, 固定格式: “yyyy-mm-dd”"
+	EmploymentType             *int64                                                `json:"employment_type,omitempty"`               // 员工类型示例值: 1可选值有: 全职实习外包劳务顾问
+	JobTitleID                 *string                                               `json:"job_title_id,omitempty"`                  // 职务ID示例值: "wqedsaqw"
+	CustomFieldValues          []*CreateDirectoryEmployeeReqEmployeeCustomFieldValue `json:"custom_field_values,omitempty"`           // 自定义字段 长度范围: `0` ～ `100`
 }
-
-
-
-
 
 // CreateDirectoryEmployeeReqEmployeeCustomFieldValue ...
-type CreateDirectoryEmployeeReqEmployeeCustomFieldValue struct { 
-FieldType *string `json:"field_type,omitempty"` // 自定义字段类型示例值: "1"可选值有: 多行文本网页链接枚举选项人员电话多选枚举类型人员列表
-TextValue *CreateDirectoryEmployeeReqEmployeeCustomFieldValueTextValue `json:"text_value,omitempty"` // 文本字段值
-URLValue *CreateDirectoryEmployeeReqEmployeeCustomFieldValueURLValue `json:"url_value,omitempty"` // 网页链接字段值
-EnumValue *CreateDirectoryEmployeeReqEmployeeCustomFieldValueEnumValue `json:"enum_value,omitempty"` // 枚举字段值
-UserValues []*CreateDirectoryEmployeeReqEmployeeCustomFieldValueUserValue `json:"user_values,omitempty"` // 人员字段值 长度范围: `0` ～ `100`
-PhoneValue *CreateDirectoryEmployeeReqEmployeeCustomFieldValuePhoneValue `json:"phone_value,omitempty"` // 电话字段值
-FieldKey *string `json:"field_key,omitempty"` // 自定义字段key示例值: "C-1000001"
+type CreateDirectoryEmployeeReqEmployeeCustomFieldValue struct {
+	FieldType  *string                                                        `json:"field_type,omitempty"`  // 自定义字段类型示例值: "1"可选值有: 多行文本网页链接枚举选项人员电话多选枚举类型人员列表
+	TextValue  *CreateDirectoryEmployeeReqEmployeeCustomFieldValueTextValue   `json:"text_value,omitempty"`  // 文本字段值
+	URLValue   *CreateDirectoryEmployeeReqEmployeeCustomFieldValueURLValue    `json:"url_value,omitempty"`   // 网页链接字段值
+	EnumValue  *CreateDirectoryEmployeeReqEmployeeCustomFieldValueEnumValue   `json:"enum_value,omitempty"`  // 枚举字段值
+	UserValues []*CreateDirectoryEmployeeReqEmployeeCustomFieldValueUserValue `json:"user_values,omitempty"` // 人员字段值 长度范围: `0` ～ `100`
+	PhoneValue *CreateDirectoryEmployeeReqEmployeeCustomFieldValuePhoneValue  `json:"phone_value,omitempty"` // 电话字段值
+	FieldKey   *string                                                        `json:"field_key,omitempty"`   // 自定义字段key示例值: "C-1000001"
 }
-
-
-
-
 
 // CreateDirectoryEmployeeReqEmployeeCustomFieldValueEnumValue ...
-type CreateDirectoryEmployeeReqEmployeeCustomFieldValueEnumValue struct { 
-EnumIDs []string `json:"enum_ids,omitempty"` // 选项结果ID示例值: ["1"] 长度范围: `0` ～ `100`
-EnumType string `json:"enum_type,omitempty"` // 选项类型示例值: "1"可选值有: 文本图片
+type CreateDirectoryEmployeeReqEmployeeCustomFieldValueEnumValue struct {
+	EnumIDs  []string `json:"enum_ids,omitempty"`  // 选项结果ID示例值: ["1"] 长度范围: `0` ～ `100`
+	EnumType string   `json:"enum_type,omitempty"` // 选项类型示例值: "1"可选值有: 文本图片
 }
-
-
-
-
 
 // CreateDirectoryEmployeeReqEmployeeCustomFieldValuePhoneValue ...
-type CreateDirectoryEmployeeReqEmployeeCustomFieldValuePhoneValue struct { 
-PhoneNumber string `json:"phone_number,omitempty"` // 电话号示例值: "18812345678"
-ExtensionNumber *string `json:"extension_number,omitempty"` // 分机号示例值: "234234234"
+type CreateDirectoryEmployeeReqEmployeeCustomFieldValuePhoneValue struct {
+	PhoneNumber     string  `json:"phone_number,omitempty"`     // 电话号示例值: "18812345678"
+	ExtensionNumber *string `json:"extension_number,omitempty"` // 分机号示例值: "234234234"
 }
-
-
-
-
 
 // CreateDirectoryEmployeeReqEmployeeCustomFieldValueTextValue ...
-type CreateDirectoryEmployeeReqEmployeeCustomFieldValueTextValue struct { 
-DefaultValue string `json:"default_value,omitempty"` // 默认值最小长度: 1字符示例值: "张三"
-I18nValue interface{} `json:"i18n_value,omitempty"` // 国际化值, key为zh_cn, ja_jp, en_us, value为对应的值示例值: {"zh_cn":"张三"}
+type CreateDirectoryEmployeeReqEmployeeCustomFieldValueTextValue struct {
+	DefaultValue string      `json:"default_value,omitempty"` // 默认值最小长度: 1字符示例值: "张三"
+	I18nValue    interface{} `json:"i18n_value,omitempty"`    // 国际化值, key为zh_cn, ja_jp, en_us, value为对应的值示例值: {"zh_cn":"张三"}
 }
-
-
-
-
 
 // CreateDirectoryEmployeeReqEmployeeCustomFieldValueURLValue ...
-type CreateDirectoryEmployeeReqEmployeeCustomFieldValueURLValue struct { 
-LinkText *CreateDirectoryEmployeeReqEmployeeCustomFieldValueURLValueLinkText `json:"link_text,omitempty"` // 网页标题
-URL string `json:"url,omitempty"` // 移动端网页链接示例值: "https://m.bytedance.com/afnasjfna"
-Pcurl string `json:"pcurl,omitempty"` // 桌面端网页链接示例值: "http://www.fs.cn"
+type CreateDirectoryEmployeeReqEmployeeCustomFieldValueURLValue struct {
+	LinkText *CreateDirectoryEmployeeReqEmployeeCustomFieldValueURLValueLinkText `json:"link_text,omitempty"` // 网页标题
+	URL      string                                                              `json:"url,omitempty"`       // 移动端网页链接示例值: "https://m.bytedance.com/afnasjfna"
+	Pcurl    string                                                              `json:"pcurl,omitempty"`     // 桌面端网页链接示例值: "http://www.fs.cn"
 }
-
-
-
-
 
 // CreateDirectoryEmployeeReqEmployeeCustomFieldValueURLValueLinkText ...
-type CreateDirectoryEmployeeReqEmployeeCustomFieldValueURLValueLinkText struct { 
-DefaultValue string `json:"default_value,omitempty"` // 默认值长度范围: 1-40字符示例值: "张三"
-I18nValue interface{} `json:"i18n_value,omitempty"` // 国际化值, key为zh_cn, ja_jp, en_us, value为对应的值示例值: {"zh_cn":"张三"}
+type CreateDirectoryEmployeeReqEmployeeCustomFieldValueURLValueLinkText struct {
+	DefaultValue string      `json:"default_value,omitempty"` // 默认值长度范围: 1-40字符示例值: "张三"
+	I18nValue    interface{} `json:"i18n_value,omitempty"`    // 国际化值, key为zh_cn, ja_jp, en_us, value为对应的值示例值: {"zh_cn":"张三"}
 }
-
-
-
-
 
 // CreateDirectoryEmployeeReqEmployeeCustomFieldValueUserValue ...
-type CreateDirectoryEmployeeReqEmployeeCustomFieldValueUserValue struct { 
-IDs []string `json:"ids,omitempty"` // 人员ID, 与employee_id_type类型保持一致。示例值: ["1"] 长度范围: `0` ～ `100`
+type CreateDirectoryEmployeeReqEmployeeCustomFieldValueUserValue struct {
+	IDs []string `json:"ids,omitempty"` // 人员ID, 与employee_id_type类型保持一致。示例值: ["1"] 长度范围: `0` ～ `100`
 }
-
-
-
-
 
 // CreateDirectoryEmployeeReqEmployeeName ...
-type CreateDirectoryEmployeeReqEmployeeName struct { 
-Name *CreateDirectoryEmployeeReqEmployeeNameName `json:"name,omitempty"` // 员工的姓名, 最多可输入 64 字
-AnotherName *string `json:"another_name,omitempty"` // 别名, 最多可输入 64 字示例值: "jack"
+type CreateDirectoryEmployeeReqEmployeeName struct {
+	Name        *CreateDirectoryEmployeeReqEmployeeNameName `json:"name,omitempty"`         // 员工的姓名, 最多可输入 64 字
+	AnotherName *string                                     `json:"another_name,omitempty"` // 别名, 最多可输入 64 字示例值: "jack"
 }
-
-
-
-
 
 // CreateDirectoryEmployeeReqEmployeeNameName ...
-type CreateDirectoryEmployeeReqEmployeeNameName struct { 
-DefaultValue string `json:"default_value,omitempty"` // 默认值最小长度: 1字符示例值: "张三"
-I18nValue interface{} `json:"i18n_value,omitempty"` // 国际化值, key为zh_cn, ja_jp, en_us, value为对应的值。示例值: {"zh_cn":"张三"}
+type CreateDirectoryEmployeeReqEmployeeNameName struct {
+	DefaultValue string      `json:"default_value,omitempty"` // 默认值最小长度: 1字符示例值: "张三"
+	I18nValue    interface{} `json:"i18n_value,omitempty"`    // 国际化值, key为zh_cn, ja_jp, en_us, value为对应的值。示例值: {"zh_cn":"张三"}
 }
-
-
-
-
 
 // CreateDirectoryEmployeeReqEmployeeWorkStation ...
-type CreateDirectoryEmployeeReqEmployeeWorkStation struct { 
-DefaultValue string `json:"default_value,omitempty"` // 默认值示例值: "张三"
-I18nValue interface{} `json:"i18n_value,omitempty"` // 国际化值, key为zh_cn, ja_jp, en_us, value为对应的值示例值: {"zh_cn":"张三"}
+type CreateDirectoryEmployeeReqEmployeeWorkStation struct {
+	DefaultValue string      `json:"default_value,omitempty"` // 默认值示例值: "张三"
+	I18nValue    interface{} `json:"i18n_value,omitempty"`    // 国际化值, key为zh_cn, ja_jp, en_us, value为对应的值示例值: {"zh_cn":"张三"}
 }
-
-
-
-
 
 // CreateDirectoryEmployeeReqOptions ...
-type CreateDirectoryEmployeeReqOptions struct { 
-GeoName *string `json:"geo_name,omitempty"` // 员工的数据驻留地。仅限开通了Multi-Geo的企业可选填, 且仅能填入企业数据驻留地列表中的Geo。可通过获取地理位置列表接口查询企业开通的Geo, 请注意这里需要传入小写字母。 需要申请以下权限才能写入: 写入员工数据所在地示例值: "cn"
-SubscriptionIDs []string `json:"subscription_ids,omitempty"` // 分配给员工的席位ID列表。可通过下方接口获取到该租户的可用席位ID, 参见[获取席位信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/tenant-v2/tenant-product_assign_info/query)。当在混合license模式下, 此字段为必填。 需要申请以下权限才能写入: 写入员工席位信息示例值: ["123123123"] 长度范围: `0` ～ `20`
+type CreateDirectoryEmployeeReqOptions struct {
+	GeoName         *string  `json:"geo_name,omitempty"`         // 员工的数据驻留地。仅限开通了Multi-Geo的企业可选填, 且仅能填入企业数据驻留地列表中的Geo。可通过获取地理位置列表接口查询企业开通的Geo, 请注意这里需要传入小写字母。 需要申请以下权限才能写入: 写入员工数据所在地示例值: "cn"
+	SubscriptionIDs []string `json:"subscription_ids,omitempty"` // 分配给员工的席位ID列表。可通过下方接口获取到该租户的可用席位ID, 参见[获取席位信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/tenant-v2/tenant-product_assign_info/query)。当在混合license模式下, 此字段为必填。 需要申请以下权限才能写入: 写入员工席位信息示例值: ["123123123"] 长度范围: `0` ～ `20`
 }
-
-
-
-
 
 // CreateDirectoryEmployeeResp ...
-type CreateDirectoryEmployeeResp struct { 
-EmployeeID string `json:"employee_id,omitempty"` // 员工ID 当`employee_id_type`值为 `employee_id`, 字段权限要求: 查看员工自定义 ID
+type CreateDirectoryEmployeeResp struct {
+	EmployeeID string `json:"employee_id,omitempty"` // 员工ID 当`employee_id_type`值为 `employee_id`, 字段权限要求: 查看员工自定义 ID
 }
-
-
-
-
 
 // createDirectoryEmployeeResp ...
-type createDirectoryEmployeeResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateDirectoryEmployeeResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createDirectoryEmployeeResp struct {
+	Code  int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                       `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateDirectoryEmployeeResp `json:"data,omitempty"`
+	Error *ErrorDetail                 `json:"error,omitempty"`
 }
-
-
-
-

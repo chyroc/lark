@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // SetVCRoomConfigRoomAccessCode 创建一个范围内的会议室部署码
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room_config/set_room_access_code
-// 
 func (r *VCService) SetVCRoomConfigRoomAccessCode(ctx context.Context, request *SetVCRoomConfigRoomAccessCodeReq, options ...MethodOptionFunc) (*SetVCRoomConfigRoomAccessCodeResp, *Response, error) {
-if r.cli.mock.mockVCSetVCRoomConfigRoomAccessCode != nil {
+	if r.cli.mock.mockVCSetVCRoomConfigRoomAccessCode != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#SetVCRoomConfigRoomAccessCode mock enable")
 		return r.cli.mock.mockVCSetVCRoomConfigRoomAccessCode(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockVCSetVCRoomConfigRoomAccessCode != nil {
 		Scope:                 "VC",
 		API:                   "SetVCRoomConfigRoomAccessCode",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/vc/v1/room_configs/set_room_access_code",
+		URL:                   r.cli.openBaseURL + "/open-apis/vc/v1/room_configs/set_room_access_code",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(setVCRoomConfigRoomAccessCodeResp)
 
@@ -51,44 +49,32 @@ if r.cli.mock.mockVCSetVCRoomConfigRoomAccessCode != nil {
 func (r *Mock) MockVCSetVCRoomConfigRoomAccessCode(f func(ctx context.Context, request *SetVCRoomConfigRoomAccessCodeReq, options ...MethodOptionFunc) (*SetVCRoomConfigRoomAccessCodeResp, *Response, error)) {
 	r.mockVCSetVCRoomConfigRoomAccessCode = f
 }
+
 // UnMockVCSetVCRoomConfigRoomAccessCode un-mock VCSetVCRoomConfigRoomAccessCode method
 func (r *Mock) UnMockVCSetVCRoomConfigRoomAccessCode() {
 	r.mockVCSetVCRoomConfigRoomAccessCode = nil
 }
 
-
 // SetVCRoomConfigRoomAccessCodeReq ...
-type SetVCRoomConfigRoomAccessCodeReq struct { 
-Scope int64 `json:"scope,omitempty"` // 设置节点范围示例值: 5可选值有: 租户国家/地区城市建筑楼层会议室
-CountryID *string `json:"country_id,omitempty"` // 国家/地区ID scope为2, 3时需要此参数示例值: "1"
-DistrictID *string `json:"district_id,omitempty"` // 城市ID scope为3时需要此参数示例值: "2"
-BuildingID *string `json:"building_id,omitempty"` // 建筑ID scope为4, 5时需要此参数示例值: "3"
-FloorName *string `json:"floor_name,omitempty"` // 楼层 scope为5时需要此参数示例值: "4"
-RoomID *string `json:"room_id,omitempty"` // 会议室ID scope为6时需要此参数示例值: "67687262867363"
-ValidDay int64 `json:"valid_day,omitempty"` // 有效天数示例值: 1可选值有: 1天7天30天
+type SetVCRoomConfigRoomAccessCodeReq struct {
+	Scope      int64   `json:"scope,omitempty"`       // 设置节点范围示例值: 5可选值有: 租户国家/地区城市建筑楼层会议室
+	CountryID  *string `json:"country_id,omitempty"`  // 国家/地区ID scope为2, 3时需要此参数示例值: "1"
+	DistrictID *string `json:"district_id,omitempty"` // 城市ID scope为3时需要此参数示例值: "2"
+	BuildingID *string `json:"building_id,omitempty"` // 建筑ID scope为4, 5时需要此参数示例值: "3"
+	FloorName  *string `json:"floor_name,omitempty"`  // 楼层 scope为5时需要此参数示例值: "4"
+	RoomID     *string `json:"room_id,omitempty"`     // 会议室ID scope为6时需要此参数示例值: "67687262867363"
+	ValidDay   int64   `json:"valid_day,omitempty"`   // 有效天数示例值: 1可选值有: 1天7天30天
 }
-
-
-
-
 
 // SetVCRoomConfigRoomAccessCodeResp ...
-type SetVCRoomConfigRoomAccessCodeResp struct { 
-AccessCode string `json:"access_code,omitempty"` // 部署访问码
+type SetVCRoomConfigRoomAccessCodeResp struct {
+	AccessCode string `json:"access_code,omitempty"` // 部署访问码
 }
-
-
-
-
 
 // setVCRoomConfigRoomAccessCodeResp ...
-type setVCRoomConfigRoomAccessCodeResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *SetVCRoomConfigRoomAccessCodeResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type setVCRoomConfigRoomAccessCodeResp struct {
+	Code  int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                             `json:"msg,omitempty"`  // 错误描述
+	Data  *SetVCRoomConfigRoomAccessCodeResp `json:"data,omitempty"`
+	Error *ErrorDetail                       `json:"error,omitempty"`
 }
-
-
-
-

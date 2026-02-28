@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // QueryCorehrSignatureFile 该接口可用于批量查询电子签文件列表, 并且支持根据文件ID、更新时间范围、文件状态、模板ID等条件检索
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/signature_file/query
-// 
 func (r *CorehrService) QueryCorehrSignatureFile(ctx context.Context, request *QueryCorehrSignatureFileReq, options ...MethodOptionFunc) (*QueryCorehrSignatureFileResp, *Response, error) {
-if r.cli.mock.mockCorehrQueryCorehrSignatureFile != nil {
+	if r.cli.mock.mockCorehrQueryCorehrSignatureFile != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Corehr#QueryCorehrSignatureFile mock enable")
 		return r.cli.mock.mockCorehrQueryCorehrSignatureFile(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockCorehrQueryCorehrSignatureFile != nil {
 		Scope:                 "Corehr",
 		API:                   "QueryCorehrSignatureFile",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/corehr/v2/signature_files/query",
+		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/signature_files/query",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(queryCorehrSignatureFileResp)
 
@@ -51,96 +49,68 @@ if r.cli.mock.mockCorehrQueryCorehrSignatureFile != nil {
 func (r *Mock) MockCorehrQueryCorehrSignatureFile(f func(ctx context.Context, request *QueryCorehrSignatureFileReq, options ...MethodOptionFunc) (*QueryCorehrSignatureFileResp, *Response, error)) {
 	r.mockCorehrQueryCorehrSignatureFile = f
 }
+
 // UnMockCorehrQueryCorehrSignatureFile un-mock CorehrQueryCorehrSignatureFile method
 func (r *Mock) UnMockCorehrQueryCorehrSignatureFile() {
 	r.mockCorehrQueryCorehrSignatureFile = nil
 }
 
-
 // QueryCorehrSignatureFileReq ...
-type QueryCorehrSignatureFileReq struct { 
-SignatureFileID *string `query:"signature_file_id" json:"-"` // 电子签文件ID, 查询结果会返回满足所有筛选条件 signature_file_id 、states、template_ids的文件示例值: 6891251722631890445
-PageSize *int64 `query:"page_size" json:"-"` // 分页大小示例值: 10范围: 0～100
-PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: {"eu_nc":"[1724438210000, \"7405949343401772554\"]"}
-UpdateTimeStart *string `query:"update_time_start" json:"-"` // 更新时间早于等于某个时间点, 按照东八区时区示例值: 2022-01-01 00:00:00
-UpdateTimeEnd *string `query:"update_time_end" json:"-"` // 更新时间晚于等于某个时间点, 按照东八区时区示例值: 2022-01-02 00:00:00
-UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: people_corehr_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `people_corehr_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
-States []string `json:"states,omitempty"` // 电子签文件状态状态列表, 多个状态之间为「或」的关系；枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)电子签文件状态（signature_file_state）枚举定义部分获得示例值: ["sign_finished", "pending_seal"] 长度范围: `0` ～ `100`
-TemplateIDs []string `json:"template_ids,omitempty"` // 电子签模板ID列表, 返回的电子签文件使用的模板在该数组中；可以通过[【获取电子签模板内容】](ssl:/uAjLw4CM/ukTMukTMukTM/corehr-v2/signature_template/search)接口获取模板ID注意: 多个模板ID之间是或的关系示例值: ["7282756156156560940", "7282756156156560945"] 长度范围: `0` ～ `100`
+type QueryCorehrSignatureFileReq struct {
+	SignatureFileID *string  `query:"signature_file_id" json:"-"` // 电子签文件ID, 查询结果会返回满足所有筛选条件 signature_file_id 、states、template_ids的文件示例值: 6891251722631890445
+	PageSize        *int64   `query:"page_size" json:"-"`         // 分页大小示例值: 10范围: 0～100
+	PageToken       *string  `query:"page_token" json:"-"`        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: {"eu_nc":"[1724438210000, \"7405949343401772554\"]"}
+	UpdateTimeStart *string  `query:"update_time_start" json:"-"` // 更新时间早于等于某个时间点, 按照东八区时区示例值: 2022-01-01 00:00:00
+	UpdateTimeEnd   *string  `query:"update_time_end" json:"-"`   // 更新时间晚于等于某个时间点, 按照东八区时区示例值: 2022-01-02 00:00:00
+	UserIDType      *IDType  `query:"user_id_type" json:"-"`      // 用户 ID 类型示例值: people_corehr_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `people_corehr_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	States          []string `json:"states,omitempty"`            // 电子签文件状态状态列表, 多个状态之间为「或」的关系；枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)电子签文件状态（signature_file_state）枚举定义部分获得示例值: ["sign_finished", "pending_seal"] 长度范围: `0` ～ `100`
+	TemplateIDs     []string `json:"template_ids,omitempty"`      // 电子签模板ID列表, 返回的电子签文件使用的模板在该数组中；可以通过[【获取电子签模板内容】](ssl:/uAjLw4CM/ukTMukTMukTM/corehr-v2/signature_template/search)接口获取模板ID注意: 多个模板ID之间是或的关系示例值: ["7282756156156560940", "7282756156156560945"] 长度范围: `0` ～ `100`
 }
-
-
-
-
 
 // QueryCorehrSignatureFileResp ...
-type QueryCorehrSignatureFileResp struct { 
-Items []*QueryCorehrSignatureFileRespItem `json:"items,omitempty"` // 电子签文件信息
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
+type QueryCorehrSignatureFileResp struct {
+	Items     []*QueryCorehrSignatureFileRespItem `json:"items,omitempty"`      // 电子签文件信息
+	PageToken string                              `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	HasMore   bool                                `json:"has_more,omitempty"`   // 是否还有更多项
 }
-
-
-
-
 
 // QueryCorehrSignatureFileRespItem ...
-type QueryCorehrSignatureFileRespItem struct { 
-SignatureFileID string `json:"signature_file_id,omitempty"` // 电子签文件ID, [【查询电子签文件信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/signature_file/query)
-Names []*QueryCorehrSignatureFileRespItemName `json:"names,omitempty"` // 名称
-CreateTime string `json:"create_time,omitempty"` // 创建时间
-UpdateTime string `json:"update_time,omitempty"` // 更新时间
-EmploymentID string `json:"employment_id,omitempty"` // 雇员 id
-PreHireID string `json:"pre_hire_id,omitempty"` // 待入职 id
-SignatureFileState *QueryCorehrSignatureFileRespItemSignatureFileState `json:"signature_file_state,omitempty"` // 电子签文件状态状态列表, 多个状态之间为「或」的关系；枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)电子签文件状态（signature_file_state）枚举定义部分获得
-ContractCode string `json:"contract_code,omitempty"` // 供应商侧的合同编号, 作为幂等key
-EffectiveDate string `json:"effective_date,omitempty"` // 电子签文件生效日期, 格式: yyyy-MM-dd
-TemplateID string `json:"template_id,omitempty"` // 电子签模板ID
-SignURL string `json:"sign_url,omitempty"` // 签署链接
+type QueryCorehrSignatureFileRespItem struct {
+	SignatureFileID    string                                              `json:"signature_file_id,omitempty"`    // 电子签文件ID, [【查询电子签文件信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/signature_file/query)
+	Names              []*QueryCorehrSignatureFileRespItemName             `json:"names,omitempty"`                // 名称
+	CreateTime         string                                              `json:"create_time,omitempty"`          // 创建时间
+	UpdateTime         string                                              `json:"update_time,omitempty"`          // 更新时间
+	EmploymentID       string                                              `json:"employment_id,omitempty"`        // 雇员 id
+	PreHireID          string                                              `json:"pre_hire_id,omitempty"`          // 待入职 id
+	SignatureFileState *QueryCorehrSignatureFileRespItemSignatureFileState `json:"signature_file_state,omitempty"` // 电子签文件状态状态列表, 多个状态之间为「或」的关系；枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)电子签文件状态（signature_file_state）枚举定义部分获得
+	ContractCode       string                                              `json:"contract_code,omitempty"`        // 供应商侧的合同编号, 作为幂等key
+	EffectiveDate      string                                              `json:"effective_date,omitempty"`       // 电子签文件生效日期, 格式: yyyy-MM-dd
+	TemplateID         string                                              `json:"template_id,omitempty"`          // 电子签模板ID
+	SignURL            string                                              `json:"sign_url,omitempty"`             // 签署链接
 }
-
-
-
-
 
 // QueryCorehrSignatureFileRespItemName ...
-type QueryCorehrSignatureFileRespItemName struct { 
-Lang string `json:"lang,omitempty"` // 语言
-Value string `json:"value,omitempty"` // 内容
+type QueryCorehrSignatureFileRespItemName struct {
+	Lang  string `json:"lang,omitempty"`  // 语言
+	Value string `json:"value,omitempty"` // 内容
 }
-
-
-
-
 
 // QueryCorehrSignatureFileRespItemSignatureFileState ...
-type QueryCorehrSignatureFileRespItemSignatureFileState struct { 
-EnumName string `json:"enum_name,omitempty"` // 枚举值
-Display []*QueryCorehrSignatureFileRespItemSignatureFileStateDisplay `json:"display,omitempty"` // 枚举多语展示
+type QueryCorehrSignatureFileRespItemSignatureFileState struct {
+	EnumName string                                                       `json:"enum_name,omitempty"` // 枚举值
+	Display  []*QueryCorehrSignatureFileRespItemSignatureFileStateDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
-
-
-
-
 
 // QueryCorehrSignatureFileRespItemSignatureFileStateDisplay ...
-type QueryCorehrSignatureFileRespItemSignatureFileStateDisplay struct { 
-Lang string `json:"lang,omitempty"` // 语言
-Value string `json:"value,omitempty"` // 文本内容
+type QueryCorehrSignatureFileRespItemSignatureFileStateDisplay struct {
+	Lang  string `json:"lang,omitempty"`  // 语言
+	Value string `json:"value,omitempty"` // 文本内容
 }
-
-
-
-
 
 // queryCorehrSignatureFileResp ...
-type queryCorehrSignatureFileResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *QueryCorehrSignatureFileResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type queryCorehrSignatureFileResp struct {
+	Code  int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                        `json:"msg,omitempty"`  // 错误描述
+	Data  *QueryCorehrSignatureFileResp `json:"data,omitempty"`
+	Error *ErrorDetail                  `json:"error,omitempty"`
 }
-
-
-
-

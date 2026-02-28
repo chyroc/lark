@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateAuthenRefreshAccessToken 本接口已成为历史版本, 不推荐使用。请使用最新版本: [刷新 user_access_token](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/authentication-management/access-token/refresh-user-access-token)
@@ -29,22 +29,20 @@ import (
 // 刷新后请更新本地user_access_token和refresh_token, 不要继续使用旧值重复刷新。保证参数是最新值
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/authen-v1/refresh_access_token/create
-// 
 func (r *AuthenService) CreateAuthenRefreshAccessToken(ctx context.Context, request *CreateAuthenRefreshAccessTokenReq, options ...MethodOptionFunc) (*CreateAuthenRefreshAccessTokenResp, *Response, error) {
-if r.cli.mock.mockAuthenCreateAuthenRefreshAccessToken != nil {
+	if r.cli.mock.mockAuthenCreateAuthenRefreshAccessToken != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Authen#CreateAuthenRefreshAccessToken mock enable")
 		return r.cli.mock.mockAuthenCreateAuthenRefreshAccessToken(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "Authen",
-		API:                   "CreateAuthenRefreshAccessToken",
-		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/authen/v1/refresh_access_token",
-		Body:                  request,
-		MethodOption:          newMethodOption(options),
- NeedAppAccessToken: true,
-
+		Scope:              "Authen",
+		API:                "CreateAuthenRefreshAccessToken",
+		Method:             "POST",
+		URL:                r.cli.openBaseURL + "/open-apis/authen/v1/refresh_access_token",
+		Body:               request,
+		MethodOption:       newMethodOption(options),
+		NeedAppAccessToken: true,
 	}
 	resp := new(createAuthenRefreshAccessTokenResp)
 
@@ -56,57 +54,45 @@ if r.cli.mock.mockAuthenCreateAuthenRefreshAccessToken != nil {
 func (r *Mock) MockAuthenCreateAuthenRefreshAccessToken(f func(ctx context.Context, request *CreateAuthenRefreshAccessTokenReq, options ...MethodOptionFunc) (*CreateAuthenRefreshAccessTokenResp, *Response, error)) {
 	r.mockAuthenCreateAuthenRefreshAccessToken = f
 }
+
 // UnMockAuthenCreateAuthenRefreshAccessToken un-mock AuthenCreateAuthenRefreshAccessToken method
 func (r *Mock) UnMockAuthenCreateAuthenRefreshAccessToken() {
 	r.mockAuthenCreateAuthenRefreshAccessToken = nil
 }
 
-
 // CreateAuthenRefreshAccessTokenReq ...
-type CreateAuthenRefreshAccessTokenReq struct { 
-GrantType string `json:"grant_type,omitempty"` // 授权类型, 固定值示例值: "refresh_token"
-RefreshToken string `json:"refresh_token,omitempty"` // 刷新和获取user_access_token接口均返回 `refresh_token`, 每次请求, 请注意使用最新获取到的`refresh_token`示例值: "ur-oQ0mMq6MCcueAv0pwx2fQQhxqv__CbLu6G8ySFwafeKww2Def2BJdOkW3.9gCFM.LBQgFri901QaqeuL"
+type CreateAuthenRefreshAccessTokenReq struct {
+	GrantType    string `json:"grant_type,omitempty"`    // 授权类型, 固定值示例值: "refresh_token"
+	RefreshToken string `json:"refresh_token,omitempty"` // 刷新和获取user_access_token接口均返回 `refresh_token`, 每次请求, 请注意使用最新获取到的`refresh_token`示例值: "ur-oQ0mMq6MCcueAv0pwx2fQQhxqv__CbLu6G8ySFwafeKww2Def2BJdOkW3.9gCFM.LBQgFri901QaqeuL"
 }
-
-
-
-
 
 // CreateAuthenRefreshAccessTokenResp ...
-type CreateAuthenRefreshAccessTokenResp struct { 
-AccessToken string `json:"access_token,omitempty"` // 字段`access_token`即user_access_token, 用于获取用户资源和访问某些open api
-TokenType string `json:"token_type,omitempty"` // token 类型
-ExpiresIn int64 `json:"expires_in,omitempty"` // user_access_token有效期, 单位: 秒, 有效时间两个小时左右, 需要以返回结果为准
-Name string `json:"name,omitempty"` // 用户姓名
-EnName string `json:"en_name,omitempty"` // 用户英文名称
-AvatarURL string `json:"avatar_url,omitempty"` // 用户头像
-AvatarThumb string `json:"avatar_thumb,omitempty"` // 用户头像 72x72
-AvatarMiddle string `json:"avatar_middle,omitempty"` // 用户头像 240x240
-AvatarBig string `json:"avatar_big,omitempty"` // 用户头像 640x640
-OpenID string `json:"open_id,omitempty"` // 用户在应用内的唯一标识
-UnionID string `json:"union_id,omitempty"` // 用户统一ID
-Email string `json:"email,omitempty"` // 用户邮箱字段权限要求: 获取用户邮箱信息
-EnterpriseEmail string `json:"enterprise_email,omitempty"` // 企业邮箱, 请先确保已在管理后台启用飞书邮箱服务字段权限要求: 获取用户受雇信息
-UserID string `json:"user_id,omitempty"` // 用户 user_id字段权限要求: 获取用户 user ID
-Mobile string `json:"mobile,omitempty"` // 用户手机号字段权限要求: 获取用户手机号
-TenantKey string `json:"tenant_key,omitempty"` // 当前企业标识
-RefreshExpiresIn int64 `json:"refresh_expires_in,omitempty"` // refresh_token有效期, 单位: 秒, 一般是30天左右, 需要以返回结果为准
-RefreshToken string `json:"refresh_token,omitempty"` // 刷新 user_access_token时使用的 refresh_token
-Sid string `json:"sid,omitempty"` // 用户当前登录态session的唯一标识, 为空则不返回
+type CreateAuthenRefreshAccessTokenResp struct {
+	AccessToken      string `json:"access_token,omitempty"`       // 字段`access_token`即user_access_token, 用于获取用户资源和访问某些open api
+	TokenType        string `json:"token_type,omitempty"`         // token 类型
+	ExpiresIn        int64  `json:"expires_in,omitempty"`         // user_access_token有效期, 单位: 秒, 有效时间两个小时左右, 需要以返回结果为准
+	Name             string `json:"name,omitempty"`               // 用户姓名
+	EnName           string `json:"en_name,omitempty"`            // 用户英文名称
+	AvatarURL        string `json:"avatar_url,omitempty"`         // 用户头像
+	AvatarThumb      string `json:"avatar_thumb,omitempty"`       // 用户头像 72x72
+	AvatarMiddle     string `json:"avatar_middle,omitempty"`      // 用户头像 240x240
+	AvatarBig        string `json:"avatar_big,omitempty"`         // 用户头像 640x640
+	OpenID           string `json:"open_id,omitempty"`            // 用户在应用内的唯一标识
+	UnionID          string `json:"union_id,omitempty"`           // 用户统一ID
+	Email            string `json:"email,omitempty"`              // 用户邮箱字段权限要求: 获取用户邮箱信息
+	EnterpriseEmail  string `json:"enterprise_email,omitempty"`   // 企业邮箱, 请先确保已在管理后台启用飞书邮箱服务字段权限要求: 获取用户受雇信息
+	UserID           string `json:"user_id,omitempty"`            // 用户 user_id字段权限要求: 获取用户 user ID
+	Mobile           string `json:"mobile,omitempty"`             // 用户手机号字段权限要求: 获取用户手机号
+	TenantKey        string `json:"tenant_key,omitempty"`         // 当前企业标识
+	RefreshExpiresIn int64  `json:"refresh_expires_in,omitempty"` // refresh_token有效期, 单位: 秒, 一般是30天左右, 需要以返回结果为准
+	RefreshToken     string `json:"refresh_token,omitempty"`      // 刷新 user_access_token时使用的 refresh_token
+	Sid              string `json:"sid,omitempty"`                // 用户当前登录态session的唯一标识, 为空则不返回
 }
-
-
-
-
 
 // createAuthenRefreshAccessTokenResp ...
-type createAuthenRefreshAccessTokenResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateAuthenRefreshAccessTokenResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createAuthenRefreshAccessTokenResp struct {
+	Code  int64                               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                              `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateAuthenRefreshAccessTokenResp `json:"data,omitempty"`
+	Error *ErrorDetail                        `json:"error,omitempty"`
 }
-
-
-
-

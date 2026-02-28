@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // BatchCreateDrivePermissionMember 为指定云文档批量添加多个协作者, 协作者可以是用户、群组、部门、用户组等。
@@ -33,9 +33,8 @@ import (
 // 不支持将应用直接添加到文件夹作为协作者（添加成功后实际仍然没有权限）。如果希望给应用授予文件夹的权限, 请将应用作为群机器人添加到群组内, 然后授予该群组可管理权限。详细步骤参考[如何为应用开通云文档相关资源的权限](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-add-permissions-to-app)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-member/batch_create
-// 
 func (r *DriveService) BatchCreateDrivePermissionMember(ctx context.Context, request *BatchCreateDrivePermissionMemberReq, options ...MethodOptionFunc) (*BatchCreateDrivePermissionMemberResp, *Response, error) {
-if r.cli.mock.mockDriveBatchCreateDrivePermissionMember != nil {
+	if r.cli.mock.mockDriveBatchCreateDrivePermissionMember != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#BatchCreateDrivePermissionMember mock enable")
 		return r.cli.mock.mockDriveBatchCreateDrivePermissionMember(ctx, request, options...)
 	}
@@ -44,12 +43,11 @@ if r.cli.mock.mockDriveBatchCreateDrivePermissionMember != nil {
 		Scope:                 "Drive",
 		API:                   "BatchCreateDrivePermissionMember",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/drive/v1/permissions/:token/members/batch_create",
+		URL:                   r.cli.openBaseURL + "/open-apis/drive/v1/permissions/:token/members/batch_create",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(batchCreateDrivePermissionMemberResp)
 
@@ -61,67 +59,47 @@ if r.cli.mock.mockDriveBatchCreateDrivePermissionMember != nil {
 func (r *Mock) MockDriveBatchCreateDrivePermissionMember(f func(ctx context.Context, request *BatchCreateDrivePermissionMemberReq, options ...MethodOptionFunc) (*BatchCreateDrivePermissionMemberResp, *Response, error)) {
 	r.mockDriveBatchCreateDrivePermissionMember = f
 }
+
 // UnMockDriveBatchCreateDrivePermissionMember un-mock DriveBatchCreateDrivePermissionMember method
 func (r *Mock) UnMockDriveBatchCreateDrivePermissionMember() {
 	r.mockDriveBatchCreateDrivePermissionMember = nil
 }
 
-
 // BatchCreateDrivePermissionMemberReq ...
-type BatchCreateDrivePermissionMemberReq struct { 
-Token string `path:"token" json:"-"` // 云文档的 token, 需要与 type 参数指定的云文档类型相匹配。可参考 [如何获取云文档相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。示例值: "docxnBKgoMyY5OMbUG6FioTXuBe"
-Type string `query:"type" json:"-"` // 云文档类型, 需要与云文档的 token 相匹配。示例值: docx可选值有: 旧版文档。了解更多, 参考[新旧版本文档说明](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/docs/upgraded-docs-access-guide/upgraded-docs-openapi-access-guide)。电子表格云空间文件知识库节点多维表格新版文档文件夹。使用 tenant_access_token 调用时, 需确保文件夹所有者为应用或应用拥有文件夹的可管理权限, 你需要将应用作为群机器人添加至群内, 然后授予该群组可管理权限。详细步骤参考[如何为应用开通云文档相关资源的权限](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-add-permissions-to-app)思维笔记妙记。目前妙记还不支持 full_access 权限角色幻灯片
-NeedNotification *bool `query:"need_notification" json:"-"` // 添加权限后是否通知对方。仅当使用 user_access_token 调用时有效。可选值: true: 通知对方- false: 不通知示例值: false默认值: `false`
-Members []*BatchCreateDrivePermissionMemberReqMember `json:"members,omitempty"` // 本次要增加权限的协作者列表 最大长度: `10`
+type BatchCreateDrivePermissionMemberReq struct {
+	Token            string                                       `path:"token" json:"-"`              // 云文档的 token, 需要与 type 参数指定的云文档类型相匹配。可参考 [如何获取云文档相关 token](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)。示例值: "docxnBKgoMyY5OMbUG6FioTXuBe"
+	Type             string                                       `query:"type" json:"-"`              // 云文档类型, 需要与云文档的 token 相匹配。示例值: docx可选值有: 旧版文档。了解更多, 参考[新旧版本文档说明](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/docs/upgraded-docs-access-guide/upgraded-docs-openapi-access-guide)。电子表格云空间文件知识库节点多维表格新版文档文件夹。使用 tenant_access_token 调用时, 需确保文件夹所有者为应用或应用拥有文件夹的可管理权限, 你需要将应用作为群机器人添加至群内, 然后授予该群组可管理权限。详细步骤参考[如何为应用开通云文档相关资源的权限](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-add-permissions-to-app)思维笔记妙记。目前妙记还不支持 full_access 权限角色幻灯片
+	NeedNotification *bool                                        `query:"need_notification" json:"-"` // 添加权限后是否通知对方。仅当使用 user_access_token 调用时有效。可选值: true: 通知对方- false: 不通知示例值: false默认值: `false`
+	Members          []*BatchCreateDrivePermissionMemberReqMember `json:"members,omitempty"`           // 本次要增加权限的协作者列表 最大长度: `10`
 }
-
-
-
-
 
 // BatchCreateDrivePermissionMemberReqMember ...
-type BatchCreateDrivePermissionMemberReqMember struct { 
-MemberType string `json:"member_type,omitempty"` // 协作者 ID 类型, 与协作者 ID （member_id）的类型需要保持一致。示例值: "openid"可选值有: 飞书邮箱开放平台 Open ID    - 获取应用 OpenID, 参考[如何获取应用 open_id](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#6dbaa8df)    - 获取用户 OpenID, 参考[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)开放平台 Union ID。获取方式参考[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)开放平台群组 ID。获取方式参考[群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)开放平台部门 ID。仅当使用 user_access_token 调用时有效。获取方式参考[部门资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)用户 ID。获取方式参考[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)自定义用户组 ID。获取方式参考[用户组资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/overview)知识空间 ID。仅知识库文档支持该参数, 当需要操作知识库文档里的「知识库成员」类型协作者时传该参数。获取方式参考[知识库概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-overview)
-MemberID string `json:"member_id,omitempty"` // 协作者 ID, 该 ID 的类型与 member_type 指定的值需要保持一致示例值: "ou_1234567890abcdef1234567890abcdef"
-Perm string `json:"perm,omitempty"` // 协作者对应的权限角色。 注意: 妙记还不支持可管理角色示例值: "view"可选值有: 可阅读角色可编辑角色可管理角色
-PermType *string `json:"perm_type,omitempty"` // 协作者的权限角色类型。当云文档类型为 wiki 即知识库节点时, 该参数有效示例值: "container"可选值有: 当前页面及子页面仅当前页面, 当且仅当在知识库文档中该参数有效默认值: `container`
-Type *string `json:"type,omitempty"` // 协作者类型。注意: 当 `member_type` 参数为 `wikispaceid` 时, 该参数必填。默认值: ""示例值: "user"可选值有: 用户群组组织架构用户组知识库成员。在知识库启用了成员分组功能后不支持该参数知识库可阅读成员。仅在知识库启用了成员分组功能后才支持该参数知识库可编辑成员。仅在知识库启用了成员分组功能后才支持该参数
+type BatchCreateDrivePermissionMemberReqMember struct {
+	MemberType string  `json:"member_type,omitempty"` // 协作者 ID 类型, 与协作者 ID （member_id）的类型需要保持一致。示例值: "openid"可选值有: 飞书邮箱开放平台 Open ID    - 获取应用 OpenID, 参考[如何获取应用 open_id](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#6dbaa8df)    - 获取用户 OpenID, 参考[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)开放平台 Union ID。获取方式参考[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)开放平台群组 ID。获取方式参考[群 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)开放平台部门 ID。仅当使用 user_access_token 调用时有效。获取方式参考[部门资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)用户 ID。获取方式参考[如何获取不同的用户 ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id)自定义用户组 ID。获取方式参考[用户组资源介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/group/overview)知识空间 ID。仅知识库文档支持该参数, 当需要操作知识库文档里的「知识库成员」类型协作者时传该参数。获取方式参考[知识库概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-overview)
+	MemberID   string  `json:"member_id,omitempty"`   // 协作者 ID, 该 ID 的类型与 member_type 指定的值需要保持一致示例值: "ou_1234567890abcdef1234567890abcdef"
+	Perm       string  `json:"perm,omitempty"`        // 协作者对应的权限角色。 注意: 妙记还不支持可管理角色示例值: "view"可选值有: 可阅读角色可编辑角色可管理角色
+	PermType   *string `json:"perm_type,omitempty"`   // 协作者的权限角色类型。当云文档类型为 wiki 即知识库节点时, 该参数有效示例值: "container"可选值有: 当前页面及子页面仅当前页面, 当且仅当在知识库文档中该参数有效默认值: `container`
+	Type       *string `json:"type,omitempty"`        // 协作者类型。注意: 当 `member_type` 参数为 `wikispaceid` 时, 该参数必填。默认值: ""示例值: "user"可选值有: 用户群组组织架构用户组知识库成员。在知识库启用了成员分组功能后不支持该参数知识库可阅读成员。仅在知识库启用了成员分组功能后才支持该参数知识库可编辑成员。仅在知识库启用了成员分组功能后才支持该参数
 }
-
-
-
-
 
 // BatchCreateDrivePermissionMemberResp ...
-type BatchCreateDrivePermissionMemberResp struct { 
-Members []*BatchCreateDrivePermissionMemberRespMember `json:"members,omitempty"` // 添加成功的协作者列表注意: 当只有部分成功时, `members` 会返回成功的部分, 在不同场景下, 部分成功返回的错误码可能不同, 请不要依赖错误码去判断是否为部分成功
+type BatchCreateDrivePermissionMemberResp struct {
+	Members []*BatchCreateDrivePermissionMemberRespMember `json:"members,omitempty"` // 添加成功的协作者列表注意: 当只有部分成功时, `members` 会返回成功的部分, 在不同场景下, 部分成功返回的错误码可能不同, 请不要依赖错误码去判断是否为部分成功
 }
-
-
-
-
 
 // BatchCreateDrivePermissionMemberRespMember ...
-type BatchCreateDrivePermissionMemberRespMember struct { 
-MemberType string `json:"member_type,omitempty"` // 增加成功的协作者 ID 类型可选值有: 飞书邮箱开放平台 ID开放平台UnionID开放平台群组 ID开放平台部门 ID用户自定义 ID自定义用户组 ID知识空间的唯一标识
-MemberID string `json:"member_id,omitempty"` // 增加成功的协作者 ID, 与协作者 ID 类型相对应
-Perm string `json:"perm,omitempty"` // 增加成功的的权限角色可选值有: 可阅读角色可编辑角色可管理角色
-PermType string `json:"perm_type,omitempty"` // 协作者的权限角色类型可选值有: 当前页面及子页面仅当前页面, 当且仅当在知识库文档中该参数有效
-Type string `json:"type,omitempty"` // 协作者类型可选值有: 用户群组组织架构用户组知识库成员知识库可阅读成员知识库可编辑成员
+type BatchCreateDrivePermissionMemberRespMember struct {
+	MemberType string `json:"member_type,omitempty"` // 增加成功的协作者 ID 类型可选值有: 飞书邮箱开放平台 ID开放平台UnionID开放平台群组 ID开放平台部门 ID用户自定义 ID自定义用户组 ID知识空间的唯一标识
+	MemberID   string `json:"member_id,omitempty"`   // 增加成功的协作者 ID, 与协作者 ID 类型相对应
+	Perm       string `json:"perm,omitempty"`        // 增加成功的的权限角色可选值有: 可阅读角色可编辑角色可管理角色
+	PermType   string `json:"perm_type,omitempty"`   // 协作者的权限角色类型可选值有: 当前页面及子页面仅当前页面, 当且仅当在知识库文档中该参数有效
+	Type       string `json:"type,omitempty"`        // 协作者类型可选值有: 用户群组组织架构用户组知识库成员知识库可阅读成员知识库可编辑成员
 }
-
-
-
-
 
 // batchCreateDrivePermissionMemberResp ...
-type batchCreateDrivePermissionMemberResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *BatchCreateDrivePermissionMemberResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type batchCreateDrivePermissionMemberResp struct {
+	Code  int64                                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                `json:"msg,omitempty"`  // 错误描述
+	Data  *BatchCreateDrivePermissionMemberResp `json:"data,omitempty"`
+	Error *ErrorDetail                          `json:"error,omitempty"`
 }
-
-
-
-

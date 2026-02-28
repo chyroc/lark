@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // UpdateSecurityAndComplianceDeviceApplyRecord 使用该接口在设备管理中通过或驳回一条成员自主申报申请
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/security_and_compliance-v2/device_apply_record/update
-// 
 func (r *SecurityAndComplianceService) UpdateSecurityAndComplianceDeviceApplyRecord(ctx context.Context, request *UpdateSecurityAndComplianceDeviceApplyRecordReq, options ...MethodOptionFunc) (*UpdateSecurityAndComplianceDeviceApplyRecordResp, *Response, error) {
-if r.cli.mock.mockSecurityAndComplianceUpdateSecurityAndComplianceDeviceApplyRecord != nil {
+	if r.cli.mock.mockSecurityAndComplianceUpdateSecurityAndComplianceDeviceApplyRecord != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] SecurityAndCompliance#UpdateSecurityAndComplianceDeviceApplyRecord mock enable")
 		return r.cli.mock.mockSecurityAndComplianceUpdateSecurityAndComplianceDeviceApplyRecord(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockSecurityAndComplianceUpdateSecurityAndComplianceDeviceApplyRec
 		Scope:                 "SecurityAndCompliance",
 		API:                   "UpdateSecurityAndComplianceDeviceApplyRecord",
 		Method:                "PUT",
-		URL:   r.cli.openBaseURL + "/open-apis/security_and_compliance/v2/device_apply_records/:device_apply_record_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/security_and_compliance/v2/device_apply_records/:device_apply_record_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(updateSecurityAndComplianceDeviceApplyRecordResp)
 
@@ -51,38 +49,25 @@ if r.cli.mock.mockSecurityAndComplianceUpdateSecurityAndComplianceDeviceApplyRec
 func (r *Mock) MockSecurityAndComplianceUpdateSecurityAndComplianceDeviceApplyRecord(f func(ctx context.Context, request *UpdateSecurityAndComplianceDeviceApplyRecordReq, options ...MethodOptionFunc) (*UpdateSecurityAndComplianceDeviceApplyRecordResp, *Response, error)) {
 	r.mockSecurityAndComplianceUpdateSecurityAndComplianceDeviceApplyRecord = f
 }
+
 // UnMockSecurityAndComplianceUpdateSecurityAndComplianceDeviceApplyRecord un-mock SecurityAndComplianceUpdateSecurityAndComplianceDeviceApplyRecord method
 func (r *Mock) UnMockSecurityAndComplianceUpdateSecurityAndComplianceDeviceApplyRecord() {
 	r.mockSecurityAndComplianceUpdateSecurityAndComplianceDeviceApplyRecord = nil
 }
 
-
 // UpdateSecurityAndComplianceDeviceApplyRecordReq ...
-type UpdateSecurityAndComplianceDeviceApplyRecordReq struct { 
-DeviceApplyRecordID string `path:"device_apply_record_id" json:"-"` // 设备申报记录ID示例值: "7088763625288187923"
-IsApproved bool `json:"is_approved,omitempty"` // 是否审批通过示例值: true
+type UpdateSecurityAndComplianceDeviceApplyRecordReq struct {
+	DeviceApplyRecordID string `path:"device_apply_record_id" json:"-"` // 设备申报记录ID示例值: "7088763625288187923"
+	IsApproved          bool   `json:"is_approved,omitempty"`           // 是否审批通过示例值: true
 }
-
-
-
-
 
 // UpdateSecurityAndComplianceDeviceApplyRecordResp ...
-type UpdateSecurityAndComplianceDeviceApplyRecordResp struct { 
-}
-
-
-
-
+type UpdateSecurityAndComplianceDeviceApplyRecordResp struct{}
 
 // updateSecurityAndComplianceDeviceApplyRecordResp ...
-type updateSecurityAndComplianceDeviceApplyRecordResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *UpdateSecurityAndComplianceDeviceApplyRecordResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type updateSecurityAndComplianceDeviceApplyRecordResp struct {
+	Code  int64                                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                            `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateSecurityAndComplianceDeviceApplyRecordResp `json:"data,omitempty"`
+	Error *ErrorDetail                                      `json:"error,omitempty"`
 }
-
-
-
-

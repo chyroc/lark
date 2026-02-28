@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateAilySessionRunCancel 该 API 用于中止某个飞书 Aily 的一次运行。
@@ -30,9 +30,8 @@ import (
 // - 运行（Run）: Aily 助手基于会话内消息进行意图判定、调用匹配的技能, 并返回技能执行后的结果消息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/aily-v1/aily_session-run/cancel
-// 
 func (r *AilyService) CreateAilySessionRunCancel(ctx context.Context, request *CreateAilySessionRunCancelReq, options ...MethodOptionFunc) (*CreateAilySessionRunCancelResp, *Response, error) {
-if r.cli.mock.mockAilyCreateAilySessionRunCancel != nil {
+	if r.cli.mock.mockAilyCreateAilySessionRunCancel != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Aily#CreateAilySessionRunCancel mock enable")
 		return r.cli.mock.mockAilyCreateAilySessionRunCancel(ctx, request, options...)
 	}
@@ -41,12 +40,11 @@ if r.cli.mock.mockAilyCreateAilySessionRunCancel != nil {
 		Scope:                 "Aily",
 		API:                   "CreateAilySessionRunCancel",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/aily/v1/sessions/:aily_session_id/runs/:run_id/cancel",
+		URL:                   r.cli.openBaseURL + "/open-apis/aily/v1/sessions/:aily_session_id/runs/:run_id/cancel",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(createAilySessionRunCancelResp)
 
@@ -58,66 +56,46 @@ if r.cli.mock.mockAilyCreateAilySessionRunCancel != nil {
 func (r *Mock) MockAilyCreateAilySessionRunCancel(f func(ctx context.Context, request *CreateAilySessionRunCancelReq, options ...MethodOptionFunc) (*CreateAilySessionRunCancelResp, *Response, error)) {
 	r.mockAilyCreateAilySessionRunCancel = f
 }
+
 // UnMockAilyCreateAilySessionRunCancel un-mock AilyCreateAilySessionRunCancel method
 func (r *Mock) UnMockAilyCreateAilySessionRunCancel() {
 	r.mockAilyCreateAilySessionRunCancel = nil
 }
 
-
 // CreateAilySessionRunCancelReq ...
-type CreateAilySessionRunCancelReq struct { 
-AilySessionID string `path:"aily_session_id" json:"-"` // 会话 ID；参考 [创建会话](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/aily-v1/aily_session/create) 接口示例值: "session_4dfunz7sp1g8m" 长度范围: `9` ～ `32` 字符- 正则校验: `session_[0-9a-hjkmnp-z]{1, 24}`
-RunID string `path:"run_id" json:"-"` // 运行的唯一 ID示例值: "run_4dfrxvctjqzzj" 长度范围: `5` ～ `32` 字符
+type CreateAilySessionRunCancelReq struct {
+	AilySessionID string `path:"aily_session_id" json:"-"` // 会话 ID；参考 [创建会话](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/aily-v1/aily_session/create) 接口示例值: "session_4dfunz7sp1g8m" 长度范围: `9` ～ `32` 字符- 正则校验: `session_[0-9a-hjkmnp-z]{1, 24}`
+	RunID         string `path:"run_id" json:"-"`          // 运行的唯一 ID示例值: "run_4dfrxvctjqzzj" 长度范围: `5` ～ `32` 字符
 }
-
-
-
-
 
 // CreateAilySessionRunCancelResp ...
-type CreateAilySessionRunCancelResp struct { 
-Run *CreateAilySessionRunCancelRespRun `json:"run,omitempty"` // 运行信息
+type CreateAilySessionRunCancelResp struct {
+	Run *CreateAilySessionRunCancelRespRun `json:"run,omitempty"` // 运行信息
 }
-
-
-
-
 
 // CreateAilySessionRunCancelRespRun ...
-type CreateAilySessionRunCancelRespRun struct { 
-ID string `json:"id,omitempty"` // 运行 ID
-CreatedAt string `json:"created_at,omitempty"` // 运行的创建时间, 毫秒时间戳
-AppID string `json:"app_id,omitempty"` // 应用 ID
-SessionID string `json:"session_id,omitempty"` // 会话 ID
-Status string `json:"status,omitempty"` // 运行状态；详见 [Run 状态机说明](https://bytedance.larkoffice.com/wiki/UTU6wVTVGigefykjO1acAOOvnNc#part-LGZrdJTUFo5c8XxSpYXcm3oknEd)>   如中止已在终态（如 `COMPLETED`）的 `Run`, 不会改变 `Run` 的状态
-StartedAt string `json:"started_at,omitempty"` // 开始时间, 毫秒时间戳
-EndedAt string `json:"ended_at,omitempty"` // 结束时间, 毫秒时间戳
-Error *CreateAilySessionRunCancelRespRunError `json:"error,omitempty"` // 失败时的错误信息
-Metadata string `json:"metadata,omitempty"` // 其他透传信息
+type CreateAilySessionRunCancelRespRun struct {
+	ID        string                                  `json:"id,omitempty"`         // 运行 ID
+	CreatedAt string                                  `json:"created_at,omitempty"` // 运行的创建时间, 毫秒时间戳
+	AppID     string                                  `json:"app_id,omitempty"`     // 应用 ID
+	SessionID string                                  `json:"session_id,omitempty"` // 会话 ID
+	Status    string                                  `json:"status,omitempty"`     // 运行状态；详见 [Run 状态机说明](https://bytedance.larkoffice.com/wiki/UTU6wVTVGigefykjO1acAOOvnNc#part-LGZrdJTUFo5c8XxSpYXcm3oknEd)>   如中止已在终态（如 `COMPLETED`）的 `Run`, 不会改变 `Run` 的状态
+	StartedAt string                                  `json:"started_at,omitempty"` // 开始时间, 毫秒时间戳
+	EndedAt   string                                  `json:"ended_at,omitempty"`   // 结束时间, 毫秒时间戳
+	Error     *CreateAilySessionRunCancelRespRunError `json:"error,omitempty"`      // 失败时的错误信息
+	Metadata  string                                  `json:"metadata,omitempty"`   // 其他透传信息
 }
-
-
-
-
 
 // CreateAilySessionRunCancelRespRunError ...
-type CreateAilySessionRunCancelRespRunError struct { 
-Code string `json:"code,omitempty"` // 错误码
-Message string `json:"message,omitempty"` // 错误信息
+type CreateAilySessionRunCancelRespRunError struct {
+	Code    string `json:"code,omitempty"`    // 错误码
+	Message string `json:"message,omitempty"` // 错误信息
 }
-
-
-
-
 
 // createAilySessionRunCancelResp ...
-type createAilySessionRunCancelResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateAilySessionRunCancelResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createAilySessionRunCancelResp struct {
+	Code  int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                          `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateAilySessionRunCancelResp `json:"data,omitempty"`
+	Error *ErrorDetail                    `json:"error,omitempty"`
 }
-
-
-
-

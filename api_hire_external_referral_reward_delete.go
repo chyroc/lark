@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // DeleteHireExternalReferralReward 根据外部内推奖励ID删除外部内推奖励。
@@ -29,9 +29,8 @@ import (
 // - 若删除「已确认」、「已发放」的奖励, 内推人在「飞书招聘」-「设置」-「内推」-「我的奖励」中对应内推奖励明细将会被删除, 请注意与内推人提前沟通。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_referral_reward/delete
-// 
 func (r *HireService) DeleteHireExternalReferralReward(ctx context.Context, request *DeleteHireExternalReferralRewardReq, options ...MethodOptionFunc) (*DeleteHireExternalReferralRewardResp, *Response, error) {
-if r.cli.mock.mockHireDeleteHireExternalReferralReward != nil {
+	if r.cli.mock.mockHireDeleteHireExternalReferralReward != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#DeleteHireExternalReferralReward mock enable")
 		return r.cli.mock.mockHireDeleteHireExternalReferralReward(ctx, request, options...)
 	}
@@ -40,11 +39,10 @@ if r.cli.mock.mockHireDeleteHireExternalReferralReward != nil {
 		Scope:                 "Hire",
 		API:                   "DeleteHireExternalReferralReward",
 		Method:                "DELETE",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/external_referral_rewards/:external_referral_reward_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/external_referral_rewards/:external_referral_reward_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(deleteHireExternalReferralRewardResp)
 
@@ -56,37 +54,24 @@ if r.cli.mock.mockHireDeleteHireExternalReferralReward != nil {
 func (r *Mock) MockHireDeleteHireExternalReferralReward(f func(ctx context.Context, request *DeleteHireExternalReferralRewardReq, options ...MethodOptionFunc) (*DeleteHireExternalReferralRewardResp, *Response, error)) {
 	r.mockHireDeleteHireExternalReferralReward = f
 }
+
 // UnMockHireDeleteHireExternalReferralReward un-mock HireDeleteHireExternalReferralReward method
 func (r *Mock) UnMockHireDeleteHireExternalReferralReward() {
 	r.mockHireDeleteHireExternalReferralReward = nil
 }
 
-
 // DeleteHireExternalReferralRewardReq ...
-type DeleteHireExternalReferralRewardReq struct { 
-ExternalReferralRewardID string `path:"external_referral_reward_id" json:"-"` // 外部内推奖励ID, 通过[导入外部内推奖励](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_referral_reward/create)生成示例值: "6930815272790114324"
+type DeleteHireExternalReferralRewardReq struct {
+	ExternalReferralRewardID string `path:"external_referral_reward_id" json:"-"` // 外部内推奖励ID, 通过[导入外部内推奖励](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_referral_reward/create)生成示例值: "6930815272790114324"
 }
-
-
-
-
 
 // DeleteHireExternalReferralRewardResp ...
-type DeleteHireExternalReferralRewardResp struct { 
-}
-
-
-
-
+type DeleteHireExternalReferralRewardResp struct{}
 
 // deleteHireExternalReferralRewardResp ...
-type deleteHireExternalReferralRewardResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *DeleteHireExternalReferralRewardResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type deleteHireExternalReferralRewardResp struct {
+	Code  int64                                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteHireExternalReferralRewardResp `json:"data,omitempty"`
+	Error *ErrorDetail                          `json:"error,omitempty"`
 }
-
-
-
-

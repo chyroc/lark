@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // GetTaskTasklistTasks 获取一个清单的任务列表, 返回任务的摘要信息。
@@ -29,9 +29,8 @@ import (
 // 需要清单读取权限。详情见[清单功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/overview)中的“清单是如何鉴权的？“章节。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/tasks
-// 
 func (r *TaskService) GetTaskTasklistTasks(ctx context.Context, request *GetTaskTasklistTasksReq, options ...MethodOptionFunc) (*GetTaskTasklistTasksResp, *Response, error) {
-if r.cli.mock.mockTaskGetTaskTasklistTasks != nil {
+	if r.cli.mock.mockTaskGetTaskTasklistTasks != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#GetTaskTasklistTasks mock enable")
 		return r.cli.mock.mockTaskGetTaskTasklistTasks(ctx, request, options...)
 	}
@@ -40,12 +39,11 @@ if r.cli.mock.mockTaskGetTaskTasklistTasks != nil {
 		Scope:                 "Task",
 		API:                   "GetTaskTasklistTasks",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/task/v2/tasklists/:tasklist_guid/tasks",
+		URL:                   r.cli.openBaseURL + "/open-apis/task/v2/tasklists/:tasklist_guid/tasks",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getTaskTasklistTasksResp)
 
@@ -57,93 +55,65 @@ if r.cli.mock.mockTaskGetTaskTasklistTasks != nil {
 func (r *Mock) MockTaskGetTaskTasklistTasks(f func(ctx context.Context, request *GetTaskTasklistTasksReq, options ...MethodOptionFunc) (*GetTaskTasklistTasksResp, *Response, error)) {
 	r.mockTaskGetTaskTasklistTasks = f
 }
+
 // UnMockTaskGetTaskTasklistTasks un-mock TaskGetTaskTasklistTasks method
 func (r *Mock) UnMockTaskGetTaskTasklistTasks() {
 	r.mockTaskGetTaskTasklistTasks = nil
 }
 
-
 // GetTaskTasklistTasksReq ...
-type GetTaskTasklistTasksReq struct { 
-TasklistGuid string `path:"tasklist_guid" json:"-"` // 要获取任务的清单全局唯一ID示例值: "d300a75f-c56a-4be9-80d1-e47653028ceb"
-PageSize *int64 `query:"page_size" json:"-"` // 每页返回的任务数量示例值: 50默认值: `50` 取值范围: `1` ～ `100`
-PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: aWQ9NzEwMjMzMjMxMDE= 最大长度: `100` 字符
-Completed *bool `query:"completed" json:"-"` // 只查看特定完成状态的任务, 填写“true”表示返回已经完成的任务；“false”表示只返回未完成的任务；不填写表示不按完成状态过滤。示例值: true
-CreatedFrom *string `query:"created_from" json:"-"` // 任务创建的起始时间戳（ms）, 闭区间, 不填写默认为首个任务的创建时间戳示例值: 1675742789470
-CreatedTo *string `query:"created_to" json:"-"` // 任务创建的结束时间戳（ms）, 闭区间, 不填写默认为最后创建任务的创建时间戳示例值: 1675742789470
-UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id默认值: `open_id`
+type GetTaskTasklistTasksReq struct {
+	TasklistGuid string  `path:"tasklist_guid" json:"-"` // 要获取任务的清单全局唯一ID示例值: "d300a75f-c56a-4be9-80d1-e47653028ceb"
+	PageSize     *int64  `query:"page_size" json:"-"`    // 每页返回的任务数量示例值: 50默认值: `50` 取值范围: `1` ～ `100`
+	PageToken    *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: aWQ9NzEwMjMzMjMxMDE= 最大长度: `100` 字符
+	Completed    *bool   `query:"completed" json:"-"`    // 只查看特定完成状态的任务, 填写“true”表示返回已经完成的任务；“false”表示只返回未完成的任务；不填写表示不按完成状态过滤。示例值: true
+	CreatedFrom  *string `query:"created_from" json:"-"` // 任务创建的起始时间戳（ms）, 闭区间, 不填写默认为首个任务的创建时间戳示例值: 1675742789470
+	CreatedTo    *string `query:"created_to" json:"-"`   // 任务创建的结束时间戳（ms）, 闭区间, 不填写默认为最后创建任务的创建时间戳示例值: 1675742789470
+	UserIDType   *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id默认值: `open_id`
 }
-
-
-
-
 
 // GetTaskTasklistTasksResp ...
-type GetTaskTasklistTasksResp struct { 
-Items []*GetTaskTasklistTasksRespItem `json:"items,omitempty"` // 任务摘要数据
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
+type GetTaskTasklistTasksResp struct {
+	Items     []*GetTaskTasklistTasksRespItem `json:"items,omitempty"`      // 任务摘要数据
+	PageToken string                          `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	HasMore   bool                            `json:"has_more,omitempty"`   // 是否还有更多项
 }
-
-
-
-
 
 // GetTaskTasklistTasksRespItem ...
-type GetTaskTasklistTasksRespItem struct { 
-Guid string `json:"guid,omitempty"` // 任务GUID
-Summary string `json:"summary,omitempty"` // 任务标题
-CompletedAt string `json:"completed_at,omitempty"` // 任务完成的时间戳(ms), 为0表示未完成
-Start *GetTaskTasklistTasksRespItemStart `json:"start,omitempty"` // 任务开始时间
-Due *GetTaskTasklistTasksRespItemDue `json:"due,omitempty"` // 任务截止时间
-Members []*GetTaskTasklistTasksRespItemMember `json:"members,omitempty"` // 任务成员列表
-SubtaskCount int64 `json:"subtask_count,omitempty"` // 子任务的个数
+type GetTaskTasklistTasksRespItem struct {
+	Guid         string                                `json:"guid,omitempty"`          // 任务GUID
+	Summary      string                                `json:"summary,omitempty"`       // 任务标题
+	CompletedAt  string                                `json:"completed_at,omitempty"`  // 任务完成的时间戳(ms), 为0表示未完成
+	Start        *GetTaskTasklistTasksRespItemStart    `json:"start,omitempty"`         // 任务开始时间
+	Due          *GetTaskTasklistTasksRespItemDue      `json:"due,omitempty"`           // 任务截止时间
+	Members      []*GetTaskTasklistTasksRespItemMember `json:"members,omitempty"`       // 任务成员列表
+	SubtaskCount int64                                 `json:"subtask_count,omitempty"` // 子任务的个数
 }
-
-
-
-
 
 // GetTaskTasklistTasksRespItemDue ...
-type GetTaskTasklistTasksRespItemDue struct { 
-Timestamp string `json:"timestamp,omitempty"` // 截止时间/日期的时间戳, 距1970-01-01 00:00:00的毫秒数。如果截止时间是一个日期, 需要把日期转换成时间戳, 并设置 is_all_day=true
-IsAllDay bool `json:"is_all_day,omitempty"` // 是否截止到一个日期。如果设为true, timestamp中只有日期的部分会被解析和存储。
+type GetTaskTasklistTasksRespItemDue struct {
+	Timestamp string `json:"timestamp,omitempty"`  // 截止时间/日期的时间戳, 距1970-01-01 00:00:00的毫秒数。如果截止时间是一个日期, 需要把日期转换成时间戳, 并设置 is_all_day=true
+	IsAllDay  bool   `json:"is_all_day,omitempty"` // 是否截止到一个日期。如果设为true, timestamp中只有日期的部分会被解析和存储。
 }
-
-
-
-
 
 // GetTaskTasklistTasksRespItemMember ...
-type GetTaskTasklistTasksRespItemMember struct { 
-ID string `json:"id,omitempty"` // 表示member的id
-Type string `json:"type,omitempty"` // 成员的类型
-Role string `json:"role,omitempty"` // 成员角色
-Name string `json:"name,omitempty"` // 成员名称
+type GetTaskTasklistTasksRespItemMember struct {
+	ID   string `json:"id,omitempty"`   // 表示member的id
+	Type string `json:"type,omitempty"` // 成员的类型
+	Role string `json:"role,omitempty"` // 成员角色
+	Name string `json:"name,omitempty"` // 成员名称
 }
-
-
-
-
 
 // GetTaskTasklistTasksRespItemStart ...
-type GetTaskTasklistTasksRespItemStart struct { 
-Timestamp string `json:"timestamp,omitempty"` // 开始时间/日期的时间戳, 距1970-01-01 00:00:00的毫秒数。如果开始时间是一个日期, 需要把日期转换成时间戳, 并设置 is_all_day=true
-IsAllDay bool `json:"is_all_day,omitempty"` // 是否开始于一个日期。如果设为true, timestamp中只有日期的部分会被解析和存储。
+type GetTaskTasklistTasksRespItemStart struct {
+	Timestamp string `json:"timestamp,omitempty"`  // 开始时间/日期的时间戳, 距1970-01-01 00:00:00的毫秒数。如果开始时间是一个日期, 需要把日期转换成时间戳, 并设置 is_all_day=true
+	IsAllDay  bool   `json:"is_all_day,omitempty"` // 是否开始于一个日期。如果设为true, timestamp中只有日期的部分会被解析和存储。
 }
-
-
-
-
 
 // getTaskTasklistTasksResp ...
-type getTaskTasklistTasksResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *GetTaskTasklistTasksResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type getTaskTasklistTasksResp struct {
+	Code  int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                    `json:"msg,omitempty"`  // 错误描述
+	Data  *GetTaskTasklistTasksResp `json:"data,omitempty"`
+	Error *ErrorDetail              `json:"error,omitempty"`
 }
-
-
-
-

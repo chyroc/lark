@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListHireInterviewer 分页查询面试官列表, 接口只会返回执行过「更新面试官信息」用户的数据, 通过接口查询不到的数据则默认为「未认证」面试官。接口默认按更新时间、user_id顺序进行顺序拉取。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interviewer/list
-// 
 func (r *HireService) ListHireInterviewer(ctx context.Context, request *ListHireInterviewerReq, options ...MethodOptionFunc) (*ListHireInterviewerResp, *Response, error) {
-if r.cli.mock.mockHireListHireInterviewer != nil {
+	if r.cli.mock.mockHireListHireInterviewer != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#ListHireInterviewer mock enable")
 		return r.cli.mock.mockHireListHireInterviewer(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockHireListHireInterviewer != nil {
 		Scope:                 "Hire",
 		API:                   "ListHireInterviewer",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/interviewers",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/interviewers",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(listHireInterviewerResp)
 
@@ -51,56 +49,40 @@ if r.cli.mock.mockHireListHireInterviewer != nil {
 func (r *Mock) MockHireListHireInterviewer(f func(ctx context.Context, request *ListHireInterviewerReq, options ...MethodOptionFunc) (*ListHireInterviewerResp, *Response, error)) {
 	r.mockHireListHireInterviewer = f
 }
+
 // UnMockHireListHireInterviewer un-mock HireListHireInterviewer method
 func (r *Mock) UnMockHireListHireInterviewer() {
 	r.mockHireListHireInterviewer = nil
 }
 
-
 // ListHireInterviewerReq ...
-type ListHireInterviewerReq struct { 
-PageSize *int64 `query:"page_size" json:"-"` // 分页大小示例值: 10 最大值: `200`
-PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eVQrYzJBNDNONlk4VFZBZVlSdzlKdFJ4bVVHVExENDNKVHoxaVdiVnViQT0=
-UserIDs []string `query:"user_ids" json:"-"` // 面试官userID列表示例值: ou_7dab8a3d3cdcc9da365777c7ad535d62 最大长度: `50`
-VerifyStatus *int64 `query:"verify_status" json:"-"` // 认证状态示例值: 1可选值有: 未认证已认证
-EarliestUpdateTime *string `query:"earliest_update_time" json:"-"` // 最早更新时间, 毫秒时间戳示例值: 1714374796615
-LatestUpdateTime *string `query:"latest_update_time" json:"-"` // 最晚更新时间, 毫秒时间戳示例值: 1714374796616
-UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+type ListHireInterviewerReq struct {
+	PageSize           *int64   `query:"page_size" json:"-"`            // 分页大小示例值: 10 最大值: `200`
+	PageToken          *string  `query:"page_token" json:"-"`           // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eVQrYzJBNDNONlk4VFZBZVlSdzlKdFJ4bVVHVExENDNKVHoxaVdiVnViQT0=
+	UserIDs            []string `query:"user_ids" json:"-"`             // 面试官userID列表示例值: ou_7dab8a3d3cdcc9da365777c7ad535d62 最大长度: `50`
+	VerifyStatus       *int64   `query:"verify_status" json:"-"`        // 认证状态示例值: 1可选值有: 未认证已认证
+	EarliestUpdateTime *string  `query:"earliest_update_time" json:"-"` // 最早更新时间, 毫秒时间戳示例值: 1714374796615
+	LatestUpdateTime   *string  `query:"latest_update_time" json:"-"`   // 最晚更新时间, 毫秒时间戳示例值: 1714374796616
+	UserIDType         *IDType  `query:"user_id_type" json:"-"`         // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
-
-
-
-
 
 // ListHireInterviewerResp ...
-type ListHireInterviewerResp struct { 
-Items []*ListHireInterviewerRespItem `json:"items,omitempty"` // 面试官信息
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
+type ListHireInterviewerResp struct {
+	Items     []*ListHireInterviewerRespItem `json:"items,omitempty"`      // 面试官信息
+	PageToken string                         `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	HasMore   bool                           `json:"has_more,omitempty"`   // 是否还有更多项
 }
-
-
-
-
 
 // ListHireInterviewerRespItem ...
-type ListHireInterviewerRespItem struct { 
-UserID string `json:"user_id,omitempty"` // 面试官userID
-VerifyStatus int64 `json:"verify_status,omitempty"` // 认证状态可选值有: 未认证已认证
+type ListHireInterviewerRespItem struct {
+	UserID       string `json:"user_id,omitempty"`       // 面试官userID
+	VerifyStatus int64  `json:"verify_status,omitempty"` // 认证状态可选值有: 未认证已认证
 }
-
-
-
-
 
 // listHireInterviewerResp ...
-type listHireInterviewerResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *ListHireInterviewerResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type listHireInterviewerResp struct {
+	Code  int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                   `json:"msg,omitempty"`  // 错误描述
+	Data  *ListHireInterviewerResp `json:"data,omitempty"`
+	Error *ErrorDetail             `json:"error,omitempty"`
 }
-
-
-
-

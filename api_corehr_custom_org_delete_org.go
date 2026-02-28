@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // DeleteCorehrCustomOrg 根据传入的自定义组织 ID 删除相应自定义组织
@@ -27,9 +27,8 @@ import (
 // - 删除自定义组织时请确认有无员工、异动单据、待入职单据关联此自定义组织, 如有会导致删除失败。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/custom_org/delete_org
-// 
 func (r *CorehrService) DeleteCorehrCustomOrg(ctx context.Context, request *DeleteCorehrCustomOrgReq, options ...MethodOptionFunc) (*DeleteCorehrCustomOrgResp, *Response, error) {
-if r.cli.mock.mockCorehrDeleteCorehrCustomOrg != nil {
+	if r.cli.mock.mockCorehrDeleteCorehrCustomOrg != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Corehr#DeleteCorehrCustomOrg mock enable")
 		return r.cli.mock.mockCorehrDeleteCorehrCustomOrg(ctx, request, options...)
 	}
@@ -38,11 +37,10 @@ if r.cli.mock.mockCorehrDeleteCorehrCustomOrg != nil {
 		Scope:                 "Corehr",
 		API:                   "DeleteCorehrCustomOrg",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/corehr/v2/custom_orgs/delete_org",
+		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/custom_orgs/delete_org",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(deleteCorehrCustomOrgResp)
 
@@ -54,38 +52,25 @@ if r.cli.mock.mockCorehrDeleteCorehrCustomOrg != nil {
 func (r *Mock) MockCorehrDeleteCorehrCustomOrg(f func(ctx context.Context, request *DeleteCorehrCustomOrgReq, options ...MethodOptionFunc) (*DeleteCorehrCustomOrgResp, *Response, error)) {
 	r.mockCorehrDeleteCorehrCustomOrg = f
 }
+
 // UnMockCorehrDeleteCorehrCustomOrg un-mock CorehrDeleteCorehrCustomOrg method
 func (r *Mock) UnMockCorehrDeleteCorehrCustomOrg() {
 	r.mockCorehrDeleteCorehrCustomOrg = nil
 }
 
-
 // DeleteCorehrCustomOrgReq ...
-type DeleteCorehrCustomOrgReq struct { 
-OrgID string `json:"org_id,omitempty"` // 自定义组织 ID- 可从 [批量查询自定义组织](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/custom_org/query)的 org_id 字段中获取。示例值: "6862995757234914824"
-ObjectApiName string `json:"object_api_name,omitempty"` // 组织类型编码, 可在「飞书人事-设置-组织设置」中相应的自定义组织目录下查看示例值: "custom_org_01"
+type DeleteCorehrCustomOrgReq struct {
+	OrgID         string `json:"org_id,omitempty"`          // 自定义组织 ID- 可从 [批量查询自定义组织](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/custom_org/query)的 org_id 字段中获取。示例值: "6862995757234914824"
+	ObjectApiName string `json:"object_api_name,omitempty"` // 组织类型编码, 可在「飞书人事-设置-组织设置」中相应的自定义组织目录下查看示例值: "custom_org_01"
 }
-
-
-
-
 
 // DeleteCorehrCustomOrgResp ...
-type DeleteCorehrCustomOrgResp struct { 
-}
-
-
-
-
+type DeleteCorehrCustomOrgResp struct{}
 
 // deleteCorehrCustomOrgResp ...
-type deleteCorehrCustomOrgResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *DeleteCorehrCustomOrgResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type deleteCorehrCustomOrgResp struct {
+	Code  int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                     `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteCorehrCustomOrgResp `json:"data,omitempty"`
+	Error *ErrorDetail               `json:"error,omitempty"`
 }
-
-
-
-

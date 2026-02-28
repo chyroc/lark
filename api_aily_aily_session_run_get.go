@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // GetAilySessionRun 该 API 用于获取某个飞书 Aily 应用的运行（Run）的详细信息；包括运行的状态、结束时间等。
@@ -30,9 +30,8 @@ import (
 // - 运行（Run）: Aily 助手基于会话内消息进行意图判定、调用匹配的技能, 并返回技能执行后的结果消息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/aily-v1/aily_session-run/get
-// 
 func (r *AilyService) GetAilySessionRun(ctx context.Context, request *GetAilySessionRunReq, options ...MethodOptionFunc) (*GetAilySessionRunResp, *Response, error) {
-if r.cli.mock.mockAilyGetAilySessionRun != nil {
+	if r.cli.mock.mockAilyGetAilySessionRun != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Aily#GetAilySessionRun mock enable")
 		return r.cli.mock.mockAilyGetAilySessionRun(ctx, request, options...)
 	}
@@ -41,12 +40,11 @@ if r.cli.mock.mockAilyGetAilySessionRun != nil {
 		Scope:                 "Aily",
 		API:                   "GetAilySessionRun",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/aily/v1/sessions/:aily_session_id/runs/:run_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/aily/v1/sessions/:aily_session_id/runs/:run_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getAilySessionRunResp)
 
@@ -58,66 +56,46 @@ if r.cli.mock.mockAilyGetAilySessionRun != nil {
 func (r *Mock) MockAilyGetAilySessionRun(f func(ctx context.Context, request *GetAilySessionRunReq, options ...MethodOptionFunc) (*GetAilySessionRunResp, *Response, error)) {
 	r.mockAilyGetAilySessionRun = f
 }
+
 // UnMockAilyGetAilySessionRun un-mock AilyGetAilySessionRun method
 func (r *Mock) UnMockAilyGetAilySessionRun() {
 	r.mockAilyGetAilySessionRun = nil
 }
 
-
 // GetAilySessionRunReq ...
-type GetAilySessionRunReq struct { 
-AilySessionID string `path:"aily_session_id" json:"-"` // 会话 ID；参考 [创建会话](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/aily-v1/aily_session/create) 接口示例值: "session_4dfunz7sp1g8m" 长度范围: `9` ～ `32` 字符- 正则校验: `session_[0-9a-hjkmnp-z]{1, 24}`
-RunID string `path:"run_id" json:"-"` // 运行的唯一 ID示例值: "run_4dfrxvctjqzzj" 长度范围: `5` ～ `32` 字符- 正则校验: `run_[0-9a-hjkmnp-z]{1, 28}`
+type GetAilySessionRunReq struct {
+	AilySessionID string `path:"aily_session_id" json:"-"` // 会话 ID；参考 [创建会话](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/aily-v1/aily_session/create) 接口示例值: "session_4dfunz7sp1g8m" 长度范围: `9` ～ `32` 字符- 正则校验: `session_[0-9a-hjkmnp-z]{1, 24}`
+	RunID         string `path:"run_id" json:"-"`          // 运行的唯一 ID示例值: "run_4dfrxvctjqzzj" 长度范围: `5` ～ `32` 字符- 正则校验: `run_[0-9a-hjkmnp-z]{1, 28}`
 }
-
-
-
-
 
 // GetAilySessionRunResp ...
-type GetAilySessionRunResp struct { 
-Run *GetAilySessionRunRespRun `json:"run,omitempty"` // 运行信息
+type GetAilySessionRunResp struct {
+	Run *GetAilySessionRunRespRun `json:"run,omitempty"` // 运行信息
 }
-
-
-
-
 
 // GetAilySessionRunRespRun ...
-type GetAilySessionRunRespRun struct { 
-ID string `json:"id,omitempty"` // 运行 ID
-CreatedAt string `json:"created_at,omitempty"` // 运行的创建时间, 毫秒时间戳
-AppID string `json:"app_id,omitempty"` // 应用 ID
-SessionID string `json:"session_id,omitempty"` // 会话 ID
-Status string `json:"status,omitempty"` // 运行状态；详见 [Run 状态机说明](https://bytedance.larkoffice.com/wiki/UTU6wVTVGigefykjO1acAOOvnNc#part-LGZrdJTUFo5c8XxSpYXcm3oknEd)- 对于 `COMPLETED` 状态的运行、可通过 `ListMessage` 接口获取 Bot 返回的消息内容。
-StartedAt string `json:"started_at,omitempty"` // 开始时间, 毫秒时间戳
-EndedAt string `json:"ended_at,omitempty"` // 结束时间, 毫秒时间戳
-Error *GetAilySessionRunRespRunError `json:"error,omitempty"` // 失败时的错误信息
-Metadata string `json:"metadata,omitempty"` // 其他透传信息
+type GetAilySessionRunRespRun struct {
+	ID        string                         `json:"id,omitempty"`         // 运行 ID
+	CreatedAt string                         `json:"created_at,omitempty"` // 运行的创建时间, 毫秒时间戳
+	AppID     string                         `json:"app_id,omitempty"`     // 应用 ID
+	SessionID string                         `json:"session_id,omitempty"` // 会话 ID
+	Status    string                         `json:"status,omitempty"`     // 运行状态；详见 [Run 状态机说明](https://bytedance.larkoffice.com/wiki/UTU6wVTVGigefykjO1acAOOvnNc#part-LGZrdJTUFo5c8XxSpYXcm3oknEd)- 对于 `COMPLETED` 状态的运行、可通过 `ListMessage` 接口获取 Bot 返回的消息内容。
+	StartedAt string                         `json:"started_at,omitempty"` // 开始时间, 毫秒时间戳
+	EndedAt   string                         `json:"ended_at,omitempty"`   // 结束时间, 毫秒时间戳
+	Error     *GetAilySessionRunRespRunError `json:"error,omitempty"`      // 失败时的错误信息
+	Metadata  string                         `json:"metadata,omitempty"`   // 其他透传信息
 }
-
-
-
-
 
 // GetAilySessionRunRespRunError ...
-type GetAilySessionRunRespRunError struct { 
-Code string `json:"code,omitempty"` // 错误码
-Message string `json:"message,omitempty"` // 错误信息
+type GetAilySessionRunRespRunError struct {
+	Code    string `json:"code,omitempty"`    // 错误码
+	Message string `json:"message,omitempty"` // 错误信息
 }
-
-
-
-
 
 // getAilySessionRunResp ...
-type getAilySessionRunResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *GetAilySessionRunResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type getAilySessionRunResp struct {
+	Code  int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                 `json:"msg,omitempty"`  // 错误描述
+	Data  *GetAilySessionRunResp `json:"data,omitempty"`
+	Error *ErrorDetail           `json:"error,omitempty"`
 }
-
-
-
-

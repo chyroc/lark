@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateApaasUserTaskChatGroup 基于任务, 发起一个飞书群聊
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/user_task/chat_group
-// 
 func (r *ApaasService) CreateApaasUserTaskChatGroup(ctx context.Context, request *CreateApaasUserTaskChatGroupReq, options ...MethodOptionFunc) (*CreateApaasUserTaskChatGroupResp, *Response, error) {
-if r.cli.mock.mockApaasCreateApaasUserTaskChatGroup != nil {
+	if r.cli.mock.mockApaasCreateApaasUserTaskChatGroup != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Apaas#CreateApaasUserTaskChatGroup mock enable")
 		return r.cli.mock.mockApaasCreateApaasUserTaskChatGroup(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockApaasCreateApaasUserTaskChatGroup != nil {
 		Scope:                 "Apaas",
 		API:                   "CreateApaasUserTaskChatGroup",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/apaas/v1/user_tasks/:task_id/chat_group",
+		URL:                   r.cli.openBaseURL + "/open-apis/apaas/v1/user_tasks/:task_id/chat_group",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createApaasUserTaskChatGroupResp)
 
@@ -51,42 +49,30 @@ if r.cli.mock.mockApaasCreateApaasUserTaskChatGroup != nil {
 func (r *Mock) MockApaasCreateApaasUserTaskChatGroup(f func(ctx context.Context, request *CreateApaasUserTaskChatGroupReq, options ...MethodOptionFunc) (*CreateApaasUserTaskChatGroupResp, *Response, error)) {
 	r.mockApaasCreateApaasUserTaskChatGroup = f
 }
+
 // UnMockApaasCreateApaasUserTaskChatGroup un-mock ApaasCreateApaasUserTaskChatGroup method
 func (r *Mock) UnMockApaasCreateApaasUserTaskChatGroup() {
 	r.mockApaasCreateApaasUserTaskChatGroup = nil
 }
 
-
 // CreateApaasUserTaskChatGroupReq ...
-type CreateApaasUserTaskChatGroupReq struct { 
-TaskID string `path:"task_id" json:"-"` // 任务ID, 可以通过[查询人工任务](/uAjLw4CM/ukTMukTMukTM/apaas-v1/user_task/query)获取示例值: "1234"
-OperatorUserID string `json:"operator_user_id,omitempty"` // 操作人kunlunUserID, 可通过Apaas用户管理页面获取示例值: "1234"
-InviteUserIDs []string `json:"invite_user_ids,omitempty"` // 邀请进群用户KunlunID列表, 可通过Apaas用户管理页面获取示例值: ["1234"] 长度范围: `1` ～ `20`
-ChatID *string `json:"chat_id,omitempty"` // 要拉入的群openID, 为空则新建群示例值: "oc_1234"
-ChatName *string `json:"chat_name,omitempty"` // 要加入的群名称, 当chat_id为空时用该名称创建群聊示例值: "群名称"
+type CreateApaasUserTaskChatGroupReq struct {
+	TaskID         string   `path:"task_id" json:"-"`           // 任务ID, 可以通过[查询人工任务](/uAjLw4CM/ukTMukTMukTM/apaas-v1/user_task/query)获取示例值: "1234"
+	OperatorUserID string   `json:"operator_user_id,omitempty"` // 操作人kunlunUserID, 可通过Apaas用户管理页面获取示例值: "1234"
+	InviteUserIDs  []string `json:"invite_user_ids,omitempty"`  // 邀请进群用户KunlunID列表, 可通过Apaas用户管理页面获取示例值: ["1234"] 长度范围: `1` ～ `20`
+	ChatID         *string  `json:"chat_id,omitempty"`          // 要拉入的群openID, 为空则新建群示例值: "oc_1234"
+	ChatName       *string  `json:"chat_name,omitempty"`        // 要加入的群名称, 当chat_id为空时用该名称创建群聊示例值: "群名称"
 }
-
-
-
-
 
 // CreateApaasUserTaskChatGroupResp ...
-type CreateApaasUserTaskChatGroupResp struct { 
-ChatID string `json:"chat_id,omitempty"` // 创建的群聊ID
+type CreateApaasUserTaskChatGroupResp struct {
+	ChatID string `json:"chat_id,omitempty"` // 创建的群聊ID
 }
-
-
-
-
 
 // createApaasUserTaskChatGroupResp ...
-type createApaasUserTaskChatGroupResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateApaasUserTaskChatGroupResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createApaasUserTaskChatGroupResp struct {
+	Code  int64                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                            `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateApaasUserTaskChatGroupResp `json:"data,omitempty"`
+	Error *ErrorDetail                      `json:"error,omitempty"`
 }
-
-
-
-

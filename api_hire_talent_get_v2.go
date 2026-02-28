@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // GetHireTalentV2 根据人才 ID 获取人才详情, 包含人才加入文件夹列表、标签、人才库、备注以及屏蔽名单等信息。
@@ -26,9 +26,8 @@ import (
 // 目前暂不支持查询被删除的人才详情
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/hire-v2/talent/get
-// 
 func (r *HireService) GetHireTalentV2(ctx context.Context, request *GetHireTalentV2Req, options ...MethodOptionFunc) (*GetHireTalentV2Resp, *Response, error) {
-if r.cli.mock.mockHireGetHireTalentV2 != nil {
+	if r.cli.mock.mockHireGetHireTalentV2 != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#GetHireTalentV2 mock enable")
 		return r.cli.mock.mockHireGetHireTalentV2(ctx, request, options...)
 	}
@@ -37,11 +36,10 @@ if r.cli.mock.mockHireGetHireTalentV2 != nil {
 		Scope:                 "Hire",
 		API:                   "GetHireTalentV2",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v2/talents/:talent_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v2/talents/:talent_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(getHireTalentV2Resp)
 
@@ -53,1169 +51,777 @@ if r.cli.mock.mockHireGetHireTalentV2 != nil {
 func (r *Mock) MockHireGetHireTalentV2(f func(ctx context.Context, request *GetHireTalentV2Req, options ...MethodOptionFunc) (*GetHireTalentV2Resp, *Response, error)) {
 	r.mockHireGetHireTalentV2 = f
 }
+
 // UnMockHireGetHireTalentV2 un-mock HireGetHireTalentV2 method
 func (r *Mock) UnMockHireGetHireTalentV2() {
 	r.mockHireGetHireTalentV2 = nil
 }
 
-
 // GetHireTalentV2Req ...
-type GetHireTalentV2Req struct { 
-TalentID string `path:"talent_id" json:"-"` // 人才 ID, 可通过[获取人才列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/list)接口获取示例值: "6960663240925956555"
-UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以 people_admin_id 来识别用户默认值: `people_admin_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+type GetHireTalentV2Req struct {
+	TalentID   string  `path:"talent_id" json:"-"`     // 人才 ID, 可通过[获取人才列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/list)接口获取示例值: "6960663240925956555"
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以 people_admin_id 来识别用户默认值: `people_admin_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
-
-
-
-
 
 // GetHireTalentV2Resp ...
-type GetHireTalentV2Resp struct { 
-TalentID string `json:"talent_id,omitempty"` // 人才 ID
-BasicInfo *GetHireTalentV2RespBasicInfo `json:"basic_info,omitempty"` // 基本信息
-EducationList []*GetHireTalentV2RespEducation `json:"education_list,omitempty"` // 教育经历
-CareerList []*GetHireTalentV2RespCareer `json:"career_list,omitempty"` // 工作经历
-ProjectList []*GetHireTalentV2RespProject `json:"project_list,omitempty"` // 项目经历
-WorksList []*GetHireTalentV2RespWorks `json:"works_list,omitempty"` // 作品
-AwardList []*GetHireTalentV2RespAward `json:"award_list,omitempty"` // 获奖
-LanguageList []*GetHireTalentV2RespLanguage `json:"language_list,omitempty"` // 语言能力
-SnsList []*GetHireTalentV2RespSns `json:"sns_list,omitempty"` // 社交账号
-ResumeSourceList []*GetHireTalentV2RespResumeSource `json:"resume_source_list,omitempty"` // 简历来源
-InternshipList []*GetHireTalentV2RespInternship `json:"internship_list,omitempty"` // 实习经历
-CustomizedDataList []*GetHireTalentV2RespCustomizedData `json:"customized_data_list,omitempty"` // 自定义字段
-ResumeAttachmentIDList []string `json:"resume_attachment_id_list,omitempty"` // 简历附件id列表（按照简历创建时间降序）, 详情请查看: [获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get)
-ResumeAttachmentList []*GetHireTalentV2RespResumeAttachment `json:"resume_attachment_list,omitempty"` // 简历附件列表（按照简历创建时间降序）
-InterviewRegistrationList []*GetHireTalentV2RespInterviewRegistration `json:"interview_registration_list,omitempty"` // 面试登记表, 推荐使用`registration_list`字段获取完整登记表列表
-RegistrationList []*GetHireTalentV2RespRegistration `json:"registration_list,omitempty"` // 登记表列表
-IsOnboarded bool `json:"is_onboarded,omitempty"` // 是否已入职可选值有: 未入职已入职
-IsInAgencyPeriod bool `json:"is_in_agency_period,omitempty"` // 是否在猎头保护期可选值有: 未在猎头保护期在猎头保护期
-TopDegree int64 `json:"top_degree,omitempty"` // 最高学历, 详情请参考[枚举常量介绍](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/enum)中 DegreeType 枚举
-TalentPoolIDList []string `json:"talent_pool_id_list,omitempty"` // 人才已加入的人才库列表, 详情请查看: [获取人才库列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_pool/search)
-TalentFolderRefListV2 []*GetHireTalentV2RespTalentFolderRefListV2 `json:"talent_folder_ref_list_v2,omitempty"` // 文件夹列表字段权限要求（满足任一）: 获取人才库信息更新人才库信息
-TagList []*GetHireTalentV2RespTag `json:"tag_list,omitempty"` // 标签列表字段权限要求（满足任一）: 更新人才标签获取人才标签
-SimilarInfoV2 *GetHireTalentV2RespSimilarInfoV2 `json:"similar_info_v2,omitempty"` // 相似人才信息
-BlockInfo *GetHireTalentV2RespBlockInfo `json:"block_info,omitempty"` // 人才屏蔽名单信息字段权限要求（满足任一）: 更新人才屏蔽名单信息查看人才屏蔽名单信息
-TalentPoolRefListV2 []*GetHireTalentV2RespTalentPoolRefListV2 `json:"talent_pool_ref_list_v2,omitempty"` // 人才已经加入的人才库列表字段权限要求（满足任一）: 获取人才库信息更新人才库信息
-NoteListV2 []*GetHireTalentV2RespNoteListV2 `json:"note_list_v2,omitempty"` // 备注列表字段权限要求（满足任一）: 获取招聘备注信息更新招聘备注信息
+type GetHireTalentV2Resp struct {
+	TalentID                  string                                      `json:"talent_id,omitempty"`                   // 人才 ID
+	BasicInfo                 *GetHireTalentV2RespBasicInfo               `json:"basic_info,omitempty"`                  // 基本信息
+	EducationList             []*GetHireTalentV2RespEducation             `json:"education_list,omitempty"`              // 教育经历
+	CareerList                []*GetHireTalentV2RespCareer                `json:"career_list,omitempty"`                 // 工作经历
+	ProjectList               []*GetHireTalentV2RespProject               `json:"project_list,omitempty"`                // 项目经历
+	WorksList                 []*GetHireTalentV2RespWorks                 `json:"works_list,omitempty"`                  // 作品
+	AwardList                 []*GetHireTalentV2RespAward                 `json:"award_list,omitempty"`                  // 获奖
+	LanguageList              []*GetHireTalentV2RespLanguage              `json:"language_list,omitempty"`               // 语言能力
+	SnsList                   []*GetHireTalentV2RespSns                   `json:"sns_list,omitempty"`                    // 社交账号
+	ResumeSourceList          []*GetHireTalentV2RespResumeSource          `json:"resume_source_list,omitempty"`          // 简历来源
+	InternshipList            []*GetHireTalentV2RespInternship            `json:"internship_list,omitempty"`             // 实习经历
+	CustomizedDataList        []*GetHireTalentV2RespCustomizedData        `json:"customized_data_list,omitempty"`        // 自定义字段
+	ResumeAttachmentIDList    []string                                    `json:"resume_attachment_id_list,omitempty"`   // 简历附件id列表（按照简历创建时间降序）, 详情请查看: [获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get)
+	ResumeAttachmentList      []*GetHireTalentV2RespResumeAttachment      `json:"resume_attachment_list,omitempty"`      // 简历附件列表（按照简历创建时间降序）
+	InterviewRegistrationList []*GetHireTalentV2RespInterviewRegistration `json:"interview_registration_list,omitempty"` // 面试登记表, 推荐使用`registration_list`字段获取完整登记表列表
+	RegistrationList          []*GetHireTalentV2RespRegistration          `json:"registration_list,omitempty"`           // 登记表列表
+	IsOnboarded               bool                                        `json:"is_onboarded,omitempty"`                // 是否已入职可选值有: 未入职已入职
+	IsInAgencyPeriod          bool                                        `json:"is_in_agency_period,omitempty"`         // 是否在猎头保护期可选值有: 未在猎头保护期在猎头保护期
+	TopDegree                 int64                                       `json:"top_degree,omitempty"`                  // 最高学历, 详情请参考[枚举常量介绍](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/enum)中 DegreeType 枚举
+	TalentPoolIDList          []string                                    `json:"talent_pool_id_list,omitempty"`         // 人才已加入的人才库列表, 详情请查看: [获取人才库列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_pool/search)
+	TalentFolderRefListV2     []*GetHireTalentV2RespTalentFolderRefListV2 `json:"talent_folder_ref_list_v2,omitempty"`   // 文件夹列表字段权限要求（满足任一）: 获取人才库信息更新人才库信息
+	TagList                   []*GetHireTalentV2RespTag                   `json:"tag_list,omitempty"`                    // 标签列表字段权限要求（满足任一）: 更新人才标签获取人才标签
+	SimilarInfoV2             *GetHireTalentV2RespSimilarInfoV2           `json:"similar_info_v2,omitempty"`             // 相似人才信息
+	BlockInfo                 *GetHireTalentV2RespBlockInfo               `json:"block_info,omitempty"`                  // 人才屏蔽名单信息字段权限要求（满足任一）: 更新人才屏蔽名单信息查看人才屏蔽名单信息
+	TalentPoolRefListV2       []*GetHireTalentV2RespTalentPoolRefListV2   `json:"talent_pool_ref_list_v2,omitempty"`     // 人才已经加入的人才库列表字段权限要求（满足任一）: 获取人才库信息更新人才库信息
+	NoteListV2                []*GetHireTalentV2RespNoteListV2            `json:"note_list_v2,omitempty"`                // 备注列表字段权限要求（满足任一）: 获取招聘备注信息更新招聘备注信息
 }
-
-
-
-
 
 // GetHireTalentV2RespAward ...
-type GetHireTalentV2RespAward struct { 
-AwardName string `json:"award_name,omitempty"` // 获奖名称
-AwardTime string `json:"award_time,omitempty"` // 获奖日期, 精确到月份, 格式为YYYY-MM
-Description string `json:"description,omitempty"` // 获奖描述
-CustomizedDataList []*GetHireTalentV2RespAwardCustomizedData `json:"customized_data_list,omitempty"` // 自定义字段
+type GetHireTalentV2RespAward struct {
+	AwardName          string                                    `json:"award_name,omitempty"`           // 获奖名称
+	AwardTime          string                                    `json:"award_time,omitempty"`           // 获奖日期, 精确到月份, 格式为YYYY-MM
+	Description        string                                    `json:"description,omitempty"`          // 获奖描述
+	CustomizedDataList []*GetHireTalentV2RespAwardCustomizedData `json:"customized_data_list,omitempty"` // 自定义字段
 }
-
-
-
-
 
 // GetHireTalentV2RespAwardCustomizedData ...
-type GetHireTalentV2RespAwardCustomizedData struct { 
-ObjectID string `json:"object_id,omitempty"` // 自定义字段 ID, 详情请查看: [获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)
-Name *GetHireTalentV2RespAwardCustomizedDataName `json:"name,omitempty"` // 字段名称
-ObjectType int64 `json:"object_type,omitempty"` // 字段类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块日期附件
-Value *GetHireTalentV2RespAwardCustomizedDataValue `json:"value,omitempty"` // 自定义字段值
+type GetHireTalentV2RespAwardCustomizedData struct {
+	ObjectID   string                                       `json:"object_id,omitempty"`   // 自定义字段 ID, 详情请查看: [获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)
+	Name       *GetHireTalentV2RespAwardCustomizedDataName  `json:"name,omitempty"`        // 字段名称
+	ObjectType int64                                        `json:"object_type,omitempty"` // 字段类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块日期附件
+	Value      *GetHireTalentV2RespAwardCustomizedDataValue `json:"value,omitempty"`       // 自定义字段值
 }
-
-
-
-
 
 // GetHireTalentV2RespAwardCustomizedDataName ...
-type GetHireTalentV2RespAwardCustomizedDataName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 字段中文名称
-EnUs string `json:"en_us,omitempty"` // 字段英文名称
+type GetHireTalentV2RespAwardCustomizedDataName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 字段中文名称
+	EnUs string `json:"en_us,omitempty"` // 字段英文名称
 }
-
-
-
-
 
 // GetHireTalentV2RespAwardCustomizedDataValue ...
-type GetHireTalentV2RespAwardCustomizedDataValue struct { 
-Content string `json:"content,omitempty"` // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
-Option *GetHireTalentV2RespAwardCustomizedDataValueOption `json:"option,omitempty"` // 当字段类型为单选时, 从此字段取值
-OptionList []*GetHireTalentV2RespAwardCustomizedDataValueOption `json:"option_list,omitempty"` // 当字段类型为多选时, 从此字段取值
-TimeRange *GetHireTalentV2RespAwardCustomizedDataValueTimeRange `json:"time_range,omitempty"` // 当字段类型为时间段时, 从此字段取值
-Time string `json:"time,omitempty"` // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是秒级时间戳
-Number string `json:"number,omitempty"` // 当字段类型为数字时, 从此字段取值
-CustomizedAttachment []*GetHireTalentV2RespAwardCustomizedDataValueCustomizedAttachment `json:"customized_attachment,omitempty"` // 当字段类型为附件时, 从此字段取值
+type GetHireTalentV2RespAwardCustomizedDataValue struct {
+	Content              string                                                             `json:"content,omitempty"`               // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
+	Option               *GetHireTalentV2RespAwardCustomizedDataValueOption                 `json:"option,omitempty"`                // 当字段类型为单选时, 从此字段取值
+	OptionList           []*GetHireTalentV2RespAwardCustomizedDataValueOption               `json:"option_list,omitempty"`           // 当字段类型为多选时, 从此字段取值
+	TimeRange            *GetHireTalentV2RespAwardCustomizedDataValueTimeRange              `json:"time_range,omitempty"`            // 当字段类型为时间段时, 从此字段取值
+	Time                 string                                                             `json:"time,omitempty"`                  // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是秒级时间戳
+	Number               string                                                             `json:"number,omitempty"`                // 当字段类型为数字时, 从此字段取值
+	CustomizedAttachment []*GetHireTalentV2RespAwardCustomizedDataValueCustomizedAttachment `json:"customized_attachment,omitempty"` // 当字段类型为附件时, 从此字段取值
 }
-
-
-
-
 
 // GetHireTalentV2RespAwardCustomizedDataValueCustomizedAttachment ...
-type GetHireTalentV2RespAwardCustomizedDataValueCustomizedAttachment struct { 
-FileID string `json:"file_id,omitempty"` // 附件 ID, 详情请查看: [获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get)
-FileName string `json:"file_name,omitempty"` // 附件名称
-ContentType string `json:"content_type,omitempty"` // 附件类型
-FileSize int64 `json:"file_size,omitempty"` // 附件大小
+type GetHireTalentV2RespAwardCustomizedDataValueCustomizedAttachment struct {
+	FileID      string `json:"file_id,omitempty"`      // 附件 ID, 详情请查看: [获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get)
+	FileName    string `json:"file_name,omitempty"`    // 附件名称
+	ContentType string `json:"content_type,omitempty"` // 附件类型
+	FileSize    int64  `json:"file_size,omitempty"`    // 附件大小
 }
-
-
-
-
 
 // GetHireTalentV2RespAwardCustomizedDataValueOption ...
-type GetHireTalentV2RespAwardCustomizedDataValueOption struct { 
-Key string `json:"key,omitempty"` // 选项 ID
-Name *GetHireTalentV2RespAwardCustomizedDataValueOptionName `json:"name,omitempty"` // 选项名称
+type GetHireTalentV2RespAwardCustomizedDataValueOption struct {
+	Key  string                                                 `json:"key,omitempty"`  // 选项 ID
+	Name *GetHireTalentV2RespAwardCustomizedDataValueOptionName `json:"name,omitempty"` // 选项名称
 }
-
-
-
-
 
 // GetHireTalentV2RespAwardCustomizedDataValueOptionName ...
-type GetHireTalentV2RespAwardCustomizedDataValueOptionName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 选项中文名称
-EnUs string `json:"en_us,omitempty"` // 选项英文名称
+type GetHireTalentV2RespAwardCustomizedDataValueOptionName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 选项中文名称
+	EnUs string `json:"en_us,omitempty"` // 选项英文名称
 }
-
-
-
-
 
 // GetHireTalentV2RespAwardCustomizedDataValueTimeRange ...
-type GetHireTalentV2RespAwardCustomizedDataValueTimeRange struct { 
-StartTime string `json:"start_time,omitempty"` // 开始时间, 秒级时间戳
-EndTime string `json:"end_time,omitempty"` // 结束时间, 当值为至今时, 返回「-」, 秒级时间戳
+type GetHireTalentV2RespAwardCustomizedDataValueTimeRange struct {
+	StartTime string `json:"start_time,omitempty"` // 开始时间, 秒级时间戳
+	EndTime   string `json:"end_time,omitempty"`   // 结束时间, 当值为至今时, 返回「-」, 秒级时间戳
 }
-
-
-
-
 
 // GetHireTalentV2RespBasicInfo ...
-type GetHireTalentV2RespBasicInfo struct { 
-Name string `json:"name,omitempty"` // 姓名
-MobileNumber string `json:"mobile_number,omitempty"` // 手机
-MobileCode string `json:"mobile_code,omitempty"` // 手机国家区号, 遵守国际统一标准, 请参考[百度百科-国际长途电话区号](https://baike.baidu.com/item/%E5%9B%BD%E9%99%85%E9%95%BF%E9%80%94%E7%94%B5%E8%AF%9D%E5%8C%BA%E5%8F%B7%E8%A1%A8/12803495?fr=ge_ala)
-Email string `json:"email,omitempty"` // 邮箱
-ExperienceYears int64 `json:"experience_years,omitempty"` // 工作年限
-Age int64 `json:"age,omitempty"` // 年龄
-NationalityCode string `json:"nationality_code,omitempty"` // 国籍（地区）, 详情请查看: [查询地点列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/query)
-Gender int64 `json:"gender,omitempty"` // 性别可选值有: 男女其他
-CurrentLocationCode string `json:"current_location_code,omitempty"` // 所在地点, 详情请查看: [查询地点列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/query)
-HometownLocationCode string `json:"hometown_location_code,omitempty"` // 家乡, 详情请查看: [查询地点列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/query)
-PreferredLocationCodeList []string `json:"preferred_location_code_list,omitempty"` // 意向地点, 详情请查看: [查询地点列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/query)
-HomeAddress string `json:"home_address,omitempty"` // 家庭住址
-IdentificationType int64 `json:"identification_type,omitempty"` // 证件类型可选值有: 中国 - 居民身份证护照中国 - 港澳居民居住证中国 - 台湾居民来往大陆通行证其他中国 - 港澳居民来往内地通行证中国 - 台湾居民居住证
-IdentificationNumber string `json:"identification_number,omitempty"` // 证件号
-Birthday int64 `json:"birthday,omitempty"` // 生日, 秒时间戳
-MaritalStatus int64 `json:"marital_status,omitempty"` // 婚姻状况可选值有: 已婚未婚
-CustomizedDataList []*GetHireTalentV2RespBasicInfoCustomizedData `json:"customized_data_list,omitempty"` // 自定义字段
-HukouLocationCode string `json:"hukou_location_code,omitempty"` // 户口所在地, 详情请查看: [查询地点列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/query)
-UpdateTime string `json:"update_time,omitempty"` // 人才更新时间, 毫秒时间戳
-CreateTime string `json:"create_time,omitempty"` // 人才创建时间, 毫秒时间戳
-Confidential int64 `json:"confidential,omitempty"` // 人才隐藏状态可选值有: 隐藏公开
+type GetHireTalentV2RespBasicInfo struct {
+	Name                      string                                        `json:"name,omitempty"`                         // 姓名
+	MobileNumber              string                                        `json:"mobile_number,omitempty"`                // 手机
+	MobileCode                string                                        `json:"mobile_code,omitempty"`                  // 手机国家区号, 遵守国际统一标准, 请参考[百度百科-国际长途电话区号](https://baike.baidu.com/item/%E5%9B%BD%E9%99%85%E9%95%BF%E9%80%94%E7%94%B5%E8%AF%9D%E5%8C%BA%E5%8F%B7%E8%A1%A8/12803495?fr=ge_ala)
+	Email                     string                                        `json:"email,omitempty"`                        // 邮箱
+	ExperienceYears           int64                                         `json:"experience_years,omitempty"`             // 工作年限
+	Age                       int64                                         `json:"age,omitempty"`                          // 年龄
+	NationalityCode           string                                        `json:"nationality_code,omitempty"`             // 国籍（地区）, 详情请查看: [查询地点列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/query)
+	Gender                    int64                                         `json:"gender,omitempty"`                       // 性别可选值有: 男女其他
+	CurrentLocationCode       string                                        `json:"current_location_code,omitempty"`        // 所在地点, 详情请查看: [查询地点列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/query)
+	HometownLocationCode      string                                        `json:"hometown_location_code,omitempty"`       // 家乡, 详情请查看: [查询地点列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/query)
+	PreferredLocationCodeList []string                                      `json:"preferred_location_code_list,omitempty"` // 意向地点, 详情请查看: [查询地点列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/query)
+	HomeAddress               string                                        `json:"home_address,omitempty"`                 // 家庭住址
+	IdentificationType        int64                                         `json:"identification_type,omitempty"`          // 证件类型可选值有: 中国 - 居民身份证护照中国 - 港澳居民居住证中国 - 台湾居民来往大陆通行证其他中国 - 港澳居民来往内地通行证中国 - 台湾居民居住证
+	IdentificationNumber      string                                        `json:"identification_number,omitempty"`        // 证件号
+	Birthday                  int64                                         `json:"birthday,omitempty"`                     // 生日, 秒时间戳
+	MaritalStatus             int64                                         `json:"marital_status,omitempty"`               // 婚姻状况可选值有: 已婚未婚
+	CustomizedDataList        []*GetHireTalentV2RespBasicInfoCustomizedData `json:"customized_data_list,omitempty"`         // 自定义字段
+	HukouLocationCode         string                                        `json:"hukou_location_code,omitempty"`          // 户口所在地, 详情请查看: [查询地点列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/query)
+	UpdateTime                string                                        `json:"update_time,omitempty"`                  // 人才更新时间, 毫秒时间戳
+	CreateTime                string                                        `json:"create_time,omitempty"`                  // 人才创建时间, 毫秒时间戳
+	Confidential              int64                                         `json:"confidential,omitempty"`                 // 人才隐藏状态可选值有: 隐藏公开
 }
-
-
-
-
 
 // GetHireTalentV2RespBasicInfoCustomizedData ...
-type GetHireTalentV2RespBasicInfoCustomizedData struct { 
-ObjectID string `json:"object_id,omitempty"` // 自定义字段 ID, 详情请查看: [获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)
-Name *GetHireTalentV2RespBasicInfoCustomizedDataName `json:"name,omitempty"` // 字段名称
-ObjectType int64 `json:"object_type,omitempty"` // 字段类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块日期附件
-Value *GetHireTalentV2RespBasicInfoCustomizedDataValue `json:"value,omitempty"` // 自定义字段值
+type GetHireTalentV2RespBasicInfoCustomizedData struct {
+	ObjectID   string                                           `json:"object_id,omitempty"`   // 自定义字段 ID, 详情请查看: [获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)
+	Name       *GetHireTalentV2RespBasicInfoCustomizedDataName  `json:"name,omitempty"`        // 字段名称
+	ObjectType int64                                            `json:"object_type,omitempty"` // 字段类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块日期附件
+	Value      *GetHireTalentV2RespBasicInfoCustomizedDataValue `json:"value,omitempty"`       // 自定义字段值
 }
-
-
-
-
 
 // GetHireTalentV2RespBasicInfoCustomizedDataName ...
-type GetHireTalentV2RespBasicInfoCustomizedDataName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 字段中文名称
-EnUs string `json:"en_us,omitempty"` // 字段英文名称
+type GetHireTalentV2RespBasicInfoCustomizedDataName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 字段中文名称
+	EnUs string `json:"en_us,omitempty"` // 字段英文名称
 }
-
-
-
-
 
 // GetHireTalentV2RespBasicInfoCustomizedDataValue ...
-type GetHireTalentV2RespBasicInfoCustomizedDataValue struct { 
-Content string `json:"content,omitempty"` // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
-Option *GetHireTalentV2RespBasicInfoCustomizedDataValueOption `json:"option,omitempty"` // 当字段类型为单选时, 从此字段取值
-OptionList []*GetHireTalentV2RespBasicInfoCustomizedDataValueOption `json:"option_list,omitempty"` // 当字段类型为多选时, 从此字段取值
-TimeRange *GetHireTalentV2RespBasicInfoCustomizedDataValueTimeRange `json:"time_range,omitempty"` // 当字段类型为时间段时, 从此字段取值
-Time string `json:"time,omitempty"` // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是秒级时间戳
-Number string `json:"number,omitempty"` // 当字段类型为数字时, 从此字段取值
-CustomizedAttachment []*GetHireTalentV2RespBasicInfoCustomizedDataValueCustomizedAttachment `json:"customized_attachment,omitempty"` // 当字段类型为附件时, 从此字段取值
+type GetHireTalentV2RespBasicInfoCustomizedDataValue struct {
+	Content              string                                                                 `json:"content,omitempty"`               // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
+	Option               *GetHireTalentV2RespBasicInfoCustomizedDataValueOption                 `json:"option,omitempty"`                // 当字段类型为单选时, 从此字段取值
+	OptionList           []*GetHireTalentV2RespBasicInfoCustomizedDataValueOption               `json:"option_list,omitempty"`           // 当字段类型为多选时, 从此字段取值
+	TimeRange            *GetHireTalentV2RespBasicInfoCustomizedDataValueTimeRange              `json:"time_range,omitempty"`            // 当字段类型为时间段时, 从此字段取值
+	Time                 string                                                                 `json:"time,omitempty"`                  // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是秒级时间戳
+	Number               string                                                                 `json:"number,omitempty"`                // 当字段类型为数字时, 从此字段取值
+	CustomizedAttachment []*GetHireTalentV2RespBasicInfoCustomizedDataValueCustomizedAttachment `json:"customized_attachment,omitempty"` // 当字段类型为附件时, 从此字段取值
 }
-
-
-
-
 
 // GetHireTalentV2RespBasicInfoCustomizedDataValueCustomizedAttachment ...
-type GetHireTalentV2RespBasicInfoCustomizedDataValueCustomizedAttachment struct { 
-FileID string `json:"file_id,omitempty"` // 附件 ID, 详情请查看: [获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get)
-FileName string `json:"file_name,omitempty"` // 附件名称
-ContentType string `json:"content_type,omitempty"` // 附件类型
-FileSize int64 `json:"file_size,omitempty"` // 附件大小
+type GetHireTalentV2RespBasicInfoCustomizedDataValueCustomizedAttachment struct {
+	FileID      string `json:"file_id,omitempty"`      // 附件 ID, 详情请查看: [获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get)
+	FileName    string `json:"file_name,omitempty"`    // 附件名称
+	ContentType string `json:"content_type,omitempty"` // 附件类型
+	FileSize    int64  `json:"file_size,omitempty"`    // 附件大小
 }
-
-
-
-
 
 // GetHireTalentV2RespBasicInfoCustomizedDataValueOption ...
-type GetHireTalentV2RespBasicInfoCustomizedDataValueOption struct { 
-Key string `json:"key,omitempty"` // 选项 ID
-Name *GetHireTalentV2RespBasicInfoCustomizedDataValueOptionName `json:"name,omitempty"` // 选项名称
+type GetHireTalentV2RespBasicInfoCustomizedDataValueOption struct {
+	Key  string                                                     `json:"key,omitempty"`  // 选项 ID
+	Name *GetHireTalentV2RespBasicInfoCustomizedDataValueOptionName `json:"name,omitempty"` // 选项名称
 }
-
-
-
-
 
 // GetHireTalentV2RespBasicInfoCustomizedDataValueOptionName ...
-type GetHireTalentV2RespBasicInfoCustomizedDataValueOptionName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 选项中文名称
-EnUs string `json:"en_us,omitempty"` // 选项英文名称
+type GetHireTalentV2RespBasicInfoCustomizedDataValueOptionName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 选项中文名称
+	EnUs string `json:"en_us,omitempty"` // 选项英文名称
 }
-
-
-
-
 
 // GetHireTalentV2RespBasicInfoCustomizedDataValueTimeRange ...
-type GetHireTalentV2RespBasicInfoCustomizedDataValueTimeRange struct { 
-StartTime string `json:"start_time,omitempty"` // 开始时间, 秒级时间戳
-EndTime string `json:"end_time,omitempty"` // 结束时间, 当值为至今时, 返回「-」, 秒级时间戳
+type GetHireTalentV2RespBasicInfoCustomizedDataValueTimeRange struct {
+	StartTime string `json:"start_time,omitempty"` // 开始时间, 秒级时间戳
+	EndTime   string `json:"end_time,omitempty"`   // 结束时间, 当值为至今时, 返回「-」, 秒级时间戳
 }
-
-
-
-
 
 // GetHireTalentV2RespBlockInfo ...
-type GetHireTalentV2RespBlockInfo struct { 
-BlockedTime string `json:"blocked_time,omitempty"` // 加入屏蔽名单时间, 毫秒时间戳
-CreatorID string `json:"creator_id,omitempty"` // 屏蔽名单创建者 ID, 与入参`user_id_type`类型一致
-Reason string `json:"reason,omitempty"` // 加入屏蔽名单原因
+type GetHireTalentV2RespBlockInfo struct {
+	BlockedTime string `json:"blocked_time,omitempty"` // 加入屏蔽名单时间, 毫秒时间戳
+	CreatorID   string `json:"creator_id,omitempty"`   // 屏蔽名单创建者 ID, 与入参`user_id_type`类型一致
+	Reason      string `json:"reason,omitempty"`       // 加入屏蔽名单原因
 }
-
-
-
-
 
 // GetHireTalentV2RespCareer ...
-type GetHireTalentV2RespCareer struct { 
-CompanyName string `json:"company_name,omitempty"` // 公司名称
-Description string `json:"description,omitempty"` // 工作经历描述
-EndTime string `json:"end_time,omitempty"` // 工作经历的结束日期, 精确到月份, 格式为YYYY-MM
-StartTime string `json:"start_time,omitempty"` // 工作经历的开始日期, 精确到月份, 格式为YYYY-MM
-Title string `json:"title,omitempty"` // 职位名称
-CustomizedDataList []*GetHireTalentV2RespCareerCustomizedData `json:"customized_data_list,omitempty"` // 自定义字段
+type GetHireTalentV2RespCareer struct {
+	CompanyName        string                                     `json:"company_name,omitempty"`         // 公司名称
+	Description        string                                     `json:"description,omitempty"`          // 工作经历描述
+	EndTime            string                                     `json:"end_time,omitempty"`             // 工作经历的结束日期, 精确到月份, 格式为YYYY-MM
+	StartTime          string                                     `json:"start_time,omitempty"`           // 工作经历的开始日期, 精确到月份, 格式为YYYY-MM
+	Title              string                                     `json:"title,omitempty"`                // 职位名称
+	CustomizedDataList []*GetHireTalentV2RespCareerCustomizedData `json:"customized_data_list,omitempty"` // 自定义字段
 }
-
-
-
-
 
 // GetHireTalentV2RespCareerCustomizedData ...
-type GetHireTalentV2RespCareerCustomizedData struct { 
-ObjectID string `json:"object_id,omitempty"` // 自定义字段 ID, 详情请查看: [获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)
-Name *GetHireTalentV2RespCareerCustomizedDataName `json:"name,omitempty"` // 字段名称
-ObjectType int64 `json:"object_type,omitempty"` // 字段类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块日期附件
-Value *GetHireTalentV2RespCareerCustomizedDataValue `json:"value,omitempty"` // 自定义字段值
+type GetHireTalentV2RespCareerCustomizedData struct {
+	ObjectID   string                                        `json:"object_id,omitempty"`   // 自定义字段 ID, 详情请查看: [获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)
+	Name       *GetHireTalentV2RespCareerCustomizedDataName  `json:"name,omitempty"`        // 字段名称
+	ObjectType int64                                         `json:"object_type,omitempty"` // 字段类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块日期附件
+	Value      *GetHireTalentV2RespCareerCustomizedDataValue `json:"value,omitempty"`       // 自定义字段值
 }
-
-
-
-
 
 // GetHireTalentV2RespCareerCustomizedDataName ...
-type GetHireTalentV2RespCareerCustomizedDataName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 字段中文名称
-EnUs string `json:"en_us,omitempty"` // 字段英文名称
+type GetHireTalentV2RespCareerCustomizedDataName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 字段中文名称
+	EnUs string `json:"en_us,omitempty"` // 字段英文名称
 }
-
-
-
-
 
 // GetHireTalentV2RespCareerCustomizedDataValue ...
-type GetHireTalentV2RespCareerCustomizedDataValue struct { 
-Content string `json:"content,omitempty"` // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
-Option *GetHireTalentV2RespCareerCustomizedDataValueOption `json:"option,omitempty"` // 当字段类型为单选时, 从此字段取值
-OptionList []*GetHireTalentV2RespCareerCustomizedDataValueOption `json:"option_list,omitempty"` // 当字段类型为多选时, 从此字段取值
-TimeRange *GetHireTalentV2RespCareerCustomizedDataValueTimeRange `json:"time_range,omitempty"` // 当字段类型为时间段时, 从此字段取值
-Time string `json:"time,omitempty"` // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是秒级时间戳
-Number string `json:"number,omitempty"` // 当字段类型为数字时, 从此字段取值
-CustomizedAttachment []*GetHireTalentV2RespCareerCustomizedDataValueCustomizedAttachment `json:"customized_attachment,omitempty"` // 当字段类型为附件时, 从此字段取值
+type GetHireTalentV2RespCareerCustomizedDataValue struct {
+	Content              string                                                              `json:"content,omitempty"`               // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
+	Option               *GetHireTalentV2RespCareerCustomizedDataValueOption                 `json:"option,omitempty"`                // 当字段类型为单选时, 从此字段取值
+	OptionList           []*GetHireTalentV2RespCareerCustomizedDataValueOption               `json:"option_list,omitempty"`           // 当字段类型为多选时, 从此字段取值
+	TimeRange            *GetHireTalentV2RespCareerCustomizedDataValueTimeRange              `json:"time_range,omitempty"`            // 当字段类型为时间段时, 从此字段取值
+	Time                 string                                                              `json:"time,omitempty"`                  // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是秒级时间戳
+	Number               string                                                              `json:"number,omitempty"`                // 当字段类型为数字时, 从此字段取值
+	CustomizedAttachment []*GetHireTalentV2RespCareerCustomizedDataValueCustomizedAttachment `json:"customized_attachment,omitempty"` // 当字段类型为附件时, 从此字段取值
 }
-
-
-
-
 
 // GetHireTalentV2RespCareerCustomizedDataValueCustomizedAttachment ...
-type GetHireTalentV2RespCareerCustomizedDataValueCustomizedAttachment struct { 
-FileID string `json:"file_id,omitempty"` // 附件 ID, 详情请查看: [获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get)
-FileName string `json:"file_name,omitempty"` // 附件名称
-ContentType string `json:"content_type,omitempty"` // 附件类型
-FileSize int64 `json:"file_size,omitempty"` // 附件大小
+type GetHireTalentV2RespCareerCustomizedDataValueCustomizedAttachment struct {
+	FileID      string `json:"file_id,omitempty"`      // 附件 ID, 详情请查看: [获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get)
+	FileName    string `json:"file_name,omitempty"`    // 附件名称
+	ContentType string `json:"content_type,omitempty"` // 附件类型
+	FileSize    int64  `json:"file_size,omitempty"`    // 附件大小
 }
-
-
-
-
 
 // GetHireTalentV2RespCareerCustomizedDataValueOption ...
-type GetHireTalentV2RespCareerCustomizedDataValueOption struct { 
-Key string `json:"key,omitempty"` // 选项 ID
-Name *GetHireTalentV2RespCareerCustomizedDataValueOptionName `json:"name,omitempty"` // 选项名称
+type GetHireTalentV2RespCareerCustomizedDataValueOption struct {
+	Key  string                                                  `json:"key,omitempty"`  // 选项 ID
+	Name *GetHireTalentV2RespCareerCustomizedDataValueOptionName `json:"name,omitempty"` // 选项名称
 }
-
-
-
-
 
 // GetHireTalentV2RespCareerCustomizedDataValueOptionName ...
-type GetHireTalentV2RespCareerCustomizedDataValueOptionName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 选项中文名称
-EnUs string `json:"en_us,omitempty"` // 选项英文名称
+type GetHireTalentV2RespCareerCustomizedDataValueOptionName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 选项中文名称
+	EnUs string `json:"en_us,omitempty"` // 选项英文名称
 }
-
-
-
-
 
 // GetHireTalentV2RespCareerCustomizedDataValueTimeRange ...
-type GetHireTalentV2RespCareerCustomizedDataValueTimeRange struct { 
-StartTime string `json:"start_time,omitempty"` // 开始时间, 秒级时间戳
-EndTime string `json:"end_time,omitempty"` // 结束时间, 当值为至今时, 返回「-」, 秒级时间戳
+type GetHireTalentV2RespCareerCustomizedDataValueTimeRange struct {
+	StartTime string `json:"start_time,omitempty"` // 开始时间, 秒级时间戳
+	EndTime   string `json:"end_time,omitempty"`   // 结束时间, 当值为至今时, 返回「-」, 秒级时间戳
 }
-
-
-
-
 
 // GetHireTalentV2RespCustomizedData ...
-type GetHireTalentV2RespCustomizedData struct { 
-ModuleID string `json:"module_id,omitempty"` // 模块 ID
-Name *GetHireTalentV2RespCustomizedDataName `json:"name,omitempty"` // 模块名称
-ObjectType int64 `json:"object_type,omitempty"` // 模块类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块
-Children []*GetHireTalentV2RespCustomizedDataChildren `json:"children,omitempty"` // 模块下的字段
+type GetHireTalentV2RespCustomizedData struct {
+	ModuleID   string                                       `json:"module_id,omitempty"`   // 模块 ID
+	Name       *GetHireTalentV2RespCustomizedDataName       `json:"name,omitempty"`        // 模块名称
+	ObjectType int64                                        `json:"object_type,omitempty"` // 模块类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块
+	Children   []*GetHireTalentV2RespCustomizedDataChildren `json:"children,omitempty"`    // 模块下的字段
 }
-
-
-
-
 
 // GetHireTalentV2RespCustomizedDataChildren ...
-type GetHireTalentV2RespCustomizedDataChildren struct { 
-ObjectID string `json:"object_id,omitempty"` // 自定义字段 ID, 详情请查看: [获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)
-Name *GetHireTalentV2RespCustomizedDataChildrenName `json:"name,omitempty"` // 字段名称
-ObjectType int64 `json:"object_type,omitempty"` // 字段类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块日期附件
-Value *GetHireTalentV2RespCustomizedDataChildrenValue `json:"value,omitempty"` // 自定义字段值
+type GetHireTalentV2RespCustomizedDataChildren struct {
+	ObjectID   string                                          `json:"object_id,omitempty"`   // 自定义字段 ID, 详情请查看: [获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)
+	Name       *GetHireTalentV2RespCustomizedDataChildrenName  `json:"name,omitempty"`        // 字段名称
+	ObjectType int64                                           `json:"object_type,omitempty"` // 字段类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块日期附件
+	Value      *GetHireTalentV2RespCustomizedDataChildrenValue `json:"value,omitempty"`       // 自定义字段值
 }
-
-
-
-
 
 // GetHireTalentV2RespCustomizedDataChildrenName ...
-type GetHireTalentV2RespCustomizedDataChildrenName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 字段中文名称
-EnUs string `json:"en_us,omitempty"` // 字段英文名称
+type GetHireTalentV2RespCustomizedDataChildrenName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 字段中文名称
+	EnUs string `json:"en_us,omitempty"` // 字段英文名称
 }
-
-
-
-
 
 // GetHireTalentV2RespCustomizedDataChildrenValue ...
-type GetHireTalentV2RespCustomizedDataChildrenValue struct { 
-Content string `json:"content,omitempty"` // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
-Option *GetHireTalentV2RespCustomizedDataChildrenValueOption `json:"option,omitempty"` // 当字段类型为单选时, 从此字段取值
-OptionList []*GetHireTalentV2RespCustomizedDataChildrenValueOption `json:"option_list,omitempty"` // 当字段类型为多选时, 从此字段取值
-TimeRange *GetHireTalentV2RespCustomizedDataChildrenValueTimeRange `json:"time_range,omitempty"` // 当字段类型为时间段时, 从此字段取值
-Time string `json:"time,omitempty"` // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是秒级时间戳
-Number string `json:"number,omitempty"` // 当字段类型为数字时, 从此字段取值
-CustomizedAttachment []*GetHireTalentV2RespCustomizedDataChildrenValueCustomizedAttachment `json:"customized_attachment,omitempty"` // 当字段类型为附件时, 从此字段取值
+type GetHireTalentV2RespCustomizedDataChildrenValue struct {
+	Content              string                                                                `json:"content,omitempty"`               // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
+	Option               *GetHireTalentV2RespCustomizedDataChildrenValueOption                 `json:"option,omitempty"`                // 当字段类型为单选时, 从此字段取值
+	OptionList           []*GetHireTalentV2RespCustomizedDataChildrenValueOption               `json:"option_list,omitempty"`           // 当字段类型为多选时, 从此字段取值
+	TimeRange            *GetHireTalentV2RespCustomizedDataChildrenValueTimeRange              `json:"time_range,omitempty"`            // 当字段类型为时间段时, 从此字段取值
+	Time                 string                                                                `json:"time,omitempty"`                  // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是秒级时间戳
+	Number               string                                                                `json:"number,omitempty"`                // 当字段类型为数字时, 从此字段取值
+	CustomizedAttachment []*GetHireTalentV2RespCustomizedDataChildrenValueCustomizedAttachment `json:"customized_attachment,omitempty"` // 当字段类型为附件时, 从此字段取值
 }
-
-
-
-
 
 // GetHireTalentV2RespCustomizedDataChildrenValueCustomizedAttachment ...
-type GetHireTalentV2RespCustomizedDataChildrenValueCustomizedAttachment struct { 
-FileID string `json:"file_id,omitempty"` // 附件 ID, 详情请查看: [获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get)
-FileName string `json:"file_name,omitempty"` // 附件名称
-ContentType string `json:"content_type,omitempty"` // 附件类型
-FileSize int64 `json:"file_size,omitempty"` // 附件大小
+type GetHireTalentV2RespCustomizedDataChildrenValueCustomizedAttachment struct {
+	FileID      string `json:"file_id,omitempty"`      // 附件 ID, 详情请查看: [获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get)
+	FileName    string `json:"file_name,omitempty"`    // 附件名称
+	ContentType string `json:"content_type,omitempty"` // 附件类型
+	FileSize    int64  `json:"file_size,omitempty"`    // 附件大小
 }
-
-
-
-
 
 // GetHireTalentV2RespCustomizedDataChildrenValueOption ...
-type GetHireTalentV2RespCustomizedDataChildrenValueOption struct { 
-Key string `json:"key,omitempty"` // 选项 ID
-Name *GetHireTalentV2RespCustomizedDataChildrenValueOptionName `json:"name,omitempty"` // 选项名称
+type GetHireTalentV2RespCustomizedDataChildrenValueOption struct {
+	Key  string                                                    `json:"key,omitempty"`  // 选项 ID
+	Name *GetHireTalentV2RespCustomizedDataChildrenValueOptionName `json:"name,omitempty"` // 选项名称
 }
-
-
-
-
 
 // GetHireTalentV2RespCustomizedDataChildrenValueOptionName ...
-type GetHireTalentV2RespCustomizedDataChildrenValueOptionName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 选项中文名称
-EnUs string `json:"en_us,omitempty"` // 选项英文名称
+type GetHireTalentV2RespCustomizedDataChildrenValueOptionName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 选项中文名称
+	EnUs string `json:"en_us,omitempty"` // 选项英文名称
 }
-
-
-
-
 
 // GetHireTalentV2RespCustomizedDataChildrenValueTimeRange ...
-type GetHireTalentV2RespCustomizedDataChildrenValueTimeRange struct { 
-StartTime string `json:"start_time,omitempty"` // 开始时间, 秒级时间戳
-EndTime string `json:"end_time,omitempty"` // 结束时间, 当值为至今时, 返回「-」, 秒级时间戳
+type GetHireTalentV2RespCustomizedDataChildrenValueTimeRange struct {
+	StartTime string `json:"start_time,omitempty"` // 开始时间, 秒级时间戳
+	EndTime   string `json:"end_time,omitempty"`   // 结束时间, 当值为至今时, 返回「-」, 秒级时间戳
 }
-
-
-
-
 
 // GetHireTalentV2RespCustomizedDataName ...
-type GetHireTalentV2RespCustomizedDataName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 模块中文名称
-EnUs string `json:"en_us,omitempty"` // 模块英文名称
+type GetHireTalentV2RespCustomizedDataName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 模块中文名称
+	EnUs string `json:"en_us,omitempty"` // 模块英文名称
 }
-
-
-
-
 
 // GetHireTalentV2RespEducation ...
-type GetHireTalentV2RespEducation struct { 
-Degree int64 `json:"degree,omitempty"` // 学位可选值有: 小学初中专职高中大专本科硕士博士其他
-SchoolName string `json:"school_name,omitempty"` // 学校名称
-Major string `json:"major,omitempty"` // 专业
-StartTime string `json:"start_time,omitempty"` // 教育经历的起始日期, 精确到月份, 格式为YYYY-MM
-EndTime string `json:"end_time,omitempty"` // 教育经历的结束时间, 精确到月份, 格式为YYYY-MM
-EducationType int64 `json:"education_type,omitempty"` // 学历类型可选值有: 海外及港台统招全日制非全日制自考其他
-AcademicRanking int64 `json:"academic_ranking,omitempty"` // 成绩排名可选值有: 前 5 %前 10 %前 20 %前 30 %前 50 %其他
-CustomizedDataList []*GetHireTalentV2RespEducationCustomizedData `json:"customized_data_list,omitempty"` // 自定义字段
+type GetHireTalentV2RespEducation struct {
+	Degree             int64                                         `json:"degree,omitempty"`               // 学位可选值有: 小学初中专职高中大专本科硕士博士其他
+	SchoolName         string                                        `json:"school_name,omitempty"`          // 学校名称
+	Major              string                                        `json:"major,omitempty"`                // 专业
+	StartTime          string                                        `json:"start_time,omitempty"`           // 教育经历的起始日期, 精确到月份, 格式为YYYY-MM
+	EndTime            string                                        `json:"end_time,omitempty"`             // 教育经历的结束时间, 精确到月份, 格式为YYYY-MM
+	EducationType      int64                                         `json:"education_type,omitempty"`       // 学历类型可选值有: 海外及港台统招全日制非全日制自考其他
+	AcademicRanking    int64                                         `json:"academic_ranking,omitempty"`     // 成绩排名可选值有: 前 5 %前 10 %前 20 %前 30 %前 50 %其他
+	CustomizedDataList []*GetHireTalentV2RespEducationCustomizedData `json:"customized_data_list,omitempty"` // 自定义字段
 }
-
-
-
-
 
 // GetHireTalentV2RespEducationCustomizedData ...
-type GetHireTalentV2RespEducationCustomizedData struct { 
-ObjectID string `json:"object_id,omitempty"` // 自定义字段 ID, 详情请查看: [获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)
-Name *GetHireTalentV2RespEducationCustomizedDataName `json:"name,omitempty"` // 自定义字段名称
-ObjectType int64 `json:"object_type,omitempty"` // 自定义字段字段类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块日期附件
-Value *GetHireTalentV2RespEducationCustomizedDataValue `json:"value,omitempty"` // 自定义字段值
+type GetHireTalentV2RespEducationCustomizedData struct {
+	ObjectID   string                                           `json:"object_id,omitempty"`   // 自定义字段 ID, 详情请查看: [获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)
+	Name       *GetHireTalentV2RespEducationCustomizedDataName  `json:"name,omitempty"`        // 自定义字段名称
+	ObjectType int64                                            `json:"object_type,omitempty"` // 自定义字段字段类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块日期附件
+	Value      *GetHireTalentV2RespEducationCustomizedDataValue `json:"value,omitempty"`       // 自定义字段值
 }
-
-
-
-
 
 // GetHireTalentV2RespEducationCustomizedDataName ...
-type GetHireTalentV2RespEducationCustomizedDataName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 自定义字段中文名称
-EnUs string `json:"en_us,omitempty"` // 自定义字段英文名称
+type GetHireTalentV2RespEducationCustomizedDataName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 自定义字段中文名称
+	EnUs string `json:"en_us,omitempty"` // 自定义字段英文名称
 }
-
-
-
-
 
 // GetHireTalentV2RespEducationCustomizedDataValue ...
-type GetHireTalentV2RespEducationCustomizedDataValue struct { 
-Content string `json:"content,omitempty"` // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
-Option *GetHireTalentV2RespEducationCustomizedDataValueOption `json:"option,omitempty"` // 当字段类型为单选时, 从此字段取值
-OptionList []*GetHireTalentV2RespEducationCustomizedDataValueOption `json:"option_list,omitempty"` // 当字段类型为多选时, 从此字段取值
-TimeRange *GetHireTalentV2RespEducationCustomizedDataValueTimeRange `json:"time_range,omitempty"` // 当字段类型为时间段时, 从此字段取值
-Time string `json:"time,omitempty"` // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是秒级时间戳
-Number string `json:"number,omitempty"` // 当字段类型为数字时, 从此字段取值
-CustomizedAttachment []*GetHireTalentV2RespEducationCustomizedDataValueCustomizedAttachment `json:"customized_attachment,omitempty"` // 当字段类型为附件时, 从此字段取值
+type GetHireTalentV2RespEducationCustomizedDataValue struct {
+	Content              string                                                                 `json:"content,omitempty"`               // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
+	Option               *GetHireTalentV2RespEducationCustomizedDataValueOption                 `json:"option,omitempty"`                // 当字段类型为单选时, 从此字段取值
+	OptionList           []*GetHireTalentV2RespEducationCustomizedDataValueOption               `json:"option_list,omitempty"`           // 当字段类型为多选时, 从此字段取值
+	TimeRange            *GetHireTalentV2RespEducationCustomizedDataValueTimeRange              `json:"time_range,omitempty"`            // 当字段类型为时间段时, 从此字段取值
+	Time                 string                                                                 `json:"time,omitempty"`                  // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是秒级时间戳
+	Number               string                                                                 `json:"number,omitempty"`                // 当字段类型为数字时, 从此字段取值
+	CustomizedAttachment []*GetHireTalentV2RespEducationCustomizedDataValueCustomizedAttachment `json:"customized_attachment,omitempty"` // 当字段类型为附件时, 从此字段取值
 }
-
-
-
-
 
 // GetHireTalentV2RespEducationCustomizedDataValueCustomizedAttachment ...
-type GetHireTalentV2RespEducationCustomizedDataValueCustomizedAttachment struct { 
-FileID string `json:"file_id,omitempty"` // 附件 ID, 详情请查看: [获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get)
-FileName string `json:"file_name,omitempty"` // 附件名称
-ContentType string `json:"content_type,omitempty"` // 附件类型
-FileSize int64 `json:"file_size,omitempty"` // 附件大小
+type GetHireTalentV2RespEducationCustomizedDataValueCustomizedAttachment struct {
+	FileID      string `json:"file_id,omitempty"`      // 附件 ID, 详情请查看: [获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get)
+	FileName    string `json:"file_name,omitempty"`    // 附件名称
+	ContentType string `json:"content_type,omitempty"` // 附件类型
+	FileSize    int64  `json:"file_size,omitempty"`    // 附件大小
 }
-
-
-
-
 
 // GetHireTalentV2RespEducationCustomizedDataValueOption ...
-type GetHireTalentV2RespEducationCustomizedDataValueOption struct { 
-Key string `json:"key,omitempty"` // 选项 ID
-Name *GetHireTalentV2RespEducationCustomizedDataValueOptionName `json:"name,omitempty"` // 选项名称
+type GetHireTalentV2RespEducationCustomizedDataValueOption struct {
+	Key  string                                                     `json:"key,omitempty"`  // 选项 ID
+	Name *GetHireTalentV2RespEducationCustomizedDataValueOptionName `json:"name,omitempty"` // 选项名称
 }
-
-
-
-
 
 // GetHireTalentV2RespEducationCustomizedDataValueOptionName ...
-type GetHireTalentV2RespEducationCustomizedDataValueOptionName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 选项中文名称
-EnUs string `json:"en_us,omitempty"` // 选项英文名称
+type GetHireTalentV2RespEducationCustomizedDataValueOptionName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 选项中文名称
+	EnUs string `json:"en_us,omitempty"` // 选项英文名称
 }
-
-
-
-
 
 // GetHireTalentV2RespEducationCustomizedDataValueTimeRange ...
-type GetHireTalentV2RespEducationCustomizedDataValueTimeRange struct { 
-StartTime string `json:"start_time,omitempty"` // 开始时间, 秒级时间戳
-EndTime string `json:"end_time,omitempty"` // 结束时间, 当值为至今时, 返回「-」, 秒级时间戳
+type GetHireTalentV2RespEducationCustomizedDataValueTimeRange struct {
+	StartTime string `json:"start_time,omitempty"` // 开始时间, 秒级时间戳
+	EndTime   string `json:"end_time,omitempty"`   // 结束时间, 当值为至今时, 返回「-」, 秒级时间戳
 }
-
-
-
-
 
 // GetHireTalentV2RespInternship ...
-type GetHireTalentV2RespInternship struct { 
-CompanyName string `json:"company_name,omitempty"` // 实习公司名称
-Description string `json:"description,omitempty"` // 实习公司描述
-EndTime string `json:"end_time,omitempty"` // 实习的结束日期, 精确到月份, 格式为YYYY-MM
-StartTime string `json:"start_time,omitempty"` // 实习的开始日期, 精确到月份, 格式为YYYY-MM
-Title string `json:"title,omitempty"` // 职位名称
-CustomizedDataList []*GetHireTalentV2RespInternshipCustomizedData `json:"customized_data_list,omitempty"` // 自定义字段
+type GetHireTalentV2RespInternship struct {
+	CompanyName        string                                         `json:"company_name,omitempty"`         // 实习公司名称
+	Description        string                                         `json:"description,omitempty"`          // 实习公司描述
+	EndTime            string                                         `json:"end_time,omitempty"`             // 实习的结束日期, 精确到月份, 格式为YYYY-MM
+	StartTime          string                                         `json:"start_time,omitempty"`           // 实习的开始日期, 精确到月份, 格式为YYYY-MM
+	Title              string                                         `json:"title,omitempty"`                // 职位名称
+	CustomizedDataList []*GetHireTalentV2RespInternshipCustomizedData `json:"customized_data_list,omitempty"` // 自定义字段
 }
-
-
-
-
 
 // GetHireTalentV2RespInternshipCustomizedData ...
-type GetHireTalentV2RespInternshipCustomizedData struct { 
-ObjectID string `json:"object_id,omitempty"` // 自定义字段 ID, 详情请查看: [获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)
-Name *GetHireTalentV2RespInternshipCustomizedDataName `json:"name,omitempty"` // 字段名称
-ObjectType int64 `json:"object_type,omitempty"` // 字段类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块日期附件
-Value *GetHireTalentV2RespInternshipCustomizedDataValue `json:"value,omitempty"` // 自定义字段值
+type GetHireTalentV2RespInternshipCustomizedData struct {
+	ObjectID   string                                            `json:"object_id,omitempty"`   // 自定义字段 ID, 详情请查看: [获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)
+	Name       *GetHireTalentV2RespInternshipCustomizedDataName  `json:"name,omitempty"`        // 字段名称
+	ObjectType int64                                             `json:"object_type,omitempty"` // 字段类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块日期附件
+	Value      *GetHireTalentV2RespInternshipCustomizedDataValue `json:"value,omitempty"`       // 自定义字段值
 }
-
-
-
-
 
 // GetHireTalentV2RespInternshipCustomizedDataName ...
-type GetHireTalentV2RespInternshipCustomizedDataName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 字段中文名称
-EnUs string `json:"en_us,omitempty"` // 字段英文名称
+type GetHireTalentV2RespInternshipCustomizedDataName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 字段中文名称
+	EnUs string `json:"en_us,omitempty"` // 字段英文名称
 }
-
-
-
-
 
 // GetHireTalentV2RespInternshipCustomizedDataValue ...
-type GetHireTalentV2RespInternshipCustomizedDataValue struct { 
-Content string `json:"content,omitempty"` // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
-Option *GetHireTalentV2RespInternshipCustomizedDataValueOption `json:"option,omitempty"` // 当字段类型为单选时, 从此字段取值
-OptionList []*GetHireTalentV2RespInternshipCustomizedDataValueOption `json:"option_list,omitempty"` // 当字段类型为多选时, 从此字段取值
-TimeRange *GetHireTalentV2RespInternshipCustomizedDataValueTimeRange `json:"time_range,omitempty"` // 当字段类型为时间段时, 从此字段取值
-Time string `json:"time,omitempty"` // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是秒级时间戳
-Number string `json:"number,omitempty"` // 当字段类型为数字时, 从此字段取值
-CustomizedAttachment []*GetHireTalentV2RespInternshipCustomizedDataValueCustomizedAttachment `json:"customized_attachment,omitempty"` // 当字段类型为附件时, 从此字段取值
+type GetHireTalentV2RespInternshipCustomizedDataValue struct {
+	Content              string                                                                  `json:"content,omitempty"`               // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
+	Option               *GetHireTalentV2RespInternshipCustomizedDataValueOption                 `json:"option,omitempty"`                // 当字段类型为单选时, 从此字段取值
+	OptionList           []*GetHireTalentV2RespInternshipCustomizedDataValueOption               `json:"option_list,omitempty"`           // 当字段类型为多选时, 从此字段取值
+	TimeRange            *GetHireTalentV2RespInternshipCustomizedDataValueTimeRange              `json:"time_range,omitempty"`            // 当字段类型为时间段时, 从此字段取值
+	Time                 string                                                                  `json:"time,omitempty"`                  // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是秒级时间戳
+	Number               string                                                                  `json:"number,omitempty"`                // 当字段类型为数字时, 从此字段取值
+	CustomizedAttachment []*GetHireTalentV2RespInternshipCustomizedDataValueCustomizedAttachment `json:"customized_attachment,omitempty"` // 当字段类型为附件时, 从此字段取值
 }
-
-
-
-
 
 // GetHireTalentV2RespInternshipCustomizedDataValueCustomizedAttachment ...
-type GetHireTalentV2RespInternshipCustomizedDataValueCustomizedAttachment struct { 
-FileID string `json:"file_id,omitempty"` // 附件 ID, 详情请查看: [获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get)
-FileName string `json:"file_name,omitempty"` // 附件名称
-ContentType string `json:"content_type,omitempty"` // 附件类型
-FileSize int64 `json:"file_size,omitempty"` // 附件大小
+type GetHireTalentV2RespInternshipCustomizedDataValueCustomizedAttachment struct {
+	FileID      string `json:"file_id,omitempty"`      // 附件 ID, 详情请查看: [获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get)
+	FileName    string `json:"file_name,omitempty"`    // 附件名称
+	ContentType string `json:"content_type,omitempty"` // 附件类型
+	FileSize    int64  `json:"file_size,omitempty"`    // 附件大小
 }
-
-
-
-
 
 // GetHireTalentV2RespInternshipCustomizedDataValueOption ...
-type GetHireTalentV2RespInternshipCustomizedDataValueOption struct { 
-Key string `json:"key,omitempty"` // 选项 ID
-Name *GetHireTalentV2RespInternshipCustomizedDataValueOptionName `json:"name,omitempty"` // 选项名称
+type GetHireTalentV2RespInternshipCustomizedDataValueOption struct {
+	Key  string                                                      `json:"key,omitempty"`  // 选项 ID
+	Name *GetHireTalentV2RespInternshipCustomizedDataValueOptionName `json:"name,omitempty"` // 选项名称
 }
-
-
-
-
 
 // GetHireTalentV2RespInternshipCustomizedDataValueOptionName ...
-type GetHireTalentV2RespInternshipCustomizedDataValueOptionName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 选项中文名称
-EnUs string `json:"en_us,omitempty"` // 选项英文名称
+type GetHireTalentV2RespInternshipCustomizedDataValueOptionName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 选项中文名称
+	EnUs string `json:"en_us,omitempty"` // 选项英文名称
 }
-
-
-
-
 
 // GetHireTalentV2RespInternshipCustomizedDataValueTimeRange ...
-type GetHireTalentV2RespInternshipCustomizedDataValueTimeRange struct { 
-StartTime string `json:"start_time,omitempty"` // 开始时间, 秒级时间戳
-EndTime string `json:"end_time,omitempty"` // 结束时间, 当值为至今时, 返回「-」, 秒级时间戳
+type GetHireTalentV2RespInternshipCustomizedDataValueTimeRange struct {
+	StartTime string `json:"start_time,omitempty"` // 开始时间, 秒级时间戳
+	EndTime   string `json:"end_time,omitempty"`   // 结束时间, 当值为至今时, 返回「-」, 秒级时间戳
 }
-
-
-
-
 
 // GetHireTalentV2RespInterviewRegistration ...
-type GetHireTalentV2RespInterviewRegistration struct { 
-ID string `json:"id,omitempty"` // 登记表 ID
-RegistrationTime int64 `json:"registration_time,omitempty"` // 创建时间, 毫秒时间戳
-DownloadURL string `json:"download_url,omitempty"` // 下载链接（有效期7天）
+type GetHireTalentV2RespInterviewRegistration struct {
+	ID               string `json:"id,omitempty"`                // 登记表 ID
+	RegistrationTime int64  `json:"registration_time,omitempty"` // 创建时间, 毫秒时间戳
+	DownloadURL      string `json:"download_url,omitempty"`      // 下载链接（有效期7天）
 }
-
-
-
-
 
 // GetHireTalentV2RespLanguage ...
-type GetHireTalentV2RespLanguage struct { 
-Language int64 `json:"language,omitempty"` // 语言类别可选值有: 英语法语日语韩语德语俄语西班牙语葡萄牙语阿拉伯语印地语印度斯坦语孟加拉语豪萨语旁遮普语波斯语斯瓦西里语泰卢固语土耳其语意大利语爪哇语泰米尔语马拉地语越南语普通话粤语
-Proficiency int64 `json:"proficiency,omitempty"` // 熟练程度可选值有: 入门日常会话商务会话无障碍沟通母语
-CustomizedDataList []*GetHireTalentV2RespLanguageCustomizedData `json:"customized_data_list,omitempty"` // 自定义字段
+type GetHireTalentV2RespLanguage struct {
+	Language           int64                                        `json:"language,omitempty"`             // 语言类别可选值有: 英语法语日语韩语德语俄语西班牙语葡萄牙语阿拉伯语印地语印度斯坦语孟加拉语豪萨语旁遮普语波斯语斯瓦西里语泰卢固语土耳其语意大利语爪哇语泰米尔语马拉地语越南语普通话粤语
+	Proficiency        int64                                        `json:"proficiency,omitempty"`          // 熟练程度可选值有: 入门日常会话商务会话无障碍沟通母语
+	CustomizedDataList []*GetHireTalentV2RespLanguageCustomizedData `json:"customized_data_list,omitempty"` // 自定义字段
 }
-
-
-
-
 
 // GetHireTalentV2RespLanguageCustomizedData ...
-type GetHireTalentV2RespLanguageCustomizedData struct { 
-ObjectID string `json:"object_id,omitempty"` // 自定义字段 ID, 详情请查看: [获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)
-Name *GetHireTalentV2RespLanguageCustomizedDataName `json:"name,omitempty"` // 字段名称
-ObjectType int64 `json:"object_type,omitempty"` // 字段类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块日期附件
-Value *GetHireTalentV2RespLanguageCustomizedDataValue `json:"value,omitempty"` // 自定义字段值
+type GetHireTalentV2RespLanguageCustomizedData struct {
+	ObjectID   string                                          `json:"object_id,omitempty"`   // 自定义字段 ID, 详情请查看: [获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)
+	Name       *GetHireTalentV2RespLanguageCustomizedDataName  `json:"name,omitempty"`        // 字段名称
+	ObjectType int64                                           `json:"object_type,omitempty"` // 字段类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块日期附件
+	Value      *GetHireTalentV2RespLanguageCustomizedDataValue `json:"value,omitempty"`       // 自定义字段值
 }
-
-
-
-
 
 // GetHireTalentV2RespLanguageCustomizedDataName ...
-type GetHireTalentV2RespLanguageCustomizedDataName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 字段中文名称
-EnUs string `json:"en_us,omitempty"` // 字段英文名称
+type GetHireTalentV2RespLanguageCustomizedDataName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 字段中文名称
+	EnUs string `json:"en_us,omitempty"` // 字段英文名称
 }
-
-
-
-
 
 // GetHireTalentV2RespLanguageCustomizedDataValue ...
-type GetHireTalentV2RespLanguageCustomizedDataValue struct { 
-Content string `json:"content,omitempty"` // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
-Option *GetHireTalentV2RespLanguageCustomizedDataValueOption `json:"option,omitempty"` // 当字段类型为单选时, 从此字段取值
-OptionList []*GetHireTalentV2RespLanguageCustomizedDataValueOption `json:"option_list,omitempty"` // 当字段类型为多选时, 从此字段取值
-TimeRange *GetHireTalentV2RespLanguageCustomizedDataValueTimeRange `json:"time_range,omitempty"` // 当字段类型为时间段时, 从此字段取值
-Time string `json:"time,omitempty"` // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是秒级时间戳
-Number string `json:"number,omitempty"` // 当字段类型为数字时, 从此字段取值
-CustomizedAttachment []*GetHireTalentV2RespLanguageCustomizedDataValueCustomizedAttachment `json:"customized_attachment,omitempty"` // 当字段类型为附件时, 从此字段取值
+type GetHireTalentV2RespLanguageCustomizedDataValue struct {
+	Content              string                                                                `json:"content,omitempty"`               // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
+	Option               *GetHireTalentV2RespLanguageCustomizedDataValueOption                 `json:"option,omitempty"`                // 当字段类型为单选时, 从此字段取值
+	OptionList           []*GetHireTalentV2RespLanguageCustomizedDataValueOption               `json:"option_list,omitempty"`           // 当字段类型为多选时, 从此字段取值
+	TimeRange            *GetHireTalentV2RespLanguageCustomizedDataValueTimeRange              `json:"time_range,omitempty"`            // 当字段类型为时间段时, 从此字段取值
+	Time                 string                                                                `json:"time,omitempty"`                  // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是秒级时间戳
+	Number               string                                                                `json:"number,omitempty"`                // 当字段类型为数字时, 从此字段取值
+	CustomizedAttachment []*GetHireTalentV2RespLanguageCustomizedDataValueCustomizedAttachment `json:"customized_attachment,omitempty"` // 当字段类型为附件时, 从此字段取值
 }
-
-
-
-
 
 // GetHireTalentV2RespLanguageCustomizedDataValueCustomizedAttachment ...
-type GetHireTalentV2RespLanguageCustomizedDataValueCustomizedAttachment struct { 
-FileID string `json:"file_id,omitempty"` // 附件 ID, 详情请查看: [获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get)
-FileName string `json:"file_name,omitempty"` // 附件名称
-ContentType string `json:"content_type,omitempty"` // 附件类型
-FileSize int64 `json:"file_size,omitempty"` // 附件大小
+type GetHireTalentV2RespLanguageCustomizedDataValueCustomizedAttachment struct {
+	FileID      string `json:"file_id,omitempty"`      // 附件 ID, 详情请查看: [获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get)
+	FileName    string `json:"file_name,omitempty"`    // 附件名称
+	ContentType string `json:"content_type,omitempty"` // 附件类型
+	FileSize    int64  `json:"file_size,omitempty"`    // 附件大小
 }
-
-
-
-
 
 // GetHireTalentV2RespLanguageCustomizedDataValueOption ...
-type GetHireTalentV2RespLanguageCustomizedDataValueOption struct { 
-Key string `json:"key,omitempty"` // 选项 ID
-Name *GetHireTalentV2RespLanguageCustomizedDataValueOptionName `json:"name,omitempty"` // 选项名称
+type GetHireTalentV2RespLanguageCustomizedDataValueOption struct {
+	Key  string                                                    `json:"key,omitempty"`  // 选项 ID
+	Name *GetHireTalentV2RespLanguageCustomizedDataValueOptionName `json:"name,omitempty"` // 选项名称
 }
-
-
-
-
 
 // GetHireTalentV2RespLanguageCustomizedDataValueOptionName ...
-type GetHireTalentV2RespLanguageCustomizedDataValueOptionName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 选项中文名称
-EnUs string `json:"en_us,omitempty"` // 选项英文名称
+type GetHireTalentV2RespLanguageCustomizedDataValueOptionName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 选项中文名称
+	EnUs string `json:"en_us,omitempty"` // 选项英文名称
 }
-
-
-
-
 
 // GetHireTalentV2RespLanguageCustomizedDataValueTimeRange ...
-type GetHireTalentV2RespLanguageCustomizedDataValueTimeRange struct { 
-StartTime string `json:"start_time,omitempty"` // 开始时间, 秒级时间戳
-EndTime string `json:"end_time,omitempty"` // 结束时间, 当值为至今时, 返回「-」, 秒级时间戳
+type GetHireTalentV2RespLanguageCustomizedDataValueTimeRange struct {
+	StartTime string `json:"start_time,omitempty"` // 开始时间, 秒级时间戳
+	EndTime   string `json:"end_time,omitempty"`   // 结束时间, 当值为至今时, 返回「-」, 秒级时间戳
 }
-
-
-
-
 
 // GetHireTalentV2RespNoteListV2 ...
-type GetHireTalentV2RespNoteListV2 struct { 
-ID string `json:"id,omitempty"` // 备注 ID
-TalentID string `json:"talent_id,omitempty"` // 人才 ID
-ApplicationID string `json:"application_id,omitempty"` // 投递 ID, 详情可查看[获取投递信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get)
-CreateTime string `json:"create_time,omitempty"` // 人才备注创建时间, 毫秒级时间戳
-UpdateTime string `json:"update_time,omitempty"` // 人才备注更新时间, 毫秒级时间戳
-CreatorID string `json:"creator_id,omitempty"` // 创建人ID, 与入参`user_id_type`类型一致
-Content string `json:"content,omitempty"` // 备注内容
-Privacy int64 `json:"privacy,omitempty"` // 备注私密属性可选值有: 私密公开
+type GetHireTalentV2RespNoteListV2 struct {
+	ID            string `json:"id,omitempty"`             // 备注 ID
+	TalentID      string `json:"talent_id,omitempty"`      // 人才 ID
+	ApplicationID string `json:"application_id,omitempty"` // 投递 ID, 详情可查看[获取投递信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get)
+	CreateTime    string `json:"create_time,omitempty"`    // 人才备注创建时间, 毫秒级时间戳
+	UpdateTime    string `json:"update_time,omitempty"`    // 人才备注更新时间, 毫秒级时间戳
+	CreatorID     string `json:"creator_id,omitempty"`     // 创建人ID, 与入参`user_id_type`类型一致
+	Content       string `json:"content,omitempty"`        // 备注内容
+	Privacy       int64  `json:"privacy,omitempty"`        // 备注私密属性可选值有: 私密公开
 }
-
-
-
-
 
 // GetHireTalentV2RespProject ...
-type GetHireTalentV2RespProject struct { 
-ProjectName string `json:"project_name,omitempty"` // 项目名称
-Role string `json:"role,omitempty"` // 项目角色
-Link string `json:"link,omitempty"` // 项目链接（访问型链接, 无有效期限制）
-Description string `json:"description,omitempty"` // 项目描述
-StartTime string `json:"start_time,omitempty"` // 项目的开始日期, 精确到月份, 格式为YYYY-MM
-EndTime string `json:"end_time,omitempty"` // 项目的结束日期, 精确到月份, 格式为YYYY-MM
-CustomizedDataList []*GetHireTalentV2RespProjectCustomizedData `json:"customized_data_list,omitempty"` // 自定义字段
+type GetHireTalentV2RespProject struct {
+	ProjectName        string                                      `json:"project_name,omitempty"`         // 项目名称
+	Role               string                                      `json:"role,omitempty"`                 // 项目角色
+	Link               string                                      `json:"link,omitempty"`                 // 项目链接（访问型链接, 无有效期限制）
+	Description        string                                      `json:"description,omitempty"`          // 项目描述
+	StartTime          string                                      `json:"start_time,omitempty"`           // 项目的开始日期, 精确到月份, 格式为YYYY-MM
+	EndTime            string                                      `json:"end_time,omitempty"`             // 项目的结束日期, 精确到月份, 格式为YYYY-MM
+	CustomizedDataList []*GetHireTalentV2RespProjectCustomizedData `json:"customized_data_list,omitempty"` // 自定义字段
 }
-
-
-
-
 
 // GetHireTalentV2RespProjectCustomizedData ...
-type GetHireTalentV2RespProjectCustomizedData struct { 
-ObjectID string `json:"object_id,omitempty"` // 自定义字段 ID, 详情请查看: [获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)
-Name *GetHireTalentV2RespProjectCustomizedDataName `json:"name,omitempty"` // 字段名称
-ObjectType int64 `json:"object_type,omitempty"` // 字段类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块日期附件
-Value *GetHireTalentV2RespProjectCustomizedDataValue `json:"value,omitempty"` // 自定义字段值
+type GetHireTalentV2RespProjectCustomizedData struct {
+	ObjectID   string                                         `json:"object_id,omitempty"`   // 自定义字段 ID, 详情请查看: [获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)
+	Name       *GetHireTalentV2RespProjectCustomizedDataName  `json:"name,omitempty"`        // 字段名称
+	ObjectType int64                                          `json:"object_type,omitempty"` // 字段类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块日期附件
+	Value      *GetHireTalentV2RespProjectCustomizedDataValue `json:"value,omitempty"`       // 自定义字段值
 }
-
-
-
-
 
 // GetHireTalentV2RespProjectCustomizedDataName ...
-type GetHireTalentV2RespProjectCustomizedDataName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 字段中文名称
-EnUs string `json:"en_us,omitempty"` // 字段英文名称
+type GetHireTalentV2RespProjectCustomizedDataName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 字段中文名称
+	EnUs string `json:"en_us,omitempty"` // 字段英文名称
 }
-
-
-
-
 
 // GetHireTalentV2RespProjectCustomizedDataValue ...
-type GetHireTalentV2RespProjectCustomizedDataValue struct { 
-Content string `json:"content,omitempty"` // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
-Option *GetHireTalentV2RespProjectCustomizedDataValueOption `json:"option,omitempty"` // 当字段类型为单选时, 从此字段取值
-OptionList []*GetHireTalentV2RespProjectCustomizedDataValueOption `json:"option_list,omitempty"` // 当字段类型为多选时, 从此字段取值
-TimeRange *GetHireTalentV2RespProjectCustomizedDataValueTimeRange `json:"time_range,omitempty"` // 当字段类型为时间段时, 从此字段取值
-Time string `json:"time,omitempty"` // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是秒级时间戳
-Number string `json:"number,omitempty"` // 当字段类型为数字时, 从此字段取值
-CustomizedAttachment []*GetHireTalentV2RespProjectCustomizedDataValueCustomizedAttachment `json:"customized_attachment,omitempty"` // 当字段类型为附件时, 从此字段取值
+type GetHireTalentV2RespProjectCustomizedDataValue struct {
+	Content              string                                                               `json:"content,omitempty"`               // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
+	Option               *GetHireTalentV2RespProjectCustomizedDataValueOption                 `json:"option,omitempty"`                // 当字段类型为单选时, 从此字段取值
+	OptionList           []*GetHireTalentV2RespProjectCustomizedDataValueOption               `json:"option_list,omitempty"`           // 当字段类型为多选时, 从此字段取值
+	TimeRange            *GetHireTalentV2RespProjectCustomizedDataValueTimeRange              `json:"time_range,omitempty"`            // 当字段类型为时间段时, 从此字段取值
+	Time                 string                                                               `json:"time,omitempty"`                  // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是秒级时间戳
+	Number               string                                                               `json:"number,omitempty"`                // 当字段类型为数字时, 从此字段取值
+	CustomizedAttachment []*GetHireTalentV2RespProjectCustomizedDataValueCustomizedAttachment `json:"customized_attachment,omitempty"` // 当字段类型为附件时, 从此字段取值
 }
-
-
-
-
 
 // GetHireTalentV2RespProjectCustomizedDataValueCustomizedAttachment ...
-type GetHireTalentV2RespProjectCustomizedDataValueCustomizedAttachment struct { 
-FileID string `json:"file_id,omitempty"` // 附件 ID, 详情请查看: [获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get)
-FileName string `json:"file_name,omitempty"` // 附件名称
-ContentType string `json:"content_type,omitempty"` // 附件类型
-FileSize int64 `json:"file_size,omitempty"` // 附件大小
+type GetHireTalentV2RespProjectCustomizedDataValueCustomizedAttachment struct {
+	FileID      string `json:"file_id,omitempty"`      // 附件 ID, 详情请查看: [获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get)
+	FileName    string `json:"file_name,omitempty"`    // 附件名称
+	ContentType string `json:"content_type,omitempty"` // 附件类型
+	FileSize    int64  `json:"file_size,omitempty"`    // 附件大小
 }
-
-
-
-
 
 // GetHireTalentV2RespProjectCustomizedDataValueOption ...
-type GetHireTalentV2RespProjectCustomizedDataValueOption struct { 
-Key string `json:"key,omitempty"` // 选项 ID
-Name *GetHireTalentV2RespProjectCustomizedDataValueOptionName `json:"name,omitempty"` // 选项名称
+type GetHireTalentV2RespProjectCustomizedDataValueOption struct {
+	Key  string                                                   `json:"key,omitempty"`  // 选项 ID
+	Name *GetHireTalentV2RespProjectCustomizedDataValueOptionName `json:"name,omitempty"` // 选项名称
 }
-
-
-
-
 
 // GetHireTalentV2RespProjectCustomizedDataValueOptionName ...
-type GetHireTalentV2RespProjectCustomizedDataValueOptionName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 选项中文名称
-EnUs string `json:"en_us,omitempty"` // 选项英文名称
+type GetHireTalentV2RespProjectCustomizedDataValueOptionName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 选项中文名称
+	EnUs string `json:"en_us,omitempty"` // 选项英文名称
 }
-
-
-
-
 
 // GetHireTalentV2RespProjectCustomizedDataValueTimeRange ...
-type GetHireTalentV2RespProjectCustomizedDataValueTimeRange struct { 
-StartTime string `json:"start_time,omitempty"` // 开始时间, 秒级时间戳
-EndTime string `json:"end_time,omitempty"` // 结束时间, 当值为至今时, 返回「-」, 秒级时间戳
+type GetHireTalentV2RespProjectCustomizedDataValueTimeRange struct {
+	StartTime string `json:"start_time,omitempty"` // 开始时间, 秒级时间戳
+	EndTime   string `json:"end_time,omitempty"`   // 结束时间, 当值为至今时, 返回「-」, 秒级时间戳
 }
-
-
-
-
 
 // GetHireTalentV2RespRegistration ...
-type GetHireTalentV2RespRegistration struct { 
-ID string `json:"id,omitempty"` // 登记表 ID
-RegistrationTime int64 `json:"registration_time,omitempty"` // 创建时间, 毫秒时间戳
-DownloadURL string `json:"download_url,omitempty"` // 下载链接（有效期7天）
-Scenario int64 `json:"scenario,omitempty"` // 登记表场景可选值有: 面试登记表入职登记表信息更新登记表
+type GetHireTalentV2RespRegistration struct {
+	ID               string `json:"id,omitempty"`                // 登记表 ID
+	RegistrationTime int64  `json:"registration_time,omitempty"` // 创建时间, 毫秒时间戳
+	DownloadURL      string `json:"download_url,omitempty"`      // 下载链接（有效期7天）
+	Scenario         int64  `json:"scenario,omitempty"`          // 登记表场景可选值有: 面试登记表入职登记表信息更新登记表
 }
-
-
-
-
 
 // GetHireTalentV2RespResumeAttachment ...
-type GetHireTalentV2RespResumeAttachment struct { 
-ID string `json:"id,omitempty"` // ID
-Name string `json:"name,omitempty"` // 附件名, 包含文件类型后缀, 例如【简历.pdf】
-Mime string `json:"mime,omitempty"` // 附件MIME类型
-CreateTime string `json:"create_time,omitempty"` // 创建时间, 为毫秒级的时间戳
+type GetHireTalentV2RespResumeAttachment struct {
+	ID         string `json:"id,omitempty"`          // ID
+	Name       string `json:"name,omitempty"`        // 附件名, 包含文件类型后缀, 例如【简历.pdf】
+	Mime       string `json:"mime,omitempty"`        // 附件MIME类型
+	CreateTime string `json:"create_time,omitempty"` // 创建时间, 为毫秒级的时间戳
 }
-
-
-
-
 
 // GetHireTalentV2RespResumeSource ...
-type GetHireTalentV2RespResumeSource struct { 
-ID string `json:"id,omitempty"` // 简历来源 ID, 详情请查看: [获取简历来源列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/resume_source/list)
-ZhName string `json:"zh_name,omitempty"` // 简历来源中文名称
-EnName string `json:"en_name,omitempty"` // 简历来源英文名称
+type GetHireTalentV2RespResumeSource struct {
+	ID     string `json:"id,omitempty"`      // 简历来源 ID, 详情请查看: [获取简历来源列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/resume_source/list)
+	ZhName string `json:"zh_name,omitempty"` // 简历来源中文名称
+	EnName string `json:"en_name,omitempty"` // 简历来源英文名称
 }
-
-
-
-
 
 // GetHireTalentV2RespSimilarInfoV2 ...
-type GetHireTalentV2RespSimilarInfoV2 struct { 
-IsSimilarTalent bool `json:"is_similar_talent,omitempty"` // 是否相似人才
-SimilarTalentIDList []string `json:"similar_talent_id_list,omitempty"` // 相似人才 ID 列表
+type GetHireTalentV2RespSimilarInfoV2 struct {
+	IsSimilarTalent     bool     `json:"is_similar_talent,omitempty"`      // 是否相似人才
+	SimilarTalentIDList []string `json:"similar_talent_id_list,omitempty"` // 相似人才 ID 列表
 }
-
-
-
-
 
 // GetHireTalentV2RespSns ...
-type GetHireTalentV2RespSns struct { 
-SnsType int64 `json:"sns_type,omitempty"` // 社交平台可选值有: 领英脉脉微信微博Github知乎脸书推特Whatsapp个人网站QQ
-Link string `json:"link,omitempty"` // URL/ID
-CustomizedDataList []*GetHireTalentV2RespSnsCustomizedData `json:"customized_data_list,omitempty"` // 自定义字段
+type GetHireTalentV2RespSns struct {
+	SnsType            int64                                   `json:"sns_type,omitempty"`             // 社交平台可选值有: 领英脉脉微信微博Github知乎脸书推特Whatsapp个人网站QQ
+	Link               string                                  `json:"link,omitempty"`                 // URL/ID
+	CustomizedDataList []*GetHireTalentV2RespSnsCustomizedData `json:"customized_data_list,omitempty"` // 自定义字段
 }
-
-
-
-
 
 // GetHireTalentV2RespSnsCustomizedData ...
-type GetHireTalentV2RespSnsCustomizedData struct { 
-ObjectID string `json:"object_id,omitempty"` // 自定义字段 ID, 详情请查看: [获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)
-Name *GetHireTalentV2RespSnsCustomizedDataName `json:"name,omitempty"` // 字段名称
-ObjectType int64 `json:"object_type,omitempty"` // 字段类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块日期附件
-Value *GetHireTalentV2RespSnsCustomizedDataValue `json:"value,omitempty"` // 自定义字段值
+type GetHireTalentV2RespSnsCustomizedData struct {
+	ObjectID   string                                     `json:"object_id,omitempty"`   // 自定义字段 ID, 详情请查看: [获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)
+	Name       *GetHireTalentV2RespSnsCustomizedDataName  `json:"name,omitempty"`        // 字段名称
+	ObjectType int64                                      `json:"object_type,omitempty"` // 字段类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块日期附件
+	Value      *GetHireTalentV2RespSnsCustomizedDataValue `json:"value,omitempty"`       // 自定义字段值
 }
-
-
-
-
 
 // GetHireTalentV2RespSnsCustomizedDataName ...
-type GetHireTalentV2RespSnsCustomizedDataName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 字段中文名称
-EnUs string `json:"en_us,omitempty"` // 字段英文名称
+type GetHireTalentV2RespSnsCustomizedDataName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 字段中文名称
+	EnUs string `json:"en_us,omitempty"` // 字段英文名称
 }
-
-
-
-
 
 // GetHireTalentV2RespSnsCustomizedDataValue ...
-type GetHireTalentV2RespSnsCustomizedDataValue struct { 
-Content string `json:"content,omitempty"` // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
-Option *GetHireTalentV2RespSnsCustomizedDataValueOption `json:"option,omitempty"` // 当字段类型为单选时, 从此字段取值
-OptionList []*GetHireTalentV2RespSnsCustomizedDataValueOption `json:"option_list,omitempty"` // 当字段类型为多选时, 从此字段取值
-TimeRange *GetHireTalentV2RespSnsCustomizedDataValueTimeRange `json:"time_range,omitempty"` // 当字段类型为时间段时, 从此字段取值
-Time string `json:"time,omitempty"` // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是秒级时间戳
-Number string `json:"number,omitempty"` // 当字段类型为数字时, 从此字段取值
-CustomizedAttachment []*GetHireTalentV2RespSnsCustomizedDataValueCustomizedAttachment `json:"customized_attachment,omitempty"` // 当字段类型为附件时, 从此字段取值
+type GetHireTalentV2RespSnsCustomizedDataValue struct {
+	Content              string                                                           `json:"content,omitempty"`               // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
+	Option               *GetHireTalentV2RespSnsCustomizedDataValueOption                 `json:"option,omitempty"`                // 当字段类型为单选时, 从此字段取值
+	OptionList           []*GetHireTalentV2RespSnsCustomizedDataValueOption               `json:"option_list,omitempty"`           // 当字段类型为多选时, 从此字段取值
+	TimeRange            *GetHireTalentV2RespSnsCustomizedDataValueTimeRange              `json:"time_range,omitempty"`            // 当字段类型为时间段时, 从此字段取值
+	Time                 string                                                           `json:"time,omitempty"`                  // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是秒级时间戳
+	Number               string                                                           `json:"number,omitempty"`                // 当字段类型为数字时, 从此字段取值
+	CustomizedAttachment []*GetHireTalentV2RespSnsCustomizedDataValueCustomizedAttachment `json:"customized_attachment,omitempty"` // 当字段类型为附件时, 从此字段取值
 }
-
-
-
-
 
 // GetHireTalentV2RespSnsCustomizedDataValueCustomizedAttachment ...
-type GetHireTalentV2RespSnsCustomizedDataValueCustomizedAttachment struct { 
-FileID string `json:"file_id,omitempty"` // 附件 ID, 详情请查看: [获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get)
-FileName string `json:"file_name,omitempty"` // 附件名称
-ContentType string `json:"content_type,omitempty"` // 附件类型
-FileSize int64 `json:"file_size,omitempty"` // 附件大小
+type GetHireTalentV2RespSnsCustomizedDataValueCustomizedAttachment struct {
+	FileID      string `json:"file_id,omitempty"`      // 附件 ID, 详情请查看: [获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get)
+	FileName    string `json:"file_name,omitempty"`    // 附件名称
+	ContentType string `json:"content_type,omitempty"` // 附件类型
+	FileSize    int64  `json:"file_size,omitempty"`    // 附件大小
 }
-
-
-
-
 
 // GetHireTalentV2RespSnsCustomizedDataValueOption ...
-type GetHireTalentV2RespSnsCustomizedDataValueOption struct { 
-Key string `json:"key,omitempty"` // 选项 ID
-Name *GetHireTalentV2RespSnsCustomizedDataValueOptionName `json:"name,omitempty"` // 选项名称
+type GetHireTalentV2RespSnsCustomizedDataValueOption struct {
+	Key  string                                               `json:"key,omitempty"`  // 选项 ID
+	Name *GetHireTalentV2RespSnsCustomizedDataValueOptionName `json:"name,omitempty"` // 选项名称
 }
-
-
-
-
 
 // GetHireTalentV2RespSnsCustomizedDataValueOptionName ...
-type GetHireTalentV2RespSnsCustomizedDataValueOptionName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 选项中文名称
-EnUs string `json:"en_us,omitempty"` // 选项英文名称
+type GetHireTalentV2RespSnsCustomizedDataValueOptionName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 选项中文名称
+	EnUs string `json:"en_us,omitempty"` // 选项英文名称
 }
-
-
-
-
 
 // GetHireTalentV2RespSnsCustomizedDataValueTimeRange ...
-type GetHireTalentV2RespSnsCustomizedDataValueTimeRange struct { 
-StartTime string `json:"start_time,omitempty"` // 开始时间, 秒级时间戳
-EndTime string `json:"end_time,omitempty"` // 结束时间, 当值为至今时, 返回「-」, 秒级时间戳
+type GetHireTalentV2RespSnsCustomizedDataValueTimeRange struct {
+	StartTime string `json:"start_time,omitempty"` // 开始时间, 秒级时间戳
+	EndTime   string `json:"end_time,omitempty"`   // 结束时间, 当值为至今时, 返回「-」, 秒级时间戳
 }
-
-
-
-
 
 // GetHireTalentV2RespTag ...
-type GetHireTalentV2RespTag struct { 
-ID string `json:"id,omitempty"` // 标签 ID
-Name *GetHireTalentV2RespTagName `json:"name,omitempty"` // 标签名称
-Description *GetHireTalentV2RespTagDescription `json:"description,omitempty"` // 标签描述
-Type int64 `json:"type,omitempty"` // 标签类型可选值有: 手动标签自动标签
+type GetHireTalentV2RespTag struct {
+	ID          string                             `json:"id,omitempty"`          // 标签 ID
+	Name        *GetHireTalentV2RespTagName        `json:"name,omitempty"`        // 标签名称
+	Description *GetHireTalentV2RespTagDescription `json:"description,omitempty"` // 标签描述
+	Type        int64                              `json:"type,omitempty"`        // 标签类型可选值有: 手动标签自动标签
 }
-
-
-
-
 
 // GetHireTalentV2RespTagDescription ...
-type GetHireTalentV2RespTagDescription struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 标签中文描述
-EnUs string `json:"en_us,omitempty"` // 标签英文描述
+type GetHireTalentV2RespTagDescription struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 标签中文描述
+	EnUs string `json:"en_us,omitempty"` // 标签英文描述
 }
-
-
-
-
 
 // GetHireTalentV2RespTagName ...
-type GetHireTalentV2RespTagName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 标签中文名称
-EnUs string `json:"en_us,omitempty"` // 标签英文名称
+type GetHireTalentV2RespTagName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 标签中文名称
+	EnUs string `json:"en_us,omitempty"` // 标签英文名称
 }
-
-
-
-
 
 // GetHireTalentV2RespTalentFolderRefListV2 ...
-type GetHireTalentV2RespTalentFolderRefListV2 struct { 
-Name string `json:"name,omitempty"` // 文件夹名称
-FolderID string `json:"folder_id,omitempty"` // 文件夹 ID
-OwnerID string `json:"owner_id,omitempty"` // 所有者 ID
-AddTime string `json:"add_time,omitempty"` // 文件夹加入时间, 毫秒时间戳
+type GetHireTalentV2RespTalentFolderRefListV2 struct {
+	Name     string `json:"name,omitempty"`      // 文件夹名称
+	FolderID string `json:"folder_id,omitempty"` // 文件夹 ID
+	OwnerID  string `json:"owner_id,omitempty"`  // 所有者 ID
+	AddTime  string `json:"add_time,omitempty"`  // 文件夹加入时间, 毫秒时间戳
 }
-
-
-
-
 
 // GetHireTalentV2RespTalentPoolRefListV2 ...
-type GetHireTalentV2RespTalentPoolRefListV2 struct { 
-ID string `json:"id,omitempty"` // 人才库 ID
-Name *GetHireTalentV2RespTalentPoolRefListV2Name `json:"name,omitempty"` // 人才库名称
-Description *GetHireTalentV2RespTalentPoolRefListV2Description `json:"description,omitempty"` // 人才库描述
-AddTime string `json:"add_time,omitempty"` // 人才库加入时间, 毫秒级时间戳
+type GetHireTalentV2RespTalentPoolRefListV2 struct {
+	ID          string                                             `json:"id,omitempty"`          // 人才库 ID
+	Name        *GetHireTalentV2RespTalentPoolRefListV2Name        `json:"name,omitempty"`        // 人才库名称
+	Description *GetHireTalentV2RespTalentPoolRefListV2Description `json:"description,omitempty"` // 人才库描述
+	AddTime     string                                             `json:"add_time,omitempty"`    // 人才库加入时间, 毫秒级时间戳
 }
-
-
-
-
 
 // GetHireTalentV2RespTalentPoolRefListV2Description ...
-type GetHireTalentV2RespTalentPoolRefListV2Description struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 人才库中文描述
-EnUs string `json:"en_us,omitempty"` // 人才库英文名称
+type GetHireTalentV2RespTalentPoolRefListV2Description struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 人才库中文描述
+	EnUs string `json:"en_us,omitempty"` // 人才库英文名称
 }
-
-
-
-
 
 // GetHireTalentV2RespTalentPoolRefListV2Name ...
-type GetHireTalentV2RespTalentPoolRefListV2Name struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 人才库中文名称
-EnUs string `json:"en_us,omitempty"` // 人才库英文名称
+type GetHireTalentV2RespTalentPoolRefListV2Name struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 人才库中文名称
+	EnUs string `json:"en_us,omitempty"` // 人才库英文名称
 }
-
-
-
-
 
 // GetHireTalentV2RespWorks ...
-type GetHireTalentV2RespWorks struct { 
-ID string `json:"id,omitempty"` // 作品 ID
-Link string `json:"link,omitempty"` // 作品链接（访问型链接, 无有效期限制）
-Description string `json:"description,omitempty"` // 作品描述
-CustomizedDataList []*GetHireTalentV2RespWorksCustomizedData `json:"customized_data_list,omitempty"` // 自定义字段
+type GetHireTalentV2RespWorks struct {
+	ID                 string                                    `json:"id,omitempty"`                   // 作品 ID
+	Link               string                                    `json:"link,omitempty"`                 // 作品链接（访问型链接, 无有效期限制）
+	Description        string                                    `json:"description,omitempty"`          // 作品描述
+	CustomizedDataList []*GetHireTalentV2RespWorksCustomizedData `json:"customized_data_list,omitempty"` // 自定义字段
 }
-
-
-
-
 
 // GetHireTalentV2RespWorksCustomizedData ...
-type GetHireTalentV2RespWorksCustomizedData struct { 
-ObjectID string `json:"object_id,omitempty"` // 自定义字段 ID, 详情请查看: [获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)
-Name *GetHireTalentV2RespWorksCustomizedDataName `json:"name,omitempty"` // 字段名称
-ObjectType int64 `json:"object_type,omitempty"` // 字段类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块日期附件
-Value *GetHireTalentV2RespWorksCustomizedDataValue `json:"value,omitempty"` // 自定义字段值
+type GetHireTalentV2RespWorksCustomizedData struct {
+	ObjectID   string                                       `json:"object_id,omitempty"`   // 自定义字段 ID, 详情请查看: [获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)
+	Name       *GetHireTalentV2RespWorksCustomizedDataName  `json:"name,omitempty"`        // 字段名称
+	ObjectType int64                                        `json:"object_type,omitempty"` // 字段类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块日期附件
+	Value      *GetHireTalentV2RespWorksCustomizedDataValue `json:"value,omitempty"`       // 自定义字段值
 }
-
-
-
-
 
 // GetHireTalentV2RespWorksCustomizedDataName ...
-type GetHireTalentV2RespWorksCustomizedDataName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 字段中文名称
-EnUs string `json:"en_us,omitempty"` // 字段英文名称
+type GetHireTalentV2RespWorksCustomizedDataName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 字段中文名称
+	EnUs string `json:"en_us,omitempty"` // 字段英文名称
 }
-
-
-
-
 
 // GetHireTalentV2RespWorksCustomizedDataValue ...
-type GetHireTalentV2RespWorksCustomizedDataValue struct { 
-Content string `json:"content,omitempty"` // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
-Option *GetHireTalentV2RespWorksCustomizedDataValueOption `json:"option,omitempty"` // 当字段类型为单选时, 从此字段取值
-OptionList []*GetHireTalentV2RespWorksCustomizedDataValueOption `json:"option_list,omitempty"` // 当字段类型为多选时, 从此字段取值
-TimeRange *GetHireTalentV2RespWorksCustomizedDataValueTimeRange `json:"time_range,omitempty"` // 当字段类型为时间段时, 从此字段取值
-Time string `json:"time,omitempty"` // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是秒级时间戳
-Number string `json:"number,omitempty"` // 当字段类型为数字时, 从此字段取值
-CustomizedAttachment []*GetHireTalentV2RespWorksCustomizedDataValueCustomizedAttachment `json:"customized_attachment,omitempty"` // 当字段类型为附件时, 从此字段取值
+type GetHireTalentV2RespWorksCustomizedDataValue struct {
+	Content              string                                                             `json:"content,omitempty"`               // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
+	Option               *GetHireTalentV2RespWorksCustomizedDataValueOption                 `json:"option,omitempty"`                // 当字段类型为单选时, 从此字段取值
+	OptionList           []*GetHireTalentV2RespWorksCustomizedDataValueOption               `json:"option_list,omitempty"`           // 当字段类型为多选时, 从此字段取值
+	TimeRange            *GetHireTalentV2RespWorksCustomizedDataValueTimeRange              `json:"time_range,omitempty"`            // 当字段类型为时间段时, 从此字段取值
+	Time                 string                                                             `json:"time,omitempty"`                  // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是秒级时间戳
+	Number               string                                                             `json:"number,omitempty"`                // 当字段类型为数字时, 从此字段取值
+	CustomizedAttachment []*GetHireTalentV2RespWorksCustomizedDataValueCustomizedAttachment `json:"customized_attachment,omitempty"` // 当字段类型为附件时, 从此字段取值
 }
-
-
-
-
 
 // GetHireTalentV2RespWorksCustomizedDataValueCustomizedAttachment ...
-type GetHireTalentV2RespWorksCustomizedDataValueCustomizedAttachment struct { 
-FileID string `json:"file_id,omitempty"` // 附件 ID, 详情请查看: [获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get)
-FileName string `json:"file_name,omitempty"` // 附件名称
-ContentType string `json:"content_type,omitempty"` // 附件类型
-FileSize int64 `json:"file_size,omitempty"` // 附件大小
+type GetHireTalentV2RespWorksCustomizedDataValueCustomizedAttachment struct {
+	FileID      string `json:"file_id,omitempty"`      // 附件 ID, 详情请查看: [获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get)
+	FileName    string `json:"file_name,omitempty"`    // 附件名称
+	ContentType string `json:"content_type,omitempty"` // 附件类型
+	FileSize    int64  `json:"file_size,omitempty"`    // 附件大小
 }
-
-
-
-
 
 // GetHireTalentV2RespWorksCustomizedDataValueOption ...
-type GetHireTalentV2RespWorksCustomizedDataValueOption struct { 
-Key string `json:"key,omitempty"` // 选项 ID
-Name *GetHireTalentV2RespWorksCustomizedDataValueOptionName `json:"name,omitempty"` // 选项名称
+type GetHireTalentV2RespWorksCustomizedDataValueOption struct {
+	Key  string                                                 `json:"key,omitempty"`  // 选项 ID
+	Name *GetHireTalentV2RespWorksCustomizedDataValueOptionName `json:"name,omitempty"` // 选项名称
 }
-
-
-
-
 
 // GetHireTalentV2RespWorksCustomizedDataValueOptionName ...
-type GetHireTalentV2RespWorksCustomizedDataValueOptionName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 选项中文名称
-EnUs string `json:"en_us,omitempty"` // 选项英文名称
+type GetHireTalentV2RespWorksCustomizedDataValueOptionName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 选项中文名称
+	EnUs string `json:"en_us,omitempty"` // 选项英文名称
 }
-
-
-
-
 
 // GetHireTalentV2RespWorksCustomizedDataValueTimeRange ...
-type GetHireTalentV2RespWorksCustomizedDataValueTimeRange struct { 
-StartTime string `json:"start_time,omitempty"` // 开始时间, 秒级时间戳
-EndTime string `json:"end_time,omitempty"` // 结束时间, 当值为至今时, 返回「-」, 秒级时间戳
+type GetHireTalentV2RespWorksCustomizedDataValueTimeRange struct {
+	StartTime string `json:"start_time,omitempty"` // 开始时间, 秒级时间戳
+	EndTime   string `json:"end_time,omitempty"`   // 结束时间, 当值为至今时, 返回「-」, 秒级时间戳
 }
-
-
-
-
 
 // getHireTalentV2Resp ...
-type getHireTalentV2Resp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *GetHireTalentV2Resp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type getHireTalentV2Resp struct {
+	Code  int64                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string               `json:"msg,omitempty"`  // 错误描述
+	Data  *GetHireTalentV2Resp `json:"data,omitempty"`
+	Error *ErrorDetail         `json:"error,omitempty"`
 }
-
-
-
-

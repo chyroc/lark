@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListWikiSpaceMember 获取知识空间的成员与管理员列表。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/wiki-v2/space-member/list
-// 
 func (r *WikiService) ListWikiSpaceMember(ctx context.Context, request *ListWikiSpaceMemberReq, options ...MethodOptionFunc) (*ListWikiSpaceMemberResp, *Response, error) {
-if r.cli.mock.mockWikiListWikiSpaceMember != nil {
+	if r.cli.mock.mockWikiListWikiSpaceMember != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Wiki#ListWikiSpaceMember mock enable")
 		return r.cli.mock.mockWikiListWikiSpaceMember(ctx, request, options...)
 	}
@@ -35,12 +34,11 @@ if r.cli.mock.mockWikiListWikiSpaceMember != nil {
 		Scope:                 "Wiki",
 		API:                   "ListWikiSpaceMember",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/wiki/v2/spaces/:space_id/members",
+		URL:                   r.cli.openBaseURL + "/open-apis/wiki/v2/spaces/:space_id/members",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(listWikiSpaceMemberResp)
 
@@ -52,54 +50,38 @@ if r.cli.mock.mockWikiListWikiSpaceMember != nil {
 func (r *Mock) MockWikiListWikiSpaceMember(f func(ctx context.Context, request *ListWikiSpaceMemberReq, options ...MethodOptionFunc) (*ListWikiSpaceMemberResp, *Response, error)) {
 	r.mockWikiListWikiSpaceMember = f
 }
+
 // UnMockWikiListWikiSpaceMember un-mock WikiListWikiSpaceMember method
 func (r *Mock) UnMockWikiListWikiSpaceMember() {
 	r.mockWikiListWikiSpaceMember = nil
 }
 
-
 // ListWikiSpaceMemberReq ...
-type ListWikiSpaceMemberReq struct { 
-SpaceID string `path:"space_id" json:"-"` // 知识空间 ID示例值: "7375263209671884820"
-PageSize *int64 `query:"page_size" json:"-"` // 分页大小示例值: 1
-PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: NzA0NDg5NjIzMDA3MzE3MTk3Ml83MzYzMjE4NDkzNDI1NzI5NTM4
+type ListWikiSpaceMemberReq struct {
+	SpaceID   string  `path:"space_id" json:"-"`    // 知识空间 ID示例值: "7375263209671884820"
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小示例值: 1
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: NzA0NDg5NjIzMDA3MzE3MTk3Ml83MzYzMjE4NDkzNDI1NzI5NTM4
 }
-
-
-
-
 
 // ListWikiSpaceMemberResp ...
-type ListWikiSpaceMemberResp struct { 
-Members []*ListWikiSpaceMemberRespMember `json:"members,omitempty"` // 空间成员列表
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
+type ListWikiSpaceMemberResp struct {
+	Members   []*ListWikiSpaceMemberRespMember `json:"members,omitempty"`    // 空间成员列表
+	PageToken string                           `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	HasMore   bool                             `json:"has_more,omitempty"`   // 是否还有更多项
 }
-
-
-
-
 
 // ListWikiSpaceMemberRespMember ...
-type ListWikiSpaceMemberRespMember struct { 
-MemberType string `json:"member_type,omitempty"` // 知识库协作者 ID 类型
-MemberID string `json:"member_id,omitempty"` // 知识库协作者 ID
-MemberRole string `json:"member_role,omitempty"` // 知识库协作者角色
-Type string `json:"type,omitempty"` // 知识库协作者类型（未来支持）可选值有: 用户群组组织架构
+type ListWikiSpaceMemberRespMember struct {
+	MemberType string `json:"member_type,omitempty"` // 知识库协作者 ID 类型
+	MemberID   string `json:"member_id,omitempty"`   // 知识库协作者 ID
+	MemberRole string `json:"member_role,omitempty"` // 知识库协作者角色
+	Type       string `json:"type,omitempty"`        // 知识库协作者类型（未来支持）可选值有: 用户群组组织架构
 }
-
-
-
-
 
 // listWikiSpaceMemberResp ...
-type listWikiSpaceMemberResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *ListWikiSpaceMemberResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type listWikiSpaceMemberResp struct {
+	Code  int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                   `json:"msg,omitempty"`  // 错误描述
+	Data  *ListWikiSpaceMemberResp `json:"data,omitempty"`
+	Error *ErrorDetail             `json:"error,omitempty"`
 }
-
-
-
-

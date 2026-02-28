@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListCorehrWorkforcePlan 根据传入的筛选项获取编制规划的方案列表
@@ -28,9 +28,8 @@ import (
 // - 延迟说明: 数据库主从延迟 2s 以内, 即: 直接创建编制规划方案后 2s 内调用此接口可能查询不到数据。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/workforce_plan/list
-// 
 func (r *CorehrService) ListCorehrWorkforcePlan(ctx context.Context, request *ListCorehrWorkforcePlanReq, options ...MethodOptionFunc) (*ListCorehrWorkforcePlanResp, *Response, error) {
-if r.cli.mock.mockCorehrListCorehrWorkforcePlan != nil {
+	if r.cli.mock.mockCorehrListCorehrWorkforcePlan != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Corehr#ListCorehrWorkforcePlan mock enable")
 		return r.cli.mock.mockCorehrListCorehrWorkforcePlan(ctx, request, options...)
 	}
@@ -39,11 +38,10 @@ if r.cli.mock.mockCorehrListCorehrWorkforcePlan != nil {
 		Scope:                 "Corehr",
 		API:                   "ListCorehrWorkforcePlan",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/corehr/v2/workforce_plans",
+		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/workforce_plans",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(listCorehrWorkforcePlanResp)
 
@@ -55,63 +53,43 @@ if r.cli.mock.mockCorehrListCorehrWorkforcePlan != nil {
 func (r *Mock) MockCorehrListCorehrWorkforcePlan(f func(ctx context.Context, request *ListCorehrWorkforcePlanReq, options ...MethodOptionFunc) (*ListCorehrWorkforcePlanResp, *Response, error)) {
 	r.mockCorehrListCorehrWorkforcePlan = f
 }
+
 // UnMockCorehrListCorehrWorkforcePlan un-mock CorehrListCorehrWorkforcePlan method
 func (r *Mock) UnMockCorehrListCorehrWorkforcePlan() {
 	r.mockCorehrListCorehrWorkforcePlan = nil
 }
 
-
 // ListCorehrWorkforcePlanReq ...
-type ListCorehrWorkforcePlanReq struct { 
-GetAllPlan *bool `query:"get_all_plan" json:"-"` // 是否获取所有编制规划方案, 默认为 false。- true 所有编制规划方案列表。- false 为仅获取当前生效的编制规划方案。示例值: false
-Active *bool `query:"active" json:"-"` // 是否只获取已启用的方案, 默认为 true。- true 获取已启用编制规划方案- false 获取所有编制规划方案, 示例值: false
+type ListCorehrWorkforcePlanReq struct {
+	GetAllPlan *bool `query:"get_all_plan" json:"-"` // 是否获取所有编制规划方案, 默认为 false。- true 所有编制规划方案列表。- false 为仅获取当前生效的编制规划方案。示例值: false
+	Active     *bool `query:"active" json:"-"`       // 是否只获取已启用的方案, 默认为 true。- true 获取已启用编制规划方案- false 获取所有编制规划方案, 示例值: false
 }
-
-
-
-
 
 // ListCorehrWorkforcePlanResp ...
-type ListCorehrWorkforcePlanResp struct { 
-Items []*ListCorehrWorkforcePlanRespItem `json:"items,omitempty"` // 编制规划方案列表
-Total int64 `json:"total,omitempty"` // 满足条件的方案总数
+type ListCorehrWorkforcePlanResp struct {
+	Items []*ListCorehrWorkforcePlanRespItem `json:"items,omitempty"` // 编制规划方案列表
+	Total int64                              `json:"total,omitempty"` // 满足条件的方案总数
 }
-
-
-
-
 
 // ListCorehrWorkforcePlanRespItem ...
-type ListCorehrWorkforcePlanRespItem struct { 
-WorkforcePlanID string `json:"workforce_plan_id,omitempty"` // 编制规划方案 ID
-WorkforcePlanName []*ListCorehrWorkforcePlanRespItemWorkforcePlanName `json:"workforce_plan_name,omitempty"` // 编制规划方案名称
-StartDate string `json:"start_date,omitempty"` // 开始日期- 返回格式: YYYY-MM-DD（最小单位到日）- 日期范围:1900-01-01 ～ 9999-12-31
-EndDate string `json:"end_date,omitempty"` // 结束日期- 返回格式: YYYY-MM-DD（最小单位到日）- 日期范围:1900-01-01 ～ 9999-12-31
-Active bool `json:"active,omitempty"` // 是否启用- true 表示启用- false 表示停用
+type ListCorehrWorkforcePlanRespItem struct {
+	WorkforcePlanID   string                                              `json:"workforce_plan_id,omitempty"`   // 编制规划方案 ID
+	WorkforcePlanName []*ListCorehrWorkforcePlanRespItemWorkforcePlanName `json:"workforce_plan_name,omitempty"` // 编制规划方案名称
+	StartDate         string                                              `json:"start_date,omitempty"`          // 开始日期- 返回格式: YYYY-MM-DD（最小单位到日）- 日期范围:1900-01-01 ～ 9999-12-31
+	EndDate           string                                              `json:"end_date,omitempty"`            // 结束日期- 返回格式: YYYY-MM-DD（最小单位到日）- 日期范围:1900-01-01 ～ 9999-12-31
+	Active            bool                                                `json:"active,omitempty"`              // 是否启用- true 表示启用- false 表示停用
 }
-
-
-
-
 
 // ListCorehrWorkforcePlanRespItemWorkforcePlanName ...
-type ListCorehrWorkforcePlanRespItemWorkforcePlanName struct { 
-Lang string `json:"lang,omitempty"` // 语言信息, 中文为 zh-CN, 英文为 en-US
-Value string `json:"value,omitempty"` // 内容
+type ListCorehrWorkforcePlanRespItemWorkforcePlanName struct {
+	Lang  string `json:"lang,omitempty"`  // 语言信息, 中文为 zh-CN, 英文为 en-US
+	Value string `json:"value,omitempty"` // 内容
 }
-
-
-
-
 
 // listCorehrWorkforcePlanResp ...
-type listCorehrWorkforcePlanResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *ListCorehrWorkforcePlanResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type listCorehrWorkforcePlanResp struct {
+	Code  int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                       `json:"msg,omitempty"`  // 错误描述
+	Data  *ListCorehrWorkforcePlanResp `json:"data,omitempty"`
+	Error *ErrorDetail                 `json:"error,omitempty"`
 }
-
-
-
-

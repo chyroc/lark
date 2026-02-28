@@ -18,16 +18,15 @@
 package lark
 
 import (
-"context"
-"io"
+	"context"
+	"io"
 )
 
 // DownloadBoardWhiteboardAsImage 获取画板的缩略图片, 响应数据为图片的二进制图片流。根据 Content-Type 值区图片格式: image/png、image/jpeg、image/gif、image/svg+xml。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/board-v1/whiteboard/download_as_image
-// 
 func (r *BoardService) DownloadBoardWhiteboardAsImage(ctx context.Context, request *DownloadBoardWhiteboardAsImageReq, options ...MethodOptionFunc) (*DownloadBoardWhiteboardAsImageResp, *Response, error) {
-if r.cli.mock.mockBoardDownloadBoardWhiteboardAsImage != nil {
+	if r.cli.mock.mockBoardDownloadBoardWhiteboardAsImage != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Board#DownloadBoardWhiteboardAsImage mock enable")
 		return r.cli.mock.mockBoardDownloadBoardWhiteboardAsImage(ctx, request, options...)
 	}
@@ -36,12 +35,11 @@ if r.cli.mock.mockBoardDownloadBoardWhiteboardAsImage != nil {
 		Scope:                 "Board",
 		API:                   "DownloadBoardWhiteboardAsImage",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/board/v1/whiteboards/:whiteboard_id/download_as_image",
+		URL:                   r.cli.openBaseURL + "/open-apis/board/v1/whiteboards/:whiteboard_id/download_as_image",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(downloadBoardWhiteboardAsImageResp)
 
@@ -53,31 +51,24 @@ if r.cli.mock.mockBoardDownloadBoardWhiteboardAsImage != nil {
 func (r *Mock) MockBoardDownloadBoardWhiteboardAsImage(f func(ctx context.Context, request *DownloadBoardWhiteboardAsImageReq, options ...MethodOptionFunc) (*DownloadBoardWhiteboardAsImageResp, *Response, error)) {
 	r.mockBoardDownloadBoardWhiteboardAsImage = f
 }
+
 // UnMockBoardDownloadBoardWhiteboardAsImage un-mock BoardDownloadBoardWhiteboardAsImage method
 func (r *Mock) UnMockBoardDownloadBoardWhiteboardAsImage() {
 	r.mockBoardDownloadBoardWhiteboardAsImage = nil
 }
 
-
 // DownloadBoardWhiteboardAsImageReq ...
-type DownloadBoardWhiteboardAsImageReq struct { 
-WhiteboardID string `path:"whiteboard_id" json:"-"` // 画板唯一标识。可通过文档接口 [获取文档所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/list) 获取, `block_type` 为 43 的 block 即为画板, 对应的 block.token 就是画板的whiteboard_id。示例值: "Ru8nwrWFOhEmaFbEU2VbPRsHcxb"
+type DownloadBoardWhiteboardAsImageReq struct {
+	WhiteboardID string `path:"whiteboard_id" json:"-"` // 画板唯一标识。可通过文档接口 [获取文档所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/list) 获取, `block_type` 为 43 的 block 即为画板, 对应的 block.token 就是画板的whiteboard_id。示例值: "Ru8nwrWFOhEmaFbEU2VbPRsHcxb"
 }
-
-
-
-
 
 // downloadBoardWhiteboardAsImageResp ...
-type downloadBoardWhiteboardAsImageResp struct { 
-Code int64 `json:"code,omitempty"` 
-Msg string `json:"msg,omitempty"` 
-Data *DownloadBoardWhiteboardAsImageResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type downloadBoardWhiteboardAsImageResp struct {
+	Code  int64                               `json:"code,omitempty"`
+	Msg   string                              `json:"msg,omitempty"`
+	Data  *DownloadBoardWhiteboardAsImageResp `json:"data,omitempty"`
+	Error *ErrorDetail                        `json:"error,omitempty"`
 }
-
-
-
 
 func (r *downloadBoardWhiteboardAsImageResp) SetReader(file io.Reader) {
 	if r.Data == nil {
@@ -86,10 +77,7 @@ func (r *downloadBoardWhiteboardAsImageResp) SetReader(file io.Reader) {
 	r.Data.File = file
 }
 
-
-
 // DownloadBoardWhiteboardAsImageResp ...
 type DownloadBoardWhiteboardAsImageResp struct {
 	File io.Reader `json:"file,omitempty"`
- }
-
+}

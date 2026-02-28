@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateMailUserMailboxRule 创建收信规则
@@ -26,9 +26,8 @@ import (
 // 使用 tenant_access_token 时, 需要申请收信规则资源的数据权限。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-rule/create
-// 
 func (r *MailService) CreateMailUserMailboxRule(ctx context.Context, request *CreateMailUserMailboxRuleReq, options ...MethodOptionFunc) (*CreateMailUserMailboxRuleResp, *Response, error) {
-if r.cli.mock.mockMailCreateMailUserMailboxRule != nil {
+	if r.cli.mock.mockMailCreateMailUserMailboxRule != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#CreateMailUserMailboxRule mock enable")
 		return r.cli.mock.mockMailCreateMailUserMailboxRule(ctx, request, options...)
 	}
@@ -37,12 +36,11 @@ if r.cli.mock.mockMailCreateMailUserMailboxRule != nil {
 		Scope:                 "Mail",
 		API:                   "CreateMailUserMailboxRule",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/rules",
+		URL:                   r.cli.openBaseURL + "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/rules",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(createMailUserMailboxRuleResp)
 
@@ -54,137 +52,89 @@ if r.cli.mock.mockMailCreateMailUserMailboxRule != nil {
 func (r *Mock) MockMailCreateMailUserMailboxRule(f func(ctx context.Context, request *CreateMailUserMailboxRuleReq, options ...MethodOptionFunc) (*CreateMailUserMailboxRuleResp, *Response, error)) {
 	r.mockMailCreateMailUserMailboxRule = f
 }
+
 // UnMockMailCreateMailUserMailboxRule un-mock MailCreateMailUserMailboxRule method
 func (r *Mock) UnMockMailCreateMailUserMailboxRule() {
 	r.mockMailCreateMailUserMailboxRule = nil
 }
 
-
 // CreateMailUserMailboxRuleReq ...
-type CreateMailUserMailboxRuleReq struct { 
-UserMailboxID string `path:"user_mailbox_id" json:"-"` // 用户邮箱地址, 使用 user_access_token 时可使用 me示例值: "user@xxx.xx 或 me"
-Condition *CreateMailUserMailboxRuleReqCondition `json:"condition,omitempty"` // 匹配条件
-Action *CreateMailUserMailboxRuleReqAction `json:"action,omitempty"` // 匹配命中后的操作
-IgnoreTheRestOfRules bool `json:"ignore_the_rest_of_rules,omitempty"` // 是否终点规则示例值: false
-Name string `json:"name,omitempty"` // 规则名称示例值: "将李三的邮件标记为垃圾邮件" 长度范围: `1` ～ `255` 字符
-IsEnable bool `json:"is_enable,omitempty"` // 是否启用示例值: false
+type CreateMailUserMailboxRuleReq struct {
+	UserMailboxID        string                                 `path:"user_mailbox_id" json:"-"`           // 用户邮箱地址, 使用 user_access_token 时可使用 me示例值: "user@xxx.xx 或 me"
+	Condition            *CreateMailUserMailboxRuleReqCondition `json:"condition,omitempty"`                // 匹配条件
+	Action               *CreateMailUserMailboxRuleReqAction    `json:"action,omitempty"`                   // 匹配命中后的操作
+	IgnoreTheRestOfRules bool                                   `json:"ignore_the_rest_of_rules,omitempty"` // 是否终点规则示例值: false
+	Name                 string                                 `json:"name,omitempty"`                     // 规则名称示例值: "将李三的邮件标记为垃圾邮件" 长度范围: `1` ～ `255` 字符
+	IsEnable             bool                                   `json:"is_enable,omitempty"`                // 是否启用示例值: false
 }
-
-
-
-
 
 // CreateMailUserMailboxRuleReqAction ...
-type CreateMailUserMailboxRuleReqAction struct { 
-Items []*CreateMailUserMailboxRuleReqActionItem `json:"items,omitempty"` // 匹配中规则后的操作列表 长度范围: `1` ～ `32`
+type CreateMailUserMailboxRuleReqAction struct {
+	Items []*CreateMailUserMailboxRuleReqActionItem `json:"items,omitempty"` // 匹配中规则后的操作列表 长度范围: `1` ～ `32`
 }
-
-
-
-
 
 // CreateMailUserMailboxRuleReqActionItem ...
-type CreateMailUserMailboxRuleReqActionItem struct { 
-Type int64 `json:"type,omitempty"` // 操作类型示例值: 1可选值有: 归档删除邮件标记为已读移至垃圾邮件不移至垃圾邮件添加用户标签（暂不支持）添加旗标不弹出通知移至用户文件夹自动转发（暂不支持）分享到会话（暂不支持） 取值范围: `1` ～ `13`
-Input *string `json:"input,omitempty"` // 当 type 为移动到文件夹时, 该字段填文件夹的 id示例值: "283412371233"
+type CreateMailUserMailboxRuleReqActionItem struct {
+	Type  int64   `json:"type,omitempty"`  // 操作类型示例值: 1可选值有: 归档删除邮件标记为已读移至垃圾邮件不移至垃圾邮件添加用户标签（暂不支持）添加旗标不弹出通知移至用户文件夹自动转发（暂不支持）分享到会话（暂不支持） 取值范围: `1` ～ `13`
+	Input *string `json:"input,omitempty"` // 当 type 为移动到文件夹时, 该字段填文件夹的 id示例值: "283412371233"
 }
-
-
-
-
 
 // CreateMailUserMailboxRuleReqCondition ...
-type CreateMailUserMailboxRuleReqCondition struct { 
-MatchType int64 `json:"match_type,omitempty"` // 匹配类型示例值: 1可选值有: 满足所有条件满足任意条件 取值范围: `1` ～ `2`
-Items []*CreateMailUserMailboxRuleReqConditionItem `json:"items,omitempty"` // 匹配规则列表 长度范围: `1` ～ `32`
+type CreateMailUserMailboxRuleReqCondition struct {
+	MatchType int64                                        `json:"match_type,omitempty"` // 匹配类型示例值: 1可选值有: 满足所有条件满足任意条件 取值范围: `1` ～ `2`
+	Items     []*CreateMailUserMailboxRuleReqConditionItem `json:"items,omitempty"`      // 匹配规则列表 长度范围: `1` ～ `32`
 }
-
-
-
-
 
 // CreateMailUserMailboxRuleReqConditionItem ...
-type CreateMailUserMailboxRuleReqConditionItem struct { 
-Type int64 `json:"type,omitempty"` // 匹配条件左值示例值: 1可选值有: 发件人地址收件人地址抄送地址收件人或抄送地址主题正文附件名字附件类型任意地址所有邮件是外部邮件是垃圾邮件不是垃圾邮件有附件 取值范围: `1` ～ `16`
-Operator *int64 `json:"operator,omitempty"` // 匹配条件操作符示例值: 1可选值有: 包含不包含开头是结尾是是不是包含自己为空 取值范围: `1` ～ `10`
-Input *string `json:"input,omitempty"` // 匹配条件右值示例值: "hello@world.com"
+type CreateMailUserMailboxRuleReqConditionItem struct {
+	Type     int64   `json:"type,omitempty"`     // 匹配条件左值示例值: 1可选值有: 发件人地址收件人地址抄送地址收件人或抄送地址主题正文附件名字附件类型任意地址所有邮件是外部邮件是垃圾邮件不是垃圾邮件有附件 取值范围: `1` ～ `16`
+	Operator *int64  `json:"operator,omitempty"` // 匹配条件操作符示例值: 1可选值有: 包含不包含开头是结尾是是不是包含自己为空 取值范围: `1` ～ `10`
+	Input    *string `json:"input,omitempty"`    // 匹配条件右值示例值: "hello@world.com"
 }
-
-
-
-
 
 // CreateMailUserMailboxRuleResp ...
-type CreateMailUserMailboxRuleResp struct { 
-Rule *CreateMailUserMailboxRuleRespRule `json:"rule,omitempty"` // 规则实体
+type CreateMailUserMailboxRuleResp struct {
+	Rule *CreateMailUserMailboxRuleRespRule `json:"rule,omitempty"` // 规则实体
 }
-
-
-
-
 
 // CreateMailUserMailboxRuleRespRule ...
-type CreateMailUserMailboxRuleRespRule struct { 
-ID string `json:"id,omitempty"` // 规则 id
-Condition *CreateMailUserMailboxRuleRespRuleCondition `json:"condition,omitempty"` // 匹配条件
-Action *CreateMailUserMailboxRuleRespRuleAction `json:"action,omitempty"` // 匹配命中后的操作
-IgnoreTheRestOfRules bool `json:"ignore_the_rest_of_rules,omitempty"` // 是否终点规则
-Name string `json:"name,omitempty"` // 规则名称
-IsEnable bool `json:"is_enable,omitempty"` // 是否启用
+type CreateMailUserMailboxRuleRespRule struct {
+	ID                   string                                      `json:"id,omitempty"`                       // 规则 id
+	Condition            *CreateMailUserMailboxRuleRespRuleCondition `json:"condition,omitempty"`                // 匹配条件
+	Action               *CreateMailUserMailboxRuleRespRuleAction    `json:"action,omitempty"`                   // 匹配命中后的操作
+	IgnoreTheRestOfRules bool                                        `json:"ignore_the_rest_of_rules,omitempty"` // 是否终点规则
+	Name                 string                                      `json:"name,omitempty"`                     // 规则名称
+	IsEnable             bool                                        `json:"is_enable,omitempty"`                // 是否启用
 }
-
-
-
-
 
 // CreateMailUserMailboxRuleRespRuleAction ...
-type CreateMailUserMailboxRuleRespRuleAction struct { 
-Items []*CreateMailUserMailboxRuleRespRuleActionItem `json:"items,omitempty"` // 匹配中规则后的操作列表
+type CreateMailUserMailboxRuleRespRuleAction struct {
+	Items []*CreateMailUserMailboxRuleRespRuleActionItem `json:"items,omitempty"` // 匹配中规则后的操作列表
 }
-
-
-
-
 
 // CreateMailUserMailboxRuleRespRuleActionItem ...
-type CreateMailUserMailboxRuleRespRuleActionItem struct { 
-Type int64 `json:"type,omitempty"` // 操作类型可选值有: 归档删除邮件标记为已读移至垃圾邮件不移至垃圾邮件添加用户标签（暂不支持）添加旗标不弹出通知移至用户文件夹自动转发（暂不支持）分享到会话（暂不支持）
-Input string `json:"input,omitempty"` // 当 type 为移动到文件夹时, 该字段填文件夹的 id
+type CreateMailUserMailboxRuleRespRuleActionItem struct {
+	Type  int64  `json:"type,omitempty"`  // 操作类型可选值有: 归档删除邮件标记为已读移至垃圾邮件不移至垃圾邮件添加用户标签（暂不支持）添加旗标不弹出通知移至用户文件夹自动转发（暂不支持）分享到会话（暂不支持）
+	Input string `json:"input,omitempty"` // 当 type 为移动到文件夹时, 该字段填文件夹的 id
 }
-
-
-
-
 
 // CreateMailUserMailboxRuleRespRuleCondition ...
-type CreateMailUserMailboxRuleRespRuleCondition struct { 
-MatchType int64 `json:"match_type,omitempty"` // 匹配类型可选值有: 满足所有条件满足任意条件
-Items []*CreateMailUserMailboxRuleRespRuleConditionItem `json:"items,omitempty"` // 匹配规则列表
+type CreateMailUserMailboxRuleRespRuleCondition struct {
+	MatchType int64                                             `json:"match_type,omitempty"` // 匹配类型可选值有: 满足所有条件满足任意条件
+	Items     []*CreateMailUserMailboxRuleRespRuleConditionItem `json:"items,omitempty"`      // 匹配规则列表
 }
-
-
-
-
 
 // CreateMailUserMailboxRuleRespRuleConditionItem ...
-type CreateMailUserMailboxRuleRespRuleConditionItem struct { 
-Type int64 `json:"type,omitempty"` // 匹配条件左值可选值有: 发件人地址收件人地址抄送地址收件人或抄送地址主题正文附件名字附件类型任意地址所有邮件是外部邮件是垃圾邮件不是垃圾邮件有附件
-Operator int64 `json:"operator,omitempty"` // 匹配条件操作符可选值有: 包含不包含开头是结尾是是不是包含自己为空
-Input string `json:"input,omitempty"` // 匹配条件右值
+type CreateMailUserMailboxRuleRespRuleConditionItem struct {
+	Type     int64  `json:"type,omitempty"`     // 匹配条件左值可选值有: 发件人地址收件人地址抄送地址收件人或抄送地址主题正文附件名字附件类型任意地址所有邮件是外部邮件是垃圾邮件不是垃圾邮件有附件
+	Operator int64  `json:"operator,omitempty"` // 匹配条件操作符可选值有: 包含不包含开头是结尾是是不是包含自己为空
+	Input    string `json:"input,omitempty"`    // 匹配条件右值
 }
-
-
-
-
 
 // createMailUserMailboxRuleResp ...
-type createMailUserMailboxRuleResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateMailUserMailboxRuleResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createMailUserMailboxRuleResp struct {
+	Code  int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                         `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateMailUserMailboxRuleResp `json:"data,omitempty"`
+	Error *ErrorDetail                   `json:"error,omitempty"`
 }
-
-
-
-

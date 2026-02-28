@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateCorehrLocationAddress 添加地点地址
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/location-address/create
-// 
 func (r *CorehrService) CreateCorehrLocationAddress(ctx context.Context, request *CreateCorehrLocationAddressReq, options ...MethodOptionFunc) (*CreateCorehrLocationAddressResp, *Response, error) {
-if r.cli.mock.mockCorehrCreateCorehrLocationAddress != nil {
+	if r.cli.mock.mockCorehrCreateCorehrLocationAddress != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Corehr#CreateCorehrLocationAddress mock enable")
 		return r.cli.mock.mockCorehrCreateCorehrLocationAddress(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockCorehrCreateCorehrLocationAddress != nil {
 		Scope:                 "Corehr",
 		API:                   "CreateCorehrLocationAddress",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/corehr/v2/locations/:location_id/addresses",
+		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/locations/:location_id/addresses",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createCorehrLocationAddressResp)
 
@@ -51,75 +49,59 @@ if r.cli.mock.mockCorehrCreateCorehrLocationAddress != nil {
 func (r *Mock) MockCorehrCreateCorehrLocationAddress(f func(ctx context.Context, request *CreateCorehrLocationAddressReq, options ...MethodOptionFunc) (*CreateCorehrLocationAddressResp, *Response, error)) {
 	r.mockCorehrCreateCorehrLocationAddress = f
 }
+
 // UnMockCorehrCreateCorehrLocationAddress un-mock CorehrCreateCorehrLocationAddress method
 func (r *Mock) UnMockCorehrCreateCorehrLocationAddress() {
 	r.mockCorehrCreateCorehrLocationAddress = nil
 }
 
-
 // CreateCorehrLocationAddressReq ...
-type CreateCorehrLocationAddressReq struct { 
-LocationID string `path:"location_id" json:"-"` // 地点 ID。ID 获取方式: 调用[【创建地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/create)[【批量分页查询地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)等接口可以返回地点 ID示例值: "1616161616"
-ClientToken *string `query:"client_token" json:"-"` // 根据 client_token 是否一致来判断是否为同一请求示例值: 12454646
-NeedCustomLatinAddress *bool `query:"need_custom_latin_address" json:"-"` // 是否需要自定义传入国际化拉丁语系地址。如果传入true能够自定义传入address_line_xx的值, 否则address_line_xx跟随local_address_line_xx的值示例值: true
-CountryRegionID string `json:"country_region_id,omitempty"` // 国家 / 地区 ID- 可通过[【查询国家/地区信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)接口获取示例值: "6862995757234914824"
-RegionID string `json:"region_id,omitempty"` // 主要行政区 ID- 可通过[【查询省份/行政区信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region_subdivision/search)接口获取示例值: "6863326264296474119"
-CityID string `json:"city_id,omitempty"` // 城市ID。- 详情调用[【查询城市信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-city/search)获取示例值: "6863333555859097096"
-DistinctID string `json:"distinct_id,omitempty"` // 区/县ID- 详情可通过[【查询区县信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-district/search)接口获取示例值: "6863333556291110408"
-AddressLine1 *string `json:"address_line1,omitempty"` // 地址行 1示例值: "丹佛测试地址-纽埃时区"
-AddressLine2 *string `json:"address_line2,omitempty"` // 地址行 2示例值: "PoewH"
-AddressLine3 *string `json:"address_line3,omitempty"` // 地址行 3示例值: "PoewH"
-AddressLine4 *string `json:"address_line4,omitempty"` // 地址行 4示例值: "jmwJc"
-AddressLine5 *string `json:"address_line5,omitempty"` // 地址行 5示例值: "jmwJc"
-AddressLine6 *string `json:"address_line6,omitempty"` // 地址行 6示例值: "jmwJc"
-AddressLine7 *string `json:"address_line7,omitempty"` // 地址行 7示例值: "jmwJc"
-AddressLine8 *string `json:"address_line8,omitempty"` // 地址行 8示例值: "rafSu"
-AddressLine9 *string `json:"address_line9,omitempty"` // 地址行 9示例值: "McPRG"
-LocalAddressLine1 *string `json:"local_address_line1,omitempty"` // 地址行 1（非拉丁语系的本地文字）- 填写规则可见[【地址填写指南】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/basic-infomation/data-calculation-rules/address-completion-guidelines)示例值: "丹佛测试地址-纽埃时区"
-LocalAddressLine2 *string `json:"local_address_line2,omitempty"` // 地址行 2（非拉丁语系的本地文字）- 填写规则可见[【地址填写指南】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/basic-infomation/data-calculation-rules/address-completion-guidelines)示例值: "丹佛测试地址-纽埃时区"
-LocalAddressLine3 *string `json:"local_address_line3,omitempty"` // 地址行 3（非拉丁语系的本地文字）- 填写规则可见[【地址填写指南】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/basic-infomation/data-calculation-rules/address-completion-guidelines)示例值: "丹佛测试地址-纽埃时区"
-LocalAddressLine4 *string `json:"local_address_line4,omitempty"` // 地址行 4（非拉丁语系的本地文字）- 填写规则可见[【地址填写指南】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/basic-infomation/data-calculation-rules/address-completion-guidelines)示例值: "丹佛测试地址-纽埃时区"
-LocalAddressLine5 *string `json:"local_address_line5,omitempty"` // 地址行 5（非拉丁语系的本地文字）- 填写规则可见[【地址填写指南】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/basic-infomation/data-calculation-rules/address-completion-guidelines)示例值: "丹佛测试地址-纽埃时区"
-LocalAddressLine6 *string `json:"local_address_line6,omitempty"` // 地址行 6（非拉丁语系的本地文字）- 填写规则可见[【地址填写指南】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/basic-infomation/data-calculation-rules/address-completion-guidelines)示例值: "丹佛测试地址-纽埃时区"
-LocalAddressLine7 *string `json:"local_address_line7,omitempty"` // 地址行 7（非拉丁语系的本地文字）- 填写规则可见[【地址填写指南】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/basic-infomation/data-calculation-rules/address-completion-guidelines)示例值: "丹佛测试地址-纽埃时区"
-LocalAddressLine8 *string `json:"local_address_line8,omitempty"` // 地址行 8（非拉丁语系的本地文字）- 填写规则可见[【地址填写指南】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/basic-infomation/data-calculation-rules/address-completion-guidelines)示例值: "丹佛测试地址-纽埃时区"
-LocalAddressLine9 *string `json:"local_address_line9,omitempty"` // 地址行 9（非拉丁语系的本地文字）- 填写规则可见[【地址填写指南】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/basic-infomation/data-calculation-rules/address-completion-guidelines)示例值: "丹佛测试地址-纽埃时区"
-PostalCode *string `json:"postal_code,omitempty"` // 邮政编码示例值: "611530"
-AddressTypes []*CreateCorehrLocationAddressReqAddressType `json:"address_types,omitempty"` // 地址类型, 枚举值及详细信息可通过[【枚举常量介绍】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)查询获得 长度范围: `0` ～ `5`
-IsPrimary *bool `json:"is_primary,omitempty"` // 是否主要地址, 一个地点只能存在一个主要地址, 添加主要地址会将取消原主要地址- true 表示地址是主要地址- false 表示地址不是主要地址示例值: true
-IsPublic *bool `json:"is_public,omitempty"` // 是否公开地址- true 表示地址是公开地址- false 表示地址不是公开地址示例值: true
+type CreateCorehrLocationAddressReq struct {
+	LocationID             string                                       `path:"location_id" json:"-"`                // 地点 ID。ID 获取方式: 调用[【创建地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/create)[【批量分页查询地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)等接口可以返回地点 ID示例值: "1616161616"
+	ClientToken            *string                                      `query:"client_token" json:"-"`              // 根据 client_token 是否一致来判断是否为同一请求示例值: 12454646
+	NeedCustomLatinAddress *bool                                        `query:"need_custom_latin_address" json:"-"` // 是否需要自定义传入国际化拉丁语系地址。如果传入true能够自定义传入address_line_xx的值, 否则address_line_xx跟随local_address_line_xx的值示例值: true
+	CountryRegionID        string                                       `json:"country_region_id,omitempty"`         // 国家 / 地区 ID- 可通过[【查询国家/地区信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)接口获取示例值: "6862995757234914824"
+	RegionID               string                                       `json:"region_id,omitempty"`                 // 主要行政区 ID- 可通过[【查询省份/行政区信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region_subdivision/search)接口获取示例值: "6863326264296474119"
+	CityID                 string                                       `json:"city_id,omitempty"`                   // 城市ID。- 详情调用[【查询城市信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-city/search)获取示例值: "6863333555859097096"
+	DistinctID             string                                       `json:"distinct_id,omitempty"`               // 区/县ID- 详情可通过[【查询区县信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-district/search)接口获取示例值: "6863333556291110408"
+	AddressLine1           *string                                      `json:"address_line1,omitempty"`             // 地址行 1示例值: "丹佛测试地址-纽埃时区"
+	AddressLine2           *string                                      `json:"address_line2,omitempty"`             // 地址行 2示例值: "PoewH"
+	AddressLine3           *string                                      `json:"address_line3,omitempty"`             // 地址行 3示例值: "PoewH"
+	AddressLine4           *string                                      `json:"address_line4,omitempty"`             // 地址行 4示例值: "jmwJc"
+	AddressLine5           *string                                      `json:"address_line5,omitempty"`             // 地址行 5示例值: "jmwJc"
+	AddressLine6           *string                                      `json:"address_line6,omitempty"`             // 地址行 6示例值: "jmwJc"
+	AddressLine7           *string                                      `json:"address_line7,omitempty"`             // 地址行 7示例值: "jmwJc"
+	AddressLine8           *string                                      `json:"address_line8,omitempty"`             // 地址行 8示例值: "rafSu"
+	AddressLine9           *string                                      `json:"address_line9,omitempty"`             // 地址行 9示例值: "McPRG"
+	LocalAddressLine1      *string                                      `json:"local_address_line1,omitempty"`       // 地址行 1（非拉丁语系的本地文字）- 填写规则可见[【地址填写指南】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/basic-infomation/data-calculation-rules/address-completion-guidelines)示例值: "丹佛测试地址-纽埃时区"
+	LocalAddressLine2      *string                                      `json:"local_address_line2,omitempty"`       // 地址行 2（非拉丁语系的本地文字）- 填写规则可见[【地址填写指南】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/basic-infomation/data-calculation-rules/address-completion-guidelines)示例值: "丹佛测试地址-纽埃时区"
+	LocalAddressLine3      *string                                      `json:"local_address_line3,omitempty"`       // 地址行 3（非拉丁语系的本地文字）- 填写规则可见[【地址填写指南】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/basic-infomation/data-calculation-rules/address-completion-guidelines)示例值: "丹佛测试地址-纽埃时区"
+	LocalAddressLine4      *string                                      `json:"local_address_line4,omitempty"`       // 地址行 4（非拉丁语系的本地文字）- 填写规则可见[【地址填写指南】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/basic-infomation/data-calculation-rules/address-completion-guidelines)示例值: "丹佛测试地址-纽埃时区"
+	LocalAddressLine5      *string                                      `json:"local_address_line5,omitempty"`       // 地址行 5（非拉丁语系的本地文字）- 填写规则可见[【地址填写指南】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/basic-infomation/data-calculation-rules/address-completion-guidelines)示例值: "丹佛测试地址-纽埃时区"
+	LocalAddressLine6      *string                                      `json:"local_address_line6,omitempty"`       // 地址行 6（非拉丁语系的本地文字）- 填写规则可见[【地址填写指南】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/basic-infomation/data-calculation-rules/address-completion-guidelines)示例值: "丹佛测试地址-纽埃时区"
+	LocalAddressLine7      *string                                      `json:"local_address_line7,omitempty"`       // 地址行 7（非拉丁语系的本地文字）- 填写规则可见[【地址填写指南】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/basic-infomation/data-calculation-rules/address-completion-guidelines)示例值: "丹佛测试地址-纽埃时区"
+	LocalAddressLine8      *string                                      `json:"local_address_line8,omitempty"`       // 地址行 8（非拉丁语系的本地文字）- 填写规则可见[【地址填写指南】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/basic-infomation/data-calculation-rules/address-completion-guidelines)示例值: "丹佛测试地址-纽埃时区"
+	LocalAddressLine9      *string                                      `json:"local_address_line9,omitempty"`       // 地址行 9（非拉丁语系的本地文字）- 填写规则可见[【地址填写指南】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/basic-infomation/data-calculation-rules/address-completion-guidelines)示例值: "丹佛测试地址-纽埃时区"
+	PostalCode             *string                                      `json:"postal_code,omitempty"`               // 邮政编码示例值: "611530"
+	AddressTypes           []*CreateCorehrLocationAddressReqAddressType `json:"address_types,omitempty"`             // 地址类型, 枚举值及详细信息可通过[【枚举常量介绍】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)查询获得 长度范围: `0` ～ `5`
+	IsPrimary              *bool                                        `json:"is_primary,omitempty"`                // 是否主要地址, 一个地点只能存在一个主要地址, 添加主要地址会将取消原主要地址- true 表示地址是主要地址- false 表示地址不是主要地址示例值: true
+	IsPublic               *bool                                        `json:"is_public,omitempty"`                 // 是否公开地址- true 表示地址是公开地址- false 表示地址不是公开地址示例值: true
 }
-
-
-
-
 
 // CreateCorehrLocationAddressReqAddressType ...
-type CreateCorehrLocationAddressReqAddressType struct { 
-EnumName string `json:"enum_name,omitempty"` // 枚举值示例值: "phone_type"
+type CreateCorehrLocationAddressReqAddressType struct {
+	EnumName string `json:"enum_name,omitempty"` // 枚举值示例值: "phone_type"
 }
-
-
-
-
 
 // CreateCorehrLocationAddressResp ...
-type CreateCorehrLocationAddressResp struct { 
-AddressID string `json:"address_id,omitempty"` // 地址 ID
+type CreateCorehrLocationAddressResp struct {
+	AddressID string `json:"address_id,omitempty"` // 地址 ID
 }
-
-
-
-
 
 // createCorehrLocationAddressResp ...
-type createCorehrLocationAddressResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateCorehrLocationAddressResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createCorehrLocationAddressResp struct {
+	Code  int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                           `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateCorehrLocationAddressResp `json:"data,omitempty"`
+	Error *ErrorDetail                     `json:"error,omitempty"`
 }
-
-
-
-

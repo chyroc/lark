@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateApaasApplicationFlowExecute 执行相应流程
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/application-flow/execute
-// 
 func (r *ApaasService) CreateApaasApplicationFlowExecute(ctx context.Context, request *CreateApaasApplicationFlowExecuteReq, options ...MethodOptionFunc) (*CreateApaasApplicationFlowExecuteResp, *Response, error) {
-if r.cli.mock.mockApaasCreateApaasApplicationFlowExecute != nil {
+	if r.cli.mock.mockApaasCreateApaasApplicationFlowExecute != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Apaas#CreateApaasApplicationFlowExecute mock enable")
 		return r.cli.mock.mockApaasCreateApaasApplicationFlowExecute(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockApaasCreateApaasApplicationFlowExecute != nil {
 		Scope:                 "Apaas",
 		API:                   "CreateApaasApplicationFlowExecute",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/apaas/v1/applications/:namespace/flows/:flow_id/execute",
+		URL:                   r.cli.openBaseURL + "/open-apis/apaas/v1/applications/:namespace/flows/:flow_id/execute",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createApaasApplicationFlowExecuteResp)
 
@@ -51,48 +49,36 @@ if r.cli.mock.mockApaasCreateApaasApplicationFlowExecute != nil {
 func (r *Mock) MockApaasCreateApaasApplicationFlowExecute(f func(ctx context.Context, request *CreateApaasApplicationFlowExecuteReq, options ...MethodOptionFunc) (*CreateApaasApplicationFlowExecuteResp, *Response, error)) {
 	r.mockApaasCreateApaasApplicationFlowExecute = f
 }
+
 // UnMockApaasCreateApaasApplicationFlowExecute un-mock ApaasCreateApaasApplicationFlowExecute method
 func (r *Mock) UnMockApaasCreateApaasApplicationFlowExecute() {
 	r.mockApaasCreateApaasApplicationFlowExecute = nil
 }
 
-
 // CreateApaasApplicationFlowExecuteReq ...
-type CreateApaasApplicationFlowExecuteReq struct { 
-Namespace string `path:"namespace" json:"-"` // 应用命名空间(低代码平台->我的应用->应用管理->可查看到)示例值: "package_7344545d87__c"
-FlowID string `path:"flow_id" json:"-"` // 流程API名称（低代码平台->我的应用->开发->流程->展开为表格->可查看到）示例值: "deleteObject_99c656599f"
-IsAsync *bool `json:"is_async,omitempty"` // 是否异步执行(不传默认false)示例值: true
-IdempotentKey *string `json:"idempotent_key,omitempty"` // 幂等键（建议本地生成uuid传入, 重复的话请求会报错）示例值: "iuhg23897489797"
-LoopMasks []string `json:"loop_masks,omitempty"` // 循环标志信息(当前版本可不传)示例值: ["\"] 长度范围: `0` ～ `20`
-Params *string `json:"params,omitempty"` // 流程入参（json 字符串, 无入参不传）示例值: "`{\"variable_rgrtgqworiginal\": {\"_id\": 5454545}}`"
-Operator string `json:"operator,omitempty"` // 操作人（_id和email至少填一个, 低代码平台用户的 id和email, 需要从低代码平台获取, json字符串）示例值: "`{\"_id\": 1111, \"email\": \"apaas@bytedance.com\"}`"
+type CreateApaasApplicationFlowExecuteReq struct {
+	Namespace     string   `path:"namespace" json:"-"`       // 应用命名空间(低代码平台->我的应用->应用管理->可查看到)示例值: "package_7344545d87__c"
+	FlowID        string   `path:"flow_id" json:"-"`         // 流程API名称（低代码平台->我的应用->开发->流程->展开为表格->可查看到）示例值: "deleteObject_99c656599f"
+	IsAsync       *bool    `json:"is_async,omitempty"`       // 是否异步执行(不传默认false)示例值: true
+	IdempotentKey *string  `json:"idempotent_key,omitempty"` // 幂等键（建议本地生成uuid传入, 重复的话请求会报错）示例值: "iuhg23897489797"
+	LoopMasks     []string `json:"loop_masks,omitempty"`     // 循环标志信息(当前版本可不传)示例值: ["\"] 长度范围: `0` ～ `20`
+	Params        *string  `json:"params,omitempty"`         // 流程入参（json 字符串, 无入参不传）示例值: "`{\"variable_rgrtgqworiginal\": {\"_id\": 5454545}}`"
+	Operator      string   `json:"operator,omitempty"`       // 操作人（_id和email至少填一个, 低代码平台用户的 id和email, 需要从低代码平台获取, json字符串）示例值: "`{\"_id\": 1111, \"email\": \"apaas@bytedance.com\"}`"
 }
-
-
-
-
 
 // CreateApaasApplicationFlowExecuteResp ...
-type CreateApaasApplicationFlowExecuteResp struct { 
-Status string `json:"status,omitempty"` // 状态
-OutParams string `json:"out_params,omitempty"` // 输出参数
-ExecutionID string `json:"execution_id,omitempty"` // 执行id
-ErrorMsg string `json:"error_msg,omitempty"` // 错误信息
-Code string `json:"code,omitempty"` // code
+type CreateApaasApplicationFlowExecuteResp struct {
+	Status      string `json:"status,omitempty"`       // 状态
+	OutParams   string `json:"out_params,omitempty"`   // 输出参数
+	ExecutionID string `json:"execution_id,omitempty"` // 执行id
+	ErrorMsg    string `json:"error_msg,omitempty"`    // 错误信息
+	Code        string `json:"code,omitempty"`         // code
 }
-
-
-
-
 
 // createApaasApplicationFlowExecuteResp ...
-type createApaasApplicationFlowExecuteResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateApaasApplicationFlowExecuteResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createApaasApplicationFlowExecuteResp struct {
+	Code  int64                                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                 `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateApaasApplicationFlowExecuteResp `json:"data,omitempty"`
+	Error *ErrorDetail                           `json:"error,omitempty"`
 }
-
-
-
-

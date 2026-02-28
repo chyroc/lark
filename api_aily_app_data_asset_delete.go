@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // DeleteAilyAppDataAsset 删除 Aily 的数据知识
@@ -28,9 +28,8 @@ import (
 // - 使用应用身份仅支持[ Aily 平台](https://aily.feishu.cn)渠道的应用身份
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/aily-v1/app-data_asset/delete
-// 
 func (r *AilyService) DeleteAilyAppDataAsset(ctx context.Context, request *DeleteAilyAppDataAssetReq, options ...MethodOptionFunc) (*DeleteAilyAppDataAssetResp, *Response, error) {
-if r.cli.mock.mockAilyDeleteAilyAppDataAsset != nil {
+	if r.cli.mock.mockAilyDeleteAilyAppDataAsset != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Aily#DeleteAilyAppDataAsset mock enable")
 		return r.cli.mock.mockAilyDeleteAilyAppDataAsset(ctx, request, options...)
 	}
@@ -39,12 +38,11 @@ if r.cli.mock.mockAilyDeleteAilyAppDataAsset != nil {
 		Scope:                 "Aily",
 		API:                   "DeleteAilyAppDataAsset",
 		Method:                "DELETE",
-		URL:   r.cli.openBaseURL + "/open-apis/aily/v1/apps/:app_id/data_assets/:data_asset_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/aily/v1/apps/:app_id/data_assets/:data_asset_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(deleteAilyAppDataAssetResp)
 
@@ -56,92 +54,64 @@ if r.cli.mock.mockAilyDeleteAilyAppDataAsset != nil {
 func (r *Mock) MockAilyDeleteAilyAppDataAsset(f func(ctx context.Context, request *DeleteAilyAppDataAssetReq, options ...MethodOptionFunc) (*DeleteAilyAppDataAssetResp, *Response, error)) {
 	r.mockAilyDeleteAilyAppDataAsset = f
 }
+
 // UnMockAilyDeleteAilyAppDataAsset un-mock AilyDeleteAilyAppDataAsset method
 func (r *Mock) UnMockAilyDeleteAilyAppDataAsset() {
 	r.mockAilyDeleteAilyAppDataAsset = nil
 }
 
-
 // DeleteAilyAppDataAssetReq ...
-type DeleteAilyAppDataAssetReq struct { 
-AppID string `path:"app_id" json:"-"` // Aily 平台的应用的APPID, 可以直接从 Aily 应用的URL中获取。获取示例: /ai/{APPID}示例值: "spring_dfadsaf__c" 长度范围: `0` ～ `255` 字符
-DataAssetID string `path:"data_asset_id" json:"-"` // 数据知识ID, 可通过在 Aily 平台查看知识详情页的url中获取, 获取示例 https://*/ai/app_namespace/data/data-asset/data_asset_id示例值: "data_asset_dfadsafe"数据校验规则**: 长度范围: `0` ～ `255` 字符
-TenantType *string `query:"tenant_type" json:"-"` // 应用环境, 枚举值: `online`: 线上环境（默认值）- `dev`: 开发环境；目前只支持 `dev`示例值: dev 长度范围: `0` ～ `255` 字符
+type DeleteAilyAppDataAssetReq struct {
+	AppID       string  `path:"app_id" json:"-"`        // Aily 平台的应用的APPID, 可以直接从 Aily 应用的URL中获取。获取示例: /ai/{APPID}示例值: "spring_dfadsaf__c" 长度范围: `0` ～ `255` 字符
+	DataAssetID string  `path:"data_asset_id" json:"-"` // 数据知识ID, 可通过在 Aily 平台查看知识详情页的url中获取, 获取示例 https://*/ai/app_namespace/data/data-asset/data_asset_id示例值: "data_asset_dfadsafe"数据校验规则**: 长度范围: `0` ～ `255` 字符
+	TenantType  *string `query:"tenant_type" json:"-"`  // 应用环境, 枚举值: `online`: 线上环境（默认值）- `dev`: 开发环境；目前只支持 `dev`示例值: dev 长度范围: `0` ～ `255` 字符
 }
-
-
-
-
 
 // DeleteAilyAppDataAssetResp ...
-type DeleteAilyAppDataAssetResp struct { 
-DataAsset *DeleteAilyAppDataAssetRespDataAsset `json:"data_asset,omitempty"` // 数据知识
+type DeleteAilyAppDataAssetResp struct {
+	DataAsset *DeleteAilyAppDataAssetRespDataAsset `json:"data_asset,omitempty"` // 数据知识
 }
-
-
-
-
 
 // DeleteAilyAppDataAssetRespDataAsset ...
-type DeleteAilyAppDataAssetRespDataAsset struct { 
-DataAssetID string `json:"data_asset_id,omitempty"` // 数据知识ID
-Label interface{} `json:"label,omitempty"` // 数据知识标题
-Description interface{} `json:"description,omitempty"` // 数据知识描述
-DataSourceType string `json:"data_source_type,omitempty"` // 数据资源类型可选值有: excelpdfpptxtxtdocxmysqlpostgresql飞书多维表格salesforce分享逍客巨量千川clickhousedatabricks飞书服务台飞书Wiki飞书doc飞书docs飞书docx飞书pdf飞书word飞书pptx飞书文档飞书多维表格飞书个人文件夹飞书共享文件夹数据表
-ConnectStatus string `json:"connect_status,omitempty"` // 数据连接状态可选值有: 等待连接连接中连接成功增量同步中部分成功连接失败
-Tags []*DeleteAilyAppDataAssetRespDataAssetTag `json:"tags,omitempty"` // 数据知识分类列表
-Items []*DeleteAilyAppDataAssetRespDataAssetItem `json:"items,omitempty"` // 数据知识项列表
-ConnectFailedReason string `json:"connect_failed_reason,omitempty"` // 连接状态失败信息
-ConnectType string `json:"connect_type,omitempty"` // 数据连接类型可选值有: 导入直连
-CreatedTime string `json:"created_time,omitempty"` // 创建时间, 毫秒时间戳
-UpdatedTime string `json:"updated_time,omitempty"` // 更新时间, 毫秒时间戳
+type DeleteAilyAppDataAssetRespDataAsset struct {
+	DataAssetID         string                                     `json:"data_asset_id,omitempty"`         // 数据知识ID
+	Label               interface{}                                `json:"label,omitempty"`                 // 数据知识标题
+	Description         interface{}                                `json:"description,omitempty"`           // 数据知识描述
+	DataSourceType      string                                     `json:"data_source_type,omitempty"`      // 数据资源类型可选值有: excelpdfpptxtxtdocxmysqlpostgresql飞书多维表格salesforce分享逍客巨量千川clickhousedatabricks飞书服务台飞书Wiki飞书doc飞书docs飞书docx飞书pdf飞书word飞书pptx飞书文档飞书多维表格飞书个人文件夹飞书共享文件夹数据表
+	ConnectStatus       string                                     `json:"connect_status,omitempty"`        // 数据连接状态可选值有: 等待连接连接中连接成功增量同步中部分成功连接失败
+	Tags                []*DeleteAilyAppDataAssetRespDataAssetTag  `json:"tags,omitempty"`                  // 数据知识分类列表
+	Items               []*DeleteAilyAppDataAssetRespDataAssetItem `json:"items,omitempty"`                 // 数据知识项列表
+	ConnectFailedReason string                                     `json:"connect_failed_reason,omitempty"` // 连接状态失败信息
+	ConnectType         string                                     `json:"connect_type,omitempty"`          // 数据连接类型可选值有: 导入直连
+	CreatedTime         string                                     `json:"created_time,omitempty"`          // 创建时间, 毫秒时间戳
+	UpdatedTime         string                                     `json:"updated_time,omitempty"`          // 更新时间, 毫秒时间戳
 }
-
-
-
-
 
 // DeleteAilyAppDataAssetRespDataAssetItem ...
-type DeleteAilyAppDataAssetRespDataAssetItem struct { 
-DataAssetItemID string `json:"data_asset_item_id,omitempty"` // 数据知识项ID
-ApiName string `json:"api_name,omitempty"` // 数据知识项标识
-Label interface{} `json:"label,omitempty"` // 数据知识项标题
-Description interface{} `json:"description,omitempty"` // 数据知识项描述
-Resources []*DeleteAilyAppDataAssetRespDataAssetItemResource `json:"resources,omitempty"` // 数据知识资源
+type DeleteAilyAppDataAssetRespDataAssetItem struct {
+	DataAssetItemID string                                             `json:"data_asset_item_id,omitempty"` // 数据知识项ID
+	ApiName         string                                             `json:"api_name,omitempty"`           // 数据知识项标识
+	Label           interface{}                                        `json:"label,omitempty"`              // 数据知识项标题
+	Description     interface{}                                        `json:"description,omitempty"`        // 数据知识项描述
+	Resources       []*DeleteAilyAppDataAssetRespDataAssetItemResource `json:"resources,omitempty"`          // 数据知识资源
 }
-
-
-
-
 
 // DeleteAilyAppDataAssetRespDataAssetItemResource ...
-type DeleteAilyAppDataAssetRespDataAssetItemResource struct { 
-ResourceID string `json:"resource_id,omitempty"` // 数据知识资源ID
-ResourceType string `json:"resource_type,omitempty"` // 数据知识资源类型可选值有: 数据视图知识视图
+type DeleteAilyAppDataAssetRespDataAssetItemResource struct {
+	ResourceID   string `json:"resource_id,omitempty"`   // 数据知识资源ID
+	ResourceType string `json:"resource_type,omitempty"` // 数据知识资源类型可选值有: 数据视图知识视图
 }
-
-
-
-
 
 // DeleteAilyAppDataAssetRespDataAssetTag ...
-type DeleteAilyAppDataAssetRespDataAssetTag struct { 
-DataAssetTagID string `json:"data_asset_tag_id,omitempty"` // 数据知识分类名称
-Name string `json:"name,omitempty"` // 数据知识分类ID
+type DeleteAilyAppDataAssetRespDataAssetTag struct {
+	DataAssetTagID string `json:"data_asset_tag_id,omitempty"` // 数据知识分类名称
+	Name           string `json:"name,omitempty"`              // 数据知识分类ID
 }
-
-
-
-
 
 // deleteAilyAppDataAssetResp ...
-type deleteAilyAppDataAssetResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *DeleteAilyAppDataAssetResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type deleteAilyAppDataAssetResp struct {
+	Code  int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                      `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteAilyAppDataAssetResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }
-
-
-
-

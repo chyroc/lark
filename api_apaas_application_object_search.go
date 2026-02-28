@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // SearchApaasApplicationObject 在应用内搜索记录
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/application-object/search
-// 
 func (r *ApaasService) SearchApaasApplicationObject(ctx context.Context, request *SearchApaasApplicationObjectReq, options ...MethodOptionFunc) (*SearchApaasApplicationObjectResp, *Response, error) {
-if r.cli.mock.mockApaasSearchApaasApplicationObject != nil {
+	if r.cli.mock.mockApaasSearchApaasApplicationObject != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Apaas#SearchApaasApplicationObject mock enable")
 		return r.cli.mock.mockApaasSearchApaasApplicationObject(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockApaasSearchApaasApplicationObject != nil {
 		Scope:                 "Apaas",
 		API:                   "SearchApaasApplicationObject",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/apaas/v1/applications/:namespace/objects/search",
+		URL:                   r.cli.openBaseURL + "/open-apis/apaas/v1/applications/:namespace/objects/search",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(searchApaasApplicationObjectResp)
 
@@ -51,165 +49,109 @@ if r.cli.mock.mockApaasSearchApaasApplicationObject != nil {
 func (r *Mock) MockApaasSearchApaasApplicationObject(f func(ctx context.Context, request *SearchApaasApplicationObjectReq, options ...MethodOptionFunc) (*SearchApaasApplicationObjectResp, *Response, error)) {
 	r.mockApaasSearchApaasApplicationObject = f
 }
+
 // UnMockApaasSearchApaasApplicationObject un-mock ApaasSearchApaasApplicationObject method
 func (r *Mock) UnMockApaasSearchApaasApplicationObject() {
 	r.mockApaasSearchApaasApplicationObject = nil
 }
 
-
 // SearchApaasApplicationObjectReq ...
-type SearchApaasApplicationObjectReq struct { 
-Namespace string `path:"namespace" json:"-"` // 应用命名空间示例值: "package_test__c" 长度范围: `0` ～ `256` 字符
-Q *string `json:"q,omitempty"` // 搜索词示例值: "搜索关键字"
-SearchObjects []*SearchApaasApplicationObjectReqSearchObject `json:"search_objects,omitempty"` // 搜索对象范围 长度范围: `0` ～ `256`
-PageToken *string `json:"page_token,omitempty"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: "eyJvYmplY3RzX3BhZ2VfdG9rZW4iOlt7Im9ial9pZCI6MTc2OTI4NzM5M"
-PageSize *int64 `json:"page_size,omitempty"` // 返回数量, 默认为50, 最大不超过2000示例值: "100"
-Metadata *string `json:"metadata,omitempty"` // 返回元数据枚举值示例值: "Label"可选值有: 只返回 Label返回搜索布局信息
+type SearchApaasApplicationObjectReq struct {
+	Namespace     string                                         `path:"namespace" json:"-"`       // 应用命名空间示例值: "package_test__c" 长度范围: `0` ～ `256` 字符
+	Q             *string                                        `json:"q,omitempty"`              // 搜索词示例值: "搜索关键字"
+	SearchObjects []*SearchApaasApplicationObjectReqSearchObject `json:"search_objects,omitempty"` // 搜索对象范围 长度范围: `0` ～ `256`
+	PageToken     *string                                        `json:"page_token,omitempty"`     // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: "eyJvYmplY3RzX3BhZ2VfdG9rZW4iOlt7Im9ial9pZCI6MTc2OTI4NzM5M"
+	PageSize      *int64                                         `json:"page_size,omitempty"`      // 返回数量, 默认为50, 最大不超过2000示例值: "100"
+	Metadata      *string                                        `json:"metadata,omitempty"`       // 返回元数据枚举值示例值: "Label"可选值有: 只返回 Label返回搜索布局信息
 }
-
-
-
-
 
 // SearchApaasApplicationObjectReqSearchObject ...
-type SearchApaasApplicationObjectReqSearchObject struct { 
-ApiName *string `json:"api_name,omitempty"` // 对象 APIName示例值: "_user" 长度范围: `0` ～ `256` 字符
-SearchFields []string `json:"search_fields,omitempty"` // 搜索字段 SearchFields 列表示例值: ["_id"] 长度范围: `0` ～ `500`
-Select []string `json:"select,omitempty"` // 召回字段 APIID/APIName 列表示例值: ["_id"] 长度范围: `0` ～ `1000`
-Filter *SearchApaasApplicationObjectReqSearchObjectFilter `json:"filter,omitempty"` // 过滤条件, 序列化的结果{"filter": "「标准Criterion」"}
-OrderBy *SearchApaasApplicationObjectReqSearchObjectOrderBy `json:"order_by,omitempty"` // 排序条件
+type SearchApaasApplicationObjectReqSearchObject struct {
+	ApiName      *string                                             `json:"api_name,omitempty"`      // 对象 APIName示例值: "_user" 长度范围: `0` ～ `256` 字符
+	SearchFields []string                                            `json:"search_fields,omitempty"` // 搜索字段 SearchFields 列表示例值: ["_id"] 长度范围: `0` ～ `500`
+	Select       []string                                            `json:"select,omitempty"`        // 召回字段 APIID/APIName 列表示例值: ["_id"] 长度范围: `0` ～ `1000`
+	Filter       *SearchApaasApplicationObjectReqSearchObjectFilter  `json:"filter,omitempty"`        // 过滤条件, 序列化的结果{"filter": "「标准Criterion」"}
+	OrderBy      *SearchApaasApplicationObjectReqSearchObjectOrderBy `json:"order_by,omitempty"`      // 排序条件
 }
-
-
-
-
 
 // SearchApaasApplicationObjectReqSearchObjectFilter ...
-type SearchApaasApplicationObjectReqSearchObjectFilter struct { 
-Conditions []*SearchApaasApplicationObjectReqSearchObjectFilterCondition `json:"conditions,omitempty"` // 查询条件 长度范围: `0` ～ `10`
-LogicExpression *string `json:"logic_expression,omitempty"` // 逻辑关系示例值: "1 and 2"
+type SearchApaasApplicationObjectReqSearchObjectFilter struct {
+	Conditions      []*SearchApaasApplicationObjectReqSearchObjectFilterCondition `json:"conditions,omitempty"`       // 查询条件 长度范围: `0` ～ `10`
+	LogicExpression *string                                                       `json:"logic_expression,omitempty"` // 逻辑关系示例值: "1 and 2"
 }
-
-
-
-
 
 // SearchApaasApplicationObjectReqSearchObjectFilterCondition ...
-type SearchApaasApplicationObjectReqSearchObjectFilterCondition struct { 
-Index *string `json:"index,omitempty"` // 序号示例值: "1"
-Left *SearchApaasApplicationObjectReqSearchObjectFilterConditionLeft `json:"left,omitempty"` // 左值
-Right *SearchApaasApplicationObjectReqSearchObjectFilterConditionRight `json:"right,omitempty"` // 右值
-Operator *string `json:"operator,omitempty"` // 操作符示例值: "equal"
+type SearchApaasApplicationObjectReqSearchObjectFilterCondition struct {
+	Index    *string                                                          `json:"index,omitempty"`    // 序号示例值: "1"
+	Left     *SearchApaasApplicationObjectReqSearchObjectFilterConditionLeft  `json:"left,omitempty"`     // 左值
+	Right    *SearchApaasApplicationObjectReqSearchObjectFilterConditionRight `json:"right,omitempty"`    // 右值
+	Operator *string                                                          `json:"operator,omitempty"` // 操作符示例值: "equal"
 }
-
-
-
-
 
 // SearchApaasApplicationObjectReqSearchObjectFilterConditionLeft ...
-type SearchApaasApplicationObjectReqSearchObjectFilterConditionLeft struct { 
-Type *string `json:"type,omitempty"` // 左值类型, 只支持 "metadataVariable", 表示字段示例值: "metadataVariable"
-Settings *string `json:"settings,omitempty"` // 字段具体值, 以 JSONString 表示, 格式: {"fieldPath":[{"fieldApiName": "字段名", "objectApiName": "对象名"}]}示例值: "{\"fieldPath\":[{\"fieldApiName\": \"_id\", \"objectApiName\": \"_user\"}]}"
+type SearchApaasApplicationObjectReqSearchObjectFilterConditionLeft struct {
+	Type     *string `json:"type,omitempty"`     // 左值类型, 只支持 "metadataVariable", 表示字段示例值: "metadataVariable"
+	Settings *string `json:"settings,omitempty"` // 字段具体值, 以 JSONString 表示, 格式: {"fieldPath":[{"fieldApiName": "字段名", "objectApiName": "对象名"}]}示例值: "{\"fieldPath\":[{\"fieldApiName\": \"_id\", \"objectApiName\": \"_user\"}]}"
 }
-
-
-
-
 
 // SearchApaasApplicationObjectReqSearchObjectFilterConditionRight ...
-type SearchApaasApplicationObjectReqSearchObjectFilterConditionRight struct { 
-Type *string `json:"type,omitempty"` // 右值类型, 只支持 "constant", 表示常量示例值: "constant"
-Settings *string `json:"settings,omitempty"` // 常量具体值, 以 JSONString 表示, 格式: {"data":"常量具体值"}示例值: "{\"fieldPath\":[{\"fieldApiName\": \"_id\", \"objectApiName\": \"_user\"}]}"
+type SearchApaasApplicationObjectReqSearchObjectFilterConditionRight struct {
+	Type     *string `json:"type,omitempty"`     // 右值类型, 只支持 "constant", 表示常量示例值: "constant"
+	Settings *string `json:"settings,omitempty"` // 常量具体值, 以 JSONString 表示, 格式: {"data":"常量具体值"}示例值: "{\"fieldPath\":[{\"fieldApiName\": \"_id\", \"objectApiName\": \"_user\"}]}"
 }
-
-
-
-
 
 // SearchApaasApplicationObjectReqSearchObjectOrderBy ...
-type SearchApaasApplicationObjectReqSearchObjectOrderBy struct { 
-Field *string `json:"field,omitempty"` // 字段名示例值: "_id" 长度范围: `0` ～ `256` 字符
-OrderType *string `json:"order_type,omitempty"` // 排序方式示例值: "asc"可选值有: 升序降序 长度范围: `0` ～ `256` 字符
+type SearchApaasApplicationObjectReqSearchObjectOrderBy struct {
+	Field     *string `json:"field,omitempty"`      // 字段名示例值: "_id" 长度范围: `0` ～ `256` 字符
+	OrderType *string `json:"order_type,omitempty"` // 排序方式示例值: "asc"可选值有: 升序降序 长度范围: `0` ～ `256` 字符
 }
-
-
-
-
 
 // SearchApaasApplicationObjectResp ...
-type SearchApaasApplicationObjectResp struct { 
-Records []string `json:"records,omitempty"` // 搜索结果列表
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
-NextPageToken string `json:"next_page_token,omitempty"` // 分页标记, 当 HasMore 为 true 时, 会同时返回新的 NextPageToken
-Objects []*SearchApaasApplicationObjectRespObject `json:"objects,omitempty"` // 对象信息
+type SearchApaasApplicationObjectResp struct {
+	Records       []string                                  `json:"records,omitempty"`         // 搜索结果列表
+	HasMore       bool                                      `json:"has_more,omitempty"`        // 是否还有更多项
+	NextPageToken string                                    `json:"next_page_token,omitempty"` // 分页标记, 当 HasMore 为 true 时, 会同时返回新的 NextPageToken
+	Objects       []*SearchApaasApplicationObjectRespObject `json:"objects,omitempty"`         // 对象信息
 }
-
-
-
-
 
 // SearchApaasApplicationObjectRespObject ...
-type SearchApaasApplicationObjectRespObject struct { 
-Object *SearchApaasApplicationObjectRespObjectObject `json:"object,omitempty"` // 对象信息
-Fields []*SearchApaasApplicationObjectRespObjectField `json:"fields,omitempty"` // 字段信息
+type SearchApaasApplicationObjectRespObject struct {
+	Object *SearchApaasApplicationObjectRespObjectObject  `json:"object,omitempty"` // 对象信息
+	Fields []*SearchApaasApplicationObjectRespObjectField `json:"fields,omitempty"` // 字段信息
 }
-
-
-
-
 
 // SearchApaasApplicationObjectRespObjectField ...
-type SearchApaasApplicationObjectRespObjectField struct { 
-ID int64 `json:"id,omitempty"` // 字段 id
-ApiName string `json:"api_name,omitempty"` // API 名称
-Type string `json:"type,omitempty"` // 字段类型
-Label interface{} `json:"label,omitempty"` // 字段名称
+type SearchApaasApplicationObjectRespObjectField struct {
+	ID      int64       `json:"id,omitempty"`       // 字段 id
+	ApiName string      `json:"api_name,omitempty"` // API 名称
+	Type    string      `json:"type,omitempty"`     // 字段类型
+	Label   interface{} `json:"label,omitempty"`    // 字段名称
 }
-
-
-
-
 
 // SearchApaasApplicationObjectRespObjectObject ...
-type SearchApaasApplicationObjectRespObjectObject struct { 
-ID int64 `json:"id,omitempty"` // 对象 ID
-ApiName string `json:"api_name,omitempty"` // 对象 API 名称
-Label interface{} `json:"label,omitempty"` // 对象名称
-Settings *SearchApaasApplicationObjectRespObjectObjectSettings `json:"settings,omitempty"` // 对象配置
+type SearchApaasApplicationObjectRespObjectObject struct {
+	ID       int64                                                 `json:"id,omitempty"`       // 对象 ID
+	ApiName  string                                                `json:"api_name,omitempty"` // 对象 API 名称
+	Label    interface{}                                           `json:"label,omitempty"`    // 对象名称
+	Settings *SearchApaasApplicationObjectRespObjectObjectSettings `json:"settings,omitempty"` // 对象配置
 }
-
-
-
-
 
 // SearchApaasApplicationObjectRespObjectObjectSettings ...
-type SearchApaasApplicationObjectRespObjectObjectSettings struct { 
-DisplayName string `json:"display_name,omitempty"` // 展示名称
-AllowSearchFields []string `json:"allow_search_fields,omitempty"` // 允许搜索字段
-SearchLayout *SearchApaasApplicationObjectRespObjectObjectSettingsSearchLayout `json:"search_layout,omitempty"` // 展示字段
+type SearchApaasApplicationObjectRespObjectObjectSettings struct {
+	DisplayName       string                                                            `json:"display_name,omitempty"`        // 展示名称
+	AllowSearchFields []string                                                          `json:"allow_search_fields,omitempty"` // 允许搜索字段
+	SearchLayout      *SearchApaasApplicationObjectRespObjectObjectSettingsSearchLayout `json:"search_layout,omitempty"`       // 展示字段
 }
-
-
-
-
 
 // SearchApaasApplicationObjectRespObjectObjectSettingsSearchLayout ...
-type SearchApaasApplicationObjectRespObjectObjectSettingsSearchLayout struct { 
-DisplayFields []string `json:"display_fields,omitempty"` // 展示字段
+type SearchApaasApplicationObjectRespObjectObjectSettingsSearchLayout struct {
+	DisplayFields []string `json:"display_fields,omitempty"` // 展示字段
 }
-
-
-
-
 
 // searchApaasApplicationObjectResp ...
-type searchApaasApplicationObjectResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *SearchApaasApplicationObjectResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type searchApaasApplicationObjectResp struct {
+	Code  int64                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                            `json:"msg,omitempty"`  // 错误描述
+	Data  *SearchApaasApplicationObjectResp `json:"data,omitempty"`
+	Error *ErrorDetail                      `json:"error,omitempty"`
 }
-
-
-
-

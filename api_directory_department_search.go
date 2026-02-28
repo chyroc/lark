@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // SearchDirectoryDepartment 本接口用于搜索部门信息, 通过部门名称等关键词搜索部门信息, 返回符合条件的部门列表。
@@ -29,9 +29,8 @@ import (
 // - 使用user_access_token时, 默认为管理员用户, 将校验管理员管理范围。当用户有多个管理员身份均可查看员工信息时, 管理员管理范围取最大集。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/department/search
-// 
 func (r *DirectoryService) SearchDirectoryDepartment(ctx context.Context, request *SearchDirectoryDepartmentReq, options ...MethodOptionFunc) (*SearchDirectoryDepartmentResp, *Response, error) {
-if r.cli.mock.mockDirectorySearchDirectoryDepartment != nil {
+	if r.cli.mock.mockDirectorySearchDirectoryDepartment != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Directory#SearchDirectoryDepartment mock enable")
 		return r.cli.mock.mockDirectorySearchDirectoryDepartment(ctx, request, options...)
 	}
@@ -40,12 +39,11 @@ if r.cli.mock.mockDirectorySearchDirectoryDepartment != nil {
 		Scope:                 "Directory",
 		API:                   "SearchDirectoryDepartment",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/directory/v1/departments/search",
+		URL:                   r.cli.openBaseURL + "/open-apis/directory/v1/departments/search",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(searchDirectoryDepartmentResp)
 
@@ -57,75 +55,51 @@ if r.cli.mock.mockDirectorySearchDirectoryDepartment != nil {
 func (r *Mock) MockDirectorySearchDirectoryDepartment(f func(ctx context.Context, request *SearchDirectoryDepartmentReq, options ...MethodOptionFunc) (*SearchDirectoryDepartmentResp, *Response, error)) {
 	r.mockDirectorySearchDirectoryDepartment = f
 }
+
 // UnMockDirectorySearchDirectoryDepartment un-mock DirectorySearchDirectoryDepartment method
 func (r *Mock) UnMockDirectorySearchDirectoryDepartment() {
 	r.mockDirectorySearchDirectoryDepartment = nil
 }
 
-
 // SearchDirectoryDepartmentReq ...
-type SearchDirectoryDepartmentReq struct { 
-EmployeeIDType *IDType `query:"employee_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)企业内在职员工的唯一标识。支持自定义, 未自定义时系统自动生成。ID支持修改。获取employee_id的方式: - 企业管理员在 管理后台 > 组织架构 > 成员与部门 页面, 点击 成员详情, 查询员工ID  - 通过 [批量获取员工列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/employee/filter) 的接口, 通过手机号或邮箱查询员工ID。默认值: `open_id`当值为 `employee_id`, 字段权限要求: 查看员工自定义 ID
-DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型示例值: open_department_id可选值有: 用来在具体某个应用中标识一个部门, 同一个部门 在不同应用中的 open_department_id 不相同。用来标识租户内一个唯一的部门默认值: `open_department_id`
-Query string `json:"query,omitempty"` // 搜索关键词。支持部门名称的搜索, 最多可输入 100 字。示例值: "zhang"
-PageRequest *SearchDirectoryDepartmentReqPageRequest `json:"page_request,omitempty"` // 分页信息
-RequiredFields []string `json:"required_fields,omitempty"` // 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段[了解更多: 字段枚举说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/field-enumeration)示例值: ["name"] 长度范围: `0` ～ `100`
+type SearchDirectoryDepartmentReq struct {
+	EmployeeIDType   *IDType                                  `query:"employee_id_type" json:"-"`   // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)企业内在职员工的唯一标识。支持自定义, 未自定义时系统自动生成。ID支持修改。获取employee_id的方式: - 企业管理员在 管理后台 > 组织架构 > 成员与部门 页面, 点击 成员详情, 查询员工ID  - 通过 [批量获取员工列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/employee/filter) 的接口, 通过手机号或邮箱查询员工ID。默认值: `open_id`当值为 `employee_id`, 字段权限要求: 查看员工自定义 ID
+	DepartmentIDType *DepartmentIDType                        `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型示例值: open_department_id可选值有: 用来在具体某个应用中标识一个部门, 同一个部门 在不同应用中的 open_department_id 不相同。用来标识租户内一个唯一的部门默认值: `open_department_id`
+	Query            string                                   `json:"query,omitempty"`              // 搜索关键词。支持部门名称的搜索, 最多可输入 100 字。示例值: "zhang"
+	PageRequest      *SearchDirectoryDepartmentReqPageRequest `json:"page_request,omitempty"`       // 分页信息
+	RequiredFields   []string                                 `json:"required_fields,omitempty"`    // 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段[了解更多: 字段枚举说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/field-enumeration)示例值: ["name"] 长度范围: `0` ～ `100`
 }
-
-
-
-
 
 // SearchDirectoryDepartmentReqPageRequest ...
-type SearchDirectoryDepartmentReqPageRequest struct { 
-PageSize *int64 `json:"page_size,omitempty"` // 本次请求条数, 最大100条默认值: 20最小值: 0示例值: 100
-PageToken *string `json:"page_token,omitempty"` // 顺序分页查询, 不能跳页查询, 支持深分页, 在需要遍历全部数据的场景只能使用该方式。第一次传空字符串或者不传, 后面传上一次的返回值中的page_token示例值: "xdcftvygbuhijhgrexr"
+type SearchDirectoryDepartmentReqPageRequest struct {
+	PageSize  *int64  `json:"page_size,omitempty"`  // 本次请求条数, 最大100条默认值: 20最小值: 0示例值: 100
+	PageToken *string `json:"page_token,omitempty"` // 顺序分页查询, 不能跳页查询, 支持深分页, 在需要遍历全部数据的场景只能使用该方式。第一次传空字符串或者不传, 后面传上一次的返回值中的page_token示例值: "xdcftvygbuhijhgrexr"
 }
-
-
-
-
 
 // SearchDirectoryDepartmentResp ...
-type SearchDirectoryDepartmentResp struct { 
-Departments []string `json:"departments,omitempty"` // 部门信息
-PageResponse *SearchDirectoryDepartmentRespPageResponse `json:"page_response,omitempty"` // 分页结果
-Abnormals []*SearchDirectoryDepartmentRespAbnormal `json:"abnormals,omitempty"` // 字段异常信息
+type SearchDirectoryDepartmentResp struct {
+	Departments  []string                                   `json:"departments,omitempty"`   // 部门信息
+	PageResponse *SearchDirectoryDepartmentRespPageResponse `json:"page_response,omitempty"` // 分页结果
+	Abnormals    []*SearchDirectoryDepartmentRespAbnormal   `json:"abnormals,omitempty"`     // 字段异常信息
 }
-
-
-
-
 
 // SearchDirectoryDepartmentRespAbnormal ...
-type SearchDirectoryDepartmentRespAbnormal struct { 
-ID string `json:"id,omitempty"` // 异常ID
-RowError int64 `json:"row_error,omitempty"` // 行级异常可选值有: 成功没权限
-FieldErrors interface{} `json:"field_errors,omitempty"` // 列级异常, key为字段名, value为下列枚举  可选值有: 无权限服务异常字段不存在
+type SearchDirectoryDepartmentRespAbnormal struct {
+	ID          string      `json:"id,omitempty"`           // 异常ID
+	RowError    int64       `json:"row_error,omitempty"`    // 行级异常可选值有: 成功没权限
+	FieldErrors interface{} `json:"field_errors,omitempty"` // 列级异常, key为字段名, value为下列枚举  可选值有: 无权限服务异常字段不存在
 }
-
-
-
-
 
 // SearchDirectoryDepartmentRespPageResponse ...
-type SearchDirectoryDepartmentRespPageResponse struct { 
-HasMore bool `json:"has_more,omitempty"` // 是否还有后续结果, 如果has_more为true, 代表还有数据没有完全返回, 需要使用响应结果中的page_token, 并再次请求才能取得剩下的数据。
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+type SearchDirectoryDepartmentRespPageResponse struct {
+	HasMore   bool   `json:"has_more,omitempty"`   // 是否还有后续结果, 如果has_more为true, 代表还有数据没有完全返回, 需要使用响应结果中的page_token, 并再次请求才能取得剩下的数据。
+	PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 }
-
-
-
-
 
 // searchDirectoryDepartmentResp ...
-type searchDirectoryDepartmentResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *SearchDirectoryDepartmentResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type searchDirectoryDepartmentResp struct {
+	Code  int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                         `json:"msg,omitempty"`  // 错误描述
+	Data  *SearchDirectoryDepartmentResp `json:"data,omitempty"`
+	Error *ErrorDetail                   `json:"error,omitempty"`
 }
-
-
-
-

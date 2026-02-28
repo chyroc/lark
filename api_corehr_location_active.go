@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateCorehrLocationActive 启用/停用地点
@@ -29,9 +29,8 @@ import (
 // - 详情可以参考[时间轴介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/about-timeline-version)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/location/active
-// 
 func (r *CorehrService) CreateCorehrLocationActive(ctx context.Context, request *CreateCorehrLocationActiveReq, options ...MethodOptionFunc) (*CreateCorehrLocationActiveResp, *Response, error) {
-if r.cli.mock.mockCorehrCreateCorehrLocationActive != nil {
+	if r.cli.mock.mockCorehrCreateCorehrLocationActive != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Corehr#CreateCorehrLocationActive mock enable")
 		return r.cli.mock.mockCorehrCreateCorehrLocationActive(ctx, request, options...)
 	}
@@ -40,11 +39,10 @@ if r.cli.mock.mockCorehrCreateCorehrLocationActive != nil {
 		Scope:                 "Corehr",
 		API:                   "CreateCorehrLocationActive",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/corehr/v2/locations/active",
+		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/locations/active",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createCorehrLocationActiveResp)
 
@@ -56,40 +54,27 @@ if r.cli.mock.mockCorehrCreateCorehrLocationActive != nil {
 func (r *Mock) MockCorehrCreateCorehrLocationActive(f func(ctx context.Context, request *CreateCorehrLocationActiveReq, options ...MethodOptionFunc) (*CreateCorehrLocationActiveResp, *Response, error)) {
 	r.mockCorehrCreateCorehrLocationActive = f
 }
+
 // UnMockCorehrCreateCorehrLocationActive un-mock CorehrCreateCorehrLocationActive method
 func (r *Mock) UnMockCorehrCreateCorehrLocationActive() {
 	r.mockCorehrCreateCorehrLocationActive = nil
 }
 
-
 // CreateCorehrLocationActiveReq ...
-type CreateCorehrLocationActiveReq struct { 
-LocationID string `json:"location_id,omitempty"` // 地点 ID。ID 获取方式: 调用[【创建地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/create)[【批量分页查询地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)等接口可以返回地点ID示例值: "1616161616"
-EffectiveTime string `json:"effective_time,omitempty"` // 地点启用/停用生效日期- 填写格式: YYYY-MM-DD- 系统默认为填写日期当天的 00:00:00 生效 - 该接口只支持到最小单位为日- 日期范围要求:1900-01-01～9999-12-31- 详情可以参考[时间轴介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/about-timeline-version)示例值: "2020-01-01"
-Active bool `json:"active,omitempty"` // 地点启用/停用状态- true 为启用- false 为停用示例值: true
-OperationReason string `json:"operation_reason,omitempty"` // 操作原因示例值: "业务操作"
+type CreateCorehrLocationActiveReq struct {
+	LocationID      string `json:"location_id,omitempty"`      // 地点 ID。ID 获取方式: 调用[【创建地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/create)[【批量分页查询地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)等接口可以返回地点ID示例值: "1616161616"
+	EffectiveTime   string `json:"effective_time,omitempty"`   // 地点启用/停用生效日期- 填写格式: YYYY-MM-DD- 系统默认为填写日期当天的 00:00:00 生效 - 该接口只支持到最小单位为日- 日期范围要求:1900-01-01～9999-12-31- 详情可以参考[时间轴介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/about-timeline-version)示例值: "2020-01-01"
+	Active          bool   `json:"active,omitempty"`           // 地点启用/停用状态- true 为启用- false 为停用示例值: true
+	OperationReason string `json:"operation_reason,omitempty"` // 操作原因示例值: "业务操作"
 }
-
-
-
-
 
 // CreateCorehrLocationActiveResp ...
-type CreateCorehrLocationActiveResp struct { 
-}
-
-
-
-
+type CreateCorehrLocationActiveResp struct{}
 
 // createCorehrLocationActiveResp ...
-type createCorehrLocationActiveResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateCorehrLocationActiveResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createCorehrLocationActiveResp struct {
+	Code  int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                          `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateCorehrLocationActiveResp `json:"data,omitempty"`
+	Error *ErrorDetail                    `json:"error,omitempty"`
 }
-
-
-
-

@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // DeleteTaskCommentV2 删除一条评论。
@@ -27,9 +27,8 @@ import (
 // 需要评论归属任务的读取权限, 并且只能删除自己发送的评论。详情见[任务功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/overview)中的“任务是如何鉴权的？”章节。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/comment/delete
-// 
 func (r *TaskService) DeleteTaskCommentV2(ctx context.Context, request *DeleteTaskCommentV2Req, options ...MethodOptionFunc) (*DeleteTaskCommentV2Resp, *Response, error) {
-if r.cli.mock.mockTaskDeleteTaskCommentV2 != nil {
+	if r.cli.mock.mockTaskDeleteTaskCommentV2 != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#DeleteTaskCommentV2 mock enable")
 		return r.cli.mock.mockTaskDeleteTaskCommentV2(ctx, request, options...)
 	}
@@ -38,12 +37,11 @@ if r.cli.mock.mockTaskDeleteTaskCommentV2 != nil {
 		Scope:                 "Task",
 		API:                   "DeleteTaskCommentV2",
 		Method:                "DELETE",
-		URL:   r.cli.openBaseURL + "/open-apis/task/v2/comments/:comment_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/task/v2/comments/:comment_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(deleteTaskCommentV2Resp)
 
@@ -55,37 +53,24 @@ if r.cli.mock.mockTaskDeleteTaskCommentV2 != nil {
 func (r *Mock) MockTaskDeleteTaskCommentV2(f func(ctx context.Context, request *DeleteTaskCommentV2Req, options ...MethodOptionFunc) (*DeleteTaskCommentV2Resp, *Response, error)) {
 	r.mockTaskDeleteTaskCommentV2 = f
 }
+
 // UnMockTaskDeleteTaskCommentV2 un-mock TaskDeleteTaskCommentV2 method
 func (r *Mock) UnMockTaskDeleteTaskCommentV2() {
 	r.mockTaskDeleteTaskCommentV2 = nil
 }
 
-
 // DeleteTaskCommentV2Req ...
-type DeleteTaskCommentV2Req struct { 
-CommentID string `path:"comment_id" json:"-"` // 要删除的评论id示例值: "7198104824246747156"
+type DeleteTaskCommentV2Req struct {
+	CommentID string `path:"comment_id" json:"-"` // 要删除的评论id示例值: "7198104824246747156"
 }
-
-
-
-
 
 // DeleteTaskCommentV2Resp ...
-type DeleteTaskCommentV2Resp struct { 
-}
-
-
-
-
+type DeleteTaskCommentV2Resp struct{}
 
 // deleteTaskCommentV2Resp ...
-type deleteTaskCommentV2Resp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *DeleteTaskCommentV2Resp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type deleteTaskCommentV2Resp struct {
+	Code  int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                   `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteTaskCommentV2Resp `json:"data,omitempty"`
+	Error *ErrorDetail             `json:"error,omitempty"`
 }
-
-
-
-

@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // BatchRemoveApaasApplicationRecordPermissionMemberAuthorization 批量删除记录权限授权
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/application-record_permission-member/batch_remove_authorization
-// 
 func (r *ApaasService) BatchRemoveApaasApplicationRecordPermissionMemberAuthorization(ctx context.Context, request *BatchRemoveApaasApplicationRecordPermissionMemberAuthorizationReq, options ...MethodOptionFunc) (*BatchRemoveApaasApplicationRecordPermissionMemberAuthorizationResp, *Response, error) {
-if r.cli.mock.mockApaasBatchRemoveApaasApplicationRecordPermissionMemberAuthorization != nil {
+	if r.cli.mock.mockApaasBatchRemoveApaasApplicationRecordPermissionMemberAuthorization != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Apaas#BatchRemoveApaasApplicationRecordPermissionMemberAuthorization mock enable")
 		return r.cli.mock.mockApaasBatchRemoveApaasApplicationRecordPermissionMemberAuthorization(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockApaasBatchRemoveApaasApplicationRecordPermissionMemberAuthoriz
 		Scope:                 "Apaas",
 		API:                   "BatchRemoveApaasApplicationRecordPermissionMemberAuthorization",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/apaas/v1/applications/:namespace/record_permissions/:record_permission_api_name/member/batch_remove_authorization",
+		URL:                   r.cli.openBaseURL + "/open-apis/apaas/v1/applications/:namespace/record_permissions/:record_permission_api_name/member/batch_remove_authorization",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(batchRemoveApaasApplicationRecordPermissionMemberAuthorizationResp)
 
@@ -51,39 +49,26 @@ if r.cli.mock.mockApaasBatchRemoveApaasApplicationRecordPermissionMemberAuthoriz
 func (r *Mock) MockApaasBatchRemoveApaasApplicationRecordPermissionMemberAuthorization(f func(ctx context.Context, request *BatchRemoveApaasApplicationRecordPermissionMemberAuthorizationReq, options ...MethodOptionFunc) (*BatchRemoveApaasApplicationRecordPermissionMemberAuthorizationResp, *Response, error)) {
 	r.mockApaasBatchRemoveApaasApplicationRecordPermissionMemberAuthorization = f
 }
+
 // UnMockApaasBatchRemoveApaasApplicationRecordPermissionMemberAuthorization un-mock ApaasBatchRemoveApaasApplicationRecordPermissionMemberAuthorization method
 func (r *Mock) UnMockApaasBatchRemoveApaasApplicationRecordPermissionMemberAuthorization() {
 	r.mockApaasBatchRemoveApaasApplicationRecordPermissionMemberAuthorization = nil
 }
 
-
 // BatchRemoveApaasApplicationRecordPermissionMemberAuthorizationReq ...
-type BatchRemoveApaasApplicationRecordPermissionMemberAuthorizationReq struct { 
-Namespace string `path:"namespace" json:"-"` // 应用命名空间示例值: "package_test__c" 长度范围: `0` ～ `255` 字符
-RecordPermissionApiName string `path:"record_permission_api_name" json:"-"` // 记录权限 API 名称示例值: "adminRecordPermission" 长度范围: `0` ～ `255` 字符
-UserIDs []string `json:"user_ids,omitempty"` // 需要删除的用户 ID 列表, 使用飞书 aPaaS 的用户 ID示例值: ["1802412778084426"] 长度范围: `0` ～ `1000`
+type BatchRemoveApaasApplicationRecordPermissionMemberAuthorizationReq struct {
+	Namespace               string   `path:"namespace" json:"-"`                  // 应用命名空间示例值: "package_test__c" 长度范围: `0` ～ `255` 字符
+	RecordPermissionApiName string   `path:"record_permission_api_name" json:"-"` // 记录权限 API 名称示例值: "adminRecordPermission" 长度范围: `0` ～ `255` 字符
+	UserIDs                 []string `json:"user_ids,omitempty"`                  // 需要删除的用户 ID 列表, 使用飞书 aPaaS 的用户 ID示例值: ["1802412778084426"] 长度范围: `0` ～ `1000`
 }
-
-
-
-
 
 // BatchRemoveApaasApplicationRecordPermissionMemberAuthorizationResp ...
-type BatchRemoveApaasApplicationRecordPermissionMemberAuthorizationResp struct { 
-}
-
-
-
-
+type BatchRemoveApaasApplicationRecordPermissionMemberAuthorizationResp struct{}
 
 // batchRemoveApaasApplicationRecordPermissionMemberAuthorizationResp ...
-type batchRemoveApaasApplicationRecordPermissionMemberAuthorizationResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *BatchRemoveApaasApplicationRecordPermissionMemberAuthorizationResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type batchRemoveApaasApplicationRecordPermissionMemberAuthorizationResp struct {
+	Code  int64                                                               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                                              `json:"msg,omitempty"`  // 错误描述
+	Data  *BatchRemoveApaasApplicationRecordPermissionMemberAuthorizationResp `json:"data,omitempty"`
+	Error *ErrorDetail                                                        `json:"error,omitempty"`
 }
-
-
-
-

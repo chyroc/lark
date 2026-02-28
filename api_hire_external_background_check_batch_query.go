@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // BatchQueryHireExternalBackgroundCheck 可根据外部投递 ID 或外部背调 ID 列表查询外部背调信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_background_check/batch_query
-// 
 func (r *HireService) BatchQueryHireExternalBackgroundCheck(ctx context.Context, request *BatchQueryHireExternalBackgroundCheckReq, options ...MethodOptionFunc) (*BatchQueryHireExternalBackgroundCheckResp, *Response, error) {
-if r.cli.mock.mockHireBatchQueryHireExternalBackgroundCheck != nil {
+	if r.cli.mock.mockHireBatchQueryHireExternalBackgroundCheck != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#BatchQueryHireExternalBackgroundCheck mock enable")
 		return r.cli.mock.mockHireBatchQueryHireExternalBackgroundCheck(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockHireBatchQueryHireExternalBackgroundCheck != nil {
 		Scope:                 "Hire",
 		API:                   "BatchQueryHireExternalBackgroundCheck",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/external_background_checks/batch_query",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/external_background_checks/batch_query",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(batchQueryHireExternalBackgroundCheckResp)
 
@@ -51,68 +49,48 @@ if r.cli.mock.mockHireBatchQueryHireExternalBackgroundCheck != nil {
 func (r *Mock) MockHireBatchQueryHireExternalBackgroundCheck(f func(ctx context.Context, request *BatchQueryHireExternalBackgroundCheckReq, options ...MethodOptionFunc) (*BatchQueryHireExternalBackgroundCheckResp, *Response, error)) {
 	r.mockHireBatchQueryHireExternalBackgroundCheck = f
 }
+
 // UnMockHireBatchQueryHireExternalBackgroundCheck un-mock HireBatchQueryHireExternalBackgroundCheck method
 func (r *Mock) UnMockHireBatchQueryHireExternalBackgroundCheck() {
 	r.mockHireBatchQueryHireExternalBackgroundCheck = nil
 }
 
-
 // BatchQueryHireExternalBackgroundCheckReq ...
-type BatchQueryHireExternalBackgroundCheckReq struct { 
-ExternalApplicationID *string `query:"external_application_id" json:"-"` // 外部投递 ID, 可通过[查询外部投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_application/list)接口获取示例值: 6960663240925956660
-PageSize *int64 `query:"page_size" json:"-"` // 分页大小示例值: 10默认值: `10` 取值范围: `1` ～ `20`
-PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eyJvZmZzZXQiOjEwLCJ0aW1lc3RhbXAiOjE2Mjc1NTUyMjM2NzIsImlkIjpudWxsfQ==
-ExternalBackgroundCheckIDList []string `json:"external_background_check_id_list,omitempty"` // 外部背调 ID 列表, 当传此值时, 仅以此值作为条件查询, 其他查询条件不生效示例值: ["6960663240925956660"] 长度范围: `0` ～ `20`
+type BatchQueryHireExternalBackgroundCheckReq struct {
+	ExternalApplicationID         *string  `query:"external_application_id" json:"-"`           // 外部投递 ID, 可通过[查询外部投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_application/list)接口获取示例值: 6960663240925956660
+	PageSize                      *int64   `query:"page_size" json:"-"`                         // 分页大小示例值: 10默认值: `10` 取值范围: `1` ～ `20`
+	PageToken                     *string  `query:"page_token" json:"-"`                        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eyJvZmZzZXQiOjEwLCJ0aW1lc3RhbXAiOjE2Mjc1NTUyMjM2NzIsImlkIjpudWxsfQ==
+	ExternalBackgroundCheckIDList []string `json:"external_background_check_id_list,omitempty"` // 外部背调 ID 列表, 当传此值时, 仅以此值作为条件查询, 其他查询条件不生效示例值: ["6960663240925956660"] 长度范围: `0` ～ `20`
 }
-
-
-
-
 
 // BatchQueryHireExternalBackgroundCheckResp ...
-type BatchQueryHireExternalBackgroundCheckResp struct { 
-Items []*BatchQueryHireExternalBackgroundCheckRespItem `json:"items,omitempty"` // 外部背调
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
+type BatchQueryHireExternalBackgroundCheckResp struct {
+	Items     []*BatchQueryHireExternalBackgroundCheckRespItem `json:"items,omitempty"`      // 外部背调
+	PageToken string                                           `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	HasMore   bool                                             `json:"has_more,omitempty"`   // 是否还有更多项
 }
-
-
-
-
 
 // BatchQueryHireExternalBackgroundCheckRespItem ...
-type BatchQueryHireExternalBackgroundCheckRespItem struct { 
-ID string `json:"id,omitempty"` // 外部背调 ID
-ExternalApplicationID string `json:"external_application_id,omitempty"` // 外部投递 ID, 详情可查看: [查询外部投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_application/list)
-Date int64 `json:"date,omitempty"` // 背调日期, 毫秒时间戳（字段类型为: int64）
-Name string `json:"name,omitempty"` // 背调名称
-Result string `json:"result,omitempty"` // 背调结果
-AttachmentList []*BatchQueryHireExternalBackgroundCheckRespItemAttachment `json:"attachment_list,omitempty"` // 背调附件列表
+type BatchQueryHireExternalBackgroundCheckRespItem struct {
+	ID                    string                                                     `json:"id,omitempty"`                      // 外部背调 ID
+	ExternalApplicationID string                                                     `json:"external_application_id,omitempty"` // 外部投递 ID, 详情可查看: [查询外部投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_application/list)
+	Date                  int64                                                      `json:"date,omitempty"`                    // 背调日期, 毫秒时间戳（字段类型为: int64）
+	Name                  string                                                     `json:"name,omitempty"`                    // 背调名称
+	Result                string                                                     `json:"result,omitempty"`                  // 背调结果
+	AttachmentList        []*BatchQueryHireExternalBackgroundCheckRespItemAttachment `json:"attachment_list,omitempty"`         // 背调附件列表
 }
-
-
-
-
 
 // BatchQueryHireExternalBackgroundCheckRespItemAttachment ...
-type BatchQueryHireExternalBackgroundCheckRespItemAttachment struct { 
-ID string `json:"id,omitempty"` // 附件 ID, 详情可查看: [获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get)
-Name string `json:"name,omitempty"` // 附件名称
-Size int64 `json:"size,omitempty"` // 附件大小（单位: 字节）
+type BatchQueryHireExternalBackgroundCheckRespItemAttachment struct {
+	ID   string `json:"id,omitempty"`   // 附件 ID, 详情可查看: [获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get)
+	Name string `json:"name,omitempty"` // 附件名称
+	Size int64  `json:"size,omitempty"` // 附件大小（单位: 字节）
 }
-
-
-
-
 
 // batchQueryHireExternalBackgroundCheckResp ...
-type batchQueryHireExternalBackgroundCheckResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *BatchQueryHireExternalBackgroundCheckResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type batchQueryHireExternalBackgroundCheckResp struct {
+	Code  int64                                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                     `json:"msg,omitempty"`  // 错误描述
+	Data  *BatchQueryHireExternalBackgroundCheckResp `json:"data,omitempty"`
+	Error *ErrorDetail                               `json:"error,omitempty"`
 }
-
-
-
-

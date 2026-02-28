@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // DeleteMailUserMailboxRule 删除收信规则
@@ -26,9 +26,8 @@ import (
 // 使用 tenant_access_token 时, 需要申请收信规则资源的数据权限。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-rule/delete
-// 
 func (r *MailService) DeleteMailUserMailboxRule(ctx context.Context, request *DeleteMailUserMailboxRuleReq, options ...MethodOptionFunc) (*DeleteMailUserMailboxRuleResp, *Response, error) {
-if r.cli.mock.mockMailDeleteMailUserMailboxRule != nil {
+	if r.cli.mock.mockMailDeleteMailUserMailboxRule != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#DeleteMailUserMailboxRule mock enable")
 		return r.cli.mock.mockMailDeleteMailUserMailboxRule(ctx, request, options...)
 	}
@@ -37,12 +36,11 @@ if r.cli.mock.mockMailDeleteMailUserMailboxRule != nil {
 		Scope:                 "Mail",
 		API:                   "DeleteMailUserMailboxRule",
 		Method:                "DELETE",
-		URL:   r.cli.openBaseURL + "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/rules/:rule_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/rules/:rule_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(deleteMailUserMailboxRuleResp)
 
@@ -54,38 +52,25 @@ if r.cli.mock.mockMailDeleteMailUserMailboxRule != nil {
 func (r *Mock) MockMailDeleteMailUserMailboxRule(f func(ctx context.Context, request *DeleteMailUserMailboxRuleReq, options ...MethodOptionFunc) (*DeleteMailUserMailboxRuleResp, *Response, error)) {
 	r.mockMailDeleteMailUserMailboxRule = f
 }
+
 // UnMockMailDeleteMailUserMailboxRule un-mock MailDeleteMailUserMailboxRule method
 func (r *Mock) UnMockMailDeleteMailUserMailboxRule() {
 	r.mockMailDeleteMailUserMailboxRule = nil
 }
 
-
 // DeleteMailUserMailboxRuleReq ...
-type DeleteMailUserMailboxRuleReq struct { 
-UserMailboxID string `path:"user_mailbox_id" json:"-"` // 用户邮箱地址 或 输入me代表当前调用接口用户示例值: "user@xxx.xx 或 me"
-RuleID string `path:"rule_id" json:"-"` // 规则 id, 获取方式见 [列出收信规则](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-rule/list)示例值: "123123123"
+type DeleteMailUserMailboxRuleReq struct {
+	UserMailboxID string `path:"user_mailbox_id" json:"-"` // 用户邮箱地址 或 输入me代表当前调用接口用户示例值: "user@xxx.xx 或 me"
+	RuleID        string `path:"rule_id" json:"-"`         // 规则 id, 获取方式见 [列出收信规则](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-rule/list)示例值: "123123123"
 }
-
-
-
-
 
 // DeleteMailUserMailboxRuleResp ...
-type DeleteMailUserMailboxRuleResp struct { 
-}
-
-
-
-
+type DeleteMailUserMailboxRuleResp struct{}
 
 // deleteMailUserMailboxRuleResp ...
-type deleteMailUserMailboxRuleResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *DeleteMailUserMailboxRuleResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type deleteMailUserMailboxRuleResp struct {
+	Code  int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                         `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteMailUserMailboxRuleResp `json:"data,omitempty"`
+	Error *ErrorDetail                   `json:"error,omitempty"`
 }
-
-
-
-

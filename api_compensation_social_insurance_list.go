@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListCompensationSocialInsurance 获取飞书人事系统中社保公积金设置下的险种配置详细列表, 包括险种名称、类型等信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/social_insurance/list
-// 
 func (r *CompensationService) ListCompensationSocialInsurance(ctx context.Context, request *ListCompensationSocialInsuranceReq, options ...MethodOptionFunc) (*ListCompensationSocialInsuranceResp, *Response, error) {
-if r.cli.mock.mockCompensationListCompensationSocialInsurance != nil {
+	if r.cli.mock.mockCompensationListCompensationSocialInsurance != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Compensation#ListCompensationSocialInsurance mock enable")
 		return r.cli.mock.mockCompensationListCompensationSocialInsurance(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockCompensationListCompensationSocialInsurance != nil {
 		Scope:                 "Compensation",
 		API:                   "ListCompensationSocialInsurance",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/compensation/v1/social_insurances",
+		URL:                   r.cli.openBaseURL + "/open-apis/compensation/v1/social_insurances",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(listCompensationSocialInsuranceResp)
 
@@ -51,60 +49,39 @@ if r.cli.mock.mockCompensationListCompensationSocialInsurance != nil {
 func (r *Mock) MockCompensationListCompensationSocialInsurance(f func(ctx context.Context, request *ListCompensationSocialInsuranceReq, options ...MethodOptionFunc) (*ListCompensationSocialInsuranceResp, *Response, error)) {
 	r.mockCompensationListCompensationSocialInsurance = f
 }
+
 // UnMockCompensationListCompensationSocialInsurance un-mock CompensationListCompensationSocialInsurance method
 func (r *Mock) UnMockCompensationListCompensationSocialInsurance() {
 	r.mockCompensationListCompensationSocialInsurance = nil
 }
 
-
 // ListCompensationSocialInsuranceReq ...
-type ListCompensationSocialInsuranceReq struct { 
-}
-
-
-
-
+type ListCompensationSocialInsuranceReq struct{}
 
 // ListCompensationSocialInsuranceResp ...
-type ListCompensationSocialInsuranceResp struct { 
-Items []*ListCompensationSocialInsuranceRespItem `json:"items,omitempty"` // 险种列表
+type ListCompensationSocialInsuranceResp struct {
+	Items []*ListCompensationSocialInsuranceRespItem `json:"items,omitempty"` // 险种列表
 }
-
-
-
-
 
 // ListCompensationSocialInsuranceRespItem ...
-type ListCompensationSocialInsuranceRespItem struct { 
-ID string `json:"id,omitempty"` // 险种唯一ID
-Name *ListCompensationSocialInsuranceRespItemName `json:"name,omitempty"` // 险种名称
-InsuranceType string `json:"insurance_type,omitempty"` // 险种类型. social_insurance: 社保; provident_fund: 公积金可选值有: 社保公积金
-Active bool `json:"active,omitempty"` // 启用状态, true: 启用, false: 停用；
-IsSystem bool `json:"is_system,omitempty"` // 是否为系统预置险种, true: 预置险种, false: 自定义险种
+type ListCompensationSocialInsuranceRespItem struct {
+	ID            string                                       `json:"id,omitempty"`             // 险种唯一ID
+	Name          *ListCompensationSocialInsuranceRespItemName `json:"name,omitempty"`           // 险种名称
+	InsuranceType string                                       `json:"insurance_type,omitempty"` // 险种类型. social_insurance: 社保; provident_fund: 公积金可选值有: 社保公积金
+	Active        bool                                         `json:"active,omitempty"`         // 启用状态, true: 启用, false: 停用；
+	IsSystem      bool                                         `json:"is_system,omitempty"`      // 是否为系统预置险种, true: 预置险种, false: 自定义险种
 }
-
-
-
-
 
 // ListCompensationSocialInsuranceRespItemName ...
-type ListCompensationSocialInsuranceRespItemName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文名称
-EnUs string `json:"en_us,omitempty"` // 英文名称
+type ListCompensationSocialInsuranceRespItemName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名称
+	EnUs string `json:"en_us,omitempty"` // 英文名称
 }
-
-
-
-
 
 // listCompensationSocialInsuranceResp ...
-type listCompensationSocialInsuranceResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *ListCompensationSocialInsuranceResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type listCompensationSocialInsuranceResp struct {
+	Code  int64                                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                               `json:"msg,omitempty"`  // 错误描述
+	Data  *ListCompensationSocialInsuranceResp `json:"data,omitempty"`
+	Error *ErrorDetail                         `json:"error,omitempty"`
 }
-
-
-
-

@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListDirectoryCollaborationRule 管理员视角查询可搜可见规则。用户需具备关联组织管理员权限。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/collaboration_rule/list
-// 
 func (r *DirectoryService) ListDirectoryCollaborationRule(ctx context.Context, request *ListDirectoryCollaborationRuleReq, options ...MethodOptionFunc) (*ListDirectoryCollaborationRuleResp, *Response, error) {
-if r.cli.mock.mockDirectoryListDirectoryCollaborationRule != nil {
+	if r.cli.mock.mockDirectoryListDirectoryCollaborationRule != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Directory#ListDirectoryCollaborationRule mock enable")
 		return r.cli.mock.mockDirectoryListDirectoryCollaborationRule(ctx, request, options...)
 	}
@@ -35,12 +34,11 @@ if r.cli.mock.mockDirectoryListDirectoryCollaborationRule != nil {
 		Scope:                 "Directory",
 		API:                   "ListDirectoryCollaborationRule",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/directory/v1/collaboration_rules",
+		URL:                   r.cli.openBaseURL + "/open-apis/directory/v1/collaboration_rules",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(listDirectoryCollaborationRuleResp)
 
@@ -52,77 +50,53 @@ if r.cli.mock.mockDirectoryListDirectoryCollaborationRule != nil {
 func (r *Mock) MockDirectoryListDirectoryCollaborationRule(f func(ctx context.Context, request *ListDirectoryCollaborationRuleReq, options ...MethodOptionFunc) (*ListDirectoryCollaborationRuleResp, *Response, error)) {
 	r.mockDirectoryListDirectoryCollaborationRule = f
 }
+
 // UnMockDirectoryListDirectoryCollaborationRule un-mock DirectoryListDirectoryCollaborationRule method
 func (r *Mock) UnMockDirectoryListDirectoryCollaborationRule() {
 	r.mockDirectoryListDirectoryCollaborationRule = nil
 }
 
-
 // ListDirectoryCollaborationRuleReq ...
-type ListDirectoryCollaborationRuleReq struct { 
-PageSize *int64 `query:"page_size" json:"-"` // 分页大小示例值: 10默认值: `100` 取值范围: `0` ～ `100`
-PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eVQrYzJBNDNONlk4VFZBZVlSdzlKdFJ4bVVHVExENDNKVHoxaVdiVnViQT0=
-TargetTenantKey string `query:"target_tenant_key" json:"-"` // 对方组织的tenant key, 可通过[管理员获取所有关联组织列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/collaboration_tenant/list)获取示例值: test_key
+type ListDirectoryCollaborationRuleReq struct {
+	PageSize        *int64  `query:"page_size" json:"-"`         // 分页大小示例值: 10默认值: `100` 取值范围: `0` ～ `100`
+	PageToken       *string `query:"page_token" json:"-"`        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eVQrYzJBNDNONlk4VFZBZVlSdzlKdFJ4bVVHVExENDNKVHoxaVdiVnViQT0=
+	TargetTenantKey string  `query:"target_tenant_key" json:"-"` // 对方组织的tenant key, 可通过[管理员获取所有关联组织列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/collaboration_tenant/list)获取示例值: test_key
 }
-
-
-
-
 
 // ListDirectoryCollaborationRuleResp ...
-type ListDirectoryCollaborationRuleResp struct { 
-Items []*ListDirectoryCollaborationRuleRespItem `json:"items,omitempty"` // 规则列表
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
+type ListDirectoryCollaborationRuleResp struct {
+	Items     []*ListDirectoryCollaborationRuleRespItem `json:"items,omitempty"`      // 规则列表
+	PageToken string                                    `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	HasMore   bool                                      `json:"has_more,omitempty"`   // 是否还有更多项
 }
-
-
-
-
 
 // ListDirectoryCollaborationRuleRespItem ...
-type ListDirectoryCollaborationRuleRespItem struct { 
-RuleID string `json:"rule_id,omitempty"` // 规则ID
-Subjects *ListDirectoryCollaborationRuleRespItemSubjects `json:"subjects,omitempty"` // 实体数量之和需要小于100
-SubjectIsValid bool `json:"subject_is_valid,omitempty"` // 是否生效, 如果规则主体超出了分享的范围, 则is_valid为false, 规则主体将不返回
-Objects *ListDirectoryCollaborationRuleRespItemObjects `json:"objects,omitempty"` // 实体数量之和需要小于100
-ObjectIsValid bool `json:"object_is_valid,omitempty"` // 是否生效, 如果规则客体超出了分享的范围, 则is_valid为false, 规则客体将不返回
+type ListDirectoryCollaborationRuleRespItem struct {
+	RuleID         string                                          `json:"rule_id,omitempty"`          // 规则ID
+	Subjects       *ListDirectoryCollaborationRuleRespItemSubjects `json:"subjects,omitempty"`         // 实体数量之和需要小于100
+	SubjectIsValid bool                                            `json:"subject_is_valid,omitempty"` // 是否生效, 如果规则主体超出了分享的范围, 则is_valid为false, 规则主体将不返回
+	Objects        *ListDirectoryCollaborationRuleRespItemObjects  `json:"objects,omitempty"`          // 实体数量之和需要小于100
+	ObjectIsValid  bool                                            `json:"object_is_valid,omitempty"`  // 是否生效, 如果规则客体超出了分享的范围, 则is_valid为false, 规则客体将不返回
 }
-
-
-
-
 
 // ListDirectoryCollaborationRuleRespItemObjects ...
-type ListDirectoryCollaborationRuleRespItemObjects struct { 
-OpenUserIDs []string `json:"open_user_ids,omitempty"` // 用户 open id
-OpenDepartmentIDs []string `json:"open_department_ids,omitempty"` // 部门 open id, 0代表全部成员
-OpenGroupIDs []string `json:"open_group_ids,omitempty"` // 用户组 open id
+type ListDirectoryCollaborationRuleRespItemObjects struct {
+	OpenUserIDs       []string `json:"open_user_ids,omitempty"`       // 用户 open id
+	OpenDepartmentIDs []string `json:"open_department_ids,omitempty"` // 部门 open id, 0代表全部成员
+	OpenGroupIDs      []string `json:"open_group_ids,omitempty"`      // 用户组 open id
 }
-
-
-
-
 
 // ListDirectoryCollaborationRuleRespItemSubjects ...
-type ListDirectoryCollaborationRuleRespItemSubjects struct { 
-OpenUserIDs []string `json:"open_user_ids,omitempty"` // 用户 open id
-OpenDepartmentIDs []string `json:"open_department_ids,omitempty"` // 部门 open id, 0代表全部成员
-OpenGroupIDs []string `json:"open_group_ids,omitempty"` // 用户组 open id
+type ListDirectoryCollaborationRuleRespItemSubjects struct {
+	OpenUserIDs       []string `json:"open_user_ids,omitempty"`       // 用户 open id
+	OpenDepartmentIDs []string `json:"open_department_ids,omitempty"` // 部门 open id, 0代表全部成员
+	OpenGroupIDs      []string `json:"open_group_ids,omitempty"`      // 用户组 open id
 }
-
-
-
-
 
 // listDirectoryCollaborationRuleResp ...
-type listDirectoryCollaborationRuleResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *ListDirectoryCollaborationRuleResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type listDirectoryCollaborationRuleResp struct {
+	Code  int64                               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                              `json:"msg,omitempty"`  // 错误描述
+	Data  *ListDirectoryCollaborationRuleResp `json:"data,omitempty"`
+	Error *ErrorDetail                        `json:"error,omitempty"`
 }
-
-
-
-

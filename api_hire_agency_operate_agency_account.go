@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateHireAgencyOperateAgencyAccount 可根据猎头 ID 对猎头执行禁用/取消禁用操作。被禁用的猎头, 不能推荐候选人与被分配职位。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/agency/operate_agency_account
-// 
 func (r *HireService) CreateHireAgencyOperateAgencyAccount(ctx context.Context, request *CreateHireAgencyOperateAgencyAccountReq, options ...MethodOptionFunc) (*CreateHireAgencyOperateAgencyAccountResp, *Response, error) {
-if r.cli.mock.mockHireCreateHireAgencyOperateAgencyAccount != nil {
+	if r.cli.mock.mockHireCreateHireAgencyOperateAgencyAccount != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#CreateHireAgencyOperateAgencyAccount mock enable")
 		return r.cli.mock.mockHireCreateHireAgencyOperateAgencyAccount(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockHireCreateHireAgencyOperateAgencyAccount != nil {
 		Scope:                 "Hire",
 		API:                   "CreateHireAgencyOperateAgencyAccount",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/agencies/operate_agency_account",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/agencies/operate_agency_account",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createHireAgencyOperateAgencyAccountResp)
 
@@ -51,39 +49,26 @@ if r.cli.mock.mockHireCreateHireAgencyOperateAgencyAccount != nil {
 func (r *Mock) MockHireCreateHireAgencyOperateAgencyAccount(f func(ctx context.Context, request *CreateHireAgencyOperateAgencyAccountReq, options ...MethodOptionFunc) (*CreateHireAgencyOperateAgencyAccountResp, *Response, error)) {
 	r.mockHireCreateHireAgencyOperateAgencyAccount = f
 }
+
 // UnMockHireCreateHireAgencyOperateAgencyAccount un-mock HireCreateHireAgencyOperateAgencyAccount method
 func (r *Mock) UnMockHireCreateHireAgencyOperateAgencyAccount() {
 	r.mockHireCreateHireAgencyOperateAgencyAccount = nil
 }
 
-
 // CreateHireAgencyOperateAgencyAccountReq ...
-type CreateHireAgencyOperateAgencyAccountReq struct { 
-Option int64 `json:"option,omitempty"` // 操作类型示例值: 1可选值有: 禁用取消禁用
-ID string `json:"id,omitempty"` // 猎头 ID, 可通过[查询猎头供应商下猎头列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/agency/get_agency_account)接口获取示例值: "7398623155442682156"
-Reason *string `json:"reason,omitempty"` // 禁用原因, 仅当`option`为`1`时, 必填示例值: "这个人特别不负责"
+type CreateHireAgencyOperateAgencyAccountReq struct {
+	Option int64   `json:"option,omitempty"` // 操作类型示例值: 1可选值有: 禁用取消禁用
+	ID     string  `json:"id,omitempty"`     // 猎头 ID, 可通过[查询猎头供应商下猎头列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/agency/get_agency_account)接口获取示例值: "7398623155442682156"
+	Reason *string `json:"reason,omitempty"` // 禁用原因, 仅当`option`为`1`时, 必填示例值: "这个人特别不负责"
 }
-
-
-
-
 
 // CreateHireAgencyOperateAgencyAccountResp ...
-type CreateHireAgencyOperateAgencyAccountResp struct { 
-}
-
-
-
-
+type CreateHireAgencyOperateAgencyAccountResp struct{}
 
 // createHireAgencyOperateAgencyAccountResp ...
-type createHireAgencyOperateAgencyAccountResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateHireAgencyOperateAgencyAccountResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createHireAgencyOperateAgencyAccountResp struct {
+	Code  int64                                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                    `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateHireAgencyOperateAgencyAccountResp `json:"data,omitempty"`
+	Error *ErrorDetail                              `json:"error,omitempty"`
 }
-
-
-
-

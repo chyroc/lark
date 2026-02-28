@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateHireAdvertisementPublish 支持把职位广告发布上线至招聘官网、内推平台。
@@ -27,9 +27,8 @@ import (
 // 调用此接口前, 需先打开「飞书招聘」-「设置」-「职位管理」-「职位设置」-「通过 API 同步职位开关」开关。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/advertisement/publish
-// 
 func (r *HireService) CreateHireAdvertisementPublish(ctx context.Context, request *CreateHireAdvertisementPublishReq, options ...MethodOptionFunc) (*CreateHireAdvertisementPublishResp, *Response, error) {
-if r.cli.mock.mockHireCreateHireAdvertisementPublish != nil {
+	if r.cli.mock.mockHireCreateHireAdvertisementPublish != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#CreateHireAdvertisementPublish mock enable")
 		return r.cli.mock.mockHireCreateHireAdvertisementPublish(ctx, request, options...)
 	}
@@ -38,11 +37,10 @@ if r.cli.mock.mockHireCreateHireAdvertisementPublish != nil {
 		Scope:                 "Hire",
 		API:                   "CreateHireAdvertisementPublish",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/advertisements/:advertisement_id/publish",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/advertisements/:advertisement_id/publish",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createHireAdvertisementPublishResp)
 
@@ -54,38 +52,25 @@ if r.cli.mock.mockHireCreateHireAdvertisementPublish != nil {
 func (r *Mock) MockHireCreateHireAdvertisementPublish(f func(ctx context.Context, request *CreateHireAdvertisementPublishReq, options ...MethodOptionFunc) (*CreateHireAdvertisementPublishResp, *Response, error)) {
 	r.mockHireCreateHireAdvertisementPublish = f
 }
+
 // UnMockHireCreateHireAdvertisementPublish un-mock HireCreateHireAdvertisementPublish method
 func (r *Mock) UnMockHireCreateHireAdvertisementPublish() {
 	r.mockHireCreateHireAdvertisementPublish = nil
 }
 
-
 // CreateHireAdvertisementPublishReq ...
-type CreateHireAdvertisementPublishReq struct { 
-AdvertisementID string `path:"advertisement_id" json:"-"` // 职位广告 ID, 可由[新建职位](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/combined_create)接口创建职位后返回获取。示例值: "6960663240925956660"
-JobChannelID *string `json:"job_channel_id,omitempty"` // 招聘渠道 ID, 选择要发布的招聘官网, 单次仅可发布 1 个渠道: 当发布内推平台时, 可使用 job_channel_id = 3 来发布- 官网渠道的 ID 可通过[获取招聘官网列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website/list)」接口获取示例值: "6960663240925956631"
+type CreateHireAdvertisementPublishReq struct {
+	AdvertisementID string  `path:"advertisement_id" json:"-"` // 职位广告 ID, 可由[新建职位](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/combined_create)接口创建职位后返回获取。示例值: "6960663240925956660"
+	JobChannelID    *string `json:"job_channel_id,omitempty"`  // 招聘渠道 ID, 选择要发布的招聘官网, 单次仅可发布 1 个渠道: 当发布内推平台时, 可使用 job_channel_id = 3 来发布- 官网渠道的 ID 可通过[获取招聘官网列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website/list)」接口获取示例值: "6960663240925956631"
 }
-
-
-
-
 
 // CreateHireAdvertisementPublishResp ...
-type CreateHireAdvertisementPublishResp struct { 
-}
-
-
-
-
+type CreateHireAdvertisementPublishResp struct{}
 
 // createHireAdvertisementPublishResp ...
-type createHireAdvertisementPublishResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateHireAdvertisementPublishResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createHireAdvertisementPublishResp struct {
+	Code  int64                               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                              `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateHireAdvertisementPublishResp `json:"data,omitempty"`
+	Error *ErrorDetail                        `json:"error,omitempty"`
 }
-
-
-
-

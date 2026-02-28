@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateDirectoryEmployeeResurrect 该接口用于恢复已离职的成员, 恢复已离职成员至在职状态。
@@ -32,9 +32,8 @@ import (
 // - 使用user_access_token 时, 默认为管理员用户, 将校验管理员管理范围。当用户有多个管理员身份均可恢复离职员工时, 管理员管理范围取最大集。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/employee/resurrect
-// 
 func (r *DirectoryService) CreateDirectoryEmployeeResurrect(ctx context.Context, request *CreateDirectoryEmployeeResurrectReq, options ...MethodOptionFunc) (*CreateDirectoryEmployeeResurrectResp, *Response, error) {
-if r.cli.mock.mockDirectoryCreateDirectoryEmployeeResurrect != nil {
+	if r.cli.mock.mockDirectoryCreateDirectoryEmployeeResurrect != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Directory#CreateDirectoryEmployeeResurrect mock enable")
 		return r.cli.mock.mockDirectoryCreateDirectoryEmployeeResurrect(ctx, request, options...)
 	}
@@ -43,12 +42,11 @@ if r.cli.mock.mockDirectoryCreateDirectoryEmployeeResurrect != nil {
 		Scope:                 "Directory",
 		API:                   "CreateDirectoryEmployeeResurrect",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/directory/v1/employees/:employee_id/resurrect",
+		URL:                   r.cli.openBaseURL + "/open-apis/directory/v1/employees/:employee_id/resurrect",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(createDirectoryEmployeeResurrectResp)
 
@@ -60,50 +58,33 @@ if r.cli.mock.mockDirectoryCreateDirectoryEmployeeResurrect != nil {
 func (r *Mock) MockDirectoryCreateDirectoryEmployeeResurrect(f func(ctx context.Context, request *CreateDirectoryEmployeeResurrectReq, options ...MethodOptionFunc) (*CreateDirectoryEmployeeResurrectResp, *Response, error)) {
 	r.mockDirectoryCreateDirectoryEmployeeResurrect = f
 }
+
 // UnMockDirectoryCreateDirectoryEmployeeResurrect un-mock DirectoryCreateDirectoryEmployeeResurrect method
 func (r *Mock) UnMockDirectoryCreateDirectoryEmployeeResurrect() {
 	r.mockDirectoryCreateDirectoryEmployeeResurrect = nil
 }
 
-
 // CreateDirectoryEmployeeResurrectReq ...
-type CreateDirectoryEmployeeResurrectReq struct { 
-EmployeeID string `path:"employee_id" json:"-"` // 员工ID, 与employee_id_type类型保持一致示例值: "eedasdas"
-EmployeeIDType *IDType `query:"employee_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)企业内在职员工的唯一标识。支持自定义, 未自定义时系统自动生成。ID支持修改。获取employee_id的方式: - 企业管理员在 管理后台 > 组织架构 > 成员与部门 页面, 点击 成员详情, 查询员工ID  - 通过 [批量获取员工列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/employee/filter) 的接口, 通过手机号或邮箱查询员工ID。默认值: `open_id`当值为 `employee_id`, 字段权限要求: 查看员工自定义 ID
-DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 部门ID类型示例值: open_department_id可选值有: department_idopen_department_id默认值: `open_department_id`
-EmployeeOrderInDepartments []string `json:"employee_order_in_departments,omitempty"` // 部门信息 长度范围: `0` ～ `10`
-Options *CreateDirectoryEmployeeResurrectReqOptions `json:"options,omitempty"` // 选项
+type CreateDirectoryEmployeeResurrectReq struct {
+	EmployeeID                 string                                      `path:"employee_id" json:"-"`                    // 员工ID, 与employee_id_type类型保持一致示例值: "eedasdas"
+	EmployeeIDType             *IDType                                     `query:"employee_id_type" json:"-"`              // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)企业内在职员工的唯一标识。支持自定义, 未自定义时系统自动生成。ID支持修改。获取employee_id的方式: - 企业管理员在 管理后台 > 组织架构 > 成员与部门 页面, 点击 成员详情, 查询员工ID  - 通过 [批量获取员工列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/employee/filter) 的接口, 通过手机号或邮箱查询员工ID。默认值: `open_id`当值为 `employee_id`, 字段权限要求: 查看员工自定义 ID
+	DepartmentIDType           *DepartmentIDType                           `query:"department_id_type" json:"-"`            // 部门ID类型示例值: open_department_id可选值有: department_idopen_department_id默认值: `open_department_id`
+	EmployeeOrderInDepartments []string                                    `json:"employee_order_in_departments,omitempty"` // 部门信息 长度范围: `0` ～ `10`
+	Options                    *CreateDirectoryEmployeeResurrectReqOptions `json:"options,omitempty"`                       // 选项
 }
-
-
-
-
 
 // CreateDirectoryEmployeeResurrectReqOptions ...
-type CreateDirectoryEmployeeResurrectReqOptions struct { 
-SubscriptionIDs []string `json:"subscription_ids,omitempty"` // 分配给员工的席位ID列表。可通过下方接口获取到该租户的可用席位ID, 参见[获取席位信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/tenant-v2/tenant-product_assign_info/query)。当在混合license模式下, 此字段为必填。示例值: ["435456345245"] 长度范围: `0` ～ `20`
+type CreateDirectoryEmployeeResurrectReqOptions struct {
+	SubscriptionIDs []string `json:"subscription_ids,omitempty"` // 分配给员工的席位ID列表。可通过下方接口获取到该租户的可用席位ID, 参见[获取席位信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/tenant-v2/tenant-product_assign_info/query)。当在混合license模式下, 此字段为必填。示例值: ["435456345245"] 长度范围: `0` ～ `20`
 }
-
-
-
-
 
 // CreateDirectoryEmployeeResurrectResp ...
-type CreateDirectoryEmployeeResurrectResp struct { 
-}
-
-
-
-
+type CreateDirectoryEmployeeResurrectResp struct{}
 
 // createDirectoryEmployeeResurrectResp ...
-type createDirectoryEmployeeResurrectResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateDirectoryEmployeeResurrectResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createDirectoryEmployeeResurrectResp struct {
+	Code  int64                                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateDirectoryEmployeeResurrectResp `json:"data,omitempty"`
+	Error *ErrorDetail                          `json:"error,omitempty"`
 }
-
-
-
-

@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateCcmDocsDefaultDocsApiMeta 该接口用于根据 token 获取各类文件的元数据。
@@ -26,9 +26,8 @@ import (
 // 请求用户需要拥有该文件的访问（读）权限
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMjN3UjLzYzN14yM2cTN
-// 
 func (r *CcmDocsService) CreateCcmDocsDefaultDocsApiMeta(ctx context.Context, request *CreateCcmDocsDefaultDocsApiMetaReq, options ...MethodOptionFunc) (*CreateCcmDocsDefaultDocsApiMetaResp, *Response, error) {
-if r.cli.mock.mockCcmDocsCreateCcmDocsDefaultDocsApiMeta != nil {
+	if r.cli.mock.mockCcmDocsCreateCcmDocsDefaultDocsApiMeta != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CcmDocs#CreateCcmDocsDefaultDocsApiMeta mock enable")
 		return r.cli.mock.mockCcmDocsCreateCcmDocsDefaultDocsApiMeta(ctx, request, options...)
 	}
@@ -37,12 +36,11 @@ if r.cli.mock.mockCcmDocsCreateCcmDocsDefaultDocsApiMeta != nil {
 		Scope:                 "CcmDocs",
 		API:                   "CreateCcmDocsDefaultDocsApiMeta",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/suite/docs-api/meta",
+		URL:                   r.cli.openBaseURL + "/open-apis/suite/docs-api/meta",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(createCcmDocsDefaultDocsApiMetaResp)
 
@@ -54,63 +52,43 @@ if r.cli.mock.mockCcmDocsCreateCcmDocsDefaultDocsApiMeta != nil {
 func (r *Mock) MockCcmDocsCreateCcmDocsDefaultDocsApiMeta(f func(ctx context.Context, request *CreateCcmDocsDefaultDocsApiMetaReq, options ...MethodOptionFunc) (*CreateCcmDocsDefaultDocsApiMetaResp, *Response, error)) {
 	r.mockCcmDocsCreateCcmDocsDefaultDocsApiMeta = f
 }
+
 // UnMockCcmDocsCreateCcmDocsDefaultDocsApiMeta un-mock CcmDocsCreateCcmDocsDefaultDocsApiMeta method
 func (r *Mock) UnMockCcmDocsCreateCcmDocsDefaultDocsApiMeta() {
 	r.mockCcmDocsCreateCcmDocsDefaultDocsApiMeta = nil
 }
 
-
 // CreateCcmDocsDefaultDocsApiMetaReq ...
-type CreateCcmDocsDefaultDocsApiMetaReq struct { 
-RequestDocs *CreateCcmDocsDefaultDocsApiMetaReqRequestDocs `json:"request_docs,omitempty"` // 请求文档, 一次不超过200个
+type CreateCcmDocsDefaultDocsApiMetaReq struct {
+	RequestDocs *CreateCcmDocsDefaultDocsApiMetaReqRequestDocs `json:"request_docs,omitempty"` // 请求文档, 一次不超过200个
 }
-
-
-
-
 
 // CreateCcmDocsDefaultDocsApiMetaReqRequestDocs ...
-type CreateCcmDocsDefaultDocsApiMetaReqRequestDocs struct { 
-DocsToken string `json:"docs_token,omitempty"` // 文件的 token, 获取方式见[概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
-DocsType string `json:"docs_type,omitempty"` // 文件类型   1) "doc": 飞书文档 2) "sheet": 飞书电子表格  3) "bitable": 飞书多维表格 4) "mindnote": 飞书思维笔记  5) "file": 飞书文件  6) "docx": 飞书新版文档
+type CreateCcmDocsDefaultDocsApiMetaReqRequestDocs struct {
+	DocsToken string `json:"docs_token,omitempty"` // 文件的 token, 获取方式见[概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
+	DocsType  string `json:"docs_type,omitempty"`  // 文件类型   1) "doc": 飞书文档 2) "sheet": 飞书电子表格  3) "bitable": 飞书多维表格 4) "mindnote": 飞书思维笔记  5) "file": 飞书文件  6) "docx": 飞书新版文档
 }
-
-
-
-
 
 // CreateCcmDocsDefaultDocsApiMetaResp ...
-type CreateCcmDocsDefaultDocsApiMetaResp struct { 
-DocsMetas []*CreateCcmDocsDefaultDocsApiMetaRespDocsMeta `json:"docs_metas,omitempty"` // 文件元数据
+type CreateCcmDocsDefaultDocsApiMetaResp struct {
+	DocsMetas []*CreateCcmDocsDefaultDocsApiMetaRespDocsMeta `json:"docs_metas,omitempty"` // 文件元数据
 }
-
-
-
-
 
 // CreateCcmDocsDefaultDocsApiMetaRespDocsMeta ...
-type CreateCcmDocsDefaultDocsApiMetaRespDocsMeta struct { 
-DocsToken string `json:"docs_token,omitempty"` // 文件token
-DocsType string `json:"docs_type,omitempty"` // 文件类型
-Title string `json:"title,omitempty"` // 标题
-OwnerID string `json:"owner_id,omitempty"` // 文件拥有者
-CreateTime int64 `json:"create_time,omitempty"` // 创建时间（Unix时间戳）
-LatestModifyUser string `json:"latest_modify_user,omitempty"` // 最后编辑者
-LatestModifyTime int64 `json:"latest_modify_time,omitempty"` // 最后编辑时间（Unix时间戳）
+type CreateCcmDocsDefaultDocsApiMetaRespDocsMeta struct {
+	DocsToken        string `json:"docs_token,omitempty"`         // 文件token
+	DocsType         string `json:"docs_type,omitempty"`          // 文件类型
+	Title            string `json:"title,omitempty"`              // 标题
+	OwnerID          string `json:"owner_id,omitempty"`           // 文件拥有者
+	CreateTime       int64  `json:"create_time,omitempty"`        // 创建时间（Unix时间戳）
+	LatestModifyUser string `json:"latest_modify_user,omitempty"` // 最后编辑者
+	LatestModifyTime int64  `json:"latest_modify_time,omitempty"` // 最后编辑时间（Unix时间戳）
 }
-
-
-
-
 
 // createCcmDocsDefaultDocsApiMetaResp ...
-type createCcmDocsDefaultDocsApiMetaResp struct { 
-Code int64 `json:"code,omitempty"` 
-Msg string `json:"msg,omitempty"` 
-Data *CreateCcmDocsDefaultDocsApiMetaResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createCcmDocsDefaultDocsApiMetaResp struct {
+	Code  int64                                `json:"code,omitempty"`
+	Msg   string                               `json:"msg,omitempty"`
+	Data  *CreateCcmDocsDefaultDocsApiMetaResp `json:"data,omitempty"`
+	Error *ErrorDetail                         `json:"error,omitempty"`
 }
-
-
-
-

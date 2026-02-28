@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreatePayrollPaymentActivityArchive 根据发薪活动ID对发薪活动进行封存。注意: 仅当发薪活动状态为审批通过时, 方可进行封存。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/payment_activity/archive
-// 
 func (r *PayrollService) CreatePayrollPaymentActivityArchive(ctx context.Context, request *CreatePayrollPaymentActivityArchiveReq, options ...MethodOptionFunc) (*CreatePayrollPaymentActivityArchiveResp, *Response, error) {
-if r.cli.mock.mockPayrollCreatePayrollPaymentActivityArchive != nil {
+	if r.cli.mock.mockPayrollCreatePayrollPaymentActivityArchive != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Payroll#CreatePayrollPaymentActivityArchive mock enable")
 		return r.cli.mock.mockPayrollCreatePayrollPaymentActivityArchive(ctx, request, options...)
 	}
@@ -35,12 +34,11 @@ if r.cli.mock.mockPayrollCreatePayrollPaymentActivityArchive != nil {
 		Scope:                 "Payroll",
 		API:                   "CreatePayrollPaymentActivityArchive",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/payroll/v1/payment_activitys/archive",
+		URL:                   r.cli.openBaseURL + "/open-apis/payroll/v1/payment_activitys/archive",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(createPayrollPaymentActivityArchiveResp)
 
@@ -52,37 +50,24 @@ if r.cli.mock.mockPayrollCreatePayrollPaymentActivityArchive != nil {
 func (r *Mock) MockPayrollCreatePayrollPaymentActivityArchive(f func(ctx context.Context, request *CreatePayrollPaymentActivityArchiveReq, options ...MethodOptionFunc) (*CreatePayrollPaymentActivityArchiveResp, *Response, error)) {
 	r.mockPayrollCreatePayrollPaymentActivityArchive = f
 }
+
 // UnMockPayrollCreatePayrollPaymentActivityArchive un-mock PayrollCreatePayrollPaymentActivityArchive method
 func (r *Mock) UnMockPayrollCreatePayrollPaymentActivityArchive() {
 	r.mockPayrollCreatePayrollPaymentActivityArchive = nil
 }
 
-
 // CreatePayrollPaymentActivityArchiveReq ...
-type CreatePayrollPaymentActivityArchiveReq struct { 
-ActivityID string `json:"activity_id,omitempty"` // 发薪活动ID, 可通过[查询发薪活动列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/payment_activity/list)获取。示例值: "7433255159377444875"
+type CreatePayrollPaymentActivityArchiveReq struct {
+	ActivityID string `json:"activity_id,omitempty"` // 发薪活动ID, 可通过[查询发薪活动列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/payment_activity/list)获取。示例值: "7433255159377444875"
 }
-
-
-
-
 
 // CreatePayrollPaymentActivityArchiveResp ...
-type CreatePayrollPaymentActivityArchiveResp struct { 
-}
-
-
-
-
+type CreatePayrollPaymentActivityArchiveResp struct{}
 
 // createPayrollPaymentActivityArchiveResp ...
-type createPayrollPaymentActivityArchiveResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreatePayrollPaymentActivityArchiveResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createPayrollPaymentActivityArchiveResp struct {
+	Code  int64                                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                   `json:"msg,omitempty"`  // 错误描述
+	Data  *CreatePayrollPaymentActivityArchiveResp `json:"data,omitempty"`
+	Error *ErrorDetail                             `json:"error,omitempty"`
 }
-
-
-
-

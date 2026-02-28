@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateHireExternalReferralReward 支持将外部的内推奖励（积分/现金）导入到招聘的「内推账号」中
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_referral_reward/create
-// 
 func (r *HireService) CreateHireExternalReferralReward(ctx context.Context, request *CreateHireExternalReferralRewardReq, options ...MethodOptionFunc) (*CreateHireExternalReferralRewardResp, *Response, error) {
-if r.cli.mock.mockHireCreateHireExternalReferralReward != nil {
+	if r.cli.mock.mockHireCreateHireExternalReferralReward != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#CreateHireExternalReferralReward mock enable")
 		return r.cli.mock.mockHireCreateHireExternalReferralReward(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockHireCreateHireExternalReferralReward != nil {
 		Scope:                 "Hire",
 		API:                   "CreateHireExternalReferralReward",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/external_referral_rewards",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/external_referral_rewards",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createHireExternalReferralRewardResp)
 
@@ -51,77 +49,57 @@ if r.cli.mock.mockHireCreateHireExternalReferralReward != nil {
 func (r *Mock) MockHireCreateHireExternalReferralReward(f func(ctx context.Context, request *CreateHireExternalReferralRewardReq, options ...MethodOptionFunc) (*CreateHireExternalReferralRewardResp, *Response, error)) {
 	r.mockHireCreateHireExternalReferralReward = f
 }
+
 // UnMockHireCreateHireExternalReferralReward un-mock HireCreateHireExternalReferralReward method
 func (r *Mock) UnMockHireCreateHireExternalReferralReward() {
 	r.mockHireCreateHireExternalReferralReward = nil
 }
 
-
 // CreateHireExternalReferralRewardReq ...
-type CreateHireExternalReferralRewardReq struct { 
-UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
-ReferralUserID string `json:"referral_user_id,omitempty"` // 内推人 ID内推人的唯一标识, 在[获取用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)中获取示例值: "on_94a1ee5551019f18cd73d9f111898cf2"
-CreateUserID *string `json:"create_user_id,omitempty"` // 奖励创建人, 管理员与内推人可见, 若不传, 则默认为「外部系统」示例值: "on_94a1ee5551019f18cd73d9f111898cf2"
-ConfirmUserID *string `json:"confirm_user_id,omitempty"` // 确认人, 若导入的「内推奖励状态」为「已确认」可传入, 若不传, 则默认为「外部系统」示例值: "on_94a1ee5551019f18cd73d9f111898cf2"
-PayUserID *string `json:"pay_user_id,omitempty"` // 发放人, 导入的「内推奖励状态」为「已发放」的奖励传入, 若不传, 则默认为「外部系统」示例值: "on_94a1ee5551019f18cd73d9f111898cf2"
-ExternalID string `json:"external_id,omitempty"` // 外部系统奖励唯一id（仅用于幂等）示例值: "6930815272790114324"
-ApplicationID *string `json:"application_id,omitempty"` // 内推的候选人投递 ID, 可通过[获取投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/list)获取若未传入`talent_id`, 该参数必填若传入了`talent_id`, 该参数选填若同时传入了`application_id`和`talent_id`, 以`application_id`为准若不传入投递 ID（`application_id`）, 当前内推奖励将无法关联到投递, 系统内无法展示该内推对应的「职位」、「职位负责人」、「offer负责人」, 对应字段将展示为「--」。示例值: "6930815272790114325"
-TalentID *string `json:"talent_id,omitempty"` // 内推的候选人人才 ID若未传入`application_id`, 该参数必填若传入了`application_id`, 该参数可不填, 将以「内推的候选人投递 ID」为准示例值: "6930815272790114326"
-JobID *string `json:"job_id,omitempty"` // 内推职位 ID招聘系统内的职位 ID。若不传入, 对管理员与内推人将展示为--若传入了「内推的候选人投递 ID」, 该参数可不填, 职位ID将自动以「投递ID」关联的「职位ID」为准若不传入「内推职位 ID」, 且未传入「内推的投递 ID」, 当前内推奖励将无法关联到职位, 「职位的相关权限人」（如社/校招管理员、职位负责人、协助人、用人经理等）无法看到该条内推记录示例值: "6930815272790114327"
-Reason *string `json:"reason,omitempty"` // 奖励原因, 若不传则为 「--」将展示在内推奖励明细中, 管理员与内推人可见。如需与飞书招聘判定的内推奖励原因保持一致, 方便统计, 可参考下方说明传入- 若「奖励规则类型」为「过程奖励」, 建议传入如下原因: - 推荐奖励   - 进入{阶段名称}阶段   - 候选人到面奖励 - 若「奖励规则类型」为「入职奖励」, 建议传入如下原因: - 入职    - 转正 - 若「奖励规则类型」为「活动奖励」, 建议传入如下原因: - 累计推荐 n 个候选人{过程奖励或入职奖励原因}   - 推荐满 n 个候选人- 若「奖励规则类型」为「开源奖励」, 建议传入如下原因: - 入职｜开源    - 转正｜开源示例值: "入职｜开源"
-RuleType int64 `json:"rule_type,omitempty"` // 导入的奖励规则类型, 将展示在内推奖励明细中, 管理员与内推人可见如需与飞书招聘内的奖励原因保持一致, 方便统一统计, 可参考下方说明传入示例值: 1可选值有: 入职奖励, 候选人入职或转正后产生的奖励过程奖励, 入职奖励外, 若候选人有阶段性进展, 则给予内推人对应的奖励活动奖励, 额外奖励, 用于支持内推周期性活动开源奖励, 若内推候选人首次进入人才库, 且在被推荐后一段时间内, 入职了规则内的任意职位的奖励其他奖励, 以上奖励无法覆盖的奖励
-Bonus *CreateHireExternalReferralRewardReqBonus `json:"bonus,omitempty"` // 奖励额度
-Stage int64 `json:"stage,omitempty"` // 导入的内推奖励状态示例值: 1可选值有: 待确认, 建议导入需人工审核的奖励明细, 导入后, 需管理员在「内推奖励管理」-「待确认」中, 手动审核确认才会展示给内推人已确认, 建议导入已通过人工审核但仍未发放的奖励明细导入后, 将展示给管理员和内推人, 奖励状态展示为「已确认」（未发放）已发放, 建议导入已发放完成的奖励明细, 导入后, 将展示给管理员和内推人, 奖励状态展示为「已发放」
-CreateTime *string `json:"create_time,omitempty"` // 奖励产生时间时间戳, 内推奖励触发时间, 若未传入, 取接口调用时间示例值: "1704720275000"
-ConfirmTime *string `json:"confirm_time,omitempty"` // 确认时间时间戳, 若导入的「内推奖励状态」为「已确认」可传入, 若未传入, 取接口传入时间示例值: "1704720275000"
-PayTime *string `json:"pay_time,omitempty"` // 发放时间时间戳, 若导入的「内推奖励状态」为「已确认」可传入, 若未传入, 取接口传入时间示例值: "1704720275001"
-OnboardTime *string `json:"onboard_time,omitempty"` // 入职时间时间戳, 管理员与内推人可见, 当「奖励规则类型」为「入职奖励」时, 建议传入该参数示例值: "1704720275002"
-ConversionTime *string `json:"conversion_time,omitempty"` // 转正时间时间戳, 管理员与内推人可见, 当「奖励规则类型」为「入职奖励」时, 建议传入该参数示例值: "1704720275003"
-Comment *string `json:"comment,omitempty"` // 操作备注管理员与内推人可见, 若为空, 将展示为奖励原因示例值: "已发放"
+type CreateHireExternalReferralRewardReq struct {
+	UserIDType     *IDType                                   `query:"user_id_type" json:"-"`     // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	ReferralUserID string                                    `json:"referral_user_id,omitempty"` // 内推人 ID内推人的唯一标识, 在[获取用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)中获取示例值: "on_94a1ee5551019f18cd73d9f111898cf2"
+	CreateUserID   *string                                   `json:"create_user_id,omitempty"`   // 奖励创建人, 管理员与内推人可见, 若不传, 则默认为「外部系统」示例值: "on_94a1ee5551019f18cd73d9f111898cf2"
+	ConfirmUserID  *string                                   `json:"confirm_user_id,omitempty"`  // 确认人, 若导入的「内推奖励状态」为「已确认」可传入, 若不传, 则默认为「外部系统」示例值: "on_94a1ee5551019f18cd73d9f111898cf2"
+	PayUserID      *string                                   `json:"pay_user_id,omitempty"`      // 发放人, 导入的「内推奖励状态」为「已发放」的奖励传入, 若不传, 则默认为「外部系统」示例值: "on_94a1ee5551019f18cd73d9f111898cf2"
+	ExternalID     string                                    `json:"external_id,omitempty"`      // 外部系统奖励唯一id（仅用于幂等）示例值: "6930815272790114324"
+	ApplicationID  *string                                   `json:"application_id,omitempty"`   // 内推的候选人投递 ID, 可通过[获取投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/list)获取若未传入`talent_id`, 该参数必填若传入了`talent_id`, 该参数选填若同时传入了`application_id`和`talent_id`, 以`application_id`为准若不传入投递 ID（`application_id`）, 当前内推奖励将无法关联到投递, 系统内无法展示该内推对应的「职位」、「职位负责人」、「offer负责人」, 对应字段将展示为「--」。示例值: "6930815272790114325"
+	TalentID       *string                                   `json:"talent_id,omitempty"`        // 内推的候选人人才 ID若未传入`application_id`, 该参数必填若传入了`application_id`, 该参数可不填, 将以「内推的候选人投递 ID」为准示例值: "6930815272790114326"
+	JobID          *string                                   `json:"job_id,omitempty"`           // 内推职位 ID招聘系统内的职位 ID。若不传入, 对管理员与内推人将展示为--若传入了「内推的候选人投递 ID」, 该参数可不填, 职位ID将自动以「投递ID」关联的「职位ID」为准若不传入「内推职位 ID」, 且未传入「内推的投递 ID」, 当前内推奖励将无法关联到职位, 「职位的相关权限人」（如社/校招管理员、职位负责人、协助人、用人经理等）无法看到该条内推记录示例值: "6930815272790114327"
+	Reason         *string                                   `json:"reason,omitempty"`           // 奖励原因, 若不传则为 「--」将展示在内推奖励明细中, 管理员与内推人可见。如需与飞书招聘判定的内推奖励原因保持一致, 方便统计, 可参考下方说明传入- 若「奖励规则类型」为「过程奖励」, 建议传入如下原因: - 推荐奖励   - 进入{阶段名称}阶段   - 候选人到面奖励 - 若「奖励规则类型」为「入职奖励」, 建议传入如下原因: - 入职    - 转正 - 若「奖励规则类型」为「活动奖励」, 建议传入如下原因: - 累计推荐 n 个候选人{过程奖励或入职奖励原因}   - 推荐满 n 个候选人- 若「奖励规则类型」为「开源奖励」, 建议传入如下原因: - 入职｜开源    - 转正｜开源示例值: "入职｜开源"
+	RuleType       int64                                     `json:"rule_type,omitempty"`        // 导入的奖励规则类型, 将展示在内推奖励明细中, 管理员与内推人可见如需与飞书招聘内的奖励原因保持一致, 方便统一统计, 可参考下方说明传入示例值: 1可选值有: 入职奖励, 候选人入职或转正后产生的奖励过程奖励, 入职奖励外, 若候选人有阶段性进展, 则给予内推人对应的奖励活动奖励, 额外奖励, 用于支持内推周期性活动开源奖励, 若内推候选人首次进入人才库, 且在被推荐后一段时间内, 入职了规则内的任意职位的奖励其他奖励, 以上奖励无法覆盖的奖励
+	Bonus          *CreateHireExternalReferralRewardReqBonus `json:"bonus,omitempty"`            // 奖励额度
+	Stage          int64                                     `json:"stage,omitempty"`            // 导入的内推奖励状态示例值: 1可选值有: 待确认, 建议导入需人工审核的奖励明细, 导入后, 需管理员在「内推奖励管理」-「待确认」中, 手动审核确认才会展示给内推人已确认, 建议导入已通过人工审核但仍未发放的奖励明细导入后, 将展示给管理员和内推人, 奖励状态展示为「已确认」（未发放）已发放, 建议导入已发放完成的奖励明细, 导入后, 将展示给管理员和内推人, 奖励状态展示为「已发放」
+	CreateTime     *string                                   `json:"create_time,omitempty"`      // 奖励产生时间时间戳, 内推奖励触发时间, 若未传入, 取接口调用时间示例值: "1704720275000"
+	ConfirmTime    *string                                   `json:"confirm_time,omitempty"`     // 确认时间时间戳, 若导入的「内推奖励状态」为「已确认」可传入, 若未传入, 取接口传入时间示例值: "1704720275000"
+	PayTime        *string                                   `json:"pay_time,omitempty"`         // 发放时间时间戳, 若导入的「内推奖励状态」为「已确认」可传入, 若未传入, 取接口传入时间示例值: "1704720275001"
+	OnboardTime    *string                                   `json:"onboard_time,omitempty"`     // 入职时间时间戳, 管理员与内推人可见, 当「奖励规则类型」为「入职奖励」时, 建议传入该参数示例值: "1704720275002"
+	ConversionTime *string                                   `json:"conversion_time,omitempty"`  // 转正时间时间戳, 管理员与内推人可见, 当「奖励规则类型」为「入职奖励」时, 建议传入该参数示例值: "1704720275003"
+	Comment        *string                                   `json:"comment,omitempty"`          // 操作备注管理员与内推人可见, 若为空, 将展示为奖励原因示例值: "已发放"
 }
-
-
-
-
 
 // CreateHireExternalReferralRewardReqBonus ...
-type CreateHireExternalReferralRewardReqBonus struct { 
-BonusType int64 `json:"bonus_type,omitempty"` // 奖励发放形式示例值: 1可选值有: 积分现金默认值: `1`
-PointBonus *int64 `json:"point_bonus,omitempty"` // 导入积分数量, 若奖励发放形式为现金为必填示例值: 100
-Cash *CreateHireExternalReferralRewardReqBonusCash `json:"cash,omitempty"` // 现金奖励
+type CreateHireExternalReferralRewardReqBonus struct {
+	BonusType  int64                                         `json:"bonus_type,omitempty"`  // 奖励发放形式示例值: 1可选值有: 积分现金默认值: `1`
+	PointBonus *int64                                        `json:"point_bonus,omitempty"` // 导入积分数量, 若奖励发放形式为现金为必填示例值: 100
+	Cash       *CreateHireExternalReferralRewardReqBonusCash `json:"cash,omitempty"`        // 现金奖励
 }
-
-
-
-
 
 // CreateHireExternalReferralRewardReqBonusCash ...
-type CreateHireExternalReferralRewardReqBonusCash struct { 
-CurrencyType string `json:"currency_type,omitempty"` // 导入现金币种, 若奖励发放形式为现金为必填, 币种参数可在[「枚举常量介绍中查询」](https://open.feishu.cn/document/server-docs/hire-v1/enum)示例值: "CNY"
-Amount float64 `json:"amount,omitempty"` // 导入现金数量, 若奖励发放形式为现金为必填, 需传入非负数示例值: 100
+type CreateHireExternalReferralRewardReqBonusCash struct {
+	CurrencyType string  `json:"currency_type,omitempty"` // 导入现金币种, 若奖励发放形式为现金为必填, 币种参数可在[「枚举常量介绍中查询」](https://open.feishu.cn/document/server-docs/hire-v1/enum)示例值: "CNY"
+	Amount       float64 `json:"amount,omitempty"`        // 导入现金数量, 若奖励发放形式为现金为必填, 需传入非负数示例值: 100
 }
-
-
-
-
 
 // CreateHireExternalReferralRewardResp ...
-type CreateHireExternalReferralRewardResp struct { 
-ID string `json:"id,omitempty"` // 创建的内推奖励的id
+type CreateHireExternalReferralRewardResp struct {
+	ID string `json:"id,omitempty"` // 创建的内推奖励的id
 }
-
-
-
-
 
 // createHireExternalReferralRewardResp ...
-type createHireExternalReferralRewardResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateHireExternalReferralRewardResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createHireExternalReferralRewardResp struct {
+	Code  int64                                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateHireExternalReferralRewardResp `json:"data,omitempty"`
+	Error *ErrorDetail                          `json:"error,omitempty"`
 }
-
-
-
-

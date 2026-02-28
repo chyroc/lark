@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateApaasApprovalInstanceCancel 撤销一个人工任务（包括审批任务, 填写任务）
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/approval_instance/cancel
-// 
 func (r *ApaasService) CreateApaasApprovalInstanceCancel(ctx context.Context, request *CreateApaasApprovalInstanceCancelReq, options ...MethodOptionFunc) (*CreateApaasApprovalInstanceCancelResp, *Response, error) {
-if r.cli.mock.mockApaasCreateApaasApprovalInstanceCancel != nil {
+	if r.cli.mock.mockApaasCreateApaasApprovalInstanceCancel != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Apaas#CreateApaasApprovalInstanceCancel mock enable")
 		return r.cli.mock.mockApaasCreateApaasApprovalInstanceCancel(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockApaasCreateApaasApprovalInstanceCancel != nil {
 		Scope:                 "Apaas",
 		API:                   "CreateApaasApprovalInstanceCancel",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/apaas/v1/approval_instances/:approval_instance_id/cancel",
+		URL:                   r.cli.openBaseURL + "/open-apis/apaas/v1/approval_instances/:approval_instance_id/cancel",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createApaasApprovalInstanceCancelResp)
 
@@ -51,39 +49,26 @@ if r.cli.mock.mockApaasCreateApaasApprovalInstanceCancel != nil {
 func (r *Mock) MockApaasCreateApaasApprovalInstanceCancel(f func(ctx context.Context, request *CreateApaasApprovalInstanceCancelReq, options ...MethodOptionFunc) (*CreateApaasApprovalInstanceCancelResp, *Response, error)) {
 	r.mockApaasCreateApaasApprovalInstanceCancel = f
 }
+
 // UnMockApaasCreateApaasApprovalInstanceCancel un-mock ApaasCreateApaasApprovalInstanceCancel method
 func (r *Mock) UnMockApaasCreateApaasApprovalInstanceCancel() {
 	r.mockApaasCreateApaasApprovalInstanceCancel = nil
 }
 
-
 // CreateApaasApprovalInstanceCancelReq ...
-type CreateApaasApprovalInstanceCancelReq struct { 
-ApprovalInstanceID string `path:"approval_instance_id" json:"-"` // 审批实例, 可以通过[查询人工任务](/uAjLw4CM/ukTMukTMukTM/apaas-v1/user_task/query)获取示例值: "1788173550023689"
-UserID string `json:"user_id,omitempty"` // 操作用户的kunlunUserID, 可通过Apaas用户管理页面获取示例值: "1234"
-Opinion string `json:"opinion,omitempty"` // 撤销原因示例值: "撤销了"
+type CreateApaasApprovalInstanceCancelReq struct {
+	ApprovalInstanceID string `path:"approval_instance_id" json:"-"` // 审批实例, 可以通过[查询人工任务](/uAjLw4CM/ukTMukTMukTM/apaas-v1/user_task/query)获取示例值: "1788173550023689"
+	UserID             string `json:"user_id,omitempty"`             // 操作用户的kunlunUserID, 可通过Apaas用户管理页面获取示例值: "1234"
+	Opinion            string `json:"opinion,omitempty"`             // 撤销原因示例值: "撤销了"
 }
-
-
-
-
 
 // CreateApaasApprovalInstanceCancelResp ...
-type CreateApaasApprovalInstanceCancelResp struct { 
-}
-
-
-
-
+type CreateApaasApprovalInstanceCancelResp struct{}
 
 // createApaasApprovalInstanceCancelResp ...
-type createApaasApprovalInstanceCancelResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateApaasApprovalInstanceCancelResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createApaasApprovalInstanceCancelResp struct {
+	Code  int64                                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                 `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateApaasApprovalInstanceCancelResp `json:"data,omitempty"`
+	Error *ErrorDetail                           `json:"error,omitempty"`
 }
-
-
-
-

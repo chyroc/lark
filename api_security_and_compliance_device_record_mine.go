@@ -18,28 +18,26 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // GetSecurityAndComplianceDeviceRecordMine 通过客户端授权信息获取对应设备认证信息, 包含设备归属、可信状态等
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/security_and_compliance-v2/device_record/mine
-// 
 func (r *SecurityAndComplianceService) GetSecurityAndComplianceDeviceRecordMine(ctx context.Context, request *GetSecurityAndComplianceDeviceRecordMineReq, options ...MethodOptionFunc) (*GetSecurityAndComplianceDeviceRecordMineResp, *Response, error) {
-if r.cli.mock.mockSecurityAndComplianceGetSecurityAndComplianceDeviceRecordMine != nil {
+	if r.cli.mock.mockSecurityAndComplianceGetSecurityAndComplianceDeviceRecordMine != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] SecurityAndCompliance#GetSecurityAndComplianceDeviceRecordMine mock enable")
 		return r.cli.mock.mockSecurityAndComplianceGetSecurityAndComplianceDeviceRecordMine(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "SecurityAndCompliance",
-		API:                   "GetSecurityAndComplianceDeviceRecordMine",
-		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/security_and_compliance/v2/device_records/mine",
-		Body:                  request,
-		MethodOption:          newMethodOption(options),
- NeedUserAccessToken: true,
-
+		Scope:               "SecurityAndCompliance",
+		API:                 "GetSecurityAndComplianceDeviceRecordMine",
+		Method:              "GET",
+		URL:                 r.cli.openBaseURL + "/open-apis/security_and_compliance/v2/device_records/mine",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
+		NeedUserAccessToken: true,
 	}
 	resp := new(getSecurityAndComplianceDeviceRecordMineResp)
 
@@ -51,39 +49,26 @@ if r.cli.mock.mockSecurityAndComplianceGetSecurityAndComplianceDeviceRecordMine 
 func (r *Mock) MockSecurityAndComplianceGetSecurityAndComplianceDeviceRecordMine(f func(ctx context.Context, request *GetSecurityAndComplianceDeviceRecordMineReq, options ...MethodOptionFunc) (*GetSecurityAndComplianceDeviceRecordMineResp, *Response, error)) {
 	r.mockSecurityAndComplianceGetSecurityAndComplianceDeviceRecordMine = f
 }
+
 // UnMockSecurityAndComplianceGetSecurityAndComplianceDeviceRecordMine un-mock SecurityAndComplianceGetSecurityAndComplianceDeviceRecordMine method
 func (r *Mock) UnMockSecurityAndComplianceGetSecurityAndComplianceDeviceRecordMine() {
 	r.mockSecurityAndComplianceGetSecurityAndComplianceDeviceRecordMine = nil
 }
 
-
 // GetSecurityAndComplianceDeviceRecordMineReq ...
-type GetSecurityAndComplianceDeviceRecordMineReq struct { 
-}
-
-
-
-
+type GetSecurityAndComplianceDeviceRecordMineReq struct{}
 
 // GetSecurityAndComplianceDeviceRecordMineResp ...
-type GetSecurityAndComplianceDeviceRecordMineResp struct { 
-DeviceRecordID string `json:"device_record_id,omitempty"` // 设备认证编码
-DeviceOwnership int64 `json:"device_ownership,omitempty"` // 设备归属可选值有: 未知设备个人设备企业设备
-DeviceStatus int64 `json:"device_status,omitempty"` // 可信状态可选值有: 未知状态信任设备非信任设备
+type GetSecurityAndComplianceDeviceRecordMineResp struct {
+	DeviceRecordID  string `json:"device_record_id,omitempty"` // 设备认证编码
+	DeviceOwnership int64  `json:"device_ownership,omitempty"` // 设备归属可选值有: 未知设备个人设备企业设备
+	DeviceStatus    int64  `json:"device_status,omitempty"`    // 可信状态可选值有: 未知状态信任设备非信任设备
 }
-
-
-
-
 
 // getSecurityAndComplianceDeviceRecordMineResp ...
-type getSecurityAndComplianceDeviceRecordMineResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *GetSecurityAndComplianceDeviceRecordMineResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type getSecurityAndComplianceDeviceRecordMineResp struct {
+	Code  int64                                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                        `json:"msg,omitempty"`  // 错误描述
+	Data  *GetSecurityAndComplianceDeviceRecordMineResp `json:"data,omitempty"`
+	Error *ErrorDetail                                  `json:"error,omitempty"`
 }
-
-
-
-

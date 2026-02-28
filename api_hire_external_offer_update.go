@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // UpdateHireExternalOffer 更新外部 Offer 信息。
@@ -27,9 +27,8 @@ import (
 // 该接口会对原 Offer 内容进行全量覆盖更新。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_offer/update
-// 
 func (r *HireService) UpdateHireExternalOffer(ctx context.Context, request *UpdateHireExternalOfferReq, options ...MethodOptionFunc) (*UpdateHireExternalOfferResp, *Response, error) {
-if r.cli.mock.mockHireUpdateHireExternalOffer != nil {
+	if r.cli.mock.mockHireUpdateHireExternalOffer != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#UpdateHireExternalOffer mock enable")
 		return r.cli.mock.mockHireUpdateHireExternalOffer(ctx, request, options...)
 	}
@@ -38,11 +37,10 @@ if r.cli.mock.mockHireUpdateHireExternalOffer != nil {
 		Scope:                 "Hire",
 		API:                   "UpdateHireExternalOffer",
 		Method:                "PUT",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/external_offers/:external_offer_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/external_offers/:external_offer_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(updateHireExternalOfferResp)
 
@@ -54,68 +52,48 @@ if r.cli.mock.mockHireUpdateHireExternalOffer != nil {
 func (r *Mock) MockHireUpdateHireExternalOffer(f func(ctx context.Context, request *UpdateHireExternalOfferReq, options ...MethodOptionFunc) (*UpdateHireExternalOfferResp, *Response, error)) {
 	r.mockHireUpdateHireExternalOffer = f
 }
+
 // UnMockHireUpdateHireExternalOffer un-mock HireUpdateHireExternalOffer method
 func (r *Mock) UnMockHireUpdateHireExternalOffer() {
 	r.mockHireUpdateHireExternalOffer = nil
 }
 
-
 // UpdateHireExternalOfferReq ...
-type UpdateHireExternalOfferReq struct { 
-ExternalOfferID string `path:"external_offer_id" json:"-"` // 外部 Offer ID, 可通过[查询外部 Offer 列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_offer/batch_query)接口获取示例值: "6960663240925956660"
-ExternalApplicationID string `json:"external_application_id,omitempty"` // 外部投递 ID, 可通过[查询外部投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_application/list)接口获取示例值: "7395015673275697419"
-BizCreateTime *string `json:"biz_create_time,omitempty"` // Offer 创建时间, 毫秒时间戳示例值: "1721899352428"
-Owner *string `json:"owner,omitempty"` // Offer 负责人姓名示例值: "张三"
-OfferStatus *string `json:"offer_status,omitempty"` // Offer 状态示例值: "已发送"
-AttachmentIDList []string `json:"attachment_id_list,omitempty"` // Offer 详情附件 ID 列表, 可由[创建附件](https://open.feishu.cn/document/ukTMukTMukTM/uIDN1YjLyQTN24iM0UjN/create_attachment)接口返回所得示例值: ["7404675264888097068"] 长度范围: `0` ～ `10`
+type UpdateHireExternalOfferReq struct {
+	ExternalOfferID       string   `path:"external_offer_id" json:"-"`        // 外部 Offer ID, 可通过[查询外部 Offer 列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_offer/batch_query)接口获取示例值: "6960663240925956660"
+	ExternalApplicationID string   `json:"external_application_id,omitempty"` // 外部投递 ID, 可通过[查询外部投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_application/list)接口获取示例值: "7395015673275697419"
+	BizCreateTime         *string  `json:"biz_create_time,omitempty"`         // Offer 创建时间, 毫秒时间戳示例值: "1721899352428"
+	Owner                 *string  `json:"owner,omitempty"`                   // Offer 负责人姓名示例值: "张三"
+	OfferStatus           *string  `json:"offer_status,omitempty"`            // Offer 状态示例值: "已发送"
+	AttachmentIDList      []string `json:"attachment_id_list,omitempty"`      // Offer 详情附件 ID 列表, 可由[创建附件](https://open.feishu.cn/document/ukTMukTMukTM/uIDN1YjLyQTN24iM0UjN/create_attachment)接口返回所得示例值: ["7404675264888097068"] 长度范围: `0` ～ `10`
 }
-
-
-
-
 
 // UpdateHireExternalOfferResp ...
-type UpdateHireExternalOfferResp struct { 
-ExternalOffer *UpdateHireExternalOfferRespExternalOffer `json:"external_offer,omitempty"` // 外部 Offer
+type UpdateHireExternalOfferResp struct {
+	ExternalOffer *UpdateHireExternalOfferRespExternalOffer `json:"external_offer,omitempty"` // 外部 Offer
 }
-
-
-
-
 
 // UpdateHireExternalOfferRespExternalOffer ...
-type UpdateHireExternalOfferRespExternalOffer struct { 
-ID string `json:"id,omitempty"` // 外部 Offer ID
-ExternalApplicationID string `json:"external_application_id,omitempty"` // 外部投递 ID, 详情可查看: [查询外部投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_application/list)
-BizCreateTime string `json:"biz_create_time,omitempty"` // Offer 创建时间, 毫秒时间戳
-Owner string `json:"owner,omitempty"` // Offer 负责人姓名
-OfferStatus string `json:"offer_status,omitempty"` // Offer 状态
-AttachmentList []*UpdateHireExternalOfferRespExternalOfferAttachment `json:"attachment_list,omitempty"` // Offer 详情附件列表
+type UpdateHireExternalOfferRespExternalOffer struct {
+	ID                    string                                                `json:"id,omitempty"`                      // 外部 Offer ID
+	ExternalApplicationID string                                                `json:"external_application_id,omitempty"` // 外部投递 ID, 详情可查看: [查询外部投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_application/list)
+	BizCreateTime         string                                                `json:"biz_create_time,omitempty"`         // Offer 创建时间, 毫秒时间戳
+	Owner                 string                                                `json:"owner,omitempty"`                   // Offer 负责人姓名
+	OfferStatus           string                                                `json:"offer_status,omitempty"`            // Offer 状态
+	AttachmentList        []*UpdateHireExternalOfferRespExternalOfferAttachment `json:"attachment_list,omitempty"`         // Offer 详情附件列表
 }
-
-
-
-
 
 // UpdateHireExternalOfferRespExternalOfferAttachment ...
-type UpdateHireExternalOfferRespExternalOfferAttachment struct { 
-ID string `json:"id,omitempty"` // 附件 ID, 详情可查看: [获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get)
-Name string `json:"name,omitempty"` // 附件名称
-Size int64 `json:"size,omitempty"` // 附件大小（单位: 字节）
+type UpdateHireExternalOfferRespExternalOfferAttachment struct {
+	ID   string `json:"id,omitempty"`   // 附件 ID, 详情可查看: [获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get)
+	Name string `json:"name,omitempty"` // 附件名称
+	Size int64  `json:"size,omitempty"` // 附件大小（单位: 字节）
 }
-
-
-
-
 
 // updateHireExternalOfferResp ...
-type updateHireExternalOfferResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *UpdateHireExternalOfferResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type updateHireExternalOfferResp struct {
+	Code  int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                       `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateHireExternalOfferResp `json:"data,omitempty"`
+	Error *ErrorDetail                 `json:"error,omitempty"`
 }
-
-
-
-

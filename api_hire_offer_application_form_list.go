@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListHireOfferApplicationForm 获取 Offer 申请表列表, 可获取的信息包括申请表名称、创建时间等。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer_application_form/list
-// 
 func (r *HireService) ListHireOfferApplicationForm(ctx context.Context, request *ListHireOfferApplicationFormReq, options ...MethodOptionFunc) (*ListHireOfferApplicationFormResp, *Response, error) {
-if r.cli.mock.mockHireListHireOfferApplicationForm != nil {
+	if r.cli.mock.mockHireListHireOfferApplicationForm != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#ListHireOfferApplicationForm mock enable")
 		return r.cli.mock.mockHireListHireOfferApplicationForm(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockHireListHireOfferApplicationForm != nil {
 		Scope:                 "Hire",
 		API:                   "ListHireOfferApplicationForm",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/offer_application_forms",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/offer_application_forms",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(listHireOfferApplicationFormResp)
 
@@ -51,62 +49,42 @@ if r.cli.mock.mockHireListHireOfferApplicationForm != nil {
 func (r *Mock) MockHireListHireOfferApplicationForm(f func(ctx context.Context, request *ListHireOfferApplicationFormReq, options ...MethodOptionFunc) (*ListHireOfferApplicationFormResp, *Response, error)) {
 	r.mockHireListHireOfferApplicationForm = f
 }
+
 // UnMockHireListHireOfferApplicationForm un-mock HireListHireOfferApplicationForm method
 func (r *Mock) UnMockHireListHireOfferApplicationForm() {
 	r.mockHireListHireOfferApplicationForm = nil
 }
 
-
 // ListHireOfferApplicationFormReq ...
-type ListHireOfferApplicationFormReq struct { 
-PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 1231231987
-PageSize *int64 `query:"page_size" json:"-"` // 分页大小, 无效参数, 请忽略示例值: 100默认值: `1` 最大值: `100`
+type ListHireOfferApplicationFormReq struct {
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 1231231987
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 无效参数, 请忽略示例值: 100默认值: `1` 最大值: `100`
 }
-
-
-
-
 
 // ListHireOfferApplicationFormResp ...
-type ListHireOfferApplicationFormResp struct { 
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-Items []*ListHireOfferApplicationFormRespItem `json:"items,omitempty"` // Offer 申请表列表
+type ListHireOfferApplicationFormResp struct {
+	HasMore   bool                                    `json:"has_more,omitempty"`   // 是否还有更多项
+	PageToken string                                  `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	Items     []*ListHireOfferApplicationFormRespItem `json:"items,omitempty"`      // Offer 申请表列表
 }
-
-
-
-
 
 // ListHireOfferApplicationFormRespItem ...
-type ListHireOfferApplicationFormRespItem struct { 
-ID string `json:"id,omitempty"` // 申请表ID
-Name *ListHireOfferApplicationFormRespItemName `json:"name,omitempty"` // 申请表名称
-CreateTime string `json:"create_time,omitempty"` // 创建时间, 毫秒时间戳
+type ListHireOfferApplicationFormRespItem struct {
+	ID         string                                    `json:"id,omitempty"`          // 申请表ID
+	Name       *ListHireOfferApplicationFormRespItemName `json:"name,omitempty"`        // 申请表名称
+	CreateTime string                                    `json:"create_time,omitempty"` // 创建时间, 毫秒时间戳
 }
-
-
-
-
 
 // ListHireOfferApplicationFormRespItemName ...
-type ListHireOfferApplicationFormRespItemName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文名称
-EnUs string `json:"en_us,omitempty"` // 英文名称
+type ListHireOfferApplicationFormRespItemName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名称
+	EnUs string `json:"en_us,omitempty"` // 英文名称
 }
-
-
-
-
 
 // listHireOfferApplicationFormResp ...
-type listHireOfferApplicationFormResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *ListHireOfferApplicationFormResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type listHireOfferApplicationFormResp struct {
+	Code  int64                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                            `json:"msg,omitempty"`  // 错误描述
+	Data  *ListHireOfferApplicationFormResp `json:"data,omitempty"`
+	Error *ErrorDetail                      `json:"error,omitempty"`
 }
-
-
-
-

@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListCompensationChangeReason 批量查询定调薪原因
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list
-// 
 func (r *CompensationService) ListCompensationChangeReason(ctx context.Context, request *ListCompensationChangeReasonReq, options ...MethodOptionFunc) (*ListCompensationChangeReasonResp, *Response, error) {
-if r.cli.mock.mockCompensationListCompensationChangeReason != nil {
+	if r.cli.mock.mockCompensationListCompensationChangeReason != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Compensation#ListCompensationChangeReason mock enable")
 		return r.cli.mock.mockCompensationListCompensationChangeReason(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockCompensationListCompensationChangeReason != nil {
 		Scope:                 "Compensation",
 		API:                   "ListCompensationChangeReason",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/compensation/v1/change_reasons",
+		URL:                   r.cli.openBaseURL + "/open-apis/compensation/v1/change_reasons",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(listCompensationChangeReasonResp)
 
@@ -51,75 +49,51 @@ if r.cli.mock.mockCompensationListCompensationChangeReason != nil {
 func (r *Mock) MockCompensationListCompensationChangeReason(f func(ctx context.Context, request *ListCompensationChangeReasonReq, options ...MethodOptionFunc) (*ListCompensationChangeReasonResp, *Response, error)) {
 	r.mockCompensationListCompensationChangeReason = f
 }
+
 // UnMockCompensationListCompensationChangeReason un-mock CompensationListCompensationChangeReason method
 func (r *Mock) UnMockCompensationListCompensationChangeReason() {
 	r.mockCompensationListCompensationChangeReason = nil
 }
 
-
 // ListCompensationChangeReasonReq ...
-type ListCompensationChangeReasonReq struct { 
-PageSize int64 `query:"page_size" json:"-"` // 分页大小示例值: 100默认值: `100` 取值范围: `1` ～ `500`
-PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 12314342
+type ListCompensationChangeReasonReq struct {
+	PageSize  int64   `query:"page_size" json:"-"`  // 分页大小示例值: 100默认值: `100` 取值范围: `1` ～ `500`
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 12314342
 }
-
-
-
-
 
 // ListCompensationChangeReasonResp ...
-type ListCompensationChangeReasonResp struct { 
-Items []*ListCompensationChangeReasonRespItem `json:"items,omitempty"` // 调薪原因信息列表
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
+type ListCompensationChangeReasonResp struct {
+	Items     []*ListCompensationChangeReasonRespItem `json:"items,omitempty"`      // 调薪原因信息列表
+	PageToken string                                  `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	HasMore   bool                                    `json:"has_more,omitempty"`   // 是否还有更多项
 }
-
-
-
-
 
 // ListCompensationChangeReasonRespItem ...
-type ListCompensationChangeReasonRespItem struct { 
-ID string `json:"id,omitempty"` // 调薪原因ID
-Name string `json:"name,omitempty"` // 调薪原因名称
-Note string `json:"note,omitempty"` // 调薪原因备注
-ActiveStatus int64 `json:"active_status,omitempty"` // 启用状态可选值有: 启用禁用
-I18nNames []*ListCompensationChangeReasonRespItemI18nName `json:"i18n_names,omitempty"` // 多语言名称
-I18nNotes []*ListCompensationChangeReasonRespItemI18nNote `json:"i18n_notes,omitempty"` // 多语言描述
+type ListCompensationChangeReasonRespItem struct {
+	ID           string                                          `json:"id,omitempty"`            // 调薪原因ID
+	Name         string                                          `json:"name,omitempty"`          // 调薪原因名称
+	Note         string                                          `json:"note,omitempty"`          // 调薪原因备注
+	ActiveStatus int64                                           `json:"active_status,omitempty"` // 启用状态可选值有: 启用禁用
+	I18nNames    []*ListCompensationChangeReasonRespItemI18nName `json:"i18n_names,omitempty"`    // 多语言名称
+	I18nNotes    []*ListCompensationChangeReasonRespItemI18nNote `json:"i18n_notes,omitempty"`    // 多语言描述
 }
-
-
-
-
 
 // ListCompensationChangeReasonRespItemI18nName ...
-type ListCompensationChangeReasonRespItemI18nName struct { 
-Locale string `json:"locale,omitempty"` // 语言版本, 例如: “zh-CN”、“en-US”
-Value string `json:"value,omitempty"` // 语言名称
+type ListCompensationChangeReasonRespItemI18nName struct {
+	Locale string `json:"locale,omitempty"` // 语言版本, 例如: “zh-CN”、“en-US”
+	Value  string `json:"value,omitempty"`  // 语言名称
 }
-
-
-
-
 
 // ListCompensationChangeReasonRespItemI18nNote ...
-type ListCompensationChangeReasonRespItemI18nNote struct { 
-Locale string `json:"locale,omitempty"` // 语言版本, 例如: “zh-CN”、“en-US”
-Value string `json:"value,omitempty"` // 语言名称
+type ListCompensationChangeReasonRespItemI18nNote struct {
+	Locale string `json:"locale,omitempty"` // 语言版本, 例如: “zh-CN”、“en-US”
+	Value  string `json:"value,omitempty"`  // 语言名称
 }
-
-
-
-
 
 // listCompensationChangeReasonResp ...
-type listCompensationChangeReasonResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *ListCompensationChangeReasonResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type listCompensationChangeReasonResp struct {
+	Code  int64                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                            `json:"msg,omitempty"`  // 错误描述
+	Data  *ListCompensationChangeReasonResp `json:"data,omitempty"`
+	Error *ErrorDetail                      `json:"error,omitempty"`
 }
-
-
-
-

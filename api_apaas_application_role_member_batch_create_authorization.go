@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // BatchCreateApaasApplicationRoleMemberAuthorization 批量创建角色成员授权
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/application-role-member/batch_create_authorization
-// 
 func (r *ApaasService) BatchCreateApaasApplicationRoleMemberAuthorization(ctx context.Context, request *BatchCreateApaasApplicationRoleMemberAuthorizationReq, options ...MethodOptionFunc) (*BatchCreateApaasApplicationRoleMemberAuthorizationResp, *Response, error) {
-if r.cli.mock.mockApaasBatchCreateApaasApplicationRoleMemberAuthorization != nil {
+	if r.cli.mock.mockApaasBatchCreateApaasApplicationRoleMemberAuthorization != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Apaas#BatchCreateApaasApplicationRoleMemberAuthorization mock enable")
 		return r.cli.mock.mockApaasBatchCreateApaasApplicationRoleMemberAuthorization(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockApaasBatchCreateApaasApplicationRoleMemberAuthorization != nil
 		Scope:                 "Apaas",
 		API:                   "BatchCreateApaasApplicationRoleMemberAuthorization",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/apaas/v1/applications/:namespace/roles/:role_api_name/member/batch_create_authorization",
+		URL:                   r.cli.openBaseURL + "/open-apis/apaas/v1/applications/:namespace/roles/:role_api_name/member/batch_create_authorization",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(batchCreateApaasApplicationRoleMemberAuthorizationResp)
 
@@ -51,40 +49,27 @@ if r.cli.mock.mockApaasBatchCreateApaasApplicationRoleMemberAuthorization != nil
 func (r *Mock) MockApaasBatchCreateApaasApplicationRoleMemberAuthorization(f func(ctx context.Context, request *BatchCreateApaasApplicationRoleMemberAuthorizationReq, options ...MethodOptionFunc) (*BatchCreateApaasApplicationRoleMemberAuthorizationResp, *Response, error)) {
 	r.mockApaasBatchCreateApaasApplicationRoleMemberAuthorization = f
 }
+
 // UnMockApaasBatchCreateApaasApplicationRoleMemberAuthorization un-mock ApaasBatchCreateApaasApplicationRoleMemberAuthorization method
 func (r *Mock) UnMockApaasBatchCreateApaasApplicationRoleMemberAuthorization() {
 	r.mockApaasBatchCreateApaasApplicationRoleMemberAuthorization = nil
 }
 
-
 // BatchCreateApaasApplicationRoleMemberAuthorizationReq ...
-type BatchCreateApaasApplicationRoleMemberAuthorizationReq struct { 
-Namespace string `path:"namespace" json:"-"` // 应用命名空间示例值: "package_test__c" 长度范围: `0` ～ `255` 字符
-RoleApiName string `path:"role_api_name" json:"-"` // 角色 API 名称示例值: "adminRole" 长度范围: `0` ～ `255` 字符
-UserIDs []string `json:"user_ids,omitempty"` // 需要新增的用户 ID 列表, 使用飞书 aPaaS 的用户 ID示例值: ["1802412778084426"] 长度范围: `0` ～ `1000`
-DepartmentIDs []string `json:"department_ids,omitempty"` // 需要新增的部门 ID 列表, 使用飞书 aPaaS 的部门 ID示例值: ["1802412778084426"] 长度范围: `0` ～ `1000`
+type BatchCreateApaasApplicationRoleMemberAuthorizationReq struct {
+	Namespace     string   `path:"namespace" json:"-"`       // 应用命名空间示例值: "package_test__c" 长度范围: `0` ～ `255` 字符
+	RoleApiName   string   `path:"role_api_name" json:"-"`   // 角色 API 名称示例值: "adminRole" 长度范围: `0` ～ `255` 字符
+	UserIDs       []string `json:"user_ids,omitempty"`       // 需要新增的用户 ID 列表, 使用飞书 aPaaS 的用户 ID示例值: ["1802412778084426"] 长度范围: `0` ～ `1000`
+	DepartmentIDs []string `json:"department_ids,omitempty"` // 需要新增的部门 ID 列表, 使用飞书 aPaaS 的部门 ID示例值: ["1802412778084426"] 长度范围: `0` ～ `1000`
 }
-
-
-
-
 
 // BatchCreateApaasApplicationRoleMemberAuthorizationResp ...
-type BatchCreateApaasApplicationRoleMemberAuthorizationResp struct { 
-}
-
-
-
-
+type BatchCreateApaasApplicationRoleMemberAuthorizationResp struct{}
 
 // batchCreateApaasApplicationRoleMemberAuthorizationResp ...
-type batchCreateApaasApplicationRoleMemberAuthorizationResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *BatchCreateApaasApplicationRoleMemberAuthorizationResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type batchCreateApaasApplicationRoleMemberAuthorizationResp struct {
+	Code  int64                                                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                                  `json:"msg,omitempty"`  // 错误描述
+	Data  *BatchCreateApaasApplicationRoleMemberAuthorizationResp `json:"data,omitempty"`
+	Error *ErrorDetail                                            `json:"error,omitempty"`
 }
-
-
-
-

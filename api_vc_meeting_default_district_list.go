@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListVCMeetingDefaultDistrict 新建建筑时需要选择所处国家/地区, 该接口用于获得系统预先提供的可供选择的城市列表。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUTNwYjL1UDM24SN1AjN
-// 
 func (r *VCMeetingService) ListVCMeetingDefaultDistrict(ctx context.Context, request *ListVCMeetingDefaultDistrictReq, options ...MethodOptionFunc) (*ListVCMeetingDefaultDistrictResp, *Response, error) {
-if r.cli.mock.mockVCMeetingListVCMeetingDefaultDistrict != nil {
+	if r.cli.mock.mockVCMeetingListVCMeetingDefaultDistrict != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] VCMeeting#ListVCMeetingDefaultDistrict mock enable")
 		return r.cli.mock.mockVCMeetingListVCMeetingDefaultDistrict(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockVCMeetingListVCMeetingDefaultDistrict != nil {
 		Scope:                 "VCMeeting",
 		API:                   "ListVCMeetingDefaultDistrict",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/meeting_room/district/list",
+		URL:                   r.cli.openBaseURL + "/open-apis/meeting_room/district/list",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(listVCMeetingDefaultDistrictResp)
 
@@ -51,48 +49,32 @@ if r.cli.mock.mockVCMeetingListVCMeetingDefaultDistrict != nil {
 func (r *Mock) MockVCMeetingListVCMeetingDefaultDistrict(f func(ctx context.Context, request *ListVCMeetingDefaultDistrictReq, options ...MethodOptionFunc) (*ListVCMeetingDefaultDistrictResp, *Response, error)) {
 	r.mockVCMeetingListVCMeetingDefaultDistrict = f
 }
+
 // UnMockVCMeetingListVCMeetingDefaultDistrict un-mock VCMeetingListVCMeetingDefaultDistrict method
 func (r *Mock) UnMockVCMeetingListVCMeetingDefaultDistrict() {
 	r.mockVCMeetingListVCMeetingDefaultDistrict = nil
 }
 
-
 // ListVCMeetingDefaultDistrictReq ...
-type ListVCMeetingDefaultDistrictReq struct { 
-CountryID int64 `query:"country_id" json:"-"` // 国家地区ID
+type ListVCMeetingDefaultDistrictReq struct {
+	CountryID int64 `query:"country_id" json:"-"` // 国家地区ID
 }
-
-
-
-
 
 // ListVCMeetingDefaultDistrictResp ...
-type ListVCMeetingDefaultDistrictResp struct { 
-Districts []*ListVCMeetingDefaultDistrictRespDistrict `json:"districts,omitempty"` // 城市列表
+type ListVCMeetingDefaultDistrictResp struct {
+	Districts []*ListVCMeetingDefaultDistrictRespDistrict `json:"districts,omitempty"` // 城市列表
 }
-
-
-
-
 
 // ListVCMeetingDefaultDistrictRespDistrict ...
-type ListVCMeetingDefaultDistrictRespDistrict struct { 
-DistrictID string `json:"district_id,omitempty"` // 城市ID
-Name string `json:"name,omitempty"` // 城市名称
+type ListVCMeetingDefaultDistrictRespDistrict struct {
+	DistrictID string `json:"district_id,omitempty"` // 城市ID
+	Name       string `json:"name,omitempty"`        // 城市名称
 }
-
-
-
-
 
 // listVCMeetingDefaultDistrictResp ...
-type listVCMeetingDefaultDistrictResp struct { 
-Code int64 `json:"code,omitempty"` // 返回码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 返回码的描述, "success" 表示成功, 其他为错误提示信息
-Data *ListVCMeetingDefaultDistrictResp `json:"data,omitempty"` // 返回业务信息
-Error *ErrorDetail `json:"error,omitempty"` 
+type listVCMeetingDefaultDistrictResp struct {
+	Code  int64                             `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg   string                            `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
+	Data  *ListVCMeetingDefaultDistrictResp `json:"data,omitempty"` // 返回业务信息
+	Error *ErrorDetail                      `json:"error,omitempty"`
 }
-
-
-
-

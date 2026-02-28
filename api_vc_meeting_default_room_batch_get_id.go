@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // GetVCMeetingDefaultRoomBatchGetID 该接口用于根据租户自定义会议室ID查询会议室ID。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYzMxYjL2MTM24iNzEjN
-// 
 func (r *VCMeetingService) GetVCMeetingDefaultRoomBatchGetID(ctx context.Context, request *GetVCMeetingDefaultRoomBatchGetIDReq, options ...MethodOptionFunc) (*GetVCMeetingDefaultRoomBatchGetIDResp, *Response, error) {
-if r.cli.mock.mockVCMeetingGetVCMeetingDefaultRoomBatchGetID != nil {
+	if r.cli.mock.mockVCMeetingGetVCMeetingDefaultRoomBatchGetID != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] VCMeeting#GetVCMeetingDefaultRoomBatchGetID mock enable")
 		return r.cli.mock.mockVCMeetingGetVCMeetingDefaultRoomBatchGetID(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockVCMeetingGetVCMeetingDefaultRoomBatchGetID != nil {
 		Scope:                 "VCMeeting",
 		API:                   "GetVCMeetingDefaultRoomBatchGetID",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/meeting_room/room/batch_get_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/meeting_room/room/batch_get_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(getVCMeetingDefaultRoomBatchGetIDResp)
 
@@ -51,48 +49,32 @@ if r.cli.mock.mockVCMeetingGetVCMeetingDefaultRoomBatchGetID != nil {
 func (r *Mock) MockVCMeetingGetVCMeetingDefaultRoomBatchGetID(f func(ctx context.Context, request *GetVCMeetingDefaultRoomBatchGetIDReq, options ...MethodOptionFunc) (*GetVCMeetingDefaultRoomBatchGetIDResp, *Response, error)) {
 	r.mockVCMeetingGetVCMeetingDefaultRoomBatchGetID = f
 }
+
 // UnMockVCMeetingGetVCMeetingDefaultRoomBatchGetID un-mock VCMeetingGetVCMeetingDefaultRoomBatchGetID method
 func (r *Mock) UnMockVCMeetingGetVCMeetingDefaultRoomBatchGetID() {
 	r.mockVCMeetingGetVCMeetingDefaultRoomBatchGetID = nil
 }
 
-
 // GetVCMeetingDefaultRoomBatchGetIDReq ...
-type GetVCMeetingDefaultRoomBatchGetIDReq struct { 
-CustomRoomIDs []string `query:"custom_room_ids" json:"-"` // 用于查询指定会议室的租户自定义会议室ID
+type GetVCMeetingDefaultRoomBatchGetIDReq struct {
+	CustomRoomIDs []string `query:"custom_room_ids" json:"-"` // 用于查询指定会议室的租户自定义会议室ID
 }
-
-
-
-
 
 // GetVCMeetingDefaultRoomBatchGetIDResp ...
-type GetVCMeetingDefaultRoomBatchGetIDResp struct { 
-Rooms []*GetVCMeetingDefaultRoomBatchGetIDRespRoom `json:"rooms,omitempty"` // 会议室列表
+type GetVCMeetingDefaultRoomBatchGetIDResp struct {
+	Rooms []*GetVCMeetingDefaultRoomBatchGetIDRespRoom `json:"rooms,omitempty"` // 会议室列表
 }
-
-
-
-
 
 // GetVCMeetingDefaultRoomBatchGetIDRespRoom ...
-type GetVCMeetingDefaultRoomBatchGetIDRespRoom struct { 
-RoomID string `json:"room_id,omitempty"` // 会议室 ID
-CustomRoomID string `json:"custom_room_id,omitempty"` // 租户自定义会议室 ID
+type GetVCMeetingDefaultRoomBatchGetIDRespRoom struct {
+	RoomID       string `json:"room_id,omitempty"`        // 会议室 ID
+	CustomRoomID string `json:"custom_room_id,omitempty"` // 租户自定义会议室 ID
 }
-
-
-
-
 
 // getVCMeetingDefaultRoomBatchGetIDResp ...
-type getVCMeetingDefaultRoomBatchGetIDResp struct { 
-Code int64 `json:"code,omitempty"` // 返回码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 返回码的描述, "success" 表示成功, 其他为错误提示信息
-Data *GetVCMeetingDefaultRoomBatchGetIDResp `json:"data,omitempty"` // 返回业务信息
-Error *ErrorDetail `json:"error,omitempty"` 
+type getVCMeetingDefaultRoomBatchGetIDResp struct {
+	Code  int64                                  `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg   string                                 `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
+	Data  *GetVCMeetingDefaultRoomBatchGetIDResp `json:"data,omitempty"` // 返回业务信息
+	Error *ErrorDetail                           `json:"error,omitempty"`
 }
-
-
-
-

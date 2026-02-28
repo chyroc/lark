@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListMailUserMailboxRule 列出收信规则
@@ -26,9 +26,8 @@ import (
 // 使用 tenant_access_token 时, 需要申请收信规则资源的数据权限。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-rule/list
-// 
 func (r *MailService) ListMailUserMailboxRule(ctx context.Context, request *ListMailUserMailboxRuleReq, options ...MethodOptionFunc) (*ListMailUserMailboxRuleResp, *Response, error) {
-if r.cli.mock.mockMailListMailUserMailboxRule != nil {
+	if r.cli.mock.mockMailListMailUserMailboxRule != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#ListMailUserMailboxRule mock enable")
 		return r.cli.mock.mockMailListMailUserMailboxRule(ctx, request, options...)
 	}
@@ -37,12 +36,11 @@ if r.cli.mock.mockMailListMailUserMailboxRule != nil {
 		Scope:                 "Mail",
 		API:                   "ListMailUserMailboxRule",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/rules",
+		URL:                   r.cli.openBaseURL + "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/rules",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(listMailUserMailboxRuleResp)
 
@@ -54,92 +52,60 @@ if r.cli.mock.mockMailListMailUserMailboxRule != nil {
 func (r *Mock) MockMailListMailUserMailboxRule(f func(ctx context.Context, request *ListMailUserMailboxRuleReq, options ...MethodOptionFunc) (*ListMailUserMailboxRuleResp, *Response, error)) {
 	r.mockMailListMailUserMailboxRule = f
 }
+
 // UnMockMailListMailUserMailboxRule un-mock MailListMailUserMailboxRule method
 func (r *Mock) UnMockMailListMailUserMailboxRule() {
 	r.mockMailListMailUserMailboxRule = nil
 }
 
-
 // ListMailUserMailboxRuleReq ...
-type ListMailUserMailboxRuleReq struct { 
-UserMailboxID string `path:"user_mailbox_id" json:"-"` // 用户邮箱地址 或 输入me代表当前调用接口用户示例值: "user@xxx.xx 或 me"
+type ListMailUserMailboxRuleReq struct {
+	UserMailboxID string `path:"user_mailbox_id" json:"-"` // 用户邮箱地址 或 输入me代表当前调用接口用户示例值: "user@xxx.xx 或 me"
 }
-
-
-
-
 
 // ListMailUserMailboxRuleResp ...
-type ListMailUserMailboxRuleResp struct { 
-Items []*ListMailUserMailboxRuleRespItem `json:"items,omitempty"` // 规则列表
+type ListMailUserMailboxRuleResp struct {
+	Items []*ListMailUserMailboxRuleRespItem `json:"items,omitempty"` // 规则列表
 }
-
-
-
-
 
 // ListMailUserMailboxRuleRespItem ...
-type ListMailUserMailboxRuleRespItem struct { 
-ID string `json:"id,omitempty"` // 规则 id
-Condition *ListMailUserMailboxRuleRespItemCondition `json:"condition,omitempty"` // 匹配条件
-Action *ListMailUserMailboxRuleRespItemAction `json:"action,omitempty"` // 匹配命中后的操作
-IgnoreTheRestOfRules bool `json:"ignore_the_rest_of_rules,omitempty"` // 是否终点规则
-Name string `json:"name,omitempty"` // 规则名称
-IsEnable bool `json:"is_enable,omitempty"` // 是否启用
+type ListMailUserMailboxRuleRespItem struct {
+	ID                   string                                    `json:"id,omitempty"`                       // 规则 id
+	Condition            *ListMailUserMailboxRuleRespItemCondition `json:"condition,omitempty"`                // 匹配条件
+	Action               *ListMailUserMailboxRuleRespItemAction    `json:"action,omitempty"`                   // 匹配命中后的操作
+	IgnoreTheRestOfRules bool                                      `json:"ignore_the_rest_of_rules,omitempty"` // 是否终点规则
+	Name                 string                                    `json:"name,omitempty"`                     // 规则名称
+	IsEnable             bool                                      `json:"is_enable,omitempty"`                // 是否启用
 }
-
-
-
-
 
 // ListMailUserMailboxRuleRespItemAction ...
-type ListMailUserMailboxRuleRespItemAction struct { 
-Items []*ListMailUserMailboxRuleRespItemActionItem `json:"items,omitempty"` // 匹配中规则后的操作列表
+type ListMailUserMailboxRuleRespItemAction struct {
+	Items []*ListMailUserMailboxRuleRespItemActionItem `json:"items,omitempty"` // 匹配中规则后的操作列表
 }
-
-
-
-
 
 // ListMailUserMailboxRuleRespItemActionItem ...
-type ListMailUserMailboxRuleRespItemActionItem struct { 
-Type int64 `json:"type,omitempty"` // 操作类型可选值有: 归档删除邮件标记为已读移至垃圾邮件不移至垃圾邮件添加用户标签（暂不支持）添加旗标不弹出通知移至用户文件夹自动转发（暂不支持）分享到会话（暂不支持）
-Input string `json:"input,omitempty"` // 当 type 为移动到文件夹时, 该字段填文件夹的 id
+type ListMailUserMailboxRuleRespItemActionItem struct {
+	Type  int64  `json:"type,omitempty"`  // 操作类型可选值有: 归档删除邮件标记为已读移至垃圾邮件不移至垃圾邮件添加用户标签（暂不支持）添加旗标不弹出通知移至用户文件夹自动转发（暂不支持）分享到会话（暂不支持）
+	Input string `json:"input,omitempty"` // 当 type 为移动到文件夹时, 该字段填文件夹的 id
 }
-
-
-
-
 
 // ListMailUserMailboxRuleRespItemCondition ...
-type ListMailUserMailboxRuleRespItemCondition struct { 
-MatchType int64 `json:"match_type,omitempty"` // 匹配类型可选值有: 满足所有条件满足任意条件
-Items []*ListMailUserMailboxRuleRespItemConditionItem `json:"items,omitempty"` // 匹配规则列表
+type ListMailUserMailboxRuleRespItemCondition struct {
+	MatchType int64                                           `json:"match_type,omitempty"` // 匹配类型可选值有: 满足所有条件满足任意条件
+	Items     []*ListMailUserMailboxRuleRespItemConditionItem `json:"items,omitempty"`      // 匹配规则列表
 }
-
-
-
-
 
 // ListMailUserMailboxRuleRespItemConditionItem ...
-type ListMailUserMailboxRuleRespItemConditionItem struct { 
-Type int64 `json:"type,omitempty"` // 匹配条件左值可选值有: 发件人地址收件人地址抄送地址收件人或抄送地址主题正文附件名字附件类型任意地址所有邮件是外部邮件是垃圾邮件不是垃圾邮件有附件
-Operator int64 `json:"operator,omitempty"` // 匹配条件操作符可选值有: 包含不包含开头是结尾是是不是包含自己为空
-Input string `json:"input,omitempty"` // 匹配条件右值
+type ListMailUserMailboxRuleRespItemConditionItem struct {
+	Type     int64  `json:"type,omitempty"`     // 匹配条件左值可选值有: 发件人地址收件人地址抄送地址收件人或抄送地址主题正文附件名字附件类型任意地址所有邮件是外部邮件是垃圾邮件不是垃圾邮件有附件
+	Operator int64  `json:"operator,omitempty"` // 匹配条件操作符可选值有: 包含不包含开头是结尾是是不是包含自己为空
+	Input    string `json:"input,omitempty"`    // 匹配条件右值
 }
-
-
-
-
 
 // listMailUserMailboxRuleResp ...
-type listMailUserMailboxRuleResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *ListMailUserMailboxRuleResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type listMailUserMailboxRuleResp struct {
+	Code  int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                       `json:"msg,omitempty"`  // 错误描述
+	Data  *ListMailUserMailboxRuleResp `json:"data,omitempty"`
+	Error *ErrorDetail                 `json:"error,omitempty"`
 }
-
-
-
-

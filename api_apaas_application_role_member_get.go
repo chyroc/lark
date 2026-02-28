@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // GetApaasApplicationRoleMember 获取角色成员详情
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/application-role-member/get
-// 
 func (r *ApaasService) GetApaasApplicationRoleMember(ctx context.Context, request *GetApaasApplicationRoleMemberReq, options ...MethodOptionFunc) (*GetApaasApplicationRoleMemberResp, *Response, error) {
-if r.cli.mock.mockApaasGetApaasApplicationRoleMember != nil {
+	if r.cli.mock.mockApaasGetApaasApplicationRoleMember != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Apaas#GetApaasApplicationRoleMember mock enable")
 		return r.cli.mock.mockApaasGetApaasApplicationRoleMember(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockApaasGetApaasApplicationRoleMember != nil {
 		Scope:                 "Apaas",
 		API:                   "GetApaasApplicationRoleMember",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/apaas/v1/applications/:namespace/roles/:role_api_name/member",
+		URL:                   r.cli.openBaseURL + "/open-apis/apaas/v1/applications/:namespace/roles/:role_api_name/member",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(getApaasApplicationRoleMemberResp)
 
@@ -51,123 +49,83 @@ if r.cli.mock.mockApaasGetApaasApplicationRoleMember != nil {
 func (r *Mock) MockApaasGetApaasApplicationRoleMember(f func(ctx context.Context, request *GetApaasApplicationRoleMemberReq, options ...MethodOptionFunc) (*GetApaasApplicationRoleMemberResp, *Response, error)) {
 	r.mockApaasGetApaasApplicationRoleMember = f
 }
+
 // UnMockApaasGetApaasApplicationRoleMember un-mock ApaasGetApaasApplicationRoleMember method
 func (r *Mock) UnMockApaasGetApaasApplicationRoleMember() {
 	r.mockApaasGetApaasApplicationRoleMember = nil
 }
 
-
 // GetApaasApplicationRoleMemberReq ...
-type GetApaasApplicationRoleMemberReq struct { 
-Namespace string `path:"namespace" json:"-"` // 应用命名空间示例值: "package_test__c" 长度范围: `0` ～ `255` 字符
-RoleApiName string `path:"role_api_name" json:"-"` // 角色 API 名称示例值: "adminRole" 长度范围: `0` ～ `255` 字符
-NeedDisplayName *bool `query:"need_display_name" json:"-"` // 是否需要公式的展示名称, 便于前端展示示例值: false
-UseApiID *bool `query:"use_api_id" json:"-"` // 是否使用 API ID字段作为出入参, 默认值为 false示例值: false默认值: `false`
+type GetApaasApplicationRoleMemberReq struct {
+	Namespace       string `path:"namespace" json:"-"`          // 应用命名空间示例值: "package_test__c" 长度范围: `0` ～ `255` 字符
+	RoleApiName     string `path:"role_api_name" json:"-"`      // 角色 API 名称示例值: "adminRole" 长度范围: `0` ～ `255` 字符
+	NeedDisplayName *bool  `query:"need_display_name" json:"-"` // 是否需要公式的展示名称, 便于前端展示示例值: false
+	UseApiID        *bool  `query:"use_api_id" json:"-"`        // 是否使用 API ID字段作为出入参, 默认值为 false示例值: false默认值: `false`
 }
-
-
-
-
 
 // GetApaasApplicationRoleMemberResp ...
-type GetApaasApplicationRoleMemberResp struct { 
-RoleMember *GetApaasApplicationRoleMemberRespRoleMember `json:"role_member,omitempty"` // 角色成员
+type GetApaasApplicationRoleMemberResp struct {
+	RoleMember *GetApaasApplicationRoleMemberRespRoleMember `json:"role_member,omitempty"` // 角色成员
 }
-
-
-
-
 
 // GetApaasApplicationRoleMemberRespRoleMember ...
-type GetApaasApplicationRoleMemberRespRoleMember struct { 
-RoleApiID string `json:"role_api_id,omitempty"` // 角色唯一 ID, 系统自动生成
-RoleApiName string `json:"role_api_name,omitempty"` // 角色 API 名称
-Users []string `json:"users,omitempty"` // 授权用户 ID 列表
-Departments []string `json:"departments,omitempty"` // 授权部门 ID 列表
-UserFilter *GetApaasApplicationRoleMemberRespRoleMemberUserFilter `json:"user_filter,omitempty"` // 自定义授权用户规则
-UserDisplayInfos []*GetApaasApplicationRoleMemberRespRoleMemberUserDisplayInfo `json:"user_display_infos,omitempty"` // 授权用户姓名列表, 入参 need_display_name = true时返回
-DepartmentDisplayInfos []*GetApaasApplicationRoleMemberRespRoleMemberDepartmentDisplayInfo `json:"department_display_infos,omitempty"` // 授权部门名称列表, 入参 need_display_name = true时返回
-Type string `json:"type,omitempty"` // 角色成员模式可选值有: 全部用户 自定义
-UpdatedBy string `json:"updated_by,omitempty"` // 更新人 ID
-UpdatedAt int64 `json:"updated_at,omitempty"` // 更新时间, 单位: 毫秒时间戳
+type GetApaasApplicationRoleMemberRespRoleMember struct {
+	RoleApiID              string                                                              `json:"role_api_id,omitempty"`              // 角色唯一 ID, 系统自动生成
+	RoleApiName            string                                                              `json:"role_api_name,omitempty"`            // 角色 API 名称
+	Users                  []string                                                            `json:"users,omitempty"`                    // 授权用户 ID 列表
+	Departments            []string                                                            `json:"departments,omitempty"`              // 授权部门 ID 列表
+	UserFilter             *GetApaasApplicationRoleMemberRespRoleMemberUserFilter              `json:"user_filter,omitempty"`              // 自定义授权用户规则
+	UserDisplayInfos       []*GetApaasApplicationRoleMemberRespRoleMemberUserDisplayInfo       `json:"user_display_infos,omitempty"`       // 授权用户姓名列表, 入参 need_display_name = true时返回
+	DepartmentDisplayInfos []*GetApaasApplicationRoleMemberRespRoleMemberDepartmentDisplayInfo `json:"department_display_infos,omitempty"` // 授权部门名称列表, 入参 need_display_name = true时返回
+	Type                   string                                                              `json:"type,omitempty"`                     // 角色成员模式可选值有: 全部用户 自定义
+	UpdatedBy              string                                                              `json:"updated_by,omitempty"`               // 更新人 ID
+	UpdatedAt              int64                                                               `json:"updated_at,omitempty"`               // 更新时间, 单位: 毫秒时间戳
 }
-
-
-
-
 
 // GetApaasApplicationRoleMemberRespRoleMemberDepartmentDisplayInfo ...
-type GetApaasApplicationRoleMemberRespRoleMemberDepartmentDisplayInfo struct { 
-ID string `json:"id,omitempty"` // id
-Name string `json:"name,omitempty"` // 名称
+type GetApaasApplicationRoleMemberRespRoleMemberDepartmentDisplayInfo struct {
+	ID   string `json:"id,omitempty"`   // id
+	Name string `json:"name,omitempty"` // 名称
 }
-
-
-
-
 
 // GetApaasApplicationRoleMemberRespRoleMemberUserDisplayInfo ...
-type GetApaasApplicationRoleMemberRespRoleMemberUserDisplayInfo struct { 
-ID string `json:"id,omitempty"` // id
-Name string `json:"name,omitempty"` // 名称
+type GetApaasApplicationRoleMemberRespRoleMemberUserDisplayInfo struct {
+	ID   string `json:"id,omitempty"`   // id
+	Name string `json:"name,omitempty"` // 名称
 }
-
-
-
-
 
 // GetApaasApplicationRoleMemberRespRoleMemberUserFilter ...
-type GetApaasApplicationRoleMemberRespRoleMemberUserFilter struct { 
-Conditions []*GetApaasApplicationRoleMemberRespRoleMemberUserFilterCondition `json:"conditions,omitempty"` // 查询条件
-LogicExpression string `json:"logic_expression,omitempty"` // 逻辑关系
+type GetApaasApplicationRoleMemberRespRoleMemberUserFilter struct {
+	Conditions      []*GetApaasApplicationRoleMemberRespRoleMemberUserFilterCondition `json:"conditions,omitempty"`       // 查询条件
+	LogicExpression string                                                            `json:"logic_expression,omitempty"` // 逻辑关系
 }
-
-
-
-
 
 // GetApaasApplicationRoleMemberRespRoleMemberUserFilterCondition ...
-type GetApaasApplicationRoleMemberRespRoleMemberUserFilterCondition struct { 
-Index string `json:"index,omitempty"` // 序号
-Left *GetApaasApplicationRoleMemberRespRoleMemberUserFilterConditionLeft `json:"left,omitempty"` // 左值
-Right *GetApaasApplicationRoleMemberRespRoleMemberUserFilterConditionRight `json:"right,omitempty"` // 右值
-Operator string `json:"operator,omitempty"` // 操作符
+type GetApaasApplicationRoleMemberRespRoleMemberUserFilterCondition struct {
+	Index    string                                                               `json:"index,omitempty"`    // 序号
+	Left     *GetApaasApplicationRoleMemberRespRoleMemberUserFilterConditionLeft  `json:"left,omitempty"`     // 左值
+	Right    *GetApaasApplicationRoleMemberRespRoleMemberUserFilterConditionRight `json:"right,omitempty"`    // 右值
+	Operator string                                                               `json:"operator,omitempty"` // 操作符
 }
-
-
-
-
 
 // GetApaasApplicationRoleMemberRespRoleMemberUserFilterConditionLeft ...
-type GetApaasApplicationRoleMemberRespRoleMemberUserFilterConditionLeft struct { 
-Type string `json:"type,omitempty"` // 类型
-Settings string `json:"settings,omitempty"` // 设置值
-DisplayNames []string `json:"display_names,omitempty"` // 左值/右值的展示名称
+type GetApaasApplicationRoleMemberRespRoleMemberUserFilterConditionLeft struct {
+	Type         string   `json:"type,omitempty"`          // 类型
+	Settings     string   `json:"settings,omitempty"`      // 设置值
+	DisplayNames []string `json:"display_names,omitempty"` // 左值/右值的展示名称
 }
-
-
-
-
 
 // GetApaasApplicationRoleMemberRespRoleMemberUserFilterConditionRight ...
-type GetApaasApplicationRoleMemberRespRoleMemberUserFilterConditionRight struct { 
-Type string `json:"type,omitempty"` // 类型
-Settings string `json:"settings,omitempty"` // 设置值
-DisplayNames []string `json:"display_names,omitempty"` // 左值/右值的展示名称
+type GetApaasApplicationRoleMemberRespRoleMemberUserFilterConditionRight struct {
+	Type         string   `json:"type,omitempty"`          // 类型
+	Settings     string   `json:"settings,omitempty"`      // 设置值
+	DisplayNames []string `json:"display_names,omitempty"` // 左值/右值的展示名称
 }
-
-
-
-
 
 // getApaasApplicationRoleMemberResp ...
-type getApaasApplicationRoleMemberResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *GetApaasApplicationRoleMemberResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type getApaasApplicationRoleMemberResp struct {
+	Code  int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                             `json:"msg,omitempty"`  // 错误描述
+	Data  *GetApaasApplicationRoleMemberResp `json:"data,omitempty"`
+	Error *ErrorDetail                       `json:"error,omitempty"`
 }
-
-
-
-

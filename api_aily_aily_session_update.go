@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // UpdateAilySession 该 API 用于更新与某个飞书 Aily 应用的一次会话（Session）的信息。
@@ -26,9 +26,8 @@ import (
 // 更多信息及示例代码, 可参考 [Aily OpenAPI 接入与接口说明](https://bytedance.larkoffice.com/wiki/UTU6wVTVGigefykjO1acAOOvnNc)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/aily-v1/aily_session/update
-// 
 func (r *AilyService) UpdateAilySession(ctx context.Context, request *UpdateAilySessionReq, options ...MethodOptionFunc) (*UpdateAilySessionResp, *Response, error) {
-if r.cli.mock.mockAilyUpdateAilySession != nil {
+	if r.cli.mock.mockAilyUpdateAilySession != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Aily#UpdateAilySession mock enable")
 		return r.cli.mock.mockAilyUpdateAilySession(ctx, request, options...)
 	}
@@ -37,12 +36,11 @@ if r.cli.mock.mockAilyUpdateAilySession != nil {
 		Scope:                 "Aily",
 		API:                   "UpdateAilySession",
 		Method:                "PUT",
-		URL:   r.cli.openBaseURL + "/open-apis/aily/v1/sessions/:aily_session_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/aily/v1/sessions/:aily_session_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(updateAilySessionResp)
 
@@ -54,54 +52,38 @@ if r.cli.mock.mockAilyUpdateAilySession != nil {
 func (r *Mock) MockAilyUpdateAilySession(f func(ctx context.Context, request *UpdateAilySessionReq, options ...MethodOptionFunc) (*UpdateAilySessionResp, *Response, error)) {
 	r.mockAilyUpdateAilySession = f
 }
+
 // UnMockAilyUpdateAilySession un-mock AilyUpdateAilySession method
 func (r *Mock) UnMockAilyUpdateAilySession() {
 	r.mockAilyUpdateAilySession = nil
 }
 
-
 // UpdateAilySessionReq ...
-type UpdateAilySessionReq struct { 
-AilySessionID string `path:"aily_session_id" json:"-"` // 会话 ID示例值: "session_4dfunz7sp1g8m" 长度范围: `9` ～ `32` 字符- 正则校验: `session_[0-9a-hjkmnp-z]{1, 24}`
-ChannelContext *string `json:"channel_context,omitempty"` // 可自行构造的 Context [上下文变量](https://aily.feishu.cn/hc/1u7kleqg/en70bqqj#6a446d5e)；在 Workflow 技能中可消费这部分全局变量示例值: "{}" 长度范围: `0` ～ `255` 字符
-Metadata *string `json:"metadata,omitempty"` // 会话的自定义变量内容, 变量数据保存在服务端 Session 中, 可在 `GetSession` 时原样返回, 无需在 API 调用侧存储示例值: "{}" 长度范围: `0` ～ `255` 字符
+type UpdateAilySessionReq struct {
+	AilySessionID  string  `path:"aily_session_id" json:"-"`  // 会话 ID示例值: "session_4dfunz7sp1g8m" 长度范围: `9` ～ `32` 字符- 正则校验: `session_[0-9a-hjkmnp-z]{1, 24}`
+	ChannelContext *string `json:"channel_context,omitempty"` // 可自行构造的 Context [上下文变量](https://aily.feishu.cn/hc/1u7kleqg/en70bqqj#6a446d5e)；在 Workflow 技能中可消费这部分全局变量示例值: "{}" 长度范围: `0` ～ `255` 字符
+	Metadata       *string `json:"metadata,omitempty"`        // 会话的自定义变量内容, 变量数据保存在服务端 Session 中, 可在 `GetSession` 时原样返回, 无需在 API 调用侧存储示例值: "{}" 长度范围: `0` ～ `255` 字符
 }
-
-
-
-
 
 // UpdateAilySessionResp ...
-type UpdateAilySessionResp struct { 
-Session *UpdateAilySessionRespSession `json:"session,omitempty"` // 会话信息
+type UpdateAilySessionResp struct {
+	Session *UpdateAilySessionRespSession `json:"session,omitempty"` // 会话信息
 }
-
-
-
-
 
 // UpdateAilySessionRespSession ...
-type UpdateAilySessionRespSession struct { 
-ID string `json:"id,omitempty"` // 会话 ID
-CreatedAt string `json:"created_at,omitempty"` // 会话的创建时间, 毫秒时间戳
-ModifiedAt string `json:"modified_at,omitempty"` // 会话的上次更新时间, 毫秒时间戳
-CreatedBy string `json:"created_by,omitempty"` // 会话的创建人（Aily UserID）
-ChannelContext string `json:"channel_context,omitempty"` // 可自行构造的 Context [上下文变量](https://aily.feishu.cn/hc/1u7kleqg/en70bqqj#6a446d5e)；在 Workflow 技能中可消费这部分全局变量
-Metadata string `json:"metadata,omitempty"` // 会话的自定义变量内容, 变量数据保存在服务端 Session 中, 可在 `GetSession` 时原样返回, 无需在 API 调用侧存储
+type UpdateAilySessionRespSession struct {
+	ID             string `json:"id,omitempty"`              // 会话 ID
+	CreatedAt      string `json:"created_at,omitempty"`      // 会话的创建时间, 毫秒时间戳
+	ModifiedAt     string `json:"modified_at,omitempty"`     // 会话的上次更新时间, 毫秒时间戳
+	CreatedBy      string `json:"created_by,omitempty"`      // 会话的创建人（Aily UserID）
+	ChannelContext string `json:"channel_context,omitempty"` // 可自行构造的 Context [上下文变量](https://aily.feishu.cn/hc/1u7kleqg/en70bqqj#6a446d5e)；在 Workflow 技能中可消费这部分全局变量
+	Metadata       string `json:"metadata,omitempty"`        // 会话的自定义变量内容, 变量数据保存在服务端 Session 中, 可在 `GetSession` 时原样返回, 无需在 API 调用侧存储
 }
-
-
-
-
 
 // updateAilySessionResp ...
-type updateAilySessionResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *UpdateAilySessionResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type updateAilySessionResp struct {
+	Code  int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                 `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateAilySessionResp `json:"data,omitempty"`
+	Error *ErrorDetail           `json:"error,omitempty"`
 }
-
-
-
-

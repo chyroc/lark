@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateSecurityAndComplianceDeviceRecord 使用该接口在设备管理中新增一台设备。新增设备的类型为管理员导入
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/security_and_compliance-v2/device_record/create
-// 
 func (r *SecurityAndComplianceService) CreateSecurityAndComplianceDeviceRecord(ctx context.Context, request *CreateSecurityAndComplianceDeviceRecordReq, options ...MethodOptionFunc) (*CreateSecurityAndComplianceDeviceRecordResp, *Response, error) {
-if r.cli.mock.mockSecurityAndComplianceCreateSecurityAndComplianceDeviceRecord != nil {
+	if r.cli.mock.mockSecurityAndComplianceCreateSecurityAndComplianceDeviceRecord != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] SecurityAndCompliance#CreateSecurityAndComplianceDeviceRecord mock enable")
 		return r.cli.mock.mockSecurityAndComplianceCreateSecurityAndComplianceDeviceRecord(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockSecurityAndComplianceCreateSecurityAndComplianceDeviceRecord !
 		Scope:                 "SecurityAndCompliance",
 		API:                   "CreateSecurityAndComplianceDeviceRecord",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/security_and_compliance/v2/device_records",
+		URL:                   r.cli.openBaseURL + "/open-apis/security_and_compliance/v2/device_records",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createSecurityAndComplianceDeviceRecordResp)
 
@@ -51,47 +49,35 @@ if r.cli.mock.mockSecurityAndComplianceCreateSecurityAndComplianceDeviceRecord !
 func (r *Mock) MockSecurityAndComplianceCreateSecurityAndComplianceDeviceRecord(f func(ctx context.Context, request *CreateSecurityAndComplianceDeviceRecordReq, options ...MethodOptionFunc) (*CreateSecurityAndComplianceDeviceRecordResp, *Response, error)) {
 	r.mockSecurityAndComplianceCreateSecurityAndComplianceDeviceRecord = f
 }
+
 // UnMockSecurityAndComplianceCreateSecurityAndComplianceDeviceRecord un-mock SecurityAndComplianceCreateSecurityAndComplianceDeviceRecord method
 func (r *Mock) UnMockSecurityAndComplianceCreateSecurityAndComplianceDeviceRecord() {
 	r.mockSecurityAndComplianceCreateSecurityAndComplianceDeviceRecord = nil
 }
 
-
 // CreateSecurityAndComplianceDeviceRecordReq ...
-type CreateSecurityAndComplianceDeviceRecordReq struct { 
-DeviceSystem int64 `json:"device_system,omitempty"` // 操作系统示例值: 0可选值有: WindowsmacOSLinuxAndroidiOSOpenHarmony
-SerialNumber *string `json:"serial_number,omitempty"` // 生产序列号示例值: "C02DTHRMML7H"
-DiskSerialNumber *string `json:"disk_serial_number,omitempty"` // 硬盘序列号示例值: "CC344362-5990-5A68-8DDD-64A23C99FA0C"
-UUID *string `json:"uuid,omitempty"` // 主板UUID示例值: "621CDFF0-13D0-5AB1-9ADC-5F560095F6ED"
-MacAddress *string `json:"mac_address,omitempty"` // MAC地址示例值: "ac:de:48:00:11:21"
-AndroidID *string `json:"android_id,omitempty"` // Android标识符示例值: "02a11ac4a83b918e"
-Idfv *string `json:"idfv,omitempty"` // iOS供应商标识符示例值: "968F0E5C-C297-4122-ACB6-102494DEFD9A"
-Aaid *string `json:"aaid,omitempty"` // Harmony供应商标识符示例值: "ff3c2237-cd76-4331-9d72-0a4470854567"
-DeviceOwnership int64 `json:"device_ownership,omitempty"` // 设备归属示例值: 0可选值有: 未知设备个人设备企业设备
-DeviceStatus int64 `json:"device_status,omitempty"` // 可信状态示例值: 0可选值有: 未知状态信任设备非信任设备
+type CreateSecurityAndComplianceDeviceRecordReq struct {
+	DeviceSystem     int64   `json:"device_system,omitempty"`      // 操作系统示例值: 0可选值有: WindowsmacOSLinuxAndroidiOSOpenHarmony
+	SerialNumber     *string `json:"serial_number,omitempty"`      // 生产序列号示例值: "C02DTHRMML7H"
+	DiskSerialNumber *string `json:"disk_serial_number,omitempty"` // 硬盘序列号示例值: "CC344362-5990-5A68-8DDD-64A23C99FA0C"
+	UUID             *string `json:"uuid,omitempty"`               // 主板UUID示例值: "621CDFF0-13D0-5AB1-9ADC-5F560095F6ED"
+	MacAddress       *string `json:"mac_address,omitempty"`        // MAC地址示例值: "ac:de:48:00:11:21"
+	AndroidID        *string `json:"android_id,omitempty"`         // Android标识符示例值: "02a11ac4a83b918e"
+	Idfv             *string `json:"idfv,omitempty"`               // iOS供应商标识符示例值: "968F0E5C-C297-4122-ACB6-102494DEFD9A"
+	Aaid             *string `json:"aaid,omitempty"`               // Harmony供应商标识符示例值: "ff3c2237-cd76-4331-9d72-0a4470854567"
+	DeviceOwnership  int64   `json:"device_ownership,omitempty"`   // 设备归属示例值: 0可选值有: 未知设备个人设备企业设备
+	DeviceStatus     int64   `json:"device_status,omitempty"`      // 可信状态示例值: 0可选值有: 未知状态信任设备非信任设备
 }
-
-
-
-
 
 // CreateSecurityAndComplianceDeviceRecordResp ...
-type CreateSecurityAndComplianceDeviceRecordResp struct { 
-DeviceRecordID string `json:"device_record_id,omitempty"` // 设备认证编码
+type CreateSecurityAndComplianceDeviceRecordResp struct {
+	DeviceRecordID string `json:"device_record_id,omitempty"` // 设备认证编码
 }
-
-
-
-
 
 // createSecurityAndComplianceDeviceRecordResp ...
-type createSecurityAndComplianceDeviceRecordResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateSecurityAndComplianceDeviceRecordResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createSecurityAndComplianceDeviceRecordResp struct {
+	Code  int64                                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                       `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateSecurityAndComplianceDeviceRecordResp `json:"data,omitempty"`
+	Error *ErrorDetail                                 `json:"error,omitempty"`
 }
-
-
-
-

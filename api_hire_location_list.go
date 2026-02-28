@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListHireLocation 获取地址列表, 可查询到的信息包括地址与地点信息, 可应用在职位地点、面试地点、人才意向工作城市等场景。
@@ -29,9 +29,8 @@ import (
 // - 地址: 具体地理位置, 包括职位地址、面试地址、门店地址, 如: 「中国四川省成都市成华区熊猫大道 1375 号」
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/list
-// 
 func (r *HireService) ListHireLocation(ctx context.Context, request *ListHireLocationReq, options ...MethodOptionFunc) (*ListHireLocationResp, *Response, error) {
-if r.cli.mock.mockHireListHireLocation != nil {
+	if r.cli.mock.mockHireListHireLocation != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#ListHireLocation mock enable")
 		return r.cli.mock.mockHireListHireLocation(ctx, request, options...)
 	}
@@ -40,11 +39,10 @@ if r.cli.mock.mockHireListHireLocation != nil {
 		Scope:                 "Hire",
 		API:                   "ListHireLocation",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/locations",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/locations",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(listHireLocationResp)
 
@@ -56,147 +54,95 @@ if r.cli.mock.mockHireListHireLocation != nil {
 func (r *Mock) MockHireListHireLocation(f func(ctx context.Context, request *ListHireLocationReq, options ...MethodOptionFunc) (*ListHireLocationResp, *Response, error)) {
 	r.mockHireListHireLocation = f
 }
+
 // UnMockHireListHireLocation un-mock HireListHireLocation method
 func (r *Mock) UnMockHireListHireLocation() {
 	r.mockHireListHireLocation = nil
 }
 
-
 // ListHireLocationReq ...
-type ListHireLocationReq struct { 
-PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eyJvZmZzZXQiOjEwLCJ0aW1lc3RhbXAiOjE2Mjc1NTUyMjM2NzIsImlkIjpudWxsfQ[
-PageSize *int64 `query:"page_size" json:"-"` // 每页获取记录数量示例值: 100默认值: `10` 最大值: `100`
-Usage string `query:"usage" json:"-"` // 地址类型示例值: interview_location可选值有: 职位地址面试地址门店地址。当前仅支持未接入飞书人事的租户使用
+type ListHireLocationReq struct {
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eyJvZmZzZXQiOjEwLCJ0aW1lc3RhbXAiOjE2Mjc1NTUyMjM2NzIsImlkIjpudWxsfQ[
+	PageSize  *int64  `query:"page_size" json:"-"`  // 每页获取记录数量示例值: 100默认值: `10` 最大值: `100`
+	Usage     string  `query:"usage" json:"-"`      // 地址类型示例值: interview_location可选值有: 职位地址面试地址门店地址。当前仅支持未接入飞书人事的租户使用
 }
-
-
-
-
 
 // ListHireLocationResp ...
-type ListHireLocationResp struct { 
-Items []*ListHireLocationRespItem `json:"items,omitempty"` // 地址和地点信息列表
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+type ListHireLocationResp struct {
+	Items     []*ListHireLocationRespItem `json:"items,omitempty"`      // 地址和地点信息列表
+	HasMore   bool                        `json:"has_more,omitempty"`   // 是否还有更多项
+	PageToken string                      `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 }
-
-
-
-
 
 // ListHireLocationRespItem ...
-type ListHireLocationRespItem struct { 
-ID string `json:"id,omitempty"` // 地址 ID
-Name *ListHireLocationRespItemName `json:"name,omitempty"` // 地址名称
-District *ListHireLocationRespItemDistrict `json:"district,omitempty"` // 区信息
-City *ListHireLocationRespItemCity `json:"city,omitempty"` // 市信息
-State *ListHireLocationRespItemState `json:"state,omitempty"` // 省份/州信息
-Country *ListHireLocationRespItemCountry `json:"country,omitempty"` // 国家信息
-ActiveStatus int64 `json:"active_status,omitempty"` // 地址启用状态可选值有: 已启用已禁用
+type ListHireLocationRespItem struct {
+	ID           string                            `json:"id,omitempty"`            // 地址 ID
+	Name         *ListHireLocationRespItemName     `json:"name,omitempty"`          // 地址名称
+	District     *ListHireLocationRespItemDistrict `json:"district,omitempty"`      // 区信息
+	City         *ListHireLocationRespItemCity     `json:"city,omitempty"`          // 市信息
+	State        *ListHireLocationRespItemState    `json:"state,omitempty"`         // 省份/州信息
+	Country      *ListHireLocationRespItemCountry  `json:"country,omitempty"`       // 国家信息
+	ActiveStatus int64                             `json:"active_status,omitempty"` // 地址启用状态可选值有: 已启用已禁用
 }
-
-
-
-
 
 // ListHireLocationRespItemCity ...
-type ListHireLocationRespItemCity struct { 
-Code string `json:"code,omitempty"` // 市编码
-Name *ListHireLocationRespItemCityName `json:"name,omitempty"` // 市名称
+type ListHireLocationRespItemCity struct {
+	Code string                            `json:"code,omitempty"` // 市编码
+	Name *ListHireLocationRespItemCityName `json:"name,omitempty"` // 市名称
 }
-
-
-
-
 
 // ListHireLocationRespItemCityName ...
-type ListHireLocationRespItemCityName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 市中文名称
-EnUs string `json:"en_us,omitempty"` // 市英文名称
+type ListHireLocationRespItemCityName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 市中文名称
+	EnUs string `json:"en_us,omitempty"` // 市英文名称
 }
-
-
-
-
 
 // ListHireLocationRespItemCountry ...
-type ListHireLocationRespItemCountry struct { 
-Code string `json:"code,omitempty"` // 国家编码
-Name *ListHireLocationRespItemCountryName `json:"name,omitempty"` // 国家名称
+type ListHireLocationRespItemCountry struct {
+	Code string                               `json:"code,omitempty"` // 国家编码
+	Name *ListHireLocationRespItemCountryName `json:"name,omitempty"` // 国家名称
 }
-
-
-
-
 
 // ListHireLocationRespItemCountryName ...
-type ListHireLocationRespItemCountryName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 国家中文名称
-EnUs string `json:"en_us,omitempty"` // 国家英文名称
+type ListHireLocationRespItemCountryName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 国家中文名称
+	EnUs string `json:"en_us,omitempty"` // 国家英文名称
 }
-
-
-
-
 
 // ListHireLocationRespItemDistrict ...
-type ListHireLocationRespItemDistrict struct { 
-Code string `json:"code,omitempty"` // 区编码
-Name *ListHireLocationRespItemDistrictName `json:"name,omitempty"` // 区名称
+type ListHireLocationRespItemDistrict struct {
+	Code string                                `json:"code,omitempty"` // 区编码
+	Name *ListHireLocationRespItemDistrictName `json:"name,omitempty"` // 区名称
 }
-
-
-
-
 
 // ListHireLocationRespItemDistrictName ...
-type ListHireLocationRespItemDistrictName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 区中文名称
-EnUs string `json:"en_us,omitempty"` // 区英文名称
+type ListHireLocationRespItemDistrictName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 区中文名称
+	EnUs string `json:"en_us,omitempty"` // 区英文名称
 }
-
-
-
-
 
 // ListHireLocationRespItemName ...
-type ListHireLocationRespItemName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 地址中文名称
-EnUs string `json:"en_us,omitempty"` // 地址英文名称
+type ListHireLocationRespItemName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 地址中文名称
+	EnUs string `json:"en_us,omitempty"` // 地址英文名称
 }
-
-
-
-
 
 // ListHireLocationRespItemState ...
-type ListHireLocationRespItemState struct { 
-Code string `json:"code,omitempty"` // 省份/州编码
-Name *ListHireLocationRespItemStateName `json:"name,omitempty"` // 省份/州名称
+type ListHireLocationRespItemState struct {
+	Code string                             `json:"code,omitempty"` // 省份/州编码
+	Name *ListHireLocationRespItemStateName `json:"name,omitempty"` // 省份/州名称
 }
-
-
-
-
 
 // ListHireLocationRespItemStateName ...
-type ListHireLocationRespItemStateName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 省份/州中文名称
-EnUs string `json:"en_us,omitempty"` // 省份/州英文名称
+type ListHireLocationRespItemStateName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 省份/州中文名称
+	EnUs string `json:"en_us,omitempty"` // 省份/州英文名称
 }
-
-
-
-
 
 // listHireLocationResp ...
-type listHireLocationResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *ListHireLocationResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type listHireLocationResp struct {
+	Code  int64                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                `json:"msg,omitempty"`  // 错误描述
+	Data  *ListHireLocationResp `json:"data,omitempty"`
+	Error *ErrorDetail          `json:"error,omitempty"`
 }
-
-
-
-

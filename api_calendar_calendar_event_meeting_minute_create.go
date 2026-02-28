@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateCalendarEventMeetingMinute 调用该接口为指定的日程创建会议纪要。纪要以文档形式展示, 成功创建后会返回纪要文档 URL。
@@ -28,9 +28,8 @@ import (
 // - 所操作的日程内至少需要有 1 个参与人, 且参与人权限不能为 none（即无法查看参与人列表）。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-meeting_minute/create
-// 
 func (r *CalendarService) CreateCalendarEventMeetingMinute(ctx context.Context, request *CreateCalendarEventMeetingMinuteReq, options ...MethodOptionFunc) (*CreateCalendarEventMeetingMinuteResp, *Response, error) {
-if r.cli.mock.mockCalendarCreateCalendarEventMeetingMinute != nil {
+	if r.cli.mock.mockCalendarCreateCalendarEventMeetingMinute != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Calendar#CreateCalendarEventMeetingMinute mock enable")
 		return r.cli.mock.mockCalendarCreateCalendarEventMeetingMinute(ctx, request, options...)
 	}
@@ -39,12 +38,11 @@ if r.cli.mock.mockCalendarCreateCalendarEventMeetingMinute != nil {
 		Scope:                 "Calendar",
 		API:                   "CreateCalendarEventMeetingMinute",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id/meeting_minute",
+		URL:                   r.cli.openBaseURL + "/open-apis/calendar/v4/calendars/:calendar_id/events/:event_id/meeting_minute",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(createCalendarEventMeetingMinuteResp)
 
@@ -56,39 +54,27 @@ if r.cli.mock.mockCalendarCreateCalendarEventMeetingMinute != nil {
 func (r *Mock) MockCalendarCreateCalendarEventMeetingMinute(f func(ctx context.Context, request *CreateCalendarEventMeetingMinuteReq, options ...MethodOptionFunc) (*CreateCalendarEventMeetingMinuteResp, *Response, error)) {
 	r.mockCalendarCreateCalendarEventMeetingMinute = f
 }
+
 // UnMockCalendarCreateCalendarEventMeetingMinute un-mock CalendarCreateCalendarEventMeetingMinute method
 func (r *Mock) UnMockCalendarCreateCalendarEventMeetingMinute() {
 	r.mockCalendarCreateCalendarEventMeetingMinute = nil
 }
 
-
 // CreateCalendarEventMeetingMinuteReq ...
-type CreateCalendarEventMeetingMinuteReq struct { 
-CalendarID string `path:"calendar_id" json:"-"` // 日历 ID。调用[查询主日历信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/primary)接口, 获取当前身份的主日历 ID。示例值: "feishu.cn_xxx@group.calendar.feishu.cn"
-EventID string `path:"event_id" json:"-"` // 日程 ID。调用[搜索日程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/search)接口, 在指定日历内搜索日程并获取日程 ID。示例值: "75d28f9b-e35c-4230-8a83-123_0"
+type CreateCalendarEventMeetingMinuteReq struct {
+	CalendarID string `path:"calendar_id" json:"-"` // 日历 ID。调用[查询主日历信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/primary)接口, 获取当前身份的主日历 ID。示例值: "feishu.cn_xxx@group.calendar.feishu.cn"
+	EventID    string `path:"event_id" json:"-"`    // 日程 ID。调用[搜索日程](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event/search)接口, 在指定日历内搜索日程并获取日程 ID。示例值: "75d28f9b-e35c-4230-8a83-123_0"
 }
-
-
-
-
 
 // CreateCalendarEventMeetingMinuteResp ...
-type CreateCalendarEventMeetingMinuteResp struct { 
-DocURL string `json:"doc_url,omitempty"` // 文档 URL
+type CreateCalendarEventMeetingMinuteResp struct {
+	DocURL string `json:"doc_url,omitempty"` // 文档 URL
 }
-
-
-
-
 
 // createCalendarEventMeetingMinuteResp ...
-type createCalendarEventMeetingMinuteResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateCalendarEventMeetingMinuteResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createCalendarEventMeetingMinuteResp struct {
+	Code  int64                                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateCalendarEventMeetingMinuteResp `json:"data,omitempty"`
+	Error *ErrorDetail                          `json:"error,omitempty"`
 }
-
-
-
-

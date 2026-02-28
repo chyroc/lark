@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateDocxChatAnnouncementBlockChildren 在指定块的子块列表中, 新创建一批子块, 并放置到指定位置。如果操作成功, 接口将返回新创建子块的富文本内容。调用该接口前, 你可参考[群公告概述-基本概念](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/group/upgraded-group-announcement/group-announcement-overview)了解块的父子关系规则。
@@ -38,9 +38,8 @@ import (
 // - 如果群组没有配置 仅群主和群管理员可编辑群信息, 则所有群成员可以更新群公告信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/chat-announcement-block-children/create
-// 
 func (r *DocxService) CreateDocxChatAnnouncementBlockChildren(ctx context.Context, request *CreateDocxChatAnnouncementBlockChildrenReq, options ...MethodOptionFunc) (*CreateDocxChatAnnouncementBlockChildrenResp, *Response, error) {
-if r.cli.mock.mockDocxCreateDocxChatAnnouncementBlockChildren != nil {
+	if r.cli.mock.mockDocxCreateDocxChatAnnouncementBlockChildren != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Docx#CreateDocxChatAnnouncementBlockChildren mock enable")
 		return r.cli.mock.mockDocxCreateDocxChatAnnouncementBlockChildren(ctx, request, options...)
 	}
@@ -49,12 +48,11 @@ if r.cli.mock.mockDocxCreateDocxChatAnnouncementBlockChildren != nil {
 		Scope:                 "Docx",
 		API:                   "CreateDocxChatAnnouncementBlockChildren",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/docx/v1/chats/:chat_id/announcement/blocks/:block_id/children",
+		URL:                   r.cli.openBaseURL + "/open-apis/docx/v1/chats/:chat_id/announcement/blocks/:block_id/children",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(createDocxChatAnnouncementBlockChildrenResp)
 
@@ -66,46 +64,34 @@ if r.cli.mock.mockDocxCreateDocxChatAnnouncementBlockChildren != nil {
 func (r *Mock) MockDocxCreateDocxChatAnnouncementBlockChildren(f func(ctx context.Context, request *CreateDocxChatAnnouncementBlockChildrenReq, options ...MethodOptionFunc) (*CreateDocxChatAnnouncementBlockChildrenResp, *Response, error)) {
 	r.mockDocxCreateDocxChatAnnouncementBlockChildren = f
 }
+
 // UnMockDocxCreateDocxChatAnnouncementBlockChildren un-mock DocxCreateDocxChatAnnouncementBlockChildren method
 func (r *Mock) UnMockDocxCreateDocxChatAnnouncementBlockChildren() {
 	r.mockDocxCreateDocxChatAnnouncementBlockChildren = nil
 }
 
-
 // CreateDocxChatAnnouncementBlockChildrenReq ...
-type CreateDocxChatAnnouncementBlockChildrenReq struct { 
-ChatID string `path:"chat_id" json:"-"` // 群 ID。获取方式: [创建群](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create), 从返回结果中获取该群的 chat_id。- 调用[获取用户或机器人所在的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list)接口, 可以查询用户或机器人所在群的 chat_id。- 调用[搜索对用户或机器人可见的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search), 可搜索用户或机器人所在的群、对用户或机器人公开的群的 chat_id。注意: 单聊（群类型为 `p2p`）不支持更新群公告。示例值: "oc_5ad11d72b830411d72b836c20"
-BlockID string `path:"block_id" json:"-"` // 父块的`block_id`, 表示为其创建一批子块。如果需要对群公告树根节点创建子块, 可将 `chat_id` 填入此处。你可通过调用[获取群公告所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/chat-announcement-block/list)接口获取块的 block_id。示例值: "doxcnO6UW6wAw2qIcYf4hZpFIth"
-RevisionID *int64 `query:"revision_id" json:"-"` // 要操作的群公告版本。-1 表示群公告最新版本。群公告创建后, 版本为 1。你需确保你已拥有群公告的编辑权限。你可通过调用[获取群公告基本信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/chat-announcement/get)获取群公告的最新 revision_id示例值:1默认值: `-1` 最小值: `-1`
-ClientToken *string `query:"client_token" json:"-"` // 操作的唯一标识, 与接口返回值的 client_token 相对应, 用于幂等的进行更新操作。此值为空表示将发起一次新的请求, 此值非空表示幂等的进行更新操作。示例值: "fe599b60-450f-46ff-b2ef-9f6675625b97"
-UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: "open_id"可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
-Children []*DocxBlock `json:"children,omitempty"` // 添加的子块列表。在一次请求中, 你最多可以创建 5 个电子表格（Sheet）块 长度范围: `1` ～ `50`
-Index *int64 `json:"index,omitempty"` // 当前 block 在 children 中的插入位置, 起始值为 0, 最大值为原 children 长度示例值: 0默认值: `-1`
+type CreateDocxChatAnnouncementBlockChildrenReq struct {
+	ChatID      string       `path:"chat_id" json:"-"`       // 群 ID。获取方式: [创建群](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create), 从返回结果中获取该群的 chat_id。- 调用[获取用户或机器人所在的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list)接口, 可以查询用户或机器人所在群的 chat_id。- 调用[搜索对用户或机器人可见的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search), 可搜索用户或机器人所在的群、对用户或机器人公开的群的 chat_id。注意: 单聊（群类型为 `p2p`）不支持更新群公告。示例值: "oc_5ad11d72b830411d72b836c20"
+	BlockID     string       `path:"block_id" json:"-"`      // 父块的`block_id`, 表示为其创建一批子块。如果需要对群公告树根节点创建子块, 可将 `chat_id` 填入此处。你可通过调用[获取群公告所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/chat-announcement-block/list)接口获取块的 block_id。示例值: "doxcnO6UW6wAw2qIcYf4hZpFIth"
+	RevisionID  *int64       `query:"revision_id" json:"-"`  // 要操作的群公告版本。-1 表示群公告最新版本。群公告创建后, 版本为 1。你需确保你已拥有群公告的编辑权限。你可通过调用[获取群公告基本信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/chat-announcement/get)获取群公告的最新 revision_id示例值:1默认值: `-1` 最小值: `-1`
+	ClientToken *string      `query:"client_token" json:"-"` // 操作的唯一标识, 与接口返回值的 client_token 相对应, 用于幂等的进行更新操作。此值为空表示将发起一次新的请求, 此值非空表示幂等的进行更新操作。示例值: "fe599b60-450f-46ff-b2ef-9f6675625b97"
+	UserIDType  *IDType      `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: "open_id"可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	Children    []*DocxBlock `json:"children,omitempty"`     // 添加的子块列表。在一次请求中, 你最多可以创建 5 个电子表格（Sheet）块 长度范围: `1` ～ `50`
+	Index       *int64       `json:"index,omitempty"`        // 当前 block 在 children 中的插入位置, 起始值为 0, 最大值为原 children 长度示例值: 0默认值: `-1`
 }
-
-
-
-
 
 // CreateDocxChatAnnouncementBlockChildrenResp ...
-type CreateDocxChatAnnouncementBlockChildrenResp struct { 
-Children []*CreateDocxChatAnnouncementBlockChildrenRespChildren `json:"children,omitempty"` // 所添加的子 Block 信息
-RevisionID int64 `json:"revision_id,omitempty"` // 当前 Block Children 创建成功后群公告的版本号
-ClientToken string `json:"client_token,omitempty"` // 操作的唯一标识, 更新请求中使用此值表示幂等的进行此次更新
+type CreateDocxChatAnnouncementBlockChildrenResp struct {
+	Children    []*CreateDocxChatAnnouncementBlockChildrenRespChildren `json:"children,omitempty"`     // 所添加的子 Block 信息
+	RevisionID  int64                                                  `json:"revision_id,omitempty"`  // 当前 Block Children 创建成功后群公告的版本号
+	ClientToken string                                                 `json:"client_token,omitempty"` // 操作的唯一标识, 更新请求中使用此值表示幂等的进行此次更新
 }
-
-
-
-
 
 // createDocxChatAnnouncementBlockChildrenResp ...
-type createDocxChatAnnouncementBlockChildrenResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateDocxChatAnnouncementBlockChildrenResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createDocxChatAnnouncementBlockChildrenResp struct {
+	Code  int64                                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                       `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateDocxChatAnnouncementBlockChildrenResp `json:"data,omitempty"`
+	Error *ErrorDetail                                 `json:"error,omitempty"`
 }
-
-
-
-

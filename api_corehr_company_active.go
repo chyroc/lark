@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateCorehrCompanyActive 对公司进行启用或停用操作
@@ -26,9 +26,8 @@ import (
 // 停用公司时请确认有无在职员工、异动单据、待入职单据关联此公司, 如有会导致停用失败。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/company/active
-// 
 func (r *CorehrService) CreateCorehrCompanyActive(ctx context.Context, request *CreateCorehrCompanyActiveReq, options ...MethodOptionFunc) (*CreateCorehrCompanyActiveResp, *Response, error) {
-if r.cli.mock.mockCorehrCreateCorehrCompanyActive != nil {
+	if r.cli.mock.mockCorehrCreateCorehrCompanyActive != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Corehr#CreateCorehrCompanyActive mock enable")
 		return r.cli.mock.mockCorehrCreateCorehrCompanyActive(ctx, request, options...)
 	}
@@ -37,11 +36,10 @@ if r.cli.mock.mockCorehrCreateCorehrCompanyActive != nil {
 		Scope:                 "Corehr",
 		API:                   "CreateCorehrCompanyActive",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/corehr/v2/companies/active",
+		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/companies/active",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createCorehrCompanyActiveResp)
 
@@ -53,40 +51,27 @@ if r.cli.mock.mockCorehrCreateCorehrCompanyActive != nil {
 func (r *Mock) MockCorehrCreateCorehrCompanyActive(f func(ctx context.Context, request *CreateCorehrCompanyActiveReq, options ...MethodOptionFunc) (*CreateCorehrCompanyActiveResp, *Response, error)) {
 	r.mockCorehrCreateCorehrCompanyActive = f
 }
+
 // UnMockCorehrCreateCorehrCompanyActive un-mock CorehrCreateCorehrCompanyActive method
 func (r *Mock) UnMockCorehrCreateCorehrCompanyActive() {
 	r.mockCorehrCreateCorehrCompanyActive = nil
 }
 
-
 // CreateCorehrCompanyActiveReq ...
-type CreateCorehrCompanyActiveReq struct { 
-CompanyID string `json:"company_id,omitempty"` // 公司 ID- 可从 [批量查询公司](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list)的 id 字段中获取。示例值: "1616161616"
-EffectiveTime string `json:"effective_time,omitempty"` // 公司启用/停用生效时间- 填写格式: YYYY-MM-DD- 系统默认为填写日期当天的 00:00:00 生效 - 该接口只支持到最小单位为日- 日期范围要求:1900-01-01 ～ 9999-12-31示例值: "2020-01-01"
-Active bool `json:"active,omitempty"` // 启用/停用状态。- active 传 true 代表启用- active 传 false 代表停用示例值: true
-OperationReason string `json:"operation_reason,omitempty"` // 操作原因示例值: "业务操作"
+type CreateCorehrCompanyActiveReq struct {
+	CompanyID       string `json:"company_id,omitempty"`       // 公司 ID- 可从 [批量查询公司](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list)的 id 字段中获取。示例值: "1616161616"
+	EffectiveTime   string `json:"effective_time,omitempty"`   // 公司启用/停用生效时间- 填写格式: YYYY-MM-DD- 系统默认为填写日期当天的 00:00:00 生效 - 该接口只支持到最小单位为日- 日期范围要求:1900-01-01 ～ 9999-12-31示例值: "2020-01-01"
+	Active          bool   `json:"active,omitempty"`           // 启用/停用状态。- active 传 true 代表启用- active 传 false 代表停用示例值: true
+	OperationReason string `json:"operation_reason,omitempty"` // 操作原因示例值: "业务操作"
 }
-
-
-
-
 
 // CreateCorehrCompanyActiveResp ...
-type CreateCorehrCompanyActiveResp struct { 
-}
-
-
-
-
+type CreateCorehrCompanyActiveResp struct{}
 
 // createCorehrCompanyActiveResp ...
-type createCorehrCompanyActiveResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateCorehrCompanyActiveResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createCorehrCompanyActiveResp struct {
+	Code  int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                         `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateCorehrCompanyActiveResp `json:"data,omitempty"`
+	Error *ErrorDetail                   `json:"error,omitempty"`
 }
-
-
-
-

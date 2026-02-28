@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListHireTalentTag 可通过关键词、ID 列表、标签类型、停用状态等获取人才标签信息列表, 结果按照创建时间倒序排序。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_tag/list
-// 
 func (r *HireService) ListHireTalentTag(ctx context.Context, request *ListHireTalentTagReq, options ...MethodOptionFunc) (*ListHireTalentTagResp, *Response, error) {
-if r.cli.mock.mockHireListHireTalentTag != nil {
+	if r.cli.mock.mockHireListHireTalentTag != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#ListHireTalentTag mock enable")
 		return r.cli.mock.mockHireListHireTalentTag(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockHireListHireTalentTag != nil {
 		Scope:                 "Hire",
 		API:                   "ListHireTalentTag",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/talent_tags",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/talent_tags",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(listHireTalentTagResp)
 
@@ -51,78 +49,54 @@ if r.cli.mock.mockHireListHireTalentTag != nil {
 func (r *Mock) MockHireListHireTalentTag(f func(ctx context.Context, request *ListHireTalentTagReq, options ...MethodOptionFunc) (*ListHireTalentTagResp, *Response, error)) {
 	r.mockHireListHireTalentTag = f
 }
+
 // UnMockHireListHireTalentTag un-mock HireListHireTalentTag method
 func (r *Mock) UnMockHireListHireTalentTag() {
 	r.mockHireListHireTalentTag = nil
 }
 
-
 // ListHireTalentTagReq ...
-type ListHireTalentTagReq struct { 
-Keyword *string `query:"keyword" json:"-"` // 搜索关键词示例值: 985
-IDList []string `query:"id_list" json:"-"` // 标签 ID 列表示例值: ["6887469228283299336"]
-Type *int64 `query:"type" json:"-"` // 标签类型示例值: 1可选值有: 手动标签自动标签
-IncludeInactive *bool `query:"include_inactive" json:"-"` // 是否包含停用标签示例值: true
-PageSize *int64 `query:"page_size" json:"-"` // 分页大小示例值: 20默认值: `20` 最大值: `100`
-PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eyJvZmZzZXQiOjEwLCJ0aW1lc3RhbXAiOjE2Mjc1NTUyMjM2NzIsImlkIjpudWxsfQ[
+type ListHireTalentTagReq struct {
+	Keyword         *string  `query:"keyword" json:"-"`          // 搜索关键词示例值: 985
+	IDList          []string `query:"id_list" json:"-"`          // 标签 ID 列表示例值: ["6887469228283299336"]
+	Type            *int64   `query:"type" json:"-"`             // 标签类型示例值: 1可选值有: 手动标签自动标签
+	IncludeInactive *bool    `query:"include_inactive" json:"-"` // 是否包含停用标签示例值: true
+	PageSize        *int64   `query:"page_size" json:"-"`        // 分页大小示例值: 20默认值: `20` 最大值: `100`
+	PageToken       *string  `query:"page_token" json:"-"`       // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eyJvZmZzZXQiOjEwLCJ0aW1lc3RhbXAiOjE2Mjc1NTUyMjM2NzIsImlkIjpudWxsfQ[
 }
-
-
-
-
 
 // ListHireTalentTagResp ...
-type ListHireTalentTagResp struct { 
-Items []*ListHireTalentTagRespItem `json:"items,omitempty"` // 标签列表
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+type ListHireTalentTagResp struct {
+	Items     []*ListHireTalentTagRespItem `json:"items,omitempty"`      // 标签列表
+	HasMore   bool                         `json:"has_more,omitempty"`   // 是否还有更多项
+	PageToken string                       `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 }
-
-
-
-
 
 // ListHireTalentTagRespItem ...
-type ListHireTalentTagRespItem struct { 
-ID string `json:"id,omitempty"` // 标签 ID
-Name *ListHireTalentTagRespItemName `json:"name,omitempty"` // 标签名称
-Description *ListHireTalentTagRespItemDescription `json:"description,omitempty"` // 描述名称
-Type int64 `json:"type,omitempty"` // 标签类型可选值有: 手动标签自动标签
-ActiveStatus int64 `json:"active_status,omitempty"` // 启停用状态可选值有: 启用停用
+type ListHireTalentTagRespItem struct {
+	ID           string                                `json:"id,omitempty"`            // 标签 ID
+	Name         *ListHireTalentTagRespItemName        `json:"name,omitempty"`          // 标签名称
+	Description  *ListHireTalentTagRespItemDescription `json:"description,omitempty"`   // 描述名称
+	Type         int64                                 `json:"type,omitempty"`          // 标签类型可选值有: 手动标签自动标签
+	ActiveStatus int64                                 `json:"active_status,omitempty"` // 启停用状态可选值有: 启用停用
 }
-
-
-
-
 
 // ListHireTalentTagRespItemDescription ...
-type ListHireTalentTagRespItemDescription struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文描述
-EnUs string `json:"en_us,omitempty"` // 英文描述
+type ListHireTalentTagRespItemDescription struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文描述
+	EnUs string `json:"en_us,omitempty"` // 英文描述
 }
-
-
-
-
 
 // ListHireTalentTagRespItemName ...
-type ListHireTalentTagRespItemName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文名称
-EnUs string `json:"en_us,omitempty"` // 英文名称
+type ListHireTalentTagRespItemName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名称
+	EnUs string `json:"en_us,omitempty"` // 英文名称
 }
-
-
-
-
 
 // listHireTalentTagResp ...
-type listHireTalentTagResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *ListHireTalentTagResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type listHireTalentTagResp struct {
+	Code  int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                 `json:"msg,omitempty"`  // 错误描述
+	Data  *ListHireTalentTagResp `json:"data,omitempty"`
+	Error *ErrorDetail           `json:"error,omitempty"`
 }
-
-
-
-

@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // GetDocxChatAnnouncementBlock 获取指定块的富文本内容。
@@ -30,9 +30,8 @@ import (
 // - 获取内部群信息时, 调用当前接口的用户或者机器人必须与对应群组在同一租户下。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/chat-announcement-block/get
-// 
 func (r *DocxService) GetDocxChatAnnouncementBlock(ctx context.Context, request *GetDocxChatAnnouncementBlockReq, options ...MethodOptionFunc) (*GetDocxChatAnnouncementBlockResp, *Response, error) {
-if r.cli.mock.mockDocxGetDocxChatAnnouncementBlock != nil {
+	if r.cli.mock.mockDocxGetDocxChatAnnouncementBlock != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Docx#GetDocxChatAnnouncementBlock mock enable")
 		return r.cli.mock.mockDocxGetDocxChatAnnouncementBlock(ctx, request, options...)
 	}
@@ -41,12 +40,11 @@ if r.cli.mock.mockDocxGetDocxChatAnnouncementBlock != nil {
 		Scope:                 "Docx",
 		API:                   "GetDocxChatAnnouncementBlock",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/docx/v1/chats/:chat_id/announcement/blocks/:block_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/docx/v1/chats/:chat_id/announcement/blocks/:block_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getDocxChatAnnouncementBlockResp)
 
@@ -58,41 +56,29 @@ if r.cli.mock.mockDocxGetDocxChatAnnouncementBlock != nil {
 func (r *Mock) MockDocxGetDocxChatAnnouncementBlock(f func(ctx context.Context, request *GetDocxChatAnnouncementBlockReq, options ...MethodOptionFunc) (*GetDocxChatAnnouncementBlockResp, *Response, error)) {
 	r.mockDocxGetDocxChatAnnouncementBlock = f
 }
+
 // UnMockDocxGetDocxChatAnnouncementBlock un-mock DocxGetDocxChatAnnouncementBlock method
 func (r *Mock) UnMockDocxGetDocxChatAnnouncementBlock() {
 	r.mockDocxGetDocxChatAnnouncementBlock = nil
 }
 
-
 // GetDocxChatAnnouncementBlockReq ...
-type GetDocxChatAnnouncementBlockReq struct { 
-ChatID string `path:"chat_id" json:"-"` // 群 ID。获取方式: [创建群](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create), 从返回结果中获取该群的 chat_id。- 调用[获取用户或机器人所在的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list)接口, 可以查询用户或机器人所在群的 chat_id。- 调用[搜索对用户或机器人可见的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search), 可搜索用户或机器人所在的群、对用户或机器人公开的群的 chat_id。注意: 单聊（群类型为 `p2p`）不支持获取群公告。示例值: "oc_5ad11d72b830411d72b836c20"
-BlockID string `path:"block_id" json:"-"` // Block 的唯一标识。你可通过调用[获取群公告所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/chat-announcement-block/list)接口获取块的 block_id。示例值: "doxcnO6UW6wAw2qIcYf4hZabcef"
-RevisionID *int64 `query:"revision_id" json:"-"` // 查询的群公告版本, 1 表示群公告最新版本。群公告创建后, 版本为 1。若查询的版本为群公告最新版本, 则需要持有群公告的阅读权限；若查询的版本为群公告的历史版本, 则需要持有群公告的更新权限。示例值:1默认值: `-1` 最小值: `-1`
-UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: "open_id"可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+type GetDocxChatAnnouncementBlockReq struct {
+	ChatID     string  `path:"chat_id" json:"-"`       // 群 ID。获取方式: [创建群](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create), 从返回结果中获取该群的 chat_id。- 调用[获取用户或机器人所在的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list)接口, 可以查询用户或机器人所在群的 chat_id。- 调用[搜索对用户或机器人可见的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search), 可搜索用户或机器人所在的群、对用户或机器人公开的群的 chat_id。注意: 单聊（群类型为 `p2p`）不支持获取群公告。示例值: "oc_5ad11d72b830411d72b836c20"
+	BlockID    string  `path:"block_id" json:"-"`      // Block 的唯一标识。你可通过调用[获取群公告所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/chat-announcement-block/list)接口获取块的 block_id。示例值: "doxcnO6UW6wAw2qIcYf4hZabcef"
+	RevisionID *int64  `query:"revision_id" json:"-"`  // 查询的群公告版本, 1 表示群公告最新版本。群公告创建后, 版本为 1。若查询的版本为群公告最新版本, 则需要持有群公告的阅读权限；若查询的版本为群公告的历史版本, 则需要持有群公告的更新权限。示例值:1默认值: `-1` 最小值: `-1`
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: "open_id"可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
-
-
-
-
 
 // GetDocxChatAnnouncementBlockResp ...
-type GetDocxChatAnnouncementBlockResp struct { 
-Block *DocxBlock `json:"block,omitempty"` // 查询的 Block 的信息
+type GetDocxChatAnnouncementBlockResp struct {
+	Block *DocxBlock `json:"block,omitempty"` // 查询的 Block 的信息
 }
-
-
-
-
 
 // getDocxChatAnnouncementBlockResp ...
-type getDocxChatAnnouncementBlockResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *GetDocxChatAnnouncementBlockResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type getDocxChatAnnouncementBlockResp struct {
+	Code  int64                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                            `json:"msg,omitempty"`  // 错误描述
+	Data  *GetDocxChatAnnouncementBlockResp `json:"data,omitempty"`
+	Error *ErrorDetail                      `json:"error,omitempty"`
 }
-
-
-
-

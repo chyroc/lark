@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // QueryPerformanceAdditionalInformation 批量查询被评估人的补充信息, 如补充信息的事项、时间以及具体描述等。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/additional_information/query
-// 
 func (r *PerformanceService) QueryPerformanceAdditionalInformation(ctx context.Context, request *QueryPerformanceAdditionalInformationReq, options ...MethodOptionFunc) (*QueryPerformanceAdditionalInformationResp, *Response, error) {
-if r.cli.mock.mockPerformanceQueryPerformanceAdditionalInformation != nil {
+	if r.cli.mock.mockPerformanceQueryPerformanceAdditionalInformation != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Performance#QueryPerformanceAdditionalInformation mock enable")
 		return r.cli.mock.mockPerformanceQueryPerformanceAdditionalInformation(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockPerformanceQueryPerformanceAdditionalInformation != nil {
 		Scope:                 "Performance",
 		API:                   "QueryPerformanceAdditionalInformation",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/performance/v2/additional_informations/query",
+		URL:                   r.cli.openBaseURL + "/open-apis/performance/v2/additional_informations/query",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(queryPerformanceAdditionalInformationResp)
 
@@ -51,60 +49,44 @@ if r.cli.mock.mockPerformanceQueryPerformanceAdditionalInformation != nil {
 func (r *Mock) MockPerformanceQueryPerformanceAdditionalInformation(f func(ctx context.Context, request *QueryPerformanceAdditionalInformationReq, options ...MethodOptionFunc) (*QueryPerformanceAdditionalInformationResp, *Response, error)) {
 	r.mockPerformanceQueryPerformanceAdditionalInformation = f
 }
+
 // UnMockPerformanceQueryPerformanceAdditionalInformation un-mock PerformanceQueryPerformanceAdditionalInformation method
 func (r *Mock) UnMockPerformanceQueryPerformanceAdditionalInformation() {
 	r.mockPerformanceQueryPerformanceAdditionalInformation = nil
 }
 
-
 // QueryPerformanceAdditionalInformationReq ...
-type QueryPerformanceAdditionalInformationReq struct { 
-UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以people_admin_id来识别用户默认值: `open_id` 长度范围: `0` ～ `999999999` 字符当值为 `user_id`, 字段权限要求: 获取用户 user ID
-PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eVQrYzJBNDNONlk4VFZBZVlSdzlKdFJ4bVVHVExENDNKVHoxaVdiVnViQT0=
-PageSize *int64 `query:"page_size" json:"-"` // 分页大小示例值: 30默认值: `20` 取值范围: `0` ～ `50`
-SemesterID string `json:"semester_id,omitempty"` // 评估周期 ID, 可通过[获取周期列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)接口获取 注意: 若请求参数 `item_ids`、`external_ids`、`reviewee_user_ids` 均为空, 返回 `semester_id` 参数指定周期的所有补充信息示例值: "7348736302176534547" 长度范围: `1` ～ `100` 字符
-ItemIDs []string `json:"item_ids,omitempty"` // 补充信息 ID 列表, 可通过[批量导入补充信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/additional_information/import)接口获取 说明: 若提供多个筛选参数, 按照 `item_ids` > `external_ids` > `reviewee_user_ids` 的优先级顺序, 以第一个有值的筛选参数进行筛选示例值: ["7350195758357807123"] 长度范围: `0` ～ `50`
-ExternalIDs []string `json:"external_ids,omitempty"` // 外部系统补充信息 ID 列表, 该 ID 在通过[批量导入补充信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/additional_information/import)接口导入时写入 说明: 若提供多个筛选参数, 按照 `item_ids` > `external_ids` > `reviewee_user_ids` 的优先级顺序, 以第一个有值的筛选参数进行筛选示例值: ["6789523104723558912"] 长度范围: `0` ～ `50`
-RevieweeUserIDs []string `json:"reviewee_user_ids,omitempty"` // 被评估人 ID 列表, 与入参 `user_id_type` 类型一致, 可通过[获取被评估人信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/reviewee/query)接口获取 说明: 若提供多个筛选参数, 按照 `item_ids` > `external_ids` > `reviewee_user_ids` 的优先级顺序, 以第一个有值的筛选参数进行筛选示例值: ["ou_3245842393d09e9428ad4655da6e30b3"] 长度范围: `0` ～ `50`
+type QueryPerformanceAdditionalInformationReq struct {
+	UserIDType      *IDType  `query:"user_id_type" json:"-"`      // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以people_admin_id来识别用户默认值: `open_id` 长度范围: `0` ～ `999999999` 字符当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	PageToken       *string  `query:"page_token" json:"-"`        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eVQrYzJBNDNONlk4VFZBZVlSdzlKdFJ4bVVHVExENDNKVHoxaVdiVnViQT0=
+	PageSize        *int64   `query:"page_size" json:"-"`         // 分页大小示例值: 30默认值: `20` 取值范围: `0` ～ `50`
+	SemesterID      string   `json:"semester_id,omitempty"`       // 评估周期 ID, 可通过[获取周期列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)接口获取 注意: 若请求参数 `item_ids`、`external_ids`、`reviewee_user_ids` 均为空, 返回 `semester_id` 参数指定周期的所有补充信息示例值: "7348736302176534547" 长度范围: `1` ～ `100` 字符
+	ItemIDs         []string `json:"item_ids,omitempty"`          // 补充信息 ID 列表, 可通过[批量导入补充信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/additional_information/import)接口获取 说明: 若提供多个筛选参数, 按照 `item_ids` > `external_ids` > `reviewee_user_ids` 的优先级顺序, 以第一个有值的筛选参数进行筛选示例值: ["7350195758357807123"] 长度范围: `0` ～ `50`
+	ExternalIDs     []string `json:"external_ids,omitempty"`      // 外部系统补充信息 ID 列表, 该 ID 在通过[批量导入补充信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/additional_information/import)接口导入时写入 说明: 若提供多个筛选参数, 按照 `item_ids` > `external_ids` > `reviewee_user_ids` 的优先级顺序, 以第一个有值的筛选参数进行筛选示例值: ["6789523104723558912"] 长度范围: `0` ～ `50`
+	RevieweeUserIDs []string `json:"reviewee_user_ids,omitempty"` // 被评估人 ID 列表, 与入参 `user_id_type` 类型一致, 可通过[获取被评估人信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/reviewee/query)接口获取 说明: 若提供多个筛选参数, 按照 `item_ids` > `external_ids` > `reviewee_user_ids` 的优先级顺序, 以第一个有值的筛选参数进行筛选示例值: ["ou_3245842393d09e9428ad4655da6e30b3"] 长度范围: `0` ～ `50`
 }
-
-
-
-
 
 // QueryPerformanceAdditionalInformationResp ...
-type QueryPerformanceAdditionalInformationResp struct { 
-AdditionalInformations []*QueryPerformanceAdditionalInformationRespAdditionalInformation `json:"additional_informations,omitempty"` // 补充信息列表
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+type QueryPerformanceAdditionalInformationResp struct {
+	AdditionalInformations []*QueryPerformanceAdditionalInformationRespAdditionalInformation `json:"additional_informations,omitempty"` // 补充信息列表
+	HasMore                bool                                                              `json:"has_more,omitempty"`                // 是否还有更多项
+	PageToken              string                                                            `json:"page_token,omitempty"`              // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 }
-
-
-
-
 
 // QueryPerformanceAdditionalInformationRespAdditionalInformation ...
-type QueryPerformanceAdditionalInformationRespAdditionalInformation struct { 
-ItemID string `json:"item_id,omitempty"` // 补充信息 ID
-ExternalID string `json:"external_id,omitempty"` // 外部系统补充信息 ID说明: 若导入时没有提供, 则返回为空
-RevieweeUserID string `json:"reviewee_user_id,omitempty"` // 被评估人 ID, 与入参 `user_id_type` 类型一致
-Item string `json:"item,omitempty"` // 事项
-Time string `json:"time,omitempty"` // 时间 说明: 文本内容, 无格式校验
-DetailedDescription string `json:"detailed_description,omitempty"` // 具体描述
+type QueryPerformanceAdditionalInformationRespAdditionalInformation struct {
+	ItemID              string `json:"item_id,omitempty"`              // 补充信息 ID
+	ExternalID          string `json:"external_id,omitempty"`          // 外部系统补充信息 ID说明: 若导入时没有提供, 则返回为空
+	RevieweeUserID      string `json:"reviewee_user_id,omitempty"`     // 被评估人 ID, 与入参 `user_id_type` 类型一致
+	Item                string `json:"item,omitempty"`                 // 事项
+	Time                string `json:"time,omitempty"`                 // 时间 说明: 文本内容, 无格式校验
+	DetailedDescription string `json:"detailed_description,omitempty"` // 具体描述
 }
-
-
-
-
 
 // queryPerformanceAdditionalInformationResp ...
-type queryPerformanceAdditionalInformationResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *QueryPerformanceAdditionalInformationResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type queryPerformanceAdditionalInformationResp struct {
+	Code  int64                                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                     `json:"msg,omitempty"`  // 错误描述
+	Data  *QueryPerformanceAdditionalInformationResp `json:"data,omitempty"`
+	Error *ErrorDetail                               `json:"error,omitempty"`
 }
-
-
-
-

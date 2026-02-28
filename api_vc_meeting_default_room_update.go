@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateVCMeetingDefaultRoomUpdate 该接口用于更新会议室。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMTNwYjLzUDM24yM1AjN
-// 
 func (r *VCMeetingService) CreateVCMeetingDefaultRoomUpdate(ctx context.Context, request *CreateVCMeetingDefaultRoomUpdateReq, options ...MethodOptionFunc) (*CreateVCMeetingDefaultRoomUpdateResp, *Response, error) {
-if r.cli.mock.mockVCMeetingCreateVCMeetingDefaultRoomUpdate != nil {
+	if r.cli.mock.mockVCMeetingCreateVCMeetingDefaultRoomUpdate != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] VCMeeting#CreateVCMeetingDefaultRoomUpdate mock enable")
 		return r.cli.mock.mockVCMeetingCreateVCMeetingDefaultRoomUpdate(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockVCMeetingCreateVCMeetingDefaultRoomUpdate != nil {
 		Scope:                 "VCMeeting",
 		API:                   "CreateVCMeetingDefaultRoomUpdate",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/meeting_room/room/update",
+		URL:                   r.cli.openBaseURL + "/open-apis/meeting_room/room/update",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createVCMeetingDefaultRoomUpdateResp)
 
@@ -51,40 +49,27 @@ if r.cli.mock.mockVCMeetingCreateVCMeetingDefaultRoomUpdate != nil {
 func (r *Mock) MockVCMeetingCreateVCMeetingDefaultRoomUpdate(f func(ctx context.Context, request *CreateVCMeetingDefaultRoomUpdateReq, options ...MethodOptionFunc) (*CreateVCMeetingDefaultRoomUpdateResp, *Response, error)) {
 	r.mockVCMeetingCreateVCMeetingDefaultRoomUpdate = f
 }
+
 // UnMockVCMeetingCreateVCMeetingDefaultRoomUpdate un-mock VCMeetingCreateVCMeetingDefaultRoomUpdate method
 func (r *Mock) UnMockVCMeetingCreateVCMeetingDefaultRoomUpdate() {
 	r.mockVCMeetingCreateVCMeetingDefaultRoomUpdate = nil
 }
 
-
 // CreateVCMeetingDefaultRoomUpdateReq ...
-type CreateVCMeetingDefaultRoomUpdateReq struct { 
-RoomID string `json:"room_id,omitempty"` // 要更新的会议室ID
-Name *string `json:"name,omitempty"` // 会议室名称
-Capacity *int64 `json:"capacity,omitempty"` // 容量
-CustomRoomID *string `json:"custom_room_id,omitempty"` // 租户自定义会议室ID
+type CreateVCMeetingDefaultRoomUpdateReq struct {
+	RoomID       string  `json:"room_id,omitempty"`        // 要更新的会议室ID
+	Name         *string `json:"name,omitempty"`           // 会议室名称
+	Capacity     *int64  `json:"capacity,omitempty"`       // 容量
+	CustomRoomID *string `json:"custom_room_id,omitempty"` // 租户自定义会议室ID
 }
-
-
-
-
 
 // CreateVCMeetingDefaultRoomUpdateResp ...
-type CreateVCMeetingDefaultRoomUpdateResp struct { 
-}
-
-
-
-
+type CreateVCMeetingDefaultRoomUpdateResp struct{}
 
 // createVCMeetingDefaultRoomUpdateResp ...
-type createVCMeetingDefaultRoomUpdateResp struct { 
-Code int64 `json:"code,omitempty"` // 返回码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 返回码的描述, "success" 表示成功, 其他为错误提示信息
-Data *CreateVCMeetingDefaultRoomUpdateResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createVCMeetingDefaultRoomUpdateResp struct {
+	Code  int64                                 `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg   string                                `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
+	Data  *CreateVCMeetingDefaultRoomUpdateResp `json:"data,omitempty"`
+	Error *ErrorDetail                          `json:"error,omitempty"`
 }
-
-
-
-

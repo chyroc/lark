@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // DeleteSecurityAndComplianceDeviceRecord 使用该接口在设备管理中删除一台设备
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/security_and_compliance-v2/device_record/delete
-// 
 func (r *SecurityAndComplianceService) DeleteSecurityAndComplianceDeviceRecord(ctx context.Context, request *DeleteSecurityAndComplianceDeviceRecordReq, options ...MethodOptionFunc) (*DeleteSecurityAndComplianceDeviceRecordResp, *Response, error) {
-if r.cli.mock.mockSecurityAndComplianceDeleteSecurityAndComplianceDeviceRecord != nil {
+	if r.cli.mock.mockSecurityAndComplianceDeleteSecurityAndComplianceDeviceRecord != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] SecurityAndCompliance#DeleteSecurityAndComplianceDeviceRecord mock enable")
 		return r.cli.mock.mockSecurityAndComplianceDeleteSecurityAndComplianceDeviceRecord(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockSecurityAndComplianceDeleteSecurityAndComplianceDeviceRecord !
 		Scope:                 "SecurityAndCompliance",
 		API:                   "DeleteSecurityAndComplianceDeviceRecord",
 		Method:                "DELETE",
-		URL:   r.cli.openBaseURL + "/open-apis/security_and_compliance/v2/device_records/:device_record_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/security_and_compliance/v2/device_records/:device_record_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(deleteSecurityAndComplianceDeviceRecordResp)
 
@@ -51,37 +49,24 @@ if r.cli.mock.mockSecurityAndComplianceDeleteSecurityAndComplianceDeviceRecord !
 func (r *Mock) MockSecurityAndComplianceDeleteSecurityAndComplianceDeviceRecord(f func(ctx context.Context, request *DeleteSecurityAndComplianceDeviceRecordReq, options ...MethodOptionFunc) (*DeleteSecurityAndComplianceDeviceRecordResp, *Response, error)) {
 	r.mockSecurityAndComplianceDeleteSecurityAndComplianceDeviceRecord = f
 }
+
 // UnMockSecurityAndComplianceDeleteSecurityAndComplianceDeviceRecord un-mock SecurityAndComplianceDeleteSecurityAndComplianceDeviceRecord method
 func (r *Mock) UnMockSecurityAndComplianceDeleteSecurityAndComplianceDeviceRecord() {
 	r.mockSecurityAndComplianceDeleteSecurityAndComplianceDeviceRecord = nil
 }
 
-
 // DeleteSecurityAndComplianceDeviceRecordReq ...
-type DeleteSecurityAndComplianceDeviceRecordReq struct { 
-DeviceRecordID string `path:"device_record_id" json:"-"` // 设备认证编码示例值: "7089353870308032531"
+type DeleteSecurityAndComplianceDeviceRecordReq struct {
+	DeviceRecordID string `path:"device_record_id" json:"-"` // 设备认证编码示例值: "7089353870308032531"
 }
-
-
-
-
 
 // DeleteSecurityAndComplianceDeviceRecordResp ...
-type DeleteSecurityAndComplianceDeviceRecordResp struct { 
-}
-
-
-
-
+type DeleteSecurityAndComplianceDeviceRecordResp struct{}
 
 // deleteSecurityAndComplianceDeviceRecordResp ...
-type deleteSecurityAndComplianceDeviceRecordResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *DeleteSecurityAndComplianceDeviceRecordResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type deleteSecurityAndComplianceDeviceRecordResp struct {
+	Code  int64                                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                       `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteSecurityAndComplianceDeviceRecordResp `json:"data,omitempty"`
+	Error *ErrorDetail                                 `json:"error,omitempty"`
 }
-
-
-
-

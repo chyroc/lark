@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // QueryPerformanceReviewee 获取绩效周期中被圈定到项目中的被评估人信息, 包括未启动的项目。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/reviewee/query
-// 
 func (r *PerformanceService) QueryPerformanceReviewee(ctx context.Context, request *QueryPerformanceRevieweeReq, options ...MethodOptionFunc) (*QueryPerformanceRevieweeResp, *Response, error) {
-if r.cli.mock.mockPerformanceQueryPerformanceReviewee != nil {
+	if r.cli.mock.mockPerformanceQueryPerformanceReviewee != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Performance#QueryPerformanceReviewee mock enable")
 		return r.cli.mock.mockPerformanceQueryPerformanceReviewee(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockPerformanceQueryPerformanceReviewee != nil {
 		Scope:                 "Performance",
 		API:                   "QueryPerformanceReviewee",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/performance/v2/reviewees/query",
+		URL:                   r.cli.openBaseURL + "/open-apis/performance/v2/reviewees/query",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(queryPerformanceRevieweeResp)
 
@@ -51,67 +49,47 @@ if r.cli.mock.mockPerformanceQueryPerformanceReviewee != nil {
 func (r *Mock) MockPerformanceQueryPerformanceReviewee(f func(ctx context.Context, request *QueryPerformanceRevieweeReq, options ...MethodOptionFunc) (*QueryPerformanceRevieweeResp, *Response, error)) {
 	r.mockPerformanceQueryPerformanceReviewee = f
 }
+
 // UnMockPerformanceQueryPerformanceReviewee un-mock PerformanceQueryPerformanceReviewee method
 func (r *Mock) UnMockPerformanceQueryPerformanceReviewee() {
 	r.mockPerformanceQueryPerformanceReviewee = nil
 }
 
-
 // QueryPerformanceRevieweeReq ...
-type QueryPerformanceRevieweeReq struct { 
-UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以people_admin_id来识别用户默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
-PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eVQrYzJBNDNONlk4VFZBZVlSdzlKdFJ4bVVHVExENDNKVHoxaVdiVnViQT0=
-PageSize *int64 `query:"page_size" json:"-"` // 分页大小示例值: 30默认值: `20` 取值范围: `1` ～ `50`
-SemesterID string `json:"semester_id,omitempty"` // 周期 ID, 可通过[获取周期列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)接口获取示例值: "6992035450862224940"
-UserIDs []string `json:"user_ids,omitempty"` // 用户 ID, 与入参 `user_id_type` 类型一致, 查询指定的被评估人信息示例值: ["ou_3245842393d09e9428ad4655da6e30b3"] 长度范围: `0` ～ `50`
-ActivityIDs []string `json:"activity_ids,omitempty"` // 项目 ID 列表, 可通过[获取项目列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/activity/query)接口获取, 查询指定的项目下的被评估人信息示例值: ["7266780609384392723"]
+type QueryPerformanceRevieweeReq struct {
+	UserIDType  *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以people_admin_id来识别用户默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	PageToken   *string  `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eVQrYzJBNDNONlk4VFZBZVlSdzlKdFJ4bVVHVExENDNKVHoxaVdiVnViQT0=
+	PageSize    *int64   `query:"page_size" json:"-"`    // 分页大小示例值: 30默认值: `20` 取值范围: `1` ～ `50`
+	SemesterID  string   `json:"semester_id,omitempty"`  // 周期 ID, 可通过[获取周期列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v1/semester/list)接口获取示例值: "6992035450862224940"
+	UserIDs     []string `json:"user_ids,omitempty"`     // 用户 ID, 与入参 `user_id_type` 类型一致, 查询指定的被评估人信息示例值: ["ou_3245842393d09e9428ad4655da6e30b3"] 长度范围: `0` ～ `50`
+	ActivityIDs []string `json:"activity_ids,omitempty"` // 项目 ID 列表, 可通过[获取项目列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/activity/query)接口获取, 查询指定的项目下的被评估人信息示例值: ["7266780609384392723"]
 }
-
-
-
-
 
 // QueryPerformanceRevieweeResp ...
-type QueryPerformanceRevieweeResp struct { 
-SemesterID string `json:"semester_id,omitempty"` // 周期ID
-Reviewees []*QueryPerformanceRevieweeRespReviewee `json:"reviewees,omitempty"` // 被评估人列表
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+type QueryPerformanceRevieweeResp struct {
+	SemesterID string                                  `json:"semester_id,omitempty"` // 周期ID
+	Reviewees  []*QueryPerformanceRevieweeRespReviewee `json:"reviewees,omitempty"`   // 被评估人列表
+	HasMore    bool                                    `json:"has_more,omitempty"`    // 是否还有更多项
+	PageToken  string                                  `json:"page_token,omitempty"`  // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 }
-
-
-
-
 
 // QueryPerformanceRevieweeRespReviewee ...
-type QueryPerformanceRevieweeRespReviewee struct { 
-RevieweeUserID *QueryPerformanceRevieweeRespRevieweeRevieweeUserID `json:"reviewee_user_id,omitempty"` // 被评估人 ID
-ActivityIDs []string `json:"activity_ids,omitempty"` // 被评估人参与的项目, 详细信息请参考[获取项目配置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/activity/query)
-ReviewprofileURL string `json:"reviewprofile_url,omitempty"` // 被评估人在该周期的个人绩效详情页链接。如果参与的项目未启动则为空
+type QueryPerformanceRevieweeRespReviewee struct {
+	RevieweeUserID   *QueryPerformanceRevieweeRespRevieweeRevieweeUserID `json:"reviewee_user_id,omitempty"`  // 被评估人 ID
+	ActivityIDs      []string                                            `json:"activity_ids,omitempty"`      // 被评估人参与的项目, 详细信息请参考[获取项目配置](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/activity/query)
+	ReviewprofileURL string                                              `json:"reviewprofile_url,omitempty"` // 被评估人在该周期的个人绩效详情页链接。如果参与的项目未启动则为空
 }
-
-
-
-
 
 // QueryPerformanceRevieweeRespRevieweeRevieweeUserID ...
-type QueryPerformanceRevieweeRespRevieweeRevieweeUserID struct { 
-OpenID string `json:"open_id,omitempty"` // 用户的 open_id
-UserID string `json:"user_id,omitempty"` // 用户的 user_id, ID 类型与user_id_type 的取值一致
+type QueryPerformanceRevieweeRespRevieweeRevieweeUserID struct {
+	OpenID string `json:"open_id,omitempty"` // 用户的 open_id
+	UserID string `json:"user_id,omitempty"` // 用户的 user_id, ID 类型与user_id_type 的取值一致
 }
-
-
-
-
 
 // queryPerformanceRevieweeResp ...
-type queryPerformanceRevieweeResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *QueryPerformanceRevieweeResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type queryPerformanceRevieweeResp struct {
+	Code  int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                        `json:"msg,omitempty"`  // 错误描述
+	Data  *QueryPerformanceRevieweeResp `json:"data,omitempty"`
+	Error *ErrorDetail                  `json:"error,omitempty"`
 }
-
-
-
-

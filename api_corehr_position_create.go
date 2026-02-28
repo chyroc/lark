@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateCorehrPosition 创建岗位, 可定义岗位关联的职务、职级、序列, 以及岗位描述等
@@ -26,9 +26,8 @@ import (
 // 非必填字段, 不传时默认为空
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/position/create
-// 
 func (r *CorehrService) CreateCorehrPosition(ctx context.Context, request *CreateCorehrPositionReq, options ...MethodOptionFunc) (*CreateCorehrPositionResp, *Response, error) {
-if r.cli.mock.mockCorehrCreateCorehrPosition != nil {
+	if r.cli.mock.mockCorehrCreateCorehrPosition != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Corehr#CreateCorehrPosition mock enable")
 		return r.cli.mock.mockCorehrCreateCorehrPosition(ctx, request, options...)
 	}
@@ -37,11 +36,10 @@ if r.cli.mock.mockCorehrCreateCorehrPosition != nil {
 		Scope:                 "Corehr",
 		API:                   "CreateCorehrPosition",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/corehr/v2/positions",
+		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/positions",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createCorehrPositionResp)
 
@@ -53,86 +51,62 @@ if r.cli.mock.mockCorehrCreateCorehrPosition != nil {
 func (r *Mock) MockCorehrCreateCorehrPosition(f func(ctx context.Context, request *CreateCorehrPositionReq, options ...MethodOptionFunc) (*CreateCorehrPositionResp, *Response, error)) {
 	r.mockCorehrCreateCorehrPosition = f
 }
+
 // UnMockCorehrCreateCorehrPosition un-mock CorehrCreateCorehrPosition method
 func (r *Mock) UnMockCorehrCreateCorehrPosition() {
 	r.mockCorehrCreateCorehrPosition = nil
 }
 
-
 // CreateCorehrPositionReq ...
-type CreateCorehrPositionReq struct { 
-ClientToken *string `query:"client_token" json:"-"` // 根据client_token是否一致来判断是否为同一请求示例值: 1245464678 长度范围: `0` ～ `128` 字符
-DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门 ID 类型, 三种类型的 ID 都可通过飞书人事的[批量查询部门（ V2）](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get) 来获取示例值: people_corehr_department_id可选值有: 以 open_department_id 来标识部门以 department_id 来标识部门以 people_corehr_department_id 来标识部门默认值: `people_corehr_department_id`
-Code *string `json:"code,omitempty"` // 岗位编码 (不能与其他记录的编码重复)- 开启自动编码时, 以自动生成的编码值为准, 传入值不生效- 未开启自动编码时, 编码字段值以传入值为准示例值: "A01234"
-Names []*CreateCorehrPositionReqName `json:"names,omitempty"` // 名称 长度范围: `0` ～ `2`
-Descriptions []*CreateCorehrPositionReqDescription `json:"descriptions,omitempty"` // 描述 长度范围: `0` ～ `2`
-JobFamilyIDs []string `json:"job_family_ids,omitempty"` // 序列 ID 列表, 详细信息可通过[查询单个序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/get)接口获得示例值: ["4719519211875096301"] 长度范围: `0` ～ `50`
-CostCenterID *string `json:"cost_center_id,omitempty"` // 成本中心 ID, 可以通过[搜索成本中心信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)接口获取对应的成本中心信息示例值: "4719519211875096301"
-JobID string `json:"job_id,omitempty"` // 职务, 可通过[【查询单个职务】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/get)获取详细信息示例值: "4719519211875096301"
-JobLevelIDs []string `json:"job_level_ids,omitempty"` // 职级 ID 列表, 可通过[【查询单个职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/get)获取详细信息示例值: ["4719519211875096301"] 长度范围: `0` ～ `50`
-EmployeeTypeIDs []string `json:"employee_type_ids,omitempty"` // 人员类型 ID 列表, 可通过文档[查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/get)获得详细信息示例值: ["4719519211875096301"] 长度范围: `0` ～ `50`
-JobGradeIDs []string `json:"job_grade_ids,omitempty"` // 职等 ID 列表, 可通过 [【查询职等】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)获取详细信息示例值: ["4719519211875096301"] 长度范围: `0` ～ `50`
-WorkLocationIDs []string `json:"work_location_ids,omitempty"` // 工作地点 ID 列表, 详细信息可通过[查询单个地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/get)接口获得示例值: ["4719519211875096301"] 长度范围: `0` ～ `50`
-WorkingHoursTypeID *string `json:"working_hours_type_id,omitempty"` // 工时制度 ID 列表, 可通过[【查询单个工时制度】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/get)查询详细信息示例值: "4719519211875096301"
-DepartmentID string `json:"department_id,omitempty"` // 部门 ID, 详细信息可通过[查询单个部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/get)接口获得- ID 类型必须与查询参数 department_id_type 的取值一致示例值: "4719519211875096301"
-DirectLeaderID *string `json:"direct_leader_id,omitempty"` // 直属上级岗位ID, 详细信息可通过[查询岗位信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/position/query)接口获得示例值: "4719519211875096301"
-DottedLineLeaderID *string `json:"dotted_line_leader_id,omitempty"` // 虚线上级岗位ID, 详细信息可通过[查询岗位信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/position/query)接口获得示例值: "4719519211875096301"
-IsKeyPosition *bool `json:"is_key_position,omitempty"` // 是否关键岗位示例值: true
-EffectiveTime string `json:"effective_time,omitempty"` // 生效日期, 输入日期格式的字符串示例值: "2020-05-01" 正则校验: `^((([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-(((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)-(0[1-9]|[12][0-9]|30))|(02-(0[1-9]|[1][0-9]|2[0-8]))))|((([0-9]{2})(0[48]|[2468][048]|[13579][26])|((0[48]|[2468][048]|[3579][26])00))-02-29))$`
-CustomFields []*CreateCorehrPositionReqCustomField `json:"custom_fields,omitempty"` // 自定义字段 长度范围: `0` ～ `200`
+type CreateCorehrPositionReq struct {
+	ClientToken        *string                               `query:"client_token" json:"-"`          // 根据client_token是否一致来判断是否为同一请求示例值: 1245464678 长度范围: `0` ～ `128` 字符
+	DepartmentIDType   *DepartmentIDType                     `query:"department_id_type" json:"-"`    // 此次调用中使用的部门 ID 类型, 三种类型的 ID 都可通过飞书人事的[批量查询部门（ V2）](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get) 来获取示例值: people_corehr_department_id可选值有: 以 open_department_id 来标识部门以 department_id 来标识部门以 people_corehr_department_id 来标识部门默认值: `people_corehr_department_id`
+	Code               *string                               `json:"code,omitempty"`                  // 岗位编码 (不能与其他记录的编码重复)- 开启自动编码时, 以自动生成的编码值为准, 传入值不生效- 未开启自动编码时, 编码字段值以传入值为准示例值: "A01234"
+	Names              []*CreateCorehrPositionReqName        `json:"names,omitempty"`                 // 名称 长度范围: `0` ～ `2`
+	Descriptions       []*CreateCorehrPositionReqDescription `json:"descriptions,omitempty"`          // 描述 长度范围: `0` ～ `2`
+	JobFamilyIDs       []string                              `json:"job_family_ids,omitempty"`        // 序列 ID 列表, 详细信息可通过[查询单个序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/get)接口获得示例值: ["4719519211875096301"] 长度范围: `0` ～ `50`
+	CostCenterID       *string                               `json:"cost_center_id,omitempty"`        // 成本中心 ID, 可以通过[搜索成本中心信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)接口获取对应的成本中心信息示例值: "4719519211875096301"
+	JobID              string                                `json:"job_id,omitempty"`                // 职务, 可通过[【查询单个职务】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/get)获取详细信息示例值: "4719519211875096301"
+	JobLevelIDs        []string                              `json:"job_level_ids,omitempty"`         // 职级 ID 列表, 可通过[【查询单个职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/get)获取详细信息示例值: ["4719519211875096301"] 长度范围: `0` ～ `50`
+	EmployeeTypeIDs    []string                              `json:"employee_type_ids,omitempty"`     // 人员类型 ID 列表, 可通过文档[查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/get)获得详细信息示例值: ["4719519211875096301"] 长度范围: `0` ～ `50`
+	JobGradeIDs        []string                              `json:"job_grade_ids,omitempty"`         // 职等 ID 列表, 可通过 [【查询职等】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)获取详细信息示例值: ["4719519211875096301"] 长度范围: `0` ～ `50`
+	WorkLocationIDs    []string                              `json:"work_location_ids,omitempty"`     // 工作地点 ID 列表, 详细信息可通过[查询单个地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/get)接口获得示例值: ["4719519211875096301"] 长度范围: `0` ～ `50`
+	WorkingHoursTypeID *string                               `json:"working_hours_type_id,omitempty"` // 工时制度 ID 列表, 可通过[【查询单个工时制度】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/get)查询详细信息示例值: "4719519211875096301"
+	DepartmentID       string                                `json:"department_id,omitempty"`         // 部门 ID, 详细信息可通过[查询单个部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/get)接口获得- ID 类型必须与查询参数 department_id_type 的取值一致示例值: "4719519211875096301"
+	DirectLeaderID     *string                               `json:"direct_leader_id,omitempty"`      // 直属上级岗位ID, 详细信息可通过[查询岗位信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/position/query)接口获得示例值: "4719519211875096301"
+	DottedLineLeaderID *string                               `json:"dotted_line_leader_id,omitempty"` // 虚线上级岗位ID, 详细信息可通过[查询岗位信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/position/query)接口获得示例值: "4719519211875096301"
+	IsKeyPosition      *bool                                 `json:"is_key_position,omitempty"`       // 是否关键岗位示例值: true
+	EffectiveTime      string                                `json:"effective_time,omitempty"`        // 生效日期, 输入日期格式的字符串示例值: "2020-05-01" 正则校验: `^((([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-(((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)-(0[1-9]|[12][0-9]|30))|(02-(0[1-9]|[1][0-9]|2[0-8]))))|((([0-9]{2})(0[48]|[2468][048]|[13579][26])|((0[48]|[2468][048]|[3579][26])00))-02-29))$`
+	CustomFields       []*CreateCorehrPositionReqCustomField `json:"custom_fields,omitempty"`         // 自定义字段 长度范围: `0` ～ `200`
 }
-
-
-
-
 
 // CreateCorehrPositionReqCustomField ...
-type CreateCorehrPositionReqCustomField struct { 
-CustomApiName string `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识, 由租户自定义, 可通过 [查询岗位信息] (/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/corehr-v2/position/query) 获取- 最多传入 200 个自定义字段示例值: "name"
-Value string `json:"value,omitempty"` // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）示例值: "\"231\""
+type CreateCorehrPositionReqCustomField struct {
+	CustomApiName string `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识, 由租户自定义, 可通过 [查询岗位信息] (/ssl:ttdoc/uAjLw4CM/ukTMukTMukTM/corehr-v2/position/query) 获取- 最多传入 200 个自定义字段示例值: "name"
+	Value         string `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）示例值: "\"231\""
 }
-
-
-
-
 
 // CreateCorehrPositionReqDescription ...
-type CreateCorehrPositionReqDescription struct { 
-Lang string `json:"lang,omitempty"` // 名称信息的语言, 支持中文和英文。中文用zh-CN；英文用en-US示例值: "zh-CN"
-Value string `json:"value,omitempty"` // 支持 zh-CN 和 en-US, 最大长度为 255 字符示例值: "岗位的描述"
+type CreateCorehrPositionReqDescription struct {
+	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 支持中文和英文。中文用zh-CN；英文用en-US示例值: "zh-CN"
+	Value string `json:"value,omitempty"` // 支持 zh-CN 和 en-US, 最大长度为 255 字符示例值: "岗位的描述"
 }
-
-
-
-
 
 // CreateCorehrPositionReqName ...
-type CreateCorehrPositionReqName struct { 
-Lang string `json:"lang,omitempty"` // 名称信息的语言, 支持中文和英文。中文用zh-CN；英文用en-US示例值: "zh-CN"
-Value string `json:"value,omitempty"` // --支持 zh-CN 和 en-US, 最大长度为 255 字符- 名称不能包含「/」「；」「;」「\」「'」字符示例值: "高级产品经理"
+type CreateCorehrPositionReqName struct {
+	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 支持中文和英文。中文用zh-CN；英文用en-US示例值: "zh-CN"
+	Value string `json:"value,omitempty"` // --支持 zh-CN 和 en-US, 最大长度为 255 字符- 名称不能包含「/」「；」「;」「\」「'」字符示例值: "高级产品经理"
 }
-
-
-
-
 
 // CreateCorehrPositionResp ...
-type CreateCorehrPositionResp struct { 
-PositionID string `json:"position_id,omitempty"` // 岗位ID
+type CreateCorehrPositionResp struct {
+	PositionID string `json:"position_id,omitempty"` // 岗位ID
 }
-
-
-
-
 
 // createCorehrPositionResp ...
-type createCorehrPositionResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateCorehrPositionResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createCorehrPositionResp struct {
+	Code  int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                    `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateCorehrPositionResp `json:"data,omitempty"`
+	Error *ErrorDetail              `json:"error,omitempty"`
 }
-
-
-
-

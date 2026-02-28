@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // BatchQueryHireAgency 可根据猎头供应商 ID 列表或关键字、筛选项查询供应商信息。暂不支持获取【邀请中】的供应商列表。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/agency/batch_query
-// 
 func (r *HireService) BatchQueryHireAgency(ctx context.Context, request *BatchQueryHireAgencyReq, options ...MethodOptionFunc) (*BatchQueryHireAgencyResp, *Response, error) {
-if r.cli.mock.mockHireBatchQueryHireAgency != nil {
+	if r.cli.mock.mockHireBatchQueryHireAgency != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#BatchQueryHireAgency mock enable")
 		return r.cli.mock.mockHireBatchQueryHireAgency(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockHireBatchQueryHireAgency != nil {
 		Scope:                 "Hire",
 		API:                   "BatchQueryHireAgency",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/agencies/batch_query",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/agencies/batch_query",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(batchQueryHireAgencyResp)
 
@@ -51,149 +49,101 @@ if r.cli.mock.mockHireBatchQueryHireAgency != nil {
 func (r *Mock) MockHireBatchQueryHireAgency(f func(ctx context.Context, request *BatchQueryHireAgencyReq, options ...MethodOptionFunc) (*BatchQueryHireAgencyResp, *Response, error)) {
 	r.mockHireBatchQueryHireAgency = f
 }
+
 // UnMockHireBatchQueryHireAgency un-mock HireBatchQueryHireAgency method
 func (r *Mock) UnMockHireBatchQueryHireAgency() {
 	r.mockHireBatchQueryHireAgency = nil
 }
 
-
 // BatchQueryHireAgencyReq ...
-type BatchQueryHireAgencyReq struct { 
-UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
-PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eyJvZmZzZXQiOjEsInRpbWVzdGFtcCI6MTY0MDc2NTYzMjA4OCwiaWQiOm51bGx9
-PageSize *int64 `query:"page_size" json:"-"` // 每页获取记录数量示例值: 10默认值: `10` 最大值: `20`
-AgencySupplierIDList []string `json:"agency_supplier_id_list,omitempty"` // 猎头供应商 ID 列表, 当传递此值, 以此值为准, 其余查询字段失效示例值: ["7412902352778840358"] 最大长度: `20`
-Keyword *string `json:"keyword,omitempty"` // 搜索关键字, 可传入名称或邮箱示例值: "猎头"
-FilterList []*BatchQueryHireAgencyReqFilter `json:"filter_list,omitempty"` // 筛选项, 相同的 Key 仅可传一次, 字段取值可查看本文`筛选字段说明`节
+type BatchQueryHireAgencyReq struct {
+	UserIDType           *IDType                          `query:"user_id_type" json:"-"`            // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	PageToken            *string                          `query:"page_token" json:"-"`              // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eyJvZmZzZXQiOjEsInRpbWVzdGFtcCI6MTY0MDc2NTYzMjA4OCwiaWQiOm51bGx9
+	PageSize             *int64                           `query:"page_size" json:"-"`               // 每页获取记录数量示例值: 10默认值: `10` 最大值: `20`
+	AgencySupplierIDList []string                         `json:"agency_supplier_id_list,omitempty"` // 猎头供应商 ID 列表, 当传递此值, 以此值为准, 其余查询字段失效示例值: ["7412902352778840358"] 最大长度: `20`
+	Keyword              *string                          `json:"keyword,omitempty"`                 // 搜索关键字, 可传入名称或邮箱示例值: "猎头"
+	FilterList           []*BatchQueryHireAgencyReqFilter `json:"filter_list,omitempty"`             // 筛选项, 相同的 Key 仅可传一次, 字段取值可查看本文`筛选字段说明`节
 }
-
-
-
-
 
 // BatchQueryHireAgencyReqFilter ...
-type BatchQueryHireAgencyReqFilter struct { 
-Key string `json:"key,omitempty"` // 筛选项 key, 使用筛选项查询时必填示例值: "supplier_area"
-ValueType int64 `json:"value_type,omitempty"` // 筛选项值类型, 使用筛选项查询时必填示例值: 1可选值有: 值过滤, 填充 value_list 字段范围过滤, 填充 range_filter 字段
-ValueList []string `json:"value_list,omitempty"` // 筛选项值列表, 当`value_type`为`1`时必填示例值: ["7005471343731164709"]
-RangeFilter *BatchQueryHireAgencyReqFilterRangeFilter `json:"range_filter,omitempty"` // 范围筛选, 当`value_type`为`2`时必填
+type BatchQueryHireAgencyReqFilter struct {
+	Key         string                                    `json:"key,omitempty"`          // 筛选项 key, 使用筛选项查询时必填示例值: "supplier_area"
+	ValueType   int64                                     `json:"value_type,omitempty"`   // 筛选项值类型, 使用筛选项查询时必填示例值: 1可选值有: 值过滤, 填充 value_list 字段范围过滤, 填充 range_filter 字段
+	ValueList   []string                                  `json:"value_list,omitempty"`   // 筛选项值列表, 当`value_type`为`1`时必填示例值: ["7005471343731164709"]
+	RangeFilter *BatchQueryHireAgencyReqFilterRangeFilter `json:"range_filter,omitempty"` // 范围筛选, 当`value_type`为`2`时必填
 }
-
-
-
-
 
 // BatchQueryHireAgencyReqFilterRangeFilter ...
-type BatchQueryHireAgencyReqFilterRangeFilter struct { 
-From *string `json:"from,omitempty"` // 起始值（Unix毫秒时间戳）示例值: "1725951088959"
-To *string `json:"to,omitempty"` // 终止值（Unix毫秒时间戳）示例值: "1725951088960"
+type BatchQueryHireAgencyReqFilterRangeFilter struct {
+	From *string `json:"from,omitempty"` // 起始值（Unix毫秒时间戳）示例值: "1725951088959"
+	To   *string `json:"to,omitempty"`   // 终止值（Unix毫秒时间戳）示例值: "1725951088960"
 }
-
-
-
-
 
 // BatchQueryHireAgencyResp ...
-type BatchQueryHireAgencyResp struct { 
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-Items []*BatchQueryHireAgencyRespItem `json:"items,omitempty"` // 猎头供应商列表
+type BatchQueryHireAgencyResp struct {
+	HasMore   bool                            `json:"has_more,omitempty"`   // 是否还有更多项
+	PageToken string                          `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	Items     []*BatchQueryHireAgencyRespItem `json:"items,omitempty"`      // 猎头供应商列表
 }
-
-
-
-
 
 // BatchQueryHireAgencyRespItem ...
-type BatchQueryHireAgencyRespItem struct { 
-ID string `json:"id,omitempty"` // 猎头供应商 ID
-Name string `json:"name,omitempty"` // 猎头供应商名称
-LabelList []*BatchQueryHireAgencyRespItemLabel `json:"label_list,omitempty"` // 猎头标签列表
-AdminList []*BatchQueryHireAgencyRespItemAdmin `json:"admin_list,omitempty"` // 管理员列表
-AgencyProtectTime *BatchQueryHireAgencyRespItemAgencyProtectTime `json:"agency_protect_time,omitempty"` // 猎头简历保护期- 候选人在「猎头简历保护期」内入职需支付猎头费用, 且保护期内无法被其他猎头公司推荐（猎头公司可重复推荐）
-CooperationCreateTime string `json:"cooperation_create_time,omitempty"` // 合作创建时间, 毫秒时间戳
-CooperationStartTime string `json:"cooperation_start_time,omitempty"` // 合作开始时间, 毫秒时间戳
-CooperationEndTime string `json:"cooperation_end_time,omitempty"` // 合作终止时间, 毫秒时间戳
-CooperationStatus int64 `json:"cooperation_status,omitempty"` // 合作状态可选值有: 正式合作试单合作终止邀请中
-InviteEmail string `json:"invite_email,omitempty"` // 供应商邮箱
-SupplierArea int64 `json:"supplier_area,omitempty"` // 猎头地区可选值有: 中国大陆非中国大陆
-TalentProtectTime *BatchQueryHireAgencyRespItemTalentProtectTime `json:"talent_protect_time,omitempty"` // 企业自有简历保护期- 猎头无法推荐在「企业自有简历保护期」内活跃的候选人（「活跃」指在飞书招聘中有「新建人才或投递」、「安排评估、笔试或面试」、「申请 Offer」记录）；猎头无法推荐活跃流程中的候选人
+type BatchQueryHireAgencyRespItem struct {
+	ID                    string                                         `json:"id,omitempty"`                      // 猎头供应商 ID
+	Name                  string                                         `json:"name,omitempty"`                    // 猎头供应商名称
+	LabelList             []*BatchQueryHireAgencyRespItemLabel           `json:"label_list,omitempty"`              // 猎头标签列表
+	AdminList             []*BatchQueryHireAgencyRespItemAdmin           `json:"admin_list,omitempty"`              // 管理员列表
+	AgencyProtectTime     *BatchQueryHireAgencyRespItemAgencyProtectTime `json:"agency_protect_time,omitempty"`     // 猎头简历保护期- 候选人在「猎头简历保护期」内入职需支付猎头费用, 且保护期内无法被其他猎头公司推荐（猎头公司可重复推荐）
+	CooperationCreateTime string                                         `json:"cooperation_create_time,omitempty"` // 合作创建时间, 毫秒时间戳
+	CooperationStartTime  string                                         `json:"cooperation_start_time,omitempty"`  // 合作开始时间, 毫秒时间戳
+	CooperationEndTime    string                                         `json:"cooperation_end_time,omitempty"`    // 合作终止时间, 毫秒时间戳
+	CooperationStatus     int64                                          `json:"cooperation_status,omitempty"`      // 合作状态可选值有: 正式合作试单合作终止邀请中
+	InviteEmail           string                                         `json:"invite_email,omitempty"`            // 供应商邮箱
+	SupplierArea          int64                                          `json:"supplier_area,omitempty"`           // 猎头地区可选值有: 中国大陆非中国大陆
+	TalentProtectTime     *BatchQueryHireAgencyRespItemTalentProtectTime `json:"talent_protect_time,omitempty"`     // 企业自有简历保护期- 猎头无法推荐在「企业自有简历保护期」内活跃的候选人（「活跃」指在飞书招聘中有「新建人才或投递」、「安排评估、笔试或面试」、「申请 Offer」记录）；猎头无法推荐活跃流程中的候选人
 }
-
-
-
-
 
 // BatchQueryHireAgencyRespItemAdmin ...
-type BatchQueryHireAgencyRespItemAdmin struct { 
-UserID string `json:"user_id,omitempty"` // 管理员 ID, 与入参`user_id_type`类型一致
-Name *BatchQueryHireAgencyRespItemAdminName `json:"name,omitempty"` // 管理员名称
-Email string `json:"email,omitempty"` // 管理员邮箱字段权限要求: 查看猎头相关用户邮箱
+type BatchQueryHireAgencyRespItemAdmin struct {
+	UserID string                                 `json:"user_id,omitempty"` // 管理员 ID, 与入参`user_id_type`类型一致
+	Name   *BatchQueryHireAgencyRespItemAdminName `json:"name,omitempty"`    // 管理员名称
+	Email  string                                 `json:"email,omitempty"`   // 管理员邮箱字段权限要求: 查看猎头相关用户邮箱
 }
-
-
-
-
 
 // BatchQueryHireAgencyRespItemAdminName ...
-type BatchQueryHireAgencyRespItemAdminName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 管理员中文名称
-EnUs string `json:"en_us,omitempty"` // 管理员英文名称
+type BatchQueryHireAgencyRespItemAdminName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 管理员中文名称
+	EnUs string `json:"en_us,omitempty"` // 管理员英文名称
 }
-
-
-
-
 
 // BatchQueryHireAgencyRespItemAgencyProtectTime ...
-type BatchQueryHireAgencyRespItemAgencyProtectTime struct { 
-Day int64 `json:"day,omitempty"` // 保护时长, 单位（天）
-UseDefault bool `json:"use_default,omitempty"` // 是否使用统一设置, 当为`false`时代表`保护时长（day）`由用户自定义设置, 否则由招聘系统预设可选值有: 统一设置非统一设置
+type BatchQueryHireAgencyRespItemAgencyProtectTime struct {
+	Day        int64 `json:"day,omitempty"`         // 保护时长, 单位（天）
+	UseDefault bool  `json:"use_default,omitempty"` // 是否使用统一设置, 当为`false`时代表`保护时长（day）`由用户自定义设置, 否则由招聘系统预设可选值有: 统一设置非统一设置
 }
-
-
-
-
 
 // BatchQueryHireAgencyRespItemLabel ...
-type BatchQueryHireAgencyRespItemLabel struct { 
-ID string `json:"id,omitempty"` // 标签 ID
-Name *BatchQueryHireAgencyRespItemLabelName `json:"name,omitempty"` // 标签名称
+type BatchQueryHireAgencyRespItemLabel struct {
+	ID   string                                 `json:"id,omitempty"`   // 标签 ID
+	Name *BatchQueryHireAgencyRespItemLabelName `json:"name,omitempty"` // 标签名称
 }
-
-
-
-
 
 // BatchQueryHireAgencyRespItemLabelName ...
-type BatchQueryHireAgencyRespItemLabelName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 标签中文名称
-EnUs string `json:"en_us,omitempty"` // 标签英文名称
+type BatchQueryHireAgencyRespItemLabelName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 标签中文名称
+	EnUs string `json:"en_us,omitempty"` // 标签英文名称
 }
-
-
-
-
 
 // BatchQueryHireAgencyRespItemTalentProtectTime ...
-type BatchQueryHireAgencyRespItemTalentProtectTime struct { 
-Day int64 `json:"day,omitempty"` // 保护时长, 单位（天）
-UseDefault bool `json:"use_default,omitempty"` // 是否使用统一设置, 当为`false`时代表`保护时长（day）`由用户自定义设置, 否则由招聘系统预设可选值有: 统一设置非统一设置
-Forever bool `json:"forever,omitempty"` // 是否永久保护可选值有: 永久保护非永久保护
+type BatchQueryHireAgencyRespItemTalentProtectTime struct {
+	Day        int64 `json:"day,omitempty"`         // 保护时长, 单位（天）
+	UseDefault bool  `json:"use_default,omitempty"` // 是否使用统一设置, 当为`false`时代表`保护时长（day）`由用户自定义设置, 否则由招聘系统预设可选值有: 统一设置非统一设置
+	Forever    bool  `json:"forever,omitempty"`     // 是否永久保护可选值有: 永久保护非永久保护
 }
-
-
-
-
 
 // batchQueryHireAgencyResp ...
-type batchQueryHireAgencyResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *BatchQueryHireAgencyResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type batchQueryHireAgencyResp struct {
+	Code  int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                    `json:"msg,omitempty"`  // 错误描述
+	Data  *BatchQueryHireAgencyResp `json:"data,omitempty"`
+	Error *ErrorDetail              `json:"error,omitempty"`
 }
-
-
-
-

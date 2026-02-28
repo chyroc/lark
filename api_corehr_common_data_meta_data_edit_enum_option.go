@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateCorehrCommonDataMetaDataEditEnumOption 对于当前已有的所有自定义枚举字段, 以及部分系统预置枚举字段, 通过本接口可修改字段中已有可选项的展示名称、停启用状态
@@ -36,9 +36,8 @@ import (
 // - department（部门）: subtype（部门类型）
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/common_data-meta_data/edit_enum_option
-// 
 func (r *CorehrService) CreateCorehrCommonDataMetaDataEditEnumOption(ctx context.Context, request *CreateCorehrCommonDataMetaDataEditEnumOptionReq, options ...MethodOptionFunc) (*CreateCorehrCommonDataMetaDataEditEnumOptionResp, *Response, error) {
-if r.cli.mock.mockCorehrCreateCorehrCommonDataMetaDataEditEnumOption != nil {
+	if r.cli.mock.mockCorehrCreateCorehrCommonDataMetaDataEditEnumOption != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Corehr#CreateCorehrCommonDataMetaDataEditEnumOption mock enable")
 		return r.cli.mock.mockCorehrCreateCorehrCommonDataMetaDataEditEnumOption(ctx, request, options...)
 	}
@@ -47,11 +46,10 @@ if r.cli.mock.mockCorehrCreateCorehrCommonDataMetaDataEditEnumOption != nil {
 		Scope:                 "Corehr",
 		API:                   "CreateCorehrCommonDataMetaDataEditEnumOption",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/corehr/v1/common_data/meta_data/edit_enum_option",
+		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/common_data/meta_data/edit_enum_option",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createCorehrCommonDataMetaDataEditEnumOptionResp)
 
@@ -63,84 +61,56 @@ if r.cli.mock.mockCorehrCreateCorehrCommonDataMetaDataEditEnumOption != nil {
 func (r *Mock) MockCorehrCreateCorehrCommonDataMetaDataEditEnumOption(f func(ctx context.Context, request *CreateCorehrCommonDataMetaDataEditEnumOptionReq, options ...MethodOptionFunc) (*CreateCorehrCommonDataMetaDataEditEnumOptionResp, *Response, error)) {
 	r.mockCorehrCreateCorehrCommonDataMetaDataEditEnumOption = f
 }
+
 // UnMockCorehrCreateCorehrCommonDataMetaDataEditEnumOption un-mock CorehrCreateCorehrCommonDataMetaDataEditEnumOption method
 func (r *Mock) UnMockCorehrCreateCorehrCommonDataMetaDataEditEnumOption() {
 	r.mockCorehrCreateCorehrCommonDataMetaDataEditEnumOption = nil
 }
 
-
 // CreateCorehrCommonDataMetaDataEditEnumOptionReq ...
-type CreateCorehrCommonDataMetaDataEditEnumOptionReq struct { 
-ClientToken *string `query:"client_token" json:"-"` // 用户若希望避免重试导致多次重复请求, 可填写随机字符串, 系统根据 client_token 是否一致来判断是否为同一请求示例值: 6727817538283013641
-ObjectApiName string `json:"object_api_name,omitempty"` // 所属对象 API name, 可通过[获取飞书人事对象列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/list_object_api_name)接口中返回的 `object_api_name` 字段获取示例值: "probation_management"
-EnumFieldApiName string `json:"enum_field_api_name,omitempty"` // 枚举字段 API name, 可通过[获取自定义字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query)接口中返回的 `custom_api_name` 字段获取示例值: "final_assessment_grade"
-EnumFieldOption *CreateCorehrCommonDataMetaDataEditEnumOptionReqEnumFieldOption `json:"enum_field_option,omitempty"` // 枚举选项
+type CreateCorehrCommonDataMetaDataEditEnumOptionReq struct {
+	ClientToken      *string                                                         `query:"client_token" json:"-"`        // 用户若希望避免重试导致多次重复请求, 可填写随机字符串, 系统根据 client_token 是否一致来判断是否为同一请求示例值: 6727817538283013641
+	ObjectApiName    string                                                          `json:"object_api_name,omitempty"`     // 所属对象 API name, 可通过[获取飞书人事对象列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/list_object_api_name)接口中返回的 `object_api_name` 字段获取示例值: "probation_management"
+	EnumFieldApiName string                                                          `json:"enum_field_api_name,omitempty"` // 枚举字段 API name, 可通过[获取自定义字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query)接口中返回的 `custom_api_name` 字段获取示例值: "final_assessment_grade"
+	EnumFieldOption  *CreateCorehrCommonDataMetaDataEditEnumOptionReqEnumFieldOption `json:"enum_field_option,omitempty"`   // 枚举选项
 }
-
-
-
-
 
 // CreateCorehrCommonDataMetaDataEditEnumOptionReqEnumFieldOption ...
-type CreateCorehrCommonDataMetaDataEditEnumOptionReqEnumFieldOption struct { 
-OptionApiName string `json:"option_api_name,omitempty"` // 枚举值选项 API Name, 即选项的唯一标识示例值: "grade_e" 长度范围: `1` ～ `100` 字符
-Active bool `json:"active,omitempty"` // 是否启用示例值: true
-Name *CreateCorehrCommonDataMetaDataEditEnumOptionReqEnumFieldOptionName `json:"name,omitempty"` // 选项名称（需填写至少一个语种）
+type CreateCorehrCommonDataMetaDataEditEnumOptionReqEnumFieldOption struct {
+	OptionApiName string                                                              `json:"option_api_name,omitempty"` // 枚举值选项 API Name, 即选项的唯一标识示例值: "grade_e" 长度范围: `1` ～ `100` 字符
+	Active        bool                                                                `json:"active,omitempty"`          // 是否启用示例值: true
+	Name          *CreateCorehrCommonDataMetaDataEditEnumOptionReqEnumFieldOptionName `json:"name,omitempty"`            // 选项名称（需填写至少一个语种）
 }
-
-
-
-
 
 // CreateCorehrCommonDataMetaDataEditEnumOptionReqEnumFieldOptionName ...
-type CreateCorehrCommonDataMetaDataEditEnumOptionReqEnumFieldOptionName struct { 
-ZhCn *string `json:"zh_cn,omitempty"` // 中文示例值: "cn"
-EnUs *string `json:"en_us,omitempty"` // 英文示例值: "en"
+type CreateCorehrCommonDataMetaDataEditEnumOptionReqEnumFieldOptionName struct {
+	ZhCn *string `json:"zh_cn,omitempty"` // 中文示例值: "cn"
+	EnUs *string `json:"en_us,omitempty"` // 英文示例值: "en"
 }
-
-
-
-
 
 // CreateCorehrCommonDataMetaDataEditEnumOptionResp ...
-type CreateCorehrCommonDataMetaDataEditEnumOptionResp struct { 
-EnumFieldApiName string `json:"enum_field_api_name,omitempty"` // 枚举字段 API name
-EnumFieldOptions []*CreateCorehrCommonDataMetaDataEditEnumOptionRespEnumFieldOption `json:"enum_field_options,omitempty"` // 枚举全部选项列表
+type CreateCorehrCommonDataMetaDataEditEnumOptionResp struct {
+	EnumFieldApiName string                                                             `json:"enum_field_api_name,omitempty"` // 枚举字段 API name
+	EnumFieldOptions []*CreateCorehrCommonDataMetaDataEditEnumOptionRespEnumFieldOption `json:"enum_field_options,omitempty"`  // 枚举全部选项列表
 }
-
-
-
-
 
 // CreateCorehrCommonDataMetaDataEditEnumOptionRespEnumFieldOption ...
-type CreateCorehrCommonDataMetaDataEditEnumOptionRespEnumFieldOption struct { 
-OptionApiName string `json:"option_api_name,omitempty"` // 枚举值选项 API Name, 即选项的唯一标识
-Active bool `json:"active,omitempty"` // 是否启用
-Name *CreateCorehrCommonDataMetaDataEditEnumOptionRespEnumFieldOptionName `json:"name,omitempty"` // 选项名称（需填写至少一个语种）
+type CreateCorehrCommonDataMetaDataEditEnumOptionRespEnumFieldOption struct {
+	OptionApiName string                                                               `json:"option_api_name,omitempty"` // 枚举值选项 API Name, 即选项的唯一标识
+	Active        bool                                                                 `json:"active,omitempty"`          // 是否启用
+	Name          *CreateCorehrCommonDataMetaDataEditEnumOptionRespEnumFieldOptionName `json:"name,omitempty"`            // 选项名称（需填写至少一个语种）
 }
-
-
-
-
 
 // CreateCorehrCommonDataMetaDataEditEnumOptionRespEnumFieldOptionName ...
-type CreateCorehrCommonDataMetaDataEditEnumOptionRespEnumFieldOptionName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文
-EnUs string `json:"en_us,omitempty"` // 英文
+type CreateCorehrCommonDataMetaDataEditEnumOptionRespEnumFieldOptionName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文
+	EnUs string `json:"en_us,omitempty"` // 英文
 }
-
-
-
-
 
 // createCorehrCommonDataMetaDataEditEnumOptionResp ...
-type createCorehrCommonDataMetaDataEditEnumOptionResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateCorehrCommonDataMetaDataEditEnumOptionResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createCorehrCommonDataMetaDataEditEnumOptionResp struct {
+	Code  int64                                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                            `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateCorehrCommonDataMetaDataEditEnumOptionResp `json:"data,omitempty"`
+	Error *ErrorDetail                                      `json:"error,omitempty"`
 }
-
-
-
-

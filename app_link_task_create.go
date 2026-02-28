@@ -34,5 +34,4 @@ func (r *AppLinkService) OpenTaskCreate(req *OpenTaskCreateReq) string {
 }
 
 // OpenTaskCreateReq ...
-type OpenTaskCreateReq struct {
-}
+type OpenTaskCreateReq struct{}

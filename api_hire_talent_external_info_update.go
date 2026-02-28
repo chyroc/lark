@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // UpdateHireTalentExternalInfo 更新人才外部信息, 包含外部系统创建时间。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent-external_info/update
-// 
 func (r *HireService) UpdateHireTalentExternalInfo(ctx context.Context, request *UpdateHireTalentExternalInfoReq, options ...MethodOptionFunc) (*UpdateHireTalentExternalInfoResp, *Response, error) {
-if r.cli.mock.mockHireUpdateHireTalentExternalInfo != nil {
+	if r.cli.mock.mockHireUpdateHireTalentExternalInfo != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#UpdateHireTalentExternalInfo mock enable")
 		return r.cli.mock.mockHireUpdateHireTalentExternalInfo(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockHireUpdateHireTalentExternalInfo != nil {
 		Scope:                 "Hire",
 		API:                   "UpdateHireTalentExternalInfo",
 		Method:                "PUT",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/talents/:talent_id/external_info",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/talents/:talent_id/external_info",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(updateHireTalentExternalInfoResp)
 
@@ -51,49 +49,33 @@ if r.cli.mock.mockHireUpdateHireTalentExternalInfo != nil {
 func (r *Mock) MockHireUpdateHireTalentExternalInfo(f func(ctx context.Context, request *UpdateHireTalentExternalInfoReq, options ...MethodOptionFunc) (*UpdateHireTalentExternalInfoResp, *Response, error)) {
 	r.mockHireUpdateHireTalentExternalInfo = f
 }
+
 // UnMockHireUpdateHireTalentExternalInfo un-mock HireUpdateHireTalentExternalInfo method
 func (r *Mock) UnMockHireUpdateHireTalentExternalInfo() {
 	r.mockHireUpdateHireTalentExternalInfo = nil
 }
 
-
 // UpdateHireTalentExternalInfoReq ...
-type UpdateHireTalentExternalInfoReq struct { 
-TalentID string `path:"talent_id" json:"-"` // 人才 ID, 可通过[获取人才列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/list)接口获取示例值: "7043758982146345223"
-ExternalCreateTime string `json:"external_create_time,omitempty"` // 人才在外部系统的创建时间, 毫秒时间戳示例值: "1639992265035"
+type UpdateHireTalentExternalInfoReq struct {
+	TalentID           string `path:"talent_id" json:"-"`             // 人才 ID, 可通过[获取人才列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/list)接口获取示例值: "7043758982146345223"
+	ExternalCreateTime string `json:"external_create_time,omitempty"` // 人才在外部系统的创建时间, 毫秒时间戳示例值: "1639992265035"
 }
-
-
-
-
 
 // UpdateHireTalentExternalInfoResp ...
-type UpdateHireTalentExternalInfoResp struct { 
-ExternalInfo *UpdateHireTalentExternalInfoRespExternalInfo `json:"external_info,omitempty"` // 人才外部信息
+type UpdateHireTalentExternalInfoResp struct {
+	ExternalInfo *UpdateHireTalentExternalInfoRespExternalInfo `json:"external_info,omitempty"` // 人才外部信息
 }
-
-
-
-
 
 // UpdateHireTalentExternalInfoRespExternalInfo ...
-type UpdateHireTalentExternalInfoRespExternalInfo struct { 
-TalentID string `json:"talent_id,omitempty"` // 人才 ID, 详情请查看: [获取人才信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/get)
-ExternalCreateTime string `json:"external_create_time,omitempty"` // 人才在外部系统的创建时间, 毫秒时间戳
+type UpdateHireTalentExternalInfoRespExternalInfo struct {
+	TalentID           string `json:"talent_id,omitempty"`            // 人才 ID, 详情请查看: [获取人才信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/get)
+	ExternalCreateTime string `json:"external_create_time,omitempty"` // 人才在外部系统的创建时间, 毫秒时间戳
 }
-
-
-
-
 
 // updateHireTalentExternalInfoResp ...
-type updateHireTalentExternalInfoResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *UpdateHireTalentExternalInfoResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type updateHireTalentExternalInfoResp struct {
+	Code  int64                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                            `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateHireTalentExternalInfoResp `json:"data,omitempty"`
+	Error *ErrorDetail                      `json:"error,omitempty"`
 }
-
-
-
-

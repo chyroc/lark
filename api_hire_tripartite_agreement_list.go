@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListHireTripartiteAgreement 根据三方协议 ID 或投递 ID 获取三方协议信息, 如三方协议状态、创建时间等信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/tripartite_agreement/list
-// 
 func (r *HireService) ListHireTripartiteAgreement(ctx context.Context, request *ListHireTripartiteAgreementReq, options ...MethodOptionFunc) (*ListHireTripartiteAgreementResp, *Response, error) {
-if r.cli.mock.mockHireListHireTripartiteAgreement != nil {
+	if r.cli.mock.mockHireListHireTripartiteAgreement != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#ListHireTripartiteAgreement mock enable")
 		return r.cli.mock.mockHireListHireTripartiteAgreement(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockHireListHireTripartiteAgreement != nil {
 		Scope:                 "Hire",
 		API:                   "ListHireTripartiteAgreement",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/tripartite_agreements",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/tripartite_agreements",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(listHireTripartiteAgreementResp)
 
@@ -51,56 +49,40 @@ if r.cli.mock.mockHireListHireTripartiteAgreement != nil {
 func (r *Mock) MockHireListHireTripartiteAgreement(f func(ctx context.Context, request *ListHireTripartiteAgreementReq, options ...MethodOptionFunc) (*ListHireTripartiteAgreementResp, *Response, error)) {
 	r.mockHireListHireTripartiteAgreement = f
 }
+
 // UnMockHireListHireTripartiteAgreement un-mock HireListHireTripartiteAgreement method
 func (r *Mock) UnMockHireListHireTripartiteAgreement() {
 	r.mockHireListHireTripartiteAgreement = nil
 }
 
-
 // ListHireTripartiteAgreementReq ...
-type ListHireTripartiteAgreementReq struct { 
-PageSize *int64 `query:"page_size" json:"-"` // 分页大小示例值: 10
-PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eVQrYzJBNDNONlk4VFZBZVlSdzlKdFJ4bVVHVExENDNKVHoxaVdiVnViQT0=
-ApplicationID *string `query:"application_id" json:"-"` // 投递 ID, 可通过[获取投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/list)接口获取示例值: 6930815272790114324
-TripartiteAgreementID *string `query:"tripartite_agreement_id" json:"-"` // 三方协议 ID, 由[创建三方协议](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/tripartite_agreement/create)接口返回示例值: 6930815272790114325
+type ListHireTripartiteAgreementReq struct {
+	PageSize              *int64  `query:"page_size" json:"-"`               // 分页大小示例值: 10
+	PageToken             *string `query:"page_token" json:"-"`              // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eVQrYzJBNDNONlk4VFZBZVlSdzlKdFJ4bVVHVExENDNKVHoxaVdiVnViQT0=
+	ApplicationID         *string `query:"application_id" json:"-"`          // 投递 ID, 可通过[获取投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/list)接口获取示例值: 6930815272790114324
+	TripartiteAgreementID *string `query:"tripartite_agreement_id" json:"-"` // 三方协议 ID, 由[创建三方协议](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/tripartite_agreement/create)接口返回示例值: 6930815272790114325
 }
-
-
-
-
 
 // ListHireTripartiteAgreementResp ...
-type ListHireTripartiteAgreementResp struct { 
-Items []*ListHireTripartiteAgreementRespItem `json:"items,omitempty"` // 三方协议信息
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
+type ListHireTripartiteAgreementResp struct {
+	Items     []*ListHireTripartiteAgreementRespItem `json:"items,omitempty"`      // 三方协议信息
+	PageToken string                                 `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	HasMore   bool                                   `json:"has_more,omitempty"`   // 是否还有更多项
 }
-
-
-
-
 
 // ListHireTripartiteAgreementRespItem ...
-type ListHireTripartiteAgreementRespItem struct { 
-ID string `json:"id,omitempty"` // 三方协议 ID
-ApplicationID string `json:"application_id,omitempty"` // 投递 ID, 详情可查看: [获取投递信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get)
-State int64 `json:"state,omitempty"` // 三方协议状态可选值有: 未开始已申请学生处理中公司处理中学校处理中已终止已完成解约处理中已解约
-CreateTime string `json:"create_time,omitempty"` // 三方协议创建时间, 毫秒时间戳
-ModifyTime string `json:"modify_time,omitempty"` // 三方协议修改时间, 毫秒时间戳
+type ListHireTripartiteAgreementRespItem struct {
+	ID            string `json:"id,omitempty"`             // 三方协议 ID
+	ApplicationID string `json:"application_id,omitempty"` // 投递 ID, 详情可查看: [获取投递信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get)
+	State         int64  `json:"state,omitempty"`          // 三方协议状态可选值有: 未开始已申请学生处理中公司处理中学校处理中已终止已完成解约处理中已解约
+	CreateTime    string `json:"create_time,omitempty"`    // 三方协议创建时间, 毫秒时间戳
+	ModifyTime    string `json:"modify_time,omitempty"`    // 三方协议修改时间, 毫秒时间戳
 }
-
-
-
-
 
 // listHireTripartiteAgreementResp ...
-type listHireTripartiteAgreementResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *ListHireTripartiteAgreementResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type listHireTripartiteAgreementResp struct {
+	Code  int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                           `json:"msg,omitempty"`  // 错误描述
+	Data  *ListHireTripartiteAgreementResp `json:"data,omitempty"`
+	Error *ErrorDetail                     `json:"error,omitempty"`
 }
-
-
-
-

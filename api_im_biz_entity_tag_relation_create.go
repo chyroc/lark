@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateIMBizEntityTagRelation 绑定标签到业务实体。目前支持给会话打标签。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/group/im-v2/biz_entity_tag_relation/create
-// 
 func (r *IMService) CreateIMBizEntityTagRelation(ctx context.Context, request *CreateIMBizEntityTagRelationReq, options ...MethodOptionFunc) (*CreateIMBizEntityTagRelationResp, *Response, error) {
-if r.cli.mock.mockIMCreateIMBizEntityTagRelation != nil {
+	if r.cli.mock.mockIMCreateIMBizEntityTagRelation != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] IM#CreateIMBizEntityTagRelation mock enable")
 		return r.cli.mock.mockIMCreateIMBizEntityTagRelation(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockIMCreateIMBizEntityTagRelation != nil {
 		Scope:                 "IM",
 		API:                   "CreateIMBizEntityTagRelation",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/im/v2/biz_entity_tag_relation",
+		URL:                   r.cli.openBaseURL + "/open-apis/im/v2/biz_entity_tag_relation",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createIMBizEntityTagRelationResp)
 
@@ -51,39 +49,26 @@ if r.cli.mock.mockIMCreateIMBizEntityTagRelation != nil {
 func (r *Mock) MockIMCreateIMBizEntityTagRelation(f func(ctx context.Context, request *CreateIMBizEntityTagRelationReq, options ...MethodOptionFunc) (*CreateIMBizEntityTagRelationResp, *Response, error)) {
 	r.mockIMCreateIMBizEntityTagRelation = f
 }
+
 // UnMockIMCreateIMBizEntityTagRelation un-mock IMCreateIMBizEntityTagRelation method
 func (r *Mock) UnMockIMCreateIMBizEntityTagRelation() {
 	r.mockIMCreateIMBizEntityTagRelation = nil
 }
 
-
 // CreateIMBizEntityTagRelationReq ...
-type CreateIMBizEntityTagRelationReq struct { 
-TagBizType string `json:"tag_biz_type,omitempty"` // 业务类型示例值: "chat"可选值有: chat 会话类型
-BizEntityID string `json:"biz_entity_id,omitempty"` // 业务实体 ID示例值: "oc_xxxxx"
-TagIDs []string `json:"tag_ids,omitempty"` // 标签 ID示例值: ["71616xxxx"] 长度范围: `0` ～ `40`
+type CreateIMBizEntityTagRelationReq struct {
+	TagBizType  string   `json:"tag_biz_type,omitempty"`  // 业务类型示例值: "chat"可选值有: chat 会话类型
+	BizEntityID string   `json:"biz_entity_id,omitempty"` // 业务实体 ID示例值: "oc_xxxxx"
+	TagIDs      []string `json:"tag_ids,omitempty"`       // 标签 ID示例值: ["71616xxxx"] 长度范围: `0` ～ `40`
 }
-
-
-
-
 
 // CreateIMBizEntityTagRelationResp ...
-type CreateIMBizEntityTagRelationResp struct { 
-}
-
-
-
-
+type CreateIMBizEntityTagRelationResp struct{}
 
 // createIMBizEntityTagRelationResp ...
-type createIMBizEntityTagRelationResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateIMBizEntityTagRelationResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createIMBizEntityTagRelationResp struct {
+	Code  int64                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                            `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateIMBizEntityTagRelationResp `json:"data,omitempty"`
+	Error *ErrorDetail                      `json:"error,omitempty"`
 }
-
-
-
-

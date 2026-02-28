@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListHireTerminationReason 获取系统中默认的投递终止原因以及用户配置的自定义投递终止原因。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/termination_reason/list
-// 
 func (r *HireService) ListHireTerminationReason(ctx context.Context, request *ListHireTerminationReasonReq, options ...MethodOptionFunc) (*ListHireTerminationReasonResp, *Response, error) {
-if r.cli.mock.mockHireListHireTerminationReason != nil {
+	if r.cli.mock.mockHireListHireTerminationReason != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#ListHireTerminationReason mock enable")
 		return r.cli.mock.mockHireListHireTerminationReason(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockHireListHireTerminationReason != nil {
 		Scope:                 "Hire",
 		API:                   "ListHireTerminationReason",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/termination_reasons",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/termination_reasons",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(listHireTerminationReasonResp)
 
@@ -51,75 +49,51 @@ if r.cli.mock.mockHireListHireTerminationReason != nil {
 func (r *Mock) MockHireListHireTerminationReason(f func(ctx context.Context, request *ListHireTerminationReasonReq, options ...MethodOptionFunc) (*ListHireTerminationReasonResp, *Response, error)) {
 	r.mockHireListHireTerminationReason = f
 }
+
 // UnMockHireListHireTerminationReason un-mock HireListHireTerminationReason method
 func (r *Mock) UnMockHireListHireTerminationReason() {
 	r.mockHireListHireTerminationReason = nil
 }
 
-
 // ListHireTerminationReasonReq ...
-type ListHireTerminationReasonReq struct { 
-PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eyJvZmZzZXQiOjEwLCJ0aW1lc3RhbXAiOjE2Mjc1NTUyMjM2NzIsImlkIjpudWxsfQ[
-PageSize *int64 `query:"page_size" json:"-"` // 每页获取记录数量, 默认值为 10示例值: 10 最大值: `200`
+type ListHireTerminationReasonReq struct {
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eyJvZmZzZXQiOjEwLCJ0aW1lc3RhbXAiOjE2Mjc1NTUyMjM2NzIsImlkIjpudWxsfQ[
+	PageSize  *int64  `query:"page_size" json:"-"`  // 每页获取记录数量, 默认值为 10示例值: 10 最大值: `200`
 }
-
-
-
-
 
 // ListHireTerminationReasonResp ...
-type ListHireTerminationReasonResp struct { 
-Items []*ListHireTerminationReasonRespItem `json:"items,omitempty"` // 列表
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+type ListHireTerminationReasonResp struct {
+	Items     []*ListHireTerminationReasonRespItem `json:"items,omitempty"`      // 列表
+	HasMore   bool                                 `json:"has_more,omitempty"`   // 是否还有更多项
+	PageToken string                               `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 }
-
-
-
-
 
 // ListHireTerminationReasonRespItem ...
-type ListHireTerminationReasonRespItem struct { 
-ID string `json:"id,omitempty"` // 终止原因 ID
-Name *ListHireTerminationReasonRespItemName `json:"name,omitempty"` // 终止原因名称
-ReferralName *ListHireTerminationReasonRespItemReferralName `json:"referral_name,omitempty"` // 内推渠道展示文案
-TerminationType int64 `json:"termination_type,omitempty"` // 终止原因类型可选值有: 我们拒绝了候选人候选人拒绝了我们其他
-IsUsedAsEvaluation bool `json:"is_used_as_evaluation,omitempty"` // 是否用于评估
-ActiveStatus int64 `json:"active_status,omitempty"` // 状态可选值有: 已启用已停用
+type ListHireTerminationReasonRespItem struct {
+	ID                 string                                         `json:"id,omitempty"`                    // 终止原因 ID
+	Name               *ListHireTerminationReasonRespItemName         `json:"name,omitempty"`                  // 终止原因名称
+	ReferralName       *ListHireTerminationReasonRespItemReferralName `json:"referral_name,omitempty"`         // 内推渠道展示文案
+	TerminationType    int64                                          `json:"termination_type,omitempty"`      // 终止原因类型可选值有: 我们拒绝了候选人候选人拒绝了我们其他
+	IsUsedAsEvaluation bool                                           `json:"is_used_as_evaluation,omitempty"` // 是否用于评估
+	ActiveStatus       int64                                          `json:"active_status,omitempty"`         // 状态可选值有: 已启用已停用
 }
-
-
-
-
 
 // ListHireTerminationReasonRespItemName ...
-type ListHireTerminationReasonRespItemName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文
-EnUs string `json:"en_us,omitempty"` // 英文
+type ListHireTerminationReasonRespItemName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文
+	EnUs string `json:"en_us,omitempty"` // 英文
 }
-
-
-
-
 
 // ListHireTerminationReasonRespItemReferralName ...
-type ListHireTerminationReasonRespItemReferralName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文
-EnUs string `json:"en_us,omitempty"` // 英文
+type ListHireTerminationReasonRespItemReferralName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文
+	EnUs string `json:"en_us,omitempty"` // 英文
 }
-
-
-
-
 
 // listHireTerminationReasonResp ...
-type listHireTerminationReasonResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *ListHireTerminationReasonResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type listHireTerminationReasonResp struct {
+	Code  int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                         `json:"msg,omitempty"`  // 错误描述
+	Data  *ListHireTerminationReasonResp `json:"data,omitempty"`
+	Error *ErrorDetail                   `json:"error,omitempty"`
 }
-
-
-
-

@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateHireApplicationTransferStage 根据投递 ID 和投递阶段 ID 转移投递阶段。
@@ -30,9 +30,8 @@ import (
 // - 若「飞书招聘」-「设置」-「候选人流程管理」-「招聘流程管控规则设置」中设置了管控规则, 则不满足管控规则的转移操作将无法转移。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/transfer_stage
-// 
 func (r *HireService) CreateHireApplicationTransferStage(ctx context.Context, request *CreateHireApplicationTransferStageReq, options ...MethodOptionFunc) (*CreateHireApplicationTransferStageResp, *Response, error) {
-if r.cli.mock.mockHireCreateHireApplicationTransferStage != nil {
+	if r.cli.mock.mockHireCreateHireApplicationTransferStage != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#CreateHireApplicationTransferStage mock enable")
 		return r.cli.mock.mockHireCreateHireApplicationTransferStage(ctx, request, options...)
 	}
@@ -41,11 +40,10 @@ if r.cli.mock.mockHireCreateHireApplicationTransferStage != nil {
 		Scope:                 "Hire",
 		API:                   "CreateHireApplicationTransferStage",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/applications/:application_id/transfer_stage",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/applications/:application_id/transfer_stage",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createHireApplicationTransferStageResp)
 
@@ -57,38 +55,25 @@ if r.cli.mock.mockHireCreateHireApplicationTransferStage != nil {
 func (r *Mock) MockHireCreateHireApplicationTransferStage(f func(ctx context.Context, request *CreateHireApplicationTransferStageReq, options ...MethodOptionFunc) (*CreateHireApplicationTransferStageResp, *Response, error)) {
 	r.mockHireCreateHireApplicationTransferStage = f
 }
+
 // UnMockHireCreateHireApplicationTransferStage un-mock HireCreateHireApplicationTransferStage method
 func (r *Mock) UnMockHireCreateHireApplicationTransferStage() {
 	r.mockHireCreateHireApplicationTransferStage = nil
 }
 
-
 // CreateHireApplicationTransferStageReq ...
-type CreateHireApplicationTransferStageReq struct { 
-ApplicationID string `path:"application_id" json:"-"` // 投递 ID, 可通过[获取投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/list)接口获取示例值: "6960663240925956401"
-StageID string `json:"stage_id,omitempty"` // 要转移到的阶段 ID, 可通过[获取招聘流程信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_process/list)接口获取示例值: "6960663240925956402"
+type CreateHireApplicationTransferStageReq struct {
+	ApplicationID string `path:"application_id" json:"-"` // 投递 ID, 可通过[获取投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/list)接口获取示例值: "6960663240925956401"
+	StageID       string `json:"stage_id,omitempty"`      // 要转移到的阶段 ID, 可通过[获取招聘流程信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_process/list)接口获取示例值: "6960663240925956402"
 }
-
-
-
-
 
 // CreateHireApplicationTransferStageResp ...
-type CreateHireApplicationTransferStageResp struct { 
-}
-
-
-
-
+type CreateHireApplicationTransferStageResp struct{}
 
 // createHireApplicationTransferStageResp ...
-type createHireApplicationTransferStageResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateHireApplicationTransferStageResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createHireApplicationTransferStageResp struct {
+	Code  int64                                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                  `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateHireApplicationTransferStageResp `json:"data,omitempty"`
+	Error *ErrorDetail                            `json:"error,omitempty"`
 }
-
-
-
-

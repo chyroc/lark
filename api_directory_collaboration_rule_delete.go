@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // DeleteDirectoryCollaborationRule 管理员视角删除可搜可见规则。用户需具备关联组织管理员权限。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/collaboration_rule/delete
-// 
 func (r *DirectoryService) DeleteDirectoryCollaborationRule(ctx context.Context, request *DeleteDirectoryCollaborationRuleReq, options ...MethodOptionFunc) (*DeleteDirectoryCollaborationRuleResp, *Response, error) {
-if r.cli.mock.mockDirectoryDeleteDirectoryCollaborationRule != nil {
+	if r.cli.mock.mockDirectoryDeleteDirectoryCollaborationRule != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Directory#DeleteDirectoryCollaborationRule mock enable")
 		return r.cli.mock.mockDirectoryDeleteDirectoryCollaborationRule(ctx, request, options...)
 	}
@@ -35,12 +34,11 @@ if r.cli.mock.mockDirectoryDeleteDirectoryCollaborationRule != nil {
 		Scope:                 "Directory",
 		API:                   "DeleteDirectoryCollaborationRule",
 		Method:                "DELETE",
-		URL:   r.cli.openBaseURL + "/open-apis/directory/v1/collaboration_rules/:collaboration_rule_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/directory/v1/collaboration_rules/:collaboration_rule_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(deleteDirectoryCollaborationRuleResp)
 
@@ -52,38 +50,25 @@ if r.cli.mock.mockDirectoryDeleteDirectoryCollaborationRule != nil {
 func (r *Mock) MockDirectoryDeleteDirectoryCollaborationRule(f func(ctx context.Context, request *DeleteDirectoryCollaborationRuleReq, options ...MethodOptionFunc) (*DeleteDirectoryCollaborationRuleResp, *Response, error)) {
 	r.mockDirectoryDeleteDirectoryCollaborationRule = f
 }
+
 // UnMockDirectoryDeleteDirectoryCollaborationRule un-mock DirectoryDeleteDirectoryCollaborationRule method
 func (r *Mock) UnMockDirectoryDeleteDirectoryCollaborationRule() {
 	r.mockDirectoryDeleteDirectoryCollaborationRule = nil
 }
 
-
 // DeleteDirectoryCollaborationRuleReq ...
-type DeleteDirectoryCollaborationRuleReq struct { 
-CollaborationRuleID string `path:"collaboration_rule_id" json:"-"` // 规则ID, 可通过[查询可搜可见规则](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/collaboration_rule/list)获得示例值: "2121"
-TargetTenantKey string `query:"target_tenant_key" json:"-"` // 对方组织的tenant key, 可通过[管理员获取所有关联组织列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/collaboration_tenant/list)获取示例值: test_key
+type DeleteDirectoryCollaborationRuleReq struct {
+	CollaborationRuleID string `path:"collaboration_rule_id" json:"-"` // 规则ID, 可通过[查询可搜可见规则](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/collaboration_rule/list)获得示例值: "2121"
+	TargetTenantKey     string `query:"target_tenant_key" json:"-"`    // 对方组织的tenant key, 可通过[管理员获取所有关联组织列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/collaboration_tenant/list)获取示例值: test_key
 }
-
-
-
-
 
 // DeleteDirectoryCollaborationRuleResp ...
-type DeleteDirectoryCollaborationRuleResp struct { 
-}
-
-
-
-
+type DeleteDirectoryCollaborationRuleResp struct{}
 
 // deleteDirectoryCollaborationRuleResp ...
-type deleteDirectoryCollaborationRuleResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *DeleteDirectoryCollaborationRuleResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type deleteDirectoryCollaborationRuleResp struct {
+	Code  int64                                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteDirectoryCollaborationRuleResp `json:"data,omitempty"`
+	Error *ErrorDetail                          `json:"error,omitempty"`
 }
-
-
-
-

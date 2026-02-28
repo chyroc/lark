@@ -66,8 +66,7 @@ type BindMDMUserAuthDataRelationReq struct {
 }
 
 // BindMDMUserAuthDataRelationResp ...
-type BindMDMUserAuthDataRelationResp struct {
-}
+type BindMDMUserAuthDataRelationResp struct{}
 
 // bindMDMUserAuthDataRelationResp ...
 type bindMDMUserAuthDataRelationResp struct {

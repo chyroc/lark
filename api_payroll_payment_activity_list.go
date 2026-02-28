@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListPayrollPaymentActivity 根据「发薪日起止范围」、「发薪活动状态」和「分页参数」查询发薪活动列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/payment_activity/list
-// 
 func (r *PayrollService) ListPayrollPaymentActivity(ctx context.Context, request *ListPayrollPaymentActivityReq, options ...MethodOptionFunc) (*ListPayrollPaymentActivityResp, *Response, error) {
-if r.cli.mock.mockPayrollListPayrollPaymentActivity != nil {
+	if r.cli.mock.mockPayrollListPayrollPaymentActivity != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Payroll#ListPayrollPaymentActivity mock enable")
 		return r.cli.mock.mockPayrollListPayrollPaymentActivity(ctx, request, options...)
 	}
@@ -35,12 +34,11 @@ if r.cli.mock.mockPayrollListPayrollPaymentActivity != nil {
 		Scope:                 "Payroll",
 		API:                   "ListPayrollPaymentActivity",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/payroll/v1/payment_activitys",
+		URL:                   r.cli.openBaseURL + "/open-apis/payroll/v1/payment_activitys",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(listPayrollPaymentActivityResp)
 
@@ -52,89 +50,61 @@ if r.cli.mock.mockPayrollListPayrollPaymentActivity != nil {
 func (r *Mock) MockPayrollListPayrollPaymentActivity(f func(ctx context.Context, request *ListPayrollPaymentActivityReq, options ...MethodOptionFunc) (*ListPayrollPaymentActivityResp, *Response, error)) {
 	r.mockPayrollListPayrollPaymentActivity = f
 }
+
 // UnMockPayrollListPayrollPaymentActivity un-mock PayrollListPayrollPaymentActivity method
 func (r *Mock) UnMockPayrollListPayrollPaymentActivity() {
 	r.mockPayrollListPayrollPaymentActivity = nil
 }
 
-
 // ListPayrollPaymentActivityReq ...
-type ListPayrollPaymentActivityReq struct { 
-PayPeriodStartDate string `query:"pay_period_start_date" json:"-"` // 发薪日开始时间, 格式: YYYY-MM-dd, [pay_period_start_date, pay_period_end_date] 是一个左闭右闭区间。示例值: 2024-01-01
-PayPeriodEndDate string `query:"pay_period_end_date" json:"-"` // 发薪日结束时间, 格式: YYYY-MM-dd, [pay_period_start_date, pay_period_end_date] 是一个左闭右闭区间。示例值: 2024-01-31
-PageSize int64 `query:"page_size" json:"-"` // 分页大小, 传值范围为 [1, 100]示例值: 10
-PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eVQrYzJBNDNONlk4VFZBZVlSdzlKdFJ4bVVHVExENDNKVHoxaVdiVnViQT0=
-Statuses []int64 `query:"statuses" json:"-"` // 发薪活动审批状态列表, 其中: 1. 100 - 待确认名单2. 150 - 待提交审批3. 200 - 审批中4. 300 - 审批被拒绝5. 350 - 审批被撤回6. 360 - 审批被撤销7. 375 - 审批通过8. 400 - 已封存示例值: 100 长度范围: `0` ～ `100`
+type ListPayrollPaymentActivityReq struct {
+	PayPeriodStartDate string  `query:"pay_period_start_date" json:"-"` // 发薪日开始时间, 格式: YYYY-MM-dd, [pay_period_start_date, pay_period_end_date] 是一个左闭右闭区间。示例值: 2024-01-01
+	PayPeriodEndDate   string  `query:"pay_period_end_date" json:"-"`   // 发薪日结束时间, 格式: YYYY-MM-dd, [pay_period_start_date, pay_period_end_date] 是一个左闭右闭区间。示例值: 2024-01-31
+	PageSize           int64   `query:"page_size" json:"-"`             // 分页大小, 传值范围为 [1, 100]示例值: 10
+	PageToken          *string `query:"page_token" json:"-"`            // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eVQrYzJBNDNONlk4VFZBZVlSdzlKdFJ4bVVHVExENDNKVHoxaVdiVnViQT0=
+	Statuses           []int64 `query:"statuses" json:"-"`              // 发薪活动审批状态列表, 其中: 1. 100 - 待确认名单2. 150 - 待提交审批3. 200 - 审批中4. 300 - 审批被拒绝5. 350 - 审批被撤回6. 360 - 审批被撤销7. 375 - 审批通过8. 400 - 已封存示例值: 100 长度范围: `0` ～ `100`
 }
-
-
-
-
 
 // ListPayrollPaymentActivityResp ...
-type ListPayrollPaymentActivityResp struct { 
-PaymentActivitys []*ListPayrollPaymentActivityRespPaymentActivity `json:"payment_activitys,omitempty"` // 发薪活动列表
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
+type ListPayrollPaymentActivityResp struct {
+	PaymentActivitys []*ListPayrollPaymentActivityRespPaymentActivity `json:"payment_activitys,omitempty"` // 发薪活动列表
+	PageToken        string                                           `json:"page_token,omitempty"`        // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	HasMore          bool                                             `json:"has_more,omitempty"`          // 是否还有更多项
 }
-
-
-
-
 
 // ListPayrollPaymentActivityRespPaymentActivity ...
-type ListPayrollPaymentActivityRespPaymentActivity struct { 
-ActivityID string `json:"activity_id,omitempty"` // 发薪活动唯一标识
-ActivityNames []*ListPayrollPaymentActivityRespPaymentActivityActivityName `json:"activity_names,omitempty"` // 发薪活动名称
-PayDate string `json:"pay_date,omitempty"` // 发薪活动发薪日期
-TotalNumberOfPayroll int64 `json:"total_number_of_payroll,omitempty"` // 发薪总笔数
-NumberOfCalculationActivities int64 `json:"number_of_calculation_activities,omitempty"` // 关联的算薪活动个数
-CalculationActivities []*ListPayrollPaymentActivityRespPaymentActivityCalculationActivitie `json:"calculation_activities,omitempty"` // 发薪活动关联的算薪活动详情
-ActivityStatus int64 `json:"activity_status,omitempty"` // 发薪活动审批状态, 其中: 100-待确认发薪名单；150-待提交审批；200-审批中；300-审批被拒绝；350-审批被撤回；360-审批被撤销；375-审批通过；400-已封存。
+type ListPayrollPaymentActivityRespPaymentActivity struct {
+	ActivityID                    string                                                               `json:"activity_id,omitempty"`                      // 发薪活动唯一标识
+	ActivityNames                 []*ListPayrollPaymentActivityRespPaymentActivityActivityName         `json:"activity_names,omitempty"`                   // 发薪活动名称
+	PayDate                       string                                                               `json:"pay_date,omitempty"`                         // 发薪活动发薪日期
+	TotalNumberOfPayroll          int64                                                                `json:"total_number_of_payroll,omitempty"`          // 发薪总笔数
+	NumberOfCalculationActivities int64                                                                `json:"number_of_calculation_activities,omitempty"` // 关联的算薪活动个数
+	CalculationActivities         []*ListPayrollPaymentActivityRespPaymentActivityCalculationActivitie `json:"calculation_activities,omitempty"`           // 发薪活动关联的算薪活动详情
+	ActivityStatus                int64                                                                `json:"activity_status,omitempty"`                  // 发薪活动审批状态, 其中: 100-待确认发薪名单；150-待提交审批；200-审批中；300-审批被拒绝；350-审批被撤回；360-审批被撤销；375-审批通过；400-已封存。
 }
-
-
-
-
 
 // ListPayrollPaymentActivityRespPaymentActivityActivityName ...
-type ListPayrollPaymentActivityRespPaymentActivityActivityName struct { 
-Locale string `json:"locale,omitempty"` // 语种
-Value string `json:"value,omitempty"` // 语种对应的值
+type ListPayrollPaymentActivityRespPaymentActivityActivityName struct {
+	Locale string `json:"locale,omitempty"` // 语种
+	Value  string `json:"value,omitempty"`  // 语种对应的值
 }
-
-
-
-
 
 // ListPayrollPaymentActivityRespPaymentActivityCalculationActivitie ...
-type ListPayrollPaymentActivityRespPaymentActivityCalculationActivitie struct { 
-CalculationActivityID string `json:"calculation_activity_id,omitempty"` // 算薪活动唯一标识
-CalculationActivityNames []*ListPayrollPaymentActivityRespPaymentActivityCalculationActivitieCalculationActivityName `json:"calculation_activity_names,omitempty"` // 算薪活动名称
+type ListPayrollPaymentActivityRespPaymentActivityCalculationActivitie struct {
+	CalculationActivityID    string                                                                                      `json:"calculation_activity_id,omitempty"`    // 算薪活动唯一标识
+	CalculationActivityNames []*ListPayrollPaymentActivityRespPaymentActivityCalculationActivitieCalculationActivityName `json:"calculation_activity_names,omitempty"` // 算薪活动名称
 }
-
-
-
-
 
 // ListPayrollPaymentActivityRespPaymentActivityCalculationActivitieCalculationActivityName ...
-type ListPayrollPaymentActivityRespPaymentActivityCalculationActivitieCalculationActivityName struct { 
-Locale string `json:"locale,omitempty"` // 语种
-Value string `json:"value,omitempty"` // 语种对应的值
+type ListPayrollPaymentActivityRespPaymentActivityCalculationActivitieCalculationActivityName struct {
+	Locale string `json:"locale,omitempty"` // 语种
+	Value  string `json:"value,omitempty"`  // 语种对应的值
 }
-
-
-
-
 
 // listPayrollPaymentActivityResp ...
-type listPayrollPaymentActivityResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *ListPayrollPaymentActivityResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type listPayrollPaymentActivityResp struct {
+	Code  int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                          `json:"msg,omitempty"`  // 错误描述
+	Data  *ListPayrollPaymentActivityResp `json:"data,omitempty"`
+	Error *ErrorDetail                    `json:"error,omitempty"`
 }
-
-
-
-

@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListDirectoryCollaborationTenant 在创建规则时, 需要知道对方组织的tenant key, 可通过该接口获取有效的tenant key。只允许关联组织管理员权限调用。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/collaboration_tenant/list
-// 
 func (r *DirectoryService) ListDirectoryCollaborationTenant(ctx context.Context, request *ListDirectoryCollaborationTenantReq, options ...MethodOptionFunc) (*ListDirectoryCollaborationTenantResp, *Response, error) {
-if r.cli.mock.mockDirectoryListDirectoryCollaborationTenant != nil {
+	if r.cli.mock.mockDirectoryListDirectoryCollaborationTenant != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Directory#ListDirectoryCollaborationTenant mock enable")
 		return r.cli.mock.mockDirectoryListDirectoryCollaborationTenant(ctx, request, options...)
 	}
@@ -35,12 +34,11 @@ if r.cli.mock.mockDirectoryListDirectoryCollaborationTenant != nil {
 		Scope:                 "Directory",
 		API:                   "ListDirectoryCollaborationTenant",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/directory/v1/collaboration_tenants",
+		URL:                   r.cli.openBaseURL + "/open-apis/directory/v1/collaboration_tenants",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(listDirectoryCollaborationTenantResp)
 
@@ -52,87 +50,59 @@ if r.cli.mock.mockDirectoryListDirectoryCollaborationTenant != nil {
 func (r *Mock) MockDirectoryListDirectoryCollaborationTenant(f func(ctx context.Context, request *ListDirectoryCollaborationTenantReq, options ...MethodOptionFunc) (*ListDirectoryCollaborationTenantResp, *Response, error)) {
 	r.mockDirectoryListDirectoryCollaborationTenant = f
 }
+
 // UnMockDirectoryListDirectoryCollaborationTenant un-mock DirectoryListDirectoryCollaborationTenant method
 func (r *Mock) UnMockDirectoryListDirectoryCollaborationTenant() {
 	r.mockDirectoryListDirectoryCollaborationTenant = nil
 }
 
-
 // ListDirectoryCollaborationTenantReq ...
-type ListDirectoryCollaborationTenantReq struct { 
-PageSize *int64 `query:"page_size" json:"-"` // 分页大小示例值: 10默认值: `100` 取值范围: `0` ～ `100`
-PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: g102aggaEYLRMSHU6DENYI4HMBAJB75XOQN2CUTV
+type ListDirectoryCollaborationTenantReq struct {
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小示例值: 10默认值: `100` 取值范围: `0` ～ `100`
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: g102aggaEYLRMSHU6DENYI4HMBAJB75XOQN2CUTV
 }
-
-
-
-
 
 // ListDirectoryCollaborationTenantResp ...
-type ListDirectoryCollaborationTenantResp struct { 
-Items []*ListDirectoryCollaborationTenantRespItem `json:"items,omitempty"` // 对方的关联组织信息
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
+type ListDirectoryCollaborationTenantResp struct {
+	Items     []*ListDirectoryCollaborationTenantRespItem `json:"items,omitempty"`      // 对方的关联组织信息
+	PageToken string                                      `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	HasMore   bool                                        `json:"has_more,omitempty"`   // 是否还有更多项
 }
-
-
-
-
 
 // ListDirectoryCollaborationTenantRespItem ...
-type ListDirectoryCollaborationTenantRespItem struct { 
-TenantKey string `json:"tenant_key,omitempty"` // 关联组织列表
-ConnectTime int64 `json:"connect_time,omitempty"` // 建联时间
-Avatar *ListDirectoryCollaborationTenantRespItemAvatar `json:"avatar,omitempty"` // 租户头像
-Brand string `json:"brand,omitempty"` // 租户品牌
-Name *ListDirectoryCollaborationTenantRespItemName `json:"name,omitempty"` // i18n文本
-ShortName *ListDirectoryCollaborationTenantRespItemShortName `json:"short_name,omitempty"` // i18n文本
+type ListDirectoryCollaborationTenantRespItem struct {
+	TenantKey   string                                             `json:"tenant_key,omitempty"`   // 关联组织列表
+	ConnectTime int64                                              `json:"connect_time,omitempty"` // 建联时间
+	Avatar      *ListDirectoryCollaborationTenantRespItemAvatar    `json:"avatar,omitempty"`       // 租户头像
+	Brand       string                                             `json:"brand,omitempty"`        // 租户品牌
+	Name        *ListDirectoryCollaborationTenantRespItemName      `json:"name,omitempty"`         // i18n文本
+	ShortName   *ListDirectoryCollaborationTenantRespItemShortName `json:"short_name,omitempty"`   // i18n文本
 }
-
-
-
-
 
 // ListDirectoryCollaborationTenantRespItemAvatar ...
-type ListDirectoryCollaborationTenantRespItemAvatar struct { 
-Avatar72 string `json:"avatar_72,omitempty"` // 72*72像素头像链接
-Avatar240 string `json:"avatar_240,omitempty"` // 240*240像素头像链接
-Avatar640 string `json:"avatar_640,omitempty"` // 640*640像素头像链接
-AvatarOrigin string `json:"avatar_origin,omitempty"` // 原始头像链接
+type ListDirectoryCollaborationTenantRespItemAvatar struct {
+	Avatar72     string `json:"avatar_72,omitempty"`     // 72*72像素头像链接
+	Avatar240    string `json:"avatar_240,omitempty"`    // 240*240像素头像链接
+	Avatar640    string `json:"avatar_640,omitempty"`    // 640*640像素头像链接
+	AvatarOrigin string `json:"avatar_origin,omitempty"` // 原始头像链接
 }
-
-
-
-
 
 // ListDirectoryCollaborationTenantRespItemName ...
-type ListDirectoryCollaborationTenantRespItemName struct { 
-DefaultValue string `json:"default_value,omitempty"` // 默认值
-I18nValue interface{} `json:"i18n_value,omitempty"` // 国际化值, key为zh_cn, ja_jp, en_us, value为对应的值
+type ListDirectoryCollaborationTenantRespItemName struct {
+	DefaultValue string      `json:"default_value,omitempty"` // 默认值
+	I18nValue    interface{} `json:"i18n_value,omitempty"`    // 国际化值, key为zh_cn, ja_jp, en_us, value为对应的值
 }
-
-
-
-
 
 // ListDirectoryCollaborationTenantRespItemShortName ...
-type ListDirectoryCollaborationTenantRespItemShortName struct { 
-DefaultValue string `json:"default_value,omitempty"` // 默认值
-I18nValue interface{} `json:"i18n_value,omitempty"` // 国际化值, key为zh_cn, ja_jp, en_us, value为对应的值
+type ListDirectoryCollaborationTenantRespItemShortName struct {
+	DefaultValue string      `json:"default_value,omitempty"` // 默认值
+	I18nValue    interface{} `json:"i18n_value,omitempty"`    // 国际化值, key为zh_cn, ja_jp, en_us, value为对应的值
 }
-
-
-
-
 
 // listDirectoryCollaborationTenantResp ...
-type listDirectoryCollaborationTenantResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *ListDirectoryCollaborationTenantResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type listDirectoryCollaborationTenantResp struct {
+	Code  int64                                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                `json:"msg,omitempty"`  // 错误描述
+	Data  *ListDirectoryCollaborationTenantResp `json:"data,omitempty"`
+	Error *ErrorDetail                          `json:"error,omitempty"`
 }
-
-
-
-

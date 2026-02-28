@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateCorehrPreHireRestoreFlowInstance 通过本接口对指定已撤销的待入职员工执行恢复入职操作, 对应入职管理页面恢复入职按钮
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/restore_flow_instance
-// 
 func (r *CorehrService) CreateCorehrPreHireRestoreFlowInstance(ctx context.Context, request *CreateCorehrPreHireRestoreFlowInstanceReq, options ...MethodOptionFunc) (*CreateCorehrPreHireRestoreFlowInstanceResp, *Response, error) {
-if r.cli.mock.mockCorehrCreateCorehrPreHireRestoreFlowInstance != nil {
+	if r.cli.mock.mockCorehrCreateCorehrPreHireRestoreFlowInstance != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Corehr#CreateCorehrPreHireRestoreFlowInstance mock enable")
 		return r.cli.mock.mockCorehrCreateCorehrPreHireRestoreFlowInstance(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockCorehrCreateCorehrPreHireRestoreFlowInstance != nil {
 		Scope:                 "Corehr",
 		API:                   "CreateCorehrPreHireRestoreFlowInstance",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/corehr/v2/pre_hires/restore_flow_instance",
+		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/pre_hires/restore_flow_instance",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createCorehrPreHireRestoreFlowInstanceResp)
 
@@ -51,39 +49,27 @@ if r.cli.mock.mockCorehrCreateCorehrPreHireRestoreFlowInstance != nil {
 func (r *Mock) MockCorehrCreateCorehrPreHireRestoreFlowInstance(f func(ctx context.Context, request *CreateCorehrPreHireRestoreFlowInstanceReq, options ...MethodOptionFunc) (*CreateCorehrPreHireRestoreFlowInstanceResp, *Response, error)) {
 	r.mockCorehrCreateCorehrPreHireRestoreFlowInstance = f
 }
+
 // UnMockCorehrCreateCorehrPreHireRestoreFlowInstance un-mock CorehrCreateCorehrPreHireRestoreFlowInstance method
 func (r *Mock) UnMockCorehrCreateCorehrPreHireRestoreFlowInstance() {
 	r.mockCorehrCreateCorehrPreHireRestoreFlowInstance = nil
 }
 
-
 // CreateCorehrPreHireRestoreFlowInstanceReq ...
-type CreateCorehrPreHireRestoreFlowInstanceReq struct { 
-PreHireID string `json:"pre_hire_id,omitempty"` // 待入职ID, 可从[待入职列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/search)接口获取示例值: "7345005664477775407"
-ConfirmWorkforce *bool `json:"confirm_workforce,omitempty"` // 是否强制占编；true为强制占编；false为非强制占编示例值: false
+type CreateCorehrPreHireRestoreFlowInstanceReq struct {
+	PreHireID        string `json:"pre_hire_id,omitempty"`       // 待入职ID, 可从[待入职列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/search)接口获取示例值: "7345005664477775407"
+	ConfirmWorkforce *bool  `json:"confirm_workforce,omitempty"` // 是否强制占编；true为强制占编；false为非强制占编示例值: false
 }
-
-
-
-
 
 // CreateCorehrPreHireRestoreFlowInstanceResp ...
-type CreateCorehrPreHireRestoreFlowInstanceResp struct { 
-Success bool `json:"success,omitempty"` // 是否成功恢复入职
+type CreateCorehrPreHireRestoreFlowInstanceResp struct {
+	Success bool `json:"success,omitempty"` // 是否成功恢复入职
 }
-
-
-
-
 
 // createCorehrPreHireRestoreFlowInstanceResp ...
-type createCorehrPreHireRestoreFlowInstanceResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateCorehrPreHireRestoreFlowInstanceResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createCorehrPreHireRestoreFlowInstanceResp struct {
+	Code  int64                                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                      `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateCorehrPreHireRestoreFlowInstanceResp `json:"data,omitempty"`
+	Error *ErrorDetail                                `json:"error,omitempty"`
 }
-
-
-
-

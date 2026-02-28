@@ -63,8 +63,7 @@ type CreateIMTagRelationReq struct {
 }
 
 // CreateIMTagRelationResp ...
-type CreateIMTagRelationResp struct {
-}
+type CreateIMTagRelationResp struct{}
 
 // createIMTagRelationResp ...
 type createIMTagRelationResp struct {

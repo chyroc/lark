@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateApaasApplicationObjectRecord 在对象中新建记录
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/application-object-record/create
-// 
 func (r *ApaasService) CreateApaasApplicationObjectRecord(ctx context.Context, request *CreateApaasApplicationObjectRecordReq, options ...MethodOptionFunc) (*CreateApaasApplicationObjectRecordResp, *Response, error) {
-if r.cli.mock.mockApaasCreateApaasApplicationObjectRecord != nil {
+	if r.cli.mock.mockApaasCreateApaasApplicationObjectRecord != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Apaas#CreateApaasApplicationObjectRecord mock enable")
 		return r.cli.mock.mockApaasCreateApaasApplicationObjectRecord(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockApaasCreateApaasApplicationObjectRecord != nil {
 		Scope:                 "Apaas",
 		API:                   "CreateApaasApplicationObjectRecord",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/apaas/v1/applications/:namespace/objects/:object_api_name/records",
+		URL:                   r.cli.openBaseURL + "/open-apis/apaas/v1/applications/:namespace/objects/:object_api_name/records",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createApaasApplicationObjectRecordResp)
 
@@ -51,40 +49,28 @@ if r.cli.mock.mockApaasCreateApaasApplicationObjectRecord != nil {
 func (r *Mock) MockApaasCreateApaasApplicationObjectRecord(f func(ctx context.Context, request *CreateApaasApplicationObjectRecordReq, options ...MethodOptionFunc) (*CreateApaasApplicationObjectRecordResp, *Response, error)) {
 	r.mockApaasCreateApaasApplicationObjectRecord = f
 }
+
 // UnMockApaasCreateApaasApplicationObjectRecord un-mock ApaasCreateApaasApplicationObjectRecord method
 func (r *Mock) UnMockApaasCreateApaasApplicationObjectRecord() {
 	r.mockApaasCreateApaasApplicationObjectRecord = nil
 }
 
-
 // CreateApaasApplicationObjectRecordReq ...
-type CreateApaasApplicationObjectRecordReq struct { 
-Namespace string `path:"namespace" json:"-"` // 应用命名空间示例值: "package_test__c" 长度范围: `0` ～ `255` 字符
-ObjectApiName string `path:"object_api_name" json:"-"` // 对象唯一标识示例值: "user" 长度范围: `0` ～ `256` 字符
-Record string `json:"record,omitempty"` // 创建对象使用的数据, 键为字段 API 名称, 值为字段值, 格式可参考字段值格式示例值: "{\"book_name\":\"test\"}" 最小长度: `0` 字符
+type CreateApaasApplicationObjectRecordReq struct {
+	Namespace     string `path:"namespace" json:"-"`       // 应用命名空间示例值: "package_test__c" 长度范围: `0` ～ `255` 字符
+	ObjectApiName string `path:"object_api_name" json:"-"` // 对象唯一标识示例值: "user" 长度范围: `0` ～ `256` 字符
+	Record        string `json:"record,omitempty"`         // 创建对象使用的数据, 键为字段 API 名称, 值为字段值, 格式可参考字段值格式示例值: "{\"book_name\":\"test\"}" 最小长度: `0` 字符
 }
-
-
-
-
 
 // CreateApaasApplicationObjectRecordResp ...
-type CreateApaasApplicationObjectRecordResp struct { 
-ID string `json:"id,omitempty"` // 记录 ID
+type CreateApaasApplicationObjectRecordResp struct {
+	ID string `json:"id,omitempty"` // 记录 ID
 }
-
-
-
-
 
 // createApaasApplicationObjectRecordResp ...
-type createApaasApplicationObjectRecordResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateApaasApplicationObjectRecordResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createApaasApplicationObjectRecordResp struct {
+	Code  int64                                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                  `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateApaasApplicationObjectRecordResp `json:"data,omitempty"`
+	Error *ErrorDetail                            `json:"error,omitempty"`
 }
-
-
-
-

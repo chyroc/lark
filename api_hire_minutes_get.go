@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // GetHireMinutes 获取指定面试的面试速记明细记录
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/minutes/get
-// 
 func (r *HireService) GetHireMinutes(ctx context.Context, request *GetHireMinutesReq, options ...MethodOptionFunc) (*GetHireMinutesResp, *Response, error) {
-if r.cli.mock.mockHireGetHireMinutes != nil {
+	if r.cli.mock.mockHireGetHireMinutes != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#GetHireMinutes mock enable")
 		return r.cli.mock.mockHireGetHireMinutes(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockHireGetHireMinutes != nil {
 		Scope:                 "Hire",
 		API:                   "GetHireMinutes",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/minutes",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/minutes",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(getHireMinutesResp)
 
@@ -51,73 +49,49 @@ if r.cli.mock.mockHireGetHireMinutes != nil {
 func (r *Mock) MockHireGetHireMinutes(f func(ctx context.Context, request *GetHireMinutesReq, options ...MethodOptionFunc) (*GetHireMinutesResp, *Response, error)) {
 	r.mockHireGetHireMinutes = f
 }
+
 // UnMockHireGetHireMinutes un-mock HireGetHireMinutes method
 func (r *Mock) UnMockHireGetHireMinutes() {
 	r.mockHireGetHireMinutes = nil
 }
 
-
 // GetHireMinutesReq ...
-type GetHireMinutesReq struct { 
-InterviewID string `query:"interview_id" json:"-"` // 面试ID, 可根据接口[获取面试信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview/list)、[获取人才面试信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview/get_by_talent)获取示例值: 7085989097067563300
-PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: NzM5MTgyNjQyNDY2MDc4OTU0OA[
-PageSize *int64 `query:"page_size" json:"-"` // 分页大小, 表示本次请求获取的速记中的语句的最大数量示例值: 10默认值: `20` 取值范围: `1` ～ `100`
+type GetHireMinutesReq struct {
+	InterviewID string  `query:"interview_id" json:"-"` // 面试ID, 可根据接口[获取面试信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview/list)、[获取人才面试信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview/get_by_talent)获取示例值: 7085989097067563300
+	PageToken   *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: NzM5MTgyNjQyNDY2MDc4OTU0OA[
+	PageSize    *int64  `query:"page_size" json:"-"`    // 分页大小, 表示本次请求获取的速记中的语句的最大数量示例值: 10默认值: `20` 取值范围: `1` ～ `100`
 }
-
-
-
-
 
 // GetHireMinutesResp ...
-type GetHireMinutesResp struct { 
-Minutes *GetHireMinutesRespMinutes `json:"minutes,omitempty"` // 面试速记
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
+type GetHireMinutesResp struct {
+	Minutes   *GetHireMinutesRespMinutes `json:"minutes,omitempty"`    // 面试速记
+	PageToken string                     `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	HasMore   bool                       `json:"has_more,omitempty"`   // 是否还有更多项
 }
-
-
-
-
 
 // GetHireMinutesRespMinutes ...
-type GetHireMinutesRespMinutes struct { 
-Sentences []*GetHireMinutesRespMinutesSentence `json:"sentences,omitempty"` // 速记句子列表
+type GetHireMinutesRespMinutes struct {
+	Sentences []*GetHireMinutesRespMinutesSentence `json:"sentences,omitempty"` // 速记句子列表
 }
-
-
-
-
 
 // GetHireMinutesRespMinutesSentence ...
-type GetHireMinutesRespMinutesSentence struct { 
-Content string `json:"content,omitempty"` // 速记句子文本
-SpeakTime string `json:"speak_time,omitempty"` // 句子开始讲话的时间, 毫秒时间戳
-UserType int64 `json:"user_type,omitempty"` // 句子说话人的用户类型可选值有: 面试官候选人
-SpeakerName *GetHireMinutesRespMinutesSentenceSpeakerName `json:"speaker_name,omitempty"` // 句子说话人名字
+type GetHireMinutesRespMinutesSentence struct {
+	Content     string                                        `json:"content,omitempty"`      // 速记句子文本
+	SpeakTime   string                                        `json:"speak_time,omitempty"`   // 句子开始讲话的时间, 毫秒时间戳
+	UserType    int64                                         `json:"user_type,omitempty"`    // 句子说话人的用户类型可选值有: 面试官候选人
+	SpeakerName *GetHireMinutesRespMinutesSentenceSpeakerName `json:"speaker_name,omitempty"` // 句子说话人名字
 }
-
-
-
-
 
 // GetHireMinutesRespMinutesSentenceSpeakerName ...
-type GetHireMinutesRespMinutesSentenceSpeakerName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 说话人的中文名称
-EnUs string `json:"en_us,omitempty"` // 说话人的英文名称
+type GetHireMinutesRespMinutesSentenceSpeakerName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 说话人的中文名称
+	EnUs string `json:"en_us,omitempty"` // 说话人的英文名称
 }
-
-
-
-
 
 // getHireMinutesResp ...
-type getHireMinutesResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *GetHireMinutesResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type getHireMinutesResp struct {
+	Code  int64               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string              `json:"msg,omitempty"`  // 错误描述
+	Data  *GetHireMinutesResp `json:"data,omitempty"`
+	Error *ErrorDetail        `json:"error,omitempty"`
 }
-
-
-
-

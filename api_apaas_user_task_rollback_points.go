@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateApaasUserTaskRollbackPoints 查询当前任务可以退回的位置
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/user_task/rollback_points
-// 
 func (r *ApaasService) CreateApaasUserTaskRollbackPoints(ctx context.Context, request *CreateApaasUserTaskRollbackPointsReq, options ...MethodOptionFunc) (*CreateApaasUserTaskRollbackPointsResp, *Response, error) {
-if r.cli.mock.mockApaasCreateApaasUserTaskRollbackPoints != nil {
+	if r.cli.mock.mockApaasCreateApaasUserTaskRollbackPoints != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Apaas#CreateApaasUserTaskRollbackPoints mock enable")
 		return r.cli.mock.mockApaasCreateApaasUserTaskRollbackPoints(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockApaasCreateApaasUserTaskRollbackPoints != nil {
 		Scope:                 "Apaas",
 		API:                   "CreateApaasUserTaskRollbackPoints",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/apaas/v1/user_tasks/:task_id/rollback_points",
+		URL:                   r.cli.openBaseURL + "/open-apis/apaas/v1/user_tasks/:task_id/rollback_points",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createApaasUserTaskRollbackPointsResp)
 
@@ -51,60 +49,40 @@ if r.cli.mock.mockApaasCreateApaasUserTaskRollbackPoints != nil {
 func (r *Mock) MockApaasCreateApaasUserTaskRollbackPoints(f func(ctx context.Context, request *CreateApaasUserTaskRollbackPointsReq, options ...MethodOptionFunc) (*CreateApaasUserTaskRollbackPointsResp, *Response, error)) {
 	r.mockApaasCreateApaasUserTaskRollbackPoints = f
 }
+
 // UnMockApaasCreateApaasUserTaskRollbackPoints un-mock ApaasCreateApaasUserTaskRollbackPoints method
 func (r *Mock) UnMockApaasCreateApaasUserTaskRollbackPoints() {
 	r.mockApaasCreateApaasUserTaskRollbackPoints = nil
 }
 
-
 // CreateApaasUserTaskRollbackPointsReq ...
-type CreateApaasUserTaskRollbackPointsReq struct { 
-TaskID string `path:"task_id" json:"-"` // 任务ID, 可以通过[查询人工任务](/uAjLw4CM/ukTMukTMukTM/apaas-v1/user_task/query)获取示例值: "1234"
-OperatorUserID string `json:"operator_user_id,omitempty"` // 操作人kunlunUserID, 可通过Apaas用户管理页面获取示例值: "1234"
+type CreateApaasUserTaskRollbackPointsReq struct {
+	TaskID         string `path:"task_id" json:"-"`           // 任务ID, 可以通过[查询人工任务](/uAjLw4CM/ukTMukTMukTM/apaas-v1/user_task/query)获取示例值: "1234"
+	OperatorUserID string `json:"operator_user_id,omitempty"` // 操作人kunlunUserID, 可通过Apaas用户管理页面获取示例值: "1234"
 }
-
-
-
-
 
 // CreateApaasUserTaskRollbackPointsResp ...
-type CreateApaasUserTaskRollbackPointsResp struct { 
-Tasks []*CreateApaasUserTaskRollbackPointsRespTask `json:"tasks,omitempty"` // 任务列表
+type CreateApaasUserTaskRollbackPointsResp struct {
+	Tasks []*CreateApaasUserTaskRollbackPointsRespTask `json:"tasks,omitempty"` // 任务列表
 }
-
-
-
-
 
 // CreateApaasUserTaskRollbackPointsRespTask ...
-type CreateApaasUserTaskRollbackPointsRespTask struct { 
-ID string `json:"id,omitempty"` // 任务ID
-ActivityLabel []*CreateApaasUserTaskRollbackPointsRespTaskActivityLabel `json:"activity_label,omitempty"` // 任务对应的名称
-IsStart bool `json:"is_start,omitempty"` // 是否开始节点
+type CreateApaasUserTaskRollbackPointsRespTask struct {
+	ID            string                                                    `json:"id,omitempty"`             // 任务ID
+	ActivityLabel []*CreateApaasUserTaskRollbackPointsRespTaskActivityLabel `json:"activity_label,omitempty"` // 任务对应的名称
+	IsStart       bool                                                      `json:"is_start,omitempty"`       // 是否开始节点
 }
-
-
-
-
 
 // CreateApaasUserTaskRollbackPointsRespTaskActivityLabel ...
-type CreateApaasUserTaskRollbackPointsRespTaskActivityLabel struct { 
-LanguageCode string `json:"language_code,omitempty"` // 多语Code
-Text string `json:"text,omitempty"` // 多语对应的任务名称
+type CreateApaasUserTaskRollbackPointsRespTaskActivityLabel struct {
+	LanguageCode string `json:"language_code,omitempty"` // 多语Code
+	Text         string `json:"text,omitempty"`          // 多语对应的任务名称
 }
-
-
-
-
 
 // createApaasUserTaskRollbackPointsResp ...
-type createApaasUserTaskRollbackPointsResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateApaasUserTaskRollbackPointsResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createApaasUserTaskRollbackPointsResp struct {
+	Code  int64                                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                 `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateApaasUserTaskRollbackPointsResp `json:"data,omitempty"`
+	Error *ErrorDetail                           `json:"error,omitempty"`
 }
-
-
-
-

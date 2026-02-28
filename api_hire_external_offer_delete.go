@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // DeleteHireExternalOffer 根据外部 Offer ID 删除外部 Offer。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_offer/delete
-// 
 func (r *HireService) DeleteHireExternalOffer(ctx context.Context, request *DeleteHireExternalOfferReq, options ...MethodOptionFunc) (*DeleteHireExternalOfferResp, *Response, error) {
-if r.cli.mock.mockHireDeleteHireExternalOffer != nil {
+	if r.cli.mock.mockHireDeleteHireExternalOffer != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#DeleteHireExternalOffer mock enable")
 		return r.cli.mock.mockHireDeleteHireExternalOffer(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockHireDeleteHireExternalOffer != nil {
 		Scope:                 "Hire",
 		API:                   "DeleteHireExternalOffer",
 		Method:                "DELETE",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/external_offers/:external_offer_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/external_offers/:external_offer_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(deleteHireExternalOfferResp)
 
@@ -51,37 +49,24 @@ if r.cli.mock.mockHireDeleteHireExternalOffer != nil {
 func (r *Mock) MockHireDeleteHireExternalOffer(f func(ctx context.Context, request *DeleteHireExternalOfferReq, options ...MethodOptionFunc) (*DeleteHireExternalOfferResp, *Response, error)) {
 	r.mockHireDeleteHireExternalOffer = f
 }
+
 // UnMockHireDeleteHireExternalOffer un-mock HireDeleteHireExternalOffer method
 func (r *Mock) UnMockHireDeleteHireExternalOffer() {
 	r.mockHireDeleteHireExternalOffer = nil
 }
 
-
 // DeleteHireExternalOfferReq ...
-type DeleteHireExternalOfferReq struct { 
-ExternalOfferID string `path:"external_offer_id" json:"-"` // 外部 Offer ID, 可通过[查询外部 Offer 列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_offer/batch_query)接口获取示例值: "6960663240925956660"
+type DeleteHireExternalOfferReq struct {
+	ExternalOfferID string `path:"external_offer_id" json:"-"` // 外部 Offer ID, 可通过[查询外部 Offer 列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_offer/batch_query)接口获取示例值: "6960663240925956660"
 }
-
-
-
-
 
 // DeleteHireExternalOfferResp ...
-type DeleteHireExternalOfferResp struct { 
-}
-
-
-
-
+type DeleteHireExternalOfferResp struct{}
 
 // deleteHireExternalOfferResp ...
-type deleteHireExternalOfferResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *DeleteHireExternalOfferResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type deleteHireExternalOfferResp struct {
+	Code  int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                       `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteHireExternalOfferResp `json:"data,omitempty"`
+	Error *ErrorDetail                 `json:"error,omitempty"`
 }
-
-
-
-

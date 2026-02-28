@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // RemoveMailPublicMailboxToRecycleBin 将公共邮箱移至回收站
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/public_mailbox/remove_to_recycle_bin
-// 
 func (r *MailService) RemoveMailPublicMailboxToRecycleBin(ctx context.Context, request *RemoveMailPublicMailboxToRecycleBinReq, options ...MethodOptionFunc) (*RemoveMailPublicMailboxToRecycleBinResp, *Response, error) {
-if r.cli.mock.mockMailRemoveMailPublicMailboxToRecycleBin != nil {
+	if r.cli.mock.mockMailRemoveMailPublicMailboxToRecycleBin != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#RemoveMailPublicMailboxToRecycleBin mock enable")
 		return r.cli.mock.mockMailRemoveMailPublicMailboxToRecycleBin(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockMailRemoveMailPublicMailboxToRecycleBin != nil {
 		Scope:                 "Mail",
 		API:                   "RemoveMailPublicMailboxToRecycleBin",
 		Method:                "DELETE",
-		URL:   r.cli.openBaseURL + "/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/remove_to_recycle_bin",
+		URL:                   r.cli.openBaseURL + "/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/remove_to_recycle_bin",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(removeMailPublicMailboxToRecycleBinResp)
 
@@ -51,38 +49,25 @@ if r.cli.mock.mockMailRemoveMailPublicMailboxToRecycleBin != nil {
 func (r *Mock) MockMailRemoveMailPublicMailboxToRecycleBin(f func(ctx context.Context, request *RemoveMailPublicMailboxToRecycleBinReq, options ...MethodOptionFunc) (*RemoveMailPublicMailboxToRecycleBinResp, *Response, error)) {
 	r.mockMailRemoveMailPublicMailboxToRecycleBin = f
 }
+
 // UnMockMailRemoveMailPublicMailboxToRecycleBin un-mock MailRemoveMailPublicMailboxToRecycleBin method
 func (r *Mock) UnMockMailRemoveMailPublicMailboxToRecycleBin() {
 	r.mockMailRemoveMailPublicMailboxToRecycleBin = nil
 }
 
-
 // RemoveMailPublicMailboxToRecycleBinReq ...
-type RemoveMailPublicMailboxToRecycleBinReq struct { 
-PublicMailboxID string `path:"public_mailbox_id" json:"-"` // 公共邮箱地址示例值: "test_public_mailbox@xxx.xx"
-ToMailAddress *string `json:"to_mail_address,omitempty"` // 接收删除邮件的邮箱地址, 不填则删除该公共邮箱的邮件示例值: "user@xxx.xx"
+type RemoveMailPublicMailboxToRecycleBinReq struct {
+	PublicMailboxID string  `path:"public_mailbox_id" json:"-"` // 公共邮箱地址示例值: "test_public_mailbox@xxx.xx"
+	ToMailAddress   *string `json:"to_mail_address,omitempty"`  // 接收删除邮件的邮箱地址, 不填则删除该公共邮箱的邮件示例值: "user@xxx.xx"
 }
-
-
-
-
 
 // RemoveMailPublicMailboxToRecycleBinResp ...
-type RemoveMailPublicMailboxToRecycleBinResp struct { 
-}
-
-
-
-
+type RemoveMailPublicMailboxToRecycleBinResp struct{}
 
 // removeMailPublicMailboxToRecycleBinResp ...
-type removeMailPublicMailboxToRecycleBinResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *RemoveMailPublicMailboxToRecycleBinResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type removeMailPublicMailboxToRecycleBinResp struct {
+	Code  int64                                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                   `json:"msg,omitempty"`  // 错误描述
+	Data  *RemoveMailPublicMailboxToRecycleBinResp `json:"data,omitempty"`
+	Error *ErrorDetail                             `json:"error,omitempty"`
 }
-
-
-
-

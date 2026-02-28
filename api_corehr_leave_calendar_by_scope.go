@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // GetCorehrLeaveCalendarByScope 根据日历的适用范围, 获取工作日历 ID。适用范围包含工作地点, 工时制度等。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/calendar_by_scope
-// 
 func (r *CorehrService) GetCorehrLeaveCalendarByScope(ctx context.Context, request *GetCorehrLeaveCalendarByScopeReq, options ...MethodOptionFunc) (*GetCorehrLeaveCalendarByScopeResp, *Response, error) {
-if r.cli.mock.mockCorehrGetCorehrLeaveCalendarByScope != nil {
+	if r.cli.mock.mockCorehrGetCorehrLeaveCalendarByScope != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Corehr#GetCorehrLeaveCalendarByScope mock enable")
 		return r.cli.mock.mockCorehrGetCorehrLeaveCalendarByScope(ctx, request, options...)
 	}
@@ -35,12 +34,11 @@ if r.cli.mock.mockCorehrGetCorehrLeaveCalendarByScope != nil {
 		Scope:                 "Corehr",
 		API:                   "GetCorehrLeaveCalendarByScope",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/corehr/v1/leaves/calendar_by_scope",
+		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/leaves/calendar_by_scope",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getCorehrLeaveCalendarByScopeResp)
 
@@ -52,44 +50,32 @@ if r.cli.mock.mockCorehrGetCorehrLeaveCalendarByScope != nil {
 func (r *Mock) MockCorehrGetCorehrLeaveCalendarByScope(f func(ctx context.Context, request *GetCorehrLeaveCalendarByScopeReq, options ...MethodOptionFunc) (*GetCorehrLeaveCalendarByScopeResp, *Response, error)) {
 	r.mockCorehrGetCorehrLeaveCalendarByScope = f
 }
+
 // UnMockCorehrGetCorehrLeaveCalendarByScope un-mock CorehrGetCorehrLeaveCalendarByScope method
 func (r *Mock) UnMockCorehrGetCorehrLeaveCalendarByScope() {
 	r.mockCorehrGetCorehrLeaveCalendarByScope = nil
 }
 
-
 // GetCorehrLeaveCalendarByScopeReq ...
-type GetCorehrLeaveCalendarByScopeReq struct { 
-WkDepartmentID *string `query:"wk_department_id" json:"-"` // 用户所属部门的ID列表。可以通过[批量查询任职信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/list)获取所属部门的 ID示例值: "6722331851580982798"
-WkCountryRegionID *string `query:"wk_country_region_id" json:"-"` // 国家/地区 ID。可以通过[批量查询任职信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/list) 获取所属国家/地区 ID示例值: "6722331851580982798"
-WkEmployeeTypeID *string `query:"wk_employee_type_id" json:"-"` // 人员类型ID。可以通过[批量查询任职信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/list) 获取所属人员类型ID示例值: "6722331851580982798"
-WkWorkLocationID *string `query:"wk_work_location_id" json:"-"` // 工作地点ID。可以通过[批量查询任职信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/list) 获取工作地点ID示例值: "6722331851580982798"
-WkWorkingHoursTypeID *string `query:"wk_working_hours_type_id" json:"-"` // 工时制度ID。可以通过[批量查询任职信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/list) 获取工时制度ID示例值: "6722331851124982728"
-WkJobFamilyID *string `query:"wk_job_family_id" json:"-"` // 职务序列ID。可以通过[批量查询任职信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/list) 获取职务序列ID。示例值: "8234534456354534546"
-WkCompanyID *string `query:"wk_company_id" json:"-"` // 公司 ID。可以通过[批量查询任职信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/list)获取公司 ID示例值: "6235435355464465434"
+type GetCorehrLeaveCalendarByScopeReq struct {
+	WkDepartmentID       *string `query:"wk_department_id" json:"-"`         // 用户所属部门的ID列表。可以通过[批量查询任职信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/list)获取所属部门的 ID示例值: "6722331851580982798"
+	WkCountryRegionID    *string `query:"wk_country_region_id" json:"-"`     // 国家/地区 ID。可以通过[批量查询任职信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/list) 获取所属国家/地区 ID示例值: "6722331851580982798"
+	WkEmployeeTypeID     *string `query:"wk_employee_type_id" json:"-"`      // 人员类型ID。可以通过[批量查询任职信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/list) 获取所属人员类型ID示例值: "6722331851580982798"
+	WkWorkLocationID     *string `query:"wk_work_location_id" json:"-"`      // 工作地点ID。可以通过[批量查询任职信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/list) 获取工作地点ID示例值: "6722331851580982798"
+	WkWorkingHoursTypeID *string `query:"wk_working_hours_type_id" json:"-"` // 工时制度ID。可以通过[批量查询任职信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/list) 获取工时制度ID示例值: "6722331851124982728"
+	WkJobFamilyID        *string `query:"wk_job_family_id" json:"-"`         // 职务序列ID。可以通过[批量查询任职信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/list) 获取职务序列ID。示例值: "8234534456354534546"
+	WkCompanyID          *string `query:"wk_company_id" json:"-"`            // 公司 ID。可以通过[批量查询任职信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/list)获取公司 ID示例值: "6235435355464465434"
 }
-
-
-
-
 
 // GetCorehrLeaveCalendarByScopeResp ...
-type GetCorehrLeaveCalendarByScopeResp struct { 
-CalendarWkID string `json:"calendar_wk_id,omitempty"` // 工作日历id
+type GetCorehrLeaveCalendarByScopeResp struct {
+	CalendarWkID string `json:"calendar_wk_id,omitempty"` // 工作日历id
 }
-
-
-
-
 
 // getCorehrLeaveCalendarByScopeResp ...
-type getCorehrLeaveCalendarByScopeResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *GetCorehrLeaveCalendarByScopeResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type getCorehrLeaveCalendarByScopeResp struct {
+	Code  int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                             `json:"msg,omitempty"`  // 错误描述
+	Data  *GetCorehrLeaveCalendarByScopeResp `json:"data,omitempty"`
+	Error *ErrorDetail                       `json:"error,omitempty"`
 }
-
-
-
-

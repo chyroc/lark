@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateVCMeetingDefaultRoomCreate 该接口用于创建会议室。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uITNwYjLyUDM24iM1AjN
-// 
 func (r *VCMeetingService) CreateVCMeetingDefaultRoomCreate(ctx context.Context, request *CreateVCMeetingDefaultRoomCreateReq, options ...MethodOptionFunc) (*CreateVCMeetingDefaultRoomCreateResp, *Response, error) {
-if r.cli.mock.mockVCMeetingCreateVCMeetingDefaultRoomCreate != nil {
+	if r.cli.mock.mockVCMeetingCreateVCMeetingDefaultRoomCreate != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] VCMeeting#CreateVCMeetingDefaultRoomCreate mock enable")
 		return r.cli.mock.mockVCMeetingCreateVCMeetingDefaultRoomCreate(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockVCMeetingCreateVCMeetingDefaultRoomCreate != nil {
 		Scope:                 "VCMeeting",
 		API:                   "CreateVCMeetingDefaultRoomCreate",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/meeting_room/room/create",
+		URL:                   r.cli.openBaseURL + "/open-apis/meeting_room/room/create",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createVCMeetingDefaultRoomCreateResp)
 
@@ -51,43 +49,31 @@ if r.cli.mock.mockVCMeetingCreateVCMeetingDefaultRoomCreate != nil {
 func (r *Mock) MockVCMeetingCreateVCMeetingDefaultRoomCreate(f func(ctx context.Context, request *CreateVCMeetingDefaultRoomCreateReq, options ...MethodOptionFunc) (*CreateVCMeetingDefaultRoomCreateResp, *Response, error)) {
 	r.mockVCMeetingCreateVCMeetingDefaultRoomCreate = f
 }
+
 // UnMockVCMeetingCreateVCMeetingDefaultRoomCreate un-mock VCMeetingCreateVCMeetingDefaultRoomCreate method
 func (r *Mock) UnMockVCMeetingCreateVCMeetingDefaultRoomCreate() {
 	r.mockVCMeetingCreateVCMeetingDefaultRoomCreate = nil
 }
 
-
 // CreateVCMeetingDefaultRoomCreateReq ...
-type CreateVCMeetingDefaultRoomCreateReq struct { 
-BuildingID string `json:"building_id,omitempty"` // 会议室所在的建筑ID
-Floor string `json:"floor,omitempty"` // 会议室所在的建筑楼层
-Name string `json:"name,omitempty"` // 会议室名称
-Capacity int64 `json:"capacity,omitempty"` // 容量
-IsDisabled bool `json:"is_disabled,omitempty"` // 是否禁用
-CustomRoomID *string `json:"custom_room_id,omitempty"` // 租户自定义会议室ID
+type CreateVCMeetingDefaultRoomCreateReq struct {
+	BuildingID   string  `json:"building_id,omitempty"`    // 会议室所在的建筑ID
+	Floor        string  `json:"floor,omitempty"`          // 会议室所在的建筑楼层
+	Name         string  `json:"name,omitempty"`           // 会议室名称
+	Capacity     int64   `json:"capacity,omitempty"`       // 容量
+	IsDisabled   bool    `json:"is_disabled,omitempty"`    // 是否禁用
+	CustomRoomID *string `json:"custom_room_id,omitempty"` // 租户自定义会议室ID
 }
-
-
-
-
 
 // CreateVCMeetingDefaultRoomCreateResp ...
-type CreateVCMeetingDefaultRoomCreateResp struct { 
-RoomID string `json:"room_id,omitempty"` // 成功创建的会议室ID
+type CreateVCMeetingDefaultRoomCreateResp struct {
+	RoomID string `json:"room_id,omitempty"` // 成功创建的会议室ID
 }
-
-
-
-
 
 // createVCMeetingDefaultRoomCreateResp ...
-type createVCMeetingDefaultRoomCreateResp struct { 
-Code int64 `json:"code,omitempty"` // 返回码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 返回码的描述, "success" 表示成功, 其他为错误提示信息
-Data *CreateVCMeetingDefaultRoomCreateResp `json:"data,omitempty"` // 返回业务信息
-Error *ErrorDetail `json:"error,omitempty"` 
+type createVCMeetingDefaultRoomCreateResp struct {
+	Code  int64                                 `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg   string                                `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
+	Data  *CreateVCMeetingDefaultRoomCreateResp `json:"data,omitempty"` // 返回业务信息
+	Error *ErrorDetail                          `json:"error,omitempty"`
 }
-
-
-
-

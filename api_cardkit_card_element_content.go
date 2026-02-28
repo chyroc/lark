@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // UpdateCardkitCardElementContent 对卡片中的普通文本元素（tag 为 plain_text 的元素）或富文本组件（tag 为 markdown 的组件）传入全量文本内容, 以实现“打字机”式的文字输出效果。
@@ -36,9 +36,8 @@ import (
 // ![image.png](//sf3-cn.feishucdn.com/obj/open-platform-opendoc/6051c2a7d1df743858d11d2ae89d96a2_pTDWhbUysD.png?maxWidth=400)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card-element/content
-// 
 func (r *CardkitService) UpdateCardkitCardElementContent(ctx context.Context, request *UpdateCardkitCardElementContentReq, options ...MethodOptionFunc) (*UpdateCardkitCardElementContentResp, *Response, error) {
-if r.cli.mock.mockCardkitUpdateCardkitCardElementContent != nil {
+	if r.cli.mock.mockCardkitUpdateCardkitCardElementContent != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Cardkit#UpdateCardkitCardElementContent mock enable")
 		return r.cli.mock.mockCardkitUpdateCardkitCardElementContent(ctx, request, options...)
 	}
@@ -47,11 +46,10 @@ if r.cli.mock.mockCardkitUpdateCardkitCardElementContent != nil {
 		Scope:                 "Cardkit",
 		API:                   "UpdateCardkitCardElementContent",
 		Method:                "PUT",
-		URL:   r.cli.openBaseURL + "/open-apis/cardkit/v1/cards/:card_id/elements/:element_id/content",
+		URL:                   r.cli.openBaseURL + "/open-apis/cardkit/v1/cards/:card_id/elements/:element_id/content",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(updateCardkitCardElementContentResp)
 
@@ -63,41 +61,28 @@ if r.cli.mock.mockCardkitUpdateCardkitCardElementContent != nil {
 func (r *Mock) MockCardkitUpdateCardkitCardElementContent(f func(ctx context.Context, request *UpdateCardkitCardElementContentReq, options ...MethodOptionFunc) (*UpdateCardkitCardElementContentResp, *Response, error)) {
 	r.mockCardkitUpdateCardkitCardElementContent = f
 }
+
 // UnMockCardkitUpdateCardkitCardElementContent un-mock CardkitUpdateCardkitCardElementContent method
 func (r *Mock) UnMockCardkitUpdateCardkitCardElementContent() {
 	r.mockCardkitUpdateCardkitCardElementContent = nil
 }
 
-
 // UpdateCardkitCardElementContentReq ...
-type UpdateCardkitCardElementContentReq struct { 
-CardID string `path:"card_id" json:"-"` // 卡片实体 ID。通过[创建卡片实体](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card/create)获取示例值: "7355439197428236291" 长度范围: `1` ～ `20` 字符
-ElementID string `path:"element_id" json:"-"` // 卡片实体中, 普通文本元素或富文本组件的 ID。对应卡片 JSON 中的 `element_id` 属性或搭建工具中的组件 ID 属性, 由开发者自定义。注意: 仅支持[卡片 JSON 2.0 结构](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-structure)或卡片搭建工具搭建的[新版卡片](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/feishu-card-cardkit/cardkit-upgraded-version-card-release-notes)。- 对于搭建工具中的卡片, 此处仅支持传入富文本组件的组件 ID。即仅支持对富文本组件中的内容进行流式更新。示例值: "markdown_1" 长度范围: `1` ～ `20` 字符
-UUID *string `json:"uuid,omitempty"` // 幂等 ID, 可通过传入唯一的 UUID 以保证相同批次的操作只进行一次。示例值: "a0d69e20-1dd1-458b-k525-dfeca4015204" 长度范围: `1` ～ `64` 字符
-Content string `json:"content,omitempty"` // 新的全量文本内容。使用时请注意转义为字符串。注意: 若 content 中含有代码块, 你需将代码块前后的空格去掉, 否则可能导致代码渲染失败。- 若旧文本为传入的新文本的前缀子串, 新增文本将在旧文本末尾继续以打字机效果输出；若新旧文本前缀不同, 全量文本将直接上屏输出, 无打字机效果。示例值: "这是更新后的文本内容。将以打字机式的效果输出" 长度范围: `1` ～ `100000` 字符
-Sequence int64 `json:"sequence,omitempty"` // 操作卡片的序号。用于保证多次更新的时序性。注意: 请确保在通过卡片 OpenAPI 操作同一张卡片时, sequence 的值相较于上一次操作严格递增。 int32 范围（ `1`~`2147483647`）内的正整数。示例值: 1
+type UpdateCardkitCardElementContentReq struct {
+	CardID    string  `path:"card_id" json:"-"`    // 卡片实体 ID。通过[创建卡片实体](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card/create)获取示例值: "7355439197428236291" 长度范围: `1` ～ `20` 字符
+	ElementID string  `path:"element_id" json:"-"` // 卡片实体中, 普通文本元素或富文本组件的 ID。对应卡片 JSON 中的 `element_id` 属性或搭建工具中的组件 ID 属性, 由开发者自定义。注意: 仅支持[卡片 JSON 2.0 结构](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/card-json-v2-structure)或卡片搭建工具搭建的[新版卡片](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/feishu-cards/feishu-card-cardkit/cardkit-upgraded-version-card-release-notes)。- 对于搭建工具中的卡片, 此处仅支持传入富文本组件的组件 ID。即仅支持对富文本组件中的内容进行流式更新。示例值: "markdown_1" 长度范围: `1` ～ `20` 字符
+	UUID      *string `json:"uuid,omitempty"`      // 幂等 ID, 可通过传入唯一的 UUID 以保证相同批次的操作只进行一次。示例值: "a0d69e20-1dd1-458b-k525-dfeca4015204" 长度范围: `1` ～ `64` 字符
+	Content   string  `json:"content,omitempty"`   // 新的全量文本内容。使用时请注意转义为字符串。注意: 若 content 中含有代码块, 你需将代码块前后的空格去掉, 否则可能导致代码渲染失败。- 若旧文本为传入的新文本的前缀子串, 新增文本将在旧文本末尾继续以打字机效果输出；若新旧文本前缀不同, 全量文本将直接上屏输出, 无打字机效果。示例值: "这是更新后的文本内容。将以打字机式的效果输出" 长度范围: `1` ～ `100000` 字符
+	Sequence  int64   `json:"sequence,omitempty"`  // 操作卡片的序号。用于保证多次更新的时序性。注意: 请确保在通过卡片 OpenAPI 操作同一张卡片时, sequence 的值相较于上一次操作严格递增。 int32 范围（ `1`~`2147483647`）内的正整数。示例值: 1
 }
-
-
-
-
 
 // UpdateCardkitCardElementContentResp ...
-type UpdateCardkitCardElementContentResp struct { 
-}
-
-
-
-
+type UpdateCardkitCardElementContentResp struct{}
 
 // updateCardkitCardElementContentResp ...
-type updateCardkitCardElementContentResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *UpdateCardkitCardElementContentResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type updateCardkitCardElementContentResp struct {
+	Code  int64                                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                               `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateCardkitCardElementContentResp `json:"data,omitempty"`
+	Error *ErrorDetail                         `json:"error,omitempty"`
 }
-
-
-
-

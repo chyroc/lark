@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // DeleteApaasApplicationObjectRecord 删除对象中的指定记录
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/application-object-record/delete
-// 
 func (r *ApaasService) DeleteApaasApplicationObjectRecord(ctx context.Context, request *DeleteApaasApplicationObjectRecordReq, options ...MethodOptionFunc) (*DeleteApaasApplicationObjectRecordResp, *Response, error) {
-if r.cli.mock.mockApaasDeleteApaasApplicationObjectRecord != nil {
+	if r.cli.mock.mockApaasDeleteApaasApplicationObjectRecord != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Apaas#DeleteApaasApplicationObjectRecord mock enable")
 		return r.cli.mock.mockApaasDeleteApaasApplicationObjectRecord(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockApaasDeleteApaasApplicationObjectRecord != nil {
 		Scope:                 "Apaas",
 		API:                   "DeleteApaasApplicationObjectRecord",
 		Method:                "DELETE",
-		URL:   r.cli.openBaseURL + "/open-apis/apaas/v1/applications/:namespace/objects/:object_api_name/records/:id",
+		URL:                   r.cli.openBaseURL + "/open-apis/apaas/v1/applications/:namespace/objects/:object_api_name/records/:id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(deleteApaasApplicationObjectRecordResp)
 
@@ -51,39 +49,26 @@ if r.cli.mock.mockApaasDeleteApaasApplicationObjectRecord != nil {
 func (r *Mock) MockApaasDeleteApaasApplicationObjectRecord(f func(ctx context.Context, request *DeleteApaasApplicationObjectRecordReq, options ...MethodOptionFunc) (*DeleteApaasApplicationObjectRecordResp, *Response, error)) {
 	r.mockApaasDeleteApaasApplicationObjectRecord = f
 }
+
 // UnMockApaasDeleteApaasApplicationObjectRecord un-mock ApaasDeleteApaasApplicationObjectRecord method
 func (r *Mock) UnMockApaasDeleteApaasApplicationObjectRecord() {
 	r.mockApaasDeleteApaasApplicationObjectRecord = nil
 }
 
-
 // DeleteApaasApplicationObjectRecordReq ...
-type DeleteApaasApplicationObjectRecordReq struct { 
-Namespace string `path:"namespace" json:"-"` // 应用命名空间示例值: "package_test__c" 长度范围: `0` ～ `255` 字符
-ObjectApiName string `path:"object_api_name" json:"-"` // 对象唯一标识示例值: "user" 长度范围: `0` ～ `256` 字符
-ID string `path:"id" json:"-"` // 记录ID示例值: "1764024447556775"
+type DeleteApaasApplicationObjectRecordReq struct {
+	Namespace     string `path:"namespace" json:"-"`       // 应用命名空间示例值: "package_test__c" 长度范围: `0` ～ `255` 字符
+	ObjectApiName string `path:"object_api_name" json:"-"` // 对象唯一标识示例值: "user" 长度范围: `0` ～ `256` 字符
+	ID            string `path:"id" json:"-"`              // 记录ID示例值: "1764024447556775"
 }
-
-
-
-
 
 // DeleteApaasApplicationObjectRecordResp ...
-type DeleteApaasApplicationObjectRecordResp struct { 
-}
-
-
-
-
+type DeleteApaasApplicationObjectRecordResp struct{}
 
 // deleteApaasApplicationObjectRecordResp ...
-type deleteApaasApplicationObjectRecordResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *DeleteApaasApplicationObjectRecordResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type deleteApaasApplicationObjectRecordResp struct {
+	Code  int64                                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                  `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteApaasApplicationObjectRecordResp `json:"data,omitempty"`
+	Error *ErrorDetail                            `json:"error,omitempty"`
 }
-
-
-
-

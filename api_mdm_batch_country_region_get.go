@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // GetMDMBatchCountryRegion 通过mdmcode批量查询国家/地区信息。资源介绍请参考[概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/mdm-v3/country_region/resource-definition)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/mdm-v3/batch_country_region/get
-// 
 func (r *MDMService) GetMDMBatchCountryRegion(ctx context.Context, request *GetMDMBatchCountryRegionReq, options ...MethodOptionFunc) (*GetMDMBatchCountryRegionResp, *Response, error) {
-if r.cli.mock.mockMDMGetMDMBatchCountryRegion != nil {
+	if r.cli.mock.mockMDMGetMDMBatchCountryRegion != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] MDM#GetMDMBatchCountryRegion mock enable")
 		return r.cli.mock.mockMDMGetMDMBatchCountryRegion(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockMDMGetMDMBatchCountryRegion != nil {
 		Scope:                 "MDM",
 		API:                   "GetMDMBatchCountryRegion",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/mdm/v3/batch_country_region",
+		URL:                   r.cli.openBaseURL + "/open-apis/mdm/v3/batch_country_region",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(getMDMBatchCountryRegionResp)
 
@@ -51,89 +49,61 @@ if r.cli.mock.mockMDMGetMDMBatchCountryRegion != nil {
 func (r *Mock) MockMDMGetMDMBatchCountryRegion(f func(ctx context.Context, request *GetMDMBatchCountryRegionReq, options ...MethodOptionFunc) (*GetMDMBatchCountryRegionResp, *Response, error)) {
 	r.mockMDMGetMDMBatchCountryRegion = f
 }
+
 // UnMockMDMGetMDMBatchCountryRegion un-mock MDMGetMDMBatchCountryRegion method
 func (r *Mock) UnMockMDMGetMDMBatchCountryRegion() {
 	r.mockMDMGetMDMBatchCountryRegion = nil
 }
 
-
 // GetMDMBatchCountryRegionReq ...
-type GetMDMBatchCountryRegionReq struct { 
-Fields []string `query:"fields" json:"-"` // 需要的查询字段集示例值: name 长度范围: `1` ～ `100`
-IDs []string `query:"ids" json:"-"` // 主数据编码集示例值: MDCT00000001 长度范围: `1` ～ `100`
-Languages []string `query:"languages" json:"-"` // 希望返回的语言种类, 支持格式如下: 中文: zh-CN- 英文: en-US- 日文: ja-JP 对于多语文本字段, 传入特定语言, 将会返回对应语言文本示例值: en-US 长度范围: `0` ～ `100`
+type GetMDMBatchCountryRegionReq struct {
+	Fields    []string `query:"fields" json:"-"`    // 需要的查询字段集示例值: name 长度范围: `1` ～ `100`
+	IDs       []string `query:"ids" json:"-"`       // 主数据编码集示例值: MDCT00000001 长度范围: `1` ～ `100`
+	Languages []string `query:"languages" json:"-"` // 希望返回的语言种类, 支持格式如下: 中文: zh-CN- 英文: en-US- 日文: ja-JP 对于多语文本字段, 传入特定语言, 将会返回对应语言文本示例值: en-US 长度范围: `0` ～ `100`
 }
-
-
-
-
 
 // GetMDMBatchCountryRegionResp ...
-type GetMDMBatchCountryRegionResp struct { 
-Data []*GetMDMBatchCountryRegionRespData `json:"data,omitempty"` // 国家/地区目录列表
+type GetMDMBatchCountryRegionResp struct {
+	Data []*GetMDMBatchCountryRegionRespData `json:"data,omitempty"` // 国家/地区目录列表
 }
-
-
-
-
 
 // GetMDMBatchCountryRegionRespData ...
-type GetMDMBatchCountryRegionRespData struct { 
-Alpha3Code string `json:"alpha_3_code,omitempty"` // 三位字母代码。与ISO国家代码的三位代码一致。
-Alpha2Code string `json:"alpha_2_code,omitempty"` // 两位字母代码。与ISO国家代码的二位代码一致。
-NumericCode string `json:"numeric_code,omitempty"` // 数字代码。与ISO国家代码的Numeric代码一致
-Name *GetMDMBatchCountryRegionRespDataName `json:"name,omitempty"` // 国家/地区名称
-MDMCode string `json:"mdm_code,omitempty"` // 主数据编码（系统生成的唯一永久代码, 格式为“MDCT+8位数字”）
-FullName *GetMDMBatchCountryRegionRespDataFullName `json:"full_name,omitempty"` // 国家/地区全称
-GlobalCode string `json:"global_code,omitempty"` // 国际电话区号
-Status string `json:"status,omitempty"` // 是否生效。0代表否, 1代表是
-Continents *GetMDMBatchCountryRegionRespDataContinents `json:"continents,omitempty"` // 所属大洲。可选值如下 1-亚洲, 2-欧洲, 3-非洲, 4-北美洲, 5-南美洲, 6-大洋洲, 7-南极洲）
+type GetMDMBatchCountryRegionRespData struct {
+	Alpha3Code  string                                      `json:"alpha_3_code,omitempty"` // 三位字母代码。与ISO国家代码的三位代码一致。
+	Alpha2Code  string                                      `json:"alpha_2_code,omitempty"` // 两位字母代码。与ISO国家代码的二位代码一致。
+	NumericCode string                                      `json:"numeric_code,omitempty"` // 数字代码。与ISO国家代码的Numeric代码一致
+	Name        *GetMDMBatchCountryRegionRespDataName       `json:"name,omitempty"`         // 国家/地区名称
+	MDMCode     string                                      `json:"mdm_code,omitempty"`     // 主数据编码（系统生成的唯一永久代码, 格式为“MDCT+8位数字”）
+	FullName    *GetMDMBatchCountryRegionRespDataFullName   `json:"full_name,omitempty"`    // 国家/地区全称
+	GlobalCode  string                                      `json:"global_code,omitempty"`  // 国际电话区号
+	Status      string                                      `json:"status,omitempty"`       // 是否生效。0代表否, 1代表是
+	Continents  *GetMDMBatchCountryRegionRespDataContinents `json:"continents,omitempty"`   // 所属大洲。可选值如下 1-亚洲, 2-欧洲, 3-非洲, 4-北美洲, 5-南美洲, 6-大洋洲, 7-南极洲）
 }
-
-
-
-
 
 // GetMDMBatchCountryRegionRespDataContinents ...
-type GetMDMBatchCountryRegionRespDataContinents struct { 
-Value string `json:"value,omitempty"` // 入参languages中排序第一的语言对应的值。
-MultilingualName interface{} `json:"multilingual_name,omitempty"` // 入参languages中所有语言对应的值。
+type GetMDMBatchCountryRegionRespDataContinents struct {
+	Value            string      `json:"value,omitempty"`             // 入参languages中排序第一的语言对应的值。
+	MultilingualName interface{} `json:"multilingual_name,omitempty"` // 入参languages中所有语言对应的值。
 }
-
-
-
-
 
 // GetMDMBatchCountryRegionRespDataFullName ...
-type GetMDMBatchCountryRegionRespDataFullName struct { 
-Value string `json:"value,omitempty"` // 入参languages中排序第一的语言对应的值。
-MultilingualValue interface{} `json:"multilingual_value,omitempty"` // 入参languages中所有语言对应的值。
-ReturnLanguage string `json:"return_language,omitempty"` // value实际返回的值对应的语言, 如"zh-CN"
+type GetMDMBatchCountryRegionRespDataFullName struct {
+	Value             string      `json:"value,omitempty"`              // 入参languages中排序第一的语言对应的值。
+	MultilingualValue interface{} `json:"multilingual_value,omitempty"` // 入参languages中所有语言对应的值。
+	ReturnLanguage    string      `json:"return_language,omitempty"`    // value实际返回的值对应的语言, 如"zh-CN"
 }
-
-
-
-
 
 // GetMDMBatchCountryRegionRespDataName ...
-type GetMDMBatchCountryRegionRespDataName struct { 
-Value string `json:"value,omitempty"` // 入参languages中排序第一的语言对应的值。
-MultilingualValue interface{} `json:"multilingual_value,omitempty"` // 入参languages中所有语言对应的值。
-ReturnLanguage string `json:"return_language,omitempty"` // value实际返回的值对应的语言, 如"zh-CN"
+type GetMDMBatchCountryRegionRespDataName struct {
+	Value             string      `json:"value,omitempty"`              // 入参languages中排序第一的语言对应的值。
+	MultilingualValue interface{} `json:"multilingual_value,omitempty"` // 入参languages中所有语言对应的值。
+	ReturnLanguage    string      `json:"return_language,omitempty"`    // value实际返回的值对应的语言, 如"zh-CN"
 }
-
-
-
-
 
 // getMDMBatchCountryRegionResp ...
-type getMDMBatchCountryRegionResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *GetMDMBatchCountryRegionResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type getMDMBatchCountryRegionResp struct {
+	Code  int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                        `json:"msg,omitempty"`  // 错误描述
+	Data  *GetMDMBatchCountryRegionResp `json:"data,omitempty"`
+	Error *ErrorDetail                  `json:"error,omitempty"`
 }
-
-
-
-

@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListHireJobRequirementByID 根据「招聘需求ID」获取招聘需求信息, 支持批量查询。
@@ -26,9 +26,8 @@ import (
 // 注意: 本接口不返回审批状态为「审批中」的招聘需求信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_requirement/list_by_id
-// 
 func (r *HireService) ListHireJobRequirementByID(ctx context.Context, request *ListHireJobRequirementByIDReq, options ...MethodOptionFunc) (*ListHireJobRequirementByIDResp, *Response, error) {
-if r.cli.mock.mockHireListHireJobRequirementByID != nil {
+	if r.cli.mock.mockHireListHireJobRequirementByID != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#ListHireJobRequirementByID mock enable")
 		return r.cli.mock.mockHireListHireJobRequirementByID(ctx, request, options...)
 	}
@@ -37,11 +36,10 @@ if r.cli.mock.mockHireListHireJobRequirementByID != nil {
 		Scope:                 "Hire",
 		API:                   "ListHireJobRequirementByID",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/job_requirements/search",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/job_requirements/search",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(listHireJobRequirementByIDResp)
 
@@ -53,385 +51,253 @@ if r.cli.mock.mockHireListHireJobRequirementByID != nil {
 func (r *Mock) MockHireListHireJobRequirementByID(f func(ctx context.Context, request *ListHireJobRequirementByIDReq, options ...MethodOptionFunc) (*ListHireJobRequirementByIDResp, *Response, error)) {
 	r.mockHireListHireJobRequirementByID = f
 }
+
 // UnMockHireListHireJobRequirementByID un-mock HireListHireJobRequirementByID method
 func (r *Mock) UnMockHireListHireJobRequirementByID() {
 	r.mockHireListHireJobRequirementByID = nil
 }
 
-
 // ListHireJobRequirementByIDReq ...
-type ListHireJobRequirementByIDReq struct { 
-UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
-DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 指定查询结果中的部门 ID 类型。关于部门 ID 的详细介绍, 可参见[部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)。示例值: "open_department_id"可选值有: 由系统自动生成的部门 ID, ID 前缀固定为 od-, 在租户内全局唯一。支持用户自定义配置的部门 ID。自定义配置时可复用已删除的 department_id, 因此在未删除的部门范围内 department_id 具有唯一性。默认值: `open_department_id`
-JobLevelIDType *IDType `query:"job_level_id_type" json:"-"` // 此次调用中使用的「职级 ID」的类型示例值: "job_level_id"可选值有: 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。「飞书管理后台」适用的职级 ID, 通过[获取租户职级列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_level/list)接口获取默认值: `people_admin_job_level_id`
-JobFamilyIDType *IDType `query:"job_family_id_type" json:"-"` // 此次调用中使用的「序列 ID」的类型示例值: "people_admin_job_category_id"可选值有: 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。「飞书管理后台」适用的序列 ID, 通过[获取租户序列列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_family/list)接口获取默认值: `people_admin_job_category_id`
-EmployeeTypeIDType *IDType `query:"employee_type_id_type" json:"-"` // 此次调用中使用的「人员类型 ID」的类型示例值: "people_admin_employee_type_id"可选值有: 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。「飞书管理后台」适用的人员类型 ID, 通过[查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)接口获取默认值: `people_admin_employee_type_id`
-IDList []string `json:"id_list,omitempty"` // 招聘需求ID列表, 详情请参考: [获取招聘需求列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_requirement/list)不允许和招聘需求编号列表同时使用, 否则报错（详见错误码1002725）限制单次最大100条, 该字段和编号列表都不传则返回空示例值: ["6952811314255265796"]
-ShortCodeList []string `json:"short_code_list,omitempty"` // 招聘需求编号列表, 详情请参考: [获取招聘需求列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_requirement/list)不允许和招聘需求ID列表同时使用, 否则报错（详见错误码1002725）限制单次最大100条, 该字段和ID列表都不传则返回空示例值: ["R00407"]
+type ListHireJobRequirementByIDReq struct {
+	UserIDType         *IDType           `query:"user_id_type" json:"-"`          // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	DepartmentIDType   *DepartmentIDType `query:"department_id_type" json:"-"`    // 指定查询结果中的部门 ID 类型。关于部门 ID 的详细介绍, 可参见[部门ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview)。示例值: "open_department_id"可选值有: 由系统自动生成的部门 ID, ID 前缀固定为 od-, 在租户内全局唯一。支持用户自定义配置的部门 ID。自定义配置时可复用已删除的 department_id, 因此在未删除的部门范围内 department_id 具有唯一性。默认值: `open_department_id`
+	JobLevelIDType     *IDType           `query:"job_level_id_type" json:"-"`     // 此次调用中使用的「职级 ID」的类型示例值: "job_level_id"可选值有: 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。「飞书管理后台」适用的职级 ID, 通过[获取租户职级列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_level/list)接口获取默认值: `people_admin_job_level_id`
+	JobFamilyIDType    *IDType           `query:"job_family_id_type" json:"-"`    // 此次调用中使用的「序列 ID」的类型示例值: "people_admin_job_category_id"可选值有: 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。「飞书管理后台」适用的序列 ID, 通过[获取租户序列列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_family/list)接口获取默认值: `people_admin_job_category_id`
+	EmployeeTypeIDType *IDType           `query:"employee_type_id_type" json:"-"` // 此次调用中使用的「人员类型 ID」的类型示例值: "people_admin_employee_type_id"可选值有: 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。「飞书管理后台」适用的人员类型 ID, 通过[查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)接口获取默认值: `people_admin_employee_type_id`
+	IDList             []string          `json:"id_list,omitempty"`               // 招聘需求ID列表, 详情请参考: [获取招聘需求列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_requirement/list)不允许和招聘需求编号列表同时使用, 否则报错（详见错误码1002725）限制单次最大100条, 该字段和编号列表都不传则返回空示例值: ["6952811314255265796"]
+	ShortCodeList      []string          `json:"short_code_list,omitempty"`       // 招聘需求编号列表, 详情请参考: [获取招聘需求列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_requirement/list)不允许和招聘需求ID列表同时使用, 否则报错（详见错误码1002725）限制单次最大100条, 该字段和ID列表都不传则返回空示例值: ["R00407"]
 }
-
-
-
-
 
 // ListHireJobRequirementByIDResp ...
-type ListHireJobRequirementByIDResp struct { 
-Items []*ListHireJobRequirementByIDRespItem `json:"items,omitempty"` // 招聘需求列表
+type ListHireJobRequirementByIDResp struct {
+	Items []*ListHireJobRequirementByIDRespItem `json:"items,omitempty"` // 招聘需求列表
 }
-
-
-
-
 
 // ListHireJobRequirementByIDRespItem ...
-type ListHireJobRequirementByIDRespItem struct { 
-ID string `json:"id,omitempty"` // 招聘需求 ID
-ShortCode string `json:"short_code,omitempty"` // 招聘需求编号
-Name string `json:"name,omitempty"` // 需求名称
-DisplayProgress int64 `json:"display_progress,omitempty"` // 需求状态可选值有: 未开始进行中已取消已暂停已完成已超期
-HeadCount int64 `json:"head_count,omitempty"` // 需求人数
-RecruitmentType *ListHireJobRequirementByIDRespItemRecruitmentType `json:"recruitment_type,omitempty"` // 职位性质, 可在[枚举常量介绍](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/enum)文档中查看枚举值, 即将下线字段, 不建议使用, 推荐使用「employee_type」字段
-EmployeeType *ListHireJobRequirementByIDRespItemEmployeeType `json:"employee_type,omitempty"` // 人员类型
-MaxLevel *ListHireJobRequirementByIDRespItemMaxLevel `json:"max_level,omitempty"` // 最高职级
-MinLevel *ListHireJobRequirementByIDRespItemMinLevel `json:"min_level,omitempty"` // 最低职级
-Sequence *ListHireJobRequirementByIDRespItemSequence `json:"sequence,omitempty"` // 职位序列
-Category *HelpdeskCategory `json:"category,omitempty"` // 需求类型可选值有: 新增替换
-Department *ListHireJobRequirementByIDRespItemDepartment `json:"department,omitempty"` // 需求部门
-RecruiterList []*ListHireJobRequirementByIDRespItemRecruiter `json:"recruiter_list,omitempty"` // 需求负责人
-JrHiringManagers []*ListHireJobRequirementByIDRespItemJrHiringManager `json:"jr_hiring_managers,omitempty"` // 需求用人经理
-DirectLeaderList []*ListHireJobRequirementByIDRespItemDirectLeader `json:"direct_leader_list,omitempty"` // 直属上级
-StartTime string `json:"start_time,omitempty"` // 开始日期, 毫秒级时间戳
-Deadline string `json:"deadline,omitempty"` // 预计完成日期, 毫秒级时间戳
-Priority int64 `json:"priority,omitempty"` // 招聘优先级可选值有: 高中低
-RequiredDegree int64 `json:"required_degree,omitempty"` // 学历要求可选值有: 小学及以上初中及以上专职及以上高中及以上大专及以上本科及以上硕士及以上博士及以上不限
-MaxSalary string `json:"max_salary,omitempty"` // 月薪范围-最高薪资, 单位: K
-MinSalary string `json:"min_salary,omitempty"` // 月薪范围-最低薪资, 单位: K
-Address []*ListHireJobRequirementByIDRespItemAddre `json:"address,omitempty"` // 工作地点, 详情请参考: [获取地址列表](https://open.larkoffice.com/document/server-docs/hire-v1/recruitment-related-configuration/location/list)
-Description string `json:"description,omitempty"` // 需求描述
-CustomizedDataList []*ListHireJobRequirementByIDRespItemCustomizedData `json:"customized_data_list,omitempty"` // 自定义字段
-JobIDList []string `json:"job_id_list,omitempty"` // 关联职位 ID, 详情请参考: [获取职位信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/get)
-ProcessType int64 `json:"process_type,omitempty"` // 招聘需求支持的招聘类型可选值有: 社招校招
-JobType *ListHireJobRequirementByIDRespItemJobType `json:"job_type,omitempty"` // 职位类别, 详情请参考: [获取职位类别列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_type/list)
-CreateTime string `json:"create_time,omitempty"` // 创建时间, 毫秒级时间戳
-CreatorID string `json:"creator_id,omitempty"` // 创建人ID, 与入参`user_id_type`类型一致
-UpdateTime string `json:"update_time,omitempty"` // 更新时间, 毫秒级时间戳
-EmploymentJobID string `json:"employment_job_id,omitempty"` // 职务ID, 详情请查看: [查询单个职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/get)
-PositionID string `json:"position_id,omitempty"` // 岗位ID, 详情请查看: [查询岗位信息](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/position/query)（仅限飞书人事租户使用, 若链接无法打开, 则说明飞书人事未启用岗位, 请联系[技术支持](https://applink.feishu.cn/TLJpeNdW)开通）
-CompletionTime string `json:"completion_time,omitempty"` // 完成时间, 毫秒级时间戳, 只有当「需求状态」字段为”已完成“的情况下返回（灰度范围内的租户可见该字段）
-ApprovalStatus int64 `json:"approval_status,omitempty"` // 审批状态（灰度范围内的租户可见该字段）可选值有: 未发起审批中审批通过已撤回未通过
-CountData *ListHireJobRequirementByIDRespItemCountData `json:"count_data,omitempty"` // 招聘需求招聘进展统计数值
+type ListHireJobRequirementByIDRespItem struct {
+	ID                 string                                               `json:"id,omitempty"`                   // 招聘需求 ID
+	ShortCode          string                                               `json:"short_code,omitempty"`           // 招聘需求编号
+	Name               string                                               `json:"name,omitempty"`                 // 需求名称
+	DisplayProgress    int64                                                `json:"display_progress,omitempty"`     // 需求状态可选值有: 未开始进行中已取消已暂停已完成已超期
+	HeadCount          int64                                                `json:"head_count,omitempty"`           // 需求人数
+	RecruitmentType    *ListHireJobRequirementByIDRespItemRecruitmentType   `json:"recruitment_type,omitempty"`     // 职位性质, 可在[枚举常量介绍](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/enum)文档中查看枚举值, 即将下线字段, 不建议使用, 推荐使用「employee_type」字段
+	EmployeeType       *ListHireJobRequirementByIDRespItemEmployeeType      `json:"employee_type,omitempty"`        // 人员类型
+	MaxLevel           *ListHireJobRequirementByIDRespItemMaxLevel          `json:"max_level,omitempty"`            // 最高职级
+	MinLevel           *ListHireJobRequirementByIDRespItemMinLevel          `json:"min_level,omitempty"`            // 最低职级
+	Sequence           *ListHireJobRequirementByIDRespItemSequence          `json:"sequence,omitempty"`             // 职位序列
+	Category           *HelpdeskCategory                                    `json:"category,omitempty"`             // 需求类型可选值有: 新增替换
+	Department         *ListHireJobRequirementByIDRespItemDepartment        `json:"department,omitempty"`           // 需求部门
+	RecruiterList      []*ListHireJobRequirementByIDRespItemRecruiter       `json:"recruiter_list,omitempty"`       // 需求负责人
+	JrHiringManagers   []*ListHireJobRequirementByIDRespItemJrHiringManager `json:"jr_hiring_managers,omitempty"`   // 需求用人经理
+	DirectLeaderList   []*ListHireJobRequirementByIDRespItemDirectLeader    `json:"direct_leader_list,omitempty"`   // 直属上级
+	StartTime          string                                               `json:"start_time,omitempty"`           // 开始日期, 毫秒级时间戳
+	Deadline           string                                               `json:"deadline,omitempty"`             // 预计完成日期, 毫秒级时间戳
+	Priority           int64                                                `json:"priority,omitempty"`             // 招聘优先级可选值有: 高中低
+	RequiredDegree     int64                                                `json:"required_degree,omitempty"`      // 学历要求可选值有: 小学及以上初中及以上专职及以上高中及以上大专及以上本科及以上硕士及以上博士及以上不限
+	MaxSalary          string                                               `json:"max_salary,omitempty"`           // 月薪范围-最高薪资, 单位: K
+	MinSalary          string                                               `json:"min_salary,omitempty"`           // 月薪范围-最低薪资, 单位: K
+	Address            []*ListHireJobRequirementByIDRespItemAddre           `json:"address,omitempty"`              // 工作地点, 详情请参考: [获取地址列表](https://open.larkoffice.com/document/server-docs/hire-v1/recruitment-related-configuration/location/list)
+	Description        string                                               `json:"description,omitempty"`          // 需求描述
+	CustomizedDataList []*ListHireJobRequirementByIDRespItemCustomizedData  `json:"customized_data_list,omitempty"` // 自定义字段
+	JobIDList          []string                                             `json:"job_id_list,omitempty"`          // 关联职位 ID, 详情请参考: [获取职位信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/get)
+	ProcessType        int64                                                `json:"process_type,omitempty"`         // 招聘需求支持的招聘类型可选值有: 社招校招
+	JobType            *ListHireJobRequirementByIDRespItemJobType           `json:"job_type,omitempty"`             // 职位类别, 详情请参考: [获取职位类别列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_type/list)
+	CreateTime         string                                               `json:"create_time,omitempty"`          // 创建时间, 毫秒级时间戳
+	CreatorID          string                                               `json:"creator_id,omitempty"`           // 创建人ID, 与入参`user_id_type`类型一致
+	UpdateTime         string                                               `json:"update_time,omitempty"`          // 更新时间, 毫秒级时间戳
+	EmploymentJobID    string                                               `json:"employment_job_id,omitempty"`    // 职务ID, 详情请查看: [查询单个职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/get)
+	PositionID         string                                               `json:"position_id,omitempty"`          // 岗位ID, 详情请查看: [查询岗位信息](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/position/query)（仅限飞书人事租户使用, 若链接无法打开, 则说明飞书人事未启用岗位, 请联系[技术支持](https://applink.feishu.cn/TLJpeNdW)开通）
+	CompletionTime     string                                               `json:"completion_time,omitempty"`      // 完成时间, 毫秒级时间戳, 只有当「需求状态」字段为”已完成“的情况下返回（灰度范围内的租户可见该字段）
+	ApprovalStatus     int64                                                `json:"approval_status,omitempty"`      // 审批状态（灰度范围内的租户可见该字段）可选值有: 未发起审批中审批通过已撤回未通过
+	CountData          *ListHireJobRequirementByIDRespItemCountData         `json:"count_data,omitempty"`           // 招聘需求招聘进展统计数值
 }
-
-
-
-
 
 // ListHireJobRequirementByIDRespItemAddre ...
-type ListHireJobRequirementByIDRespItemAddre struct { 
-ID string `json:"id,omitempty"` // 工作地点 ID
-Name *ListHireJobRequirementByIDRespItemAddreName `json:"name,omitempty"` // 工作地点名称
+type ListHireJobRequirementByIDRespItemAddre struct {
+	ID   string                                       `json:"id,omitempty"`   // 工作地点 ID
+	Name *ListHireJobRequirementByIDRespItemAddreName `json:"name,omitempty"` // 工作地点名称
 }
-
-
-
-
 
 // ListHireJobRequirementByIDRespItemAddreName ...
-type ListHireJobRequirementByIDRespItemAddreName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 工作地点中文名称
-EnUs string `json:"en_us,omitempty"` // 工作地点英文名称
+type ListHireJobRequirementByIDRespItemAddreName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 工作地点中文名称
+	EnUs string `json:"en_us,omitempty"` // 工作地点英文名称
 }
-
-
-
-
 
 // ListHireJobRequirementByIDRespItemCountData ...
-type ListHireJobRequirementByIDRespItemCountData struct { 
-OfferCount int64 `json:"offer_count,omitempty"` // Offer 沟通中的数量
-PreHireCount int64 `json:"pre_hire_count,omitempty"` // 待入职中的数量
-CompleteCount int64 `json:"complete_count,omitempty"` // 已完成的数量
+type ListHireJobRequirementByIDRespItemCountData struct {
+	OfferCount    int64 `json:"offer_count,omitempty"`    // Offer 沟通中的数量
+	PreHireCount  int64 `json:"pre_hire_count,omitempty"` // 待入职中的数量
+	CompleteCount int64 `json:"complete_count,omitempty"` // 已完成的数量
 }
-
-
-
-
 
 // ListHireJobRequirementByIDRespItemCustomizedData ...
-type ListHireJobRequirementByIDRespItemCustomizedData struct { 
-ObjectID string `json:"object_id,omitempty"` // 自定义字段 ID
-Name *ListHireJobRequirementByIDRespItemCustomizedDataName `json:"name,omitempty"` // 字段名称
-ObjectType int64 `json:"object_type,omitempty"` // 字段类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块
-Value *ListHireJobRequirementByIDRespItemCustomizedDataValue `json:"value,omitempty"` // 自定义字段值
+type ListHireJobRequirementByIDRespItemCustomizedData struct {
+	ObjectID   string                                                 `json:"object_id,omitempty"`   // 自定义字段 ID
+	Name       *ListHireJobRequirementByIDRespItemCustomizedDataName  `json:"name,omitempty"`        // 字段名称
+	ObjectType int64                                                  `json:"object_type,omitempty"` // 字段类型可选值有: 单行文本多行文本单选多选日期月份选择年份选择时间段数字默认字段模块
+	Value      *ListHireJobRequirementByIDRespItemCustomizedDataValue `json:"value,omitempty"`       // 自定义字段值
 }
-
-
-
-
 
 // ListHireJobRequirementByIDRespItemCustomizedDataName ...
-type ListHireJobRequirementByIDRespItemCustomizedDataName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 字段中文名称
-EnUs string `json:"en_us,omitempty"` // 字段英文名称
+type ListHireJobRequirementByIDRespItemCustomizedDataName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 字段中文名称
+	EnUs string `json:"en_us,omitempty"` // 字段英文名称
 }
-
-
-
-
 
 // ListHireJobRequirementByIDRespItemCustomizedDataValue ...
-type ListHireJobRequirementByIDRespItemCustomizedDataValue struct { 
-Content string `json:"content,omitempty"` // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
-Option *ListHireJobRequirementByIDRespItemCustomizedDataValueOption `json:"option,omitempty"` // 当字段类型为单选时, 从此字段取值
-OptionList []*ListHireJobRequirementByIDRespItemCustomizedDataValueOption `json:"option_list,omitempty"` // 当字段类型为多选时, 从此字段取值
-TimeRange *ListHireJobRequirementByIDRespItemCustomizedDataValueTimeRange `json:"time_range,omitempty"` // 当字段类型为时间段时, 从此字段取值
-Time string `json:"time,omitempty"` // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是毫秒级时间戳
-Number string `json:"number,omitempty"` // 当字段类型为数字时, 从此字段取值
+type ListHireJobRequirementByIDRespItemCustomizedDataValue struct {
+	Content    string                                                          `json:"content,omitempty"`     // 当字段类型为单行文本、多行文本、模块、默认字段时, 从此字段取值
+	Option     *ListHireJobRequirementByIDRespItemCustomizedDataValueOption    `json:"option,omitempty"`      // 当字段类型为单选时, 从此字段取值
+	OptionList []*ListHireJobRequirementByIDRespItemCustomizedDataValueOption  `json:"option_list,omitempty"` // 当字段类型为多选时, 从此字段取值
+	TimeRange  *ListHireJobRequirementByIDRespItemCustomizedDataValueTimeRange `json:"time_range,omitempty"`  // 当字段类型为时间段时, 从此字段取值
+	Time       string                                                          `json:"time,omitempty"`        // 当字段类型为日期选择、月份选择、年份选择时, 从此字段取值, 该字段是毫秒级时间戳
+	Number     string                                                          `json:"number,omitempty"`      // 当字段类型为数字时, 从此字段取值
 }
-
-
-
-
 
 // ListHireJobRequirementByIDRespItemCustomizedDataValueOption ...
-type ListHireJobRequirementByIDRespItemCustomizedDataValueOption struct { 
-Key string `json:"key,omitempty"` // 选项 ID
-Name *ListHireJobRequirementByIDRespItemCustomizedDataValueOptionName `json:"name,omitempty"` // 选项名称
+type ListHireJobRequirementByIDRespItemCustomizedDataValueOption struct {
+	Key  string                                                           `json:"key,omitempty"`  // 选项 ID
+	Name *ListHireJobRequirementByIDRespItemCustomizedDataValueOptionName `json:"name,omitempty"` // 选项名称
 }
-
-
-
-
 
 // ListHireJobRequirementByIDRespItemCustomizedDataValueOptionName ...
-type ListHireJobRequirementByIDRespItemCustomizedDataValueOptionName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 选项中文名称
-EnUs string `json:"en_us,omitempty"` // 选项英文名称
+type ListHireJobRequirementByIDRespItemCustomizedDataValueOptionName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 选项中文名称
+	EnUs string `json:"en_us,omitempty"` // 选项英文名称
 }
-
-
-
-
 
 // ListHireJobRequirementByIDRespItemCustomizedDataValueTimeRange ...
-type ListHireJobRequirementByIDRespItemCustomizedDataValueTimeRange struct { 
-StartTime string `json:"start_time,omitempty"` // 开始时间, 毫秒级时间戳
-EndTime string `json:"end_time,omitempty"` // 结束时间, 毫秒级时间戳
+type ListHireJobRequirementByIDRespItemCustomizedDataValueTimeRange struct {
+	StartTime string `json:"start_time,omitempty"` // 开始时间, 毫秒级时间戳
+	EndTime   string `json:"end_time,omitempty"`   // 结束时间, 毫秒级时间戳
 }
-
-
-
-
 
 // ListHireJobRequirementByIDRespItemDepartment ...
-type ListHireJobRequirementByIDRespItemDepartment struct { 
-ID string `json:"id,omitempty"` // 需求部门 ID, 与入参中的`department_id_type`类型一致
-Name *ListHireJobRequirementByIDRespItemDepartmentName `json:"name,omitempty"` // 需求部门名称
+type ListHireJobRequirementByIDRespItemDepartment struct {
+	ID   string                                            `json:"id,omitempty"`   // 需求部门 ID, 与入参中的`department_id_type`类型一致
+	Name *ListHireJobRequirementByIDRespItemDepartmentName `json:"name,omitempty"` // 需求部门名称
 }
-
-
-
-
 
 // ListHireJobRequirementByIDRespItemDepartmentName ...
-type ListHireJobRequirementByIDRespItemDepartmentName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 需求部门中文名称
-EnUs string `json:"en_us,omitempty"` // 需求部门英文名称
+type ListHireJobRequirementByIDRespItemDepartmentName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 需求部门中文名称
+	EnUs string `json:"en_us,omitempty"` // 需求部门英文名称
 }
-
-
-
-
 
 // ListHireJobRequirementByIDRespItemDirectLeader ...
-type ListHireJobRequirementByIDRespItemDirectLeader struct { 
-ID string `json:"id,omitempty"` // 直属上级ID, 与入参`user_id_type`类型一致
-Name *ListHireJobRequirementByIDRespItemDirectLeaderName `json:"name,omitempty"` // 直属上级名称
+type ListHireJobRequirementByIDRespItemDirectLeader struct {
+	ID   string                                              `json:"id,omitempty"`   // 直属上级ID, 与入参`user_id_type`类型一致
+	Name *ListHireJobRequirementByIDRespItemDirectLeaderName `json:"name,omitempty"` // 直属上级名称
 }
-
-
-
-
 
 // ListHireJobRequirementByIDRespItemDirectLeaderName ...
-type ListHireJobRequirementByIDRespItemDirectLeaderName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 直属上级中文名称
-EnUs string `json:"en_us,omitempty"` // 直属上级英文名称
+type ListHireJobRequirementByIDRespItemDirectLeaderName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 直属上级中文名称
+	EnUs string `json:"en_us,omitempty"` // 直属上级英文名称
 }
-
-
-
-
 
 // ListHireJobRequirementByIDRespItemEmployeeType ...
-type ListHireJobRequirementByIDRespItemEmployeeType struct { 
-ID string `json:"id,omitempty"` // 人员类型ID, 与入参`employee_type_id_type` 类型一致
-Name *ListHireJobRequirementByIDRespItemEmployeeTypeName `json:"name,omitempty"` // 人员类型名称
+type ListHireJobRequirementByIDRespItemEmployeeType struct {
+	ID   string                                              `json:"id,omitempty"`   // 人员类型ID, 与入参`employee_type_id_type` 类型一致
+	Name *ListHireJobRequirementByIDRespItemEmployeeTypeName `json:"name,omitempty"` // 人员类型名称
 }
-
-
-
-
 
 // ListHireJobRequirementByIDRespItemEmployeeTypeName ...
-type ListHireJobRequirementByIDRespItemEmployeeTypeName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 人员类型中文名称
-EnUs string `json:"en_us,omitempty"` // 人员类型英文名称
+type ListHireJobRequirementByIDRespItemEmployeeTypeName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 人员类型中文名称
+	EnUs string `json:"en_us,omitempty"` // 人员类型英文名称
 }
-
-
-
-
 
 // ListHireJobRequirementByIDRespItemJobType ...
-type ListHireJobRequirementByIDRespItemJobType struct { 
-ID string `json:"id,omitempty"` // 职位类别ID
-Name *ListHireJobRequirementByIDRespItemJobTypeName `json:"name,omitempty"` // 职位类别名称
-ParentID string `json:"parent_id,omitempty"` // 父级职位类别ID
+type ListHireJobRequirementByIDRespItemJobType struct {
+	ID       string                                         `json:"id,omitempty"`        // 职位类别ID
+	Name     *ListHireJobRequirementByIDRespItemJobTypeName `json:"name,omitempty"`      // 职位类别名称
+	ParentID string                                         `json:"parent_id,omitempty"` // 父级职位类别ID
 }
-
-
-
-
 
 // ListHireJobRequirementByIDRespItemJobTypeName ...
-type ListHireJobRequirementByIDRespItemJobTypeName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 职位类别中文名称
-EnUs string `json:"en_us,omitempty"` // 职位类别英文名称
+type ListHireJobRequirementByIDRespItemJobTypeName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 职位类别中文名称
+	EnUs string `json:"en_us,omitempty"` // 职位类别英文名称
 }
-
-
-
-
 
 // ListHireJobRequirementByIDRespItemJrHiringManager ...
-type ListHireJobRequirementByIDRespItemJrHiringManager struct { 
-ID string `json:"id,omitempty"` // 需求用人经理ID, 与入参`user_id_type`类型一致
-Name *ListHireJobRequirementByIDRespItemJrHiringManagerName `json:"name,omitempty"` // 需求用人经理名称
+type ListHireJobRequirementByIDRespItemJrHiringManager struct {
+	ID   string                                                 `json:"id,omitempty"`   // 需求用人经理ID, 与入参`user_id_type`类型一致
+	Name *ListHireJobRequirementByIDRespItemJrHiringManagerName `json:"name,omitempty"` // 需求用人经理名称
 }
-
-
-
-
 
 // ListHireJobRequirementByIDRespItemJrHiringManagerName ...
-type ListHireJobRequirementByIDRespItemJrHiringManagerName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 需求用人经理中文名称
-EnUs string `json:"en_us,omitempty"` // 需求用人经理英文名称
+type ListHireJobRequirementByIDRespItemJrHiringManagerName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 需求用人经理中文名称
+	EnUs string `json:"en_us,omitempty"` // 需求用人经理英文名称
 }
-
-
-
-
 
 // ListHireJobRequirementByIDRespItemMaxLevel ...
-type ListHireJobRequirementByIDRespItemMaxLevel struct { 
-ID string `json:"id,omitempty"` // 最高职级 ID, 与入参`job_level_id_type` 类型一致
-Name *ListHireJobRequirementByIDRespItemMaxLevelName `json:"name,omitempty"` // 职级名称
+type ListHireJobRequirementByIDRespItemMaxLevel struct {
+	ID   string                                          `json:"id,omitempty"`   // 最高职级 ID, 与入参`job_level_id_type` 类型一致
+	Name *ListHireJobRequirementByIDRespItemMaxLevelName `json:"name,omitempty"` // 职级名称
 }
-
-
-
-
 
 // ListHireJobRequirementByIDRespItemMaxLevelName ...
-type ListHireJobRequirementByIDRespItemMaxLevelName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 职级中文名称
-EnUs string `json:"en_us,omitempty"` // 职级英文名称
+type ListHireJobRequirementByIDRespItemMaxLevelName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 职级中文名称
+	EnUs string `json:"en_us,omitempty"` // 职级英文名称
 }
-
-
-
-
 
 // ListHireJobRequirementByIDRespItemMinLevel ...
-type ListHireJobRequirementByIDRespItemMinLevel struct { 
-ID string `json:"id,omitempty"` // 最低职级 ID, 与入参`job_level_id_type` 类型一致
-Name *ListHireJobRequirementByIDRespItemMinLevelName `json:"name,omitempty"` // 职级名称
+type ListHireJobRequirementByIDRespItemMinLevel struct {
+	ID   string                                          `json:"id,omitempty"`   // 最低职级 ID, 与入参`job_level_id_type` 类型一致
+	Name *ListHireJobRequirementByIDRespItemMinLevelName `json:"name,omitempty"` // 职级名称
 }
-
-
-
-
 
 // ListHireJobRequirementByIDRespItemMinLevelName ...
-type ListHireJobRequirementByIDRespItemMinLevelName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 职级中文名称
-EnUs string `json:"en_us,omitempty"` // 职级英文名称
+type ListHireJobRequirementByIDRespItemMinLevelName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 职级中文名称
+	EnUs string `json:"en_us,omitempty"` // 职级英文名称
 }
-
-
-
-
 
 // ListHireJobRequirementByIDRespItemRecruiter ...
-type ListHireJobRequirementByIDRespItemRecruiter struct { 
-ID string `json:"id,omitempty"` // 需求负责人 ID, 与入参`user_id_type`类型一致
-Name *ListHireJobRequirementByIDRespItemRecruiterName `json:"name,omitempty"` // 需求负责人名称
+type ListHireJobRequirementByIDRespItemRecruiter struct {
+	ID   string                                           `json:"id,omitempty"`   // 需求负责人 ID, 与入参`user_id_type`类型一致
+	Name *ListHireJobRequirementByIDRespItemRecruiterName `json:"name,omitempty"` // 需求负责人名称
 }
-
-
-
-
 
 // ListHireJobRequirementByIDRespItemRecruiterName ...
-type ListHireJobRequirementByIDRespItemRecruiterName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 需求负责人中文名称
-EnUs string `json:"en_us,omitempty"` // 需求负责人英文名称
+type ListHireJobRequirementByIDRespItemRecruiterName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 需求负责人中文名称
+	EnUs string `json:"en_us,omitempty"` // 需求负责人英文名称
 }
-
-
-
-
 
 // ListHireJobRequirementByIDRespItemRecruitmentType ...
-type ListHireJobRequirementByIDRespItemRecruitmentType struct { 
-ID string `json:"id,omitempty"` // 职位性质  ID
-Name *ListHireJobRequirementByIDRespItemRecruitmentTypeName `json:"name,omitempty"` // 职位性质名称
+type ListHireJobRequirementByIDRespItemRecruitmentType struct {
+	ID   string                                                 `json:"id,omitempty"`   // 职位性质  ID
+	Name *ListHireJobRequirementByIDRespItemRecruitmentTypeName `json:"name,omitempty"` // 职位性质名称
 }
-
-
-
-
 
 // ListHireJobRequirementByIDRespItemRecruitmentTypeName ...
-type ListHireJobRequirementByIDRespItemRecruitmentTypeName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 职位性质中文名称
-EnUs string `json:"en_us,omitempty"` // 职位性质英文名称
+type ListHireJobRequirementByIDRespItemRecruitmentTypeName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 职位性质中文名称
+	EnUs string `json:"en_us,omitempty"` // 职位性质英文名称
 }
-
-
-
-
 
 // ListHireJobRequirementByIDRespItemSequence ...
-type ListHireJobRequirementByIDRespItemSequence struct { 
-ID string `json:"id,omitempty"` // 职位序列 ID, 与入参`job_family_id_type` 类型一致
-Name *ListHireJobRequirementByIDRespItemSequenceName `json:"name,omitempty"` // 职位序列名称
+type ListHireJobRequirementByIDRespItemSequence struct {
+	ID   string                                          `json:"id,omitempty"`   // 职位序列 ID, 与入参`job_family_id_type` 类型一致
+	Name *ListHireJobRequirementByIDRespItemSequenceName `json:"name,omitempty"` // 职位序列名称
 }
-
-
-
-
 
 // ListHireJobRequirementByIDRespItemSequenceName ...
-type ListHireJobRequirementByIDRespItemSequenceName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 职位序列中文名称
-EnUs string `json:"en_us,omitempty"` // 职位序列英文名称
+type ListHireJobRequirementByIDRespItemSequenceName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 职位序列中文名称
+	EnUs string `json:"en_us,omitempty"` // 职位序列英文名称
 }
-
-
-
-
 
 // listHireJobRequirementByIDResp ...
-type listHireJobRequirementByIDResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *ListHireJobRequirementByIDResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type listHireJobRequirementByIDResp struct {
+	Code  int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                          `json:"msg,omitempty"`  // 错误描述
+	Data  *ListHireJobRequirementByIDResp `json:"data,omitempty"`
+	Error *ErrorDetail                    `json:"error,omitempty"`
 }
-
-
-
-

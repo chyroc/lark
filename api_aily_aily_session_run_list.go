@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListAilySessionRun 该 API 用于列出某个飞书 Aily 应用的运行（Run）的详细信息；包括状态、结束时间等。
@@ -30,9 +30,8 @@ import (
 // - 运行（Run）: Aily 助手基于会话内消息进行意图判定、调用匹配的技能, 并返回技能执行后的结果消息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/aily-v1/aily_session-run/list
-// 
 func (r *AilyService) ListAilySessionRun(ctx context.Context, request *ListAilySessionRunReq, options ...MethodOptionFunc) (*ListAilySessionRunResp, *Response, error) {
-if r.cli.mock.mockAilyListAilySessionRun != nil {
+	if r.cli.mock.mockAilyListAilySessionRun != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Aily#ListAilySessionRun mock enable")
 		return r.cli.mock.mockAilyListAilySessionRun(ctx, request, options...)
 	}
@@ -41,12 +40,11 @@ if r.cli.mock.mockAilyListAilySessionRun != nil {
 		Scope:                 "Aily",
 		API:                   "ListAilySessionRun",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/aily/v1/sessions/:aily_session_id/runs",
+		URL:                   r.cli.openBaseURL + "/open-apis/aily/v1/sessions/:aily_session_id/runs",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(listAilySessionRunResp)
 
@@ -58,69 +56,49 @@ if r.cli.mock.mockAilyListAilySessionRun != nil {
 func (r *Mock) MockAilyListAilySessionRun(f func(ctx context.Context, request *ListAilySessionRunReq, options ...MethodOptionFunc) (*ListAilySessionRunResp, *Response, error)) {
 	r.mockAilyListAilySessionRun = f
 }
+
 // UnMockAilyListAilySessionRun un-mock AilyListAilySessionRun method
 func (r *Mock) UnMockAilyListAilySessionRun() {
 	r.mockAilyListAilySessionRun = nil
 }
 
-
 // ListAilySessionRunReq ...
-type ListAilySessionRunReq struct { 
-AilySessionID string `path:"aily_session_id" json:"-"` // 会话 ID；参考 [创建会话](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/aily-v1/aily_session/create) 接口示例值: "session_4dfunz7sp1g8m" 长度范围: `9` ～ `32` 字符- 正则校验: `session_[0-9a-hjkmnp-z]{1, 24}`
-PageSize *int64 `query:"page_size" json:"-"` // 本次请求获取的运行记录条数, 默认 20示例值: 20
-PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eVQrYzJBNDNONlk4VFZBZVlSdzlKdFJ4bVVHVExENDNKVHoxaVdiVnViQT0=
+type ListAilySessionRunReq struct {
+	AilySessionID string  `path:"aily_session_id" json:"-"` // 会话 ID；参考 [创建会话](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/aily-v1/aily_session/create) 接口示例值: "session_4dfunz7sp1g8m" 长度范围: `9` ～ `32` 字符- 正则校验: `session_[0-9a-hjkmnp-z]{1, 24}`
+	PageSize      *int64  `query:"page_size" json:"-"`      // 本次请求获取的运行记录条数, 默认 20示例值: 20
+	PageToken     *string `query:"page_token" json:"-"`     // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eVQrYzJBNDNONlk4VFZBZVlSdzlKdFJ4bVVHVExENDNKVHoxaVdiVnViQT0=
 }
-
-
-
-
 
 // ListAilySessionRunResp ...
-type ListAilySessionRunResp struct { 
-Runs []*ListAilySessionRunRespRun `json:"runs,omitempty"` // 运行列表
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
+type ListAilySessionRunResp struct {
+	Runs      []*ListAilySessionRunRespRun `json:"runs,omitempty"`       // 运行列表
+	PageToken string                       `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	HasMore   bool                         `json:"has_more,omitempty"`   // 是否还有更多项
 }
-
-
-
-
 
 // ListAilySessionRunRespRun ...
-type ListAilySessionRunRespRun struct { 
-ID string `json:"id,omitempty"` // 运行 ID
-CreatedAt string `json:"created_at,omitempty"` // 运行的创建时间, 毫秒时间戳
-AppID string `json:"app_id,omitempty"` // 应用 ID
-SessionID string `json:"session_id,omitempty"` // 会话 ID
-Status string `json:"status,omitempty"` // 状态
-StartedAt string `json:"started_at,omitempty"` // 开始时间, 毫秒时间戳
-EndedAt string `json:"ended_at,omitempty"` // 结束时间, 毫秒时间戳
-Error *ListAilySessionRunRespRunError `json:"error,omitempty"` // 失败时的错误信息
-Metadata string `json:"metadata,omitempty"` // 其他透传信息
+type ListAilySessionRunRespRun struct {
+	ID        string                          `json:"id,omitempty"`         // 运行 ID
+	CreatedAt string                          `json:"created_at,omitempty"` // 运行的创建时间, 毫秒时间戳
+	AppID     string                          `json:"app_id,omitempty"`     // 应用 ID
+	SessionID string                          `json:"session_id,omitempty"` // 会话 ID
+	Status    string                          `json:"status,omitempty"`     // 状态
+	StartedAt string                          `json:"started_at,omitempty"` // 开始时间, 毫秒时间戳
+	EndedAt   string                          `json:"ended_at,omitempty"`   // 结束时间, 毫秒时间戳
+	Error     *ListAilySessionRunRespRunError `json:"error,omitempty"`      // 失败时的错误信息
+	Metadata  string                          `json:"metadata,omitempty"`   // 其他透传信息
 }
-
-
-
-
 
 // ListAilySessionRunRespRunError ...
-type ListAilySessionRunRespRunError struct { 
-Code string `json:"code,omitempty"` // 错误码
-Message string `json:"message,omitempty"` // 错误信息
+type ListAilySessionRunRespRunError struct {
+	Code    string `json:"code,omitempty"`    // 错误码
+	Message string `json:"message,omitempty"` // 错误信息
 }
-
-
-
-
 
 // listAilySessionRunResp ...
-type listAilySessionRunResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *ListAilySessionRunResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type listAilySessionRunResp struct {
+	Code  int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                  `json:"msg,omitempty"`  // 错误描述
+	Data  *ListAilySessionRunResp `json:"data,omitempty"`
+	Error *ErrorDetail            `json:"error,omitempty"`
 }
-
-
-
-

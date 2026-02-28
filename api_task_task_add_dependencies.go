@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // AddTaskDependencies 为一个任务添加一个或多个依赖。可以添加任务的前置依赖和后置依赖。存在依赖关系的任务如果在同一个清单, 可以通过清单的甘特图来展示其依赖关系。
@@ -28,9 +28,8 @@ import (
 // 添加任务依赖需要调用身份拥有当前任务的编辑权限和所有被添加为依赖的任务的编辑权限。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/add_dependencies
-// 
 func (r *TaskService) AddTaskDependencies(ctx context.Context, request *AddTaskDependenciesReq, options ...MethodOptionFunc) (*AddTaskDependenciesResp, *Response, error) {
-if r.cli.mock.mockTaskAddTaskDependencies != nil {
+	if r.cli.mock.mockTaskAddTaskDependencies != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#AddTaskDependencies mock enable")
 		return r.cli.mock.mockTaskAddTaskDependencies(ctx, request, options...)
 	}
@@ -39,12 +38,11 @@ if r.cli.mock.mockTaskAddTaskDependencies != nil {
 		Scope:                 "Task",
 		API:                   "AddTaskDependencies",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/task/v2/tasks/:task_guid/add_dependencies",
+		URL:                   r.cli.openBaseURL + "/open-apis/task/v2/tasks/:task_guid/add_dependencies",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(addTaskDependenciesResp)
 
@@ -56,59 +54,39 @@ if r.cli.mock.mockTaskAddTaskDependencies != nil {
 func (r *Mock) MockTaskAddTaskDependencies(f func(ctx context.Context, request *AddTaskDependenciesReq, options ...MethodOptionFunc) (*AddTaskDependenciesResp, *Response, error)) {
 	r.mockTaskAddTaskDependencies = f
 }
+
 // UnMockTaskAddTaskDependencies un-mock TaskAddTaskDependencies method
 func (r *Mock) UnMockTaskAddTaskDependencies() {
 	r.mockTaskAddTaskDependencies = nil
 }
 
-
 // AddTaskDependenciesReq ...
-type AddTaskDependenciesReq struct { 
-TaskGuid string `path:"task_guid" json:"-"` // 任务GUID示例值: "93b7bd05-35e6-4371-b3c9-6b7cbd7100c0"
-Dependencies []*AddTaskDependenciesReqDependencie `json:"dependencies,omitempty"` // 要添加的依赖 长度范围: `1` ～ `50`
+type AddTaskDependenciesReq struct {
+	TaskGuid     string                               `path:"task_guid" json:"-"`     // 任务GUID示例值: "93b7bd05-35e6-4371-b3c9-6b7cbd7100c0"
+	Dependencies []*AddTaskDependenciesReqDependencie `json:"dependencies,omitempty"` // 要添加的依赖 长度范围: `1` ～ `50`
 }
-
-
-
-
 
 // AddTaskDependenciesReqDependencie ...
-type AddTaskDependenciesReqDependencie struct { 
-Type string `json:"type,omitempty"` // 依赖类型示例值: "next"可选值有: 前置依赖后置依赖
-TaskGuid string `json:"task_guid,omitempty"` // 依赖任务的GUID示例值: "93b7bd05-35e6-4371-b3c9-6b7cbd7100c0"
+type AddTaskDependenciesReqDependencie struct {
+	Type     string `json:"type,omitempty"`      // 依赖类型示例值: "next"可选值有: 前置依赖后置依赖
+	TaskGuid string `json:"task_guid,omitempty"` // 依赖任务的GUID示例值: "93b7bd05-35e6-4371-b3c9-6b7cbd7100c0"
 }
-
-
-
-
 
 // AddTaskDependenciesResp ...
-type AddTaskDependenciesResp struct { 
-Dependencies []*AddTaskDependenciesRespDependencie `json:"dependencies,omitempty"` // 被添加后任务的所有依赖
+type AddTaskDependenciesResp struct {
+	Dependencies []*AddTaskDependenciesRespDependencie `json:"dependencies,omitempty"` // 被添加后任务的所有依赖
 }
-
-
-
-
 
 // AddTaskDependenciesRespDependencie ...
-type AddTaskDependenciesRespDependencie struct { 
-Type string `json:"type,omitempty"` // 依赖类型可选值有: 前置依赖后置依赖
-TaskGuid string `json:"task_guid,omitempty"` // 依赖任务的GUID
+type AddTaskDependenciesRespDependencie struct {
+	Type     string `json:"type,omitempty"`      // 依赖类型可选值有: 前置依赖后置依赖
+	TaskGuid string `json:"task_guid,omitempty"` // 依赖任务的GUID
 }
-
-
-
-
 
 // addTaskDependenciesResp ...
-type addTaskDependenciesResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *AddTaskDependenciesResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type addTaskDependenciesResp struct {
+	Code  int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                   `json:"msg,omitempty"`  // 错误描述
+	Data  *AddTaskDependenciesResp `json:"data,omitempty"`
+	Error *ErrorDetail             `json:"error,omitempty"`
 }
-
-
-
-

@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // GetTaskTasklists 列取一个任务所在的所有清单的信息, 包括清单的GUID和所在自定义分组的GUID。
@@ -27,9 +27,8 @@ import (
 // 需要调用身份拥有任务的读取权限。详情见[任务功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/overview)中的“任务是如何鉴权的？”章节。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/tasklists
-// 
 func (r *TaskService) GetTaskTasklists(ctx context.Context, request *GetTaskTasklistsReq, options ...MethodOptionFunc) (*GetTaskTasklistsResp, *Response, error) {
-if r.cli.mock.mockTaskGetTaskTasklists != nil {
+	if r.cli.mock.mockTaskGetTaskTasklists != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#GetTaskTasklists mock enable")
 		return r.cli.mock.mockTaskGetTaskTasklists(ctx, request, options...)
 	}
@@ -38,12 +37,11 @@ if r.cli.mock.mockTaskGetTaskTasklists != nil {
 		Scope:                 "Task",
 		API:                   "GetTaskTasklists",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/task/v2/tasks/:task_guid/tasklists",
+		URL:                   r.cli.openBaseURL + "/open-apis/task/v2/tasks/:task_guid/tasklists",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getTaskTasklistsResp)
 
@@ -55,48 +53,32 @@ if r.cli.mock.mockTaskGetTaskTasklists != nil {
 func (r *Mock) MockTaskGetTaskTasklists(f func(ctx context.Context, request *GetTaskTasklistsReq, options ...MethodOptionFunc) (*GetTaskTasklistsResp, *Response, error)) {
 	r.mockTaskGetTaskTasklists = f
 }
+
 // UnMockTaskGetTaskTasklists un-mock TaskGetTaskTasklists method
 func (r *Mock) UnMockTaskGetTaskTasklists() {
 	r.mockTaskGetTaskTasklists = nil
 }
 
-
 // GetTaskTasklistsReq ...
-type GetTaskTasklistsReq struct { 
-TaskGuid string `path:"task_guid" json:"-"` // 要获取清单列表的任务的全局唯一ID示例值: "d300a75f-c56a-4be9-80d1-e47653028ceb"
+type GetTaskTasklistsReq struct {
+	TaskGuid string `path:"task_guid" json:"-"` // 要获取清单列表的任务的全局唯一ID示例值: "d300a75f-c56a-4be9-80d1-e47653028ceb"
 }
-
-
-
-
 
 // GetTaskTasklistsResp ...
-type GetTaskTasklistsResp struct { 
-Tasklists []*GetTaskTasklistsRespTasklist `json:"tasklists,omitempty"` // 任务所在清单的摘要信息
+type GetTaskTasklistsResp struct {
+	Tasklists []*GetTaskTasklistsRespTasklist `json:"tasklists,omitempty"` // 任务所在清单的摘要信息
 }
-
-
-
-
 
 // GetTaskTasklistsRespTasklist ...
-type GetTaskTasklistsRespTasklist struct { 
-TasklistGuid string `json:"tasklist_guid,omitempty"` // 任务所在清单的guid
-SectionGuid string `json:"section_guid,omitempty"` // 任务所在清单的自定义分组guid
+type GetTaskTasklistsRespTasklist struct {
+	TasklistGuid string `json:"tasklist_guid,omitempty"` // 任务所在清单的guid
+	SectionGuid  string `json:"section_guid,omitempty"`  // 任务所在清单的自定义分组guid
 }
-
-
-
-
 
 // getTaskTasklistsResp ...
-type getTaskTasklistsResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *GetTaskTasklistsResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type getTaskTasklistsResp struct {
+	Code  int64                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                `json:"msg,omitempty"`  // 错误描述
+	Data  *GetTaskTasklistsResp `json:"data,omitempty"`
+	Error *ErrorDetail          `json:"error,omitempty"`
 }
-
-
-
-

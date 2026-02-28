@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // DeleteCorehrPreHire 删除待入职人员, 删除后无法搜索到待入职人员信息, 请谨慎操作
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/delete
-// 
 func (r *CorehrService) DeleteCorehrPreHire(ctx context.Context, request *DeleteCorehrPreHireReq, options ...MethodOptionFunc) (*DeleteCorehrPreHireResp, *Response, error) {
-if r.cli.mock.mockCorehrDeleteCorehrPreHire != nil {
+	if r.cli.mock.mockCorehrDeleteCorehrPreHire != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Corehr#DeleteCorehrPreHire mock enable")
 		return r.cli.mock.mockCorehrDeleteCorehrPreHire(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockCorehrDeleteCorehrPreHire != nil {
 		Scope:                 "Corehr",
 		API:                   "DeleteCorehrPreHire",
 		Method:                "DELETE",
-		URL:   r.cli.openBaseURL + "/open-apis/corehr/v2/pre_hires/:pre_hire_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/pre_hires/:pre_hire_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(deleteCorehrPreHireResp)
 
@@ -51,37 +49,24 @@ if r.cli.mock.mockCorehrDeleteCorehrPreHire != nil {
 func (r *Mock) MockCorehrDeleteCorehrPreHire(f func(ctx context.Context, request *DeleteCorehrPreHireReq, options ...MethodOptionFunc) (*DeleteCorehrPreHireResp, *Response, error)) {
 	r.mockCorehrDeleteCorehrPreHire = f
 }
+
 // UnMockCorehrDeleteCorehrPreHire un-mock CorehrDeleteCorehrPreHire method
 func (r *Mock) UnMockCorehrDeleteCorehrPreHire() {
 	r.mockCorehrDeleteCorehrPreHire = nil
 }
 
-
 // DeleteCorehrPreHireReq ...
-type DeleteCorehrPreHireReq struct { 
-PreHireID string `path:"pre_hire_id" json:"-"` // 待入职ID, 可通过[搜索接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/search)获取示例值: "7345005664477775407"
+type DeleteCorehrPreHireReq struct {
+	PreHireID string `path:"pre_hire_id" json:"-"` // 待入职ID, 可通过[搜索接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/search)获取示例值: "7345005664477775407"
 }
-
-
-
-
 
 // DeleteCorehrPreHireResp ...
-type DeleteCorehrPreHireResp struct { 
-}
-
-
-
-
+type DeleteCorehrPreHireResp struct{}
 
 // deleteCorehrPreHireResp ...
-type deleteCorehrPreHireResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *DeleteCorehrPreHireResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type deleteCorehrPreHireResp struct {
+	Code  int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                   `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteCorehrPreHireResp `json:"data,omitempty"`
+	Error *ErrorDetail             `json:"error,omitempty"`
 }
-
-
-
-

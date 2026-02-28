@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // DeleteHireExternalBackgroundCheck 根据外部背调 ID 删除外部背调。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_background_check/delete
-// 
 func (r *HireService) DeleteHireExternalBackgroundCheck(ctx context.Context, request *DeleteHireExternalBackgroundCheckReq, options ...MethodOptionFunc) (*DeleteHireExternalBackgroundCheckResp, *Response, error) {
-if r.cli.mock.mockHireDeleteHireExternalBackgroundCheck != nil {
+	if r.cli.mock.mockHireDeleteHireExternalBackgroundCheck != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#DeleteHireExternalBackgroundCheck mock enable")
 		return r.cli.mock.mockHireDeleteHireExternalBackgroundCheck(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockHireDeleteHireExternalBackgroundCheck != nil {
 		Scope:                 "Hire",
 		API:                   "DeleteHireExternalBackgroundCheck",
 		Method:                "DELETE",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/external_background_checks/:external_background_check_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/external_background_checks/:external_background_check_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(deleteHireExternalBackgroundCheckResp)
 
@@ -51,37 +49,24 @@ if r.cli.mock.mockHireDeleteHireExternalBackgroundCheck != nil {
 func (r *Mock) MockHireDeleteHireExternalBackgroundCheck(f func(ctx context.Context, request *DeleteHireExternalBackgroundCheckReq, options ...MethodOptionFunc) (*DeleteHireExternalBackgroundCheckResp, *Response, error)) {
 	r.mockHireDeleteHireExternalBackgroundCheck = f
 }
+
 // UnMockHireDeleteHireExternalBackgroundCheck un-mock HireDeleteHireExternalBackgroundCheck method
 func (r *Mock) UnMockHireDeleteHireExternalBackgroundCheck() {
 	r.mockHireDeleteHireExternalBackgroundCheck = nil
 }
 
-
 // DeleteHireExternalBackgroundCheckReq ...
-type DeleteHireExternalBackgroundCheckReq struct { 
-ExternalBackgroundCheckID string `path:"external_background_check_id" json:"-"` // 外部背调 ID, 可通过[查询外部背调列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_background_check/batch_query)接口获取示例值: "6960663240925956660"
+type DeleteHireExternalBackgroundCheckReq struct {
+	ExternalBackgroundCheckID string `path:"external_background_check_id" json:"-"` // 外部背调 ID, 可通过[查询外部背调列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_background_check/batch_query)接口获取示例值: "6960663240925956660"
 }
-
-
-
-
 
 // DeleteHireExternalBackgroundCheckResp ...
-type DeleteHireExternalBackgroundCheckResp struct { 
-}
-
-
-
-
+type DeleteHireExternalBackgroundCheckResp struct{}
 
 // deleteHireExternalBackgroundCheckResp ...
-type deleteHireExternalBackgroundCheckResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *DeleteHireExternalBackgroundCheckResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type deleteHireExternalBackgroundCheckResp struct {
+	Code  int64                                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                 `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteHireExternalBackgroundCheckResp `json:"data,omitempty"`
+	Error *ErrorDetail                           `json:"error,omitempty"`
 }
-
-
-
-

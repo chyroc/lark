@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateAttendanceArchiveRuleDelReport 按月份、用户和归档规则ID直接删除归档报表行数据
@@ -26,9 +26,8 @@ import (
 // 页面无对应功能, 页面是通过导入并全量覆盖完成数据删除的
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/archive_rule/del_report
-// 
 func (r *AttendanceService) CreateAttendanceArchiveRuleDelReport(ctx context.Context, request *CreateAttendanceArchiveRuleDelReportReq, options ...MethodOptionFunc) (*CreateAttendanceArchiveRuleDelReportResp, *Response, error) {
-if r.cli.mock.mockAttendanceCreateAttendanceArchiveRuleDelReport != nil {
+	if r.cli.mock.mockAttendanceCreateAttendanceArchiveRuleDelReport != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Attendance#CreateAttendanceArchiveRuleDelReport mock enable")
 		return r.cli.mock.mockAttendanceCreateAttendanceArchiveRuleDelReport(ctx, request, options...)
 	}
@@ -37,12 +36,11 @@ if r.cli.mock.mockAttendanceCreateAttendanceArchiveRuleDelReport != nil {
 		Scope:                 "Attendance",
 		API:                   "CreateAttendanceArchiveRuleDelReport",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/attendance/v1/archive_rule/del_report",
+		URL:                   r.cli.openBaseURL + "/open-apis/attendance/v1/archive_rule/del_report",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(createAttendanceArchiveRuleDelReportResp)
 
@@ -54,41 +52,28 @@ if r.cli.mock.mockAttendanceCreateAttendanceArchiveRuleDelReport != nil {
 func (r *Mock) MockAttendanceCreateAttendanceArchiveRuleDelReport(f func(ctx context.Context, request *CreateAttendanceArchiveRuleDelReportReq, options ...MethodOptionFunc) (*CreateAttendanceArchiveRuleDelReportResp, *Response, error)) {
 	r.mockAttendanceCreateAttendanceArchiveRuleDelReport = f
 }
+
 // UnMockAttendanceCreateAttendanceArchiveRuleDelReport un-mock AttendanceCreateAttendanceArchiveRuleDelReport method
 func (r *Mock) UnMockAttendanceCreateAttendanceArchiveRuleDelReport() {
 	r.mockAttendanceCreateAttendanceArchiveRuleDelReport = nil
 }
 
-
 // CreateAttendanceArchiveRuleDelReportReq ...
-type CreateAttendanceArchiveRuleDelReportReq struct { 
-EmployeeType EmployeeType `query:"employee_type" json:"-"` // 请求体中的 user_ids 和响应体中的 user_id 的员工ID类型。如果没有后台管理权限, 可使用[通过手机号或邮箱获取用户 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/batch_get_id)* `employee_id `: 员工 employee ID, 即[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的用户 ID* `employee_no`: 员工工号, 即[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的工号示例值: employee_id
-Month string `json:"month,omitempty"` // 月份, 格式yyyyMM示例值: "202409"
-OperatorID string `json:"operator_id,omitempty"` // 操作者ID, 对应employee_type示例值: "a111xd"
-ArchiveRuleID string `json:"archive_rule_id,omitempty"` // 归档规则id, 可根据[查询所有归档规则](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/archive_rule/list)获得示例值: "1"
-UserIDs []string `json:"user_ids,omitempty"` // 用户id, 对应employee_type示例值: ["xx1uad"]
+type CreateAttendanceArchiveRuleDelReportReq struct {
+	EmployeeType  EmployeeType `query:"employee_type" json:"-"`   // 请求体中的 user_ids 和响应体中的 user_id 的员工ID类型。如果没有后台管理权限, 可使用[通过手机号或邮箱获取用户 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/batch_get_id)* `employee_id `: 员工 employee ID, 即[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的用户 ID* `employee_no`: 员工工号, 即[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的工号示例值: employee_id
+	Month         string       `json:"month,omitempty"`           // 月份, 格式yyyyMM示例值: "202409"
+	OperatorID    string       `json:"operator_id,omitempty"`     // 操作者ID, 对应employee_type示例值: "a111xd"
+	ArchiveRuleID string       `json:"archive_rule_id,omitempty"` // 归档规则id, 可根据[查询所有归档规则](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/archive_rule/list)获得示例值: "1"
+	UserIDs       []string     `json:"user_ids,omitempty"`        // 用户id, 对应employee_type示例值: ["xx1uad"]
 }
-
-
-
-
 
 // CreateAttendanceArchiveRuleDelReportResp ...
-type CreateAttendanceArchiveRuleDelReportResp struct { 
-}
-
-
-
-
+type CreateAttendanceArchiveRuleDelReportResp struct{}
 
 // createAttendanceArchiveRuleDelReportResp ...
-type createAttendanceArchiveRuleDelReportResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateAttendanceArchiveRuleDelReportResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createAttendanceArchiveRuleDelReportResp struct {
+	Code  int64                                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                    `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateAttendanceArchiveRuleDelReportResp `json:"data,omitempty"`
+	Error *ErrorDetail                              `json:"error,omitempty"`
 }
-
-
-
-

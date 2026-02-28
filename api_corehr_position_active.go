@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateCorehrPositionActive 对岗位进行启用或停用操作
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/position/active
-// 
 func (r *CorehrService) CreateCorehrPositionActive(ctx context.Context, request *CreateCorehrPositionActiveReq, options ...MethodOptionFunc) (*CreateCorehrPositionActiveResp, *Response, error) {
-if r.cli.mock.mockCorehrCreateCorehrPositionActive != nil {
+	if r.cli.mock.mockCorehrCreateCorehrPositionActive != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Corehr#CreateCorehrPositionActive mock enable")
 		return r.cli.mock.mockCorehrCreateCorehrPositionActive(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockCorehrCreateCorehrPositionActive != nil {
 		Scope:                 "Corehr",
 		API:                   "CreateCorehrPositionActive",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/corehr/v2/positions/active",
+		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/positions/active",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createCorehrPositionActiveResp)
 
@@ -51,39 +49,26 @@ if r.cli.mock.mockCorehrCreateCorehrPositionActive != nil {
 func (r *Mock) MockCorehrCreateCorehrPositionActive(f func(ctx context.Context, request *CreateCorehrPositionActiveReq, options ...MethodOptionFunc) (*CreateCorehrPositionActiveResp, *Response, error)) {
 	r.mockCorehrCreateCorehrPositionActive = f
 }
+
 // UnMockCorehrCreateCorehrPositionActive un-mock CorehrCreateCorehrPositionActive method
 func (r *Mock) UnMockCorehrCreateCorehrPositionActive() {
 	r.mockCorehrCreateCorehrPositionActive = nil
 }
 
-
 // CreateCorehrPositionActiveReq ...
-type CreateCorehrPositionActiveReq struct { 
-PositionID string `json:"position_id,omitempty"` // 岗位ID, 详细信息可通过[查询岗位信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/position/query)接口获得示例值: "6862995757234914823"
-Active bool `json:"active,omitempty"` // 可选值: true（启用）、false（停用）示例值: true
-EffectiveTime string `json:"effective_time,omitempty"` // 生效时间示例值: "2020-01-01" 长度范围: `10` ～ `10` 字符- 正则校验: `^((([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-(((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)-(0[1-9]|[12][0-9]|30))|(02-(0[1-9]|[1][0-9]|2[0-8]))))|((([0-9]{2})(0[48]|[2468][048]|[13579][26])|((0[48]|[2468][048]|[3579][26])00))-02-29))$`
+type CreateCorehrPositionActiveReq struct {
+	PositionID    string `json:"position_id,omitempty"`    // 岗位ID, 详细信息可通过[查询岗位信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/position/query)接口获得示例值: "6862995757234914823"
+	Active        bool   `json:"active,omitempty"`         // 可选值: true（启用）、false（停用）示例值: true
+	EffectiveTime string `json:"effective_time,omitempty"` // 生效时间示例值: "2020-01-01" 长度范围: `10` ～ `10` 字符- 正则校验: `^((([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-(((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)-(0[1-9]|[12][0-9]|30))|(02-(0[1-9]|[1][0-9]|2[0-8]))))|((([0-9]{2})(0[48]|[2468][048]|[13579][26])|((0[48]|[2468][048]|[3579][26])00))-02-29))$`
 }
-
-
-
-
 
 // CreateCorehrPositionActiveResp ...
-type CreateCorehrPositionActiveResp struct { 
-}
-
-
-
-
+type CreateCorehrPositionActiveResp struct{}
 
 // createCorehrPositionActiveResp ...
-type createCorehrPositionActiveResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateCorehrPositionActiveResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createCorehrPositionActiveResp struct {
+	Code  int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                          `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateCorehrPositionActiveResp `json:"data,omitempty"`
+	Error *ErrorDetail                    `json:"error,omitempty"`
 }
-
-
-
-

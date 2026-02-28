@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateCorehrJobGrade 创建职等
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/create
-// 
 func (r *CorehrService) CreateCorehrJobGrade(ctx context.Context, request *CreateCorehrJobGradeReq, options ...MethodOptionFunc) (*CreateCorehrJobGradeResp, *Response, error) {
-if r.cli.mock.mockCorehrCreateCorehrJobGrade != nil {
+	if r.cli.mock.mockCorehrCreateCorehrJobGrade != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Corehr#CreateCorehrJobGrade mock enable")
 		return r.cli.mock.mockCorehrCreateCorehrJobGrade(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockCorehrCreateCorehrJobGrade != nil {
 		Scope:                 "Corehr",
 		API:                   "CreateCorehrJobGrade",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/corehr/v2/job_grades",
+		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/job_grades",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createCorehrJobGradeResp)
 
@@ -51,62 +49,42 @@ if r.cli.mock.mockCorehrCreateCorehrJobGrade != nil {
 func (r *Mock) MockCorehrCreateCorehrJobGrade(f func(ctx context.Context, request *CreateCorehrJobGradeReq, options ...MethodOptionFunc) (*CreateCorehrJobGradeResp, *Response, error)) {
 	r.mockCorehrCreateCorehrJobGrade = f
 }
+
 // UnMockCorehrCreateCorehrJobGrade un-mock CorehrCreateCorehrJobGrade method
 func (r *Mock) UnMockCorehrCreateCorehrJobGrade() {
 	r.mockCorehrCreateCorehrJobGrade = nil
 }
 
-
 // CreateCorehrJobGradeReq ...
-type CreateCorehrJobGradeReq struct { 
-ClientToken *string `query:"client_token" json:"-"` // 根据client_token是否一致来判断是否为同一请求示例值: 12454646
-GradeOrder int64 `json:"grade_order,omitempty"` // 职等数值示例值: 9999 取值范围: `0` ～ `99999`
-Code *string `json:"code,omitempty"` // 编码示例值: "A01234"
-Names []*CreateCorehrJobGradeReqName `json:"names,omitempty"` // 名称- 名称不能包含「/」「；」「;」「\」、「'」字符 长度范围: `0` ～ `2`
-Descriptions []*CreateCorehrJobGradeReqDescription `json:"descriptions,omitempty"` // 描述 长度范围: `0` ～ `2`
+type CreateCorehrJobGradeReq struct {
+	ClientToken  *string                               `query:"client_token" json:"-"` // 根据client_token是否一致来判断是否为同一请求示例值: 12454646
+	GradeOrder   int64                                 `json:"grade_order,omitempty"`  // 职等数值示例值: 9999 取值范围: `0` ～ `99999`
+	Code         *string                               `json:"code,omitempty"`         // 编码示例值: "A01234"
+	Names        []*CreateCorehrJobGradeReqName        `json:"names,omitempty"`        // 名称- 名称不能包含「/」「；」「;」「\」、「'」字符 长度范围: `0` ～ `2`
+	Descriptions []*CreateCorehrJobGradeReqDescription `json:"descriptions,omitempty"` // 描述 长度范围: `0` ～ `2`
 }
-
-
-
-
 
 // CreateCorehrJobGradeReqDescription ...
-type CreateCorehrJobGradeReqDescription struct { 
-Lang string `json:"lang,omitempty"` // 语言编码（IETF BCP 47）示例值: "zh-CN"
-Value string `json:"value,omitempty"` // 文本内容示例值: "中文示例"
+type CreateCorehrJobGradeReqDescription struct {
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）示例值: "zh-CN"
+	Value string `json:"value,omitempty"` // 文本内容示例值: "中文示例"
 }
-
-
-
-
 
 // CreateCorehrJobGradeReqName ...
-type CreateCorehrJobGradeReqName struct { 
-Lang string `json:"lang,omitempty"` // 语言编码（IETF BCP 47）示例值: "zh-CN"
-Value string `json:"value,omitempty"` // 文本内容示例值: "中文示例"
+type CreateCorehrJobGradeReqName struct {
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）示例值: "zh-CN"
+	Value string `json:"value,omitempty"` // 文本内容示例值: "中文示例"
 }
-
-
-
-
 
 // CreateCorehrJobGradeResp ...
-type CreateCorehrJobGradeResp struct { 
-GradeID string `json:"grade_id,omitempty"` // 职等ID
+type CreateCorehrJobGradeResp struct {
+	GradeID string `json:"grade_id,omitempty"` // 职等ID
 }
-
-
-
-
 
 // createCorehrJobGradeResp ...
-type createCorehrJobGradeResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateCorehrJobGradeResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createCorehrJobGradeResp struct {
+	Code  int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                    `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateCorehrJobGradeResp `json:"data,omitempty"`
+	Error *ErrorDetail              `json:"error,omitempty"`
 }
-
-
-
-

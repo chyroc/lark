@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateHireReferralAccountEnable 根据账户 ID 启用账户, 启用后可通过[「内推账户余额变更事件」](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/events/assets_update)监听余额变更、通过[「全额提取内推账户余额」](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/withdraw)提取余额。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/enable
-// 
 func (r *HireService) CreateHireReferralAccountEnable(ctx context.Context, request *CreateHireReferralAccountEnableReq, options ...MethodOptionFunc) (*CreateHireReferralAccountEnableResp, *Response, error) {
-if r.cli.mock.mockHireCreateHireReferralAccountEnable != nil {
+	if r.cli.mock.mockHireCreateHireReferralAccountEnable != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#CreateHireReferralAccountEnable mock enable")
 		return r.cli.mock.mockHireCreateHireReferralAccountEnable(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockHireCreateHireReferralAccountEnable != nil {
 		Scope:                 "Hire",
 		API:                   "CreateHireReferralAccountEnable",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/referral_account/enable",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/referral_account/enable",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createHireReferralAccountEnableResp)
 
@@ -51,78 +49,50 @@ if r.cli.mock.mockHireCreateHireReferralAccountEnable != nil {
 func (r *Mock) MockHireCreateHireReferralAccountEnable(f func(ctx context.Context, request *CreateHireReferralAccountEnableReq, options ...MethodOptionFunc) (*CreateHireReferralAccountEnableResp, *Response, error)) {
 	r.mockHireCreateHireReferralAccountEnable = f
 }
+
 // UnMockHireCreateHireReferralAccountEnable un-mock HireCreateHireReferralAccountEnable method
 func (r *Mock) UnMockHireCreateHireReferralAccountEnable() {
 	r.mockHireCreateHireReferralAccountEnable = nil
 }
 
-
 // CreateHireReferralAccountEnableReq ...
-type CreateHireReferralAccountEnableReq struct { 
-ReferralAccountID *string `json:"referral_account_id,omitempty"` // 账户 ID, 注册账户后获取: [注册内推账户](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/create)示例值: "6942778198054125570"
+type CreateHireReferralAccountEnableReq struct {
+	ReferralAccountID *string `json:"referral_account_id,omitempty"` // 账户 ID, 注册账户后获取: [注册内推账户](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/referral_account/create)示例值: "6942778198054125570"
 }
-
-
-
-
 
 // CreateHireReferralAccountEnableResp ...
-type CreateHireReferralAccountEnableResp struct { 
-Account *CreateHireReferralAccountEnableRespAccount `json:"account,omitempty"` // 账户信息
+type CreateHireReferralAccountEnableResp struct {
+	Account *CreateHireReferralAccountEnableRespAccount `json:"account,omitempty"` // 账户信息
 }
-
-
-
-
 
 // CreateHireReferralAccountEnableRespAccount ...
-type CreateHireReferralAccountEnableRespAccount struct { 
-AccountID string `json:"account_id,omitempty"` // 账户 ID
-Assets *CreateHireReferralAccountEnableRespAccountAssets `json:"assets,omitempty"` // 账户资产
-Status int64 `json:"status,omitempty"` // 账户状态可选值有: 可用停用
+type CreateHireReferralAccountEnableRespAccount struct {
+	AccountID string                                            `json:"account_id,omitempty"` // 账户 ID
+	Assets    *CreateHireReferralAccountEnableRespAccountAssets `json:"assets,omitempty"`     // 账户资产
+	Status    int64                                             `json:"status,omitempty"`     // 账户状态可选值有: 可用停用
 }
-
-
-
-
 
 // CreateHireReferralAccountEnableRespAccountAssets ...
-type CreateHireReferralAccountEnableRespAccountAssets struct { 
-ConfirmedBonus *CreateHireReferralAccountEnableRespAccountAssetsConfirmedBonus `json:"confirmed_bonus,omitempty"` // 已确认的奖励
+type CreateHireReferralAccountEnableRespAccountAssets struct {
+	ConfirmedBonus *CreateHireReferralAccountEnableRespAccountAssetsConfirmedBonus `json:"confirmed_bonus,omitempty"` // 已确认的奖励
 }
-
-
-
-
 
 // CreateHireReferralAccountEnableRespAccountAssetsConfirmedBonus ...
-type CreateHireReferralAccountEnableRespAccountAssetsConfirmedBonus struct { 
-PointBonus int64 `json:"point_bonus,omitempty"` // 积分奖励
-CashBonus []*CreateHireReferralAccountEnableRespAccountAssetsConfirmedBonusCashBonu `json:"cash_bonus,omitempty"` // 现金奖励
+type CreateHireReferralAccountEnableRespAccountAssetsConfirmedBonus struct {
+	PointBonus int64                                                                     `json:"point_bonus,omitempty"` // 积分奖励
+	CashBonus  []*CreateHireReferralAccountEnableRespAccountAssetsConfirmedBonusCashBonu `json:"cash_bonus,omitempty"`  // 现金奖励
 }
-
-
-
-
 
 // CreateHireReferralAccountEnableRespAccountAssetsConfirmedBonusCashBonu ...
-type CreateHireReferralAccountEnableRespAccountAssetsConfirmedBonusCashBonu struct { 
-CurrencyType string `json:"currency_type,omitempty"` // 币种, 详情可查看: [枚举常量介绍](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/enum)中「币种（currency）枚举定义」
-Amount float64 `json:"amount,omitempty"` // 数额, 保留到小数点后两位
+type CreateHireReferralAccountEnableRespAccountAssetsConfirmedBonusCashBonu struct {
+	CurrencyType string  `json:"currency_type,omitempty"` // 币种, 详情可查看: [枚举常量介绍](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/enum)中「币种（currency）枚举定义」
+	Amount       float64 `json:"amount,omitempty"`        // 数额, 保留到小数点后两位
 }
-
-
-
-
 
 // createHireReferralAccountEnableResp ...
-type createHireReferralAccountEnableResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateHireReferralAccountEnableResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createHireReferralAccountEnableResp struct {
+	Code  int64                                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                               `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateHireReferralAccountEnableResp `json:"data,omitempty"`
+	Error *ErrorDetail                         `json:"error,omitempty"`
 }
-
-
-
-

@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateCalendarPrimarys 根据user id列表批量查询指定用户的主日历信息。
@@ -26,9 +26,8 @@ import (
 // 如果使用应用身份调用该接口, 则需要确保应用开启了[机器人能力](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-enable-bot-ability)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/primarys
-// 
 func (r *CalendarService) CreateCalendarPrimarys(ctx context.Context, request *CreateCalendarPrimarysReq, options ...MethodOptionFunc) (*CreateCalendarPrimarysResp, *Response, error) {
-if r.cli.mock.mockCalendarCreateCalendarPrimarys != nil {
+	if r.cli.mock.mockCalendarCreateCalendarPrimarys != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Calendar#CreateCalendarPrimarys mock enable")
 		return r.cli.mock.mockCalendarCreateCalendarPrimarys(ctx, request, options...)
 	}
@@ -37,12 +36,11 @@ if r.cli.mock.mockCalendarCreateCalendarPrimarys != nil {
 		Scope:                 "Calendar",
 		API:                   "CreateCalendarPrimarys",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/calendar/v4/calendars/primarys",
+		URL:                   r.cli.openBaseURL + "/open-apis/calendar/v4/calendars/primarys",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(createCalendarPrimarysResp)
 
@@ -54,67 +52,47 @@ if r.cli.mock.mockCalendarCreateCalendarPrimarys != nil {
 func (r *Mock) MockCalendarCreateCalendarPrimarys(f func(ctx context.Context, request *CreateCalendarPrimarysReq, options ...MethodOptionFunc) (*CreateCalendarPrimarysResp, *Response, error)) {
 	r.mockCalendarCreateCalendarPrimarys = f
 }
+
 // UnMockCalendarCreateCalendarPrimarys un-mock CalendarCreateCalendarPrimarys method
 func (r *Mock) UnMockCalendarCreateCalendarPrimarys() {
 	r.mockCalendarCreateCalendarPrimarys = nil
 }
 
-
 // CreateCalendarPrimarysReq ...
-type CreateCalendarPrimarysReq struct { 
-UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
-UserIDs []string `json:"user_ids,omitempty"` // 用户 ID 列表, 多个 ID 的取值格式为 `["ou_c186b6833e2d5faf2bc587e71ddabcef", "ou_7d8a6e6df7621556ce0d21922b676706"]`。需要传入与查询参数 user_id_type 相匹配的 ID。例如, `user_id_type=open_id` 时, 需要传入用户的 open_id。了解用户 ID 参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)。示例值: ["ou_c186b6833e2d5faf2bc587e71ddabcef"] 长度范围: `1` ～ `10`
+type CreateCalendarPrimarysReq struct {
+	UserIDType *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDs    []string `json:"user_ids,omitempty"`     // 用户 ID 列表, 多个 ID 的取值格式为 `["ou_c186b6833e2d5faf2bc587e71ddabcef", "ou_7d8a6e6df7621556ce0d21922b676706"]`。需要传入与查询参数 user_id_type 相匹配的 ID。例如, `user_id_type=open_id` 时, 需要传入用户的 open_id。了解用户 ID 参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)。示例值: ["ou_c186b6833e2d5faf2bc587e71ddabcef"] 长度范围: `1` ～ `10`
 }
-
-
-
-
 
 // CreateCalendarPrimarysResp ...
-type CreateCalendarPrimarysResp struct { 
-Calendars []*CreateCalendarPrimarysRespCalendar `json:"calendars,omitempty"` // 主日历列表。
+type CreateCalendarPrimarysResp struct {
+	Calendars []*CreateCalendarPrimarysRespCalendar `json:"calendars,omitempty"` // 主日历列表。
 }
-
-
-
-
 
 // CreateCalendarPrimarysRespCalendar ...
-type CreateCalendarPrimarysRespCalendar struct { 
-Calendar *CreateCalendarPrimarysRespCalendarCalendar `json:"calendar,omitempty"` // 日历实体信息。
-UserID string `json:"user_id,omitempty"` // 日历创建者的用户 ID, 根据查询参数 user_id_type 设置的 ID 类型进行返回。
+type CreateCalendarPrimarysRespCalendar struct {
+	Calendar *CreateCalendarPrimarysRespCalendarCalendar `json:"calendar,omitempty"` // 日历实体信息。
+	UserID   string                                      `json:"user_id,omitempty"`  // 日历创建者的用户 ID, 根据查询参数 user_id_type 设置的 ID 类型进行返回。
 }
-
-
-
-
 
 // CreateCalendarPrimarysRespCalendarCalendar ...
-type CreateCalendarPrimarysRespCalendarCalendar struct { 
-CalendarID string `json:"calendar_id,omitempty"` // 日历 ID。后续可以通过该 ID 查询、更新或删除日历信息。更多信息可参见[日历 ID 字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction)。
-Summary string `json:"summary,omitempty"` // 日历标题。
-Description string `json:"description,omitempty"` // 日历描述。
-Permissions CalendarPermission `json:"permissions,omitempty"` // 日历公开范围。可选值有: 私密仅展示忙闲信息公开, 他人可查看日程详情
-Color int64 `json:"color,omitempty"` // 日历颜色, 由颜色 RGB 值的 int32 表示。实际在客户端展示时会映射到色板上最接近的一种颜色, 且该字段仅对当前身份生效。
-Type CalendarType `json:"type,omitempty"` // 日历类型。可选值有: 未知类型用户或应用的主日历由用户或应用创建的共享日历用户绑定的谷歌日历会议室日历用户绑定的 Exchange 日历
-SummaryAlias string `json:"summary_alias,omitempty"` // 日历备注名, 仅对当前身份生效。
-IsDeleted bool `json:"is_deleted,omitempty"` // 对于当前身份, 日历是否已经被标记为删除。true表示已删除。
-IsThirdParty bool `json:"is_third_party,omitempty"` // 当前日历是否是第三方数据。三方日历及日程只支持读, 不支持写入。
-Role CalendarRole `json:"role,omitempty"` // 当前身份对于该日历的访问权限。可选值有: 未知权限游客, 只能看到忙碌、空闲信息订阅者, 可查看所有日程详情编辑者, 可创建及修改日程管理员, 可管理日历及共享设置
+type CreateCalendarPrimarysRespCalendarCalendar struct {
+	CalendarID   string             `json:"calendar_id,omitempty"`    // 日历 ID。后续可以通过该 ID 查询、更新或删除日历信息。更多信息可参见[日历 ID 字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar/introduction)。
+	Summary      string             `json:"summary,omitempty"`        // 日历标题。
+	Description  string             `json:"description,omitempty"`    // 日历描述。
+	Permissions  CalendarPermission `json:"permissions,omitempty"`    // 日历公开范围。可选值有: 私密仅展示忙闲信息公开, 他人可查看日程详情
+	Color        int64              `json:"color,omitempty"`          // 日历颜色, 由颜色 RGB 值的 int32 表示。实际在客户端展示时会映射到色板上最接近的一种颜色, 且该字段仅对当前身份生效。
+	Type         CalendarType       `json:"type,omitempty"`           // 日历类型。可选值有: 未知类型用户或应用的主日历由用户或应用创建的共享日历用户绑定的谷歌日历会议室日历用户绑定的 Exchange 日历
+	SummaryAlias string             `json:"summary_alias,omitempty"`  // 日历备注名, 仅对当前身份生效。
+	IsDeleted    bool               `json:"is_deleted,omitempty"`     // 对于当前身份, 日历是否已经被标记为删除。true表示已删除。
+	IsThirdParty bool               `json:"is_third_party,omitempty"` // 当前日历是否是第三方数据。三方日历及日程只支持读, 不支持写入。
+	Role         CalendarRole       `json:"role,omitempty"`           // 当前身份对于该日历的访问权限。可选值有: 未知权限游客, 只能看到忙碌、空闲信息订阅者, 可查看所有日程详情编辑者, 可创建及修改日程管理员, 可管理日历及共享设置
 }
-
-
-
-
 
 // createCalendarPrimarysResp ...
-type createCalendarPrimarysResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateCalendarPrimarysResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createCalendarPrimarysResp struct {
+	Code  int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                      `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateCalendarPrimarysResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }
-
-
-
-

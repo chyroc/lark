@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // GetIMBizEntityTagRelation 查询实体与标签的绑定关系
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/group/im-v2/biz_entity_tag_relation/get
-// 
 func (r *IMService) GetIMBizEntityTagRelation(ctx context.Context, request *GetIMBizEntityTagRelationReq, options ...MethodOptionFunc) (*GetIMBizEntityTagRelationResp, *Response, error) {
-if r.cli.mock.mockIMGetIMBizEntityTagRelation != nil {
+	if r.cli.mock.mockIMGetIMBizEntityTagRelation != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] IM#GetIMBizEntityTagRelation mock enable")
 		return r.cli.mock.mockIMGetIMBizEntityTagRelation(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockIMGetIMBizEntityTagRelation != nil {
 		Scope:                 "IM",
 		API:                   "GetIMBizEntityTagRelation",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/im/v2/biz_entity_tag_relation",
+		URL:                   r.cli.openBaseURL + "/open-apis/im/v2/biz_entity_tag_relation",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(getIMBizEntityTagRelationResp)
 
@@ -51,73 +49,49 @@ if r.cli.mock.mockIMGetIMBizEntityTagRelation != nil {
 func (r *Mock) MockIMGetIMBizEntityTagRelation(f func(ctx context.Context, request *GetIMBizEntityTagRelationReq, options ...MethodOptionFunc) (*GetIMBizEntityTagRelationResp, *Response, error)) {
 	r.mockIMGetIMBizEntityTagRelation = f
 }
+
 // UnMockIMGetIMBizEntityTagRelation un-mock IMGetIMBizEntityTagRelation method
 func (r *Mock) UnMockIMGetIMBizEntityTagRelation() {
 	r.mockIMGetIMBizEntityTagRelation = nil
 }
 
-
 // GetIMBizEntityTagRelationReq ...
-type GetIMBizEntityTagRelationReq struct { 
-TagBizType string `query:"tag_biz_type" json:"-"` // 业务类型示例值: chat可选值有: chat类型
-BizEntityID string `query:"biz_entity_id" json:"-"` // 业务实体id示例值: 71616xxxx
+type GetIMBizEntityTagRelationReq struct {
+	TagBizType  string `query:"tag_biz_type" json:"-"`  // 业务类型示例值: chat可选值有: chat类型
+	BizEntityID string `query:"biz_entity_id" json:"-"` // 业务实体id示例值: 71616xxxx
 }
-
-
-
-
 
 // GetIMBizEntityTagRelationResp ...
-type GetIMBizEntityTagRelationResp struct { 
-TagInfoWithBindVersions []*GetIMBizEntityTagRelationRespTagInfoWithBindVersion `json:"tag_info_with_bind_versions,omitempty"` // 标签内容及绑定时间
+type GetIMBizEntityTagRelationResp struct {
+	TagInfoWithBindVersions []*GetIMBizEntityTagRelationRespTagInfoWithBindVersion `json:"tag_info_with_bind_versions,omitempty"` // 标签内容及绑定时间
 }
-
-
-
-
 
 // GetIMBizEntityTagRelationRespTagInfoWithBindVersion ...
-type GetIMBizEntityTagRelationRespTagInfoWithBindVersion struct { 
-TagInfo *GetIMBizEntityTagRelationRespTagInfoWithBindVersionTagInfo `json:"tag_info,omitempty"` // 标签内容
-BindVersion string `json:"bind_version,omitempty"` // 绑定时间
+type GetIMBizEntityTagRelationRespTagInfoWithBindVersion struct {
+	TagInfo     *GetIMBizEntityTagRelationRespTagInfoWithBindVersionTagInfo `json:"tag_info,omitempty"`     // 标签内容
+	BindVersion string                                                      `json:"bind_version,omitempty"` // 绑定时间
 }
-
-
-
-
 
 // GetIMBizEntityTagRelationRespTagInfoWithBindVersionTagInfo ...
-type GetIMBizEntityTagRelationRespTagInfoWithBindVersionTagInfo struct { 
-ID string `json:"id,omitempty"` // id
-TagType string `json:"tag_type,omitempty"` // 标签类型
-Name string `json:"name,omitempty"` // name
-I18nNames []*GetIMBizEntityTagRelationRespTagInfoWithBindVersionTagInfoI18nName `json:"i18n_names,omitempty"` // i18n name
-CreateTime string `json:"create_time,omitempty"` // 创建时间
-UpdateTime string `json:"update_time,omitempty"` // 更新时间
+type GetIMBizEntityTagRelationRespTagInfoWithBindVersionTagInfo struct {
+	ID         string                                                                `json:"id,omitempty"`          // id
+	TagType    string                                                                `json:"tag_type,omitempty"`    // 标签类型
+	Name       string                                                                `json:"name,omitempty"`        // name
+	I18nNames  []*GetIMBizEntityTagRelationRespTagInfoWithBindVersionTagInfoI18nName `json:"i18n_names,omitempty"`  // i18n name
+	CreateTime string                                                                `json:"create_time,omitempty"` // 创建时间
+	UpdateTime string                                                                `json:"update_time,omitempty"` // 更新时间
 }
-
-
-
-
 
 // GetIMBizEntityTagRelationRespTagInfoWithBindVersionTagInfoI18nName ...
-type GetIMBizEntityTagRelationRespTagInfoWithBindVersionTagInfoI18nName struct { 
-Locale string `json:"locale,omitempty"` // 语言
-Name string `json:"name,omitempty"` // 名称
+type GetIMBizEntityTagRelationRespTagInfoWithBindVersionTagInfoI18nName struct {
+	Locale string `json:"locale,omitempty"` // 语言
+	Name   string `json:"name,omitempty"`   // 名称
 }
-
-
-
-
 
 // getIMBizEntityTagRelationResp ...
-type getIMBizEntityTagRelationResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *GetIMBizEntityTagRelationResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type getIMBizEntityTagRelationResp struct {
+	Code  int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                         `json:"msg,omitempty"`  // 错误描述
+	Data  *GetIMBizEntityTagRelationResp `json:"data,omitempty"`
+	Error *ErrorDetail                   `json:"error,omitempty"`
 }
-
-
-
-

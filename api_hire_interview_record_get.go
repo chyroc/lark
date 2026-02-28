@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // GetHireInterviewRecord 获取面试评价详细信息, 如面试结论、面试得分和面试官等信息（含模块评价）。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/hire-v2/interview_record/get
-// 
 func (r *HireService) GetHireInterviewRecord(ctx context.Context, request *GetHireInterviewRecordReq, options ...MethodOptionFunc) (*GetHireInterviewRecordResp, *Response, error) {
-if r.cli.mock.mockHireGetHireInterviewRecord != nil {
+	if r.cli.mock.mockHireGetHireInterviewRecord != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#GetHireInterviewRecord mock enable")
 		return r.cli.mock.mockHireGetHireInterviewRecord(ctx, request, options...)
 	}
@@ -35,12 +34,11 @@ if r.cli.mock.mockHireGetHireInterviewRecord != nil {
 		Scope:                 "Hire",
 		API:                   "GetHireInterviewRecord",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v2/interview_records/:interview_record_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v2/interview_records/:interview_record_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getHireInterviewRecordResp)
 
@@ -52,264 +50,172 @@ if r.cli.mock.mockHireGetHireInterviewRecord != nil {
 func (r *Mock) MockHireGetHireInterviewRecord(f func(ctx context.Context, request *GetHireInterviewRecordReq, options ...MethodOptionFunc) (*GetHireInterviewRecordResp, *Response, error)) {
 	r.mockHireGetHireInterviewRecord = f
 }
+
 // UnMockHireGetHireInterviewRecord un-mock HireGetHireInterviewRecord method
 func (r *Mock) UnMockHireGetHireInterviewRecord() {
 	r.mockHireGetHireInterviewRecord = nil
 }
 
-
 // GetHireInterviewRecordReq ...
-type GetHireInterviewRecordReq struct { 
-InterviewRecordID string `path:"interview_record_id" json:"-"` // 面试评价 ID, 可通过[获取面试信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview/list)接口获取示例值: "7171693733661327361"
-UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+type GetHireInterviewRecordReq struct {
+	InterviewRecordID string  `path:"interview_record_id" json:"-"` // 面试评价 ID, 可通过[获取面试信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview/list)接口获取示例值: "7171693733661327361"
+	UserIDType        *IDType `query:"user_id_type" json:"-"`       // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
-
-
-
-
 
 // GetHireInterviewRecordResp ...
-type GetHireInterviewRecordResp struct { 
-InterviewRecord *GetHireInterviewRecordRespInterviewRecord `json:"interview_record,omitempty"` // 面试评价详细信息
+type GetHireInterviewRecordResp struct {
+	InterviewRecord *GetHireInterviewRecordRespInterviewRecord `json:"interview_record,omitempty"` // 面试评价详细信息
 }
-
-
-
-
 
 // GetHireInterviewRecordRespInterviewRecord ...
-type GetHireInterviewRecordRespInterviewRecord struct { 
-ID string `json:"id,omitempty"` // 面试评价 ID
-FeedbackFormID string `json:"feedback_form_id,omitempty"` // 面试评价表 ID, 详情可查看: [获取面试评价表列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview_feedback_form/list)
-CommitStatus int64 `json:"commit_status,omitempty"` // 提交状态可选值有: 已提交未提交
-SubmitTime string `json:"submit_time,omitempty"` // 面试评价提交时间, 毫秒时间戳
-RecordScore *GetHireInterviewRecordRespInterviewRecordRecordScore `json:"record_score,omitempty"` // 面试评价分数
-Interviewer *GetHireInterviewRecordRespInterviewRecordInterviewer `json:"interviewer,omitempty"` // 面试官信息
-Attachments []*GetHireInterviewRecordRespInterviewRecordAttachment `json:"attachments,omitempty"` // 面试评价附件列表
-ModuleAssessments []*GetHireInterviewRecordRespInterviewRecordModuleAssessment `json:"module_assessments,omitempty"` // 模块评价列表
+type GetHireInterviewRecordRespInterviewRecord struct {
+	ID                string                                                       `json:"id,omitempty"`                 // 面试评价 ID
+	FeedbackFormID    string                                                       `json:"feedback_form_id,omitempty"`   // 面试评价表 ID, 详情可查看: [获取面试评价表列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview_feedback_form/list)
+	CommitStatus      int64                                                        `json:"commit_status,omitempty"`      // 提交状态可选值有: 已提交未提交
+	SubmitTime        string                                                       `json:"submit_time,omitempty"`        // 面试评价提交时间, 毫秒时间戳
+	RecordScore       *GetHireInterviewRecordRespInterviewRecordRecordScore        `json:"record_score,omitempty"`       // 面试评价分数
+	Interviewer       *GetHireInterviewRecordRespInterviewRecordInterviewer        `json:"interviewer,omitempty"`        // 面试官信息
+	Attachments       []*GetHireInterviewRecordRespInterviewRecordAttachment       `json:"attachments,omitempty"`        // 面试评价附件列表
+	ModuleAssessments []*GetHireInterviewRecordRespInterviewRecordModuleAssessment `json:"module_assessments,omitempty"` // 模块评价列表
 }
-
-
-
-
 
 // GetHireInterviewRecordRespInterviewRecordAttachment ...
-type GetHireInterviewRecordRespInterviewRecordAttachment struct { 
-FileID string `json:"file_id,omitempty"` // 附件 ID
-FileName string `json:"file_name,omitempty"` // 附件名称
-ContentType string `json:"content_type,omitempty"` // 附件类型
-FileSize int64 `json:"file_size,omitempty"` // 附件大小
-CreateTime string `json:"create_time,omitempty"` // 附件创建时间, 毫秒时间戳
+type GetHireInterviewRecordRespInterviewRecordAttachment struct {
+	FileID      string `json:"file_id,omitempty"`      // 附件 ID
+	FileName    string `json:"file_name,omitempty"`    // 附件名称
+	ContentType string `json:"content_type,omitempty"` // 附件类型
+	FileSize    int64  `json:"file_size,omitempty"`    // 附件大小
+	CreateTime  string `json:"create_time,omitempty"`  // 附件创建时间, 毫秒时间戳
 }
-
-
-
-
 
 // GetHireInterviewRecordRespInterviewRecordInterviewer ...
-type GetHireInterviewRecordRespInterviewRecordInterviewer struct { 
-ID string `json:"id,omitempty"` // 面试官 ID, 与入参 `user_id_type` 类型一致
-Name *GetHireInterviewRecordRespInterviewRecordInterviewerName `json:"name,omitempty"` // 面试官姓名
+type GetHireInterviewRecordRespInterviewRecordInterviewer struct {
+	ID   string                                                    `json:"id,omitempty"`   // 面试官 ID, 与入参 `user_id_type` 类型一致
+	Name *GetHireInterviewRecordRespInterviewRecordInterviewerName `json:"name,omitempty"` // 面试官姓名
 }
-
-
-
-
 
 // GetHireInterviewRecordRespInterviewRecordInterviewerName ...
-type GetHireInterviewRecordRespInterviewRecordInterviewerName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 面试官中文名
-EnUs string `json:"en_us,omitempty"` // 面试官英文名
+type GetHireInterviewRecordRespInterviewRecordInterviewerName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 面试官中文名
+	EnUs string `json:"en_us,omitempty"` // 面试官英文名
 }
-
-
-
-
 
 // GetHireInterviewRecordRespInterviewRecordModuleAssessment ...
-type GetHireInterviewRecordRespInterviewRecordModuleAssessment struct { 
-InterviewFeedbackFormModuleID string `json:"interview_feedback_form_module_id,omitempty"` // 面试评价表模块 ID, 详情可查看: [获取面试评价表列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview_feedback_form/list)返回结果中 `data.items.modules` 字段
-ModuleName *GetHireInterviewRecordRespInterviewRecordModuleAssessmentModuleName `json:"module_name,omitempty"` // 模块名称
-ModuleType int64 `json:"module_type,omitempty"` // 模块类型可选值有: 系统预置「面试结论」模块自定义模块
-ModuleWeight float64 `json:"module_weight,omitempty"` // 模块权重, 精确到小数点后两位
-ModuleScore float64 `json:"module_score,omitempty"` // 模块打分, 精确到小数点后两位
-DimensionAssessments []*GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessment `json:"dimension_assessments,omitempty"` // 模块评价
+type GetHireInterviewRecordRespInterviewRecordModuleAssessment struct {
+	InterviewFeedbackFormModuleID string                                                                          `json:"interview_feedback_form_module_id,omitempty"` // 面试评价表模块 ID, 详情可查看: [获取面试评价表列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview_feedback_form/list)返回结果中 `data.items.modules` 字段
+	ModuleName                    *GetHireInterviewRecordRespInterviewRecordModuleAssessmentModuleName            `json:"module_name,omitempty"`                       // 模块名称
+	ModuleType                    int64                                                                           `json:"module_type,omitempty"`                       // 模块类型可选值有: 系统预置「面试结论」模块自定义模块
+	ModuleWeight                  float64                                                                         `json:"module_weight,omitempty"`                     // 模块权重, 精确到小数点后两位
+	ModuleScore                   float64                                                                         `json:"module_score,omitempty"`                      // 模块打分, 精确到小数点后两位
+	DimensionAssessments          []*GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessment `json:"dimension_assessments,omitempty"`             // 模块评价
 }
-
-
-
-
 
 // GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessment ...
-type GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessment struct { 
-InterviewFeedbackFormDimensionID string `json:"interview_feedback_form_dimension_id,omitempty"` // 维度 ID, 详情可查看: [获取面试评价表列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview_feedback_form/list)返回结果中 `data.items.modules.dimensions` 字段
-DimensionName *GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentDimensionName `json:"dimension_name,omitempty"` // 维度名称
-DimensionType int64 `json:"dimension_type,omitempty"` // 维度评价方式可选值有: 单选题多选题描述题职级建议打分题(单选)打分题(填空)系统预置-结论系统预置-得分系统预置-记录
-Weight float64 `json:"weight,omitempty"` // 维度权重, 精确到小数点后两位
-DimensionContent string `json:"dimension_content,omitempty"` // 当维度评价方式为 `描述题` 时, 从此取值
-DimensionOption *GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentDimensionOption `json:"dimension_option,omitempty"` // 当维度评价方式为 `单选题` 时, 从此取值
-DimensionOptions []*GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentDimensionOption `json:"dimension_options,omitempty"` // 当维度评价方式为 `多选题` 时, 从此取值
-DimensionScore int64 `json:"dimension_score,omitempty"` // 当维度评价方式为 `打分题(填空)` 时, 从此取值
-RecommendedJobLevel *GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentRecommendedJobLevel `json:"recommended_job_level,omitempty"` // 当维度评价方式为 `职级建议` 时, 从此取值
-QuestionAssessments []*GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessment `json:"question_assessments,omitempty"` // 面试题
+type GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessment struct {
+	InterviewFeedbackFormDimensionID string                                                                                            `json:"interview_feedback_form_dimension_id,omitempty"` // 维度 ID, 详情可查看: [获取面试评价表列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview_feedback_form/list)返回结果中 `data.items.modules.dimensions` 字段
+	DimensionName                    *GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentDimensionName        `json:"dimension_name,omitempty"`                       // 维度名称
+	DimensionType                    int64                                                                                             `json:"dimension_type,omitempty"`                       // 维度评价方式可选值有: 单选题多选题描述题职级建议打分题(单选)打分题(填空)系统预置-结论系统预置-得分系统预置-记录
+	Weight                           float64                                                                                           `json:"weight,omitempty"`                               // 维度权重, 精确到小数点后两位
+	DimensionContent                 string                                                                                            `json:"dimension_content,omitempty"`                    // 当维度评价方式为 `描述题` 时, 从此取值
+	DimensionOption                  *GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentDimensionOption      `json:"dimension_option,omitempty"`                     // 当维度评价方式为 `单选题` 时, 从此取值
+	DimensionOptions                 []*GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentDimensionOption    `json:"dimension_options,omitempty"`                    // 当维度评价方式为 `多选题` 时, 从此取值
+	DimensionScore                   int64                                                                                             `json:"dimension_score,omitempty"`                      // 当维度评价方式为 `打分题(填空)` 时, 从此取值
+	RecommendedJobLevel              *GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentRecommendedJobLevel  `json:"recommended_job_level,omitempty"`                // 当维度评价方式为 `职级建议` 时, 从此取值
+	QuestionAssessments              []*GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessment `json:"question_assessments,omitempty"`                 // 面试题
 }
-
-
-
-
 
 // GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentDimensionName ...
-type GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentDimensionName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 维度中文名称
-EnUs string `json:"en_us,omitempty"` // 维度英文名称
+type GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentDimensionName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 维度中文名称
+	EnUs string `json:"en_us,omitempty"` // 维度英文名称
 }
-
-
-
-
 
 // GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentDimensionOption ...
-type GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentDimensionOption struct { 
-ID string `json:"id,omitempty"` // 选项 ID, 详情可查看: [获取面试评价表列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview_feedback_form/list)返回结果中 `data.items.modules.dimensions.option_items` 字段
-Name *GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentDimensionOptionName `json:"name,omitempty"` // 选项名称
-ScoreVal int64 `json:"score_val,omitempty"` // 选项分数 数据范围: `0` ～ `100`
+type GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentDimensionOption struct {
+	ID       string                                                                                           `json:"id,omitempty"`        // 选项 ID, 详情可查看: [获取面试评价表列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview_feedback_form/list)返回结果中 `data.items.modules.dimensions.option_items` 字段
+	Name     *GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentDimensionOptionName `json:"name,omitempty"`      // 选项名称
+	ScoreVal int64                                                                                            `json:"score_val,omitempty"` // 选项分数 数据范围: `0` ～ `100`
 }
-
-
-
-
 
 // GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentDimensionOptionName ...
-type GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentDimensionOptionName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 选项中文名称
-EnUs string `json:"en_us,omitempty"` // 选项英文名称
+type GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentDimensionOptionName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 选项中文名称
+	EnUs string `json:"en_us,omitempty"` // 选项英文名称
 }
-
-
-
-
 
 // GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessment ...
-type GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessment struct { 
-QuestionType int64 `json:"question_type,omitempty"` // 面试题类型可选值有: 普通面试题目在线编程题目
-Title *GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentTitle `json:"title,omitempty"` // 面试题名称
-Description *GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentDescription `json:"description,omitempty"` // 面试题描述
-Content string `json:"content,omitempty"` // 面试者作答内容
-Abilities []*GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentAbilitie `json:"abilities,omitempty"` // 能力项列表
+type GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessment struct {
+	QuestionType int64                                                                                                      `json:"question_type,omitempty"` // 面试题类型可选值有: 普通面试题目在线编程题目
+	Title        *GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentTitle       `json:"title,omitempty"`         // 面试题名称
+	Description  *GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentDescription `json:"description,omitempty"`   // 面试题描述
+	Content      string                                                                                                     `json:"content,omitempty"`       // 面试者作答内容
+	Abilities    []*GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentAbilitie  `json:"abilities,omitempty"`     // 能力项列表
 }
-
-
-
-
 
 // GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentAbilitie ...
-type GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentAbilitie struct { 
-Name *GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentAbilitieName `json:"name,omitempty"` // 能力项名称
-Description *GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentAbilitieDescription `json:"description,omitempty"` // 能力项描述
+type GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentAbilitie struct {
+	Name        *GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentAbilitieName        `json:"name,omitempty"`        // 能力项名称
+	Description *GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentAbilitieDescription `json:"description,omitempty"` // 能力项描述
 }
-
-
-
-
 
 // GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentAbilitieDescription ...
-type GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentAbilitieDescription struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 能力项中文描述
-EnUs string `json:"en_us,omitempty"` // 能力项英文描述
+type GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentAbilitieDescription struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 能力项中文描述
+	EnUs string `json:"en_us,omitempty"` // 能力项英文描述
 }
-
-
-
-
 
 // GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentAbilitieName ...
-type GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentAbilitieName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 能力项中文名称
-EnUs string `json:"en_us,omitempty"` // 能力项英文名称
+type GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentAbilitieName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 能力项中文名称
+	EnUs string `json:"en_us,omitempty"` // 能力项英文名称
 }
-
-
-
-
 
 // GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentDescription ...
-type GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentDescription struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 面试题中文描述
-EnUs string `json:"en_us,omitempty"` // 面试题英文描述
+type GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentDescription struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 面试题中文描述
+	EnUs string `json:"en_us,omitempty"` // 面试题英文描述
 }
-
-
-
-
 
 // GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentTitle ...
-type GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentTitle struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 面试题中文名称
-EnUs string `json:"en_us,omitempty"` // 面试题英文名称
+type GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentTitle struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 面试题中文名称
+	EnUs string `json:"en_us,omitempty"` // 面试题英文名称
 }
-
-
-
-
 
 // GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentRecommendedJobLevel ...
-type GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentRecommendedJobLevel struct { 
-LowerLimitJobLevelName *GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentRecommendedJobLevelLowerLimitJobLevelName `json:"lower_limit_job_level_name,omitempty"` // 最低职级建议
-HigherLimitJobLevelName *GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentRecommendedJobLevelHigherLimitJobLevelName `json:"higher_limit_job_level_name,omitempty"` // 最高职级建议
+type GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentRecommendedJobLevel struct {
+	LowerLimitJobLevelName  *GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentRecommendedJobLevelLowerLimitJobLevelName  `json:"lower_limit_job_level_name,omitempty"`  // 最低职级建议
+	HigherLimitJobLevelName *GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentRecommendedJobLevelHigherLimitJobLevelName `json:"higher_limit_job_level_name,omitempty"` // 最高职级建议
 }
-
-
-
-
 
 // GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentRecommendedJobLevelHigherLimitJobLevelName ...
-type GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentRecommendedJobLevelHigherLimitJobLevelName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 最高职级建议中文
-EnUs string `json:"en_us,omitempty"` // 最高职级建议英文
+type GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentRecommendedJobLevelHigherLimitJobLevelName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 最高职级建议中文
+	EnUs string `json:"en_us,omitempty"` // 最高职级建议英文
 }
-
-
-
-
 
 // GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentRecommendedJobLevelLowerLimitJobLevelName ...
-type GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentRecommendedJobLevelLowerLimitJobLevelName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 最低职级建议中文
-EnUs string `json:"en_us,omitempty"` // 最低职级建议英文
+type GetHireInterviewRecordRespInterviewRecordModuleAssessmentDimensionAssessmentRecommendedJobLevelLowerLimitJobLevelName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 最低职级建议中文
+	EnUs string `json:"en_us,omitempty"` // 最低职级建议英文
 }
-
-
-
-
 
 // GetHireInterviewRecordRespInterviewRecordModuleAssessmentModuleName ...
-type GetHireInterviewRecordRespInterviewRecordModuleAssessmentModuleName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 模块中文名称
-EnUs string `json:"en_us,omitempty"` // 模块英文名称
+type GetHireInterviewRecordRespInterviewRecordModuleAssessmentModuleName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 模块中文名称
+	EnUs string `json:"en_us,omitempty"` // 模块英文名称
 }
-
-
-
-
 
 // GetHireInterviewRecordRespInterviewRecordRecordScore ...
-type GetHireInterviewRecordRespInterviewRecordRecordScore struct { 
-Score float64 `json:"score,omitempty"` // 面试评价得分, 精确到小数点后两位
-TotalScore int64 `json:"total_score,omitempty"` // 面试评价总分, 精确到小数点后两位
+type GetHireInterviewRecordRespInterviewRecordRecordScore struct {
+	Score      float64 `json:"score,omitempty"`       // 面试评价得分, 精确到小数点后两位
+	TotalScore int64   `json:"total_score,omitempty"` // 面试评价总分, 精确到小数点后两位
 }
-
-
-
-
 
 // getHireInterviewRecordResp ...
-type getHireInterviewRecordResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *GetHireInterviewRecordResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type getHireInterviewRecordResp struct {
+	Code  int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                      `json:"msg,omitempty"`  // 错误描述
+	Data  *GetHireInterviewRecordResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }
-
-
-
-

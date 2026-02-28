@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateMailUserMailboxFolder 创建邮箱文件夹
@@ -26,9 +26,8 @@ import (
 // 使用 tenant_access_token 时, 需要申请邮箱文件夹资源的数据权限。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-folder/create
-// 
 func (r *MailService) CreateMailUserMailboxFolder(ctx context.Context, request *CreateMailUserMailboxFolderReq, options ...MethodOptionFunc) (*CreateMailUserMailboxFolderResp, *Response, error) {
-if r.cli.mock.mockMailCreateMailUserMailboxFolder != nil {
+	if r.cli.mock.mockMailCreateMailUserMailboxFolder != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#CreateMailUserMailboxFolder mock enable")
 		return r.cli.mock.mockMailCreateMailUserMailboxFolder(ctx, request, options...)
 	}
@@ -37,12 +36,11 @@ if r.cli.mock.mockMailCreateMailUserMailboxFolder != nil {
 		Scope:                 "Mail",
 		API:                   "CreateMailUserMailboxFolder",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/folders",
+		URL:                   r.cli.openBaseURL + "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/folders",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(createMailUserMailboxFolderResp)
 
@@ -54,54 +52,38 @@ if r.cli.mock.mockMailCreateMailUserMailboxFolder != nil {
 func (r *Mock) MockMailCreateMailUserMailboxFolder(f func(ctx context.Context, request *CreateMailUserMailboxFolderReq, options ...MethodOptionFunc) (*CreateMailUserMailboxFolderResp, *Response, error)) {
 	r.mockMailCreateMailUserMailboxFolder = f
 }
+
 // UnMockMailCreateMailUserMailboxFolder un-mock MailCreateMailUserMailboxFolder method
 func (r *Mock) UnMockMailCreateMailUserMailboxFolder() {
 	r.mockMailCreateMailUserMailboxFolder = nil
 }
 
-
 // CreateMailUserMailboxFolderReq ...
-type CreateMailUserMailboxFolderReq struct { 
-UserMailboxID string `path:"user_mailbox_id" json:"-"` // 用户邮箱地址 或 输入me代表当前调用接口用户示例值: "user@xxx.xx 或 me"
-Name string `json:"name,omitempty"` // 文件夹名称示例值: "newsletter 相关" 长度范围: `1` ～ `250` 字符
-ParentFolderID string `json:"parent_folder_id,omitempty"` // 父文件夹 id, 该值为 0 表示根文件夹, id 获取方式见 [列出文邮箱文件夹](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-folder/list)示例值: "725627422334644"
+type CreateMailUserMailboxFolderReq struct {
+	UserMailboxID  string `path:"user_mailbox_id" json:"-"`   // 用户邮箱地址 或 输入me代表当前调用接口用户示例值: "user@xxx.xx 或 me"
+	Name           string `json:"name,omitempty"`             // 文件夹名称示例值: "newsletter 相关" 长度范围: `1` ～ `250` 字符
+	ParentFolderID string `json:"parent_folder_id,omitempty"` // 父文件夹 id, 该值为 0 表示根文件夹, id 获取方式见 [列出文邮箱文件夹](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-folder/list)示例值: "725627422334644"
 }
-
-
-
-
 
 // CreateMailUserMailboxFolderResp ...
-type CreateMailUserMailboxFolderResp struct { 
-Folder *CreateMailUserMailboxFolderRespFolder `json:"folder,omitempty"` // 文件夹实体
+type CreateMailUserMailboxFolderResp struct {
+	Folder *CreateMailUserMailboxFolderRespFolder `json:"folder,omitempty"` // 文件夹实体
 }
-
-
-
-
 
 // CreateMailUserMailboxFolderRespFolder ...
-type CreateMailUserMailboxFolderRespFolder struct { 
-ID string `json:"id,omitempty"` // folder id
-Name string `json:"name,omitempty"` // 文件夹名称
-ParentFolderID string `json:"parent_folder_id,omitempty"` // 父文件夹 id, 该值为 0 表示根文件夹
-FolderType int64 `json:"folder_type,omitempty"` // 文件夹类型可选值有: 系统文件夹用户文件夹
-UnreadMessageCount int64 `json:"unread_message_count,omitempty"` // 未读邮件数量
-UnreadThreadCount int64 `json:"unread_thread_count,omitempty"` // 未读会话数量
+type CreateMailUserMailboxFolderRespFolder struct {
+	ID                 string `json:"id,omitempty"`                   // folder id
+	Name               string `json:"name,omitempty"`                 // 文件夹名称
+	ParentFolderID     string `json:"parent_folder_id,omitempty"`     // 父文件夹 id, 该值为 0 表示根文件夹
+	FolderType         int64  `json:"folder_type,omitempty"`          // 文件夹类型可选值有: 系统文件夹用户文件夹
+	UnreadMessageCount int64  `json:"unread_message_count,omitempty"` // 未读邮件数量
+	UnreadThreadCount  int64  `json:"unread_thread_count,omitempty"`  // 未读会话数量
 }
-
-
-
-
 
 // createMailUserMailboxFolderResp ...
-type createMailUserMailboxFolderResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateMailUserMailboxFolderResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createMailUserMailboxFolderResp struct {
+	Code  int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                           `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateMailUserMailboxFolderResp `json:"data,omitempty"`
+	Error *ErrorDetail                     `json:"error,omitempty"`
 }
-
-
-
-

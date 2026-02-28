@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // QueryPerformanceMetricField 批量获取指标的字段基础信息, 如指标字段名称、指标字段类型等信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/performance-v2/metric_field/query
-// 
 func (r *PerformanceService) QueryPerformanceMetricField(ctx context.Context, request *QueryPerformanceMetricFieldReq, options ...MethodOptionFunc) (*QueryPerformanceMetricFieldResp, *Response, error) {
-if r.cli.mock.mockPerformanceQueryPerformanceMetricField != nil {
+	if r.cli.mock.mockPerformanceQueryPerformanceMetricField != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Performance#QueryPerformanceMetricField mock enable")
 		return r.cli.mock.mockPerformanceQueryPerformanceMetricField(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockPerformanceQueryPerformanceMetricField != nil {
 		Scope:                 "Performance",
 		API:                   "QueryPerformanceMetricField",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/performance/v2/metric_fields/query",
+		URL:                   r.cli.openBaseURL + "/open-apis/performance/v2/metric_fields/query",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(queryPerformanceMetricFieldResp)
 
@@ -51,59 +49,39 @@ if r.cli.mock.mockPerformanceQueryPerformanceMetricField != nil {
 func (r *Mock) MockPerformanceQueryPerformanceMetricField(f func(ctx context.Context, request *QueryPerformanceMetricFieldReq, options ...MethodOptionFunc) (*QueryPerformanceMetricFieldResp, *Response, error)) {
 	r.mockPerformanceQueryPerformanceMetricField = f
 }
+
 // UnMockPerformanceQueryPerformanceMetricField un-mock PerformanceQueryPerformanceMetricField method
 func (r *Mock) UnMockPerformanceQueryPerformanceMetricField() {
 	r.mockPerformanceQueryPerformanceMetricField = nil
 }
 
-
 // QueryPerformanceMetricFieldReq ...
-type QueryPerformanceMetricFieldReq struct { 
-FieldIDs []string `json:"field_ids,omitempty"` // 指标的字段 ID 列表, 填写时获取指定指标字段, 不填时获取全部指标字段示例值: ["7293169069640630291"] 长度范围: `0` ～ `50`
+type QueryPerformanceMetricFieldReq struct {
+	FieldIDs []string `json:"field_ids,omitempty"` // 指标的字段 ID 列表, 填写时获取指定指标字段, 不填时获取全部指标字段示例值: ["7293169069640630291"] 长度范围: `0` ～ `50`
 }
-
-
-
-
 
 // QueryPerformanceMetricFieldResp ...
-type QueryPerformanceMetricFieldResp struct { 
-Items []*QueryPerformanceMetricFieldRespItem `json:"items,omitempty"` // 指标字段信息
+type QueryPerformanceMetricFieldResp struct {
+	Items []*QueryPerformanceMetricFieldRespItem `json:"items,omitempty"` // 指标字段信息
 }
-
-
-
-
 
 // QueryPerformanceMetricFieldRespItem ...
-type QueryPerformanceMetricFieldRespItem struct { 
-FieldID string `json:"field_id,omitempty"` // 指标字段 ID
-Name *QueryPerformanceMetricFieldRespItemName `json:"name,omitempty"` // 指标字段名称
-Type string `json:"type,omitempty"` // 指标字段类型可选值有: 文本数字百分比人员单选
+type QueryPerformanceMetricFieldRespItem struct {
+	FieldID string                                   `json:"field_id,omitempty"` // 指标字段 ID
+	Name    *QueryPerformanceMetricFieldRespItemName `json:"name,omitempty"`     // 指标字段名称
+	Type    string                                   `json:"type,omitempty"`     // 指标字段类型可选值有: 文本数字百分比人员单选
 }
-
-
-
-
 
 // QueryPerformanceMetricFieldRespItemName ...
-type QueryPerformanceMetricFieldRespItemName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 指标字段中文名称
-EnUs string `json:"en_us,omitempty"` // 指标字段英文名称
+type QueryPerformanceMetricFieldRespItemName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 指标字段中文名称
+	EnUs string `json:"en_us,omitempty"` // 指标字段英文名称
 }
-
-
-
-
 
 // queryPerformanceMetricFieldResp ...
-type queryPerformanceMetricFieldResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *QueryPerformanceMetricFieldResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type queryPerformanceMetricFieldResp struct {
+	Code  int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                           `json:"msg,omitempty"`  // 错误描述
+	Data  *QueryPerformanceMetricFieldResp `json:"data,omitempty"`
+	Error *ErrorDetail                     `json:"error,omitempty"`
 }
-
-
-
-

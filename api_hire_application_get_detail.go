@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // GetHireApplicationDetail 根据投递 ID 获取投递信息并通过参数按需获取该投递相关的实体信息, 如「职位」、「人才」、「评估」、「面试」、「Offer」、「猎头」、「内推」、「官网」等实体的信息。
@@ -26,9 +26,8 @@ import (
 // 目前暂不支持查询被删除的投递详情
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get_detail
-// 
 func (r *HireService) GetHireApplicationDetail(ctx context.Context, request *GetHireApplicationDetailReq, options ...MethodOptionFunc) (*GetHireApplicationDetailResp, *Response, error) {
-if r.cli.mock.mockHireGetHireApplicationDetail != nil {
+	if r.cli.mock.mockHireGetHireApplicationDetail != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#GetHireApplicationDetail mock enable")
 		return r.cli.mock.mockHireGetHireApplicationDetail(ctx, request, options...)
 	}
@@ -37,11 +36,10 @@ if r.cli.mock.mockHireGetHireApplicationDetail != nil {
 		Scope:                 "Hire",
 		API:                   "GetHireApplicationDetail",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/applications/:application_id/get_detail",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/applications/:application_id/get_detail",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(getHireApplicationDetailResp)
 
@@ -53,1441 +51,937 @@ if r.cli.mock.mockHireGetHireApplicationDetail != nil {
 func (r *Mock) MockHireGetHireApplicationDetail(f func(ctx context.Context, request *GetHireApplicationDetailReq, options ...MethodOptionFunc) (*GetHireApplicationDetailResp, *Response, error)) {
 	r.mockHireGetHireApplicationDetail = f
 }
+
 // UnMockHireGetHireApplicationDetail un-mock HireGetHireApplicationDetail method
 func (r *Mock) UnMockHireGetHireApplicationDetail() {
 	r.mockHireGetHireApplicationDetail = nil
 }
 
-
 // GetHireApplicationDetailReq ...
-type GetHireApplicationDetailReq struct { 
-ApplicationID string `path:"application_id" json:"-"` // 投递 ID, 可通过[获取投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/list)接口获取示例值: "6956499586395523359"
-UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以people_admin_id来识别用户, 即将下线字段, 不建议使用默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
-DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门 ID 类型示例值: open_department_id可选值有: 以 open_department_id 来标识部门, 通过[批量获取部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/batch)接口获取以 department_id 来标识部门, 通过[批量获取部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/batch)接口获取默认值: `open_department_id`
-JobLevelIDType *IDType `query:"job_level_id_type" json:"-"` // 此次调用中使用的「职级 ID」的类型示例值: job_level_id可选值有: 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。「飞书管理后台」适用的职级 ID, 通过[获取租户职级列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_level/list)接口获取默认值: `job_level_id`
-JobFamilyIDType *IDType `query:"job_family_id_type" json:"-"` // 此次调用中使用的「序列 ID」的类型示例值: job_family_id可选值有: 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。「飞书管理后台」适用的序列 ID, 通过[获取租户序列列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_family/list)接口获取默认值: `job_family_id`
-EmployeeTypeIDType *IDType `query:"employee_type_id_type" json:"-"` // 此次调用中使用的「人员类型 ID」的类型示例值: employee_type_enum_id可选值有: 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。「飞书管理后台」适用的人员类型 ID, 通过[查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)接口获取默认值: `employee_type_enum_id`
-Options []string `query:"options" json:"-"` // 关联实体信息获取参数, 用于指定获取哪些关联实体信息, 不传时默认只返回投递基本信息（`basic_info`）。如需一次查询多个实体信息, 可通过将同一参数名多次传递, 并且每次传递不同的参数值。  例如: https://{url}?options=with_job&options=with_talent示例值: with_job可选值有: 返回职位实体信息返回人才实体信息返回面试聚合实体信息返回 Offer 实体信息返回评估实体信息返回员工实体信息返回猎头实体信息返回内推实体信息返回官网实体信息
+type GetHireApplicationDetailReq struct {
+	ApplicationID      string            `path:"application_id" json:"-"`         // 投递 ID, 可通过[获取投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/list)接口获取示例值: "6956499586395523359"
+	UserIDType         *IDType           `query:"user_id_type" json:"-"`          // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以people_admin_id来识别用户, 即将下线字段, 不建议使用默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	DepartmentIDType   *DepartmentIDType `query:"department_id_type" json:"-"`    // 此次调用中使用的部门 ID 类型示例值: open_department_id可选值有: 以 open_department_id 来标识部门, 通过[批量获取部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/batch)接口获取以 department_id 来标识部门, 通过[批量获取部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/batch)接口获取默认值: `open_department_id`
+	JobLevelIDType     *IDType           `query:"job_level_id_type" json:"-"`     // 此次调用中使用的「职级 ID」的类型示例值: job_level_id可选值有: 「人力系统管理后台」适用的职级 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。「飞书管理后台」适用的职级 ID, 通过[获取租户职级列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_level/list)接口获取默认值: `job_level_id`
+	JobFamilyIDType    *IDType           `query:"job_family_id_type" json:"-"`    // 此次调用中使用的「序列 ID」的类型示例值: job_family_id可选值有: 「人力系统管理后台」适用的序列 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。「飞书管理后台」适用的序列 ID, 通过[获取租户序列列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_family/list)接口获取默认值: `job_family_id`
+	EmployeeTypeIDType *IDType           `query:"employee_type_id_type" json:"-"` // 此次调用中使用的「人员类型 ID」的类型示例值: employee_type_enum_id可选值有: 「人力系统管理后台」适用的人员类型 ID。人力系统管理后台逐步下线中, 建议不继续使用此 ID。「飞书管理后台」适用的人员类型 ID, 通过[查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)接口获取默认值: `employee_type_enum_id`
+	Options            []string          `query:"options" json:"-"`               // 关联实体信息获取参数, 用于指定获取哪些关联实体信息, 不传时默认只返回投递基本信息（`basic_info`）。如需一次查询多个实体信息, 可通过将同一参数名多次传递, 并且每次传递不同的参数值。  例如: https://{url}?options=with_job&options=with_talent示例值: with_job可选值有: 返回职位实体信息返回人才实体信息返回面试聚合实体信息返回 Offer 实体信息返回评估实体信息返回员工实体信息返回猎头实体信息返回内推实体信息返回官网实体信息
 }
-
-
-
-
 
 // GetHireApplicationDetailResp ...
-type GetHireApplicationDetailResp struct { 
-ApplicationDetail *GetHireApplicationDetailRespApplicationDetail `json:"application_detail,omitempty"` // 投递详情
+type GetHireApplicationDetailResp struct {
+	ApplicationDetail *GetHireApplicationDetailRespApplicationDetail `json:"application_detail,omitempty"` // 投递详情
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetail ...
-type GetHireApplicationDetailRespApplicationDetail struct { 
-BasicInfo *GetHireApplicationDetailRespApplicationDetailBasicInfo `json:"basic_info,omitempty"` // 投递基本信息
-Job *GetHireApplicationDetailRespApplicationDetailJob `json:"job,omitempty"` // 投递职位信息字段权限要求（满足任一）: 获取职位信息更新职位信息
-Talent *GetHireApplicationDetailRespApplicationDetailTalent `json:"talent,omitempty"` // 投递人才信息字段权限要求（满足任一）: 获取人才信息更新人才信息
-Evaluations []*GetHireApplicationDetailRespApplicationDetailEvaluation `json:"evaluations,omitempty"` // 投递评估信息字段权限要求: 获取简历评估信息
-InterviewAggregation *GetHireApplicationDetailRespApplicationDetailInterviewAggregation `json:"interview_aggregation,omitempty"` // 投递面试信息字段权限要求（满足任一）: 获取面试信息更新面试信息
-Offer *GetHireApplicationDetailRespApplicationDetailOffer `json:"offer,omitempty"` // 投递 Offer 信息（正式offer）字段权限要求（满足任一）: 获取 offer 信息更新 offer 信息
-Employee *GetHireApplicationDetailRespApplicationDetailEmployee `json:"employee,omitempty"` // 投递员工入转离信息字段权限要求（满足任一）: 更新招聘员工信息获取招聘员工信息
-Agency *GetHireApplicationDetailRespApplicationDetailAgency `json:"agency,omitempty"` // 投递猎头推荐信息字段权限要求（满足任一）: 获取招聘猎头信息更新招聘猎头信息
-Portal *GetHireApplicationDetailRespApplicationDetailPortal `json:"portal,omitempty"` // 投递官网信息字段权限要求（满足任一）: 获取官网信息更新官网信息
-Referral *GetHireApplicationDetailRespApplicationDetailReferral `json:"referral,omitempty"` // 投递内推信息字段权限要求（满足任一）: 获取内推信息更新内推信息
+type GetHireApplicationDetailRespApplicationDetail struct {
+	BasicInfo            *GetHireApplicationDetailRespApplicationDetailBasicInfo            `json:"basic_info,omitempty"`            // 投递基本信息
+	Job                  *GetHireApplicationDetailRespApplicationDetailJob                  `json:"job,omitempty"`                   // 投递职位信息字段权限要求（满足任一）: 获取职位信息更新职位信息
+	Talent               *GetHireApplicationDetailRespApplicationDetailTalent               `json:"talent,omitempty"`                // 投递人才信息字段权限要求（满足任一）: 获取人才信息更新人才信息
+	Evaluations          []*GetHireApplicationDetailRespApplicationDetailEvaluation         `json:"evaluations,omitempty"`           // 投递评估信息字段权限要求: 获取简历评估信息
+	InterviewAggregation *GetHireApplicationDetailRespApplicationDetailInterviewAggregation `json:"interview_aggregation,omitempty"` // 投递面试信息字段权限要求（满足任一）: 获取面试信息更新面试信息
+	Offer                *GetHireApplicationDetailRespApplicationDetailOffer                `json:"offer,omitempty"`                 // 投递 Offer 信息（正式offer）字段权限要求（满足任一）: 获取 offer 信息更新 offer 信息
+	Employee             *GetHireApplicationDetailRespApplicationDetailEmployee             `json:"employee,omitempty"`              // 投递员工入转离信息字段权限要求（满足任一）: 更新招聘员工信息获取招聘员工信息
+	Agency               *GetHireApplicationDetailRespApplicationDetailAgency               `json:"agency,omitempty"`                // 投递猎头推荐信息字段权限要求（满足任一）: 获取招聘猎头信息更新招聘猎头信息
+	Portal               *GetHireApplicationDetailRespApplicationDetailPortal               `json:"portal,omitempty"`                // 投递官网信息字段权限要求（满足任一）: 获取官网信息更新官网信息
+	Referral             *GetHireApplicationDetailRespApplicationDetailReferral             `json:"referral,omitempty"`              // 投递内推信息字段权限要求（满足任一）: 获取内推信息更新内推信息
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailAgency ...
-type GetHireApplicationDetailRespApplicationDetailAgency struct { 
-BasicInfo *GetHireApplicationDetailRespApplicationDetailAgencyBasicInfo `json:"basic_info,omitempty"` // 猎头基本信息
-CommentInfo []*GetHireApplicationDetailRespApplicationDetailAgencyCommentInfo `json:"comment_info,omitempty"` // 猎头评价信息
-SalaryInfo []*GetHireApplicationDetailRespApplicationDetailAgencySalaryInfo `json:"salary_info,omitempty"` // 薪酬信息字段权限要求: 获取猎头填写的薪资
+type GetHireApplicationDetailRespApplicationDetailAgency struct {
+	BasicInfo   *GetHireApplicationDetailRespApplicationDetailAgencyBasicInfo     `json:"basic_info,omitempty"`   // 猎头基本信息
+	CommentInfo []*GetHireApplicationDetailRespApplicationDetailAgencyCommentInfo `json:"comment_info,omitempty"` // 猎头评价信息
+	SalaryInfo  []*GetHireApplicationDetailRespApplicationDetailAgencySalaryInfo  `json:"salary_info,omitempty"`  // 薪酬信息字段权限要求: 获取猎头填写的薪资
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailAgencyBasicInfo ...
-type GetHireApplicationDetailRespApplicationDetailAgencyBasicInfo struct { 
-HunterUserName *GetHireApplicationDetailRespApplicationDetailAgencyBasicInfoHunterUserName `json:"hunter_user_name,omitempty"` // 猎头用户名
-HunterCompanyName string `json:"hunter_company_name,omitempty"` // 猎头公司名
+type GetHireApplicationDetailRespApplicationDetailAgencyBasicInfo struct {
+	HunterUserName    *GetHireApplicationDetailRespApplicationDetailAgencyBasicInfoHunterUserName `json:"hunter_user_name,omitempty"`    // 猎头用户名
+	HunterCompanyName string                                                                      `json:"hunter_company_name,omitempty"` // 猎头公司名
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailAgencyBasicInfoHunterUserName ...
-type GetHireApplicationDetailRespApplicationDetailAgencyBasicInfoHunterUserName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 猎头中文用户名
-EnUs string `json:"en_us,omitempty"` // 猎头英文用户名
+type GetHireApplicationDetailRespApplicationDetailAgencyBasicInfoHunterUserName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 猎头中文用户名
+	EnUs string `json:"en_us,omitempty"` // 猎头英文用户名
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailAgencyCommentInfo ...
-type GetHireApplicationDetailRespApplicationDetailAgencyCommentInfo struct { 
-Name *GetHireApplicationDetailRespApplicationDetailAgencyCommentInfoName `json:"name,omitempty"` // 猎头评价信息名称
-Value *GetHireApplicationDetailRespApplicationDetailAgencyCommentInfoValue `json:"value,omitempty"` // 猎头评价内容
-Description *GetHireApplicationDetailRespApplicationDetailAgencyCommentInfoDescription `json:"description,omitempty"` // 猎头评价信息描述
+type GetHireApplicationDetailRespApplicationDetailAgencyCommentInfo struct {
+	Name        *GetHireApplicationDetailRespApplicationDetailAgencyCommentInfoName        `json:"name,omitempty"`        // 猎头评价信息名称
+	Value       *GetHireApplicationDetailRespApplicationDetailAgencyCommentInfoValue       `json:"value,omitempty"`       // 猎头评价内容
+	Description *GetHireApplicationDetailRespApplicationDetailAgencyCommentInfoDescription `json:"description,omitempty"` // 猎头评价信息描述
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailAgencyCommentInfoDescription ...
-type GetHireApplicationDetailRespApplicationDetailAgencyCommentInfoDescription struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 猎头评价信息中文描述
-EnUs string `json:"en_us,omitempty"` // 猎头评价信息英文描述
+type GetHireApplicationDetailRespApplicationDetailAgencyCommentInfoDescription struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 猎头评价信息中文描述
+	EnUs string `json:"en_us,omitempty"` // 猎头评价信息英文描述
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailAgencyCommentInfoName ...
-type GetHireApplicationDetailRespApplicationDetailAgencyCommentInfoName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 猎头评价信息中文名称
-EnUs string `json:"en_us,omitempty"` // 猎头评价信息英文名称
+type GetHireApplicationDetailRespApplicationDetailAgencyCommentInfoName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 猎头评价信息中文名称
+	EnUs string `json:"en_us,omitempty"` // 猎头评价信息英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailAgencyCommentInfoValue ...
-type GetHireApplicationDetailRespApplicationDetailAgencyCommentInfoValue struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 猎头评价中文内容
-EnUs string `json:"en_us,omitempty"` // 猎头评价英文内容
+type GetHireApplicationDetailRespApplicationDetailAgencyCommentInfoValue struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 猎头评价中文内容
+	EnUs string `json:"en_us,omitempty"` // 猎头评价英文内容
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailAgencySalaryInfo ...
-type GetHireApplicationDetailRespApplicationDetailAgencySalaryInfo struct { 
-Name *GetHireApplicationDetailRespApplicationDetailAgencySalaryInfoName `json:"name,omitempty"` // 薪酬信息名称
-Value *GetHireApplicationDetailRespApplicationDetailAgencySalaryInfoValue `json:"value,omitempty"` // 薪酬信息内容
-Description *GetHireApplicationDetailRespApplicationDetailAgencySalaryInfoDescription `json:"description,omitempty"` // 薪酬信息描述
+type GetHireApplicationDetailRespApplicationDetailAgencySalaryInfo struct {
+	Name        *GetHireApplicationDetailRespApplicationDetailAgencySalaryInfoName        `json:"name,omitempty"`        // 薪酬信息名称
+	Value       *GetHireApplicationDetailRespApplicationDetailAgencySalaryInfoValue       `json:"value,omitempty"`       // 薪酬信息内容
+	Description *GetHireApplicationDetailRespApplicationDetailAgencySalaryInfoDescription `json:"description,omitempty"` // 薪酬信息描述
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailAgencySalaryInfoDescription ...
-type GetHireApplicationDetailRespApplicationDetailAgencySalaryInfoDescription struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 薪酬信息中文描述
-EnUs string `json:"en_us,omitempty"` // 薪酬信息英文描述
+type GetHireApplicationDetailRespApplicationDetailAgencySalaryInfoDescription struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 薪酬信息中文描述
+	EnUs string `json:"en_us,omitempty"` // 薪酬信息英文描述
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailAgencySalaryInfoName ...
-type GetHireApplicationDetailRespApplicationDetailAgencySalaryInfoName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 薪酬信息中文名称
-EnUs string `json:"en_us,omitempty"` // 薪酬信息英文名称
+type GetHireApplicationDetailRespApplicationDetailAgencySalaryInfoName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 薪酬信息中文名称
+	EnUs string `json:"en_us,omitempty"` // 薪酬信息英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailAgencySalaryInfoValue ...
-type GetHireApplicationDetailRespApplicationDetailAgencySalaryInfoValue struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 薪酬信息中文内容
-EnUs string `json:"en_us,omitempty"` // 薪酬信息英文内容
+type GetHireApplicationDetailRespApplicationDetailAgencySalaryInfoValue struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 薪酬信息中文内容
+	EnUs string `json:"en_us,omitempty"` // 薪酬信息英文内容
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailBasicInfo ...
-type GetHireApplicationDetailRespApplicationDetailBasicInfo struct { 
-ID string `json:"id,omitempty"` // 投递 ID
-JobID string `json:"job_id,omitempty"` // 职位 ID, 详情请查看: [获取职位信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/get)
-TalentID string `json:"talent_id,omitempty"` // 人才 ID, 详情请查看: [获取人才信息 V1](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/get)
-Stage *GetHireApplicationDetailRespApplicationDetailBasicInfoStage `json:"stage,omitempty"` // 投递处于的阶段
-ActiveStatus int64 `json:"active_status,omitempty"` // 投递活跃状态可选值有: 活跃非活跃
-DeliveryType int64 `json:"delivery_type,omitempty"` // 投递方式可选值有: HR寻访候选人主动投递
-ResumeSourceInfo *GetHireApplicationDetailRespApplicationDetailBasicInfoResumeSourceInfo `json:"resume_source_info,omitempty"` // 投递来源信息
-WebsiteResumeSource *GetHireApplicationDetailRespApplicationDetailBasicInfoWebsiteResumeSource `json:"website_resume_source,omitempty"` // 官网投递来源（当从官网进行投递时返回）
-TalentAttachmentResumeID string `json:"talent_attachment_resume_id,omitempty"` // 简历附件 ID, 详情请查看 : [获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get), 「备注信息: 只有站内创投时上传的简历附件才能关联取值, 渠道/官网/内推创投的简历附件不会关联」
-StageTimeList []*GetHireApplicationDetailRespApplicationDetailBasicInfoStageTime `json:"stage_time_list,omitempty"` // 投递阶段变更时间列表
-OnboardStatus int64 `json:"onboard_status,omitempty"` // 投递入职状态可选值有: 未入职已入职
-ApplicationPreferredCityList []*GetHireApplicationDetailRespApplicationDetailBasicInfoApplicationPreferredCity `json:"application_preferred_city_list,omitempty"` // 意向投递城市列表
-TerminationReason *GetHireApplicationDetailRespApplicationDetailBasicInfoTerminationReason `json:"termination_reason,omitempty"` // 投递终止原因
-CreatorID string `json:"creator_id,omitempty"` // 投递创建者 ID, 与入参 `user_id_type` 类型一致 注意: 仅当投递创建人为企业内部员工时可获取（如员工手动上传简历 / 加入职位 / 内推）, 其余情况返回为空（如候选人主动投递。当投递创建者是外部租户, user_id_type默认为lark_id
-OwnerID string `json:"owner_id,omitempty"` // 投递所有者 ID, 与入参 `user_id_type` 类型一致
-TerminatorID string `json:"terminator_id,omitempty"` // 投递终止者 ID, 与入参 `user_id_type` 类型一致
-CreateTime string `json:"create_time,omitempty"` // 创建时间戳（单位: 毫秒）
-ModifyTime string `json:"modify_time,omitempty"` // 修改时间戳（单位: 毫秒）
+type GetHireApplicationDetailRespApplicationDetailBasicInfo struct {
+	ID                           string                                                                            `json:"id,omitempty"`                              // 投递 ID
+	JobID                        string                                                                            `json:"job_id,omitempty"`                          // 职位 ID, 详情请查看: [获取职位信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/get)
+	TalentID                     string                                                                            `json:"talent_id,omitempty"`                       // 人才 ID, 详情请查看: [获取人才信息 V1](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/get)
+	Stage                        *GetHireApplicationDetailRespApplicationDetailBasicInfoStage                      `json:"stage,omitempty"`                           // 投递处于的阶段
+	ActiveStatus                 int64                                                                             `json:"active_status,omitempty"`                   // 投递活跃状态可选值有: 活跃非活跃
+	DeliveryType                 int64                                                                             `json:"delivery_type,omitempty"`                   // 投递方式可选值有: HR寻访候选人主动投递
+	ResumeSourceInfo             *GetHireApplicationDetailRespApplicationDetailBasicInfoResumeSourceInfo           `json:"resume_source_info,omitempty"`              // 投递来源信息
+	WebsiteResumeSource          *GetHireApplicationDetailRespApplicationDetailBasicInfoWebsiteResumeSource        `json:"website_resume_source,omitempty"`           // 官网投递来源（当从官网进行投递时返回）
+	TalentAttachmentResumeID     string                                                                            `json:"talent_attachment_resume_id,omitempty"`     // 简历附件 ID, 详情请查看 : [获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get), 「备注信息: 只有站内创投时上传的简历附件才能关联取值, 渠道/官网/内推创投的简历附件不会关联」
+	StageTimeList                []*GetHireApplicationDetailRespApplicationDetailBasicInfoStageTime                `json:"stage_time_list,omitempty"`                 // 投递阶段变更时间列表
+	OnboardStatus                int64                                                                             `json:"onboard_status,omitempty"`                  // 投递入职状态可选值有: 未入职已入职
+	ApplicationPreferredCityList []*GetHireApplicationDetailRespApplicationDetailBasicInfoApplicationPreferredCity `json:"application_preferred_city_list,omitempty"` // 意向投递城市列表
+	TerminationReason            *GetHireApplicationDetailRespApplicationDetailBasicInfoTerminationReason          `json:"termination_reason,omitempty"`              // 投递终止原因
+	CreatorID                    string                                                                            `json:"creator_id,omitempty"`                      // 投递创建者 ID, 与入参 `user_id_type` 类型一致 注意: 仅当投递创建人为企业内部员工时可获取（如员工手动上传简历 / 加入职位 / 内推）, 其余情况返回为空（如候选人主动投递。当投递创建者是外部租户, user_id_type默认为lark_id
+	OwnerID                      string                                                                            `json:"owner_id,omitempty"`                        // 投递所有者 ID, 与入参 `user_id_type` 类型一致
+	TerminatorID                 string                                                                            `json:"terminator_id,omitempty"`                   // 投递终止者 ID, 与入参 `user_id_type` 类型一致
+	CreateTime                   string                                                                            `json:"create_time,omitempty"`                     // 创建时间戳（单位: 毫秒）
+	ModifyTime                   string                                                                            `json:"modify_time,omitempty"`                     // 修改时间戳（单位: 毫秒）
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailBasicInfoApplicationPreferredCity ...
-type GetHireApplicationDetailRespApplicationDetailBasicInfoApplicationPreferredCity struct { 
-Code string `json:"code,omitempty"` // 城市编码, 详情请参考: [查询地点列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/query)
-Name *GetHireApplicationDetailRespApplicationDetailBasicInfoApplicationPreferredCityName `json:"name,omitempty"` // 城市名称
+type GetHireApplicationDetailRespApplicationDetailBasicInfoApplicationPreferredCity struct {
+	Code string                                                                              `json:"code,omitempty"` // 城市编码, 详情请参考: [查询地点列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/query)
+	Name *GetHireApplicationDetailRespApplicationDetailBasicInfoApplicationPreferredCityName `json:"name,omitempty"` // 城市名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailBasicInfoApplicationPreferredCityName ...
-type GetHireApplicationDetailRespApplicationDetailBasicInfoApplicationPreferredCityName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 城市中文名称
-EnUs string `json:"en_us,omitempty"` // 城市英文名称
+type GetHireApplicationDetailRespApplicationDetailBasicInfoApplicationPreferredCityName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 城市中文名称
+	EnUs string `json:"en_us,omitempty"` // 城市英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailBasicInfoResumeSourceInfo ...
-type GetHireApplicationDetailRespApplicationDetailBasicInfoResumeSourceInfo struct { 
-ID string `json:"id,omitempty"` // 投递来源 ID, 详情请查看[获取简历来源列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/resume_source/list)
-Name *GetHireApplicationDetailRespApplicationDetailBasicInfoResumeSourceInfoName `json:"name,omitempty"` // 投递来源名称
-ResumeSourceType int64 `json:"resume_source_type,omitempty"` // 投递来源类型可选值有: 内推猎头内部来源第三方招聘网站社交媒体线下来源其他外部推荐员工转岗实习生转正
+type GetHireApplicationDetailRespApplicationDetailBasicInfoResumeSourceInfo struct {
+	ID               string                                                                      `json:"id,omitempty"`                 // 投递来源 ID, 详情请查看[获取简历来源列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/resume_source/list)
+	Name             *GetHireApplicationDetailRespApplicationDetailBasicInfoResumeSourceInfoName `json:"name,omitempty"`               // 投递来源名称
+	ResumeSourceType int64                                                                       `json:"resume_source_type,omitempty"` // 投递来源类型可选值有: 内推猎头内部来源第三方招聘网站社交媒体线下来源其他外部推荐员工转岗实习生转正
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailBasicInfoResumeSourceInfoName ...
-type GetHireApplicationDetailRespApplicationDetailBasicInfoResumeSourceInfoName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 投递来源中文名称
-EnUs string `json:"en_us,omitempty"` // 投递来源英文名称
+type GetHireApplicationDetailRespApplicationDetailBasicInfoResumeSourceInfoName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 投递来源中文名称
+	EnUs string `json:"en_us,omitempty"` // 投递来源英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailBasicInfoStage ...
-type GetHireApplicationDetailRespApplicationDetailBasicInfoStage struct { 
-ID string `json:"id,omitempty"` // 投递阶段 ID, 详情可查看: [获取招聘流程信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_process/list)
-ZhName string `json:"zh_name,omitempty"` // 投递阶段中文名称
-EnName string `json:"en_name,omitempty"` // 投递阶段英文名称
-Type int64 `json:"type,omitempty"` // 阶段类型可选值有: 筛选型评估型笔试型面试型Offer型待入职已入职其它类型系统默认
+type GetHireApplicationDetailRespApplicationDetailBasicInfoStage struct {
+	ID     string `json:"id,omitempty"`      // 投递阶段 ID, 详情可查看: [获取招聘流程信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_process/list)
+	ZhName string `json:"zh_name,omitempty"` // 投递阶段中文名称
+	EnName string `json:"en_name,omitempty"` // 投递阶段英文名称
+	Type   int64  `json:"type,omitempty"`    // 阶段类型可选值有: 筛选型评估型笔试型面试型Offer型待入职已入职其它类型系统默认
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailBasicInfoStageTime ...
-type GetHireApplicationDetailRespApplicationDetailBasicInfoStageTime struct { 
-StageID string `json:"stage_id,omitempty"` // 阶段 ID, 详情请查看: [获取招聘流程信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_process/list)
-EnterTime string `json:"enter_time,omitempty"` // 最近一次进入该阶段的时间（单位: 毫秒）
-ExitTime string `json:"exit_time,omitempty"` // 最后一次离开时间（单位: 毫秒）, 如当前在该阶段, 则为空
+type GetHireApplicationDetailRespApplicationDetailBasicInfoStageTime struct {
+	StageID   string `json:"stage_id,omitempty"`   // 阶段 ID, 详情请查看: [获取招聘流程信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_process/list)
+	EnterTime string `json:"enter_time,omitempty"` // 最近一次进入该阶段的时间（单位: 毫秒）
+	ExitTime  string `json:"exit_time,omitempty"`  // 最后一次离开时间（单位: 毫秒）, 如当前在该阶段, 则为空
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailBasicInfoTerminationReason ...
-type GetHireApplicationDetailRespApplicationDetailBasicInfoTerminationReason struct { 
-ID string `json:"id,omitempty"` // 终止原因 ID, 详情请查看: [获取终止投递原因](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/termination_reason/list)
-Name *GetHireApplicationDetailRespApplicationDetailBasicInfoTerminationReasonName `json:"name,omitempty"` // 终止原因名称
-Children []*GetHireApplicationDetailRespApplicationDetailBasicInfoTerminationReasonChildren `json:"children,omitempty"` // 子级终止原因
+type GetHireApplicationDetailRespApplicationDetailBasicInfoTerminationReason struct {
+	ID       string                                                                             `json:"id,omitempty"`       // 终止原因 ID, 详情请查看: [获取终止投递原因](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/termination_reason/list)
+	Name     *GetHireApplicationDetailRespApplicationDetailBasicInfoTerminationReasonName       `json:"name,omitempty"`     // 终止原因名称
+	Children []*GetHireApplicationDetailRespApplicationDetailBasicInfoTerminationReasonChildren `json:"children,omitempty"` // 子级终止原因
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailBasicInfoTerminationReasonChildren ...
-type GetHireApplicationDetailRespApplicationDetailBasicInfoTerminationReasonChildren struct { 
-ID string `json:"id,omitempty"` // 终止原因 ID, 详情请查看: [获取终止投递原因](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/termination_reason/list)
-Name *GetHireApplicationDetailRespApplicationDetailBasicInfoTerminationReasonChildrenName `json:"name,omitempty"` // 终止原因名称
+type GetHireApplicationDetailRespApplicationDetailBasicInfoTerminationReasonChildren struct {
+	ID   string                                                                               `json:"id,omitempty"`   // 终止原因 ID, 详情请查看: [获取终止投递原因](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/termination_reason/list)
+	Name *GetHireApplicationDetailRespApplicationDetailBasicInfoTerminationReasonChildrenName `json:"name,omitempty"` // 终止原因名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailBasicInfoTerminationReasonChildrenName ...
-type GetHireApplicationDetailRespApplicationDetailBasicInfoTerminationReasonChildrenName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 终止原因中文名称
-EnUs string `json:"en_us,omitempty"` // 终止原因英文名称
+type GetHireApplicationDetailRespApplicationDetailBasicInfoTerminationReasonChildrenName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 终止原因中文名称
+	EnUs string `json:"en_us,omitempty"` // 终止原因英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailBasicInfoTerminationReasonName ...
-type GetHireApplicationDetailRespApplicationDetailBasicInfoTerminationReasonName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 终止原因中文名称
-EnUs string `json:"en_us,omitempty"` // 终止原因英文名称
+type GetHireApplicationDetailRespApplicationDetailBasicInfoTerminationReasonName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 终止原因中文名称
+	EnUs string `json:"en_us,omitempty"` // 终止原因英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailBasicInfoWebsiteResumeSource ...
-type GetHireApplicationDetailRespApplicationDetailBasicInfoWebsiteResumeSource struct { 
-WebsiteID string `json:"website_id,omitempty"` // 官网站点 ID, 详情请查看: [获取招聘官网列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website/list)
-WebsiteName *GetHireApplicationDetailRespApplicationDetailBasicInfoWebsiteResumeSourceWebsiteName `json:"website_name,omitempty"` // 官网站点名称
-Channel *GetHireApplicationDetailRespApplicationDetailBasicInfoWebsiteResumeSourceChannel `json:"channel,omitempty"` // 推广渠道来源
+type GetHireApplicationDetailRespApplicationDetailBasicInfoWebsiteResumeSource struct {
+	WebsiteID   string                                                                                `json:"website_id,omitempty"`   // 官网站点 ID, 详情请查看: [获取招聘官网列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website/list)
+	WebsiteName *GetHireApplicationDetailRespApplicationDetailBasicInfoWebsiteResumeSourceWebsiteName `json:"website_name,omitempty"` // 官网站点名称
+	Channel     *GetHireApplicationDetailRespApplicationDetailBasicInfoWebsiteResumeSourceChannel     `json:"channel,omitempty"`      // 推广渠道来源
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailBasicInfoWebsiteResumeSourceChannel ...
-type GetHireApplicationDetailRespApplicationDetailBasicInfoWebsiteResumeSourceChannel struct { 
-ChannelID string `json:"channel_id,omitempty"` // 推广渠道 ID, 详情请查看[获取招聘官网推广渠道列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website-channel/list)
-ChannelName *GetHireApplicationDetailRespApplicationDetailBasicInfoWebsiteResumeSourceChannelChannelName `json:"channel_name,omitempty"` // 推广渠道名称
+type GetHireApplicationDetailRespApplicationDetailBasicInfoWebsiteResumeSourceChannel struct {
+	ChannelID   string                                                                                       `json:"channel_id,omitempty"`   // 推广渠道 ID, 详情请查看[获取招聘官网推广渠道列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website-channel/list)
+	ChannelName *GetHireApplicationDetailRespApplicationDetailBasicInfoWebsiteResumeSourceChannelChannelName `json:"channel_name,omitempty"` // 推广渠道名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailBasicInfoWebsiteResumeSourceChannelChannelName ...
-type GetHireApplicationDetailRespApplicationDetailBasicInfoWebsiteResumeSourceChannelChannelName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 推广渠道中文名称
-EnUs string `json:"en_us,omitempty"` // 推广渠道英文名称
+type GetHireApplicationDetailRespApplicationDetailBasicInfoWebsiteResumeSourceChannelChannelName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 推广渠道中文名称
+	EnUs string `json:"en_us,omitempty"` // 推广渠道英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailBasicInfoWebsiteResumeSourceWebsiteName ...
-type GetHireApplicationDetailRespApplicationDetailBasicInfoWebsiteResumeSourceWebsiteName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 官网站点中文名称
-EnUs string `json:"en_us,omitempty"` // 官网站点英文名称
+type GetHireApplicationDetailRespApplicationDetailBasicInfoWebsiteResumeSourceWebsiteName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 官网站点中文名称
+	EnUs string `json:"en_us,omitempty"` // 官网站点英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailEmployee ...
-type GetHireApplicationDetailRespApplicationDetailEmployee struct { 
-ID string `json:"id,omitempty"` // 员工 ID, 详情请查看: [通过员工 ID 获取入职信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/employee/get)
-ApplicationID string `json:"application_id,omitempty"` // 投递 ID, 详情请查看: [获取投递信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get)
-OnboardStatus int64 `json:"onboard_status,omitempty"` // 入职状态可选值有: 已入职已离职
-ConversionStatus int64 `json:"conversion_status,omitempty"` // 转正状态可选值有: 未转正已转正
-OnboardTime string `json:"onboard_time,omitempty"` // 实际入职时间戳（单位: 毫秒）
-ExpectedConversionTime string `json:"expected_conversion_time,omitempty"` // 预期转正时间戳（单位: 毫秒）
-ActualConversionTime string `json:"actual_conversion_time,omitempty"` // 实际转正时间戳（单位: 毫秒）
-OverboardTime string `json:"overboard_time,omitempty"` // 离职时间戳（单位: 毫秒）
-OverboardNote string `json:"overboard_note,omitempty"` // 离职原因
-OnboardCityCode string `json:"onboard_city_code,omitempty"` // 办公地点
-DepartmentID string `json:"department_id,omitempty"` // 入职部门 ID, 与入参 `department_id_type` 类型一致
-LeaderID string `json:"leader_id,omitempty"` // 直属上级 ID, 与入参 `user_id_type` 类型一致
-SequenceID string `json:"sequence_id,omitempty"` // 序列 ID, 与入参 `job_family_id_type` 类型一致
-LevelID string `json:"level_id,omitempty"` // 职级 ID, 与入参 `job_level_id_type` 类型一致
-EmployeeType EmployeeType `json:"employee_type,omitempty"` // 人员类型, 与入参 `employee_type_id_type` 类型一致
-JobRequirementID string `json:"job_requirement_id,omitempty"` // 招聘需求 ID, 详情请查看: [获取招聘需求信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_requirement/list_by_id)
+type GetHireApplicationDetailRespApplicationDetailEmployee struct {
+	ID                     string       `json:"id,omitempty"`                       // 员工 ID, 详情请查看: [通过员工 ID 获取入职信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/employee/get)
+	ApplicationID          string       `json:"application_id,omitempty"`           // 投递 ID, 详情请查看: [获取投递信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get)
+	OnboardStatus          int64        `json:"onboard_status,omitempty"`           // 入职状态可选值有: 已入职已离职
+	ConversionStatus       int64        `json:"conversion_status,omitempty"`        // 转正状态可选值有: 未转正已转正
+	OnboardTime            string       `json:"onboard_time,omitempty"`             // 实际入职时间戳（单位: 毫秒）
+	ExpectedConversionTime string       `json:"expected_conversion_time,omitempty"` // 预期转正时间戳（单位: 毫秒）
+	ActualConversionTime   string       `json:"actual_conversion_time,omitempty"`   // 实际转正时间戳（单位: 毫秒）
+	OverboardTime          string       `json:"overboard_time,omitempty"`           // 离职时间戳（单位: 毫秒）
+	OverboardNote          string       `json:"overboard_note,omitempty"`           // 离职原因
+	OnboardCityCode        string       `json:"onboard_city_code,omitempty"`        // 办公地点
+	DepartmentID           string       `json:"department_id,omitempty"`            // 入职部门 ID, 与入参 `department_id_type` 类型一致
+	LeaderID               string       `json:"leader_id,omitempty"`                // 直属上级 ID, 与入参 `user_id_type` 类型一致
+	SequenceID             string       `json:"sequence_id,omitempty"`              // 序列 ID, 与入参 `job_family_id_type` 类型一致
+	LevelID                string       `json:"level_id,omitempty"`                 // 职级 ID, 与入参 `job_level_id_type` 类型一致
+	EmployeeType           EmployeeType `json:"employee_type,omitempty"`            // 人员类型, 与入参 `employee_type_id_type` 类型一致
+	JobRequirementID       string       `json:"job_requirement_id,omitempty"`       // 招聘需求 ID, 详情请查看: [获取招聘需求信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_requirement/list_by_id)
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailEvaluation ...
-type GetHireApplicationDetailRespApplicationDetailEvaluation struct { 
-ID string `json:"id,omitempty"` // 评估 ID
-ApplicationID string `json:"application_id,omitempty"` // 投递 ID, 详情请查看: [获取投递信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get)
-StageID string `json:"stage_id,omitempty"` // 投递阶段 ID, 详情请查看: [获取招聘流程信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_process/list)
-CreatorID string `json:"creator_id,omitempty"` // 创建人用户 ID, 与入参 `user_id_type` 类型一致
-EvaluatorID string `json:"evaluator_id,omitempty"` // 评估人用户 ID, 与入参 `user_id_type` 类型一致
-CommitStatus int64 `json:"commit_status,omitempty"` // 提交状态可选值有: 已提交未提交
-Conclusion int64 `json:"conclusion,omitempty"` // 评估结论可选值有: 通过未通过
-Content string `json:"content,omitempty"` // 评估详情
-CreateTime string `json:"create_time,omitempty"` // 评估创建时间戳（单位: 毫秒）
-UpdateTime string `json:"update_time,omitempty"` // 评估最近更新时间戳（单位: 毫秒）
+type GetHireApplicationDetailRespApplicationDetailEvaluation struct {
+	ID            string `json:"id,omitempty"`             // 评估 ID
+	ApplicationID string `json:"application_id,omitempty"` // 投递 ID, 详情请查看: [获取投递信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get)
+	StageID       string `json:"stage_id,omitempty"`       // 投递阶段 ID, 详情请查看: [获取招聘流程信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_process/list)
+	CreatorID     string `json:"creator_id,omitempty"`     // 创建人用户 ID, 与入参 `user_id_type` 类型一致
+	EvaluatorID   string `json:"evaluator_id,omitempty"`   // 评估人用户 ID, 与入参 `user_id_type` 类型一致
+	CommitStatus  int64  `json:"commit_status,omitempty"`  // 提交状态可选值有: 已提交未提交
+	Conclusion    int64  `json:"conclusion,omitempty"`     // 评估结论可选值有: 通过未通过
+	Content       string `json:"content,omitempty"`        // 评估详情
+	CreateTime    string `json:"create_time,omitempty"`    // 评估创建时间戳（单位: 毫秒）
+	UpdateTime    string `json:"update_time,omitempty"`    // 评估最近更新时间戳（单位: 毫秒）
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregation ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregation struct { 
-Interviews []*GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterview `json:"interviews,omitempty"` // 面试信息列表
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregation struct {
+	Interviews []*GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterview `json:"interviews,omitempty"` // 面试信息列表
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterview ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterview struct { 
-ID string `json:"id,omitempty"` // 面试 ID, 详情请查看: [获取面试信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview/list)
-BeginTime string `json:"begin_time,omitempty"` // 面试开始时间戳（单位: 毫秒）
-EndTime string `json:"end_time,omitempty"` // 面试结束时间戳（单位: 毫秒）
-Round int64 `json:"round,omitempty"` // 面试轮次（从0开始计数）
-InterviewRecordList []*GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecord `json:"interview_record_list,omitempty"` // 面试评价信息
-FeedbackSubmitTime string `json:"feedback_submit_time,omitempty"` // 面试评价提交时间戳（单位: 毫秒）
-StageID string `json:"stage_id,omitempty"` // 面试关联的投递阶段
-ApplicationID string `json:"application_id,omitempty"` // 投递 ID, 详情请查看: [获取投递信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get)
-Stage *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewStage `json:"stage,omitempty"` // 阶段信息
-Creator *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewCreator `json:"creator,omitempty"` // 创建人
-CreateTime string `json:"create_time,omitempty"` // 创建时间戳（单位: 毫秒）
-UpdateTime string `json:"update_time,omitempty"` // 更新时间戳（单位: 毫秒）
-InterviewRoundSummary int64 `json:"interview_round_summary,omitempty"` // 面试状态可选值有: 未开始全部未评价全部通过全部淘汰爽约部分评价且均评价通过部分评价且评价中有通过有淘汰的部分评价且均评价淘汰所有面试官都提交评价且评价中有通过有淘汰的部分评价且评价中有通过和待定的部分评价且评价中有淘汰和待定的部分评级且评价均为待定部分评价且评价中有通过、待定和淘汰的所有面试官都提交评价且评价中有通过和待定的所有面试官都提交评价且评价中有待定和淘汰的所有面试官都提交评价且评价均为待定所有面试官都提交评价且评价中有通过、待定、淘汰的
-InterviewArrangementID string `json:"interview_arrangement_id,omitempty"` // 面试安排 ID
-InterviewType int64 `json:"interview_type,omitempty"` // 面试类型可选值有: 现场面试电话面试视频面试
-TalentTimeZone *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewTalentTimeZone `json:"talent_time_zone,omitempty"` // 候选人时区
-ContactUser *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewContactUser `json:"contact_user,omitempty"` // 面试联系人
-ContactMobile string `json:"contact_mobile,omitempty"` // 面试联系人电话
-Remark string `json:"remark,omitempty"` // 备注
-Address *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddress `json:"address,omitempty"` // 面试地点
-VideoType int64 `json:"video_type,omitempty"` // 视频面试工具可选值有: Zoom牛客技术类型牛客非技术类型赛码LarkHackerrank飞书（含代码考核）不使用系统工具
-ArrangementStatus int64 `json:"arrangement_status,omitempty"` // 当安排类型为集中面试时, 此值表示集中面试的安排状态可选值有: 未开始进行中已结束已取消
-ArrangementType int64 `json:"arrangement_type,omitempty"` // 安排类型可选值有: 社招单面集中面试集体面试
-ArrangementAppointmentKind int64 `json:"arrangement_appointment_kind,omitempty"` // 安排方式（是否使用自助约面）可选值有: 直接安排自助约面
-MeetingRoomList []*GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewMeetingRoom `json:"meeting_room_list,omitempty"` // 面试会议室
-InterviewRoundType *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRoundType `json:"interview_round_type,omitempty"` // 面试轮次类型
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterview struct {
+	ID                         string                                                                                        `json:"id,omitempty"`                           // 面试 ID, 详情请查看: [获取面试信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview/list)
+	BeginTime                  string                                                                                        `json:"begin_time,omitempty"`                   // 面试开始时间戳（单位: 毫秒）
+	EndTime                    string                                                                                        `json:"end_time,omitempty"`                     // 面试结束时间戳（单位: 毫秒）
+	Round                      int64                                                                                         `json:"round,omitempty"`                        // 面试轮次（从0开始计数）
+	InterviewRecordList        []*GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecord  `json:"interview_record_list,omitempty"`        // 面试评价信息
+	FeedbackSubmitTime         string                                                                                        `json:"feedback_submit_time,omitempty"`         // 面试评价提交时间戳（单位: 毫秒）
+	StageID                    string                                                                                        `json:"stage_id,omitempty"`                     // 面试关联的投递阶段
+	ApplicationID              string                                                                                        `json:"application_id,omitempty"`               // 投递 ID, 详情请查看: [获取投递信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get)
+	Stage                      *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewStage              `json:"stage,omitempty"`                        // 阶段信息
+	Creator                    *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewCreator            `json:"creator,omitempty"`                      // 创建人
+	CreateTime                 string                                                                                        `json:"create_time,omitempty"`                  // 创建时间戳（单位: 毫秒）
+	UpdateTime                 string                                                                                        `json:"update_time,omitempty"`                  // 更新时间戳（单位: 毫秒）
+	InterviewRoundSummary      int64                                                                                         `json:"interview_round_summary,omitempty"`      // 面试状态可选值有: 未开始全部未评价全部通过全部淘汰爽约部分评价且均评价通过部分评价且评价中有通过有淘汰的部分评价且均评价淘汰所有面试官都提交评价且评价中有通过有淘汰的部分评价且评价中有通过和待定的部分评价且评价中有淘汰和待定的部分评级且评价均为待定部分评价且评价中有通过、待定和淘汰的所有面试官都提交评价且评价中有通过和待定的所有面试官都提交评价且评价中有待定和淘汰的所有面试官都提交评价且评价均为待定所有面试官都提交评价且评价中有通过、待定、淘汰的
+	InterviewArrangementID     string                                                                                        `json:"interview_arrangement_id,omitempty"`     // 面试安排 ID
+	InterviewType              int64                                                                                         `json:"interview_type,omitempty"`               // 面试类型可选值有: 现场面试电话面试视频面试
+	TalentTimeZone             *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewTalentTimeZone     `json:"talent_time_zone,omitempty"`             // 候选人时区
+	ContactUser                *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewContactUser        `json:"contact_user,omitempty"`                 // 面试联系人
+	ContactMobile              string                                                                                        `json:"contact_mobile,omitempty"`               // 面试联系人电话
+	Remark                     string                                                                                        `json:"remark,omitempty"`                       // 备注
+	Address                    *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddress            `json:"address,omitempty"`                      // 面试地点
+	VideoType                  int64                                                                                         `json:"video_type,omitempty"`                   // 视频面试工具可选值有: Zoom牛客技术类型牛客非技术类型赛码LarkHackerrank飞书（含代码考核）不使用系统工具
+	ArrangementStatus          int64                                                                                         `json:"arrangement_status,omitempty"`           // 当安排类型为集中面试时, 此值表示集中面试的安排状态可选值有: 未开始进行中已结束已取消
+	ArrangementType            int64                                                                                         `json:"arrangement_type,omitempty"`             // 安排类型可选值有: 社招单面集中面试集体面试
+	ArrangementAppointmentKind int64                                                                                         `json:"arrangement_appointment_kind,omitempty"` // 安排方式（是否使用自助约面）可选值有: 直接安排自助约面
+	MeetingRoomList            []*GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewMeetingRoom      `json:"meeting_room_list,omitempty"`            // 面试会议室
+	InterviewRoundType         *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRoundType `json:"interview_round_type,omitempty"`         // 面试轮次类型
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddress ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddress struct { 
-ID string `json:"id,omitempty"` // 地点 ID, 详情请查看: [获取地址列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/list)
-Name *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressName `json:"name,omitempty"` // 地点名称
-District *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressDistrict `json:"district,omitempty"` // 区域信息
-City *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressCity `json:"city,omitempty"` // 城市信息
-State *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressState `json:"state,omitempty"` // 省信息
-Country *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressCountry `json:"country,omitempty"` // 国家信息
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddress struct {
+	ID       string                                                                                     `json:"id,omitempty"`       // 地点 ID, 详情请查看: [获取地址列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/list)
+	Name     *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressName     `json:"name,omitempty"`     // 地点名称
+	District *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressDistrict `json:"district,omitempty"` // 区域信息
+	City     *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressCity     `json:"city,omitempty"`     // 城市信息
+	State    *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressState    `json:"state,omitempty"`    // 省信息
+	Country  *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressCountry  `json:"country,omitempty"`  // 国家信息
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressCity ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressCity struct { 
-Name *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressCityName `json:"name,omitempty"` // 城市名称
-Code string `json:"code,omitempty"` // 城市编码
-LocationType int64 `json:"location_type,omitempty"` // 地址类型可选值有: COUNTRY 国家STATE 省CITY 市DISTRICT 区ADDRESS 地址
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressCity struct {
+	Name         *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressCityName `json:"name,omitempty"`          // 城市名称
+	Code         string                                                                                     `json:"code,omitempty"`          // 城市编码
+	LocationType int64                                                                                      `json:"location_type,omitempty"` // 地址类型可选值有: COUNTRY 国家STATE 省CITY 市DISTRICT 区ADDRESS 地址
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressCityName ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressCityName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 城市中文名称
-EnUs string `json:"en_us,omitempty"` // 城市英文名称
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressCityName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 城市中文名称
+	EnUs string `json:"en_us,omitempty"` // 城市英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressCountry ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressCountry struct { 
-Name *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressCountryName `json:"name,omitempty"` // 国家名称
-Code string `json:"code,omitempty"` // 国家编码
-LocationType int64 `json:"location_type,omitempty"` // 地址类型可选值有: COUNTRY 国家STATE 省CITY 市DISTRICT 区ADDRESS 地址
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressCountry struct {
+	Name         *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressCountryName `json:"name,omitempty"`          // 国家名称
+	Code         string                                                                                        `json:"code,omitempty"`          // 国家编码
+	LocationType int64                                                                                         `json:"location_type,omitempty"` // 地址类型可选值有: COUNTRY 国家STATE 省CITY 市DISTRICT 区ADDRESS 地址
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressCountryName ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressCountryName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 国家中文名称
-EnUs string `json:"en_us,omitempty"` // 国家英文名称
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressCountryName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 国家中文名称
+	EnUs string `json:"en_us,omitempty"` // 国家英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressDistrict ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressDistrict struct { 
-Name *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressDistrictName `json:"name,omitempty"` // 区域名称
-Code string `json:"code,omitempty"` // 区域编码
-LocationType int64 `json:"location_type,omitempty"` // 地址类型可选值有: COUNTRY 国家STATE 省CITY 市DISTRICT 区ADDRESS 地址
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressDistrict struct {
+	Name         *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressDistrictName `json:"name,omitempty"`          // 区域名称
+	Code         string                                                                                         `json:"code,omitempty"`          // 区域编码
+	LocationType int64                                                                                          `json:"location_type,omitempty"` // 地址类型可选值有: COUNTRY 国家STATE 省CITY 市DISTRICT 区ADDRESS 地址
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressDistrictName ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressDistrictName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 区域中文名称
-EnUs string `json:"en_us,omitempty"` // 区域英文名称
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressDistrictName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 区域中文名称
+	EnUs string `json:"en_us,omitempty"` // 区域英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressName ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 地点中文名称
-EnUs string `json:"en_us,omitempty"` // 地点英文名称
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 地点中文名称
+	EnUs string `json:"en_us,omitempty"` // 地点英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressState ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressState struct { 
-Name *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressStateName `json:"name,omitempty"` // 省名称
-Code string `json:"code,omitempty"` // 省编码
-LocationType int64 `json:"location_type,omitempty"` // 地址类型可选值有: COUNTRY 国家STATE 省CITY 市DISTRICT 区ADDRESS 地址
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressState struct {
+	Name         *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressStateName `json:"name,omitempty"`          // 省名称
+	Code         string                                                                                      `json:"code,omitempty"`          // 省编码
+	LocationType int64                                                                                       `json:"location_type,omitempty"` // 地址类型可选值有: COUNTRY 国家STATE 省CITY 市DISTRICT 区ADDRESS 地址
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressStateName ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressStateName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 省中文名称
-EnUs string `json:"en_us,omitempty"` // 省英文名称
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewAddressStateName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 省中文名称
+	EnUs string `json:"en_us,omitempty"` // 省英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewContactUser ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewContactUser struct { 
-ID string `json:"id,omitempty"` // 面试联系人 ID, 与入参 `user_id_type` 类型一致
-Name *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewContactUserName `json:"name,omitempty"` // 面试联系人名称
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewContactUser struct {
+	ID   string                                                                                     `json:"id,omitempty"`   // 面试联系人 ID, 与入参 `user_id_type` 类型一致
+	Name *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewContactUserName `json:"name,omitempty"` // 面试联系人名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewContactUserName ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewContactUserName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 面试联系人中文名称
-EnUs string `json:"en_us,omitempty"` // 面试联系人英文名称
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewContactUserName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 面试联系人中文名称
+	EnUs string `json:"en_us,omitempty"` // 面试联系人英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewCreator ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewCreator struct { 
-ID string `json:"id,omitempty"` // 创建人 ID, 与入参 `user_id_type` 类型一致
-Name *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewCreatorName `json:"name,omitempty"` // 创建人名称
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewCreator struct {
+	ID   string                                                                                 `json:"id,omitempty"`   // 创建人 ID, 与入参 `user_id_type` 类型一致
+	Name *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewCreatorName `json:"name,omitempty"` // 创建人名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewCreatorName ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewCreatorName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 创建人中文名称
-EnUs string `json:"en_us,omitempty"` // 创建人英文名称
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewCreatorName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 创建人中文名称
+	EnUs string `json:"en_us,omitempty"` // 创建人英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecord ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecord struct { 
-ID string `json:"id,omitempty"` // 面试评价 ID, 详情请查看: [获取面试评价详细信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/hire-v2/interview_record/get)
-FeedbackFormID string `json:"feedback_form_id,omitempty"` // 面试评价表 ID, 详情请查看: [获取面试评价表列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview_feedback_form/list)
-CommitStatus int64 `json:"commit_status,omitempty"` // 提交状态可选值有: 已提交未提交
-SubmitTime string `json:"submit_time,omitempty"` // 面试评价提交时间戳（单位: 毫秒）
-RecordScore *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordRecordScore `json:"record_score,omitempty"` // 面试评价分数
-Interviewer *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordInterviewer `json:"interviewer,omitempty"` // 面试官信息
-Attachments []*GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordAttachment `json:"attachments,omitempty"` // 面试评价附件列表
-ModuleAssessments []*GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessment `json:"module_assessments,omitempty"` // 模块评价列表
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecord struct {
+	ID                string                                                                                                       `json:"id,omitempty"`                 // 面试评价 ID, 详情请查看: [获取面试评价详细信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/hire-v2/interview_record/get)
+	FeedbackFormID    string                                                                                                       `json:"feedback_form_id,omitempty"`   // 面试评价表 ID, 详情请查看: [获取面试评价表列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview_feedback_form/list)
+	CommitStatus      int64                                                                                                        `json:"commit_status,omitempty"`      // 提交状态可选值有: 已提交未提交
+	SubmitTime        string                                                                                                       `json:"submit_time,omitempty"`        // 面试评价提交时间戳（单位: 毫秒）
+	RecordScore       *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordRecordScore        `json:"record_score,omitempty"`       // 面试评价分数
+	Interviewer       *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordInterviewer        `json:"interviewer,omitempty"`        // 面试官信息
+	Attachments       []*GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordAttachment       `json:"attachments,omitempty"`        // 面试评价附件列表
+	ModuleAssessments []*GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessment `json:"module_assessments,omitempty"` // 模块评价列表
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordAttachment ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordAttachment struct { 
-FileID string `json:"file_id,omitempty"` // 附件 ID, 详情请查看: [获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get)
-FileName string `json:"file_name,omitempty"` // 附件名称
-ContentType string `json:"content_type,omitempty"` // 附件类型
-CreateTime string `json:"create_time,omitempty"` // 附件创建时间戳（单位: 毫秒）
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordAttachment struct {
+	FileID      string `json:"file_id,omitempty"`      // 附件 ID, 详情请查看: [获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get)
+	FileName    string `json:"file_name,omitempty"`    // 附件名称
+	ContentType string `json:"content_type,omitempty"` // 附件类型
+	CreateTime  string `json:"create_time,omitempty"`  // 附件创建时间戳（单位: 毫秒）
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordInterviewer ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordInterviewer struct { 
-ID string `json:"id,omitempty"` // 面试官用户 ID, 与入参 `user_id_type` 类型一致
-Name *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordInterviewerName `json:"name,omitempty"` // 面试官名称
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordInterviewer struct {
+	ID   string                                                                                                    `json:"id,omitempty"`   // 面试官用户 ID, 与入参 `user_id_type` 类型一致
+	Name *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordInterviewerName `json:"name,omitempty"` // 面试官名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordInterviewerName ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordInterviewerName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 面试官中文名称
-EnUs string `json:"en_us,omitempty"` // 面试官英文名称
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordInterviewerName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 面试官中文名称
+	EnUs string `json:"en_us,omitempty"` // 面试官英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessment ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessment struct { 
-InterviewFeedbackFormModuleID string `json:"interview_feedback_form_module_id,omitempty"` // 面试评价表模块 ID, 详情请查看: [获取面试评价表列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview_feedback_form/list)接口中的 module 的 ID
-ModuleName *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentModuleName `json:"module_name,omitempty"` // 模块名称
-ModuleType int64 `json:"module_type,omitempty"` // 模块类型可选值有: 系统预置「面试结论」模块自定义模块（无模块名称）
-ModuleWeight float64 `json:"module_weight,omitempty"` // 模块权重
-ModuleScore float64 `json:"module_score,omitempty"` // 模块打分（精确到小数点后两位）
-DimensionAssessments []*GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessment `json:"dimension_assessments,omitempty"` // 模块评价
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessment struct {
+	InterviewFeedbackFormModuleID string                                                                                                                          `json:"interview_feedback_form_module_id,omitempty"` // 面试评价表模块 ID, 详情请查看: [获取面试评价表列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview_feedback_form/list)接口中的 module 的 ID
+	ModuleName                    *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentModuleName            `json:"module_name,omitempty"`                       // 模块名称
+	ModuleType                    int64                                                                                                                           `json:"module_type,omitempty"`                       // 模块类型可选值有: 系统预置「面试结论」模块自定义模块（无模块名称）
+	ModuleWeight                  float64                                                                                                                         `json:"module_weight,omitempty"`                     // 模块权重
+	ModuleScore                   float64                                                                                                                         `json:"module_score,omitempty"`                      // 模块打分（精确到小数点后两位）
+	DimensionAssessments          []*GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessment `json:"dimension_assessments,omitempty"`             // 模块评价
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessment ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessment struct { 
-InterviewFeedbackFormDimensionID string `json:"interview_feedback_form_dimension_id,omitempty"` // 对应模版中维度 ID, 详情请查看: [获取面试评价表列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview_feedback_form/list)接口中的 dimension 的 ID
-DimensionName *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentDimensionName `json:"dimension_name,omitempty"` // 维度名称
-DimensionType int64 `json:"dimension_type,omitempty"` // 维度类型可选值有: 单选题多选题描述题职级建议打分题(单选)打分题(填空)系统预置-结论系统预置-得分系统预置-记录
-Weight float64 `json:"weight,omitempty"` // 维度权重
-DimensionContent string `json:"dimension_content,omitempty"` // 当维度类型为描述题时, 从此取值
-DimensionOption *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentDimensionOption `json:"dimension_option,omitempty"` // 当维度类型为单选题时, 从此取值
-DimensionOptions []*GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentDimensionOption `json:"dimension_options,omitempty"` // 当维度类型为多选题时, 从此取值
-DimensionScore int64 `json:"dimension_score,omitempty"` // 当维度评价方式为「打分题(填空)时」, 从此取值
-RecommendedJobLevel *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentRecommendedJobLevel `json:"recommended_job_level,omitempty"` // 当维度为「职级建议」时, 从此取值
-QuestionAssessments []*GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessment `json:"question_assessments,omitempty"` // 维度关联面试题
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessment struct {
+	InterviewFeedbackFormDimensionID string                                                                                                                                            `json:"interview_feedback_form_dimension_id,omitempty"` // 对应模版中维度 ID, 详情请查看: [获取面试评价表列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview_feedback_form/list)接口中的 dimension 的 ID
+	DimensionName                    *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentDimensionName        `json:"dimension_name,omitempty"`                       // 维度名称
+	DimensionType                    int64                                                                                                                                             `json:"dimension_type,omitempty"`                       // 维度类型可选值有: 单选题多选题描述题职级建议打分题(单选)打分题(填空)系统预置-结论系统预置-得分系统预置-记录
+	Weight                           float64                                                                                                                                           `json:"weight,omitempty"`                               // 维度权重
+	DimensionContent                 string                                                                                                                                            `json:"dimension_content,omitempty"`                    // 当维度类型为描述题时, 从此取值
+	DimensionOption                  *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentDimensionOption      `json:"dimension_option,omitempty"`                     // 当维度类型为单选题时, 从此取值
+	DimensionOptions                 []*GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentDimensionOption    `json:"dimension_options,omitempty"`                    // 当维度类型为多选题时, 从此取值
+	DimensionScore                   int64                                                                                                                                             `json:"dimension_score,omitempty"`                      // 当维度评价方式为「打分题(填空)时」, 从此取值
+	RecommendedJobLevel              *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentRecommendedJobLevel  `json:"recommended_job_level,omitempty"`                // 当维度为「职级建议」时, 从此取值
+	QuestionAssessments              []*GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessment `json:"question_assessments,omitempty"`                 // 维度关联面试题
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentDimensionName ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentDimensionName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 维度中文名称
-EnUs string `json:"en_us,omitempty"` // 维度英文名称
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentDimensionName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 维度中文名称
+	EnUs string `json:"en_us,omitempty"` // 维度英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentDimensionOption ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentDimensionOption struct { 
-ID string `json:"id,omitempty"` // 选项 ID
-Name *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentDimensionOptionName `json:"name,omitempty"` // 选项名称
-ScoreVal int64 `json:"score_val,omitempty"` // 选项对应的分数
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentDimensionOption struct {
+	ID       string                                                                                                                                           `json:"id,omitempty"`        // 选项 ID
+	Name     *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentDimensionOptionName `json:"name,omitempty"`      // 选项名称
+	ScoreVal int64                                                                                                                                            `json:"score_val,omitempty"` // 选项对应的分数
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentDimensionOptionName ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentDimensionOptionName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 选项中文名称
-EnUs string `json:"en_us,omitempty"` // 选项英文名称
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentDimensionOptionName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 选项中文名称
+	EnUs string `json:"en_us,omitempty"` // 选项英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessment ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessment struct { 
-QuestionType int64 `json:"question_type,omitempty"` // 所关联面试题的类型可选值有: 普通面试题目在线编程题目
-Title *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentTitle `json:"title,omitempty"` // 关联面试题的名称
-Description *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentDescription `json:"description,omitempty"` // 关联面试题的描述
-Content string `json:"content,omitempty"` // 面试者作答内容
-Abilities []*GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentAbilitie `json:"abilities,omitempty"` // 能力项列表
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessment struct {
+	QuestionType int64                                                                                                                                                      `json:"question_type,omitempty"` // 所关联面试题的类型可选值有: 普通面试题目在线编程题目
+	Title        *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentTitle       `json:"title,omitempty"`         // 关联面试题的名称
+	Description  *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentDescription `json:"description,omitempty"`   // 关联面试题的描述
+	Content      string                                                                                                                                                     `json:"content,omitempty"`       // 面试者作答内容
+	Abilities    []*GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentAbilitie  `json:"abilities,omitempty"`     // 能力项列表
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentAbilitie ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentAbilitie struct { 
-ID string `json:"id,omitempty"` // 能力项 ID
-Name *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentAbilitieName `json:"name,omitempty"` // 能力项名称
-Description *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentAbilitieDescription `json:"description,omitempty"` // 能力项描述
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentAbilitie struct {
+	ID          string                                                                                                                                                             `json:"id,omitempty"`          // 能力项 ID
+	Name        *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentAbilitieName        `json:"name,omitempty"`        // 能力项名称
+	Description *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentAbilitieDescription `json:"description,omitempty"` // 能力项描述
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentAbilitieDescription ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentAbilitieDescription struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 能力项中文描述
-EnUs string `json:"en_us,omitempty"` // 能力项英文描述
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentAbilitieDescription struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 能力项中文描述
+	EnUs string `json:"en_us,omitempty"` // 能力项英文描述
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentAbilitieName ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentAbilitieName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 能力项中文名称
-EnUs string `json:"en_us,omitempty"` // 能力项英文名称
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentAbilitieName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 能力项中文名称
+	EnUs string `json:"en_us,omitempty"` // 能力项英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentDescription ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentDescription struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 关联面试题的中文描述
-EnUs string `json:"en_us,omitempty"` // 关联面试题的英文描述
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentDescription struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 关联面试题的中文描述
+	EnUs string `json:"en_us,omitempty"` // 关联面试题的英文描述
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentTitle ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentTitle struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 关联面试题的中文名称
-EnUs string `json:"en_us,omitempty"` // 关联面试题的英文名称
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentQuestionAssessmentTitle struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 关联面试题的中文名称
+	EnUs string `json:"en_us,omitempty"` // 关联面试题的英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentRecommendedJobLevel ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentRecommendedJobLevel struct { 
-LowerLimitJobLevelName *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentRecommendedJobLevelLowerLimitJobLevelName `json:"lower_limit_job_level_name,omitempty"` // 最低职级建议
-HigherLimitJobLevelName *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentRecommendedJobLevelHigherLimitJobLevelName `json:"higher_limit_job_level_name,omitempty"` // 最高职级建议
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentRecommendedJobLevel struct {
+	LowerLimitJobLevelName  *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentRecommendedJobLevelLowerLimitJobLevelName  `json:"lower_limit_job_level_name,omitempty"`  // 最低职级建议
+	HigherLimitJobLevelName *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentRecommendedJobLevelHigherLimitJobLevelName `json:"higher_limit_job_level_name,omitempty"` // 最高职级建议
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentRecommendedJobLevelHigherLimitJobLevelName ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentRecommendedJobLevelHigherLimitJobLevelName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 最高职级中文建议
-EnUs string `json:"en_us,omitempty"` // 最高职级英文建议
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentRecommendedJobLevelHigherLimitJobLevelName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 最高职级中文建议
+	EnUs string `json:"en_us,omitempty"` // 最高职级英文建议
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentRecommendedJobLevelLowerLimitJobLevelName ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentRecommendedJobLevelLowerLimitJobLevelName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 最低职级中文建议
-EnUs string `json:"en_us,omitempty"` // 最低职级英文建议
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentDimensionAssessmentRecommendedJobLevelLowerLimitJobLevelName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 最低职级中文建议
+	EnUs string `json:"en_us,omitempty"` // 最低职级英文建议
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentModuleName ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentModuleName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 模块中文名称
-EnUs string `json:"en_us,omitempty"` // 模块英文名称
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordModuleAssessmentModuleName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 模块中文名称
+	EnUs string `json:"en_us,omitempty"` // 模块英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordRecordScore ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordRecordScore struct { 
-Score float64 `json:"score,omitempty"` // 面试评价得分（精确到小数点后两位）
-TotalScore int64 `json:"total_score,omitempty"` // 面试评价总分（精确到小数点后两位）
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRecordRecordScore struct {
+	Score      float64 `json:"score,omitempty"`       // 面试评价得分（精确到小数点后两位）
+	TotalScore int64   `json:"total_score,omitempty"` // 面试评价总分（精确到小数点后两位）
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRoundType ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRoundType struct { 
-ID string `json:"id,omitempty"` // 面试轮次类型 ID, 详情可查看: [获取面试轮次类型列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview_round_type/list)
-Name *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRoundTypeName `json:"name,omitempty"` // 面试轮次类型名称
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRoundType struct {
+	ID   string                                                                                            `json:"id,omitempty"`   // 面试轮次类型 ID, 详情可查看: [获取面试轮次类型列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview_round_type/list)
+	Name *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRoundTypeName `json:"name,omitempty"` // 面试轮次类型名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRoundTypeName ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRoundTypeName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 面试轮次类型中文名称
-EnUs string `json:"en_us,omitempty"` // 面试轮次类型英文名称
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewInterviewRoundTypeName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 面试轮次类型中文名称
+	EnUs string `json:"en_us,omitempty"` // 面试轮次类型英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewMeetingRoom ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewMeetingRoom struct { 
-RoomID string `json:"room_id,omitempty"` // 会议室 ID
-RoomName string `json:"room_name,omitempty"` // 会议室名称
-BuildingName string `json:"building_name,omitempty"` // 建筑名称
-ReservedStatus int64 `json:"reserved_status,omitempty"` // 会议室预定状态可选值有: 预约中预约成功预约失败
-FloorName string `json:"floor_name,omitempty"` // 楼层
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewMeetingRoom struct {
+	RoomID         string `json:"room_id,omitempty"`         // 会议室 ID
+	RoomName       string `json:"room_name,omitempty"`       // 会议室名称
+	BuildingName   string `json:"building_name,omitempty"`   // 建筑名称
+	ReservedStatus int64  `json:"reserved_status,omitempty"` // 会议室预定状态可选值有: 预约中预约成功预约失败
+	FloorName      string `json:"floor_name,omitempty"`      // 楼层
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewStage ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewStage struct { 
-ID string `json:"id,omitempty"` // 阶段 ID, 详情请查看: [获取招聘流程信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_process/list)
-Name *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewStageName `json:"name,omitempty"` // 阶段名称
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewStage struct {
+	ID   string                                                                               `json:"id,omitempty"`   // 阶段 ID, 详情请查看: [获取招聘流程信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_process/list)
+	Name *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewStageName `json:"name,omitempty"` // 阶段名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewStageName ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewStageName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 阶段中文名称
-EnUs string `json:"en_us,omitempty"` // 阶段英文名称
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewStageName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 阶段中文名称
+	EnUs string `json:"en_us,omitempty"` // 阶段英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewTalentTimeZone ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewTalentTimeZone struct { 
-Code string `json:"code,omitempty"` // 时区编码
-Name *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewTalentTimeZoneName `json:"name,omitempty"` // 时区名称
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewTalentTimeZone struct {
+	Code string                                                                                        `json:"code,omitempty"` // 时区编码
+	Name *GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewTalentTimeZoneName `json:"name,omitempty"` // 时区名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewTalentTimeZoneName ...
-type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewTalentTimeZoneName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 时区中文名称
-EnUs string `json:"en_us,omitempty"` // 时区英文名称
+type GetHireApplicationDetailRespApplicationDetailInterviewAggregationInterviewTalentTimeZoneName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 时区中文名称
+	EnUs string `json:"en_us,omitempty"` // 时区英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailJob ...
-type GetHireApplicationDetailRespApplicationDetailJob struct { 
-ID string `json:"id,omitempty"` // 职位 ID, 详情请查看: [获取职位信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/get)
-Name string `json:"name,omitempty"` // 职位名称
-Code string `json:"code,omitempty"` // 职位编码
+type GetHireApplicationDetailRespApplicationDetailJob struct {
+	ID   string `json:"id,omitempty"`   // 职位 ID, 详情请查看: [获取职位信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job/get)
+	Name string `json:"name,omitempty"` // 职位名称
+	Code string `json:"code,omitempty"` // 职位编码
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOffer ...
-type GetHireApplicationDetailRespApplicationDetailOffer struct { 
-OfferBasic *GetHireApplicationDetailRespApplicationDetailOfferOfferBasic `json:"offer_basic,omitempty"` // Offer 基本信息
-OfferSalary *GetHireApplicationDetailRespApplicationDetailOfferOfferSalary `json:"offer_salary,omitempty"` // Offer 薪酬信息字段权限要求: 获取 Offer 薪酬
+type GetHireApplicationDetailRespApplicationDetailOffer struct {
+	OfferBasic  *GetHireApplicationDetailRespApplicationDetailOfferOfferBasic  `json:"offer_basic,omitempty"`  // Offer 基本信息
+	OfferSalary *GetHireApplicationDetailRespApplicationDetailOfferOfferSalary `json:"offer_salary,omitempty"` // Offer 薪酬信息字段权限要求: 获取 Offer 薪酬
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOfferOfferBasic ...
-type GetHireApplicationDetailRespApplicationDetailOfferOfferBasic struct { 
-ID string `json:"id,omitempty"` // Offer ID, 详情请查看: [获取 Offer 详情](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer/get)
-OfferStatus int64 `json:"offer_status,omitempty"` // Offer 状态可选值有: Offer 已创建Offer 审批中Offer 审批已撤回Offer 审批通过Offer 审批不通过Offer 已发送Offer 被候选人接受Offer 被候选人拒绝Offer 已失效
-Leader *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicLeader `json:"leader,omitempty"` // 直属上级
-EmployeeType *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicEmployeeType `json:"employee_type,omitempty"` // 人员类型
-Department *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicDepartment `json:"department,omitempty"` // 部门
-Sequence *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicSequence `json:"sequence,omitempty"` // 序列
-Level *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicLevel `json:"level,omitempty"` // 级别
-CompanyMainBody *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicCompanyMainBody `json:"company_main_body,omitempty"` // 公司主体
-JobRequirementID string `json:"job_requirement_id,omitempty"` // 招聘需求 ID, 详情请查看: [获取招聘需求信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_requirement/list_by_id)
-ProbationMonth int64 `json:"probation_month,omitempty"` // 试用期（单位: 月）
-ContractPeriod *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicContractPeriod `json:"contract_period,omitempty"` // 合同期（年/月）
-OnboardDate string `json:"onboard_date,omitempty"` // 入职日期, 格式为 YYYY-MM-DD
-Owner *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOwner `json:"owner,omitempty"` // Offer 负责人
-OnboardAddress *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddress `json:"onboard_address,omitempty"` // 入职地址
-WorkAddress *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddress `json:"work_address,omitempty"` // 工作地址
-Remark string `json:"remark,omitempty"` // Offer 备注
-AttachmentList []*GetHireApplicationDetailRespApplicationDetailOfferOfferBasicAttachment `json:"attachment_list,omitempty"` // 附件列表
-CustomizeInfoList []*GetHireApplicationDetailRespApplicationDetailOfferOfferBasicCustomizeInfo `json:"customize_info_list,omitempty"` // Offer 自定义字段数据
-CreateTime string `json:"create_time,omitempty"` // Offer 创建时间戳（单位: 毫秒）
+type GetHireApplicationDetailRespApplicationDetailOfferOfferBasic struct {
+	ID                string                                                                       `json:"id,omitempty"`                  // Offer ID, 详情请查看: [获取 Offer 详情](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer/get)
+	OfferStatus       int64                                                                        `json:"offer_status,omitempty"`        // Offer 状态可选值有: Offer 已创建Offer 审批中Offer 审批已撤回Offer 审批通过Offer 审批不通过Offer 已发送Offer 被候选人接受Offer 被候选人拒绝Offer 已失效
+	Leader            *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicLeader          `json:"leader,omitempty"`              // 直属上级
+	EmployeeType      *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicEmployeeType    `json:"employee_type,omitempty"`       // 人员类型
+	Department        *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicDepartment      `json:"department,omitempty"`          // 部门
+	Sequence          *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicSequence        `json:"sequence,omitempty"`            // 序列
+	Level             *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicLevel           `json:"level,omitempty"`               // 级别
+	CompanyMainBody   *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicCompanyMainBody `json:"company_main_body,omitempty"`   // 公司主体
+	JobRequirementID  string                                                                       `json:"job_requirement_id,omitempty"`  // 招聘需求 ID, 详情请查看: [获取招聘需求信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_requirement/list_by_id)
+	ProbationMonth    int64                                                                        `json:"probation_month,omitempty"`     // 试用期（单位: 月）
+	ContractPeriod    *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicContractPeriod  `json:"contract_period,omitempty"`     // 合同期（年/月）
+	OnboardDate       string                                                                       `json:"onboard_date,omitempty"`        // 入职日期, 格式为 YYYY-MM-DD
+	Owner             *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOwner           `json:"owner,omitempty"`               // Offer 负责人
+	OnboardAddress    *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddress  `json:"onboard_address,omitempty"`     // 入职地址
+	WorkAddress       *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddress     `json:"work_address,omitempty"`        // 工作地址
+	Remark            string                                                                       `json:"remark,omitempty"`              // Offer 备注
+	AttachmentList    []*GetHireApplicationDetailRespApplicationDetailOfferOfferBasicAttachment    `json:"attachment_list,omitempty"`     // 附件列表
+	CustomizeInfoList []*GetHireApplicationDetailRespApplicationDetailOfferOfferBasicCustomizeInfo `json:"customize_info_list,omitempty"` // Offer 自定义字段数据
+	CreateTime        string                                                                       `json:"create_time,omitempty"`         // Offer 创建时间戳（单位: 毫秒）
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOfferOfferBasicAttachment ...
-type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicAttachment struct { 
-ID string `json:"id,omitempty"` // Offer 附件 ID
-Name string `json:"name,omitempty"` // Offer 附件名称
-Size int64 `json:"size,omitempty"` // Offer 附件大小
-CommonAttachmentID string `json:"common_attachment_id,omitempty"` // Offer 通用附件 ID 列表, 可通过[获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get)接口获取附件的详细信息
+type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicAttachment struct {
+	ID                 string `json:"id,omitempty"`                   // Offer 附件 ID
+	Name               string `json:"name,omitempty"`                 // Offer 附件名称
+	Size               int64  `json:"size,omitempty"`                 // Offer 附件大小
+	CommonAttachmentID string `json:"common_attachment_id,omitempty"` // Offer 通用附件 ID 列表, 可通过[获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get)接口获取附件的详细信息
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOfferOfferBasicCompanyMainBody ...
-type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicCompanyMainBody struct { 
-ID string `json:"id,omitempty"` // 公司主体 ID, 详情可查看: [查询单个公司](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)
-Name *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicCompanyMainBodyName `json:"name,omitempty"` // 公司主体名称
+type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicCompanyMainBody struct {
+	ID   string                                                                           `json:"id,omitempty"`   // 公司主体 ID, 详情可查看: [查询单个公司](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)
+	Name *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicCompanyMainBodyName `json:"name,omitempty"` // 公司主体名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOfferOfferBasicCompanyMainBodyName ...
-type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicCompanyMainBodyName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 公司主体中文名称
-EnUs string `json:"en_us,omitempty"` // 公司主体英文名称
+type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicCompanyMainBodyName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 公司主体中文名称
+	EnUs string `json:"en_us,omitempty"` // 公司主体英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOfferOfferBasicContractPeriod ...
-type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicContractPeriod struct { 
-PeriodType int64 `json:"period_type,omitempty"` // 合同周期类型可选值有: 月年
-Period int64 `json:"period,omitempty"` // 合同时长
+type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicContractPeriod struct {
+	PeriodType int64 `json:"period_type,omitempty"` // 合同周期类型可选值有: 月年
+	Period     int64 `json:"period,omitempty"`      // 合同时长
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOfferOfferBasicCustomizeInfo ...
-type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicCustomizeInfo struct { 
-ObjectID string `json:"object_id,omitempty"` // 自定义字段 ID, 详情可查看: [获取 Offer 申请表信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer_application_form/get)
-CustomizeValue string `json:"customize_value,omitempty"` // 自定义字段 Value
+type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicCustomizeInfo struct {
+	ObjectID       string `json:"object_id,omitempty"`       // 自定义字段 ID, 详情可查看: [获取 Offer 申请表信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer_application_form/get)
+	CustomizeValue string `json:"customize_value,omitempty"` // 自定义字段 Value
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOfferOfferBasicDepartment ...
-type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicDepartment struct { 
-ID string `json:"id,omitempty"` // 部门 ID, 与入参 `department_id_type` 类型一致
-Name *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicDepartmentName `json:"name,omitempty"` // 部门名称
+type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicDepartment struct {
+	ID   string                                                                      `json:"id,omitempty"`   // 部门 ID, 与入参 `department_id_type` 类型一致
+	Name *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicDepartmentName `json:"name,omitempty"` // 部门名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOfferOfferBasicDepartmentName ...
-type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicDepartmentName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 部门中文名称
-EnUs string `json:"en_us,omitempty"` // 部门英文名称
+type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicDepartmentName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 部门中文名称
+	EnUs string `json:"en_us,omitempty"` // 部门英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOfferOfferBasicEmployeeType ...
-type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicEmployeeType struct { 
-ID string `json:"id,omitempty"` // 人员类型 ID, 与入参 `employee_type_id_type` 类型一致
-Name *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicEmployeeTypeName `json:"name,omitempty"` // 人员类型名称
+type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicEmployeeType struct {
+	ID   string                                                                        `json:"id,omitempty"`   // 人员类型 ID, 与入参 `employee_type_id_type` 类型一致
+	Name *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicEmployeeTypeName `json:"name,omitempty"` // 人员类型名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOfferOfferBasicEmployeeTypeName ...
-type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicEmployeeTypeName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 人员类型中文名称
-EnUs string `json:"en_us,omitempty"` // 人员类型英文名称
+type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicEmployeeTypeName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 人员类型中文名称
+	EnUs string `json:"en_us,omitempty"` // 人员类型英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOfferOfferBasicLeader ...
-type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicLeader struct { 
-ID string `json:"id,omitempty"` // 用户 ID, 与入参 `user_id_type` 类型一致
-Name *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicLeaderName `json:"name,omitempty"` // 直属上级名称
+type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicLeader struct {
+	ID   string                                                                  `json:"id,omitempty"`   // 用户 ID, 与入参 `user_id_type` 类型一致
+	Name *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicLeaderName `json:"name,omitempty"` // 直属上级名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOfferOfferBasicLeaderName ...
-type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicLeaderName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 直属上级中文名称
-EnUs string `json:"en_us,omitempty"` // 直属上级英文名称
+type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicLeaderName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 直属上级中文名称
+	EnUs string `json:"en_us,omitempty"` // 直属上级英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOfferOfferBasicLevel ...
-type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicLevel struct { 
-ID string `json:"id,omitempty"` // 级别 ID, 与入参  `job_level_id_type` 类型一致
-Name *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicLevelName `json:"name,omitempty"` // 级别名称
+type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicLevel struct {
+	ID   string                                                                 `json:"id,omitempty"`   // 级别 ID, 与入参  `job_level_id_type` 类型一致
+	Name *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicLevelName `json:"name,omitempty"` // 级别名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOfferOfferBasicLevelName ...
-type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicLevelName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 级别中文名称
-EnUs string `json:"en_us,omitempty"` // 级别英文名称
+type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicLevelName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 级别中文名称
+	EnUs string `json:"en_us,omitempty"` // 级别英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddress ...
-type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddress struct { 
-ID string `json:"id,omitempty"` // 入职地址 ID
-Name *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressName `json:"name,omitempty"` // 入职地址名称
-District *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressDistrict `json:"district,omitempty"` // 区域信息
-City *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressCity `json:"city,omitempty"` // 城市信息
-State *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressState `json:"state,omitempty"` // 省信息
-Country *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressCountry `json:"country,omitempty"` // 国家信息
+type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddress struct {
+	ID       string                                                                              `json:"id,omitempty"`       // 入职地址 ID
+	Name     *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressName     `json:"name,omitempty"`     // 入职地址名称
+	District *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressDistrict `json:"district,omitempty"` // 区域信息
+	City     *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressCity     `json:"city,omitempty"`     // 城市信息
+	State    *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressState    `json:"state,omitempty"`    // 省信息
+	Country  *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressCountry  `json:"country,omitempty"`  // 国家信息
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressCity ...
-type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressCity struct { 
-Name *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressCityName `json:"name,omitempty"` // 城市名称
-Code string `json:"code,omitempty"` // 编码
-LocationType int64 `json:"location_type,omitempty"` // 地址类型可选值有: COUNTRY  国家STATE 省CITY 市DISTRICT 区ADDRESS 地址
+type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressCity struct {
+	Name         *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressCityName `json:"name,omitempty"`          // 城市名称
+	Code         string                                                                              `json:"code,omitempty"`          // 编码
+	LocationType int64                                                                               `json:"location_type,omitempty"` // 地址类型可选值有: COUNTRY  国家STATE 省CITY 市DISTRICT 区ADDRESS 地址
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressCityName ...
-type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressCityName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 城市中文名称
-EnUs string `json:"en_us,omitempty"` // 城市英文名称
+type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressCityName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 城市中文名称
+	EnUs string `json:"en_us,omitempty"` // 城市英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressCountry ...
-type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressCountry struct { 
-Name *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressCountryName `json:"name,omitempty"` // 国家名称
-Code string `json:"code,omitempty"` // 国家编码
-LocationType int64 `json:"location_type,omitempty"` // 地址类型可选值有: COUNTRY  国家STATE 省CITY 市DISTRICT 区ADDRESS 地址
+type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressCountry struct {
+	Name         *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressCountryName `json:"name,omitempty"`          // 国家名称
+	Code         string                                                                                 `json:"code,omitempty"`          // 国家编码
+	LocationType int64                                                                                  `json:"location_type,omitempty"` // 地址类型可选值有: COUNTRY  国家STATE 省CITY 市DISTRICT 区ADDRESS 地址
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressCountryName ...
-type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressCountryName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 国家中文名称
-EnUs string `json:"en_us,omitempty"` // 国家英文名称
+type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressCountryName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 国家中文名称
+	EnUs string `json:"en_us,omitempty"` // 国家英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressDistrict ...
-type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressDistrict struct { 
-Name *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressDistrictName `json:"name,omitempty"` // 区域名称
-Code string `json:"code,omitempty"` // 区域编码
-LocationType int64 `json:"location_type,omitempty"` // 地址类型可选值有: COUNTRY  国家STATE 省CITY 市DISTRICT 区ADDRESS 地址
+type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressDistrict struct {
+	Name         *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressDistrictName `json:"name,omitempty"`          // 区域名称
+	Code         string                                                                                  `json:"code,omitempty"`          // 区域编码
+	LocationType int64                                                                                   `json:"location_type,omitempty"` // 地址类型可选值有: COUNTRY  国家STATE 省CITY 市DISTRICT 区ADDRESS 地址
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressDistrictName ...
-type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressDistrictName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 区域中文名称
-EnUs string `json:"en_us,omitempty"` // 区域英文名称
+type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressDistrictName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 区域中文名称
+	EnUs string `json:"en_us,omitempty"` // 区域英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressName ...
-type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 入职地址中文名称
-EnUs string `json:"en_us,omitempty"` // 入职地址英文名称
+type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 入职地址中文名称
+	EnUs string `json:"en_us,omitempty"` // 入职地址英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressState ...
-type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressState struct { 
-Name *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressStateName `json:"name,omitempty"` // 省名称
-Code string `json:"code,omitempty"` // 省编码
-LocationType int64 `json:"location_type,omitempty"` // 地址类型可选值有: COUNTRY  国家STATE 省CITY 市DISTRICT 区ADDRESS 地址
+type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressState struct {
+	Name         *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressStateName `json:"name,omitempty"`          // 省名称
+	Code         string                                                                               `json:"code,omitempty"`          // 省编码
+	LocationType int64                                                                                `json:"location_type,omitempty"` // 地址类型可选值有: COUNTRY  国家STATE 省CITY 市DISTRICT 区ADDRESS 地址
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressStateName ...
-type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressStateName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 省中文名称
-EnUs string `json:"en_us,omitempty"` // 省英文名称
+type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOnboardAddressStateName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 省中文名称
+	EnUs string `json:"en_us,omitempty"` // 省英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOwner ...
-type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOwner struct { 
-ID string `json:"id,omitempty"` // Offer 负责人用户 ID, 与入参 `user_id_type` 类型一致
-Name *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOwnerName `json:"name,omitempty"` // Offer 负责人名称
+type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOwner struct {
+	ID   string                                                                 `json:"id,omitempty"`   // Offer 负责人用户 ID, 与入参 `user_id_type` 类型一致
+	Name *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOwnerName `json:"name,omitempty"` // Offer 负责人名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOwnerName ...
-type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOwnerName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // Offer 负责人中文名称
-EnUs string `json:"en_us,omitempty"` // Offer 负责人英文名称
+type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicOwnerName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // Offer 负责人中文名称
+	EnUs string `json:"en_us,omitempty"` // Offer 负责人英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOfferOfferBasicSequence ...
-type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicSequence struct { 
-ID string `json:"id,omitempty"` // 序列 ID, 与入参 `job_family_id_type` 类型一致
-Name *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicSequenceName `json:"name,omitempty"` // 序列名称
+type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicSequence struct {
+	ID   string                                                                    `json:"id,omitempty"`   // 序列 ID, 与入参 `job_family_id_type` 类型一致
+	Name *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicSequenceName `json:"name,omitempty"` // 序列名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOfferOfferBasicSequenceName ...
-type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicSequenceName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 序列中文名称
-EnUs string `json:"en_us,omitempty"` // 序列英文名称
+type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicSequenceName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 序列中文名称
+	EnUs string `json:"en_us,omitempty"` // 序列英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddress ...
-type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddress struct { 
-ID string `json:"id,omitempty"` // 工作地址 ID, 详情请查看: [获取地址列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/list)
-Name *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressName `json:"name,omitempty"` // 工作地址名称
-District *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressDistrict `json:"district,omitempty"` // 区域信息
-City *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressCity `json:"city,omitempty"` // 城市信息
-State *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressState `json:"state,omitempty"` // 省信息
-Country *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressCountry `json:"country,omitempty"` // 国家信息
+type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddress struct {
+	ID       string                                                                           `json:"id,omitempty"`       // 工作地址 ID, 详情请查看: [获取地址列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/list)
+	Name     *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressName     `json:"name,omitempty"`     // 工作地址名称
+	District *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressDistrict `json:"district,omitempty"` // 区域信息
+	City     *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressCity     `json:"city,omitempty"`     // 城市信息
+	State    *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressState    `json:"state,omitempty"`    // 省信息
+	Country  *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressCountry  `json:"country,omitempty"`  // 国家信息
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressCity ...
-type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressCity struct { 
-Name *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressCityName `json:"name,omitempty"` // 城市信息名称
-Code string `json:"code,omitempty"` // 城市编码
-LocationType int64 `json:"location_type,omitempty"` // 地址类型可选值有: COUNTRY 国家 STATE 省CITY 市DISTRICT 区ADDRESS 地址
+type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressCity struct {
+	Name         *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressCityName `json:"name,omitempty"`          // 城市信息名称
+	Code         string                                                                           `json:"code,omitempty"`          // 城市编码
+	LocationType int64                                                                            `json:"location_type,omitempty"` // 地址类型可选值有: COUNTRY 国家 STATE 省CITY 市DISTRICT 区ADDRESS 地址
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressCityName ...
-type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressCityName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 城市信息中文名称
-EnUs string `json:"en_us,omitempty"` // 城市信息英文名称
+type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressCityName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 城市信息中文名称
+	EnUs string `json:"en_us,omitempty"` // 城市信息英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressCountry ...
-type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressCountry struct { 
-Name *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressCountryName `json:"name,omitempty"` // 国家信息名称
-Code string `json:"code,omitempty"` // 国家编码
-LocationType int64 `json:"location_type,omitempty"` // 地址类型可选值有: COUNTRY 国家STATE 省CITY 市DISTRICT 区ADDRESS 地址
+type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressCountry struct {
+	Name         *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressCountryName `json:"name,omitempty"`          // 国家信息名称
+	Code         string                                                                              `json:"code,omitempty"`          // 国家编码
+	LocationType int64                                                                               `json:"location_type,omitempty"` // 地址类型可选值有: COUNTRY 国家STATE 省CITY 市DISTRICT 区ADDRESS 地址
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressCountryName ...
-type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressCountryName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 国家信息中文名称
-EnUs string `json:"en_us,omitempty"` // 国家信息英文名称
+type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressCountryName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 国家信息中文名称
+	EnUs string `json:"en_us,omitempty"` // 国家信息英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressDistrict ...
-type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressDistrict struct { 
-Name *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressDistrictName `json:"name,omitempty"` // 区域信息名称
-Code string `json:"code,omitempty"` // 区域编码
-LocationType int64 `json:"location_type,omitempty"` // 地址类型可选值有: COUNTRY  国家STATE 省CITY 市DISTRICT 区ADDRESS 地址
+type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressDistrict struct {
+	Name         *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressDistrictName `json:"name,omitempty"`          // 区域信息名称
+	Code         string                                                                               `json:"code,omitempty"`          // 区域编码
+	LocationType int64                                                                                `json:"location_type,omitempty"` // 地址类型可选值有: COUNTRY  国家STATE 省CITY 市DISTRICT 区ADDRESS 地址
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressDistrictName ...
-type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressDistrictName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 区域信息中文名称
-EnUs string `json:"en_us,omitempty"` // 区域信息英文名称
+type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressDistrictName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 区域信息中文名称
+	EnUs string `json:"en_us,omitempty"` // 区域信息英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressName ...
-type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 工作地址中文名称
-EnUs string `json:"en_us,omitempty"` // 工作地址中文名称
+type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 工作地址中文名称
+	EnUs string `json:"en_us,omitempty"` // 工作地址中文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressState ...
-type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressState struct { 
-Name *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressStateName `json:"name,omitempty"` // 省名称
-Code string `json:"code,omitempty"` // 省编码
-LocationType int64 `json:"location_type,omitempty"` // 地址类型可选值有: COUNTRY 国家STATE 省CITY 市DISTRICT 区ADDRESS 地址
+type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressState struct {
+	Name         *GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressStateName `json:"name,omitempty"`          // 省名称
+	Code         string                                                                            `json:"code,omitempty"`          // 省编码
+	LocationType int64                                                                             `json:"location_type,omitempty"` // 地址类型可选值有: COUNTRY 国家STATE 省CITY 市DISTRICT 区ADDRESS 地址
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressStateName ...
-type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressStateName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 省中文名称
-EnUs string `json:"en_us,omitempty"` // 省英文名称
+type GetHireApplicationDetailRespApplicationDetailOfferOfferBasicWorkAddressStateName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 省中文名称
+	EnUs string `json:"en_us,omitempty"` // 省英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOfferOfferSalary ...
-type GetHireApplicationDetailRespApplicationDetailOfferOfferSalary struct { 
-ID string `json:"id,omitempty"` // 薪酬 ID
-SalaryStatus int64 `json:"salary_status,omitempty"` // 薪酬状态可选值有: 薪酬未创建薪酬已创建薪酬审批中薪酬无需审批薪酬审批已通过薪酬审批已拒绝薪酬已撤回薪酬已删除
-ProbationSalaryPercentage string `json:"probation_salary_percentage,omitempty"` // 试用期百分比
-AwardSalaryMultiple string `json:"award_salary_multiple,omitempty"` // 年终奖月数
-OptionShares string `json:"option_shares,omitempty"` // 期权股数
-QuarterlyBonus string `json:"quarterly_bonus,omitempty"` // 季度奖金额, 单位元、支持小数点后两位
-HalfYearBonus string `json:"half_year_bonus,omitempty"` // 半年奖金额, 单位元、支持小数点后两位
-TotalAnnualCash string `json:"total_annual_cash,omitempty"` // 年度现金总额（数量, 非公式）, 单位元、支持小数点后两位
-CustomizeInfoList []*GetHireApplicationDetailRespApplicationDetailOfferOfferSalaryCustomizeInfo `json:"customize_info_list,omitempty"` // 薪酬自定义字段
-CreateTime string `json:"create_time,omitempty"` // 薪酬创建时间戳（单位: 毫秒）
+type GetHireApplicationDetailRespApplicationDetailOfferOfferSalary struct {
+	ID                        string                                                                        `json:"id,omitempty"`                          // 薪酬 ID
+	SalaryStatus              int64                                                                         `json:"salary_status,omitempty"`               // 薪酬状态可选值有: 薪酬未创建薪酬已创建薪酬审批中薪酬无需审批薪酬审批已通过薪酬审批已拒绝薪酬已撤回薪酬已删除
+	ProbationSalaryPercentage string                                                                        `json:"probation_salary_percentage,omitempty"` // 试用期百分比
+	AwardSalaryMultiple       string                                                                        `json:"award_salary_multiple,omitempty"`       // 年终奖月数
+	OptionShares              string                                                                        `json:"option_shares,omitempty"`               // 期权股数
+	QuarterlyBonus            string                                                                        `json:"quarterly_bonus,omitempty"`             // 季度奖金额, 单位元、支持小数点后两位
+	HalfYearBonus             string                                                                        `json:"half_year_bonus,omitempty"`             // 半年奖金额, 单位元、支持小数点后两位
+	TotalAnnualCash           string                                                                        `json:"total_annual_cash,omitempty"`           // 年度现金总额（数量, 非公式）, 单位元、支持小数点后两位
+	CustomizeInfoList         []*GetHireApplicationDetailRespApplicationDetailOfferOfferSalaryCustomizeInfo `json:"customize_info_list,omitempty"`         // 薪酬自定义字段
+	CreateTime                string                                                                        `json:"create_time,omitempty"`                 // 薪酬创建时间戳（单位: 毫秒）
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailOfferOfferSalaryCustomizeInfo ...
-type GetHireApplicationDetailRespApplicationDetailOfferOfferSalaryCustomizeInfo struct { 
-ObjectID string `json:"object_id,omitempty"` // 自定义字段 ID, 详情可查看: [获取 Offer 申请表信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer_application_form/get)
-CustomizeValue string `json:"customize_value,omitempty"` // 自定义字段 Value
+type GetHireApplicationDetailRespApplicationDetailOfferOfferSalaryCustomizeInfo struct {
+	ObjectID       string `json:"object_id,omitempty"`       // 自定义字段 ID, 详情可查看: [获取 Offer 申请表信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer_application_form/get)
+	CustomizeValue string `json:"customize_value,omitempty"` // 自定义字段 Value
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailPortal ...
-type GetHireApplicationDetailRespApplicationDetailPortal struct { 
-CampusVolunteerInfo *GetHireApplicationDetailRespApplicationDetailPortalCampusVolunteerInfo `json:"campus_volunteer_info,omitempty"` // 校招志愿信息
+type GetHireApplicationDetailRespApplicationDetailPortal struct {
+	CampusVolunteerInfo *GetHireApplicationDetailRespApplicationDetailPortalCampusVolunteerInfo `json:"campus_volunteer_info,omitempty"` // 校招志愿信息
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailPortalCampusVolunteerInfo ...
-type GetHireApplicationDetailRespApplicationDetailPortalCampusVolunteerInfo struct { 
-VolunteerSeq int64 `json:"volunteer_seq,omitempty"` // 志愿顺序
+type GetHireApplicationDetailRespApplicationDetailPortalCampusVolunteerInfo struct {
+	VolunteerSeq int64 `json:"volunteer_seq,omitempty"` // 志愿顺序
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailReferral ...
-type GetHireApplicationDetailRespApplicationDetailReferral struct { 
-BasicInfo *GetHireApplicationDetailRespApplicationDetailReferralBasicInfo `json:"basic_info,omitempty"` // 内推基本信息
-RecommendInfo *GetHireApplicationDetailRespApplicationDetailReferralRecommendInfo `json:"recommend_info,omitempty"` // 内推关联推荐信息
+type GetHireApplicationDetailRespApplicationDetailReferral struct {
+	BasicInfo     *GetHireApplicationDetailRespApplicationDetailReferralBasicInfo     `json:"basic_info,omitempty"`     // 内推基本信息
+	RecommendInfo *GetHireApplicationDetailRespApplicationDetailReferralRecommendInfo `json:"recommend_info,omitempty"` // 内推关联推荐信息
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailReferralBasicInfo ...
-type GetHireApplicationDetailRespApplicationDetailReferralBasicInfo struct { 
-ID string `json:"id,omitempty"` // 内推 ID
-ApplicationID string `json:"application_id,omitempty"` // 投递 ID, 详情请查看: [获取投递信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get)
-ReferralType int64 `json:"referral_type,omitempty"` // 内推类型可选值有: 意向推荐职位推荐
-UserInfo *GetHireApplicationDetailRespApplicationDetailReferralBasicInfoUserInfo `json:"user_info,omitempty"` // 内推人信息
-CreateTime string `json:"create_time,omitempty"` // 内推创建时间戳（单位: 毫秒）
-ReferralMethod int64 `json:"referral_method,omitempty"` // 内推方法可选值有: 正常内推内推码特别内推码H5 内推HR 代为内推
+type GetHireApplicationDetailRespApplicationDetailReferralBasicInfo struct {
+	ID             string                                                                  `json:"id,omitempty"`              // 内推 ID
+	ApplicationID  string                                                                  `json:"application_id,omitempty"`  // 投递 ID, 详情请查看: [获取投递信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get)
+	ReferralType   int64                                                                   `json:"referral_type,omitempty"`   // 内推类型可选值有: 意向推荐职位推荐
+	UserInfo       *GetHireApplicationDetailRespApplicationDetailReferralBasicInfoUserInfo `json:"user_info,omitempty"`       // 内推人信息
+	CreateTime     string                                                                  `json:"create_time,omitempty"`     // 内推创建时间戳（单位: 毫秒）
+	ReferralMethod int64                                                                   `json:"referral_method,omitempty"` // 内推方法可选值有: 正常内推内推码特别内推码H5 内推HR 代为内推
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailReferralBasicInfoUserInfo ...
-type GetHireApplicationDetailRespApplicationDetailReferralBasicInfoUserInfo struct { 
-ID string `json:"id,omitempty"` // 用户 ID, 与入参 `user_id_type` 类型一致
-Name *GetHireApplicationDetailRespApplicationDetailReferralBasicInfoUserInfoName `json:"name,omitempty"` // 用户名称
+type GetHireApplicationDetailRespApplicationDetailReferralBasicInfoUserInfo struct {
+	ID   string                                                                      `json:"id,omitempty"`   // 用户 ID, 与入参 `user_id_type` 类型一致
+	Name *GetHireApplicationDetailRespApplicationDetailReferralBasicInfoUserInfoName `json:"name,omitempty"` // 用户名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailReferralBasicInfoUserInfoName ...
-type GetHireApplicationDetailRespApplicationDetailReferralBasicInfoUserInfoName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 用户中文名称
-EnUs string `json:"en_us,omitempty"` // 用户英文名称
+type GetHireApplicationDetailRespApplicationDetailReferralBasicInfoUserInfoName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 用户中文名称
+	EnUs string `json:"en_us,omitempty"` // 用户英文名称
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailReferralRecommendInfo ...
-type GetHireApplicationDetailRespApplicationDetailReferralRecommendInfo struct { 
-Relationship int64 `json:"relationship,omitempty"` // 与内推人关系可选值有: 无关系直系亲属
-Familiarity int64 `json:"familiarity,omitempty"` // 熟悉程度可选值有: 不熟悉熟悉
-Comment string `json:"comment,omitempty"` // 推荐语
-SpecificRelationship *GetHireApplicationDetailRespApplicationDetailReferralRecommendInfoSpecificRelationship `json:"specific_relationship,omitempty"` // 特殊关系
-WorkAbilityFamiliarity int64 `json:"work_ability_familiarity,omitempty"` // 工作能力熟悉程度可选值有: 非常熟悉比较熟悉一般熟悉不熟悉
-MatchDegree int64 `json:"match_degree,omitempty"` // 匹配度可选值有: 非常匹配比较匹配一般匹配不匹配
+type GetHireApplicationDetailRespApplicationDetailReferralRecommendInfo struct {
+	Relationship           int64                                                                                   `json:"relationship,omitempty"`             // 与内推人关系可选值有: 无关系直系亲属
+	Familiarity            int64                                                                                   `json:"familiarity,omitempty"`              // 熟悉程度可选值有: 不熟悉熟悉
+	Comment                string                                                                                  `json:"comment,omitempty"`                  // 推荐语
+	SpecificRelationship   *GetHireApplicationDetailRespApplicationDetailReferralRecommendInfoSpecificRelationship `json:"specific_relationship,omitempty"`    // 特殊关系
+	WorkAbilityFamiliarity int64                                                                                   `json:"work_ability_familiarity,omitempty"` // 工作能力熟悉程度可选值有: 非常熟悉比较熟悉一般熟悉不熟悉
+	MatchDegree            int64                                                                                   `json:"match_degree,omitempty"`             // 匹配度可选值有: 非常匹配比较匹配一般匹配不匹配
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailReferralRecommendInfoSpecificRelationship ...
-type GetHireApplicationDetailRespApplicationDetailReferralRecommendInfoSpecificRelationship struct { 
-RelationWithCandidate int64 `json:"relation_with_candidate,omitempty"` // 与候选人的关系可选值有: 前同事朋友其他
-Extra string `json:"extra,omitempty"` // 附加信息
+type GetHireApplicationDetailRespApplicationDetailReferralRecommendInfoSpecificRelationship struct {
+	RelationWithCandidate int64  `json:"relation_with_candidate,omitempty"` // 与候选人的关系可选值有: 前同事朋友其他
+	Extra                 string `json:"extra,omitempty"`                   // 附加信息
 }
-
-
-
-
 
 // GetHireApplicationDetailRespApplicationDetailTalent ...
-type GetHireApplicationDetailRespApplicationDetailTalent struct { 
-ID string `json:"id,omitempty"` // 人才 ID, 详情请查看: [获取人才信息 V1](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/get)
-Name string `json:"name,omitempty"` // 人才名称
-MobileCode string `json:"mobile_code,omitempty"` // 人才手机国家区号
-MobileNumber string `json:"mobile_number,omitempty"` // 人才手机号
-Email string `json:"email,omitempty"` // 人才邮箱
+type GetHireApplicationDetailRespApplicationDetailTalent struct {
+	ID           string `json:"id,omitempty"`            // 人才 ID, 详情请查看: [获取人才信息 V1](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/get)
+	Name         string `json:"name,omitempty"`          // 人才名称
+	MobileCode   string `json:"mobile_code,omitempty"`   // 人才手机国家区号
+	MobileNumber string `json:"mobile_number,omitempty"` // 人才手机号
+	Email        string `json:"email,omitempty"`         // 人才邮箱
 }
-
-
-
-
 
 // getHireApplicationDetailResp ...
-type getHireApplicationDetailResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *GetHireApplicationDetailResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type getHireApplicationDetailResp struct {
+	Code  int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                        `json:"msg,omitempty"`  // 错误描述
+	Data  *GetHireApplicationDetailResp `json:"data,omitempty"`
+	Error *ErrorDetail                  `json:"error,omitempty"`
 }
-
-
-
-

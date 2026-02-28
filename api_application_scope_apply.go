@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateApplicationScopeApply 调用该接口以应用身份向租户管理员申请应用内需要审核的 API 权限。
@@ -26,9 +26,8 @@ import (
 // 注意: 同一租户下, 其他员工在一个应用的同一个版本向管理员申请授权的次数不能超过 10 次。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/scope/apply
-// 
 func (r *ApplicationService) CreateApplicationScopeApply(ctx context.Context, request *CreateApplicationScopeApplyReq, options ...MethodOptionFunc) (*CreateApplicationScopeApplyResp, *Response, error) {
-if r.cli.mock.mockApplicationCreateApplicationScopeApply != nil {
+	if r.cli.mock.mockApplicationCreateApplicationScopeApply != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#CreateApplicationScopeApply mock enable")
 		return r.cli.mock.mockApplicationCreateApplicationScopeApply(ctx, request, options...)
 	}
@@ -37,11 +36,10 @@ if r.cli.mock.mockApplicationCreateApplicationScopeApply != nil {
 		Scope:                 "Application",
 		API:                   "CreateApplicationScopeApply",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/application/v6/scopes/apply",
+		URL:                   r.cli.openBaseURL + "/open-apis/application/v6/scopes/apply",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createApplicationScopeApplyResp)
 
@@ -53,36 +51,22 @@ if r.cli.mock.mockApplicationCreateApplicationScopeApply != nil {
 func (r *Mock) MockApplicationCreateApplicationScopeApply(f func(ctx context.Context, request *CreateApplicationScopeApplyReq, options ...MethodOptionFunc) (*CreateApplicationScopeApplyResp, *Response, error)) {
 	r.mockApplicationCreateApplicationScopeApply = f
 }
+
 // UnMockApplicationCreateApplicationScopeApply un-mock ApplicationCreateApplicationScopeApply method
 func (r *Mock) UnMockApplicationCreateApplicationScopeApply() {
 	r.mockApplicationCreateApplicationScopeApply = nil
 }
 
-
 // CreateApplicationScopeApplyReq ...
-type CreateApplicationScopeApplyReq struct { 
-}
-
-
-
-
+type CreateApplicationScopeApplyReq struct{}
 
 // CreateApplicationScopeApplyResp ...
-type CreateApplicationScopeApplyResp struct { 
-}
-
-
-
-
+type CreateApplicationScopeApplyResp struct{}
 
 // createApplicationScopeApplyResp ...
-type createApplicationScopeApplyResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateApplicationScopeApplyResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createApplicationScopeApplyResp struct {
+	Code  int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                           `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateApplicationScopeApplyResp `json:"data,omitempty"`
+	Error *ErrorDetail                     `json:"error,omitempty"`
 }
-
-
-
-

@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateUserMailboxMailContact 创建一个邮箱联系人
@@ -26,9 +26,8 @@ import (
 // 使用 tenant_access_token 时, 需要申请邮箱联系人资源的数据权限。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-mail_contact/create
-// 
 func (r *MailService) CreateUserMailboxMailContact(ctx context.Context, request *CreateUserMailboxMailContactReq, options ...MethodOptionFunc) (*CreateUserMailboxMailContactResp, *Response, error) {
-if r.cli.mock.mockMailCreateUserMailboxMailContact != nil {
+	if r.cli.mock.mockMailCreateUserMailboxMailContact != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#CreateUserMailboxMailContact mock enable")
 		return r.cli.mock.mockMailCreateUserMailboxMailContact(ctx, request, options...)
 	}
@@ -37,12 +36,11 @@ if r.cli.mock.mockMailCreateUserMailboxMailContact != nil {
 		Scope:                 "Mail",
 		API:                   "CreateUserMailboxMailContact",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/mail_contacts",
+		URL:                   r.cli.openBaseURL + "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/mail_contacts",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(createUserMailboxMailContactResp)
 
@@ -54,62 +52,46 @@ if r.cli.mock.mockMailCreateUserMailboxMailContact != nil {
 func (r *Mock) MockMailCreateUserMailboxMailContact(f func(ctx context.Context, request *CreateUserMailboxMailContactReq, options ...MethodOptionFunc) (*CreateUserMailboxMailContactResp, *Response, error)) {
 	r.mockMailCreateUserMailboxMailContact = f
 }
+
 // UnMockMailCreateUserMailboxMailContact un-mock MailCreateUserMailboxMailContact method
 func (r *Mock) UnMockMailCreateUserMailboxMailContact() {
 	r.mockMailCreateUserMailboxMailContact = nil
 }
 
-
 // CreateUserMailboxMailContactReq ...
-type CreateUserMailboxMailContactReq struct { 
-UserMailboxID string `path:"user_mailbox_id" json:"-"` // 用户邮箱地址, 使用 user_access_token 时可使用 me示例值: "user@xxx.xx 或 me"
-Name string `json:"name,omitempty"` // 联系人姓名示例值: "张三" 长度范围: `1` ～ `64` 字符
-Company *string `json:"company,omitempty"` // 联系人公司示例值: "张三科技有限公司" 最大长度: `64` 字符
-Phone *string `json:"phone,omitempty"` // 联系人手机号示例值: "19912341234" 最大长度: `40` 字符
-MailAddress *string `json:"mail_address,omitempty"` // 联系人邮箱示例值: "zhangsan@example.com" 最大长度: `319` 字符
-Tag *string `json:"tag,omitempty"` // 联系人标签示例值: "朋友" 最大长度: `64` 字符
-Remark *string `json:"remark,omitempty"` // 联系人备注示例值: "飞书发布会认识" 最大长度: `1000` 字符
-Position *string `json:"position,omitempty"` // 联系人职位示例值: "CEO" 最大长度: `64` 字符
+type CreateUserMailboxMailContactReq struct {
+	UserMailboxID string  `path:"user_mailbox_id" json:"-"` // 用户邮箱地址, 使用 user_access_token 时可使用 me示例值: "user@xxx.xx 或 me"
+	Name          string  `json:"name,omitempty"`           // 联系人姓名示例值: "张三" 长度范围: `1` ～ `64` 字符
+	Company       *string `json:"company,omitempty"`        // 联系人公司示例值: "张三科技有限公司" 最大长度: `64` 字符
+	Phone         *string `json:"phone,omitempty"`          // 联系人手机号示例值: "19912341234" 最大长度: `40` 字符
+	MailAddress   *string `json:"mail_address,omitempty"`   // 联系人邮箱示例值: "zhangsan@example.com" 最大长度: `319` 字符
+	Tag           *string `json:"tag,omitempty"`            // 联系人标签示例值: "朋友" 最大长度: `64` 字符
+	Remark        *string `json:"remark,omitempty"`         // 联系人备注示例值: "飞书发布会认识" 最大长度: `1000` 字符
+	Position      *string `json:"position,omitempty"`       // 联系人职位示例值: "CEO" 最大长度: `64` 字符
 }
-
-
-
-
 
 // CreateUserMailboxMailContactResp ...
-type CreateUserMailboxMailContactResp struct { 
-MailContact *CreateUserMailboxMailContactRespMailContact `json:"mail_contact,omitempty"` // 联系人实体
+type CreateUserMailboxMailContactResp struct {
+	MailContact *CreateUserMailboxMailContactRespMailContact `json:"mail_contact,omitempty"` // 联系人实体
 }
-
-
-
-
 
 // CreateUserMailboxMailContactRespMailContact ...
-type CreateUserMailboxMailContactRespMailContact struct { 
-ID string `json:"id,omitempty"` // 联系人 id
-Name string `json:"name,omitempty"` // 联系人姓名
-Company string `json:"company,omitempty"` // 联系人公司
-Phone string `json:"phone,omitempty"` // 联系人手机号字段权限要求: 读取邮箱联系人手机号字段
-MailAddress string `json:"mail_address,omitempty"` // 联系人邮箱字段权限要求: 读取邮箱联系人邮箱地址字段
-Tag string `json:"tag,omitempty"` // 联系人标签
-Remark string `json:"remark,omitempty"` // 联系人备注
-Avatar string `json:"avatar,omitempty"` // 联系人头像
-Position string `json:"position,omitempty"` // 联系人职位
+type CreateUserMailboxMailContactRespMailContact struct {
+	ID          string `json:"id,omitempty"`           // 联系人 id
+	Name        string `json:"name,omitempty"`         // 联系人姓名
+	Company     string `json:"company,omitempty"`      // 联系人公司
+	Phone       string `json:"phone,omitempty"`        // 联系人手机号字段权限要求: 读取邮箱联系人手机号字段
+	MailAddress string `json:"mail_address,omitempty"` // 联系人邮箱字段权限要求: 读取邮箱联系人邮箱地址字段
+	Tag         string `json:"tag,omitempty"`          // 联系人标签
+	Remark      string `json:"remark,omitempty"`       // 联系人备注
+	Avatar      string `json:"avatar,omitempty"`       // 联系人头像
+	Position    string `json:"position,omitempty"`     // 联系人职位
 }
-
-
-
-
 
 // createUserMailboxMailContactResp ...
-type createUserMailboxMailContactResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateUserMailboxMailContactResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createUserMailboxMailContactResp struct {
+	Code  int64                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                            `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateUserMailboxMailContactResp `json:"data,omitempty"`
+	Error *ErrorDetail                      `json:"error,omitempty"`
 }
-
-
-
-

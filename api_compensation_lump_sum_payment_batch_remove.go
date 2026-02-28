@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // BatchRemoveCompensationLumpSumPayment 传入一次性支付记录ID, 删除ID对应的一次性支付记录
@@ -26,9 +26,8 @@ import (
 // 一次性支付记录被删除后, 通过查询一次性支付授予明细接口或者查询一次性支付授予记录接口将查不到该数据
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/lump_sum_payment/batch_remove
-// 
 func (r *CompensationService) BatchRemoveCompensationLumpSumPayment(ctx context.Context, request *BatchRemoveCompensationLumpSumPaymentReq, options ...MethodOptionFunc) (*BatchRemoveCompensationLumpSumPaymentResp, *Response, error) {
-if r.cli.mock.mockCompensationBatchRemoveCompensationLumpSumPayment != nil {
+	if r.cli.mock.mockCompensationBatchRemoveCompensationLumpSumPayment != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Compensation#BatchRemoveCompensationLumpSumPayment mock enable")
 		return r.cli.mock.mockCompensationBatchRemoveCompensationLumpSumPayment(ctx, request, options...)
 	}
@@ -37,11 +36,10 @@ if r.cli.mock.mockCompensationBatchRemoveCompensationLumpSumPayment != nil {
 		Scope:                 "Compensation",
 		API:                   "BatchRemoveCompensationLumpSumPayment",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/compensation/v1/lump_sum_payment/batch_remove",
+		URL:                   r.cli.openBaseURL + "/open-apis/compensation/v1/lump_sum_payment/batch_remove",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(batchRemoveCompensationLumpSumPaymentResp)
 
@@ -53,51 +51,35 @@ if r.cli.mock.mockCompensationBatchRemoveCompensationLumpSumPayment != nil {
 func (r *Mock) MockCompensationBatchRemoveCompensationLumpSumPayment(f func(ctx context.Context, request *BatchRemoveCompensationLumpSumPaymentReq, options ...MethodOptionFunc) (*BatchRemoveCompensationLumpSumPaymentResp, *Response, error)) {
 	r.mockCompensationBatchRemoveCompensationLumpSumPayment = f
 }
+
 // UnMockCompensationBatchRemoveCompensationLumpSumPayment un-mock CompensationBatchRemoveCompensationLumpSumPayment method
 func (r *Mock) UnMockCompensationBatchRemoveCompensationLumpSumPayment() {
 	r.mockCompensationBatchRemoveCompensationLumpSumPayment = nil
 }
 
-
 // BatchRemoveCompensationLumpSumPaymentReq ...
-type BatchRemoveCompensationLumpSumPaymentReq struct { 
-RecordIDs []string `json:"record_ids,omitempty"` // 要删除的一次性支付记录id（通过[【查询一次性支付记录】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/lump_sum_payment/query) 接口进行查询）示例值: ["7337149697626801708"] 长度范围: `0` ～ `500`
-Reason *string `json:"reason,omitempty"` // 因重复提交删除示例值: "删除原因实例"
+type BatchRemoveCompensationLumpSumPaymentReq struct {
+	RecordIDs []string `json:"record_ids,omitempty"` // 要删除的一次性支付记录id（通过[【查询一次性支付记录】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/lump_sum_payment/query) 接口进行查询）示例值: ["7337149697626801708"] 长度范围: `0` ～ `500`
+	Reason    *string  `json:"reason,omitempty"`     // 因重复提交删除示例值: "删除原因实例"
 }
-
-
-
-
 
 // BatchRemoveCompensationLumpSumPaymentResp ...
-type BatchRemoveCompensationLumpSumPaymentResp struct { 
-OperateResults []*BatchRemoveCompensationLumpSumPaymentRespOperateResult `json:"operate_results,omitempty"` // 每条记录的操作结果。对于创建成功的记录, 会返回创建后的一次性支付记录id
+type BatchRemoveCompensationLumpSumPaymentResp struct {
+	OperateResults []*BatchRemoveCompensationLumpSumPaymentRespOperateResult `json:"operate_results,omitempty"` // 每条记录的操作结果。对于创建成功的记录, 会返回创建后的一次性支付记录id
 }
-
-
-
-
 
 // BatchRemoveCompensationLumpSumPaymentRespOperateResult ...
-type BatchRemoveCompensationLumpSumPaymentRespOperateResult struct { 
-ID string `json:"id,omitempty"` // 操作的记录的 id
-UniqueID string `json:"unique_id,omitempty"` // 操作的记录的 unique_id
-Code int64 `json:"code,omitempty"` // 操作结果状态码可选值有: "Success" 操作成功"The bonus to be changed does not exist" 要更改的奖金不存在"Idempotent ID conflict" 幂等id冲突"The total amount format is incorrect" 总金额格式不正确"Only use the number of decimal places specified in the bonus item rules" 仅限使用奖金项规则中规定的小数位数"The sum of the bonus details does not equal the total amount" 奖金明细金额之和不等于总金额"issuance frequency not equal to size of details" 奖金明细总数不等于发放次数"The number of issuances is less than or equal to 0" 发放次数小于等于0"The currency is empty or does not exist" 币种为空或不存在"Notes are too long" 备注超长"The bonus details amount format is incorrect" 奖金明细金额格式不正"The bonus details payment time format is incorrect" 奖金明细的发放时间格式不正确"The bonus details are issued in an illegal manner" 奖金明细的发放方式不合法"The bonus details are not in a valid payment status" 奖金明细的发放状态不合法"Employees are not covered by the bonus rules" 员工不在奖金项规则适用范围之内"The method of awarding bonus details is not covered by the bonus item rules" 奖金明细的发放方式不在奖金项规则适用范围之内"Bonus item rules do not support configuration of binding period" 奖金项规则不支持配置绑定期"The bonus details payment status is "paid", and cannot be modified" 奖金明细发放状态为「已发放」, 不支持修改"The bonus item rules already include the currency, and other currencies cannot be specified" 奖金项规则已包含币种, 不支持指定其他币种"The salary item does not exist" 薪酬项不存在"Employee does not exist" 员工不存在"The bonus details payment status is "paid", and deletion is not supported" 奖金明细发放状态为「已发放」, 不支持删除"Bonus rules do not allow multiple awards" 奖金项规则不允许多次发放"No data permission" 无数据权限"Only positive integers are allowed for the binding period" 绑定期只允许正整数"This bonus does not currently support custom binding periods. Please configure and write according to the rules for the binding period of the salary item" 该奖金暂不支持自定义绑定期, 请按照薪酬项绑定期规则配置写入"The application issuance date must not be later than the issuance date" 申请发放日期不得晚于发放日期"The application payment date format of the bonus details is incorrect" 奖金明细的申请发放日期格式不正确
-Message string `json:"message,omitempty"` // 操作结果描述
+type BatchRemoveCompensationLumpSumPaymentRespOperateResult struct {
+	ID       string `json:"id,omitempty"`        // 操作的记录的 id
+	UniqueID string `json:"unique_id,omitempty"` // 操作的记录的 unique_id
+	Code     int64  `json:"code,omitempty"`      // 操作结果状态码可选值有: "Success" 操作成功"The bonus to be changed does not exist" 要更改的奖金不存在"Idempotent ID conflict" 幂等id冲突"The total amount format is incorrect" 总金额格式不正确"Only use the number of decimal places specified in the bonus item rules" 仅限使用奖金项规则中规定的小数位数"The sum of the bonus details does not equal the total amount" 奖金明细金额之和不等于总金额"issuance frequency not equal to size of details" 奖金明细总数不等于发放次数"The number of issuances is less than or equal to 0" 发放次数小于等于0"The currency is empty or does not exist" 币种为空或不存在"Notes are too long" 备注超长"The bonus details amount format is incorrect" 奖金明细金额格式不正"The bonus details payment time format is incorrect" 奖金明细的发放时间格式不正确"The bonus details are issued in an illegal manner" 奖金明细的发放方式不合法"The bonus details are not in a valid payment status" 奖金明细的发放状态不合法"Employees are not covered by the bonus rules" 员工不在奖金项规则适用范围之内"The method of awarding bonus details is not covered by the bonus item rules" 奖金明细的发放方式不在奖金项规则适用范围之内"Bonus item rules do not support configuration of binding period" 奖金项规则不支持配置绑定期"The bonus details payment status is "paid", and cannot be modified" 奖金明细发放状态为「已发放」, 不支持修改"The bonus item rules already include the currency, and other currencies cannot be specified" 奖金项规则已包含币种, 不支持指定其他币种"The salary item does not exist" 薪酬项不存在"Employee does not exist" 员工不存在"The bonus details payment status is "paid", and deletion is not supported" 奖金明细发放状态为「已发放」, 不支持删除"Bonus rules do not allow multiple awards" 奖金项规则不允许多次发放"No data permission" 无数据权限"Only positive integers are allowed for the binding period" 绑定期只允许正整数"This bonus does not currently support custom binding periods. Please configure and write according to the rules for the binding period of the salary item" 该奖金暂不支持自定义绑定期, 请按照薪酬项绑定期规则配置写入"The application issuance date must not be later than the issuance date" 申请发放日期不得晚于发放日期"The application payment date format of the bonus details is incorrect" 奖金明细的申请发放日期格式不正确
+	Message  string `json:"message,omitempty"`   // 操作结果描述
 }
-
-
-
-
 
 // batchRemoveCompensationLumpSumPaymentResp ...
-type batchRemoveCompensationLumpSumPaymentResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *BatchRemoveCompensationLumpSumPaymentResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type batchRemoveCompensationLumpSumPaymentResp struct {
+	Code  int64                                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                     `json:"msg,omitempty"`  // 错误描述
+	Data  *BatchRemoveCompensationLumpSumPaymentResp `json:"data,omitempty"`
+	Error *ErrorDetail                               `json:"error,omitempty"`
 }
-
-
-
-

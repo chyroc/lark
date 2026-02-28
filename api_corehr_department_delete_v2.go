@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // DeleteCorehrDepartment 可以通过该接口通过部门ID删除一个部门记录, 带数据行权限判权
@@ -27,9 +27,8 @@ import (
 // 删除后无法恢复, 并且在系统中无法查看到对应部门信息, 请谨慎操作。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/delete
-// 
 func (r *CorehrService) DeleteCorehrDepartment(ctx context.Context, request *DeleteCorehrDepartmentReq, options ...MethodOptionFunc) (*DeleteCorehrDepartmentResp, *Response, error) {
-if r.cli.mock.mockCorehrDeleteCorehrDepartment != nil {
+	if r.cli.mock.mockCorehrDeleteCorehrDepartment != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Corehr#DeleteCorehrDepartment mock enable")
 		return r.cli.mock.mockCorehrDeleteCorehrDepartment(ctx, request, options...)
 	}
@@ -38,11 +37,10 @@ if r.cli.mock.mockCorehrDeleteCorehrDepartment != nil {
 		Scope:                 "Corehr",
 		API:                   "DeleteCorehrDepartment",
 		Method:                "DELETE",
-		URL:   r.cli.openBaseURL + "/open-apis/corehr/v2/departments/:department_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/departments/:department_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(deleteCorehrDepartmentResp)
 
@@ -54,38 +52,25 @@ if r.cli.mock.mockCorehrDeleteCorehrDepartment != nil {
 func (r *Mock) MockCorehrDeleteCorehrDepartment(f func(ctx context.Context, request *DeleteCorehrDepartmentReq, options ...MethodOptionFunc) (*DeleteCorehrDepartmentResp, *Response, error)) {
 	r.mockCorehrDeleteCorehrDepartment = f
 }
+
 // UnMockCorehrDeleteCorehrDepartment un-mock CorehrDeleteCorehrDepartment method
 func (r *Mock) UnMockCorehrDeleteCorehrDepartment() {
 	r.mockCorehrDeleteCorehrDepartment = nil
 }
 
-
 // DeleteCorehrDepartmentReq ...
-type DeleteCorehrDepartmentReq struct { 
-DepartmentID string `path:"department_id" json:"-"` // 需要删除的部门 ID, 可通过[【搜索部门信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/search)接口查询获得示例值: "1616161616"
-DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门 ID 类型示例值: open_department_id可选值有: 【飞书】用来在具体某个应用中标识一个部门, 同一个department_id 在不同应用中的 open_department_id 相同。【飞书】用来标识租户内一个唯一的部门。【飞书人事】用来标识「飞书人事」中的部门。默认值: `open_department_id`
+type DeleteCorehrDepartmentReq struct {
+	DepartmentID     string            `path:"department_id" json:"-"`       // 需要删除的部门 ID, 可通过[【搜索部门信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/search)接口查询获得示例值: "1616161616"
+	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门 ID 类型示例值: open_department_id可选值有: 【飞书】用来在具体某个应用中标识一个部门, 同一个department_id 在不同应用中的 open_department_id 相同。【飞书】用来标识租户内一个唯一的部门。【飞书人事】用来标识「飞书人事」中的部门。默认值: `open_department_id`
 }
-
-
-
-
 
 // DeleteCorehrDepartmentResp ...
-type DeleteCorehrDepartmentResp struct { 
-}
-
-
-
-
+type DeleteCorehrDepartmentResp struct{}
 
 // deleteCorehrDepartmentResp ...
-type deleteCorehrDepartmentResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *DeleteCorehrDepartmentResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type deleteCorehrDepartmentResp struct {
+	Code  int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                      `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteCorehrDepartmentResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }
-
-
-
-

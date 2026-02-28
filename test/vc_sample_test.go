@@ -37,12 +37,10 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		moduleCli := cli.VC
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.ApplyVCReserve(ctx, &lark.ApplyVCReserveReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
-
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {
@@ -50,7 +48,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		moduleCli := cli.VC
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCApplyVCReserve(func(ctx context.Context, request *lark.ApplyVCReserveReq, options ...lark.MethodOptionFunc) (*lark.ApplyVCReserveResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -62,7 +59,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCUpdateVCReserve(func(ctx context.Context, request *lark.UpdateVCReserveReq, options ...lark.MethodOptionFunc) (*lark.UpdateVCReserveResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -74,7 +70,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCDeleteVCReserve(func(ctx context.Context, request *lark.DeleteVCReserveReq, options ...lark.MethodOptionFunc) (*lark.DeleteVCReserveResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -86,7 +81,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCGetVCReserve(func(ctx context.Context, request *lark.GetVCReserveReq, options ...lark.MethodOptionFunc) (*lark.GetVCReserveResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -98,7 +92,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCGetVCReserveActiveMeeting(func(ctx context.Context, request *lark.GetVCReserveActiveMeetingReq, options ...lark.MethodOptionFunc) (*lark.GetVCReserveActiveMeetingResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -110,7 +103,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCGetVCMeeting(func(ctx context.Context, request *lark.GetVCMeetingReq, options ...lark.MethodOptionFunc) (*lark.GetVCMeetingResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -122,7 +114,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCListVCMeetingByNo(func(ctx context.Context, request *lark.ListVCMeetingByNoReq, options ...lark.MethodOptionFunc) (*lark.ListVCMeetingByNoResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -134,7 +125,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCInviteVCMeeting(func(ctx context.Context, request *lark.InviteVCMeetingReq, options ...lark.MethodOptionFunc) (*lark.InviteVCMeetingResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -146,7 +136,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCKickoutVCMeeting(func(ctx context.Context, request *lark.KickoutVCMeetingReq, options ...lark.MethodOptionFunc) (*lark.KickoutVCMeetingResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -158,7 +147,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCSetVCHostMeeting(func(ctx context.Context, request *lark.SetVCHostMeetingReq, options ...lark.MethodOptionFunc) (*lark.SetVCHostMeetingResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -170,7 +158,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCEndVCMeeting(func(ctx context.Context, request *lark.EndVCMeetingReq, options ...lark.MethodOptionFunc) (*lark.EndVCMeetingResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -182,7 +169,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCStartVCMeetingRecording(func(ctx context.Context, request *lark.StartVCMeetingRecordingReq, options ...lark.MethodOptionFunc) (*lark.StartVCMeetingRecordingResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -194,7 +180,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCStopVCMeetingRecording(func(ctx context.Context, request *lark.StopVCMeetingRecordingReq, options ...lark.MethodOptionFunc) (*lark.StopVCMeetingRecordingResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -206,7 +191,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCGetVCMeetingRecording(func(ctx context.Context, request *lark.GetVCMeetingRecordingReq, options ...lark.MethodOptionFunc) (*lark.GetVCMeetingRecordingResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -218,7 +202,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCSetVCPermissionMeetingRecording(func(ctx context.Context, request *lark.SetVCPermissionMeetingRecordingReq, options ...lark.MethodOptionFunc) (*lark.SetVCPermissionMeetingRecordingResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -230,7 +213,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCGetVCDailyReport(func(ctx context.Context, request *lark.GetVCDailyReportReq, options ...lark.MethodOptionFunc) (*lark.GetVCDailyReportResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -242,7 +224,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCGetVCTopUserReport(func(ctx context.Context, request *lark.GetVCTopUserReportReq, options ...lark.MethodOptionFunc) (*lark.GetVCTopUserReportResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -254,7 +235,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCGetVCRoomList(func(ctx context.Context, request *lark.GetVCRoomListReq, options ...lark.MethodOptionFunc) (*lark.GetVCRoomListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -266,7 +246,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCGetVCRoom(func(ctx context.Context, request *lark.GetVCRoomReq, options ...lark.MethodOptionFunc) (*lark.GetVCRoomResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -278,7 +257,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCBatchGetVCRoom(func(ctx context.Context, request *lark.BatchGetVCRoomReq, options ...lark.MethodOptionFunc) (*lark.BatchGetVCRoomResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -290,7 +268,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCCreateVCRoom(func(ctx context.Context, request *lark.CreateVCRoomReq, options ...lark.MethodOptionFunc) (*lark.CreateVCRoomResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -302,7 +279,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCUpdateVCRoom(func(ctx context.Context, request *lark.UpdateVCRoomReq, options ...lark.MethodOptionFunc) (*lark.UpdateVCRoomResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -314,7 +290,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCDeleteVCRoom(func(ctx context.Context, request *lark.DeleteVCRoomReq, options ...lark.MethodOptionFunc) (*lark.DeleteVCRoomResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -326,7 +301,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCSearchVCRoom(func(ctx context.Context, request *lark.SearchVCRoomReq, options ...lark.MethodOptionFunc) (*lark.SearchVCRoomResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -338,7 +312,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCGetVCRoomLevelList(func(ctx context.Context, request *lark.GetVCRoomLevelListReq, options ...lark.MethodOptionFunc) (*lark.GetVCRoomLevelListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -350,7 +323,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCGetVCRoomLevel(func(ctx context.Context, request *lark.GetVCRoomLevelReq, options ...lark.MethodOptionFunc) (*lark.GetVCRoomLevelResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -362,7 +334,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCBatchGetVCRoomLevel(func(ctx context.Context, request *lark.BatchGetVCRoomLevelReq, options ...lark.MethodOptionFunc) (*lark.BatchGetVCRoomLevelResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -374,7 +345,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCCreateVCRoomLevel(func(ctx context.Context, request *lark.CreateVCRoomLevelReq, options ...lark.MethodOptionFunc) (*lark.CreateVCRoomLevelResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -386,7 +356,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCUpdateVCRoomLevel(func(ctx context.Context, request *lark.UpdateVCRoomLevelReq, options ...lark.MethodOptionFunc) (*lark.UpdateVCRoomLevelResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -398,7 +367,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCDeleteVCRoomLevel(func(ctx context.Context, request *lark.DeleteVCRoomLevelReq, options ...lark.MethodOptionFunc) (*lark.DeleteVCRoomLevelResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -410,7 +378,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCSearchVCRoomLevel(func(ctx context.Context, request *lark.SearchVCRoomLevelReq, options ...lark.MethodOptionFunc) (*lark.SearchVCRoomLevelResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -422,7 +389,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCSetVCScopeConfig(func(ctx context.Context, request *lark.SetVCScopeConfigReq, options ...lark.MethodOptionFunc) (*lark.SetVCScopeConfigResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -434,7 +400,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCGetVCScopeConfig(func(ctx context.Context, request *lark.GetVCScopeConfigReq, options ...lark.MethodOptionFunc) (*lark.GetVCScopeConfigResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -446,7 +411,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCGetVCReserveConfig(func(ctx context.Context, request *lark.GetVCReserveConfigReq, options ...lark.MethodOptionFunc) (*lark.GetVCReserveConfigResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -458,7 +422,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCUpdateVCReserveConfig(func(ctx context.Context, request *lark.UpdateVCReserveConfigReq, options ...lark.MethodOptionFunc) (*lark.UpdateVCReserveConfigResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -470,7 +433,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCGetVCReserveConfigForm(func(ctx context.Context, request *lark.GetVCReserveConfigFormReq, options ...lark.MethodOptionFunc) (*lark.GetVCReserveConfigFormResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -482,7 +444,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCUpdateVCReserveConfigForm(func(ctx context.Context, request *lark.UpdateVCReserveConfigFormReq, options ...lark.MethodOptionFunc) (*lark.UpdateVCReserveConfigFormResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -494,7 +455,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCGetVCReserveConfigAdmin(func(ctx context.Context, request *lark.GetVCReserveConfigAdminReq, options ...lark.MethodOptionFunc) (*lark.GetVCReserveConfigAdminResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -506,7 +466,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCUpdateVCReserveConfigAdmin(func(ctx context.Context, request *lark.UpdateVCReserveConfigAdminReq, options ...lark.MethodOptionFunc) (*lark.UpdateVCReserveConfigAdminResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -518,7 +477,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCGetVCReserveConfigDisableInform(func(ctx context.Context, request *lark.GetVCReserveConfigDisableInformReq, options ...lark.MethodOptionFunc) (*lark.GetVCReserveConfigDisableInformResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -530,7 +488,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCUpdateVCReserveConfigDisableInform(func(ctx context.Context, request *lark.UpdateVCReserveConfigDisableInformReq, options ...lark.MethodOptionFunc) (*lark.UpdateVCReserveConfigDisableInformResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -542,7 +499,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCExportVCMeetingList(func(ctx context.Context, request *lark.ExportVCMeetingListReq, options ...lark.MethodOptionFunc) (*lark.ExportVCMeetingListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -554,7 +510,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCExportVCParticipantList(func(ctx context.Context, request *lark.ExportVCParticipantListReq, options ...lark.MethodOptionFunc) (*lark.ExportVCParticipantListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -566,7 +521,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCExportVCParticipantQualityList(func(ctx context.Context, request *lark.ExportVCParticipantQualityListReq, options ...lark.MethodOptionFunc) (*lark.ExportVCParticipantQualityListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -578,7 +532,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCExportVCResourceReservationList(func(ctx context.Context, request *lark.ExportVCResourceReservationListReq, options ...lark.MethodOptionFunc) (*lark.ExportVCResourceReservationListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -590,7 +543,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCGetVCExportTask(func(ctx context.Context, request *lark.GetVCExportTaskReq, options ...lark.MethodOptionFunc) (*lark.GetVCExportTaskResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -602,7 +554,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCDownloadVCExportFile(func(ctx context.Context, request *lark.DownloadVCExportFileReq, options ...lark.MethodOptionFunc) (*lark.DownloadVCExportFileResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -614,7 +565,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCGetVCAlertList(func(ctx context.Context, request *lark.GetVCAlertListReq, options ...lark.MethodOptionFunc) (*lark.GetVCAlertListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -626,7 +576,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCGetVCMeetingList(func(ctx context.Context, request *lark.GetVCMeetingListReq, options ...lark.MethodOptionFunc) (*lark.GetVCMeetingListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -638,7 +587,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCGetVCParticipantList(func(ctx context.Context, request *lark.GetVCParticipantListReq, options ...lark.MethodOptionFunc) (*lark.GetVCParticipantListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -650,7 +598,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCGetVCParticipantQualityList(func(ctx context.Context, request *lark.GetVCParticipantQualityListReq, options ...lark.MethodOptionFunc) (*lark.GetVCParticipantQualityListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -662,7 +609,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockVCGetVCResourceReservationList(func(ctx context.Context, request *lark.GetVCResourceReservationListReq, options ...lark.MethodOptionFunc) (*lark.GetVCResourceReservationListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -672,7 +618,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
-
 	})
 
 	t.Run("response is failed (mock http)", func(t *testing.T) {
@@ -683,14 +628,12 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.ApplyVCReserve(ctx, &lark.ApplyVCReserveReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateVCReserve(ctx, &lark.UpdateVCReserveReq{
 				ReserveID: "x",
 			})
@@ -699,7 +642,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeleteVCReserve(ctx, &lark.DeleteVCReserveReq{
 				ReserveID: "x",
 			})
@@ -708,7 +650,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetVCReserve(ctx, &lark.GetVCReserveReq{
 				ReserveID: "x",
 			})
@@ -717,7 +658,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetVCReserveActiveMeeting(ctx, &lark.GetVCReserveActiveMeetingReq{
 				ReserveID: "x",
 			})
@@ -726,7 +666,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetVCMeeting(ctx, &lark.GetVCMeetingReq{
 				MeetingID: "x",
 			})
@@ -735,14 +674,12 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.ListVCMeetingByNo(ctx, &lark.ListVCMeetingByNoReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.InviteVCMeeting(ctx, &lark.InviteVCMeetingReq{
 				MeetingID: "x",
 			})
@@ -751,7 +688,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.KickoutVCMeeting(ctx, &lark.KickoutVCMeetingReq{
 				MeetingID: "x",
 			})
@@ -760,7 +696,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.SetVCHostMeeting(ctx, &lark.SetVCHostMeetingReq{
 				MeetingID: "x",
 			})
@@ -769,7 +704,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.EndVCMeeting(ctx, &lark.EndVCMeetingReq{
 				MeetingID: "x",
 			})
@@ -778,7 +712,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.StartVCMeetingRecording(ctx, &lark.StartVCMeetingRecordingReq{
 				MeetingID: "x",
 			})
@@ -787,7 +720,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.StopVCMeetingRecording(ctx, &lark.StopVCMeetingRecordingReq{
 				MeetingID: "x",
 			})
@@ -796,7 +728,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetVCMeetingRecording(ctx, &lark.GetVCMeetingRecordingReq{
 				MeetingID: "x",
 			})
@@ -805,7 +736,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.SetVCPermissionMeetingRecording(ctx, &lark.SetVCPermissionMeetingRecordingReq{
 				MeetingID: "x",
 			})
@@ -814,28 +744,24 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetVCDailyReport(ctx, &lark.GetVCDailyReportReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetVCTopUserReport(ctx, &lark.GetVCTopUserReportReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetVCRoomList(ctx, &lark.GetVCRoomListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetVCRoom(ctx, &lark.GetVCRoomReq{
 				RoomID: "x",
 			})
@@ -844,21 +770,18 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.BatchGetVCRoom(ctx, &lark.BatchGetVCRoomReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateVCRoom(ctx, &lark.CreateVCRoomReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateVCRoom(ctx, &lark.UpdateVCRoomReq{
 				RoomID: "x",
 			})
@@ -867,7 +790,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeleteVCRoom(ctx, &lark.DeleteVCRoomReq{
 				RoomID: "x",
 			})
@@ -876,21 +798,18 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.SearchVCRoom(ctx, &lark.SearchVCRoomReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetVCRoomLevelList(ctx, &lark.GetVCRoomLevelListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetVCRoomLevel(ctx, &lark.GetVCRoomLevelReq{
 				RoomLevelID: "x",
 			})
@@ -899,21 +818,18 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.BatchGetVCRoomLevel(ctx, &lark.BatchGetVCRoomLevelReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CreateVCRoomLevel(ctx, &lark.CreateVCRoomLevelReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateVCRoomLevel(ctx, &lark.UpdateVCRoomLevelReq{
 				RoomLevelID: "x",
 			})
@@ -922,42 +838,36 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DeleteVCRoomLevel(ctx, &lark.DeleteVCRoomLevelReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.SearchVCRoomLevel(ctx, &lark.SearchVCRoomLevelReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.SetVCScopeConfig(ctx, &lark.SetVCScopeConfigReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetVCScopeConfig(ctx, &lark.GetVCScopeConfigReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetVCReserveConfig(ctx, &lark.GetVCReserveConfigReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateVCReserveConfig(ctx, &lark.UpdateVCReserveConfigReq{
 				ReserveConfigID: "x",
 			})
@@ -966,7 +876,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetVCReserveConfigForm(ctx, &lark.GetVCReserveConfigFormReq{
 				ReserveConfigID: "x",
 			})
@@ -975,7 +884,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateVCReserveConfigForm(ctx, &lark.UpdateVCReserveConfigFormReq{
 				ReserveConfigID: "x",
 			})
@@ -984,7 +892,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetVCReserveConfigAdmin(ctx, &lark.GetVCReserveConfigAdminReq{
 				ReserveConfigID: "x",
 			})
@@ -993,7 +900,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateVCReserveConfigAdmin(ctx, &lark.UpdateVCReserveConfigAdminReq{
 				ReserveConfigID: "x",
 			})
@@ -1002,7 +908,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetVCReserveConfigDisableInform(ctx, &lark.GetVCReserveConfigDisableInformReq{
 				ReserveConfigID: "x",
 			})
@@ -1011,7 +916,6 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateVCReserveConfigDisableInform(ctx, &lark.UpdateVCReserveConfigDisableInformReq{
 				ReserveConfigID: "x",
 			})
@@ -1020,35 +924,30 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.ExportVCMeetingList(ctx, &lark.ExportVCMeetingListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.ExportVCParticipantList(ctx, &lark.ExportVCParticipantListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.ExportVCParticipantQualityList(ctx, &lark.ExportVCParticipantQualityListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.ExportVCResourceReservationList(ctx, &lark.ExportVCResourceReservationListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetVCExportTask(ctx, &lark.GetVCExportTaskReq{
 				TaskID: "x",
 			})
@@ -1057,46 +956,39 @@ func Test_VC_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.DownloadVCExportFile(ctx, &lark.DownloadVCExportFileReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetVCAlertList(ctx, &lark.GetVCAlertListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetVCMeetingList(ctx, &lark.GetVCMeetingListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetVCParticipantList(ctx, &lark.GetVCParticipantListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetVCParticipantQualityList(ctx, &lark.GetVCParticipantQualityListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetVCResourceReservationList(ctx, &lark.GetVCResourceReservationListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
-
 	})
 }

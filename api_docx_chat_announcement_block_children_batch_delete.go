@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // BatchDeleteDocxChatAnnouncementBlockChildren 指定需要操作的块, 删除其指定范围的子块。如果操作成功, 接口将返回应用删除操作后的群公告版本号。
@@ -34,9 +34,8 @@ import (
 // - 操作内部群的群公告时, 请确保当前调用身份（tenant_access_token 或 user_access_token）与对应群组在同一租户下。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/chat-announcement-block-children/batch_delete
-// 
 func (r *DocxService) BatchDeleteDocxChatAnnouncementBlockChildren(ctx context.Context, request *BatchDeleteDocxChatAnnouncementBlockChildrenReq, options ...MethodOptionFunc) (*BatchDeleteDocxChatAnnouncementBlockChildrenResp, *Response, error) {
-if r.cli.mock.mockDocxBatchDeleteDocxChatAnnouncementBlockChildren != nil {
+	if r.cli.mock.mockDocxBatchDeleteDocxChatAnnouncementBlockChildren != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Docx#BatchDeleteDocxChatAnnouncementBlockChildren mock enable")
 		return r.cli.mock.mockDocxBatchDeleteDocxChatAnnouncementBlockChildren(ctx, request, options...)
 	}
@@ -45,12 +44,11 @@ if r.cli.mock.mockDocxBatchDeleteDocxChatAnnouncementBlockChildren != nil {
 		Scope:                 "Docx",
 		API:                   "BatchDeleteDocxChatAnnouncementBlockChildren",
 		Method:                "DELETE",
-		URL:   r.cli.openBaseURL + "/open-apis/docx/v1/chats/:chat_id/announcement/blocks/:block_id/children/batch_delete",
+		URL:                   r.cli.openBaseURL + "/open-apis/docx/v1/chats/:chat_id/announcement/blocks/:block_id/children/batch_delete",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(batchDeleteDocxChatAnnouncementBlockChildrenResp)
 
@@ -62,44 +60,32 @@ if r.cli.mock.mockDocxBatchDeleteDocxChatAnnouncementBlockChildren != nil {
 func (r *Mock) MockDocxBatchDeleteDocxChatAnnouncementBlockChildren(f func(ctx context.Context, request *BatchDeleteDocxChatAnnouncementBlockChildrenReq, options ...MethodOptionFunc) (*BatchDeleteDocxChatAnnouncementBlockChildrenResp, *Response, error)) {
 	r.mockDocxBatchDeleteDocxChatAnnouncementBlockChildren = f
 }
+
 // UnMockDocxBatchDeleteDocxChatAnnouncementBlockChildren un-mock DocxBatchDeleteDocxChatAnnouncementBlockChildren method
 func (r *Mock) UnMockDocxBatchDeleteDocxChatAnnouncementBlockChildren() {
 	r.mockDocxBatchDeleteDocxChatAnnouncementBlockChildren = nil
 }
 
-
 // BatchDeleteDocxChatAnnouncementBlockChildrenReq ...
-type BatchDeleteDocxChatAnnouncementBlockChildrenReq struct { 
-ChatID string `path:"chat_id" json:"-"` // 群 ID。获取方式: [创建群](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create), 从返回结果中获取该群的 chat_id。- 调用[获取用户或机器人所在的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list)接口, 可以查询用户或机器人所在群的 chat_id。- 调用[搜索对用户或机器人可见的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search), 可搜索用户或机器人所在的群、对用户或机器人公开的群的 chat_id。注意: 单聊（群类型为 `p2p`）不支持获取群公告。示例值: "oc_5ad11d72b830411d72b836c20"
-BlockID string `path:"block_id" json:"-"` // 父 Block 的唯一标识。你可通过调用[获取群公告所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/chat-announcement-block/list)接口获取块的 block_id。注意: 此接口不支持删除表格（Table）的行列和删除分栏（Grid）的分栏列。你需通过[批量更新块的内容](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/chat-announcement-block/batch_update)接口完成相关操作。- 此接口不支持删除表格单元格（Table Cell）、分栏列（Grid Column）和高亮块（Callout）的全部子块。示例值: "doxcnO6UW6wAw2qIcYf4hZpFIth"
-RevisionID *int64 `query:"revision_id" json:"-"` // 要操作的群公告版本。-1 表示群公告最新版本。群公告创建后, 版本为 1。你需确保你已拥有群公告的编辑权限。你可通过调用[获取群公告基本信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/chat-announcement/get)获取群公告的最新 revision_id示例值:1默认值: `-1` 最小值: `-1`
-ClientToken *string `query:"client_token" json:"-"` // 操作的唯一标识, 与接口返回值的 client_token 相对应, 用于幂等的进行更新操作。此值为空表示将发起一次新的请求, 此值非空表示幂等的进行更新操作。示例值: fe599b60-450f-46ff-b2ef-9f6675625b97
-StartIndex int64 `json:"start_index,omitempty"` // 删除的起始索引（操作区间左闭右开）示例值: 0 最小值: `0`
-EndIndex int64 `json:"end_index,omitempty"` // 删除的末尾索引（操作区间左闭右开）示例值: 1 最小值: `1`
+type BatchDeleteDocxChatAnnouncementBlockChildrenReq struct {
+	ChatID      string  `path:"chat_id" json:"-"`       // 群 ID。获取方式: [创建群](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/create), 从返回结果中获取该群的 chat_id。- 调用[获取用户或机器人所在的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/list)接口, 可以查询用户或机器人所在群的 chat_id。- 调用[搜索对用户或机器人可见的群列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat/search), 可搜索用户或机器人所在的群、对用户或机器人公开的群的 chat_id。注意: 单聊（群类型为 `p2p`）不支持获取群公告。示例值: "oc_5ad11d72b830411d72b836c20"
+	BlockID     string  `path:"block_id" json:"-"`      // 父 Block 的唯一标识。你可通过调用[获取群公告所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/chat-announcement-block/list)接口获取块的 block_id。注意: 此接口不支持删除表格（Table）的行列和删除分栏（Grid）的分栏列。你需通过[批量更新块的内容](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/chat-announcement-block/batch_update)接口完成相关操作。- 此接口不支持删除表格单元格（Table Cell）、分栏列（Grid Column）和高亮块（Callout）的全部子块。示例值: "doxcnO6UW6wAw2qIcYf4hZpFIth"
+	RevisionID  *int64  `query:"revision_id" json:"-"`  // 要操作的群公告版本。-1 表示群公告最新版本。群公告创建后, 版本为 1。你需确保你已拥有群公告的编辑权限。你可通过调用[获取群公告基本信息](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/chat-announcement/get)获取群公告的最新 revision_id示例值:1默认值: `-1` 最小值: `-1`
+	ClientToken *string `query:"client_token" json:"-"` // 操作的唯一标识, 与接口返回值的 client_token 相对应, 用于幂等的进行更新操作。此值为空表示将发起一次新的请求, 此值非空表示幂等的进行更新操作。示例值: fe599b60-450f-46ff-b2ef-9f6675625b97
+	StartIndex  int64   `json:"start_index,omitempty"`  // 删除的起始索引（操作区间左闭右开）示例值: 0 最小值: `0`
+	EndIndex    int64   `json:"end_index,omitempty"`    // 删除的末尾索引（操作区间左闭右开）示例值: 1 最小值: `1`
 }
-
-
-
-
 
 // BatchDeleteDocxChatAnnouncementBlockChildrenResp ...
-type BatchDeleteDocxChatAnnouncementBlockChildrenResp struct { 
-RevisionID int64 `json:"revision_id,omitempty"` // 当前删除操作成功后群公告的版本号
-ClientToken string `json:"client_token,omitempty"` // 操作的唯一标识, 更新请求中使用此值表示幂等的进行此次更新
+type BatchDeleteDocxChatAnnouncementBlockChildrenResp struct {
+	RevisionID  int64  `json:"revision_id,omitempty"`  // 当前删除操作成功后群公告的版本号
+	ClientToken string `json:"client_token,omitempty"` // 操作的唯一标识, 更新请求中使用此值表示幂等的进行此次更新
 }
-
-
-
-
 
 // batchDeleteDocxChatAnnouncementBlockChildrenResp ...
-type batchDeleteDocxChatAnnouncementBlockChildrenResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *BatchDeleteDocxChatAnnouncementBlockChildrenResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type batchDeleteDocxChatAnnouncementBlockChildrenResp struct {
+	Code  int64                                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                            `json:"msg,omitempty"`  // 错误描述
+	Data  *BatchDeleteDocxChatAnnouncementBlockChildrenResp `json:"data,omitempty"`
+	Error *ErrorDetail                                      `json:"error,omitempty"`
 }
-
-
-
-

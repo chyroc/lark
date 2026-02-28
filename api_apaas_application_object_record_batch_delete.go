@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // BatchDeleteApaasApplicationObjectRecord 一次删除多条对象中的记录
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/application-object-record/batch_delete
-// 
 func (r *ApaasService) BatchDeleteApaasApplicationObjectRecord(ctx context.Context, request *BatchDeleteApaasApplicationObjectRecordReq, options ...MethodOptionFunc) (*BatchDeleteApaasApplicationObjectRecordResp, *Response, error) {
-if r.cli.mock.mockApaasBatchDeleteApaasApplicationObjectRecord != nil {
+	if r.cli.mock.mockApaasBatchDeleteApaasApplicationObjectRecord != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Apaas#BatchDeleteApaasApplicationObjectRecord mock enable")
 		return r.cli.mock.mockApaasBatchDeleteApaasApplicationObjectRecord(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockApaasBatchDeleteApaasApplicationObjectRecord != nil {
 		Scope:                 "Apaas",
 		API:                   "BatchDeleteApaasApplicationObjectRecord",
 		Method:                "DELETE",
-		URL:   r.cli.openBaseURL + "/open-apis/apaas/v1/applications/:namespace/objects/:object_api_name/records/batch_delete",
+		URL:                   r.cli.openBaseURL + "/open-apis/apaas/v1/applications/:namespace/objects/:object_api_name/records/batch_delete",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(batchDeleteApaasApplicationObjectRecordResp)
 
@@ -51,63 +49,43 @@ if r.cli.mock.mockApaasBatchDeleteApaasApplicationObjectRecord != nil {
 func (r *Mock) MockApaasBatchDeleteApaasApplicationObjectRecord(f func(ctx context.Context, request *BatchDeleteApaasApplicationObjectRecordReq, options ...MethodOptionFunc) (*BatchDeleteApaasApplicationObjectRecordResp, *Response, error)) {
 	r.mockApaasBatchDeleteApaasApplicationObjectRecord = f
 }
+
 // UnMockApaasBatchDeleteApaasApplicationObjectRecord un-mock ApaasBatchDeleteApaasApplicationObjectRecord method
 func (r *Mock) UnMockApaasBatchDeleteApaasApplicationObjectRecord() {
 	r.mockApaasBatchDeleteApaasApplicationObjectRecord = nil
 }
 
-
 // BatchDeleteApaasApplicationObjectRecordReq ...
-type BatchDeleteApaasApplicationObjectRecordReq struct { 
-Namespace string `path:"namespace" json:"-"` // 应用命名空间示例值: "package_test__c" 长度范围: `0` ～ `255` 字符
-ObjectApiName string `path:"object_api_name" json:"-"` // 对象唯一标识示例值: "user" 长度范围: `0` ～ `256` 字符
-IDs []string `json:"ids,omitempty"` // 记录 ID 列表, 操作记录数上限为 500示例值: ["1801464965461024"] 长度范围: `0` ～ `500`
+type BatchDeleteApaasApplicationObjectRecordReq struct {
+	Namespace     string   `path:"namespace" json:"-"`       // 应用命名空间示例值: "package_test__c" 长度范围: `0` ～ `255` 字符
+	ObjectApiName string   `path:"object_api_name" json:"-"` // 对象唯一标识示例值: "user" 长度范围: `0` ～ `256` 字符
+	IDs           []string `json:"ids,omitempty"`            // 记录 ID 列表, 操作记录数上限为 500示例值: ["1801464965461024"] 长度范围: `0` ～ `500`
 }
-
-
-
-
 
 // BatchDeleteApaasApplicationObjectRecordResp ...
-type BatchDeleteApaasApplicationObjectRecordResp struct { 
-Items []*BatchDeleteApaasApplicationObjectRecordRespItem `json:"items,omitempty"` // 处理结果
+type BatchDeleteApaasApplicationObjectRecordResp struct {
+	Items []*BatchDeleteApaasApplicationObjectRecordRespItem `json:"items,omitempty"` // 处理结果
 }
-
-
-
-
 
 // BatchDeleteApaasApplicationObjectRecordRespItem ...
-type BatchDeleteApaasApplicationObjectRecordRespItem struct { 
-Success bool `json:"success,omitempty"` // 是否成功
-ID string `json:"id,omitempty"` // 记录 ID
-Errors []*BatchDeleteApaasApplicationObjectRecordRespItemError `json:"errors,omitempty"` // 权限错误时的细分 code
+type BatchDeleteApaasApplicationObjectRecordRespItem struct {
+	Success bool                                                    `json:"success,omitempty"` // 是否成功
+	ID      string                                                  `json:"id,omitempty"`      // 记录 ID
+	Errors  []*BatchDeleteApaasApplicationObjectRecordRespItemError `json:"errors,omitempty"`  // 权限错误时的细分 code
 }
-
-
-
-
 
 // BatchDeleteApaasApplicationObjectRecordRespItemError ...
-type BatchDeleteApaasApplicationObjectRecordRespItemError struct { 
-Code string `json:"code,omitempty"` // 错误码
-Message string `json:"message,omitempty"` // success
-SubCode string `json:"sub_code,omitempty"` // 权限错误时的细分 code
-Fields []string `json:"fields,omitempty"` // 权限错误时的涉及的字段 APIID 集合
+type BatchDeleteApaasApplicationObjectRecordRespItemError struct {
+	Code    string   `json:"code,omitempty"`     // 错误码
+	Message string   `json:"message,omitempty"`  // success
+	SubCode string   `json:"sub_code,omitempty"` // 权限错误时的细分 code
+	Fields  []string `json:"fields,omitempty"`   // 权限错误时的涉及的字段 APIID 集合
 }
-
-
-
-
 
 // batchDeleteApaasApplicationObjectRecordResp ...
-type batchDeleteApaasApplicationObjectRecordResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *BatchDeleteApaasApplicationObjectRecordResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type batchDeleteApaasApplicationObjectRecordResp struct {
+	Code  int64                                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                       `json:"msg,omitempty"`  // 错误描述
+	Data  *BatchDeleteApaasApplicationObjectRecordResp `json:"data,omitempty"`
+	Error *ErrorDetail                                 `json:"error,omitempty"`
 }
-
-
-
-

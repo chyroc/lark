@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // GetMailUserMailboxMessage 获取邮件详情
@@ -26,9 +26,8 @@ import (
 // 使用 tenant_access_token 时, 需要申请邮件数据资源的数据权限。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-message/get
-// 
 func (r *MailService) GetMailUserMailboxMessage(ctx context.Context, request *GetMailUserMailboxMessageReq, options ...MethodOptionFunc) (*GetMailUserMailboxMessageResp, *Response, error) {
-if r.cli.mock.mockMailGetMailUserMailboxMessage != nil {
+	if r.cli.mock.mockMailGetMailUserMailboxMessage != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#GetMailUserMailboxMessage mock enable")
 		return r.cli.mock.mockMailGetMailUserMailboxMessage(ctx, request, options...)
 	}
@@ -37,12 +36,11 @@ if r.cli.mock.mockMailGetMailUserMailboxMessage != nil {
 		Scope:                 "Mail",
 		API:                   "GetMailUserMailboxMessage",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/messages/:message_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/messages/:message_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getMailUserMailboxMessageResp)
 
@@ -54,113 +52,77 @@ if r.cli.mock.mockMailGetMailUserMailboxMessage != nil {
 func (r *Mock) MockMailGetMailUserMailboxMessage(f func(ctx context.Context, request *GetMailUserMailboxMessageReq, options ...MethodOptionFunc) (*GetMailUserMailboxMessageResp, *Response, error)) {
 	r.mockMailGetMailUserMailboxMessage = f
 }
+
 // UnMockMailGetMailUserMailboxMessage un-mock MailGetMailUserMailboxMessage method
 func (r *Mock) UnMockMailGetMailUserMailboxMessage() {
 	r.mockMailGetMailUserMailboxMessage = nil
 }
 
-
 // GetMailUserMailboxMessageReq ...
-type GetMailUserMailboxMessageReq struct { 
-UserMailboxID string `path:"user_mailbox_id" json:"-"` // 用户邮箱地址 或 输入me代表当前调用接口用户示例值: "user@xxx.xx 或 me"
-MessageID string `path:"message_id" json:"-"` // 用户邮件 id, 获取方式见 [列出邮件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-message/list)示例值: "TUlHc1NoWFhJMXgyUi9VZTNVL3h6UnlkRUdzPQ=="
+type GetMailUserMailboxMessageReq struct {
+	UserMailboxID string `path:"user_mailbox_id" json:"-"` // 用户邮箱地址 或 输入me代表当前调用接口用户示例值: "user@xxx.xx 或 me"
+	MessageID     string `path:"message_id" json:"-"`      // 用户邮件 id, 获取方式见 [列出邮件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-message/list)示例值: "TUlHc1NoWFhJMXgyUi9VZTNVL3h6UnlkRUdzPQ=="
 }
-
-
-
-
 
 // GetMailUserMailboxMessageResp ...
-type GetMailUserMailboxMessageResp struct { 
-Message *GetMailUserMailboxMessageRespMessage `json:"message,omitempty"` // 邮件体
+type GetMailUserMailboxMessageResp struct {
+	Message *GetMailUserMailboxMessageRespMessage `json:"message,omitempty"` // 邮件体
 }
-
-
-
-
 
 // GetMailUserMailboxMessageRespMessage ...
-type GetMailUserMailboxMessageRespMessage struct { 
-Subject string `json:"subject,omitempty"` // 主题字段权限要求: 获取邮件主题
-To []*GetMailUserMailboxMessageRespMessageTo `json:"to,omitempty"` // 收件人字段权限要求: 获取邮件内容中地址相关字段
-Cc []*GetMailUserMailboxMessageRespMessageCc `json:"cc,omitempty"` // 抄送字段权限要求: 获取邮件内容中地址相关字段
-Bcc []*GetMailUserMailboxMessageRespMessageBcc `json:"bcc,omitempty"` // 秘送字段权限要求: 获取邮件内容中地址相关字段
-HeadFrom *GetMailUserMailboxMessageRespMessageHeadFrom `json:"head_from,omitempty"` // 发件人字段权限要求: 获取邮件内容中地址相关字段
-BodyHtml string `json:"body_html,omitempty"` // 正文(base64url)字段权限要求: 获取邮件正文
-InternalDate string `json:"internal_date,omitempty"` // 创建/收/发信时间（毫秒）
-MessageState int64 `json:"message_state,omitempty"` // 邮件状态, 1为收信, 2为发信, 3为草稿
-SmtpMessageID string `json:"smtp_message_id,omitempty"` // RFC协议id
-MessageID string `json:"message_id,omitempty"` // 邮件id
-BodyPlainText string `json:"body_plain_text,omitempty"` // 正文纯文本(base64url)字段权限要求: 获取邮件正文
-Attachments []*GetMailUserMailboxMessageRespMessageAttachment `json:"attachments,omitempty"` // 邮件附件列表字段权限要求: 获取邮件正文
-ThreadID string `json:"thread_id,omitempty"` // 会话id
+type GetMailUserMailboxMessageRespMessage struct {
+	Subject       string                                            `json:"subject,omitempty"`         // 主题字段权限要求: 获取邮件主题
+	To            []*GetMailUserMailboxMessageRespMessageTo         `json:"to,omitempty"`              // 收件人字段权限要求: 获取邮件内容中地址相关字段
+	Cc            []*GetMailUserMailboxMessageRespMessageCc         `json:"cc,omitempty"`              // 抄送字段权限要求: 获取邮件内容中地址相关字段
+	Bcc           []*GetMailUserMailboxMessageRespMessageBcc        `json:"bcc,omitempty"`             // 秘送字段权限要求: 获取邮件内容中地址相关字段
+	HeadFrom      *GetMailUserMailboxMessageRespMessageHeadFrom     `json:"head_from,omitempty"`       // 发件人字段权限要求: 获取邮件内容中地址相关字段
+	BodyHtml      string                                            `json:"body_html,omitempty"`       // 正文(base64url)字段权限要求: 获取邮件正文
+	InternalDate  string                                            `json:"internal_date,omitempty"`   // 创建/收/发信时间（毫秒）
+	MessageState  int64                                             `json:"message_state,omitempty"`   // 邮件状态, 1为收信, 2为发信, 3为草稿
+	SmtpMessageID string                                            `json:"smtp_message_id,omitempty"` // RFC协议id
+	MessageID     string                                            `json:"message_id,omitempty"`      // 邮件id
+	BodyPlainText string                                            `json:"body_plain_text,omitempty"` // 正文纯文本(base64url)字段权限要求: 获取邮件正文
+	Attachments   []*GetMailUserMailboxMessageRespMessageAttachment `json:"attachments,omitempty"`     // 邮件附件列表字段权限要求: 获取邮件正文
+	ThreadID      string                                            `json:"thread_id,omitempty"`       // 会话id
 }
-
-
-
-
 
 // GetMailUserMailboxMessageRespMessageAttachment ...
-type GetMailUserMailboxMessageRespMessageAttachment struct { 
-Filename string `json:"filename,omitempty"` // 附件文件名
-ID string `json:"id,omitempty"` // 附件 id
-AttachmentType int64 `json:"attachment_type,omitempty"` // 附件类型可选值有: 普通附件超大附件
-IsInline bool `json:"is_inline,omitempty"` // 是否为内联图片, true 表示是内联图片
-Cid string `json:"cid,omitempty"` // 内容 ID, HTML 中通过 cid: 协议引用该图片
+type GetMailUserMailboxMessageRespMessageAttachment struct {
+	Filename       string `json:"filename,omitempty"`        // 附件文件名
+	ID             string `json:"id,omitempty"`              // 附件 id
+	AttachmentType int64  `json:"attachment_type,omitempty"` // 附件类型可选值有: 普通附件超大附件
+	IsInline       bool   `json:"is_inline,omitempty"`       // 是否为内联图片, true 表示是内联图片
+	Cid            string `json:"cid,omitempty"`             // 内容 ID, HTML 中通过 cid: 协议引用该图片
 }
-
-
-
-
 
 // GetMailUserMailboxMessageRespMessageBcc ...
-type GetMailUserMailboxMessageRespMessageBcc struct { 
-MailAddress string `json:"mail_address,omitempty"` // 邮件地址
-Name string `json:"name,omitempty"` // 名称
+type GetMailUserMailboxMessageRespMessageBcc struct {
+	MailAddress string `json:"mail_address,omitempty"` // 邮件地址
+	Name        string `json:"name,omitempty"`         // 名称
 }
-
-
-
-
 
 // GetMailUserMailboxMessageRespMessageCc ...
-type GetMailUserMailboxMessageRespMessageCc struct { 
-MailAddress string `json:"mail_address,omitempty"` // 邮件地址
-Name string `json:"name,omitempty"` // 名称
+type GetMailUserMailboxMessageRespMessageCc struct {
+	MailAddress string `json:"mail_address,omitempty"` // 邮件地址
+	Name        string `json:"name,omitempty"`         // 名称
 }
-
-
-
-
 
 // GetMailUserMailboxMessageRespMessageHeadFrom ...
-type GetMailUserMailboxMessageRespMessageHeadFrom struct { 
-MailAddress string `json:"mail_address,omitempty"` // 邮件地址
-Name string `json:"name,omitempty"` // 名称
+type GetMailUserMailboxMessageRespMessageHeadFrom struct {
+	MailAddress string `json:"mail_address,omitempty"` // 邮件地址
+	Name        string `json:"name,omitempty"`         // 名称
 }
-
-
-
-
 
 // GetMailUserMailboxMessageRespMessageTo ...
-type GetMailUserMailboxMessageRespMessageTo struct { 
-MailAddress string `json:"mail_address,omitempty"` // 邮件地址
-Name string `json:"name,omitempty"` // 名称
+type GetMailUserMailboxMessageRespMessageTo struct {
+	MailAddress string `json:"mail_address,omitempty"` // 邮件地址
+	Name        string `json:"name,omitempty"`         // 名称
 }
-
-
-
-
 
 // getMailUserMailboxMessageResp ...
-type getMailUserMailboxMessageResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *GetMailUserMailboxMessageResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type getMailUserMailboxMessageResp struct {
+	Code  int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                         `json:"msg,omitempty"`  // 错误描述
+	Data  *GetMailUserMailboxMessageResp `json:"data,omitempty"`
+	Error *ErrorDetail                   `json:"error,omitempty"`
 }
-
-
-
-

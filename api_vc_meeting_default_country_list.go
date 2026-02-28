@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListVCMeetingDefaultCountry 新建建筑时需要标明所处国家/地区, 该接口用于获得系统预先提供的可供选择的国家 /地区列表。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQTNwYjL0UDM24CN1AjN
-// 
 func (r *VCMeetingService) ListVCMeetingDefaultCountry(ctx context.Context, request *ListVCMeetingDefaultCountryReq, options ...MethodOptionFunc) (*ListVCMeetingDefaultCountryResp, *Response, error) {
-if r.cli.mock.mockVCMeetingListVCMeetingDefaultCountry != nil {
+	if r.cli.mock.mockVCMeetingListVCMeetingDefaultCountry != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] VCMeeting#ListVCMeetingDefaultCountry mock enable")
 		return r.cli.mock.mockVCMeetingListVCMeetingDefaultCountry(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockVCMeetingListVCMeetingDefaultCountry != nil {
 		Scope:                 "VCMeeting",
 		API:                   "ListVCMeetingDefaultCountry",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/meeting_room/country/list",
+		URL:                   r.cli.openBaseURL + "/open-apis/meeting_room/country/list",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(listVCMeetingDefaultCountryResp)
 
@@ -51,47 +49,30 @@ if r.cli.mock.mockVCMeetingListVCMeetingDefaultCountry != nil {
 func (r *Mock) MockVCMeetingListVCMeetingDefaultCountry(f func(ctx context.Context, request *ListVCMeetingDefaultCountryReq, options ...MethodOptionFunc) (*ListVCMeetingDefaultCountryResp, *Response, error)) {
 	r.mockVCMeetingListVCMeetingDefaultCountry = f
 }
+
 // UnMockVCMeetingListVCMeetingDefaultCountry un-mock VCMeetingListVCMeetingDefaultCountry method
 func (r *Mock) UnMockVCMeetingListVCMeetingDefaultCountry() {
 	r.mockVCMeetingListVCMeetingDefaultCountry = nil
 }
 
-
 // ListVCMeetingDefaultCountryReq ...
-type ListVCMeetingDefaultCountryReq struct { 
-}
-
-
-
-
+type ListVCMeetingDefaultCountryReq struct{}
 
 // ListVCMeetingDefaultCountryResp ...
-type ListVCMeetingDefaultCountryResp struct { 
-Countries []*ListVCMeetingDefaultCountryRespCountry `json:"countries,omitempty"` // 国家地区列表
+type ListVCMeetingDefaultCountryResp struct {
+	Countries []*ListVCMeetingDefaultCountryRespCountry `json:"countries,omitempty"` // 国家地区列表
 }
-
-
-
-
 
 // ListVCMeetingDefaultCountryRespCountry ...
-type ListVCMeetingDefaultCountryRespCountry struct { 
-CountryID string `json:"country_id,omitempty"` // 国家地区ID
-Name string `json:"name,omitempty"` // 国家地区名称
+type ListVCMeetingDefaultCountryRespCountry struct {
+	CountryID string `json:"country_id,omitempty"` // 国家地区ID
+	Name      string `json:"name,omitempty"`       // 国家地区名称
 }
-
-
-
-
 
 // listVCMeetingDefaultCountryResp ...
-type listVCMeetingDefaultCountryResp struct { 
-Code int64 `json:"code,omitempty"` // 返回码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 返回码的描述, "success" 表示成功, 其他为错误提示信息
-Data *ListVCMeetingDefaultCountryResp `json:"data,omitempty"` // 返回业务信息
-Error *ErrorDetail `json:"error,omitempty"` 
+type listVCMeetingDefaultCountryResp struct {
+	Code  int64                            `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg   string                           `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
+	Data  *ListVCMeetingDefaultCountryResp `json:"data,omitempty"` // 返回业务信息
+	Error *ErrorDetail                     `json:"error,omitempty"`
 }
-
-
-
-

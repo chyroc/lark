@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // DeleteCardkitCardElement 删除指定卡片实体中的组件。
@@ -30,9 +30,8 @@ import (
 // - 调用该接口的应用身份（tenant_access_token）需与创建目标卡片实体的应用身份一致。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card-element/delete
-// 
 func (r *CardkitService) DeleteCardkitCardElement(ctx context.Context, request *DeleteCardkitCardElementReq, options ...MethodOptionFunc) (*DeleteCardkitCardElementResp, *Response, error) {
-if r.cli.mock.mockCardkitDeleteCardkitCardElement != nil {
+	if r.cli.mock.mockCardkitDeleteCardkitCardElement != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Cardkit#DeleteCardkitCardElement mock enable")
 		return r.cli.mock.mockCardkitDeleteCardkitCardElement(ctx, request, options...)
 	}
@@ -41,11 +40,10 @@ if r.cli.mock.mockCardkitDeleteCardkitCardElement != nil {
 		Scope:                 "Cardkit",
 		API:                   "DeleteCardkitCardElement",
 		Method:                "DELETE",
-		URL:   r.cli.openBaseURL + "/open-apis/cardkit/v1/cards/:card_id/elements/:element_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/cardkit/v1/cards/:card_id/elements/:element_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(deleteCardkitCardElementResp)
 
@@ -57,40 +55,27 @@ if r.cli.mock.mockCardkitDeleteCardkitCardElement != nil {
 func (r *Mock) MockCardkitDeleteCardkitCardElement(f func(ctx context.Context, request *DeleteCardkitCardElementReq, options ...MethodOptionFunc) (*DeleteCardkitCardElementResp, *Response, error)) {
 	r.mockCardkitDeleteCardkitCardElement = f
 }
+
 // UnMockCardkitDeleteCardkitCardElement un-mock CardkitDeleteCardkitCardElement method
 func (r *Mock) UnMockCardkitDeleteCardkitCardElement() {
 	r.mockCardkitDeleteCardkitCardElement = nil
 }
 
-
 // DeleteCardkitCardElementReq ...
-type DeleteCardkitCardElementReq struct { 
-CardID string `path:"card_id" json:"-"` // 卡片实体 ID。通过[创建卡片实体](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card/create)获取示例值: "7355439197428236291" 长度范围: `1` ～ `20` 字符
-ElementID string `path:"element_id" json:"-"` // 指定卡片实体内, 要删除的组件 ID。对应卡片 JSON 中的 `element_id` 属性, 由开发者自定义。示例值: "markdown_1" 长度范围: `1` ～ `20` 字符
-UUID *string `json:"uuid,omitempty"` // 幂等 id, 可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。示例值: "a0d69e20-1dd1-458b-k525-dfeca4015204" 长度范围: `1` ～ `64` 字符
-Sequence int64 `json:"sequence,omitempty"` // 操作卡片的序号。用于保证多次更新的时序性。注意: 请确保在通过卡片 OpenAPI 操作同一张卡片时, sequence 的值相较于上一次操作严格递增。 int32 范围（ `1`~`2147483647`）内的正整数。示例值: 1
+type DeleteCardkitCardElementReq struct {
+	CardID    string  `path:"card_id" json:"-"`    // 卡片实体 ID。通过[创建卡片实体](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/cardkit-v1/card/create)获取示例值: "7355439197428236291" 长度范围: `1` ～ `20` 字符
+	ElementID string  `path:"element_id" json:"-"` // 指定卡片实体内, 要删除的组件 ID。对应卡片 JSON 中的 `element_id` 属性, 由开发者自定义。示例值: "markdown_1" 长度范围: `1` ～ `20` 字符
+	UUID      *string `json:"uuid,omitempty"`      // 幂等 id, 可通过传入唯一的 uuid 以保证相同批次的操作只进行一次。示例值: "a0d69e20-1dd1-458b-k525-dfeca4015204" 长度范围: `1` ～ `64` 字符
+	Sequence  int64   `json:"sequence,omitempty"`  // 操作卡片的序号。用于保证多次更新的时序性。注意: 请确保在通过卡片 OpenAPI 操作同一张卡片时, sequence 的值相较于上一次操作严格递增。 int32 范围（ `1`~`2147483647`）内的正整数。示例值: 1
 }
-
-
-
-
 
 // DeleteCardkitCardElementResp ...
-type DeleteCardkitCardElementResp struct { 
-}
-
-
-
-
+type DeleteCardkitCardElementResp struct{}
 
 // deleteCardkitCardElementResp ...
-type deleteCardkitCardElementResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *DeleteCardkitCardElementResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type deleteCardkitCardElementResp struct {
+	Code  int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                        `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteCardkitCardElementResp `json:"data,omitempty"`
+	Error *ErrorDetail                  `json:"error,omitempty"`
 }
-
-
-
-

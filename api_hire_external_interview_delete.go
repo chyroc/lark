@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // DeleteHireExternalInterview 根据外部面试 ID 删除外部面试。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_interview/delete
-// 
 func (r *HireService) DeleteHireExternalInterview(ctx context.Context, request *DeleteHireExternalInterviewReq, options ...MethodOptionFunc) (*DeleteHireExternalInterviewResp, *Response, error) {
-if r.cli.mock.mockHireDeleteHireExternalInterview != nil {
+	if r.cli.mock.mockHireDeleteHireExternalInterview != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#DeleteHireExternalInterview mock enable")
 		return r.cli.mock.mockHireDeleteHireExternalInterview(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockHireDeleteHireExternalInterview != nil {
 		Scope:                 "Hire",
 		API:                   "DeleteHireExternalInterview",
 		Method:                "DELETE",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/external_interviews/:external_interview_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/external_interviews/:external_interview_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(deleteHireExternalInterviewResp)
 
@@ -51,37 +49,24 @@ if r.cli.mock.mockHireDeleteHireExternalInterview != nil {
 func (r *Mock) MockHireDeleteHireExternalInterview(f func(ctx context.Context, request *DeleteHireExternalInterviewReq, options ...MethodOptionFunc) (*DeleteHireExternalInterviewResp, *Response, error)) {
 	r.mockHireDeleteHireExternalInterview = f
 }
+
 // UnMockHireDeleteHireExternalInterview un-mock HireDeleteHireExternalInterview method
 func (r *Mock) UnMockHireDeleteHireExternalInterview() {
 	r.mockHireDeleteHireExternalInterview = nil
 }
 
-
 // DeleteHireExternalInterviewReq ...
-type DeleteHireExternalInterviewReq struct { 
-ExternalInterviewID string `path:"external_interview_id" json:"-"` // 外部面试 ID, 可通过[查询外部面试列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_interview/batch_query)接口获取示例值: "6960663240925956660"
+type DeleteHireExternalInterviewReq struct {
+	ExternalInterviewID string `path:"external_interview_id" json:"-"` // 外部面试 ID, 可通过[查询外部面试列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/external_interview/batch_query)接口获取示例值: "6960663240925956660"
 }
-
-
-
-
 
 // DeleteHireExternalInterviewResp ...
-type DeleteHireExternalInterviewResp struct { 
-}
-
-
-
-
+type DeleteHireExternalInterviewResp struct{}
 
 // deleteHireExternalInterviewResp ...
-type deleteHireExternalInterviewResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *DeleteHireExternalInterviewResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type deleteHireExternalInterviewResp struct {
+	Code  int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                           `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteHireExternalInterviewResp `json:"data,omitempty"`
+	Error *ErrorDetail                     `json:"error,omitempty"`
 }
-
-
-
-

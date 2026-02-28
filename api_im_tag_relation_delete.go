@@ -63,8 +63,7 @@ type DeleteIMTagRelationReq struct {
 }
 
 // DeleteIMTagRelationResp ...
-type DeleteIMTagRelationResp struct {
-}
+type DeleteIMTagRelationResp struct{}
 
 // deleteIMTagRelationResp ...
 type deleteIMTagRelationResp struct {

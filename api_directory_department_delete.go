@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // DeleteDirectoryDepartment 本接口用于删除部门。
@@ -27,9 +27,8 @@ import (
 // - 删除部门需要有待删除部门及其父部门的应用数据权限[配置应用数据权限](https://open.feishu.cn/document/home/introduction-to-scope-and-authorization/configure-app-data-permissions)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/department/delete
-// 
 func (r *DirectoryService) DeleteDirectoryDepartment(ctx context.Context, request *DeleteDirectoryDepartmentReq, options ...MethodOptionFunc) (*DeleteDirectoryDepartmentResp, *Response, error) {
-if r.cli.mock.mockDirectoryDeleteDirectoryDepartment != nil {
+	if r.cli.mock.mockDirectoryDeleteDirectoryDepartment != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Directory#DeleteDirectoryDepartment mock enable")
 		return r.cli.mock.mockDirectoryDeleteDirectoryDepartment(ctx, request, options...)
 	}
@@ -38,12 +37,11 @@ if r.cli.mock.mockDirectoryDeleteDirectoryDepartment != nil {
 		Scope:                 "Directory",
 		API:                   "DeleteDirectoryDepartment",
 		Method:                "DELETE",
-		URL:   r.cli.openBaseURL + "/open-apis/directory/v1/departments/:department_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/directory/v1/departments/:department_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(deleteDirectoryDepartmentResp)
 
@@ -55,38 +53,25 @@ if r.cli.mock.mockDirectoryDeleteDirectoryDepartment != nil {
 func (r *Mock) MockDirectoryDeleteDirectoryDepartment(f func(ctx context.Context, request *DeleteDirectoryDepartmentReq, options ...MethodOptionFunc) (*DeleteDirectoryDepartmentResp, *Response, error)) {
 	r.mockDirectoryDeleteDirectoryDepartment = f
 }
+
 // UnMockDirectoryDeleteDirectoryDepartment un-mock DirectoryDeleteDirectoryDepartment method
 func (r *Mock) UnMockDirectoryDeleteDirectoryDepartment() {
 	r.mockDirectoryDeleteDirectoryDepartment = nil
 }
 
-
 // DeleteDirectoryDepartmentReq ...
-type DeleteDirectoryDepartmentReq struct { 
-DepartmentID string `path:"department_id" json:"-"` // 部门ID, 与department_id_type类型保持一致示例值: "weasdqwe" 最大长度: `64` 字符
-DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型示例值: open_department_id可选值有: 用来标识租户内一个唯一的部门用来在具体某个应用中标识一个部门, 同一个部门 在不同应用中的 open_department_id 不相同。默认值: `open_department_id`
+type DeleteDirectoryDepartmentReq struct {
+	DepartmentID     string            `path:"department_id" json:"-"`       // 部门ID, 与department_id_type类型保持一致示例值: "weasdqwe" 最大长度: `64` 字符
+	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型示例值: open_department_id可选值有: 用来标识租户内一个唯一的部门用来在具体某个应用中标识一个部门, 同一个部门 在不同应用中的 open_department_id 不相同。默认值: `open_department_id`
 }
-
-
-
-
 
 // DeleteDirectoryDepartmentResp ...
-type DeleteDirectoryDepartmentResp struct { 
-}
-
-
-
-
+type DeleteDirectoryDepartmentResp struct{}
 
 // deleteDirectoryDepartmentResp ...
-type deleteDirectoryDepartmentResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *DeleteDirectoryDepartmentResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type deleteDirectoryDepartmentResp struct {
+	Code  int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                         `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteDirectoryDepartmentResp `json:"data,omitempty"`
+	Error *ErrorDetail                   `json:"error,omitempty"`
 }
-
-
-
-

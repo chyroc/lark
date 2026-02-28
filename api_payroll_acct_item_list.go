@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListPayrollAcctItem 批量查询算薪项
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/acct_item/list
-// 
 func (r *PayrollService) ListPayrollAcctItem(ctx context.Context, request *ListPayrollAcctItemReq, options ...MethodOptionFunc) (*ListPayrollAcctItemResp, *Response, error) {
-if r.cli.mock.mockPayrollListPayrollAcctItem != nil {
+	if r.cli.mock.mockPayrollListPayrollAcctItem != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Payroll#ListPayrollAcctItem mock enable")
 		return r.cli.mock.mockPayrollListPayrollAcctItem(ctx, request, options...)
 	}
@@ -35,12 +34,11 @@ if r.cli.mock.mockPayrollListPayrollAcctItem != nil {
 		Scope:                 "Payroll",
 		API:                   "ListPayrollAcctItem",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/payroll/v1/acct_items",
+		URL:                   r.cli.openBaseURL + "/open-apis/payroll/v1/acct_items",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(listPayrollAcctItemResp)
 
@@ -52,66 +50,46 @@ if r.cli.mock.mockPayrollListPayrollAcctItem != nil {
 func (r *Mock) MockPayrollListPayrollAcctItem(f func(ctx context.Context, request *ListPayrollAcctItemReq, options ...MethodOptionFunc) (*ListPayrollAcctItemResp, *Response, error)) {
 	r.mockPayrollListPayrollAcctItem = f
 }
+
 // UnMockPayrollListPayrollAcctItem un-mock PayrollListPayrollAcctItem method
 func (r *Mock) UnMockPayrollListPayrollAcctItem() {
 	r.mockPayrollListPayrollAcctItem = nil
 }
 
-
 // ListPayrollAcctItemReq ...
-type ListPayrollAcctItemReq struct { 
-PageSize int64 `query:"page_size" json:"-"` // 分页大小示例值: 50 取值范围: `1` ～ `100`
-PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 7169773973790425132
+type ListPayrollAcctItemReq struct {
+	PageSize  int64   `query:"page_size" json:"-"`  // 分页大小示例值: 50 取值范围: `1` ～ `100`
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 7169773973790425132
 }
-
-
-
-
 
 // ListPayrollAcctItemResp ...
-type ListPayrollAcctItemResp struct { 
-Items []*ListPayrollAcctItemRespItem `json:"items,omitempty"` // 算薪项列表
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
+type ListPayrollAcctItemResp struct {
+	Items     []*ListPayrollAcctItemRespItem `json:"items,omitempty"`      // 算薪项列表
+	PageToken string                         `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	HasMore   bool                           `json:"has_more,omitempty"`   // 是否还有更多项
 }
-
-
-
-
 
 // ListPayrollAcctItemRespItem ...
-type ListPayrollAcctItemRespItem struct { 
-ID string `json:"id,omitempty"` // 算薪项ID
-I18nNames []*ListPayrollAcctItemRespItemI18nName `json:"i18n_names,omitempty"` // 算薪项名称
-CategoryID string `json:"category_id,omitempty"` // 算薪项分类ID
-DataType int64 `json:"data_type,omitempty"` // 算薪项数据类型文本 - 1金额 - 2数值 - 3百分数 - 4日期 - 5引用项 - 6
-DecimalPlaces int64 `json:"decimal_places,omitempty"` // 小数位数
-ActiveStatus int64 `json:"active_status,omitempty"` // 启用状态已启用 - 1已停用 - 2
+type ListPayrollAcctItemRespItem struct {
+	ID            string                                 `json:"id,omitempty"`             // 算薪项ID
+	I18nNames     []*ListPayrollAcctItemRespItemI18nName `json:"i18n_names,omitempty"`     // 算薪项名称
+	CategoryID    string                                 `json:"category_id,omitempty"`    // 算薪项分类ID
+	DataType      int64                                  `json:"data_type,omitempty"`      // 算薪项数据类型文本 - 1金额 - 2数值 - 3百分数 - 4日期 - 5引用项 - 6
+	DecimalPlaces int64                                  `json:"decimal_places,omitempty"` // 小数位数
+	ActiveStatus  int64                                  `json:"active_status,omitempty"`  // 启用状态已启用 - 1已停用 - 2
 }
-
-
-
-
 
 // ListPayrollAcctItemRespItemI18nName ...
-type ListPayrollAcctItemRespItemI18nName struct { 
-Locale string `json:"locale,omitempty"` // 语种
-Value string `json:"value,omitempty"` // 语种对应的值
-ID string `json:"id,omitempty"` // 名称对应的实体id, 该场景不返回, 请忽略
+type ListPayrollAcctItemRespItemI18nName struct {
+	Locale string `json:"locale,omitempty"` // 语种
+	Value  string `json:"value,omitempty"`  // 语种对应的值
+	ID     string `json:"id,omitempty"`     // 名称对应的实体id, 该场景不返回, 请忽略
 }
-
-
-
-
 
 // listPayrollAcctItemResp ...
-type listPayrollAcctItemResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *ListPayrollAcctItemResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type listPayrollAcctItemResp struct {
+	Code  int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                   `json:"msg,omitempty"`  // 错误描述
+	Data  *ListPayrollAcctItemResp `json:"data,omitempty"`
+	Error *ErrorDetail             `json:"error,omitempty"`
 }
-
-
-
-

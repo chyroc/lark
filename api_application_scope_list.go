@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListApplicationScope 调用该接口查询当前应用向租户申请授权的状态。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/application-v6/scope/list
-// 
 func (r *ApplicationService) ListApplicationScope(ctx context.Context, request *ListApplicationScopeReq, options ...MethodOptionFunc) (*ListApplicationScopeResp, *Response, error) {
-if r.cli.mock.mockApplicationListApplicationScope != nil {
+	if r.cli.mock.mockApplicationListApplicationScope != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Application#ListApplicationScope mock enable")
 		return r.cli.mock.mockApplicationListApplicationScope(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockApplicationListApplicationScope != nil {
 		Scope:                 "Application",
 		API:                   "ListApplicationScope",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/application/v6/scopes",
+		URL:                   r.cli.openBaseURL + "/open-apis/application/v6/scopes",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(listApplicationScopeResp)
 
@@ -51,47 +49,30 @@ if r.cli.mock.mockApplicationListApplicationScope != nil {
 func (r *Mock) MockApplicationListApplicationScope(f func(ctx context.Context, request *ListApplicationScopeReq, options ...MethodOptionFunc) (*ListApplicationScopeResp, *Response, error)) {
 	r.mockApplicationListApplicationScope = f
 }
+
 // UnMockApplicationListApplicationScope un-mock ApplicationListApplicationScope method
 func (r *Mock) UnMockApplicationListApplicationScope() {
 	r.mockApplicationListApplicationScope = nil
 }
 
-
 // ListApplicationScopeReq ...
-type ListApplicationScopeReq struct { 
-}
-
-
-
-
+type ListApplicationScopeReq struct{}
 
 // ListApplicationScopeResp ...
-type ListApplicationScopeResp struct { 
-Scopes []*ListApplicationScopeRespScope `json:"scopes,omitempty"` // 租户对当前应用所需权限的授予情况。
+type ListApplicationScopeResp struct {
+	Scopes []*ListApplicationScopeRespScope `json:"scopes,omitempty"` // 租户对当前应用所需权限的授予情况。
 }
-
-
-
-
 
 // ListApplicationScopeRespScope ...
-type ListApplicationScopeRespScope struct { 
-ScopeName string `json:"scope_name,omitempty"` // 权限名称。取值示例 `user.phone:readonly`。
-GrantStatus int64 `json:"grant_status,omitempty"` // 权限授予状态。可选值有: 已授权未授权
+type ListApplicationScopeRespScope struct {
+	ScopeName   string `json:"scope_name,omitempty"`   // 权限名称。取值示例 `user.phone:readonly`。
+	GrantStatus int64  `json:"grant_status,omitempty"` // 权限授予状态。可选值有: 已授权未授权
 }
-
-
-
-
 
 // listApplicationScopeResp ...
-type listApplicationScopeResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *ListApplicationScopeResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type listApplicationScopeResp struct {
+	Code  int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                    `json:"msg,omitempty"`  // 错误描述
+	Data  *ListApplicationScopeResp `json:"data,omitempty"`
+	Error *ErrorDetail              `json:"error,omitempty"`
 }
-
-
-
-

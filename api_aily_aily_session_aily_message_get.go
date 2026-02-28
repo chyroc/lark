@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // GetAilySessionAilyMessage 该 API 用于获取某个飞书 Aily 应用的消息（Message）的详细信息；包括消息的内容、发送人等。
@@ -30,9 +30,8 @@ import (
 // - 运行（Run）: Aily 助手基于会话内消息进行意图判定、调用匹配的技能, 并返回技能执行后的结果消息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/aily-v1/aily_session-aily_message/get
-// 
 func (r *AilyService) GetAilySessionAilyMessage(ctx context.Context, request *GetAilySessionAilyMessageReq, options ...MethodOptionFunc) (*GetAilySessionAilyMessageResp, *Response, error) {
-if r.cli.mock.mockAilyGetAilySessionAilyMessage != nil {
+	if r.cli.mock.mockAilyGetAilySessionAilyMessage != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Aily#GetAilySessionAilyMessage mock enable")
 		return r.cli.mock.mockAilyGetAilySessionAilyMessage(ctx, request, options...)
 	}
@@ -41,12 +40,11 @@ if r.cli.mock.mockAilyGetAilySessionAilyMessage != nil {
 		Scope:                 "Aily",
 		API:                   "GetAilySessionAilyMessage",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/aily/v1/sessions/:aily_session_id/messages/:aily_message_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/aily/v1/sessions/:aily_session_id/messages/:aily_message_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getAilySessionAilyMessageResp)
 
@@ -58,83 +56,59 @@ if r.cli.mock.mockAilyGetAilySessionAilyMessage != nil {
 func (r *Mock) MockAilyGetAilySessionAilyMessage(f func(ctx context.Context, request *GetAilySessionAilyMessageReq, options ...MethodOptionFunc) (*GetAilySessionAilyMessageResp, *Response, error)) {
 	r.mockAilyGetAilySessionAilyMessage = f
 }
+
 // UnMockAilyGetAilySessionAilyMessage un-mock AilyGetAilySessionAilyMessage method
 func (r *Mock) UnMockAilyGetAilySessionAilyMessage() {
 	r.mockAilyGetAilySessionAilyMessage = nil
 }
 
-
 // GetAilySessionAilyMessageReq ...
-type GetAilySessionAilyMessageReq struct { 
-AilySessionID string `path:"aily_session_id" json:"-"` // 会话 ID；参考 [创建会话](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/aily-v1/aily_session/create) 接口示例值: "session_4dfunz7sp1g8m" 长度范围: `0` ～ `32` 字符- 正则校验: `session_[0-9a-hjkmnp-z]{1, 24}`
-AilyMessageID string `path:"aily_message_id" json:"-"` // 消息 ID示例值: "message_4df45f2xknvcc" 长度范围: `0` ～ `32` 字符- 正则校验: `message_[0-9a-hjkmnp-z]{1, 24}`
+type GetAilySessionAilyMessageReq struct {
+	AilySessionID string `path:"aily_session_id" json:"-"` // 会话 ID；参考 [创建会话](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/aily-v1/aily_session/create) 接口示例值: "session_4dfunz7sp1g8m" 长度范围: `0` ～ `32` 字符- 正则校验: `session_[0-9a-hjkmnp-z]{1, 24}`
+	AilyMessageID string `path:"aily_message_id" json:"-"` // 消息 ID示例值: "message_4df45f2xknvcc" 长度范围: `0` ～ `32` 字符- 正则校验: `message_[0-9a-hjkmnp-z]{1, 24}`
 }
-
-
-
-
 
 // GetAilySessionAilyMessageResp ...
-type GetAilySessionAilyMessageResp struct { 
-Message *GetAilySessionAilyMessageRespMessage `json:"message,omitempty"` // 消息信息
+type GetAilySessionAilyMessageResp struct {
+	Message *GetAilySessionAilyMessageRespMessage `json:"message,omitempty"` // 消息信息
 }
-
-
-
-
 
 // GetAilySessionAilyMessageRespMessage ...
-type GetAilySessionAilyMessageRespMessage struct { 
-ID string `json:"id,omitempty"` // 消息 ID
-SessionID string `json:"session_id,omitempty"` // 会话 ID
-RunID string `json:"run_id,omitempty"` // 运行 ID
-ContentType string `json:"content_type,omitempty"` // 消息内容类型
-Content string `json:"content,omitempty"` // 消息内容
-Files []*GetAilySessionAilyMessageRespMessageFile `json:"files,omitempty"` // 消息中包含的文件
-QuoteMessageID string `json:"quote_message_id,omitempty"` // 引用的消息 ID
-Sender *Sender `json:"sender,omitempty"` // 发送者
-Mentions []*Mention `json:"mentions,omitempty"` // 被@的实体
-PlainText string `json:"plain_text,omitempty"` // 消息体的纯文本表达
-CreatedAt string `json:"created_at,omitempty"` // 消息的创建时间, 毫秒时间戳
-Status string `json:"status,omitempty"` // 状态
+type GetAilySessionAilyMessageRespMessage struct {
+	ID             string                                      `json:"id,omitempty"`               // 消息 ID
+	SessionID      string                                      `json:"session_id,omitempty"`       // 会话 ID
+	RunID          string                                      `json:"run_id,omitempty"`           // 运行 ID
+	ContentType    string                                      `json:"content_type,omitempty"`     // 消息内容类型
+	Content        string                                      `json:"content,omitempty"`          // 消息内容
+	Files          []*GetAilySessionAilyMessageRespMessageFile `json:"files,omitempty"`            // 消息中包含的文件
+	QuoteMessageID string                                      `json:"quote_message_id,omitempty"` // 引用的消息 ID
+	Sender         *Sender                                     `json:"sender,omitempty"`           // 发送者
+	Mentions       []*Mention                                  `json:"mentions,omitempty"`         // 被@的实体
+	PlainText      string                                      `json:"plain_text,omitempty"`       // 消息体的纯文本表达
+	CreatedAt      string                                      `json:"created_at,omitempty"`       // 消息的创建时间, 毫秒时间戳
+	Status         string                                      `json:"status,omitempty"`           // 状态
 }
-
-
-
-
 
 // GetAilySessionAilyMessageRespMessageFile ...
-type GetAilySessionAilyMessageRespMessageFile struct { 
-ID string `json:"id,omitempty"` // 文件 ID
-MimeType string `json:"mime_type,omitempty"` // 文件类型, 参见[MIME 类型（IANA 媒体类型）](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Basics_of_HTTP/MIME_types)
-FileName string `json:"file_name,omitempty"` // 文件名
-Metadata string `json:"metadata,omitempty"` // 其他透传信息
-CreatedAt string `json:"created_at,omitempty"` // 文件的创建时间, 毫秒时间戳
-PreviewURL *GetAilySessionAilyMessageRespMessageFilePreviewURL `json:"preview_url,omitempty"` // 文件预览链接
+type GetAilySessionAilyMessageRespMessageFile struct {
+	ID         string                                              `json:"id,omitempty"`          // 文件 ID
+	MimeType   string                                              `json:"mime_type,omitempty"`   // 文件类型, 参见[MIME 类型（IANA 媒体类型）](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Basics_of_HTTP/MIME_types)
+	FileName   string                                              `json:"file_name,omitempty"`   // 文件名
+	Metadata   string                                              `json:"metadata,omitempty"`    // 其他透传信息
+	CreatedAt  string                                              `json:"created_at,omitempty"`  // 文件的创建时间, 毫秒时间戳
+	PreviewURL *GetAilySessionAilyMessageRespMessageFilePreviewURL `json:"preview_url,omitempty"` // 文件预览链接
 }
-
-
-
-
 
 // GetAilySessionAilyMessageRespMessageFilePreviewURL ...
-type GetAilySessionAilyMessageRespMessageFilePreviewURL struct { 
-URL string `json:"url,omitempty"` // 文件的 URL
-ExpiredAt string `json:"expired_at,omitempty"` // url 过期时间, 秒时间戳
+type GetAilySessionAilyMessageRespMessageFilePreviewURL struct {
+	URL       string `json:"url,omitempty"`        // 文件的 URL
+	ExpiredAt string `json:"expired_at,omitempty"` // url 过期时间, 秒时间戳
 }
-
-
-
-
 
 // getAilySessionAilyMessageResp ...
-type getAilySessionAilyMessageResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *GetAilySessionAilyMessageResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type getAilySessionAilyMessageResp struct {
+	Code  int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                         `json:"msg,omitempty"`  // 错误描述
+	Data  *GetAilySessionAilyMessageResp `json:"data,omitempty"`
+	Error *ErrorDetail                   `json:"error,omitempty"`
 }
-
-
-
-

@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // GetBoardWhiteboardTheme 获取画板主题, 不同主题下有不同的默认配色, 具体主题介绍可以参考[主题简介](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/board-v1/theme-introduction) 。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/board-v1/whiteboard/theme
-// 
 func (r *BoardService) GetBoardWhiteboardTheme(ctx context.Context, request *GetBoardWhiteboardThemeReq, options ...MethodOptionFunc) (*GetBoardWhiteboardThemeResp, *Response, error) {
-if r.cli.mock.mockBoardGetBoardWhiteboardTheme != nil {
+	if r.cli.mock.mockBoardGetBoardWhiteboardTheme != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Board#GetBoardWhiteboardTheme mock enable")
 		return r.cli.mock.mockBoardGetBoardWhiteboardTheme(ctx, request, options...)
 	}
@@ -35,12 +34,11 @@ if r.cli.mock.mockBoardGetBoardWhiteboardTheme != nil {
 		Scope:                 "Board",
 		API:                   "GetBoardWhiteboardTheme",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/board/v1/whiteboards/:whiteboard_id/theme",
+		URL:                   r.cli.openBaseURL + "/open-apis/board/v1/whiteboards/:whiteboard_id/theme",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getBoardWhiteboardThemeResp)
 
@@ -52,38 +50,26 @@ if r.cli.mock.mockBoardGetBoardWhiteboardTheme != nil {
 func (r *Mock) MockBoardGetBoardWhiteboardTheme(f func(ctx context.Context, request *GetBoardWhiteboardThemeReq, options ...MethodOptionFunc) (*GetBoardWhiteboardThemeResp, *Response, error)) {
 	r.mockBoardGetBoardWhiteboardTheme = f
 }
+
 // UnMockBoardGetBoardWhiteboardTheme un-mock BoardGetBoardWhiteboardTheme method
 func (r *Mock) UnMockBoardGetBoardWhiteboardTheme() {
 	r.mockBoardGetBoardWhiteboardTheme = nil
 }
 
-
 // GetBoardWhiteboardThemeReq ...
-type GetBoardWhiteboardThemeReq struct { 
-WhiteboardID string `path:"whiteboard_id" json:"-"` // 画板标识, 可通过云文档下的文档接口 [获取文档所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/list) 获取, `block_type` 为 43 的 block 即为画板, 对应的 block.token 就是画板的whiteboard_id示例值: "Ud8xwWH01hO5mwbakqHbHeqmcCI"
+type GetBoardWhiteboardThemeReq struct {
+	WhiteboardID string `path:"whiteboard_id" json:"-"` // 画板标识, 可通过云文档下的文档接口 [获取文档所有块](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/list) 获取, `block_type` 为 43 的 block 即为画板, 对应的 block.token 就是画板的whiteboard_id示例值: "Ud8xwWH01hO5mwbakqHbHeqmcCI"
 }
-
-
-
-
 
 // GetBoardWhiteboardThemeResp ...
-type GetBoardWhiteboardThemeResp struct { 
-Theme string `json:"theme,omitempty"` // 主题可选值有: 经典主题简约灰主题复古主题炫彩主题简约蓝主题默认主题
+type GetBoardWhiteboardThemeResp struct {
+	Theme string `json:"theme,omitempty"` // 主题可选值有: 经典主题简约灰主题复古主题炫彩主题简约蓝主题默认主题
 }
-
-
-
-
 
 // getBoardWhiteboardThemeResp ...
-type getBoardWhiteboardThemeResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *GetBoardWhiteboardThemeResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type getBoardWhiteboardThemeResp struct {
+	Code  int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                       `json:"msg,omitempty"`  // 错误描述
+	Data  *GetBoardWhiteboardThemeResp `json:"data,omitempty"`
+	Error *ErrorDetail                 `json:"error,omitempty"`
 }
-
-
-
-

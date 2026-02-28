@@ -18,28 +18,26 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // GetApaasApplicationAuditLogDataChangeLogDetail 根据日志 ID 查询数据变更日志详情
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/application-audit_log/data_change_log_detail
-// 
 func (r *ApaasService) GetApaasApplicationAuditLogDataChangeLogDetail(ctx context.Context, request *GetApaasApplicationAuditLogDataChangeLogDetailReq, options ...MethodOptionFunc) (*GetApaasApplicationAuditLogDataChangeLogDetailResp, *Response, error) {
-if r.cli.mock.mockApaasGetApaasApplicationAuditLogDataChangeLogDetail != nil {
+	if r.cli.mock.mockApaasGetApaasApplicationAuditLogDataChangeLogDetail != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Apaas#GetApaasApplicationAuditLogDataChangeLogDetail mock enable")
 		return r.cli.mock.mockApaasGetApaasApplicationAuditLogDataChangeLogDetail(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "Apaas",
-		API:                   "GetApaasApplicationAuditLogDataChangeLogDetail",
-		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/apaas/v1/applications/:namespace/audit_log/data_change_log_detail",
-		Body:                  request,
-		MethodOption:          newMethodOption(options),
- NeedUserAccessToken: true,
-
+		Scope:               "Apaas",
+		API:                 "GetApaasApplicationAuditLogDataChangeLogDetail",
+		Method:              "GET",
+		URL:                 r.cli.openBaseURL + "/open-apis/apaas/v1/applications/:namespace/audit_log/data_change_log_detail",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
+		NeedUserAccessToken: true,
 	}
 	resp := new(getApaasApplicationAuditLogDataChangeLogDetailResp)
 
@@ -51,134 +49,94 @@ if r.cli.mock.mockApaasGetApaasApplicationAuditLogDataChangeLogDetail != nil {
 func (r *Mock) MockApaasGetApaasApplicationAuditLogDataChangeLogDetail(f func(ctx context.Context, request *GetApaasApplicationAuditLogDataChangeLogDetailReq, options ...MethodOptionFunc) (*GetApaasApplicationAuditLogDataChangeLogDetailResp, *Response, error)) {
 	r.mockApaasGetApaasApplicationAuditLogDataChangeLogDetail = f
 }
+
 // UnMockApaasGetApaasApplicationAuditLogDataChangeLogDetail un-mock ApaasGetApaasApplicationAuditLogDataChangeLogDetail method
 func (r *Mock) UnMockApaasGetApaasApplicationAuditLogDataChangeLogDetail() {
 	r.mockApaasGetApaasApplicationAuditLogDataChangeLogDetail = nil
 }
 
-
 // GetApaasApplicationAuditLogDataChangeLogDetailReq ...
-type GetApaasApplicationAuditLogDataChangeLogDetailReq struct { 
-Namespace string `path:"namespace" json:"-"` // 应用命名空间示例值: "package_aaa" 长度范围: `0` ～ `1000` 字符
-LogID string `query:"log_id" json:"-"` // 数据变更日志ID信息示例值: 7405456257290600492 长度范围: `0` ～ `1000` 字符
+type GetApaasApplicationAuditLogDataChangeLogDetailReq struct {
+	Namespace string `path:"namespace" json:"-"` // 应用命名空间示例值: "package_aaa" 长度范围: `0` ～ `1000` 字符
+	LogID     string `query:"log_id" json:"-"`   // 数据变更日志ID信息示例值: 7405456257290600492 长度范围: `0` ～ `1000` 字符
 }
-
-
-
-
 
 // GetApaasApplicationAuditLogDataChangeLogDetailResp ...
-type GetApaasApplicationAuditLogDataChangeLogDetailResp struct { 
-Data *GetApaasApplicationAuditLogDataChangeLogDetailRespData `json:"data,omitempty"` // 数据变更日志详情信息
+type GetApaasApplicationAuditLogDataChangeLogDetailResp struct {
+	Data *GetApaasApplicationAuditLogDataChangeLogDetailRespData `json:"data,omitempty"` // 数据变更日志详情信息
 }
-
-
-
-
 
 // GetApaasApplicationAuditLogDataChangeLogDetailRespData ...
-type GetApaasApplicationAuditLogDataChangeLogDetailRespData struct { 
-LogID string `json:"log_id,omitempty"` // 审计日志ID
-BasicInfo *GetApaasApplicationAuditLogDataChangeLogDetailRespDataBasicInfo `json:"basic_info,omitempty"` // 日志基础信息
-OpInfo *GetApaasApplicationAuditLogDataChangeLogDetailRespDataOpInfo `json:"op_info,omitempty"` // 审计日志操作信息
-LoginInfo *GetApaasApplicationAuditLogDataChangeLogDetailRespDataLoginInfo `json:"login_info,omitempty"` // 登录类型信息
-DeviceInfo *GetApaasApplicationAuditLogDataChangeLogDetailRespDataDeviceInfo `json:"device_info,omitempty"` // 设备信息
-NetInfo *GetApaasApplicationAuditLogDataChangeLogDetailRespDataNetInfo `json:"net_info,omitempty"` // 网络信息
+type GetApaasApplicationAuditLogDataChangeLogDetailRespData struct {
+	LogID      string                                                            `json:"log_id,omitempty"`      // 审计日志ID
+	BasicInfo  *GetApaasApplicationAuditLogDataChangeLogDetailRespDataBasicInfo  `json:"basic_info,omitempty"`  // 日志基础信息
+	OpInfo     *GetApaasApplicationAuditLogDataChangeLogDetailRespDataOpInfo     `json:"op_info,omitempty"`     // 审计日志操作信息
+	LoginInfo  *GetApaasApplicationAuditLogDataChangeLogDetailRespDataLoginInfo  `json:"login_info,omitempty"`  // 登录类型信息
+	DeviceInfo *GetApaasApplicationAuditLogDataChangeLogDetailRespDataDeviceInfo `json:"device_info,omitempty"` // 设备信息
+	NetInfo    *GetApaasApplicationAuditLogDataChangeLogDetailRespDataNetInfo    `json:"net_info,omitempty"`    // 网络信息
 }
-
-
-
-
 
 // GetApaasApplicationAuditLogDataChangeLogDetailRespDataBasicInfo ...
-type GetApaasApplicationAuditLogDataChangeLogDetailRespDataBasicInfo struct { 
-LogType string `json:"log_type,omitempty"` // 日志类型: 10000-全部类型；10001-企业管理；10002-登录日志；10003-应用管理
-AuditScope string `json:"audit_scope,omitempty"` // 审计域: 15001-企业管理后台；15002-应用管理后台；15003-应用开发平台
-EnvType string `json:"env_type,omitempty"` // 环境类型: 16001-沙箱环境；16003-线上环境
-AppID string `json:"app_id,omitempty"` // 应用id
-Module string `json:"module,omitempty"` // 审计日志功能模块
-OpType string `json:"op_type,omitempty"` // 事件类型
-AppName interface{} `json:"app_name,omitempty"` // 应用名称
+type GetApaasApplicationAuditLogDataChangeLogDetailRespDataBasicInfo struct {
+	LogType    string      `json:"log_type,omitempty"`    // 日志类型: 10000-全部类型；10001-企业管理；10002-登录日志；10003-应用管理
+	AuditScope string      `json:"audit_scope,omitempty"` // 审计域: 15001-企业管理后台；15002-应用管理后台；15003-应用开发平台
+	EnvType    string      `json:"env_type,omitempty"`    // 环境类型: 16001-沙箱环境；16003-线上环境
+	AppID      string      `json:"app_id,omitempty"`      // 应用id
+	Module     string      `json:"module,omitempty"`      // 审计日志功能模块
+	OpType     string      `json:"op_type,omitempty"`     // 事件类型
+	AppName    interface{} `json:"app_name,omitempty"`    // 应用名称
 }
-
-
-
-
 
 // GetApaasApplicationAuditLogDataChangeLogDetailRespDataDeviceInfo ...
-type GetApaasApplicationAuditLogDataChangeLogDetailRespDataDeviceInfo struct { 
-DeviceID string `json:"device_id,omitempty"` // 设备ID
-WebDeviceID string `json:"web_device_id,omitempty"` // web端设备ID
-TerminalType string `json:"terminal_type,omitempty"` // 终端类型: 13002-PC类型；13003-Web类型
-OsType string `json:"os_type,omitempty"` // 系统类型: 14002-window；14001-未知
-OsVersion string `json:"os_version,omitempty"` // 系统版本
+type GetApaasApplicationAuditLogDataChangeLogDetailRespDataDeviceInfo struct {
+	DeviceID     string `json:"device_id,omitempty"`     // 设备ID
+	WebDeviceID  string `json:"web_device_id,omitempty"` // web端设备ID
+	TerminalType string `json:"terminal_type,omitempty"` // 终端类型: 13002-PC类型；13003-Web类型
+	OsType       string `json:"os_type,omitempty"`       // 系统类型: 14002-window；14001-未知
+	OsVersion    string `json:"os_version,omitempty"`    // 系统版本
 }
-
-
-
-
 
 // GetApaasApplicationAuditLogDataChangeLogDetailRespDataLoginInfo ...
-type GetApaasApplicationAuditLogDataChangeLogDetailRespDataLoginInfo struct { 
-LoginType string `json:"login_type,omitempty"` // 登录类型: 11001-飞书登录；11003-账号密码登录
+type GetApaasApplicationAuditLogDataChangeLogDetailRespDataLoginInfo struct {
+	LoginType string `json:"login_type,omitempty"` // 登录类型: 11001-飞书登录；11003-账号密码登录
 }
-
-
-
-
 
 // GetApaasApplicationAuditLogDataChangeLogDetailRespDataNetInfo ...
-type GetApaasApplicationAuditLogDataChangeLogDetailRespDataNetInfo struct { 
-ClientIp string `json:"client_ip,omitempty"` // 客户端IP
-IpLoc string `json:"ip_loc,omitempty"` // IP位置
-IpProvider string `json:"ip_provider,omitempty"` // IP提供商
-Referer string `json:"referer,omitempty"` // 引用页面
-Origin string `json:"origin,omitempty"` // 源页面
-UserAgent string `json:"user_agent,omitempty"` // 用户代理
+type GetApaasApplicationAuditLogDataChangeLogDetailRespDataNetInfo struct {
+	ClientIp   string `json:"client_ip,omitempty"`   // 客户端IP
+	IpLoc      string `json:"ip_loc,omitempty"`      // IP位置
+	IpProvider string `json:"ip_provider,omitempty"` // IP提供商
+	Referer    string `json:"referer,omitempty"`     // 引用页面
+	Origin     string `json:"origin,omitempty"`      // 源页面
+	UserAgent  string `json:"user_agent,omitempty"`  // 用户代理
 }
-
-
-
-
 
 // GetApaasApplicationAuditLogDataChangeLogDetailRespDataOpInfo ...
-type GetApaasApplicationAuditLogDataChangeLogDetailRespDataOpInfo struct { 
-Operator *GetApaasApplicationAuditLogDataChangeLogDetailRespDataOpInfoOperator `json:"operator,omitempty"` // 操作人
-Outsider bool `json:"outsider,omitempty"` // 是否为外部用户, true代表是外部用户
-OpDetail interface{} `json:"op_detail,omitempty"` // 操作详情内容
-Status string `json:"status,omitempty"` // 操作状态: 18001-成功；18002-失败
-FailedReason string `json:"failed_reason,omitempty"` // 失败原因
-FailedReasonI18n interface{} `json:"failed_reason_i18n,omitempty"` // 多语类型失败原因
-OpTime string `json:"op_time,omitempty"` // 操作时间
-DataObject string `json:"data_object,omitempty"` // 数据对象
-OpSource string `json:"op_source,omitempty"` // 操作源: 20001-前端；20004-openapi
-DataChanges []string `json:"data_changes,omitempty"` // 数据变化(旧值和新值)
+type GetApaasApplicationAuditLogDataChangeLogDetailRespDataOpInfo struct {
+	Operator         *GetApaasApplicationAuditLogDataChangeLogDetailRespDataOpInfoOperator `json:"operator,omitempty"`           // 操作人
+	Outsider         bool                                                                  `json:"outsider,omitempty"`           // 是否为外部用户, true代表是外部用户
+	OpDetail         interface{}                                                           `json:"op_detail,omitempty"`          // 操作详情内容
+	Status           string                                                                `json:"status,omitempty"`             // 操作状态: 18001-成功；18002-失败
+	FailedReason     string                                                                `json:"failed_reason,omitempty"`      // 失败原因
+	FailedReasonI18n interface{}                                                           `json:"failed_reason_i18n,omitempty"` // 多语类型失败原因
+	OpTime           string                                                                `json:"op_time,omitempty"`            // 操作时间
+	DataObject       string                                                                `json:"data_object,omitempty"`        // 数据对象
+	OpSource         string                                                                `json:"op_source,omitempty"`          // 操作源: 20001-前端；20004-openapi
+	DataChanges      []string                                                              `json:"data_changes,omitempty"`       // 数据变化(旧值和新值)
 }
-
-
-
-
 
 // GetApaasApplicationAuditLogDataChangeLogDetailRespDataOpInfoOperator ...
-type GetApaasApplicationAuditLogDataChangeLogDetailRespDataOpInfoOperator struct { 
-ID string `json:"id,omitempty"` // 用户ID
-Name string `json:"name,omitempty"` // 用户名称
-TenantID string `json:"tenant_id,omitempty"` // 租户ID
-Email string `json:"email,omitempty"` // 用户邮箱
+type GetApaasApplicationAuditLogDataChangeLogDetailRespDataOpInfoOperator struct {
+	ID       string `json:"id,omitempty"`        // 用户ID
+	Name     string `json:"name,omitempty"`      // 用户名称
+	TenantID string `json:"tenant_id,omitempty"` // 租户ID
+	Email    string `json:"email,omitempty"`     // 用户邮箱
 }
-
-
-
-
 
 // getApaasApplicationAuditLogDataChangeLogDetailResp ...
-type getApaasApplicationAuditLogDataChangeLogDetailResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *GetApaasApplicationAuditLogDataChangeLogDetailResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type getApaasApplicationAuditLogDataChangeLogDetailResp struct {
+	Code  int64                                               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                              `json:"msg,omitempty"`  // 错误描述
+	Data  *GetApaasApplicationAuditLogDataChangeLogDetailResp `json:"data,omitempty"`
+	Error *ErrorDetail                                        `json:"error,omitempty"`
 }
-
-
-
-

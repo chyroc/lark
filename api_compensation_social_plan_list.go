@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListCompensationSocialPlan 通过生效日期effective_date参数过滤并分页返回结果
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/social_plan/list
-// 
 func (r *CompensationService) ListCompensationSocialPlan(ctx context.Context, request *ListCompensationSocialPlanReq, options ...MethodOptionFunc) (*ListCompensationSocialPlanResp, *Response, error) {
-if r.cli.mock.mockCompensationListCompensationSocialPlan != nil {
+	if r.cli.mock.mockCompensationListCompensationSocialPlan != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Compensation#ListCompensationSocialPlan mock enable")
 		return r.cli.mock.mockCompensationListCompensationSocialPlan(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockCompensationListCompensationSocialPlan != nil {
 		Scope:                 "Compensation",
 		API:                   "ListCompensationSocialPlan",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/compensation/v1/social_plans",
+		URL:                   r.cli.openBaseURL + "/open-apis/compensation/v1/social_plans",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(listCompensationSocialPlanResp)
 
@@ -51,142 +49,98 @@ if r.cli.mock.mockCompensationListCompensationSocialPlan != nil {
 func (r *Mock) MockCompensationListCompensationSocialPlan(f func(ctx context.Context, request *ListCompensationSocialPlanReq, options ...MethodOptionFunc) (*ListCompensationSocialPlanResp, *Response, error)) {
 	r.mockCompensationListCompensationSocialPlan = f
 }
+
 // UnMockCompensationListCompensationSocialPlan un-mock CompensationListCompensationSocialPlan method
 func (r *Mock) UnMockCompensationListCompensationSocialPlan() {
 	r.mockCompensationListCompensationSocialPlan = nil
 }
 
-
 // ListCompensationSocialPlanReq ...
-type ListCompensationSocialPlanReq struct { 
-EffectiveDate string `query:"effective_date" json:"-"` // 生效日期, 查询在该日期生效的参保方案数据, 格式为 YYYY-mm-dd, 长度为 10 字符示例值: 2024-01-01
-PageSize int64 `query:"page_size" json:"-"` // 分页大小, 默认100, 最大200示例值: 10默认值: `100` 取值范围: `10` ～ `200`
-PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eVQrYzJBNDNONlk4VFZBZVlSdzlKdFJ4bVVHVExENDNKVHoxaVdiVnViQT0=
-InsuranceType *string `query:"insurance_type" json:"-"` // 社保方案/公积金方案示例值: social_insurance可选值有: 社保公积金 长度范围: `8` ～ `64` 字符
+type ListCompensationSocialPlanReq struct {
+	EffectiveDate string  `query:"effective_date" json:"-"` // 生效日期, 查询在该日期生效的参保方案数据, 格式为 YYYY-mm-dd, 长度为 10 字符示例值: 2024-01-01
+	PageSize      int64   `query:"page_size" json:"-"`      // 分页大小, 默认100, 最大200示例值: 10默认值: `100` 取值范围: `10` ～ `200`
+	PageToken     *string `query:"page_token" json:"-"`     // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eVQrYzJBNDNONlk4VFZBZVlSdzlKdFJ4bVVHVExENDNKVHoxaVdiVnViQT0=
+	InsuranceType *string `query:"insurance_type" json:"-"` // 社保方案/公积金方案示例值: social_insurance可选值有: 社保公积金 长度范围: `8` ～ `64` 字符
 }
-
-
-
-
 
 // ListCompensationSocialPlanResp ...
-type ListCompensationSocialPlanResp struct { 
-Plans []*ListCompensationSocialPlanRespPlan `json:"plans,omitempty"` // 方案列表
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+type ListCompensationSocialPlanResp struct {
+	Plans     []*ListCompensationSocialPlanRespPlan `json:"plans,omitempty"`      // 方案列表
+	HasMore   bool                                  `json:"has_more,omitempty"`   // 是否还有更多项
+	PageToken string                                `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 }
-
-
-
-
 
 // ListCompensationSocialPlanRespPlan ...
-type ListCompensationSocialPlanRespPlan struct { 
-PlanID string `json:"plan_id,omitempty"` // 参保方案ID
-PlanTid string `json:"plan_tid,omitempty"` // 参保方案版本ID
-Name *ListCompensationSocialPlanRespPlanName `json:"name,omitempty"` // 参保方案名称
-EffectiveDate string `json:"effective_date,omitempty"` // 生效时间, yyyy-MM-dd
-Active bool `json:"active,omitempty"` // 是否启用
-InsuranceType string `json:"insurance_type,omitempty"` // 险种类型. social_insurance: 社保; provident_fund: 公积金可选值有: 社保公积金
-Scope *ListCompensationSocialPlanRespPlanScope `json:"scope,omitempty"` // 参保方案适用范围
-ItemDetail []*ListCompensationSocialPlanRespPlanItemDetail `json:"item_detail,omitempty"` // 参保信息
-Remark *ListCompensationSocialPlanRespPlanRemark `json:"remark,omitempty"` // 备注
+type ListCompensationSocialPlanRespPlan struct {
+	PlanID        string                                          `json:"plan_id,omitempty"`        // 参保方案ID
+	PlanTid       string                                          `json:"plan_tid,omitempty"`       // 参保方案版本ID
+	Name          *ListCompensationSocialPlanRespPlanName         `json:"name,omitempty"`           // 参保方案名称
+	EffectiveDate string                                          `json:"effective_date,omitempty"` // 生效时间, yyyy-MM-dd
+	Active        bool                                            `json:"active,omitempty"`         // 是否启用
+	InsuranceType string                                          `json:"insurance_type,omitempty"` // 险种类型. social_insurance: 社保; provident_fund: 公积金可选值有: 社保公积金
+	Scope         *ListCompensationSocialPlanRespPlanScope        `json:"scope,omitempty"`          // 参保方案适用范围
+	ItemDetail    []*ListCompensationSocialPlanRespPlanItemDetail `json:"item_detail,omitempty"`    // 参保信息
+	Remark        *ListCompensationSocialPlanRespPlanRemark       `json:"remark,omitempty"`         // 备注
 }
-
-
-
-
 
 // ListCompensationSocialPlanRespPlanItemDetail ...
-type ListCompensationSocialPlanRespPlanItemDetail struct { 
-ItemID string `json:"item_id,omitempty"` // 险种ID, 可通过[获取险种配置列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/social_insurance/list)接口查询
-ItemName *ListCompensationSocialPlanRespPlanItemDetailItemName `json:"item_name,omitempty"` // 险种名
-ItemSettingOfPerson *ListCompensationSocialPlanRespPlanItemDetailItemSettingOfPerson `json:"item_setting_of_person,omitempty"` // 个人缴纳配置
-ItemSettingOfCompany *ListCompensationSocialPlanRespPlanItemDetailItemSettingOfCompany `json:"item_setting_of_company,omitempty"` // 企业缴纳配置
-PaymentFrequency string `json:"payment_frequency,omitempty"` // 缴纳频率可选值有: 每年每月每季度
-PaymentMonths []int64 `json:"payment_months,omitempty"` // 缴纳月份, 1月～12月
+type ListCompensationSocialPlanRespPlanItemDetail struct {
+	ItemID               string                                                            `json:"item_id,omitempty"`                 // 险种ID, 可通过[获取险种配置列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/social_insurance/list)接口查询
+	ItemName             *ListCompensationSocialPlanRespPlanItemDetailItemName             `json:"item_name,omitempty"`               // 险种名
+	ItemSettingOfPerson  *ListCompensationSocialPlanRespPlanItemDetailItemSettingOfPerson  `json:"item_setting_of_person,omitempty"`  // 个人缴纳配置
+	ItemSettingOfCompany *ListCompensationSocialPlanRespPlanItemDetailItemSettingOfCompany `json:"item_setting_of_company,omitempty"` // 企业缴纳配置
+	PaymentFrequency     string                                                            `json:"payment_frequency,omitempty"`       // 缴纳频率可选值有: 每年每月每季度
+	PaymentMonths        []int64                                                           `json:"payment_months,omitempty"`          // 缴纳月份, 1月～12月
 }
-
-
-
-
 
 // ListCompensationSocialPlanRespPlanItemDetailItemName ...
-type ListCompensationSocialPlanRespPlanItemDetailItemName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文名称
-EnUs string `json:"en_us,omitempty"` // 英文名称
+type ListCompensationSocialPlanRespPlanItemDetailItemName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名称
+	EnUs string `json:"en_us,omitempty"` // 英文名称
 }
-
-
-
-
 
 // ListCompensationSocialPlanRespPlanItemDetailItemSettingOfCompany ...
-type ListCompensationSocialPlanRespPlanItemDetailItemSettingOfCompany struct { 
-LowerLimit string `json:"lower_limit,omitempty"` // 基数下限, 浮点数, 保留二位小数, 单位: 元
-UpperLimit string `json:"upper_limit,omitempty"` // 基数上限, 浮点数, 保留二位小数, 单位: 元
-PaymentRatio string `json:"payment_ratio,omitempty"` // 缴纳比例, 浮点数, 默认填充到二位小数, 支持输入到四位, 单位为 %
-PaymentRoundingRule string `json:"payment_rounding_rule,omitempty"` // 缴纳金舍入规则。rounding: 四舍五入; round_up: 向上舍入; round_down: 向下舍入可选值有: 四舍五入向上舍入向下舍入
-PaymentDecimals int64 `json:"payment_decimals,omitempty"` // 缴纳金小数位数, 0位小数-6之间选择
-FixedPayment string `json:"fixed_payment,omitempty"` // 附加固定金额, 浮点数, 保留二位小数, 单位: 元
+type ListCompensationSocialPlanRespPlanItemDetailItemSettingOfCompany struct {
+	LowerLimit          string `json:"lower_limit,omitempty"`           // 基数下限, 浮点数, 保留二位小数, 单位: 元
+	UpperLimit          string `json:"upper_limit,omitempty"`           // 基数上限, 浮点数, 保留二位小数, 单位: 元
+	PaymentRatio        string `json:"payment_ratio,omitempty"`         // 缴纳比例, 浮点数, 默认填充到二位小数, 支持输入到四位, 单位为 %
+	PaymentRoundingRule string `json:"payment_rounding_rule,omitempty"` // 缴纳金舍入规则。rounding: 四舍五入; round_up: 向上舍入; round_down: 向下舍入可选值有: 四舍五入向上舍入向下舍入
+	PaymentDecimals     int64  `json:"payment_decimals,omitempty"`      // 缴纳金小数位数, 0位小数-6之间选择
+	FixedPayment        string `json:"fixed_payment,omitempty"`         // 附加固定金额, 浮点数, 保留二位小数, 单位: 元
 }
-
-
-
-
 
 // ListCompensationSocialPlanRespPlanItemDetailItemSettingOfPerson ...
-type ListCompensationSocialPlanRespPlanItemDetailItemSettingOfPerson struct { 
-LowerLimit string `json:"lower_limit,omitempty"` // 基数下限, 浮点数, 保留二位小数, 单位: 元
-UpperLimit string `json:"upper_limit,omitempty"` // 基数上限, 浮点数, 保留二位小数, 单位: 元
-PaymentRatio string `json:"payment_ratio,omitempty"` // 缴纳比例, 浮点数, 默认填充到二位小数, 支持输入到四位, 单位为 %
-PaymentRoundingRule string `json:"payment_rounding_rule,omitempty"` // 缴纳金舍入规则。rounding: 四舍五入; round_up: 向上舍入; round_down: 向下舍入可选值有: 四舍五入向上舍入向下舍入
-PaymentDecimals int64 `json:"payment_decimals,omitempty"` // 缴纳金小数位数, 0位小数-6位小数之间选择
-FixedPayment string `json:"fixed_payment,omitempty"` // 附加固定金额, 浮点数, 保留二位小数, 单位: 元
+type ListCompensationSocialPlanRespPlanItemDetailItemSettingOfPerson struct {
+	LowerLimit          string `json:"lower_limit,omitempty"`           // 基数下限, 浮点数, 保留二位小数, 单位: 元
+	UpperLimit          string `json:"upper_limit,omitempty"`           // 基数上限, 浮点数, 保留二位小数, 单位: 元
+	PaymentRatio        string `json:"payment_ratio,omitempty"`         // 缴纳比例, 浮点数, 默认填充到二位小数, 支持输入到四位, 单位为 %
+	PaymentRoundingRule string `json:"payment_rounding_rule,omitempty"` // 缴纳金舍入规则。rounding: 四舍五入; round_up: 向上舍入; round_down: 向下舍入可选值有: 四舍五入向上舍入向下舍入
+	PaymentDecimals     int64  `json:"payment_decimals,omitempty"`      // 缴纳金小数位数, 0位小数-6位小数之间选择
+	FixedPayment        string `json:"fixed_payment,omitempty"`         // 附加固定金额, 浮点数, 保留二位小数, 单位: 元
 }
-
-
-
-
 
 // ListCompensationSocialPlanRespPlanName ...
-type ListCompensationSocialPlanRespPlanName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文名称
-EnUs string `json:"en_us,omitempty"` // 英文名称
+type ListCompensationSocialPlanRespPlanName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名称
+	EnUs string `json:"en_us,omitempty"` // 英文名称
 }
-
-
-
-
 
 // ListCompensationSocialPlanRespPlanRemark ...
-type ListCompensationSocialPlanRespPlanRemark struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 中文描述
-EnUs string `json:"en_us,omitempty"` // 英文备注
+type ListCompensationSocialPlanRespPlanRemark struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文描述
+	EnUs string `json:"en_us,omitempty"` // 英文备注
 }
-
-
-
-
 
 // ListCompensationSocialPlanRespPlanScope ...
-type ListCompensationSocialPlanRespPlanScope struct { 
-IsAll bool `json:"is_all,omitempty"` // 是否适用于全部
-Rules [][]interface{} `json:"rules,omitempty"` // rules: 配置的条件规则。返回两层结构: [条件组[条件]]。多个 [条件组] 之间是 或 的关系, 一个条件组内的多个 [条件] 是 且 的关系。 比如: rules: [[1, 2], [3, 4]], 业务含义为: (1 and 2) or (3 and 4) rules [][]social_plan_condition 适用范围 - left_type  int  可选值有: ``1``: 参保城市 ``2``: 缴纳主体  - operator  int  可选值有: ``1``: 包含 - right_values  []string --当left_type=1时, 是参保城市ID--当left_type=2时, 是缴纳主体ID
+type ListCompensationSocialPlanRespPlanScope struct {
+	IsAll bool            `json:"is_all,omitempty"` // 是否适用于全部
+	Rules [][]interface{} `json:"rules,omitempty"`  // rules: 配置的条件规则。返回两层结构: [条件组[条件]]。多个 [条件组] 之间是 或 的关系, 一个条件组内的多个 [条件] 是 且 的关系。 比如: rules: [[1, 2], [3, 4]], 业务含义为: (1 and 2) or (3 and 4) rules [][]social_plan_condition 适用范围 - left_type  int  可选值有: ``1``: 参保城市 ``2``: 缴纳主体  - operator  int  可选值有: ``1``: 包含 - right_values  []string --当left_type=1时, 是参保城市ID--当left_type=2时, 是缴纳主体ID
 }
-
-
-
-
 
 // listCompensationSocialPlanResp ...
-type listCompensationSocialPlanResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *ListCompensationSocialPlanResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type listCompensationSocialPlanResp struct {
+	Code  int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                          `json:"msg,omitempty"`  // 错误描述
+	Data  *ListCompensationSocialPlanResp `json:"data,omitempty"`
+	Error *ErrorDetail                    `json:"error,omitempty"`
 }
-
-
-
-

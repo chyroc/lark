@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // QueryApaasApplicationObjectRecord 获取对象中指定的记录详情
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/application-object-record/query
-// 
 func (r *ApaasService) QueryApaasApplicationObjectRecord(ctx context.Context, request *QueryApaasApplicationObjectRecordReq, options ...MethodOptionFunc) (*QueryApaasApplicationObjectRecordResp, *Response, error) {
-if r.cli.mock.mockApaasQueryApaasApplicationObjectRecord != nil {
+	if r.cli.mock.mockApaasQueryApaasApplicationObjectRecord != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Apaas#QueryApaasApplicationObjectRecord mock enable")
 		return r.cli.mock.mockApaasQueryApaasApplicationObjectRecord(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockApaasQueryApaasApplicationObjectRecord != nil {
 		Scope:                 "Apaas",
 		API:                   "QueryApaasApplicationObjectRecord",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/apaas/v1/applications/:namespace/objects/:object_api_name/records/:id/query",
+		URL:                   r.cli.openBaseURL + "/open-apis/apaas/v1/applications/:namespace/objects/:object_api_name/records/:id/query",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(queryApaasApplicationObjectRecordResp)
 
@@ -51,41 +49,29 @@ if r.cli.mock.mockApaasQueryApaasApplicationObjectRecord != nil {
 func (r *Mock) MockApaasQueryApaasApplicationObjectRecord(f func(ctx context.Context, request *QueryApaasApplicationObjectRecordReq, options ...MethodOptionFunc) (*QueryApaasApplicationObjectRecordResp, *Response, error)) {
 	r.mockApaasQueryApaasApplicationObjectRecord = f
 }
+
 // UnMockApaasQueryApaasApplicationObjectRecord un-mock ApaasQueryApaasApplicationObjectRecord method
 func (r *Mock) UnMockApaasQueryApaasApplicationObjectRecord() {
 	r.mockApaasQueryApaasApplicationObjectRecord = nil
 }
 
-
 // QueryApaasApplicationObjectRecordReq ...
-type QueryApaasApplicationObjectRecordReq struct { 
-Namespace string `path:"namespace" json:"-"` // 应用命名空间示例值: "package_test__c" 长度范围: `0` ～ `255` 字符
-ObjectApiName string `path:"object_api_name" json:"-"` // 对象唯一标识示例值: "user" 长度范围: `0` ～ `256` 字符
-ID string `path:"id" json:"-"` // 记录ID示例值: "1764024447556775"
-Select []string `json:"select,omitempty"` // 需要获取的字段, 使用字段唯一标识符进行查询, 关联字段可使用 . 进行下钻示例值: ["_id"] 长度范围: `0` ～ `256`
+type QueryApaasApplicationObjectRecordReq struct {
+	Namespace     string   `path:"namespace" json:"-"`       // 应用命名空间示例值: "package_test__c" 长度范围: `0` ～ `255` 字符
+	ObjectApiName string   `path:"object_api_name" json:"-"` // 对象唯一标识示例值: "user" 长度范围: `0` ～ `256` 字符
+	ID            string   `path:"id" json:"-"`              // 记录ID示例值: "1764024447556775"
+	Select        []string `json:"select,omitempty"`         // 需要获取的字段, 使用字段唯一标识符进行查询, 关联字段可使用 . 进行下钻示例值: ["_id"] 长度范围: `0` ～ `256`
 }
-
-
-
-
 
 // QueryApaasApplicationObjectRecordResp ...
-type QueryApaasApplicationObjectRecordResp struct { 
-Item string `json:"item,omitempty"` // 记录详情, 格式为 Map<string, ANY>
+type QueryApaasApplicationObjectRecordResp struct {
+	Item string `json:"item,omitempty"` // 记录详情, 格式为 Map<string, ANY>
 }
-
-
-
-
 
 // queryApaasApplicationObjectRecordResp ...
-type queryApaasApplicationObjectRecordResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *QueryApaasApplicationObjectRecordResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type queryApaasApplicationObjectRecordResp struct {
+	Code  int64                                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                 `json:"msg,omitempty"`  // 错误描述
+	Data  *QueryApaasApplicationObjectRecordResp `json:"data,omitempty"`
+	Error *ErrorDetail                           `json:"error,omitempty"`
 }
-
-
-
-

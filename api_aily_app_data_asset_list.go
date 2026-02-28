@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListAilyAppDataAsset 获取 Aily 助手的数据知识列表
@@ -27,9 +27,8 @@ import (
 // - `user_access_token` 要求开发者需要 Aily 平台的应用协作者角色, 包括管理员、开发者、运维人员
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/aily-v1/app-data_asset/list
-// 
 func (r *AilyService) ListAilyAppDataAsset(ctx context.Context, request *ListAilyAppDataAssetReq, options ...MethodOptionFunc) (*ListAilyAppDataAssetResp, *Response, error) {
-if r.cli.mock.mockAilyListAilyAppDataAsset != nil {
+	if r.cli.mock.mockAilyListAilyAppDataAsset != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Aily#ListAilyAppDataAsset mock enable")
 		return r.cli.mock.mockAilyListAilyAppDataAsset(ctx, request, options...)
 	}
@@ -38,12 +37,11 @@ if r.cli.mock.mockAilyListAilyAppDataAsset != nil {
 		Scope:                 "Aily",
 		API:                   "ListAilyAppDataAsset",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/aily/v1/apps/:app_id/data_assets",
+		URL:                   r.cli.openBaseURL + "/open-apis/aily/v1/apps/:app_id/data_assets",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(listAilyAppDataAssetResp)
 
@@ -55,99 +53,71 @@ if r.cli.mock.mockAilyListAilyAppDataAsset != nil {
 func (r *Mock) MockAilyListAilyAppDataAsset(f func(ctx context.Context, request *ListAilyAppDataAssetReq, options ...MethodOptionFunc) (*ListAilyAppDataAssetResp, *Response, error)) {
 	r.mockAilyListAilyAppDataAsset = f
 }
+
 // UnMockAilyListAilyAppDataAsset un-mock AilyListAilyAppDataAsset method
 func (r *Mock) UnMockAilyListAilyAppDataAsset() {
 	r.mockAilyListAilyAppDataAsset = nil
 }
 
-
 // ListAilyAppDataAssetReq ...
-type ListAilyAppDataAssetReq struct { 
-AppID string `path:"app_id" json:"-"` // Aily 平台的应用的APPID, 可以直接从 Aily 应用的URL中获取。获取示例: /ai/{APPID}示例值: "spring_5862e4fea8__c" 长度范围: `0` ～ `255` 字符
-PageSize *int64 `query:"page_size" json:"-"` // 分页参数: 分页大小, 默认: 20, 最大: 100示例值: 10
-PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eVQrYzJBNDNONlk4VFZBZVlSdzlKdFJ4bVVHVExENDNKVHoxaVdiVnViQT0=
-Keyword *string `query:"keyword" json:"-"` // 模糊匹配关键词示例值: 电影 长度范围: `0` ～ `255` 字符
-DataAssetIDs []string `query:"data_asset_ids" json:"-"` // 根据数据知识 ID 进行过滤示例值: asset_aadg2b5os5wjg 长度范围: `0` ～ `255`
-DataAssetTagIDs []string `query:"data_asset_tag_ids" json:"-"` // 根据数据知识分类 ID 进行过滤示例值: spring_5862e4fea8__c__asset_tag_aadg2b5ql4gbs 长度范围: `0` ～ `255`
-WithDataAssetItem *bool `query:"with_data_asset_item" json:"-"` // 结果是否包含数据与知识项目示例值: true
-WithConnectStatus *bool `query:"with_connect_status" json:"-"` // 结果是否包含数据连接状态示例值: false
+type ListAilyAppDataAssetReq struct {
+	AppID             string   `path:"app_id" json:"-"`                // Aily 平台的应用的APPID, 可以直接从 Aily 应用的URL中获取。获取示例: /ai/{APPID}示例值: "spring_5862e4fea8__c" 长度范围: `0` ～ `255` 字符
+	PageSize          *int64   `query:"page_size" json:"-"`            // 分页参数: 分页大小, 默认: 20, 最大: 100示例值: 10
+	PageToken         *string  `query:"page_token" json:"-"`           // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eVQrYzJBNDNONlk4VFZBZVlSdzlKdFJ4bVVHVExENDNKVHoxaVdiVnViQT0=
+	Keyword           *string  `query:"keyword" json:"-"`              // 模糊匹配关键词示例值: 电影 长度范围: `0` ～ `255` 字符
+	DataAssetIDs      []string `query:"data_asset_ids" json:"-"`       // 根据数据知识 ID 进行过滤示例值: asset_aadg2b5os5wjg 长度范围: `0` ～ `255`
+	DataAssetTagIDs   []string `query:"data_asset_tag_ids" json:"-"`   // 根据数据知识分类 ID 进行过滤示例值: spring_5862e4fea8__c__asset_tag_aadg2b5ql4gbs 长度范围: `0` ～ `255`
+	WithDataAssetItem *bool    `query:"with_data_asset_item" json:"-"` // 结果是否包含数据与知识项目示例值: true
+	WithConnectStatus *bool    `query:"with_connect_status" json:"-"`  // 结果是否包含数据连接状态示例值: false
 }
-
-
-
-
 
 // ListAilyAppDataAssetResp ...
-type ListAilyAppDataAssetResp struct { 
-Items []*ListAilyAppDataAssetRespItem `json:"items,omitempty"` // 数据知识列表
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
+type ListAilyAppDataAssetResp struct {
+	Items     []*ListAilyAppDataAssetRespItem `json:"items,omitempty"`      // 数据知识列表
+	PageToken string                          `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	HasMore   bool                            `json:"has_more,omitempty"`   // 是否还有更多项
 }
-
-
-
-
 
 // ListAilyAppDataAssetRespItem ...
-type ListAilyAppDataAssetRespItem struct { 
-DataAssetID string `json:"data_asset_id,omitempty"` // 数据知识ID
-Label interface{} `json:"label,omitempty"` // 数据知识标题
-Description interface{} `json:"description,omitempty"` // 数据知识描述
-DataSourceType string `json:"data_source_type,omitempty"` // 数据资源类型可选值有: excelpdfpptxtxtdocxmysqlpostgresql飞书多维表格salesforce分享逍客巨量千川clickhousedatabricks飞书服务台飞书Wiki飞书doc飞书docs飞书docx飞书pdf飞书word飞书pptx飞书文档飞书多维表格飞书个人文件夹飞书共享文件夹数据表
-ConnectStatus string `json:"connect_status,omitempty"` // 数据连接状态可选值有: 等待连接连接中连接成功增量同步中部分成功连接失败
-Tags []*ListAilyAppDataAssetRespItemTag `json:"tags,omitempty"` // 数据知识分类列表
-Items []*ListAilyAppDataAssetRespItemItem `json:"items,omitempty"` // 数据知识项列表
-ConnectFailedReason string `json:"connect_failed_reason,omitempty"` // 连接状态失败信息
-ConnectType string `json:"connect_type,omitempty"` // 数据连接类型可选值有: 导入直连
-CreatedTime string `json:"created_time,omitempty"` // 创建时间, 毫秒时间戳
-UpdatedTime string `json:"updated_time,omitempty"` // 更新时间, 毫秒时间戳
+type ListAilyAppDataAssetRespItem struct {
+	DataAssetID         string                              `json:"data_asset_id,omitempty"`         // 数据知识ID
+	Label               interface{}                         `json:"label,omitempty"`                 // 数据知识标题
+	Description         interface{}                         `json:"description,omitempty"`           // 数据知识描述
+	DataSourceType      string                              `json:"data_source_type,omitempty"`      // 数据资源类型可选值有: excelpdfpptxtxtdocxmysqlpostgresql飞书多维表格salesforce分享逍客巨量千川clickhousedatabricks飞书服务台飞书Wiki飞书doc飞书docs飞书docx飞书pdf飞书word飞书pptx飞书文档飞书多维表格飞书个人文件夹飞书共享文件夹数据表
+	ConnectStatus       string                              `json:"connect_status,omitempty"`        // 数据连接状态可选值有: 等待连接连接中连接成功增量同步中部分成功连接失败
+	Tags                []*ListAilyAppDataAssetRespItemTag  `json:"tags,omitempty"`                  // 数据知识分类列表
+	Items               []*ListAilyAppDataAssetRespItemItem `json:"items,omitempty"`                 // 数据知识项列表
+	ConnectFailedReason string                              `json:"connect_failed_reason,omitempty"` // 连接状态失败信息
+	ConnectType         string                              `json:"connect_type,omitempty"`          // 数据连接类型可选值有: 导入直连
+	CreatedTime         string                              `json:"created_time,omitempty"`          // 创建时间, 毫秒时间戳
+	UpdatedTime         string                              `json:"updated_time,omitempty"`          // 更新时间, 毫秒时间戳
 }
-
-
-
-
 
 // ListAilyAppDataAssetRespItemItem ...
-type ListAilyAppDataAssetRespItemItem struct { 
-DataAssetItemID string `json:"data_asset_item_id,omitempty"` // 数据知识项ID
-ApiName string `json:"api_name,omitempty"` // 数据知识项标识
-Label interface{} `json:"label,omitempty"` // 数据知识项标题
-Description interface{} `json:"description,omitempty"` // 数据知识项描述
-Resources []*ListAilyAppDataAssetRespItemItemResource `json:"resources,omitempty"` // 数据知识资源
+type ListAilyAppDataAssetRespItemItem struct {
+	DataAssetItemID string                                      `json:"data_asset_item_id,omitempty"` // 数据知识项ID
+	ApiName         string                                      `json:"api_name,omitempty"`           // 数据知识项标识
+	Label           interface{}                                 `json:"label,omitempty"`              // 数据知识项标题
+	Description     interface{}                                 `json:"description,omitempty"`        // 数据知识项描述
+	Resources       []*ListAilyAppDataAssetRespItemItemResource `json:"resources,omitempty"`          // 数据知识资源
 }
-
-
-
-
 
 // ListAilyAppDataAssetRespItemItemResource ...
-type ListAilyAppDataAssetRespItemItemResource struct { 
-ResourceID string `json:"resource_id,omitempty"` // 数据知识资源ID
-ResourceType string `json:"resource_type,omitempty"` // 数据知识资源类型可选值有: 数据视图知识视图
+type ListAilyAppDataAssetRespItemItemResource struct {
+	ResourceID   string `json:"resource_id,omitempty"`   // 数据知识资源ID
+	ResourceType string `json:"resource_type,omitempty"` // 数据知识资源类型可选值有: 数据视图知识视图
 }
-
-
-
-
 
 // ListAilyAppDataAssetRespItemTag ...
-type ListAilyAppDataAssetRespItemTag struct { 
-DataAssetTagID string `json:"data_asset_tag_id,omitempty"` // 数据知识分类名称
-Name string `json:"name,omitempty"` // 数据知识分类ID
+type ListAilyAppDataAssetRespItemTag struct {
+	DataAssetTagID string `json:"data_asset_tag_id,omitempty"` // 数据知识分类名称
+	Name           string `json:"name,omitempty"`              // 数据知识分类ID
 }
-
-
-
-
 
 // listAilyAppDataAssetResp ...
-type listAilyAppDataAssetResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *ListAilyAppDataAssetResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type listAilyAppDataAssetResp struct {
+	Code  int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                    `json:"msg,omitempty"`  // 错误描述
+	Data  *ListAilyAppDataAssetResp `json:"data,omitempty"`
+	Error *ErrorDetail              `json:"error,omitempty"`
 }
-
-
-
-

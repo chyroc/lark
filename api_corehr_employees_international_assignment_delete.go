@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // DeleteCorehrEmployeesInternationalAssignment 删除某一条外派信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employees-international_assignment/delete
-// 
 func (r *CorehrService) DeleteCorehrEmployeesInternationalAssignment(ctx context.Context, request *DeleteCorehrEmployeesInternationalAssignmentReq, options ...MethodOptionFunc) (*DeleteCorehrEmployeesInternationalAssignmentResp, *Response, error) {
-if r.cli.mock.mockCorehrDeleteCorehrEmployeesInternationalAssignment != nil {
+	if r.cli.mock.mockCorehrDeleteCorehrEmployeesInternationalAssignment != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Corehr#DeleteCorehrEmployeesInternationalAssignment mock enable")
 		return r.cli.mock.mockCorehrDeleteCorehrEmployeesInternationalAssignment(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockCorehrDeleteCorehrEmployeesInternationalAssignment != nil {
 		Scope:                 "Corehr",
 		API:                   "DeleteCorehrEmployeesInternationalAssignment",
 		Method:                "DELETE",
-		URL:   r.cli.openBaseURL + "/open-apis/corehr/v2/employees/international_assignments/:international_assignment_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/employees/international_assignments/:international_assignment_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(deleteCorehrEmployeesInternationalAssignmentResp)
 
@@ -51,37 +49,24 @@ if r.cli.mock.mockCorehrDeleteCorehrEmployeesInternationalAssignment != nil {
 func (r *Mock) MockCorehrDeleteCorehrEmployeesInternationalAssignment(f func(ctx context.Context, request *DeleteCorehrEmployeesInternationalAssignmentReq, options ...MethodOptionFunc) (*DeleteCorehrEmployeesInternationalAssignmentResp, *Response, error)) {
 	r.mockCorehrDeleteCorehrEmployeesInternationalAssignment = f
 }
+
 // UnMockCorehrDeleteCorehrEmployeesInternationalAssignment un-mock CorehrDeleteCorehrEmployeesInternationalAssignment method
 func (r *Mock) UnMockCorehrDeleteCorehrEmployeesInternationalAssignment() {
 	r.mockCorehrDeleteCorehrEmployeesInternationalAssignment = nil
 }
 
-
 // DeleteCorehrEmployeesInternationalAssignmentReq ...
-type DeleteCorehrEmployeesInternationalAssignmentReq struct { 
-InternationalAssignmentID string `path:"international_assignment_id" json:"-"` // 外派ID- 可通过[批量查询外派](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employees-international_assignment/list)获取示例值: "7127921432117937708"
+type DeleteCorehrEmployeesInternationalAssignmentReq struct {
+	InternationalAssignmentID string `path:"international_assignment_id" json:"-"` // 外派ID- 可通过[批量查询外派](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employees-international_assignment/list)获取示例值: "7127921432117937708"
 }
-
-
-
-
 
 // DeleteCorehrEmployeesInternationalAssignmentResp ...
-type DeleteCorehrEmployeesInternationalAssignmentResp struct { 
-}
-
-
-
-
+type DeleteCorehrEmployeesInternationalAssignmentResp struct{}
 
 // deleteCorehrEmployeesInternationalAssignmentResp ...
-type deleteCorehrEmployeesInternationalAssignmentResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *DeleteCorehrEmployeesInternationalAssignmentResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type deleteCorehrEmployeesInternationalAssignmentResp struct {
+	Code  int64                                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                            `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteCorehrEmployeesInternationalAssignmentResp `json:"data,omitempty"`
+	Error *ErrorDetail                                      `json:"error,omitempty"`
 }
-
-
-
-

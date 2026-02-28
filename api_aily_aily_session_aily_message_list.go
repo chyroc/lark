@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListAilySessionAilyMessage 该 API 用于列出某个飞书 Aily 应用的某个会话（Session）下消息（Message）的详细信息；包括消息的内容、发送人等。
@@ -30,9 +30,8 @@ import (
 // - 运行（Run）: Aily 助手基于会话内消息进行意图判定、调用匹配的技能, 并返回技能执行后的结果消息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/aily-v1/aily_session-aily_message/list
-// 
 func (r *AilyService) ListAilySessionAilyMessage(ctx context.Context, request *ListAilySessionAilyMessageReq, options ...MethodOptionFunc) (*ListAilySessionAilyMessageResp, *Response, error) {
-if r.cli.mock.mockAilyListAilySessionAilyMessage != nil {
+	if r.cli.mock.mockAilyListAilySessionAilyMessage != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Aily#ListAilySessionAilyMessage mock enable")
 		return r.cli.mock.mockAilyListAilySessionAilyMessage(ctx, request, options...)
 	}
@@ -41,12 +40,11 @@ if r.cli.mock.mockAilyListAilySessionAilyMessage != nil {
 		Scope:                 "Aily",
 		API:                   "ListAilySessionAilyMessage",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/aily/v1/sessions/:aily_session_id/messages",
+		URL:                   r.cli.openBaseURL + "/open-apis/aily/v1/sessions/:aily_session_id/messages",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(listAilySessionAilyMessageResp)
 
@@ -58,88 +56,64 @@ if r.cli.mock.mockAilyListAilySessionAilyMessage != nil {
 func (r *Mock) MockAilyListAilySessionAilyMessage(f func(ctx context.Context, request *ListAilySessionAilyMessageReq, options ...MethodOptionFunc) (*ListAilySessionAilyMessageResp, *Response, error)) {
 	r.mockAilyListAilySessionAilyMessage = f
 }
+
 // UnMockAilyListAilySessionAilyMessage un-mock AilyListAilySessionAilyMessage method
 func (r *Mock) UnMockAilyListAilySessionAilyMessage() {
 	r.mockAilyListAilySessionAilyMessage = nil
 }
 
-
 // ListAilySessionAilyMessageReq ...
-type ListAilySessionAilyMessageReq struct { 
-AilySessionID string `path:"aily_session_id" json:"-"` // 会话 ID；参考 [创建会话](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/aily-v1/aily_session/create) 接口示例值: "session_4dfunz7sp1g8m" 长度范围: `0` ～ `32` 字符- 正则校验: `session_[0-9a-hjkmnp-z]{1, 24}`
-PageSize *int64 `query:"page_size" json:"-"` // 本次请求获取的消息记录条数, 默认 20示例值: 20
-PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eVQrYzJBNDNONlk4VFZBZVlSdzlKdFJ4bVVHVExENDNKVHoxaVdiVnViQT0=
-RunID *string `query:"run_id" json:"-"` // 过滤条件, 按执行的唯一 ID 筛选示例值: run_4dfrxvctjqzzj 长度范围: `0` ～ `32` 字符- 正则校验: `run_[0-9a-hjkmnp-z]{1, 28}`
-WithPartialMessage *bool `query:"with_partial_message" json:"-"` // 是否返回正在进行中（即流式输出中）的消息内容- 当设置为 `true` 时, 返回的消息记录中、每个消息将额外包含一个 `status `字段（`IN_PROGRESS` | `COMPLETED`）, 此时 `content` 字段为当前时刻的消息内容- 当设置为 `false` 时, 返回的消息记录仅包含已完成的消息示例值: false
+type ListAilySessionAilyMessageReq struct {
+	AilySessionID      string  `path:"aily_session_id" json:"-"`       // 会话 ID；参考 [创建会话](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/aily-v1/aily_session/create) 接口示例值: "session_4dfunz7sp1g8m" 长度范围: `0` ～ `32` 字符- 正则校验: `session_[0-9a-hjkmnp-z]{1, 24}`
+	PageSize           *int64  `query:"page_size" json:"-"`            // 本次请求获取的消息记录条数, 默认 20示例值: 20
+	PageToken          *string `query:"page_token" json:"-"`           // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eVQrYzJBNDNONlk4VFZBZVlSdzlKdFJ4bVVHVExENDNKVHoxaVdiVnViQT0=
+	RunID              *string `query:"run_id" json:"-"`               // 过滤条件, 按执行的唯一 ID 筛选示例值: run_4dfrxvctjqzzj 长度范围: `0` ～ `32` 字符- 正则校验: `run_[0-9a-hjkmnp-z]{1, 28}`
+	WithPartialMessage *bool   `query:"with_partial_message" json:"-"` // 是否返回正在进行中（即流式输出中）的消息内容- 当设置为 `true` 时, 返回的消息记录中、每个消息将额外包含一个 `status `字段（`IN_PROGRESS` | `COMPLETED`）, 此时 `content` 字段为当前时刻的消息内容- 当设置为 `false` 时, 返回的消息记录仅包含已完成的消息示例值: false
 }
-
-
-
-
 
 // ListAilySessionAilyMessageResp ...
-type ListAilySessionAilyMessageResp struct { 
-Messages []*ListAilySessionAilyMessageRespMessage `json:"messages,omitempty"` // 消息列表
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
+type ListAilySessionAilyMessageResp struct {
+	Messages  []*ListAilySessionAilyMessageRespMessage `json:"messages,omitempty"`   // 消息列表
+	PageToken string                                   `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	HasMore   bool                                     `json:"has_more,omitempty"`   // 是否还有更多项
 }
-
-
-
-
 
 // ListAilySessionAilyMessageRespMessage ...
-type ListAilySessionAilyMessageRespMessage struct { 
-ID string `json:"id,omitempty"` // 消息 ID
-SessionID string `json:"session_id,omitempty"` // 会话 ID
-RunID string `json:"run_id,omitempty"` // 运行 ID
-ContentType string `json:"content_type,omitempty"` // 消息内容类型
-Content string `json:"content,omitempty"` // 消息内容
-Files []*ListAilySessionAilyMessageRespMessageFile `json:"files,omitempty"` // 消息中包含的文件
-QuoteMessageID string `json:"quote_message_id,omitempty"` // 引用的消息 ID
-Sender *Sender `json:"sender,omitempty"` // 发送者
-Mentions []*Mention `json:"mentions,omitempty"` // 被@的实体
-PlainText string `json:"plain_text,omitempty"` // 消息体的纯文本表达
-CreatedAt string `json:"created_at,omitempty"` // 消息的创建时间, 毫秒时间戳
-Status string `json:"status,omitempty"` // 状态
+type ListAilySessionAilyMessageRespMessage struct {
+	ID             string                                       `json:"id,omitempty"`               // 消息 ID
+	SessionID      string                                       `json:"session_id,omitempty"`       // 会话 ID
+	RunID          string                                       `json:"run_id,omitempty"`           // 运行 ID
+	ContentType    string                                       `json:"content_type,omitempty"`     // 消息内容类型
+	Content        string                                       `json:"content,omitempty"`          // 消息内容
+	Files          []*ListAilySessionAilyMessageRespMessageFile `json:"files,omitempty"`            // 消息中包含的文件
+	QuoteMessageID string                                       `json:"quote_message_id,omitempty"` // 引用的消息 ID
+	Sender         *Sender                                      `json:"sender,omitempty"`           // 发送者
+	Mentions       []*Mention                                   `json:"mentions,omitempty"`         // 被@的实体
+	PlainText      string                                       `json:"plain_text,omitempty"`       // 消息体的纯文本表达
+	CreatedAt      string                                       `json:"created_at,omitempty"`       // 消息的创建时间, 毫秒时间戳
+	Status         string                                       `json:"status,omitempty"`           // 状态
 }
-
-
-
-
 
 // ListAilySessionAilyMessageRespMessageFile ...
-type ListAilySessionAilyMessageRespMessageFile struct { 
-ID string `json:"id,omitempty"` // 文件 ID
-MimeType string `json:"mime_type,omitempty"` // 文件类型, 参见[MIME 类型（IANA 媒体类型）](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Basics_of_HTTP/MIME_types)
-FileName string `json:"file_name,omitempty"` // 文件名
-Metadata string `json:"metadata,omitempty"` // 其他透传信息
-CreatedAt string `json:"created_at,omitempty"` // 文件的创建时间, 毫秒时间戳
-PreviewURL *ListAilySessionAilyMessageRespMessageFilePreviewURL `json:"preview_url,omitempty"` // 文件预览链接
+type ListAilySessionAilyMessageRespMessageFile struct {
+	ID         string                                               `json:"id,omitempty"`          // 文件 ID
+	MimeType   string                                               `json:"mime_type,omitempty"`   // 文件类型, 参见[MIME 类型（IANA 媒体类型）](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Basics_of_HTTP/MIME_types)
+	FileName   string                                               `json:"file_name,omitempty"`   // 文件名
+	Metadata   string                                               `json:"metadata,omitempty"`    // 其他透传信息
+	CreatedAt  string                                               `json:"created_at,omitempty"`  // 文件的创建时间, 毫秒时间戳
+	PreviewURL *ListAilySessionAilyMessageRespMessageFilePreviewURL `json:"preview_url,omitempty"` // 文件预览链接
 }
-
-
-
-
 
 // ListAilySessionAilyMessageRespMessageFilePreviewURL ...
-type ListAilySessionAilyMessageRespMessageFilePreviewURL struct { 
-URL string `json:"url,omitempty"` // 文件的 URL
-ExpiredAt string `json:"expired_at,omitempty"` // url 过期时间, 秒时间戳
+type ListAilySessionAilyMessageRespMessageFilePreviewURL struct {
+	URL       string `json:"url,omitempty"`        // 文件的 URL
+	ExpiredAt string `json:"expired_at,omitempty"` // url 过期时间, 秒时间戳
 }
-
-
-
-
 
 // listAilySessionAilyMessageResp ...
-type listAilySessionAilyMessageResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *ListAilySessionAilyMessageResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type listAilySessionAilyMessageResp struct {
+	Code  int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                          `json:"msg,omitempty"`  // 错误描述
+	Data  *ListAilySessionAilyMessageResp `json:"data,omitempty"`
+	Error *ErrorDetail                    `json:"error,omitempty"`
 }
-
-
-
-

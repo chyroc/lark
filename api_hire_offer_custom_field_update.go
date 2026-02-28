@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // UpdateHireOfferCustomField 本接口支持修改 Offer 申请表的自定义字段, Offer 申请表的定义可参考「飞书招聘」-「设置」-「Offer 设置」-「Offer 申请表设置」中的内容。
@@ -29,9 +29,8 @@ import (
 // - 本接口不支持修改字段类型为「公式」类型的字段值。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer_custom_field/update
-// 
 func (r *HireService) UpdateHireOfferCustomField(ctx context.Context, request *UpdateHireOfferCustomFieldReq, options ...MethodOptionFunc) (*UpdateHireOfferCustomFieldResp, *Response, error) {
-if r.cli.mock.mockHireUpdateHireOfferCustomField != nil {
+	if r.cli.mock.mockHireUpdateHireOfferCustomField != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#UpdateHireOfferCustomField mock enable")
 		return r.cli.mock.mockHireUpdateHireOfferCustomField(ctx, request, options...)
 	}
@@ -40,11 +39,10 @@ if r.cli.mock.mockHireUpdateHireOfferCustomField != nil {
 		Scope:                 "Hire",
 		API:                   "UpdateHireOfferCustomField",
 		Method:                "PUT",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/offer_custom_fields/:offer_custom_field_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/offer_custom_fields/:offer_custom_field_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(updateHireOfferCustomFieldResp)
 
@@ -56,77 +54,48 @@ if r.cli.mock.mockHireUpdateHireOfferCustomField != nil {
 func (r *Mock) MockHireUpdateHireOfferCustomField(f func(ctx context.Context, request *UpdateHireOfferCustomFieldReq, options ...MethodOptionFunc) (*UpdateHireOfferCustomFieldResp, *Response, error)) {
 	r.mockHireUpdateHireOfferCustomField = f
 }
+
 // UnMockHireUpdateHireOfferCustomField un-mock HireUpdateHireOfferCustomField method
 func (r *Mock) UnMockHireUpdateHireOfferCustomField() {
 	r.mockHireUpdateHireOfferCustomField = nil
 }
 
-
 // UpdateHireOfferCustomFieldReq ...
-type UpdateHireOfferCustomFieldReq struct { 
-OfferCustomFieldID string `path:"offer_custom_field_id" json:"-"` // Offer 申请表自定义字段 ID, 可通过接口[获取 Offer 申请表信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer_application_form/get)获取示例值: "6906755946257615112"
-Name *UpdateHireOfferCustomFieldReqName `json:"name,omitempty"` // 自定义字段名称, zh_cn和en_us必填其一
-Config *UpdateHireOfferCustomFieldReqConfig `json:"config,omitempty"` // 自定义字段配置信息
+type UpdateHireOfferCustomFieldReq struct {
+	OfferCustomFieldID string                               `path:"offer_custom_field_id" json:"-"` // Offer 申请表自定义字段 ID, 可通过接口[获取 Offer 申请表信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer_application_form/get)获取示例值: "6906755946257615112"
+	Name               *UpdateHireOfferCustomFieldReqName   `json:"name,omitempty"`                 // 自定义字段名称, zh_cn和en_us必填其一
+	Config             *UpdateHireOfferCustomFieldReqConfig `json:"config,omitempty"`               // 自定义字段配置信息
 }
-
-
-
-
 
 // UpdateHireOfferCustomFieldReqConfig ...
-type UpdateHireOfferCustomFieldReqConfig struct { 
-Options []*UpdateHireOfferCustomFieldReqConfigOption `json:"options,omitempty"` // 选项列表, 仅字段类型为「单选」、「多选」时需传配置选项信息。字段类型可通过接口[获取 Offer 申请表信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer_application_form/get)获取
+type UpdateHireOfferCustomFieldReqConfig struct {
+	Options []*UpdateHireOfferCustomFieldReqConfigOption `json:"options,omitempty"` // 选项列表, 仅字段类型为「单选」、「多选」时需传配置选项信息。字段类型可通过接口[获取 Offer 申请表信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer_application_form/get)获取
 }
-
-
-
-
 
 // UpdateHireOfferCustomFieldReqConfigOption ...
-type UpdateHireOfferCustomFieldReqConfigOption struct { 
-Name *UpdateHireOfferCustomFieldReqConfigOptionName `json:"name,omitempty"` // 选项名称, zh_cn和en_us必填其一
+type UpdateHireOfferCustomFieldReqConfigOption struct {
+	Name *UpdateHireOfferCustomFieldReqConfigOptionName `json:"name,omitempty"` // 选项名称, zh_cn和en_us必填其一
 }
-
-
-
-
 
 // UpdateHireOfferCustomFieldReqConfigOptionName ...
-type UpdateHireOfferCustomFieldReqConfigOptionName struct { 
-ZhCn *string `json:"zh_cn,omitempty"` // 选项中文名称示例值: "无业"
-EnUs *string `json:"en_us,omitempty"` // 选项英文名称示例值: "Unemployed"
+type UpdateHireOfferCustomFieldReqConfigOptionName struct {
+	ZhCn *string `json:"zh_cn,omitempty"` // 选项中文名称示例值: "无业"
+	EnUs *string `json:"en_us,omitempty"` // 选项英文名称示例值: "Unemployed"
 }
-
-
-
-
 
 // UpdateHireOfferCustomFieldReqName ...
-type UpdateHireOfferCustomFieldReqName struct { 
-ZhCn *string `json:"zh_cn,omitempty"` // 字段中文名称示例值: "就职状态"
-EnUs *string `json:"en_us,omitempty"` // 字段英文名称示例值: "Employment status"
+type UpdateHireOfferCustomFieldReqName struct {
+	ZhCn *string `json:"zh_cn,omitempty"` // 字段中文名称示例值: "就职状态"
+	EnUs *string `json:"en_us,omitempty"` // 字段英文名称示例值: "Employment status"
 }
-
-
-
-
 
 // UpdateHireOfferCustomFieldResp ...
-type UpdateHireOfferCustomFieldResp struct { 
-}
-
-
-
-
+type UpdateHireOfferCustomFieldResp struct{}
 
 // updateHireOfferCustomFieldResp ...
-type updateHireOfferCustomFieldResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *UpdateHireOfferCustomFieldResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type updateHireOfferCustomFieldResp struct {
+	Code  int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                          `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateHireOfferCustomFieldResp `json:"data,omitempty"`
+	Error *ErrorDetail                    `json:"error,omitempty"`
 }
-
-
-
-

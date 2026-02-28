@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // MGetDirectoryDepartment 该接口支持传入多个部门ID, 返回每个部门的详细信息（如名称、负责人、子部门等）。
@@ -31,9 +31,8 @@ import (
 // - 升级前, 查询已删除部门的信息时, 不会返回部门负责人信息；升级后, 查询已删除部门的信息时, 返回数据中将包括部门负责人信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/department/mget
-// 
 func (r *DirectoryService) MGetDirectoryDepartment(ctx context.Context, request *MGetDirectoryDepartmentReq, options ...MethodOptionFunc) (*MGetDirectoryDepartmentResp, *Response, error) {
-if r.cli.mock.mockDirectoryMGetDirectoryDepartment != nil {
+	if r.cli.mock.mockDirectoryMGetDirectoryDepartment != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Directory#MGetDirectoryDepartment mock enable")
 		return r.cli.mock.mockDirectoryMGetDirectoryDepartment(ctx, request, options...)
 	}
@@ -42,12 +41,11 @@ if r.cli.mock.mockDirectoryMGetDirectoryDepartment != nil {
 		Scope:                 "Directory",
 		API:                   "MGetDirectoryDepartment",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/directory/v1/departments/mget",
+		URL:                   r.cli.openBaseURL + "/open-apis/directory/v1/departments/mget",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(mGetDirectoryDepartmentResp)
 
@@ -59,53 +57,37 @@ if r.cli.mock.mockDirectoryMGetDirectoryDepartment != nil {
 func (r *Mock) MockDirectoryMGetDirectoryDepartment(f func(ctx context.Context, request *MGetDirectoryDepartmentReq, options ...MethodOptionFunc) (*MGetDirectoryDepartmentResp, *Response, error)) {
 	r.mockDirectoryMGetDirectoryDepartment = f
 }
+
 // UnMockDirectoryMGetDirectoryDepartment un-mock DirectoryMGetDirectoryDepartment method
 func (r *Mock) UnMockDirectoryMGetDirectoryDepartment() {
 	r.mockDirectoryMGetDirectoryDepartment = nil
 }
 
-
 // MGetDirectoryDepartmentReq ...
-type MGetDirectoryDepartmentReq struct { 
-EmployeeIDType *IDType `query:"employee_id_type" json:"-"` // 用户 ID 类型示例值: user_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)企业内在职员工的唯一标识。支持自定义, 未自定义时系统自动生成。ID支持修改。获取employee_id的方式: - 企业管理员在 管理后台 > 组织架构 > 成员与部门 页面, 点击 成员详情, 查询员工ID  - 通过 [批量获取员工列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/employee/filter) 的接口, 通过手机号或邮箱查询员工ID。默认值: `open_id`当值为 `employee_id`, 字段权限要求: 查看员工自定义 ID
-DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型示例值: department_id可选值有: 用来标识租户内一个唯一的部门用来在具体某个应用中标识一个部门, 同一个部门 在不同应用中的 open_department_id 相同。默认值: `open_department_id`
-DepartmentIDs []string `json:"department_ids,omitempty"` // 部门ID, 与department_id_type类型保持一致。id获取方式: 可通过管理后台查询。示例值: ["adqwea"] 长度范围: `1` ～ `100`
-RequiredFields []string `json:"required_fields,omitempty"` // 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段[了解更多: 字段枚举说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/field-enumeration)示例值: ["name"] 长度范围: `0` ～ `100`
+type MGetDirectoryDepartmentReq struct {
+	EmployeeIDType   *IDType           `query:"employee_id_type" json:"-"`   // 用户 ID 类型示例值: user_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)企业内在职员工的唯一标识。支持自定义, 未自定义时系统自动生成。ID支持修改。获取employee_id的方式: - 企业管理员在 管理后台 > 组织架构 > 成员与部门 页面, 点击 成员详情, 查询员工ID  - 通过 [批量获取员工列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/employee/filter) 的接口, 通过手机号或邮箱查询员工ID。默认值: `open_id`当值为 `employee_id`, 字段权限要求: 查看员工自定义 ID
+	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型示例值: department_id可选值有: 用来标识租户内一个唯一的部门用来在具体某个应用中标识一个部门, 同一个部门 在不同应用中的 open_department_id 相同。默认值: `open_department_id`
+	DepartmentIDs    []string          `json:"department_ids,omitempty"`     // 部门ID, 与department_id_type类型保持一致。id获取方式: 可通过管理后台查询。示例值: ["adqwea"] 长度范围: `1` ～ `100`
+	RequiredFields   []string          `json:"required_fields,omitempty"`    // 需要查询的字段列表。将按照传递的字段列表返回有权限的行、列数据。不传则不会返回任何字段[了解更多: 字段枚举说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/field-enumeration)示例值: ["name"] 长度范围: `0` ～ `100`
 }
-
-
-
-
 
 // MGetDirectoryDepartmentResp ...
-type MGetDirectoryDepartmentResp struct { 
-Departments []string `json:"departments,omitempty"` // 部门信息
-Abnormals []*MGetDirectoryDepartmentRespAbnormal `json:"abnormals,omitempty"` // 字段异常信息
+type MGetDirectoryDepartmentResp struct {
+	Departments []string                               `json:"departments,omitempty"` // 部门信息
+	Abnormals   []*MGetDirectoryDepartmentRespAbnormal `json:"abnormals,omitempty"`   // 字段异常信息
 }
-
-
-
-
 
 // MGetDirectoryDepartmentRespAbnormal ...
-type MGetDirectoryDepartmentRespAbnormal struct { 
-ID string `json:"id,omitempty"` // 异常ID
-RowError int64 `json:"row_error,omitempty"` // 行级异常可选值有: 成功没权限
-FieldErrors interface{} `json:"field_errors,omitempty"` // 列级异常, key为字段名, value为下列枚举  可选值有: 无权限服务异常字段不存在
+type MGetDirectoryDepartmentRespAbnormal struct {
+	ID          string      `json:"id,omitempty"`           // 异常ID
+	RowError    int64       `json:"row_error,omitempty"`    // 行级异常可选值有: 成功没权限
+	FieldErrors interface{} `json:"field_errors,omitempty"` // 列级异常, key为字段名, value为下列枚举  可选值有: 无权限服务异常字段不存在
 }
-
-
-
-
 
 // mGetDirectoryDepartmentResp ...
-type mGetDirectoryDepartmentResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *MGetDirectoryDepartmentResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type mGetDirectoryDepartmentResp struct {
+	Code  int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                       `json:"msg,omitempty"`  // 错误描述
+	Data  *MGetDirectoryDepartmentResp `json:"data,omitempty"`
+	Error *ErrorDetail                 `json:"error,omitempty"`
 }
-
-
-
-

@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateHireWebsiteDeliveryByResume 新建招聘官网投递。
@@ -28,9 +28,8 @@ import (
 // - 请求参数中的时间字段 (start_time/end_time 等), 时间格式为毫秒时间戳, 类型均为 bigint。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website-delivery/create_by_resume
-// 
 func (r *HireService) CreateHireWebsiteDeliveryByResume(ctx context.Context, request *CreateHireWebsiteDeliveryByResumeReq, options ...MethodOptionFunc) (*CreateHireWebsiteDeliveryByResumeResp, *Response, error) {
-if r.cli.mock.mockHireCreateHireWebsiteDeliveryByResume != nil {
+	if r.cli.mock.mockHireCreateHireWebsiteDeliveryByResume != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#CreateHireWebsiteDeliveryByResume mock enable")
 		return r.cli.mock.mockHireCreateHireWebsiteDeliveryByResume(ctx, request, options...)
 	}
@@ -39,11 +38,10 @@ if r.cli.mock.mockHireCreateHireWebsiteDeliveryByResume != nil {
 		Scope:                 "Hire",
 		API:                   "CreateHireWebsiteDeliveryByResume",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/websites/:website_id/deliveries/create_by_resume",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/websites/:website_id/deliveries/create_by_resume",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createHireWebsiteDeliveryByResumeResp)
 
@@ -55,360 +53,244 @@ if r.cli.mock.mockHireCreateHireWebsiteDeliveryByResume != nil {
 func (r *Mock) MockHireCreateHireWebsiteDeliveryByResume(f func(ctx context.Context, request *CreateHireWebsiteDeliveryByResumeReq, options ...MethodOptionFunc) (*CreateHireWebsiteDeliveryByResumeResp, *Response, error)) {
 	r.mockHireCreateHireWebsiteDeliveryByResume = f
 }
+
 // UnMockHireCreateHireWebsiteDeliveryByResume un-mock HireCreateHireWebsiteDeliveryByResume method
 func (r *Mock) UnMockHireCreateHireWebsiteDeliveryByResume() {
 	r.mockHireCreateHireWebsiteDeliveryByResume = nil
 }
 
-
 // CreateHireWebsiteDeliveryByResumeReq ...
-type CreateHireWebsiteDeliveryByResumeReq struct { 
-WebsiteID string `path:"website_id" json:"-"` // 官网 ID, 可通过[获取招聘官网列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website/list)获取示例值: "1618209327096"
-UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
-JobPostID string `json:"job_post_id,omitempty"` // 职位广告 ID, 可通过[搜索招聘官网下的职位广告列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website-job_post/search)或者[获取招聘官网下的职位广告列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website-job_post/list)获取示例值: "6960663240925956636"
-Resume *CreateHireWebsiteDeliveryByResumeReqResume `json:"resume,omitempty"` // 人才信息
-UserID string `json:"user_id,omitempty"` // 官网用户 ID, 需通过[新建招聘官网用户](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website-site_user/create)生成示例值: "6960663240925956634"
-ApplicationPreferredCityCodeList []string `json:"application_preferred_city_code_list,omitempty"` // 意向投递城市列表, 可通过[查询地点列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/query)获取示例值: ["6960663240925956636"]
-ChannelID *string `json:"channel_id,omitempty"` // 官网推广渠道 ID, 可通过[获取招聘官网推广渠道列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website-channel/list)获取示例值: "6891560630172518670"
+type CreateHireWebsiteDeliveryByResumeReq struct {
+	WebsiteID                        string                                      `path:"website_id" json:"-"`                            // 官网 ID, 可通过[获取招聘官网列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website/list)获取示例值: "1618209327096"
+	UserIDType                       *IDType                                     `query:"user_id_type" json:"-"`                         // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	JobPostID                        string                                      `json:"job_post_id,omitempty"`                          // 职位广告 ID, 可通过[搜索招聘官网下的职位广告列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website-job_post/search)或者[获取招聘官网下的职位广告列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website-job_post/list)获取示例值: "6960663240925956636"
+	Resume                           *CreateHireWebsiteDeliveryByResumeReqResume `json:"resume,omitempty"`                               // 人才信息
+	UserID                           string                                      `json:"user_id,omitempty"`                              // 官网用户 ID, 需通过[新建招聘官网用户](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website-site_user/create)生成示例值: "6960663240925956634"
+	ApplicationPreferredCityCodeList []string                                    `json:"application_preferred_city_code_list,omitempty"` // 意向投递城市列表, 可通过[查询地点列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/query)获取示例值: ["6960663240925956636"]
+	ChannelID                        *string                                     `json:"channel_id,omitempty"`                           // 官网推广渠道 ID, 可通过[获取招聘官网推广渠道列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website-channel/list)获取示例值: "6891560630172518670"
 }
-
-
-
-
 
 // CreateHireWebsiteDeliveryByResumeReqResume ...
-type CreateHireWebsiteDeliveryByResumeReqResume struct { 
-InternshipList []*CreateHireWebsiteDeliveryByResumeReqResumeInternship `json:"internship_list,omitempty"` // 实习经历
-BasicInfo *CreateHireWebsiteDeliveryByResumeReqResumeBasicInfo `json:"basic_info,omitempty"` // 基本信息
-EducationList []*CreateHireWebsiteDeliveryByResumeReqResumeEducation `json:"education_list,omitempty"` // 教育经历
-SelfEvaluation *CreateHireWebsiteDeliveryByResumeReqResumeSelfEvaluation `json:"self_evaluation,omitempty"` // 自我评价
-CareerList []*CreateHireWebsiteDeliveryByResumeReqResumeCareer `json:"career_list,omitempty"` // 工作经历
-CustomizedData []*CreateHireWebsiteDeliveryByResumeReqResumeCustomizedData `json:"customized_data,omitempty"` // 自定义模块
-ResumeAttachmentID *string `json:"resume_attachment_id,omitempty"` // 简历附件ID, 需通过[创建附件](https://open.feishu.cn/document/ukTMukTMukTM/uIDN1YjLyQTN24iM0UjN/create_attachment)生成示例值: "6960663240925956654"
-SnsList []*CreateHireWebsiteDeliveryByResumeReqResumeSns `json:"sns_list,omitempty"` // 社交账号
-WorksList []*CreateHireWebsiteDeliveryByResumeReqResumeWorks `json:"works_list,omitempty"` // 作品
-AwardList []*CreateHireWebsiteDeliveryByResumeReqResumeAward `json:"award_list,omitempty"` // 获奖记录
-ProjectList []*CreateHireWebsiteDeliveryByResumeReqResumeProject `json:"project_list,omitempty"` // 项目经历
-LanguageList []*CreateHireWebsiteDeliveryByResumeReqResumeLanguage `json:"language_list,omitempty"` // 语言能力
+type CreateHireWebsiteDeliveryByResumeReqResume struct {
+	InternshipList     []*CreateHireWebsiteDeliveryByResumeReqResumeInternship     `json:"internship_list,omitempty"`      // 实习经历
+	BasicInfo          *CreateHireWebsiteDeliveryByResumeReqResumeBasicInfo        `json:"basic_info,omitempty"`           // 基本信息
+	EducationList      []*CreateHireWebsiteDeliveryByResumeReqResumeEducation      `json:"education_list,omitempty"`       // 教育经历
+	SelfEvaluation     *CreateHireWebsiteDeliveryByResumeReqResumeSelfEvaluation   `json:"self_evaluation,omitempty"`      // 自我评价
+	CareerList         []*CreateHireWebsiteDeliveryByResumeReqResumeCareer         `json:"career_list,omitempty"`          // 工作经历
+	CustomizedData     []*CreateHireWebsiteDeliveryByResumeReqResumeCustomizedData `json:"customized_data,omitempty"`      // 自定义模块
+	ResumeAttachmentID *string                                                     `json:"resume_attachment_id,omitempty"` // 简历附件ID, 需通过[创建附件](https://open.feishu.cn/document/ukTMukTMukTM/uIDN1YjLyQTN24iM0UjN/create_attachment)生成示例值: "6960663240925956654"
+	SnsList            []*CreateHireWebsiteDeliveryByResumeReqResumeSns            `json:"sns_list,omitempty"`             // 社交账号
+	WorksList          []*CreateHireWebsiteDeliveryByResumeReqResumeWorks          `json:"works_list,omitempty"`           // 作品
+	AwardList          []*CreateHireWebsiteDeliveryByResumeReqResumeAward          `json:"award_list,omitempty"`           // 获奖记录
+	ProjectList        []*CreateHireWebsiteDeliveryByResumeReqResumeProject        `json:"project_list,omitempty"`         // 项目经历
+	LanguageList       []*CreateHireWebsiteDeliveryByResumeReqResumeLanguage       `json:"language_list,omitempty"`        // 语言能力
 }
-
-
-
-
 
 // CreateHireWebsiteDeliveryByResumeReqResumeAward ...
-type CreateHireWebsiteDeliveryByResumeReqResumeAward struct { 
-CustomizedData []*CreateHireWebsiteDeliveryByResumeReqResumeAwardCustomizedData `json:"customized_data,omitempty"` // 自定义字段
-Desc *string `json:"desc,omitempty"` // 获奖描述示例值: "ACM国际大学生程序设计竞赛"
-Title *string `json:"title,omitempty"` // 奖项名称示例值: "ACM 亚洲区金牌"
-AwardTime *int64 `json:"award_time,omitempty"` // 获奖时间, 毫秒时间戳示例值: 1609430400000
+type CreateHireWebsiteDeliveryByResumeReqResumeAward struct {
+	CustomizedData []*CreateHireWebsiteDeliveryByResumeReqResumeAwardCustomizedData `json:"customized_data,omitempty"` // 自定义字段
+	Desc           *string                                                          `json:"desc,omitempty"`            // 获奖描述示例值: "ACM国际大学生程序设计竞赛"
+	Title          *string                                                          `json:"title,omitempty"`           // 奖项名称示例值: "ACM 亚洲区金牌"
+	AwardTime      *int64                                                           `json:"award_time,omitempty"`      // 获奖时间, 毫秒时间戳示例值: 1609430400000
 }
-
-
-
-
 
 // CreateHireWebsiteDeliveryByResumeReqResumeAwardCustomizedData ...
-type CreateHireWebsiteDeliveryByResumeReqResumeAwardCustomizedData struct { 
-ObjectID *string `json:"object_id,omitempty"` // 自定义字段 ID, 可通过[获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)获取示例值: "6960663240925956649"
-Value *string `json:"value,omitempty"` // 自定义字段值, 请参考本文「自定义字段数据格式说明」示例值: "AA"
+type CreateHireWebsiteDeliveryByResumeReqResumeAwardCustomizedData struct {
+	ObjectID *string `json:"object_id,omitempty"` // 自定义字段 ID, 可通过[获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)获取示例值: "6960663240925956649"
+	Value    *string `json:"value,omitempty"`     // 自定义字段值, 请参考本文「自定义字段数据格式说明」示例值: "AA"
 }
-
-
-
-
 
 // CreateHireWebsiteDeliveryByResumeReqResumeBasicInfo ...
-type CreateHireWebsiteDeliveryByResumeReqResumeBasicInfo struct { 
-NationalityID *string `json:"nationality_id,omitempty"` // 国家码, 可通过[查询地点列表](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/query)获取示例值: "CN_1"
-StartWorkTime *int64 `json:"start_work_time,omitempty"` // 起始工作时间, 毫秒时间戳示例值: 1609430400000
-CurrentHomeAddress *string `json:"current_home_address,omitempty"` // 家庭住址示例值: "成都"
-HometownCityCode *string `json:"hometown_city_code,omitempty"` // 家乡, 可通过[查询地点列表](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/query)获取示例值: "CT_159"
-MobileCountryCode *string `json:"mobile_country_code,omitempty"` // 手机国家代码, 可通过[查询地点列表](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/query)获取示例值: "CN_1"
-Identification *CreateHireWebsiteDeliveryByResumeReqResumeBasicInfoIdentification `json:"identification,omitempty"` // 身份证件
-MaritalStatus *int64 `json:"marital_status,omitempty"` // 婚姻状况示例值: 1可选值有: 已婚未婚
-Mobile *string `json:"mobile,omitempty"` // 电话示例值: "182900291190"
-CurrentCityCode *string `json:"current_city_code,omitempty"` // 所在城市, 可通过[查询地点列表](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/query)获取示例值: "CT_11"
-ExperienceYears *int64 `json:"experience_years,omitempty"` // 工作年限示例值: 3
-Gender *int64 `json:"gender,omitempty"` // 性别示例值: 1可选值有: 男女其他
-Birthday *int64 `json:"birthday,omitempty"` // 出生日期, 毫秒时间戳示例值: 1609430400000
-Name string `json:"name,omitempty"` // 姓名示例值: "张三"
-PreferredCityCodeList []string `json:"preferred_city_code_list,omitempty"` // 意向城市列表, 可通过[查询地点列表](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/query)获取示例值: ["CT_12"]
-ResumeSourceID *string `json:"resume_source_id,omitempty"` // 简历来源, 可通过[获取简历来源列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/resume_source/list)获取示例值: "6982104077248219436"
-Age *int64 `json:"age,omitempty"` // 年龄示例值: 25
-CustomizedData []*CreateHireWebsiteDeliveryByResumeReqResumeBasicInfoCustomizedData `json:"customized_data,omitempty"` // 自定义字段
-Email *string `json:"email,omitempty"` // 邮箱示例值: "foo@bytedance.com"
+type CreateHireWebsiteDeliveryByResumeReqResumeBasicInfo struct {
+	NationalityID         *string                                                              `json:"nationality_id,omitempty"`           // 国家码, 可通过[查询地点列表](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/query)获取示例值: "CN_1"
+	StartWorkTime         *int64                                                               `json:"start_work_time,omitempty"`          // 起始工作时间, 毫秒时间戳示例值: 1609430400000
+	CurrentHomeAddress    *string                                                              `json:"current_home_address,omitempty"`     // 家庭住址示例值: "成都"
+	HometownCityCode      *string                                                              `json:"hometown_city_code,omitempty"`       // 家乡, 可通过[查询地点列表](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/query)获取示例值: "CT_159"
+	MobileCountryCode     *string                                                              `json:"mobile_country_code,omitempty"`      // 手机国家代码, 可通过[查询地点列表](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/query)获取示例值: "CN_1"
+	Identification        *CreateHireWebsiteDeliveryByResumeReqResumeBasicInfoIdentification   `json:"identification,omitempty"`           // 身份证件
+	MaritalStatus         *int64                                                               `json:"marital_status,omitempty"`           // 婚姻状况示例值: 1可选值有: 已婚未婚
+	Mobile                *string                                                              `json:"mobile,omitempty"`                   // 电话示例值: "182900291190"
+	CurrentCityCode       *string                                                              `json:"current_city_code,omitempty"`        // 所在城市, 可通过[查询地点列表](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/query)获取示例值: "CT_11"
+	ExperienceYears       *int64                                                               `json:"experience_years,omitempty"`         // 工作年限示例值: 3
+	Gender                *int64                                                               `json:"gender,omitempty"`                   // 性别示例值: 1可选值有: 男女其他
+	Birthday              *int64                                                               `json:"birthday,omitempty"`                 // 出生日期, 毫秒时间戳示例值: 1609430400000
+	Name                  string                                                               `json:"name,omitempty"`                     // 姓名示例值: "张三"
+	PreferredCityCodeList []string                                                             `json:"preferred_city_code_list,omitempty"` // 意向城市列表, 可通过[查询地点列表](https://open.larkoffice.com/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/query)获取示例值: ["CT_12"]
+	ResumeSourceID        *string                                                              `json:"resume_source_id,omitempty"`         // 简历来源, 可通过[获取简历来源列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/resume_source/list)获取示例值: "6982104077248219436"
+	Age                   *int64                                                               `json:"age,omitempty"`                      // 年龄示例值: 25
+	CustomizedData        []*CreateHireWebsiteDeliveryByResumeReqResumeBasicInfoCustomizedData `json:"customized_data,omitempty"`          // 自定义字段
+	Email                 *string                                                              `json:"email,omitempty"`                    // 邮箱示例值: "foo@bytedance.com"
 }
-
-
-
-
 
 // CreateHireWebsiteDeliveryByResumeReqResumeBasicInfoCustomizedData ...
-type CreateHireWebsiteDeliveryByResumeReqResumeBasicInfoCustomizedData struct { 
-ObjectID *string `json:"object_id,omitempty"` // 自定义字段 ID, 可通过[获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)获取示例值: "6960663240925956649"
-Value *string `json:"value,omitempty"` // 自定义字段值, 请参考本文「自定义字段数据格式说明」。示例值: "AA"
+type CreateHireWebsiteDeliveryByResumeReqResumeBasicInfoCustomizedData struct {
+	ObjectID *string `json:"object_id,omitempty"` // 自定义字段 ID, 可通过[获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)获取示例值: "6960663240925956649"
+	Value    *string `json:"value,omitempty"`     // 自定义字段值, 请参考本文「自定义字段数据格式说明」。示例值: "AA"
 }
-
-
-
-
 
 // CreateHireWebsiteDeliveryByResumeReqResumeBasicInfoIdentification ...
-type CreateHireWebsiteDeliveryByResumeReqResumeBasicInfoIdentification struct { 
-IdentificationNumber *string `json:"identification_number,omitempty"` // 身份证件号码示例值: "11002030131312312"
-IdentificationType *int64 `json:"identification_type,omitempty"` // 身份证件类型示例值: 1可选值有: 中国 - 居民身份证护照中国 - 港澳居民居住证中国 - 台湾居民来往大陆通行证其他中国 - 港澳居民来往内地通行证中国 - 台湾居民居住证
+type CreateHireWebsiteDeliveryByResumeReqResumeBasicInfoIdentification struct {
+	IdentificationNumber *string `json:"identification_number,omitempty"` // 身份证件号码示例值: "11002030131312312"
+	IdentificationType   *int64  `json:"identification_type,omitempty"`   // 身份证件类型示例值: 1可选值有: 中国 - 居民身份证护照中国 - 港澳居民居住证中国 - 台湾居民来往大陆通行证其他中国 - 港澳居民来往内地通行证中国 - 台湾居民居住证
 }
-
-
-
-
 
 // CreateHireWebsiteDeliveryByResumeReqResumeCareer ...
-type CreateHireWebsiteDeliveryByResumeReqResumeCareer struct { 
-Desc *string `json:"desc,omitempty"` // 工作经历描述示例值: "在抖音公司工作了5年, 表现优秀"
-EndTime *int64 `json:"end_time,omitempty"` // 结束时间, 毫秒时间戳, 如果是「至今」可传值 -1示例值: 1618500278667
-StartTime *int64 `json:"start_time,omitempty"` // 开始时间, 毫秒时间戳示例值: 1609430400000
-Title *string `json:"title,omitempty"` // 职位名称示例值: "后端研发工程师"
-Company *string `json:"company,omitempty"` // 公司示例值: "抖音公司"
-CustomizedData []*CreateHireWebsiteDeliveryByResumeReqResumeCareerCustomizedData `json:"customized_data,omitempty"` // 自定义字段
+type CreateHireWebsiteDeliveryByResumeReqResumeCareer struct {
+	Desc           *string                                                           `json:"desc,omitempty"`            // 工作经历描述示例值: "在抖音公司工作了5年, 表现优秀"
+	EndTime        *int64                                                            `json:"end_time,omitempty"`        // 结束时间, 毫秒时间戳, 如果是「至今」可传值 -1示例值: 1618500278667
+	StartTime      *int64                                                            `json:"start_time,omitempty"`      // 开始时间, 毫秒时间戳示例值: 1609430400000
+	Title          *string                                                           `json:"title,omitempty"`           // 职位名称示例值: "后端研发工程师"
+	Company        *string                                                           `json:"company,omitempty"`         // 公司示例值: "抖音公司"
+	CustomizedData []*CreateHireWebsiteDeliveryByResumeReqResumeCareerCustomizedData `json:"customized_data,omitempty"` // 自定义字段
 }
-
-
-
-
 
 // CreateHireWebsiteDeliveryByResumeReqResumeCareerCustomizedData ...
-type CreateHireWebsiteDeliveryByResumeReqResumeCareerCustomizedData struct { 
-ObjectID *string `json:"object_id,omitempty"` // 自定义字段 ID, 可通过[获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)获取示例值: "6960663240925956649"
-Value *string `json:"value,omitempty"` // 自定义字段值, 请参考本文「自定义字段数据格式说明」示例值: "AA"
+type CreateHireWebsiteDeliveryByResumeReqResumeCareerCustomizedData struct {
+	ObjectID *string `json:"object_id,omitempty"` // 自定义字段 ID, 可通过[获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)获取示例值: "6960663240925956649"
+	Value    *string `json:"value,omitempty"`     // 自定义字段值, 请参考本文「自定义字段数据格式说明」示例值: "AA"
 }
-
-
-
-
 
 // CreateHireWebsiteDeliveryByResumeReqResumeCustomizedData ...
-type CreateHireWebsiteDeliveryByResumeReqResumeCustomizedData struct { 
-ObjectID *string `json:"object_id,omitempty"` // 自定义模块ID, 可通过[获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)获取示例值: "6960663240925956651"
-Children []*CreateHireWebsiteDeliveryByResumeReqResumeCustomizedDataChildren `json:"children,omitempty"` // 字段列表
+type CreateHireWebsiteDeliveryByResumeReqResumeCustomizedData struct {
+	ObjectID *string                                                             `json:"object_id,omitempty"` // 自定义模块ID, 可通过[获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)获取示例值: "6960663240925956651"
+	Children []*CreateHireWebsiteDeliveryByResumeReqResumeCustomizedDataChildren `json:"children,omitempty"`  // 字段列表
 }
-
-
-
-
 
 // CreateHireWebsiteDeliveryByResumeReqResumeCustomizedDataChildren ...
-type CreateHireWebsiteDeliveryByResumeReqResumeCustomizedDataChildren struct { 
-ObjectID *string `json:"object_id,omitempty"` // 自定义字段 ID, 可通过[获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)获取示例值: "6960663240925956649"
-Value *string `json:"value,omitempty"` // 自定义字段值, 请参考本文「自定义字段数据格式说明」示例值: "AA"
+type CreateHireWebsiteDeliveryByResumeReqResumeCustomizedDataChildren struct {
+	ObjectID *string `json:"object_id,omitempty"` // 自定义字段 ID, 可通过[获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)获取示例值: "6960663240925956649"
+	Value    *string `json:"value,omitempty"`     // 自定义字段值, 请参考本文「自定义字段数据格式说明」示例值: "AA"
 }
-
-
-
-
 
 // CreateHireWebsiteDeliveryByResumeReqResumeEducation ...
-type CreateHireWebsiteDeliveryByResumeReqResumeEducation struct { 
-EducationType *int64 `json:"education_type,omitempty"` // 学历类型示例值: 1可选值有: 非中国大陆统招全日制非全日制自考其他
-EndTime *int64 `json:"end_time,omitempty"` // 结束时间, 毫秒时间戳, 如果是「至今」可传值 -1。请注意: 若传值-1, 投递创建成功后在系统中可正常查看, 但若编辑则需要填一个具体时间示例值: 1618500278663
-EndTimeV2 *int64 `json:"end_time_v2,omitempty"` // 结束时间（新）, 毫秒时间戳, 无「至今」传值。建议使用此字段, 避免模糊的毕业时间影响候选人筛选示例值: 1618500278663
-FieldOfStudy *string `json:"field_of_study,omitempty"` // 专业示例值: "汉语言文学"
-School *string `json:"school,omitempty"` // 学校示例值: "香港中文大学"
-StartTime *int64 `json:"start_time,omitempty"` // 开始时间, 毫秒时间戳示例值: 1609430400000
-AcademicRanking *int64 `json:"academic_ranking,omitempty"` // 专业排名示例值: 5可选值有: 前 5 %前 10 %前 20 %前 30 %前 50 %其他
-CustomizedData []*CreateHireWebsiteDeliveryByResumeReqResumeEducationCustomizedData `json:"customized_data,omitempty"` // 自定义字段
-Degree *int64 `json:"degree,omitempty"` // 学位示例值: 1可选值有: 小学初中专职高中大专本科硕士博士其他
+type CreateHireWebsiteDeliveryByResumeReqResumeEducation struct {
+	EducationType   *int64                                                               `json:"education_type,omitempty"`   // 学历类型示例值: 1可选值有: 非中国大陆统招全日制非全日制自考其他
+	EndTime         *int64                                                               `json:"end_time,omitempty"`         // 结束时间, 毫秒时间戳, 如果是「至今」可传值 -1。请注意: 若传值-1, 投递创建成功后在系统中可正常查看, 但若编辑则需要填一个具体时间示例值: 1618500278663
+	EndTimeV2       *int64                                                               `json:"end_time_v2,omitempty"`      // 结束时间（新）, 毫秒时间戳, 无「至今」传值。建议使用此字段, 避免模糊的毕业时间影响候选人筛选示例值: 1618500278663
+	FieldOfStudy    *string                                                              `json:"field_of_study,omitempty"`   // 专业示例值: "汉语言文学"
+	School          *string                                                              `json:"school,omitempty"`           // 学校示例值: "香港中文大学"
+	StartTime       *int64                                                               `json:"start_time,omitempty"`       // 开始时间, 毫秒时间戳示例值: 1609430400000
+	AcademicRanking *int64                                                               `json:"academic_ranking,omitempty"` // 专业排名示例值: 5可选值有: 前 5 %前 10 %前 20 %前 30 %前 50 %其他
+	CustomizedData  []*CreateHireWebsiteDeliveryByResumeReqResumeEducationCustomizedData `json:"customized_data,omitempty"`  // 自定义字段
+	Degree          *int64                                                               `json:"degree,omitempty"`           // 学位示例值: 1可选值有: 小学初中专职高中大专本科硕士博士其他
 }
-
-
-
-
 
 // CreateHireWebsiteDeliveryByResumeReqResumeEducationCustomizedData ...
-type CreateHireWebsiteDeliveryByResumeReqResumeEducationCustomizedData struct { 
-ObjectID *string `json:"object_id,omitempty"` // 自定义字段 ID, 可通过[获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)获取示例值: "6960663240925956649"
-Value *string `json:"value,omitempty"` // 自定义字段值, 请参考本文「自定义字段数据格式说明」示例值: "AA"
+type CreateHireWebsiteDeliveryByResumeReqResumeEducationCustomizedData struct {
+	ObjectID *string `json:"object_id,omitempty"` // 自定义字段 ID, 可通过[获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)获取示例值: "6960663240925956649"
+	Value    *string `json:"value,omitempty"`     // 自定义字段值, 请参考本文「自定义字段数据格式说明」示例值: "AA"
 }
-
-
-
-
 
 // CreateHireWebsiteDeliveryByResumeReqResumeInternship ...
-type CreateHireWebsiteDeliveryByResumeReqResumeInternship struct { 
-Desc *string `json:"desc,omitempty"` // 实习经历描述示例值: "在抖音工作实习3个月, 表现优秀"
-EndTime *int64 `json:"end_time,omitempty"` // 结束时间, 毫秒时间戳, 如果是「至今」可传值 -1示例值: 1618500278667
-StartTime *int64 `json:"start_time,omitempty"` // 开始时间, 毫秒时间戳示例值: 1609430400000
-Title *string `json:"title,omitempty"` // 职位名称示例值: "后端研发实习生"
-Company *string `json:"company,omitempty"` // 公司名称示例值: "抖音公司"
-CustomizedData []*CreateHireWebsiteDeliveryByResumeReqResumeInternshipCustomizedData `json:"customized_data,omitempty"` // 自定义字段
+type CreateHireWebsiteDeliveryByResumeReqResumeInternship struct {
+	Desc           *string                                                               `json:"desc,omitempty"`            // 实习经历描述示例值: "在抖音工作实习3个月, 表现优秀"
+	EndTime        *int64                                                                `json:"end_time,omitempty"`        // 结束时间, 毫秒时间戳, 如果是「至今」可传值 -1示例值: 1618500278667
+	StartTime      *int64                                                                `json:"start_time,omitempty"`      // 开始时间, 毫秒时间戳示例值: 1609430400000
+	Title          *string                                                               `json:"title,omitempty"`           // 职位名称示例值: "后端研发实习生"
+	Company        *string                                                               `json:"company,omitempty"`         // 公司名称示例值: "抖音公司"
+	CustomizedData []*CreateHireWebsiteDeliveryByResumeReqResumeInternshipCustomizedData `json:"customized_data,omitempty"` // 自定义字段
 }
-
-
-
-
 
 // CreateHireWebsiteDeliveryByResumeReqResumeInternshipCustomizedData ...
-type CreateHireWebsiteDeliveryByResumeReqResumeInternshipCustomizedData struct { 
-ObjectID *string `json:"object_id,omitempty"` // 自定义字段 ID, 可通过[获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)获取示例值: "6960663240925956649"
-Value *string `json:"value,omitempty"` // 自定义字段值, 请参考本文「自定义字段数据格式说明」示例值: "AA"
+type CreateHireWebsiteDeliveryByResumeReqResumeInternshipCustomizedData struct {
+	ObjectID *string `json:"object_id,omitempty"` // 自定义字段 ID, 可通过[获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)获取示例值: "6960663240925956649"
+	Value    *string `json:"value,omitempty"`     // 自定义字段值, 请参考本文「自定义字段数据格式说明」示例值: "AA"
 }
-
-
-
-
 
 // CreateHireWebsiteDeliveryByResumeReqResumeLanguage ...
-type CreateHireWebsiteDeliveryByResumeReqResumeLanguage struct { 
-CustomizedData []*CreateHireWebsiteDeliveryByResumeReqResumeLanguageCustomizedData `json:"customized_data,omitempty"` // 自定义字段
-Language *int64 `json:"language,omitempty"` // 语言示例值: 1可选值有: 英语法语日语韩语德语俄语西班牙语葡萄牙语阿拉伯语印地语印度斯坦语孟加拉语豪萨语旁遮普语波斯语斯瓦西里语泰卢固语土耳其语意大利语爪哇语泰米尔语马拉地语越南语普通话粤语
-Proficiency *int64 `json:"proficiency,omitempty"` // 熟悉程度示例值: 1可选值有: 入门日常会话商务会话无障碍沟通母语
+type CreateHireWebsiteDeliveryByResumeReqResumeLanguage struct {
+	CustomizedData []*CreateHireWebsiteDeliveryByResumeReqResumeLanguageCustomizedData `json:"customized_data,omitempty"` // 自定义字段
+	Language       *int64                                                              `json:"language,omitempty"`        // 语言示例值: 1可选值有: 英语法语日语韩语德语俄语西班牙语葡萄牙语阿拉伯语印地语印度斯坦语孟加拉语豪萨语旁遮普语波斯语斯瓦西里语泰卢固语土耳其语意大利语爪哇语泰米尔语马拉地语越南语普通话粤语
+	Proficiency    *int64                                                              `json:"proficiency,omitempty"`     // 熟悉程度示例值: 1可选值有: 入门日常会话商务会话无障碍沟通母语
 }
-
-
-
-
 
 // CreateHireWebsiteDeliveryByResumeReqResumeLanguageCustomizedData ...
-type CreateHireWebsiteDeliveryByResumeReqResumeLanguageCustomizedData struct { 
-ObjectID *string `json:"object_id,omitempty"` // 自定义字段 ID, 可通过[获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)获取示例值: "6960663240925956649"
-Value *string `json:"value,omitempty"` // 自定义字段值, 请参考本文「自定义字段数据格式说明」示例值: "AA"
+type CreateHireWebsiteDeliveryByResumeReqResumeLanguageCustomizedData struct {
+	ObjectID *string `json:"object_id,omitempty"` // 自定义字段 ID, 可通过[获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)获取示例值: "6960663240925956649"
+	Value    *string `json:"value,omitempty"`     // 自定义字段值, 请参考本文「自定义字段数据格式说明」示例值: "AA"
 }
-
-
-
-
 
 // CreateHireWebsiteDeliveryByResumeReqResumeProject ...
-type CreateHireWebsiteDeliveryByResumeReqResumeProject struct { 
-CustomizedData []*CreateHireWebsiteDeliveryByResumeReqResumeProjectCustomizedData `json:"customized_data,omitempty"` // 自定义字段
-Desc *string `json:"desc,omitempty"` // 项目描述示例值: "项目描述: 课程管理系统"
-EndTime *int64 `json:"end_time,omitempty"` // 结束时间, 毫秒时间戳, 如果是「至今」可传值-1示例值: 1618500278669
-Link *string `json:"link,omitempty"` // 项目链接示例值: "www.toutiao.com"
-Name *string `json:"name,omitempty"` // 项目名称示例值: "大学生课程设计"
-Role *string `json:"role,omitempty"` // 项目角色示例值: "核心开发"
-StartTime *int64 `json:"start_time,omitempty"` // 开始时间, 毫秒时间戳示例值: 1609430400000
+type CreateHireWebsiteDeliveryByResumeReqResumeProject struct {
+	CustomizedData []*CreateHireWebsiteDeliveryByResumeReqResumeProjectCustomizedData `json:"customized_data,omitempty"` // 自定义字段
+	Desc           *string                                                            `json:"desc,omitempty"`            // 项目描述示例值: "项目描述: 课程管理系统"
+	EndTime        *int64                                                             `json:"end_time,omitempty"`        // 结束时间, 毫秒时间戳, 如果是「至今」可传值-1示例值: 1618500278669
+	Link           *string                                                            `json:"link,omitempty"`            // 项目链接示例值: "www.toutiao.com"
+	Name           *string                                                            `json:"name,omitempty"`            // 项目名称示例值: "大学生课程设计"
+	Role           *string                                                            `json:"role,omitempty"`            // 项目角色示例值: "核心开发"
+	StartTime      *int64                                                             `json:"start_time,omitempty"`      // 开始时间, 毫秒时间戳示例值: 1609430400000
 }
-
-
-
-
 
 // CreateHireWebsiteDeliveryByResumeReqResumeProjectCustomizedData ...
-type CreateHireWebsiteDeliveryByResumeReqResumeProjectCustomizedData struct { 
-ObjectID *string `json:"object_id,omitempty"` // 自定义字段 ID, 可通过[获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)获取示例值: "6960663240925956649"
-Value *string `json:"value,omitempty"` // 自定义字段值, 请参考本文「自定义字段数据格式说明」示例值: "AA"
+type CreateHireWebsiteDeliveryByResumeReqResumeProjectCustomizedData struct {
+	ObjectID *string `json:"object_id,omitempty"` // 自定义字段 ID, 可通过[获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)获取示例值: "6960663240925956649"
+	Value    *string `json:"value,omitempty"`     // 自定义字段值, 请参考本文「自定义字段数据格式说明」示例值: "AA"
 }
-
-
-
-
 
 // CreateHireWebsiteDeliveryByResumeReqResumeSelfEvaluation ...
-type CreateHireWebsiteDeliveryByResumeReqResumeSelfEvaluation struct { 
-Content *string `json:"content,omitempty"` // 评价内容示例值: "自我评价: 平常心"
-CustomizedData []*CreateHireWebsiteDeliveryByResumeReqResumeSelfEvaluationCustomizedData `json:"customized_data,omitempty"` // 自定义字段
+type CreateHireWebsiteDeliveryByResumeReqResumeSelfEvaluation struct {
+	Content        *string                                                                   `json:"content,omitempty"`         // 评价内容示例值: "自我评价: 平常心"
+	CustomizedData []*CreateHireWebsiteDeliveryByResumeReqResumeSelfEvaluationCustomizedData `json:"customized_data,omitempty"` // 自定义字段
 }
-
-
-
-
 
 // CreateHireWebsiteDeliveryByResumeReqResumeSelfEvaluationCustomizedData ...
-type CreateHireWebsiteDeliveryByResumeReqResumeSelfEvaluationCustomizedData struct { 
-ObjectID *string `json:"object_id,omitempty"` // 自定义字段 ID, 可通过[获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)获取示例值: "6960663240925956649"
-Value *string `json:"value,omitempty"` // 自定义字段值, 请参考本文「自定义字段数据格式说明」示例值: "AA"
+type CreateHireWebsiteDeliveryByResumeReqResumeSelfEvaluationCustomizedData struct {
+	ObjectID *string `json:"object_id,omitempty"` // 自定义字段 ID, 可通过[获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)获取示例值: "6960663240925956649"
+	Value    *string `json:"value,omitempty"`     // 自定义字段值, 请参考本文「自定义字段数据格式说明」示例值: "AA"
 }
-
-
-
-
 
 // CreateHireWebsiteDeliveryByResumeReqResumeSns ...
-type CreateHireWebsiteDeliveryByResumeReqResumeSns struct { 
-SnsType *int64 `json:"sns_type,omitempty"` // 社交账号类型示例值: 1可选值有: 领英脉脉微信微博Github知乎脸书推特Whatsapp个人网站QQ
-CustomizedData []*CreateHireWebsiteDeliveryByResumeReqResumeSnsCustomizedData `json:"customized_data,omitempty"` // 自定义字段
-Link *string `json:"link,omitempty"` // 社交账号链接示例值: "www.toutiao.com"
+type CreateHireWebsiteDeliveryByResumeReqResumeSns struct {
+	SnsType        *int64                                                         `json:"sns_type,omitempty"`        // 社交账号类型示例值: 1可选值有: 领英脉脉微信微博Github知乎脸书推特Whatsapp个人网站QQ
+	CustomizedData []*CreateHireWebsiteDeliveryByResumeReqResumeSnsCustomizedData `json:"customized_data,omitempty"` // 自定义字段
+	Link           *string                                                        `json:"link,omitempty"`            // 社交账号链接示例值: "www.toutiao.com"
 }
-
-
-
-
 
 // CreateHireWebsiteDeliveryByResumeReqResumeSnsCustomizedData ...
-type CreateHireWebsiteDeliveryByResumeReqResumeSnsCustomizedData struct { 
-ObjectID *string `json:"object_id,omitempty"` // 自定义字段 ID, 可通过[获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)获取示例值: "6960663240925956649"
-Value *string `json:"value,omitempty"` // 自定义字段值, 请参考本文「自定义字段数据格式说明」示例值: "AA"
+type CreateHireWebsiteDeliveryByResumeReqResumeSnsCustomizedData struct {
+	ObjectID *string `json:"object_id,omitempty"` // 自定义字段 ID, 可通过[获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)获取示例值: "6960663240925956649"
+	Value    *string `json:"value,omitempty"`     // 自定义字段值, 请参考本文「自定义字段数据格式说明」示例值: "AA"
 }
-
-
-
-
 
 // CreateHireWebsiteDeliveryByResumeReqResumeWorks ...
-type CreateHireWebsiteDeliveryByResumeReqResumeWorks struct { 
-Desc *string `json:"desc,omitempty"` // 作品描述示例值: "作品描述: 研究生阶段发表了顶刊论文"
-Link *string `json:"link,omitempty"` // 作品链接示例值: "www.toutiao.com"
-Attachment *CreateHireWebsiteDeliveryByResumeReqResumeWorksAttachment `json:"attachment,omitempty"` // 附件
-CustomizedData []*CreateHireWebsiteDeliveryByResumeReqResumeWorksCustomizedData `json:"customized_data,omitempty"` // 自定义字段
+type CreateHireWebsiteDeliveryByResumeReqResumeWorks struct {
+	Desc           *string                                                          `json:"desc,omitempty"`            // 作品描述示例值: "作品描述: 研究生阶段发表了顶刊论文"
+	Link           *string                                                          `json:"link,omitempty"`            // 作品链接示例值: "www.toutiao.com"
+	Attachment     *CreateHireWebsiteDeliveryByResumeReqResumeWorksAttachment       `json:"attachment,omitempty"`      // 附件
+	CustomizedData []*CreateHireWebsiteDeliveryByResumeReqResumeWorksCustomizedData `json:"customized_data,omitempty"` // 自定义字段
 }
-
-
-
-
 
 // CreateHireWebsiteDeliveryByResumeReqResumeWorksAttachment ...
-type CreateHireWebsiteDeliveryByResumeReqResumeWorksAttachment struct { 
-FileID *string `json:"file_id,omitempty"` // 文件ID, 需通过[创建附件](https://open.feishu.cn/document/ukTMukTMukTM/uIDN1YjLyQTN24iM0UjN/create_attachment)生成示例值: "6982104077248219436"
+type CreateHireWebsiteDeliveryByResumeReqResumeWorksAttachment struct {
+	FileID *string `json:"file_id,omitempty"` // 文件ID, 需通过[创建附件](https://open.feishu.cn/document/ukTMukTMukTM/uIDN1YjLyQTN24iM0UjN/create_attachment)生成示例值: "6982104077248219436"
 }
-
-
-
-
 
 // CreateHireWebsiteDeliveryByResumeReqResumeWorksCustomizedData ...
-type CreateHireWebsiteDeliveryByResumeReqResumeWorksCustomizedData struct { 
-ObjectID *string `json:"object_id,omitempty"` // 自定义字段 ID, 可通过[获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)获取示例值: "6960663240925956649"
-Value *string `json:"value,omitempty"` // 自定义字段值, 请参考本文「自定义字段数据格式说明」示例值: "AA"
+type CreateHireWebsiteDeliveryByResumeReqResumeWorksCustomizedData struct {
+	ObjectID *string `json:"object_id,omitempty"` // 自定义字段 ID, 可通过[获取人才字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent_object/query)获取示例值: "6960663240925956649"
+	Value    *string `json:"value,omitempty"`     // 自定义字段值, 请参考本文「自定义字段数据格式说明」示例值: "AA"
 }
-
-
-
-
 
 // CreateHireWebsiteDeliveryByResumeResp ...
-type CreateHireWebsiteDeliveryByResumeResp struct { 
-Delivery *CreateHireWebsiteDeliveryByResumeRespDelivery `json:"delivery,omitempty"` // 官网投递信息
+type CreateHireWebsiteDeliveryByResumeResp struct {
+	Delivery *CreateHireWebsiteDeliveryByResumeRespDelivery `json:"delivery,omitempty"` // 官网投递信息
 }
-
-
-
-
 
 // CreateHireWebsiteDeliveryByResumeRespDelivery ...
-type CreateHireWebsiteDeliveryByResumeRespDelivery struct { 
-ApplicationID string `json:"application_id,omitempty"` // 招聘投递 ID, 可通过[获取投递信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get)获取详细信息
-ID string `json:"id,omitempty"` // 官网投递ID
-JobID string `json:"job_id,omitempty"` // 职位 ID
-JobPostID string `json:"job_post_id,omitempty"` // 职位广告 ID
-PortalResumeID string `json:"portal_resume_id,omitempty"` // 简历 ID
-UserID string `json:"user_id,omitempty"` // 官网用户 ID
-TalentID string `json:"talent_id,omitempty"` // 人才 ID, 详情可参考[获取人才信息 ](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/hire-v2/talent/get)
+type CreateHireWebsiteDeliveryByResumeRespDelivery struct {
+	ApplicationID  string `json:"application_id,omitempty"`   // 招聘投递 ID, 可通过[获取投递信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/get)获取详细信息
+	ID             string `json:"id,omitempty"`               // 官网投递ID
+	JobID          string `json:"job_id,omitempty"`           // 职位 ID
+	JobPostID      string `json:"job_post_id,omitempty"`      // 职位广告 ID
+	PortalResumeID string `json:"portal_resume_id,omitempty"` // 简历 ID
+	UserID         string `json:"user_id,omitempty"`          // 官网用户 ID
+	TalentID       string `json:"talent_id,omitempty"`        // 人才 ID, 详情可参考[获取人才信息 ](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/hire-v2/talent/get)
 }
-
-
-
-
 
 // createHireWebsiteDeliveryByResumeResp ...
-type createHireWebsiteDeliveryByResumeResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateHireWebsiteDeliveryByResumeResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createHireWebsiteDeliveryByResumeResp struct {
+	Code  int64                                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                 `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateHireWebsiteDeliveryByResumeResp `json:"data,omitempty"`
+	Error *ErrorDetail                           `json:"error,omitempty"`
 }
-
-
-
-

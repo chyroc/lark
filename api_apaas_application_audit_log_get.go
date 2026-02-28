@@ -18,28 +18,26 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // GetApaasApplicationAuditLog 根据日志 ID 查询审计日志详情
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/application-audit_log/get
-// 
 func (r *ApaasService) GetApaasApplicationAuditLog(ctx context.Context, request *GetApaasApplicationAuditLogReq, options ...MethodOptionFunc) (*GetApaasApplicationAuditLogResp, *Response, error) {
-if r.cli.mock.mockApaasGetApaasApplicationAuditLog != nil {
+	if r.cli.mock.mockApaasGetApaasApplicationAuditLog != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Apaas#GetApaasApplicationAuditLog mock enable")
 		return r.cli.mock.mockApaasGetApaasApplicationAuditLog(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "Apaas",
-		API:                   "GetApaasApplicationAuditLog",
-		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/apaas/v1/applications/:namespace/audit_log",
-		Body:                  request,
-		MethodOption:          newMethodOption(options),
- NeedUserAccessToken: true,
-
+		Scope:               "Apaas",
+		API:                 "GetApaasApplicationAuditLog",
+		Method:              "GET",
+		URL:                 r.cli.openBaseURL + "/open-apis/apaas/v1/applications/:namespace/audit_log",
+		Body:                request,
+		MethodOption:        newMethodOption(options),
+		NeedUserAccessToken: true,
 	}
 	resp := new(getApaasApplicationAuditLogResp)
 
@@ -51,134 +49,94 @@ if r.cli.mock.mockApaasGetApaasApplicationAuditLog != nil {
 func (r *Mock) MockApaasGetApaasApplicationAuditLog(f func(ctx context.Context, request *GetApaasApplicationAuditLogReq, options ...MethodOptionFunc) (*GetApaasApplicationAuditLogResp, *Response, error)) {
 	r.mockApaasGetApaasApplicationAuditLog = f
 }
+
 // UnMockApaasGetApaasApplicationAuditLog un-mock ApaasGetApaasApplicationAuditLog method
 func (r *Mock) UnMockApaasGetApaasApplicationAuditLog() {
 	r.mockApaasGetApaasApplicationAuditLog = nil
 }
 
-
 // GetApaasApplicationAuditLogReq ...
-type GetApaasApplicationAuditLogReq struct { 
-Namespace string `path:"namespace" json:"-"` // 应用命名空间示例值: "package_aaa" 长度范围: `0` ～ `1000` 字符
-LogID string `query:"log_id" json:"-"` // 审计日志ID信息（通过[查询审计日志列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/application-audit_log/audit_log_list)获取单条日志ID）示例值: 7405456257290600492 长度范围: `0` ～ `1000` 字符
+type GetApaasApplicationAuditLogReq struct {
+	Namespace string `path:"namespace" json:"-"` // 应用命名空间示例值: "package_aaa" 长度范围: `0` ～ `1000` 字符
+	LogID     string `query:"log_id" json:"-"`   // 审计日志ID信息（通过[查询审计日志列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/application-audit_log/audit_log_list)获取单条日志ID）示例值: 7405456257290600492 长度范围: `0` ～ `1000` 字符
 }
-
-
-
-
 
 // GetApaasApplicationAuditLogResp ...
-type GetApaasApplicationAuditLogResp struct { 
-Data *GetApaasApplicationAuditLogRespData `json:"data,omitempty"` // 审计日志详情信息
+type GetApaasApplicationAuditLogResp struct {
+	Data *GetApaasApplicationAuditLogRespData `json:"data,omitempty"` // 审计日志详情信息
 }
-
-
-
-
 
 // GetApaasApplicationAuditLogRespData ...
-type GetApaasApplicationAuditLogRespData struct { 
-LogID string `json:"log_id,omitempty"` // 审计日志ID
-BasicInfo *GetApaasApplicationAuditLogRespDataBasicInfo `json:"basic_info,omitempty"` // 日志基础信息
-OpInfo *GetApaasApplicationAuditLogRespDataOpInfo `json:"op_info,omitempty"` // 审计日志操作信息
-LoginInfo *GetApaasApplicationAuditLogRespDataLoginInfo `json:"login_info,omitempty"` // 登录类型信息
-DeviceInfo *GetApaasApplicationAuditLogRespDataDeviceInfo `json:"device_info,omitempty"` // 设备信息
-NetInfo *GetApaasApplicationAuditLogRespDataNetInfo `json:"net_info,omitempty"` // 网络信息
+type GetApaasApplicationAuditLogRespData struct {
+	LogID      string                                         `json:"log_id,omitempty"`      // 审计日志ID
+	BasicInfo  *GetApaasApplicationAuditLogRespDataBasicInfo  `json:"basic_info,omitempty"`  // 日志基础信息
+	OpInfo     *GetApaasApplicationAuditLogRespDataOpInfo     `json:"op_info,omitempty"`     // 审计日志操作信息
+	LoginInfo  *GetApaasApplicationAuditLogRespDataLoginInfo  `json:"login_info,omitempty"`  // 登录类型信息
+	DeviceInfo *GetApaasApplicationAuditLogRespDataDeviceInfo `json:"device_info,omitempty"` // 设备信息
+	NetInfo    *GetApaasApplicationAuditLogRespDataNetInfo    `json:"net_info,omitempty"`    // 网络信息
 }
-
-
-
-
 
 // GetApaasApplicationAuditLogRespDataBasicInfo ...
-type GetApaasApplicationAuditLogRespDataBasicInfo struct { 
-LogType string `json:"log_type,omitempty"` // 日志类型: 10000: 全部日志- 10001: 企业管理日志- 10002: 登录日志- 10003: 应用管理日志
-AuditScope string `json:"audit_scope,omitempty"` // 审计域: 15001: 企业管理后台- 15002: 应用管理后台- 15003: 应用开发平台
-EnvType string `json:"env_type,omitempty"` // 环境类型: 16001: 沙箱环境- 16003: 线上环境
-AppID string `json:"app_id,omitempty"` // 应用id
-Module string `json:"module,omitempty"` // 审计日志功能模块
-OpType string `json:"op_type,omitempty"` // 事件类型
-AppName interface{} `json:"app_name,omitempty"` // 应用名称
+type GetApaasApplicationAuditLogRespDataBasicInfo struct {
+	LogType    string      `json:"log_type,omitempty"`    // 日志类型: 10000: 全部日志- 10001: 企业管理日志- 10002: 登录日志- 10003: 应用管理日志
+	AuditScope string      `json:"audit_scope,omitempty"` // 审计域: 15001: 企业管理后台- 15002: 应用管理后台- 15003: 应用开发平台
+	EnvType    string      `json:"env_type,omitempty"`    // 环境类型: 16001: 沙箱环境- 16003: 线上环境
+	AppID      string      `json:"app_id,omitempty"`      // 应用id
+	Module     string      `json:"module,omitempty"`      // 审计日志功能模块
+	OpType     string      `json:"op_type,omitempty"`     // 事件类型
+	AppName    interface{} `json:"app_name,omitempty"`    // 应用名称
 }
-
-
-
-
 
 // GetApaasApplicationAuditLogRespDataDeviceInfo ...
-type GetApaasApplicationAuditLogRespDataDeviceInfo struct { 
-DeviceID string `json:"device_id,omitempty"` // 设备ID
-WebDeviceID string `json:"web_device_id,omitempty"` // web端设备ID
-TerminalType string `json:"terminal_type,omitempty"` // 终端类型: 13002: PC类型- 13003: Web类型
-OsType string `json:"os_type,omitempty"` // 系统类型: 14002: window- 14001: 未知
-OsVersion string `json:"os_version,omitempty"` // 系统版本
+type GetApaasApplicationAuditLogRespDataDeviceInfo struct {
+	DeviceID     string `json:"device_id,omitempty"`     // 设备ID
+	WebDeviceID  string `json:"web_device_id,omitempty"` // web端设备ID
+	TerminalType string `json:"terminal_type,omitempty"` // 终端类型: 13002: PC类型- 13003: Web类型
+	OsType       string `json:"os_type,omitempty"`       // 系统类型: 14002: window- 14001: 未知
+	OsVersion    string `json:"os_version,omitempty"`    // 系统版本
 }
-
-
-
-
 
 // GetApaasApplicationAuditLogRespDataLoginInfo ...
-type GetApaasApplicationAuditLogRespDataLoginInfo struct { 
-LoginType string `json:"login_type,omitempty"` // 登录类型: 11001: 飞书登录- 11003: 账号密码登录
+type GetApaasApplicationAuditLogRespDataLoginInfo struct {
+	LoginType string `json:"login_type,omitempty"` // 登录类型: 11001: 飞书登录- 11003: 账号密码登录
 }
-
-
-
-
 
 // GetApaasApplicationAuditLogRespDataNetInfo ...
-type GetApaasApplicationAuditLogRespDataNetInfo struct { 
-ClientIp string `json:"client_ip,omitempty"` // 客户端IP
-IpLoc string `json:"ip_loc,omitempty"` // IP位置
-IpProvider string `json:"ip_provider,omitempty"` // IP提供商
-Referer string `json:"referer,omitempty"` // 引用页面
-Origin string `json:"origin,omitempty"` // 源页面
-UserAgent string `json:"user_agent,omitempty"` // 用户代理
+type GetApaasApplicationAuditLogRespDataNetInfo struct {
+	ClientIp   string `json:"client_ip,omitempty"`   // 客户端IP
+	IpLoc      string `json:"ip_loc,omitempty"`      // IP位置
+	IpProvider string `json:"ip_provider,omitempty"` // IP提供商
+	Referer    string `json:"referer,omitempty"`     // 引用页面
+	Origin     string `json:"origin,omitempty"`      // 源页面
+	UserAgent  string `json:"user_agent,omitempty"`  // 用户代理
 }
-
-
-
-
 
 // GetApaasApplicationAuditLogRespDataOpInfo ...
-type GetApaasApplicationAuditLogRespDataOpInfo struct { 
-Operator *GetApaasApplicationAuditLogRespDataOpInfoOperator `json:"operator,omitempty"` // 操作人
-Outsider bool `json:"outsider,omitempty"` // 是否为外部用户, true代表是外部用户
-OpDetail interface{} `json:"op_detail,omitempty"` // 操作详情内容
-Status string `json:"status,omitempty"` // 操作状态: 18001-成功；18002-失败
-FailedReason string `json:"failed_reason,omitempty"` // 失败原因
-FailedReasonI18n interface{} `json:"failed_reason_i18n,omitempty"` // 多语类型失败原因
-OpTime string `json:"op_time,omitempty"` // 操作时间
-DataObject string `json:"data_object,omitempty"` // 数据对象
-OpSource string `json:"op_source,omitempty"` // 操作源: 20001-前端；20004-openapi
-DataChanges []string `json:"data_changes,omitempty"` // 数据变化(旧值和新值)
+type GetApaasApplicationAuditLogRespDataOpInfo struct {
+	Operator         *GetApaasApplicationAuditLogRespDataOpInfoOperator `json:"operator,omitempty"`           // 操作人
+	Outsider         bool                                               `json:"outsider,omitempty"`           // 是否为外部用户, true代表是外部用户
+	OpDetail         interface{}                                        `json:"op_detail,omitempty"`          // 操作详情内容
+	Status           string                                             `json:"status,omitempty"`             // 操作状态: 18001-成功；18002-失败
+	FailedReason     string                                             `json:"failed_reason,omitempty"`      // 失败原因
+	FailedReasonI18n interface{}                                        `json:"failed_reason_i18n,omitempty"` // 多语类型失败原因
+	OpTime           string                                             `json:"op_time,omitempty"`            // 操作时间
+	DataObject       string                                             `json:"data_object,omitempty"`        // 数据对象
+	OpSource         string                                             `json:"op_source,omitempty"`          // 操作源: 20001-前端；20004-openapi
+	DataChanges      []string                                           `json:"data_changes,omitempty"`       // 数据变化(旧值和新值)
 }
-
-
-
-
 
 // GetApaasApplicationAuditLogRespDataOpInfoOperator ...
-type GetApaasApplicationAuditLogRespDataOpInfoOperator struct { 
-ID string `json:"id,omitempty"` // 用户ID
-Name string `json:"name,omitempty"` // 用户名称
-TenantID string `json:"tenant_id,omitempty"` // 租户ID
-Email string `json:"email,omitempty"` // 用户邮箱
+type GetApaasApplicationAuditLogRespDataOpInfoOperator struct {
+	ID       string `json:"id,omitempty"`        // 用户ID
+	Name     string `json:"name,omitempty"`      // 用户名称
+	TenantID string `json:"tenant_id,omitempty"` // 租户ID
+	Email    string `json:"email,omitempty"`     // 用户邮箱
 }
-
-
-
-
 
 // getApaasApplicationAuditLogResp ...
-type getApaasApplicationAuditLogResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *GetApaasApplicationAuditLogResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type getApaasApplicationAuditLogResp struct {
+	Code  int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                           `json:"msg,omitempty"`  // 错误描述
+	Data  *GetApaasApplicationAuditLogResp `json:"data,omitempty"`
+	Error *ErrorDetail                     `json:"error,omitempty"`
 }
-
-
-
-

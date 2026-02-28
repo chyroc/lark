@@ -18,8 +18,8 @@
 package lark
 
 import (
-"context"
-"io"
+	"context"
+	"io"
 )
 
 // GetMinutesMinuteTranscript 获取妙记的对话文本
@@ -27,9 +27,8 @@ import (
 // 通过接口下载妙记文本, 以进行批量下载
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/minutes-v1/minute-transcript/get
-// 
 func (r *MinutesService) GetMinutesMinuteTranscript(ctx context.Context, request *GetMinutesMinuteTranscriptReq, options ...MethodOptionFunc) (*GetMinutesMinuteTranscriptResp, *Response, error) {
-if r.cli.mock.mockMinutesGetMinutesMinuteTranscript != nil {
+	if r.cli.mock.mockMinutesGetMinutesMinuteTranscript != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Minutes#GetMinutesMinuteTranscript mock enable")
 		return r.cli.mock.mockMinutesGetMinutesMinuteTranscript(ctx, request, options...)
 	}
@@ -38,12 +37,11 @@ if r.cli.mock.mockMinutesGetMinutesMinuteTranscript != nil {
 		Scope:                 "Minutes",
 		API:                   "GetMinutesMinuteTranscript",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/minutes/v1/minutes/:minute_token/transcript",
+		URL:                   r.cli.openBaseURL + "/open-apis/minutes/v1/minutes/:minute_token/transcript",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(getMinutesMinuteTranscriptResp)
 
@@ -55,34 +53,27 @@ if r.cli.mock.mockMinutesGetMinutesMinuteTranscript != nil {
 func (r *Mock) MockMinutesGetMinutesMinuteTranscript(f func(ctx context.Context, request *GetMinutesMinuteTranscriptReq, options ...MethodOptionFunc) (*GetMinutesMinuteTranscriptResp, *Response, error)) {
 	r.mockMinutesGetMinutesMinuteTranscript = f
 }
+
 // UnMockMinutesGetMinutesMinuteTranscript un-mock MinutesGetMinutesMinuteTranscript method
 func (r *Mock) UnMockMinutesGetMinutesMinuteTranscript() {
 	r.mockMinutesGetMinutesMinuteTranscript = nil
 }
 
-
 // GetMinutesMinuteTranscriptReq ...
-type GetMinutesMinuteTranscriptReq struct { 
-MinuteToken string `path:"minute_token" json:"-"` // 妙记唯一标识。可从妙记的 URL 链接中获取, 一般为最后一串字符: https://sample.feishu.cn/minutes/[obcnq3b9jl72l83w4f14xxxx]示例值: "obcnq3b9jl72l83w4f149w9c" 长度范围: `24` ～ `24` 字符
-NeedSpeaker *bool `query:"need_speaker" json:"-"` // 是否包含说话人示例值: true
-NeedTimestamp *bool `query:"need_timestamp" json:"-"` // 是否包含时间戳示例值: true
-FileFormat *string `query:"file_format" json:"-"` // 导出文件格式示例值: txt；srt
+type GetMinutesMinuteTranscriptReq struct {
+	MinuteToken   string  `path:"minute_token" json:"-"`    // 妙记唯一标识。可从妙记的 URL 链接中获取, 一般为最后一串字符: https://sample.feishu.cn/minutes/[obcnq3b9jl72l83w4f14xxxx]示例值: "obcnq3b9jl72l83w4f149w9c" 长度范围: `24` ～ `24` 字符
+	NeedSpeaker   *bool   `query:"need_speaker" json:"-"`   // 是否包含说话人示例值: true
+	NeedTimestamp *bool   `query:"need_timestamp" json:"-"` // 是否包含时间戳示例值: true
+	FileFormat    *string `query:"file_format" json:"-"`    // 导出文件格式示例值: txt；srt
 }
-
-
-
-
 
 // getMinutesMinuteTranscriptResp ...
-type getMinutesMinuteTranscriptResp struct { 
-Code int64 `json:"code,omitempty"` 
-Msg string `json:"msg,omitempty"` 
-Data *GetMinutesMinuteTranscriptResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type getMinutesMinuteTranscriptResp struct {
+	Code  int64                           `json:"code,omitempty"`
+	Msg   string                          `json:"msg,omitempty"`
+	Data  *GetMinutesMinuteTranscriptResp `json:"data,omitempty"`
+	Error *ErrorDetail                    `json:"error,omitempty"`
 }
-
-
-
 
 func (r *getMinutesMinuteTranscriptResp) SetReader(file io.Reader) {
 	if r.Data == nil {
@@ -91,10 +82,7 @@ func (r *getMinutesMinuteTranscriptResp) SetReader(file io.Reader) {
 	r.Data.File = file
 }
 
-
-
 // GetMinutesMinuteTranscriptResp ...
 type GetMinutesMinuteTranscriptResp struct {
 	File io.Reader `json:"file,omitempty"`
- }
-
+}

@@ -15,9 +15,11 @@ import (
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
-var _ = proto.Marshal
-var _ = fmt.Errorf
-var _ = math.Inf
+var (
+	_ = proto.Marshal
+	_ = fmt.Errorf
+	_ = math.Inf
+)
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the proto package it is being compiled against.
@@ -36,9 +38,11 @@ func (*Header) ProtoMessage()    {}
 func (*Header) Descriptor() ([]byte, []int) {
 	return fileDescriptor_05d5aa6290a36d5d, []int{0}
 }
+
 func (m *Header) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
+
 func (m *Header) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
 		return xxx_messageInfo_Header.Marshal(b, m, deterministic)
@@ -51,12 +55,15 @@ func (m *Header) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 		return b[:n], nil
 	}
 }
+
 func (m *Header) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_Header.Merge(m, src)
 }
+
 func (m *Header) XXX_Size() int {
 	return m.Size()
 }
+
 func (m *Header) XXX_DiscardUnknown() {
 	xxx_messageInfo_Header.DiscardUnknown(m)
 }
@@ -96,9 +103,11 @@ func (*Frame) ProtoMessage()    {}
 func (*Frame) Descriptor() ([]byte, []int) {
 	return fileDescriptor_05d5aa6290a36d5d, []int{1}
 }
+
 func (m *Frame) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
+
 func (m *Frame) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
 		return xxx_messageInfo_Frame.Marshal(b, m, deterministic)
@@ -111,12 +120,15 @@ func (m *Frame) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 		return b[:n], nil
 	}
 }
+
 func (m *Frame) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_Frame.Merge(m, src)
 }
+
 func (m *Frame) XXX_Size() int {
 	return m.Size()
 }
+
 func (m *Frame) XXX_DiscardUnknown() {
 	xxx_messageInfo_Frame.DiscardUnknown(m)
 }
@@ -329,6 +341,7 @@ func encodeVarintPbbp2(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return base
 }
+
 func (m *Header) Size() (n int) {
 	if m == nil {
 		return 0
@@ -374,9 +387,11 @@ func (m *Frame) Size() (n int) {
 func sovPbbp2(x uint64) (n int) {
 	return (math_bits.Len64(x|1) + 6) / 7
 }
+
 func sozPbbp2(x uint64) (n int) {
 	return sovPbbp2(uint64((x << 1) ^ uint64((int64(x) >> 63))))
 }
+
 func (m *Header) Unmarshal(dAtA []byte) error {
 	var hasFields [1]uint64
 	l := len(dAtA)
@@ -500,6 +515,7 @@ func (m *Header) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
+
 func (m *Frame) Unmarshal(dAtA []byte) error {
 	var hasFields [1]uint64
 	l := len(dAtA)
@@ -807,6 +823,7 @@ func (m *Frame) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
+
 func skipPbbp2(dAtA []byte) (n int, err error) {
 	l := len(dAtA)
 	iNdEx := 0

@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateAilyAppSkillStart 该 API 用于调用某个 Aily 应用的特定技能, 支持指定技能入参；并同步返回技能执行的结果。
@@ -30,9 +30,8 @@ import (
 // <img src="https://lf3-static.bytednsdoc.com/obj/eden-cn/10eh7pbovhfnuhd/aily_skill_intro.png?x-resource-account=public" width="600" />
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/aily-v1/app-skill/start
-// 
 func (r *AilyService) CreateAilyAppSkillStart(ctx context.Context, request *CreateAilyAppSkillStartReq, options ...MethodOptionFunc) (*CreateAilyAppSkillStartResp, *Response, error) {
-if r.cli.mock.mockAilyCreateAilyAppSkillStart != nil {
+	if r.cli.mock.mockAilyCreateAilyAppSkillStart != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Aily#CreateAilyAppSkillStart mock enable")
 		return r.cli.mock.mockAilyCreateAilyAppSkillStart(ctx, request, options...)
 	}
@@ -41,12 +40,11 @@ if r.cli.mock.mockAilyCreateAilyAppSkillStart != nil {
 		Scope:                 "Aily",
 		API:                   "CreateAilyAppSkillStart",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/aily/v1/apps/:app_id/skills/:skill_id/start",
+		URL:                   r.cli.openBaseURL + "/open-apis/aily/v1/apps/:app_id/skills/:skill_id/start",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(createAilyAppSkillStartResp)
 
@@ -58,63 +56,43 @@ if r.cli.mock.mockAilyCreateAilyAppSkillStart != nil {
 func (r *Mock) MockAilyCreateAilyAppSkillStart(f func(ctx context.Context, request *CreateAilyAppSkillStartReq, options ...MethodOptionFunc) (*CreateAilyAppSkillStartResp, *Response, error)) {
 	r.mockAilyCreateAilyAppSkillStart = f
 }
+
 // UnMockAilyCreateAilyAppSkillStart un-mock AilyCreateAilyAppSkillStart method
 func (r *Mock) UnMockAilyCreateAilyAppSkillStart() {
 	r.mockAilyCreateAilyAppSkillStart = nil
 }
 
-
 // CreateAilyAppSkillStartReq ...
-type CreateAilyAppSkillStartReq struct { 
-XAilyBizUserID *string `header:"X-Aily-BizUserID" json:"-"` // 标识创建会话的唯一用户 ID>  建议使用唯一内部 ID 或其他可标识用户唯一身份的字段（如飞书账号的 `user_id`）, 可用于分析来自 API 的具体用户示例值: "ou_5ad573a6411d72b8305fda3a9c15c70e" 长度范围: `0` ～ `255` 字符
-AppID string `path:"app_id" json:"-"` // Aily 应用 ID（`spring_xxx__c`）, 可以在 Aily 应用开发页面的浏览器地址里获取示例值: "spring_e7004f87f1__c" 长度范围: `0` ～ `64` 字符
-SkillID string `path:"skill_id" json:"-"` // 技能 ID；可通过技能编辑页面的浏览器地址栏获取（`skill_xxx`）示例值: "skill_6cc6166178ca" 长度范围: `0` ～ `32` 字符
-GlobalVariable *CreateAilyAppSkillStartReqGlobalVariable `json:"global_variable,omitempty"` // 技能的全局变量
-Input *string `json:"input,omitempty"` // 技能的自定义变量示例值: "{\"custom_string\":\"my string\", \"custom_integer\":22}" 长度范围: `0` ～ `40960` 字符
+type CreateAilyAppSkillStartReq struct {
+	XAilyBizUserID *string                                   `header:"X-Aily-BizUserID" json:"-"` // 标识创建会话的唯一用户 ID>  建议使用唯一内部 ID 或其他可标识用户唯一身份的字段（如飞书账号的 `user_id`）, 可用于分析来自 API 的具体用户示例值: "ou_5ad573a6411d72b8305fda3a9c15c70e" 长度范围: `0` ～ `255` 字符
+	AppID          string                                    `path:"app_id" json:"-"`             // Aily 应用 ID（`spring_xxx__c`）, 可以在 Aily 应用开发页面的浏览器地址里获取示例值: "spring_e7004f87f1__c" 长度范围: `0` ～ `64` 字符
+	SkillID        string                                    `path:"skill_id" json:"-"`           // 技能 ID；可通过技能编辑页面的浏览器地址栏获取（`skill_xxx`）示例值: "skill_6cc6166178ca" 长度范围: `0` ～ `32` 字符
+	GlobalVariable *CreateAilyAppSkillStartReqGlobalVariable `json:"global_variable,omitempty"`   // 技能的全局变量
+	Input          *string                                   `json:"input,omitempty"`             // 技能的自定义变量示例值: "{\"custom_string\":\"my string\", \"custom_integer\":22}" 长度范围: `0` ～ `40960` 字符
 }
-
-
-
-
 
 // CreateAilyAppSkillStartReqGlobalVariable ...
-type CreateAilyAppSkillStartReqGlobalVariable struct { 
-Query *string `json:"query,omitempty"` // 触发技能的消息文本；即用户在飞书机器人等渠道对话输入的内容示例值: "你好" 长度范围: `0` ～ `40960` 字符
-Files []string `json:"files,omitempty"` // 触发技能的文件信息（如 OCR 节点等所需消费的图片文件）> 如技能不需要文件, `files` 参数传空即可示例值: ["file_4d9nu1ev3a2rq"] 长度范围: `0` ～ `32`
-Channel *CreateAilyAppSkillStartReqGlobalVariableChannel `json:"channel,omitempty"` // 渠道信息
+type CreateAilyAppSkillStartReqGlobalVariable struct {
+	Query   *string                                          `json:"query,omitempty"`   // 触发技能的消息文本；即用户在飞书机器人等渠道对话输入的内容示例值: "你好" 长度范围: `0` ～ `40960` 字符
+	Files   []string                                         `json:"files,omitempty"`   // 触发技能的文件信息（如 OCR 节点等所需消费的图片文件）> 如技能不需要文件, `files` 参数传空即可示例值: ["file_4d9nu1ev3a2rq"] 长度范围: `0` ～ `32`
+	Channel *CreateAilyAppSkillStartReqGlobalVariableChannel `json:"channel,omitempty"` // 渠道信息
 }
-
-
-
-
 
 // CreateAilyAppSkillStartReqGlobalVariableChannel ...
-type CreateAilyAppSkillStartReqGlobalVariableChannel struct { 
-Variables *string `json:"variables,omitempty"` // 自定义传入的变量；可在 Workflow 技能全局变量中消费示例值: "{"custom_key": "custom_value"}" 长度范围: `0` ～ `255` 字符
+type CreateAilyAppSkillStartReqGlobalVariableChannel struct {
+	Variables *string `json:"variables,omitempty"` // 自定义传入的变量；可在 Workflow 技能全局变量中消费示例值: "{"custom_key": "custom_value"}" 长度范围: `0` ～ `255` 字符
 }
-
-
-
-
 
 // CreateAilyAppSkillStartResp ...
-type CreateAilyAppSkillStartResp struct { 
-Output string `json:"output,omitempty"` // 技能的输出
-Status string `json:"status,omitempty"` // 技能的执行状态
+type CreateAilyAppSkillStartResp struct {
+	Output string `json:"output,omitempty"` // 技能的输出
+	Status string `json:"status,omitempty"` // 技能的执行状态
 }
-
-
-
-
 
 // createAilyAppSkillStartResp ...
-type createAilyAppSkillStartResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateAilyAppSkillStartResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createAilyAppSkillStartResp struct {
+	Code  int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                       `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateAilyAppSkillStartResp `json:"data,omitempty"`
+	Error *ErrorDetail                 `json:"error,omitempty"`
 }
-
-
-
-

@@ -18,15 +18,14 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // ListHireWebsite 获取招聘官网列表, 返回信息包括官网名称、官网ID、招聘渠道ID等。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/website/list
-// 
 func (r *HireService) ListHireWebsite(ctx context.Context, request *ListHireWebsiteReq, options ...MethodOptionFunc) (*ListHireWebsiteResp, *Response, error) {
-if r.cli.mock.mockHireListHireWebsite != nil {
+	if r.cli.mock.mockHireListHireWebsite != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#ListHireWebsite mock enable")
 		return r.cli.mock.mockHireListHireWebsite(ctx, request, options...)
 	}
@@ -35,11 +34,10 @@ if r.cli.mock.mockHireListHireWebsite != nil {
 		Scope:                 "Hire",
 		API:                   "ListHireWebsite",
 		Method:                "GET",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/websites",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/websites",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(listHireWebsiteResp)
 
@@ -51,63 +49,43 @@ if r.cli.mock.mockHireListHireWebsite != nil {
 func (r *Mock) MockHireListHireWebsite(f func(ctx context.Context, request *ListHireWebsiteReq, options ...MethodOptionFunc) (*ListHireWebsiteResp, *Response, error)) {
 	r.mockHireListHireWebsite = f
 }
+
 // UnMockHireListHireWebsite un-mock HireListHireWebsite method
 func (r *Mock) UnMockHireListHireWebsite() {
 	r.mockHireListHireWebsite = nil
 }
 
-
 // ListHireWebsiteReq ...
-type ListHireWebsiteReq struct { 
-PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eyJvZmZzZXQiOjEwLCJ0aW1lc3RhbXAiOjE2Mjc1NTUyMjM2NzIsImlkIjpudWxsfQ[
-PageSize *int64 `query:"page_size" json:"-"` // 每页获取记录数量   默认值 : 10示例值: 10 最大值: `10`
+type ListHireWebsiteReq struct {
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eyJvZmZzZXQiOjEwLCJ0aW1lc3RhbXAiOjE2Mjc1NTUyMjM2NzIsImlkIjpudWxsfQ[
+	PageSize  *int64  `query:"page_size" json:"-"`  // 每页获取记录数量   默认值 : 10示例值: 10 最大值: `10`
 }
-
-
-
-
 
 // ListHireWebsiteResp ...
-type ListHireWebsiteResp struct { 
-Items []*ListHireWebsiteRespItem `json:"items,omitempty"` // 官网列表
-HasMore bool `json:"has_more,omitempty"` // 是否还有更多项
-PageToken string `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+type ListHireWebsiteResp struct {
+	Items     []*ListHireWebsiteRespItem `json:"items,omitempty"`      // 官网列表
+	HasMore   bool                       `json:"has_more,omitempty"`   // 是否还有更多项
+	PageToken string                     `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 }
-
-
-
-
 
 // ListHireWebsiteRespItem ...
-type ListHireWebsiteRespItem struct { 
-ID string `json:"id,omitempty"` // 官网ID
-Name *ListHireWebsiteRespItemName `json:"name,omitempty"` // 官网名称
-ProcessTypeList []int64 `json:"process_type_list,omitempty"` // 流程类型- 1: 社招- 2: 校招
-JobChannelID string `json:"job_channel_id,omitempty"` // 招聘渠道ID, 每个官网拥有唯一的招聘渠道ID, 可用于[职位发布至官网](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/advertisement/publish)
+type ListHireWebsiteRespItem struct {
+	ID              string                       `json:"id,omitempty"`                // 官网ID
+	Name            *ListHireWebsiteRespItemName `json:"name,omitempty"`              // 官网名称
+	ProcessTypeList []int64                      `json:"process_type_list,omitempty"` // 流程类型- 1: 社招- 2: 校招
+	JobChannelID    string                       `json:"job_channel_id,omitempty"`    // 招聘渠道ID, 每个官网拥有唯一的招聘渠道ID, 可用于[职位发布至官网](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/advertisement/publish)
 }
-
-
-
-
 
 // ListHireWebsiteRespItemName ...
-type ListHireWebsiteRespItemName struct { 
-ZhCn string `json:"zh_cn,omitempty"` // 官网中文名称
-EnUs string `json:"en_us,omitempty"` // 官网英文名称
+type ListHireWebsiteRespItemName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 官网中文名称
+	EnUs string `json:"en_us,omitempty"` // 官网英文名称
 }
-
-
-
-
 
 // listHireWebsiteResp ...
-type listHireWebsiteResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *ListHireWebsiteResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type listHireWebsiteResp struct {
+	Code  int64                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string               `json:"msg,omitempty"`  // 错误描述
+	Data  *ListHireWebsiteResp `json:"data,omitempty"`
+	Error *ErrorDetail         `json:"error,omitempty"`
 }
-
-
-
-

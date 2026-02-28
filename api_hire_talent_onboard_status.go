@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // CreateHireTalentOnboardStatus 更新人才的在职状态, 可进行的操作包括入职与离职。
@@ -28,9 +28,8 @@ import (
 // - 已入职的人才不能进行入职操作, 已离职的人才不能进行入职操作。已离职的人才若需入职, 需走正常的招聘流程
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/onboard_status
-// 
 func (r *HireService) CreateHireTalentOnboardStatus(ctx context.Context, request *CreateHireTalentOnboardStatusReq, options ...MethodOptionFunc) (*CreateHireTalentOnboardStatusResp, *Response, error) {
-if r.cli.mock.mockHireCreateHireTalentOnboardStatus != nil {
+	if r.cli.mock.mockHireCreateHireTalentOnboardStatus != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#CreateHireTalentOnboardStatus mock enable")
 		return r.cli.mock.mockHireCreateHireTalentOnboardStatus(ctx, request, options...)
 	}
@@ -39,11 +38,10 @@ if r.cli.mock.mockHireCreateHireTalentOnboardStatus != nil {
 		Scope:                 "Hire",
 		API:                   "CreateHireTalentOnboardStatus",
 		Method:                "POST",
-		URL:   r.cli.openBaseURL + "/open-apis/hire/v1/talents/:talent_id/onboard_status",
+		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/talents/:talent_id/onboard_status",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
-
+		NeedTenantAccessToken: true,
 	}
 	resp := new(createHireTalentOnboardStatusResp)
 
@@ -55,40 +53,27 @@ if r.cli.mock.mockHireCreateHireTalentOnboardStatus != nil {
 func (r *Mock) MockHireCreateHireTalentOnboardStatus(f func(ctx context.Context, request *CreateHireTalentOnboardStatusReq, options ...MethodOptionFunc) (*CreateHireTalentOnboardStatusResp, *Response, error)) {
 	r.mockHireCreateHireTalentOnboardStatus = f
 }
+
 // UnMockHireCreateHireTalentOnboardStatus un-mock HireCreateHireTalentOnboardStatus method
 func (r *Mock) UnMockHireCreateHireTalentOnboardStatus() {
 	r.mockHireCreateHireTalentOnboardStatus = nil
 }
 
-
 // CreateHireTalentOnboardStatusReq ...
-type CreateHireTalentOnboardStatusReq struct { 
-TalentID string `path:"talent_id" json:"-"` // 人才ID, 可通过[获取人才列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/list)接口获取示例值: "6960663240925956661"
-Operation int64 `json:"operation,omitempty"` // 操作类型示例值: 1可选值有: 入职离职
-OnboardTime *string `json:"onboard_time,omitempty"` // 入职时间, 毫秒时间戳；当操作类型为入职的时候时必填示例值: "1676548784889"
-OverboardTime *string `json:"overboard_time,omitempty"` // 离职时间, 毫秒时间戳；当操作类型为离职的时候时必填示例值: "1676548784890"
+type CreateHireTalentOnboardStatusReq struct {
+	TalentID      string  `path:"talent_id" json:"-"`       // 人才ID, 可通过[获取人才列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/list)接口获取示例值: "6960663240925956661"
+	Operation     int64   `json:"operation,omitempty"`      // 操作类型示例值: 1可选值有: 入职离职
+	OnboardTime   *string `json:"onboard_time,omitempty"`   // 入职时间, 毫秒时间戳；当操作类型为入职的时候时必填示例值: "1676548784889"
+	OverboardTime *string `json:"overboard_time,omitempty"` // 离职时间, 毫秒时间戳；当操作类型为离职的时候时必填示例值: "1676548784890"
 }
-
-
-
-
 
 // CreateHireTalentOnboardStatusResp ...
-type CreateHireTalentOnboardStatusResp struct { 
-}
-
-
-
-
+type CreateHireTalentOnboardStatusResp struct{}
 
 // createHireTalentOnboardStatusResp ...
-type createHireTalentOnboardStatusResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *CreateHireTalentOnboardStatusResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type createHireTalentOnboardStatusResp struct {
+	Code  int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                             `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateHireTalentOnboardStatusResp `json:"data,omitempty"`
+	Error *ErrorDetail                       `json:"error,omitempty"`
 }
-
-
-
-

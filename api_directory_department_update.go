@@ -18,7 +18,7 @@
 package lark
 
 import (
-"context"
+	"context"
 )
 
 // UpdateDirectoryDepartment 本接口用于更新部门信息。仅更新显式传参的部分。
@@ -31,9 +31,8 @@ import (
 // - 部门ID（department_id）是部门在企业内的唯一ID, 可能会被应用引用来实现各种内部逻辑, 唯一ID修改之后可能会导致引用失败, 导致所有引用且保存了‘被修改 ID 部门’的业务全部受影响。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/department/patch
-// 
 func (r *DirectoryService) UpdateDirectoryDepartment(ctx context.Context, request *UpdateDirectoryDepartmentReq, options ...MethodOptionFunc) (*UpdateDirectoryDepartmentResp, *Response, error) {
-if r.cli.mock.mockDirectoryUpdateDirectoryDepartment != nil {
+	if r.cli.mock.mockDirectoryUpdateDirectoryDepartment != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Directory#UpdateDirectoryDepartment mock enable")
 		return r.cli.mock.mockDirectoryUpdateDirectoryDepartment(ctx, request, options...)
 	}
@@ -42,12 +41,11 @@ if r.cli.mock.mockDirectoryUpdateDirectoryDepartment != nil {
 		Scope:                 "Directory",
 		API:                   "UpdateDirectoryDepartment",
 		Method:                "PATCH",
-		URL:   r.cli.openBaseURL + "/open-apis/directory/v1/departments/:department_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/directory/v1/departments/:department_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
- NeedTenantAccessToken: true,
- NeedUserAccessToken: true,
-
+		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(updateDirectoryDepartmentResp)
 
@@ -59,150 +57,97 @@ if r.cli.mock.mockDirectoryUpdateDirectoryDepartment != nil {
 func (r *Mock) MockDirectoryUpdateDirectoryDepartment(f func(ctx context.Context, request *UpdateDirectoryDepartmentReq, options ...MethodOptionFunc) (*UpdateDirectoryDepartmentResp, *Response, error)) {
 	r.mockDirectoryUpdateDirectoryDepartment = f
 }
+
 // UnMockDirectoryUpdateDirectoryDepartment un-mock DirectoryUpdateDirectoryDepartment method
 func (r *Mock) UnMockDirectoryUpdateDirectoryDepartment() {
 	r.mockDirectoryUpdateDirectoryDepartment = nil
 }
 
-
 // UpdateDirectoryDepartmentReq ...
-type UpdateDirectoryDepartmentReq struct { 
-DepartmentID string `path:"department_id" json:"-"` // 部门ID, 与department_id_type类型保持一致示例值: "h12921" 最大长度: `64` 字符
-EmployeeIDType *IDType `query:"employee_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)企业内在职员工的唯一标识。支持自定义, 未自定义时系统自动生成。ID支持修改。获取employee_id的方式: - 企业管理员在 管理后台 > 组织架构 > 成员与部门 页面, 点击 成员详情, 查询员工ID  - 通过 [批量获取员工列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/employee/filter) 的接口, 通过手机号或邮箱查询员工ID。默认值: `open_id`当值为 `employee_id`, 字段权限要求: 查看员工自定义 ID
-DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型示例值: open_department_id可选值有: 用来在具体某个应用中标识一个部门, 同一个部门 在不同应用中的 open_department_id 不相同。用来标识租户内一个唯一的部门默认值: `open_department_id`
-Department *UpdateDirectoryDepartmentReqDepartment `json:"department,omitempty"` // 更新部门信息
+type UpdateDirectoryDepartmentReq struct {
+	DepartmentID     string                                  `path:"department_id" json:"-"`       // 部门ID, 与department_id_type类型保持一致示例值: "h12921" 最大长度: `64` 字符
+	EmployeeIDType   *IDType                                 `query:"employee_id_type" json:"-"`   // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)企业内在职员工的唯一标识。支持自定义, 未自定义时系统自动生成。ID支持修改。获取employee_id的方式: - 企业管理员在 管理后台 > 组织架构 > 成员与部门 页面, 点击 成员详情, 查询员工ID  - 通过 [批量获取员工列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/directory-v1/employee/filter) 的接口, 通过手机号或邮箱查询员工ID。默认值: `open_id`当值为 `employee_id`, 字段权限要求: 查看员工自定义 ID
+	DepartmentIDType *DepartmentIDType                       `query:"department_id_type" json:"-"` // 此次调用中使用的部门ID的类型示例值: open_department_id可选值有: 用来在具体某个应用中标识一个部门, 同一个部门 在不同应用中的 open_department_id 不相同。用来标识租户内一个唯一的部门默认值: `open_department_id`
+	Department       *UpdateDirectoryDepartmentReqDepartment `json:"department,omitempty"`         // 更新部门信息
 }
-
-
-
-
 
 // UpdateDirectoryDepartmentReqDepartment ...
-type UpdateDirectoryDepartmentReqDepartment struct { 
-CustomDepartmentID *string `json:"custom_department_id,omitempty"` // 自定义部门ID。注意: 1. 除需要满足正则规则外, 同时不能以od-开头2. 正则校验: ^[a-zA-Z0-9][a-zA-Z0-9_\-@.]{0, 63}$ 长度范围: 1-64字符示例值: "eedasqwA"
-Name *UpdateDirectoryDepartmentReqDepartmentName `json:"name,omitempty"` // 部门名称
-ParentDepartmentID *string `json:"parent_department_id,omitempty"` // 父部门ID, 与department_id_type类型保持一致示例值: "100"
-Leaders []*UpdateDirectoryDepartmentReqDepartmentLeader `json:"leaders,omitempty"` // 部门负责人 长度范围: `0` ～ `20`
-OrderWeight *string `json:"order_weight,omitempty"` // 在上级部门下的排序权重, 返回结果将按照order_weight的值进行升序排列。示例值: "100"
-EnabledStatus *bool `json:"enabled_status,omitempty"` // 是否启用示例值: true
-CustomFieldValues []*UpdateDirectoryDepartmentReqDepartmentCustomFieldValue `json:"custom_field_values,omitempty"` // 部门自定义字段值 长度范围: `0` ～ `100`
+type UpdateDirectoryDepartmentReqDepartment struct {
+	CustomDepartmentID *string                                                   `json:"custom_department_id,omitempty"` // 自定义部门ID。注意: 1. 除需要满足正则规则外, 同时不能以od-开头2. 正则校验: ^[a-zA-Z0-9][a-zA-Z0-9_\-@.]{0, 63}$ 长度范围: 1-64字符示例值: "eedasqwA"
+	Name               *UpdateDirectoryDepartmentReqDepartmentName               `json:"name,omitempty"`                 // 部门名称
+	ParentDepartmentID *string                                                   `json:"parent_department_id,omitempty"` // 父部门ID, 与department_id_type类型保持一致示例值: "100"
+	Leaders            []*UpdateDirectoryDepartmentReqDepartmentLeader           `json:"leaders,omitempty"`              // 部门负责人 长度范围: `0` ～ `20`
+	OrderWeight        *string                                                   `json:"order_weight,omitempty"`         // 在上级部门下的排序权重, 返回结果将按照order_weight的值进行升序排列。示例值: "100"
+	EnabledStatus      *bool                                                     `json:"enabled_status,omitempty"`       // 是否启用示例值: true
+	CustomFieldValues  []*UpdateDirectoryDepartmentReqDepartmentCustomFieldValue `json:"custom_field_values,omitempty"`  // 部门自定义字段值 长度范围: `0` ～ `100`
 }
-
-
-
-
 
 // UpdateDirectoryDepartmentReqDepartmentCustomFieldValue ...
-type UpdateDirectoryDepartmentReqDepartmentCustomFieldValue struct { 
-FieldType *string `json:"field_type,omitempty"` // 自定义字段类型示例值: "1"可选值有: 多行文本网页链接枚举选项人员电话多选枚举类型(目前仅支持文本类型)人员列表
-TextValue *UpdateDirectoryDepartmentReqDepartmentCustomFieldValueTextValue `json:"text_value,omitempty"` // 文本字段值
-URLValue *UpdateDirectoryDepartmentReqDepartmentCustomFieldValueURLValue `json:"url_value,omitempty"` // 网页链接字段值
-EnumValue *UpdateDirectoryDepartmentReqDepartmentCustomFieldValueEnumValue `json:"enum_value,omitempty"` // 枚举字段值
-UserValues []*UpdateDirectoryDepartmentReqDepartmentCustomFieldValueUserValue `json:"user_values,omitempty"` // 人员字段值 长度范围: `0` ～ `100`
-PhoneValue *UpdateDirectoryDepartmentReqDepartmentCustomFieldValuePhoneValue `json:"phone_value,omitempty"` // 电话字段值
-FieldKey *string `json:"field_key,omitempty"` // 自定义字段key示例值: "C-1000001"
+type UpdateDirectoryDepartmentReqDepartmentCustomFieldValue struct {
+	FieldType  *string                                                            `json:"field_type,omitempty"`  // 自定义字段类型示例值: "1"可选值有: 多行文本网页链接枚举选项人员电话多选枚举类型(目前仅支持文本类型)人员列表
+	TextValue  *UpdateDirectoryDepartmentReqDepartmentCustomFieldValueTextValue   `json:"text_value,omitempty"`  // 文本字段值
+	URLValue   *UpdateDirectoryDepartmentReqDepartmentCustomFieldValueURLValue    `json:"url_value,omitempty"`   // 网页链接字段值
+	EnumValue  *UpdateDirectoryDepartmentReqDepartmentCustomFieldValueEnumValue   `json:"enum_value,omitempty"`  // 枚举字段值
+	UserValues []*UpdateDirectoryDepartmentReqDepartmentCustomFieldValueUserValue `json:"user_values,omitempty"` // 人员字段值 长度范围: `0` ～ `100`
+	PhoneValue *UpdateDirectoryDepartmentReqDepartmentCustomFieldValuePhoneValue  `json:"phone_value,omitempty"` // 电话字段值
+	FieldKey   *string                                                            `json:"field_key,omitempty"`   // 自定义字段key示例值: "C-1000001"
 }
-
-
-
-
 
 // UpdateDirectoryDepartmentReqDepartmentCustomFieldValueEnumValue ...
-type UpdateDirectoryDepartmentReqDepartmentCustomFieldValueEnumValue struct { 
-EnumIDs []string `json:"enum_ids,omitempty"` // 选项结果ID示例值: ["1"] 长度范围: `0` ～ `100`
-EnumType string `json:"enum_type,omitempty"` // 选项类型示例值: "1"可选值有: 文本图片
+type UpdateDirectoryDepartmentReqDepartmentCustomFieldValueEnumValue struct {
+	EnumIDs  []string `json:"enum_ids,omitempty"`  // 选项结果ID示例值: ["1"] 长度范围: `0` ～ `100`
+	EnumType string   `json:"enum_type,omitempty"` // 选项类型示例值: "1"可选值有: 文本图片
 }
-
-
-
-
 
 // UpdateDirectoryDepartmentReqDepartmentCustomFieldValuePhoneValue ...
-type UpdateDirectoryDepartmentReqDepartmentCustomFieldValuePhoneValue struct { 
-PhoneNumber string `json:"phone_number,omitempty"` // 电话号示例值: "18812345678"
-ExtensionNumber *string `json:"extension_number,omitempty"` // 分机号长度范围: 0-99字符示例值: "234234234"
+type UpdateDirectoryDepartmentReqDepartmentCustomFieldValuePhoneValue struct {
+	PhoneNumber     string  `json:"phone_number,omitempty"`     // 电话号示例值: "18812345678"
+	ExtensionNumber *string `json:"extension_number,omitempty"` // 分机号长度范围: 0-99字符示例值: "234234234"
 }
-
-
-
-
 
 // UpdateDirectoryDepartmentReqDepartmentCustomFieldValueTextValue ...
-type UpdateDirectoryDepartmentReqDepartmentCustomFieldValueTextValue struct { 
-DefaultValue string `json:"default_value,omitempty"` // 默认值示例值: "张三"
-I18nValue interface{} `json:"i18n_value,omitempty"` // 国际化值, key为zh_cn, ja_jp, en_us, value为对应的值示例值: { "zh_cn": "中文", "ja_jp": "ja_jp_name", "en_us": "en_us_name"}
+type UpdateDirectoryDepartmentReqDepartmentCustomFieldValueTextValue struct {
+	DefaultValue string      `json:"default_value,omitempty"` // 默认值示例值: "张三"
+	I18nValue    interface{} `json:"i18n_value,omitempty"`    // 国际化值, key为zh_cn, ja_jp, en_us, value为对应的值示例值: { "zh_cn": "中文", "ja_jp": "ja_jp_name", "en_us": "en_us_name"}
 }
-
-
-
-
 
 // UpdateDirectoryDepartmentReqDepartmentCustomFieldValueURLValue ...
-type UpdateDirectoryDepartmentReqDepartmentCustomFieldValueURLValue struct { 
-LinkText *UpdateDirectoryDepartmentReqDepartmentCustomFieldValueURLValueLinkText `json:"link_text,omitempty"` // 网页标题
-URL string `json:"url,omitempty"` // 移动端网页链接示例值: "https://m.bytedance.com/afnasjfna"
-Pcurl string `json:"pcurl,omitempty"` // 桌面端网页链接示例值: "http://www.fs.cn"
+type UpdateDirectoryDepartmentReqDepartmentCustomFieldValueURLValue struct {
+	LinkText *UpdateDirectoryDepartmentReqDepartmentCustomFieldValueURLValueLinkText `json:"link_text,omitempty"` // 网页标题
+	URL      string                                                                  `json:"url,omitempty"`       // 移动端网页链接示例值: "https://m.bytedance.com/afnasjfna"
+	Pcurl    string                                                                  `json:"pcurl,omitempty"`     // 桌面端网页链接示例值: "http://www.fs.cn"
 }
-
-
-
-
 
 // UpdateDirectoryDepartmentReqDepartmentCustomFieldValueURLValueLinkText ...
-type UpdateDirectoryDepartmentReqDepartmentCustomFieldValueURLValueLinkText struct { 
-DefaultValue string `json:"default_value,omitempty"` // 默认值示例值: "张三"
-I18nValue interface{} `json:"i18n_value,omitempty"` // 国际化值, key为zh_cn, ja_jp, en_us, value为对应的值示例值: { "zh_cn": "中文", "ja_jp": "ja_jp_name", "en_us": "en_us_name"}
+type UpdateDirectoryDepartmentReqDepartmentCustomFieldValueURLValueLinkText struct {
+	DefaultValue string      `json:"default_value,omitempty"` // 默认值示例值: "张三"
+	I18nValue    interface{} `json:"i18n_value,omitempty"`    // 国际化值, key为zh_cn, ja_jp, en_us, value为对应的值示例值: { "zh_cn": "中文", "ja_jp": "ja_jp_name", "en_us": "en_us_name"}
 }
-
-
-
-
 
 // UpdateDirectoryDepartmentReqDepartmentCustomFieldValueUserValue ...
-type UpdateDirectoryDepartmentReqDepartmentCustomFieldValueUserValue struct { 
-IDs []string `json:"ids,omitempty"` // 人员ID, 与employee_id_type类型保持一致示例值: ["1"] 长度范围: `0` ～ `100`
+type UpdateDirectoryDepartmentReqDepartmentCustomFieldValueUserValue struct {
+	IDs []string `json:"ids,omitempty"` // 人员ID, 与employee_id_type类型保持一致示例值: ["1"] 长度范围: `0` ～ `100`
 }
-
-
-
-
 
 // UpdateDirectoryDepartmentReqDepartmentLeader ...
-type UpdateDirectoryDepartmentReqDepartmentLeader struct { 
-LeaderType int64 `json:"leader_type,omitempty"` // 部门负责人类型示例值: 1可选值有: 主副
-LeaderID string `json:"leader_id,omitempty"` // 部门负责人ID, 与employee_id_type类型保持一致示例值: "u273y71"
+type UpdateDirectoryDepartmentReqDepartmentLeader struct {
+	LeaderType int64  `json:"leader_type,omitempty"` // 部门负责人类型示例值: 1可选值有: 主副
+	LeaderID   string `json:"leader_id,omitempty"`   // 部门负责人ID, 与employee_id_type类型保持一致示例值: "u273y71"
 }
-
-
-
-
 
 // UpdateDirectoryDepartmentReqDepartmentName ...
-type UpdateDirectoryDepartmentReqDepartmentName struct { 
-DefaultValue string `json:"default_value,omitempty"` // 默认值示例值: "张三长度范围: 1-100"
-I18nValue interface{} `json:"i18n_value,omitempty"` // 国际化值, key为zh_cn, ja_jp, en_us, value为对应的值示例值: {"zh_cn":"张三"}
+type UpdateDirectoryDepartmentReqDepartmentName struct {
+	DefaultValue string      `json:"default_value,omitempty"` // 默认值示例值: "张三长度范围: 1-100"
+	I18nValue    interface{} `json:"i18n_value,omitempty"`    // 国际化值, key为zh_cn, ja_jp, en_us, value为对应的值示例值: {"zh_cn":"张三"}
 }
-
-
-
-
 
 // UpdateDirectoryDepartmentResp ...
-type UpdateDirectoryDepartmentResp struct { 
-}
-
-
-
-
+type UpdateDirectoryDepartmentResp struct{}
 
 // updateDirectoryDepartmentResp ...
-type updateDirectoryDepartmentResp struct { 
-Code int64 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-Msg string `json:"msg,omitempty"` // 错误描述
-Data *UpdateDirectoryDepartmentResp `json:"data,omitempty"` 
-Error *ErrorDetail `json:"error,omitempty"` 
+type updateDirectoryDepartmentResp struct {
+	Code  int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                         `json:"msg,omitempty"`  // 错误描述
+	Data  *UpdateDirectoryDepartmentResp `json:"data,omitempty"`
+	Error *ErrorDetail                   `json:"error,omitempty"`
 }
-
-
-
-
