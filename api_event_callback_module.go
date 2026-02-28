@@ -339,7 +339,6 @@ type eventHandler struct {
 
 func (r *eventHandler) clone() *eventHandler {
 	return &eventHandler{
-
 		eventV1AddBotHandler:                                          r.eventV1AddBotHandler,
 		eventV1AddUserToChatHandler:                                   r.eventV1AddUserToChatHandler,
 		eventV1AppOpenHandler:                                         r.eventV1AppOpenHandler,

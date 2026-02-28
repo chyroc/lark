@@ -32,5 +32,4 @@ func (r *AppLinkService) OpenScan(req *OpenScanReq) string {
 }
 
 // OpenScanReq ...
-type OpenScanReq struct {
-}
+type OpenScanReq struct{}

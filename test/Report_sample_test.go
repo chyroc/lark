@@ -37,12 +37,10 @@ func Test_Report_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Report
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.QueryReportRule(ctx, &lark.QueryReportRuleReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
-
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {
@@ -50,7 +48,6 @@ func Test_Report_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Report
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockReportQueryReportRule(func(ctx context.Context, request *lark.QueryReportRuleReq, options ...lark.MethodOptionFunc) (*lark.QueryReportRuleResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -62,7 +59,6 @@ func Test_Report_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockReportRemoveReportView(func(ctx context.Context, request *lark.RemoveReportViewReq, options ...lark.MethodOptionFunc) (*lark.RemoveReportViewResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -74,7 +70,6 @@ func Test_Report_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockReportQueryReportTask(func(ctx context.Context, request *lark.QueryReportTaskReq, options ...lark.MethodOptionFunc) (*lark.QueryReportTaskResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -84,7 +79,6 @@ func Test_Report_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
-
 	})
 
 	t.Run("response is failed (mock http)", func(t *testing.T) {
@@ -95,14 +89,12 @@ func Test_Report_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.QueryReportRule(ctx, &lark.QueryReportRuleReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.RemoveReportView(ctx, &lark.RemoveReportViewReq{
 				RuleID: "x",
 			})
@@ -111,11 +103,9 @@ func Test_Report_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.QueryReportTask(ctx, &lark.QueryReportTaskReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
-
 	})
 }

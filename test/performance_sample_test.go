@@ -37,12 +37,10 @@ func Test_Performance_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Performance
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetPerformanceSemesterList(ctx, &lark.GetPerformanceSemesterListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
-
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {
@@ -50,7 +48,6 @@ func Test_Performance_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Performance
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockPerformanceGetPerformanceSemesterList(func(ctx context.Context, request *lark.GetPerformanceSemesterListReq, options ...lark.MethodOptionFunc) (*lark.GetPerformanceSemesterListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -62,7 +59,6 @@ func Test_Performance_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockPerformanceGetPerformanceStageTaskByUser(func(ctx context.Context, request *lark.GetPerformanceStageTaskByUserReq, options ...lark.MethodOptionFunc) (*lark.GetPerformanceStageTaskByUserResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -74,7 +70,6 @@ func Test_Performance_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockPerformanceGetPerformanceStageTaskByPage(func(ctx context.Context, request *lark.GetPerformanceStageTaskByPageReq, options ...lark.MethodOptionFunc) (*lark.GetPerformanceStageTaskByPageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -86,7 +81,6 @@ func Test_Performance_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockPerformanceGetPerformanceReviewData(func(ctx context.Context, request *lark.GetPerformanceReviewDataReq, options ...lark.MethodOptionFunc) (*lark.GetPerformanceReviewDataResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -96,7 +90,6 @@ func Test_Performance_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
-
 	})
 
 	t.Run("response is failed (mock http)", func(t *testing.T) {
@@ -107,32 +100,27 @@ func Test_Performance_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetPerformanceSemesterList(ctx, &lark.GetPerformanceSemesterListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetPerformanceStageTaskByUser(ctx, &lark.GetPerformanceStageTaskByUserReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetPerformanceStageTaskByPage(ctx, &lark.GetPerformanceStageTaskByPageReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetPerformanceReviewData(ctx, &lark.GetPerformanceReviewDataReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
-
 	})
 }

@@ -65,8 +65,7 @@ type AddAssigneeAPaaSApprovalTaskReq struct {
 }
 
 // AddAssigneeAPaaSApprovalTaskResp ...
-type AddAssigneeAPaaSApprovalTaskResp struct {
-}
+type AddAssigneeAPaaSApprovalTaskResp struct{}
 
 // addAssigneeAPaaSApprovalTaskResp ...
 type addAssigneeAPaaSApprovalTaskResp struct {

@@ -37,12 +37,10 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Application
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.SearchApplicationWorkplaceAccessData(ctx, &lark.SearchApplicationWorkplaceAccessDataReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
-
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {
@@ -50,7 +48,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Application
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockApplicationSearchApplicationWorkplaceAccessData(func(ctx context.Context, request *lark.SearchApplicationWorkplaceAccessDataReq, options ...lark.MethodOptionFunc) (*lark.SearchApplicationWorkplaceAccessDataResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -62,7 +59,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockApplicationSearchApplicationCustomWorkplaceAccessData(func(ctx context.Context, request *lark.SearchApplicationCustomWorkplaceAccessDataReq, options ...lark.MethodOptionFunc) (*lark.SearchApplicationCustomWorkplaceAccessDataResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -74,7 +70,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockApplicationSearchApplicationWorkplaceBlockAccessData(func(ctx context.Context, request *lark.SearchApplicationWorkplaceBlockAccessDataReq, options ...lark.MethodOptionFunc) (*lark.SearchApplicationWorkplaceBlockAccessDataResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -86,7 +81,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockApplicationGetApplicationFavourite(func(ctx context.Context, request *lark.GetApplicationFavouriteReq, options ...lark.MethodOptionFunc) (*lark.GetApplicationFavouriteResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -98,7 +92,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockApplicationGetApplicationRecommend(func(ctx context.Context, request *lark.GetApplicationRecommendReq, options ...lark.MethodOptionFunc) (*lark.GetApplicationRecommendResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -110,7 +103,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockApplicationGetApplicationRecommendRuleList(func(ctx context.Context, request *lark.GetApplicationRecommendRuleListReq, options ...lark.MethodOptionFunc) (*lark.GetApplicationRecommendRuleListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -122,7 +114,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockApplicationIsApplicationUserAdmin(func(ctx context.Context, request *lark.IsApplicationUserAdminReq, options ...lark.MethodOptionFunc) (*lark.IsApplicationUserAdminResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -134,7 +125,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockApplicationGetApplicationUserAdminScope(func(ctx context.Context, request *lark.GetApplicationUserAdminScopeReq, options ...lark.MethodOptionFunc) (*lark.GetApplicationUserAdminScopeResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -146,7 +136,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockApplicationGetApplicationAppVisibility(func(ctx context.Context, request *lark.GetApplicationAppVisibilityReq, options ...lark.MethodOptionFunc) (*lark.GetApplicationAppVisibilityResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -158,7 +147,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockApplicationGetApplicationContactsRangeConfiguration(func(ctx context.Context, request *lark.GetApplicationContactsRangeConfigurationReq, options ...lark.MethodOptionFunc) (*lark.GetApplicationContactsRangeConfigurationResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -170,7 +158,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockApplicationUpdateApplicationContactsRangeConfiguration(func(ctx context.Context, request *lark.UpdateApplicationContactsRangeConfigurationReq, options ...lark.MethodOptionFunc) (*lark.UpdateApplicationContactsRangeConfigurationResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -182,7 +169,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockApplicationGetApplicationUserVisibleApp(func(ctx context.Context, request *lark.GetApplicationUserVisibleAppReq, options ...lark.MethodOptionFunc) (*lark.GetApplicationUserVisibleAppResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -194,7 +180,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockApplicationCheckApplicationVisibleWhiteBlackList(func(ctx context.Context, request *lark.CheckApplicationVisibleWhiteBlackListReq, options ...lark.MethodOptionFunc) (*lark.CheckApplicationVisibleWhiteBlackListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -206,7 +191,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockApplicationGetApplicationAppList(func(ctx context.Context, request *lark.GetApplicationAppListReq, options ...lark.MethodOptionFunc) (*lark.GetApplicationAppListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -218,7 +202,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockApplicationUpdateApplicationAppVisibility(func(ctx context.Context, request *lark.UpdateApplicationAppVisibilityReq, options ...lark.MethodOptionFunc) (*lark.UpdateApplicationAppVisibilityResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -230,7 +213,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockApplicationUpdateApplicationAppVisibilityV6(func(ctx context.Context, request *lark.UpdateApplicationAppVisibilityV6Req, options ...lark.MethodOptionFunc) (*lark.UpdateApplicationAppVisibilityV6Resp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -242,7 +224,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockApplicationUpdateApplicationAppManagement(func(ctx context.Context, request *lark.UpdateApplicationAppManagementReq, options ...lark.MethodOptionFunc) (*lark.UpdateApplicationAppManagementResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -254,7 +235,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockApplicationGetApplicationAppAdminUserList(func(ctx context.Context, request *lark.GetApplicationAppAdminUserListReq, options ...lark.MethodOptionFunc) (*lark.GetApplicationAppAdminUserListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -266,7 +246,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockApplicationCheckUserIsInApplicationPaidScope(func(ctx context.Context, request *lark.CheckUserIsInApplicationPaidScopeReq, options ...lark.MethodOptionFunc) (*lark.CheckUserIsInApplicationPaidScopeResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -278,7 +257,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockApplicationGetApplicationOrderList(func(ctx context.Context, request *lark.GetApplicationOrderListReq, options ...lark.MethodOptionFunc) (*lark.GetApplicationOrderListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -290,7 +268,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockApplicationGetApplicationOrder(func(ctx context.Context, request *lark.GetApplicationOrderReq, options ...lark.MethodOptionFunc) (*lark.GetApplicationOrderResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -302,7 +279,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockApplicationGetApplicationUnderAuditList(func(ctx context.Context, request *lark.GetApplicationUnderAuditListReq, options ...lark.MethodOptionFunc) (*lark.GetApplicationUnderAuditListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -314,7 +290,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockApplicationGetApplication(func(ctx context.Context, request *lark.GetApplicationReq, options ...lark.MethodOptionFunc) (*lark.GetApplicationResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -326,7 +301,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockApplicationGetApplicationVersion(func(ctx context.Context, request *lark.GetApplicationVersionReq, options ...lark.MethodOptionFunc) (*lark.GetApplicationVersionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -338,7 +312,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockApplicationGetApplicationVersionList(func(ctx context.Context, request *lark.GetApplicationVersionListReq, options ...lark.MethodOptionFunc) (*lark.GetApplicationVersionListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -350,7 +323,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockApplicationGetApplicationVersionContactsRangeSuggest(func(ctx context.Context, request *lark.GetApplicationVersionContactsRangeSuggestReq, options ...lark.MethodOptionFunc) (*lark.GetApplicationVersionContactsRangeSuggestResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -362,7 +334,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockApplicationUpdateApplicationVersion(func(ctx context.Context, request *lark.UpdateApplicationVersionReq, options ...lark.MethodOptionFunc) (*lark.UpdateApplicationVersionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -374,7 +345,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockApplicationUpdateApplication(func(ctx context.Context, request *lark.UpdateApplicationReq, options ...lark.MethodOptionFunc) (*lark.UpdateApplicationResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -386,7 +356,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockApplicationGetApplicationUsageDepartmentOverview(func(ctx context.Context, request *lark.GetApplicationUsageDepartmentOverviewReq, options ...lark.MethodOptionFunc) (*lark.GetApplicationUsageDepartmentOverviewResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -398,7 +367,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockApplicationGetApplicationUsageOverview(func(ctx context.Context, request *lark.GetApplicationUsageOverviewReq, options ...lark.MethodOptionFunc) (*lark.GetApplicationUsageOverviewResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -410,7 +378,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockApplicationGetApplicationUsageTrend(func(ctx context.Context, request *lark.GetApplicationUsageTrendReq, options ...lark.MethodOptionFunc) (*lark.GetApplicationUsageTrendResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -422,7 +389,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockApplicationUpdateApplicationFeedback(func(ctx context.Context, request *lark.UpdateApplicationFeedbackReq, options ...lark.MethodOptionFunc) (*lark.UpdateApplicationFeedbackResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -434,7 +400,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockApplicationGetApplicationFeedbackList(func(ctx context.Context, request *lark.GetApplicationFeedbackListReq, options ...lark.MethodOptionFunc) (*lark.GetApplicationFeedbackListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -446,7 +411,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			cli.Mock().MockApplicationSetApplicationAppBadge(func(ctx context.Context, request *lark.SetApplicationAppBadgeReq, options ...lark.MethodOptionFunc) (*lark.SetApplicationAppBadgeResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -456,7 +420,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
-
 	})
 
 	t.Run("response is failed (mock http)", func(t *testing.T) {
@@ -467,70 +430,60 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.SearchApplicationWorkplaceAccessData(ctx, &lark.SearchApplicationWorkplaceAccessDataReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.SearchApplicationCustomWorkplaceAccessData(ctx, &lark.SearchApplicationCustomWorkplaceAccessDataReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.SearchApplicationWorkplaceBlockAccessData(ctx, &lark.SearchApplicationWorkplaceBlockAccessDataReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetApplicationFavourite(ctx, &lark.GetApplicationFavouriteReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetApplicationRecommend(ctx, &lark.GetApplicationRecommendReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetApplicationRecommendRuleList(ctx, &lark.GetApplicationRecommendRuleListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.IsApplicationUserAdmin(ctx, &lark.IsApplicationUserAdminReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetApplicationUserAdminScope(ctx, &lark.GetApplicationUserAdminScopeReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetApplicationAppVisibility(ctx, &lark.GetApplicationAppVisibilityReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetApplicationContactsRangeConfiguration(ctx, &lark.GetApplicationContactsRangeConfigurationReq{
 				AppID: "x",
 			})
@@ -539,7 +492,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateApplicationContactsRangeConfiguration(ctx, &lark.UpdateApplicationContactsRangeConfigurationReq{
 				AppID: "x",
 			})
@@ -548,14 +500,12 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetApplicationUserVisibleApp(ctx, &lark.GetApplicationUserVisibleAppReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CheckApplicationVisibleWhiteBlackList(ctx, &lark.CheckApplicationVisibleWhiteBlackListReq{
 				AppID: "x",
 			})
@@ -564,21 +514,18 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetApplicationAppList(ctx, &lark.GetApplicationAppListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateApplicationAppVisibility(ctx, &lark.UpdateApplicationAppVisibilityReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateApplicationAppVisibilityV6(ctx, &lark.UpdateApplicationAppVisibilityV6Req{
 				AppID: "x",
 			})
@@ -587,7 +534,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateApplicationAppManagement(ctx, &lark.UpdateApplicationAppManagementReq{
 				AppID: "x",
 			})
@@ -596,42 +542,36 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetApplicationAppAdminUserList(ctx, &lark.GetApplicationAppAdminUserListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.CheckUserIsInApplicationPaidScope(ctx, &lark.CheckUserIsInApplicationPaidScopeReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetApplicationOrderList(ctx, &lark.GetApplicationOrderListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetApplicationOrder(ctx, &lark.GetApplicationOrderReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetApplicationUnderAuditList(ctx, &lark.GetApplicationUnderAuditListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetApplication(ctx, &lark.GetApplicationReq{
 				AppID: "x",
 			})
@@ -640,7 +580,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetApplicationVersion(ctx, &lark.GetApplicationVersionReq{
 				AppID:     "x",
 				VersionID: "x",
@@ -650,7 +589,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetApplicationVersionList(ctx, &lark.GetApplicationVersionListReq{
 				AppID: "x",
 			})
@@ -659,7 +597,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetApplicationVersionContactsRangeSuggest(ctx, &lark.GetApplicationVersionContactsRangeSuggestReq{
 				AppID:     "x",
 				VersionID: "x",
@@ -669,7 +606,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateApplicationVersion(ctx, &lark.UpdateApplicationVersionReq{
 				AppID:     "x",
 				VersionID: "x",
@@ -679,7 +615,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateApplication(ctx, &lark.UpdateApplicationReq{
 				AppID: "x",
 			})
@@ -688,7 +623,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetApplicationUsageDepartmentOverview(ctx, &lark.GetApplicationUsageDepartmentOverviewReq{
 				AppID: "x",
 			})
@@ -697,7 +631,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetApplicationUsageOverview(ctx, &lark.GetApplicationUsageOverviewReq{
 				AppID: "x",
 			})
@@ -706,14 +639,12 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetApplicationUsageTrend(ctx, &lark.GetApplicationUsageTrendReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.UpdateApplicationFeedback(ctx, &lark.UpdateApplicationFeedbackReq{
 				AppID:      "x",
 				FeedbackID: "x",
@@ -723,7 +654,6 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.GetApplicationFeedbackList(ctx, &lark.GetApplicationFeedbackListReq{
 				AppID: "x",
 			})
@@ -732,11 +662,9 @@ func Test_Application_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
-
 			_, _, err := moduleCli.SetApplicationAppBadge(ctx, &lark.SetApplicationAppBadgeReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
-
 	})
 }

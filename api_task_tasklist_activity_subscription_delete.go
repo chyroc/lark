@@ -65,8 +65,7 @@ type DeleteTaskTasklistActivitySubscriptionReq struct {
 }
 
 // DeleteTaskTasklistActivitySubscriptionResp ...
-type DeleteTaskTasklistActivitySubscriptionResp struct {
-}
+type DeleteTaskTasklistActivitySubscriptionResp struct{}
 
 // deleteTaskTasklistActivitySubscriptionResp ...
 type deleteTaskTasklistActivitySubscriptionResp struct {

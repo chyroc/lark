@@ -34,5 +34,4 @@ func (r *AppLinkService) OpenTask(req *OpenTaskReq) string {
 }
 
 // OpenTaskReq ...
-type OpenTaskReq struct {
-}
+type OpenTaskReq struct{}

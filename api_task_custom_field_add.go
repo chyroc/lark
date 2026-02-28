@@ -67,8 +67,7 @@ type AddTaskCustomFieldReq struct {
 }
 
 // AddTaskCustomFieldResp ...
-type AddTaskCustomFieldResp struct {
-}
+type AddTaskCustomFieldResp struct{}
 
 // addTaskCustomFieldResp ...
 type addTaskCustomFieldResp struct {

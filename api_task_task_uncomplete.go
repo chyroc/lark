@@ -65,8 +65,7 @@ type UncompleteTaskReq struct {
 }
 
 // UncompleteTaskResp ...
-type UncompleteTaskResp struct {
-}
+type UncompleteTaskResp struct{}
 
 // uncompleteTaskResp ...
 type uncompleteTaskResp struct {

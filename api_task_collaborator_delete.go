@@ -67,8 +67,7 @@ type DeleteTaskCollaboratorReq struct {
 }
 
 // DeleteTaskCollaboratorResp ...
-type DeleteTaskCollaboratorResp struct {
-}
+type DeleteTaskCollaboratorResp struct{}
 
 // deleteTaskCollaboratorResp ...
 type deleteTaskCollaboratorResp struct {
