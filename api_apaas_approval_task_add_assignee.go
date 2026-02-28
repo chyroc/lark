@@ -21,56 +21,57 @@ import (
 	"context"
 )
 
-// AddAssigneeAPaaSApprovalTask 对于人工任务进行加签操作
+// AddApaasApprovalTaskAssignee 对于人工任务进行加签操作
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/approval_task/add_assignee
-func (r *APaaSService) AddAssigneeAPaaSApprovalTask(ctx context.Context, request *AddAssigneeAPaaSApprovalTaskReq, options ...MethodOptionFunc) (*AddAssigneeAPaaSApprovalTaskResp, *Response, error) {
-	if r.cli.mock.mockAPaaSAddAssigneeAPaaSApprovalTask != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] APaaS#AddAssigneeAPaaSApprovalTask mock enable")
-		return r.cli.mock.mockAPaaSAddAssigneeAPaaSApprovalTask(ctx, request, options...)
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/approval_task/add_assignee
+// new doc: https://open.feishu.cn/document/apaas-v1/flow/user-task/add_assignee
+func (r *ApaasService) AddApaasApprovalTaskAssignee(ctx context.Context, request *AddApaasApprovalTaskAssigneeReq, options ...MethodOptionFunc) (*AddApaasApprovalTaskAssigneeResp, *Response, error) {
+	if r.cli.mock.mockApaasAddApaasApprovalTaskAssignee != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Apaas#AddApaasApprovalTaskAssignee mock enable")
+		return r.cli.mock.mockApaasAddApaasApprovalTaskAssignee(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "APaaS",
-		API:                   "AddAssigneeAPaaSApprovalTask",
+		Scope:                 "Apaas",
+		API:                   "AddApaasApprovalTaskAssignee",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/apaas/v1/approval_tasks/:approval_task_id/add_assignee",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(addAssigneeAPaaSApprovalTaskResp)
+	resp := new(addApaasApprovalTaskAssigneeResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockAPaaSAddAssigneeAPaaSApprovalTask mock APaaSAddAssigneeAPaaSApprovalTask method
-func (r *Mock) MockAPaaSAddAssigneeAPaaSApprovalTask(f func(ctx context.Context, request *AddAssigneeAPaaSApprovalTaskReq, options ...MethodOptionFunc) (*AddAssigneeAPaaSApprovalTaskResp, *Response, error)) {
-	r.mockAPaaSAddAssigneeAPaaSApprovalTask = f
+// MockApaasAddApaasApprovalTaskAssignee mock ApaasAddApaasApprovalTaskAssignee method
+func (r *Mock) MockApaasAddApaasApprovalTaskAssignee(f func(ctx context.Context, request *AddApaasApprovalTaskAssigneeReq, options ...MethodOptionFunc) (*AddApaasApprovalTaskAssigneeResp, *Response, error)) {
+	r.mockApaasAddApaasApprovalTaskAssignee = f
 }
 
-// UnMockAPaaSAddAssigneeAPaaSApprovalTask un-mock APaaSAddAssigneeAPaaSApprovalTask method
-func (r *Mock) UnMockAPaaSAddAssigneeAPaaSApprovalTask() {
-	r.mockAPaaSAddAssigneeAPaaSApprovalTask = nil
+// UnMockApaasAddApaasApprovalTaskAssignee un-mock ApaasAddApaasApprovalTaskAssignee method
+func (r *Mock) UnMockApaasAddApaasApprovalTaskAssignee() {
+	r.mockApaasAddApaasApprovalTaskAssignee = nil
 }
 
-// AddAssigneeAPaaSApprovalTaskReq ...
-type AddAssigneeAPaaSApprovalTaskReq struct {
-	ApprovalTaskID  string   `path:"approval_task_id" json:"-"`   // 人工任务 ID, 示例值: "1785771068261436"
-	UserID          string   `json:"user_id,omitempty"`           // 操作人 ID, 示例值: "1783981209205788"
-	Approvers       []string `json:"approvers,omitempty"`         // 审批人列表, 示例值: ["1783981209205788"], 长度范围: `0` ～ `20`
-	AddAssigneeType *string  `json:"add_assignee_type,omitempty"` // 加签类型: 并加签: currentAndAddAssign, 后加签: afterAndAddAssign, 示例值: "currentAndAddAssign"
-	Opinion         *string  `json:"opinion,omitempty"`           // 加签原因, 示例值: "加签"
+// AddApaasApprovalTaskAssigneeReq ...
+type AddApaasApprovalTaskAssigneeReq struct {
+	ApprovalTaskID  string   `path:"approval_task_id" json:"-"`   // 人工任务 ID示例值: "1785771068261436"
+	UserID          string   `json:"user_id,omitempty"`           // 操作人 ID示例值: "1783981209205788"
+	Approvers       []string `json:"approvers,omitempty"`         // 审批人列表示例值: ["1783981209205788"] 长度范围: `0` ～ `20`
+	AddAssigneeType *string  `json:"add_assignee_type,omitempty"` // 加签类型: 并加签: currentAndAddAssign- 后加签: afterAndAddAssign示例值: "currentAndAddAssign"
+	Opinion         *string  `json:"opinion,omitempty"`           // 加签原因示例值: "加签"
 }
 
-// AddAssigneeAPaaSApprovalTaskResp ...
-type AddAssigneeAPaaSApprovalTaskResp struct{}
+// AddApaasApprovalTaskAssigneeResp ...
+type AddApaasApprovalTaskAssigneeResp struct{}
 
-// addAssigneeAPaaSApprovalTaskResp ...
-type addAssigneeAPaaSApprovalTaskResp struct {
+// addApaasApprovalTaskAssigneeResp ...
+type addApaasApprovalTaskAssigneeResp struct {
 	Code  int64                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                            `json:"msg,omitempty"`  // 错误描述
-	Data  *AddAssigneeAPaaSApprovalTaskResp `json:"data,omitempty"`
+	Data  *AddApaasApprovalTaskAssigneeResp `json:"data,omitempty"`
 	Error *ErrorDetail                      `json:"error,omitempty"`
 }

@@ -56,6 +56,7 @@ type Lark struct {
 	AI               *AIService
 	APaaS            *APaaSService
 	Admin            *AdminService
+	Apaas            *ApaasService
 	AppLink          *AppLinkService
 	Application      *ApplicationService
 	Approval         *ApprovalService
@@ -115,6 +116,7 @@ func (r *Lark) init() {
 	r.AI = &AIService{cli: r}
 	r.APaaS = &APaaSService{cli: r}
 	r.Admin = &AdminService{cli: r}
+	r.Apaas = &ApaasService{cli: r}
 	r.AppLink = &AppLinkService{cli: r}
 	r.Application = &ApplicationService{cli: r}
 	r.Approval = &ApprovalService{cli: r}
@@ -192,6 +194,7 @@ type (
 	AIService               struct{ cli *Lark }
 	APaaSService            struct{ cli *Lark }
 	AdminService            struct{ cli *Lark }
+	ApaasService            struct{ cli *Lark }
 	AppLinkService          struct{ cli *Lark }
 	ApplicationService      struct{ cli *Lark }
 	ApprovalService         struct{ cli *Lark }
