@@ -65,6 +65,7 @@ type Lark struct {
 	Bitable          *BitableService
 	Bot              *BotService
 	Calendar         *CalendarService
+	CcmSheet         *CcmSheetService
 	Chat             *ChatService
 	Contact          *ContactService
 	CoreHR           *CoreHRService
@@ -76,6 +77,7 @@ type Lark struct {
 	Helpdesk         *HelpdeskService
 	Hire             *HireService
 	HumanAuth        *HumanAuthService
+	IM               *IMService
 	Jssdk            *JssdkService
 	Lingo            *LingoService
 	MDM              *MDMService
@@ -124,6 +126,7 @@ func (r *Lark) init() {
 	r.Bitable = &BitableService{cli: r}
 	r.Bot = &BotService{cli: r}
 	r.Calendar = &CalendarService{cli: r}
+	r.CcmSheet = &CcmSheetService{cli: r}
 	r.Chat = &ChatService{cli: r}
 	r.Contact = &ContactService{cli: r}
 	r.CoreHR = &CoreHRService{cli: r}
@@ -135,6 +138,7 @@ func (r *Lark) init() {
 	r.Helpdesk = &HelpdeskService{cli: r}
 	r.Hire = &HireService{cli: r}
 	r.HumanAuth = &HumanAuthService{cli: r}
+	r.IM = &IMService{cli: r}
 	r.Jssdk = &JssdkService{cli: r}
 	r.Lingo = &LingoService{cli: r}
 	r.MDM = &MDMService{cli: r}
@@ -201,6 +205,7 @@ type (
 	BitableService          struct{ cli *Lark }
 	BotService              struct{ cli *Lark }
 	CalendarService         struct{ cli *Lark }
+	CcmSheetService         struct{ cli *Lark }
 	ChatService             struct{ cli *Lark }
 	ContactService          struct{ cli *Lark }
 	CoreHRService           struct{ cli *Lark }
@@ -212,6 +217,7 @@ type (
 	HelpdeskService         struct{ cli *Lark }
 	HireService             struct{ cli *Lark }
 	HumanAuthService        struct{ cli *Lark }
+	IMService               struct{ cli *Lark }
 	JssdkService            struct{ cli *Lark }
 	LingoService            struct{ cli *Lark }
 	MDMService              struct{ cli *Lark }
