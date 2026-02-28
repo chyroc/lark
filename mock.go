@@ -246,6 +246,7 @@ type Mock struct {
   mockCalendarBatchGetCalendarMeetingRoomFreebusy func(ctx context.Context, request *BatchGetCalendarMeetingRoomFreebusyReq, options ...MethodOptionFunc) (*BatchGetCalendarMeetingRoomFreebusyResp, *Response, error)
   mockCalendarBatchGetCalendarMeetingRoomSummary func(ctx context.Context, request *BatchGetCalendarMeetingRoomSummaryReq, options ...MethodOptionFunc) (*BatchGetCalendarMeetingRoomSummaryResp, *Response, error)
   mockCalendarCreateCalendar func(ctx context.Context, request *CreateCalendarReq, options ...MethodOptionFunc) (*CreateCalendarResp, *Response, error)
+  mockCalendarCreateCalendarPrimarys func(ctx context.Context, request *CreateCalendarPrimarysReq, options ...MethodOptionFunc) (*CreateCalendarPrimarysResp, *Response, error)
   mockCalendarCreateCalendarACL func(ctx context.Context, request *CreateCalendarACLReq, options ...MethodOptionFunc) (*CreateCalendarACLResp, *Response, error)
   mockCalendarCreateCalendarEvent func(ctx context.Context, request *CreateCalendarEventReq, options ...MethodOptionFunc) (*CreateCalendarEventResp, *Response, error)
   mockCalendarCreateCalendarEventAttendee func(ctx context.Context, request *CreateCalendarEventAttendeeReq, options ...MethodOptionFunc) (*CreateCalendarEventAttendeeResp, *Response, error)
