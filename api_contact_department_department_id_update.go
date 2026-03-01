@@ -67,7 +67,8 @@ type UpdateDepartmentIDReq struct {
 }
 
 // UpdateDepartmentIDResp ...
-type UpdateDepartmentIDResp struct{}
+type UpdateDepartmentIDResp struct {
+}
 
 // updateDepartmentIDResp ...
 type updateDepartmentIDResp struct {

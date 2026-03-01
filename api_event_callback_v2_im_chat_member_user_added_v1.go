@@ -47,6 +47,13 @@ type EventV2IMChatMemberUserAddedV1 struct {
 	I18nNames         *I18nNames                                `json:"i18n_names,omitempty"`          // 群国际化名称
 }
 
+// EventV2IMChatMemberUserAddedV1I18nNames ...
+type EventV2IMChatMemberUserAddedV1I18nNames struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名
+	EnUs string `json:"en_us,omitempty"` // 英文名
+	JaJp string `json:"ja_jp,omitempty"` // 日文名
+}
+
 // EventV2IMChatMemberUserAddedV1OperatorID ...
 type EventV2IMChatMemberUserAddedV1OperatorID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id

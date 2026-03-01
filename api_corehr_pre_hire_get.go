@@ -25,8 +25,6 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/pre_hire/get
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/pre_hire/get
-//
-// Deprecated
 func (r *CoreHRService) GetCoreHRPreHire(ctx context.Context, request *GetCoreHRPreHireReq, options ...MethodOptionFunc) (*GetCoreHRPreHireResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRPreHire != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRPreHire mock enable")

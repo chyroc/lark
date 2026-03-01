@@ -27,8 +27,6 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/entity/extract
 // new doc: https://open.feishu.cn/document/server-docs/baike-v1/entity/extract
-//
-// Deprecated
 func (r *BaikeService) ExtractBaikeEntity(ctx context.Context, request *ExtractBaikeEntityReq, options ...MethodOptionFunc) (*ExtractBaikeEntityResp, *Response, error) {
 	if r.cli.mock.mockBaikeExtractBaikeEntity != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Baike#ExtractBaikeEntity mock enable")

@@ -25,8 +25,6 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-follower/list
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task-follower/list
-//
-// Deprecated
 func (r *TaskService) GetTaskFollowerList(ctx context.Context, request *GetTaskFollowerListReq, options ...MethodOptionFunc) (*GetTaskFollowerListResp, *Response, error) {
 	if r.cli.mock.mockTaskGetTaskFollowerList != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#GetTaskFollowerList mock enable")

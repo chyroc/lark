@@ -73,7 +73,8 @@ type SubscribeDriveFileReq struct {
 }
 
 // SubscribeDriveFileResp ...
-type SubscribeDriveFileResp struct{}
+type SubscribeDriveFileResp struct {
+}
 
 // subscribeDriveFileResp ...
 type subscribeDriveFileResp struct {

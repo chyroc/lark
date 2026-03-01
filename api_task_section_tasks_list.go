@@ -25,7 +25,8 @@ import (
 //
 // 需要自定义分组所在资源的读取权限。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/task-v2/section/tasks
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/section/tasks
+// new doc: https://open.feishu.cn/document/task-v2/section/tasks
 func (r *TaskService) GetTaskTaskListOfSection(ctx context.Context, request *GetTaskTaskListOfSectionReq, options ...MethodOptionFunc) (*GetTaskTaskListOfSectionResp, *Response, error) {
 	if r.cli.mock.mockTaskGetTaskTaskListOfSection != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#GetTaskTaskListOfSection mock enable")
@@ -60,12 +61,12 @@ func (r *Mock) UnMockTaskGetTaskTaskListOfSection() {
 
 // GetTaskTaskListOfSectionReq ...
 type GetTaskTaskListOfSectionReq struct {
-	SectionGuid string  `path:"section_guid" json:"-"`  // 要获取任务的自定义分组全局唯一ID, 示例值: "9842501a-9f47-4ff5-a622-d319eeecb97f"
-	PageSize    *int64  `query:"page_size" json:"-"`    // 分页大小, 示例值: 50, 默认值: `50`, 取值范围: `1` ～ `100`
-	PageToken   *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: aWQ9NzEwMjMzMjMxMDE=
-	Completed   *bool   `query:"completed" json:"-"`    // 按照任务状态过滤, 如果不填写则表示不按完成状态过滤, 示例值: true
-	CreatedFrom *string `query:"created_from" json:"-"` // 按照创建时间筛选的起始时间戳（ms), 如不填写则为首个任务的创建时刻, 示例值: 1675742789470, 最大长度: `30` 字符
-	CreatedTo   *string `query:"created_to" json:"-"`   // 按照创建时间筛选的起始时间戳（ms), 如不填写则为最后任务的创建时刻, 示例值: 1675742789470, 最大长度: `30` 字符
+	SectionGuid string  `path:"section_guid" json:"-"`  // 要获取任务的自定义分组全局唯一ID示例值: "9842501a-9f47-4ff5-a622-d319eeecb97f"
+	PageSize    *int64  `query:"page_size" json:"-"`    // 分页大小示例值: 50默认值: `50` 取值范围: `1` ～ `100`
+	PageToken   *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: aWQ9NzEwMjMzMjMxMDE=
+	Completed   *bool   `query:"completed" json:"-"`    // 按照任务状态过滤, 如果不填写则表示不按完成状态过滤示例值: true
+	CreatedFrom *string `query:"created_from" json:"-"` // 按照创建时间筛选的起始时间戳（ms), 如不填写则为首个任务的创建时刻示例值: 1675742789470 最大长度: `30` 字符
+	CreatedTo   *string `query:"created_to" json:"-"`   // 按照创建时间筛选的起始时间戳（ms), 如不填写则为最后任务的创建时刻示例值: 1675742789470 最大长度: `30` 字符
 }
 
 // GetTaskTaskListOfSectionResp ...

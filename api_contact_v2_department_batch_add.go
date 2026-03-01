@@ -67,6 +67,15 @@ type BatchAddContactV2DepartmentReq struct {
 	Departments []string `json:"departments,omitempty"` // 所有要新增部门的集合。
 }
 
+// BatchAddContactV2DepartmentReqDepartment ...
+type BatchAddContactV2DepartmentReqDepartment struct {
+	ID              *string `json:"id,omitempty"`                // 自定义部门 ID, 企业内必须唯一。只能在创建部门时指定, 不支持更新。 若不填该参数, 将自动生成。 不区分大小写, 长度为 1 ~ 64 个字符。只能由数字、字母和“_”、“-”、“@”、“.”四种特殊字符组成, 且第一个字符必须是数字或字母。
+	Name            string  `json:"name,omitempty"`              // 部门名称。
+	ParentID        string  `json:"parent_id,omitempty"`         // 父部门 ID。 当被添加的部门为企业一级部门时, 此字段填写“0”。
+	LeaderUserID    *string `json:"leader_user_id,omitempty"`    // 部门负责人 ID, 支持通过 user_id 或 open_id 进行设置。 请求同时传递两个字段时只使用 leader_user_id, 忽略 leader_open_id。
+	CreateGroupChat *bool   `json:"create_group_chat,omitempty"` // 是否同时创建部门群, 默认为 false, 不创建部门群。
+}
+
 // BatchAddContactV2DepartmentResp ...
 type BatchAddContactV2DepartmentResp struct {
 	TaskID string `json:"task_id,omitempty"` // 生成的异步任务 ID, 参见 [查询批量任务执行状态](https://open.feishu.cn/document/ukTMukTMukTM/uUDOwUjL1gDM14SN4ATN) 接口。

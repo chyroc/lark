@@ -26,7 +26,8 @@ import (
 // 新添加的选项如果不隐藏, 其名字不能和已存在的不隐藏选项的名字重复。
 // 需要对自定义字段的编辑权限。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/task-v2/custom_field-option/create
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/custom_field-option/create
+// new doc: https://open.feishu.cn/document/task-v2/custom_field-option/create
 func (r *TaskService) CreateTaskCustomFieldOption(ctx context.Context, request *CreateTaskCustomFieldOptionReq, options ...MethodOptionFunc) (*CreateTaskCustomFieldOptionResp, *Response, error) {
 	if r.cli.mock.mockTaskCreateTaskCustomFieldOption != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#CreateTaskCustomFieldOption mock enable")
@@ -61,12 +62,12 @@ func (r *Mock) UnMockTaskCreateTaskCustomFieldOption() {
 
 // CreateTaskCustomFieldOptionReq ...
 type CreateTaskCustomFieldOptionReq struct {
-	CustomFieldGuid string  `path:"custom_field_guid" json:"-"` // 要添加选项的自定义字段GUID, 该字段必须是, 示例值: "b13adf3c-cad6-4e02-8929-550c112b5633"
-	Name            *string `json:"name,omitempty"`             // 选项名称, 最大50个字符, 示例值: "高优"
-	ColorIndex      *int64  `json:"color_index,omitempty"`      // 颜色索引值, 支持0～54中的一个数字。如果不填写, 则会随机选一个, 示例值: 10, 取值范围: `0` ～ `54`
-	InsertBefore    *string `json:"insert_before,omitempty"`    // 要放到某个option之前的option_guid, 示例值: "2bd905f8-ef38-408b-aa1f-2b2ad33b2913"
-	InsertAfter     *string `json:"insert_after,omitempty"`     // 要放到某个option之后的option_guid, 示例值: "b13adf3c-cad6-4e02-8929-550c112b5633"
-	IsHidden        *bool   `json:"is_hidden,omitempty"`        // 是否隐藏, 示例值: false, 默认值: `false`
+	CustomFieldGuid string  `path:"custom_field_guid" json:"-"` // 要添加选项的自定义字段GUID, 该字段必须是示例值: "b13adf3c-cad6-4e02-8929-550c112b5633"
+	Name            *string `json:"name,omitempty"`             // 选项名称, 最大50个字符。示例值: "高优"
+	ColorIndex      *int64  `json:"color_index,omitempty"`      // 颜色索引值, 支持0～54中的一个数字。如果不填写, 则会随机选一个。示例值: 10 取值范围: `0` ～ `54`
+	InsertBefore    *string `json:"insert_before,omitempty"`    // 要放到某个option之前的option_guid示例值: "2bd905f8-ef38-408b-aa1f-2b2ad33b2913"
+	InsertAfter     *string `json:"insert_after,omitempty"`     // 要放到某个option之后的option_guid示例值: "b13adf3c-cad6-4e02-8929-550c112b5633"
+	IsHidden        *bool   `json:"is_hidden,omitempty"`        // 是否隐藏示例值: false默认值: `false`
 }
 
 // CreateTaskCustomFieldOptionResp ...

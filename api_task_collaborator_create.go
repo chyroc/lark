@@ -27,8 +27,6 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-collaborator/create
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task-collaborator/create
-//
-// Deprecated
 func (r *TaskService) CreateTaskCollaborator(ctx context.Context, request *CreateTaskCollaboratorReq, options ...MethodOptionFunc) (*CreateTaskCollaboratorResp, *Response, error) {
 	if r.cli.mock.mockTaskCreateTaskCollaborator != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#CreateTaskCollaborator mock enable")

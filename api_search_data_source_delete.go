@@ -62,7 +62,8 @@ type DeleteSearchDataSourceReq struct {
 }
 
 // DeleteSearchDataSourceResp ...
-type DeleteSearchDataSourceResp struct{}
+type DeleteSearchDataSourceResp struct {
+}
 
 // deleteSearchDataSourceResp ...
 type deleteSearchDataSourceResp struct {

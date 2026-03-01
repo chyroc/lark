@@ -28,7 +28,8 @@ import (
 // 目前资源类型仅支持"task", `resource_id`需要填写任务的GUID。
 // 为任务上传附件需要任务的可编辑权限
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/task-v2/attachment/upload
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/attachment/upload
+// new doc: https://open.feishu.cn/document/task-v2/attachment/upload
 func (r *TaskService) UploadTaskAttachment(ctx context.Context, request *UploadTaskAttachmentReq, options ...MethodOptionFunc) (*UploadTaskAttachmentResp, *Response, error) {
 	if r.cli.mock.mockTaskUploadTaskAttachment != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#UploadTaskAttachment mock enable")
@@ -64,10 +65,10 @@ func (r *Mock) UnMockTaskUploadTaskAttachment() {
 
 // UploadTaskAttachmentReq ...
 type UploadTaskAttachmentReq struct {
-	UserIDType   *IDType   `query:"user_id_type" json:"-"`  // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	ResourceType *string   `json:"resource_type,omitempty"` // 附件归属资源的类型, 示例值: "task", 默认值: `task`
-	ResourceID   string    `json:"resource_id,omitempty"`   // 附件要归属资源的id。例如, 要给任务添加附件, 这里要填入任务GUID。任务GUID可以通过[任务相关接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/overview)获得, 示例值: "fe96108d-b004-4a47-b2f8-6886e758b3a5", 最大长度: `100` 字符
-	File         io.Reader `json:"file,omitempty"`          // 要上传的文件, 单请求支持最多5个文件。上传结果的顺序将和请求中文件的顺序保持一致, 示例值: file binary
+	UserIDType   *IDType   `query:"user_id_type" json:"-"`  // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	ResourceType *string   `json:"resource_type,omitempty"` // 附件归属资源的类型示例值: "task"默认值: `task`
+	ResourceID   string    `json:"resource_id,omitempty"`   // 附件要归属资源的id。例如, 要给任务添加附件, 这里要填入任务GUID。任务GUID可以通过[任务相关接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/overview)获得。示例值: "fe96108d-b004-4a47-b2f8-6886e758b3a5" 最大长度: `100` 字符
+	File         io.Reader `json:"file,omitempty"`          // 要上传的文件, 单请求支持最多5个文件。上传结果的顺序将和请求中文件的顺序保持一致。示例值: file binary
 }
 
 // UploadTaskAttachmentResp ...

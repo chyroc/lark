@@ -37,10 +37,12 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Message
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.SendEphemeralMessage(ctx, &lark.SendEphemeralMessageReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
+
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {
@@ -48,6 +50,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Message
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockMessageSendEphemeralMessage(func(ctx context.Context, request *lark.SendEphemeralMessageReq, options ...lark.MethodOptionFunc) (*lark.SendEphemeralMessageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -59,6 +62,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockMessageSendUrgentAppMessage(func(ctx context.Context, request *lark.SendUrgentAppMessageReq, options ...lark.MethodOptionFunc) (*lark.SendUrgentAppMessageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -70,6 +74,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockMessageSendUrgentSmsMessage(func(ctx context.Context, request *lark.SendUrgentSmsMessageReq, options ...lark.MethodOptionFunc) (*lark.SendUrgentSmsMessageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -81,6 +86,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockMessageSendUrgentPhoneMessage(func(ctx context.Context, request *lark.SendUrgentPhoneMessageReq, options ...lark.MethodOptionFunc) (*lark.SendUrgentPhoneMessageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -92,6 +98,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockMessageSendRawMessageOld(func(ctx context.Context, request *lark.SendRawMessageOldReq, options ...lark.MethodOptionFunc) (*lark.SendRawMessageOldResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -103,6 +110,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockMessageBatchSendOldRawMessage(func(ctx context.Context, request *lark.BatchSendOldRawMessageReq, options ...lark.MethodOptionFunc) (*lark.BatchSendOldRawMessageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -114,6 +122,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockMessageSendRawMessage(func(ctx context.Context, request *lark.SendRawMessageReq, options ...lark.MethodOptionFunc) (*lark.SendRawMessageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -125,6 +134,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockMessageReplyRawMessage(func(ctx context.Context, request *lark.ReplyRawMessageReq, options ...lark.MethodOptionFunc) (*lark.ReplyRawMessageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -136,6 +146,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockMessageUpdateMessageEdit(func(ctx context.Context, request *lark.UpdateMessageEditReq, options ...lark.MethodOptionFunc) (*lark.UpdateMessageEditResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -147,6 +158,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockMessageDeleteMessage(func(ctx context.Context, request *lark.DeleteMessageReq, options ...lark.MethodOptionFunc) (*lark.DeleteMessageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -158,6 +170,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockMessageForwardMessage(func(ctx context.Context, request *lark.ForwardMessageReq, options ...lark.MethodOptionFunc) (*lark.ForwardMessageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -169,6 +182,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockMessageMergeForwardMessage(func(ctx context.Context, request *lark.MergeForwardMessageReq, options ...lark.MethodOptionFunc) (*lark.MergeForwardMessageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -180,6 +194,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockMessageForwardThreadMessage(func(ctx context.Context, request *lark.ForwardThreadMessageReq, options ...lark.MethodOptionFunc) (*lark.ForwardThreadMessageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -191,6 +206,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockMessageBatchDeleteMessage(func(ctx context.Context, request *lark.BatchDeleteMessageReq, options ...lark.MethodOptionFunc) (*lark.BatchDeleteMessageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -202,6 +218,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockMessageUpdateMessage(func(ctx context.Context, request *lark.UpdateMessageReq, options ...lark.MethodOptionFunc) (*lark.UpdateMessageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -213,6 +230,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockMessageUpdateMessageDelay(func(ctx context.Context, request *lark.UpdateMessageDelayReq, options ...lark.MethodOptionFunc) (*lark.UpdateMessageDelayResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -224,6 +242,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockMessageGetMessageReadUserList(func(ctx context.Context, request *lark.GetMessageReadUserListReq, options ...lark.MethodOptionFunc) (*lark.GetMessageReadUserListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -235,6 +254,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockMessageGetBatchSentMessageReadUser(func(ctx context.Context, request *lark.GetBatchSentMessageReadUserReq, options ...lark.MethodOptionFunc) (*lark.GetBatchSentMessageReadUserResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -246,6 +266,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockMessageGetBatchSentMessageProgress(func(ctx context.Context, request *lark.GetBatchSentMessageProgressReq, options ...lark.MethodOptionFunc) (*lark.GetBatchSentMessageProgressResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -257,6 +278,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockMessageGetMessageList(func(ctx context.Context, request *lark.GetMessageListReq, options ...lark.MethodOptionFunc) (*lark.GetMessageListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -268,6 +290,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockMessageGetMessageFile(func(ctx context.Context, request *lark.GetMessageFileReq, options ...lark.MethodOptionFunc) (*lark.GetMessageFileResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -279,6 +302,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockMessageGetMessage(func(ctx context.Context, request *lark.GetMessageReq, options ...lark.MethodOptionFunc) (*lark.GetMessageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -290,6 +314,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockMessageDeleteEphemeralMessage(func(ctx context.Context, request *lark.DeleteEphemeralMessageReq, options ...lark.MethodOptionFunc) (*lark.DeleteEphemeralMessageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -301,6 +326,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockMessageCreateMessageReaction(func(ctx context.Context, request *lark.CreateMessageReactionReq, options ...lark.MethodOptionFunc) (*lark.CreateMessageReactionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -312,6 +338,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockMessageGetMessageReactionList(func(ctx context.Context, request *lark.GetMessageReactionListReq, options ...lark.MethodOptionFunc) (*lark.GetMessageReactionListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -323,6 +350,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockMessageDeleteMessageReaction(func(ctx context.Context, request *lark.DeleteMessageReactionReq, options ...lark.MethodOptionFunc) (*lark.DeleteMessageReactionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -334,6 +362,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockMessageCreateMessagePin(func(ctx context.Context, request *lark.CreateMessagePinReq, options ...lark.MethodOptionFunc) (*lark.CreateMessagePinResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -345,6 +374,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockMessageDeleteMessagePin(func(ctx context.Context, request *lark.DeleteMessagePinReq, options ...lark.MethodOptionFunc) (*lark.DeleteMessagePinResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -356,6 +386,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockMessageGetMessagePinList(func(ctx context.Context, request *lark.GetMessagePinListReq, options ...lark.MethodOptionFunc) (*lark.GetMessagePinListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -367,6 +398,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockMessageGetMessageSpecialFocusList(func(ctx context.Context, request *lark.GetMessageSpecialFocusListReq, options ...lark.MethodOptionFunc) (*lark.GetMessageSpecialFocusListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -378,6 +410,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockMessageGetMessageSpecialFocusUnread(func(ctx context.Context, request *lark.GetMessageSpecialFocusUnreadReq, options ...lark.MethodOptionFunc) (*lark.GetMessageSpecialFocusUnreadResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -387,6 +420,163 @@ func Test_Message_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockMessageDeleteAppFeedCard(func(ctx context.Context, request *lark.DeleteAppFeedCardReq, options ...lark.MethodOptionFunc) (*lark.DeleteAppFeedCardResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageDeleteAppFeedCard()
+
+			_, _, err := moduleCli.DeleteAppFeedCard(ctx, &lark.DeleteAppFeedCardReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockMessageUpdateAppFeedCard(func(ctx context.Context, request *lark.UpdateAppFeedCardReq, options ...lark.MethodOptionFunc) (*lark.UpdateAppFeedCardResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageUpdateAppFeedCard()
+
+			_, _, err := moduleCli.UpdateAppFeedCard(ctx, &lark.UpdateAppFeedCardReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockMessageCreateAppFeedCard(func(ctx context.Context, request *lark.CreateAppFeedCardReq, options ...lark.MethodOptionFunc) (*lark.CreateAppFeedCardResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageCreateAppFeedCard()
+
+			_, _, err := moduleCli.CreateAppFeedCard(ctx, &lark.CreateAppFeedCardReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockMessageCreateIMTagRelation(func(ctx context.Context, request *lark.CreateIMTagRelationReq, options ...lark.MethodOptionFunc) (*lark.CreateIMTagRelationResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageCreateIMTagRelation()
+
+			_, _, err := moduleCli.CreateIMTagRelation(ctx, &lark.CreateIMTagRelationReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockMessageListIMTagRelation(func(ctx context.Context, request *lark.ListIMTagRelationReq, options ...lark.MethodOptionFunc) (*lark.ListIMTagRelationResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageListIMTagRelation()
+
+			_, _, err := moduleCli.ListIMTagRelation(ctx, &lark.ListIMTagRelationReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockMessageDeleteIMTagRelation(func(ctx context.Context, request *lark.DeleteIMTagRelationReq, options ...lark.MethodOptionFunc) (*lark.DeleteIMTagRelationResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageDeleteIMTagRelation()
+
+			_, _, err := moduleCli.DeleteIMTagRelation(ctx, &lark.DeleteIMTagRelationReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockMessageUpdateAppFeedCardButton(func(ctx context.Context, request *lark.UpdateAppFeedCardButtonReq, options ...lark.MethodOptionFunc) (*lark.UpdateAppFeedCardButtonResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageUpdateAppFeedCardButton()
+
+			_, _, err := moduleCli.UpdateAppFeedCardButton(ctx, &lark.UpdateAppFeedCardButtonReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockMessageUpdateIMFeedCardBotTimeSentive(func(ctx context.Context, request *lark.UpdateIMFeedCardBotTimeSentiveReq, options ...lark.MethodOptionFunc) (*lark.UpdateIMFeedCardBotTimeSentiveResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageUpdateIMFeedCardBotTimeSentive()
+
+			_, _, err := moduleCli.UpdateIMFeedCardBotTimeSentive(ctx, &lark.UpdateIMFeedCardBotTimeSentiveReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockMessageInstantReminderAppFeedCard(func(ctx context.Context, request *lark.InstantReminderAppFeedCardReq, options ...lark.MethodOptionFunc) (*lark.InstantReminderAppFeedCardResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageInstantReminderAppFeedCard()
+
+			_, _, err := moduleCli.InstantReminderAppFeedCard(ctx, &lark.InstantReminderAppFeedCardReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockMessageCreateIMTag(func(ctx context.Context, request *lark.CreateIMTagReq, options ...lark.MethodOptionFunc) (*lark.CreateIMTagResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageCreateIMTag()
+
+			_, _, err := moduleCli.CreateIMTag(ctx, &lark.CreateIMTagReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockMessageUpdateIMTag(func(ctx context.Context, request *lark.UpdateIMTagReq, options ...lark.MethodOptionFunc) (*lark.UpdateIMTagResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageUpdateIMTag()
+
+			_, _, err := moduleCli.UpdateIMTag(ctx, &lark.UpdateIMTagReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockMessageBatchUpdateURLPreview(func(ctx context.Context, request *lark.BatchUpdateURLPreviewReq, options ...lark.MethodOptionFunc) (*lark.BatchUpdateURLPreviewResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageBatchUpdateURLPreview()
+
+			_, _, err := moduleCli.BatchUpdateURLPreview(ctx, &lark.BatchUpdateURLPreviewReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockMessageCreateIMMessagePushFollowUp(func(ctx context.Context, request *lark.CreateIMMessagePushFollowUpReq, options ...lark.MethodOptionFunc) (*lark.CreateIMMessagePushFollowUpResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMessageCreateIMMessagePushFollowUp()
+
+			_, _, err := moduleCli.CreateIMMessagePushFollowUp(ctx, &lark.CreateIMMessagePushFollowUpReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
 	})
 
 	t.Run("response is failed (mock http)", func(t *testing.T) {
@@ -397,12 +587,14 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.SendEphemeralMessage(ctx, &lark.SendEphemeralMessageReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.SendUrgentAppMessage(ctx, &lark.SendUrgentAppMessageReq{
 				MessageID: "x",
 			})
@@ -411,6 +603,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.SendUrgentSmsMessage(ctx, &lark.SendUrgentSmsMessageReq{
 				MessageID: "x",
 			})
@@ -419,6 +612,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.SendUrgentPhoneMessage(ctx, &lark.SendUrgentPhoneMessageReq{
 				MessageID: "x",
 			})
@@ -427,24 +621,28 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.SendRawMessageOld(ctx, &lark.SendRawMessageOldReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.BatchSendOldRawMessage(ctx, &lark.BatchSendOldRawMessageReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.SendRawMessage(ctx, &lark.SendRawMessageReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.ReplyRawMessage(ctx, &lark.ReplyRawMessageReq{
 				MessageID: "x",
 			})
@@ -453,6 +651,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.UpdateMessageEdit(ctx, &lark.UpdateMessageEditReq{
 				MessageID: "x",
 			})
@@ -461,6 +660,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.DeleteMessage(ctx, &lark.DeleteMessageReq{
 				MessageID: "x",
 			})
@@ -469,6 +669,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.ForwardMessage(ctx, &lark.ForwardMessageReq{
 				MessageID: "x",
 			})
@@ -477,12 +678,14 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.MergeForwardMessage(ctx, &lark.MergeForwardMessageReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.ForwardThreadMessage(ctx, &lark.ForwardThreadMessageReq{
 				ThreadID: "x",
 			})
@@ -491,6 +694,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.BatchDeleteMessage(ctx, &lark.BatchDeleteMessageReq{
 				BatchMessageID: "x",
 			})
@@ -499,6 +703,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.UpdateMessage(ctx, &lark.UpdateMessageReq{
 				MessageID: "x",
 			})
@@ -507,12 +712,14 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.UpdateMessageDelay(ctx, &lark.UpdateMessageDelayReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetMessageReadUserList(ctx, &lark.GetMessageReadUserListReq{
 				MessageID: "x",
 			})
@@ -521,6 +728,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetBatchSentMessageReadUser(ctx, &lark.GetBatchSentMessageReadUserReq{
 				BatchMessageID: "x",
 			})
@@ -529,6 +737,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetBatchSentMessageProgress(ctx, &lark.GetBatchSentMessageProgressReq{
 				BatchMessageID: "x",
 			})
@@ -537,12 +746,14 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetMessageList(ctx, &lark.GetMessageListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetMessageFile(ctx, &lark.GetMessageFileReq{
 				MessageID: "x",
 				FileKey:   "x",
@@ -552,6 +763,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetMessage(ctx, &lark.GetMessageReq{
 				MessageID: "x",
 			})
@@ -560,12 +772,14 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.DeleteEphemeralMessage(ctx, &lark.DeleteEphemeralMessageReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateMessageReaction(ctx, &lark.CreateMessageReactionReq{
 				MessageID: "x",
 			})
@@ -574,6 +788,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetMessageReactionList(ctx, &lark.GetMessageReactionListReq{
 				MessageID: "x",
 			})
@@ -582,6 +797,7 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.DeleteMessageReaction(ctx, &lark.DeleteMessageReactionReq{
 				MessageID:  "x",
 				ReactionID: "x",
@@ -591,12 +807,14 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateMessagePin(ctx, &lark.CreateMessagePinReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.DeleteMessagePin(ctx, &lark.DeleteMessagePinReq{
 				MessageID: "x",
 			})
@@ -605,21 +823,122 @@ func Test_Message_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetMessagePinList(ctx, &lark.GetMessagePinListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetMessageSpecialFocusList(ctx, &lark.GetMessageSpecialFocusListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetMessageSpecialFocusUnread(ctx, &lark.GetMessageSpecialFocusUnreadReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteAppFeedCard(ctx, &lark.DeleteAppFeedCardReq{})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateAppFeedCard(ctx, &lark.UpdateAppFeedCardReq{})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateAppFeedCard(ctx, &lark.CreateAppFeedCardReq{})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateIMTagRelation(ctx, &lark.CreateIMTagRelationReq{})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.ListIMTagRelation(ctx, &lark.ListIMTagRelationReq{})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeleteIMTagRelation(ctx, &lark.DeleteIMTagRelationReq{})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateAppFeedCardButton(ctx, &lark.UpdateAppFeedCardButtonReq{})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateIMFeedCardBotTimeSentive(ctx, &lark.UpdateIMFeedCardBotTimeSentiveReq{})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.InstantReminderAppFeedCard(ctx, &lark.InstantReminderAppFeedCardReq{
+				FeedCardID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateIMTag(ctx, &lark.CreateIMTagReq{})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateIMTag(ctx, &lark.UpdateIMTagReq{
+				TagID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.BatchUpdateURLPreview(ctx, &lark.BatchUpdateURLPreviewReq{})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateIMMessagePushFollowUp(ctx, &lark.CreateIMMessagePushFollowUpReq{
+				MessageID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
 	})
 }

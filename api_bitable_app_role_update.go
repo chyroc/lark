@@ -29,8 +29,6 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/app-role/update
 // new doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/advanced-permission/app-role/update
-//
-// Deprecated
 func (r *BitableService) UpdateBitableAppRole(ctx context.Context, request *UpdateBitableAppRoleReq, options ...MethodOptionFunc) (*UpdateBitableAppRoleResp, *Response, error) {
 	if r.cli.mock.mockBitableUpdateBitableAppRole != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Bitable#UpdateBitableAppRole mock enable")

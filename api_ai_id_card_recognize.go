@@ -24,11 +24,9 @@ import (
 
 // RecognizeAiidCard 身份证识别接口, 支持JPG/JPEG/PNG/BMP四种文件类型的一次性的识别。
 //
-// 文件大小需要小于10M。
 // 单租户限流: 10QPS, 同租户下的应用没有限流, 共享本租户的 10QPS 限流
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/ai/document_ai-v1/id_card/recognize
-// new doc: https://open.feishu.cn/document/ai/document_ai-v1/id_card/recognize
 func (r *AIService) RecognizeAiidCard(ctx context.Context, request *RecognizeAiidCardReq, options ...MethodOptionFunc) (*RecognizeAiidCardResp, *Response, error) {
 	if r.cli.mock.mockAIRecognizeAiidCard != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] AI#RecognizeAiidCard mock enable")
@@ -63,7 +61,7 @@ func (r *Mock) UnMockAIRecognizeAiidCard() {
 
 // RecognizeAiidCardReq ...
 type RecognizeAiidCardReq struct {
-	File io.Reader `json:"file,omitempty"` // 识别身份证的源文件示例值: file binary
+	File io.Reader `json:"file,omitempty"` // 识别身份证的源文件, 示例值: file binary
 }
 
 // RecognizeAiidCardResp ...
@@ -80,7 +78,7 @@ type RecognizeAiidCardRespIDCard struct {
 
 // RecognizeAiidCardRespIDCardEntity ...
 type RecognizeAiidCardRespIDCardEntity struct {
-	Type  string `json:"type,omitempty"`  // 识别的字段种类可选值有: 公民身份号码姓名住址有效期起始时间有效期终止时间（“长期”识别为“长期”）性别民族签发机关出生日期
+	Type  string `json:"type,omitempty"`  // 识别的字段种类, 可选值有: identity_code: 公民身份号码, identity_name: 姓名, address: 住址, valid_date_start: 有效期起始时间, valid_date_end: 有效期终止时间（“长期”识别为“长期”）, gender: 性别, race: 民族, issued_by: 签发机关, birth: 出生日期
 	Value string `json:"value,omitempty"` // 识别出字段的文本信息
 }
 

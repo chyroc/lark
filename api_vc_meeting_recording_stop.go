@@ -64,7 +64,8 @@ type StopVCMeetingRecordingReq struct {
 }
 
 // StopVCMeetingRecordingResp ...
-type StopVCMeetingRecordingResp struct{}
+type StopVCMeetingRecordingResp struct {
+}
 
 // stopVCMeetingRecordingResp ...
 type stopVCMeetingRecordingResp struct {

@@ -26,7 +26,8 @@ import (
 // 不能删除默认的自定义分组。
 // 需要自定义分组归属资源的编辑权限。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/task-v2/section/delete
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/section/delete
+// new doc: https://open.feishu.cn/document/task-v2/section/delete
 func (r *TaskService) DeleteTaskSection(ctx context.Context, request *DeleteTaskSectionReq, options ...MethodOptionFunc) (*DeleteTaskSectionResp, *Response, error) {
 	if r.cli.mock.mockTaskDeleteTaskSection != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#DeleteTaskSection mock enable")
@@ -61,11 +62,12 @@ func (r *Mock) UnMockTaskDeleteTaskSection() {
 
 // DeleteTaskSectionReq ...
 type DeleteTaskSectionReq struct {
-	SectionGuid string `path:"section_guid" json:"-"` // 要删除的自定义分组全局唯一ID, 示例值: "9842501a-9f47-4ff5-a622-d319eeecb97f"
+	SectionGuid string `path:"section_guid" json:"-"` // 要删除的自定义分组全局唯一ID示例值: "9842501a-9f47-4ff5-a622-d319eeecb97f"
 }
 
 // DeleteTaskSectionResp ...
-type DeleteTaskSectionResp struct{}
+type DeleteTaskSectionResp struct {
+}
 
 // deleteTaskSectionResp ...
 type deleteTaskSectionResp struct {

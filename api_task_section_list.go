@@ -25,7 +25,8 @@ import (
 //
 // 获取自定义分组列表需要资源的读取权限。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/task-v2/section/list
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/section/list
+// new doc: https://open.feishu.cn/document/task-v2/section/list
 func (r *TaskService) GetTaskSectionList(ctx context.Context, request *GetTaskSectionListReq, options ...MethodOptionFunc) (*GetTaskSectionListResp, *Response, error) {
 	if r.cli.mock.mockTaskGetTaskSectionList != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#GetTaskSectionList mock enable")
@@ -60,11 +61,11 @@ func (r *Mock) UnMockTaskGetTaskSectionList() {
 
 // GetTaskSectionListReq ...
 type GetTaskSectionListReq struct {
-	PageSize     *int64  `query:"page_size" json:"-"`     // 分页大小, 示例值: 50, 默认值: `50`, 取值范围: `1` ～ `100`
-	PageToken    *string `query:"page_token" json:"-"`    // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: aWQ9NzEwMjMzMjMxMDE=, 最大长度: `100` 字符
-	ResourceType string  `query:"resource_type" json:"-"` // 自定义分组所属的资源类型。支持my_tasks(我负责的）和tasklist（清单）。当使用tasklist时, 需要用resource_id提供清单的全局唯一ID, 示例值: tasklist, 最大长度: `100` 字符
-	ResourceID   *string `query:"resource_id" json:"-"`   // 如`resource_type`为"tasklist", 这里需要填写要列取自定义分组的清单的GUID, 示例值: caef228f-2342-23c1-c36d-91186414dc64, 最大长度: `100` 字符
-	UserIDType   *IDType `query:"user_id_type" json:"-"`  // 用户 ID 类型, 示例值: open_id, 默认值: `open_id`
+	PageSize     *int64  `query:"page_size" json:"-"`     // 分页大小示例值: 50默认值: `50` 取值范围: `1` ～ `100`
+	PageToken    *string `query:"page_token" json:"-"`    // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: aWQ9NzEwMjMzMjMxMDE= 最大长度: `100` 字符
+	ResourceType string  `query:"resource_type" json:"-"` // 自定义分组所属的资源类型。支持my_tasks(我负责的）和tasklist（清单）。当使用tasklist时, 需要用resource_id提供清单的全局唯一ID。示例值: tasklist 最大长度: `100` 字符
+	ResourceID   *string `query:"resource_id" json:"-"`   // 如`resource_type`为"tasklist", 这里需要填写要列取自定义分组的清单的GUID。示例值: caef228f-2342-23c1-c36d-91186414dc64 最大长度: `100` 字符
+	UserIDType   *IDType `query:"user_id_type" json:"-"`  // 用户 ID 类型示例值: open_id默认值: `open_id`
 }
 
 // GetTaskSectionListResp ...

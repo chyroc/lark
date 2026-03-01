@@ -66,7 +66,8 @@ type UpdateDriveCommentPatchReq struct {
 }
 
 // UpdateDriveCommentPatchResp ...
-type UpdateDriveCommentPatchResp struct{}
+type UpdateDriveCommentPatchResp struct {
+}
 
 // updateDriveCommentPatchResp ...
 type updateDriveCommentPatchResp struct {

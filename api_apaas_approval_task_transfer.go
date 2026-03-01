@@ -23,7 +23,8 @@ import (
 
 // TransferAPaaSApprovalTask 对于人工任务进行转交操作
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/approval_task/transfer
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/approval_task/transfer
+// new doc: https://open.feishu.cn/document/apaas-v1/flow/user-task/transfer
 func (r *APaaSService) TransferAPaaSApprovalTask(ctx context.Context, request *TransferAPaaSApprovalTaskReq, options ...MethodOptionFunc) (*TransferAPaaSApprovalTaskResp, *Response, error) {
 	if r.cli.mock.mockAPaaSTransferAPaaSApprovalTask != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] APaaS#TransferAPaaSApprovalTask mock enable")
@@ -57,15 +58,16 @@ func (r *Mock) UnMockAPaaSTransferAPaaSApprovalTask() {
 
 // TransferAPaaSApprovalTaskReq ...
 type TransferAPaaSApprovalTaskReq struct {
-	ApprovalTaskID string   `path:"approval_task_id" json:"-"` // 人工任务 ID, 示例值: "1785996265147395"
-	UserID         string   `json:"user_id,omitempty"`         // 操作人 ID, 示例值: "1783981209205788"
-	FromUserIDs    []string `json:"from_user_ids,omitempty"`   // 原审批人id, 示例值: ["1783981209205788"], 长度范围: `0` ～ `20`
-	ToUserIDs      []string `json:"to_user_ids,omitempty"`     // 新审批人id, 示例值: ["1783981209205789"], 长度范围: `0` ～ `20`
-	Opinion        *string  `json:"opinion,omitempty"`         // 转交原因, 示例值: "转交"
+	ApprovalTaskID string   `path:"approval_task_id" json:"-"` // 人工任务 ID示例值: "1785996265147395"
+	UserID         string   `json:"user_id,omitempty"`         // 操作人 ID示例值: "1783981209205788"
+	FromUserIDs    []string `json:"from_user_ids,omitempty"`   // 原审批人id示例值: ["1783981209205788"] 长度范围: `0` ～ `20`
+	ToUserIDs      []string `json:"to_user_ids,omitempty"`     // 新审批人id示例值: ["1783981209205789"] 长度范围: `0` ～ `20`
+	Opinion        *string  `json:"opinion,omitempty"`         // 转交原因示例值: "转交"
 }
 
 // TransferAPaaSApprovalTaskResp ...
-type TransferAPaaSApprovalTaskResp struct{}
+type TransferAPaaSApprovalTaskResp struct {
+}
 
 // transferAPaaSApprovalTaskResp ...
 type transferAPaaSApprovalTaskResp struct {

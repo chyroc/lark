@@ -82,7 +82,8 @@ type UpdateHelpdeskAgentSkillReqAgentSkillRule struct {
 }
 
 // UpdateHelpdeskAgentSkillResp ...
-type UpdateHelpdeskAgentSkillResp struct{}
+type UpdateHelpdeskAgentSkillResp struct {
+}
 
 // updateHelpdeskAgentSkillResp ...
 type updateHelpdeskAgentSkillResp struct {

@@ -62,7 +62,8 @@ func (r *Mock) UnMockContactGetContactV2Task() {
 }
 
 // GetContactV2TaskReq ...
-type GetContactV2TaskReq struct{}
+type GetContactV2TaskReq struct {
+}
 
 // GetContactV2TaskResp ...
 type GetContactV2TaskResp struct {

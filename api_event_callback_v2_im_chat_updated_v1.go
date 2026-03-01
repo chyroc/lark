@@ -71,6 +71,13 @@ type EventV2IMChatUpdatedV1AfterChange struct {
 	GroupMessageType       MsgType                                                 `json:"group_message_type,omitempty"`       // 群消息形式可选值有: chat: 会话消息- thread: 话题消息
 }
 
+// EventV2IMChatUpdatedV1AfterChangeI18nNames ...
+type EventV2IMChatUpdatedV1AfterChangeI18nNames struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名
+	EnUs string `json:"en_us,omitempty"` // 英文名
+	JaJp string `json:"ja_jp,omitempty"` // 日文名
+}
+
 // EventV2IMChatUpdatedV1AfterChangeOwnerID ...
 type EventV2IMChatUpdatedV1AfterChangeOwnerID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
@@ -103,6 +110,13 @@ type EventV2IMChatUpdatedV1BeforeChange struct {
 	OwnerID                *EventV2IMChatUpdatedV1BeforeChangeOwnerID               `json:"owner_id,omitempty"`                 // 群主 ID
 	RestrictedModeSetting  *EventV2IMChatUpdatedV1BeforeChangeRestrictedModeSetting `json:"restricted_mode_setting,omitempty"`  // 防泄密模式设置
 	GroupMessageType       MsgType                                                  `json:"group_message_type,omitempty"`       // 群消息形式可选值有: chat: 会话消息- thread: 话题消息
+}
+
+// EventV2IMChatUpdatedV1BeforeChangeI18nNames ...
+type EventV2IMChatUpdatedV1BeforeChangeI18nNames struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名
+	EnUs string `json:"en_us,omitempty"` // 英文名
+	JaJp string `json:"ja_jp,omitempty"` // 日文名
 }
 
 // EventV2IMChatUpdatedV1BeforeChangeOwnerID ...

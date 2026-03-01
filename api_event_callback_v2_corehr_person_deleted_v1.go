@@ -21,18 +21,18 @@ import (
 	"context"
 )
 
-// EventV2CorehrPersonDeletedV1 个人信息删除{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=person&event=deleted)
+// EventV2CoreHRPersonDeletedV1 个人信息删除{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=person&event=deleted)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/person/events/deleted
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/person/deleted
-func (r *EventCallbackService) HandlerEventV2CorehrPersonDeletedV1(f EventV2CorehrPersonDeletedV1Handler) {
-	r.cli.eventHandler.eventV2CorehrPersonDeletedV1Handler = f
+func (r *EventCallbackService) HandlerEventV2CoreHRPersonDeletedV1(f EventV2CoreHRPersonDeletedV1Handler) {
+	r.cli.eventHandler.eventV2CoreHRPersonDeletedV1Handler = f
 }
 
-// EventV2CorehrPersonDeletedV1Handler event EventV2CorehrPersonDeletedV1 handler
-type EventV2CorehrPersonDeletedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CorehrPersonDeletedV1) (string, error)
+// EventV2CoreHRPersonDeletedV1Handler event EventV2CoreHRPersonDeletedV1 handler
+type EventV2CoreHRPersonDeletedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CoreHRPersonDeletedV1) (string, error)
 
-// EventV2CorehrPersonDeletedV1 ...
-type EventV2CorehrPersonDeletedV1 struct {
+// EventV2CoreHRPersonDeletedV1 ...
+type EventV2CoreHRPersonDeletedV1 struct {
 	PersonID string `json:"person_id,omitempty"` // 人员ID
 }

@@ -27,8 +27,6 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/entity/search
 // new doc: https://open.feishu.cn/document/server-docs/baike-v1/entity/search
-//
-// Deprecated
 func (r *BaikeService) SearchBaikeEntity(ctx context.Context, request *SearchBaikeEntityReq, options ...MethodOptionFunc) (*SearchBaikeEntityResp, *Response, error) {
 	if r.cli.mock.mockBaikeSearchBaikeEntity != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Baike#SearchBaikeEntity mock enable")

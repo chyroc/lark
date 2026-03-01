@@ -28,8 +28,6 @@ import (
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ukzNzUjL5czM14SO3MTN
 // new doc: https://open.feishu.cn/document/server-docs/docs/docs/docs/content/obtain-document-content
-//
-// Deprecated
 func (r *DriveService) GetDriveDocRawContent(ctx context.Context, request *GetDriveDocRawContentReq, options ...MethodOptionFunc) (*GetDriveDocRawContentResp, *Response, error) {
 	if r.cli.mock.mockDriveGetDriveDocRawContent != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetDriveDocRawContent mock enable")

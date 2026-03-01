@@ -58,3 +58,13 @@ type EventV1AppOpen struct {
 type EventV1AppOpenEventApplicant struct {
 	OpenID string `json:"open_id,omitempty"` // 用户对此应用的唯一标识, 同一用户对不同应用的open_id不同. 如: xxx
 }
+
+// EventV1AppOpenEventInstaller ...
+type EventV1AppOpenEventInstaller struct {
+	OpenID string `json:"open_id,omitempty"` // 用户对此应用的唯一标识, 同一用户对不同应用的open_id不同. 如: xxx
+}
+
+// EventV1AppOpenEventInstallerEmployee ...
+type EventV1AppOpenEventInstallerEmployee struct {
+	OpenID string `json:"open_id,omitempty"` // 用户对此应用的唯一标识, 同一用户对不同应用的open_id不同. 如: xxx
+}

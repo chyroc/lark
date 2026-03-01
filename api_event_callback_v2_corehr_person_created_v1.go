@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2CorehrPersonCreatedV1 目前以下场景会触发该事件:
+// EventV2CoreHRPersonCreatedV1 目前以下场景会触发该事件:
 //
 // - 调用[【创建个人信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/person/create)、[【添加人员】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/create)接口
 // - 人事系统【添加人员】、【导入人员】功能{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=person&event=created)
@@ -30,14 +30,14 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/person/events/created
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/person/created
-func (r *EventCallbackService) HandlerEventV2CorehrPersonCreatedV1(f EventV2CorehrPersonCreatedV1Handler) {
-	r.cli.eventHandler.eventV2CorehrPersonCreatedV1Handler = f
+func (r *EventCallbackService) HandlerEventV2CoreHRPersonCreatedV1(f EventV2CoreHRPersonCreatedV1Handler) {
+	r.cli.eventHandler.eventV2CoreHRPersonCreatedV1Handler = f
 }
 
-// EventV2CorehrPersonCreatedV1Handler event EventV2CorehrPersonCreatedV1 handler
-type EventV2CorehrPersonCreatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CorehrPersonCreatedV1) (string, error)
+// EventV2CoreHRPersonCreatedV1Handler event EventV2CoreHRPersonCreatedV1 handler
+type EventV2CoreHRPersonCreatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CoreHRPersonCreatedV1) (string, error)
 
-// EventV2CorehrPersonCreatedV1 ...
-type EventV2CorehrPersonCreatedV1 struct {
+// EventV2CoreHRPersonCreatedV1 ...
+type EventV2CoreHRPersonCreatedV1 struct {
 	PersonID string `json:"person_id,omitempty"` // 人员ID
 }

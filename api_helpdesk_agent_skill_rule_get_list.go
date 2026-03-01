@@ -58,7 +58,8 @@ func (r *Mock) UnMockHelpdeskGetHelpdeskAgentSkillRuleList() {
 }
 
 // GetHelpdeskAgentSkillRuleListReq ...
-type GetHelpdeskAgentSkillRuleListReq struct{}
+type GetHelpdeskAgentSkillRuleListReq struct {
+}
 
 // GetHelpdeskAgentSkillRuleListResp ...
 type GetHelpdeskAgentSkillRuleListResp struct {

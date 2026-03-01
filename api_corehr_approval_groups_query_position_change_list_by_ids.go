@@ -21,46 +21,46 @@ import (
 	"context"
 )
 
-// QueryCorehrApprovalGroupsPositionChangeListByIDs 根据岗位调整记录 ID 批量查询岗位调整内容
+// QueryCoreHRApprovalGroupsPositionChangeListByIDs 根据岗位调整记录 ID 批量查询岗位调整内容
 //
 // - 用户使用该接口前需提前获取 组织架构调整岗位调整内容 权限。
 // - 延迟说明: 数据库主从延迟2s以内, 即: 用户接收到流程状态变更消息后2s内调用此接口可能查询不到数据。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/approval_groups/open_query_position_change_list_by_ids
 // new doc: https://open.feishu.cn/document/corehr-v1/approval_groups/open_query_position_change_list_by_ids
-func (r *CoreHRService) QueryCorehrApprovalGroupsPositionChangeListByIDs(ctx context.Context, request *QueryCorehrApprovalGroupsPositionChangeListByIDsReq, options ...MethodOptionFunc) (*QueryCorehrApprovalGroupsPositionChangeListByIDsResp, *Response, error) {
-	if r.cli.mock.mockCoreHRQueryCorehrApprovalGroupsPositionChangeListByIDs != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#QueryCorehrApprovalGroupsPositionChangeListByIDs mock enable")
-		return r.cli.mock.mockCoreHRQueryCorehrApprovalGroupsPositionChangeListByIDs(ctx, request, options...)
+func (r *CoreHRService) QueryCoreHRApprovalGroupsPositionChangeListByIDs(ctx context.Context, request *QueryCoreHRApprovalGroupsPositionChangeListByIDsReq, options ...MethodOptionFunc) (*QueryCoreHRApprovalGroupsPositionChangeListByIDsResp, *Response, error) {
+	if r.cli.mock.mockCoreHRQueryCoreHRApprovalGroupsPositionChangeListByIDs != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#QueryCoreHRApprovalGroupsPositionChangeListByIDs mock enable")
+		return r.cli.mock.mockCoreHRQueryCoreHRApprovalGroupsPositionChangeListByIDs(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "QueryCorehrApprovalGroupsPositionChangeListByIDs",
+		API:                   "QueryCoreHRApprovalGroupsPositionChangeListByIDs",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/approval_groups/open_query_position_change_list_by_ids",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(queryCorehrApprovalGroupsPositionChangeListByIDsResp)
+	resp := new(queryCoreHRApprovalGroupsPositionChangeListByIDsResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRQueryCorehrApprovalGroupsPositionChangeListByIDs mock CoreHRQueryCorehrApprovalGroupsPositionChangeListByIDs method
-func (r *Mock) MockCoreHRQueryCorehrApprovalGroupsPositionChangeListByIDs(f func(ctx context.Context, request *QueryCorehrApprovalGroupsPositionChangeListByIDsReq, options ...MethodOptionFunc) (*QueryCorehrApprovalGroupsPositionChangeListByIDsResp, *Response, error)) {
-	r.mockCoreHRQueryCorehrApprovalGroupsPositionChangeListByIDs = f
+// MockCoreHRQueryCoreHRApprovalGroupsPositionChangeListByIDs mock CoreHRQueryCoreHRApprovalGroupsPositionChangeListByIDs method
+func (r *Mock) MockCoreHRQueryCoreHRApprovalGroupsPositionChangeListByIDs(f func(ctx context.Context, request *QueryCoreHRApprovalGroupsPositionChangeListByIDsReq, options ...MethodOptionFunc) (*QueryCoreHRApprovalGroupsPositionChangeListByIDsResp, *Response, error)) {
+	r.mockCoreHRQueryCoreHRApprovalGroupsPositionChangeListByIDs = f
 }
 
-// UnMockCoreHRQueryCorehrApprovalGroupsPositionChangeListByIDs un-mock CoreHRQueryCorehrApprovalGroupsPositionChangeListByIDs method
-func (r *Mock) UnMockCoreHRQueryCorehrApprovalGroupsPositionChangeListByIDs() {
-	r.mockCoreHRQueryCorehrApprovalGroupsPositionChangeListByIDs = nil
+// UnMockCoreHRQueryCoreHRApprovalGroupsPositionChangeListByIDs un-mock CoreHRQueryCoreHRApprovalGroupsPositionChangeListByIDs method
+func (r *Mock) UnMockCoreHRQueryCoreHRApprovalGroupsPositionChangeListByIDs() {
+	r.mockCoreHRQueryCoreHRApprovalGroupsPositionChangeListByIDs = nil
 }
 
-// QueryCorehrApprovalGroupsPositionChangeListByIDsReq ...
-type QueryCorehrApprovalGroupsPositionChangeListByIDsReq struct {
+// QueryCoreHRApprovalGroupsPositionChangeListByIDsReq ...
+type QueryCoreHRApprovalGroupsPositionChangeListByIDsReq struct {
 	ProcessID          string            `query:"process_id" json:"-"`           // 组织架构调整流程 ID, 用户通过『飞书人事-我的团队-组织架构』或『飞书人事-人员管理-组织架构』 发起一个组织架构调整, 并提交审批后, 系统会根据管理员在审批流程中配置的规则, 生成一个或多个审批单据。可通过「组织架构调整状态变更」的事件来获取示例值: 6893014062142064111
 	UserIDType         *IDType           `query:"user_id_type" json:"-"`         // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	DepartmentIDType   *DepartmentIDType `query:"department_id_type" json:"-"`   // 此次调用中使用的部门 ID 类型示例值: open_department_id可选值有: 以 open_department_id 来标识部门以 department_id 来标识部门以 people_corehr_department_id 来标识部门默认值: `open_department_id`
@@ -68,22 +68,22 @@ type QueryCorehrApprovalGroupsPositionChangeListByIDsReq struct {
 	NeedDepartmentPath *bool             `json:"need_department_path,omitempty"` // 是否返回部门全路径, 用于在组织架构调整中新建部门的场景, 由于岗位所属部门还未生效, 因此返回部门全路径用于数据查询示例值: false默认值: `false`
 }
 
-// QueryCorehrApprovalGroupsPositionChangeListByIDsResp ...
-type QueryCorehrApprovalGroupsPositionChangeListByIDsResp struct {
-	PositionChanges []*QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChange `json:"position_changes,omitempty"` // 岗位调整记录信息列表
+// QueryCoreHRApprovalGroupsPositionChangeListByIDsResp ...
+type QueryCoreHRApprovalGroupsPositionChangeListByIDsResp struct {
+	PositionChanges []*QueryCoreHRApprovalGroupsPositionChangeListByIDsRespPositionChange `json:"position_changes,omitempty"` // 岗位调整记录信息列表
 }
 
-// QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChange ...
-type QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChange struct {
+// QueryCoreHRApprovalGroupsPositionChangeListByIDsRespPositionChange ...
+type QueryCoreHRApprovalGroupsPositionChangeListByIDsRespPositionChange struct {
 	PositionChangeID       string                                                                                    `json:"position_change_id,omitempty"`       // 关联的岗位调整记录 ID
 	PositionID             string                                                                                    `json:"position_id,omitempty"`              // 岗位 ID。对于在本次调整中新建的岗位, 在调整未生效时将返回为空
 	DraftPositionID        string                                                                                    `json:"draft_position_id,omitempty"`        // 调整过程岗位 ID 。对于在本次调整中新建的岗位, 在调整未生效前会返回格式为 td_xxx 的过程岗位 ID, 生效后将返回正式的岗位 ID
 	PositionChangeType     string                                                                                    `json:"position_change_type,omitempty"`     // 调整类型可选值有: 未知新建编辑停用
-	PositionAdjustmentInfo *QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfo `json:"position_adjustment_info,omitempty"` // 调整详细信息
+	PositionAdjustmentInfo *QueryCoreHRApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfo `json:"position_adjustment_info,omitempty"` // 调整详细信息
 }
 
-// QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfo ...
-type QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfo struct {
+// QueryCoreHRApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfo ...
+type QueryCoreHRApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfo struct {
 	OriginalJobFamilies       []string                                                                                                            `json:"original_job_families,omitempty"`        // 原序列 ID 列表, 可通过[【批量查询序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)获取详情字段权限要求: 获取岗位的序列字段信息
 	TargetJobFamilies         []string                                                                                                            `json:"target_job_families,omitempty"`          // 调整后序列 ID 列表, 可通过[【批量查询序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)获取详情字段权限要求: 获取岗位的序列字段信息
 	OriginalDepartment        string                                                                                                              `json:"original_department,omitempty"`          // 原所属部门 ID, 可通过[【批量查询部门V2】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get) 或者[【搜索部门信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/search) 获取详情
@@ -99,8 +99,8 @@ type QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChangePositionA
 	TargetIsKeyPosition       bool                                                                                                                `json:"target_is_key_position,omitempty"`       // 调整后是否关键岗位
 	OriginalEmployeeTypes     []string                                                                                                            `json:"original_employee_types,omitempty"`      // 原人员类型 ID 列表, 可通过[【查询人员类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/get)获取详情字段权限要求: 获取岗位的人员类型字段信息
 	TargetEmployeeTypes       []string                                                                                                            `json:"target_employee_types,omitempty"`        // 调整后人员类型 ID 列表, 可通过[【查询人员类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/get)获取详情字段权限要求: 获取岗位的人员类型字段信息
-	OriginalNames             []*QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoOriginalName             `json:"original_names,omitempty"`               // 原名称
-	TargetNames               []*QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoTargetName               `json:"target_names,omitempty"`                 // 调整后名称
+	OriginalNames             []*QueryCoreHRApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoOriginalName             `json:"original_names,omitempty"`               // 原名称
+	TargetNames               []*QueryCoreHRApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoTargetName               `json:"target_names,omitempty"`                 // 调整后名称
 	OriginalJobGrades         []string                                                                                                            `json:"original_job_grades,omitempty"`          // 原职等 ID 列表, 可通过[【查询职等信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)获取详情字段权限要求: 获取岗位的职等字段信息
 	TargetJobGrades           []string                                                                                                            `json:"target_job_grades,omitempty"`            // 调整后职等 ID 列表, 可通过[【查询职等信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)获取详情字段权限要求: 获取岗位的职等字段信息
 	OriginalCode              string                                                                                                              `json:"original_code,omitempty"`                // 原编码
@@ -114,87 +114,87 @@ type QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChangePositionA
 	TargetDraftDirectLeader   string                                                                                                              `json:"target_draft_direct_leader,omitempty"`   // 调整后直线上级（岗位） ID, 对于在本次调整中新建的岗位, 在调整未生效前会返回格式为 td_xxx 的过程岗位 ID, 生效后将返回正式的岗位ID字段权限要求: 获取岗位的直线上级字段信息
 	OriginalWorkLocations     []string                                                                                                            `json:"original_work_locations,omitempty"`      // 原工作地点 ID 列表, 可通过[【通过地点 ID 批量获取地点信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/location/batch_get)接口获取详情
 	TargetWorkLocations       []string                                                                                                            `json:"target_work_locations,omitempty"`        // 调整后工作地点 ID 列表, 可通过[【通过地点 ID 批量获取地点信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/location/batch_get)接口获取详情
-	OriginalDescriptions      []*QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoOriginalDescription      `json:"original_descriptions,omitempty"`        // 原描述
-	TargetDescriptions        []*QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoTargetDescription        `json:"target_descriptions,omitempty"`          // 调整后描述
-	OriginalDepartmentIDPaths []*QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoOriginalDepartmentIDPath `json:"original_department_id_paths,omitempty"` // 原部门全路径, 从根部门开始自上而下返回部门 ID 列表, 主要用于 API 场景, 没有审批完成前获取部门路径用于计算
-	TargetDepartmentIDPaths   []*QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoTargetDepartmentIDPath   `json:"target_department_id_paths,omitempty"`   // 调整后部门全路径, 从根部门开始自上而下返回部门 ID 列表
-	CustomFields              []*QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoCustomField              `json:"custom_fields,omitempty"`                // 自定义字段
+	OriginalDescriptions      []*QueryCoreHRApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoOriginalDescription      `json:"original_descriptions,omitempty"`        // 原描述
+	TargetDescriptions        []*QueryCoreHRApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoTargetDescription        `json:"target_descriptions,omitempty"`          // 调整后描述
+	OriginalDepartmentIDPaths []*QueryCoreHRApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoOriginalDepartmentIDPath `json:"original_department_id_paths,omitempty"` // 原部门全路径, 从根部门开始自上而下返回部门 ID 列表, 主要用于 API 场景, 没有审批完成前获取部门路径用于计算
+	TargetDepartmentIDPaths   []*QueryCoreHRApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoTargetDepartmentIDPath   `json:"target_department_id_paths,omitempty"`   // 调整后部门全路径, 从根部门开始自上而下返回部门 ID 列表
+	CustomFields              []*QueryCoreHRApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoCustomField              `json:"custom_fields,omitempty"`                // 自定义字段
 }
 
-// QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoCustomField ...
-type QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoCustomField struct {
-	OriginValue *QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoCustomFieldOriginValue `json:"origin_value,omitempty"` // 调整前
-	TargetValue *QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoCustomFieldTargetValue `json:"target_value,omitempty"` // 调整后
+// QueryCoreHRApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoCustomField ...
+type QueryCoreHRApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoCustomField struct {
+	OriginValue *QueryCoreHRApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoCustomFieldOriginValue `json:"origin_value,omitempty"` // 调整前
+	TargetValue *QueryCoreHRApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoCustomFieldTargetValue `json:"target_value,omitempty"` // 调整后
 }
 
-// QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoCustomFieldOriginValue ...
-type QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoCustomFieldOriginValue struct {
+// QueryCoreHRApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoCustomFieldOriginValue ...
+type QueryCoreHRApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoCustomFieldOriginValue struct {
 	CustomApiName string                                                                                                              `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
-	Name          *QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoCustomFieldOriginValueName `json:"name,omitempty"`            // 自定义字段名称
+	Name          *QueryCoreHRApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoCustomFieldOriginValueName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                                                                                               `json:"type,omitempty"`            // 自定义字段类型, 详细见[获取自定义字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query)
 	Value         string                                                                                                              `json:"value,omitempty"`           // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同。如: ```("\"123\"", "\"123.23\"", "\"true\"", [\"id1\", \"id2\"], \"2006-01-02 15:04:05\")```
 }
 
-// QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoCustomFieldOriginValueName ...
-type QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoCustomFieldOriginValueName struct {
+// QueryCoreHRApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoCustomFieldOriginValueName ...
+type QueryCoreHRApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoCustomFieldOriginValueName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
-// QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoCustomFieldTargetValue ...
-type QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoCustomFieldTargetValue struct {
+// QueryCoreHRApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoCustomFieldTargetValue ...
+type QueryCoreHRApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoCustomFieldTargetValue struct {
 	CustomApiName string                                                                                                              `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
-	Name          *QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoCustomFieldTargetValueName `json:"name,omitempty"`            // 自定义字段名称
+	Name          *QueryCoreHRApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoCustomFieldTargetValueName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                                                                                               `json:"type,omitempty"`            // 自定义字段类型, 详细见[获取自定义字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query)
 	Value         string                                                                                                              `json:"value,omitempty"`           // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同。如: ```("\"123\"", "\"123.23\"", "\"true\"", [\"id1\", \"id2\"], \"2006-01-02 15:04:05\")```
 }
 
-// QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoCustomFieldTargetValueName ...
-type QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoCustomFieldTargetValueName struct {
+// QueryCoreHRApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoCustomFieldTargetValueName ...
+type QueryCoreHRApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoCustomFieldTargetValueName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
-// QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoOriginalDepartmentIDPath ...
-type QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoOriginalDepartmentIDPath struct {
+// QueryCoreHRApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoOriginalDepartmentIDPath ...
+type QueryCoreHRApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoOriginalDepartmentIDPath struct {
 	DepartmentID      string `json:"department_id,omitempty"`       // 部门 ID, 对于在本次调整中新建的部门, 在调整未生效时将返回为空。支持根据部门 ID 类型转换
 	DraftDepartmentID string `json:"draft_department_id,omitempty"` // 调整过程部门 ID, 固定返回people_corehr_department_id, 不会根据部门 ID 类型进行转换。对于在本次调整中新建的部门, 在调整未生效前会返回格式为 td_xxx 的过程部门 ID, 生效后将返回正式的people_corehr_department_id
 }
 
-// QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoOriginalDescription ...
-type QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoOriginalDescription struct {
+// QueryCoreHRApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoOriginalDescription ...
+type QueryCoreHRApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoOriginalDescription struct {
 	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoOriginalName ...
-type QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoOriginalName struct {
+// QueryCoreHRApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoOriginalName ...
+type QueryCoreHRApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoOriginalName struct {
 	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoTargetDepartmentIDPath ...
-type QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoTargetDepartmentIDPath struct {
+// QueryCoreHRApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoTargetDepartmentIDPath ...
+type QueryCoreHRApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoTargetDepartmentIDPath struct {
 	DepartmentID      string `json:"department_id,omitempty"`       // 部门 ID, 对于在本次调整中新建的部门, 在调整未生效时将返回为空。支持根据部门 ID 类型转换
 	DraftDepartmentID string `json:"draft_department_id,omitempty"` // 调整过程部门 ID, 固定返回people_corehr_department_id, 不会根据部门 ID 类型进行转换。对于在本次调整中新建的部门, 在调整未生效前会返回格式为 td_xxx 的临时部门 ID, 生效后将返回正式的people_corehr_department_id
 }
 
-// QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoTargetDescription ...
-type QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoTargetDescription struct {
+// QueryCoreHRApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoTargetDescription ...
+type QueryCoreHRApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoTargetDescription struct {
 	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoTargetName ...
-type QueryCorehrApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoTargetName struct {
+// QueryCoreHRApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoTargetName ...
+type QueryCoreHRApprovalGroupsPositionChangeListByIDsRespPositionChangePositionAdjustmentInfoTargetName struct {
 	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// queryCorehrApprovalGroupsPositionChangeListByIDsResp ...
-type queryCorehrApprovalGroupsPositionChangeListByIDsResp struct {
+// queryCoreHRApprovalGroupsPositionChangeListByIDsResp ...
+type queryCoreHRApprovalGroupsPositionChangeListByIDsResp struct {
 	Code  int64                                                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                                                `json:"msg,omitempty"`  // 错误描述
-	Data  *QueryCorehrApprovalGroupsPositionChangeListByIDsResp `json:"data,omitempty"`
+	Data  *QueryCoreHRApprovalGroupsPositionChangeListByIDsResp `json:"data,omitempty"`
 	Error *ErrorDetail                                          `json:"error,omitempty"`
 }

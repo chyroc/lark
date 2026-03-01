@@ -62,7 +62,8 @@ type DeleteCoreHRWorkingHoursTypeReq struct {
 }
 
 // DeleteCoreHRWorkingHoursTypeResp ...
-type DeleteCoreHRWorkingHoursTypeResp struct{}
+type DeleteCoreHRWorkingHoursTypeResp struct {
+}
 
 // deleteCoreHRWorkingHoursTypeResp ...
 type deleteCoreHRWorkingHoursTypeResp struct {

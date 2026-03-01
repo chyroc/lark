@@ -66,7 +66,8 @@ type UnbindMDMUserAuthDataRelationReq struct {
 }
 
 // UnbindMDMUserAuthDataRelationResp ...
-type UnbindMDMUserAuthDataRelationResp struct{}
+type UnbindMDMUserAuthDataRelationResp struct {
+}
 
 // unbindMDMUserAuthDataRelationResp ...
 type unbindMDMUserAuthDataRelationResp struct {

@@ -91,6 +91,13 @@ type CreateChatMenuTreeReqMenuTreeChatMenuTopLevelChatMenuItem struct {
 	I18nNames    *I18nNames                                                             `json:"i18n_names,omitempty"`    // 菜单国际化名称注意: 一级、二级菜单名称字符数要在 1 ~ 120 范围内。
 }
 
+// CreateChatMenuTreeReqMenuTreeChatMenuTopLevelChatMenuItemI18nNames ...
+type CreateChatMenuTreeReqMenuTreeChatMenuTopLevelChatMenuItemI18nNames struct {
+	ZhCn *string `json:"zh_cn,omitempty"` // 中文名示例值: "评审报名"
+	EnUs *string `json:"en_us,omitempty"` // 英文名示例值: "Sign up"
+	JaJp *string `json:"ja_jp,omitempty"` // 日文名示例值: "サインアップ"
+}
+
 // CreateChatMenuTreeReqMenuTreeChatMenuTopLevelChatMenuItemRedirectLink ...
 type CreateChatMenuTreeReqMenuTreeChatMenuTopLevelChatMenuItemRedirectLink struct {
 	CommonURL  *string `json:"common_url,omitempty"`  // 公用跳转链接, 必须以 http/https 开头。示例值: "https://open.feishu.cn/"
@@ -112,6 +119,13 @@ type CreateChatMenuTreeReqMenuTreeChatMenuTopLevelChildrenChatMenuItem struct {
 	ImageKey     *string                                                                        `json:"image_key,omitempty"`     // 二级菜单图标的 key 值。通过 [上传图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/create) 接口上传 message 类型图片获取 image_key, 并传入该值。示例值: "img_v2_b0fbe905-7988-4282-b882-82edd010336j"
 	Name         *string                                                                        `json:"name,omitempty"`          // 菜单名称注意: 一级、二级菜单名称字符数要在 1 ~ 120 范围内示例值: "群聊"
 	I18nNames    *I18nNames                                                                     `json:"i18n_names,omitempty"`    // 菜单国际化名称注意: 一级、二级菜单名称字符数要在 1 ~ 120 范围内
+}
+
+// CreateChatMenuTreeReqMenuTreeChatMenuTopLevelChildrenChatMenuItemI18nNames ...
+type CreateChatMenuTreeReqMenuTreeChatMenuTopLevelChildrenChatMenuItemI18nNames struct {
+	ZhCn *string `json:"zh_cn,omitempty"` // 中文名示例值: "评审报名"
+	EnUs *string `json:"en_us,omitempty"` // 英文名示例值: "Sign up"
+	JaJp *string `json:"ja_jp,omitempty"` // 日文名示例值: "サインアップ"
 }
 
 // CreateChatMenuTreeReqMenuTreeChatMenuTopLevelChildrenChatMenuItemRedirectLink ...
@@ -149,6 +163,13 @@ type CreateChatMenuTreeRespMenuTreeChatMenuTopLevelChatMenuItem struct {
 	I18nNames    *I18nNames                                                              `json:"i18n_names,omitempty"`    // 菜单国际化名称
 }
 
+// CreateChatMenuTreeRespMenuTreeChatMenuTopLevelChatMenuItemI18nNames ...
+type CreateChatMenuTreeRespMenuTreeChatMenuTopLevelChatMenuItemI18nNames struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名
+	EnUs string `json:"en_us,omitempty"` // 英文名
+	JaJp string `json:"ja_jp,omitempty"` // 日文名
+}
+
 // CreateChatMenuTreeRespMenuTreeChatMenuTopLevelChatMenuItemRedirectLink ...
 type CreateChatMenuTreeRespMenuTreeChatMenuTopLevelChatMenuItemRedirectLink struct {
 	CommonURL  string `json:"common_url,omitempty"`  // 公用跳转链接
@@ -171,6 +192,13 @@ type CreateChatMenuTreeRespMenuTreeChatMenuTopLevelChildrenChatMenuItem struct {
 	ImageKey     string                                                                          `json:"image_key,omitempty"`     // 图标的 key 值。通过[下载图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/get)接口可将图标下载到本地（只能下载由当前机器人上传的图片）。
 	Name         string                                                                          `json:"name,omitempty"`          // 菜单名称
 	I18nNames    *I18nNames                                                                      `json:"i18n_names,omitempty"`    // 菜单国际化名称
+}
+
+// CreateChatMenuTreeRespMenuTreeChatMenuTopLevelChildrenChatMenuItemI18nNames ...
+type CreateChatMenuTreeRespMenuTreeChatMenuTopLevelChildrenChatMenuItemI18nNames struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名
+	EnUs string `json:"en_us,omitempty"` // 英文名
+	JaJp string `json:"ja_jp,omitempty"` // 日文名
 }
 
 // CreateChatMenuTreeRespMenuTreeChatMenuTopLevelChildrenChatMenuItemRedirectLink ...

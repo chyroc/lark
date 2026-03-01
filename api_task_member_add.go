@@ -29,7 +29,8 @@ import (
 // * 如果要添加的成员已经在任务中, 则自动被忽略。
 // 添加任务成员需要任务的可编辑权限。详情见[任务功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/overview)中的“任务是如何鉴权的？”章节。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/add_members
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/add_members
+// new doc: https://open.feishu.cn/document/task-v2/task/add_members
 func (r *TaskService) AddTaskMember(ctx context.Context, request *AddTaskMemberReq, options ...MethodOptionFunc) (*AddTaskMemberResp, *Response, error) {
 	if r.cli.mock.mockTaskAddTaskMember != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#AddTaskMember mock enable")
@@ -64,17 +65,18 @@ func (r *Mock) UnMockTaskAddTaskMember() {
 
 // AddTaskMemberReq ...
 type AddTaskMemberReq struct {
-	TaskGuid    string                    `path:"task_guid" json:"-"`     // 要添加负责人的任务全局唯一ID, 示例值: "d300a75f-c56a-4be9-80d1-e47653028ceb", 最大长度: `100` 字符
-	UserIDType  *IDType                   `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 默认值: `open_id`
+	TaskGuid    string                    `path:"task_guid" json:"-"`     // 要添加负责人的任务全局唯一ID示例值: "d300a75f-c56a-4be9-80d1-e47653028ceb" 最大长度: `100` 字符
+	UserIDType  *IDType                   `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id默认值: `open_id`
 	Members     []*AddTaskMemberReqMember `json:"members,omitempty"`      // 要添加的members列表, 单请求支持最大50个成员（去重后)。关于member的格式, 详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 如何表示任务和清单的成员？”章节。
-	ClientToken *string                   `json:"client_token,omitempty"` // 幂等token, 如果提供则实现幂等行为。详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 幂等调用 ”章节, 示例值: "6d99f59c-4d7d-4452-98d6-3d0556393cf6", 长度范围: `10` ～ `100` 字符
+	ClientToken *string                   `json:"client_token,omitempty"` // 幂等token, 如果提供则实现幂等行为。详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 幂等调用 ”章节。示例值: "6d99f59c-4d7d-4452-98d6-3d0556393cf6" 长度范围: `10` ～ `100` 字符
 }
 
 // AddTaskMemberReqMember ...
 type AddTaskMemberReqMember struct {
-	ID   string  `json:"id,omitempty"`   // 表示member的id, 示例值: "ou_2cefb2f014f8d0c6c2d2eb7bafb0e54f", 最大长度: `100` 字符
-	Type *string `json:"type,omitempty"` // 成员类型, 示例值: "user", 默认值: `user`
-	Role string  `json:"role,omitempty"` // 成员的角色, 支持"assignee"或"follower", 示例值: "assignee", 最大长度: `20` 字符
+	ID   string  `json:"id,omitempty"`   // 表示member的id示例值: "ou_2cefb2f014f8d0c6c2d2eb7bafb0e54f" 最大长度: `100` 字符
+	Type *string `json:"type,omitempty"` // 成员类型, 可选值* user* app示例值: "user"默认值: `user`
+	Role string  `json:"role,omitempty"` // 成员的角色, 可选值* assignee* follower示例值: "assignee" 最大长度: `20` 字符
+	Name *string `json:"name,omitempty"` // 成员名称示例值: "张明德（明德）"
 }
 
 // AddTaskMemberResp ...
@@ -84,30 +86,40 @@ type AddTaskMemberResp struct {
 
 // AddTaskMemberRespTask ...
 type AddTaskMemberRespTask struct {
-	Guid           string                               `json:"guid,omitempty"`             // 任务guid, 任务的唯一ID
-	Summary        string                               `json:"summary,omitempty"`          // 任务标题
-	Description    string                               `json:"description,omitempty"`      // 任务备注
-	Due            *AddTaskMemberRespTaskDue            `json:"due,omitempty"`              // 任务截止时间
-	Reminders      []*AddTaskMemberRespTaskReminder     `json:"reminders,omitempty"`        // 任务的提醒配置列表。目前每个任务最多有1个。
-	Creator        *AddTaskMemberRespTaskCreator        `json:"creator,omitempty"`          // 任务创建者
-	Members        []*AddTaskMemberRespTaskMember       `json:"members,omitempty"`          // 任务成员列表
-	CompletedAt    string                               `json:"completed_at,omitempty"`     // 任务完成的时间戳(ms)
-	Attachments    []*AddTaskMemberRespTaskAttachment   `json:"attachments,omitempty"`      // 任务的附件列表
-	Origin         *AddTaskMemberRespTaskOrigin         `json:"origin,omitempty"`           // 任务关联的第三方平台来源信息。创建是设置后就不可更改。
-	Extra          string                               `json:"extra,omitempty"`            // 任务附带的自定义数据。
-	Tasklists      []*AddTaskMemberRespTaskTasklist     `json:"tasklists,omitempty"`        // 任务所属清单的名字。调用者只能看到有权限访问的清单的列表。
-	RepeatRule     string                               `json:"repeat_rule,omitempty"`      // 如果任务为重复任务, 返回重复任务的配置
-	ParentTaskGuid string                               `json:"parent_task_guid,omitempty"` // 如果当前任务为某个任务的子任务, 返回父任务的guid
-	Mode           int64                                `json:"mode,omitempty"`             // 任务的模式。1 - 会签任务；2 - 或签任务
-	Source         int64                                `json:"source,omitempty"`           // 任务创建的来源, 可选值有: 0: 未知来源, 1: 任务中心, 2: 群组任务/消息转任务, 6: 通过开放平台以tenant_access_token授权创建的任务, 7: 通过开放平台以user_access_token授权创建的任务, 8: 文档任务
-	CustomComplete *AddTaskMemberRespTaskCustomComplete `json:"custom_complete,omitempty"`  // 任务的自定义完成配置
-	TaskID         string                               `json:"task_id,omitempty"`          // 任务界面上的代码
-	CreatedAt      string                               `json:"created_at,omitempty"`       // 任务创建时间戳(ms)
-	UpdatedAt      string                               `json:"updated_at,omitempty"`       // 任务最后一次更新的时间戳(ms)
-	Status         string                               `json:"status,omitempty"`           // 任务的状态, 支持"todo"和"done"两种状态
-	URL            string                               `json:"url,omitempty"`              // 任务的分享链接
-	Start          *AddTaskMemberRespTaskStart          `json:"start,omitempty"`            // 任务的开始时间
-	SubtaskCount   int64                                `json:"subtask_count,omitempty"`    // 该任务的子任务的个数。
+	Guid            string                                  `json:"guid,omitempty"`             // 任务guid, 任务的唯一ID
+	Summary         string                                  `json:"summary,omitempty"`          // 任务标题
+	Description     string                                  `json:"description,omitempty"`      // 任务备注
+	Due             *AddTaskMemberRespTaskDue               `json:"due,omitempty"`              // 任务截止时间
+	Reminders       []*AddTaskMemberRespTaskReminder        `json:"reminders,omitempty"`        // 任务的提醒配置列表。目前每个任务最多有1个。
+	Creator         *AddTaskMemberRespTaskCreator           `json:"creator,omitempty"`          // 任务创建者
+	Members         []*AddTaskMemberRespTaskMember          `json:"members,omitempty"`          // 任务成员列表
+	CompletedAt     string                                  `json:"completed_at,omitempty"`     // 任务完成的时间戳(ms)
+	Attachments     []*AddTaskMemberRespTaskAttachment      `json:"attachments,omitempty"`      // 任务的附件列表
+	Origin          *AddTaskMemberRespTaskOrigin            `json:"origin,omitempty"`           // 任务关联的第三方平台来源信息。创建是设置后就不可更改。
+	Extra           string                                  `json:"extra,omitempty"`            // 任务附带的自定义数据。
+	Tasklists       []*AddTaskMemberRespTaskTasklist        `json:"tasklists,omitempty"`        // 任务所属清单的名字。调用者只能看到有权限访问的清单的列表。
+	RepeatRule      string                                  `json:"repeat_rule,omitempty"`      // 如果任务为重复任务, 返回重复任务的配置
+	ParentTaskGuid  string                                  `json:"parent_task_guid,omitempty"` // 如果当前任务为某个任务的子任务, 返回父任务的guid
+	Mode            int64                                   `json:"mode,omitempty"`             // 任务的模式。1 - 会签任务；2 - 或签任务
+	Source          int64                                   `json:"source,omitempty"`           // 任务创建的来源可选值有: 未知来源任务中心群组任务/消息转任务通过开放平台以tenant_access_token授权创建的任务通过开放平台以user_access_token授权创建的任务文档任务
+	CustomComplete  *AddTaskMemberRespTaskCustomComplete    `json:"custom_complete,omitempty"`  // 任务的自定义完成配置
+	TaskID          string                                  `json:"task_id,omitempty"`          // 任务界面上的代码
+	CreatedAt       string                                  `json:"created_at,omitempty"`       // 任务创建时间戳(ms)
+	UpdatedAt       string                                  `json:"updated_at,omitempty"`       // 任务最后一次更新的时间戳(ms)
+	Status          string                                  `json:"status,omitempty"`           // 任务的状态, 支持"todo"和"done"两种状态
+	URL             string                                  `json:"url,omitempty"`              // 任务的分享链接
+	Start           *AddTaskMemberRespTaskStart             `json:"start,omitempty"`            // 任务的开始时间
+	SubtaskCount    int64                                   `json:"subtask_count,omitempty"`    // 该任务的子任务的个数。
+	IsMilestone     bool                                    `json:"is_milestone,omitempty"`     // 是否是里程碑任务
+	CustomFields    []*AddTaskMemberRespTaskCustomField     `json:"custom_fields,omitempty"`    // 任务的自定义字段值
+	Dependencies    []*AddTaskMemberRespTaskDependencie     `json:"dependencies,omitempty"`     // 任务依赖
+	AssigneeRelated []*AddTaskMemberRespTaskAssigneeRelated `json:"assignee_related,omitempty"` // 任务执行者相关信息, 如会签任务各执行者完成时间等
+}
+
+// AddTaskMemberRespTaskAssigneeRelated ...
+type AddTaskMemberRespTaskAssigneeRelated struct {
+	ID          string `json:"id,omitempty"`           // 任务执行者的id
+	CompletedAt string `json:"completed_at,omitempty"` // 会签任务中执行者完成的时间戳(ms)
 }
 
 // AddTaskMemberRespTaskAttachment ...
@@ -133,6 +145,7 @@ type AddTaskMemberRespTaskAttachmentUploader struct {
 	ID   string `json:"id,omitempty"`   // 表示member的id
 	Type string `json:"type,omitempty"` // 成员的类型
 	Role string `json:"role,omitempty"` // 成员角色
+	Name string `json:"name,omitempty"` // 成员名称
 }
 
 // AddTaskMemberRespTaskCreator ...
@@ -140,6 +153,7 @@ type AddTaskMemberRespTaskCreator struct {
 	ID   string `json:"id,omitempty"`   // 表示member的id
 	Type string `json:"type,omitempty"` // 成员的类型
 	Role string `json:"role,omitempty"` // 成员角色
+	Name string `json:"name,omitempty"` // 成员名称
 }
 
 // AddTaskMemberRespTaskCustomComplete ...
@@ -215,6 +229,33 @@ type AddTaskMemberRespTaskCustomCompletePcTip struct {
 	KoKr string `json:"ko_kr,omitempty"` // 韩语
 }
 
+// AddTaskMemberRespTaskCustomField ...
+type AddTaskMemberRespTaskCustomField struct {
+	Guid              string                                         `json:"guid,omitempty"`                // 字段GUID
+	Type              string                                         `json:"type,omitempty"`                // 自定义字段类型, 支持"member", "datetime", "number", "single_select", "multi_select"五种类型
+	NumberValue       string                                         `json:"number_value,omitempty"`        // 数字类型的自定义字段值, 填写一个合法数字的字符串表示, 空字符串表示设为空。
+	DatetimeValue     string                                         `json:"datetime_value,omitempty"`      // 日期类型自定义字段值。可以输入一个表示日期的以毫秒为单位的字符串。设为空字符串表示设为空。
+	MemberValue       []*AddTaskMemberRespTaskCustomFieldMemberValue `json:"member_value,omitempty"`        // 人员类型的自定义字段值, 可以设置1个或多个用户的id（遵循member格式, 只支持user类型）。当该字段的设置为“不能多选”时只能输入一个值。设为空数组表示设为空。
+	SingleSelectValue string                                         `json:"single_select_value,omitempty"` // 单选类型字段值, 填写一个字段选项的option_guid。设置为空字符串表示设为空。
+	MultiSelectValue  []string                                       `json:"multi_select_value,omitempty"`  // 多选类型字段值, 可以填写一个或多个本字段的option_guid。设为空数组表示设为空。
+	Name              string                                         `json:"name,omitempty"`                // 自定义字段名
+	TextValue         string                                         `json:"text_value,omitempty"`          // 文本类型字段值。可以输入一段文本。空字符串表示清空。
+}
+
+// AddTaskMemberRespTaskCustomFieldMemberValue ...
+type AddTaskMemberRespTaskCustomFieldMemberValue struct {
+	ID   string `json:"id,omitempty"`   // 表示member的id
+	Type string `json:"type,omitempty"` // 成员的类型
+	Role string `json:"role,omitempty"` // 成员角色
+	Name string `json:"name,omitempty"` // 成员名称
+}
+
+// AddTaskMemberRespTaskDependencie ...
+type AddTaskMemberRespTaskDependencie struct {
+	Type     string `json:"type,omitempty"`      // 依赖类型可选值有: 前置依赖后置依赖
+	TaskGuid string `json:"task_guid,omitempty"` // 依赖任务的GUID
+}
+
 // AddTaskMemberRespTaskDue ...
 type AddTaskMemberRespTaskDue struct {
 	Timestamp string `json:"timestamp,omitempty"`  // 截止时间/日期的时间戳, 距1970-01-01 00:00:00的毫秒数。如果截止时间是一个日期, 需要把日期转换成时间戳, 并设置 is_all_day=true
@@ -226,6 +267,7 @@ type AddTaskMemberRespTaskMember struct {
 	ID   string `json:"id,omitempty"`   // 表示member的id
 	Type string `json:"type,omitempty"` // 成员的类型
 	Role string `json:"role,omitempty"` // 成员角色
+	Name string `json:"name,omitempty"` // 成员名称
 }
 
 // AddTaskMemberRespTaskOrigin ...

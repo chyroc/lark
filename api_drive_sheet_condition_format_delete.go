@@ -66,9 +66,23 @@ type DeleteSheetConditionFormatReq struct {
 	SheetCfIDs       []string `json:"sheet_cf_ids,omitempty"`     // 要删除的电子表格条件格式的 ID。最多可删除 10 个条件格式。注意: 响应体中将返回每个条件格式的删除结果, 包括成功或具体的失败信息。
 }
 
+// DeleteSheetConditionFormatReqSheetCfID ...
+type DeleteSheetConditionFormatReqSheetCfID struct {
+	SheetID string `json:"sheet_id,omitempty"` // 电子表格工作表的 ID。调用[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query)获取 ID。
+	CfID    string `json:"cf_id,omitempty"`    // 条件格式的 ID。调用[获取条件格式](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/conditionformat/condition-format-get)获取 ID。
+}
+
 // DeleteSheetConditionFormatResp ...
 type DeleteSheetConditionFormatResp struct {
 	Responses []interface{} `json:"responses,omitempty"` // 响应信息
+}
+
+// DeleteSheetConditionFormatRespResponse ...
+type DeleteSheetConditionFormatRespResponse struct {
+	SheetID string `json:"sheet_id,omitempty"` // 工作表的 ID
+	CfID    string `json:"cf_id,omitempty"`    // 删除的条件格式的 ID
+	ResCode int64  `json:"res_code,omitempty"` // 条件格式删除的状态码。0 表示成功创建, 非 0 表示失败。
+	ResMsg  string `json:"res_msg,omitempty"`  // 删除当前条件格式返回的状态信息, success 表示成功, 非 success 将返回失败原因。
 }
 
 // deleteSheetConditionFormatResp ...

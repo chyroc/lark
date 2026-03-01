@@ -27,8 +27,6 @@ import (
 //
 // doc: https://open.feishu.cn/document/uYjL24iN/ukjM04SOyQjL5IDN
 // new doc: https://open.feishu.cn/document/client-docs/gadget/-web-app-api/open-ability/login/code2session
-//
-// Deprecated
 func (r *MinaService) MinaCodeToSession(ctx context.Context, request *MinaCodeToSessionReq, options ...MethodOptionFunc) (*MinaCodeToSessionResp, *Response, error) {
 	if r.cli.mock.mockMinaMinaCodeToSession != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Mina#MinaCodeToSession mock enable")

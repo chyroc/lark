@@ -23,7 +23,8 @@ import (
 
 // GetCoreHRCompensationIndicatorList 批量查询薪资统计指标
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/indicator/list
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/indicator/list
+// new doc: https://open.feishu.cn/document/corehr-v1/basic-compensation/compensation-component-and-metric/list-3
 func (r *CoreHRService) GetCoreHRCompensationIndicatorList(ctx context.Context, request *GetCoreHRCompensationIndicatorListReq, options ...MethodOptionFunc) (*GetCoreHRCompensationIndicatorListResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRCompensationIndicatorList != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRCompensationIndicatorList mock enable")
@@ -57,8 +58,8 @@ func (r *Mock) UnMockCoreHRGetCoreHRCompensationIndicatorList() {
 
 // GetCoreHRCompensationIndicatorListReq ...
 type GetCoreHRCompensationIndicatorListReq struct {
-	PageSize  int64   `query:"page_size" json:"-"`  // 分页大小, 示例值: 100, 默认值: `100`, 取值范围: `1` ～ `500`
-	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 123423321
+	PageSize  int64   `query:"page_size" json:"-"`  // 分页大小示例值: 100默认值: `100` 取值范围: `1` ～ `500`
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 123423321
 }
 
 // GetCoreHRCompensationIndicatorListResp ...
@@ -72,8 +73,8 @@ type GetCoreHRCompensationIndicatorListResp struct {
 type GetCoreHRCompensationIndicatorListRespItem struct {
 	ID           string                                                `json:"id,omitempty"`            // 薪资统计指标ID
 	Name         string                                                `json:"name,omitempty"`          // 薪资统计指标名称
-	ValueType    string                                                `json:"value_type,omitempty"`    // 薪资统计指标数值类型, 可选值有: money: 金额, number: 数值, percent: 百分比
-	ActiveStatus int64                                                 `json:"active_status,omitempty"` // 启用状态, 可选值有: 1: 启用, 0: 禁用
+	ValueType    string                                                `json:"value_type,omitempty"`    // 薪资统计指标数值类型可选值有: 金额数值百分比
+	ActiveStatus int64                                                 `json:"active_status,omitempty"` // 启用状态可选值有: 启用禁用
 	I18nNames    []*GetCoreHRCompensationIndicatorListRespItemI18nName `json:"i18n_names,omitempty"`    // 多语言名称
 }
 

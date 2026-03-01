@@ -21,46 +21,46 @@ import (
 	"context"
 )
 
-// QueryCorehrApprovalGroupsJobChangeListByIDs 根据人员异动记录 ID 批量查询人员调整内容
+// QueryCoreHRApprovalGroupsJobChangeListByIDs 根据人员异动记录 ID 批量查询人员调整内容
 //
 // - 用户使用该接口前需提前获取 组织架构调整流程信息 权限
 // - 延迟说明: 数据库主从延迟2s以内, 即: 用户接收到流程状态变更消息后2s内调用此接口可能查询不到数据。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/approval_groups/open_query_job_change_list_by_ids
 // new doc: https://open.feishu.cn/document/corehr-v1/approval_groups/open_query_job_change_list_by_ids
-func (r *CoreHRService) QueryCorehrApprovalGroupsJobChangeListByIDs(ctx context.Context, request *QueryCorehrApprovalGroupsJobChangeListByIDsReq, options ...MethodOptionFunc) (*QueryCorehrApprovalGroupsJobChangeListByIDsResp, *Response, error) {
-	if r.cli.mock.mockCoreHRQueryCorehrApprovalGroupsJobChangeListByIDs != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#QueryCorehrApprovalGroupsJobChangeListByIDs mock enable")
-		return r.cli.mock.mockCoreHRQueryCorehrApprovalGroupsJobChangeListByIDs(ctx, request, options...)
+func (r *CoreHRService) QueryCoreHRApprovalGroupsJobChangeListByIDs(ctx context.Context, request *QueryCoreHRApprovalGroupsJobChangeListByIDsReq, options ...MethodOptionFunc) (*QueryCoreHRApprovalGroupsJobChangeListByIDsResp, *Response, error) {
+	if r.cli.mock.mockCoreHRQueryCoreHRApprovalGroupsJobChangeListByIDs != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#QueryCoreHRApprovalGroupsJobChangeListByIDs mock enable")
+		return r.cli.mock.mockCoreHRQueryCoreHRApprovalGroupsJobChangeListByIDs(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "QueryCorehrApprovalGroupsJobChangeListByIDs",
+		API:                   "QueryCoreHRApprovalGroupsJobChangeListByIDs",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/approval_groups/open_query_job_change_list_by_ids",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(queryCorehrApprovalGroupsJobChangeListByIDsResp)
+	resp := new(queryCoreHRApprovalGroupsJobChangeListByIDsResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRQueryCorehrApprovalGroupsJobChangeListByIDs mock CoreHRQueryCorehrApprovalGroupsJobChangeListByIDs method
-func (r *Mock) MockCoreHRQueryCorehrApprovalGroupsJobChangeListByIDs(f func(ctx context.Context, request *QueryCorehrApprovalGroupsJobChangeListByIDsReq, options ...MethodOptionFunc) (*QueryCorehrApprovalGroupsJobChangeListByIDsResp, *Response, error)) {
-	r.mockCoreHRQueryCorehrApprovalGroupsJobChangeListByIDs = f
+// MockCoreHRQueryCoreHRApprovalGroupsJobChangeListByIDs mock CoreHRQueryCoreHRApprovalGroupsJobChangeListByIDs method
+func (r *Mock) MockCoreHRQueryCoreHRApprovalGroupsJobChangeListByIDs(f func(ctx context.Context, request *QueryCoreHRApprovalGroupsJobChangeListByIDsReq, options ...MethodOptionFunc) (*QueryCoreHRApprovalGroupsJobChangeListByIDsResp, *Response, error)) {
+	r.mockCoreHRQueryCoreHRApprovalGroupsJobChangeListByIDs = f
 }
 
-// UnMockCoreHRQueryCorehrApprovalGroupsJobChangeListByIDs un-mock CoreHRQueryCorehrApprovalGroupsJobChangeListByIDs method
-func (r *Mock) UnMockCoreHRQueryCorehrApprovalGroupsJobChangeListByIDs() {
-	r.mockCoreHRQueryCorehrApprovalGroupsJobChangeListByIDs = nil
+// UnMockCoreHRQueryCoreHRApprovalGroupsJobChangeListByIDs un-mock CoreHRQueryCoreHRApprovalGroupsJobChangeListByIDs method
+func (r *Mock) UnMockCoreHRQueryCoreHRApprovalGroupsJobChangeListByIDs() {
+	r.mockCoreHRQueryCoreHRApprovalGroupsJobChangeListByIDs = nil
 }
 
-// QueryCorehrApprovalGroupsJobChangeListByIDsReq ...
-type QueryCorehrApprovalGroupsJobChangeListByIDsReq struct {
+// QueryCoreHRApprovalGroupsJobChangeListByIDsReq ...
+type QueryCoreHRApprovalGroupsJobChangeListByIDsReq struct {
 	ProcessID          string            `query:"process_id" json:"-"`           // 组织架构调整流程 ID, 用户通过『飞书人事-我的团队-组织架构』或『飞书 人事-人员管理-组织架构』 发起一个组织架构调整, 并提交审批后, 系统会根据管理员在审批流程中配置的规则, 生成 一个或多个审批单据。示例值: 6991776076699549697
 	UserIDType         *IDType           `query:"user_id_type" json:"-"`         // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	DepartmentIDType   *DepartmentIDType `query:"department_id_type" json:"-"`   // 此次调用中使用的部门 ID 类型示例值: open_department_id可选值有: 以 open_department_id 来标识部门以 department_id 来标识部门以 people_corehr_department_id 来标识部门默认值: `open_department_id`
@@ -68,25 +68,25 @@ type QueryCorehrApprovalGroupsJobChangeListByIDsReq struct {
 	NeedDepartmentPath *bool             `json:"need_department_path,omitempty"` // 是否返回部门全路径示例值: false默认值: `false`
 }
 
-// QueryCorehrApprovalGroupsJobChangeListByIDsResp ...
-type QueryCorehrApprovalGroupsJobChangeListByIDsResp struct {
-	JobChanges []*QueryCorehrApprovalGroupsJobChangeListByIDsRespJobChange `json:"job_changes,omitempty"` // 人员异动记录信息列表
+// QueryCoreHRApprovalGroupsJobChangeListByIDsResp ...
+type QueryCoreHRApprovalGroupsJobChangeListByIDsResp struct {
+	JobChanges []*QueryCoreHRApprovalGroupsJobChangeListByIDsRespJobChange `json:"job_changes,omitempty"` // 人员异动记录信息列表
 }
 
-// QueryCorehrApprovalGroupsJobChangeListByIDsRespJobChange ...
-type QueryCorehrApprovalGroupsJobChangeListByIDsRespJobChange struct {
+// QueryCoreHRApprovalGroupsJobChangeListByIDsRespJobChange ...
+type QueryCoreHRApprovalGroupsJobChangeListByIDsRespJobChange struct {
 	JobChangeID  string                                                                `json:"job_change_id,omitempty"` // 异动记录 id, 在组织架构调整发起后, 会为调整涉及的员工生成一个 员工异动记录, 对应的记录 ID 即为 job_change_id
 	EmploymentID string                                                                `json:"employment_id,omitempty"` // 雇员 id, 详细信息可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
-	TransferInfo *QueryCorehrApprovalGroupsJobChangeListByIDsRespJobChangeTransferInfo `json:"transfer_info,omitempty"` // 异动详细信息
+	TransferInfo *QueryCoreHRApprovalGroupsJobChangeListByIDsRespJobChangeTransferInfo `json:"transfer_info,omitempty"` // 异动详细信息
 }
 
-// QueryCorehrApprovalGroupsJobChangeListByIDsRespJobChangeTransferInfo ...
-type QueryCorehrApprovalGroupsJobChangeListByIDsRespJobChangeTransferInfo struct {
+// QueryCoreHRApprovalGroupsJobChangeListByIDsRespJobChangeTransferInfo ...
+type QueryCoreHRApprovalGroupsJobChangeListByIDsRespJobChangeTransferInfo struct {
 	OriginalDepartment                   string                                                                                          `json:"original_department,omitempty"`                       // 原部门, 可通过[查询单个部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/get)获取详情, ID 类型需要为 [people_corehr_department_id]。
 	TargetDepartment                     string                                                                                          `json:"target_department,omitempty"`                         // 新部门, 如果是一个已存在的部门, 则会使用其飞书人事部门 ID 作为调整记录 ID, 可通过[查询单个部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/get)获取详情, ID 类型需要为[people_corehr_id]
 	TargetDraftDepartment                string                                                                                          `json:"target_draft_department,omitempty"`                   // 新部门, 为避免一个没有经过审批的组织架构调整影响正在运行的系统, 如果是在组织架构调整中新生成的『部门』生成临时的 ID, 格式 "td_xxx"可通过[批量查询部门调整内容](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/approval_groups/open_query_department_change_list_by_ids)获取详情, ID 类型需要为 [people_corehr_department_id]。
-	OriginalDepartmentIDPath             []*QueryCorehrApprovalGroupsJobChangeListByIDsRespJobChangeTransferInfoOriginalDepartmentIDPath `json:"original_department_id_path,omitempty"`               // 原部门全路径, 从根部门开始自上而下返回部门 ID 列表, 主要用于 API 场景, 没有审批完成前获取部门路径用于计算。
-	TargetDepartmentIDPath               []*QueryCorehrApprovalGroupsJobChangeListByIDsRespJobChangeTransferInfoTargetDepartmentIDPath   `json:"target_department_id_path,omitempty"`                 // 新部门全路径, 从根部门开始自上而下返回部门 ID 列表
+	OriginalDepartmentIDPath             []*QueryCoreHRApprovalGroupsJobChangeListByIDsRespJobChangeTransferInfoOriginalDepartmentIDPath `json:"original_department_id_path,omitempty"`               // 原部门全路径, 从根部门开始自上而下返回部门 ID 列表, 主要用于 API 场景, 没有审批完成前获取部门路径用于计算。
+	TargetDepartmentIDPath               []*QueryCoreHRApprovalGroupsJobChangeListByIDsRespJobChangeTransferInfoTargetDepartmentIDPath   `json:"target_department_id_path,omitempty"`                 // 新部门全路径, 从根部门开始自上而下返回部门 ID 列表
 	OriginalDirectManager                string                                                                                          `json:"original_direct_manager,omitempty"`                   // 原直属上级, 详细信息可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
 	TargetDirectManager                  string                                                                                          `json:"target_direct_manager,omitempty"`                     // 新直属上级, 详细信息可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
 	OriginalJob                          string                                                                                          `json:"original_job,omitempty"`                              // 原职务, 可通过[查询单个职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/get)获取详情。字段权限要求（满足任一）: 获取员工的职务信息获取职务级别信息读写员工的职务级别信息
@@ -95,8 +95,8 @@ type QueryCorehrApprovalGroupsJobChangeListByIDsRespJobChangeTransferInfo struct
 	TargetJobFamily                      string                                                                                          `json:"target_job_family,omitempty"`                         // 新序列, 可通过[查询单个序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/get)获取详情。
 	OriginalJobLevel                     string                                                                                          `json:"original_job_level,omitempty"`                        // 原职级, 可通过[查询单个职级](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/get)获取详情。字段权限要求（满足任一）: 获取职务级别信息读写员工的职务级别信息
 	TargetJobLevel                       string                                                                                          `json:"target_job_level,omitempty"`                          // 新职级, 可通过[查询单个职级](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/get)获取详情。字段权限要求（满足任一）: 获取职务级别信息读写员工的职务级别信息
-	OriginalCostCenterRate               []*QueryCorehrApprovalGroupsJobChangeListByIDsRespJobChangeTransferInfoOriginalCostCenterRate   `json:"original_cost_center_rate,omitempty"`                 // 原成本中心分摊方式
-	TargetCostCenterRate                 []*QueryCorehrApprovalGroupsJobChangeListByIDsRespJobChangeTransferInfoTargetCostCenterRate     `json:"target_cost_center_rate,omitempty"`                   // 新成本中心分摊方式
+	OriginalCostCenterRate               []*QueryCoreHRApprovalGroupsJobChangeListByIDsRespJobChangeTransferInfoOriginalCostCenterRate   `json:"original_cost_center_rate,omitempty"`                 // 原成本中心分摊方式
+	TargetCostCenterRate                 []*QueryCoreHRApprovalGroupsJobChangeListByIDsRespJobChangeTransferInfoTargetCostCenterRate     `json:"target_cost_center_rate,omitempty"`                   // 新成本中心分摊方式
 	TargetAllocationExpirationTime       string                                                                                          `json:"target_allocation_expiration_time,omitempty"`         // 新分摊失效时间- 时间格式: YYYY-MM-DD HH:MM:SS- 功能灰度中, 成本分摊功能灰度开放前无值。
 	OriginalAllocationExpirationTime     string                                                                                          `json:"original_allocation_expiration_time,omitempty"`       // 原分摊失效时间- 时间格式: YYYY-MM-DD HH:MM:SS- 功能灰度中, 成本分摊功能灰度开放前无值。
 	TargetAllocationEffectiveTime        string                                                                                          `json:"target_allocation_effective_time,omitempty"`          // 新分摊生效时间- 时间格式: YYYY-MM-DD HH:MM:SS- 功能灰度中, 成本分摊功能灰度开放前无值。
@@ -112,36 +112,36 @@ type QueryCorehrApprovalGroupsJobChangeListByIDsRespJobChangeTransferInfo struct
 	TargetDraftPosition                  string                                                                                          `json:"target_draft_position,omitempty"`                     // 新岗位(调整过程岗位 ID )- 对于在本次调整中新建的岗位, 在调整未生效前会返回格式为 td_xxx 的过程岗位 ID, 生效后将返回正式的岗位ID
 }
 
-// QueryCorehrApprovalGroupsJobChangeListByIDsRespJobChangeTransferInfoOriginalCostCenterRate ...
-type QueryCorehrApprovalGroupsJobChangeListByIDsRespJobChangeTransferInfoOriginalCostCenterRate struct {
+// QueryCoreHRApprovalGroupsJobChangeListByIDsRespJobChangeTransferInfoOriginalCostCenterRate ...
+type QueryCoreHRApprovalGroupsJobChangeListByIDsRespJobChangeTransferInfoOriginalCostCenterRate struct {
 	CostCenterID string  `json:"cost_center_id,omitempty"` // 成本中心 ID, 可以通过[【搜索成本中心信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)接口获取对应的成本中心信息
 	Rate         int64   `json:"rate,omitempty"`           // 分摊比例(整数) 成本分摊百分比的整数部分, 实际值为小数时向下取整（比如: 12.99→ 12）, 如需小数请使用分摊比例字段。
 	NewRate      float64 `json:"new_rate,omitempty"`       // 分摊比例 成本分摊百分比, 可能包含小数位。- 功能灰度中, 成本分摊功能灰度开放前无值。
 }
 
-// QueryCorehrApprovalGroupsJobChangeListByIDsRespJobChangeTransferInfoOriginalDepartmentIDPath ...
-type QueryCorehrApprovalGroupsJobChangeListByIDsRespJobChangeTransferInfoOriginalDepartmentIDPath struct {
+// QueryCoreHRApprovalGroupsJobChangeListByIDsRespJobChangeTransferInfoOriginalDepartmentIDPath ...
+type QueryCoreHRApprovalGroupsJobChangeListByIDsRespJobChangeTransferInfoOriginalDepartmentIDPath struct {
 	DepartmentID      string `json:"department_id,omitempty"`       // 部门 ID, 对于在本次调整中新建的部门, 在调整未生效时将返回为空。支持根据部门 ID 类型转换。
 	DraftDepartmentID string `json:"draft_department_id,omitempty"` // 调整过程部门 ID, 固定返回people_corehr_department_id, 不会根据部门 ID 类型进行转换。对于在本次调整中新建的部门, 在调整未生效前会返回格式为 td_xxx 的过程部门 ID, 生效后将返回正式的people_corehr_department_id
 }
 
-// QueryCorehrApprovalGroupsJobChangeListByIDsRespJobChangeTransferInfoTargetCostCenterRate ...
-type QueryCorehrApprovalGroupsJobChangeListByIDsRespJobChangeTransferInfoTargetCostCenterRate struct {
+// QueryCoreHRApprovalGroupsJobChangeListByIDsRespJobChangeTransferInfoTargetCostCenterRate ...
+type QueryCoreHRApprovalGroupsJobChangeListByIDsRespJobChangeTransferInfoTargetCostCenterRate struct {
 	CostCenterID string  `json:"cost_center_id,omitempty"` // 成本中心 ID, 可以通过[【搜索成本中心信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)接口获取对应的成本中心信息
 	Rate         int64   `json:"rate,omitempty"`           // 分摊比例(整数) 成本分摊百分比的整数部分, 实际值为小数时向下取整（比如: 12.99→ 12）, 如需小数请使用分摊比例字段。
 	NewRate      float64 `json:"new_rate,omitempty"`       // 分摊比例 成本分摊百分比, 可能包含小数位。- 功能灰度中, 成本分摊功能灰度开放前无值。
 }
 
-// QueryCorehrApprovalGroupsJobChangeListByIDsRespJobChangeTransferInfoTargetDepartmentIDPath ...
-type QueryCorehrApprovalGroupsJobChangeListByIDsRespJobChangeTransferInfoTargetDepartmentIDPath struct {
+// QueryCoreHRApprovalGroupsJobChangeListByIDsRespJobChangeTransferInfoTargetDepartmentIDPath ...
+type QueryCoreHRApprovalGroupsJobChangeListByIDsRespJobChangeTransferInfoTargetDepartmentIDPath struct {
 	DepartmentID      string `json:"department_id,omitempty"`       // 部门 ID, 对于在本次调整中新建的部门, 在调整未生效时将返回为空。支持根据部门 ID 类型转换
 	DraftDepartmentID string `json:"draft_department_id,omitempty"` // 调整过程部门 ID, 固定返回people_corehr_department_id, 不会根据部门 ID 类型进行转换。对于在本次调整中新建的部门, 在调整未生效前会返回格式为 td_xxx 的临时部门 ID, 生效后将返回正式的people_corehr_department_id
 }
 
-// queryCorehrApprovalGroupsJobChangeListByIDsResp ...
-type queryCorehrApprovalGroupsJobChangeListByIDsResp struct {
+// queryCoreHRApprovalGroupsJobChangeListByIDsResp ...
+type queryCoreHRApprovalGroupsJobChangeListByIDsResp struct {
 	Code  int64                                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                                           `json:"msg,omitempty"`  // 错误描述
-	Data  *QueryCorehrApprovalGroupsJobChangeListByIDsResp `json:"data,omitempty"`
+	Data  *QueryCoreHRApprovalGroupsJobChangeListByIDsResp `json:"data,omitempty"`
 	Error *ErrorDetail                                     `json:"error,omitempty"`
 }

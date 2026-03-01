@@ -25,7 +25,8 @@ import (
 //
 // 移除任务成员需要任务的编辑权限。详情见[任务功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/overview)中的“任务是如何鉴权的？”章节。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/remove_members
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/remove_members
+// new doc: https://open.feishu.cn/document/task-v2/task/remove_members
 func (r *TaskService) RemoveTaskMember(ctx context.Context, request *RemoveTaskMemberReq, options ...MethodOptionFunc) (*RemoveTaskMemberResp, *Response, error) {
 	if r.cli.mock.mockTaskRemoveTaskMember != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#RemoveTaskMember mock enable")
@@ -60,16 +61,16 @@ func (r *Mock) UnMockTaskRemoveTaskMember() {
 
 // RemoveTaskMemberReq ...
 type RemoveTaskMemberReq struct {
-	TaskGuid   string                       `path:"task_guid" json:"-"`     // 要移除成员的任务全局唯一ID, 示例值: "d300a75f-c56a-4be9-80d1-e47653028ceb", 最大长度: `100` 字符
-	UserIDType *IDType                      `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 默认值: `open_id`
-	Members    []*RemoveTaskMemberReqMember `json:"members,omitempty"`      // 要移除的member列表, 长度范围: `1` ～ `500`
+	TaskGuid   string                       `path:"task_guid" json:"-"`     // 要移除成员的任务全局唯一ID示例值: "d300a75f-c56a-4be9-80d1-e47653028ceb" 最大长度: `100` 字符
+	UserIDType *IDType                      `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id默认值: `open_id`
+	Members    []*RemoveTaskMemberReqMember `json:"members,omitempty"`      // 要移除的member列表 长度范围: `1` ～ `500`
 }
 
 // RemoveTaskMemberReqMember ...
 type RemoveTaskMemberReqMember struct {
-	ID   string  `json:"id,omitempty"`   // 表示member的id, 示例值: "ou_2cefb2f014f8d0c6c2d2eb7bafb0e54f", 最大长度: `100` 字符
-	Type *string `json:"type,omitempty"` // 成员的类型, 示例值: "user", 默认值: `user`
-	Role string  `json:"role,omitempty"` // 成员角色, 支持"assignee"或者"follower", 示例值: "assignee", 最大长度: `20` 字符
+	ID   string  `json:"id,omitempty"`   // 表示member的id示例值: "ou_2cefb2f014f8d0c6c2d2eb7bafb0e54f" 最大长度: `100` 字符
+	Type *string `json:"type,omitempty"` // 成员的类型示例值: "user"默认值: `user`
+	Role string  `json:"role,omitempty"` // 成员角色, 支持"assignee"或者"follower"示例值: "assignee" 最大长度: `20` 字符
 }
 
 // RemoveTaskMemberResp ...
@@ -94,7 +95,7 @@ type RemoveTaskMemberRespTask struct {
 	RepeatRule     string                                  `json:"repeat_rule,omitempty"`      // 如果任务为重复任务, 返回重复任务的配置
 	ParentTaskGuid string                                  `json:"parent_task_guid,omitempty"` // 如果当前任务为某个任务的子任务, 返回父任务的guid
 	Mode           int64                                   `json:"mode,omitempty"`             // 任务的模式。1 - 会签任务；2 - 或签任务
-	Source         int64                                   `json:"source,omitempty"`           // 任务创建的来源, 可选值有: 0: 未知来源, 1: 任务中心, 2: 群组任务/消息转任务, 6: 通过开放平台以tenant_access_token授权创建的任务, 7: 通过开放平台以user_access_token授权创建的任务, 8: 文档任务
+	Source         int64                                   `json:"source,omitempty"`           // 任务创建的来源可选值有: 未知来源任务中心群组任务/消息转任务通过开放平台以tenant_access_token授权创建的任务通过开放平台以user_access_token授权创建的任务文档任务
 	CustomComplete *RemoveTaskMemberRespTaskCustomComplete `json:"custom_complete,omitempty"`  // 任务的自定义完成配置
 	TaskID         string                                  `json:"task_id,omitempty"`          // 任务界面上的代码
 	CreatedAt      string                                  `json:"created_at,omitempty"`       // 任务创建时间戳(ms)

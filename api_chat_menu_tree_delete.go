@@ -95,6 +95,13 @@ type DeleteChatMenuTreeRespMenuTreeChatMenuTopLevelChatMenuItem struct {
 	I18nNames    *I18nNames                                                              `json:"i18n_names,omitempty"`    // 菜单国际化名称
 }
 
+// DeleteChatMenuTreeRespMenuTreeChatMenuTopLevelChatMenuItemI18nNames ...
+type DeleteChatMenuTreeRespMenuTreeChatMenuTopLevelChatMenuItemI18nNames struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名
+	EnUs string `json:"en_us,omitempty"` // 英文名
+	JaJp string `json:"ja_jp,omitempty"` // 日文名
+}
+
 // DeleteChatMenuTreeRespMenuTreeChatMenuTopLevelChatMenuItemRedirectLink ...
 type DeleteChatMenuTreeRespMenuTreeChatMenuTopLevelChatMenuItemRedirectLink struct {
 	CommonURL  string `json:"common_url,omitempty"`  // 公用跳转链接
@@ -117,6 +124,13 @@ type DeleteChatMenuTreeRespMenuTreeChatMenuTopLevelChildrenChatMenuItem struct {
 	ImageKey     string                                                                          `json:"image_key,omitempty"`     // 图标的 key 值。通过[下载图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/get)接口可将图标下载到本地（只能下载由当前机器人上传的图片）。
 	Name         string                                                                          `json:"name,omitempty"`          // 菜单名称
 	I18nNames    *I18nNames                                                                      `json:"i18n_names,omitempty"`    // 菜单国际化名称
+}
+
+// DeleteChatMenuTreeRespMenuTreeChatMenuTopLevelChildrenChatMenuItemI18nNames ...
+type DeleteChatMenuTreeRespMenuTreeChatMenuTopLevelChildrenChatMenuItemI18nNames struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名
+	EnUs string `json:"en_us,omitempty"` // 英文名
+	JaJp string `json:"ja_jp,omitempty"` // 日文名
 }
 
 // DeleteChatMenuTreeRespMenuTreeChatMenuTopLevelChildrenChatMenuItemRedirectLink ...

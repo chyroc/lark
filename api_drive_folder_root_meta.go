@@ -58,7 +58,8 @@ func (r *Mock) UnMockDriveGetDriveRootFolderMeta() {
 }
 
 // GetDriveRootFolderMetaReq ...
-type GetDriveRootFolderMetaReq struct{}
+type GetDriveRootFolderMetaReq struct {
+}
 
 // GetDriveRootFolderMetaResp ...
 type GetDriveRootFolderMetaResp struct {

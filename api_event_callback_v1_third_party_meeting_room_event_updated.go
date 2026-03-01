@@ -54,6 +54,11 @@ type EventV1ThirdPartyMeetingRoomEventUpdatedEnd struct {
 	TimeStamp string `json:"time_stamp,omitempty"` // 日程结束时间戳
 }
 
+// EventV1ThirdPartyMeetingRoomEventUpdatedMeetingRoom ...
+type EventV1ThirdPartyMeetingRoomEventUpdatedMeetingRoom struct {
+	OpenID string `json:"open_id,omitempty"` // 会议室 ID
+}
+
 // EventV1ThirdPartyMeetingRoomEventUpdatedOrganizer ...
 type EventV1ThirdPartyMeetingRoomEventUpdatedOrganizer struct {
 	OpenID  string `json:"open_id,omitempty"`  // 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。

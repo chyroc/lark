@@ -27,7 +27,8 @@ import (
 // 如果当前任务已经有提醒了, 要更新提醒的设置, 需要先调用[移除任务提醒](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/remove_reminders)接口移除原有提醒。再调用本接口添加提醒。
 // 需要任务的编辑权限。详情见[任务功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/overview)中的“任务是如何鉴权的？”章节。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/add_reminders
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/add_reminders
+// new doc: https://open.feishu.cn/document/task-v2/task/add_reminders
 func (r *TaskService) AddTaskReminder(ctx context.Context, request *AddTaskReminderReq, options ...MethodOptionFunc) (*AddTaskReminderResp, *Response, error) {
 	if r.cli.mock.mockTaskAddTaskReminder != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#AddTaskReminder mock enable")
@@ -62,14 +63,14 @@ func (r *Mock) UnMockTaskAddTaskReminder() {
 
 // AddTaskReminderReq ...
 type AddTaskReminderReq struct {
-	TaskGuid   string                        `path:"task_guid" json:"-"`     // 要添加负责人的任务全局唯一ID, 示例值: "d300a75f-c56a-4be9-80d1-e47653028ceb", 最大长度: `100` 字符
-	UserIDType *IDType                       `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 默认值: `open_id`
-	Reminders  []*AddTaskReminderReqReminder `json:"reminders,omitempty"`    // 要添加的reminder的列表, 目前1个任务只支持一个提醒, 示例值: [ou_2cefb2f014f8d0c6c2d2eb7bafb0e54f], 长度范围: `1` ～ `1`
+	TaskGuid   string                        `path:"task_guid" json:"-"`     // 要添加负责人的任务全局唯一ID示例值: "d300a75f-c56a-4be9-80d1-e47653028ceb" 最大长度: `100` 字符
+	UserIDType *IDType                       `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id默认值: `open_id`
+	Reminders  []*AddTaskReminderReqReminder `json:"reminders,omitempty"`    // 要添加的reminder的列表, 目前1个任务只支持一个提醒。示例值: [ou_2cefb2f014f8d0c6c2d2eb7bafb0e54f] 长度范围: `1` ～ `1`
 }
 
 // AddTaskReminderReqReminder ...
 type AddTaskReminderReqReminder struct {
-	RelativeFireMinute int64 `json:"relative_fire_minute,omitempty"` // 相对于截止时间的提醒时间分钟数。例如30表示截止时间前30分钟提醒；0表示截止时提醒, 不支持负数, 示例值: 30
+	RelativeFireMinute int64 `json:"relative_fire_minute,omitempty"` // 相对于截止时间的提醒时间分钟数。例如30表示截止时间前30分钟提醒；0表示截止时提醒。不支持负数。示例值: 30
 }
 
 // AddTaskReminderResp ...
@@ -94,7 +95,7 @@ type AddTaskReminderRespTask struct {
 	RepeatRule     string                                 `json:"repeat_rule,omitempty"`      // 重复任务配置。
 	ParentTaskGuid string                                 `json:"parent_task_guid,omitempty"` // 如果当前任务为某个任务的子任务, 返回父任务的guid
 	Mode           int64                                  `json:"mode,omitempty"`             // 任务的模式。1 - 会签任务；2 - 或签任务
-	Source         int64                                  `json:"source,omitempty"`           // 任务创建的来源, 可选值有: 0: 未知来源, 1: 任务中心, 2: 群组任务/消息转任务, 6: 通过开放平台以tenant_access_token授权创建的任务, 7: 通过开放平台以user_access_token授权创建的任务, 8: 文档任务
+	Source         int64                                  `json:"source,omitempty"`           // 任务创建的来源可选值有: 未知来源任务中心群组任务/消息转任务通过开放平台以tenant_access_token授权创建的任务通过开放平台以user_access_token授权创建的任务文档任务
 	CustomComplete *AddTaskReminderRespTaskCustomComplete `json:"custom_complete,omitempty"`  // 任务的自定义完成配置
 	TaskID         string                                 `json:"task_id,omitempty"`          // 任务界面上的代码
 	CreatedAt      string                                 `json:"created_at,omitempty"`       // 任务创建时间戳(ms)

@@ -21,11 +21,14 @@ import (
 	"context"
 )
 
-// SearchCoreHRPreHire 搜索待入职人员信息。
+// SearchCoreHRPreHire 该接口用于根据工号/待入职人员 ID /入职地点等查询条件搜索待入职人员信息。
 //
-// 该接口会按照应用拥有的「待入职人员」的权限范围返回数据, 请确定在「开发者后台 - 权限管理 - 数据权限」中已申请「待入职人员」权限范围
+// - 查询的待入职数量及字段越多, 耗时越久, 使用时建议细化指定需要的字段。
+// - 创建待入职后, 会有5秒内的数据延迟导致搜索不到数据
+// 该接口会按照应用拥有的「待入职人员」的权限范围返回数据, 请提前在「开发者后台 - 权限管理 - 数据权限-飞书人事(企业版)数据权限范围」中申请「待入职人员」权限范围
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/search
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/search
+// new doc: https://open.feishu.cn/document/corehr-v1/pre_hire/search
 func (r *CoreHRService) SearchCoreHRPreHire(ctx context.Context, request *SearchCoreHRPreHireReq, options ...MethodOptionFunc) (*SearchCoreHRPreHireResp, *Response, error) {
 	if r.cli.mock.mockCoreHRSearchCoreHRPreHire != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#SearchCoreHRPreHire mock enable")
@@ -59,28 +62,33 @@ func (r *Mock) UnMockCoreHRSearchCoreHRPreHire() {
 
 // SearchCoreHRPreHireReq ...
 type SearchCoreHRPreHireReq struct {
-	PageSize              int64             `query:"page_size" json:"-"`               // 分页大小, 最大 100, 示例值: 100, 取值范围: `1` ～ `100`
-	PageToken             *string           `query:"page_token" json:"-"`              // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 6891251722631890445
-	UserIDType            *IDType           `query:"user_id_type" json:"-"`            // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_corehr_id: 以飞书人事的 ID 来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	DepartmentIDType      *DepartmentIDType `query:"department_id_type" json:"-"`      // 此次调用中使用的部门 ID 类型, 示例值: open_department_id, 可选值有: open_department_id: 以 open_department_id 来标识部门, department_id: 以 department_id 来标识部门, people_corehr_department_id: 以 people_corehr_department_id 来标识部门, 默认值: `open_department_id`
-	WorkerIDs             []string          `json:"worker_ids,omitempty"`              // 待入职人员工号列表, 示例值: ["A55045"], 最大长度: `100`
-	PreHireIDs            []string          `json:"pre_hire_ids,omitempty"`            // 待入职人员 ID 列表, 示例值: ["7094136522860922112"], 最大长度: `100`
-	OnboardingDateStart   *string           `json:"onboarding_date_start,omitempty"`   // 入职日期-搜索范围开始, 需要与搜索范围结束一同使用, 示例值: "2006-01-02"
-	OnboardingDateEnd     *string           `json:"onboarding_date_end,omitempty"`     // 入职日期-搜索范围结束, 示例值: "2006-01-02"
-	OnboardingLocationIDs []string          `json:"onboarding_location_ids,omitempty"` // 入职地点 ID 列表, 示例值: ["7094136522860922112"], 最大长度: `100`
-	OnboardingStatus      *string           `json:"onboarding_status,omitempty"`       // 入职状态, 示例值: "preboarding", 可选值有: preboarding: 待入职, deleted: 已删除, day_one: 准备就绪, withdrawn: 已撤销, completed: 已完成
-	DepartmentIDs         []string          `json:"department_ids,omitempty"`          // 部门 ID 列表, 示例值: ["7094136522860922111"], 最大长度: `100`
-	DirectManagerIDs      []string          `json:"direct_manager_ids,omitempty"`      // 直接上级的雇佣 ID 列表, 示例值: ["7094136522860922111"], 最大长度: `100`
-	EmployeeTypeIDs       []string          `json:"employee_type_ids,omitempty"`       // 人员类型 ID 列表, 示例值: ["7094136522860922111"], 最大长度: `100`
-	JobFamilyIDs          []string          `json:"job_family_ids,omitempty"`          // 序列 ID 列表, 示例值: ["7094136522860922111"], 最大长度: `100`
-	KeyWord               *string           `json:"key_word,omitempty"`                // 搜索关键字, 支持对常用名模糊搜索 + 工号精确搜索, 示例值: "张三"
-	Rehire                *string           `json:"rehire,omitempty"`                  // 是否离职重聘, 示例值: "张三", 可选值有: to_be_confirmed: 待确认, 系统会判断该员工是否存在历史雇佣记录, 如果存在且需要二次确认时会调用失败, 并返回历史雇佣记录, no: 否, 系统直接标为非离职重聘人员, 不再做重复判断, yes: 是, 要求历史雇佣信息 ID 必填
-	Fields                []string          `json:"fields,omitempty"`                  // 返回数据的字段列表, 填写方式: 为空时只返回 pre_hire_id, 不为空时按照传入的字段返回数据, 格式如下: person_info 字段: person_info.gender, person_info.age, employment_info 字段: employment_info.department, onboarding_info 字段: onboarding_info.onboarding_date, probation_info 字段: probation_info.probation_period, contract_info 字段: contract_info.contract_type, 如果要返回所有下级, 只用传上级结构体名称, 例如 person_info, 返回数据越多, 查询接口性能越慢, 请按需填写返回字段, 示例值: ["employment_info.department"], 最大长度: `100`
+	PageSize              int64             `query:"page_size" json:"-"`               // 分页大小, 最大 100示例值: 100 取值范围: `1` ～ `100`
+	PageToken             *string           `query:"page_token" json:"-"`              // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 6891251722631890445
+	UserIDType            *IDType           `query:"user_id_type" json:"-"`            // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	DepartmentIDType      *DepartmentIDType `query:"department_id_type" json:"-"`      // 此次调用中使用的部门 ID 类型示例值: open_department_id可选值有: 以 open_department_id 来标识部门以 department_id 来标识部门以 people_corehr_department_id 来标识部门默认值: `open_department_id`
+	WorkerIDs             []string          `json:"worker_ids,omitempty"`              // 待入职人员工号列表, 如果不填写, 则不根据工号过滤待入职数据。示例值: ["A55045"] 最大长度: `100`
+	PreHireIDs            []string          `json:"pre_hire_ids,omitempty"`            // 待入职人员 ID 列表, 如果不填写, 则搜索全部待入职。示例值: ["7094136522860922112"] 最大长度: `100`
+	PersonIDs             []string          `json:"person_ids,omitempty"`              // 个人信息 ID 列表, 可以通过[【事件】更新个人信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/person/events/updated)获取示例值: ["7094136522860922112"] 最大长度: `100`
+	OnboardingDateStart   *string           `json:"onboarding_date_start,omitempty"`   // 入职日期（搜索的起始时间）, 需要与入职日期（onboarding_date_end）一同使用, 不填写则不根据入职日期过滤。示例值: "2006-01-02"
+	OnboardingDateEnd     *string           `json:"onboarding_date_end,omitempty"`     // 入职日期（搜索的结束时间）, 需要与入职日期（onboarding_date_start）一同使用, 不填写则不根据入职日期过滤。示例值: "2006-01-02"
+	UpdatedDateStart      *string           `json:"updated_date_start,omitempty"`      // 待入职数据更新时间（搜索的起始时间）, 需要与更新时间（updated_date_end）一同使用, 不填写则不根据数据更新时间过滤。示例值: "2006-01-02"
+	UpdatedDateEnd        *string           `json:"updated_date_end,omitempty"`        // 待入职数据更新时间（搜索的结束时间）, 需要与更新时间（updated_date_start）一同使用, 不填写则不根据数据更新时间过滤。示例值: "2006-01-02"
+	OnboardingLocationIDs []string          `json:"onboarding_location_ids,omitempty"` // 入职地点 ID 列表, 可通过[批量查询地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)接口获取示例值: ["7094136522860922112"] 最大长度: `100`
+	OnboardingStatus      *string           `json:"onboarding_status,omitempty"`       // 入职状态, 不填写则搜索全部入职状态的数据。示例值: "preboarding"可选值有: 待入职已删除准备就绪已撤销已完成
+	DepartmentIDs         []string          `json:"department_ids,omitempty"`          // 部门 ID 列表, ID类型与查询参数 department_id_type的取值保持一致, ID值可以通过[搜索部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/search)接口获取ID转换: 支持根据department_id_type进行ID转换, 返回department_id_type对应的类型的ID。示例值: ["7094136522860922111"] 最大长度: `100`
+	DirectManagerIDs      []string          `json:"direct_manager_ids,omitempty"`      // 直接上级的雇佣 ID 列表, ID类型与查询参数user_id_type的取值保持一致, 可以通过[批量查询员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)接口获取ID转换: 支持根据user_id_type进行ID转换, 返回user_id_type对应的类型的ID。示例值: ["7094136522860922111"] 最大长度: `100`
+	EmployeeTypeIDs       []string          `json:"employee_type_ids,omitempty"`       // 人员类型 ID 列表, 可以通过接口[批量查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)获取示例值: ["7094136522860922111"] 最大长度: `100`
+	EmployeeSubtypeIDs    []string          `json:"employee_subtype_ids,omitempty"`    // 人员子类型 ID 列表示例值: ["7094136522860922111"] 最大长度: `100`
+	JobFamilyIDs          []string          `json:"job_family_ids,omitempty"`          // 序列 ID 列表, 可以通过[批量查询序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)接口获取示例值: ["7094136522860922111"] 最大长度: `100`
+	KeyWord               *string           `json:"key_word,omitempty"`                // 搜索关键字, 支持对常用名模糊搜索 + 工号精确搜索, 不填写则搜索全部数据。示例值: "张三"
+	ConditionWorker       *bool             `json:"condition_worker,omitempty"`        // 是否外部人员示例值: true
+	Rehire                *string           `json:"rehire,omitempty"`                  // 是否离职重聘, 不填写则搜索全部数据。示例值: "to_be_confirmed"可选值有: 待确认否是
+	Fields                []string          `json:"fields,omitempty"`                  // 返回数据的字段列表, 填写方式: 为空时只返回 pre_hire_id- 不为空时按照传入的字段返回数据, 格式如下: - person_info 字段: person_info.gender, person_info.age    - employment_info 字段: employment_info.department    - onboarding_info 字段: onboarding_info.onboarding_date    - probation_info 字段: probation_info.probation_period    - contract_info 字段: contract_info.contract_type- 如果要返回所有下级, 只用传上级结构体名称, 例如 person_info- 返回数据越多, 查询接口性能越慢, 请按需填写返回字段示例值: ["employment_info.department"] 最大长度: `100`
 }
 
 // SearchCoreHRPreHireResp ...
 type SearchCoreHRPreHireResp struct {
-	Items     []*SearchCoreHRPreHireRespItem `json:"items,omitempty"`      // 查询的部门信息
+	Items     []*SearchCoreHRPreHireRespItem `json:"items,omitempty"`      // 查询的待入职信息
 	PageToken string                         `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	HasMore   bool                           `json:"has_more,omitempty"`   // 是否还有更多项
 }
@@ -97,44 +105,107 @@ type SearchCoreHRPreHireRespItem struct {
 
 // SearchCoreHRPreHireRespItemContractInfo ...
 type SearchCoreHRPreHireRespItemContractInfo struct {
-	ContractStartDate string `json:"contract_start_date,omitempty"` // 合同开始日期, 字段权限要求（满足任一）: 获取合同期限信息, 读写合同期限信息
-	ContractEndDate   string `json:"contract_end_date,omitempty"`   // 合同结束日期, 字段权限要求（满足任一）: 获取合同期限信息, 读写合同期限信息
-	ContractType      string `json:"contract_type,omitempty"`       // 合同类型, 枚举值可查询[获取字段详情](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)接口获取, 按如下参数查询即可: object_api_name = pre_hire, custom_api_name = contract_type
-	DurationType      string `json:"duration_type,omitempty"`       // 期限类型, 枚举值可查询[获取字段详情](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)接口获取, 按如下参数查询即可: object_api_name = pre_hire, custom_api_name = duration_type
-	SigningType       string `json:"signing_type,omitempty"`        // 签订类型, 枚举值可查询[获取字段详情](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)接口获取, 按如下参数查询即可: object_api_name = pre_hire, custom_api_name = signing_type
+	ContractStartDate string   `json:"contract_start_date,omitempty"` // 合同开始日期, 时间格式为 2022-01-02字段权限要求（满足任一）: 获取合同期限信息读写合同期限信息
+	ContractEndDate   string   `json:"contract_end_date,omitempty"`   // 合同结束日期, 时间格式为 2022-01-02字段权限要求（满足任一）: 获取合同期限信息读写合同期限信息
+	ContractType      string   `json:"contract_type,omitempty"`       // 合同类型, 枚举值可查询[获取字段详情](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)接口获取, 按如下参数查询即可: object_api_name = pre_hire- custom_api_name = contract_type
+	DurationType      string   `json:"duration_type,omitempty"`       // 期限类型, 枚举值可查询[获取字段详情](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)接口获取, 按如下参数查询即可: object_api_name = pre_hire- custom_api_name = duration_type
+	SigningType       string   `json:"signing_type,omitempty"`        // 签订类型, 枚举值可查询[获取字段详情](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)接口获取, 按如下参数查询即可: object_api_name = pre_hire- custom_api_name = signing_type
+	ContractFileIDs   []string `json:"contract_file_ids,omitempty"`   // 合同文件字段权限要求: 待入职员工合同文件ID
 }
 
 // SearchCoreHRPreHireRespItemEmploymentInfo ...
 type SearchCoreHRPreHireRespItemEmploymentInfo struct {
-	DepartmentID         string                                                     `json:"department_id,omitempty"`           // 部门 ID, 可以通过[搜索部门信息](https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/department/search)接口获取
-	CostCenterRates      []*SearchCoreHRPreHireRespItemEmploymentInfoCostCenterRate `json:"cost_center_rates,omitempty"`       // 成本中心分摊信息
-	OfficeLocationID     string                                                     `json:"office_location_id,omitempty"`      // 办公地点 ID, 详细信息可通过[查询地点](https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/location/get)接口获得
-	WorkLocationID       string                                                     `json:"work_location_id,omitempty"`        // 工作地点id, 详细信息可通过[批量查询地点]接口获得
-	WorkStation          string                                                     `json:"work_station,omitempty"`            // 工位
-	WorkerID             string                                                     `json:"worker_id,omitempty"`               // 工号
-	CompensationType     *SearchCoreHRPreHireRespItemEmploymentInfoCompensationType `json:"compensation_type,omitempty"`       // 薪资类型, 枚举值可查询[获取字段详情](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)接口获取, 按如下参数查询即可: custom_api_name: compensation_type, object_api_name: pre_hire, 字段权限要求（满足任一）: 查看员工的薪资类型信息, 读写员工的薪资类型信息
-	DirectLeaderID       string                                                     `json:"direct_leader_id,omitempty"`        // 直属上级雇佣 ID, 可以通过[搜索员工信息](https://open.feishu.cn/document/server-docs/corehr-v1/employee/search)接口获取
-	JobID                string                                                     `json:"job_id,omitempty"`                  // 职务 ID, 可以通过[查询职务](https://open.feishu.cn/document/server-docs/corehr-v1/job-management/job/get)接口获取, 字段权限要求（满足任一）: 获取员工的职务信息, 获取职务级别信息, 读写员工的职务级别信息
-	JobFamilyID          string                                                     `json:"job_family_id,omitempty"`           // 序列 ID, 可以通过[查询序列](https://open.feishu.cn/document/server-docs/corehr-v1/job-management/job_family/get)接口获取
-	JobLevelID           string                                                     `json:"job_level_id,omitempty"`            // 职级 ID, 可以通过[查询职级](https://open.feishu.cn/document/server-docs/corehr-v1/job-management/job_level/get)接口获取, 字段权限要求（满足任一）: 获取职务级别信息, 读写员工的职务级别信息
-	JobGradeID           string                                                     `json:"job_grade_id,omitempty"`            // 职等 ID, 字段权限要求（满足任一）: 获取职等信息, 读写职等信息
-	JobTitle             string                                                     `json:"job_title,omitempty"`               // 职务头衔, 字段权限要求（满足任一）: 获取职务级别信息, 读写员工的职务级别信息
-	EmployeeTypeID       string                                                     `json:"employee_type_id,omitempty"`        // 人员类型 ID, 可以通过招聘[查询人员类型](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/employee_type/get)接口获取
-	EmploymentType       string                                                     `json:"employment_type,omitempty"`         // 雇佣类型, 枚举值可查询[获取字段详情](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)接口获取, 按如下参数查询即可: object_api_name = pre_hire, custom_api_name = employment_type
-	WorkEmail            string                                                     `json:"work_email,omitempty"`              // 工作邮箱
-	CompanyID            string                                                     `json:"company_id,omitempty"`              // 公司 ID, 详细信息可通过[查询单个公司](https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/company/get)接口获得, 字段权限要求（满足任一）: 获取合同主体信息, 读写合同主体信息
-	SocialSecurityCityID string                                                     `json:"social_security_city_id,omitempty"` // 社保城市 ID, 详细信息可通过[查询地点](https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/location/get)接口获得
-	NonCompeteCovenant   bool                                                       `json:"non_compete_covenant,omitempty"`    // 是否包含竞业条款, 字段权限要求（满足任一）: 查看竞业状态, 读写竞业状态
-	WeeklyWorkingHours   int64                                                      `json:"weekly_working_hours,omitempty"`    // 周工作时长（单位: 小时）
-	Rehire               string                                                     `json:"rehire,omitempty"`                  // 是否离职重聘, 可选值有: to_be_confirmed: 待确认, 系统会判断该员工是否存在历史雇佣记录, 如果存在且需要二次确认时会调用失败, 并返回历史雇佣记录, no: 否, 系统直接标为非离职重聘人员, 不再做重复判断, yes: 是, 要求历史雇佣信息 ID 必填
-	RehireEmploymentID   string                                                     `json:"rehire_employment_id,omitempty"`    // 历史雇佣信息 ID, 雇佣信息详细信息可以通过[查询单个雇佣信息](https://open.feishu.cn/document/server-docs/corehr-v1/employee/employment/get) 获得, 系统会检验当前雇佣信息的合法性, 要求: 雇佣信息为该人员最后一次雇佣记录, 雇佣信息的雇员状态 = "terminated", 该人员不存在其他待入职记录
-	WorkingHoursType     string                                                     `json:"working_hours_type,omitempty"`      // 工时制度 ID, 可通过[查询单个工时制度](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/working_hours_type/get)接口获取
-	WeeklyWorkingHoursV2 float64                                                    `json:"weekly_working_hours_v2,omitempty"` // 周工作时长v2（单位: 小时）
-	OfficeAddress        *SearchCoreHRPreHireRespItemEmploymentInfoOfficeAddress    `json:"office_address,omitempty"`          // 办公地址, 字段权限要求: 获取办公地址
-	WorkingCalendarID    string                                                     `json:"working_calendar_id,omitempty"`     // 工作日历, 字段权限要求: 获取工作日历
-	UpdatedAt            string                                                     `json:"updated_at,omitempty"`              // 更新时间
-	SuspectedRehiring    bool                                                       `json:"suspected_rehiring,omitempty"`      // 是否疑似重聘, 字段权限要求: 获取是否疑似重聘
-	CustomFields         []*SearchCoreHRPreHireRespItemEmploymentInfoCustomField    `json:"custom_fields,omitempty"`           // 自定义字段, 字段权限要求: 获取雇佣信息自定义字段信息
+	DepartmentID                     string                                                                     `json:"department_id,omitempty"`                        // 部门 ID, 可以通过[搜索部门信息](https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/department/search)接口获取详情, department_id_type使用people_corehr_department_id类型
+	CostCenterRates                  []*SearchCoreHRPreHireRespItemEmploymentInfoCostCenterRate                 `json:"cost_center_rates,omitempty"`                    // 成本中心分摊信息- 待废弃, 建议使用cost_allocation
+	OfficeLocationID                 string                                                                     `json:"office_location_id,omitempty"`                   // 办公地点 ID, 详细信息可通过[查询地点](https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/location/get)接口获得
+	WorkLocationID                   string                                                                     `json:"work_location_id,omitempty"`                     // 工作地点id, 可通过[批量查询地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)接口获取详情
+	WorkStation                      string                                                                     `json:"work_station,omitempty"`                         // 工位
+	WorkerID                         string                                                                     `json:"worker_id,omitempty"`                            // 工号
+	CompensationType                 *SearchCoreHRPreHireRespItemEmploymentInfoCompensationType                 `json:"compensation_type,omitempty"`                    // 薪资类型, 枚举值可查询[获取字段详情](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)接口获取, 按如下参数查询即可: custom_api_name: compensation_type - object_api_name: pre_hire字段权限要求（满足任一）: 查看员工的薪资类型信息读写员工的薪资类型信息
+	DirectLeaderID                   string                                                                     `json:"direct_leader_id,omitempty"`                     // 直属上级雇佣 ID, 可以通过[搜索员工信息](https://open.feishu.cn/document/server-docs/corehr-v1/employee/search)接口获取详情ID转换: 支持根据user_id_type进行ID转换, 返回user_id_type对应的类型的ID。
+	DottedLineManagerID              string                                                                     `json:"dotted_line_manager_id,omitempty"`               // 虚线上级雇佣 ID, 可以通过[搜索员工信息](https://open.feishu.cn/document/server-docs/corehr-v1/employee/search)接口获取详情- 功能灰度中, 如有需求请联系[技术支持](https://applink.feishu.cn/TLJpeNdW)ID转换: 支持根据user_id_type进行ID转换, 返回user_id_type对应的类型的ID。字段权限要求: 获取待入职人员虚线上级
+	JobID                            string                                                                     `json:"job_id,omitempty"`                               // 职务 ID, 可以通过[查询职务](https://open.feishu.cn/document/server-docs/corehr-v1/job-management/job/get)接口获取详情字段权限要求（满足任一）: 获取员工的职务信息获取职务级别信息读写员工的职务级别信息
+	JobFamilyID                      string                                                                     `json:"job_family_id,omitempty"`                        // 序列 ID, 可以通过[查询序列](https://open.feishu.cn/document/server-docs/corehr-v1/job-management/job_family/get)接口获取详情
+	JobLevelID                       string                                                                     `json:"job_level_id,omitempty"`                         // 职级 ID, 可以通过[查询职级](https://open.feishu.cn/document/server-docs/corehr-v1/job-management/job_level/get)接口获取详情字段权限要求（满足任一）: 获取职务级别信息读写员工的职务级别信息
+	JobGradeID                       string                                                                     `json:"job_grade_id,omitempty"`                         // 职等 ID字段权限要求（满足任一）: 获取职等信息读写职等信息
+	JobTitle                         string                                                                     `json:"job_title,omitempty"`                            // 职务头衔字段权限要求（满足任一）: 获取职务级别信息读写员工的职务级别信息
+	EmployeeTypeID                   string                                                                     `json:"employee_type_id,omitempty"`                     // 人员类型 ID, 可以通过招聘[查询人员类型](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/employee_type/get)接口获取详情
+	EmployeeSubtypeID                string                                                                     `json:"employee_subtype_id,omitempty"`                  // 人员子类型 ID
+	EmploymentType                   string                                                                     `json:"employment_type,omitempty"`                      // 雇佣类型, 枚举值可查询[获取字段详情](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)接口获取, 按如下参数查询即可: object_api_name = pre_hire- custom_api_name = employment_type
+	WorkEmail                        string                                                                     `json:"work_email,omitempty"`                           // 工作邮箱
+	CompanyID                        string                                                                     `json:"company_id,omitempty"`                           // 公司 ID, 详细信息可通过[查询单个公司](https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/company/get)接口获得字段权限要求（满足任一）: 获取合同主体信息读写合同主体信息
+	SocialSecurityCityID             string                                                                     `json:"social_security_city_id,omitempty"`              // 社保城市 ID, 详细信息可通过[查询地点](https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/location/get)接口获得
+	NonCompeteCovenant               bool                                                                       `json:"non_compete_covenant,omitempty"`                 // 是否包含竞业条款字段权限要求（满足任一）: 查看竞业状态读写竞业状态
+	WeeklyWorkingHours               int64                                                                      `json:"weekly_working_hours,omitempty"`                 // 周工作时长（单位: 小时）
+	Rehire                           string                                                                     `json:"rehire,omitempty"`                               // 是否离职重聘可选值有: 待确认, 系统会判断该员工是否存在历史雇佣记录, 如果存在且需要二次确认时会调用失败, 并返回历史雇佣记录否, 系统直接标为非离职重聘人员, 不再做重复判断是, 要求历史雇佣信息 ID 必填
+	RehireEmploymentID               string                                                                     `json:"rehire_employment_id,omitempty"`                 // 历史雇佣信息 ID, 雇佣信息详细信息可以通过[查询单个雇佣信息](https://open.feishu.cn/document/server-docs/corehr-v1/employee/employment/get) 获得, 系统会检验当前雇佣信息的合法性, 要求: 雇佣信息为该人员最后一次雇佣记录 - 雇佣信息的雇员状态 = "terminated" - 该人员不存在其他待入职记录
+	WorkingHoursType                 string                                                                     `json:"working_hours_type,omitempty"`                   // 工时制度 ID, 可通过[查询单个工时制度](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/working_hours_type/get)接口获取详情
+	WeeklyWorkingHoursV2             float64                                                                    `json:"weekly_working_hours_v2,omitempty"`              // 周工作时长v2（单位: 小时）浮点类型
+	OfficeAddress                    *SearchCoreHRPreHireRespItemEmploymentInfoOfficeAddress                    `json:"office_address,omitempty"`                       // 办公地址字段权限要求: 获取办公地址
+	WorkingCalendarID                string                                                                     `json:"working_calendar_id,omitempty"`                  // 工作日历ID, 可以通过[查询工作日历](https://open.larkoffice.com/document/server-docs/calendar-v4/calendar/get)接口获取详情字段权限要求: 获取工作日历
+	UpdatedAt                        string                                                                     `json:"updated_at,omitempty"`                           // 更新时间, 时间格式为 2023-09-01 13:21:12
+	SuspectedRehiring                bool                                                                       `json:"suspected_rehiring,omitempty"`                   // 是否疑似重聘字段权限要求: 获取是否疑似重聘
+	ConditionWorker                  bool                                                                       `json:"condition_worker,omitempty"`                     // 是否外部人员
+	CustomFields                     []*SearchCoreHRPreHireRespItemEmploymentInfoCustomField                    `json:"custom_fields,omitempty"`                        // 自定义字段字段权限要求: 获取雇佣信息自定义字段信息
+	PositionID                       string                                                                     `json:"position_id,omitempty"`                          // 岗位 ID, 可以通过[查询岗位信息]接口获取详情- 部门的岗职模式会影响岗位数据, 在职务模式和岗位模式下, 岗位id是必填- 功能灰度中, 如有需求请联系[技术支持](https://applink.feishu.cn/TLJpeNdW)字段权限要求（满足任一）: 获取员工的岗位信息读写员工的岗位信息
+	CompanyManualUpdated             bool                                                                       `json:"company_manual_updated,omitempty"`               // 公司主体是否被手动修改字段权限要求: 查看待入职是否被更新过公司主体
+	PayGroup                         *SearchCoreHRPreHireRespItemEmploymentInfoPayGroup                         `json:"pay_group,omitempty"`                            // 薪资组信息字段权限要求: 获取薪资组信息
+	WhetherTheInformationIsAbnormal  bool                                                                       `json:"whether_the_information_is_abnormal,omitempty"`  // 是否信息异常字段权限要求: 获取待入职的异常信息
+	AbnormalReason                   []*SearchCoreHRPreHireRespItemEmploymentInfoAbnormalReason                 `json:"abnormal_reason,omitempty"`                      // 异常原因列表字段权限要求: 获取待入职的异常信息
+	HasOfferSalary                   bool                                                                       `json:"has_offer_salary,omitempty"`                     // 是否有 Offer 薪酬字段权限要求: 查看是否有 Offer 薪酬
+	RecruitmentProjectID             string                                                                     `json:"recruitment_project_id,omitempty"`               // 招聘项目 ID字段权限要求: 查看待入职的招聘项目
+	WorkShift                        *SearchCoreHRPreHireRespItemEmploymentInfoWorkShift                        `json:"work_shift,omitempty"`                           // 排班类型, 枚举值可查询[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口获取, 按如下参数查询即可: custom_api_name: work_shift- object_api_name: pre_hire字段权限要求: 获取排班信息
+	CreatedAt                        string                                                                     `json:"created_at,omitempty"`                           // 创建时间, 时间格式为 2023-09-01 13:21:12
+	CreatedBy                        string                                                                     `json:"created_by,omitempty"`                           // 待入职信息 创建人, 可以通过[批量查询员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)接口获取详情, user_id_type使用people_corehr_id类型
+	UpdatedBy                        string                                                                     `json:"updated_by,omitempty"`                           // 待入职信息 更新人, 可以通过[批量查询员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)接口获取详情, user_id_type使用people_corehr_id类型
+	SeniorityDate                    string                                                                     `json:"seniority_date,omitempty"`                       // 司龄起算日期
+	BackgroundCheckOrderID           string                                                                     `json:"background_check_order_id,omitempty"`            // 背调订单ID- 功能灰度中, 如有需求请联系[技术支持](https://applink.feishu.cn/TLJpeNdW)字段权限要求: 获取待入职人员背调订单ID
+	BackgroundCheckOrderName         string                                                                     `json:"background_check_order_name,omitempty"`          // 背调名称- 功能灰度中, 如有需求请联系[技术支持](https://applink.feishu.cn/TLJpeNdW)字段权限要求: 获取待入职人员背调名称
+	BackgroundCheckOrderPackageName  string                                                                     `json:"background_check_order_package_name,omitempty"`  // 背调套餐- 功能灰度中, 如有需求请联系[技术支持](https://applink.feishu.cn/TLJpeNdW)字段权限要求: 获取待入职人员背调套餐
+	BackgroundCheckOrderResult       string                                                                     `json:"background_check_order_result,omitempty"`        // 背调结果字段权限要求: 获取待入职人员背调结果
+	BackgroundCheckOrderSupplierName string                                                                     `json:"background_check_order_supplier_name,omitempty"` // 背调供应商- 功能灰度中, 如有需求请联系[技术支持](https://applink.feishu.cn/TLJpeNdW)字段权限要求: 获取待入职人员背调供应商
+	BackgroundCheckOrderAccountName  string                                                                     `json:"background_check_order_account_name,omitempty"`  // 背调账号名称- 功能灰度中, 如有需求请联系[技术支持](https://applink.feishu.cn/TLJpeNdW)字段权限要求: 获取待入职人员背调账号名称
+	BackgroundCheckOrderStartTime    string                                                                     `json:"background_check_order_start_time,omitempty"`    // 背调开始时间- 功能灰度中, 如有需求请联系[技术支持](https://applink.feishu.cn/TLJpeNdW)字段权限要求: 获取待入职人员背调开始时间
+	BackgroundCheckOrderCompleteTime string                                                                     `json:"background_check_order_complete_time,omitempty"` // 背调完成时间- 功能灰度中, 如有需求请联系[技术支持](https://applink.feishu.cn/TLJpeNdW)字段权限要求: 获取待入职人员背调完成时间
+	BackgroundCheckOrderStatus       *SearchCoreHRPreHireRespItemEmploymentInfoBackgroundCheckOrderStatus       `json:"background_check_order_status,omitempty"`        // 背调状态, 枚举值可查询[获取字段详情](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)接口获取, 按如下参数查询即可: object_api_name = pre_hire- custom_api_name = background_check_order_status- 功能灰度中, 如有需求请联系[技术支持](https://applink.feishu.cn/TLJpeNdW)字段权限要求: 获取待入职人员背调状态
+	SeniorityAdjustInformationList   []*SearchCoreHRPreHireRespItemEmploymentInfoSeniorityAdjustInformation     `json:"seniority_adjust_information_list,omitempty"`    // 司龄调整信息- 功能灰度中, 如有需求请联系[技术支持](https://applink.feishu.cn/TLJpeNdW)
+	NoticePeriodPositiveVoluntary    *SearchCoreHRPreHireRespItemEmploymentInfoNoticePeriodPositiveVoluntary    `json:"notice_period_positive_voluntary,omitempty"`     // 转正后通知期（主动离职）- 功能灰度中, 如有需求请联系[技术支持](https://applink.feishu.cn/TLJpeNdW)
+	NoticePeriodProbationInvoluntary *SearchCoreHRPreHireRespItemEmploymentInfoNoticePeriodProbationInvoluntary `json:"notice_period_probation_involuntary,omitempty"`  // 试用期内通知期（被动离职）- 功能灰度中, 如有需求请联系[技术支持](https://applink.feishu.cn/TLJpeNdW)
+	NoticePeriodPositiveInvoluntary  *SearchCoreHRPreHireRespItemEmploymentInfoNoticePeriodPositiveInvoluntary  `json:"notice_period_positive_involuntary,omitempty"`   // 转正后通知期（被动离职）- 功能灰度中, 如有需求请联系[技术支持](https://applink.feishu.cn/TLJpeNdW)
+	NoticePeriodProbationVoluntary   *SearchCoreHRPreHireRespItemEmploymentInfoNoticePeriodProbationVoluntary   `json:"notice_period_probation_voluntary,omitempty"`    // 试用期内通知期（主动离职)- 功能灰度中, 如有需求请联系[技术支持](https://applink.feishu.cn/TLJpeNdW)
+	WorkingHoursTypeManualUpdated    bool                                                                       `json:"working_hours_type_manual_updated,omitempty"`    // 工时制度是否被手动修改
+	IsOverDue                        bool                                                                       `json:"is_over_due,omitempty"`                          // 入职任务是否逾期
+	TaskCompleted                    bool                                                                       `json:"task_completed,omitempty"`                       // 入职任务是否完成, 暂不推荐使用
+	ExpectedGraduateDate             string                                                                     `json:"expected_graduate_date,omitempty"`               // 预计毕业日期
+	ServiceCompany                   string                                                                     `json:"service_company,omitempty"`                      // 任职公司 ID, 详细信息可通过[查询单个公司](https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/company/get)接口获得
+	Pathway                          string                                                                     `json:"pathway,omitempty"`                              // 通道
+	DefaultCostCenter                *SearchCoreHRPreHireRespItemEmploymentInfoDefaultCostCenter                `json:"default_cost_center,omitempty"`                  // 默认成本中心- 功能灰度中, 如有需求请联系[技术支持](https://applink.feishu.cn/TLJpeNdW)
+	CostAllocation                   *SearchCoreHRPreHireRespItemEmploymentInfoCostAllocation                   `json:"cost_allocation,omitempty"`                      // 成本分摊- 功能灰度中, 如有需求请联系[技术支持](https://applink.feishu.cn/TLJpeNdW)
+	ReuseFeishuAccount               string                                                                     `json:"reuse_feishu_account,omitempty"`                 // 是否复用飞书账号- 功能灰度中, 如有需求请联系[技术支持](https://applink.feishu.cn/TLJpeNdW)
+	ReusedFeishuAccountID            string                                                                     `json:"reused_feishu_account_id,omitempty"`             // 复用的飞书账号, 返回Lark Union ID- 功能灰度中, 如有需求请联系[技术支持](https://applink.feishu.cn/TLJpeNdW)
+}
+
+// SearchCoreHRPreHireRespItemEmploymentInfoAbnormalReason ...
+type SearchCoreHRPreHireRespItemEmploymentInfoAbnormalReason struct {
+	Descriptions []*SearchCoreHRPreHireRespItemEmploymentInfoAbnormalReasonDescription `json:"descriptions,omitempty"` // 异常信息描述
+}
+
+// SearchCoreHRPreHireRespItemEmploymentInfoAbnormalReasonDescription ...
+type SearchCoreHRPreHireRespItemEmploymentInfoAbnormalReasonDescription struct {
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
+}
+
+// SearchCoreHRPreHireRespItemEmploymentInfoBackgroundCheckOrderStatus ...
+type SearchCoreHRPreHireRespItemEmploymentInfoBackgroundCheckOrderStatus struct {
+	EnumName string                                                                        `json:"enum_name,omitempty"` // 枚举值
+	Display  []*SearchCoreHRPreHireRespItemEmploymentInfoBackgroundCheckOrderStatusDisplay `json:"display,omitempty"`   // 枚举多语展示
+}
+
+// SearchCoreHRPreHireRespItemEmploymentInfoBackgroundCheckOrderStatusDisplay ...
+type SearchCoreHRPreHireRespItemEmploymentInfoBackgroundCheckOrderStatusDisplay struct {
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemEmploymentInfoCompensationType ...
@@ -145,21 +216,36 @@ type SearchCoreHRPreHireRespItemEmploymentInfoCompensationType struct {
 
 // SearchCoreHRPreHireRespItemEmploymentInfoCompensationTypeDisplay ...
 type SearchCoreHRPreHireRespItemEmploymentInfoCompensationTypeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
+}
+
+// SearchCoreHRPreHireRespItemEmploymentInfoCostAllocation ...
+type SearchCoreHRPreHireRespItemEmploymentInfoCostAllocation struct {
+	EffectiveTime   string                                                                   `json:"effective_time,omitempty"`    // 分摊生效日期
+	ExpirationTime  string                                                                   `json:"expiration_time,omitempty"`   // 分摊失效日期
+	CostCenterRates []*SearchCoreHRPreHireRespItemEmploymentInfoCostAllocationCostCenterRate `json:"cost_center_rates,omitempty"` // 成本分摊信息
+}
+
+// SearchCoreHRPreHireRespItemEmploymentInfoCostAllocationCostCenterRate ...
+type SearchCoreHRPreHireRespItemEmploymentInfoCostAllocationCostCenterRate struct {
+	CostCenterID string  `json:"cost_center_id,omitempty"` // 成本中心 ID, 可以通过[搜索成本中心信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)接口获取
+	Rate         int64   `json:"rate,omitempty"`           // 分摊比例(整数)
+	NewRate      float64 `json:"new_rate,omitempty"`       // 分摊比例
 }
 
 // SearchCoreHRPreHireRespItemEmploymentInfoCostCenterRate ...
 type SearchCoreHRPreHireRespItemEmploymentInfoCostCenterRate struct {
-	CostCenterID string `json:"cost_center_id,omitempty"` // 成本中心 ID, 可以通过[搜索成本中心信息](https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/cost_center/search)接口获取对应的成本中心信息
-	Rate         int64  `json:"rate,omitempty"`           // 分摊比例
+	CostCenterID string  `json:"cost_center_id,omitempty"` // 成本中心 ID, 可以通过[搜索成本中心信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)接口获取
+	Rate         int64   `json:"rate,omitempty"`           // 分摊比例(整数)
+	NewRate      float64 `json:"new_rate,omitempty"`       // 分摊比例
 }
 
 // SearchCoreHRPreHireRespItemEmploymentInfoCustomField ...
 type SearchCoreHRPreHireRespItemEmploymentInfoCustomField struct {
 	CustomApiName string                                                    `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
 	Name          *SearchCoreHRPreHireRespItemEmploymentInfoCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
-	Type          int64                                                     `json:"type,omitempty"`            // 自定义字段类型
+	Type          int64                                                     `json:"type,omitempty"`            // 自定义字段类型值类型说明: 1: 文本 Text, “文本”和“超链接”属于该类型- 2: 布尔 Boolean- 3: 数字 Number- 4: 枚举 Option, “单选”和“多选”为该类型- 5: 查找 Lookup, “人员（单选）”、“人员（多选）”和个人信息中的自定义分组为该类型- 6: 自动编码 Autonumber- 7: 日期时间 Datetime- 8: 附件 Attachment, “附件单选”和“附件多选”为该类型- 9: 图片 Image- 10: 计算字段 Calculated- 11: 反向查找 Backlookup
 	Value         string                                                    `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
@@ -169,15 +255,88 @@ type SearchCoreHRPreHireRespItemEmploymentInfoCustomFieldName struct {
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
+// SearchCoreHRPreHireRespItemEmploymentInfoDefaultCostCenter ...
+type SearchCoreHRPreHireRespItemEmploymentInfoDefaultCostCenter struct {
+	CostCenterID  string `json:"cost_center_id,omitempty"` // 成本中心 ID, 可以通过[搜索成本中心信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)接口获取
+	EffectiveTime string `json:"effective_time,omitempty"` // 生效日期
+	IsHerit       bool   `json:"is_herit,omitempty"`       // 是否继承岗位/部门的默认成本中心
+	InheritSource string `json:"inherit_source,omitempty"` // 继承来源
+}
+
+// SearchCoreHRPreHireRespItemEmploymentInfoNoticePeriodPositiveInvoluntary ...
+type SearchCoreHRPreHireRespItemEmploymentInfoNoticePeriodPositiveInvoluntary struct {
+	WkID      string                                                                        `json:"wk_id,omitempty"`      // ID
+	Value     int64                                                                         `json:"value,omitempty"`      // 数值
+	ValueUnit string                                                                        `json:"value_unit,omitempty"` // 单位
+	Name      *SearchCoreHRPreHireRespItemEmploymentInfoNoticePeriodPositiveInvoluntaryName `json:"name,omitempty"`       // 名称
+}
+
+// SearchCoreHRPreHireRespItemEmploymentInfoNoticePeriodPositiveInvoluntaryName ...
+type SearchCoreHRPreHireRespItemEmploymentInfoNoticePeriodPositiveInvoluntaryName struct {
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
+}
+
+// SearchCoreHRPreHireRespItemEmploymentInfoNoticePeriodPositiveVoluntary ...
+type SearchCoreHRPreHireRespItemEmploymentInfoNoticePeriodPositiveVoluntary struct {
+	WkID      string                                                                      `json:"wk_id,omitempty"`      // ID
+	Value     int64                                                                       `json:"value,omitempty"`      // 数值
+	ValueUnit string                                                                      `json:"value_unit,omitempty"` // 单位
+	Name      *SearchCoreHRPreHireRespItemEmploymentInfoNoticePeriodPositiveVoluntaryName `json:"name,omitempty"`       // 名称
+}
+
+// SearchCoreHRPreHireRespItemEmploymentInfoNoticePeriodPositiveVoluntaryName ...
+type SearchCoreHRPreHireRespItemEmploymentInfoNoticePeriodPositiveVoluntaryName struct {
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
+}
+
+// SearchCoreHRPreHireRespItemEmploymentInfoNoticePeriodProbationInvoluntary ...
+type SearchCoreHRPreHireRespItemEmploymentInfoNoticePeriodProbationInvoluntary struct {
+	WkID      string                                                                         `json:"wk_id,omitempty"`      // ID
+	Value     int64                                                                          `json:"value,omitempty"`      // 数值
+	ValueUnit string                                                                         `json:"value_unit,omitempty"` // 单位
+	Name      *SearchCoreHRPreHireRespItemEmploymentInfoNoticePeriodProbationInvoluntaryName `json:"name,omitempty"`       // 名称
+}
+
+// SearchCoreHRPreHireRespItemEmploymentInfoNoticePeriodProbationInvoluntaryName ...
+type SearchCoreHRPreHireRespItemEmploymentInfoNoticePeriodProbationInvoluntaryName struct {
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
+}
+
+// SearchCoreHRPreHireRespItemEmploymentInfoNoticePeriodProbationVoluntary ...
+type SearchCoreHRPreHireRespItemEmploymentInfoNoticePeriodProbationVoluntary struct {
+	WkID      string                                                                       `json:"wk_id,omitempty"`      // ID
+	Value     int64                                                                        `json:"value,omitempty"`      // 数值
+	ValueUnit string                                                                       `json:"value_unit,omitempty"` // 单位
+	Name      *SearchCoreHRPreHireRespItemEmploymentInfoNoticePeriodProbationVoluntaryName `json:"name,omitempty"`       // 名称
+}
+
+// SearchCoreHRPreHireRespItemEmploymentInfoNoticePeriodProbationVoluntaryName ...
+type SearchCoreHRPreHireRespItemEmploymentInfoNoticePeriodProbationVoluntaryName struct {
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
+}
+
 // SearchCoreHRPreHireRespItemEmploymentInfoOfficeAddress ...
 type SearchCoreHRPreHireRespItemEmploymentInfoOfficeAddress struct {
 	FullAddressLocalScript   string                                                               `json:"full_address_local_script,omitempty"`   // 完整地址（本地文字）
 	FullAddressWesternScript string                                                               `json:"full_address_western_script,omitempty"` // 完整地址（西方文字）
 	AddressID                string                                                               `json:"address_id,omitempty"`                  // 地址 ID
-	CountryRegionID          string                                                               `json:"country_region_id,omitempty"`           // 国家 / 地区
-	RegionID                 string                                                               `json:"region_id,omitempty"`                   // 主要行政区
-	CityIDV2                 string                                                               `json:"city_id_v2,omitempty"`                  // 城市
-	DistrictIDV2             string                                                               `json:"district_id_v2,omitempty"`              // 区/县
+	CountryRegionID          string                                                               `json:"country_region_id,omitempty"`           // 国家 / 地区, 可以通过接口[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)获取详情
+	RegionID                 string                                                               `json:"region_id,omitempty"`                   // 主要行政区, 可以通过接口[查询省份/主要行政区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region_subdivision/search)获取详情
+	CityID                   string                                                               `json:"city_id,omitempty"`                     // 城市（该字段待作废, 请勿使用）
+	DistinctID               string                                                               `json:"distinct_id,omitempty"`                 // 区/县（该字段待作废, 请勿使用）
+	AddressLine1             string                                                               `json:"address_line1,omitempty"`               // 地址行 1
+	AddressLine2             string                                                               `json:"address_line2,omitempty"`               // 地址行 2
+	AddressLine3             string                                                               `json:"address_line3,omitempty"`               // 地址行 3
+	AddressLine4             string                                                               `json:"address_line4,omitempty"`               // 地址行 4
+	AddressLine5             string                                                               `json:"address_line5,omitempty"`               // 地址行 5
+	AddressLine6             string                                                               `json:"address_line6,omitempty"`               // 地址行 6
+	AddressLine7             string                                                               `json:"address_line7,omitempty"`               // 地址行 7
+	AddressLine8             string                                                               `json:"address_line8,omitempty"`               // 地址行 8
+	AddressLine9             string                                                               `json:"address_line9,omitempty"`               // 地址行 9
 	LocalAddressLine1        string                                                               `json:"local_address_line1,omitempty"`         // 地址行 1（非拉丁语系的本地文字）
 	LocalAddressLine2        string                                                               `json:"local_address_line2,omitempty"`         // 地址行 2（非拉丁语系的本地文字）
 	LocalAddressLine3        string                                                               `json:"local_address_line3,omitempty"`         // 地址行 3（非拉丁语系的本地文字）
@@ -188,7 +347,7 @@ type SearchCoreHRPreHireRespItemEmploymentInfoOfficeAddress struct {
 	LocalAddressLine8        string                                                               `json:"local_address_line8,omitempty"`         // 地址行 8（非拉丁语系的本地文字）
 	LocalAddressLine9        string                                                               `json:"local_address_line9,omitempty"`         // 地址行 9（非拉丁语系的本地文字）
 	PostalCode               string                                                               `json:"postal_code,omitempty"`                 // 邮政编码
-	AddressTypeList          []*SearchCoreHRPreHireRespItemEmploymentInfoOfficeAddressAddressType `json:"address_type_list,omitempty"`           // 地址类型
+	AddressTypeList          []*SearchCoreHRPreHireRespItemEmploymentInfoOfficeAddressAddressType `json:"address_type_list,omitempty"`           // 地址类型, 枚举值可通过文档[枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)地址类型（address_type）枚举定义获得
 	IsPrimary                bool                                                                 `json:"is_primary,omitempty"`                  // 主要地址
 	IsPublic                 bool                                                                 `json:"is_public,omitempty"`                   // 公开地址
 	CustomFields             []*SearchCoreHRPreHireRespItemEmploymentInfoOfficeAddressCustomField `json:"custom_fields,omitempty"`               // 自定义字段
@@ -202,15 +361,15 @@ type SearchCoreHRPreHireRespItemEmploymentInfoOfficeAddressAddressType struct {
 
 // SearchCoreHRPreHireRespItemEmploymentInfoOfficeAddressAddressTypeDisplay ...
 type SearchCoreHRPreHireRespItemEmploymentInfoOfficeAddressAddressTypeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemEmploymentInfoOfficeAddressCustomField ...
 type SearchCoreHRPreHireRespItemEmploymentInfoOfficeAddressCustomField struct {
 	CustomApiName string                                                                 `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
 	Name          *SearchCoreHRPreHireRespItemEmploymentInfoOfficeAddressCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
-	Type          int64                                                                  `json:"type,omitempty"`            // 自定义字段类型
+	Type          int64                                                                  `json:"type,omitempty"`            // 自定义字段类型值类型说明: 1: 文本 Text, “文本”和“超链接”属于该类型- 2: 布尔 Boolean- 3: 数字 Number- 4: 枚举 Option, “单选”和“多选”为该类型- 5: 查找 Lookup, “人员（单选）”、“人员（多选）”和个人信息中的自定义分组为该类型- 6: 自动编码 Autonumber- 7: 日期时间 Datetime- 8: 附件 Attachment, “附件单选”和“附件多选”为该类型- 9: 图片 Image- 10: 计算字段 Calculated- 11: 反向查找 Backlookup
 	Value         string                                                                 `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
@@ -220,26 +379,102 @@ type SearchCoreHRPreHireRespItemEmploymentInfoOfficeAddressCustomFieldName struc
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
+// SearchCoreHRPreHireRespItemEmploymentInfoPayGroup ...
+type SearchCoreHRPreHireRespItemEmploymentInfoPayGroup struct {
+	Name []*SearchCoreHRPreHireRespItemEmploymentInfoPayGroupName `json:"name,omitempty"` // 薪资组名称
+	ID   string                                                   `json:"id,omitempty"`   // 薪资组 ID
+}
+
+// SearchCoreHRPreHireRespItemEmploymentInfoPayGroupName ...
+type SearchCoreHRPreHireRespItemEmploymentInfoPayGroupName struct {
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
+}
+
+// SearchCoreHRPreHireRespItemEmploymentInfoSeniorityAdjustInformation ...
+type SearchCoreHRPreHireRespItemEmploymentInfoSeniorityAdjustInformation struct {
+	SeniorityAdjustment           float64                                                                                     `json:"seniority_adjustment,omitempty"`             // 调整值- 精确度: 两位小数- 单位: 年
+	SeniorityAdjustmentType       *SearchCoreHRPreHireRespItemEmploymentInfoSeniorityAdjustInformationSeniorityAdjustmentType `json:"seniority_adjustment_type,omitempty"`        // 调整类型- 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: - object_api_name: seniority_adjust_information  - custom_api_name: seniority_adjustment_type
+	ReasonsForSeniorityAdjustment string                                                                                      `json:"reasons_for_seniority_adjustment,omitempty"` // 司龄调整原因
+	StartDate                     string                                                                                      `json:"start_date,omitempty"`                       // 开始日期
+	EndDate                       string                                                                                      `json:"end_date,omitempty"`                         // 结束日期
+	CustomFields                  []*SearchCoreHRPreHireRespItemEmploymentInfoSeniorityAdjustInformationCustomField           `json:"custom_fields,omitempty"`                    // 自定义字段
+}
+
+// SearchCoreHRPreHireRespItemEmploymentInfoSeniorityAdjustInformationCustomField ...
+type SearchCoreHRPreHireRespItemEmploymentInfoSeniorityAdjustInformationCustomField struct {
+	CustomApiName string                                                                              `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
+	Name          *SearchCoreHRPreHireRespItemEmploymentInfoSeniorityAdjustInformationCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
+	Type          int64                                                                               `json:"type,omitempty"`            // 自定义字段类型
+	Value         string                                                                              `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
+}
+
+// SearchCoreHRPreHireRespItemEmploymentInfoSeniorityAdjustInformationCustomFieldName ...
+type SearchCoreHRPreHireRespItemEmploymentInfoSeniorityAdjustInformationCustomFieldName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文
+	EnUs string `json:"en_us,omitempty"` // 英文
+}
+
+// SearchCoreHRPreHireRespItemEmploymentInfoSeniorityAdjustInformationSeniorityAdjustmentType ...
+type SearchCoreHRPreHireRespItemEmploymentInfoSeniorityAdjustInformationSeniorityAdjustmentType struct {
+	EnumName string                                                                                               `json:"enum_name,omitempty"` // 枚举值
+	Display  []*SearchCoreHRPreHireRespItemEmploymentInfoSeniorityAdjustInformationSeniorityAdjustmentTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+}
+
+// SearchCoreHRPreHireRespItemEmploymentInfoSeniorityAdjustInformationSeniorityAdjustmentTypeDisplay ...
+type SearchCoreHRPreHireRespItemEmploymentInfoSeniorityAdjustInformationSeniorityAdjustmentTypeDisplay struct {
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
+}
+
+// SearchCoreHRPreHireRespItemEmploymentInfoWorkShift ...
+type SearchCoreHRPreHireRespItemEmploymentInfoWorkShift struct {
+	EnumName string                                                       `json:"enum_name,omitempty"` // 枚举值
+	Display  []*SearchCoreHRPreHireRespItemEmploymentInfoWorkShiftDisplay `json:"display,omitempty"`   // 枚举多语展示
+}
+
+// SearchCoreHRPreHireRespItemEmploymentInfoWorkShiftDisplay ...
+type SearchCoreHRPreHireRespItemEmploymentInfoWorkShiftDisplay struct {
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
+}
+
 // SearchCoreHRPreHireRespItemOnboardingInfo ...
 type SearchCoreHRPreHireRespItemOnboardingInfo struct {
-	OfferID              string                                                      `json:"offer_id,omitempty"`               // Offer ID, 可以通过招聘[获取 Offer 列表](https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/offer/list)接口获取
-	OfferHRID            string                                                      `json:"offer_hr_id,omitempty"`            // Offer HR 的 雇佣 ID
-	EntryMode            string                                                      `json:"entry_mode,omitempty"`             // 入职方式, 枚举值可查询[获取字段详情](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)接口获取, 按如下参数查询即可: object_api_name = pre_hire, custom_api_name = onboarding_method
+	OfferID              string                                                      `json:"offer_id,omitempty"`               // Offer ID, 可以通过招聘[获取 Offer 列表](https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/offer/list)接口获取详情
+	OfferHRID            string                                                      `json:"offer_hr_id,omitempty"`            // Offer HR 的 雇佣 ID, 可以通过[批量查询员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)接口获取详情, user_id_type使用people_corehr_id类型ID转换: 不支持根据user_id_type进行ID转换, 返回people_corehr_id 类型的ID。
+	OfferHRIDV2          string                                                      `json:"offer_hr_id_v2,omitempty"`         // Offer hr 的 雇佣 ID, ID可以根据user_id_type转换成对应ID
+	EntryMode            string                                                      `json:"entry_mode,omitempty"`             // 入职方式, 枚举值可查询[获取字段详情](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)接口获取, 按如下参数查询即可: object_api_name = pre_hire - custom_api_name = onboarding_method
 	OnboardingDate       string                                                      `json:"onboarding_date,omitempty"`        // 入职日期
-	AtsApplicationID     string                                                      `json:"ats_application_id,omitempty"`     // 招聘投递 ID, 详细信息可以通过招聘[获取投递信息](https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/application/get)接口查询获得
-	RecruitmentType      string                                                      `json:"recruitment_type,omitempty"`       // 招聘来源, 枚举值可查询[获取字段详情](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)接口获取, 按如下参数查询即可: object_api_name = pre_hire, custom_api_name = recruitment_type
+	AtsApplicationID     string                                                      `json:"ats_application_id,omitempty"`     // 招聘投递 ID, 详细信息可以通过招聘[获取投递信息](https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/application/get)接口查询获得详情
+	RecruitmentType      string                                                      `json:"recruitment_type,omitempty"`       // 招聘来源, 枚举值可查询[获取字段详情](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)接口获取, 按如下参数查询即可: object_api_name = pre_hire- custom_api_name = recruitment_type
 	OnboardingLocationID string                                                      `json:"onboarding_location_id,omitempty"` // 入职地点 ID, 详细信息可通过[查询单个地点](https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/location/get)接口获得
-	CompanySponsoredVisa bool                                                        `json:"company_sponsored_visa,omitempty"` // 需要公司办理签证, 字段权限要求: 查看签证要求
-	OnboardingStatus     string                                                      `json:"onboarding_status,omitempty"`      // 入职状态, 可选值有: preboarding: 待入职, deleted: 已删除, day_one: 准备就绪, withdrawn: 已撤销, completed: 已完成
+	CompanySponsoredVisa bool                                                        `json:"company_sponsored_visa,omitempty"` // 需要公司办理签证字段权限要求: 查看签证要求
+	OnboardingStatus     string                                                      `json:"onboarding_status,omitempty"`      // 入职状态可选值有: 待入职已删除准备就绪已撤销已完成
 	OnboardingTaskList   []*SearchCoreHRPreHireRespItemOnboardingInfoOnboardingTask  `json:"onboarding_task_list,omitempty"`   // 入职任务列表
-	OnboardingAddress    *SearchCoreHRPreHireRespItemOnboardingInfoOnboardingAddress `json:"onboarding_address,omitempty"`     // 入职地址, 字段权限要求: 获取入职地址
-	FlowName             []*SearchCoreHRPreHireRespItemOnboardingInfoFlowName        `json:"flow_name,omitempty"`              // 入职流程, 字段权限要求: 获取入职流程
+	OnboardingAddress    *SearchCoreHRPreHireRespItemOnboardingInfoOnboardingAddress `json:"onboarding_address,omitempty"`     // 入职地址字段权限要求: 获取入职地址
+	FlowName             []*SearchCoreHRPreHireRespItemOnboardingInfoFlowName        `json:"flow_name,omitempty"`              // 入职流程字段权限要求: 获取入职流程
+	FlowID               string                                                      `json:"flow_id,omitempty"`                // 入职流程 ID字段权限要求: 获取入职流程
+	CheckInTime          string                                                      `json:"check_in_time,omitempty"`          // 签到时间, 时间格式为 2023-09-01 13:21:12字段权限要求: 获取待入职人员的签到数据
+	CheckInMethod        *SearchCoreHRPreHireRespItemOnboardingInfoCheckInMethod     `json:"check_in_method,omitempty"`        // 招聘来源, 枚举值可查询[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口获取, 按如下参数查询即可: custom_api_name: check_in_method- object_api_name: pre_hire字段权限要求: 获取待入职人员的签到数据
+}
+
+// SearchCoreHRPreHireRespItemOnboardingInfoCheckInMethod ...
+type SearchCoreHRPreHireRespItemOnboardingInfoCheckInMethod struct {
+	EnumName string                                                           `json:"enum_name,omitempty"` // 枚举值
+	Display  []*SearchCoreHRPreHireRespItemOnboardingInfoCheckInMethodDisplay `json:"display,omitempty"`   // 枚举多语展示
+}
+
+// SearchCoreHRPreHireRespItemOnboardingInfoCheckInMethodDisplay ...
+type SearchCoreHRPreHireRespItemOnboardingInfoCheckInMethodDisplay struct {
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemOnboardingInfoFlowName ...
 type SearchCoreHRPreHireRespItemOnboardingInfoFlowName struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemOnboardingInfoOnboardingAddress ...
@@ -247,10 +482,19 @@ type SearchCoreHRPreHireRespItemOnboardingInfoOnboardingAddress struct {
 	FullAddressLocalScript   string                                                                   `json:"full_address_local_script,omitempty"`   // 完整地址（本地文字）
 	FullAddressWesternScript string                                                                   `json:"full_address_western_script,omitempty"` // 完整地址（西方文字）
 	AddressID                string                                                                   `json:"address_id,omitempty"`                  // 地址 ID
-	CountryRegionID          string                                                                   `json:"country_region_id,omitempty"`           // 国家 / 地区
+	CountryRegionID          string                                                                   `json:"country_region_id,omitempty"`           // 国家 / 地区, 可以通过接口[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)获得
 	RegionID                 string                                                                   `json:"region_id,omitempty"`                   // 主要行政区
-	CityIDV2                 string                                                                   `json:"city_id_v2,omitempty"`                  // 城市
-	DistrictIDV2             string                                                                   `json:"district_id_v2,omitempty"`              // 区/县
+	CityID                   string                                                                   `json:"city_id,omitempty"`                     // 城市（该字段待作废, 请勿使用）
+	DistinctID               string                                                                   `json:"distinct_id,omitempty"`                 // 区/县（该字段待作废, 请勿使用）
+	AddressLine1             string                                                                   `json:"address_line1,omitempty"`               // 地址行 1
+	AddressLine2             string                                                                   `json:"address_line2,omitempty"`               // 地址行 2
+	AddressLine3             string                                                                   `json:"address_line3,omitempty"`               // 地址行 3
+	AddressLine4             string                                                                   `json:"address_line4,omitempty"`               // 地址行 4
+	AddressLine5             string                                                                   `json:"address_line5,omitempty"`               // 地址行 5
+	AddressLine6             string                                                                   `json:"address_line6,omitempty"`               // 地址行 6
+	AddressLine7             string                                                                   `json:"address_line7,omitempty"`               // 地址行 7
+	AddressLine8             string                                                                   `json:"address_line8,omitempty"`               // 地址行 8
+	AddressLine9             string                                                                   `json:"address_line9,omitempty"`               // 地址行 9
 	LocalAddressLine1        string                                                                   `json:"local_address_line1,omitempty"`         // 地址行 1（非拉丁语系的本地文字）
 	LocalAddressLine2        string                                                                   `json:"local_address_line2,omitempty"`         // 地址行 2（非拉丁语系的本地文字）
 	LocalAddressLine3        string                                                                   `json:"local_address_line3,omitempty"`         // 地址行 3（非拉丁语系的本地文字）
@@ -275,15 +519,15 @@ type SearchCoreHRPreHireRespItemOnboardingInfoOnboardingAddressAddressType struc
 
 // SearchCoreHRPreHireRespItemOnboardingInfoOnboardingAddressAddressTypeDisplay ...
 type SearchCoreHRPreHireRespItemOnboardingInfoOnboardingAddressAddressTypeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemOnboardingInfoOnboardingAddressCustomField ...
 type SearchCoreHRPreHireRespItemOnboardingInfoOnboardingAddressCustomField struct {
 	CustomApiName string                                                                     `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
 	Name          *SearchCoreHRPreHireRespItemOnboardingInfoOnboardingAddressCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
-	Type          int64                                                                      `json:"type,omitempty"`            // 自定义字段类型
+	Type          int64                                                                      `json:"type,omitempty"`            // 自定义字段类型值类型说明: 1: 文本 Text, “文本”和“超链接”属于该类型- 2: 布尔 Boolean- 3: 数字 Number- 4: 枚举 Option, “单选”和“多选”为该类型- 5: 查找 Lookup, “人员（单选）”、“人员（多选）”和个人信息中的自定义分组为该类型- 6: 自动编码 Autonumber- 7: 日期时间 Datetime- 8: 附件 Attachment, “附件单选”和“附件多选”为该类型- 9: 图片 Image- 10: 计算字段 Calculated- 11: 反向查找 Backlookup
 	Value         string                                                                     `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
@@ -296,49 +540,63 @@ type SearchCoreHRPreHireRespItemOnboardingInfoOnboardingAddressCustomFieldName s
 // SearchCoreHRPreHireRespItemOnboardingInfoOnboardingTask ...
 type SearchCoreHRPreHireRespItemOnboardingInfoOnboardingTask struct {
 	TaskName   string `json:"task_name,omitempty"`   // 任务名称
-	TaskStatus string `json:"task_status,omitempty"` // 任务名称, 可选值有: initiating: 发起中, terminated: 已终止, exception: 异常, in_progress: 进行中, not_started: 未开始, skipped: 已跳过, uninitialized: 未初始化, failed: 已失败, in_review: 审核中, rejected: 已退回, completed: 已完成
-	OperatorID string `json:"operator_id,omitempty"` // 当前操作人雇佣 ID
+	TaskStatus string `json:"task_status,omitempty"` // 任务状态可选值有: 发起中已终止异常进行中未开始已跳过未初始化已失败审核中已退回已完成
+	OperatorID string `json:"operator_id,omitempty"` // 当前操作人雇佣 ID, 可以通过[批量查询员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)接口获取详情, user_id_type使用people_corehr_id类型
 	TaskCode   string `json:"task_code,omitempty"`   // 任务code
 }
 
 // SearchCoreHRPreHireRespItemPersonInfo ...
 type SearchCoreHRPreHireRespItemPersonInfo struct {
 	PersonID                 string                                                         `json:"person_id,omitempty"`                   // 个人信息 ID
-	PhoneNumber              string                                                         `json:"phone_number,omitempty"`                // 个人电话, 字段权限要求（满足任一）: 获取个人手机号信息, 读写个人手机号信息
-	LegalName                string                                                         `json:"legal_name,omitempty"`                  // 法定姓名, 字段权限要求（满足任一）: 获取法定姓名信息, 读写法定姓名信息
+	PhoneNumber              string                                                         `json:"phone_number,omitempty"`                // 个人电话字段权限要求（满足任一）: 获取个人手机号信息读写个人手机号信息
+	LegalName                string                                                         `json:"legal_name,omitempty"`                  // 法定姓名字段权限要求（满足任一）: 获取法定姓名信息读写法定姓名信息
 	PreferredName            string                                                         `json:"preferred_name,omitempty"`              // 常用名
 	PreferredLocalFullName   string                                                         `json:"preferred_local_full_name,omitempty"`   // 常用本地全名
 	PreferredEnglishFullName string                                                         `json:"preferred_english_full_name,omitempty"` // 常用英文全名
-	NameList                 []*SearchCoreHRPreHireRespItemPersonInfoName                   `json:"name_list,omitempty"`                   // 姓名列表, 字段权限要求（满足任一）: 获取法定姓名信息, 读写法定姓名信息
-	Gender                   *SearchCoreHRPreHireRespItemPersonInfoGender                   `json:"gender,omitempty"`                      // 性别, 枚举值可查询[获取字段详情](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)接口获取, 按如下参数查询即可: custom_api_name: gender, object_api_name: person, 字段权限要求（满足任一）: 获取性别信息, 读写性别信息
-	DateOfBirth              string                                                         `json:"date_of_birth,omitempty"`               // 出生日期, 字段权限要求（满足任一）: 获取生日信息, 读写生日信息
-	Race                     *SearchCoreHRPreHireRespItemPersonInfoRace                     `json:"race,omitempty"`                        // 民族 / 种族, 枚举值可查询[获取字段详情](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)接口获取, 按如下参数查询即可: custom_api_name: ethnicity_race, object_api_name: person, 字段权限要求: 获取民族/种族信息
-	MaritalStatus            *SearchCoreHRPreHireRespItemPersonInfoMaritalStatus            `json:"marital_status,omitempty"`              // 婚姻状况, 枚举值可查询[获取字段详情](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)接口获取, 按如下参数查询即可: custom_api_name: marital_status, object_api_name: person, 字段权限要求（满足任一）: 获取婚姻状况信息, 读写婚姻状况信息
-	PhoneList                []*SearchCoreHRPreHireRespItemPersonInfoPhone                  `json:"phone_list,omitempty"`                  // 电话列表, 只有当满足下面所有条件时, 电话在个人信息页才可见, 字段权限要求（满足任一）: 获取个人手机号信息, 读写个人手机号信息
-	AddressList              []*SearchCoreHRPreHireRespItemPersonInfoAddress                `json:"address_list,omitempty"`                // 地址列表, 字段权限要求（满足任一）: 读取个人地址信息, 读写个人地址信息
-	EmailList                []*SearchCoreHRPreHireRespItemPersonInfoEmail                  `json:"email_list,omitempty"`                  // 邮箱列表, 字段权限要求（满足任一）: 获取个人邮箱信息, 读写个人邮箱信息
-	WorkExperienceList       []*SearchCoreHRPreHireRespItemPersonInfoWorkExperience         `json:"work_experience_list,omitempty"`        // 工作经历列表, 字段权限要求（满足任一）: 获取工作履历信息, 读写工作履历信息
-	EducationList            []*SearchCoreHRPreHireRespItemPersonInfoEducation              `json:"education_list,omitempty"`              // 教育经历列表, 字段权限要求（满足任一）: 获取教育经历信息, 读写教育经历信息
-	BankAccountList          []*SearchCoreHRPreHireRespItemPersonInfoBankAccount            `json:"bank_account_list,omitempty"`           // 银行账户, 字段权限要求（满足任一）: 获取银行账号列表信息, 读写银行账号信息
-	NationalIDList           []*SearchCoreHRPreHireRespItemPersonInfoNationalID             `json:"national_id_list,omitempty"`            // 证件, 字段权限要求（满足任一）: 获取证件信息, 读写证件信息
-	DependentList            []*SearchCoreHRPreHireRespItemPersonInfoDependent              `json:"dependent_list,omitempty"`              // 家庭成员列表, 字段权限要求（满足任一）: 获取家庭成员信息, 读写家庭成员信息
-	EmergencyContactList     []*SearchCoreHRPreHireRespItemPersonInfoEmergencyContact       `json:"emergency_contact_list,omitempty"`      // 紧急联系人列表, 字段权限要求（满足任一）: 获取紧急联系人信息, 读写紧急联系人信息
-	DateEnteredWorkforce     string                                                         `json:"date_entered_workforce,omitempty"`      // 参加工作日期, 字段权限要求（满足任一）: 获取参加工作日期, 读写参加工作日期
+	NameList                 []*SearchCoreHRPreHireRespItemPersonInfoName                   `json:"name_list,omitempty"`                   // 姓名列表字段权限要求（满足任一）: 获取法定姓名信息读写法定姓名信息
+	Gender                   *SearchCoreHRPreHireRespItemPersonInfoGender                   `json:"gender,omitempty"`                      // 性别, 枚举值可通过文档[枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)性别（gendar）枚举定义获得字段权限要求（满足任一）: 获取性别信息读写性别信息
+	DateOfBirth              string                                                         `json:"date_of_birth,omitempty"`               // 出生日期字段权限要求（满足任一）: 获取生日信息读写生日信息
+	NationalityIDV2          string                                                         `json:"nationality_id_v2,omitempty"`           // 国籍, 可以通过[查询国籍信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-nationality/search)接口获取字段权限要求（满足任一）: 获取国籍信息读写国籍信息
+	Race                     *SearchCoreHRPreHireRespItemPersonInfoRace                     `json:"race,omitempty"`                        // 民族 / 种族, 枚举值可查询[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口获取, 按如下参数查询即可: 按如下参数查询即可: custom_api_name: ethnicity_race - object_api_name: person字段权限要求: 获取民族/种族信息
+	MaritalStatus            *SearchCoreHRPreHireRespItemPersonInfoMaritalStatus            `json:"marital_status,omitempty"`              // 婚姻状况, 枚举值可查询[获取字段详情](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)接口获取, 按如下参数查询即可: custom_api_name: marital_status - object_api_name: person字段权限要求（满足任一）: 获取婚姻状况信息读写婚姻状况信息
+	PhoneList                []*SearchCoreHRPreHireRespItemPersonInfoPhone                  `json:"phone_list,omitempty"`                  // 电话列表, 只有当满足下面所有条件时, 电话在个人信息页才可见字段权限要求（满足任一）: 获取个人手机号信息读写个人手机号信息
+	AddressList              []*SearchCoreHRPreHireRespItemPersonInfoAddress                `json:"address_list,omitempty"`                // 地址列表字段权限要求（满足任一）: 读取个人地址信息读写个人地址信息
+	EmailList                []*SearchCoreHRPreHireRespItemPersonInfoEmail                  `json:"email_list,omitempty"`                  // 邮箱列表字段权限要求（满足任一）: 获取个人邮箱信息读写个人邮箱信息
+	WorkExperienceList       []*SearchCoreHRPreHireRespItemPersonInfoWorkExperience         `json:"work_experience_list,omitempty"`        // 工作经历列表字段权限要求（满足任一）: 获取工作履历信息读写工作履历信息
+	EducationList            []*SearchCoreHRPreHireRespItemPersonInfoEducation              `json:"education_list,omitempty"`              // 教育经历列表字段权限要求（满足任一）: 获取教育经历信息读写教育经历信息
+	BankAccountList          []*SearchCoreHRPreHireRespItemPersonInfoBankAccount            `json:"bank_account_list,omitempty"`           // 银行账户字段权限要求（满足任一）: 获取银行账号列表信息读写银行账号信息
+	NationalIDList           []*SearchCoreHRPreHireRespItemPersonInfoNationalID             `json:"national_id_list,omitempty"`            // 证件字段权限要求（满足任一）: 获取证件信息读写证件信息
+	DependentList            []*SearchCoreHRPreHireRespItemPersonInfoDependent              `json:"dependent_list,omitempty"`              // 家庭成员列表字段权限要求（满足任一）: 获取家庭成员信息读写家庭成员信息
+	EmergencyContactList     []*SearchCoreHRPreHireRespItemPersonInfoEmergencyContact       `json:"emergency_contact_list,omitempty"`      // 紧急联系人列表字段权限要求（满足任一）: 获取紧急联系人信息读写紧急联系人信息
+	DateEnteredWorkforce     string                                                         `json:"date_entered_workforce,omitempty"`      // 参加工作日期字段权限要求（满足任一）: 获取参加工作日期读写参加工作日期
+	WorkingYears             int64                                                          `json:"working_years,omitempty"`               // 工龄
 	ProfileImageID           string                                                         `json:"profile_image_id,omitempty"`            // 头像资源的 ID
-	EmailAddress             string                                                         `json:"email_address,omitempty"`               // 邮箱地址, 字段权限要求（满足任一）: 获取个人邮箱信息, 读写个人邮箱信息
-	Age                      int64                                                          `json:"age,omitempty"`                         // 年龄, 字段权限要求（满足任一）: 获取生日信息, 读写生日信息
-	HighestLevelOfEducation  *SearchCoreHRPreHireRespItemPersonInfoHighestLevelOfEducation  `json:"highest_level_of_education,omitempty"`  // 最高学历教育经历, 字段权限要求（满足任一）: 获取教育经历信息, 读写教育经历信息
-	HighestDegreeOfEducation *SearchCoreHRPreHireRespItemPersonInfoHighestDegreeOfEducation `json:"highest_degree_of_education,omitempty"` // 最高学位教育经历, 字段权限要求（满足任一）: 获取教育经历信息, 读写教育经历信息
-	PersonalProfile          []*SearchCoreHRPreHireRespItemPersonInfoPersonalProfile        `json:"personal_profile,omitempty"`            // 个人资料附件, 字段权限要求（满足任一）: 获取个人资料信息, 读写个人资料信息
-	NativeRegion             string                                                         `json:"native_region,omitempty"`               // 籍贯 ID, 字段权限要求（满足任一）: 获取籍贯信息, 读写籍贯信息
-	HukouType                *SearchCoreHRPreHireRespItemPersonInfoHukouType                `json:"hukou_type,omitempty"`                  // 户口类型, 枚举值可通过文档[枚举常量介绍](https://open.feishu.cn/document/server-docs/corehr-v1/feishu-people-enum-constant)户口类型（hukou_type）枚举定义部分获得, 字段权限要求（满足任一）: 获取户口信息, 读写户口信息
-	HukouLocation            string                                                         `json:"hukou_location,omitempty"`              // 户口所在地, 字段权限要求（满足任一）: 获取户口信息, 读写户口信息
+	EmailAddress             string                                                         `json:"email_address,omitempty"`               // 邮箱地址字段权限要求（满足任一）: 获取个人邮箱信息读写个人邮箱信息
+	Age                      int64                                                          `json:"age,omitempty"`                         // 年龄字段权限要求（满足任一）: 获取生日信息读写生日信息
+	HighestLevelOfEducation  *SearchCoreHRPreHireRespItemPersonInfoHighestLevelOfEducation  `json:"highest_level_of_education,omitempty"`  // 最高学历教育经历字段权限要求（满足任一）: 获取教育经历信息读写教育经历信息
+	HighestDegreeOfEducation *SearchCoreHRPreHireRespItemPersonInfoHighestDegreeOfEducation `json:"highest_degree_of_education,omitempty"` // 最高学位教育经历字段权限要求（满足任一）: 获取教育经历信息读写教育经历信息
+	PersonalProfile          []*SearchCoreHRPreHireRespItemPersonInfoPersonalProfile        `json:"personal_profile,omitempty"`            // 个人资料附件字段权限要求（满足任一）: 获取个人资料信息读写个人资料信息
 	TalentID                 string                                                         `json:"talent_id,omitempty"`                   // 人才 ID
-	CustomFields             []*SearchCoreHRPreHireRespItemPersonInfoCustomField            `json:"custom_fields,omitempty"`               // 自定义字段, 字段权限要求（满足任一）: 获取个人信息自定义字段信息, 读写个人信息中的自定义字段信息
-	NationalIDNumber         string                                                         `json:"national_id_number,omitempty"`          // 居民身份证件号码, 字段权限要求（满足任一）: 获取证件信息, 读写证件信息
-	FamilyAddress            string                                                         `json:"family_address,omitempty"`              // 家庭地址, 字段权限要求（满足任一）: 读取个人地址信息, 读写个人地址信息
+	CustomFields             []*SearchCoreHRPreHireRespItemPersonInfoCustomField            `json:"custom_fields,omitempty"`               // 自定义字段字段权限要求（满足任一）: 获取个人信息自定义字段信息读写个人信息中的自定义字段信息
+	NationalIDNumber         string                                                         `json:"national_id_number,omitempty"`          // 居民身份证件号码字段权限要求（满足任一）: 获取证件信息读写证件信息
+	FamilyAddress            string                                                         `json:"family_address,omitempty"`              // 家庭地址字段权限要求（满足任一）: 读取个人地址信息读写个人地址信息
 	PersonInfoChns           []*SearchCoreHRPreHireRespItemPersonInfoPersonInfoChn          `json:"person_info_chns,omitempty"`            // 个人附加信息
-	Religion                 *SearchCoreHRPreHireRespItemPersonInfoReligion                 `json:"religion,omitempty"`                    // 宗教信仰, 枚举值可查询[获取字段详情](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)接口获取, 按如下参数查询即可: object_api_name: person, custom_api_name: religion, 字段权限要求（满足任一）: 查看宗教信仰信息, 读写宗教信仰信息
+	BornCountryRegion        string                                                         `json:"born_country_region,omitempty"`         // 出生国家/地区, 详细信息可通过[查询国家/地区信息](https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/location_data/get)接口查询获得字段权限要求（满足任一）: 获取出生国家/地区信息读写出生国家/地区信息
+	IsDisabled               bool                                                           `json:"is_disabled,omitempty"`                 // 是否残疾字段权限要求（满足任一）: 获取残疾信息读写残疾信息
+	DisableCardNumber        string                                                         `json:"disable_card_number,omitempty"`         // 残疾证号字段权限要求（满足任一）: 获取残疾信息读写残疾信息
+	IsMartyrFamily           bool                                                           `json:"is_martyr_family,omitempty"`            // 是否烈属字段权限要求（满足任一）: 获取烈属信息读写烈属信息
+	MartyrCardNumber         string                                                         `json:"martyr_card_number,omitempty"`          // 烈属证号字段权限要求（满足任一）: 获取烈属信息读写烈属信息
+	IsOldAlone               bool                                                           `json:"is_old_alone,omitempty"`                // 是否孤老字段权限要求（满足任一）: 获取孤老信息读写孤老信息
+	ResidentTaxes            []*SearchCoreHRPreHireRespItemPersonInfoResidentTaxe           `json:"resident_taxes,omitempty"`              // 纳税身份信息字段权限要求（满足任一）: 获取居民身份信息读写居民身份信息
+	Religion                 *SearchCoreHRPreHireRespItemPersonInfoReligion                 `json:"religion,omitempty"`                    // 宗教信仰, 枚举值可查询[获取字段详情](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)接口获取, 按如下参数查询即可: object_api_name: person - custom_api_name: religion字段权限要求（满足任一）: 查看宗教信仰信息读写宗教信仰信息
+	WorkingYearsV2           float64                                                        `json:"working_years_v2,omitempty"`            // 工龄 （单位: 年）浮点类型
+	CreatedAt                string                                                         `json:"created_at,omitempty"`                  // 个人信息 创建时间, 时间格式为 2023-09-01 13:21:12
+	UpdatedAt                string                                                         `json:"updated_at,omitempty"`                  // 个人信息 更新时间, 时间格式为 2023-09-01 13:21:12
+	CreatedBy                string                                                         `json:"created_by,omitempty"`                  // 个人信息 创建人, 可以通过[批量查询员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)接口获取详情, user_id_type使用people_corehr_id类型
+	UpdatedBy                string                                                         `json:"updated_by,omitempty"`                  // 个人信息 更新人, 可以通过[批量查询员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)接口获取详情, user_id_type使用people_corehr_id类型
+	BankAccountNumber        string                                                         `json:"bank_account_number,omitempty"`         // 银行卡号字段权限要求（满足任一）: 获取银行账号列表信息读写银行账号信息
+	PassportNumber           string                                                         `json:"passport_number,omitempty"`             // 护照号码字段权限要求: 获取护照号码
+	FormerEmployer           []*SearchCoreHRPreHireRespItemPersonInfoFormerEmployer         `json:"former_employer,omitempty"`             // 上家公司字段权限要求（满足任一）: 获取工作履历信息读写工作履历信息
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoAddress ...
@@ -346,8 +604,21 @@ type SearchCoreHRPreHireRespItemPersonInfoAddress struct {
 	FullAddressLocalScript   string                                                     `json:"full_address_local_script,omitempty"`   // 完整地址（本地文字）
 	FullAddressWesternScript string                                                     `json:"full_address_western_script,omitempty"` // 完整地址（西方文字）
 	AddressID                string                                                     `json:"address_id,omitempty"`                  // 地址 ID
-	CountryRegionID          string                                                     `json:"country_region_id,omitempty"`           // 国家 / 地区
-	RegionID                 string                                                     `json:"region_id,omitempty"`                   // 主要行政区
+	CountryRegionID          string                                                     `json:"country_region_id,omitempty"`           // 国家 / 地区, 可以通过接口[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)获得
+	RegionID                 string                                                     `json:"region_id,omitempty"`                   // 主要行政区, 可以通过接口[查询省份/主要行政区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region_subdivision/search)获得
+	CityID                   string                                                     `json:"city_id,omitempty"`                     // 城市（该字段待作废, 请勿使用）
+	DistinctID               string                                                     `json:"distinct_id,omitempty"`                 // 区/县（该字段待作废, 请勿使用）
+	CityIDV2                 string                                                     `json:"city_id_v2,omitempty"`                  // 城市, 可以通过接口[查询城市信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-city/search)获取详情
+	DistrictIDV2             string                                                     `json:"district_id_v2,omitempty"`              // 区/县, 可以通过接口[查询区/县信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-district/search)获取详情
+	AddressLine1             string                                                     `json:"address_line1,omitempty"`               // 地址行 1
+	AddressLine2             string                                                     `json:"address_line2,omitempty"`               // 地址行 2
+	AddressLine3             string                                                     `json:"address_line3,omitempty"`               // 地址行 3
+	AddressLine4             string                                                     `json:"address_line4,omitempty"`               // 地址行 4
+	AddressLine5             string                                                     `json:"address_line5,omitempty"`               // 地址行 5
+	AddressLine6             string                                                     `json:"address_line6,omitempty"`               // 地址行 6
+	AddressLine7             string                                                     `json:"address_line7,omitempty"`               // 地址行 7
+	AddressLine8             string                                                     `json:"address_line8,omitempty"`               // 地址行 8
+	AddressLine9             string                                                     `json:"address_line9,omitempty"`               // 地址行 9
 	LocalAddressLine1        string                                                     `json:"local_address_line1,omitempty"`         // 地址行 1（非拉丁语系的本地文字）
 	LocalAddressLine2        string                                                     `json:"local_address_line2,omitempty"`         // 地址行 2（非拉丁语系的本地文字）
 	LocalAddressLine3        string                                                     `json:"local_address_line3,omitempty"`         // 地址行 3（非拉丁语系的本地文字）
@@ -358,7 +629,7 @@ type SearchCoreHRPreHireRespItemPersonInfoAddress struct {
 	LocalAddressLine8        string                                                     `json:"local_address_line8,omitempty"`         // 地址行 8（非拉丁语系的本地文字）
 	LocalAddressLine9        string                                                     `json:"local_address_line9,omitempty"`         // 地址行 9（非拉丁语系的本地文字）
 	PostalCode               string                                                     `json:"postal_code,omitempty"`                 // 邮政编码
-	AddressTypeList          []*SearchCoreHRPreHireRespItemPersonInfoAddressAddressType `json:"address_type_list,omitempty"`           // 地址类型
+	AddressTypeList          []*SearchCoreHRPreHireRespItemPersonInfoAddressAddressType `json:"address_type_list,omitempty"`           // 地址类型, 枚举值可通过文档[枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)地址类型（address_type）枚举定义获得
 	IsPrimary                bool                                                       `json:"is_primary,omitempty"`                  // 主要地址
 	IsPublic                 bool                                                       `json:"is_public,omitempty"`                   // 公开地址
 	CustomFields             []*SearchCoreHRPreHireRespItemPersonInfoAddressCustomField `json:"custom_fields,omitempty"`               // 自定义字段
@@ -372,15 +643,15 @@ type SearchCoreHRPreHireRespItemPersonInfoAddressAddressType struct {
 
 // SearchCoreHRPreHireRespItemPersonInfoAddressAddressTypeDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoAddressAddressTypeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoAddressCustomField ...
 type SearchCoreHRPreHireRespItemPersonInfoAddressCustomField struct {
 	CustomApiName string                                                       `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
 	Name          *SearchCoreHRPreHireRespItemPersonInfoAddressCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
-	Type          int64                                                        `json:"type,omitempty"`            // 自定义字段类型
+	Type          int64                                                        `json:"type,omitempty"`            // 自定义字段类型值类型说明: 1: 文本 Text, “文本”和“超链接”属于该类型- 2: 布尔 Boolean- 3: 数字 Number- 4: 枚举 Option, “单选”和“多选”为该类型- 5: 查找 Lookup, “人员（单选）”、“人员（多选）”和个人信息中的自定义分组为该类型- 6: 自动编码 Autonumber- 7: 日期时间 Datetime- 8: 附件 Attachment, “附件单选”和“附件多选”为该类型- 9: 图片 Image- 10: 计算字段 Calculated- 11: 反向查找 Backlookup
 	Value         string                                                       `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
@@ -396,10 +667,14 @@ type SearchCoreHRPreHireRespItemPersonInfoBankAccount struct {
 	BankAccountNumber string                                                              `json:"bank_account_number,omitempty"` // 银行账号
 	AccountHolder     string                                                              `json:"account_holder,omitempty"`      // 开户人姓名
 	BranchName        string                                                              `json:"branch_name,omitempty"`         // 支行名称
-	CountryRegionID   string                                                              `json:"country_region_id,omitempty"`   // 国家/地区 ID, 详细信息可通过[查询国家/地区信息](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/location_data/get)接口查询获得
-	BankAccountUsage  []*SearchCoreHRPreHireRespItemPersonInfoBankAccountBankAccountUsage `json:"bank_account_usage,omitempty"`  // 银行卡用途, 枚举值可通过文档[枚举常量介绍](https://open.feishu.cn/document/server-docs/corehr-v1/feishu-people-enum-constant)银行卡用途（Bank Account Usage）枚举定义部分获得
-	BankAccountType   *SearchCoreHRPreHireRespItemPersonInfoBankAccountBankAccountType    `json:"bank_account_type,omitempty"`   // 银行卡类型, 枚举值可通过文档[枚举常量介绍](https://open.feishu.cn/document/server-docs/corehr-v1/feishu-people-enum-constant)银行卡类型（Bank Account Type）枚举定义部分获得
-	CurrencyID        string                                                              `json:"currency_id,omitempty"`         // 货币id
+	CountryRegionID   string                                                              `json:"country_region_id,omitempty"`   // 国家 / 地区, 可以通过接口[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)获得
+	BankAccountUsage  []*SearchCoreHRPreHireRespItemPersonInfoBankAccountBankAccountUsage `json:"bank_account_usage,omitempty"`  // 银行卡用途, 枚举值可通过文档[枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)银行卡用途（bank_account_usage）枚举定义获得
+	BankAccountType   *SearchCoreHRPreHireRespItemPersonInfoBankAccountBankAccountType    `json:"bank_account_type,omitempty"`   // 银行卡类型, 枚举值可通过文档[枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)银行卡类型（bank_account_type）枚举定义获得
+	PaymentType       *SearchCoreHRPreHireRespItemPersonInfoBankAccountPaymentType        `json:"payment_type,omitempty"`        // 分配方式, 枚举值可通过文档【飞书人事枚举常量】分配方式（Payment Type）枚举定义部分获得
+	PaymentRate       string                                                              `json:"payment_rate,omitempty"`        // 分配比例
+	PaymentAmount     string                                                              `json:"payment_amount,omitempty"`      // 分配金额
+	Priority          int64                                                               `json:"priority,omitempty"`            // 分配优先级
+	CurrencyID        string                                                              `json:"currency_id,omitempty"`         // 货币id, 详细信息可通过[查询货币信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)接口查询获得
 	CustomFields      []*SearchCoreHRPreHireRespItemPersonInfoBankAccountCustomField      `json:"custom_fields,omitempty"`       // 自定义字段
 }
 
@@ -411,8 +686,8 @@ type SearchCoreHRPreHireRespItemPersonInfoBankAccountBankAccountType struct {
 
 // SearchCoreHRPreHireRespItemPersonInfoBankAccountBankAccountTypeDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoBankAccountBankAccountTypeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoBankAccountBankAccountUsage ...
@@ -423,15 +698,15 @@ type SearchCoreHRPreHireRespItemPersonInfoBankAccountBankAccountUsage struct {
 
 // SearchCoreHRPreHireRespItemPersonInfoBankAccountBankAccountUsageDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoBankAccountBankAccountUsageDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoBankAccountCustomField ...
 type SearchCoreHRPreHireRespItemPersonInfoBankAccountCustomField struct {
 	CustomApiName string                                                           `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
 	Name          *SearchCoreHRPreHireRespItemPersonInfoBankAccountCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
-	Type          int64                                                            `json:"type,omitempty"`            // 自定义字段类型
+	Type          int64                                                            `json:"type,omitempty"`            // 自定义字段类型值类型说明: 1: 文本 Text, “文本”和“超链接”属于该类型- 2: 布尔 Boolean- 3: 数字 Number- 4: 枚举 Option, “单选”和“多选”为该类型- 5: 查找 Lookup, “人员（单选）”、“人员（多选）”和个人信息中的自定义分组为该类型- 6: 自动编码 Autonumber- 7: 日期时间 Datetime- 8: 附件 Attachment, “附件单选”和“附件多选”为该类型- 9: 图片 Image- 10: 计算字段 Calculated- 11: 反向查找 Backlookup
 	Value         string                                                           `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
@@ -441,11 +716,23 @@ type SearchCoreHRPreHireRespItemPersonInfoBankAccountCustomFieldName struct {
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
+// SearchCoreHRPreHireRespItemPersonInfoBankAccountPaymentType ...
+type SearchCoreHRPreHireRespItemPersonInfoBankAccountPaymentType struct {
+	EnumName string                                                                `json:"enum_name,omitempty"` // 枚举值
+	Display  []*SearchCoreHRPreHireRespItemPersonInfoBankAccountPaymentTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+}
+
+// SearchCoreHRPreHireRespItemPersonInfoBankAccountPaymentTypeDisplay ...
+type SearchCoreHRPreHireRespItemPersonInfoBankAccountPaymentTypeDisplay struct {
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
+}
+
 // SearchCoreHRPreHireRespItemPersonInfoCustomField ...
 type SearchCoreHRPreHireRespItemPersonInfoCustomField struct {
 	CustomApiName string                                                `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
 	Name          *SearchCoreHRPreHireRespItemPersonInfoCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
-	Type          int64                                                 `json:"type,omitempty"`            // 自定义字段类型
+	Type          int64                                                 `json:"type,omitempty"`            // 自定义字段类型值类型说明: 1: 文本 Text, “文本”和“超链接”属于该类型- 2: 布尔 Boolean- 3: 数字 Number- 4: 枚举 Option, “单选”和“多选”为该类型- 5: 查找 Lookup, “人员（单选）”、“人员（多选）”和个人信息中的自定义分组为该类型- 6: 自动编码 Autonumber- 7: 日期时间 Datetime- 8: 附件 Attachment, “附件单选”和“附件多选”为该类型- 9: 图片 Image- 10: 计算字段 Calculated- 11: 反向查找 Backlookup
 	Value         string                                                `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
@@ -457,18 +744,19 @@ type SearchCoreHRPreHireRespItemPersonInfoCustomFieldName struct {
 
 // SearchCoreHRPreHireRespItemPersonInfoDependent ...
 type SearchCoreHRPreHireRespItemPersonInfoDependent struct {
+	ID                                   string                                                                 `json:"id,omitempty"`                                         // 家庭成员数据ID
 	Name                                 *SearchCoreHRPreHireRespItemPersonInfoDependentName                    `json:"name,omitempty"`                                       // 姓名
-	Relationship                         *SearchCoreHRPreHireRespItemPersonInfoDependentRelationship            `json:"relationship,omitempty"`                               // 关系
-	Gender                               *SearchCoreHRPreHireRespItemPersonInfoDependentGender                  `json:"gender,omitempty"`                                     // 性别
+	Relationship                         *SearchCoreHRPreHireRespItemPersonInfoDependentRelationship            `json:"relationship,omitempty"`                               // 亲属关系, 枚举值可通过文档[枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)亲属关系（relationship）枚举定义获得
+	Gender                               *SearchCoreHRPreHireRespItemPersonInfoDependentGender                  `json:"gender,omitempty"`                                     // 性别, 枚举值可通过文档[枚举常量介绍](https://open.larkoffice.com/document/server-docs/corehr-v1/feishu-people-enum-constant)性别（gendar）枚举定义获得
 	DateOfBirth                          string                                                                 `json:"date_of_birth,omitempty"`                              // 生日
 	NationalIDList                       []*SearchCoreHRPreHireRespItemPersonInfoDependentNationalID            `json:"national_id_list,omitempty"`                           // 证件号码
-	SpousesWorkingStatus                 *SearchCoreHRPreHireRespItemPersonInfoDependentSpousesWorkingStatus    `json:"spouses_working_status,omitempty"`                     // 配偶工作状态
+	SpousesWorkingStatus                 *SearchCoreHRPreHireRespItemPersonInfoDependentSpousesWorkingStatus    `json:"spouses_working_status,omitempty"`                     // 配偶工作状态, 枚举值可查询[获取字段详情](https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)接口获取, 按如下参数查询即可: custom_api_name: spouses_working_status- object_api_name: dependent
 	IsThisPersonCoveredByHealthInsurance bool                                                                   `json:"is_this_person_covered_by_health_insurance,omitempty"` // 包含家属医疗保险
 	IsThisPersonAllowedForTaxDeduction   bool                                                                   `json:"is_this_person_allowed_for_tax_deduction,omitempty"`   // 允许家属抵扣税款
 	CustomFields                         []*SearchCoreHRPreHireRespItemPersonInfoDependentCustomField           `json:"custom_fields,omitempty"`                              // 自定义字段
 	DependentName                        string                                                                 `json:"dependent_name,omitempty"`                             // 家庭成员姓名
 	Employer                             string                                                                 `json:"employer,omitempty"`                                   // 工作单位
-	Job                                  string                                                                 `json:"job,omitempty"`                                        // 岗位
+	Job                                  string                                                                 `json:"job,omitempty"`                                        // 工作描述
 	Phone                                *SearchCoreHRPreHireRespItemPersonInfoDependentPhone                   `json:"phone,omitempty"`                                      // 电话
 	Address                              *SearchCoreHRPreHireRespItemPersonInfoDependentAddress                 `json:"address,omitempty"`                                    // 联系地址
 	BirthCertificateOfChild              *SearchCoreHRPreHireRespItemPersonInfoDependentBirthCertificateOfChild `json:"birth_certificate_of_child,omitempty"`                 // 出生证明
@@ -479,8 +767,19 @@ type SearchCoreHRPreHireRespItemPersonInfoDependentAddress struct {
 	FullAddressLocalScript   string                                                              `json:"full_address_local_script,omitempty"`   // 完整地址（本地文字）
 	FullAddressWesternScript string                                                              `json:"full_address_western_script,omitempty"` // 完整地址（西方文字）
 	AddressID                string                                                              `json:"address_id,omitempty"`                  // 地址 ID
-	CountryRegionID          string                                                              `json:"country_region_id,omitempty"`           // 国家 / 地区
-	RegionID                 string                                                              `json:"region_id,omitempty"`                   // 主要行政区
+	CountryRegionID          string                                                              `json:"country_region_id,omitempty"`           // 国家/地区 ID, 详细信息可通过[查询国家/地区信息](https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/location_data/get)接口查询获得
+	RegionID                 string                                                              `json:"region_id,omitempty"`                   // 主要行政区ID 详细信息可通过[查询省份/行政区信息](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region_subdivision/search接口查询获得
+	CityID                   string                                                              `json:"city_id,omitempty"`                     // 城市（该字段待作废, 请勿使用）
+	DistinctID               string                                                              `json:"distinct_id,omitempty"`                 // 区/县（该字段待作废, 请勿使用）
+	AddressLine1             string                                                              `json:"address_line1,omitempty"`               // 地址行 1
+	AddressLine2             string                                                              `json:"address_line2,omitempty"`               // 地址行 2
+	AddressLine3             string                                                              `json:"address_line3,omitempty"`               // 地址行 3
+	AddressLine4             string                                                              `json:"address_line4,omitempty"`               // 地址行 4
+	AddressLine5             string                                                              `json:"address_line5,omitempty"`               // 地址行 5
+	AddressLine6             string                                                              `json:"address_line6,omitempty"`               // 地址行 6
+	AddressLine7             string                                                              `json:"address_line7,omitempty"`               // 地址行 7
+	AddressLine8             string                                                              `json:"address_line8,omitempty"`               // 地址行 8
+	AddressLine9             string                                                              `json:"address_line9,omitempty"`               // 地址行 9
 	LocalAddressLine1        string                                                              `json:"local_address_line1,omitempty"`         // 地址行 1（非拉丁语系的本地文字）
 	LocalAddressLine2        string                                                              `json:"local_address_line2,omitempty"`         // 地址行 2（非拉丁语系的本地文字）
 	LocalAddressLine3        string                                                              `json:"local_address_line3,omitempty"`         // 地址行 3（非拉丁语系的本地文字）
@@ -491,7 +790,7 @@ type SearchCoreHRPreHireRespItemPersonInfoDependentAddress struct {
 	LocalAddressLine8        string                                                              `json:"local_address_line8,omitempty"`         // 地址行 8（非拉丁语系的本地文字）
 	LocalAddressLine9        string                                                              `json:"local_address_line9,omitempty"`         // 地址行 9（非拉丁语系的本地文字）
 	PostalCode               string                                                              `json:"postal_code,omitempty"`                 // 邮政编码
-	AddressTypeList          []*SearchCoreHRPreHireRespItemPersonInfoDependentAddressAddressType `json:"address_type_list,omitempty"`           // 地址类型
+	AddressTypeList          []*SearchCoreHRPreHireRespItemPersonInfoDependentAddressAddressType `json:"address_type_list,omitempty"`           // 地址类型, 枚举值可通过文档[枚举常量介绍](https://open.larkoffice.com/document/server-docs/corehr-v1/feishu-people-enum-constant)地址类型（address_type）枚举定义获得
 	IsPrimary                bool                                                                `json:"is_primary,omitempty"`                  // 主要地址
 	IsPublic                 bool                                                                `json:"is_public,omitempty"`                   // 公开地址
 	CustomFields             []*SearchCoreHRPreHireRespItemPersonInfoDependentAddressCustomField `json:"custom_fields,omitempty"`               // 自定义字段
@@ -505,15 +804,15 @@ type SearchCoreHRPreHireRespItemPersonInfoDependentAddressAddressType struct {
 
 // SearchCoreHRPreHireRespItemPersonInfoDependentAddressAddressTypeDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoDependentAddressAddressTypeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoDependentAddressCustomField ...
 type SearchCoreHRPreHireRespItemPersonInfoDependentAddressCustomField struct {
 	CustomApiName string                                                                `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
 	Name          *SearchCoreHRPreHireRespItemPersonInfoDependentAddressCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
-	Type          int64                                                                 `json:"type,omitempty"`            // 自定义字段类型
+	Type          int64                                                                 `json:"type,omitempty"`            // 自定义字段类型值类型说明: 1: 文本 Text, “文本”和“超链接”属于该类型- 2: 布尔 Boolean- 3: 数字 Number- 4: 枚举 Option, “单选”和“多选”为该类型- 5: 查找 Lookup, “人员（单选）”、“人员（多选）”和个人信息中的自定义分组为该类型- 6: 自动编码 Autonumber- 7: 日期时间 Datetime- 8: 附件 Attachment, “附件单选”和“附件多选”为该类型- 9: 图片 Image- 10: 计算字段 Calculated- 11: 反向查找 Backlookup
 	Value         string                                                                `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
@@ -525,14 +824,15 @@ type SearchCoreHRPreHireRespItemPersonInfoDependentAddressCustomFieldName struct
 
 // SearchCoreHRPreHireRespItemPersonInfoDependentBirthCertificateOfChild ...
 type SearchCoreHRPreHireRespItemPersonInfoDependentBirthCertificateOfChild struct {
-	ID string `json:"id,omitempty"` // 上传文件ID
+	ID   string `json:"id,omitempty"`   // 文件ID, 文件内容可通过[下载文件](https://open.feishu.cn/document/server-docs/corehr-v1/employee/person/get-2)接口获取
+	Name string `json:"name,omitempty"` // 文件名
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoDependentCustomField ...
 type SearchCoreHRPreHireRespItemPersonInfoDependentCustomField struct {
 	CustomApiName string                                                         `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
 	Name          *SearchCoreHRPreHireRespItemPersonInfoDependentCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
-	Type          int64                                                          `json:"type,omitempty"`            // 自定义字段类型
+	Type          int64                                                          `json:"type,omitempty"`            // 自定义字段类型值类型说明: 1: 文本 Text, “文本”和“超链接”属于该类型- 2: 布尔 Boolean- 3: 数字 Number- 4: 枚举 Option, “单选”和“多选”为该类型- 5: 查找 Lookup, “人员（单选）”、“人员（多选）”和个人信息中的自定义分组为该类型- 6: 自动编码 Autonumber- 7: 日期时间 Datetime- 8: 附件 Attachment, “附件单选”和“附件多选”为该类型- 9: 图片 Image- 10: 计算字段 Calculated- 11: 反向查找 Backlookup
 	Value         string                                                         `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
@@ -550,19 +850,20 @@ type SearchCoreHRPreHireRespItemPersonInfoDependentGender struct {
 
 // SearchCoreHRPreHireRespItemPersonInfoDependentGenderDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoDependentGenderDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoDependentName ...
 type SearchCoreHRPreHireRespItemPersonInfoDependentName struct {
 	LocalPrimary                     string                                                                `json:"local_primary,omitempty"`                         // 姓 - 本地文字
 	LocalFirstName                   string                                                                `json:"local_first_name,omitempty"`                      // 名 - 本地文字
-	CountryRegionID                  string                                                                `json:"country_region_id,omitempty"`                     // 国家 / 地区
-	NameType                         *SearchCoreHRPreHireRespItemPersonInfoDependentNameNameType           `json:"name_type,omitempty"`                             // 姓名类型
+	CountryRegionID                  string                                                                `json:"country_region_id,omitempty"`                     // 国家 / 地区, 可以通过接口[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)获得
+	NameType                         *SearchCoreHRPreHireRespItemPersonInfoDependentNameNameType           `json:"name_type,omitempty"`                             // 姓名类型, 枚举值可通过文档[枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)姓名类型（name_type）枚举定义获得
 	LocalFirstName2                  string                                                                `json:"local_first_name_2,omitempty"`                    // 名 - 第二本地文字
 	LocalPrimary2                    string                                                                `json:"local_primary_2,omitempty"`                       // 姓 - 第二本地文字
-	AdditionalNameType               *SearchCoreHRPreHireRespItemPersonInfoDependentNameAdditionalNameType `json:"additional_name_type,omitempty"`                  // 补充姓名类型
+	AdditionalName                   string                                                                `json:"additional_name,omitempty"`                       // 别名
+	AdditionalNameType               *SearchCoreHRPreHireRespItemPersonInfoDependentNameAdditionalNameType `json:"additional_name_type,omitempty"`                  // additional_name_type补充姓名类型, 枚举值可查询[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口获取, 按如下参数查询即可: custom_api_name: additional_name_type- object_api_name: person_name
 	FirstName                        string                                                                `json:"first_name,omitempty"`                            // 名
 	FullName                         string                                                                `json:"full_name,omitempty"`                             // 全名
 	Hereditary                       string                                                                `json:"hereditary,omitempty"`                            // 姓氏称谓
@@ -571,9 +872,9 @@ type SearchCoreHRPreHireRespItemPersonInfoDependentName struct {
 	MiddleName                       string                                                                `json:"middle_name,omitempty"`                           // 中间名
 	NamePrimary                      string                                                                `json:"name_primary,omitempty"`                          // 姓
 	Secondary                        string                                                                `json:"secondary,omitempty"`                             // 第二姓氏
-	Social                           *SearchCoreHRPreHireRespItemPersonInfoDependentNameSocial             `json:"social,omitempty"`                                // 尊称
 	Tertiary                         string                                                                `json:"tertiary,omitempty"`                              // 婚后姓氏
-	Title                            *SearchCoreHRPreHireRespItemPersonInfoDependentNameTitle              `json:"title,omitempty"`                                 // 头衔
+	Social                           *SearchCoreHRPreHireRespItemPersonInfoDependentNameSocial             `json:"social,omitempty"`                                // 尊称, 枚举值可查询[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口获取, 按如下参数查询即可: custom_api_name: social- object_api_name: person_name
+	Title                            *SearchCoreHRPreHireRespItemPersonInfoDependentNameTitle              `json:"title,omitempty"`                                 // 头衔, 枚举值可查询[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口获取, 按如下参数查询即可: custom_api_name: title- object_api_name: person_name
 	LocalMiddleName                  string                                                                `json:"local_middle_name,omitempty"`                     // 本地中间名
 	LocalSecondary                   string                                                                `json:"local_secondary,omitempty"`                       // 第二姓氏 - 本地文字
 	DisplayNameLocalAndWesternScript string                                                                `json:"display_name_local_and_western_script,omitempty"` // 展示姓名（本地和西方文字）
@@ -589,8 +890,8 @@ type SearchCoreHRPreHireRespItemPersonInfoDependentNameAdditionalNameType struct
 
 // SearchCoreHRPreHireRespItemPersonInfoDependentNameAdditionalNameTypeDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoDependentNameAdditionalNameTypeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoDependentNameNameType ...
@@ -601,8 +902,8 @@ type SearchCoreHRPreHireRespItemPersonInfoDependentNameNameType struct {
 
 // SearchCoreHRPreHireRespItemPersonInfoDependentNameNameTypeDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoDependentNameNameTypeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoDependentNameSocial ...
@@ -613,8 +914,8 @@ type SearchCoreHRPreHireRespItemPersonInfoDependentNameSocial struct {
 
 // SearchCoreHRPreHireRespItemPersonInfoDependentNameSocialDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoDependentNameSocialDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoDependentNameTitle ...
@@ -625,17 +926,17 @@ type SearchCoreHRPreHireRespItemPersonInfoDependentNameTitle struct {
 
 // SearchCoreHRPreHireRespItemPersonInfoDependentNameTitleDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoDependentNameTitleDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoDependentNationalID ...
 type SearchCoreHRPreHireRespItemPersonInfoDependentNationalID struct {
-	NationalIDTypeID string                                                                 `json:"national_id_type_id,omitempty"` // 国家证件类型
+	NationalIDTypeID string                                                                 `json:"national_id_type_id,omitempty"` // 国家证件类型ID, 详细信息可通过[查询单个国家证件类型](https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/national_id_type/get)接口查询获得
 	NationalIDNumber string                                                                 `json:"national_id_number,omitempty"`  // 证件号码
 	IssueDate        string                                                                 `json:"issue_date,omitempty"`          // 证件签发日期
 	ExpirationDate   string                                                                 `json:"expiration_date,omitempty"`     // 证件到期日期
-	CountryRegionID  string                                                                 `json:"country_region_id,omitempty"`   // 国家 / 地区
+	CountryRegionID  string                                                                 `json:"country_region_id,omitempty"`   // 国家/地区 ID, 详细信息可通过[查询国家/地区信息](https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/location_data/get)接口查询获得
 	IssuedBy         string                                                                 `json:"issued_by,omitempty"`           // 证件签发机构
 	CustomFields     []*SearchCoreHRPreHireRespItemPersonInfoDependentNationalIDCustomField `json:"custom_fields,omitempty"`       // 自定义字段
 }
@@ -644,7 +945,7 @@ type SearchCoreHRPreHireRespItemPersonInfoDependentNationalID struct {
 type SearchCoreHRPreHireRespItemPersonInfoDependentNationalIDCustomField struct {
 	CustomApiName string                                                                   `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
 	Name          *SearchCoreHRPreHireRespItemPersonInfoDependentNationalIDCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
-	Type          int64                                                                    `json:"type,omitempty"`            // 自定义字段类型
+	Type          int64                                                                    `json:"type,omitempty"`            // 自定义字段类型值类型说明: 1: 文本 Text, “文本”和“超链接”属于该类型- 2: 布尔 Boolean- 3: 数字 Number- 4: 枚举 Option, “单选”和“多选”为该类型- 5: 查找 Lookup, “人员（单选）”、“人员（多选）”和个人信息中的自定义分组为该类型- 6: 自动编码 Autonumber- 7: 日期时间 Datetime- 8: 附件 Attachment, “附件单选”和“附件多选”为该类型- 9: 图片 Image- 10: 计算字段 Calculated- 11: 反向查找 Backlookup
 	Value         string                                                                   `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
@@ -656,11 +957,11 @@ type SearchCoreHRPreHireRespItemPersonInfoDependentNationalIDCustomFieldName str
 
 // SearchCoreHRPreHireRespItemPersonInfoDependentPhone ...
 type SearchCoreHRPreHireRespItemPersonInfoDependentPhone struct {
-	InternationalAreaCode *SearchCoreHRPreHireRespItemPersonInfoDependentPhoneInternationalAreaCode `json:"international_area_code,omitempty"` // 国家区号
+	InternationalAreaCode *SearchCoreHRPreHireRespItemPersonInfoDependentPhoneInternationalAreaCode `json:"international_area_code,omitempty"` // 国家区号, 枚举值可通过文档[枚举常量介绍](https://open.larkoffice.com/document/server-docs/corehr-v1/feishu-people-enum-constant)手机区号（international_area_code）枚举定义获得
 	PhoneNumber           string                                                                    `json:"phone_number,omitempty"`            // 电话号码
 	FormattedPhoneNumber  string                                                                    `json:"formatted_phone_number,omitempty"`  // 完整电话号码
-	DeviceType            *SearchCoreHRPreHireRespItemPersonInfoDependentPhoneDeviceType            `json:"device_type,omitempty"`             // 设备类型
-	PhoneUsage            *SearchCoreHRPreHireRespItemPersonInfoDependentPhonePhoneUsage            `json:"phone_usage,omitempty"`             // 电话用途
+	DeviceType            *SearchCoreHRPreHireRespItemPersonInfoDependentPhoneDeviceType            `json:"device_type,omitempty"`             // 设备类型, 枚举值可通过文档[枚举常量介绍](https://open.larkoffice.com/document/server-docs/corehr-v1/feishu-people-enum-constant)设备类型（device_type）枚举定义获得
+	PhoneUsage            *SearchCoreHRPreHireRespItemPersonInfoDependentPhonePhoneUsage            `json:"phone_usage,omitempty"`             // 电话用途, 枚举值可通过文档[枚举常量介绍](https://open.larkoffice.com/document/server-docs/corehr-v1/feishu-people-enum-constant)电话用途（phone_usage）枚举定义获得
 	IsPrimary             bool                                                                      `json:"is_primary,omitempty"`              // 主要电话
 	IsPublic              bool                                                                      `json:"is_public,omitempty"`               // 公开电话
 }
@@ -673,8 +974,8 @@ type SearchCoreHRPreHireRespItemPersonInfoDependentPhoneDeviceType struct {
 
 // SearchCoreHRPreHireRespItemPersonInfoDependentPhoneDeviceTypeDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoDependentPhoneDeviceTypeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoDependentPhoneInternationalAreaCode ...
@@ -685,8 +986,8 @@ type SearchCoreHRPreHireRespItemPersonInfoDependentPhoneInternationalAreaCode st
 
 // SearchCoreHRPreHireRespItemPersonInfoDependentPhoneInternationalAreaCodeDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoDependentPhoneInternationalAreaCodeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoDependentPhonePhoneUsage ...
@@ -697,8 +998,8 @@ type SearchCoreHRPreHireRespItemPersonInfoDependentPhonePhoneUsage struct {
 
 // SearchCoreHRPreHireRespItemPersonInfoDependentPhonePhoneUsageDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoDependentPhonePhoneUsageDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoDependentRelationship ...
@@ -709,8 +1010,8 @@ type SearchCoreHRPreHireRespItemPersonInfoDependentRelationship struct {
 
 // SearchCoreHRPreHireRespItemPersonInfoDependentRelationshipDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoDependentRelationshipDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoDependentSpousesWorkingStatus ...
@@ -721,21 +1022,21 @@ type SearchCoreHRPreHireRespItemPersonInfoDependentSpousesWorkingStatus struct {
 
 // SearchCoreHRPreHireRespItemPersonInfoDependentSpousesWorkingStatusDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoDependentSpousesWorkingStatusDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoEducation ...
 type SearchCoreHRPreHireRespItemPersonInfoEducation struct {
 	School           []*SearchCoreHRPreHireRespItemPersonInfoEducationSchool         `json:"school,omitempty"`              // 学校
-	LevelOfEducation *SearchCoreHRPreHireRespItemPersonInfoEducationLevelOfEducation `json:"level_of_education,omitempty"`  // 学历
-	StartDate        string                                                          `json:"start_date,omitempty"`          // 开始日期
-	EndDate          string                                                          `json:"end_date,omitempty"`            // 结束日期
-	FieldOfStudy     []*SearchCoreHRPreHireRespItemPersonInfoEducationFieldOfStudy   `json:"field_of_study,omitempty"`      // 专业
-	Degree           *SearchCoreHRPreHireRespItemPersonInfoEducationDegree           `json:"degree,omitempty"`              // 学位
-	SchoolName       *SearchCoreHRPreHireRespItemPersonInfoEducationSchoolName       `json:"school_name,omitempty"`         // 学校名称
-	FieldOfStudyName *SearchCoreHRPreHireRespItemPersonInfoEducationFieldOfStudyName `json:"field_of_study_name,omitempty"` // 专业名称
-	CountryRegionID  string                                                          `json:"country_region_id,omitempty"`   // 国家地区 ID
+	LevelOfEducation *SearchCoreHRPreHireRespItemPersonInfoEducationLevelOfEducation `json:"level_of_education,omitempty"`  // 学历, 枚举值可通过文档[枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)学历（level_of_education）枚举定义获得
+	StartDate        string                                                          `json:"start_date,omitempty"`          // 开始日期, 时间格式为 2023-09-01
+	EndDate          string                                                          `json:"end_date,omitempty"`            // 结束日期, 时间格式为 2023-09-01
+	FieldOfStudy     []*SearchCoreHRPreHireRespItemPersonInfoEducationFieldOfStudy   `json:"field_of_study,omitempty"`      // 专业名称
+	Degree           *SearchCoreHRPreHireRespItemPersonInfoEducationDegree           `json:"degree,omitempty"`              // 学位, 枚举值可通过文档[枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)学位（degree）枚举定义获得
+	SchoolName       *SearchCoreHRPreHireRespItemPersonInfoEducationSchoolName       `json:"school_name,omitempty"`         // 学校名称, 枚举值可查询[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口获取, 按如下参数查询即可: custom_api_name: school_name- object_api_name: education
+	FieldOfStudyName *SearchCoreHRPreHireRespItemPersonInfoEducationFieldOfStudyName `json:"field_of_study_name,omitempty"` // 专业名称, 枚举值可查询[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口获取, 按如下参数查询即可: custom_api_name: field_of_study_name- object_api_name: education
+	CountryRegionID  string                                                          `json:"country_region_id,omitempty"`   // 国家 / 地区, 可以通过接口[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)获得
 	ExpectedEndDate  string                                                          `json:"expected_end_date,omitempty"`   // 预期结束日期
 	CustomFields     []*SearchCoreHRPreHireRespItemPersonInfoEducationCustomField    `json:"custom_fields,omitempty"`       // 自定义字段
 }
@@ -744,7 +1045,7 @@ type SearchCoreHRPreHireRespItemPersonInfoEducation struct {
 type SearchCoreHRPreHireRespItemPersonInfoEducationCustomField struct {
 	CustomApiName string                                                         `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
 	Name          *SearchCoreHRPreHireRespItemPersonInfoEducationCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
-	Type          int64                                                          `json:"type,omitempty"`            // 自定义字段类型
+	Type          int64                                                          `json:"type,omitempty"`            // 自定义字段类型值类型说明: 1: 文本 Text, “文本”和“超链接”属于该类型- 2: 布尔 Boolean- 3: 数字 Number- 4: 枚举 Option, “单选”和“多选”为该类型- 5: 查找 Lookup, “人员（单选）”、“人员（多选）”和个人信息中的自定义分组为该类型- 6: 自动编码 Autonumber- 7: 日期时间 Datetime- 8: 附件 Attachment, “附件单选”和“附件多选”为该类型- 9: 图片 Image- 10: 计算字段 Calculated- 11: 反向查找 Backlookup
 	Value         string                                                         `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
@@ -762,14 +1063,14 @@ type SearchCoreHRPreHireRespItemPersonInfoEducationDegree struct {
 
 // SearchCoreHRPreHireRespItemPersonInfoEducationDegreeDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoEducationDegreeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoEducationFieldOfStudy ...
 type SearchCoreHRPreHireRespItemPersonInfoEducationFieldOfStudy struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoEducationFieldOfStudyName ...
@@ -780,8 +1081,8 @@ type SearchCoreHRPreHireRespItemPersonInfoEducationFieldOfStudyName struct {
 
 // SearchCoreHRPreHireRespItemPersonInfoEducationFieldOfStudyNameDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoEducationFieldOfStudyNameDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoEducationLevelOfEducation ...
@@ -792,14 +1093,14 @@ type SearchCoreHRPreHireRespItemPersonInfoEducationLevelOfEducation struct {
 
 // SearchCoreHRPreHireRespItemPersonInfoEducationLevelOfEducationDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoEducationLevelOfEducationDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoEducationSchool ...
 type SearchCoreHRPreHireRespItemPersonInfoEducationSchool struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoEducationSchoolName ...
@@ -810,8 +1111,8 @@ type SearchCoreHRPreHireRespItemPersonInfoEducationSchoolName struct {
 
 // SearchCoreHRPreHireRespItemPersonInfoEducationSchoolNameDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoEducationSchoolNameDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoEmail ...
@@ -819,7 +1120,7 @@ type SearchCoreHRPreHireRespItemPersonInfoEmail struct {
 	Email      string                                                `json:"email,omitempty"`       // 邮箱地址
 	IsPrimary  bool                                                  `json:"is_primary,omitempty"`  // 是否为主要邮箱
 	IsPublic   bool                                                  `json:"is_public,omitempty"`   // 是否为公开邮箱
-	EmailUsage *SearchCoreHRPreHireRespItemPersonInfoEmailEmailUsage `json:"email_usage,omitempty"` // 邮箱用途, 枚举值可通过文档[枚举常量介绍](https://open.feishu.cn/document/server-docs/corehr-v1/feishu-people-enum-constant)邮箱用途（email_usage）枚举定义获得
+	EmailUsage *SearchCoreHRPreHireRespItemPersonInfoEmailEmailUsage `json:"email_usage,omitempty"` // 邮箱用途, 枚举值可通过文档[枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)邮箱用途（email_usage）枚举定义获得
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoEmailEmailUsage ...
@@ -830,25 +1131,27 @@ type SearchCoreHRPreHireRespItemPersonInfoEmailEmailUsage struct {
 
 // SearchCoreHRPreHireRespItemPersonInfoEmailEmailUsageDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoEmailEmailUsageDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoEmergencyContact ...
 type SearchCoreHRPreHireRespItemPersonInfoEmergencyContact struct {
+	ID           string                                                              `json:"id,omitempty"`            // 紧急联系人ID
 	Name         *SearchCoreHRPreHireRespItemPersonInfoEmergencyContactName          `json:"name,omitempty"`          // 姓名
 	Relationship *SearchCoreHRPreHireRespItemPersonInfoEmergencyContactRelationship  `json:"relationship,omitempty"`  // 关系
 	PhoneIst     []*SearchCoreHRPreHireRespItemPersonInfoEmergencyContactPhoneIst    `json:"phone_ist,omitempty"`     // 电话
 	PhoneList    []*SearchCoreHRPreHireRespItemPersonInfoEmergencyContactPhone       `json:"phone_list,omitempty"`    // 电话
 	LegalName    string                                                              `json:"legal_name,omitempty"`    // 法定姓名
 	CustomFields []*SearchCoreHRPreHireRespItemPersonInfoEmergencyContactCustomField `json:"custom_fields,omitempty"` // 自定义字段
+	IsPrimary    bool                                                                `json:"is_primary,omitempty"`    // 主要联系人, 若有多个联系人, 只能有一个联系人的「is_primary」为true
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoEmergencyContactCustomField ...
 type SearchCoreHRPreHireRespItemPersonInfoEmergencyContactCustomField struct {
 	CustomApiName string                                                                `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
 	Name          *SearchCoreHRPreHireRespItemPersonInfoEmergencyContactCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
-	Type          int64                                                                 `json:"type,omitempty"`            // 自定义字段类型
+	Type          int64                                                                 `json:"type,omitempty"`            // 自定义字段类型值类型说明: 1: 文本 Text, “文本”和“超链接”属于该类型- 2: 布尔 Boolean- 3: 数字 Number- 4: 枚举 Option, “单选”和“多选”为该类型- 5: 查找 Lookup, “人员（单选）”、“人员（多选）”和个人信息中的自定义分组为该类型- 6: 自动编码 Autonumber- 7: 日期时间 Datetime- 8: 附件 Attachment, “附件单选”和“附件多选”为该类型- 9: 图片 Image- 10: 计算字段 Calculated- 11: 反向查找 Backlookup
 	Value         string                                                                `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
@@ -862,11 +1165,12 @@ type SearchCoreHRPreHireRespItemPersonInfoEmergencyContactCustomFieldName struct
 type SearchCoreHRPreHireRespItemPersonInfoEmergencyContactName struct {
 	LocalPrimary                     string                                                                       `json:"local_primary,omitempty"`                         // 姓 - 本地文字
 	LocalFirstName                   string                                                                       `json:"local_first_name,omitempty"`                      // 名 - 本地文字
-	CountryRegionID                  string                                                                       `json:"country_region_id,omitempty"`                     // 国家 / 地区
-	NameType                         *SearchCoreHRPreHireRespItemPersonInfoEmergencyContactNameNameType           `json:"name_type,omitempty"`                             // 姓名类型
+	CountryRegionID                  string                                                                       `json:"country_region_id,omitempty"`                     // 国家/地区 ID, 详细信息可通过[查询国家/地区信息](https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/location_data/get)接口查询获得
+	NameType                         *SearchCoreHRPreHireRespItemPersonInfoEmergencyContactNameNameType           `json:"name_type,omitempty"`                             // 姓名类型, 枚举值可通过文档[枚举常量介绍](https://open.larkoffice.com/document/server-docs/corehr-v1/feishu-people-enum-constant)姓名类型（name_type）枚举定义获得
 	LocalFirstName2                  string                                                                       `json:"local_first_name_2,omitempty"`                    // 名 - 第二本地文字
 	LocalPrimary2                    string                                                                       `json:"local_primary_2,omitempty"`                       // 姓 - 第二本地文字
-	AdditionalNameType               *SearchCoreHRPreHireRespItemPersonInfoEmergencyContactNameAdditionalNameType `json:"additional_name_type,omitempty"`                  // 补充姓名类型
+	AdditionalName                   string                                                                       `json:"additional_name,omitempty"`                       // 别名
+	AdditionalNameType               *SearchCoreHRPreHireRespItemPersonInfoEmergencyContactNameAdditionalNameType `json:"additional_name_type,omitempty"`                  // 补充姓名类型, 枚举值可查询[获取字段详情](https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)接口获取, 按如下参数查询即可: custom_api_name: additional_name_type- object_api_name: person_name
 	FirstName                        string                                                                       `json:"first_name,omitempty"`                            // 名
 	FullName                         string                                                                       `json:"full_name,omitempty"`                             // 全名
 	Hereditary                       string                                                                       `json:"hereditary,omitempty"`                            // 姓氏称谓
@@ -875,9 +1179,9 @@ type SearchCoreHRPreHireRespItemPersonInfoEmergencyContactName struct {
 	MiddleName                       string                                                                       `json:"middle_name,omitempty"`                           // 中间名
 	NamePrimary                      string                                                                       `json:"name_primary,omitempty"`                          // 姓
 	Secondary                        string                                                                       `json:"secondary,omitempty"`                             // 第二姓氏
-	Social                           *SearchCoreHRPreHireRespItemPersonInfoEmergencyContactNameSocial             `json:"social,omitempty"`                                // 尊称
 	Tertiary                         string                                                                       `json:"tertiary,omitempty"`                              // 婚后姓氏
-	Title                            *SearchCoreHRPreHireRespItemPersonInfoEmergencyContactNameTitle              `json:"title,omitempty"`                                 // 头衔
+	Social                           *SearchCoreHRPreHireRespItemPersonInfoEmergencyContactNameSocial             `json:"social,omitempty"`                                // 尊称- 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: - object_api_name: person_name  - custom_api_name: social
+	Title                            *SearchCoreHRPreHireRespItemPersonInfoEmergencyContactNameTitle              `json:"title,omitempty"`                                 // 头衔- 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: - object_api_name: person_name  - custom_api_name: title
 	LocalMiddleName                  string                                                                       `json:"local_middle_name,omitempty"`                     // 本地中间名
 	LocalSecondary                   string                                                                       `json:"local_secondary,omitempty"`                       // 第二姓氏 - 本地文字
 	DisplayNameLocalAndWesternScript string                                                                       `json:"display_name_local_and_western_script,omitempty"` // 展示姓名（本地和西方文字）
@@ -893,8 +1197,8 @@ type SearchCoreHRPreHireRespItemPersonInfoEmergencyContactNameAdditionalNameType
 
 // SearchCoreHRPreHireRespItemPersonInfoEmergencyContactNameAdditionalNameTypeDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoEmergencyContactNameAdditionalNameTypeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoEmergencyContactNameNameType ...
@@ -905,8 +1209,8 @@ type SearchCoreHRPreHireRespItemPersonInfoEmergencyContactNameNameType struct {
 
 // SearchCoreHRPreHireRespItemPersonInfoEmergencyContactNameNameTypeDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoEmergencyContactNameNameTypeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoEmergencyContactNameSocial ...
@@ -917,8 +1221,8 @@ type SearchCoreHRPreHireRespItemPersonInfoEmergencyContactNameSocial struct {
 
 // SearchCoreHRPreHireRespItemPersonInfoEmergencyContactNameSocialDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoEmergencyContactNameSocialDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoEmergencyContactNameTitle ...
@@ -929,17 +1233,17 @@ type SearchCoreHRPreHireRespItemPersonInfoEmergencyContactNameTitle struct {
 
 // SearchCoreHRPreHireRespItemPersonInfoEmergencyContactNameTitleDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoEmergencyContactNameTitleDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoEmergencyContactPhone ...
 type SearchCoreHRPreHireRespItemPersonInfoEmergencyContactPhone struct {
-	InternationalAreaCode *SearchCoreHRPreHireRespItemPersonInfoEmergencyContactPhoneInternationalAreaCode `json:"international_area_code,omitempty"` // 国家区号
+	InternationalAreaCode *SearchCoreHRPreHireRespItemPersonInfoEmergencyContactPhoneInternationalAreaCode `json:"international_area_code,omitempty"` // 国家区号, 枚举值可通过文档[枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)手机区号（international_area_code）枚举定义获得
 	PhoneNumber           string                                                                           `json:"phone_number,omitempty"`            // 电话号码
 	FormattedPhoneNumber  string                                                                           `json:"formatted_phone_number,omitempty"`  // 完整电话号码
-	DeviceType            *SearchCoreHRPreHireRespItemPersonInfoEmergencyContactPhoneDeviceType            `json:"device_type,omitempty"`             // 设备类型
-	PhoneUsage            *SearchCoreHRPreHireRespItemPersonInfoEmergencyContactPhonePhoneUsage            `json:"phone_usage,omitempty"`             // 电话用途
+	DeviceType            *SearchCoreHRPreHireRespItemPersonInfoEmergencyContactPhoneDeviceType            `json:"device_type,omitempty"`             // 设备类型, 枚举值可通过文档[枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)设备类型（device_type）枚举定义获得
+	PhoneUsage            *SearchCoreHRPreHireRespItemPersonInfoEmergencyContactPhonePhoneUsage            `json:"phone_usage,omitempty"`             // 电话用途, 枚举值可通过文档[枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)电话用途（phone_usage）枚举定义获得
 	IsPrimary             bool                                                                             `json:"is_primary,omitempty"`              // 主要电话
 	IsPublic              bool                                                                             `json:"is_public,omitempty"`               // 公开电话
 }
@@ -952,8 +1256,8 @@ type SearchCoreHRPreHireRespItemPersonInfoEmergencyContactPhoneDeviceType struct
 
 // SearchCoreHRPreHireRespItemPersonInfoEmergencyContactPhoneDeviceTypeDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoEmergencyContactPhoneDeviceTypeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoEmergencyContactPhoneInternationalAreaCode ...
@@ -964,17 +1268,17 @@ type SearchCoreHRPreHireRespItemPersonInfoEmergencyContactPhoneInternationalArea
 
 // SearchCoreHRPreHireRespItemPersonInfoEmergencyContactPhoneInternationalAreaCodeDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoEmergencyContactPhoneInternationalAreaCodeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoEmergencyContactPhoneIst ...
 type SearchCoreHRPreHireRespItemPersonInfoEmergencyContactPhoneIst struct {
-	InternationalAreaCode *SearchCoreHRPreHireRespItemPersonInfoEmergencyContactPhoneIstInternationalAreaCode `json:"international_area_code,omitempty"` // 国家区号
+	InternationalAreaCode *SearchCoreHRPreHireRespItemPersonInfoEmergencyContactPhoneIstInternationalAreaCode `json:"international_area_code,omitempty"` // 国家区号, 枚举值可通过文档[枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)手机区号（international_area_code）枚举定义获得
 	PhoneNumber           string                                                                              `json:"phone_number,omitempty"`            // 电话号码
 	FormattedPhoneNumber  string                                                                              `json:"formatted_phone_number,omitempty"`  // 完整电话号码
-	DeviceType            *SearchCoreHRPreHireRespItemPersonInfoEmergencyContactPhoneIstDeviceType            `json:"device_type,omitempty"`             // 设备类型
-	PhoneUsage            *SearchCoreHRPreHireRespItemPersonInfoEmergencyContactPhoneIstPhoneUsage            `json:"phone_usage,omitempty"`             // 电话用途
+	DeviceType            *SearchCoreHRPreHireRespItemPersonInfoEmergencyContactPhoneIstDeviceType            `json:"device_type,omitempty"`             // 设备类型, 枚举值可通过文档[枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)设备类型（device_type）枚举定义获得
+	PhoneUsage            *SearchCoreHRPreHireRespItemPersonInfoEmergencyContactPhoneIstPhoneUsage            `json:"phone_usage,omitempty"`             // 电话用途, 枚举值可通过文档[枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)电话用途（phone_usage）枚举定义获得
 	IsPrimary             bool                                                                                `json:"is_primary,omitempty"`              // 主要电话
 	IsPublic              bool                                                                                `json:"is_public,omitempty"`               // 公开电话
 }
@@ -987,8 +1291,8 @@ type SearchCoreHRPreHireRespItemPersonInfoEmergencyContactPhoneIstDeviceType str
 
 // SearchCoreHRPreHireRespItemPersonInfoEmergencyContactPhoneIstDeviceTypeDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoEmergencyContactPhoneIstDeviceTypeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoEmergencyContactPhoneIstInternationalAreaCode ...
@@ -999,8 +1303,8 @@ type SearchCoreHRPreHireRespItemPersonInfoEmergencyContactPhoneIstInternationalA
 
 // SearchCoreHRPreHireRespItemPersonInfoEmergencyContactPhoneIstInternationalAreaCodeDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoEmergencyContactPhoneIstInternationalAreaCodeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoEmergencyContactPhoneIstPhoneUsage ...
@@ -1011,8 +1315,8 @@ type SearchCoreHRPreHireRespItemPersonInfoEmergencyContactPhoneIstPhoneUsage str
 
 // SearchCoreHRPreHireRespItemPersonInfoEmergencyContactPhoneIstPhoneUsageDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoEmergencyContactPhoneIstPhoneUsageDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoEmergencyContactPhonePhoneUsage ...
@@ -1023,8 +1327,8 @@ type SearchCoreHRPreHireRespItemPersonInfoEmergencyContactPhonePhoneUsage struct
 
 // SearchCoreHRPreHireRespItemPersonInfoEmergencyContactPhonePhoneUsageDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoEmergencyContactPhonePhoneUsageDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoEmergencyContactRelationship ...
@@ -1035,8 +1339,14 @@ type SearchCoreHRPreHireRespItemPersonInfoEmergencyContactRelationship struct {
 
 // SearchCoreHRPreHireRespItemPersonInfoEmergencyContactRelationshipDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoEmergencyContactRelationshipDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
+}
+
+// SearchCoreHRPreHireRespItemPersonInfoFormerEmployer ...
+type SearchCoreHRPreHireRespItemPersonInfoFormerEmployer struct {
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoGender ...
@@ -1047,20 +1357,20 @@ type SearchCoreHRPreHireRespItemPersonInfoGender struct {
 
 // SearchCoreHRPreHireRespItemPersonInfoGenderDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoGenderDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoHighestDegreeOfEducation ...
 type SearchCoreHRPreHireRespItemPersonInfoHighestDegreeOfEducation struct {
 	School           []*SearchCoreHRPreHireRespItemPersonInfoHighestDegreeOfEducationSchool         `json:"school,omitempty"`              // 学校
-	LevelOfEducation *SearchCoreHRPreHireRespItemPersonInfoHighestDegreeOfEducationLevelOfEducation `json:"level_of_education,omitempty"`  // 学历
-	StartDate        string                                                                         `json:"start_date,omitempty"`          // 开始日期
-	EndDate          string                                                                         `json:"end_date,omitempty"`            // 结束日期
+	LevelOfEducation *SearchCoreHRPreHireRespItemPersonInfoHighestDegreeOfEducationLevelOfEducation `json:"level_of_education,omitempty"`  // 学历, 枚举值可通过文档[枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)学历（level_of_education）枚举定义获得
+	StartDate        string                                                                         `json:"start_date,omitempty"`          // 开始日期, 时间格式为 2023-09-01
+	EndDate          string                                                                         `json:"end_date,omitempty"`            // 结束日期, 时间格式为 2023-09-01
 	FieldOfStudy     []*SearchCoreHRPreHireRespItemPersonInfoHighestDegreeOfEducationFieldOfStudy   `json:"field_of_study,omitempty"`      // 专业
-	Degree           *SearchCoreHRPreHireRespItemPersonInfoHighestDegreeOfEducationDegree           `json:"degree,omitempty"`              // 学位
-	SchoolName       *SearchCoreHRPreHireRespItemPersonInfoHighestDegreeOfEducationSchoolName       `json:"school_name,omitempty"`         // 学校名称
-	FieldOfStudyName *SearchCoreHRPreHireRespItemPersonInfoHighestDegreeOfEducationFieldOfStudyName `json:"field_of_study_name,omitempty"` // 专业名称
+	Degree           *SearchCoreHRPreHireRespItemPersonInfoHighestDegreeOfEducationDegree           `json:"degree,omitempty"`              // 学位, 枚举值可通过文档[枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)学位（degree）枚举定义获得
+	SchoolName       *SearchCoreHRPreHireRespItemPersonInfoHighestDegreeOfEducationSchoolName       `json:"school_name,omitempty"`         // 学校名称, 枚举值可查询[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口获取, 按如下参数查询即可: custom_api_name: school_name- object_api_name: education
+	FieldOfStudyName *SearchCoreHRPreHireRespItemPersonInfoHighestDegreeOfEducationFieldOfStudyName `json:"field_of_study_name,omitempty"` // 专业名称, 枚举值可查询[获取字段详情](/ssl: ttdoc/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口获取, 按如下参数查询即可: custom_api_name: field_of_study_name- object_api_name: education
 	CountryRegionID  string                                                                         `json:"country_region_id,omitempty"`   // 国家地区 ID
 	ExpectedEndDate  string                                                                         `json:"expected_end_date,omitempty"`   // 预期结束日期
 	CustomFields     []*SearchCoreHRPreHireRespItemPersonInfoHighestDegreeOfEducationCustomField    `json:"custom_fields,omitempty"`       // 自定义字段
@@ -1070,7 +1380,7 @@ type SearchCoreHRPreHireRespItemPersonInfoHighestDegreeOfEducation struct {
 type SearchCoreHRPreHireRespItemPersonInfoHighestDegreeOfEducationCustomField struct {
 	CustomApiName string                                                                        `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
 	Name          *SearchCoreHRPreHireRespItemPersonInfoHighestDegreeOfEducationCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
-	Type          int64                                                                         `json:"type,omitempty"`            // 自定义字段类型
+	Type          int64                                                                         `json:"type,omitempty"`            // 自定义字段类型值类型说明: 1: 文本 Text, “文本”和“超链接”属于该类型- 2: 布尔 Boolean- 3: 数字 Number- 4: 枚举 Option, “单选”和“多选”为该类型- 5: 查找 Lookup, “人员（单选）”、“人员（多选）”和个人信息中的自定义分组为该类型- 6: 自动编码 Autonumber- 7: 日期时间 Datetime- 8: 附件 Attachment, “附件单选”和“附件多选”为该类型- 9: 图片 Image- 10: 计算字段 Calculated- 11: 反向查找 Backlookup
 	Value         string                                                                        `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
@@ -1088,14 +1398,14 @@ type SearchCoreHRPreHireRespItemPersonInfoHighestDegreeOfEducationDegree struct 
 
 // SearchCoreHRPreHireRespItemPersonInfoHighestDegreeOfEducationDegreeDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoHighestDegreeOfEducationDegreeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoHighestDegreeOfEducationFieldOfStudy ...
 type SearchCoreHRPreHireRespItemPersonInfoHighestDegreeOfEducationFieldOfStudy struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoHighestDegreeOfEducationFieldOfStudyName ...
@@ -1106,8 +1416,8 @@ type SearchCoreHRPreHireRespItemPersonInfoHighestDegreeOfEducationFieldOfStudyNa
 
 // SearchCoreHRPreHireRespItemPersonInfoHighestDegreeOfEducationFieldOfStudyNameDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoHighestDegreeOfEducationFieldOfStudyNameDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoHighestDegreeOfEducationLevelOfEducation ...
@@ -1118,14 +1428,14 @@ type SearchCoreHRPreHireRespItemPersonInfoHighestDegreeOfEducationLevelOfEducati
 
 // SearchCoreHRPreHireRespItemPersonInfoHighestDegreeOfEducationLevelOfEducationDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoHighestDegreeOfEducationLevelOfEducationDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoHighestDegreeOfEducationSchool ...
 type SearchCoreHRPreHireRespItemPersonInfoHighestDegreeOfEducationSchool struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoHighestDegreeOfEducationSchoolName ...
@@ -1136,21 +1446,21 @@ type SearchCoreHRPreHireRespItemPersonInfoHighestDegreeOfEducationSchoolName str
 
 // SearchCoreHRPreHireRespItemPersonInfoHighestDegreeOfEducationSchoolNameDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoHighestDegreeOfEducationSchoolNameDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoHighestLevelOfEducation ...
 type SearchCoreHRPreHireRespItemPersonInfoHighestLevelOfEducation struct {
 	School           []*SearchCoreHRPreHireRespItemPersonInfoHighestLevelOfEducationSchool         `json:"school,omitempty"`              // 学校
-	LevelOfEducation *SearchCoreHRPreHireRespItemPersonInfoHighestLevelOfEducationLevelOfEducation `json:"level_of_education,omitempty"`  // 学历
-	StartDate        string                                                                        `json:"start_date,omitempty"`          // 开始日期
-	EndDate          string                                                                        `json:"end_date,omitempty"`            // 结束日期
+	LevelOfEducation *SearchCoreHRPreHireRespItemPersonInfoHighestLevelOfEducationLevelOfEducation `json:"level_of_education,omitempty"`  // 学历, 枚举值可通过文档[枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)学历（level_of_education）枚举定义获得
+	StartDate        string                                                                        `json:"start_date,omitempty"`          // 开始日期, 时间格式为 2023-09-01
+	EndDate          string                                                                        `json:"end_date,omitempty"`            // 结束日期, 时间格式为 2023-09-01
 	FieldOfStudy     []*SearchCoreHRPreHireRespItemPersonInfoHighestLevelOfEducationFieldOfStudy   `json:"field_of_study,omitempty"`      // 专业
-	Degree           *SearchCoreHRPreHireRespItemPersonInfoHighestLevelOfEducationDegree           `json:"degree,omitempty"`              // 学位
-	SchoolName       *SearchCoreHRPreHireRespItemPersonInfoHighestLevelOfEducationSchoolName       `json:"school_name,omitempty"`         // 学校名称
-	FieldOfStudyName *SearchCoreHRPreHireRespItemPersonInfoHighestLevelOfEducationFieldOfStudyName `json:"field_of_study_name,omitempty"` // 专业名称
-	CountryRegionID  string                                                                        `json:"country_region_id,omitempty"`   // 国家地区ID
+	Degree           *SearchCoreHRPreHireRespItemPersonInfoHighestLevelOfEducationDegree           `json:"degree,omitempty"`              // 学位, 枚举值可通过文档[枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)学位（degree）枚举定义获得
+	SchoolName       *SearchCoreHRPreHireRespItemPersonInfoHighestLevelOfEducationSchoolName       `json:"school_name,omitempty"`         // 学校名称, 枚举值可查询[获取字段详情](https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)接口获取, 按如下参数查询即可: custom_api_name: school_name- object_api_name: education
+	FieldOfStudyName *SearchCoreHRPreHireRespItemPersonInfoHighestLevelOfEducationFieldOfStudyName `json:"field_of_study_name,omitempty"` // 专业名称, 枚举值可查询[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口获取, 按如下参数查询即可: custom_api_name: field_of_study_name- object_api_name: education
+	CountryRegionID  string                                                                        `json:"country_region_id,omitempty"`   // 国家 / 地区, 可以通过接口[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)获得
 	ExpectedEndDate  string                                                                        `json:"expected_end_date,omitempty"`   // 预期结束日期
 	CustomFields     []*SearchCoreHRPreHireRespItemPersonInfoHighestLevelOfEducationCustomField    `json:"custom_fields,omitempty"`       // 自定义字段
 }
@@ -1159,7 +1469,7 @@ type SearchCoreHRPreHireRespItemPersonInfoHighestLevelOfEducation struct {
 type SearchCoreHRPreHireRespItemPersonInfoHighestLevelOfEducationCustomField struct {
 	CustomApiName string                                                                       `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
 	Name          *SearchCoreHRPreHireRespItemPersonInfoHighestLevelOfEducationCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
-	Type          int64                                                                        `json:"type,omitempty"`            // 自定义字段类型
+	Type          int64                                                                        `json:"type,omitempty"`            // 自定义字段类型值类型说明: 1: 文本 Text, “文本”和“超链接”属于该类型- 2: 布尔 Boolean- 3: 数字 Number- 4: 枚举 Option, “单选”和“多选”为该类型- 5: 查找 Lookup, “人员（单选）”、“人员（多选）”和个人信息中的自定义分组为该类型- 6: 自动编码 Autonumber- 7: 日期时间 Datetime- 8: 附件 Attachment, “附件单选”和“附件多选”为该类型- 9: 图片 Image- 10: 计算字段 Calculated- 11: 反向查找 Backlookup
 	Value         string                                                                       `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
@@ -1177,14 +1487,14 @@ type SearchCoreHRPreHireRespItemPersonInfoHighestLevelOfEducationDegree struct {
 
 // SearchCoreHRPreHireRespItemPersonInfoHighestLevelOfEducationDegreeDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoHighestLevelOfEducationDegreeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoHighestLevelOfEducationFieldOfStudy ...
 type SearchCoreHRPreHireRespItemPersonInfoHighestLevelOfEducationFieldOfStudy struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoHighestLevelOfEducationFieldOfStudyName ...
@@ -1195,8 +1505,8 @@ type SearchCoreHRPreHireRespItemPersonInfoHighestLevelOfEducationFieldOfStudyNam
 
 // SearchCoreHRPreHireRespItemPersonInfoHighestLevelOfEducationFieldOfStudyNameDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoHighestLevelOfEducationFieldOfStudyNameDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoHighestLevelOfEducationLevelOfEducation ...
@@ -1207,14 +1517,14 @@ type SearchCoreHRPreHireRespItemPersonInfoHighestLevelOfEducationLevelOfEducatio
 
 // SearchCoreHRPreHireRespItemPersonInfoHighestLevelOfEducationLevelOfEducationDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoHighestLevelOfEducationLevelOfEducationDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoHighestLevelOfEducationSchool ...
 type SearchCoreHRPreHireRespItemPersonInfoHighestLevelOfEducationSchool struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoHighestLevelOfEducationSchoolName ...
@@ -1225,20 +1535,8 @@ type SearchCoreHRPreHireRespItemPersonInfoHighestLevelOfEducationSchoolName stru
 
 // SearchCoreHRPreHireRespItemPersonInfoHighestLevelOfEducationSchoolNameDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoHighestLevelOfEducationSchoolNameDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
-}
-
-// SearchCoreHRPreHireRespItemPersonInfoHukouType ...
-type SearchCoreHRPreHireRespItemPersonInfoHukouType struct {
-	EnumName string                                                   `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCoreHRPreHireRespItemPersonInfoHukouTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
-}
-
-// SearchCoreHRPreHireRespItemPersonInfoHukouTypeDisplay ...
-type SearchCoreHRPreHireRespItemPersonInfoHukouTypeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoMaritalStatus ...
@@ -1249,19 +1547,20 @@ type SearchCoreHRPreHireRespItemPersonInfoMaritalStatus struct {
 
 // SearchCoreHRPreHireRespItemPersonInfoMaritalStatusDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoMaritalStatusDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoName ...
 type SearchCoreHRPreHireRespItemPersonInfoName struct {
 	LocalPrimary                     string                                                       `json:"local_primary,omitempty"`                         // 姓 - 本地文字
 	LocalFirstName                   string                                                       `json:"local_first_name,omitempty"`                      // 名 - 本地文字
-	CountryRegionID                  string                                                       `json:"country_region_id,omitempty"`                     // 国家 / 地区
-	NameType                         *SearchCoreHRPreHireRespItemPersonInfoNameNameType           `json:"name_type,omitempty"`                             // 姓名类型
+	CountryRegionID                  string                                                       `json:"country_region_id,omitempty"`                     // 国家 / 地区, 可以通过接口[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)获得
+	NameType                         *SearchCoreHRPreHireRespItemPersonInfoNameNameType           `json:"name_type,omitempty"`                             // 姓名类型, 枚举值可通过文档[枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)姓名类型（name_type）枚举定义获得
 	LocalFirstName2                  string                                                       `json:"local_first_name_2,omitempty"`                    // 名 - 第二本地文字
 	LocalPrimary2                    string                                                       `json:"local_primary_2,omitempty"`                       // 姓 - 第二本地文字
-	AdditionalNameType               *SearchCoreHRPreHireRespItemPersonInfoNameAdditionalNameType `json:"additional_name_type,omitempty"`                  // 补充姓名类型
+	AdditionalName                   string                                                       `json:"additional_name,omitempty"`                       // 别名
+	AdditionalNameType               *SearchCoreHRPreHireRespItemPersonInfoNameAdditionalNameType `json:"additional_name_type,omitempty"`                  // 补充姓名类型, 枚举值可查询[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口获取, 按如下参数查询即可: custom_api_name: additional_name_type- object_api_name: person_name
 	FirstName                        string                                                       `json:"first_name,omitempty"`                            // 名
 	FullName                         string                                                       `json:"full_name,omitempty"`                             // 全名
 	Hereditary                       string                                                       `json:"hereditary,omitempty"`                            // 姓氏称谓
@@ -1270,9 +1569,9 @@ type SearchCoreHRPreHireRespItemPersonInfoName struct {
 	MiddleName                       string                                                       `json:"middle_name,omitempty"`                           // 中间名
 	NamePrimary                      string                                                       `json:"name_primary,omitempty"`                          // 姓
 	Secondary                        string                                                       `json:"secondary,omitempty"`                             // 第二姓氏
-	Social                           *SearchCoreHRPreHireRespItemPersonInfoNameSocial             `json:"social,omitempty"`                                // 尊称
 	Tertiary                         string                                                       `json:"tertiary,omitempty"`                              // 婚后姓氏
-	Title                            *SearchCoreHRPreHireRespItemPersonInfoNameTitle              `json:"title,omitempty"`                                 // 头衔
+	Social                           *SearchCoreHRPreHireRespItemPersonInfoNameSocial             `json:"social,omitempty"`                                // 尊称, 枚举值可查询[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口获取, 按如下参数查询即可: custom_api_name: social- object_api_name: person_name
+	Title                            *SearchCoreHRPreHireRespItemPersonInfoNameTitle              `json:"title,omitempty"`                                 // 头衔, 枚举值可查询[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口获取, 按如下参数查询即可: custom_api_name: title- object_api_name: person_name
 	LocalMiddleName                  string                                                       `json:"local_middle_name,omitempty"`                     // 本地中间名
 	LocalSecondary                   string                                                       `json:"local_secondary,omitempty"`                       // 第二姓氏 - 本地文字
 	DisplayNameLocalAndWesternScript string                                                       `json:"display_name_local_and_western_script,omitempty"` // 展示姓名（本地和西方文字）
@@ -1288,8 +1587,8 @@ type SearchCoreHRPreHireRespItemPersonInfoNameAdditionalNameType struct {
 
 // SearchCoreHRPreHireRespItemPersonInfoNameAdditionalNameTypeDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoNameAdditionalNameTypeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoNameNameType ...
@@ -1300,8 +1599,8 @@ type SearchCoreHRPreHireRespItemPersonInfoNameNameType struct {
 
 // SearchCoreHRPreHireRespItemPersonInfoNameNameTypeDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoNameNameTypeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoNameSocial ...
@@ -1312,8 +1611,8 @@ type SearchCoreHRPreHireRespItemPersonInfoNameSocial struct {
 
 // SearchCoreHRPreHireRespItemPersonInfoNameSocialDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoNameSocialDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoNameTitle ...
@@ -1324,17 +1623,17 @@ type SearchCoreHRPreHireRespItemPersonInfoNameTitle struct {
 
 // SearchCoreHRPreHireRespItemPersonInfoNameTitleDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoNameTitleDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoNationalID ...
 type SearchCoreHRPreHireRespItemPersonInfoNationalID struct {
-	NationalIDTypeID string                                                        `json:"national_id_type_id,omitempty"` // 国家证件类型
+	NationalIDTypeID string                                                        `json:"national_id_type_id,omitempty"` // 国家证件类型ID, 详细信息可通过[查询单个国家证件类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/national_id_type/get)接口查询获得
 	NationalIDNumber string                                                        `json:"national_id_number,omitempty"`  // 证件号码
 	IssueDate        string                                                        `json:"issue_date,omitempty"`          // 证件签发日期
 	ExpirationDate   string                                                        `json:"expiration_date,omitempty"`     // 证件到期日期
-	CountryRegionID  string                                                        `json:"country_region_id,omitempty"`   // 国家 / 地区
+	CountryRegionID  string                                                        `json:"country_region_id,omitempty"`   // 国家 / 地区, 可以通过接口[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)获得
 	IssuedBy         string                                                        `json:"issued_by,omitempty"`           // 证件签发机构
 	CustomFields     []*SearchCoreHRPreHireRespItemPersonInfoNationalIDCustomField `json:"custom_fields,omitempty"`       // 自定义字段
 }
@@ -1343,7 +1642,7 @@ type SearchCoreHRPreHireRespItemPersonInfoNationalID struct {
 type SearchCoreHRPreHireRespItemPersonInfoNationalIDCustomField struct {
 	CustomApiName string                                                          `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
 	Name          *SearchCoreHRPreHireRespItemPersonInfoNationalIDCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
-	Type          int64                                                           `json:"type,omitempty"`            // 自定义字段类型
+	Type          int64                                                           `json:"type,omitempty"`            // 自定义字段类型值类型说明: 1: 文本 Text, “文本”和“超链接”属于该类型- 2: 布尔 Boolean- 3: 数字 Number- 4: 枚举 Option, “单选”和“多选”为该类型- 5: 查找 Lookup, “人员（单选）”、“人员（多选）”和个人信息中的自定义分组为该类型- 6: 自动编码 Autonumber- 7: 日期时间 Datetime- 8: 附件 Attachment, “附件单选”和“附件多选”为该类型- 9: 图片 Image- 10: 计算字段 Calculated- 11: 反向查找 Backlookup
 	Value         string                                                          `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
@@ -1355,9 +1654,10 @@ type SearchCoreHRPreHireRespItemPersonInfoNationalIDCustomFieldName struct {
 
 // SearchCoreHRPreHireRespItemPersonInfoPersonInfoChn ...
 type SearchCoreHRPreHireRespItemPersonInfoPersonInfoChn struct {
-	NativeRegion  string                                                       `json:"native_region,omitempty"`  // 籍贯 ID, 字段权限要求（满足任一）: 获取籍贯信息, 读写籍贯信息
-	HukouType     *SearchCoreHRPreHireRespItemPersonInfoPersonInfoChnHukouType `json:"hukou_type,omitempty"`     // 户口类型, 枚举值可查询[获取字段详情](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)接口获取, 按如下参数查询即可: custom_api_name: hukou_type, object_api_name: person_info_chn, 字段权限要求（满足任一）: 获取户口信息, 读写户口信息
-	HukouLocation string                                                       `json:"hukou_location,omitempty"` // 户口所在地, 字段权限要求（满足任一）: 获取户口信息, 读写户口信息
+	NativeRegion          string                                                                    `json:"native_region,omitempty"`          // 籍贯 ID, 可以通过[查询省份/行政区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region_subdivision/search)接口获取详情字段权限要求（满足任一）: 获取籍贯信息读写籍贯信息
+	HukouType             *SearchCoreHRPreHireRespItemPersonInfoPersonInfoChnHukouType              `json:"hukou_type,omitempty"`             // 户口类型, 枚举值可查询[获取字段详情](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)接口获取, 按如下参数查询即可: custom_api_name: hukou_type - object_api_name: person_info_chn字段权限要求（满足任一）: 获取户口信息读写户口信息
+	HukouLocation         string                                                                    `json:"hukou_location,omitempty"`         // 户口所在地字段权限要求（满足任一）: 获取户口信息读写户口信息
+	PoliticalAffiliations []*SearchCoreHRPreHireRespItemPersonInfoPersonInfoChnPoliticalAffiliation `json:"political_affiliations,omitempty"` // 政治面貌, 枚举值可通过文档[枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)政治面貌（political_affiliation）枚举定义获得字段权限要求: 获取政治面貌信息
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoPersonInfoChnHukouType ...
@@ -1368,8 +1668,20 @@ type SearchCoreHRPreHireRespItemPersonInfoPersonInfoChnHukouType struct {
 
 // SearchCoreHRPreHireRespItemPersonInfoPersonInfoChnHukouTypeDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoPersonInfoChnHukouTypeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
+}
+
+// SearchCoreHRPreHireRespItemPersonInfoPersonInfoChnPoliticalAffiliation ...
+type SearchCoreHRPreHireRespItemPersonInfoPersonInfoChnPoliticalAffiliation struct {
+	EnumName string                                                                           `json:"enum_name,omitempty"` // 枚举值
+	Display  []*SearchCoreHRPreHireRespItemPersonInfoPersonInfoChnPoliticalAffiliationDisplay `json:"display,omitempty"`   // 枚举多语展示
+}
+
+// SearchCoreHRPreHireRespItemPersonInfoPersonInfoChnPoliticalAffiliationDisplay ...
+type SearchCoreHRPreHireRespItemPersonInfoPersonInfoChnPoliticalAffiliationDisplay struct {
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoPersonalProfile ...
@@ -1380,7 +1692,8 @@ type SearchCoreHRPreHireRespItemPersonInfoPersonalProfile struct {
 
 // SearchCoreHRPreHireRespItemPersonInfoPersonalProfileFile ...
 type SearchCoreHRPreHireRespItemPersonInfoPersonalProfileFile struct {
-	ID string `json:"id,omitempty"` // 上传文件ID
+	ID   string `json:"id,omitempty"`   // 文件ID, 文件内容可通过[下载文件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/file/get)接口获取
+	Name string `json:"name,omitempty"` // 文件名
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoPersonalProfilePersonalProfileType ...
@@ -1391,17 +1704,17 @@ type SearchCoreHRPreHireRespItemPersonInfoPersonalProfilePersonalProfileType str
 
 // SearchCoreHRPreHireRespItemPersonInfoPersonalProfilePersonalProfileTypeDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoPersonalProfilePersonalProfileTypeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoPhone ...
 type SearchCoreHRPreHireRespItemPersonInfoPhone struct {
-	InternationalAreaCode *SearchCoreHRPreHireRespItemPersonInfoPhoneInternationalAreaCode `json:"international_area_code,omitempty"` // 国家区号
+	InternationalAreaCode *SearchCoreHRPreHireRespItemPersonInfoPhoneInternationalAreaCode `json:"international_area_code,omitempty"` // 国家区号, 枚举值可通过文档[枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)手机区号（international_area_code）枚举定义获得
 	PhoneNumber           string                                                           `json:"phone_number,omitempty"`            // 电话号码
 	FormattedPhoneNumber  string                                                           `json:"formatted_phone_number,omitempty"`  // 完整电话号码
-	DeviceType            *SearchCoreHRPreHireRespItemPersonInfoPhoneDeviceType            `json:"device_type,omitempty"`             // 设备类型
-	PhoneUsage            *SearchCoreHRPreHireRespItemPersonInfoPhonePhoneUsage            `json:"phone_usage,omitempty"`             // 电话用途
+	DeviceType            *SearchCoreHRPreHireRespItemPersonInfoPhoneDeviceType            `json:"device_type,omitempty"`             // 设备类型, 枚举值可通过文档[枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)设备类型（device_type）枚举定义获得
+	PhoneUsage            *SearchCoreHRPreHireRespItemPersonInfoPhonePhoneUsage            `json:"phone_usage,omitempty"`             // 电话用途, 枚举值可通过文档[枚举常量介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)电话用途（phone_usage）枚举定义获得
 	IsPrimary             bool                                                             `json:"is_primary,omitempty"`              // 主要电话
 	IsPublic              bool                                                             `json:"is_public,omitempty"`               // 公开电话
 }
@@ -1414,8 +1727,8 @@ type SearchCoreHRPreHireRespItemPersonInfoPhoneDeviceType struct {
 
 // SearchCoreHRPreHireRespItemPersonInfoPhoneDeviceTypeDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoPhoneDeviceTypeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoPhoneInternationalAreaCode ...
@@ -1426,8 +1739,8 @@ type SearchCoreHRPreHireRespItemPersonInfoPhoneInternationalAreaCode struct {
 
 // SearchCoreHRPreHireRespItemPersonInfoPhoneInternationalAreaCodeDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoPhoneInternationalAreaCodeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoPhonePhoneUsage ...
@@ -1438,8 +1751,8 @@ type SearchCoreHRPreHireRespItemPersonInfoPhonePhoneUsage struct {
 
 // SearchCoreHRPreHireRespItemPersonInfoPhonePhoneUsageDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoPhonePhoneUsageDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoRace ...
@@ -1450,8 +1763,8 @@ type SearchCoreHRPreHireRespItemPersonInfoRace struct {
 
 // SearchCoreHRPreHireRespItemPersonInfoRaceDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoRaceDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoReligion ...
@@ -1462,32 +1775,58 @@ type SearchCoreHRPreHireRespItemPersonInfoReligion struct {
 
 // SearchCoreHRPreHireRespItemPersonInfoReligionDisplay ...
 type SearchCoreHRPreHireRespItemPersonInfoReligionDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
+}
+
+// SearchCoreHRPreHireRespItemPersonInfoResidentTaxe ...
+type SearchCoreHRPreHireRespItemPersonInfoResidentTaxe struct {
+	YearResidentTax    string                                                           `json:"year_resident_tax,omitempty"`     // 年度
+	ResidentStatus     *SearchCoreHRPreHireRespItemPersonInfoResidentTaxeResidentStatus `json:"resident_status,omitempty"`       // 居民身份, 枚举值可查询[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口获取, 按如下参数查询即可: custom_api_name: resident_status- object_api_name: resident_tax
+	TaxCountryRegionID string                                                           `json:"tax_country_region_id,omitempty"` // 国家/地区, 详细信息可通过[查询国家/地区信息](https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/location_data/get)接口查询获得
+	CustomFields       []*SearchCoreHRPreHireRespItemPersonInfoResidentTaxeCustomField  `json:"custom_fields,omitempty"`         // 自定义字段字段权限要求（满足任一）: 获取居民身份自定义字段信息读写居民身份自定义字段信息
+}
+
+// SearchCoreHRPreHireRespItemPersonInfoResidentTaxeCustomField ...
+type SearchCoreHRPreHireRespItemPersonInfoResidentTaxeCustomField struct {
+	FieldName string `json:"field_name,omitempty"` // 字段名
+	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(123, 123.23, true, [\"id1\", \"id2\], 2006-01-02 15:04:05])
+}
+
+// SearchCoreHRPreHireRespItemPersonInfoResidentTaxeResidentStatus ...
+type SearchCoreHRPreHireRespItemPersonInfoResidentTaxeResidentStatus struct {
+	EnumName string                                                                    `json:"enum_name,omitempty"` // 枚举值
+	Display  []*SearchCoreHRPreHireRespItemPersonInfoResidentTaxeResidentStatusDisplay `json:"display,omitempty"`   // 枚举多语展示
+}
+
+// SearchCoreHRPreHireRespItemPersonInfoResidentTaxeResidentStatusDisplay ...
+type SearchCoreHRPreHireRespItemPersonInfoResidentTaxeResidentStatusDisplay struct {
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoWorkExperience ...
 type SearchCoreHRPreHireRespItemPersonInfoWorkExperience struct {
 	CompanyOrganization []*SearchCoreHRPreHireRespItemPersonInfoWorkExperienceCompanyOrganization `json:"company_organization,omitempty"` // 公司 / 组织
 	Department          []*SearchCoreHRPreHireRespItemPersonInfoWorkExperienceDepartment          `json:"department,omitempty"`           // 部门
-	Job                 []*SearchCoreHRPreHireRespItemPersonInfoWorkExperienceJob                 `json:"job,omitempty"`                  // 岗位
+	Job                 []*SearchCoreHRPreHireRespItemPersonInfoWorkExperienceJob                 `json:"job,omitempty"`                  // 工作描述
 	Description         []*SearchCoreHRPreHireRespItemPersonInfoWorkExperienceDescription         `json:"description,omitempty"`          // 工作描述
-	StartDate           string                                                                    `json:"start_date,omitempty"`           // 开始日期
-	EndDate             string                                                                    `json:"end_date,omitempty"`             // 结束日期
+	StartDate           string                                                                    `json:"start_date,omitempty"`           // 开始日期, 时间格式为 2023-09-01
+	EndDate             string                                                                    `json:"end_date,omitempty"`             // 结束日期, 时间格式为 2023-09-01
 	CustomFields        []*SearchCoreHRPreHireRespItemPersonInfoWorkExperienceCustomField         `json:"custom_fields,omitempty"`        // 自定义字段
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoWorkExperienceCompanyOrganization ...
 type SearchCoreHRPreHireRespItemPersonInfoWorkExperienceCompanyOrganization struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoWorkExperienceCustomField ...
 type SearchCoreHRPreHireRespItemPersonInfoWorkExperienceCustomField struct {
 	CustomApiName string                                                              `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
 	Name          *SearchCoreHRPreHireRespItemPersonInfoWorkExperienceCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
-	Type          int64                                                               `json:"type,omitempty"`            // 自定义字段类型
+	Type          int64                                                               `json:"type,omitempty"`            // 自定义字段类型值类型说明: 1: 文本 Text, “文本”和“超链接”属于该类型- 2: 布尔 Boolean- 3: 数字 Number- 4: 枚举 Option, “单选”和“多选”为该类型- 5: 查找 Lookup, “人员（单选）”、“人员（多选）”和个人信息中的自定义分组为该类型- 6: 自动编码 Autonumber- 7: 日期时间 Datetime- 8: 附件 Attachment, “附件单选”和“附件多选”为该类型- 9: 图片 Image- 10: 计算字段 Calculated- 11: 反向查找 Backlookup
 	Value         string                                                              `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
@@ -1499,26 +1838,26 @@ type SearchCoreHRPreHireRespItemPersonInfoWorkExperienceCustomFieldName struct {
 
 // SearchCoreHRPreHireRespItemPersonInfoWorkExperienceDepartment ...
 type SearchCoreHRPreHireRespItemPersonInfoWorkExperienceDepartment struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoWorkExperienceDescription ...
 type SearchCoreHRPreHireRespItemPersonInfoWorkExperienceDescription struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemPersonInfoWorkExperienceJob ...
 type SearchCoreHRPreHireRespItemPersonInfoWorkExperienceJob struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // SearchCoreHRPreHireRespItemProbationInfo ...
 type SearchCoreHRPreHireRespItemProbationInfo struct {
-	ProbationStartDate string `json:"probation_start_date,omitempty"` // 试用期开始日期
-	ProbationEndDate   string `json:"probation_end_date,omitempty"`   // 试用期结束日期
+	ProbationStartDate string `json:"probation_start_date,omitempty"` // 试用期开始日期, 时间格式为 2022-01-02
+	ProbationEndDate   string `json:"probation_end_date,omitempty"`   // 试用期结束日期, 时间格式为 2022-01-02
 	ProbationPeriod    int64  `json:"probation_period,omitempty"`     // 试用期时长（单位: 天）
 }
 

@@ -37,10 +37,12 @@ func Test_Performance_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Performance
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetPerformanceSemesterList(ctx, &lark.GetPerformanceSemesterListReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
+
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {
@@ -48,6 +50,7 @@ func Test_Performance_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Performance
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockPerformanceGetPerformanceSemesterList(func(ctx context.Context, request *lark.GetPerformanceSemesterListReq, options ...lark.MethodOptionFunc) (*lark.GetPerformanceSemesterListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -59,6 +62,7 @@ func Test_Performance_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockPerformanceGetPerformanceStageTaskByUser(func(ctx context.Context, request *lark.GetPerformanceStageTaskByUserReq, options ...lark.MethodOptionFunc) (*lark.GetPerformanceStageTaskByUserResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -70,6 +74,7 @@ func Test_Performance_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockPerformanceGetPerformanceStageTaskByPage(func(ctx context.Context, request *lark.GetPerformanceStageTaskByPageReq, options ...lark.MethodOptionFunc) (*lark.GetPerformanceStageTaskByPageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -81,6 +86,7 @@ func Test_Performance_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockPerformanceGetPerformanceReviewData(func(ctx context.Context, request *lark.GetPerformanceReviewDataReq, options ...lark.MethodOptionFunc) (*lark.GetPerformanceReviewDataResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -90,6 +96,211 @@ func Test_Performance_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockPerformanceQueryPerformanceActivity(func(ctx context.Context, request *lark.QueryPerformanceActivityReq, options ...lark.MethodOptionFunc) (*lark.QueryPerformanceActivityResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockPerformanceQueryPerformanceActivity()
+
+			_, _, err := moduleCli.QueryPerformanceActivity(ctx, &lark.QueryPerformanceActivityReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockPerformanceCreatePerformanceAdditionalInformationImport(func(ctx context.Context, request *lark.CreatePerformanceAdditionalInformationImportReq, options ...lark.MethodOptionFunc) (*lark.CreatePerformanceAdditionalInformationImportResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockPerformanceCreatePerformanceAdditionalInformationImport()
+
+			_, _, err := moduleCli.CreatePerformanceAdditionalInformationImport(ctx, &lark.CreatePerformanceAdditionalInformationImportReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockPerformanceQueryPerformanceAdditionalInformation(func(ctx context.Context, request *lark.QueryPerformanceAdditionalInformationReq, options ...lark.MethodOptionFunc) (*lark.QueryPerformanceAdditionalInformationResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockPerformanceQueryPerformanceAdditionalInformation()
+
+			_, _, err := moduleCli.QueryPerformanceAdditionalInformation(ctx, &lark.QueryPerformanceAdditionalInformationReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockPerformanceDeletePerformanceAdditionalInformationsBatch(func(ctx context.Context, request *lark.DeletePerformanceAdditionalInformationsBatchReq, options ...lark.MethodOptionFunc) (*lark.DeletePerformanceAdditionalInformationsBatchResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockPerformanceDeletePerformanceAdditionalInformationsBatch()
+
+			_, _, err := moduleCli.DeletePerformanceAdditionalInformationsBatch(ctx, &lark.DeletePerformanceAdditionalInformationsBatchReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockPerformanceQueryPerformanceIndicator(func(ctx context.Context, request *lark.QueryPerformanceIndicatorReq, options ...lark.MethodOptionFunc) (*lark.QueryPerformanceIndicatorResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockPerformanceQueryPerformanceIndicator()
+
+			_, _, err := moduleCli.QueryPerformanceIndicator(ctx, &lark.QueryPerformanceIndicatorReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockPerformanceCreatePerformanceMetricDetailImport(func(ctx context.Context, request *lark.CreatePerformanceMetricDetailImportReq, options ...lark.MethodOptionFunc) (*lark.CreatePerformanceMetricDetailImportResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockPerformanceCreatePerformanceMetricDetailImport()
+
+			_, _, err := moduleCli.CreatePerformanceMetricDetailImport(ctx, &lark.CreatePerformanceMetricDetailImportReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockPerformanceQueryPerformanceMetricDetail(func(ctx context.Context, request *lark.QueryPerformanceMetricDetailReq, options ...lark.MethodOptionFunc) (*lark.QueryPerformanceMetricDetailResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockPerformanceQueryPerformanceMetricDetail()
+
+			_, _, err := moduleCli.QueryPerformanceMetricDetail(ctx, &lark.QueryPerformanceMetricDetailReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockPerformanceQueryPerformanceMetricField(func(ctx context.Context, request *lark.QueryPerformanceMetricFieldReq, options ...lark.MethodOptionFunc) (*lark.QueryPerformanceMetricFieldResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockPerformanceQueryPerformanceMetricField()
+
+			_, _, err := moduleCli.QueryPerformanceMetricField(ctx, &lark.QueryPerformanceMetricFieldReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockPerformanceQueryPerformanceMetricLib(func(ctx context.Context, request *lark.QueryPerformanceMetricLibReq, options ...lark.MethodOptionFunc) (*lark.QueryPerformanceMetricLibResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockPerformanceQueryPerformanceMetricLib()
+
+			_, _, err := moduleCli.QueryPerformanceMetricLib(ctx, &lark.QueryPerformanceMetricLibReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockPerformanceListPerformanceMetricTag(func(ctx context.Context, request *lark.ListPerformanceMetricTagReq, options ...lark.MethodOptionFunc) (*lark.ListPerformanceMetricTagResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockPerformanceListPerformanceMetricTag()
+
+			_, _, err := moduleCli.ListPerformanceMetricTag(ctx, &lark.ListPerformanceMetricTagReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockPerformanceQueryPerformanceMetricTemplate(func(ctx context.Context, request *lark.QueryPerformanceMetricTemplateReq, options ...lark.MethodOptionFunc) (*lark.QueryPerformanceMetricTemplateResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockPerformanceQueryPerformanceMetricTemplate()
+
+			_, _, err := moduleCli.QueryPerformanceMetricTemplate(ctx, &lark.QueryPerformanceMetricTemplateReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockPerformanceQueryPerformanceQuestion(func(ctx context.Context, request *lark.QueryPerformanceQuestionReq, options ...lark.MethodOptionFunc) (*lark.QueryPerformanceQuestionResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockPerformanceQueryPerformanceQuestion()
+
+			_, _, err := moduleCli.QueryPerformanceQuestion(ctx, &lark.QueryPerformanceQuestionReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockPerformanceQueryPerformanceReviewData(func(ctx context.Context, request *lark.QueryPerformanceReviewDataReq, options ...lark.MethodOptionFunc) (*lark.QueryPerformanceReviewDataResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockPerformanceQueryPerformanceReviewData()
+
+			_, _, err := moduleCli.QueryPerformanceReviewData(ctx, &lark.QueryPerformanceReviewDataReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockPerformanceQueryPerformanceReviewTemplate(func(ctx context.Context, request *lark.QueryPerformanceReviewTemplateReq, options ...lark.MethodOptionFunc) (*lark.QueryPerformanceReviewTemplateResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockPerformanceQueryPerformanceReviewTemplate()
+
+			_, _, err := moduleCli.QueryPerformanceReviewTemplate(ctx, &lark.QueryPerformanceReviewTemplateReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockPerformanceQueryPerformanceReviewee(func(ctx context.Context, request *lark.QueryPerformanceRevieweeReq, options ...lark.MethodOptionFunc) (*lark.QueryPerformanceRevieweeResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockPerformanceQueryPerformanceReviewee()
+
+			_, _, err := moduleCli.QueryPerformanceReviewee(ctx, &lark.QueryPerformanceRevieweeReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockPerformanceCreatePerformanceUserGroupUserRelWrite(func(ctx context.Context, request *lark.CreatePerformanceUserGroupUserRelWriteReq, options ...lark.MethodOptionFunc) (*lark.CreatePerformanceUserGroupUserRelWriteResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockPerformanceCreatePerformanceUserGroupUserRelWrite()
+
+			_, _, err := moduleCli.CreatePerformanceUserGroupUserRelWrite(ctx, &lark.CreatePerformanceUserGroupUserRelWriteReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockPerformanceQueryPerformanceUserInfo(func(ctx context.Context, request *lark.QueryPerformanceUserInfoReq, options ...lark.MethodOptionFunc) (*lark.QueryPerformanceUserInfoResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockPerformanceQueryPerformanceUserInfo()
+
+			_, _, err := moduleCli.QueryPerformanceUserInfo(ctx, &lark.QueryPerformanceUserInfoReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
 	})
 
 	t.Run("response is failed (mock http)", func(t *testing.T) {
@@ -100,27 +311,151 @@ func Test_Performance_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetPerformanceSemesterList(ctx, &lark.GetPerformanceSemesterListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetPerformanceStageTaskByUser(ctx, &lark.GetPerformanceStageTaskByUserReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetPerformanceStageTaskByPage(ctx, &lark.GetPerformanceStageTaskByPageReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetPerformanceReviewData(ctx, &lark.GetPerformanceReviewDataReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.QueryPerformanceActivity(ctx, &lark.QueryPerformanceActivityReq{})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreatePerformanceAdditionalInformationImport(ctx, &lark.CreatePerformanceAdditionalInformationImportReq{})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.QueryPerformanceAdditionalInformation(ctx, &lark.QueryPerformanceAdditionalInformationReq{})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DeletePerformanceAdditionalInformationsBatch(ctx, &lark.DeletePerformanceAdditionalInformationsBatchReq{})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.QueryPerformanceIndicator(ctx, &lark.QueryPerformanceIndicatorReq{})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreatePerformanceMetricDetailImport(ctx, &lark.CreatePerformanceMetricDetailImportReq{})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.QueryPerformanceMetricDetail(ctx, &lark.QueryPerformanceMetricDetailReq{})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.QueryPerformanceMetricField(ctx, &lark.QueryPerformanceMetricFieldReq{})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.QueryPerformanceMetricLib(ctx, &lark.QueryPerformanceMetricLibReq{})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.ListPerformanceMetricTag(ctx, &lark.ListPerformanceMetricTagReq{})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.QueryPerformanceMetricTemplate(ctx, &lark.QueryPerformanceMetricTemplateReq{})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.QueryPerformanceQuestion(ctx, &lark.QueryPerformanceQuestionReq{})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.QueryPerformanceReviewData(ctx, &lark.QueryPerformanceReviewDataReq{})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.QueryPerformanceReviewTemplate(ctx, &lark.QueryPerformanceReviewTemplateReq{})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.QueryPerformanceReviewee(ctx, &lark.QueryPerformanceRevieweeReq{})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreatePerformanceUserGroupUserRelWrite(ctx, &lark.CreatePerformanceUserGroupUserRelWriteReq{})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.QueryPerformanceUserInfo(ctx, &lark.QueryPerformanceUserInfoReq{})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
 	})
 }

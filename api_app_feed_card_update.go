@@ -25,7 +25,8 @@ import (
 //
 // 字段更新策略: 具体更新的字段以 `update_fields` 为准, 根据 `update_fields` 代表的字段从 `app_feed_card` 中取出来进行更新, 不在 `update_fields` 中的字段不会更新。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/group/im-v2/app_feed_card-batch/update
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/group/im-v2/app_feed_card-batch/update
+// new doc: https://open.feishu.cn/document/im-v2/app_feed_card/update
 func (r *MessageService) UpdateAppFeedCard(ctx context.Context, request *UpdateAppFeedCardReq, options ...MethodOptionFunc) (*UpdateAppFeedCardResp, *Response, error) {
 	if r.cli.mock.mockMessageUpdateAppFeedCard != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#UpdateAppFeedCard mock enable")
@@ -59,73 +60,73 @@ func (r *Mock) UnMockMessageUpdateAppFeedCard() {
 
 // UpdateAppFeedCardReq ...
 type UpdateAppFeedCardReq struct {
-	UserIDType *IDType                         `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	FeedCards  []*UpdateAppFeedCardReqFeedCard `json:"feed_cards,omitempty"`   // 应用消息卡片, 长度范围: `1` ～ `20`
+	UserIDType *IDType                         `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	FeedCards  []*UpdateAppFeedCardReqFeedCard `json:"feed_cards,omitempty"`   // 应用消息卡片 长度范围: `1` ～ `20`
 }
 
 // UpdateAppFeedCardReqFeedCard ...
 type UpdateAppFeedCardReqFeedCard struct {
 	AppFeedCard  *UpdateAppFeedCardReqFeedCardAppFeedCard `json:"app_feed_card,omitempty"` // 应用消息卡片
-	UserID       string                                   `json:"user_id,omitempty"`       // 用户 id, 示例值: "ou_a0553eda9014c201e6969b478895c230"
-	UpdateFields []string                                 `json:"update_fields,omitempty"` // 更新字段列表, 示例值: ["1"], 可选值有: 1: 标题, 2: 头像 key, 3: 预览, 10: 状态标签, 11: 按钮, 12: 跳转链接, 13: 即时提醒状态, 101: 展示时间更新到当前, 102: 排序时间更新到当前, 103: 进行通知, 长度范围: `1` ～ `20`
+	UserID       string                                   `json:"user_id,omitempty"`       // 用户 ID（ID 类型与 user_id_type 的取值一致。如果是商店应用, 因不支持获取用户 userID 权限, 所以无法值使用 user_id 类型的用户 ID）示例值: "ou_a0553eda9014c201e6969b478895c230"
+	UpdateFields []string                                 `json:"update_fields,omitempty"` // 更新字段列表示例值: ["1"]可选值有: 标题头像 key预览状态标签按钮跳转链接即时提醒状态展示时间更新到当前排序时间更新到当前进行通知 长度范围: `1` ～ `20`
 }
 
 // UpdateAppFeedCardReqFeedCardAppFeedCard ...
 type UpdateAppFeedCardReqFeedCardAppFeedCard struct {
-	BizID         *string                                             `json:"biz_id,omitempty"`         // 业务 ID, 示例值: "096e2927-40a6-41a3-9562-314d641d09ae", 长度范围: `0` ～ `200` 字符
-	Title         *string                                             `json:"title,omitempty"`          // 主标题, 示例值: "主标题", 长度范围: `0` ～ `60` 字符
-	AvatarKey     *string                                             `json:"avatar_key,omitempty"`     // 头像 key, 示例值: "v3_0041_007bca9f-67ba-4199-bf00-4031b12cf226", 长度范围: `0` ～ `100` 字符
-	Preview       *string                                             `json:"preview,omitempty"`        // 预览信息, 示例值: "预览信息", 长度范围: `0` ～ `120` 字符
-	StatusLabel   *UpdateAppFeedCardReqFeedCardAppFeedCardStatusLabel `json:"status_label,omitempty"`   // 状态标签
-	Buttons       *UpdateAppFeedCardReqFeedCardAppFeedCardButtons     `json:"buttons,omitempty"`        // 交互按钮
+	BizID         *string                                             `json:"biz_id,omitempty"`         // 业务 ID（非必填字段, 开发者可自定义业务 ID 以方便管理数据；若不传入, 则 API 响应体中会返回系统自动分配的业务 ID）示例值: "096e2927-40a6-41a3-9562-314d641d09ae" 长度范围: `0` ～ `200` 字符
+	Title         *string                                             `json:"title,omitempty"`          // 主标题（在用户界面中最多展示一行, 自动省略超出部分的内容；不支持定义字号及颜色）示例值: "主标题" 长度范围: `0` ～ `60` 字符
+	AvatarKey     *string                                             `json:"avatar_key,omitempty"`     // 头像 key示例值: "v3_0041_007bca9f-67ba-4199-bf00-4031b12cf226" 长度范围: `0` ～ `100` 字符
+	Preview       *string                                             `json:"preview,omitempty"`        // 预览信息（在用户界面中最多展示一行, 自动省略超出部分的内容；支持多个字段拼接、特殊符号和 emoji；不支持定义字号及颜色）示例值: "预览信息" 长度范围: `0` ～ `120` 字符
+	StatusLabel   *UpdateAppFeedCardReqFeedCardAppFeedCardStatusLabel `json:"status_label,omitempty"`   // 状态标签（非必填字段, 如未选择该字段, 则默认展示卡片触达时间）
+	Buttons       *UpdateAppFeedCardReqFeedCardAppFeedCardButtons     `json:"buttons,omitempty"`        // 交互按钮（非必填字段, 如未传入该字段, 则不展示按钮；最多展示 2 个按钮）
 	Link          *UpdateAppFeedCardReqFeedCardAppFeedCardLink        `json:"link,omitempty"`           // 跳转链接
-	TimeSensitive *bool                                               `json:"time_sensitive,omitempty"` // 即时提醒状态, true-打开, false-关闭, 示例值: false, 默认值: `false`
+	TimeSensitive *bool                                               `json:"time_sensitive,omitempty"` // 即时提醒状态（设置为 true 后, 卡片在消息列表临时置顶；设置为 false, 消息卡片不置顶）示例值: false默认值: `false`
 	Notify        *UpdateAppFeedCardReqFeedCardAppFeedCardNotify      `json:"notify,omitempty"`         // 通知设置, 当前可设置通知是否关闭, 为空时默认进行通知
 }
 
 // UpdateAppFeedCardReqFeedCardAppFeedCardButtons ...
 type UpdateAppFeedCardReqFeedCardAppFeedCardButtons struct {
-	Buttons []*UpdateAppFeedCardReqFeedCardAppFeedCardButtonsButton `json:"buttons,omitempty"` // 按钮组合, 长度范围: `0` ～ `2`
+	Buttons []*UpdateAppFeedCardReqFeedCardAppFeedCardButtonsButton `json:"buttons,omitempty"` // 按钮组合 长度范围: `0` ～ `2`
 }
 
 // UpdateAppFeedCardReqFeedCardAppFeedCardButtonsButton ...
 type UpdateAppFeedCardReqFeedCardAppFeedCardButtonsButton struct {
-	MultiURL   *UpdateAppFeedCardReqFeedCardAppFeedCardButtonsButtonMultiURL `json:"multi_url,omitempty"`   // 跳转 URL
-	ActionType string                                                        `json:"action_type,omitempty"` // 交互类型, 示例值: "url_page", 可选值有: url_page: URL 页面, webhook: 回调
+	MultiURL   *UpdateAppFeedCardReqFeedCardAppFeedCardButtonsButtonMultiURL `json:"multi_url,omitempty"`   // 跳转 URL（仅支持 https 协议）
+	ActionType string                                                        `json:"action_type,omitempty"` // 交互类型（按钮交互方式可配置跳转 URL 页面, 也可配置 webhook 回调）示例值: "url_page"可选值有: URL 页面回调
 	Text       *UpdateAppFeedCardReqFeedCardAppFeedCardButtonsButtonText     `json:"text,omitempty"`        // 文字
-	ButtonType *string                                                       `json:"button_type,omitempty"` // 按钮类型, 示例值: "default", 可选值有: default: 默认, primary: 主要, success: 成功, 默认值: `default`
-	ActionMap  map[string]string                                             `json:"action_map,omitempty"`  // action 字典, 示例值: {"foo": "bar"}
+	ButtonType *string                                                       `json:"button_type,omitempty"` // 按钮类型示例值: "default"可选值有: 默认主要成功默认值: `default`
+	ActionMap  interface{}                                                   `json:"action_map,omitempty"`  // action 字典示例值: {"foo": "bar"}
 }
 
 // UpdateAppFeedCardReqFeedCardAppFeedCardButtonsButtonMultiURL ...
 type UpdateAppFeedCardReqFeedCardAppFeedCardButtonsButtonMultiURL struct {
-	URL        *string `json:"url,omitempty"`         // 默认 URL, 示例值: "https://www.feishu.cn/", 最大长度: `700` 字符
-	AndroidURL *string `json:"android_url,omitempty"` // Android 平台 URL, 示例值: "https://www.feishu.cn/", 最大长度: `700` 字符
-	IosURL     *string `json:"ios_url,omitempty"`     // iOS 平台 URL, 示例值: "https://www.feishu.cn/", 最大长度: `700` 字符
-	PcURL      *string `json:"pc_url,omitempty"`      // PC URL, 示例值: "https://www.feishu.cn/", 最大长度: `700` 字符
+	URL        *string `json:"url,omitempty"`         // 默认 URL示例值: "https://www.feishu.cn/" 最大长度: `700` 字符
+	AndroidURL *string `json:"android_url,omitempty"` // Android 平台 URL示例值: "https://www.feishu.cn/" 最大长度: `700` 字符
+	IosURL     *string `json:"ios_url,omitempty"`     // iOS 平台 URL示例值: "https://www.feishu.cn/" 最大长度: `700` 字符
+	PcURL      *string `json:"pc_url,omitempty"`      // PC URL示例值: "https://www.feishu.cn/" 最大长度: `700` 字符
 }
 
 // UpdateAppFeedCardReqFeedCardAppFeedCardButtonsButtonText ...
 type UpdateAppFeedCardReqFeedCardAppFeedCardButtonsButtonText struct {
-	Text string `json:"text,omitempty"` // 文本, 示例值: "文本", 长度范围: `1` ～ `30` 字符
+	Text string `json:"text,omitempty"` // 文本示例值: "文本" 长度范围: `1` ～ `30` 字符
 }
 
 // UpdateAppFeedCardReqFeedCardAppFeedCardLink ...
 type UpdateAppFeedCardReqFeedCardAppFeedCardLink struct {
-	Link *string `json:"link,omitempty"` // 链接, 示例值: "https://www.feishu.cn/", 最大长度: `700` 字符
+	Link *string `json:"link,omitempty"` // 卡片整体跳转链接（创建时该参数为必填参数）示例值: "https://www.feishu.cn/" 最大长度: `700` 字符
 }
 
 // UpdateAppFeedCardReqFeedCardAppFeedCardNotify ...
 type UpdateAppFeedCardReqFeedCardAppFeedCardNotify struct {
-	CloseNotify     *bool   `json:"close_notify,omitempty"`      // 是否关闭通知, 示例值: true, 默认值: `false`
-	CustomSoundText *string `json:"custom_sound_text,omitempty"` // 自定义语音播报文本内容, 示例值: "您有新的订单", 最大长度: `20` 字符
-	WithCustomSound *bool   `json:"with_custom_sound,omitempty"` // 是否播报自定义语音, 示例值: true, 默认值: `false`
+	CloseNotify     *bool   `json:"close_notify,omitempty"`      // 是否关闭通知示例值: true默认值: `false`
+	CustomSoundText *string `json:"custom_sound_text,omitempty"` // 自定义语音播报文本内容（仅支持移动端）示例值: "您有新的订单" 最大长度: `20` 字符
+	WithCustomSound *bool   `json:"with_custom_sound,omitempty"` // 是否播报自定义语音（仅支持移动端；播报语音包暂不支持切换, 默认为女声）示例值: true默认值: `false`
 }
 
 // UpdateAppFeedCardReqFeedCardAppFeedCardStatusLabel ...
 type UpdateAppFeedCardReqFeedCardAppFeedCardStatusLabel struct {
-	Text string `json:"text,omitempty"` // 标签文字, 示例值: "标签文字", 长度范围: `1` ～ `20` 字符
-	Type string `json:"type,omitempty"` // 标签类型, 示例值: "primary", 可选值有: primary: 主类型, secondary: 次要类型, success: 成功类型, danger: 危险类型, 默认值: `primary`
+	Text string `json:"text,omitempty"` // 标签文字示例值: "标签文字" 长度范围: `1` ～ `20` 字符
+	Type string `json:"type,omitempty"` // 标签类型示例值: "primary"可选值有: 主类型次要类型成功类型危险类型默认值: `primary`
 }
 
 // UpdateAppFeedCardResp ...
@@ -137,7 +138,7 @@ type UpdateAppFeedCardResp struct {
 type UpdateAppFeedCardRespFailedCard struct {
 	BizID  string `json:"biz_id,omitempty"`  // 业务 ID
 	UserID string `json:"user_id,omitempty"` // 用户 ID
-	Reason string `json:"reason,omitempty"`  // 原因, 可选值有: 0: 未知, 1: 无权限, 2: 未创建, 3: 频率限制, 4: 重复
+	Reason string `json:"reason,omitempty"`  // 原因可选值有: 未知无权限未创建频率限制重复
 }
 
 // updateAppFeedCardResp ...

@@ -88,6 +88,13 @@ type GetHelpdeskTicketCustomizedFieldRespCreatedBy struct {
 	Email     string `json:"email,omitempty"`      // 用户邮箱
 }
 
+// GetHelpdeskTicketCustomizedFieldRespDropdownOption ...
+type GetHelpdeskTicketCustomizedFieldRespDropdownOption struct {
+	Children    []interface{} `json:"children,omitempty"`     // 选项列表
+	Tag         string        `json:"tag,omitempty"`          // 选项ID
+	DisplayName string        `json:"display_name,omitempty"` // 展示名称
+}
+
 // GetHelpdeskTicketCustomizedFieldRespUpdatedBy ...
 type GetHelpdeskTicketCustomizedFieldRespUpdatedBy struct {
 	ID        string `json:"id,omitempty"`         // 用户ID

@@ -23,7 +23,8 @@ import (
 
 // UpdateIMTag 修改标签在各个语言下的名称。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/group/im-v2/tag/patch
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/group/im-v2/tag/patch
+// new doc: https://open.feishu.cn/document/tenant-tag/patch
 func (r *MessageService) UpdateIMTag(ctx context.Context, request *UpdateIMTagReq, options ...MethodOptionFunc) (*UpdateIMTagResp, *Response, error) {
 	if r.cli.mock.mockMessageUpdateIMTag != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#UpdateIMTag mock enable")
@@ -57,21 +58,21 @@ func (r *Mock) UnMockMessageUpdateIMTag() {
 
 // UpdateIMTagReq ...
 type UpdateIMTagReq struct {
-	TagID    string                  `path:"tag_id" json:"-"`     // 标签 ID, 示例值: "716168xxxxx"
+	TagID    string                  `path:"tag_id" json:"-"`     // 标签 ID示例值: "716168xxxxx"
 	PatchTag *UpdateIMTagReqPatchTag `json:"patch_tag,omitempty"` // 编辑标签
 }
 
 // UpdateIMTagReqPatchTag ...
 type UpdateIMTagReqPatchTag struct {
-	ID        *string                           `json:"id,omitempty"`         // 标签 ID, 示例值: "716168xxxxx"
-	Name      *string                           `json:"name,omitempty"`       // 标签名称, 示例值: "标签名称"
-	I18nNames []*UpdateIMTagReqPatchTagI18nName `json:"i18n_names,omitempty"` // i18n 多语言名称集合, 长度范围: `0` ～ `40`
+	ID        *string                           `json:"id,omitempty"`         // 标签 ID示例值: "716168xxxxx"
+	Name      *string                           `json:"name,omitempty"`       // 标签名称示例值: "标签名称"
+	I18nNames []*UpdateIMTagReqPatchTagI18nName `json:"i18n_names,omitempty"` // i18n 多语言名称集合 长度范围: `0` ～ `40`
 }
 
 // UpdateIMTagReqPatchTagI18nName ...
 type UpdateIMTagReqPatchTagI18nName struct {
-	Locale string  `json:"locale,omitempty"` // 语言, 示例值: "zh_cn"
-	Name   *string `json:"name,omitempty"`   // 名称, 示例值: "标签2"
+	Locale string  `json:"locale,omitempty"` // 语言示例值: "zh_cn"
+	Name   *string `json:"name,omitempty"`   // 名称示例值: "标签2"
 }
 
 // UpdateIMTagResp ...

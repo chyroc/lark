@@ -23,7 +23,8 @@ import (
 
 // CreateIMTag 创建标签并返回标签 ID。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/group/im-v2/tag/create
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/group/im-v2/tag/create
+// new doc: https://open.feishu.cn/document/tenant-tag/create
 func (r *MessageService) CreateIMTag(ctx context.Context, request *CreateIMTagReq, options ...MethodOptionFunc) (*CreateIMTagResp, *Response, error) {
 	if r.cli.mock.mockMessageCreateIMTag != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#CreateIMTag mock enable")
@@ -62,15 +63,15 @@ type CreateIMTagReq struct {
 
 // CreateIMTagReqCreateTag ...
 type CreateIMTagReqCreateTag struct {
-	TagType   string                             `json:"tag_type,omitempty"`   // 标签类型, 示例值: "tenant", 可选值有: tenant: 租户类型标签
-	Name      string                             `json:"name,omitempty"`       // 标签默认名称, 示例值: "default name"
-	I18nNames []*CreateIMTagReqCreateTagI18nName `json:"i18n_names,omitempty"` // i18n多语言标签名称集合, 长度范围: `0` ～ `40`
+	TagType   string                             `json:"tag_type,omitempty"`   // 标签类型示例值: "tenant"可选值有: 租户类型标签
+	Name      string                             `json:"name,omitempty"`       // 标签默认名称示例值: "default name"
+	I18nNames []*CreateIMTagReqCreateTagI18nName `json:"i18n_names,omitempty"` // i18n多语言标签名称集合 长度范围: `0` ～ `40`
 }
 
 // CreateIMTagReqCreateTagI18nName ...
 type CreateIMTagReqCreateTagI18nName struct {
-	Locale string  `json:"locale,omitempty"` // 语言, 示例值: "zh_cn"
-	Name   *string `json:"name,omitempty"`   // 名称, 示例值: "标签1"
+	Locale string  `json:"locale,omitempty"` // 语言示例值: "zh_cn"
+	Name   *string `json:"name,omitempty"`   // 名称示例值: "标签1"
 }
 
 // CreateIMTagResp ...

@@ -74,8 +74,21 @@ type CreateHelpdeskTicketCustomizedFieldReq struct {
 	DropdownAllowMultiple *bool                   `json:"dropdown_allow_multiple,omitempty"` // 是否支持多选, 仅在字段类型是dropdown的时候有效示例值: true
 }
 
+// CreateHelpdeskTicketCustomizedFieldReqDropdownOption ...
+type CreateHelpdeskTicketCustomizedFieldReqDropdownOption struct {
+	Children []*CreateHelpdeskTicketCustomizedFieldReqDropdownOptionChildren `json:"children,omitempty"` // 选项列表
+}
+
+// CreateHelpdeskTicketCustomizedFieldReqDropdownOptionChildren ...
+type CreateHelpdeskTicketCustomizedFieldReqDropdownOptionChildren struct {
+	Tag         string        `json:"tag,omitempty"`          // 选项ID
+	DisplayName string        `json:"display_name,omitempty"` // 展示名称
+	Children    []interface{} `json:"children,omitempty"`     // 同上: 选项列表, 只适用于多层下拉列表（最多可以设置三级下拉列表）
+}
+
 // CreateHelpdeskTicketCustomizedFieldResp ...
-type CreateHelpdeskTicketCustomizedFieldResp struct{}
+type CreateHelpdeskTicketCustomizedFieldResp struct {
+}
 
 // createHelpdeskTicketCustomizedFieldResp ...
 type createHelpdeskTicketCustomizedFieldResp struct {

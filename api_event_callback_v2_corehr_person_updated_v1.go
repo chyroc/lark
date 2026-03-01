@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2CorehrPersonUpdatedV1 员工个人信息发生变更时发送该事件, 场景举例:
+// EventV2CoreHRPersonUpdatedV1 员工个人信息发生变更时发送该事件, 场景举例:
 //
 // - 调用[【更新个人信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/person/patch)接口
 // - 人事系统【编辑个人信息】、【导入编辑人员】功能
@@ -32,15 +32,15 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/person/events/updated
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/person/updated
-func (r *EventCallbackService) HandlerEventV2CorehrPersonUpdatedV1(f EventV2CorehrPersonUpdatedV1Handler) {
-	r.cli.eventHandler.eventV2CorehrPersonUpdatedV1Handler = f
+func (r *EventCallbackService) HandlerEventV2CoreHRPersonUpdatedV1(f EventV2CoreHRPersonUpdatedV1Handler) {
+	r.cli.eventHandler.eventV2CoreHRPersonUpdatedV1Handler = f
 }
 
-// EventV2CorehrPersonUpdatedV1Handler event EventV2CorehrPersonUpdatedV1 handler
-type EventV2CorehrPersonUpdatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CorehrPersonUpdatedV1) (string, error)
+// EventV2CoreHRPersonUpdatedV1Handler event EventV2CoreHRPersonUpdatedV1 handler
+type EventV2CoreHRPersonUpdatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CoreHRPersonUpdatedV1) (string, error)
 
-// EventV2CorehrPersonUpdatedV1 ...
-type EventV2CorehrPersonUpdatedV1 struct {
+// EventV2CoreHRPersonUpdatedV1 ...
+type EventV2CoreHRPersonUpdatedV1 struct {
 	PersonID     string   `json:"person_id,omitempty"`     // 被更新个人信息的 ID
 	FieldChanges []string `json:"field_changes,omitempty"` // 发生变更的字段, 若部分字段变更无需接受事件消息, 可根据该字段进行事件消息过滤
 }

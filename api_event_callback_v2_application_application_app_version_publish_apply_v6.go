@@ -197,10 +197,24 @@ type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionRemarkVis
 	DepartmentIDs []string `json:"department_ids,omitempty"` // 可见性部门的 id 列表
 }
 
+// EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionRemarkVisibilityInvisibleListOpenID ...
+type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionRemarkVisibilityInvisibleListOpenID struct {
+	UnionID string `json:"union_id,omitempty"` // 用户的 union id
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id
+	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
+}
+
 // EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionRemarkVisibilityVisibleList ...
 type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionRemarkVisibilityVisibleList struct {
 	OpenIDs       []string `json:"open_ids,omitempty"`       // 可见性成员 id 列表
 	DepartmentIDs []string `json:"department_ids,omitempty"` // 可见性部门的 id 列表
+}
+
+// EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionRemarkVisibilityVisibleListOpenID ...
+type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionRemarkVisibilityVisibleListOpenID struct {
+	UnionID string `json:"union_id,omitempty"` // 用户的 union id
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id
+	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
 // EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionScope ...
@@ -375,10 +389,24 @@ type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionRemar
 	DepartmentIDs []string `json:"department_ids,omitempty"` // 可见性部门的 id 列表
 }
 
+// EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionRemarkVisibilityInvisibleListOpenID ...
+type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionRemarkVisibilityInvisibleListOpenID struct {
+	UnionID string `json:"union_id,omitempty"` // 用户的 union id
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id
+	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
+}
+
 // EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionRemarkVisibilityVisibleList ...
 type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionRemarkVisibilityVisibleList struct {
 	OpenIDs       []string `json:"open_ids,omitempty"`       // 可见性成员 id 列表
 	DepartmentIDs []string `json:"department_ids,omitempty"` // 可见性部门的 id 列表
+}
+
+// EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionRemarkVisibilityVisibleListOpenID ...
+type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionRemarkVisibilityVisibleListOpenID struct {
+	UnionID string `json:"union_id,omitempty"` // 用户的 union id
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id
+	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
 // EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionScope ...

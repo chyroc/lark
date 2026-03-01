@@ -37,10 +37,12 @@ func Test_Minutes_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Minutes
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetMinutesStatistics(ctx, &lark.GetMinutesStatisticsReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
+
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {
@@ -48,6 +50,7 @@ func Test_Minutes_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Minutes
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockMinutesGetMinutesStatistics(func(ctx context.Context, request *lark.GetMinutesStatisticsReq, options ...lark.MethodOptionFunc) (*lark.GetMinutesStatisticsResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -59,6 +62,7 @@ func Test_Minutes_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockMinutesGetMinutesMinute(func(ctx context.Context, request *lark.GetMinutesMinuteReq, options ...lark.MethodOptionFunc) (*lark.GetMinutesMinuteResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -68,6 +72,31 @@ func Test_Minutes_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockMinutesGetMinutesMinuteMedia(func(ctx context.Context, request *lark.GetMinutesMinuteMediaReq, options ...lark.MethodOptionFunc) (*lark.GetMinutesMinuteMediaResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMinutesGetMinutesMinuteMedia()
+
+			_, _, err := moduleCli.GetMinutesMinuteMedia(ctx, &lark.GetMinutesMinuteMediaReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockMinutesGetMinutesMinuteTranscript(func(ctx context.Context, request *lark.GetMinutesMinuteTranscriptReq, options ...lark.MethodOptionFunc) (*lark.GetMinutesMinuteTranscriptResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockMinutesGetMinutesMinuteTranscript()
+
+			_, _, err := moduleCli.GetMinutesMinuteTranscript(ctx, &lark.GetMinutesMinuteTranscriptReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
 	})
 
 	t.Run("response is failed (mock http)", func(t *testing.T) {
@@ -78,6 +107,7 @@ func Test_Minutes_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetMinutesStatistics(ctx, &lark.GetMinutesStatisticsReq{
 				MinuteToken: "x",
 			})
@@ -86,11 +116,31 @@ func Test_Minutes_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetMinutesMinute(ctx, &lark.GetMinutesMinuteReq{
 				MinuteToken: "x",
 			})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetMinutesMinuteMedia(ctx, &lark.GetMinutesMinuteMediaReq{
+				MinuteToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetMinutesMinuteTranscript(ctx, &lark.GetMinutesMinuteTranscriptReq{
+				MinuteToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
 	})
 }

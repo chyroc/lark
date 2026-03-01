@@ -35,7 +35,8 @@ import (
 // 更新清单所有人必须由清单的管理权限。
 // 详情见[清单功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/overview)中的“清单是如何鉴权的？“章节。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/patch
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/patch
+// new doc: https://open.feishu.cn/document/task-v2/tasklist/patch
 func (r *TaskService) UpdateTaskTasklist(ctx context.Context, request *UpdateTaskTasklistReq, options ...MethodOptionFunc) (*UpdateTaskTasklistResp, *Response, error) {
 	if r.cli.mock.mockTaskUpdateTaskTasklist != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#UpdateTaskTasklist mock enable")
@@ -70,24 +71,24 @@ func (r *Mock) UnMockTaskUpdateTaskTasklist() {
 
 // UpdateTaskTasklistReq ...
 type UpdateTaskTasklistReq struct {
-	TasklistGuid      string                         `path:"tasklist_guid" json:"-"`         // 要更新的清单的全局唯一GUID, 示例值: "d300a75f-c56a-4be9-80d1-e47653028ceb"
-	UserIDType        *IDType                        `query:"user_id_type" json:"-"`         // 用户 ID 类型, 示例值: open_id, 默认值: `open_id`
+	TasklistGuid      string                         `path:"tasklist_guid" json:"-"`         // 要更新的清单的全局唯一GUID示例值: "d300a75f-c56a-4be9-80d1-e47653028ceb"
+	UserIDType        *IDType                        `query:"user_id_type" json:"-"`         // 用户 ID 类型示例值: open_id默认值: `open_id`
 	Tasklist          *UpdateTaskTasklistReqTasklist `json:"tasklist,omitempty"`             // 要更新清单的数据
-	UpdateFields      []string                       `json:"update_fields,omitempty"`        // 要更新的字段名, 支持, name: 更新清单名, owner: 更新清单所有者, 示例值: ["owner"], 最小长度: `1`
-	OriginOwnerToRole *string                        `json:"origin_owner_to_role,omitempty"` // 该字段表示如果更新了新的所有者, 则将原所有者设为指定的新的角色。仅在更新清单所有者时生效。支持"editor", "viewer"和"none"。默认为"none", 如果不设置或设为"none", 原清单所有者将不具有任何清单的角色。如果没有通过其他渠道（比如通过协作群组间接授权）, 原清单所有者将失去对清单的所有权限, 示例值: "editor", 可选值有: editor: 原所有者变为可编辑角色, viewer: 原所有者变为可阅读角色, none: 原所有者直接退出清单, 默认值: `none`
+	UpdateFields      []string                       `json:"update_fields,omitempty"`        // 要更新的字段名, 支持更新清单名更新清单所有者示例值: ["owner"] 最小长度: `1`
+	OriginOwnerToRole *string                        `json:"origin_owner_to_role,omitempty"` // 该字段表示如果更新了新的所有者, 则将原所有者设为指定的新的角色。仅在更新清单所有者时生效。支持"editor", "viewer"和"none"。默认为"none"。如果不设置或设为"none", 原清单所有者将不具有任何清单的角色。如果没有通过其他渠道（比如通过协作群组间接授权）, 原清单所有者将失去对清单的所有权限。示例值: "editor"可选值有: 原所有者变为可编辑角色原所有者变为可阅读角色原所有者直接退出清单默认值: `none`
 }
 
 // UpdateTaskTasklistReqTasklist ...
 type UpdateTaskTasklistReqTasklist struct {
-	Name  *string                             `json:"name,omitempty"`  // 清单名称。如要更新, 不能设为空。最大100个字符, 示例值: "年会工作任务清单"
+	Name  *string                             `json:"name,omitempty"`  // 清单名称。如要更新, 不能设为空。最大100个字符。示例值: "年会工作任务清单"
 	Owner *UpdateTaskTasklistReqTasklistOwner `json:"owner,omitempty"` // 更新的清单所有者。
 }
 
 // UpdateTaskTasklistReqTasklistOwner ...
 type UpdateTaskTasklistReqTasklistOwner struct {
-	ID   *string `json:"id,omitempty"`   // 表示member的id, 示例值: "ou_2cefb2f014f8d0c6c2d2eb7bafb0e54f", 最大长度: `100` 字符
-	Type *string `json:"type,omitempty"` // 成员的类型, 可以是"user"或者"app"。所有者的类型不可以是"chat", 示例值: "user", 默认值: `user`
-	Role *string `json:"role,omitempty"` // 成员角色, 此时必须是"owner", 示例值: "owner", 最大长度: `20` 字符
+	ID   *string `json:"id,omitempty"`   // 表示member的id示例值: "ou_2cefb2f014f8d0c6c2d2eb7bafb0e54f" 最大长度: `100` 字符
+	Type *string `json:"type,omitempty"` // 成员的类型, 可以是"user"或者"app"。所有者的类型不可以是"chat"。示例值: "user"默认值: `user`
+	Role *string `json:"role,omitempty"` // 成员角色, 此时必须是"owner"示例值: "owner" 最大长度: `20` 字符
 }
 
 // UpdateTaskTasklistResp ...

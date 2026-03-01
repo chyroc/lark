@@ -67,3 +67,10 @@ type EventV2VCRoomCreatedV1RoomRoomStatus struct {
 	DisableNotice    bool     `json:"disable_notice,omitempty"`     // 是否在禁用时发送通知给预定了该会议室的员工
 	ResumeNotice     bool     `json:"resume_notice,omitempty"`      // 是否在恢复启用时发送通知给预定了该会议室的员工
 }
+
+// EventV2VCRoomCreatedV1RoomRoomStatusContactID ...
+type EventV2VCRoomCreatedV1RoomRoomStatusContactID struct {
+	UnionID string `json:"union_id,omitempty"` // 用户的 union id
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id
+	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
+}

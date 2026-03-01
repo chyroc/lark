@@ -23,7 +23,8 @@ import (
 
 // RejectAPaaSApprovalTask 对于人工任务进行拒绝操作
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/approval_task/reject
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/approval_task/reject
+// new doc: https://open.feishu.cn/document/apaas-v1/flow/user-task/reject
 func (r *APaaSService) RejectAPaaSApprovalTask(ctx context.Context, request *RejectAPaaSApprovalTaskReq, options ...MethodOptionFunc) (*RejectAPaaSApprovalTaskResp, *Response, error) {
 	if r.cli.mock.mockAPaaSRejectAPaaSApprovalTask != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] APaaS#RejectAPaaSApprovalTask mock enable")
@@ -57,13 +58,14 @@ func (r *Mock) UnMockAPaaSRejectAPaaSApprovalTask() {
 
 // RejectAPaaSApprovalTaskReq ...
 type RejectAPaaSApprovalTaskReq struct {
-	ApprovalTaskID string  `path:"approval_task_id" json:"-"` // 人工任务 ID, 示例值: "1785996265147395"
-	UserID         string  `json:"user_id,omitempty"`         // 操作人 ID, 示例值: "1783981209205788"
-	Opinion        *string `json:"opinion,omitempty"`         // 审批意见, 示例值: "拒绝"
+	ApprovalTaskID string  `path:"approval_task_id" json:"-"` // 人工任务 ID示例值: "1785996265147395"
+	UserID         string  `json:"user_id,omitempty"`         // 操作人 ID示例值: "1783981209205788"
+	Opinion        *string `json:"opinion,omitempty"`         // 审批意见示例值: "拒绝"
 }
 
 // RejectAPaaSApprovalTaskResp ...
-type RejectAPaaSApprovalTaskResp struct{}
+type RejectAPaaSApprovalTaskResp struct {
+}
 
 // rejectAPaaSApprovalTaskResp ...
 type rejectAPaaSApprovalTaskResp struct {

@@ -89,6 +89,28 @@ type GetMessageRespItem struct {
 	UpperMessageID string       `json:"upper_message_id,omitempty"` // 合并转发消息中, 上一层级的消息 ID, 仅在合并转发场景会有返回值。了解 upper_message_id 可参见[消息管理概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro)。
 }
 
+// GetMessageRespItemBody ...
+type GetMessageRespItemBody struct {
+	Content string `json:"content,omitempty"` // 消息内容, JSON 结构序列化后的字符串, 不同消息类型（`msg_type`）对应不同内容。注意: 卡片消息内容与在卡片搭建工具中获取的卡片 JSON 不一致, 暂不支持返回原始卡片 JSON。- 暂不支持返回 JSON 2.0 卡片的具体内容。
+}
+
+// GetMessageRespItemMention ...
+type GetMessageRespItemMention struct {
+	Key       string `json:"key,omitempty"`        // 被 @ 的用户或机器人序号。例如, 第 3 个被 @ 到的成员, 取值为 `@_user_3`。
+	ID        string `json:"id,omitempty"`         // 被 @ 的用户或机器人的 ID。注意: 当不填写 `user_id_type`时, 该字段将返回被 @ 的用户或机器人的  open_id。- 当填写 `user_id_type` 时, 该字段将返回 @ 的用户对应类型的 ID（open_id、union_id 或 user_id）或机器人的 app_id。
+	IDType    IDType `json:"id_type,omitempty"`    // 被 @ 的用户或机器人 ID 类型。
+	Name      string `json:"name,omitempty"`       // 被 @ 的用户或机器人的姓名。
+	TenantKey string `json:"tenant_key,omitempty"` // 租户唯一标识。该标识用来识别被 @ 用户或机器人的租户, 也可以用来获取租户访问凭证（tenant_access_token）。
+}
+
+// GetMessageRespItemSender ...
+type GetMessageRespItemSender struct {
+	ID         string `json:"id,omitempty"`          // 发送者的 ID。
+	IDType     IDType `json:"id_type,omitempty"`     // 发送者的 ID 类型。- 如果发送者是应用, 类型为 `app_id`。- 如果发送者为用户, 类型与查询参数 `user_id_type` 的取值一致。
+	SenderType string `json:"sender_type,omitempty"` // 发送者类型。可能值有: `user`: 用户- `app`: 应用- `anonymous`: 匿名- `unknown`: 未知
+	TenantKey  string `json:"tenant_key,omitempty"`  // 租户唯一标识。该标识用来识别租户, 也可以用来获取租户访问凭证（tenant_access_token）。
+}
+
 // getMessageResp ...
 type getMessageResp struct {
 	Code  int64           `json:"code,omitempty"` // 错误码, 非 0 表示失败

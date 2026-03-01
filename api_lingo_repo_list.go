@@ -60,7 +60,8 @@ func (r *Mock) UnMockLingoGetLingoRepoList() {
 }
 
 // GetLingoRepoListReq ...
-type GetLingoRepoListReq struct{}
+type GetLingoRepoListReq struct {
+}
 
 // GetLingoRepoListResp ...
 type GetLingoRepoListResp struct {

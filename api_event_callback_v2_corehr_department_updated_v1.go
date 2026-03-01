@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2CorehrDepartmentUpdatedV1 飞书人事中「部门信息被更新」时将触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=department&event=updated)
+// EventV2CoreHRDepartmentUpdatedV1 飞书人事中「部门信息被更新」时将触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=department&event=updated)
 //
 // - 使用场景: 此事件为无序事件（创建有上下级关系的部门创建之后, 上下级部门事件可能乱序）, 若对事件顺序无依赖则可以使用V1版本事件, 否则请使用[【更新部门事件V2】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/events/updated)
 // - [【搜索部门信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/search)[【获取父部门信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/parents) 等接口数据查询存在一定延迟, 不建议收到事件后立即查询以上接口。
@@ -33,15 +33,15 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/events/updated
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/department/updated
-func (r *EventCallbackService) HandlerEventV2CorehrDepartmentUpdatedV1(f EventV2CorehrDepartmentUpdatedV1Handler) {
-	r.cli.eventHandler.eventV2CorehrDepartmentUpdatedV1Handler = f
+func (r *EventCallbackService) HandlerEventV2CoreHRDepartmentUpdatedV1(f EventV2CoreHRDepartmentUpdatedV1Handler) {
+	r.cli.eventHandler.eventV2CoreHRDepartmentUpdatedV1Handler = f
 }
 
-// EventV2CorehrDepartmentUpdatedV1Handler event EventV2CorehrDepartmentUpdatedV1 handler
-type EventV2CorehrDepartmentUpdatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CorehrDepartmentUpdatedV1) (string, error)
+// EventV2CoreHRDepartmentUpdatedV1Handler event EventV2CoreHRDepartmentUpdatedV1 handler
+type EventV2CoreHRDepartmentUpdatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CoreHRDepartmentUpdatedV1) (string, error)
 
-// EventV2CorehrDepartmentUpdatedV1 ...
-type EventV2CorehrDepartmentUpdatedV1 struct {
+// EventV2CoreHRDepartmentUpdatedV1 ...
+type EventV2CoreHRDepartmentUpdatedV1 struct {
 	DepartmentID string   `json:"department_id,omitempty"` // 被更新部门的 ID
 	FieldChanges []string `json:"field_changes,omitempty"` // 发生变更的字段
 }

@@ -69,6 +69,17 @@ type GetHelpdeskCategoryListResp struct {
 	Categories []*HelpdeskCategory `json:"categories,omitempty"` // 知识库分类列表
 }
 
+// GetHelpdeskCategoryListRespCategory ...
+type GetHelpdeskCategoryListRespCategory struct {
+	CategoryID string        `json:"category_id,omitempty"` // 知识库分类ID
+	ID         string        `json:"id,omitempty"`          // 知识库分类ID, （旧版, 请使用category_id）
+	Name       string        `json:"name,omitempty"`        // 名称
+	ParentID   string        `json:"parent_id,omitempty"`   // 父知识库分类ID
+	HelpdeskID string        `json:"helpdesk_id,omitempty"` // 服务台ID
+	Language   string        `json:"language,omitempty"`    // 语言
+	Children   []interface{} `json:"children,omitempty"`    // 子分类详情
+}
+
 // getHelpdeskCategoryListResp ...
 type getHelpdeskCategoryListResp struct {
 	Code  int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败

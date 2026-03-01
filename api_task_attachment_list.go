@@ -26,7 +26,8 @@ import (
 // 每个附件会返回一个可供下载的临时url, 有效期为3分钟, 最多可以支持3次下载。如果超过使用限制, 需要通过本接口获取新的临时url。
 // 获取任务的附件列表, 需要该任务的读取权限。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/task-v2/attachment/list
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/attachment/list
+// new doc: https://open.feishu.cn/document/task-v2/attachment/list
 func (r *TaskService) GetTaskAttachmentList(ctx context.Context, request *GetTaskAttachmentListReq, options ...MethodOptionFunc) (*GetTaskAttachmentListResp, *Response, error) {
 	if r.cli.mock.mockTaskGetTaskAttachmentList != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#GetTaskAttachmentList mock enable")
@@ -61,11 +62,11 @@ func (r *Mock) UnMockTaskGetTaskAttachmentList() {
 
 // GetTaskAttachmentListReq ...
 type GetTaskAttachmentListReq struct {
-	PageSize     *int64  `query:"page_size" json:"-"`     // 分页大小, 示例值: 50, 默认值: `50`, 取值范围: `1` ～ `100`
-	PageToken    *string `query:"page_token" json:"-"`    // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: aWQ9NzEwMjMzMjMxMDE=
-	ResourceType *string `query:"resource_type" json:"-"` // 附件归属的资源类型。目前只支持"task", 示例值: task, 默认值: `task`
-	ResourceID   string  `query:"resource_id" json:"-"`   // 附件归属资源的id, 配合resource_type使用。例如希望获取任务的附件, 需要设置 resource_type为task, resource_id为任务GUID。任务GUID的获取方式可以参考[任务功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/overview), 示例值: 9842501a-9f47-4ff5-a622-d319eeecb97f
-	UserIDType   *IDType `query:"user_id_type" json:"-"`  // 用户 ID 类型, 示例值: open_id, 默认值: `open_id`
+	PageSize     *int64  `query:"page_size" json:"-"`     // 分页大小示例值: 50默认值: `50` 取值范围: `1` ～ `100`
+	PageToken    *string `query:"page_token" json:"-"`    // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: aWQ9NzEwMjMzMjMxMDE=
+	ResourceType *string `query:"resource_type" json:"-"` // 附件归属的资源类型。目前只支持"task"。示例值: task默认值: `task`
+	ResourceID   string  `query:"resource_id" json:"-"`   // 附件归属资源的id, 配合resource_type使用。例如希望获取任务的附件, 需要设置 resource_type为task, resource_id为任务GUID。任务GUID的获取方式可以参考[任务功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/overview)。示例值: 9842501a-9f47-4ff5-a622-d319eeecb97f
+	UserIDType   *IDType `query:"user_id_type" json:"-"`  // 用户 ID 类型示例值: open_id默认值: `open_id`
 }
 
 // GetTaskAttachmentListResp ...

@@ -23,7 +23,8 @@ import (
 
 // InstantReminderAppFeedCard 即时提醒能力是飞书在消息列表中提供的强提醒能力, 当有重要通知或任务需要及时触达用户, 可将群组或机器人对话在消息列表中置顶展示, 打开飞书首页即可处理重要任务。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/group/im-v2/feed_card/patch
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/group/im-v2/feed_card/patch
+// new doc: https://open.feishu.cn/document/im-v2/groups-bots/patch
 func (r *MessageService) InstantReminderAppFeedCard(ctx context.Context, request *InstantReminderAppFeedCardReq, options ...MethodOptionFunc) (*InstantReminderAppFeedCardResp, *Response, error) {
 	if r.cli.mock.mockMessageInstantReminderAppFeedCard != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#InstantReminderAppFeedCard mock enable")
@@ -57,10 +58,10 @@ func (r *Mock) UnMockMessageInstantReminderAppFeedCard() {
 
 // InstantReminderAppFeedCardReq ...
 type InstantReminderAppFeedCardReq struct {
-	FeedCardID    string   `path:"feed_card_id" json:"-"`    // 群id, 当前只支持群聊, 示例值: "oc_679eaeb583654bff73fefcc6e6371370"
-	UserIDType    IDType   `query:"user_id_type" json:"-"`   // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	TimeSensitive bool     `json:"time_sensitive,omitempty"` // 即时提醒状态, true-打开, false-关闭, 示例值: true
-	UserIDs       []string `json:"user_ids,omitempty"`       // 用户id 列表, 支持OpenID, UnionID, UserID, 示例值: ["ou_9d2beb613c85a2412862a49a924558c5"]
+	FeedCardID    string   `path:"feed_card_id" json:"-"`    // 消息卡片 id, 当前只支持群聊类型示例值: "oc_679eaeb583654bff73fefcc6e6371370"
+	UserIDType    IDType   `query:"user_id_type" json:"-"`   // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	TimeSensitive bool     `json:"time_sensitive,omitempty"` // 即时提醒状态（设置为 true 后, 卡片在消息列表临时置顶；设置为 false, 消息卡片不置顶）示例值: true
+	UserIDs       []string `json:"user_ids,omitempty"`       // 用户 ID 列表（ID 类型与 user_id_type 的取值一致。如果是商店应用, 因不支持获取用户 user ID 权限, 所以无法使用 user_id 类型的用户 ID）示例值: ["ou_9d2beb613c85a2412862a49a924558c5"]
 }
 
 // InstantReminderAppFeedCardResp ...

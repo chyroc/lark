@@ -71,7 +71,8 @@ type UnsubscribeDriveFileReq struct {
 }
 
 // UnsubscribeDriveFileResp ...
-type UnsubscribeDriveFileResp struct{}
+type UnsubscribeDriveFileResp struct {
+}
 
 // unsubscribeDriveFileResp ...
 type unsubscribeDriveFileResp struct {

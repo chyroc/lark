@@ -23,7 +23,8 @@ import (
 
 // GetCoreHRCompensationChangeReasonList 批量查询定调薪原因
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list
+// new doc: https://open.feishu.cn/document/corehr-v1/basic-compensation/compensation-setting-and-adjustment/list
 func (r *CoreHRService) GetCoreHRCompensationChangeReasonList(ctx context.Context, request *GetCoreHRCompensationChangeReasonListReq, options ...MethodOptionFunc) (*GetCoreHRCompensationChangeReasonListResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRCompensationChangeReasonList != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRCompensationChangeReasonList mock enable")
@@ -57,8 +58,8 @@ func (r *Mock) UnMockCoreHRGetCoreHRCompensationChangeReasonList() {
 
 // GetCoreHRCompensationChangeReasonListReq ...
 type GetCoreHRCompensationChangeReasonListReq struct {
-	PageSize  int64   `query:"page_size" json:"-"`  // 分页大小, 示例值: 100, 默认值: `100`, 取值范围: `1` ～ `500`
-	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 12314342
+	PageSize  int64   `query:"page_size" json:"-"`  // 分页大小示例值: 100默认值: `100` 取值范围: `1` ～ `500`
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 12314342
 }
 
 // GetCoreHRCompensationChangeReasonListResp ...
@@ -73,7 +74,7 @@ type GetCoreHRCompensationChangeReasonListRespItem struct {
 	ID           string                                                   `json:"id,omitempty"`            // 调薪原因ID
 	Name         string                                                   `json:"name,omitempty"`          // 调薪原因名称
 	Note         string                                                   `json:"note,omitempty"`          // 调薪原因备注
-	ActiveStatus int64                                                    `json:"active_status,omitempty"` // 启用状态, 可选值有: 1: 启用, 0: 禁用
+	ActiveStatus int64                                                    `json:"active_status,omitempty"` // 启用状态可选值有: 启用禁用
 	I18nNames    []*GetCoreHRCompensationChangeReasonListRespItemI18nName `json:"i18n_names,omitempty"`    // 多语言名称
 	I18nNotes    []*GetCoreHRCompensationChangeReasonListRespItemI18nNote `json:"i18n_notes,omitempty"`    // 多语言描述
 }

@@ -35,8 +35,6 @@ import (
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYDM2YjL2AjN24iNwYjN
 // new doc: https://open.feishu.cn/document/server-docs/docs/docs/docs/content/batch-update-document
-//
-// Deprecated
 func (r *DriveService) UpdateDriveDocContent(ctx context.Context, request *UpdateDriveDocContentReq, options ...MethodOptionFunc) (*UpdateDriveDocContentResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateDriveDocContent != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#UpdateDriveDocContent mock enable")
@@ -77,7 +75,8 @@ type UpdateDriveDocContentReq struct {
 }
 
 // UpdateDriveDocContentResp ...
-type UpdateDriveDocContentResp struct{}
+type UpdateDriveDocContentResp struct {
+}
 
 // updateDriveDocContentResp ...
 type updateDriveDocContentResp struct {

@@ -21,18 +21,18 @@ import (
 	"context"
 )
 
-// EventV2CorehrEmploymentConvertedV1 当员工转正生效时触发该事件{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=employment&event=converted)
+// EventV2CoreHREmploymentConvertedV1 当员工转正生效时触发该事件{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=employment&event=converted)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employment/events/converted
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/probation/converted
-func (r *EventCallbackService) HandlerEventV2CorehrEmploymentConvertedV1(f EventV2CorehrEmploymentConvertedV1Handler) {
-	r.cli.eventHandler.eventV2CorehrEmploymentConvertedV1Handler = f
+func (r *EventCallbackService) HandlerEventV2CoreHREmploymentConvertedV1(f EventV2CoreHREmploymentConvertedV1Handler) {
+	r.cli.eventHandler.eventV2CoreHREmploymentConvertedV1Handler = f
 }
 
-// EventV2CorehrEmploymentConvertedV1Handler event EventV2CorehrEmploymentConvertedV1 handler
-type EventV2CorehrEmploymentConvertedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CorehrEmploymentConvertedV1) (string, error)
+// EventV2CoreHREmploymentConvertedV1Handler event EventV2CoreHREmploymentConvertedV1 handler
+type EventV2CoreHREmploymentConvertedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CoreHREmploymentConvertedV1) (string, error)
 
-// EventV2CorehrEmploymentConvertedV1 ...
-type EventV2CorehrEmploymentConvertedV1 struct {
+// EventV2CoreHREmploymentConvertedV1 ...
+type EventV2CoreHREmploymentConvertedV1 struct {
 	EmploymentID string `json:"employment_id,omitempty"` // 雇佣ID, 可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
 }

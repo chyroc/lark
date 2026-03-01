@@ -23,7 +23,8 @@ import (
 
 // CreateIMTagRelation 绑定标签到业务实体。目前支持给会话打标签。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/group/im-v2/biz_entity_tag_relation/create
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/group/im-v2/biz_entity_tag_relation/create
+// new doc: https://open.feishu.cn/document/tenant-tag/create-2
 func (r *MessageService) CreateIMTagRelation(ctx context.Context, request *CreateIMTagRelationReq, options ...MethodOptionFunc) (*CreateIMTagRelationResp, *Response, error) {
 	if r.cli.mock.mockMessageCreateIMTagRelation != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#CreateIMTagRelation mock enable")
@@ -57,13 +58,14 @@ func (r *Mock) UnMockMessageCreateIMTagRelation() {
 
 // CreateIMTagRelationReq ...
 type CreateIMTagRelationReq struct {
-	TagBizType  string   `json:"tag_biz_type,omitempty"`  // 业务类型, 示例值: "chat", 可选值有: chat: chat 会话类型
-	BizEntityID string   `json:"biz_entity_id,omitempty"` // 业务实体 ID, 示例值: "oc_xxxxx"
-	TagIDs      []string `json:"tag_ids,omitempty"`       // 标签 ID, 示例值: ["71616xxxx"], 长度范围: `0` ～ `40`
+	TagBizType  string   `json:"tag_biz_type,omitempty"`  // 业务类型示例值: "chat"可选值有: chat 会话类型
+	BizEntityID string   `json:"biz_entity_id,omitempty"` // 业务实体 ID示例值: "oc_xxxxx"
+	TagIDs      []string `json:"tag_ids,omitempty"`       // 标签 ID示例值: ["71616xxxx"] 长度范围: `0` ～ `40`
 }
 
 // CreateIMTagRelationResp ...
-type CreateIMTagRelationResp struct{}
+type CreateIMTagRelationResp struct {
+}
 
 // createIMTagRelationResp ...
 type createIMTagRelationResp struct {

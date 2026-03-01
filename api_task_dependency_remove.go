@@ -26,7 +26,8 @@ import (
 // 注意, 如果要移除的依赖非当前任务的依赖, 会被自动忽略。接口会返回成功。
 // 移除任务依赖时, 需要当前任务的编辑权限。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/remove_dependencies
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/remove_dependencies
+// new doc: https://open.feishu.cn/document/task-v2/task/remove_dependencies
 func (r *TaskService) RemoveTaskDependency(ctx context.Context, request *RemoveTaskDependencyReq, options ...MethodOptionFunc) (*RemoveTaskDependencyResp, *Response, error) {
 	if r.cli.mock.mockTaskRemoveTaskDependency != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#RemoveTaskDependency mock enable")
@@ -61,13 +62,13 @@ func (r *Mock) UnMockTaskRemoveTaskDependency() {
 
 // RemoveTaskDependencyReq ...
 type RemoveTaskDependencyReq struct {
-	TaskGuid     string                                `path:"task_guid" json:"-"`     // 要移除依赖的任务GUID, 示例值: "93b7bd05-35e6-4371-b3c9-6b7cbd7100c0"
-	Dependencies []*RemoveTaskDependencyReqDependencie `json:"dependencies,omitempty"` // 要移除的依赖, 长度范围: `1` ～ `50`
+	TaskGuid     string                                `path:"task_guid" json:"-"`     // 要移除依赖的任务GUID示例值: "93b7bd05-35e6-4371-b3c9-6b7cbd7100c0"
+	Dependencies []*RemoveTaskDependencyReqDependencie `json:"dependencies,omitempty"` // 要移除的依赖 长度范围: `1` ～ `50`
 }
 
 // RemoveTaskDependencyReqDependencie ...
 type RemoveTaskDependencyReqDependencie struct {
-	TaskGuid string `json:"task_guid,omitempty"` // 依赖任务的GUID, 示例值: "93b7bd05-35e6-4371-b3c9-6b7cbd7100c0"
+	TaskGuid string `json:"task_guid,omitempty"` // 依赖任务的GUID示例值: "93b7bd05-35e6-4371-b3c9-6b7cbd7100c0"
 }
 
 // RemoveTaskDependencyResp ...
@@ -77,7 +78,7 @@ type RemoveTaskDependencyResp struct {
 
 // RemoveTaskDependencyRespDependencie ...
 type RemoveTaskDependencyRespDependencie struct {
-	Type     string `json:"type,omitempty"`      // 依赖类型, 可选值有: prev: 前置依赖, next: 后置依赖
+	Type     string `json:"type,omitempty"`      // 依赖类型可选值有: 前置依赖后置依赖
 	TaskGuid string `json:"task_guid,omitempty"` // 依赖任务的GUID
 }
 

@@ -23,7 +23,8 @@ import (
 
 // GetCoreHRCompensationItemList 批量查询薪资项
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list
+// new doc: https://open.feishu.cn/document/corehr-v1/basic-compensation/compensation-component-and-metric/list-2
 func (r *CoreHRService) GetCoreHRCompensationItemList(ctx context.Context, request *GetCoreHRCompensationItemListReq, options ...MethodOptionFunc) (*GetCoreHRCompensationItemListResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRCompensationItemList != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRCompensationItemList mock enable")
@@ -57,8 +58,8 @@ func (r *Mock) UnMockCoreHRGetCoreHRCompensationItemList() {
 
 // GetCoreHRCompensationItemListReq ...
 type GetCoreHRCompensationItemListReq struct {
-	PageSize  int64   `query:"page_size" json:"-"`  // 分页大小, 示例值: 100, 默认值: `100`, 取值范围: `1` ～ `500`
-	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 5234233214
+	PageSize  int64   `query:"page_size" json:"-"`  // 分页大小示例值: 100默认值: `100` 取值范围: `1` ～ `500`
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 5234233214
 }
 
 // GetCoreHRCompensationItemListResp ...
@@ -74,10 +75,10 @@ type GetCoreHRCompensationItemListRespItem struct {
 	Name                string                                                  `json:"name,omitempty"`                   // 薪资项名称
 	Description         string                                                  `json:"description,omitempty"`            // 薪资项描述
 	CategoryID          string                                                  `json:"category_id,omitempty"`            // 薪资项分类ID, 详细信息可以通过[批量获取薪资项分类信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item_category/list)接口查询获得
-	ValueType           string                                                  `json:"value_type,omitempty"`             // 薪资项数值类型, 可选值有: money: 金额, number: 数值, percent: 百分比
-	PayOffFrequencyType string                                                  `json:"pay_off_frequency_type,omitempty"` // 发放频率, 可选值有: year: 年, half_year: 半年, quarterly: 季度, bimonthly: 双月, month: 月, biweekly: 双周, week: 周, day: 日, hour: 小时
+	ValueType           string                                                  `json:"value_type,omitempty"`             // 薪资项数值类型可选值有: 金额数值百分比
+	PayOffFrequencyType string                                                  `json:"pay_off_frequency_type,omitempty"` // 发放频率可选值有: 年半年季度双月月双周周日小时
 	DecimalPlaces       int64                                                   `json:"decimal_places,omitempty"`         // 小数位数
-	ActiveStatus        int64                                                   `json:"active_status,omitempty"`          // 启用状态, 可选值有: 1: 启用, 0: 禁用
+	ActiveStatus        int64                                                   `json:"active_status,omitempty"`          // 启用状态可选值有: 启用禁用
 	I18nNames           []*GetCoreHRCompensationItemListRespItemI18nName        `json:"i18n_names,omitempty"`             // 多语言名称
 	I18nDescriptions    []*GetCoreHRCompensationItemListRespItemI18nDescription `json:"i18n_descriptions,omitempty"`      // 多语言描述
 }

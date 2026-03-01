@@ -25,7 +25,8 @@ import (
 //
 // 需要清单归属资源的读取权限。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/task-v2/section/get
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/section/get
+// new doc: https://open.feishu.cn/document/task-v2/section/get
 func (r *TaskService) GetTaskSection(ctx context.Context, request *GetTaskSectionReq, options ...MethodOptionFunc) (*GetTaskSectionResp, *Response, error) {
 	if r.cli.mock.mockTaskGetTaskSection != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#GetTaskSection mock enable")
@@ -60,8 +61,8 @@ func (r *Mock) UnMockTaskGetTaskSection() {
 
 // GetTaskSectionReq ...
 type GetTaskSectionReq struct {
-	SectionGuid string  `path:"section_guid" json:"-"`  // 要获取的自定义分组GUID, 示例值: "9842501a-9f47-4ff5-a622-d319eeecb97f", 最大长度: `100` 字符
-	UserIDType  *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 默认值: `open_id`
+	SectionGuid string  `path:"section_guid" json:"-"`  // 要获取的自定义分组GUID示例值: "9842501a-9f47-4ff5-a622-d319eeecb97f" 最大长度: `100` 字符
+	UserIDType  *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id默认值: `open_id`
 }
 
 // GetTaskSectionResp ...

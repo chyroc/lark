@@ -25,8 +25,6 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/batch_delete_collaborator
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task-collaborator/batch_delete_collaborator
-//
-// Deprecated
 func (r *TaskService) BatchDeleteTaskCollaborator(ctx context.Context, request *BatchDeleteTaskCollaboratorReq, options ...MethodOptionFunc) (*BatchDeleteTaskCollaboratorResp, *Response, error) {
 	if r.cli.mock.mockTaskBatchDeleteTaskCollaborator != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#BatchDeleteTaskCollaborator mock enable")

@@ -156,10 +156,95 @@ type GetEHREmployeeListRespItemSystemFields struct {
 	UpdateTime              int64                                                  `json:"update_time,omitempty"`               // 更新时间
 }
 
+// GetEHREmployeeListRespItemSystemFieldsCertOfMerit ...
+type GetEHREmployeeListRespItemSystemFieldsCertOfMerit struct {
+	ID       string `json:"id,omitempty"`        // 下载文件所需要的 Token
+	MimeType string `json:"mime_type,omitempty"` // 文件类型
+	Name     string `json:"name,omitempty"`      // 名称
+	Size     int64  `json:"size,omitempty"`      // 大小
+}
+
 // GetEHREmployeeListRespItemSystemFieldsContractCompany ...
 type GetEHREmployeeListRespItemSystemFieldsContractCompany struct {
 	ID   int64  `json:"id,omitempty"`   // 公司 ID
 	Name string `json:"name,omitempty"` // 公司名称
+}
+
+// GetEHREmployeeListRespItemSystemFieldsDiplomaPhoto ...
+type GetEHREmployeeListRespItemSystemFieldsDiplomaPhoto struct {
+	ID       string `json:"id,omitempty"`        // 下载文件所需要的 Token
+	MimeType string `json:"mime_type,omitempty"` // 文件类型
+	Name     string `json:"name,omitempty"`      // 名称
+	Size     int64  `json:"size,omitempty"`      // 大小
+}
+
+// GetEHREmployeeListRespItemSystemFieldsEducation ...
+type GetEHREmployeeListRespItemSystemFieldsEducation struct {
+	Level  int64  `json:"level,omitempty"`  // 学历可选值有: 小学初中高中职业高级中学中等专业学校大专本科硕士博士
+	School string `json:"school,omitempty"` // 毕业学校
+	Major  string `json:"major,omitempty"`  // 专业
+	Degree int64  `json:"degree,omitempty"` // 学位可选值有: 学士硕士博士
+	Start  string `json:"start,omitempty"`  // 开始日期
+	End    string `json:"end,omitempty"`    // 结束日期
+}
+
+// GetEHREmployeeListRespItemSystemFieldsEmergencyContact ...
+type GetEHREmployeeListRespItemSystemFieldsEmergencyContact struct {
+	Name         string `json:"name,omitempty"`         // 紧急联系人姓名
+	Relationship int64  `json:"relationship,omitempty"` // 与紧急联系人的关系可选值有: 父母配偶子女兄弟姐妹朋友其他
+	Mobile       string `json:"mobile,omitempty"`       // 手机号
+}
+
+// GetEHREmployeeListRespItemSystemFieldsFormerWorkExp ...
+type GetEHREmployeeListRespItemSystemFieldsFormerWorkExp struct {
+	Company     string `json:"company,omitempty"`     // 公司
+	Department  string `json:"department,omitempty"`  // 部门
+	Job         string `json:"job,omitempty"`         // 职位
+	Start       string `json:"start,omitempty"`       // 开始日期
+	End         string `json:"end,omitempty"`         // 截止日期
+	Description string `json:"description,omitempty"` // 工作描述
+}
+
+// GetEHREmployeeListRespItemSystemFieldsGraduationCert ...
+type GetEHREmployeeListRespItemSystemFieldsGraduationCert struct {
+	ID       string `json:"id,omitempty"`        // 下载文件所需要的 Token
+	MimeType string `json:"mime_type,omitempty"` // 文件类型
+	Name     string `json:"name,omitempty"`      // 名称
+	Size     int64  `json:"size,omitempty"`      // 大小
+}
+
+// GetEHREmployeeListRespItemSystemFieldsHighestLevelOfEdu ...
+type GetEHREmployeeListRespItemSystemFieldsHighestLevelOfEdu struct {
+	Level  int64  `json:"level,omitempty"`  // 学历可选值有: 小学初中高中职业高级中学中等专业学校大专本科硕士博士
+	School string `json:"school,omitempty"` // 毕业学校
+	Major  string `json:"major,omitempty"`  // 专业
+	Degree int64  `json:"degree,omitempty"` // 学位可选值有: 学士硕士博士
+	Start  string `json:"start,omitempty"`  // 开始日期
+	End    string `json:"end,omitempty"`    // 结束日期
+}
+
+// GetEHREmployeeListRespItemSystemFieldsIDPhoto ...
+type GetEHREmployeeListRespItemSystemFieldsIDPhoto struct {
+	ID       string `json:"id,omitempty"`        // 下载文件所需要的 Token
+	MimeType string `json:"mime_type,omitempty"` // 文件类型
+	Name     string `json:"name,omitempty"`      // 名称
+	Size     int64  `json:"size,omitempty"`      // 大小
+}
+
+// GetEHREmployeeListRespItemSystemFieldsIDPhotoEmSide ...
+type GetEHREmployeeListRespItemSystemFieldsIDPhotoEmSide struct {
+	ID       string `json:"id,omitempty"`        // 下载文件所需要的 Token
+	MimeType string `json:"mime_type,omitempty"` // 文件类型
+	Name     string `json:"name,omitempty"`      // 名称
+	Size     int64  `json:"size,omitempty"`      // 大小
+}
+
+// GetEHREmployeeListRespItemSystemFieldsIDPhotoPoSide ...
+type GetEHREmployeeListRespItemSystemFieldsIDPhotoPoSide struct {
+	ID       string `json:"id,omitempty"`        // 下载文件所需要的 Token
+	MimeType string `json:"mime_type,omitempty"` // 文件类型
+	Name     string `json:"name,omitempty"`      // 名称
+	Size     int64  `json:"size,omitempty"`      // 大小
 }
 
 // GetEHREmployeeListRespItemSystemFieldsJob ...
@@ -185,6 +270,31 @@ type GetEHREmployeeListRespItemSystemFieldsManager struct {
 type GetEHREmployeeListRespItemSystemFieldsNativeRegion struct {
 	IsoCode string `json:"iso_code,omitempty"` // ISO 编码
 	Name    string `json:"name,omitempty"`     // 名称
+}
+
+// GetEHREmployeeListRespItemSystemFieldsOffboardingFile ...
+type GetEHREmployeeListRespItemSystemFieldsOffboardingFile struct {
+	ID       string `json:"id,omitempty"`        // 下载文件所需要的 Token
+	MimeType string `json:"mime_type,omitempty"` // 文件类型
+	Name     string `json:"name,omitempty"`      // 名称
+	Size     int64  `json:"size,omitempty"`      // 大小
+}
+
+// GetEHREmployeeListRespItemSystemFieldsPrimaryEmergencyContact ...
+type GetEHREmployeeListRespItemSystemFieldsPrimaryEmergencyContact struct {
+	Name         string `json:"name,omitempty"`         // 紧急联系人姓名
+	Relationship int64  `json:"relationship,omitempty"` // 与紧急联系人的关系可选值有: 父母配偶子女兄弟姐妹朋友其他
+	Mobile       string `json:"mobile,omitempty"`       // 手机号
+}
+
+// GetEHREmployeeListRespItemSystemFieldsWorkExp ...
+type GetEHREmployeeListRespItemSystemFieldsWorkExp struct {
+	Company     string `json:"company,omitempty"`     // 公司
+	Department  string `json:"department,omitempty"`  // 部门
+	Job         string `json:"job,omitempty"`         // 职位
+	Start       string `json:"start,omitempty"`       // 开始日期
+	End         string `json:"end,omitempty"`         // 截止日期
+	Description string `json:"description,omitempty"` // 工作描述
 }
 
 // GetEHREmployeeListRespItemSystemFieldsWorkLocation ...

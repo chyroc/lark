@@ -91,6 +91,23 @@ type CreateSheetProtectedDimensionResp struct {
 	AddProtectedDimension []interface{} `json:"addProtectedDimension,omitempty"` // 保护范围的维度信息
 }
 
+// CreateSheetProtectedDimensionRespAddProtectedDimension ...
+type CreateSheetProtectedDimensionRespAddProtectedDimension struct {
+	Dimension *CreateSheetProtectedDimensionRespAddProtectedDimensionDimension `json:"dimension,omitempty"` // 保护范围的信息
+	Editors   []int64                                                          `json:"editors,omitempty"`   // 允许编辑保护范围的用户的 `lark_id`。
+	Users     []string                                                         `json:"users,omitempty"`     // 允许编辑保护范围的用户的 ID。ID 类型取决于查询参数 `user_id_type`。
+	LockInfo  string                                                           `json:"lockInfo,omitempty"`  // 保护范围的备注信息
+	ProtectID string                                                           `json:"protectId,omitempty"` // 保护范围的 ID
+}
+
+// CreateSheetProtectedDimensionRespAddProtectedDimensionDimension ...
+type CreateSheetProtectedDimensionRespAddProtectedDimensionDimension struct {
+	SheetID        string `json:"sheetId,omitempty"`        // 保护范围所在的工作表的 ID
+	MajorDimension string `json:"majorDimension,omitempty"` // 保护范围的维度。枚举值: ROWS: 行- COLUMNS: 列
+	StartIndex     int64  `json:"startIndex,omitempty"`     // 保护范围开始的行或列的索引。
+	EndIndex       int64  `json:"endIndex,omitempty"`       // 保护范围结束的行或列的索引。
+}
+
 // createSheetProtectedDimensionResp ...
 type createSheetProtectedDimensionResp struct {
 	Code int64                              `json:"code,omitempty"`

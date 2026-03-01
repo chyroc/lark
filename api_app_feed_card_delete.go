@@ -23,7 +23,8 @@ import (
 
 // DeleteAppFeedCard 该接口用于删除应用消息流卡片
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/group/im-v2/app_feed_card-batch/delete
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/group/im-v2/app_feed_card-batch/delete
+// new doc: https://open.feishu.cn/document/im-v2/app_feed_card/delete
 func (r *MessageService) DeleteAppFeedCard(ctx context.Context, request *DeleteAppFeedCardReq, options ...MethodOptionFunc) (*DeleteAppFeedCardResp, *Response, error) {
 	if r.cli.mock.mockMessageDeleteAppFeedCard != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#DeleteAppFeedCard mock enable")
@@ -57,14 +58,14 @@ func (r *Mock) UnMockMessageDeleteAppFeedCard() {
 
 // DeleteAppFeedCardReq ...
 type DeleteAppFeedCardReq struct {
-	UserIDType *IDType                         `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	FeedCards  []*DeleteAppFeedCardReqFeedCard `json:"feed_cards,omitempty"`   // 应用消息卡片, 长度范围: `1` ～ `20`
+	UserIDType *IDType                         `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	FeedCards  []*DeleteAppFeedCardReqFeedCard `json:"feed_cards,omitempty"`   // 应用消息卡片 长度范围: `1` ～ `20`
 }
 
 // DeleteAppFeedCardReqFeedCard ...
 type DeleteAppFeedCardReqFeedCard struct {
-	BizID  string `json:"biz_id,omitempty"`  // 业务 ID, 示例值: "ed381d34-49ac-4876-8d9e-23447acb587e"
-	UserID string `json:"user_id,omitempty"` // 用户 ID, 示例值: "ou_88553eda9014c201e6969b478895c223"
+	BizID  string `json:"biz_id,omitempty"`  // 业务 ID示例值: "ed381d34-49ac-4876-8d9e-23447acb587e"
+	UserID string `json:"user_id,omitempty"` // 用户 ID（ID 类型与 user_id_type 的取值一致。如果是商店应用, 因不支持获取用户 userID 权限, 所以无法值使用 user_id 类型的用户 ID）示例值: "ou_88553eda9014c201e6969b478895c223"
 }
 
 // DeleteAppFeedCardResp ...
@@ -76,7 +77,7 @@ type DeleteAppFeedCardResp struct {
 type DeleteAppFeedCardRespFailedCard struct {
 	BizID  string `json:"biz_id,omitempty"`  // 业务 ID
 	UserID string `json:"user_id,omitempty"` // 用户 ID
-	Reason string `json:"reason,omitempty"`  // 原因, 可选值有: 0: 未知, 1: 无权限, 2: 未创建, 3: 频率限制, 4: 重复
+	Reason string `json:"reason,omitempty"`  // 原因可选值有: 未知无权限未创建频率限制重复
 }
 
 // deleteAppFeedCardResp ...

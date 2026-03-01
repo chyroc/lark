@@ -91,6 +91,28 @@ type SendRawMessageResp struct {
 	UpperMessageID string       `json:"upper_message_id,omitempty"` // 合并转发消息中, 上一层级的消息 ID, 仅在合并转发场景会有返回值。了解 upper_message_id 可参见[消息管理概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/message/intro)。
 }
 
+// SendRawMessageRespBody ...
+type SendRawMessageRespBody struct {
+	Content string `json:"content,omitempty"` // 消息内容, JSON 结构序列化后的字符串, 不同消息类型（`msg_type`）对应不同内容。
+}
+
+// SendRawMessageRespMention ...
+type SendRawMessageRespMention struct {
+	Key       string `json:"key,omitempty"`        // 被 @ 的用户序号。例如, 第 3 个被 @ 到的成员, 取值为 `@_user_3`。
+	ID        string `json:"id,omitempty"`         // 被 @ 的用户的 open_id。
+	IDType    IDType `json:"id_type,omitempty"`    // 被 @ 的用户的 ID 类型, 目前仅支持 `open_id` (了解[什么是 Open ID](https://open.feishu.cn/document/home/user-identity-introduction/open-id))。
+	Name      string `json:"name,omitempty"`       // 被 @ 的用户姓名。
+	TenantKey string `json:"tenant_key,omitempty"` // 租户唯一标识。该标识用来识别被 @ 用户的租户, 也可以用来获取租户访问凭证（tenant_access_token）。
+}
+
+// SendRawMessageRespSender ...
+type SendRawMessageRespSender struct {
+	ID         string `json:"id,omitempty"`          // 发送者的 ID。
+	IDType     IDType `json:"id_type,omitempty"`     // 发送者的 ID 类型。可能值有: `open_id`: 表示发送者为用户, 且返回的 ID 是用户的 open_id。- `app_id`: 表示发送者为应用, 且返回的 ID 是应用的 app_id。
+	SenderType string `json:"sender_type,omitempty"` // 发送者类型。可能值有: `user`: 用户- `app`: 应用- `anonymous`: 匿名（未生效, 不会返回该值）- `unknown`: 未知（未生效, 不会返回该值）
+	TenantKey  string `json:"tenant_key,omitempty"`  // 租户唯一标识。该标识用来识别租户, 也可以用来获取租户访问凭证（tenant_access_token）。
+}
+
 // sendRawMessageResp ...
 type sendRawMessageResp struct {
 	Code  int64               `json:"code,omitempty"` // 错误码, 非 0 表示失败

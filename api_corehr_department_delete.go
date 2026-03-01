@@ -21,15 +21,13 @@ import (
 	"context"
 )
 
-// DeleteCoreHRDepartment 可以通过该接口通过部门ID删除一个部门记录
+// DeleteCoreHRDepartment 可以通过该接口通过部门ID删除一个部门记录, 带数据行权限判权
 //
+// 该接口为 V2 版本接口。要查看旧版 V1 接口, 参考: [【删除部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/delete)
 // 删除后无法恢复, 并且在系统中无法查看到对应部门信息, 请谨慎操作。
-// 该接口不再推荐使用, 请使用[【删除部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/delete)接口。
 //
-// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/delete
-// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/department/delete
-//
-// Deprecated
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/delete
+// new doc: https://open.feishu.cn/document/corehr-v1/organization-management/department/delete
 func (r *CoreHRService) DeleteCoreHRDepartment(ctx context.Context, request *DeleteCoreHRDepartmentReq, options ...MethodOptionFunc) (*DeleteCoreHRDepartmentResp, *Response, error) {
 	if r.cli.mock.mockCoreHRDeleteCoreHRDepartment != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHRDepartment mock enable")
@@ -40,7 +38,7 @@ func (r *CoreHRService) DeleteCoreHRDepartment(ctx context.Context, request *Del
 		Scope:                 "CoreHR",
 		API:                   "DeleteCoreHRDepartment",
 		Method:                "DELETE",
-		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/departments/:department_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/departments/:department_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
@@ -63,11 +61,13 @@ func (r *Mock) UnMockCoreHRDeleteCoreHRDepartment() {
 
 // DeleteCoreHRDepartmentReq ...
 type DeleteCoreHRDepartmentReq struct {
-	DepartmentID string `path:"department_id" json:"-"` // 需要删除的部门 ID, 可通过[【搜索部门信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/search)接口查询获得示例值: "341143141"
+	DepartmentID     string            `path:"department_id" json:"-"`       // 需要删除的部门 ID, 可通过[【搜索部门信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/search)接口查询获得示例值: "1616161616"
+	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门 ID 类型示例值: open_department_id可选值有: 【飞书】用来在具体某个应用中标识一个部门, 同一个department_id 在不同应用中的 open_department_id 相同。【飞书】用来标识租户内一个唯一的部门。【飞书人事】用来标识「飞书人事」中的部门。默认值: `open_department_id`
 }
 
 // DeleteCoreHRDepartmentResp ...
-type DeleteCoreHRDepartmentResp struct{}
+type DeleteCoreHRDepartmentResp struct {
+}
 
 // deleteCoreHRDepartmentResp ...
 type deleteCoreHRDepartmentResp struct {

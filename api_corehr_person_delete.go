@@ -62,7 +62,8 @@ type DeleteCoreHRPersonReq struct {
 }
 
 // DeleteCoreHRPersonResp ...
-type DeleteCoreHRPersonResp struct{}
+type DeleteCoreHRPersonResp struct {
+}
 
 // deleteCoreHRPersonResp ...
 type deleteCoreHRPersonResp struct {

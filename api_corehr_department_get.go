@@ -28,8 +28,6 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/get
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/department/get
-//
-// Deprecated
 func (r *CoreHRService) GetCoreHRDepartment(ctx context.Context, request *GetCoreHRDepartmentReq, options ...MethodOptionFunc) (*GetCoreHRDepartmentResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRDepartment != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRDepartment mock enable")

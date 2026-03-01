@@ -23,7 +23,8 @@ import (
 
 // GetCoreHRCompensationItemCategoryList 批量获取薪资项分类信息
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item_category/list
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item_category/list
+// new doc: https://open.feishu.cn/document/corehr-v1/basic-compensation/compensation-component-and-metric/list
 func (r *CoreHRService) GetCoreHRCompensationItemCategoryList(ctx context.Context, request *GetCoreHRCompensationItemCategoryListReq, options ...MethodOptionFunc) (*GetCoreHRCompensationItemCategoryListResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRCompensationItemCategoryList != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRCompensationItemCategoryList mock enable")
@@ -57,8 +58,8 @@ func (r *Mock) UnMockCoreHRGetCoreHRCompensationItemCategoryList() {
 
 // GetCoreHRCompensationItemCategoryListReq ...
 type GetCoreHRCompensationItemCategoryListReq struct {
-	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小, 示例值: 100, 默认值: `100`, 取值范围: `1` ～ `500`
-	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 231412341234
+	PageSize  *int64  `query:"page_size" json:"-"`  // 分页大小示例值: 100默认值: `100` 取值范围: `1` ～ `500`
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 231412341234
 }
 
 // GetCoreHRCompensationItemCategoryListResp ...

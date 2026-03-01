@@ -32,4 +32,5 @@ func (r *AppLinkService) OpenCalender(req *OpenCalenderReq) string {
 }
 
 // OpenCalenderReq ...
-type OpenCalenderReq struct{}
+type OpenCalenderReq struct {
+}

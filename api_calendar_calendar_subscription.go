@@ -57,10 +57,12 @@ func (r *Mock) UnMockCalendarSubscribeCalendarChangeEvent() {
 }
 
 // SubscribeCalendarChangeEventReq ...
-type SubscribeCalendarChangeEventReq struct{}
+type SubscribeCalendarChangeEventReq struct {
+}
 
 // SubscribeCalendarChangeEventResp ...
-type SubscribeCalendarChangeEventResp struct{}
+type SubscribeCalendarChangeEventResp struct {
+}
 
 // subscribeCalendarChangeEventResp ...
 type subscribeCalendarChangeEventResp struct {

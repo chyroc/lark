@@ -25,8 +25,6 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/person/get
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/person/get
-//
-// Deprecated
 func (r *CoreHRService) GetCoreHRPerson(ctx context.Context, request *GetCoreHRPersonReq, options ...MethodOptionFunc) (*GetCoreHRPersonResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRPerson != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRPerson mock enable")

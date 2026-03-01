@@ -23,7 +23,12 @@ import (
 
 // QueryCoreHRJobGrade 查询职等的详细信息。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query
+// - 每次最多传 100 个职等 ID 和 Code, 如果不传则默认无筛选条件, 返回全部列表
+// - 延迟说明: 数据库主从延迟 2s 以内, 即: 直接创建职等后2s内调用此接口可能查询不到数据。
+// - 所有筛选项可一起使用, 之间为 AND 关系
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query
+// new doc: https://open.feishu.cn/document/corehr-v1/job-management/job_grade/query
 func (r *CoreHRService) QueryCoreHRJobGrade(ctx context.Context, request *QueryCoreHRJobGradeReq, options ...MethodOptionFunc) (*QueryCoreHRJobGradeResp, *Response, error) {
 	if r.cli.mock.mockCoreHRQueryCoreHRJobGrade != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#QueryCoreHRJobGrade mock enable")
@@ -57,11 +62,11 @@ func (r *Mock) UnMockCoreHRQueryCoreHRJobGrade() {
 
 // QueryCoreHRJobGradeReq ...
 type QueryCoreHRJobGradeReq struct {
-	PageSize  int64    `query:"page_size" json:"-"`  // 分页大小, 最大 100, 示例值: 100, 取值范围: `1` ～ `100`
-	PageToken *string  `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 6891251722631890445
-	IDs       []string `json:"ids,omitempty"`        // 职等ID列表, 不填写则返回全部列表, 示例值: ["7140964208476371111"], 长度范围: `0` ～ `100`
-	Codes     []string `json:"codes,omitempty"`      // 职等code列表, 不填写则返回全部列表, 示例值: ["714096420847637222"], 长度范围: `0` ～ `100`
-	Active    *bool    `json:"active,omitempty"`     // 是否启用, 不填写则返回全部列表, 示例值: true
+	PageSize  int64    `query:"page_size" json:"-"`  // 分页大小, 最大 100示例值: 100 取值范围: `1` ～ `100`
+	PageToken *string  `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 6891251722631890445
+	IDs       []string `json:"ids,omitempty"`        // 职等 ID 列表, 不填写则返回全部列表示例值: ["7140964208476371111"] 长度范围: `0` ～ `100`
+	Codes     []string `json:"codes,omitempty"`      // 职等 code 列表, 不填写则返回全部列表示例值: ["A1234"] 长度范围: `0` ～ `100`
+	Active    *bool    `json:"active,omitempty"`     // 是否启用, 不填写则不作为过滤条件示例值: true
 }
 
 // QueryCoreHRJobGradeResp ...

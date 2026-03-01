@@ -71,7 +71,8 @@ type AnswerHelpdeskTicketUserQueryReqFAQ struct {
 }
 
 // AnswerHelpdeskTicketUserQueryResp ...
-type AnswerHelpdeskTicketUserQueryResp struct{}
+type AnswerHelpdeskTicketUserQueryResp struct {
+}
 
 // answerHelpdeskTicketUserQueryResp ...
 type answerHelpdeskTicketUserQueryResp struct {

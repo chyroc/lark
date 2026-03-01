@@ -68,7 +68,8 @@ type ReplyCalendarMeetingRoomInstanceReq struct {
 }
 
 // ReplyCalendarMeetingRoomInstanceResp ...
-type ReplyCalendarMeetingRoomInstanceResp struct{}
+type ReplyCalendarMeetingRoomInstanceResp struct {
+}
 
 // replyCalendarMeetingRoomInstanceResp ...
 type replyCalendarMeetingRoomInstanceResp struct {

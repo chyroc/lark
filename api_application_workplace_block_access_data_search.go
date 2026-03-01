@@ -72,6 +72,19 @@ type SearchApplicationWorkplaceBlockAccessDataResp struct {
 	PageToken string       `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 }
 
+// SearchApplicationWorkplaceBlockAccessDataRespItem ...
+type SearchApplicationWorkplaceBlockAccessDataRespItem struct {
+	Date       string                                                       `json:"date,omitempty"`        // 时间, 精确到天, 格式yyyy-MM-dd
+	BlockID    string                                                       `json:"block_id,omitempty"`    // 小组件id（BlockID）。可前往 飞书管理后台 > 工作台 > 定制工作台, 选择指定的工作台并进入工作台编辑器, 点击某个小组件, 即可查看页面右侧面板中该小组件名称下方的“BlockID”
+	AccessData *SearchApplicationWorkplaceBlockAccessDataRespItemAccessData `json:"access_data,omitempty"` // block访问数据信息。
+}
+
+// SearchApplicationWorkplaceBlockAccessDataRespItemAccessData ...
+type SearchApplicationWorkplaceBlockAccessDataRespItemAccessData struct {
+	Pv int64 `json:"pv,omitempty"` // 访问次数
+	Uv int64 `json:"uv,omitempty"` // 访问用户数(去重)
+}
+
 // searchApplicationWorkplaceBlockAccessDataResp ...
 type searchApplicationWorkplaceBlockAccessDataResp struct {
 	Code  int64                                          `json:"code,omitempty"` // 错误码, 非 0 表示失败

@@ -69,7 +69,8 @@ type BatchDeleteMailGroupManagerReqMailGroupManager struct {
 }
 
 // BatchDeleteMailGroupManagerResp ...
-type BatchDeleteMailGroupManagerResp struct{}
+type BatchDeleteMailGroupManagerResp struct {
+}
 
 // batchDeleteMailGroupManagerResp ...
 type batchDeleteMailGroupManagerResp struct {

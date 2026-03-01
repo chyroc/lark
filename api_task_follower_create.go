@@ -25,8 +25,6 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-follower/create
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task-follower/create
-//
-// Deprecated
 func (r *TaskService) CreateTaskFollower(ctx context.Context, request *CreateTaskFollowerReq, options ...MethodOptionFunc) (*CreateTaskFollowerResp, *Response, error) {
 	if r.cli.mock.mockTaskCreateTaskFollower != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#CreateTaskFollower mock enable")

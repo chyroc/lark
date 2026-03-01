@@ -69,6 +69,11 @@ type ReconcileHireReferralAccountReqTradeDetail struct {
 	TotalRechargeRewardInfo *int64 `json:"total_recharge_reward_info,omitempty"` // 时段内该账户发生在调用方系统的积分之和
 }
 
+// ReconcileHireReferralAccountReqTradeDetailTotalRechargeRewardInfo ...
+type ReconcileHireReferralAccountReqTradeDetailTotalRechargeRewardInfo struct {
+	PointBonus *int64 `json:"point_bonus,omitempty"` // 变动的积分数量示例值: 100
+}
+
 // ReconcileHireReferralAccountResp ...
 type ReconcileHireReferralAccountResp struct {
 	CheckFailedList []*ReconcileHireReferralAccountRespCheckFailed `json:"check_failed_list,omitempty"` // 核对失败的信息
@@ -79,6 +84,16 @@ type ReconcileHireReferralAccountRespCheckFailed struct {
 	AccountID               string `json:"account_id,omitempty"`                 // 内推账户ID
 	TotalWithdrawRewardInfo int64  `json:"total_withdraw_reward_info,omitempty"` // 飞书招聘系统内的账户积分提取数量, 若该时段内未发生任何提取记录, 则该字段不返回
 	TotalRechargeRewardInfo int64  `json:"total_recharge_reward_info,omitempty"` // 调用方系统的积分变动数量
+}
+
+// ReconcileHireReferralAccountRespCheckFailedTotalRechargeRewardInfo ...
+type ReconcileHireReferralAccountRespCheckFailedTotalRechargeRewardInfo struct {
+	PointBonus int64 `json:"point_bonus,omitempty"` // 积分数量
+}
+
+// ReconcileHireReferralAccountRespCheckFailedTotalWithdrawRewardInfo ...
+type ReconcileHireReferralAccountRespCheckFailedTotalWithdrawRewardInfo struct {
+	PointBonus int64 `json:"point_bonus,omitempty"` // 积分数量
 }
 
 // reconcileHireReferralAccountResp ...

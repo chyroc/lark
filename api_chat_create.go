@@ -90,6 +90,13 @@ type CreateChatReq struct {
 	HideMemberCountSetting *string                             `json:"hide_member_count_setting,omitempty"` // 隐藏群成员人数设置默认值: all_members示例值: "all_members"可选值有: 所有群成员可见仅群主群管理员可见
 }
 
+// CreateChatReqI18nNames ...
+type CreateChatReqI18nNames struct {
+	ZhCn *string `json:"zh_cn,omitempty"` // 中文名示例值: "群聊"
+	EnUs *string `json:"en_us,omitempty"` // 英文名示例值: "group chat"
+	JaJp *string `json:"ja_jp,omitempty"` // 日文名示例值: "グループチャット"
+}
+
 // CreateChatReqRestrictedModeSetting ...
 type CreateChatReqRestrictedModeSetting struct {
 	Status                         *bool   `json:"status,omitempty"`                            // 保密模式是否开启可选值有: true: 开启。设置为 ture 时, `screenshot_has_permission_setting`、`download_has_permission_setting`、`message_has_permission_setting` 不能全为 `all_members`。- false: 不开启。设置为 false 时, `screenshot_has_permission_setting`、`download_has_permission_setting`、`message_has_permission_setting` 不能存在 `not_anyone`。默认值: false示例值: false
@@ -125,6 +132,13 @@ type CreateChatResp struct {
 	ModerationPermission   ModerationPermission                 `json:"moderation_permission,omitempty"`     // 发言权限可选值有: `only_owner`: 仅群主和管理员- `all_members`: 所有成员- `moderator_list`: 指定群成员
 	RestrictedModeSetting  *CreateChatRespRestrictedModeSetting `json:"restricted_mode_setting,omitempty"`   // 保密模式设置注意: 仅企业旗舰版支持设置保密模式。保密模式的适用版本与功能介绍, 参见[会话保密模式](https://www.feishu.cn/hc/zh-CN/articles/418691056559)。
 	HideMemberCountSetting string                               `json:"hide_member_count_setting,omitempty"` // 隐藏群成员人数设置可选值有: 所有群成员可见仅群主群管理员可见
+}
+
+// CreateChatRespI18nNames ...
+type CreateChatRespI18nNames struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名
+	EnUs string `json:"en_us,omitempty"` // 英文名
+	JaJp string `json:"ja_jp,omitempty"` // 日文名
 }
 
 // CreateChatRespRestrictedModeSetting ...

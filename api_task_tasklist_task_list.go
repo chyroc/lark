@@ -25,9 +25,11 @@ import (
 //
 // 本接口支持分页。清单中的任务以“自定义拖拽”的顺序返回。
 // 本接口支持简单的按照任务的完成状态或者任务的创建时间范围过滤。
+// 分页参数说明: 是否还有分页数据的判断依据是has_more=true, 并非items个数, 由于历史原因可能出现当前分页items为空情况。
 // 需要清单读取权限。详情见[清单功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/overview)中的“清单是如何鉴权的？“章节。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/tasks
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/tasks
+// new doc: https://open.feishu.cn/document/task-v2/tasklist/tasks
 func (r *TaskService) GetTaskTaskListOfTasklist(ctx context.Context, request *GetTaskTaskListOfTasklistReq, options ...MethodOptionFunc) (*GetTaskTaskListOfTasklistResp, *Response, error) {
 	if r.cli.mock.mockTaskGetTaskTaskListOfTasklist != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#GetTaskTaskListOfTasklist mock enable")
@@ -62,13 +64,13 @@ func (r *Mock) UnMockTaskGetTaskTaskListOfTasklist() {
 
 // GetTaskTaskListOfTasklistReq ...
 type GetTaskTaskListOfTasklistReq struct {
-	TasklistGuid string  `path:"tasklist_guid" json:"-"` // 要获取任务的清单全局唯一ID, 示例值: "d300a75f-c56a-4be9-80d1-e47653028ceb"
-	PageSize     *int64  `query:"page_size" json:"-"`    // 每页返回的任务数量, 示例值: 50, 默认值: `50`, 取值范围: `1` ～ `100`
-	PageToken    *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: aWQ9NzEwMjMzMjMxMDE=, 最大长度: `100` 字符
-	Completed    *bool   `query:"completed" json:"-"`    // 只查看特定完成状态的任务, 填写“true”表示返回已经完成的任务；“false”表示只返回未完成的任务；不填写表示不按完成状态过滤, 示例值: true
-	CreatedFrom  *string `query:"created_from" json:"-"` // 任务创建的起始时间戳（ms）, 闭区间, 不填写默认为首个任务的创建时间戳, 示例值: 1675742789470
-	CreatedTo    *string `query:"created_to" json:"-"`   // 任务创建的结束时间戳（ms）, 闭区间, 不填写默认为最后创建任务的创建时间戳, 示例值: 1675742789470
-	UserIDType   *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 默认值: `open_id`
+	TasklistGuid string  `path:"tasklist_guid" json:"-"` // 要获取任务的清单全局唯一ID示例值: "d300a75f-c56a-4be9-80d1-e47653028ceb"
+	PageSize     *int64  `query:"page_size" json:"-"`    // 每页返回的任务数量示例值: 50默认值: `50` 取值范围: `1` ～ `100`
+	PageToken    *string `query:"page_token" json:"-"`   // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: aWQ9NzEwMjMzMjMxMDE= 最大长度: `100` 字符
+	Completed    *bool   `query:"completed" json:"-"`    // 只查看特定完成状态的任务, 填写“true”表示返回已经完成的任务；“false”表示只返回未完成的任务；不填写表示不按完成状态过滤。示例值: true
+	CreatedFrom  *string `query:"created_from" json:"-"` // 任务创建的起始时间戳（ms）, 闭区间, 不填写默认为首个任务的创建时间戳示例值: 1675742789470
+	CreatedTo    *string `query:"created_to" json:"-"`   // 任务创建的结束时间戳（ms）, 闭区间, 不填写默认为最后创建任务的创建时间戳示例值: 1675742789470
+	UserIDType   *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id默认值: `open_id`
 }
 
 // GetTaskTaskListOfTasklistResp ...
@@ -100,6 +102,7 @@ type GetTaskTaskListOfTasklistRespItemMember struct {
 	ID   string `json:"id,omitempty"`   // 表示member的id
 	Type string `json:"type,omitempty"` // 成员的类型
 	Role string `json:"role,omitempty"` // 成员角色
+	Name string `json:"name,omitempty"` // 成员名称
 }
 
 // GetTaskTaskListOfTasklistRespItemStart ...

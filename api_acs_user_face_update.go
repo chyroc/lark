@@ -68,7 +68,8 @@ type UpdateACSUserFaceReq struct {
 }
 
 // UpdateACSUserFaceResp ...
-type UpdateACSUserFaceResp struct{}
+type UpdateACSUserFaceResp struct {
+}
 
 // updateACSUserFaceResp ...
 type updateACSUserFaceResp struct {

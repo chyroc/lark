@@ -68,6 +68,43 @@ type GetSheetConditionFormatResp struct {
 	SheetConditionFormats []interface{} `json:"sheet_condition_formats,omitempty"` // 表格的条件格式信息
 }
 
+// GetSheetConditionFormatRespSheetConditionFormat ...
+type GetSheetConditionFormatRespSheetConditionFormat struct {
+	SheetID         string                                                          `json:"sheet_id,omitempty"`         // 电子表格工作表的 ID
+	ConditionFormat *GetSheetConditionFormatRespSheetConditionFormatConditionFormat `json:"condition_format,omitempty"` // 条件格式的详细信息
+}
+
+// GetSheetConditionFormatRespSheetConditionFormatConditionFormat ...
+type GetSheetConditionFormatRespSheetConditionFormatConditionFormat struct {
+	CfID     string                                                                `json:"cf_id,omitempty"`     // 条件格式的 ID
+	Ranges   []string                                                              `json:"ranges,omitempty"`    // 条件格式应用的范围, 支持以下枚举值, 了解更多, 参考[条件格式指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/conditionformat/condition-format-guide)。- `sheetId`: 填写工作表 ID, 表示将条件格式应用于整表- `sheetId!{开始行索引}:{结束行索引}`: 填写工作表 ID 和行数区间, 表示将条件格式应用于整行- `sheetId!{开始列索引}:{结束列索引}`: 填写工作表 ID 和列的区间, 表示将条件格式应用于整列- `sheetId!{开始单元格}:{结束单元格}`: 填写工作表 ID 和单元格区间, 表示将条件格式应用于单元格选定的区域中- `sheetId!{开始单元格}:{结束列索引}`: 填写工作表 ID、起始单元格和结束列, 表示省略结束行, 使用表格的最后行作为结束行  示例值: ["40a7b0!C3:C3"]
+	RuleType string                                                                `json:"rule_type,omitempty"` // 创建条件时的规则类型。枚举值: containsBlanks: 为空- notContainsBlanks: 不为空- duplicateValues: 重复值- uniqueValues: 唯一值- cellIs: 限定值范围- containsText: 包含内容- timePeriod: 日期
+	Attrs    []*GetSheetConditionFormatRespSheetConditionFormatConditionFormatAttr `json:"attrs,omitempty"`     // `rule_type` 参数对应的具体属性信息。了解更多, 参考[条件格式指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/conditionformat/condition-format-guide)。
+	Style    *GetSheetConditionFormatRespSheetConditionFormatConditionFormatStyle  `json:"style,omitempty"`     // 条件格式的样式。支持设置字体样式、文本装饰、字体颜色和背景颜色。
+}
+
+// GetSheetConditionFormatRespSheetConditionFormatConditionFormatAttr ...
+type GetSheetConditionFormatRespSheetConditionFormatConditionFormatAttr struct {
+	Operator   string   `json:"operator,omitempty"`    // 操作方法。了解更多, 参考[条件格式指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/conditionformat/condition-format-guide)。
+	TimePeriod string   `json:"time_period,omitempty"` // 时间范围。当 `rule_type` 为 `timePeriod` 时, 返回该参数, 且 `operator` 参数仅支持 `is`。枚举值: - yesterday: 昨天- today: 今天- tomorrow: 明天- last7Days: 最近 7 天
+	Formula    []string `json:"formula,omitempty"`     // 公式。当 `rule_type` 为 `cellIs` 时, 返回该参数。
+	Text       string   `json:"text,omitempty"`        // 文本。当 `rule_type` 为 `containsText` 时, 返回该参数。值为用户自定义。
+}
+
+// GetSheetConditionFormatRespSheetConditionFormatConditionFormatStyle ...
+type GetSheetConditionFormatRespSheetConditionFormatConditionFormatStyle struct {
+	Font           *GetSheetConditionFormatRespSheetConditionFormatConditionFormatStyleFont `json:"font,omitempty"`            // 符合条件的数据的字体样式
+	TextDecoration int64                                                                    `json:"text_decoration,omitempty"` // 文本装饰。为文本设置下划线或删除线。可选值: 0: 无下划线和删除线- 1: 下划线- 2: 删除线- 3: 同时设置下划线和删除线
+	ForeColor      string                                                                   `json:"fore_color,omitempty"`      // 字体颜色的十六进制代码。如 #faf1d1。
+	BackColor      string                                                                   `json:"back_color,omitempty"`      // 背景颜色的十六进制代码。如 #faf1d1。
+}
+
+// GetSheetConditionFormatRespSheetConditionFormatConditionFormatStyleFont ...
+type GetSheetConditionFormatRespSheetConditionFormatConditionFormatStyleFont struct {
+	Bold   bool `json:"bold,omitempty"`   // 字体是否加粗
+	Italic bool `json:"italic,omitempty"` // 字体是否为斜体
+}
+
 // getSheetConditionFormatResp ...
 type getSheetConditionFormatResp struct {
 	Code int64                        `json:"code,omitempty"`

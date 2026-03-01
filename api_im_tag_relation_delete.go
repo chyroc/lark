@@ -23,7 +23,8 @@ import (
 
 // DeleteIMTagRelation 从业务实体上解绑标签。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/group/im-v2/biz_entity_tag_relation/update
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/group/im-v2/biz_entity_tag_relation/update
+// new doc: https://open.feishu.cn/document/tenant-tag/update
 func (r *MessageService) DeleteIMTagRelation(ctx context.Context, request *DeleteIMTagRelationReq, options ...MethodOptionFunc) (*DeleteIMTagRelationResp, *Response, error) {
 	if r.cli.mock.mockMessageDeleteIMTagRelation != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#DeleteIMTagRelation mock enable")
@@ -57,13 +58,14 @@ func (r *Mock) UnMockMessageDeleteIMTagRelation() {
 
 // DeleteIMTagRelationReq ...
 type DeleteIMTagRelationReq struct {
-	TagBizType  string   `json:"tag_biz_type,omitempty"`  // 业务类型, 示例值: "chat", 可选值有: chat: chat类型
-	BizEntityID string   `json:"biz_entity_id,omitempty"` // 业务实体id, 示例值: "oc_xxxxx"
-	TagIDs      []string `json:"tag_ids,omitempty"`       // 标签id, 示例值: ["7161681111"], 长度范围: `0` ～ `40`
+	TagBizType  string   `json:"tag_biz_type,omitempty"`  // 业务类型示例值: "chat"可选值有: chat类型
+	BizEntityID string   `json:"biz_entity_id,omitempty"` // 业务实体id示例值: "oc_xxxxx"
+	TagIDs      []string `json:"tag_ids,omitempty"`       // 标签id示例值: ["7161681111"] 长度范围: `0` ～ `40`
 }
 
 // DeleteIMTagRelationResp ...
-type DeleteIMTagRelationResp struct{}
+type DeleteIMTagRelationResp struct {
+}
 
 // deleteIMTagRelationResp ...
 type deleteIMTagRelationResp struct {

@@ -64,7 +64,8 @@ type SubscribeCalendarEventReq struct {
 }
 
 // SubscribeCalendarEventResp ...
-type SubscribeCalendarEventResp struct{}
+type SubscribeCalendarEventResp struct {
+}
 
 // subscribeCalendarEventResp ...
 type subscribeCalendarEventResp struct {

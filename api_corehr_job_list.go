@@ -25,8 +25,6 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/list
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/job-management/job/list
-//
-// Deprecated
 func (r *CoreHRService) GetCoreHRJobList(ctx context.Context, request *GetCoreHRJobListReq, options ...MethodOptionFunc) (*GetCoreHRJobListResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRJobList != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRJobList mock enable")

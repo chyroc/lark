@@ -28,8 +28,6 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/file/upload
 // new doc: https://open.feishu.cn/document/server-docs/baike-v1/file/upload
-//
-// Deprecated
 func (r *BaikeService) UploadBaikeImage(ctx context.Context, request *UploadBaikeImageReq, options ...MethodOptionFunc) (*UploadBaikeImageResp, *Response, error) {
 	if r.cli.mock.mockBaikeUploadBaikeImage != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Baike#UploadBaikeImage mock enable")

@@ -27,8 +27,6 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/entity/list
 // new doc: https://open.feishu.cn/document/server-docs/baike-v1/entity/list
-//
-// Deprecated
 func (r *BaikeService) GetBaikeEntityList(ctx context.Context, request *GetBaikeEntityListReq, options ...MethodOptionFunc) (*GetBaikeEntityListResp, *Response, error) {
 	if r.cli.mock.mockBaikeGetBaikeEntityList != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Baike#GetBaikeEntityList mock enable")

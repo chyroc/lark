@@ -62,7 +62,8 @@ type DeleteAttendanceGroupReq struct {
 }
 
 // DeleteAttendanceGroupResp ...
-type DeleteAttendanceGroupResp struct{}
+type DeleteAttendanceGroupResp struct {
+}
 
 // deleteAttendanceGroupResp ...
 type deleteAttendanceGroupResp struct {

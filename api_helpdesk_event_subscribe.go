@@ -69,7 +69,8 @@ type SubscribeHelpdeskEventReqEvent struct {
 }
 
 // SubscribeHelpdeskEventResp ...
-type SubscribeHelpdeskEventResp struct{}
+type SubscribeHelpdeskEventResp struct {
+}
 
 // subscribeHelpdeskEventResp ...
 type subscribeHelpdeskEventResp struct {

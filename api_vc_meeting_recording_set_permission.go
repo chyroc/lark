@@ -74,7 +74,8 @@ type SetVCPermissionMeetingRecordingReqPermissionObject struct {
 }
 
 // SetVCPermissionMeetingRecordingResp ...
-type SetVCPermissionMeetingRecordingResp struct{}
+type SetVCPermissionMeetingRecordingResp struct {
+}
 
 // setVCPermissionMeetingRecordingResp ...
 type setVCPermissionMeetingRecordingResp struct {

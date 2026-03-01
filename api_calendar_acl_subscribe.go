@@ -64,7 +64,8 @@ type SubscribeCalendarACLReq struct {
 }
 
 // SubscribeCalendarACLResp ...
-type SubscribeCalendarACLResp struct{}
+type SubscribeCalendarACLResp struct {
+}
 
 // subscribeCalendarACLResp ...
 type subscribeCalendarACLResp struct {

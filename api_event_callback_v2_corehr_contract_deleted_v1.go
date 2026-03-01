@@ -21,18 +21,18 @@ import (
 	"context"
 )
 
-// EventV2CorehrContractDeletedV1 通过开放平台删除合同时, 会触发该事件。注意: 删除后, 无法通过搜索接口查询到合同信息。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=contract&event=deleted)
+// EventV2CoreHRContractDeletedV1 通过开放平台删除合同时, 会触发该事件。注意: 删除后, 无法通过搜索接口查询到合同信息。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=contract&event=deleted)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/events/deleted
 // new doc: https://open.feishu.cn/document/corehr-v1/contract/contract-events/deleted
-func (r *EventCallbackService) HandlerEventV2CorehrContractDeletedV1(f EventV2CorehrContractDeletedV1Handler) {
-	r.cli.eventHandler.eventV2CorehrContractDeletedV1Handler = f
+func (r *EventCallbackService) HandlerEventV2CoreHRContractDeletedV1(f EventV2CoreHRContractDeletedV1Handler) {
+	r.cli.eventHandler.eventV2CoreHRContractDeletedV1Handler = f
 }
 
-// EventV2CorehrContractDeletedV1Handler event EventV2CorehrContractDeletedV1 handler
-type EventV2CorehrContractDeletedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CorehrContractDeletedV1) (string, error)
+// EventV2CoreHRContractDeletedV1Handler event EventV2CoreHRContractDeletedV1 handler
+type EventV2CoreHRContractDeletedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CoreHRContractDeletedV1) (string, error)
 
-// EventV2CorehrContractDeletedV1 ...
-type EventV2CorehrContractDeletedV1 struct {
+// EventV2CoreHRContractDeletedV1 ...
+type EventV2CoreHRContractDeletedV1 struct {
 	ContractID string `json:"contract_id,omitempty"` // 合同ID, 删除后无法通过接口查询到数据
 }

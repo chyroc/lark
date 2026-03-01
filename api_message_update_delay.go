@@ -104,7 +104,8 @@ func (r UpdateMessageDelayReqCard) MarshalJSON() ([]byte, error) {
 }
 
 // UpdateMessageDelayResp ...
-type UpdateMessageDelayResp struct{}
+type UpdateMessageDelayResp struct {
+}
 
 // updateMessageDelayResp ...
 type updateMessageDelayResp struct {

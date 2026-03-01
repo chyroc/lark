@@ -72,7 +72,8 @@ type PartUploadDriveMediaReq struct {
 }
 
 // PartUploadDriveMediaResp ...
-type PartUploadDriveMediaResp struct{}
+type PartUploadDriveMediaResp struct {
+}
 
 // partUploadDriveMediaResp ...
 type partUploadDriveMediaResp struct {

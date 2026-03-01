@@ -32,4 +32,5 @@ func (r *AppLinkService) OpenLark(req *OpenLarkReq) string {
 }
 
 // OpenLarkReq ...
-type OpenLarkReq struct{}
+type OpenLarkReq struct {
+}

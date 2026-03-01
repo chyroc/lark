@@ -31,8 +31,6 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/draft/create
 // new doc: https://open.feishu.cn/document/server-docs/baike-v1/draft/create
-//
-// Deprecated
 func (r *BaikeService) CreateBaikeDraft(ctx context.Context, request *CreateBaikeDraftReq, options ...MethodOptionFunc) (*CreateBaikeDraftResp, *Response, error) {
 	if r.cli.mock.mockBaikeCreateBaikeDraft != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Baike#CreateBaikeDraft mock enable")

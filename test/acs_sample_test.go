@@ -37,10 +37,12 @@ func Test_ACS_Sample_Failed(t *testing.T) {
 		moduleCli := cli.ACS
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.UpdateACSUser(ctx, &lark.UpdateACSUserReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
+
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {
@@ -48,6 +50,7 @@ func Test_ACS_Sample_Failed(t *testing.T) {
 		moduleCli := cli.ACS
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockACSDeleteACSVisitor(func(ctx context.Context, request *lark.DeleteACSVisitorReq, options ...lark.MethodOptionFunc) (*lark.DeleteACSVisitorResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -59,6 +62,7 @@ func Test_ACS_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockACSCreateACSVisitor(func(ctx context.Context, request *lark.CreateACSVisitorReq, options ...lark.MethodOptionFunc) (*lark.CreateACSVisitorResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -70,6 +74,7 @@ func Test_ACS_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockACSDeviceBindACSRuleExternal(func(ctx context.Context, request *lark.DeviceBindACSRuleExternalReq, options ...lark.MethodOptionFunc) (*lark.DeviceBindACSRuleExternalResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -81,6 +86,7 @@ func Test_ACS_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockACSGetACSRuleExternal(func(ctx context.Context, request *lark.GetACSRuleExternalReq, options ...lark.MethodOptionFunc) (*lark.GetACSRuleExternalResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -92,6 +98,7 @@ func Test_ACS_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockACSDeleteACSRuleExternal(func(ctx context.Context, request *lark.DeleteACSRuleExternalReq, options ...lark.MethodOptionFunc) (*lark.DeleteACSRuleExternalResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -103,6 +110,7 @@ func Test_ACS_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockACSCreateACSRuleExternal(func(ctx context.Context, request *lark.CreateACSRuleExternalReq, options ...lark.MethodOptionFunc) (*lark.CreateACSRuleExternalResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -114,6 +122,7 @@ func Test_ACS_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockACSUpdateACSUser(func(ctx context.Context, request *lark.UpdateACSUserReq, options ...lark.MethodOptionFunc) (*lark.UpdateACSUserResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -125,6 +134,7 @@ func Test_ACS_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockACSGetACSUser(func(ctx context.Context, request *lark.GetACSUserReq, options ...lark.MethodOptionFunc) (*lark.GetACSUserResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -136,6 +146,7 @@ func Test_ACS_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockACSGetACSUserList(func(ctx context.Context, request *lark.GetACSUserListReq, options ...lark.MethodOptionFunc) (*lark.GetACSUserListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -147,6 +158,7 @@ func Test_ACS_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockACSUpdateACSUserFace(func(ctx context.Context, request *lark.UpdateACSUserFaceReq, options ...lark.MethodOptionFunc) (*lark.UpdateACSUserFaceResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -158,6 +170,7 @@ func Test_ACS_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockACSGetACSUserFace(func(ctx context.Context, request *lark.GetACSUserFaceReq, options ...lark.MethodOptionFunc) (*lark.GetACSUserFaceResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -169,6 +182,7 @@ func Test_ACS_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockACSGetACSDeviceList(func(ctx context.Context, request *lark.GetACSDeviceListReq, options ...lark.MethodOptionFunc) (*lark.GetACSDeviceListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -180,6 +194,7 @@ func Test_ACS_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockACSGetACSAccessRecordList(func(ctx context.Context, request *lark.GetACSAccessRecordListReq, options ...lark.MethodOptionFunc) (*lark.GetACSAccessRecordListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -191,6 +206,7 @@ func Test_ACS_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockACSGetACSAccessRecordPhoto(func(ctx context.Context, request *lark.GetACSAccessRecordPhotoReq, options ...lark.MethodOptionFunc) (*lark.GetACSAccessRecordPhotoResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -200,6 +216,7 @@ func Test_ACS_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
+
 	})
 
 	t.Run("response is failed (mock http)", func(t *testing.T) {
@@ -210,6 +227,7 @@ func Test_ACS_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.DeleteACSVisitor(ctx, &lark.DeleteACSVisitorReq{
 				VisitorID: "x",
 			})
@@ -218,36 +236,42 @@ func Test_ACS_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateACSVisitor(ctx, &lark.CreateACSVisitorReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.DeviceBindACSRuleExternal(ctx, &lark.DeviceBindACSRuleExternalReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetACSRuleExternal(ctx, &lark.GetACSRuleExternalReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.DeleteACSRuleExternal(ctx, &lark.DeleteACSRuleExternalReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateACSRuleExternal(ctx, &lark.CreateACSRuleExternalReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.UpdateACSUser(ctx, &lark.UpdateACSUserReq{
 				UserID: "x",
 			})
@@ -256,6 +280,7 @@ func Test_ACS_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetACSUser(ctx, &lark.GetACSUserReq{
 				UserID: "x",
 			})
@@ -264,12 +289,14 @@ func Test_ACS_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetACSUserList(ctx, &lark.GetACSUserListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.UpdateACSUserFace(ctx, &lark.UpdateACSUserFaceReq{
 				UserID: "x",
 			})
@@ -278,6 +305,7 @@ func Test_ACS_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetACSUserFace(ctx, &lark.GetACSUserFaceReq{
 				UserID: "x",
 			})
@@ -286,23 +314,27 @@ func Test_ACS_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetACSDeviceList(ctx, &lark.GetACSDeviceListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetACSAccessRecordList(ctx, &lark.GetACSAccessRecordListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetACSAccessRecordPhoto(ctx, &lark.GetACSAccessRecordPhotoReq{
 				AccessRecordID: "x",
 			})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
+
 	})
 }

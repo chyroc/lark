@@ -87,7 +87,8 @@ type UpdateVCRoomReqRoomStatus struct {
 }
 
 // UpdateVCRoomResp ...
-type UpdateVCRoomResp struct{}
+type UpdateVCRoomResp struct {
+}
 
 // updateVCRoomResp ...
 type updateVCRoomResp struct {

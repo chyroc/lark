@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetHireTalentList 根据更新时间获取人才列表, 仅支持获取默认字段信息, 获取详细信息可调用「获取人才详细」接口。
+// GetHireTalentList 批量获取人才摘要信息, 包括人才 ID、人才基信息、教育经历、工作经历等。若需要获取人才详细信息请使用[获取人才详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/hire-v2/talent/get)接口。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/talent/list
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/talent/list
@@ -58,27 +58,29 @@ func (r *Mock) UnMockHireGetHireTalentList() {
 
 // GetHireTalentListReq ...
 type GetHireTalentListReq struct {
-	UpdateStartTime *string `query:"update_start_time" json:"-"` // 最早更新时间, 毫秒级时间戳, 示例值: 1618500278663
-	UpdateEndTime   *string `query:"update_end_time" json:"-"`   // 最晚更新时间, 毫秒级时间戳, 示例值: 1618500278663
-	PageSize        *int64  `query:"page_size" json:"-"`         // 分页大小, 示例值: 10, 最大值: `20`
-	PageToken       *string `query:"page_token" json:"-"`        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: eyJvZmZzZXQiOjEwLCJ0aW1lc3RhbXAiOjE2Mjc1NTUyMjM2NzIsImlkIjpudWxsfQ[
-	UserIDType      *IDType `query:"user_id_type" json:"-"`      // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_admin_id: 以 people_admin_id 来识别用户, 默认值: `people_admin_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	QueryOption     *string `query:"query_option" json:"-"`      // 请求控制参数, 示例值: ignore_empty_error, 可选值有: ignore_empty_error: 忽略结果为空时的报错
+	Keyword         *string `query:"keyword" json:"-"`           // 搜索关键词, 支持布尔语言（使用 and、or、not 连接关键词）示例值: 张三 and 产品经理
+	UpdateStartTime *string `query:"update_start_time" json:"-"` // 最早更新时间, 毫秒时间戳示例值: 1618500278663
+	UpdateEndTime   *string `query:"update_end_time" json:"-"`   // 最晚更新时间, 毫秒时间戳示例值: 1618500278663
+	PageSize        *int64  `query:"page_size" json:"-"`         // 分页大小示例值: 10默认值: `10` 最大值: `20`
+	SortBy          *int64  `query:"sort_by" json:"-"`           // 排序规则示例值: 1可选值有: 按更新日期降序按相关度降序按投递时间降序按入库时间降序默认值: `1`
+	PageToken       *string `query:"page_token" json:"-"`        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: eyJvZmZzZXQiOjEwLCJ0aW1lc3RhbXAiOjE2Mjc1NTUyMjM2NzIsImlkIjpudWxsfQ[
+	UserIDType      *IDType `query:"user_id_type" json:"-"`      // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以 people_admin_id 来识别用户默认值: `people_admin_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	QueryOption     *string `query:"query_option" json:"-"`      // 请求控制参数示例值: ignore_empty_error可选值有: 忽略结果为空时的报错
 }
 
 // GetHireTalentListResp ...
 type GetHireTalentListResp struct {
 	HasMore   bool                         `json:"has_more,omitempty"`   // 是否还有更多项
 	PageToken string                       `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-	Items     []*GetHireTalentListRespItem `json:"items,omitempty"`      // 列表
+	Items     []*GetHireTalentListRespItem `json:"items,omitempty"`      // 人才摘要信息列表
 }
 
 // GetHireTalentListRespItem ...
 type GetHireTalentListRespItem struct {
-	ID                        string                                            `json:"id,omitempty"`                          // 人才ID
-	IsInAgencyPeriod          bool                                              `json:"is_in_agency_period,omitempty"`         // 是否在猎头保护期, 可选值有: false: 未在猎头保护期, true: 在猎头保护期
-	IsOnboarded               bool                                              `json:"is_onboarded,omitempty"`                // 是否已入职, 可选值有: false: 未入职, true: 已入职
-	BasicInfo                 *GetHireTalentListRespItemBasicInfo               `json:"basic_info,omitempty"`                  // 基础信息
+	ID                        string                                            `json:"id,omitempty"`                          // 人才 ID, 详情可查看: [获取人才详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/hire-v2/talent/get)
+	IsInAgencyPeriod          bool                                              `json:"is_in_agency_period,omitempty"`         // 是否在猎头保护期可选值有: 未在猎头保护期在猎头保护期
+	IsOnboarded               bool                                              `json:"is_onboarded,omitempty"`                // 是否已入职可选值有: 未入职已入职
+	BasicInfo                 *GetHireTalentListRespItemBasicInfo               `json:"basic_info,omitempty"`                  // 基本信息
 	EducationList             []*GetHireTalentListRespItemEducation             `json:"education_list,omitempty"`              // 教育经历
 	CareerList                []*GetHireTalentListRespItemCareer                `json:"career_list,omitempty"`                 // 工作经历
 	ProjectList               []*GetHireTalentListRespItemProject               `json:"project_list,omitempty"`                // 项目经历
@@ -88,139 +90,140 @@ type GetHireTalentListRespItem struct {
 	SnsList                   []*GetHireTalentListRespItemSns                   `json:"sns_list,omitempty"`                    // 社交账号
 	ResumeSourceList          []*GetHireTalentListRespItemResumeSource          `json:"resume_source_list,omitempty"`          // 简历来源
 	InterviewRegistrationList []*GetHireTalentListRespItemInterviewRegistration `json:"interview_registration_list,omitempty"` // 面试登记表
-	ResumeAttachmentIDList    []string                                          `json:"resume_attachment_id_list,omitempty"`   // 简历附件id列表（按照简历创建时间降序）
-	TopDegree                 int64                                             `json:"top_degree,omitempty"`                  // 最高学历, 可选值有: 1: 小学, 2: 初中, 3: 专职, 4: 高中, 5: 大专, 6: 本科, 7: 硕士, 8: 博士, 9: 其他
-	FirstDegree               int64                                             `json:"first_degree,omitempty"`                // 第一学历, 可选值有: 1: 低于大专, 2: 大专, 3: 本科, 4: 硕士, 5: 博士, 6: 其他, 7: 无
+	ResumeAttachmentIDList    []string                                          `json:"resume_attachment_id_list,omitempty"`   // 简历附件 ID 列表（按照简历创建时间降序）, 详情请查看: [获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get)
+	TopDegree                 int64                                             `json:"top_degree,omitempty"`                  // 最高学历可选值有: 小学初中专职高中大专本科硕士博士其他
+	FirstDegree               int64                                             `json:"first_degree,omitempty"`                // 第一学历可选值有: 低于大专大专本科硕士博士其他无
 }
 
 // GetHireTalentListRespItemAward ...
 type GetHireTalentListRespItemAward struct {
-	ID        string `json:"id,omitempty"`         // ID
+	ID        string `json:"id,omitempty"`         // 获奖 ID
 	Title     string `json:"title,omitempty"`      // 获奖名称
-	AwardTime string `json:"award_time,omitempty"` // 获奖时间
-	Desc      string `json:"desc,omitempty"`       // 描述
+	AwardTime string `json:"award_time,omitempty"` // 获奖日期, 精确到年份
+	Desc      string `json:"desc,omitempty"`       // 获奖描述
 }
 
 // GetHireTalentListRespItemBasicInfo ...
 type GetHireTalentListRespItemBasicInfo struct {
-	Name                 string                                             `json:"name,omitempty"`                  // 名字
+	Name                 string                                             `json:"name,omitempty"`                  // 姓名
 	Mobile               string                                             `json:"mobile,omitempty"`                // 手机
-	MobileCode           string                                             `json:"mobile_code,omitempty"`           // 手机国家区号
-	MobileCountryCode    string                                             `json:"mobile_country_code,omitempty"`   // 手机国家代码
+	MobileCode           string                                             `json:"mobile_code,omitempty"`           // 手机国家区号, 遵守国际统一标准, 请参考[百度百科-国际长途电话区号](https://baike.baidu.com/item/%E5%9B%BD%E9%99%85%E9%95%BF%E9%80%94%E7%94%B5%E8%AF%9D%E5%8C%BA%E5%8F%B7%E8%A1%A8/12803495?fr=ge_ala)
+	MobileCountryCode    string                                             `json:"mobile_country_code,omitempty"`   // 手机国家代码, 详情请查看: [查询地点列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/query)
 	Email                string                                             `json:"email,omitempty"`                 // 邮箱
 	ExperienceYears      int64                                              `json:"experience_years,omitempty"`      // 工作年限
 	Age                  int64                                              `json:"age,omitempty"`                   // 年龄
-	Nationality          *GetHireTalentListRespItemBasicInfoNationality     `json:"nationality,omitempty"`           // 国籍
-	Gender               int64                                              `json:"gender,omitempty"`                // 性别, 可选值有: 1: 男, 2: 女, 3: 其他
+	Nationality          *GetHireTalentListRespItemBasicInfoNationality     `json:"nationality,omitempty"`           // 国籍（地区）
+	Gender               int64                                              `json:"gender,omitempty"`                // 性别可选值有: 男女其他
 	CurrentCity          *GetHireTalentListRespItemBasicInfoCurrentCity     `json:"current_city,omitempty"`          // 所在地点
 	HometownCity         *GetHireTalentListRespItemBasicInfoHometownCity    `json:"hometown_city,omitempty"`         // 家乡
-	PreferredCityList    []*GetHireTalentListRespItemBasicInfoPreferredCity `json:"preferred_city_list,omitempty"`   // 意向地点
-	IdentificationType   int64                                              `json:"identification_type,omitempty"`   // 证件类型, 可选值有: 1: 中国 - 居民身份证, 2: 护照, 3: 中国 - 港澳居民居住证, 4: 中国 - 台湾居民来往大陆通行证, 5: 其他, 6: 中国 - 港澳居民来往内地通行证, 9: 中国 - 台湾居民居住证
-	IdentificationNumber string                                             `json:"identification_number,omitempty"` // 证件号
-	Birthday             int64                                              `json:"birthday,omitempty"`              // 生日
-	CreatorID            string                                             `json:"creator_id,omitempty"`            // 创建人
-	MaritalStatus        int64                                              `json:"marital_status,omitempty"`        // 婚姻状况, 可选值有: 1: 已婚, 2: 未婚
+	PreferredCityList    []*GetHireTalentListRespItemBasicInfoPreferredCity `json:"preferred_city_list,omitempty"`   // 期望工作地点
+	IdentificationType   int64                                              `json:"identification_type,omitempty"`   // 个人证件类型可选值有: 中国 - 居民身份证护照中国 - 港澳居民居住证中国 - 台湾居民来往大陆通行证其他中国 - 港澳居民来往内地通行证中国 - 台湾居民居住证
+	IdentificationNumber string                                             `json:"identification_number,omitempty"` // 个人证件号
+	Birthday             int64                                              `json:"birthday,omitempty"`              // 出生日期, 秒时间戳
+	CreatorID            string                                             `json:"creator_id,omitempty"`            // 创建人 ID, 与入参 `user_id_type` 类型一致
+	MaritalStatus        int64                                              `json:"marital_status,omitempty"`        // 婚姻状况可选值有: 已婚未婚
 	CurrentHomeAddress   string                                             `json:"current_home_address,omitempty"`  // 家庭住址
-	ModifyTime           string                                             `json:"modify_time,omitempty"`           // 修改时间
+	ModifyTime           string                                             `json:"modify_time,omitempty"`           // 修改时间, 毫秒时间戳
 }
 
 // GetHireTalentListRespItemBasicInfoCurrentCity ...
 type GetHireTalentListRespItemBasicInfoCurrentCity struct {
-	CityCode string `json:"city_code,omitempty"` // 城市码
-	ZhName   string `json:"zh_name,omitempty"`   // 中文名
-	EnName   string `json:"en_name,omitempty"`   // 英文名
+	CityCode string `json:"city_code,omitempty"` // 城市码, 详情请查看: [查询地点列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/query)
+	ZhName   string `json:"zh_name,omitempty"`   // 地点中文名
+	EnName   string `json:"en_name,omitempty"`   // 地点英文名
 }
 
 // GetHireTalentListRespItemBasicInfoHometownCity ...
 type GetHireTalentListRespItemBasicInfoHometownCity struct {
-	CityCode string `json:"city_code,omitempty"` // 城市码
-	ZhName   string `json:"zh_name,omitempty"`   // 中文名
-	EnName   string `json:"en_name,omitempty"`   // 英文名
+	CityCode string `json:"city_code,omitempty"` // 城市码, 详情请查看: [查询地点列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/query)
+	ZhName   string `json:"zh_name,omitempty"`   // 地点中文名
+	EnName   string `json:"en_name,omitempty"`   // 地点英文名
 }
 
 // GetHireTalentListRespItemBasicInfoNationality ...
 type GetHireTalentListRespItemBasicInfoNationality struct {
-	NationalityCode string `json:"nationality_code,omitempty"` // 国家编码
-	ZhName          string `json:"zh_name,omitempty"`          // 中文名
-	EnName          string `json:"en_name,omitempty"`          // 英文名
+	NationalityCode string `json:"nationality_code,omitempty"` // 国家编码, 详情请查看: [查询地点列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/query)
+	ZhName          string `json:"zh_name,omitempty"`          // 国籍（地区）中文名
+	EnName          string `json:"en_name,omitempty"`          // 国籍（地区）英文名
 }
 
 // GetHireTalentListRespItemBasicInfoPreferredCity ...
 type GetHireTalentListRespItemBasicInfoPreferredCity struct {
-	CityCode string `json:"city_code,omitempty"` // 城市码
-	ZhName   string `json:"zh_name,omitempty"`   // 中文名
-	EnName   string `json:"en_name,omitempty"`   // 英文名
+	CityCode string `json:"city_code,omitempty"` // 城市码, 详情请查看: [查询地点列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/location/query)
+	ZhName   string `json:"zh_name,omitempty"`   // 地点中文名
+	EnName   string `json:"en_name,omitempty"`   // 地点英文名
 }
 
 // GetHireTalentListRespItemCareer ...
 type GetHireTalentListRespItemCareer struct {
-	ID         string  `json:"id,omitempty"`          // ID
+	ID         string  `json:"id,omitempty"`          // 工作经历 ID
 	Company    string  `json:"company,omitempty"`     // 公司名称
 	Title      string  `json:"title,omitempty"`       // 职位名称
-	Desc       string  `json:"desc,omitempty"`        // 描述
-	StartTime  string  `json:"start_time,omitempty"`  // 开始时间
-	EndTime    string  `json:"end_time,omitempty"`    // 结束时间
-	CareerType int64   `json:"career_type,omitempty"` // 经历类型, 可选值有: 1: 实习经历, 2: 工作经历
-	TagList    []int64 `json:"tag_list,omitempty"`    // 工作经历标签, 可选值有: 5: 百度 阿里 腾讯, 6: 头条, 美团, 滴滴, 7: 其它大厂
+	Desc       string  `json:"desc,omitempty"`        // 工作经历描述
+	StartTime  string  `json:"start_time,omitempty"`  // 工作经历的开始日期, 精确到月份
+	EndTime    string  `json:"end_time,omitempty"`    // 工作经历的结束日期, 精确到月份
+	CareerType int64   `json:"career_type,omitempty"` // 经历类型可选值有: 实习经历工作经历兼职经历其他经历
+	TagList    []int64 `json:"tag_list,omitempty"`    // 工作经历标签可选值有: 百度/阿里/腾讯头条/美团/滴滴互联网 100 强
 }
 
 // GetHireTalentListRespItemEducation ...
 type GetHireTalentListRespItemEducation struct {
-	ID              string  `json:"id,omitempty"`               // ID
-	Degree          int64   `json:"degree,omitempty"`           // 学位, 可选值有: 1: 小学, 2: 初中, 3: 专职, 4: 高中, 5: 大专, 6: 本科, 7: 硕士, 8: 博士, 9: 其他
-	School          string  `json:"school,omitempty"`           // 学校
+	ID              string  `json:"id,omitempty"`               // 教育经历 ID
+	Degree          int64   `json:"degree,omitempty"`           // 学位可选值有: 小学初中专职高中大专本科硕士博士其他
+	School          string  `json:"school,omitempty"`           // 学校名称
 	FieldOfStudy    string  `json:"field_of_study,omitempty"`   // 专业
-	StartTime       string  `json:"start_time,omitempty"`       // 开始时间
-	EndTime         string  `json:"end_time,omitempty"`         // 结束时间
-	EducationType   int64   `json:"education_type,omitempty"`   // 学历类型, 可选值有: 1: 海外及港台, 2: 统招全日制, 3: 非全日制, 4: 自考, 5: 其他
-	AcademicRanking int64   `json:"academic_ranking,omitempty"` // 成绩排名, 可选值有: 5: 前 5 %, 10: 前 10 %, 20: 前 20 %, 30: 前 30 %, 50: 前 50 %, -1: 其他
-	TagList         []int64 `json:"tag_list,omitempty"`         // 教育经历标签, 可选值有: 1: 985学校, 2: 211学校, 3: 一本, 4: 国外院校QS200
+	StartTime       string  `json:"start_time,omitempty"`       // 教育经历的起始日期, 精确到月份
+	EndTime         string  `json:"end_time,omitempty"`         // 教育经历的结束时间, 精确到月份
+	EndTimeV2       string  `json:"end_time_v2,omitempty"`      // 结束时间-新, 无「至今」传值。建议使用此字段, 避免模糊的毕业时间影响候选人筛选
+	EducationType   int64   `json:"education_type,omitempty"`   // 学历类型可选值有: 海外及港台统招全日制非全日制自考其他
+	AcademicRanking int64   `json:"academic_ranking,omitempty"` // 成绩排名可选值有: 前 5 %前 10 %前 20 %前 30 %前 50 %其他
+	TagList         []int64 `json:"tag_list,omitempty"`         // 教育经历标签可选值有: 985学校211学校一本国外院校QS200
 }
 
 // GetHireTalentListRespItemInterviewRegistration ...
 type GetHireTalentListRespItemInterviewRegistration struct {
-	ID               string `json:"id,omitempty"`                // ID
-	RegistrationTime int64  `json:"registration_time,omitempty"` // 创建时间
+	ID               string `json:"id,omitempty"`                // 面试登记表 ID, 详情可查看: [获取面试登记表模板列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/interview_registration_schema/list)
+	RegistrationTime int64  `json:"registration_time,omitempty"` // 面试登记表创建时间, 毫秒时间戳
 }
 
 // GetHireTalentListRespItemLanguage ...
 type GetHireTalentListRespItemLanguage struct {
-	ID          string `json:"id,omitempty"`          // ID
-	Language    int64  `json:"language,omitempty"`    // 语言, 可选值有: 1: 英语, 2: 法语, 3: 日语, 4: 韩语, 5: 德语, 6: 俄语, 7: 西班牙语, 8: 葡萄牙语, 9: 阿拉伯语, 10: 印地语, 11: 印度斯坦语, 12: 孟加拉语, 13: 豪萨语, 14: 旁遮普语, 15: 波斯语, 16: 斯瓦西里语, 17: 泰卢固语, 18: 土耳其语, 19: 意大利语, 20: 爪哇语, 21: 泰米尔语, 22: 马拉地语, 23: 越南语, 24: 普通话, 25: 粤语
-	Proficiency int64  `json:"proficiency,omitempty"` // 精通程度, 可选值有: 1: 入门, 2: 日常会话, 3: 商务会话, 4: 无障碍沟通, 5: 母语
+	ID          string `json:"id,omitempty"`          // 语言能力 ID
+	Language    int64  `json:"language,omitempty"`    // 语言可选值有: 英语法语日语韩语德语俄语西班牙语葡萄牙语阿拉伯语印地语印度斯坦语孟加拉语豪萨语旁遮普语波斯语斯瓦西里语泰卢固语土耳其语意大利语爪哇语泰米尔语马拉地语越南语普通话粤语
+	Proficiency int64  `json:"proficiency,omitempty"` // 精通程度可选值有: 入门日常会话商务会话无障碍沟通母语
 }
 
 // GetHireTalentListRespItemProject ...
 type GetHireTalentListRespItemProject struct {
-	ID        string `json:"id,omitempty"`         // ID
+	ID        string `json:"id,omitempty"`         // 项目经历 ID
 	Name      string `json:"name,omitempty"`       // 项目名称
 	Role      string `json:"role,omitempty"`       // 项目角色
 	Link      string `json:"link,omitempty"`       // 项目链接
-	Desc      string `json:"desc,omitempty"`       // 描述
-	StartTime string `json:"start_time,omitempty"` // 开始时间
-	EndTime   string `json:"end_time,omitempty"`   // 结束时间
+	Desc      string `json:"desc,omitempty"`       // 项目描述
+	StartTime string `json:"start_time,omitempty"` // 项目的开始日期, 精确到月份
+	EndTime   string `json:"end_time,omitempty"`   // 项目的结束日期, 精确到月份
 }
 
 // GetHireTalentListRespItemResumeSource ...
 type GetHireTalentListRespItemResumeSource struct {
-	ID     string `json:"id,omitempty"`      // ID
-	ZhName string `json:"zh_name,omitempty"` // 中文名
-	EnName string `json:"en_name,omitempty"` // 英文名
+	ID     string `json:"id,omitempty"`      // 简历来源 ID, 详情请查看: [获取简历来源列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/resume_source/list)
+	ZhName string `json:"zh_name,omitempty"` // 简历来源中文名
+	EnName string `json:"en_name,omitempty"` // 简历来源英文名
 }
 
 // GetHireTalentListRespItemSns ...
 type GetHireTalentListRespItemSns struct {
-	ID      string `json:"id,omitempty"`       // ID
-	SnsType int64  `json:"sns_type,omitempty"` // SNS名称, 可选值有: 1: 领英, 2: 脉脉, 3: 微信, 4: 微博, 5: Github, 6: 知乎, 7: 脸书, 8: 推特, 9: Whatsapp, 10: 个人网站, 11: QQ
+	ID      string `json:"id,omitempty"`       // 社交账号 ID
+	SnsType int64  `json:"sns_type,omitempty"` // SNS 名称可选值有: 领英脉脉微信微博Github知乎脸书推特Whatsapp个人网站QQ
 	Link    string `json:"link,omitempty"`     // URL/ID
 }
 
 // GetHireTalentListRespItemWorks ...
 type GetHireTalentListRespItemWorks struct {
-	ID   string `json:"id,omitempty"`   // ID
+	ID   string `json:"id,omitempty"`   // 作品 ID, 可通过[获取附件信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/attachment/get)获取作品附件信息
 	Link string `json:"link,omitempty"` // 作品链接
-	Desc string `json:"desc,omitempty"` // 描述
-	Name string `json:"name,omitempty"` // 作品附件名称, 若需获取作品附件预览信息可调用「获取附件预览信息」接口
+	Desc string `json:"desc,omitempty"` // 作品描述
+	Name string `json:"name,omitempty"` // 作品附件名称
 }
 
 // getHireTalentListResp ...

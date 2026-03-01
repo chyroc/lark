@@ -104,6 +104,13 @@ type GetAttendanceUserApprovalRespUserApprovalLeave struct {
 	IdempotentID     string     `json:"idempotent_id,omitempty"`      // 唯一幂等键
 }
 
+// GetAttendanceUserApprovalRespUserApprovalLeaveI18nNames ...
+type GetAttendanceUserApprovalRespUserApprovalLeaveI18nNames struct {
+	Ch string `json:"ch,omitempty"` // 中文描述
+	En string `json:"en,omitempty"` // 英语描述
+	Ja string `json:"ja,omitempty"` // 日语描述
+}
+
 // GetAttendanceUserApprovalRespUserApprovalOut ...
 type GetAttendanceUserApprovalRespUserApprovalOut struct {
 	ApprovalID       string     `json:"approval_id,omitempty"`        // 审批实例 ID
@@ -121,6 +128,13 @@ type GetAttendanceUserApprovalRespUserApprovalOut struct {
 	CorrectProcessID []string   `json:"correct_process_id,omitempty"` // 更正流程实例 ID
 	CancelProcessID  []string   `json:"cancel_process_id,omitempty"`  // 撤销流程实例 ID
 	ProcessID        []string   `json:"process_id,omitempty"`         // 发起流程实例 ID
+}
+
+// GetAttendanceUserApprovalRespUserApprovalOutI18nNames ...
+type GetAttendanceUserApprovalRespUserApprovalOutI18nNames struct {
+	Ch string `json:"ch,omitempty"` // 中文描述
+	En string `json:"en,omitempty"` // 英语描述
+	Ja string `json:"ja,omitempty"` // 日语描述
 }
 
 // GetAttendanceUserApprovalRespUserApprovalOvertimeWork ...

@@ -21,14 +21,13 @@ import (
 	"context"
 )
 
-// CreateCoreHRJobChange 该接口用于发起员工异动（变更员工雇佣信息）, 若发起成功, 会生成一条员工的异动数据, 同时产生相应的事件: [异动状态变更事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_change/events/updated)
+// CreateCoreHRJobChange 该接口用于发起员工异动（变更员工雇佣信息）, 若发起成功, 会生成一条员工的异动数据
 //
-// 本事件不再推荐使用, 请使用新版本[发起员工异动](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_change/create)
+// 本接口会产生事件: [异动状态变更事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_change/events/status_updated)
+// 该接口会按照应用拥有的「异动记录资源」的权限范围返回数据, 请确定在「开发者后台 - 权限管理 - 数据权限」中申请了「异动记录资源」权限范围
 //
-// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_change/create
-// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/job_change/create
-//
-// Deprecated
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_change/create
+// new doc: https://open.feishu.cn/document/corehr-v1/job_change/create-2
 func (r *CoreHRService) CreateCoreHRJobChange(ctx context.Context, request *CreateCoreHRJobChangeReq, options ...MethodOptionFunc) (*CreateCoreHRJobChangeResp, *Response, error) {
 	if r.cli.mock.mockCoreHRCreateCoreHRJobChange != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCoreHRJobChange mock enable")
@@ -39,7 +38,7 @@ func (r *CoreHRService) CreateCoreHRJobChange(ctx context.Context, request *Crea
 		Scope:                 "CoreHR",
 		API:                   "CreateCoreHRJobChange",
 		Method:                "POST",
-		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/job_changes",
+		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/job_changes",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
@@ -62,104 +61,61 @@ func (r *Mock) UnMockCoreHRCreateCoreHRJobChange() {
 
 // CreateCoreHRJobChangeReq ...
 type CreateCoreHRJobChangeReq struct {
-	UserIDType                   *IDType                               `query:"user_id_type" json:"-"`                    // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以people_admin_id来识别用户以飞书人事的ID来识别用户默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	DepartmentIDType             *DepartmentIDType                     `query:"department_id_type" json:"-"`              // 此次调用中使用的部门 ID 类型示例值: people_corehr_department_id可选值有: 以 open_department_id 来标识部门以 department_id 来标识部门以 people_corehr_department_id 来标识部门默认值: `people_corehr_department_id`
-	TransferMode                 int64                                 `json:"transfer_mode,omitempty"`                   // 异动方式示例值: 2可选值有: 直接异动（无审批）正常异动（完整流程）
-	EmploymentID                 string                                `json:"employment_id,omitempty"`                   // 雇员ID, ID 类型与查询参数 user_id_type 的取值一致。- 当user_id_type=user_id时, 该字段取员工的user_id, 取值参考user_id_type部分。- 当user_id_type=people_corehr_id时, 则取该员工的人事雇佣ID, 可从[雇佣ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取。示例值: "ou_a294793e8fa21529f2a60e3e9de45520"
-	TransferTypeUniqueIdentifier string                                `json:"transfer_type_unique_identifier,omitempty"` // 异动类型唯一标识, 不支持仅在特殊场景使用的异动类型, 如组织架构调整、职责转交和试用期转正。可通过接口[获取异动类型列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/transfer_type/query)获取示例值: "internal_transfer"
-	FlowID                       *string                               `json:"flow_id,omitempty"`                         // 关联流程唯一标识符, 可通过接口[获取异动类型列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/transfer_type/query)获取注意: 当异动方式为2时, 该字段为必填示例值: "people_6963913041981490725_6983885526583627531"
-	EffectiveDate                string                                `json:"effective_date,omitempty"`                  // 生效日期, 格式: "YYYY-MM-DD"示例值: "2022-03-01"
-	TransferInfo                 *CreateCoreHRJobChangeReqTransferInfo `json:"transfer_info,omitempty"`                   // 异动详细信息, 以下参数如不传, 无默认值, 代表对应数据无异动
-	TransferKey                  *string                               `json:"transfer_key,omitempty"`                    // 发起异动幂等标志, 发起失败可以重新用此标志继续请求示例值: "transfer_3627531"
-	InitiatorID                  *string                               `json:"initiator_id,omitempty"`                    // 异动发起人 ID, 可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取示例值: "ou_a294793e8fa21529f2a60e3e9de45520"
+	UserIDType                     *IDType                               `query:"user_id_type" json:"-"`                      // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以people_admin_id来识别用户以飞书人事的ID来识别用户默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	DepartmentIDType               *DepartmentIDType                     `query:"department_id_type" json:"-"`                // 此次调用中使用的部门 ID 类型示例值: people_corehr_department_id可选值有: 以 open_department_id 来标识部门以 department_id 来标识部门以 people_corehr_department_id 来标识部门默认值: `people_corehr_department_id`
+	TransferMode                   int64                                 `json:"transfer_mode,omitempty"`                     // 异动方式示例值: 2可选值有: 直接异动（无审批）正常异动（完整流程）
+	EmploymentID                   string                                `json:"employment_id,omitempty"`                     // 雇员ID, ID 类型与查询参数 user_id_type 的取值一致。- 当user_id_type=user_id时, 该字段取员工的user_id, 取值参考user_id_type部分。- 当user_id_type=people_corehr_id时, 则取该员工的人事雇佣ID, 可从[雇佣ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取。示例值: "ou_a294793e8fa21529f2a60e3e9de45520"
+	TransferTypeUniqueIdentifier   string                                `json:"transfer_type_unique_identifier,omitempty"`   // 异动类型唯一标识, 不支持仅在特殊场景使用的异动类型, 如组织架构调整、职责转交和试用期转正, 不会校验是否停用。  可通过接口[获取异动类型列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/transfer_type/query)获取示例值: "internal_transfer"
+	FlowID                         *string                               `json:"flow_id,omitempty"`                           // 关联流程唯一标识符, 可通过接口[获取异动类型列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/transfer_type/query)获取注意: 当transfer_mode（异动方式）为2时, 该字段为必填示例值: "people_6963913041981490725_6983885526583627531"
+	EffectiveDate                  string                                `json:"effective_date,omitempty"`                    // 生效日期, 格式: "YYYY-MM-DD"示例值: "2022-03-01"
+	TransferInfo                   *CreateCoreHRJobChangeReqTransferInfo `json:"transfer_info,omitempty"`                     // 异动详细信息, 以下参数如不传, 无默认值, 代表对应数据无异动
+	TransferKey                    *string                               `json:"transfer_key,omitempty"`                      // 异动记录标识符, 发起失败可以重新用此标志继续请求示例值: "transfer_3627531"
+	InitiatorID                    *string                               `json:"initiator_id,omitempty"`                      // 异动发起人 ID示例值: "ou_a294793e8fa21529f2a60e3e9de45520"
+	TransferReasonUniqueIdentifier *string                               `json:"transfer_reason_unique_identifier,omitempty"` // 异动原因唯一标识示例值: "involuntary_transfer"
 }
 
 // CreateCoreHRJobChangeReqTransferInfo ...
 type CreateCoreHRJobChangeReqTransferInfo struct {
-	Remark                     *string                                                       `json:"remark,omitempty"`                        // 备注示例值: "异动详情"
-	OfferInfo                  *string                                                       `json:"offer_info,omitempty"`                    // offer信息注: 本字段仅会存储到数据库, 前端表单不支持直接显示。示例值: "offer info"
-	TargetDottedManagerClean   *bool                                                         `json:"target_dotted_manager_clean,omitempty"`   // 是否撤销虚线上级示例值: true
-	ProbationExist             *bool                                                         `json:"probation_exist,omitempty"`               // 是否有试用期示例值: false
-	OriginalDepartment         *string                                                       `json:"original_department,omitempty"`           // 原部门ID, 可通过[【批量查询部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)接口获取示例值: "6966236933198579208"
-	TargetDepartment           *string                                                       `json:"target_department,omitempty"`             // 新部门ID, 可通过[【批量查询部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)接口获取示例值: "6966236933198579208"
-	OriginalWorkLocation       *string                                                       `json:"original_work_location,omitempty"`        // 原工作地点, 可通过[【批量查询地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)接口获取示例值: "6967271100992587295"
-	TargetWorkLocation         *string                                                       `json:"target_work_location,omitempty"`          // 新工作地点, 可通过[【批量查询地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)接口获取示例值: "6967271100992587295"
-	OriginalDirectManager      *string                                                       `json:"original_direct_manager,omitempty"`       // 原直属上级, 可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取示例值: "6974641477444060708"
-	TargetDirectManager        *string                                                       `json:"target_direct_manager,omitempty"`         // 新直属上级, 可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取示例值: "7013619729281713671"
-	OriginalDottedManager      *string                                                       `json:"original_dotted_manager,omitempty"`       // 原虚线上级, 可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取示例值: "6974648866876573198"
-	TargetDottedManager        *string                                                       `json:"target_dotted_manager,omitempty"`         // 新虚线上级, 可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取示例值: "7013328578351842852"
-	OriginalJob                *string                                                       `json:"original_job,omitempty"`                  // 原职务, 可通过[【批量查询职务】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/list)接口获取示例值: "6969469398088287751"
-	TargetJob                  *string                                                       `json:"target_job,omitempty"`                    // 新职务, 可通过[【批量查询职务】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/list)接口获取示例值: "6969469557836760606"
-	OriginalJobFamily          *string                                                       `json:"original_job_family,omitempty"`           // 原序列ID, 可通过[【批量查询序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)接口获取示例值: "6967287547462419975"
-	TargetJobFamily            *string                                                       `json:"target_job_family,omitempty"`             // 新序列ID, 可通过[【批量查询序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)接口获取示例值: "6967287547462419975"
-	OriginalJobLevel           *string                                                       `json:"original_job_level,omitempty"`            // 原职级ID, 可通过[【批量查询职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)接口获取示例值: "6972085707674355214"
-	TargetJobLevel             *string                                                       `json:"target_job_level,omitempty"`              // 新职级ID, 可通过[【批量查询职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)接口获取示例值: "6972085707674355214"
-	OriginalWorkforceType      *string                                                       `json:"original_workforce_type,omitempty"`       // 原人员类型, 可通过[【批量查询人员类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)接口获取示例值: "6968386026792289828"
-	TargetWorkforceType        *string                                                       `json:"target_workforce_type,omitempty"`         // 新人员类型, 可通过[【批量查询人员类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)接口获取示例值: "7036268995372303885"
-	OriginalEmployeeSubtype    *string                                                       `json:"original_employee_subtype,omitempty"`     // 原人员子类型示例值: "6968386026792289828"
-	TargetEmployeeSubtype      *string                                                       `json:"target_employee_subtype,omitempty"`       // 新人员子类型示例值: "7036268995372303885"
-	OriginalCompany            *string                                                       `json:"original_company,omitempty"`              // 原公司, 详细信息可通过[【批量查询公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list)接口查询获得示例值: "6974659700705068581"
-	TargetCompany              *string                                                       `json:"target_company,omitempty"`                // 新公司, 详细信息可通过[【批量查询公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list)接口查询获得示例值: "6974659700705068581"
-	OriginalContractNumber     *string                                                       `json:"original_contract_number,omitempty"`      // 原合同编号, 可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息示例值: "55332"
-	TargetContractNumber       *string                                                       `json:"target_contract_number,omitempty"`        // 新合同编号, 可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息示例值: "55333"
-	OriginalContractType       *string                                                       `json:"original_contract_type,omitempty"`        // 原合同类型, 可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息示例值: "labor_contract"
-	TargetContractType         *string                                                       `json:"target_contract_type,omitempty"`          // 新合同类型, 可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息示例值: "labor_contract"
-	OriginalDurationType       *string                                                       `json:"original_duration_type,omitempty"`        // 原期限类型, 可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息示例值: "fixed_term"
-	TargetDurationType         *string                                                       `json:"target_duration_type,omitempty"`          // 新期限类型, 可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息示例值: "fixed_term"
-	OriginalSigningType        *string                                                       `json:"original_signing_type,omitempty"`         // 原签订类型, 可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息示例值: "new"
-	TargetSigningType          *string                                                       `json:"target_signing_type,omitempty"`           // 新签订类型, 可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息示例值: "new"
-	OriginalContractStartDate  *string                                                       `json:"original_contract_start_date,omitempty"`  // 原合同开始日期, 格式: "YYYY-MM-DD"示例值: "2021-07-01"
-	TargetContractStartDate    *string                                                       `json:"target_contract_start_date,omitempty"`    // 新合同开始日期, 格式: "YYYY-MM-DD"示例值: "2021-07-01"
-	OriginalContractEndDate    *string                                                       `json:"original_contract_end_date,omitempty"`    // 原合同结束日期, 格式: "YYYY-MM-DD"示例值: "2024-07-01"
-	TargetContractEndDate      *string                                                       `json:"target_contract_end_date,omitempty"`      // 新合同结束日期, 格式: "YYYY-MM-DD"示例值: "2024-07-01"
-	OriginalWorkingHoursType   *string                                                       `json:"original_working_hours_type,omitempty"`   // 原工时制度, 可通过[【批量查询工时制度】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/list)接口获取示例值: "6969087376740206087"
-	TargetWorkingHoursType     *string                                                       `json:"target_working_hours_type,omitempty"`     // 新工时制度, 可通过[【批量查询工时制度】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/list)接口获取示例值: "6969087376740206087"
-	OriginalWorkingCalendar    *string                                                       `json:"original_working_calendar,omitempty"`     // 原工作日历, 请开通休假服务后联系管理员获取工作日历数据示例值: "6969087376740236087"
-	TargetWorkingCalendar      *string                                                       `json:"target_working_calendar,omitempty"`       // 新工作日历, 请开通休假服务后联系管理员获取工作日历数据示例值: "6969087376740236087"
-	OriginalProbationEndDate   *string                                                       `json:"original_probation_end_date,omitempty"`   // 原试用期预计结束日期, 格式: "YYYY-MM-DD"示例值: "2021-11-17"
-	TargetProbationEndDate     *string                                                       `json:"target_probation_end_date,omitempty"`     // 新试用期预计结束日期, 格式: "YYYY-MM-DD"示例值: "2021-11-17"
-	OriginalWeeklyWorkingHours *string                                                       `json:"original_weekly_working_hours,omitempty"` // 原周工作时长示例值: "162"
-	TargetWeeklyWorkingHours   *string                                                       `json:"target_weekly_working_hours,omitempty"`   // 新周工作时长示例值: "160"
-	OriginalWorkShift          *string                                                       `json:"original_work_shift,omitempty"`           // 原排班示例值: "work_shift"
-	TargetWorkShift            *string                                                       `json:"target_work_shift,omitempty"`             // 新排班示例值: "non_work_shift"
-	OriginalCostCenterRate     []*CreateCoreHRJobChangeReqTransferInfoOriginalCostCenterRate `json:"original_cost_center_rate,omitempty"`     // 原成本中心分摊信息
-	TargetCostCenterRate       []*CreateCoreHRJobChangeReqTransferInfoTargetCostCenterRate   `json:"target_cost_center_rate,omitempty"`       // 新成本中心分摊信息
-	OriginalEmploymentChange   *CreateCoreHRJobChangeReqTransferInfoOriginalEmploymentChange `json:"original_employment_change,omitempty"`    // 原工作信息
-	TargetEmploymentChange     *CreateCoreHRJobChangeReqTransferInfoTargetEmploymentChange   `json:"target_employment_change,omitempty"`      // 新工作信息
-	OriginalJobGrade           *string                                                       `json:"original_job_grade,omitempty"`            // 原职等, 可通过[【查询职等】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)接口获取示例值: "7289005963599693366"
-	TargetJobGrade             *string                                                       `json:"target_job_grade,omitempty"`              // 新职等, 可通过[【查询职等】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)接口获取示例值: "7289005963599693366"
-	OriginalCompensationType   *string                                                       `json:"original_compensation_type,omitempty"`    // 原薪资类型示例值: "hourly"
-	TargetCompensationType     *string                                                       `json:"target_compensation_type,omitempty"`      // 新薪资类型示例值: "salary"
-	OriginalServiceCompany     *string                                                       `json:"original_service_company,omitempty"`      // 原任职公司, 详细信息可通过[【批量查询公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list)接口查询获得示例值: "7289005963599693367"
-	TargetServiceCompany       *string                                                       `json:"target_service_company,omitempty"`        // 新任职公司, 详细信息可通过[【批量查询公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list)接口查询获得示例值: "7289005963599693367"
-	OriginalPosition           *string                                                       `json:"original_position,omitempty"`             // 原岗位示例值: "7289005963599693367"
-	TargetPosition             *string                                                       `json:"target_position,omitempty"`               // 新岗位示例值: "7289005963599693367"
-}
-
-// CreateCoreHRJobChangeReqTransferInfoOriginalCostCenterRate ...
-type CreateCoreHRJobChangeReqTransferInfoOriginalCostCenterRate struct {
-	CostCenterID *string `json:"cost_center_id,omitempty"` // 支持的成本中心id, 详细信息可通过[【搜索成本中心信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)接口查询获得示例值: "6950635856373745165"
-	Rate         *int64  `json:"rate,omitempty"`           // 分摊比例示例值: 100
-}
-
-// CreateCoreHRJobChangeReqTransferInfoOriginalEmploymentChange ...
-type CreateCoreHRJobChangeReqTransferInfoOriginalEmploymentChange struct {
-	RegularEmployeeStartDate *string                                                                    `json:"regular_employee_start_date,omitempty"` // 转正式员工日期, 格式: "YYYY-MM-DD"示例值: "2023-01-01"
-	SeniorityDate            *string                                                                    `json:"seniority_date,omitempty"`              // 司龄起算日期, 格式: "YYYY-MM-DD"示例值: "2023-01-01"
-	EmployeeNumber           *string                                                                    `json:"employee_number,omitempty"`             // 员工编号, 可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取示例值: "1111111"
-	CustomFields             []*CreateCoreHRJobChangeReqTransferInfoOriginalEmploymentChangeCustomField `json:"custom_fields,omitempty"`               // 自定义字段
-}
-
-// CreateCoreHRJobChangeReqTransferInfoOriginalEmploymentChangeCustomField ...
-type CreateCoreHRJobChangeReqTransferInfoOriginalEmploymentChangeCustomField struct {
-	CustomApiName string `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识。可以通过[获取自定义字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query)获取示例值: "name"
-	Value         string `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）注意: 1.枚举字段值可通过[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)获取, 参考接口返回的 字段详情 > 字段类型配置信息 > 选项配置信息 > 选项信息 > 枚举常量集 API name示例值: "231"
+	Remark                   *string                                                     `json:"remark,omitempty"`                      // 备注示例值: "异动详情"
+	OfferInfo                *string                                                     `json:"offer_info,omitempty"`                  // offer信息。格式为 json 转义: {\"resume_id\": \"xx\", \"resume_detail\": \"yy\"}。resume_id 为投递ID示例值: "{\"resume_id\": \"xx\", \"resume_detail\": \"yy\"}"
+	TargetDottedManagerClean *bool                                                       `json:"target_dotted_manager_clean,omitempty"` // 是否撤销虚线上级, 当值为true时, target_dotted_manager值为空。示例值: false
+	ProbationExist           *bool                                                       `json:"probation_exist,omitempty"`             // 是否有试用期, 当值为true时, target_probation_end_date值不应为空。示例值: true
+	TargetDepartment         *string                                                     `json:"target_department,omitempty"`           // 新部门ID, 可通过[【批量查询部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)接口获取示例值: "6966236933198579208"
+	TargetWorkLocation       *string                                                     `json:"target_work_location,omitempty"`        // 新工作地点, 可通过[【批量查询地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)接口获取示例值: "6967271100992587295"
+	TargetDirectManager      *string                                                     `json:"target_direct_manager,omitempty"`       // 新直属上级, 可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取示例值: "7013619729281713671"
+	TargetDottedManager      *string                                                     `json:"target_dotted_manager,omitempty"`       // 新虚线上级, 可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取示例值: "7013328578351842852"
+	TargetJob                *string                                                     `json:"target_job,omitempty"`                  // 新职务, 可通过[【批量查询职务】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/list)接口获取示例值: "6969469557836760606"
+	TargetJobFamily          *string                                                     `json:"target_job_family,omitempty"`           // 新序列ID, 可通过[【批量查询序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)接口获取示例值: "6967287547462419975"
+	TargetJobLevel           *string                                                     `json:"target_job_level,omitempty"`            // 新职级ID, 可通过[【批量查询职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)接口获取示例值: "6972085707674355214"
+	TargetWorkforceType      *string                                                     `json:"target_workforce_type,omitempty"`       // 新人员类型, 可通过[【批量查询人员类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)接口获取示例值: "7036268995372303885"
+	TargetEmployeeSubtype    *string                                                     `json:"target_employee_subtype,omitempty"`     // 新人员子类型, 请填与工作地点和人员类型匹配的人员子类型。示例值: "7036268995372303885"
+	TargetCompany            *string                                                     `json:"target_company,omitempty"`              // 新公司, 详细信息可通过[【批量查询公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list)接口查询获得示例值: "6974659700705068581"
+	TargetContractNumber     *string                                                     `json:"target_contract_number,omitempty"`      // 新合同编号, 可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息示例值: "55333"
+	TargetContractType       *string                                                     `json:"target_contract_type,omitempty"`        // 新合同类型, 可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息示例值: "labor_contract"
+	TargetDurationType       *string                                                     `json:"target_duration_type,omitempty"`        // 新期限类型, 可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息示例值: "fixed_term"
+	TargetSigningType        *string                                                     `json:"target_signing_type,omitempty"`         // 新签订类型, 可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息示例值: "new"
+	TargetContractStartDate  *string                                                     `json:"target_contract_start_date,omitempty"`  // 新合同开始日期, 格式: "YYYY-MM-DD"示例值: "2021-07-01"
+	TargetContractEndDate    *string                                                     `json:"target_contract_end_date,omitempty"`    // 新合同结束日期, 格式: "YYYY-MM-DD"示例值: "2024-07-01"
+	TargetWorkingHoursType   *string                                                     `json:"target_working_hours_type,omitempty"`   // 新工时制度, 可通过[【批量查询工时制度】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/list)接口获取示例值: "6969087376740206087"
+	TargetWorkingCalendar    *string                                                     `json:"target_working_calendar,omitempty"`     // 新工作日历, 请开通休假服务后联系管理员获取工作日历数据示例值: "6969087376740236087"
+	TargetProbationEndDate   *string                                                     `json:"target_probation_end_date,omitempty"`   // 新试用期预计结束日期, 格式: "YYYY-MM-DD"示例值: "2021-11-17"
+	TargetWeeklyWorkingHours *string                                                     `json:"target_weekly_working_hours,omitempty"` // 新周工作时长。取值范围1-168, 单位是小时。示例值: "160"
+	TargetWorkShift          *string                                                     `json:"target_work_shift,omitempty"`           // 新排班示例值: "non_work_shift"
+	TargetCostCenterRates    []*CreateCoreHRJobChangeReqTransferInfoTargetCostCenterRate `json:"target_cost_center_rates,omitempty"`    // 新成本中心分摊方式 长度范围: `0` ～ `100`
+	TargetEmploymentChange   *CreateCoreHRJobChangeReqTransferInfoTargetEmploymentChange `json:"target_employment_change,omitempty"`    // 新工作信息
+	TargetJobGrade           *string                                                     `json:"target_job_grade,omitempty"`            // 新职等, 可通过[【查询职等】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)接口获取示例值: "7289005963599693366"
+	TargetCompensationType   *string                                                     `json:"target_compensation_type,omitempty"`    // 新薪资类型示例值: "salary"
+	TargetServiceCompany     *string                                                     `json:"target_service_company,omitempty"`      // 新任职公司, 详细信息可通过[【批量查询公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list)接口查询获得示例值: "7289005963599693368"
+	TargetPosition           *string                                                     `json:"target_position,omitempty"`             // 新岗位示例值: "7289005963599693367"
+	TargetSocialSecurityCity *string                                                     `json:"target_social_security_city,omitempty"` // 新社保城市示例值: "7289005963599693367"
+	IsTransferWithWorkforce  *bool                                                       `json:"is_transfer_with_workforce,omitempty"`  // 编制随人员一起调整示例值: false
+	TargetPathway            *string                                                     `json:"target_pathway,omitempty"`              // 新通道示例值: "7289005963599693368"
 }
 
 // CreateCoreHRJobChangeReqTransferInfoTargetCostCenterRate ...
 type CreateCoreHRJobChangeReqTransferInfoTargetCostCenterRate struct {
 	CostCenterID *string `json:"cost_center_id,omitempty"` // 支持的成本中心id, 详细信息可通过[【搜索成本中心信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)接口查询获得示例值: "6950635856373745165"
-	Rate         *int64  `json:"rate,omitempty"`           // 分摊比例示例值: 100
+	Rate         *int64  `json:"rate,omitempty"`           // 分摊比例(整数)示例值: 100
 }
 
 // CreateCoreHRJobChangeReqTransferInfoTargetEmploymentChange ...
@@ -173,95 +129,116 @@ type CreateCoreHRJobChangeReqTransferInfoTargetEmploymentChange struct {
 // CreateCoreHRJobChangeReqTransferInfoTargetEmploymentChangeCustomField ...
 type CreateCoreHRJobChangeReqTransferInfoTargetEmploymentChangeCustomField struct {
 	CustomApiName string `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识。可以通过[获取自定义字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query)获取示例值: "name"
-	Value         string `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）注意: 1.枚举字段值可通过[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)获取, 参考接口返回的 字段详情 > 字段类型配置信息 > 选项配置信息 > 选项信息 > 枚举常量集 API name示例值: "231"
+	Value         string `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）注意: 1.枚举字段值可通过[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)获取, 参考接口返回的 字段详情 > 字段类型配置信息 > 选项配置信息 > 选项信息 > 枚举常量集 API name示例值: "\"231\""
 }
 
 // CreateCoreHRJobChangeResp ...
 type CreateCoreHRJobChangeResp struct {
-	JobChangeID                    string                                 `json:"job_change_id,omitempty"`                     // 异动记录 id, 可通过接口[搜索异动信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_change/search)获取详细信息
-	EmploymentID                   string                                 `json:"employment_id,omitempty"`                     // 雇员 id, 可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
-	Status                         int64                                  `json:"status,omitempty"`                            // 异动状态可选值有: Approving  审批中Approved  审批通过Transformed  已异动Rejected  已拒绝Cancelled  已撤销NoNeedApproval  无需审批
-	TransferTypeUniqueIdentifier   string                                 `json:"transfer_type_unique_identifier,omitempty"`   // 异动类型唯一标识, 可通过接口[获取异动类型列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/transfer_type/query)获取详细信息
-	TransferReasonUniqueIdentifier string                                 `json:"transfer_reason_unique_identifier,omitempty"` // 异动原因唯一标识, 可通过接口[获取异动原因列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/transfer_reason/query)获取详细信息
-	ProcessID                      string                                 `json:"process_id,omitempty"`                        // 异动发起后审批流程 id, 可通过【流程-获取单个流程列表】获取详细信息
-	EffectiveDate                  string                                 `json:"effective_date,omitempty"`                    // 异动生效日期, 格式: "YYYY-MM-DD"
-	CreatedTime                    string                                 `json:"created_time,omitempty"`                      // 创建时间, 格式: "YYYY-MM-DD"
-	TransferInfo                   *CreateCoreHRJobChangeRespTransferInfo `json:"transfer_info,omitempty"`                     // 异动详细信息
+	JobChangeID                    string                                  `json:"job_change_id,omitempty"`                     // 异动记录 id
+	EmploymentID                   string                                  `json:"employment_id,omitempty"`                     // 雇员 id
+	Status                         string                                  `json:"status,omitempty"`                            // 异动状态可选值有: 审批中审批通过已异动已拒绝已撤销无需审批
+	TransferTypeUniqueIdentifier   string                                  `json:"transfer_type_unique_identifier,omitempty"`   // 异动类型
+	TransferReasonUniqueIdentifier string                                  `json:"transfer_reason_unique_identifier,omitempty"` // 异动原因
+	ProcessID                      string                                  `json:"process_id,omitempty"`                        // 异动流程 id
+	EffectiveDate                  string                                  `json:"effective_date,omitempty"`                    // 生效时间
+	CreatedTime                    string                                  `json:"created_time,omitempty"`                      // 创建时间
+	TransferInfo                   *CreateCoreHRJobChangeRespTransferInfo  `json:"transfer_info,omitempty"`                     // 异动详细信息
+	IsAdjustSalary                 bool                                    `json:"is_adjust_salary,omitempty"`                  // 是否调整薪酬字段权限要求: 获取异动单据是否调薪字段
+	CustomFields                   []*CreateCoreHRJobChangeRespCustomField `json:"custom_fields,omitempty"`                     // 异动自定义字段字段权限要求: 获取员工异动自定义字段信息
+}
+
+// CreateCoreHRJobChangeRespCustomField ...
+type CreateCoreHRJobChangeRespCustomField struct {
+	CustomApiName string                                    `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
+	Name          *CreateCoreHRJobChangeRespCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
+	Type          int64                                     `json:"type,omitempty"`            // 自定义字段类型
+	Value         string                                    `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
+}
+
+// CreateCoreHRJobChangeRespCustomFieldName ...
+type CreateCoreHRJobChangeRespCustomFieldName struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文
+	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
 // CreateCoreHRJobChangeRespTransferInfo ...
 type CreateCoreHRJobChangeRespTransferInfo struct {
-	Remark                     string                                                         `json:"remark,omitempty"`                        // 备注
-	OfferInfo                  string                                                         `json:"offer_info,omitempty"`                    // offer信息（数据仅会存储到系统, 不支持页面上显示）
-	TargetDottedManagerClean   bool                                                           `json:"target_dotted_manager_clean,omitempty"`   // 是否撤销虚线上级
-	ProbationExist             bool                                                           `json:"probation_exist,omitempty"`               // 是否有试用期
-	OriginalDepartment         string                                                         `json:"original_department,omitempty"`           // 原部门, 可通过[【批量查询部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)接口获取
-	TargetDepartment           string                                                         `json:"target_department,omitempty"`             // 新部门, 可通过[【批量查询部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)接口获取
-	OriginalWorkLocation       string                                                         `json:"original_work_location,omitempty"`        // 原工作地点, 可通过[【批量查询地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)接口获取
-	TargetWorkLocation         string                                                         `json:"target_work_location,omitempty"`          // 新工作地点, 可通过[【批量查询地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)接口获取
-	OriginalDirectManager      string                                                         `json:"original_direct_manager,omitempty"`       // 原直属上级, 可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
-	TargetDirectManager        string                                                         `json:"target_direct_manager,omitempty"`         // 新直属上级, 可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
-	OriginalDottedManager      string                                                         `json:"original_dotted_manager,omitempty"`       // 原虚线上级, 可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
-	TargetDottedManager        string                                                         `json:"target_dotted_manager,omitempty"`         // 新虚线上级, 可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
-	OriginalJob                string                                                         `json:"original_job,omitempty"`                  // 原职务, 可通过[【批量查询职务】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/list)接口获取
-	TargetJob                  string                                                         `json:"target_job,omitempty"`                    // 新职务, 可通过[【批量查询职务】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/list)接口获取
-	OriginalJobFamily          string                                                         `json:"original_job_family,omitempty"`           // 原序列, 可通过[【批量查询序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)接口获取
-	TargetJobFamily            string                                                         `json:"target_job_family,omitempty"`             // 新序列, 可通过[【批量查询序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)接口获取
-	OriginalJobLevel           string                                                         `json:"original_job_level,omitempty"`            // 原级别, 可通过[【批量查询职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)接口获取
-	TargetJobLevel             string                                                         `json:"target_job_level,omitempty"`              // 新职级, 可通过[【批量查询职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)接口获取
-	OriginalWorkforceType      string                                                         `json:"original_workforce_type,omitempty"`       // 原人员类型, 可通过[【批量查询人员类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)接口获取
-	TargetWorkforceType        string                                                         `json:"target_workforce_type,omitempty"`         // 新人员类型, 可通过[【批量查询人员类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)接口获取
+	Remark                     string                                                         `json:"remark,omitempty"`                        // 备注字段权限要求: 获取异动流程备注信息
+	OfferInfo                  string                                                         `json:"offer_info,omitempty"`                    // offer信息
+	TargetDottedManagerClean   bool                                                           `json:"target_dotted_manager_clean,omitempty"`   // 是否撤销虚线上级, 当值为true时, target_dotted_manager值为空。
+	ProbationExist             bool                                                           `json:"probation_exist,omitempty"`               // 是否有试用期, 当值为true时, target_probation_end_date值不应为空。
+	OriginalDepartment         string                                                         `json:"original_department,omitempty"`           // 原部门
+	TargetDepartment           string                                                         `json:"target_department,omitempty"`             // 新部门
+	OriginalWorkLocation       string                                                         `json:"original_work_location,omitempty"`        // 原工作地点
+	TargetWorkLocation         string                                                         `json:"target_work_location,omitempty"`          // 新工作地点
+	OriginalDirectManager      string                                                         `json:"original_direct_manager,omitempty"`       // 原直属上级
+	TargetDirectManager        string                                                         `json:"target_direct_manager,omitempty"`         // 新直属上级
+	OriginalDottedManager      string                                                         `json:"original_dotted_manager,omitempty"`       // 原虚线上级
+	TargetDottedManager        string                                                         `json:"target_dotted_manager,omitempty"`         // 新虚线上级
+	OriginalJob                string                                                         `json:"original_job,omitempty"`                  // 原职务字段权限要求（满足任一）: 获取员工的职务信息获取职务级别信息读写员工的职务级别信息
+	TargetJob                  string                                                         `json:"target_job,omitempty"`                    // 新职务字段权限要求（满足任一）: 获取员工的职务信息获取职务级别信息读写员工的职务级别信息
+	OriginalJobFamily          string                                                         `json:"original_job_family,omitempty"`           // 原序列
+	TargetJobFamily            string                                                         `json:"target_job_family,omitempty"`             // 新序列
+	OriginalJobLevel           string                                                         `json:"original_job_level,omitempty"`            // 原级别字段权限要求（满足任一）: 获取职务级别信息读写员工的职务级别信息
+	TargetJobLevel             string                                                         `json:"target_job_level,omitempty"`              // 新级别字段权限要求（满足任一）: 获取职务级别信息读写员工的职务级别信息
+	OriginalWorkforceType      string                                                         `json:"original_workforce_type,omitempty"`       // 原人员类型
+	TargetWorkforceType        string                                                         `json:"target_workforce_type,omitempty"`         // 新人员类型
 	OriginalEmployeeSubtype    string                                                         `json:"original_employee_subtype,omitempty"`     // 原人员子类型
 	TargetEmployeeSubtype      string                                                         `json:"target_employee_subtype,omitempty"`       // 新人员子类型
-	OriginalCompany            string                                                         `json:"original_company,omitempty"`              // 原公司, 详细信息可通过[【批量查询公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list)接口查询获得
-	TargetCompany              string                                                         `json:"target_company,omitempty"`                // 新公司, 详细信息可通过[【批量查询公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list)接口查询获得
-	OriginalContractNumber     string                                                         `json:"original_contract_number,omitempty"`      // 原合同编号, 可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息
-	TargetContractNumber       string                                                         `json:"target_contract_number,omitempty"`        // 新合同编号, 可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息
-	OriginalContractType       string                                                         `json:"original_contract_type,omitempty"`        // 原合同类型, 可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息
-	TargetContractType         string                                                         `json:"target_contract_type,omitempty"`          // 新合同类型, 可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息
-	OriginalDurationType       string                                                         `json:"original_duration_type,omitempty"`        // 原期限类型, 可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息
-	TargetDurationType         string                                                         `json:"target_duration_type,omitempty"`          // 新期限类型, 可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息
-	OriginalSigningType        string                                                         `json:"original_signing_type,omitempty"`         // 原签订类型, 可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息
-	TargetSigningType          string                                                         `json:"target_signing_type,omitempty"`           // 新签订类型, 可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息
-	OriginalContractStartDate  string                                                         `json:"original_contract_start_date,omitempty"`  // 原合同开始日期, 格式: "YYYY-MM-DD"
-	TargetContractStartDate    string                                                         `json:"target_contract_start_date,omitempty"`    // 新合同开始日期, 格式: "YYYY-MM-DD"
-	OriginalContractEndDate    string                                                         `json:"original_contract_end_date,omitempty"`    // 原合同结束日期, 格式: "YYYY-MM-DD"
-	TargetContractEndDate      string                                                         `json:"target_contract_end_date,omitempty"`      // 新合同结束日期, 格式: "YYYY-MM-DD"
-	OriginalWorkingHoursType   string                                                         `json:"original_working_hours_type,omitempty"`   // 原工时制度, 可通过[【批量查询工时制度】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/list)接口获取
-	TargetWorkingHoursType     string                                                         `json:"target_working_hours_type,omitempty"`     // 新工时制度, 可通过[【批量查询工时制度】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/list)接口获取
-	OriginalWorkingCalendar    string                                                         `json:"original_working_calendar,omitempty"`     // 原工作日历, 请开通休假服务后联系管理员获取工作日历数据
-	TargetWorkingCalendar      string                                                         `json:"target_working_calendar,omitempty"`       // 新工作日历, 请开通休假服务后联系管理员获取工作日历数据
-	OriginalProbationEndDate   string                                                         `json:"original_probation_end_date,omitempty"`   // 原试用期预计结束日期, 格式: "YYYY-MM-DD"
-	TargetProbationEndDate     string                                                         `json:"target_probation_end_date,omitempty"`     // 新试用期预计结束日期, 格式: "YYYY-MM-DD"
+	OriginalCompany            string                                                         `json:"original_company,omitempty"`              // 原公司字段权限要求（满足任一）: 获取合同主体信息读写合同主体信息
+	TargetCompany              string                                                         `json:"target_company,omitempty"`                // 新公司字段权限要求（满足任一）: 获取合同主体信息读写合同主体信息
+	OriginalContractNumber     string                                                         `json:"original_contract_number,omitempty"`      // 原合同编号
+	TargetContractNumber       string                                                         `json:"target_contract_number,omitempty"`        // 新合同编号
+	OriginalContractType       string                                                         `json:"original_contract_type,omitempty"`        // 原合同类型
+	TargetContractType         string                                                         `json:"target_contract_type,omitempty"`          // 新合同类型
+	OriginalDurationType       string                                                         `json:"original_duration_type,omitempty"`        // 原期限类型
+	TargetDurationType         string                                                         `json:"target_duration_type,omitempty"`          // 新期限类型
+	OriginalSigningType        string                                                         `json:"original_signing_type,omitempty"`         // 原签订类型
+	TargetSigningType          string                                                         `json:"target_signing_type,omitempty"`           // 新签订类型
+	OriginalContractStartDate  string                                                         `json:"original_contract_start_date,omitempty"`  // 原合同开始日期字段权限要求（满足任一）: 获取合同期限信息读写合同期限信息
+	TargetContractStartDate    string                                                         `json:"target_contract_start_date,omitempty"`    // 新合同开始日期字段权限要求（满足任一）: 获取合同期限信息读写合同期限信息
+	OriginalContractEndDate    string                                                         `json:"original_contract_end_date,omitempty"`    // 原合同结束日期字段权限要求（满足任一）: 获取合同期限信息读写合同期限信息
+	TargetContractEndDate      string                                                         `json:"target_contract_end_date,omitempty"`      // 新合同结束日期字段权限要求（满足任一）: 获取合同期限信息读写合同期限信息
+	OriginalWorkingHoursType   string                                                         `json:"original_working_hours_type,omitempty"`   // 原工时制度
+	TargetWorkingHoursType     string                                                         `json:"target_working_hours_type,omitempty"`     // 新工时制度
+	OriginalWorkingCalendar    string                                                         `json:"original_working_calendar,omitempty"`     // 原工作日历
+	TargetWorkingCalendar      string                                                         `json:"target_working_calendar,omitempty"`       // 新工作日历
+	OriginalProbationEndDate   string                                                         `json:"original_probation_end_date,omitempty"`   // 原试用期预计结束日期
+	TargetProbationEndDate     string                                                         `json:"target_probation_end_date,omitempty"`     // 新试用期预计结束日期
 	OriginalWeeklyWorkingHours string                                                         `json:"original_weekly_working_hours,omitempty"` // 原周工作时长
 	TargetWeeklyWorkingHours   string                                                         `json:"target_weekly_working_hours,omitempty"`   // 新周工作时长
 	OriginalWorkShift          string                                                         `json:"original_work_shift,omitempty"`           // 原排班
 	TargetWorkShift            string                                                         `json:"target_work_shift,omitempty"`             // 新排班
-	OriginalCostCenterRate     []*CreateCoreHRJobChangeRespTransferInfoOriginalCostCenterRate `json:"original_cost_center_rate,omitempty"`     // 原成本中心分摊信息
-	TargetCostCenterRate       []*CreateCoreHRJobChangeRespTransferInfoTargetCostCenterRate   `json:"target_cost_center_rate,omitempty"`       // 新成本中心分摊信息
+	OriginalCostCenterRate     []*CreateCoreHRJobChangeRespTransferInfoOriginalCostCenterRate `json:"original_cost_center_rate,omitempty"`     // 原成本中心分摊方式
+	TargetCostCenterRate       []*CreateCoreHRJobChangeRespTransferInfoTargetCostCenterRate   `json:"target_cost_center_rate,omitempty"`       // 新成本中心分摊方式
 	OriginalEmploymentChange   *CreateCoreHRJobChangeRespTransferInfoOriginalEmploymentChange `json:"original_employment_change,omitempty"`    // 原工作信息
 	TargetEmploymentChange     *CreateCoreHRJobChangeRespTransferInfoTargetEmploymentChange   `json:"target_employment_change,omitempty"`      // 新工作信息
-	OriginalJobGrade           string                                                         `json:"original_job_grade,omitempty"`            // 原职等, 可通过[【查询职等】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)接口获取
-	TargetJobGrade             string                                                         `json:"target_job_grade,omitempty"`              // 新职等, 可通过[【查询职等】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)接口获取
-	OriginalCompensationType   string                                                         `json:"original_compensation_type,omitempty"`    // 原薪资类型, 请开通薪酬服务后联系管理员获取字段权限要求: 获取薪资类型
-	TargetCompensationType     string                                                         `json:"target_compensation_type,omitempty"`      // 新薪资类型, 请开通薪酬服务后联系管理员获取字段权限要求: 获取薪资类型
-	OriginalServiceCompany     string                                                         `json:"original_service_company,omitempty"`      // 原任职公司, 详细信息可通过[【批量查询公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list)接口查询获得字段权限要求: 获取任职公司
-	TargetServiceCompany       string                                                         `json:"target_service_company,omitempty"`        // 新任职公司, 详细信息可通过[【批量查询公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list)接口查询获得字段权限要求: 获取任职公司
+	OriginalJobGrade           string                                                         `json:"original_job_grade,omitempty"`            // 原职等字段权限要求（满足任一）: 获取职等信息读写职等信息
+	TargetJobGrade             string                                                         `json:"target_job_grade,omitempty"`              // 新职等字段权限要求（满足任一）: 获取职等信息读写职等信息
+	OriginalCompensationType   string                                                         `json:"original_compensation_type,omitempty"`    // 原薪资类型字段权限要求: 获取薪资类型
+	TargetCompensationType     string                                                         `json:"target_compensation_type,omitempty"`      // 新薪资类型字段权限要求: 获取薪资类型
+	OriginalServiceCompany     string                                                         `json:"original_service_company,omitempty"`      // 原任职公司字段权限要求: 获取任职公司
+	TargetServiceCompany       string                                                         `json:"target_service_company,omitempty"`        // 新任职公司字段权限要求: 获取任职公司
 	OriginalPosition           string                                                         `json:"original_position,omitempty"`             // 原岗位
 	TargetPosition             string                                                         `json:"target_position,omitempty"`               // 新岗位
+	OriginalSocialSecurityCity string                                                         `json:"original_social_security_city,omitempty"` // 原社保城市字段权限要求: 获取异动单据社保字段
+	TargetSocialSecurityCity   string                                                         `json:"target_social_security_city,omitempty"`   // 新社保城市字段权限要求: 获取异动单据社保字段
+	OriginalPathway            string                                                         `json:"original_pathway,omitempty"`              // 原通道字段权限要求（满足任一）: 读取异动信息中的通道字段信息读写异动信息中的通道字段信息
+	TargetPathway              string                                                         `json:"target_pathway,omitempty"`                // 新通道字段权限要求（满足任一）: 读取异动信息中的通道字段信息读写异动信息中的通道字段信息
+	IsTransferWithWorkforce    bool                                                           `json:"is_transfer_with_workforce,omitempty"`    // 编制随人员一起调整
 }
 
 // CreateCoreHRJobChangeRespTransferInfoOriginalCostCenterRate ...
 type CreateCoreHRJobChangeRespTransferInfoOriginalCostCenterRate struct {
-	CostCenterID string `json:"cost_center_id,omitempty"` // 支持的成本中心id, 详细信息可通过[【搜索成本中心信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)接口查询获得
-	Rate         int64  `json:"rate,omitempty"`           // 分摊比例
+	CostCenterID string `json:"cost_center_id,omitempty"` // 成本中心 ID, 可以通过【查询单个成本中心信息】接口获取对应的成本中心信息
+	Rate         int64  `json:"rate,omitempty"`           // 分摊比例(整数)
 }
 
 // CreateCoreHRJobChangeRespTransferInfoOriginalEmploymentChange ...
 type CreateCoreHRJobChangeRespTransferInfoOriginalEmploymentChange struct {
-	RegularEmployeeStartDate string                                                                      `json:"regular_employee_start_date,omitempty"` // 转正式员工日期, 格式: "YYYY-MM-DD"
-	SeniorityDate            string                                                                      `json:"seniority_date,omitempty"`              // 司龄起算日期, 格式: "YYYY-MM-DD"
-	EmployeeNumber           string                                                                      `json:"employee_number,omitempty"`             // 员工编号, 可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
+	RegularEmployeeStartDate string                                                                      `json:"regular_employee_start_date,omitempty"` // 转正式员工日期
+	SeniorityDate            string                                                                      `json:"seniority_date,omitempty"`              // 司龄起算日期
+	EmployeeNumber           string                                                                      `json:"employee_number,omitempty"`             // 员工编号
 	CustomFields             []*CreateCoreHRJobChangeRespTransferInfoOriginalEmploymentChangeCustomField `json:"custom_fields,omitempty"`               // 自定义字段字段权限要求: 获取异动工作信息自定义字段
 }
 
@@ -281,15 +258,15 @@ type CreateCoreHRJobChangeRespTransferInfoOriginalEmploymentChangeCustomFieldNam
 
 // CreateCoreHRJobChangeRespTransferInfoTargetCostCenterRate ...
 type CreateCoreHRJobChangeRespTransferInfoTargetCostCenterRate struct {
-	CostCenterID string `json:"cost_center_id,omitempty"` // 支持的成本中心id, 详细信息可通过[【搜索成本中心信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)接口查询获得
-	Rate         int64  `json:"rate,omitempty"`           // 分摊比例
+	CostCenterID string `json:"cost_center_id,omitempty"` // 成本中心 ID, 可以通过【查询单个成本中心信息】接口获取对应的成本中心信息
+	Rate         int64  `json:"rate,omitempty"`           // 分摊比例(整数)
 }
 
 // CreateCoreHRJobChangeRespTransferInfoTargetEmploymentChange ...
 type CreateCoreHRJobChangeRespTransferInfoTargetEmploymentChange struct {
-	RegularEmployeeStartDate string                                                                    `json:"regular_employee_start_date,omitempty"` // 转正式员工日期, 格式: "YYYY-MM-DD"
-	SeniorityDate            string                                                                    `json:"seniority_date,omitempty"`              // 司龄起算日期, 格式: "YYYY-MM-DD"
-	EmployeeNumber           string                                                                    `json:"employee_number,omitempty"`             // 员工编号, 可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
+	RegularEmployeeStartDate string                                                                    `json:"regular_employee_start_date,omitempty"` // 转正式员工日期
+	SeniorityDate            string                                                                    `json:"seniority_date,omitempty"`              // 司龄起算日期
+	EmployeeNumber           string                                                                    `json:"employee_number,omitempty"`             // 员工编号
 	CustomFields             []*CreateCoreHRJobChangeRespTransferInfoTargetEmploymentChangeCustomField `json:"custom_fields,omitempty"`               // 自定义字段字段权限要求: 获取异动工作信息自定义字段
 }
 

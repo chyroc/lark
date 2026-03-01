@@ -50,3 +50,10 @@ type EventV2DriveFileCreatedInFolderV1OperatorID struct {
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
+
+// EventV2DriveFileCreatedInFolderV1SubscriberID ...
+type EventV2DriveFileCreatedInFolderV1SubscriberID struct {
+	UnionID string `json:"union_id,omitempty"` // 订阅者的 Union ID
+	UserID  string `json:"user_id,omitempty"`  // 订阅者的 User ID
+	OpenID  string `json:"open_id,omitempty"`  // 订阅者的 Open ID
+}
