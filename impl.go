@@ -222,13 +222,11 @@ type BitableService struct{ cli *Lark }
 type BotService struct{ cli *Lark }
 type CalendarService struct{ cli *Lark }
 type CardkitService struct{ cli *Lark }
-type CcmDocsService struct{ cli *Lark }
 type ChatService struct{ cli *Lark }
 type CompensationService struct{ cli *Lark }
 type ContactService struct{ cli *Lark }
 type CoreHRService struct{ cli *Lark }
 type DirectoryService struct{ cli *Lark }
-type DocsService struct{ cli *Lark }
 type DriveService struct{ cli *Lark }
 type EHRService struct{ cli *Lark }
 type EventService struct{ cli *Lark }
@@ -241,7 +239,6 @@ type JssdkService struct{ cli *Lark }
 type LingoService struct{ cli *Lark }
 type MDMService struct{ cli *Lark }
 type MailService struct{ cli *Lark }
-type MeetingRoomService struct{ cli *Lark }
 type MessageService struct{ cli *Lark }
 type MinaService struct{ cli *Lark }
 type MinutesService struct{ cli *Lark }
@@ -259,5 +256,4 @@ type TaskV1Service struct{ cli *Lark }
 type TenantService struct{ cli *Lark }
 type TrustPartyService struct{ cli *Lark }
 type VCService struct{ cli *Lark }
-type VCMeetingService struct{ cli *Lark }
 type VerificationService struct{ cli *Lark }

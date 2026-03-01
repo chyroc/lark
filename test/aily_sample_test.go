@@ -87,12 +87,12 @@ func Test_Aily_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockAilyCreateAilySessionRunCancel(func(ctx context.Context, request *lark.CreateAilySessionRunCancelReq, options ...lark.MethodOptionFunc) (*lark.CreateAilySessionRunCancelResp, *lark.Response, error) {
+			cli.Mock().MockAilyCancelAilySessionRun(func(ctx context.Context, request *lark.CancelAilySessionRunReq, options ...lark.MethodOptionFunc) (*lark.CancelAilySessionRunResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAilyCreateAilySessionRunCancel()
+			defer cli.Mock().UnMockAilyCancelAilySessionRun()
 
-			_, _, err := moduleCli.CreateAilySessionRunCancel(ctx, &lark.CreateAilySessionRunCancelReq{})
+			_, _, err := moduleCli.CancelAilySessionRun(ctx, &lark.CancelAilySessionRunReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -340,7 +340,7 @@ func Test_Aily_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.CreateAilySessionRunCancel(ctx, &lark.CreateAilySessionRunCancelReq{
+			_, _, err := moduleCli.CancelAilySessionRun(ctx, &lark.CancelAilySessionRunReq{
 				AilySessionID: "x",
 				RunID:         "x",
 			})

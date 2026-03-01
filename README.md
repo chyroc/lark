@@ -110,7 +110,7 @@ API Count: 1622, Event Count: 153
   - BatchCreateAPaaSApplicationRoleMemberAuthorization
   - BatchRemoveAPaaSApplicationRoleMemberAuthorization
   - GetAPaaSApplicationRoleMember
-  - CreateAPaaSApprovalInstanceCancel
+  - CancelAPaaSApprovalInstance
   - AddAPaaSApprovalTaskAssignee
   - AgreeAPaaSApprovalTask
   - RejectAPaaSApprovalTask
@@ -152,7 +152,7 @@ API Count: 1622, Event Count: 153
   - CreateAilySessionAilyMessage
   - GetAilySessionAilyMessage
   - ListAilySessionAilyMessage
-  - CreateAilySessionRunCancel
+  - CancelAilySessionRun
   - CreateAilySessionRun
   - GetAilySessionRun
   - ListAilySessionRun

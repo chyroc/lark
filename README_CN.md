@@ -110,7 +110,7 @@ API 总数: 1622, 事件总数: 153
   - BatchCreateAPaaSApplicationRoleMemberAuthorization
   - BatchRemoveAPaaSApplicationRoleMemberAuthorization
   - GetAPaaSApplicationRoleMember
-  - CreateAPaaSApprovalInstanceCancel
+  - CancelAPaaSApprovalInstance
   - AddAPaaSApprovalTaskAssignee
   - AgreeAPaaSApprovalTask
   - RejectAPaaSApprovalTask
@@ -152,7 +152,7 @@ API 总数: 1622, 事件总数: 153
   - CreateAilySessionAilyMessage
   - GetAilySessionAilyMessage
   - ListAilySessionAilyMessage
-  - CreateAilySessionRunCancel
+  - CancelAilySessionRun
   - CreateAilySessionRun
   - GetAilySessionRun
   - ListAilySessionRun

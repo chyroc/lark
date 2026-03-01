@@ -339,12 +339,12 @@ func Test_APaaS_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockAPaaSCreateAPaaSApprovalInstanceCancel(func(ctx context.Context, request *lark.CreateAPaaSApprovalInstanceCancelReq, options ...lark.MethodOptionFunc) (*lark.CreateAPaaSApprovalInstanceCancelResp, *lark.Response, error) {
+			cli.Mock().MockAPaaSCancelAPaaSApprovalInstance(func(ctx context.Context, request *lark.CancelAPaaSApprovalInstanceReq, options ...lark.MethodOptionFunc) (*lark.CancelAPaaSApprovalInstanceResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAPaaSCreateAPaaSApprovalInstanceCancel()
+			defer cli.Mock().UnMockAPaaSCancelAPaaSApprovalInstance()
 
-			_, _, err := moduleCli.CreateAPaaSApprovalInstanceCancel(ctx, &lark.CreateAPaaSApprovalInstanceCancelReq{})
+			_, _, err := moduleCli.CancelAPaaSApprovalInstance(ctx, &lark.CancelAPaaSApprovalInstanceReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -869,7 +869,7 @@ func Test_APaaS_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.CreateAPaaSApprovalInstanceCancel(ctx, &lark.CreateAPaaSApprovalInstanceCancelReq{
+			_, _, err := moduleCli.CancelAPaaSApprovalInstance(ctx, &lark.CancelAPaaSApprovalInstanceReq{
 				ApprovalInstanceID: "x",
 			})
 			as.NotNil(err)

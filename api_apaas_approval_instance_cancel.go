@@ -21,56 +21,56 @@ import (
 	"context"
 )
 
-// CreateAPaaSApprovalInstanceCancel 撤销一个人工任务（包括审批任务, 填写任务）
+// CancelAPaaSApprovalInstance 撤销一个人工任务（包括审批任务, 填写任务）
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/approval_instance/cancel
 // new doc: https://open.feishu.cn/document/apaas-v1/flow/user-task/cancel
-func (r *APaaSService) CreateAPaaSApprovalInstanceCancel(ctx context.Context, request *CreateAPaaSApprovalInstanceCancelReq, options ...MethodOptionFunc) (*CreateAPaaSApprovalInstanceCancelResp, *Response, error) {
-	if r.cli.mock.mockAPaaSCreateAPaaSApprovalInstanceCancel != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] APaaS#CreateAPaaSApprovalInstanceCancel mock enable")
-		return r.cli.mock.mockAPaaSCreateAPaaSApprovalInstanceCancel(ctx, request, options...)
+func (r *APaaSService) CancelAPaaSApprovalInstance(ctx context.Context, request *CancelAPaaSApprovalInstanceReq, options ...MethodOptionFunc) (*CancelAPaaSApprovalInstanceResp, *Response, error) {
+	if r.cli.mock.mockAPaaSCancelAPaaSApprovalInstance != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] APaaS#CancelAPaaSApprovalInstance mock enable")
+		return r.cli.mock.mockAPaaSCancelAPaaSApprovalInstance(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "APaaS",
-		API:                   "CreateAPaaSApprovalInstanceCancel",
+		API:                   "CancelAPaaSApprovalInstance",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/apaas/v1/approval_instances/:approval_instance_id/cancel",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(createAPaaSApprovalInstanceCancelResp)
+	resp := new(cancelAPaaSApprovalInstanceResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockAPaaSCreateAPaaSApprovalInstanceCancel mock APaaSCreateAPaaSApprovalInstanceCancel method
-func (r *Mock) MockAPaaSCreateAPaaSApprovalInstanceCancel(f func(ctx context.Context, request *CreateAPaaSApprovalInstanceCancelReq, options ...MethodOptionFunc) (*CreateAPaaSApprovalInstanceCancelResp, *Response, error)) {
-	r.mockAPaaSCreateAPaaSApprovalInstanceCancel = f
+// MockAPaaSCancelAPaaSApprovalInstance mock APaaSCancelAPaaSApprovalInstance method
+func (r *Mock) MockAPaaSCancelAPaaSApprovalInstance(f func(ctx context.Context, request *CancelAPaaSApprovalInstanceReq, options ...MethodOptionFunc) (*CancelAPaaSApprovalInstanceResp, *Response, error)) {
+	r.mockAPaaSCancelAPaaSApprovalInstance = f
 }
 
-// UnMockAPaaSCreateAPaaSApprovalInstanceCancel un-mock APaaSCreateAPaaSApprovalInstanceCancel method
-func (r *Mock) UnMockAPaaSCreateAPaaSApprovalInstanceCancel() {
-	r.mockAPaaSCreateAPaaSApprovalInstanceCancel = nil
+// UnMockAPaaSCancelAPaaSApprovalInstance un-mock APaaSCancelAPaaSApprovalInstance method
+func (r *Mock) UnMockAPaaSCancelAPaaSApprovalInstance() {
+	r.mockAPaaSCancelAPaaSApprovalInstance = nil
 }
 
-// CreateAPaaSApprovalInstanceCancelReq ...
-type CreateAPaaSApprovalInstanceCancelReq struct {
+// CancelAPaaSApprovalInstanceReq ...
+type CancelAPaaSApprovalInstanceReq struct {
 	ApprovalInstanceID string `path:"approval_instance_id" json:"-"` // 审批实例, 可以通过[查询人工任务](/uAjLw4CM/ukTMukTMukTM/apaas-v1/user_task/query)获取示例值: "1788173550023689"
 	UserID             string `json:"user_id,omitempty"`             // 操作用户的kunlunUserID, 可通过Apaas用户管理页面获取示例值: "1234"
 	Opinion            string `json:"opinion,omitempty"`             // 撤销原因示例值: "撤销了"
 }
 
-// CreateAPaaSApprovalInstanceCancelResp ...
-type CreateAPaaSApprovalInstanceCancelResp struct {
+// CancelAPaaSApprovalInstanceResp ...
+type CancelAPaaSApprovalInstanceResp struct {
 }
 
-// createAPaaSApprovalInstanceCancelResp ...
-type createAPaaSApprovalInstanceCancelResp struct {
-	Code  int64                                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg   string                                 `json:"msg,omitempty"`  // 错误描述
-	Data  *CreateAPaaSApprovalInstanceCancelResp `json:"data,omitempty"`
-	Error *ErrorDetail                           `json:"error,omitempty"`
+// cancelAPaaSApprovalInstanceResp ...
+type cancelAPaaSApprovalInstanceResp struct {
+	Code  int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                           `json:"msg,omitempty"`  // 错误描述
+	Data  *CancelAPaaSApprovalInstanceResp `json:"data,omitempty"`
+	Error *ErrorDetail                     `json:"error,omitempty"`
 }
