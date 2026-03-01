@@ -23,8 +23,8 @@ import (
 
 // GetCoreHRAuthorizationList 批量查询[飞书人事管理后台](https://people.feishu.cn/people/) -「设置」-「权限设置」中的用户授权信息。授权列表信息中包括员工ID、被授权的角色等信息。
 //
-// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/authorization/batch-query-user-authorization
-// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/authorization/batch-query-user-authorization
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/authorization/query
+// new doc: https://open.feishu.cn/document/corehr-v1/authorization/query-2
 func (r *CoreHRService) GetCoreHRAuthorizationList(ctx context.Context, request *GetCoreHRAuthorizationListReq, options ...MethodOptionFunc) (*GetCoreHRAuthorizationListResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRAuthorizationList != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRAuthorizationList mock enable")

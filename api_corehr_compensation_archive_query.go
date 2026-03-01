@@ -25,7 +25,8 @@ import (
 //
 // 该接口会按照应用拥有的「薪资档案资源」的权限范围返回数据, 请确定在「开发者后台 - 权限管理 - 数据权限」中已申请「薪资档案资源」权限范围
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/archive/query
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/archive/query
+// new doc: https://open.feishu.cn/document/corehr-v1/basic-compensation/archive/query
 func (r *CoreHRService) QueryCoreHRCompensationArchive(ctx context.Context, request *QueryCoreHRCompensationArchiveReq, options ...MethodOptionFunc) (*QueryCoreHRCompensationArchiveResp, *Response, error) {
 	if r.cli.mock.mockCoreHRQueryCoreHRCompensationArchive != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#QueryCoreHRCompensationArchive mock enable")
@@ -60,12 +61,13 @@ func (r *Mock) UnMockCoreHRQueryCoreHRCompensationArchive() {
 
 // QueryCoreHRCompensationArchiveReq ...
 type QueryCoreHRCompensationArchiveReq struct {
-	PageSize           int64    `query:"page_size" json:"-"`            // 分页大小, 示例值: 100, 默认值: `100`, 取值范围: `1` ～ `500`
-	PageToken          *string  `query:"page_token" json:"-"`           // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 231432433
-	UserIDType         IDType   `query:"user_id_type" json:"-"`         // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	UserIDList         []string `json:"user_id_list,omitempty"`         // 用户ID列表, 示例值: ["7117649868058789407"], 长度范围: `1` ～ `100`
-	EffectiveStartDate *string  `json:"effective_start_date,omitempty"` // 生效开始时间, 示例值: "2022-05-10"
-	EffectiveEndDate   *string  `json:"effective_end_date,omitempty"`   // 生效结束时间, 示例值: "2023-05-15"
+	PageSize           int64    `query:"page_size" json:"-"`            // 分页大小示例值: 100默认值: `100` 取值范围: `1` ～ `500`
+	PageToken          *string  `query:"page_token" json:"-"`           // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 231432433
+	UserIDType         IDType   `query:"user_id_type" json:"-"`         // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以people_corehr_id来识别用户默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDList         []string `json:"user_id_list,omitempty"`         // 用户ID列表, 获取方式可参考查询参数中的「user_id_type」字段示例值: ["7117649868058789407"] 长度范围: `1` ～ `100`
+	TidList            []string `json:"tid_list,omitempty"`             // 档案Tid列表示例值: ["141541351"] 长度范围: `1` ～ `100`
+	EffectiveStartDate *string  `json:"effective_start_date,omitempty"` // 生效开始时间示例值: "2022-05-10"
+	EffectiveEndDate   *string  `json:"effective_end_date,omitempty"`   // 生效结束时间示例值: "2023-05-15"
 }
 
 // QueryCoreHRCompensationArchiveResp ...
@@ -77,18 +79,21 @@ type QueryCoreHRCompensationArchiveResp struct {
 
 // QueryCoreHRCompensationArchiveRespItem ...
 type QueryCoreHRCompensationArchiveRespItem struct {
-	UserID            string                                                    `json:"user_id,omitempty"`            // 员工ID
+	UserID            string                                                    `json:"user_id,omitempty"`            // 员工ID, 返回的ID类型与查询参数中的「user_id_type」的取值一致
 	ID                string                                                    `json:"id,omitempty"`                 // 员工薪资档案ID
 	Tid               string                                                    `json:"tid,omitempty"`                // 员工薪资档案版本ID, 薪资档案唯一标识
-	PlanID            string                                                    `json:"plan_id,omitempty"`            // 关联薪资方案ID, 详细信息可以通过[批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list)接口查询获得, 字段权限要求: 获取薪资档案的关联方案
-	PlanTid           string                                                    `json:"plan_tid,omitempty"`           // 关联薪资方案版本ID, 薪资方案唯一标识, 详细信息可以通过[批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list)接口查询获得, 字段权限要求: 获取薪资档案的关联方案
+	PlanID            string                                                    `json:"plan_id,omitempty"`            // 关联薪资方案ID, 详细信息可以通过[批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list)接口查询获得字段权限要求: 获取薪资档案的关联方案
+	PlanTid           string                                                    `json:"plan_tid,omitempty"`           // 关联薪资方案版本ID, 薪资方案唯一标识, 详细信息可以通过[批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list)接口查询获得字段权限要求: 获取薪资档案的关联方案
 	CurrencyID        string                                                    `json:"currency_id,omitempty"`        // 档案币种ID, 详细信息可以通过[查询货币信息v2](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)接口查询获得
 	ChangeReasonID    string                                                    `json:"change_reason_id,omitempty"`   // 调薪原因ID, 详细信息可以通过[批量查询定调薪原因](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list)接口查询获得
-	ChangeDescription string                                                    `json:"change_description,omitempty"` // 调薪说明, 字段权限要求: 获取薪资档案的调薪说明
+	ChangeDescription string                                                    `json:"change_description,omitempty"` // 调薪说明字段权限要求: 获取薪资档案的调薪说明
 	EffectiveDate     string                                                    `json:"effective_date,omitempty"`     // 生效时间
-	SalaryLevelID     string                                                    `json:"salary_level_id,omitempty"`    // 薪级薪等ID, 字段权限要求: 获取薪资档案的关联薪级薪等
-	ArchiveItems      []*QueryCoreHRCompensationArchiveRespItemArchiveItem      `json:"archive_items,omitempty"`      // 档案关联的薪资项, 字段权限要求: 获取薪资档案的关联薪资项
-	ArchiveIndicators []*QueryCoreHRCompensationArchiveRespItemArchiveIndicator `json:"archive_indicators,omitempty"` // 档案关联的薪资指标, 字段权限要求: 获取薪资档案的关联薪资指标
+	ExpirationDate    string                                                    `json:"expiration_date,omitempty"`    // 失效时间
+	SalaryLevelID     string                                                    `json:"salary_level_id,omitempty"`    // 薪级薪等ID字段权限要求: 获取薪资档案的关联薪级薪等
+	CreatedTime       string                                                    `json:"created_time,omitempty"`       // 创建时间
+	UpdatedTime       string                                                    `json:"updated_time,omitempty"`       // 更新时间
+	ArchiveItems      []*QueryCoreHRCompensationArchiveRespItemArchiveItem      `json:"archive_items,omitempty"`      // 档案关联的薪资项字段权限要求: 获取薪资档案的关联薪资项
+	ArchiveIndicators []*QueryCoreHRCompensationArchiveRespItemArchiveIndicator `json:"archive_indicators,omitempty"` // 档案关联的薪资指标字段权限要求: 获取薪资档案的关联薪资指标
 }
 
 // QueryCoreHRCompensationArchiveRespItemArchiveIndicator ...
@@ -101,8 +106,8 @@ type QueryCoreHRCompensationArchiveRespItemArchiveIndicator struct {
 // QueryCoreHRCompensationArchiveRespItemArchiveItem ...
 type QueryCoreHRCompensationArchiveRespItemArchiveItem struct {
 	ItemID            string `json:"item_id,omitempty"`             // 薪资项ID, 详细信息可以通过[批量查询薪资项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)接口查询获得
-	ItemResult        string `json:"item_result,omitempty"`         // 档案关联薪资项数值
-	ItemResultRegular string `json:"item_result_regular,omitempty"` // 档案关联薪资项转正后数值
+	ItemResult        string `json:"item_result,omitempty"`         // 档案关联薪酬项数值
+	ItemResultRegular string `json:"item_result_regular,omitempty"` // 档案关联薪酬项转正后数值
 }
 
 // queryCoreHRCompensationArchiveResp ...

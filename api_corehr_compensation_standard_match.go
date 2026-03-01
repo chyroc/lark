@@ -27,7 +27,8 @@ import (
 // - 此接口将返回员工可匹配到的薪资标准全部信息, 包括薪资标准表 ID、薪级薪等、薪资带宽、薪资标准值等
 // 该接口会按照应用拥有的「薪资标准资源」的权限范围返回数据, 请确定在「开发者后台 - 权限管理 - 数据权限-飞书人事(企业版)数据权限范围」中已申请「薪资标准资源」权限范围
 //
-// doc: https://open.feishu.cn/document/server-docs/corehr-v1/compensation_standard/match
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/compensation_standard/match
+// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/compensation_standard/match
 func (r *CoreHRService) MatchCoreHRCompensationStandard(ctx context.Context, request *MatchCoreHRCompensationStandardReq, options ...MethodOptionFunc) (*MatchCoreHRCompensationStandardResp, *Response, error) {
 	if r.cli.mock.mockCoreHRMatchCoreHRCompensationStandard != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#MatchCoreHRCompensationStandard mock enable")

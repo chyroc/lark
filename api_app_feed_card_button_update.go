@@ -23,7 +23,8 @@ import (
 
 // UpdateAppFeedCardButton 为群组消息、机器人消息的消息流卡片添加、更新、删除快捷操作按钮。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/group/im-v2/chat_button/update
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/group/im-v2/chat_button/update
+// new doc: https://open.feishu.cn/document/im-v2/groups-bots/update
 func (r *MessageService) UpdateAppFeedCardButton(ctx context.Context, request *UpdateAppFeedCardButtonReq, options ...MethodOptionFunc) (*UpdateAppFeedCardButtonResp, *Response, error) {
 	if r.cli.mock.mockMessageUpdateAppFeedCardButton != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#UpdateAppFeedCardButton mock enable")
@@ -57,37 +58,37 @@ func (r *Mock) UnMockMessageUpdateAppFeedCardButton() {
 
 // UpdateAppFeedCardButtonReq ...
 type UpdateAppFeedCardButtonReq struct {
-	UserIDType *IDType                            `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	UserIDs    []string                           `json:"user_ids,omitempty"`     // 用户 ID 列表, 示例值: ["ou_89553eda9014c201e6969b478895c276"], 长度范围: `1` ～ `20`
-	ChatID     string                             `json:"chat_id,omitempty"`      // 群 ID, 示例值: "oc_a0553eda9014c201e6969b478895c230"
-	Buttons    *UpdateAppFeedCardButtonReqButtons `json:"buttons,omitempty"`      // 按钮
+	UserIDType *IDType                            `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDs    []string                           `json:"user_ids,omitempty"`     // 用户 ID 列表（ID 类型与 user_id_type 的取值一致。如果是商店应用, 因不支持获取用户 user ID 权限, 所以无法使用 user_id 类型的用户 ID）示例值: ["ou_89553eda9014c201e6969b478895c276"] 长度范围: `1` ～ `20`
+	ChatID     string                             `json:"chat_id,omitempty"`      // 群 ID示例值: "oc_a0553eda9014c201e6969b478895c230"
+	Buttons    *UpdateAppFeedCardButtonReqButtons `json:"buttons,omitempty"`      // 交互按钮（非必填字段, 如未传入该字段, 则不展示按钮；最多展示 2 个按钮）
 }
 
 // UpdateAppFeedCardButtonReqButtons ...
 type UpdateAppFeedCardButtonReqButtons struct {
-	Buttons []*UpdateAppFeedCardButtonReqButtonsButton `json:"buttons,omitempty"` // 按钮组合, 该字段为全量更新字段, 若未传入字段原有值, 则会清空字段数据。例如: 在保持原有按钮的字段配置的前提下, 新增一个按钮配置会添加一个按钮, 在原有按钮的字段配置上做更新, 会更新该按钮, 清空原有按钮的字段配置, 会删除该按钮, 长度范围: `0` ～ `2`
+	Buttons []*UpdateAppFeedCardButtonReqButtonsButton `json:"buttons,omitempty"` // 按钮组合, 该字段为全量更新字段, 若未传入字段原有值, 则会清空字段数据。例如: 在保持原有按钮的字段配置的前提下, 新增一个按钮配置会添加一个按钮。- 在原有按钮的字段配置上做更新, 会更新该按钮。- 清空原有按钮的字段配置, 会删除该按钮。 长度范围: `0` ～ `2`
 }
 
 // UpdateAppFeedCardButtonReqButtonsButton ...
 type UpdateAppFeedCardButtonReqButtonsButton struct {
-	MultiURL   *UpdateAppFeedCardButtonReqButtonsButtonMultiURL `json:"multi_url,omitempty"`   // 跳转 URL
-	ActionType string                                           `json:"action_type,omitempty"` // 交互类型, 示例值: "url_page", 可选值有: url_page: URL 页面, webhook: 回调
+	MultiURL   *UpdateAppFeedCardButtonReqButtonsButtonMultiURL `json:"multi_url,omitempty"`   // 跳转 URL（仅支持 https 协议）
+	ActionType string                                           `json:"action_type,omitempty"` // 交互类型（按钮交互方式可配置跳转 URL 页面, 也可配置 webhook 回调）示例值: "url_page"可选值有: URL 页面回调
 	Text       *UpdateAppFeedCardButtonReqButtonsButtonText     `json:"text,omitempty"`        // 文字
-	ButtonType *string                                          `json:"button_type,omitempty"` // 按钮类型, 示例值: "default", 可选值有: default: 默认, primary: 主要, success: 成功, 默认值: `default`
-	ActionMap  map[string]string                                `json:"action_map,omitempty"`  // action 字典, 示例值: {"foo": "bar"}
+	ButtonType *string                                          `json:"button_type,omitempty"` // 按钮类型示例值: "default"可选值有: 默认主要成功默认值: `default`
+	ActionMap  interface{}                                      `json:"action_map,omitempty"`  // action 字典示例值: {"foo": "bar"}
 }
 
 // UpdateAppFeedCardButtonReqButtonsButtonMultiURL ...
 type UpdateAppFeedCardButtonReqButtonsButtonMultiURL struct {
-	URL        *string `json:"url,omitempty"`         // 默认 URL, 示例值: "https://www.feishu.cn/", 最大长度: `700` 字符
-	AndroidURL *string `json:"android_url,omitempty"` // Android 平台 URL, 示例值: "https://www.feishu.cn/", 最大长度: `700` 字符
-	IosURL     *string `json:"ios_url,omitempty"`     // iOS 平台 URL, 示例值: "https://www.feishu.cn/", 最大长度: `700` 字符
-	PcURL      *string `json:"pc_url,omitempty"`      // PC URL, 示例值: "https://www.feishu.cn/", 最大长度: `700` 字符
+	URL        *string `json:"url,omitempty"`         // 默认 URL示例值: "https://www.feishu.cn/" 最大长度: `700` 字符
+	AndroidURL *string `json:"android_url,omitempty"` // Android 平台 URL示例值: "https://www.feishu.cn/" 最大长度: `700` 字符
+	IosURL     *string `json:"ios_url,omitempty"`     // iOS 平台 URL示例值: "https://www.feishu.cn/" 最大长度: `700` 字符
+	PcURL      *string `json:"pc_url,omitempty"`      // PC URL示例值: "https://www.feishu.cn/" 最大长度: `700` 字符
 }
 
 // UpdateAppFeedCardButtonReqButtonsButtonText ...
 type UpdateAppFeedCardButtonReqButtonsButtonText struct {
-	Text string `json:"text,omitempty"` // 文本, 示例值: "文本", 长度范围: `1` ～ `30` 字符
+	Text string `json:"text,omitempty"` // 文本示例值: "文本" 长度范围: `1` ～ `30` 字符
 }
 
 // UpdateAppFeedCardButtonResp ...

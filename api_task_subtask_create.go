@@ -27,7 +27,8 @@ import (
 // 创建子任务需要拥有父任务的编辑权限。详见[任务是如何鉴权的？](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/faq)
 // 如果将新任务加入清单, 则需要清单的可编辑权限。详情见[任务功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/overview)中的“任务是如何鉴权的？”章节。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/task-v2/task-subtask/create
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task-subtask/create
+// new doc: https://open.feishu.cn/document/task-v2/task-subtask/create
 func (r *TaskService) CreateTaskSubtask(ctx context.Context, request *CreateTaskSubtaskReq, options ...MethodOptionFunc) (*CreateTaskSubtaskResp, *Response, error) {
 	if r.cli.mock.mockTaskCreateTaskSubtask != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#CreateTaskSubtask mock enable")
@@ -62,19 +63,19 @@ func (r *Mock) UnMockTaskCreateTaskSubtask() {
 
 // CreateTaskSubtaskReq ...
 type CreateTaskSubtaskReq struct {
-	TaskGuid       string                              `path:"task_guid" json:"-"`        // 父任务GUID, 示例值: "e297ddff-06ca-4166-b917-4ce57cd3a7a0", 最大长度: `100` 字符
-	UserIDType     *IDType                             `query:"user_id_type" json:"-"`    // 用户 ID 类型, 示例值: open_id, 默认值: `open_id`
-	Summary        string                              `json:"summary,omitempty"`         // 任务标题, 示例值: "针对全年销售进行一次复盘", 最大长度: `10000` 字符
-	Description    *string                             `json:"description,omitempty"`     // 任务摘要, 示例值: "需要事先阅读复盘总结文档"
-	Due            *CreateTaskSubtaskReqDue            `json:"due,omitempty"`             // 任务截止时间戳(ms), 截止时间戳和截止日期选择一个填写, 示例值: 1675742789470
+	TaskGuid       string                              `path:"task_guid" json:"-"`        // 父任务GUID示例值: "e297ddff-06ca-4166-b917-4ce57cd3a7a0" 最大长度: `100` 字符
+	UserIDType     *IDType                             `query:"user_id_type" json:"-"`    // 用户 ID 类型示例值: open_id默认值: `open_id`
+	Summary        string                              `json:"summary,omitempty"`         // 任务标题示例值: "针对全年销售进行一次复盘" 最大长度: `10000` 字符
+	Description    *string                             `json:"description,omitempty"`     // 任务摘要示例值: "需要事先阅读复盘总结文档"
+	Due            *CreateTaskSubtaskReqDue            `json:"due,omitempty"`             // 任务截止时间戳(ms), 截止时间戳和截止日期选择一个填写。示例值: 1675742789470
 	Origin         *CreateTaskSubtaskReqOrigin         `json:"origin,omitempty"`          // 任务关联的第三方平台来源信息。详见[如何使用Origin?](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/overview)
-	Extra          *string                             `json:"extra,omitempty"`           // 调用者可以传入的任意附带到任务上的数据。在获取任务详情时会原样返回, 示例值: "dGVzdA[", 最大长度: `65536` 字符
-	CompletedAt    *string                             `json:"completed_at,omitempty"`    // 任务的完成时刻时间戳(ms), 示例值: "1675742789470", 默认值: `0`, 最大长度: `20` 字符
-	Members        []*CreateTaskSubtaskReqMember       `json:"members,omitempty"`         // 任务成员列表, 示例值: [ou_2cefb2f014f8d0c6c2d2eb7bafb0e54f], 最大长度: `500`
-	RepeatRule     *string                             `json:"repeat_rule,omitempty"`     // 如果设置, 则该任务为“重复任务”。该字段表示了重复任务的重复规则。详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“如何使用重复任务？”章节, 示例值: "FREQ=WEEKLY;INTERVAL=1;BYDAY=MO, TU, WE, TH, FR", 最大长度: `1000` 字符
+	Extra          *string                             `json:"extra,omitempty"`           // 调用者可以传入的任意附带到任务上的数据。在获取任务详情时会原样返回。示例值: "dGVzdA[" 最大长度: `65536` 字符
+	CompletedAt    *string                             `json:"completed_at,omitempty"`    // 任务的完成时刻时间戳(ms)示例值: "1675742789470"默认值: `0` 最大长度: `20` 字符
+	Members        []*CreateTaskSubtaskReqMember       `json:"members,omitempty"`         // 任务成员列表示例值: [ou_2cefb2f014f8d0c6c2d2eb7bafb0e54f] 最大长度: `500`
+	RepeatRule     *string                             `json:"repeat_rule,omitempty"`     // 如果设置, 则该任务为“重复任务”。该字段表示了重复任务的重复规则。详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“如何使用重复任务？”章节。示例值: "FREQ=WEEKLY;INTERVAL=1;BYDAY=MO, TU, WE, TH, FR" 最大长度: `1000` 字符
 	CustomComplete *CreateTaskSubtaskReqCustomComplete `json:"custom_complete,omitempty"` // 任务自定义完成规则。详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“如何使用自定义完成？”章节。
 	Tasklists      []*CreateTaskSubtaskReqTasklist     `json:"tasklists,omitempty"`       // 任务所在清单的信息。如果设置, 则表示创建的任务要直接加入到指定清单。
-	ClientToken    *string                             `json:"client_token,omitempty"`    // 幂等token。如果提供则触发后端实现幂等行为。详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 幂等调用 ”章节, 示例值: "daa2237f-8310-4707-a83b-52c8a81e0fb7", 长度范围: `10` ～ `100` 字符
+	ClientToken    *string                             `json:"client_token,omitempty"`    // 幂等token。如果提供则触发后端实现幂等行为。详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 幂等调用 ”章节。示例值: "daa2237f-8310-4707-a83b-52c8a81e0fb7" 长度范围: `10` ～ `100` 字符
 	Start          *CreateTaskSubtaskReqStart          `json:"start,omitempty"`           // 任务的开始时间(ms)
 	Reminders      []*CreateTaskSubtaskReqReminder     `json:"reminders,omitempty"`       // 任务提醒
 }
@@ -88,81 +89,81 @@ type CreateTaskSubtaskReqCustomComplete struct {
 
 // CreateTaskSubtaskReqCustomCompleteAndroid ...
 type CreateTaskSubtaskReqCustomCompleteAndroid struct {
-	Href *string                                       `json:"href,omitempty"` // 自定义完成的跳转url, 示例值: "https://www.example.com"
+	Href *string                                       `json:"href,omitempty"` // 自定义完成的跳转url示例值: "https://www.example.com"
 	Tip  *CreateTaskSubtaskReqCustomCompleteAndroidTip `json:"tip,omitempty"`  // 自定义完成的弹出提示为
 }
 
 // CreateTaskSubtaskReqCustomCompleteAndroidTip ...
 type CreateTaskSubtaskReqCustomCompleteAndroidTip struct {
-	EnUs *string `json:"en_us,omitempty"` // 英文, 示例值: "workbench", 最大长度: `1000` 字符
-	ZhCn *string `json:"zh_cn,omitempty"` // 中文, 示例值: "工作台", 最大长度: `1000` 字符
-	ZhHk *string `json:"zh_hk,omitempty"` // 中文（香港地区）, 示例值: "工作臺", 最大长度: `1000` 字符
-	ZhTw *string `json:"zh_tw,omitempty"` // 中文（台湾地区）, 示例值: "工作臺", 最大长度: `1000` 字符
-	JaJp *string `json:"ja_jp,omitempty"` // 日语, 示例值: "作業台", 最大长度: `1000` 字符
-	FrFr *string `json:"fr_fr,omitempty"` // 法语, 示例值: "Table de travail"
-	ItIt *string `json:"it_it,omitempty"` // 意大利语, 示例值: "banco di lavoro"
-	DeDe *string `json:"de_de,omitempty"` // 德语, 示例值: "Werkbank"
-	RuRu *string `json:"ru_ru,omitempty"` // 俄语, 示例值: "верстак"
-	ThTh *string `json:"th_th,omitempty"` // 泰语, 示例值: "โต๊ะทำงาน"
-	EsEs *string `json:"es_es,omitempty"` // 西班牙语, 示例值: "banco de trabajo"
-	KoKr *string `json:"ko_kr,omitempty"` // 韩语, 示例值: "작업대"
+	EnUs *string `json:"en_us,omitempty"` // 英文示例值: "workbench" 最大长度: `1000` 字符
+	ZhCn *string `json:"zh_cn,omitempty"` // 中文示例值: "工作台" 最大长度: `1000` 字符
+	ZhHk *string `json:"zh_hk,omitempty"` // 中文（香港地区）示例值: "工作臺" 最大长度: `1000` 字符
+	ZhTw *string `json:"zh_tw,omitempty"` // 中文（台湾地区）示例值: "工作臺" 最大长度: `1000` 字符
+	JaJp *string `json:"ja_jp,omitempty"` // 日语示例值: "作業台" 最大长度: `1000` 字符
+	FrFr *string `json:"fr_fr,omitempty"` // 法语示例值: "Table de travail"
+	ItIt *string `json:"it_it,omitempty"` // 意大利语示例值: "banco di lavoro"
+	DeDe *string `json:"de_de,omitempty"` // 德语示例值: "Werkbank"
+	RuRu *string `json:"ru_ru,omitempty"` // 俄语示例值: "верстак"
+	ThTh *string `json:"th_th,omitempty"` // 泰语示例值: "โต๊ะทำงาน"
+	EsEs *string `json:"es_es,omitempty"` // 西班牙语示例值: "banco de trabajo"
+	KoKr *string `json:"ko_kr,omitempty"` // 韩语示例值: "작업대"
 }
 
 // CreateTaskSubtaskReqCustomCompleteIos ...
 type CreateTaskSubtaskReqCustomCompleteIos struct {
-	Href *string                                   `json:"href,omitempty"` // 自定义完成的跳转url, 示例值: "https://www.example.com"
+	Href *string                                   `json:"href,omitempty"` // 自定义完成的跳转url示例值: "https://www.example.com"
 	Tip  *CreateTaskSubtaskReqCustomCompleteIosTip `json:"tip,omitempty"`  // 自定义完成的弹出提示为
 }
 
 // CreateTaskSubtaskReqCustomCompleteIosTip ...
 type CreateTaskSubtaskReqCustomCompleteIosTip struct {
-	EnUs *string `json:"en_us,omitempty"` // 英文, 示例值: "workbench", 最大长度: `1000` 字符
-	ZhCn *string `json:"zh_cn,omitempty"` // 中文, 示例值: "工作台", 最大长度: `1000` 字符
-	ZhHk *string `json:"zh_hk,omitempty"` // 中文（香港地区）, 示例值: "工作臺", 最大长度: `1000` 字符
-	ZhTw *string `json:"zh_tw,omitempty"` // 中文（台湾地区）, 示例值: "工作臺", 最大长度: `1000` 字符
-	JaJp *string `json:"ja_jp,omitempty"` // 日语, 示例值: "作業台", 最大长度: `1000` 字符
-	FrFr *string `json:"fr_fr,omitempty"` // 法语, 示例值: "Table de travail"
-	ItIt *string `json:"it_it,omitempty"` // 意大利语, 示例值: "banco di lavoro"
-	DeDe *string `json:"de_de,omitempty"` // 德语, 示例值: "Werkbank"
-	RuRu *string `json:"ru_ru,omitempty"` // 俄语, 示例值: "верстак"
-	ThTh *string `json:"th_th,omitempty"` // 泰语, 示例值: "โต๊ะทำงาน"
-	EsEs *string `json:"es_es,omitempty"` // 西班牙语, 示例值: "banco de trabajo"
-	KoKr *string `json:"ko_kr,omitempty"` // 韩语, 示例值: "작업대"
+	EnUs *string `json:"en_us,omitempty"` // 英文示例值: "workbench" 最大长度: `1000` 字符
+	ZhCn *string `json:"zh_cn,omitempty"` // 中文示例值: "工作台" 最大长度: `1000` 字符
+	ZhHk *string `json:"zh_hk,omitempty"` // 中文（香港地区）示例值: "工作臺" 最大长度: `1000` 字符
+	ZhTw *string `json:"zh_tw,omitempty"` // 中文（台湾地区）示例值: "工作臺" 最大长度: `1000` 字符
+	JaJp *string `json:"ja_jp,omitempty"` // 日语示例值: "作業台" 最大长度: `1000` 字符
+	FrFr *string `json:"fr_fr,omitempty"` // 法语示例值: "Table de travail"
+	ItIt *string `json:"it_it,omitempty"` // 意大利语示例值: "banco di lavoro"
+	DeDe *string `json:"de_de,omitempty"` // 德语示例值: "Werkbank"
+	RuRu *string `json:"ru_ru,omitempty"` // 俄语示例值: "верстак"
+	ThTh *string `json:"th_th,omitempty"` // 泰语示例值: "โต๊ะทำงาน"
+	EsEs *string `json:"es_es,omitempty"` // 西班牙语示例值: "banco de trabajo"
+	KoKr *string `json:"ko_kr,omitempty"` // 韩语示例值: "작업대"
 }
 
 // CreateTaskSubtaskReqCustomCompletePc ...
 type CreateTaskSubtaskReqCustomCompletePc struct {
-	Href *string                                  `json:"href,omitempty"` // 自定义完成的跳转url, 示例值: "https://www.example.com"
+	Href *string                                  `json:"href,omitempty"` // 自定义完成的跳转url示例值: "https://www.example.com"
 	Tip  *CreateTaskSubtaskReqCustomCompletePcTip `json:"tip,omitempty"`  // 自定义完成的弹出提示为
 }
 
 // CreateTaskSubtaskReqCustomCompletePcTip ...
 type CreateTaskSubtaskReqCustomCompletePcTip struct {
-	EnUs *string `json:"en_us,omitempty"` // 英文, 示例值: "workbench", 最大长度: `1000` 字符
-	ZhCn *string `json:"zh_cn,omitempty"` // 中文, 示例值: "工作台", 最大长度: `1000` 字符
-	ZhHk *string `json:"zh_hk,omitempty"` // 中文（香港地区）, 示例值: "工作臺", 最大长度: `1000` 字符
-	ZhTw *string `json:"zh_tw,omitempty"` // 中文（台湾地区）, 示例值: "工作臺", 最大长度: `1000` 字符
-	JaJp *string `json:"ja_jp,omitempty"` // 日语, 示例值: "作業台", 最大长度: `1000` 字符
-	FrFr *string `json:"fr_fr,omitempty"` // 法语, 示例值: "Table de travail"
-	ItIt *string `json:"it_it,omitempty"` // 意大利语, 示例值: "banco di lavoro"
-	DeDe *string `json:"de_de,omitempty"` // 德语, 示例值: "Werkbank"
-	RuRu *string `json:"ru_ru,omitempty"` // 俄语, 示例值: "верстак"
-	ThTh *string `json:"th_th,omitempty"` // 泰语, 示例值: "โต๊ะทำงาน"
-	EsEs *string `json:"es_es,omitempty"` // 西班牙语, 示例值: "banco de trabajo"
-	KoKr *string `json:"ko_kr,omitempty"` // 韩语, 示例值: "작업대"
+	EnUs *string `json:"en_us,omitempty"` // 英文示例值: "workbench" 最大长度: `1000` 字符
+	ZhCn *string `json:"zh_cn,omitempty"` // 中文示例值: "工作台" 最大长度: `1000` 字符
+	ZhHk *string `json:"zh_hk,omitempty"` // 中文（香港地区）示例值: "工作臺" 最大长度: `1000` 字符
+	ZhTw *string `json:"zh_tw,omitempty"` // 中文（台湾地区）示例值: "工作臺" 最大长度: `1000` 字符
+	JaJp *string `json:"ja_jp,omitempty"` // 日语示例值: "作業台" 最大长度: `1000` 字符
+	FrFr *string `json:"fr_fr,omitempty"` // 法语示例值: "Table de travail"
+	ItIt *string `json:"it_it,omitempty"` // 意大利语示例值: "banco di lavoro"
+	DeDe *string `json:"de_de,omitempty"` // 德语示例值: "Werkbank"
+	RuRu *string `json:"ru_ru,omitempty"` // 俄语示例值: "верстак"
+	ThTh *string `json:"th_th,omitempty"` // 泰语示例值: "โต๊ะทำงาน"
+	EsEs *string `json:"es_es,omitempty"` // 西班牙语示例值: "banco de trabajo"
+	KoKr *string `json:"ko_kr,omitempty"` // 韩语示例值: "작업대"
 }
 
 // CreateTaskSubtaskReqDue ...
 type CreateTaskSubtaskReqDue struct {
-	Timestamp *string `json:"timestamp,omitempty"`  // 截止时间/日期的时间戳, 距1970-01-01 00:00:00的毫秒数。如果截止时间是一个日期, 需要把日期转换成时间戳, 并设置 is_all_day=true, 示例值: "1675454764000"
-	IsAllDay  *bool   `json:"is_all_day,omitempty"` // 是否截止到一个日期。如果设为true, timestamp中只有日期的部分会被解析和存储, 示例值: true
+	Timestamp *string `json:"timestamp,omitempty"`  // 截止时间/日期的时间戳, 距1970-01-01 00:00:00的毫秒数。如果截止时间是一个日期, 需要把日期转换成时间戳, 并设置 is_all_day=true示例值: "1675454764000"
+	IsAllDay  *bool   `json:"is_all_day,omitempty"` // 是否截止到一个日期。如果设为true, timestamp中只有日期的部分会被解析和存储。示例值: true
 }
 
 // CreateTaskSubtaskReqMember ...
 type CreateTaskSubtaskReqMember struct {
-	ID   *string `json:"id,omitempty"`   // 表示member的id, 示例值: "ou_2cefb2f014f8d0c6c2d2eb7bafb0e54f", 最大长度: `100` 字符
-	Type *string `json:"type,omitempty"` // 成员的类型, 示例值: "user", 默认值: `user`
-	Role *string `json:"role,omitempty"` // 成员角色, 支持"assignee"或者"follower", 示例值: "assignee", 最大长度: `20` 字符
+	ID   *string `json:"id,omitempty"`   // 表示member的id示例值: "ou_2cefb2f014f8d0c6c2d2eb7bafb0e54f" 最大长度: `100` 字符
+	Type *string `json:"type,omitempty"` // 成员的类型示例值: "user"默认值: `user`
+	Role *string `json:"role,omitempty"` // 成员角色, 支持"assignee"或者"follower"示例值: "assignee" 最大长度: `20` 字符
 }
 
 // CreateTaskSubtaskReqOrigin ...
@@ -173,41 +174,41 @@ type CreateTaskSubtaskReqOrigin struct {
 
 // CreateTaskSubtaskReqOriginHref ...
 type CreateTaskSubtaskReqOriginHref struct {
-	URL   *string `json:"url,omitempty"`   // 链接对应的地址, 示例值: "https://www.example.com", 长度范围: `0` ～ `1024` 字符
-	Title *string `json:"title,omitempty"` // 链接对应的标题, 示例值: "反馈一个问题, 需要协助排查", 最大长度: `512` 字符
+	URL   *string `json:"url,omitempty"`   // 链接对应的地址示例值: "https://www.example.com" 长度范围: `0` ～ `1024` 字符
+	Title *string `json:"title,omitempty"` // 链接对应的标题示例值: "反馈一个问题, 需要协助排查" 最大长度: `512` 字符
 }
 
 // CreateTaskSubtaskReqOriginPlatformI18nName ...
 type CreateTaskSubtaskReqOriginPlatformI18nName struct {
-	EnUs *string `json:"en_us,omitempty"` // 英文, 示例值: "workbench", 最大长度: `1000` 字符
-	ZhCn *string `json:"zh_cn,omitempty"` // 中文, 示例值: "工作台", 最大长度: `1000` 字符
-	ZhHk *string `json:"zh_hk,omitempty"` // 中文（香港地区）, 示例值: "工作臺", 最大长度: `1000` 字符
-	ZhTw *string `json:"zh_tw,omitempty"` // 中文（台湾地区）, 示例值: "工作臺", 最大长度: `1000` 字符
-	JaJp *string `json:"ja_jp,omitempty"` // 日语, 示例值: "作業台", 最大长度: `1000` 字符
-	FrFr *string `json:"fr_fr,omitempty"` // 法语, 示例值: "Table de travail"
-	ItIt *string `json:"it_it,omitempty"` // 意大利语, 示例值: "banco di lavoro"
-	DeDe *string `json:"de_de,omitempty"` // 德语, 示例值: "Werkbank"
-	RuRu *string `json:"ru_ru,omitempty"` // 俄语, 示例值: "верстак"
-	ThTh *string `json:"th_th,omitempty"` // 泰语, 示例值: "โต๊ะทำงาน"
-	EsEs *string `json:"es_es,omitempty"` // 西班牙语, 示例值: "banco de trabajo"
-	KoKr *string `json:"ko_kr,omitempty"` // 韩语, 示例值: "작업대"
+	EnUs *string `json:"en_us,omitempty"` // 英文示例值: "workbench" 最大长度: `1000` 字符
+	ZhCn *string `json:"zh_cn,omitempty"` // 中文示例值: "工作台" 最大长度: `1000` 字符
+	ZhHk *string `json:"zh_hk,omitempty"` // 中文（香港地区）示例值: "工作臺" 最大长度: `1000` 字符
+	ZhTw *string `json:"zh_tw,omitempty"` // 中文（台湾地区）示例值: "工作臺" 最大长度: `1000` 字符
+	JaJp *string `json:"ja_jp,omitempty"` // 日语示例值: "作業台" 最大长度: `1000` 字符
+	FrFr *string `json:"fr_fr,omitempty"` // 法语示例值: "Table de travail"
+	ItIt *string `json:"it_it,omitempty"` // 意大利语示例值: "banco di lavoro"
+	DeDe *string `json:"de_de,omitempty"` // 德语示例值: "Werkbank"
+	RuRu *string `json:"ru_ru,omitempty"` // 俄语示例值: "верстак"
+	ThTh *string `json:"th_th,omitempty"` // 泰语示例值: "โต๊ะทำงาน"
+	EsEs *string `json:"es_es,omitempty"` // 西班牙语示例值: "banco de trabajo"
+	KoKr *string `json:"ko_kr,omitempty"` // 韩语示例值: "작업대"
 }
 
 // CreateTaskSubtaskReqReminder ...
 type CreateTaskSubtaskReqReminder struct {
-	RelativeFireMinute int64 `json:"relative_fire_minute,omitempty"` // 相对于截止时间的提醒时间分钟数。例如30表示截止时间前30分钟提醒；0表示截止时提醒, 示例值: 30
+	RelativeFireMinute int64 `json:"relative_fire_minute,omitempty"` // 相对于截止时间的提醒时间分钟数。例如30表示截止时间前30分钟提醒；0表示截止时提醒。示例值: 30
 }
 
 // CreateTaskSubtaskReqStart ...
 type CreateTaskSubtaskReqStart struct {
-	Timestamp *string `json:"timestamp,omitempty"`  // 开始时间/日期的时间戳, 距1970-01-01 00:00:00的毫秒数。如果开始时间是一个日期, 需要把日期转换成时间戳, 并设置 is_all_day=true, 示例值: "1675454764000"
-	IsAllDay  *bool   `json:"is_all_day,omitempty"` // 是否开始于一个日期。如果设为true, timestamp中只有日期的部分会被解析和存储, 示例值: true
+	Timestamp *string `json:"timestamp,omitempty"`  // 开始时间/日期的时间戳, 距1970-01-01 00:00:00的毫秒数。如果开始时间是一个日期, 需要把日期转换成时间戳, 并设置 is_all_day=true示例值: "1675454764000"
+	IsAllDay  *bool   `json:"is_all_day,omitempty"` // 是否开始于一个日期。如果设为true, timestamp中只有日期的部分会被解析和存储。示例值: true
 }
 
 // CreateTaskSubtaskReqTasklist ...
 type CreateTaskSubtaskReqTasklist struct {
-	TasklistGuid *string `json:"tasklist_guid,omitempty"` // 任务要加入的清单的GUID, 示例值: "cc371766-6584-cf50-a222-c22cd9055004", 最大长度: `100` 字符
-	SectionGuid  *string `json:"section_guid,omitempty"`  // 任务所在清单的自定义分组GUID。如果设置了清单GUID但没有设置自定义分组GUID, 则自动加入该清单的默认分组, 示例值: "e6e37dcc-f75a-5936-f589-12fb4b5c80c2"
+	TasklistGuid *string `json:"tasklist_guid,omitempty"` // 任务要加入的清单的GUID。示例值: "cc371766-6584-cf50-a222-c22cd9055004" 最大长度: `100` 字符
+	SectionGuid  *string `json:"section_guid,omitempty"`  // 任务所在清单的自定义分组GUID。如果设置了清单GUID但没有设置自定义分组GUID, 则自动加入该清单的默认分组。示例值: "e6e37dcc-f75a-5936-f589-12fb4b5c80c2"
 }
 
 // CreateTaskSubtaskResp ...
@@ -232,14 +233,14 @@ type CreateTaskSubtaskRespSubtask struct {
 	RepeatRule     string                                      `json:"repeat_rule,omitempty"`      // 如果任务为重复任务, 返回重复任务的配置
 	ParentTaskGuid string                                      `json:"parent_task_guid,omitempty"` // 如果当前任务为某个任务的子任务, 返回父任务的guid
 	Mode           int64                                       `json:"mode,omitempty"`             // 任务的模式。1 - 会签任务；2 - 或签任务
-	Source         int64                                       `json:"source,omitempty"`           // 任务创建的来源, 可选值有: 0: 未知来源, 1: 任务中心, 2: 群组任务/消息转任务, 6: 通过开放平台以tenant_access_token授权创建的任务, 7: 通过开放平台以user_access_token授权创建的任务, 8: 文档任务
+	Source         int64                                       `json:"source,omitempty"`           // 任务创建的来源可选值有: 未知来源任务中心群组任务/消息转任务通过开放平台以tenant_access_token授权创建的任务通过开放平台以user_access_token授权创建的任务文档任务
 	CustomComplete *CreateTaskSubtaskRespSubtaskCustomComplete `json:"custom_complete,omitempty"`  // 任务的自定义完成配置
 	TaskID         string                                      `json:"task_id,omitempty"`          // 任务界面上的代码
 	CreatedAt      string                                      `json:"created_at,omitempty"`       // 任务创建时间戳(ms)
 	UpdatedAt      string                                      `json:"updated_at,omitempty"`       // 任务最后一次更新的时间戳(ms)
 	Status         string                                      `json:"status,omitempty"`           // 任务的状态, 支持"todo"和"done"两种状态
 	URL            string                                      `json:"url,omitempty"`              // 任务的分享链接
-	Start          *CreateTaskSubtaskRespSubtaskStart          `json:"start,omitempty"`            // 任务的开始时间, 如果同时设置任务的开始时间和截止时间, 开始时间必须<=截止时间, 并且开始/截止时间的is_all_day设置必须相同。
+	Start          *CreateTaskSubtaskRespSubtaskStart          `json:"start,omitempty"`            // 任务的开始时间。如果同时设置任务的开始时间和截止时间, 开始时间必须<=截止时间, 并且开始/截止时间的is_all_day设置必须相同。
 	SubtaskCount   int64                                       `json:"subtask_count,omitempty"`    // 该任务的子任务的个数。
 }
 

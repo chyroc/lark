@@ -26,7 +26,8 @@ import (
 // 如果任务不在清单中, 接口将返回成功。
 // 需要清单的可编辑权限。详情见[清单功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/overview)中的“清单是如何鉴权的？“章节。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/remove_tasklist
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/remove_tasklist
+// new doc: https://open.feishu.cn/document/task-v2/task/remove_tasklist
 func (r *TaskService) RemoveTaskTasklist(ctx context.Context, request *RemoveTaskTasklistReq, options ...MethodOptionFunc) (*RemoveTaskTasklistResp, *Response, error) {
 	if r.cli.mock.mockTaskRemoveTaskTasklist != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#RemoveTaskTasklist mock enable")
@@ -61,9 +62,9 @@ func (r *Mock) UnMockTaskRemoveTaskTasklist() {
 
 // RemoveTaskTasklistReq ...
 type RemoveTaskTasklistReq struct {
-	TaskGuid     string  `path:"task_guid" json:"-"`      // 要从清单移除的任务的全局唯一ID, 示例值: "d300a75f-c56a-4be9-80d1-e47653028ceb"
-	UserIDType   *IDType `query:"user_id_type" json:"-"`  // 用户 ID 类型, 示例值: open_id, 默认值: `open_id`
-	TasklistGuid string  `json:"tasklist_guid,omitempty"` // 要移除的清单的全局唯一ID, 示例值: "d300a75f-c56a-4be9-80d1-e47653028ceb", 最大长度: `100` 字符
+	TaskGuid     string  `path:"task_guid" json:"-"`      // 要从清单移除的任务的全局唯一ID示例值: "d300a75f-c56a-4be9-80d1-e47653028ceb"
+	UserIDType   *IDType `query:"user_id_type" json:"-"`  // 用户 ID 类型示例值: open_id默认值: `open_id`
+	TasklistGuid string  `json:"tasklist_guid,omitempty"` // 要移除的清单的全局唯一ID示例值: "d300a75f-c56a-4be9-80d1-e47653028ceb" 最大长度: `100` 字符
 }
 
 // RemoveTaskTasklistResp ...
@@ -88,7 +89,7 @@ type RemoveTaskTasklistRespTask struct {
 	RepeatRule     string                                    `json:"repeat_rule,omitempty"`      // 如果任务为重复任务, 返回重复任务的配置
 	ParentTaskGuid string                                    `json:"parent_task_guid,omitempty"` // 如果当前任务为某个任务的子任务, 返回父任务的guid
 	Mode           int64                                     `json:"mode,omitempty"`             // 任务的模式。1 - 会签任务；2 - 或签任务
-	Source         int64                                     `json:"source,omitempty"`           // 任务创建的来源, 可选值有: 0: 未知来源, 1: 任务中心, 2: 群组任务/消息转任务, 6: 通过开放平台以tenant_access_token授权创建的任务, 7: 通过开放平台以user_access_token授权创建的任务, 8: 文档任务
+	Source         int64                                     `json:"source,omitempty"`           // 任务创建的来源可选值有: 未知来源任务中心群组任务/消息转任务通过开放平台以tenant_access_token授权创建的任务通过开放平台以user_access_token授权创建的任务文档任务
 	CustomComplete *RemoveTaskTasklistRespTaskCustomComplete `json:"custom_complete,omitempty"`  // 任务的自定义完成配置
 	TaskID         string                                    `json:"task_id,omitempty"`          // 任务界面上的代码
 	CreatedAt      string                                    `json:"created_at,omitempty"`       // 任务创建时间戳(ms)
