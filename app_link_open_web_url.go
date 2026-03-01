@@ -43,15 +43,3 @@ type OpenWebURLReq struct {
 	MinWidth *string `json:"min_width,omitempty"` // 最小宽度（仅当`mode`为`sidebar-semi`或`window`时生效）, 飞书7.9版本开始支持  最小值: 350 最大值: 飞书窗口的宽度 默认值: 350
 	MaxWidth *string `json:"max_width,omitempty"` // 最大宽度（仅当`mode`为`sidebar-semi`或`window`时生效）, 飞书7.9版本开始支持   最小值: 350 最大值: 飞书窗口的宽度 默认值: 350
 }
-
-// OpenWebURLResp ...
-type OpenWebURLResp struct {
-}
-
-// openWebURLResp ...
-type openWebURLResp struct {
-	Code  int64           `json:"code,omitempty"`
-	Msg   string          `json:"msg,omitempty"`
-	Data  *OpenWebURLResp `json:"data,omitempty"`
-	Error *ErrorDetail    `json:"error,omitempty"`
-}

@@ -36,15 +36,3 @@ func (r *AppLinkService) OpenTaskCreate(req *OpenTaskCreateReq) string {
 // OpenTaskCreateReq ...
 type OpenTaskCreateReq struct {
 }
-
-// OpenTaskCreateResp ...
-type OpenTaskCreateResp struct {
-}
-
-// openTaskCreateResp ...
-type openTaskCreateResp struct {
-	Code  int64               `json:"code,omitempty"`
-	Msg   string              `json:"msg,omitempty"`
-	Data  *OpenTaskCreateResp `json:"data,omitempty"`
-	Error *ErrorDetail        `json:"error,omitempty"`
-}

@@ -34,15 +34,3 @@ func (r *AppLinkService) OpenLark(req *OpenLarkReq) string {
 // OpenLarkReq ...
 type OpenLarkReq struct {
 }
-
-// OpenLarkResp ...
-type OpenLarkResp struct {
-}
-
-// openLarkResp ...
-type openLarkResp struct {
-	Code  int64         `json:"code,omitempty"`
-	Msg   string        `json:"msg,omitempty"`
-	Data  *OpenLarkResp `json:"data,omitempty"`
-	Error *ErrorDetail  `json:"error,omitempty"`
-}

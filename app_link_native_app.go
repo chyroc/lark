@@ -37,15 +37,3 @@ func (r *AppLinkService) OpenNativeApp(req *OpenNativeAppReq) string {
 type OpenNativeAppReq struct {
 	AppID string `json:"appId,omitempty"` // 原生应用 appId(可从「开发者后台-凭证与基础信息」获取)
 }
-
-// OpenNativeAppResp ...
-type OpenNativeAppResp struct {
-}
-
-// openNativeAppResp ...
-type openNativeAppResp struct {
-	Code  int64              `json:"code,omitempty"`
-	Msg   string             `json:"msg,omitempty"`
-	Data  *OpenNativeAppResp `json:"data,omitempty"`
-	Error *ErrorDetail       `json:"error,omitempty"`
-}

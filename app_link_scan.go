@@ -34,15 +34,3 @@ func (r *AppLinkService) OpenScan(req *OpenScanReq) string {
 // OpenScanReq ...
 type OpenScanReq struct {
 }
-
-// OpenScanResp ...
-type OpenScanResp struct {
-}
-
-// openScanResp ...
-type openScanResp struct {
-	Code  int64         `json:"code,omitempty"`
-	Msg   string        `json:"msg,omitempty"`
-	Data  *OpenScanResp `json:"data,omitempty"`
-	Error *ErrorDetail  `json:"error,omitempty"`
-}

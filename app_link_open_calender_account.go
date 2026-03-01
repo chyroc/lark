@@ -34,15 +34,3 @@ func (r *AppLinkService) OpenCalenderAccount(req *OpenCalenderAccountReq) string
 // OpenCalenderAccountReq ...
 type OpenCalenderAccountReq struct {
 }
-
-// OpenCalenderAccountResp ...
-type OpenCalenderAccountResp struct {
-}
-
-// openCalenderAccountResp ...
-type openCalenderAccountResp struct {
-	Code  int64                    `json:"code,omitempty"`
-	Msg   string                   `json:"msg,omitempty"`
-	Data  *OpenCalenderAccountResp `json:"data,omitempty"`
-	Error *ErrorDetail             `json:"error,omitempty"`
-}

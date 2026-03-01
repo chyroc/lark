@@ -36,15 +36,3 @@ type OpenSSOLoginReq struct {
 	SSODomain  string `json:"sso_domain,omitempty"`  // 租户的域名, 填写的是租户在admin后台配置的租户域名信息。当在admin后台改动租户的域名时, 需要同步修改applink该参数值
 	TenantName string `json:"tenant_name,omitempty"` // 租户名, 用于在切换租户时, 客户端展示即将登录到的租户名称, 一般填写公司名即可
 }
-
-// OpenSSOLoginResp ...
-type OpenSSOLoginResp struct {
-}
-
-// openSSOLoginResp ...
-type openSSOLoginResp struct {
-	Code  int64             `json:"code,omitempty"`
-	Msg   string            `json:"msg,omitempty"`
-	Data  *OpenSSOLoginResp `json:"data,omitempty"`
-	Error *ErrorDetail      `json:"error,omitempty"`
-}

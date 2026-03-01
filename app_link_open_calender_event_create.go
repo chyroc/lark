@@ -37,15 +37,3 @@ type OpenCalenderEventCreateReq struct {
 	EndTime   *string `json:"endTime,omitempty"`   // 结束日期, {unixTime}格式
 	Summary   *string `json:"summary,omitempty"`   // 日程主题, 中文可使用encodeURIComponent方法生成
 }
-
-// OpenCalenderEventCreateResp ...
-type OpenCalenderEventCreateResp struct {
-}
-
-// openCalenderEventCreateResp ...
-type openCalenderEventCreateResp struct {
-	Code  int64                        `json:"code,omitempty"`
-	Msg   string                       `json:"msg,omitempty"`
-	Data  *OpenCalenderEventCreateResp `json:"data,omitempty"`
-	Error *ErrorDetail                 `json:"error,omitempty"`
-}
