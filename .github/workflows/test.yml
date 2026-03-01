@@ -30,7 +30,10 @@ jobs:
 
     - name: Test (No Real Feishu API Calls)
       run: |
-        go test ./... -count=1
+        go test ./... -count=1 -covermode=atomic -coverprofile=coverage.out
 
     - name: Upload Cov
-      run: bash <(curl -s https://codecov.io/bash)
+      uses: codecov/codecov-action@v5
+      with:
+        files: coverage.out
+        fail_ci_if_error: true
