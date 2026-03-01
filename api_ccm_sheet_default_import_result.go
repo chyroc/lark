@@ -59,27 +59,6 @@ func (r *Mock) UnMockDriveGetCcmSheetDefaultImportResult() {
 	r.mockDriveGetCcmSheetDefaultImportResult = nil
 }
 
-// GetCcmSheetDefaultImportResult 该接口用于查询文件导入结果。查询30分钟无结果为导入失败。
-//
-// Deprecated: use DriveService.GetCcmSheetDefaultImportResult.
-func (r *CcmSheetService) GetCcmSheetDefaultImportResult(ctx context.Context, request *GetCcmSheetDefaultImportResultReq, options ...MethodOptionFunc) (*GetCcmSheetDefaultImportResultResp, *Response, error) {
-	return r.cli.Drive.GetCcmSheetDefaultImportResult(ctx, request, options...)
-}
-
-// MockCcmSheetGetCcmSheetDefaultImportResult mock CcmSheetGetCcmSheetDefaultImportResult method
-//
-// Deprecated: use MockDriveGetCcmSheetDefaultImportResult.
-func (r *Mock) MockCcmSheetGetCcmSheetDefaultImportResult(f func(ctx context.Context, request *GetCcmSheetDefaultImportResultReq, options ...MethodOptionFunc) (*GetCcmSheetDefaultImportResultResp, *Response, error)) {
-	r.MockDriveGetCcmSheetDefaultImportResult(f)
-}
-
-// UnMockCcmSheetGetCcmSheetDefaultImportResult un-mock CcmSheetGetCcmSheetDefaultImportResult method
-//
-// Deprecated: use UnMockDriveGetCcmSheetDefaultImportResult.
-func (r *Mock) UnMockCcmSheetGetCcmSheetDefaultImportResult() {
-	r.UnMockDriveGetCcmSheetDefaultImportResult()
-}
-
 // GetCcmSheetDefaultImportResultReq ...
 type GetCcmSheetDefaultImportResultReq struct {
 	Ticket string `query:"ticket" json:"-"` // 导入时获取的凭证

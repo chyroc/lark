@@ -65,7 +65,6 @@ type Lark struct {
 	Bitable          *BitableService
 	Bot              *BotService
 	Calendar         *CalendarService
-	CcmSheet         *CcmSheetService
 	Chat             *ChatService
 	Contact          *ContactService
 	CoreHR           *CoreHRService
@@ -126,7 +125,6 @@ func (r *Lark) init() {
 	r.Bitable = &BitableService{cli: r}
 	r.Bot = &BotService{cli: r}
 	r.Calendar = &CalendarService{cli: r}
-	r.CcmSheet = &CcmSheetService{cli: r}
 	r.Chat = &ChatService{cli: r}
 	r.Contact = &ContactService{cli: r}
 	r.CoreHR = &CoreHRService{cli: r}
@@ -205,7 +203,6 @@ type (
 	BitableService          struct{ cli *Lark }
 	BotService              struct{ cli *Lark }
 	CalendarService         struct{ cli *Lark }
-	CcmSheetService         struct{ cli *Lark }
 	ChatService             struct{ cli *Lark }
 	ContactService          struct{ cli *Lark }
 	CoreHRService           struct{ cli *Lark }
