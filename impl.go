@@ -70,13 +70,11 @@ type Lark struct {
 	Bot                   *BotService
 	Calendar              *CalendarService
 	Cardkit               *CardkitService
-	CcmDocs               *DriveService
 	Chat                  *ChatService
 	Compensation          *CompensationService
 	Contact               *ContactService
 	CoreHR                *CoreHRService
 	Directory             *DirectoryService
-	Docs                  *DriveService
 	Drive                 *DriveService
 	EHR                   *EHRService
 	Event                 *EventService
@@ -89,7 +87,6 @@ type Lark struct {
 	Lingo                 *LingoService
 	MDM                   *MDMService
 	Mail                  *MailService
-	MeetingRoom           *VCService
 	Message               *MessageService
 	Mina                  *MinaService
 	Minutes               *MinutesService
@@ -107,7 +104,6 @@ type Lark struct {
 	Tenant                *TenantService
 	TrustParty            *TrustPartyService
 	VC                    *VCService
-	VCMeeting             *VCService
 	Verification          *VerificationService
 }
 
@@ -150,8 +146,6 @@ func (r *Lark) init() {
 	r.CoreHR = &CoreHRService{cli: r}
 	r.Directory = &DirectoryService{cli: r}
 	r.Drive = &DriveService{cli: r}
-	r.CcmDocs = r.Drive
-	r.Docs = r.Drive
 	r.EHR = &EHRService{cli: r}
 	r.Event = &EventService{cli: r}
 	r.EventCallback = &EventCallbackService{cli: r}
@@ -180,8 +174,6 @@ func (r *Lark) init() {
 	r.Tenant = &TenantService{cli: r}
 	r.TrustParty = &TrustPartyService{cli: r}
 	r.VC = &VCService{cli: r}
-	r.MeetingRoom = r.VC
-	r.VCMeeting = r.VC
 	r.Verification = &VerificationService{cli: r}
 
 }
