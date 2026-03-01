@@ -830,7 +830,7 @@ type Mock struct {
 	mockHumanAuthGetFaceVerifyAuthResult                       func(ctx context.Context, request *GetFaceVerifyAuthResultReq, options ...MethodOptionFunc) (*GetFaceVerifyAuthResultResp, *Response, error)
 	mockHumanAuthUploadFaceVerifyImage                         func(ctx context.Context, request *UploadFaceVerifyImageReq, options ...MethodOptionFunc) (*UploadFaceVerifyImageResp, *Response, error)
 	mockHumanAuthCreateIdentity                                func(ctx context.Context, request *CreateIdentityReq, options ...MethodOptionFunc) (*CreateIdentityResp, *Response, error)
-	mockIMBatchUpdateImurlPreview                              func(ctx context.Context, request *BatchUpdateImurlPreviewReq, options ...MethodOptionFunc) (*BatchUpdateImurlPreviewResp, *Response, error)
+	mockIMBatchUpdateIMURLPreview                              func(ctx context.Context, request *BatchUpdateIMURLPreviewReq, options ...MethodOptionFunc) (*BatchUpdateIMURLPreviewResp, *Response, error)
 	mockJssdkGetJssdkTicket                                    func(ctx context.Context, request *GetJssdkTicketReq, options ...MethodOptionFunc) (*GetJssdkTicketResp, *Response, error)
 	mockLingoGetLingoClassificationList                        func(ctx context.Context, request *GetLingoClassificationListReq, options ...MethodOptionFunc) (*GetLingoClassificationListResp, *Response, error)
 	mockLingoCreateLingoDraft                                  func(ctx context.Context, request *CreateLingoDraftReq, options ...MethodOptionFunc) (*CreateLingoDraftResp, *Response, error)

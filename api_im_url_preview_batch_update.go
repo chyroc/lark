@@ -21,56 +21,57 @@ import (
 	"context"
 )
 
-// BatchUpdateImurlPreview 该接口用于主动更新 [URL 预览](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/development-link-preview/link-preview-development-guide), 调用后会重新触发一次客户端拉取, 需要回调服务返回更新后的数据。
+// BatchUpdateIMURLPreview 该接口用于主动更新 [URL 预览](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/development-link-preview/link-preview-development-guide), 调用后会重新触发一次客户端拉取, 需要回调服务返回更新后的数据。
 //
 // 注意: 更新链接预览时需要注意更新频率, 如果更新时不指定用户, 则可能会造成链接预览请求放大。例如, 群聊中的链接预览, 所有群成员均会尝试重新拉取预览请求。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/group/im-v2/url_preview/batch_update
 // new doc: https://open.feishu.cn/document/im-v1/url_preview/batch_update
-func (r *IMService) BatchUpdateImurlPreview(ctx context.Context, request *BatchUpdateImurlPreviewReq, options ...MethodOptionFunc) (*BatchUpdateImurlPreviewResp, *Response, error) {
-	if r.cli.mock.mockIMBatchUpdateImurlPreview != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] IM#BatchUpdateImurlPreview mock enable")
-		return r.cli.mock.mockIMBatchUpdateImurlPreview(ctx, request, options...)
+func (r *IMService) BatchUpdateIMURLPreview(ctx context.Context, request *BatchUpdateIMURLPreviewReq, options ...MethodOptionFunc) (*BatchUpdateIMURLPreviewResp, *Response, error) {
+	if r.cli.mock.mockIMBatchUpdateIMURLPreview != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] IM#BatchUpdateIMURLPreview mock enable")
+		return r.cli.mock.mockIMBatchUpdateIMURLPreview(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "IM",
-		API:                   "BatchUpdateImurlPreview",
+		API:                   "BatchUpdateIMURLPreview",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/im/v2/url_previews/batch_update",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(batchUpdateImurlPreviewResp)
+	resp := new(batchUpdateIMURLPreviewResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockIMBatchUpdateImurlPreview mock IMBatchUpdateImurlPreview method
-func (r *Mock) MockIMBatchUpdateImurlPreview(f func(ctx context.Context, request *BatchUpdateImurlPreviewReq, options ...MethodOptionFunc) (*BatchUpdateImurlPreviewResp, *Response, error)) {
-	r.mockIMBatchUpdateImurlPreview = f
+// MockIMBatchUpdateIMURLPreview mock IMBatchUpdateIMURLPreview method
+func (r *Mock) MockIMBatchUpdateIMURLPreview(f func(ctx context.Context, request *BatchUpdateIMURLPreviewReq, options ...MethodOptionFunc) (*BatchUpdateIMURLPreviewResp, *Response, error)) {
+	r.mockIMBatchUpdateIMURLPreview = f
 }
 
-// UnMockIMBatchUpdateImurlPreview un-mock IMBatchUpdateImurlPreview method
-func (r *Mock) UnMockIMBatchUpdateImurlPreview() {
-	r.mockIMBatchUpdateImurlPreview = nil
+// UnMockIMBatchUpdateIMURLPreview un-mock IMBatchUpdateIMURLPreview method
+func (r *Mock) UnMockIMBatchUpdateIMURLPreview() {
+	r.mockIMBatchUpdateIMURLPreview = nil
 }
 
-// BatchUpdateImurlPreviewReq ...
-type BatchUpdateImurlPreviewReq struct {
+// BatchUpdateIMURLPreviewReq ...
+type BatchUpdateIMURLPreviewReq struct {
 	PreviewTokens []string `json:"preview_tokens,omitempty"` // URL 预览的 preview_tokens 列表。需要通过[拉取链接预览数据](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/development-link-preview/pull-link-preview-data-callback-structure)回调获取 preview_tokens。注意: 单个 token 限制更新频率为 1次/5秒。示例值: ["952te0c8-9ccf-463d-ad73-593f8f768a5c"] 长度范围: `1` ～ `10`
 	OpenIDs       *string  `json:"open_ids,omitempty"`       // 需要更新 URL 预览的用户 open_id。若不传, 则默认更新 URL 预览所在会话的所有成员；若用户不在 URL 所在会话, 则无法触发更新该用户对应的 URL 预览结果。获取方式参见[如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。示例值: ["ou_xxx"] 长度范围: `0` ～ `100`
 }
 
-// BatchUpdateImurlPreviewResp ...
-type BatchUpdateImurlPreviewResp struct{}
+// BatchUpdateIMURLPreviewResp ...
+type BatchUpdateIMURLPreviewResp struct {
+}
 
-// batchUpdateImurlPreviewResp ...
-type batchUpdateImurlPreviewResp struct {
+// batchUpdateIMURLPreviewResp ...
+type batchUpdateIMURLPreviewResp struct {
 	Code  int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                       `json:"msg,omitempty"`  // 错误描述
-	Data  *BatchUpdateImurlPreviewResp `json:"data,omitempty"`
+	Data  *BatchUpdateIMURLPreviewResp `json:"data,omitempty"`
 	Error *ErrorDetail                 `json:"error,omitempty"`
 }
