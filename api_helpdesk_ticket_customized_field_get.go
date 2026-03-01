@@ -93,7 +93,6 @@ type GetHelpdeskTicketCustomizedFieldRespDropdownOption struct {
 	Children    []interface{} `json:"children,omitempty"`     // 选项列表
 	Tag         string        `json:"tag,omitempty"`          // 选项ID
 	DisplayName string        `json:"display_name,omitempty"` // 展示名称
-	Children    []interface{} `json:"children,omitempty"`     // 同上: 选项列表, 只适用于多层下拉列表（最多可以设置三级下拉列表）
 }
 
 // GetHelpdeskTicketCustomizedFieldRespUpdatedBy ...
