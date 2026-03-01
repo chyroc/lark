@@ -24,14 +24,14 @@ import (
 // UpdateBoardWhiteboardTheme 更新画板主题, 具体主题介绍可以参考[主题简介](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/board-v1/theme-introduction) 。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/board-v1/whiteboard/update_theme
-func (r *BoardService) UpdateBoardWhiteboardTheme(ctx context.Context, request *UpdateBoardWhiteboardThemeReq, options ...MethodOptionFunc) (*UpdateBoardWhiteboardThemeResp, *Response, error) {
+func (r *DriveService) UpdateBoardWhiteboardTheme(ctx context.Context, request *UpdateBoardWhiteboardThemeReq, options ...MethodOptionFunc) (*UpdateBoardWhiteboardThemeResp, *Response, error) {
 	if r.cli.mock.mockBoardUpdateBoardWhiteboardTheme != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] Board#UpdateBoardWhiteboardTheme mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#UpdateBoardWhiteboardTheme mock enable")
 		return r.cli.mock.mockBoardUpdateBoardWhiteboardTheme(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "Board",
+		Scope:                 "Drive",
 		API:                   "UpdateBoardWhiteboardTheme",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/board/v1/whiteboards/:whiteboard_id/update_theme",

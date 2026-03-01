@@ -26,14 +26,14 @@ import (
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/board-v1/whiteboard/download_as_image
 // new doc: https://open.feishu.cn/document/docs/board-v1/whiteboard/download_as_image
-func (r *BoardService) DownloadBoardWhiteboardAsImage(ctx context.Context, request *DownloadBoardWhiteboardAsImageReq, options ...MethodOptionFunc) (*DownloadBoardWhiteboardAsImageResp, *Response, error) {
+func (r *DriveService) DownloadBoardWhiteboardAsImage(ctx context.Context, request *DownloadBoardWhiteboardAsImageReq, options ...MethodOptionFunc) (*DownloadBoardWhiteboardAsImageResp, *Response, error) {
 	if r.cli.mock.mockBoardDownloadBoardWhiteboardAsImage != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] Board#DownloadBoardWhiteboardAsImage mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#DownloadBoardWhiteboardAsImage mock enable")
 		return r.cli.mock.mockBoardDownloadBoardWhiteboardAsImage(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "Board",
+		Scope:                 "Drive",
 		API:                   "DownloadBoardWhiteboardAsImage",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/board/v1/whiteboards/:whiteboard_id/download_as_image",

@@ -24,14 +24,14 @@ import (
 // GetBoardWhiteboardTheme 获取画板主题, 不同主题下有不同的默认配色, 具体主题介绍可以参考[主题简介](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/board-v1/theme-introduction) 。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/board-v1/whiteboard/theme
-func (r *BoardService) GetBoardWhiteboardTheme(ctx context.Context, request *GetBoardWhiteboardThemeReq, options ...MethodOptionFunc) (*GetBoardWhiteboardThemeResp, *Response, error) {
+func (r *DriveService) GetBoardWhiteboardTheme(ctx context.Context, request *GetBoardWhiteboardThemeReq, options ...MethodOptionFunc) (*GetBoardWhiteboardThemeResp, *Response, error) {
 	if r.cli.mock.mockBoardGetBoardWhiteboardTheme != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] Board#GetBoardWhiteboardTheme mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetBoardWhiteboardTheme mock enable")
 		return r.cli.mock.mockBoardGetBoardWhiteboardTheme(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "Board",
+		Scope:                 "Drive",
 		API:                   "GetBoardWhiteboardTheme",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/board/v1/whiteboards/:whiteboard_id/theme",

@@ -24,14 +24,14 @@ import (
 // CreateBoardWhiteboardNodePlantuml 用户可以将PlantUml/Mermaid图表导入画板进行协同编辑
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/board-v1/whiteboard-node/create_plantuml
-func (r *BoardService) CreateBoardWhiteboardNodePlantuml(ctx context.Context, request *CreateBoardWhiteboardNodePlantumlReq, options ...MethodOptionFunc) (*CreateBoardWhiteboardNodePlantumlResp, *Response, error) {
+func (r *DriveService) CreateBoardWhiteboardNodePlantuml(ctx context.Context, request *CreateBoardWhiteboardNodePlantumlReq, options ...MethodOptionFunc) (*CreateBoardWhiteboardNodePlantumlResp, *Response, error) {
 	if r.cli.mock.mockBoardCreateBoardWhiteboardNodePlantuml != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] Board#CreateBoardWhiteboardNodePlantuml mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#CreateBoardWhiteboardNodePlantuml mock enable")
 		return r.cli.mock.mockBoardCreateBoardWhiteboardNodePlantuml(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "Board",
+		Scope:                 "Drive",
 		API:                   "CreateBoardWhiteboardNodePlantuml",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/board/v1/whiteboards/:whiteboard_id/nodes/plantuml",

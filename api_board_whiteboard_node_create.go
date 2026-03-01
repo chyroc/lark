@@ -24,14 +24,14 @@ import (
 // CreateBoardWhiteboardNode 创建画板节点, 支持批量创建、创建含父子关系的节点等。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/board-v1/whiteboard-node/create
-func (r *BoardService) CreateBoardWhiteboardNode(ctx context.Context, request *CreateBoardWhiteboardNodeReq, options ...MethodOptionFunc) (*CreateBoardWhiteboardNodeResp, *Response, error) {
+func (r *DriveService) CreateBoardWhiteboardNode(ctx context.Context, request *CreateBoardWhiteboardNodeReq, options ...MethodOptionFunc) (*CreateBoardWhiteboardNodeResp, *Response, error) {
 	if r.cli.mock.mockBoardCreateBoardWhiteboardNode != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] Board#CreateBoardWhiteboardNode mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#CreateBoardWhiteboardNode mock enable")
 		return r.cli.mock.mockBoardCreateBoardWhiteboardNode(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "Board",
+		Scope:                 "Drive",
 		API:                   "CreateBoardWhiteboardNode",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/board/v1/whiteboards/:whiteboard_id/nodes",
