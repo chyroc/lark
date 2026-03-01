@@ -26,7 +26,7 @@ type Mock struct {
   mockRawRequest func(ctx context.Context, req *RawRequestReq, resp interface{}) (response *Response, err error)
   mockGetTenantAccessToken func(ctx context.Context) (*TokenExpire, *Response, error)
   mockGetAppAccessToken func(ctx context.Context) (*TokenExpire, *Response, error)
-  mockWikiSearchWikiNode func(ctx context.Context, request *SearchWikiNodeReq, options ...MethodOptionFunc) (*SearchWikiNodeResp, *Response, error)
+  mockDriveSearchWikiNode func(ctx context.Context, request *SearchWikiNodeReq, options ...MethodOptionFunc) (*SearchWikiNodeResp, *Response, error)
   mockACSCreateACSRuleExternal func(ctx context.Context, request *CreateACSRuleExternalReq, options ...MethodOptionFunc) (*CreateACSRuleExternalResp, *Response, error)
   mockACSCreateACSVisitor func(ctx context.Context, request *CreateACSVisitorReq, options ...MethodOptionFunc) (*CreateACSVisitorResp, *Response, error)
   mockACSDeleteACSRuleExternal func(ctx context.Context, request *DeleteACSRuleExternalReq, options ...MethodOptionFunc) (*DeleteACSRuleExternalResp, *Response, error)

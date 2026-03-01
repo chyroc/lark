@@ -27,14 +27,14 @@ import (
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uEzN0YjLxcDN24SM3QjN/search_wiki
 // new doc: https://open.feishu.cn/document/server-docs/docs/wiki-v2/search_wiki
-func (r *WikiService) SearchWikiNode(ctx context.Context, request *SearchWikiNodeReq, options ...MethodOptionFunc) (*SearchWikiNodeResp, *Response, error) {
-	if r.cli.mock.mockWikiSearchWikiNode != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] Wiki#SearchWikiNode mock enable")
-		return r.cli.mock.mockWikiSearchWikiNode(ctx, request, options...)
+func (r *DriveService) SearchWikiNode(ctx context.Context, request *SearchWikiNodeReq, options ...MethodOptionFunc) (*SearchWikiNodeResp, *Response, error) {
+	if r.cli.mock.mockDriveSearchWikiNode != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#SearchWikiNode mock enable")
+		return r.cli.mock.mockDriveSearchWikiNode(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:        "Wiki",
+		Scope:        "Drive",
 		API:          "SearchWikiNode",
 		Method:       "POST",
 		URL:          r.cli.openBaseURL + "/open-apis/wiki/v2/nodes/search",
@@ -47,14 +47,14 @@ func (r *WikiService) SearchWikiNode(ctx context.Context, request *SearchWikiNod
 	return resp.Data, response, err
 }
 
-// MockWikiSearchWikiNode mock WikiSearchWikiNode method
-func (r *Mock) MockWikiSearchWikiNode(f func(ctx context.Context, request *SearchWikiNodeReq, options ...MethodOptionFunc) (*SearchWikiNodeResp, *Response, error)) {
-	r.mockWikiSearchWikiNode = f
+// MockDriveSearchWikiNode mock DriveSearchWikiNode method
+func (r *Mock) MockDriveSearchWikiNode(f func(ctx context.Context, request *SearchWikiNodeReq, options ...MethodOptionFunc) (*SearchWikiNodeResp, *Response, error)) {
+	r.mockDriveSearchWikiNode = f
 }
 
-// UnMockWikiSearchWikiNode un-mock WikiSearchWikiNode method
-func (r *Mock) UnMockWikiSearchWikiNode() {
-	r.mockWikiSearchWikiNode = nil
+// UnMockDriveSearchWikiNode un-mock DriveSearchWikiNode method
+func (r *Mock) UnMockDriveSearchWikiNode() {
+	r.mockDriveSearchWikiNode = nil
 }
 
 // SearchWikiNodeReq ...
