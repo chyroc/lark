@@ -21,43 +21,43 @@ import (
 	"context"
 )
 
-// CreateMDMUserAuthDataRelationBind 通过该接口, 可为指定应用下的用户绑定一类数据维度, 支持批量给多个用户同时增量授权。
+// BindMDMUserAuthDataRelation 通过该接口, 可为指定应用下的用户绑定一类数据维度, 支持批量给多个用户同时增量授权。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/mdm-v1/user_auth_data_relation/bind
 // new doc: https://open.feishu.cn/document/server-docs/mdm-v1/user_auth_data_relation/bind
-func (r *MDMService) CreateMDMUserAuthDataRelationBind(ctx context.Context, request *CreateMDMUserAuthDataRelationBindReq, options ...MethodOptionFunc) (*CreateMDMUserAuthDataRelationBindResp, *Response, error) {
-	if r.cli.mock.mockMDMCreateMDMUserAuthDataRelationBind != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] MDM#CreateMDMUserAuthDataRelationBind mock enable")
-		return r.cli.mock.mockMDMCreateMDMUserAuthDataRelationBind(ctx, request, options...)
+func (r *MDMService) BindMDMUserAuthDataRelation(ctx context.Context, request *BindMDMUserAuthDataRelationReq, options ...MethodOptionFunc) (*BindMDMUserAuthDataRelationResp, *Response, error) {
+	if r.cli.mock.mockMDMBindMDMUserAuthDataRelation != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] MDM#BindMDMUserAuthDataRelation mock enable")
+		return r.cli.mock.mockMDMBindMDMUserAuthDataRelation(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "MDM",
-		API:                   "CreateMDMUserAuthDataRelationBind",
+		API:                   "BindMDMUserAuthDataRelation",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/mdm/v1/user_auth_data_relations/bind",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(createMDMUserAuthDataRelationBindResp)
+	resp := new(bindMDMUserAuthDataRelationResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockMDMCreateMDMUserAuthDataRelationBind mock MDMCreateMDMUserAuthDataRelationBind method
-func (r *Mock) MockMDMCreateMDMUserAuthDataRelationBind(f func(ctx context.Context, request *CreateMDMUserAuthDataRelationBindReq, options ...MethodOptionFunc) (*CreateMDMUserAuthDataRelationBindResp, *Response, error)) {
-	r.mockMDMCreateMDMUserAuthDataRelationBind = f
+// MockMDMBindMDMUserAuthDataRelation mock MDMBindMDMUserAuthDataRelation method
+func (r *Mock) MockMDMBindMDMUserAuthDataRelation(f func(ctx context.Context, request *BindMDMUserAuthDataRelationReq, options ...MethodOptionFunc) (*BindMDMUserAuthDataRelationResp, *Response, error)) {
+	r.mockMDMBindMDMUserAuthDataRelation = f
 }
 
-// UnMockMDMCreateMDMUserAuthDataRelationBind un-mock MDMCreateMDMUserAuthDataRelationBind method
-func (r *Mock) UnMockMDMCreateMDMUserAuthDataRelationBind() {
-	r.mockMDMCreateMDMUserAuthDataRelationBind = nil
+// UnMockMDMBindMDMUserAuthDataRelation un-mock MDMBindMDMUserAuthDataRelation method
+func (r *Mock) UnMockMDMBindMDMUserAuthDataRelation() {
+	r.mockMDMBindMDMUserAuthDataRelation = nil
 }
 
-// CreateMDMUserAuthDataRelationBindReq ...
-type CreateMDMUserAuthDataRelationBindReq struct {
+// BindMDMUserAuthDataRelationReq ...
+type BindMDMUserAuthDataRelationReq struct {
 	UserIDType        *IDType  `query:"user_id_type" json:"-"`        // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	RootDimensionType string   `json:"root_dimension_type,omitempty"` // 数据类型编码示例值: "gongsi" 长度范围: `1` ～ `200` 字符
 	SubDimensionTypes []string `json:"sub_dimension_types,omitempty"` // 数据编码列表示例值: ["code_dimension"] 长度范围: `1` ～ `200`
@@ -65,42 +65,13 @@ type CreateMDMUserAuthDataRelationBindReq struct {
 	UamsAppID         string   `json:"uams_app_id,omitempty"`         // uams系统中应用id示例值: "uams-tenant-test" 长度范围: `1` ～ `200` 字符
 }
 
-// CreateMDMUserAuthDataRelationBindResp ...
-type CreateMDMUserAuthDataRelationBindResp struct{}
+// BindMDMUserAuthDataRelationResp ...
+type BindMDMUserAuthDataRelationResp struct{}
 
-// createMDMUserAuthDataRelationBindResp ...
-type createMDMUserAuthDataRelationBindResp struct {
-	Code  int64                                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg   string                                 `json:"msg,omitempty"`  // 错误描述
-	Data  *CreateMDMUserAuthDataRelationBindResp `json:"data,omitempty"`
-	Error *ErrorDetail                           `json:"error,omitempty"`
-}
-
-// Deprecated: use BindMDMUserAuthDataRelation.
-type BindMDMUserAuthDataRelationReq = CreateMDMUserAuthDataRelationBindReq
-
-// Deprecated: use CreateMDMUserAuthDataRelationBindResp.
-type BindMDMUserAuthDataRelationResp = CreateMDMUserAuthDataRelationBindResp
-
-// BindMDMUserAuthDataRelation 通过该接口, 可为指定应用下的用户绑定一类数据维度, 支持批量给多个用户同时增量授权。
-//
-// Deprecated: use CreateMDMUserAuthDataRelationBind.
-func (r *MDMService) BindMDMUserAuthDataRelation(ctx context.Context, request *BindMDMUserAuthDataRelationReq, options ...MethodOptionFunc) (*BindMDMUserAuthDataRelationResp, *Response, error) {
-	return r.CreateMDMUserAuthDataRelationBind(ctx, request, options...)
-}
-
-// MockMDMBindMDMUserAuthDataRelation mock MDMBindMDMUserAuthDataRelation method
-//
-// Deprecated: use MockMDMCreateMDMUserAuthDataRelationBind.
-func (r *Mock) MockMDMBindMDMUserAuthDataRelation(f func(ctx context.Context, request *BindMDMUserAuthDataRelationReq, options ...MethodOptionFunc) (*BindMDMUserAuthDataRelationResp, *Response, error)) {
-	r.MockMDMCreateMDMUserAuthDataRelationBind(func(ctx context.Context, request *CreateMDMUserAuthDataRelationBindReq, options ...MethodOptionFunc) (*CreateMDMUserAuthDataRelationBindResp, *Response, error) {
-		return f(ctx, request, options...)
-	})
-}
-
-// UnMockMDMBindMDMUserAuthDataRelation un-mock MDMBindMDMUserAuthDataRelation method
-//
-// Deprecated: use UnMockMDMCreateMDMUserAuthDataRelationBind.
-func (r *Mock) UnMockMDMBindMDMUserAuthDataRelation() {
-	r.UnMockMDMCreateMDMUserAuthDataRelationBind()
+// bindMDMUserAuthDataRelationResp ...
+type bindMDMUserAuthDataRelationResp struct {
+	Code  int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                           `json:"msg,omitempty"`  // 错误描述
+	Data  *BindMDMUserAuthDataRelationResp `json:"data,omitempty"`
+	Error *ErrorDetail                     `json:"error,omitempty"`
 }
