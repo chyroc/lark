@@ -76,7 +76,6 @@ type Lark struct {
 	Helpdesk         *HelpdeskService
 	Hire             *HireService
 	HumanAuth        *HumanAuthService
-	IM               *IMService
 	Jssdk            *JssdkService
 	Lingo            *LingoService
 	MDM              *MDMService
@@ -136,7 +135,6 @@ func (r *Lark) init() {
 	r.Helpdesk = &HelpdeskService{cli: r}
 	r.Hire = &HireService{cli: r}
 	r.HumanAuth = &HumanAuthService{cli: r}
-	r.IM = &IMService{cli: r}
 	r.Jssdk = &JssdkService{cli: r}
 	r.Lingo = &LingoService{cli: r}
 	r.MDM = &MDMService{cli: r}
@@ -214,7 +212,6 @@ type (
 	HelpdeskService         struct{ cli *Lark }
 	HireService             struct{ cli *Lark }
 	HumanAuthService        struct{ cli *Lark }
-	IMService               struct{ cli *Lark }
 	JssdkService            struct{ cli *Lark }
 	LingoService            struct{ cli *Lark }
 	MDMService              struct{ cli *Lark }
