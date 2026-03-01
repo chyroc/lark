@@ -56,15 +56,3 @@ type EventV1AddBotEventChatI18nNames struct {
 	EnUs string `json:"en_us,omitempty"` // 如: 英文标题
 	ZhCn string `json:"zh_cn,omitempty"` // 如: 中文标题
 }
-
-// EventV1AddBotResp ...
-type EventV1AddBotResp struct {
-}
-
-// eventV1AddBotResp ...
-type eventV1AddBotResp struct {
-	Code  int64              `json:"code,omitempty"`
-	Msg   string             `json:"msg,omitempty"`
-	Data  *EventV1AddBotResp `json:"data,omitempty"`
-	Error *ErrorDetail       `json:"error,omitempty"`
-}

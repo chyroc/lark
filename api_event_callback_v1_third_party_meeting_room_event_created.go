@@ -66,19 +66,7 @@ type EventV1ThirdPartyMeetingRoomEventCreatedOrganizer struct {
 	UnionID string `json:"union_id,omitempty"` // 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。
 }
 
-// EventV1ThirdPartyMeetingRoomEventCreatedResp ...
-type EventV1ThirdPartyMeetingRoomEventCreatedResp struct {
-}
-
 // EventV1ThirdPartyMeetingRoomEventCreatedStart ...
 type EventV1ThirdPartyMeetingRoomEventCreatedStart struct {
 	TimeStamp string `json:"time_stamp,omitempty"` // 日程开始时间戳
-}
-
-// eventV1ThirdPartyMeetingRoomEventCreatedResp ...
-type eventV1ThirdPartyMeetingRoomEventCreatedResp struct {
-	Code  int64                                         `json:"code,omitempty"`
-	Msg   string                                        `json:"msg,omitempty"`
-	Data  *EventV1ThirdPartyMeetingRoomEventCreatedResp `json:"data,omitempty"`
-	Error *ErrorDetail                                  `json:"error,omitempty"`
 }

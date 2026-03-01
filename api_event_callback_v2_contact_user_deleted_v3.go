@@ -128,15 +128,3 @@ type EventV2ContactUserDeletedV3OldObject struct {
 	DepartmentIDs []string `json:"department_ids,omitempty"` // 用户所属部门的 ID 列表。部门 ID 类型为open_department_id, 了解部门 ID 可参见[部门 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)。字段权限要求（满足任一）: 以应用身份读取通讯录获取用户组织架构信息以应用身份访问通讯录读取通讯录
 	OpenID        string   `json:"open_id,omitempty"`        // 用户的 open_id, 应用内用户的唯一标识。不同用户 ID 的说明参见 [用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)。
 }
-
-// EventV2ContactUserDeletedV3Resp ...
-type EventV2ContactUserDeletedV3Resp struct {
-}
-
-// eventV2ContactUserDeletedV3Resp ...
-type eventV2ContactUserDeletedV3Resp struct {
-	Code  int64                            `json:"code,omitempty"`
-	Msg   string                           `json:"msg,omitempty"`
-	Data  *EventV2ContactUserDeletedV3Resp `json:"data,omitempty"`
-	Error *ErrorDetail                     `json:"error,omitempty"`
-}

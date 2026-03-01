@@ -40,15 +40,3 @@ type EventV2MeetingRoomMeetingRoomStatusChangedV1 struct {
 	RoomName string `json:"room_name,omitempty"` // 会议室名称。
 	RoomID   string `json:"room_id,omitempty"`   // 会议室 ID。
 }
-
-// EventV2MeetingRoomMeetingRoomStatusChangedV1Resp ...
-type EventV2MeetingRoomMeetingRoomStatusChangedV1Resp struct {
-}
-
-// eventV2MeetingRoomMeetingRoomStatusChangedV1Resp ...
-type eventV2MeetingRoomMeetingRoomStatusChangedV1Resp struct {
-	Code  int64                                             `json:"code,omitempty"`
-	Msg   string                                            `json:"msg,omitempty"`
-	Data  *EventV2MeetingRoomMeetingRoomStatusChangedV1Resp `json:"data,omitempty"`
-	Error *ErrorDetail                                      `json:"error,omitempty"`
-}

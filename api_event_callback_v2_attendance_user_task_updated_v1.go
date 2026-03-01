@@ -65,15 +65,3 @@ type EventV2AttendanceUserTaskUpdatedV1Handler func(ctx context.Context, cli *La
 // EventV2AttendanceUserTaskUpdatedV1 ...
 type EventV2AttendanceUserTaskUpdatedV1 struct {
 }
-
-// EventV2AttendanceUserTaskUpdatedV1Resp ...
-type EventV2AttendanceUserTaskUpdatedV1Resp struct {
-}
-
-// eventV2AttendanceUserTaskUpdatedV1Resp ...
-type eventV2AttendanceUserTaskUpdatedV1Resp struct {
-	Code  int64                                   `json:"code,omitempty"`
-	Msg   string                                  `json:"msg,omitempty"`
-	Data  *EventV2AttendanceUserTaskUpdatedV1Resp `json:"data,omitempty"`
-	Error *ErrorDetail                            `json:"error,omitempty"`
-}

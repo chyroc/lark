@@ -65,15 +65,3 @@ type EventV1ApprovalTask struct {
 	DefKey       string `json:"def_key,omitempty"`       // 系统生成的审批节点唯一 ID。
 	Extra        string `json:"extra,omitempty"`         // 扩展数据。目前仅任务被退回时才有此字段, 其中: rollback_node_ids: 退回的节点列表- rollback_custom_node_ids: 用户自定义配置的节点列表
 }
-
-// EventV1ApprovalTaskResp ...
-type EventV1ApprovalTaskResp struct {
-}
-
-// eventV1ApprovalTaskResp ...
-type eventV1ApprovalTaskResp struct {
-	Code  int64                    `json:"code,omitempty"`
-	Msg   string                   `json:"msg,omitempty"`
-	Data  *EventV1ApprovalTaskResp `json:"data,omitempty"`
-	Error *ErrorDetail             `json:"error,omitempty"`
-}

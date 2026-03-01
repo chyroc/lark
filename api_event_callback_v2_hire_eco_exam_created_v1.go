@@ -52,15 +52,3 @@ type EventV2HireEcoExamCreatedV1CandidateInfoMobile struct {
 	Code   string `json:"code,omitempty"`   // 电话国家区号, 遵循国际统一标准, 可参考 [国际长途电话区号表](https://baike.baidu.com/item/%E5%9B%BD%E9%99%85%E9%95%BF%E9%80%94%E7%94%B5%E8%AF%9D%E5%8C%BA%E5%8F%B7%E8%A1%A8/12803495)
 	Number string `json:"number,omitempty"` // 手机号码
 }
-
-// EventV2HireEcoExamCreatedV1Resp ...
-type EventV2HireEcoExamCreatedV1Resp struct {
-}
-
-// eventV2HireEcoExamCreatedV1Resp ...
-type eventV2HireEcoExamCreatedV1Resp struct {
-	Code  int64                            `json:"code,omitempty"`
-	Msg   string                           `json:"msg,omitempty"`
-	Data  *EventV2HireEcoExamCreatedV1Resp `json:"data,omitempty"`
-	Error *ErrorDetail                     `json:"error,omitempty"`
-}

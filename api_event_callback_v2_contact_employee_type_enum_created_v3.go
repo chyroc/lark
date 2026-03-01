@@ -55,15 +55,3 @@ type EventV2ContactEmployeeTypeEnumCreatedV3NewEnumI18nContent struct {
 	Locale string `json:"locale,omitempty"` // 语言版本。例如: zh_cn: 中文- en_us: 英文- ja_jp: 日文
 	Value  string `json:"value,omitempty"`  // 语言版本对应的内容。
 }
-
-// EventV2ContactEmployeeTypeEnumCreatedV3Resp ...
-type EventV2ContactEmployeeTypeEnumCreatedV3Resp struct {
-}
-
-// eventV2ContactEmployeeTypeEnumCreatedV3Resp ...
-type eventV2ContactEmployeeTypeEnumCreatedV3Resp struct {
-	Code  int64                                        `json:"code,omitempty"`
-	Msg   string                                       `json:"msg,omitempty"`
-	Data  *EventV2ContactEmployeeTypeEnumCreatedV3Resp `json:"data,omitempty"`
-	Error *ErrorDetail                                 `json:"error,omitempty"`
-}

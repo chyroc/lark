@@ -40,15 +40,3 @@ type EventV2HireApplicationDeletedV1Handler func(ctx context.Context, cli *Lark,
 type EventV2HireApplicationDeletedV1 struct {
 	ApplicationIDs []string `json:"application_ids,omitempty"` // 投递 ID 列表
 }
-
-// EventV2HireApplicationDeletedV1Resp ...
-type EventV2HireApplicationDeletedV1Resp struct {
-}
-
-// eventV2HireApplicationDeletedV1Resp ...
-type eventV2HireApplicationDeletedV1Resp struct {
-	Code  int64                                `json:"code,omitempty"`
-	Msg   string                               `json:"msg,omitempty"`
-	Data  *EventV2HireApplicationDeletedV1Resp `json:"data,omitempty"`
-	Error *ErrorDetail                         `json:"error,omitempty"`
-}

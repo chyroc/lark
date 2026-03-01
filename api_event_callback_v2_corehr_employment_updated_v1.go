@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2CorehrEmploymentUpdatedV1 员工雇佣信息变更时发送该事件, 场景举例:
+// EventV2CoreHREmploymentUpdatedV1 员工雇佣信息变更时发送该事件, 场景举例:
 //
 // - 调用[【更新雇佣信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employment/patch)接口
 // - 人事系统【编辑工作信息】、【导入编辑人员】功能
@@ -31,35 +31,23 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employment/events/updated
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/employment/updated
-func (r *EventCallbackService) HandlerEventV2CorehrEmploymentUpdatedV1(f EventV2CorehrEmploymentUpdatedV1Handler) {
-	r.cli.eventHandler.eventV2CorehrEmploymentUpdatedV1Handler = f
+func (r *EventCallbackService) HandlerEventV2CoreHREmploymentUpdatedV1(f EventV2CoreHREmploymentUpdatedV1Handler) {
+	r.cli.eventHandler.eventV2CoreHREmploymentUpdatedV1Handler = f
 }
 
-// EventV2CorehrEmploymentUpdatedV1Handler event EventV2CorehrEmploymentUpdatedV1 handler
-type EventV2CorehrEmploymentUpdatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CorehrEmploymentUpdatedV1) (string, error)
+// EventV2CoreHREmploymentUpdatedV1Handler event EventV2CoreHREmploymentUpdatedV1 handler
+type EventV2CoreHREmploymentUpdatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CoreHREmploymentUpdatedV1) (string, error)
 
-// EventV2CorehrEmploymentUpdatedV1 ...
-type EventV2CorehrEmploymentUpdatedV1 struct {
+// EventV2CoreHREmploymentUpdatedV1 ...
+type EventV2CoreHREmploymentUpdatedV1 struct {
 	EmploymentID string                                        `json:"employment_id,omitempty"`  // 被更新的雇佣信息 ID
-	TargetUserID *EventV2CorehrEmploymentUpdatedV1TargetUserID `json:"target_user_id,omitempty"` // 用户 ID
+	TargetUserID *EventV2CoreHREmploymentUpdatedV1TargetUserID `json:"target_user_id,omitempty"` // 用户 ID
 	FieldChanges []string                                      `json:"field_changes,omitempty"`  // 发生变更的字段
 }
 
-// EventV2CorehrEmploymentUpdatedV1Resp ...
-type EventV2CorehrEmploymentUpdatedV1Resp struct {
-}
-
-// EventV2CorehrEmploymentUpdatedV1TargetUserID ...
-type EventV2CorehrEmploymentUpdatedV1TargetUserID struct {
+// EventV2CoreHREmploymentUpdatedV1TargetUserID ...
+type EventV2CoreHREmploymentUpdatedV1TargetUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
-}
-
-// eventV2CorehrEmploymentUpdatedV1Resp ...
-type eventV2CorehrEmploymentUpdatedV1Resp struct {
-	Code  int64                                 `json:"code,omitempty"`
-	Msg   string                                `json:"msg,omitempty"`
-	Data  *EventV2CorehrEmploymentUpdatedV1Resp `json:"data,omitempty"`
-	Error *ErrorDetail                          `json:"error,omitempty"`
 }

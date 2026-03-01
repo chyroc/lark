@@ -40,10 +40,6 @@ type EventV2TaskTaskUpdateTenantV1 struct {
 	EventType  string                                   `json:"event_type,omitempty"`   // 事件类型, 可选值: "create", "delete", "update"
 }
 
-// EventV2TaskTaskUpdateTenantV1Resp ...
-type EventV2TaskTaskUpdateTenantV1Resp struct {
-}
-
 // EventV2TaskTaskUpdateTenantV1UserIDList ...
 type EventV2TaskTaskUpdateTenantV1UserIDList struct {
 	UserIDList []*EventV2TaskTaskUpdateTenantV1UserIDListUserID `json:"user_id_list,omitempty"` // 用户 ID 列表
@@ -54,12 +50,4 @@ type EventV2TaskTaskUpdateTenantV1UserIDListUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 忽略此字段
 	UserID  string `json:"user_id,omitempty"`  // 忽略此字段
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open_id
-}
-
-// eventV2TaskTaskUpdateTenantV1Resp ...
-type eventV2TaskTaskUpdateTenantV1Resp struct {
-	Code  int64                              `json:"code,omitempty"`
-	Msg   string                             `json:"msg,omitempty"`
-	Data  *EventV2TaskTaskUpdateTenantV1Resp `json:"data,omitempty"`
-	Error *ErrorDetail                       `json:"error,omitempty"`
 }

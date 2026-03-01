@@ -39,15 +39,3 @@ type EventV2HireOfferStatusChangedV1Handler func(ctx context.Context, cli *Lark,
 type EventV2HireOfferStatusChangedV1 struct {
 	OfferID string `json:"offer_id,omitempty"` // 发生状态变更的 OfferID, 可通过[获取 Offer 详情](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/offer/get)接口获取 Offer 详情
 }
-
-// EventV2HireOfferStatusChangedV1Resp ...
-type EventV2HireOfferStatusChangedV1Resp struct {
-}
-
-// eventV2HireOfferStatusChangedV1Resp ...
-type eventV2HireOfferStatusChangedV1Resp struct {
-	Code  int64                                `json:"code,omitempty"`
-	Msg   string                               `json:"msg,omitempty"`
-	Data  *EventV2HireOfferStatusChangedV1Resp `json:"data,omitempty"`
-	Error *ErrorDetail                         `json:"error,omitempty"`
-}

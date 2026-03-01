@@ -121,15 +121,3 @@ type EventV2ContactUserCreatedV3ObjectStatus struct {
 	IsExited    bool `json:"is_exited,omitempty"`    // 是否为主动退出状态。主动退出一段时间后用户状态会自动转为已离职。可能值有: true: 是- false: 否
 	IsUnjoin    bool `json:"is_unjoin,omitempty"`    // 是否为未加入状态, 需要用户自主确认才能加入企业或团队。可能值有: true: 是- false: 否
 }
-
-// EventV2ContactUserCreatedV3Resp ...
-type EventV2ContactUserCreatedV3Resp struct {
-}
-
-// eventV2ContactUserCreatedV3Resp ...
-type eventV2ContactUserCreatedV3Resp struct {
-	Code  int64                            `json:"code,omitempty"`
-	Msg   string                           `json:"msg,omitempty"`
-	Data  *EventV2ContactUserCreatedV3Resp `json:"data,omitempty"`
-	Error *ErrorDetail                     `json:"error,omitempty"`
-}

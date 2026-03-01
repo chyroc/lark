@@ -33,13 +33,13 @@ const (
 	EventTypeV2URLPreviewGet                                   EventType = "url.preview.get"
 	EventTypeV2HireApplicationStageChangedV1                   EventType = "hire.application.stage_changed_v1"
 	EventTypeV2HireApplicationDeletedV1                        EventType = "hire.application.deleted_v1"
-	EventTypeV2CorehrJobCreatedV1                              EventType = "corehr.job.created_v1"
-	EventTypeV2CorehrJobUpdatedV1                              EventType = "corehr.job.updated_v1"
-	EventTypeV2CorehrJobDeletedV1                              EventType = "corehr.job.deleted_v1"
-	EventTypeV2CorehrProcessUpdatedV2                          EventType = "corehr.process.updated_v2"
-	EventTypeV2CorehrProcessNodeUpdatedV2                      EventType = "corehr.process.node.updated_v2"
-	EventTypeV2CorehrProcessApproverUpdatedV2                  EventType = "corehr.process.approver.updated_v2"
-	EventTypeV2CorehrProcessCcUpdatedV2                        EventType = "corehr.process.cc.updated_v2"
+	EventTypeV2CoreHRJobCreatedV1                              EventType = "corehr.job.created_v1"
+	EventTypeV2CoreHRJobUpdatedV1                              EventType = "corehr.job.updated_v1"
+	EventTypeV2CoreHRJobDeletedV1                              EventType = "corehr.job.deleted_v1"
+	EventTypeV2CoreHRProcessUpdatedV2                          EventType = "corehr.process.updated_v2"
+	EventTypeV2CoreHRProcessNodeUpdatedV2                      EventType = "corehr.process.node.updated_v2"
+	EventTypeV2CoreHRProcessApproverUpdatedV2                  EventType = "corehr.process.approver.updated_v2"
+	EventTypeV2CoreHRProcessCcUpdatedV2                        EventType = "corehr.process.cc.updated_v2"
 	EventTypeV2ContactCustomAttrEventUpdatedV3                 EventType = "contact.custom_attr_event.updated_v3"
 	EventTypeV2ApplicationApplicationCreatedV6                 EventType = "application.application.created_v6"
 	EventTypeV1AppOpen                                         EventType = "app_open"
@@ -54,9 +54,7 @@ const (
 	EventTypeV1OutApproval                                     EventType = "out_approval"
 	EventTypeV1RemedyApproval                                  EventType = "approval.instance.remedy_group_update_v4"
 	EventTypeV1ShiftApproval                                   EventType = "shift_approval"
-	EventTypeV1TripApproval                                    EventType = "trip_approval"
 	EventTypeV1WorkApproval                                    EventType = "work_approval"
-	EventTypeV1LeaveApprovalRevert                             EventType = "leave_approval_revert"
 	EventTypeV1LeaveApprovalV2                                 EventType = "leave_approval"
 	EventTypeV2DriveFileCreatedInFolderV1                      EventType = "drive.file.created_in_folder_v1"
 	EventTypeV2DriveFileBitableFieldChangedV1                  EventType = "drive.file.bitable_field_changed_v1"
@@ -148,34 +146,34 @@ const (
 	EventTypeV2VCReserveConfigUpdatedV1                        EventType = "vc.reserve_config.updated_v1"
 	EventTypeV2ApplicationBotMenuV6                            EventType = "application.bot.menu_v6"
 	EventTypeV2HireOfferStatusChangedV1                        EventType = "hire.offer.status_changed_v1"
-	EventTypeV2CorehrEmploymentCreatedV1                       EventType = "corehr.employment.created_v1"
-	EventTypeV2CorehrEmploymentUpdatedV1                       EventType = "corehr.employment.updated_v1"
-	EventTypeV2CorehrEmploymentDeletedV1                       EventType = "corehr.employment.deleted_v1"
-	EventTypeV2CorehrPersonCreatedV1                           EventType = "corehr.person.created_v1"
-	EventTypeV2CorehrPersonUpdatedV1                           EventType = "corehr.person.updated_v1"
-	EventTypeV2CorehrPersonDeletedV1                           EventType = "corehr.person.deleted_v1"
-	EventTypeV2CorehrDepartmentCreatedV1                       EventType = "corehr.department.created_v1"
-	EventTypeV2CorehrDepartmentUpdatedV1                       EventType = "corehr.department.updated_v1"
-	EventTypeV2CorehrDepartmentDeletedV1                       EventType = "corehr.department.deleted_v1"
-	EventTypeV2CorehrJobDataEmployedV1                         EventType = "corehr.job_data.employed_v1"
-	EventTypeV2CorehrContractCreatedV1                         EventType = "corehr.contract.created_v1"
-	EventTypeV2CorehrEmploymentConvertedV1                     EventType = "corehr.employment.converted_v1"
-	EventTypeV2CorehrJobChangeUpdatedV1                        EventType = "corehr.job_change.updated_v1"
-	EventTypeV2CorehrJobDataChangedV1                          EventType = "corehr.job_data.changed_v1"
-	EventTypeV2CorehrOffboardingUpdatedV1                      EventType = "corehr.offboarding.updated_v1"
-	EventTypeV2CorehrEmploymentResignedV1                      EventType = "corehr.employment.resigned_v1"
-	EventTypeV2CorehrOrgRoleAuthorizationUpdatedV1             EventType = "corehr.org_role_authorization.updated_v1"
+	EventTypeV2CoreHREmploymentCreatedV1                       EventType = "corehr.employment.created_v1"
+	EventTypeV2CoreHREmploymentUpdatedV1                       EventType = "corehr.employment.updated_v1"
+	EventTypeV2CoreHREmploymentDeletedV1                       EventType = "corehr.employment.deleted_v1"
+	EventTypeV2CoreHRPersonCreatedV1                           EventType = "corehr.person.created_v1"
+	EventTypeV2CoreHRPersonUpdatedV1                           EventType = "corehr.person.updated_v1"
+	EventTypeV2CoreHRPersonDeletedV1                           EventType = "corehr.person.deleted_v1"
+	EventTypeV2CoreHRDepartmentCreatedV1                       EventType = "corehr.department.created_v1"
+	EventTypeV2CoreHRDepartmentUpdatedV1                       EventType = "corehr.department.updated_v1"
+	EventTypeV2CoreHRDepartmentDeletedV1                       EventType = "corehr.department.deleted_v1"
+	EventTypeV2CoreHRJobDataEmployedV1                         EventType = "corehr.job_data.employed_v1"
+	EventTypeV2CoreHRContractCreatedV1                         EventType = "corehr.contract.created_v1"
+	EventTypeV2CoreHREmploymentConvertedV1                     EventType = "corehr.employment.converted_v1"
+	EventTypeV2CoreHRJobChangeUpdatedV1                        EventType = "corehr.job_change.updated_v1"
+	EventTypeV2CoreHRJobDataChangedV1                          EventType = "corehr.job_data.changed_v1"
+	EventTypeV2CoreHROffboardingUpdatedV1                      EventType = "corehr.offboarding.updated_v1"
+	EventTypeV2CoreHREmploymentResignedV1                      EventType = "corehr.employment.resigned_v1"
+	EventTypeV2CoreHROrgRoleAuthorizationUpdatedV1             EventType = "corehr.org_role_authorization.updated_v1"
 	EventTypeV2HireEHRImportTaskForInternshipOfferImportedV1   EventType = "hire.ehr_import_task_for_internship_offer.imported_v1"
 	EventTypeV2HireEHRImportTaskImportedV1                     EventType = "hire.ehr_import_task.imported_v1"
-	EventTypeV2CorehrProbationUpdatedV2                        EventType = "corehr.probation.updated_v2"
-	EventTypeV2CorehrPreHireUpdatedV1                          EventType = "corehr.pre_hire.updated_v1"
+	EventTypeV2CoreHRProbationUpdatedV2                        EventType = "corehr.probation.updated_v2"
+	EventTypeV2CoreHRPreHireUpdatedV1                          EventType = "corehr.pre_hire.updated_v1"
 	EventTypeV2HireEcoAccountCreatedV1                         EventType = "hire.eco_account.created_v1"
 	EventTypeV2HireEcoBackgroundCheckCreatedV1                 EventType = "hire.eco_background_check.created_v1"
 	EventTypeV2HireEcoBackgroundCheckCanceledV1                EventType = "hire.eco_background_check.canceled_v1"
 	EventTypeV2HireEcoExamCreatedV1                            EventType = "hire.eco_exam.created_v1"
 	EventTypeV2HireReferralAccountAssetsUpdateV1               EventType = "hire.referral_account.assets_update_v1"
-	EventTypeV2CorehrContractDeletedV1                         EventType = "corehr.contract.deleted_v1"
-	EventTypeV2CorehrContractUpdatedV1                         EventType = "corehr.contract.updated_v1"
+	EventTypeV2CoreHRContractDeletedV1                         EventType = "corehr.contract.deleted_v1"
+	EventTypeV2CoreHRContractUpdatedV1                         EventType = "corehr.contract.updated_v1"
 )
 
 type eventHandler struct {
@@ -237,37 +235,37 @@ type eventHandler struct {
 	eventV2ContactUserCreatedV3Handler                            EventV2ContactUserCreatedV3Handler
 	eventV2ContactUserDeletedV3Handler                            EventV2ContactUserDeletedV3Handler
 	eventV2ContactUserUpdatedV3Handler                            EventV2ContactUserUpdatedV3Handler
-	eventV2CorehrContractCreatedV1Handler                         EventV2CorehrContractCreatedV1Handler
-	eventV2CorehrContractDeletedV1Handler                         EventV2CorehrContractDeletedV1Handler
-	eventV2CorehrContractUpdatedV1Handler                         EventV2CorehrContractUpdatedV1Handler
-	eventV2CorehrDepartmentCreatedV1Handler                       EventV2CorehrDepartmentCreatedV1Handler
-	eventV2CorehrDepartmentDeletedV1Handler                       EventV2CorehrDepartmentDeletedV1Handler
-	eventV2CorehrDepartmentUpdatedV1Handler                       EventV2CorehrDepartmentUpdatedV1Handler
-	eventV2CorehrEmploymentConvertedV1Handler                     EventV2CorehrEmploymentConvertedV1Handler
-	eventV2CorehrEmploymentCreatedV1Handler                       EventV2CorehrEmploymentCreatedV1Handler
-	eventV2CorehrEmploymentDeletedV1Handler                       EventV2CorehrEmploymentDeletedV1Handler
-	eventV2CorehrEmploymentResignedV1Handler                      EventV2CorehrEmploymentResignedV1Handler
-	eventV2CorehrEmploymentUpdatedV1Handler                       EventV2CorehrEmploymentUpdatedV1Handler
-	eventV2CorehrJobChangeUpdatedV1Handler                        EventV2CorehrJobChangeUpdatedV1Handler
-	eventV2CorehrJobCreatedV1Handler                              EventV2CorehrJobCreatedV1Handler
-	eventV2CorehrJobDataChangedV1Handler                          EventV2CorehrJobDataChangedV1Handler
-	eventV2CorehrJobDataEmployedV1Handler                         EventV2CorehrJobDataEmployedV1Handler
-	eventV2CorehrJobDeletedV1Handler                              EventV2CorehrJobDeletedV1Handler
-	eventV2CorehrJobUpdatedV1Handler                              EventV2CorehrJobUpdatedV1Handler
+	eventV2CoreHRContractCreatedV1Handler                         EventV2CoreHRContractCreatedV1Handler
+	eventV2CoreHRContractDeletedV1Handler                         EventV2CoreHRContractDeletedV1Handler
+	eventV2CoreHRContractUpdatedV1Handler                         EventV2CoreHRContractUpdatedV1Handler
+	eventV2CoreHRDepartmentCreatedV1Handler                       EventV2CoreHRDepartmentCreatedV1Handler
+	eventV2CoreHRDepartmentDeletedV1Handler                       EventV2CoreHRDepartmentDeletedV1Handler
+	eventV2CoreHRDepartmentUpdatedV1Handler                       EventV2CoreHRDepartmentUpdatedV1Handler
+	eventV2CoreHREmploymentConvertedV1Handler                     EventV2CoreHREmploymentConvertedV1Handler
+	eventV2CoreHREmploymentCreatedV1Handler                       EventV2CoreHREmploymentCreatedV1Handler
+	eventV2CoreHREmploymentDeletedV1Handler                       EventV2CoreHREmploymentDeletedV1Handler
+	eventV2CoreHREmploymentResignedV1Handler                      EventV2CoreHREmploymentResignedV1Handler
+	eventV2CoreHREmploymentUpdatedV1Handler                       EventV2CoreHREmploymentUpdatedV1Handler
+	eventV2CoreHRJobChangeUpdatedV1Handler                        EventV2CoreHRJobChangeUpdatedV1Handler
+	eventV2CoreHRJobCreatedV1Handler                              EventV2CoreHRJobCreatedV1Handler
+	eventV2CoreHRJobDataChangedV1Handler                          EventV2CoreHRJobDataChangedV1Handler
+	eventV2CoreHRJobDataEmployedV1Handler                         EventV2CoreHRJobDataEmployedV1Handler
+	eventV2CoreHRJobDeletedV1Handler                              EventV2CoreHRJobDeletedV1Handler
+	eventV2CoreHRJobUpdatedV1Handler                              EventV2CoreHRJobUpdatedV1Handler
+	eventV2CoreHROffboardingUpdatedV1Handler                      EventV2CoreHROffboardingUpdatedV1Handler
+	eventV2CoreHROrgRoleAuthorizationUpdatedV1Handler             EventV2CoreHROrgRoleAuthorizationUpdatedV1Handler
+	eventV2CoreHRPersonCreatedV1Handler                           EventV2CoreHRPersonCreatedV1Handler
+	eventV2CoreHRPersonDeletedV1Handler                           EventV2CoreHRPersonDeletedV1Handler
+	eventV2CoreHRPersonUpdatedV1Handler                           EventV2CoreHRPersonUpdatedV1Handler
+	eventV2CoreHRPreHireUpdatedV1Handler                          EventV2CoreHRPreHireUpdatedV1Handler
+	eventV2CoreHRProbationUpdatedV2Handler                        EventV2CoreHRProbationUpdatedV2Handler
+	eventV2CoreHRProcessApproverUpdatedV2Handler                  EventV2CoreHRProcessApproverUpdatedV2Handler
+	eventV2CoreHRProcessCcUpdatedV2Handler                        EventV2CoreHRProcessCcUpdatedV2Handler
+	eventV2CoreHRProcessNodeUpdatedV2Handler                      EventV2CoreHRProcessNodeUpdatedV2Handler
+	eventV2CoreHRProcessUpdatedV2Handler                          EventV2CoreHRProcessUpdatedV2Handler
 	eventV2CorehrOffboardingChecklistUpdatedV2Handler             EventV2CorehrOffboardingChecklistUpdatedV2Handler
 	eventV2CorehrOffboardingStatusUpdatedV2Handler                EventV2CorehrOffboardingStatusUpdatedV2Handler
-	eventV2CorehrOffboardingUpdatedV1Handler                      EventV2CorehrOffboardingUpdatedV1Handler
 	eventV2CorehrOffboardingUpdatedV2Handler                      EventV2CorehrOffboardingUpdatedV2Handler
-	eventV2CorehrOrgRoleAuthorizationUpdatedV1Handler             EventV2CorehrOrgRoleAuthorizationUpdatedV1Handler
-	eventV2CorehrPersonCreatedV1Handler                           EventV2CorehrPersonCreatedV1Handler
-	eventV2CorehrPersonDeletedV1Handler                           EventV2CorehrPersonDeletedV1Handler
-	eventV2CorehrPersonUpdatedV1Handler                           EventV2CorehrPersonUpdatedV1Handler
-	eventV2CorehrPreHireUpdatedV1Handler                          EventV2CorehrPreHireUpdatedV1Handler
-	eventV2CorehrProbationUpdatedV2Handler                        EventV2CorehrProbationUpdatedV2Handler
-	eventV2CorehrProcessApproverUpdatedV2Handler                  EventV2CorehrProcessApproverUpdatedV2Handler
-	eventV2CorehrProcessCcUpdatedV2Handler                        EventV2CorehrProcessCcUpdatedV2Handler
-	eventV2CorehrProcessNodeUpdatedV2Handler                      EventV2CorehrProcessNodeUpdatedV2Handler
-	eventV2CorehrProcessUpdatedV2Handler                          EventV2CorehrProcessUpdatedV2Handler
 	eventV2DriveFileBitableFieldChangedV1Handler                  EventV2DriveFileBitableFieldChangedV1Handler
 	eventV2DriveFileBitableRecordChangedV1Handler                 EventV2DriveFileBitableRecordChangedV1Handler
 	eventV2DriveFileCreatedInFolderV1Handler                      EventV2DriveFileCreatedInFolderV1Handler
@@ -395,37 +393,37 @@ func (r *eventHandler) clone() *eventHandler {
 		eventV2ContactUserCreatedV3Handler:                            r.eventV2ContactUserCreatedV3Handler,
 		eventV2ContactUserDeletedV3Handler:                            r.eventV2ContactUserDeletedV3Handler,
 		eventV2ContactUserUpdatedV3Handler:                            r.eventV2ContactUserUpdatedV3Handler,
-		eventV2CorehrContractCreatedV1Handler:                         r.eventV2CorehrContractCreatedV1Handler,
-		eventV2CorehrContractDeletedV1Handler:                         r.eventV2CorehrContractDeletedV1Handler,
-		eventV2CorehrContractUpdatedV1Handler:                         r.eventV2CorehrContractUpdatedV1Handler,
-		eventV2CorehrDepartmentCreatedV1Handler:                       r.eventV2CorehrDepartmentCreatedV1Handler,
-		eventV2CorehrDepartmentDeletedV1Handler:                       r.eventV2CorehrDepartmentDeletedV1Handler,
-		eventV2CorehrDepartmentUpdatedV1Handler:                       r.eventV2CorehrDepartmentUpdatedV1Handler,
-		eventV2CorehrEmploymentConvertedV1Handler:                     r.eventV2CorehrEmploymentConvertedV1Handler,
-		eventV2CorehrEmploymentCreatedV1Handler:                       r.eventV2CorehrEmploymentCreatedV1Handler,
-		eventV2CorehrEmploymentDeletedV1Handler:                       r.eventV2CorehrEmploymentDeletedV1Handler,
-		eventV2CorehrEmploymentResignedV1Handler:                      r.eventV2CorehrEmploymentResignedV1Handler,
-		eventV2CorehrEmploymentUpdatedV1Handler:                       r.eventV2CorehrEmploymentUpdatedV1Handler,
-		eventV2CorehrJobChangeUpdatedV1Handler:                        r.eventV2CorehrJobChangeUpdatedV1Handler,
-		eventV2CorehrJobCreatedV1Handler:                              r.eventV2CorehrJobCreatedV1Handler,
-		eventV2CorehrJobDataChangedV1Handler:                          r.eventV2CorehrJobDataChangedV1Handler,
-		eventV2CorehrJobDataEmployedV1Handler:                         r.eventV2CorehrJobDataEmployedV1Handler,
-		eventV2CorehrJobDeletedV1Handler:                              r.eventV2CorehrJobDeletedV1Handler,
-		eventV2CorehrJobUpdatedV1Handler:                              r.eventV2CorehrJobUpdatedV1Handler,
+		eventV2CoreHRContractCreatedV1Handler:                         r.eventV2CoreHRContractCreatedV1Handler,
+		eventV2CoreHRContractDeletedV1Handler:                         r.eventV2CoreHRContractDeletedV1Handler,
+		eventV2CoreHRContractUpdatedV1Handler:                         r.eventV2CoreHRContractUpdatedV1Handler,
+		eventV2CoreHRDepartmentCreatedV1Handler:                       r.eventV2CoreHRDepartmentCreatedV1Handler,
+		eventV2CoreHRDepartmentDeletedV1Handler:                       r.eventV2CoreHRDepartmentDeletedV1Handler,
+		eventV2CoreHRDepartmentUpdatedV1Handler:                       r.eventV2CoreHRDepartmentUpdatedV1Handler,
+		eventV2CoreHREmploymentConvertedV1Handler:                     r.eventV2CoreHREmploymentConvertedV1Handler,
+		eventV2CoreHREmploymentCreatedV1Handler:                       r.eventV2CoreHREmploymentCreatedV1Handler,
+		eventV2CoreHREmploymentDeletedV1Handler:                       r.eventV2CoreHREmploymentDeletedV1Handler,
+		eventV2CoreHREmploymentResignedV1Handler:                      r.eventV2CoreHREmploymentResignedV1Handler,
+		eventV2CoreHREmploymentUpdatedV1Handler:                       r.eventV2CoreHREmploymentUpdatedV1Handler,
+		eventV2CoreHRJobChangeUpdatedV1Handler:                        r.eventV2CoreHRJobChangeUpdatedV1Handler,
+		eventV2CoreHRJobCreatedV1Handler:                              r.eventV2CoreHRJobCreatedV1Handler,
+		eventV2CoreHRJobDataChangedV1Handler:                          r.eventV2CoreHRJobDataChangedV1Handler,
+		eventV2CoreHRJobDataEmployedV1Handler:                         r.eventV2CoreHRJobDataEmployedV1Handler,
+		eventV2CoreHRJobDeletedV1Handler:                              r.eventV2CoreHRJobDeletedV1Handler,
+		eventV2CoreHRJobUpdatedV1Handler:                              r.eventV2CoreHRJobUpdatedV1Handler,
+		eventV2CoreHROffboardingUpdatedV1Handler:                      r.eventV2CoreHROffboardingUpdatedV1Handler,
+		eventV2CoreHROrgRoleAuthorizationUpdatedV1Handler:             r.eventV2CoreHROrgRoleAuthorizationUpdatedV1Handler,
+		eventV2CoreHRPersonCreatedV1Handler:                           r.eventV2CoreHRPersonCreatedV1Handler,
+		eventV2CoreHRPersonDeletedV1Handler:                           r.eventV2CoreHRPersonDeletedV1Handler,
+		eventV2CoreHRPersonUpdatedV1Handler:                           r.eventV2CoreHRPersonUpdatedV1Handler,
+		eventV2CoreHRPreHireUpdatedV1Handler:                          r.eventV2CoreHRPreHireUpdatedV1Handler,
+		eventV2CoreHRProbationUpdatedV2Handler:                        r.eventV2CoreHRProbationUpdatedV2Handler,
+		eventV2CoreHRProcessApproverUpdatedV2Handler:                  r.eventV2CoreHRProcessApproverUpdatedV2Handler,
+		eventV2CoreHRProcessCcUpdatedV2Handler:                        r.eventV2CoreHRProcessCcUpdatedV2Handler,
+		eventV2CoreHRProcessNodeUpdatedV2Handler:                      r.eventV2CoreHRProcessNodeUpdatedV2Handler,
+		eventV2CoreHRProcessUpdatedV2Handler:                          r.eventV2CoreHRProcessUpdatedV2Handler,
 		eventV2CorehrOffboardingChecklistUpdatedV2Handler:             r.eventV2CorehrOffboardingChecklistUpdatedV2Handler,
 		eventV2CorehrOffboardingStatusUpdatedV2Handler:                r.eventV2CorehrOffboardingStatusUpdatedV2Handler,
-		eventV2CorehrOffboardingUpdatedV1Handler:                      r.eventV2CorehrOffboardingUpdatedV1Handler,
 		eventV2CorehrOffboardingUpdatedV2Handler:                      r.eventV2CorehrOffboardingUpdatedV2Handler,
-		eventV2CorehrOrgRoleAuthorizationUpdatedV1Handler:             r.eventV2CorehrOrgRoleAuthorizationUpdatedV1Handler,
-		eventV2CorehrPersonCreatedV1Handler:                           r.eventV2CorehrPersonCreatedV1Handler,
-		eventV2CorehrPersonDeletedV1Handler:                           r.eventV2CorehrPersonDeletedV1Handler,
-		eventV2CorehrPersonUpdatedV1Handler:                           r.eventV2CorehrPersonUpdatedV1Handler,
-		eventV2CorehrPreHireUpdatedV1Handler:                          r.eventV2CorehrPreHireUpdatedV1Handler,
-		eventV2CorehrProbationUpdatedV2Handler:                        r.eventV2CorehrProbationUpdatedV2Handler,
-		eventV2CorehrProcessApproverUpdatedV2Handler:                  r.eventV2CorehrProcessApproverUpdatedV2Handler,
-		eventV2CorehrProcessCcUpdatedV2Handler:                        r.eventV2CorehrProcessCcUpdatedV2Handler,
-		eventV2CorehrProcessNodeUpdatedV2Handler:                      r.eventV2CorehrProcessNodeUpdatedV2Handler,
-		eventV2CorehrProcessUpdatedV2Handler:                          r.eventV2CorehrProcessUpdatedV2Handler,
 		eventV2DriveFileBitableFieldChangedV1Handler:                  r.eventV2DriveFileBitableFieldChangedV1Handler,
 		eventV2DriveFileBitableRecordChangedV1Handler:                 r.eventV2DriveFileBitableRecordChangedV1Handler,
 		eventV2DriveFileCreatedInFolderV1Handler:                      r.eventV2DriveFileCreatedInFolderV1Handler,
@@ -552,37 +550,37 @@ type eventBody struct {
 	eventV2ContactUserCreatedV3                            *EventV2ContactUserCreatedV3
 	eventV2ContactUserDeletedV3                            *EventV2ContactUserDeletedV3
 	eventV2ContactUserUpdatedV3                            *EventV2ContactUserUpdatedV3
-	eventV2CorehrContractCreatedV1                         *EventV2CorehrContractCreatedV1
-	eventV2CorehrContractDeletedV1                         *EventV2CorehrContractDeletedV1
-	eventV2CorehrContractUpdatedV1                         *EventV2CorehrContractUpdatedV1
-	eventV2CorehrDepartmentCreatedV1                       *EventV2CorehrDepartmentCreatedV1
-	eventV2CorehrDepartmentDeletedV1                       *EventV2CorehrDepartmentDeletedV1
-	eventV2CorehrDepartmentUpdatedV1                       *EventV2CorehrDepartmentUpdatedV1
-	eventV2CorehrEmploymentConvertedV1                     *EventV2CorehrEmploymentConvertedV1
-	eventV2CorehrEmploymentCreatedV1                       *EventV2CorehrEmploymentCreatedV1
-	eventV2CorehrEmploymentDeletedV1                       *EventV2CorehrEmploymentDeletedV1
-	eventV2CorehrEmploymentResignedV1                      *EventV2CorehrEmploymentResignedV1
-	eventV2CorehrEmploymentUpdatedV1                       *EventV2CorehrEmploymentUpdatedV1
-	eventV2CorehrJobChangeUpdatedV1                        *EventV2CorehrJobChangeUpdatedV1
-	eventV2CorehrJobCreatedV1                              *EventV2CorehrJobCreatedV1
-	eventV2CorehrJobDataChangedV1                          *EventV2CorehrJobDataChangedV1
-	eventV2CorehrJobDataEmployedV1                         *EventV2CorehrJobDataEmployedV1
-	eventV2CorehrJobDeletedV1                              *EventV2CorehrJobDeletedV1
-	eventV2CorehrJobUpdatedV1                              *EventV2CorehrJobUpdatedV1
+	eventV2CoreHRContractCreatedV1                         *EventV2CoreHRContractCreatedV1
+	eventV2CoreHRContractDeletedV1                         *EventV2CoreHRContractDeletedV1
+	eventV2CoreHRContractUpdatedV1                         *EventV2CoreHRContractUpdatedV1
+	eventV2CoreHRDepartmentCreatedV1                       *EventV2CoreHRDepartmentCreatedV1
+	eventV2CoreHRDepartmentDeletedV1                       *EventV2CoreHRDepartmentDeletedV1
+	eventV2CoreHRDepartmentUpdatedV1                       *EventV2CoreHRDepartmentUpdatedV1
+	eventV2CoreHREmploymentConvertedV1                     *EventV2CoreHREmploymentConvertedV1
+	eventV2CoreHREmploymentCreatedV1                       *EventV2CoreHREmploymentCreatedV1
+	eventV2CoreHREmploymentDeletedV1                       *EventV2CoreHREmploymentDeletedV1
+	eventV2CoreHREmploymentResignedV1                      *EventV2CoreHREmploymentResignedV1
+	eventV2CoreHREmploymentUpdatedV1                       *EventV2CoreHREmploymentUpdatedV1
+	eventV2CoreHRJobChangeUpdatedV1                        *EventV2CoreHRJobChangeUpdatedV1
+	eventV2CoreHRJobCreatedV1                              *EventV2CoreHRJobCreatedV1
+	eventV2CoreHRJobDataChangedV1                          *EventV2CoreHRJobDataChangedV1
+	eventV2CoreHRJobDataEmployedV1                         *EventV2CoreHRJobDataEmployedV1
+	eventV2CoreHRJobDeletedV1                              *EventV2CoreHRJobDeletedV1
+	eventV2CoreHRJobUpdatedV1                              *EventV2CoreHRJobUpdatedV1
+	eventV2CoreHROffboardingUpdatedV1                      *EventV2CoreHROffboardingUpdatedV1
+	eventV2CoreHROrgRoleAuthorizationUpdatedV1             *EventV2CoreHROrgRoleAuthorizationUpdatedV1
+	eventV2CoreHRPersonCreatedV1                           *EventV2CoreHRPersonCreatedV1
+	eventV2CoreHRPersonDeletedV1                           *EventV2CoreHRPersonDeletedV1
+	eventV2CoreHRPersonUpdatedV1                           *EventV2CoreHRPersonUpdatedV1
+	eventV2CoreHRPreHireUpdatedV1                          *EventV2CoreHRPreHireUpdatedV1
+	eventV2CoreHRProbationUpdatedV2                        *EventV2CoreHRProbationUpdatedV2
+	eventV2CoreHRProcessApproverUpdatedV2                  *EventV2CoreHRProcessApproverUpdatedV2
+	eventV2CoreHRProcessCcUpdatedV2                        *EventV2CoreHRProcessCcUpdatedV2
+	eventV2CoreHRProcessNodeUpdatedV2                      *EventV2CoreHRProcessNodeUpdatedV2
+	eventV2CoreHRProcessUpdatedV2                          *EventV2CoreHRProcessUpdatedV2
 	eventV2CorehrOffboardingChecklistUpdatedV2             *EventV2CorehrOffboardingChecklistUpdatedV2
 	eventV2CorehrOffboardingStatusUpdatedV2                *EventV2CorehrOffboardingStatusUpdatedV2
-	eventV2CorehrOffboardingUpdatedV1                      *EventV2CorehrOffboardingUpdatedV1
 	eventV2CorehrOffboardingUpdatedV2                      *EventV2CorehrOffboardingUpdatedV2
-	eventV2CorehrOrgRoleAuthorizationUpdatedV1             *EventV2CorehrOrgRoleAuthorizationUpdatedV1
-	eventV2CorehrPersonCreatedV1                           *EventV2CorehrPersonCreatedV1
-	eventV2CorehrPersonDeletedV1                           *EventV2CorehrPersonDeletedV1
-	eventV2CorehrPersonUpdatedV1                           *EventV2CorehrPersonUpdatedV1
-	eventV2CorehrPreHireUpdatedV1                          *EventV2CorehrPreHireUpdatedV1
-	eventV2CorehrProbationUpdatedV2                        *EventV2CorehrProbationUpdatedV2
-	eventV2CorehrProcessApproverUpdatedV2                  *EventV2CorehrProcessApproverUpdatedV2
-	eventV2CorehrProcessCcUpdatedV2                        *EventV2CorehrProcessCcUpdatedV2
-	eventV2CorehrProcessNodeUpdatedV2                      *EventV2CorehrProcessNodeUpdatedV2
-	eventV2CorehrProcessUpdatedV2                          *EventV2CorehrProcessUpdatedV2
 	eventV2DriveFileBitableFieldChangedV1                  *EventV2DriveFileBitableFieldChangedV1
 	eventV2DriveFileBitableRecordChangedV1                 *EventV2DriveFileBitableRecordChangedV1
 	eventV2DriveFileCreatedInFolderV1                      *EventV2DriveFileCreatedInFolderV1
@@ -692,48 +690,48 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 			return err
 		}
 		req.eventV2HireApplicationDeletedV1 = event
-	case EventTypeV2CorehrJobCreatedV1:
-		event := new(EventV2CorehrJobCreatedV1)
+	case EventTypeV2CoreHRJobCreatedV1:
+		event := new(EventV2CoreHRJobCreatedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventV2CorehrJobCreatedV1 = event
-	case EventTypeV2CorehrJobUpdatedV1:
-		event := new(EventV2CorehrJobUpdatedV1)
+		req.eventV2CoreHRJobCreatedV1 = event
+	case EventTypeV2CoreHRJobUpdatedV1:
+		event := new(EventV2CoreHRJobUpdatedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventV2CorehrJobUpdatedV1 = event
-	case EventTypeV2CorehrJobDeletedV1:
-		event := new(EventV2CorehrJobDeletedV1)
+		req.eventV2CoreHRJobUpdatedV1 = event
+	case EventTypeV2CoreHRJobDeletedV1:
+		event := new(EventV2CoreHRJobDeletedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventV2CorehrJobDeletedV1 = event
-	case EventTypeV2CorehrProcessUpdatedV2:
-		event := new(EventV2CorehrProcessUpdatedV2)
+		req.eventV2CoreHRJobDeletedV1 = event
+	case EventTypeV2CoreHRProcessUpdatedV2:
+		event := new(EventV2CoreHRProcessUpdatedV2)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventV2CorehrProcessUpdatedV2 = event
-	case EventTypeV2CorehrProcessNodeUpdatedV2:
-		event := new(EventV2CorehrProcessNodeUpdatedV2)
+		req.eventV2CoreHRProcessUpdatedV2 = event
+	case EventTypeV2CoreHRProcessNodeUpdatedV2:
+		event := new(EventV2CoreHRProcessNodeUpdatedV2)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventV2CorehrProcessNodeUpdatedV2 = event
-	case EventTypeV2CorehrProcessApproverUpdatedV2:
-		event := new(EventV2CorehrProcessApproverUpdatedV2)
+		req.eventV2CoreHRProcessNodeUpdatedV2 = event
+	case EventTypeV2CoreHRProcessApproverUpdatedV2:
+		event := new(EventV2CoreHRProcessApproverUpdatedV2)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventV2CorehrProcessApproverUpdatedV2 = event
-	case EventTypeV2CorehrProcessCcUpdatedV2:
-		event := new(EventV2CorehrProcessCcUpdatedV2)
+		req.eventV2CoreHRProcessApproverUpdatedV2 = event
+	case EventTypeV2CoreHRProcessCcUpdatedV2:
+		event := new(EventV2CoreHRProcessCcUpdatedV2)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventV2CorehrProcessCcUpdatedV2 = event
+		req.eventV2CoreHRProcessCcUpdatedV2 = event
 	case EventTypeV2ContactCustomAttrEventUpdatedV3:
 		event := new(EventV2ContactCustomAttrEventUpdatedV3)
 		if err := req.unmarshalEvent(event); err != nil {
@@ -1231,108 +1229,108 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 			return err
 		}
 		req.eventV2HireOfferStatusChangedV1 = event
-	case EventTypeV2CorehrEmploymentCreatedV1:
-		event := new(EventV2CorehrEmploymentCreatedV1)
+	case EventTypeV2CoreHREmploymentCreatedV1:
+		event := new(EventV2CoreHREmploymentCreatedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventV2CorehrEmploymentCreatedV1 = event
-	case EventTypeV2CorehrEmploymentUpdatedV1:
-		event := new(EventV2CorehrEmploymentUpdatedV1)
+		req.eventV2CoreHREmploymentCreatedV1 = event
+	case EventTypeV2CoreHREmploymentUpdatedV1:
+		event := new(EventV2CoreHREmploymentUpdatedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventV2CorehrEmploymentUpdatedV1 = event
-	case EventTypeV2CorehrEmploymentDeletedV1:
-		event := new(EventV2CorehrEmploymentDeletedV1)
+		req.eventV2CoreHREmploymentUpdatedV1 = event
+	case EventTypeV2CoreHREmploymentDeletedV1:
+		event := new(EventV2CoreHREmploymentDeletedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventV2CorehrEmploymentDeletedV1 = event
-	case EventTypeV2CorehrPersonCreatedV1:
-		event := new(EventV2CorehrPersonCreatedV1)
+		req.eventV2CoreHREmploymentDeletedV1 = event
+	case EventTypeV2CoreHRPersonCreatedV1:
+		event := new(EventV2CoreHRPersonCreatedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventV2CorehrPersonCreatedV1 = event
-	case EventTypeV2CorehrPersonUpdatedV1:
-		event := new(EventV2CorehrPersonUpdatedV1)
+		req.eventV2CoreHRPersonCreatedV1 = event
+	case EventTypeV2CoreHRPersonUpdatedV1:
+		event := new(EventV2CoreHRPersonUpdatedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventV2CorehrPersonUpdatedV1 = event
-	case EventTypeV2CorehrPersonDeletedV1:
-		event := new(EventV2CorehrPersonDeletedV1)
+		req.eventV2CoreHRPersonUpdatedV1 = event
+	case EventTypeV2CoreHRPersonDeletedV1:
+		event := new(EventV2CoreHRPersonDeletedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventV2CorehrPersonDeletedV1 = event
-	case EventTypeV2CorehrDepartmentCreatedV1:
-		event := new(EventV2CorehrDepartmentCreatedV1)
+		req.eventV2CoreHRPersonDeletedV1 = event
+	case EventTypeV2CoreHRDepartmentCreatedV1:
+		event := new(EventV2CoreHRDepartmentCreatedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventV2CorehrDepartmentCreatedV1 = event
-	case EventTypeV2CorehrDepartmentUpdatedV1:
-		event := new(EventV2CorehrDepartmentUpdatedV1)
+		req.eventV2CoreHRDepartmentCreatedV1 = event
+	case EventTypeV2CoreHRDepartmentUpdatedV1:
+		event := new(EventV2CoreHRDepartmentUpdatedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventV2CorehrDepartmentUpdatedV1 = event
-	case EventTypeV2CorehrDepartmentDeletedV1:
-		event := new(EventV2CorehrDepartmentDeletedV1)
+		req.eventV2CoreHRDepartmentUpdatedV1 = event
+	case EventTypeV2CoreHRDepartmentDeletedV1:
+		event := new(EventV2CoreHRDepartmentDeletedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventV2CorehrDepartmentDeletedV1 = event
-	case EventTypeV2CorehrJobDataEmployedV1:
-		event := new(EventV2CorehrJobDataEmployedV1)
+		req.eventV2CoreHRDepartmentDeletedV1 = event
+	case EventTypeV2CoreHRJobDataEmployedV1:
+		event := new(EventV2CoreHRJobDataEmployedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventV2CorehrJobDataEmployedV1 = event
-	case EventTypeV2CorehrContractCreatedV1:
-		event := new(EventV2CorehrContractCreatedV1)
+		req.eventV2CoreHRJobDataEmployedV1 = event
+	case EventTypeV2CoreHRContractCreatedV1:
+		event := new(EventV2CoreHRContractCreatedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventV2CorehrContractCreatedV1 = event
-	case EventTypeV2CorehrEmploymentConvertedV1:
-		event := new(EventV2CorehrEmploymentConvertedV1)
+		req.eventV2CoreHRContractCreatedV1 = event
+	case EventTypeV2CoreHREmploymentConvertedV1:
+		event := new(EventV2CoreHREmploymentConvertedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventV2CorehrEmploymentConvertedV1 = event
-	case EventTypeV2CorehrJobChangeUpdatedV1:
-		event := new(EventV2CorehrJobChangeUpdatedV1)
+		req.eventV2CoreHREmploymentConvertedV1 = event
+	case EventTypeV2CoreHRJobChangeUpdatedV1:
+		event := new(EventV2CoreHRJobChangeUpdatedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventV2CorehrJobChangeUpdatedV1 = event
-	case EventTypeV2CorehrJobDataChangedV1:
-		event := new(EventV2CorehrJobDataChangedV1)
+		req.eventV2CoreHRJobChangeUpdatedV1 = event
+	case EventTypeV2CoreHRJobDataChangedV1:
+		event := new(EventV2CoreHRJobDataChangedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventV2CorehrJobDataChangedV1 = event
-	case EventTypeV2CorehrOffboardingUpdatedV1:
-		event := new(EventV2CorehrOffboardingUpdatedV1)
+		req.eventV2CoreHRJobDataChangedV1 = event
+	case EventTypeV2CoreHROffboardingUpdatedV1:
+		event := new(EventV2CoreHROffboardingUpdatedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventV2CorehrOffboardingUpdatedV1 = event
-	case EventTypeV2CorehrEmploymentResignedV1:
-		event := new(EventV2CorehrEmploymentResignedV1)
+		req.eventV2CoreHROffboardingUpdatedV1 = event
+	case EventTypeV2CoreHREmploymentResignedV1:
+		event := new(EventV2CoreHREmploymentResignedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventV2CorehrEmploymentResignedV1 = event
-	case EventTypeV2CorehrOrgRoleAuthorizationUpdatedV1:
-		event := new(EventV2CorehrOrgRoleAuthorizationUpdatedV1)
+		req.eventV2CoreHREmploymentResignedV1 = event
+	case EventTypeV2CoreHROrgRoleAuthorizationUpdatedV1:
+		event := new(EventV2CoreHROrgRoleAuthorizationUpdatedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventV2CorehrOrgRoleAuthorizationUpdatedV1 = event
+		req.eventV2CoreHROrgRoleAuthorizationUpdatedV1 = event
 	case EventTypeV2HireEHRImportTaskForInternshipOfferImportedV1:
 		event := new(EventV2HireEHRImportTaskForInternshipOfferImportedV1)
 		if err := req.unmarshalEvent(event); err != nil {
@@ -1345,18 +1343,18 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 			return err
 		}
 		req.eventV2HireEHRImportTaskImportedV1 = event
-	case EventTypeV2CorehrProbationUpdatedV2:
-		event := new(EventV2CorehrProbationUpdatedV2)
+	case EventTypeV2CoreHRProbationUpdatedV2:
+		event := new(EventV2CoreHRProbationUpdatedV2)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventV2CorehrProbationUpdatedV2 = event
-	case EventTypeV2CorehrPreHireUpdatedV1:
-		event := new(EventV2CorehrPreHireUpdatedV1)
+		req.eventV2CoreHRProbationUpdatedV2 = event
+	case EventTypeV2CoreHRPreHireUpdatedV1:
+		event := new(EventV2CoreHRPreHireUpdatedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventV2CorehrPreHireUpdatedV1 = event
+		req.eventV2CoreHRPreHireUpdatedV1 = event
 	case EventTypeV2HireEcoAccountCreatedV1:
 		event := new(EventV2HireEcoAccountCreatedV1)
 		if err := req.unmarshalEvent(event); err != nil {
@@ -1387,18 +1385,18 @@ func (r *EventCallbackService) parserEventV2(req *eventReq) error {
 			return err
 		}
 		req.eventV2HireReferralAccountAssetsUpdateV1 = event
-	case EventTypeV2CorehrContractDeletedV1:
-		event := new(EventV2CorehrContractDeletedV1)
+	case EventTypeV2CoreHRContractDeletedV1:
+		event := new(EventV2CoreHRContractDeletedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventV2CorehrContractDeletedV1 = event
-	case EventTypeV2CorehrContractUpdatedV1:
-		event := new(EventV2CorehrContractUpdatedV1)
+		req.eventV2CoreHRContractDeletedV1 = event
+	case EventTypeV2CoreHRContractUpdatedV1:
+		event := new(EventV2CoreHRContractUpdatedV1)
 		if err := req.unmarshalEvent(event); err != nil {
 			return err
 		}
-		req.eventV2CorehrContractUpdatedV1 = event
+		req.eventV2CoreHRContractUpdatedV1 = event
 
 	}
 
@@ -2096,156 +2094,255 @@ func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) 
 			}
 		}
 		return true, s, err
-	case req.eventV2CorehrContractCreatedV1 != nil:
-		if r.cli.eventHandler.eventV2CorehrContractCreatedV1Handler != nil {
+	case req.eventV2CoreHRContractCreatedV1 != nil:
+		if r.cli.eventHandler.eventV2CoreHRContractCreatedV1Handler != nil {
 			if r.cli.noBlocking {
-				go r.cli.eventHandler.eventV2CorehrContractCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrContractCreatedV1)
+				go r.cli.eventHandler.eventV2CoreHRContractCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRContractCreatedV1)
 			} else {
-				s, err = r.cli.eventHandler.eventV2CorehrContractCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrContractCreatedV1)
+				s, err = r.cli.eventHandler.eventV2CoreHRContractCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRContractCreatedV1)
 			}
 		}
 		return true, s, err
-	case req.eventV2CorehrContractDeletedV1 != nil:
-		if r.cli.eventHandler.eventV2CorehrContractDeletedV1Handler != nil {
+	case req.eventV2CoreHRContractDeletedV1 != nil:
+		if r.cli.eventHandler.eventV2CoreHRContractDeletedV1Handler != nil {
 			if r.cli.noBlocking {
-				go r.cli.eventHandler.eventV2CorehrContractDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrContractDeletedV1)
+				go r.cli.eventHandler.eventV2CoreHRContractDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRContractDeletedV1)
 			} else {
-				s, err = r.cli.eventHandler.eventV2CorehrContractDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrContractDeletedV1)
+				s, err = r.cli.eventHandler.eventV2CoreHRContractDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRContractDeletedV1)
 			}
 		}
 		return true, s, err
-	case req.eventV2CorehrContractUpdatedV1 != nil:
-		if r.cli.eventHandler.eventV2CorehrContractUpdatedV1Handler != nil {
+	case req.eventV2CoreHRContractUpdatedV1 != nil:
+		if r.cli.eventHandler.eventV2CoreHRContractUpdatedV1Handler != nil {
 			if r.cli.noBlocking {
-				go r.cli.eventHandler.eventV2CorehrContractUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrContractUpdatedV1)
+				go r.cli.eventHandler.eventV2CoreHRContractUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRContractUpdatedV1)
 			} else {
-				s, err = r.cli.eventHandler.eventV2CorehrContractUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrContractUpdatedV1)
+				s, err = r.cli.eventHandler.eventV2CoreHRContractUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRContractUpdatedV1)
 			}
 		}
 		return true, s, err
-	case req.eventV2CorehrDepartmentCreatedV1 != nil:
-		if r.cli.eventHandler.eventV2CorehrDepartmentCreatedV1Handler != nil {
+	case req.eventV2CoreHRDepartmentCreatedV1 != nil:
+		if r.cli.eventHandler.eventV2CoreHRDepartmentCreatedV1Handler != nil {
 			if r.cli.noBlocking {
-				go r.cli.eventHandler.eventV2CorehrDepartmentCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrDepartmentCreatedV1)
+				go r.cli.eventHandler.eventV2CoreHRDepartmentCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRDepartmentCreatedV1)
 			} else {
-				s, err = r.cli.eventHandler.eventV2CorehrDepartmentCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrDepartmentCreatedV1)
+				s, err = r.cli.eventHandler.eventV2CoreHRDepartmentCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRDepartmentCreatedV1)
 			}
 		}
 		return true, s, err
-	case req.eventV2CorehrDepartmentDeletedV1 != nil:
-		if r.cli.eventHandler.eventV2CorehrDepartmentDeletedV1Handler != nil {
+	case req.eventV2CoreHRDepartmentDeletedV1 != nil:
+		if r.cli.eventHandler.eventV2CoreHRDepartmentDeletedV1Handler != nil {
 			if r.cli.noBlocking {
-				go r.cli.eventHandler.eventV2CorehrDepartmentDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrDepartmentDeletedV1)
+				go r.cli.eventHandler.eventV2CoreHRDepartmentDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRDepartmentDeletedV1)
 			} else {
-				s, err = r.cli.eventHandler.eventV2CorehrDepartmentDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrDepartmentDeletedV1)
+				s, err = r.cli.eventHandler.eventV2CoreHRDepartmentDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRDepartmentDeletedV1)
 			}
 		}
 		return true, s, err
-	case req.eventV2CorehrDepartmentUpdatedV1 != nil:
-		if r.cli.eventHandler.eventV2CorehrDepartmentUpdatedV1Handler != nil {
+	case req.eventV2CoreHRDepartmentUpdatedV1 != nil:
+		if r.cli.eventHandler.eventV2CoreHRDepartmentUpdatedV1Handler != nil {
 			if r.cli.noBlocking {
-				go r.cli.eventHandler.eventV2CorehrDepartmentUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrDepartmentUpdatedV1)
+				go r.cli.eventHandler.eventV2CoreHRDepartmentUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRDepartmentUpdatedV1)
 			} else {
-				s, err = r.cli.eventHandler.eventV2CorehrDepartmentUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrDepartmentUpdatedV1)
+				s, err = r.cli.eventHandler.eventV2CoreHRDepartmentUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRDepartmentUpdatedV1)
 			}
 		}
 		return true, s, err
-	case req.eventV2CorehrEmploymentConvertedV1 != nil:
-		if r.cli.eventHandler.eventV2CorehrEmploymentConvertedV1Handler != nil {
+	case req.eventV2CoreHREmploymentConvertedV1 != nil:
+		if r.cli.eventHandler.eventV2CoreHREmploymentConvertedV1Handler != nil {
 			if r.cli.noBlocking {
-				go r.cli.eventHandler.eventV2CorehrEmploymentConvertedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrEmploymentConvertedV1)
+				go r.cli.eventHandler.eventV2CoreHREmploymentConvertedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHREmploymentConvertedV1)
 			} else {
-				s, err = r.cli.eventHandler.eventV2CorehrEmploymentConvertedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrEmploymentConvertedV1)
+				s, err = r.cli.eventHandler.eventV2CoreHREmploymentConvertedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHREmploymentConvertedV1)
 			}
 		}
 		return true, s, err
-	case req.eventV2CorehrEmploymentCreatedV1 != nil:
-		if r.cli.eventHandler.eventV2CorehrEmploymentCreatedV1Handler != nil {
+	case req.eventV2CoreHREmploymentCreatedV1 != nil:
+		if r.cli.eventHandler.eventV2CoreHREmploymentCreatedV1Handler != nil {
 			if r.cli.noBlocking {
-				go r.cli.eventHandler.eventV2CorehrEmploymentCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrEmploymentCreatedV1)
+				go r.cli.eventHandler.eventV2CoreHREmploymentCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHREmploymentCreatedV1)
 			} else {
-				s, err = r.cli.eventHandler.eventV2CorehrEmploymentCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrEmploymentCreatedV1)
+				s, err = r.cli.eventHandler.eventV2CoreHREmploymentCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHREmploymentCreatedV1)
 			}
 		}
 		return true, s, err
-	case req.eventV2CorehrEmploymentDeletedV1 != nil:
-		if r.cli.eventHandler.eventV2CorehrEmploymentDeletedV1Handler != nil {
+	case req.eventV2CoreHREmploymentDeletedV1 != nil:
+		if r.cli.eventHandler.eventV2CoreHREmploymentDeletedV1Handler != nil {
 			if r.cli.noBlocking {
-				go r.cli.eventHandler.eventV2CorehrEmploymentDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrEmploymentDeletedV1)
+				go r.cli.eventHandler.eventV2CoreHREmploymentDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHREmploymentDeletedV1)
 			} else {
-				s, err = r.cli.eventHandler.eventV2CorehrEmploymentDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrEmploymentDeletedV1)
+				s, err = r.cli.eventHandler.eventV2CoreHREmploymentDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHREmploymentDeletedV1)
 			}
 		}
 		return true, s, err
-	case req.eventV2CorehrEmploymentResignedV1 != nil:
-		if r.cli.eventHandler.eventV2CorehrEmploymentResignedV1Handler != nil {
+	case req.eventV2CoreHREmploymentResignedV1 != nil:
+		if r.cli.eventHandler.eventV2CoreHREmploymentResignedV1Handler != nil {
 			if r.cli.noBlocking {
-				go r.cli.eventHandler.eventV2CorehrEmploymentResignedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrEmploymentResignedV1)
+				go r.cli.eventHandler.eventV2CoreHREmploymentResignedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHREmploymentResignedV1)
 			} else {
-				s, err = r.cli.eventHandler.eventV2CorehrEmploymentResignedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrEmploymentResignedV1)
+				s, err = r.cli.eventHandler.eventV2CoreHREmploymentResignedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHREmploymentResignedV1)
 			}
 		}
 		return true, s, err
-	case req.eventV2CorehrEmploymentUpdatedV1 != nil:
-		if r.cli.eventHandler.eventV2CorehrEmploymentUpdatedV1Handler != nil {
+	case req.eventV2CoreHREmploymentUpdatedV1 != nil:
+		if r.cli.eventHandler.eventV2CoreHREmploymentUpdatedV1Handler != nil {
 			if r.cli.noBlocking {
-				go r.cli.eventHandler.eventV2CorehrEmploymentUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrEmploymentUpdatedV1)
+				go r.cli.eventHandler.eventV2CoreHREmploymentUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHREmploymentUpdatedV1)
 			} else {
-				s, err = r.cli.eventHandler.eventV2CorehrEmploymentUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrEmploymentUpdatedV1)
+				s, err = r.cli.eventHandler.eventV2CoreHREmploymentUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHREmploymentUpdatedV1)
 			}
 		}
 		return true, s, err
-	case req.eventV2CorehrJobChangeUpdatedV1 != nil:
-		if r.cli.eventHandler.eventV2CorehrJobChangeUpdatedV1Handler != nil {
+	case req.eventV2CoreHRJobChangeUpdatedV1 != nil:
+		if r.cli.eventHandler.eventV2CoreHRJobChangeUpdatedV1Handler != nil {
 			if r.cli.noBlocking {
-				go r.cli.eventHandler.eventV2CorehrJobChangeUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrJobChangeUpdatedV1)
+				go r.cli.eventHandler.eventV2CoreHRJobChangeUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRJobChangeUpdatedV1)
 			} else {
-				s, err = r.cli.eventHandler.eventV2CorehrJobChangeUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrJobChangeUpdatedV1)
+				s, err = r.cli.eventHandler.eventV2CoreHRJobChangeUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRJobChangeUpdatedV1)
 			}
 		}
 		return true, s, err
-	case req.eventV2CorehrJobCreatedV1 != nil:
-		if r.cli.eventHandler.eventV2CorehrJobCreatedV1Handler != nil {
+	case req.eventV2CoreHRJobCreatedV1 != nil:
+		if r.cli.eventHandler.eventV2CoreHRJobCreatedV1Handler != nil {
 			if r.cli.noBlocking {
-				go r.cli.eventHandler.eventV2CorehrJobCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrJobCreatedV1)
+				go r.cli.eventHandler.eventV2CoreHRJobCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRJobCreatedV1)
 			} else {
-				s, err = r.cli.eventHandler.eventV2CorehrJobCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrJobCreatedV1)
+				s, err = r.cli.eventHandler.eventV2CoreHRJobCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRJobCreatedV1)
 			}
 		}
 		return true, s, err
-	case req.eventV2CorehrJobDataChangedV1 != nil:
-		if r.cli.eventHandler.eventV2CorehrJobDataChangedV1Handler != nil {
+	case req.eventV2CoreHRJobDataChangedV1 != nil:
+		if r.cli.eventHandler.eventV2CoreHRJobDataChangedV1Handler != nil {
 			if r.cli.noBlocking {
-				go r.cli.eventHandler.eventV2CorehrJobDataChangedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrJobDataChangedV1)
+				go r.cli.eventHandler.eventV2CoreHRJobDataChangedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRJobDataChangedV1)
 			} else {
-				s, err = r.cli.eventHandler.eventV2CorehrJobDataChangedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrJobDataChangedV1)
+				s, err = r.cli.eventHandler.eventV2CoreHRJobDataChangedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRJobDataChangedV1)
 			}
 		}
 		return true, s, err
-	case req.eventV2CorehrJobDataEmployedV1 != nil:
-		if r.cli.eventHandler.eventV2CorehrJobDataEmployedV1Handler != nil {
+	case req.eventV2CoreHRJobDataEmployedV1 != nil:
+		if r.cli.eventHandler.eventV2CoreHRJobDataEmployedV1Handler != nil {
 			if r.cli.noBlocking {
-				go r.cli.eventHandler.eventV2CorehrJobDataEmployedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrJobDataEmployedV1)
+				go r.cli.eventHandler.eventV2CoreHRJobDataEmployedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRJobDataEmployedV1)
 			} else {
-				s, err = r.cli.eventHandler.eventV2CorehrJobDataEmployedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrJobDataEmployedV1)
+				s, err = r.cli.eventHandler.eventV2CoreHRJobDataEmployedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRJobDataEmployedV1)
 			}
 		}
 		return true, s, err
-	case req.eventV2CorehrJobDeletedV1 != nil:
-		if r.cli.eventHandler.eventV2CorehrJobDeletedV1Handler != nil {
+	case req.eventV2CoreHRJobDeletedV1 != nil:
+		if r.cli.eventHandler.eventV2CoreHRJobDeletedV1Handler != nil {
 			if r.cli.noBlocking {
-				go r.cli.eventHandler.eventV2CorehrJobDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrJobDeletedV1)
+				go r.cli.eventHandler.eventV2CoreHRJobDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRJobDeletedV1)
 			} else {
-				s, err = r.cli.eventHandler.eventV2CorehrJobDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrJobDeletedV1)
+				s, err = r.cli.eventHandler.eventV2CoreHRJobDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRJobDeletedV1)
 			}
 		}
 		return true, s, err
-	case req.eventV2CorehrJobUpdatedV1 != nil:
-		if r.cli.eventHandler.eventV2CorehrJobUpdatedV1Handler != nil {
+	case req.eventV2CoreHRJobUpdatedV1 != nil:
+		if r.cli.eventHandler.eventV2CoreHRJobUpdatedV1Handler != nil {
 			if r.cli.noBlocking {
-				go r.cli.eventHandler.eventV2CorehrJobUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrJobUpdatedV1)
+				go r.cli.eventHandler.eventV2CoreHRJobUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRJobUpdatedV1)
 			} else {
-				s, err = r.cli.eventHandler.eventV2CorehrJobUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrJobUpdatedV1)
+				s, err = r.cli.eventHandler.eventV2CoreHRJobUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRJobUpdatedV1)
+			}
+		}
+		return true, s, err
+	case req.eventV2CoreHROffboardingUpdatedV1 != nil:
+		if r.cli.eventHandler.eventV2CoreHROffboardingUpdatedV1Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CoreHROffboardingUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHROffboardingUpdatedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CoreHROffboardingUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHROffboardingUpdatedV1)
+			}
+		}
+		return true, s, err
+	case req.eventV2CoreHROrgRoleAuthorizationUpdatedV1 != nil:
+		if r.cli.eventHandler.eventV2CoreHROrgRoleAuthorizationUpdatedV1Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CoreHROrgRoleAuthorizationUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHROrgRoleAuthorizationUpdatedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CoreHROrgRoleAuthorizationUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHROrgRoleAuthorizationUpdatedV1)
+			}
+		}
+		return true, s, err
+	case req.eventV2CoreHRPersonCreatedV1 != nil:
+		if r.cli.eventHandler.eventV2CoreHRPersonCreatedV1Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CoreHRPersonCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRPersonCreatedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CoreHRPersonCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRPersonCreatedV1)
+			}
+		}
+		return true, s, err
+	case req.eventV2CoreHRPersonDeletedV1 != nil:
+		if r.cli.eventHandler.eventV2CoreHRPersonDeletedV1Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CoreHRPersonDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRPersonDeletedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CoreHRPersonDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRPersonDeletedV1)
+			}
+		}
+		return true, s, err
+	case req.eventV2CoreHRPersonUpdatedV1 != nil:
+		if r.cli.eventHandler.eventV2CoreHRPersonUpdatedV1Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CoreHRPersonUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRPersonUpdatedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CoreHRPersonUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRPersonUpdatedV1)
+			}
+		}
+		return true, s, err
+	case req.eventV2CoreHRPreHireUpdatedV1 != nil:
+		if r.cli.eventHandler.eventV2CoreHRPreHireUpdatedV1Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CoreHRPreHireUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRPreHireUpdatedV1)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CoreHRPreHireUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRPreHireUpdatedV1)
+			}
+		}
+		return true, s, err
+	case req.eventV2CoreHRProbationUpdatedV2 != nil:
+		if r.cli.eventHandler.eventV2CoreHRProbationUpdatedV2Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CoreHRProbationUpdatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRProbationUpdatedV2)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CoreHRProbationUpdatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRProbationUpdatedV2)
+			}
+		}
+		return true, s, err
+	case req.eventV2CoreHRProcessApproverUpdatedV2 != nil:
+		if r.cli.eventHandler.eventV2CoreHRProcessApproverUpdatedV2Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CoreHRProcessApproverUpdatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRProcessApproverUpdatedV2)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CoreHRProcessApproverUpdatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRProcessApproverUpdatedV2)
+			}
+		}
+		return true, s, err
+	case req.eventV2CoreHRProcessCcUpdatedV2 != nil:
+		if r.cli.eventHandler.eventV2CoreHRProcessCcUpdatedV2Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CoreHRProcessCcUpdatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRProcessCcUpdatedV2)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CoreHRProcessCcUpdatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRProcessCcUpdatedV2)
+			}
+		}
+		return true, s, err
+	case req.eventV2CoreHRProcessNodeUpdatedV2 != nil:
+		if r.cli.eventHandler.eventV2CoreHRProcessNodeUpdatedV2Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CoreHRProcessNodeUpdatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRProcessNodeUpdatedV2)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CoreHRProcessNodeUpdatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRProcessNodeUpdatedV2)
+			}
+		}
+		return true, s, err
+	case req.eventV2CoreHRProcessUpdatedV2 != nil:
+		if r.cli.eventHandler.eventV2CoreHRProcessUpdatedV2Handler != nil {
+			if r.cli.noBlocking {
+				go r.cli.eventHandler.eventV2CoreHRProcessUpdatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRProcessUpdatedV2)
+			} else {
+				s, err = r.cli.eventHandler.eventV2CoreHRProcessUpdatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CoreHRProcessUpdatedV2)
 			}
 		}
 		return true, s, err
@@ -2267,111 +2364,12 @@ func (r *EventCallbackService) handlerEvent(ctx context.Context, req *eventReq) 
 			}
 		}
 		return true, s, err
-	case req.eventV2CorehrOffboardingUpdatedV1 != nil:
-		if r.cli.eventHandler.eventV2CorehrOffboardingUpdatedV1Handler != nil {
-			if r.cli.noBlocking {
-				go r.cli.eventHandler.eventV2CorehrOffboardingUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrOffboardingUpdatedV1)
-			} else {
-				s, err = r.cli.eventHandler.eventV2CorehrOffboardingUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrOffboardingUpdatedV1)
-			}
-		}
-		return true, s, err
 	case req.eventV2CorehrOffboardingUpdatedV2 != nil:
 		if r.cli.eventHandler.eventV2CorehrOffboardingUpdatedV2Handler != nil {
 			if r.cli.noBlocking {
 				go r.cli.eventHandler.eventV2CorehrOffboardingUpdatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrOffboardingUpdatedV2)
 			} else {
 				s, err = r.cli.eventHandler.eventV2CorehrOffboardingUpdatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrOffboardingUpdatedV2)
-			}
-		}
-		return true, s, err
-	case req.eventV2CorehrOrgRoleAuthorizationUpdatedV1 != nil:
-		if r.cli.eventHandler.eventV2CorehrOrgRoleAuthorizationUpdatedV1Handler != nil {
-			if r.cli.noBlocking {
-				go r.cli.eventHandler.eventV2CorehrOrgRoleAuthorizationUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrOrgRoleAuthorizationUpdatedV1)
-			} else {
-				s, err = r.cli.eventHandler.eventV2CorehrOrgRoleAuthorizationUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrOrgRoleAuthorizationUpdatedV1)
-			}
-		}
-		return true, s, err
-	case req.eventV2CorehrPersonCreatedV1 != nil:
-		if r.cli.eventHandler.eventV2CorehrPersonCreatedV1Handler != nil {
-			if r.cli.noBlocking {
-				go r.cli.eventHandler.eventV2CorehrPersonCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrPersonCreatedV1)
-			} else {
-				s, err = r.cli.eventHandler.eventV2CorehrPersonCreatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrPersonCreatedV1)
-			}
-		}
-		return true, s, err
-	case req.eventV2CorehrPersonDeletedV1 != nil:
-		if r.cli.eventHandler.eventV2CorehrPersonDeletedV1Handler != nil {
-			if r.cli.noBlocking {
-				go r.cli.eventHandler.eventV2CorehrPersonDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrPersonDeletedV1)
-			} else {
-				s, err = r.cli.eventHandler.eventV2CorehrPersonDeletedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrPersonDeletedV1)
-			}
-		}
-		return true, s, err
-	case req.eventV2CorehrPersonUpdatedV1 != nil:
-		if r.cli.eventHandler.eventV2CorehrPersonUpdatedV1Handler != nil {
-			if r.cli.noBlocking {
-				go r.cli.eventHandler.eventV2CorehrPersonUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrPersonUpdatedV1)
-			} else {
-				s, err = r.cli.eventHandler.eventV2CorehrPersonUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrPersonUpdatedV1)
-			}
-		}
-		return true, s, err
-	case req.eventV2CorehrPreHireUpdatedV1 != nil:
-		if r.cli.eventHandler.eventV2CorehrPreHireUpdatedV1Handler != nil {
-			if r.cli.noBlocking {
-				go r.cli.eventHandler.eventV2CorehrPreHireUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrPreHireUpdatedV1)
-			} else {
-				s, err = r.cli.eventHandler.eventV2CorehrPreHireUpdatedV1Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrPreHireUpdatedV1)
-			}
-		}
-		return true, s, err
-	case req.eventV2CorehrProbationUpdatedV2 != nil:
-		if r.cli.eventHandler.eventV2CorehrProbationUpdatedV2Handler != nil {
-			if r.cli.noBlocking {
-				go r.cli.eventHandler.eventV2CorehrProbationUpdatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrProbationUpdatedV2)
-			} else {
-				s, err = r.cli.eventHandler.eventV2CorehrProbationUpdatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrProbationUpdatedV2)
-			}
-		}
-		return true, s, err
-	case req.eventV2CorehrProcessApproverUpdatedV2 != nil:
-		if r.cli.eventHandler.eventV2CorehrProcessApproverUpdatedV2Handler != nil {
-			if r.cli.noBlocking {
-				go r.cli.eventHandler.eventV2CorehrProcessApproverUpdatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrProcessApproverUpdatedV2)
-			} else {
-				s, err = r.cli.eventHandler.eventV2CorehrProcessApproverUpdatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrProcessApproverUpdatedV2)
-			}
-		}
-		return true, s, err
-	case req.eventV2CorehrProcessCcUpdatedV2 != nil:
-		if r.cli.eventHandler.eventV2CorehrProcessCcUpdatedV2Handler != nil {
-			if r.cli.noBlocking {
-				go r.cli.eventHandler.eventV2CorehrProcessCcUpdatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrProcessCcUpdatedV2)
-			} else {
-				s, err = r.cli.eventHandler.eventV2CorehrProcessCcUpdatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrProcessCcUpdatedV2)
-			}
-		}
-		return true, s, err
-	case req.eventV2CorehrProcessNodeUpdatedV2 != nil:
-		if r.cli.eventHandler.eventV2CorehrProcessNodeUpdatedV2Handler != nil {
-			if r.cli.noBlocking {
-				go r.cli.eventHandler.eventV2CorehrProcessNodeUpdatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrProcessNodeUpdatedV2)
-			} else {
-				s, err = r.cli.eventHandler.eventV2CorehrProcessNodeUpdatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrProcessNodeUpdatedV2)
-			}
-		}
-		return true, s, err
-	case req.eventV2CorehrProcessUpdatedV2 != nil:
-		if r.cli.eventHandler.eventV2CorehrProcessUpdatedV2Handler != nil {
-			if r.cli.noBlocking {
-				go r.cli.eventHandler.eventV2CorehrProcessUpdatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrProcessUpdatedV2)
-			} else {
-				s, err = r.cli.eventHandler.eventV2CorehrProcessUpdatedV2Handler(ctx, r.cli, req.Schema, req.Header, req.eventV2CorehrProcessUpdatedV2)
 			}
 		}
 		return true, s, err

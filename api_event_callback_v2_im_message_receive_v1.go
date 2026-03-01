@@ -82,10 +82,6 @@ type EventV2IMMessageReceiveV1MessageMentionID struct {
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
-// EventV2IMMessageReceiveV1Resp ...
-type EventV2IMMessageReceiveV1Resp struct {
-}
-
 // EventV2IMMessageReceiveV1Sender ...
 type EventV2IMMessageReceiveV1Sender struct {
 	SenderID   *EventV2IMMessageReceiveV1SenderSenderID `json:"sender_id,omitempty"`   // 用户 ID。调用[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口, 可通过 ID 获取用户信息。
@@ -98,12 +94,4 @@ type EventV2IMMessageReceiveV1SenderSenderID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
-}
-
-// eventV2IMMessageReceiveV1Resp ...
-type eventV2IMMessageReceiveV1Resp struct {
-	Code  int64                          `json:"code,omitempty"`
-	Msg   string                         `json:"msg,omitempty"`
-	Data  *EventV2IMMessageReceiveV1Resp `json:"data,omitempty"`
-	Error *ErrorDetail                   `json:"error,omitempty"`
 }

@@ -232,10 +232,6 @@ type EventV2ApplicationApplicationAppVersionPublishApplyV6OperatorID struct {
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
-// EventV2ApplicationApplicationAppVersionPublishApplyV6Resp ...
-type EventV2ApplicationApplicationAppVersionPublishApplyV6Resp struct {
-}
-
 // EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersion ...
 type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersion struct {
 	AppID            string                                                                         `json:"app_id,omitempty"`            // 应用 id
@@ -419,12 +415,4 @@ type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionScope
 	Description string   `json:"description,omitempty"` // 应用权限的国际化描述
 	Level       int64    `json:"level,omitempty"`       // 权限等级描述可选值有: 普通权限高级权限超敏感权限未知等级
 	TokenTypes  []string `json:"token_types,omitempty"` // 返回用户身份类型user、应用身份类型tenant。如果两种类型都支持, 则同时返回两个。可选值有: 应用身份类型用户身份类型 长度范围: `0` ～ `200`
-}
-
-// eventV2ApplicationApplicationAppVersionPublishApplyV6Resp ...
-type eventV2ApplicationApplicationAppVersionPublishApplyV6Resp struct {
-	Code  int64                                                      `json:"code,omitempty"`
-	Msg   string                                                     `json:"msg,omitempty"`
-	Data  *EventV2ApplicationApplicationAppVersionPublishApplyV6Resp `json:"data,omitempty"`
-	Error *ErrorDetail                                               `json:"error,omitempty"`
 }

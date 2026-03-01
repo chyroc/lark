@@ -60,15 +60,3 @@ type EventV1OutApproval struct {
 	Type          string   `json:"type,omitempty"`           // 事件类型。固定值 `out_approval`
 	UserID        string   `json:"user_id,omitempty"`        // 审批发起人的 user_id。你可以调用[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口, 通过 user_id 获取用户信息。
 }
-
-// EventV1OutApprovalResp ...
-type EventV1OutApprovalResp struct {
-}
-
-// eventV1OutApprovalResp ...
-type eventV1OutApprovalResp struct {
-	Code  int64                   `json:"code,omitempty"`
-	Msg   string                  `json:"msg,omitempty"`
-	Data  *EventV1OutApprovalResp `json:"data,omitempty"`
-	Error *ErrorDetail            `json:"error,omitempty"`
-}

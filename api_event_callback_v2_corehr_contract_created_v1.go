@@ -21,30 +21,18 @@ import (
 	"context"
 )
 
-// EventV2CorehrContractCreatedV1 通过开放平台创建合同或飞书人事系统中员工新签一份合同时, 会触发合同创建事件{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=contract&event=created)
+// EventV2CoreHRContractCreatedV1 通过开放平台创建合同或飞书人事系统中员工新签一份合同时, 会触发合同创建事件{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=contract&event=created)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/events/created
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/contract/created
-func (r *EventCallbackService) HandlerEventV2CorehrContractCreatedV1(f EventV2CorehrContractCreatedV1Handler) {
-	r.cli.eventHandler.eventV2CorehrContractCreatedV1Handler = f
+func (r *EventCallbackService) HandlerEventV2CoreHRContractCreatedV1(f EventV2CoreHRContractCreatedV1Handler) {
+	r.cli.eventHandler.eventV2CoreHRContractCreatedV1Handler = f
 }
 
-// EventV2CorehrContractCreatedV1Handler event EventV2CorehrContractCreatedV1 handler
-type EventV2CorehrContractCreatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CorehrContractCreatedV1) (string, error)
+// EventV2CoreHRContractCreatedV1Handler event EventV2CoreHRContractCreatedV1 handler
+type EventV2CoreHRContractCreatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CoreHRContractCreatedV1) (string, error)
 
-// EventV2CorehrContractCreatedV1 ...
-type EventV2CorehrContractCreatedV1 struct {
+// EventV2CoreHRContractCreatedV1 ...
+type EventV2CoreHRContractCreatedV1 struct {
 	ContractID string `json:"contract_id,omitempty"` // 合同ID, 该合同详细信息可通过[【合同信息查询接口】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/get)获取
-}
-
-// EventV2CorehrContractCreatedV1Resp ...
-type EventV2CorehrContractCreatedV1Resp struct {
-}
-
-// eventV2CorehrContractCreatedV1Resp ...
-type eventV2CorehrContractCreatedV1Resp struct {
-	Code  int64                               `json:"code,omitempty"`
-	Msg   string                              `json:"msg,omitempty"`
-	Data  *EventV2CorehrContractCreatedV1Resp `json:"data,omitempty"`
-	Error *ErrorDetail                        `json:"error,omitempty"`
 }

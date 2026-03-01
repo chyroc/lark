@@ -21,33 +21,21 @@ import (
 	"context"
 )
 
-// EventV2CorehrDepartmentDeletedV1 飞书人事中「部门被删除」时将触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=department&event=deleted)
+// EventV2CoreHRDepartmentDeletedV1 飞书人事中「部门被删除」时将触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=department&event=deleted)
 //
 // 收到删除事件后, 相关查询接口无法查询到被删除对象的数据。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/events/deleted
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/department/deleted
-func (r *EventCallbackService) HandlerEventV2CorehrDepartmentDeletedV1(f EventV2CorehrDepartmentDeletedV1Handler) {
-	r.cli.eventHandler.eventV2CorehrDepartmentDeletedV1Handler = f
+func (r *EventCallbackService) HandlerEventV2CoreHRDepartmentDeletedV1(f EventV2CoreHRDepartmentDeletedV1Handler) {
+	r.cli.eventHandler.eventV2CoreHRDepartmentDeletedV1Handler = f
 }
 
-// EventV2CorehrDepartmentDeletedV1Handler event EventV2CorehrDepartmentDeletedV1 handler
-type EventV2CorehrDepartmentDeletedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CorehrDepartmentDeletedV1) (string, error)
+// EventV2CoreHRDepartmentDeletedV1Handler event EventV2CoreHRDepartmentDeletedV1 handler
+type EventV2CoreHRDepartmentDeletedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CoreHRDepartmentDeletedV1) (string, error)
 
-// EventV2CorehrDepartmentDeletedV1 ...
-type EventV2CorehrDepartmentDeletedV1 struct {
+// EventV2CoreHRDepartmentDeletedV1 ...
+type EventV2CoreHRDepartmentDeletedV1 struct {
 	DepartmentID string `json:"department_id,omitempty"` // 被删除部门的 ID
 	Code         string `json:"code,omitempty"`          // 部门编码
-}
-
-// EventV2CorehrDepartmentDeletedV1Resp ...
-type EventV2CorehrDepartmentDeletedV1Resp struct {
-}
-
-// eventV2CorehrDepartmentDeletedV1Resp ...
-type eventV2CorehrDepartmentDeletedV1Resp struct {
-	Code  int64                                 `json:"code,omitempty"`
-	Msg   string                                `json:"msg,omitempty"`
-	Data  *EventV2CorehrDepartmentDeletedV1Resp `json:"data,omitempty"`
-	Error *ErrorDetail                          `json:"error,omitempty"`
 }

@@ -42,15 +42,3 @@ type EventV2TaskTaskUpdatedV1 struct {
 	TaskID  string `json:"task_id,omitempty"`  // 任务ID
 	ObjType int64  `json:"obj_type,omitempty"` // 通知类型（1: 任务详情发生变化, 2: 任务协作者发生变化, 3: 任务关注者发生变化, 4: 任务提醒时间发生变化, 5: 任务完成, 6: 任务取消完成, 7: 任务删除）
 }
-
-// EventV2TaskTaskUpdatedV1Resp ...
-type EventV2TaskTaskUpdatedV1Resp struct {
-}
-
-// eventV2TaskTaskUpdatedV1Resp ...
-type eventV2TaskTaskUpdatedV1Resp struct {
-	Code  int64                         `json:"code,omitempty"`
-	Msg   string                        `json:"msg,omitempty"`
-	Data  *EventV2TaskTaskUpdatedV1Resp `json:"data,omitempty"`
-	Error *ErrorDetail                  `json:"error,omitempty"`
-}

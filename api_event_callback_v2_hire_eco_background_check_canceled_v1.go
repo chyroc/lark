@@ -37,15 +37,3 @@ type EventV2HireEcoBackgroundCheckCanceledV1 struct {
 	BackgroundCheckID string `json:"background_check_id,omitempty"` // 背调 ID, 招聘系统内唯一, 可通过[创建背调](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check/events/created)事件获取
 	TerminationReason string `json:"termination_reason,omitempty"`  // 终止原因
 }
-
-// EventV2HireEcoBackgroundCheckCanceledV1Resp ...
-type EventV2HireEcoBackgroundCheckCanceledV1Resp struct {
-}
-
-// eventV2HireEcoBackgroundCheckCanceledV1Resp ...
-type eventV2HireEcoBackgroundCheckCanceledV1Resp struct {
-	Code  int64                                        `json:"code,omitempty"`
-	Msg   string                                       `json:"msg,omitempty"`
-	Data  *EventV2HireEcoBackgroundCheckCanceledV1Resp `json:"data,omitempty"`
-	Error *ErrorDetail                                 `json:"error,omitempty"`
-}

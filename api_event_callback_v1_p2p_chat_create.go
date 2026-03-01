@@ -38,15 +38,3 @@ type EventV1P2PChatCreateHandler func(ctx context.Context, cli *Lark, schema str
 // EventV1P2PChatCreate ...
 type EventV1P2PChatCreate struct {
 }
-
-// EventV1P2PChatCreateResp ...
-type EventV1P2PChatCreateResp struct {
-}
-
-// eventV1P2PChatCreateResp ...
-type eventV1P2PChatCreateResp struct {
-	Code  int64                     `json:"code,omitempty"`
-	Msg   string                    `json:"msg,omitempty"`
-	Data  *EventV1P2PChatCreateResp `json:"data,omitempty"`
-	Error *ErrorDetail              `json:"error,omitempty"`
-}

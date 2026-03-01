@@ -68,15 +68,3 @@ type EventV2AttendanceUserFlowCreatedV1Handler func(ctx context.Context, cli *La
 // EventV2AttendanceUserFlowCreatedV1 ...
 type EventV2AttendanceUserFlowCreatedV1 struct {
 }
-
-// EventV2AttendanceUserFlowCreatedV1Resp ...
-type EventV2AttendanceUserFlowCreatedV1Resp struct {
-}
-
-// eventV2AttendanceUserFlowCreatedV1Resp ...
-type eventV2AttendanceUserFlowCreatedV1Resp struct {
-	Code  int64                                   `json:"code,omitempty"`
-	Msg   string                                  `json:"msg,omitempty"`
-	Data  *EventV2AttendanceUserFlowCreatedV1Resp `json:"data,omitempty"`
-	Error *ErrorDetail                            `json:"error,omitempty"`
-}

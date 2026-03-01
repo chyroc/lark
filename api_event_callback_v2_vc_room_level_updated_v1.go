@@ -37,10 +37,6 @@ type EventV2VCRoomLevelUpdatedV1 struct {
 	RoomLevel *EventV2VCRoomLevelUpdatedV1RoomLevel `json:"room_level,omitempty"` // 层级信息
 }
 
-// EventV2VCRoomLevelUpdatedV1Resp ...
-type EventV2VCRoomLevelUpdatedV1Resp struct {
-}
-
 // EventV2VCRoomLevelUpdatedV1RoomLevel ...
 type EventV2VCRoomLevelUpdatedV1RoomLevel struct {
 	RoomLevelID   string   `json:"room_level_id,omitempty"`   // 层级ID
@@ -49,12 +45,4 @@ type EventV2VCRoomLevelUpdatedV1RoomLevel struct {
 	Path          []string `json:"path,omitempty"`            // 层级路径
 	HasChild      bool     `json:"has_child,omitempty"`       // 是否有子层级
 	CustomGroupID string   `json:"custom_group_id,omitempty"` // 自定义层级ID
-}
-
-// eventV2VCRoomLevelUpdatedV1Resp ...
-type eventV2VCRoomLevelUpdatedV1Resp struct {
-	Code  int64                            `json:"code,omitempty"`
-	Msg   string                           `json:"msg,omitempty"`
-	Data  *EventV2VCRoomLevelUpdatedV1Resp `json:"data,omitempty"`
-	Error *ErrorDetail                     `json:"error,omitempty"`
 }

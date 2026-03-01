@@ -87,15 +87,3 @@ type EventV2HelpdeskTicketUpdatedV1OldObject struct {
 	Status    int64 `json:"status,omitempty"`     // ticket status
 	UpdatedAt int64 `json:"updated_at,omitempty"` // ticket update time
 }
-
-// EventV2HelpdeskTicketUpdatedV1Resp ...
-type EventV2HelpdeskTicketUpdatedV1Resp struct {
-}
-
-// eventV2HelpdeskTicketUpdatedV1Resp ...
-type eventV2HelpdeskTicketUpdatedV1Resp struct {
-	Code  int64                               `json:"code,omitempty"`
-	Msg   string                              `json:"msg,omitempty"`
-	Data  *EventV2HelpdeskTicketUpdatedV1Resp `json:"data,omitempty"`
-	Error *ErrorDetail                        `json:"error,omitempty"`
-}

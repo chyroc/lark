@@ -55,10 +55,6 @@ type EventV2HelpdeskTicketMessageCreatedV1Content struct {
 	ImageKey  string   `json:"image_key,omitempty"`  // 图片ID
 }
 
-// EventV2HelpdeskTicketMessageCreatedV1Resp ...
-type EventV2HelpdeskTicketMessageCreatedV1Resp struct {
-}
-
 // EventV2HelpdeskTicketMessageCreatedV1SenderID ...
 type EventV2HelpdeskTicketMessageCreatedV1SenderID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
@@ -122,12 +118,4 @@ type EventV2HelpdeskTicketMessageCreatedV1TicketDissatisfactionReason struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文描述
 	EnUs string `json:"en_us,omitempty"` // 英文描述
 	JaJp string `json:"ja_jp,omitempty"` // 日文描述
-}
-
-// eventV2HelpdeskTicketMessageCreatedV1Resp ...
-type eventV2HelpdeskTicketMessageCreatedV1Resp struct {
-	Code  int64                                      `json:"code,omitempty"`
-	Msg   string                                     `json:"msg,omitempty"`
-	Data  *EventV2HelpdeskTicketMessageCreatedV1Resp `json:"data,omitempty"`
-	Error *ErrorDetail                               `json:"error,omitempty"`
 }

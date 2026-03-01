@@ -43,15 +43,3 @@ type EventV2TaskTaskCommentUpdatedV1 struct {
 	ParentID  string `json:"parent_id,omitempty"`  // 任务评论父ID
 	ObjType   int64  `json:"obj_type,omitempty"`   // 通知类型（1: 创建评论, 2: 回复评论, 3: 更新评论, 4: 删除评论）
 }
-
-// EventV2TaskTaskCommentUpdatedV1Resp ...
-type EventV2TaskTaskCommentUpdatedV1Resp struct {
-}
-
-// eventV2TaskTaskCommentUpdatedV1Resp ...
-type eventV2TaskTaskCommentUpdatedV1Resp struct {
-	Code  int64                                `json:"code,omitempty"`
-	Msg   string                               `json:"msg,omitempty"`
-	Data  *EventV2TaskTaskCommentUpdatedV1Resp `json:"data,omitempty"`
-	Error *ErrorDetail                         `json:"error,omitempty"`
-}

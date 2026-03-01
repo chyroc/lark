@@ -51,15 +51,3 @@ type EventV1ApprovalCc struct {
 	Operate      string `json:"operate,omitempty"`       // 操作类型。可能值有: CREATE: 创建抄送- READ: 抄送人已读
 	From         string `json:"from,omitempty"`          // 执行抄送操作的用户 user_id, 可能为空。你可以调用[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口, 通过 user_id 获取用户信息。
 }
-
-// EventV1ApprovalCcResp ...
-type EventV1ApprovalCcResp struct {
-}
-
-// eventV1ApprovalCcResp ...
-type eventV1ApprovalCcResp struct {
-	Code  int64                  `json:"code,omitempty"`
-	Msg   string                 `json:"msg,omitempty"`
-	Data  *EventV1ApprovalCcResp `json:"data,omitempty"`
-	Error *ErrorDetail           `json:"error,omitempty"`
-}

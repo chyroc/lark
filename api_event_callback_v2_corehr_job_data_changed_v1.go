@@ -21,42 +21,30 @@ import (
 	"context"
 )
 
-// EventV2CorehrJobDataChangedV1 员工在飞书人事异动生效后（到达异动生效时间）将触发该事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=job_data&event=changed)
+// EventV2CoreHRJobDataChangedV1 员工在飞书人事异动生效后（到达异动生效时间）将触发该事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=job_data&event=changed)
 //
 // 异动在生效日期0点生效, 由于每日员工字段变更计算量较大, 到达异动生效时间时, 不会立刻发出此事件, 最晚6个小时后发出此事件。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/events/changed
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/job_change/changed
-func (r *EventCallbackService) HandlerEventV2CorehrJobDataChangedV1(f EventV2CorehrJobDataChangedV1Handler) {
-	r.cli.eventHandler.eventV2CorehrJobDataChangedV1Handler = f
+func (r *EventCallbackService) HandlerEventV2CoreHRJobDataChangedV1(f EventV2CoreHRJobDataChangedV1Handler) {
+	r.cli.eventHandler.eventV2CoreHRJobDataChangedV1Handler = f
 }
 
-// EventV2CorehrJobDataChangedV1Handler event EventV2CorehrJobDataChangedV1 handler
-type EventV2CorehrJobDataChangedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CorehrJobDataChangedV1) (string, error)
+// EventV2CoreHRJobDataChangedV1Handler event EventV2CoreHRJobDataChangedV1 handler
+type EventV2CoreHRJobDataChangedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CoreHRJobDataChangedV1) (string, error)
 
-// EventV2CorehrJobDataChangedV1 ...
-type EventV2CorehrJobDataChangedV1 struct {
+// EventV2CoreHRJobDataChangedV1 ...
+type EventV2CoreHRJobDataChangedV1 struct {
 	JobDataID    string                                     `json:"job_data_id,omitempty"`    // 任职信息 ID, 可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
 	EmploymentID string                                     `json:"employment_id,omitempty"`  // 雇佣信息 ID, 可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
-	TargetUserID *EventV2CorehrJobDataChangedV1TargetUserID `json:"target_user_id,omitempty"` // 用户 ID, 飞书相关ID, 可通过[【通讯录接口】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/field-overview)接口获取
+	TargetUserID *EventV2CoreHRJobDataChangedV1TargetUserID `json:"target_user_id,omitempty"` // 用户 ID, 飞书相关ID, 可通过[【通讯录接口】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/field-overview)接口获取
 	JobChangeID  string                                     `json:"job_change_id,omitempty"`  // 员工异动 ID, 可通过[【搜索异动信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_change/search)接口获取
 }
 
-// EventV2CorehrJobDataChangedV1Resp ...
-type EventV2CorehrJobDataChangedV1Resp struct {
-}
-
-// EventV2CorehrJobDataChangedV1TargetUserID ...
-type EventV2CorehrJobDataChangedV1TargetUserID struct {
+// EventV2CoreHRJobDataChangedV1TargetUserID ...
+type EventV2CoreHRJobDataChangedV1TargetUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
-}
-
-// eventV2CorehrJobDataChangedV1Resp ...
-type eventV2CorehrJobDataChangedV1Resp struct {
-	Code  int64                              `json:"code,omitempty"`
-	Msg   string                             `json:"msg,omitempty"`
-	Data  *EventV2CorehrJobDataChangedV1Resp `json:"data,omitempty"`
-	Error *ErrorDetail                       `json:"error,omitempty"`
 }

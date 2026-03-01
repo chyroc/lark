@@ -116,15 +116,3 @@ type EventV2VCMeetingAllMeetingStartedV1OperatorID struct {
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
-
-// EventV2VCMeetingAllMeetingStartedV1Resp ...
-type EventV2VCMeetingAllMeetingStartedV1Resp struct {
-}
-
-// eventV2VCMeetingAllMeetingStartedV1Resp ...
-type eventV2VCMeetingAllMeetingStartedV1Resp struct {
-	Code  int64                                    `json:"code,omitempty"`
-	Msg   string                                   `json:"msg,omitempty"`
-	Data  *EventV2VCMeetingAllMeetingStartedV1Resp `json:"data,omitempty"`
-	Error *ErrorDetail                             `json:"error,omitempty"`
-}

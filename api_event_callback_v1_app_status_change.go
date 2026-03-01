@@ -51,15 +51,3 @@ type EventV1AppStatusChangeEventOperator struct {
 	UserID  string `json:"user_id,omitempty"`  // 仅自建应用才会返回. 如: yyy
 	UnionID string `json:"union_id,omitempty"` // 用户在ISV下的唯一标识. 如: zzz
 }
-
-// EventV1AppStatusChangeResp ...
-type EventV1AppStatusChangeResp struct {
-}
-
-// eventV1AppStatusChangeResp ...
-type eventV1AppStatusChangeResp struct {
-	Code  int64                       `json:"code,omitempty"`
-	Msg   string                      `json:"msg,omitempty"`
-	Data  *EventV1AppStatusChangeResp `json:"data,omitempty"`
-	Error *ErrorDetail                `json:"error,omitempty"`
-}

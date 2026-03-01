@@ -58,15 +58,3 @@ type EventV1ReceiveMessage struct {
 	ImageKey         string   `json:"image_key,omitempty"`           // 图片内容
 	FileKey          string   `json:"file_key,omitempty"`            // 文件内容
 }
-
-// EventV1ReceiveMessageResp ...
-type EventV1ReceiveMessageResp struct {
-}
-
-// eventV1ReceiveMessageResp ...
-type eventV1ReceiveMessageResp struct {
-	Code  int64                      `json:"code,omitempty"`
-	Msg   string                     `json:"msg,omitempty"`
-	Data  *EventV1ReceiveMessageResp `json:"data,omitempty"`
-	Error *ErrorDetail               `json:"error,omitempty"`
-}

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2CorehrJobDataEmployedV1 以下业务场景会触发此事件:
+// EventV2CoreHRJobDataEmployedV1 以下业务场景会触发此事件:
 //
 // - 开放平台[操作员工完成入职](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/complete)接口
 // - 开放平台[添加人员](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/create)接口
@@ -30,35 +30,23 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/events/employed
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/pre_hire/employed
-func (r *EventCallbackService) HandlerEventV2CorehrJobDataEmployedV1(f EventV2CorehrJobDataEmployedV1Handler) {
-	r.cli.eventHandler.eventV2CorehrJobDataEmployedV1Handler = f
+func (r *EventCallbackService) HandlerEventV2CoreHRJobDataEmployedV1(f EventV2CoreHRJobDataEmployedV1Handler) {
+	r.cli.eventHandler.eventV2CoreHRJobDataEmployedV1Handler = f
 }
 
-// EventV2CorehrJobDataEmployedV1Handler event EventV2CorehrJobDataEmployedV1 handler
-type EventV2CorehrJobDataEmployedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CorehrJobDataEmployedV1) (string, error)
+// EventV2CoreHRJobDataEmployedV1Handler event EventV2CoreHRJobDataEmployedV1 handler
+type EventV2CoreHRJobDataEmployedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CoreHRJobDataEmployedV1) (string, error)
 
-// EventV2CorehrJobDataEmployedV1 ...
-type EventV2CorehrJobDataEmployedV1 struct {
+// EventV2CoreHRJobDataEmployedV1 ...
+type EventV2CoreHRJobDataEmployedV1 struct {
 	JobDataID    string                                      `json:"job_data_id,omitempty"`    // 任职记录 ID, 详细信息可通过[【获取任职记录】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/get)接口查询
 	EmploymentID string                                      `json:"employment_id,omitempty"`  // 雇佣记录 ID, 详细信息可通过[【查询员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)接口查询
-	TargetUserID *EventV2CorehrJobDataEmployedV1TargetUserID `json:"target_user_id,omitempty"` // 用户 ID（备注: 入职后开通飞书账号成功, 会生成飞书通讯录相关ID, 但由于开通过程是异步, 本事件不保证一定返回, 如未返回, 说明飞书账号开通失败, 业务需兼容处理）
+	TargetUserID *EventV2CoreHRJobDataEmployedV1TargetUserID `json:"target_user_id,omitempty"` // 用户 ID（备注: 入职后开通飞书账号成功, 会生成飞书通讯录相关ID, 但由于开通过程是异步, 本事件不保证一定返回, 如未返回, 说明飞书账号开通失败, 业务需兼容处理）
 }
 
-// EventV2CorehrJobDataEmployedV1Resp ...
-type EventV2CorehrJobDataEmployedV1Resp struct {
-}
-
-// EventV2CorehrJobDataEmployedV1TargetUserID ...
-type EventV2CorehrJobDataEmployedV1TargetUserID struct {
+// EventV2CoreHRJobDataEmployedV1TargetUserID ...
+type EventV2CoreHRJobDataEmployedV1TargetUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
-}
-
-// eventV2CorehrJobDataEmployedV1Resp ...
-type eventV2CorehrJobDataEmployedV1Resp struct {
-	Code  int64                               `json:"code,omitempty"`
-	Msg   string                              `json:"msg,omitempty"`
-	Data  *EventV2CorehrJobDataEmployedV1Resp `json:"data,omitempty"`
-	Error *ErrorDetail                        `json:"error,omitempty"`
 }

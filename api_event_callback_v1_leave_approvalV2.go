@@ -49,15 +49,3 @@ type EventV1LeaveApprovalV2 struct {
 	TenantKey    string `json:"tenant_key,omitempty"`    // 租户 Key, 是企业的唯一标识。
 	Type         string `json:"type,omitempty"`          // 事件类型。固定值 `leave_approval_revert`
 }
-
-// EventV1LeaveApprovalV2Resp ...
-type EventV1LeaveApprovalV2Resp struct {
-}
-
-// eventV1LeaveApprovalV2Resp ...
-type eventV1LeaveApprovalV2Resp struct {
-	Code  int64                       `json:"code,omitempty"`
-	Msg   string                      `json:"msg,omitempty"`
-	Data  *EventV1LeaveApprovalV2Resp `json:"data,omitempty"`
-	Error *ErrorDetail                `json:"error,omitempty"`
-}

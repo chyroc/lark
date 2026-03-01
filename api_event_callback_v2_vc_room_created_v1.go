@@ -37,10 +37,6 @@ type EventV2VCRoomCreatedV1 struct {
 	Room *EventV2VCRoomCreatedV1Room `json:"room,omitempty"` // 会议室信息
 }
 
-// EventV2VCRoomCreatedV1Resp ...
-type EventV2VCRoomCreatedV1Resp struct {
-}
-
 // EventV2VCRoomCreatedV1Room ...
 type EventV2VCRoomCreatedV1Room struct {
 	RoomID       string                                `json:"room_id,omitempty"`        // 会议室ID
@@ -77,12 +73,4 @@ type EventV2VCRoomCreatedV1RoomRoomStatusContactID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
-}
-
-// eventV2VCRoomCreatedV1Resp ...
-type eventV2VCRoomCreatedV1Resp struct {
-	Code  int64                       `json:"code,omitempty"`
-	Msg   string                      `json:"msg,omitempty"`
-	Data  *EventV2VCRoomCreatedV1Resp `json:"data,omitempty"`
-	Error *ErrorDetail                `json:"error,omitempty"`
 }

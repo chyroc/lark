@@ -61,10 +61,6 @@ type EventV2IMChatMemberUserAddedV1OperatorID struct {
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
-// EventV2IMChatMemberUserAddedV1Resp ...
-type EventV2IMChatMemberUserAddedV1Resp struct {
-}
-
 // EventV2IMChatMemberUserAddedV1User ...
 type EventV2IMChatMemberUserAddedV1User struct {
 	Name      string                                    `json:"name,omitempty"`       // 用户名字
@@ -77,12 +73,4 @@ type EventV2IMChatMemberUserAddedV1UserUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
-}
-
-// eventV2IMChatMemberUserAddedV1Resp ...
-type eventV2IMChatMemberUserAddedV1Resp struct {
-	Code  int64                               `json:"code,omitempty"`
-	Msg   string                              `json:"msg,omitempty"`
-	Data  *EventV2IMChatMemberUserAddedV1Resp `json:"data,omitempty"`
-	Error *ErrorDetail                        `json:"error,omitempty"`
 }

@@ -56,15 +56,3 @@ type EventV1ApprovalInstance struct {
 	InstanceOperateTime string `json:"instance_operate_time,omitempty"` // 事件发生事件, 毫秒级时间戳。
 	UUID                string `json:"uuid,omitempty"`                  // 如果[创建审批实例](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/approval-v4/instance/create)时传入了 uuid, 则此处返回该实例的 uuid。
 }
-
-// EventV1ApprovalInstanceResp ...
-type EventV1ApprovalInstanceResp struct {
-}
-
-// eventV1ApprovalInstanceResp ...
-type eventV1ApprovalInstanceResp struct {
-	Code  int64                        `json:"code,omitempty"`
-	Msg   string                       `json:"msg,omitempty"`
-	Data  *EventV1ApprovalInstanceResp `json:"data,omitempty"`
-	Error *ErrorDetail                 `json:"error,omitempty"`
-}

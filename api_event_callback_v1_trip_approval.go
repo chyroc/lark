@@ -95,14 +95,3 @@ type EventV1TripApprovalEventEventObjectTripPeerID struct {
 	OpenID  string `json:"open_id,omitempty"`
 	UnionID string `json:"union_id,omitempty"`
 }
-
-// EventV1TripApprovalResp ...
-type EventV1TripApprovalResp struct {
-}
-
-// eventV1TripApprovalResp ...
-type eventV1TripApprovalResp struct {
-	Code int64                    `json:"code,omitempty"`
-	Msg  string                   `json:"msg,omitempty"`
-	Data *EventV1TripApprovalResp `json:"data,omitempty"`
-}

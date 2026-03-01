@@ -62,15 +62,3 @@ type EventV2IMChatDisbandedV1OperatorID struct {
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
-
-// EventV2IMChatDisbandedV1Resp ...
-type EventV2IMChatDisbandedV1Resp struct {
-}
-
-// eventV2IMChatDisbandedV1Resp ...
-type eventV2IMChatDisbandedV1Resp struct {
-	Code  int64                         `json:"code,omitempty"`
-	Msg   string                        `json:"msg,omitempty"`
-	Data  *EventV2IMChatDisbandedV1Resp `json:"data,omitempty"`
-	Error *ErrorDetail                  `json:"error,omitempty"`
-}

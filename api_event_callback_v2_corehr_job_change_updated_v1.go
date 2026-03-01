@@ -21,23 +21,23 @@ import (
 	"context"
 )
 
-// EventV2CorehrJobChangeUpdatedV1 在异动审批状态变更、异动生效时都会触发该事件, 审批结果产生的场景包括撤销、审批通过、审批拒绝。本事件没有数据范围鉴权。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=job_change&event=updated)
+// EventV2CoreHRJobChangeUpdatedV1 在异动审批状态变更、异动生效时都会触发该事件, 审批结果产生的场景包括撤销、审批通过、审批拒绝。本事件没有数据范围鉴权。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=job_change&event=updated)
 //
 // 本事件不再推荐使用, 请使用新版本[异动状态变更事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_change/events/status_updated)
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_change/events/updated
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/job_change/updated
-func (r *EventCallbackService) HandlerEventV2CorehrJobChangeUpdatedV1(f EventV2CorehrJobChangeUpdatedV1Handler) {
-	r.cli.eventHandler.eventV2CorehrJobChangeUpdatedV1Handler = f
+func (r *EventCallbackService) HandlerEventV2CoreHRJobChangeUpdatedV1(f EventV2CoreHRJobChangeUpdatedV1Handler) {
+	r.cli.eventHandler.eventV2CoreHRJobChangeUpdatedV1Handler = f
 }
 
-// EventV2CorehrJobChangeUpdatedV1Handler event EventV2CorehrJobChangeUpdatedV1 handler
-type EventV2CorehrJobChangeUpdatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CorehrJobChangeUpdatedV1) (string, error)
+// EventV2CoreHRJobChangeUpdatedV1Handler event EventV2CoreHRJobChangeUpdatedV1 handler
+type EventV2CoreHRJobChangeUpdatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CoreHRJobChangeUpdatedV1) (string, error)
 
-// EventV2CorehrJobChangeUpdatedV1 ...
-type EventV2CorehrJobChangeUpdatedV1 struct {
+// EventV2CoreHRJobChangeUpdatedV1 ...
+type EventV2CoreHRJobChangeUpdatedV1 struct {
 	EmploymentID                   string                                       `json:"employment_id,omitempty"`                     // 雇员ID, 可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
-	TargetUserID                   *EventV2CorehrJobChangeUpdatedV1TargetUserID `json:"target_user_id,omitempty"`                    // 用户 ID, 飞书相关ID, 可通过[【通讯录接口】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/field-overview)接口获取
+	TargetUserID                   *EventV2CoreHRJobChangeUpdatedV1TargetUserID `json:"target_user_id,omitempty"`                    // 用户 ID, 飞书相关ID, 可通过[【通讯录接口】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/field-overview)接口获取
 	JobChangeID                    string                                       `json:"job_change_id,omitempty"`                     // 异动记录 id, 可通过接口[搜索异动信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_change/search)获取详细信息
 	TransferMode                   int64                                        `json:"transfer_mode,omitempty"`                     // 异动属性/方式可选值有: 直接异动: 无需审批的异动, 操作后异动状态为「无需审批」发起异动: 需要走异动流程
 	TransferTypeUniqueIdentifier   string                                       `json:"transfer_type_unique_identifier,omitempty"`   // 异动类型唯一标识, 可通过接口[获取异动类型列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/transfer_type/query)获取
@@ -48,21 +48,9 @@ type EventV2CorehrJobChangeUpdatedV1 struct {
 	TransferKey                    string                                       `json:"transfer_key,omitempty"`                      // 异动记录标识符
 }
 
-// EventV2CorehrJobChangeUpdatedV1Resp ...
-type EventV2CorehrJobChangeUpdatedV1Resp struct {
-}
-
-// EventV2CorehrJobChangeUpdatedV1TargetUserID ...
-type EventV2CorehrJobChangeUpdatedV1TargetUserID struct {
+// EventV2CoreHRJobChangeUpdatedV1TargetUserID ...
+type EventV2CoreHRJobChangeUpdatedV1TargetUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
-}
-
-// eventV2CorehrJobChangeUpdatedV1Resp ...
-type eventV2CorehrJobChangeUpdatedV1Resp struct {
-	Code  int64                                `json:"code,omitempty"`
-	Msg   string                               `json:"msg,omitempty"`
-	Data  *EventV2CorehrJobChangeUpdatedV1Resp `json:"data,omitempty"`
-	Error *ErrorDetail                         `json:"error,omitempty"`
 }

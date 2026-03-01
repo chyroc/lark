@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2CorehrDepartmentCreatedV1 飞书人事中「部门被创建」时将触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=department&event=created)
+// EventV2CoreHRDepartmentCreatedV1 飞书人事中「部门被创建」时将触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=department&event=created)
 //
 // - 使用场景: 此事件为无序事件（创建有上下级关系的部门创建之后, 上下级部门事件可能乱序）, 若对事件顺序无依赖则可以使用V1版本事件, 否则请使用[【创建部门事件V2】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/events/created)
 // - [【搜索部门信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/search)[【获取父部门信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/parents) 等接口数据查询存在一定延迟, 不建议收到事件后立即查询以上接口。
@@ -31,26 +31,14 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/events/created
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/department/created
-func (r *EventCallbackService) HandlerEventV2CorehrDepartmentCreatedV1(f EventV2CorehrDepartmentCreatedV1Handler) {
-	r.cli.eventHandler.eventV2CorehrDepartmentCreatedV1Handler = f
+func (r *EventCallbackService) HandlerEventV2CoreHRDepartmentCreatedV1(f EventV2CoreHRDepartmentCreatedV1Handler) {
+	r.cli.eventHandler.eventV2CoreHRDepartmentCreatedV1Handler = f
 }
 
-// EventV2CorehrDepartmentCreatedV1Handler event EventV2CorehrDepartmentCreatedV1 handler
-type EventV2CorehrDepartmentCreatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CorehrDepartmentCreatedV1) (string, error)
+// EventV2CoreHRDepartmentCreatedV1Handler event EventV2CoreHRDepartmentCreatedV1 handler
+type EventV2CoreHRDepartmentCreatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CoreHRDepartmentCreatedV1) (string, error)
 
-// EventV2CorehrDepartmentCreatedV1 ...
-type EventV2CorehrDepartmentCreatedV1 struct {
+// EventV2CoreHRDepartmentCreatedV1 ...
+type EventV2CoreHRDepartmentCreatedV1 struct {
 	DepartmentID string `json:"department_id,omitempty"` // 新建部门的 ID
-}
-
-// EventV2CorehrDepartmentCreatedV1Resp ...
-type EventV2CorehrDepartmentCreatedV1Resp struct {
-}
-
-// eventV2CorehrDepartmentCreatedV1Resp ...
-type eventV2CorehrDepartmentCreatedV1Resp struct {
-	Code  int64                                 `json:"code,omitempty"`
-	Msg   string                                `json:"msg,omitempty"`
-	Data  *EventV2CorehrDepartmentCreatedV1Resp `json:"data,omitempty"`
-	Error *ErrorDetail                          `json:"error,omitempty"`
 }

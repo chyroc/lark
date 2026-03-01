@@ -41,15 +41,3 @@ type EventV1AppUninstalled struct {
 	TenantKey string `json:"tenant_key,omitempty"` // 卸载应用的企业ID. 如: xxx
 	Type      string `json:"type,omitempty"`       // 事件类型. 如: app_uninstalled
 }
-
-// EventV1AppUninstalledResp ...
-type EventV1AppUninstalledResp struct {
-}
-
-// eventV1AppUninstalledResp ...
-type eventV1AppUninstalledResp struct {
-	Code  int64                      `json:"code,omitempty"`
-	Msg   string                     `json:"msg,omitempty"`
-	Data  *EventV1AppUninstalledResp `json:"data,omitempty"`
-	Error *ErrorDetail               `json:"error,omitempty"`
-}

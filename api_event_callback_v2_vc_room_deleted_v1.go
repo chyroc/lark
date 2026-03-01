@@ -37,19 +37,7 @@ type EventV2VCRoomDeletedV1 struct {
 	Room *EventV2VCRoomDeletedV1Room `json:"room,omitempty"` // 会议室信息
 }
 
-// EventV2VCRoomDeletedV1Resp ...
-type EventV2VCRoomDeletedV1Resp struct {
-}
-
 // EventV2VCRoomDeletedV1Room ...
 type EventV2VCRoomDeletedV1Room struct {
 	RoomID string `json:"room_id,omitempty"` // 会议室ID
-}
-
-// eventV2VCRoomDeletedV1Resp ...
-type eventV2VCRoomDeletedV1Resp struct {
-	Code  int64                       `json:"code,omitempty"`
-	Msg   string                      `json:"msg,omitempty"`
-	Data  *EventV2VCRoomDeletedV1Resp `json:"data,omitempty"`
-	Error *ErrorDetail                `json:"error,omitempty"`
 }

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2CorehrEmploymentCreatedV1 员工雇佣信息被创建时发送该事件, 场景举例:
+// EventV2CoreHREmploymentCreatedV1 员工雇佣信息被创建时发送该事件, 场景举例:
 //
 // - 调用[【创建雇佣信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employment/create)、[【添加人员】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/create)接口
 // - 人事系统【添加人员】、【导入人员】功能{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=employment&event=created)
@@ -30,34 +30,22 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employment/events/created
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/employee/employment/created
-func (r *EventCallbackService) HandlerEventV2CorehrEmploymentCreatedV1(f EventV2CorehrEmploymentCreatedV1Handler) {
-	r.cli.eventHandler.eventV2CorehrEmploymentCreatedV1Handler = f
+func (r *EventCallbackService) HandlerEventV2CoreHREmploymentCreatedV1(f EventV2CoreHREmploymentCreatedV1Handler) {
+	r.cli.eventHandler.eventV2CoreHREmploymentCreatedV1Handler = f
 }
 
-// EventV2CorehrEmploymentCreatedV1Handler event EventV2CorehrEmploymentCreatedV1 handler
-type EventV2CorehrEmploymentCreatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CorehrEmploymentCreatedV1) (string, error)
+// EventV2CoreHREmploymentCreatedV1Handler event EventV2CoreHREmploymentCreatedV1 handler
+type EventV2CoreHREmploymentCreatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CoreHREmploymentCreatedV1) (string, error)
 
-// EventV2CorehrEmploymentCreatedV1 ...
-type EventV2CorehrEmploymentCreatedV1 struct {
+// EventV2CoreHREmploymentCreatedV1 ...
+type EventV2CoreHREmploymentCreatedV1 struct {
 	EmploymentID string                                        `json:"employment_id,omitempty"`  // 被创建的雇佣信息的 ID
-	TargetUserID *EventV2CorehrEmploymentCreatedV1TargetUserID `json:"target_user_id,omitempty"` // 用户 ID
+	TargetUserID *EventV2CoreHREmploymentCreatedV1TargetUserID `json:"target_user_id,omitempty"` // 用户 ID
 }
 
-// EventV2CorehrEmploymentCreatedV1Resp ...
-type EventV2CorehrEmploymentCreatedV1Resp struct {
-}
-
-// EventV2CorehrEmploymentCreatedV1TargetUserID ...
-type EventV2CorehrEmploymentCreatedV1TargetUserID struct {
+// EventV2CoreHREmploymentCreatedV1TargetUserID ...
+type EventV2CoreHREmploymentCreatedV1TargetUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
-}
-
-// eventV2CorehrEmploymentCreatedV1Resp ...
-type eventV2CorehrEmploymentCreatedV1Resp struct {
-	Code  int64                                 `json:"code,omitempty"`
-	Msg   string                                `json:"msg,omitempty"`
-	Data  *EventV2CorehrEmploymentCreatedV1Resp `json:"data,omitempty"`
-	Error *ErrorDetail                          `json:"error,omitempty"`
 }

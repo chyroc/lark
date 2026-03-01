@@ -85,10 +85,6 @@ type EventV2VCReserveConfigUpdatedV1ReserveScopeConfigAllowUserUserID struct {
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
-// EventV2VCReserveConfigUpdatedV1Resp ...
-type EventV2VCReserveConfigUpdatedV1Resp struct {
-}
-
 // EventV2VCReserveConfigUpdatedV1TimeConfig ...
 type EventV2VCReserveConfigUpdatedV1TimeConfig struct {
 	TimeSwitch    int64  `json:"time_switch,omitempty"`     // 预定时间开关: 0 代表关闭, 1 代表开启 取值范围: `0` ～ `1`
@@ -97,12 +93,4 @@ type EventV2VCReserveConfigUpdatedV1TimeConfig struct {
 	StartTime     string `json:"start_time,omitempty"`      // 每日可预定时间范围的开始时间（单位: 秒, 取值范围[0, 86400]） <b>说明</b>: 1.  不填写时, 默认更新为 0, 此时填写的  end_time 不得小于 30。 2.  当 start_time 与  end_time 均填写时, end_time 至少超过  start_time 30 。 3.  如果填写的值不是 60 的倍数, 则自动会更新为离其最近的 60 整数倍的值。
 	EndTime       string `json:"end_time,omitempty"`        // 每日可预定时间范围结束时间（单位: 秒, 取值范围[0, 86400]） <b>说明</b>: 1.  不填写时, 默认更新为 86400, 此时填写的 start_time 不得大于等于 86370 。 2.  当 start_time 与  end_time 均填写时, end_time 至少要超过  start_time 30。 3.  如果填写的值不是  60 的倍数, 则自动会更新为离其最近的 60 整数倍的值。
 	MaxDuration   int64  `json:"max_duration,omitempty"`    // 单次会议室可预定时长上限（单位: 小时, 取值范围[1, 99]） <b>说明</b>: 不填写时默认更新为 2
-}
-
-// eventV2VCReserveConfigUpdatedV1Resp ...
-type eventV2VCReserveConfigUpdatedV1Resp struct {
-	Code  int64                                `json:"code,omitempty"`
-	Msg   string                               `json:"msg,omitempty"`
-	Data  *EventV2VCReserveConfigUpdatedV1Resp `json:"data,omitempty"`
-	Error *ErrorDetail                         `json:"error,omitempty"`
 }

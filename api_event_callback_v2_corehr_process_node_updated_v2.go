@@ -21,21 +21,21 @@ import (
 	"context"
 )
 
-// EventV2CorehrProcessNodeUpdatedV2 流程中节点状态发生变化会触发该事件。配置的节点为节点定义（node_definition_id 是唯一标识）。在流程实例中, 每个流程实例生成的节点实例会不同（此功能不受数据权限范围控制）。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v2&resource=process.node&event=updated)
+// EventV2CoreHRProcessNodeUpdatedV2 流程中节点状态发生变化会触发该事件。配置的节点为节点定义（node_definition_id 是唯一标识）。在流程实例中, 每个流程实例生成的节点实例会不同（此功能不受数据权限范围控制）。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v2&resource=process.node&event=updated)
 //
 // 你需要在应用内配置事件订阅, 并订阅该事件, 这样才可以在事件触发时接收到事件数据。了解事件订阅可参见[事件概述](https://open.feishu.cn/document/ukTMukTMukTM/uUTNz4SN1MjL1UzM)。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process-node/events/updated
 // new doc: https://open.feishu.cn/document/corehr-v1/process-form_variable_data/events/updated-4
-func (r *EventCallbackService) HandlerEventV2CorehrProcessNodeUpdatedV2(f EventV2CorehrProcessNodeUpdatedV2Handler) {
-	r.cli.eventHandler.eventV2CorehrProcessNodeUpdatedV2Handler = f
+func (r *EventCallbackService) HandlerEventV2CoreHRProcessNodeUpdatedV2(f EventV2CoreHRProcessNodeUpdatedV2Handler) {
+	r.cli.eventHandler.eventV2CoreHRProcessNodeUpdatedV2Handler = f
 }
 
-// EventV2CorehrProcessNodeUpdatedV2Handler event EventV2CorehrProcessNodeUpdatedV2 handler
-type EventV2CorehrProcessNodeUpdatedV2Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CorehrProcessNodeUpdatedV2) (string, error)
+// EventV2CoreHRProcessNodeUpdatedV2Handler event EventV2CoreHRProcessNodeUpdatedV2 handler
+type EventV2CoreHRProcessNodeUpdatedV2Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CoreHRProcessNodeUpdatedV2) (string, error)
 
-// EventV2CorehrProcessNodeUpdatedV2 ...
-type EventV2CorehrProcessNodeUpdatedV2 struct {
+// EventV2CoreHRProcessNodeUpdatedV2 ...
+type EventV2CoreHRProcessNodeUpdatedV2 struct {
 	FlowDefinitionID string `json:"flow_definition_id,omitempty"` // 流程定义 id
 	NodeDefinitionID string `json:"node_definition_id,omitempty"` // 节点定义 id
 	ProcessID        string `json:"process_id,omitempty"`         // 流程运行实例 id, 详细信息可通过[获取单个流程详情](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/get)获取
@@ -43,16 +43,4 @@ type EventV2CorehrProcessNodeUpdatedV2 struct {
 	NodeType         int64  `json:"node_type,omitempty"`          // 节点类型可选值有: 审批节点抄送节点表单节点电子签
 	NodeStatus       int64  `json:"node_status,omitempty"`        // 节点状态可选值有: 进行中已拒绝已通过已撤回已回退已跳过已干预
 	BizType          string `json:"biz_type,omitempty"`           // 业务类型, 详情请查看[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/process-form_variable_data/access-guide) 长度范围: `1` ～ `200` 字符
-}
-
-// EventV2CorehrProcessNodeUpdatedV2Resp ...
-type EventV2CorehrProcessNodeUpdatedV2Resp struct {
-}
-
-// eventV2CorehrProcessNodeUpdatedV2Resp ...
-type eventV2CorehrProcessNodeUpdatedV2Resp struct {
-	Code  int64                                  `json:"code,omitempty"`
-	Msg   string                                 `json:"msg,omitempty"`
-	Data  *EventV2CorehrProcessNodeUpdatedV2Resp `json:"data,omitempty"`
-	Error *ErrorDetail                           `json:"error,omitempty"`
 }

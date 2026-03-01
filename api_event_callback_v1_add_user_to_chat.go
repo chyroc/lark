@@ -63,15 +63,3 @@ type EventV1AddUserToChatEventUser struct {
 	OpenID string `json:"open_id,omitempty"` // 如: ou_706adeb944ab1473b9fb3e7da2a40b68
 	UserID string `json:"user_id,omitempty"` // 如: 51g97a4g
 }
-
-// EventV1AddUserToChatResp ...
-type EventV1AddUserToChatResp struct {
-}
-
-// eventV1AddUserToChatResp ...
-type eventV1AddUserToChatResp struct {
-	Code  int64                     `json:"code,omitempty"`
-	Msg   string                    `json:"msg,omitempty"`
-	Data  *EventV1AddUserToChatResp `json:"data,omitempty"`
-	Error *ErrorDetail              `json:"error,omitempty"`
-}

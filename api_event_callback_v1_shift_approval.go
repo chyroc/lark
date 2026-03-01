@@ -51,15 +51,3 @@ type EventV1ShiftApproval struct {
 	ReturnTime   string `json:"return_time,omitempty"`   // 还班时间。示例格式 `2018-12-01 12:00:00`
 	ShiftReason  string `json:"shift_reason,omitempty"`  // 换班事由。
 }
-
-// EventV1ShiftApprovalResp ...
-type EventV1ShiftApprovalResp struct {
-}
-
-// eventV1ShiftApprovalResp ...
-type eventV1ShiftApprovalResp struct {
-	Code  int64                     `json:"code,omitempty"`
-	Msg   string                    `json:"msg,omitempty"`
-	Data  *EventV1ShiftApprovalResp `json:"data,omitempty"`
-	Error *ErrorDetail              `json:"error,omitempty"`
-}

@@ -51,20 +51,9 @@ type EventV2DriveFileEditV1OperatorIDList struct {
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 Open ID
 }
 
-// EventV2DriveFileEditV1Resp ...
-type EventV2DriveFileEditV1Resp struct {
-}
-
 // EventV2DriveFileEditV1SubscriberIDList ...
 type EventV2DriveFileEditV1SubscriberIDList struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 Union ID
 	UserID  string `json:"user_id,omitempty"`  // 用户的 User ID  字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 Open ID
-}
-
-// eventV2DriveFileEditV1Resp ...
-type eventV2DriveFileEditV1Resp struct {
-	Code int64                       `json:"code,omitempty"`
-	Msg  string                      `json:"msg,omitempty"`
-	Data *EventV2DriveFileEditV1Resp `json:"data,omitempty"`
 }

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// EventV2CorehrJobUpdatedV1 飞书人事中「职务信息被更新」时将触发此事件。注意: 触发时间为职务实际生效时间, 如在 2022-01-01 更新职务, 职务生效时间设置为 2022-05-01, 事件将在 2022-05-01 进行推送。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=job&event=updated)
+// EventV2CoreHRJobUpdatedV1 飞书人事中「职务信息被更新」时将触发此事件。注意: 触发时间为职务实际生效时间, 如在 2022-01-01 更新职务, 职务生效时间设置为 2022-05-01, 事件将在 2022-05-01 进行推送。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=job&event=updated)
 //
 // - 该接口只会推送当前生效对象的变更事件。
 // - 未来生效的版本数据, 会在生效日期当天凌晨推送事件。例如: 今天为1月1日, 修改对象名称并填写1月10日生效, 则1月10日凌晨发送该对象变更事件。
@@ -30,26 +30,14 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/events/updated
 // new doc: https://open.feishu.cn/document/corehr-v1/job-management/job/events/updated
-func (r *EventCallbackService) HandlerEventV2CorehrJobUpdatedV1(f EventV2CorehrJobUpdatedV1Handler) {
-	r.cli.eventHandler.eventV2CorehrJobUpdatedV1Handler = f
+func (r *EventCallbackService) HandlerEventV2CoreHRJobUpdatedV1(f EventV2CoreHRJobUpdatedV1Handler) {
+	r.cli.eventHandler.eventV2CoreHRJobUpdatedV1Handler = f
 }
 
-// EventV2CorehrJobUpdatedV1Handler event EventV2CorehrJobUpdatedV1 handler
-type EventV2CorehrJobUpdatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CorehrJobUpdatedV1) (string, error)
+// EventV2CoreHRJobUpdatedV1Handler event EventV2CoreHRJobUpdatedV1 handler
+type EventV2CoreHRJobUpdatedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CoreHRJobUpdatedV1) (string, error)
 
-// EventV2CorehrJobUpdatedV1 ...
-type EventV2CorehrJobUpdatedV1 struct {
+// EventV2CoreHRJobUpdatedV1 ...
+type EventV2CoreHRJobUpdatedV1 struct {
 	JobID string `json:"job_id,omitempty"` // 职务 ID, 可通过[【查询单个职务】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/get)获取详细信息
-}
-
-// EventV2CorehrJobUpdatedV1Resp ...
-type EventV2CorehrJobUpdatedV1Resp struct {
-}
-
-// eventV2CorehrJobUpdatedV1Resp ...
-type eventV2CorehrJobUpdatedV1Resp struct {
-	Code  int64                          `json:"code,omitempty"`
-	Msg   string                         `json:"msg,omitempty"`
-	Data  *EventV2CorehrJobUpdatedV1Resp `json:"data,omitempty"`
-	Error *ErrorDetail                   `json:"error,omitempty"`
 }

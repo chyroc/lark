@@ -63,15 +63,3 @@ type EventV1RevokeAddUserFromChatEventUser struct {
 	OpenID string `json:"open_id,omitempty"` // 如: ou_706adeb944ab1473b9fb3e7da2a40b68
 	UserID string `json:"user_id,omitempty"` // 如: 51g97a4g
 }
-
-// EventV1RevokeAddUserFromChatResp ...
-type EventV1RevokeAddUserFromChatResp struct {
-}
-
-// eventV1RevokeAddUserFromChatResp ...
-type eventV1RevokeAddUserFromChatResp struct {
-	Code  int64                             `json:"code,omitempty"`
-	Msg   string                            `json:"msg,omitempty"`
-	Data  *EventV1RevokeAddUserFromChatResp `json:"data,omitempty"`
-	Error *ErrorDetail                      `json:"error,omitempty"`
-}

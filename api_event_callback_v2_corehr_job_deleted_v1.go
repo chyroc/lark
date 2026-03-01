@@ -21,32 +21,20 @@ import (
 	"context"
 )
 
-// EventV2CorehrJobDeletedV1 飞书人事中「职务被删除」时将触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=job&event=deleted)
+// EventV2CoreHRJobDeletedV1 飞书人事中「职务被删除」时将触发此事件。{使用示例}(url=/api/tools/api_explore/api_explore_config?project=corehr&version=v1&resource=job&event=deleted)
 //
 // 职务删除后, 无法通过查询接口查询信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/events/deleted
 // new doc: https://open.feishu.cn/document/corehr-v1/job-management/job/events/deleted
-func (r *EventCallbackService) HandlerEventV2CorehrJobDeletedV1(f EventV2CorehrJobDeletedV1Handler) {
-	r.cli.eventHandler.eventV2CorehrJobDeletedV1Handler = f
+func (r *EventCallbackService) HandlerEventV2CoreHRJobDeletedV1(f EventV2CoreHRJobDeletedV1Handler) {
+	r.cli.eventHandler.eventV2CoreHRJobDeletedV1Handler = f
 }
 
-// EventV2CorehrJobDeletedV1Handler event EventV2CorehrJobDeletedV1 handler
-type EventV2CorehrJobDeletedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CorehrJobDeletedV1) (string, error)
+// EventV2CoreHRJobDeletedV1Handler event EventV2CoreHRJobDeletedV1 handler
+type EventV2CoreHRJobDeletedV1Handler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2CoreHRJobDeletedV1) (string, error)
 
-// EventV2CorehrJobDeletedV1 ...
-type EventV2CorehrJobDeletedV1 struct {
+// EventV2CoreHRJobDeletedV1 ...
+type EventV2CoreHRJobDeletedV1 struct {
 	JobID string `json:"job_id,omitempty"` // 职务 ID
-}
-
-// EventV2CorehrJobDeletedV1Resp ...
-type EventV2CorehrJobDeletedV1Resp struct {
-}
-
-// eventV2CorehrJobDeletedV1Resp ...
-type eventV2CorehrJobDeletedV1Resp struct {
-	Code  int64                          `json:"code,omitempty"`
-	Msg   string                         `json:"msg,omitempty"`
-	Data  *EventV2CorehrJobDeletedV1Resp `json:"data,omitempty"`
-	Error *ErrorDetail                   `json:"error,omitempty"`
 }
