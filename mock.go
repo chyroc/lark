@@ -287,7 +287,7 @@ type Mock struct {
 	mockCalendarBatchGetCalendarMeetingRoomFreebusy            func(ctx context.Context, request *BatchGetCalendarMeetingRoomFreebusyReq, options ...MethodOptionFunc) (*BatchGetCalendarMeetingRoomFreebusyResp, *Response, error)
 	mockCalendarReplyCalendarMeetingRoomInstance               func(ctx context.Context, request *ReplyCalendarMeetingRoomInstanceReq, options ...MethodOptionFunc) (*ReplyCalendarMeetingRoomInstanceResp, *Response, error)
 	mockCalendarBatchGetCalendarMeetingRoomSummary             func(ctx context.Context, request *BatchGetCalendarMeetingRoomSummaryReq, options ...MethodOptionFunc) (*BatchGetCalendarMeetingRoomSummaryResp, *Response, error)
-	mockCcmSheetGetCcmSheetDefaultImportResult                 func(ctx context.Context, request *GetCcmSheetDefaultImportResultReq, options ...MethodOptionFunc) (*GetCcmSheetDefaultImportResultResp, *Response, error)
+	mockDriveGetCcmSheetDefaultImportResult                    func(ctx context.Context, request *GetCcmSheetDefaultImportResultReq, options ...MethodOptionFunc) (*GetCcmSheetDefaultImportResultResp, *Response, error)
 	mockChatGetChatAnnouncement                                func(ctx context.Context, request *GetChatAnnouncementReq, options ...MethodOptionFunc) (*GetChatAnnouncementResp, *Response, error)
 	mockChatUpdateChatAnnouncement                             func(ctx context.Context, request *UpdateChatAnnouncementReq, options ...MethodOptionFunc) (*UpdateChatAnnouncementResp, *Response, error)
 	mockChatCreateChat                                         func(ctx context.Context, request *CreateChatReq, options ...MethodOptionFunc) (*CreateChatResp, *Response, error)

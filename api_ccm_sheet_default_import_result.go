@@ -27,14 +27,14 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/historic-version/docs/sheets/sheet-operation/query-import-results
 //
 // Deprecated
-func (r *CcmSheetService) GetCcmSheetDefaultImportResult(ctx context.Context, request *GetCcmSheetDefaultImportResultReq, options ...MethodOptionFunc) (*GetCcmSheetDefaultImportResultResp, *Response, error) {
-	if r.cli.mock.mockCcmSheetGetCcmSheetDefaultImportResult != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CcmSheet#GetCcmSheetDefaultImportResult mock enable")
-		return r.cli.mock.mockCcmSheetGetCcmSheetDefaultImportResult(ctx, request, options...)
+func (r *DriveService) GetCcmSheetDefaultImportResult(ctx context.Context, request *GetCcmSheetDefaultImportResultReq, options ...MethodOptionFunc) (*GetCcmSheetDefaultImportResultResp, *Response, error) {
+	if r.cli.mock.mockDriveGetCcmSheetDefaultImportResult != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetCcmSheetDefaultImportResult mock enable")
+		return r.cli.mock.mockDriveGetCcmSheetDefaultImportResult(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CcmSheet",
+		Scope:                 "Drive",
 		API:                   "GetCcmSheetDefaultImportResult",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/sheets/v2/import/result",
@@ -49,14 +49,35 @@ func (r *CcmSheetService) GetCcmSheetDefaultImportResult(ctx context.Context, re
 	return resp.Data, response, err
 }
 
+// MockDriveGetCcmSheetDefaultImportResult mock DriveGetCcmSheetDefaultImportResult method
+func (r *Mock) MockDriveGetCcmSheetDefaultImportResult(f func(ctx context.Context, request *GetCcmSheetDefaultImportResultReq, options ...MethodOptionFunc) (*GetCcmSheetDefaultImportResultResp, *Response, error)) {
+	r.mockDriveGetCcmSheetDefaultImportResult = f
+}
+
+// UnMockDriveGetCcmSheetDefaultImportResult un-mock DriveGetCcmSheetDefaultImportResult method
+func (r *Mock) UnMockDriveGetCcmSheetDefaultImportResult() {
+	r.mockDriveGetCcmSheetDefaultImportResult = nil
+}
+
+// GetCcmSheetDefaultImportResult 该接口用于查询文件导入结果。查询30分钟无结果为导入失败。
+//
+// Deprecated: use DriveService.GetCcmSheetDefaultImportResult.
+func (r *CcmSheetService) GetCcmSheetDefaultImportResult(ctx context.Context, request *GetCcmSheetDefaultImportResultReq, options ...MethodOptionFunc) (*GetCcmSheetDefaultImportResultResp, *Response, error) {
+	return r.cli.Drive.GetCcmSheetDefaultImportResult(ctx, request, options...)
+}
+
 // MockCcmSheetGetCcmSheetDefaultImportResult mock CcmSheetGetCcmSheetDefaultImportResult method
+//
+// Deprecated: use MockDriveGetCcmSheetDefaultImportResult.
 func (r *Mock) MockCcmSheetGetCcmSheetDefaultImportResult(f func(ctx context.Context, request *GetCcmSheetDefaultImportResultReq, options ...MethodOptionFunc) (*GetCcmSheetDefaultImportResultResp, *Response, error)) {
-	r.mockCcmSheetGetCcmSheetDefaultImportResult = f
+	r.MockDriveGetCcmSheetDefaultImportResult(f)
 }
 
 // UnMockCcmSheetGetCcmSheetDefaultImportResult un-mock CcmSheetGetCcmSheetDefaultImportResult method
+//
+// Deprecated: use UnMockDriveGetCcmSheetDefaultImportResult.
 func (r *Mock) UnMockCcmSheetGetCcmSheetDefaultImportResult() {
-	r.mockCcmSheetGetCcmSheetDefaultImportResult = nil
+	r.UnMockDriveGetCcmSheetDefaultImportResult()
 }
 
 // GetCcmSheetDefaultImportResultReq ...
