@@ -56,6 +56,8 @@ const (
 	EventTypeV1ShiftApproval                                   EventType = "shift_approval"
 	EventTypeV1WorkApproval                                    EventType = "work_approval"
 	EventTypeV1LeaveApprovalV2                                 EventType = "leave_approval"
+	EventTypeV1LeaveApprovalRevert                             EventType = "leave_approval_revert"
+	EventTypeV1TripApproval                                    EventType = "APPROVED"
 	EventTypeV2DriveFileCreatedInFolderV1                      EventType = "drive.file.created_in_folder_v1"
 	EventTypeV2DriveFileBitableFieldChangedV1                  EventType = "drive.file.bitable_field_changed_v1"
 	EventTypeV2DriveFileBitableRecordChangedV1                 EventType = "drive.file.bitable_record_changed_v1"
