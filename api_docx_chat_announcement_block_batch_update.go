@@ -39,14 +39,14 @@ import (
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/chat-announcement-block/batch_update
 // new doc: https://open.feishu.cn/document/group/upgraded-group-announcement/chat-announcement-block/batch_update
-func (r *DocxService) BatchUpdateDocxChatAnnouncementBlock(ctx context.Context, request *BatchUpdateDocxChatAnnouncementBlockReq, options ...MethodOptionFunc) (*BatchUpdateDocxChatAnnouncementBlockResp, *Response, error) {
-	if r.cli.mock.mockDocxBatchUpdateDocxChatAnnouncementBlock != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] Docx#BatchUpdateDocxChatAnnouncementBlock mock enable")
-		return r.cli.mock.mockDocxBatchUpdateDocxChatAnnouncementBlock(ctx, request, options...)
+func (r *DriveService) BatchUpdateDocxChatAnnouncementBlock(ctx context.Context, request *BatchUpdateDocxChatAnnouncementBlockReq, options ...MethodOptionFunc) (*BatchUpdateDocxChatAnnouncementBlockResp, *Response, error) {
+	if r.cli.mock.mockDriveBatchUpdateDocxChatAnnouncementBlock != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#BatchUpdateDocxChatAnnouncementBlock mock enable")
+		return r.cli.mock.mockDriveBatchUpdateDocxChatAnnouncementBlock(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "Docx",
+		Scope:                 "Drive",
 		API:                   "BatchUpdateDocxChatAnnouncementBlock",
 		Method:                "PATCH",
 		URL:                   r.cli.openBaseURL + "/open-apis/docx/v1/chats/:chat_id/announcement/blocks/batch_update",
@@ -61,14 +61,14 @@ func (r *DocxService) BatchUpdateDocxChatAnnouncementBlock(ctx context.Context, 
 	return resp.Data, response, err
 }
 
-// MockDocxBatchUpdateDocxChatAnnouncementBlock mock DocxBatchUpdateDocxChatAnnouncementBlock method
-func (r *Mock) MockDocxBatchUpdateDocxChatAnnouncementBlock(f func(ctx context.Context, request *BatchUpdateDocxChatAnnouncementBlockReq, options ...MethodOptionFunc) (*BatchUpdateDocxChatAnnouncementBlockResp, *Response, error)) {
-	r.mockDocxBatchUpdateDocxChatAnnouncementBlock = f
+// MockDriveBatchUpdateDocxChatAnnouncementBlock mock DriveBatchUpdateDocxChatAnnouncementBlock method
+func (r *Mock) MockDriveBatchUpdateDocxChatAnnouncementBlock(f func(ctx context.Context, request *BatchUpdateDocxChatAnnouncementBlockReq, options ...MethodOptionFunc) (*BatchUpdateDocxChatAnnouncementBlockResp, *Response, error)) {
+	r.mockDriveBatchUpdateDocxChatAnnouncementBlock = f
 }
 
-// UnMockDocxBatchUpdateDocxChatAnnouncementBlock un-mock DocxBatchUpdateDocxChatAnnouncementBlock method
-func (r *Mock) UnMockDocxBatchUpdateDocxChatAnnouncementBlock() {
-	r.mockDocxBatchUpdateDocxChatAnnouncementBlock = nil
+// UnMockDriveBatchUpdateDocxChatAnnouncementBlock un-mock DriveBatchUpdateDocxChatAnnouncementBlock method
+func (r *Mock) UnMockDriveBatchUpdateDocxChatAnnouncementBlock() {
+	r.mockDriveBatchUpdateDocxChatAnnouncementBlock = nil
 }
 
 // BatchUpdateDocxChatAnnouncementBlockReq ...

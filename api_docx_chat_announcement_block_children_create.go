@@ -39,14 +39,14 @@ import (
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/chat-announcement-block-children/create
 // new doc: https://open.feishu.cn/document/group/upgraded-group-announcement/chat-announcement-block/create
-func (r *DocxService) CreateDocxChatAnnouncementBlockChildren(ctx context.Context, request *CreateDocxChatAnnouncementBlockChildrenReq, options ...MethodOptionFunc) (*CreateDocxChatAnnouncementBlockChildrenResp, *Response, error) {
-	if r.cli.mock.mockDocxCreateDocxChatAnnouncementBlockChildren != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] Docx#CreateDocxChatAnnouncementBlockChildren mock enable")
-		return r.cli.mock.mockDocxCreateDocxChatAnnouncementBlockChildren(ctx, request, options...)
+func (r *DriveService) CreateDocxChatAnnouncementBlockChildren(ctx context.Context, request *CreateDocxChatAnnouncementBlockChildrenReq, options ...MethodOptionFunc) (*CreateDocxChatAnnouncementBlockChildrenResp, *Response, error) {
+	if r.cli.mock.mockDriveCreateDocxChatAnnouncementBlockChildren != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#CreateDocxChatAnnouncementBlockChildren mock enable")
+		return r.cli.mock.mockDriveCreateDocxChatAnnouncementBlockChildren(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "Docx",
+		Scope:                 "Drive",
 		API:                   "CreateDocxChatAnnouncementBlockChildren",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/docx/v1/chats/:chat_id/announcement/blocks/:block_id/children",
@@ -61,14 +61,14 @@ func (r *DocxService) CreateDocxChatAnnouncementBlockChildren(ctx context.Contex
 	return resp.Data, response, err
 }
 
-// MockDocxCreateDocxChatAnnouncementBlockChildren mock DocxCreateDocxChatAnnouncementBlockChildren method
-func (r *Mock) MockDocxCreateDocxChatAnnouncementBlockChildren(f func(ctx context.Context, request *CreateDocxChatAnnouncementBlockChildrenReq, options ...MethodOptionFunc) (*CreateDocxChatAnnouncementBlockChildrenResp, *Response, error)) {
-	r.mockDocxCreateDocxChatAnnouncementBlockChildren = f
+// MockDriveCreateDocxChatAnnouncementBlockChildren mock DriveCreateDocxChatAnnouncementBlockChildren method
+func (r *Mock) MockDriveCreateDocxChatAnnouncementBlockChildren(f func(ctx context.Context, request *CreateDocxChatAnnouncementBlockChildrenReq, options ...MethodOptionFunc) (*CreateDocxChatAnnouncementBlockChildrenResp, *Response, error)) {
+	r.mockDriveCreateDocxChatAnnouncementBlockChildren = f
 }
 
-// UnMockDocxCreateDocxChatAnnouncementBlockChildren un-mock DocxCreateDocxChatAnnouncementBlockChildren method
-func (r *Mock) UnMockDocxCreateDocxChatAnnouncementBlockChildren() {
-	r.mockDocxCreateDocxChatAnnouncementBlockChildren = nil
+// UnMockDriveCreateDocxChatAnnouncementBlockChildren un-mock DriveCreateDocxChatAnnouncementBlockChildren method
+func (r *Mock) UnMockDriveCreateDocxChatAnnouncementBlockChildren() {
+	r.mockDriveCreateDocxChatAnnouncementBlockChildren = nil
 }
 
 // CreateDocxChatAnnouncementBlockChildrenReq ...

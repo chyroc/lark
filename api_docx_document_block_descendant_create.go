@@ -36,14 +36,14 @@ import (
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block-descendant/create
 // new doc: https://open.feishu.cn/document/docs/docs/document-block/create-2
-func (r *DocxService) CreateDocxDocumentBlockDescendant(ctx context.Context, request *CreateDocxDocumentBlockDescendantReq, options ...MethodOptionFunc) (*CreateDocxDocumentBlockDescendantResp, *Response, error) {
-	if r.cli.mock.mockDocxCreateDocxDocumentBlockDescendant != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] Docx#CreateDocxDocumentBlockDescendant mock enable")
-		return r.cli.mock.mockDocxCreateDocxDocumentBlockDescendant(ctx, request, options...)
+func (r *DriveService) CreateDocxDocumentBlockDescendant(ctx context.Context, request *CreateDocxDocumentBlockDescendantReq, options ...MethodOptionFunc) (*CreateDocxDocumentBlockDescendantResp, *Response, error) {
+	if r.cli.mock.mockDriveCreateDocxDocumentBlockDescendant != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#CreateDocxDocumentBlockDescendant mock enable")
+		return r.cli.mock.mockDriveCreateDocxDocumentBlockDescendant(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "Docx",
+		Scope:                 "Drive",
 		API:                   "CreateDocxDocumentBlockDescendant",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/docx/v1/documents/:document_id/blocks/:block_id/descendant",
@@ -58,14 +58,14 @@ func (r *DocxService) CreateDocxDocumentBlockDescendant(ctx context.Context, req
 	return resp.Data, response, err
 }
 
-// MockDocxCreateDocxDocumentBlockDescendant mock DocxCreateDocxDocumentBlockDescendant method
-func (r *Mock) MockDocxCreateDocxDocumentBlockDescendant(f func(ctx context.Context, request *CreateDocxDocumentBlockDescendantReq, options ...MethodOptionFunc) (*CreateDocxDocumentBlockDescendantResp, *Response, error)) {
-	r.mockDocxCreateDocxDocumentBlockDescendant = f
+// MockDriveCreateDocxDocumentBlockDescendant mock DriveCreateDocxDocumentBlockDescendant method
+func (r *Mock) MockDriveCreateDocxDocumentBlockDescendant(f func(ctx context.Context, request *CreateDocxDocumentBlockDescendantReq, options ...MethodOptionFunc) (*CreateDocxDocumentBlockDescendantResp, *Response, error)) {
+	r.mockDriveCreateDocxDocumentBlockDescendant = f
 }
 
-// UnMockDocxCreateDocxDocumentBlockDescendant un-mock DocxCreateDocxDocumentBlockDescendant method
-func (r *Mock) UnMockDocxCreateDocxDocumentBlockDescendant() {
-	r.mockDocxCreateDocxDocumentBlockDescendant = nil
+// UnMockDriveCreateDocxDocumentBlockDescendant un-mock DriveCreateDocxDocumentBlockDescendant method
+func (r *Mock) UnMockDriveCreateDocxDocumentBlockDescendant() {
+	r.mockDriveCreateDocxDocumentBlockDescendant = nil
 }
 
 // CreateDocxDocumentBlockDescendantReq ...

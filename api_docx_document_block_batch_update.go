@@ -36,14 +36,14 @@ import (
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/document-block/batch_update
 // new doc: https://open.feishu.cn/document/server-docs/docs/docs/docx-v1/document-block/batch_update
-func (r *DocxService) BatchUpdateDocxDocumentBlock(ctx context.Context, request *BatchUpdateDocxDocumentBlockReq, options ...MethodOptionFunc) (*BatchUpdateDocxDocumentBlockResp, *Response, error) {
-	if r.cli.mock.mockDocxBatchUpdateDocxDocumentBlock != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] Docx#BatchUpdateDocxDocumentBlock mock enable")
-		return r.cli.mock.mockDocxBatchUpdateDocxDocumentBlock(ctx, request, options...)
+func (r *DriveService) BatchUpdateDocxDocumentBlock(ctx context.Context, request *BatchUpdateDocxDocumentBlockReq, options ...MethodOptionFunc) (*BatchUpdateDocxDocumentBlockResp, *Response, error) {
+	if r.cli.mock.mockDriveBatchUpdateDocxDocumentBlock != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#BatchUpdateDocxDocumentBlock mock enable")
+		return r.cli.mock.mockDriveBatchUpdateDocxDocumentBlock(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "Docx",
+		Scope:                 "Drive",
 		API:                   "BatchUpdateDocxDocumentBlock",
 		Method:                "PATCH",
 		URL:                   r.cli.openBaseURL + "/open-apis/docx/v1/documents/:document_id/blocks/batch_update",
@@ -58,14 +58,14 @@ func (r *DocxService) BatchUpdateDocxDocumentBlock(ctx context.Context, request 
 	return resp.Data, response, err
 }
 
-// MockDocxBatchUpdateDocxDocumentBlock mock DocxBatchUpdateDocxDocumentBlock method
-func (r *Mock) MockDocxBatchUpdateDocxDocumentBlock(f func(ctx context.Context, request *BatchUpdateDocxDocumentBlockReq, options ...MethodOptionFunc) (*BatchUpdateDocxDocumentBlockResp, *Response, error)) {
-	r.mockDocxBatchUpdateDocxDocumentBlock = f
+// MockDriveBatchUpdateDocxDocumentBlock mock DriveBatchUpdateDocxDocumentBlock method
+func (r *Mock) MockDriveBatchUpdateDocxDocumentBlock(f func(ctx context.Context, request *BatchUpdateDocxDocumentBlockReq, options ...MethodOptionFunc) (*BatchUpdateDocxDocumentBlockResp, *Response, error)) {
+	r.mockDriveBatchUpdateDocxDocumentBlock = f
 }
 
-// UnMockDocxBatchUpdateDocxDocumentBlock un-mock DocxBatchUpdateDocxDocumentBlock method
-func (r *Mock) UnMockDocxBatchUpdateDocxDocumentBlock() {
-	r.mockDocxBatchUpdateDocxDocumentBlock = nil
+// UnMockDriveBatchUpdateDocxDocumentBlock un-mock DriveBatchUpdateDocxDocumentBlock method
+func (r *Mock) UnMockDriveBatchUpdateDocxDocumentBlock() {
+	r.mockDriveBatchUpdateDocxDocumentBlock = nil
 }
 
 // BatchUpdateDocxDocumentBlockReq ...
