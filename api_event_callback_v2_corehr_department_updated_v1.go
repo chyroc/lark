@@ -45,3 +45,15 @@ type EventV2CorehrDepartmentUpdatedV1 struct {
 	DepartmentID string   `json:"department_id,omitempty"` // 被更新部门的 ID
 	FieldChanges []string `json:"field_changes,omitempty"` // 发生变更的字段
 }
+
+// EventV2CorehrDepartmentUpdatedV1Resp ...
+type EventV2CorehrDepartmentUpdatedV1Resp struct {
+}
+
+// eventV2CorehrDepartmentUpdatedV1Resp ...
+type eventV2CorehrDepartmentUpdatedV1Resp struct {
+	Code  int64                                 `json:"code,omitempty"`
+	Msg   string                                `json:"msg,omitempty"`
+	Data  *EventV2CorehrDepartmentUpdatedV1Resp `json:"data,omitempty"`
+	Error *ErrorDetail                          `json:"error,omitempty"`
+}

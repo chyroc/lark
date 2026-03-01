@@ -62,6 +62,10 @@ type EventV1WorkApproval struct {
 	WorkType              string                         `json:"work_type,omitempty"`                // 加班类型。
 }
 
+// EventV1WorkApprovalResp ...
+type EventV1WorkApprovalResp struct {
+}
+
 // EventV1WorkApprovalTimeRange ...
 type EventV1WorkApprovalTimeRange struct {
 	WorkStartTime string `json:"work_start_time,omitempty"` // 加班开始时间。示例格式: 2018-12-01 12:00:00
@@ -74,4 +78,12 @@ type EventV1WorkApprovalWorkDetail struct {
 	End            string `json:"end,omitempty"`             // 加班结束时间, 仅精确到天。示例格式: 2018-12-01 00:00
 	RuleAssociated int64  `json:"rule_associated,omitempty"` // 加班类型。可能值有: 0: 无（未关联加班规则）- 1: 调休假- 2: 加班费- 3: 无（已关联加班规则）
 	Interval       int64  `json:"interval,omitempty"`        // 每日加班时长。单位: 秒
+}
+
+// eventV1WorkApprovalResp ...
+type eventV1WorkApprovalResp struct {
+	Code  int64                    `json:"code,omitempty"`
+	Msg   string                   `json:"msg,omitempty"`
+	Data  *EventV1WorkApprovalResp `json:"data,omitempty"`
+	Error *ErrorDetail             `json:"error,omitempty"`
 }

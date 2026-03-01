@@ -212,6 +212,23 @@ type CreateCoreHRPreHireReqBasicInfoDependentCustomField struct {
 	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(123, 123.23, true, [\"id1\", \"id2\], 2006-01-02 15:04:05])示例值: "Sandy"
 }
 
+// CreateCoreHRPreHireReqBasicInfoDependentNationalID ...
+type CreateCoreHRPreHireReqBasicInfoDependentNationalID struct {
+	CountryRegionID  string                                                           `json:"country_region_id,omitempty"`   // 国家/地区, 可以通过[查询国家/地区信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)接口获取示例值: "6862995757234914824"
+	NationalIDTypeID string                                                           `json:"national_id_type_id,omitempty"` // 国家证件类型, 可以通过[批量查询国家证件类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/national_id_type/list)接口获取示例值: "6863330041896371725"
+	NationalIDNumber string                                                           `json:"national_id_number,omitempty"`  // 证件号码示例值: "1231131333"
+	IssueDate        *string                                                          `json:"issue_date,omitempty"`          // 证件签发日期, 格式: "YYYY-MM-DD"示例值: "2020-04-01"
+	ExpirationDate   *string                                                          `json:"expiration_date,omitempty"`     // 证件到期日期, 格式: "YYYY-MM-DD"示例值: "2020-05-21"
+	IssuedBy         *string                                                          `json:"issued_by,omitempty"`           // 证件签发机构示例值: "北京市公安局"
+	CustomFields     []*CreateCoreHRPreHireReqBasicInfoDependentNationalIDCustomField `json:"custom_fields,omitempty"`       // 自定义字段
+}
+
+// CreateCoreHRPreHireReqBasicInfoDependentNationalIDCustomField ...
+type CreateCoreHRPreHireReqBasicInfoDependentNationalIDCustomField struct {
+	FieldName string `json:"field_name,omitempty"` // 字段名示例值: "name"
+	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(123, 123.23, true, [\"id1\", \"id2\], 2006-01-02 15:04:05])示例值: "Sandy"
+}
+
 // CreateCoreHRPreHireReqBasicInfoDependentPhone ...
 type CreateCoreHRPreHireReqBasicInfoDependentPhone struct {
 	InternationalAreaCode string `json:"international_area_code,omitempty"` // 手机区号, 枚举值可查询[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口获取, 按如下参数查询即可: object_api_name: phone- custom_api_name: international_area_code示例值: "86_china"

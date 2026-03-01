@@ -41,3 +41,15 @@ type EventV2CorehrProcessCcUpdatedV2 struct {
 	Status     int64  `json:"status,omitempty"`      // 单据状态可选值有: 抄送到达
 	BizType    string `json:"biz_type,omitempty"`    // 业务类型, 详情请查看[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/process-form_variable_data/access-guide) 长度范围: `1` ～ `200` 字符
 }
+
+// EventV2CorehrProcessCcUpdatedV2Resp ...
+type EventV2CorehrProcessCcUpdatedV2Resp struct {
+}
+
+// eventV2CorehrProcessCcUpdatedV2Resp ...
+type eventV2CorehrProcessCcUpdatedV2Resp struct {
+	Code  int64                                `json:"code,omitempty"`
+	Msg   string                               `json:"msg,omitempty"`
+	Data  *EventV2CorehrProcessCcUpdatedV2Resp `json:"data,omitempty"`
+	Error *ErrorDetail                         `json:"error,omitempty"`
+}

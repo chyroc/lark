@@ -85,7 +85,8 @@ type BatchUpdateHireEcoAccountCustomFieldReqCustomFieldName struct {
 }
 
 // BatchUpdateHireEcoAccountCustomFieldResp ...
-type BatchUpdateHireEcoAccountCustomFieldResp struct{}
+type BatchUpdateHireEcoAccountCustomFieldResp struct {
+}
 
 // batchUpdateHireEcoAccountCustomFieldResp ...
 type batchUpdateHireEcoAccountCustomFieldResp struct {

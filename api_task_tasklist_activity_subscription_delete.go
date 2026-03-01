@@ -25,7 +25,8 @@ import (
 //
 // 删除订阅需要有该清单的编辑权限。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist-activity_subscription/delete
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist-activity_subscription/delete
+// new doc: https://open.feishu.cn/document/task-v2/tasklist-activity_subscription/delete
 func (r *TaskService) DeleteTaskTasklistActivitySubscription(ctx context.Context, request *DeleteTaskTasklistActivitySubscriptionReq, options ...MethodOptionFunc) (*DeleteTaskTasklistActivitySubscriptionResp, *Response, error) {
 	if r.cli.mock.mockTaskDeleteTaskTasklistActivitySubscription != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#DeleteTaskTasklistActivitySubscription mock enable")
@@ -60,12 +61,13 @@ func (r *Mock) UnMockTaskDeleteTaskTasklistActivitySubscription() {
 
 // DeleteTaskTasklistActivitySubscriptionReq ...
 type DeleteTaskTasklistActivitySubscriptionReq struct {
-	TasklistGuid             string `path:"tasklist_guid" json:"-"`              // 清单GUID。可以通过[创建清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/create), 或者通过[获取清单列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/list)接口查询得到, 示例值: "f5ca6747-5ac3-422e-a97e-972c1b2c24f3"
-	ActivitySubscriptionGuid string `path:"activity_subscription_guid" json:"-"` // 要删除的订阅GUID。可以通过[创建动态订阅](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist-activity_subscription/create)接口创建, 或者通过[列取动态订阅](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist-activity_subscription/list)查询得到, 示例值: "d19e3a2a-edc0-4e4e-b7cc-950e162b53ae"
+	TasklistGuid             string `path:"tasklist_guid" json:"-"`              // 清单GUID。可以通过[创建清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/create), 或者通过[获取清单列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/list)接口查询得到。示例值: "f5ca6747-5ac3-422e-a97e-972c1b2c24f3"
+	ActivitySubscriptionGuid string `path:"activity_subscription_guid" json:"-"` // 要删除的订阅GUID。可以通过[创建动态订阅](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist-activity_subscription/create)接口创建, 或者通过[列取动态订阅](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist-activity_subscription/list)查询得到。示例值: "d19e3a2a-edc0-4e4e-b7cc-950e162b53ae"
 }
 
 // DeleteTaskTasklistActivitySubscriptionResp ...
-type DeleteTaskTasklistActivitySubscriptionResp struct{}
+type DeleteTaskTasklistActivitySubscriptionResp struct {
+}
 
 // deleteTaskTasklistActivitySubscriptionResp ...
 type deleteTaskTasklistActivitySubscriptionResp struct {

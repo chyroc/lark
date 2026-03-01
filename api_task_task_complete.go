@@ -27,8 +27,6 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/complete
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task/complete
-//
-// Deprecated
 func (r *TaskService) CompleteTask(ctx context.Context, request *CompleteTaskReq, options ...MethodOptionFunc) (*CompleteTaskResp, *Response, error) {
 	if r.cli.mock.mockTaskCompleteTask != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#CompleteTask mock enable")
@@ -67,7 +65,8 @@ type CompleteTaskReq struct {
 }
 
 // CompleteTaskResp ...
-type CompleteTaskResp struct{}
+type CompleteTaskResp struct {
+}
 
 // completeTaskResp ...
 type completeTaskResp struct {

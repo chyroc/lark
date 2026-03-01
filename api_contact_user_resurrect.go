@@ -75,8 +75,16 @@ type ResurrectUserReq struct {
 	SubscriptionIDs  []string          `json:"subscription_ids,omitempty"`   // 如果用户正常状态时分配了[席位](https://www.feishu.cn/hc/zh-CN/articles/548377434838), 则可以通过该参数指定恢复后分配的席位 ID。待分配席位 ID 获取方式参见[获取企业席位信息接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/tenant-v2/tenant-product_assign_info/query)。注意: 该字段需开通 分配用户席位 权限。示例值: ["23213213213123123"]
 }
 
+// ResurrectUserReqDepartment ...
+type ResurrectUserReqDepartment struct {
+	DepartmentID    string `json:"department_id,omitempty"`    // 排序信息对应的部门 ID。表示用户所在的、且需要排序的部门。部门 ID 类型与查询参数 `department_id_type` 保持一致。了解不同类型的部门 ID 以及获取部门 ID 的方式, 可参见 [部门 ID 说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/field-overview#23857fe0)。示例值: "od-4e6ac4d14bcd5071a37a39de902c7141"
+	UserOrder       *int64 `json:"user_order,omitempty"`       // 用户在其直属部门内的排序。数值越大, 排序越靠前。示例值: 0
+	DepartmentOrder *int64 `json:"department_order,omitempty"` // 用户所属的多个部门之间的排序。数值越大, 排序越靠前。示例值: 0
+}
+
 // ResurrectUserResp ...
-type ResurrectUserResp struct{}
+type ResurrectUserResp struct {
+}
 
 // resurrectUserResp ...
 type resurrectUserResp struct {

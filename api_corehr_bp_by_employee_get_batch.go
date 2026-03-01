@@ -23,10 +23,9 @@ import (
 
 // BatchGetCoreHrbpByEmployee 查询员工的 HRBP 和属地 BP, 包括来自上级部门的 HRBP 和属地 BP。
 //
-// 该接口会按照应用拥有的「员工资源」的权限范围返回数据, 请确定在「开发者后台 - 权限管理 - 数据权限 - 飞书人事（企业版）数据权限范围」中已申请「员工资源」权限范围
+// 该接口会按照应用拥有的「员工资源」的权限范围返回数据, 请确定在「开发者后台 - 权限管理 - 数据权限」中已申请「员工资源」权限范围
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employees-bp/batch_get
-// new doc: https://open.feishu.cn/document/corehr-v1/authorization/batch_get
 func (r *CoreHRService) BatchGetCoreHrbpByEmployee(ctx context.Context, request *BatchGetCoreHrbpByEmployeeReq, options ...MethodOptionFunc) (*BatchGetCoreHrbpByEmployeeResp, *Response, error) {
 	if r.cli.mock.mockCoreHRBatchGetCoreHrbpByEmployee != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#BatchGetCoreHrbpByEmployee mock enable")
@@ -60,15 +59,15 @@ func (r *Mock) UnMockCoreHRBatchGetCoreHrbpByEmployee() {
 
 // BatchGetCoreHrbpByEmployeeReq ...
 type BatchGetCoreHrbpByEmployeeReq struct {
-	UserIDType    *IDType  `query:"user_id_type" json:"-"`   // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	EmploymentIDs []string `json:"employment_ids,omitempty"` // 员工ID, ID类型与user_id_type的取值意义一致。  > 如果你需要不同类型的ID进行转换, 可以使用 [ID转换服务](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/common_data-id/convert) 换取 [employment_id]示例值: ["7140964208476371111"] 长度范围: `1` ～ `100`
-	GetAll        *bool    `json:"get_all,omitempty"`        // 是否获取全部 BP, true 为获取员工所在部门及来自上级部门的全部 HRBP 和属地 BP, false 为仅获取员工的直属 HRBP 和属地 BP（当员工所在部门、属地无 BP 时, 会上钻找到最近的 BP）, 默认为 false示例值: true默认值: `false`
+	UserIDType    *IDType  `query:"user_id_type" json:"-"`   // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_corehr_id: 以飞书人事的 ID 来识别用户, 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	EmploymentIDs []string `json:"employment_ids,omitempty"` // 员工雇佣 ID, 示例值: ["7140964208476371111"], 长度范围: `1` ～ `100`
+	GetAll        *bool    `json:"get_all,omitempty"`        // 是否获取全部 BP, true 为获取员工所在部门及来自上级部门的全部 HRBP 和属地 BP, false 为仅获取员工的直属 HRBP 和属地 BP（当员工所在部门、属地无 BP 时, 会上钻找到最近的 BP）, 默认为 false, 示例值: true, 默认值: `false`
 }
 
 // BatchGetCoreHrbpByEmployeeResp ...
 type BatchGetCoreHrbpByEmployeeResp struct {
 	EmploymentDirectBps []*BatchGetCoreHrbpByEmployeeRespEmploymentDirectBp `json:"employment_direct_bps,omitempty"` // 员工直属 BP 信息, 当员工所在部门、属地无 BP 时, 会上钻找到最近的 BP
-	EmploymentAllBps    []*BatchGetCoreHrbpByEmployeeRespEmploymentAllBp    `json:"employment_all_bps,omitempty"`    // 员工全部 BP 信息字段权限要求: 查看员工的全部 BP 信息
+	EmploymentAllBps    []*BatchGetCoreHrbpByEmployeeRespEmploymentAllBp    `json:"employment_all_bps,omitempty"`    // 员工全部 BP 信息, 字段权限要求: 查看员工的全部 BP 信息
 }
 
 // BatchGetCoreHrbpByEmployeeRespEmploymentAllBp ...
@@ -80,15 +79,14 @@ type BatchGetCoreHrbpByEmployeeRespEmploymentAllBp struct {
 
 // BatchGetCoreHrbpByEmployeeRespEmploymentDirectBp ...
 type BatchGetCoreHrbpByEmployeeRespEmploymentDirectBp struct {
-	EmploymentID  string   `json:"employment_id,omitempty"`   // 员工雇佣 ID>可以使用[搜索员工信息](https://open.larkoffice.com/document/server-docs/corehr-v1/employee/search)接口获取员工其他信息。
+	EmploymentID  string   `json:"employment_id,omitempty"`   // 员工雇佣 ID
 	HrbpIDs       []string `json:"hrbp_ids,omitempty"`        // 员工直属 HRBP 雇佣 ID
 	LocationBpIDs []string `json:"location_bp_ids,omitempty"` // 员工直属属地 BP 雇佣 ID
 }
 
 // batchGetCoreHrbpByEmployeeResp ...
 type batchGetCoreHrbpByEmployeeResp struct {
-	Code  int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg   string                          `json:"msg,omitempty"`  // 错误描述
-	Data  *BatchGetCoreHrbpByEmployeeResp `json:"data,omitempty"`
-	Error *ErrorDetail                    `json:"error,omitempty"`
+	Code int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg  string                          `json:"msg,omitempty"`  // 错误描述
+	Data *BatchGetCoreHrbpByEmployeeResp `json:"data,omitempty"`
 }

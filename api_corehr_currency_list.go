@@ -25,8 +25,6 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/currency/list
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/currency/list
-//
-// Deprecated
 func (r *CoreHRService) GetCoreHRCurrencyList(ctx context.Context, request *GetCoreHRCurrencyListReq, options ...MethodOptionFunc) (*GetCoreHRCurrencyListResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRCurrencyList != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRCurrencyList mock enable")

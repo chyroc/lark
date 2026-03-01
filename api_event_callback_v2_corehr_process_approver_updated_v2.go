@@ -46,3 +46,15 @@ type EventV2CorehrProcessApproverUpdatedV2 struct {
 	NodeID           string `json:"node_id,omitempty"`            // 节点id（已废弃, 请使用node_id_str字段)
 	NodeIDStr        string `json:"node_id_str,omitempty"`        // 节点id
 }
+
+// EventV2CorehrProcessApproverUpdatedV2Resp ...
+type EventV2CorehrProcessApproverUpdatedV2Resp struct {
+}
+
+// eventV2CorehrProcessApproverUpdatedV2Resp ...
+type eventV2CorehrProcessApproverUpdatedV2Resp struct {
+	Code  int64                                      `json:"code,omitempty"`
+	Msg   string                                     `json:"msg,omitempty"`
+	Data  *EventV2CorehrProcessApproverUpdatedV2Resp `json:"data,omitempty"`
+	Error *ErrorDetail                               `json:"error,omitempty"`
+}

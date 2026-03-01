@@ -48,11 +48,22 @@ type EventV2IMChatMemberUserWithdrawnV1 struct {
 	I18nNames         *I18nNames                                    `json:"i18n_names,omitempty"`          // 群国际化名称
 }
 
+// EventV2IMChatMemberUserWithdrawnV1I18nNames ...
+type EventV2IMChatMemberUserWithdrawnV1I18nNames struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名
+	EnUs string `json:"en_us,omitempty"` // 英文名
+	JaJp string `json:"ja_jp,omitempty"` // 日文名
+}
+
 // EventV2IMChatMemberUserWithdrawnV1OperatorID ...
 type EventV2IMChatMemberUserWithdrawnV1OperatorID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
+}
+
+// EventV2IMChatMemberUserWithdrawnV1Resp ...
+type EventV2IMChatMemberUserWithdrawnV1Resp struct {
 }
 
 // EventV2IMChatMemberUserWithdrawnV1User ...
@@ -67,4 +78,12 @@ type EventV2IMChatMemberUserWithdrawnV1UserUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
+}
+
+// eventV2IMChatMemberUserWithdrawnV1Resp ...
+type eventV2IMChatMemberUserWithdrawnV1Resp struct {
+	Code  int64                                   `json:"code,omitempty"`
+	Msg   string                                  `json:"msg,omitempty"`
+	Data  *EventV2IMChatMemberUserWithdrawnV1Resp `json:"data,omitempty"`
+	Error *ErrorDetail                            `json:"error,omitempty"`
 }

@@ -91,6 +91,13 @@ type EventV2VCMeetingAllMeetingStartedV1MeetingSecuritySetting struct {
 	HasSetSecurityContactsAndGroup bool     `json:"has_set_security_contacts_and_group,omitempty"` // 是否设置了仅指定联系人和群组可参会
 }
 
+// EventV2VCMeetingAllMeetingStartedV1MeetingSecuritySettingUserID ...
+type EventV2VCMeetingAllMeetingStartedV1MeetingSecuritySettingUserID struct {
+	UnionID string `json:"union_id,omitempty"` // 用户的 union id
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id
+	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
+}
+
 // EventV2VCMeetingAllMeetingStartedV1MeetingWebinarSetting ...
 type EventV2VCMeetingAllMeetingStartedV1MeetingWebinarSetting struct {
 	WebinarType int64 `json:"webinar_type,omitempty"` // 网络研讨会类型可选值有: 普通网络研讨会直播网络研讨会
@@ -108,4 +115,16 @@ type EventV2VCMeetingAllMeetingStartedV1OperatorID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
+}
+
+// EventV2VCMeetingAllMeetingStartedV1Resp ...
+type EventV2VCMeetingAllMeetingStartedV1Resp struct {
+}
+
+// eventV2VCMeetingAllMeetingStartedV1Resp ...
+type eventV2VCMeetingAllMeetingStartedV1Resp struct {
+	Code  int64                                    `json:"code,omitempty"`
+	Msg   string                                   `json:"msg,omitempty"`
+	Data  *EventV2VCMeetingAllMeetingStartedV1Resp `json:"data,omitempty"`
+	Error *ErrorDetail                             `json:"error,omitempty"`
 }

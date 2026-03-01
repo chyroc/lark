@@ -68,7 +68,8 @@ type DeleteChatTopNoticeReq struct {
 }
 
 // DeleteChatTopNoticeResp ...
-type DeleteChatTopNoticeResp struct{}
+type DeleteChatTopNoticeResp struct {
+}
 
 // deleteChatTopNoticeResp ...
 type deleteChatTopNoticeResp struct {

@@ -67,7 +67,8 @@ type CreateApprovalCarbonCopyReq struct {
 }
 
 // CreateApprovalCarbonCopyResp ...
-type CreateApprovalCarbonCopyResp struct{}
+type CreateApprovalCarbonCopyResp struct {
+}
 
 // createApprovalCarbonCopyResp ...
 type createApprovalCarbonCopyResp struct {

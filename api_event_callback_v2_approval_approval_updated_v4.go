@@ -52,3 +52,15 @@ type EventV2ApprovalApprovalUpdatedV4Object struct {
 	VersionID        string `json:"version_id,omitempty"`         // 审批定义的版本号
 	WidgetGroupType  int64  `json:"widget_group_type,omitempty"`  // 控件组类型, 返回 0 表示未使用
 }
+
+// EventV2ApprovalApprovalUpdatedV4Resp ...
+type EventV2ApprovalApprovalUpdatedV4Resp struct {
+}
+
+// eventV2ApprovalApprovalUpdatedV4Resp ...
+type eventV2ApprovalApprovalUpdatedV4Resp struct {
+	Code  int64                                 `json:"code,omitempty"`
+	Msg   string                                `json:"msg,omitempty"`
+	Data  *EventV2ApprovalApprovalUpdatedV4Resp `json:"data,omitempty"`
+	Error *ErrorDetail                          `json:"error,omitempty"`
+}

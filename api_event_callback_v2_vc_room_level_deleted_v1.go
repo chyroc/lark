@@ -37,3 +37,15 @@ type EventV2VCRoomLevelDeletedV1 struct {
 	RoomLevelID string `json:"room_level_id,omitempty"` // 层级ID 长度范围: `1` ～ `100` 字符
 	DeleteChild bool   `json:"delete_child,omitempty"`  // 是否删除所有子层级
 }
+
+// EventV2VCRoomLevelDeletedV1Resp ...
+type EventV2VCRoomLevelDeletedV1Resp struct {
+}
+
+// eventV2VCRoomLevelDeletedV1Resp ...
+type eventV2VCRoomLevelDeletedV1Resp struct {
+	Code  int64                            `json:"code,omitempty"`
+	Msg   string                           `json:"msg,omitempty"`
+	Data  *EventV2VCRoomLevelDeletedV1Resp `json:"data,omitempty"`
+	Error *ErrorDetail                     `json:"error,omitempty"`
+}

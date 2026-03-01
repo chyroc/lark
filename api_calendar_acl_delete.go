@@ -68,7 +68,8 @@ type DeleteCalendarACLReq struct {
 }
 
 // DeleteCalendarACLResp ...
-type DeleteCalendarACLResp struct{}
+type DeleteCalendarACLResp struct {
+}
 
 // deleteCalendarACLResp ...
 type deleteCalendarACLResp struct {

@@ -44,3 +44,15 @@ type EventV2CorehrProcessNodeUpdatedV2 struct {
 	NodeStatus       int64  `json:"node_status,omitempty"`        // 节点状态可选值有: 进行中已拒绝已通过已撤回已回退已跳过已干预
 	BizType          string `json:"biz_type,omitempty"`           // 业务类型, 详情请查看[接入指南](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/process-form_variable_data/access-guide) 长度范围: `1` ～ `200` 字符
 }
+
+// EventV2CorehrProcessNodeUpdatedV2Resp ...
+type EventV2CorehrProcessNodeUpdatedV2Resp struct {
+}
+
+// eventV2CorehrProcessNodeUpdatedV2Resp ...
+type eventV2CorehrProcessNodeUpdatedV2Resp struct {
+	Code  int64                                  `json:"code,omitempty"`
+	Msg   string                                 `json:"msg,omitempty"`
+	Data  *EventV2CorehrProcessNodeUpdatedV2Resp `json:"data,omitempty"`
+	Error *ErrorDetail                           `json:"error,omitempty"`
+}

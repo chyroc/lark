@@ -64,7 +64,14 @@ type TransformApprovalUserIDReq struct {
 }
 
 // TransformApprovalUserIDResp ...
-type TransformApprovalUserIDResp struct{}
+type TransformApprovalUserIDResp struct {
+}
+
+// TransformApprovalUserIDRespMsg ...
+type TransformApprovalUserIDRespMsg struct {
+	UserIDMap map[string]interface{} `json:"user_id_map,omitempty"` // -Employee ID数组
+	LarkIDMap map[string]interface{} `json:"lark_id_map,omitempty"` // -Lark User ID数组
+}
 
 // transformApprovalUserIDResp ...
 type transformApprovalUserIDResp struct {

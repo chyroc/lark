@@ -35,3 +35,15 @@ func (r *AppLinkService) OpenDocs(req *OpenDocsReq) string {
 type OpenDocsReq struct {
 	URL string `json:"url,omitempty"` // 要打开的云文档URL
 }
+
+// OpenDocsResp ...
+type OpenDocsResp struct {
+}
+
+// openDocsResp ...
+type openDocsResp struct {
+	Code  int64         `json:"code,omitempty"`
+	Msg   string        `json:"msg,omitempty"`
+	Data  *OpenDocsResp `json:"data,omitempty"`
+	Error *ErrorDetail  `json:"error,omitempty"`
+}

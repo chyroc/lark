@@ -76,7 +76,8 @@ type InsertSheetDimensionRangeReqDimension struct {
 }
 
 // InsertSheetDimensionRangeResp ...
-type InsertSheetDimensionRangeResp struct{}
+type InsertSheetDimensionRangeResp struct {
+}
 
 // insertSheetDimensionRangeResp ...
 type insertSheetDimensionRangeResp struct {

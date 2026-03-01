@@ -86,6 +86,11 @@ type GetApplicationAppVisibilityRespGroup struct {
 	ID string `json:"id,omitempty"` // 用户组 group_id
 }
 
+// GetApplicationAppVisibilityRespInvisibleDepartment ...
+type GetApplicationAppVisibilityRespInvisibleDepartment struct {
+	ID string `json:"id,omitempty"` // 自定义 department_id
+}
+
 // GetApplicationAppVisibilityRespInvisibleGroup ...
 type GetApplicationAppVisibilityRespInvisibleGroup struct {
 	ID string `json:"id,omitempty"` // 用户组 group_id

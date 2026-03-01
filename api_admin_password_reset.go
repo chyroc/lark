@@ -71,7 +71,8 @@ type AdminResetPasswordReqPassword struct {
 }
 
 // AdminResetPasswordResp ...
-type AdminResetPasswordResp struct{}
+type AdminResetPasswordResp struct {
+}
 
 // adminResetPasswordResp ...
 type adminResetPasswordResp struct {

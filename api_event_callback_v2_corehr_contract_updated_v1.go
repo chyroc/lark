@@ -36,3 +36,15 @@ type EventV2CorehrContractUpdatedV1Handler func(ctx context.Context, cli *Lark, 
 type EventV2CorehrContractUpdatedV1 struct {
 	ContractID string `json:"contract_id,omitempty"` // 合同ID, 该合同详细信息可通过[【合同信息查询接口】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/get)获取
 }
+
+// EventV2CorehrContractUpdatedV1Resp ...
+type EventV2CorehrContractUpdatedV1Resp struct {
+}
+
+// eventV2CorehrContractUpdatedV1Resp ...
+type eventV2CorehrContractUpdatedV1Resp struct {
+	Code  int64                               `json:"code,omitempty"`
+	Msg   string                              `json:"msg,omitempty"`
+	Data  *EventV2CorehrContractUpdatedV1Resp `json:"data,omitempty"`
+	Error *ErrorDetail                        `json:"error,omitempty"`
+}

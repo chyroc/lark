@@ -41,3 +41,15 @@ type EventV2CorehrPersonCreatedV1Handler func(ctx context.Context, cli *Lark, sc
 type EventV2CorehrPersonCreatedV1 struct {
 	PersonID string `json:"person_id,omitempty"` // 人员ID
 }
+
+// EventV2CorehrPersonCreatedV1Resp ...
+type EventV2CorehrPersonCreatedV1Resp struct {
+}
+
+// eventV2CorehrPersonCreatedV1Resp ...
+type eventV2CorehrPersonCreatedV1Resp struct {
+	Code  int64                             `json:"code,omitempty"`
+	Msg   string                            `json:"msg,omitempty"`
+	Data  *EventV2CorehrPersonCreatedV1Resp `json:"data,omitempty"`
+	Error *ErrorDetail                      `json:"error,omitempty"`
+}

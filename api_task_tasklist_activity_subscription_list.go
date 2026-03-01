@@ -25,7 +25,8 @@ import (
 //
 // 列取动态订阅需要清单的读取权限。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist-activity_subscription/list
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist-activity_subscription/list
+// new doc: https://open.feishu.cn/document/task-v2/tasklist-activity_subscription/list
 func (r *TaskService) GetTaskTasklistActivitySubscriptionList(ctx context.Context, request *GetTaskTasklistActivitySubscriptionListReq, options ...MethodOptionFunc) (*GetTaskTasklistActivitySubscriptionListResp, *Response, error) {
 	if r.cli.mock.mockTaskGetTaskTasklistActivitySubscriptionList != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#GetTaskTasklistActivitySubscriptionList mock enable")
@@ -60,9 +61,9 @@ func (r *Mock) UnMockTaskGetTaskTasklistActivitySubscriptionList() {
 
 // GetTaskTasklistActivitySubscriptionListReq ...
 type GetTaskTasklistActivitySubscriptionListReq struct {
-	TasklistGuid string  `path:"tasklist_guid" json:"-"` // 清单GUID。可以通过[创建清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/create), 或者通过[获取清单列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/list)接口查询得到, 示例值: "d19e3a2a-edc0-4e4e-b7cc-950e162b53ae"
-	Limit        *int64  `query:"limit" json:"-"`        // 返回结果的最大数量, 示例值: 50, 默认值: `50`, 取值范围: `1` ～ `50`
-	UserIDType   *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	TasklistGuid string  `path:"tasklist_guid" json:"-"` // 清单GUID。可以通过[创建清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/create), 或者通过[获取清单列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/list)接口查询得到。示例值: "d19e3a2a-edc0-4e4e-b7cc-950e162b53ae"
+	Limit        *int64  `query:"limit" json:"-"`        // 返回结果的最大数量示例值: 50默认值: `50` 取值范围: `1` ～ `50`
+	UserIDType   *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // GetTaskTasklistActivitySubscriptionListResp ...

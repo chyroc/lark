@@ -31,7 +31,8 @@ import (
 // `insert_before`和`insert_after`如果填写, 必须是同一个资源的合法section_guid。注意不能同时设置`insert_before`和`insert_after`。
 // 需要自定义分组所在资源的编辑权限。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/task-v2/section/patch
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/section/patch
+// new doc: https://open.feishu.cn/document/task-v2/section/patch
 func (r *TaskService) UpdateTaskSection(ctx context.Context, request *UpdateTaskSectionReq, options ...MethodOptionFunc) (*UpdateTaskSectionResp, *Response, error) {
 	if r.cli.mock.mockTaskUpdateTaskSection != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#UpdateTaskSection mock enable")
@@ -66,17 +67,17 @@ func (r *Mock) UnMockTaskUpdateTaskSection() {
 
 // UpdateTaskSectionReq ...
 type UpdateTaskSectionReq struct {
-	SectionGuid  string                       `path:"section_guid" json:"-"`   // 要更新的自定义分组GUID, 示例值: "9842501a-9f47-4ff5-a622-d319eeecb97f", 最大长度: `100` 字符
-	UserIDType   *IDType                      `query:"user_id_type" json:"-"`  // 用户 ID 类型, 示例值: open_id, 默认值: `open_id`
+	SectionGuid  string                       `path:"section_guid" json:"-"`   // 要更新的自定义分组GUID示例值: "9842501a-9f47-4ff5-a622-d319eeecb97f" 最大长度: `100` 字符
+	UserIDType   *IDType                      `query:"user_id_type" json:"-"`  // 用户 ID 类型示例值: open_id默认值: `open_id`
 	Section      *UpdateTaskSectionReqSection `json:"section,omitempty"`       // 要更新的自定义分组的数据。
-	UpdateFields []string                     `json:"update_fields,omitempty"` // 要更新的字段名, 支持: * `name` - 自定义字段名字, * `insert_before` - 要让当前自定义分组放到某个自定义分组前面的secion_guid, 用于改变当前自定义分组的位置, * `insert_after` - 要让当前自定义分组放到某个自定义分组后面的secion_guid, 用于改变当前自定义分组的位置, 示例值: ["name"], 长度范围: `1` ～ `10`
+	UpdateFields []string                     `json:"update_fields,omitempty"` // 要更新的字段名, 支持: * `name` - 自定义字段名字* `insert_before` - 要让当前自定义分组放到某个自定义分组前面的secion_guid, 用于改变当前自定义分组的位置。* `insert_after` - 要让当前自定义分组放到某个自定义分组后面的secion_guid, 用于改变当前自定义分组的位置。示例值: ["name"] 长度范围: `1` ～ `10`
 }
 
 // UpdateTaskSectionReqSection ...
 type UpdateTaskSectionReqSection struct {
-	Name         *string `json:"name,omitempty"`          // 自定义分组名。如更新, 不允许设为空, 支持最大100个utf8字符, 示例值: "已经审核过的任务"
-	InsertBefore *string `json:"insert_before,omitempty"` // 要将新分组插入到自定义分分组的前面的目标分组的guid, 示例值: "e6e37dcc-f75a-5936-f589-12fb4b5c80c2", 最大长度: `100` 字符
-	InsertAfter  *string `json:"insert_after,omitempty"`  // 要将新分组插入到自定义分分组的后面的目标分组的guid, 示例值: "e6e37dcc-f75a-5936-f589-12fb4b5c80c2", 最大长度: `100` 字符
+	Name         *string `json:"name,omitempty"`          // 自定义分组名。如更新, 不允许设为空, 支持最大100个utf8字符。示例值: "已经审核过的任务"
+	InsertBefore *string `json:"insert_before,omitempty"` // 要将新分组插入到自定义分分组的前面的目标分组的guid。示例值: "e6e37dcc-f75a-5936-f589-12fb4b5c80c2" 最大长度: `100` 字符
+	InsertAfter  *string `json:"insert_after,omitempty"`  // 要将新分组插入到自定义分分组的后面的目标分组的guid。示例值: "e6e37dcc-f75a-5936-f589-12fb4b5c80c2" 最大长度: `100` 字符
 }
 
 // UpdateTaskSectionResp ...
@@ -101,6 +102,7 @@ type UpdateTaskSectionRespSectionCreator struct {
 	ID   string `json:"id,omitempty"`   // 表示member的id
 	Type string `json:"type,omitempty"` // 成员的类型
 	Role string `json:"role,omitempty"` // 成员角色
+	Name string `json:"name,omitempty"` // 成员名称
 }
 
 // UpdateTaskSectionRespSectionTasklist ...

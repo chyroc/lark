@@ -23,7 +23,7 @@ import (
 
 // RemoveReportView 移除规则看板
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/report/report-v1/rule-view/remove
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/report/report-v1/rule-view/remove
 // new doc: https://open.feishu.cn/document/server-docs/report-v1/rule-view/remove
 func (r *ReportService) RemoveReportView(ctx context.Context, request *RemoveReportViewReq, options ...MethodOptionFunc) (*RemoveReportViewResp, *Response, error) {
 	if r.cli.mock.mockReportRemoveReportView != nil {
@@ -58,13 +58,14 @@ func (r *Mock) UnMockReportRemoveReportView() {
 
 // RemoveReportViewReq ...
 type RemoveReportViewReq struct {
-	RuleID     string   `path:"rule_id" json:"-"`       // 汇报规则ID, 示例值: "6894419345318182122", 最小长度: `1` 字符
-	UserIDType *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	UserIDs    []string `json:"user_ids,omitempty"`     // 列表为空删除规则下全用户视图, 列表不为空删除指定用户视图, 大小限制200, 示例值: ["ou_d6a5b5a55c77ca0b5b6c6ca0dd628c85"], 长度范围: `0` ～ `200`
+	RuleID     string   `path:"rule_id" json:"-"`       // 汇报规则ID示例值: "6894419345318182122" 最小长度: `1` 字符
+	UserIDType *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	UserIDs    []string `json:"user_ids,omitempty"`     // 列表为空删除规则下全用户视图, 列表不为空删除指定用户视图, 大小限制200。示例值: ["ou_d6a5b5a55c77ca0b5b6c6ca0dd628c85"] 长度范围: `0` ～ `200`
 }
 
 // RemoveReportViewResp ...
-type RemoveReportViewResp struct{}
+type RemoveReportViewResp struct {
+}
 
 // removeReportViewResp ...
 type removeReportViewResp struct {

@@ -23,7 +23,8 @@ import (
 
 // ListIMTagRelation 查询实体与标签的绑定关系
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/group/im-v2/biz_entity_tag_relation/get
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/group/im-v2/biz_entity_tag_relation/get
+// new doc: https://open.feishu.cn/document/tenant-tag/get
 func (r *MessageService) ListIMTagRelation(ctx context.Context, request *ListIMTagRelationReq, options ...MethodOptionFunc) (*ListIMTagRelationResp, *Response, error) {
 	if r.cli.mock.mockMessageListIMTagRelation != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#ListIMTagRelation mock enable")
@@ -57,8 +58,8 @@ func (r *Mock) UnMockMessageListIMTagRelation() {
 
 // ListIMTagRelationReq ...
 type ListIMTagRelationReq struct {
-	TagBizType  string `query:"tag_biz_type" json:"-"`  // 业务类型, 示例值: chat, 可选值有: chat: chat类型
-	BizEntityID string `query:"biz_entity_id" json:"-"` // 业务实体id, 示例值: 71616xxxx
+	TagBizType  string `query:"tag_biz_type" json:"-"`  // 业务类型示例值: chat可选值有: chat类型
+	BizEntityID string `query:"biz_entity_id" json:"-"` // 业务实体id示例值: 71616xxxx
 }
 
 // ListIMTagRelationResp ...

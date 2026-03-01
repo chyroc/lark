@@ -66,7 +66,8 @@ type DeleteCoreHRCostCenterVersionReq struct {
 }
 
 // DeleteCoreHRCostCenterVersionResp ...
-type DeleteCoreHRCostCenterVersionResp struct{}
+type DeleteCoreHRCostCenterVersionResp struct {
+}
 
 // deleteCoreHRCostCenterVersionResp ...
 type deleteCoreHRCostCenterVersionResp struct {

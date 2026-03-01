@@ -60,3 +60,15 @@ type EventV2ElearningCourseRegistrationCreatedV2LearnerUserID struct {
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
+
+// EventV2ElearningCourseRegistrationCreatedV2Resp ...
+type EventV2ElearningCourseRegistrationCreatedV2Resp struct {
+}
+
+// eventV2ElearningCourseRegistrationCreatedV2Resp ...
+type eventV2ElearningCourseRegistrationCreatedV2Resp struct {
+	Code  int64                                            `json:"code,omitempty"`
+	Msg   string                                           `json:"msg,omitempty"`
+	Data  *EventV2ElearningCourseRegistrationCreatedV2Resp `json:"data,omitempty"`
+	Error *ErrorDetail                                     `json:"error,omitempty"`
+}

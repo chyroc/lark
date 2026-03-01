@@ -49,9 +49,28 @@ type EventV2IMChatMemberBotAddedV1 struct {
 	I18nNames         *I18nNames                               `json:"i18n_names,omitempty"`          // 群国际化名称
 }
 
+// EventV2IMChatMemberBotAddedV1I18nNames ...
+type EventV2IMChatMemberBotAddedV1I18nNames struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名
+	EnUs string `json:"en_us,omitempty"` // 英文名
+	JaJp string `json:"ja_jp,omitempty"` // 日文名
+}
+
 // EventV2IMChatMemberBotAddedV1OperatorID ...
 type EventV2IMChatMemberBotAddedV1OperatorID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
+}
+
+// EventV2IMChatMemberBotAddedV1Resp ...
+type EventV2IMChatMemberBotAddedV1Resp struct {
+}
+
+// eventV2IMChatMemberBotAddedV1Resp ...
+type eventV2IMChatMemberBotAddedV1Resp struct {
+	Code  int64                              `json:"code,omitempty"`
+	Msg   string                             `json:"msg,omitempty"`
+	Data  *EventV2IMChatMemberBotAddedV1Resp `json:"data,omitempty"`
+	Error *ErrorDetail                       `json:"error,omitempty"`
 }

@@ -23,7 +23,11 @@ import (
 
 // QueryReportTask 查询任务。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/report/report-v1/task/query
+// 注意:
+// 1. 请求参数 page_token 为必填字段, 首次调用接口时必须传空值, 表示从头开始遍历。
+// 2. 当使用user access token访问时, 表示获取当前用户发起以及收到的汇报, 且结果不分页
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/report/report-v1/task/query
 // new doc: https://open.feishu.cn/document/server-docs/report-v1/task/query
 func (r *ReportService) QueryReportTask(ctx context.Context, request *QueryReportTaskReq, options ...MethodOptionFunc) (*QueryReportTaskResp, *Response, error) {
 	if r.cli.mock.mockReportQueryReportTask != nil {
@@ -39,6 +43,7 @@ func (r *ReportService) QueryReportTask(ctx context.Context, request *QueryRepor
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(queryReportTaskResp)
 
@@ -58,13 +63,13 @@ func (r *Mock) UnMockReportQueryReportTask() {
 
 // QueryReportTaskReq ...
 type QueryReportTaskReq struct {
-	UserIDType      *IDType `query:"user_id_type" json:"-"`      // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	CommitStartTime int64   `json:"commit_start_time,omitempty"` // 提交开始时间时间戳, 示例值: 1622427266
-	CommitEndTime   int64   `json:"commit_end_time,omitempty"`   // 提交结束时间时间戳, 示例值: 1622427266
-	RuleID          *string `json:"rule_id,omitempty"`           // 汇报规则ID, 示例值: "6894419345318182932"
-	UserID          *string `json:"user_id,omitempty"`           // 用户ID, 示例值: "ou_133f0b6d0f097cf7d7ba00b38fffb110"
-	PageToken       string  `json:"page_token,omitempty"`        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: "6895699275733778451"
-	PageSize        int64   `json:"page_size,omitempty"`         // 单次分页返回的条数, 示例值: 10, 取值范围: `0` ～ `20`
+	UserIDType      *IDType `query:"user_id_type" json:"-"`      // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	CommitStartTime int64   `json:"commit_start_time,omitempty"` // 提交开始时间时间戳示例值: 1622427266
+	CommitEndTime   int64   `json:"commit_end_time,omitempty"`   // 提交结束时间时间戳示例值: 1622427266
+	RuleID          *string `json:"rule_id,omitempty"`           // 汇报规则ID示例值: "6894419345318182932"
+	UserID          *string `json:"user_id,omitempty"`           // 用户ID示例值: "ou_133f0b6d0f097cf7d7ba00b38fffb110"
+	PageToken       string  `json:"page_token,omitempty"`        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: "6895699275733778451"
+	PageSize        int64   `json:"page_size,omitempty"`         // 单次分页返回的条数示例值: 10 取值范围: `0` ～ `20`
 }
 
 // QueryReportTaskResp ...
@@ -83,13 +88,17 @@ type QueryReportTaskRespItem struct {
 	DepartmentName string                                `json:"department_name,omitempty"` // 汇报用户部门名称
 	CommitTime     int64                                 `json:"commit_time,omitempty"`     // 提交时间时间戳
 	FormContents   []*QueryReportTaskRespItemFormContent `json:"form_contents,omitempty"`   // 汇报表单内容
+	RuleID         string                                `json:"rule_id,omitempty"`         // 汇报规则ID
+	DepartmentIDs  []string                              `json:"department_ids,omitempty"`  // 汇报用户部门id
+	ToUserIDs      []string                              `json:"to_user_ids,omitempty"`     // 汇报给谁
+	ToUserNames    []string                              `json:"to_user_names,omitempty"`   // 汇报给谁的名字
 }
 
 // QueryReportTaskRespItemFormContent ...
 type QueryReportTaskRespItemFormContent struct {
 	FieldID    string `json:"field_id,omitempty"`    // 表单字段ID
 	FieldName  string `json:"field_name,omitempty"`  // 表单字段名称
-	FieldValue string `json:"field_value,omitempty"` // 表单字段值
+	FieldValue string `json:"field_value,omitempty"` // 表单字段值注意: 附件或图片该值为空, 只返回 ID 与名称
 }
 
 // queryReportTaskResp ...

@@ -70,7 +70,8 @@ type UpdateCoreHRProbationAssessmentReq struct {
 }
 
 // UpdateCoreHRProbationAssessmentResp ...
-type UpdateCoreHRProbationAssessmentResp struct{}
+type UpdateCoreHRProbationAssessmentResp struct {
+}
 
 // updateCoreHRProbationAssessmentResp ...
 type updateCoreHRProbationAssessmentResp struct {

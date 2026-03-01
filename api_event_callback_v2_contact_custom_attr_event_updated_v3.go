@@ -52,3 +52,15 @@ type EventV2ContactCustomAttrEventUpdatedV3OldObject struct {
 	ContactFieldKey []string `json:"contact_field_key,omitempty"` // 通讯录字段键值
 	AllowOpenQuery  bool     `json:"allow_open_query,omitempty"`  // 开关是否打开
 }
+
+// EventV2ContactCustomAttrEventUpdatedV3Resp ...
+type EventV2ContactCustomAttrEventUpdatedV3Resp struct {
+}
+
+// eventV2ContactCustomAttrEventUpdatedV3Resp ...
+type eventV2ContactCustomAttrEventUpdatedV3Resp struct {
+	Code  int64                                       `json:"code,omitempty"`
+	Msg   string                                      `json:"msg,omitempty"`
+	Data  *EventV2ContactCustomAttrEventUpdatedV3Resp `json:"data,omitempty"`
+	Error *ErrorDetail                                `json:"error,omitempty"`
+}

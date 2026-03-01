@@ -74,8 +74,18 @@ type DeleteCalendarEventAttendeeReq struct {
 	IsEnableAdmin          *bool    `json:"is_enable_admin,omitempty"`           // 是否启用会议室管理员身份（需先在管理后台设置某人为会议室管理员）。可选值有: true: 启用- false（默认值）: 不启用示例值: false
 }
 
+// DeleteCalendarEventAttendeeReqDeleteID ...
+type DeleteCalendarEventAttendeeReqDeleteID struct {
+	Type            *CalendarEventAttendeeType `json:"type,omitempty"`              // 参与人类型。示例值: "user"可选值有: 用户群组会议室外部邮箱
+	UserID          *string                    `json:"user_id,omitempty"`           // 用户 ID。当选择用户类型参与人（type 取值为 user）时, 需要传入该参数。传入的用户 ID 类型需要和 user_id_type 的值保持一致。示例值: "ou_xxxxxxxx"
+	ChatID          *string                    `json:"chat_id,omitempty"`           // 群组 ID。当选择群组类型参与人（type 取值为 chat）时, 需要传入该参数。示例值: "oc_xxxxxxxxx"
+	RoomID          *string                    `json:"room_id,omitempty"`           // 会议室 ID。当选择会议室类型参与人（type 取值为 resource）时, 需要传入该参数。示例值: "omm_xxxxxxxx"
+	ThirdPartyEmail *string                    `json:"third_party_email,omitempty"` // 邮箱地址。当选择外部邮箱类型参与人（type 取值为 third_party）时, 需要传入该参数。示例值: "wangwu@email.com"
+}
+
 // DeleteCalendarEventAttendeeResp ...
-type DeleteCalendarEventAttendeeResp struct{}
+type DeleteCalendarEventAttendeeResp struct {
+}
 
 // deleteCalendarEventAttendeeResp ...
 type deleteCalendarEventAttendeeResp struct {

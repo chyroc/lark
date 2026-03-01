@@ -25,8 +25,6 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task/delete
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task/delete
-//
-// Deprecated
 func (r *TaskV1Service) DeleteTaskV1(ctx context.Context, request *DeleteTaskV1Req, options ...MethodOptionFunc) (*DeleteTaskV1Resp, *Response, error) {
 	if r.cli.mock.mockTaskV1DeleteTaskV1 != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] TaskV1#DeleteTaskV1 mock enable")
@@ -61,11 +59,12 @@ func (r *Mock) UnMockTaskV1DeleteTaskV1() {
 
 // DeleteTaskV1Req ...
 type DeleteTaskV1Req struct {
-	TaskID string `path:"task_id" json:"-"` // 任务 ID, 示例值: "83912691-2e43-47fc-94a4-d512e03984fa"
+	TaskID string `path:"task_id" json:"-"` // 任务 ID示例值: "83912691-2e43-47fc-94a4-d512e03984fa"
 }
 
 // DeleteTaskV1Resp ...
-type DeleteTaskV1Resp struct{}
+type DeleteTaskV1Resp struct {
+}
 
 // deleteTaskV1Resp ...
 type deleteTaskV1Resp struct {

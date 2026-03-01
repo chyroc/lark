@@ -44,9 +44,21 @@ type EventV2CorehrJobDataEmployedV1 struct {
 	TargetUserID *EventV2CorehrJobDataEmployedV1TargetUserID `json:"target_user_id,omitempty"` // 用户 ID（备注: 入职后开通飞书账号成功, 会生成飞书通讯录相关ID, 但由于开通过程是异步, 本事件不保证一定返回, 如未返回, 说明飞书账号开通失败, 业务需兼容处理）
 }
 
+// EventV2CorehrJobDataEmployedV1Resp ...
+type EventV2CorehrJobDataEmployedV1Resp struct {
+}
+
 // EventV2CorehrJobDataEmployedV1TargetUserID ...
 type EventV2CorehrJobDataEmployedV1TargetUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
+}
+
+// eventV2CorehrJobDataEmployedV1Resp ...
+type eventV2CorehrJobDataEmployedV1Resp struct {
+	Code  int64                               `json:"code,omitempty"`
+	Msg   string                              `json:"msg,omitempty"`
+	Data  *EventV2CorehrJobDataEmployedV1Resp `json:"data,omitempty"`
+	Error *ErrorDetail                        `json:"error,omitempty"`
 }

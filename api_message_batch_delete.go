@@ -69,7 +69,8 @@ type BatchDeleteMessageReq struct {
 }
 
 // BatchDeleteMessageResp ...
-type BatchDeleteMessageResp struct{}
+type BatchDeleteMessageResp struct {
+}
 
 // batchDeleteMessageResp ...
 type batchDeleteMessageResp struct {

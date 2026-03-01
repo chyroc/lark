@@ -27,7 +27,8 @@ import (
 // 如有需要, 创建时也可以直接将`disabled`设为true, 创建一个禁止发送订阅通知的订阅。
 // 添加订阅群时, 调用身份（用户或应用机器人）必须已是群成员。如果成功添加了订阅后, 调用身份丧失了清单的可编辑权限或者退出了群, 订阅依然会存在, 直到被删除。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist-activity_subscription/create
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist-activity_subscription/create
+// new doc: https://open.feishu.cn/document/task-v2/tasklist-activity_subscription/create
 func (r *TaskService) CreateTaskTasklistActivitySubscription(ctx context.Context, request *CreateTaskTasklistActivitySubscriptionReq, options ...MethodOptionFunc) (*CreateTaskTasklistActivitySubscriptionResp, *Response, error) {
 	if r.cli.mock.mockTaskCreateTaskTasklistActivitySubscription != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#CreateTaskTasklistActivitySubscription mock enable")
@@ -62,18 +63,18 @@ func (r *Mock) UnMockTaskCreateTaskTasklistActivitySubscription() {
 
 // CreateTaskTasklistActivitySubscriptionReq ...
 type CreateTaskTasklistActivitySubscriptionReq struct {
-	TasklistGuid string                                                 `path:"tasklist_guid" json:"-"` // 清单GUID, 示例值: "d19e3a2a-edc0-4e4e-b7cc-950e162b53ae"
-	UserIDType   *IDType                                                `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	Name         string                                                 `json:"name,omitempty"`         // 订阅名称, 不能为空, 最大50个字符, 示例值: "我的订阅"
-	Subscribers  []*CreateTaskTasklistActivitySubscriptionReqSubscriber `json:"subscribers,omitempty"`  // 订阅者列表, 最大长度: `50`
-	IncludeKeys  []int64                                                `json:"include_keys,omitempty"` // 订阅的event key列表。每个event key用一个数字表示。目前支持下列event key: 100: 任务添加入清单, 101: 任务从清单被移除, 103: 任务被完成, 104: 任务恢复为未完成, 109: 任务添加了负责人, 110: 任务更新了负责人, 111: 任务移除了负责人, 119: 任务添加了附件, 121: 任务中添加了新评论, 122: 任务中对评论进行回复, 129: 任务设置了新的开始时间, 130: 任务设置了新的截止时间, 131: 任务同时设置了新的开始/截止时间, 132: 任务同时移除了开始/截止时间, 该字段可以设置为空数组（即不对任何event进行通知）；输入的`include_keys`的元素不能重复, 示例值: [100]
-	Disabled     *bool                                                  `json:"disabled,omitempty"`     // 该订阅是否为停用, 示例值: false
+	TasklistGuid string                                                 `path:"tasklist_guid" json:"-"` // 清单GUID示例值: "d19e3a2a-edc0-4e4e-b7cc-950e162b53ae"
+	UserIDType   *IDType                                                `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	Name         string                                                 `json:"name,omitempty"`         // 订阅名称, 不能为空, 最大50个字符。示例值: "我的订阅"
+	Subscribers  []*CreateTaskTasklistActivitySubscriptionReqSubscriber `json:"subscribers,omitempty"`  // 订阅者列表 最大长度: `50`
+	IncludeKeys  []int64                                                `json:"include_keys,omitempty"` // 订阅的event key列表。每个event key用一个数字表示。目前支持下列event key: 100: 任务添加入清单- 101: 任务从清单被移除- 103: 任务被完成- 104: 任务恢复为未完成- 109: 任务添加了负责人- 110: 任务更新了负责人- 111: 任务移除了负责人- 119: 任务添加了附件- 121: 任务中添加了新评论- 122: 任务中对评论进行回复- 129: 任务设置了新的开始时间- 130: 任务设置了新的截止时间- 131: 任务同时设置了新的开始/截止时间- 132: 任务同时移除了开始/截止时间该字段可以设置为空数组（即不对任何event进行通知）；输入的`include_keys`的元素不能重复。示例值: [100]
+	Disabled     *bool                                                  `json:"disabled,omitempty"`     // 该订阅是否为停用示例值: false
 }
 
 // CreateTaskTasklistActivitySubscriptionReqSubscriber ...
 type CreateTaskTasklistActivitySubscriptionReqSubscriber struct {
-	ID   *string `json:"id,omitempty"`   // 表示member的id, 示例值: "oc_2cefb2f014f8d0c6c2d2eb7bafb0e54f", 最大长度: `100` 字符
-	Type *string `json:"type,omitempty"` // 成员的类型 （目前仅支持chat）, 示例值: "chat", 默认值: `user`
+	ID   *string `json:"id,omitempty"`   // 表示member的id示例值: "oc_2cefb2f014f8d0c6c2d2eb7bafb0e54f" 最大长度: `100` 字符
+	Type *string `json:"type,omitempty"` // 成员的类型 （目前仅支持chat）示例值: "chat"默认值: `user`
 }
 
 // CreateTaskTasklistActivitySubscriptionResp ...

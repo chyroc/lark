@@ -199,4 +199,17 @@ func (r *EventCallbackService) HandlerEventV2URLPreviewGet(f EventV2URLPreviewGe
 type EventV2URLPreviewGetHandler func(ctx context.Context, cli *Lark, schema string, header *EventHeaderV2, event *EventV2URLPreviewGet) (string, error)
 
 // EventV2URLPreviewGet ...
-type EventV2URLPreviewGet struct{}
+type EventV2URLPreviewGet struct {
+}
+
+// EventV2URLPreviewGetResp ...
+type EventV2URLPreviewGetResp struct {
+}
+
+// eventV2URLPreviewGetResp ...
+type eventV2URLPreviewGetResp struct {
+	Code  int64                     `json:"code,omitempty"`
+	Msg   string                    `json:"msg,omitempty"`
+	Data  *EventV2URLPreviewGetResp `json:"data,omitempty"`
+	Error *ErrorDetail              `json:"error,omitempty"`
+}

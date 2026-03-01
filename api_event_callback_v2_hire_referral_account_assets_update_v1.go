@@ -59,3 +59,15 @@ type EventV2HireReferralAccountAssetsUpdateV1AssetsConfirmedBonusCashBonu struct
 	CurrencyType string  `json:"currency_type,omitempty"` // 币种, 详情可查看: [枚举常量介绍](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/enum)中「币种（currency）枚举定义」
 	Amount       float64 `json:"amount,omitempty"`        // 数额, 保留到小数点后两位
 }
+
+// EventV2HireReferralAccountAssetsUpdateV1Resp ...
+type EventV2HireReferralAccountAssetsUpdateV1Resp struct {
+}
+
+// eventV2HireReferralAccountAssetsUpdateV1Resp ...
+type eventV2HireReferralAccountAssetsUpdateV1Resp struct {
+	Code  int64                                         `json:"code,omitempty"`
+	Msg   string                                        `json:"msg,omitempty"`
+	Data  *EventV2HireReferralAccountAssetsUpdateV1Resp `json:"data,omitempty"`
+	Error *ErrorDetail                                  `json:"error,omitempty"`
+}

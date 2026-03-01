@@ -73,6 +73,34 @@ type GetSheetProtectedDimensionResp struct {
 	ProtectedRanges []interface{} `json:"protectedRanges,omitempty"` // 保护范围的信息
 }
 
+// GetSheetProtectedDimensionRespProtectedRange ...
+type GetSheetProtectedDimensionRespProtectedRange struct {
+	ProtectID string                                                 `json:"protectId,omitempty"` // 保护范围的 ID
+	Dimension *GetSheetProtectedDimensionRespProtectedRangeDimension `json:"dimension,omitempty"` // 保护范围的维度信息。为空表示保护整个工作表。
+	SheetID   string                                                 `json:"sheetId,omitempty"`   // 工作表的 ID
+	LockInfo  string                                                 `json:"lockInfo,omitempty"`  // 保护范围的备注信息
+	Editors   *GetSheetProtectedDimensionRespProtectedRangeEditors   `json:"editors,omitempty"`   // 允许编辑保护范围的用户信息
+}
+
+// GetSheetProtectedDimensionRespProtectedRangeDimension ...
+type GetSheetProtectedDimensionRespProtectedRangeDimension struct {
+	SheetID        string `json:"sheetId,omitempty"`        // 工作表的 ID
+	StartIndex     int64  `json:"startIndex"`               // 开始的行或列的索引。从 1 开始计数。若 `startIndex` 为 3, 则从第 3 行或列开始保护。包含第 3 行或列。
+	EndIndex       int64  `json:"endIndex,omitempty"`       // 结束的行或列的索引。从 1 开始计数。若 `endIndex` 为 7, 则保护到第 7 行或列。包含第 7 行或列。
+	MajorDimension string `json:"majorDimension,omitempty"` // 保护范围的维度。可选值: ROWS: 行- COLUMNS: 列
+}
+
+// GetSheetProtectedDimensionRespProtectedRangeEditors ...
+type GetSheetProtectedDimensionRespProtectedRangeEditors struct {
+	Users []interface{} `json:"users,omitempty"` // 用户信息的列表
+}
+
+// GetSheetProtectedDimensionRespProtectedRangeEditorsUser ...
+type GetSheetProtectedDimensionRespProtectedRangeEditorsUser struct {
+	MemberType string `json:"memberType,omitempty"` // 用户 ID 的类型
+	MemberID   string `json:"memberId,omitempty"`   // 用户的 ID
+}
+
 // getSheetProtectedDimensionResp ...
 type getSheetProtectedDimensionResp struct {
 	Code  int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败

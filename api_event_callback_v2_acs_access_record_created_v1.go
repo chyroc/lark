@@ -42,9 +42,21 @@ type EventV2ACSAccessRecordCreatedV1 struct {
 	AccessTime     string                                 `json:"access_time,omitempty"`      // 识别时间 （单位: 秒）
 }
 
+// EventV2ACSAccessRecordCreatedV1Resp ...
+type EventV2ACSAccessRecordCreatedV1Resp struct {
+}
+
 // EventV2ACSAccessRecordCreatedV1UserID ...
 type EventV2ACSAccessRecordCreatedV1UserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
+}
+
+// eventV2ACSAccessRecordCreatedV1Resp ...
+type eventV2ACSAccessRecordCreatedV1Resp struct {
+	Code  int64                                `json:"code,omitempty"`
+	Msg   string                               `json:"msg,omitempty"`
+	Data  *EventV2ACSAccessRecordCreatedV1Resp `json:"data,omitempty"`
+	Error *ErrorDetail                         `json:"error,omitempty"`
 }

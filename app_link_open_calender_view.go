@@ -36,3 +36,15 @@ type OpenCalenderViewReq struct {
 	Type *string `json:"type,omitempty"` // 视图类型, 枚举值包括: `day`: 日视图  `three_day`: 三日视图, 仅移动端支持  `week`: 周视图, 仅PC端支持    `month`: 月视图  `meeting`: 会议室视图, 仅PC端支持   `list`: 列表视图, 仅移动端支持
 	Date *string `json:"date,omitempty"` // 日期, {unixTime}格式
 }
+
+// OpenCalenderViewResp ...
+type OpenCalenderViewResp struct {
+}
+
+// openCalenderViewResp ...
+type openCalenderViewResp struct {
+	Code  int64                 `json:"code,omitempty"`
+	Msg   string                `json:"msg,omitempty"`
+	Data  *OpenCalenderViewResp `json:"data,omitempty"`
+	Error *ErrorDetail          `json:"error,omitempty"`
+}

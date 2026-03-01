@@ -79,6 +79,4590 @@ type GetDocxBlockListOfBlockResp struct {
 	HasMore   bool         `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
+// GetDocxBlockListOfBlockRespItem ...
+type GetDocxBlockListOfBlockRespItem struct {
+	BlockID           string                                          `json:"block_id,omitempty"`            // 子块的唯一标识
+	ParentID          string                                          `json:"parent_id,omitempty"`           // 子块的父块 ID
+	Children          []*DocxBlock                                    `json:"children,omitempty"`            // 子块的子块 ID 列表
+	BlockType         int64                                           `json:"block_type,omitempty"`          // Block 类型可选值有: 页面 Block文本 Block标题 1 Block标题 2 Block标题 3 Block标题 4 Block标题 5 Block标题 6 Block标题 7 Block标题 8 Block标题 9 Block无序列表 Block有序列表 Block代码块 Block引用 Block待办事项 Block多维表格 Block高亮块 Block会话卡片 Block流程图 & UML Block分割线 Block。为空结构体, 需传入 `{}` 创建分割线 Block。文件 Block分栏 Block分栏列 Block内嵌网页 Block图片 Block开放平台小组件 Block思维笔记 Block电子表格 Block表格 Block。了解如何在文档中插入表格, 参考[文档常见问题-如何插入表格并往单元格填充内容](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/faq)。表格单元格 Block视图 Block引用容器 Block。为空结构体, 需传入 `{}` 创建引用容器 Block。任务 BlockOKR BlockOKR Objective BlockOKR Key Result BlockOKR 进展 Block文档小组件 BlockJira 问题 BlockWiki 子目录 Block画板 Block议程 Block议程项 Block议程项标题 Block议程项内容 Block链接预览 Block源同步块, 仅支持查询引用同步块, 仅支持查询。获取引用同步块内容详见: [如何获取引用同步块的内容](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/faq#19b71234)Wiki 新版子目录AI 模板 Block, 仅支持查询未支持 Block
+	Page              *GetDocxBlockListOfBlockRespItemPage            `json:"page,omitempty"`                // 文档的根 Block, 也称页面 Block
+	Text              *GetDocxBlockListOfBlockRespItemText            `json:"text,omitempty"`                // 文本 Block
+	Heading1          *GetDocxBlockListOfBlockRespItemHeading1        `json:"heading1,omitempty"`            // 一级标题 Block
+	Heading2          *GetDocxBlockListOfBlockRespItemHeading2        `json:"heading2,omitempty"`            // 二级标题 Block
+	Heading3          *GetDocxBlockListOfBlockRespItemHeading3        `json:"heading3,omitempty"`            // 三级标题 Block
+	Heading4          *GetDocxBlockListOfBlockRespItemHeading4        `json:"heading4,omitempty"`            // 四级标题 Block
+	Heading5          *GetDocxBlockListOfBlockRespItemHeading5        `json:"heading5,omitempty"`            // 五级标题 Block
+	Heading6          *GetDocxBlockListOfBlockRespItemHeading6        `json:"heading6,omitempty"`            // 六级标题 Block
+	Heading7          *GetDocxBlockListOfBlockRespItemHeading7        `json:"heading7,omitempty"`            // 七级标题 Block
+	Heading8          *GetDocxBlockListOfBlockRespItemHeading8        `json:"heading8,omitempty"`            // 八级标题 Block
+	Heading9          *GetDocxBlockListOfBlockRespItemHeading9        `json:"heading9,omitempty"`            // 九级标题 Block
+	Bullet            *GetDocxBlockListOfBlockRespItemBullet          `json:"bullet,omitempty"`              // 无序列表 Block
+	Ordered           *GetDocxBlockListOfBlockRespItemOrdered         `json:"ordered,omitempty"`             // 有序列表 Block
+	Code              *GetDocxBlockListOfBlockRespItemCode            `json:"code,omitempty"`                // 代码块 Block
+	Quote             *GetDocxBlockListOfBlockRespItemQuote           `json:"quote,omitempty"`               // 引用 Block
+	Equation          *GetDocxBlockListOfBlockRespItemEquation        `json:"equation,omitempty"`            // 公式 Block
+	Todo              *GetDocxBlockListOfBlockRespItemTodo            `json:"todo,omitempty"`                // 待办事项 Block
+	Bitable           *GetDocxBlockListOfBlockRespItemBitable         `json:"bitable,omitempty"`             // 多维表格 Block
+	Callout           *GetDocxBlockListOfBlockRespItemCallout         `json:"callout,omitempty"`             // 高亮块 Block
+	ChatCard          *GetDocxBlockListOfBlockRespItemChatCard        `json:"chat_card,omitempty"`           // 群聊卡片 Block
+	Diagram           *GetDocxBlockListOfBlockRespItemDiagram         `json:"diagram,omitempty"`             // 流程图/UML Block
+	Divider           interface{}                                     `json:"divider,omitempty"`             // 分割线 Block。为空结构体, 需传入 `{}` 创建分割线 Block。
+	File              *GetDocxBlockListOfBlockRespItemFile            `json:"file,omitempty"`                // 文件 Block。了解如何在文档中插入文件, 参考[文档常见问题-如何插入文件/附件](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/faq)。
+	Grid              *GetDocxBlockListOfBlockRespItemGrid            `json:"grid,omitempty"`                // 分栏 Block
+	GridColumn        *GetDocxBlockListOfBlockRespItemGridColumn      `json:"grid_column,omitempty"`         // 分栏列 Block
+	Iframe            *GetDocxBlockListOfBlockRespItemIframe          `json:"iframe,omitempty"`              // 内嵌 Block
+	Image             *GetDocxBlockListOfBlockRespItemImage           `json:"image,omitempty"`               // 图片 Block。了解如何在文档中插入图片, 参考[文档常见问题-如何插入图片](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/faq)。
+	Isv               *GetDocxBlockListOfBlockRespItemIsv             `json:"isv,omitempty"`                 // 三方 Block
+	AddOns            *GetDocxBlockListOfBlockRespItemAddOns          `json:"add_ons,omitempty"`             // Add-ons
+	Mindnote          *GetDocxBlockListOfBlockRespItemMindnote        `json:"mindnote,omitempty"`            // 思维笔记 Block
+	Sheet             *GetDocxBlockListOfBlockRespItemSheet           `json:"sheet,omitempty"`               // 电子表格 Block
+	Table             *GetDocxBlockListOfBlockRespItemTable           `json:"table,omitempty"`               // 表格 Block
+	TableCell         interface{}                                     `json:"table_cell,omitempty"`          // 单元格 Block
+	View              *GetDocxBlockListOfBlockRespItemView            `json:"view,omitempty"`                // 视图 Block
+	Undefined         interface{}                                     `json:"undefined,omitempty"`           // 未支持 Block
+	QuoteContainer    interface{}                                     `json:"quote_container,omitempty"`     // 引用容器 Block。为空结构体, 需传入 `{}` 创建引用容器 Block。
+	Task              *GetDocxBlockListOfBlockRespItemTask            `json:"task,omitempty"`                // 任务 Block
+	OKR               *GetDocxBlockListOfBlockRespItemOKR             `json:"okr,omitempty"`                 // OKR Block, 仅可在使用 `user_access_token` 时创建
+	OKRObjective      *GetDocxBlockListOfBlockRespItemOKRObjective    `json:"okr_objective,omitempty"`       // OKR Objective Block
+	OKRKeyResult      *GetDocxBlockListOfBlockRespItemOKRKeyResult    `json:"okr_key_result,omitempty"`      // OKR Key Result
+	OKRProgress       interface{}                                     `json:"okr_progress,omitempty"`        // OKR 进展信息
+	CommentIDs        []string                                        `json:"comment_ids,omitempty"`         // 评论 id 列表
+	JiraIssue         *GetDocxBlockListOfBlockRespItemJiraIssue       `json:"jira_issue,omitempty"`          // Jira 问题
+	WikiCatalog       *GetDocxBlockListOfBlockRespItemWikiCatalog     `json:"wiki_catalog,omitempty"`        // Wiki 子目录 Block
+	Board             *GetDocxBlockListOfBlockRespItemBoard           `json:"board,omitempty"`               // 画板 Block
+	Agenda            interface{}                                     `json:"agenda,omitempty"`              // 议程 Block
+	AgendaItem        interface{}                                     `json:"agenda_item,omitempty"`         // 议程项 Block
+	AgendaItemTitle   *GetDocxBlockListOfBlockRespItemAgendaItemTitle `json:"agenda_item_title,omitempty"`   // 议程项标题 Block
+	AgendaItemContent interface{}                                     `json:"agenda_item_content,omitempty"` // 议程项内容 Block
+	LinkPreview       *GetDocxBlockListOfBlockRespItemLinkPreview     `json:"link_preview,omitempty"`        // 链接预览 Block
+	SourceSynced      *GetDocxBlockListOfBlockRespItemSourceSynced    `json:"source_synced,omitempty"`       // 源同步块, 仅支持查询
+	ReferenceSynced   *GetDocxBlockListOfBlockRespItemReferenceSynced `json:"reference_synced,omitempty"`    // 引用同步块, 仅支持查询。获取引用同步块内容详见: [如何获取引用同步块的内容](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/document-docx/docx-v1/faq#19b71234)
+	SubPageList       *GetDocxBlockListOfBlockRespItemSubPageList     `json:"sub_page_list,omitempty"`       // Wiki 新版子目录
+	AITemplate        interface{}                                     `json:"ai_template,omitempty"`         // AI 模板 Block, 仅支持查询
+}
+
+// GetDocxBlockListOfBlockRespItemAddOns ...
+type GetDocxBlockListOfBlockRespItemAddOns struct {
+	ComponentID     string `json:"component_id,omitempty"`      // 文档小组件 ID。该 ID 可通过调用[创建 BlockEntity](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/block-v2/entity/create) 接口, 并从响应体中的 block_id 中获取, 创建时使用的 `block_type_id` 需要与 `component_type_id` 一致。
+	ComponentTypeID string `json:"component_type_id,omitempty"` // 文档小组件类型, 比如问答互动"blk_636a0a6657db8001c8df5488"。该 ID 可在 [开发者后台](https://open.feishu.cn/app) > 应用详情页 > 应用能力 > 云文档小组件 > BlockTypeID 获取。
+	Record          string `json:"record,omitempty"`            // 文档小组件内容数据, JSON 字符串
+}
+
+// GetDocxBlockListOfBlockRespItemAgendaItemTitle ...
+type GetDocxBlockListOfBlockRespItemAgendaItemTitle struct {
+	Elements []*GetDocxBlockListOfBlockRespItemAgendaItemTitleElement `json:"elements,omitempty"` // 文本元素
+	Align    int64                                                    `json:"align,omitempty"`    // 对齐方式可选值有: 居左排版居中排版居右排版
+}
+
+// GetDocxBlockListOfBlockRespItemAgendaItemTitleElement ...
+type GetDocxBlockListOfBlockRespItemAgendaItemTitleElement struct {
+	TextRun     *GetDocxBlockListOfBlockRespItemAgendaItemTitleElementTextRun     `json:"text_run,omitempty"`     // 文字
+	MentionUser *Mention                                                          `json:"mention_user,omitempty"` // @用户
+	MentionDoc  *Mention                                                          `json:"mention_doc,omitempty"`  // @文档
+	Reminder    *GetDocxBlockListOfBlockRespItemAgendaItemTitleElementReminder    `json:"reminder,omitempty"`     // 日期提醒
+	File        *GetDocxBlockListOfBlockRespItemAgendaItemTitleElementFile        `json:"file,omitempty"`         // 内联附件
+	Undefined   interface{}                                                       `json:"undefined,omitempty"`    // 未支持的 TextElement
+	InlineBlock *GetDocxBlockListOfBlockRespItemAgendaItemTitleElementInlineBlock `json:"inline_block,omitempty"` // 内联 block
+	Equation    *GetDocxBlockListOfBlockRespItemAgendaItemTitleElementEquation    `json:"equation,omitempty"`     // 公式
+}
+
+// GetDocxBlockListOfBlockRespItemAgendaItemTitleElementEquation ...
+type GetDocxBlockListOfBlockRespItemAgendaItemTitleElementEquation struct {
+	Content          string                                                                         `json:"content,omitempty"`            // 符合 KaTeX 语法的公式内容, 语法规则请参考: https://katex.org/docs/supported.html
+	TextElementStyle *GetDocxBlockListOfBlockRespItemAgendaItemTitleElementEquationTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemAgendaItemTitleElementEquationTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemAgendaItemTitleElementEquationTextElementStyle struct {
+	Bold            bool                                                                               `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                               `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                               `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                               `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                               `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                              `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                              `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemAgendaItemTitleElementEquationTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                           `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemAgendaItemTitleElementEquationTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemAgendaItemTitleElementEquationTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemAgendaItemTitleElementFile ...
+type GetDocxBlockListOfBlockRespItemAgendaItemTitleElementFile struct {
+	FileToken        string                                                                     `json:"file_token,omitempty"`         // 附件 token
+	SourceBlockID    string                                                                     `json:"source_block_id,omitempty"`    // 当前文档中该文件所处的 block 的 ID
+	TextElementStyle *GetDocxBlockListOfBlockRespItemAgendaItemTitleElementFileTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemAgendaItemTitleElementFileTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemAgendaItemTitleElementFileTextElementStyle struct {
+	Bold            bool                                                                           `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                           `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                           `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                           `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                           `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                          `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                          `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemAgendaItemTitleElementFileTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                       `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemAgendaItemTitleElementFileTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemAgendaItemTitleElementFileTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemAgendaItemTitleElementInlineBlock ...
+type GetDocxBlockListOfBlockRespItemAgendaItemTitleElementInlineBlock struct {
+	BlockID          string                                                                            `json:"block_id,omitempty"`           // 关联的内联状态的 block 的 block_id
+	TextElementStyle *GetDocxBlockListOfBlockRespItemAgendaItemTitleElementInlineBlockTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemAgendaItemTitleElementInlineBlockTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemAgendaItemTitleElementInlineBlockTextElementStyle struct {
+	Bold            bool                                                                                  `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                                  `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                                  `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                                  `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                                  `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                                 `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                                 `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemAgendaItemTitleElementInlineBlockTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                              `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemAgendaItemTitleElementInlineBlockTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemAgendaItemTitleElementInlineBlockTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemAgendaItemTitleElementMentionDoc ...
+type GetDocxBlockListOfBlockRespItemAgendaItemTitleElementMentionDoc struct {
+	Token            string                                                                           `json:"token,omitempty"`              // 云文档 token。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+	ObjType          int64                                                                            `json:"obj_type,omitempty"`           // 云文档类型可选值有: DocSheetBitableMindNoteFileSlideWikiDocx
+	URL              string                                                                           `json:"url,omitempty"`                // 云文档链接（需要 url_encode)
+	Title            string                                                                           `json:"title,omitempty"`              // 文档标题, 只读属性
+	TextElementStyle *GetDocxBlockListOfBlockRespItemAgendaItemTitleElementMentionDocTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemAgendaItemTitleElementMentionDocTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemAgendaItemTitleElementMentionDocTextElementStyle struct {
+	Bold            bool                                                                                 `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                                 `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                                 `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                                 `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                                 `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                                `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                                `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemAgendaItemTitleElementMentionDocTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                             `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemAgendaItemTitleElementMentionDocTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemAgendaItemTitleElementMentionDocTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemAgendaItemTitleElementMentionUser ...
+type GetDocxBlockListOfBlockRespItemAgendaItemTitleElementMentionUser struct {
+	UserID           string                                                                            `json:"user_id,omitempty"`            // 用户 OpenID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemAgendaItemTitleElementMentionUserTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemAgendaItemTitleElementMentionUserTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemAgendaItemTitleElementMentionUserTextElementStyle struct {
+	Bold            bool                                                                                  `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                                  `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                                  `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                                  `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                                  `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                                 `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                                 `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemAgendaItemTitleElementMentionUserTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                              `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemAgendaItemTitleElementMentionUserTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemAgendaItemTitleElementMentionUserTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemAgendaItemTitleElementReminder ...
+type GetDocxBlockListOfBlockRespItemAgendaItemTitleElementReminder struct {
+	CreateUserID     string                                                                         `json:"create_user_id,omitempty"`     // 创建者用户 ID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	IsNotify         bool                                                                           `json:"is_notify,omitempty"`          // 是否通知
+	IsWholeDay       bool                                                                           `json:"is_whole_day,omitempty"`       // 是日期还是整点小时
+	ExpireTime       string                                                                         `json:"expire_time,omitempty"`        // 事件发生的时间（毫秒级时间戳）
+	NotifyTime       string                                                                         `json:"notify_time,omitempty"`        // 触发通知的时间（毫秒级时间戳）
+	TextElementStyle *GetDocxBlockListOfBlockRespItemAgendaItemTitleElementReminderTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemAgendaItemTitleElementReminderTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemAgendaItemTitleElementReminderTextElementStyle struct {
+	Bold            bool                                                                               `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                               `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                               `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                               `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                               `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                              `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                              `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemAgendaItemTitleElementReminderTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                           `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemAgendaItemTitleElementReminderTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemAgendaItemTitleElementReminderTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemAgendaItemTitleElementTextRun ...
+type GetDocxBlockListOfBlockRespItemAgendaItemTitleElementTextRun struct {
+	Content          string                                                                        `json:"content,omitempty"`            // 文本内容。要实现文本内容的换行, 你可以: 在传入的文本内容中添加 `\n` 实现软换行（Soft Break, 与在文档中通过操作 `Shift + Enter` 的效果一致）- 创建一个新的文本 Block, 实现两个文本 Block 之间的硬换行（Hard Break, 与在文档中通过操作 `Enter` 的效果一致）注意: 软换行在渲染时可能会被忽略, 具体取决于渲染器如何处理；硬换行在渲染时始终会显示为一个新行。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemAgendaItemTitleElementTextRunTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemAgendaItemTitleElementTextRunTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemAgendaItemTitleElementTextRunTextElementStyle struct {
+	Bold            bool                                                                              `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                              `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                              `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                              `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                              `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                             `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                             `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemAgendaItemTitleElementTextRunTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                          `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemAgendaItemTitleElementTextRunTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemAgendaItemTitleElementTextRunTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemBitable ...
+type GetDocxBlockListOfBlockRespItemBitable struct {
+	Token string `json:"token,omitempty"` // 多维表格文档 Token
+}
+
+// GetDocxBlockListOfBlockRespItemBoard ...
+type GetDocxBlockListOfBlockRespItemBoard struct {
+	Token  string `json:"token,omitempty"`  // 画板 token
+	Align  int64  `json:"align,omitempty"`  // 对齐方式可选值有: 居左排版居中排版居右排版
+	Width  int64  `json:"width,omitempty"`  // 宽度, 单位 px；不填时自动适应文档宽度；值超出文档最大宽度时, 页面渲染为文档最大宽度
+	Height int64  `json:"height,omitempty"` // 高度, 单位 px；不填时自动根据画板内容计算；值超出屏幕两倍高度时, 页面渲染为屏幕两倍高度
+}
+
+// GetDocxBlockListOfBlockRespItemBullet ...
+type GetDocxBlockListOfBlockRespItemBullet struct {
+	Style    *GetDocxBlockListOfBlockRespItemBulletStyle     `json:"style,omitempty"`    // 文本样式
+	Elements []*GetDocxBlockListOfBlockRespItemBulletElement `json:"elements,omitempty"` // 文本元素
+}
+
+// GetDocxBlockListOfBlockRespItemBulletElement ...
+type GetDocxBlockListOfBlockRespItemBulletElement struct {
+	TextRun     *GetDocxBlockListOfBlockRespItemBulletElementTextRun     `json:"text_run,omitempty"`     // 文字。支持对 Page、Text、Heading1~9、Bullet、Ordered、Code、Quote、Todo 块进行修改
+	MentionUser *Mention                                                 `json:"mention_user,omitempty"` // @用户。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改。
+	MentionDoc  *Mention                                                 `json:"mention_doc,omitempty"`  // @文档。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
+	Reminder    *GetDocxBlockListOfBlockRespItemBulletElementReminder    `json:"reminder,omitempty"`     // 日期提醒。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
+	File        *GetDocxBlockListOfBlockRespItemBulletElementFile        `json:"file,omitempty"`         // 内联文件。仅支持删除或移动位置, 不支持创建新的内联文件
+	Undefined   interface{}                                              `json:"undefined,omitempty"`    // 未支持的 TextElement
+	InlineBlock *GetDocxBlockListOfBlockRespItemBulletElementInlineBlock `json:"inline_block,omitempty"` // 内联块。仅支持删除或移动位置, 不支持创建新的内联块
+	Equation    *GetDocxBlockListOfBlockRespItemBulletElementEquation    `json:"equation,omitempty"`     // 公式
+}
+
+// GetDocxBlockListOfBlockRespItemBulletElementEquation ...
+type GetDocxBlockListOfBlockRespItemBulletElementEquation struct {
+	Content          string                                                                `json:"content,omitempty"`            // 符合 KaTeX 语法的公式内容, 语法规则请参考: https://katex.org/docs/supported.html
+	TextElementStyle *GetDocxBlockListOfBlockRespItemBulletElementEquationTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemBulletElementEquationTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemBulletElementEquationTextElementStyle struct {
+	Bold            bool                                                                      `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                      `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                      `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                      `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                      `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                     `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                     `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemBulletElementEquationTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                  `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemBulletElementEquationTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemBulletElementEquationTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemBulletElementFile ...
+type GetDocxBlockListOfBlockRespItemBulletElementFile struct {
+	FileToken        string                                                            `json:"file_token,omitempty"`         // 附件 token
+	SourceBlockID    string                                                            `json:"source_block_id,omitempty"`    // 当前文档中该文件所处的 block 的 ID
+	TextElementStyle *GetDocxBlockListOfBlockRespItemBulletElementFileTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemBulletElementFileTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemBulletElementFileTextElementStyle struct {
+	Bold            bool                                                                  `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                  `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                  `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                  `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                  `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                 `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                 `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemBulletElementFileTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                              `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemBulletElementFileTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemBulletElementFileTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemBulletElementInlineBlock ...
+type GetDocxBlockListOfBlockRespItemBulletElementInlineBlock struct {
+	BlockID          string                                                                   `json:"block_id,omitempty"`           // 关联的内联状态的 block 的 block_id
+	TextElementStyle *GetDocxBlockListOfBlockRespItemBulletElementInlineBlockTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemBulletElementInlineBlockTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemBulletElementInlineBlockTextElementStyle struct {
+	Bold            bool                                                                         `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                         `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                         `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                         `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                         `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                        `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                        `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemBulletElementInlineBlockTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                     `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemBulletElementInlineBlockTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemBulletElementInlineBlockTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemBulletElementMentionDoc ...
+type GetDocxBlockListOfBlockRespItemBulletElementMentionDoc struct {
+	Token            string                                                                  `json:"token,omitempty"`              // 云文档 token。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+	ObjType          int64                                                                   `json:"obj_type,omitempty"`           // 云文档类型可选值有: DocSheetBitableMindNoteFileSlideWikiDocx
+	URL              string                                                                  `json:"url,omitempty"`                // 云文档链接（需要 url_encode)
+	Title            string                                                                  `json:"title,omitempty"`              // 文档标题, 只读属性
+	TextElementStyle *GetDocxBlockListOfBlockRespItemBulletElementMentionDocTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemBulletElementMentionDocTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemBulletElementMentionDocTextElementStyle struct {
+	Bold            bool                                                                        `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                        `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                        `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                        `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                        `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                       `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                       `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemBulletElementMentionDocTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                    `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemBulletElementMentionDocTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemBulletElementMentionDocTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemBulletElementMentionUser ...
+type GetDocxBlockListOfBlockRespItemBulletElementMentionUser struct {
+	UserID           string                                                                   `json:"user_id,omitempty"`            // 用户 OpenID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemBulletElementMentionUserTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemBulletElementMentionUserTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemBulletElementMentionUserTextElementStyle struct {
+	Bold            bool                                                                         `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                         `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                         `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                         `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                         `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                        `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                        `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemBulletElementMentionUserTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                     `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemBulletElementMentionUserTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemBulletElementMentionUserTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemBulletElementReminder ...
+type GetDocxBlockListOfBlockRespItemBulletElementReminder struct {
+	CreateUserID     string                                                                `json:"create_user_id,omitempty"`     // 创建者用户 ID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	IsNotify         bool                                                                  `json:"is_notify,omitempty"`          // 是否通知
+	IsWholeDay       bool                                                                  `json:"is_whole_day,omitempty"`       // 是日期还是整点小时
+	ExpireTime       string                                                                `json:"expire_time,omitempty"`        // 事件发生的时间（毫秒级时间戳）
+	NotifyTime       string                                                                `json:"notify_time,omitempty"`        // 触发通知的时间（毫秒级时间戳）
+	TextElementStyle *GetDocxBlockListOfBlockRespItemBulletElementReminderTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemBulletElementReminderTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemBulletElementReminderTextElementStyle struct {
+	Bold            bool                                                                      `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                      `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                      `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                      `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                      `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                     `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                     `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemBulletElementReminderTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                  `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemBulletElementReminderTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemBulletElementReminderTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemBulletElementTextRun ...
+type GetDocxBlockListOfBlockRespItemBulletElementTextRun struct {
+	Content          string                                                               `json:"content,omitempty"`            // 文本内容。要实现文本内容的换行, 你可以: 在传入的文本内容中添加 `\n` 实现软换行（Soft Break, 与在文档中通过操作 `Shift + Enter` 的效果一致）- 创建一个新的文本 Block, 实现两个文本 Block 之间的硬换行（Hard Break, 与在文档中通过操作 `Enter` 的效果一致）注意: 软换行在渲染时可能会被忽略, 具体取决于渲染器如何处理；硬换行在渲染时始终会显示为一个新行。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemBulletElementTextRunTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemBulletElementTextRunTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemBulletElementTextRunTextElementStyle struct {
+	Bold            bool                                                                     `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                     `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                     `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                     `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                     `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                    `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                    `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemBulletElementTextRunTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                 `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemBulletElementTextRunTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemBulletElementTextRunTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemBulletStyle ...
+type GetDocxBlockListOfBlockRespItemBulletStyle struct {
+	Align            int64  `json:"align,omitempty"`             // 对齐方式可选值有: 居左排版居中排版居右排版
+	Done             bool   `json:"done,omitempty"`              // todo 的完成状态。支持对 Todo 块进行修改
+	Folded           bool   `json:"folded,omitempty"`            // 文本的折叠状态。支持对 Heading1~9、和有子块的 Text、Ordered、Bullet 和 Todo 块进行修改
+	Language         int64  `json:"language,omitempty"`          // 代码块的语言类型。仅支持对 Code 块进行修改可选值有: PlainTextABAPAdaApacheApexAssembly LanguageBashCSharpC++CCOBOLCSSCoffeeScriptDDartDelphiDjangoDockerfileErlangFortranFoxProGoGroovyHTMLHTMLBarsHTTPHaskellJSONJavaJavaScriptJuliaKotlinLateXLispLogoLuaMATLABMakefileMarkdownNginxObjective-COpenEdgeABLPHPPerlPostScriptPower ShellPrologProtoBufPythonRRPGRubyRustSASSCSSSQLScalaSchemeScratchShellSwiftThriftTypeScriptVBScriptVisual BasicXMLYAMLCMakeDiffGherkinGraphQLOpenGL Shading LanguagePropertiesSolidityTOML
+	Wrap             bool   `json:"wrap,omitempty"`              // 代码块是否自动换行。支持对 Code 块进行修改
+	BackgroundColor  string `json:"background_color,omitempty"`  // 块的背景色可选值有: 浅灰色浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色灰色中红色中橙色中黄色中绿色中蓝色中紫色
+	IndentationLevel string `json:"indentation_level,omitempty"` // 首行缩进级别。仅支持对 Text 块进行修改。可选值有: 无缩进一级缩进
+	Sequence         string `json:"sequence,omitempty"`          // 用于确定有序列表项编号, 为具体数值或'auto'- 开始新列表时, 有序列表编号从 1 开始, sequence='1'- 手动修改为非连续编号时, 有序列表编号为设定的具体数值, 如 sequence='3'- 继续编号时, 有序列表编号自动连续, sequence='auto'- 部分历史数据和通过 OpenAPI 创建的有序列表不返回此字段
+}
+
+// GetDocxBlockListOfBlockRespItemCallout ...
+type GetDocxBlockListOfBlockRespItemCallout struct {
+	BackgroundColor int64  `json:"background_color,omitempty"` // 高亮块背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色中红色中橙色中黄色中绿色中蓝色中紫色灰色浅灰色
+	BorderColor     int64  `json:"border_color,omitempty"`     // 边框色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	TextColor       int64  `json:"text_color,omitempty"`       // 文字颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	EmojiID         string `json:"emoji_id,omitempty"`         // 高亮块图标
+}
+
+// GetDocxBlockListOfBlockRespItemChatCard ...
+type GetDocxBlockListOfBlockRespItemChatCard struct {
+	ChatID string `json:"chat_id,omitempty"` // 群聊天会话 ID。获取方式参考[群 ID 说明](ssl:ttdoc//uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)
+	Align  int64  `json:"align,omitempty"`   // 对齐方式可选值有: 居左排版居中排版居右排版
+}
+
+// GetDocxBlockListOfBlockRespItemCode ...
+type GetDocxBlockListOfBlockRespItemCode struct {
+	Style    *GetDocxBlockListOfBlockRespItemCodeStyle     `json:"style,omitempty"`    // 文本样式
+	Elements []*GetDocxBlockListOfBlockRespItemCodeElement `json:"elements,omitempty"` // 文本元素
+}
+
+// GetDocxBlockListOfBlockRespItemCodeElement ...
+type GetDocxBlockListOfBlockRespItemCodeElement struct {
+	TextRun     *GetDocxBlockListOfBlockRespItemCodeElementTextRun     `json:"text_run,omitempty"`     // 文字。支持对 Page、Text、Heading1~9、Bullet、Ordered、Code、Quote、Todo 块进行修改
+	MentionUser *Mention                                               `json:"mention_user,omitempty"` // @用户。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改。
+	MentionDoc  *Mention                                               `json:"mention_doc,omitempty"`  // @文档。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
+	Reminder    *GetDocxBlockListOfBlockRespItemCodeElementReminder    `json:"reminder,omitempty"`     // 日期提醒。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
+	File        *GetDocxBlockListOfBlockRespItemCodeElementFile        `json:"file,omitempty"`         // 内联文件。仅支持删除或移动位置, 不支持创建新的内联文件
+	Undefined   interface{}                                            `json:"undefined,omitempty"`    // 未支持的 TextElement
+	InlineBlock *GetDocxBlockListOfBlockRespItemCodeElementInlineBlock `json:"inline_block,omitempty"` // 内联块。仅支持删除或移动位置, 不支持创建新的内联块
+	Equation    *GetDocxBlockListOfBlockRespItemCodeElementEquation    `json:"equation,omitempty"`     // 公式
+}
+
+// GetDocxBlockListOfBlockRespItemCodeElementEquation ...
+type GetDocxBlockListOfBlockRespItemCodeElementEquation struct {
+	Content          string                                                              `json:"content,omitempty"`            // 符合 KaTeX 语法的公式内容, 语法规则请参考: https://katex.org/docs/supported.html
+	TextElementStyle *GetDocxBlockListOfBlockRespItemCodeElementEquationTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemCodeElementEquationTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemCodeElementEquationTextElementStyle struct {
+	Bold            bool                                                                    `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                    `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                    `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                    `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                    `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                   `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                   `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemCodeElementEquationTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemCodeElementEquationTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemCodeElementEquationTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemCodeElementFile ...
+type GetDocxBlockListOfBlockRespItemCodeElementFile struct {
+	FileToken        string                                                          `json:"file_token,omitempty"`         // 附件 token
+	SourceBlockID    string                                                          `json:"source_block_id,omitempty"`    // 当前文档中该文件所处的 block 的 ID
+	TextElementStyle *GetDocxBlockListOfBlockRespItemCodeElementFileTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemCodeElementFileTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemCodeElementFileTextElementStyle struct {
+	Bold            bool                                                                `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                               `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                               `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemCodeElementFileTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                            `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemCodeElementFileTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemCodeElementFileTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemCodeElementInlineBlock ...
+type GetDocxBlockListOfBlockRespItemCodeElementInlineBlock struct {
+	BlockID          string                                                                 `json:"block_id,omitempty"`           // 关联的内联状态的 block 的 block_id
+	TextElementStyle *GetDocxBlockListOfBlockRespItemCodeElementInlineBlockTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemCodeElementInlineBlockTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemCodeElementInlineBlockTextElementStyle struct {
+	Bold            bool                                                                       `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                       `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                       `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                       `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                       `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                      `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                      `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemCodeElementInlineBlockTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                   `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemCodeElementInlineBlockTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemCodeElementInlineBlockTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemCodeElementMentionDoc ...
+type GetDocxBlockListOfBlockRespItemCodeElementMentionDoc struct {
+	Token            string                                                                `json:"token,omitempty"`              // 云文档 token。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+	ObjType          int64                                                                 `json:"obj_type,omitempty"`           // 云文档类型可选值有: DocSheetBitableMindNoteFileSlideWikiDocx
+	URL              string                                                                `json:"url,omitempty"`                // 云文档链接（需要 url_encode)
+	Title            string                                                                `json:"title,omitempty"`              // 文档标题, 只读属性
+	TextElementStyle *GetDocxBlockListOfBlockRespItemCodeElementMentionDocTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemCodeElementMentionDocTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemCodeElementMentionDocTextElementStyle struct {
+	Bold            bool                                                                      `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                      `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                      `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                      `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                      `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                     `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                     `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemCodeElementMentionDocTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                  `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemCodeElementMentionDocTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemCodeElementMentionDocTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemCodeElementMentionUser ...
+type GetDocxBlockListOfBlockRespItemCodeElementMentionUser struct {
+	UserID           string                                                                 `json:"user_id,omitempty"`            // 用户 OpenID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemCodeElementMentionUserTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemCodeElementMentionUserTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemCodeElementMentionUserTextElementStyle struct {
+	Bold            bool                                                                       `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                       `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                       `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                       `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                       `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                      `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                      `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemCodeElementMentionUserTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                   `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemCodeElementMentionUserTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemCodeElementMentionUserTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemCodeElementReminder ...
+type GetDocxBlockListOfBlockRespItemCodeElementReminder struct {
+	CreateUserID     string                                                              `json:"create_user_id,omitempty"`     // 创建者用户 ID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	IsNotify         bool                                                                `json:"is_notify,omitempty"`          // 是否通知
+	IsWholeDay       bool                                                                `json:"is_whole_day,omitempty"`       // 是日期还是整点小时
+	ExpireTime       string                                                              `json:"expire_time,omitempty"`        // 事件发生的时间（毫秒级时间戳）
+	NotifyTime       string                                                              `json:"notify_time,omitempty"`        // 触发通知的时间（毫秒级时间戳）
+	TextElementStyle *GetDocxBlockListOfBlockRespItemCodeElementReminderTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemCodeElementReminderTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemCodeElementReminderTextElementStyle struct {
+	Bold            bool                                                                    `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                    `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                    `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                    `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                    `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                   `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                   `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemCodeElementReminderTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemCodeElementReminderTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemCodeElementReminderTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemCodeElementTextRun ...
+type GetDocxBlockListOfBlockRespItemCodeElementTextRun struct {
+	Content          string                                                             `json:"content,omitempty"`            // 文本内容。要实现文本内容的换行, 你可以: 在传入的文本内容中添加 `\n` 实现软换行（Soft Break, 与在文档中通过操作 `Shift + Enter` 的效果一致）- 创建一个新的文本 Block, 实现两个文本 Block 之间的硬换行（Hard Break, 与在文档中通过操作 `Enter` 的效果一致）注意: 软换行在渲染时可能会被忽略, 具体取决于渲染器如何处理；硬换行在渲染时始终会显示为一个新行。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemCodeElementTextRunTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemCodeElementTextRunTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemCodeElementTextRunTextElementStyle struct {
+	Bold            bool                                                                   `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                   `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                   `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                   `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                   `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                  `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                  `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemCodeElementTextRunTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                               `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemCodeElementTextRunTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemCodeElementTextRunTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemCodeStyle ...
+type GetDocxBlockListOfBlockRespItemCodeStyle struct {
+	Align            int64  `json:"align,omitempty"`             // 对齐方式可选值有: 居左排版居中排版居右排版
+	Done             bool   `json:"done,omitempty"`              // todo 的完成状态。支持对 Todo 块进行修改
+	Folded           bool   `json:"folded,omitempty"`            // 文本的折叠状态。支持对 Heading1~9、和有子块的 Text、Ordered、Bullet 和 Todo 块进行修改
+	Language         int64  `json:"language,omitempty"`          // 代码块的语言类型。仅支持对 Code 块进行修改可选值有: PlainTextABAPAdaApacheApexAssembly LanguageBashCSharpC++CCOBOLCSSCoffeeScriptDDartDelphiDjangoDockerfileErlangFortranFoxProGoGroovyHTMLHTMLBarsHTTPHaskellJSONJavaJavaScriptJuliaKotlinLateXLispLogoLuaMATLABMakefileMarkdownNginxObjective-COpenEdgeABLPHPPerlPostScriptPower ShellPrologProtoBufPythonRRPGRubyRustSASSCSSSQLScalaSchemeScratchShellSwiftThriftTypeScriptVBScriptVisual BasicXMLYAMLCMakeDiffGherkinGraphQLOpenGL Shading LanguagePropertiesSolidityTOML
+	Wrap             bool   `json:"wrap,omitempty"`              // 代码块是否自动换行。支持对 Code 块进行修改
+	BackgroundColor  string `json:"background_color,omitempty"`  // 块的背景色可选值有: 浅灰色浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色灰色中红色中橙色中黄色中绿色中蓝色中紫色
+	IndentationLevel string `json:"indentation_level,omitempty"` // 首行缩进级别。仅支持对 Text 块进行修改。可选值有: 无缩进一级缩进
+	Sequence         string `json:"sequence,omitempty"`          // 用于确定有序列表项编号, 为具体数值或'auto'- 开始新列表时, 有序列表编号从 1 开始, sequence='1'- 手动修改为非连续编号时, 有序列表编号为设定的具体数值, 如 sequence='3'- 继续编号时, 有序列表编号自动连续, sequence='auto'- 部分历史数据和通过 OpenAPI 创建的有序列表不返回此字段
+}
+
+// GetDocxBlockListOfBlockRespItemDiagram ...
+type GetDocxBlockListOfBlockRespItemDiagram struct {
+	DiagramType int64 `json:"diagram_type,omitempty"` // 绘图类型可选值有: 流程图UML 图
+}
+
+// GetDocxBlockListOfBlockRespItemEquation ...
+type GetDocxBlockListOfBlockRespItemEquation struct {
+	Style    *GetDocxBlockListOfBlockRespItemEquationStyle     `json:"style,omitempty"`    // 文本样式
+	Elements []*GetDocxBlockListOfBlockRespItemEquationElement `json:"elements,omitempty"` // 文本元素
+}
+
+// GetDocxBlockListOfBlockRespItemEquationElement ...
+type GetDocxBlockListOfBlockRespItemEquationElement struct {
+	TextRun     *GetDocxBlockListOfBlockRespItemEquationElementTextRun     `json:"text_run,omitempty"`     // 文字。支持对 Page、Text、Heading1~9、Bullet、Ordered、Code、Quote、Todo 块进行修改
+	MentionUser *Mention                                                   `json:"mention_user,omitempty"` // @用户。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改。
+	MentionDoc  *Mention                                                   `json:"mention_doc,omitempty"`  // @文档。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
+	Reminder    *GetDocxBlockListOfBlockRespItemEquationElementReminder    `json:"reminder,omitempty"`     // 日期提醒。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
+	File        *GetDocxBlockListOfBlockRespItemEquationElementFile        `json:"file,omitempty"`         // 内联文件。仅支持删除或移动位置, 不支持创建新的内联文件
+	Undefined   interface{}                                                `json:"undefined,omitempty"`    // 未支持的 TextElement
+	InlineBlock *GetDocxBlockListOfBlockRespItemEquationElementInlineBlock `json:"inline_block,omitempty"` // 内联块。仅支持删除或移动位置, 不支持创建新的内联块
+	Equation    *GetDocxBlockListOfBlockRespItemEquationElementEquation    `json:"equation,omitempty"`     // 公式
+}
+
+// GetDocxBlockListOfBlockRespItemEquationElementEquation ...
+type GetDocxBlockListOfBlockRespItemEquationElementEquation struct {
+	Content          string                                                                  `json:"content,omitempty"`            // 符合 KaTeX 语法的公式内容, 语法规则请参考: https://katex.org/docs/supported.html
+	TextElementStyle *GetDocxBlockListOfBlockRespItemEquationElementEquationTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemEquationElementEquationTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemEquationElementEquationTextElementStyle struct {
+	Bold            bool                                                                        `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                        `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                        `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                        `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                        `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                       `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                       `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemEquationElementEquationTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                    `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemEquationElementEquationTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemEquationElementEquationTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemEquationElementFile ...
+type GetDocxBlockListOfBlockRespItemEquationElementFile struct {
+	FileToken        string                                                              `json:"file_token,omitempty"`         // 附件 token
+	SourceBlockID    string                                                              `json:"source_block_id,omitempty"`    // 当前文档中该文件所处的 block 的 ID
+	TextElementStyle *GetDocxBlockListOfBlockRespItemEquationElementFileTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemEquationElementFileTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemEquationElementFileTextElementStyle struct {
+	Bold            bool                                                                    `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                    `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                    `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                    `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                    `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                   `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                   `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemEquationElementFileTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemEquationElementFileTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemEquationElementFileTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemEquationElementInlineBlock ...
+type GetDocxBlockListOfBlockRespItemEquationElementInlineBlock struct {
+	BlockID          string                                                                     `json:"block_id,omitempty"`           // 关联的内联状态的 block 的 block_id
+	TextElementStyle *GetDocxBlockListOfBlockRespItemEquationElementInlineBlockTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemEquationElementInlineBlockTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemEquationElementInlineBlockTextElementStyle struct {
+	Bold            bool                                                                           `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                           `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                           `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                           `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                           `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                          `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                          `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemEquationElementInlineBlockTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                       `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemEquationElementInlineBlockTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemEquationElementInlineBlockTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemEquationElementMentionDoc ...
+type GetDocxBlockListOfBlockRespItemEquationElementMentionDoc struct {
+	Token            string                                                                    `json:"token,omitempty"`              // 云文档 token。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+	ObjType          int64                                                                     `json:"obj_type,omitempty"`           // 云文档类型可选值有: DocSheetBitableMindNoteFileSlideWikiDocx
+	URL              string                                                                    `json:"url,omitempty"`                // 云文档链接（需要 url_encode)
+	Title            string                                                                    `json:"title,omitempty"`              // 文档标题, 只读属性
+	TextElementStyle *GetDocxBlockListOfBlockRespItemEquationElementMentionDocTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemEquationElementMentionDocTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemEquationElementMentionDocTextElementStyle struct {
+	Bold            bool                                                                          `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                          `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                          `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                          `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                          `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                         `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                         `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemEquationElementMentionDocTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                      `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemEquationElementMentionDocTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemEquationElementMentionDocTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemEquationElementMentionUser ...
+type GetDocxBlockListOfBlockRespItemEquationElementMentionUser struct {
+	UserID           string                                                                     `json:"user_id,omitempty"`            // 用户 OpenID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemEquationElementMentionUserTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemEquationElementMentionUserTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemEquationElementMentionUserTextElementStyle struct {
+	Bold            bool                                                                           `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                           `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                           `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                           `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                           `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                          `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                          `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemEquationElementMentionUserTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                       `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemEquationElementMentionUserTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemEquationElementMentionUserTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemEquationElementReminder ...
+type GetDocxBlockListOfBlockRespItemEquationElementReminder struct {
+	CreateUserID     string                                                                  `json:"create_user_id,omitempty"`     // 创建者用户 ID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	IsNotify         bool                                                                    `json:"is_notify,omitempty"`          // 是否通知
+	IsWholeDay       bool                                                                    `json:"is_whole_day,omitempty"`       // 是日期还是整点小时
+	ExpireTime       string                                                                  `json:"expire_time,omitempty"`        // 事件发生的时间（毫秒级时间戳）
+	NotifyTime       string                                                                  `json:"notify_time,omitempty"`        // 触发通知的时间（毫秒级时间戳）
+	TextElementStyle *GetDocxBlockListOfBlockRespItemEquationElementReminderTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemEquationElementReminderTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemEquationElementReminderTextElementStyle struct {
+	Bold            bool                                                                        `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                        `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                        `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                        `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                        `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                       `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                       `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemEquationElementReminderTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                    `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemEquationElementReminderTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemEquationElementReminderTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemEquationElementTextRun ...
+type GetDocxBlockListOfBlockRespItemEquationElementTextRun struct {
+	Content          string                                                                 `json:"content,omitempty"`            // 文本内容。要实现文本内容的换行, 你可以: 在传入的文本内容中添加 `\n` 实现软换行（Soft Break, 与在文档中通过操作 `Shift + Enter` 的效果一致）- 创建一个新的文本 Block, 实现两个文本 Block 之间的硬换行（Hard Break, 与在文档中通过操作 `Enter` 的效果一致）注意: 软换行在渲染时可能会被忽略, 具体取决于渲染器如何处理；硬换行在渲染时始终会显示为一个新行。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemEquationElementTextRunTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemEquationElementTextRunTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemEquationElementTextRunTextElementStyle struct {
+	Bold            bool                                                                       `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                       `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                       `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                       `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                       `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                      `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                      `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemEquationElementTextRunTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                   `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemEquationElementTextRunTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemEquationElementTextRunTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemEquationStyle ...
+type GetDocxBlockListOfBlockRespItemEquationStyle struct {
+	Align            int64  `json:"align,omitempty"`             // 对齐方式可选值有: 居左排版居中排版居右排版
+	Done             bool   `json:"done,omitempty"`              // todo 的完成状态。支持对 Todo 块进行修改
+	Folded           bool   `json:"folded,omitempty"`            // 文本的折叠状态。支持对 Heading1~9、和有子块的 Text、Ordered、Bullet 和 Todo 块进行修改
+	Language         int64  `json:"language,omitempty"`          // 代码块的语言类型。仅支持对 Code 块进行修改可选值有: PlainTextABAPAdaApacheApexAssembly LanguageBashCSharpC++CCOBOLCSSCoffeeScriptDDartDelphiDjangoDockerfileErlangFortranFoxProGoGroovyHTMLHTMLBarsHTTPHaskellJSONJavaJavaScriptJuliaKotlinLateXLispLogoLuaMATLABMakefileMarkdownNginxObjective-COpenEdgeABLPHPPerlPostScriptPower ShellPrologProtoBufPythonRRPGRubyRustSASSCSSSQLScalaSchemeScratchShellSwiftThriftTypeScriptVBScriptVisual BasicXMLYAMLCMakeDiffGherkinGraphQLOpenGL Shading LanguagePropertiesSolidityTOML
+	Wrap             bool   `json:"wrap,omitempty"`              // 代码块是否自动换行。支持对 Code 块进行修改
+	BackgroundColor  string `json:"background_color,omitempty"`  // 块的背景色可选值有: 浅灰色浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色灰色中红色中橙色中黄色中绿色中蓝色中紫色
+	IndentationLevel string `json:"indentation_level,omitempty"` // 首行缩进级别。仅支持对 Text 块进行修改。可选值有: 无缩进一级缩进
+	Sequence         string `json:"sequence,omitempty"`          // 用于确定有序列表项编号, 为具体数值或'auto'- 开始新列表时, 有序列表编号从 1 开始, sequence='1'- 手动修改为非连续编号时, 有序列表编号为设定的具体数值, 如 sequence='3'- 继续编号时, 有序列表编号自动连续, sequence='auto'- 部分历史数据和通过 OpenAPI 创建的有序列表不返回此字段
+}
+
+// GetDocxBlockListOfBlockRespItemFile ...
+type GetDocxBlockListOfBlockRespItemFile struct {
+	Token    string `json:"token,omitempty"`     // 附件 Token
+	Name     string `json:"name,omitempty"`      // 文件名
+	ViewType int64  `json:"view_type,omitempty"` // 视图类型, 卡片视图（默认）或预览视图可选值有: 卡片视图预览视图
+}
+
+// GetDocxBlockListOfBlockRespItemGrid ...
+type GetDocxBlockListOfBlockRespItemGrid struct {
+	ColumnSize int64 `json:"column_size,omitempty"` // 分栏列数量
+}
+
+// GetDocxBlockListOfBlockRespItemGridColumn ...
+type GetDocxBlockListOfBlockRespItemGridColumn struct {
+	WidthRatio int64 `json:"width_ratio,omitempty"` // 当前分栏列占整个分栏的比例, 单位 %
+}
+
+// GetDocxBlockListOfBlockRespItemHeading1 ...
+type GetDocxBlockListOfBlockRespItemHeading1 struct {
+	Style    *GetDocxBlockListOfBlockRespItemHeading1Style     `json:"style,omitempty"`    // 文本样式
+	Elements []*GetDocxBlockListOfBlockRespItemHeading1Element `json:"elements,omitempty"` // 文本元素
+}
+
+// GetDocxBlockListOfBlockRespItemHeading1Element ...
+type GetDocxBlockListOfBlockRespItemHeading1Element struct {
+	TextRun     *GetDocxBlockListOfBlockRespItemHeading1ElementTextRun     `json:"text_run,omitempty"`     // 文字。支持对 Page、Text、Heading1~9、Bullet、Ordered、Code、Quote、Todo 块进行修改
+	MentionUser *Mention                                                   `json:"mention_user,omitempty"` // @用户。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改。
+	MentionDoc  *Mention                                                   `json:"mention_doc,omitempty"`  // @文档。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
+	Reminder    *GetDocxBlockListOfBlockRespItemHeading1ElementReminder    `json:"reminder,omitempty"`     // 日期提醒。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
+	File        *GetDocxBlockListOfBlockRespItemHeading1ElementFile        `json:"file,omitempty"`         // 内联文件。仅支持删除或移动位置, 不支持创建新的内联文件
+	Undefined   interface{}                                                `json:"undefined,omitempty"`    // 未支持的 TextElement
+	InlineBlock *GetDocxBlockListOfBlockRespItemHeading1ElementInlineBlock `json:"inline_block,omitempty"` // 内联块。仅支持删除或移动位置, 不支持创建新的内联块
+	Equation    *GetDocxBlockListOfBlockRespItemHeading1ElementEquation    `json:"equation,omitempty"`     // 公式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading1ElementEquation ...
+type GetDocxBlockListOfBlockRespItemHeading1ElementEquation struct {
+	Content          string                                                                  `json:"content,omitempty"`            // 符合 KaTeX 语法的公式内容, 语法规则请参考: https://katex.org/docs/supported.html
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading1ElementEquationTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading1ElementEquationTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading1ElementEquationTextElementStyle struct {
+	Bold            bool                                                                        `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                        `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                        `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                        `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                        `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                       `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                       `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading1ElementEquationTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                    `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading1ElementEquationTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading1ElementEquationTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading1ElementFile ...
+type GetDocxBlockListOfBlockRespItemHeading1ElementFile struct {
+	FileToken        string                                                              `json:"file_token,omitempty"`         // 附件 token
+	SourceBlockID    string                                                              `json:"source_block_id,omitempty"`    // 当前文档中该文件所处的 block 的 ID
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading1ElementFileTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading1ElementFileTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading1ElementFileTextElementStyle struct {
+	Bold            bool                                                                    `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                    `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                    `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                    `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                    `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                   `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                   `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading1ElementFileTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading1ElementFileTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading1ElementFileTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading1ElementInlineBlock ...
+type GetDocxBlockListOfBlockRespItemHeading1ElementInlineBlock struct {
+	BlockID          string                                                                     `json:"block_id,omitempty"`           // 关联的内联状态的 block 的 block_id
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading1ElementInlineBlockTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading1ElementInlineBlockTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading1ElementInlineBlockTextElementStyle struct {
+	Bold            bool                                                                           `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                           `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                           `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                           `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                           `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                          `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                          `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading1ElementInlineBlockTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                       `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading1ElementInlineBlockTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading1ElementInlineBlockTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading1ElementMentionDoc ...
+type GetDocxBlockListOfBlockRespItemHeading1ElementMentionDoc struct {
+	Token            string                                                                    `json:"token,omitempty"`              // 云文档 token。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+	ObjType          int64                                                                     `json:"obj_type,omitempty"`           // 云文档类型可选值有: DocSheetBitableMindNoteFileSlideWikiDocx
+	URL              string                                                                    `json:"url,omitempty"`                // 云文档链接（需要 url_encode)
+	Title            string                                                                    `json:"title,omitempty"`              // 文档标题, 只读属性
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading1ElementMentionDocTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading1ElementMentionDocTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading1ElementMentionDocTextElementStyle struct {
+	Bold            bool                                                                          `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                          `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                          `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                          `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                          `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                         `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                         `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading1ElementMentionDocTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                      `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading1ElementMentionDocTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading1ElementMentionDocTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading1ElementMentionUser ...
+type GetDocxBlockListOfBlockRespItemHeading1ElementMentionUser struct {
+	UserID           string                                                                     `json:"user_id,omitempty"`            // 用户 OpenID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading1ElementMentionUserTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading1ElementMentionUserTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading1ElementMentionUserTextElementStyle struct {
+	Bold            bool                                                                           `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                           `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                           `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                           `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                           `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                          `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                          `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading1ElementMentionUserTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                       `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading1ElementMentionUserTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading1ElementMentionUserTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading1ElementReminder ...
+type GetDocxBlockListOfBlockRespItemHeading1ElementReminder struct {
+	CreateUserID     string                                                                  `json:"create_user_id,omitempty"`     // 创建者用户 ID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	IsNotify         bool                                                                    `json:"is_notify,omitempty"`          // 是否通知
+	IsWholeDay       bool                                                                    `json:"is_whole_day,omitempty"`       // 是日期还是整点小时
+	ExpireTime       string                                                                  `json:"expire_time,omitempty"`        // 事件发生的时间（毫秒级时间戳）
+	NotifyTime       string                                                                  `json:"notify_time,omitempty"`        // 触发通知的时间（毫秒级时间戳）
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading1ElementReminderTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading1ElementReminderTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading1ElementReminderTextElementStyle struct {
+	Bold            bool                                                                        `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                        `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                        `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                        `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                        `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                       `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                       `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading1ElementReminderTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                    `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading1ElementReminderTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading1ElementReminderTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading1ElementTextRun ...
+type GetDocxBlockListOfBlockRespItemHeading1ElementTextRun struct {
+	Content          string                                                                 `json:"content,omitempty"`            // 文本内容。要实现文本内容的换行, 你可以: 在传入的文本内容中添加 `\n` 实现软换行（Soft Break, 与在文档中通过操作 `Shift + Enter` 的效果一致）- 创建一个新的文本 Block, 实现两个文本 Block 之间的硬换行（Hard Break, 与在文档中通过操作 `Enter` 的效果一致）注意: 软换行在渲染时可能会被忽略, 具体取决于渲染器如何处理；硬换行在渲染时始终会显示为一个新行。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading1ElementTextRunTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading1ElementTextRunTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading1ElementTextRunTextElementStyle struct {
+	Bold            bool                                                                       `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                       `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                       `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                       `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                       `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                      `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                      `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading1ElementTextRunTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                   `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading1ElementTextRunTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading1ElementTextRunTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading1Style ...
+type GetDocxBlockListOfBlockRespItemHeading1Style struct {
+	Align            int64  `json:"align,omitempty"`             // 对齐方式可选值有: 居左排版居中排版居右排版
+	Done             bool   `json:"done,omitempty"`              // todo 的完成状态。支持对 Todo 块进行修改
+	Folded           bool   `json:"folded,omitempty"`            // 文本的折叠状态。支持对 Heading1~9、和有子块的 Text、Ordered、Bullet 和 Todo 块进行修改
+	Language         int64  `json:"language,omitempty"`          // 代码块的语言类型。仅支持对 Code 块进行修改可选值有: PlainTextABAPAdaApacheApexAssembly LanguageBashCSharpC++CCOBOLCSSCoffeeScriptDDartDelphiDjangoDockerfileErlangFortranFoxProGoGroovyHTMLHTMLBarsHTTPHaskellJSONJavaJavaScriptJuliaKotlinLateXLispLogoLuaMATLABMakefileMarkdownNginxObjective-COpenEdgeABLPHPPerlPostScriptPower ShellPrologProtoBufPythonRRPGRubyRustSASSCSSSQLScalaSchemeScratchShellSwiftThriftTypeScriptVBScriptVisual BasicXMLYAMLCMakeDiffGherkinGraphQLOpenGL Shading LanguagePropertiesSolidityTOML
+	Wrap             bool   `json:"wrap,omitempty"`              // 代码块是否自动换行。支持对 Code 块进行修改
+	BackgroundColor  string `json:"background_color,omitempty"`  // 块的背景色可选值有: 浅灰色浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色灰色中红色中橙色中黄色中绿色中蓝色中紫色
+	IndentationLevel string `json:"indentation_level,omitempty"` // 首行缩进级别。仅支持对 Text 块进行修改。可选值有: 无缩进一级缩进
+	Sequence         string `json:"sequence,omitempty"`          // 用于确定有序列表项编号, 为具体数值或'auto'- 开始新列表时, 有序列表编号从 1 开始, sequence='1'- 手动修改为非连续编号时, 有序列表编号为设定的具体数值, 如 sequence='3'- 继续编号时, 有序列表编号自动连续, sequence='auto'- 部分历史数据和通过 OpenAPI 创建的有序列表不返回此字段
+}
+
+// GetDocxBlockListOfBlockRespItemHeading2 ...
+type GetDocxBlockListOfBlockRespItemHeading2 struct {
+	Style    *GetDocxBlockListOfBlockRespItemHeading2Style     `json:"style,omitempty"`    // 文本样式
+	Elements []*GetDocxBlockListOfBlockRespItemHeading2Element `json:"elements,omitempty"` // 文本元素
+}
+
+// GetDocxBlockListOfBlockRespItemHeading2Element ...
+type GetDocxBlockListOfBlockRespItemHeading2Element struct {
+	TextRun     *GetDocxBlockListOfBlockRespItemHeading2ElementTextRun     `json:"text_run,omitempty"`     // 文字。支持对 Page、Text、Heading1~9、Bullet、Ordered、Code、Quote、Todo 块进行修改
+	MentionUser *Mention                                                   `json:"mention_user,omitempty"` // @用户。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改。
+	MentionDoc  *Mention                                                   `json:"mention_doc,omitempty"`  // @文档。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
+	Reminder    *GetDocxBlockListOfBlockRespItemHeading2ElementReminder    `json:"reminder,omitempty"`     // 日期提醒。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
+	File        *GetDocxBlockListOfBlockRespItemHeading2ElementFile        `json:"file,omitempty"`         // 内联文件。仅支持删除或移动位置, 不支持创建新的内联文件
+	Undefined   interface{}                                                `json:"undefined,omitempty"`    // 未支持的 TextElement
+	InlineBlock *GetDocxBlockListOfBlockRespItemHeading2ElementInlineBlock `json:"inline_block,omitempty"` // 内联块。仅支持删除或移动位置, 不支持创建新的内联块
+	Equation    *GetDocxBlockListOfBlockRespItemHeading2ElementEquation    `json:"equation,omitempty"`     // 公式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading2ElementEquation ...
+type GetDocxBlockListOfBlockRespItemHeading2ElementEquation struct {
+	Content          string                                                                  `json:"content,omitempty"`            // 符合 KaTeX 语法的公式内容, 语法规则请参考: https://katex.org/docs/supported.html
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading2ElementEquationTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading2ElementEquationTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading2ElementEquationTextElementStyle struct {
+	Bold            bool                                                                        `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                        `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                        `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                        `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                        `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                       `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                       `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading2ElementEquationTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                    `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading2ElementEquationTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading2ElementEquationTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading2ElementFile ...
+type GetDocxBlockListOfBlockRespItemHeading2ElementFile struct {
+	FileToken        string                                                              `json:"file_token,omitempty"`         // 附件 token
+	SourceBlockID    string                                                              `json:"source_block_id,omitempty"`    // 当前文档中该文件所处的 block 的 ID
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading2ElementFileTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading2ElementFileTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading2ElementFileTextElementStyle struct {
+	Bold            bool                                                                    `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                    `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                    `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                    `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                    `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                   `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                   `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading2ElementFileTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading2ElementFileTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading2ElementFileTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading2ElementInlineBlock ...
+type GetDocxBlockListOfBlockRespItemHeading2ElementInlineBlock struct {
+	BlockID          string                                                                     `json:"block_id,omitempty"`           // 关联的内联状态的 block 的 block_id
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading2ElementInlineBlockTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading2ElementInlineBlockTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading2ElementInlineBlockTextElementStyle struct {
+	Bold            bool                                                                           `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                           `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                           `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                           `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                           `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                          `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                          `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading2ElementInlineBlockTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                       `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading2ElementInlineBlockTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading2ElementInlineBlockTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading2ElementMentionDoc ...
+type GetDocxBlockListOfBlockRespItemHeading2ElementMentionDoc struct {
+	Token            string                                                                    `json:"token,omitempty"`              // 云文档 token。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+	ObjType          int64                                                                     `json:"obj_type,omitempty"`           // 云文档类型可选值有: DocSheetBitableMindNoteFileSlideWikiDocx
+	URL              string                                                                    `json:"url,omitempty"`                // 云文档链接（需要 url_encode)
+	Title            string                                                                    `json:"title,omitempty"`              // 文档标题, 只读属性
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading2ElementMentionDocTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading2ElementMentionDocTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading2ElementMentionDocTextElementStyle struct {
+	Bold            bool                                                                          `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                          `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                          `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                          `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                          `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                         `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                         `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading2ElementMentionDocTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                      `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading2ElementMentionDocTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading2ElementMentionDocTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading2ElementMentionUser ...
+type GetDocxBlockListOfBlockRespItemHeading2ElementMentionUser struct {
+	UserID           string                                                                     `json:"user_id,omitempty"`            // 用户 OpenID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading2ElementMentionUserTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading2ElementMentionUserTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading2ElementMentionUserTextElementStyle struct {
+	Bold            bool                                                                           `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                           `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                           `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                           `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                           `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                          `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                          `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading2ElementMentionUserTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                       `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading2ElementMentionUserTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading2ElementMentionUserTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading2ElementReminder ...
+type GetDocxBlockListOfBlockRespItemHeading2ElementReminder struct {
+	CreateUserID     string                                                                  `json:"create_user_id,omitempty"`     // 创建者用户 ID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	IsNotify         bool                                                                    `json:"is_notify,omitempty"`          // 是否通知
+	IsWholeDay       bool                                                                    `json:"is_whole_day,omitempty"`       // 是日期还是整点小时
+	ExpireTime       string                                                                  `json:"expire_time,omitempty"`        // 事件发生的时间（毫秒级时间戳）
+	NotifyTime       string                                                                  `json:"notify_time,omitempty"`        // 触发通知的时间（毫秒级时间戳）
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading2ElementReminderTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading2ElementReminderTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading2ElementReminderTextElementStyle struct {
+	Bold            bool                                                                        `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                        `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                        `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                        `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                        `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                       `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                       `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading2ElementReminderTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                    `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading2ElementReminderTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading2ElementReminderTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading2ElementTextRun ...
+type GetDocxBlockListOfBlockRespItemHeading2ElementTextRun struct {
+	Content          string                                                                 `json:"content,omitempty"`            // 文本内容。要实现文本内容的换行, 你可以: 在传入的文本内容中添加 `\n` 实现软换行（Soft Break, 与在文档中通过操作 `Shift + Enter` 的效果一致）- 创建一个新的文本 Block, 实现两个文本 Block 之间的硬换行（Hard Break, 与在文档中通过操作 `Enter` 的效果一致）注意: 软换行在渲染时可能会被忽略, 具体取决于渲染器如何处理；硬换行在渲染时始终会显示为一个新行。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading2ElementTextRunTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading2ElementTextRunTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading2ElementTextRunTextElementStyle struct {
+	Bold            bool                                                                       `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                       `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                       `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                       `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                       `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                      `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                      `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading2ElementTextRunTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                   `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading2ElementTextRunTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading2ElementTextRunTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading2Style ...
+type GetDocxBlockListOfBlockRespItemHeading2Style struct {
+	Align            int64  `json:"align,omitempty"`             // 对齐方式可选值有: 居左排版居中排版居右排版
+	Done             bool   `json:"done,omitempty"`              // todo 的完成状态。支持对 Todo 块进行修改
+	Folded           bool   `json:"folded,omitempty"`            // 文本的折叠状态。支持对 Heading1~9、和有子块的 Text、Ordered、Bullet 和 Todo 块进行修改
+	Language         int64  `json:"language,omitempty"`          // 代码块的语言类型。仅支持对 Code 块进行修改可选值有: PlainTextABAPAdaApacheApexAssembly LanguageBashCSharpC++CCOBOLCSSCoffeeScriptDDartDelphiDjangoDockerfileErlangFortranFoxProGoGroovyHTMLHTMLBarsHTTPHaskellJSONJavaJavaScriptJuliaKotlinLateXLispLogoLuaMATLABMakefileMarkdownNginxObjective-COpenEdgeABLPHPPerlPostScriptPower ShellPrologProtoBufPythonRRPGRubyRustSASSCSSSQLScalaSchemeScratchShellSwiftThriftTypeScriptVBScriptVisual BasicXMLYAMLCMakeDiffGherkinGraphQLOpenGL Shading LanguagePropertiesSolidityTOML
+	Wrap             bool   `json:"wrap,omitempty"`              // 代码块是否自动换行。支持对 Code 块进行修改
+	BackgroundColor  string `json:"background_color,omitempty"`  // 块的背景色可选值有: 浅灰色浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色灰色中红色中橙色中黄色中绿色中蓝色中紫色
+	IndentationLevel string `json:"indentation_level,omitempty"` // 首行缩进级别。仅支持对 Text 块进行修改。可选值有: 无缩进一级缩进
+	Sequence         string `json:"sequence,omitempty"`          // 用于确定有序列表项编号, 为具体数值或'auto'- 开始新列表时, 有序列表编号从 1 开始, sequence='1'- 手动修改为非连续编号时, 有序列表编号为设定的具体数值, 如 sequence='3'- 继续编号时, 有序列表编号自动连续, sequence='auto'- 部分历史数据和通过 OpenAPI 创建的有序列表不返回此字段
+}
+
+// GetDocxBlockListOfBlockRespItemHeading3 ...
+type GetDocxBlockListOfBlockRespItemHeading3 struct {
+	Style    *GetDocxBlockListOfBlockRespItemHeading3Style     `json:"style,omitempty"`    // 文本样式
+	Elements []*GetDocxBlockListOfBlockRespItemHeading3Element `json:"elements,omitempty"` // 文本元素
+}
+
+// GetDocxBlockListOfBlockRespItemHeading3Element ...
+type GetDocxBlockListOfBlockRespItemHeading3Element struct {
+	TextRun     *GetDocxBlockListOfBlockRespItemHeading3ElementTextRun     `json:"text_run,omitempty"`     // 文字。支持对 Page、Text、Heading1~9、Bullet、Ordered、Code、Quote、Todo 块进行修改
+	MentionUser *Mention                                                   `json:"mention_user,omitempty"` // @用户。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改。
+	MentionDoc  *Mention                                                   `json:"mention_doc,omitempty"`  // @文档。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
+	Reminder    *GetDocxBlockListOfBlockRespItemHeading3ElementReminder    `json:"reminder,omitempty"`     // 日期提醒。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
+	File        *GetDocxBlockListOfBlockRespItemHeading3ElementFile        `json:"file,omitempty"`         // 内联文件。仅支持删除或移动位置, 不支持创建新的内联文件
+	Undefined   interface{}                                                `json:"undefined,omitempty"`    // 未支持的 TextElement
+	InlineBlock *GetDocxBlockListOfBlockRespItemHeading3ElementInlineBlock `json:"inline_block,omitempty"` // 内联块。仅支持删除或移动位置, 不支持创建新的内联块
+	Equation    *GetDocxBlockListOfBlockRespItemHeading3ElementEquation    `json:"equation,omitempty"`     // 公式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading3ElementEquation ...
+type GetDocxBlockListOfBlockRespItemHeading3ElementEquation struct {
+	Content          string                                                                  `json:"content,omitempty"`            // 符合 KaTeX 语法的公式内容, 语法规则请参考: https://katex.org/docs/supported.html
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading3ElementEquationTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading3ElementEquationTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading3ElementEquationTextElementStyle struct {
+	Bold            bool                                                                        `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                        `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                        `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                        `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                        `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                       `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                       `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading3ElementEquationTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                    `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading3ElementEquationTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading3ElementEquationTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading3ElementFile ...
+type GetDocxBlockListOfBlockRespItemHeading3ElementFile struct {
+	FileToken        string                                                              `json:"file_token,omitempty"`         // 附件 token
+	SourceBlockID    string                                                              `json:"source_block_id,omitempty"`    // 当前文档中该文件所处的 block 的 ID
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading3ElementFileTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading3ElementFileTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading3ElementFileTextElementStyle struct {
+	Bold            bool                                                                    `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                    `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                    `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                    `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                    `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                   `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                   `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading3ElementFileTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading3ElementFileTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading3ElementFileTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading3ElementInlineBlock ...
+type GetDocxBlockListOfBlockRespItemHeading3ElementInlineBlock struct {
+	BlockID          string                                                                     `json:"block_id,omitempty"`           // 关联的内联状态的 block 的 block_id
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading3ElementInlineBlockTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading3ElementInlineBlockTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading3ElementInlineBlockTextElementStyle struct {
+	Bold            bool                                                                           `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                           `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                           `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                           `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                           `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                          `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                          `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading3ElementInlineBlockTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                       `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading3ElementInlineBlockTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading3ElementInlineBlockTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading3ElementMentionDoc ...
+type GetDocxBlockListOfBlockRespItemHeading3ElementMentionDoc struct {
+	Token            string                                                                    `json:"token,omitempty"`              // 云文档 token。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+	ObjType          int64                                                                     `json:"obj_type,omitempty"`           // 云文档类型可选值有: DocSheetBitableMindNoteFileSlideWikiDocx
+	URL              string                                                                    `json:"url,omitempty"`                // 云文档链接（需要 url_encode)
+	Title            string                                                                    `json:"title,omitempty"`              // 文档标题, 只读属性
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading3ElementMentionDocTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading3ElementMentionDocTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading3ElementMentionDocTextElementStyle struct {
+	Bold            bool                                                                          `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                          `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                          `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                          `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                          `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                         `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                         `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading3ElementMentionDocTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                      `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading3ElementMentionDocTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading3ElementMentionDocTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading3ElementMentionUser ...
+type GetDocxBlockListOfBlockRespItemHeading3ElementMentionUser struct {
+	UserID           string                                                                     `json:"user_id,omitempty"`            // 用户 OpenID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading3ElementMentionUserTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading3ElementMentionUserTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading3ElementMentionUserTextElementStyle struct {
+	Bold            bool                                                                           `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                           `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                           `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                           `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                           `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                          `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                          `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading3ElementMentionUserTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                       `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading3ElementMentionUserTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading3ElementMentionUserTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading3ElementReminder ...
+type GetDocxBlockListOfBlockRespItemHeading3ElementReminder struct {
+	CreateUserID     string                                                                  `json:"create_user_id,omitempty"`     // 创建者用户 ID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	IsNotify         bool                                                                    `json:"is_notify,omitempty"`          // 是否通知
+	IsWholeDay       bool                                                                    `json:"is_whole_day,omitempty"`       // 是日期还是整点小时
+	ExpireTime       string                                                                  `json:"expire_time,omitempty"`        // 事件发生的时间（毫秒级时间戳）
+	NotifyTime       string                                                                  `json:"notify_time,omitempty"`        // 触发通知的时间（毫秒级时间戳）
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading3ElementReminderTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading3ElementReminderTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading3ElementReminderTextElementStyle struct {
+	Bold            bool                                                                        `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                        `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                        `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                        `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                        `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                       `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                       `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading3ElementReminderTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                    `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading3ElementReminderTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading3ElementReminderTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading3ElementTextRun ...
+type GetDocxBlockListOfBlockRespItemHeading3ElementTextRun struct {
+	Content          string                                                                 `json:"content,omitempty"`            // 文本内容。要实现文本内容的换行, 你可以: 在传入的文本内容中添加 `\n` 实现软换行（Soft Break, 与在文档中通过操作 `Shift + Enter` 的效果一致）- 创建一个新的文本 Block, 实现两个文本 Block 之间的硬换行（Hard Break, 与在文档中通过操作 `Enter` 的效果一致）注意: 软换行在渲染时可能会被忽略, 具体取决于渲染器如何处理；硬换行在渲染时始终会显示为一个新行。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading3ElementTextRunTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading3ElementTextRunTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading3ElementTextRunTextElementStyle struct {
+	Bold            bool                                                                       `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                       `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                       `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                       `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                       `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                      `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                      `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading3ElementTextRunTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                   `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading3ElementTextRunTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading3ElementTextRunTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading3Style ...
+type GetDocxBlockListOfBlockRespItemHeading3Style struct {
+	Align            int64  `json:"align,omitempty"`             // 对齐方式可选值有: 居左排版居中排版居右排版
+	Done             bool   `json:"done,omitempty"`              // todo 的完成状态。支持对 Todo 块进行修改
+	Folded           bool   `json:"folded,omitempty"`            // 文本的折叠状态。支持对 Heading1~9、和有子块的 Text、Ordered、Bullet 和 Todo 块进行修改
+	Language         int64  `json:"language,omitempty"`          // 代码块的语言类型。仅支持对 Code 块进行修改可选值有: PlainTextABAPAdaApacheApexAssembly LanguageBashCSharpC++CCOBOLCSSCoffeeScriptDDartDelphiDjangoDockerfileErlangFortranFoxProGoGroovyHTMLHTMLBarsHTTPHaskellJSONJavaJavaScriptJuliaKotlinLateXLispLogoLuaMATLABMakefileMarkdownNginxObjective-COpenEdgeABLPHPPerlPostScriptPower ShellPrologProtoBufPythonRRPGRubyRustSASSCSSSQLScalaSchemeScratchShellSwiftThriftTypeScriptVBScriptVisual BasicXMLYAMLCMakeDiffGherkinGraphQLOpenGL Shading LanguagePropertiesSolidityTOML
+	Wrap             bool   `json:"wrap,omitempty"`              // 代码块是否自动换行。支持对 Code 块进行修改
+	BackgroundColor  string `json:"background_color,omitempty"`  // 块的背景色可选值有: 浅灰色浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色灰色中红色中橙色中黄色中绿色中蓝色中紫色
+	IndentationLevel string `json:"indentation_level,omitempty"` // 首行缩进级别。仅支持对 Text 块进行修改。可选值有: 无缩进一级缩进
+	Sequence         string `json:"sequence,omitempty"`          // 用于确定有序列表项编号, 为具体数值或'auto'- 开始新列表时, 有序列表编号从 1 开始, sequence='1'- 手动修改为非连续编号时, 有序列表编号为设定的具体数值, 如 sequence='3'- 继续编号时, 有序列表编号自动连续, sequence='auto'- 部分历史数据和通过 OpenAPI 创建的有序列表不返回此字段
+}
+
+// GetDocxBlockListOfBlockRespItemHeading4 ...
+type GetDocxBlockListOfBlockRespItemHeading4 struct {
+	Style    *GetDocxBlockListOfBlockRespItemHeading4Style     `json:"style,omitempty"`    // 文本样式
+	Elements []*GetDocxBlockListOfBlockRespItemHeading4Element `json:"elements,omitempty"` // 文本元素
+}
+
+// GetDocxBlockListOfBlockRespItemHeading4Element ...
+type GetDocxBlockListOfBlockRespItemHeading4Element struct {
+	TextRun     *GetDocxBlockListOfBlockRespItemHeading4ElementTextRun     `json:"text_run,omitempty"`     // 文字。支持对 Page、Text、Heading1~9、Bullet、Ordered、Code、Quote、Todo 块进行修改
+	MentionUser *Mention                                                   `json:"mention_user,omitempty"` // @用户。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改。
+	MentionDoc  *Mention                                                   `json:"mention_doc,omitempty"`  // @文档。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
+	Reminder    *GetDocxBlockListOfBlockRespItemHeading4ElementReminder    `json:"reminder,omitempty"`     // 日期提醒。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
+	File        *GetDocxBlockListOfBlockRespItemHeading4ElementFile        `json:"file,omitempty"`         // 内联文件。仅支持删除或移动位置, 不支持创建新的内联文件
+	Undefined   interface{}                                                `json:"undefined,omitempty"`    // 未支持的 TextElement
+	InlineBlock *GetDocxBlockListOfBlockRespItemHeading4ElementInlineBlock `json:"inline_block,omitempty"` // 内联块。仅支持删除或移动位置, 不支持创建新的内联块
+	Equation    *GetDocxBlockListOfBlockRespItemHeading4ElementEquation    `json:"equation,omitempty"`     // 公式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading4ElementEquation ...
+type GetDocxBlockListOfBlockRespItemHeading4ElementEquation struct {
+	Content          string                                                                  `json:"content,omitempty"`            // 符合 KaTeX 语法的公式内容, 语法规则请参考: https://katex.org/docs/supported.html
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading4ElementEquationTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading4ElementEquationTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading4ElementEquationTextElementStyle struct {
+	Bold            bool                                                                        `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                        `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                        `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                        `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                        `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                       `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                       `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading4ElementEquationTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                    `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading4ElementEquationTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading4ElementEquationTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading4ElementFile ...
+type GetDocxBlockListOfBlockRespItemHeading4ElementFile struct {
+	FileToken        string                                                              `json:"file_token,omitempty"`         // 附件 token
+	SourceBlockID    string                                                              `json:"source_block_id,omitempty"`    // 当前文档中该文件所处的 block 的 ID
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading4ElementFileTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading4ElementFileTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading4ElementFileTextElementStyle struct {
+	Bold            bool                                                                    `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                    `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                    `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                    `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                    `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                   `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                   `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading4ElementFileTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading4ElementFileTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading4ElementFileTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading4ElementInlineBlock ...
+type GetDocxBlockListOfBlockRespItemHeading4ElementInlineBlock struct {
+	BlockID          string                                                                     `json:"block_id,omitempty"`           // 关联的内联状态的 block 的 block_id
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading4ElementInlineBlockTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading4ElementInlineBlockTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading4ElementInlineBlockTextElementStyle struct {
+	Bold            bool                                                                           `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                           `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                           `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                           `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                           `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                          `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                          `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading4ElementInlineBlockTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                       `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading4ElementInlineBlockTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading4ElementInlineBlockTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading4ElementMentionDoc ...
+type GetDocxBlockListOfBlockRespItemHeading4ElementMentionDoc struct {
+	Token            string                                                                    `json:"token,omitempty"`              // 云文档 token。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+	ObjType          int64                                                                     `json:"obj_type,omitempty"`           // 云文档类型可选值有: DocSheetBitableMindNoteFileSlideWikiDocx
+	URL              string                                                                    `json:"url,omitempty"`                // 云文档链接（需要 url_encode)
+	Title            string                                                                    `json:"title,omitempty"`              // 文档标题, 只读属性
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading4ElementMentionDocTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading4ElementMentionDocTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading4ElementMentionDocTextElementStyle struct {
+	Bold            bool                                                                          `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                          `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                          `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                          `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                          `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                         `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                         `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading4ElementMentionDocTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                      `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading4ElementMentionDocTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading4ElementMentionDocTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading4ElementMentionUser ...
+type GetDocxBlockListOfBlockRespItemHeading4ElementMentionUser struct {
+	UserID           string                                                                     `json:"user_id,omitempty"`            // 用户 OpenID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading4ElementMentionUserTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading4ElementMentionUserTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading4ElementMentionUserTextElementStyle struct {
+	Bold            bool                                                                           `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                           `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                           `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                           `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                           `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                          `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                          `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading4ElementMentionUserTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                       `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading4ElementMentionUserTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading4ElementMentionUserTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading4ElementReminder ...
+type GetDocxBlockListOfBlockRespItemHeading4ElementReminder struct {
+	CreateUserID     string                                                                  `json:"create_user_id,omitempty"`     // 创建者用户 ID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	IsNotify         bool                                                                    `json:"is_notify,omitempty"`          // 是否通知
+	IsWholeDay       bool                                                                    `json:"is_whole_day,omitempty"`       // 是日期还是整点小时
+	ExpireTime       string                                                                  `json:"expire_time,omitempty"`        // 事件发生的时间（毫秒级时间戳）
+	NotifyTime       string                                                                  `json:"notify_time,omitempty"`        // 触发通知的时间（毫秒级时间戳）
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading4ElementReminderTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading4ElementReminderTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading4ElementReminderTextElementStyle struct {
+	Bold            bool                                                                        `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                        `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                        `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                        `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                        `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                       `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                       `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading4ElementReminderTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                    `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading4ElementReminderTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading4ElementReminderTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading4ElementTextRun ...
+type GetDocxBlockListOfBlockRespItemHeading4ElementTextRun struct {
+	Content          string                                                                 `json:"content,omitempty"`            // 文本内容。要实现文本内容的换行, 你可以: 在传入的文本内容中添加 `\n` 实现软换行（Soft Break, 与在文档中通过操作 `Shift + Enter` 的效果一致）- 创建一个新的文本 Block, 实现两个文本 Block 之间的硬换行（Hard Break, 与在文档中通过操作 `Enter` 的效果一致）注意: 软换行在渲染时可能会被忽略, 具体取决于渲染器如何处理；硬换行在渲染时始终会显示为一个新行。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading4ElementTextRunTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading4ElementTextRunTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading4ElementTextRunTextElementStyle struct {
+	Bold            bool                                                                       `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                       `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                       `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                       `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                       `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                      `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                      `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading4ElementTextRunTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                   `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading4ElementTextRunTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading4ElementTextRunTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading4Style ...
+type GetDocxBlockListOfBlockRespItemHeading4Style struct {
+	Align            int64  `json:"align,omitempty"`             // 对齐方式可选值有: 居左排版居中排版居右排版
+	Done             bool   `json:"done,omitempty"`              // todo 的完成状态。支持对 Todo 块进行修改
+	Folded           bool   `json:"folded,omitempty"`            // 文本的折叠状态。支持对 Heading1~9、和有子块的 Text、Ordered、Bullet 和 Todo 块进行修改
+	Language         int64  `json:"language,omitempty"`          // 代码块的语言类型。仅支持对 Code 块进行修改可选值有: PlainTextABAPAdaApacheApexAssembly LanguageBashCSharpC++CCOBOLCSSCoffeeScriptDDartDelphiDjangoDockerfileErlangFortranFoxProGoGroovyHTMLHTMLBarsHTTPHaskellJSONJavaJavaScriptJuliaKotlinLateXLispLogoLuaMATLABMakefileMarkdownNginxObjective-COpenEdgeABLPHPPerlPostScriptPower ShellPrologProtoBufPythonRRPGRubyRustSASSCSSSQLScalaSchemeScratchShellSwiftThriftTypeScriptVBScriptVisual BasicXMLYAMLCMakeDiffGherkinGraphQLOpenGL Shading LanguagePropertiesSolidityTOML
+	Wrap             bool   `json:"wrap,omitempty"`              // 代码块是否自动换行。支持对 Code 块进行修改
+	BackgroundColor  string `json:"background_color,omitempty"`  // 块的背景色可选值有: 浅灰色浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色灰色中红色中橙色中黄色中绿色中蓝色中紫色
+	IndentationLevel string `json:"indentation_level,omitempty"` // 首行缩进级别。仅支持对 Text 块进行修改。可选值有: 无缩进一级缩进
+	Sequence         string `json:"sequence,omitempty"`          // 用于确定有序列表项编号, 为具体数值或'auto'- 开始新列表时, 有序列表编号从 1 开始, sequence='1'- 手动修改为非连续编号时, 有序列表编号为设定的具体数值, 如 sequence='3'- 继续编号时, 有序列表编号自动连续, sequence='auto'- 部分历史数据和通过 OpenAPI 创建的有序列表不返回此字段
+}
+
+// GetDocxBlockListOfBlockRespItemHeading5 ...
+type GetDocxBlockListOfBlockRespItemHeading5 struct {
+	Style    *GetDocxBlockListOfBlockRespItemHeading5Style     `json:"style,omitempty"`    // 文本样式
+	Elements []*GetDocxBlockListOfBlockRespItemHeading5Element `json:"elements,omitempty"` // 文本元素
+}
+
+// GetDocxBlockListOfBlockRespItemHeading5Element ...
+type GetDocxBlockListOfBlockRespItemHeading5Element struct {
+	TextRun     *GetDocxBlockListOfBlockRespItemHeading5ElementTextRun     `json:"text_run,omitempty"`     // 文字。支持对 Page、Text、Heading1~9、Bullet、Ordered、Code、Quote、Todo 块进行修改
+	MentionUser *Mention                                                   `json:"mention_user,omitempty"` // @用户。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改。
+	MentionDoc  *Mention                                                   `json:"mention_doc,omitempty"`  // @文档。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
+	Reminder    *GetDocxBlockListOfBlockRespItemHeading5ElementReminder    `json:"reminder,omitempty"`     // 日期提醒。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
+	File        *GetDocxBlockListOfBlockRespItemHeading5ElementFile        `json:"file,omitempty"`         // 内联文件。仅支持删除或移动位置, 不支持创建新的内联文件
+	Undefined   interface{}                                                `json:"undefined,omitempty"`    // 未支持的 TextElement
+	InlineBlock *GetDocxBlockListOfBlockRespItemHeading5ElementInlineBlock `json:"inline_block,omitempty"` // 内联块。仅支持删除或移动位置, 不支持创建新的内联块
+	Equation    *GetDocxBlockListOfBlockRespItemHeading5ElementEquation    `json:"equation,omitempty"`     // 公式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading5ElementEquation ...
+type GetDocxBlockListOfBlockRespItemHeading5ElementEquation struct {
+	Content          string                                                                  `json:"content,omitempty"`            // 符合 KaTeX 语法的公式内容, 语法规则请参考: https://katex.org/docs/supported.html
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading5ElementEquationTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading5ElementEquationTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading5ElementEquationTextElementStyle struct {
+	Bold            bool                                                                        `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                        `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                        `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                        `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                        `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                       `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                       `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading5ElementEquationTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                    `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading5ElementEquationTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading5ElementEquationTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading5ElementFile ...
+type GetDocxBlockListOfBlockRespItemHeading5ElementFile struct {
+	FileToken        string                                                              `json:"file_token,omitempty"`         // 附件 token
+	SourceBlockID    string                                                              `json:"source_block_id,omitempty"`    // 当前文档中该文件所处的 block 的 ID
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading5ElementFileTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading5ElementFileTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading5ElementFileTextElementStyle struct {
+	Bold            bool                                                                    `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                    `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                    `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                    `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                    `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                   `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                   `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading5ElementFileTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading5ElementFileTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading5ElementFileTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading5ElementInlineBlock ...
+type GetDocxBlockListOfBlockRespItemHeading5ElementInlineBlock struct {
+	BlockID          string                                                                     `json:"block_id,omitempty"`           // 关联的内联状态的 block 的 block_id
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading5ElementInlineBlockTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading5ElementInlineBlockTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading5ElementInlineBlockTextElementStyle struct {
+	Bold            bool                                                                           `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                           `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                           `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                           `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                           `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                          `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                          `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading5ElementInlineBlockTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                       `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading5ElementInlineBlockTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading5ElementInlineBlockTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading5ElementMentionDoc ...
+type GetDocxBlockListOfBlockRespItemHeading5ElementMentionDoc struct {
+	Token            string                                                                    `json:"token,omitempty"`              // 云文档 token。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+	ObjType          int64                                                                     `json:"obj_type,omitempty"`           // 云文档类型可选值有: DocSheetBitableMindNoteFileSlideWikiDocx
+	URL              string                                                                    `json:"url,omitempty"`                // 云文档链接（需要 url_encode)
+	Title            string                                                                    `json:"title,omitempty"`              // 文档标题, 只读属性
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading5ElementMentionDocTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading5ElementMentionDocTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading5ElementMentionDocTextElementStyle struct {
+	Bold            bool                                                                          `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                          `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                          `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                          `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                          `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                         `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                         `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading5ElementMentionDocTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                      `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading5ElementMentionDocTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading5ElementMentionDocTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading5ElementMentionUser ...
+type GetDocxBlockListOfBlockRespItemHeading5ElementMentionUser struct {
+	UserID           string                                                                     `json:"user_id,omitempty"`            // 用户 OpenID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading5ElementMentionUserTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading5ElementMentionUserTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading5ElementMentionUserTextElementStyle struct {
+	Bold            bool                                                                           `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                           `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                           `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                           `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                           `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                          `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                          `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading5ElementMentionUserTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                       `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading5ElementMentionUserTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading5ElementMentionUserTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading5ElementReminder ...
+type GetDocxBlockListOfBlockRespItemHeading5ElementReminder struct {
+	CreateUserID     string                                                                  `json:"create_user_id,omitempty"`     // 创建者用户 ID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	IsNotify         bool                                                                    `json:"is_notify,omitempty"`          // 是否通知
+	IsWholeDay       bool                                                                    `json:"is_whole_day,omitempty"`       // 是日期还是整点小时
+	ExpireTime       string                                                                  `json:"expire_time,omitempty"`        // 事件发生的时间（毫秒级时间戳）
+	NotifyTime       string                                                                  `json:"notify_time,omitempty"`        // 触发通知的时间（毫秒级时间戳）
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading5ElementReminderTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading5ElementReminderTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading5ElementReminderTextElementStyle struct {
+	Bold            bool                                                                        `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                        `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                        `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                        `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                        `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                       `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                       `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading5ElementReminderTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                    `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading5ElementReminderTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading5ElementReminderTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading5ElementTextRun ...
+type GetDocxBlockListOfBlockRespItemHeading5ElementTextRun struct {
+	Content          string                                                                 `json:"content,omitempty"`            // 文本内容。要实现文本内容的换行, 你可以: 在传入的文本内容中添加 `\n` 实现软换行（Soft Break, 与在文档中通过操作 `Shift + Enter` 的效果一致）- 创建一个新的文本 Block, 实现两个文本 Block 之间的硬换行（Hard Break, 与在文档中通过操作 `Enter` 的效果一致）注意: 软换行在渲染时可能会被忽略, 具体取决于渲染器如何处理；硬换行在渲染时始终会显示为一个新行。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading5ElementTextRunTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading5ElementTextRunTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading5ElementTextRunTextElementStyle struct {
+	Bold            bool                                                                       `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                       `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                       `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                       `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                       `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                      `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                      `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading5ElementTextRunTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                   `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading5ElementTextRunTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading5ElementTextRunTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading5Style ...
+type GetDocxBlockListOfBlockRespItemHeading5Style struct {
+	Align            int64  `json:"align,omitempty"`             // 对齐方式可选值有: 居左排版居中排版居右排版
+	Done             bool   `json:"done,omitempty"`              // todo 的完成状态。支持对 Todo 块进行修改
+	Folded           bool   `json:"folded,omitempty"`            // 文本的折叠状态。支持对 Heading1~9、和有子块的 Text、Ordered、Bullet 和 Todo 块进行修改
+	Language         int64  `json:"language,omitempty"`          // 代码块的语言类型。仅支持对 Code 块进行修改可选值有: PlainTextABAPAdaApacheApexAssembly LanguageBashCSharpC++CCOBOLCSSCoffeeScriptDDartDelphiDjangoDockerfileErlangFortranFoxProGoGroovyHTMLHTMLBarsHTTPHaskellJSONJavaJavaScriptJuliaKotlinLateXLispLogoLuaMATLABMakefileMarkdownNginxObjective-COpenEdgeABLPHPPerlPostScriptPower ShellPrologProtoBufPythonRRPGRubyRustSASSCSSSQLScalaSchemeScratchShellSwiftThriftTypeScriptVBScriptVisual BasicXMLYAMLCMakeDiffGherkinGraphQLOpenGL Shading LanguagePropertiesSolidityTOML
+	Wrap             bool   `json:"wrap,omitempty"`              // 代码块是否自动换行。支持对 Code 块进行修改
+	BackgroundColor  string `json:"background_color,omitempty"`  // 块的背景色可选值有: 浅灰色浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色灰色中红色中橙色中黄色中绿色中蓝色中紫色
+	IndentationLevel string `json:"indentation_level,omitempty"` // 首行缩进级别。仅支持对 Text 块进行修改。可选值有: 无缩进一级缩进
+	Sequence         string `json:"sequence,omitempty"`          // 用于确定有序列表项编号, 为具体数值或'auto'- 开始新列表时, 有序列表编号从 1 开始, sequence='1'- 手动修改为非连续编号时, 有序列表编号为设定的具体数值, 如 sequence='3'- 继续编号时, 有序列表编号自动连续, sequence='auto'- 部分历史数据和通过 OpenAPI 创建的有序列表不返回此字段
+}
+
+// GetDocxBlockListOfBlockRespItemHeading6 ...
+type GetDocxBlockListOfBlockRespItemHeading6 struct {
+	Style    *GetDocxBlockListOfBlockRespItemHeading6Style     `json:"style,omitempty"`    // 文本样式
+	Elements []*GetDocxBlockListOfBlockRespItemHeading6Element `json:"elements,omitempty"` // 文本元素
+}
+
+// GetDocxBlockListOfBlockRespItemHeading6Element ...
+type GetDocxBlockListOfBlockRespItemHeading6Element struct {
+	TextRun     *GetDocxBlockListOfBlockRespItemHeading6ElementTextRun     `json:"text_run,omitempty"`     // 文字。支持对 Page、Text、Heading1~9、Bullet、Ordered、Code、Quote、Todo 块进行修改
+	MentionUser *Mention                                                   `json:"mention_user,omitempty"` // @用户。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改。
+	MentionDoc  *Mention                                                   `json:"mention_doc,omitempty"`  // @文档。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
+	Reminder    *GetDocxBlockListOfBlockRespItemHeading6ElementReminder    `json:"reminder,omitempty"`     // 日期提醒。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
+	File        *GetDocxBlockListOfBlockRespItemHeading6ElementFile        `json:"file,omitempty"`         // 内联文件。仅支持删除或移动位置, 不支持创建新的内联文件
+	Undefined   interface{}                                                `json:"undefined,omitempty"`    // 未支持的 TextElement
+	InlineBlock *GetDocxBlockListOfBlockRespItemHeading6ElementInlineBlock `json:"inline_block,omitempty"` // 内联块。仅支持删除或移动位置, 不支持创建新的内联块
+	Equation    *GetDocxBlockListOfBlockRespItemHeading6ElementEquation    `json:"equation,omitempty"`     // 公式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading6ElementEquation ...
+type GetDocxBlockListOfBlockRespItemHeading6ElementEquation struct {
+	Content          string                                                                  `json:"content,omitempty"`            // 符合 KaTeX 语法的公式内容, 语法规则请参考: https://katex.org/docs/supported.html
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading6ElementEquationTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading6ElementEquationTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading6ElementEquationTextElementStyle struct {
+	Bold            bool                                                                        `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                        `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                        `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                        `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                        `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                       `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                       `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading6ElementEquationTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                    `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading6ElementEquationTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading6ElementEquationTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading6ElementFile ...
+type GetDocxBlockListOfBlockRespItemHeading6ElementFile struct {
+	FileToken        string                                                              `json:"file_token,omitempty"`         // 附件 token
+	SourceBlockID    string                                                              `json:"source_block_id,omitempty"`    // 当前文档中该文件所处的 block 的 ID
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading6ElementFileTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading6ElementFileTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading6ElementFileTextElementStyle struct {
+	Bold            bool                                                                    `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                    `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                    `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                    `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                    `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                   `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                   `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading6ElementFileTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading6ElementFileTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading6ElementFileTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading6ElementInlineBlock ...
+type GetDocxBlockListOfBlockRespItemHeading6ElementInlineBlock struct {
+	BlockID          string                                                                     `json:"block_id,omitempty"`           // 关联的内联状态的 block 的 block_id
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading6ElementInlineBlockTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading6ElementInlineBlockTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading6ElementInlineBlockTextElementStyle struct {
+	Bold            bool                                                                           `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                           `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                           `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                           `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                           `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                          `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                          `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading6ElementInlineBlockTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                       `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading6ElementInlineBlockTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading6ElementInlineBlockTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading6ElementMentionDoc ...
+type GetDocxBlockListOfBlockRespItemHeading6ElementMentionDoc struct {
+	Token            string                                                                    `json:"token,omitempty"`              // 云文档 token。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+	ObjType          int64                                                                     `json:"obj_type,omitempty"`           // 云文档类型可选值有: DocSheetBitableMindNoteFileSlideWikiDocx
+	URL              string                                                                    `json:"url,omitempty"`                // 云文档链接（需要 url_encode)
+	Title            string                                                                    `json:"title,omitempty"`              // 文档标题, 只读属性
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading6ElementMentionDocTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading6ElementMentionDocTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading6ElementMentionDocTextElementStyle struct {
+	Bold            bool                                                                          `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                          `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                          `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                          `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                          `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                         `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                         `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading6ElementMentionDocTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                      `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading6ElementMentionDocTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading6ElementMentionDocTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading6ElementMentionUser ...
+type GetDocxBlockListOfBlockRespItemHeading6ElementMentionUser struct {
+	UserID           string                                                                     `json:"user_id,omitempty"`            // 用户 OpenID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading6ElementMentionUserTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading6ElementMentionUserTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading6ElementMentionUserTextElementStyle struct {
+	Bold            bool                                                                           `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                           `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                           `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                           `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                           `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                          `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                          `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading6ElementMentionUserTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                       `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading6ElementMentionUserTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading6ElementMentionUserTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading6ElementReminder ...
+type GetDocxBlockListOfBlockRespItemHeading6ElementReminder struct {
+	CreateUserID     string                                                                  `json:"create_user_id,omitempty"`     // 创建者用户 ID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	IsNotify         bool                                                                    `json:"is_notify,omitempty"`          // 是否通知
+	IsWholeDay       bool                                                                    `json:"is_whole_day,omitempty"`       // 是日期还是整点小时
+	ExpireTime       string                                                                  `json:"expire_time,omitempty"`        // 事件发生的时间（毫秒级时间戳）
+	NotifyTime       string                                                                  `json:"notify_time,omitempty"`        // 触发通知的时间（毫秒级时间戳）
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading6ElementReminderTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading6ElementReminderTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading6ElementReminderTextElementStyle struct {
+	Bold            bool                                                                        `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                        `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                        `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                        `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                        `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                       `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                       `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading6ElementReminderTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                    `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading6ElementReminderTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading6ElementReminderTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading6ElementTextRun ...
+type GetDocxBlockListOfBlockRespItemHeading6ElementTextRun struct {
+	Content          string                                                                 `json:"content,omitempty"`            // 文本内容。要实现文本内容的换行, 你可以: 在传入的文本内容中添加 `\n` 实现软换行（Soft Break, 与在文档中通过操作 `Shift + Enter` 的效果一致）- 创建一个新的文本 Block, 实现两个文本 Block 之间的硬换行（Hard Break, 与在文档中通过操作 `Enter` 的效果一致）注意: 软换行在渲染时可能会被忽略, 具体取决于渲染器如何处理；硬换行在渲染时始终会显示为一个新行。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading6ElementTextRunTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading6ElementTextRunTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading6ElementTextRunTextElementStyle struct {
+	Bold            bool                                                                       `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                       `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                       `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                       `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                       `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                      `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                      `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading6ElementTextRunTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                   `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading6ElementTextRunTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading6ElementTextRunTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading6Style ...
+type GetDocxBlockListOfBlockRespItemHeading6Style struct {
+	Align            int64  `json:"align,omitempty"`             // 对齐方式可选值有: 居左排版居中排版居右排版
+	Done             bool   `json:"done,omitempty"`              // todo 的完成状态。支持对 Todo 块进行修改
+	Folded           bool   `json:"folded,omitempty"`            // 文本的折叠状态。支持对 Heading1~9、和有子块的 Text、Ordered、Bullet 和 Todo 块进行修改
+	Language         int64  `json:"language,omitempty"`          // 代码块的语言类型。仅支持对 Code 块进行修改可选值有: PlainTextABAPAdaApacheApexAssembly LanguageBashCSharpC++CCOBOLCSSCoffeeScriptDDartDelphiDjangoDockerfileErlangFortranFoxProGoGroovyHTMLHTMLBarsHTTPHaskellJSONJavaJavaScriptJuliaKotlinLateXLispLogoLuaMATLABMakefileMarkdownNginxObjective-COpenEdgeABLPHPPerlPostScriptPower ShellPrologProtoBufPythonRRPGRubyRustSASSCSSSQLScalaSchemeScratchShellSwiftThriftTypeScriptVBScriptVisual BasicXMLYAMLCMakeDiffGherkinGraphQLOpenGL Shading LanguagePropertiesSolidityTOML
+	Wrap             bool   `json:"wrap,omitempty"`              // 代码块是否自动换行。支持对 Code 块进行修改
+	BackgroundColor  string `json:"background_color,omitempty"`  // 块的背景色可选值有: 浅灰色浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色灰色中红色中橙色中黄色中绿色中蓝色中紫色
+	IndentationLevel string `json:"indentation_level,omitempty"` // 首行缩进级别。仅支持对 Text 块进行修改。可选值有: 无缩进一级缩进
+	Sequence         string `json:"sequence,omitempty"`          // 用于确定有序列表项编号, 为具体数值或'auto'- 开始新列表时, 有序列表编号从 1 开始, sequence='1'- 手动修改为非连续编号时, 有序列表编号为设定的具体数值, 如 sequence='3'- 继续编号时, 有序列表编号自动连续, sequence='auto'- 部分历史数据和通过 OpenAPI 创建的有序列表不返回此字段
+}
+
+// GetDocxBlockListOfBlockRespItemHeading7 ...
+type GetDocxBlockListOfBlockRespItemHeading7 struct {
+	Style    *GetDocxBlockListOfBlockRespItemHeading7Style     `json:"style,omitempty"`    // 文本样式
+	Elements []*GetDocxBlockListOfBlockRespItemHeading7Element `json:"elements,omitempty"` // 文本元素
+}
+
+// GetDocxBlockListOfBlockRespItemHeading7Element ...
+type GetDocxBlockListOfBlockRespItemHeading7Element struct {
+	TextRun     *GetDocxBlockListOfBlockRespItemHeading7ElementTextRun     `json:"text_run,omitempty"`     // 文字。支持对 Page、Text、Heading1~9、Bullet、Ordered、Code、Quote、Todo 块进行修改
+	MentionUser *Mention                                                   `json:"mention_user,omitempty"` // @用户。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改。
+	MentionDoc  *Mention                                                   `json:"mention_doc,omitempty"`  // @文档。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
+	Reminder    *GetDocxBlockListOfBlockRespItemHeading7ElementReminder    `json:"reminder,omitempty"`     // 日期提醒。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
+	File        *GetDocxBlockListOfBlockRespItemHeading7ElementFile        `json:"file,omitempty"`         // 内联文件。仅支持删除或移动位置, 不支持创建新的内联文件
+	Undefined   interface{}                                                `json:"undefined,omitempty"`    // 未支持的 TextElement
+	InlineBlock *GetDocxBlockListOfBlockRespItemHeading7ElementInlineBlock `json:"inline_block,omitempty"` // 内联块。仅支持删除或移动位置, 不支持创建新的内联块
+	Equation    *GetDocxBlockListOfBlockRespItemHeading7ElementEquation    `json:"equation,omitempty"`     // 公式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading7ElementEquation ...
+type GetDocxBlockListOfBlockRespItemHeading7ElementEquation struct {
+	Content          string                                                                  `json:"content,omitempty"`            // 符合 KaTeX 语法的公式内容, 语法规则请参考: https://katex.org/docs/supported.html
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading7ElementEquationTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading7ElementEquationTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading7ElementEquationTextElementStyle struct {
+	Bold            bool                                                                        `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                        `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                        `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                        `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                        `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                       `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                       `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading7ElementEquationTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                    `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading7ElementEquationTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading7ElementEquationTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading7ElementFile ...
+type GetDocxBlockListOfBlockRespItemHeading7ElementFile struct {
+	FileToken        string                                                              `json:"file_token,omitempty"`         // 附件 token
+	SourceBlockID    string                                                              `json:"source_block_id,omitempty"`    // 当前文档中该文件所处的 block 的 ID
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading7ElementFileTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading7ElementFileTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading7ElementFileTextElementStyle struct {
+	Bold            bool                                                                    `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                    `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                    `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                    `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                    `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                   `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                   `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading7ElementFileTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading7ElementFileTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading7ElementFileTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading7ElementInlineBlock ...
+type GetDocxBlockListOfBlockRespItemHeading7ElementInlineBlock struct {
+	BlockID          string                                                                     `json:"block_id,omitempty"`           // 关联的内联状态的 block 的 block_id
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading7ElementInlineBlockTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading7ElementInlineBlockTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading7ElementInlineBlockTextElementStyle struct {
+	Bold            bool                                                                           `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                           `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                           `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                           `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                           `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                          `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                          `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading7ElementInlineBlockTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                       `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading7ElementInlineBlockTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading7ElementInlineBlockTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading7ElementMentionDoc ...
+type GetDocxBlockListOfBlockRespItemHeading7ElementMentionDoc struct {
+	Token            string                                                                    `json:"token,omitempty"`              // 云文档 token。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+	ObjType          int64                                                                     `json:"obj_type,omitempty"`           // 云文档类型可选值有: DocSheetBitableMindNoteFileSlideWikiDocx
+	URL              string                                                                    `json:"url,omitempty"`                // 云文档链接（需要 url_encode)
+	Title            string                                                                    `json:"title,omitempty"`              // 文档标题, 只读属性
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading7ElementMentionDocTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading7ElementMentionDocTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading7ElementMentionDocTextElementStyle struct {
+	Bold            bool                                                                          `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                          `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                          `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                          `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                          `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                         `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                         `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading7ElementMentionDocTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                      `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading7ElementMentionDocTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading7ElementMentionDocTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading7ElementMentionUser ...
+type GetDocxBlockListOfBlockRespItemHeading7ElementMentionUser struct {
+	UserID           string                                                                     `json:"user_id,omitempty"`            // 用户 OpenID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading7ElementMentionUserTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading7ElementMentionUserTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading7ElementMentionUserTextElementStyle struct {
+	Bold            bool                                                                           `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                           `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                           `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                           `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                           `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                          `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                          `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading7ElementMentionUserTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                       `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading7ElementMentionUserTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading7ElementMentionUserTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading7ElementReminder ...
+type GetDocxBlockListOfBlockRespItemHeading7ElementReminder struct {
+	CreateUserID     string                                                                  `json:"create_user_id,omitempty"`     // 创建者用户 ID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	IsNotify         bool                                                                    `json:"is_notify,omitempty"`          // 是否通知
+	IsWholeDay       bool                                                                    `json:"is_whole_day,omitempty"`       // 是日期还是整点小时
+	ExpireTime       string                                                                  `json:"expire_time,omitempty"`        // 事件发生的时间（毫秒级时间戳）
+	NotifyTime       string                                                                  `json:"notify_time,omitempty"`        // 触发通知的时间（毫秒级时间戳）
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading7ElementReminderTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading7ElementReminderTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading7ElementReminderTextElementStyle struct {
+	Bold            bool                                                                        `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                        `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                        `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                        `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                        `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                       `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                       `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading7ElementReminderTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                    `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading7ElementReminderTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading7ElementReminderTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading7ElementTextRun ...
+type GetDocxBlockListOfBlockRespItemHeading7ElementTextRun struct {
+	Content          string                                                                 `json:"content,omitempty"`            // 文本内容。要实现文本内容的换行, 你可以: 在传入的文本内容中添加 `\n` 实现软换行（Soft Break, 与在文档中通过操作 `Shift + Enter` 的效果一致）- 创建一个新的文本 Block, 实现两个文本 Block 之间的硬换行（Hard Break, 与在文档中通过操作 `Enter` 的效果一致）注意: 软换行在渲染时可能会被忽略, 具体取决于渲染器如何处理；硬换行在渲染时始终会显示为一个新行。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading7ElementTextRunTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading7ElementTextRunTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading7ElementTextRunTextElementStyle struct {
+	Bold            bool                                                                       `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                       `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                       `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                       `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                       `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                      `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                      `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading7ElementTextRunTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                   `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading7ElementTextRunTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading7ElementTextRunTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading7Style ...
+type GetDocxBlockListOfBlockRespItemHeading7Style struct {
+	Align            int64  `json:"align,omitempty"`             // 对齐方式可选值有: 居左排版居中排版居右排版
+	Done             bool   `json:"done,omitempty"`              // todo 的完成状态。支持对 Todo 块进行修改
+	Folded           bool   `json:"folded,omitempty"`            // 文本的折叠状态。支持对 Heading1~9、和有子块的 Text、Ordered、Bullet 和 Todo 块进行修改
+	Language         int64  `json:"language,omitempty"`          // 代码块的语言类型。仅支持对 Code 块进行修改可选值有: PlainTextABAPAdaApacheApexAssembly LanguageBashCSharpC++CCOBOLCSSCoffeeScriptDDartDelphiDjangoDockerfileErlangFortranFoxProGoGroovyHTMLHTMLBarsHTTPHaskellJSONJavaJavaScriptJuliaKotlinLateXLispLogoLuaMATLABMakefileMarkdownNginxObjective-COpenEdgeABLPHPPerlPostScriptPower ShellPrologProtoBufPythonRRPGRubyRustSASSCSSSQLScalaSchemeScratchShellSwiftThriftTypeScriptVBScriptVisual BasicXMLYAMLCMakeDiffGherkinGraphQLOpenGL Shading LanguagePropertiesSolidityTOML
+	Wrap             bool   `json:"wrap,omitempty"`              // 代码块是否自动换行。支持对 Code 块进行修改
+	BackgroundColor  string `json:"background_color,omitempty"`  // 块的背景色可选值有: 浅灰色浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色灰色中红色中橙色中黄色中绿色中蓝色中紫色
+	IndentationLevel string `json:"indentation_level,omitempty"` // 首行缩进级别。仅支持对 Text 块进行修改。可选值有: 无缩进一级缩进
+	Sequence         string `json:"sequence,omitempty"`          // 用于确定有序列表项编号, 为具体数值或'auto'- 开始新列表时, 有序列表编号从 1 开始, sequence='1'- 手动修改为非连续编号时, 有序列表编号为设定的具体数值, 如 sequence='3'- 继续编号时, 有序列表编号自动连续, sequence='auto'- 部分历史数据和通过 OpenAPI 创建的有序列表不返回此字段
+}
+
+// GetDocxBlockListOfBlockRespItemHeading8 ...
+type GetDocxBlockListOfBlockRespItemHeading8 struct {
+	Style    *GetDocxBlockListOfBlockRespItemHeading8Style     `json:"style,omitempty"`    // 文本样式
+	Elements []*GetDocxBlockListOfBlockRespItemHeading8Element `json:"elements,omitempty"` // 文本元素
+}
+
+// GetDocxBlockListOfBlockRespItemHeading8Element ...
+type GetDocxBlockListOfBlockRespItemHeading8Element struct {
+	TextRun     *GetDocxBlockListOfBlockRespItemHeading8ElementTextRun     `json:"text_run,omitempty"`     // 文字。支持对 Page、Text、Heading1~9、Bullet、Ordered、Code、Quote、Todo 块进行修改
+	MentionUser *Mention                                                   `json:"mention_user,omitempty"` // @用户。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改。
+	MentionDoc  *Mention                                                   `json:"mention_doc,omitempty"`  // @文档。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
+	Reminder    *GetDocxBlockListOfBlockRespItemHeading8ElementReminder    `json:"reminder,omitempty"`     // 日期提醒。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
+	File        *GetDocxBlockListOfBlockRespItemHeading8ElementFile        `json:"file,omitempty"`         // 内联文件。仅支持删除或移动位置, 不支持创建新的内联文件
+	Undefined   interface{}                                                `json:"undefined,omitempty"`    // 未支持的 TextElement
+	InlineBlock *GetDocxBlockListOfBlockRespItemHeading8ElementInlineBlock `json:"inline_block,omitempty"` // 内联块。仅支持删除或移动位置, 不支持创建新的内联块
+	Equation    *GetDocxBlockListOfBlockRespItemHeading8ElementEquation    `json:"equation,omitempty"`     // 公式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading8ElementEquation ...
+type GetDocxBlockListOfBlockRespItemHeading8ElementEquation struct {
+	Content          string                                                                  `json:"content,omitempty"`            // 符合 KaTeX 语法的公式内容, 语法规则请参考: https://katex.org/docs/supported.html
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading8ElementEquationTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading8ElementEquationTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading8ElementEquationTextElementStyle struct {
+	Bold            bool                                                                        `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                        `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                        `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                        `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                        `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                       `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                       `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading8ElementEquationTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                    `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading8ElementEquationTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading8ElementEquationTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading8ElementFile ...
+type GetDocxBlockListOfBlockRespItemHeading8ElementFile struct {
+	FileToken        string                                                              `json:"file_token,omitempty"`         // 附件 token
+	SourceBlockID    string                                                              `json:"source_block_id,omitempty"`    // 当前文档中该文件所处的 block 的 ID
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading8ElementFileTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading8ElementFileTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading8ElementFileTextElementStyle struct {
+	Bold            bool                                                                    `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                    `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                    `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                    `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                    `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                   `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                   `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading8ElementFileTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading8ElementFileTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading8ElementFileTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading8ElementInlineBlock ...
+type GetDocxBlockListOfBlockRespItemHeading8ElementInlineBlock struct {
+	BlockID          string                                                                     `json:"block_id,omitempty"`           // 关联的内联状态的 block 的 block_id
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading8ElementInlineBlockTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading8ElementInlineBlockTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading8ElementInlineBlockTextElementStyle struct {
+	Bold            bool                                                                           `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                           `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                           `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                           `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                           `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                          `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                          `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading8ElementInlineBlockTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                       `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading8ElementInlineBlockTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading8ElementInlineBlockTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading8ElementMentionDoc ...
+type GetDocxBlockListOfBlockRespItemHeading8ElementMentionDoc struct {
+	Token            string                                                                    `json:"token,omitempty"`              // 云文档 token。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+	ObjType          int64                                                                     `json:"obj_type,omitempty"`           // 云文档类型可选值有: DocSheetBitableMindNoteFileSlideWikiDocx
+	URL              string                                                                    `json:"url,omitempty"`                // 云文档链接（需要 url_encode)
+	Title            string                                                                    `json:"title,omitempty"`              // 文档标题, 只读属性
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading8ElementMentionDocTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading8ElementMentionDocTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading8ElementMentionDocTextElementStyle struct {
+	Bold            bool                                                                          `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                          `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                          `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                          `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                          `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                         `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                         `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading8ElementMentionDocTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                      `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading8ElementMentionDocTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading8ElementMentionDocTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading8ElementMentionUser ...
+type GetDocxBlockListOfBlockRespItemHeading8ElementMentionUser struct {
+	UserID           string                                                                     `json:"user_id,omitempty"`            // 用户 OpenID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading8ElementMentionUserTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading8ElementMentionUserTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading8ElementMentionUserTextElementStyle struct {
+	Bold            bool                                                                           `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                           `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                           `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                           `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                           `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                          `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                          `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading8ElementMentionUserTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                       `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading8ElementMentionUserTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading8ElementMentionUserTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading8ElementReminder ...
+type GetDocxBlockListOfBlockRespItemHeading8ElementReminder struct {
+	CreateUserID     string                                                                  `json:"create_user_id,omitempty"`     // 创建者用户 ID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	IsNotify         bool                                                                    `json:"is_notify,omitempty"`          // 是否通知
+	IsWholeDay       bool                                                                    `json:"is_whole_day,omitempty"`       // 是日期还是整点小时
+	ExpireTime       string                                                                  `json:"expire_time,omitempty"`        // 事件发生的时间（毫秒级时间戳）
+	NotifyTime       string                                                                  `json:"notify_time,omitempty"`        // 触发通知的时间（毫秒级时间戳）
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading8ElementReminderTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading8ElementReminderTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading8ElementReminderTextElementStyle struct {
+	Bold            bool                                                                        `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                        `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                        `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                        `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                        `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                       `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                       `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading8ElementReminderTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                    `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading8ElementReminderTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading8ElementReminderTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading8ElementTextRun ...
+type GetDocxBlockListOfBlockRespItemHeading8ElementTextRun struct {
+	Content          string                                                                 `json:"content,omitempty"`            // 文本内容。要实现文本内容的换行, 你可以: 在传入的文本内容中添加 `\n` 实现软换行（Soft Break, 与在文档中通过操作 `Shift + Enter` 的效果一致）- 创建一个新的文本 Block, 实现两个文本 Block 之间的硬换行（Hard Break, 与在文档中通过操作 `Enter` 的效果一致）注意: 软换行在渲染时可能会被忽略, 具体取决于渲染器如何处理；硬换行在渲染时始终会显示为一个新行。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading8ElementTextRunTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading8ElementTextRunTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading8ElementTextRunTextElementStyle struct {
+	Bold            bool                                                                       `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                       `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                       `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                       `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                       `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                      `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                      `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading8ElementTextRunTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                   `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading8ElementTextRunTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading8ElementTextRunTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading8Style ...
+type GetDocxBlockListOfBlockRespItemHeading8Style struct {
+	Align            int64  `json:"align,omitempty"`             // 对齐方式可选值有: 居左排版居中排版居右排版
+	Done             bool   `json:"done,omitempty"`              // todo 的完成状态。支持对 Todo 块进行修改
+	Folded           bool   `json:"folded,omitempty"`            // 文本的折叠状态。支持对 Heading1~9、和有子块的 Text、Ordered、Bullet 和 Todo 块进行修改
+	Language         int64  `json:"language,omitempty"`          // 代码块的语言类型。仅支持对 Code 块进行修改可选值有: PlainTextABAPAdaApacheApexAssembly LanguageBashCSharpC++CCOBOLCSSCoffeeScriptDDartDelphiDjangoDockerfileErlangFortranFoxProGoGroovyHTMLHTMLBarsHTTPHaskellJSONJavaJavaScriptJuliaKotlinLateXLispLogoLuaMATLABMakefileMarkdownNginxObjective-COpenEdgeABLPHPPerlPostScriptPower ShellPrologProtoBufPythonRRPGRubyRustSASSCSSSQLScalaSchemeScratchShellSwiftThriftTypeScriptVBScriptVisual BasicXMLYAMLCMakeDiffGherkinGraphQLOpenGL Shading LanguagePropertiesSolidityTOML
+	Wrap             bool   `json:"wrap,omitempty"`              // 代码块是否自动换行。支持对 Code 块进行修改
+	BackgroundColor  string `json:"background_color,omitempty"`  // 块的背景色可选值有: 浅灰色浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色灰色中红色中橙色中黄色中绿色中蓝色中紫色
+	IndentationLevel string `json:"indentation_level,omitempty"` // 首行缩进级别。仅支持对 Text 块进行修改。可选值有: 无缩进一级缩进
+	Sequence         string `json:"sequence,omitempty"`          // 用于确定有序列表项编号, 为具体数值或'auto'- 开始新列表时, 有序列表编号从 1 开始, sequence='1'- 手动修改为非连续编号时, 有序列表编号为设定的具体数值, 如 sequence='3'- 继续编号时, 有序列表编号自动连续, sequence='auto'- 部分历史数据和通过 OpenAPI 创建的有序列表不返回此字段
+}
+
+// GetDocxBlockListOfBlockRespItemHeading9 ...
+type GetDocxBlockListOfBlockRespItemHeading9 struct {
+	Style    *GetDocxBlockListOfBlockRespItemHeading9Style     `json:"style,omitempty"`    // 文本样式
+	Elements []*GetDocxBlockListOfBlockRespItemHeading9Element `json:"elements,omitempty"` // 文本元素
+}
+
+// GetDocxBlockListOfBlockRespItemHeading9Element ...
+type GetDocxBlockListOfBlockRespItemHeading9Element struct {
+	TextRun     *GetDocxBlockListOfBlockRespItemHeading9ElementTextRun     `json:"text_run,omitempty"`     // 文字。支持对 Page、Text、Heading1~9、Bullet、Ordered、Code、Quote、Todo 块进行修改
+	MentionUser *Mention                                                   `json:"mention_user,omitempty"` // @用户。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改。
+	MentionDoc  *Mention                                                   `json:"mention_doc,omitempty"`  // @文档。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
+	Reminder    *GetDocxBlockListOfBlockRespItemHeading9ElementReminder    `json:"reminder,omitempty"`     // 日期提醒。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
+	File        *GetDocxBlockListOfBlockRespItemHeading9ElementFile        `json:"file,omitempty"`         // 内联文件。仅支持删除或移动位置, 不支持创建新的内联文件
+	Undefined   interface{}                                                `json:"undefined,omitempty"`    // 未支持的 TextElement
+	InlineBlock *GetDocxBlockListOfBlockRespItemHeading9ElementInlineBlock `json:"inline_block,omitempty"` // 内联块。仅支持删除或移动位置, 不支持创建新的内联块
+	Equation    *GetDocxBlockListOfBlockRespItemHeading9ElementEquation    `json:"equation,omitempty"`     // 公式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading9ElementEquation ...
+type GetDocxBlockListOfBlockRespItemHeading9ElementEquation struct {
+	Content          string                                                                  `json:"content,omitempty"`            // 符合 KaTeX 语法的公式内容, 语法规则请参考: https://katex.org/docs/supported.html
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading9ElementEquationTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading9ElementEquationTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading9ElementEquationTextElementStyle struct {
+	Bold            bool                                                                        `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                        `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                        `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                        `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                        `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                       `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                       `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading9ElementEquationTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                    `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading9ElementEquationTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading9ElementEquationTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading9ElementFile ...
+type GetDocxBlockListOfBlockRespItemHeading9ElementFile struct {
+	FileToken        string                                                              `json:"file_token,omitempty"`         // 附件 token
+	SourceBlockID    string                                                              `json:"source_block_id,omitempty"`    // 当前文档中该文件所处的 block 的 ID
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading9ElementFileTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading9ElementFileTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading9ElementFileTextElementStyle struct {
+	Bold            bool                                                                    `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                    `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                    `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                    `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                    `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                   `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                   `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading9ElementFileTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading9ElementFileTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading9ElementFileTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading9ElementInlineBlock ...
+type GetDocxBlockListOfBlockRespItemHeading9ElementInlineBlock struct {
+	BlockID          string                                                                     `json:"block_id,omitempty"`           // 关联的内联状态的 block 的 block_id
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading9ElementInlineBlockTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading9ElementInlineBlockTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading9ElementInlineBlockTextElementStyle struct {
+	Bold            bool                                                                           `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                           `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                           `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                           `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                           `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                          `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                          `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading9ElementInlineBlockTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                       `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading9ElementInlineBlockTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading9ElementInlineBlockTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading9ElementMentionDoc ...
+type GetDocxBlockListOfBlockRespItemHeading9ElementMentionDoc struct {
+	Token            string                                                                    `json:"token,omitempty"`              // 云文档 token。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+	ObjType          int64                                                                     `json:"obj_type,omitempty"`           // 云文档类型可选值有: DocSheetBitableMindNoteFileSlideWikiDocx
+	URL              string                                                                    `json:"url,omitempty"`                // 云文档链接（需要 url_encode)
+	Title            string                                                                    `json:"title,omitempty"`              // 文档标题, 只读属性
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading9ElementMentionDocTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading9ElementMentionDocTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading9ElementMentionDocTextElementStyle struct {
+	Bold            bool                                                                          `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                          `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                          `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                          `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                          `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                         `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                         `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading9ElementMentionDocTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                      `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading9ElementMentionDocTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading9ElementMentionDocTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading9ElementMentionUser ...
+type GetDocxBlockListOfBlockRespItemHeading9ElementMentionUser struct {
+	UserID           string                                                                     `json:"user_id,omitempty"`            // 用户 OpenID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading9ElementMentionUserTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading9ElementMentionUserTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading9ElementMentionUserTextElementStyle struct {
+	Bold            bool                                                                           `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                           `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                           `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                           `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                           `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                          `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                          `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading9ElementMentionUserTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                       `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading9ElementMentionUserTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading9ElementMentionUserTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading9ElementReminder ...
+type GetDocxBlockListOfBlockRespItemHeading9ElementReminder struct {
+	CreateUserID     string                                                                  `json:"create_user_id,omitempty"`     // 创建者用户 ID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	IsNotify         bool                                                                    `json:"is_notify,omitempty"`          // 是否通知
+	IsWholeDay       bool                                                                    `json:"is_whole_day,omitempty"`       // 是日期还是整点小时
+	ExpireTime       string                                                                  `json:"expire_time,omitempty"`        // 事件发生的时间（毫秒级时间戳）
+	NotifyTime       string                                                                  `json:"notify_time,omitempty"`        // 触发通知的时间（毫秒级时间戳）
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading9ElementReminderTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading9ElementReminderTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading9ElementReminderTextElementStyle struct {
+	Bold            bool                                                                        `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                        `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                        `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                        `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                        `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                       `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                       `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading9ElementReminderTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                    `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading9ElementReminderTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading9ElementReminderTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading9ElementTextRun ...
+type GetDocxBlockListOfBlockRespItemHeading9ElementTextRun struct {
+	Content          string                                                                 `json:"content,omitempty"`            // 文本内容。要实现文本内容的换行, 你可以: 在传入的文本内容中添加 `\n` 实现软换行（Soft Break, 与在文档中通过操作 `Shift + Enter` 的效果一致）- 创建一个新的文本 Block, 实现两个文本 Block 之间的硬换行（Hard Break, 与在文档中通过操作 `Enter` 的效果一致）注意: 软换行在渲染时可能会被忽略, 具体取决于渲染器如何处理；硬换行在渲染时始终会显示为一个新行。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemHeading9ElementTextRunTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemHeading9ElementTextRunTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemHeading9ElementTextRunTextElementStyle struct {
+	Bold            bool                                                                       `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                       `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                       `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                       `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                       `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                      `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                      `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemHeading9ElementTextRunTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                   `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemHeading9ElementTextRunTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemHeading9ElementTextRunTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemHeading9Style ...
+type GetDocxBlockListOfBlockRespItemHeading9Style struct {
+	Align            int64  `json:"align,omitempty"`             // 对齐方式可选值有: 居左排版居中排版居右排版
+	Done             bool   `json:"done,omitempty"`              // todo 的完成状态。支持对 Todo 块进行修改
+	Folded           bool   `json:"folded,omitempty"`            // 文本的折叠状态。支持对 Heading1~9、和有子块的 Text、Ordered、Bullet 和 Todo 块进行修改
+	Language         int64  `json:"language,omitempty"`          // 代码块的语言类型。仅支持对 Code 块进行修改可选值有: PlainTextABAPAdaApacheApexAssembly LanguageBashCSharpC++CCOBOLCSSCoffeeScriptDDartDelphiDjangoDockerfileErlangFortranFoxProGoGroovyHTMLHTMLBarsHTTPHaskellJSONJavaJavaScriptJuliaKotlinLateXLispLogoLuaMATLABMakefileMarkdownNginxObjective-COpenEdgeABLPHPPerlPostScriptPower ShellPrologProtoBufPythonRRPGRubyRustSASSCSSSQLScalaSchemeScratchShellSwiftThriftTypeScriptVBScriptVisual BasicXMLYAMLCMakeDiffGherkinGraphQLOpenGL Shading LanguagePropertiesSolidityTOML
+	Wrap             bool   `json:"wrap,omitempty"`              // 代码块是否自动换行。支持对 Code 块进行修改
+	BackgroundColor  string `json:"background_color,omitempty"`  // 块的背景色可选值有: 浅灰色浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色灰色中红色中橙色中黄色中绿色中蓝色中紫色
+	IndentationLevel string `json:"indentation_level,omitempty"` // 首行缩进级别。仅支持对 Text 块进行修改。可选值有: 无缩进一级缩进
+	Sequence         string `json:"sequence,omitempty"`          // 用于确定有序列表项编号, 为具体数值或'auto'- 开始新列表时, 有序列表编号从 1 开始, sequence='1'- 手动修改为非连续编号时, 有序列表编号为设定的具体数值, 如 sequence='3'- 继续编号时, 有序列表编号自动连续, sequence='auto'- 部分历史数据和通过 OpenAPI 创建的有序列表不返回此字段
+}
+
+// GetDocxBlockListOfBlockRespItemIframe ...
+type GetDocxBlockListOfBlockRespItemIframe struct {
+	Component *GetDocxBlockListOfBlockRespItemIframeComponent `json:"component,omitempty"` // iframe 的组成元素
+}
+
+// GetDocxBlockListOfBlockRespItemIframeComponent ...
+type GetDocxBlockListOfBlockRespItemIframeComponent struct {
+	IframeType int64  `json:"iframe_type,omitempty"` // iframe 类型可选值有: 哔哩哔哩西瓜视频优酷Airtable百度地图高德地图UndefinedFigma墨刀CanvaCodePen飞书问卷金数据UndefinedUndefinedOther
+	URL        string `json:"url,omitempty"`         // iframe 目标 url（需要进行 url_encode）
+}
+
+// GetDocxBlockListOfBlockRespItemImage ...
+type GetDocxBlockListOfBlockRespItemImage struct {
+	Width   int64                                        `json:"width,omitempty"`   // 宽度单位 px
+	Height  int64                                        `json:"height,omitempty"`  // 高度单位 px
+	Token   string                                       `json:"token,omitempty"`   // 图片 Token
+	Align   int64                                        `json:"align,omitempty"`   // 对齐方式可选值有: 居左排版居中排版居右排版
+	Caption *GetDocxBlockListOfBlockRespItemImageCaption `json:"caption,omitempty"` // 图片描述
+}
+
+// GetDocxBlockListOfBlockRespItemImageCaption ...
+type GetDocxBlockListOfBlockRespItemImageCaption struct {
+	Content string `json:"content,omitempty"` // 描述的文本内容
+}
+
+// GetDocxBlockListOfBlockRespItemIsv ...
+type GetDocxBlockListOfBlockRespItemIsv struct {
+	ComponentID     string `json:"component_id,omitempty"`      // 团队互动应用唯一ID。该 ID 可通过调用[创建 BlockEntity](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/block-v2/entity/create) 接口, 并从响应体中的 block_id 中获取, 创建时使用的 `block_type_id` 需要与 `component_type_id` 一致。
+	ComponentTypeID string `json:"component_type_id,omitempty"` // 团队互动应用类型, 比如信息收集"blk_5f992038c64240015d280958"。该 ID 可在 [开发者后台](https://open.feishu.cn/app) > 应用详情页 > 应用能力 > 云文档小组件 > BlockTypeID 获取。
+}
+
+// GetDocxBlockListOfBlockRespItemJiraIssue ...
+type GetDocxBlockListOfBlockRespItemJiraIssue struct {
+	ID  string `json:"id,omitempty"`  // Jira 问题 ID
+	Key string `json:"key,omitempty"` // Jira 问题 key
+}
+
+// GetDocxBlockListOfBlockRespItemLinkPreview ...
+type GetDocxBlockListOfBlockRespItemLinkPreview struct {
+	URLType string `json:"url_type,omitempty"` // 链接类型可选值有: 消息链接未定义的链接类型
+}
+
+// GetDocxBlockListOfBlockRespItemMindnote ...
+type GetDocxBlockListOfBlockRespItemMindnote struct {
+	Token string `json:"token,omitempty"` // 思维导图 token
+}
+
+// GetDocxBlockListOfBlockRespItemOKR ...
+type GetDocxBlockListOfBlockRespItemOKR struct {
+	OKRID               string                                            `json:"okr_id,omitempty"`                // OKR ID, 获取需要插入的 OKR ID 可见[获取用户的 OKR 列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/okr-v1/user-okr/list)
+	PeriodDisplayStatus string                                            `json:"period_display_status,omitempty"` // 周期的状态可选值有: 默认正常失效隐藏
+	PeriodNameZh        string                                            `json:"period_name_zh,omitempty"`        // 周期名 - 中文
+	PeriodNameEn        string                                            `json:"period_name_en,omitempty"`        // 周期名 - 英文
+	UserID              string                                            `json:"user_id,omitempty"`               // OKR 所属的用户 ID
+	VisibleSetting      *GetDocxBlockListOfBlockRespItemOKRVisibleSetting `json:"visible_setting,omitempty"`       // 可见性设置
+}
+
+// GetDocxBlockListOfBlockRespItemOKRKeyResult ...
+type GetDocxBlockListOfBlockRespItemOKRKeyResult struct {
+	KrID         string                                                   `json:"kr_id,omitempty"`         // Key Result 的 ID
+	Confidential bool                                                     `json:"confidential,omitempty"`  // 是否在 OKR 平台设置了私密权限
+	Position     int64                                                    `json:"position,omitempty"`      // Key Result 的位置编号, 对应 Block 中 KR1、KR2 的 1、2。
+	Score        int64                                                    `json:"score,omitempty"`         // 打分信息
+	Visible      bool                                                     `json:"visible,omitempty"`       // OKR Block 中此 Key Result 是否可见
+	Weight       float64                                                  `json:"weight,omitempty"`        // Key Result 的权重
+	ProgressRate *GetDocxBlockListOfBlockRespItemOKRKeyResultProgressRate `json:"progress_rate,omitempty"` // 进展信息
+	Content      *GetDocxBlockListOfBlockRespItemOKRKeyResultContent      `json:"content,omitempty"`       // Key Result 的文本内容
+}
+
+// GetDocxBlockListOfBlockRespItemOKRKeyResultContent ...
+type GetDocxBlockListOfBlockRespItemOKRKeyResultContent struct {
+	Style    *GetDocxBlockListOfBlockRespItemOKRKeyResultContentStyle     `json:"style,omitempty"`    // 文本样式
+	Elements []*GetDocxBlockListOfBlockRespItemOKRKeyResultContentElement `json:"elements,omitempty"` // 文本元素
+}
+
+// GetDocxBlockListOfBlockRespItemOKRKeyResultContentElement ...
+type GetDocxBlockListOfBlockRespItemOKRKeyResultContentElement struct {
+	TextRun     *GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementTextRun     `json:"text_run,omitempty"`     // 文字。支持对 Page、Text、Heading1~9、Bullet、Ordered、Code、Quote、Todo 块进行修改
+	MentionUser *Mention                                                              `json:"mention_user,omitempty"` // @用户。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改。
+	MentionDoc  *Mention                                                              `json:"mention_doc,omitempty"`  // @文档。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
+	Reminder    *GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementReminder    `json:"reminder,omitempty"`     // 日期提醒。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
+	File        *GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementFile        `json:"file,omitempty"`         // 内联文件。仅支持删除或移动位置, 不支持创建新的内联文件
+	Undefined   interface{}                                                           `json:"undefined,omitempty"`    // 未支持的 TextElement
+	InlineBlock *GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementInlineBlock `json:"inline_block,omitempty"` // 内联块。仅支持删除或移动位置, 不支持创建新的内联块
+	Equation    *GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementEquation    `json:"equation,omitempty"`     // 公式
+}
+
+// GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementEquation ...
+type GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementEquation struct {
+	Content          string                                                                             `json:"content,omitempty"`            // 符合 KaTeX 语法的公式内容, 语法规则请参考: https://katex.org/docs/supported.html
+	TextElementStyle *GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementEquationTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementEquationTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementEquationTextElementStyle struct {
+	Bold            bool                                                                                   `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                                   `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                                   `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                                   `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                                   `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                                  `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                                  `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementEquationTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                               `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementEquationTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementEquationTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementFile ...
+type GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementFile struct {
+	FileToken        string                                                                         `json:"file_token,omitempty"`         // 附件 token
+	SourceBlockID    string                                                                         `json:"source_block_id,omitempty"`    // 当前文档中该文件所处的 block 的 ID
+	TextElementStyle *GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementFileTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementFileTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementFileTextElementStyle struct {
+	Bold            bool                                                                               `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                               `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                               `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                               `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                               `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                              `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                              `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementFileTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                           `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementFileTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementFileTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementInlineBlock ...
+type GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementInlineBlock struct {
+	BlockID          string                                                                                `json:"block_id,omitempty"`           // 关联的内联状态的 block 的 block_id
+	TextElementStyle *GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementInlineBlockTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementInlineBlockTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementInlineBlockTextElementStyle struct {
+	Bold            bool                                                                                      `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                                      `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                                      `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                                      `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                                      `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                                     `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                                     `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementInlineBlockTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                                  `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementInlineBlockTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementInlineBlockTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementMentionDoc ...
+type GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementMentionDoc struct {
+	Token            string                                                                               `json:"token,omitempty"`              // 云文档 token。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+	ObjType          int64                                                                                `json:"obj_type,omitempty"`           // 云文档类型可选值有: DocSheetBitableMindNoteFileSlideWikiDocx
+	URL              string                                                                               `json:"url,omitempty"`                // 云文档链接（需要 url_encode)
+	Title            string                                                                               `json:"title,omitempty"`              // 文档标题, 只读属性
+	TextElementStyle *GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementMentionDocTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementMentionDocTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementMentionDocTextElementStyle struct {
+	Bold            bool                                                                                     `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                                     `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                                     `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                                     `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                                     `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                                    `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                                    `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementMentionDocTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                                 `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementMentionDocTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementMentionDocTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementMentionUser ...
+type GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementMentionUser struct {
+	UserID           string                                                                                `json:"user_id,omitempty"`            // 用户 OpenID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementMentionUserTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementMentionUserTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementMentionUserTextElementStyle struct {
+	Bold            bool                                                                                      `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                                      `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                                      `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                                      `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                                      `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                                     `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                                     `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementMentionUserTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                                  `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementMentionUserTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementMentionUserTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementReminder ...
+type GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementReminder struct {
+	CreateUserID     string                                                                             `json:"create_user_id,omitempty"`     // 创建者用户 ID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	IsNotify         bool                                                                               `json:"is_notify,omitempty"`          // 是否通知
+	IsWholeDay       bool                                                                               `json:"is_whole_day,omitempty"`       // 是日期还是整点小时
+	ExpireTime       string                                                                             `json:"expire_time,omitempty"`        // 事件发生的时间（毫秒级时间戳）
+	NotifyTime       string                                                                             `json:"notify_time,omitempty"`        // 触发通知的时间（毫秒级时间戳）
+	TextElementStyle *GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementReminderTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementReminderTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementReminderTextElementStyle struct {
+	Bold            bool                                                                                   `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                                   `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                                   `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                                   `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                                   `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                                  `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                                  `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementReminderTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                               `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementReminderTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementReminderTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementTextRun ...
+type GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementTextRun struct {
+	Content          string                                                                            `json:"content,omitempty"`            // 文本内容。要实现文本内容的换行, 你可以: 在传入的文本内容中添加 `\n` 实现软换行（Soft Break, 与在文档中通过操作 `Shift + Enter` 的效果一致）- 创建一个新的文本 Block, 实现两个文本 Block 之间的硬换行（Hard Break, 与在文档中通过操作 `Enter` 的效果一致）注意: 软换行在渲染时可能会被忽略, 具体取决于渲染器如何处理；硬换行在渲染时始终会显示为一个新行。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementTextRunTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementTextRunTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementTextRunTextElementStyle struct {
+	Bold            bool                                                                                  `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                                  `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                                  `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                                  `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                                  `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                                 `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                                 `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementTextRunTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                              `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementTextRunTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemOKRKeyResultContentElementTextRunTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemOKRKeyResultContentStyle ...
+type GetDocxBlockListOfBlockRespItemOKRKeyResultContentStyle struct {
+	Align            int64  `json:"align,omitempty"`             // 对齐方式可选值有: 居左排版居中排版居右排版
+	Done             bool   `json:"done,omitempty"`              // todo 的完成状态。支持对 Todo 块进行修改
+	Folded           bool   `json:"folded,omitempty"`            // 文本的折叠状态。支持对 Heading1~9、和有子块的 Text、Ordered、Bullet 和 Todo 块进行修改
+	Language         int64  `json:"language,omitempty"`          // 代码块的语言类型。仅支持对 Code 块进行修改可选值有: PlainTextABAPAdaApacheApexAssembly LanguageBashCSharpC++CCOBOLCSSCoffeeScriptDDartDelphiDjangoDockerfileErlangFortranFoxProGoGroovyHTMLHTMLBarsHTTPHaskellJSONJavaJavaScriptJuliaKotlinLateXLispLogoLuaMATLABMakefileMarkdownNginxObjective-COpenEdgeABLPHPPerlPostScriptPower ShellPrologProtoBufPythonRRPGRubyRustSASSCSSSQLScalaSchemeScratchShellSwiftThriftTypeScriptVBScriptVisual BasicXMLYAMLCMakeDiffGherkinGraphQLOpenGL Shading LanguagePropertiesSolidityTOML
+	Wrap             bool   `json:"wrap,omitempty"`              // 代码块是否自动换行。支持对 Code 块进行修改
+	BackgroundColor  string `json:"background_color,omitempty"`  // 块的背景色可选值有: 浅灰色浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色灰色中红色中橙色中黄色中绿色中蓝色中紫色
+	IndentationLevel string `json:"indentation_level,omitempty"` // 首行缩进级别。仅支持对 Text 块进行修改。可选值有: 无缩进一级缩进
+	Sequence         string `json:"sequence,omitempty"`          // 用于确定有序列表项编号, 为具体数值或'auto'- 开始新列表时, 有序列表编号从 1 开始, sequence='1'- 手动修改为非连续编号时, 有序列表编号为设定的具体数值, 如 sequence='3'- 继续编号时, 有序列表编号自动连续, sequence='auto'- 部分历史数据和通过 OpenAPI 创建的有序列表不返回此字段
+}
+
+// GetDocxBlockListOfBlockRespItemOKRKeyResultProgressRate ...
+type GetDocxBlockListOfBlockRespItemOKRKeyResultProgressRate struct {
+	Mode           string  `json:"mode,omitempty"`            // 状态模式可选值有: 简单模式高级模式
+	Current        float64 `json:"current,omitempty"`         // 当前进度, 单位 %, advanced 模式使用
+	Percent        float64 `json:"percent,omitempty"`         // 当前进度百分比, simple 模式使用
+	ProgressStatus string  `json:"progress_status,omitempty"` // 进展状态可选值有: 未设置正常有风险已延期
+	Start          float64 `json:"start,omitempty"`           // 进度起始值, 单位 %, advanced 模式使用
+	StatusType     string  `json:"status_type,omitempty"`     // 状态计算类型可选值有: 以风险最高的 Key Result 状态展示自定义
+	Target         float64 `json:"target,omitempty"`          // 进度目标值, 单位 %, advanced 模式使用
+}
+
+// GetDocxBlockListOfBlockRespItemOKRObjective ...
+type GetDocxBlockListOfBlockRespItemOKRObjective struct {
+	ObjectiveID  string                                                   `json:"objective_id,omitempty"`  // Objective ID
+	Confidential bool                                                     `json:"confidential,omitempty"`  // 是否在 OKR 平台设置了私密权限
+	Position     int64                                                    `json:"position,omitempty"`      // Objective 的位置编号, 对应 Block 中 O1、O2 的 1、2
+	Score        int64                                                    `json:"score,omitempty"`         // 打分信息
+	Visible      bool                                                     `json:"visible,omitempty"`       // OKR Block 中是否展示该 Objective
+	Weight       float64                                                  `json:"weight,omitempty"`        // Objective 的权重
+	ProgressRate *GetDocxBlockListOfBlockRespItemOKRObjectiveProgressRate `json:"progress_rate,omitempty"` // 进展信息
+	Content      *GetDocxBlockListOfBlockRespItemOKRObjectiveContent      `json:"content,omitempty"`       // Objective 的文本内容
+}
+
+// GetDocxBlockListOfBlockRespItemOKRObjectiveContent ...
+type GetDocxBlockListOfBlockRespItemOKRObjectiveContent struct {
+	Style    *GetDocxBlockListOfBlockRespItemOKRObjectiveContentStyle     `json:"style,omitempty"`    // 文本样式
+	Elements []*GetDocxBlockListOfBlockRespItemOKRObjectiveContentElement `json:"elements,omitempty"` // 文本元素
+}
+
+// GetDocxBlockListOfBlockRespItemOKRObjectiveContentElement ...
+type GetDocxBlockListOfBlockRespItemOKRObjectiveContentElement struct {
+	TextRun     *GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementTextRun     `json:"text_run,omitempty"`     // 文字。支持对 Page、Text、Heading1~9、Bullet、Ordered、Code、Quote、Todo 块进行修改
+	MentionUser *Mention                                                              `json:"mention_user,omitempty"` // @用户。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改。
+	MentionDoc  *Mention                                                              `json:"mention_doc,omitempty"`  // @文档。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
+	Reminder    *GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementReminder    `json:"reminder,omitempty"`     // 日期提醒。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
+	File        *GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementFile        `json:"file,omitempty"`         // 内联文件。仅支持删除或移动位置, 不支持创建新的内联文件
+	Undefined   interface{}                                                           `json:"undefined,omitempty"`    // 未支持的 TextElement
+	InlineBlock *GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementInlineBlock `json:"inline_block,omitempty"` // 内联块。仅支持删除或移动位置, 不支持创建新的内联块
+	Equation    *GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementEquation    `json:"equation,omitempty"`     // 公式
+}
+
+// GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementEquation ...
+type GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementEquation struct {
+	Content          string                                                                             `json:"content,omitempty"`            // 符合 KaTeX 语法的公式内容, 语法规则请参考: https://katex.org/docs/supported.html
+	TextElementStyle *GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementEquationTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementEquationTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementEquationTextElementStyle struct {
+	Bold            bool                                                                                   `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                                   `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                                   `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                                   `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                                   `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                                  `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                                  `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementEquationTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                               `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementEquationTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementEquationTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementFile ...
+type GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementFile struct {
+	FileToken        string                                                                         `json:"file_token,omitempty"`         // 附件 token
+	SourceBlockID    string                                                                         `json:"source_block_id,omitempty"`    // 当前文档中该文件所处的 block 的 ID
+	TextElementStyle *GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementFileTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementFileTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementFileTextElementStyle struct {
+	Bold            bool                                                                               `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                               `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                               `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                               `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                               `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                              `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                              `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementFileTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                           `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementFileTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementFileTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementInlineBlock ...
+type GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementInlineBlock struct {
+	BlockID          string                                                                                `json:"block_id,omitempty"`           // 关联的内联状态的 block 的 block_id
+	TextElementStyle *GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementInlineBlockTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementInlineBlockTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementInlineBlockTextElementStyle struct {
+	Bold            bool                                                                                      `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                                      `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                                      `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                                      `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                                      `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                                     `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                                     `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementInlineBlockTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                                  `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementInlineBlockTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementInlineBlockTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementMentionDoc ...
+type GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementMentionDoc struct {
+	Token            string                                                                               `json:"token,omitempty"`              // 云文档 token。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+	ObjType          int64                                                                                `json:"obj_type,omitempty"`           // 云文档类型可选值有: DocSheetBitableMindNoteFileSlideWikiDocx
+	URL              string                                                                               `json:"url,omitempty"`                // 云文档链接（需要 url_encode)
+	Title            string                                                                               `json:"title,omitempty"`              // 文档标题, 只读属性
+	TextElementStyle *GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementMentionDocTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementMentionDocTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementMentionDocTextElementStyle struct {
+	Bold            bool                                                                                     `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                                     `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                                     `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                                     `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                                     `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                                    `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                                    `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementMentionDocTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                                 `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementMentionDocTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementMentionDocTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementMentionUser ...
+type GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementMentionUser struct {
+	UserID           string                                                                                `json:"user_id,omitempty"`            // 用户 OpenID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementMentionUserTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementMentionUserTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementMentionUserTextElementStyle struct {
+	Bold            bool                                                                                      `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                                      `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                                      `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                                      `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                                      `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                                     `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                                     `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementMentionUserTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                                  `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementMentionUserTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementMentionUserTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementReminder ...
+type GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementReminder struct {
+	CreateUserID     string                                                                             `json:"create_user_id,omitempty"`     // 创建者用户 ID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	IsNotify         bool                                                                               `json:"is_notify,omitempty"`          // 是否通知
+	IsWholeDay       bool                                                                               `json:"is_whole_day,omitempty"`       // 是日期还是整点小时
+	ExpireTime       string                                                                             `json:"expire_time,omitempty"`        // 事件发生的时间（毫秒级时间戳）
+	NotifyTime       string                                                                             `json:"notify_time,omitempty"`        // 触发通知的时间（毫秒级时间戳）
+	TextElementStyle *GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementReminderTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementReminderTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementReminderTextElementStyle struct {
+	Bold            bool                                                                                   `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                                   `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                                   `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                                   `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                                   `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                                  `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                                  `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementReminderTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                               `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementReminderTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementReminderTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementTextRun ...
+type GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementTextRun struct {
+	Content          string                                                                            `json:"content,omitempty"`            // 文本内容。要实现文本内容的换行, 你可以: 在传入的文本内容中添加 `\n` 实现软换行（Soft Break, 与在文档中通过操作 `Shift + Enter` 的效果一致）- 创建一个新的文本 Block, 实现两个文本 Block 之间的硬换行（Hard Break, 与在文档中通过操作 `Enter` 的效果一致）注意: 软换行在渲染时可能会被忽略, 具体取决于渲染器如何处理；硬换行在渲染时始终会显示为一个新行。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementTextRunTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementTextRunTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementTextRunTextElementStyle struct {
+	Bold            bool                                                                                  `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                                  `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                                  `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                                  `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                                  `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                                 `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                                 `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementTextRunTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                              `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementTextRunTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemOKRObjectiveContentElementTextRunTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemOKRObjectiveContentStyle ...
+type GetDocxBlockListOfBlockRespItemOKRObjectiveContentStyle struct {
+	Align            int64  `json:"align,omitempty"`             // 对齐方式可选值有: 居左排版居中排版居右排版
+	Done             bool   `json:"done,omitempty"`              // todo 的完成状态。支持对 Todo 块进行修改
+	Folded           bool   `json:"folded,omitempty"`            // 文本的折叠状态。支持对 Heading1~9、和有子块的 Text、Ordered、Bullet 和 Todo 块进行修改
+	Language         int64  `json:"language,omitempty"`          // 代码块的语言类型。仅支持对 Code 块进行修改可选值有: PlainTextABAPAdaApacheApexAssembly LanguageBashCSharpC++CCOBOLCSSCoffeeScriptDDartDelphiDjangoDockerfileErlangFortranFoxProGoGroovyHTMLHTMLBarsHTTPHaskellJSONJavaJavaScriptJuliaKotlinLateXLispLogoLuaMATLABMakefileMarkdownNginxObjective-COpenEdgeABLPHPPerlPostScriptPower ShellPrologProtoBufPythonRRPGRubyRustSASSCSSSQLScalaSchemeScratchShellSwiftThriftTypeScriptVBScriptVisual BasicXMLYAMLCMakeDiffGherkinGraphQLOpenGL Shading LanguagePropertiesSolidityTOML
+	Wrap             bool   `json:"wrap,omitempty"`              // 代码块是否自动换行。支持对 Code 块进行修改
+	BackgroundColor  string `json:"background_color,omitempty"`  // 块的背景色可选值有: 浅灰色浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色灰色中红色中橙色中黄色中绿色中蓝色中紫色
+	IndentationLevel string `json:"indentation_level,omitempty"` // 首行缩进级别。仅支持对 Text 块进行修改。可选值有: 无缩进一级缩进
+	Sequence         string `json:"sequence,omitempty"`          // 用于确定有序列表项编号, 为具体数值或'auto'- 开始新列表时, 有序列表编号从 1 开始, sequence='1'- 手动修改为非连续编号时, 有序列表编号为设定的具体数值, 如 sequence='3'- 继续编号时, 有序列表编号自动连续, sequence='auto'- 部分历史数据和通过 OpenAPI 创建的有序列表不返回此字段
+}
+
+// GetDocxBlockListOfBlockRespItemOKRObjectiveProgressRate ...
+type GetDocxBlockListOfBlockRespItemOKRObjectiveProgressRate struct {
+	Mode           string  `json:"mode,omitempty"`            // 状态模式可选值有: 简单模式高级模式
+	Current        float64 `json:"current,omitempty"`         // 当前进度, 单位 %, advanced 模式使用
+	Percent        float64 `json:"percent,omitempty"`         // 当前进度百分比, simple 模式使用
+	ProgressStatus string  `json:"progress_status,omitempty"` // 进展状态可选值有: 未设置正常有风险已延期
+	Start          float64 `json:"start,omitempty"`           // 进度起始值, 单位 %, advanced 模式使用
+	StatusType     string  `json:"status_type,omitempty"`     // 状态计算类型可选值有: 以风险最高的 Key Result 状态展示自定义
+	Target         float64 `json:"target,omitempty"`          // 进度目标值, 单位 %, advanced 模式使用
+}
+
+// GetDocxBlockListOfBlockRespItemOKRVisibleSetting ...
+type GetDocxBlockListOfBlockRespItemOKRVisibleSetting struct {
+	ProgressFillAreaVisible bool `json:"progress_fill_area_visible,omitempty"` // 进展编辑区域是否可见
+	ProgressStatusVisible   bool `json:"progress_status_visible,omitempty"`    // 进展状态是否可见
+	ScoreVisible            bool `json:"score_visible,omitempty"`              // 分数是否可见
+}
+
+// GetDocxBlockListOfBlockRespItemOrdered ...
+type GetDocxBlockListOfBlockRespItemOrdered struct {
+	Style    *GetDocxBlockListOfBlockRespItemOrderedStyle     `json:"style,omitempty"`    // 文本样式
+	Elements []*GetDocxBlockListOfBlockRespItemOrderedElement `json:"elements,omitempty"` // 文本元素
+}
+
+// GetDocxBlockListOfBlockRespItemOrderedElement ...
+type GetDocxBlockListOfBlockRespItemOrderedElement struct {
+	TextRun     *GetDocxBlockListOfBlockRespItemOrderedElementTextRun     `json:"text_run,omitempty"`     // 文字。支持对 Page、Text、Heading1~9、Bullet、Ordered、Code、Quote、Todo 块进行修改
+	MentionUser *Mention                                                  `json:"mention_user,omitempty"` // @用户。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改。
+	MentionDoc  *Mention                                                  `json:"mention_doc,omitempty"`  // @文档。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
+	Reminder    *GetDocxBlockListOfBlockRespItemOrderedElementReminder    `json:"reminder,omitempty"`     // 日期提醒。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
+	File        *GetDocxBlockListOfBlockRespItemOrderedElementFile        `json:"file,omitempty"`         // 内联文件。仅支持删除或移动位置, 不支持创建新的内联文件
+	Undefined   interface{}                                               `json:"undefined,omitempty"`    // 未支持的 TextElement
+	InlineBlock *GetDocxBlockListOfBlockRespItemOrderedElementInlineBlock `json:"inline_block,omitempty"` // 内联块。仅支持删除或移动位置, 不支持创建新的内联块
+	Equation    *GetDocxBlockListOfBlockRespItemOrderedElementEquation    `json:"equation,omitempty"`     // 公式
+}
+
+// GetDocxBlockListOfBlockRespItemOrderedElementEquation ...
+type GetDocxBlockListOfBlockRespItemOrderedElementEquation struct {
+	Content          string                                                                 `json:"content,omitempty"`            // 符合 KaTeX 语法的公式内容, 语法规则请参考: https://katex.org/docs/supported.html
+	TextElementStyle *GetDocxBlockListOfBlockRespItemOrderedElementEquationTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemOrderedElementEquationTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemOrderedElementEquationTextElementStyle struct {
+	Bold            bool                                                                       `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                       `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                       `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                       `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                       `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                      `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                      `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemOrderedElementEquationTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                   `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemOrderedElementEquationTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemOrderedElementEquationTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemOrderedElementFile ...
+type GetDocxBlockListOfBlockRespItemOrderedElementFile struct {
+	FileToken        string                                                             `json:"file_token,omitempty"`         // 附件 token
+	SourceBlockID    string                                                             `json:"source_block_id,omitempty"`    // 当前文档中该文件所处的 block 的 ID
+	TextElementStyle *GetDocxBlockListOfBlockRespItemOrderedElementFileTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemOrderedElementFileTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemOrderedElementFileTextElementStyle struct {
+	Bold            bool                                                                   `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                   `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                   `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                   `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                   `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                  `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                  `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemOrderedElementFileTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                               `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemOrderedElementFileTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemOrderedElementFileTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemOrderedElementInlineBlock ...
+type GetDocxBlockListOfBlockRespItemOrderedElementInlineBlock struct {
+	BlockID          string                                                                    `json:"block_id,omitempty"`           // 关联的内联状态的 block 的 block_id
+	TextElementStyle *GetDocxBlockListOfBlockRespItemOrderedElementInlineBlockTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemOrderedElementInlineBlockTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemOrderedElementInlineBlockTextElementStyle struct {
+	Bold            bool                                                                          `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                          `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                          `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                          `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                          `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                         `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                         `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemOrderedElementInlineBlockTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                      `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemOrderedElementInlineBlockTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemOrderedElementInlineBlockTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemOrderedElementMentionDoc ...
+type GetDocxBlockListOfBlockRespItemOrderedElementMentionDoc struct {
+	Token            string                                                                   `json:"token,omitempty"`              // 云文档 token。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+	ObjType          int64                                                                    `json:"obj_type,omitempty"`           // 云文档类型可选值有: DocSheetBitableMindNoteFileSlideWikiDocx
+	URL              string                                                                   `json:"url,omitempty"`                // 云文档链接（需要 url_encode)
+	Title            string                                                                   `json:"title,omitempty"`              // 文档标题, 只读属性
+	TextElementStyle *GetDocxBlockListOfBlockRespItemOrderedElementMentionDocTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemOrderedElementMentionDocTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemOrderedElementMentionDocTextElementStyle struct {
+	Bold            bool                                                                         `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                         `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                         `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                         `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                         `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                        `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                        `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemOrderedElementMentionDocTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                     `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemOrderedElementMentionDocTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemOrderedElementMentionDocTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemOrderedElementMentionUser ...
+type GetDocxBlockListOfBlockRespItemOrderedElementMentionUser struct {
+	UserID           string                                                                    `json:"user_id,omitempty"`            // 用户 OpenID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemOrderedElementMentionUserTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemOrderedElementMentionUserTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemOrderedElementMentionUserTextElementStyle struct {
+	Bold            bool                                                                          `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                          `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                          `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                          `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                          `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                         `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                         `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemOrderedElementMentionUserTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                      `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemOrderedElementMentionUserTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemOrderedElementMentionUserTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemOrderedElementReminder ...
+type GetDocxBlockListOfBlockRespItemOrderedElementReminder struct {
+	CreateUserID     string                                                                 `json:"create_user_id,omitempty"`     // 创建者用户 ID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	IsNotify         bool                                                                   `json:"is_notify,omitempty"`          // 是否通知
+	IsWholeDay       bool                                                                   `json:"is_whole_day,omitempty"`       // 是日期还是整点小时
+	ExpireTime       string                                                                 `json:"expire_time,omitempty"`        // 事件发生的时间（毫秒级时间戳）
+	NotifyTime       string                                                                 `json:"notify_time,omitempty"`        // 触发通知的时间（毫秒级时间戳）
+	TextElementStyle *GetDocxBlockListOfBlockRespItemOrderedElementReminderTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemOrderedElementReminderTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemOrderedElementReminderTextElementStyle struct {
+	Bold            bool                                                                       `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                       `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                       `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                       `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                       `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                      `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                      `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemOrderedElementReminderTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                   `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemOrderedElementReminderTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemOrderedElementReminderTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemOrderedElementTextRun ...
+type GetDocxBlockListOfBlockRespItemOrderedElementTextRun struct {
+	Content          string                                                                `json:"content,omitempty"`            // 文本内容。要实现文本内容的换行, 你可以: 在传入的文本内容中添加 `\n` 实现软换行（Soft Break, 与在文档中通过操作 `Shift + Enter` 的效果一致）- 创建一个新的文本 Block, 实现两个文本 Block 之间的硬换行（Hard Break, 与在文档中通过操作 `Enter` 的效果一致）注意: 软换行在渲染时可能会被忽略, 具体取决于渲染器如何处理；硬换行在渲染时始终会显示为一个新行。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemOrderedElementTextRunTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemOrderedElementTextRunTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemOrderedElementTextRunTextElementStyle struct {
+	Bold            bool                                                                      `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                      `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                      `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                      `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                      `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                     `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                     `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemOrderedElementTextRunTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                  `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemOrderedElementTextRunTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemOrderedElementTextRunTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemOrderedStyle ...
+type GetDocxBlockListOfBlockRespItemOrderedStyle struct {
+	Align            int64  `json:"align,omitempty"`             // 对齐方式可选值有: 居左排版居中排版居右排版
+	Done             bool   `json:"done,omitempty"`              // todo 的完成状态。支持对 Todo 块进行修改
+	Folded           bool   `json:"folded,omitempty"`            // 文本的折叠状态。支持对 Heading1~9、和有子块的 Text、Ordered、Bullet 和 Todo 块进行修改
+	Language         int64  `json:"language,omitempty"`          // 代码块的语言类型。仅支持对 Code 块进行修改可选值有: PlainTextABAPAdaApacheApexAssembly LanguageBashCSharpC++CCOBOLCSSCoffeeScriptDDartDelphiDjangoDockerfileErlangFortranFoxProGoGroovyHTMLHTMLBarsHTTPHaskellJSONJavaJavaScriptJuliaKotlinLateXLispLogoLuaMATLABMakefileMarkdownNginxObjective-COpenEdgeABLPHPPerlPostScriptPower ShellPrologProtoBufPythonRRPGRubyRustSASSCSSSQLScalaSchemeScratchShellSwiftThriftTypeScriptVBScriptVisual BasicXMLYAMLCMakeDiffGherkinGraphQLOpenGL Shading LanguagePropertiesSolidityTOML
+	Wrap             bool   `json:"wrap,omitempty"`              // 代码块是否自动换行。支持对 Code 块进行修改
+	BackgroundColor  string `json:"background_color,omitempty"`  // 块的背景色可选值有: 浅灰色浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色灰色中红色中橙色中黄色中绿色中蓝色中紫色
+	IndentationLevel string `json:"indentation_level,omitempty"` // 首行缩进级别。仅支持对 Text 块进行修改。可选值有: 无缩进一级缩进
+	Sequence         string `json:"sequence,omitempty"`          // 用于确定有序列表项编号, 为具体数值或'auto'- 开始新列表时, 有序列表编号从 1 开始, sequence='1'- 手动修改为非连续编号时, 有序列表编号为设定的具体数值, 如 sequence='3'- 继续编号时, 有序列表编号自动连续, sequence='auto'- 部分历史数据和通过 OpenAPI 创建的有序列表不返回此字段
+}
+
+// GetDocxBlockListOfBlockRespItemPage ...
+type GetDocxBlockListOfBlockRespItemPage struct {
+	Style    *GetDocxBlockListOfBlockRespItemPageStyle     `json:"style,omitempty"`    // 文本样式
+	Elements []*GetDocxBlockListOfBlockRespItemPageElement `json:"elements,omitempty"` // 文本元素
+}
+
+// GetDocxBlockListOfBlockRespItemPageElement ...
+type GetDocxBlockListOfBlockRespItemPageElement struct {
+	TextRun     *GetDocxBlockListOfBlockRespItemPageElementTextRun     `json:"text_run,omitempty"`     // 文字。支持对 Page、Text、Heading1~9、Bullet、Ordered、Code、Quote、Todo 块进行修改
+	MentionUser *Mention                                               `json:"mention_user,omitempty"` // @用户。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改。
+	MentionDoc  *Mention                                               `json:"mention_doc,omitempty"`  // @文档。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
+	Reminder    *GetDocxBlockListOfBlockRespItemPageElementReminder    `json:"reminder,omitempty"`     // 日期提醒。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
+	File        *GetDocxBlockListOfBlockRespItemPageElementFile        `json:"file,omitempty"`         // 内联文件。仅支持删除或移动位置, 不支持创建新的内联文件
+	Undefined   interface{}                                            `json:"undefined,omitempty"`    // 未支持的 TextElement
+	InlineBlock *GetDocxBlockListOfBlockRespItemPageElementInlineBlock `json:"inline_block,omitempty"` // 内联块。仅支持删除或移动位置, 不支持创建新的内联块
+	Equation    *GetDocxBlockListOfBlockRespItemPageElementEquation    `json:"equation,omitempty"`     // 公式
+}
+
+// GetDocxBlockListOfBlockRespItemPageElementEquation ...
+type GetDocxBlockListOfBlockRespItemPageElementEquation struct {
+	Content          string                                                              `json:"content,omitempty"`            // 符合 KaTeX 语法的公式内容, 语法规则请参考: https://katex.org/docs/supported.html
+	TextElementStyle *GetDocxBlockListOfBlockRespItemPageElementEquationTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemPageElementEquationTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemPageElementEquationTextElementStyle struct {
+	Bold            bool                                                                    `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                    `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                    `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                    `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                    `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                   `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                   `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemPageElementEquationTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemPageElementEquationTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemPageElementEquationTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemPageElementFile ...
+type GetDocxBlockListOfBlockRespItemPageElementFile struct {
+	FileToken        string                                                          `json:"file_token,omitempty"`         // 附件 token
+	SourceBlockID    string                                                          `json:"source_block_id,omitempty"`    // 当前文档中该文件所处的 block 的 ID
+	TextElementStyle *GetDocxBlockListOfBlockRespItemPageElementFileTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemPageElementFileTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemPageElementFileTextElementStyle struct {
+	Bold            bool                                                                `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                               `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                               `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemPageElementFileTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                            `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemPageElementFileTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemPageElementFileTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemPageElementInlineBlock ...
+type GetDocxBlockListOfBlockRespItemPageElementInlineBlock struct {
+	BlockID          string                                                                 `json:"block_id,omitempty"`           // 关联的内联状态的 block 的 block_id
+	TextElementStyle *GetDocxBlockListOfBlockRespItemPageElementInlineBlockTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemPageElementInlineBlockTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemPageElementInlineBlockTextElementStyle struct {
+	Bold            bool                                                                       `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                       `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                       `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                       `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                       `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                      `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                      `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemPageElementInlineBlockTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                   `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemPageElementInlineBlockTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemPageElementInlineBlockTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemPageElementMentionDoc ...
+type GetDocxBlockListOfBlockRespItemPageElementMentionDoc struct {
+	Token            string                                                                `json:"token,omitempty"`              // 云文档 token。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+	ObjType          int64                                                                 `json:"obj_type,omitempty"`           // 云文档类型可选值有: DocSheetBitableMindNoteFileSlideWikiDocx
+	URL              string                                                                `json:"url,omitempty"`                // 云文档链接（需要 url_encode)
+	Title            string                                                                `json:"title,omitempty"`              // 文档标题, 只读属性
+	TextElementStyle *GetDocxBlockListOfBlockRespItemPageElementMentionDocTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemPageElementMentionDocTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemPageElementMentionDocTextElementStyle struct {
+	Bold            bool                                                                      `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                      `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                      `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                      `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                      `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                     `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                     `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemPageElementMentionDocTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                  `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemPageElementMentionDocTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemPageElementMentionDocTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemPageElementMentionUser ...
+type GetDocxBlockListOfBlockRespItemPageElementMentionUser struct {
+	UserID           string                                                                 `json:"user_id,omitempty"`            // 用户 OpenID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemPageElementMentionUserTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemPageElementMentionUserTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemPageElementMentionUserTextElementStyle struct {
+	Bold            bool                                                                       `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                       `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                       `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                       `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                       `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                      `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                      `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemPageElementMentionUserTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                   `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemPageElementMentionUserTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemPageElementMentionUserTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemPageElementReminder ...
+type GetDocxBlockListOfBlockRespItemPageElementReminder struct {
+	CreateUserID     string                                                              `json:"create_user_id,omitempty"`     // 创建者用户 ID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	IsNotify         bool                                                                `json:"is_notify,omitempty"`          // 是否通知
+	IsWholeDay       bool                                                                `json:"is_whole_day,omitempty"`       // 是日期还是整点小时
+	ExpireTime       string                                                              `json:"expire_time,omitempty"`        // 事件发生的时间（毫秒级时间戳）
+	NotifyTime       string                                                              `json:"notify_time,omitempty"`        // 触发通知的时间（毫秒级时间戳）
+	TextElementStyle *GetDocxBlockListOfBlockRespItemPageElementReminderTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemPageElementReminderTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemPageElementReminderTextElementStyle struct {
+	Bold            bool                                                                    `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                    `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                    `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                    `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                    `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                   `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                   `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemPageElementReminderTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemPageElementReminderTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemPageElementReminderTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemPageElementTextRun ...
+type GetDocxBlockListOfBlockRespItemPageElementTextRun struct {
+	Content          string                                                             `json:"content,omitempty"`            // 文本内容。要实现文本内容的换行, 你可以: 在传入的文本内容中添加 `\n` 实现软换行（Soft Break, 与在文档中通过操作 `Shift + Enter` 的效果一致）- 创建一个新的文本 Block, 实现两个文本 Block 之间的硬换行（Hard Break, 与在文档中通过操作 `Enter` 的效果一致）注意: 软换行在渲染时可能会被忽略, 具体取决于渲染器如何处理；硬换行在渲染时始终会显示为一个新行。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemPageElementTextRunTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemPageElementTextRunTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemPageElementTextRunTextElementStyle struct {
+	Bold            bool                                                                   `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                   `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                   `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                   `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                   `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                  `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                  `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemPageElementTextRunTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                               `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemPageElementTextRunTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemPageElementTextRunTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemPageStyle ...
+type GetDocxBlockListOfBlockRespItemPageStyle struct {
+	Align            int64  `json:"align,omitempty"`             // 对齐方式可选值有: 居左排版居中排版居右排版
+	Done             bool   `json:"done,omitempty"`              // todo 的完成状态。支持对 Todo 块进行修改
+	Folded           bool   `json:"folded,omitempty"`            // 文本的折叠状态。支持对 Heading1~9、和有子块的 Text、Ordered、Bullet 和 Todo 块进行修改
+	Language         int64  `json:"language,omitempty"`          // 代码块的语言类型。仅支持对 Code 块进行修改可选值有: PlainTextABAPAdaApacheApexAssembly LanguageBashCSharpC++CCOBOLCSSCoffeeScriptDDartDelphiDjangoDockerfileErlangFortranFoxProGoGroovyHTMLHTMLBarsHTTPHaskellJSONJavaJavaScriptJuliaKotlinLateXLispLogoLuaMATLABMakefileMarkdownNginxObjective-COpenEdgeABLPHPPerlPostScriptPower ShellPrologProtoBufPythonRRPGRubyRustSASSCSSSQLScalaSchemeScratchShellSwiftThriftTypeScriptVBScriptVisual BasicXMLYAMLCMakeDiffGherkinGraphQLOpenGL Shading LanguagePropertiesSolidityTOML
+	Wrap             bool   `json:"wrap,omitempty"`              // 代码块是否自动换行。支持对 Code 块进行修改
+	BackgroundColor  string `json:"background_color,omitempty"`  // 块的背景色可选值有: 浅灰色浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色灰色中红色中橙色中黄色中绿色中蓝色中紫色
+	IndentationLevel string `json:"indentation_level,omitempty"` // 首行缩进级别。仅支持对 Text 块进行修改。可选值有: 无缩进一级缩进
+	Sequence         string `json:"sequence,omitempty"`          // 用于确定有序列表项编号, 为具体数值或'auto'- 开始新列表时, 有序列表编号从 1 开始, sequence='1'- 手动修改为非连续编号时, 有序列表编号为设定的具体数值, 如 sequence='3'- 继续编号时, 有序列表编号自动连续, sequence='auto'- 部分历史数据和通过 OpenAPI 创建的有序列表不返回此字段
+}
+
+// GetDocxBlockListOfBlockRespItemQuote ...
+type GetDocxBlockListOfBlockRespItemQuote struct {
+	Style    *GetDocxBlockListOfBlockRespItemQuoteStyle     `json:"style,omitempty"`    // 文本样式
+	Elements []*GetDocxBlockListOfBlockRespItemQuoteElement `json:"elements,omitempty"` // 文本元素
+}
+
+// GetDocxBlockListOfBlockRespItemQuoteElement ...
+type GetDocxBlockListOfBlockRespItemQuoteElement struct {
+	TextRun     *GetDocxBlockListOfBlockRespItemQuoteElementTextRun     `json:"text_run,omitempty"`     // 文字。支持对 Page、Text、Heading1~9、Bullet、Ordered、Code、Quote、Todo 块进行修改
+	MentionUser *Mention                                                `json:"mention_user,omitempty"` // @用户。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改。
+	MentionDoc  *Mention                                                `json:"mention_doc,omitempty"`  // @文档。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
+	Reminder    *GetDocxBlockListOfBlockRespItemQuoteElementReminder    `json:"reminder,omitempty"`     // 日期提醒。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
+	File        *GetDocxBlockListOfBlockRespItemQuoteElementFile        `json:"file,omitempty"`         // 内联文件。仅支持删除或移动位置, 不支持创建新的内联文件
+	Undefined   interface{}                                             `json:"undefined,omitempty"`    // 未支持的 TextElement
+	InlineBlock *GetDocxBlockListOfBlockRespItemQuoteElementInlineBlock `json:"inline_block,omitempty"` // 内联块。仅支持删除或移动位置, 不支持创建新的内联块
+	Equation    *GetDocxBlockListOfBlockRespItemQuoteElementEquation    `json:"equation,omitempty"`     // 公式
+}
+
+// GetDocxBlockListOfBlockRespItemQuoteElementEquation ...
+type GetDocxBlockListOfBlockRespItemQuoteElementEquation struct {
+	Content          string                                                               `json:"content,omitempty"`            // 符合 KaTeX 语法的公式内容, 语法规则请参考: https://katex.org/docs/supported.html
+	TextElementStyle *GetDocxBlockListOfBlockRespItemQuoteElementEquationTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemQuoteElementEquationTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemQuoteElementEquationTextElementStyle struct {
+	Bold            bool                                                                     `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                     `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                     `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                     `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                     `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                    `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                    `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemQuoteElementEquationTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                 `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemQuoteElementEquationTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemQuoteElementEquationTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemQuoteElementFile ...
+type GetDocxBlockListOfBlockRespItemQuoteElementFile struct {
+	FileToken        string                                                           `json:"file_token,omitempty"`         // 附件 token
+	SourceBlockID    string                                                           `json:"source_block_id,omitempty"`    // 当前文档中该文件所处的 block 的 ID
+	TextElementStyle *GetDocxBlockListOfBlockRespItemQuoteElementFileTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemQuoteElementFileTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemQuoteElementFileTextElementStyle struct {
+	Bold            bool                                                                 `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                 `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                 `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                 `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                 `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemQuoteElementFileTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                             `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemQuoteElementFileTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemQuoteElementFileTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemQuoteElementInlineBlock ...
+type GetDocxBlockListOfBlockRespItemQuoteElementInlineBlock struct {
+	BlockID          string                                                                  `json:"block_id,omitempty"`           // 关联的内联状态的 block 的 block_id
+	TextElementStyle *GetDocxBlockListOfBlockRespItemQuoteElementInlineBlockTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemQuoteElementInlineBlockTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemQuoteElementInlineBlockTextElementStyle struct {
+	Bold            bool                                                                        `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                        `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                        `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                        `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                        `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                       `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                       `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemQuoteElementInlineBlockTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                    `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemQuoteElementInlineBlockTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemQuoteElementInlineBlockTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemQuoteElementMentionDoc ...
+type GetDocxBlockListOfBlockRespItemQuoteElementMentionDoc struct {
+	Token            string                                                                 `json:"token,omitempty"`              // 云文档 token。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+	ObjType          int64                                                                  `json:"obj_type,omitempty"`           // 云文档类型可选值有: DocSheetBitableMindNoteFileSlideWikiDocx
+	URL              string                                                                 `json:"url,omitempty"`                // 云文档链接（需要 url_encode)
+	Title            string                                                                 `json:"title,omitempty"`              // 文档标题, 只读属性
+	TextElementStyle *GetDocxBlockListOfBlockRespItemQuoteElementMentionDocTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemQuoteElementMentionDocTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemQuoteElementMentionDocTextElementStyle struct {
+	Bold            bool                                                                       `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                       `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                       `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                       `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                       `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                      `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                      `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemQuoteElementMentionDocTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                   `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemQuoteElementMentionDocTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemQuoteElementMentionDocTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemQuoteElementMentionUser ...
+type GetDocxBlockListOfBlockRespItemQuoteElementMentionUser struct {
+	UserID           string                                                                  `json:"user_id,omitempty"`            // 用户 OpenID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemQuoteElementMentionUserTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemQuoteElementMentionUserTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemQuoteElementMentionUserTextElementStyle struct {
+	Bold            bool                                                                        `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                        `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                        `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                        `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                        `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                       `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                       `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemQuoteElementMentionUserTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                    `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemQuoteElementMentionUserTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemQuoteElementMentionUserTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemQuoteElementReminder ...
+type GetDocxBlockListOfBlockRespItemQuoteElementReminder struct {
+	CreateUserID     string                                                               `json:"create_user_id,omitempty"`     // 创建者用户 ID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	IsNotify         bool                                                                 `json:"is_notify,omitempty"`          // 是否通知
+	IsWholeDay       bool                                                                 `json:"is_whole_day,omitempty"`       // 是日期还是整点小时
+	ExpireTime       string                                                               `json:"expire_time,omitempty"`        // 事件发生的时间（毫秒级时间戳）
+	NotifyTime       string                                                               `json:"notify_time,omitempty"`        // 触发通知的时间（毫秒级时间戳）
+	TextElementStyle *GetDocxBlockListOfBlockRespItemQuoteElementReminderTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemQuoteElementReminderTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemQuoteElementReminderTextElementStyle struct {
+	Bold            bool                                                                     `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                     `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                     `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                     `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                     `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                    `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                    `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemQuoteElementReminderTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                 `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemQuoteElementReminderTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemQuoteElementReminderTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemQuoteElementTextRun ...
+type GetDocxBlockListOfBlockRespItemQuoteElementTextRun struct {
+	Content          string                                                              `json:"content,omitempty"`            // 文本内容。要实现文本内容的换行, 你可以: 在传入的文本内容中添加 `\n` 实现软换行（Soft Break, 与在文档中通过操作 `Shift + Enter` 的效果一致）- 创建一个新的文本 Block, 实现两个文本 Block 之间的硬换行（Hard Break, 与在文档中通过操作 `Enter` 的效果一致）注意: 软换行在渲染时可能会被忽略, 具体取决于渲染器如何处理；硬换行在渲染时始终会显示为一个新行。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemQuoteElementTextRunTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemQuoteElementTextRunTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemQuoteElementTextRunTextElementStyle struct {
+	Bold            bool                                                                    `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                    `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                    `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                    `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                    `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                   `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                   `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemQuoteElementTextRunTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemQuoteElementTextRunTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemQuoteElementTextRunTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemQuoteStyle ...
+type GetDocxBlockListOfBlockRespItemQuoteStyle struct {
+	Align            int64  `json:"align,omitempty"`             // 对齐方式可选值有: 居左排版居中排版居右排版
+	Done             bool   `json:"done,omitempty"`              // todo 的完成状态。支持对 Todo 块进行修改
+	Folded           bool   `json:"folded,omitempty"`            // 文本的折叠状态。支持对 Heading1~9、和有子块的 Text、Ordered、Bullet 和 Todo 块进行修改
+	Language         int64  `json:"language,omitempty"`          // 代码块的语言类型。仅支持对 Code 块进行修改可选值有: PlainTextABAPAdaApacheApexAssembly LanguageBashCSharpC++CCOBOLCSSCoffeeScriptDDartDelphiDjangoDockerfileErlangFortranFoxProGoGroovyHTMLHTMLBarsHTTPHaskellJSONJavaJavaScriptJuliaKotlinLateXLispLogoLuaMATLABMakefileMarkdownNginxObjective-COpenEdgeABLPHPPerlPostScriptPower ShellPrologProtoBufPythonRRPGRubyRustSASSCSSSQLScalaSchemeScratchShellSwiftThriftTypeScriptVBScriptVisual BasicXMLYAMLCMakeDiffGherkinGraphQLOpenGL Shading LanguagePropertiesSolidityTOML
+	Wrap             bool   `json:"wrap,omitempty"`              // 代码块是否自动换行。支持对 Code 块进行修改
+	BackgroundColor  string `json:"background_color,omitempty"`  // 块的背景色可选值有: 浅灰色浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色灰色中红色中橙色中黄色中绿色中蓝色中紫色
+	IndentationLevel string `json:"indentation_level,omitempty"` // 首行缩进级别。仅支持对 Text 块进行修改。可选值有: 无缩进一级缩进
+	Sequence         string `json:"sequence,omitempty"`          // 用于确定有序列表项编号, 为具体数值或'auto'- 开始新列表时, 有序列表编号从 1 开始, sequence='1'- 手动修改为非连续编号时, 有序列表编号为设定的具体数值, 如 sequence='3'- 继续编号时, 有序列表编号自动连续, sequence='auto'- 部分历史数据和通过 OpenAPI 创建的有序列表不返回此字段
+}
+
+// GetDocxBlockListOfBlockRespItemReferenceSynced ...
+type GetDocxBlockListOfBlockRespItemReferenceSynced struct {
+	SourceDocumentID string `json:"source_document_id,omitempty"` // 源文档的文档 ID
+	SourceBlockID    string `json:"source_block_id,omitempty"`    // 源同步块的 Block ID
+}
+
+// GetDocxBlockListOfBlockRespItemSheet ...
+type GetDocxBlockListOfBlockRespItemSheet struct {
+	Token string `json:"token,omitempty"` // 电子表格 block 的 token 和工作表的 ID 的组合
+}
+
+// GetDocxBlockListOfBlockRespItemSourceSynced ...
+type GetDocxBlockListOfBlockRespItemSourceSynced struct {
+	Elements []*GetDocxBlockListOfBlockRespItemSourceSyncedElement `json:"elements,omitempty"` // 同步块独立页标题, 由文本元素组成
+	Align    int64                                                 `json:"align,omitempty"`    // 对齐方式可选值有: 居左排版居中排版居右排版
+}
+
+// GetDocxBlockListOfBlockRespItemSourceSyncedElement ...
+type GetDocxBlockListOfBlockRespItemSourceSyncedElement struct {
+	TextRun     *GetDocxBlockListOfBlockRespItemSourceSyncedElementTextRun     `json:"text_run,omitempty"`     // 文字。支持对 Page、Text、Heading1~9、Bullet、Ordered、Code、Quote、Todo 块进行修改
+	MentionUser *Mention                                                       `json:"mention_user,omitempty"` // @用户。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改。
+	MentionDoc  *Mention                                                       `json:"mention_doc,omitempty"`  // @文档。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
+	Reminder    *GetDocxBlockListOfBlockRespItemSourceSyncedElementReminder    `json:"reminder,omitempty"`     // 日期提醒。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
+	File        *GetDocxBlockListOfBlockRespItemSourceSyncedElementFile        `json:"file,omitempty"`         // 内联文件。仅支持删除或移动位置, 不支持创建新的内联文件
+	Undefined   interface{}                                                    `json:"undefined,omitempty"`    // 未支持的 TextElement
+	InlineBlock *GetDocxBlockListOfBlockRespItemSourceSyncedElementInlineBlock `json:"inline_block,omitempty"` // 内联块。仅支持删除或移动位置, 不支持创建新的内联块
+	Equation    *GetDocxBlockListOfBlockRespItemSourceSyncedElementEquation    `json:"equation,omitempty"`     // 公式
+}
+
+// GetDocxBlockListOfBlockRespItemSourceSyncedElementEquation ...
+type GetDocxBlockListOfBlockRespItemSourceSyncedElementEquation struct {
+	Content          string                                                                      `json:"content,omitempty"`            // 符合 KaTeX 语法的公式内容, 语法规则请参考: https://katex.org/docs/supported.html
+	TextElementStyle *GetDocxBlockListOfBlockRespItemSourceSyncedElementEquationTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemSourceSyncedElementEquationTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemSourceSyncedElementEquationTextElementStyle struct {
+	Bold            bool                                                                            `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                            `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                            `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                            `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                            `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                           `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                           `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemSourceSyncedElementEquationTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                        `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemSourceSyncedElementEquationTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemSourceSyncedElementEquationTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemSourceSyncedElementFile ...
+type GetDocxBlockListOfBlockRespItemSourceSyncedElementFile struct {
+	FileToken        string                                                                  `json:"file_token,omitempty"`         // 附件 token
+	SourceBlockID    string                                                                  `json:"source_block_id,omitempty"`    // 当前文档中该文件所处的 block 的 ID
+	TextElementStyle *GetDocxBlockListOfBlockRespItemSourceSyncedElementFileTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemSourceSyncedElementFileTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemSourceSyncedElementFileTextElementStyle struct {
+	Bold            bool                                                                        `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                        `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                        `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                        `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                        `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                       `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                       `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemSourceSyncedElementFileTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                    `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemSourceSyncedElementFileTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemSourceSyncedElementFileTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemSourceSyncedElementInlineBlock ...
+type GetDocxBlockListOfBlockRespItemSourceSyncedElementInlineBlock struct {
+	BlockID          string                                                                         `json:"block_id,omitempty"`           // 关联的内联状态的 block 的 block_id
+	TextElementStyle *GetDocxBlockListOfBlockRespItemSourceSyncedElementInlineBlockTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemSourceSyncedElementInlineBlockTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemSourceSyncedElementInlineBlockTextElementStyle struct {
+	Bold            bool                                                                               `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                               `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                               `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                               `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                               `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                              `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                              `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemSourceSyncedElementInlineBlockTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                           `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemSourceSyncedElementInlineBlockTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemSourceSyncedElementInlineBlockTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemSourceSyncedElementMentionDoc ...
+type GetDocxBlockListOfBlockRespItemSourceSyncedElementMentionDoc struct {
+	Token            string                                                                        `json:"token,omitempty"`              // 云文档 token。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+	ObjType          int64                                                                         `json:"obj_type,omitempty"`           // 云文档类型可选值有: DocSheetBitableMindNoteFileSlideWikiDocx
+	URL              string                                                                        `json:"url,omitempty"`                // 云文档链接（需要 url_encode)
+	Title            string                                                                        `json:"title,omitempty"`              // 文档标题, 只读属性
+	TextElementStyle *GetDocxBlockListOfBlockRespItemSourceSyncedElementMentionDocTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemSourceSyncedElementMentionDocTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemSourceSyncedElementMentionDocTextElementStyle struct {
+	Bold            bool                                                                              `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                              `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                              `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                              `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                              `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                             `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                             `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemSourceSyncedElementMentionDocTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                          `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemSourceSyncedElementMentionDocTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemSourceSyncedElementMentionDocTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemSourceSyncedElementMentionUser ...
+type GetDocxBlockListOfBlockRespItemSourceSyncedElementMentionUser struct {
+	UserID           string                                                                         `json:"user_id,omitempty"`            // 用户 OpenID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemSourceSyncedElementMentionUserTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemSourceSyncedElementMentionUserTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemSourceSyncedElementMentionUserTextElementStyle struct {
+	Bold            bool                                                                               `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                               `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                               `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                               `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                               `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                              `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                              `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemSourceSyncedElementMentionUserTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                           `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemSourceSyncedElementMentionUserTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemSourceSyncedElementMentionUserTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemSourceSyncedElementReminder ...
+type GetDocxBlockListOfBlockRespItemSourceSyncedElementReminder struct {
+	CreateUserID     string                                                                      `json:"create_user_id,omitempty"`     // 创建者用户 ID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	IsNotify         bool                                                                        `json:"is_notify,omitempty"`          // 是否通知
+	IsWholeDay       bool                                                                        `json:"is_whole_day,omitempty"`       // 是日期还是整点小时
+	ExpireTime       string                                                                      `json:"expire_time,omitempty"`        // 事件发生的时间（毫秒级时间戳）
+	NotifyTime       string                                                                      `json:"notify_time,omitempty"`        // 触发通知的时间（毫秒级时间戳）
+	TextElementStyle *GetDocxBlockListOfBlockRespItemSourceSyncedElementReminderTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemSourceSyncedElementReminderTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemSourceSyncedElementReminderTextElementStyle struct {
+	Bold            bool                                                                            `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                            `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                            `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                            `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                            `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                           `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                           `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemSourceSyncedElementReminderTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                        `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemSourceSyncedElementReminderTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemSourceSyncedElementReminderTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemSourceSyncedElementTextRun ...
+type GetDocxBlockListOfBlockRespItemSourceSyncedElementTextRun struct {
+	Content          string                                                                     `json:"content,omitempty"`            // 文本内容。要实现文本内容的换行, 你可以: 在传入的文本内容中添加 `\n` 实现软换行（Soft Break, 与在文档中通过操作 `Shift + Enter` 的效果一致）- 创建一个新的文本 Block, 实现两个文本 Block 之间的硬换行（Hard Break, 与在文档中通过操作 `Enter` 的效果一致）注意: 软换行在渲染时可能会被忽略, 具体取决于渲染器如何处理；硬换行在渲染时始终会显示为一个新行。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemSourceSyncedElementTextRunTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemSourceSyncedElementTextRunTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemSourceSyncedElementTextRunTextElementStyle struct {
+	Bold            bool                                                                           `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                           `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                           `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                           `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                           `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                          `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                          `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemSourceSyncedElementTextRunTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                       `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemSourceSyncedElementTextRunTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemSourceSyncedElementTextRunTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemSubPageList ...
+type GetDocxBlockListOfBlockRespItemSubPageList struct {
+	WikiToken string `json:"wiki_token,omitempty"` // 知识库节点 token, 仅支持知识库文档创建子页面列表, 且需传入当前页面的 wiki token
+}
+
+// GetDocxBlockListOfBlockRespItemTable ...
+type GetDocxBlockListOfBlockRespItemTable struct {
+	Cells    []string                                      `json:"cells,omitempty"`    // 单元格数组, 数组元素为 Table Cell Block 的 ID
+	Property *GetDocxBlockListOfBlockRespItemTableProperty `json:"property,omitempty"` // 表格属性
+}
+
+// GetDocxBlockListOfBlockRespItemTableProperty ...
+type GetDocxBlockListOfBlockRespItemTableProperty struct {
+	RowSize      int64                                                    `json:"row_size,omitempty"`      // 行数- 创建块接口中, 该字段最大值为 9 - 创建嵌套块接口中, 在单个表格单元格不超过上限 2000 情况下, 该字段无固定最大值
+	ColumnSize   int64                                                    `json:"column_size,omitempty"`   // 列数- 创建块接口中, 该字段最大值为 9 - 创建嵌套块接口中, 该字段最大值为 100
+	ColumnWidth  []int64                                                  `json:"column_width,omitempty"`  // 列宽, 单位像素（px）
+	MergeInfo    []*GetDocxBlockListOfBlockRespItemTablePropertyMergeInfo `json:"merge_info,omitempty"`    // 单元格合并信息。创建 Table 时, 此属性只读, 将由系统自动生成。如果需要合并单元格, 可以通过更新块接口的子请求 `merge_table_cells` 实现
+	HeaderRow    bool                                                     `json:"header_row,omitempty"`    // 设置首行为标题行
+	HeaderColumn bool                                                     `json:"header_column,omitempty"` // 设置首列为标题列
+}
+
+// GetDocxBlockListOfBlockRespItemTablePropertyMergeInfo ...
+type GetDocxBlockListOfBlockRespItemTablePropertyMergeInfo struct {
+	RowSpan int64 `json:"row_span,omitempty"` // 从当前行索引起被合并的连续行数
+	ColSpan int64 `json:"col_span,omitempty"` // 从当前列索引起被合并的连续列数
+}
+
+// GetDocxBlockListOfBlockRespItemTask ...
+type GetDocxBlockListOfBlockRespItemTask struct {
+	TaskID string `json:"task_id,omitempty"` // 任务 ID, 查询具体任务详情见 [获取任务详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/get)
+	Folded bool   `json:"folded,omitempty"`  // 折叠状态
+}
+
+// GetDocxBlockListOfBlockRespItemText ...
+type GetDocxBlockListOfBlockRespItemText struct {
+	Style    *GetDocxBlockListOfBlockRespItemTextStyle     `json:"style,omitempty"`    // 文本样式
+	Elements []*GetDocxBlockListOfBlockRespItemTextElement `json:"elements,omitempty"` // 文本元素
+}
+
+// GetDocxBlockListOfBlockRespItemTextElement ...
+type GetDocxBlockListOfBlockRespItemTextElement struct {
+	TextRun     *GetDocxBlockListOfBlockRespItemTextElementTextRun     `json:"text_run,omitempty"`     // 文字。支持对 Page、Text、Heading1~9、Bullet、Ordered、Code、Quote、Todo 块进行修改
+	MentionUser *Mention                                               `json:"mention_user,omitempty"` // @用户。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改。
+	MentionDoc  *Mention                                               `json:"mention_doc,omitempty"`  // @文档。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
+	Reminder    *GetDocxBlockListOfBlockRespItemTextElementReminder    `json:"reminder,omitempty"`     // 日期提醒。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
+	File        *GetDocxBlockListOfBlockRespItemTextElementFile        `json:"file,omitempty"`         // 内联文件。仅支持删除或移动位置, 不支持创建新的内联文件
+	Undefined   interface{}                                            `json:"undefined,omitempty"`    // 未支持的 TextElement
+	InlineBlock *GetDocxBlockListOfBlockRespItemTextElementInlineBlock `json:"inline_block,omitempty"` // 内联块。仅支持删除或移动位置, 不支持创建新的内联块
+	Equation    *GetDocxBlockListOfBlockRespItemTextElementEquation    `json:"equation,omitempty"`     // 公式
+}
+
+// GetDocxBlockListOfBlockRespItemTextElementEquation ...
+type GetDocxBlockListOfBlockRespItemTextElementEquation struct {
+	Content          string                                                              `json:"content,omitempty"`            // 符合 KaTeX 语法的公式内容, 语法规则请参考: https://katex.org/docs/supported.html
+	TextElementStyle *GetDocxBlockListOfBlockRespItemTextElementEquationTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemTextElementEquationTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemTextElementEquationTextElementStyle struct {
+	Bold            bool                                                                    `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                    `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                    `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                    `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                    `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                   `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                   `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemTextElementEquationTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemTextElementEquationTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemTextElementEquationTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemTextElementFile ...
+type GetDocxBlockListOfBlockRespItemTextElementFile struct {
+	FileToken        string                                                          `json:"file_token,omitempty"`         // 附件 token
+	SourceBlockID    string                                                          `json:"source_block_id,omitempty"`    // 当前文档中该文件所处的 block 的 ID
+	TextElementStyle *GetDocxBlockListOfBlockRespItemTextElementFileTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemTextElementFileTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemTextElementFileTextElementStyle struct {
+	Bold            bool                                                                `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                               `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                               `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemTextElementFileTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                            `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemTextElementFileTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemTextElementFileTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemTextElementInlineBlock ...
+type GetDocxBlockListOfBlockRespItemTextElementInlineBlock struct {
+	BlockID          string                                                                 `json:"block_id,omitempty"`           // 关联的内联状态的 block 的 block_id
+	TextElementStyle *GetDocxBlockListOfBlockRespItemTextElementInlineBlockTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemTextElementInlineBlockTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemTextElementInlineBlockTextElementStyle struct {
+	Bold            bool                                                                       `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                       `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                       `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                       `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                       `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                      `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                      `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemTextElementInlineBlockTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                   `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemTextElementInlineBlockTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemTextElementInlineBlockTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemTextElementMentionDoc ...
+type GetDocxBlockListOfBlockRespItemTextElementMentionDoc struct {
+	Token            string                                                                `json:"token,omitempty"`              // 云文档 token。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+	ObjType          int64                                                                 `json:"obj_type,omitempty"`           // 云文档类型可选值有: DocSheetBitableMindNoteFileSlideWikiDocx
+	URL              string                                                                `json:"url,omitempty"`                // 云文档链接（需要 url_encode)
+	Title            string                                                                `json:"title,omitempty"`              // 文档标题, 只读属性
+	TextElementStyle *GetDocxBlockListOfBlockRespItemTextElementMentionDocTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemTextElementMentionDocTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemTextElementMentionDocTextElementStyle struct {
+	Bold            bool                                                                      `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                      `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                      `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                      `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                      `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                     `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                     `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemTextElementMentionDocTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                  `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemTextElementMentionDocTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemTextElementMentionDocTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemTextElementMentionUser ...
+type GetDocxBlockListOfBlockRespItemTextElementMentionUser struct {
+	UserID           string                                                                 `json:"user_id,omitempty"`            // 用户 OpenID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemTextElementMentionUserTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemTextElementMentionUserTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemTextElementMentionUserTextElementStyle struct {
+	Bold            bool                                                                       `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                       `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                       `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                       `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                       `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                      `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                      `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemTextElementMentionUserTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                   `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemTextElementMentionUserTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemTextElementMentionUserTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemTextElementReminder ...
+type GetDocxBlockListOfBlockRespItemTextElementReminder struct {
+	CreateUserID     string                                                              `json:"create_user_id,omitempty"`     // 创建者用户 ID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	IsNotify         bool                                                                `json:"is_notify,omitempty"`          // 是否通知
+	IsWholeDay       bool                                                                `json:"is_whole_day,omitempty"`       // 是日期还是整点小时
+	ExpireTime       string                                                              `json:"expire_time,omitempty"`        // 事件发生的时间（毫秒级时间戳）
+	NotifyTime       string                                                              `json:"notify_time,omitempty"`        // 触发通知的时间（毫秒级时间戳）
+	TextElementStyle *GetDocxBlockListOfBlockRespItemTextElementReminderTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemTextElementReminderTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemTextElementReminderTextElementStyle struct {
+	Bold            bool                                                                    `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                    `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                    `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                    `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                    `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                   `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                   `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemTextElementReminderTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemTextElementReminderTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemTextElementReminderTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemTextElementTextRun ...
+type GetDocxBlockListOfBlockRespItemTextElementTextRun struct {
+	Content          string                                                             `json:"content,omitempty"`            // 文本内容。要实现文本内容的换行, 你可以: 在传入的文本内容中添加 `\n` 实现软换行（Soft Break, 与在文档中通过操作 `Shift + Enter` 的效果一致）- 创建一个新的文本 Block, 实现两个文本 Block 之间的硬换行（Hard Break, 与在文档中通过操作 `Enter` 的效果一致）注意: 软换行在渲染时可能会被忽略, 具体取决于渲染器如何处理；硬换行在渲染时始终会显示为一个新行。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemTextElementTextRunTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemTextElementTextRunTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemTextElementTextRunTextElementStyle struct {
+	Bold            bool                                                                   `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                   `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                   `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                   `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                   `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                  `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                  `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemTextElementTextRunTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                               `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemTextElementTextRunTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemTextElementTextRunTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemTextStyle ...
+type GetDocxBlockListOfBlockRespItemTextStyle struct {
+	Align            int64  `json:"align,omitempty"`             // 对齐方式可选值有: 居左排版居中排版居右排版
+	Done             bool   `json:"done,omitempty"`              // todo 的完成状态。支持对 Todo 块进行修改
+	Folded           bool   `json:"folded,omitempty"`            // 文本的折叠状态。支持对 Heading1~9、和有子块的 Text、Ordered、Bullet 和 Todo 块进行修改
+	Language         int64  `json:"language,omitempty"`          // 代码块的语言类型。仅支持对 Code 块进行修改可选值有: PlainTextABAPAdaApacheApexAssembly LanguageBashCSharpC++CCOBOLCSSCoffeeScriptDDartDelphiDjangoDockerfileErlangFortranFoxProGoGroovyHTMLHTMLBarsHTTPHaskellJSONJavaJavaScriptJuliaKotlinLateXLispLogoLuaMATLABMakefileMarkdownNginxObjective-COpenEdgeABLPHPPerlPostScriptPower ShellPrologProtoBufPythonRRPGRubyRustSASSCSSSQLScalaSchemeScratchShellSwiftThriftTypeScriptVBScriptVisual BasicXMLYAMLCMakeDiffGherkinGraphQLOpenGL Shading LanguagePropertiesSolidityTOML
+	Wrap             bool   `json:"wrap,omitempty"`              // 代码块是否自动换行。支持对 Code 块进行修改
+	BackgroundColor  string `json:"background_color,omitempty"`  // 块的背景色可选值有: 浅灰色浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色灰色中红色中橙色中黄色中绿色中蓝色中紫色
+	IndentationLevel string `json:"indentation_level,omitempty"` // 首行缩进级别。仅支持对 Text 块进行修改。可选值有: 无缩进一级缩进
+	Sequence         string `json:"sequence,omitempty"`          // 用于确定有序列表项编号, 为具体数值或'auto'- 开始新列表时, 有序列表编号从 1 开始, sequence='1'- 手动修改为非连续编号时, 有序列表编号为设定的具体数值, 如 sequence='3'- 继续编号时, 有序列表编号自动连续, sequence='auto'- 部分历史数据和通过 OpenAPI 创建的有序列表不返回此字段
+}
+
+// GetDocxBlockListOfBlockRespItemTodo ...
+type GetDocxBlockListOfBlockRespItemTodo struct {
+	Style    *GetDocxBlockListOfBlockRespItemTodoStyle     `json:"style,omitempty"`    // 文本样式
+	Elements []*GetDocxBlockListOfBlockRespItemTodoElement `json:"elements,omitempty"` // 文本元素
+}
+
+// GetDocxBlockListOfBlockRespItemTodoElement ...
+type GetDocxBlockListOfBlockRespItemTodoElement struct {
+	TextRun     *GetDocxBlockListOfBlockRespItemTodoElementTextRun     `json:"text_run,omitempty"`     // 文字。支持对 Page、Text、Heading1~9、Bullet、Ordered、Code、Quote、Todo 块进行修改
+	MentionUser *Mention                                               `json:"mention_user,omitempty"` // @用户。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改。
+	MentionDoc  *Mention                                               `json:"mention_doc,omitempty"`  // @文档。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
+	Reminder    *GetDocxBlockListOfBlockRespItemTodoElementReminder    `json:"reminder,omitempty"`     // 日期提醒。支持对 Text、Heading1~9、Bullet、Ordered、Quote、Todo 块进行修改
+	File        *GetDocxBlockListOfBlockRespItemTodoElementFile        `json:"file,omitempty"`         // 内联文件。仅支持删除或移动位置, 不支持创建新的内联文件
+	Undefined   interface{}                                            `json:"undefined,omitempty"`    // 未支持的 TextElement
+	InlineBlock *GetDocxBlockListOfBlockRespItemTodoElementInlineBlock `json:"inline_block,omitempty"` // 内联块。仅支持删除或移动位置, 不支持创建新的内联块
+	Equation    *GetDocxBlockListOfBlockRespItemTodoElementEquation    `json:"equation,omitempty"`     // 公式
+}
+
+// GetDocxBlockListOfBlockRespItemTodoElementEquation ...
+type GetDocxBlockListOfBlockRespItemTodoElementEquation struct {
+	Content          string                                                              `json:"content,omitempty"`            // 符合 KaTeX 语法的公式内容, 语法规则请参考: https://katex.org/docs/supported.html
+	TextElementStyle *GetDocxBlockListOfBlockRespItemTodoElementEquationTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemTodoElementEquationTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemTodoElementEquationTextElementStyle struct {
+	Bold            bool                                                                    `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                    `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                    `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                    `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                    `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                   `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                   `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemTodoElementEquationTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemTodoElementEquationTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemTodoElementEquationTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemTodoElementFile ...
+type GetDocxBlockListOfBlockRespItemTodoElementFile struct {
+	FileToken        string                                                          `json:"file_token,omitempty"`         // 附件 token
+	SourceBlockID    string                                                          `json:"source_block_id,omitempty"`    // 当前文档中该文件所处的 block 的 ID
+	TextElementStyle *GetDocxBlockListOfBlockRespItemTodoElementFileTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemTodoElementFileTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemTodoElementFileTextElementStyle struct {
+	Bold            bool                                                                `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                               `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                               `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemTodoElementFileTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                            `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemTodoElementFileTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemTodoElementFileTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemTodoElementInlineBlock ...
+type GetDocxBlockListOfBlockRespItemTodoElementInlineBlock struct {
+	BlockID          string                                                                 `json:"block_id,omitempty"`           // 关联的内联状态的 block 的 block_id
+	TextElementStyle *GetDocxBlockListOfBlockRespItemTodoElementInlineBlockTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemTodoElementInlineBlockTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemTodoElementInlineBlockTextElementStyle struct {
+	Bold            bool                                                                       `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                       `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                       `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                       `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                       `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                      `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                      `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemTodoElementInlineBlockTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                   `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemTodoElementInlineBlockTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemTodoElementInlineBlockTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemTodoElementMentionDoc ...
+type GetDocxBlockListOfBlockRespItemTodoElementMentionDoc struct {
+	Token            string                                                                `json:"token,omitempty"`              // 云文档 token。获取方式参考[如何获取云文档资源相关 token（id）](https://open.feishu.cn/document/ukTMukTMukTM/uczNzUjL3czM14yN3MTN#08bb5df6)
+	ObjType          int64                                                                 `json:"obj_type,omitempty"`           // 云文档类型可选值有: DocSheetBitableMindNoteFileSlideWikiDocx
+	URL              string                                                                `json:"url,omitempty"`                // 云文档链接（需要 url_encode)
+	Title            string                                                                `json:"title,omitempty"`              // 文档标题, 只读属性
+	TextElementStyle *GetDocxBlockListOfBlockRespItemTodoElementMentionDocTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemTodoElementMentionDocTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemTodoElementMentionDocTextElementStyle struct {
+	Bold            bool                                                                      `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                      `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                      `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                      `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                      `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                     `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                     `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemTodoElementMentionDocTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                  `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemTodoElementMentionDocTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemTodoElementMentionDocTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemTodoElementMentionUser ...
+type GetDocxBlockListOfBlockRespItemTodoElementMentionUser struct {
+	UserID           string                                                                 `json:"user_id,omitempty"`            // 用户 OpenID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemTodoElementMentionUserTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemTodoElementMentionUserTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemTodoElementMentionUserTextElementStyle struct {
+	Bold            bool                                                                       `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                       `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                       `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                       `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                       `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                      `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                      `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemTodoElementMentionUserTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                   `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemTodoElementMentionUserTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemTodoElementMentionUserTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemTodoElementReminder ...
+type GetDocxBlockListOfBlockRespItemTodoElementReminder struct {
+	CreateUserID     string                                                              `json:"create_user_id,omitempty"`     // 创建者用户 ID, ID 类型与查询参数 `user_id_type` 的取值一致。获取方式参考 `user_id_type` 参数说明。
+	IsNotify         bool                                                                `json:"is_notify,omitempty"`          // 是否通知
+	IsWholeDay       bool                                                                `json:"is_whole_day,omitempty"`       // 是日期还是整点小时
+	ExpireTime       string                                                              `json:"expire_time,omitempty"`        // 事件发生的时间（毫秒级时间戳）
+	NotifyTime       string                                                              `json:"notify_time,omitempty"`        // 触发通知的时间（毫秒级时间戳）
+	TextElementStyle *GetDocxBlockListOfBlockRespItemTodoElementReminderTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemTodoElementReminderTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemTodoElementReminderTextElementStyle struct {
+	Bold            bool                                                                    `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                    `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                    `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                    `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                    `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                   `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                   `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemTodoElementReminderTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                                `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemTodoElementReminderTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemTodoElementReminderTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemTodoElementTextRun ...
+type GetDocxBlockListOfBlockRespItemTodoElementTextRun struct {
+	Content          string                                                             `json:"content,omitempty"`            // 文本内容。要实现文本内容的换行, 你可以: 在传入的文本内容中添加 `\n` 实现软换行（Soft Break, 与在文档中通过操作 `Shift + Enter` 的效果一致）- 创建一个新的文本 Block, 实现两个文本 Block 之间的硬换行（Hard Break, 与在文档中通过操作 `Enter` 的效果一致）注意: 软换行在渲染时可能会被忽略, 具体取决于渲染器如何处理；硬换行在渲染时始终会显示为一个新行。
+	TextElementStyle *GetDocxBlockListOfBlockRespItemTodoElementTextRunTextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+// GetDocxBlockListOfBlockRespItemTodoElementTextRunTextElementStyle ...
+type GetDocxBlockListOfBlockRespItemTodoElementTextRunTextElementStyle struct {
+	Bold            bool                                                                   `json:"bold,omitempty"`             // 加粗
+	Italic          bool                                                                   `json:"italic,omitempty"`           // 斜体
+	Strikethrough   bool                                                                   `json:"strikethrough,omitempty"`    // 删除线
+	Underline       bool                                                                   `json:"underline,omitempty"`        // 下划线
+	InlineCode      bool                                                                   `json:"inline_code,omitempty"`      // inline 代码
+	BackgroundColor int64                                                                  `json:"background_color,omitempty"` // 背景色可选值有: 浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色红色橙色黄色绿色蓝色紫色灰色浅灰色
+	TextColor       int64                                                                  `json:"text_color,omitempty"`       // 字体颜色可选值有: 红色橙色黄色绿色蓝色紫色灰色
+	Link            *GetDocxBlockListOfBlockRespItemTodoElementTextRunTextElementStyleLink `json:"link,omitempty"`             // 链接
+	CommentIDs      []string                                                               `json:"comment_ids,omitempty"`      // 评论 ID 列表。在创建 Block 时, 不支持传入评论 ID；在更新文本 Block 的 Element 时, 允许将对应版本已存在的评论 ID 移动到同一个 Block 内的任意 Element 中, 但不支持传入新的评论 ID。如需查询评论内容请阅览「[获取回复](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/file-comment-reply/list)」 API。
+}
+
+// GetDocxBlockListOfBlockRespItemTodoElementTextRunTextElementStyleLink ...
+type GetDocxBlockListOfBlockRespItemTodoElementTextRunTextElementStyleLink struct {
+	URL string `json:"url,omitempty"` // 超链接指向的 url (需要 url_encode)
+}
+
+// GetDocxBlockListOfBlockRespItemTodoStyle ...
+type GetDocxBlockListOfBlockRespItemTodoStyle struct {
+	Align            int64  `json:"align,omitempty"`             // 对齐方式可选值有: 居左排版居中排版居右排版
+	Done             bool   `json:"done,omitempty"`              // todo 的完成状态。支持对 Todo 块进行修改
+	Folded           bool   `json:"folded,omitempty"`            // 文本的折叠状态。支持对 Heading1~9、和有子块的 Text、Ordered、Bullet 和 Todo 块进行修改
+	Language         int64  `json:"language,omitempty"`          // 代码块的语言类型。仅支持对 Code 块进行修改可选值有: PlainTextABAPAdaApacheApexAssembly LanguageBashCSharpC++CCOBOLCSSCoffeeScriptDDartDelphiDjangoDockerfileErlangFortranFoxProGoGroovyHTMLHTMLBarsHTTPHaskellJSONJavaJavaScriptJuliaKotlinLateXLispLogoLuaMATLABMakefileMarkdownNginxObjective-COpenEdgeABLPHPPerlPostScriptPower ShellPrologProtoBufPythonRRPGRubyRustSASSCSSSQLScalaSchemeScratchShellSwiftThriftTypeScriptVBScriptVisual BasicXMLYAMLCMakeDiffGherkinGraphQLOpenGL Shading LanguagePropertiesSolidityTOML
+	Wrap             bool   `json:"wrap,omitempty"`              // 代码块是否自动换行。支持对 Code 块进行修改
+	BackgroundColor  string `json:"background_color,omitempty"`  // 块的背景色可选值有: 浅灰色浅红色浅橙色浅黄色浅绿色浅蓝色浅紫色中灰色灰色中红色中橙色中黄色中绿色中蓝色中紫色
+	IndentationLevel string `json:"indentation_level,omitempty"` // 首行缩进级别。仅支持对 Text 块进行修改。可选值有: 无缩进一级缩进
+	Sequence         string `json:"sequence,omitempty"`          // 用于确定有序列表项编号, 为具体数值或'auto'- 开始新列表时, 有序列表编号从 1 开始, sequence='1'- 手动修改为非连续编号时, 有序列表编号为设定的具体数值, 如 sequence='3'- 继续编号时, 有序列表编号自动连续, sequence='auto'- 部分历史数据和通过 OpenAPI 创建的有序列表不返回此字段
+}
+
+// GetDocxBlockListOfBlockRespItemView ...
+type GetDocxBlockListOfBlockRespItemView struct {
+	ViewType int64 `json:"view_type,omitempty"` // 视图类型可选值有: 卡片视图预览视图内联视图
+}
+
+// GetDocxBlockListOfBlockRespItemWikiCatalog ...
+type GetDocxBlockListOfBlockRespItemWikiCatalog struct {
+	WikiToken string `json:"wiki_token,omitempty"` // 知识库 token
+}
+
 // getDocxBlockListOfBlockResp ...
 type getDocxBlockListOfBlockResp struct {
 	Code  int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败

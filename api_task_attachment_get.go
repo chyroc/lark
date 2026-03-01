@@ -25,7 +25,8 @@ import (
 //
 // 获取附件需要附件归属资源的可读取权限。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/task-v2/attachment/get
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/attachment/get
+// new doc: https://open.feishu.cn/document/task-v2/attachment/get
 func (r *TaskService) GetTaskAttachment(ctx context.Context, request *GetTaskAttachmentReq, options ...MethodOptionFunc) (*GetTaskAttachmentResp, *Response, error) {
 	if r.cli.mock.mockTaskGetTaskAttachment != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#GetTaskAttachment mock enable")
@@ -60,8 +61,8 @@ func (r *Mock) UnMockTaskGetTaskAttachment() {
 
 // GetTaskAttachmentReq ...
 type GetTaskAttachmentReq struct {
-	AttachmentGuid string  `path:"attachment_guid" json:"-"` // 获取详情的附件GUID。可以通过创建[上传附件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/attachment/upload)接口创建, 或者通过[列取附件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/attachment/list)接口查询得到, 示例值: "b59aa7a3-e98c-4830-8273-cbb29f89b837"
-	UserIDType     *IDType `query:"user_id_type" json:"-"`   // 用户 ID 类型, 示例值: open_id, 默认值: `open_id`
+	AttachmentGuid string  `path:"attachment_guid" json:"-"` // 获取详情的附件GUID。可以通过创建[上传附件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/attachment/upload)接口创建, 或者通过[列取附件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/attachment/list)接口查询得到。示例值: "b59aa7a3-e98c-4830-8273-cbb29f89b837"
+	UserIDType     *IDType `query:"user_id_type" json:"-"`   // 用户 ID 类型示例值: open_id默认值: `open_id`
 }
 
 // GetTaskAttachmentResp ...

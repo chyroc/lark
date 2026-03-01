@@ -90,6 +90,13 @@ type CreateAttendanceUserApprovalReqUserApprovalLeave struct {
 	IdempotentID  *string    `json:"idempotent_id,omitempty"`  // 请假记录的唯一幂等键, 用于避免请假记录重复创建, 可以填入三方的请假记录id示例值: "1233432312"
 }
 
+// CreateAttendanceUserApprovalReqUserApprovalLeaveI18nNames ...
+type CreateAttendanceUserApprovalReqUserApprovalLeaveI18nNames struct {
+	Ch *string `json:"ch,omitempty"` // 中文描述示例值: "中文描述"
+	En *string `json:"en,omitempty"` // 英语描述示例值: "English description"
+	Ja *string `json:"ja,omitempty"` // 日语描述示例值: "日本語の説明"
+}
+
 // CreateAttendanceUserApprovalReqUserApprovalOut ...
 type CreateAttendanceUserApprovalReqUserApprovalOut struct {
 	UniqID           string     `json:"uniq_id,omitempty"`            // 外出类型唯一 ID, 代表一种外出类型, 长度小于 14* 如何获取？可以选择填入三方的外出类型id。如市内外出、市外外出的id示例值: "9496E43696967658A512969523E89870"
@@ -104,6 +111,13 @@ type CreateAttendanceUserApprovalReqUserApprovalOut struct {
 	CorrectProcessID []string   `json:"correct_process_id,omitempty"` // 更正流程实例 ID。该字段由系统自动生成, 在写入审批结果时, 无需传入该参数。示例值: ["7304865941202929196"]
 	CancelProcessID  []string   `json:"cancel_process_id,omitempty"`  // 撤销流程实例 ID。该字段由系统自动生成, 在写入审批结果时, 无需传入该参数。示例值: ["7304865941202929196"]
 	ProcessID        []string   `json:"process_id,omitempty"`         // 发起流程实例 ID。该字段由系统自动生成, 在写入审批结果时, 无需传入该参数。示例值: ["7304865941202929196"]
+}
+
+// CreateAttendanceUserApprovalReqUserApprovalOutI18nNames ...
+type CreateAttendanceUserApprovalReqUserApprovalOutI18nNames struct {
+	Ch *string `json:"ch,omitempty"` // 中文描述示例值: "中文描述"
+	En *string `json:"en,omitempty"` // 英语描述示例值: "English description"
+	Ja *string `json:"ja,omitempty"` // 日语描述示例值: "日本語の説明"
 }
 
 // CreateAttendanceUserApprovalReqUserApprovalOvertimeWork ...
@@ -183,6 +197,13 @@ type CreateAttendanceUserApprovalRespUserApprovalLeave struct {
 	IdempotentID     string     `json:"idempotent_id,omitempty"`      // 请假记录的唯一幂等键, 响应体中无需关注
 }
 
+// CreateAttendanceUserApprovalRespUserApprovalLeaveI18nNames ...
+type CreateAttendanceUserApprovalRespUserApprovalLeaveI18nNames struct {
+	Ch string `json:"ch,omitempty"` // 中文描述
+	En string `json:"en,omitempty"` // 英语描述
+	Ja string `json:"ja,omitempty"` // 日语描述
+}
+
 // CreateAttendanceUserApprovalRespUserApprovalOut ...
 type CreateAttendanceUserApprovalRespUserApprovalOut struct {
 	ApprovalID       string     `json:"approval_id,omitempty"`        // 审批实例id 创建的时候无效字段无需传入
@@ -200,6 +221,13 @@ type CreateAttendanceUserApprovalRespUserApprovalOut struct {
 	CorrectProcessID []string   `json:"correct_process_id,omitempty"` // 更正流程实例 ID。该字段由系统自动生成, 在写入审批结果时, 无需传入该参数。
 	CancelProcessID  []string   `json:"cancel_process_id,omitempty"`  // 撤销流程实例 ID。该字段由系统自动生成, 在写入审批结果时, 无需传入该参数。
 	ProcessID        []string   `json:"process_id,omitempty"`         // 发起流程实例 ID。该字段由系统自动生成, 在写入审批结果时, 无需传入该参数。
+}
+
+// CreateAttendanceUserApprovalRespUserApprovalOutI18nNames ...
+type CreateAttendanceUserApprovalRespUserApprovalOutI18nNames struct {
+	Ch string `json:"ch,omitempty"` // 中文描述
+	En string `json:"en,omitempty"` // 英语描述
+	Ja string `json:"ja,omitempty"` // 日语描述
 }
 
 // CreateAttendanceUserApprovalRespUserApprovalOvertimeWork ...

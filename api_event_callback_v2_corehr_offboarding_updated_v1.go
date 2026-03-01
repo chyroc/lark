@@ -44,9 +44,21 @@ type EventV2CorehrOffboardingUpdatedV1 struct {
 	Status        int64                                          `json:"status,omitempty"`         // 离职状态可选值有: 离职发起/审批中已撤销已拒绝审批通过已生效（生效日期后自动生效）
 }
 
+// EventV2CorehrOffboardingUpdatedV1Resp ...
+type EventV2CorehrOffboardingUpdatedV1Resp struct {
+}
+
 // EventV2CorehrOffboardingUpdatedV1TargetUserID ...
 type EventV2CorehrOffboardingUpdatedV1TargetUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
+}
+
+// eventV2CorehrOffboardingUpdatedV1Resp ...
+type eventV2CorehrOffboardingUpdatedV1Resp struct {
+	Code  int64                                  `json:"code,omitempty"`
+	Msg   string                                 `json:"msg,omitempty"`
+	Data  *EventV2CorehrOffboardingUpdatedV1Resp `json:"data,omitempty"`
+	Error *ErrorDetail                           `json:"error,omitempty"`
 }

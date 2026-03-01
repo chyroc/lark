@@ -27,8 +27,6 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/baike-v1/entity/highlight
 // new doc: https://open.feishu.cn/document/server-docs/baike-v1/entity/highlight
-//
-// Deprecated
 func (r *BaikeService) HighlightBaikeEntity(ctx context.Context, request *HighlightBaikeEntityReq, options ...MethodOptionFunc) (*HighlightBaikeEntityResp, *Response, error) {
 	if r.cli.mock.mockBaikeHighlightBaikeEntity != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Baike#HighlightBaikeEntity mock enable")

@@ -47,6 +47,10 @@ type EventV2CalendarCalendarEventChangedV4 struct {
 	RsvpInfos       []*EventV2CalendarCalendarEventChangedV4RsvpInfo `json:"rsvp_infos,omitempty"`        // RSVP 变更详情, 即日程参与人的回复状态。注意: 该参数仅包含用户类型参与人的变更详情。- 该参数在灰度测试阶段, 如需使用请咨询你的商务对接人或[技术支持](https://applink.feishu.cn/TLJpeNdW)。
 }
 
+// EventV2CalendarCalendarEventChangedV4Resp ...
+type EventV2CalendarCalendarEventChangedV4Resp struct {
+}
+
 // EventV2CalendarCalendarEventChangedV4RsvpInfo ...
 type EventV2CalendarCalendarEventChangedV4RsvpInfo struct {
 	FromUserID *EventV2CalendarCalendarEventChangedV4RsvpInfoFromUserID `json:"from_user_id,omitempty"` // 用户类型参与人的用户 ID。
@@ -65,4 +69,12 @@ type EventV2CalendarCalendarEventChangedV4UserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union_id。
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user_id。
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open_id。
+}
+
+// eventV2CalendarCalendarEventChangedV4Resp ...
+type eventV2CalendarCalendarEventChangedV4Resp struct {
+	Code  int64                                      `json:"code,omitempty"`
+	Msg   string                                     `json:"msg,omitempty"`
+	Data  *EventV2CalendarCalendarEventChangedV4Resp `json:"data,omitempty"`
+	Error *ErrorDetail                               `json:"error,omitempty"`
 }

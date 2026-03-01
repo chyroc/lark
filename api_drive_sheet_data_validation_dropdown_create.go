@@ -82,7 +82,8 @@ type CreateSheetDataValidationDropdownReqDataValidationOptions struct {
 }
 
 // CreateSheetDataValidationDropdownResp ...
-type CreateSheetDataValidationDropdownResp struct{}
+type CreateSheetDataValidationDropdownResp struct {
+}
 
 // createSheetDataValidationDropdownResp ...
 type createSheetDataValidationDropdownResp struct {

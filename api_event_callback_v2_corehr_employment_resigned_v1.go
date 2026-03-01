@@ -39,3 +39,15 @@ type EventV2CorehrEmploymentResignedV1Handler func(ctx context.Context, cli *Lar
 type EventV2CorehrEmploymentResignedV1 struct {
 	EmploymentID string `json:"employment_id,omitempty"` // 离职员工雇佣ID, 可通过[批量查询员工信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)获取员工信息。
 }
+
+// EventV2CorehrEmploymentResignedV1Resp ...
+type EventV2CorehrEmploymentResignedV1Resp struct {
+}
+
+// eventV2CorehrEmploymentResignedV1Resp ...
+type eventV2CorehrEmploymentResignedV1Resp struct {
+	Code  int64                                  `json:"code,omitempty"`
+	Msg   string                                 `json:"msg,omitempty"`
+	Data  *EventV2CorehrEmploymentResignedV1Resp `json:"data,omitempty"`
+	Error *ErrorDetail                           `json:"error,omitempty"`
+}

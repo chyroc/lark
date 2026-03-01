@@ -28,7 +28,8 @@ import (
 // 该接口不能用于移除清单所有者。如果要移除的成员是清单所有者, 则会被自动忽略。如要设置清单所有者, 需要调用[更新清单](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/patch)接口。
 // 需要清单编辑权限。详情见[清单功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/overview)中的“清单是如何鉴权的？“章节。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/remove_members
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/remove_members
+// new doc: https://open.feishu.cn/document/task-v2/tasklist/remove_members
 func (r *TaskService) RemoveTaskTasklistMember(ctx context.Context, request *RemoveTaskTasklistMemberReq, options ...MethodOptionFunc) (*RemoveTaskTasklistMemberResp, *Response, error) {
 	if r.cli.mock.mockTaskRemoveTaskTasklistMember != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#RemoveTaskTasklistMember mock enable")
@@ -63,16 +64,16 @@ func (r *Mock) UnMockTaskRemoveTaskTasklistMember() {
 
 // RemoveTaskTasklistMemberReq ...
 type RemoveTaskTasklistMemberReq struct {
-	TasklistGuid string                               `path:"tasklist_guid" json:"-"` // 要移除协作人的清单全局唯一ID, 示例值: "d300a75f-c56a-4be9-80d1-e47653028ceb", 最大长度: `100` 字符
-	UserIDType   *IDType                              `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 默认值: `open_id`
-	Members      []*RemoveTaskTasklistMemberReqMember `json:"members,omitempty"`      // 要移除的member列表。关于member的格式, 详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 如何表示任务和清单的成员？”章节, 长度范围: `1` ～ `500`
+	TasklistGuid string                               `path:"tasklist_guid" json:"-"` // 要移除协作人的清单全局唯一ID示例值: "d300a75f-c56a-4be9-80d1-e47653028ceb" 最大长度: `100` 字符
+	UserIDType   *IDType                              `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id默认值: `open_id`
+	Members      []*RemoveTaskTasklistMemberReqMember `json:"members,omitempty"`      // 要移除的member列表。关于member的格式, 详见[功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/overview)中的“ 如何表示任务和清单的成员？”章节。 长度范围: `1` ～ `500`
 }
 
 // RemoveTaskTasklistMemberReqMember ...
 type RemoveTaskTasklistMemberReqMember struct {
-	ID   *string `json:"id,omitempty"`   // 表示member的id, 示例值: "ou_2cefb2f014f8d0c6c2d2eb7bafb0e54f", 最大长度: `100` 字符
-	Type *string `json:"type,omitempty"` // 成员的类型, 支持: user: 普通用户, 此时member的id是一个表示用户的ID, 比如open_id。具体格式取决于user_id_type参数, chat: 群组, 此时member的id是一个Open Chat ID, app: 应用, 此时member的id是一个应用的ID, 示例值: "user", 默认值: `user`
-	Role *string `json:"role,omitempty"` // 清单角色。移除清单成员时该字段不需要填写, 示例值: "editor", 最大长度: `20` 字符
+	ID   *string `json:"id,omitempty"`   // 表示member的id示例值: "ou_2cefb2f014f8d0c6c2d2eb7bafb0e54f" 最大长度: `100` 字符
+	Type *string `json:"type,omitempty"` // 成员的类型, 支持: 普通用户, 此时member的id是一个表示用户的ID, 比如open_id。具体格式取决于user_id_type参数群组, 此时member的id是一个Open Chat ID应用, 此时member的id是一个应用的ID示例值: "user"默认值: `user`
+	Role *string `json:"role,omitempty"` // 清单角色。移除清单成员时该字段不需要填写。示例值: "editor" 最大长度: `20` 字符
 }
 
 // RemoveTaskTasklistMemberResp ...

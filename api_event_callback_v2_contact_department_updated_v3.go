@@ -108,3 +108,15 @@ type EventV2ContactDepartmentUpdatedV3OldObjectLeader struct {
 type EventV2ContactDepartmentUpdatedV3OldObjectStatus struct {
 	IsDeleted bool `json:"is_deleted,omitempty"` // 是否被删除。可能值: true: 是- false: 否
 }
+
+// EventV2ContactDepartmentUpdatedV3Resp ...
+type EventV2ContactDepartmentUpdatedV3Resp struct {
+}
+
+// eventV2ContactDepartmentUpdatedV3Resp ...
+type eventV2ContactDepartmentUpdatedV3Resp struct {
+	Code  int64                                  `json:"code,omitempty"`
+	Msg   string                                 `json:"msg,omitempty"`
+	Data  *EventV2ContactDepartmentUpdatedV3Resp `json:"data,omitempty"`
+	Error *ErrorDetail                           `json:"error,omitempty"`
+}

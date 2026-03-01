@@ -39,3 +39,15 @@ type OpenWorkbenchReq struct {
 	PathIos     *string `json:"path_ios,omitempty"`     // 访问 iOS 端网页工作台某个具体页面。iOS 端会优先使用该参数, 如果该参数不存在, 则会使用 path 参数
 	PathPc      *string `json:"path_pc,omitempty"`      // 访问 PC 端网页工作台某个具体页面。PC 端会优先使用该参数, 如果该参数不存在, 则会使用 path 参数
 }
+
+// OpenWorkbenchResp ...
+type OpenWorkbenchResp struct {
+}
+
+// openWorkbenchResp ...
+type openWorkbenchResp struct {
+	Code  int64              `json:"code,omitempty"`
+	Msg   string             `json:"msg,omitempty"`
+	Data  *OpenWorkbenchResp `json:"data,omitempty"`
+	Error *ErrorDetail       `json:"error,omitempty"`
+}

@@ -66,7 +66,8 @@ type UpdateApplicationFeedbackReq struct {
 }
 
 // UpdateApplicationFeedbackResp ...
-type UpdateApplicationFeedbackResp struct{}
+type UpdateApplicationFeedbackResp struct {
+}
 
 // updateApplicationFeedbackResp ...
 type updateApplicationFeedbackResp struct {

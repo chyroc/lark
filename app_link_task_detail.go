@@ -38,3 +38,15 @@ type OpenTaskDetailReq struct {
 	Guid string  `json:"guid,omitempty"` // 全局唯一的 taskId（global unique ID）, 通过[飞书任务的 OpenAPI](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/get) 获取
 	Mode *string `json:"mode,omitempty"` // 打开模式, 未填写时默认在 IM 场景打开详情页面。枚举值包括: `app`: 在任务 tab 中打开详情页面。
 }
+
+// OpenTaskDetailResp ...
+type OpenTaskDetailResp struct {
+}
+
+// openTaskDetailResp ...
+type openTaskDetailResp struct {
+	Code  int64               `json:"code,omitempty"`
+	Msg   string              `json:"msg,omitempty"`
+	Data  *OpenTaskDetailResp `json:"data,omitempty"`
+	Error *ErrorDetail        `json:"error,omitempty"`
+}

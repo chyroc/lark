@@ -27,8 +27,6 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/drive-v1/permission-public/patch
 // new doc: https://open.feishu.cn/document/server-docs/docs/permission/permission-public/patch
-//
-// Deprecated
 func (r *DriveService) UpdateDrivePublicPermission(ctx context.Context, request *UpdateDrivePublicPermissionReq, options ...MethodOptionFunc) (*UpdateDrivePublicPermissionResp, *Response, error) {
 	if r.cli.mock.mockDriveUpdateDrivePublicPermission != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#UpdateDrivePublicPermission mock enable")

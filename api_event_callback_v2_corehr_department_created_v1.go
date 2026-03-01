@@ -42,3 +42,15 @@ type EventV2CorehrDepartmentCreatedV1Handler func(ctx context.Context, cli *Lark
 type EventV2CorehrDepartmentCreatedV1 struct {
 	DepartmentID string `json:"department_id,omitempty"` // 新建部门的 ID
 }
+
+// EventV2CorehrDepartmentCreatedV1Resp ...
+type EventV2CorehrDepartmentCreatedV1Resp struct {
+}
+
+// eventV2CorehrDepartmentCreatedV1Resp ...
+type eventV2CorehrDepartmentCreatedV1Resp struct {
+	Code  int64                                 `json:"code,omitempty"`
+	Msg   string                                `json:"msg,omitempty"`
+	Data  *EventV2CorehrDepartmentCreatedV1Resp `json:"data,omitempty"`
+	Error *ErrorDetail                          `json:"error,omitempty"`
+}

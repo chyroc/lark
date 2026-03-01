@@ -70,7 +70,8 @@ type TransferDriveOwnerPermissionReq struct {
 }
 
 // TransferDriveOwnerPermissionResp ...
-type TransferDriveOwnerPermissionResp struct{}
+type TransferDriveOwnerPermissionResp struct {
+}
 
 // transferDriveOwnerPermissionResp ...
 type transferDriveOwnerPermissionResp struct {

@@ -49,3 +49,15 @@ type EventV1ChatDisbandEventOperator struct {
 	OpenID string `json:"open_id,omitempty"` // 如: ou_18eac85d35a26f989317ad4f02e8bbbb
 	UserID string `json:"user_id,omitempty"` // 如: ca51d83b
 }
+
+// EventV1ChatDisbandResp ...
+type EventV1ChatDisbandResp struct {
+}
+
+// eventV1ChatDisbandResp ...
+type eventV1ChatDisbandResp struct {
+	Code  int64                   `json:"code,omitempty"`
+	Msg   string                  `json:"msg,omitempty"`
+	Data  *EventV1ChatDisbandResp `json:"data,omitempty"`
+	Error *ErrorDetail            `json:"error,omitempty"`
+}

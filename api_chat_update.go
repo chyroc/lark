@@ -91,6 +91,13 @@ type UpdateChatReq struct {
 	HideMemberCountSetting *string                             `json:"hide_member_count_setting,omitempty"` // 隐藏群成员人数设置示例值: "all_members"可选值有: 所有群成员可见仅群主群管理员可见
 }
 
+// UpdateChatReqI18nNames ...
+type UpdateChatReqI18nNames struct {
+	ZhCn *string `json:"zh_cn,omitempty"` // 中文名示例值: "群聊"
+	EnUs *string `json:"en_us,omitempty"` // 英文名示例值: "group chat"
+	JaJp *string `json:"ja_jp,omitempty"` // 日文名示例值: "グループチャット"
+}
+
 // UpdateChatReqRestrictedModeSetting ...
 type UpdateChatReqRestrictedModeSetting struct {
 	Status                         *bool   `json:"status,omitempty"`                            // 保密模式是否开启可选值有: true: 开启。设置为 ture 时, `screenshot_has_permission_setting`、`download_has_permission_setting`、`message_has_permission_setting` 不能全为 `all_members`。- false: 不开启。设置为 false 时, `screenshot_has_permission_setting`、`download_has_permission_setting`、`message_has_permission_setting` 不能存在 `not_anyone`。示例值: false
@@ -100,7 +107,8 @@ type UpdateChatReqRestrictedModeSetting struct {
 }
 
 // UpdateChatResp ...
-type UpdateChatResp struct{}
+type UpdateChatResp struct {
+}
 
 // updateChatResp ...
 type updateChatResp struct {

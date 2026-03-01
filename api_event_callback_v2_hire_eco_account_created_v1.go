@@ -46,3 +46,15 @@ type EventV2HireEcoAccountCreatedV1CustomField struct {
 	Key   string `json:"key,omitempty"`   // 自定义字段的标识。通过[创建账号自定义字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_account_custom_field/create)接口推送到招聘系统内
 	Value string `json:"value,omitempty"` // 客户填写的自定义字段的值
 }
+
+// EventV2HireEcoAccountCreatedV1Resp ...
+type EventV2HireEcoAccountCreatedV1Resp struct {
+}
+
+// eventV2HireEcoAccountCreatedV1Resp ...
+type eventV2HireEcoAccountCreatedV1Resp struct {
+	Code  int64                               `json:"code,omitempty"`
+	Msg   string                              `json:"msg,omitempty"`
+	Data  *EventV2HireEcoAccountCreatedV1Resp `json:"data,omitempty"`
+	Error *ErrorDetail                        `json:"error,omitempty"`
+}

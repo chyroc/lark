@@ -28,8 +28,6 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/delete
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/department/delete
-//
-// Deprecated
 func (r *CoreHRService) DeleteCoreHRDepartment(ctx context.Context, request *DeleteCoreHRDepartmentReq, options ...MethodOptionFunc) (*DeleteCoreHRDepartmentResp, *Response, error) {
 	if r.cli.mock.mockCoreHRDeleteCoreHRDepartment != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHRDepartment mock enable")
@@ -67,7 +65,8 @@ type DeleteCoreHRDepartmentReq struct {
 }
 
 // DeleteCoreHRDepartmentResp ...
-type DeleteCoreHRDepartmentResp struct{}
+type DeleteCoreHRDepartmentResp struct {
+}
 
 // deleteCoreHRDepartmentResp ...
 type deleteCoreHRDepartmentResp struct {

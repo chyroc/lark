@@ -36,3 +36,15 @@ type EventV2CorehrEmploymentConvertedV1Handler func(ctx context.Context, cli *La
 type EventV2CorehrEmploymentConvertedV1 struct {
 	EmploymentID string `json:"employment_id,omitempty"` // 雇佣ID, 可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
 }
+
+// EventV2CorehrEmploymentConvertedV1Resp ...
+type EventV2CorehrEmploymentConvertedV1Resp struct {
+}
+
+// eventV2CorehrEmploymentConvertedV1Resp ...
+type eventV2CorehrEmploymentConvertedV1Resp struct {
+	Code  int64                                   `json:"code,omitempty"`
+	Msg   string                                  `json:"msg,omitempty"`
+	Data  *EventV2CorehrEmploymentConvertedV1Resp `json:"data,omitempty"`
+	Error *ErrorDetail                            `json:"error,omitempty"`
+}

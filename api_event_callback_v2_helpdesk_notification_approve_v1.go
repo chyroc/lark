@@ -38,3 +38,15 @@ type EventV2HelpdeskNotificationApproveV1 struct {
 	HelpdeskID     string `json:"helpdesk_id,omitempty"`     // 服务台唯一ID
 	ApproveStatus  string `json:"approve_status,omitempty"`  // REJECTED(审核不通过)APPROVED(审核通过)CANCELED(取消审核)DELETED(删除审核)
 }
+
+// EventV2HelpdeskNotificationApproveV1Resp ...
+type EventV2HelpdeskNotificationApproveV1Resp struct {
+}
+
+// eventV2HelpdeskNotificationApproveV1Resp ...
+type eventV2HelpdeskNotificationApproveV1Resp struct {
+	Code  int64                                     `json:"code,omitempty"`
+	Msg   string                                    `json:"msg,omitempty"`
+	Data  *EventV2HelpdeskNotificationApproveV1Resp `json:"data,omitempty"`
+	Error *ErrorDetail                              `json:"error,omitempty"`
+}

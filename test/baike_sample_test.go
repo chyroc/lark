@@ -37,10 +37,12 @@ func Test_Baike_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Baike
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateBaikeDraft(ctx, &lark.CreateBaikeDraftReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
+
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {
@@ -48,6 +50,7 @@ func Test_Baike_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Baike
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockBaikeCreateBaikeDraft(func(ctx context.Context, request *lark.CreateBaikeDraftReq, options ...lark.MethodOptionFunc) (*lark.CreateBaikeDraftResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -59,6 +62,7 @@ func Test_Baike_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockBaikeCreateBaikeUpdate(func(ctx context.Context, request *lark.CreateBaikeUpdateReq, options ...lark.MethodOptionFunc) (*lark.CreateBaikeUpdateResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -70,6 +74,7 @@ func Test_Baike_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockBaikeCreateBaikeEntity(func(ctx context.Context, request *lark.CreateBaikeEntityReq, options ...lark.MethodOptionFunc) (*lark.CreateBaikeEntityResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -81,6 +86,7 @@ func Test_Baike_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockBaikeUpdateBaikeEntity(func(ctx context.Context, request *lark.UpdateBaikeEntityReq, options ...lark.MethodOptionFunc) (*lark.UpdateBaikeEntityResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -92,6 +98,7 @@ func Test_Baike_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockBaikeGetBaikeEntity(func(ctx context.Context, request *lark.GetBaikeEntityReq, options ...lark.MethodOptionFunc) (*lark.GetBaikeEntityResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -103,6 +110,7 @@ func Test_Baike_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockBaikeGetBaikeEntityList(func(ctx context.Context, request *lark.GetBaikeEntityListReq, options ...lark.MethodOptionFunc) (*lark.GetBaikeEntityListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -114,6 +122,7 @@ func Test_Baike_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockBaikeMatchBaikeEntity(func(ctx context.Context, request *lark.MatchBaikeEntityReq, options ...lark.MethodOptionFunc) (*lark.MatchBaikeEntityResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -125,6 +134,7 @@ func Test_Baike_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockBaikeSearchBaikeEntity(func(ctx context.Context, request *lark.SearchBaikeEntityReq, options ...lark.MethodOptionFunc) (*lark.SearchBaikeEntityResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -136,6 +146,7 @@ func Test_Baike_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockBaikeHighlightBaikeEntity(func(ctx context.Context, request *lark.HighlightBaikeEntityReq, options ...lark.MethodOptionFunc) (*lark.HighlightBaikeEntityResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -147,6 +158,7 @@ func Test_Baike_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockBaikeExtractBaikeEntity(func(ctx context.Context, request *lark.ExtractBaikeEntityReq, options ...lark.MethodOptionFunc) (*lark.ExtractBaikeEntityResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -158,6 +170,7 @@ func Test_Baike_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockBaikeGetBaikeClassificationList(func(ctx context.Context, request *lark.GetBaikeClassificationListReq, options ...lark.MethodOptionFunc) (*lark.GetBaikeClassificationListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -169,6 +182,7 @@ func Test_Baike_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockBaikeUploadBaikeImage(func(ctx context.Context, request *lark.UploadBaikeImageReq, options ...lark.MethodOptionFunc) (*lark.UploadBaikeImageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -180,6 +194,7 @@ func Test_Baike_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockBaikeDownloadBaikeImage(func(ctx context.Context, request *lark.DownloadBaikeImageReq, options ...lark.MethodOptionFunc) (*lark.DownloadBaikeImageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -189,6 +204,7 @@ func Test_Baike_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
+
 	})
 
 	t.Run("response is failed (mock http)", func(t *testing.T) {
@@ -199,12 +215,14 @@ func Test_Baike_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateBaikeDraft(ctx, &lark.CreateBaikeDraftReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateBaikeUpdate(ctx, &lark.CreateBaikeUpdateReq{
 				DraftID: "x",
 			})
@@ -213,12 +231,14 @@ func Test_Baike_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateBaikeEntity(ctx, &lark.CreateBaikeEntityReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.UpdateBaikeEntity(ctx, &lark.UpdateBaikeEntityReq{
 				EntityID: "x",
 			})
@@ -227,6 +247,7 @@ func Test_Baike_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetBaikeEntity(ctx, &lark.GetBaikeEntityReq{
 				EntityID: "x",
 			})
@@ -235,53 +256,62 @@ func Test_Baike_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetBaikeEntityList(ctx, &lark.GetBaikeEntityListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.MatchBaikeEntity(ctx, &lark.MatchBaikeEntityReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.SearchBaikeEntity(ctx, &lark.SearchBaikeEntityReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.HighlightBaikeEntity(ctx, &lark.HighlightBaikeEntityReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.ExtractBaikeEntity(ctx, &lark.ExtractBaikeEntityReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetBaikeClassificationList(ctx, &lark.GetBaikeClassificationListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.UploadBaikeImage(ctx, &lark.UploadBaikeImageReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.DownloadBaikeImage(ctx, &lark.DownloadBaikeImageReq{
 				FileToken: "x",
 			})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
+
 	})
 }

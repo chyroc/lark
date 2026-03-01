@@ -67,7 +67,8 @@ type UnbindContactUnitDepartmentReq struct {
 }
 
 // UnbindContactUnitDepartmentResp ...
-type UnbindContactUnitDepartmentResp struct{}
+type UnbindContactUnitDepartmentResp struct {
+}
 
 // unbindContactUnitDepartmentResp ...
 type unbindContactUnitDepartmentResp struct {

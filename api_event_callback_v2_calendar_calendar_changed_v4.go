@@ -40,9 +40,21 @@ type EventV2CalendarCalendarChangedV4 struct {
 	UserIDList []*EventV2CalendarCalendarChangedV4UserID `json:"user_id_list,omitempty"` // 需要推送事件的用户列表。关于用户不同 ID 的介绍, 参见[用户身份概述](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 }
 
+// EventV2CalendarCalendarChangedV4Resp ...
+type EventV2CalendarCalendarChangedV4Resp struct {
+}
+
 // EventV2CalendarCalendarChangedV4UserID ...
 type EventV2CalendarCalendarChangedV4UserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union_id。
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user_id。
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open_id。
+}
+
+// eventV2CalendarCalendarChangedV4Resp ...
+type eventV2CalendarCalendarChangedV4Resp struct {
+	Code  int64                                 `json:"code,omitempty"`
+	Msg   string                                `json:"msg,omitempty"`
+	Data  *EventV2CalendarCalendarChangedV4Resp `json:"data,omitempty"`
+	Error *ErrorDetail                          `json:"error,omitempty"`
 }

@@ -51,3 +51,15 @@ type EventV1OrderPaid struct {
 	OrderPayPrice int64  `json:"order_pay_price,omitempty"` // 订单支付价格 单位分, . 如: 10000
 	TenantKey     string `json:"tenant_key,omitempty"`      // 购买应用的企业标示. 如: 2f98c01bc23f6847
 }
+
+// EventV1OrderPaidResp ...
+type EventV1OrderPaidResp struct {
+}
+
+// eventV1OrderPaidResp ...
+type eventV1OrderPaidResp struct {
+	Code  int64                 `json:"code,omitempty"`
+	Msg   string                `json:"msg,omitempty"`
+	Data  *EventV1OrderPaidResp `json:"data,omitempty"`
+	Error *ErrorDetail          `json:"error,omitempty"`
+}

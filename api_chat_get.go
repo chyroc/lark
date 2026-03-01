@@ -102,6 +102,13 @@ type GetChatResp struct {
 	ChatStatus             string                            `json:"chat_status,omitempty"`               // 群状态可选值有: 正常解散解散并保留
 }
 
+// GetChatRespI18nNames ...
+type GetChatRespI18nNames struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名
+	EnUs string `json:"en_us,omitempty"` // 英文名
+	JaJp string `json:"ja_jp,omitempty"` // 日文名
+}
+
 // GetChatRespRestrictedModeSetting ...
 type GetChatRespRestrictedModeSetting struct {
 	Status                         bool   `json:"status,omitempty"`                            // 保密模式是否开启

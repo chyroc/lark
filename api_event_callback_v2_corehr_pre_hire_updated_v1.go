@@ -43,3 +43,15 @@ type EventV2CorehrPreHireUpdatedV1 struct {
 	PreHireID    string   `json:"pre_hire_id,omitempty"`   // 待入职 ID, 可通过[【搜索待入职人员】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/search)获取更详细信息
 	FieldChanges []string `json:"field_changes,omitempty"` // 变更的字段。由于历史原因, 部分字段（例如个人信息）变更会发送为‘wk_updated_at’字段, 不会显示真实变更字段, 需要通过[【搜索待入职人员】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/search)获取更详细信息。
 }
+
+// EventV2CorehrPreHireUpdatedV1Resp ...
+type EventV2CorehrPreHireUpdatedV1Resp struct {
+}
+
+// eventV2CorehrPreHireUpdatedV1Resp ...
+type eventV2CorehrPreHireUpdatedV1Resp struct {
+	Code  int64                              `json:"code,omitempty"`
+	Msg   string                             `json:"msg,omitempty"`
+	Data  *EventV2CorehrPreHireUpdatedV1Resp `json:"data,omitempty"`
+	Error *ErrorDetail                       `json:"error,omitempty"`
+}

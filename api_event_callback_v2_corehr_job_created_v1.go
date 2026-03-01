@@ -40,3 +40,15 @@ type EventV2CorehrJobCreatedV1Handler func(ctx context.Context, cli *Lark, schem
 type EventV2CorehrJobCreatedV1 struct {
 	JobID string `json:"job_id,omitempty"` // 职务 ID, 可通过[【查询单个职务】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/get)获取详细信息
 }
+
+// EventV2CorehrJobCreatedV1Resp ...
+type EventV2CorehrJobCreatedV1Resp struct {
+}
+
+// eventV2CorehrJobCreatedV1Resp ...
+type eventV2CorehrJobCreatedV1Resp struct {
+	Code  int64                          `json:"code,omitempty"`
+	Msg   string                         `json:"msg,omitempty"`
+	Data  *EventV2CorehrJobCreatedV1Resp `json:"data,omitempty"`
+	Error *ErrorDetail                   `json:"error,omitempty"`
+}

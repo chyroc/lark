@@ -27,7 +27,8 @@ import (
 // 注意: 添加的依赖的`task_guid`不能重复, 也不能添加当前任务为自己的依赖。尝试添加一个已经存在的依赖会被自动忽略。
 // 添加任务依赖需要调用身份拥有当前任务的编辑权限和所有被添加为依赖的任务的编辑权限。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/add_dependencies
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/task/add_dependencies
+// new doc: https://open.feishu.cn/document/task-v2/task/add_dependencies
 func (r *TaskService) AddTaskDependency(ctx context.Context, request *AddTaskDependencyReq, options ...MethodOptionFunc) (*AddTaskDependencyResp, *Response, error) {
 	if r.cli.mock.mockTaskAddTaskDependency != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#AddTaskDependency mock enable")
@@ -62,14 +63,14 @@ func (r *Mock) UnMockTaskAddTaskDependency() {
 
 // AddTaskDependencyReq ...
 type AddTaskDependencyReq struct {
-	TaskGuid     string                             `path:"task_guid" json:"-"`     // 任务GUID, 示例值: "93b7bd05-35e6-4371-b3c9-6b7cbd7100c0"
-	Dependencies []*AddTaskDependencyReqDependencie `json:"dependencies,omitempty"` // 要添加的依赖, 长度范围: `1` ～ `50`
+	TaskGuid     string                             `path:"task_guid" json:"-"`     // 任务GUID示例值: "93b7bd05-35e6-4371-b3c9-6b7cbd7100c0"
+	Dependencies []*AddTaskDependencyReqDependencie `json:"dependencies,omitempty"` // 要添加的依赖 长度范围: `1` ～ `50`
 }
 
 // AddTaskDependencyReqDependencie ...
 type AddTaskDependencyReqDependencie struct {
-	Type     string `json:"type,omitempty"`      // 依赖类型, 示例值: "next", 可选值有: prev: 前置依赖, next: 后置依赖
-	TaskGuid string `json:"task_guid,omitempty"` // 依赖任务的GUID, 示例值: "93b7bd05-35e6-4371-b3c9-6b7cbd7100c0"
+	Type     string `json:"type,omitempty"`      // 依赖类型示例值: "next"可选值有: 前置依赖后置依赖
+	TaskGuid string `json:"task_guid,omitempty"` // 依赖任务的GUID示例值: "93b7bd05-35e6-4371-b3c9-6b7cbd7100c0"
 }
 
 // AddTaskDependencyResp ...
@@ -79,7 +80,7 @@ type AddTaskDependencyResp struct {
 
 // AddTaskDependencyRespDependencie ...
 type AddTaskDependencyRespDependencie struct {
-	Type     string `json:"type,omitempty"`      // 依赖类型, 可选值有: prev: 前置依赖, next: 后置依赖
+	Type     string `json:"type,omitempty"`      // 依赖类型可选值有: 前置依赖后置依赖
 	TaskGuid string `json:"task_guid,omitempty"` // 依赖任务的GUID
 }
 

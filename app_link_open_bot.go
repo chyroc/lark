@@ -36,3 +36,15 @@ func (r *AppLinkService) OpenBot(req *OpenBotReq) string {
 type OpenBotReq struct {
 	AppID string `json:"appId,omitempty"` // 机器人的appId
 }
+
+// OpenBotResp ...
+type OpenBotResp struct {
+}
+
+// openBotResp ...
+type openBotResp struct {
+	Code  int64        `json:"code,omitempty"`
+	Msg   string       `json:"msg,omitempty"`
+	Data  *OpenBotResp `json:"data,omitempty"`
+	Error *ErrorDetail `json:"error,omitempty"`
+}

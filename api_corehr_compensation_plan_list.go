@@ -21,9 +21,10 @@ import (
 	"context"
 )
 
-// GetCoreHRCompensationPlanList 批量查询薪资方案
+// GetCoreHRCompensationPlanList - 此接口将返回全部薪资方案信息, 包括薪资方案 ID、生效日期、薪资项/薪资统计指标等
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list
+// new doc: https://open.feishu.cn/document/corehr-v1/basic-compensation/plan/list
 func (r *CoreHRService) GetCoreHRCompensationPlanList(ctx context.Context, request *GetCoreHRCompensationPlanListReq, options ...MethodOptionFunc) (*GetCoreHRCompensationPlanListResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRCompensationPlanList != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRCompensationPlanList mock enable")
@@ -57,8 +58,8 @@ func (r *Mock) UnMockCoreHRGetCoreHRCompensationPlanList() {
 
 // GetCoreHRCompensationPlanListReq ...
 type GetCoreHRCompensationPlanListReq struct {
-	PageSize  int64   `query:"page_size" json:"-"`  // 分页大小, 示例值: 100, 默认值: `100`, 取值范围: `1` ～ `500`
-	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 213432123
+	PageSize  int64   `query:"page_size" json:"-"`  // 分页大小示例值: 100默认值: `100` 取值范围: `1` ～ `500`
+	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 213432123
 }
 
 // GetCoreHRCompensationPlanListResp ...
@@ -76,10 +77,10 @@ type GetCoreHRCompensationPlanListRespItem struct {
 	Description           string                                                  `json:"description,omitempty"`             // 薪资方案描述
 	EffectiveDate         string                                                  `json:"effective_date,omitempty"`          // 薪资方案生效时间
 	PlanScope             *GetCoreHRCompensationPlanListRespItemPlanScope         `json:"plan_scope,omitempty"`              // 薪资方案适用范围
-	CurrencyID            string                                                  `json:"currency_id,omitempty"`             // 币种ID
+	CurrencyID            string                                                  `json:"currency_id,omitempty"`             // 币种ID, 可通过接口[【查询货币信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search)获取
 	ProbationSalaryStatus bool                                                    `json:"probation_salary_status,omitempty"` // 开启试用期薪酬状态
-	PlanItems             []*GetCoreHRCompensationPlanListRespItemPlanItem        `json:"plan_items,omitempty"`              // 方案关联的薪资项, 字段权限要求: 获取薪资方案的关联薪资项
-	PlanIndicators        []*GetCoreHRCompensationPlanListRespItemPlanIndicator   `json:"plan_indicators,omitempty"`         // 方案关联的薪资统计指标, 字段权限要求: 获取薪资方案的关联薪资指标
+	PlanItems             []*GetCoreHRCompensationPlanListRespItemPlanItem        `json:"plan_items,omitempty"`              // 方案关联的薪资项字段权限要求: 获取薪资方案的关联薪资项
+	PlanIndicators        []*GetCoreHRCompensationPlanListRespItemPlanIndicator   `json:"plan_indicators,omitempty"`         // 方案关联的薪资统计指标字段权限要求: 获取薪资方案的关联薪资指标
 	I18nNames             []*GetCoreHRCompensationPlanListRespItemI18nName        `json:"i18n_names,omitempty"`              // 多语言名称
 	I18nDescriptions      []*GetCoreHRCompensationPlanListRespItemI18nDescription `json:"i18n_descriptions,omitempty"`       // 多语言描述
 }
@@ -116,16 +117,16 @@ type GetCoreHRCompensationPlanListRespItemPlanIndicatorPlanIndicatorLogicFormula
 
 // GetCoreHRCompensationPlanListRespItemPlanIndicatorPlanIndicatorLogicFormulaFormulaParam ...
 type GetCoreHRCompensationPlanListRespItemPlanIndicatorPlanIndicatorLogicFormulaFormulaParam struct {
-	RefType int64  `json:"ref_type,omitempty"` // 引用类型, 可选值有: 1: 引用薪资项, 2: 引用薪资指标
+	RefType int64  `json:"ref_type,omitempty"` // 引用类型可选值有: 引用薪资项引用薪资指标
 	ID      string `json:"id,omitempty"`       // 引用类型ID
 }
 
 // GetCoreHRCompensationPlanListRespItemPlanItem ...
 type GetCoreHRCompensationPlanListRespItemPlanItem struct {
-	AdjustmentType             string                                                      `json:"adjustment_type,omitempty"`              // 定薪方式, 可选值有: manual: 手动输入, formula: 公式计算, fixed: 固定值
+	AdjustmentType             string                                                      `json:"adjustment_type,omitempty"`              // 定薪方式可选值有: 手动输入公式计算固定值
 	ItemID                     string                                                      `json:"item_id,omitempty"`                      // 薪资项ID, 详细信息可以通过[批量查询薪资项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)接口查询获得
 	PlanItemLogic              *GetCoreHRCompensationPlanListRespItemPlanItemPlanItemLogic `json:"plan_item_logic,omitempty"`              // 方案关联薪资项逻辑配置
-	ProbationDiscountType      string                                                      `json:"probation_discount_type,omitempty"`      // 试用期薪酬类型, 可选值有: percentum: 百分比, manual_input: 手动输入, none: 不区分试用期和转正薪酬, fixed: 固定值, formula: 公式计算, not_set: 未设置试用期
+	ProbationDiscountType      string                                                      `json:"probation_discount_type,omitempty"`      // 试用期薪酬类型可选值有: 百分比手动输入不区分试用期和转正薪酬固定值公式计算未设置试用期
 	ProbationDiscountPercentum string                                                      `json:"probation_discount_percentum,omitempty"` // 试用期薪酬百分比
 }
 
@@ -143,7 +144,7 @@ type GetCoreHRCompensationPlanListRespItemPlanItemPlanItemLogicFormula struct {
 
 // GetCoreHRCompensationPlanListRespItemPlanItemPlanItemLogicFormulaFormulaParam ...
 type GetCoreHRCompensationPlanListRespItemPlanItemPlanItemLogicFormulaFormulaParam struct {
-	RefType int64  `json:"ref_type,omitempty"` // 引用类型, 可选值有: 1: 引用薪资项, 2: 引用薪资指标
+	RefType int64  `json:"ref_type,omitempty"` // 引用类型可选值有: 引用薪资项引用薪资指标
 	ID      string `json:"id,omitempty"`       // 引用类型ID
 }
 
@@ -155,9 +156,9 @@ type GetCoreHRCompensationPlanListRespItemPlanScope struct {
 
 // GetCoreHRCompensationPlanListRespItemPlanScopePlanCondition ...
 type GetCoreHRCompensationPlanListRespItemPlanScopePlanCondition struct {
-	LeftType   int64    `json:"left_type,omitempty"`   // 适用范围左值, 可选值有: 1: 部门, 2: 部门（包含下级部门）, 3: 工作地点, 4: 工作地点（包含下级地点）, 5: 公司, 6: 公司（包含下级公司）, 7: 序列, 8: 序列（包含子序列）, 9: 职务, 10: 职级, 11: 人员类型, 12: 招聘类型, 13: 国家/地区, 14: 职等
-	Operator   int64    `json:"operator,omitempty"`    // 适用范围操作, 可选值有: 1: 包含, 2: 不包含
-	RightValue []string `json:"right_value,omitempty"` // 部门ID, 详细信息可以通过[批量查询部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)接口查询获得, 工作地点ID, 详细信息可以通过[批量查询地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)接口查询获得, 成本中心ID, 详细信息可以通过[搜索成本中心信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)接口查询获得, 职务ID, 详细信息可以通过[批量查询职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/list)接口查询获得, 职级ID, 详细信息可以通过[通过职级 ID 批量获取职级信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_level/batch_get)接口查询获得, 序列ID, 详细信息可以通过[通过序列 ID 批量获取序列信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_family/batch_get)接口查询获得, 人员类型ID, 详细信息可以通过[批量查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)接口查询获得
+	LeftType   int64    `json:"left_type,omitempty"`   // 适用范围左值可选值有: 部门部门（包含下级部门）工作地点工作地点（包含下级地点）公司公司（包含下级公司）序列序列（包含子序列）职务职级人员类型招聘类型国家/地区职等
+	Operator   int64    `json:"operator,omitempty"`    // 适用范围操作可选值有: 包含不包含
+	RightValue []string `json:"right_value,omitempty"` // --适用范围左值为: 部门、部门（包含下级部门）, 返回: 部门ID, 详细信息可以通过[批量查询部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)接口查询获得- 适用范围左值为: 工作地点、工作地点（包含下级工作地点）, 返回: 工作地点ID, 详细信息可以通过[批量查询地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)接口查询获得- 适用范围左值为: 公司、公司（包含下级公司）, 返回: 公司ID, 详细信息可以通过[通过公司 ID 批量获取公司信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/company/batch_get)接口查询获得- 适用范围左值为: 序列、序列（包含子序列）, 返回: 序列ID, 详细信息可以通过[通过序列 ID 批量获取序列信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_family/batch_get)接口查询获得- 适用范围左值为: 职务, 返回: 职务ID, 详细信息可以通过[批量查询职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/list)接口查询获得- 适用范围左值为: 职级, 返回: 职级ID, 详细信息可以通过[通过职级 ID 批量获取职级信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_level/batch_get)接口查询获得- 适用范围左值为: 人员类型, 返回: 人员类型ID, 详细信息可以通过[批量查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)接口查询获得- 适用范围左值为: 招聘类型, 返回: 招聘类型- 适用范围左值为: 国家/地区, 返回: 国家/地区- 适用范围左值为: 职等, 返回: 职等ID, 详细信息可以通过[查询职等](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)接口查询获得
 }
 
 // getCoreHRCompensationPlanListResp ...

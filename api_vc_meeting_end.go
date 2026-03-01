@@ -64,7 +64,8 @@ type EndVCMeetingReq struct {
 }
 
 // EndVCMeetingResp ...
-type EndVCMeetingResp struct{}
+type EndVCMeetingResp struct {
+}
 
 // endVCMeetingResp ...
 type endVCMeetingResp struct {

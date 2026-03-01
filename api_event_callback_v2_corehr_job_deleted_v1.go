@@ -38,3 +38,15 @@ type EventV2CorehrJobDeletedV1Handler func(ctx context.Context, cli *Lark, schem
 type EventV2CorehrJobDeletedV1 struct {
 	JobID string `json:"job_id,omitempty"` // 职务 ID
 }
+
+// EventV2CorehrJobDeletedV1Resp ...
+type EventV2CorehrJobDeletedV1Resp struct {
+}
+
+// eventV2CorehrJobDeletedV1Resp ...
+type eventV2CorehrJobDeletedV1Resp struct {
+	Code  int64                          `json:"code,omitempty"`
+	Msg   string                         `json:"msg,omitempty"`
+	Data  *EventV2CorehrJobDeletedV1Resp `json:"data,omitempty"`
+	Error *ErrorDetail                   `json:"error,omitempty"`
+}

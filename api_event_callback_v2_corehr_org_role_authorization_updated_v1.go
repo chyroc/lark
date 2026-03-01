@@ -44,3 +44,15 @@ type EventV2CorehrOrgRoleAuthorizationUpdatedV1ManagementScope struct {
 	ManagementDimension string `json:"management_dimension,omitempty"` // 管理维度可选值有: department: 部门- work_location: 工作地点- company: 公司- social_security_location: 社保城市
 	ObjID               string `json:"obj_id,omitempty"`               // 被授权部门/工作地点/公司/社保城市 ID
 }
+
+// EventV2CorehrOrgRoleAuthorizationUpdatedV1Resp ...
+type EventV2CorehrOrgRoleAuthorizationUpdatedV1Resp struct {
+}
+
+// eventV2CorehrOrgRoleAuthorizationUpdatedV1Resp ...
+type eventV2CorehrOrgRoleAuthorizationUpdatedV1Resp struct {
+	Code  int64                                           `json:"code,omitempty"`
+	Msg   string                                          `json:"msg,omitempty"`
+	Data  *EventV2CorehrOrgRoleAuthorizationUpdatedV1Resp `json:"data,omitempty"`
+	Error *ErrorDetail                                    `json:"error,omitempty"`
+}

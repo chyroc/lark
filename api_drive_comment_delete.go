@@ -66,7 +66,8 @@ type DeleteDriveCommentReq struct {
 }
 
 // DeleteDriveCommentResp ...
-type DeleteDriveCommentResp struct{}
+type DeleteDriveCommentResp struct {
+}
 
 // deleteDriveCommentResp ...
 type deleteDriveCommentResp struct {

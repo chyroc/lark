@@ -89,7 +89,8 @@ type CreateHireEcoAccountCustomFieldReqCustomFieldName struct {
 }
 
 // CreateHireEcoAccountCustomFieldResp ...
-type CreateHireEcoAccountCustomFieldResp struct{}
+type CreateHireEcoAccountCustomFieldResp struct {
+}
 
 // createHireEcoAccountCustomFieldResp ...
 type createHireEcoAccountCustomFieldResp struct {

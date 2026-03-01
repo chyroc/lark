@@ -25,7 +25,8 @@ import (
 //
 // 需要清单的读取权限。详情见[清单功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/overview)中的“清单是如何鉴权的？“章节。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/get
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/get
+// new doc: https://open.feishu.cn/document/task-v2/tasklist/get
 func (r *TaskService) GetTaskTasklist(ctx context.Context, request *GetTaskTasklistReq, options ...MethodOptionFunc) (*GetTaskTasklistResp, *Response, error) {
 	if r.cli.mock.mockTaskGetTaskTasklist != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#GetTaskTasklist mock enable")
@@ -60,8 +61,8 @@ func (r *Mock) UnMockTaskGetTaskTasklist() {
 
 // GetTaskTasklistReq ...
 type GetTaskTasklistReq struct {
-	TasklistGuid string  `path:"tasklist_guid" json:"-"` // 清单全局唯一GUID, 示例值: "d300a75f-c56a-4be9-80d1-e47653028ceb"
-	UserIDType   *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型, 示例值: open_id, 默认值: `open_id`
+	TasklistGuid string  `path:"tasklist_guid" json:"-"` // 清单全局唯一GUID示例值: "d300a75f-c56a-4be9-80d1-e47653028ceb"
+	UserIDType   *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id默认值: `open_id`
 }
 
 // GetTaskTasklistResp ...

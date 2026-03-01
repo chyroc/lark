@@ -36,3 +36,15 @@ type EventV2CorehrContractDeletedV1Handler func(ctx context.Context, cli *Lark, 
 type EventV2CorehrContractDeletedV1 struct {
 	ContractID string `json:"contract_id,omitempty"` // 合同ID, 删除后无法通过接口查询到数据
 }
+
+// EventV2CorehrContractDeletedV1Resp ...
+type EventV2CorehrContractDeletedV1Resp struct {
+}
+
+// eventV2CorehrContractDeletedV1Resp ...
+type eventV2CorehrContractDeletedV1Resp struct {
+	Code  int64                               `json:"code,omitempty"`
+	Msg   string                              `json:"msg,omitempty"`
+	Data  *EventV2CorehrContractDeletedV1Resp `json:"data,omitempty"`
+	Error *ErrorDetail                        `json:"error,omitempty"`
+}

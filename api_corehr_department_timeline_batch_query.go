@@ -21,9 +21,12 @@ import (
 	"context"
 )
 
-// BatchQueryCoreHRDepartmentTimeline 批量查询部门版本信息
+// BatchQueryCoreHRDepartmentTimeline 根据部门ID列表, 批量查询开始结束时间内的所有部门版本信息, 含部门名称、部门类型、上级、编码、负责人、是否启用、描述等信息
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/query_multi_timeline
+// - 延迟说明: 数据库主从延迟 2s 以内, 即: 直接创建部门后2s内调用此接口可能查询不到数据。
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/query_multi_timeline
+// new doc: https://open.feishu.cn/document/corehr-v1/organization-management/department/query_multi_timeline
 func (r *CoreHRService) BatchQueryCoreHRDepartmentTimeline(ctx context.Context, request *BatchQueryCoreHRDepartmentTimelineReq, options ...MethodOptionFunc) (*BatchQueryCoreHRDepartmentTimelineResp, *Response, error) {
 	if r.cli.mock.mockCoreHRBatchQueryCoreHRDepartmentTimeline != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#BatchQueryCoreHRDepartmentTimeline mock enable")
@@ -57,14 +60,14 @@ func (r *Mock) UnMockCoreHRBatchQueryCoreHRDepartmentTimeline() {
 
 // BatchQueryCoreHRDepartmentTimelineReq ...
 type BatchQueryCoreHRDepartmentTimelineReq struct {
-	PageSize           int64             `query:"page_size" json:"-"`            // 分页大小, 最大 100, 示例值: 100, 取值范围: `1` ～ `100`
-	PageToken          *string           `query:"page_token" json:"-"`           // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果, 示例值: 6891251722631890445
-	UserIDType         *IDType           `query:"user_id_type" json:"-"`         // 用户 ID 类型, 示例值: people_corehr_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), people_corehr_id: 以飞书人事的 ID 来识别用户, 默认值: `people_corehr_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	DepartmentIDType   *DepartmentIDType `query:"department_id_type" json:"-"`   // 此次调用中使用的部门 ID 类型, 示例值: people_corehr_department_id, 可选值有: open_department_id: [飞书]用来在具体某个应用中标识一个部门, 同一个department_id 在不同应用中的 open_department_id 相同。, department_id: [飞书]用来标识租户内一个唯一的部门。, people_corehr_department_id: [飞书人事]用来标识「飞书人事」中的部门。, 默认值: `people_corehr_department_id`
-	DepartmentIDs      []string          `json:"department_ids,omitempty"`       // 部门 ID 列表, 可请求[搜索部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/search)获取, 示例值: ["7094136522860922111"], 长度范围: `1` ～ `10`
-	EffectiveDateStart *string           `json:"effective_date_start,omitempty"` // 生效日期开始(包含), 示例值: "2024-01-01", 长度范围: `10` ～ `10` 字符, 正则校验: `^((([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-(((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)-(0[1-9]|[12][0-9]|30))|(02-(0[1-9]|[1][0-9]|2[0-8]))))|((([0-9]{2})(0[48]|[2468][048]|[13579][26])|((0[48]|[2468][048]|[3579][26])00))-02-29))$`
-	EffectiveDateEnd   *string           `json:"effective_date_end,omitempty"`   // 生效日期结束(包含), 示例值: "2024-12-31", 长度范围: `10` ～ `10` 字符, 正则校验: `^((([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-(((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)-(0[1-9]|[12][0-9]|30))|(02-(0[1-9]|[1][0-9]|2[0-8]))))|((([0-9]{2})(0[48]|[2468][048]|[13579][26])|((0[48]|[2468][048]|[3579][26])00))-02-29))$`
-	Fields             []string          `json:"fields,omitempty"`               // 返回数据的字段列表, 可选["department_name", "code", "active", "parent_department_id", "manager", "description", "effective_date"], 以及自定义字段field_name, 示例值: ["department_name"], 长度范围: `0` ～ `100`
+	PageSize           int64             `query:"page_size" json:"-"`            // 分页大小, 最大 100示例值: 100 取值范围: `1` ～ `100`
+	PageToken          *string           `query:"page_token" json:"-"`           // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 6891251722631890445
+	UserIDType         *IDType           `query:"user_id_type" json:"-"`         // 用户 ID 类型示例值: people_corehr_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `people_corehr_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	DepartmentIDType   *DepartmentIDType `query:"department_id_type" json:"-"`   // 此次调用中使用的部门 ID 类型示例值: people_corehr_department_id可选值有: 【飞书】用来在具体某个应用中标识一个部门, 同一个department_id 在不同应用中的 open_department_id 相同。【飞书】用来标识租户内一个唯一的部门。【飞书人事】用来标识「飞书人事」中的部门。默认值: `people_corehr_department_id`
+	DepartmentIDs      []string          `json:"department_ids,omitempty"`       // 部门 ID 列表, 可请求[搜索部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/search)获取。示例值: ["7094136522860922111"] 长度范围: `1` ～ `10`
+	EffectiveDateStart *string           `json:"effective_date_start,omitempty"` // 生效日期开始(包含)示例值: "2024-01-01" 长度范围: `10` ～ `10` 字符- 正则校验: `^((([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-(((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)-(0[1-9]|[12][0-9]|30))|(02-(0[1-9]|[1][0-9]|2[0-8]))))|((([0-9]{2})(0[48]|[2468][048]|[13579][26])|((0[48]|[2468][048]|[3579][26])00))-02-29))$`
+	EffectiveDateEnd   *string           `json:"effective_date_end,omitempty"`   // 生效日期结束(包含)示例值: "2024-12-31" 长度范围: `10` ～ `10` 字符- 正则校验: `^((([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-(((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)-(0[1-9]|[12][0-9]|30))|(02-(0[1-9]|[1][0-9]|2[0-8]))))|((([0-9]{2})(0[48]|[2468][048]|[13579][26])|((0[48]|[2468][048]|[3579][26])00))-02-29))$`
+	Fields             []string          `json:"fields,omitempty"`               // 需要返回的字段列表, 字段可填写的列表如下: department_name- sub_type- code- active- parent_department_id- manager- description- effective_date- expiration_date- custom_fields(自定义字段需传入具体的"custom_api_name"详细见[获取自定义字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query), 比如:"shifouleixing_7795__c)示例值: ["department_name"] 长度范围: `0` ～ `100`
 }
 
 // BatchQueryCoreHRDepartmentTimelineResp ...
@@ -79,20 +82,22 @@ type BatchQueryCoreHRDepartmentTimelineRespItem struct {
 	ID                 string                                                   `json:"id,omitempty"`                   // 部门 ID
 	VersionID          string                                                   `json:"version_id,omitempty"`           // 部门版本 ID
 	Names              []*BatchQueryCoreHRDepartmentTimelineRespItemName        `json:"names,omitempty"`                // 部门名称
-	ParentDepartmentID string                                                   `json:"parent_department_id,omitempty"` // 上级部门 ID, 字段权限要求: 获取部门组织架构信息
-	Manager            string                                                   `json:"manager,omitempty"`              // 部门负责人雇佣 ID, 枚举值及详细信息可通过[查询员工信息]接口查询获得, 字段权限要求: 获取部门负责人信息
+	SubType            *BatchQueryCoreHRDepartmentTimelineRespItemSubType       `json:"sub_type,omitempty"`             // 部门类型- 通过[获取字段详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)查询获取。请求参数: object_api_name=department；custom_api_name=subtype。
+	ParentDepartmentID string                                                   `json:"parent_department_id,omitempty"` // 上级部门 ID - 详细信息可通过[【查询单个部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/get)接口获得- 若查询的是一级部门, 则该字段不展示字段权限要求: 获取部门组织架构信息
+	Manager            string                                                   `json:"manager,omitempty"`              // 部门负责人雇佣 ID, 枚举值及详细信息可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口查询获得字段权限要求: 获取部门负责人信息
 	Code               string                                                   `json:"code,omitempty"`                 // 编码
-	EffectiveDate      string                                                   `json:"effective_date,omitempty"`       // 生效日期
+	EffectiveDate      string                                                   `json:"effective_date,omitempty"`       // 生效日期- 返回格式: YYYY-MM-DD（最小单位到日）- 日期范围:1900-01-01～9999-12-31
 	Active             bool                                                     `json:"active,omitempty"`               // 是否启用
 	Descriptions       []*BatchQueryCoreHRDepartmentTimelineRespItemDescription `json:"descriptions,omitempty"`         // 描述
-	CustomFields       []*BatchQueryCoreHRDepartmentTimelineRespItemCustomField `json:"custom_fields,omitempty"`        // 自定义字段, 字段权限要求: 获取部门自定义字段
+	CustomFields       []*BatchQueryCoreHRDepartmentTimelineRespItemCustomField `json:"custom_fields,omitempty"`        // 自定义字段类型, 详细见[获取自定义字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query) 字段权限要求: 获取部门自定义字段
+	ExpirationDate     string                                                   `json:"expiration_date,omitempty"`      // 失效日期- 返回格式: YYYY-MM-DD （最小单位到日）- 日期范围:1900-01-01 ～9999-12-31
 }
 
 // BatchQueryCoreHRDepartmentTimelineRespItemCustomField ...
 type BatchQueryCoreHRDepartmentTimelineRespItemCustomField struct {
 	CustomApiName string                                                     `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
 	Name          *BatchQueryCoreHRDepartmentTimelineRespItemCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
-	Type          int64                                                      `json:"type,omitempty"`            // 自定义字段类型
+	Type          int64                                                      `json:"type,omitempty"`            // 自定义字段类型, 详细见[获取自定义字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query)
 	Value         string                                                     `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
@@ -105,13 +110,25 @@ type BatchQueryCoreHRDepartmentTimelineRespItemCustomFieldName struct {
 // BatchQueryCoreHRDepartmentTimelineRespItemDescription ...
 type BatchQueryCoreHRDepartmentTimelineRespItemDescription struct {
 	Lang  string `json:"lang,omitempty"`  // 语言, 支持中文和英文。中文用zh-CN；英文用en-US。
-	Value string `json:"value,omitempty"` // 内容
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // BatchQueryCoreHRDepartmentTimelineRespItemName ...
 type BatchQueryCoreHRDepartmentTimelineRespItemName struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言, 中文用zh-CN, 英文用en-US
+	Value string `json:"value,omitempty"` // 文本内容
+}
+
+// BatchQueryCoreHRDepartmentTimelineRespItemSubType ...
+type BatchQueryCoreHRDepartmentTimelineRespItemSubType struct {
+	EnumName string                                                      `json:"enum_name,omitempty"` // 枚举值
+	Display  []*BatchQueryCoreHRDepartmentTimelineRespItemSubTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+}
+
+// BatchQueryCoreHRDepartmentTimelineRespItemSubTypeDisplay ...
+type BatchQueryCoreHRDepartmentTimelineRespItemSubTypeDisplay struct {
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // batchQueryCoreHRDepartmentTimelineResp ...

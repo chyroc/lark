@@ -27,8 +27,6 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/process-form_variable_data/get
 // new doc: https://open.feishu.cn/document/server-docs/corehr-v1/process-form_variable_data/get
-//
-// Deprecated
 func (r *CoreHRService) GetCoreHRProcessFormVariableData(ctx context.Context, request *GetCoreHRProcessFormVariableDataReq, options ...MethodOptionFunc) (*GetCoreHRProcessFormVariableDataResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRProcessFormVariableData != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRProcessFormVariableData mock enable")

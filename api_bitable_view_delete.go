@@ -65,7 +65,8 @@ type DeleteBitableViewReq struct {
 }
 
 // DeleteBitableViewResp ...
-type DeleteBitableViewResp struct{}
+type DeleteBitableViewResp struct {
+}
 
 // deleteBitableViewResp ...
 type deleteBitableViewResp struct {

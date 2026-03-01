@@ -23,7 +23,7 @@ import (
 
 // QueryReportRule 查询规则。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/reference/report/report-v1/rule/query
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/report/report-v1/rule/query
 // new doc: https://open.feishu.cn/document/server-docs/report-v1/rule/query
 func (r *ReportService) QueryReportRule(ctx context.Context, request *QueryReportRuleReq, options ...MethodOptionFunc) (*QueryReportRuleResp, *Response, error) {
 	if r.cli.mock.mockReportQueryReportRule != nil {
@@ -58,9 +58,9 @@ func (r *Mock) UnMockReportQueryReportRule() {
 
 // QueryReportRuleReq ...
 type QueryReportRuleReq struct {
-	RuleName       string  `query:"rule_name" json:"-"`       // 规则名称, 示例值: 工作月报
-	IncludeDeleted *int64  `query:"include_deleted" json:"-"` // 是否包括已删除, 默认未删除, 示例值: 0, 可选值有: 0: 不包括已删除, 1: 包括已删除, 取值范围: `0` ～ `1`
-	UserIDType     *IDType `query:"user_id_type" json:"-"`    // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	RuleName       string  `query:"rule_name" json:"-"`       // 规则名称示例值: 工作月报
+	IncludeDeleted *int64  `query:"include_deleted" json:"-"` // 是否包括已删除, 默认未删除示例值: 0可选值有: 不包括已删除包括已删除 取值范围: `0` ～ `1`
+	UserIDType     *IDType `query:"user_id_type" json:"-"`    // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // QueryReportRuleResp ...
@@ -79,7 +79,7 @@ type QueryReportRuleRespRule struct {
 	OwnerUserID             string                               `json:"owner_user_id,omitempty"`              // 规则所有者ID
 	OwnerUserName           string                               `json:"owner_user_name,omitempty"`            // 规则所有者名称
 	FormSchema              []*QueryReportRuleRespRuleFormSchema `json:"form_schema,omitempty"`                // 表单定义
-	IsDeleted               int64                                `json:"is_deleted,omitempty"`                 // 规则是否已删除, 可选值有: 0: 未删除, 1: 已删除
+	IsDeleted               int64                                `json:"is_deleted,omitempty"`                 // 规则是否已删除可选值有: 未删除已删除
 	NeedReportUserIDs       []string                             `json:"need_report_user_ids,omitempty"`       // 需要汇报的用户ID列表
 	NeedReportDepartmentIDs []string                             `json:"need_report_department_ids,omitempty"` // 需要汇报的部门ID列表（如果id为0, 表示全员）
 	NeedReportChatIDs       []string                             `json:"need_report_chat_ids,omitempty"`       // 需要汇报的群ID列表
@@ -96,7 +96,7 @@ type QueryReportRuleRespRule struct {
 // QueryReportRuleRespRuleFormSchema ...
 type QueryReportRuleRespRuleFormSchema struct {
 	Name string `json:"name,omitempty"` // 字段名称
-	Type string `json:"type,omitempty"` // 字段类型, 可选值有: text: 文本, number: 数字, dropdown: 单选, image: 图片, attachement: 附件, multiSelect: 多选, address: 地址, datetime: 时间
+	Type string `json:"type,omitempty"` // 字段类型可选值有: 文本数字单选图片附件多选地址时间
 }
 
 // queryReportRuleResp ...

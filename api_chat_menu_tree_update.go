@@ -80,6 +80,13 @@ type UpdateChatMenuTreeReqChatMenuItem struct {
 	I18nNames    *I18nNames                                     `json:"i18n_names,omitempty"`    // 菜单国际化名称注意: 一级、二级菜单名称字符数要在 1 ~ 120 范围内。
 }
 
+// UpdateChatMenuTreeReqChatMenuItemI18nNames ...
+type UpdateChatMenuTreeReqChatMenuItemI18nNames struct {
+	ZhCn *string `json:"zh_cn,omitempty"` // 中文名示例值: "评审报名"
+	EnUs *string `json:"en_us,omitempty"` // 英文名示例值: "Sign up"
+	JaJp *string `json:"ja_jp,omitempty"` // 日文名示例值: "サインアップ"
+}
+
 // UpdateChatMenuTreeReqChatMenuItemRedirectLink ...
 type UpdateChatMenuTreeReqChatMenuItemRedirectLink struct {
 	CommonURL  *string `json:"common_url,omitempty"`  // 公用跳转链接, 必须以 http/https 开头。示例值: "https://open.feishu.cn/"
@@ -101,6 +108,13 @@ type UpdateChatMenuTreeRespChatMenuItem struct {
 	ImageKey     string                                          `json:"image_key,omitempty"`     // 图标的 key 值。通过[下载图片](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/image/get)接口可将图标下载到本地（只能下载由当前机器人上传的图片）。注意: 一级菜单下存在二级菜单时不能设置图标。
 	Name         string                                          `json:"name,omitempty"`          // 菜单名称
 	I18nNames    *I18nNames                                      `json:"i18n_names,omitempty"`    // 菜单国际化名称
+}
+
+// UpdateChatMenuTreeRespChatMenuItemI18nNames ...
+type UpdateChatMenuTreeRespChatMenuItemI18nNames struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文名
+	EnUs string `json:"en_us,omitempty"` // 英文名
+	JaJp string `json:"ja_jp,omitempty"` // 日文名
 }
 
 // UpdateChatMenuTreeRespChatMenuItemRedirectLink ...

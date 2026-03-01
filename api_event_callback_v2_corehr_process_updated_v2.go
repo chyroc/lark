@@ -43,3 +43,15 @@ type EventV2CorehrProcessUpdatedV2 struct {
 	FlowDefinitionID string `json:"flow_definition_id,omitempty"` // 流程定义id。流程定义是流程的模板, 由流程定义可以创建流程实例。示例值: "people_7023711013443944467_7382148112896872236"
 	Properties       int64  `json:"properties,omitempty"`         // 流程属性可选值有: 普通流程撤销流程更正流程
 }
+
+// EventV2CorehrProcessUpdatedV2Resp ...
+type EventV2CorehrProcessUpdatedV2Resp struct {
+}
+
+// eventV2CorehrProcessUpdatedV2Resp ...
+type eventV2CorehrProcessUpdatedV2Resp struct {
+	Code  int64                              `json:"code,omitempty"`
+	Msg   string                             `json:"msg,omitempty"`
+	Data  *EventV2CorehrProcessUpdatedV2Resp `json:"data,omitempty"`
+	Error *ErrorDetail                       `json:"error,omitempty"`
+}

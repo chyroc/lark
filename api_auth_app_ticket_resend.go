@@ -62,7 +62,8 @@ type ResendAppTicketReq struct {
 }
 
 // ResendAppTicketResp ...
-type ResendAppTicketResp struct{}
+type ResendAppTicketResp struct {
+}
 
 // resendAppTicketResp ...
 type resendAppTicketResp struct {

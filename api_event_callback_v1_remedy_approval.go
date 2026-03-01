@@ -52,3 +52,15 @@ type EventV1RemedyApprovalObject struct {
 	Status       string `json:"status,omitempty"`        // 审批实例状态。审批实例通过时取值为 `APPROVED`
 	Type         string `json:"type,omitempty"`          // 固定取值 `remedy_approval_v2`
 }
+
+// EventV1RemedyApprovalResp ...
+type EventV1RemedyApprovalResp struct {
+}
+
+// eventV1RemedyApprovalResp ...
+type eventV1RemedyApprovalResp struct {
+	Code  int64                      `json:"code,omitempty"`
+	Msg   string                     `json:"msg,omitempty"`
+	Data  *EventV1RemedyApprovalResp `json:"data,omitempty"`
+	Error *ErrorDetail               `json:"error,omitempty"`
+}

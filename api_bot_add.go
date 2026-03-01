@@ -63,7 +63,8 @@ type AddBotToChatReq struct {
 }
 
 // AddBotToChatResp ...
-type AddBotToChatResp struct{}
+type AddBotToChatResp struct {
+}
 
 // addBotToChatResp ...
 type addBotToChatResp struct {

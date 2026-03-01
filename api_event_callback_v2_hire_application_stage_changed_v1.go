@@ -39,3 +39,15 @@ type EventV2HireApplicationStageChangedV1 struct {
 	TargetStageID string `json:"target_stage_id,omitempty"` // 投递阶段转移后的阶段 ID, 详情请参考[获取招聘流程信息](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job_process/list)
 	UpdateTime    int64  `json:"update_time,omitempty"`     // 投递阶段变更时间戳（单位: 毫秒）
 }
+
+// EventV2HireApplicationStageChangedV1Resp ...
+type EventV2HireApplicationStageChangedV1Resp struct {
+}
+
+// eventV2HireApplicationStageChangedV1Resp ...
+type eventV2HireApplicationStageChangedV1Resp struct {
+	Code  int64                                     `json:"code,omitempty"`
+	Msg   string                                    `json:"msg,omitempty"`
+	Data  *EventV2HireApplicationStageChangedV1Resp `json:"data,omitempty"`
+	Error *ErrorDetail                              `json:"error,omitempty"`
+}

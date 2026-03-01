@@ -197,10 +197,24 @@ type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionRemarkVis
 	DepartmentIDs []string `json:"department_ids,omitempty"` // 可见性部门的 id 列表
 }
 
+// EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionRemarkVisibilityInvisibleListOpenID ...
+type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionRemarkVisibilityInvisibleListOpenID struct {
+	UnionID string `json:"union_id,omitempty"` // 用户的 union id
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id
+	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
+}
+
 // EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionRemarkVisibilityVisibleList ...
 type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionRemarkVisibilityVisibleList struct {
 	OpenIDs       []string `json:"open_ids,omitempty"`       // 可见性成员 id 列表
 	DepartmentIDs []string `json:"department_ids,omitempty"` // 可见性部门的 id 列表
+}
+
+// EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionRemarkVisibilityVisibleListOpenID ...
+type EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionRemarkVisibilityVisibleListOpenID struct {
+	UnionID string `json:"union_id,omitempty"` // 用户的 union id
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id
+	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
 // EventV2ApplicationApplicationAppVersionPublishApplyV6OnlineVersionScope ...
@@ -216,6 +230,10 @@ type EventV2ApplicationApplicationAppVersionPublishApplyV6OperatorID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
+}
+
+// EventV2ApplicationApplicationAppVersionPublishApplyV6Resp ...
+type EventV2ApplicationApplicationAppVersionPublishApplyV6Resp struct {
 }
 
 // EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersion ...
@@ -375,10 +393,24 @@ type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionRemar
 	DepartmentIDs []string `json:"department_ids,omitempty"` // 可见性部门的 id 列表
 }
 
+// EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionRemarkVisibilityInvisibleListOpenID ...
+type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionRemarkVisibilityInvisibleListOpenID struct {
+	UnionID string `json:"union_id,omitempty"` // 用户的 union id
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id
+	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
+}
+
 // EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionRemarkVisibilityVisibleList ...
 type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionRemarkVisibilityVisibleList struct {
 	OpenIDs       []string `json:"open_ids,omitempty"`       // 可见性成员 id 列表
 	DepartmentIDs []string `json:"department_ids,omitempty"` // 可见性部门的 id 列表
+}
+
+// EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionRemarkVisibilityVisibleListOpenID ...
+type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionRemarkVisibilityVisibleListOpenID struct {
+	UnionID string `json:"union_id,omitempty"` // 用户的 union id
+	UserID  string `json:"user_id,omitempty"`  // 用户的 user id
+	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
 }
 
 // EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionScope ...
@@ -387,4 +419,12 @@ type EventV2ApplicationApplicationAppVersionPublishApplyV6UnderAuditVersionScope
 	Description string   `json:"description,omitempty"` // 应用权限的国际化描述
 	Level       int64    `json:"level,omitempty"`       // 权限等级描述可选值有: 普通权限高级权限超敏感权限未知等级
 	TokenTypes  []string `json:"token_types,omitempty"` // 返回用户身份类型user、应用身份类型tenant。如果两种类型都支持, 则同时返回两个。可选值有: 应用身份类型用户身份类型 长度范围: `0` ～ `200`
+}
+
+// eventV2ApplicationApplicationAppVersionPublishApplyV6Resp ...
+type eventV2ApplicationApplicationAppVersionPublishApplyV6Resp struct {
+	Code  int64                                                      `json:"code,omitempty"`
+	Msg   string                                                     `json:"msg,omitempty"`
+	Data  *EventV2ApplicationApplicationAppVersionPublishApplyV6Resp `json:"data,omitempty"`
+	Error *ErrorDetail                                               `json:"error,omitempty"`
 }

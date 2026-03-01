@@ -37,3 +37,15 @@ func (r *AppLinkService) OpenTaskTab(req *OpenTaskTabReq) string {
 type OpenTaskTabReq struct {
 	Tab string `json:"tab,omitempty"` // String类型, 枚举值包括: `all` 进行中；  `assign_to_me` 由我处理；  `assign_from_me` 我分配的；  `followed`  我关注的；  `completed` 已完成
 }
+
+// OpenTaskTabResp ...
+type OpenTaskTabResp struct {
+}
+
+// openTaskTabResp ...
+type openTaskTabResp struct {
+	Code  int64            `json:"code,omitempty"`
+	Msg   string           `json:"msg,omitempty"`
+	Data  *OpenTaskTabResp `json:"data,omitempty"`
+	Error *ErrorDetail     `json:"error,omitempty"`
+}

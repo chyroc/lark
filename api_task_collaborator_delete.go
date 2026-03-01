@@ -25,8 +25,6 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-collaborator/delete
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task-collaborator/delete
-//
-// Deprecated
 func (r *TaskService) DeleteTaskCollaborator(ctx context.Context, request *DeleteTaskCollaboratorReq, options ...MethodOptionFunc) (*DeleteTaskCollaboratorResp, *Response, error) {
 	if r.cli.mock.mockTaskDeleteTaskCollaborator != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#DeleteTaskCollaborator mock enable")
@@ -67,7 +65,8 @@ type DeleteTaskCollaboratorReq struct {
 }
 
 // DeleteTaskCollaboratorResp ...
-type DeleteTaskCollaboratorResp struct{}
+type DeleteTaskCollaboratorResp struct {
+}
 
 // deleteTaskCollaboratorResp ...
 type deleteTaskCollaboratorResp struct {

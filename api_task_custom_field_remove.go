@@ -27,7 +27,8 @@ import (
 // 注意自定义字段是通过清单来实现授权的, 如果将自定义字段从所有关联的清单中移除, 就意味着任何调用身份都无法再访问改自定义字段。
 // 需要资源的可编辑权限。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/task-v2/custom_field/remove
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/custom_field/remove
+// new doc: https://open.feishu.cn/document/task-v2/custom_field/remove
 func (r *TaskService) RemoveTaskCustomField(ctx context.Context, request *RemoveTaskCustomFieldReq, options ...MethodOptionFunc) (*RemoveTaskCustomFieldResp, *Response, error) {
 	if r.cli.mock.mockTaskRemoveTaskCustomField != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#RemoveTaskCustomField mock enable")
@@ -62,13 +63,14 @@ func (r *Mock) UnMockTaskRemoveTaskCustomField() {
 
 // RemoveTaskCustomFieldReq ...
 type RemoveTaskCustomFieldReq struct {
-	CustomFieldGuid string `path:"custom_field_guid" json:"-"` // 自定义字段GUID。自定义字段GUID。可以通过[创建自定义字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/custom_field/create)接口创建, 或者通过[列取自定义字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/custom_field/list)接口查询得到, 示例值: "0110a4bd-f24b-4a93-8c1a-1732b94f9593"
-	ResourceType    string `json:"resource_type,omitempty"`    // 要从某个资源移除自定义字段的资源类型, 目前只支持清单, 示例值: "tasklist"
-	ResourceID      string `json:"resource_id,omitempty"`      // 要从某个资源移除自定义字段的资源id, `resource_type`为"tasklist"时, 需填写清单的GUID, 示例值: "0110a4bd-f24b-4a93-8c1a-1732b94f9593"
+	CustomFieldGuid string `path:"custom_field_guid" json:"-"` // 自定义字段GUID。自定义字段GUID。可以通过[创建自定义字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/custom_field/create)接口创建, 或者通过[列取自定义字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/custom_field/list)接口查询得到。示例值: "0110a4bd-f24b-4a93-8c1a-1732b94f9593"
+	ResourceType    string `json:"resource_type,omitempty"`    // 要从某个资源移除自定义字段的资源类型, 目前只支持清单。示例值: "tasklist"
+	ResourceID      string `json:"resource_id,omitempty"`      // 要从某个资源移除自定义字段的资源id, `resource_type`为"tasklist"时, 需填写清单的GUID。示例值: "0110a4bd-f24b-4a93-8c1a-1732b94f9593"
 }
 
 // RemoveTaskCustomFieldResp ...
-type RemoveTaskCustomFieldResp struct{}
+type RemoveTaskCustomFieldResp struct {
+}
 
 // removeTaskCustomFieldResp ...
 type removeTaskCustomFieldResp struct {

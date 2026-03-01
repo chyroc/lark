@@ -66,7 +66,8 @@ type DeleteLingoEntityReq struct {
 }
 
 // DeleteLingoEntityResp ...
-type DeleteLingoEntityResp struct{}
+type DeleteLingoEntityResp struct {
+}
 
 // deleteLingoEntityResp ...
 type deleteLingoEntityResp struct {

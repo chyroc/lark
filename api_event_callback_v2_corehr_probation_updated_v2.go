@@ -38,3 +38,15 @@ type EventV2CorehrProbationUpdatedV2 struct {
 	ProbationStatus        string `json:"probation_status,omitempty"`          // 试用期状态可选值有: 审批中已拒绝待发起转正审批通过已转正已离职
 	ActualProbationEndDate string `json:"actual_probation_end_date,omitempty"` // 试用期实际结束日期, 格式: "YYYY-MM-DD"
 }
+
+// EventV2CorehrProbationUpdatedV2Resp ...
+type EventV2CorehrProbationUpdatedV2Resp struct {
+}
+
+// eventV2CorehrProbationUpdatedV2Resp ...
+type eventV2CorehrProbationUpdatedV2Resp struct {
+	Code  int64                                `json:"code,omitempty"`
+	Msg   string                               `json:"msg,omitempty"`
+	Data  *EventV2CorehrProbationUpdatedV2Resp `json:"data,omitempty"`
+	Error *ErrorDetail                         `json:"error,omitempty"`
+}

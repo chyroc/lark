@@ -44,3 +44,15 @@ type OpenMiniProgramReq struct {
 	PathPc      *string `json:"path_pc,omitempty"`      // 同 path 参数, PC 端会优先使用该参数, 如果该参数不存在, 则会使用 path 参数
 	MinLkVer    *string `json:"min_lk_ver,omitempty"`   // 指定 AppLink 协议能够兼容的最小飞书版本, 使用三位版本号 x.y.z。如果当前飞书版本号小于min_lk_ver, 打开该 AppLink 会显示为兼容页面
 }
+
+// OpenMiniProgramResp ...
+type OpenMiniProgramResp struct {
+}
+
+// openMiniProgramResp ...
+type openMiniProgramResp struct {
+	Code  int64                `json:"code,omitempty"`
+	Msg   string               `json:"msg,omitempty"`
+	Data  *OpenMiniProgramResp `json:"data,omitempty"`
+	Error *ErrorDetail         `json:"error,omitempty"`
+}

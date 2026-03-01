@@ -46,3 +46,15 @@ type OpenWebAppReq struct {
 	LkTargetURL *string `json:"lk_target_url,omitempty"` // 指定要打开网页应用的某个页面完整url   注意: 1. 从 7.27版本开始, 始终会打开该参数配置的页面；7.27 以前版本, 此url参数中的domain如果和网页应用在开发者后台配置的url的scheme和domain不一致, 打开的将会是网页应用开发者后台配置的url   2.此url参数必须进行encode处理, 如果url携带query参数, 并且query参数中也包含 url 或 中文 等非ASCII码字符, 必须先对query参数中的非ASCII码字符进行encode后, 作为参数的值, 然后对url整体进行encode。具体用法详见示例3  3. 该参数从 5.12版本 开始支持, 低版本无法解析此参数, 如果在低版本使用, 将打开开发者后台配置的网页应用首页  4. 该参数和path 系列参数互斥, 同时传递时lk_target_url 优先级更高
 	Reload      *string `json:"reload,omitempty"`        // 如果网页应用当前所处的页面路径和 applink 要打开的页面路径相同时: true: 重新加载页面   false: 保留原页面状态   默认值: false   5.20版本开始支持, 仅PC端支持
 }
+
+// OpenWebAppResp ...
+type OpenWebAppResp struct {
+}
+
+// openWebAppResp ...
+type openWebAppResp struct {
+	Code  int64           `json:"code,omitempty"`
+	Msg   string          `json:"msg,omitempty"`
+	Data  *OpenWebAppResp `json:"data,omitempty"`
+	Error *ErrorDetail    `json:"error,omitempty"`
+}

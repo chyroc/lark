@@ -39,9 +39,21 @@ type EventV2ACSUserUpdatedV1 struct {
 	FaceUploaded bool                           `json:"face_uploaded,omitempty"` // 是否上传人脸图片
 }
 
+// EventV2ACSUserUpdatedV1Resp ...
+type EventV2ACSUserUpdatedV1Resp struct {
+}
+
 // EventV2ACSUserUpdatedV1UserID ...
 type EventV2ACSUserUpdatedV1UserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
+}
+
+// eventV2ACSUserUpdatedV1Resp ...
+type eventV2ACSUserUpdatedV1Resp struct {
+	Code  int64                        `json:"code,omitempty"`
+	Msg   string                       `json:"msg,omitempty"`
+	Data  *EventV2ACSUserUpdatedV1Resp `json:"data,omitempty"`
+	Error *ErrorDetail                 `json:"error,omitempty"`
 }

@@ -36,3 +36,15 @@ type OpenChatReq struct {
 	OpenID     *string `json:"openId,omitempty"`     // 用户 openId, 获取方式可以参考文档: [如何获取自己的 Open ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)
 	OpenChatID *string `json:"openChatId,omitempty"` // 会话ID, 包括单聊会话和群聊会话。是以 'oc' 开头的字段, 获取方式可参考文档 [群ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/im-v1/chat-id-description)示例值: oc_41e7bdf4877cfc316136f4ccf6c32613
 }
+
+// OpenChatResp ...
+type OpenChatResp struct {
+}
+
+// openChatResp ...
+type openChatResp struct {
+	Code  int64         `json:"code,omitempty"`
+	Msg   string        `json:"msg,omitempty"`
+	Data  *OpenChatResp `json:"data,omitempty"`
+	Error *ErrorDetail  `json:"error,omitempty"`
+}

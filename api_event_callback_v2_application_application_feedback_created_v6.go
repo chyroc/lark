@@ -49,9 +49,21 @@ type EventV2ApplicationApplicationFeedbackCreatedV6 struct {
 	FeedbackPath string                                                `json:"feedback_path,omitempty"` // 反馈页面路径
 }
 
+// EventV2ApplicationApplicationFeedbackCreatedV6Resp ...
+type EventV2ApplicationApplicationFeedbackCreatedV6Resp struct {
+}
+
 // EventV2ApplicationApplicationFeedbackCreatedV6UserID ...
 type EventV2ApplicationApplicationFeedbackCreatedV6UserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
+}
+
+// eventV2ApplicationApplicationFeedbackCreatedV6Resp ...
+type eventV2ApplicationApplicationFeedbackCreatedV6Resp struct {
+	Code  int64                                               `json:"code,omitempty"`
+	Msg   string                                              `json:"msg,omitempty"`
+	Data  *EventV2ApplicationApplicationFeedbackCreatedV6Resp `json:"data,omitempty"`
+	Error *ErrorDetail                                        `json:"error,omitempty"`
 }

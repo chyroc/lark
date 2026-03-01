@@ -65,7 +65,8 @@ type BatchDeleteHireEcoBackgroundCheckCustomFieldReq struct {
 }
 
 // BatchDeleteHireEcoBackgroundCheckCustomFieldResp ...
-type BatchDeleteHireEcoBackgroundCheckCustomFieldResp struct{}
+type BatchDeleteHireEcoBackgroundCheckCustomFieldResp struct {
+}
 
 // batchDeleteHireEcoBackgroundCheckCustomFieldResp ...
 type batchDeleteHireEcoBackgroundCheckCustomFieldResp struct {

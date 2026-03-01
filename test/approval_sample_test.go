@@ -37,10 +37,12 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Approval
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateApproval(ctx, &lark.CreateApprovalReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
+
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {
@@ -48,6 +50,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		moduleCli := cli.Approval
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApprovalCreateApproval(func(ctx context.Context, request *lark.CreateApprovalReq, options ...lark.MethodOptionFunc) (*lark.CreateApprovalResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -59,6 +62,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApprovalGetApproval(func(ctx context.Context, request *lark.GetApprovalReq, options ...lark.MethodOptionFunc) (*lark.GetApprovalResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -70,6 +74,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApprovalGetApprovalList(func(ctx context.Context, request *lark.GetApprovalListReq, options ...lark.MethodOptionFunc) (*lark.GetApprovalListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -81,6 +86,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApprovalSubscribeApprovalSubscription(func(ctx context.Context, request *lark.SubscribeApprovalSubscriptionReq, options ...lark.MethodOptionFunc) (*lark.SubscribeApprovalSubscriptionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -92,6 +98,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApprovalUnsubscribeApprovalSubscription(func(ctx context.Context, request *lark.UnsubscribeApprovalSubscriptionReq, options ...lark.MethodOptionFunc) (*lark.UnsubscribeApprovalSubscriptionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -103,6 +110,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApprovalCreateApprovalInstance(func(ctx context.Context, request *lark.CreateApprovalInstanceReq, options ...lark.MethodOptionFunc) (*lark.CreateApprovalInstanceResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -114,6 +122,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApprovalGetApprovalInstance(func(ctx context.Context, request *lark.GetApprovalInstanceReq, options ...lark.MethodOptionFunc) (*lark.GetApprovalInstanceResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -125,6 +134,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApprovalGetApprovalInstanceList(func(ctx context.Context, request *lark.GetApprovalInstanceListReq, options ...lark.MethodOptionFunc) (*lark.GetApprovalInstanceListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -136,6 +146,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApprovalCancelApprovalInstance(func(ctx context.Context, request *lark.CancelApprovalInstanceReq, options ...lark.MethodOptionFunc) (*lark.CancelApprovalInstanceResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -147,6 +158,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApprovalCreateApprovalCarbonCopy(func(ctx context.Context, request *lark.CreateApprovalCarbonCopyReq, options ...lark.MethodOptionFunc) (*lark.CreateApprovalCarbonCopyResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -158,6 +170,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApprovalPreviewApprovalInstance(func(ctx context.Context, request *lark.PreviewApprovalInstanceReq, options ...lark.MethodOptionFunc) (*lark.PreviewApprovalInstanceResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -169,6 +182,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApprovalApproveApprovalInstance(func(ctx context.Context, request *lark.ApproveApprovalInstanceReq, options ...lark.MethodOptionFunc) (*lark.ApproveApprovalInstanceResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -180,6 +194,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApprovalRejectApprovalInstance(func(ctx context.Context, request *lark.RejectApprovalInstanceReq, options ...lark.MethodOptionFunc) (*lark.RejectApprovalInstanceResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -191,6 +206,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApprovalTransferApprovalInstance(func(ctx context.Context, request *lark.TransferApprovalInstanceReq, options ...lark.MethodOptionFunc) (*lark.TransferApprovalInstanceResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -202,6 +218,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApprovalResubmitApprovalInstanceTask(func(ctx context.Context, request *lark.ResubmitApprovalInstanceTaskReq, options ...lark.MethodOptionFunc) (*lark.ResubmitApprovalInstanceTaskResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -213,6 +230,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApprovalRollbackApprovalInstance(func(ctx context.Context, request *lark.RollbackApprovalInstanceReq, options ...lark.MethodOptionFunc) (*lark.RollbackApprovalInstanceResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -224,6 +242,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApprovalAddApprovalInstanceSign(func(ctx context.Context, request *lark.AddApprovalInstanceSignReq, options ...lark.MethodOptionFunc) (*lark.AddApprovalInstanceSignResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -235,6 +254,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApprovalCreateApprovalComment(func(ctx context.Context, request *lark.CreateApprovalCommentReq, options ...lark.MethodOptionFunc) (*lark.CreateApprovalCommentResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -246,6 +266,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApprovalGetApprovalComment(func(ctx context.Context, request *lark.GetApprovalCommentReq, options ...lark.MethodOptionFunc) (*lark.GetApprovalCommentResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -257,6 +278,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApprovalDeleteApprovalComment(func(ctx context.Context, request *lark.DeleteApprovalCommentReq, options ...lark.MethodOptionFunc) (*lark.DeleteApprovalCommentResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -268,6 +290,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApprovalRemoveApprovalComment(func(ctx context.Context, request *lark.RemoveApprovalCommentReq, options ...lark.MethodOptionFunc) (*lark.RemoveApprovalCommentResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -279,6 +302,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApprovalCreateApprovalExternalApproval(func(ctx context.Context, request *lark.CreateApprovalExternalApprovalReq, options ...lark.MethodOptionFunc) (*lark.CreateApprovalExternalApprovalResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -290,6 +314,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApprovalGetApprovalExternalApproval(func(ctx context.Context, request *lark.GetApprovalExternalApprovalReq, options ...lark.MethodOptionFunc) (*lark.GetApprovalExternalApprovalResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -301,6 +326,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApprovalCreateApprovalExternalInstance(func(ctx context.Context, request *lark.CreateApprovalExternalInstanceReq, options ...lark.MethodOptionFunc) (*lark.CreateApprovalExternalInstanceResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -312,6 +338,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApprovalCheckApprovalExternalInstance(func(ctx context.Context, request *lark.CheckApprovalExternalInstanceReq, options ...lark.MethodOptionFunc) (*lark.CheckApprovalExternalInstanceResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -323,6 +350,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApprovalGetApprovalExternalList(func(ctx context.Context, request *lark.GetApprovalExternalListReq, options ...lark.MethodOptionFunc) (*lark.GetApprovalExternalListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -334,6 +362,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApprovalUploadApprovalFile(func(ctx context.Context, request *lark.UploadApprovalFileReq, options ...lark.MethodOptionFunc) (*lark.UploadApprovalFileResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -345,6 +374,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApprovalUpdateApprovalMessage(func(ctx context.Context, request *lark.UpdateApprovalMessageReq, options ...lark.MethodOptionFunc) (*lark.UpdateApprovalMessageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -356,6 +386,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApprovalSendApprovalMessage(func(ctx context.Context, request *lark.SendApprovalMessageReq, options ...lark.MethodOptionFunc) (*lark.SendApprovalMessageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -367,6 +398,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApprovalSearchApprovalInstance(func(ctx context.Context, request *lark.SearchApprovalInstanceReq, options ...lark.MethodOptionFunc) (*lark.SearchApprovalInstanceResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -378,6 +410,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApprovalSearchApprovalCarbonCopy(func(ctx context.Context, request *lark.SearchApprovalCarbonCopyReq, options ...lark.MethodOptionFunc) (*lark.SearchApprovalCarbonCopyResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -389,6 +422,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApprovalSearchApprovalTask(func(ctx context.Context, request *lark.SearchApprovalTaskReq, options ...lark.MethodOptionFunc) (*lark.SearchApprovalTaskResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -400,6 +434,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApprovalGetApprovalUserTaskList(func(ctx context.Context, request *lark.GetApprovalUserTaskListReq, options ...lark.MethodOptionFunc) (*lark.GetApprovalUserTaskListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -411,6 +446,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockApprovalTransformApprovalUserID(func(ctx context.Context, request *lark.TransformApprovalUserIDReq, options ...lark.MethodOptionFunc) (*lark.TransformApprovalUserIDResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -420,6 +456,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
+
 	})
 
 	t.Run("response is failed (mock http)", func(t *testing.T) {
@@ -430,12 +467,14 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateApproval(ctx, &lark.CreateApprovalReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetApproval(ctx, &lark.GetApprovalReq{
 				ApprovalCode: "x",
 			})
@@ -444,12 +483,14 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetApprovalList(ctx, &lark.GetApprovalListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.SubscribeApprovalSubscription(ctx, &lark.SubscribeApprovalSubscriptionReq{
 				ApprovalCode: "x",
 			})
@@ -458,6 +499,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.UnsubscribeApprovalSubscription(ctx, &lark.UnsubscribeApprovalSubscriptionReq{
 				ApprovalCode: "x",
 			})
@@ -466,12 +508,14 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateApprovalInstance(ctx, &lark.CreateApprovalInstanceReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetApprovalInstance(ctx, &lark.GetApprovalInstanceReq{
 				InstanceID: "x",
 			})
@@ -480,66 +524,77 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetApprovalInstanceList(ctx, &lark.GetApprovalInstanceListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CancelApprovalInstance(ctx, &lark.CancelApprovalInstanceReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateApprovalCarbonCopy(ctx, &lark.CreateApprovalCarbonCopyReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.PreviewApprovalInstance(ctx, &lark.PreviewApprovalInstanceReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.ApproveApprovalInstance(ctx, &lark.ApproveApprovalInstanceReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.RejectApprovalInstance(ctx, &lark.RejectApprovalInstanceReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.TransferApprovalInstance(ctx, &lark.TransferApprovalInstanceReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.ResubmitApprovalInstanceTask(ctx, &lark.ResubmitApprovalInstanceTaskReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.RollbackApprovalInstance(ctx, &lark.RollbackApprovalInstanceReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.AddApprovalInstanceSign(ctx, &lark.AddApprovalInstanceSignReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateApprovalComment(ctx, &lark.CreateApprovalCommentReq{
 				InstanceID: "x",
 			})
@@ -548,6 +603,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetApprovalComment(ctx, &lark.GetApprovalCommentReq{
 				InstanceID: "x",
 			})
@@ -556,6 +612,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.DeleteApprovalComment(ctx, &lark.DeleteApprovalCommentReq{
 				InstanceID: "x",
 				CommentID:  "x",
@@ -565,6 +622,7 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.RemoveApprovalComment(ctx, &lark.RemoveApprovalCommentReq{
 				InstanceID: "x",
 			})
@@ -573,12 +631,14 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateApprovalExternalApproval(ctx, &lark.CreateApprovalExternalApprovalReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetApprovalExternalApproval(ctx, &lark.GetApprovalExternalApprovalReq{
 				ApprovalCode: "x",
 			})
@@ -587,69 +647,81 @@ func Test_Approval_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateApprovalExternalInstance(ctx, &lark.CreateApprovalExternalInstanceReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CheckApprovalExternalInstance(ctx, &lark.CheckApprovalExternalInstanceReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetApprovalExternalList(ctx, &lark.GetApprovalExternalListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.UploadApprovalFile(ctx, &lark.UploadApprovalFileReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.UpdateApprovalMessage(ctx, &lark.UpdateApprovalMessageReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.SendApprovalMessage(ctx, &lark.SendApprovalMessageReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.SearchApprovalInstance(ctx, &lark.SearchApprovalInstanceReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.SearchApprovalCarbonCopy(ctx, &lark.SearchApprovalCarbonCopyReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.SearchApprovalTask(ctx, &lark.SearchApprovalTaskReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetApprovalUserTaskList(ctx, &lark.GetApprovalUserTaskListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.TransformApprovalUserID(ctx, &lark.TransformApprovalUserIDReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
+
 	})
 }

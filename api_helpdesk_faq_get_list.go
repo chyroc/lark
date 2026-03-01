@@ -98,6 +98,16 @@ type GetHelpdeskFAQListRespItemAnswerRichtext struct {
 	Type    string `json:"type,omitempty"`    // 类型
 }
 
+// GetHelpdeskFAQListRespItemCategory ...
+type GetHelpdeskFAQListRespItemCategory struct {
+	CategoryID string `json:"category_id,omitempty"` // 知识库分类ID
+	ID         string `json:"id,omitempty"`          // 知识库分类ID, （旧版, 请使用category_id）
+	Name       string `json:"name,omitempty"`        // 名称
+	ParentID   string `json:"parent_id,omitempty"`   // 父知识库分类ID
+	HelpdeskID string `json:"helpdesk_id,omitempty"` // 服务台ID
+	Language   string `json:"language,omitempty"`    // 语言
+}
+
 // GetHelpdeskFAQListRespItemCreateUser ...
 type GetHelpdeskFAQListRespItemCreateUser struct {
 	ID         string `json:"id,omitempty"`         // 用户ID

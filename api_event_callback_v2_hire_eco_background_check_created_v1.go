@@ -77,3 +77,15 @@ type EventV2HireEcoBackgroundCheckCreatedV1CustomField struct {
 	Key   string `json:"key,omitempty"`   // 自定义字段标识, 由[创建背调自定义字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check_custom_field/create)接口传入
 	Value string `json:"value,omitempty"` // 自定义字段值, 用户在发起背调时填入, 详情可参考[创建背调自定义字段](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/eco_background_check_custom_field/create)传入的自定义字段类型
 }
+
+// EventV2HireEcoBackgroundCheckCreatedV1Resp ...
+type EventV2HireEcoBackgroundCheckCreatedV1Resp struct {
+}
+
+// eventV2HireEcoBackgroundCheckCreatedV1Resp ...
+type eventV2HireEcoBackgroundCheckCreatedV1Resp struct {
+	Code  int64                                       `json:"code,omitempty"`
+	Msg   string                                      `json:"msg,omitempty"`
+	Data  *EventV2HireEcoBackgroundCheckCreatedV1Resp `json:"data,omitempty"`
+	Error *ErrorDetail                                `json:"error,omitempty"`
+}

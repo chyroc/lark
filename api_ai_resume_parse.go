@@ -131,6 +131,18 @@ type ParseAIResumeRespResumeCompetition struct {
 	Desc string `json:"desc,omitempty"` // 描述
 }
 
+// ParseAIResumeRespResumeEducation ...
+type ParseAIResumeRespResumeEducation struct {
+	School        string `json:"school,omitempty"`        // 学校名称
+	StartDate     string `json:"start_date,omitempty"`    // 开始时间, 格式: YYYY-MM-DD
+	StartTime     string `json:"start_time,omitempty"`    // 开始时间, 格式: YYYY-MM-DD, 跟start_date值一样
+	EndDate       string `json:"end_date,omitempty"`      // 结束时间, 格式: YYYY-MM-DD
+	EndTime       string `json:"end_time,omitempty"`      // 结束时间, 格式: YYYY-MM-DD 或 “至今”, 当值为“至今”时, end_date["", 值为其他时, end_date]end_time
+	Major         string `json:"major,omitempty"`         // 专业
+	Degree        string `json:"degree,omitempty"`        // 学历——小学、初中、中职、高中、专科、本科、硕士、博士、其他
+	Qualification int64  `json:"qualification,omitempty"` // 学历对应ID可选值有: 小学初中中职高中专科本科硕士博士其他
+}
+
 // ParseAIResumeRespResumeLanguage ...
 type ParseAIResumeRespResumeLanguage struct {
 	Level       int64  `json:"level,omitempty"`       // 语言等级

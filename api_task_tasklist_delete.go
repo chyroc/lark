@@ -26,7 +26,8 @@ import (
 // 删除清单后, 不可对该清单做任何操作, 也无法再访问到清单。清单被删除后不可恢复。
 // 删除清单需要清单管理权限。详情见[清单功能概述](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/overview)中的“清单是如何鉴权的？“章节。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/delete
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/tasklist/delete
+// new doc: https://open.feishu.cn/document/task-v2/tasklist/delete
 func (r *TaskService) DeleteTaskTasklist(ctx context.Context, request *DeleteTaskTasklistReq, options ...MethodOptionFunc) (*DeleteTaskTasklistResp, *Response, error) {
 	if r.cli.mock.mockTaskDeleteTaskTasklist != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#DeleteTaskTasklist mock enable")
@@ -61,11 +62,12 @@ func (r *Mock) UnMockTaskDeleteTaskTasklist() {
 
 // DeleteTaskTasklistReq ...
 type DeleteTaskTasklistReq struct {
-	TasklistGuid string `path:"tasklist_guid" json:"-"` // 要删除的清单GUID, 示例值: "d300a75f-c56a-4be9-80d1-e47653028ceb"
+	TasklistGuid string `path:"tasklist_guid" json:"-"` // 要删除的清单GUID示例值: "d300a75f-c56a-4be9-80d1-e47653028ceb"
 }
 
 // DeleteTaskTasklistResp ...
-type DeleteTaskTasklistResp struct{}
+type DeleteTaskTasklistResp struct {
+}
 
 // deleteTaskTasklistResp ...
 type deleteTaskTasklistResp struct {

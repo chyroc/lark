@@ -44,3 +44,15 @@ type EventV2CorehrPersonUpdatedV1 struct {
 	PersonID     string   `json:"person_id,omitempty"`     // 被更新个人信息的 ID
 	FieldChanges []string `json:"field_changes,omitempty"` // 发生变更的字段, 若部分字段变更无需接受事件消息, 可根据该字段进行事件消息过滤
 }
+
+// EventV2CorehrPersonUpdatedV1Resp ...
+type EventV2CorehrPersonUpdatedV1Resp struct {
+}
+
+// eventV2CorehrPersonUpdatedV1Resp ...
+type eventV2CorehrPersonUpdatedV1Resp struct {
+	Code  int64                             `json:"code,omitempty"`
+	Msg   string                            `json:"msg,omitempty"`
+	Data  *EventV2CorehrPersonUpdatedV1Resp `json:"data,omitempty"`
+	Error *ErrorDetail                      `json:"error,omitempty"`
+}

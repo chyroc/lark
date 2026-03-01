@@ -71,7 +71,8 @@ type DeleteChatReq struct {
 }
 
 // DeleteChatResp ...
-type DeleteChatResp struct{}
+type DeleteChatResp struct {
+}
 
 // deleteChatResp ...
 type deleteChatResp struct {

@@ -23,10 +23,11 @@ import (
 
 // AddTaskCustomField 将自定义字段加入一个资源。目前资源类型支持清单tasklist。一个自定义字段可以加入多个清单中。加入后, 该清单可以展示任务的该字段的值, 同时基于该字段实现筛选, 分组等功能。
 //
-// 如果自定义字段的设置被更新, 字段加入的所有字段都能收到这个更新, 并进行相应的展示。
+// 如果自定义字段的设置被更新, 字段加入的所有资源都能收到这个更新, 并进行相应的展示。
 // 将自定义字段加入一个资源需要该字段和资源的可编辑权限。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/task-v2/custom_field/add
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/custom_field/add
+// new doc: https://open.feishu.cn/document/task-v2/custom_field/add
 func (r *TaskService) AddTaskCustomField(ctx context.Context, request *AddTaskCustomFieldReq, options ...MethodOptionFunc) (*AddTaskCustomFieldResp, *Response, error) {
 	if r.cli.mock.mockTaskAddTaskCustomField != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#AddTaskCustomField mock enable")
@@ -61,13 +62,14 @@ func (r *Mock) UnMockTaskAddTaskCustomField() {
 
 // AddTaskCustomFieldReq ...
 type AddTaskCustomFieldReq struct {
-	CustomFieldGuid string `path:"custom_field_guid" json:"-"` // 自定义字段GUID。自定义字段GUID。可以通过[创建自定义字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/custom_field/create)接口创建, 或者通过[列取自定义字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/custom_field/list)接口查询得到, 示例值: "0110a4bd-f24b-4a93-8c1a-1732b94f9593"
-	ResourceType    string `json:"resource_type,omitempty"`    // 要将自定义字段添加到一个资源的资源类型。目前只支持tasklist, 示例值: "tasklist"
-	ResourceID      string `json:"resource_id,omitempty"`      // 要将自定义字段添加到的资源id, 目前只支持tasklist_guid, 示例值: "0110a4bd-f24b-4a93-8c1a-1732b94f9593"
+	CustomFieldGuid string `path:"custom_field_guid" json:"-"` // 自定义字段GUID。自定义字段GUID。可以通过[创建自定义字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/custom_field/create)接口创建, 或者通过[列取自定义字段](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/custom_field/list)接口查询得到。示例值: "0110a4bd-f24b-4a93-8c1a-1732b94f9593"
+	ResourceType    string `json:"resource_type,omitempty"`    // 要将自定义字段添加到一个资源的资源类型。目前只支持tasklist示例值: "tasklist"
+	ResourceID      string `json:"resource_id,omitempty"`      // 要将自定义字段添加到的资源id, 目前只支持tasklist_guid示例值: "0110a4bd-f24b-4a93-8c1a-1732b94f9593"
 }
 
 // AddTaskCustomFieldResp ...
-type AddTaskCustomFieldResp struct{}
+type AddTaskCustomFieldResp struct {
+}
 
 // addTaskCustomFieldResp ...
 type addTaskCustomFieldResp struct {

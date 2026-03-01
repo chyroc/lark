@@ -67,9 +67,53 @@ type CreateSheetConditionFormatReq struct {
 	SheetConditionFormats []interface{} `json:"sheet_condition_formats,omitempty"` // 要创建的条件格式的信息。最多可创建 10 个条件格式。  注意: 响应体中将返回每个条件格式的设置结果, 包括成功或具体的失败信息。
 }
 
+// CreateSheetConditionFormatReqSheetConditionFormat ...
+type CreateSheetConditionFormatReqSheetConditionFormat struct {
+	SheetID         string                                                            `json:"sheet_id,omitempty"`         // 电子表格工作表的 ID。调用[获取工作表](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/sheets-v3/spreadsheet-sheet/query)获取 ID。
+	ConditionFormat *CreateSheetConditionFormatReqSheetConditionFormatConditionFormat `json:"condition_format,omitempty"` // 条件格式的详细信息
+}
+
+// CreateSheetConditionFormatReqSheetConditionFormatConditionFormat ...
+type CreateSheetConditionFormatReqSheetConditionFormatConditionFormat struct {
+	Ranges   []string                                                                `json:"ranges,omitempty"`    // 条件格式应用的范围, 支持以下五种写法, 了解更多, 参考[条件格式指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/conditionformat/condition-format-guide)。- `sheetId`: 填写工作表 ID, 表示将条件格式应用于整表- `sheetId!{开始行索引}:{结束行索引}`: 填写工作表 ID 和行数区间, 表示将条件格式应用于整行- `sheetId!{开始列索引}:{结束列索引}`: 填写工作表 ID 和列的区间, 表示将条件格式应用于整列- `sheetId!{开始单元格}:{结束单元格}`: 填写工作表 ID 和单元格区间, 表示将条件格式应用于单元格选定的区域中- `sheetId!{开始单元格}:{结束列索引}`: 填写工作表 ID、起始单元格和结束列, 表示省略结束行, 使用表格的最后行作为结束行注意: 每个范围的区间不可超过表格的行总数和列总数- 每个范围的 sheetId 的值必须与 `sheet_id` 参数的值一致  示例值: ["40a7b0!C3:C3"]
+	RuleType string                                                                  `json:"rule_type,omitempty"` // 创建条件时的规则类型。可选值: containsBlanks: 为空- notContainsBlanks: 不为空- duplicateValues: 重复值- uniqueValues: 唯一值- cellIs: 限定值范围- containsText: 包含内容- timePeriod: 日期
+	Attrs    []*CreateSheetConditionFormatReqSheetConditionFormatConditionFormatAttr `json:"attrs,omitempty"`     // `rule_type` 参数对应的具体属性信息注意: 当 `rule_type` 为 containsBlanks（为空）、notContainsBlanks（不为空）、duplicateValues（重复值）或 uniqueValues（唯一值）时, 无需传入 `attrs` 参数。了解更多, 参考[条件格式指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/conditionformat/condition-format-guide)。
+	Style    *CreateSheetConditionFormatReqSheetConditionFormatConditionFormatStyle  `json:"style,omitempty"`     // 条件格式的样式。支持设置字体样式、文本装饰、字体颜色和背景颜色。  注意: `style` 不可设置为 `""`。默认不传该值, 即不设置样式。
+}
+
+// CreateSheetConditionFormatReqSheetConditionFormatConditionFormatAttr ...
+type CreateSheetConditionFormatReqSheetConditionFormatConditionFormatAttr struct {
+	Operator   *string  `json:"operator,omitempty"`    // 操作方法。了解更多, 参考[条件格式指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/conditionformat/condition-format-guide)。
+	TimePeriod *string  `json:"time_period,omitempty"` // 时间范围。当 `rule_type` 为 `timePeriod` 时, 该参数必填, 且 `operator` 参数仅支持 `is`。可选值: - yesterday: 昨天- today: 今天- tomorrow: 明天- last7Days: 最近 7 天
+	Formula    []string `json:"formula,omitempty"`     // 公式。当 `rule_type` 为 `cellIs` 时, 该参数必填。注意: - 当 `operator` 为 `between` 或 `notBetween` 时, 需要填写两个元素, 其他情况下只需填一个元素, 值为用户自定义。- 填写的值若是数字类型, 需填写为如 `"1"` 的格式；若是文本类型, 需填写为 `"\"aaaaa\""` 格式。即文本需要用 "" 包裹并转义。了解更多示例, 请参考[条件格式指南](https://open.feishu.cn/document/ukTMukTMukTM/uATMzUjLwEzM14CMxMTN/conditionformat/condition-format-guide)。
+	Text       *string  `json:"text,omitempty"`        // 文本。当 `rule_type` 为 `containsText` 时, 该参数必填。值为用户自定义。
+}
+
+// CreateSheetConditionFormatReqSheetConditionFormatConditionFormatStyle ...
+type CreateSheetConditionFormatReqSheetConditionFormatConditionFormatStyle struct {
+	Font           *CreateSheetConditionFormatReqSheetConditionFormatConditionFormatStyleFont `json:"font,omitempty"`            // 符合条件的数据的字体样式
+	TextDecoration *int64                                                                     `json:"text_decoration,omitempty"` // 文本装饰。为文本设置下划线或删除线。可选值: 0: 无下划线和删除线- 1: 下划线- 2: 删除线- 3: 同时设置下划线和删除线
+	ForeColor      *string                                                                    `json:"fore_color,omitempty"`      // 设置字体颜色。需填写字体颜色的十六进制代码。如 #faf1d1。
+	BackColor      *string                                                                    `json:"back_color,omitempty"`      // 设置背景颜色。需填写背景颜色的十六进制代码。如 #faf1d1。
+}
+
+// CreateSheetConditionFormatReqSheetConditionFormatConditionFormatStyleFont ...
+type CreateSheetConditionFormatReqSheetConditionFormatConditionFormatStyleFont struct {
+	Bold   *bool `json:"bold,omitempty"`   // 字体是否加粗
+	Italic *bool `json:"italic,omitempty"` // 字体是否为斜体
+}
+
 // CreateSheetConditionFormatResp ...
 type CreateSheetConditionFormatResp struct {
 	Responses []interface{} `json:"responses,omitempty"` // 响应信息
+}
+
+// CreateSheetConditionFormatRespResponse ...
+type CreateSheetConditionFormatRespResponse struct {
+	SheetID string `json:"sheet_id,omitempty"` // 工作表的 ID
+	CfID    string `json:"cf_id,omitempty"`    // 要创建的条件格式的 ID
+	ResCode int64  `json:"res_code,omitempty"` // 当前条件格式创建的状态码。0 表示成功创建, 非 0 表示失败。
+	ResMsg  string `json:"res_msg,omitempty"`  // 条件格式设置返回的状态信息, success 表示成功, 非 success 将返回失败原因。
 }
 
 // createSheetConditionFormatResp ...

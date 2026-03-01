@@ -45,3 +45,15 @@ type EventV2IMMessageRecalledV1 struct {
 	RecallTime string `json:"recall_time,omitempty"` // 撤回的时间, 毫秒级时间戳。
 	RecallType string `json:"recall_type,omitempty"` // 撤回类型可选值有: 消息发送者撤回群主撤回群管理员撤回企业管理员撤回
 }
+
+// EventV2IMMessageRecalledV1Resp ...
+type EventV2IMMessageRecalledV1Resp struct {
+}
+
+// eventV2IMMessageRecalledV1Resp ...
+type eventV2IMMessageRecalledV1Resp struct {
+	Code  int64                           `json:"code,omitempty"`
+	Msg   string                          `json:"msg,omitempty"`
+	Data  *EventV2IMMessageRecalledV1Resp `json:"data,omitempty"`
+	Error *ErrorDetail                    `json:"error,omitempty"`
+}

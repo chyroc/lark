@@ -42,9 +42,21 @@ type EventV2CorehrJobDataChangedV1 struct {
 	JobChangeID  string                                     `json:"job_change_id,omitempty"`  // 员工异动 ID, 可通过[【搜索异动信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_change/search)接口获取
 }
 
+// EventV2CorehrJobDataChangedV1Resp ...
+type EventV2CorehrJobDataChangedV1Resp struct {
+}
+
 // EventV2CorehrJobDataChangedV1TargetUserID ...
 type EventV2CorehrJobDataChangedV1TargetUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
+}
+
+// eventV2CorehrJobDataChangedV1Resp ...
+type eventV2CorehrJobDataChangedV1Resp struct {
+	Code  int64                              `json:"code,omitempty"`
+	Msg   string                             `json:"msg,omitempty"`
+	Data  *EventV2CorehrJobDataChangedV1Resp `json:"data,omitempty"`
+	Error *ErrorDetail                       `json:"error,omitempty"`
 }

@@ -49,3 +49,14 @@ type EventV2DriveFileTrashedV1OperatorID struct {
 	UserID  string `json:"user_id,omitempty"`  // 用户的 User ID  字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 Open ID
 }
+
+// EventV2DriveFileTrashedV1Resp ...
+type EventV2DriveFileTrashedV1Resp struct {
+}
+
+// eventV2DriveFileTrashedV1Resp ...
+type eventV2DriveFileTrashedV1Resp struct {
+	Code int64                          `json:"code,omitempty"`
+	Msg  string                         `json:"msg,omitempty"`
+	Data *EventV2DriveFileTrashedV1Resp `json:"data,omitempty"`
+}

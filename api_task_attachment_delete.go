@@ -25,7 +25,8 @@ import (
 //
 // 删除附件需要调用身份拥有被删除附件所属资源的的编辑权限, 或者调用身份就是附件的上传人。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/task-v2/attachment/delete
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/attachment/delete
+// new doc: https://open.feishu.cn/document/task-v2/attachment/delete
 func (r *TaskService) DeleteTaskAttachment(ctx context.Context, request *DeleteTaskAttachmentReq, options ...MethodOptionFunc) (*DeleteTaskAttachmentResp, *Response, error) {
 	if r.cli.mock.mockTaskDeleteTaskAttachment != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#DeleteTaskAttachment mock enable")
@@ -60,11 +61,12 @@ func (r *Mock) UnMockTaskDeleteTaskAttachment() {
 
 // DeleteTaskAttachmentReq ...
 type DeleteTaskAttachmentReq struct {
-	AttachmentGuid string `path:"attachment_guid" json:"-"` // 要删除附件的GUID。可以通过创建[上传附件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/attachment/upload)接口创建, 或者通过[列取附件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/attachment/list)接口查询得到, 示例值: "b59aa7a3-e98c-4830-8273-cbb29f89b837", 最大长度: `100` 字符
+	AttachmentGuid string `path:"attachment_guid" json:"-"` // 要删除附件的GUID。可以通过创建[上传附件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/attachment/upload)接口创建, 或者通过[列取附件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/attachment/list)接口查询得到。示例值: "b59aa7a3-e98c-4830-8273-cbb29f89b837" 最大长度: `100` 字符
 }
 
 // DeleteTaskAttachmentResp ...
-type DeleteTaskAttachmentResp struct{}
+type DeleteTaskAttachmentResp struct {
+}
 
 // deleteTaskAttachmentResp ...
 type deleteTaskAttachmentResp struct {

@@ -25,8 +25,6 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/task-v1/task-comment/get
 // new doc: https://open.feishu.cn/document/server-docs/task-v1/task-comment/get
-//
-// Deprecated
 func (r *TaskService) GetTaskComment(ctx context.Context, request *GetTaskCommentReq, options ...MethodOptionFunc) (*GetTaskCommentResp, *Response, error) {
 	if r.cli.mock.mockTaskGetTaskComment != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#GetTaskComment mock enable")

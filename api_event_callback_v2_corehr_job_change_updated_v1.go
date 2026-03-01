@@ -48,9 +48,21 @@ type EventV2CorehrJobChangeUpdatedV1 struct {
 	TransferKey                    string                                       `json:"transfer_key,omitempty"`                      // 异动记录标识符
 }
 
+// EventV2CorehrJobChangeUpdatedV1Resp ...
+type EventV2CorehrJobChangeUpdatedV1Resp struct {
+}
+
 // EventV2CorehrJobChangeUpdatedV1TargetUserID ...
 type EventV2CorehrJobChangeUpdatedV1TargetUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
+}
+
+// eventV2CorehrJobChangeUpdatedV1Resp ...
+type eventV2CorehrJobChangeUpdatedV1Resp struct {
+	Code  int64                                `json:"code,omitempty"`
+	Msg   string                               `json:"msg,omitempty"`
+	Data  *EventV2CorehrJobChangeUpdatedV1Resp `json:"data,omitempty"`
+	Error *ErrorDetail                         `json:"error,omitempty"`
 }

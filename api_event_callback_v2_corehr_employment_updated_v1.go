@@ -45,9 +45,21 @@ type EventV2CorehrEmploymentUpdatedV1 struct {
 	FieldChanges []string                                      `json:"field_changes,omitempty"`  // 发生变更的字段
 }
 
+// EventV2CorehrEmploymentUpdatedV1Resp ...
+type EventV2CorehrEmploymentUpdatedV1Resp struct {
+}
+
 // EventV2CorehrEmploymentUpdatedV1TargetUserID ...
 type EventV2CorehrEmploymentUpdatedV1TargetUserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union id
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user id字段权限要求: 获取用户 user ID
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open id
+}
+
+// eventV2CorehrEmploymentUpdatedV1Resp ...
+type eventV2CorehrEmploymentUpdatedV1Resp struct {
+	Code  int64                                 `json:"code,omitempty"`
+	Msg   string                                `json:"msg,omitempty"`
+	Data  *EventV2CorehrEmploymentUpdatedV1Resp `json:"data,omitempty"`
+	Error *ErrorDetail                          `json:"error,omitempty"`
 }

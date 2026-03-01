@@ -43,8 +43,20 @@ type EventV2ApplicationApplicationVisibilityAddedV6 struct {
 	UserID *EventV2ApplicationApplicationVisibilityAddedV6UserID `json:"user_id,omitempty"` // 用户 ID
 }
 
+// EventV2ApplicationApplicationVisibilityAddedV6Resp ...
+type EventV2ApplicationApplicationVisibilityAddedV6Resp struct {
+}
+
 // EventV2ApplicationApplicationVisibilityAddedV6UserID ...
 type EventV2ApplicationApplicationVisibilityAddedV6UserID struct {
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open_id, 了解不同用户 ID 类型参考[用户身份概述](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 	UnionID string `json:"union_id,omitempty"` // 用户的 union_id, 了解不同用户 ID 类型参考[用户身份概述](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
+}
+
+// eventV2ApplicationApplicationVisibilityAddedV6Resp ...
+type eventV2ApplicationApplicationVisibilityAddedV6Resp struct {
+	Code  int64                                               `json:"code,omitempty"`
+	Msg   string                                              `json:"msg,omitempty"`
+	Data  *EventV2ApplicationApplicationVisibilityAddedV6Resp `json:"data,omitempty"`
+	Error *ErrorDetail                                        `json:"error,omitempty"`
 }

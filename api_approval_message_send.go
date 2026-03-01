@@ -125,6 +125,10 @@ type SendApprovalMessageReqI18nResource struct {
 	Texts     interface{} `header:"texts" json:"-"`      // 文案的 Key:Value。Key 需要以 `@i18n@` 开头, 并按照各个参数的要求传入 Value。示例值: ```{"@i18n@1": "权限申请", "@i18n@2": "OA审批", "@i18n@3": "Permission"}```
 }
 
+// SendApprovalMessageReqI18nResourceTexts ...
+type SendApprovalMessageReqI18nResourceTexts struct {
+}
+
 // SendApprovalMessageResp ...
 type SendApprovalMessageResp struct {
 	MessageID string `json:"message_id,omitempty"` // 消息 ID, 用于[更新审批 Bot 消息](https://open.feishu.cn/document/ukTMukTMukTM/uAjNyYjLwYjM24CM2IjN)

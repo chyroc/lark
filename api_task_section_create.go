@@ -26,7 +26,8 @@ import (
 // 当在清单中创建自定义分组时, 需要设置`resourse_type`为"tasklist", `resource_id`设为清单的GUID。
 // 当为我负责任务列表中创建自定义分组时, 需要设置`resource_type`为"my_tasks", 不需要设置`resource_id`。调用身份只能为自己的我负责的任务列表创建自定义分组。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/task-v2/section/create
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/task-v2/section/create
+// new doc: https://open.feishu.cn/document/task-v2/section/create
 func (r *TaskService) CreateTaskSection(ctx context.Context, request *CreateTaskSectionReq, options ...MethodOptionFunc) (*CreateTaskSectionResp, *Response, error) {
 	if r.cli.mock.mockTaskCreateTaskSection != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Task#CreateTaskSection mock enable")
@@ -61,12 +62,12 @@ func (r *Mock) UnMockTaskCreateTaskSection() {
 
 // CreateTaskSectionReq ...
 type CreateTaskSectionReq struct {
-	UserIDType   *IDType `query:"user_id_type" json:"-"`  // 用户 ID 类型, 示例值: open_id, 默认值: `open_id`
-	Name         string  `json:"name,omitempty"`          // 自定义分组名。不允许为空, 最大100个utf8字符, 示例值: "已经审核过的任务"
-	ResourceType string  `json:"resource_type,omitempty"` // 自定义分组的资源类型, 支持"tasklist"（清单）或者"my_tasks"（我负责的）, 示例值: "tasklist", 默认值: `tasklist`
-	ResourceID   *string `json:"resource_id,omitempty"`   // 自定义分组要归属的资源id。当`resource_type`为"tasklist"时这里需要填写清单的GUID；当`resource_type`为"my_tasks"时, 无需填写, 示例值: "cc371766-6584-cf50-a222-c22cd9055004"
-	InsertBefore *string `json:"insert_before,omitempty"` // 要将新分组插入到自定义分分组的前面的目标分组的guid, `insert_before`和`insert_after`均不设置时表示将新分组放到已有的所有自定义分组之后, 如果同时设置`insert_before`和`insert_after`, 接口会报错, 示例值: "e6e37dcc-f75a-5936-f589-12fb4b5c80c2", 最大长度: `100` 字符
-	InsertAfter  *string `json:"insert_after,omitempty"`  // 要将新分组插入到自定义分分组的后面的目标分组的guid, `insert_before`和`insert_after`均不设置时表示将新分组放到已有的所有自定义分组之后, 如果同时设置`insert_before`和`insert_after`, 接口会报错, 示例值: "e6e37dcc-f75a-5936-f589-12fb4b5c80c2", 最大长度: `100` 字符
+	UserIDType   *IDType `query:"user_id_type" json:"-"`  // 用户 ID 类型示例值: open_id默认值: `open_id`
+	Name         string  `json:"name,omitempty"`          // 自定义分组名。不允许为空, 最大100个utf8字符。示例值: "已经审核过的任务"
+	ResourceType string  `json:"resource_type,omitempty"` // 自定义分组的资源类型, 支持"tasklist"（清单）或者"my_tasks"（我负责的）。示例值: "tasklist"默认值: `tasklist`
+	ResourceID   *string `json:"resource_id,omitempty"`   // 自定义分组要归属的资源id。当`resource_type`为"tasklist"时这里需要填写清单的GUID；当`resource_type`为"my_tasks"时, 无需填写。示例值: "cc371766-6584-cf50-a222-c22cd9055004"
+	InsertBefore *string `json:"insert_before,omitempty"` // 要将新分组插入到自定义分分组的前面的目标分组的guid。`insert_before`和`insert_after`均不设置时表示将新分组放到已有的所有自定义分组之后。如果同时设置`insert_before`和`insert_after`, 接口会报错。示例值: "e6e37dcc-f75a-5936-f589-12fb4b5c80c2" 最大长度: `100` 字符
+	InsertAfter  *string `json:"insert_after,omitempty"`  // 要将新分组插入到自定义分分组的后面的目标分组的guid。`insert_before`和`insert_after`均不设置时表示将新分组放到已有的所有自定义分组之后。如果同时设置`insert_before`和`insert_after`, 接口会报错。示例值: "e6e37dcc-f75a-5936-f589-12fb4b5c80c2" 最大长度: `100` 字符
 }
 
 // CreateTaskSectionResp ...

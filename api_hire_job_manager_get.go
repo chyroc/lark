@@ -25,8 +25,6 @@ import (
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/job-manager/get
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/recruitment-related-configuration/job/get-2
-//
-// Deprecated
 func (r *HireService) GetHireJobManager(ctx context.Context, request *GetHireJobManagerReq, options ...MethodOptionFunc) (*GetHireJobManagerResp, *Response, error) {
 	if r.cli.mock.mockHireGetHireJobManager != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#GetHireJobManager mock enable")

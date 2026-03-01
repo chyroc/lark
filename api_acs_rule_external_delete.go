@@ -62,7 +62,8 @@ type DeleteACSRuleExternalReq struct {
 }
 
 // DeleteACSRuleExternalResp ...
-type DeleteACSRuleExternalResp struct{}
+type DeleteACSRuleExternalResp struct {
+}
 
 // deleteACSRuleExternalResp ...
 type deleteACSRuleExternalResp struct {

@@ -31,8 +31,6 @@ import (
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/ugDM2YjL4AjN24COwYjN
 // new doc: https://open.feishu.cn/document/server-docs/docs/docs/docs/apiRef/create-document
-//
-// Deprecated
 func (r *DriveService) CreateDriveDoc(ctx context.Context, request *CreateDriveDocReq, options ...MethodOptionFunc) (*CreateDriveDocResp, *Response, error) {
 	if r.cli.mock.mockDriveCreateDriveDoc != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#CreateDriveDoc mock enable")

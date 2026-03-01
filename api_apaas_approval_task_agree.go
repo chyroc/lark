@@ -23,7 +23,8 @@ import (
 
 // AgreeAPaaSApprovalTask 对于人工任务进行同意操作
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/approval_task/agree
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/approval_task/agree
+// new doc: https://open.feishu.cn/document/apaas-v1/flow/user-task/agree
 func (r *APaaSService) AgreeAPaaSApprovalTask(ctx context.Context, request *AgreeAPaaSApprovalTaskReq, options ...MethodOptionFunc) (*AgreeAPaaSApprovalTaskResp, *Response, error) {
 	if r.cli.mock.mockAPaaSAgreeAPaaSApprovalTask != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] APaaS#AgreeAPaaSApprovalTask mock enable")
@@ -57,13 +58,14 @@ func (r *Mock) UnMockAPaaSAgreeAPaaSApprovalTask() {
 
 // AgreeAPaaSApprovalTaskReq ...
 type AgreeAPaaSApprovalTaskReq struct {
-	ApprovalTaskID string  `path:"approval_task_id" json:"-"` // 人工任务 ID, 示例值: "1785996265147395"
-	UserID         string  `json:"user_id,omitempty"`         // 操作人 ID, 示例值: "1783981209205788"
-	Opinion        *string `json:"opinion,omitempty"`         // 审批意见, 示例值: "同意"
+	ApprovalTaskID string  `path:"approval_task_id" json:"-"` // 人工任务 ID示例值: "1785996265147395"
+	UserID         string  `json:"user_id,omitempty"`         // 操作人 ID示例值: "1783981209205788"
+	Opinion        *string `json:"opinion,omitempty"`         // 审批意见示例值: "同意"
 }
 
 // AgreeAPaaSApprovalTaskResp ...
-type AgreeAPaaSApprovalTaskResp struct{}
+type AgreeAPaaSApprovalTaskResp struct {
+}
 
 // agreeAPaaSApprovalTaskResp ...
 type agreeAPaaSApprovalTaskResp struct {

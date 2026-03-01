@@ -32,4 +32,17 @@ func (r *AppLinkService) OpenCalender(req *OpenCalenderReq) string {
 }
 
 // OpenCalenderReq ...
-type OpenCalenderReq struct{}
+type OpenCalenderReq struct {
+}
+
+// OpenCalenderResp ...
+type OpenCalenderResp struct {
+}
+
+// openCalenderResp ...
+type openCalenderResp struct {
+	Code  int64             `json:"code,omitempty"`
+	Msg   string            `json:"msg,omitempty"`
+	Data  *OpenCalenderResp `json:"data,omitempty"`
+	Error *ErrorDetail      `json:"error,omitempty"`
+}

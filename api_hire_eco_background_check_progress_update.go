@@ -77,7 +77,8 @@ type UpdateHireEcoBackgroundCheckProgressReqReportFile struct {
 }
 
 // UpdateHireEcoBackgroundCheckProgressResp ...
-type UpdateHireEcoBackgroundCheckProgressResp struct{}
+type UpdateHireEcoBackgroundCheckProgressResp struct {
+}
 
 // updateHireEcoBackgroundCheckProgressResp ...
 type updateHireEcoBackgroundCheckProgressResp struct {

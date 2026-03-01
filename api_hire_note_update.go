@@ -69,6 +69,12 @@ type UpdateHireNoteReq struct {
 	MentionEntityList   []*Mention `json:"mention_entity_list,omitempty"`   // 被@用户列表
 }
 
+// UpdateHireNoteReqMentionEntity ...
+type UpdateHireNoteReqMentionEntity struct {
+	Offset int64  `json:"offset,omitempty"`  // 被@用户在 content 中的偏移量- 取值范围: 0 ~ content.length示例值: 3
+	UserID string `json:"user_id,omitempty"` // 被@用户的 ID, 请传入与 `user_id_type` 类型相匹配的 ID示例值: "on_94a1ee5551019f18cd73d9f111898cf2"
+}
+
 // UpdateHireNoteResp ...
 type UpdateHireNoteResp struct {
 	Note *UpdateHireNoteRespNote `json:"note,omitempty"` // 备注数据

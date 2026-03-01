@@ -44,3 +44,15 @@ type EventV1AppTicket struct {
 	AppTicket string `json:"app_ticket,omitempty"` // 如: xxx
 	Type      string `json:"type,omitempty"`       // 如: app_ticket
 }
+
+// EventV1AppTicketResp ...
+type EventV1AppTicketResp struct {
+}
+
+// eventV1AppTicketResp ...
+type eventV1AppTicketResp struct {
+	Code  int64                 `json:"code,omitempty"`
+	Msg   string                `json:"msg,omitempty"`
+	Data  *EventV1AppTicketResp `json:"data,omitempty"`
+	Error *ErrorDetail          `json:"error,omitempty"`
+}

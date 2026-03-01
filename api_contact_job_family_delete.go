@@ -65,7 +65,8 @@ type DeleteContactJobFamilyReq struct {
 }
 
 // DeleteContactJobFamilyResp ...
-type DeleteContactJobFamilyResp struct{}
+type DeleteContactJobFamilyResp struct {
+}
 
 // deleteContactJobFamilyResp ...
 type deleteContactJobFamilyResp struct {

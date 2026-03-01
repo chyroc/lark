@@ -37,10 +37,12 @@ func Test_PersonalSettings_Sample_Failed(t *testing.T) {
 		moduleCli := cli.PersonalSettings
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreatePersonalSettingsSystemStatus(ctx, &lark.CreatePersonalSettingsSystemStatusReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
+
 	})
 
 	t.Run("request mock failed", func(t *testing.T) {
@@ -48,6 +50,7 @@ func Test_PersonalSettings_Sample_Failed(t *testing.T) {
 		moduleCli := cli.PersonalSettings
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockPersonalSettingsCreatePersonalSettingsSystemStatus(func(ctx context.Context, request *lark.CreatePersonalSettingsSystemStatusReq, options ...lark.MethodOptionFunc) (*lark.CreatePersonalSettingsSystemStatusResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -59,6 +62,7 @@ func Test_PersonalSettings_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockPersonalSettingsDeletePersonalSettingsSystemStatus(func(ctx context.Context, request *lark.DeletePersonalSettingsSystemStatusReq, options ...lark.MethodOptionFunc) (*lark.DeletePersonalSettingsSystemStatusResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -70,6 +74,7 @@ func Test_PersonalSettings_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockPersonalSettingsUpdatePersonalSettingsSystemStatus(func(ctx context.Context, request *lark.UpdatePersonalSettingsSystemStatusReq, options ...lark.MethodOptionFunc) (*lark.UpdatePersonalSettingsSystemStatusResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -81,6 +86,7 @@ func Test_PersonalSettings_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockPersonalSettingsGetPersonalSettingsSystemStatusList(func(ctx context.Context, request *lark.GetPersonalSettingsSystemStatusListReq, options ...lark.MethodOptionFunc) (*lark.GetPersonalSettingsSystemStatusListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -92,6 +98,7 @@ func Test_PersonalSettings_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockPersonalSettingsBatchOpenPersonalSettingsSystemStatus(func(ctx context.Context, request *lark.BatchOpenPersonalSettingsSystemStatusReq, options ...lark.MethodOptionFunc) (*lark.BatchOpenPersonalSettingsSystemStatusResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -103,6 +110,7 @@ func Test_PersonalSettings_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockPersonalSettingsBatchClosePersonalSettingsSystemStatus(func(ctx context.Context, request *lark.BatchClosePersonalSettingsSystemStatusReq, options ...lark.MethodOptionFunc) (*lark.BatchClosePersonalSettingsSystemStatusResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
@@ -112,6 +120,7 @@ func Test_PersonalSettings_Sample_Failed(t *testing.T) {
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
+
 	})
 
 	t.Run("response is failed (mock http)", func(t *testing.T) {
@@ -122,12 +131,14 @@ func Test_PersonalSettings_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreatePersonalSettingsSystemStatus(ctx, &lark.CreatePersonalSettingsSystemStatusReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.DeletePersonalSettingsSystemStatus(ctx, &lark.DeletePersonalSettingsSystemStatusReq{
 				SystemStatusID: "x",
 			})
@@ -136,6 +147,7 @@ func Test_PersonalSettings_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.UpdatePersonalSettingsSystemStatus(ctx, &lark.UpdatePersonalSettingsSystemStatusReq{
 				SystemStatusID: "x",
 			})
@@ -144,12 +156,14 @@ func Test_PersonalSettings_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetPersonalSettingsSystemStatusList(ctx, &lark.GetPersonalSettingsSystemStatusListReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.BatchOpenPersonalSettingsSystemStatus(ctx, &lark.BatchOpenPersonalSettingsSystemStatusReq{
 				SystemStatusID: "x",
 			})
@@ -158,11 +172,13 @@ func Test_PersonalSettings_Sample_Failed(t *testing.T) {
 		})
 
 		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.BatchClosePersonalSettingsSystemStatus(ctx, &lark.BatchClosePersonalSettingsSystemStatusReq{
 				SystemStatusID: "x",
 			})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
+
 	})
 }

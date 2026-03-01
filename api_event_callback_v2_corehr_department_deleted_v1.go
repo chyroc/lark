@@ -39,3 +39,15 @@ type EventV2CorehrDepartmentDeletedV1 struct {
 	DepartmentID string `json:"department_id,omitempty"` // 被删除部门的 ID
 	Code         string `json:"code,omitempty"`          // 部门编码
 }
+
+// EventV2CorehrDepartmentDeletedV1Resp ...
+type EventV2CorehrDepartmentDeletedV1Resp struct {
+}
+
+// eventV2CorehrDepartmentDeletedV1Resp ...
+type eventV2CorehrDepartmentDeletedV1Resp struct {
+	Code  int64                                 `json:"code,omitempty"`
+	Msg   string                                `json:"msg,omitempty"`
+	Data  *EventV2CorehrDepartmentDeletedV1Resp `json:"data,omitempty"`
+	Error *ErrorDetail                          `json:"error,omitempty"`
+}

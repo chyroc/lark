@@ -42,6 +42,10 @@ type EventV2CalendarCalendarACLDeletedV4 struct {
 	UserIDList []*EventV2CalendarCalendarACLDeletedV4UserID `json:"user_id_list,omitempty"` // 需要推送事件的用户列表。
 }
 
+// EventV2CalendarCalendarACLDeletedV4Resp ...
+type EventV2CalendarCalendarACLDeletedV4Resp struct {
+}
+
 // EventV2CalendarCalendarACLDeletedV4Scope ...
 type EventV2CalendarCalendarACLDeletedV4Scope struct {
 	Type   string                                          `json:"type,omitempty"`    // 权限生效范围的类型。可选值有: 用户
@@ -60,4 +64,12 @@ type EventV2CalendarCalendarACLDeletedV4UserID struct {
 	UnionID string `json:"union_id,omitempty"` // 用户的 union_id。
 	UserID  string `json:"user_id,omitempty"`  // 用户的 user_id。
 	OpenID  string `json:"open_id,omitempty"`  // 用户的 open_id。
+}
+
+// eventV2CalendarCalendarACLDeletedV4Resp ...
+type eventV2CalendarCalendarACLDeletedV4Resp struct {
+	Code  int64                                    `json:"code,omitempty"`
+	Msg   string                                   `json:"msg,omitempty"`
+	Data  *EventV2CalendarCalendarACLDeletedV4Resp `json:"data,omitempty"`
+	Error *ErrorDetail                             `json:"error,omitempty"`
 }

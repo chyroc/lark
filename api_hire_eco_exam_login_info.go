@@ -74,7 +74,8 @@ type CreateHireEcoExamLoginInfoReqExamLoginInfo struct {
 }
 
 // CreateHireEcoExamLoginInfoResp ...
-type CreateHireEcoExamLoginInfoResp struct{}
+type CreateHireEcoExamLoginInfoResp struct {
+}
 
 // createHireEcoExamLoginInfoResp ...
 type createHireEcoExamLoginInfoResp struct {

@@ -39,3 +39,15 @@ type EventV2MeetingRoomMeetingRoomUpdatedV1 struct {
 	RoomName string `json:"room_name,omitempty"` // Meeting room name
 	RoomID   string `json:"room_id,omitempty"`   // Meeting room ID
 }
+
+// EventV2MeetingRoomMeetingRoomUpdatedV1Resp ...
+type EventV2MeetingRoomMeetingRoomUpdatedV1Resp struct {
+}
+
+// eventV2MeetingRoomMeetingRoomUpdatedV1Resp ...
+type eventV2MeetingRoomMeetingRoomUpdatedV1Resp struct {
+	Code  int64                                       `json:"code,omitempty"`
+	Msg   string                                      `json:"msg,omitempty"`
+	Data  *EventV2MeetingRoomMeetingRoomUpdatedV1Resp `json:"data,omitempty"`
+	Error *ErrorDetail                                `json:"error,omitempty"`
+}
