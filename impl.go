@@ -89,6 +89,7 @@ type Lark struct {
 	PersonalSettings *PersonalSettingsService
 	Report           *ReportService
 	Search           *SearchService
+	Wiki             *WikiService
 	Task             *TaskService
 	TaskV1           *TaskV1Service
 	Tenant           *TenantService
@@ -148,6 +149,7 @@ func (r *Lark) init() {
 	r.PersonalSettings = &PersonalSettingsService{cli: r}
 	r.Report = &ReportService{cli: r}
 	r.Search = &SearchService{cli: r}
+	r.Wiki = &WikiService{cli: r}
 	r.Task = &TaskService{cli: r}
 	r.TaskV1 = &TaskV1Service{cli: r}
 	r.Tenant = &TenantService{cli: r}
@@ -225,6 +227,7 @@ type (
 	PersonalSettingsService struct{ cli *Lark }
 	ReportService           struct{ cli *Lark }
 	SearchService           struct{ cli *Lark }
+	WikiService             struct{ cli *Lark }
 	TaskService             struct{ cli *Lark }
 	TaskV1Service           struct{ cli *Lark }
 	TenantService           struct{ cli *Lark }
