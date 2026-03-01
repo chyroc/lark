@@ -21,9 +21,12 @@ import (
 	"context"
 )
 
-// ListMailUserMailboxMessage 列出邮件列表
+// ListMailUserMailboxMessage 列出邮件
 //
-// doc: https://open.feishu-boe.cn/document/uAjLw4CM/ukTMukTMukTM/mail-v1/user_mailbox-message/list
+// 使用 tenant_access_token 时, 需要申请邮件数据资源的数据权限。
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-message/list
+// new doc: https://open.feishu.cn/document/mail-v1/user_mailbox-message/list
 func (r *MailService) ListMailUserMailboxMessage(ctx context.Context, request *ListMailUserMailboxMessageReq, options ...MethodOptionFunc) (*ListMailUserMailboxMessageResp, *Response, error) {
 	if r.cli.mock.mockMailListMailUserMailboxMessage != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#ListMailUserMailboxMessage mock enable")
@@ -61,7 +64,7 @@ type ListMailUserMailboxMessageReq struct {
 	UserMailboxID string  `path:"user_mailbox_id" json:"-"` // 用户邮箱地址 或 输入me代表当前调用接口用户示例值: "user@xxx.xx 或 me"
 	PageSize      int64   `query:"page_size" json:"-"`      // 分页大小示例值: 1 取值范围: `1` ～ `20`
 	PageToken     *string `query:"page_token" json:"-"`     // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: xxx
-	FolderID      string  `query:"folder_id" json:"-"`      // 文件夹 id示例值: INBOX 或者用户文件夹 id
+	FolderID      string  `query:"folder_id" json:"-"`      // 文件夹 id, 获取方式见 [列出文邮箱文件夹](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-folder/list)示例值: INBOX 或者用户文件夹 id
 	OnlyUnread    *bool   `query:"only_unread" json:"-"`    // 是否只查询未读邮件示例值: true
 }
 

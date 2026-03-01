@@ -21,9 +21,10 @@ import (
 	"context"
 )
 
-// UnsubscribeMailUserMailboxEvent 取消订阅邮箱事件
+// UnsubscribeMailUserMailboxEvent 取消订阅
 //
-// doc: https://open.feishu-boe.cn/document/uAjLw4CM/ukTMukTMukTM/mail-v1/user_mailbox-message/unsubscribe
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-event/unsubscribe
+// new doc: https://open.feishu.cn/document/mail-v1/user_mailbox-event/unsubscribe
 func (r *MailService) UnsubscribeMailUserMailboxEvent(ctx context.Context, request *UnsubscribeMailUserMailboxEventReq, options ...MethodOptionFunc) (*UnsubscribeMailUserMailboxEventResp, *Response, error) {
 	if r.cli.mock.mockMailUnsubscribeMailUserMailboxEvent != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#UnsubscribeMailUserMailboxEvent mock enable")
@@ -57,8 +58,8 @@ func (r *Mock) UnMockMailUnsubscribeMailUserMailboxEvent() {
 
 // UnsubscribeMailUserMailboxEventReq ...
 type UnsubscribeMailUserMailboxEventReq struct {
-	UserMailboxID string `path:"user_mailbox_id" json:"-"` // 用户邮箱地址, 使用 user_access_token 时可使用 me, 示例值: "user@xxx.xx 或 me"
-	EventType     int64  `json:"event_type,omitempty"`     // 事件类型, 示例值: 1, 可选值有: 1: 邮件相关事件, 取值范围: `1` ～ `1`
+	UserMailboxID string `path:"user_mailbox_id" json:"-"` // 用户邮箱地址, 使用 user_access_token 时可使用 me示例值: "user@xxx.xx 或 me"
+	EventType     int64  `json:"event_type,omitempty"`     // 事件类型示例值: 1可选值有: 邮件相关事件 取值范围: `1` ～ `1`
 }
 
 // UnsubscribeMailUserMailboxEventResp ...
@@ -67,7 +68,8 @@ type UnsubscribeMailUserMailboxEventResp struct {
 
 // unsubscribeMailUserMailboxEventResp ...
 type unsubscribeMailUserMailboxEventResp struct {
-	Code int64                                `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                               `json:"msg,omitempty"`  // 错误描述
-	Data *UnsubscribeMailUserMailboxEventResp `json:"data,omitempty"`
+	Code  int64                                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                               `json:"msg,omitempty"`  // 错误描述
+	Data  *UnsubscribeMailUserMailboxEventResp `json:"data,omitempty"`
+	Error *ErrorDetail                         `json:"error,omitempty"`
 }

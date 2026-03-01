@@ -24,6 +24,9 @@ import (
 // CreateVCMeetingDefaultBuildingCreate 该接口对应管理后台的添加建筑, 添加楼层的功能, 可用于创建建筑物和建筑物的楼层信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uATNwYjLwUDM24CM1AjN
+// new doc: https://open.feishu.cn/document/server-docs/historic-version/meeting_room-v1/api-reference/create-building
+//
+// Deprecated
 func (r *VCMeetingService) CreateVCMeetingDefaultBuildingCreate(ctx context.Context, request *CreateVCMeetingDefaultBuildingCreateReq, options ...MethodOptionFunc) (*CreateVCMeetingDefaultBuildingCreateResp, *Response, error) {
 	if r.cli.mock.mockVCMeetingCreateVCMeetingDefaultBuildingCreate != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] VCMeeting#CreateVCMeetingDefaultBuildingCreate mock enable")
@@ -71,7 +74,8 @@ type CreateVCMeetingDefaultBuildingCreateResp struct {
 
 // createVCMeetingDefaultBuildingCreateResp ...
 type createVCMeetingDefaultBuildingCreateResp struct {
-	Code int64                                     `json:"code,omitempty"` // 返回码, 非 0 表示失败
-	Msg  string                                    `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
-	Data *CreateVCMeetingDefaultBuildingCreateResp `json:"data,omitempty"` // 返回业务信息
+	Code  int64                                     `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg   string                                    `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
+	Data  *CreateVCMeetingDefaultBuildingCreateResp `json:"data,omitempty"` // 返回业务信息
+	Error *ErrorDetail                              `json:"error,omitempty"`
 }

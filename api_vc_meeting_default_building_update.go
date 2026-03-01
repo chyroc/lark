@@ -24,6 +24,9 @@ import (
 // CreateVCMeetingDefaultBuildingUpdate 该接口用于编辑建筑信息, 添加楼层, 删除楼层, 编辑楼层信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uETNwYjLxUDM24SM1AjN
+// new doc: https://open.feishu.cn/document/server-docs/historic-version/meeting_room-v1/api-reference/update-building
+//
+// Deprecated
 func (r *VCMeetingService) CreateVCMeetingDefaultBuildingUpdate(ctx context.Context, request *CreateVCMeetingDefaultBuildingUpdateReq, options ...MethodOptionFunc) (*CreateVCMeetingDefaultBuildingUpdateResp, *Response, error) {
 	if r.cli.mock.mockVCMeetingCreateVCMeetingDefaultBuildingUpdate != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] VCMeeting#CreateVCMeetingDefaultBuildingUpdate mock enable")
@@ -71,7 +74,8 @@ type CreateVCMeetingDefaultBuildingUpdateResp struct {
 
 // createVCMeetingDefaultBuildingUpdateResp ...
 type createVCMeetingDefaultBuildingUpdateResp struct {
-	Code int64                                     `json:"code,omitempty"` // 返回码, 非 0 表示失败
-	Msg  string                                    `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
-	Data *CreateVCMeetingDefaultBuildingUpdateResp `json:"data,omitempty"`
+	Code  int64                                     `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg   string                                    `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
+	Data  *CreateVCMeetingDefaultBuildingUpdateResp `json:"data,omitempty"`
+	Error *ErrorDetail                              `json:"error,omitempty"`
 }

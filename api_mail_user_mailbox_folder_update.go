@@ -23,7 +23,10 @@ import (
 
 // UpdateMailUserMailboxFolder 修改邮箱文件夹
 //
-// doc: https://open.feishu-boe.cn/document/uAjLw4CM/ukTMukTMukTM/mail-v1/user_mailbox-folder/patch
+// 使用 tenant_access_token 时, 需要申请邮箱文件夹资源的数据权限。
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-folder/patch
+// new doc: https://open.feishu.cn/document/mail-v1/user_mailbox-folder/patch
 func (r *MailService) UpdateMailUserMailboxFolder(ctx context.Context, request *UpdateMailUserMailboxFolderReq, options ...MethodOptionFunc) (*UpdateMailUserMailboxFolderResp, *Response, error) {
 	if r.cli.mock.mockMailUpdateMailUserMailboxFolder != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#UpdateMailUserMailboxFolder mock enable")
@@ -59,9 +62,9 @@ func (r *Mock) UnMockMailUpdateMailUserMailboxFolder() {
 // UpdateMailUserMailboxFolderReq ...
 type UpdateMailUserMailboxFolderReq struct {
 	UserMailboxID  string  `path:"user_mailbox_id" json:"-"`   // 用户邮箱地址 或 输入me代表当前调用接口用户示例值: "user@xxx.xx 或 me"
-	FolderID       string  `path:"folder_id" json:"-"`         // 文件夹 id示例值: "111111"
+	FolderID       string  `path:"folder_id" json:"-"`         // 文件夹 id, id 获取方式见 [列出文邮箱文件夹](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-folder/list)示例值: "111111"
 	Name           *string `json:"name,omitempty"`             // 文件夹名称示例值: "newsletter 相关" 长度范围: `1` ～ `250` 字符
-	ParentFolderID *string `json:"parent_folder_id,omitempty"` // 父文件夹 id, 该值为 0 表示根文件夹示例值: "725627422334644"
+	ParentFolderID *string `json:"parent_folder_id,omitempty"` // 父文件夹 id, 该值为 0 表示根文件夹, id 获取方式见 [列出文邮箱文件夹](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-folder/list)示例值: "725627422334644"
 }
 
 // UpdateMailUserMailboxFolderResp ...

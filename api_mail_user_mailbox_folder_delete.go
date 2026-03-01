@@ -21,11 +21,13 @@ import (
 	"context"
 )
 
-// DeleteMailUserMailboxFolder 删除文件夹
+// DeleteMailUserMailboxFolder 删除邮箱文件夹
 //
+// 使用 tenant_access_token 时, 需要申请邮箱文件夹资源的数据权限。
 // 删除文件夹会将该文件夹下的邮件移至已删除中。
 //
-// doc: https://open.feishu-boe.cn/document/uAjLw4CM/ukTMukTMukTM/mail-v1/user_mailbox-folder/delete
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-folder/delete
+// new doc: https://open.feishu.cn/document/mail-v1/user_mailbox-folder/delete
 func (r *MailService) DeleteMailUserMailboxFolder(ctx context.Context, request *DeleteMailUserMailboxFolderReq, options ...MethodOptionFunc) (*DeleteMailUserMailboxFolderResp, *Response, error) {
 	if r.cli.mock.mockMailDeleteMailUserMailboxFolder != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#DeleteMailUserMailboxFolder mock enable")
@@ -61,7 +63,7 @@ func (r *Mock) UnMockMailDeleteMailUserMailboxFolder() {
 // DeleteMailUserMailboxFolderReq ...
 type DeleteMailUserMailboxFolderReq struct {
 	UserMailboxID string `path:"user_mailbox_id" json:"-"` // 用户邮箱地址 或 输入me代表当前调用接口用户示例值: "user@xxx.xx 或 me"
-	FolderID      string `path:"folder_id" json:"-"`       // 文件夹 id示例值: "111111"
+	FolderID      string `path:"folder_id" json:"-"`       // 文件夹 id, id 获取方式见 [列出文邮箱文件夹](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-folder/list)示例值: "111111"
 }
 
 // DeleteMailUserMailboxFolderResp ...

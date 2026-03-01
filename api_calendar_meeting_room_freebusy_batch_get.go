@@ -21,9 +21,14 @@ import (
 	"context"
 )
 
-// BatchGetCalendarMeetingRoomFreebusy 该接口用于获取指定会议室的忙闲日程实例列表。非重复日程只有唯一实例；重复日程可能存在多个实例, 依据重复规则和时间范围扩展。
+// BatchGetCalendarMeetingRoomFreebusy 调用该接口获取指定会议室的忙碌、空闲日程信息。
+//
+// 查询结果中:
+// - 非重复日程只有唯一的实例信息。
+// - 重复日程可能存在多个实例信息, 根据日程重复规则和时间范围进行扩展。建议查询的时间区间为 30 天内。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIDOyUjLygjM14iM4ITN
+// new doc: https://open.feishu.cn/document/server-docs/calendar-v4/meeting-room-event/query-room-availability
 func (r *CalendarService) BatchGetCalendarMeetingRoomFreebusy(ctx context.Context, request *BatchGetCalendarMeetingRoomFreebusyReq, options ...MethodOptionFunc) (*BatchGetCalendarMeetingRoomFreebusyResp, *Response, error) {
 	if r.cli.mock.mockCalendarBatchGetCalendarMeetingRoomFreebusy != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Calendar#BatchGetCalendarMeetingRoomFreebusy mock enable")
@@ -38,6 +43,7 @@ func (r *CalendarService) BatchGetCalendarMeetingRoomFreebusy(ctx context.Contex
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
+		NeedUserAccessToken:   true,
 	}
 	resp := new(batchGetCalendarMeetingRoomFreebusyResp)
 
@@ -57,36 +63,37 @@ func (r *Mock) UnMockCalendarBatchGetCalendarMeetingRoomFreebusy() {
 
 // BatchGetCalendarMeetingRoomFreebusyReq ...
 type BatchGetCalendarMeetingRoomFreebusyReq struct {
-	RoomIDs []string `query:"room_ids" json:"-"` // 用于查询指定会议室的 ID
-	TimeMin string   `query:"time_min" json:"-"` // 查询会议室忙闲的起始时间, 需要遵循格式 [RFC3339](https://tools.ietf.org/html/rfc3339), 需要进行URL Encode
-	TimeMax string   `query:"time_max" json:"-"` // 查询会议室忙闲的结束时间, 需要遵循格式 [RFC3339](https://tools.ietf.org/html/rfc3339), 需要进行URL Encode
+	RoomIDs []string `query:"room_ids" json:"-"` // 会议室 ID。你可以通过[查询会议室列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/list)或[搜索会议室](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room/search)接口获取指定会议室 ID。 1. room_ids个数不要超过20。  2. GET 请求中传入多个会议室 ID 的格式示例为 `room_ids=omm_83d09ad4f6896e02029a6a075f71xxxx&room_ids=omm_eada1d61a550955240c28757e7dexxxx`。
+	TimeMin string   `query:"time_min" json:"-"` // 查询的起始时间, 需要遵循 [RFC3339](https://tools.ietf.org/html/rfc3339) 格式, 示例: 2019-09-04T08:45:00+08:00。 注意: 传入该参数时需要进行 URL 编码。
+	TimeMax string   `query:"time_max" json:"-"` // 查询的结束时间, 需要遵循 [RFC3339](https://tools.ietf.org/html/rfc3339) 格式, 示例: 2019-09-04T09:45:00+08:00。 注意: 传入该参数时需要进行 URL 编码。
 }
 
 // BatchGetCalendarMeetingRoomFreebusyResp ...
 type BatchGetCalendarMeetingRoomFreebusyResp struct {
-	TimeMin  string                                                      `json:"time_min,omitempty"`  // 查询会议室忙闲的起始时间, 与请求参数完全相同
-	TimeMax  string                                                      `json:"time_max,omitempty"`  // 查询会议室忙闲的结束时间, 与请求参数完全相同
-	FreeBusy map[string]*BatchGetCalendarMeetingRoomFreebusyRespFreeBusy `json:"free_busy,omitempty"` // 会议室忙闲列表
+	TimeMin  string                                                      `json:"time_min,omitempty"`  // 查询会议室忙闲的起始时间。
+	TimeMax  string                                                      `json:"time_max,omitempty"`  // 查询会议室忙闲的结束时间。
+	FreeBusy map[string]*BatchGetCalendarMeetingRoomFreebusyRespFreeBusy `json:"free_busy,omitempty"` // 会议室忙闲信息列表。
 }
 
 // BatchGetCalendarMeetingRoomFreebusyRespFreeBusy ...
 type BatchGetCalendarMeetingRoomFreebusyRespFreeBusy struct {
-	StartTime     string                                                        `json:"start_time,omitempty"`     // 忙碌起始时间
-	EndTime       string                                                        `json:"end_time,omitempty"`       // 忙碌结束时间
-	Uid           string                                                        `json:"uid,omitempty"`            // 日程 ID
-	OriginalTime  int64                                                         `json:"original_time,omitempty"`  // 日程实例的原始时间, 非重复日程以及重复性日程的原日程为0, 重复性日程的例外日程为非0
-	OrganizerInfo *BatchGetCalendarMeetingRoomFreebusyRespFreeBusyOrganizerInfo `json:"organizer_info,omitempty"` // 组织者信息, 私密日程不返回该信息
+	StartTime     string                                                        `json:"start_time,omitempty"`     // 忙碌日程的起始时间。
+	EndTime       string                                                        `json:"end_time,omitempty"`       // 忙碌日程的结束时间。
+	Uid           string                                                        `json:"uid,omitempty"`            // 日程的唯一 ID。
+	OriginalTime  int64                                                         `json:"original_time,omitempty"`  // 日程实例的原始时间。非重复性日程和重复性日程, 此处为 0；重复性日程的例外日程, 此处为对应的 original_time 值（时间戳类型）。
+	OrganizerInfo *BatchGetCalendarMeetingRoomFreebusyRespFreeBusyOrganizerInfo `json:"organizer_info,omitempty"` // 日程组织者信息。私密日程不会返回该信息。
 }
 
 // BatchGetCalendarMeetingRoomFreebusyRespFreeBusyOrganizerInfo ...
 type BatchGetCalendarMeetingRoomFreebusyRespFreeBusyOrganizerInfo struct {
-	Name   string `json:"name,omitempty"`    // 组织者姓名
-	OpenID string `json:"open_id,omitempty"` // 组织者 open_id
+	Name   string `json:"name,omitempty"`    // 组织者姓名。使用应用身份创建的日程不会返回该信息。
+	OpenID string `json:"open_id,omitempty"` // 组织者的 open_id。
 }
 
 // batchGetCalendarMeetingRoomFreebusyResp ...
 type batchGetCalendarMeetingRoomFreebusyResp struct {
-	Code int64                                    `json:"code,omitempty"` // 返回码, 非 0 表示失败
-	Msg  string                                   `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
-	Data *BatchGetCalendarMeetingRoomFreebusyResp `json:"data,omitempty"` // 返回业务信息
+	Code  int64                                    `json:"code,omitempty"` // 返回码, 非 0 表示失败。
+	Msg   string                                   `json:"msg,omitempty"`  // 返回码的描述, `success` 表示成功, 其他为错误提示信息。
+	Data  *BatchGetCalendarMeetingRoomFreebusyResp `json:"data,omitempty"` // 返回信息。
+	Error *ErrorDetail                             `json:"error,omitempty"`
 }

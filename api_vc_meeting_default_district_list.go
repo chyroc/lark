@@ -24,6 +24,9 @@ import (
 // ListVCMeetingDefaultDistrict 新建建筑时需要选择所处国家/地区, 该接口用于获得系统预先提供的可供选择的城市列表。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUTNwYjL1UDM24SN1AjN
+// new doc: https://open.feishu.cn/document/server-docs/historic-version/meeting_room-v1/api-reference/obtain-city-list
+//
+// Deprecated
 func (r *VCMeetingService) ListVCMeetingDefaultDistrict(ctx context.Context, request *ListVCMeetingDefaultDistrictReq, options ...MethodOptionFunc) (*ListVCMeetingDefaultDistrictResp, *Response, error) {
 	if r.cli.mock.mockVCMeetingListVCMeetingDefaultDistrict != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] VCMeeting#ListVCMeetingDefaultDistrict mock enable")
@@ -73,7 +76,8 @@ type ListVCMeetingDefaultDistrictRespDistrict struct {
 
 // listVCMeetingDefaultDistrictResp ...
 type listVCMeetingDefaultDistrictResp struct {
-	Code int64                             `json:"code,omitempty"` // 返回码, 非 0 表示失败
-	Msg  string                            `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
-	Data *ListVCMeetingDefaultDistrictResp `json:"data,omitempty"` // 返回业务信息
+	Code  int64                             `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg   string                            `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
+	Data  *ListVCMeetingDefaultDistrictResp `json:"data,omitempty"` // 返回业务信息
+	Error *ErrorDetail                      `json:"error,omitempty"`
 }

@@ -24,6 +24,9 @@ import (
 // CreateVCMeetingDefaultRoomDelete 该接口用于删除会议室。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUzMxYjL1MTM24SNzEjN
+// new doc: https://open.feishu.cn/document/server-docs/historic-version/meeting_room-v1/api-reference/delete-meeting-room
+//
+// Deprecated
 func (r *VCMeetingService) CreateVCMeetingDefaultRoomDelete(ctx context.Context, request *CreateVCMeetingDefaultRoomDeleteReq, options ...MethodOptionFunc) (*CreateVCMeetingDefaultRoomDeleteResp, *Response, error) {
 	if r.cli.mock.mockVCMeetingCreateVCMeetingDefaultRoomDelete != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] VCMeeting#CreateVCMeetingDefaultRoomDelete mock enable")
@@ -66,7 +69,8 @@ type CreateVCMeetingDefaultRoomDeleteResp struct {
 
 // createVCMeetingDefaultRoomDeleteResp ...
 type createVCMeetingDefaultRoomDeleteResp struct {
-	Code int64                                 `json:"code,omitempty"` // 返回码, 非 0 表示失败
-	Msg  string                                `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
-	Data *CreateVCMeetingDefaultRoomDeleteResp `json:"data,omitempty"`
+	Code  int64                                 `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg   string                                `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
+	Data  *CreateVCMeetingDefaultRoomDeleteResp `json:"data,omitempty"`
+	Error *ErrorDetail                          `json:"error,omitempty"`
 }

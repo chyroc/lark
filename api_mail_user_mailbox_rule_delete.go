@@ -23,7 +23,10 @@ import (
 
 // DeleteMailUserMailboxRule 删除收信规则
 //
-// doc: https://open.feishu-boe.cn/document/uAjLw4CM/ukTMukTMukTM/mail-v1/user_mailbox-rule/delete
+// 使用 tenant_access_token 时, 需要申请收信规则资源的数据权限。
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-rule/delete
+// new doc: https://open.feishu.cn/document/mail-v1/user_mailbox-rule/delete
 func (r *MailService) DeleteMailUserMailboxRule(ctx context.Context, request *DeleteMailUserMailboxRuleReq, options ...MethodOptionFunc) (*DeleteMailUserMailboxRuleResp, *Response, error) {
 	if r.cli.mock.mockMailDeleteMailUserMailboxRule != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#DeleteMailUserMailboxRule mock enable")
@@ -59,7 +62,7 @@ func (r *Mock) UnMockMailDeleteMailUserMailboxRule() {
 // DeleteMailUserMailboxRuleReq ...
 type DeleteMailUserMailboxRuleReq struct {
 	UserMailboxID string `path:"user_mailbox_id" json:"-"` // 用户邮箱地址 或 输入me代表当前调用接口用户示例值: "user@xxx.xx 或 me"
-	RuleID        string `path:"rule_id" json:"-"`         // 规则 id示例值: "123123123"
+	RuleID        string `path:"rule_id" json:"-"`         // 规则 id, 获取方式见 [列出收信规则](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-rule/list)示例值: "123123123"
 }
 
 // DeleteMailUserMailboxRuleResp ...

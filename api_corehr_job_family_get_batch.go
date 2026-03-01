@@ -21,9 +21,14 @@ import (
 	"context"
 )
 
-// BatchGetCoreHRJobFamily 通过序列 ID 批量获取序列信息
+// BatchGetCoreHRJobFamily 通过序列 ID 或序列 Code 批量查询当前生效版本序列的详情信息, 包括序列名称、启用状态、上级序列等。
+//
+// - 如果你只需要单一序列查询场景, 建议通过[【查询单个序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/get)获取序列信息。
+// - 序列ID和序列Code可一起使用, 之间为 AND 关系
+// - 数据库主从延迟 2s 以内, 即: 直接创建序列后2s内调用此接口可能查询不到数据。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_family/batch_get
+// new doc: https://open.feishu.cn/document/corehr-v1/job-management/job_family/batch_get
 func (r *CoreHRService) BatchGetCoreHRJobFamily(ctx context.Context, request *BatchGetCoreHRJobFamilyReq, options ...MethodOptionFunc) (*BatchGetCoreHRJobFamilyResp, *Response, error) {
 	if r.cli.mock.mockCoreHRBatchGetCoreHRJobFamily != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#BatchGetCoreHRJobFamily mock enable")
@@ -57,7 +62,8 @@ func (r *Mock) UnMockCoreHRBatchGetCoreHRJobFamily() {
 
 // BatchGetCoreHRJobFamilyReq ...
 type BatchGetCoreHRJobFamilyReq struct {
-	JobFamilyIDs []string `json:"job_family_ids,omitempty"` // 序列 ID 列表, 示例值: ["1554548"], 长度范围: `1` ～ `100`
+	JobFamilyIDs   []string `json:"job_family_ids,omitempty"`   // 序列ID列表。- 序列 ID 列表和序列 Code 列表至少有一项有值, 否则接口将调用失败。- 未设置时表示不筛选该条件- ID获取方式: 调用[【创建序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/create)[【批量查询序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)等接口可以返回序列ID示例值: ["1554548"] 长度范围: `0` ～ `100`
+	JobFamilyCodes []string `json:"job_family_codes,omitempty"` // 序列 Code 列表。- 序列 ID 列表和序列 Code 列表至少有一项有值, 否则接口将调用失败。- 未设置时表示不筛选该条件- Code获取方式: 调用[【创建序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/create)[【批量查询序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)等接口可以返回序列Code示例值: ["122348"] 长度范围: `0` ～ `100`
 }
 
 // BatchGetCoreHRJobFamilyResp ...
@@ -69,19 +75,22 @@ type BatchGetCoreHRJobFamilyResp struct {
 type BatchGetCoreHRJobFamilyRespItem struct {
 	JobFamilyID    string                                        `json:"job_family_id,omitempty"`   // 序列 ID
 	Name           []*BatchGetCoreHRJobFamilyRespItemName        `json:"name,omitempty"`            // 名称
-	Active         bool                                          `json:"active,omitempty"`          // 启用
-	ParentID       string                                        `json:"parent_id,omitempty"`       // 上级序列
-	EffectiveTime  string                                        `json:"effective_time,omitempty"`  // 生效时间
-	ExpirationTime string                                        `json:"expiration_time,omitempty"` // 失效时间
-	Code           string                                        `json:"code,omitempty"`            // 编码
-	CustomFields   []*BatchGetCoreHRJobFamilyRespItemCustomField `json:"custom_fields,omitempty"`   // 自定义字段
+	Active         bool                                          `json:"active,omitempty"`          // 启用状态, 启用为true, 停用为false
+	Selectable     bool                                          `json:"selectable,omitempty"`      // 是否可被使用, true为可被使用, false为不可被使用
+	ParentID       string                                        `json:"parent_id,omitempty"`       // 上级序列 ID, 详细信息可通过[【查询单个序列】](/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/get)接口查询获得（若查询的是一级序列, 则该字段不展示）
+	PathwayIDs     []string                                      `json:"pathway_ids,omitempty"`     // 通道ID, 详情可以参考[【获取通道信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pathway/batch_get)
+	EffectiveTime  string                                        `json:"effective_time,omitempty"`  // 生效时间, 返回格式: YYYY-MM-DD 00:00:00（最小单位到日）
+	ExpirationTime string                                        `json:"expiration_time,omitempty"` // 失效时间, 返回格式: YYYY-MM-DD 00:00:00（最小单位到日）
+	Code           string                                        `json:"code,omitempty"`            // 编码 (不能与其他记录的编码重复)
+	Description    []*BatchGetCoreHRJobFamilyRespItemDescription `json:"description,omitempty"`     // 描述
+	CustomFields   []*BatchGetCoreHRJobFamilyRespItemCustomField `json:"custom_fields,omitempty"`   // 自定义字段（该字段暂时不支持）
 }
 
 // BatchGetCoreHRJobFamilyRespItemCustomField ...
 type BatchGetCoreHRJobFamilyRespItemCustomField struct {
 	CustomApiName string                                          `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
 	Name          *BatchGetCoreHRJobFamilyRespItemCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
-	Type          int64                                           `json:"type,omitempty"`            // 自定义字段类型
+	Type          int64                                           `json:"type,omitempty"`            // 自定义字段类型- 自定义字段详细见[【获取自定义字段列表】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query)
 	Value         string                                          `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
@@ -91,15 +100,22 @@ type BatchGetCoreHRJobFamilyRespItemCustomFieldName struct {
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
+// BatchGetCoreHRJobFamilyRespItemDescription ...
+type BatchGetCoreHRJobFamilyRespItemDescription struct {
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
+}
+
 // BatchGetCoreHRJobFamilyRespItemName ...
 type BatchGetCoreHRJobFamilyRespItemName struct {
-	Lang  string `json:"lang,omitempty"`  // 语言
-	Value string `json:"value,omitempty"` // 内容
+	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
+	Value string `json:"value,omitempty"` // 文本内容
 }
 
 // batchGetCoreHRJobFamilyResp ...
 type batchGetCoreHRJobFamilyResp struct {
-	Code int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                       `json:"msg,omitempty"`  // 错误描述
-	Data *BatchGetCoreHRJobFamilyResp `json:"data,omitempty"`
+	Code  int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                       `json:"msg,omitempty"`  // 错误描述
+	Data  *BatchGetCoreHRJobFamilyResp `json:"data,omitempty"`
+	Error *ErrorDetail                 `json:"error,omitempty"`
 }

@@ -23,7 +23,10 @@ import (
 
 // UpdateMailUserMailboxRule 更新收信规则
 //
-// doc: https://open.feishu-boe.cn/document/uAjLw4CM/ukTMukTMukTM/mail-v1/user_mailbox-rule/update
+// 使用 tenant_access_token 时, 需要申请收信规则资源的数据权限。
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-rule/update
+// new doc: https://open.feishu.cn/document/mail-v1/user_mailbox-rule/update
 func (r *MailService) UpdateMailUserMailboxRule(ctx context.Context, request *UpdateMailUserMailboxRuleReq, options ...MethodOptionFunc) (*UpdateMailUserMailboxRuleResp, *Response, error) {
 	if r.cli.mock.mockMailUpdateMailUserMailboxRule != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#UpdateMailUserMailboxRule mock enable")
@@ -59,7 +62,7 @@ func (r *Mock) UnMockMailUpdateMailUserMailboxRule() {
 // UpdateMailUserMailboxRuleReq ...
 type UpdateMailUserMailboxRuleReq struct {
 	UserMailboxID        string                                 `path:"user_mailbox_id" json:"-"`           // 用户邮箱地址 或 输入me代表当前调用接口用户示例值: "user@xxx.xx 或 me"
-	RuleID               string                                 `path:"rule_id" json:"-"`                   // 规则 id示例值: "123123123"
+	RuleID               string                                 `path:"rule_id" json:"-"`                   // 规则 id, 获取方式见 [列出收信规则](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-rule/list)示例值: "123123123"
 	Condition            *UpdateMailUserMailboxRuleReqCondition `json:"condition,omitempty"`                // 匹配条件
 	Action               *UpdateMailUserMailboxRuleReqAction    `json:"action,omitempty"`                   // 匹配命中后的操作
 	IgnoreTheRestOfRules bool                                   `json:"ignore_the_rest_of_rules,omitempty"` // 是否终点规则示例值: false
@@ -74,7 +77,7 @@ type UpdateMailUserMailboxRuleReqAction struct {
 
 // UpdateMailUserMailboxRuleReqActionItem ...
 type UpdateMailUserMailboxRuleReqActionItem struct {
-	Type  int64   `json:"type,omitempty"`  // 操作类型示例值: 1可选值有: 归档删除邮件标为为已读移至垃圾邮件不移至垃圾邮件添加用户标签（暂不支持）添加旗标不弹出通知移至用户文件夹自动转发（暂不支持）分享到会话（暂不支持） 取值范围: `1` ～ `13`
+	Type  int64   `json:"type,omitempty"`  // 操作类型示例值: 1可选值有: 归档删除邮件标记为已读移至垃圾邮件不移至垃圾邮件添加用户标签（暂不支持）添加旗标不弹出通知移至用户文件夹自动转发（暂不支持）分享到会话（暂不支持） 取值范围: `1` ～ `13`
 	Input *string `json:"input,omitempty"` // 当 type 为移动到文件夹时, 该字段填文件夹的 id示例值: "283412371233"
 }
 
@@ -87,7 +90,7 @@ type UpdateMailUserMailboxRuleReqCondition struct {
 // UpdateMailUserMailboxRuleReqConditionItem ...
 type UpdateMailUserMailboxRuleReqConditionItem struct {
 	Type     int64   `json:"type,omitempty"`     // 匹配条件左值示例值: 1可选值有: 发件人地址收件人地址抄送地址收件人或抄送地址主题正文附件名字附件类型任意地址所有邮件是外部邮件是垃圾邮件不是垃圾邮件有附件 取值范围: `1` ～ `16`
-	Operator int64   `json:"operator,omitempty"` // 匹配条件操作符示例值: 1可选值有: 包含不包含开头是结尾是是不是包含自己为空 取值范围: `1` ～ `10`
+	Operator *int64  `json:"operator,omitempty"` // 匹配条件操作符示例值: 1可选值有: 包含不包含开头是结尾是是不是包含自己为空 取值范围: `1` ～ `10`
 	Input    *string `json:"input,omitempty"`    // 匹配条件右值示例值: "hello@world.com"
 }
 

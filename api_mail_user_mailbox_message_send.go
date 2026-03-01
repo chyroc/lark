@@ -23,7 +23,12 @@ import (
 
 // CreateMailUserMailboxMessageSend 发送邮件
 //
-// doc: https://open.feishu-boe.cn/document/uAjLw4CM/ukTMukTMukTM/mail-v1/user_mailbox-message/send
+// 该接口基于单个用户加锁, 只能串行调用
+// 发送邮件使用 base64url 编码。与普通 base64 的区别是将「+/」替换为「-_」。
+// 对于 Golang 使用 base64.URLEncoding。
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-message/send
+// new doc: https://open.feishu.cn/document/server-docs/mail-v1/user_mailbox-message/send
 func (r *MailService) CreateMailUserMailboxMessageSend(ctx context.Context, request *CreateMailUserMailboxMessageSendReq, options ...MethodOptionFunc) (*CreateMailUserMailboxMessageSendResp, *Response, error) {
 	if r.cli.mock.mockMailCreateMailUserMailboxMessageSend != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#CreateMailUserMailboxMessageSend mock enable")
@@ -80,13 +85,13 @@ type CreateMailUserMailboxMessageSendReqAttachment struct {
 
 // CreateMailUserMailboxMessageSendReqBcc ...
 type CreateMailUserMailboxMessageSendReqBcc struct {
-	MailAddress string  `json:"mail_address,omitempty"` // 邮件地址示例值: "mike@outlook.com"
+	MailAddress string  `json:"mail_address,omitempty"` // 邮件地址示例值: "user@xxx.xx"
 	Name        *string `json:"name,omitempty"`         // 名称示例值: "Mike"
 }
 
 // CreateMailUserMailboxMessageSendReqCc ...
 type CreateMailUserMailboxMessageSendReqCc struct {
-	MailAddress string  `json:"mail_address,omitempty"` // 邮件地址示例值: "mike@outlook.com"
+	MailAddress string  `json:"mail_address,omitempty"` // 邮件地址示例值: "user@xxx.xx"
 	Name        *string `json:"name,omitempty"`         // 名称示例值: "Mike"
 }
 
@@ -97,7 +102,7 @@ type CreateMailUserMailboxMessageSendReqHeadFrom struct {
 
 // CreateMailUserMailboxMessageSendReqTo ...
 type CreateMailUserMailboxMessageSendReqTo struct {
-	MailAddress string  `json:"mail_address,omitempty"` // 邮件地址示例值: "mike@outlook.com"
+	MailAddress string  `json:"mail_address,omitempty"` // 邮件地址示例值: "user@xxx.xx"
 	Name        *string `json:"name,omitempty"`         // 名称示例值: "Mike"
 }
 

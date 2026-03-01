@@ -21,9 +21,10 @@ import (
 	"context"
 )
 
-// SubscribeMailUserMailboxEvent 订阅邮箱事件
+// SubscribeMailUserMailboxEvent 订阅事件
 //
-// doc: https://open.feishu-boe.cn/document/uAjLw4CM/ukTMukTMukTM/mail-v1/user_mailbox-event/subscribe
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-event/subscribe
+// new doc: https://open.feishu.cn/document/mail-v1/user_mailbox-event/subscribe
 func (r *MailService) SubscribeMailUserMailboxEvent(ctx context.Context, request *SubscribeMailUserMailboxEventReq, options ...MethodOptionFunc) (*SubscribeMailUserMailboxEventResp, *Response, error) {
 	if r.cli.mock.mockMailSubscribeMailUserMailboxEvent != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#SubscribeMailUserMailboxEvent mock enable")

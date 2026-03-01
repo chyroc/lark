@@ -24,6 +24,9 @@ import (
 // CreateVCMeetingDefaultBuildingDelete 该接口用于删除建筑物（办公大楼）。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzMxYjLzMTM24yMzEjN
+// new doc: https://open.feishu.cn/document/server-docs/historic-version/meeting_room-v1/api-reference/delete-building
+//
+// Deprecated
 func (r *VCMeetingService) CreateVCMeetingDefaultBuildingDelete(ctx context.Context, request *CreateVCMeetingDefaultBuildingDeleteReq, options ...MethodOptionFunc) (*CreateVCMeetingDefaultBuildingDeleteResp, *Response, error) {
 	if r.cli.mock.mockVCMeetingCreateVCMeetingDefaultBuildingDelete != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] VCMeeting#CreateVCMeetingDefaultBuildingDelete mock enable")
@@ -66,7 +69,8 @@ type CreateVCMeetingDefaultBuildingDeleteResp struct {
 
 // createVCMeetingDefaultBuildingDeleteResp ...
 type createVCMeetingDefaultBuildingDeleteResp struct {
-	Code int64                                     `json:"code,omitempty"` // 返回码, 非 0 表示失败
-	Msg  string                                    `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
-	Data *CreateVCMeetingDefaultBuildingDeleteResp `json:"data,omitempty"`
+	Code  int64                                     `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg   string                                    `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
+	Data  *CreateVCMeetingDefaultBuildingDeleteResp `json:"data,omitempty"`
+	Error *ErrorDetail                              `json:"error,omitempty"`
 }

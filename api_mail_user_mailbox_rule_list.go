@@ -23,7 +23,10 @@ import (
 
 // ListMailUserMailboxRule 列出收信规则
 //
-// doc: https://open.feishu-boe.cn/document/uAjLw4CM/ukTMukTMukTM/mail-v1/user_mailbox-rule/list
+// 使用 tenant_access_token 时, 需要申请收信规则资源的数据权限。
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-rule/list
+// new doc: https://open.feishu.cn/document/mail-v1/user_mailbox-rule/list
 func (r *MailService) ListMailUserMailboxRule(ctx context.Context, request *ListMailUserMailboxRuleReq, options ...MethodOptionFunc) (*ListMailUserMailboxRuleResp, *Response, error) {
 	if r.cli.mock.mockMailListMailUserMailboxRule != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#ListMailUserMailboxRule mock enable")
@@ -83,7 +86,7 @@ type ListMailUserMailboxRuleRespItemAction struct {
 
 // ListMailUserMailboxRuleRespItemActionItem ...
 type ListMailUserMailboxRuleRespItemActionItem struct {
-	Type  int64  `json:"type,omitempty"`  // 操作类型可选值有: 归档删除邮件标为为已读移至垃圾邮件不移至垃圾邮件添加用户标签（暂不支持）添加旗标不弹出通知移至用户文件夹自动转发（暂不支持）分享到会话（暂不支持）
+	Type  int64  `json:"type,omitempty"`  // 操作类型可选值有: 归档删除邮件标记为已读移至垃圾邮件不移至垃圾邮件添加用户标签（暂不支持）添加旗标不弹出通知移至用户文件夹自动转发（暂不支持）分享到会话（暂不支持）
 	Input string `json:"input,omitempty"` // 当 type 为移动到文件夹时, 该字段填文件夹的 id
 }
 

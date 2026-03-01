@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 1621, Event Count: 153
+API Count: 1622, Event Count: 153
 
 <details>
   <summary>
@@ -46,346 +46,346 @@ API Count: 1621, Event Count: 153
   </summary>
 
 - ACS
-  - CreateACSRuleExternal
-  - CreateACSVisitor
-  - DeleteACSRuleExternal
   - DeleteACSVisitor
+  - CreateACSVisitor
   - DeviceBindACSRuleExternal
+  - GetACSRuleExternal
+  - DeleteACSRuleExternal
+  - CreateACSRuleExternal
+  - UpdateACSUser
+  - GetACSUser
+  - GetACSUserList
+  - UpdateACSUserFace
+  - GetACSUserFace
+  - GetACSDeviceList
   - GetACSAccessRecordList
   - GetACSAccessRecordPhoto
-  - GetACSDeviceList
-  - GetACSRuleExternal
-  - GetACSUser
-  - GetACSUserFace
-  - GetACSUserList
-  - UpdateACSUser
-  - UpdateACSUserFace
 - AI
-  - DetectFaceAttributes
-  - DetectTextLanguage
-  - ExtractAIContractField
   - ParseAIResume
-  - RecognizeAIBankCard
-  - RecognizeAIBusinessCard
-  - RecognizeAIBusinessLicense
-  - RecognizeAIChinesePassport
-  - RecognizeAIDrivingLicense
-  - RecognizeAIFoodManageLicense
-  - RecognizeAIFoodProduceLicense
+  - RecognizeAIVehicleInvoice
   - RecognizeAIHealthCertificate
   - RecognizeAIHkmMainlandTravelPermit
-  - RecognizeAITaxiInvoice
-  - RecognizeAITrainInvoice
   - RecognizeAITwMainlandTravelPermit
-  - RecognizeAIVatInvoice
-  - RecognizeAIVehicleInvoice
+  - RecognizeAIChinesePassport
+  - RecognizeAIBankCard
   - RecognizeAIVehicleLicense
+  - RecognizeAITrainInvoice
+  - RecognizeAITaxiInvoice
   - RecognizeAiidCard
+  - RecognizeAIFoodProduceLicense
+  - RecognizeAIFoodManageLicense
+  - RecognizeAIDrivingLicense
+  - RecognizeAIVatInvoice
+  - RecognizeAIBusinessLicense
+  - ExtractAIContractField
+  - RecognizeAIBusinessCard
   - RecognizeBasicImage
-  - RecognizeSpeechFile
   - RecognizeSpeechStream
+  - RecognizeSpeechFile
   - TranslateText
+  - DetectTextLanguage
+  - DetectFaceAttributes
 - APaaS
-  - AddAPaaSApprovalTaskAssignee
-  - AgreeAPaaSApprovalTask
-  - BatchCreateAPaaSApplicationObjectRecord
-  - BatchCreateAPaaSApplicationRecordPermissionMemberAuthorization
-  - BatchCreateAPaaSApplicationRoleMemberAuthorization
-  - BatchDeleteAPaaSApplicationObjectRecord
-  - BatchQueryAPaaSApplicationObjectRecord
-  - BatchRemoveAPaaSApplicationRecordPermissionMemberAuthorization
-  - BatchRemoveAPaaSApplicationRoleMemberAuthorization
-  - BatchUpdateAPaaSApplicationObjectRecord
+  - ListAPaaSApp
+  - ListAPaaSApplicationAuditLogAuditLog
+  - GetAPaaSApplicationAuditLogDataChangeLogDetail
+  - ListAPaaSApplicationAuditLogDataChangeLogs
+  - GetAPaaSApplicationAuditLog
+  - GetAPaaSApplicationEnvironmentVariable
+  - QueryAPaaSApplicationEnvironmentVariable
   - CreateAPaaSApplicationFlowExecute
   - CreateAPaaSApplicationFunctionInvoke
-  - CreateAPaaSApplicationObjectOqlQuery
+  - BatchCreateAPaaSApplicationObjectRecord
+  - BatchDeleteAPaaSApplicationObjectRecord
+  - BatchQueryAPaaSApplicationObjectRecord
+  - BatchUpdateAPaaSApplicationObjectRecord
   - CreateAPaaSApplicationObjectRecord
+  - DeleteAPaaSApplicationObjectRecord
+  - UpdateAPaaSApplicationObjectRecord
+  - QueryAPaaSApplicationObjectRecord
+  - CreateAPaaSApplicationObjectOqlQuery
+  - SearchAPaaSApplicationObject
+  - BatchCreateAPaaSApplicationRecordPermissionMemberAuthorization
+  - BatchRemoveAPaaSApplicationRecordPermissionMemberAuthorization
+  - BatchCreateAPaaSApplicationRoleMemberAuthorization
+  - BatchRemoveAPaaSApplicationRoleMemberAuthorization
+  - GetAPaaSApplicationRoleMember
   - CreateAPaaSApprovalInstanceCancel
+  - AddAPaaSApprovalTaskAssignee
+  - AgreeAPaaSApprovalTask
+  - RejectAPaaSApprovalTask
+  - TransferAPaaSApprovalTask
+  - ListAPaaSSeatActivity
+  - ListAPaaSSeatAssignment
   - CreateAPaaSUserTaskCc
   - CreateAPaaSUserTaskChatGroup
   - CreateAPaaSUserTaskExpediting
+  - QueryAPaaSUserTask
   - CreateAPaaSUserTaskRollback
   - CreateAPaaSUserTaskRollbackPoints
-  - CreateAPaaSWorkspaceSqlCommands
-  - CreateAPaaSWorkspaceTableRecordsPost
-  - DeleteAPaaSApplicationObjectRecord
-  - DeleteAPaaSWorkspaceTableRecordsDelete
-  - GetAPaaSApplicationAuditLog
-  - GetAPaaSApplicationAuditLogDataChangeLogDetail
-  - GetAPaaSApplicationEnvironmentVariable
-  - GetAPaaSApplicationRoleMember
   - GetAPaaSWorkspaceEnumGet
-  - GetAPaaSWorkspaceTableGet
-  - GetAPaaSWorkspaceTableRecordsGet
-  - GetAPaaSWorkspaceViewViewsGet
-  - ListAPaaSApp
-  - ListAPaaSApplicationAuditLogAuditLog
-  - ListAPaaSApplicationAuditLogDataChangeLogs
-  - ListAPaaSSeatActivity
-  - ListAPaaSSeatAssignment
   - ListAPaaSWorkspaceEnum
   - ListAPaaSWorkspaceTable
-  - QueryAPaaSApplicationEnvironmentVariable
-  - QueryAPaaSApplicationObjectRecord
-  - QueryAPaaSUserTask
-  - RejectAPaaSApprovalTask
-  - SearchAPaaSApplicationObject
-  - TransferAPaaSApprovalTask
-  - UpdateAPaaSApplicationObjectRecord
   - UpdateAPaaSWorkspaceTableRecordsBatchUpdate
+  - DeleteAPaaSWorkspaceTableRecordsDelete
+  - GetAPaaSWorkspaceTableRecordsGet
   - UpdateAPaaSWorkspaceTableRecordsPatch
+  - CreateAPaaSWorkspaceTableRecordsPost
+  - GetAPaaSWorkspaceTableGet
+  - GetAPaaSWorkspaceViewViewsGet
+  - CreateAPaaSWorkspaceSqlCommands
 - Admin
   - AdminResetPassword
-  - CreateAdminBadge
-  - CreateAdminBadgeGrant
-  - DeleteAdminBadgeGrant
-  - GetAdminBadge
-  - GetAdminBadgeGrant
-  - GetAdminBadgeGrantList
-  - GetAdminBadgeList
   - GetAdminDeptStats
   - GetAdminUserStats
-  - UpdateAdminBadge
-  - UpdateAdminBadgeGrant
   - UploadAdminBadgeImage
+  - CreateAdminBadge
+  - UpdateAdminBadge
+  - GetAdminBadgeList
+  - GetAdminBadge
+  - CreateAdminBadgeGrant
+  - UpdateAdminBadgeGrant
+  - GetAdminBadgeGrantList
+  - GetAdminBadgeGrant
+  - DeleteAdminBadgeGrant
 - Aily
-  - CreateAilyAppDataAsset
-  - CreateAilyAppKnowledgeAsk
-  - CreateAilyAppSkillStart
-  - CreateAilySession
   - CreateAilySessionAilyMessage
-  - CreateAilySessionRun
-  - CreateAilySessionRunCancel
-  - DeleteAilyAppDataAsset
-  - DeleteAilySession
-  - GetAilyAppDataAsset
-  - GetAilyAppSkill
-  - GetAilySession
   - GetAilySessionAilyMessage
-  - GetAilySessionRun
-  - ListAilyAppDataAsset
-  - ListAilyAppDataAssetTag
-  - ListAilyAppSkill
   - ListAilySessionAilyMessage
+  - CreateAilySessionRunCancel
+  - CreateAilySessionRun
+  - GetAilySessionRun
   - ListAilySessionRun
+  - CreateAilySession
+  - DeleteAilySession
+  - GetAilySession
   - UpdateAilySession
+  - CreateAilyAppDataAsset
+  - DeleteAilyAppDataAsset
+  - GetAilyAppDataAsset
+  - ListAilyAppDataAsset
   - UploadAilyAppDataAssetFile
+  - ListAilyAppDataAssetTag
+  - CreateAilyAppKnowledgeAsk
+  - GetAilyAppSkill
+  - ListAilyAppSkill
+  - CreateAilyAppSkillStart
 - AppLink
-  - OpenBot
-  - OpenCalender
-  - OpenCalenderAccount
-  - OpenCalenderEventCreate
-  - OpenCalenderView
-  - OpenChat
-  - OpenDocs
-  - OpenLark
-  - OpenMiniProgram
   - OpenNativeApp
-  - OpenSSOLogin
+  - OpenLark
   - OpenScan
+  - OpenWorkbench
+  - OpenMiniProgram
+  - OpenWebApp
+  - OpenChat
+  - OpenCalender
+  - OpenCalenderView
+  - OpenCalenderEventCreate
+  - OpenCalenderAccount
+  - OpenDocs
+  - OpenBot
+  - OpenSSOLogin
+  - OpenWebURL
   - OpenTask
   - OpenTaskCreate
   - OpenTaskDetail
   - OpenTaskTab
-  - OpenWebApp
-  - OpenWebURL
-  - OpenWorkbench
 - Application
-  - CheckApplicationVisibleWhiteBlackList
-  - CheckUserIsInApplicationPaidScope
-  - CreateApplicationAppUsageMessagePushOverview
-  - CreateApplicationScopeApply
-  - GetApplication
-  - GetApplicationAppAdminUserList
-  - GetApplicationAppList
-  - GetApplicationAppVisibility
-  - GetApplicationCollaborators
-  - GetApplicationContactsRangeConfiguration
+  - SearchApplicationWorkplaceAccessData
+  - SearchApplicationCustomWorkplaceAccessData
+  - SearchApplicationWorkplaceBlockAccessData
   - GetApplicationFavourite
-  - GetApplicationFeedbackList
-  - GetApplicationOrder
-  - GetApplicationOrderList
   - GetApplicationRecommend
   - GetApplicationRecommendRuleList
+  - IsApplicationUserAdmin
+  - GetApplicationUserAdminScope
+  - GetApplicationAppVisibility
+  - GetApplicationContactsRangeConfiguration
+  - UpdateApplicationContactsRangeConfiguration
+  - GetApplicationUserVisibleApp
+  - CheckApplicationVisibleWhiteBlackList
+  - GetApplicationAppList
+  - UpdateApplicationAppVisibility
+  - UpdateApplicationAppVisibilityV6
+  - UpdateApplicationAppManagement
+  - GetApplicationAppAdminUserList
+  - CheckUserIsInApplicationPaidScope
+  - GetApplicationOrderList
+  - GetApplicationOrder
   - GetApplicationUnderAuditList
+  - GetApplication
+  - GetApplicationVersion
+  - GetApplicationVersionList
+  - GetApplicationVersionContactsRangeSuggest
+  - UpdateApplicationVersion
+  - UpdateApplication
   - GetApplicationUsageDepartmentOverview
   - GetApplicationUsageOverview
   - GetApplicationUsageTrend
-  - GetApplicationUserAdminScope
-  - GetApplicationUserVisibleApp
-  - GetApplicationVersion
-  - GetApplicationVersionContactsRangeSuggest
-  - GetApplicationVersionList
-  - IsApplicationUserAdmin
-  - ListApplication
-  - ListApplicationScope
-  - SearchApplicationCustomWorkplaceAccessData
-  - SearchApplicationWorkplaceAccessData
-  - SearchApplicationWorkplaceBlockAccessData
-  - SetApplicationAppBadge
-  - UpdateApplication
-  - UpdateApplicationAppManagement
-  - UpdateApplicationAppVisibility
-  - UpdateApplicationAppVisibilityV6
-  - UpdateApplicationCollaborators
-  - UpdateApplicationContactsRangeConfiguration
   - UpdateApplicationFeedback
+  - GetApplicationFeedbackList
+  - SetApplicationAppBadge
+  - CreateApplicationAppUsageMessagePushOverview
+  - GetApplicationCollaborators
+  - UpdateApplicationCollaborators
   - UpdateApplicationOwner
-  - UpdateApplicationVersion
+  - ListApplication
+  - CreateApplicationScopeApply
+  - ListApplicationScope
 - Approval
-  - AddApprovalInstanceSign
-  - ApproveApprovalInstance
-  - CancelApprovalInstance
-  - CheckApprovalExternalInstance
   - CreateApproval
-  - CreateApprovalCarbonCopy
-  - CreateApprovalComment
-  - CreateApprovalExternalApproval
-  - CreateApprovalExternalInstance
-  - CreateApprovalInstance
-  - DeleteApprovalComment
   - GetApproval
-  - GetApprovalComment
-  - GetApprovalExternalApproval
-  - GetApprovalExternalList
+  - GetApprovalList
+  - SubscribeApprovalSubscription
+  - UnsubscribeApprovalSubscription
+  - CreateApprovalInstance
   - GetApprovalInstance
   - GetApprovalInstanceList
-  - GetApprovalList
-  - GetApprovalUserTaskList
+  - CancelApprovalInstance
+  - CreateApprovalCarbonCopy
   - PreviewApprovalInstance
+  - ApproveApprovalInstance
   - RejectApprovalInstance
-  - RemoveApprovalComment
+  - TransferApprovalInstance
   - ResubmitApprovalInstanceTask
   - RollbackApprovalInstance
-  - SearchApprovalCarbonCopy
-  - SearchApprovalInstance
-  - SearchApprovalTask
-  - SendApprovalMessage
-  - SubscribeApprovalSubscription
-  - TransferApprovalInstance
-  - TransformApprovalUserID
-  - UnsubscribeApprovalSubscription
-  - UpdateApprovalMessage
+  - AddApprovalInstanceSign
+  - CreateApprovalComment
+  - GetApprovalComment
+  - DeleteApprovalComment
+  - RemoveApprovalComment
+  - CreateApprovalExternalApproval
+  - GetApprovalExternalApproval
+  - CreateApprovalExternalInstance
+  - CheckApprovalExternalInstance
+  - GetApprovalExternalList
   - UploadApprovalFile
+  - UpdateApprovalMessage
+  - SendApprovalMessage
+  - SearchApprovalInstance
+  - SearchApprovalCarbonCopy
+  - SearchApprovalTask
+  - GetApprovalUserTaskList
+  - TransformApprovalUserID
 - Attendance
-  - BatchAttendanceUserFlowDel
-  - BatchCreateAttendanceUserDailyShift
-  - BatchCreateAttendanceUserDailyShiftTemp
-  - BatchCreateAttendanceUserFlow
-  - BatchGetAttendanceUserFlow
-  - CreateAttendanceArchiveRuleDelReport
-  - CreateAttendanceArchiveRuleUserStatsFieldsQuery
-  - CreateAttendanceGroup
-  - CreateAttendanceShift
-  - CreateAttendanceUserApproval
-  - CreateAttendanceUserTaskRemedy
-  - DeleteAttendanceGroup
-  - DeleteAttendanceShift
-  - DownloadAttendanceFile
-  - GetAttendanceGroup
   - GetAttendanceGroupList
-  - GetAttendanceLeaveEmployExpireRecord
+  - CreateAttendanceGroup
+  - SearchAttendanceGroup
+  - GetAttendanceGroup
+  - DeleteAttendanceGroup
+  - GetAttendanceShiftList
   - GetAttendanceShift
   - GetAttendanceShiftDetail
-  - GetAttendanceShiftList
-  - GetAttendanceUserApproval
+  - DeleteAttendanceShift
+  - UpdateAttendanceLeaveAccrualRecord
+  - GetAttendanceLeaveEmployExpireRecord
+  - CreateAttendanceShift
   - GetAttendanceUserDailyShift
-  - GetAttendanceUserFlow
-  - GetAttendanceUserSettingList
-  - GetAttendanceUserStatsData
+  - BatchCreateAttendanceUserDailyShift
   - GetAttendanceUserStatsField
   - GetAttendanceUserStatsView
-  - GetAttendanceUserTask
-  - GetAttendanceUserTaskRemedy
-  - GetAttendanceUserTaskRemedyAllowedRemedyList
-  - ListAttendanceArchiveRule
-  - ListAttendanceGroupUser
-  - SearchAttendanceGroup
-  - UpdateAttendanceLeaveAccrualRecord
-  - UpdateAttendanceRemedyApproval
-  - UpdateAttendanceUserSetting
   - UpdateAttendanceUserStatsView
-  - UploadAttendanceArchiveRuleReport
+  - GetAttendanceUserStatsData
+  - GetAttendanceUserApproval
+  - CreateAttendanceUserApproval
+  - UpdateAttendanceRemedyApproval
+  - BatchGetAttendanceUserFlow
+  - GetAttendanceUserFlow
+  - GetAttendanceUserTask
+  - BatchCreateAttendanceUserFlow
+  - GetAttendanceUserTaskRemedyAllowedRemedyList
+  - GetAttendanceUserTaskRemedy
+  - CreateAttendanceUserTaskRemedy
+  - GetAttendanceUserSettingList
+  - UpdateAttendanceUserSetting
+  - DownloadAttendanceFile
   - UploadAttendanceFile
+  - CreateAttendanceArchiveRuleDelReport
+  - ListAttendanceArchiveRule
+  - UploadAttendanceArchiveRuleReport
+  - CreateAttendanceArchiveRuleUserStatsFieldsQuery
+  - ListAttendanceGroupUser
+  - BatchCreateAttendanceUserDailyShiftTemp
+  - BatchAttendanceUserFlowDel
 - Auth
-  - GenOAuthURL
+  - ResendAppTicket
   - GetAccessToken
+  - RefreshAccessToken
+  - GetUserInfo
+  - GenOAuthURL
   - GetAppAccessToken
   - GetAppTicket
   - GetTenantAccessToken
-  - GetUserInfo
-  - RefreshAccessToken
-  - ResendAppTicket
   - SetAppTicket
 - Authen
   - CreateAuthenAccessToken
   - CreateAuthenRefreshAccessToken
 - Baike
   - CreateBaikeDraft
-  - CreateBaikeEntity
   - CreateBaikeUpdate
-  - DownloadBaikeImage
-  - ExtractBaikeEntity
-  - GetBaikeClassificationList
+  - CreateBaikeEntity
+  - UpdateBaikeEntity
   - GetBaikeEntity
   - GetBaikeEntityList
-  - HighlightBaikeEntity
   - MatchBaikeEntity
   - SearchBaikeEntity
-  - UpdateBaikeEntity
+  - HighlightBaikeEntity
+  - ExtractBaikeEntity
+  - GetBaikeClassificationList
   - UploadBaikeImage
+  - DownloadBaikeImage
 - Base
   - CreateBaseAppRole
   - ListBaseAppRole
   - UpdateBaseAppRole
 - Bitable
-  - BatchCreateBitableAppRoleMember
-  - BatchCreateBitableRecord
-  - BatchCreateBitableTable
-  - BatchDeleteBitableAppRoleMember
-  - BatchDeleteBitableRecord
-  - BatchDeleteBitableTable
-  - BatchGetBitableAppTableRecord
-  - BatchUpdateBitableRecord
-  - CopyBitableApp
   - CopyBitableDashboard
-  - CreateBitableApp
-  - CreateBitableAppRole
-  - CreateBitableAppRoleMember
-  - CreateBitableField
-  - CreateBitableRecord
-  - CreateBitableTable
-  - CreateBitableView
-  - DeleteBitableAppRole
-  - DeleteBitableAppRoleMember
-  - DeleteBitableField
-  - DeleteBitableRecord
-  - DeleteBitableTable
-  - DeleteBitableView
-  - GetBitableAppRoleList
-  - GetBitableAppRoleMemberList
   - GetBitableDashboardList
-  - GetBitableFieldList
-  - GetBitableMeta
-  - GetBitableRecord
-  - GetBitableRecordList
-  - GetBitableTableForm
-  - GetBitableTableFormFieldList
-  - GetBitableTableList
+  - UpdateBitableView
   - GetBitableView
   - GetBitableViewList
-  - ListBitableAppBlockWorkflow
-  - ListBitableAppWorkflow
+  - CreateBitableView
+  - DeleteBitableView
+  - GetBitableRecord
+  - GetBitableRecordList
   - SearchBitableRecord
-  - UpdateBitableAppRole
-  - UpdateBitableAppWorkflow
-  - UpdateBitableField
-  - UpdateBitableMeta
+  - CreateBitableRecord
   - UpdateBitableRecord
+  - DeleteBitableRecord
+  - BatchCreateBitableRecord
+  - BatchUpdateBitableRecord
+  - BatchDeleteBitableRecord
+  - GetBitableFieldList
+  - CreateBitableField
+  - UpdateBitableField
+  - DeleteBitableField
+  - GetBitableAppRoleList
+  - CreateBitableAppRole
+  - DeleteBitableAppRole
+  - UpdateBitableAppRole
+  - BatchDeleteBitableAppRoleMember
+  - BatchCreateBitableAppRoleMember
+  - GetBitableAppRoleMemberList
+  - CreateBitableAppRoleMember
+  - DeleteBitableAppRoleMember
+  - CreateBitableTable
+  - BatchCreateBitableTable
+  - DeleteBitableTable
+  - BatchDeleteBitableTable
   - UpdateBitableTable
+  - GetBitableTableList
   - UpdateBitableTableForm
+  - GetBitableTableForm
   - UpdateBitableTableFormField
-  - UpdateBitableView
+  - GetBitableTableFormFieldList
+  - CopyBitableApp
+  - CreateBitableApp
+  - GetBitableMeta
+  - UpdateBitableMeta
+  - ListBitableAppBlockWorkflow
+  - BatchGetBitableAppTableRecord
+  - ListBitableAppWorkflow
+  - UpdateBitableAppWorkflow
 - Board
   - CreateBoardWhiteboardNode
   - CreateBoardWhiteboardNodePlantuml
@@ -393,547 +393,542 @@ API Count: 1621, Event Count: 153
   - GetBoardWhiteboardTheme
   - UpdateBoardWhiteboardTheme
 - Bot
-  - AddBotToChat
   - GetBotInfo
+  - AddBotToChat
 - Calendar
-  - BatchGetCalendarMeetingRoomFreebusy
-  - BatchGetCalendarMeetingRoomSummary
-  - ReplyCalendarMeetingRoomInstance
-  - BatchQueryCalendarFreebusy
-  - CreateCalendar
   - CreateCalendarACL
-  - CreateCalendarEvent
-  - CreateCalendarEventAttendee
-  - CreateCalendarEventMeetingChat
-  - CreateCalendarEventMeetingMinute
-  - CreateCalendarExchangeBinding
-  - CreateCalendarPrimarys
-  - CreateCalendarTimeoffEvent
-  - DeleteCalendar
   - DeleteCalendarACL
-  - DeleteCalendarEvent
-  - DeleteCalendarEventAttendee
-  - DeleteCalendarEventMeetingChat
-  - DeleteCalendarExchangeBinding
-  - DeleteCalendarTimeoffEvent
-  - GenerateCaldavConf
-  - GetCalendar
   - GetCalendarACLList
+  - SubscribeCalendarACL
+  - UnsubscribeCalendarACL
+  - GetPrimaryCalendar
+  - CreateCalendar
+  - DeleteCalendar
+  - GetCalendar
+  - GetCalendarList
+  - UpdateCalendar
+  - SearchCalendar
+  - SubscribeCalendar
+  - UnsubscribeCalendar
+  - SubscribeCalendarChangeEvent
+  - UnsubscribeCalendarChangeEvent
+  - CreateCalendarEvent
+  - DeleteCalendarEvent
   - GetCalendarEvent
-  - GetCalendarEventAttendeeChatMemberList
-  - GetCalendarEventAttendeeList
+  - GetCalendarEventList
+  - UpdateCalendarEvent
+  - SearchCalendarEvent
+  - SubscribeCalendarEvent
+  - UnsubscribeCalendarEvent
+  - ReplyCalendarEvent
   - GetCalendarEventInstanceList
   - GetCalendarEventInstanceViewList
-  - GetCalendarEventList
-  - GetCalendarExchangeBinding
+  - DeleteCalendarEventMeetingChat
+  - CreateCalendarEventMeetingChat
+  - CreateCalendarTimeoffEvent
+  - DeleteCalendarTimeoffEvent
+  - BatchGetCalendarMeetingRoomSummary
+  - BatchGetCalendarMeetingRoomFreebusy
+  - ReplyCalendarMeetingRoomInstance
+  - CreateCalendarEventAttendee
+  - DeleteCalendarEventAttendee
+  - GetCalendarEventAttendeeList
+  - GetCalendarEventAttendeeChatMemberList
   - GetCalendarFreeBusyList
-  - GetCalendarList
-  - GetPrimaryCalendar
+  - GenerateCaldavConf
+  - CreateCalendarExchangeBinding
+  - DeleteCalendarExchangeBinding
+  - GetCalendarExchangeBinding
+  - CreateCalendarEventMeetingMinute
   - MGetCalendar
-  - ReplyCalendarEvent
-  - SearchCalendar
-  - SearchCalendarEvent
-  - SubscribeCalendar
-  - SubscribeCalendarACL
-  - SubscribeCalendarChangeEvent
-  - SubscribeCalendarEvent
-  - UnsubscribeCalendar
-  - UnsubscribeCalendarACL
-  - UnsubscribeCalendarChangeEvent
-  - UnsubscribeCalendarEvent
-  - UpdateCalendar
-  - UpdateCalendarEvent
+  - CreateCalendarPrimarys
+  - BatchQueryCalendarFreebusy
 - Cardkit
+  - UpdateCardkitCardElementContent
+  - CreateCardkitCardElement
+  - DeleteCardkitCardElement
+  - UpdateCardkitCardElement
+  - UpdateCardkitCardElementV1
   - BatchUpdateCardkitCard
   - CreateCardkitCard
-  - CreateCardkitCardElement
   - CreateCardkitCardIDConvert
-  - DeleteCardkitCardElement
-  - UpdateCardkitCard
-  - UpdateCardkitCardElement
-  - UpdateCardkitCardElementContent
-  - UpdateCardkitCardElementV1
   - UpdateCardkitCardSettings
+  - UpdateCardkitCard
 - CcmDocs
   - CreateCcmDocsDefaultDocsApiMeta
 - Chat
-  - AddChatMember
   - CreateChat
-  - CreateChatManager
-  - CreateChatMenuTree
-  - CreateChatTab
+  - GetChat
+  - GetChatOld
+  - UpdateChat
   - DeleteChat
+  - GetChatListOfSelf
+  - SearchChat
+  - GetChatMemberList
+  - IsInChat
+  - CreateChatManager
   - DeleteChatManager
+  - AddChatMember
   - DeleteChatMember
-  - DeleteChatMenuTree
-  - DeleteChatTab
+  - JoinChat
+  - GetChatModeration
+  - UpdateChatModeration
+  - UpdateChatTopNotice
   - DeleteChatTopNotice
   - GenChatShareLink
-  - GetChat
   - GetChatAnnouncement
-  - GetChatListOfSelf
-  - GetChatMemberList
-  - GetChatMenuTree
-  - GetChatModeration
-  - GetChatOld
-  - GetChatTabList
-  - IsInChat
-  - JoinChat
-  - SearchChat
-  - SortChatMenuTree
-  - SortChatTab
-  - UpdateChat
   - UpdateChatAnnouncement
-  - UpdateChatMenuTree
-  - UpdateChatModeration
+  - CreateChatTab
+  - DeleteChatTab
+  - GetChatTabList
   - UpdateChatTab
-  - UpdateChatTopNotice
+  - SortChatTab
+  - CreateChatMenuTree
+  - DeleteChatMenuTree
+  - UpdateChatMenuTree
+  - SortChatMenuTree
+  - GetChatMenuTree
 - Compensation
-  - BatchCreateCompensationLumpSumPayment
-  - BatchCreateCompensationRecurringPayment
-  - BatchRemoveCompensationLumpSumPayment
-  - BatchRemoveCompensationRecurringPayment
-  - BatchUpdateCompensationLumpSumPayment
-  - BatchUpdateCompensationRecurringPayment
   - CreateCompensationArchive
-  - ListCompensationSocialInsurance
-  - ListCompensationSocialPlan
+  - BatchCreateCompensationLumpSumPayment
+  - BatchRemoveCompensationLumpSumPayment
+  - BatchUpdateCompensationLumpSumPayment
   - QueryCompensationLumpSumPayment
   - QueryCompensationLumpSumPaymentDetail
+  - BatchCreateCompensationRecurringPayment
+  - BatchRemoveCompensationRecurringPayment
+  - BatchUpdateCompensationRecurringPayment
   - QueryCompensationRecurringPayment
   - QueryCompensationSocialArchive
   - QueryCompensationSocialArchiveAdjustRecord
+  - ListCompensationSocialInsurance
+  - ListCompensationSocialPlan
   - QueryCompensationSocialPlan
 - Contact
-  - AddContactGroupMember
-  - BatchAddContactGroupMember
-  - BatchAddContactV2Department
-  - BatchAddContactV2User
-  - BatchCreateContactFunctionalRoleMember
-  - BatchDeleteContactFunctionalRoleMember
-  - BatchDeleteContactGroupMember
-  - BatchGetDepartment
-  - BatchGetUser
-  - BatchGetUserByID
-  - BatchGetUserByIDOld
-  - BindContactUnitDepartment
-  - CreateContactFunctionalRole
-  - CreateContactGroup
-  - CreateContactJobFamily
-  - CreateContactJobLevel
-  - CreateContactUnit
-  - CreateDepartment
-  - CreateEmployeeTypeEnum
   - CreateUser
-  - DeleteContactFunctionalRole
-  - DeleteContactGroup
-  - DeleteContactGroupMember
-  - DeleteContactJobFamily
-  - DeleteContactJobLevel
-  - DeleteContactUnit
-  - DeleteDepartment
-  - DeleteEmployeeTypeEnum
   - DeleteUser
-  - GetContactCustomAttrList
-  - GetContactFunctionalRoleMember
-  - GetContactFunctionalRoleMemberScope
-  - GetContactGroup
-  - GetContactGroupList
-  - GetContactGroupMember
-  - GetContactJobFamily
-  - GetContactJobFamilyList
-  - GetContactJobLevel
-  - GetContactJobLevelList
-  - GetContactJobTitle
-  - GetContactJobTitleList
-  - GetContactMemberGroupList
-  - GetContactScopeList
-  - GetContactUnit
-  - GetContactUnitDepartmentList
-  - GetContactUnitList
-  - GetContactV2Task
-  - GetContactWorkCity
-  - GetContactWorkCityList
-  - GetDepartment
-  - GetDepartmentList
-  - GetDepartmentListOld
-  - GetEmployeeTypeEnumList
-  - GetParentDepartment
+  - ResurrectUser
   - GetUser
+  - BatchGetUser
   - GetUserList
   - GetUserListOld
-  - ListContactV2Role
-  - ResurrectUser
-  - SearchDepartment
-  - SearchUserOld
-  - UnbindContactUnitDepartment
-  - UnbindDepartmentChat
-  - UpdateContactFunctionalRole
-  - UpdateContactFunctionalRoleMemberScope
-  - UpdateContactGroup
-  - UpdateContactJobFamily
-  - UpdateContactJobLevel
-  - UpdateContactUnit
-  - UpdateDepartment
-  - UpdateDepartmentID
-  - UpdateDepartmentPatch
-  - UpdateEmployeeTypeEnumPatch
-  - UpdateUser
-  - UpdateUserID
   - UpdateUserPatch
+  - UpdateUser
+  - BatchGetUserByID
+  - BatchGetUserByIDOld
+  - SearchUserOld
+  - UpdateUserID
+  - CreateDepartment
+  - GetDepartment
+  - BatchGetDepartment
+  - GetDepartmentList
+  - UpdateDepartmentPatch
+  - UpdateDepartment
+  - GetDepartmentListOld
+  - GetParentDepartment
+  - SearchDepartment
+  - UpdateDepartmentID
+  - DeleteDepartment
+  - UnbindDepartmentChat
+  - CreateContactGroup
+  - UpdateContactGroup
+  - DeleteContactGroup
+  - GetContactGroup
+  - GetContactGroupList
+  - GetContactMemberGroupList
+  - AddContactGroupMember
+  - BatchAddContactGroupMember
+  - DeleteContactGroupMember
+  - BatchDeleteContactGroupMember
+  - GetContactGroupMember
+  - CreateContactFunctionalRole
+  - DeleteContactFunctionalRole
+  - UpdateContactFunctionalRole
+  - BatchCreateContactFunctionalRoleMember
+  - BatchDeleteContactFunctionalRoleMember
+  - UpdateContactFunctionalRoleMemberScope
+  - GetContactFunctionalRoleMemberScope
+  - GetContactFunctionalRoleMember
+  - CreateContactJobLevel
+  - DeleteContactJobLevel
+  - UpdateContactJobLevel
+  - GetContactJobLevel
+  - GetContactJobLevelList
+  - CreateContactJobFamily
+  - DeleteContactJobFamily
+  - UpdateContactJobFamily
+  - GetContactJobFamily
+  - GetContactJobFamilyList
+  - GetContactJobTitle
+  - GetContactJobTitleList
+  - GetContactWorkCity
+  - GetContactWorkCityList
+  - GetEmployeeTypeEnumList
+  - UpdateEmployeeTypeEnumPatch
+  - DeleteEmployeeTypeEnum
+  - CreateEmployeeTypeEnum
+  - GetContactCustomAttrList
+  - CreateContactUnit
+  - UpdateContactUnit
+  - DeleteContactUnit
+  - GetContactUnit
+  - GetContactUnitList
+  - BindContactUnitDepartment
+  - UnbindContactUnitDepartment
+  - GetContactUnitDepartmentList
+  - GetContactScopeList
+  - BatchAddContactV2User
+  - BatchAddContactV2Department
+  - GetContactV2Task
+  - ListContactV2Role
 - CoreHR
+  - SearchCoreHRNationality
+  - SearchCoreHRBank
+  - SearchCoreHRBankBranch
+  - GetCoreHRCustomField
+  - GetCoreHRCustomFieldList
+  - GetCoreHRCustomFieldObjectApiNameList
+  - SearchCoreHRCountryRegion
+  - SearchCoreHRCountryRegionSubdivision
+  - SearchCoreHRCity
+  - SearchCoreHRDistrict
+  - GetCoreHRCountryRegion
+  - GetCoreHRCountryRegionList
+  - GetCoreHRSubdivision
+  - GetCoreHRSubdivisionList
+  - GetCoreHRSubregion
+  - GetCoreHRSubregionList
+  - CreateCoreHREmployeeType
+  - DeleteCoreHREmployeeType
+  - UpdateCoreHREmployeeType
+  - GetCoreHREmployeeType
+  - GetCoreHREmployeeTypeList
+  - CreateCoreHRNationalIDType
+  - DeleteCoreHRNationalIDType
+  - UpdateCoreHRNationalIDType
+  - GetCoreHRNationalIDType
+  - GetCoreHRNationalIDTypeList
+  - CreateCoreHRWorkingHoursType
+  - DeleteCoreHRWorkingHoursType
+  - UpdateCoreHRWorkingHoursType
+  - GetCoreHRWorkingHoursType
+  - GetCoreHRWorkingHoursTypeList
+  - SearchCoreHRCurrency
+  - GetCoreHRCurrency
+  - GetCoreHRCurrencyList
+  - BatchGetCoreHREmployee
+  - SearchCoreHREmployee
+  - CreateCoreHREmployment
+  - DeleteCoreHREmployment
+  - UpdateCoreHREmployment
+  - CreateCoreHRPerson
+  - UpdateCoreHRPerson
+  - DeleteCoreHRPerson
+  - UploadCoreHRPersonFile
+  - DownloadCoreHRPersonFile
+  - GetCoreHRPerson
+  - CreateCoreHRJobData
+  - DeleteCoreHRJobData
+  - UpdateCoreHRJobData
+  - GetCoreHRJobData
+  - QueryCoreHRJobData
+  - BatchGetCoreHRJobData
+  - GetCoreHRJobDataList
+  - GetCoreHRDepartmentParentList
+  - SearchCoreHRDepartment
+  - CreateCoreHRDepartment
+  - DeleteCoreHRDepartment
+  - UpdateCoreHRDepartment
+  - GetCoreHRDepartment
+  - BatchGetCoreHRDepartment
+  - GetCoreHRDepartmentList
+  - BatchGetCoreHRLocation
+  - CreateCoreHRLocation
+  - DeleteCoreHRLocation
+  - GetCoreHRLocation
+  - GetCoreHRLocationList
+  - GetCoreHRCompany
+  - GetCoreHRCompanyList
+  - BatchGetCoreHRCompany
+  - CreateCoreHRCompany
+  - UpdateCoreHRCompany
+  - DeleteCoreHRCompany
+  - CreateCoreHRCostCenter
+  - ActiveCoreHRCostCenter
+  - DeleteCoreHRCostCenter
+  - SearchCoreHRCostCenter
+  - CreateCoreHRCostCenterVersion
+  - UpdateCoreHRCostCenterVersion
+  - DeleteCoreHRCostCenterVersion
+  - BatchGetCoreHRJobLevel
+  - CreateCoreHRJobLevel
+  - DeleteCoreHRJobLevel
+  - UpdateCoreHRJobLevel
+  - GetCoreHRJobLevel
+  - GetCoreHRJobLevelList
+  - BatchGetCoreHRJobFamily
+  - CreateCoreHRJobFamily
+  - DeleteCoreHRJobFamily
+  - UpdateCoreHRJobFamily
+  - GetCoreHRJobFamily
+  - GetCoreHRJobFamilyList
+  - CreateCoreHRJob
+  - DeleteCoreHRJob
+  - UpdateCoreHRJob
+  - GetCoreHRJobV2
+  - GetCoreHRJobListV2
+  - GetCoreHRJob
+  - GetCoreHRJobList
+  - CreateCoreHRPreHire
+  - DeleteCoreHRPreHire
+  - UpdateCoreHRPreHire
+  - GetCoreHRPreHire
+  - GetCoreHRPreHireList
+  - SearchCoreHRContract
+  - CreateCoreHRContract
+  - DeleteCoreHRContract
+  - UpdateCoreHRContract
+  - GetCoreHRContract
+  - GetCoreHRContractList
+  - SearchCoreHRProbation
+  - EnableDisableCoreHRProbationAssessment
+  - CreateCoreHRProbationAssessment
+  - UpdateCoreHRProbationAssessment
+  - DeleteCoreHRProbationAssessment
+  - GetCoreHRTransferReasonList
+  - GetCoreHRTransferTypeList
+  - CreateCoreHRJobChange
+  - SearchCoreHRJobChange
+  - GetCoreHROffboardingList
+  - CreateCoreHROffboarding
+  - SearchCoreHROffboarding
+  - CreateCoreHRLeaveGrantingRecord
+  - DeleteCoreHRLeaveGrantingRecord
+  - GetCoreHRLeaveTypeList
+  - GetCoreHRLeaveBalanceList
+  - GetCoreHRLeaveRequestHistoryList
+  - BatchGetCoreHrbpByEmployee
+  - GetCoreHrbpByDepartment
+  - GetCoreHrbpList
+  - GetCoreHRSecurityGroupBp
+  - SearchCoreHRAssignedUser
+  - GetCoreHRAuthorization
+  - GetCoreHRAuthorizationList
+  - GetCoreHRSecurityGroupList
+  - GetCoreHRProcessList
+  - GetCoreHRProcess
+  - GetCoreHRProcessFormVariableData
+  - MatchCoreHRCompensationStandard
+  - QueryCoreHRCompensationArchive
   - GetCoreHRCompensationChangeReasonList
   - GetCoreHRCompensationIndicatorList
   - GetCoreHRCompensationItemList
   - GetCoreHRCompensationItemCategoryList
   - GetCoreHRCompensationPlanList
-  - QueryCoreHRCompensationArchive
-  - BatchGetCoreHRJobFamily
-  - BatchGetCoreHrbpByEmployee
-  - SearchCoreHRNationality
-  - SearchCoreHRBank
-  - SearchCoreHRBankBranch
-  - SearchCoreHRNationality
-  - GetCoreHRAuthorization
-  - MatchCoreHRCompensationStandard
-  - GetCoreHRAuthorizationList
-  - BatchQueryCoreHRDepartmentTimeline
-  - QueryCoreHRDepartmentTimeline
-  - ActiveCoreHRCostCenter
-  - AddCorehrAuthorizationRoleAssign
-  - AddCorehrCommonDataMetaDataEnumOption
-  - BatchCorehrWorkforcePlanDetailV2
-  - BatchGetCoreHRCompany
-  - BatchGetCoreHRDepartment
-  - BatchGetCoreHREmployee
-  - BatchGetCoreHRJobData
-  - BatchGetCoreHRJobLevel
-  - BatchGetCoreHRLocation
-  - BatchGetCorehrJob
-  - BatchGetCorehrPathway
-  - BatchQueryCorehrCostAllocation
-  - BatchQueryCorehrDefaultCostCenter
-  - BatchQueryCorehrEmployeesAdditionalJob
-  - BatchQueryCorehrWorkforcePlanDetail
-  - CreateCoreHRCompany
-  - CreateCoreHRContract
-  - CreateCoreHRCostCenter
-  - CreateCoreHRCostCenterVersion
-  - CreateCoreHRDepartment
-  - CreateCoreHREmployeeType
-  - CreateCoreHREmployment
-  - CreateCoreHRJob
-  - CreateCoreHRJobChange
-  - CreateCoreHRJobData
-  - CreateCoreHRJobFamily
-  - CreateCoreHRJobLevel
-  - CreateCoreHRLeaveGrantingRecord
-  - CreateCoreHRLocation
-  - CreateCoreHRNationalIDType
-  - CreateCoreHROffboarding
-  - CreateCoreHRPerson
-  - CreateCoreHRPreHire
-  - CreateCoreHRProbationAssessment
-  - CreateCoreHRWorkingHoursType
-  - CreateCorehrCommonDataIDConvert
-  - CreateCorehrCommonDataMetaDataEditEnumOption
+  - GetCorehrApprovalGroups
+  - QueryCorehrApprovalGroupsDepartmentChangeListByIDs
+  - QueryCorehrApprovalGroupsJobChangeListByIDs
+  - QueryCorehrApprovalGroupsPositionChangeListByIDs
+  - ListCorehrApprover
+  - SearchCorehrBasicInfoLanguage
+  - SearchCorehrBasicInfoTimeZone
   - CreateCorehrCompanyActive
+  - QueryCorehrCompanyMultiTimeline
+  - QueryCorehrCompanyRecentChange
+  - BatchQueryCorehrCostAllocation
   - CreateCorehrCostAllocationVersion
-  - CreateCorehrCustomOrg
+  - RemoveCorehrCostAllocationVersion
+  - UpdateCorehrCostAllocationVersion
+  - QueryCorehrCostCenterRecentChange
   - CreateCorehrCustomOrgActive
+  - CreateCorehrCustomOrg
+  - DeleteCorehrCustomOrg
+  - UpdateCorehrCustomOrg
+  - QueryCorehrCustomOrg
+  - QueryCorehrCustomOrgRecentChange
+  - UpdateCorehrCustomOrgRule
+  - BatchQueryCorehrDefaultCostCenter
   - CreateCorehrDefaultCostCenterVersion
+  - RemoveCorehrDefaultCostCenterVersion
+  - UpdateCorehrDefaultCostCenterVersion
+  - DeleteCorehrDepartment
+  - UpdateCorehrDepartment
+  - BatchQueryCoreHRDepartmentTimeline
+  - QueryCorehrDepartmentOperationLogs
+  - QueryCorehrDepartmentRecentChange
+  - QueryCoreHRDepartmentTimeline
   - CreateCorehrDepartmentTree
+  - GetCorehrDraft
   - CreateCorehrEmployee
+  - BatchQueryCorehrEmployeesAdditionalJob
   - CreateCorehrEmployeesAdditionalJob
+  - DeleteCorehrEmployeesAdditionalJob
+  - UpdateCorehrEmployeesAdditionalJob
   - CreateCorehrEmployeesInternationalAssignment
+  - DeleteCorehrEmployeesInternationalAssignment
+  - ListCorehrEmployeesInternationalAssignment
+  - UpdateCorehrEmployeesInternationalAssignment
+  - SearchCorehrEnum
+  - BatchGetCorehrJob
+  - QueryCorehrJobMultiTimeline
+  - QueryCorehrJobRecentChange
   - CreateCorehrJobChange
   - CreateCorehrJobChangeRevoke
+  - QueryCorehrJobFamilyMultiTimeline
+  - QueryCorehrJobFamilyRecentChange
   - CreateCorehrJobGrade
-  - CreateCorehrLeaveWorkCalendar
-  - CreateCorehrLeaveWorkCalendarDate
-  - CreateCorehrLocationActive
+  - DeleteCorehrJobGrade
+  - UpdateCorehrJobGrade
+  - QueryCoreHRJobGrade
+  - QueryCorehrJobGradeRecentChange
+  - QueryCorehrJobLevelRecentChange
   - CreateCorehrLocationAddress
+  - DeleteCorehrLocationAddress
+  - UpdateCorehrLocationAddress
+  - CreateCorehrLocationActive
+  - UpdateCorehrLocation
+  - QueryCorehrLocationMultiTimeline
+  - QueryCorehrLocationRecentChange
   - CreateCorehrOffboardingEdit
   - CreateCorehrOffboardingRevoke
   - CreateCorehrOffboardingSubmitV2
-  - CreateCorehrPathway
   - CreateCorehrPathwayActive
-  - CreateCorehrPerson
-  - CreateCorehrPosition
+  - BatchGetCorehrPathway
+  - CreateCorehrPathway
+  - DeleteCorehrPathway
+  - UpdateCorehrPathway
   - CreateCorehrPositionActive
+  - CreateCorehrPosition
   - CreateCorehrPositionDelPosition
+  - UpdateCorehrPosition
+  - QueryCorehrPosition
+  - QueryCorehrPositionRecentChange
   - CreateCorehrPreHireComplete
+  - DeleteCorehrPreHire
+  - UpdateCorehrPreHire
+  - QueryCorehrPreHire
   - CreateCorehrPreHireRestoreFlowInstance
+  - SearchCoreHRPreHire
   - CreateCorehrPreHireTransformOnboardingTask
   - CreateCorehrPreHireTransitTask
   - CreateCorehrPreHireWithdrawOnboarding
   - CreateCorehrProbationSubmit
   - CreateCorehrProbationWithdraw
-  - CreateCorehrProcessQueryFlowDataTemplate
-  - CreateCorehrProcessStart
-  - CreateCorehrReportDetailRowBatchdelete
-  - CreateCorehrReportDetailRowBatchsave
-  - CreateCorehrSignatureFileTerminate
-  - CreateCorehrWorkforcePlanDetailRowBatchdelete
-  - CreateCorehrWorkforcePlanDetailRowBatchsave
-  - DeleteCoreHRCompany
-  - DeleteCoreHRContract
-  - DeleteCoreHRCostCenter
-  - DeleteCoreHRCostCenterVersion
-  - DeleteCoreHRDepartment
-  - DeleteCoreHREmployeeType
-  - DeleteCoreHREmployment
-  - DeleteCoreHRJob
-  - DeleteCoreHRJobData
-  - DeleteCoreHRJobFamily
-  - DeleteCoreHRJobLevel
-  - DeleteCoreHRLeaveGrantingRecord
-  - DeleteCoreHRLocation
-  - DeleteCoreHRNationalIDType
-  - DeleteCoreHRPerson
-  - DeleteCoreHRPreHire
-  - DeleteCoreHRProbationAssessment
-  - DeleteCoreHRWorkingHoursType
-  - DeleteCorehrCustomOrg
-  - DeleteCorehrDepartment
-  - DeleteCorehrEmployeesAdditionalJob
-  - DeleteCorehrEmployeesInternationalAssignment
-  - DeleteCorehrJobGrade
-  - DeleteCorehrLocationAddress
-  - DeleteCorehrPathway
-  - DeleteCorehrPreHire
-  - DownloadCoreHRPersonFile
-  - DownloadCorehrSignatureFile
-  - EnableDisableCoreHRProbationAssessment
-  - GetCoreHRCompany
-  - GetCoreHRCompanyList
-  - GetCoreHRContract
-  - GetCoreHRContractList
-  - GetCoreHRCountryRegion
-  - GetCoreHRCountryRegionList
-  - GetCoreHRCurrency
-  - GetCoreHRCurrencyList
-  - GetCoreHRCustomField
-  - GetCoreHRCustomFieldList
-  - GetCoreHRCustomFieldObjectApiNameList
-  - GetCoreHRDepartment
-  - GetCoreHRDepartmentList
-  - GetCoreHRDepartmentParentList
-  - GetCoreHREmployeeType
-  - GetCoreHREmployeeTypeList
-  - GetCoreHRJob
-  - GetCoreHRJobData
-  - GetCoreHRJobDataList
-  - GetCoreHRJobFamily
-  - GetCoreHRJobFamilyList
-  - GetCoreHRJobLevel
-  - GetCoreHRJobLevelList
-  - GetCoreHRJobList
-  - GetCoreHRJobListV2
-  - GetCoreHRJobV2
-  - GetCoreHRLeaveBalanceList
-  - GetCoreHRLeaveRequestHistoryList
-  - GetCoreHRLeaveTypeList
-  - GetCoreHRLocation
-  - GetCoreHRLocationList
-  - GetCoreHRNationalIDType
-  - GetCoreHRNationalIDTypeList
-  - GetCoreHROffboardingList
-  - GetCoreHRPerson
-  - GetCoreHRPreHire
-  - GetCoreHRPreHireList
-  - GetCoreHRProcess
-  - GetCoreHRProcessFormVariableData
-  - GetCoreHRProcessList
-  - GetCoreHRSecurityGroupBp
-  - GetCoreHRSecurityGroupList
-  - GetCoreHRSubdivision
-  - GetCoreHRSubdivisionList
-  - GetCoreHRSubregion
-  - GetCoreHRSubregionList
-  - GetCoreHRTransferReasonList
-  - GetCoreHRTransferTypeList
-  - GetCoreHRWorkingHoursType
-  - GetCoreHRWorkingHoursTypeList
-  - GetCoreHrbpByDepartment
-  - GetCoreHrbpList
-  - GetCorehrApprovalGroups
-  - GetCorehrDraft
-  - GetCorehrLeaveCalendarByScope
-  - GetCorehrProcessFlowVariableData
-  - GetCorehrProcessFormVariableData
-  - ListCorehrApprover
-  - ListCorehrEmployeesInternationalAssignment
-  - ListCorehrSignatureFile
-  - ListCorehrSignatureFileByBizID
-  - ListCorehrSignatureNodeByFileID
-  - ListCorehrSignatureTemplateInfoWithThumbnail
-  - ListCorehrWorkforcePlan
-  - QueryCoreHRJobData
-  - QueryCoreHRJobGrade
-  - QueryCorehrApprovalGroupsDepartmentChangeListByIDs
-  - QueryCorehrApprovalGroupsJobChangeListByIDs
-  - QueryCorehrApprovalGroupsPositionChangeListByIDs
-  - QueryCorehrCompanyMultiTimeline
-  - QueryCorehrCompanyRecentChange
-  - QueryCorehrCostCenterRecentChange
-  - QueryCorehrCustomOrg
-  - QueryCorehrCustomOrgRecentChange
-  - QueryCorehrDepartmentOperationLogs
-  - QueryCorehrDepartmentRecentChange
-  - QueryCorehrJobFamilyMultiTimeline
-  - QueryCorehrJobFamilyRecentChange
-  - QueryCorehrJobGradeRecentChange
-  - QueryCorehrJobLevelRecentChange
-  - QueryCorehrJobMultiTimeline
-  - QueryCorehrJobRecentChange
-  - QueryCorehrLocationMultiTimeline
-  - QueryCorehrLocationRecentChange
-  - QueryCorehrPosition
-  - QueryCorehrPositionRecentChange
-  - QueryCorehrPreHire
-  - QueryCorehrSignatureFile
-  - RemoveCorehrAuthorizationRoleAssign
-  - RemoveCorehrCostAllocationVersion
-  - RemoveCorehrDefaultCostCenterVersion
-  - SearchCoreHRAssignedUser
-  - SearchCoreHRCity
-  - SearchCoreHRContract
-  - SearchCoreHRCostCenter
-  - SearchCoreHRCountryRegion
-  - SearchCoreHRCountryRegionSubdivision
-  - SearchCoreHRCurrency
-  - SearchCoreHRDepartment
-  - SearchCoreHRDistrict
-  - SearchCoreHREmployee
-  - SearchCoreHRJobChange
-  - SearchCoreHROffboarding
-  - SearchCoreHRPreHire
-  - SearchCoreHRProbation
-  - SearchCorehrBasicInfoLanguage
-  - SearchCorehrBasicInfoTimeZone
-  - SearchCorehrEnum
-  - SearchCorehrSignatureTemplate
-  - UpdateCoreHRCompany
-  - UpdateCoreHRContract
-  - UpdateCoreHRCostCenterVersion
-  - UpdateCoreHRDepartment
-  - UpdateCoreHREmployeeType
-  - UpdateCoreHREmployment
-  - UpdateCoreHRJob
-  - UpdateCoreHRJobData
-  - UpdateCoreHRJobFamily
-  - UpdateCoreHRJobLevel
-  - UpdateCoreHRNationalIDType
-  - UpdateCoreHRPerson
-  - UpdateCoreHRPreHire
-  - UpdateCoreHRProbationAssessment
-  - UpdateCoreHRWorkingHoursType
-  - UpdateCorehrAuthorizationRoleAssign
-  - UpdateCorehrCostAllocationVersion
-  - UpdateCorehrCustomOrg
-  - UpdateCorehrCustomOrgRule
-  - UpdateCorehrDefaultCostCenterVersion
-  - UpdateCorehrDepartment
-  - UpdateCorehrEmployeesAdditionalJob
-  - UpdateCorehrEmployeesInternationalAssignment
-  - UpdateCorehrJobGrade
-  - UpdateCorehrLocation
-  - UpdateCorehrLocationAddress
-  - UpdateCorehrPathway
-  - UpdateCorehrPerson
-  - UpdateCorehrPosition
-  - UpdateCorehrPreHire
   - UpdateCorehrProcessApprover
   - UpdateCorehrProcessExtra
-  - UpdateCorehrProcessRevoke
+  - GetCorehrProcessFormVariableData
+  - CreateCorehrProcessQueryFlowDataTemplate
   - UpdateCorehrProcessTransfer
+  - GetCorehrProcessFlowVariableData
+  - UpdateCorehrProcessRevoke
+  - CreateCorehrProcessStart
   - UpdateCorehrProcessWithdraw
-  - UploadCoreHRPersonFile
+  - CreateCorehrReportDetailRowBatchdelete
+  - CreateCorehrReportDetailRowBatchsave
+  - DownloadCorehrSignatureFile
+  - ListCorehrSignatureFile
+  - ListCorehrSignatureFileByBizID
+  - QueryCorehrSignatureFile
+  - CreateCorehrSignatureFileTerminate
+  - ListCorehrSignatureNodeByFileID
+  - SearchCorehrSignatureTemplate
+  - ListCorehrSignatureTemplateInfoWithThumbnail
+  - ListCorehrWorkforcePlan
+  - BatchQueryCorehrWorkforcePlanDetail
+  - BatchCorehrWorkforcePlanDetailV2
+  - CreateCorehrWorkforcePlanDetailRowBatchdelete
+  - CreateCorehrWorkforcePlanDetailRowBatchsave
+  - AddCorehrAuthorizationRoleAssign
+  - GetCoreHRAuthorization
+  - GetCoreHRAuthorizationList
+  - RemoveCorehrAuthorizationRoleAssign
+  - UpdateCorehrAuthorizationRoleAssign
+  - CreateCorehrCommonDataIDConvert
+  - AddCorehrCommonDataMetaDataEnumOption
+  - CreateCorehrCommonDataMetaDataEditEnumOption
+  - MatchCoreHRCompensationStandard
+  - GetCorehrLeaveCalendarByScope
+  - CreateCorehrLeaveWorkCalendar
+  - CreateCorehrLeaveWorkCalendarDate
+  - CreateCorehrPerson
+  - UpdateCorehrPerson
 - Directory
   - CreateDirectoryCollaborationRule
-  - CreateDirectoryDepartment
-  - CreateDirectoryDepartmentFilter
-  - CreateDirectoryEmployee
-  - CreateDirectoryEmployeeFilter
-  - CreateDirectoryEmployeeResurrect
   - DeleteDirectoryCollaborationRule
-  - DeleteDirectoryDepartment
-  - DeleteDirectoryEmployee
   - ListDirectoryCollaborationRule
+  - UpdateDirectoryCollaborationRule
   - ListDirectoryCollaborationTenant
   - ListDirectoryCollborationShareEntity
+  - CreateDirectoryDepartment
+  - DeleteDirectoryDepartment
+  - CreateDirectoryDepartmentFilter
   - MGetDirectoryDepartment
-  - MGetDirectoryEmployee
-  - SearchDirectoryDepartment
-  - SearchDirectoryEmployee
-  - UpdateDirectoryCollaborationRule
   - UpdateDirectoryDepartment
+  - SearchDirectoryDepartment
+  - CreateDirectoryEmployee
+  - DeleteDirectoryEmployee
+  - CreateDirectoryEmployeeFilter
+  - MGetDirectoryEmployee
   - UpdateDirectoryEmployee
   - UpdateDirectoryEmployeeRegular
+  - CreateDirectoryEmployeeResurrect
+  - SearchDirectoryEmployee
   - UpdateDirectoryEmployeeToBeResigned
 - Docs
   - GetDocsContent
 - Drive
-  - GetWhiteboardNodeList
-  - CreateSpreadsheet
   - AddSheetDimensionRange
   - AddWikiSpaceMember
   - AppendSheetValue
   - BatchCreateDrivePermissionMember
   - BatchDeleteDocxBlock
-  - BatchDeleteDocxChatAnnouncementBlockChildren
   - BatchGetDriveComment
   - BatchGetDriveMediaTmpDownloadURL
   - BatchGetSheetValue
   - BatchSetSheetStyle
   - BatchSetSheetValue
-  - BatchUpdateDocxChatAnnouncementBlock
-  - BatchUpdateDocxDocumentBlock
   - BatchUpdateSheet
-  - CheckDriveMemberPermission
   - CheckDriveMemberPermissionOld
+  - CheckDriveMemberPermission
   - CopyDriveFile
   - CopyWikiNode
-  - CreateDocx
   - CreateDocxBlock
-  - CreateDocxChatAnnouncementBlockChildren
-  - CreateDocxDocumentBlockDescendant
-  - CreateDocxDocumentConvert
+  - CreateDocx
   - CreateDriveComment
   - CreateDriveDoc
   - CreateDriveExportTask
-  - CreateDriveFile
   - CreateDriveFileShortcut
   - CreateDriveFileSubscription
   - CreateDriveFileVersion
+  - CreateDriveFile
   - CreateDriveFolder
   - CreateDriveImportTask
-  - CreateDriveMemberPermission
   - CreateDriveMemberPermissionOld
+  - CreateDriveMemberPermission
   - CreateDrivePermissionPublicPassword
   - CreateSheetConditionFormat
   - CreateSheetDataValidationDropdown
-  - CreateSheetFilter
-  - CreateSheetFilterView
   - CreateSheetFilterViewCondition
+  - CreateSheetFilterView
+  - CreateSheetFilter
   - CreateSheetFloatImage
   - CreateSheetProtectedDimension
+  - CreateSpreadsheet
   - CreateWikiNode
   - CreateWikiSpace
   - DeleteDriveComment
-  - DeleteDriveFile
   - DeleteDriveFileVersion
-  - DeleteDriveMemberPermission
+  - DeleteDriveFile
   - DeleteDriveMemberPermissionOld
+  - DeleteDriveMemberPermission
   - DeleteDrivePermissionPublicPassword
   - DeleteDriveSheetFile
   - DeleteSheetConditionFormat
   - DeleteSheetDataValidationDropdown
   - DeleteSheetDimensionRange
-  - DeleteSheetFilter
-  - DeleteSheetFilterView
   - DeleteSheetFilterViewCondition
+  - DeleteSheetFilterView
+  - DeleteSheetFilter
   - DeleteSheetFloatImage
   - DeleteSheetProtectedDimension
   - DeleteWikiSpaceMember
@@ -943,17 +938,14 @@ API Count: 1621, Event Count: 153
   - FindSheet
   - FinishUploadDriveFile
   - FinishUploadDriveMedia
-  - GetDocxBlock
   - GetDocxBlockListOfBlock
   - GetDocxBlockListOfDocument
-  - GetDocxChatAnnouncement
-  - GetDocxChatAnnouncementBlock
-  - GetDocxChatAnnouncementBlockChildren
-  - GetDocxDocument
+  - GetDocxBlock
   - GetDocxDocumentRawContent
-  - GetDriveComment
+  - GetDocxDocument
   - GetDriveCommentList
   - GetDriveCommentReplyList
+  - GetDriveComment
   - GetDriveDocContent
   - GetDriveDocMeta
   - GetDriveDocRawContent
@@ -963,40 +955,39 @@ API Count: 1621, Event Count: 153
   - GetDriveFileStatistics
   - GetDriveFileSubscription
   - GetDriveFileTask
-  - GetDriveFileVersion
   - GetDriveFileVersionList
+  - GetDriveFileVersion
   - GetDriveFileViewRecordList
   - GetDriveFolderChildren
   - GetDriveFolderMeta
   - GetDriveImportTask
-  - GetDriveMemberPermissionList
   - GetDriveMemberPermissionListOld
-  - GetDrivePublicPermission
+  - GetDriveMemberPermissionList
   - GetDrivePublicPermissionOld
   - GetDrivePublicPermissionV2
+  - GetDrivePublicPermission
   - GetDriveRootFolderMeta
   - GetDriveSheetDefaultImportResult
-  - GetSheet
   - GetSheetConditionFormat
   - GetSheetDataValidationDropdown
-  - GetSheetFilter
-  - GetSheetFilterView
   - GetSheetFilterViewCondition
+  - GetSheetFilterView
+  - GetSheetFilter
   - GetSheetFloatImage
   - GetSheetList
   - GetSheetMeta
   - GetSheetProtectedDimension
   - GetSheetValue
+  - GetSheet
   - GetSpreadsheet
   - GetSubscribeDriveFile
-  - GetWikiNode
   - GetWikiNodeList
-  - GetWikiSpace
+  - GetWikiNode
   - GetWikiSpaceList
+  - GetWikiSpace
   - GetWikiTask
   - ImportSheet
   - InsertSheetDimensionRange
-  - ListDocxChatAnnouncementBlock
   - ListDriveFileLike
   - ListWikiSpaceMember
   - MergeSheetCell
@@ -1009,36 +1000,36 @@ API Count: 1621, Event Count: 153
   - PrepareUploadDriveFile
   - PrepareUploadDriveMedia
   - PrependSheetValue
-  - QuerySheetFilterView
   - QuerySheetFilterViewCondition
+  - QuerySheetFilterView
   - QuerySheetFloatImage
   - ReplaceSheet
   - SearchDriveFile
   - SearchWikiNode
   - SetSheetStyle
-  - SetSheetValue
   - SetSheetValueImage
+  - SetSheetValue
   - SubscribeDriveFile
   - TransferDriveMemberPermission
   - TransferDriveOwnerPermission
   - UnmergeSheetCell
   - UnsubscribeDriveFile
   - UpdateDocxBlock
-  - UpdateDriveComment
   - UpdateDriveCommentPatch
+  - UpdateDriveComment
   - UpdateDriveDocContent
   - UpdateDriveFileSubscription
-  - UpdateDriveMemberPermission
   - UpdateDriveMemberPermissionOld
+  - UpdateDriveMemberPermission
   - UpdateDrivePermissionPublicPassword
-  - UpdateDrivePublicPermission
   - UpdateDrivePublicPermissionV2
+  - UpdateDrivePublicPermission
   - UpdateSheetConditionFormat
   - UpdateSheetDataValidationDropdown
   - UpdateSheetDimensionRange
-  - UpdateSheetFilter
-  - UpdateSheetFilterView
   - UpdateSheetFilterViewCondition
+  - UpdateSheetFilterView
+  - UpdateSheetFilter
   - UpdateSheetFloatImage
   - UpdateSheetProperty
   - UpdateSheetProtectedDimension
@@ -1047,732 +1038,742 @@ API Count: 1621, Event Count: 153
   - UpdateWikiSpaceSetting
   - UploadDriveFile
   - UploadDriveMedia
+  - GetWhiteboardNodeList
+  - BatchDeleteDocxChatAnnouncementBlockChildren
+  - CreateDocxChatAnnouncementBlockChildren
+  - GetDocxChatAnnouncementBlockChildren
+  - BatchUpdateDocxChatAnnouncementBlock
+  - GetDocxChatAnnouncementBlock
+  - ListDocxChatAnnouncementBlock
+  - GetDocxChatAnnouncement
+  - CreateDocxDocumentBlockDescendant
+  - BatchUpdateDocxDocumentBlock
+  - CreateDocxDocumentConvert
 - EHR
-  - DownloadEHRAttachments
   - GetEHREmployeeList
+  - DownloadEHRAttachments
 - Event
   - GetEventOutboundIpList
 - EventCallback
-  - EventV1TripApproval
-  - EventV1AddBot
-  - EventV1AddUserToChat
-  - EventV1AppOpen
-  - EventV1AppStatusChange
-  - EventV1AppTicket
-  - EventV1AppUninstalled
-  - EventV1ApprovalCc
-  - EventV1ApprovalInstance
-  - EventV1ApprovalTask
-  - EventV1ChatDisband
-  - EventV1LeaveApprovalRevert
-  - EventV1LeaveApprovalV2
-  - EventV1OrderPaid
-  - EventV1OutApproval
-  - EventV1P2PChatCreate
-  - EventV1ReceiveMessage
-  - EventV1RemedyApproval
-  - EventV1RemoveBot
-  - EventV1RemoveUserFromChat
-  - EventV1RevokeAddUserFromChat
-  - EventV1ShiftApproval
-  - EventV1ThirdPartyMeetingRoomEventCreated
-  - EventV1ThirdPartyMeetingRoomEventDeleted
-  - EventV1ThirdPartyMeetingRoomEventUpdated
-  - EventV1WorkApproval
-  - EventV2ACSAccessRecordCreatedV1
-  - EventV2ACSUserUpdatedV1
-  - EventV2ApplicationApplicationAppVersionAuditV6
-  - EventV2ApplicationApplicationAppVersionPublishApplyV6
-  - EventV2ApplicationApplicationAppVersionPublishRevokeV6
-  - EventV2ApplicationApplicationCreatedV6
-  - EventV2ApplicationApplicationFeedbackCreatedV6
-  - EventV2ApplicationApplicationFeedbackUpdatedV6
-  - EventV2ApplicationApplicationVisibilityAddedV6
-  - EventV2ApplicationBotMenuV6
-  - EventV2ApprovalApprovalUpdatedV4
-  - EventV2AttendanceUserFlowCreatedV1
-  - EventV2AttendanceUserTaskUpdatedV1
-  - EventV2CalendarCalendarACLCreatedV4
-  - EventV2CalendarCalendarACLDeletedV4
-  - EventV2CalendarCalendarChangedV4
-  - EventV2CalendarCalendarEventChangedV4
-  - EventV2CardActionTrigger
-  - EventV2ContactCustomAttrEventUpdatedV3
-  - EventV2ContactDepartmentCreatedV3
-  - EventV2ContactDepartmentDeletedV3
-  - EventV2ContactDepartmentUpdatedV3
-  - EventV2ContactEmployeeTypeEnumActivedV3
-  - EventV2ContactEmployeeTypeEnumCreatedV3
-  - EventV2ContactEmployeeTypeEnumDeactivatedV3
-  - EventV2ContactEmployeeTypeEnumDeletedV3
-  - EventV2ContactEmployeeTypeEnumUpdatedV3
-  - EventV2ContactScopeUpdatedV3
-  - EventV2ContactUserCreatedV3
-  - EventV2ContactUserDeletedV3
-  - EventV2ContactUserUpdatedV3
-  - EventV2CorehrContractCreatedV1
-  - EventV2CorehrContractDeletedV1
-  - EventV2CorehrContractUpdatedV1
-  - EventV2CorehrDepartmentCreatedV1
-  - EventV2CorehrDepartmentDeletedV1
-  - EventV2CorehrDepartmentUpdatedV1
-  - EventV2CorehrEmploymentConvertedV1
-  - EventV2CorehrEmploymentCreatedV1
-  - EventV2CorehrEmploymentDeletedV1
-  - EventV2CorehrEmploymentResignedV1
-  - EventV2CorehrEmploymentUpdatedV1
-  - EventV2CorehrJobChangeUpdatedV1
+  - EventV2ElearningCourseRegistrationCreatedV2
+  - EventV2ElearningCourseRegistrationUpdatedV2
+  - EventV2ElearningCourseRegistrationDeletedV2
+  - EventV2URLPreviewGet
+  - EventV2HireApplicationStageChangedV1
+  - EventV2HireApplicationDeletedV1
   - EventV2CorehrJobCreatedV1
-  - EventV2CorehrJobDataChangedV1
-  - EventV2CorehrJobDataEmployedV1
-  - EventV2CorehrJobDeletedV1
   - EventV2CorehrJobUpdatedV1
-  - EventV2CorehrOffboardingChecklistUpdatedV2
-  - EventV2CorehrOffboardingStatusUpdatedV2
-  - EventV2CorehrOffboardingUpdatedV1
-  - EventV2CorehrOffboardingUpdatedV2
-  - EventV2CorehrOrgRoleAuthorizationUpdatedV1
-  - EventV2CorehrPersonCreatedV1
-  - EventV2CorehrPersonDeletedV1
-  - EventV2CorehrPersonUpdatedV1
-  - EventV2CorehrPreHireUpdatedV1
-  - EventV2CorehrProbationUpdatedV2
+  - EventV2CorehrJobDeletedV1
+  - EventV2CorehrProcessUpdatedV2
+  - EventV2CorehrProcessNodeUpdatedV2
   - EventV2CorehrProcessApproverUpdatedV2
   - EventV2CorehrProcessCcUpdatedV2
-  - EventV2CorehrProcessNodeUpdatedV2
-  - EventV2CorehrProcessUpdatedV2
+  - EventV2ContactCustomAttrEventUpdatedV3
+  - EventV2ApplicationApplicationCreatedV6
+  - EventV1AppOpen
+  - EventV1AppStatusChange
+  - EventV1OrderPaid
+  - EventV1AppTicket
+  - EventV1AppUninstalled
+  - EventV2ApplicationApplicationVisibilityAddedV6
+  - EventV2ApplicationApplicationAppVersionPublishApplyV6
+  - EventV2ApplicationApplicationAppVersionPublishRevokeV6
+  - EventV2ApplicationApplicationAppVersionAuditV6
+  - EventV1OutApproval
+  - EventV1RemedyApproval
+  - EventV1ShiftApproval
+  - EventV1WorkApproval
+  - EventV1LeaveApprovalV2
+  - EventV1LeaveApprovalRevert
+  - EventV2DriveFileCreatedInFolderV1
   - EventV2DriveFileBitableFieldChangedV1
   - EventV2DriveFileBitableRecordChangedV1
-  - EventV2DriveFileCreatedInFolderV1
-  - EventV2DriveFileDeletedV1
+  - EventV2DriveFileTitleUpdatedV1
+  - EventV2DriveFileReadV1
   - EventV2DriveFileEditV1
   - EventV2DriveFilePermissionMemberAddedV1
   - EventV2DriveFilePermissionMemberRemovedV1
-  - EventV2DriveFileReadV1
-  - EventV2DriveFileTitleUpdatedV1
   - EventV2DriveFileTrashedV1
-  - EventV2ElearningCourseRegistrationCreatedV2
-  - EventV2ElearningCourseRegistrationDeletedV2
-  - EventV2ElearningCourseRegistrationUpdatedV2
-  - EventV2HelpdeskNotificationApproveV1
-  - EventV2HelpdeskTicketCreatedV1
+  - EventV2DriveFileDeletedV1
+  - EventV2ApprovalApprovalUpdatedV4
+  - EventV1ThirdPartyMeetingRoomEventUpdated
+  - EventV1ThirdPartyMeetingRoomEventDeleted
+  - EventV2MeetingRoomMeetingRoomCreatedV1
+  - EventV2MeetingRoomMeetingRoomUpdatedV1
+  - EventV2MeetingRoomMeetingRoomStatusChangedV1
+  - EventV2MeetingRoomMeetingRoomDeletedV1
+  - EventV1ThirdPartyMeetingRoomEventCreated
+  - EventV2ApplicationApplicationFeedbackCreatedV6
+  - EventV2ApplicationApplicationFeedbackUpdatedV6
+  - EventV2TaskTaskUpdateTenantV1
+  - EventV2TaskTaskUpdatedV1
+  - EventV2TaskTaskCommentUpdatedV1
   - EventV2HelpdeskTicketMessageCreatedV1
+  - EventV2HelpdeskTicketCreatedV1
   - EventV2HelpdeskTicketUpdatedV1
-  - EventV2HireApplicationDeletedV1
-  - EventV2HireApplicationStageChangedV1
-  - EventV2HireEHRImportTaskForInternshipOfferImportedV1
-  - EventV2HireEHRImportTaskImportedV1
-  - EventV2HireEcoAccountCreatedV1
-  - EventV2HireEcoBackgroundCheckCanceledV1
-  - EventV2HireEcoBackgroundCheckCreatedV1
-  - EventV2HireEcoExamCreatedV1
-  - EventV2HireOfferStatusChangedV1
-  - EventV2HireReferralAccountAssetsUpdateV1
+  - EventV2HelpdeskNotificationApproveV1
+  - EventV2ContactDepartmentCreatedV3
+  - EventV2ContactDepartmentDeletedV3
+  - EventV2ContactDepartmentUpdatedV3
+  - EventV2ContactUserUpdatedV3
+  - EventV2ContactUserCreatedV3
+  - EventV2ContactUserDeletedV3
+  - EventV2ContactScopeUpdatedV3
+  - EventV2ContactEmployeeTypeEnumCreatedV3
+  - EventV2ContactEmployeeTypeEnumActivedV3
+  - EventV2ContactEmployeeTypeEnumDeactivatedV3
+  - EventV2ContactEmployeeTypeEnumUpdatedV3
+  - EventV2ContactEmployeeTypeEnumDeletedV3
+  - EventV2IMMessageReceiveV1
+  - EventV2IMMessageReadV1
+  - EventV2IMMessageReactionDeletedV1
+  - EventV2IMMessageReactionCreatedV1
   - EventV2IMChatDisbandedV1
+  - EventV2IMChatUpdatedV1
   - EventV2IMChatMemberBotAddedV1
   - EventV2IMChatMemberBotDeletedV1
   - EventV2IMChatMemberUserAddedV1
-  - EventV2IMChatMemberUserDeletedV1
   - EventV2IMChatMemberUserWithdrawnV1
-  - EventV2IMChatUpdatedV1
-  - EventV2IMMessageReactionCreatedV1
-  - EventV2IMMessageReactionDeletedV1
-  - EventV2IMMessageReadV1
-  - EventV2IMMessageRecalledV1
-  - EventV2IMMessageReceiveV1
-  - EventV2MeetingRoomMeetingRoomCreatedV1
-  - EventV2MeetingRoomMeetingRoomDeletedV1
-  - EventV2MeetingRoomMeetingRoomStatusChangedV1
-  - EventV2MeetingRoomMeetingRoomUpdatedV1
-  - EventV2TaskTaskCommentUpdatedV1
-  - EventV2TaskTaskUpdateTenantV1
-  - EventV2TaskTaskUpdatedV1
-  - EventV2URLPreviewGet
-  - EventV2VCMeetingAllMeetingEndedV1
-  - EventV2VCMeetingAllMeetingStartedV1
+  - EventV2IMChatMemberUserDeletedV1
+  - EventV2VCMeetingMeetingStartedV1
+  - EventV2VCMeetingMeetingEndedV1
   - EventV2VCMeetingJoinMeetingV1
   - EventV2VCMeetingLeaveMeetingV1
-  - EventV2VCMeetingMeetingEndedV1
-  - EventV2VCMeetingMeetingStartedV1
+  - EventV2VCMeetingRecordingStartedV1
   - EventV2VCMeetingRecordingEndedV1
   - EventV2VCMeetingRecordingReadyV1
-  - EventV2VCMeetingRecordingStartedV1
-  - EventV2VCMeetingShareEndedV1
   - EventV2VCMeetingShareStartedV1
-  - EventV2VCReserveConfigUpdatedV1
+  - EventV2VCMeetingShareEndedV1
+  - EventV2ACSAccessRecordCreatedV1
+  - EventV2ACSUserUpdatedV1
+  - EventV2CalendarCalendarACLCreatedV4
+  - EventV2CalendarCalendarACLDeletedV4
+  - EventV2CalendarCalendarEventChangedV4
+  - EventV2CalendarCalendarChangedV4
+  - EventV1AddBot
+  - EventV1RemoveBot
+  - EventV1P2PChatCreate
+  - EventV1ReceiveMessage
+  - EventV1AddUserToChat
+  - EventV1RemoveUserFromChat
+  - EventV1RevokeAddUserFromChat
+  - EventV1ChatDisband
+  - EventV1ApprovalInstance
+  - EventV1ApprovalTask
+  - EventV1ApprovalCc
+  - EventV2AttendanceUserTaskUpdatedV1
+  - EventV2AttendanceUserFlowCreatedV1
+  - EventV2IMMessageRecalledV1
   - EventV2VCRoomCreatedV1
   - EventV2VCRoomDeletedV1
+  - EventV2VCRoomUpdatedV1
+  - EventV2VCMeetingAllMeetingStartedV1
+  - EventV2VCMeetingAllMeetingEndedV1
   - EventV2VCRoomLevelCreatedV1
   - EventV2VCRoomLevelDeletedV1
   - EventV2VCRoomLevelUpdatedV1
-  - EventV2VCRoomUpdatedV1
+  - EventV2VCReserveConfigUpdatedV1
+  - EventV2ApplicationBotMenuV6
+  - EventV2HireOfferStatusChangedV1
+  - EventV2CorehrEmploymentCreatedV1
+  - EventV2CorehrEmploymentUpdatedV1
+  - EventV2CorehrEmploymentDeletedV1
+  - EventV2CorehrPersonCreatedV1
+  - EventV2CorehrPersonUpdatedV1
+  - EventV2CorehrPersonDeletedV1
+  - EventV2CorehrDepartmentCreatedV1
+  - EventV2CorehrDepartmentUpdatedV1
+  - EventV2CorehrDepartmentDeletedV1
+  - EventV2CorehrJobDataEmployedV1
+  - EventV2CorehrContractCreatedV1
+  - EventV2CorehrEmploymentConvertedV1
+  - EventV2CorehrJobChangeUpdatedV1
+  - EventV2CorehrJobDataChangedV1
+  - EventV2CorehrOffboardingUpdatedV1
+  - EventV2CorehrEmploymentResignedV1
+  - EventV2CorehrOrgRoleAuthorizationUpdatedV1
+  - EventV2HireEHRImportTaskForInternshipOfferImportedV1
+  - EventV2HireEHRImportTaskImportedV1
+  - EventV2CorehrProbationUpdatedV2
+  - EventV2CorehrPreHireUpdatedV1
+  - EventV2HireEcoAccountCreatedV1
+  - EventV2HireEcoBackgroundCheckCreatedV1
+  - EventV2HireEcoBackgroundCheckCanceledV1
+  - EventV2HireEcoExamCreatedV1
+  - EventV2HireReferralAccountAssetsUpdateV1
+  - EventV2CorehrContractDeletedV1
+  - EventV2CorehrContractUpdatedV1
+  - EventV1TripApproval
+  - EventV2CardActionTrigger
+  - EventV2CorehrOffboardingChecklistUpdatedV2
+  - EventV2CorehrOffboardingStatusUpdatedV2
+  - EventV2CorehrOffboardingUpdatedV2
 - File
-  - DownloadFile
+  - UploadImage
   - DownloadImage
   - UploadFile
-  - UploadImage
+  - DownloadFile
 - Helpdesk
-  - AnswerHelpdeskTicketUserQuery
-  - CancelApproveHelpdeskNotification
-  - CancelSendHelpdeskNotification
-  - CreateHelpdeskAgentSchedule
-  - CreateHelpdeskAgentSkill
-  - CreateHelpdeskCategory
-  - CreateHelpdeskFAQ
   - CreateHelpdeskNotification
-  - CreateHelpdeskTicketCustomizedField
-  - DeleteHelpdeskAgentSchedule
-  - DeleteHelpdeskAgentSkill
-  - DeleteHelpdeskCategory
-  - DeleteHelpdeskFAQ
-  - DeleteHelpdeskTicketCustomizedField
-  - DownloadHelpdeskTicketImage
+  - UpdateHelpdeskNotification
+  - GetHelpdeskNotification
+  - PreviewHelpdeskNotification
+  - SubmitApproveHelpdeskNotification
+  - CancelApproveHelpdeskNotification
   - ExecuteSendHelpdeskNotification
+  - CancelSendHelpdeskNotification
+  - StartHelpdeskService
+  - GetHelpdeskTicket
+  - UpdateHelpdeskTicket
+  - GetHelpdeskTicketList
+  - DownloadHelpdeskTicketImage
+  - AnswerHelpdeskTicketUserQuery
+  - GetHelpdeskTicketCustomizedFields
+  - GetHelpdeskTicketMessageList
+  - SendHelpdeskTicketMessage
+  - SendHelpdeskMessage
+  - GetHelpdeskTicketCustomizedFieldList
+  - DeleteHelpdeskTicketCustomizedField
+  - UpdateHelpdeskTicketCustomizedField
+  - CreateHelpdeskTicketCustomizedField
+  - GetHelpdeskTicketCustomizedField
+  - CreateHelpdeskCategory
+  - GetHelpdeskCategory
+  - UpdateHelpdeskCategory
+  - DeleteHelpdeskCategory
+  - GetHelpdeskCategoryList
+  - CreateHelpdeskFAQ
+  - GetHelpdeskFAQ
+  - UpdateHelpdeskFAQ
+  - DeleteHelpdeskFAQ
+  - GetHelpdeskFAQList
+  - GetHelpdeskFAQImage
+  - SearchHelpdeskFAQ
+  - UpdateHelpdeskAgent
   - GetHelpdeskAgentEmail
+  - CreateHelpdeskAgentSchedule
+  - DeleteHelpdeskAgentSchedule
+  - UpdateHelpdeskAgentSchedule
   - GetHelpdeskAgentSchedule
   - GetHelpdeskAgentScheduleList
+  - CreateHelpdeskAgentSkill
   - GetHelpdeskAgentSkill
+  - UpdateHelpdeskAgentSkill
+  - DeleteHelpdeskAgentSkill
   - GetHelpdeskAgentSkillList
   - GetHelpdeskAgentSkillRuleList
-  - GetHelpdeskCategory
-  - GetHelpdeskCategoryList
-  - GetHelpdeskFAQ
-  - GetHelpdeskFAQImage
-  - GetHelpdeskFAQList
-  - GetHelpdeskNotification
-  - GetHelpdeskTicket
-  - GetHelpdeskTicketCustomizedField
-  - GetHelpdeskTicketCustomizedFieldList
-  - GetHelpdeskTicketCustomizedFields
-  - GetHelpdeskTicketList
-  - GetHelpdeskTicketMessageList
-  - PreviewHelpdeskNotification
-  - SearchHelpdeskFAQ
-  - SendHelpdeskMessage
-  - SendHelpdeskTicketMessage
-  - StartHelpdeskService
-  - SubmitApproveHelpdeskNotification
   - SubscribeHelpdeskEvent
   - UnsubscribeHelpdeskEvent
-  - UpdateHelpdeskAgent
-  - UpdateHelpdeskAgentSchedule
-  - UpdateHelpdeskAgentSkill
-  - UpdateHelpdeskCategory
-  - UpdateHelpdeskFAQ
-  - UpdateHelpdeskNotification
-  - UpdateHelpdeskTicket
-  - UpdateHelpdeskTicketCustomizedField
 - Hire
+  - GetHireJobConfig
+  - CreateHireJob
+  - UpdateHireJob
+  - UpdateHireJobConfig
+  - GetHireJob
+  - GetHireJobManager
+  - QueryHireTalentObject
+  - GetHireTalent
+  - GetHireAttachment
+  - GetHireAttachmentPreview
+  - GetHireReferralWebsiteJobPostList
+  - GetHireReferralWebsiteJobPost
+  - GetHireReferralByApplication
+  - CreateHireExternalApplication
+  - UpdateHireExternalApplication
+  - DeleteHireExternalApplication
+  - CreateHireExternalInterview
+  - CreateHireExternalInterviewAssessment
+  - CreateHireExternalBackgroundCheck
   - AddHireTalentToFolder
-  - BatchDeleteHireEcoAccountCustomField
-  - BatchDeleteHireEcoBackgroundCheckCustomField
-  - BatchDeleteHireEcoBackgroundCheckPackage
-  - BatchDeleteHireEcoExamPaper
+  - GetHireTalentFolderList
   - BatchGetHireTalent
-  - BatchHireTalentPoolChangeTalentPool
-  - BatchQueryHireAgency
-  - BatchQueryHireBackgroundCheckOrder
-  - BatchQueryHireExternalBackgroundCheck
-  - BatchQueryHireExternalInterview
-  - BatchQueryHireExternalOffer
+  - GetHireJobProcessList
+  - CreateHireApplication
+  - TerminateHireApplication
+  - GetHireApplication
+  - GetHireApplicationList
+  - GetHireEvaluationList
+  - GetHireQuestionnaireList
+  - GetHireInterviewList
+  - CreateHireOffer
+  - UpdateHireOffer
+  - GetHireOfferByApplication
+  - GetHireOffer
+  - GetHireOfferList
+  - UpdateHireOfferStatus
+  - UpdateHireOfferInternStatus
+  - GetHireApplicationInterviewList
+  - GetHireOfferSchema
+  - UpdateHireEHRImportTask
+  - MakeHireTransferOnboardByApplication
+  - UpdateHireEmployee
+  - GetHireEmployeeByApplication
+  - GetHireEmployee
+  - CreateHireNote
+  - UpdateHireNote
+  - GetHireNote
+  - GetHireNoteList
+  - GetHireResumeSource
+  - CreateHireEcoAccountCustomField
   - BatchUpdateHireEcoAccountCustomField
+  - BatchDeleteHireEcoAccountCustomField
+  - CreateHireEcoBackgroundCheckCustomField
   - BatchUpdateHireEcoBackgroundCheckCustomField
+  - BatchDeleteHireEcoBackgroundCheckCustomField
+  - CreateHireEcoBackgroundCheckPackage
   - BatchUpdateHireEcoBackgroundCheckPackage
-  - BatchUpdateHireEcoExamPaper
+  - BatchDeleteHireEcoBackgroundCheckPackage
+  - UpdateHireEcoBackgroundCheckProgress
+  - UpdateHireEcoBackgroundCheckResult
   - CancelHireEcoBackgroundCheck
-  - CloseHireJob
+  - CreateHireEcoExamPaper
+  - BatchUpdateHireEcoExamPaper
+  - BatchDeleteHireEcoExamPaper
+  - CreateHireEcoExamLoginInfo
+  - UpdateHiredEcoExamResult
+  - CreateHireReferralAccount
+  - DeactivateHireReferralAccount
+  - WithdrawHireReferralAccount
+  - ReconcileHireReferralAccount
+  - GetHireInterviewRecord
+  - ListHireInterviewRecord
+  - GetHireTalentV2
+  - CreateHireAttachment
   - CreateHireAdvertisementPublish
+  - BatchQueryHireAgency
+  - GetHireAgency
+  - GetHireAgencyAccount
   - CreateHireAgencyOperateAgencyAccount
   - CreateHireAgencyProtect
   - CreateHireAgencyProtectSearch
-  - CreateHireApplication
+  - QueryHireAgency
   - CreateHireApplicationCancelOnboard
-  - CreateHireApplicationRecover
-  - CreateHireAttachment
-  - CreateHireEcoAccountCustomField
-  - CreateHireEcoBackgroundCheckCustomField
-  - CreateHireEcoBackgroundCheckPackage
-  - CreateHireEcoExamLoginInfo
-  - CreateHireEcoExamPaper
-  - CreateHireExam
-  - CreateHireExternalApplication
-  - CreateHireExternalBackgroundCheck
-  - CreateHireExternalInterview
-  - CreateHireExternalInterviewAssessment
-  - CreateHireExternalOffer
-  - CreateHireExternalReferralReward
-  - CreateHireJob
-  - CreateHireJobRequirement
-  - CreateHireNote
-  - CreateHireOffer
-  - CreateHireReferralAccount
-  - CreateHireReferralAccountEnable
-  - CreateHireTalentBlocklistChangeTalentBlock
-  - CreateHireTalentCombinedCreate
-  - CreateHireTalentCombinedUpdate
-  - CreateHireTalentExternalInfo
-  - CreateHireTalentOnboardStatus
-  - CreateHireTalentPoolMoveTalent
-  - CreateHireTalentTag
-  - CreateHireTripartiteAgreement
-  - CreateHireWebsiteChannel
-  - CreateHireWebsiteDeliveryByAttachment
-  - CreateHireWebsiteDeliveryByResume
-  - CreateHireWebsiteSiteUser
-  - DeactivateHireReferralAccount
-  - DeleteHireExternalApplication
-  - DeleteHireExternalBackgroundCheck
-  - DeleteHireExternalInterview
-  - DeleteHireExternalOffer
-  - DeleteHireExternalReferralReward
-  - DeleteHireJobRequirement
-  - DeleteHireNote
-  - DeleteHireTripartiteAgreement
-  - DeleteHireWebsiteChannel
-  - GetHireAgency
-  - GetHireAgencyAccount
-  - GetHireApplication
   - GetHireApplicationDetail
-  - GetHireApplicationInterviewList
-  - GetHireApplicationList
-  - GetHireAttachment
-  - GetHireAttachmentPreview
-  - GetHireEmployee
-  - GetHireEmployeeByApplication
-  - GetHireEvaluationList
-  - GetHireInterviewByTalent
-  - GetHireInterviewList
-  - GetHireInterviewRecord
-  - GetHireInterviewRecordAttachment
-  - GetHireInterviewRecordV1
-  - GetHireJob
-  - GetHireJobConfig
-  - GetHireJobDetail
-  - GetHireJobManager
-  - GetHireJobProcessList
-  - GetHireJobRecruiter
-  - GetHireMinutes
-  - GetHireNote
-  - GetHireNoteList
-  - GetHireOffer
-  - GetHireOfferApplicationForm
-  - GetHireOfferByApplication
-  - GetHireOfferList
-  - GetHireOfferSchema
-  - GetHireQuestionnaireList
-  - GetHireReferralAccountAssets
-  - GetHireReferralByApplication
-  - GetHireReferralWebsiteJobPost
-  - GetHireReferralWebsiteJobPostList
-  - GetHireResumeSource
-  - GetHireRole
-  - GetHireTalent
-  - GetHireTalentFolderList
-  - GetHireTalentList
-  - GetHireTalentV2
-  - GetHireWebsiteDeliveryTask
-  - GetHireWebsiteJobPost
+  - CreateHireApplicationRecover
+  - TransferHireApplicationStage
+  - BatchQueryHireBackgroundCheckOrder
   - ListHireBackgroundCheckOrder
+  - SearchHireDiversityInclusion
   - ListHireEvaluationTask
+  - CreateHireExam
   - ListHireExamMarkingTask
   - ListHireExternalApplication
+  - BatchQueryHireExternalBackgroundCheck
+  - DeleteHireExternalBackgroundCheck
+  - UpdateHireExternalBackgroundCheck
+  - BatchQueryHireExternalInterview
+  - DeleteHireExternalInterview
+  - UpdateHireExternalInterview
+  - UpdateHireExternalInterviewAssessment
+  - BatchQueryHireExternalOffer
+  - CreateHireExternalOffer
+  - DeleteHireExternalOffer
+  - UpdateHireExternalOffer
+  - CreateHireExternalReferralReward
+  - DeleteHireExternalReferralReward
+  - GetHireInterviewByTalent
   - ListHireInterviewFeedbackForm
-  - ListHireInterviewRecord
+  - GetHireInterviewRecordAttachment
+  - GetHireInterviewRecordV1
   - ListHireInterviewRecordV1
   - ListHireInterviewRegistrationSchema
   - ListHireInterviewRoundType
   - ListHireInterviewTask
   - ListHireInterviewer
+  - UpdateHireInterviewer
+  - CloseHireJob
+  - GetHireJobDetail
   - ListHireJob
+  - OpenHireJob
+  - GetHireJobRecruiter
   - ListHireJobFunction
+  - SearchHireJobPublishRecord
+  - CreateHireJobRequirement
+  - DeleteHireJobRequirement
   - ListHireJobRequirement
   - ListHireJobRequirementByID
+  - UpdateHireJobRequirement
   - ListHireJobRequirementSchema
   - ListHireJobSchema
   - ListHireJobType
   - ListHireLocation
+  - QueryHireLocation
+  - GetHireMinutes
+  - DeleteHireNote
+  - GetHireOfferApplicationForm
   - ListHireOfferApplicationForm
   - ListHireOfferApprovalTemplate
+  - UpdateHireOfferCustomField
   - ListHirePortalApplySchema
+  - SearchHireReferral
+  - CreateHireReferralAccountEnable
+  - GetHireReferralAccountAssets
   - ListHireRegistrationSchema
+  - GetHireRole
   - ListHireRole
   - ListHireSubject
+  - CreateHireTalentExternalInfo
+  - UpdateHireTalentExternalInfo
+  - CreateHireTalentCombinedCreate
+  - CreateHireTalentCombinedUpdate
+  - GetHireTalentList
+  - CreateHireTalentOnboardStatus
+  - RemoveHireTalentToFolder
+  - CreateHireTalentTag
+  - SearchHireTalentOperationLog
+  - CreateHireTalentBlocklistChangeTalentBlock
+  - BatchHireTalentPoolChangeTalentPool
+  - CreateHireTalentPoolMoveTalent
+  - SearchHireTalentPool
   - ListHireTalentTag
   - ListHireTerminationReason
-  - ListHireTodo
-  - ListHireTripartiteAgreement
-  - ListHireUserRole
-  - ListHireWebsite
-  - ListHireWebsiteChannel
-  - ListHireWebsiteJobPost
-  - MakeHireTransferOnboardByApplication
-  - OpenHireJob
-  - QueryHireAgency
-  - QueryHireLocation
-  - QueryHireTalentObject
-  - ReconcileHireReferralAccount
-  - RemoveHireTalentToFolder
-  - SearchHireDiversityInclusion
-  - SearchHireJobPublishRecord
-  - SearchHireReferral
-  - SearchHireTalentOperationLog
-  - SearchHireTalentPool
   - SearchHireTest
-  - SearchHireWebsiteJobPost
-  - TerminateHireApplication
-  - TransferHireApplicationStage
-  - UpdateHireEHRImportTask
-  - UpdateHireEcoBackgroundCheckProgress
-  - UpdateHireEcoBackgroundCheckResult
-  - UpdateHireEmployee
-  - UpdateHireExternalApplication
-  - UpdateHireExternalBackgroundCheck
-  - UpdateHireExternalInterview
-  - UpdateHireExternalInterviewAssessment
-  - UpdateHireExternalOffer
-  - UpdateHireInterviewer
-  - UpdateHireJob
-  - UpdateHireJobConfig
-  - UpdateHireJobRequirement
-  - UpdateHireNote
-  - UpdateHireOffer
-  - UpdateHireOfferCustomField
-  - UpdateHireOfferInternStatus
-  - UpdateHireOfferStatus
-  - UpdateHireTalentExternalInfo
+  - ListHireTodo
+  - CreateHireTripartiteAgreement
+  - DeleteHireTripartiteAgreement
+  - ListHireTripartiteAgreement
   - UpdateHireTripartiteAgreement
+  - ListHireUserRole
+  - CreateHireWebsiteChannel
+  - DeleteHireWebsiteChannel
+  - ListHireWebsiteChannel
   - UpdateHireWebsiteChannel
-  - UpdateHiredEcoExamResult
-  - WithdrawHireReferralAccount
+  - CreateHireWebsiteDeliveryByAttachment
+  - CreateHireWebsiteDeliveryByResume
+  - GetHireWebsiteDeliveryTask
+  - GetHireWebsiteJobPost
+  - ListHireWebsiteJobPost
+  - SearchHireWebsiteJobPost
+  - CreateHireWebsiteSiteUser
+  - ListHireWebsite
 - HumanAuth
-  - CreateIdentity
-  - CropFaceVerifyImage
   - GetFaceVerifyAuthResult
   - UploadFaceVerifyImage
+  - CropFaceVerifyImage
+  - CreateIdentity
 - Jssdk
-  - GenerateJssdkSignature
   - GetJssdkTicket
+  - GenerateJssdkSignature
 - Lingo
-  - BatchHighlightLingoEntity
   - CreateLingoDraft
-  - CreateLingoEntity
+  - UpdateLingoDraft
   - DeleteLingoEntity
-  - DownloadLingoFile
-  - ExtractLingoEntity
-  - GetLingoClassificationList
+  - CreateLingoEntity
+  - UpdateLingoEntity
   - GetLingoEntity
   - GetLingoEntityList
-  - GetLingoRepoList
-  - HighlightLingoEntity
   - MatchLingoEntity
   - SearchLingoEntity
-  - UpdateLingoDraft
-  - UpdateLingoEntity
+  - HighlightLingoEntity
+  - ExtractLingoEntity
+  - GetLingoClassificationList
+  - GetLingoRepoList
   - UploadLingoFile
+  - DownloadLingoFile
+  - BatchHighlightLingoEntity
 - MDM
   - BindMDMUserAuthDataRelation
+  - UnbindMDMUserAuthDataRelation
   - GetMDMBatchCountryRegion
   - ListMDMCountryRegion
-  - UnbindMDMUserAuthDataRelation
 - Mail
-  - ApplyMailRule
-  - CreateUserMailboxMailContact
-  - CreateMailUserMailboxFolder
-  - CreateMailUserMailboxRule
-  - DeleteUserMailboxMailContact
-  - DeleteMailUserMailboxFolder
-  - DeleteMailUserMailboxRule
-  - ListUserMailboxMailContact
-  - GetMailUserMailboxEventSubscription
-  - ListMailUserMailboxFolder
-  - GetMailUserMailboxMessage
-  - ListMailUserMailboxMessage
-  - GetMailMessageSubscription
-  - ListMailUserMailboxRule
-  - CreateMailUserMailboxRuleReorder
-  - CreateMailUserMailboxMessageSend
-  - SubscribeMailUserMailboxEvent
-  - SubscribeMailMessage
-  - UnsubscribeMailUserMailboxEvent
-  - UnsubscribeMailUserMailboxEvent
-  - UpdateUserMailboxMailContact
-  - UpdateMailUserMailboxFolder
-  - UpdateMailUserMailboxRule
-  - BatchCreateMailGroupManager
-  - BatchCreateMailGroupMember
-  - BatchCreateMailGroupPermissionMember
-  - BatchCreatePublicMailboxMember
-  - BatchDeleteMailGroupManager
-  - BatchDeleteMailGroupMember
-  - BatchDeleteMailGroupPermissionMember
-  - BatchDeletePublicMailboxMember
-  - ClearPublicMailboxMember
+  - GetMailUser
   - CreateMailGroup
-  - CreateMailGroupAlias
-  - CreateMailGroupMember
-  - CreateMailGroupPermissionMember
-  - CreateMailPublicMailboxAlias
-  - CreateMailUserMailboxAlias
-  - CreatePublicMailbox
-  - CreatePublicMailboxMember
   - DeleteMailGroup
-  - DeleteMailGroupAlias
-  - DeleteMailGroupMember
-  - DeleteMailGroupPermissionMember
-  - DeleteMailPublicMailboxAlias
-  - DeleteMailUserMailbox
-  - DeleteMailUserMailboxAlias
-  - DeletePublicMailbox
-  - DeletePublicMailboxMember
-  - DownloadMailUserMailboxMessageAttachmentURL
+  - UpdateMailGroupPatch
+  - UpdateMailGroup
   - GetMailGroup
-  - GetMailGroupAliasList
   - GetMailGroupList
+  - BatchCreateMailGroupManager
+  - BatchDeleteMailGroupManager
   - GetMailGroupManagerList
+  - CreateMailGroupMember
+  - DeleteMailGroupMember
   - GetMailGroupMember
   - GetMailGroupMemberList
+  - BatchCreateMailGroupMember
+  - BatchDeleteMailGroupMember
+  - CreateMailGroupPermissionMember
+  - DeleteMailGroupPermissionMember
   - GetMailGroupPermissionMember
   - GetMailGroupPermissionMemberList
-  - GetMailPublicMailboxAliasList
-  - GetMailUser
-  - GetMailUserMailboxAliasList
-  - GetMailUserMailboxMessageByCard
+  - BatchCreateMailGroupPermissionMember
+  - BatchDeleteMailGroupPermissionMember
+  - CreateMailGroupAlias
+  - GetMailGroupAliasList
+  - DeleteMailGroupAlias
+  - CreatePublicMailbox
   - GetPublicMailbox
   - GetPublicMailboxList
+  - UpdatePublicMailboxPatch
+  - UpdatePublicMailbox
+  - DeletePublicMailbox
+  - CreatePublicMailboxMember
   - GetPublicMailboxMember
   - GetPublicMailboxMemberList
+  - BatchCreatePublicMailboxMember
+  - BatchDeletePublicMailboxMember
+  - DeletePublicMailboxMember
+  - ClearPublicMailboxMember
+  - CreateMailPublicMailboxAlias
+  - GetMailPublicMailboxAliasList
+  - DeleteMailPublicMailboxAlias
+  - CreateMailUserMailboxAlias
+  - DeleteMailUserMailboxAlias
+  - GetMailUserMailboxAliasList
+  - DeleteMailUserMailbox
   - RemoveMailPublicMailboxToRecycleBin
-  - UpdateMailGroup
-  - UpdateMailGroupPatch
-  - UpdatePublicMailbox
-  - UpdatePublicMailboxPatch
+  - SubscribeMailUserMailboxEvent
+  - GetMailUserMailboxEventSubscription
+  - UnsubscribeMailUserMailboxEvent
+  - CreateMailUserMailboxFolder
+  - DeleteMailUserMailboxFolder
+  - ListMailUserMailboxFolder
+  - UpdateMailUserMailboxFolder
+  - CreateUserMailboxMailContact
+  - DeleteUserMailboxMailContact
+  - ListUserMailboxMailContact
+  - UpdateUserMailboxMailContact
+  - DownloadMailUserMailboxMessageAttachmentURL
+  - GetMailUserMailboxMessage
+  - GetMailUserMailboxMessageByCard
+  - ListMailUserMailboxMessage
+  - CreateMailUserMailboxMessageSend
+  - CreateMailUserMailboxRule
+  - DeleteMailUserMailboxRule
+  - ListMailUserMailboxRule
+  - CreateMailUserMailboxRuleReorder
+  - UpdateMailUserMailboxRule
+  - ApplyMailRule
+  - GetMailMessageSubscription
+  - SubscribeMailMessage
 - MeetingRoom
   - GetMeetingRoomCustomization
 - Message
-  - CreateAppFeedCard
-  - CreateIMTagRelation
-  - DeleteAppFeedCard
-  - ListIMTagRelation
-  - UpdateAppFeedCard
-  - DeleteIMTagRelation
-  - UpdateAppFeedCardButton
-  - InstantReminderAppFeedCard
-  - BatchDeleteMessage
-  - BatchSendOldRawMessage
-  - BatchUpdateURLPreview
-  - CreateIMMessagePushFollowUp
-  - CreateIMTag
-  - CreateMessagePin
-  - CreateMessageReaction
-  - DeleteEphemeralMessage
-  - DeleteMessage
-  - DeleteMessagePin
-  - DeleteMessageReaction
-  - ForwardMessage
-  - ForwardThreadMessage
-  - GetBatchSentMessageProgress
-  - GetBatchSentMessageReadUser
-  - GetMessage
-  - GetMessageFile
-  - GetMessageList
-  - GetMessagePinList
-  - GetMessageReactionList
-  - GetMessageReadUserList
-  - GetMessageSpecialFocusList
-  - GetMessageSpecialFocusUnread
-  - MGetIMTag
-  - MergeForwardMessage
-  - Reply
-  - ReplyRawMessage
-  - Send
   - SendEphemeralMessage
-  - SendRawMessage
-  - SendRawMessageOld
   - SendUrgentAppMessage
-  - SendUrgentPhoneMessage
   - SendUrgentSmsMessage
-  - UpdateIMFeedCardBotTimeSentive
-  - UpdateIMTag
+  - SendUrgentPhoneMessage
+  - SendRawMessageOld
+  - BatchSendOldRawMessage
+  - SendRawMessage
+  - ReplyRawMessage
+  - UpdateMessageEdit
+  - DeleteMessage
+  - ForwardMessage
+  - MergeForwardMessage
+  - ForwardThreadMessage
+  - BatchDeleteMessage
   - UpdateMessage
   - UpdateMessageDelay
-  - UpdateMessageEdit
+  - GetMessageReadUserList
+  - GetBatchSentMessageReadUser
+  - GetBatchSentMessageProgress
+  - GetMessageList
+  - GetMessageFile
+  - GetMessage
+  - DeleteEphemeralMessage
+  - CreateMessageReaction
+  - GetMessageReactionList
+  - DeleteMessageReaction
+  - CreateMessagePin
+  - DeleteMessagePin
+  - GetMessagePinList
+  - GetMessageSpecialFocusList
+  - GetMessageSpecialFocusUnread
+  - DeleteAppFeedCard
+  - UpdateAppFeedCard
+  - CreateAppFeedCard
+  - CreateIMTagRelation
+  - ListIMTagRelation
+  - DeleteIMTagRelation
+  - UpdateAppFeedCardButton
+  - UpdateIMFeedCardBotTimeSentive
+  - InstantReminderAppFeedCard
+  - CreateIMTag
+  - UpdateIMTag
+  - BatchUpdateURLPreview
+  - CreateIMMessagePushFollowUp
+  - MGetIMTag
+  - Reply
+  - Send
 - Mina
   - MinaCodeToSession
 - Minutes
+  - GetMinutesStatistics
   - GetMinutesMinute
   - GetMinutesMinuteMedia
   - GetMinutesMinuteTranscript
-  - GetMinutesStatistics
 - Moments
   - GetMomentsPost
 - OKR
-  - GetOKRReview
-  - BatchGetOKR
-  - BatchUpdateOKRMetricSourceTableItem
   - CreateOKRPeriod
-  - CreateOKRProgressRecord
-  - DeleteOKRProgressRecord
-  - GetOKRMetricSourceList
-  - GetOKRMetricSourceTableItem
-  - GetOKRMetricSourceTableItemList
-  - GetOKRMetricSourceTableList
+  - UpdateOKRPeriod
   - GetOKRPeriodList
   - GetOKRPeriodRuleList
-  - GetOKRProgressRecord
+  - BatchGetOKR
   - GetUserOKRList
-  - UpdateOKRMetricSourceTableItem
-  - UpdateOKRPeriod
+  - DeleteOKRProgressRecord
   - UpdateOKRProgressRecord
+  - GetOKRProgressRecord
+  - CreateOKRProgressRecord
   - UploadOKRImage
+  - GetOKRMetricSourceList
+  - GetOKRMetricSourceTableList
+  - BatchUpdateOKRMetricSourceTableItem
+  - UpdateOKRMetricSourceTableItem
+  - GetOKRMetricSourceTableItem
+  - GetOKRMetricSourceTableItemList
+  - GetOKRReview
 - Passport
-  - CreatePassportSessionLogout
   - GetPassportSession
+  - CreatePassportSessionLogout
 - Payroll
-  - CreatePayrollDatasourceRecordSave
-  - CreatePayrollPaymentActivityArchive
   - ListPayrollAcctItem
   - ListPayrollCostAllocationDetail
   - ListPayrollCostAllocationPlan
   - ListPayrollCostAllocationReport
   - ListPayrollDatasource
+  - QueryPayrollDatasourceRecord
+  - CreatePayrollDatasourceRecordSave
   - ListPayrollPaygroup
+  - CreatePayrollPaymentActivityArchive
   - ListPayrollPaymentActivity
   - ListPayrollPaymentActivityDetail
-  - QueryPayrollDatasourceRecord
   - QueryPayrollPaymentDetail
 - Performance
-  - CreatePerformanceAdditionalInformationImport
-  - CreatePerformanceMetricDetailImport
-  - CreatePerformanceUserGroupUserRelWrite
-  - DeletePerformanceAdditionalInformationsBatch
-  - GetPerformanceReviewData
   - GetPerformanceSemesterList
-  - GetPerformanceStageTaskByPage
   - GetPerformanceStageTaskByUser
-  - ListPerformanceMetricTag
+  - GetPerformanceStageTaskByPage
+  - GetPerformanceReviewData
   - QueryPerformanceActivity
+  - CreatePerformanceAdditionalInformationImport
   - QueryPerformanceAdditionalInformation
+  - DeletePerformanceAdditionalInformationsBatch
   - QueryPerformanceIndicator
+  - CreatePerformanceMetricDetailImport
   - QueryPerformanceMetricDetail
   - QueryPerformanceMetricField
   - QueryPerformanceMetricLib
+  - ListPerformanceMetricTag
   - QueryPerformanceMetricTemplate
   - QueryPerformanceQuestion
   - QueryPerformanceReviewData
   - QueryPerformanceReviewTemplate
   - QueryPerformanceReviewee
+  - CreatePerformanceUserGroupUserRelWrite
   - QueryPerformanceUserInfo
 - PersonalSettings
-  - BatchClosePersonalSettingsSystemStatus
-  - BatchOpenPersonalSettingsSystemStatus
   - CreatePersonalSettingsSystemStatus
   - DeletePersonalSettingsSystemStatus
-  - GetPersonalSettingsSystemStatusList
   - UpdatePersonalSettingsSystemStatus
+  - GetPersonalSettingsSystemStatusList
+  - BatchOpenPersonalSettingsSystemStatus
+  - BatchClosePersonalSettingsSystemStatus
 - Report
-  - QueryReportRule
   - RemoveReportView
+  - QueryReportRule
   - QueryReportTask
 - Search
-  - BatchCreateSearchDataSourceItem
-  - CreateSearchDataSource
-  - CreateSearchDataSourceItem
-  - CreateSearchSchema
-  - DeleteSearchDataSource
-  - DeleteSearchDataSourceItem
-  - DeleteSearchSchema
-  - GetSearchDataSource
-  - GetSearchDataSourceItem
-  - GetSearchDataSourceList
-  - GetSearchSchema
-  - SearchApp
   - SearchMessage
-  - SearchSearchDocWiki
+  - SearchApp
+  - CreateSearchDataSource
+  - GetSearchDataSource
   - UpdateSearchDataSource
+  - GetSearchDataSourceList
+  - DeleteSearchDataSource
+  - BatchCreateSearchDataSourceItem
+  - CreateSearchDataSourceItem
+  - GetSearchDataSourceItem
+  - DeleteSearchDataSourceItem
   - UpdateSearchSchema
+  - DeleteSearchSchema
+  - GetSearchSchema
+  - CreateSearchSchema
+  - SearchSearchDocWiki
 - SecurityAndCompliance
+  - ListSecurityAndComplianceOpenapiLogData
+  - UpdateSecurityAndComplianceDeviceApplyRecord
   - CreateSecurityAndComplianceDeviceRecord
   - DeleteSecurityAndComplianceDeviceRecord
   - GetSecurityAndComplianceDeviceRecord
-  - GetSecurityAndComplianceDeviceRecordMine
   - ListSecurityAndComplianceDeviceRecord
-  - ListSecurityAndComplianceOpenapiLogData
-  - UpdateSecurityAndComplianceDeviceApplyRecord
+  - GetSecurityAndComplianceDeviceRecordMine
   - UpdateSecurityAndComplianceDeviceRecord
 - Task
+  - CreateTaskFollower
+  - DeleteTaskFollower
+  - BatchDeleteTaskFollower
+  - GetTaskFollowerList
+  - CreateTaskCollaborator
+  - DeleteTaskCollaborator
+  - BatchDeleteTaskCollaborator
+  - GetTaskCollaboratorList
+  - CreateTaskReminder
+  - GetTaskReminderList
+  - DeleteTaskReminder
+  - CreateTask
+  - GetTask
+  - GetTaskList
+  - DeleteTask
+  - UpdateTask
+  - CompleteTask
+  - UncompleteTask
+  - CreateTaskComment
+  - GetTaskComment
+  - DeleteTaskComment
+  - UpdateTaskComment
+  - DeleteTaskAttachment
+  - GetTaskAttachment
+  - GetTaskAttachmentList
+  - UploadTaskAttachment
+  - CreateTaskCommentV2
+  - DeleteTaskCommentV2
+  - GetTaskCommentV2
+  - ListTaskComment
+  - UpdateTaskCommentV2
+  - CreateTaskCustomFieldOption
+  - UpdateTaskCustomFieldOption
+  - AddTaskCustomField
+  - CreateTaskCustomField
+  - GetTaskCustomField
+  - ListTaskCustomField
+  - UpdateTaskCustomField
+  - RemoveTaskCustomField
+  - CreateTaskSection
+  - DeleteTaskSection
+  - GetTaskSection
+  - GetTaskSectionList
+  - UpdateTaskSection
+  - GetTaskTaskListOfSection
+  - CreateTaskSubtask
+  - GetTaskSubtaskList
   - AddTaskDependency
   - AddTaskMember
   - AddTaskReminder
   - AddTaskTasklist
-  - AddTaskTasklistMember
-  - CreateTaskSubtask
-  - GetTaskTaskListOfSection
-  - GetTaskTaskListOfTasklist
-  - GetTaskSubtaskList
   - RemoveTaskDependency
   - RemoveTaskMember
   - RemoveTaskReminder
   - RemoveTaskTasklist
-  - RemoveTaskTasklistMember
-  - AddTaskCustomField
-  - BatchDeleteTaskCollaborator
-  - BatchDeleteTaskFollower
-  - CompleteTask
-  - CreateTask
-  - CreateTaskCollaborator
-  - CreateTaskComment
-  - CreateTaskCommentV2
-  - CreateTaskCustomField
-  - CreateTaskCustomFieldOption
-  - CreateTaskFollower
-  - CreateTaskReminder
-  - CreateTaskSection
-  - CreateTaskTasklist
+  - GetTaskTasklists
   - CreateTaskTasklistActivitySubscription
-  - DeleteTask
-  - DeleteTaskAttachment
-  - DeleteTaskCollaborator
-  - DeleteTaskComment
-  - DeleteTaskCommentV2
-  - DeleteTaskFollower
-  - DeleteTaskReminder
-  - DeleteTaskSection
-  - DeleteTaskTasklist
   - DeleteTaskTasklistActivitySubscription
-  - GetTask
-  - GetTaskAttachment
-  - GetTaskAttachmentList
-  - GetTaskCollaboratorList
-  - GetTaskComment
-  - GetTaskCommentV2
-  - GetTaskCustomField
-  - GetTaskFollowerList
-  - GetTaskList
-  - GetTaskReminderList
-  - GetTaskSection
-  - GetTaskSectionList
-  - GetTaskTasklist
   - GetTaskTasklistActivitySubscription
   - GetTaskTasklistActivitySubscriptionList
-  - GetTaskTasklistList
-  - GetTaskTasklists
-  - ListTaskComment
-  - ListTaskCustomField
-  - RemoveTaskCustomField
-  - UncompleteTask
-  - UpdateTask
-  - UpdateTaskComment
-  - UpdateTaskCommentV2
-  - UpdateTaskCustomField
-  - UpdateTaskCustomFieldOption
-  - UpdateTaskSection
-  - UpdateTaskTasklist
   - UpdateTaskTasklistActivitySubscription
-  - UploadTaskAttachment
+  - AddTaskTasklistMember
+  - CreateTaskTasklist
+  - DeleteTaskTasklist
+  - GetTaskTasklist
+  - GetTaskTasklistList
+  - UpdateTaskTasklist
+  - RemoveTaskTasklistMember
+  - GetTaskTaskListOfTasklist
 - TaskV1
+  - GetTaskV1CommentList
   - CreateTaskV1
   - DeleteTaskV1
-  - GetTaskV1CommentList
   - GetTaskV1
   - GetTaskV1List
   - UpdateTaskV1
@@ -1794,86 +1795,86 @@ API Count: 1621, Event Count: 153
   - UncompleteTaskV1
   - UpdateTaskV1Comment
 - Tenant
-  - GetTenant
   - GetTenantProductAssignInfo
+  - GetTenant
 - TrustParty
-  - GetTrustPartyCollaborationTenant
   - GetTrustPartyCollaborationTenantCollaborationDepartment
   - GetTrustPartyCollaborationTenantCollaborationUser
-  - GetTrustPartyCollaborationTenantVisibleOrganization
+  - GetTrustPartyCollaborationTenant
   - ListTrustPartyCollaborationTenant
+  - GetTrustPartyCollaborationTenantVisibleOrganization
 - VC
-  - QueryVCRoomConfig
   - ApplyVCReserve
-  - BatchGetVCRoom
-  - BatchGetVCRoomLevel
-  - CreateVCRoom
-  - CreateVCRoomLevel
+  - UpdateVCReserve
   - DeleteVCReserve
-  - DeleteVCRoom
-  - DeleteVCRoomLevel
-  - DownloadVCExportFile
+  - GetVCReserve
+  - GetVCReserveActiveMeeting
+  - GetVCMeeting
+  - ListVCMeetingByNo
+  - InviteVCMeeting
+  - KickoutVCMeeting
+  - SetVCHostMeeting
   - EndVCMeeting
+  - StartVCMeetingRecording
+  - StopVCMeetingRecording
+  - GetVCMeetingRecording
+  - SetVCPermissionMeetingRecording
+  - GetVCDailyReport
+  - GetVCTopUserReport
+  - GetVCRoomList
+  - GetVCRoom
+  - BatchGetVCRoom
+  - CreateVCRoom
+  - UpdateVCRoom
+  - DeleteVCRoom
+  - SearchVCRoom
+  - GetVCRoomLevelList
+  - GetVCRoomLevel
+  - BatchGetVCRoomLevel
+  - CreateVCRoomLevel
+  - UpdateVCRoomLevel
+  - DeleteVCRoomLevel
+  - SearchVCRoomLevel
+  - SetVCScopeConfig
+  - GetVCScopeConfig
+  - GetVCReserveConfig
+  - UpdateVCReserveConfig
+  - GetVCReserveConfigForm
+  - UpdateVCReserveConfigForm
+  - GetVCReserveConfigAdmin
+  - UpdateVCReserveConfigAdmin
+  - GetVCReserveConfigDisableInform
+  - UpdateVCReserveConfigDisableInform
   - ExportVCMeetingList
   - ExportVCParticipantList
   - ExportVCParticipantQualityList
   - ExportVCResourceReservationList
-  - GetVCAlertList
-  - GetVCDailyReport
   - GetVCExportTask
-  - GetVCMeeting
+  - DownloadVCExportFile
+  - GetVCAlertList
   - GetVCMeetingList
-  - GetVCMeetingRecording
   - GetVCParticipantList
   - GetVCParticipantQualityList
-  - GetVCReserve
-  - GetVCReserveActiveMeeting
-  - GetVCReserveConfig
-  - GetVCReserveConfigAdmin
-  - GetVCReserveConfigDisableInform
-  - GetVCReserveConfigForm
   - GetVCResourceReservationList
-  - GetVCRoom
-  - GetVCRoomLevel
-  - GetVCRoomLevelList
-  - GetVCRoomList
-  - GetVCScopeConfig
-  - GetVCTopUserReport
-  - InviteVCMeeting
-  - KickoutVCMeeting
-  - ListVCMeetingByNo
-  - SearchVCRoom
-  - SearchVCRoomLevel
-  - SetVCHostMeeting
-  - SetVCPermissionMeetingRecording
+  - QueryVCRoomConfig
   - SetVCRoomConfig
   - SetVCRoomConfigCheckboardAccessCode
   - SetVCRoomConfigRoomAccessCode
-  - SetVCScopeConfig
-  - StartVCMeetingRecording
-  - StopVCMeetingRecording
-  - UpdateVCReserve
-  - UpdateVCReserveConfig
-  - UpdateVCReserveConfigAdmin
-  - UpdateVCReserveConfigDisableInform
-  - UpdateVCReserveConfigForm
-  - UpdateVCRoom
-  - UpdateVCRoomLevel
 - VCMeeting
-  - GetVCMeetingDefaultBuildingBatchGet
-  - GetVCMeetingDefaultBuildingBatchGetID
-  - GetVCMeetingDefaultRoomBatchGet
-  - GetVCMeetingDefaultRoomBatchGetID
-  - CreateVCMeetingDefaultBuildingCreate
-  - CreateVCMeetingDefaultRoomCreate
-  - CreateVCMeetingDefaultBuildingDelete
-  - CreateVCMeetingDefaultRoomDelete
-  - ListVCMeetingDefaultBuilding
-  - ListVCMeetingDefaultCountry
-  - ListVCMeetingDefaultDistrict
   - ListVCMeetingDefaultRoom
+  - CreateVCMeetingDefaultBuildingCreate
+  - GetVCMeetingDefaultRoomBatchGet
   - CreateVCMeetingDefaultBuildingUpdate
+  - CreateVCMeetingDefaultRoomCreate
   - CreateVCMeetingDefaultRoomUpdate
+  - CreateVCMeetingDefaultBuildingDelete
+  - ListVCMeetingDefaultCountry
+  - GetVCMeetingDefaultBuildingBatchGetID
+  - ListVCMeetingDefaultDistrict
+  - CreateVCMeetingDefaultRoomDelete
+  - GetVCMeetingDefaultRoomBatchGetID
+  - ListVCMeetingDefaultBuilding
+  - GetVCMeetingDefaultBuildingBatchGet
 - Verification
   - GetVerification
 

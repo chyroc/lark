@@ -26,6 +26,9 @@ import (
 // 根据查询范围传入对应的参数
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/vc-v1/room_config/query
+// new doc: https://open.feishu.cn/document/server-docs/historic-version/meeting_room-v1/room_config/query
+//
+// Deprecated
 func (r *VCService) QueryVCRoomConfig(ctx context.Context, request *QueryVCRoomConfigReq, options ...MethodOptionFunc) (*QueryVCRoomConfigResp, *Response, error) {
 	if r.cli.mock.mockVCQueryVCRoomConfig != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#QueryVCRoomConfig mock enable")
@@ -59,44 +62,84 @@ func (r *Mock) UnMockVCQueryVCRoomConfig() {
 
 // QueryVCRoomConfigReq ...
 type QueryVCRoomConfigReq struct {
-	Scope      int64   `query:"scope" json:"-"`       // 查询节点范围, 示例值: 5, 可选值有: `1`: 租户, `2`: 国家/地区, `3`: 城市, `4`: 建筑, `5`: 楼层, `6`: 会议室
-	CountryID  *string `query:"country_id" json:"-"`  // 国家/地区ID scope为2, 3时需要此参数, 示例值: "086"
-	DistrictID *string `query:"district_id" json:"-"` // 城市ID scope为3时需要此参数, 示例值: "001"
-	BuildingID *string `query:"building_id" json:"-"` // 建筑ID scope为4, 5时需要此参数, 示例值: "22"
-	FloorName  *string `query:"floor_name" json:"-"`  // 楼层 scope为5时需要此参数, 示例值: "4"
-	RoomID     *string `query:"room_id" json:"-"`     // 会议室ID scope为6时需要此参数, 示例值: "6383786266263"
+	Scope      int64   `query:"scope" json:"-"`        // 查询节点范围示例值: 5可选值有: 租户国家/地区城市建筑楼层会议室
+	CountryID  *string `query:"country_id" json:"-"`   // 国家/地区ID scope为2, 3时需要此参数示例值: "086"
+	DistrictID *string `query:"district_id" json:"-"`  // 城市ID scope为3时需要此参数示例值: "001"
+	BuildingID *string `query:"building_id" json:"-"`  // 建筑ID scope为4, 5时需要此参数示例值: "22"
+	FloorName  *string `query:"floor_name" json:"-"`   // 楼层 scope为5时需要此参数示例值: "4"
+	RoomID     *string `query:"room_id" json:"-"`      // 会议室ID scope为6时需要此参数示例值: "6383786266263"
+	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: "open_id"可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
 // QueryVCRoomConfigResp ...
 type QueryVCRoomConfigResp struct {
-	RoomBackground    string                               `json:"room_background,omitempty"`    // 飞书会议室背景图
-	DisplayBackground string                               `json:"display_background,omitempty"` // 飞书签到板背景图
-	DigitalSignage    *QueryVCRoomConfigRespDigitalSignage `json:"digital_signage,omitempty"`    // 飞书会议室数字标牌
+	RoomBackground        string                                      `json:"room_background,omitempty"`          // 飞书会议室背景图
+	DisplayBackground     string                                      `json:"display_background,omitempty"`       // 飞书签到板背景图
+	DigitalSignage        *QueryVCRoomConfigRespDigitalSignage        `json:"digital_signage,omitempty"`          // 飞书会议室数字标牌
+	RoomBoxDigitalSignage *QueryVCRoomConfigRespRoomBoxDigitalSignage `json:"room_box_digital_signage,omitempty"` // 飞书投屏盒子数字标牌
+	RoomStatus            *QueryVCRoomConfigRespRoomStatus            `json:"room_status,omitempty"`              // 会议室状态
 }
 
 // QueryVCRoomConfigRespDigitalSignage ...
 type QueryVCRoomConfigRespDigitalSignage struct {
 	Enable       bool                                           `json:"enable,omitempty"`        // 是否开启数字标牌功能
 	Mute         bool                                           `json:"mute,omitempty"`          // 是否静音播放
-	StartDisplay int64                                          `json:"start_display,omitempty"` // 日程会议开始前n分钟结束播放
-	StopDisplay  int64                                          `json:"stop_display,omitempty"`  // 会议结束后n分钟开始播放
+	StartDisplay int64                                          `json:"start_display,omitempty"` // 在会议结束n分钟后开始播放, 取值1~720（仅对飞书会议室数字标牌生效）
+	StopDisplay  int64                                          `json:"stop_display,omitempty"`  // 在日程会议开始前n分钟停止播放, 取值1~720（仅对飞书会议室数字标牌生效）
 	Materials    []*QueryVCRoomConfigRespDigitalSignageMaterial `json:"materials,omitempty"`     // 素材列表
 }
 
 // QueryVCRoomConfigRespDigitalSignageMaterial ...
 type QueryVCRoomConfigRespDigitalSignageMaterial struct {
-	ID           string `json:"id,omitempty"`            // 素材ID
+	ID           string `json:"id,omitempty"`            // 素材ID, 当设置新素材时, 无需传递该字段
 	Name         string `json:"name,omitempty"`          // 素材名称
-	MaterialType int64  `json:"material_type,omitempty"` // 素材类型, 可选值有: `1`: 图片, `2`: 视频, `3`: GIF
+	MaterialType int64  `json:"material_type,omitempty"` // 素材类型可选值有: 图片视频GIF
 	URL          string `json:"url,omitempty"`           // 素材url
-	Duration     int64  `json:"duration,omitempty"`      // 播放时长（单位sec）
+	Duration     int64  `json:"duration,omitempty"`      // 播放时长（单位sec）, 取值1~43200
 	Cover        string `json:"cover,omitempty"`         // 素材封面url
 	Md5          string `json:"md5,omitempty"`           // 素材文件md5
+	Vid          string `json:"vid,omitempty"`           // 素材文件vid
+	Size         string `json:"size,omitempty"`          // 素材文件大小（单位byte）
+}
+
+// QueryVCRoomConfigRespRoomBoxDigitalSignage ...
+type QueryVCRoomConfigRespRoomBoxDigitalSignage struct {
+	Enable       bool                                                  `json:"enable,omitempty"`        // 是否开启数字标牌功能
+	Mute         bool                                                  `json:"mute,omitempty"`          // 是否静音播放
+	StartDisplay int64                                                 `json:"start_display,omitempty"` // 在会议结束n分钟后开始播放, 取值1~720（仅对飞书会议室数字标牌生效）
+	StopDisplay  int64                                                 `json:"stop_display,omitempty"`  // 在日程会议开始前n分钟停止播放, 取值1~720（仅对飞书会议室数字标牌生效）
+	Materials    []*QueryVCRoomConfigRespRoomBoxDigitalSignageMaterial `json:"materials,omitempty"`     // 素材列表
+}
+
+// QueryVCRoomConfigRespRoomBoxDigitalSignageMaterial ...
+type QueryVCRoomConfigRespRoomBoxDigitalSignageMaterial struct {
+	ID           string `json:"id,omitempty"`            // 素材ID, 当设置新素材时, 无需传递该字段
+	Name         string `json:"name,omitempty"`          // 素材名称
+	MaterialType int64  `json:"material_type,omitempty"` // 素材类型可选值有: 图片视频GIF
+	URL          string `json:"url,omitempty"`           // 素材url
+	Duration     int64  `json:"duration,omitempty"`      // 播放时长（单位sec）, 取值1~43200
+	Cover        string `json:"cover,omitempty"`         // 素材封面url
+	Md5          string `json:"md5,omitempty"`           // 素材文件md5
+	Vid          string `json:"vid,omitempty"`           // 素材文件vid
+	Size         string `json:"size,omitempty"`          // 素材文件大小（单位byte）
+}
+
+// QueryVCRoomConfigRespRoomStatus ...
+type QueryVCRoomConfigRespRoomStatus struct {
+	Status           bool     `json:"status,omitempty"`             // 是否启用会议室
+	ScheduleStatus   bool     `json:"schedule_status,omitempty"`    // 会议室未来状态为启用或禁用
+	DisableStartTime string   `json:"disable_start_time,omitempty"` // 禁用开始时间（unix时间, 单位sec）
+	DisableEndTime   string   `json:"disable_end_time,omitempty"`   // 禁用结束时间（unix时间, 单位sec, 数值0表示永久禁用）
+	DisableReason    string   `json:"disable_reason,omitempty"`     // 禁用原因
+	ContactIDs       []string `json:"contact_ids,omitempty"`        // 联系人列表, id类型由user_id_type参数决定
+	DisableNotice    bool     `json:"disable_notice,omitempty"`     // 是否在禁用时发送通知给预定了该会议室的员工
+	ResumeNotice     bool     `json:"resume_notice,omitempty"`      // 是否在恢复启用时发送通知给联系人
 }
 
 // queryVCRoomConfigResp ...
 type queryVCRoomConfigResp struct {
-	Code int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg  string                 `json:"msg,omitempty"`  // 错误描述
-	Data *QueryVCRoomConfigResp `json:"data,omitempty"`
+	Code  int64                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                 `json:"msg,omitempty"`  // 错误描述
+	Data  *QueryVCRoomConfigResp `json:"data,omitempty"`
+	Error *ErrorDetail           `json:"error,omitempty"`
 }

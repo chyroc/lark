@@ -21,11 +21,12 @@ import (
 	"context"
 )
 
-// UpdateUserMailboxMailContact 修改邮箱联系人信息
+// UpdateUserMailboxMailContact 修改一个邮箱联系人的信息
 //
-// 使用 tenant_access_token 时, 需要申请相关数据权限。
+// 使用 tenant_access_token 时, 需要申请邮箱联系人资源的数据权限。
 //
-// doc: https://open.feishu-boe.cn/document/uAjLw4CM/ukTMukTMukTM/mail-v1/user_mailbox-mail_contact/patch
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-mail_contact/patch
+// new doc: https://open.feishu.cn/document/mail-v1/user_mailbox-mail_contact/patch
 func (r *MailService) UpdateUserMailboxMailContact(ctx context.Context, request *UpdateUserMailboxMailContactReq, options ...MethodOptionFunc) (*UpdateUserMailboxMailContactResp, *Response, error) {
 	if r.cli.mock.mockMailUpdateUserMailboxMailContact != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#UpdateUserMailboxMailContact mock enable")
@@ -61,14 +62,14 @@ func (r *Mock) UnMockMailUpdateUserMailboxMailContact() {
 // UpdateUserMailboxMailContactReq ...
 type UpdateUserMailboxMailContactReq struct {
 	UserMailboxID string  `path:"user_mailbox_id" json:"-"` // 用户邮箱地址 或 输入me代表当前调用接口用户示例值: "user@xxx.xx 或 me"
-	MailContactID string  `path:"mail_contact_id" json:"-"` // 邮箱联系人 id示例值: "123"
+	MailContactID string  `path:"mail_contact_id" json:"-"` // 邮箱联系人 id, 获取方式见 [列出邮箱联系人](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-mail_contact/list)示例值: "123"
 	Name          string  `json:"name,omitempty"`           // 联系人姓名示例值: "张三" 长度范围: `1` ～ `64` 字符
 	Company       *string `json:"company,omitempty"`        // 联系人公司示例值: "张三科技有限公司" 最大长度: `64` 字符
 	Phone         *string `json:"phone,omitempty"`          // 联系人手机号示例值: "19912341234" 最大长度: `40` 字符
 	MailAddress   *string `json:"mail_address,omitempty"`   // 联系人邮箱示例值: "zhangsan@example.com" 最大长度: `319` 字符
 	Tag           *string `json:"tag,omitempty"`            // 联系人标签示例值: "朋友" 最大长度: `64` 字符
 	Remark        *string `json:"remark,omitempty"`         // 联系人备注示例值: "飞书发布会认识" 最大长度: `1000` 字符
-	Position      *string `json:"position,omitempty"`       // 联系人职位示例值: "CFO" 最大长度: `64` 字符
+	Position      *string `json:"position,omitempty"`       // 联系人职位示例值: "CEO" 最大长度: `64` 字符
 }
 
 // UpdateUserMailboxMailContactResp ...

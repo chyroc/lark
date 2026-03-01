@@ -24,6 +24,9 @@ import (
 // ListVCMeetingDefaultRoom 该接口用于获取指定建筑下的会议室。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uADOyUjLwgjM14CM4ITN
+// new doc: https://open.feishu.cn/document/server-docs/historic-version/meeting_room-v1/api-reference/obtain-meeting-room-list
+//
+// Deprecated
 func (r *VCMeetingService) ListVCMeetingDefaultRoom(ctx context.Context, request *ListVCMeetingDefaultRoomReq, options ...MethodOptionFunc) (*ListVCMeetingDefaultRoomResp, *Response, error) {
 	if r.cli.mock.mockVCMeetingListVCMeetingDefaultRoom != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] VCMeeting#ListVCMeetingDefaultRoom mock enable")
@@ -86,7 +89,8 @@ type ListVCMeetingDefaultRoomRespRoom struct {
 
 // listVCMeetingDefaultRoomResp ...
 type listVCMeetingDefaultRoomResp struct {
-	Code int64                         `json:"code,omitempty"` // 返回码, 非 0 表示失败
-	Msg  string                        `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
-	Data *ListVCMeetingDefaultRoomResp `json:"data,omitempty"` // 返回业务信息
+	Code  int64                         `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg   string                        `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
+	Data  *ListVCMeetingDefaultRoomResp `json:"data,omitempty"` // 返回业务信息
+	Error *ErrorDetail                  `json:"error,omitempty"`
 }

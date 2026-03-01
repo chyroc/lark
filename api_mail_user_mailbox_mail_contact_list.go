@@ -21,9 +21,12 @@ import (
 	"context"
 )
 
-// ListUserMailboxMailContact 列出邮箱联系人
+// ListUserMailboxMailContact 列出邮箱联系人列表
 //
-// doc: https://open.feishu-boe.cn/document/uAjLw4CM/ukTMukTMukTM/mail-v1/user_mailbox-mail_contact/list
+// 使用 tenant_access_token 时, 需要申请邮箱联系人资源的数据权限。
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-mail_contact/list
+// new doc: https://open.feishu.cn/document/mail-v1/user_mailbox-mail_contact/list
 func (r *MailService) ListUserMailboxMailContact(ctx context.Context, request *ListUserMailboxMailContactReq, options ...MethodOptionFunc) (*ListUserMailboxMailContactResp, *Response, error) {
 	if r.cli.mock.mockMailListUserMailboxMailContact != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#ListUserMailboxMailContact mock enable")
@@ -75,7 +78,7 @@ type ListUserMailboxMailContactRespItem struct {
 	ID          string `json:"id,omitempty"`           // 联系人 id
 	Name        string `json:"name,omitempty"`         // 联系人姓名
 	Company     string `json:"company,omitempty"`      // 联系人公司
-	Phone       string `json:"phone,omitempty"`        // 联系人手机号字段权限要求: 读取邮箱联系人手机号地址字段
+	Phone       string `json:"phone,omitempty"`        // 联系人手机号字段权限要求: 读取邮箱联系人手机号字段
 	MailAddress string `json:"mail_address,omitempty"` // 联系人邮箱字段权限要求: 读取邮箱联系人邮箱地址字段
 	Tag         string `json:"tag,omitempty"`          // 联系人标签
 	Remark      string `json:"remark,omitempty"`       // 联系人备注

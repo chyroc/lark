@@ -21,9 +21,13 @@ import (
 	"context"
 )
 
-// CreateMailUserMailboxRuleReorder 对收信规则重新排序
+// CreateMailUserMailboxRuleReorder 对收信规则进行排序
 //
-// doc: https://open.feishu-boe.cn/document/uAjLw4CM/ukTMukTMukTM/mail-v1/user_mailbox-rule/reorder
+// 使用 tenant_access_token 时, 需要申请收信规则资源的数据权限。
+// 当使用该接口时, 需要传递所有规则 id
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-rule/reorder
+// new doc: https://open.feishu.cn/document/mail-v1/user_mailbox-rule/reorder
 func (r *MailService) CreateMailUserMailboxRuleReorder(ctx context.Context, request *CreateMailUserMailboxRuleReorderReq, options ...MethodOptionFunc) (*CreateMailUserMailboxRuleReorderResp, *Response, error) {
 	if r.cli.mock.mockMailCreateMailUserMailboxRuleReorder != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#CreateMailUserMailboxRuleReorder mock enable")
@@ -59,7 +63,7 @@ func (r *Mock) UnMockMailCreateMailUserMailboxRuleReorder() {
 // CreateMailUserMailboxRuleReorderReq ...
 type CreateMailUserMailboxRuleReorderReq struct {
 	UserMailboxID string   `path:"user_mailbox_id" json:"-"` // 用户邮箱地址, 使用 user_access_token 时可使用 me示例值: "user@xxx.xx 或 me"
-	RuleIDs       []string `json:"rule_ids,omitempty"`       // 规则 id 列表示例值: ["11111111"] 最小长度: `1`
+	RuleIDs       []string `json:"rule_ids,omitempty"`       // 规则 id 列表, 获取方式见 [列出收信规则](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-rule/list)示例值: ["11111111"] 最小长度: `1`
 }
 
 // CreateMailUserMailboxRuleReorderResp ...

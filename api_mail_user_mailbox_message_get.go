@@ -21,10 +21,12 @@ import (
 	"context"
 )
 
-// GetMailUserMailboxMessage 获取邮件
+// GetMailUserMailboxMessage 获取邮件详情
 //
-// doc: https://open.feishu-boe.cn/document/uAjLw4CM/ukTMukTMukTM/mail-v1/user_mailbox-message/get
-// new doc: https://open.feishu.cn/document/server-api/mail-v1/user_mailbox-message/get
+// 使用 tenant_access_token 时, 需要申请邮件数据资源的数据权限。
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-message/get
+// new doc: https://open.feishu.cn/document/mail-v1/user_mailbox-message/get
 func (r *MailService) GetMailUserMailboxMessage(ctx context.Context, request *GetMailUserMailboxMessageReq, options ...MethodOptionFunc) (*GetMailUserMailboxMessageResp, *Response, error) {
 	if r.cli.mock.mockMailGetMailUserMailboxMessage != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#GetMailUserMailboxMessage mock enable")
@@ -60,7 +62,7 @@ func (r *Mock) UnMockMailGetMailUserMailboxMessage() {
 // GetMailUserMailboxMessageReq ...
 type GetMailUserMailboxMessageReq struct {
 	UserMailboxID string `path:"user_mailbox_id" json:"-"` // 用户邮箱地址 或 输入me代表当前调用接口用户示例值: "user@xxx.xx 或 me"
-	MessageID     string `path:"message_id" json:"-"`      // 用户邮件 id示例值: "TUlHc1NoWFhJMXgyUi9VZTNVL3h6UnlkRUdzPQ=="
+	MessageID     string `path:"message_id" json:"-"`      // 用户邮件 id, 获取方式见 [列出邮件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-message/list)示例值: "TUlHc1NoWFhJMXgyUi9VZTNVL3h6UnlkRUdzPQ=="
 }
 
 // GetMailUserMailboxMessageResp ...
@@ -77,11 +79,12 @@ type GetMailUserMailboxMessageRespMessage struct {
 	HeadFrom      *GetMailUserMailboxMessageRespMessageHeadFrom     `json:"head_from,omitempty"`       // 发件人字段权限要求: 获取邮件内容中地址相关字段
 	BodyHtml      string                                            `json:"body_html,omitempty"`       // 正文(base64url)字段权限要求: 获取邮件正文
 	InternalDate  string                                            `json:"internal_date,omitempty"`   // 创建/收/发信时间（毫秒）
-	MessageState  int64                                             `json:"message_state,omitempty"`   // 邮件状态, 1（收信）2（发信）3（草稿）
+	MessageState  int64                                             `json:"message_state,omitempty"`   // 邮件状态, 1为收信, 2为发信, 3为草稿
 	SmtpMessageID string                                            `json:"smtp_message_id,omitempty"` // RFC协议id
 	MessageID     string                                            `json:"message_id,omitempty"`      // 邮件id
 	BodyPlainText string                                            `json:"body_plain_text,omitempty"` // 正文纯文本(base64url)字段权限要求: 获取邮件正文
 	Attachments   []*GetMailUserMailboxMessageRespMessageAttachment `json:"attachments,omitempty"`     // 邮件附件列表字段权限要求: 获取邮件正文
+	ThreadID      string                                            `json:"thread_id,omitempty"`       // 会话id
 }
 
 // GetMailUserMailboxMessageRespMessageAttachment ...
@@ -89,6 +92,8 @@ type GetMailUserMailboxMessageRespMessageAttachment struct {
 	Filename       string `json:"filename,omitempty"`        // 附件文件名
 	ID             string `json:"id,omitempty"`              // 附件 id
 	AttachmentType int64  `json:"attachment_type,omitempty"` // 附件类型可选值有: 普通附件超大附件
+	IsInline       bool   `json:"is_inline,omitempty"`       // 是否为内联图片, true 表示是内联图片
+	Cid            string `json:"cid,omitempty"`             // 内容 ID, HTML 中通过 cid: 协议引用该图片
 }
 
 // GetMailUserMailboxMessageRespMessageBcc ...

@@ -21,11 +21,12 @@ import (
 	"context"
 )
 
-// DeleteUserMailboxMailContact 删除指定邮箱下的邮箱联系人
+// DeleteUserMailboxMailContact 删除一个邮箱联系人
 //
-// 使用 tenant_access_token 时, 需要申请相关数据权限。
+// 使用 tenant_access_token 时, 需要申请邮箱联系人资源的数据权限。
 //
-// doc: https://open.feishu-boe.cn/document/uAjLw4CM/ukTMukTMukTM/mail-v1/user_mailbox-mail_contact/delete
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-mail_contact/delete
+// new doc: https://open.feishu.cn/document/mail-v1/user_mailbox-mail_contact/delete
 func (r *MailService) DeleteUserMailboxMailContact(ctx context.Context, request *DeleteUserMailboxMailContactReq, options ...MethodOptionFunc) (*DeleteUserMailboxMailContactResp, *Response, error) {
 	if r.cli.mock.mockMailDeleteUserMailboxMailContact != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#DeleteUserMailboxMailContact mock enable")
@@ -61,7 +62,7 @@ func (r *Mock) UnMockMailDeleteUserMailboxMailContact() {
 // DeleteUserMailboxMailContactReq ...
 type DeleteUserMailboxMailContactReq struct {
 	UserMailboxID string `path:"user_mailbox_id" json:"-"` // 用户邮箱地址 或 输入me代表当前调用接口用户示例值: "用户邮箱地址 或 输入me代表当前调用接口用户"
-	MailContactID string `path:"mail_contact_id" json:"-"` // 邮箱联系人 id示例值: "123"
+	MailContactID string `path:"mail_contact_id" json:"-"` // 邮箱联系人 id, 获取方式见 [列出邮箱联系人](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-mail_contact/list)示例值: "123"
 }
 
 // DeleteUserMailboxMailContactResp ...

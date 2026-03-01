@@ -24,6 +24,9 @@ import (
 // GetVCMeetingDefaultRoomBatchGetID 该接口用于根据租户自定义会议室ID查询会议室ID。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uYzMxYjL2MTM24iNzEjN
+// new doc: https://open.feishu.cn/document/server-docs/historic-version/meeting_room-v1/api-reference/obtain-meeting-room-id
+//
+// Deprecated
 func (r *VCMeetingService) GetVCMeetingDefaultRoomBatchGetID(ctx context.Context, request *GetVCMeetingDefaultRoomBatchGetIDReq, options ...MethodOptionFunc) (*GetVCMeetingDefaultRoomBatchGetIDResp, *Response, error) {
 	if r.cli.mock.mockVCMeetingGetVCMeetingDefaultRoomBatchGetID != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] VCMeeting#GetVCMeetingDefaultRoomBatchGetID mock enable")
@@ -73,7 +76,8 @@ type GetVCMeetingDefaultRoomBatchGetIDRespRoom struct {
 
 // getVCMeetingDefaultRoomBatchGetIDResp ...
 type getVCMeetingDefaultRoomBatchGetIDResp struct {
-	Code int64                                  `json:"code,omitempty"` // 返回码, 非 0 表示失败
-	Msg  string                                 `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
-	Data *GetVCMeetingDefaultRoomBatchGetIDResp `json:"data,omitempty"` // 返回业务信息
+	Code  int64                                  `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg   string                                 `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
+	Data  *GetVCMeetingDefaultRoomBatchGetIDResp `json:"data,omitempty"` // 返回业务信息
+	Error *ErrorDetail                           `json:"error,omitempty"`
 }

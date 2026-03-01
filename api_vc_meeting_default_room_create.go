@@ -24,6 +24,9 @@ import (
 // CreateVCMeetingDefaultRoomCreate 该接口用于创建会议室。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uITNwYjLyUDM24iM1AjN
+// new doc: https://open.feishu.cn/document/server-docs/historic-version/meeting_room-v1/api-reference/create-meeting-room
+//
+// Deprecated
 func (r *VCMeetingService) CreateVCMeetingDefaultRoomCreate(ctx context.Context, request *CreateVCMeetingDefaultRoomCreateReq, options ...MethodOptionFunc) (*CreateVCMeetingDefaultRoomCreateResp, *Response, error) {
 	if r.cli.mock.mockVCMeetingCreateVCMeetingDefaultRoomCreate != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] VCMeeting#CreateVCMeetingDefaultRoomCreate mock enable")
@@ -72,7 +75,8 @@ type CreateVCMeetingDefaultRoomCreateResp struct {
 
 // createVCMeetingDefaultRoomCreateResp ...
 type createVCMeetingDefaultRoomCreateResp struct {
-	Code int64                                 `json:"code,omitempty"` // 返回码, 非 0 表示失败
-	Msg  string                                `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
-	Data *CreateVCMeetingDefaultRoomCreateResp `json:"data,omitempty"` // 返回业务信息
+	Code  int64                                 `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg   string                                `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
+	Data  *CreateVCMeetingDefaultRoomCreateResp `json:"data,omitempty"` // 返回业务信息
+	Error *ErrorDetail                          `json:"error,omitempty"`
 }

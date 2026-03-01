@@ -21,11 +21,12 @@ import (
 	"context"
 )
 
-// CreateUserMailboxMailContact 创建邮箱联系人
+// CreateUserMailboxMailContact 创建一个邮箱联系人
 //
-// 使用 tenant_access_token 时, 需要申请相关数据权限。
+// 使用 tenant_access_token 时, 需要申请邮箱联系人资源的数据权限。
 //
-// doc: https://open.feishu-boe.cn/document/uAjLw4CM/ukTMukTMukTM/mail-v1/user_mailbox-mail_contact/create
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-mail_contact/create
+// new doc: https://open.feishu.cn/document/mail-v1/user_mailbox-mail_contact/create
 func (r *MailService) CreateUserMailboxMailContact(ctx context.Context, request *CreateUserMailboxMailContactReq, options ...MethodOptionFunc) (*CreateUserMailboxMailContactResp, *Response, error) {
 	if r.cli.mock.mockMailCreateUserMailboxMailContact != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#CreateUserMailboxMailContact mock enable")
@@ -67,7 +68,7 @@ type CreateUserMailboxMailContactReq struct {
 	MailAddress   *string `json:"mail_address,omitempty"`   // 联系人邮箱示例值: "zhangsan@example.com" 最大长度: `319` 字符
 	Tag           *string `json:"tag,omitempty"`            // 联系人标签示例值: "朋友" 最大长度: `64` 字符
 	Remark        *string `json:"remark,omitempty"`         // 联系人备注示例值: "飞书发布会认识" 最大长度: `1000` 字符
-	Position      *string `json:"position,omitempty"`       // 联系人职位示例值: "CFO" 最大长度: `64` 字符
+	Position      *string `json:"position,omitempty"`       // 联系人职位示例值: "CEO" 最大长度: `64` 字符
 }
 
 // CreateUserMailboxMailContactResp ...
@@ -80,7 +81,7 @@ type CreateUserMailboxMailContactRespMailContact struct {
 	ID          string `json:"id,omitempty"`           // 联系人 id
 	Name        string `json:"name,omitempty"`         // 联系人姓名
 	Company     string `json:"company,omitempty"`      // 联系人公司
-	Phone       string `json:"phone,omitempty"`        // 联系人手机号字段权限要求: 读取邮箱联系人手机号地址字段
+	Phone       string `json:"phone,omitempty"`        // 联系人手机号字段权限要求: 读取邮箱联系人手机号字段
 	MailAddress string `json:"mail_address,omitempty"` // 联系人邮箱字段权限要求: 读取邮箱联系人邮箱地址字段
 	Tag         string `json:"tag,omitempty"`          // 联系人标签
 	Remark      string `json:"remark,omitempty"`       // 联系人备注

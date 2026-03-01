@@ -21,9 +21,10 @@ import (
 	"context"
 )
 
-// GetMailUserMailboxEventSubscription 获取邮箱事件订阅状态
+// GetMailUserMailboxEventSubscription 获取订阅状态
 //
-// doc: https://open.feishu-boe.cn/document/uAjLw4CM/ukTMukTMukTM/mail-v1/user_mailbox-event/subscription
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-event/subscription
+// new doc: https://open.feishu.cn/document/mail-v1/user_mailbox-event/subscription
 func (r *MailService) GetMailUserMailboxEventSubscription(ctx context.Context, request *GetMailUserMailboxEventSubscriptionReq, options ...MethodOptionFunc) (*GetMailUserMailboxEventSubscriptionResp, *Response, error) {
 	if r.cli.mock.mockMailGetMailUserMailboxEventSubscription != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#GetMailUserMailboxEventSubscription mock enable")

@@ -24,6 +24,9 @@ import (
 // GetVCMeetingDefaultBuildingBatchGetID 该接口用于根据租户自定义建筑 ID 查询建筑 ID。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uQzMxYjL0MTM24CNzEjN
+// new doc: https://open.feishu.cn/document/server-docs/historic-version/meeting_room-v1/api-reference/obtain-building-id
+//
+// Deprecated
 func (r *VCMeetingService) GetVCMeetingDefaultBuildingBatchGetID(ctx context.Context, request *GetVCMeetingDefaultBuildingBatchGetIDReq, options ...MethodOptionFunc) (*GetVCMeetingDefaultBuildingBatchGetIDResp, *Response, error) {
 	if r.cli.mock.mockVCMeetingGetVCMeetingDefaultBuildingBatchGetID != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] VCMeeting#GetVCMeetingDefaultBuildingBatchGetID mock enable")
@@ -73,7 +76,8 @@ type GetVCMeetingDefaultBuildingBatchGetIDRespBuilding struct {
 
 // getVCMeetingDefaultBuildingBatchGetIDResp ...
 type getVCMeetingDefaultBuildingBatchGetIDResp struct {
-	Code int64                                      `json:"code,omitempty"` // 返回码, 非 0 表示失败
-	Msg  string                                     `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
-	Data *GetVCMeetingDefaultBuildingBatchGetIDResp `json:"data,omitempty"` // 返回业务信息
+	Code  int64                                      `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg   string                                     `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
+	Data  *GetVCMeetingDefaultBuildingBatchGetIDResp `json:"data,omitempty"` // 返回业务信息
+	Error *ErrorDetail                               `json:"error,omitempty"`
 }

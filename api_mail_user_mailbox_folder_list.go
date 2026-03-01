@@ -23,7 +23,10 @@ import (
 
 // ListMailUserMailboxFolder 列出邮箱文件夹
 //
-// doc: https://open.feishu-boe.cn/document/uAjLw4CM/ukTMukTMukTM/mail-v1/user_mailbox-folder/list
+// 使用 tenant_access_token 时, 需要申请邮箱文件夹资源的数据权限。
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-folder/list
+// new doc: https://open.feishu.cn/document/mail-v1/user_mailbox-folder/list
 func (r *MailService) ListMailUserMailboxFolder(ctx context.Context, request *ListMailUserMailboxFolderReq, options ...MethodOptionFunc) (*ListMailUserMailboxFolderResp, *Response, error) {
 	if r.cli.mock.mockMailListMailUserMailboxFolder != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#ListMailUserMailboxFolder mock enable")

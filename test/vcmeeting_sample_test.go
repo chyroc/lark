@@ -38,7 +38,7 @@ func Test_VCMeeting_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetVCMeetingDefaultBuildingBatchGet(ctx, &lark.GetVCMeetingDefaultBuildingBatchGetReq{})
+			_, _, err := moduleCli.ListVCMeetingDefaultRoom(ctx, &lark.ListVCMeetingDefaultRoomReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "failed")
 		})
@@ -51,48 +51,12 @@ func Test_VCMeeting_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockVCMeetingGetVCMeetingDefaultBuildingBatchGet(func(ctx context.Context, request *lark.GetVCMeetingDefaultBuildingBatchGetReq, options ...lark.MethodOptionFunc) (*lark.GetVCMeetingDefaultBuildingBatchGetResp, *lark.Response, error) {
+			cli.Mock().MockVCMeetingListVCMeetingDefaultRoom(func(ctx context.Context, request *lark.ListVCMeetingDefaultRoomReq, options ...lark.MethodOptionFunc) (*lark.ListVCMeetingDefaultRoomResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockVCMeetingGetVCMeetingDefaultBuildingBatchGet()
+			defer cli.Mock().UnMockVCMeetingListVCMeetingDefaultRoom()
 
-			_, _, err := moduleCli.GetVCMeetingDefaultBuildingBatchGet(ctx, &lark.GetVCMeetingDefaultBuildingBatchGetReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockVCMeetingGetVCMeetingDefaultBuildingBatchGetID(func(ctx context.Context, request *lark.GetVCMeetingDefaultBuildingBatchGetIDReq, options ...lark.MethodOptionFunc) (*lark.GetVCMeetingDefaultBuildingBatchGetIDResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockVCMeetingGetVCMeetingDefaultBuildingBatchGetID()
-
-			_, _, err := moduleCli.GetVCMeetingDefaultBuildingBatchGetID(ctx, &lark.GetVCMeetingDefaultBuildingBatchGetIDReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockVCMeetingGetVCMeetingDefaultRoomBatchGet(func(ctx context.Context, request *lark.GetVCMeetingDefaultRoomBatchGetReq, options ...lark.MethodOptionFunc) (*lark.GetVCMeetingDefaultRoomBatchGetResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockVCMeetingGetVCMeetingDefaultRoomBatchGet()
-
-			_, _, err := moduleCli.GetVCMeetingDefaultRoomBatchGet(ctx, &lark.GetVCMeetingDefaultRoomBatchGetReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockVCMeetingGetVCMeetingDefaultRoomBatchGetID(func(ctx context.Context, request *lark.GetVCMeetingDefaultRoomBatchGetIDReq, options ...lark.MethodOptionFunc) (*lark.GetVCMeetingDefaultRoomBatchGetIDResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockVCMeetingGetVCMeetingDefaultRoomBatchGetID()
-
-			_, _, err := moduleCli.GetVCMeetingDefaultRoomBatchGetID(ctx, &lark.GetVCMeetingDefaultRoomBatchGetIDReq{})
+			_, _, err := moduleCli.ListVCMeetingDefaultRoom(ctx, &lark.ListVCMeetingDefaultRoomReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -111,84 +75,12 @@ func Test_VCMeeting_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockVCMeetingCreateVCMeetingDefaultRoomCreate(func(ctx context.Context, request *lark.CreateVCMeetingDefaultRoomCreateReq, options ...lark.MethodOptionFunc) (*lark.CreateVCMeetingDefaultRoomCreateResp, *lark.Response, error) {
+			cli.Mock().MockVCMeetingGetVCMeetingDefaultRoomBatchGet(func(ctx context.Context, request *lark.GetVCMeetingDefaultRoomBatchGetReq, options ...lark.MethodOptionFunc) (*lark.GetVCMeetingDefaultRoomBatchGetResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockVCMeetingCreateVCMeetingDefaultRoomCreate()
+			defer cli.Mock().UnMockVCMeetingGetVCMeetingDefaultRoomBatchGet()
 
-			_, _, err := moduleCli.CreateVCMeetingDefaultRoomCreate(ctx, &lark.CreateVCMeetingDefaultRoomCreateReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockVCMeetingCreateVCMeetingDefaultBuildingDelete(func(ctx context.Context, request *lark.CreateVCMeetingDefaultBuildingDeleteReq, options ...lark.MethodOptionFunc) (*lark.CreateVCMeetingDefaultBuildingDeleteResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockVCMeetingCreateVCMeetingDefaultBuildingDelete()
-
-			_, _, err := moduleCli.CreateVCMeetingDefaultBuildingDelete(ctx, &lark.CreateVCMeetingDefaultBuildingDeleteReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockVCMeetingCreateVCMeetingDefaultRoomDelete(func(ctx context.Context, request *lark.CreateVCMeetingDefaultRoomDeleteReq, options ...lark.MethodOptionFunc) (*lark.CreateVCMeetingDefaultRoomDeleteResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockVCMeetingCreateVCMeetingDefaultRoomDelete()
-
-			_, _, err := moduleCli.CreateVCMeetingDefaultRoomDelete(ctx, &lark.CreateVCMeetingDefaultRoomDeleteReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockVCMeetingListVCMeetingDefaultBuilding(func(ctx context.Context, request *lark.ListVCMeetingDefaultBuildingReq, options ...lark.MethodOptionFunc) (*lark.ListVCMeetingDefaultBuildingResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockVCMeetingListVCMeetingDefaultBuilding()
-
-			_, _, err := moduleCli.ListVCMeetingDefaultBuilding(ctx, &lark.ListVCMeetingDefaultBuildingReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockVCMeetingListVCMeetingDefaultCountry(func(ctx context.Context, request *lark.ListVCMeetingDefaultCountryReq, options ...lark.MethodOptionFunc) (*lark.ListVCMeetingDefaultCountryResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockVCMeetingListVCMeetingDefaultCountry()
-
-			_, _, err := moduleCli.ListVCMeetingDefaultCountry(ctx, &lark.ListVCMeetingDefaultCountryReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockVCMeetingListVCMeetingDefaultDistrict(func(ctx context.Context, request *lark.ListVCMeetingDefaultDistrictReq, options ...lark.MethodOptionFunc) (*lark.ListVCMeetingDefaultDistrictResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockVCMeetingListVCMeetingDefaultDistrict()
-
-			_, _, err := moduleCli.ListVCMeetingDefaultDistrict(ctx, &lark.ListVCMeetingDefaultDistrictReq{})
-			as.NotNil(err)
-			as.Equal(err.Error(), "mock-failed")
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			cli.Mock().MockVCMeetingListVCMeetingDefaultRoom(func(ctx context.Context, request *lark.ListVCMeetingDefaultRoomReq, options ...lark.MethodOptionFunc) (*lark.ListVCMeetingDefaultRoomResp, *lark.Response, error) {
-				return nil, nil, fmt.Errorf("mock-failed")
-			})
-			defer cli.Mock().UnMockVCMeetingListVCMeetingDefaultRoom()
-
-			_, _, err := moduleCli.ListVCMeetingDefaultRoom(ctx, &lark.ListVCMeetingDefaultRoomReq{})
+			_, _, err := moduleCli.GetVCMeetingDefaultRoomBatchGet(ctx, &lark.GetVCMeetingDefaultRoomBatchGetReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -207,12 +99,120 @@ func Test_VCMeeting_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockVCMeetingCreateVCMeetingDefaultRoomCreate(func(ctx context.Context, request *lark.CreateVCMeetingDefaultRoomCreateReq, options ...lark.MethodOptionFunc) (*lark.CreateVCMeetingDefaultRoomCreateResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockVCMeetingCreateVCMeetingDefaultRoomCreate()
+
+			_, _, err := moduleCli.CreateVCMeetingDefaultRoomCreate(ctx, &lark.CreateVCMeetingDefaultRoomCreateReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockVCMeetingCreateVCMeetingDefaultRoomUpdate(func(ctx context.Context, request *lark.CreateVCMeetingDefaultRoomUpdateReq, options ...lark.MethodOptionFunc) (*lark.CreateVCMeetingDefaultRoomUpdateResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
 			defer cli.Mock().UnMockVCMeetingCreateVCMeetingDefaultRoomUpdate()
 
 			_, _, err := moduleCli.CreateVCMeetingDefaultRoomUpdate(ctx, &lark.CreateVCMeetingDefaultRoomUpdateReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockVCMeetingCreateVCMeetingDefaultBuildingDelete(func(ctx context.Context, request *lark.CreateVCMeetingDefaultBuildingDeleteReq, options ...lark.MethodOptionFunc) (*lark.CreateVCMeetingDefaultBuildingDeleteResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockVCMeetingCreateVCMeetingDefaultBuildingDelete()
+
+			_, _, err := moduleCli.CreateVCMeetingDefaultBuildingDelete(ctx, &lark.CreateVCMeetingDefaultBuildingDeleteReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockVCMeetingListVCMeetingDefaultCountry(func(ctx context.Context, request *lark.ListVCMeetingDefaultCountryReq, options ...lark.MethodOptionFunc) (*lark.ListVCMeetingDefaultCountryResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockVCMeetingListVCMeetingDefaultCountry()
+
+			_, _, err := moduleCli.ListVCMeetingDefaultCountry(ctx, &lark.ListVCMeetingDefaultCountryReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockVCMeetingGetVCMeetingDefaultBuildingBatchGetID(func(ctx context.Context, request *lark.GetVCMeetingDefaultBuildingBatchGetIDReq, options ...lark.MethodOptionFunc) (*lark.GetVCMeetingDefaultBuildingBatchGetIDResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockVCMeetingGetVCMeetingDefaultBuildingBatchGetID()
+
+			_, _, err := moduleCli.GetVCMeetingDefaultBuildingBatchGetID(ctx, &lark.GetVCMeetingDefaultBuildingBatchGetIDReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockVCMeetingListVCMeetingDefaultDistrict(func(ctx context.Context, request *lark.ListVCMeetingDefaultDistrictReq, options ...lark.MethodOptionFunc) (*lark.ListVCMeetingDefaultDistrictResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockVCMeetingListVCMeetingDefaultDistrict()
+
+			_, _, err := moduleCli.ListVCMeetingDefaultDistrict(ctx, &lark.ListVCMeetingDefaultDistrictReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockVCMeetingCreateVCMeetingDefaultRoomDelete(func(ctx context.Context, request *lark.CreateVCMeetingDefaultRoomDeleteReq, options ...lark.MethodOptionFunc) (*lark.CreateVCMeetingDefaultRoomDeleteResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockVCMeetingCreateVCMeetingDefaultRoomDelete()
+
+			_, _, err := moduleCli.CreateVCMeetingDefaultRoomDelete(ctx, &lark.CreateVCMeetingDefaultRoomDeleteReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockVCMeetingGetVCMeetingDefaultRoomBatchGetID(func(ctx context.Context, request *lark.GetVCMeetingDefaultRoomBatchGetIDReq, options ...lark.MethodOptionFunc) (*lark.GetVCMeetingDefaultRoomBatchGetIDResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockVCMeetingGetVCMeetingDefaultRoomBatchGetID()
+
+			_, _, err := moduleCli.GetVCMeetingDefaultRoomBatchGetID(ctx, &lark.GetVCMeetingDefaultRoomBatchGetIDReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockVCMeetingListVCMeetingDefaultBuilding(func(ctx context.Context, request *lark.ListVCMeetingDefaultBuildingReq, options ...lark.MethodOptionFunc) (*lark.ListVCMeetingDefaultBuildingResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockVCMeetingListVCMeetingDefaultBuilding()
+
+			_, _, err := moduleCli.ListVCMeetingDefaultBuilding(ctx, &lark.ListVCMeetingDefaultBuildingReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockVCMeetingGetVCMeetingDefaultBuildingBatchGet(func(ctx context.Context, request *lark.GetVCMeetingDefaultBuildingBatchGetReq, options ...lark.MethodOptionFunc) (*lark.GetVCMeetingDefaultBuildingBatchGetResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockVCMeetingGetVCMeetingDefaultBuildingBatchGet()
+
+			_, _, err := moduleCli.GetVCMeetingDefaultBuildingBatchGet(ctx, &lark.GetVCMeetingDefaultBuildingBatchGetReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -228,28 +228,7 @@ func Test_VCMeeting_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetVCMeetingDefaultBuildingBatchGet(ctx, &lark.GetVCMeetingDefaultBuildingBatchGetReq{})
-			as.NotNil(err)
-			as.Equal("mock-http-failed", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetVCMeetingDefaultBuildingBatchGetID(ctx, &lark.GetVCMeetingDefaultBuildingBatchGetIDReq{})
-			as.NotNil(err)
-			as.Equal("mock-http-failed", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetVCMeetingDefaultRoomBatchGet(ctx, &lark.GetVCMeetingDefaultRoomBatchGetReq{})
-			as.NotNil(err)
-			as.Equal("mock-http-failed", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.GetVCMeetingDefaultRoomBatchGetID(ctx, &lark.GetVCMeetingDefaultRoomBatchGetIDReq{})
+			_, _, err := moduleCli.ListVCMeetingDefaultRoom(ctx, &lark.ListVCMeetingDefaultRoomReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
@@ -263,49 +242,7 @@ func Test_VCMeeting_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.CreateVCMeetingDefaultRoomCreate(ctx, &lark.CreateVCMeetingDefaultRoomCreateReq{})
-			as.NotNil(err)
-			as.Equal("mock-http-failed", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.CreateVCMeetingDefaultBuildingDelete(ctx, &lark.CreateVCMeetingDefaultBuildingDeleteReq{})
-			as.NotNil(err)
-			as.Equal("mock-http-failed", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.CreateVCMeetingDefaultRoomDelete(ctx, &lark.CreateVCMeetingDefaultRoomDeleteReq{})
-			as.NotNil(err)
-			as.Equal("mock-http-failed", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.ListVCMeetingDefaultBuilding(ctx, &lark.ListVCMeetingDefaultBuildingReq{})
-			as.NotNil(err)
-			as.Equal("mock-http-failed", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.ListVCMeetingDefaultCountry(ctx, &lark.ListVCMeetingDefaultCountryReq{})
-			as.NotNil(err)
-			as.Equal("mock-http-failed", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.ListVCMeetingDefaultDistrict(ctx, &lark.ListVCMeetingDefaultDistrictReq{})
-			as.NotNil(err)
-			as.Equal("mock-http-failed", err.Error())
-		})
-
-		t.Run("", func(t *testing.T) {
-
-			_, _, err := moduleCli.ListVCMeetingDefaultRoom(ctx, &lark.ListVCMeetingDefaultRoomReq{})
+			_, _, err := moduleCli.GetVCMeetingDefaultRoomBatchGet(ctx, &lark.GetVCMeetingDefaultRoomBatchGetReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
@@ -319,7 +256,70 @@ func Test_VCMeeting_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.CreateVCMeetingDefaultRoomCreate(ctx, &lark.CreateVCMeetingDefaultRoomCreateReq{})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.CreateVCMeetingDefaultRoomUpdate(ctx, &lark.CreateVCMeetingDefaultRoomUpdateReq{})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateVCMeetingDefaultBuildingDelete(ctx, &lark.CreateVCMeetingDefaultBuildingDeleteReq{})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.ListVCMeetingDefaultCountry(ctx, &lark.ListVCMeetingDefaultCountryReq{})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetVCMeetingDefaultBuildingBatchGetID(ctx, &lark.GetVCMeetingDefaultBuildingBatchGetIDReq{})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.ListVCMeetingDefaultDistrict(ctx, &lark.ListVCMeetingDefaultDistrictReq{})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateVCMeetingDefaultRoomDelete(ctx, &lark.CreateVCMeetingDefaultRoomDeleteReq{})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetVCMeetingDefaultRoomBatchGetID(ctx, &lark.GetVCMeetingDefaultRoomBatchGetIDReq{})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.ListVCMeetingDefaultBuilding(ctx, &lark.ListVCMeetingDefaultBuildingReq{})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetVCMeetingDefaultBuildingBatchGet(ctx, &lark.GetVCMeetingDefaultBuildingBatchGetReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
