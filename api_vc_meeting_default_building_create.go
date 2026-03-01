@@ -27,14 +27,14 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/historic-version/meeting_room-v1/api-reference/create-building
 //
 // Deprecated
-func (r *VCMeetingService) CreateVCMeetingDefaultBuildingCreate(ctx context.Context, request *CreateVCMeetingDefaultBuildingCreateReq, options ...MethodOptionFunc) (*CreateVCMeetingDefaultBuildingCreateResp, *Response, error) {
+func (r *VCService) CreateVCMeetingDefaultBuildingCreate(ctx context.Context, request *CreateVCMeetingDefaultBuildingCreateReq, options ...MethodOptionFunc) (*CreateVCMeetingDefaultBuildingCreateResp, *Response, error) {
 	if r.cli.mock.mockVCMeetingCreateVCMeetingDefaultBuildingCreate != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] VCMeeting#CreateVCMeetingDefaultBuildingCreate mock enable")
 		return r.cli.mock.mockVCMeetingCreateVCMeetingDefaultBuildingCreate(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "VCMeeting",
+		Scope:                 "VC",
 		API:                   "CreateVCMeetingDefaultBuildingCreate",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/meeting_room/building/create",

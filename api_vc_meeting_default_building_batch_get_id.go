@@ -27,14 +27,14 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/historic-version/meeting_room-v1/api-reference/obtain-building-id
 //
 // Deprecated
-func (r *VCMeetingService) GetVCMeetingDefaultBuildingBatchGetID(ctx context.Context, request *GetVCMeetingDefaultBuildingBatchGetIDReq, options ...MethodOptionFunc) (*GetVCMeetingDefaultBuildingBatchGetIDResp, *Response, error) {
+func (r *VCService) GetVCMeetingDefaultBuildingBatchGetID(ctx context.Context, request *GetVCMeetingDefaultBuildingBatchGetIDReq, options ...MethodOptionFunc) (*GetVCMeetingDefaultBuildingBatchGetIDResp, *Response, error) {
 	if r.cli.mock.mockVCMeetingGetVCMeetingDefaultBuildingBatchGetID != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] VCMeeting#GetVCMeetingDefaultBuildingBatchGetID mock enable")
 		return r.cli.mock.mockVCMeetingGetVCMeetingDefaultBuildingBatchGetID(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "VCMeeting",
+		Scope:                 "VC",
 		API:                   "GetVCMeetingDefaultBuildingBatchGetID",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/meeting_room/building/batch_get_id",

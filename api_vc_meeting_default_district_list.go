@@ -27,14 +27,14 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/historic-version/meeting_room-v1/api-reference/obtain-city-list
 //
 // Deprecated
-func (r *VCMeetingService) ListVCMeetingDefaultDistrict(ctx context.Context, request *ListVCMeetingDefaultDistrictReq, options ...MethodOptionFunc) (*ListVCMeetingDefaultDistrictResp, *Response, error) {
+func (r *VCService) ListVCMeetingDefaultDistrict(ctx context.Context, request *ListVCMeetingDefaultDistrictReq, options ...MethodOptionFunc) (*ListVCMeetingDefaultDistrictResp, *Response, error) {
 	if r.cli.mock.mockVCMeetingListVCMeetingDefaultDistrict != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] VCMeeting#ListVCMeetingDefaultDistrict mock enable")
 		return r.cli.mock.mockVCMeetingListVCMeetingDefaultDistrict(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "VCMeeting",
+		Scope:                 "VC",
 		API:                   "ListVCMeetingDefaultDistrict",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/meeting_room/district/list",

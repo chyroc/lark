@@ -27,14 +27,14 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/historic-version/meeting_room-v1/api-reference/obtain-meeting-room-list
 //
 // Deprecated
-func (r *VCMeetingService) ListVCMeetingDefaultRoom(ctx context.Context, request *ListVCMeetingDefaultRoomReq, options ...MethodOptionFunc) (*ListVCMeetingDefaultRoomResp, *Response, error) {
+func (r *VCService) ListVCMeetingDefaultRoom(ctx context.Context, request *ListVCMeetingDefaultRoomReq, options ...MethodOptionFunc) (*ListVCMeetingDefaultRoomResp, *Response, error) {
 	if r.cli.mock.mockVCMeetingListVCMeetingDefaultRoom != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] VCMeeting#ListVCMeetingDefaultRoom mock enable")
 		return r.cli.mock.mockVCMeetingListVCMeetingDefaultRoom(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "VCMeeting",
+		Scope:                 "VC",
 		API:                   "ListVCMeetingDefaultRoom",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/meeting_room/room/list",

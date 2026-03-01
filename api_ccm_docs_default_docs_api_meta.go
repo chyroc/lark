@@ -29,14 +29,14 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/historic-version/docs/drive/file/obtain-metadata
 //
 // Deprecated
-func (r *CcmDocsService) CreateCcmDocsDefaultDocsApiMeta(ctx context.Context, request *CreateCcmDocsDefaultDocsApiMetaReq, options ...MethodOptionFunc) (*CreateCcmDocsDefaultDocsApiMetaResp, *Response, error) {
+func (r *DriveService) CreateCcmDocsDefaultDocsApiMeta(ctx context.Context, request *CreateCcmDocsDefaultDocsApiMetaReq, options ...MethodOptionFunc) (*CreateCcmDocsDefaultDocsApiMetaResp, *Response, error) {
 	if r.cli.mock.mockCcmDocsCreateCcmDocsDefaultDocsApiMeta != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CcmDocs#CreateCcmDocsDefaultDocsApiMeta mock enable")
 		return r.cli.mock.mockCcmDocsCreateCcmDocsDefaultDocsApiMeta(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "CcmDocs",
+		Scope:                 "Drive",
 		API:                   "CreateCcmDocsDefaultDocsApiMeta",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/suite/docs-api/meta",

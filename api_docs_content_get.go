@@ -25,14 +25,14 @@ import (
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/docs-v1/content/get
 // new doc: https://open.feishu.cn/document/docs/docs-v1/get
-func (r *DocsService) GetDocsContent(ctx context.Context, request *GetDocsContentReq, options ...MethodOptionFunc) (*GetDocsContentResp, *Response, error) {
+func (r *DriveService) GetDocsContent(ctx context.Context, request *GetDocsContentReq, options ...MethodOptionFunc) (*GetDocsContentResp, *Response, error) {
 	if r.cli.mock.mockDocsGetDocsContent != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Docs#GetDocsContent mock enable")
 		return r.cli.mock.mockDocsGetDocsContent(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "Docs",
+		Scope:                 "Drive",
 		API:                   "GetDocsContent",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/docs/v1/content",

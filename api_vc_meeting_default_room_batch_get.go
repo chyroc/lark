@@ -27,14 +27,14 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/historic-version/meeting_room-v1/api-reference/query-meeting-room-details
 //
 // Deprecated
-func (r *VCMeetingService) GetVCMeetingDefaultRoomBatchGet(ctx context.Context, request *GetVCMeetingDefaultRoomBatchGetReq, options ...MethodOptionFunc) (*GetVCMeetingDefaultRoomBatchGetResp, *Response, error) {
+func (r *VCService) GetVCMeetingDefaultRoomBatchGet(ctx context.Context, request *GetVCMeetingDefaultRoomBatchGetReq, options ...MethodOptionFunc) (*GetVCMeetingDefaultRoomBatchGetResp, *Response, error) {
 	if r.cli.mock.mockVCMeetingGetVCMeetingDefaultRoomBatchGet != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] VCMeeting#GetVCMeetingDefaultRoomBatchGet mock enable")
 		return r.cli.mock.mockVCMeetingGetVCMeetingDefaultRoomBatchGet(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "VCMeeting",
+		Scope:                 "VC",
 		API:                   "GetVCMeetingDefaultRoomBatchGet",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/meeting_room/room/batch_get",

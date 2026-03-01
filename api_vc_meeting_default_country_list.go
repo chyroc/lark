@@ -27,14 +27,14 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/historic-version/meeting_room-v1/api-reference/obtain-country/region-list
 //
 // Deprecated
-func (r *VCMeetingService) ListVCMeetingDefaultCountry(ctx context.Context, request *ListVCMeetingDefaultCountryReq, options ...MethodOptionFunc) (*ListVCMeetingDefaultCountryResp, *Response, error) {
+func (r *VCService) ListVCMeetingDefaultCountry(ctx context.Context, request *ListVCMeetingDefaultCountryReq, options ...MethodOptionFunc) (*ListVCMeetingDefaultCountryResp, *Response, error) {
 	if r.cli.mock.mockVCMeetingListVCMeetingDefaultCountry != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] VCMeeting#ListVCMeetingDefaultCountry mock enable")
 		return r.cli.mock.mockVCMeetingListVCMeetingDefaultCountry(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "VCMeeting",
+		Scope:                 "VC",
 		API:                   "ListVCMeetingDefaultCountry",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/meeting_room/country/list",

@@ -27,14 +27,14 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/historic-version/meeting_room-v1/api-reference/update-meeting-room
 //
 // Deprecated
-func (r *VCMeetingService) CreateVCMeetingDefaultRoomUpdate(ctx context.Context, request *CreateVCMeetingDefaultRoomUpdateReq, options ...MethodOptionFunc) (*CreateVCMeetingDefaultRoomUpdateResp, *Response, error) {
+func (r *VCService) CreateVCMeetingDefaultRoomUpdate(ctx context.Context, request *CreateVCMeetingDefaultRoomUpdateReq, options ...MethodOptionFunc) (*CreateVCMeetingDefaultRoomUpdateResp, *Response, error) {
 	if r.cli.mock.mockVCMeetingCreateVCMeetingDefaultRoomUpdate != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] VCMeeting#CreateVCMeetingDefaultRoomUpdate mock enable")
 		return r.cli.mock.mockVCMeetingCreateVCMeetingDefaultRoomUpdate(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "VCMeeting",
+		Scope:                 "VC",
 		API:                   "CreateVCMeetingDefaultRoomUpdate",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/meeting_room/room/update",

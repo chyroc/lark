@@ -27,14 +27,14 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/historic-version/meeting_room-v1/api-reference/obtain-meeting-room-id
 //
 // Deprecated
-func (r *VCMeetingService) GetVCMeetingDefaultRoomBatchGetID(ctx context.Context, request *GetVCMeetingDefaultRoomBatchGetIDReq, options ...MethodOptionFunc) (*GetVCMeetingDefaultRoomBatchGetIDResp, *Response, error) {
+func (r *VCService) GetVCMeetingDefaultRoomBatchGetID(ctx context.Context, request *GetVCMeetingDefaultRoomBatchGetIDReq, options ...MethodOptionFunc) (*GetVCMeetingDefaultRoomBatchGetIDResp, *Response, error) {
 	if r.cli.mock.mockVCMeetingGetVCMeetingDefaultRoomBatchGetID != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] VCMeeting#GetVCMeetingDefaultRoomBatchGetID mock enable")
 		return r.cli.mock.mockVCMeetingGetVCMeetingDefaultRoomBatchGetID(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "VCMeeting",
+		Scope:                 "VC",
 		API:                   "GetVCMeetingDefaultRoomBatchGetID",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/meeting_room/room/batch_get_id",

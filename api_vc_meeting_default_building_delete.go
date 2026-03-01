@@ -27,14 +27,14 @@ import (
 // new doc: https://open.feishu.cn/document/server-docs/historic-version/meeting_room-v1/api-reference/delete-building
 //
 // Deprecated
-func (r *VCMeetingService) CreateVCMeetingDefaultBuildingDelete(ctx context.Context, request *CreateVCMeetingDefaultBuildingDeleteReq, options ...MethodOptionFunc) (*CreateVCMeetingDefaultBuildingDeleteResp, *Response, error) {
+func (r *VCService) CreateVCMeetingDefaultBuildingDelete(ctx context.Context, request *CreateVCMeetingDefaultBuildingDeleteReq, options ...MethodOptionFunc) (*CreateVCMeetingDefaultBuildingDeleteResp, *Response, error) {
 	if r.cli.mock.mockVCMeetingCreateVCMeetingDefaultBuildingDelete != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] VCMeeting#CreateVCMeetingDefaultBuildingDelete mock enable")
 		return r.cli.mock.mockVCMeetingCreateVCMeetingDefaultBuildingDelete(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "VCMeeting",
+		Scope:                 "VC",
 		API:                   "CreateVCMeetingDefaultBuildingDelete",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/meeting_room/building/delete",

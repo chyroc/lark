@@ -24,14 +24,14 @@ import (
 // GetMeetingRoomCustomization 该接口用于获取会议室个性化配置。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uIjM5UjLyITO14iMykTN/query-meeting-room-customization-setting
-func (r *MeetingRoomService) GetMeetingRoomCustomization(ctx context.Context, request *GetMeetingRoomCustomizationReq, options ...MethodOptionFunc) (*GetMeetingRoomCustomizationResp, *Response, error) {
+func (r *VCService) GetMeetingRoomCustomization(ctx context.Context, request *GetMeetingRoomCustomizationReq, options ...MethodOptionFunc) (*GetMeetingRoomCustomizationResp, *Response, error) {
 	if r.cli.mock.mockMeetingRoomGetMeetingRoomCustomization != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] MeetingRoom#GetMeetingRoomCustomization mock enable")
 		return r.cli.mock.mockMeetingRoomGetMeetingRoomCustomization(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "MeetingRoom",
+		Scope:                 "VC",
 		API:                   "GetMeetingRoomCustomization",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/meeting_room/room/customization",
