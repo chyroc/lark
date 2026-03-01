@@ -21,57 +21,57 @@ import (
 	"context"
 )
 
-// DeleteCorehrLocationAddress 删除地点地址
+// DeleteCoreHRLocationAddress 删除地点地址
 //
 // 删除地点地址时请确认是否为主要地址或是否为最后一个地址, 如有会导致删除失败。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/location-address/delete
 // new doc: https://open.feishu.cn/document/corehr-v1/organization-management/location/location-address/delete
-func (r *CoreHRService) DeleteCorehrLocationAddress(ctx context.Context, request *DeleteCorehrLocationAddressReq, options ...MethodOptionFunc) (*DeleteCorehrLocationAddressResp, *Response, error) {
-	if r.cli.mock.mockCoreHRDeleteCorehrLocationAddress != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCorehrLocationAddress mock enable")
-		return r.cli.mock.mockCoreHRDeleteCorehrLocationAddress(ctx, request, options...)
+func (r *CoreHRService) DeleteCoreHRLocationAddress(ctx context.Context, request *DeleteCoreHRLocationAddressReq, options ...MethodOptionFunc) (*DeleteCoreHRLocationAddressResp, *Response, error) {
+	if r.cli.mock.mockCoreHRDeleteCoreHRLocationAddress != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHRLocationAddress mock enable")
+		return r.cli.mock.mockCoreHRDeleteCoreHRLocationAddress(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "DeleteCorehrLocationAddress",
+		API:                   "DeleteCoreHRLocationAddress",
 		Method:                "DELETE",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/locations/:location_id/addresses/:address_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(deleteCorehrLocationAddressResp)
+	resp := new(deleteCoreHRLocationAddressResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRDeleteCorehrLocationAddress mock CoreHRDeleteCorehrLocationAddress method
-func (r *Mock) MockCoreHRDeleteCorehrLocationAddress(f func(ctx context.Context, request *DeleteCorehrLocationAddressReq, options ...MethodOptionFunc) (*DeleteCorehrLocationAddressResp, *Response, error)) {
-	r.mockCoreHRDeleteCorehrLocationAddress = f
+// MockCoreHRDeleteCoreHRLocationAddress mock CoreHRDeleteCoreHRLocationAddress method
+func (r *Mock) MockCoreHRDeleteCoreHRLocationAddress(f func(ctx context.Context, request *DeleteCoreHRLocationAddressReq, options ...MethodOptionFunc) (*DeleteCoreHRLocationAddressResp, *Response, error)) {
+	r.mockCoreHRDeleteCoreHRLocationAddress = f
 }
 
-// UnMockCoreHRDeleteCorehrLocationAddress un-mock CoreHRDeleteCorehrLocationAddress method
-func (r *Mock) UnMockCoreHRDeleteCorehrLocationAddress() {
-	r.mockCoreHRDeleteCorehrLocationAddress = nil
+// UnMockCoreHRDeleteCoreHRLocationAddress un-mock CoreHRDeleteCoreHRLocationAddress method
+func (r *Mock) UnMockCoreHRDeleteCoreHRLocationAddress() {
+	r.mockCoreHRDeleteCoreHRLocationAddress = nil
 }
 
-// DeleteCorehrLocationAddressReq ...
-type DeleteCorehrLocationAddressReq struct {
+// DeleteCoreHRLocationAddressReq ...
+type DeleteCoreHRLocationAddressReq struct {
 	LocationID string `path:"location_id" json:"-"` // 地点 ID。ID 获取方式: 调用[【创建地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/create)[【批量分页查询地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)等接口可以返回地点 ID示例值: "1616161616"
 	AddressID  string `path:"address_id" json:"-"`  // 地址 ID。ID 获取方式: 调用[【创建地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/create)[【批量分页查询地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)[【添加地点地址】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/location-address/create)等接口可以返回地址 ID示例值: "1515151515"
 }
 
-// DeleteCorehrLocationAddressResp ...
-type DeleteCorehrLocationAddressResp struct {
+// DeleteCoreHRLocationAddressResp ...
+type DeleteCoreHRLocationAddressResp struct {
 }
 
-// deleteCorehrLocationAddressResp ...
-type deleteCorehrLocationAddressResp struct {
+// deleteCoreHRLocationAddressResp ...
+type deleteCoreHRLocationAddressResp struct {
 	Code  int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                           `json:"msg,omitempty"`  // 错误描述
-	Data  *DeleteCorehrLocationAddressResp `json:"data,omitempty"`
+	Data  *DeleteCoreHRLocationAddressResp `json:"data,omitempty"`
 	Error *ErrorDetail                     `json:"error,omitempty"`
 }

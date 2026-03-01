@@ -30,9 +30,9 @@ import (
 //
 // Deprecated
 func (r *DriveService) CreateCcmDocsDefaultDocsApiMeta(ctx context.Context, request *CreateCcmDocsDefaultDocsApiMetaReq, options ...MethodOptionFunc) (*CreateCcmDocsDefaultDocsApiMetaResp, *Response, error) {
-	if r.cli.mock.mockCcmDocsCreateCcmDocsDefaultDocsApiMeta != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CcmDocs#CreateCcmDocsDefaultDocsApiMeta mock enable")
-		return r.cli.mock.mockCcmDocsCreateCcmDocsDefaultDocsApiMeta(ctx, request, options...)
+	if r.cli.mock.mockDriveCreateCcmDocsDefaultDocsApiMeta != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#CreateCcmDocsDefaultDocsApiMeta mock enable")
+		return r.cli.mock.mockDriveCreateCcmDocsDefaultDocsApiMeta(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
@@ -51,14 +51,14 @@ func (r *DriveService) CreateCcmDocsDefaultDocsApiMeta(ctx context.Context, requ
 	return resp.Data, response, err
 }
 
-// MockCcmDocsCreateCcmDocsDefaultDocsApiMeta mock CcmDocsCreateCcmDocsDefaultDocsApiMeta method
-func (r *Mock) MockCcmDocsCreateCcmDocsDefaultDocsApiMeta(f func(ctx context.Context, request *CreateCcmDocsDefaultDocsApiMetaReq, options ...MethodOptionFunc) (*CreateCcmDocsDefaultDocsApiMetaResp, *Response, error)) {
-	r.mockCcmDocsCreateCcmDocsDefaultDocsApiMeta = f
+// MockDriveCreateCcmDocsDefaultDocsApiMeta mock DriveCreateCcmDocsDefaultDocsApiMeta method
+func (r *Mock) MockDriveCreateCcmDocsDefaultDocsApiMeta(f func(ctx context.Context, request *CreateCcmDocsDefaultDocsApiMetaReq, options ...MethodOptionFunc) (*CreateCcmDocsDefaultDocsApiMetaResp, *Response, error)) {
+	r.mockDriveCreateCcmDocsDefaultDocsApiMeta = f
 }
 
-// UnMockCcmDocsCreateCcmDocsDefaultDocsApiMeta un-mock CcmDocsCreateCcmDocsDefaultDocsApiMeta method
-func (r *Mock) UnMockCcmDocsCreateCcmDocsDefaultDocsApiMeta() {
-	r.mockCcmDocsCreateCcmDocsDefaultDocsApiMeta = nil
+// UnMockDriveCreateCcmDocsDefaultDocsApiMeta un-mock DriveCreateCcmDocsDefaultDocsApiMeta method
+func (r *Mock) UnMockDriveCreateCcmDocsDefaultDocsApiMeta() {
+	r.mockDriveCreateCcmDocsDefaultDocsApiMeta = nil
 }
 
 // CreateCcmDocsDefaultDocsApiMetaReq ...

@@ -21,43 +21,43 @@ import (
 	"context"
 )
 
-// ListCorehrApprover 审批任务依赖于流程节点实例存在, 每一个流程节点实例可能包含有一或多个审批任务, 每一个任务表明当前节点的审批人是谁, 该接口可获取指定人员的审批任务列表（此功能不受数据权限范围控制）。
+// ListCoreHRApprover 审批任务依赖于流程节点实例存在, 每一个流程节点实例可能包含有一或多个审批任务, 每一个任务表明当前节点的审批人是谁, 该接口可获取指定人员的审批任务列表（此功能不受数据权限范围控制）。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/approver/list
 // new doc: https://open.feishu.cn/document/corehr-v1/process-form_variable_data/approver-task/list
-func (r *CoreHRService) ListCorehrApprover(ctx context.Context, request *ListCorehrApproverReq, options ...MethodOptionFunc) (*ListCorehrApproverResp, *Response, error) {
-	if r.cli.mock.mockCoreHRListCorehrApprover != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#ListCorehrApprover mock enable")
-		return r.cli.mock.mockCoreHRListCorehrApprover(ctx, request, options...)
+func (r *CoreHRService) ListCoreHRApprover(ctx context.Context, request *ListCoreHRApproverReq, options ...MethodOptionFunc) (*ListCoreHRApproverResp, *Response, error) {
+	if r.cli.mock.mockCoreHRListCoreHRApprover != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#ListCoreHRApprover mock enable")
+		return r.cli.mock.mockCoreHRListCoreHRApprover(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "ListCorehrApprover",
+		API:                   "ListCoreHRApprover",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/approvers",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(listCorehrApproverResp)
+	resp := new(listCoreHRApproverResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRListCorehrApprover mock CoreHRListCorehrApprover method
-func (r *Mock) MockCoreHRListCorehrApprover(f func(ctx context.Context, request *ListCorehrApproverReq, options ...MethodOptionFunc) (*ListCorehrApproverResp, *Response, error)) {
-	r.mockCoreHRListCorehrApprover = f
+// MockCoreHRListCoreHRApprover mock CoreHRListCoreHRApprover method
+func (r *Mock) MockCoreHRListCoreHRApprover(f func(ctx context.Context, request *ListCoreHRApproverReq, options ...MethodOptionFunc) (*ListCoreHRApproverResp, *Response, error)) {
+	r.mockCoreHRListCoreHRApprover = f
 }
 
-// UnMockCoreHRListCorehrApprover un-mock CoreHRListCorehrApprover method
-func (r *Mock) UnMockCoreHRListCorehrApprover() {
-	r.mockCoreHRListCorehrApprover = nil
+// UnMockCoreHRListCoreHRApprover un-mock CoreHRListCoreHRApprover method
+func (r *Mock) UnMockCoreHRListCoreHRApprover() {
+	r.mockCoreHRListCoreHRApprover = nil
 }
 
-// ListCorehrApproverReq ...
-type ListCorehrApproverReq struct {
+// ListCoreHRApproverReq ...
+type ListCoreHRApproverReq struct {
 	PageSize       int64   `query:"page_size" json:"-"`       // 分页大小示例值: 20默认值: `20` 取值范围: `1` ～ `100`
 	PageToken      *string `query:"page_token" json:"-"`      // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 1默认值: `1`
 	UserIDType     *IDType `query:"user_id_type" json:"-"`    // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
@@ -65,24 +65,24 @@ type ListCorehrApproverReq struct {
 	ApproverStatus *int64  `query:"approver_status" json:"-"` // 任务状态示例值: 1可选值有: 跳过（废弃, 不支持这个状态）发起未开始（废弃, 不支持这个状态）进行中已拒绝已通过被撤回（废弃, 不支持这个状态）抄送表单提交（不建议使用, 可通过状态3来查询）失败已回退发起撤销（废弃, 不支持这个状态）
 }
 
-// ListCorehrApproverResp ...
-type ListCorehrApproverResp struct {
+// ListCoreHRApproverResp ...
+type ListCoreHRApproverResp struct {
 	PageToken    string                            `json:"page_token,omitempty"`    // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	HasMore      bool                              `json:"has_more,omitempty"`      // 是否还有更多项
-	ApproverList []*ListCorehrApproverRespApprover `json:"approver_list,omitempty"` // 审批任务列表
+	ApproverList []*ListCoreHRApproverRespApprover `json:"approver_list,omitempty"` // 审批任务列表
 }
 
-// ListCorehrApproverRespApprover ...
-type ListCorehrApproverRespApprover struct {
+// ListCoreHRApproverRespApprover ...
+type ListCoreHRApproverRespApprover struct {
 	ApproverID     string `json:"approver_id,omitempty"`     // 审批任务id
 	ProcessID      string `json:"process_id,omitempty"`      // 流程id
 	ApproverStatus int64  `json:"approver_status,omitempty"` // 任务状态可选值有: 跳过发起未开始进行中已拒绝已通过被撤回抄送表单提交失败已回退发起撤销已干预
 }
 
-// listCorehrApproverResp ...
-type listCorehrApproverResp struct {
+// listCoreHRApproverResp ...
+type listCoreHRApproverResp struct {
 	Code  int64                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                  `json:"msg,omitempty"`  // 错误描述
-	Data  *ListCorehrApproverResp `json:"data,omitempty"`
+	Data  *ListCoreHRApproverResp `json:"data,omitempty"`
 	Error *ErrorDetail            `json:"error,omitempty"`
 }

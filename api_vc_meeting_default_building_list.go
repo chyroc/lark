@@ -28,9 +28,9 @@ import (
 //
 // Deprecated
 func (r *VCService) ListVCMeetingDefaultBuilding(ctx context.Context, request *ListVCMeetingDefaultBuildingReq, options ...MethodOptionFunc) (*ListVCMeetingDefaultBuildingResp, *Response, error) {
-	if r.cli.mock.mockVCMeetingListVCMeetingDefaultBuilding != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] VCMeeting#ListVCMeetingDefaultBuilding mock enable")
-		return r.cli.mock.mockVCMeetingListVCMeetingDefaultBuilding(ctx, request, options...)
+	if r.cli.mock.mockVCListVCMeetingDefaultBuilding != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#ListVCMeetingDefaultBuilding mock enable")
+		return r.cli.mock.mockVCListVCMeetingDefaultBuilding(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
@@ -48,14 +48,14 @@ func (r *VCService) ListVCMeetingDefaultBuilding(ctx context.Context, request *L
 	return resp.Data, response, err
 }
 
-// MockVCMeetingListVCMeetingDefaultBuilding mock VCMeetingListVCMeetingDefaultBuilding method
-func (r *Mock) MockVCMeetingListVCMeetingDefaultBuilding(f func(ctx context.Context, request *ListVCMeetingDefaultBuildingReq, options ...MethodOptionFunc) (*ListVCMeetingDefaultBuildingResp, *Response, error)) {
-	r.mockVCMeetingListVCMeetingDefaultBuilding = f
+// MockVCListVCMeetingDefaultBuilding mock VCListVCMeetingDefaultBuilding method
+func (r *Mock) MockVCListVCMeetingDefaultBuilding(f func(ctx context.Context, request *ListVCMeetingDefaultBuildingReq, options ...MethodOptionFunc) (*ListVCMeetingDefaultBuildingResp, *Response, error)) {
+	r.mockVCListVCMeetingDefaultBuilding = f
 }
 
-// UnMockVCMeetingListVCMeetingDefaultBuilding un-mock VCMeetingListVCMeetingDefaultBuilding method
-func (r *Mock) UnMockVCMeetingListVCMeetingDefaultBuilding() {
-	r.mockVCMeetingListVCMeetingDefaultBuilding = nil
+// UnMockVCListVCMeetingDefaultBuilding un-mock VCListVCMeetingDefaultBuilding method
+func (r *Mock) UnMockVCListVCMeetingDefaultBuilding() {
+	r.mockVCListVCMeetingDefaultBuilding = nil
 }
 
 // ListVCMeetingDefaultBuildingReq ...

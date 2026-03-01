@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// QueryCorehrJobGradeRecentChange 查询指定时间范围内当前生效信息发生变更的职等, 即只有职等当前生效版本的生效时间在查询时间范围内, 才返回该地点id
+// QueryCoreHRJobGradeRecentChange 查询指定时间范围内当前生效信息发生变更的职等, 即只有职等当前生效版本的生效时间在查询时间范围内, 才返回该地点id
 //
 // - 默认排序条件: 默认先按照组织记录 ID 增序排序, 便于滚动查询
 // - 使用滚动查询而非分页查询, 是为了防止大批量获取数据时, 深分页导致超时
@@ -30,57 +30,57 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query_recent_change
 // new doc: https://open.feishu.cn/document/corehr-v1/job-management/job_grade/query_recent_change
-func (r *CoreHRService) QueryCorehrJobGradeRecentChange(ctx context.Context, request *QueryCorehrJobGradeRecentChangeReq, options ...MethodOptionFunc) (*QueryCorehrJobGradeRecentChangeResp, *Response, error) {
-	if r.cli.mock.mockCoreHRQueryCorehrJobGradeRecentChange != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#QueryCorehrJobGradeRecentChange mock enable")
-		return r.cli.mock.mockCoreHRQueryCorehrJobGradeRecentChange(ctx, request, options...)
+func (r *CoreHRService) QueryCoreHRJobGradeRecentChange(ctx context.Context, request *QueryCoreHRJobGradeRecentChangeReq, options ...MethodOptionFunc) (*QueryCoreHRJobGradeRecentChangeResp, *Response, error) {
+	if r.cli.mock.mockCoreHRQueryCoreHRJobGradeRecentChange != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#QueryCoreHRJobGradeRecentChange mock enable")
+		return r.cli.mock.mockCoreHRQueryCoreHRJobGradeRecentChange(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "QueryCorehrJobGradeRecentChange",
+		API:                   "QueryCoreHRJobGradeRecentChange",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/job_grades/query_recent_change",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(queryCorehrJobGradeRecentChangeResp)
+	resp := new(queryCoreHRJobGradeRecentChangeResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRQueryCorehrJobGradeRecentChange mock CoreHRQueryCorehrJobGradeRecentChange method
-func (r *Mock) MockCoreHRQueryCorehrJobGradeRecentChange(f func(ctx context.Context, request *QueryCorehrJobGradeRecentChangeReq, options ...MethodOptionFunc) (*QueryCorehrJobGradeRecentChangeResp, *Response, error)) {
-	r.mockCoreHRQueryCorehrJobGradeRecentChange = f
+// MockCoreHRQueryCoreHRJobGradeRecentChange mock CoreHRQueryCoreHRJobGradeRecentChange method
+func (r *Mock) MockCoreHRQueryCoreHRJobGradeRecentChange(f func(ctx context.Context, request *QueryCoreHRJobGradeRecentChangeReq, options ...MethodOptionFunc) (*QueryCoreHRJobGradeRecentChangeResp, *Response, error)) {
+	r.mockCoreHRQueryCoreHRJobGradeRecentChange = f
 }
 
-// UnMockCoreHRQueryCorehrJobGradeRecentChange un-mock CoreHRQueryCorehrJobGradeRecentChange method
-func (r *Mock) UnMockCoreHRQueryCorehrJobGradeRecentChange() {
-	r.mockCoreHRQueryCorehrJobGradeRecentChange = nil
+// UnMockCoreHRQueryCoreHRJobGradeRecentChange un-mock CoreHRQueryCoreHRJobGradeRecentChange method
+func (r *Mock) UnMockCoreHRQueryCoreHRJobGradeRecentChange() {
+	r.mockCoreHRQueryCoreHRJobGradeRecentChange = nil
 }
 
-// QueryCorehrJobGradeRecentChangeReq ...
-type QueryCorehrJobGradeRecentChangeReq struct {
+// QueryCoreHRJobGradeRecentChangeReq ...
+type QueryCoreHRJobGradeRecentChangeReq struct {
 	PageSize  int64   `query:"page_size" json:"-"`  // 分页大小, 最大 2000示例值: 100 取值范围: `1` ～ `2000`
 	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 6891251722631890445
 	StartDate string  `query:"start_date" json:"-"` // 查询的开始时间, 支持"yyyy-MM-dd HH:MM:SS"示例值: 2024-01-01 00:00:00
 	EndDate   string  `query:"end_date" json:"-"`   // 查询的结束时间, 格式 "yyyy-MM-dd HH:MM:SS"示例值: 2024-04-01 00:00:00
 }
 
-// QueryCorehrJobGradeRecentChangeResp ...
-type QueryCorehrJobGradeRecentChangeResp struct {
+// QueryCoreHRJobGradeRecentChangeResp ...
+type QueryCoreHRJobGradeRecentChangeResp struct {
 	JobGradeIDs        []string `json:"job_grade_ids,omitempty"`         // 职等 ID 列表, 其中包含新建、更新以及删除的ID列表。- 非删除的数据, 可通过[【批量查询职等信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)获取详情
 	PageToken          string   `json:"page_token,omitempty"`            // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	HasMore            bool     `json:"has_more,omitempty"`              // 是否还有更多项
 	DeletedJobGradeIDs []string `json:"deleted_job_grade_ids,omitempty"` // 目标查询时间范围内被删除的职等列表, 该列表是  job_grade_ids 的子集, 便于获取在指定的[start_date, end_date+1) 的范围内被删除的职等 IDs。- 由于对应的职等已经被删除, 无法通过 ID 查询到历史数据。
 }
 
-// queryCorehrJobGradeRecentChangeResp ...
-type queryCorehrJobGradeRecentChangeResp struct {
+// queryCoreHRJobGradeRecentChangeResp ...
+type queryCoreHRJobGradeRecentChangeResp struct {
 	Code  int64                                `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                               `json:"msg,omitempty"`  // 错误描述
-	Data  *QueryCorehrJobGradeRecentChangeResp `json:"data,omitempty"`
+	Data  *QueryCoreHRJobGradeRecentChangeResp `json:"data,omitempty"`
 	Error *ErrorDetail                         `json:"error,omitempty"`
 }

@@ -21,56 +21,56 @@ import (
 	"context"
 )
 
-// CreateVCMeetingDefaultBuildingDelete 该接口用于删除建筑物（办公大楼）。
+// DeleteVCMeetingDefaultBuilding 该接口用于删除建筑物（办公大楼）。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzMxYjLzMTM24yMzEjN
 // new doc: https://open.feishu.cn/document/server-docs/historic-version/meeting_room-v1/api-reference/delete-building
 //
 // Deprecated
-func (r *VCService) CreateVCMeetingDefaultBuildingDelete(ctx context.Context, request *CreateVCMeetingDefaultBuildingDeleteReq, options ...MethodOptionFunc) (*CreateVCMeetingDefaultBuildingDeleteResp, *Response, error) {
-	if r.cli.mock.mockVCMeetingCreateVCMeetingDefaultBuildingDelete != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] VCMeeting#CreateVCMeetingDefaultBuildingDelete mock enable")
-		return r.cli.mock.mockVCMeetingCreateVCMeetingDefaultBuildingDelete(ctx, request, options...)
+func (r *VCService) DeleteVCMeetingDefaultBuilding(ctx context.Context, request *DeleteVCMeetingDefaultBuildingReq, options ...MethodOptionFunc) (*DeleteVCMeetingDefaultBuildingResp, *Response, error) {
+	if r.cli.mock.mockVCDeleteVCMeetingDefaultBuilding != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#DeleteVCMeetingDefaultBuilding mock enable")
+		return r.cli.mock.mockVCDeleteVCMeetingDefaultBuilding(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "VC",
-		API:                   "CreateVCMeetingDefaultBuildingDelete",
+		API:                   "DeleteVCMeetingDefaultBuilding",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/meeting_room/building/delete",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(createVCMeetingDefaultBuildingDeleteResp)
+	resp := new(deleteVCMeetingDefaultBuildingResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockVCMeetingCreateVCMeetingDefaultBuildingDelete mock VCMeetingCreateVCMeetingDefaultBuildingDelete method
-func (r *Mock) MockVCMeetingCreateVCMeetingDefaultBuildingDelete(f func(ctx context.Context, request *CreateVCMeetingDefaultBuildingDeleteReq, options ...MethodOptionFunc) (*CreateVCMeetingDefaultBuildingDeleteResp, *Response, error)) {
-	r.mockVCMeetingCreateVCMeetingDefaultBuildingDelete = f
+// MockVCDeleteVCMeetingDefaultBuilding mock VCDeleteVCMeetingDefaultBuilding method
+func (r *Mock) MockVCDeleteVCMeetingDefaultBuilding(f func(ctx context.Context, request *DeleteVCMeetingDefaultBuildingReq, options ...MethodOptionFunc) (*DeleteVCMeetingDefaultBuildingResp, *Response, error)) {
+	r.mockVCDeleteVCMeetingDefaultBuilding = f
 }
 
-// UnMockVCMeetingCreateVCMeetingDefaultBuildingDelete un-mock VCMeetingCreateVCMeetingDefaultBuildingDelete method
-func (r *Mock) UnMockVCMeetingCreateVCMeetingDefaultBuildingDelete() {
-	r.mockVCMeetingCreateVCMeetingDefaultBuildingDelete = nil
+// UnMockVCDeleteVCMeetingDefaultBuilding un-mock VCDeleteVCMeetingDefaultBuilding method
+func (r *Mock) UnMockVCDeleteVCMeetingDefaultBuilding() {
+	r.mockVCDeleteVCMeetingDefaultBuilding = nil
 }
 
-// CreateVCMeetingDefaultBuildingDeleteReq ...
-type CreateVCMeetingDefaultBuildingDeleteReq struct {
+// DeleteVCMeetingDefaultBuildingReq ...
+type DeleteVCMeetingDefaultBuildingReq struct {
 	BuildingID string `json:"building_id,omitempty"` // 要删除的建筑ID
 }
 
-// CreateVCMeetingDefaultBuildingDeleteResp ...
-type CreateVCMeetingDefaultBuildingDeleteResp struct {
+// DeleteVCMeetingDefaultBuildingResp ...
+type DeleteVCMeetingDefaultBuildingResp struct {
 }
 
-// createVCMeetingDefaultBuildingDeleteResp ...
-type createVCMeetingDefaultBuildingDeleteResp struct {
-	Code  int64                                     `json:"code,omitempty"` // 返回码, 非 0 表示失败
-	Msg   string                                    `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
-	Data  *CreateVCMeetingDefaultBuildingDeleteResp `json:"data,omitempty"`
-	Error *ErrorDetail                              `json:"error,omitempty"`
+// deleteVCMeetingDefaultBuildingResp ...
+type deleteVCMeetingDefaultBuildingResp struct {
+	Code  int64                               `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg   string                              `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
+	Data  *DeleteVCMeetingDefaultBuildingResp `json:"data,omitempty"`
+	Error *ErrorDetail                        `json:"error,omitempty"`
 }

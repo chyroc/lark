@@ -21,78 +21,78 @@ import (
 	"context"
 )
 
-// BatchGetCorehrPathway 根据通道的ID批量获取通道的名称、编码、描述信息
+// BatchGetCoreHRPathway 根据通道的ID批量获取通道的名称、编码、描述信息
 //
 // 延迟说明: 数据库主从延迟2s以内, 即: 创建通道后2s内调用此接口可能查询不到数据。
 // 由于该接口为ByID批量查询接口, 当请求参数中的某个通道ID错误或者被删除时, 接口不会报错。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pathway/batch_get
-func (r *CoreHRService) BatchGetCorehrPathway(ctx context.Context, request *BatchGetCorehrPathwayReq, options ...MethodOptionFunc) (*BatchGetCorehrPathwayResp, *Response, error) {
-	if r.cli.mock.mockCoreHRBatchGetCorehrPathway != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#BatchGetCorehrPathway mock enable")
-		return r.cli.mock.mockCoreHRBatchGetCorehrPathway(ctx, request, options...)
+func (r *CoreHRService) BatchGetCoreHRPathway(ctx context.Context, request *BatchGetCoreHRPathwayReq, options ...MethodOptionFunc) (*BatchGetCoreHRPathwayResp, *Response, error) {
+	if r.cli.mock.mockCoreHRBatchGetCoreHRPathway != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#BatchGetCoreHRPathway mock enable")
+		return r.cli.mock.mockCoreHRBatchGetCoreHRPathway(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "BatchGetCorehrPathway",
+		API:                   "BatchGetCoreHRPathway",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/pathways/batch_get",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(batchGetCorehrPathwayResp)
+	resp := new(batchGetCoreHRPathwayResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRBatchGetCorehrPathway mock CoreHRBatchGetCorehrPathway method
-func (r *Mock) MockCoreHRBatchGetCorehrPathway(f func(ctx context.Context, request *BatchGetCorehrPathwayReq, options ...MethodOptionFunc) (*BatchGetCorehrPathwayResp, *Response, error)) {
-	r.mockCoreHRBatchGetCorehrPathway = f
+// MockCoreHRBatchGetCoreHRPathway mock CoreHRBatchGetCoreHRPathway method
+func (r *Mock) MockCoreHRBatchGetCoreHRPathway(f func(ctx context.Context, request *BatchGetCoreHRPathwayReq, options ...MethodOptionFunc) (*BatchGetCoreHRPathwayResp, *Response, error)) {
+	r.mockCoreHRBatchGetCoreHRPathway = f
 }
 
-// UnMockCoreHRBatchGetCorehrPathway un-mock CoreHRBatchGetCorehrPathway method
-func (r *Mock) UnMockCoreHRBatchGetCorehrPathway() {
-	r.mockCoreHRBatchGetCorehrPathway = nil
+// UnMockCoreHRBatchGetCoreHRPathway un-mock CoreHRBatchGetCoreHRPathway method
+func (r *Mock) UnMockCoreHRBatchGetCoreHRPathway() {
+	r.mockCoreHRBatchGetCoreHRPathway = nil
 }
 
-// BatchGetCorehrPathwayReq ...
-type BatchGetCorehrPathwayReq struct {
+// BatchGetCoreHRPathwayReq ...
+type BatchGetCoreHRPathwayReq struct {
 	PathwayIDs []string `json:"pathway_ids,omitempty"` // 通道 ID 列表。ID获取方式- 调用[创建通道接口](/document-mod/index?fullPath=%2FuAjLw4CM%2FukTMukTMukTM%2Fcorehr-v2%2Fpathway%2Fcreate)后, 从响应结果的`pathway_id`获取。- 监听[通道创建事件](/document-mod/index?fullPath=/uAjLw4CM/ukTMukTMukTM/corehr-v2/pathway/events/created), 当触发该事件后可从事件体内获取`pathway_id`- 监听[通道更新事件](/document-mod/index?fullPath=/uAjLw4CM/ukTMukTMukTM/corehr-v2/pathway/events/updated), 当触发该事件后可从事件体内获取`pathway_id`- 监听[通道删除事件](/document-mod/index?fullPath=%2FuAjLw4CM%2FukTMukTMukTM%2Fcorehr-v2%2Fpathway%2Fevents%2Fdeleted), 当触发该事件后可从事件体内获取`pathway_id`示例值: ["4692446793125560154"] 长度范围: `1` ～ `100`
 }
 
-// BatchGetCorehrPathwayResp ...
-type BatchGetCorehrPathwayResp struct {
-	Items []*BatchGetCorehrPathwayRespItem `json:"items,omitempty"` // 查询的通道信息
+// BatchGetCoreHRPathwayResp ...
+type BatchGetCoreHRPathwayResp struct {
+	Items []*BatchGetCoreHRPathwayRespItem `json:"items,omitempty"` // 查询的通道信息
 }
 
-// BatchGetCorehrPathwayRespItem ...
-type BatchGetCorehrPathwayRespItem struct {
+// BatchGetCoreHRPathwayRespItem ...
+type BatchGetCoreHRPathwayRespItem struct {
 	PathwayID    string                                      `json:"pathway_id,omitempty"`   // 通道 ID
 	Code         string                                      `json:"code,omitempty"`         // 编码
-	Names        []*BatchGetCorehrPathwayRespItemName        `json:"names,omitempty"`        // 名称
-	Descriptions []*BatchGetCorehrPathwayRespItemDescription `json:"descriptions,omitempty"` // 描述
+	Names        []*BatchGetCoreHRPathwayRespItemName        `json:"names,omitempty"`        // 名称
+	Descriptions []*BatchGetCoreHRPathwayRespItemDescription `json:"descriptions,omitempty"` // 描述
 	Active       bool                                        `json:"active,omitempty"`       // 停启用状态；true: 启用, false: 停用
 }
 
-// BatchGetCorehrPathwayRespItemDescription ...
-type BatchGetCorehrPathwayRespItemDescription struct {
+// BatchGetCoreHRPathwayRespItemDescription ...
+type BatchGetCoreHRPathwayRespItemDescription struct {
 	Lang  string `json:"lang,omitempty"`  // 中文用zh-CN, 英文用en-US
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// BatchGetCorehrPathwayRespItemName ...
-type BatchGetCorehrPathwayRespItemName struct {
+// BatchGetCoreHRPathwayRespItemName ...
+type BatchGetCoreHRPathwayRespItemName struct {
 	Lang  string `json:"lang,omitempty"`  // 中文用zh-CN, 英文用en-US
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// batchGetCorehrPathwayResp ...
-type batchGetCorehrPathwayResp struct {
+// batchGetCoreHRPathwayResp ...
+type batchGetCoreHRPathwayResp struct {
 	Code  int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                     `json:"msg,omitempty"`  // 错误描述
-	Data  *BatchGetCorehrPathwayResp `json:"data,omitempty"`
+	Data  *BatchGetCoreHRPathwayResp `json:"data,omitempty"`
 	Error *ErrorDetail               `json:"error,omitempty"`
 }

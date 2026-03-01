@@ -291,12 +291,12 @@ func Test_Aily_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockAilyCreateAilyAppSkillStart(func(ctx context.Context, request *lark.CreateAilyAppSkillStartReq, options ...lark.MethodOptionFunc) (*lark.CreateAilyAppSkillStartResp, *lark.Response, error) {
+			cli.Mock().MockAilyStartAilyAppSkill(func(ctx context.Context, request *lark.StartAilyAppSkillReq, options ...lark.MethodOptionFunc) (*lark.StartAilyAppSkillResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAilyCreateAilyAppSkillStart()
+			defer cli.Mock().UnMockAilyStartAilyAppSkill()
 
-			_, _, err := moduleCli.CreateAilyAppSkillStart(ctx, &lark.CreateAilyAppSkillStartReq{})
+			_, _, err := moduleCli.StartAilyAppSkill(ctx, &lark.StartAilyAppSkillReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -496,7 +496,7 @@ func Test_Aily_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.CreateAilyAppSkillStart(ctx, &lark.CreateAilyAppSkillStartReq{
+			_, _, err := moduleCli.StartAilyAppSkill(ctx, &lark.StartAilyAppSkillReq{
 				AppID:   "x",
 				SkillID: "x",
 			})

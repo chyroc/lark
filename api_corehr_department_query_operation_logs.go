@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// QueryCorehrDepartmentOperationLogs 批量查询指定时间范围内的部门操作日志
+// QueryCoreHRDepartmentOperationLogs 批量查询指定时间范围内的部门操作日志
 //
 // - 默认排序条件: 默认以操作时间倒序排序
 // - 仅支持查询部门基础字段变更的操作日志, 对于角色字段变更的操作日志查询功能待上线
@@ -30,39 +30,39 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/query_operation_logs
 // new doc: https://open.feishu.cn/document/corehr-v1/organization-management/department/query_operation_logs
-func (r *CoreHRService) QueryCorehrDepartmentOperationLogs(ctx context.Context, request *QueryCorehrDepartmentOperationLogsReq, options ...MethodOptionFunc) (*QueryCorehrDepartmentOperationLogsResp, *Response, error) {
-	if r.cli.mock.mockCoreHRQueryCorehrDepartmentOperationLogs != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#QueryCorehrDepartmentOperationLogs mock enable")
-		return r.cli.mock.mockCoreHRQueryCorehrDepartmentOperationLogs(ctx, request, options...)
+func (r *CoreHRService) QueryCoreHRDepartmentOperationLogs(ctx context.Context, request *QueryCoreHRDepartmentOperationLogsReq, options ...MethodOptionFunc) (*QueryCoreHRDepartmentOperationLogsResp, *Response, error) {
+	if r.cli.mock.mockCoreHRQueryCoreHRDepartmentOperationLogs != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#QueryCoreHRDepartmentOperationLogs mock enable")
+		return r.cli.mock.mockCoreHRQueryCoreHRDepartmentOperationLogs(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "QueryCorehrDepartmentOperationLogs",
+		API:                   "QueryCoreHRDepartmentOperationLogs",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/departments/query_operation_logs",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(queryCorehrDepartmentOperationLogsResp)
+	resp := new(queryCoreHRDepartmentOperationLogsResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRQueryCorehrDepartmentOperationLogs mock CoreHRQueryCorehrDepartmentOperationLogs method
-func (r *Mock) MockCoreHRQueryCorehrDepartmentOperationLogs(f func(ctx context.Context, request *QueryCorehrDepartmentOperationLogsReq, options ...MethodOptionFunc) (*QueryCorehrDepartmentOperationLogsResp, *Response, error)) {
-	r.mockCoreHRQueryCorehrDepartmentOperationLogs = f
+// MockCoreHRQueryCoreHRDepartmentOperationLogs mock CoreHRQueryCoreHRDepartmentOperationLogs method
+func (r *Mock) MockCoreHRQueryCoreHRDepartmentOperationLogs(f func(ctx context.Context, request *QueryCoreHRDepartmentOperationLogsReq, options ...MethodOptionFunc) (*QueryCoreHRDepartmentOperationLogsResp, *Response, error)) {
+	r.mockCoreHRQueryCoreHRDepartmentOperationLogs = f
 }
 
-// UnMockCoreHRQueryCorehrDepartmentOperationLogs un-mock CoreHRQueryCorehrDepartmentOperationLogs method
-func (r *Mock) UnMockCoreHRQueryCorehrDepartmentOperationLogs() {
-	r.mockCoreHRQueryCorehrDepartmentOperationLogs = nil
+// UnMockCoreHRQueryCoreHRDepartmentOperationLogs un-mock CoreHRQueryCoreHRDepartmentOperationLogs method
+func (r *Mock) UnMockCoreHRQueryCoreHRDepartmentOperationLogs() {
+	r.mockCoreHRQueryCoreHRDepartmentOperationLogs = nil
 }
 
-// QueryCorehrDepartmentOperationLogsReq ...
-type QueryCorehrDepartmentOperationLogsReq struct {
+// QueryCoreHRDepartmentOperationLogsReq ...
+type QueryCoreHRDepartmentOperationLogsReq struct {
 	PageSize         int64             `query:"page_size" json:"-"`          // 分页大小, 最大 1000示例值: 100 取值范围: `1` ～ `1000`
 	PageToken        *string           `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 2
 	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门 ID 类型示例值: people_corehr_department_id可选值有: 【飞书】用来在具体某个应用中标识一个部门, 同一个department_id 在不同应用中的 open_department_id 相同。【飞书】用来标识租户内一个唯一的部门。【飞书人事】用来标识「飞书人事」中的部门。默认值: `people_corehr_department_id`
@@ -71,17 +71,17 @@ type QueryCorehrDepartmentOperationLogsReq struct {
 	EndDate          string            `json:"end_date,omitempty"`           // 查询的截止操作日期, 注意事项: 格式 "YYYY-MM-DD", 不带时分秒, 包含end_date传入的时间, 系统会以end_date的23:59:59为截止时间进行查询。- 查询截止日期end_date应大于起始日期start_date, 起止日期跨度最大为366天示例值: "2024-01-01"
 }
 
-// QueryCorehrDepartmentOperationLogsResp ...
-type QueryCorehrDepartmentOperationLogsResp struct {
-	OpLogs        []*QueryCorehrDepartmentOperationLogsRespOpLog `json:"op_logs,omitempty"`         // 操作日志列表
+// QueryCoreHRDepartmentOperationLogsResp ...
+type QueryCoreHRDepartmentOperationLogsResp struct {
+	OpLogs        []*QueryCoreHRDepartmentOperationLogsRespOpLog `json:"op_logs,omitempty"`         // 操作日志列表
 	NextPageToken string                                         `json:"next_page_token,omitempty"` // 下一页token
 	HasMore       bool                                           `json:"has_more,omitempty"`        // 是否还有更多项
 }
 
-// QueryCorehrDepartmentOperationLogsRespOpLog ...
-type QueryCorehrDepartmentOperationLogsRespOpLog struct {
+// QueryCoreHRDepartmentOperationLogsRespOpLog ...
+type QueryCoreHRDepartmentOperationLogsRespOpLog struct {
 	ObjectID        string                                               `json:"object_id,omitempty"`        // 部门ID
-	Changes         []*QueryCorehrDepartmentOperationLogsRespOpLogChange `json:"changes,omitempty"`          // 字段变化列表
+	Changes         []*QueryCoreHRDepartmentOperationLogsRespOpLogChange `json:"changes,omitempty"`          // 字段变化列表
 	Operator        string                                               `json:"operator,omitempty"`         // 操作人工号, 更多详细信息可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取
 	OperationType   int64                                                `json:"operation_type,omitempty"`   // 操作类型。现有如下类型: `10`: 新建部门记录- `20`: 新建/复制部门版本- `50`: 编辑部门版本- `60`: 撤销部门版本- `70`: 停用部门- `80`: 启用部门- `90`: 删除部门记录- `100`: 自定义部门排序- `110`: 更新部门- `120`: 编辑部门关联规则
 	OperationTime   string                                               `json:"operation_time,omitempty"`   // 操作时间, 带时分秒。示例值: 2023-11-15 19:25:45
@@ -90,17 +90,17 @@ type QueryCorehrDepartmentOperationLogsRespOpLog struct {
 	ChangeReasons   []string                                             `json:"change_reasons,omitempty"`   // 调整原因列表
 }
 
-// QueryCorehrDepartmentOperationLogsRespOpLogChange ...
-type QueryCorehrDepartmentOperationLogsRespOpLogChange struct {
+// QueryCoreHRDepartmentOperationLogsRespOpLogChange ...
+type QueryCoreHRDepartmentOperationLogsRespOpLogChange struct {
 	Field  string `json:"field,omitempty"`  // 变更字段
 	Before string `json:"before,omitempty"` // 旧值
 	After  string `json:"after,omitempty"`  // 新值
 }
 
-// queryCorehrDepartmentOperationLogsResp ...
-type queryCorehrDepartmentOperationLogsResp struct {
+// queryCoreHRDepartmentOperationLogsResp ...
+type queryCoreHRDepartmentOperationLogsResp struct {
 	Code  int64                                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                                  `json:"msg,omitempty"`  // 错误描述
-	Data  *QueryCorehrDepartmentOperationLogsResp `json:"data,omitempty"`
+	Data  *QueryCoreHRDepartmentOperationLogsResp `json:"data,omitempty"`
 	Error *ErrorDetail                            `json:"error,omitempty"`
 }

@@ -21,43 +21,43 @@ import (
 	"context"
 )
 
-// ListCorehrSignatureTemplateInfoWithThumbnail 该接口用于批量获取电子签模板信息, 包括模板类别、用途、适用区域等。
+// ListCoreHRSignatureTemplateInfoWithThumbnail 该接口用于批量获取电子签模板信息, 包括模板类别、用途、适用区域等。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/signature_template_info_with_thumbnail/list
 // new doc: https://open.feishu.cn/document/corehr-v1/siganture/signature_template_info_with_thumbnail/list
-func (r *CoreHRService) ListCorehrSignatureTemplateInfoWithThumbnail(ctx context.Context, request *ListCorehrSignatureTemplateInfoWithThumbnailReq, options ...MethodOptionFunc) (*ListCorehrSignatureTemplateInfoWithThumbnailResp, *Response, error) {
-	if r.cli.mock.mockCoreHRListCorehrSignatureTemplateInfoWithThumbnail != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#ListCorehrSignatureTemplateInfoWithThumbnail mock enable")
-		return r.cli.mock.mockCoreHRListCorehrSignatureTemplateInfoWithThumbnail(ctx, request, options...)
+func (r *CoreHRService) ListCoreHRSignatureTemplateInfoWithThumbnail(ctx context.Context, request *ListCoreHRSignatureTemplateInfoWithThumbnailReq, options ...MethodOptionFunc) (*ListCoreHRSignatureTemplateInfoWithThumbnailResp, *Response, error) {
+	if r.cli.mock.mockCoreHRListCoreHRSignatureTemplateInfoWithThumbnail != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#ListCoreHRSignatureTemplateInfoWithThumbnail mock enable")
+		return r.cli.mock.mockCoreHRListCoreHRSignatureTemplateInfoWithThumbnail(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "ListCorehrSignatureTemplateInfoWithThumbnail",
+		API:                   "ListCoreHRSignatureTemplateInfoWithThumbnail",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/signature_template_info_with_thumbnails",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(listCorehrSignatureTemplateInfoWithThumbnailResp)
+	resp := new(listCoreHRSignatureTemplateInfoWithThumbnailResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRListCorehrSignatureTemplateInfoWithThumbnail mock CoreHRListCorehrSignatureTemplateInfoWithThumbnail method
-func (r *Mock) MockCoreHRListCorehrSignatureTemplateInfoWithThumbnail(f func(ctx context.Context, request *ListCorehrSignatureTemplateInfoWithThumbnailReq, options ...MethodOptionFunc) (*ListCorehrSignatureTemplateInfoWithThumbnailResp, *Response, error)) {
-	r.mockCoreHRListCorehrSignatureTemplateInfoWithThumbnail = f
+// MockCoreHRListCoreHRSignatureTemplateInfoWithThumbnail mock CoreHRListCoreHRSignatureTemplateInfoWithThumbnail method
+func (r *Mock) MockCoreHRListCoreHRSignatureTemplateInfoWithThumbnail(f func(ctx context.Context, request *ListCoreHRSignatureTemplateInfoWithThumbnailReq, options ...MethodOptionFunc) (*ListCoreHRSignatureTemplateInfoWithThumbnailResp, *Response, error)) {
+	r.mockCoreHRListCoreHRSignatureTemplateInfoWithThumbnail = f
 }
 
-// UnMockCoreHRListCorehrSignatureTemplateInfoWithThumbnail un-mock CoreHRListCorehrSignatureTemplateInfoWithThumbnail method
-func (r *Mock) UnMockCoreHRListCorehrSignatureTemplateInfoWithThumbnail() {
-	r.mockCoreHRListCorehrSignatureTemplateInfoWithThumbnail = nil
+// UnMockCoreHRListCoreHRSignatureTemplateInfoWithThumbnail un-mock CoreHRListCoreHRSignatureTemplateInfoWithThumbnail method
+func (r *Mock) UnMockCoreHRListCoreHRSignatureTemplateInfoWithThumbnail() {
+	r.mockCoreHRListCoreHRSignatureTemplateInfoWithThumbnail = nil
 }
 
-// ListCorehrSignatureTemplateInfoWithThumbnailReq ...
-type ListCorehrSignatureTemplateInfoWithThumbnailReq struct {
+// ListCoreHRSignatureTemplateInfoWithThumbnailReq ...
+type ListCoreHRSignatureTemplateInfoWithThumbnailReq struct {
 	PageSize              *int64   `query:"page_size" json:"-"`              // 分页大小；如果不填, 默认为10示例值: 10
 	PageToken             *string  `query:"page_token" json:"-"`             // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 0
 	Name                  *string  `query:"name" json:"-"`                   // 模版名示例值: 入职模板
@@ -67,118 +67,118 @@ type ListCorehrSignatureTemplateInfoWithThumbnailReq struct {
 	ApplicabilityApinames []string `query:"applicability_apinames" json:"-"` // 电子签模板适用范围, 多个用途之间使用英文逗号分隔；枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)电子签模板适用范围（signature_template_applicability）枚举定义部分获得示例值: document_print, 文件打印 长度范围: `0` ～ `4294967296`
 }
 
-// ListCorehrSignatureTemplateInfoWithThumbnailResp ...
-type ListCorehrSignatureTemplateInfoWithThumbnailResp struct {
-	Items     []*ListCorehrSignatureTemplateInfoWithThumbnailRespItem `json:"items,omitempty"`      // 电子签模板列表
+// ListCoreHRSignatureTemplateInfoWithThumbnailResp ...
+type ListCoreHRSignatureTemplateInfoWithThumbnailResp struct {
+	Items     []*ListCoreHRSignatureTemplateInfoWithThumbnailRespItem `json:"items,omitempty"`      // 电子签模板列表
 	PageToken string                                                  `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	Count     int64                                                   `json:"count,omitempty"`      // 数据总数
 }
 
-// ListCorehrSignatureTemplateInfoWithThumbnailRespItem ...
-type ListCorehrSignatureTemplateInfoWithThumbnailRespItem struct {
+// ListCoreHRSignatureTemplateInfoWithThumbnailRespItem ...
+type ListCoreHRSignatureTemplateInfoWithThumbnailRespItem struct {
 	ID                 string                                                                  `json:"id,omitempty"`                   // id
-	Label              []*ListCorehrSignatureTemplateInfoWithThumbnailRespItemLabel            `json:"label,omitempty"`                // 名称 支持多语
+	Label              []*ListCoreHRSignatureTemplateInfoWithThumbnailRespItemLabel            `json:"label,omitempty"`                // 名称 支持多语
 	Category           *HelpdeskCategory                                                       `json:"category,omitempty"`             // 模版类别, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)电子签模板类别（signature_template_category）枚举定义部分获得
-	Usage              *ListCorehrSignatureTemplateInfoWithThumbnailRespItemUsage              `json:"usage,omitempty"`                // 模版用途；枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)电子签模板类别（signature_template_category）枚举定义部分获得
+	Usage              *ListCoreHRSignatureTemplateInfoWithThumbnailRespItemUsage              `json:"usage,omitempty"`                // 模版用途；枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)电子签模板类别（signature_template_category）枚举定义部分获得
 	CreateTime         string                                                                  `json:"create_time,omitempty"`          // 创建日期
 	ModifyTime         string                                                                  `json:"modify_time,omitempty"`          // 修改日期
-	CreatedBy          *ListCorehrSignatureTemplateInfoWithThumbnailRespItemCreatedBy          `json:"created_by,omitempty"`           // 创建人
-	UpdatedBy          *ListCorehrSignatureTemplateInfoWithThumbnailRespItemUpdatedBy          `json:"updated_by,omitempty"`           // 修改人
+	CreatedBy          *ListCoreHRSignatureTemplateInfoWithThumbnailRespItemCreatedBy          `json:"created_by,omitempty"`           // 创建人
+	UpdatedBy          *ListCoreHRSignatureTemplateInfoWithThumbnailRespItemUpdatedBy          `json:"updated_by,omitempty"`           // 修改人
 	ThumbnailURL       string                                                                  `json:"thumbnail_url,omitempty"`        // 缩略图url
-	SignatoryLabels    []*ListCorehrSignatureTemplateInfoWithThumbnailRespItemSignatoryLabel   `json:"signatory_labels,omitempty"`     // 模版签署人标签
+	SignatoryLabels    []*ListCoreHRSignatureTemplateInfoWithThumbnailRespItemSignatoryLabel   `json:"signatory_labels,omitempty"`     // 模版签署人标签
 	TemplateCode       string                                                                  `json:"template_code,omitempty"`        // 模板编码
 	TemplateDesc       string                                                                  `json:"template_desc,omitempty"`        // 模板描述
-	TemplateRegionInfo *ListCorehrSignatureTemplateInfoWithThumbnailRespItemTemplateRegionInfo `json:"template_region_info,omitempty"` // 模板适用区域
+	TemplateRegionInfo *ListCoreHRSignatureTemplateInfoWithThumbnailRespItemTemplateRegionInfo `json:"template_region_info,omitempty"` // 模板适用区域
 }
 
-// ListCorehrSignatureTemplateInfoWithThumbnailRespItemCategory ...
-type ListCorehrSignatureTemplateInfoWithThumbnailRespItemCategory struct {
+// ListCoreHRSignatureTemplateInfoWithThumbnailRespItemCategory ...
+type ListCoreHRSignatureTemplateInfoWithThumbnailRespItemCategory struct {
 	EnumName string                                                                 `json:"enum_name,omitempty"` // 枚举值
-	Display  []*ListCorehrSignatureTemplateInfoWithThumbnailRespItemCategoryDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*ListCoreHRSignatureTemplateInfoWithThumbnailRespItemCategoryDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// ListCorehrSignatureTemplateInfoWithThumbnailRespItemCategoryDisplay ...
-type ListCorehrSignatureTemplateInfoWithThumbnailRespItemCategoryDisplay struct {
+// ListCoreHRSignatureTemplateInfoWithThumbnailRespItemCategoryDisplay ...
+type ListCoreHRSignatureTemplateInfoWithThumbnailRespItemCategoryDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// ListCorehrSignatureTemplateInfoWithThumbnailRespItemCreatedBy ...
-type ListCorehrSignatureTemplateInfoWithThumbnailRespItemCreatedBy struct {
+// ListCoreHRSignatureTemplateInfoWithThumbnailRespItemCreatedBy ...
+type ListCoreHRSignatureTemplateInfoWithThumbnailRespItemCreatedBy struct {
 	ID string `json:"id,omitempty"` // 雇佣ID, [【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)
 }
 
-// ListCorehrSignatureTemplateInfoWithThumbnailRespItemLabel ...
-type ListCorehrSignatureTemplateInfoWithThumbnailRespItemLabel struct {
+// ListCoreHRSignatureTemplateInfoWithThumbnailRespItemLabel ...
+type ListCoreHRSignatureTemplateInfoWithThumbnailRespItemLabel struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// ListCorehrSignatureTemplateInfoWithThumbnailRespItemSignatoryLabel ...
-type ListCorehrSignatureTemplateInfoWithThumbnailRespItemSignatoryLabel struct {
-	TemplateSignatoryType *ListCorehrSignatureTemplateInfoWithThumbnailRespItemSignatoryLabelTemplateSignatoryType `json:"template_signatory_type,omitempty"` // 电子签模板签订人类型
-	Label                 []*ListCorehrSignatureTemplateInfoWithThumbnailRespItemSignatoryLabelLabel               `json:"label,omitempty"`                   // 中英文描述
+// ListCoreHRSignatureTemplateInfoWithThumbnailRespItemSignatoryLabel ...
+type ListCoreHRSignatureTemplateInfoWithThumbnailRespItemSignatoryLabel struct {
+	TemplateSignatoryType *ListCoreHRSignatureTemplateInfoWithThumbnailRespItemSignatoryLabelTemplateSignatoryType `json:"template_signatory_type,omitempty"` // 电子签模板签订人类型
+	Label                 []*ListCoreHRSignatureTemplateInfoWithThumbnailRespItemSignatoryLabelLabel               `json:"label,omitempty"`                   // 中英文描述
 	Apiname               string                                                                                   `json:"apiname,omitempty"`                 // 主数据apiname
 }
 
-// ListCorehrSignatureTemplateInfoWithThumbnailRespItemSignatoryLabelLabel ...
-type ListCorehrSignatureTemplateInfoWithThumbnailRespItemSignatoryLabelLabel struct {
+// ListCoreHRSignatureTemplateInfoWithThumbnailRespItemSignatoryLabelLabel ...
+type ListCoreHRSignatureTemplateInfoWithThumbnailRespItemSignatoryLabelLabel struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// ListCorehrSignatureTemplateInfoWithThumbnailRespItemSignatoryLabelTemplateSignatoryType ...
-type ListCorehrSignatureTemplateInfoWithThumbnailRespItemSignatoryLabelTemplateSignatoryType struct {
+// ListCoreHRSignatureTemplateInfoWithThumbnailRespItemSignatoryLabelTemplateSignatoryType ...
+type ListCoreHRSignatureTemplateInfoWithThumbnailRespItemSignatoryLabelTemplateSignatoryType struct {
 	EnumName string                                                                                            `json:"enum_name,omitempty"` // 枚举值
-	Display  []*ListCorehrSignatureTemplateInfoWithThumbnailRespItemSignatoryLabelTemplateSignatoryTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*ListCoreHRSignatureTemplateInfoWithThumbnailRespItemSignatoryLabelTemplateSignatoryTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// ListCorehrSignatureTemplateInfoWithThumbnailRespItemSignatoryLabelTemplateSignatoryTypeDisplay ...
-type ListCorehrSignatureTemplateInfoWithThumbnailRespItemSignatoryLabelTemplateSignatoryTypeDisplay struct {
+// ListCoreHRSignatureTemplateInfoWithThumbnailRespItemSignatoryLabelTemplateSignatoryTypeDisplay ...
+type ListCoreHRSignatureTemplateInfoWithThumbnailRespItemSignatoryLabelTemplateSignatoryTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// ListCorehrSignatureTemplateInfoWithThumbnailRespItemTemplateRegionInfo ...
-type ListCorehrSignatureTemplateInfoWithThumbnailRespItemTemplateRegionInfo struct {
+// ListCoreHRSignatureTemplateInfoWithThumbnailRespItemTemplateRegionInfo ...
+type ListCoreHRSignatureTemplateInfoWithThumbnailRespItemTemplateRegionInfo struct {
 	IsGlobalScope string                                                                            `json:"is_global_scope,omitempty"` // 是否全球适用
-	MetaInfos     []*ListCorehrSignatureTemplateInfoWithThumbnailRespItemTemplateRegionInfoMetaInfo `json:"meta_infos,omitempty"`      // 适用区域名称
+	MetaInfos     []*ListCoreHRSignatureTemplateInfoWithThumbnailRespItemTemplateRegionInfoMetaInfo `json:"meta_infos,omitempty"`      // 适用区域名称
 }
 
-// ListCorehrSignatureTemplateInfoWithThumbnailRespItemTemplateRegionInfoMetaInfo ...
-type ListCorehrSignatureTemplateInfoWithThumbnailRespItemTemplateRegionInfoMetaInfo struct {
+// ListCoreHRSignatureTemplateInfoWithThumbnailRespItemTemplateRegionInfoMetaInfo ...
+type ListCoreHRSignatureTemplateInfoWithThumbnailRespItemTemplateRegionInfoMetaInfo struct {
 	ApiName string                                                                                 `json:"api_name,omitempty"` // 元数据api_name
 	WkID    string                                                                                 `json:"wk_id,omitempty"`    // wukong id
-	Label   []*ListCorehrSignatureTemplateInfoWithThumbnailRespItemTemplateRegionInfoMetaInfoLabel `json:"label,omitempty"`    // 多语描述
+	Label   []*ListCoreHRSignatureTemplateInfoWithThumbnailRespItemTemplateRegionInfoMetaInfoLabel `json:"label,omitempty"`    // 多语描述
 }
 
-// ListCorehrSignatureTemplateInfoWithThumbnailRespItemTemplateRegionInfoMetaInfoLabel ...
-type ListCorehrSignatureTemplateInfoWithThumbnailRespItemTemplateRegionInfoMetaInfoLabel struct {
+// ListCoreHRSignatureTemplateInfoWithThumbnailRespItemTemplateRegionInfoMetaInfoLabel ...
+type ListCoreHRSignatureTemplateInfoWithThumbnailRespItemTemplateRegionInfoMetaInfoLabel struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// ListCorehrSignatureTemplateInfoWithThumbnailRespItemUpdatedBy ...
-type ListCorehrSignatureTemplateInfoWithThumbnailRespItemUpdatedBy struct {
+// ListCoreHRSignatureTemplateInfoWithThumbnailRespItemUpdatedBy ...
+type ListCoreHRSignatureTemplateInfoWithThumbnailRespItemUpdatedBy struct {
 	ID string `json:"id,omitempty"` // 雇佣ID, [【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)
 }
 
-// ListCorehrSignatureTemplateInfoWithThumbnailRespItemUsage ...
-type ListCorehrSignatureTemplateInfoWithThumbnailRespItemUsage struct {
+// ListCoreHRSignatureTemplateInfoWithThumbnailRespItemUsage ...
+type ListCoreHRSignatureTemplateInfoWithThumbnailRespItemUsage struct {
 	EnumName string                                                              `json:"enum_name,omitempty"` // 枚举值
-	Display  []*ListCorehrSignatureTemplateInfoWithThumbnailRespItemUsageDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*ListCoreHRSignatureTemplateInfoWithThumbnailRespItemUsageDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// ListCorehrSignatureTemplateInfoWithThumbnailRespItemUsageDisplay ...
-type ListCorehrSignatureTemplateInfoWithThumbnailRespItemUsageDisplay struct {
+// ListCoreHRSignatureTemplateInfoWithThumbnailRespItemUsageDisplay ...
+type ListCoreHRSignatureTemplateInfoWithThumbnailRespItemUsageDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// listCorehrSignatureTemplateInfoWithThumbnailResp ...
-type listCorehrSignatureTemplateInfoWithThumbnailResp struct {
+// listCoreHRSignatureTemplateInfoWithThumbnailResp ...
+type listCoreHRSignatureTemplateInfoWithThumbnailResp struct {
 	Code  int64                                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                                            `json:"msg,omitempty"`  // 错误描述
-	Data  *ListCorehrSignatureTemplateInfoWithThumbnailResp `json:"data,omitempty"`
+	Data  *ListCoreHRSignatureTemplateInfoWithThumbnailResp `json:"data,omitempty"`
 	Error *ErrorDetail                                      `json:"error,omitempty"`
 }

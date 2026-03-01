@@ -26,9 +26,9 @@ import (
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/docs-v1/content/get
 // new doc: https://open.feishu.cn/document/docs/docs-v1/get
 func (r *DriveService) GetDocsContent(ctx context.Context, request *GetDocsContentReq, options ...MethodOptionFunc) (*GetDocsContentResp, *Response, error) {
-	if r.cli.mock.mockDocsGetDocsContent != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] Docs#GetDocsContent mock enable")
-		return r.cli.mock.mockDocsGetDocsContent(ctx, request, options...)
+	if r.cli.mock.mockDriveGetDocsContent != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetDocsContent mock enable")
+		return r.cli.mock.mockDriveGetDocsContent(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
@@ -47,14 +47,14 @@ func (r *DriveService) GetDocsContent(ctx context.Context, request *GetDocsConte
 	return resp.Data, response, err
 }
 
-// MockDocsGetDocsContent mock DocsGetDocsContent method
-func (r *Mock) MockDocsGetDocsContent(f func(ctx context.Context, request *GetDocsContentReq, options ...MethodOptionFunc) (*GetDocsContentResp, *Response, error)) {
-	r.mockDocsGetDocsContent = f
+// MockDriveGetDocsContent mock DriveGetDocsContent method
+func (r *Mock) MockDriveGetDocsContent(f func(ctx context.Context, request *GetDocsContentReq, options ...MethodOptionFunc) (*GetDocsContentResp, *Response, error)) {
+	r.mockDriveGetDocsContent = f
 }
 
-// UnMockDocsGetDocsContent un-mock DocsGetDocsContent method
-func (r *Mock) UnMockDocsGetDocsContent() {
-	r.mockDocsGetDocsContent = nil
+// UnMockDriveGetDocsContent un-mock DriveGetDocsContent method
+func (r *Mock) UnMockDriveGetDocsContent() {
+	r.mockDriveGetDocsContent = nil
 }
 
 // GetDocsContentReq ...

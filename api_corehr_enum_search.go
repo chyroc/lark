@@ -21,83 +21,83 @@ import (
 	"context"
 )
 
-// SearchCorehrEnum 根据枚举的APIName查询枚举详细信息, 用于BPM等场景获取枚举选项。
+// SearchCoreHREnum 根据枚举的APIName查询枚举详细信息, 用于BPM等场景获取枚举选项。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/enum/search
 // new doc: https://open.feishu.cn/document/corehr-v1/basic-infomation/enum/search
-func (r *CoreHRService) SearchCorehrEnum(ctx context.Context, request *SearchCorehrEnumReq, options ...MethodOptionFunc) (*SearchCorehrEnumResp, *Response, error) {
-	if r.cli.mock.mockCoreHRSearchCorehrEnum != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#SearchCorehrEnum mock enable")
-		return r.cli.mock.mockCoreHRSearchCorehrEnum(ctx, request, options...)
+func (r *CoreHRService) SearchCoreHREnum(ctx context.Context, request *SearchCoreHREnumReq, options ...MethodOptionFunc) (*SearchCoreHREnumResp, *Response, error) {
+	if r.cli.mock.mockCoreHRSearchCoreHREnum != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#SearchCoreHREnum mock enable")
+		return r.cli.mock.mockCoreHRSearchCoreHREnum(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "SearchCorehrEnum",
+		API:                   "SearchCoreHREnum",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/enums/search",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(searchCorehrEnumResp)
+	resp := new(searchCoreHREnumResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRSearchCorehrEnum mock CoreHRSearchCorehrEnum method
-func (r *Mock) MockCoreHRSearchCorehrEnum(f func(ctx context.Context, request *SearchCorehrEnumReq, options ...MethodOptionFunc) (*SearchCorehrEnumResp, *Response, error)) {
-	r.mockCoreHRSearchCorehrEnum = f
+// MockCoreHRSearchCoreHREnum mock CoreHRSearchCoreHREnum method
+func (r *Mock) MockCoreHRSearchCoreHREnum(f func(ctx context.Context, request *SearchCoreHREnumReq, options ...MethodOptionFunc) (*SearchCoreHREnumResp, *Response, error)) {
+	r.mockCoreHRSearchCoreHREnum = f
 }
 
-// UnMockCoreHRSearchCorehrEnum un-mock CoreHRSearchCorehrEnum method
-func (r *Mock) UnMockCoreHRSearchCorehrEnum() {
-	r.mockCoreHRSearchCorehrEnum = nil
+// UnMockCoreHRSearchCoreHREnum un-mock CoreHRSearchCoreHREnum method
+func (r *Mock) UnMockCoreHRSearchCoreHREnum() {
+	r.mockCoreHRSearchCoreHREnum = nil
 }
 
-// SearchCorehrEnumReq ...
-type SearchCorehrEnumReq struct {
+// SearchCoreHREnumReq ...
+type SearchCoreHREnumReq struct {
 	EnumApinameLists []string `json:"enum_apiname_lists,omitempty"` // 枚举apiname列表（不传值查询结果为空）示例值: ["overtime_date_type"] 长度范围: `0` ～ `500`
 }
 
-// SearchCorehrEnumResp ...
-type SearchCorehrEnumResp struct {
-	Enums []*SearchCorehrEnumRespEnum `json:"enums,omitempty"` // 查询的枚举信息
+// SearchCoreHREnumResp ...
+type SearchCoreHREnumResp struct {
+	Enums []*SearchCoreHREnumRespEnum `json:"enums,omitempty"` // 查询的枚举信息
 }
 
-// SearchCorehrEnumRespEnum ...
-type SearchCorehrEnumRespEnum struct {
+// SearchCoreHREnumRespEnum ...
+type SearchCoreHREnumRespEnum struct {
 	EnumApiname string                              `json:"enum_apiname,omitempty"` // 枚举名称
-	EnumItems   []*SearchCorehrEnumRespEnumEnumItem `json:"enum_items,omitempty"`   // 枚举值
+	EnumItems   []*SearchCoreHREnumRespEnumEnumItem `json:"enum_items,omitempty"`   // 枚举值
 }
 
-// SearchCorehrEnumRespEnumEnumItem ...
-type SearchCorehrEnumRespEnumEnumItem struct {
+// SearchCoreHREnumRespEnumEnumItem ...
+type SearchCoreHREnumRespEnumEnumItem struct {
 	ApiName     string                                         `json:"api_name,omitempty"`      // ApiName
-	Name        []*SearchCorehrEnumRespEnumEnumItemName        `json:"name,omitempty"`          // 枚举值名
-	Description []*SearchCorehrEnumRespEnumEnumItemDescription `json:"description,omitempty"`   // 枚举值描述
+	Name        []*SearchCoreHREnumRespEnumEnumItemName        `json:"name,omitempty"`          // 枚举值名
+	Description []*SearchCoreHREnumRespEnumEnumItemDescription `json:"description,omitempty"`   // 枚举值描述
 	EnumApiName string                                         `json:"enum_api_name,omitempty"` // 所属枚举常量ApiName
 	Order       int64                                          `json:"order,omitempty"`         // 顺序
 	Status      int64                                          `json:"status,omitempty"`        // 状态可选值有: 生效失效
 }
 
-// SearchCorehrEnumRespEnumEnumItemDescription ...
-type SearchCorehrEnumRespEnumEnumItemDescription struct {
+// SearchCoreHREnumRespEnumEnumItemDescription ...
+type SearchCoreHREnumRespEnumEnumItemDescription struct {
 	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// SearchCorehrEnumRespEnumEnumItemName ...
-type SearchCorehrEnumRespEnumEnumItemName struct {
+// SearchCoreHREnumRespEnumEnumItemName ...
+type SearchCoreHREnumRespEnumEnumItemName struct {
 	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// searchCorehrEnumResp ...
-type searchCorehrEnumResp struct {
+// searchCoreHREnumResp ...
+type searchCoreHREnumResp struct {
 	Code  int64                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                `json:"msg,omitempty"`  // 错误描述
-	Data  *SearchCorehrEnumResp `json:"data,omitempty"`
+	Data  *SearchCoreHREnumResp `json:"data,omitempty"`
 	Error *ErrorDetail          `json:"error,omitempty"`
 }

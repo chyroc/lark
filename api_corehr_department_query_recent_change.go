@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// QueryCorehrDepartmentRecentChange 查询指定时间范围内当前生效信息发生变更的部门, 即只有部门当前生效版本的生效时间在查询时间范围内, 才返回该部门id
+// QueryCoreHRDepartmentRecentChange 查询指定时间范围内当前生效信息发生变更的部门, 即只有部门当前生效版本的生效时间在查询时间范围内, 才返回该部门id
 //
 // - 默认排序条件: 默认先按照组织记录 ID 增序排序, 便于滚动查询
 // - 使用滚动查询而非分页查询, 是为了防止大批量获取数据时, 深分页导致超时
@@ -30,39 +30,39 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/query_recent_change
 // new doc: https://open.feishu.cn/document/corehr-v1/organization-management/department/query_recent_change
-func (r *CoreHRService) QueryCorehrDepartmentRecentChange(ctx context.Context, request *QueryCorehrDepartmentRecentChangeReq, options ...MethodOptionFunc) (*QueryCorehrDepartmentRecentChangeResp, *Response, error) {
-	if r.cli.mock.mockCoreHRQueryCorehrDepartmentRecentChange != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#QueryCorehrDepartmentRecentChange mock enable")
-		return r.cli.mock.mockCoreHRQueryCorehrDepartmentRecentChange(ctx, request, options...)
+func (r *CoreHRService) QueryCoreHRDepartmentRecentChange(ctx context.Context, request *QueryCoreHRDepartmentRecentChangeReq, options ...MethodOptionFunc) (*QueryCoreHRDepartmentRecentChangeResp, *Response, error) {
+	if r.cli.mock.mockCoreHRQueryCoreHRDepartmentRecentChange != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#QueryCoreHRDepartmentRecentChange mock enable")
+		return r.cli.mock.mockCoreHRQueryCoreHRDepartmentRecentChange(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "QueryCorehrDepartmentRecentChange",
+		API:                   "QueryCoreHRDepartmentRecentChange",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/departments/query_recent_change",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(queryCorehrDepartmentRecentChangeResp)
+	resp := new(queryCoreHRDepartmentRecentChangeResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRQueryCorehrDepartmentRecentChange mock CoreHRQueryCorehrDepartmentRecentChange method
-func (r *Mock) MockCoreHRQueryCorehrDepartmentRecentChange(f func(ctx context.Context, request *QueryCorehrDepartmentRecentChangeReq, options ...MethodOptionFunc) (*QueryCorehrDepartmentRecentChangeResp, *Response, error)) {
-	r.mockCoreHRQueryCorehrDepartmentRecentChange = f
+// MockCoreHRQueryCoreHRDepartmentRecentChange mock CoreHRQueryCoreHRDepartmentRecentChange method
+func (r *Mock) MockCoreHRQueryCoreHRDepartmentRecentChange(f func(ctx context.Context, request *QueryCoreHRDepartmentRecentChangeReq, options ...MethodOptionFunc) (*QueryCoreHRDepartmentRecentChangeResp, *Response, error)) {
+	r.mockCoreHRQueryCoreHRDepartmentRecentChange = f
 }
 
-// UnMockCoreHRQueryCorehrDepartmentRecentChange un-mock CoreHRQueryCorehrDepartmentRecentChange method
-func (r *Mock) UnMockCoreHRQueryCorehrDepartmentRecentChange() {
-	r.mockCoreHRQueryCorehrDepartmentRecentChange = nil
+// UnMockCoreHRQueryCoreHRDepartmentRecentChange un-mock CoreHRQueryCoreHRDepartmentRecentChange method
+func (r *Mock) UnMockCoreHRQueryCoreHRDepartmentRecentChange() {
+	r.mockCoreHRQueryCoreHRDepartmentRecentChange = nil
 }
 
-// QueryCorehrDepartmentRecentChangeReq ...
-type QueryCorehrDepartmentRecentChangeReq struct {
+// QueryCoreHRDepartmentRecentChangeReq ...
+type QueryCoreHRDepartmentRecentChangeReq struct {
 	PageSize         int64             `query:"page_size" json:"-"`          // 分页大小, 最大支持单次 2000 条变更示例值: 100 取值范围: `1` ～ `2000`
 	PageToken        *string           `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 6891251722631890445
 	StartDate        string            `query:"start_date" json:"-"`         // 查询的开始时间, 格式 "YYYY-MM-DD HH:MM:SS", 以 UTC+8 时区查询变更。  示例值: 2024-06-01 00:00:00
@@ -70,18 +70,18 @@ type QueryCorehrDepartmentRecentChangeReq struct {
 	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门 ID 类型示例值: people_corehr_department_id可选值有: 【飞书】用来在具体某个应用中标识一个部门, 同一个department_id 在不同应用中的 open_department_id 相同。【飞书】用来标识租户内一个唯一的部门。【飞书人事】用来标识「飞书人事」中的部门。默认值: `people_corehr_department_id`
 }
 
-// QueryCorehrDepartmentRecentChangeResp ...
-type QueryCorehrDepartmentRecentChangeResp struct {
+// QueryCoreHRDepartmentRecentChangeResp ...
+type QueryCoreHRDepartmentRecentChangeResp struct {
 	DepartmentIDs        []string `json:"department_ids,omitempty"`         // 部门 ID 列表, 其中包含新建、更新以及删除的 ID 列表。- 非删除的数据, 可通过[批量查询部门V2](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get) 或者[搜索部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/search) 获取详情
 	DeletedDepartmentIDs []string `json:"deleted_department_ids,omitempty"` // 目标查询时间范围内被删除的部门列表, 该列表是  department_ids 的子集, 便于获取在指定的[start_date, end_date+1) 的范围内被删除的部门 IDs。- 由于对应的部门已经被删除, 无法通过 ID 查询到历史数据。
 	PageToken            string   `json:"page_token,omitempty"`             // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	HasMore              bool     `json:"has_more,omitempty"`               // 是否还有更多项
 }
 
-// queryCorehrDepartmentRecentChangeResp ...
-type queryCorehrDepartmentRecentChangeResp struct {
+// queryCoreHRDepartmentRecentChangeResp ...
+type queryCoreHRDepartmentRecentChangeResp struct {
 	Code  int64                                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                                 `json:"msg,omitempty"`  // 错误描述
-	Data  *QueryCorehrDepartmentRecentChangeResp `json:"data,omitempty"`
+	Data  *QueryCoreHRDepartmentRecentChangeResp `json:"data,omitempty"`
 	Error *ErrorDetail                           `json:"error,omitempty"`
 }

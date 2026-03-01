@@ -21,113 +21,113 @@ import (
 	"context"
 )
 
-// SearchSearchDocWiki 该接口用于根据搜索关键词（query）对当前用户可见的云文档进行搜索
+// SearchDocWiki 该接口用于根据搜索关键词（query）对当前用户可见的云文档进行搜索
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/search-v2/doc_wiki/search
-func (r *SearchService) SearchSearchDocWiki(ctx context.Context, request *SearchSearchDocWikiReq, options ...MethodOptionFunc) (*SearchSearchDocWikiResp, *Response, error) {
-	if r.cli.mock.mockSearchSearchSearchDocWiki != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] Search#SearchSearchDocWiki mock enable")
-		return r.cli.mock.mockSearchSearchSearchDocWiki(ctx, request, options...)
+func (r *SearchService) SearchDocWiki(ctx context.Context, request *SearchDocWikiReq, options ...MethodOptionFunc) (*SearchDocWikiResp, *Response, error) {
+	if r.cli.mock.mockSearchSearchDocWiki != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Search#SearchDocWiki mock enable")
+		return r.cli.mock.mockSearchSearchDocWiki(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:               "Search",
-		API:                 "SearchSearchDocWiki",
+		API:                 "SearchDocWiki",
 		Method:              "POST",
 		URL:                 r.cli.openBaseURL + "/open-apis/search/v2/doc_wiki/search",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 	}
-	resp := new(searchSearchDocWikiResp)
+	resp := new(searchDocWikiResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockSearchSearchSearchDocWiki mock SearchSearchSearchDocWiki method
-func (r *Mock) MockSearchSearchSearchDocWiki(f func(ctx context.Context, request *SearchSearchDocWikiReq, options ...MethodOptionFunc) (*SearchSearchDocWikiResp, *Response, error)) {
-	r.mockSearchSearchSearchDocWiki = f
+// MockSearchSearchDocWiki mock SearchSearchDocWiki method
+func (r *Mock) MockSearchSearchDocWiki(f func(ctx context.Context, request *SearchDocWikiReq, options ...MethodOptionFunc) (*SearchDocWikiResp, *Response, error)) {
+	r.mockSearchSearchDocWiki = f
 }
 
-// UnMockSearchSearchSearchDocWiki un-mock SearchSearchSearchDocWiki method
-func (r *Mock) UnMockSearchSearchSearchDocWiki() {
-	r.mockSearchSearchSearchDocWiki = nil
+// UnMockSearchSearchDocWiki un-mock SearchSearchDocWiki method
+func (r *Mock) UnMockSearchSearchDocWiki() {
+	r.mockSearchSearchDocWiki = nil
 }
 
-// SearchSearchDocWikiReq ...
-type SearchSearchDocWikiReq struct {
-	Query      string                            `json:"query,omitempty"`       // 搜索关键词（query至少搭配一种doc/wiki筛选器）示例值: "飞书文档使用指南" 长度范围: `0` ～ `50` 字符
-	DocFilter  *SearchSearchDocWikiReqDocFilter  `json:"doc_filter,omitempty"`  // 文档过滤参数示例值: {"folder_tokens": ["fld_123456"]}
-	WikiFilter *SearchSearchDocWikiReqWikiFilter `json:"wiki_filter,omitempty"` // Wiki过滤参数示例值: {"creator_ids": ["ou_789012"], "space_ids": ["space_123456"]}
-	PageToken  *string                           `json:"page_token,omitempty"`  // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: "token_1234567890fedcba"
-	PageSize   *int64                            `json:"page_size,omitempty"`   // 分页大小示例值: 15默认值: `0` 取值范围: `0` ～ `20`
+// SearchDocWikiReq ...
+type SearchDocWikiReq struct {
+	Query      string                      `json:"query,omitempty"`       // 搜索关键词（query至少搭配一种doc/wiki筛选器）示例值: "飞书文档使用指南" 长度范围: `0` ～ `50` 字符
+	DocFilter  *SearchDocWikiReqDocFilter  `json:"doc_filter,omitempty"`  // 文档过滤参数示例值: {"folder_tokens": ["fld_123456"]}
+	WikiFilter *SearchDocWikiReqWikiFilter `json:"wiki_filter,omitempty"` // Wiki过滤参数示例值: {"creator_ids": ["ou_789012"], "space_ids": ["space_123456"]}
+	PageToken  *string                     `json:"page_token,omitempty"`  // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: "token_1234567890fedcba"
+	PageSize   *int64                      `json:"page_size,omitempty"`   // 分页大小示例值: 15默认值: `0` 取值范围: `0` ～ `20`
 }
 
-// SearchSearchDocWikiReqDocFilter ...
-type SearchSearchDocWikiReqDocFilter struct {
-	CreatorIDs   []string                                   `json:"creator_ids,omitempty"`   // 文档所有者OpenID示例值: ["ou_789012"] 长度范围: `0` ～ `20`
-	DocTypes     []string                                   `json:"doc_types,omitempty"`     // 文档类型示例值: ["SHORTCUT"]可选值有: 文档表格多维表格思维导图文件wiki新版文档space文件夹wiki2.0文件夹新版本幻灯片快捷方式 长度范围: `0` ～ `10`
-	FolderTokens []string                                   `json:"folder_tokens,omitempty"` // 搜索文件夹内的文档（文件夹token列表）注: 如果存在该字段则wiki筛选器失效示例值: ["fld_123456"] 长度范围: `0` ～ `50`
-	OnlyTitle    *bool                                      `json:"only_title,omitempty"`    // 仅搜文档标题示例值: false默认值: `false`
-	OpenTime     *SearchSearchDocWikiReqDocFilterOpenTime   `json:"open_time,omitempty"`     // 浏览文档的时间范围（秒级时间戳, 包含start和end字段）
-	SortType     *string                                    `json:"sort_type,omitempty"`     // 排序方式示例值: "CREATE_TIME"可选值有: 默认排序User打开时间排序User编辑时间降序User编辑时间升序实体创建时间升序实体创建时间降序按文档创建时间排序按文档创建时间正序（该排序暂不支持）
-	CreateTime   *SearchSearchDocWikiReqDocFilterCreateTime `json:"create_time,omitempty"`   // 文档创建的时间范围（秒级时间戳, 包含start和end字段）
+// SearchDocWikiReqDocFilter ...
+type SearchDocWikiReqDocFilter struct {
+	CreatorIDs   []string                             `json:"creator_ids,omitempty"`   // 文档所有者OpenID示例值: ["ou_789012"] 长度范围: `0` ～ `20`
+	DocTypes     []string                             `json:"doc_types,omitempty"`     // 文档类型示例值: ["SHORTCUT"]可选值有: 文档表格多维表格思维导图文件wiki新版文档space文件夹wiki2.0文件夹新版本幻灯片快捷方式 长度范围: `0` ～ `10`
+	FolderTokens []string                             `json:"folder_tokens,omitempty"` // 搜索文件夹内的文档（文件夹token列表）注: 如果存在该字段则wiki筛选器失效示例值: ["fld_123456"] 长度范围: `0` ～ `50`
+	OnlyTitle    *bool                                `json:"only_title,omitempty"`    // 仅搜文档标题示例值: false默认值: `false`
+	OpenTime     *SearchDocWikiReqDocFilterOpenTime   `json:"open_time,omitempty"`     // 浏览文档的时间范围（秒级时间戳, 包含start和end字段）
+	SortType     *string                              `json:"sort_type,omitempty"`     // 排序方式示例值: "CREATE_TIME"可选值有: 默认排序User打开时间排序User编辑时间降序User编辑时间升序实体创建时间升序实体创建时间降序按文档创建时间排序按文档创建时间正序（该排序暂不支持）
+	CreateTime   *SearchDocWikiReqDocFilterCreateTime `json:"create_time,omitempty"`   // 文档创建的时间范围（秒级时间戳, 包含start和end字段）
 }
 
-// SearchSearchDocWikiReqDocFilterCreateTime ...
-type SearchSearchDocWikiReqDocFilterCreateTime struct {
+// SearchDocWikiReqDocFilterCreateTime ...
+type SearchDocWikiReqDocFilterCreateTime struct {
 	Start *int64 `json:"start,omitempty"` // 时间范围的起始时间戳示例值: 1742348544 取值范围: `0` ～ `9223372036854775807`
 	End   *int64 `json:"end,omitempty"`   // 时间范围的截止时间戳示例值: 1742348544 取值范围: `0` ～ `9223372036854775807`
 }
 
-// SearchSearchDocWikiReqDocFilterOpenTime ...
-type SearchSearchDocWikiReqDocFilterOpenTime struct {
+// SearchDocWikiReqDocFilterOpenTime ...
+type SearchDocWikiReqDocFilterOpenTime struct {
 	Start *int64 `json:"start,omitempty"` // 时间范围的起始时间戳示例值: 1742348544 取值范围: `0` ～ `9223372036854775807`
 	End   *int64 `json:"end,omitempty"`   // 时间范围的截止时间戳示例值: 1742348544 取值范围: `0` ～ `9223372036854775807`
 }
 
-// SearchSearchDocWikiReqWikiFilter ...
-type SearchSearchDocWikiReqWikiFilter struct {
-	CreatorIDs []string                                    `json:"creator_ids,omitempty"` // Wiki所有者OpenID示例值: ["ou_7890123456abcdef"] 长度范围: `0` ～ `20`
-	DocTypes   []string                                    `json:"doc_types,omitempty"`   // Wiki类型示例值: ["SHORTCUT"]可选值有: 文档表格多维表格思维导图文件维基新版文档space文件夹wiki2.0文件夹新版本幻灯片快捷方式 长度范围: `0` ～ `10`
-	SpaceIDs   []string                                    `json:"space_ids,omitempty"`   // 搜索某个Space下的Wiki（Space ID列表）示例值: ["space_1234567890fedcba"] 长度范围: `0` ～ `50`
-	OnlyTitle  *bool                                       `json:"only_title,omitempty"`  // 仅搜Wiki标题示例值: false默认值: `false`
-	OpenTime   *SearchSearchDocWikiReqWikiFilterOpenTime   `json:"open_time,omitempty"`   // 浏览文档的时间范围（秒级时间戳, 包含start和end字段）
-	SortType   *string                                     `json:"sort_type,omitempty"`   // 排序方式示例值: "CREATE_TIME"可选值有: 默认排序User打开时间排序User编辑时间降序User编辑时间升序实体创建时间升序实体创建时间降序按文档创建时间排序按文档创建时间正序（该排序暂不支持）
-	CreateTime *SearchSearchDocWikiReqWikiFilterCreateTime `json:"create_time,omitempty"` // Wiki创建的时间范围（秒级时间戳, 包含start和end字段）
+// SearchDocWikiReqWikiFilter ...
+type SearchDocWikiReqWikiFilter struct {
+	CreatorIDs []string                              `json:"creator_ids,omitempty"` // Wiki所有者OpenID示例值: ["ou_7890123456abcdef"] 长度范围: `0` ～ `20`
+	DocTypes   []string                              `json:"doc_types,omitempty"`   // Wiki类型示例值: ["SHORTCUT"]可选值有: 文档表格多维表格思维导图文件维基新版文档space文件夹wiki2.0文件夹新版本幻灯片快捷方式 长度范围: `0` ～ `10`
+	SpaceIDs   []string                              `json:"space_ids,omitempty"`   // 搜索某个Space下的Wiki（Space ID列表）示例值: ["space_1234567890fedcba"] 长度范围: `0` ～ `50`
+	OnlyTitle  *bool                                 `json:"only_title,omitempty"`  // 仅搜Wiki标题示例值: false默认值: `false`
+	OpenTime   *SearchDocWikiReqWikiFilterOpenTime   `json:"open_time,omitempty"`   // 浏览文档的时间范围（秒级时间戳, 包含start和end字段）
+	SortType   *string                               `json:"sort_type,omitempty"`   // 排序方式示例值: "CREATE_TIME"可选值有: 默认排序User打开时间排序User编辑时间降序User编辑时间升序实体创建时间升序实体创建时间降序按文档创建时间排序按文档创建时间正序（该排序暂不支持）
+	CreateTime *SearchDocWikiReqWikiFilterCreateTime `json:"create_time,omitempty"` // Wiki创建的时间范围（秒级时间戳, 包含start和end字段）
 }
 
-// SearchSearchDocWikiReqWikiFilterCreateTime ...
-type SearchSearchDocWikiReqWikiFilterCreateTime struct {
+// SearchDocWikiReqWikiFilterCreateTime ...
+type SearchDocWikiReqWikiFilterCreateTime struct {
 	Start *int64 `json:"start,omitempty"` // 时间范围的起始时间戳示例值: 1742348544 取值范围: `0` ～ `9223372036854775807`
 	End   *int64 `json:"end,omitempty"`   // 时间范围的截止时间戳示例值: 1742348544 取值范围: `0` ～ `9223372036854775807`
 }
 
-// SearchSearchDocWikiReqWikiFilterOpenTime ...
-type SearchSearchDocWikiReqWikiFilterOpenTime struct {
+// SearchDocWikiReqWikiFilterOpenTime ...
+type SearchDocWikiReqWikiFilterOpenTime struct {
 	Start *int64 `json:"start,omitempty"` // 时间范围的起始时间戳示例值: 1742348544 取值范围: `0` ～ `9223372036854775807`
 	End   *int64 `json:"end,omitempty"`   // 时间范围的截止时间戳示例值: 1742348544 取值范围: `0` ～ `9223372036854775807`
 }
 
-// SearchSearchDocWikiResp ...
-type SearchSearchDocWikiResp struct {
-	Total     int64                             `json:"total,omitempty"`      // 匹配结果总数（辅助分页参考）
-	HasMore   bool                              `json:"has_more,omitempty"`   // 是否还有更多项
-	ResUnits  []*SearchSearchDocWikiRespResUnit `json:"res_units,omitempty"`  // 搜索结果列表
-	PageToken string                            `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+// SearchDocWikiResp ...
+type SearchDocWikiResp struct {
+	Total     int64                       `json:"total,omitempty"`      // 匹配结果总数（辅助分页参考）
+	HasMore   bool                        `json:"has_more,omitempty"`   // 是否还有更多项
+	ResUnits  []*SearchDocWikiRespResUnit `json:"res_units,omitempty"`  // 搜索结果列表
+	PageToken string                      `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 }
 
-// SearchSearchDocWikiRespResUnit ...
-type SearchSearchDocWikiRespResUnit struct {
-	TitleHighlighted   string                                    `json:"title_highlighted,omitempty"`   // 标题高亮
-	SummaryHighlighted string                                    `json:"summary_highlighted,omitempty"` // 摘要高亮
-	EntityType         string                                    `json:"entity_type,omitempty"`         // 结果类型可选值有: doc实体wiki类型
-	ResultMeta         *SearchSearchDocWikiRespResUnitResultMeta `json:"result_meta,omitempty"`         // 文档搜索元信息
+// SearchDocWikiRespResUnit ...
+type SearchDocWikiRespResUnit struct {
+	TitleHighlighted   string                              `json:"title_highlighted,omitempty"`   // 标题高亮
+	SummaryHighlighted string                              `json:"summary_highlighted,omitempty"` // 摘要高亮
+	EntityType         string                              `json:"entity_type,omitempty"`         // 结果类型可选值有: doc实体wiki类型
+	ResultMeta         *SearchDocWikiRespResUnitResultMeta `json:"result_meta,omitempty"`         // 文档搜索元信息
 }
 
-// SearchSearchDocWikiRespResUnitResultMeta ...
-type SearchSearchDocWikiRespResUnitResultMeta struct {
+// SearchDocWikiRespResUnitResultMeta ...
+type SearchDocWikiRespResUnitResultMeta struct {
 	DocTypes      string `json:"doc_types,omitempty"`       // 文档类型可选值有: 文档表格多维表格思维导图文件维基新版文档space文件夹wiki2.0文件夹新版本幻灯片快捷方式
 	UpdateTime    int64  `json:"update_time,omitempty"`     // 更新时间戳（秒）
 	URL           string `json:"url,omitempty"`             // 文档链接
@@ -141,10 +141,10 @@ type SearchSearchDocWikiRespResUnitResultMeta struct {
 	Token         string `json:"token,omitempty"`           // 文档token
 }
 
-// searchSearchDocWikiResp ...
-type searchSearchDocWikiResp struct {
-	Code  int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg   string                   `json:"msg,omitempty"`  // 错误描述
-	Data  *SearchSearchDocWikiResp `json:"data,omitempty"`
-	Error *ErrorDetail             `json:"error,omitempty"`
+// searchDocWikiResp ...
+type searchDocWikiResp struct {
+	Code  int64              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string             `json:"msg,omitempty"`  // 错误描述
+	Data  *SearchDocWikiResp `json:"data,omitempty"`
+	Error *ErrorDetail       `json:"error,omitempty"`
 }

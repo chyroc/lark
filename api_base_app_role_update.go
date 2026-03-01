@@ -31,9 +31,9 @@ import (
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/advanced-permission/base-v2/app-role/update
 // new doc: https://open.feishu.cn/document/docs/bitable-v1/advanced-permission/app-role/update-2
 func (r *DriveService) UpdateBaseAppRole(ctx context.Context, request *UpdateBaseAppRoleReq, options ...MethodOptionFunc) (*UpdateBaseAppRoleResp, *Response, error) {
-	if r.cli.mock.mockBaseUpdateBaseAppRole != nil {
+	if r.cli.mock.mockDriveUpdateBaseAppRole != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#UpdateBaseAppRole mock enable")
-		return r.cli.mock.mockBaseUpdateBaseAppRole(ctx, request, options...)
+		return r.cli.mock.mockDriveUpdateBaseAppRole(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
@@ -52,14 +52,14 @@ func (r *DriveService) UpdateBaseAppRole(ctx context.Context, request *UpdateBas
 	return resp.Data, response, err
 }
 
-// MockBaseUpdateBaseAppRole mock BaseUpdateBaseAppRole method
-func (r *Mock) MockBaseUpdateBaseAppRole(f func(ctx context.Context, request *UpdateBaseAppRoleReq, options ...MethodOptionFunc) (*UpdateBaseAppRoleResp, *Response, error)) {
-	r.mockBaseUpdateBaseAppRole = f
+// MockDriveUpdateBaseAppRole mock DriveUpdateBaseAppRole method
+func (r *Mock) MockDriveUpdateBaseAppRole(f func(ctx context.Context, request *UpdateBaseAppRoleReq, options ...MethodOptionFunc) (*UpdateBaseAppRoleResp, *Response, error)) {
+	r.mockDriveUpdateBaseAppRole = f
 }
 
-// UnMockBaseUpdateBaseAppRole un-mock BaseUpdateBaseAppRole method
-func (r *Mock) UnMockBaseUpdateBaseAppRole() {
-	r.mockBaseUpdateBaseAppRole = nil
+// UnMockDriveUpdateBaseAppRole un-mock DriveUpdateBaseAppRole method
+func (r *Mock) UnMockDriveUpdateBaseAppRole() {
+	r.mockDriveUpdateBaseAppRole = nil
 }
 
 // UpdateBaseAppRoleReq ...

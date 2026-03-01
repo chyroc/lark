@@ -63,12 +63,12 @@ func Test_Passport_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockPassportCreatePassportSessionLogout(func(ctx context.Context, request *lark.CreatePassportSessionLogoutReq, options ...lark.MethodOptionFunc) (*lark.CreatePassportSessionLogoutResp, *lark.Response, error) {
+			cli.Mock().MockPassportLogoutPassportSession(func(ctx context.Context, request *lark.LogoutPassportSessionReq, options ...lark.MethodOptionFunc) (*lark.LogoutPassportSessionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockPassportCreatePassportSessionLogout()
+			defer cli.Mock().UnMockPassportLogoutPassportSession()
 
-			_, _, err := moduleCli.CreatePassportSessionLogout(ctx, &lark.CreatePassportSessionLogoutReq{})
+			_, _, err := moduleCli.LogoutPassportSession(ctx, &lark.LogoutPassportSessionReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -91,7 +91,7 @@ func Test_Passport_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.CreatePassportSessionLogout(ctx, &lark.CreatePassportSessionLogoutReq{})
+			_, _, err := moduleCli.LogoutPassportSession(ctx, &lark.LogoutPassportSessionReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})

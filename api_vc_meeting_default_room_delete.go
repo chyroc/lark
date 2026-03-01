@@ -21,56 +21,56 @@ import (
 	"context"
 )
 
-// CreateVCMeetingDefaultRoomDelete 该接口用于删除会议室。
+// DeleteVCMeetingDefaultRoom 该接口用于删除会议室。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUzMxYjL1MTM24SNzEjN
 // new doc: https://open.feishu.cn/document/server-docs/historic-version/meeting_room-v1/api-reference/delete-meeting-room
 //
 // Deprecated
-func (r *VCService) CreateVCMeetingDefaultRoomDelete(ctx context.Context, request *CreateVCMeetingDefaultRoomDeleteReq, options ...MethodOptionFunc) (*CreateVCMeetingDefaultRoomDeleteResp, *Response, error) {
-	if r.cli.mock.mockVCMeetingCreateVCMeetingDefaultRoomDelete != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] VCMeeting#CreateVCMeetingDefaultRoomDelete mock enable")
-		return r.cli.mock.mockVCMeetingCreateVCMeetingDefaultRoomDelete(ctx, request, options...)
+func (r *VCService) DeleteVCMeetingDefaultRoom(ctx context.Context, request *DeleteVCMeetingDefaultRoomReq, options ...MethodOptionFunc) (*DeleteVCMeetingDefaultRoomResp, *Response, error) {
+	if r.cli.mock.mockVCDeleteVCMeetingDefaultRoom != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#DeleteVCMeetingDefaultRoom mock enable")
+		return r.cli.mock.mockVCDeleteVCMeetingDefaultRoom(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "VC",
-		API:                   "CreateVCMeetingDefaultRoomDelete",
+		API:                   "DeleteVCMeetingDefaultRoom",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/meeting_room/room/delete",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(createVCMeetingDefaultRoomDeleteResp)
+	resp := new(deleteVCMeetingDefaultRoomResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockVCMeetingCreateVCMeetingDefaultRoomDelete mock VCMeetingCreateVCMeetingDefaultRoomDelete method
-func (r *Mock) MockVCMeetingCreateVCMeetingDefaultRoomDelete(f func(ctx context.Context, request *CreateVCMeetingDefaultRoomDeleteReq, options ...MethodOptionFunc) (*CreateVCMeetingDefaultRoomDeleteResp, *Response, error)) {
-	r.mockVCMeetingCreateVCMeetingDefaultRoomDelete = f
+// MockVCDeleteVCMeetingDefaultRoom mock VCDeleteVCMeetingDefaultRoom method
+func (r *Mock) MockVCDeleteVCMeetingDefaultRoom(f func(ctx context.Context, request *DeleteVCMeetingDefaultRoomReq, options ...MethodOptionFunc) (*DeleteVCMeetingDefaultRoomResp, *Response, error)) {
+	r.mockVCDeleteVCMeetingDefaultRoom = f
 }
 
-// UnMockVCMeetingCreateVCMeetingDefaultRoomDelete un-mock VCMeetingCreateVCMeetingDefaultRoomDelete method
-func (r *Mock) UnMockVCMeetingCreateVCMeetingDefaultRoomDelete() {
-	r.mockVCMeetingCreateVCMeetingDefaultRoomDelete = nil
+// UnMockVCDeleteVCMeetingDefaultRoom un-mock VCDeleteVCMeetingDefaultRoom method
+func (r *Mock) UnMockVCDeleteVCMeetingDefaultRoom() {
+	r.mockVCDeleteVCMeetingDefaultRoom = nil
 }
 
-// CreateVCMeetingDefaultRoomDeleteReq ...
-type CreateVCMeetingDefaultRoomDeleteReq struct {
+// DeleteVCMeetingDefaultRoomReq ...
+type DeleteVCMeetingDefaultRoomReq struct {
 	RoomID string `json:"room_id,omitempty"` // 要删除的会议室ID
 }
 
-// CreateVCMeetingDefaultRoomDeleteResp ...
-type CreateVCMeetingDefaultRoomDeleteResp struct {
+// DeleteVCMeetingDefaultRoomResp ...
+type DeleteVCMeetingDefaultRoomResp struct {
 }
 
-// createVCMeetingDefaultRoomDeleteResp ...
-type createVCMeetingDefaultRoomDeleteResp struct {
-	Code  int64                                 `json:"code,omitempty"` // 返回码, 非 0 表示失败
-	Msg   string                                `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
-	Data  *CreateVCMeetingDefaultRoomDeleteResp `json:"data,omitempty"`
-	Error *ErrorDetail                          `json:"error,omitempty"`
+// deleteVCMeetingDefaultRoomResp ...
+type deleteVCMeetingDefaultRoomResp struct {
+	Code  int64                           `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg   string                          `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
+	Data  *DeleteVCMeetingDefaultRoomResp `json:"data,omitempty"`
+	Error *ErrorDetail                    `json:"error,omitempty"`
 }

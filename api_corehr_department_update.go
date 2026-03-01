@@ -21,13 +21,14 @@ import (
 	"context"
 )
 
-// UpdateCoreHRDepartment 更新部门信息, 包括基础信息、自定义字段信息。
+// UpdateCoreHRDepartment 更新部门, 支持数据行权限判权
 //
-// 该接口不再推荐使用, 请使用[【更新部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/patch)接口。
-// 权限说明: 该接口不支持范围权限校验, 不支持字段权限校验
+// - 停用部门时, 请确认是否有与该部门关联的现任员工、变更文件、待入职。如果是这样, 停用将失败。
+// - 如果启动/停止生效日期没有版本, 将自动生成版本。
+// - 如果启动/停用生效日期存在版本, 则该版本将被修改。
 //
-// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/patch
-// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/department/patch
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/patch
+// new doc: https://open.feishu.cn/document/corehr-v1/organization-management/department/patch
 func (r *CoreHRService) UpdateCoreHRDepartment(ctx context.Context, request *UpdateCoreHRDepartmentReq, options ...MethodOptionFunc) (*UpdateCoreHRDepartmentResp, *Response, error) {
 	if r.cli.mock.mockCoreHRUpdateCoreHRDepartment != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#UpdateCoreHRDepartment mock enable")
@@ -38,7 +39,7 @@ func (r *CoreHRService) UpdateCoreHRDepartment(ctx context.Context, request *Upd
 		Scope:                 "CoreHR",
 		API:                   "UpdateCoreHRDepartment",
 		Method:                "PATCH",
-		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/departments/:department_id",
+		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/departments/:department_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
@@ -61,17 +62,17 @@ func (r *Mock) UnMockCoreHRUpdateCoreHRDepartment() {
 
 // UpdateCoreHRDepartmentReq ...
 type UpdateCoreHRDepartmentReq struct {
-	DepartmentID     string                                     `path:"department_id" json:"-"`       // 需要更新的部门ID, 同部门实体在CoreHR内部的唯一键示例值: "6969828847121885087"
+	DepartmentID     string                                     `path:"department_id" json:"-"`       // 需要更新的部门 ID示例值: "1616161616"
 	ClientToken      *string                                    `query:"client_token" json:"-"`       // 根据client_token是否一致来判断是否为同一请求示例值: 12454646
 	UserIDType       *IDType                                    `query:"user_id_type" json:"-"`       // 用户 ID 类型示例值: people_corehr_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `people_corehr_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	DepartmentIDType *DepartmentIDType                          `query:"department_id_type" json:"-"` // 此次调用中使用的部门 ID 类型示例值: people_corehr_department_id可选值有: 以 open_department_id 来标识部门以 department_id 来标识部门以 people_corehr_department_id 来标识部门默认值: `people_corehr_department_id`
-	ID               *string                                    `json:"id,omitempty"`                 // 部门 ID示例值: "6969828847121885087"
-	SubType          *UpdateCoreHRDepartmentReqSubType          `json:"sub_type,omitempty"`           // 部门子类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)部门子类型（department_sub_type）枚举定义部分获得
-	Manager          *string                                    `json:"manager,omitempty"`            // 部门负责人 ID, 枚举值及详细信息可通过[【批量查询员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)查询获得示例值: "6893013238632416776"
-	IsConfidential   *bool                                      `json:"is_confidential,omitempty"`    // 是否保密示例值: true
+	DepartmentIDType *DepartmentIDType                          `query:"department_id_type" json:"-"` // 此次调用中使用的部门 ID 类型示例值: people_corehr_department_id可选值有: 【飞书】用来在具体某个应用中标识一个部门, 同一个department_id 在不同应用中的 open_department_id 相同。【飞书】用来标识租户内一个唯一的部门。飞书人事】用来标识「飞书人事」中的部门。默认值: `people_corehr_department_id`
+	ID               *string                                    `json:"id,omitempty"`                 // 该字段暂时无效, 可忽略示例值: "4719456877659520852"
+	SubType          *UpdateCoreHRDepartmentReqSubType          `json:"sub_type,omitempty"`           // 部门类型, 通过[获取字段详情](https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/custom_field/get_by_param)查询获取。请求参数: object_api_name=department；custom_api_name=subtype。
+	Manager          *string                                    `json:"manager,omitempty"`            // 部门负责人 ID详细信息可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search) 或 [【批量查询员工】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get) 接口获取示例值: "6893013238632416776"
+	IsConfidential   *bool                                      `json:"is_confidential,omitempty"`    // 是否保密（该字段暂不支持, 可忽略）示例值: true
 	HiberarchyCommon *UpdateCoreHRDepartmentReqHiberarchyCommon `json:"hiberarchy_common,omitempty"`  // 组织实体公共字段, 包括名称、描述、上级、启停用状态、生效日期、编码等基础信息
-	EffectiveTime    string                                     `json:"effective_time,omitempty"`     // 生效时间示例值: "2020-05-01 00:00:00"
-	CustomFields     []*UpdateCoreHRDepartmentReqCustomField    `json:"custom_fields,omitempty"`      // 自定义字段, 枚举值可通过[获取自定义字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query)获取
+	EffectiveTime    string                                     `json:"effective_time,omitempty"`     // 版本生效日期- 填写格式: YYYY-MM-DD 00:00:00（系统会自动将时分秒改为00:00:00）- 系统默认为填写日期当天的 00:00:00 生效 - 该接口只支持到最小单位为日- 日期范围要求:1900-01-01 00:00:00～9999-12-31 23:59:59示例值: "2020-05-01 00:00:00"
+	CustomFields     []*UpdateCoreHRDepartmentReqCustomField    `json:"custom_fields,omitempty"`      // 自定义字段, 枚举值可通过[获取自定义字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query)获取 长度范围: `0` ～ `100`
 	CostCenterID     *string                                    `json:"cost_center_id,omitempty"`     // 成本中心 ID, 可以通过[搜索成本中心信息](https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/cost_center/search)接口获取对应的成本中心信息示例值: "7142384817131652652"
 	StaffingModel    *UpdateCoreHRDepartmentReqStaffingModel    `json:"staffing_model,omitempty"`     // 岗职管理模式- 详细枚举类型请查看[枚举场景](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)中关于staffing_model定义
 }
@@ -79,132 +80,42 @@ type UpdateCoreHRDepartmentReq struct {
 // UpdateCoreHRDepartmentReqCustomField ...
 type UpdateCoreHRDepartmentReqCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识示例值: "name"
-	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05")示例值: "\"Sandy\""
+	Value     string `json:"value,omitempty"`      // 字段值, 为 JSON 转义后的字符串。注意: 具体传值方式参见[获取自定义字段的元数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide)示例值: "Sandy"
 }
 
 // UpdateCoreHRDepartmentReqHiberarchyCommon ...
 type UpdateCoreHRDepartmentReqHiberarchyCommon struct {
-	ParentID    *string                                                 `json:"parent_id,omitempty"`   // 上级组织 ID示例值: "4719168654814483759"
-	Name        []*UpdateCoreHRDepartmentReqHiberarchyCommonName        `json:"name,omitempty"`        // 名称
-	Active      *bool                                                   `json:"active,omitempty"`      // 是否启用该部门示例值: true
-	Code        *string                                                 `json:"code,omitempty"`        // 编码示例值: "12456"
+	ParentID    *string                                                 `json:"parent_id,omitempty"`   // 上级组织示例值: "4719168654814483759"
+	Name        []*UpdateCoreHRDepartmentReqHiberarchyCommonName        `json:"name,omitempty"`        // 部门名称- 名称不能包含「/」「；」「;」「\」「'」字符。- 中英文名称会有重名校验规则（依赖租户配置规则）
+	Active      *bool                                                   `json:"active,omitempty"`      // 部门启用状态, true为启用, false为停用示例值: true
+	Code        *string                                                 `json:"code,omitempty"`        // 部门编码 (不能与其他记录的编码重复), 当开启自动编码时, 该字段会失效示例值: "12456"
 	Description []*UpdateCoreHRDepartmentReqHiberarchyCommonDescription `json:"description,omitempty"` // 描述
 }
 
 // UpdateCoreHRDepartmentReqHiberarchyCommonDescription ...
 type UpdateCoreHRDepartmentReqHiberarchyCommonDescription struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 支持中文和英文。中文用zh-CN；英文用en-US。示例值: "zh-CN"
-	Value string `json:"value,omitempty"` // 名称信息的内容示例值: "张三"
+	Lang  string `json:"lang,omitempty"`  // 语言信息, 中文用zh-CN, 英文用en-US示例值: "zh-CN"
+	Value string `json:"value,omitempty"` // 文本内容示例值: "中文示例"
 }
 
 // UpdateCoreHRDepartmentReqHiberarchyCommonName ...
 type UpdateCoreHRDepartmentReqHiberarchyCommonName struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 支持中文和英文。中文用zh-CN；英文用en-US。示例值: "zh-CN"
-	Value string `json:"value,omitempty"` // 名称信息的内容示例值: "研发部"
+	Lang  string `json:"lang,omitempty"`  // 语言信息, 中文用zh-CN, 英文用en-US示例值: "zh-CN"
+	Value string `json:"value,omitempty"` // 文本内容示例值: "中文示例"
 }
 
 // UpdateCoreHRDepartmentReqStaffingModel ...
 type UpdateCoreHRDepartmentReqStaffingModel struct {
-	EnumName string `json:"enum_name,omitempty"` // 枚举值示例值: "job"
+	EnumName string `json:"enum_name,omitempty"` // 枚举值: job、position、non_job示例值: "job"
 }
 
 // UpdateCoreHRDepartmentReqSubType ...
 type UpdateCoreHRDepartmentReqSubType struct {
-	EnumName string `json:"enum_name,omitempty"` // 枚举值示例值: "type_1"
+	EnumName string `json:"enum_name,omitempty"` // 枚举值示例值: "department"
 }
 
 // UpdateCoreHRDepartmentResp ...
 type UpdateCoreHRDepartmentResp struct {
-	Department *UpdateCoreHRDepartmentRespDepartment `json:"department,omitempty"` // 部门
-}
-
-// UpdateCoreHRDepartmentRespDepartment ...
-type UpdateCoreHRDepartmentRespDepartment struct {
-	ID               string                                                `json:"id,omitempty"`                // 部门 ID
-	SubType          *UpdateCoreHRDepartmentRespDepartmentSubType          `json:"sub_type,omitempty"`          // 部门子类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)部门子类型（department_sub_type）枚举定义部分获得
-	Manager          string                                                `json:"manager,omitempty"`           // 部门负责人 ID, 枚举值及详细信息可通过[【批量查询员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)查询获得
-	IsConfidential   bool                                                  `json:"is_confidential,omitempty"`   // 是否保密
-	HiberarchyCommon *UpdateCoreHRDepartmentRespDepartmentHiberarchyCommon `json:"hiberarchy_common,omitempty"` // 组织实体公共字段, 包括名称、描述、上级、启停用状态、生效日期、编码等基础信息
-	EffectiveTime    string                                                `json:"effective_time,omitempty"`    // 生效时间
-	ExpirationTime   string                                                `json:"expiration_time,omitempty"`   // 失效时间
-	CustomFields     []*UpdateCoreHRDepartmentRespDepartmentCustomField    `json:"custom_fields,omitempty"`     // 自定义字段
-	CostCenterID     string                                                `json:"cost_center_id,omitempty"`    // 成本中心 ID, 可以通过[搜索成本中心信息](https://open.feishu.cn/document/server-docs/corehr-v1/organization-management/cost_center/search)接口获取对应的成本中心信息
-	StaffingModel    *UpdateCoreHRDepartmentRespDepartmentStaffingModel    `json:"staffing_model,omitempty"`    // 岗职务模式
-}
-
-// UpdateCoreHRDepartmentRespDepartmentCustomField ...
-type UpdateCoreHRDepartmentRespDepartmentCustomField struct {
-	FieldName string `json:"field_name,omitempty"` // 字段名
-	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05")
-}
-
-// UpdateCoreHRDepartmentRespDepartmentHiberarchyCommon ...
-type UpdateCoreHRDepartmentRespDepartmentHiberarchyCommon struct {
-	ParentID       string                                                             `json:"parent_id,omitempty"`       // 上级组织 ID
-	Name           []*UpdateCoreHRDepartmentRespDepartmentHiberarchyCommonName        `json:"name,omitempty"`            // 名称
-	Type           *UpdateCoreHRDepartmentRespDepartmentHiberarchyCommonType          `json:"type,omitempty"`            // 组织类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)组织类型（organization_type）枚举定义部分获得
-	Active         bool                                                               `json:"active,omitempty"`          // 是否启用
-	EffectiveTime  string                                                             `json:"effective_time,omitempty"`  // 生效时间
-	ExpirationTime string                                                             `json:"expiration_time,omitempty"` // 失效时间
-	Code           string                                                             `json:"code,omitempty"`            // 编码
-	Description    []*UpdateCoreHRDepartmentRespDepartmentHiberarchyCommonDescription `json:"description,omitempty"`     // 描述
-	TreeOrder      string                                                             `json:"tree_order,omitempty"`      // 树形排序, 代表同层级的部门排序序号。新建的部门, 该字段默认为空, 有两种情况会自动写入值: 管理员在部门管理页面上拖动排序；- 定时任务更新该字段为空的数据, 3分钟/次
-	ListOrder      string                                                             `json:"list_order,omitempty"`      // 列表排序, 代表所有部门的混排序号。新建的部门, 该字段默认为空, 有两种情况会自动写入值: 管理员在部门管理页面上拖动排序；- 定时任务更新该字段为空的数据, 3分钟/次
-	CustomFields   []*UpdateCoreHRDepartmentRespDepartmentHiberarchyCommonCustomField `json:"custom_fields,omitempty"`   // 自定义字段
-}
-
-// UpdateCoreHRDepartmentRespDepartmentHiberarchyCommonCustomField ...
-type UpdateCoreHRDepartmentRespDepartmentHiberarchyCommonCustomField struct {
-	FieldName string `json:"field_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识, 枚举值可通过[获取自定义字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query)接口查询
-	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同(如123, 123.23, "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05")
-}
-
-// UpdateCoreHRDepartmentRespDepartmentHiberarchyCommonDescription ...
-type UpdateCoreHRDepartmentRespDepartmentHiberarchyCommonDescription struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 支持中文和英文。中文用zh-CN；英文用en-US。
-	Value string `json:"value,omitempty"` // 名称信息的内容
-}
-
-// UpdateCoreHRDepartmentRespDepartmentHiberarchyCommonName ...
-type UpdateCoreHRDepartmentRespDepartmentHiberarchyCommonName struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 支持中文和英文。中文用zh-CN；英文用en-US。
-	Value string `json:"value,omitempty"` // 名称信息的内容
-}
-
-// UpdateCoreHRDepartmentRespDepartmentHiberarchyCommonType ...
-type UpdateCoreHRDepartmentRespDepartmentHiberarchyCommonType struct {
-	EnumName string                                                             `json:"enum_name,omitempty"` // 枚举值
-	Display  []*UpdateCoreHRDepartmentRespDepartmentHiberarchyCommonTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
-}
-
-// UpdateCoreHRDepartmentRespDepartmentHiberarchyCommonTypeDisplay ...
-type UpdateCoreHRDepartmentRespDepartmentHiberarchyCommonTypeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 支持中文和英文。中文用zh-CN；英文用en-US。
-	Value string `json:"value,omitempty"` // 名称信息的内容
-}
-
-// UpdateCoreHRDepartmentRespDepartmentStaffingModel ...
-type UpdateCoreHRDepartmentRespDepartmentStaffingModel struct {
-	EnumName string                                                      `json:"enum_name,omitempty"` // 枚举值: job、non_job、position
-	Display  []*UpdateCoreHRDepartmentRespDepartmentStaffingModelDisplay `json:"display,omitempty"`   // 枚举多语展示
-}
-
-// UpdateCoreHRDepartmentRespDepartmentStaffingModelDisplay ...
-type UpdateCoreHRDepartmentRespDepartmentStaffingModelDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 语言, 支持中文和英文。中文用zh-CN；英文用en-US。
-	Value string `json:"value,omitempty"` // 内容
-}
-
-// UpdateCoreHRDepartmentRespDepartmentSubType ...
-type UpdateCoreHRDepartmentRespDepartmentSubType struct {
-	EnumName string                                                `json:"enum_name,omitempty"` // 枚举值
-	Display  []*UpdateCoreHRDepartmentRespDepartmentSubTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
-}
-
-// UpdateCoreHRDepartmentRespDepartmentSubTypeDisplay ...
-type UpdateCoreHRDepartmentRespDepartmentSubTypeDisplay struct {
-	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 支持中文和英文。中文用zh-CN；英文用en-US。
-	Value string `json:"value,omitempty"` // 名称信息的内容
 }
 
 // updateCoreHRDepartmentResp ...

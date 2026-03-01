@@ -21,65 +21,65 @@ import (
 	"context"
 )
 
-// QueryCorehrLocationMultiTimeline - 接口支持查询出对象生效时间段在指定的start_date和end_date之间的版本（即: 会查询出生效时间段和查询时间段有交集的版本）
+// QueryCoreHRLocationMultiTimeline - 接口支持查询出对象生效时间段在指定的start_date和end_date之间的版本（即: 会查询出生效时间段和查询时间段有交集的版本）
 //
 // - 接口支持对象版本相关字段的查询和返回（默认返回id和version_id）
 // 延迟说明: 数据库主从延迟2s以内, 即: 直接创建对象后2s内调用此接口可能查询不到数据。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/location/query_multi_timeline
 // new doc: https://open.feishu.cn/document/corehr-v1/organization-management/location/query_multi_timeline
-func (r *CoreHRService) QueryCorehrLocationMultiTimeline(ctx context.Context, request *QueryCorehrLocationMultiTimelineReq, options ...MethodOptionFunc) (*QueryCorehrLocationMultiTimelineResp, *Response, error) {
-	if r.cli.mock.mockCoreHRQueryCorehrLocationMultiTimeline != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#QueryCorehrLocationMultiTimeline mock enable")
-		return r.cli.mock.mockCoreHRQueryCorehrLocationMultiTimeline(ctx, request, options...)
+func (r *CoreHRService) QueryCoreHRLocationMultiTimeline(ctx context.Context, request *QueryCoreHRLocationMultiTimelineReq, options ...MethodOptionFunc) (*QueryCoreHRLocationMultiTimelineResp, *Response, error) {
+	if r.cli.mock.mockCoreHRQueryCoreHRLocationMultiTimeline != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#QueryCoreHRLocationMultiTimeline mock enable")
+		return r.cli.mock.mockCoreHRQueryCoreHRLocationMultiTimeline(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "QueryCorehrLocationMultiTimeline",
+		API:                   "QueryCoreHRLocationMultiTimeline",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/locations/query_multi_timeline",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(queryCorehrLocationMultiTimelineResp)
+	resp := new(queryCoreHRLocationMultiTimelineResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRQueryCorehrLocationMultiTimeline mock CoreHRQueryCorehrLocationMultiTimeline method
-func (r *Mock) MockCoreHRQueryCorehrLocationMultiTimeline(f func(ctx context.Context, request *QueryCorehrLocationMultiTimelineReq, options ...MethodOptionFunc) (*QueryCorehrLocationMultiTimelineResp, *Response, error)) {
-	r.mockCoreHRQueryCorehrLocationMultiTimeline = f
+// MockCoreHRQueryCoreHRLocationMultiTimeline mock CoreHRQueryCoreHRLocationMultiTimeline method
+func (r *Mock) MockCoreHRQueryCoreHRLocationMultiTimeline(f func(ctx context.Context, request *QueryCoreHRLocationMultiTimelineReq, options ...MethodOptionFunc) (*QueryCoreHRLocationMultiTimelineResp, *Response, error)) {
+	r.mockCoreHRQueryCoreHRLocationMultiTimeline = f
 }
 
-// UnMockCoreHRQueryCorehrLocationMultiTimeline un-mock CoreHRQueryCorehrLocationMultiTimeline method
-func (r *Mock) UnMockCoreHRQueryCorehrLocationMultiTimeline() {
-	r.mockCoreHRQueryCorehrLocationMultiTimeline = nil
+// UnMockCoreHRQueryCoreHRLocationMultiTimeline un-mock CoreHRQueryCoreHRLocationMultiTimeline method
+func (r *Mock) UnMockCoreHRQueryCoreHRLocationMultiTimeline() {
+	r.mockCoreHRQueryCoreHRLocationMultiTimeline = nil
 }
 
-// QueryCorehrLocationMultiTimelineReq ...
-type QueryCorehrLocationMultiTimelineReq struct {
+// QueryCoreHRLocationMultiTimelineReq ...
+type QueryCoreHRLocationMultiTimelineReq struct {
 	LocationIDs []string `json:"location_ids,omitempty"` // 地点ID。ID获取方式: 调用[【创建地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/create)[【批量分页查询地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)等接口可以返回地点ID示例值: ["7094136522860922111"] 长度范围: `1` ～ `10`
 	StartDate   *string  `json:"start_date,omitempty"`   // 查询开始时间（包含）示例值: "2024-01-01" 长度范围: `10` ～ `10` 字符- 正则校验: `^((([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-(((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)-(0[1-9]|[12][0-9]|30))|(02-(0[1-9]|[1][0-9]|2[0-8]))))|((([0-9]{2})(0[48]|[2468][048]|[13579][26])|((0[48]|[2468][048]|[3579][26])00))-02-29))$`
 	EndDate     *string  `json:"end_date,omitempty"`     // 查询结束时间(不包含)示例值: "2024-12-31" 长度范围: `10` ～ `10` 字符- 正则校验: `^((([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-(((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)-(0[1-9]|[12][0-9]|30))|(02-(0[1-9]|[1][0-9]|2[0-8]))))|((([0-9]{2})(0[48]|[2468][048]|[13579][26])|((0[48]|[2468][048]|[3579][26])00))-02-29))$`
 	Fields      []string `json:"fields,omitempty"`       // 返回数据的字段列表, 可选["location_name", "code", "active", "parent_location", "description", "effective_date", "expiration_date", "location_usage", "working_hours_type", "locale", "time_zone", "display_language", "address"]示例值: ["location_name"] 长度范围: `0` ～ `100`
 }
 
-// QueryCorehrLocationMultiTimelineResp ...
-type QueryCorehrLocationMultiTimelineResp struct {
-	Items []*QueryCorehrLocationMultiTimelineRespItem `json:"items,omitempty"` // 地点信息
+// QueryCoreHRLocationMultiTimelineResp ...
+type QueryCoreHRLocationMultiTimelineResp struct {
+	Items []*QueryCoreHRLocationMultiTimelineRespItem `json:"items,omitempty"` // 地点信息
 }
 
-// QueryCorehrLocationMultiTimelineRespItem ...
-type QueryCorehrLocationMultiTimelineRespItem struct {
-	LocationVersionData []*QueryCorehrLocationMultiTimelineRespItemLocationVersionData `json:"location_version_data,omitempty"` // 地点版本信息
-	Address             []*QueryCorehrLocationMultiTimelineRespItemAddres              `json:"address,omitempty"`               // 地址信息
+// QueryCoreHRLocationMultiTimelineRespItem ...
+type QueryCoreHRLocationMultiTimelineRespItem struct {
+	LocationVersionData []*QueryCoreHRLocationMultiTimelineRespItemLocationVersionData `json:"location_version_data,omitempty"` // 地点版本信息
+	Address             []*QueryCoreHRLocationMultiTimelineRespItemAddres              `json:"address,omitempty"`               // 地址信息
 }
 
-// QueryCorehrLocationMultiTimelineRespItemAddres ...
-type QueryCorehrLocationMultiTimelineRespItemAddres struct {
+// QueryCoreHRLocationMultiTimelineRespItemAddres ...
+type QueryCoreHRLocationMultiTimelineRespItemAddres struct {
 	FullAddressLocalScript   string                                                       `json:"full_address_local_script,omitempty"`   // 完整地址（本地文字）
 	FullAddressWesternScript string                                                       `json:"full_address_western_script,omitempty"` // 完整地址（西方文字）
 	AddressID                string                                                       `json:"address_id,omitempty"`                  // 地址 ID
@@ -106,81 +106,81 @@ type QueryCorehrLocationMultiTimelineRespItemAddres struct {
 	LocalAddressLine8        string                                                       `json:"local_address_line8,omitempty"`         // 地址行 8（非拉丁语系的本地文字）
 	LocalAddressLine9        string                                                       `json:"local_address_line9,omitempty"`         // 地址行 9（非拉丁语系的本地文字）
 	PostalCode               string                                                       `json:"postal_code,omitempty"`                 // 邮政编码
-	AddressTypeList          []*QueryCorehrLocationMultiTimelineRespItemAddresAddressType `json:"address_type_list,omitempty"`           // 地址类型 - 枚举值及详细信息可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询获得。- 请求参数object_api_name=address；custom_api_name=address_type
+	AddressTypeList          []*QueryCoreHRLocationMultiTimelineRespItemAddresAddressType `json:"address_type_list,omitempty"`           // 地址类型 - 枚举值及详细信息可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询获得。- 请求参数object_api_name=address；custom_api_name=address_type
 	IsPrimary                bool                                                         `json:"is_primary,omitempty"`                  // 主要地址
 	IsPublic                 bool                                                         `json:"is_public,omitempty"`                   // 公开地址
 }
 
-// QueryCorehrLocationMultiTimelineRespItemAddresAddressType ...
-type QueryCorehrLocationMultiTimelineRespItemAddresAddressType struct {
+// QueryCoreHRLocationMultiTimelineRespItemAddresAddressType ...
+type QueryCoreHRLocationMultiTimelineRespItemAddresAddressType struct {
 	EnumName string                                                              `json:"enum_name,omitempty"` // 枚举值
-	Display  []*QueryCorehrLocationMultiTimelineRespItemAddresAddressTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*QueryCoreHRLocationMultiTimelineRespItemAddresAddressTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// QueryCorehrLocationMultiTimelineRespItemAddresAddressTypeDisplay ...
-type QueryCorehrLocationMultiTimelineRespItemAddresAddressTypeDisplay struct {
+// QueryCoreHRLocationMultiTimelineRespItemAddresAddressTypeDisplay ...
+type QueryCoreHRLocationMultiTimelineRespItemAddresAddressTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言- 中文用zh-CN, 英文用en-US。
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// QueryCorehrLocationMultiTimelineRespItemLocationVersionData ...
-type QueryCorehrLocationMultiTimelineRespItemLocationVersionData struct {
+// QueryCoreHRLocationMultiTimelineRespItemLocationVersionData ...
+type QueryCoreHRLocationMultiTimelineRespItemLocationVersionData struct {
 	LocationID         string                                                                      `json:"location_id,omitempty"`           // 地点ID
 	LocationVersionID  string                                                                      `json:"location_version_id,omitempty"`   // 地点版本ID
-	LocationNames      []*QueryCorehrLocationMultiTimelineRespItemLocationVersionDataLocationName  `json:"location_names,omitempty"`        // 地点名称
+	LocationNames      []*QueryCoreHRLocationMultiTimelineRespItemLocationVersionDataLocationName  `json:"location_names,omitempty"`        // 地点名称
 	ParentLocationID   string                                                                      `json:"parent_location_id,omitempty"`    // 上级地点ID- 若查询的是一级地点, 则该字段不展示
 	EffectiveDate      string                                                                      `json:"effective_date,omitempty"`        // 当前版本生效日期- 返回格式: YYYY-MM-DD （最小单位到日）- 日期范围:1900-01-01 ～9999-12-31 - 详情可以参考[时间轴介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/about-timeline-version)
 	ExpirationDate     string                                                                      `json:"expiration_date,omitempty"`       // 当前版本失效日期- 返回格式: YYYY-MM-DD （最小单位到日）- 日期范围:1900-01-01 ～9999-12-31 - 详情可以参考[时间轴介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/about-timeline-version)
 	Active             bool                                                                        `json:"active,omitempty"`                // 是否启用
-	Descriptions       []*QueryCorehrLocationMultiTimelineRespItemLocationVersionDataDescription   `json:"descriptions,omitempty"`          // 描述
+	Descriptions       []*QueryCoreHRLocationMultiTimelineRespItemLocationVersionDataDescription   `json:"descriptions,omitempty"`          // 描述
 	Code               string                                                                      `json:"code,omitempty"`                  // 编码
-	LocationUsages     []*QueryCorehrLocationMultiTimelineRespItemLocationVersionDataLocationUsage `json:"location_usages,omitempty"`       // 地点用途, 枚举值及详细信息可通过[【批量查询地点用途】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询获得。- 请求参数object_api_name=location；custom_api_name=location_usage
-	Locale             *QueryCorehrLocationMultiTimelineRespItemLocationVersionDataLocale          `json:"locale,omitempty"`                // 区域设置ID - 枚举值及详细信息可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询获得。- 请求参数object_api_name=location；custom_api_name=locale
+	LocationUsages     []*QueryCoreHRLocationMultiTimelineRespItemLocationVersionDataLocationUsage `json:"location_usages,omitempty"`       // 地点用途, 枚举值及详细信息可通过[【批量查询地点用途】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询获得。- 请求参数object_api_name=location；custom_api_name=location_usage
+	Locale             *QueryCoreHRLocationMultiTimelineRespItemLocationVersionDataLocale          `json:"locale,omitempty"`                // 区域设置ID - 枚举值及详细信息可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询获得。- 请求参数object_api_name=location；custom_api_name=locale
 	TimeZoneID         string                                                                      `json:"time_zone_id,omitempty"`          // 时区 ID - 详细信息可通过[【查询时区信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-time_zone/search)接口查询获得。
 	DisplayLanguageID  string                                                                      `json:"display_language_id,omitempty"`   // 默认语言 ID - 详细信息可通过[【查询语言信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-language/search)。
 	WorkingHoursTypeID string                                                                      `json:"working_hours_type_id,omitempty"` // 工时制度 ID- 详细信息可通过[【批量查询工时制度】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/list)
 }
 
-// QueryCorehrLocationMultiTimelineRespItemLocationVersionDataDescription ...
-type QueryCorehrLocationMultiTimelineRespItemLocationVersionDataDescription struct {
+// QueryCoreHRLocationMultiTimelineRespItemLocationVersionDataDescription ...
+type QueryCoreHRLocationMultiTimelineRespItemLocationVersionDataDescription struct {
 	Lang  string `json:"lang,omitempty"`  // 语言- 中文用zh-CN, 英文用en-US。
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// QueryCorehrLocationMultiTimelineRespItemLocationVersionDataLocale ...
-type QueryCorehrLocationMultiTimelineRespItemLocationVersionDataLocale struct {
+// QueryCoreHRLocationMultiTimelineRespItemLocationVersionDataLocale ...
+type QueryCoreHRLocationMultiTimelineRespItemLocationVersionDataLocale struct {
 	EnumName string                                                                      `json:"enum_name,omitempty"` // 枚举值
-	Display  []*QueryCorehrLocationMultiTimelineRespItemLocationVersionDataLocaleDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*QueryCoreHRLocationMultiTimelineRespItemLocationVersionDataLocaleDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// QueryCorehrLocationMultiTimelineRespItemLocationVersionDataLocaleDisplay ...
-type QueryCorehrLocationMultiTimelineRespItemLocationVersionDataLocaleDisplay struct {
+// QueryCoreHRLocationMultiTimelineRespItemLocationVersionDataLocaleDisplay ...
+type QueryCoreHRLocationMultiTimelineRespItemLocationVersionDataLocaleDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言- 中文用zh-CN, 英文用en-US。
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// QueryCorehrLocationMultiTimelineRespItemLocationVersionDataLocationName ...
-type QueryCorehrLocationMultiTimelineRespItemLocationVersionDataLocationName struct {
+// QueryCoreHRLocationMultiTimelineRespItemLocationVersionDataLocationName ...
+type QueryCoreHRLocationMultiTimelineRespItemLocationVersionDataLocationName struct {
 	Lang  string `json:"lang,omitempty"`  // 语言- 中文用zh-CN, 英文用en-US。
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// QueryCorehrLocationMultiTimelineRespItemLocationVersionDataLocationUsage ...
-type QueryCorehrLocationMultiTimelineRespItemLocationVersionDataLocationUsage struct {
+// QueryCoreHRLocationMultiTimelineRespItemLocationVersionDataLocationUsage ...
+type QueryCoreHRLocationMultiTimelineRespItemLocationVersionDataLocationUsage struct {
 	EnumName string                                                                             `json:"enum_name,omitempty"` // 枚举值
-	Display  []*QueryCorehrLocationMultiTimelineRespItemLocationVersionDataLocationUsageDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*QueryCoreHRLocationMultiTimelineRespItemLocationVersionDataLocationUsageDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// QueryCorehrLocationMultiTimelineRespItemLocationVersionDataLocationUsageDisplay ...
-type QueryCorehrLocationMultiTimelineRespItemLocationVersionDataLocationUsageDisplay struct {
+// QueryCoreHRLocationMultiTimelineRespItemLocationVersionDataLocationUsageDisplay ...
+type QueryCoreHRLocationMultiTimelineRespItemLocationVersionDataLocationUsageDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言- 中文用zh-CN, 英文用en-US。
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// queryCorehrLocationMultiTimelineResp ...
-type queryCorehrLocationMultiTimelineResp struct {
+// queryCoreHRLocationMultiTimelineResp ...
+type queryCoreHRLocationMultiTimelineResp struct {
 	Code  int64                                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                                `json:"msg,omitempty"`  // 错误描述
-	Data  *QueryCorehrLocationMultiTimelineResp `json:"data,omitempty"`
+	Data  *QueryCoreHRLocationMultiTimelineResp `json:"data,omitempty"`
 	Error *ErrorDetail                          `json:"error,omitempty"`
 }

@@ -21,19 +21,19 @@ import (
 	"context"
 )
 
-// CreateCorehrLeaveWorkCalendarDate 获取工作日历每一天的日期详情, 如日期、日期类型等
+// CreateCoreHRLeaveWorkCalendarDate 获取工作日历每一天的日期详情, 如日期、日期类型等
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/work_calendar_date
 // new doc: https://open.feishu.cn/document/corehr-v1/leave/work_calendar_date
-func (r *CoreHRService) CreateCorehrLeaveWorkCalendarDate(ctx context.Context, request *CreateCorehrLeaveWorkCalendarDateReq, options ...MethodOptionFunc) (*CreateCorehrLeaveWorkCalendarDateResp, *Response, error) {
-	if r.cli.mock.mockCoreHRCreateCorehrLeaveWorkCalendarDate != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCorehrLeaveWorkCalendarDate mock enable")
-		return r.cli.mock.mockCoreHRCreateCorehrLeaveWorkCalendarDate(ctx, request, options...)
+func (r *CoreHRService) CreateCoreHRLeaveWorkCalendarDate(ctx context.Context, request *CreateCoreHRLeaveWorkCalendarDateReq, options ...MethodOptionFunc) (*CreateCoreHRLeaveWorkCalendarDateResp, *Response, error) {
+	if r.cli.mock.mockCoreHRCreateCoreHRLeaveWorkCalendarDate != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCoreHRLeaveWorkCalendarDate mock enable")
+		return r.cli.mock.mockCoreHRCreateCoreHRLeaveWorkCalendarDate(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "CreateCorehrLeaveWorkCalendarDate",
+		API:                   "CreateCoreHRLeaveWorkCalendarDate",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/leaves/work_calendar_date",
 		Body:                  request,
@@ -41,24 +41,24 @@ func (r *CoreHRService) CreateCorehrLeaveWorkCalendarDate(ctx context.Context, r
 		NeedTenantAccessToken: true,
 		NeedUserAccessToken:   true,
 	}
-	resp := new(createCorehrLeaveWorkCalendarDateResp)
+	resp := new(createCoreHRLeaveWorkCalendarDateResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRCreateCorehrLeaveWorkCalendarDate mock CoreHRCreateCorehrLeaveWorkCalendarDate method
-func (r *Mock) MockCoreHRCreateCorehrLeaveWorkCalendarDate(f func(ctx context.Context, request *CreateCorehrLeaveWorkCalendarDateReq, options ...MethodOptionFunc) (*CreateCorehrLeaveWorkCalendarDateResp, *Response, error)) {
-	r.mockCoreHRCreateCorehrLeaveWorkCalendarDate = f
+// MockCoreHRCreateCoreHRLeaveWorkCalendarDate mock CoreHRCreateCoreHRLeaveWorkCalendarDate method
+func (r *Mock) MockCoreHRCreateCoreHRLeaveWorkCalendarDate(f func(ctx context.Context, request *CreateCoreHRLeaveWorkCalendarDateReq, options ...MethodOptionFunc) (*CreateCoreHRLeaveWorkCalendarDateResp, *Response, error)) {
+	r.mockCoreHRCreateCoreHRLeaveWorkCalendarDate = f
 }
 
-// UnMockCoreHRCreateCorehrLeaveWorkCalendarDate un-mock CoreHRCreateCorehrLeaveWorkCalendarDate method
-func (r *Mock) UnMockCoreHRCreateCorehrLeaveWorkCalendarDate() {
-	r.mockCoreHRCreateCorehrLeaveWorkCalendarDate = nil
+// UnMockCoreHRCreateCoreHRLeaveWorkCalendarDate un-mock CoreHRCreateCoreHRLeaveWorkCalendarDate method
+func (r *Mock) UnMockCoreHRCreateCoreHRLeaveWorkCalendarDate() {
+	r.mockCoreHRCreateCoreHRLeaveWorkCalendarDate = nil
 }
 
-// CreateCorehrLeaveWorkCalendarDateReq ...
-type CreateCorehrLeaveWorkCalendarDateReq struct {
+// CreateCoreHRLeaveWorkCalendarDateReq ...
+type CreateCoreHRLeaveWorkCalendarDateReq struct {
 	WkCalendarIDs []string `json:"wk_calendar_ids,omitempty"` // 工作日历ID列表, 最多100；可以通过[获取工作日历](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/work_calendar) 获取工作日历ID示例值: ["7390282135276635692"] 长度范围: `1` ～ `100`
 	Dates         []string `json:"dates,omitempty"`           // 日期, 格式: "2006-01-02", 最多50个；注意: 如果不传 ids 参数, 则必须传 dates 参数或 [begin_date, end_date]参数- 如果传 ids 参数, 则仅生效 ids 参数, 无需传 dates 参数或 [begin_date, end_date]参数示例值: ["2006-01-02"] 长度范围: `1` ～ `50`
 	BeginDate     *string  `json:"begin_date,omitempty"`      // 日期范围-开始日期, 格式: "2006-01-02"；需要和end_date一起使用；注意: 如果不传 ids 参数, 则必须传 dates 参数或 [begin_date, end_date]参数- 如果传 ids 参数, 则仅生效 ids 参数, 无需传 dates 参数或 [begin_date, end_date]参数示例值: "2006-01-02"
@@ -68,23 +68,23 @@ type CreateCorehrLeaveWorkCalendarDateReq struct {
 	IDs           []string `json:"ids,omitempty"`             // 日期id, 可使用响应体中的data.calendar_dates.id注意: 如果不传 ids 参数, 则必须传 dates 参数或 [begin_date, end_date]参数- 如果传 ids 参数, 则仅生效 ids 参数, 无需传 dates 参数或 [begin_date, end_date]参数示例值: ["7390282135276635692"] 长度范围: `0` ～ `1000`
 }
 
-// CreateCorehrLeaveWorkCalendarDateResp ...
-type CreateCorehrLeaveWorkCalendarDateResp struct {
-	CalendarDates []*CreateCorehrLeaveWorkCalendarDateRespCalendarDate `json:"calendar_dates,omitempty"` // 日期列表
+// CreateCoreHRLeaveWorkCalendarDateResp ...
+type CreateCoreHRLeaveWorkCalendarDateResp struct {
+	CalendarDates []*CreateCoreHRLeaveWorkCalendarDateRespCalendarDate `json:"calendar_dates,omitempty"` // 日期列表
 }
 
-// CreateCorehrLeaveWorkCalendarDateRespCalendarDate ...
-type CreateCorehrLeaveWorkCalendarDateRespCalendarDate struct {
+// CreateCoreHRLeaveWorkCalendarDateRespCalendarDate ...
+type CreateCoreHRLeaveWorkCalendarDateRespCalendarDate struct {
 	CalendarID string `json:"calendar_id,omitempty"` // 工作日历ID
 	Date       string `json:"date,omitempty"`        // 日期, 格式: "2006-01-02"
 	DateType   string `json:"date_type,omitempty"`   // 日期类型可选值有: 休息日公共假日工作日
 	ID         string `json:"id,omitempty"`          // 日期id
 }
 
-// createCorehrLeaveWorkCalendarDateResp ...
-type createCorehrLeaveWorkCalendarDateResp struct {
+// createCoreHRLeaveWorkCalendarDateResp ...
+type createCoreHRLeaveWorkCalendarDateResp struct {
 	Code  int64                                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                                 `json:"msg,omitempty"`  // 错误描述
-	Data  *CreateCorehrLeaveWorkCalendarDateResp `json:"data,omitempty"`
+	Data  *CreateCoreHRLeaveWorkCalendarDateResp `json:"data,omitempty"`
 	Error *ErrorDetail                           `json:"error,omitempty"`
 }

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// CreateHireApplicationCancelOnboard 取消待入职状态的候选人入职。
+// CancelHireApplicationOnboard 取消待入职状态的候选人入职。
 //
 // ## 注意事项
 // - 本接口适用于对待入职阶段的候选人取消入职。对于已入职的候选人, 取消入职请使用[更新入职状态](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/employee/patch)
@@ -30,53 +30,53 @@ import (
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/cancel_onboard
 // new doc: https://open.feishu.cn/document/server-docs/hire-v1/candidate-management/delivery-process-management/onboard/cancel_onboard
-func (r *HireService) CreateHireApplicationCancelOnboard(ctx context.Context, request *CreateHireApplicationCancelOnboardReq, options ...MethodOptionFunc) (*CreateHireApplicationCancelOnboardResp, *Response, error) {
-	if r.cli.mock.mockHireCreateHireApplicationCancelOnboard != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#CreateHireApplicationCancelOnboard mock enable")
-		return r.cli.mock.mockHireCreateHireApplicationCancelOnboard(ctx, request, options...)
+func (r *HireService) CancelHireApplicationOnboard(ctx context.Context, request *CancelHireApplicationOnboardReq, options ...MethodOptionFunc) (*CancelHireApplicationOnboardResp, *Response, error) {
+	if r.cli.mock.mockHireCancelHireApplicationOnboard != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Hire#CancelHireApplicationOnboard mock enable")
+		return r.cli.mock.mockHireCancelHireApplicationOnboard(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "Hire",
-		API:                   "CreateHireApplicationCancelOnboard",
+		API:                   "CancelHireApplicationOnboard",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/hire/v1/applications/:application_id/cancel_onboard",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(createHireApplicationCancelOnboardResp)
+	resp := new(cancelHireApplicationOnboardResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockHireCreateHireApplicationCancelOnboard mock HireCreateHireApplicationCancelOnboard method
-func (r *Mock) MockHireCreateHireApplicationCancelOnboard(f func(ctx context.Context, request *CreateHireApplicationCancelOnboardReq, options ...MethodOptionFunc) (*CreateHireApplicationCancelOnboardResp, *Response, error)) {
-	r.mockHireCreateHireApplicationCancelOnboard = f
+// MockHireCancelHireApplicationOnboard mock HireCancelHireApplicationOnboard method
+func (r *Mock) MockHireCancelHireApplicationOnboard(f func(ctx context.Context, request *CancelHireApplicationOnboardReq, options ...MethodOptionFunc) (*CancelHireApplicationOnboardResp, *Response, error)) {
+	r.mockHireCancelHireApplicationOnboard = f
 }
 
-// UnMockHireCreateHireApplicationCancelOnboard un-mock HireCreateHireApplicationCancelOnboard method
-func (r *Mock) UnMockHireCreateHireApplicationCancelOnboard() {
-	r.mockHireCreateHireApplicationCancelOnboard = nil
+// UnMockHireCancelHireApplicationOnboard un-mock HireCancelHireApplicationOnboard method
+func (r *Mock) UnMockHireCancelHireApplicationOnboard() {
+	r.mockHireCancelHireApplicationOnboard = nil
 }
 
-// CreateHireApplicationCancelOnboardReq ...
-type CreateHireApplicationCancelOnboardReq struct {
+// CancelHireApplicationOnboardReq ...
+type CancelHireApplicationOnboardReq struct {
 	ApplicationID           string   `path:"application_id" json:"-"`              // 投递 ID, 如何获取投递 ID 请参考[获取投递列表](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/application/list)示例值: "1111111111"
 	TerminationType         int64    `json:"termination_type,omitempty"`           // 终止类型示例值: 1可选值有: 我们拒绝了候选人候选人拒绝了我们其他
 	TerminationReasonIDList []string `json:"termination_reason_id_list,omitempty"` // 终止的具体原因的id列表, 详细信息请参考[获取终止投递原因](https://open.feishu.cn/document/ukTMukTMukTM/uMzM1YjLzMTN24yMzUjN/hire-v1/termination_reason/list)示例值: ["6959090661225640000"]
 	TerminationReasonNotes  *string  `json:"termination_reason_notes,omitempty"`   // 备注示例值: "候选人经历不匹配"
 }
 
-// CreateHireApplicationCancelOnboardResp ...
-type CreateHireApplicationCancelOnboardResp struct {
+// CancelHireApplicationOnboardResp ...
+type CancelHireApplicationOnboardResp struct {
 }
 
-// createHireApplicationCancelOnboardResp ...
-type createHireApplicationCancelOnboardResp struct {
-	Code  int64                                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg   string                                  `json:"msg,omitempty"`  // 错误描述
-	Data  *CreateHireApplicationCancelOnboardResp `json:"data,omitempty"`
-	Error *ErrorDetail                            `json:"error,omitempty"`
+// cancelHireApplicationOnboardResp ...
+type cancelHireApplicationOnboardResp struct {
+	Code  int64                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                            `json:"msg,omitempty"`  // 错误描述
+	Data  *CancelHireApplicationOnboardResp `json:"data,omitempty"`
+	Error *ErrorDetail                      `json:"error,omitempty"`
 }

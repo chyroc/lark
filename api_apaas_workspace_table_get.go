@@ -21,55 +21,55 @@ import (
 	"context"
 )
 
-// GetAPaaSWorkspaceTableGet 获取数据表详细信息
+// GetAPaaSWorkspaceTable 获取数据表详细信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/workspace-table/table_get
-func (r *APaaSService) GetAPaaSWorkspaceTableGet(ctx context.Context, request *GetAPaaSWorkspaceTableGetReq, options ...MethodOptionFunc) (*GetAPaaSWorkspaceTableGetResp, *Response, error) {
-	if r.cli.mock.mockAPaaSGetAPaaSWorkspaceTableGet != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] APaaS#GetAPaaSWorkspaceTableGet mock enable")
-		return r.cli.mock.mockAPaaSGetAPaaSWorkspaceTableGet(ctx, request, options...)
+func (r *APaaSService) GetAPaaSWorkspaceTable(ctx context.Context, request *GetAPaaSWorkspaceTableReq, options ...MethodOptionFunc) (*GetAPaaSWorkspaceTableResp, *Response, error) {
+	if r.cli.mock.mockAPaaSGetAPaaSWorkspaceTable != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] APaaS#GetAPaaSWorkspaceTable mock enable")
+		return r.cli.mock.mockAPaaSGetAPaaSWorkspaceTable(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:               "APaaS",
-		API:                 "GetAPaaSWorkspaceTableGet",
+		API:                 "GetAPaaSWorkspaceTable",
 		Method:              "GET",
 		URL:                 r.cli.openBaseURL + "/open-apis/apaas/v1/workspaces/:workspace_id/tables/:table_name",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 	}
-	resp := new(getAPaaSWorkspaceTableGetResp)
+	resp := new(getAPaaSWorkspaceTableResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockAPaaSGetAPaaSWorkspaceTableGet mock APaaSGetAPaaSWorkspaceTableGet method
-func (r *Mock) MockAPaaSGetAPaaSWorkspaceTableGet(f func(ctx context.Context, request *GetAPaaSWorkspaceTableGetReq, options ...MethodOptionFunc) (*GetAPaaSWorkspaceTableGetResp, *Response, error)) {
-	r.mockAPaaSGetAPaaSWorkspaceTableGet = f
+// MockAPaaSGetAPaaSWorkspaceTable mock APaaSGetAPaaSWorkspaceTable method
+func (r *Mock) MockAPaaSGetAPaaSWorkspaceTable(f func(ctx context.Context, request *GetAPaaSWorkspaceTableReq, options ...MethodOptionFunc) (*GetAPaaSWorkspaceTableResp, *Response, error)) {
+	r.mockAPaaSGetAPaaSWorkspaceTable = f
 }
 
-// UnMockAPaaSGetAPaaSWorkspaceTableGet un-mock APaaSGetAPaaSWorkspaceTableGet method
-func (r *Mock) UnMockAPaaSGetAPaaSWorkspaceTableGet() {
-	r.mockAPaaSGetAPaaSWorkspaceTableGet = nil
+// UnMockAPaaSGetAPaaSWorkspaceTable un-mock APaaSGetAPaaSWorkspaceTable method
+func (r *Mock) UnMockAPaaSGetAPaaSWorkspaceTable() {
+	r.mockAPaaSGetAPaaSWorkspaceTable = nil
 }
 
-// GetAPaaSWorkspaceTableGetReq ...
-type GetAPaaSWorkspaceTableGetReq struct {
+// GetAPaaSWorkspaceTableReq ...
+type GetAPaaSWorkspaceTableReq struct {
 	WorkspaceID string `path:"workspace_id" json:"-"` // 工作空间id, 可以从数据平台的 URL 中获取, 如 https://apaas.feishu.cn/suda/workspace/workspace_aadimx5uzpsls/table-manage/main?tableId=table_1846786627963081&tab=objectManage 中的 workspace_aadimx5uzpsls 就是 workspace_id示例值: "workspace_aadimx5uzpsls"
 	TableName   string `path:"table_name" json:"-"`   // 数据表表名示例值: "table_name_1"
 }
 
-// GetAPaaSWorkspaceTableGetResp ...
-type GetAPaaSWorkspaceTableGetResp struct {
-	Name        string                                 `json:"name,omitempty"`        // 数据表名, 如 student
-	Description string                                 `json:"description,omitempty"` // 数据表描述
-	Columns     []*GetAPaaSWorkspaceTableGetRespColumn `json:"columns,omitempty"`     // 数据表列
+// GetAPaaSWorkspaceTableResp ...
+type GetAPaaSWorkspaceTableResp struct {
+	Name        string                              `json:"name,omitempty"`        // 数据表名, 如 student
+	Description string                              `json:"description,omitempty"` // 数据表描述
+	Columns     []*GetAPaaSWorkspaceTableRespColumn `json:"columns,omitempty"`     // 数据表列
 }
 
-// GetAPaaSWorkspaceTableGetRespColumn ...
-type GetAPaaSWorkspaceTableGetRespColumn struct {
+// GetAPaaSWorkspaceTableRespColumn ...
+type GetAPaaSWorkspaceTableRespColumn struct {
 	Name            string `json:"name,omitempty"`              // 列名
 	Description     string `json:"description,omitempty"`       // 列描述
 	DataType        string `json:"data_type,omitempty"`         // 数据库数据类型
@@ -81,10 +81,10 @@ type GetAPaaSWorkspaceTableGetRespColumn struct {
 	DefaultValue    string `json:"default_value,omitempty"`     // 默认值
 }
 
-// getAPaaSWorkspaceTableGetResp ...
-type getAPaaSWorkspaceTableGetResp struct {
-	Code  int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg   string                         `json:"msg,omitempty"`  // 错误描述
-	Data  *GetAPaaSWorkspaceTableGetResp `json:"data,omitempty"`
-	Error *ErrorDetail                   `json:"error,omitempty"`
+// getAPaaSWorkspaceTableResp ...
+type getAPaaSWorkspaceTableResp struct {
+	Code  int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                      `json:"msg,omitempty"`  // 错误描述
+	Data  *GetAPaaSWorkspaceTableResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }

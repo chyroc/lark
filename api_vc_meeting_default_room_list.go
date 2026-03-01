@@ -28,9 +28,9 @@ import (
 //
 // Deprecated
 func (r *VCService) ListVCMeetingDefaultRoom(ctx context.Context, request *ListVCMeetingDefaultRoomReq, options ...MethodOptionFunc) (*ListVCMeetingDefaultRoomResp, *Response, error) {
-	if r.cli.mock.mockVCMeetingListVCMeetingDefaultRoom != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] VCMeeting#ListVCMeetingDefaultRoom mock enable")
-		return r.cli.mock.mockVCMeetingListVCMeetingDefaultRoom(ctx, request, options...)
+	if r.cli.mock.mockVCListVCMeetingDefaultRoom != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#ListVCMeetingDefaultRoom mock enable")
+		return r.cli.mock.mockVCListVCMeetingDefaultRoom(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
@@ -48,14 +48,14 @@ func (r *VCService) ListVCMeetingDefaultRoom(ctx context.Context, request *ListV
 	return resp.Data, response, err
 }
 
-// MockVCMeetingListVCMeetingDefaultRoom mock VCMeetingListVCMeetingDefaultRoom method
-func (r *Mock) MockVCMeetingListVCMeetingDefaultRoom(f func(ctx context.Context, request *ListVCMeetingDefaultRoomReq, options ...MethodOptionFunc) (*ListVCMeetingDefaultRoomResp, *Response, error)) {
-	r.mockVCMeetingListVCMeetingDefaultRoom = f
+// MockVCListVCMeetingDefaultRoom mock VCListVCMeetingDefaultRoom method
+func (r *Mock) MockVCListVCMeetingDefaultRoom(f func(ctx context.Context, request *ListVCMeetingDefaultRoomReq, options ...MethodOptionFunc) (*ListVCMeetingDefaultRoomResp, *Response, error)) {
+	r.mockVCListVCMeetingDefaultRoom = f
 }
 
-// UnMockVCMeetingListVCMeetingDefaultRoom un-mock VCMeetingListVCMeetingDefaultRoom method
-func (r *Mock) UnMockVCMeetingListVCMeetingDefaultRoom() {
-	r.mockVCMeetingListVCMeetingDefaultRoom = nil
+// UnMockVCListVCMeetingDefaultRoom un-mock VCListVCMeetingDefaultRoom method
+func (r *Mock) UnMockVCListVCMeetingDefaultRoom() {
+	r.mockVCListVCMeetingDefaultRoom = nil
 }
 
 // ListVCMeetingDefaultRoomReq ...

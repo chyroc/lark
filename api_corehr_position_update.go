@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// UpdateCorehrPosition 更新岗位的版本信息, 例如岗位关联的职务、职级、序列, 以及岗位描述等
+// UpdateCoreHRPosition 更新岗位的版本信息, 例如岗位关联的职务、职级、序列, 以及岗位描述等
 //
 // - 非必填字段, 不传时即不做变更
 // - 如果传入生效时间当天不存在版本则会自动生成一个版本。
@@ -30,45 +30,45 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/position/patch
 // new doc: https://open.feishu.cn/document/corehr-v1/job-management/position/patch
-func (r *CoreHRService) UpdateCorehrPosition(ctx context.Context, request *UpdateCorehrPositionReq, options ...MethodOptionFunc) (*UpdateCorehrPositionResp, *Response, error) {
-	if r.cli.mock.mockCoreHRUpdateCorehrPosition != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#UpdateCorehrPosition mock enable")
-		return r.cli.mock.mockCoreHRUpdateCorehrPosition(ctx, request, options...)
+func (r *CoreHRService) UpdateCoreHRPosition(ctx context.Context, request *UpdateCoreHRPositionReq, options ...MethodOptionFunc) (*UpdateCoreHRPositionResp, *Response, error) {
+	if r.cli.mock.mockCoreHRUpdateCoreHRPosition != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#UpdateCoreHRPosition mock enable")
+		return r.cli.mock.mockCoreHRUpdateCoreHRPosition(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "UpdateCorehrPosition",
+		API:                   "UpdateCoreHRPosition",
 		Method:                "PATCH",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/positions/:position_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(updateCorehrPositionResp)
+	resp := new(updateCoreHRPositionResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRUpdateCorehrPosition mock CoreHRUpdateCorehrPosition method
-func (r *Mock) MockCoreHRUpdateCorehrPosition(f func(ctx context.Context, request *UpdateCorehrPositionReq, options ...MethodOptionFunc) (*UpdateCorehrPositionResp, *Response, error)) {
-	r.mockCoreHRUpdateCorehrPosition = f
+// MockCoreHRUpdateCoreHRPosition mock CoreHRUpdateCoreHRPosition method
+func (r *Mock) MockCoreHRUpdateCoreHRPosition(f func(ctx context.Context, request *UpdateCoreHRPositionReq, options ...MethodOptionFunc) (*UpdateCoreHRPositionResp, *Response, error)) {
+	r.mockCoreHRUpdateCoreHRPosition = f
 }
 
-// UnMockCoreHRUpdateCorehrPosition un-mock CoreHRUpdateCorehrPosition method
-func (r *Mock) UnMockCoreHRUpdateCorehrPosition() {
-	r.mockCoreHRUpdateCorehrPosition = nil
+// UnMockCoreHRUpdateCoreHRPosition un-mock CoreHRUpdateCoreHRPosition method
+func (r *Mock) UnMockCoreHRUpdateCoreHRPosition() {
+	r.mockCoreHRUpdateCoreHRPosition = nil
 }
 
-// UpdateCorehrPositionReq ...
-type UpdateCorehrPositionReq struct {
+// UpdateCoreHRPositionReq ...
+type UpdateCoreHRPositionReq struct {
 	PositionID         string                                `path:"position_id" json:"-"`            // 岗位 ID 列表, 详细信息可通过[查询岗位信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/position/query)接口获得示例值: "6862995757234914824"
 	ClientToken        *string                               `query:"client_token" json:"-"`          // 根据client_token是否一致来判断是否为同一请求示例值: 1245464678 长度范围: `0` ～ `128` 字符
 	DepartmentIDType   *DepartmentIDType                     `query:"department_id_type" json:"-"`    // 此次调用中使用的部门 ID 类型, 三种类型的 ID 都可通过飞书人事的[批量查询部门（ V2）](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get) 来获取示例值: people_corehr_department_id可选值有: 以 open_department_id 来标识部门以 department_id 来标识部门以 people_corehr_department_id 来标识部门默认值: `people_corehr_department_id`
 	Code               *string                               `json:"code,omitempty"`                  // 编码 (不能与其他记录的编码重复)- 如果开启了岗位自动编码, 此字段传入不生效示例值: "A01234"
-	Names              []*UpdateCorehrPositionReqName        `json:"names,omitempty"`                 // 名称 长度范围: `0` ～ `2`
-	Descriptions       []*UpdateCorehrPositionReqDescription `json:"descriptions,omitempty"`          // 描述 长度范围: `0` ～ `2`
+	Names              []*UpdateCoreHRPositionReqName        `json:"names,omitempty"`                 // 名称 长度范围: `0` ～ `2`
+	Descriptions       []*UpdateCoreHRPositionReqDescription `json:"descriptions,omitempty"`          // 描述 长度范围: `0` ～ `2`
 	JobFamilyIDs       []string                              `json:"job_family_ids,omitempty"`        // 序列 ID 列表, 详细信息可通过[查询单个序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/get)接口获得示例值: ["4719519211875096301"] 长度范围: `0` ～ `50`
 	CostCenterID       *string                               `json:"cost_center_id,omitempty"`        // 成本中心 ID, 可以通过[搜索成本中心信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)接口获取对应的成本中心信息示例值: "4719519211875096301"
 	JobID              *string                               `json:"job_id,omitempty"`                // 职务, 可通过[【查询单个职务】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/get)获取详细信息示例值: "4719519211875096301"
@@ -82,35 +82,35 @@ type UpdateCorehrPositionReq struct {
 	DottedLineLeaderID *string                               `json:"dotted_line_leader_id,omitempty"` // 虚线上级岗位ID, 详细信息可通过[查询岗位信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/position/query)接口获得示例值: "4719519211875096301"
 	IsKeyPosition      *bool                                 `json:"is_key_position,omitempty"`       // 是否关键岗位示例值: true
 	EffectiveTime      string                                `json:"effective_time,omitempty"`        // 生效日期示例值: "2020-05-01" 正则校验: `^((([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-(((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)-(0[1-9]|[12][0-9]|30))|(02-(0[1-9]|[1][0-9]|2[0-8]))))|((([0-9]{2})(0[48]|[2468][048]|[13579][26])|((0[48]|[2468][048]|[3579][26])00))-02-29))$`
-	CustomFields       []*UpdateCorehrPositionReqCustomField `json:"custom_fields,omitempty"`         // 自定义字段 长度范围: `0` ～ `200`
+	CustomFields       []*UpdateCoreHRPositionReqCustomField `json:"custom_fields,omitempty"`         // 自定义字段 长度范围: `0` ～ `200`
 }
 
-// UpdateCorehrPositionReqCustomField ...
-type UpdateCorehrPositionReqCustomField struct {
+// UpdateCoreHRPositionReqCustomField ...
+type UpdateCoreHRPositionReqCustomField struct {
 	CustomApiName string `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识示例值: "name"
 	Value         string `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）示例值: "\"231\""
 }
 
-// UpdateCorehrPositionReqDescription ...
-type UpdateCorehrPositionReqDescription struct {
+// UpdateCoreHRPositionReqDescription ...
+type UpdateCoreHRPositionReqDescription struct {
 	Lang  string `json:"lang,omitempty"`  // 语言示例值: "zh-CN"
 	Value string `json:"value,omitempty"` // 支持 zh-CN 和 en-US, 最大长度为 255 字符示例值: "张三"
 }
 
-// UpdateCorehrPositionReqName ...
-type UpdateCorehrPositionReqName struct {
+// UpdateCoreHRPositionReqName ...
+type UpdateCoreHRPositionReqName struct {
 	Lang  string `json:"lang,omitempty"`  // 名称信息的语言, 支持中文和英文。中文用zh-CN；英文用en-US示例值: "zh-CN"
 	Value string `json:"value,omitempty"` // --支持 zh-CN 和 en-US, 最大长度为 255 字符- 名称不能包含「/」「；」「;」「\」「'」字符示例值: "张三"
 }
 
-// UpdateCorehrPositionResp ...
-type UpdateCorehrPositionResp struct {
+// UpdateCoreHRPositionResp ...
+type UpdateCoreHRPositionResp struct {
 }
 
-// updateCorehrPositionResp ...
-type updateCorehrPositionResp struct {
+// updateCoreHRPositionResp ...
+type updateCoreHRPositionResp struct {
 	Code  int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                    `json:"msg,omitempty"`  // 错误描述
-	Data  *UpdateCorehrPositionResp `json:"data,omitempty"`
+	Data  *UpdateCoreHRPositionResp `json:"data,omitempty"`
 	Error *ErrorDetail              `json:"error,omitempty"`
 }

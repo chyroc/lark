@@ -21,56 +21,56 @@ import (
 	"context"
 )
 
-// CreateCorehrPreHireWithdrawOnboarding 通过本接口对指定待入职, 入职准备就绪的员工执行撤销入职操作, 对应入职管理页面撤销入职按钮
+// WithdrawCoreHRPreHireOnboarding 通过本接口对指定待入职, 入职准备就绪的员工执行撤销入职操作, 对应入职管理页面撤销入职按钮
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/withdraw_onboarding
 // new doc: https://open.feishu.cn/document/corehr-v1/pre_hire/withdraw_onboarding
-func (r *CoreHRService) CreateCorehrPreHireWithdrawOnboarding(ctx context.Context, request *CreateCorehrPreHireWithdrawOnboardingReq, options ...MethodOptionFunc) (*CreateCorehrPreHireWithdrawOnboardingResp, *Response, error) {
-	if r.cli.mock.mockCoreHRCreateCorehrPreHireWithdrawOnboarding != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCorehrPreHireWithdrawOnboarding mock enable")
-		return r.cli.mock.mockCoreHRCreateCorehrPreHireWithdrawOnboarding(ctx, request, options...)
+func (r *CoreHRService) WithdrawCoreHRPreHireOnboarding(ctx context.Context, request *WithdrawCoreHRPreHireOnboardingReq, options ...MethodOptionFunc) (*WithdrawCoreHRPreHireOnboardingResp, *Response, error) {
+	if r.cli.mock.mockCoreHRWithdrawCoreHRPreHireOnboarding != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#WithdrawCoreHRPreHireOnboarding mock enable")
+		return r.cli.mock.mockCoreHRWithdrawCoreHRPreHireOnboarding(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "CreateCorehrPreHireWithdrawOnboarding",
+		API:                   "WithdrawCoreHRPreHireOnboarding",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/pre_hires/withdraw_onboarding",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(createCorehrPreHireWithdrawOnboardingResp)
+	resp := new(withdrawCoreHRPreHireOnboardingResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRCreateCorehrPreHireWithdrawOnboarding mock CoreHRCreateCorehrPreHireWithdrawOnboarding method
-func (r *Mock) MockCoreHRCreateCorehrPreHireWithdrawOnboarding(f func(ctx context.Context, request *CreateCorehrPreHireWithdrawOnboardingReq, options ...MethodOptionFunc) (*CreateCorehrPreHireWithdrawOnboardingResp, *Response, error)) {
-	r.mockCoreHRCreateCorehrPreHireWithdrawOnboarding = f
+// MockCoreHRWithdrawCoreHRPreHireOnboarding mock CoreHRWithdrawCoreHRPreHireOnboarding method
+func (r *Mock) MockCoreHRWithdrawCoreHRPreHireOnboarding(f func(ctx context.Context, request *WithdrawCoreHRPreHireOnboardingReq, options ...MethodOptionFunc) (*WithdrawCoreHRPreHireOnboardingResp, *Response, error)) {
+	r.mockCoreHRWithdrawCoreHRPreHireOnboarding = f
 }
 
-// UnMockCoreHRCreateCorehrPreHireWithdrawOnboarding un-mock CoreHRCreateCorehrPreHireWithdrawOnboarding method
-func (r *Mock) UnMockCoreHRCreateCorehrPreHireWithdrawOnboarding() {
-	r.mockCoreHRCreateCorehrPreHireWithdrawOnboarding = nil
+// UnMockCoreHRWithdrawCoreHRPreHireOnboarding un-mock CoreHRWithdrawCoreHRPreHireOnboarding method
+func (r *Mock) UnMockCoreHRWithdrawCoreHRPreHireOnboarding() {
+	r.mockCoreHRWithdrawCoreHRPreHireOnboarding = nil
 }
 
-// CreateCorehrPreHireWithdrawOnboardingReq ...
-type CreateCorehrPreHireWithdrawOnboardingReq struct {
+// WithdrawCoreHRPreHireOnboardingReq ...
+type WithdrawCoreHRPreHireOnboardingReq struct {
 	PreHireID      string `json:"pre_hire_id,omitempty"`     // 待入职ID, 可以通过[搜索待入职人员信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/search)接口获得示例值: "7345005664477775407"
 	WithdrawReason string `json:"withdraw_reason,omitempty"` // 撤销原因, 上限为500字示例值: "withdraw reason"
 }
 
-// CreateCorehrPreHireWithdrawOnboardingResp ...
-type CreateCorehrPreHireWithdrawOnboardingResp struct {
+// WithdrawCoreHRPreHireOnboardingResp ...
+type WithdrawCoreHRPreHireOnboardingResp struct {
 	Success bool `json:"success,omitempty"` // 是否成功撤销入职
 }
 
-// createCorehrPreHireWithdrawOnboardingResp ...
-type createCorehrPreHireWithdrawOnboardingResp struct {
-	Code  int64                                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg   string                                     `json:"msg,omitempty"`  // 错误描述
-	Data  *CreateCorehrPreHireWithdrawOnboardingResp `json:"data,omitempty"`
-	Error *ErrorDetail                               `json:"error,omitempty"`
+// withdrawCoreHRPreHireOnboardingResp ...
+type withdrawCoreHRPreHireOnboardingResp struct {
+	Code  int64                                `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                               `json:"msg,omitempty"`  // 错误描述
+	Data  *WithdrawCoreHRPreHireOnboardingResp `json:"data,omitempty"`
+	Error *ErrorDetail                         `json:"error,omitempty"`
 }

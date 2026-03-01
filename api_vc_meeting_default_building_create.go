@@ -21,45 +21,45 @@ import (
 	"context"
 )
 
-// CreateVCMeetingDefaultBuildingCreate 该接口对应管理后台的添加建筑, 添加楼层的功能, 可用于创建建筑物和建筑物的楼层信息。
+// CreateVCMeetingDefaultBuilding 该接口对应管理后台的添加建筑, 添加楼层的功能, 可用于创建建筑物和建筑物的楼层信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uATNwYjLwUDM24CM1AjN
 // new doc: https://open.feishu.cn/document/server-docs/historic-version/meeting_room-v1/api-reference/create-building
 //
 // Deprecated
-func (r *VCService) CreateVCMeetingDefaultBuildingCreate(ctx context.Context, request *CreateVCMeetingDefaultBuildingCreateReq, options ...MethodOptionFunc) (*CreateVCMeetingDefaultBuildingCreateResp, *Response, error) {
-	if r.cli.mock.mockVCMeetingCreateVCMeetingDefaultBuildingCreate != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] VCMeeting#CreateVCMeetingDefaultBuildingCreate mock enable")
-		return r.cli.mock.mockVCMeetingCreateVCMeetingDefaultBuildingCreate(ctx, request, options...)
+func (r *VCService) CreateVCMeetingDefaultBuilding(ctx context.Context, request *CreateVCMeetingDefaultBuildingReq, options ...MethodOptionFunc) (*CreateVCMeetingDefaultBuildingResp, *Response, error) {
+	if r.cli.mock.mockVCCreateVCMeetingDefaultBuilding != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#CreateVCMeetingDefaultBuilding mock enable")
+		return r.cli.mock.mockVCCreateVCMeetingDefaultBuilding(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "VC",
-		API:                   "CreateVCMeetingDefaultBuildingCreate",
+		API:                   "CreateVCMeetingDefaultBuilding",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/meeting_room/building/create",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(createVCMeetingDefaultBuildingCreateResp)
+	resp := new(createVCMeetingDefaultBuildingResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockVCMeetingCreateVCMeetingDefaultBuildingCreate mock VCMeetingCreateVCMeetingDefaultBuildingCreate method
-func (r *Mock) MockVCMeetingCreateVCMeetingDefaultBuildingCreate(f func(ctx context.Context, request *CreateVCMeetingDefaultBuildingCreateReq, options ...MethodOptionFunc) (*CreateVCMeetingDefaultBuildingCreateResp, *Response, error)) {
-	r.mockVCMeetingCreateVCMeetingDefaultBuildingCreate = f
+// MockVCCreateVCMeetingDefaultBuilding mock VCCreateVCMeetingDefaultBuilding method
+func (r *Mock) MockVCCreateVCMeetingDefaultBuilding(f func(ctx context.Context, request *CreateVCMeetingDefaultBuildingReq, options ...MethodOptionFunc) (*CreateVCMeetingDefaultBuildingResp, *Response, error)) {
+	r.mockVCCreateVCMeetingDefaultBuilding = f
 }
 
-// UnMockVCMeetingCreateVCMeetingDefaultBuildingCreate un-mock VCMeetingCreateVCMeetingDefaultBuildingCreate method
-func (r *Mock) UnMockVCMeetingCreateVCMeetingDefaultBuildingCreate() {
-	r.mockVCMeetingCreateVCMeetingDefaultBuildingCreate = nil
+// UnMockVCCreateVCMeetingDefaultBuilding un-mock VCCreateVCMeetingDefaultBuilding method
+func (r *Mock) UnMockVCCreateVCMeetingDefaultBuilding() {
+	r.mockVCCreateVCMeetingDefaultBuilding = nil
 }
 
-// CreateVCMeetingDefaultBuildingCreateReq ...
-type CreateVCMeetingDefaultBuildingCreateReq struct {
+// CreateVCMeetingDefaultBuildingReq ...
+type CreateVCMeetingDefaultBuildingReq struct {
 	Name             string   `json:"name,omitempty"`               // 建筑名称
 	Floors           []string `json:"floors,omitempty"`             // 楼层列表
 	CountryID        string   `json:"country_id,omitempty"`         // 国家/地区ID
@@ -67,15 +67,15 @@ type CreateVCMeetingDefaultBuildingCreateReq struct {
 	CustomBuildingID *string  `json:"custom_building_id,omitempty"` // 租户自定义建筑ID
 }
 
-// CreateVCMeetingDefaultBuildingCreateResp ...
-type CreateVCMeetingDefaultBuildingCreateResp struct {
+// CreateVCMeetingDefaultBuildingResp ...
+type CreateVCMeetingDefaultBuildingResp struct {
 	BuildingID string `json:"building_id,omitempty"` // 成功创建的建筑ID
 }
 
-// createVCMeetingDefaultBuildingCreateResp ...
-type createVCMeetingDefaultBuildingCreateResp struct {
-	Code  int64                                     `json:"code,omitempty"` // 返回码, 非 0 表示失败
-	Msg   string                                    `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
-	Data  *CreateVCMeetingDefaultBuildingCreateResp `json:"data,omitempty"` // 返回业务信息
-	Error *ErrorDetail                              `json:"error,omitempty"`
+// createVCMeetingDefaultBuildingResp ...
+type createVCMeetingDefaultBuildingResp struct {
+	Code  int64                               `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg   string                              `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
+	Data  *CreateVCMeetingDefaultBuildingResp `json:"data,omitempty"` // 返回业务信息
+	Error *ErrorDetail                        `json:"error,omitempty"`
 }

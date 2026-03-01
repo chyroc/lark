@@ -21,56 +21,56 @@ import (
 	"context"
 )
 
-// CreateCorehrPositionDelPosition 删除整条岗位记录
+// DeleteCoreHRPosition 删除整条岗位记录
 //
 // 删除后不可恢复, 请谨慎操作
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/position/del_position
 // new doc: https://open.feishu.cn/document/corehr-v1/job-management/position/del_position
-func (r *CoreHRService) CreateCorehrPositionDelPosition(ctx context.Context, request *CreateCorehrPositionDelPositionReq, options ...MethodOptionFunc) (*CreateCorehrPositionDelPositionResp, *Response, error) {
-	if r.cli.mock.mockCoreHRCreateCorehrPositionDelPosition != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCorehrPositionDelPosition mock enable")
-		return r.cli.mock.mockCoreHRCreateCorehrPositionDelPosition(ctx, request, options...)
+func (r *CoreHRService) DeleteCoreHRPosition(ctx context.Context, request *DeleteCoreHRPositionReq, options ...MethodOptionFunc) (*DeleteCoreHRPositionResp, *Response, error) {
+	if r.cli.mock.mockCoreHRDeleteCoreHRPosition != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHRPosition mock enable")
+		return r.cli.mock.mockCoreHRDeleteCoreHRPosition(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "CreateCorehrPositionDelPosition",
+		API:                   "DeleteCoreHRPosition",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/positions/del_position",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(createCorehrPositionDelPositionResp)
+	resp := new(deleteCoreHRPositionResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRCreateCorehrPositionDelPosition mock CoreHRCreateCorehrPositionDelPosition method
-func (r *Mock) MockCoreHRCreateCorehrPositionDelPosition(f func(ctx context.Context, request *CreateCorehrPositionDelPositionReq, options ...MethodOptionFunc) (*CreateCorehrPositionDelPositionResp, *Response, error)) {
-	r.mockCoreHRCreateCorehrPositionDelPosition = f
+// MockCoreHRDeleteCoreHRPosition mock CoreHRDeleteCoreHRPosition method
+func (r *Mock) MockCoreHRDeleteCoreHRPosition(f func(ctx context.Context, request *DeleteCoreHRPositionReq, options ...MethodOptionFunc) (*DeleteCoreHRPositionResp, *Response, error)) {
+	r.mockCoreHRDeleteCoreHRPosition = f
 }
 
-// UnMockCoreHRCreateCorehrPositionDelPosition un-mock CoreHRCreateCorehrPositionDelPosition method
-func (r *Mock) UnMockCoreHRCreateCorehrPositionDelPosition() {
-	r.mockCoreHRCreateCorehrPositionDelPosition = nil
+// UnMockCoreHRDeleteCoreHRPosition un-mock CoreHRDeleteCoreHRPosition method
+func (r *Mock) UnMockCoreHRDeleteCoreHRPosition() {
+	r.mockCoreHRDeleteCoreHRPosition = nil
 }
 
-// CreateCorehrPositionDelPositionReq ...
-type CreateCorehrPositionDelPositionReq struct {
+// DeleteCoreHRPositionReq ...
+type DeleteCoreHRPositionReq struct {
 	PositionID string `json:"position_id,omitempty"` // 岗位ID, 详细信息可通过[查询岗位信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/position/query)接口获得示例值: "6862995757234914824"
 }
 
-// CreateCorehrPositionDelPositionResp ...
-type CreateCorehrPositionDelPositionResp struct {
+// DeleteCoreHRPositionResp ...
+type DeleteCoreHRPositionResp struct {
 }
 
-// createCorehrPositionDelPositionResp ...
-type createCorehrPositionDelPositionResp struct {
-	Code  int64                                `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg   string                               `json:"msg,omitempty"`  // 错误描述
-	Data  *CreateCorehrPositionDelPositionResp `json:"data,omitempty"`
-	Error *ErrorDetail                         `json:"error,omitempty"`
+// deleteCoreHRPositionResp ...
+type deleteCoreHRPositionResp struct {
+	Code  int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                    `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteCoreHRPositionResp `json:"data,omitempty"`
+	Error *ErrorDetail              `json:"error,omitempty"`
 }

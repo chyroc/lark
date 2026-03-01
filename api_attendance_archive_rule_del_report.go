@@ -21,21 +21,21 @@ import (
 	"context"
 )
 
-// CreateAttendanceArchiveRuleDelReport 按月份、用户和归档规则ID直接删除归档报表行数据
+// DeleteAttendanceArchiveRuleReport 按月份、用户和归档规则ID直接删除归档报表行数据
 //
 // 页面无对应功能, 页面是通过导入并全量覆盖完成数据删除的
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/archive_rule/del_report
 // new doc: https://open.feishu.cn/document/attendance-v1/archive_rule/del_report
-func (r *AttendanceService) CreateAttendanceArchiveRuleDelReport(ctx context.Context, request *CreateAttendanceArchiveRuleDelReportReq, options ...MethodOptionFunc) (*CreateAttendanceArchiveRuleDelReportResp, *Response, error) {
-	if r.cli.mock.mockAttendanceCreateAttendanceArchiveRuleDelReport != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] Attendance#CreateAttendanceArchiveRuleDelReport mock enable")
-		return r.cli.mock.mockAttendanceCreateAttendanceArchiveRuleDelReport(ctx, request, options...)
+func (r *AttendanceService) DeleteAttendanceArchiveRuleReport(ctx context.Context, request *DeleteAttendanceArchiveRuleReportReq, options ...MethodOptionFunc) (*DeleteAttendanceArchiveRuleReportResp, *Response, error) {
+	if r.cli.mock.mockAttendanceDeleteAttendanceArchiveRuleReport != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Attendance#DeleteAttendanceArchiveRuleReport mock enable")
+		return r.cli.mock.mockAttendanceDeleteAttendanceArchiveRuleReport(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "Attendance",
-		API:                   "CreateAttendanceArchiveRuleDelReport",
+		API:                   "DeleteAttendanceArchiveRuleReport",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/attendance/v1/archive_rule/del_report",
 		Body:                  request,
@@ -43,24 +43,24 @@ func (r *AttendanceService) CreateAttendanceArchiveRuleDelReport(ctx context.Con
 		NeedTenantAccessToken: true,
 		NeedUserAccessToken:   true,
 	}
-	resp := new(createAttendanceArchiveRuleDelReportResp)
+	resp := new(deleteAttendanceArchiveRuleReportResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockAttendanceCreateAttendanceArchiveRuleDelReport mock AttendanceCreateAttendanceArchiveRuleDelReport method
-func (r *Mock) MockAttendanceCreateAttendanceArchiveRuleDelReport(f func(ctx context.Context, request *CreateAttendanceArchiveRuleDelReportReq, options ...MethodOptionFunc) (*CreateAttendanceArchiveRuleDelReportResp, *Response, error)) {
-	r.mockAttendanceCreateAttendanceArchiveRuleDelReport = f
+// MockAttendanceDeleteAttendanceArchiveRuleReport mock AttendanceDeleteAttendanceArchiveRuleReport method
+func (r *Mock) MockAttendanceDeleteAttendanceArchiveRuleReport(f func(ctx context.Context, request *DeleteAttendanceArchiveRuleReportReq, options ...MethodOptionFunc) (*DeleteAttendanceArchiveRuleReportResp, *Response, error)) {
+	r.mockAttendanceDeleteAttendanceArchiveRuleReport = f
 }
 
-// UnMockAttendanceCreateAttendanceArchiveRuleDelReport un-mock AttendanceCreateAttendanceArchiveRuleDelReport method
-func (r *Mock) UnMockAttendanceCreateAttendanceArchiveRuleDelReport() {
-	r.mockAttendanceCreateAttendanceArchiveRuleDelReport = nil
+// UnMockAttendanceDeleteAttendanceArchiveRuleReport un-mock AttendanceDeleteAttendanceArchiveRuleReport method
+func (r *Mock) UnMockAttendanceDeleteAttendanceArchiveRuleReport() {
+	r.mockAttendanceDeleteAttendanceArchiveRuleReport = nil
 }
 
-// CreateAttendanceArchiveRuleDelReportReq ...
-type CreateAttendanceArchiveRuleDelReportReq struct {
+// DeleteAttendanceArchiveRuleReportReq ...
+type DeleteAttendanceArchiveRuleReportReq struct {
 	EmployeeType  EmployeeType `query:"employee_type" json:"-"`   // 请求体中的 user_ids 和响应体中的 user_id 的员工ID类型。如果没有后台管理权限, 可使用[通过手机号或邮箱获取用户 ID](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/batch_get_id)* `employee_id `: 员工 employee ID, 即[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的用户 ID* `employee_no`: 员工工号, 即[飞书管理后台](https://example.feishu.cn/admin/contacts/departmentanduser) > 组织架构 > 成员与部门 > 成员详情中的工号示例值: employee_id
 	Month         string       `json:"month,omitempty"`           // 月份, 格式yyyyMM示例值: "202409"
 	OperatorID    string       `json:"operator_id,omitempty"`     // 操作者ID, 对应employee_type示例值: "a111xd"
@@ -68,14 +68,14 @@ type CreateAttendanceArchiveRuleDelReportReq struct {
 	UserIDs       []string     `json:"user_ids,omitempty"`        // 用户id, 对应employee_type示例值: ["xx1uad"]
 }
 
-// CreateAttendanceArchiveRuleDelReportResp ...
-type CreateAttendanceArchiveRuleDelReportResp struct {
+// DeleteAttendanceArchiveRuleReportResp ...
+type DeleteAttendanceArchiveRuleReportResp struct {
 }
 
-// createAttendanceArchiveRuleDelReportResp ...
-type createAttendanceArchiveRuleDelReportResp struct {
-	Code  int64                                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg   string                                    `json:"msg,omitempty"`  // 错误描述
-	Data  *CreateAttendanceArchiveRuleDelReportResp `json:"data,omitempty"`
-	Error *ErrorDetail                              `json:"error,omitempty"`
+// deleteAttendanceArchiveRuleReportResp ...
+type deleteAttendanceArchiveRuleReportResp struct {
+	Code  int64                                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                 `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteAttendanceArchiveRuleReportResp `json:"data,omitempty"`
+	Error *ErrorDetail                           `json:"error,omitempty"`
 }

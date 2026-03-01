@@ -21,72 +21,72 @@ import (
 	"context"
 )
 
-// CreateCorehrCostAllocationVersion 创建成本分摊
+// CreateCoreHRCostAllocationVersion 创建成本分摊
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_allocation/create_version
 // new doc: https://open.feishu.cn/document/corehr-v1/employee/cost_allocation/create_version
-func (r *CoreHRService) CreateCorehrCostAllocationVersion(ctx context.Context, request *CreateCorehrCostAllocationVersionReq, options ...MethodOptionFunc) (*CreateCorehrCostAllocationVersionResp, *Response, error) {
-	if r.cli.mock.mockCoreHRCreateCorehrCostAllocationVersion != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCorehrCostAllocationVersion mock enable")
-		return r.cli.mock.mockCoreHRCreateCorehrCostAllocationVersion(ctx, request, options...)
+func (r *CoreHRService) CreateCoreHRCostAllocationVersion(ctx context.Context, request *CreateCoreHRCostAllocationVersionReq, options ...MethodOptionFunc) (*CreateCoreHRCostAllocationVersionResp, *Response, error) {
+	if r.cli.mock.mockCoreHRCreateCoreHRCostAllocationVersion != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCoreHRCostAllocationVersion mock enable")
+		return r.cli.mock.mockCoreHRCreateCoreHRCostAllocationVersion(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "CreateCorehrCostAllocationVersion",
+		API:                   "CreateCoreHRCostAllocationVersion",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/cost_allocations/create_version",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(createCorehrCostAllocationVersionResp)
+	resp := new(createCoreHRCostAllocationVersionResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRCreateCorehrCostAllocationVersion mock CoreHRCreateCorehrCostAllocationVersion method
-func (r *Mock) MockCoreHRCreateCorehrCostAllocationVersion(f func(ctx context.Context, request *CreateCorehrCostAllocationVersionReq, options ...MethodOptionFunc) (*CreateCorehrCostAllocationVersionResp, *Response, error)) {
-	r.mockCoreHRCreateCorehrCostAllocationVersion = f
+// MockCoreHRCreateCoreHRCostAllocationVersion mock CoreHRCreateCoreHRCostAllocationVersion method
+func (r *Mock) MockCoreHRCreateCoreHRCostAllocationVersion(f func(ctx context.Context, request *CreateCoreHRCostAllocationVersionReq, options ...MethodOptionFunc) (*CreateCoreHRCostAllocationVersionResp, *Response, error)) {
+	r.mockCoreHRCreateCoreHRCostAllocationVersion = f
 }
 
-// UnMockCoreHRCreateCorehrCostAllocationVersion un-mock CoreHRCreateCorehrCostAllocationVersion method
-func (r *Mock) UnMockCoreHRCreateCorehrCostAllocationVersion() {
-	r.mockCoreHRCreateCorehrCostAllocationVersion = nil
+// UnMockCoreHRCreateCoreHRCostAllocationVersion un-mock CoreHRCreateCoreHRCostAllocationVersion method
+func (r *Mock) UnMockCoreHRCreateCoreHRCostAllocationVersion() {
+	r.mockCoreHRCreateCoreHRCostAllocationVersion = nil
 }
 
-// CreateCorehrCostAllocationVersionReq ...
-type CreateCorehrCostAllocationVersionReq struct {
+// CreateCoreHRCostAllocationVersionReq ...
+type CreateCoreHRCostAllocationVersionReq struct {
 	UserIDType     *IDType                                             `query:"user_id_type" json:"-"`    // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	ClientToken    *string                                             `query:"client_token" json:"-"`    // 根据client_token是否一致来判断是否为同一请求示例值: 12454646
 	EmploymentID   string                                              `json:"employment_id,omitempty"`   // 员工雇佣 ID-可以调用[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口, 获取指定员工的 employment_id。示例值: "6862995757234914821"
-	CostAllocation *CreateCorehrCostAllocationVersionReqCostAllocation `json:"cost_allocation,omitempty"` // 成本分摊
+	CostAllocation *CreateCoreHRCostAllocationVersionReqCostAllocation `json:"cost_allocation,omitempty"` // 成本分摊
 }
 
-// CreateCorehrCostAllocationVersionReqCostAllocation ...
-type CreateCorehrCostAllocationVersionReqCostAllocation struct {
+// CreateCoreHRCostAllocationVersionReqCostAllocation ...
+type CreateCoreHRCostAllocationVersionReqCostAllocation struct {
 	EffectiveTime       string                                                                   `json:"effective_time,omitempty"`          // 分摊生效日期示例值: "2024-12-01"
 	ExpirationTime      *string                                                                  `json:"expiration_time,omitempty"`         // 分摊失效日期示例值: "2024-12-02"
-	JobDataCostCenterID []*CreateCorehrCostAllocationVersionReqCostAllocationJobDataCostCenterID `json:"job_data_cost_center_id,omitempty"` // 成本分摊 长度范围: `1` ～ `50`
+	JobDataCostCenterID []*CreateCoreHRCostAllocationVersionReqCostAllocationJobDataCostCenterID `json:"job_data_cost_center_id,omitempty"` // 成本分摊 长度范围: `1` ～ `50`
 	Reason              *string                                                                  `json:"reason,omitempty"`                  // 变更原因示例值: "异动"
 }
 
-// CreateCorehrCostAllocationVersionReqCostAllocationJobDataCostCenterID ...
-type CreateCorehrCostAllocationVersionReqCostAllocationJobDataCostCenterID struct {
+// CreateCoreHRCostAllocationVersionReqCostAllocationJobDataCostCenterID ...
+type CreateCoreHRCostAllocationVersionReqCostAllocationJobDataCostCenterID struct {
 	CostCenterID string  `json:"cost_center_id,omitempty"` // 成本中心 ID-可以调用[【搜索成本中心信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)接口, 获取对应成本中心信息的成本中心ID。示例值: "6950635856373745165"
 	NewRate      float64 `json:"new_rate,omitempty"`       // 分摊比例示例值: 50.2
 }
 
-// CreateCorehrCostAllocationVersionResp ...
-type CreateCorehrCostAllocationVersionResp struct {
+// CreateCoreHRCostAllocationVersionResp ...
+type CreateCoreHRCostAllocationVersionResp struct {
 	CostAllocationID string `json:"cost_allocation_id,omitempty"` // 成本分摊ID
 }
 
-// createCorehrCostAllocationVersionResp ...
-type createCorehrCostAllocationVersionResp struct {
+// createCoreHRCostAllocationVersionResp ...
+type createCoreHRCostAllocationVersionResp struct {
 	Code  int64                                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                                 `json:"msg,omitempty"`  // 错误描述
-	Data  *CreateCorehrCostAllocationVersionResp `json:"data,omitempty"`
+	Data  *CreateCoreHRCostAllocationVersionResp `json:"data,omitempty"`
 	Error *ErrorDetail                           `json:"error,omitempty"`
 }

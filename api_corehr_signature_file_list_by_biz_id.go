@@ -21,92 +21,92 @@ import (
 	"context"
 )
 
-// ListCorehrSignatureFileByBizID 该接口可以根据传入的业务类型和流程ID获取该流程中签署的电子签文件信息
+// ListCoreHRSignatureFileByBizID 该接口可以根据传入的业务类型和流程ID获取该流程中签署的电子签文件信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/signature_file/list_by_biz_id
 // new doc: https://open.feishu.cn/document/corehr-v1/siganture/signature_file/list_by_biz_id
-func (r *CoreHRService) ListCorehrSignatureFileByBizID(ctx context.Context, request *ListCorehrSignatureFileByBizIDReq, options ...MethodOptionFunc) (*ListCorehrSignatureFileByBizIDResp, *Response, error) {
-	if r.cli.mock.mockCoreHRListCorehrSignatureFileByBizID != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#ListCorehrSignatureFileByBizID mock enable")
-		return r.cli.mock.mockCoreHRListCorehrSignatureFileByBizID(ctx, request, options...)
+func (r *CoreHRService) ListCoreHRSignatureFileByBizID(ctx context.Context, request *ListCoreHRSignatureFileByBizIDReq, options ...MethodOptionFunc) (*ListCoreHRSignatureFileByBizIDResp, *Response, error) {
+	if r.cli.mock.mockCoreHRListCoreHRSignatureFileByBizID != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#ListCoreHRSignatureFileByBizID mock enable")
+		return r.cli.mock.mockCoreHRListCoreHRSignatureFileByBizID(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "ListCorehrSignatureFileByBizID",
+		API:                   "ListCoreHRSignatureFileByBizID",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/signature_files/list_by_biz_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(listCorehrSignatureFileByBizIDResp)
+	resp := new(listCoreHRSignatureFileByBizIDResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRListCorehrSignatureFileByBizID mock CoreHRListCorehrSignatureFileByBizID method
-func (r *Mock) MockCoreHRListCorehrSignatureFileByBizID(f func(ctx context.Context, request *ListCorehrSignatureFileByBizIDReq, options ...MethodOptionFunc) (*ListCorehrSignatureFileByBizIDResp, *Response, error)) {
-	r.mockCoreHRListCorehrSignatureFileByBizID = f
+// MockCoreHRListCoreHRSignatureFileByBizID mock CoreHRListCoreHRSignatureFileByBizID method
+func (r *Mock) MockCoreHRListCoreHRSignatureFileByBizID(f func(ctx context.Context, request *ListCoreHRSignatureFileByBizIDReq, options ...MethodOptionFunc) (*ListCoreHRSignatureFileByBizIDResp, *Response, error)) {
+	r.mockCoreHRListCoreHRSignatureFileByBizID = f
 }
 
-// UnMockCoreHRListCorehrSignatureFileByBizID un-mock CoreHRListCorehrSignatureFileByBizID method
-func (r *Mock) UnMockCoreHRListCorehrSignatureFileByBizID() {
-	r.mockCoreHRListCorehrSignatureFileByBizID = nil
+// UnMockCoreHRListCoreHRSignatureFileByBizID un-mock CoreHRListCoreHRSignatureFileByBizID method
+func (r *Mock) UnMockCoreHRListCoreHRSignatureFileByBizID() {
+	r.mockCoreHRListCoreHRSignatureFileByBizID = nil
 }
 
-// ListCorehrSignatureFileByBizIDReq ...
-type ListCorehrSignatureFileByBizIDReq struct {
+// ListCoreHRSignatureFileByBizIDReq ...
+type ListCoreHRSignatureFileByBizIDReq struct {
 	BizProcessID  string  `query:"biz_process_id" json:"-"`  // 业务自定义流程ID, 唯一不重复, 不要超过100字符示例值: 129b83f5-c023-4e85-b2c7-80ce777e57fd
 	BizType       string  `query:"biz_type" json:"-"`        // 业务类型, 开放平台发起的流程传OpenAPI, BPM发起的流程传入Bpm, 目前只支持这两种业务类型示例值: OpenAPI、Bpm
 	UserIDType    *IDType `query:"user_id_type" json:"-"`    // 用户 ID 类型示例值: people_corehr_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `people_corehr_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	SelectSignURL *bool   `query:"select_sign_url" json:"-"` // 是否需要返回签署链接示例值: true
 }
 
-// ListCorehrSignatureFileByBizIDResp ...
-type ListCorehrSignatureFileByBizIDResp struct {
-	SignatureFiles []*ListCorehrSignatureFileByBizIDRespSignatureFile `json:"signature_files,omitempty"` // 返回的流程关联的电子签文件列表
+// ListCoreHRSignatureFileByBizIDResp ...
+type ListCoreHRSignatureFileByBizIDResp struct {
+	SignatureFiles []*ListCoreHRSignatureFileByBizIDRespSignatureFile `json:"signature_files,omitempty"` // 返回的流程关联的电子签文件列表
 	BatchSignURL   string                                             `json:"batch_sign_url,omitempty"`  // 批量签署链接
 }
 
-// ListCorehrSignatureFileByBizIDRespSignatureFile ...
-type ListCorehrSignatureFileByBizIDRespSignatureFile struct {
+// ListCoreHRSignatureFileByBizIDRespSignatureFile ...
+type ListCoreHRSignatureFileByBizIDRespSignatureFile struct {
 	SignatureFileID    string                                                             `json:"signature_file_id,omitempty"`    // 电子签文件ID
-	Names              []*ListCorehrSignatureFileByBizIDRespSignatureFileName             `json:"names,omitempty"`                // 名称
+	Names              []*ListCoreHRSignatureFileByBizIDRespSignatureFileName             `json:"names,omitempty"`                // 名称
 	CreateTime         string                                                             `json:"create_time,omitempty"`          // 创建时间, 格式: YYYY-MM-DD 00:00:00
 	UpdateTime         string                                                             `json:"update_time,omitempty"`          // 更新时间, 格式: YYYY-MM-DD 00:00:00
 	EmploymentID       string                                                             `json:"employment_id,omitempty"`        // 员工雇佣ID；可以通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)获取该员工详细信息
 	PreHireID          string                                                             `json:"pre_hire_id,omitempty"`          // 待入职ID, 可以通过[【搜索待入职人员信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/search)搜索该待入职人员详细信息
-	SignatureFileState *ListCorehrSignatureFileByBizIDRespSignatureFileSignatureFileState `json:"signature_file_state,omitempty"` // 电子签文件状态, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)电子签文件状态（signature_file_state）枚举定义部分获得
+	SignatureFileState *ListCoreHRSignatureFileByBizIDRespSignatureFileSignatureFileState `json:"signature_file_state,omitempty"` // 电子签文件状态, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)电子签文件状态（signature_file_state）枚举定义部分获得
 	ContractCode       string                                                             `json:"contract_code,omitempty"`        // 供应商侧的合同编号, 作为幂等key
 	EffectiveDate      string                                                             `json:"effective_date,omitempty"`       // 电子签文件生效日期
 	TemplateID         string                                                             `json:"template_id,omitempty"`          // 电子签模板ID, 可以通过[【根据ID获取电子签模板】](/ssl:ttdc/uAjLw4CM/ukTMukTMukTM/corehr-v2/signature_template/search)获取电子签模板详情信息
 	SignURL            string                                                             `json:"sign_url,omitempty"`             // 签署链接
 }
 
-// ListCorehrSignatureFileByBizIDRespSignatureFileName ...
-type ListCorehrSignatureFileByBizIDRespSignatureFileName struct {
+// ListCoreHRSignatureFileByBizIDRespSignatureFileName ...
+type ListCoreHRSignatureFileByBizIDRespSignatureFileName struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// ListCorehrSignatureFileByBizIDRespSignatureFileSignatureFileState ...
-type ListCorehrSignatureFileByBizIDRespSignatureFileSignatureFileState struct {
+// ListCoreHRSignatureFileByBizIDRespSignatureFileSignatureFileState ...
+type ListCoreHRSignatureFileByBizIDRespSignatureFileSignatureFileState struct {
 	EnumName string                                                                      `json:"enum_name,omitempty"` // 枚举值
-	Display  []*ListCorehrSignatureFileByBizIDRespSignatureFileSignatureFileStateDisplay `json:"display,omitempty"`   // 枚举值多语展示
+	Display  []*ListCoreHRSignatureFileByBizIDRespSignatureFileSignatureFileStateDisplay `json:"display,omitempty"`   // 枚举值多语展示
 }
 
-// ListCorehrSignatureFileByBizIDRespSignatureFileSignatureFileStateDisplay ...
-type ListCorehrSignatureFileByBizIDRespSignatureFileSignatureFileStateDisplay struct {
+// ListCoreHRSignatureFileByBizIDRespSignatureFileSignatureFileStateDisplay ...
+type ListCoreHRSignatureFileByBizIDRespSignatureFileSignatureFileStateDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// listCorehrSignatureFileByBizIDResp ...
-type listCorehrSignatureFileByBizIDResp struct {
+// listCoreHRSignatureFileByBizIDResp ...
+type listCoreHRSignatureFileByBizIDResp struct {
 	Code  int64                               `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                              `json:"msg,omitempty"`  // 错误描述
-	Data  *ListCorehrSignatureFileByBizIDResp `json:"data,omitempty"`
+	Data  *ListCoreHRSignatureFileByBizIDResp `json:"data,omitempty"`
 	Error *ErrorDetail                        `json:"error,omitempty"`
 }

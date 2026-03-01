@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// BatchQueryCorehrWorkforcePlanDetail 查询编制规划明细, 包括维度信息、编制数和预估在职人数
+// BatchQueryCoreHRWorkforcePlanDetail 查询编制规划明细, 包括维度信息、编制数和预估在职人数
 //
 // - 本接口可查询编制规划或集中填报明细信息。
 // - 请求体入参如果没有特殊说明, 不填写默认为空, 不参与筛选。
@@ -31,39 +31,39 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/workforce_plan_detail/batch
 // new doc: https://open.feishu.cn/document/corehr-v1/workforce_plan/batch
-func (r *CoreHRService) BatchQueryCorehrWorkforcePlanDetail(ctx context.Context, request *BatchQueryCorehrWorkforcePlanDetailReq, options ...MethodOptionFunc) (*BatchQueryCorehrWorkforcePlanDetailResp, *Response, error) {
-	if r.cli.mock.mockCoreHRBatchQueryCorehrWorkforcePlanDetail != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#BatchQueryCorehrWorkforcePlanDetail mock enable")
-		return r.cli.mock.mockCoreHRBatchQueryCorehrWorkforcePlanDetail(ctx, request, options...)
+func (r *CoreHRService) BatchQueryCoreHRWorkforcePlanDetail(ctx context.Context, request *BatchQueryCoreHRWorkforcePlanDetailReq, options ...MethodOptionFunc) (*BatchQueryCoreHRWorkforcePlanDetailResp, *Response, error) {
+	if r.cli.mock.mockCoreHRBatchQueryCoreHRWorkforcePlanDetail != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#BatchQueryCoreHRWorkforcePlanDetail mock enable")
+		return r.cli.mock.mockCoreHRBatchQueryCoreHRWorkforcePlanDetail(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "BatchQueryCorehrWorkforcePlanDetail",
+		API:                   "BatchQueryCoreHRWorkforcePlanDetail",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/workforce_plan_details/batch",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(batchQueryCorehrWorkforcePlanDetailResp)
+	resp := new(batchQueryCoreHRWorkforcePlanDetailResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRBatchQueryCorehrWorkforcePlanDetail mock CoreHRBatchQueryCorehrWorkforcePlanDetail method
-func (r *Mock) MockCoreHRBatchQueryCorehrWorkforcePlanDetail(f func(ctx context.Context, request *BatchQueryCorehrWorkforcePlanDetailReq, options ...MethodOptionFunc) (*BatchQueryCorehrWorkforcePlanDetailResp, *Response, error)) {
-	r.mockCoreHRBatchQueryCorehrWorkforcePlanDetail = f
+// MockCoreHRBatchQueryCoreHRWorkforcePlanDetail mock CoreHRBatchQueryCoreHRWorkforcePlanDetail method
+func (r *Mock) MockCoreHRBatchQueryCoreHRWorkforcePlanDetail(f func(ctx context.Context, request *BatchQueryCoreHRWorkforcePlanDetailReq, options ...MethodOptionFunc) (*BatchQueryCoreHRWorkforcePlanDetailResp, *Response, error)) {
+	r.mockCoreHRBatchQueryCoreHRWorkforcePlanDetail = f
 }
 
-// UnMockCoreHRBatchQueryCorehrWorkforcePlanDetail un-mock CoreHRBatchQueryCorehrWorkforcePlanDetail method
-func (r *Mock) UnMockCoreHRBatchQueryCorehrWorkforcePlanDetail() {
-	r.mockCoreHRBatchQueryCorehrWorkforcePlanDetail = nil
+// UnMockCoreHRBatchQueryCoreHRWorkforcePlanDetail un-mock CoreHRBatchQueryCoreHRWorkforcePlanDetail method
+func (r *Mock) UnMockCoreHRBatchQueryCoreHRWorkforcePlanDetail() {
+	r.mockCoreHRBatchQueryCoreHRWorkforcePlanDetail = nil
 }
 
-// BatchQueryCorehrWorkforcePlanDetailReq ...
-type BatchQueryCorehrWorkforcePlanDetailReq struct {
+// BatchQueryCoreHRWorkforcePlanDetailReq ...
+type BatchQueryCoreHRWorkforcePlanDetailReq struct {
 	PageToken                     *string  `query:"page_token" json:"-"`                       // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: ["123456"]
 	PageSize                      *int64   `query:"page_size" json:"-"`                        // 分页大小示例值: 100默认值: `100` 取值范围: `1` ～ `100`
 	WorkforcePlanID               *string  `json:"workforce_plan_id,omitempty"`                // 编制规划方案 ID, ID及详细信息可通过[获取编制规划方案列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/workforce_plan/list)接口查询获得。查询编制规划明细信息时, 编制规划方案 ID 必填。示例值: "781234834512"
@@ -79,124 +79,124 @@ type BatchQueryCorehrWorkforcePlanDetailReq struct {
 	IncludeMissingDimensionRows   *bool    `json:"include_missing_dimension_rows,omitempty"`   // 是否包含缺维度明细行数据, true为包含缺维度明细行数据, false为仅获取所有维度都有值的明细行数据, 默认为 false示例值: false
 }
 
-// BatchQueryCorehrWorkforcePlanDetailResp ...
-type BatchQueryCorehrWorkforcePlanDetailResp struct {
+// BatchQueryCoreHRWorkforcePlanDetailResp ...
+type BatchQueryCoreHRWorkforcePlanDetailResp struct {
 	WorkforcePlanID               string                                         `json:"workforce_plan_id,omitempty"`                // 编制规划方案 ID
 	CentralizedReportingProjectID string                                         `json:"centralized_reporting_project_id,omitempty"` // 集中填报项目 ID
-	Items                         []*BatchQueryCorehrWorkforcePlanDetailRespItem `json:"items,omitempty"`                            // 编制规划明细信息
+	Items                         []*BatchQueryCoreHRWorkforcePlanDetailRespItem `json:"items,omitempty"`                            // 编制规划明细信息
 	PageToken                     string                                         `json:"page_token,omitempty"`                       // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	HasMore                       bool                                           `json:"has_more,omitempty"`                         // 是否还有更多项
 }
 
-// BatchQueryCorehrWorkforcePlanDetailRespItem ...
-type BatchQueryCorehrWorkforcePlanDetailRespItem struct {
+// BatchQueryCoreHRWorkforcePlanDetailRespItem ...
+type BatchQueryCoreHRWorkforcePlanDetailRespItem struct {
 	WorkforcePlanDetailID            string                                                                         `json:"workforce_plan_detail_id,omitempty"`            // 编制规划明细 ID
-	Department                       *BatchQueryCorehrWorkforcePlanDetailRespItemDepartment                         `json:"department,omitempty"`                          // 部门信息
-	EmployeeType                     *BatchQueryCorehrWorkforcePlanDetailRespItemEmployeeType                       `json:"employee_type,omitempty"`                       // 人员类型信息
-	WorkLocation                     *BatchQueryCorehrWorkforcePlanDetailRespItemWorkLocation                       `json:"work_location,omitempty"`                       // 工作地点信息
-	JobFamily                        *BatchQueryCorehrWorkforcePlanDetailRespItemJobFamily                          `json:"job_family,omitempty"`                          // 序列信息
-	JobLevel                         *BatchQueryCorehrWorkforcePlanDetailRespItemJobLevel                           `json:"job_level,omitempty"`                           // 职级信息
-	Job                              *BatchQueryCorehrWorkforcePlanDetailRespItemJob                                `json:"job,omitempty"`                                 // 职务信息
-	CostCenter                       *BatchQueryCorehrWorkforcePlanDetailRespItemCostCenter                         `json:"cost_center,omitempty"`                         // 成本中心信息
+	Department                       *BatchQueryCoreHRWorkforcePlanDetailRespItemDepartment                         `json:"department,omitempty"`                          // 部门信息
+	EmployeeType                     *BatchQueryCoreHRWorkforcePlanDetailRespItemEmployeeType                       `json:"employee_type,omitempty"`                       // 人员类型信息
+	WorkLocation                     *BatchQueryCoreHRWorkforcePlanDetailRespItemWorkLocation                       `json:"work_location,omitempty"`                       // 工作地点信息
+	JobFamily                        *BatchQueryCoreHRWorkforcePlanDetailRespItemJobFamily                          `json:"job_family,omitempty"`                          // 序列信息
+	JobLevel                         *BatchQueryCoreHRWorkforcePlanDetailRespItemJobLevel                           `json:"job_level,omitempty"`                           // 职级信息
+	Job                              *BatchQueryCoreHRWorkforcePlanDetailRespItemJob                                `json:"job,omitempty"`                                 // 职务信息
+	CostCenter                       *BatchQueryCoreHRWorkforcePlanDetailRespItemCostCenter                         `json:"cost_center,omitempty"`                         // 成本中心信息
 	WorkforcePlan                    string                                                                         `json:"workforce_plan,omitempty"`                      // 编制规划值
-	EstimatedActiveIndividualsDetail []*BatchQueryCorehrWorkforcePlanDetailRespItemEstimatedActiveIndividualsDetail `json:"estimated_active_individuals_detail,omitempty"` // 预估在职人数明细
+	EstimatedActiveIndividualsDetail []*BatchQueryCoreHRWorkforcePlanDetailRespItemEstimatedActiveIndividualsDetail `json:"estimated_active_individuals_detail,omitempty"` // 预估在职人数明细
 	IsMissingDimension               bool                                                                           `json:"is_missing_dimension,omitempty"`                // 是否为缺维度的明细行, true为缺维度明细行, false为非缺维度明细行
 }
 
-// BatchQueryCorehrWorkforcePlanDetailRespItemCostCenter ...
-type BatchQueryCorehrWorkforcePlanDetailRespItemCostCenter struct {
+// BatchQueryCoreHRWorkforcePlanDetailRespItemCostCenter ...
+type BatchQueryCoreHRWorkforcePlanDetailRespItemCostCenter struct {
 	ID   string                                                       `json:"id,omitempty"`   // 成本中心ID- 可通过[搜索成本中心信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)获取详情。
-	Name []*BatchQueryCorehrWorkforcePlanDetailRespItemCostCenterName `json:"name,omitempty"` // 维度名称
+	Name []*BatchQueryCoreHRWorkforcePlanDetailRespItemCostCenterName `json:"name,omitempty"` // 维度名称
 }
 
-// BatchQueryCorehrWorkforcePlanDetailRespItemCostCenterName ...
-type BatchQueryCorehrWorkforcePlanDetailRespItemCostCenterName struct {
+// BatchQueryCoreHRWorkforcePlanDetailRespItemCostCenterName ...
+type BatchQueryCoreHRWorkforcePlanDetailRespItemCostCenterName struct {
 	Lang  string `json:"lang,omitempty"`  // 语言信息, 中文是 zh-CN, 英文是 en-US
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// BatchQueryCorehrWorkforcePlanDetailRespItemDepartment ...
-type BatchQueryCorehrWorkforcePlanDetailRespItemDepartment struct {
+// BatchQueryCoreHRWorkforcePlanDetailRespItemDepartment ...
+type BatchQueryCoreHRWorkforcePlanDetailRespItemDepartment struct {
 	ID   string                                                       `json:"id,omitempty"`   // 部门ID。可通过[批量查询部门V2](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get) 或者[搜索部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/search) 获取详情
-	Name []*BatchQueryCorehrWorkforcePlanDetailRespItemDepartmentName `json:"name,omitempty"` // 维度名称
+	Name []*BatchQueryCoreHRWorkforcePlanDetailRespItemDepartmentName `json:"name,omitempty"` // 维度名称
 }
 
-// BatchQueryCorehrWorkforcePlanDetailRespItemDepartmentName ...
-type BatchQueryCorehrWorkforcePlanDetailRespItemDepartmentName struct {
+// BatchQueryCoreHRWorkforcePlanDetailRespItemDepartmentName ...
+type BatchQueryCoreHRWorkforcePlanDetailRespItemDepartmentName struct {
 	Lang  string `json:"lang,omitempty"`  // 语言信息, 中文是 zh-CN, 英文是 en-US
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// BatchQueryCorehrWorkforcePlanDetailRespItemEmployeeType ...
-type BatchQueryCorehrWorkforcePlanDetailRespItemEmployeeType struct {
+// BatchQueryCoreHRWorkforcePlanDetailRespItemEmployeeType ...
+type BatchQueryCoreHRWorkforcePlanDetailRespItemEmployeeType struct {
 	ID   string                                                         `json:"id,omitempty"`   // 人员类型 ID - 可通过[查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/get)获取详情。
-	Name []*BatchQueryCorehrWorkforcePlanDetailRespItemEmployeeTypeName `json:"name,omitempty"` // 维度名称
+	Name []*BatchQueryCoreHRWorkforcePlanDetailRespItemEmployeeTypeName `json:"name,omitempty"` // 维度名称
 }
 
-// BatchQueryCorehrWorkforcePlanDetailRespItemEmployeeTypeName ...
-type BatchQueryCorehrWorkforcePlanDetailRespItemEmployeeTypeName struct {
+// BatchQueryCoreHRWorkforcePlanDetailRespItemEmployeeTypeName ...
+type BatchQueryCoreHRWorkforcePlanDetailRespItemEmployeeTypeName struct {
 	Lang  string `json:"lang,omitempty"`  // 语言信息, 中文是 zh-CN, 英文是 en-US
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// BatchQueryCorehrWorkforcePlanDetailRespItemEstimatedActiveIndividualsDetail ...
-type BatchQueryCorehrWorkforcePlanDetailRespItemEstimatedActiveIndividualsDetail struct {
+// BatchQueryCoreHRWorkforcePlanDetailRespItemEstimatedActiveIndividualsDetail ...
+type BatchQueryCoreHRWorkforcePlanDetailRespItemEstimatedActiveIndividualsDetail struct {
 	Date                       string `json:"date,omitempty"`                         // 预估月份
 	EstimatedActiveIndividuals string `json:"estimated_active_individuals,omitempty"` // 预估在职人数
 }
 
-// BatchQueryCorehrWorkforcePlanDetailRespItemJob ...
-type BatchQueryCorehrWorkforcePlanDetailRespItemJob struct {
+// BatchQueryCoreHRWorkforcePlanDetailRespItemJob ...
+type BatchQueryCoreHRWorkforcePlanDetailRespItemJob struct {
 	ID   string                                                `json:"id,omitempty"`   // 职务 ID- 可通过[查询单个职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/get)获取详情。
-	Name []*BatchQueryCorehrWorkforcePlanDetailRespItemJobName `json:"name,omitempty"` // 维度名称
+	Name []*BatchQueryCoreHRWorkforcePlanDetailRespItemJobName `json:"name,omitempty"` // 维度名称
 }
 
-// BatchQueryCorehrWorkforcePlanDetailRespItemJobFamily ...
-type BatchQueryCorehrWorkforcePlanDetailRespItemJobFamily struct {
+// BatchQueryCoreHRWorkforcePlanDetailRespItemJobFamily ...
+type BatchQueryCoreHRWorkforcePlanDetailRespItemJobFamily struct {
 	ID   string                                                      `json:"id,omitempty"`   // 序列ID- 可通过[批量查询序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_family/batch_get)获取详情
-	Name []*BatchQueryCorehrWorkforcePlanDetailRespItemJobFamilyName `json:"name,omitempty"` // 维度名称
+	Name []*BatchQueryCoreHRWorkforcePlanDetailRespItemJobFamilyName `json:"name,omitempty"` // 维度名称
 }
 
-// BatchQueryCorehrWorkforcePlanDetailRespItemJobFamilyName ...
-type BatchQueryCorehrWorkforcePlanDetailRespItemJobFamilyName struct {
+// BatchQueryCoreHRWorkforcePlanDetailRespItemJobFamilyName ...
+type BatchQueryCoreHRWorkforcePlanDetailRespItemJobFamilyName struct {
 	Lang  string `json:"lang,omitempty"`  // 语言信息, 中文是 zh-CN, 英文是 en-US
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// BatchQueryCorehrWorkforcePlanDetailRespItemJobLevel ...
-type BatchQueryCorehrWorkforcePlanDetailRespItemJobLevel struct {
+// BatchQueryCoreHRWorkforcePlanDetailRespItemJobLevel ...
+type BatchQueryCoreHRWorkforcePlanDetailRespItemJobLevel struct {
 	ID   string                                                     `json:"id,omitempty"`   // 职级ID- 可通过[批量查询职级](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_level/batch_get)获取详情
-	Name []*BatchQueryCorehrWorkforcePlanDetailRespItemJobLevelName `json:"name,omitempty"` // 维度名称
+	Name []*BatchQueryCoreHRWorkforcePlanDetailRespItemJobLevelName `json:"name,omitempty"` // 维度名称
 }
 
-// BatchQueryCorehrWorkforcePlanDetailRespItemJobLevelName ...
-type BatchQueryCorehrWorkforcePlanDetailRespItemJobLevelName struct {
+// BatchQueryCoreHRWorkforcePlanDetailRespItemJobLevelName ...
+type BatchQueryCoreHRWorkforcePlanDetailRespItemJobLevelName struct {
 	Lang  string `json:"lang,omitempty"`  // 语言信息, 中文是 zh-CN, 英文是 en-US
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// BatchQueryCorehrWorkforcePlanDetailRespItemJobName ...
-type BatchQueryCorehrWorkforcePlanDetailRespItemJobName struct {
+// BatchQueryCoreHRWorkforcePlanDetailRespItemJobName ...
+type BatchQueryCoreHRWorkforcePlanDetailRespItemJobName struct {
 	Lang  string `json:"lang,omitempty"`  // 语言信息, 中文是 zh-CN, 英文是 en-US
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// BatchQueryCorehrWorkforcePlanDetailRespItemWorkLocation ...
-type BatchQueryCorehrWorkforcePlanDetailRespItemWorkLocation struct {
+// BatchQueryCoreHRWorkforcePlanDetailRespItemWorkLocation ...
+type BatchQueryCoreHRWorkforcePlanDetailRespItemWorkLocation struct {
 	ID   string                                                         `json:"id,omitempty"`   // 地点ID- 可通过[查询单个地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/get)获取详情。
-	Name []*BatchQueryCorehrWorkforcePlanDetailRespItemWorkLocationName `json:"name,omitempty"` // 维度名称
+	Name []*BatchQueryCoreHRWorkforcePlanDetailRespItemWorkLocationName `json:"name,omitempty"` // 维度名称
 }
 
-// BatchQueryCorehrWorkforcePlanDetailRespItemWorkLocationName ...
-type BatchQueryCorehrWorkforcePlanDetailRespItemWorkLocationName struct {
+// BatchQueryCoreHRWorkforcePlanDetailRespItemWorkLocationName ...
+type BatchQueryCoreHRWorkforcePlanDetailRespItemWorkLocationName struct {
 	Lang  string `json:"lang,omitempty"`  // 语言信息, 中文是 zh-CN, 英文是 en-US
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// batchQueryCorehrWorkforcePlanDetailResp ...
-type batchQueryCorehrWorkforcePlanDetailResp struct {
+// batchQueryCoreHRWorkforcePlanDetailResp ...
+type batchQueryCoreHRWorkforcePlanDetailResp struct {
 	Code  int64                                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                                   `json:"msg,omitempty"`  // 错误描述
-	Data  *BatchQueryCorehrWorkforcePlanDetailResp `json:"data,omitempty"`
+	Data  *BatchQueryCoreHRWorkforcePlanDetailResp `json:"data,omitempty"`
 	Error *ErrorDetail                             `json:"error,omitempty"`
 }

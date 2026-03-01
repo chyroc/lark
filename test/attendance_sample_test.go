@@ -435,12 +435,12 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockAttendanceCreateAttendanceArchiveRuleDelReport(func(ctx context.Context, request *lark.CreateAttendanceArchiveRuleDelReportReq, options ...lark.MethodOptionFunc) (*lark.CreateAttendanceArchiveRuleDelReportResp, *lark.Response, error) {
+			cli.Mock().MockAttendanceDeleteAttendanceArchiveRuleReport(func(ctx context.Context, request *lark.DeleteAttendanceArchiveRuleReportReq, options ...lark.MethodOptionFunc) (*lark.DeleteAttendanceArchiveRuleReportResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAttendanceCreateAttendanceArchiveRuleDelReport()
+			defer cli.Mock().UnMockAttendanceDeleteAttendanceArchiveRuleReport()
 
-			_, _, err := moduleCli.CreateAttendanceArchiveRuleDelReport(ctx, &lark.CreateAttendanceArchiveRuleDelReportReq{})
+			_, _, err := moduleCli.DeleteAttendanceArchiveRuleReport(ctx, &lark.DeleteAttendanceArchiveRuleReportReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -507,12 +507,12 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockAttendanceBatchAttendanceUserFlowDel(func(ctx context.Context, request *lark.BatchAttendanceUserFlowDelReq, options ...lark.MethodOptionFunc) (*lark.BatchAttendanceUserFlowDelResp, *lark.Response, error) {
+			cli.Mock().MockAttendanceBatchDeleteAttendanceUserFlow(func(ctx context.Context, request *lark.BatchDeleteAttendanceUserFlowReq, options ...lark.MethodOptionFunc) (*lark.BatchDeleteAttendanceUserFlowResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAttendanceBatchAttendanceUserFlowDel()
+			defer cli.Mock().UnMockAttendanceBatchDeleteAttendanceUserFlow()
 
-			_, _, err := moduleCli.BatchAttendanceUserFlowDel(ctx, &lark.BatchAttendanceUserFlowDelReq{})
+			_, _, err := moduleCli.BatchDeleteAttendanceUserFlow(ctx, &lark.BatchDeleteAttendanceUserFlowReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -770,7 +770,7 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.CreateAttendanceArchiveRuleDelReport(ctx, &lark.CreateAttendanceArchiveRuleDelReportReq{})
+			_, _, err := moduleCli.DeleteAttendanceArchiveRuleReport(ctx, &lark.DeleteAttendanceArchiveRuleReportReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
@@ -814,7 +814,7 @@ func Test_Attendance_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.BatchAttendanceUserFlowDel(ctx, &lark.BatchAttendanceUserFlowDelReq{})
+			_, _, err := moduleCli.BatchDeleteAttendanceUserFlow(ctx, &lark.BatchDeleteAttendanceUserFlowReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})

@@ -21,68 +21,68 @@ import (
 	"context"
 )
 
-// CreateCorehrSignatureFileTerminate 该接口用于终止在签署流程中的电子签文件, 不再执行后续的签署流程
+// TerminateCoreHRSignatureFile 该接口用于终止在签署流程中的电子签文件, 不再执行后续的签署流程
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/signature_file/terminate
 // new doc: https://open.feishu.cn/document/corehr-v1/siganture/signature_file/terminate
-func (r *CoreHRService) CreateCorehrSignatureFileTerminate(ctx context.Context, request *CreateCorehrSignatureFileTerminateReq, options ...MethodOptionFunc) (*CreateCorehrSignatureFileTerminateResp, *Response, error) {
-	if r.cli.mock.mockCoreHRCreateCorehrSignatureFileTerminate != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCorehrSignatureFileTerminate mock enable")
-		return r.cli.mock.mockCoreHRCreateCorehrSignatureFileTerminate(ctx, request, options...)
+func (r *CoreHRService) TerminateCoreHRSignatureFile(ctx context.Context, request *TerminateCoreHRSignatureFileReq, options ...MethodOptionFunc) (*TerminateCoreHRSignatureFileResp, *Response, error) {
+	if r.cli.mock.mockCoreHRTerminateCoreHRSignatureFile != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#TerminateCoreHRSignatureFile mock enable")
+		return r.cli.mock.mockCoreHRTerminateCoreHRSignatureFile(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "CreateCorehrSignatureFileTerminate",
+		API:                   "TerminateCoreHRSignatureFile",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/signature_files/terminate",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(createCorehrSignatureFileTerminateResp)
+	resp := new(terminateCoreHRSignatureFileResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRCreateCorehrSignatureFileTerminate mock CoreHRCreateCorehrSignatureFileTerminate method
-func (r *Mock) MockCoreHRCreateCorehrSignatureFileTerminate(f func(ctx context.Context, request *CreateCorehrSignatureFileTerminateReq, options ...MethodOptionFunc) (*CreateCorehrSignatureFileTerminateResp, *Response, error)) {
-	r.mockCoreHRCreateCorehrSignatureFileTerminate = f
+// MockCoreHRTerminateCoreHRSignatureFile mock CoreHRTerminateCoreHRSignatureFile method
+func (r *Mock) MockCoreHRTerminateCoreHRSignatureFile(f func(ctx context.Context, request *TerminateCoreHRSignatureFileReq, options ...MethodOptionFunc) (*TerminateCoreHRSignatureFileResp, *Response, error)) {
+	r.mockCoreHRTerminateCoreHRSignatureFile = f
 }
 
-// UnMockCoreHRCreateCorehrSignatureFileTerminate un-mock CoreHRCreateCorehrSignatureFileTerminate method
-func (r *Mock) UnMockCoreHRCreateCorehrSignatureFileTerminate() {
-	r.mockCoreHRCreateCorehrSignatureFileTerminate = nil
+// UnMockCoreHRTerminateCoreHRSignatureFile un-mock CoreHRTerminateCoreHRSignatureFile method
+func (r *Mock) UnMockCoreHRTerminateCoreHRSignatureFile() {
+	r.mockCoreHRTerminateCoreHRSignatureFile = nil
 }
 
-// CreateCorehrSignatureFileTerminateReq ...
-type CreateCorehrSignatureFileTerminateReq struct {
+// TerminateCoreHRSignatureFileReq ...
+type TerminateCoreHRSignatureFileReq struct {
 	UserIDType      *IDType  `query:"user_id_type" json:"-"`     // 用户 ID 类型示例值: people_corehr_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `people_corehr_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	IDs             []string `json:"ids,omitempty"`              // 欲终止的电子签文件id列表, 文件ID可以通过调用「获取电子签文件列表」接口获取示例值: ["7410063506638112300"] 长度范围: `0` ～ `100`
 	Operator        string   `json:"operator,omitempty"`         // 操作人ID, ID的格式取决于query传参中传入的user_id_type字段；ID获取方式见「查询参数」示例值: "7386593105085988xxx"
 	TerminateReason string   `json:"terminate_reason,omitempty"` // 终止原因, 不得超过300字符示例值: "请求流程发生变化, 需要重新签署, 因此终止签署流程中的文件"
 }
 
-// CreateCorehrSignatureFileTerminateResp ...
-type CreateCorehrSignatureFileTerminateResp struct {
-	TotalCount           int64                                                        `json:"total_count,omitempty"`              // 欲终止的文件总数量
-	SuccessCount         int64                                                        `json:"success_count,omitempty"`            // 成功总数量
-	FailCount            int64                                                        `json:"fail_count,omitempty"`               // 失败总数量
-	SuccessFileIDList    []string                                                     `json:"success_file_id_list,omitempty"`     // 终止成功的文件id列表, 可以通过[【获取电子签文件列表】](ssl:/uAjLw4CM/ukTMukTMukTM/corehr-v2/signature_file/list)接口获取文件详情信息
-	FailFileIDAndReasons []*CreateCorehrSignatureFileTerminateRespFailFileIDAndReason `json:"fail_file_id_and_reasons,omitempty"` // 终止失败的文件id和对应的原因列表
+// TerminateCoreHRSignatureFileResp ...
+type TerminateCoreHRSignatureFileResp struct {
+	TotalCount           int64                                                  `json:"total_count,omitempty"`              // 欲终止的文件总数量
+	SuccessCount         int64                                                  `json:"success_count,omitempty"`            // 成功总数量
+	FailCount            int64                                                  `json:"fail_count,omitempty"`               // 失败总数量
+	SuccessFileIDList    []string                                               `json:"success_file_id_list,omitempty"`     // 终止成功的文件id列表, 可以通过[【获取电子签文件列表】](ssl:/uAjLw4CM/ukTMukTMukTM/corehr-v2/signature_file/list)接口获取文件详情信息
+	FailFileIDAndReasons []*TerminateCoreHRSignatureFileRespFailFileIDAndReason `json:"fail_file_id_and_reasons,omitempty"` // 终止失败的文件id和对应的原因列表
 }
 
-// CreateCorehrSignatureFileTerminateRespFailFileIDAndReason ...
-type CreateCorehrSignatureFileTerminateRespFailFileIDAndReason struct {
+// TerminateCoreHRSignatureFileRespFailFileIDAndReason ...
+type TerminateCoreHRSignatureFileRespFailFileIDAndReason struct {
 	SignatureFileID string `json:"signature_file_id,omitempty"` // 终止操作失败的文件ID, 可以通过[【获取电子签文件列表】](ssl:/uAjLw4CM/ukTMukTMukTM/corehr-v2/signature_file/list)接口获取文件详情信息
 	FailReason      string `json:"fail_reason,omitempty"`       // 终止失败的原因
 }
 
-// createCorehrSignatureFileTerminateResp ...
-type createCorehrSignatureFileTerminateResp struct {
-	Code  int64                                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg   string                                  `json:"msg,omitempty"`  // 错误描述
-	Data  *CreateCorehrSignatureFileTerminateResp `json:"data,omitempty"`
-	Error *ErrorDetail                            `json:"error,omitempty"`
+// terminateCoreHRSignatureFileResp ...
+type terminateCoreHRSignatureFileResp struct {
+	Code  int64                             `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                            `json:"msg,omitempty"`  // 错误描述
+	Data  *TerminateCoreHRSignatureFileResp `json:"data,omitempty"`
+	Error *ErrorDetail                      `json:"error,omitempty"`
 }

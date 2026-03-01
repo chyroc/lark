@@ -21,59 +21,59 @@ import (
 	"context"
 )
 
-// CreateCorehrLeaveWorkCalendar 获取工作日历信息, 如名称, 状态等
+// CreateCoreHRLeaveWorkCalendar 获取工作日历信息, 如名称, 状态等
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/work_calendar
 // new doc: https://open.feishu.cn/document/corehr-v1/leave/work_calendar
-func (r *CoreHRService) CreateCorehrLeaveWorkCalendar(ctx context.Context, request *CreateCorehrLeaveWorkCalendarReq, options ...MethodOptionFunc) (*CreateCorehrLeaveWorkCalendarResp, *Response, error) {
-	if r.cli.mock.mockCoreHRCreateCorehrLeaveWorkCalendar != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCorehrLeaveWorkCalendar mock enable")
-		return r.cli.mock.mockCoreHRCreateCorehrLeaveWorkCalendar(ctx, request, options...)
+func (r *CoreHRService) CreateCoreHRLeaveWorkCalendar(ctx context.Context, request *CreateCoreHRLeaveWorkCalendarReq, options ...MethodOptionFunc) (*CreateCoreHRLeaveWorkCalendarResp, *Response, error) {
+	if r.cli.mock.mockCoreHRCreateCoreHRLeaveWorkCalendar != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCoreHRLeaveWorkCalendar mock enable")
+		return r.cli.mock.mockCoreHRCreateCoreHRLeaveWorkCalendar(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "CreateCorehrLeaveWorkCalendar",
+		API:                   "CreateCoreHRLeaveWorkCalendar",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/leaves/work_calendar",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(createCorehrLeaveWorkCalendarResp)
+	resp := new(createCoreHRLeaveWorkCalendarResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRCreateCorehrLeaveWorkCalendar mock CoreHRCreateCorehrLeaveWorkCalendar method
-func (r *Mock) MockCoreHRCreateCorehrLeaveWorkCalendar(f func(ctx context.Context, request *CreateCorehrLeaveWorkCalendarReq, options ...MethodOptionFunc) (*CreateCorehrLeaveWorkCalendarResp, *Response, error)) {
-	r.mockCoreHRCreateCorehrLeaveWorkCalendar = f
+// MockCoreHRCreateCoreHRLeaveWorkCalendar mock CoreHRCreateCoreHRLeaveWorkCalendar method
+func (r *Mock) MockCoreHRCreateCoreHRLeaveWorkCalendar(f func(ctx context.Context, request *CreateCoreHRLeaveWorkCalendarReq, options ...MethodOptionFunc) (*CreateCoreHRLeaveWorkCalendarResp, *Response, error)) {
+	r.mockCoreHRCreateCoreHRLeaveWorkCalendar = f
 }
 
-// UnMockCoreHRCreateCorehrLeaveWorkCalendar un-mock CoreHRCreateCorehrLeaveWorkCalendar method
-func (r *Mock) UnMockCoreHRCreateCorehrLeaveWorkCalendar() {
-	r.mockCoreHRCreateCorehrLeaveWorkCalendar = nil
+// UnMockCoreHRCreateCoreHRLeaveWorkCalendar un-mock CoreHRCreateCoreHRLeaveWorkCalendar method
+func (r *Mock) UnMockCoreHRCreateCoreHRLeaveWorkCalendar() {
+	r.mockCoreHRCreateCoreHRLeaveWorkCalendar = nil
 }
 
-// CreateCorehrLeaveWorkCalendarReq ...
-type CreateCorehrLeaveWorkCalendarReq struct {
+// CreateCoreHRLeaveWorkCalendarReq ...
+type CreateCoreHRLeaveWorkCalendarReq struct {
 	WkCalendarIDs  []string                                  `json:"wk_calendar_ids,omitempty"`   // 工作日历ID列表, 第一次传入时可以传入空数组, 形如[]示例值: ["71369144159575915967136914415957591596"]
 	WkCalendarIDGt *string                                   `json:"wk_calendar_id_gt,omitempty"` // 工作日历ID大于示例值: "7136914415957591596"
-	WkOption       *CreateCorehrLeaveWorkCalendarReqWkOption `json:"wk_option,omitempty"`         // 分页、排序等选项, 如未填写将赋默认值
+	WkOption       *CreateCoreHRLeaveWorkCalendarReqWkOption `json:"wk_option,omitempty"`         // 分页、排序等选项, 如未填写将赋默认值
 	OnlyEnable     *bool                                     `json:"only_enable,omitempty"`       // 是否只返回启用的工作日历。（暂不支持, 目前只返回启用状态的工作日历）示例值: true默认值: `true`
 }
 
-// CreateCorehrLeaveWorkCalendarReqWkOption ...
-type CreateCorehrLeaveWorkCalendarReqWkOption struct {
+// CreateCoreHRLeaveWorkCalendarReqWkOption ...
+type CreateCoreHRLeaveWorkCalendarReqWkOption struct {
 	Count       *bool                                                 `json:"count,omitempty"`        // 是否返回符合条件的工作日历总数, 默认值为true示例值: false
 	Offset      *int64                                                `json:"offset,omitempty"`       // 分页查询的位移, 从0开始, 默认值为0示例值: 0
 	Limit       int64                                                 `json:"limit,omitempty"`        // 分页查询单次查询数量, 默认值为2000示例值: 20 取值范围: `1` ～ `2000`
-	SortOptions []*CreateCorehrLeaveWorkCalendarReqWkOptionSortOption `json:"sort_options,omitempty"` // 排序 长度范围: `0` ～ `50`
+	SortOptions []*CreateCoreHRLeaveWorkCalendarReqWkOptionSortOption `json:"sort_options,omitempty"` // 排序 长度范围: `0` ～ `50`
 }
 
-// CreateCorehrLeaveWorkCalendarReqWkOptionSortOption ...
-type CreateCorehrLeaveWorkCalendarReqWkOptionSortOption struct {
+// CreateCoreHRLeaveWorkCalendarReqWkOptionSortOption ...
+type CreateCoreHRLeaveWorkCalendarReqWkOptionSortOption struct {
 	SortField            *string `json:"sort_field,omitempty"`               // 排序字段示例值: "wk_id"
 	SortOrder            *int64  `json:"sort_order,omitempty"`               // 排序顺序示例值: 0可选值有: 升序降序 取值范围: `0` ～ `1`
 	SortI18n             *int64  `json:"sort_i18n,omitempty"`                // 0=中文关键字;1=英文关键字;2=拼音示例值: 1可选值有: 中文关键字英文关键字拼音 取值范围: `0` ～ `2`
@@ -82,29 +82,29 @@ type CreateCorehrLeaveWorkCalendarReqWkOptionSortOption struct {
 	SortByEnumValueOrder *bool   `json:"sort_by_enum_value_order,omitempty"` // 是否按照枚举类型 value_order 排序示例值: true
 }
 
-// CreateCorehrLeaveWorkCalendarResp ...
-type CreateCorehrLeaveWorkCalendarResp struct {
-	WorkCalendars []*CreateCorehrLeaveWorkCalendarRespWorkCalendar `json:"work_calendars,omitempty"` // 工作日历列表, 对应入参的wk_calendar_ids
+// CreateCoreHRLeaveWorkCalendarResp ...
+type CreateCoreHRLeaveWorkCalendarResp struct {
+	WorkCalendars []*CreateCoreHRLeaveWorkCalendarRespWorkCalendar `json:"work_calendars,omitempty"` // 工作日历列表, 对应入参的wk_calendar_ids
 	Count         int64                                            `json:"count,omitempty"`          // 入参count=true, 则返回符合条件的工作日历总数
 }
 
-// CreateCorehrLeaveWorkCalendarRespWorkCalendar ...
-type CreateCorehrLeaveWorkCalendarRespWorkCalendar struct {
+// CreateCoreHRLeaveWorkCalendarRespWorkCalendar ...
+type CreateCoreHRLeaveWorkCalendarRespWorkCalendar struct {
 	CalendarID   string                                                     `json:"calendar_id,omitempty"`   // 工作日历ID
-	CalendarName *CreateCorehrLeaveWorkCalendarRespWorkCalendarCalendarName `json:"calendar_name,omitempty"` // 工作日历名称
+	CalendarName *CreateCoreHRLeaveWorkCalendarRespWorkCalendarCalendarName `json:"calendar_name,omitempty"` // 工作日历名称
 	Enable       bool                                                       `json:"enable,omitempty"`        // 工作日历是否启用
 }
 
-// CreateCorehrLeaveWorkCalendarRespWorkCalendarCalendarName ...
-type CreateCorehrLeaveWorkCalendarRespWorkCalendarCalendarName struct {
+// CreateCoreHRLeaveWorkCalendarRespWorkCalendarCalendarName ...
+type CreateCoreHRLeaveWorkCalendarRespWorkCalendarCalendarName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文值
 	EnUs string `json:"en_us,omitempty"` // 英文值
 }
 
-// createCorehrLeaveWorkCalendarResp ...
-type createCorehrLeaveWorkCalendarResp struct {
+// createCoreHRLeaveWorkCalendarResp ...
+type createCoreHRLeaveWorkCalendarResp struct {
 	Code  int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                             `json:"msg,omitempty"`  // 错误描述
-	Data  *CreateCorehrLeaveWorkCalendarResp `json:"data,omitempty"`
+	Data  *CreateCoreHRLeaveWorkCalendarResp `json:"data,omitempty"`
 	Error *ErrorDetail                       `json:"error,omitempty"`
 }

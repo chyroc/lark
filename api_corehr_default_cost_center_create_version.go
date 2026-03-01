@@ -21,67 +21,67 @@ import (
 	"context"
 )
 
-// CreateCorehrDefaultCostCenterVersion 添加默认成本中心
+// CreateCoreHRDefaultCostCenterVersion 添加默认成本中心
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/default_cost_center/create_version
 // new doc: https://open.feishu.cn/document/corehr-v1/employee/default_cost_center/create_version
-func (r *CoreHRService) CreateCorehrDefaultCostCenterVersion(ctx context.Context, request *CreateCorehrDefaultCostCenterVersionReq, options ...MethodOptionFunc) (*CreateCorehrDefaultCostCenterVersionResp, *Response, error) {
-	if r.cli.mock.mockCoreHRCreateCorehrDefaultCostCenterVersion != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCorehrDefaultCostCenterVersion mock enable")
-		return r.cli.mock.mockCoreHRCreateCorehrDefaultCostCenterVersion(ctx, request, options...)
+func (r *CoreHRService) CreateCoreHRDefaultCostCenterVersion(ctx context.Context, request *CreateCoreHRDefaultCostCenterVersionReq, options ...MethodOptionFunc) (*CreateCoreHRDefaultCostCenterVersionResp, *Response, error) {
+	if r.cli.mock.mockCoreHRCreateCoreHRDefaultCostCenterVersion != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCoreHRDefaultCostCenterVersion mock enable")
+		return r.cli.mock.mockCoreHRCreateCoreHRDefaultCostCenterVersion(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "CreateCorehrDefaultCostCenterVersion",
+		API:                   "CreateCoreHRDefaultCostCenterVersion",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/default_cost_centers/create_version",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(createCorehrDefaultCostCenterVersionResp)
+	resp := new(createCoreHRDefaultCostCenterVersionResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRCreateCorehrDefaultCostCenterVersion mock CoreHRCreateCorehrDefaultCostCenterVersion method
-func (r *Mock) MockCoreHRCreateCorehrDefaultCostCenterVersion(f func(ctx context.Context, request *CreateCorehrDefaultCostCenterVersionReq, options ...MethodOptionFunc) (*CreateCorehrDefaultCostCenterVersionResp, *Response, error)) {
-	r.mockCoreHRCreateCorehrDefaultCostCenterVersion = f
+// MockCoreHRCreateCoreHRDefaultCostCenterVersion mock CoreHRCreateCoreHRDefaultCostCenterVersion method
+func (r *Mock) MockCoreHRCreateCoreHRDefaultCostCenterVersion(f func(ctx context.Context, request *CreateCoreHRDefaultCostCenterVersionReq, options ...MethodOptionFunc) (*CreateCoreHRDefaultCostCenterVersionResp, *Response, error)) {
+	r.mockCoreHRCreateCoreHRDefaultCostCenterVersion = f
 }
 
-// UnMockCoreHRCreateCorehrDefaultCostCenterVersion un-mock CoreHRCreateCorehrDefaultCostCenterVersion method
-func (r *Mock) UnMockCoreHRCreateCorehrDefaultCostCenterVersion() {
-	r.mockCoreHRCreateCorehrDefaultCostCenterVersion = nil
+// UnMockCoreHRCreateCoreHRDefaultCostCenterVersion un-mock CoreHRCreateCoreHRDefaultCostCenterVersion method
+func (r *Mock) UnMockCoreHRCreateCoreHRDefaultCostCenterVersion() {
+	r.mockCoreHRCreateCoreHRDefaultCostCenterVersion = nil
 }
 
-// CreateCorehrDefaultCostCenterVersionReq ...
-type CreateCorehrDefaultCostCenterVersionReq struct {
+// CreateCoreHRDefaultCostCenterVersionReq ...
+type CreateCoreHRDefaultCostCenterVersionReq struct {
 	ClientToken       *string                                                   `query:"client_token" json:"-"`        // 幂等标识, 服务端会忽略client_token重复的请求示例值: 12454646 长度范围: `1` ～ `100` 字符
 	UserIDType        *IDType                                                   `query:"user_id_type" json:"-"`        // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	EmploymentID      string                                                    `json:"employment_id,omitempty"`       // 员工雇佣 ID-可以调用[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口, 获取指定员工的 employment_id。示例值: "6862995757234914821"
-	DefaultCostCenter *CreateCorehrDefaultCostCenterVersionReqDefaultCostCenter `json:"default_cost_center,omitempty"` // 默认成本中心信息
+	DefaultCostCenter *CreateCoreHRDefaultCostCenterVersionReqDefaultCostCenter `json:"default_cost_center,omitempty"` // 默认成本中心信息
 }
 
-// CreateCorehrDefaultCostCenterVersionReqDefaultCostCenter ...
-type CreateCorehrDefaultCostCenterVersionReqDefaultCostCenter struct {
+// CreateCoreHRDefaultCostCenterVersionReqDefaultCostCenter ...
+type CreateCoreHRDefaultCostCenterVersionReqDefaultCostCenter struct {
 	EffectiveTime string  `json:"effective_time,omitempty"` // 生效日期示例值: "2024-12-01"
 	CostCenterID  *string `json:"cost_center_id,omitempty"` // 成本中心ID-可以调用[【搜索成本中心信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)接口, 获取成本中心信息中的成本中心ID。示例值: "7039123253031711012"
 	IsInherit     *bool   `json:"is_inherit,omitempty"`     // 是否继承自岗位/部门的默认成本中心示例值: false
 	Reason        *string `json:"reason,omitempty"`         // 变更原因示例值: "异动"
 }
 
-// CreateCorehrDefaultCostCenterVersionResp ...
-type CreateCorehrDefaultCostCenterVersionResp struct {
+// CreateCoreHRDefaultCostCenterVersionResp ...
+type CreateCoreHRDefaultCostCenterVersionResp struct {
 	WkID  string `json:"wk_id,omitempty"`  // 默认成本中心id
 	WkTid string `json:"wk_tid,omitempty"` // 默认成本中心版本id
 }
 
-// createCorehrDefaultCostCenterVersionResp ...
-type createCorehrDefaultCostCenterVersionResp struct {
+// createCoreHRDefaultCostCenterVersionResp ...
+type createCoreHRDefaultCostCenterVersionResp struct {
 	Code  int64                                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                                    `json:"msg,omitempty"`  // 错误描述
-	Data  *CreateCorehrDefaultCostCenterVersionResp `json:"data,omitempty"`
+	Data  *CreateCoreHRDefaultCostCenterVersionResp `json:"data,omitempty"`
 	Error *ErrorDetail                              `json:"error,omitempty"`
 }

@@ -21,58 +21,58 @@ import (
 	"context"
 )
 
-// DeleteCorehrDepartment 可以通过该接口通过部门ID删除一个部门记录, 带数据行权限判权
+// DeleteCoreHRDepartmentV2 可以通过该接口通过部门ID删除一个部门记录, 带数据行权限判权
 //
 // 该接口为 V2 版本接口。要查看旧版 V1 接口, 参考: [【删除部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/delete)
 // 删除后无法恢复, 并且在系统中无法查看到对应部门信息, 请谨慎操作。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/delete
 // new doc: https://open.feishu.cn/document/corehr-v1/organization-management/department/delete
-func (r *CoreHRService) DeleteCorehrDepartment(ctx context.Context, request *DeleteCorehrDepartmentReq, options ...MethodOptionFunc) (*DeleteCorehrDepartmentResp, *Response, error) {
-	if r.cli.mock.mockCoreHRDeleteCorehrDepartment != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCorehrDepartment mock enable")
-		return r.cli.mock.mockCoreHRDeleteCorehrDepartment(ctx, request, options...)
+func (r *CoreHRService) DeleteCoreHRDepartmentV2(ctx context.Context, request *DeleteCoreHRDepartmentV2Req, options ...MethodOptionFunc) (*DeleteCoreHRDepartmentV2Resp, *Response, error) {
+	if r.cli.mock.mockCoreHRDeleteCoreHRDepartmentV2 != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHRDepartmentV2 mock enable")
+		return r.cli.mock.mockCoreHRDeleteCoreHRDepartmentV2(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "DeleteCorehrDepartment",
+		API:                   "DeleteCoreHRDepartmentV2",
 		Method:                "DELETE",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/departments/:department_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(deleteCorehrDepartmentResp)
+	resp := new(deleteCoreHRDepartmentV2Resp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRDeleteCorehrDepartment mock CoreHRDeleteCorehrDepartment method
-func (r *Mock) MockCoreHRDeleteCorehrDepartment(f func(ctx context.Context, request *DeleteCorehrDepartmentReq, options ...MethodOptionFunc) (*DeleteCorehrDepartmentResp, *Response, error)) {
-	r.mockCoreHRDeleteCorehrDepartment = f
+// MockCoreHRDeleteCoreHRDepartmentV2 mock CoreHRDeleteCoreHRDepartmentV2 method
+func (r *Mock) MockCoreHRDeleteCoreHRDepartmentV2(f func(ctx context.Context, request *DeleteCoreHRDepartmentV2Req, options ...MethodOptionFunc) (*DeleteCoreHRDepartmentV2Resp, *Response, error)) {
+	r.mockCoreHRDeleteCoreHRDepartmentV2 = f
 }
 
-// UnMockCoreHRDeleteCorehrDepartment un-mock CoreHRDeleteCorehrDepartment method
-func (r *Mock) UnMockCoreHRDeleteCorehrDepartment() {
-	r.mockCoreHRDeleteCorehrDepartment = nil
+// UnMockCoreHRDeleteCoreHRDepartmentV2 un-mock CoreHRDeleteCoreHRDepartmentV2 method
+func (r *Mock) UnMockCoreHRDeleteCoreHRDepartmentV2() {
+	r.mockCoreHRDeleteCoreHRDepartmentV2 = nil
 }
 
-// DeleteCorehrDepartmentReq ...
-type DeleteCorehrDepartmentReq struct {
+// DeleteCoreHRDepartmentV2Req ...
+type DeleteCoreHRDepartmentV2Req struct {
 	DepartmentID     string            `path:"department_id" json:"-"`       // 需要删除的部门 ID, 可通过[【搜索部门信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/search)接口查询获得示例值: "1616161616"
 	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门 ID 类型示例值: open_department_id可选值有: 【飞书】用来在具体某个应用中标识一个部门, 同一个department_id 在不同应用中的 open_department_id 相同。【飞书】用来标识租户内一个唯一的部门。【飞书人事】用来标识「飞书人事」中的部门。默认值: `open_department_id`
 }
 
-// DeleteCorehrDepartmentResp ...
-type DeleteCorehrDepartmentResp struct {
+// DeleteCoreHRDepartmentV2Resp ...
+type DeleteCoreHRDepartmentV2Resp struct {
 }
 
-// deleteCorehrDepartmentResp ...
-type deleteCorehrDepartmentResp struct {
-	Code  int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg   string                      `json:"msg,omitempty"`  // 错误描述
-	Data  *DeleteCorehrDepartmentResp `json:"data,omitempty"`
-	Error *ErrorDetail                `json:"error,omitempty"`
+// deleteCoreHRDepartmentV2Resp ...
+type deleteCoreHRDepartmentV2Resp struct {
+	Code  int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                        `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteCoreHRDepartmentV2Resp `json:"data,omitempty"`
+	Error *ErrorDetail                  `json:"error,omitempty"`
 }

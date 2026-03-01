@@ -1035,12 +1035,12 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockHireCreateHireApplicationCancelOnboard(func(ctx context.Context, request *lark.CreateHireApplicationCancelOnboardReq, options ...lark.MethodOptionFunc) (*lark.CreateHireApplicationCancelOnboardResp, *lark.Response, error) {
+			cli.Mock().MockHireCancelHireApplicationOnboard(func(ctx context.Context, request *lark.CancelHireApplicationOnboardReq, options ...lark.MethodOptionFunc) (*lark.CancelHireApplicationOnboardResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockHireCreateHireApplicationCancelOnboard()
+			defer cli.Mock().UnMockHireCancelHireApplicationOnboard()
 
-			_, _, err := moduleCli.CreateHireApplicationCancelOnboard(ctx, &lark.CreateHireApplicationCancelOnboardReq{})
+			_, _, err := moduleCli.CancelHireApplicationOnboard(ctx, &lark.CancelHireApplicationOnboardReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -1839,24 +1839,24 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockHireCreateHireTalentCombinedCreate(func(ctx context.Context, request *lark.CreateHireTalentCombinedCreateReq, options ...lark.MethodOptionFunc) (*lark.CreateHireTalentCombinedCreateResp, *lark.Response, error) {
+			cli.Mock().MockHireCreateHireTalentCombined(func(ctx context.Context, request *lark.CreateHireTalentCombinedReq, options ...lark.MethodOptionFunc) (*lark.CreateHireTalentCombinedResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockHireCreateHireTalentCombinedCreate()
+			defer cli.Mock().UnMockHireCreateHireTalentCombined()
 
-			_, _, err := moduleCli.CreateHireTalentCombinedCreate(ctx, &lark.CreateHireTalentCombinedCreateReq{})
+			_, _, err := moduleCli.CreateHireTalentCombined(ctx, &lark.CreateHireTalentCombinedReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockHireCreateHireTalentCombinedUpdate(func(ctx context.Context, request *lark.CreateHireTalentCombinedUpdateReq, options ...lark.MethodOptionFunc) (*lark.CreateHireTalentCombinedUpdateResp, *lark.Response, error) {
+			cli.Mock().MockHireUpdateHireTalentCombined(func(ctx context.Context, request *lark.UpdateHireTalentCombinedReq, options ...lark.MethodOptionFunc) (*lark.UpdateHireTalentCombinedResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockHireCreateHireTalentCombinedUpdate()
+			defer cli.Mock().UnMockHireUpdateHireTalentCombined()
 
-			_, _, err := moduleCli.CreateHireTalentCombinedUpdate(ctx, &lark.CreateHireTalentCombinedUpdateReq{})
+			_, _, err := moduleCli.UpdateHireTalentCombined(ctx, &lark.UpdateHireTalentCombinedReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -2875,7 +2875,7 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.CreateHireApplicationCancelOnboard(ctx, &lark.CreateHireApplicationCancelOnboardReq{
+			_, _, err := moduleCli.CancelHireApplicationOnboard(ctx, &lark.CancelHireApplicationOnboardReq{
 				ApplicationID: "x",
 			})
 			as.NotNil(err)
@@ -3396,14 +3396,14 @@ func Test_Hire_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.CreateHireTalentCombinedCreate(ctx, &lark.CreateHireTalentCombinedCreateReq{})
+			_, _, err := moduleCli.CreateHireTalentCombined(ctx, &lark.CreateHireTalentCombinedReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.CreateHireTalentCombinedUpdate(ctx, &lark.CreateHireTalentCombinedUpdateReq{})
+			_, _, err := moduleCli.UpdateHireTalentCombined(ctx, &lark.UpdateHireTalentCombinedReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})

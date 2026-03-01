@@ -21,22 +21,22 @@ import (
 	"context"
 )
 
-// CreateMailUserMailboxRuleReorder 对收信规则进行排序
+// ReorderMailUserMailboxRule 对收信规则进行排序
 //
 // 使用 tenant_access_token 时, 需要申请收信规则资源的数据权限。
 // 当使用该接口时, 需要传递所有规则 id
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-rule/reorder
 // new doc: https://open.feishu.cn/document/mail-v1/user_mailbox-rule/reorder
-func (r *MailService) CreateMailUserMailboxRuleReorder(ctx context.Context, request *CreateMailUserMailboxRuleReorderReq, options ...MethodOptionFunc) (*CreateMailUserMailboxRuleReorderResp, *Response, error) {
-	if r.cli.mock.mockMailCreateMailUserMailboxRuleReorder != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#CreateMailUserMailboxRuleReorder mock enable")
-		return r.cli.mock.mockMailCreateMailUserMailboxRuleReorder(ctx, request, options...)
+func (r *MailService) ReorderMailUserMailboxRule(ctx context.Context, request *ReorderMailUserMailboxRuleReq, options ...MethodOptionFunc) (*ReorderMailUserMailboxRuleResp, *Response, error) {
+	if r.cli.mock.mockMailReorderMailUserMailboxRule != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Mail#ReorderMailUserMailboxRule mock enable")
+		return r.cli.mock.mockMailReorderMailUserMailboxRule(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "Mail",
-		API:                   "CreateMailUserMailboxRuleReorder",
+		API:                   "ReorderMailUserMailboxRule",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/mail/v1/user_mailboxes/:user_mailbox_id/rules/reorder",
 		Body:                  request,
@@ -44,36 +44,36 @@ func (r *MailService) CreateMailUserMailboxRuleReorder(ctx context.Context, requ
 		NeedTenantAccessToken: true,
 		NeedUserAccessToken:   true,
 	}
-	resp := new(createMailUserMailboxRuleReorderResp)
+	resp := new(reorderMailUserMailboxRuleResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockMailCreateMailUserMailboxRuleReorder mock MailCreateMailUserMailboxRuleReorder method
-func (r *Mock) MockMailCreateMailUserMailboxRuleReorder(f func(ctx context.Context, request *CreateMailUserMailboxRuleReorderReq, options ...MethodOptionFunc) (*CreateMailUserMailboxRuleReorderResp, *Response, error)) {
-	r.mockMailCreateMailUserMailboxRuleReorder = f
+// MockMailReorderMailUserMailboxRule mock MailReorderMailUserMailboxRule method
+func (r *Mock) MockMailReorderMailUserMailboxRule(f func(ctx context.Context, request *ReorderMailUserMailboxRuleReq, options ...MethodOptionFunc) (*ReorderMailUserMailboxRuleResp, *Response, error)) {
+	r.mockMailReorderMailUserMailboxRule = f
 }
 
-// UnMockMailCreateMailUserMailboxRuleReorder un-mock MailCreateMailUserMailboxRuleReorder method
-func (r *Mock) UnMockMailCreateMailUserMailboxRuleReorder() {
-	r.mockMailCreateMailUserMailboxRuleReorder = nil
+// UnMockMailReorderMailUserMailboxRule un-mock MailReorderMailUserMailboxRule method
+func (r *Mock) UnMockMailReorderMailUserMailboxRule() {
+	r.mockMailReorderMailUserMailboxRule = nil
 }
 
-// CreateMailUserMailboxRuleReorderReq ...
-type CreateMailUserMailboxRuleReorderReq struct {
+// ReorderMailUserMailboxRuleReq ...
+type ReorderMailUserMailboxRuleReq struct {
 	UserMailboxID string   `path:"user_mailbox_id" json:"-"` // 用户邮箱地址, 使用 user_access_token 时可使用 me示例值: "user@xxx.xx 或 me"
 	RuleIDs       []string `json:"rule_ids,omitempty"`       // 规则 id 列表, 获取方式见 [列出收信规则](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/mail-v1/user_mailbox-rule/list)示例值: ["11111111"] 最小长度: `1`
 }
 
-// CreateMailUserMailboxRuleReorderResp ...
-type CreateMailUserMailboxRuleReorderResp struct {
+// ReorderMailUserMailboxRuleResp ...
+type ReorderMailUserMailboxRuleResp struct {
 }
 
-// createMailUserMailboxRuleReorderResp ...
-type createMailUserMailboxRuleReorderResp struct {
-	Code  int64                                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg   string                                `json:"msg,omitempty"`  // 错误描述
-	Data  *CreateMailUserMailboxRuleReorderResp `json:"data,omitempty"`
-	Error *ErrorDetail                          `json:"error,omitempty"`
+// reorderMailUserMailboxRuleResp ...
+type reorderMailUserMailboxRuleResp struct {
+	Code  int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                          `json:"msg,omitempty"`  // 错误描述
+	Data  *ReorderMailUserMailboxRuleResp `json:"data,omitempty"`
+	Error *ErrorDetail                    `json:"error,omitempty"`
 }

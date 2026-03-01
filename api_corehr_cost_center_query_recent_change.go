@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// QueryCorehrCostCenterRecentChange 查询指定时间范围内当前生效信息发生变更的成本中心, 即只有部门当前生效版本的生效时间在查询时间范围内, 才返回该成本中心id
+// QueryCoreHRCostCenterRecentChange 查询指定时间范围内当前生效信息发生变更的成本中心, 即只有部门当前生效版本的生效时间在查询时间范围内, 才返回该成本中心id
 //
 // - 默认排序条件: 默认先按照组织记录 ID 增序排序, 便于滚动查询
 // - 使用滚动查询而非分页查询, 是为了防止大批量获取数据时, 深分页导致超时
@@ -30,57 +30,57 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/query_recent_change
 // new doc: https://open.feishu.cn/document/corehr-v1/organization-management/cost_center/query_recent_change
-func (r *CoreHRService) QueryCorehrCostCenterRecentChange(ctx context.Context, request *QueryCorehrCostCenterRecentChangeReq, options ...MethodOptionFunc) (*QueryCorehrCostCenterRecentChangeResp, *Response, error) {
-	if r.cli.mock.mockCoreHRQueryCorehrCostCenterRecentChange != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#QueryCorehrCostCenterRecentChange mock enable")
-		return r.cli.mock.mockCoreHRQueryCorehrCostCenterRecentChange(ctx, request, options...)
+func (r *CoreHRService) QueryCoreHRCostCenterRecentChange(ctx context.Context, request *QueryCoreHRCostCenterRecentChangeReq, options ...MethodOptionFunc) (*QueryCoreHRCostCenterRecentChangeResp, *Response, error) {
+	if r.cli.mock.mockCoreHRQueryCoreHRCostCenterRecentChange != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#QueryCoreHRCostCenterRecentChange mock enable")
+		return r.cli.mock.mockCoreHRQueryCoreHRCostCenterRecentChange(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "QueryCorehrCostCenterRecentChange",
+		API:                   "QueryCoreHRCostCenterRecentChange",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/cost_centers/query_recent_change",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(queryCorehrCostCenterRecentChangeResp)
+	resp := new(queryCoreHRCostCenterRecentChangeResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRQueryCorehrCostCenterRecentChange mock CoreHRQueryCorehrCostCenterRecentChange method
-func (r *Mock) MockCoreHRQueryCorehrCostCenterRecentChange(f func(ctx context.Context, request *QueryCorehrCostCenterRecentChangeReq, options ...MethodOptionFunc) (*QueryCorehrCostCenterRecentChangeResp, *Response, error)) {
-	r.mockCoreHRQueryCorehrCostCenterRecentChange = f
+// MockCoreHRQueryCoreHRCostCenterRecentChange mock CoreHRQueryCoreHRCostCenterRecentChange method
+func (r *Mock) MockCoreHRQueryCoreHRCostCenterRecentChange(f func(ctx context.Context, request *QueryCoreHRCostCenterRecentChangeReq, options ...MethodOptionFunc) (*QueryCoreHRCostCenterRecentChangeResp, *Response, error)) {
+	r.mockCoreHRQueryCoreHRCostCenterRecentChange = f
 }
 
-// UnMockCoreHRQueryCorehrCostCenterRecentChange un-mock CoreHRQueryCorehrCostCenterRecentChange method
-func (r *Mock) UnMockCoreHRQueryCorehrCostCenterRecentChange() {
-	r.mockCoreHRQueryCorehrCostCenterRecentChange = nil
+// UnMockCoreHRQueryCoreHRCostCenterRecentChange un-mock CoreHRQueryCoreHRCostCenterRecentChange method
+func (r *Mock) UnMockCoreHRQueryCoreHRCostCenterRecentChange() {
+	r.mockCoreHRQueryCoreHRCostCenterRecentChange = nil
 }
 
-// QueryCorehrCostCenterRecentChangeReq ...
-type QueryCorehrCostCenterRecentChangeReq struct {
+// QueryCoreHRCostCenterRecentChangeReq ...
+type QueryCoreHRCostCenterRecentChangeReq struct {
 	PageSize  int64   `query:"page_size" json:"-"`  // 分页大小, 最大 2000示例值: 100 取值范围: `1` ～ `2000`
 	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 6891251722631890445
 	StartDate string  `query:"start_date" json:"-"` // 查询的开始时间, 支持"yyyy-MM-dd HH:MM:SS"示例值: 2024-01-01 00:00:00
 	EndDate   string  `query:"end_date" json:"-"`   // 查询的结束时间, 格式 "yyyy-MM-dd HH:MM:SS"示例值: 2024-04-01 00:00:00
 }
 
-// QueryCorehrCostCenterRecentChangeResp ...
-type QueryCorehrCostCenterRecentChangeResp struct {
+// QueryCoreHRCostCenterRecentChangeResp ...
+type QueryCoreHRCostCenterRecentChangeResp struct {
 	CostCenterIDs        []string `json:"cost_center_ids,omitempty"`         // 成本中心 ID 列表, 其中包含新建、更新以及删除的ID列表。- 非删除的数据, 可通过[搜索成本中心信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)获取详情。
 	PageToken            string   `json:"page_token,omitempty"`              // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	HasMore              bool     `json:"has_more,omitempty"`                // 是否还有更多项
 	DeletedCostCenterIDs []string `json:"deleted_cost_center_ids,omitempty"` // 目标查询时间范围内被删除的成本中心列表, 该列表是  cost_center_ids 的子集, 便于获取在指定的[start_date, end_date+1) 的范围内被删除的成本中心 IDs。- 由于对应的成本中心已经被删除, 无法通过 ID 查询到历史数据。
 }
 
-// queryCorehrCostCenterRecentChangeResp ...
-type queryCorehrCostCenterRecentChangeResp struct {
+// queryCoreHRCostCenterRecentChangeResp ...
+type queryCoreHRCostCenterRecentChangeResp struct {
 	Code  int64                                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                                 `json:"msg,omitempty"`  // 错误描述
-	Data  *QueryCorehrCostCenterRecentChangeResp `json:"data,omitempty"`
+	Data  *QueryCoreHRCostCenterRecentChangeResp `json:"data,omitempty"`
 	Error *ErrorDetail                           `json:"error,omitempty"`
 }

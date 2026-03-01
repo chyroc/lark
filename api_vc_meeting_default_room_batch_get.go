@@ -28,9 +28,9 @@ import (
 //
 // Deprecated
 func (r *VCService) GetVCMeetingDefaultRoomBatchGet(ctx context.Context, request *GetVCMeetingDefaultRoomBatchGetReq, options ...MethodOptionFunc) (*GetVCMeetingDefaultRoomBatchGetResp, *Response, error) {
-	if r.cli.mock.mockVCMeetingGetVCMeetingDefaultRoomBatchGet != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] VCMeeting#GetVCMeetingDefaultRoomBatchGet mock enable")
-		return r.cli.mock.mockVCMeetingGetVCMeetingDefaultRoomBatchGet(ctx, request, options...)
+	if r.cli.mock.mockVCGetVCMeetingDefaultRoomBatchGet != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#GetVCMeetingDefaultRoomBatchGet mock enable")
+		return r.cli.mock.mockVCGetVCMeetingDefaultRoomBatchGet(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
@@ -48,14 +48,14 @@ func (r *VCService) GetVCMeetingDefaultRoomBatchGet(ctx context.Context, request
 	return resp.Data, response, err
 }
 
-// MockVCMeetingGetVCMeetingDefaultRoomBatchGet mock VCMeetingGetVCMeetingDefaultRoomBatchGet method
-func (r *Mock) MockVCMeetingGetVCMeetingDefaultRoomBatchGet(f func(ctx context.Context, request *GetVCMeetingDefaultRoomBatchGetReq, options ...MethodOptionFunc) (*GetVCMeetingDefaultRoomBatchGetResp, *Response, error)) {
-	r.mockVCMeetingGetVCMeetingDefaultRoomBatchGet = f
+// MockVCGetVCMeetingDefaultRoomBatchGet mock VCGetVCMeetingDefaultRoomBatchGet method
+func (r *Mock) MockVCGetVCMeetingDefaultRoomBatchGet(f func(ctx context.Context, request *GetVCMeetingDefaultRoomBatchGetReq, options ...MethodOptionFunc) (*GetVCMeetingDefaultRoomBatchGetResp, *Response, error)) {
+	r.mockVCGetVCMeetingDefaultRoomBatchGet = f
 }
 
-// UnMockVCMeetingGetVCMeetingDefaultRoomBatchGet un-mock VCMeetingGetVCMeetingDefaultRoomBatchGet method
-func (r *Mock) UnMockVCMeetingGetVCMeetingDefaultRoomBatchGet() {
-	r.mockVCMeetingGetVCMeetingDefaultRoomBatchGet = nil
+// UnMockVCGetVCMeetingDefaultRoomBatchGet un-mock VCGetVCMeetingDefaultRoomBatchGet method
+func (r *Mock) UnMockVCGetVCMeetingDefaultRoomBatchGet() {
+	r.mockVCGetVCMeetingDefaultRoomBatchGet = nil
 }
 
 // GetVCMeetingDefaultRoomBatchGetReq ...

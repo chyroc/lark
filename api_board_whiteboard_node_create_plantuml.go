@@ -25,9 +25,9 @@ import (
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/board-v1/whiteboard-node/create_plantuml
 func (r *DriveService) CreateBoardWhiteboardNodePlantuml(ctx context.Context, request *CreateBoardWhiteboardNodePlantumlReq, options ...MethodOptionFunc) (*CreateBoardWhiteboardNodePlantumlResp, *Response, error) {
-	if r.cli.mock.mockBoardCreateBoardWhiteboardNodePlantuml != nil {
+	if r.cli.mock.mockDriveCreateBoardWhiteboardNodePlantuml != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#CreateBoardWhiteboardNodePlantuml mock enable")
-		return r.cli.mock.mockBoardCreateBoardWhiteboardNodePlantuml(ctx, request, options...)
+		return r.cli.mock.mockDriveCreateBoardWhiteboardNodePlantuml(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
@@ -46,14 +46,14 @@ func (r *DriveService) CreateBoardWhiteboardNodePlantuml(ctx context.Context, re
 	return resp.Data, response, err
 }
 
-// MockBoardCreateBoardWhiteboardNodePlantuml mock BoardCreateBoardWhiteboardNodePlantuml method
-func (r *Mock) MockBoardCreateBoardWhiteboardNodePlantuml(f func(ctx context.Context, request *CreateBoardWhiteboardNodePlantumlReq, options ...MethodOptionFunc) (*CreateBoardWhiteboardNodePlantumlResp, *Response, error)) {
-	r.mockBoardCreateBoardWhiteboardNodePlantuml = f
+// MockDriveCreateBoardWhiteboardNodePlantuml mock DriveCreateBoardWhiteboardNodePlantuml method
+func (r *Mock) MockDriveCreateBoardWhiteboardNodePlantuml(f func(ctx context.Context, request *CreateBoardWhiteboardNodePlantumlReq, options ...MethodOptionFunc) (*CreateBoardWhiteboardNodePlantumlResp, *Response, error)) {
+	r.mockDriveCreateBoardWhiteboardNodePlantuml = f
 }
 
-// UnMockBoardCreateBoardWhiteboardNodePlantuml un-mock BoardCreateBoardWhiteboardNodePlantuml method
-func (r *Mock) UnMockBoardCreateBoardWhiteboardNodePlantuml() {
-	r.mockBoardCreateBoardWhiteboardNodePlantuml = nil
+// UnMockDriveCreateBoardWhiteboardNodePlantuml un-mock DriveCreateBoardWhiteboardNodePlantuml method
+func (r *Mock) UnMockDriveCreateBoardWhiteboardNodePlantuml() {
+	r.mockDriveCreateBoardWhiteboardNodePlantuml = nil
 }
 
 // CreateBoardWhiteboardNodePlantumlReq ...

@@ -21,55 +21,55 @@ import (
 	"context"
 )
 
-// CreateCorehrPreHireComplete 操作待入职员工完成入职, 正式入职建立员工和公司/组织的雇佣关系
+// CompleteCoreHRPreHire 操作待入职员工完成入职, 正式入职建立员工和公司/组织的雇佣关系
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/complete
 // new doc: https://open.feishu.cn/document/corehr-v1/pre_hire/complete
-func (r *CoreHRService) CreateCorehrPreHireComplete(ctx context.Context, request *CreateCorehrPreHireCompleteReq, options ...MethodOptionFunc) (*CreateCorehrPreHireCompleteResp, *Response, error) {
-	if r.cli.mock.mockCoreHRCreateCorehrPreHireComplete != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCorehrPreHireComplete mock enable")
-		return r.cli.mock.mockCoreHRCreateCorehrPreHireComplete(ctx, request, options...)
+func (r *CoreHRService) CompleteCoreHRPreHire(ctx context.Context, request *CompleteCoreHRPreHireReq, options ...MethodOptionFunc) (*CompleteCoreHRPreHireResp, *Response, error) {
+	if r.cli.mock.mockCoreHRCompleteCoreHRPreHire != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#CompleteCoreHRPreHire mock enable")
+		return r.cli.mock.mockCoreHRCompleteCoreHRPreHire(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "CreateCorehrPreHireComplete",
+		API:                   "CompleteCoreHRPreHire",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/pre_hires/:pre_hire_id/complete",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(createCorehrPreHireCompleteResp)
+	resp := new(completeCoreHRPreHireResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRCreateCorehrPreHireComplete mock CoreHRCreateCorehrPreHireComplete method
-func (r *Mock) MockCoreHRCreateCorehrPreHireComplete(f func(ctx context.Context, request *CreateCorehrPreHireCompleteReq, options ...MethodOptionFunc) (*CreateCorehrPreHireCompleteResp, *Response, error)) {
-	r.mockCoreHRCreateCorehrPreHireComplete = f
+// MockCoreHRCompleteCoreHRPreHire mock CoreHRCompleteCoreHRPreHire method
+func (r *Mock) MockCoreHRCompleteCoreHRPreHire(f func(ctx context.Context, request *CompleteCoreHRPreHireReq, options ...MethodOptionFunc) (*CompleteCoreHRPreHireResp, *Response, error)) {
+	r.mockCoreHRCompleteCoreHRPreHire = f
 }
 
-// UnMockCoreHRCreateCorehrPreHireComplete un-mock CoreHRCreateCorehrPreHireComplete method
-func (r *Mock) UnMockCoreHRCreateCorehrPreHireComplete() {
-	r.mockCoreHRCreateCorehrPreHireComplete = nil
+// UnMockCoreHRCompleteCoreHRPreHire un-mock CoreHRCompleteCoreHRPreHire method
+func (r *Mock) UnMockCoreHRCompleteCoreHRPreHire() {
+	r.mockCoreHRCompleteCoreHRPreHire = nil
 }
 
-// CreateCorehrPreHireCompleteReq ...
-type CreateCorehrPreHireCompleteReq struct {
+// CompleteCoreHRPreHireReq ...
+type CompleteCoreHRPreHireReq struct {
 	PreHireID string `path:"pre_hire_id" json:"-"` // 待入职ID, 可从[待入职列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/search)接口获取示例值: "7345005664477775407"
 }
 
-// CreateCorehrPreHireCompleteResp ...
-type CreateCorehrPreHireCompleteResp struct {
+// CompleteCoreHRPreHireResp ...
+type CompleteCoreHRPreHireResp struct {
 	Success bool `json:"success,omitempty"` // 是否成功完成入职
 }
 
-// createCorehrPreHireCompleteResp ...
-type createCorehrPreHireCompleteResp struct {
-	Code  int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg   string                           `json:"msg,omitempty"`  // 错误描述
-	Data  *CreateCorehrPreHireCompleteResp `json:"data,omitempty"`
-	Error *ErrorDetail                     `json:"error,omitempty"`
+// completeCoreHRPreHireResp ...
+type completeCoreHRPreHireResp struct {
+	Code  int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                     `json:"msg,omitempty"`  // 错误描述
+	Data  *CompleteCoreHRPreHireResp `json:"data,omitempty"`
+	Error *ErrorDetail               `json:"error,omitempty"`
 }

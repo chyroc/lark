@@ -231,12 +231,12 @@ func Test_Search_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockSearchSearchSearchDocWiki(func(ctx context.Context, request *lark.SearchSearchDocWikiReq, options ...lark.MethodOptionFunc) (*lark.SearchSearchDocWikiResp, *lark.Response, error) {
+			cli.Mock().MockSearchSearchDocWiki(func(ctx context.Context, request *lark.SearchDocWikiReq, options ...lark.MethodOptionFunc) (*lark.SearchDocWikiResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockSearchSearchSearchDocWiki()
+			defer cli.Mock().UnMockSearchSearchDocWiki()
 
-			_, _, err := moduleCli.SearchSearchDocWiki(ctx, &lark.SearchSearchDocWikiReq{})
+			_, _, err := moduleCli.SearchDocWiki(ctx, &lark.SearchDocWikiReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -379,7 +379,7 @@ func Test_Search_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.SearchSearchDocWiki(ctx, &lark.SearchSearchDocWikiReq{})
+			_, _, err := moduleCli.SearchDocWiki(ctx, &lark.SearchDocWikiReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})

@@ -21,42 +21,42 @@ import (
 	"context"
 )
 
-// GetAPaaSWorkspaceTableRecordsGet 查询数据表数据记录
+// GetAPaaSWorkspaceTableRecords 查询数据表数据记录
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/workspace-table/records_get
-func (r *APaaSService) GetAPaaSWorkspaceTableRecordsGet(ctx context.Context, request *GetAPaaSWorkspaceTableRecordsGetReq, options ...MethodOptionFunc) (*GetAPaaSWorkspaceTableRecordsGetResp, *Response, error) {
-	if r.cli.mock.mockAPaaSGetAPaaSWorkspaceTableRecordsGet != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] APaaS#GetAPaaSWorkspaceTableRecordsGet mock enable")
-		return r.cli.mock.mockAPaaSGetAPaaSWorkspaceTableRecordsGet(ctx, request, options...)
+func (r *APaaSService) GetAPaaSWorkspaceTableRecords(ctx context.Context, request *GetAPaaSWorkspaceTableRecordsReq, options ...MethodOptionFunc) (*GetAPaaSWorkspaceTableRecordsResp, *Response, error) {
+	if r.cli.mock.mockAPaaSGetAPaaSWorkspaceTableRecords != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] APaaS#GetAPaaSWorkspaceTableRecords mock enable")
+		return r.cli.mock.mockAPaaSGetAPaaSWorkspaceTableRecords(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:               "APaaS",
-		API:                 "GetAPaaSWorkspaceTableRecordsGet",
+		API:                 "GetAPaaSWorkspaceTableRecords",
 		Method:              "GET",
 		URL:                 r.cli.openBaseURL + "/open-apis/apaas/v1/workspaces/:workspace_id/tables/:table_name/records",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 	}
-	resp := new(getAPaaSWorkspaceTableRecordsGetResp)
+	resp := new(getAPaaSWorkspaceTableRecordsResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockAPaaSGetAPaaSWorkspaceTableRecordsGet mock APaaSGetAPaaSWorkspaceTableRecordsGet method
-func (r *Mock) MockAPaaSGetAPaaSWorkspaceTableRecordsGet(f func(ctx context.Context, request *GetAPaaSWorkspaceTableRecordsGetReq, options ...MethodOptionFunc) (*GetAPaaSWorkspaceTableRecordsGetResp, *Response, error)) {
-	r.mockAPaaSGetAPaaSWorkspaceTableRecordsGet = f
+// MockAPaaSGetAPaaSWorkspaceTableRecords mock APaaSGetAPaaSWorkspaceTableRecords method
+func (r *Mock) MockAPaaSGetAPaaSWorkspaceTableRecords(f func(ctx context.Context, request *GetAPaaSWorkspaceTableRecordsReq, options ...MethodOptionFunc) (*GetAPaaSWorkspaceTableRecordsResp, *Response, error)) {
+	r.mockAPaaSGetAPaaSWorkspaceTableRecords = f
 }
 
-// UnMockAPaaSGetAPaaSWorkspaceTableRecordsGet un-mock APaaSGetAPaaSWorkspaceTableRecordsGet method
-func (r *Mock) UnMockAPaaSGetAPaaSWorkspaceTableRecordsGet() {
-	r.mockAPaaSGetAPaaSWorkspaceTableRecordsGet = nil
+// UnMockAPaaSGetAPaaSWorkspaceTableRecords un-mock APaaSGetAPaaSWorkspaceTableRecords method
+func (r *Mock) UnMockAPaaSGetAPaaSWorkspaceTableRecords() {
+	r.mockAPaaSGetAPaaSWorkspaceTableRecords = nil
 }
 
-// GetAPaaSWorkspaceTableRecordsGetReq ...
-type GetAPaaSWorkspaceTableRecordsGetReq struct {
+// GetAPaaSWorkspaceTableRecordsReq ...
+type GetAPaaSWorkspaceTableRecordsReq struct {
 	WorkspaceID string  `path:"workspace_id" json:"-"` // 工作空间id, 可以从数据平台的 URL 中获取, 如 `https://apaas.feishu.cn/suda/workspace/workspace_aadimx5uzpsls/table-manage/main?tableId=table_1846786627963081&tab=objectManage` 中的 workspace_aadimx5uzpsls 就是 workspace_id示例值: "workspace_aadimx5uzpsls"
 	TableName   string  `path:"table_name" json:"-"`   // 数据表表名, 可以从数据平台获取对应的数据表名。示例值: "table_name_1"
 	PageSize    *int64  `query:"page_size" json:"-"`   // 分页大小, 用于限制一次请求所返回的数据条目数。默认10, 最大500示例值: 10默认值: `10`
@@ -66,18 +66,18 @@ type GetAPaaSWorkspaceTableRecordsGetReq struct {
 	Order       *string `query:"order" json:"-"`       // 排序条件, 如果没指定 asc/desc, 默认为 asc, null 值可排在最前或最后。尊许 PostgREST 语法, 详情可查看`https://docs.postgrest.org/en/v13/references/api/tables_views.html#ordering`示例值: age.desc, score.asc
 }
 
-// GetAPaaSWorkspaceTableRecordsGetResp ...
-type GetAPaaSWorkspaceTableRecordsGetResp struct {
+// GetAPaaSWorkspaceTableRecordsResp ...
+type GetAPaaSWorkspaceTableRecordsResp struct {
 	HasMore   bool     `json:"has_more,omitempty"`   // 是否还有更多项
 	PageToken string   `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	Total     int64    `json:"total,omitempty"`      // 符合条件的记录总数
 	Items     []string `json:"items,omitempty"`      // 数据记录列表, 格式为数组序列化后的 JSONString
 }
 
-// getAPaaSWorkspaceTableRecordsGetResp ...
-type getAPaaSWorkspaceTableRecordsGetResp struct {
-	Code  int64                                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg   string                                `json:"msg,omitempty"`  // 错误描述
-	Data  *GetAPaaSWorkspaceTableRecordsGetResp `json:"data,omitempty"`
-	Error *ErrorDetail                          `json:"error,omitempty"`
+// getAPaaSWorkspaceTableRecordsResp ...
+type getAPaaSWorkspaceTableRecordsResp struct {
+	Code  int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                             `json:"msg,omitempty"`  // 错误描述
+	Data  *GetAPaaSWorkspaceTableRecordsResp `json:"data,omitempty"`
+	Error *ErrorDetail                       `json:"error,omitempty"`
 }

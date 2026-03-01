@@ -38,7 +38,7 @@ https://godoc.org/github.com/chyroc/lark
 
 ## Support APIs
 
-API Count: 1622, Event Count: 153
+API Count: 1630, Event Count: 153
 
 <details>
   <summary>
@@ -93,8 +93,8 @@ API Count: 1622, Event Count: 153
   - GetAPaaSApplicationAuditLog
   - GetAPaaSApplicationEnvironmentVariable
   - QueryAPaaSApplicationEnvironmentVariable
-  - CreateAPaaSApplicationFlowExecute
-  - CreateAPaaSApplicationFunctionInvoke
+  - ExecuteAPaaSApplicationFlow
+  - InvokeAPaaSApplicationFunction
   - BatchCreateAPaaSApplicationObjectRecord
   - BatchDeleteAPaaSApplicationObjectRecord
   - BatchQueryAPaaSApplicationObjectRecord
@@ -103,7 +103,7 @@ API Count: 1622, Event Count: 153
   - DeleteAPaaSApplicationObjectRecord
   - UpdateAPaaSApplicationObjectRecord
   - QueryAPaaSApplicationObjectRecord
-  - CreateAPaaSApplicationObjectOqlQuery
+  - QueryAPaaSApplicationObjectOql
   - SearchAPaaSApplicationObject
   - BatchCreateAPaaSApplicationRecordPermissionMemberAuthorization
   - BatchRemoveAPaaSApplicationRecordPermissionMemberAuthorization
@@ -123,16 +123,16 @@ API Count: 1622, Event Count: 153
   - QueryAPaaSUserTask
   - CreateAPaaSUserTaskRollback
   - CreateAPaaSUserTaskRollbackPoints
-  - GetAPaaSWorkspaceEnumGet
+  - GetAPaaSWorkspaceEnum
   - ListAPaaSWorkspaceEnum
   - ListAPaaSWorkspaceTable
-  - UpdateAPaaSWorkspaceTableRecordsBatchUpdate
-  - DeleteAPaaSWorkspaceTableRecordsDelete
-  - GetAPaaSWorkspaceTableRecordsGet
+  - BatchUpdateAPaaSWorkspaceTableRecords
+  - DeleteAPaaSWorkspaceTableRecords
+  - GetAPaaSWorkspaceTableRecords
   - UpdateAPaaSWorkspaceTableRecordsPatch
-  - CreateAPaaSWorkspaceTableRecordsPost
-  - GetAPaaSWorkspaceTableGet
-  - GetAPaaSWorkspaceViewViewsGet
+  - CreateAPaaSWorkspaceTableRecords
+  - GetAPaaSWorkspaceTable
+  - GetAPaaSWorkspaceViews
   - CreateAPaaSWorkspaceSqlCommands
 - Admin
   - AdminResetPassword
@@ -169,7 +169,7 @@ API Count: 1622, Event Count: 153
   - CreateAilyAppKnowledgeAsk
   - GetAilyAppSkill
   - ListAilyAppSkill
-  - CreateAilyAppSkillStart
+  - StartAilyAppSkill
 - AppLink
   - OpenNativeApp
   - OpenLark
@@ -300,13 +300,13 @@ API Count: 1622, Event Count: 153
   - UpdateAttendanceUserSetting
   - DownloadAttendanceFile
   - UploadAttendanceFile
-  - CreateAttendanceArchiveRuleDelReport
+  - DeleteAttendanceArchiveRuleReport
   - ListAttendanceArchiveRule
   - UploadAttendanceArchiveRuleReport
   - CreateAttendanceArchiveRuleUserStatsFieldsQuery
   - ListAttendanceGroupUser
   - BatchCreateAttendanceUserDailyShiftTemp
-  - BatchAttendanceUserFlowDel
+  - BatchDeleteAttendanceUserFlow
 - Auth
   - ResendAppTicket
   - GetAccessToken
@@ -334,10 +334,6 @@ API Count: 1622, Event Count: 153
   - GetBaikeClassificationList
   - UploadBaikeImage
   - DownloadBaikeImage
-- Base
-  - CreateBaseAppRole
-  - ListBaseAppRole
-  - UpdateBaseAppRole
 - Bitable
   - CopyBitableDashboard
   - GetBitableDashboardList
@@ -386,12 +382,6 @@ API Count: 1622, Event Count: 153
   - BatchGetBitableAppTableRecord
   - ListBitableAppWorkflow
   - UpdateBitableAppWorkflow
-- Board
-  - CreateBoardWhiteboardNode
-  - CreateBoardWhiteboardNodePlantuml
-  - DownloadBoardWhiteboardAsImage
-  - GetBoardWhiteboardTheme
-  - UpdateBoardWhiteboardTheme
 - Bot
   - GetBotInfo
   - AddBotToChat
@@ -454,8 +444,6 @@ API Count: 1622, Event Count: 153
   - CreateCardkitCardIDConvert
   - UpdateCardkitCardSettings
   - UpdateCardkitCard
-- CcmDocs
-  - CreateCcmDocsDefaultDocsApiMeta
 - Chat
   - CreateChat
   - GetChat
@@ -707,9 +695,9 @@ API Count: 1622, Event Count: 153
   - GetCoreHRLeaveTypeList
   - GetCoreHRLeaveBalanceList
   - GetCoreHRLeaveRequestHistoryList
-  - BatchGetCoreHrbpByEmployee
-  - GetCoreHrbpByDepartment
-  - GetCoreHrbpList
+  - BatchGetCoreHRByEmployee
+  - GetCoreHRByDepartment
+  - GetCoreHRList
   - GetCoreHRSecurityGroupBp
   - SearchCoreHRAssignedUser
   - GetCoreHRAuthorization
@@ -725,133 +713,141 @@ API Count: 1622, Event Count: 153
   - GetCoreHRCompensationItemList
   - GetCoreHRCompensationItemCategoryList
   - GetCoreHRCompensationPlanList
-  - GetCorehrApprovalGroups
-  - QueryCorehrApprovalGroupsDepartmentChangeListByIDs
-  - QueryCorehrApprovalGroupsJobChangeListByIDs
-  - QueryCorehrApprovalGroupsPositionChangeListByIDs
-  - ListCorehrApprover
-  - SearchCorehrBasicInfoLanguage
-  - SearchCorehrBasicInfoTimeZone
-  - CreateCorehrCompanyActive
-  - QueryCorehrCompanyMultiTimeline
-  - QueryCorehrCompanyRecentChange
-  - BatchQueryCorehrCostAllocation
-  - CreateCorehrCostAllocationVersion
-  - RemoveCorehrCostAllocationVersion
-  - UpdateCorehrCostAllocationVersion
-  - QueryCorehrCostCenterRecentChange
-  - CreateCorehrCustomOrgActive
-  - CreateCorehrCustomOrg
-  - DeleteCorehrCustomOrg
-  - UpdateCorehrCustomOrg
-  - QueryCorehrCustomOrg
-  - QueryCorehrCustomOrgRecentChange
-  - UpdateCorehrCustomOrgRule
-  - BatchQueryCorehrDefaultCostCenter
-  - CreateCorehrDefaultCostCenterVersion
-  - RemoveCorehrDefaultCostCenterVersion
-  - UpdateCorehrDefaultCostCenterVersion
-  - DeleteCorehrDepartment
-  - UpdateCorehrDepartment
+  - GetCoreHRApprovalGroups
+  - QueryCoreHRApprovalGroupsDepartmentChangeListByIDs
+  - QueryCoreHRApprovalGroupsJobChangeListByIDs
+  - QueryCoreHRApprovalGroupsPositionChangeListByIDs
+  - ListCoreHRApprover
+  - SearchCoreHRBasicInfoLanguage
+  - SearchCoreHRBasicInfoTimeZone
+  - CreateCoreHRCompanyActive
+  - QueryCoreHRCompanyMultiTimeline
+  - QueryCoreHRCompanyRecentChange
+  - BatchQueryCoreHRCostAllocation
+  - CreateCoreHRCostAllocationVersion
+  - RemoveCoreHRCostAllocationVersion
+  - UpdateCoreHRCostAllocationVersion
+  - QueryCoreHRCostCenterRecentChange
+  - CreateCoreHRCustomOrgActive
+  - CreateCoreHRCustomOrg
+  - DeleteCoreHRCustomOrg
+  - UpdateCoreHRCustomOrg
+  - QueryCoreHRCustomOrg
+  - QueryCoreHRCustomOrgRecentChange
+  - UpdateCoreHRCustomOrgRule
+  - BatchQueryCoreHRDefaultCostCenter
+  - CreateCoreHRDefaultCostCenterVersion
+  - RemoveCoreHRDefaultCostCenterVersion
+  - UpdateCoreHRDefaultCostCenterVersion
+  - DeleteCoreHRDepartment
+  - UpdateCoreHRDepartment
   - BatchQueryCoreHRDepartmentTimeline
-  - QueryCorehrDepartmentOperationLogs
-  - QueryCorehrDepartmentRecentChange
+  - QueryCoreHRDepartmentOperationLogs
+  - QueryCoreHRDepartmentRecentChange
   - QueryCoreHRDepartmentTimeline
-  - CreateCorehrDepartmentTree
-  - GetCorehrDraft
-  - CreateCorehrEmployee
-  - BatchQueryCorehrEmployeesAdditionalJob
-  - CreateCorehrEmployeesAdditionalJob
-  - DeleteCorehrEmployeesAdditionalJob
-  - UpdateCorehrEmployeesAdditionalJob
-  - CreateCorehrEmployeesInternationalAssignment
-  - DeleteCorehrEmployeesInternationalAssignment
-  - ListCorehrEmployeesInternationalAssignment
-  - UpdateCorehrEmployeesInternationalAssignment
-  - SearchCorehrEnum
-  - BatchGetCorehrJob
-  - QueryCorehrJobMultiTimeline
-  - QueryCorehrJobRecentChange
-  - CreateCorehrJobChange
-  - CreateCorehrJobChangeRevoke
-  - QueryCorehrJobFamilyMultiTimeline
-  - QueryCorehrJobFamilyRecentChange
-  - CreateCorehrJobGrade
-  - DeleteCorehrJobGrade
-  - UpdateCorehrJobGrade
+  - CreateCoreHRDepartmentTree
+  - GetCoreHRDraft
+  - CreateCoreHREmployee
+  - BatchQueryCoreHREmployeesAdditionalJob
+  - CreateCoreHREmployeesAdditionalJob
+  - DeleteCoreHREmployeesAdditionalJob
+  - UpdateCoreHREmployeesAdditionalJob
+  - CreateCoreHREmployeesInternationalAssignment
+  - DeleteCoreHREmployeesInternationalAssignment
+  - ListCoreHREmployeesInternationalAssignment
+  - UpdateCoreHREmployeesInternationalAssignment
+  - SearchCoreHREnum
+  - BatchGetCoreHRJob
+  - QueryCoreHRJobMultiTimeline
+  - QueryCoreHRJobRecentChange
+  - CreateCoreHRJobChange
+  - RevokeCoreHRJobChange
+  - QueryCoreHRJobFamilyMultiTimeline
+  - QueryCoreHRJobFamilyRecentChange
+  - CreateCoreHRJobGrade
+  - DeleteCoreHRJobGrade
+  - UpdateCoreHRJobGrade
   - QueryCoreHRJobGrade
-  - QueryCorehrJobGradeRecentChange
-  - QueryCorehrJobLevelRecentChange
-  - CreateCorehrLocationAddress
-  - DeleteCorehrLocationAddress
-  - UpdateCorehrLocationAddress
-  - CreateCorehrLocationActive
-  - UpdateCorehrLocation
-  - QueryCorehrLocationMultiTimeline
-  - QueryCorehrLocationRecentChange
-  - CreateCorehrOffboardingEdit
-  - CreateCorehrOffboardingRevoke
-  - CreateCorehrOffboardingSubmitV2
-  - CreateCorehrPathwayActive
-  - BatchGetCorehrPathway
-  - CreateCorehrPathway
-  - DeleteCorehrPathway
-  - UpdateCorehrPathway
-  - CreateCorehrPositionActive
-  - CreateCorehrPosition
-  - CreateCorehrPositionDelPosition
-  - UpdateCorehrPosition
-  - QueryCorehrPosition
-  - QueryCorehrPositionRecentChange
-  - CreateCorehrPreHireComplete
-  - DeleteCorehrPreHire
-  - UpdateCorehrPreHire
-  - QueryCorehrPreHire
-  - CreateCorehrPreHireRestoreFlowInstance
+  - QueryCoreHRJobGradeRecentChange
+  - QueryCoreHRJobLevelRecentChange
+  - CreateCoreHRLocationAddress
+  - DeleteCoreHRLocationAddress
+  - UpdateCoreHRLocationAddress
+  - CreateCoreHRLocationActive
+  - UpdateCoreHRLocation
+  - QueryCoreHRLocationMultiTimeline
+  - QueryCoreHRLocationRecentChange
+  - CreateCoreHROffboardingEdit
+  - RevokeCoreHROffboarding
+  - SubmitCoreHROffboardingV2
+  - CreateCoreHRPathwayActive
+  - BatchGetCoreHRPathway
+  - CreateCoreHRPathway
+  - DeleteCoreHRPathway
+  - UpdateCoreHRPathway
+  - CreateCoreHRPositionActive
+  - CreateCoreHRPosition
+  - DeleteCoreHRPosition
+  - UpdateCoreHRPosition
+  - QueryCoreHRPosition
+  - QueryCoreHRPositionRecentChange
+  - CompleteCoreHRPreHire
+  - DeleteCoreHRPreHire
+  - UpdateCoreHRPreHire
+  - QueryCoreHRPreHire
+  - RestoreCoreHRPreHireFlowInstance
   - SearchCoreHRPreHire
-  - CreateCorehrPreHireTransformOnboardingTask
-  - CreateCorehrPreHireTransitTask
-  - CreateCorehrPreHireWithdrawOnboarding
-  - CreateCorehrProbationSubmit
-  - CreateCorehrProbationWithdraw
-  - UpdateCorehrProcessApprover
-  - UpdateCorehrProcessExtra
-  - GetCorehrProcessFormVariableData
-  - CreateCorehrProcessQueryFlowDataTemplate
-  - UpdateCorehrProcessTransfer
-  - GetCorehrProcessFlowVariableData
-  - UpdateCorehrProcessRevoke
-  - CreateCorehrProcessStart
-  - UpdateCorehrProcessWithdraw
-  - CreateCorehrReportDetailRowBatchdelete
-  - CreateCorehrReportDetailRowBatchsave
-  - DownloadCorehrSignatureFile
-  - ListCorehrSignatureFile
-  - ListCorehrSignatureFileByBizID
-  - QueryCorehrSignatureFile
-  - CreateCorehrSignatureFileTerminate
-  - ListCorehrSignatureNodeByFileID
-  - SearchCorehrSignatureTemplate
-  - ListCorehrSignatureTemplateInfoWithThumbnail
-  - ListCorehrWorkforcePlan
-  - BatchQueryCorehrWorkforcePlanDetail
-  - BatchCorehrWorkforcePlanDetailV2
-  - CreateCorehrWorkforcePlanDetailRowBatchdelete
-  - CreateCorehrWorkforcePlanDetailRowBatchsave
-  - AddCorehrAuthorizationRoleAssign
+  - TransformCoreHRPreHireOnboardingTask
+  - TransitCoreHRPreHireTask
+  - WithdrawCoreHRPreHireOnboarding
+  - SubmitCoreHRProbation
+  - WithdrawCoreHRProbation
+  - UpdateCoreHRProcessApprover
+  - UpdateCoreHRProcessExtra
+  - GetCoreHRProcessFormVariableData
+  - QueryCoreHRProcessFlowDataTemplate
+  - UpdateCoreHRProcessTransfer
+  - GetCoreHRProcessFlowVariableData
+  - UpdateCoreHRProcessRevoke
+  - CreateCoreHRProcessStart
+  - UpdateCoreHRProcessWithdraw
+  - BatchDeleteCoreHRReportDetailRow
+  - BatchSaveCoreHRReportDetailRow
+  - DownloadCoreHRSignatureFile
+  - ListCoreHRSignatureFile
+  - ListCoreHRSignatureFileByBizID
+  - QueryCoreHRSignatureFile
+  - TerminateCoreHRSignatureFile
+  - ListCoreHRSignatureNodeByFileID
+  - SearchCoreHRSignatureTemplate
+  - ListCoreHRSignatureTemplateInfoWithThumbnail
+  - ListCoreHRWorkforcePlan
+  - BatchQueryCoreHRWorkforcePlanDetail
+  - BatchQueryCoreHRWorkforcePlanDetailV2
+  - BatchDeleteCoreHRWorkforcePlanDetailRow
+  - BatchSaveCoreHRWorkforcePlanDetailRow
+  - AddCoreHRAuthorizationRoleAssign
   - GetCoreHRAuthorization
   - GetCoreHRAuthorizationList
-  - RemoveCorehrAuthorizationRoleAssign
-  - UpdateCorehrAuthorizationRoleAssign
-  - CreateCorehrCommonDataIDConvert
-  - AddCorehrCommonDataMetaDataEnumOption
-  - CreateCorehrCommonDataMetaDataEditEnumOption
+  - RemoveCoreHRAuthorizationRoleAssign
+  - UpdateCoreHRAuthorizationRoleAssign
+  - CreateCoreHRCommonDataIDConvert
+  - AddCoreHRCommonDataMetaDataEnumOption
+  - CreateCoreHRCommonDataMetaDataEditEnumOption
   - MatchCoreHRCompensationStandard
-  - GetCorehrLeaveCalendarByScope
-  - CreateCorehrLeaveWorkCalendar
-  - CreateCorehrLeaveWorkCalendarDate
-  - CreateCorehrPerson
-  - UpdateCorehrPerson
+  - GetCoreHRLeaveCalendarByScope
+  - CreateCoreHRLeaveWorkCalendar
+  - CreateCoreHRLeaveWorkCalendarDate
+  - CreateCoreHRPerson
+  - UpdateCoreHRPerson
+  - CreateCoreHRJobChangeV2
+  - CreateCoreHRPersonV1
+  - DeleteCoreHRDepartmentV2
+  - DeleteCoreHRPreHireV2
+  - GetCoreHRProcessFormVariableDataV2
+  - UpdateCoreHRDepartmentV2
+  - UpdateCoreHRPersonV1
+  - UpdateCoreHRPreHireV2
 - Directory
   - CreateDirectoryCollaborationRule
   - DeleteDirectoryCollaborationRule
@@ -874,8 +870,6 @@ API Count: 1622, Event Count: 153
   - CreateDirectoryEmployeeResurrect
   - SearchDirectoryEmployee
   - UpdateDirectoryEmployeeToBeResigned
-- Docs
-  - GetDocsContent
 - Drive
   - AddSheetDimensionRange
   - AddWikiSpaceMember
@@ -1038,7 +1032,17 @@ API Count: 1622, Event Count: 153
   - UpdateWikiSpaceSetting
   - UploadDriveFile
   - UploadDriveMedia
+  - CreateBaseAppRole
+  - ListBaseAppRole
+  - UpdateBaseAppRole
+  - CreateCcmDocsDefaultDocsApiMeta
+  - CreateBoardWhiteboardNode
+  - CreateBoardWhiteboardNodePlantuml
   - GetWhiteboardNodeList
+  - DownloadBoardWhiteboardAsImage
+  - GetBoardWhiteboardTheme
+  - UpdateBoardWhiteboardTheme
+  - GetDocsContent
   - BatchDeleteDocxChatAnnouncementBlockChildren
   - CreateDocxChatAnnouncementBlockChildren
   - GetDocxChatAnnouncementBlockChildren
@@ -1061,13 +1065,13 @@ API Count: 1622, Event Count: 153
   - EventV2URLPreviewGet
   - EventV2HireApplicationStageChangedV1
   - EventV2HireApplicationDeletedV1
-  - EventV2CorehrJobCreatedV1
-  - EventV2CorehrJobUpdatedV1
-  - EventV2CorehrJobDeletedV1
-  - EventV2CorehrProcessUpdatedV2
-  - EventV2CorehrProcessNodeUpdatedV2
-  - EventV2CorehrProcessApproverUpdatedV2
-  - EventV2CorehrProcessCcUpdatedV2
+  - EventV2CoreHRJobCreatedV1
+  - EventV2CoreHRJobUpdatedV1
+  - EventV2CoreHRJobDeletedV1
+  - EventV2CoreHRProcessUpdatedV2
+  - EventV2CoreHRProcessNodeUpdatedV2
+  - EventV2CoreHRProcessApproverUpdatedV2
+  - EventV2CoreHRProcessCcUpdatedV2
   - EventV2ContactCustomAttrEventUpdatedV3
   - EventV2ApplicationApplicationCreatedV6
   - EventV1AppOpen
@@ -1175,34 +1179,34 @@ API Count: 1622, Event Count: 153
   - EventV2VCReserveConfigUpdatedV1
   - EventV2ApplicationBotMenuV6
   - EventV2HireOfferStatusChangedV1
-  - EventV2CorehrEmploymentCreatedV1
-  - EventV2CorehrEmploymentUpdatedV1
-  - EventV2CorehrEmploymentDeletedV1
-  - EventV2CorehrPersonCreatedV1
-  - EventV2CorehrPersonUpdatedV1
-  - EventV2CorehrPersonDeletedV1
-  - EventV2CorehrDepartmentCreatedV1
-  - EventV2CorehrDepartmentUpdatedV1
-  - EventV2CorehrDepartmentDeletedV1
-  - EventV2CorehrJobDataEmployedV1
-  - EventV2CorehrContractCreatedV1
-  - EventV2CorehrEmploymentConvertedV1
-  - EventV2CorehrJobChangeUpdatedV1
-  - EventV2CorehrJobDataChangedV1
-  - EventV2CorehrOffboardingUpdatedV1
-  - EventV2CorehrEmploymentResignedV1
-  - EventV2CorehrOrgRoleAuthorizationUpdatedV1
+  - EventV2CoreHREmploymentCreatedV1
+  - EventV2CoreHREmploymentUpdatedV1
+  - EventV2CoreHREmploymentDeletedV1
+  - EventV2CoreHRPersonCreatedV1
+  - EventV2CoreHRPersonUpdatedV1
+  - EventV2CoreHRPersonDeletedV1
+  - EventV2CoreHRDepartmentCreatedV1
+  - EventV2CoreHRDepartmentUpdatedV1
+  - EventV2CoreHRDepartmentDeletedV1
+  - EventV2CoreHRJobDataEmployedV1
+  - EventV2CoreHRContractCreatedV1
+  - EventV2CoreHREmploymentConvertedV1
+  - EventV2CoreHRJobChangeUpdatedV1
+  - EventV2CoreHRJobDataChangedV1
+  - EventV2CoreHROffboardingUpdatedV1
+  - EventV2CoreHREmploymentResignedV1
+  - EventV2CoreHROrgRoleAuthorizationUpdatedV1
   - EventV2HireEHRImportTaskForInternshipOfferImportedV1
   - EventV2HireEHRImportTaskImportedV1
-  - EventV2CorehrProbationUpdatedV2
-  - EventV2CorehrPreHireUpdatedV1
+  - EventV2CoreHRProbationUpdatedV2
+  - EventV2CoreHRPreHireUpdatedV1
   - EventV2HireEcoAccountCreatedV1
   - EventV2HireEcoBackgroundCheckCreatedV1
   - EventV2HireEcoBackgroundCheckCanceledV1
   - EventV2HireEcoExamCreatedV1
   - EventV2HireReferralAccountAssetsUpdateV1
-  - EventV2CorehrContractDeletedV1
-  - EventV2CorehrContractUpdatedV1
+  - EventV2CoreHRContractDeletedV1
+  - EventV2CoreHRContractUpdatedV1
   - EventV1TripApproval
   - EventV2CardActionTrigger
   - EventV2CorehrOffboardingChecklistUpdatedV2
@@ -1347,7 +1351,7 @@ API Count: 1622, Event Count: 153
   - CreateHireAgencyProtect
   - CreateHireAgencyProtectSearch
   - QueryHireAgency
-  - CreateHireApplicationCancelOnboard
+  - CancelHireApplicationOnboard
   - GetHireApplicationDetail
   - CreateHireApplicationRecover
   - TransferHireApplicationStage
@@ -1414,8 +1418,8 @@ API Count: 1622, Event Count: 153
   - ListHireSubject
   - CreateHireTalentExternalInfo
   - UpdateHireTalentExternalInfo
-  - CreateHireTalentCombinedCreate
-  - CreateHireTalentCombinedUpdate
+  - CreateHireTalentCombined
+  - UpdateHireTalentCombined
   - GetHireTalentList
   - CreateHireTalentOnboardStatus
   - RemoveHireTalentToFolder
@@ -1538,17 +1542,15 @@ API Count: 1622, Event Count: 153
   - GetMailUserMailboxMessage
   - GetMailUserMailboxMessageByCard
   - ListMailUserMailboxMessage
-  - CreateMailUserMailboxMessageSend
+  - SendMailUserMailboxMessage
   - CreateMailUserMailboxRule
   - DeleteMailUserMailboxRule
   - ListMailUserMailboxRule
-  - CreateMailUserMailboxRuleReorder
+  - ReorderMailUserMailboxRule
   - UpdateMailUserMailboxRule
   - ApplyMailRule
   - GetMailMessageSubscription
   - SubscribeMailMessage
-- MeetingRoom
-  - GetMeetingRoomCustomization
 - Message
   - SendEphemeralMessage
   - SendUrgentAppMessage
@@ -1627,7 +1629,7 @@ API Count: 1622, Event Count: 153
   - GetOKRReview
 - Passport
   - GetPassportSession
-  - CreatePassportSessionLogout
+  - LogoutPassportSession
 - Payroll
   - ListPayrollAcctItem
   - ListPayrollCostAllocationDetail
@@ -1690,7 +1692,7 @@ API Count: 1622, Event Count: 153
   - DeleteSearchSchema
   - GetSearchSchema
   - CreateSearchSchema
-  - SearchSearchDocWiki
+  - SearchDocWiki
 - SecurityAndCompliance
   - ListSecurityAndComplianceOpenapiLogData
   - UpdateSecurityAndComplianceDeviceApplyRecord
@@ -1860,21 +1862,21 @@ API Count: 1622, Event Count: 153
   - SetVCRoomConfig
   - SetVCRoomConfigCheckboardAccessCode
   - SetVCRoomConfigRoomAccessCode
-- VCMeeting
   - ListVCMeetingDefaultRoom
-  - CreateVCMeetingDefaultBuildingCreate
+  - CreateVCMeetingDefaultBuilding
   - GetVCMeetingDefaultRoomBatchGet
-  - CreateVCMeetingDefaultBuildingUpdate
-  - CreateVCMeetingDefaultRoomCreate
-  - CreateVCMeetingDefaultRoomUpdate
-  - CreateVCMeetingDefaultBuildingDelete
+  - UpdateVCMeetingDefaultBuilding
+  - CreateVCMeetingDefaultRoom
+  - UpdateVCMeetingDefaultRoom
+  - DeleteVCMeetingDefaultBuilding
   - ListVCMeetingDefaultCountry
   - GetVCMeetingDefaultBuildingBatchGetID
   - ListVCMeetingDefaultDistrict
-  - CreateVCMeetingDefaultRoomDelete
+  - DeleteVCMeetingDefaultRoom
   - GetVCMeetingDefaultRoomBatchGetID
   - ListVCMeetingDefaultBuilding
   - GetVCMeetingDefaultBuildingBatchGet
+  - GetMeetingRoomCustomization
 - Verification
   - GetVerification
 

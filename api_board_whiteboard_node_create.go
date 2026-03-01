@@ -25,9 +25,9 @@ import (
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/board-v1/whiteboard-node/create
 func (r *DriveService) CreateBoardWhiteboardNode(ctx context.Context, request *CreateBoardWhiteboardNodeReq, options ...MethodOptionFunc) (*CreateBoardWhiteboardNodeResp, *Response, error) {
-	if r.cli.mock.mockBoardCreateBoardWhiteboardNode != nil {
+	if r.cli.mock.mockDriveCreateBoardWhiteboardNode != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#CreateBoardWhiteboardNode mock enable")
-		return r.cli.mock.mockBoardCreateBoardWhiteboardNode(ctx, request, options...)
+		return r.cli.mock.mockDriveCreateBoardWhiteboardNode(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
@@ -46,14 +46,14 @@ func (r *DriveService) CreateBoardWhiteboardNode(ctx context.Context, request *C
 	return resp.Data, response, err
 }
 
-// MockBoardCreateBoardWhiteboardNode mock BoardCreateBoardWhiteboardNode method
-func (r *Mock) MockBoardCreateBoardWhiteboardNode(f func(ctx context.Context, request *CreateBoardWhiteboardNodeReq, options ...MethodOptionFunc) (*CreateBoardWhiteboardNodeResp, *Response, error)) {
-	r.mockBoardCreateBoardWhiteboardNode = f
+// MockDriveCreateBoardWhiteboardNode mock DriveCreateBoardWhiteboardNode method
+func (r *Mock) MockDriveCreateBoardWhiteboardNode(f func(ctx context.Context, request *CreateBoardWhiteboardNodeReq, options ...MethodOptionFunc) (*CreateBoardWhiteboardNodeResp, *Response, error)) {
+	r.mockDriveCreateBoardWhiteboardNode = f
 }
 
-// UnMockBoardCreateBoardWhiteboardNode un-mock BoardCreateBoardWhiteboardNode method
-func (r *Mock) UnMockBoardCreateBoardWhiteboardNode() {
-	r.mockBoardCreateBoardWhiteboardNode = nil
+// UnMockDriveCreateBoardWhiteboardNode un-mock DriveCreateBoardWhiteboardNode method
+func (r *Mock) UnMockDriveCreateBoardWhiteboardNode() {
+	r.mockDriveCreateBoardWhiteboardNode = nil
 }
 
 // CreateBoardWhiteboardNodeReq ...

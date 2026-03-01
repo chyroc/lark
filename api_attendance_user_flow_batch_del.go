@@ -21,58 +21,58 @@ import (
 	"context"
 )
 
-// BatchAttendanceUserFlowDel 删除员工从开放平台导入的打卡记录。删除后会重新计算打卡记录对应考勤任务结果。
+// BatchDeleteAttendanceUserFlow 删除员工从开放平台导入的打卡记录。删除后会重新计算打卡记录对应考勤任务结果。
 //
 // 当返回结果fail_record_ids不为空时, msg字段返回对应失败原因, 格式为: {"xx id": "xx reason"}
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_flow/batch_del
 // new doc: https://open.feishu.cn/document/attendance-v1/user_task/batch_del
-func (r *AttendanceService) BatchAttendanceUserFlowDel(ctx context.Context, request *BatchAttendanceUserFlowDelReq, options ...MethodOptionFunc) (*BatchAttendanceUserFlowDelResp, *Response, error) {
-	if r.cli.mock.mockAttendanceBatchAttendanceUserFlowDel != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] Attendance#BatchAttendanceUserFlowDel mock enable")
-		return r.cli.mock.mockAttendanceBatchAttendanceUserFlowDel(ctx, request, options...)
+func (r *AttendanceService) BatchDeleteAttendanceUserFlow(ctx context.Context, request *BatchDeleteAttendanceUserFlowReq, options ...MethodOptionFunc) (*BatchDeleteAttendanceUserFlowResp, *Response, error) {
+	if r.cli.mock.mockAttendanceBatchDeleteAttendanceUserFlow != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Attendance#BatchDeleteAttendanceUserFlow mock enable")
+		return r.cli.mock.mockAttendanceBatchDeleteAttendanceUserFlow(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "Attendance",
-		API:                   "BatchAttendanceUserFlowDel",
+		API:                   "BatchDeleteAttendanceUserFlow",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/attendance/v1/user_flows/batch_del",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(batchAttendanceUserFlowDelResp)
+	resp := new(batchDeleteAttendanceUserFlowResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockAttendanceBatchAttendanceUserFlowDel mock AttendanceBatchAttendanceUserFlowDel method
-func (r *Mock) MockAttendanceBatchAttendanceUserFlowDel(f func(ctx context.Context, request *BatchAttendanceUserFlowDelReq, options ...MethodOptionFunc) (*BatchAttendanceUserFlowDelResp, *Response, error)) {
-	r.mockAttendanceBatchAttendanceUserFlowDel = f
+// MockAttendanceBatchDeleteAttendanceUserFlow mock AttendanceBatchDeleteAttendanceUserFlow method
+func (r *Mock) MockAttendanceBatchDeleteAttendanceUserFlow(f func(ctx context.Context, request *BatchDeleteAttendanceUserFlowReq, options ...MethodOptionFunc) (*BatchDeleteAttendanceUserFlowResp, *Response, error)) {
+	r.mockAttendanceBatchDeleteAttendanceUserFlow = f
 }
 
-// UnMockAttendanceBatchAttendanceUserFlowDel un-mock AttendanceBatchAttendanceUserFlowDel method
-func (r *Mock) UnMockAttendanceBatchAttendanceUserFlowDel() {
-	r.mockAttendanceBatchAttendanceUserFlowDel = nil
+// UnMockAttendanceBatchDeleteAttendanceUserFlow un-mock AttendanceBatchDeleteAttendanceUserFlow method
+func (r *Mock) UnMockAttendanceBatchDeleteAttendanceUserFlow() {
+	r.mockAttendanceBatchDeleteAttendanceUserFlow = nil
 }
 
-// BatchAttendanceUserFlowDelReq ...
-type BatchAttendanceUserFlowDelReq struct {
+// BatchDeleteAttendanceUserFlowReq ...
+type BatchDeleteAttendanceUserFlowReq struct {
 	RecordIDs []string `json:"record_ids,omitempty"` // 打卡流水记录 ID, 获取方式: 1）[批量查询打卡流水记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_flow/query) 2）[获取打卡结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task/query) 3）[导入打卡流水记录](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_flow/batch_create)示例值: ["6709359313699356941"] 长度范围: `1` ～ `10`
 }
 
-// BatchAttendanceUserFlowDelResp ...
-type BatchAttendanceUserFlowDelResp struct {
+// BatchDeleteAttendanceUserFlowResp ...
+type BatchDeleteAttendanceUserFlowResp struct {
 	SuccessRecordIDs []string `json:"success_record_ids,omitempty"` // 删除成功的流水记录ID列表
 	FailRecordIDs    []string `json:"fail_record_ids,omitempty"`    // 删除失败的流水记录ID列表
 }
 
-// batchAttendanceUserFlowDelResp ...
-type batchAttendanceUserFlowDelResp struct {
-	Code  int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg   string                          `json:"msg,omitempty"`  // 错误描述
-	Data  *BatchAttendanceUserFlowDelResp `json:"data,omitempty"`
-	Error *ErrorDetail                    `json:"error,omitempty"`
+// batchDeleteAttendanceUserFlowResp ...
+type batchDeleteAttendanceUserFlowResp struct {
+	Code  int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                             `json:"msg,omitempty"`  // 错误描述
+	Data  *BatchDeleteAttendanceUserFlowResp `json:"data,omitempty"`
+	Error *ErrorDetail                       `json:"error,omitempty"`
 }

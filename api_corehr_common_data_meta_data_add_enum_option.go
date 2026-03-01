@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// AddCorehrCommonDataMetaDataEnumOption 对于当前已有的所有自定义枚举字段, 以及部分系统预置枚举字段, 通过本接口可在字段中批量新增可选项
+// AddCoreHRCommonDataMetaDataEnumOption 对于当前已有的所有自定义枚举字段, 以及部分系统预置枚举字段, 通过本接口可在字段中批量新增可选项
 //
 // 本接口当前允许修改的系统预置字段如下:
 // - person（个人信息）: gender（性别）、marital_status（婚姻状态）
@@ -37,80 +37,80 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/common_data-meta_data/add_enum_option
 // new doc: https://open.feishu.cn/document/corehr-v1/basic-infomation/custom_field/add_enum_option
-func (r *CoreHRService) AddCorehrCommonDataMetaDataEnumOption(ctx context.Context, request *AddCorehrCommonDataMetaDataEnumOptionReq, options ...MethodOptionFunc) (*AddCorehrCommonDataMetaDataEnumOptionResp, *Response, error) {
-	if r.cli.mock.mockCoreHRAddCorehrCommonDataMetaDataEnumOption != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#AddCorehrCommonDataMetaDataEnumOption mock enable")
-		return r.cli.mock.mockCoreHRAddCorehrCommonDataMetaDataEnumOption(ctx, request, options...)
+func (r *CoreHRService) AddCoreHRCommonDataMetaDataEnumOption(ctx context.Context, request *AddCoreHRCommonDataMetaDataEnumOptionReq, options ...MethodOptionFunc) (*AddCoreHRCommonDataMetaDataEnumOptionResp, *Response, error) {
+	if r.cli.mock.mockCoreHRAddCoreHRCommonDataMetaDataEnumOption != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#AddCoreHRCommonDataMetaDataEnumOption mock enable")
+		return r.cli.mock.mockCoreHRAddCoreHRCommonDataMetaDataEnumOption(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "AddCorehrCommonDataMetaDataEnumOption",
+		API:                   "AddCoreHRCommonDataMetaDataEnumOption",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/common_data/meta_data/add_enum_option",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(addCorehrCommonDataMetaDataEnumOptionResp)
+	resp := new(addCoreHRCommonDataMetaDataEnumOptionResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRAddCorehrCommonDataMetaDataEnumOption mock CoreHRAddCorehrCommonDataMetaDataEnumOption method
-func (r *Mock) MockCoreHRAddCorehrCommonDataMetaDataEnumOption(f func(ctx context.Context, request *AddCorehrCommonDataMetaDataEnumOptionReq, options ...MethodOptionFunc) (*AddCorehrCommonDataMetaDataEnumOptionResp, *Response, error)) {
-	r.mockCoreHRAddCorehrCommonDataMetaDataEnumOption = f
+// MockCoreHRAddCoreHRCommonDataMetaDataEnumOption mock CoreHRAddCoreHRCommonDataMetaDataEnumOption method
+func (r *Mock) MockCoreHRAddCoreHRCommonDataMetaDataEnumOption(f func(ctx context.Context, request *AddCoreHRCommonDataMetaDataEnumOptionReq, options ...MethodOptionFunc) (*AddCoreHRCommonDataMetaDataEnumOptionResp, *Response, error)) {
+	r.mockCoreHRAddCoreHRCommonDataMetaDataEnumOption = f
 }
 
-// UnMockCoreHRAddCorehrCommonDataMetaDataEnumOption un-mock CoreHRAddCorehrCommonDataMetaDataEnumOption method
-func (r *Mock) UnMockCoreHRAddCorehrCommonDataMetaDataEnumOption() {
-	r.mockCoreHRAddCorehrCommonDataMetaDataEnumOption = nil
+// UnMockCoreHRAddCoreHRCommonDataMetaDataEnumOption un-mock CoreHRAddCoreHRCommonDataMetaDataEnumOption method
+func (r *Mock) UnMockCoreHRAddCoreHRCommonDataMetaDataEnumOption() {
+	r.mockCoreHRAddCoreHRCommonDataMetaDataEnumOption = nil
 }
 
-// AddCorehrCommonDataMetaDataEnumOptionReq ...
-type AddCorehrCommonDataMetaDataEnumOptionReq struct {
+// AddCoreHRCommonDataMetaDataEnumOptionReq ...
+type AddCoreHRCommonDataMetaDataEnumOptionReq struct {
 	ClientToken      *string                                                    `query:"client_token" json:"-"`        // 用户若希望避免重试导致多次重复请求, 可填写随机字符串, 系统根据 client_token 是否一致来判断是否为同一请求示例值: 6727817538283013641
 	ObjectApiName    string                                                     `json:"object_api_name,omitempty"`     // 所属对象 API name, 可通过[获取飞书人事对象列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/list_object_api_name)接口中返回的 `object_api_name` 字段获取示例值: "probation_management"
 	EnumFieldApiName string                                                     `json:"enum_field_api_name,omitempty"` // 枚举字段 API name, 可通过[获取自定义字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query)接口中返回的 `custom_api_name` 字段获取示例值: "final_assessment_grade"
-	EnumFieldOptions []*AddCorehrCommonDataMetaDataEnumOptionReqEnumFieldOption `json:"enum_field_options,omitempty"`  // 新增枚举选项列表 最小长度: `1`
+	EnumFieldOptions []*AddCoreHRCommonDataMetaDataEnumOptionReqEnumFieldOption `json:"enum_field_options,omitempty"`  // 新增枚举选项列表 最小长度: `1`
 }
 
-// AddCorehrCommonDataMetaDataEnumOptionReqEnumFieldOption ...
-type AddCorehrCommonDataMetaDataEnumOptionReqEnumFieldOption struct {
+// AddCoreHRCommonDataMetaDataEnumOptionReqEnumFieldOption ...
+type AddCoreHRCommonDataMetaDataEnumOptionReqEnumFieldOption struct {
 	OptionApiName string                                                       `json:"option_api_name,omitempty"` // 枚举值选项 API Name, 即选项的唯一标识, 创建后无法修改。由用户自拟, 需以英文字母开头, 并仅允许包含小写英文字母、数字和下划线示例值: "grade_e" 长度范围: `1` ～ `100` 字符
-	Name          *AddCorehrCommonDataMetaDataEnumOptionReqEnumFieldOptionName `json:"name,omitempty"`            // 选项名称（需填写至少一个语种）
+	Name          *AddCoreHRCommonDataMetaDataEnumOptionReqEnumFieldOptionName `json:"name,omitempty"`            // 选项名称（需填写至少一个语种）
 }
 
-// AddCorehrCommonDataMetaDataEnumOptionReqEnumFieldOptionName ...
-type AddCorehrCommonDataMetaDataEnumOptionReqEnumFieldOptionName struct {
+// AddCoreHRCommonDataMetaDataEnumOptionReqEnumFieldOptionName ...
+type AddCoreHRCommonDataMetaDataEnumOptionReqEnumFieldOptionName struct {
 	ZhCn *string `json:"zh_cn,omitempty"` // 中文示例值: "cn"
 	EnUs *string `json:"en_us,omitempty"` // 英文示例值: "en"
 }
 
-// AddCorehrCommonDataMetaDataEnumOptionResp ...
-type AddCorehrCommonDataMetaDataEnumOptionResp struct {
+// AddCoreHRCommonDataMetaDataEnumOptionResp ...
+type AddCoreHRCommonDataMetaDataEnumOptionResp struct {
 	EnumFieldApiName string                                                      `json:"enum_field_api_name,omitempty"` // 枚举字段 API name
-	EnumFieldOptions []*AddCorehrCommonDataMetaDataEnumOptionRespEnumFieldOption `json:"enum_field_options,omitempty"`  // 枚举全部选项列表
+	EnumFieldOptions []*AddCoreHRCommonDataMetaDataEnumOptionRespEnumFieldOption `json:"enum_field_options,omitempty"`  // 枚举全部选项列表
 }
 
-// AddCorehrCommonDataMetaDataEnumOptionRespEnumFieldOption ...
-type AddCorehrCommonDataMetaDataEnumOptionRespEnumFieldOption struct {
+// AddCoreHRCommonDataMetaDataEnumOptionRespEnumFieldOption ...
+type AddCoreHRCommonDataMetaDataEnumOptionRespEnumFieldOption struct {
 	OptionApiName string                                                        `json:"option_api_name,omitempty"` // 枚举值选项 API Name, 即选项的唯一标识
 	Active        bool                                                          `json:"active,omitempty"`          // 是否启用
-	Name          *AddCorehrCommonDataMetaDataEnumOptionRespEnumFieldOptionName `json:"name,omitempty"`            // 选项名称（需填写至少一个语种）
+	Name          *AddCoreHRCommonDataMetaDataEnumOptionRespEnumFieldOptionName `json:"name,omitempty"`            // 选项名称（需填写至少一个语种）
 }
 
-// AddCorehrCommonDataMetaDataEnumOptionRespEnumFieldOptionName ...
-type AddCorehrCommonDataMetaDataEnumOptionRespEnumFieldOptionName struct {
+// AddCoreHRCommonDataMetaDataEnumOptionRespEnumFieldOptionName ...
+type AddCoreHRCommonDataMetaDataEnumOptionRespEnumFieldOptionName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
-// addCorehrCommonDataMetaDataEnumOptionResp ...
-type addCorehrCommonDataMetaDataEnumOptionResp struct {
+// addCoreHRCommonDataMetaDataEnumOptionResp ...
+type addCoreHRCommonDataMetaDataEnumOptionResp struct {
 	Code  int64                                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                                     `json:"msg,omitempty"`  // 错误描述
-	Data  *AddCorehrCommonDataMetaDataEnumOptionResp `json:"data,omitempty"`
+	Data  *AddCoreHRCommonDataMetaDataEnumOptionResp `json:"data,omitempty"`
 	Error *ErrorDetail                               `json:"error,omitempty"`
 }

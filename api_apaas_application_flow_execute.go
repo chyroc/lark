@@ -21,43 +21,43 @@ import (
 	"context"
 )
 
-// CreateAPaaSApplicationFlowExecute 执行相应流程
+// ExecuteAPaaSApplicationFlow 执行相应流程
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/application-flow/execute
 // new doc: https://open.feishu.cn/document/apaas-v1/flow/application-flow/execute
-func (r *APaaSService) CreateAPaaSApplicationFlowExecute(ctx context.Context, request *CreateAPaaSApplicationFlowExecuteReq, options ...MethodOptionFunc) (*CreateAPaaSApplicationFlowExecuteResp, *Response, error) {
-	if r.cli.mock.mockAPaaSCreateAPaaSApplicationFlowExecute != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] APaaS#CreateAPaaSApplicationFlowExecute mock enable")
-		return r.cli.mock.mockAPaaSCreateAPaaSApplicationFlowExecute(ctx, request, options...)
+func (r *APaaSService) ExecuteAPaaSApplicationFlow(ctx context.Context, request *ExecuteAPaaSApplicationFlowReq, options ...MethodOptionFunc) (*ExecuteAPaaSApplicationFlowResp, *Response, error) {
+	if r.cli.mock.mockAPaaSExecuteAPaaSApplicationFlow != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] APaaS#ExecuteAPaaSApplicationFlow mock enable")
+		return r.cli.mock.mockAPaaSExecuteAPaaSApplicationFlow(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "APaaS",
-		API:                   "CreateAPaaSApplicationFlowExecute",
+		API:                   "ExecuteAPaaSApplicationFlow",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/apaas/v1/applications/:namespace/flows/:flow_id/execute",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(createAPaaSApplicationFlowExecuteResp)
+	resp := new(executeAPaaSApplicationFlowResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockAPaaSCreateAPaaSApplicationFlowExecute mock APaaSCreateAPaaSApplicationFlowExecute method
-func (r *Mock) MockAPaaSCreateAPaaSApplicationFlowExecute(f func(ctx context.Context, request *CreateAPaaSApplicationFlowExecuteReq, options ...MethodOptionFunc) (*CreateAPaaSApplicationFlowExecuteResp, *Response, error)) {
-	r.mockAPaaSCreateAPaaSApplicationFlowExecute = f
+// MockAPaaSExecuteAPaaSApplicationFlow mock APaaSExecuteAPaaSApplicationFlow method
+func (r *Mock) MockAPaaSExecuteAPaaSApplicationFlow(f func(ctx context.Context, request *ExecuteAPaaSApplicationFlowReq, options ...MethodOptionFunc) (*ExecuteAPaaSApplicationFlowResp, *Response, error)) {
+	r.mockAPaaSExecuteAPaaSApplicationFlow = f
 }
 
-// UnMockAPaaSCreateAPaaSApplicationFlowExecute un-mock APaaSCreateAPaaSApplicationFlowExecute method
-func (r *Mock) UnMockAPaaSCreateAPaaSApplicationFlowExecute() {
-	r.mockAPaaSCreateAPaaSApplicationFlowExecute = nil
+// UnMockAPaaSExecuteAPaaSApplicationFlow un-mock APaaSExecuteAPaaSApplicationFlow method
+func (r *Mock) UnMockAPaaSExecuteAPaaSApplicationFlow() {
+	r.mockAPaaSExecuteAPaaSApplicationFlow = nil
 }
 
-// CreateAPaaSApplicationFlowExecuteReq ...
-type CreateAPaaSApplicationFlowExecuteReq struct {
+// ExecuteAPaaSApplicationFlowReq ...
+type ExecuteAPaaSApplicationFlowReq struct {
 	Namespace     string   `path:"namespace" json:"-"`       // 应用命名空间(低代码平台->我的应用->应用管理->可查看到)示例值: "package_7344545d87__c"
 	FlowID        string   `path:"flow_id" json:"-"`         // 流程API名称（低代码平台->我的应用->开发->流程->展开为表格->可查看到）示例值: "deleteObject_99c656599f"
 	IsAsync       *bool    `json:"is_async,omitempty"`       // 是否异步执行(不传默认false)示例值: true
@@ -67,8 +67,8 @@ type CreateAPaaSApplicationFlowExecuteReq struct {
 	Operator      string   `json:"operator,omitempty"`       // 操作人（_id和email至少填一个, 低代码平台用户的 id和email, 需要从低代码平台获取, json字符串）示例值: "`{\"_id\": 1111, \"email\": \"apaas@bytedance.com\"}`"
 }
 
-// CreateAPaaSApplicationFlowExecuteResp ...
-type CreateAPaaSApplicationFlowExecuteResp struct {
+// ExecuteAPaaSApplicationFlowResp ...
+type ExecuteAPaaSApplicationFlowResp struct {
 	Status      string `json:"status,omitempty"`       // 状态
 	OutParams   string `json:"out_params,omitempty"`   // 输出参数
 	ExecutionID string `json:"execution_id,omitempty"` // 执行id
@@ -76,10 +76,10 @@ type CreateAPaaSApplicationFlowExecuteResp struct {
 	Code        string `json:"code,omitempty"`         // code
 }
 
-// createAPaaSApplicationFlowExecuteResp ...
-type createAPaaSApplicationFlowExecuteResp struct {
-	Code  int64                                  `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg   string                                 `json:"msg,omitempty"`  // 错误描述
-	Data  *CreateAPaaSApplicationFlowExecuteResp `json:"data,omitempty"`
-	Error *ErrorDetail                           `json:"error,omitempty"`
+// executeAPaaSApplicationFlowResp ...
+type executeAPaaSApplicationFlowResp struct {
+	Code  int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                           `json:"msg,omitempty"`  // 错误描述
+	Data  *ExecuteAPaaSApplicationFlowResp `json:"data,omitempty"`
+	Error *ErrorDetail                     `json:"error,omitempty"`
 }

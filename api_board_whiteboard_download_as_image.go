@@ -27,9 +27,9 @@ import (
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/board-v1/whiteboard/download_as_image
 // new doc: https://open.feishu.cn/document/docs/board-v1/whiteboard/download_as_image
 func (r *DriveService) DownloadBoardWhiteboardAsImage(ctx context.Context, request *DownloadBoardWhiteboardAsImageReq, options ...MethodOptionFunc) (*DownloadBoardWhiteboardAsImageResp, *Response, error) {
-	if r.cli.mock.mockBoardDownloadBoardWhiteboardAsImage != nil {
+	if r.cli.mock.mockDriveDownloadBoardWhiteboardAsImage != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#DownloadBoardWhiteboardAsImage mock enable")
-		return r.cli.mock.mockBoardDownloadBoardWhiteboardAsImage(ctx, request, options...)
+		return r.cli.mock.mockDriveDownloadBoardWhiteboardAsImage(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
@@ -48,14 +48,14 @@ func (r *DriveService) DownloadBoardWhiteboardAsImage(ctx context.Context, reque
 	return resp.Data, response, err
 }
 
-// MockBoardDownloadBoardWhiteboardAsImage mock BoardDownloadBoardWhiteboardAsImage method
-func (r *Mock) MockBoardDownloadBoardWhiteboardAsImage(f func(ctx context.Context, request *DownloadBoardWhiteboardAsImageReq, options ...MethodOptionFunc) (*DownloadBoardWhiteboardAsImageResp, *Response, error)) {
-	r.mockBoardDownloadBoardWhiteboardAsImage = f
+// MockDriveDownloadBoardWhiteboardAsImage mock DriveDownloadBoardWhiteboardAsImage method
+func (r *Mock) MockDriveDownloadBoardWhiteboardAsImage(f func(ctx context.Context, request *DownloadBoardWhiteboardAsImageReq, options ...MethodOptionFunc) (*DownloadBoardWhiteboardAsImageResp, *Response, error)) {
+	r.mockDriveDownloadBoardWhiteboardAsImage = f
 }
 
-// UnMockBoardDownloadBoardWhiteboardAsImage un-mock BoardDownloadBoardWhiteboardAsImage method
-func (r *Mock) UnMockBoardDownloadBoardWhiteboardAsImage() {
-	r.mockBoardDownloadBoardWhiteboardAsImage = nil
+// UnMockDriveDownloadBoardWhiteboardAsImage un-mock DriveDownloadBoardWhiteboardAsImage method
+func (r *Mock) UnMockDriveDownloadBoardWhiteboardAsImage() {
+	r.mockDriveDownloadBoardWhiteboardAsImage = nil
 }
 
 // DownloadBoardWhiteboardAsImageReq ...

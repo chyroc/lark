@@ -21,54 +21,54 @@ import (
 	"context"
 )
 
-// DeleteCorehrPreHire 删除待入职人员, 删除后无法搜索到待入职人员信息, 请谨慎操作
+// DeleteCoreHRPreHireV2 删除待入职人员, 删除后无法搜索到待入职人员信息, 请谨慎操作
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/delete
 // new doc: https://open.feishu.cn/document/corehr-v1/pre_hire/delete
-func (r *CoreHRService) DeleteCorehrPreHire(ctx context.Context, request *DeleteCorehrPreHireReq, options ...MethodOptionFunc) (*DeleteCorehrPreHireResp, *Response, error) {
-	if r.cli.mock.mockCoreHRDeleteCorehrPreHire != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCorehrPreHire mock enable")
-		return r.cli.mock.mockCoreHRDeleteCorehrPreHire(ctx, request, options...)
+func (r *CoreHRService) DeleteCoreHRPreHireV2(ctx context.Context, request *DeleteCoreHRPreHireV2Req, options ...MethodOptionFunc) (*DeleteCoreHRPreHireV2Resp, *Response, error) {
+	if r.cli.mock.mockCoreHRDeleteCoreHRPreHireV2 != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHRPreHireV2 mock enable")
+		return r.cli.mock.mockCoreHRDeleteCoreHRPreHireV2(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "DeleteCorehrPreHire",
+		API:                   "DeleteCoreHRPreHireV2",
 		Method:                "DELETE",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/pre_hires/:pre_hire_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(deleteCorehrPreHireResp)
+	resp := new(deleteCoreHRPreHireV2Resp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRDeleteCorehrPreHire mock CoreHRDeleteCorehrPreHire method
-func (r *Mock) MockCoreHRDeleteCorehrPreHire(f func(ctx context.Context, request *DeleteCorehrPreHireReq, options ...MethodOptionFunc) (*DeleteCorehrPreHireResp, *Response, error)) {
-	r.mockCoreHRDeleteCorehrPreHire = f
+// MockCoreHRDeleteCoreHRPreHireV2 mock CoreHRDeleteCoreHRPreHireV2 method
+func (r *Mock) MockCoreHRDeleteCoreHRPreHireV2(f func(ctx context.Context, request *DeleteCoreHRPreHireV2Req, options ...MethodOptionFunc) (*DeleteCoreHRPreHireV2Resp, *Response, error)) {
+	r.mockCoreHRDeleteCoreHRPreHireV2 = f
 }
 
-// UnMockCoreHRDeleteCorehrPreHire un-mock CoreHRDeleteCorehrPreHire method
-func (r *Mock) UnMockCoreHRDeleteCorehrPreHire() {
-	r.mockCoreHRDeleteCorehrPreHire = nil
+// UnMockCoreHRDeleteCoreHRPreHireV2 un-mock CoreHRDeleteCoreHRPreHireV2 method
+func (r *Mock) UnMockCoreHRDeleteCoreHRPreHireV2() {
+	r.mockCoreHRDeleteCoreHRPreHireV2 = nil
 }
 
-// DeleteCorehrPreHireReq ...
-type DeleteCorehrPreHireReq struct {
+// DeleteCoreHRPreHireV2Req ...
+type DeleteCoreHRPreHireV2Req struct {
 	PreHireID string `path:"pre_hire_id" json:"-"` // 待入职ID, 可通过[搜索接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pre_hire/search)获取示例值: "7345005664477775407"
 }
 
-// DeleteCorehrPreHireResp ...
-type DeleteCorehrPreHireResp struct {
+// DeleteCoreHRPreHireV2Resp ...
+type DeleteCoreHRPreHireV2Resp struct {
 }
 
-// deleteCorehrPreHireResp ...
-type deleteCorehrPreHireResp struct {
-	Code  int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg   string                   `json:"msg,omitempty"`  // 错误描述
-	Data  *DeleteCorehrPreHireResp `json:"data,omitempty"`
-	Error *ErrorDetail             `json:"error,omitempty"`
+// deleteCoreHRPreHireV2Resp ...
+type deleteCoreHRPreHireV2Resp struct {
+	Code  int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                     `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteCoreHRPreHireV2Resp `json:"data,omitempty"`
+	Error *ErrorDetail               `json:"error,omitempty"`
 }

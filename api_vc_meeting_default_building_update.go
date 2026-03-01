@@ -21,45 +21,45 @@ import (
 	"context"
 )
 
-// CreateVCMeetingDefaultBuildingUpdate 该接口用于编辑建筑信息, 添加楼层, 删除楼层, 编辑楼层信息。
+// UpdateVCMeetingDefaultBuilding 该接口用于编辑建筑信息, 添加楼层, 删除楼层, 编辑楼层信息。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uETNwYjLxUDM24SM1AjN
 // new doc: https://open.feishu.cn/document/server-docs/historic-version/meeting_room-v1/api-reference/update-building
 //
 // Deprecated
-func (r *VCService) CreateVCMeetingDefaultBuildingUpdate(ctx context.Context, request *CreateVCMeetingDefaultBuildingUpdateReq, options ...MethodOptionFunc) (*CreateVCMeetingDefaultBuildingUpdateResp, *Response, error) {
-	if r.cli.mock.mockVCMeetingCreateVCMeetingDefaultBuildingUpdate != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] VCMeeting#CreateVCMeetingDefaultBuildingUpdate mock enable")
-		return r.cli.mock.mockVCMeetingCreateVCMeetingDefaultBuildingUpdate(ctx, request, options...)
+func (r *VCService) UpdateVCMeetingDefaultBuilding(ctx context.Context, request *UpdateVCMeetingDefaultBuildingReq, options ...MethodOptionFunc) (*UpdateVCMeetingDefaultBuildingResp, *Response, error) {
+	if r.cli.mock.mockVCUpdateVCMeetingDefaultBuilding != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#UpdateVCMeetingDefaultBuilding mock enable")
+		return r.cli.mock.mockVCUpdateVCMeetingDefaultBuilding(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "VC",
-		API:                   "CreateVCMeetingDefaultBuildingUpdate",
+		API:                   "UpdateVCMeetingDefaultBuilding",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/meeting_room/building/update",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(createVCMeetingDefaultBuildingUpdateResp)
+	resp := new(updateVCMeetingDefaultBuildingResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockVCMeetingCreateVCMeetingDefaultBuildingUpdate mock VCMeetingCreateVCMeetingDefaultBuildingUpdate method
-func (r *Mock) MockVCMeetingCreateVCMeetingDefaultBuildingUpdate(f func(ctx context.Context, request *CreateVCMeetingDefaultBuildingUpdateReq, options ...MethodOptionFunc) (*CreateVCMeetingDefaultBuildingUpdateResp, *Response, error)) {
-	r.mockVCMeetingCreateVCMeetingDefaultBuildingUpdate = f
+// MockVCUpdateVCMeetingDefaultBuilding mock VCUpdateVCMeetingDefaultBuilding method
+func (r *Mock) MockVCUpdateVCMeetingDefaultBuilding(f func(ctx context.Context, request *UpdateVCMeetingDefaultBuildingReq, options ...MethodOptionFunc) (*UpdateVCMeetingDefaultBuildingResp, *Response, error)) {
+	r.mockVCUpdateVCMeetingDefaultBuilding = f
 }
 
-// UnMockVCMeetingCreateVCMeetingDefaultBuildingUpdate un-mock VCMeetingCreateVCMeetingDefaultBuildingUpdate method
-func (r *Mock) UnMockVCMeetingCreateVCMeetingDefaultBuildingUpdate() {
-	r.mockVCMeetingCreateVCMeetingDefaultBuildingUpdate = nil
+// UnMockVCUpdateVCMeetingDefaultBuilding un-mock VCUpdateVCMeetingDefaultBuilding method
+func (r *Mock) UnMockVCUpdateVCMeetingDefaultBuilding() {
+	r.mockVCUpdateVCMeetingDefaultBuilding = nil
 }
 
-// CreateVCMeetingDefaultBuildingUpdateReq ...
-type CreateVCMeetingDefaultBuildingUpdateReq struct {
+// UpdateVCMeetingDefaultBuildingReq ...
+type UpdateVCMeetingDefaultBuildingReq struct {
 	BuildingID       string   `json:"building_id,omitempty"`        // 要更新的建筑ID
 	Name             *string  `json:"name,omitempty"`               // 建筑名称
 	Floors           []string `json:"floors,omitempty"`             // 楼层列表
@@ -68,14 +68,14 @@ type CreateVCMeetingDefaultBuildingUpdateReq struct {
 	CustomBuildingID *string  `json:"custom_building_id,omitempty"` // 租户自定义建筑ID
 }
 
-// CreateVCMeetingDefaultBuildingUpdateResp ...
-type CreateVCMeetingDefaultBuildingUpdateResp struct {
+// UpdateVCMeetingDefaultBuildingResp ...
+type UpdateVCMeetingDefaultBuildingResp struct {
 }
 
-// createVCMeetingDefaultBuildingUpdateResp ...
-type createVCMeetingDefaultBuildingUpdateResp struct {
-	Code  int64                                     `json:"code,omitempty"` // 返回码, 非 0 表示失败
-	Msg   string                                    `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
-	Data  *CreateVCMeetingDefaultBuildingUpdateResp `json:"data,omitempty"`
-	Error *ErrorDetail                              `json:"error,omitempty"`
+// updateVCMeetingDefaultBuildingResp ...
+type updateVCMeetingDefaultBuildingResp struct {
+	Code  int64                               `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg   string                              `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
+	Data  *UpdateVCMeetingDefaultBuildingResp `json:"data,omitempty"`
+	Error *ErrorDetail                        `json:"error,omitempty"`
 }

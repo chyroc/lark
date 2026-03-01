@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// QueryCorehrPosition 支持通过岗位 ID、部门 ID 查询岗位的详细信息, 例如岗位关联的职务、职级、序列, 以及岗位描述, 是否关键岗位等
+// QueryCoreHRPosition 支持通过岗位 ID、部门 ID 查询岗位的详细信息, 例如岗位关联的职务、职级、序列, 以及岗位描述, 是否关键岗位等
 //
 // #### 前提条件:
 // - 本接口会按照「岗位资源」权限范围返回数据, 请确定在「开发者后台 - 权限管理 - 数据权限」中已申请此数据权限
@@ -32,39 +32,39 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/position/query
 // new doc: https://open.feishu.cn/document/corehr-v1/job-management/position/query
-func (r *CoreHRService) QueryCorehrPosition(ctx context.Context, request *QueryCorehrPositionReq, options ...MethodOptionFunc) (*QueryCorehrPositionResp, *Response, error) {
-	if r.cli.mock.mockCoreHRQueryCorehrPosition != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#QueryCorehrPosition mock enable")
-		return r.cli.mock.mockCoreHRQueryCorehrPosition(ctx, request, options...)
+func (r *CoreHRService) QueryCoreHRPosition(ctx context.Context, request *QueryCoreHRPositionReq, options ...MethodOptionFunc) (*QueryCoreHRPositionResp, *Response, error) {
+	if r.cli.mock.mockCoreHRQueryCoreHRPosition != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#QueryCoreHRPosition mock enable")
+		return r.cli.mock.mockCoreHRQueryCoreHRPosition(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "QueryCorehrPosition",
+		API:                   "QueryCoreHRPosition",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/positions/query",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(queryCorehrPositionResp)
+	resp := new(queryCoreHRPositionResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRQueryCorehrPosition mock CoreHRQueryCorehrPosition method
-func (r *Mock) MockCoreHRQueryCorehrPosition(f func(ctx context.Context, request *QueryCorehrPositionReq, options ...MethodOptionFunc) (*QueryCorehrPositionResp, *Response, error)) {
-	r.mockCoreHRQueryCorehrPosition = f
+// MockCoreHRQueryCoreHRPosition mock CoreHRQueryCoreHRPosition method
+func (r *Mock) MockCoreHRQueryCoreHRPosition(f func(ctx context.Context, request *QueryCoreHRPositionReq, options ...MethodOptionFunc) (*QueryCoreHRPositionResp, *Response, error)) {
+	r.mockCoreHRQueryCoreHRPosition = f
 }
 
-// UnMockCoreHRQueryCorehrPosition un-mock CoreHRQueryCorehrPosition method
-func (r *Mock) UnMockCoreHRQueryCorehrPosition() {
-	r.mockCoreHRQueryCorehrPosition = nil
+// UnMockCoreHRQueryCoreHRPosition un-mock CoreHRQueryCoreHRPosition method
+func (r *Mock) UnMockCoreHRQueryCoreHRPosition() {
+	r.mockCoreHRQueryCoreHRPosition = nil
 }
 
-// QueryCorehrPositionReq ...
-type QueryCorehrPositionReq struct {
+// QueryCoreHRPositionReq ...
+type QueryCoreHRPositionReq struct {
 	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门 ID 类型, 三种类型的 ID 都可通过飞书人事的[批量查询部门（ V2）](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get) 来获取示例值: people_corehr_department_id可选值有: 以 open_department_id 来标识部门以 department_id 来标识部门以 people_corehr_department_id 来标识部门默认值: `people_corehr_department_id`
 	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型示例值: people_corehr_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `people_corehr_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	PageSize         int64             `query:"page_size" json:"-"`          // 分页大小, 最大 100示例值: 100 取值范围: `1` ～ `100`
@@ -77,19 +77,19 @@ type QueryCorehrPositionReq struct {
 	PositionCodes    []string          `json:"position_codes,omitempty"`     // 岗位 Code 列表示例值: ["42232132221241561"] 长度范围: `0` ～ `200`
 }
 
-// QueryCorehrPositionResp ...
-type QueryCorehrPositionResp struct {
-	Items     []*QueryCorehrPositionRespItem `json:"items,omitempty"`      // 岗位信息列表
+// QueryCoreHRPositionResp ...
+type QueryCoreHRPositionResp struct {
+	Items     []*QueryCoreHRPositionRespItem `json:"items,omitempty"`      // 岗位信息列表
 	PageToken string                         `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	HasMore   bool                           `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
-// QueryCorehrPositionRespItem ...
-type QueryCorehrPositionRespItem struct {
+// QueryCoreHRPositionRespItem ...
+type QueryCoreHRPositionRespItem struct {
 	PositionID         string                                    `json:"position_id,omitempty"`           // 岗位 ID
 	Code               string                                    `json:"code,omitempty"`                  // 编码
-	Names              []*QueryCorehrPositionRespItemName        `json:"names,omitempty"`                 // 名称
-	Descriptions       []*QueryCorehrPositionRespItemDescription `json:"descriptions,omitempty"`          // 描述
+	Names              []*QueryCoreHRPositionRespItemName        `json:"names,omitempty"`                 // 名称
+	Descriptions       []*QueryCoreHRPositionRespItemDescription `json:"descriptions,omitempty"`          // 描述
 	Active             bool                                      `json:"active,omitempty"`                // 状态, true表示启用, false表示停用
 	JobFamilyIDList    []string                                  `json:"job_family_id_list,omitempty"`    // 序列 ID 列表, 详细信息可通过[查询单个序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/get)接口获得
 	CostCenterID       string                                    `json:"cost_center_id,omitempty"`        // 成本中心 ID, 可以通过[搜索成本中心信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)接口获取对应的成本中心信息
@@ -105,40 +105,40 @@ type QueryCorehrPositionRespItem struct {
 	IsKeyPosition      bool                                      `json:"is_key_position,omitempty"`       // 是否关键岗位
 	EffectiveTime      string                                    `json:"effective_time,omitempty"`        // 生效日期
 	ExpirationTime     string                                    `json:"expiration_time,omitempty"`       // 失效日期
-	CustomFields       []*QueryCorehrPositionRespItemCustomField `json:"custom_fields,omitempty"`         // 自定义字段
+	CustomFields       []*QueryCoreHRPositionRespItemCustomField `json:"custom_fields,omitempty"`         // 自定义字段
 	CreatedBy          string                                    `json:"created_by,omitempty"`            // 创建人
 }
 
-// QueryCorehrPositionRespItemCustomField ...
-type QueryCorehrPositionRespItemCustomField struct {
+// QueryCoreHRPositionRespItemCustomField ...
+type QueryCoreHRPositionRespItemCustomField struct {
 	CustomApiName string                                      `json:"custom_api_name,omitempty"` // 自定义字段 apiname, 即自定义字段的唯一标识
-	Name          *QueryCorehrPositionRespItemCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
+	Name          *QueryCoreHRPositionRespItemCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                       `json:"type,omitempty"`            // 自定义字段类型, 详细见[获取自定义字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query)
 	Value         string                                      `json:"value,omitempty"`           // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同（如 123, 123.23, "true", ["id1", "id2"], "2006-01-02 15:04:05"）
 }
 
-// QueryCorehrPositionRespItemCustomFieldName ...
-type QueryCorehrPositionRespItemCustomFieldName struct {
+// QueryCoreHRPositionRespItemCustomFieldName ...
+type QueryCoreHRPositionRespItemCustomFieldName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
-// QueryCorehrPositionRespItemDescription ...
-type QueryCorehrPositionRespItemDescription struct {
+// QueryCoreHRPositionRespItemDescription ...
+type QueryCoreHRPositionRespItemDescription struct {
 	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// QueryCorehrPositionRespItemName ...
-type QueryCorehrPositionRespItemName struct {
+// QueryCoreHRPositionRespItemName ...
+type QueryCoreHRPositionRespItemName struct {
 	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// queryCorehrPositionResp ...
-type queryCorehrPositionResp struct {
+// queryCoreHRPositionResp ...
+type queryCoreHRPositionResp struct {
 	Code  int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                   `json:"msg,omitempty"`  // 错误描述
-	Data  *QueryCorehrPositionResp `json:"data,omitempty"`
+	Data  *QueryCoreHRPositionResp `json:"data,omitempty"`
 	Error *ErrorDetail             `json:"error,omitempty"`
 }

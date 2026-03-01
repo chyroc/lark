@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// QueryCorehrCompanyRecentChange 查询指定时间范围内当前生效信息发生变更的公司, 即只有公司当前生效版本的生效时间在查询时间范围内, 才返回该公司id
+// QueryCoreHRCompanyRecentChange 查询指定时间范围内当前生效信息发生变更的公司, 即只有公司当前生效版本的生效时间在查询时间范围内, 才返回该公司id
 //
 // - 默认排序条件: 默认先按照组织记录 ID 增序排序, 便于滚动查询
 // - 使用滚动查询而非分页查询, 是为了防止大批量获取数据时, 深分页导致超时
@@ -30,57 +30,57 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/company/query_recent_change
 // new doc: https://open.feishu.cn/document/corehr-v1/organization-management/company/query_recent_change
-func (r *CoreHRService) QueryCorehrCompanyRecentChange(ctx context.Context, request *QueryCorehrCompanyRecentChangeReq, options ...MethodOptionFunc) (*QueryCorehrCompanyRecentChangeResp, *Response, error) {
-	if r.cli.mock.mockCoreHRQueryCorehrCompanyRecentChange != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#QueryCorehrCompanyRecentChange mock enable")
-		return r.cli.mock.mockCoreHRQueryCorehrCompanyRecentChange(ctx, request, options...)
+func (r *CoreHRService) QueryCoreHRCompanyRecentChange(ctx context.Context, request *QueryCoreHRCompanyRecentChangeReq, options ...MethodOptionFunc) (*QueryCoreHRCompanyRecentChangeResp, *Response, error) {
+	if r.cli.mock.mockCoreHRQueryCoreHRCompanyRecentChange != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#QueryCoreHRCompanyRecentChange mock enable")
+		return r.cli.mock.mockCoreHRQueryCoreHRCompanyRecentChange(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "QueryCorehrCompanyRecentChange",
+		API:                   "QueryCoreHRCompanyRecentChange",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/companies/query_recent_change",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(queryCorehrCompanyRecentChangeResp)
+	resp := new(queryCoreHRCompanyRecentChangeResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRQueryCorehrCompanyRecentChange mock CoreHRQueryCorehrCompanyRecentChange method
-func (r *Mock) MockCoreHRQueryCorehrCompanyRecentChange(f func(ctx context.Context, request *QueryCorehrCompanyRecentChangeReq, options ...MethodOptionFunc) (*QueryCorehrCompanyRecentChangeResp, *Response, error)) {
-	r.mockCoreHRQueryCorehrCompanyRecentChange = f
+// MockCoreHRQueryCoreHRCompanyRecentChange mock CoreHRQueryCoreHRCompanyRecentChange method
+func (r *Mock) MockCoreHRQueryCoreHRCompanyRecentChange(f func(ctx context.Context, request *QueryCoreHRCompanyRecentChangeReq, options ...MethodOptionFunc) (*QueryCoreHRCompanyRecentChangeResp, *Response, error)) {
+	r.mockCoreHRQueryCoreHRCompanyRecentChange = f
 }
 
-// UnMockCoreHRQueryCorehrCompanyRecentChange un-mock CoreHRQueryCorehrCompanyRecentChange method
-func (r *Mock) UnMockCoreHRQueryCorehrCompanyRecentChange() {
-	r.mockCoreHRQueryCorehrCompanyRecentChange = nil
+// UnMockCoreHRQueryCoreHRCompanyRecentChange un-mock CoreHRQueryCoreHRCompanyRecentChange method
+func (r *Mock) UnMockCoreHRQueryCoreHRCompanyRecentChange() {
+	r.mockCoreHRQueryCoreHRCompanyRecentChange = nil
 }
 
-// QueryCorehrCompanyRecentChangeReq ...
-type QueryCorehrCompanyRecentChangeReq struct {
+// QueryCoreHRCompanyRecentChangeReq ...
+type QueryCoreHRCompanyRecentChangeReq struct {
 	PageSize  int64   `query:"page_size" json:"-"`  // 分页大小, 最大 2000示例值: 100 取值范围: `1` ～ `2000`
 	PageToken *string `query:"page_token" json:"-"` // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 100
 	StartDate string  `query:"start_date" json:"-"` // 查询的开始时间, 格式 "YYYY-MM-DD HH:MM:SS", 以 UTC+8 时区查询变更。示例值: 2024-01-01 00:00:00
 	EndDate   string  `query:"end_date" json:"-"`   // 查询的结束时间, 格式 "YYYY-MM-DD HH:MM:SS", 以 UTC+8 时区查询变更。 查询结束时间应大于开始时间。示例值: 2024-01-10 02:10:00
 }
 
-// QueryCorehrCompanyRecentChangeResp ...
-type QueryCorehrCompanyRecentChangeResp struct {
+// QueryCoreHRCompanyRecentChangeResp ...
+type QueryCoreHRCompanyRecentChangeResp struct {
 	CompanyIDs        []string `json:"company_ids,omitempty"`         // 公司 ID 列表, 其中包含新建、更新以及删除的 ID 列表。- 非删除的数据, 可通过[批量查询公司](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list) 或者[通过 ID 批量查询公司信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/company/batch_get) 或者[查询单个公司](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)获取详情
 	PageToken         string   `json:"page_token,omitempty"`          // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	HasMore           bool     `json:"has_more,omitempty"`            // 是否还有更多项
 	DeletedCompanyIDs []string `json:"deleted_company_ids,omitempty"` // 目标查询时间范围内被删除的公司列表, 该列表是  company_ids 的子集, 便于获取在指定的[start_date, end_date) 的范围内被删除的公司IDs。- 由于对应的公司已经被删除, 无法通过 ID 查询到历史数据。
 }
 
-// queryCorehrCompanyRecentChangeResp ...
-type queryCorehrCompanyRecentChangeResp struct {
+// queryCoreHRCompanyRecentChangeResp ...
+type queryCoreHRCompanyRecentChangeResp struct {
 	Code  int64                               `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                              `json:"msg,omitempty"`  // 错误描述
-	Data  *QueryCorehrCompanyRecentChangeResp `json:"data,omitempty"`
+	Data  *QueryCoreHRCompanyRecentChangeResp `json:"data,omitempty"`
 	Error *ErrorDetail                        `json:"error,omitempty"`
 }

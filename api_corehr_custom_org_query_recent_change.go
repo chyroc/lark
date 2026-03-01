@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// QueryCorehrCustomOrgRecentChange 查询指定时间范围内当前生效信息发生变更的自定义组织, 即只有部门当前生效版本的生效时间在查询时间范围内, 才返回该自定义组织id
+// QueryCoreHRCustomOrgRecentChange 查询指定时间范围内当前生效信息发生变更的自定义组织, 即只有部门当前生效版本的生效时间在查询时间范围内, 才返回该自定义组织id
 //
 // - 默认排序条件: 默认先按照组织记录 ID 增序排序, 便于滚动查询
 // - 使用滚动查询而非分页查询, 是为了防止大批量获取数据时, 深分页导致超时
@@ -30,39 +30,39 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/custom_org/query_recent_change
 // new doc: https://open.feishu.cn/document/corehr-v1/organization-management/custom_org/query_recent_change
-func (r *CoreHRService) QueryCorehrCustomOrgRecentChange(ctx context.Context, request *QueryCorehrCustomOrgRecentChangeReq, options ...MethodOptionFunc) (*QueryCorehrCustomOrgRecentChangeResp, *Response, error) {
-	if r.cli.mock.mockCoreHRQueryCorehrCustomOrgRecentChange != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#QueryCorehrCustomOrgRecentChange mock enable")
-		return r.cli.mock.mockCoreHRQueryCorehrCustomOrgRecentChange(ctx, request, options...)
+func (r *CoreHRService) QueryCoreHRCustomOrgRecentChange(ctx context.Context, request *QueryCoreHRCustomOrgRecentChangeReq, options ...MethodOptionFunc) (*QueryCoreHRCustomOrgRecentChangeResp, *Response, error) {
+	if r.cli.mock.mockCoreHRQueryCoreHRCustomOrgRecentChange != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#QueryCoreHRCustomOrgRecentChange mock enable")
+		return r.cli.mock.mockCoreHRQueryCoreHRCustomOrgRecentChange(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "QueryCorehrCustomOrgRecentChange",
+		API:                   "QueryCoreHRCustomOrgRecentChange",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/custom_orgs/query_recent_change",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(queryCorehrCustomOrgRecentChangeResp)
+	resp := new(queryCoreHRCustomOrgRecentChangeResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRQueryCorehrCustomOrgRecentChange mock CoreHRQueryCorehrCustomOrgRecentChange method
-func (r *Mock) MockCoreHRQueryCorehrCustomOrgRecentChange(f func(ctx context.Context, request *QueryCorehrCustomOrgRecentChangeReq, options ...MethodOptionFunc) (*QueryCorehrCustomOrgRecentChangeResp, *Response, error)) {
-	r.mockCoreHRQueryCorehrCustomOrgRecentChange = f
+// MockCoreHRQueryCoreHRCustomOrgRecentChange mock CoreHRQueryCoreHRCustomOrgRecentChange method
+func (r *Mock) MockCoreHRQueryCoreHRCustomOrgRecentChange(f func(ctx context.Context, request *QueryCoreHRCustomOrgRecentChangeReq, options ...MethodOptionFunc) (*QueryCoreHRCustomOrgRecentChangeResp, *Response, error)) {
+	r.mockCoreHRQueryCoreHRCustomOrgRecentChange = f
 }
 
-// UnMockCoreHRQueryCorehrCustomOrgRecentChange un-mock CoreHRQueryCorehrCustomOrgRecentChange method
-func (r *Mock) UnMockCoreHRQueryCorehrCustomOrgRecentChange() {
-	r.mockCoreHRQueryCorehrCustomOrgRecentChange = nil
+// UnMockCoreHRQueryCoreHRCustomOrgRecentChange un-mock CoreHRQueryCoreHRCustomOrgRecentChange method
+func (r *Mock) UnMockCoreHRQueryCoreHRCustomOrgRecentChange() {
+	r.mockCoreHRQueryCoreHRCustomOrgRecentChange = nil
 }
 
-// QueryCorehrCustomOrgRecentChangeReq ...
-type QueryCorehrCustomOrgRecentChangeReq struct {
+// QueryCoreHRCustomOrgRecentChangeReq ...
+type QueryCoreHRCustomOrgRecentChangeReq struct {
 	PageSize      int64   `query:"page_size" json:"-"`       // 分页大小, 最大 2000示例值: 100 取值范围: `1` ～ `2000`
 	PageToken     *string `query:"page_token" json:"-"`      // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 6891251722631890445
 	ObjectApiName string  `query:"object_api_name" json:"-"` // 组织类型编码, 可在「飞书人事-设置-组织设置」中相应的自定义组织目录下查看示例值: custom_org_01
@@ -70,18 +70,18 @@ type QueryCorehrCustomOrgRecentChangeReq struct {
 	EndDate       string  `query:"end_date" json:"-"`        // 查询的结束时间, 格式 "yyyy-MM-dd HH:MM:SS"示例值: 2024-04-01 00:00:00
 }
 
-// QueryCorehrCustomOrgRecentChangeResp ...
-type QueryCorehrCustomOrgRecentChangeResp struct {
+// QueryCoreHRCustomOrgRecentChangeResp ...
+type QueryCoreHRCustomOrgRecentChangeResp struct {
 	CustomOrgIDs        []string `json:"custom_org_ids,omitempty"`         // 自定义组织 ID 列表, 其中包含新建、更新以及删除的 ID 列表。- 非删除的数据, 可通过[查询自定义组织信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/custom_org/query)  获取详情
 	PageToken           string   `json:"page_token,omitempty"`             // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	HasMore             bool     `json:"has_more,omitempty"`               // 是否还有更多项
 	DeletedCustomOrgIDs []string `json:"deleted_custom_org_ids,omitempty"` // 目标查询时间范围内被删除的自定义组织列表, 该列表是  department_ids 的子集, 便于获取在指定的[start_date, end_date+1) 的范围内被删除的自定义组织 IDs。- 由于对应的自定义组织已经被删除, 无法通过 ID 查询到历史数据。
 }
 
-// queryCorehrCustomOrgRecentChangeResp ...
-type queryCorehrCustomOrgRecentChangeResp struct {
+// queryCoreHRCustomOrgRecentChangeResp ...
+type queryCoreHRCustomOrgRecentChangeResp struct {
 	Code  int64                                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                                `json:"msg,omitempty"`  // 错误描述
-	Data  *QueryCorehrCustomOrgRecentChangeResp `json:"data,omitempty"`
+	Data  *QueryCoreHRCustomOrgRecentChangeResp `json:"data,omitempty"`
 	Error *ErrorDetail                          `json:"error,omitempty"`
 }

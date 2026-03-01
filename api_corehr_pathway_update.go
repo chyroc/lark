@@ -21,71 +21,71 @@ import (
 	"context"
 )
 
-// UpdateCorehrPathway 更新通道, 可以根据通道的ID更新通道的名称、编码、描述信息
+// UpdateCoreHRPathway 更新通道, 可以根据通道的ID更新通道的名称、编码、描述信息
 //
 // 非必填字段, 不传时即不做变更
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pathway/patch
-func (r *CoreHRService) UpdateCorehrPathway(ctx context.Context, request *UpdateCorehrPathwayReq, options ...MethodOptionFunc) (*UpdateCorehrPathwayResp, *Response, error) {
-	if r.cli.mock.mockCoreHRUpdateCorehrPathway != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#UpdateCorehrPathway mock enable")
-		return r.cli.mock.mockCoreHRUpdateCorehrPathway(ctx, request, options...)
+func (r *CoreHRService) UpdateCoreHRPathway(ctx context.Context, request *UpdateCoreHRPathwayReq, options ...MethodOptionFunc) (*UpdateCoreHRPathwayResp, *Response, error) {
+	if r.cli.mock.mockCoreHRUpdateCoreHRPathway != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#UpdateCoreHRPathway mock enable")
+		return r.cli.mock.mockCoreHRUpdateCoreHRPathway(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "UpdateCorehrPathway",
+		API:                   "UpdateCoreHRPathway",
 		Method:                "PATCH",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/pathways/:pathway_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(updateCorehrPathwayResp)
+	resp := new(updateCoreHRPathwayResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRUpdateCorehrPathway mock CoreHRUpdateCorehrPathway method
-func (r *Mock) MockCoreHRUpdateCorehrPathway(f func(ctx context.Context, request *UpdateCorehrPathwayReq, options ...MethodOptionFunc) (*UpdateCorehrPathwayResp, *Response, error)) {
-	r.mockCoreHRUpdateCorehrPathway = f
+// MockCoreHRUpdateCoreHRPathway mock CoreHRUpdateCoreHRPathway method
+func (r *Mock) MockCoreHRUpdateCoreHRPathway(f func(ctx context.Context, request *UpdateCoreHRPathwayReq, options ...MethodOptionFunc) (*UpdateCoreHRPathwayResp, *Response, error)) {
+	r.mockCoreHRUpdateCoreHRPathway = f
 }
 
-// UnMockCoreHRUpdateCorehrPathway un-mock CoreHRUpdateCorehrPathway method
-func (r *Mock) UnMockCoreHRUpdateCorehrPathway() {
-	r.mockCoreHRUpdateCorehrPathway = nil
+// UnMockCoreHRUpdateCoreHRPathway un-mock CoreHRUpdateCoreHRPathway method
+func (r *Mock) UnMockCoreHRUpdateCoreHRPathway() {
+	r.mockCoreHRUpdateCoreHRPathway = nil
 }
 
-// UpdateCorehrPathwayReq ...
-type UpdateCorehrPathwayReq struct {
+// UpdateCoreHRPathwayReq ...
+type UpdateCoreHRPathwayReq struct {
 	PathwayID    string                               `path:"pathway_id" json:"-"`    // 通道ID。ID获取方式- 调用[创建通道接口](/document-mod/index?fullPath=%2FuAjLw4CM%2FukTMukTMukTM%2Fcorehr-v2%2Fpathway%2Fcreate)后, 从响应结果的`pathway_id`获取。- 监听[通道创建事件](/document-mod/index?fullPath=/uAjLw4CM/ukTMukTMukTM/corehr-v2/pathway/events/created), 当触发该事件后可从事件体内获取`pathway_id`- 监听[通道更新事件](/document-mod/index?fullPath=/uAjLw4CM/ukTMukTMukTM/corehr-v2/pathway/events/updated), 当触发该事件后可从事件体内获取`pathway_id`- 监听[通道删除事件](/document-mod/index?fullPath=%2FuAjLw4CM%2FukTMukTMukTM%2Fcorehr-v2%2Fpathway%2Fevents%2Fdeleted), 当触发该事件后可从事件体内获取`pathway_id`示例值: "6862995757234914824"
 	ClientToken  *string                              `query:"client_token" json:"-"` // 根据client_token是否一致来判断是否为同一请求示例值: 1245464678 长度范围: `0` ～ `128` 字符
 	Code         *string                              `json:"code,omitempty"`         // 编码示例值: "A01234"
-	Names        []*UpdateCorehrPathwayReqName        `json:"names,omitempty"`        // 名称 长度范围: `0` ～ `2`
-	Descriptions []*UpdateCorehrPathwayReqDescription `json:"descriptions,omitempty"` // 描述 长度范围: `0` ～ `2`
+	Names        []*UpdateCoreHRPathwayReqName        `json:"names,omitempty"`        // 名称 长度范围: `0` ～ `2`
+	Descriptions []*UpdateCoreHRPathwayReqDescription `json:"descriptions,omitempty"` // 描述 长度范围: `0` ～ `2`
 }
 
-// UpdateCorehrPathwayReqDescription ...
-type UpdateCorehrPathwayReqDescription struct {
+// UpdateCoreHRPathwayReqDescription ...
+type UpdateCoreHRPathwayReqDescription struct {
 	Lang  string `json:"lang,omitempty"`  // 中文用zh-CN, 英文用en-US示例值: "zh-CN"
 	Value string `json:"value,omitempty"` // 文本内容, 最长支持2000个字符示例值: "中文示例"
 }
 
-// UpdateCorehrPathwayReqName ...
-type UpdateCorehrPathwayReqName struct {
+// UpdateCoreHRPathwayReqName ...
+type UpdateCoreHRPathwayReqName struct {
 	Lang  string `json:"lang,omitempty"`  // 中文用zh-CN, 英文用en-US示例值: "zh-CN"
 	Value string `json:"value,omitempty"` // --文本内容, 最长支持255个字符- 名称不能包含「/」「；」「;」「\」「'」字符示例值: "中文示例"
 }
 
-// UpdateCorehrPathwayResp ...
-type UpdateCorehrPathwayResp struct {
+// UpdateCoreHRPathwayResp ...
+type UpdateCoreHRPathwayResp struct {
 }
 
-// updateCorehrPathwayResp ...
-type updateCorehrPathwayResp struct {
+// updateCoreHRPathwayResp ...
+type updateCoreHRPathwayResp struct {
 	Code  int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                   `json:"msg,omitempty"`  // 错误描述
-	Data  *UpdateCorehrPathwayResp `json:"data,omitempty"`
+	Data  *UpdateCoreHRPathwayResp `json:"data,omitempty"`
 	Error *ErrorDetail             `json:"error,omitempty"`
 }

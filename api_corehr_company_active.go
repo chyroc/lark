@@ -21,59 +21,59 @@ import (
 	"context"
 )
 
-// CreateCorehrCompanyActive 对公司进行启用或停用操作
+// CreateCoreHRCompanyActive 对公司进行启用或停用操作
 //
 // 停用公司时请确认有无在职员工、异动单据、待入职单据关联此公司, 如有会导致停用失败。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/company/active
 // new doc: https://open.feishu.cn/document/corehr-v1/organization-management/company/active
-func (r *CoreHRService) CreateCorehrCompanyActive(ctx context.Context, request *CreateCorehrCompanyActiveReq, options ...MethodOptionFunc) (*CreateCorehrCompanyActiveResp, *Response, error) {
-	if r.cli.mock.mockCoreHRCreateCorehrCompanyActive != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCorehrCompanyActive mock enable")
-		return r.cli.mock.mockCoreHRCreateCorehrCompanyActive(ctx, request, options...)
+func (r *CoreHRService) CreateCoreHRCompanyActive(ctx context.Context, request *CreateCoreHRCompanyActiveReq, options ...MethodOptionFunc) (*CreateCoreHRCompanyActiveResp, *Response, error) {
+	if r.cli.mock.mockCoreHRCreateCoreHRCompanyActive != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCoreHRCompanyActive mock enable")
+		return r.cli.mock.mockCoreHRCreateCoreHRCompanyActive(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "CreateCorehrCompanyActive",
+		API:                   "CreateCoreHRCompanyActive",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/companies/active",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(createCorehrCompanyActiveResp)
+	resp := new(createCoreHRCompanyActiveResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRCreateCorehrCompanyActive mock CoreHRCreateCorehrCompanyActive method
-func (r *Mock) MockCoreHRCreateCorehrCompanyActive(f func(ctx context.Context, request *CreateCorehrCompanyActiveReq, options ...MethodOptionFunc) (*CreateCorehrCompanyActiveResp, *Response, error)) {
-	r.mockCoreHRCreateCorehrCompanyActive = f
+// MockCoreHRCreateCoreHRCompanyActive mock CoreHRCreateCoreHRCompanyActive method
+func (r *Mock) MockCoreHRCreateCoreHRCompanyActive(f func(ctx context.Context, request *CreateCoreHRCompanyActiveReq, options ...MethodOptionFunc) (*CreateCoreHRCompanyActiveResp, *Response, error)) {
+	r.mockCoreHRCreateCoreHRCompanyActive = f
 }
 
-// UnMockCoreHRCreateCorehrCompanyActive un-mock CoreHRCreateCorehrCompanyActive method
-func (r *Mock) UnMockCoreHRCreateCorehrCompanyActive() {
-	r.mockCoreHRCreateCorehrCompanyActive = nil
+// UnMockCoreHRCreateCoreHRCompanyActive un-mock CoreHRCreateCoreHRCompanyActive method
+func (r *Mock) UnMockCoreHRCreateCoreHRCompanyActive() {
+	r.mockCoreHRCreateCoreHRCompanyActive = nil
 }
 
-// CreateCorehrCompanyActiveReq ...
-type CreateCorehrCompanyActiveReq struct {
+// CreateCoreHRCompanyActiveReq ...
+type CreateCoreHRCompanyActiveReq struct {
 	CompanyID       string `json:"company_id,omitempty"`       // 公司 ID- 可从 [批量查询公司](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list)的 id 字段中获取。示例值: "1616161616"
 	EffectiveTime   string `json:"effective_time,omitempty"`   // 公司启用/停用生效时间- 填写格式: YYYY-MM-DD- 系统默认为填写日期当天的 00:00:00 生效 - 该接口只支持到最小单位为日- 日期范围要求:1900-01-01 ～ 9999-12-31示例值: "2020-01-01"
 	Active          bool   `json:"active,omitempty"`           // 启用/停用状态。- active 传 true 代表启用- active 传 false 代表停用示例值: true
 	OperationReason string `json:"operation_reason,omitempty"` // 操作原因示例值: "业务操作"
 }
 
-// CreateCorehrCompanyActiveResp ...
-type CreateCorehrCompanyActiveResp struct {
+// CreateCoreHRCompanyActiveResp ...
+type CreateCoreHRCompanyActiveResp struct {
 }
 
-// createCorehrCompanyActiveResp ...
-type createCorehrCompanyActiveResp struct {
+// createCoreHRCompanyActiveResp ...
+type createCoreHRCompanyActiveResp struct {
 	Code  int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                         `json:"msg,omitempty"`  // 错误描述
-	Data  *CreateCorehrCompanyActiveResp `json:"data,omitempty"`
+	Data  *CreateCoreHRCompanyActiveResp `json:"data,omitempty"`
 	Error *ErrorDetail                   `json:"error,omitempty"`
 }

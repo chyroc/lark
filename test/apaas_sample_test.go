@@ -135,24 +135,24 @@ func Test_APaaS_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockAPaaSCreateAPaaSApplicationFlowExecute(func(ctx context.Context, request *lark.CreateAPaaSApplicationFlowExecuteReq, options ...lark.MethodOptionFunc) (*lark.CreateAPaaSApplicationFlowExecuteResp, *lark.Response, error) {
+			cli.Mock().MockAPaaSExecuteAPaaSApplicationFlow(func(ctx context.Context, request *lark.ExecuteAPaaSApplicationFlowReq, options ...lark.MethodOptionFunc) (*lark.ExecuteAPaaSApplicationFlowResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAPaaSCreateAPaaSApplicationFlowExecute()
+			defer cli.Mock().UnMockAPaaSExecuteAPaaSApplicationFlow()
 
-			_, _, err := moduleCli.CreateAPaaSApplicationFlowExecute(ctx, &lark.CreateAPaaSApplicationFlowExecuteReq{})
+			_, _, err := moduleCli.ExecuteAPaaSApplicationFlow(ctx, &lark.ExecuteAPaaSApplicationFlowReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockAPaaSCreateAPaaSApplicationFunctionInvoke(func(ctx context.Context, request *lark.CreateAPaaSApplicationFunctionInvokeReq, options ...lark.MethodOptionFunc) (*lark.CreateAPaaSApplicationFunctionInvokeResp, *lark.Response, error) {
+			cli.Mock().MockAPaaSInvokeAPaaSApplicationFunction(func(ctx context.Context, request *lark.InvokeAPaaSApplicationFunctionReq, options ...lark.MethodOptionFunc) (*lark.InvokeAPaaSApplicationFunctionResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAPaaSCreateAPaaSApplicationFunctionInvoke()
+			defer cli.Mock().UnMockAPaaSInvokeAPaaSApplicationFunction()
 
-			_, _, err := moduleCli.CreateAPaaSApplicationFunctionInvoke(ctx, &lark.CreateAPaaSApplicationFunctionInvokeReq{})
+			_, _, err := moduleCli.InvokeAPaaSApplicationFunction(ctx, &lark.InvokeAPaaSApplicationFunctionReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -255,12 +255,12 @@ func Test_APaaS_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockAPaaSCreateAPaaSApplicationObjectOqlQuery(func(ctx context.Context, request *lark.CreateAPaaSApplicationObjectOqlQueryReq, options ...lark.MethodOptionFunc) (*lark.CreateAPaaSApplicationObjectOqlQueryResp, *lark.Response, error) {
+			cli.Mock().MockAPaaSQueryAPaaSApplicationObjectOql(func(ctx context.Context, request *lark.QueryAPaaSApplicationObjectOqlReq, options ...lark.MethodOptionFunc) (*lark.QueryAPaaSApplicationObjectOqlResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAPaaSCreateAPaaSApplicationObjectOqlQuery()
+			defer cli.Mock().UnMockAPaaSQueryAPaaSApplicationObjectOql()
 
-			_, _, err := moduleCli.CreateAPaaSApplicationObjectOqlQuery(ctx, &lark.CreateAPaaSApplicationObjectOqlQueryReq{})
+			_, _, err := moduleCli.QueryAPaaSApplicationObjectOql(ctx, &lark.QueryAPaaSApplicationObjectOqlReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -495,12 +495,12 @@ func Test_APaaS_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockAPaaSGetAPaaSWorkspaceEnumGet(func(ctx context.Context, request *lark.GetAPaaSWorkspaceEnumGetReq, options ...lark.MethodOptionFunc) (*lark.GetAPaaSWorkspaceEnumGetResp, *lark.Response, error) {
+			cli.Mock().MockAPaaSGetAPaaSWorkspaceEnum(func(ctx context.Context, request *lark.GetAPaaSWorkspaceEnumReq, options ...lark.MethodOptionFunc) (*lark.GetAPaaSWorkspaceEnumResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAPaaSGetAPaaSWorkspaceEnumGet()
+			defer cli.Mock().UnMockAPaaSGetAPaaSWorkspaceEnum()
 
-			_, _, err := moduleCli.GetAPaaSWorkspaceEnumGet(ctx, &lark.GetAPaaSWorkspaceEnumGetReq{})
+			_, _, err := moduleCli.GetAPaaSWorkspaceEnum(ctx, &lark.GetAPaaSWorkspaceEnumReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -531,36 +531,36 @@ func Test_APaaS_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockAPaaSUpdateAPaaSWorkspaceTableRecordsBatchUpdate(func(ctx context.Context, request *lark.UpdateAPaaSWorkspaceTableRecordsBatchUpdateReq, options ...lark.MethodOptionFunc) (*lark.UpdateAPaaSWorkspaceTableRecordsBatchUpdateResp, *lark.Response, error) {
+			cli.Mock().MockAPaaSBatchUpdateAPaaSWorkspaceTableRecords(func(ctx context.Context, request *lark.BatchUpdateAPaaSWorkspaceTableRecordsReq, options ...lark.MethodOptionFunc) (*lark.BatchUpdateAPaaSWorkspaceTableRecordsResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAPaaSUpdateAPaaSWorkspaceTableRecordsBatchUpdate()
+			defer cli.Mock().UnMockAPaaSBatchUpdateAPaaSWorkspaceTableRecords()
 
-			_, _, err := moduleCli.UpdateAPaaSWorkspaceTableRecordsBatchUpdate(ctx, &lark.UpdateAPaaSWorkspaceTableRecordsBatchUpdateReq{})
+			_, _, err := moduleCli.BatchUpdateAPaaSWorkspaceTableRecords(ctx, &lark.BatchUpdateAPaaSWorkspaceTableRecordsReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockAPaaSDeleteAPaaSWorkspaceTableRecordsDelete(func(ctx context.Context, request *lark.DeleteAPaaSWorkspaceTableRecordsDeleteReq, options ...lark.MethodOptionFunc) (*lark.DeleteAPaaSWorkspaceTableRecordsDeleteResp, *lark.Response, error) {
+			cli.Mock().MockAPaaSDeleteAPaaSWorkspaceTableRecords(func(ctx context.Context, request *lark.DeleteAPaaSWorkspaceTableRecordsReq, options ...lark.MethodOptionFunc) (*lark.DeleteAPaaSWorkspaceTableRecordsResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAPaaSDeleteAPaaSWorkspaceTableRecordsDelete()
+			defer cli.Mock().UnMockAPaaSDeleteAPaaSWorkspaceTableRecords()
 
-			_, _, err := moduleCli.DeleteAPaaSWorkspaceTableRecordsDelete(ctx, &lark.DeleteAPaaSWorkspaceTableRecordsDeleteReq{})
+			_, _, err := moduleCli.DeleteAPaaSWorkspaceTableRecords(ctx, &lark.DeleteAPaaSWorkspaceTableRecordsReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockAPaaSGetAPaaSWorkspaceTableRecordsGet(func(ctx context.Context, request *lark.GetAPaaSWorkspaceTableRecordsGetReq, options ...lark.MethodOptionFunc) (*lark.GetAPaaSWorkspaceTableRecordsGetResp, *lark.Response, error) {
+			cli.Mock().MockAPaaSGetAPaaSWorkspaceTableRecords(func(ctx context.Context, request *lark.GetAPaaSWorkspaceTableRecordsReq, options ...lark.MethodOptionFunc) (*lark.GetAPaaSWorkspaceTableRecordsResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAPaaSGetAPaaSWorkspaceTableRecordsGet()
+			defer cli.Mock().UnMockAPaaSGetAPaaSWorkspaceTableRecords()
 
-			_, _, err := moduleCli.GetAPaaSWorkspaceTableRecordsGet(ctx, &lark.GetAPaaSWorkspaceTableRecordsGetReq{})
+			_, _, err := moduleCli.GetAPaaSWorkspaceTableRecords(ctx, &lark.GetAPaaSWorkspaceTableRecordsReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -579,36 +579,36 @@ func Test_APaaS_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockAPaaSCreateAPaaSWorkspaceTableRecordsPost(func(ctx context.Context, request *lark.CreateAPaaSWorkspaceTableRecordsPostReq, options ...lark.MethodOptionFunc) (*lark.CreateAPaaSWorkspaceTableRecordsPostResp, *lark.Response, error) {
+			cli.Mock().MockAPaaSCreateAPaaSWorkspaceTableRecords(func(ctx context.Context, request *lark.CreateAPaaSWorkspaceTableRecordsReq, options ...lark.MethodOptionFunc) (*lark.CreateAPaaSWorkspaceTableRecordsResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAPaaSCreateAPaaSWorkspaceTableRecordsPost()
+			defer cli.Mock().UnMockAPaaSCreateAPaaSWorkspaceTableRecords()
 
-			_, _, err := moduleCli.CreateAPaaSWorkspaceTableRecordsPost(ctx, &lark.CreateAPaaSWorkspaceTableRecordsPostReq{})
+			_, _, err := moduleCli.CreateAPaaSWorkspaceTableRecords(ctx, &lark.CreateAPaaSWorkspaceTableRecordsReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockAPaaSGetAPaaSWorkspaceTableGet(func(ctx context.Context, request *lark.GetAPaaSWorkspaceTableGetReq, options ...lark.MethodOptionFunc) (*lark.GetAPaaSWorkspaceTableGetResp, *lark.Response, error) {
+			cli.Mock().MockAPaaSGetAPaaSWorkspaceTable(func(ctx context.Context, request *lark.GetAPaaSWorkspaceTableReq, options ...lark.MethodOptionFunc) (*lark.GetAPaaSWorkspaceTableResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAPaaSGetAPaaSWorkspaceTableGet()
+			defer cli.Mock().UnMockAPaaSGetAPaaSWorkspaceTable()
 
-			_, _, err := moduleCli.GetAPaaSWorkspaceTableGet(ctx, &lark.GetAPaaSWorkspaceTableGetReq{})
+			_, _, err := moduleCli.GetAPaaSWorkspaceTable(ctx, &lark.GetAPaaSWorkspaceTableReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockAPaaSGetAPaaSWorkspaceViewViewsGet(func(ctx context.Context, request *lark.GetAPaaSWorkspaceViewViewsGetReq, options ...lark.MethodOptionFunc) (*lark.GetAPaaSWorkspaceViewViewsGetResp, *lark.Response, error) {
+			cli.Mock().MockAPaaSGetAPaaSWorkspaceViews(func(ctx context.Context, request *lark.GetAPaaSWorkspaceViewsReq, options ...lark.MethodOptionFunc) (*lark.GetAPaaSWorkspaceViewsResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockAPaaSGetAPaaSWorkspaceViewViewsGet()
+			defer cli.Mock().UnMockAPaaSGetAPaaSWorkspaceViews()
 
-			_, _, err := moduleCli.GetAPaaSWorkspaceViewViewsGet(ctx, &lark.GetAPaaSWorkspaceViewViewsGetReq{})
+			_, _, err := moduleCli.GetAPaaSWorkspaceViews(ctx, &lark.GetAPaaSWorkspaceViewsReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -698,7 +698,7 @@ func Test_APaaS_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.CreateAPaaSApplicationFlowExecute(ctx, &lark.CreateAPaaSApplicationFlowExecuteReq{
+			_, _, err := moduleCli.ExecuteAPaaSApplicationFlow(ctx, &lark.ExecuteAPaaSApplicationFlowReq{
 				Namespace: "x",
 				FlowID:    "x",
 			})
@@ -708,7 +708,7 @@ func Test_APaaS_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.CreateAPaaSApplicationFunctionInvoke(ctx, &lark.CreateAPaaSApplicationFunctionInvokeReq{
+			_, _, err := moduleCli.InvokeAPaaSApplicationFunction(ctx, &lark.InvokeAPaaSApplicationFunctionReq{
 				Namespace:       "x",
 				FunctionApiName: "x",
 			})
@@ -801,7 +801,7 @@ func Test_APaaS_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.CreateAPaaSApplicationObjectOqlQuery(ctx, &lark.CreateAPaaSApplicationObjectOqlQueryReq{
+			_, _, err := moduleCli.QueryAPaaSApplicationObjectOql(ctx, &lark.QueryAPaaSApplicationObjectOqlReq{
 				Namespace: "x",
 			})
 			as.NotNil(err)
@@ -980,7 +980,7 @@ func Test_APaaS_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetAPaaSWorkspaceEnumGet(ctx, &lark.GetAPaaSWorkspaceEnumGetReq{
+			_, _, err := moduleCli.GetAPaaSWorkspaceEnum(ctx, &lark.GetAPaaSWorkspaceEnumReq{
 				WorkspaceID: "x",
 				EnumName:    "x",
 			})
@@ -1008,7 +1008,7 @@ func Test_APaaS_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.UpdateAPaaSWorkspaceTableRecordsBatchUpdate(ctx, &lark.UpdateAPaaSWorkspaceTableRecordsBatchUpdateReq{
+			_, _, err := moduleCli.BatchUpdateAPaaSWorkspaceTableRecords(ctx, &lark.BatchUpdateAPaaSWorkspaceTableRecordsReq{
 				WorkspaceID: "x",
 				TableName:   "x",
 			})
@@ -1018,7 +1018,7 @@ func Test_APaaS_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.DeleteAPaaSWorkspaceTableRecordsDelete(ctx, &lark.DeleteAPaaSWorkspaceTableRecordsDeleteReq{
+			_, _, err := moduleCli.DeleteAPaaSWorkspaceTableRecords(ctx, &lark.DeleteAPaaSWorkspaceTableRecordsReq{
 				WorkspaceID: "x",
 				TableName:   "x",
 			})
@@ -1028,7 +1028,7 @@ func Test_APaaS_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetAPaaSWorkspaceTableRecordsGet(ctx, &lark.GetAPaaSWorkspaceTableRecordsGetReq{
+			_, _, err := moduleCli.GetAPaaSWorkspaceTableRecords(ctx, &lark.GetAPaaSWorkspaceTableRecordsReq{
 				WorkspaceID: "x",
 				TableName:   "x",
 			})
@@ -1048,7 +1048,7 @@ func Test_APaaS_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.CreateAPaaSWorkspaceTableRecordsPost(ctx, &lark.CreateAPaaSWorkspaceTableRecordsPostReq{
+			_, _, err := moduleCli.CreateAPaaSWorkspaceTableRecords(ctx, &lark.CreateAPaaSWorkspaceTableRecordsReq{
 				WorkspaceID: "x",
 				TableName:   "x",
 			})
@@ -1058,7 +1058,7 @@ func Test_APaaS_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetAPaaSWorkspaceTableGet(ctx, &lark.GetAPaaSWorkspaceTableGetReq{
+			_, _, err := moduleCli.GetAPaaSWorkspaceTable(ctx, &lark.GetAPaaSWorkspaceTableReq{
 				WorkspaceID: "x",
 				TableName:   "x",
 			})
@@ -1068,7 +1068,7 @@ func Test_APaaS_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.GetAPaaSWorkspaceViewViewsGet(ctx, &lark.GetAPaaSWorkspaceViewViewsGetReq{
+			_, _, err := moduleCli.GetAPaaSWorkspaceViews(ctx, &lark.GetAPaaSWorkspaceViewsReq{
 				WorkspaceID: "x",
 				ViewName:    "x",
 			})

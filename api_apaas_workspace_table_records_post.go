@@ -21,42 +21,42 @@ import (
 	"context"
 )
 
-// CreateAPaaSWorkspaceTableRecordsPost 向数据表中添加或更新记录
+// CreateAPaaSWorkspaceTableRecords 向数据表中添加或更新记录
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/workspace-table/records_post
-func (r *APaaSService) CreateAPaaSWorkspaceTableRecordsPost(ctx context.Context, request *CreateAPaaSWorkspaceTableRecordsPostReq, options ...MethodOptionFunc) (*CreateAPaaSWorkspaceTableRecordsPostResp, *Response, error) {
-	if r.cli.mock.mockAPaaSCreateAPaaSWorkspaceTableRecordsPost != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] APaaS#CreateAPaaSWorkspaceTableRecordsPost mock enable")
-		return r.cli.mock.mockAPaaSCreateAPaaSWorkspaceTableRecordsPost(ctx, request, options...)
+func (r *APaaSService) CreateAPaaSWorkspaceTableRecords(ctx context.Context, request *CreateAPaaSWorkspaceTableRecordsReq, options ...MethodOptionFunc) (*CreateAPaaSWorkspaceTableRecordsResp, *Response, error) {
+	if r.cli.mock.mockAPaaSCreateAPaaSWorkspaceTableRecords != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] APaaS#CreateAPaaSWorkspaceTableRecords mock enable")
+		return r.cli.mock.mockAPaaSCreateAPaaSWorkspaceTableRecords(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:               "APaaS",
-		API:                 "CreateAPaaSWorkspaceTableRecordsPost",
+		API:                 "CreateAPaaSWorkspaceTableRecords",
 		Method:              "POST",
 		URL:                 r.cli.openBaseURL + "/open-apis/apaas/v1/workspaces/:workspace_id/tables/:table_name/records",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 	}
-	resp := new(createAPaaSWorkspaceTableRecordsPostResp)
+	resp := new(createAPaaSWorkspaceTableRecordsResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockAPaaSCreateAPaaSWorkspaceTableRecordsPost mock APaaSCreateAPaaSWorkspaceTableRecordsPost method
-func (r *Mock) MockAPaaSCreateAPaaSWorkspaceTableRecordsPost(f func(ctx context.Context, request *CreateAPaaSWorkspaceTableRecordsPostReq, options ...MethodOptionFunc) (*CreateAPaaSWorkspaceTableRecordsPostResp, *Response, error)) {
-	r.mockAPaaSCreateAPaaSWorkspaceTableRecordsPost = f
+// MockAPaaSCreateAPaaSWorkspaceTableRecords mock APaaSCreateAPaaSWorkspaceTableRecords method
+func (r *Mock) MockAPaaSCreateAPaaSWorkspaceTableRecords(f func(ctx context.Context, request *CreateAPaaSWorkspaceTableRecordsReq, options ...MethodOptionFunc) (*CreateAPaaSWorkspaceTableRecordsResp, *Response, error)) {
+	r.mockAPaaSCreateAPaaSWorkspaceTableRecords = f
 }
 
-// UnMockAPaaSCreateAPaaSWorkspaceTableRecordsPost un-mock APaaSCreateAPaaSWorkspaceTableRecordsPost method
-func (r *Mock) UnMockAPaaSCreateAPaaSWorkspaceTableRecordsPost() {
-	r.mockAPaaSCreateAPaaSWorkspaceTableRecordsPost = nil
+// UnMockAPaaSCreateAPaaSWorkspaceTableRecords un-mock APaaSCreateAPaaSWorkspaceTableRecords method
+func (r *Mock) UnMockAPaaSCreateAPaaSWorkspaceTableRecords() {
+	r.mockAPaaSCreateAPaaSWorkspaceTableRecords = nil
 }
 
-// CreateAPaaSWorkspaceTableRecordsPostReq ...
-type CreateAPaaSWorkspaceTableRecordsPostReq struct {
+// CreateAPaaSWorkspaceTableRecordsReq ...
+type CreateAPaaSWorkspaceTableRecordsReq struct {
 	Prefer      *string  `header:"Prefer" json:"-"`     // 为空时表示 INSERT, resolution=merge-duplicates表示 UPSERT, 详细参考 https://docs.postgrest.org/en/v13/references/api/tables_views.html#upsert示例值: "resolution=merge-duplicates"
 	WorkspaceID string   `path:"workspace_id" json:"-"` // 工作空间id, 可以从数据平台的 URL 中获取, 如 `https://apaas.feishu.cn/suda/workspace/workspace_aadimx5uzpsls/table-manage/main?tableId=table_1846786627963081&tab=objectManage` 中的 workspace_aadimx5uzpsls 就是 workspace_id示例值: "workspace_aadimx5uzpsls"
 	TableName   string   `path:"table_name" json:"-"`   // 数据表表名, 可以从数据平台获取对应的数据表名。示例值: "table_name_1"
@@ -65,15 +65,15 @@ type CreateAPaaSWorkspaceTableRecordsPostReq struct {
 	Records     []string `json:"records,omitempty"`     // 要插入的数据记录列表, 单次支持最多 500 条示例值: "[{\"name\":\"王一一\", \"gender\":\"male\", \"age\":10}, {\"name\":\"王二二\", \"gender\":\"female\", \"age\":10}]"
 }
 
-// CreateAPaaSWorkspaceTableRecordsPostResp ...
-type CreateAPaaSWorkspaceTableRecordsPostResp struct {
+// CreateAPaaSWorkspaceTableRecordsResp ...
+type CreateAPaaSWorkspaceTableRecordsResp struct {
 	RecordIDs []string `json:"record_ids,omitempty"` // 按照记录顺序创建或更新的记录 ID 列表
 }
 
-// createAPaaSWorkspaceTableRecordsPostResp ...
-type createAPaaSWorkspaceTableRecordsPostResp struct {
-	Code  int64                                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg   string                                    `json:"msg,omitempty"`  // 错误描述
-	Data  *CreateAPaaSWorkspaceTableRecordsPostResp `json:"data,omitempty"`
-	Error *ErrorDetail                              `json:"error,omitempty"`
+// createAPaaSWorkspaceTableRecordsResp ...
+type createAPaaSWorkspaceTableRecordsResp struct {
+	Code  int64                                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                `json:"msg,omitempty"`  // 错误描述
+	Data  *CreateAPaaSWorkspaceTableRecordsResp `json:"data,omitempty"`
+	Error *ErrorDetail                          `json:"error,omitempty"`
 }

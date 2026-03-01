@@ -21,43 +21,43 @@ import (
 	"context"
 )
 
-// CreateCorehrCommonDataIDConvert 该接口用来进行飞书人事和飞书通讯录、people admin 的各种 ID 转换（仅适用于飞书人事新链路租户）
+// CreateCoreHRCommonDataIDConvert 该接口用来进行飞书人事和飞书通讯录、people admin 的各种 ID 转换（仅适用于飞书人事新链路租户）
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/common_data-id/convert
 // new doc: https://open.feishu.cn/document/corehr-v1/common_data-id/convert
-func (r *CoreHRService) CreateCorehrCommonDataIDConvert(ctx context.Context, request *CreateCorehrCommonDataIDConvertReq, options ...MethodOptionFunc) (*CreateCorehrCommonDataIDConvertResp, *Response, error) {
-	if r.cli.mock.mockCoreHRCreateCorehrCommonDataIDConvert != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCorehrCommonDataIDConvert mock enable")
-		return r.cli.mock.mockCoreHRCreateCorehrCommonDataIDConvert(ctx, request, options...)
+func (r *CoreHRService) CreateCoreHRCommonDataIDConvert(ctx context.Context, request *CreateCoreHRCommonDataIDConvertReq, options ...MethodOptionFunc) (*CreateCoreHRCommonDataIDConvertResp, *Response, error) {
+	if r.cli.mock.mockCoreHRCreateCoreHRCommonDataIDConvert != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCoreHRCommonDataIDConvert mock enable")
+		return r.cli.mock.mockCoreHRCreateCoreHRCommonDataIDConvert(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "CreateCorehrCommonDataIDConvert",
+		API:                   "CreateCoreHRCommonDataIDConvert",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/common_data/id/convert",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(createCorehrCommonDataIDConvertResp)
+	resp := new(createCoreHRCommonDataIDConvertResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRCreateCorehrCommonDataIDConvert mock CoreHRCreateCorehrCommonDataIDConvert method
-func (r *Mock) MockCoreHRCreateCorehrCommonDataIDConvert(f func(ctx context.Context, request *CreateCorehrCommonDataIDConvertReq, options ...MethodOptionFunc) (*CreateCorehrCommonDataIDConvertResp, *Response, error)) {
-	r.mockCoreHRCreateCorehrCommonDataIDConvert = f
+// MockCoreHRCreateCoreHRCommonDataIDConvert mock CoreHRCreateCoreHRCommonDataIDConvert method
+func (r *Mock) MockCoreHRCreateCoreHRCommonDataIDConvert(f func(ctx context.Context, request *CreateCoreHRCommonDataIDConvertReq, options ...MethodOptionFunc) (*CreateCoreHRCommonDataIDConvertResp, *Response, error)) {
+	r.mockCoreHRCreateCoreHRCommonDataIDConvert = f
 }
 
-// UnMockCoreHRCreateCorehrCommonDataIDConvert un-mock CoreHRCreateCorehrCommonDataIDConvert method
-func (r *Mock) UnMockCoreHRCreateCorehrCommonDataIDConvert() {
-	r.mockCoreHRCreateCorehrCommonDataIDConvert = nil
+// UnMockCoreHRCreateCoreHRCommonDataIDConvert un-mock CoreHRCreateCoreHRCommonDataIDConvert method
+func (r *Mock) UnMockCoreHRCreateCoreHRCommonDataIDConvert() {
+	r.mockCoreHRCreateCoreHRCommonDataIDConvert = nil
 }
 
-// CreateCorehrCommonDataIDConvertReq ...
-type CreateCorehrCommonDataIDConvertReq struct {
+// CreateCoreHRCommonDataIDConvertReq ...
+type CreateCoreHRCommonDataIDConvertReq struct {
 	IDTransformType        int64             `query:"id_transform_type" json:"-"`         // ID 转换类型示例值: 1可选值有: 飞书人事 -> 飞书通讯录飞书通讯录 -> 飞书人事people admin -> 飞书通讯录people admin -> 飞书人事
 	IDType                 IDType            `query:"id_type" json:"-"`                   // 要转换的ID类型示例值: user_id可选值有: 员工ID, 当选择 user_id 且 id_transform_type 为 1、2、4 时, feishu_user_id_type 必填部门ID, 当选择 department_id 且 id_transform_type 为 1、2、4 时, feishu_department_id_type 必填职级ID序列ID人员类型ID, people admin 的人员类型ID 即为飞书通讯录人员类型的  enum_value, 因此id_transform_type 为 3 时无须转换
 	FeishuUserIDType       *IDType           `query:"feishu_user_id_type" json:"-"`       // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
@@ -65,21 +65,21 @@ type CreateCorehrCommonDataIDConvertReq struct {
 	IDs                    []string          `json:"ids,omitempty"`                       // ID 列表（最多传入 100 个 ID, ID 长度限制 50 个字符）示例值: ["6891251722631891445"] 长度范围: `1` ～ `100`
 }
 
-// CreateCorehrCommonDataIDConvertResp ...
-type CreateCorehrCommonDataIDConvertResp struct {
-	Items []*CreateCorehrCommonDataIDConvertRespItem `json:"items,omitempty"` // ID 信息列表
+// CreateCoreHRCommonDataIDConvertResp ...
+type CreateCoreHRCommonDataIDConvertResp struct {
+	Items []*CreateCoreHRCommonDataIDConvertRespItem `json:"items,omitempty"` // ID 信息列表
 }
 
-// CreateCorehrCommonDataIDConvertRespItem ...
-type CreateCorehrCommonDataIDConvertRespItem struct {
+// CreateCoreHRCommonDataIDConvertRespItem ...
+type CreateCoreHRCommonDataIDConvertRespItem struct {
 	ID       string `json:"id,omitempty"`        // 传入的 ID
 	TargetID string `json:"target_id,omitempty"` // 目标 ID 值
 }
 
-// createCorehrCommonDataIDConvertResp ...
-type createCorehrCommonDataIDConvertResp struct {
+// createCoreHRCommonDataIDConvertResp ...
+type createCoreHRCommonDataIDConvertResp struct {
 	Code  int64                                `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                               `json:"msg,omitempty"`  // 错误描述
-	Data  *CreateCorehrCommonDataIDConvertResp `json:"data,omitempty"`
+	Data  *CreateCoreHRCommonDataIDConvertResp `json:"data,omitempty"`
 	Error *ErrorDetail                         `json:"error,omitempty"`
 }

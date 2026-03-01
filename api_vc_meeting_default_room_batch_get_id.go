@@ -28,9 +28,9 @@ import (
 //
 // Deprecated
 func (r *VCService) GetVCMeetingDefaultRoomBatchGetID(ctx context.Context, request *GetVCMeetingDefaultRoomBatchGetIDReq, options ...MethodOptionFunc) (*GetVCMeetingDefaultRoomBatchGetIDResp, *Response, error) {
-	if r.cli.mock.mockVCMeetingGetVCMeetingDefaultRoomBatchGetID != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] VCMeeting#GetVCMeetingDefaultRoomBatchGetID mock enable")
-		return r.cli.mock.mockVCMeetingGetVCMeetingDefaultRoomBatchGetID(ctx, request, options...)
+	if r.cli.mock.mockVCGetVCMeetingDefaultRoomBatchGetID != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#GetVCMeetingDefaultRoomBatchGetID mock enable")
+		return r.cli.mock.mockVCGetVCMeetingDefaultRoomBatchGetID(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
@@ -48,14 +48,14 @@ func (r *VCService) GetVCMeetingDefaultRoomBatchGetID(ctx context.Context, reque
 	return resp.Data, response, err
 }
 
-// MockVCMeetingGetVCMeetingDefaultRoomBatchGetID mock VCMeetingGetVCMeetingDefaultRoomBatchGetID method
-func (r *Mock) MockVCMeetingGetVCMeetingDefaultRoomBatchGetID(f func(ctx context.Context, request *GetVCMeetingDefaultRoomBatchGetIDReq, options ...MethodOptionFunc) (*GetVCMeetingDefaultRoomBatchGetIDResp, *Response, error)) {
-	r.mockVCMeetingGetVCMeetingDefaultRoomBatchGetID = f
+// MockVCGetVCMeetingDefaultRoomBatchGetID mock VCGetVCMeetingDefaultRoomBatchGetID method
+func (r *Mock) MockVCGetVCMeetingDefaultRoomBatchGetID(f func(ctx context.Context, request *GetVCMeetingDefaultRoomBatchGetIDReq, options ...MethodOptionFunc) (*GetVCMeetingDefaultRoomBatchGetIDResp, *Response, error)) {
+	r.mockVCGetVCMeetingDefaultRoomBatchGetID = f
 }
 
-// UnMockVCMeetingGetVCMeetingDefaultRoomBatchGetID un-mock VCMeetingGetVCMeetingDefaultRoomBatchGetID method
-func (r *Mock) UnMockVCMeetingGetVCMeetingDefaultRoomBatchGetID() {
-	r.mockVCMeetingGetVCMeetingDefaultRoomBatchGetID = nil
+// UnMockVCGetVCMeetingDefaultRoomBatchGetID un-mock VCGetVCMeetingDefaultRoomBatchGetID method
+func (r *Mock) UnMockVCGetVCMeetingDefaultRoomBatchGetID() {
+	r.mockVCGetVCMeetingDefaultRoomBatchGetID = nil
 }
 
 // GetVCMeetingDefaultRoomBatchGetIDReq ...

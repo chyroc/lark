@@ -28,9 +28,9 @@ import (
 //
 // Deprecated
 func (r *VCService) ListVCMeetingDefaultDistrict(ctx context.Context, request *ListVCMeetingDefaultDistrictReq, options ...MethodOptionFunc) (*ListVCMeetingDefaultDistrictResp, *Response, error) {
-	if r.cli.mock.mockVCMeetingListVCMeetingDefaultDistrict != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] VCMeeting#ListVCMeetingDefaultDistrict mock enable")
-		return r.cli.mock.mockVCMeetingListVCMeetingDefaultDistrict(ctx, request, options...)
+	if r.cli.mock.mockVCListVCMeetingDefaultDistrict != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#ListVCMeetingDefaultDistrict mock enable")
+		return r.cli.mock.mockVCListVCMeetingDefaultDistrict(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
@@ -48,14 +48,14 @@ func (r *VCService) ListVCMeetingDefaultDistrict(ctx context.Context, request *L
 	return resp.Data, response, err
 }
 
-// MockVCMeetingListVCMeetingDefaultDistrict mock VCMeetingListVCMeetingDefaultDistrict method
-func (r *Mock) MockVCMeetingListVCMeetingDefaultDistrict(f func(ctx context.Context, request *ListVCMeetingDefaultDistrictReq, options ...MethodOptionFunc) (*ListVCMeetingDefaultDistrictResp, *Response, error)) {
-	r.mockVCMeetingListVCMeetingDefaultDistrict = f
+// MockVCListVCMeetingDefaultDistrict mock VCListVCMeetingDefaultDistrict method
+func (r *Mock) MockVCListVCMeetingDefaultDistrict(f func(ctx context.Context, request *ListVCMeetingDefaultDistrictReq, options ...MethodOptionFunc) (*ListVCMeetingDefaultDistrictResp, *Response, error)) {
+	r.mockVCListVCMeetingDefaultDistrict = f
 }
 
-// UnMockVCMeetingListVCMeetingDefaultDistrict un-mock VCMeetingListVCMeetingDefaultDistrict method
-func (r *Mock) UnMockVCMeetingListVCMeetingDefaultDistrict() {
-	r.mockVCMeetingListVCMeetingDefaultDistrict = nil
+// UnMockVCListVCMeetingDefaultDistrict un-mock VCListVCMeetingDefaultDistrict method
+func (r *Mock) UnMockVCListVCMeetingDefaultDistrict() {
+	r.mockVCListVCMeetingDefaultDistrict = nil
 }
 
 // ListVCMeetingDefaultDistrictReq ...

@@ -1983,12 +1983,132 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			cli.Mock().MockDriveCreateBaseAppRole(func(ctx context.Context, request *lark.CreateBaseAppRoleReq, options ...lark.MethodOptionFunc) (*lark.CreateBaseAppRoleResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveCreateBaseAppRole()
+
+			_, _, err := moduleCli.CreateBaseAppRole(ctx, &lark.CreateBaseAppRoleReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockDriveListBaseAppRole(func(ctx context.Context, request *lark.ListBaseAppRoleReq, options ...lark.MethodOptionFunc) (*lark.ListBaseAppRoleResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveListBaseAppRole()
+
+			_, _, err := moduleCli.ListBaseAppRole(ctx, &lark.ListBaseAppRoleReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockDriveUpdateBaseAppRole(func(ctx context.Context, request *lark.UpdateBaseAppRoleReq, options ...lark.MethodOptionFunc) (*lark.UpdateBaseAppRoleResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveUpdateBaseAppRole()
+
+			_, _, err := moduleCli.UpdateBaseAppRole(ctx, &lark.UpdateBaseAppRoleReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockDriveCreateCcmDocsDefaultDocsApiMeta(func(ctx context.Context, request *lark.CreateCcmDocsDefaultDocsApiMetaReq, options ...lark.MethodOptionFunc) (*lark.CreateCcmDocsDefaultDocsApiMetaResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveCreateCcmDocsDefaultDocsApiMeta()
+
+			_, _, err := moduleCli.CreateCcmDocsDefaultDocsApiMeta(ctx, &lark.CreateCcmDocsDefaultDocsApiMetaReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockDriveCreateBoardWhiteboardNode(func(ctx context.Context, request *lark.CreateBoardWhiteboardNodeReq, options ...lark.MethodOptionFunc) (*lark.CreateBoardWhiteboardNodeResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveCreateBoardWhiteboardNode()
+
+			_, _, err := moduleCli.CreateBoardWhiteboardNode(ctx, &lark.CreateBoardWhiteboardNodeReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockDriveCreateBoardWhiteboardNodePlantuml(func(ctx context.Context, request *lark.CreateBoardWhiteboardNodePlantumlReq, options ...lark.MethodOptionFunc) (*lark.CreateBoardWhiteboardNodePlantumlResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveCreateBoardWhiteboardNodePlantuml()
+
+			_, _, err := moduleCli.CreateBoardWhiteboardNodePlantuml(ctx, &lark.CreateBoardWhiteboardNodePlantumlReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			cli.Mock().MockDriveGetWhiteboardNodeList(func(ctx context.Context, request *lark.GetWhiteboardNodeListReq, options ...lark.MethodOptionFunc) (*lark.GetWhiteboardNodeListResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
 			defer cli.Mock().UnMockDriveGetWhiteboardNodeList()
 
 			_, _, err := moduleCli.GetWhiteboardNodeList(ctx, &lark.GetWhiteboardNodeListReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockDriveDownloadBoardWhiteboardAsImage(func(ctx context.Context, request *lark.DownloadBoardWhiteboardAsImageReq, options ...lark.MethodOptionFunc) (*lark.DownloadBoardWhiteboardAsImageResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveDownloadBoardWhiteboardAsImage()
+
+			_, _, err := moduleCli.DownloadBoardWhiteboardAsImage(ctx, &lark.DownloadBoardWhiteboardAsImageReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockDriveGetBoardWhiteboardTheme(func(ctx context.Context, request *lark.GetBoardWhiteboardThemeReq, options ...lark.MethodOptionFunc) (*lark.GetBoardWhiteboardThemeResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveGetBoardWhiteboardTheme()
+
+			_, _, err := moduleCli.GetBoardWhiteboardTheme(ctx, &lark.GetBoardWhiteboardThemeReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockDriveUpdateBoardWhiteboardTheme(func(ctx context.Context, request *lark.UpdateBoardWhiteboardThemeReq, options ...lark.MethodOptionFunc) (*lark.UpdateBoardWhiteboardThemeResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveUpdateBoardWhiteboardTheme()
+
+			_, _, err := moduleCli.UpdateBoardWhiteboardTheme(ctx, &lark.UpdateBoardWhiteboardThemeReq{})
+			as.NotNil(err)
+			as.Equal(err.Error(), "mock-failed")
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			cli.Mock().MockDriveGetDocsContent(func(ctx context.Context, request *lark.GetDocsContentReq, options ...lark.MethodOptionFunc) (*lark.GetDocsContentResp, *lark.Response, error) {
+				return nil, nil, fmt.Errorf("mock-failed")
+			})
+			defer cli.Mock().UnMockDriveGetDocsContent()
+
+			_, _, err := moduleCli.GetDocsContent(ctx, &lark.GetDocsContentReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -3566,9 +3686,96 @@ func Test_Drive_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
+			_, _, err := moduleCli.CreateBaseAppRole(ctx, &lark.CreateBaseAppRoleReq{
+				AppToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.ListBaseAppRole(ctx, &lark.ListBaseAppRoleReq{
+				AppToken: "x",
+			})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateBaseAppRole(ctx, &lark.UpdateBaseAppRoleReq{
+				AppToken: "x",
+				RoleID:   "x",
+			})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateCcmDocsDefaultDocsApiMeta(ctx, &lark.CreateCcmDocsDefaultDocsApiMetaReq{})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateBoardWhiteboardNode(ctx, &lark.CreateBoardWhiteboardNodeReq{
+				WhiteboardID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.CreateBoardWhiteboardNodePlantuml(ctx, &lark.CreateBoardWhiteboardNodePlantumlReq{
+				WhiteboardID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
 			_, _, err := moduleCli.GetWhiteboardNodeList(ctx, &lark.GetWhiteboardNodeListReq{
 				WhiteboardID: "x",
 			})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.DownloadBoardWhiteboardAsImage(ctx, &lark.DownloadBoardWhiteboardAsImageReq{
+				WhiteboardID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetBoardWhiteboardTheme(ctx, &lark.GetBoardWhiteboardThemeReq{
+				WhiteboardID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.UpdateBoardWhiteboardTheme(ctx, &lark.UpdateBoardWhiteboardThemeReq{
+				WhiteboardID: "x",
+			})
+			as.NotNil(err)
+			as.Equal("mock-http-failed", err.Error())
+		})
+
+		t.Run("", func(t *testing.T) {
+
+			_, _, err := moduleCli.GetDocsContent(ctx, &lark.GetDocsContentReq{})
 			as.NotNil(err)
 			as.Equal("mock-http-failed", err.Error())
 		})

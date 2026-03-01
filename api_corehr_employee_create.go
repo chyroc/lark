@@ -21,83 +21,83 @@ import (
 	"context"
 )
 
-// CreateCorehrEmployee 支持在单个接口中进行人员全信息添加, 包括人员的基本信息, 雇佣信息, 入职任职记录及其他分组信息
+// CreateCoreHREmployee 支持在单个接口中进行人员全信息添加, 包括人员的基本信息, 雇佣信息, 入职任职记录及其他分组信息
 //
 // - 此接口参数校验规则与【人事系统-人员档案配置】的校验规则一致, 字段是否必填以【人事系统-人员档案配置】为准。建议参照【飞书人事-我的团队-添加人员】页面来传参
 // - 若开启工号自动编码规则则无需输入人员“工号”, 系统将自动进行工号生成；若手动输入工号, 则会按照手动输入工号内容进行人员档案建立
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/create
 // new doc: https://open.feishu.cn/document/corehr-v1/employee/create
-func (r *CoreHRService) CreateCorehrEmployee(ctx context.Context, request *CreateCorehrEmployeeReq, options ...MethodOptionFunc) (*CreateCorehrEmployeeResp, *Response, error) {
-	if r.cli.mock.mockCoreHRCreateCorehrEmployee != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCorehrEmployee mock enable")
-		return r.cli.mock.mockCoreHRCreateCorehrEmployee(ctx, request, options...)
+func (r *CoreHRService) CreateCoreHREmployee(ctx context.Context, request *CreateCoreHREmployeeReq, options ...MethodOptionFunc) (*CreateCoreHREmployeeResp, *Response, error) {
+	if r.cli.mock.mockCoreHRCreateCoreHREmployee != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCoreHREmployee mock enable")
+		return r.cli.mock.mockCoreHRCreateCoreHREmployee(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "CreateCorehrEmployee",
+		API:                   "CreateCoreHREmployee",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/employees",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(createCorehrEmployeeResp)
+	resp := new(createCoreHREmployeeResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRCreateCorehrEmployee mock CoreHRCreateCorehrEmployee method
-func (r *Mock) MockCoreHRCreateCorehrEmployee(f func(ctx context.Context, request *CreateCorehrEmployeeReq, options ...MethodOptionFunc) (*CreateCorehrEmployeeResp, *Response, error)) {
-	r.mockCoreHRCreateCorehrEmployee = f
+// MockCoreHRCreateCoreHREmployee mock CoreHRCreateCoreHREmployee method
+func (r *Mock) MockCoreHRCreateCoreHREmployee(f func(ctx context.Context, request *CreateCoreHREmployeeReq, options ...MethodOptionFunc) (*CreateCoreHREmployeeResp, *Response, error)) {
+	r.mockCoreHRCreateCoreHREmployee = f
 }
 
-// UnMockCoreHRCreateCorehrEmployee un-mock CoreHRCreateCorehrEmployee method
-func (r *Mock) UnMockCoreHRCreateCorehrEmployee() {
-	r.mockCoreHRCreateCorehrEmployee = nil
+// UnMockCoreHRCreateCoreHREmployee un-mock CoreHRCreateCoreHREmployee method
+func (r *Mock) UnMockCoreHRCreateCoreHREmployee() {
+	r.mockCoreHRCreateCoreHREmployee = nil
 }
 
-// CreateCorehrEmployeeReq ...
-type CreateCorehrEmployeeReq struct {
+// CreateCoreHREmployeeReq ...
+type CreateCoreHREmployeeReq struct {
 	ClientToken                *string                                `query:"client_token" json:"-"`                   // 操作的唯一标识, 用于幂等的进行更新操作, 格式为标准的 UUIDV4。此值为空表示将发起一次新的请求, 此值非空表示幂等的进行更新操作。示例值: fe599b60-450f-46ff-b2ef-9f6675625b97 长度范围: `1` ～ `100` 字符
 	Rehire                     *bool                                  `query:"rehire" json:"-"`                         // 是否为离职重聘- false: 系统直接标为非离职重聘人员, 不再做重复判断- true: 要求 rehire_employment_id示例值: true
 	RehireEmploymentID         *string                                `query:"rehire_employment_id" json:"-"`           // 离职重聘员工雇佣 ID可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取示例值: 7140964208476371111
 	ForceSubmit                *bool                                  `query:"force_submit" json:"-"`                   // 是否强制提交- true: 是, 跳过超编等校验- false: 否, 被拦截报错示例值: false默认值: `false`
 	IgnoreWorkingHoursTypeRule *bool                                  `query:"ignore_working_hours_type_rule" json:"-"` // 是否忽略工时制度自动生成规则- 值为 false 时, 以下字段必填: - emp_contract_record.first_party  - employment_record.work_location  - employment_record.employee_type  - employment_record.job_family  - employment_record.job  - employment_record.job_level  - employment_record.department示例值: true默认值: `false`
-	PersonalInfo               *CreateCorehrEmployeeReqPersonalInfo   `json:"personal_info,omitempty"`                  // 个人信息
-	EmploymentInfo             *CreateCorehrEmployeeReqEmploymentInfo `json:"employment_info,omitempty"`                // 工作信息
-	Career                     *CreateCorehrEmployeeReqCareer         `json:"career,omitempty"`                         // 履历信息
-	DataAttachment             *CreateCorehrEmployeeReqDataAttachment `json:"data_attachment,omitempty"`                // 资料附件
+	PersonalInfo               *CreateCoreHREmployeeReqPersonalInfo   `json:"personal_info,omitempty"`                  // 个人信息
+	EmploymentInfo             *CreateCoreHREmployeeReqEmploymentInfo `json:"employment_info,omitempty"`                // 工作信息
+	Career                     *CreateCoreHREmployeeReqCareer         `json:"career,omitempty"`                         // 履历信息
+	DataAttachment             *CreateCoreHREmployeeReqDataAttachment `json:"data_attachment,omitempty"`                // 资料附件
 }
 
-// CreateCorehrEmployeeReqCareer ...
-type CreateCorehrEmployeeReqCareer struct {
+// CreateCoreHREmployeeReqCareer ...
+type CreateCoreHREmployeeReqCareer struct {
 	Educations      []*EHREducation                                `json:"educations,omitempty"`       // 教育经历 长度范围: `0` ～ `100`
-	WorkExperiences []*CreateCorehrEmployeeReqCareerWorkExperience `json:"work_experiences,omitempty"` // 工作经历 长度范围: `0` ～ `100`
-	CustomGroups    []*CreateCorehrEmployeeReqCareerCustomGroup    `json:"custom_groups,omitempty"`    // 自定义分组 长度范围: `0` ～ `100`
+	WorkExperiences []*CreateCoreHREmployeeReqCareerWorkExperience `json:"work_experiences,omitempty"` // 工作经历 长度范围: `0` ～ `100`
+	CustomGroups    []*CreateCoreHREmployeeReqCareerCustomGroup    `json:"custom_groups,omitempty"`    // 自定义分组 长度范围: `0` ～ `100`
 }
 
-// CreateCorehrEmployeeReqCareerCustomGroup ...
-type CreateCorehrEmployeeReqCareerCustomGroup struct {
+// CreateCoreHREmployeeReqCareerCustomGroup ...
+type CreateCoreHREmployeeReqCareerCustomGroup struct {
 	GroupName *string                                         `json:"group_name,omitempty"` // 分组名示例值: "custom_obj__c"
-	Items     []*CreateCorehrEmployeeReqCareerCustomGroupItem `json:"items,omitempty"`      // 分组数据 长度范围: `0` ～ `1000`
+	Items     []*CreateCoreHREmployeeReqCareerCustomGroupItem `json:"items,omitempty"`      // 分组数据 长度范围: `0` ～ `1000`
 }
 
-// CreateCorehrEmployeeReqCareerCustomGroupItem ...
-type CreateCorehrEmployeeReqCareerCustomGroupItem struct {
-	CustomFields []*CreateCorehrEmployeeReqCareerCustomGroupItemCustomField `json:"custom_fields,omitempty"` // 自定义字段- 请参考[自定义字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide) 长度范围: `0` ～ `100`
+// CreateCoreHREmployeeReqCareerCustomGroupItem ...
+type CreateCoreHREmployeeReqCareerCustomGroupItem struct {
+	CustomFields []*CreateCoreHREmployeeReqCareerCustomGroupItemCustomField `json:"custom_fields,omitempty"` // 自定义字段- 请参考[自定义字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide) 长度范围: `0` ～ `100`
 }
 
-// CreateCorehrEmployeeReqCareerCustomGroupItemCustomField ...
-type CreateCorehrEmployeeReqCareerCustomGroupItemCustomField struct {
+// CreateCoreHREmployeeReqCareerCustomGroupItemCustomField ...
+type CreateCoreHREmployeeReqCareerCustomGroupItemCustomField struct {
 	FieldName string  `json:"field_name,omitempty"` // 字段名示例值: "custom_field_1__c"
 	Value     *string `json:"value,omitempty"`      // 字段值是 JSON 转义后的字符串, 根据元数据定义不同, 字段格式不同。使用方式可参考[【操作手册】如何通过 OpenAPI 维护自定义字段](https://feishu.feishu.cn/docx/QlUudBfCtosWMbxx3vxcOFDknn7)示例值: "123"
 }
 
-// CreateCorehrEmployeeReqCareerEducation ...
-type CreateCorehrEmployeeReqCareerEducation struct {
+// CreateCoreHREmployeeReqCareerEducation ...
+type CreateCoreHREmployeeReqCareerEducation struct {
 	School           *string                                              `json:"school,omitempty"`              // 学校示例值: "北京大学"
 	SchoolEnum       *string                                              `json:"school_enum,omitempty"`         // 学校枚举值可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "education" - custom_api_name = "school_name"示例值: "school-177"
 	StartDate        *string                                              `json:"start_date,omitempty"`          // 开始日期示例值: "2011-09-01"
@@ -106,87 +106,87 @@ type CreateCorehrEmployeeReqCareerEducation struct {
 	FieldOfStudy     *string                                              `json:"field_of_study,omitempty"`      // 专业示例值: "软件工程"
 	Degree           *string                                              `json:"degree,omitempty"`              // 学位枚举值可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "education" - custom_api_name = "degree"示例值: "bachelors_degree"
 	FieldOfStudyEnum *string                                              `json:"field_of_study_enum,omitempty"` // 专业枚举值可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "education"- custom_api_name = "field_of_study_name"示例值: "field_of_study-2"
-	CustomFields     []*CreateCorehrEmployeeReqCareerEducationCustomField `json:"custom_fields,omitempty"`       // 自定义字段- 请参考[自定义字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide) 长度范围: `0` ～ `100`
+	CustomFields     []*CreateCoreHREmployeeReqCareerEducationCustomField `json:"custom_fields,omitempty"`       // 自定义字段- 请参考[自定义字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide) 长度范围: `0` ～ `100`
 }
 
-// CreateCorehrEmployeeReqCareerEducationCustomField ...
-type CreateCorehrEmployeeReqCareerEducationCustomField struct {
+// CreateCoreHREmployeeReqCareerEducationCustomField ...
+type CreateCoreHREmployeeReqCareerEducationCustomField struct {
 	FieldName string  `json:"field_name,omitempty"` // 字段名示例值: "custom_field_1__c"
 	Value     *string `json:"value,omitempty"`      // 字段值是 JSON 转义后的字符串, 根据元数据定义不同, 字段格式不同。使用方式可参考[【操作手册】如何通过 OpenAPI 维护自定义字段](https://feishu.feishu.cn/docx/QlUudBfCtosWMbxx3vxcOFDknn7)示例值: "123"
 }
 
-// CreateCorehrEmployeeReqCareerWorkExperience ...
-type CreateCorehrEmployeeReqCareerWorkExperience struct {
-	CompanyOrganization *CreateCorehrEmployeeReqCareerWorkExperienceCompanyOrganization `json:"company_organization,omitempty"` // 公司 / 组织
-	Department          *CreateCorehrEmployeeReqCareerWorkExperienceDepartment          `json:"department,omitempty"`           // 部门
+// CreateCoreHREmployeeReqCareerWorkExperience ...
+type CreateCoreHREmployeeReqCareerWorkExperience struct {
+	CompanyOrganization *CreateCoreHREmployeeReqCareerWorkExperienceCompanyOrganization `json:"company_organization,omitempty"` // 公司 / 组织
+	Department          *CreateCoreHREmployeeReqCareerWorkExperienceDepartment          `json:"department,omitempty"`           // 部门
 	StartDate           *string                                                         `json:"start_date,omitempty"`           // 开始日期示例值: "2020-01-01"
 	EndDate             *string                                                         `json:"end_date,omitempty"`             // 结束日期示例值: "2020-02-01"
-	Job                 *CreateCorehrEmployeeReqCareerWorkExperienceJob                 `json:"job,omitempty"`                  // 岗位
-	Description         *CreateCorehrEmployeeReqCareerWorkExperienceDescription         `json:"description,omitempty"`          // 工作描述
-	CustomFields        []*CreateCorehrEmployeeReqCareerWorkExperienceCustomField       `json:"custom_fields,omitempty"`        // 自定义字段- 请参考[自定义字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide) 长度范围: `0` ～ `100`
+	Job                 *CreateCoreHREmployeeReqCareerWorkExperienceJob                 `json:"job,omitempty"`                  // 岗位
+	Description         *CreateCoreHREmployeeReqCareerWorkExperienceDescription         `json:"description,omitempty"`          // 工作描述
+	CustomFields        []*CreateCoreHREmployeeReqCareerWorkExperienceCustomField       `json:"custom_fields,omitempty"`        // 自定义字段- 请参考[自定义字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide) 长度范围: `0` ～ `100`
 }
 
-// CreateCorehrEmployeeReqCareerWorkExperienceCompanyOrganization ...
-type CreateCorehrEmployeeReqCareerWorkExperienceCompanyOrganization struct {
+// CreateCoreHREmployeeReqCareerWorkExperienceCompanyOrganization ...
+type CreateCoreHREmployeeReqCareerWorkExperienceCompanyOrganization struct {
 	ZhCn *string `json:"zh_cn,omitempty"` // 中文示例值: "中文名"
 	EnUs *string `json:"en_us,omitempty"` // 英文示例值: "english name"
 }
 
-// CreateCorehrEmployeeReqCareerWorkExperienceCustomField ...
-type CreateCorehrEmployeeReqCareerWorkExperienceCustomField struct {
+// CreateCoreHREmployeeReqCareerWorkExperienceCustomField ...
+type CreateCoreHREmployeeReqCareerWorkExperienceCustomField struct {
 	FieldName string  `json:"field_name,omitempty"` // 字段名示例值: "custom_field_1__c"
 	Value     *string `json:"value,omitempty"`      // 字段值是 JSON 转义后的字符串, 根据元数据定义不同, 字段格式不同。使用方式可参考[【操作手册】如何通过 OpenAPI 维护自定义字段](https://feishu.feishu.cn/docx/QlUudBfCtosWMbxx3vxcOFDknn7)示例值: "123"
 }
 
-// CreateCorehrEmployeeReqCareerWorkExperienceDepartment ...
-type CreateCorehrEmployeeReqCareerWorkExperienceDepartment struct {
+// CreateCoreHREmployeeReqCareerWorkExperienceDepartment ...
+type CreateCoreHREmployeeReqCareerWorkExperienceDepartment struct {
 	ZhCn *string `json:"zh_cn,omitempty"` // 中文示例值: "中文名"
 	EnUs *string `json:"en_us,omitempty"` // 英文示例值: "english name"
 }
 
-// CreateCorehrEmployeeReqCareerWorkExperienceDescription ...
-type CreateCorehrEmployeeReqCareerWorkExperienceDescription struct {
+// CreateCoreHREmployeeReqCareerWorkExperienceDescription ...
+type CreateCoreHREmployeeReqCareerWorkExperienceDescription struct {
 	ZhCn *string `json:"zh_cn,omitempty"` // 中文示例值: "中文名"
 	EnUs *string `json:"en_us,omitempty"` // 英文示例值: "english name"
 }
 
-// CreateCorehrEmployeeReqCareerWorkExperienceJob ...
-type CreateCorehrEmployeeReqCareerWorkExperienceJob struct {
+// CreateCoreHREmployeeReqCareerWorkExperienceJob ...
+type CreateCoreHREmployeeReqCareerWorkExperienceJob struct {
 	ZhCn *string `json:"zh_cn,omitempty"` // 中文示例值: "中文名"
 	EnUs *string `json:"en_us,omitempty"` // 英文示例值: "english name"
 }
 
-// CreateCorehrEmployeeReqDataAttachment ...
-type CreateCorehrEmployeeReqDataAttachment struct {
-	PersonalRecords []*CreateCorehrEmployeeReqDataAttachmentPersonalRecord `json:"personal_records,omitempty"` // 资料附件记录 长度范围: `0` ～ `100`
-	CustomGroups    []*CreateCorehrEmployeeReqDataAttachmentCustomGroup    `json:"custom_groups,omitempty"`    // 自定义分组 长度范围: `0` ～ `100`
+// CreateCoreHREmployeeReqDataAttachment ...
+type CreateCoreHREmployeeReqDataAttachment struct {
+	PersonalRecords []*CreateCoreHREmployeeReqDataAttachmentPersonalRecord `json:"personal_records,omitempty"` // 资料附件记录 长度范围: `0` ～ `100`
+	CustomGroups    []*CreateCoreHREmployeeReqDataAttachmentCustomGroup    `json:"custom_groups,omitempty"`    // 自定义分组 长度范围: `0` ～ `100`
 }
 
-// CreateCorehrEmployeeReqDataAttachmentCustomGroup ...
-type CreateCorehrEmployeeReqDataAttachmentCustomGroup struct {
+// CreateCoreHREmployeeReqDataAttachmentCustomGroup ...
+type CreateCoreHREmployeeReqDataAttachmentCustomGroup struct {
 	GroupName *string                                                 `json:"group_name,omitempty"` // 分组名示例值: "custom_obj__c"
-	Items     []*CreateCorehrEmployeeReqDataAttachmentCustomGroupItem `json:"items,omitempty"`      // 分组数据 长度范围: `0` ～ `1000`
+	Items     []*CreateCoreHREmployeeReqDataAttachmentCustomGroupItem `json:"items,omitempty"`      // 分组数据 长度范围: `0` ～ `1000`
 }
 
-// CreateCorehrEmployeeReqDataAttachmentCustomGroupItem ...
-type CreateCorehrEmployeeReqDataAttachmentCustomGroupItem struct {
-	CustomFields []*CreateCorehrEmployeeReqDataAttachmentCustomGroupItemCustomField `json:"custom_fields,omitempty"` // 自定义字段- 请参考[自定义字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide) 长度范围: `0` ～ `100`
+// CreateCoreHREmployeeReqDataAttachmentCustomGroupItem ...
+type CreateCoreHREmployeeReqDataAttachmentCustomGroupItem struct {
+	CustomFields []*CreateCoreHREmployeeReqDataAttachmentCustomGroupItemCustomField `json:"custom_fields,omitempty"` // 自定义字段- 请参考[自定义字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide) 长度范围: `0` ～ `100`
 }
 
-// CreateCorehrEmployeeReqDataAttachmentCustomGroupItemCustomField ...
-type CreateCorehrEmployeeReqDataAttachmentCustomGroupItemCustomField struct {
+// CreateCoreHREmployeeReqDataAttachmentCustomGroupItemCustomField ...
+type CreateCoreHREmployeeReqDataAttachmentCustomGroupItemCustomField struct {
 	FieldName string  `json:"field_name,omitempty"` // 字段名示例值: "custom_field_1__c"
 	Value     *string `json:"value,omitempty"`      // 字段值是 JSON 转义后的字符串, 根据元数据定义不同, 字段格式不同。使用方式可参考[【操作手册】如何通过 OpenAPI 维护自定义字段](https://feishu.feishu.cn/docx/QlUudBfCtosWMbxx3vxcOFDknn7)示例值: "123"
 }
 
-// CreateCorehrEmployeeReqDataAttachmentPersonalRecord ...
-type CreateCorehrEmployeeReqDataAttachmentPersonalRecord struct {
+// CreateCoreHREmployeeReqDataAttachmentPersonalRecord ...
+type CreateCoreHREmployeeReqDataAttachmentPersonalRecord struct {
 	ProfileType *string                                                    `json:"profile_type,omitempty"` // 资料类型- 枚举值可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: - object_api_name = "personal_profile"   - custom_api_name = "profile_type"- 仅 【飞书人事-档案配置-资料附件】存在的字段编码可用示例值: "profile_type_1"
-	Files       []*CreateCorehrEmployeeReqDataAttachmentPersonalRecordFile `json:"files,omitempty"`        // 文件列表 长度范围: `0` ～ `100`
+	Files       []*CreateCoreHREmployeeReqDataAttachmentPersonalRecordFile `json:"files,omitempty"`        // 文件列表 长度范围: `0` ～ `100`
 }
 
-// CreateCorehrEmployeeReqDataAttachmentPersonalRecordFile ...
-type CreateCorehrEmployeeReqDataAttachmentPersonalRecordFile struct {
+// CreateCoreHREmployeeReqDataAttachmentPersonalRecordFile ...
+type CreateCoreHREmployeeReqDataAttachmentPersonalRecordFile struct {
 	FileID   *string `json:"file_id,omitempty"`   // 文件 ID- 可通过[【上传文件】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/person/upload)接口获取- 只传该字段即可, 大小、类型等字段可以不传递示例值: "150018109586e8ea745e47ae8feb3722dbe1d03a181336393633393133303431393831343930373235150200"
 	MimeType *string `json:"mime_type,omitempty"` // 文件 MIME 类型示例值: "zip"
 	Name     *string `json:"name,omitempty"`      // 文件名示例值: "附件.zip"
@@ -194,102 +194,102 @@ type CreateCorehrEmployeeReqDataAttachmentPersonalRecordFile struct {
 	Token    *string `json:"token,omitempty"`     // 文件 Token示例值: "0a423bc7ea7c4a439d066bf070616782"
 }
 
-// CreateCorehrEmployeeReqEmploymentInfo ...
-type CreateCorehrEmployeeReqEmploymentInfo struct {
-	BasicInfo                   *CreateCorehrEmployeeReqEmploymentInfoBasicInfo                    `json:"basic_info,omitempty"`                    // 基本信息
-	ProbationInfo               *CreateCorehrEmployeeReqEmploymentInfoProbationInfo                `json:"probation_info,omitempty"`                // 试用期信息
-	EmploymentRecord            *CreateCorehrEmployeeReqEmploymentInfoEmploymentRecord             `json:"employment_record,omitempty"`             // 任职记录
-	EmpContractRecord           *CreateCorehrEmployeeReqEmploymentInfoEmpContractRecord            `json:"emp_contract_record,omitempty"`           // 合同记录
-	CustomGroups                []*CreateCorehrEmployeeReqEmploymentInfoCustomGroup                `json:"custom_groups,omitempty"`                 // 自定义分组 长度范围: `0` ～ `100`
-	CustomOrgGroups             []*CreateCorehrEmployeeReqEmploymentInfoCustomOrgGroup             `json:"custom_org_groups,omitempty"`             // 自定义组织记录
-	SeniorityAdjustInformations []*CreateCorehrEmployeeReqEmploymentInfoSeniorityAdjustInformation `json:"seniority_adjust_informations,omitempty"` // 司龄调整信息 长度范围: `0` ～ `100`
-	DefaultCostCenter           *CreateCorehrEmployeeReqEmploymentInfoDefaultCostCenter            `json:"default_cost_center,omitempty"`           // 默认成本中心
-	CostAllocation              *CreateCorehrEmployeeReqEmploymentInfoCostAllocation               `json:"cost_allocation,omitempty"`               // 成本分摊
+// CreateCoreHREmployeeReqEmploymentInfo ...
+type CreateCoreHREmployeeReqEmploymentInfo struct {
+	BasicInfo                   *CreateCoreHREmployeeReqEmploymentInfoBasicInfo                    `json:"basic_info,omitempty"`                    // 基本信息
+	ProbationInfo               *CreateCoreHREmployeeReqEmploymentInfoProbationInfo                `json:"probation_info,omitempty"`                // 试用期信息
+	EmploymentRecord            *CreateCoreHREmployeeReqEmploymentInfoEmploymentRecord             `json:"employment_record,omitempty"`             // 任职记录
+	EmpContractRecord           *CreateCoreHREmployeeReqEmploymentInfoEmpContractRecord            `json:"emp_contract_record,omitempty"`           // 合同记录
+	CustomGroups                []*CreateCoreHREmployeeReqEmploymentInfoCustomGroup                `json:"custom_groups,omitempty"`                 // 自定义分组 长度范围: `0` ～ `100`
+	CustomOrgGroups             []*CreateCoreHREmployeeReqEmploymentInfoCustomOrgGroup             `json:"custom_org_groups,omitempty"`             // 自定义组织记录
+	SeniorityAdjustInformations []*CreateCoreHREmployeeReqEmploymentInfoSeniorityAdjustInformation `json:"seniority_adjust_informations,omitempty"` // 司龄调整信息 长度范围: `0` ～ `100`
+	DefaultCostCenter           *CreateCoreHREmployeeReqEmploymentInfoDefaultCostCenter            `json:"default_cost_center,omitempty"`           // 默认成本中心
+	CostAllocation              *CreateCoreHREmployeeReqEmploymentInfoCostAllocation               `json:"cost_allocation,omitempty"`               // 成本分摊
 }
 
-// CreateCorehrEmployeeReqEmploymentInfoBasicInfo ...
-type CreateCorehrEmployeeReqEmploymentInfoBasicInfo struct {
+// CreateCoreHREmployeeReqEmploymentInfoBasicInfo ...
+type CreateCoreHREmployeeReqEmploymentInfoBasicInfo struct {
 	EmployeeNumber           *string                                                      `json:"employee_number,omitempty"`             // 员工编号示例值: "1000000"
 	EffectiveTime            *string                                                      `json:"effective_time,omitempty"`              // 入职日期示例值: "2021-01-01"
 	RegularEmployeeStartDate *string                                                      `json:"regular_employee_start_date,omitempty"` // 转正式员工日期示例值: "2021-02-01"
 	SeniorityDate            *string                                                      `json:"seniority_date,omitempty"`              // 资历起算日期示例值: "2020-01-01"
 	WorkEmail                *string                                                      `json:"work_email,omitempty"`                  // 工作邮箱示例值: "12456@test.com"
-	Phone                    *CreateCorehrEmployeeReqEmploymentInfoBasicInfoPhone         `json:"phone,omitempty"`                       // 工作电话
+	Phone                    *CreateCoreHREmployeeReqEmploymentInfoBasicInfoPhone         `json:"phone,omitempty"`                       // 工作电话
 	UserGeo                  *string                                                      `json:"user_geo,omitempty"`                    // 数据驻留地开通了飞书数据驻留服务的企业, 该字段为必填示例值: "cn"
-	CustomFields             []*CreateCorehrEmployeeReqEmploymentInfoBasicInfoCustomField `json:"custom_fields,omitempty"`               // 自定义字段- 请参考[自定义字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide) 长度范围: `0` ～ `100`
+	CustomFields             []*CreateCoreHREmployeeReqEmploymentInfoBasicInfoCustomField `json:"custom_fields,omitempty"`               // 自定义字段- 请参考[自定义字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide) 长度范围: `0` ～ `100`
 }
 
-// CreateCorehrEmployeeReqEmploymentInfoBasicInfoCustomField ...
-type CreateCorehrEmployeeReqEmploymentInfoBasicInfoCustomField struct {
+// CreateCoreHREmployeeReqEmploymentInfoBasicInfoCustomField ...
+type CreateCoreHREmployeeReqEmploymentInfoBasicInfoCustomField struct {
 	FieldName string  `json:"field_name,omitempty"` // 字段名示例值: "custom_field_1__c"
 	Value     *string `json:"value,omitempty"`      // 字段值是 JSON 转义后的字符串, 根据元数据定义不同, 字段格式不同。使用方式- 请参考[【自定义字段说明】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide)示例值: "123"
 }
 
-// CreateCorehrEmployeeReqEmploymentInfoBasicInfoPhone ...
-type CreateCorehrEmployeeReqEmploymentInfoBasicInfoPhone struct {
+// CreateCoreHREmployeeReqEmploymentInfoBasicInfoPhone ...
+type CreateCoreHREmployeeReqEmploymentInfoBasicInfoPhone struct {
 	InternationalAreaCode *string `json:"international_area_code,omitempty"` // 国际电话区号枚举值可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "phone" - custom_api_name = "international_area_code"示例值: "86_china"
 	PhoneNumber           *string `json:"phone_number,omitempty"`            // 电话号码如果填写了工作电话对象, 则该字段必填示例值: "13000000000"
 }
 
-// CreateCorehrEmployeeReqEmploymentInfoCostAllocation ...
-type CreateCorehrEmployeeReqEmploymentInfoCostAllocation struct {
+// CreateCoreHREmployeeReqEmploymentInfoCostAllocation ...
+type CreateCoreHREmployeeReqEmploymentInfoCostAllocation struct {
 	EffectiveTime   *string                                                              `json:"effective_time,omitempty"`    // 分摊生效日期示例值: "2025-01-01"
 	ExpirationTime  *string                                                              `json:"expiration_time,omitempty"`   // 分摊失效日期示例值: "2025-02-01"
-	CostCenterRates []*CreateCorehrEmployeeReqEmploymentInfoCostAllocationCostCenterRate `json:"cost_center_rates,omitempty"` // 成本分摊信息 长度范围: `0` ～ `50`
+	CostCenterRates []*CreateCoreHREmployeeReqEmploymentInfoCostAllocationCostCenterRate `json:"cost_center_rates,omitempty"` // 成本分摊信息 长度范围: `0` ～ `50`
 }
 
-// CreateCorehrEmployeeReqEmploymentInfoCostAllocationCostCenterRate ...
-type CreateCorehrEmployeeReqEmploymentInfoCostAllocationCostCenterRate struct {
+// CreateCoreHREmployeeReqEmploymentInfoCostAllocationCostCenterRate ...
+type CreateCoreHREmployeeReqEmploymentInfoCostAllocationCostCenterRate struct {
 	CostCenterID *string  `json:"cost_center_id,omitempty"` // 成本中心 ID, 可以通过【查询单个成本中心信息】接口获取对应的成本中心信息示例值: "6950635856373745165"
 	Rate         *int64   `json:"rate,omitempty"`           // 分摊比例(整数)示例值: 100
 	NewRate      *float64 `json:"new_rate,omitempty"`       // 分摊比例示例值: 50.2
 }
 
-// CreateCorehrEmployeeReqEmploymentInfoCustomGroup ...
-type CreateCorehrEmployeeReqEmploymentInfoCustomGroup struct {
+// CreateCoreHREmployeeReqEmploymentInfoCustomGroup ...
+type CreateCoreHREmployeeReqEmploymentInfoCustomGroup struct {
 	GroupName *string                                                 `json:"group_name,omitempty"` // 分组名示例值: "custom_obj__c"
-	Items     []*CreateCorehrEmployeeReqEmploymentInfoCustomGroupItem `json:"items,omitempty"`      // 分组数据 长度范围: `0` ～ `1000`
+	Items     []*CreateCoreHREmployeeReqEmploymentInfoCustomGroupItem `json:"items,omitempty"`      // 分组数据 长度范围: `0` ～ `1000`
 }
 
-// CreateCorehrEmployeeReqEmploymentInfoCustomGroupItem ...
-type CreateCorehrEmployeeReqEmploymentInfoCustomGroupItem struct {
-	CustomFields []*CreateCorehrEmployeeReqEmploymentInfoCustomGroupItemCustomField `json:"custom_fields,omitempty"` // 自定义字段- 请参考[自定义字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide) 长度范围: `0` ～ `100`
+// CreateCoreHREmployeeReqEmploymentInfoCustomGroupItem ...
+type CreateCoreHREmployeeReqEmploymentInfoCustomGroupItem struct {
+	CustomFields []*CreateCoreHREmployeeReqEmploymentInfoCustomGroupItemCustomField `json:"custom_fields,omitempty"` // 自定义字段- 请参考[自定义字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide) 长度范围: `0` ～ `100`
 }
 
-// CreateCorehrEmployeeReqEmploymentInfoCustomGroupItemCustomField ...
-type CreateCorehrEmployeeReqEmploymentInfoCustomGroupItemCustomField struct {
+// CreateCoreHREmployeeReqEmploymentInfoCustomGroupItemCustomField ...
+type CreateCoreHREmployeeReqEmploymentInfoCustomGroupItemCustomField struct {
 	FieldName string  `json:"field_name,omitempty"` // 字段名示例值: "custom_field_1__c"
 	Value     *string `json:"value,omitempty"`      // 字段值是 JSON 转义后的字符串, 根据元数据定义不同, 字段格式不同。使用方式可参考[【操作手册】如何通过 OpenAPI 维护自定义字段](https://feishu.feishu.cn/docx/QlUudBfCtosWMbxx3vxcOFDknn7)示例值: "123"
 }
 
-// CreateCorehrEmployeeReqEmploymentInfoCustomOrgGroup ...
-type CreateCorehrEmployeeReqEmploymentInfoCustomOrgGroup struct {
+// CreateCoreHREmployeeReqEmploymentInfoCustomOrgGroup ...
+type CreateCoreHREmployeeReqEmploymentInfoCustomOrgGroup struct {
 	EffectiveTime      string                                                                  `json:"effective_time,omitempty"`        // 生效时间示例值: "2024-07-02"
 	StartReason        *string                                                                 `json:"start_reason,omitempty"`          // 原因示例值: "新增人员" 最大长度: `1000` 字符
-	CustomOrgWithRates []*CreateCorehrEmployeeReqEmploymentInfoCustomOrgGroupCustomOrgWithRate `json:"custom_org_with_rates,omitempty"` // 自定义组织列表 长度范围: `1` ～ `100`
+	CustomOrgWithRates []*CreateCoreHREmployeeReqEmploymentInfoCustomOrgGroupCustomOrgWithRate `json:"custom_org_with_rates,omitempty"` // 自定义组织列表 长度范围: `1` ～ `100`
 	ObjectApiName      string                                                                  `json:"object_api_name,omitempty"`       // 自定义组织类型示例值: "custom_org_01"
 }
 
-// CreateCorehrEmployeeReqEmploymentInfoCustomOrgGroupCustomOrgWithRate ...
-type CreateCorehrEmployeeReqEmploymentInfoCustomOrgGroupCustomOrgWithRate struct {
+// CreateCoreHREmployeeReqEmploymentInfoCustomOrgGroupCustomOrgWithRate ...
+type CreateCoreHREmployeeReqEmploymentInfoCustomOrgGroupCustomOrgWithRate struct {
 	ID   string   `json:"id,omitempty"`   // 自定义组织ID示例值: "7260357352426782739"
 	Rate *float64 `json:"rate,omitempty"` // 比例 如果是非比例的可不填写示例值: 50.1 取值范围: `0` ～ `100`
 }
 
-// CreateCorehrEmployeeReqEmploymentInfoDefaultCostCenter ...
-type CreateCorehrEmployeeReqEmploymentInfoDefaultCostCenter struct {
+// CreateCoreHREmployeeReqEmploymentInfoDefaultCostCenter ...
+type CreateCoreHREmployeeReqEmploymentInfoDefaultCostCenter struct {
 	Reason       *string                                                             `json:"reason,omitempty"`         // 变更原因示例值: "默认成本中心变更"
 	IsInherit    *bool                                                               `json:"is_inherit,omitempty"`     // 是否继承示例值: true
-	CostCenterID *CreateCorehrEmployeeReqEmploymentInfoDefaultCostCenterCostCenterID `json:"cost_center_id,omitempty"` // 默认成本中心
+	CostCenterID *CreateCoreHREmployeeReqEmploymentInfoDefaultCostCenterCostCenterID `json:"cost_center_id,omitempty"` // 默认成本中心
 }
 
-// CreateCorehrEmployeeReqEmploymentInfoDefaultCostCenterCostCenterID ...
-type CreateCorehrEmployeeReqEmploymentInfoDefaultCostCenterCostCenterID struct {
+// CreateCoreHREmployeeReqEmploymentInfoDefaultCostCenterCostCenterID ...
+type CreateCoreHREmployeeReqEmploymentInfoDefaultCostCenterCostCenterID struct {
 	WkID *string `json:"wk_id,omitempty"` // 成本中心示例值: "7382048365313261588"
 }
 
-// CreateCorehrEmployeeReqEmploymentInfoEmpContractRecord ...
-type CreateCorehrEmployeeReqEmploymentInfoEmpContractRecord struct {
+// CreateCoreHREmployeeReqEmploymentInfoEmpContractRecord ...
+type CreateCoreHREmployeeReqEmploymentInfoEmpContractRecord struct {
 	ContractNumber  *string `json:"contract_number,omitempty"`   // 合同协议编号示例值: "6919737965274990093"
 	ContractType    *string `json:"contract_type,omitempty"`     // 合同类型枚举值可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "contract" - custom_api_name = "contract_type"示例值: "labor_contract"
 	FirstParty      *string `json:"first_party,omitempty"`       // 甲方公司 ID引用 Company 的 ID, 详细信息可通过[【批量查询公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list)接口查询获得示例值: "6892686614112241165"
@@ -298,13 +298,13 @@ type CreateCorehrEmployeeReqEmploymentInfoEmpContractRecord struct {
 	ContractEndDate *string `json:"contract_end_date,omitempty"` // 合同结束日期示例值: "2050-01-01"
 }
 
-// CreateCorehrEmployeeReqEmploymentInfoEmploymentRecord ...
-type CreateCorehrEmployeeReqEmploymentInfoEmploymentRecord struct {
+// CreateCoreHREmployeeReqEmploymentInfoEmploymentRecord ...
+type CreateCoreHREmployeeReqEmploymentInfoEmploymentRecord struct {
 	EmployeeType                   *EmployeeType                                                      `json:"employee_type,omitempty"`                      // 人员类型 ID可通过[【批量查询人员类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)接口获取示例值: "6890452208593372679"
 	Department                     *string                                                            `json:"department,omitempty"`                         // 部门 ID可通过[【批量查询部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)接口获取示例值: "6890452208593372679"
 	DirectManager                  *string                                                            `json:"direct_manager,omitempty"`                     // 直属上级雇佣 ID可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取示例值: "6893014062142064135"
 	WorkingHoursType               *string                                                            `json:"working_hours_type,omitempty"`                 // 工时制度 ID可通过[【批量查询工时制度】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/list)接口获取示例值: "6890452208593372600"
-	CostCenters                    []*CreateCorehrEmployeeReqEmploymentInfoEmploymentRecordCostCenter `json:"cost_centers,omitempty"`                       // 成本中心分摊信息 长度范围: `0` ～ `100`
+	CostCenters                    []*CreateCoreHREmployeeReqEmploymentInfoEmploymentRecordCostCenter `json:"cost_centers,omitempty"`                       // 成本中心分摊信息 长度范围: `0` ～ `100`
 	DirectManagerEffectiveTime     *string                                                            `json:"direct_manager_effective_time,omitempty"`      // 直属上级入职日期示例值: "2020-01-01"
 	DottedLineManager              *string                                                            `json:"dotted_line_manager,omitempty"`                // 虚线上级雇佣 ID可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取示例值: "6893014062142064136"
 	DottedLineManagerEffectiveTime *string                                                            `json:"dotted_line_manager_effective_time,omitempty"` // 虚线上级入职日期示例值: "2020-01-01"
@@ -318,51 +318,51 @@ type CreateCorehrEmployeeReqEmploymentInfoEmploymentRecord struct {
 	Pathway                        *string                                                            `json:"pathway,omitempty"`                            // 通道ID示例值: "6890452208593372684"
 }
 
-// CreateCorehrEmployeeReqEmploymentInfoEmploymentRecordCostCenter ...
-type CreateCorehrEmployeeReqEmploymentInfoEmploymentRecordCostCenter struct {
+// CreateCoreHREmployeeReqEmploymentInfoEmploymentRecordCostCenter ...
+type CreateCoreHREmployeeReqEmploymentInfoEmploymentRecordCostCenter struct {
 	ID   *string `json:"id,omitempty"`   // 支持的成本中心 ID, 详细信息可通过[【搜索成本中心信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)接口查询获得示例值: "6950635856373745165"
 	Rate *int64  `json:"rate,omitempty"` // 分摊比例示例值: 100 取值范围: `0` ～ `100`
 }
 
-// CreateCorehrEmployeeReqEmploymentInfoProbationInfo ...
-type CreateCorehrEmployeeReqEmploymentInfoProbationInfo struct {
+// CreateCoreHREmployeeReqEmploymentInfoProbationInfo ...
+type CreateCoreHREmployeeReqEmploymentInfoProbationInfo struct {
 	ProbationStartDate       *string `json:"probation_start_date,omitempty"`        // 试用期开始日期示例值: "2021-01-01"
 	ProbationExpectedEndDate *string `json:"probation_expected_end_date,omitempty"` // 试用期预计结束日期示例值: "2021-02-01"
 	ActualProbationEndDate   *string `json:"actual_probation_end_date,omitempty"`   // 试用期实际结束日期示例值: "2021-02-01"
 }
 
-// CreateCorehrEmployeeReqEmploymentInfoSeniorityAdjustInformation ...
-type CreateCorehrEmployeeReqEmploymentInfoSeniorityAdjustInformation struct {
+// CreateCoreHREmployeeReqEmploymentInfoSeniorityAdjustInformation ...
+type CreateCoreHREmployeeReqEmploymentInfoSeniorityAdjustInformation struct {
 	SeniorityAdjustmentType       string                                                                        `json:"seniority_adjustment_type,omitempty"`        // 调整类型- 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: - object_api_name: seniority_adjust_information  - custom_api_name: seniority_adjustment_type示例值: "increase"可选值有: 增加减少
 	StartDate                     *string                                                                       `json:"start_date,omitempty"`                       // 开始日期- 格式: yyyy-mm-dd示例值: "2024-01-01"
 	EndDate                       *string                                                                       `json:"end_date,omitempty"`                         // 结束日期- 格式: yyyy-mm-dd示例值: "2024-01-02"
 	ReasonsForSeniorityAdjustment *string                                                                       `json:"reasons_for_seniority_adjustment,omitempty"` // 调整原因示例值: "工厂停产需要减去半年工龄"
 	SeniorityAdjustment           float64                                                                       `json:"seniority_adjustment,omitempty"`             // 调整值- 精确度: 两位小数- 单位: 年示例值: 1.01 取值范围: `0` ～ `100`
-	CustomFields                  []*CreateCorehrEmployeeReqEmploymentInfoSeniorityAdjustInformationCustomField `json:"custom_fields,omitempty"`                    // 自定义字段- 具体支持的对象请参考[【自定义字段说明】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide) 长度范围: `0` ～ `180`
+	CustomFields                  []*CreateCoreHREmployeeReqEmploymentInfoSeniorityAdjustInformationCustomField `json:"custom_fields,omitempty"`                    // 自定义字段- 具体支持的对象请参考[【自定义字段说明】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide) 长度范围: `0` ～ `180`
 }
 
-// CreateCorehrEmployeeReqEmploymentInfoSeniorityAdjustInformationCustomField ...
-type CreateCorehrEmployeeReqEmploymentInfoSeniorityAdjustInformationCustomField struct {
+// CreateCoreHREmployeeReqEmploymentInfoSeniorityAdjustInformationCustomField ...
+type CreateCoreHREmployeeReqEmploymentInfoSeniorityAdjustInformationCustomField struct {
 	FieldName string  `json:"field_name,omitempty"` // 字段名示例值: "custom_field_1__c"
 	Value     *string `json:"value,omitempty"`      // 字段值, 是 json 转义后的字符串, 根据元数据定义不同, 字段格式不同。使用方式可参考【操作手册】如何通过 OpenAPI 维护自定义字段示例值: "[\"custom_enum_0__c\"]"
 }
 
-// CreateCorehrEmployeeReqPersonalInfo ...
-type CreateCorehrEmployeeReqPersonalInfo struct {
-	PersonalBasicInfo   *CreateCorehrEmployeeReqPersonalInfoPersonalBasicInfo    `json:"personal_basic_info,omitempty"`  // 基本信息
+// CreateCoreHREmployeeReqPersonalInfo ...
+type CreateCoreHREmployeeReqPersonalInfo struct {
+	PersonalBasicInfo   *CreateCoreHREmployeeReqPersonalInfoPersonalBasicInfo    `json:"personal_basic_info,omitempty"`  // 基本信息
 	EmergencyContacts   []*EHREmergencyContact                                   `json:"emergency_contacts,omitempty"`   // 紧急联系人 长度范围: `0` ～ `100`
-	BankAccounts        []*CreateCorehrEmployeeReqPersonalInfoBankAccount        `json:"bank_accounts,omitempty"`        // 银行账户 长度范围: `0` ～ `100`
-	Nationals           []*CreateCorehrEmployeeReqPersonalInfoNational           `json:"nationals,omitempty"`            // 证件 长度范围: `0` ～ `100`
-	ResidentTaxes       []*CreateCorehrEmployeeReqPersonalInfoResidentTaxe       `json:"resident_taxes,omitempty"`       // 居民身份信息 长度范围: `0` ～ `100`
-	Dependents          []*CreateCorehrEmployeeReqPersonalInfoDependent          `json:"dependents,omitempty"`           // 家庭成员 长度范围: `0` ～ `100`
-	Hukou               *CreateCorehrEmployeeReqPersonalInfoHukou                `json:"hukou,omitempty"`                // 户口
-	ContactAddresses    []*CreateCorehrEmployeeReqPersonalInfoContactAddresse    `json:"contact_addresses,omitempty"`    // 联系地址 长度范围: `0` ～ `100`
-	CustomGroups        []*CreateCorehrEmployeeReqPersonalInfoCustomGroup        `json:"custom_groups,omitempty"`        // 自定义分组 长度范围: `0` ～ `100`
-	CitizenshipStatuses []*CreateCorehrEmployeeReqPersonalInfoCitizenshipStatuse `json:"citizenship_statuses,omitempty"` // 公民身份列表
+	BankAccounts        []*CreateCoreHREmployeeReqPersonalInfoBankAccount        `json:"bank_accounts,omitempty"`        // 银行账户 长度范围: `0` ～ `100`
+	Nationals           []*CreateCoreHREmployeeReqPersonalInfoNational           `json:"nationals,omitempty"`            // 证件 长度范围: `0` ～ `100`
+	ResidentTaxes       []*CreateCoreHREmployeeReqPersonalInfoResidentTaxe       `json:"resident_taxes,omitempty"`       // 居民身份信息 长度范围: `0` ～ `100`
+	Dependents          []*CreateCoreHREmployeeReqPersonalInfoDependent          `json:"dependents,omitempty"`           // 家庭成员 长度范围: `0` ～ `100`
+	Hukou               *CreateCoreHREmployeeReqPersonalInfoHukou                `json:"hukou,omitempty"`                // 户口
+	ContactAddresses    []*CreateCoreHREmployeeReqPersonalInfoContactAddresse    `json:"contact_addresses,omitempty"`    // 联系地址 长度范围: `0` ～ `100`
+	CustomGroups        []*CreateCoreHREmployeeReqPersonalInfoCustomGroup        `json:"custom_groups,omitempty"`        // 自定义分组 长度范围: `0` ～ `100`
+	CitizenshipStatuses []*CreateCoreHREmployeeReqPersonalInfoCitizenshipStatuse `json:"citizenship_statuses,omitempty"` // 公民身份列表
 }
 
-// CreateCorehrEmployeeReqPersonalInfoBankAccount ...
-type CreateCorehrEmployeeReqPersonalInfoBankAccount struct {
+// CreateCoreHREmployeeReqPersonalInfoBankAccount ...
+type CreateCoreHREmployeeReqPersonalInfoBankAccount struct {
 	CountryRegion     *string  `json:"country_region,omitempty"`      // 国家 / 地区 ID可通过[【查询国家/地区信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)接口获取示例值: "6862995757234914824"
 	BankName          *string  `json:"bank_name,omitempty"`           // 银行名称示例值: "中国农业银行"
 	BranchName        *string  `json:"branch_name,omitempty"`         // 支行名称示例值: "中国农业银行支行"
@@ -378,14 +378,14 @@ type CreateCorehrEmployeeReqPersonalInfoBankAccount struct {
 	Priority          *string  `json:"priority,omitempty"`            // 优先级, 不能低于0示例值: "1"
 }
 
-// CreateCorehrEmployeeReqPersonalInfoCitizenshipStatuse ...
-type CreateCorehrEmployeeReqPersonalInfoCitizenshipStatuse struct {
+// CreateCoreHREmployeeReqPersonalInfoCitizenshipStatuse ...
+type CreateCoreHREmployeeReqPersonalInfoCitizenshipStatuse struct {
 	CountryRegion     *string `json:"country_region,omitempty"`     // 国家/地区ID示例值: "7324333990030034476"
 	CitizenshipStatus *string `json:"citizenship_status,omitempty"` // 公民身份类型示例值: "公民"
 }
 
-// CreateCorehrEmployeeReqPersonalInfoContactAddresse ...
-type CreateCorehrEmployeeReqPersonalInfoContactAddresse struct {
+// CreateCoreHREmployeeReqPersonalInfoContactAddresse ...
+type CreateCoreHREmployeeReqPersonalInfoContactAddresse struct {
 	AddressType        *string `json:"address_type,omitempty"`         // 地址类型枚举值可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "address" - custom_api_name = "address_type"示例值: "home_address"
 	CountryRegion      *string `json:"country_region,omitempty"`       // 国家 / 地区 ID如果填写了地址对象, 则该字段必填可通过[【查询国家/地区信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)接口获取示例值: "6862995757234914824"
 	Region             *string `json:"region,omitempty"`               // 主要行政区 ID可通过[【查询省份/行政区信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region_subdivision/search)接口获取示例值: "6863326815667095047"
@@ -418,39 +418,39 @@ type CreateCorehrEmployeeReqPersonalInfoContactAddresse struct {
 	AddressLine5       *string `json:"address_line_5,omitempty"`       // 地址行 5示例值: "jmwJc"
 }
 
-// CreateCorehrEmployeeReqPersonalInfoCustomGroup ...
-type CreateCorehrEmployeeReqPersonalInfoCustomGroup struct {
+// CreateCoreHREmployeeReqPersonalInfoCustomGroup ...
+type CreateCoreHREmployeeReqPersonalInfoCustomGroup struct {
 	GroupName *string                                               `json:"group_name,omitempty"` // 分组名示例值: "custom_obj__c"
-	Items     []*CreateCorehrEmployeeReqPersonalInfoCustomGroupItem `json:"items,omitempty"`      // 分组数据 长度范围: `0` ～ `1000`
+	Items     []*CreateCoreHREmployeeReqPersonalInfoCustomGroupItem `json:"items,omitempty"`      // 分组数据 长度范围: `0` ～ `1000`
 }
 
-// CreateCorehrEmployeeReqPersonalInfoCustomGroupItem ...
-type CreateCorehrEmployeeReqPersonalInfoCustomGroupItem struct {
-	CustomFields []*CreateCorehrEmployeeReqPersonalInfoCustomGroupItemCustomField `json:"custom_fields,omitempty"` // 自定义字段- 请参考[自定义字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide) 长度范围: `0` ～ `100`
+// CreateCoreHREmployeeReqPersonalInfoCustomGroupItem ...
+type CreateCoreHREmployeeReqPersonalInfoCustomGroupItem struct {
+	CustomFields []*CreateCoreHREmployeeReqPersonalInfoCustomGroupItemCustomField `json:"custom_fields,omitempty"` // 自定义字段- 请参考[自定义字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide) 长度范围: `0` ～ `100`
 }
 
-// CreateCorehrEmployeeReqPersonalInfoCustomGroupItemCustomField ...
-type CreateCorehrEmployeeReqPersonalInfoCustomGroupItemCustomField struct {
+// CreateCoreHREmployeeReqPersonalInfoCustomGroupItemCustomField ...
+type CreateCoreHREmployeeReqPersonalInfoCustomGroupItemCustomField struct {
 	FieldName string  `json:"field_name,omitempty"` // 字段名示例值: "custom_field_1__c"
 	Value     *string `json:"value,omitempty"`      // 字段值是 JSON 转义后的字符串, 根据元数据定义不同, 字段格式不同。使用方式可参考[【操作手册】如何通过 OpenAPI 维护自定义字段](https://feishu.feishu.cn/docx/QlUudBfCtosWMbxx3vxcOFDknn7)示例值: "123"
 }
 
-// CreateCorehrEmployeeReqPersonalInfoDependent ...
-type CreateCorehrEmployeeReqPersonalInfoDependent struct {
+// CreateCoreHREmployeeReqPersonalInfoDependent ...
+type CreateCoreHREmployeeReqPersonalInfoDependent struct {
 	LegalName                 *string                                                              `json:"legal_name,omitempty"`                  // 姓名示例值: "王大帅"
 	DateOfBirth               *string                                                              `json:"date_of_birth,omitempty"`               // 生日示例值: "2006-01-02"
 	RelationshipWithDependent *string                                                              `json:"relationship_with_dependent,omitempty"` // 关系如果填写了家庭成员对象, 则该字段必填枚举值可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "dependent" - custom_api_name ="relationship_with_dependent"示例值: "parent"
 	Gender                    *string                                                              `json:"gender,omitempty"`                      // 性别枚举值可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "dependent" - custom_api_name = "gender"示例值: "female"
-	Phone                     *CreateCorehrEmployeeReqPersonalInfoDependentPhone                   `json:"phone,omitempty"`                       // 电话
+	Phone                     *CreateCoreHREmployeeReqPersonalInfoDependentPhone                   `json:"phone,omitempty"`                       // 电话
 	Job                       *string                                                              `json:"job,omitempty"`                         // 岗位示例值: "岗位"
-	ChildBirthCertificates    []*CreateCorehrEmployeeReqPersonalInfoDependentChildBirthCertificate `json:"child_birth_certificates,omitempty"`    // 出生证明 长度范围: `0` ～ `100`
+	ChildBirthCertificates    []*CreateCoreHREmployeeReqPersonalInfoDependentChildBirthCertificate `json:"child_birth_certificates,omitempty"`    // 出生证明 长度范围: `0` ～ `100`
 	Employer                  *string                                                              `json:"employer,omitempty"`                    // 工作单位示例值: "飞书"
-	CustomFields              []*CreateCorehrEmployeeReqPersonalInfoDependentCustomField           `json:"custom_fields,omitempty"`               // 自定义字段- 请参考[自定义字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide) 长度范围: `0` ～ `100`
-	Address                   *CreateCorehrEmployeeReqPersonalInfoDependentAddress                 `json:"address,omitempty"`                     // 联系地址
+	CustomFields              []*CreateCoreHREmployeeReqPersonalInfoDependentCustomField           `json:"custom_fields,omitempty"`               // 自定义字段- 请参考[自定义字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide) 长度范围: `0` ～ `100`
+	Address                   *CreateCoreHREmployeeReqPersonalInfoDependentAddress                 `json:"address,omitempty"`                     // 联系地址
 }
 
-// CreateCorehrEmployeeReqPersonalInfoDependentAddress ...
-type CreateCorehrEmployeeReqPersonalInfoDependentAddress struct {
+// CreateCoreHREmployeeReqPersonalInfoDependentAddress ...
+type CreateCoreHREmployeeReqPersonalInfoDependentAddress struct {
 	AddressType        *string `json:"address_type,omitempty"`         // 地址类型枚举值可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "address" - custom_api_name = "address_type"示例值: "home_address"
 	CountryRegion      *string `json:"country_region,omitempty"`       // 国家 / 地区 ID可通过[【查询国家/地区信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)接口获取示例值: "6862995757234914824"
 	Region             *string `json:"region,omitempty"`               // 主要行政区 ID可通过[【查询省份/行政区信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region_subdivision/search)接口获取示例值: "6863326815667095047"
@@ -483,8 +483,8 @@ type CreateCorehrEmployeeReqPersonalInfoDependentAddress struct {
 	AddressLine5       *string `json:"address_line_5,omitempty"`       // 地址行 5示例值: "jmwJc"
 }
 
-// CreateCorehrEmployeeReqPersonalInfoDependentChildBirthCertificate ...
-type CreateCorehrEmployeeReqPersonalInfoDependentChildBirthCertificate struct {
+// CreateCoreHREmployeeReqPersonalInfoDependentChildBirthCertificate ...
+type CreateCoreHREmployeeReqPersonalInfoDependentChildBirthCertificate struct {
 	FileID   *string `json:"file_id,omitempty"`   // 文件 ID- 可通过[【上传文件】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/person/upload)接口获取- 只传该字段即可, 大小、类型等字段可以不传递示例值: "150018109586e8ea745e47ae8feb3722dbe1d03a181336393633393133303431393831343930373235150200"
 	MimeType *string `json:"mime_type,omitempty"` // 文件 MIME 类型示例值: "zip"
 	Name     *string `json:"name,omitempty"`      // 文件名示例值: "附件.zip"
@@ -492,31 +492,31 @@ type CreateCorehrEmployeeReqPersonalInfoDependentChildBirthCertificate struct {
 	Token    *string `json:"token,omitempty"`     // 文件 Token示例值: "0a423bc7ea7c4a439d066bf070616782"
 }
 
-// CreateCorehrEmployeeReqPersonalInfoDependentCustomField ...
-type CreateCorehrEmployeeReqPersonalInfoDependentCustomField struct {
+// CreateCoreHREmployeeReqPersonalInfoDependentCustomField ...
+type CreateCoreHREmployeeReqPersonalInfoDependentCustomField struct {
 	FieldName string  `json:"field_name,omitempty"` // 字段名示例值: "custom_field_1__c"
 	Value     *string `json:"value,omitempty"`      // 字段值是 JSON 转义后的字符串, 根据元数据定义不同, 字段格式不同。使用方式可参考[【操作手册】如何通过 OpenAPI 维护自定义字段](https://feishu.feishu.cn/docx/QlUudBfCtosWMbxx3vxcOFDknn7)示例值: "123"
 }
 
-// CreateCorehrEmployeeReqPersonalInfoDependentPhone ...
-type CreateCorehrEmployeeReqPersonalInfoDependentPhone struct {
+// CreateCoreHREmployeeReqPersonalInfoDependentPhone ...
+type CreateCoreHREmployeeReqPersonalInfoDependentPhone struct {
 	InternationalAreaCode *string `json:"international_area_code,omitempty"` // 国际电话区号枚举值可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "phone" - custom_api_name = "international_area_code"示例值: "86_china"
 	PhoneNumber           *string `json:"phone_number,omitempty"`            // 电话号码示例值: "13000000000"
 }
 
-// CreateCorehrEmployeeReqPersonalInfoEmergencyContact ...
-type CreateCorehrEmployeeReqPersonalInfoEmergencyContact struct {
+// CreateCoreHREmployeeReqPersonalInfoEmergencyContact ...
+type CreateCoreHREmployeeReqPersonalInfoEmergencyContact struct {
 	LegalName    *string                                                           `json:"legal_name,omitempty"`    // 姓名示例值: "王大帅"
 	Relationship *string                                                           `json:"relationship,omitempty"`  // 关系枚举值可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "emergency_contact" - custom_api_name = "relationship"示例值: "parent"
 	IsPrimary    *bool                                                             `json:"is_primary,omitempty"`    // 主要联系人示例值: true
-	Phone        *CreateCorehrEmployeeReqPersonalInfoEmergencyContactPhone         `json:"phone,omitempty"`         // 电话
+	Phone        *CreateCoreHREmployeeReqPersonalInfoEmergencyContactPhone         `json:"phone,omitempty"`         // 电话
 	Email        *string                                                           `json:"email,omitempty"`         // 邮箱示例值: "1234567@example.feishu.cn"
-	Address      *CreateCorehrEmployeeReqPersonalInfoEmergencyContactAddress       `json:"address,omitempty"`       // 地址
-	CustomFields []*CreateCorehrEmployeeReqPersonalInfoEmergencyContactCustomField `json:"custom_fields,omitempty"` // 自定义字段- 请参考[自定义字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide) 长度范围: `0` ～ `100`
+	Address      *CreateCoreHREmployeeReqPersonalInfoEmergencyContactAddress       `json:"address,omitempty"`       // 地址
+	CustomFields []*CreateCoreHREmployeeReqPersonalInfoEmergencyContactCustomField `json:"custom_fields,omitempty"` // 自定义字段- 请参考[自定义字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide) 长度范围: `0` ～ `100`
 }
 
-// CreateCorehrEmployeeReqPersonalInfoEmergencyContactAddress ...
-type CreateCorehrEmployeeReqPersonalInfoEmergencyContactAddress struct {
+// CreateCoreHREmployeeReqPersonalInfoEmergencyContactAddress ...
+type CreateCoreHREmployeeReqPersonalInfoEmergencyContactAddress struct {
 	AddressType        *string `json:"address_type,omitempty"`         // 地址类型枚举值可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "address" - custom_api_name = "address_type"示例值: "home_address"
 	CountryRegion      *string `json:"country_region,omitempty"`       // 国家 / 地区 ID如果填写了地址对象, 则该字段必填可通过[【查询国家/地区信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)接口获取示例值: "6862995757234914824"
 	Region             *string `json:"region,omitempty"`               // 主要行政区 ID可通过[【查询省份/行政区信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region_subdivision/search)接口获取示例值: "6863326815667095047"
@@ -549,57 +549,57 @@ type CreateCorehrEmployeeReqPersonalInfoEmergencyContactAddress struct {
 	AddressLine5       *string `json:"address_line_5,omitempty"`       // 地址行 5示例值: "jmwJc"
 }
 
-// CreateCorehrEmployeeReqPersonalInfoEmergencyContactCustomField ...
-type CreateCorehrEmployeeReqPersonalInfoEmergencyContactCustomField struct {
+// CreateCoreHREmployeeReqPersonalInfoEmergencyContactCustomField ...
+type CreateCoreHREmployeeReqPersonalInfoEmergencyContactCustomField struct {
 	FieldName string  `json:"field_name,omitempty"` // 字段名示例值: "custom_field_1__c"
 	Value     *string `json:"value,omitempty"`      // 字段值是 JSON 转义后的字符串, 根据元数据定义不同, 字段格式不同。使用方式可参考[【操作手册】如何通过 OpenAPI 维护自定义字段](https://feishu.feishu.cn/docx/QlUudBfCtosWMbxx3vxcOFDknn7)示例值: "123"
 }
 
-// CreateCorehrEmployeeReqPersonalInfoEmergencyContactPhone ...
-type CreateCorehrEmployeeReqPersonalInfoEmergencyContactPhone struct {
+// CreateCoreHREmployeeReqPersonalInfoEmergencyContactPhone ...
+type CreateCoreHREmployeeReqPersonalInfoEmergencyContactPhone struct {
 	InternationalAreaCode *string `json:"international_area_code,omitempty"` // 国际电话区号枚举值可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "phone" - custom_api_name = "international_area_code"示例值: "86_china"
 	PhoneNumber           *string `json:"phone_number,omitempty"`            // 电话号码如果填写了电话对象, 则该字段必填示例值: "13000000000"
 }
 
-// CreateCorehrEmployeeReqPersonalInfoHukou ...
-type CreateCorehrEmployeeReqPersonalInfoHukou struct {
+// CreateCoreHREmployeeReqPersonalInfoHukou ...
+type CreateCoreHREmployeeReqPersonalInfoHukou struct {
 	HukouType     *string                                                `json:"hukou_type,omitempty"`     // 户口类型枚举值可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "person_info_chn" - custom_api_name = "hukou_type"示例值: "local_urban_residence"
 	HukouLocation *string                                                `json:"hukou_location,omitempty"` // 户口所在地示例值: "北京"
-	CustomFields  []*CreateCorehrEmployeeReqPersonalInfoHukouCustomField `json:"custom_fields,omitempty"`  // 自定义字段- 请参考[自定义字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide) 长度范围: `0` ～ `100`
+	CustomFields  []*CreateCoreHREmployeeReqPersonalInfoHukouCustomField `json:"custom_fields,omitempty"`  // 自定义字段- 请参考[自定义字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide) 长度范围: `0` ～ `100`
 }
 
-// CreateCorehrEmployeeReqPersonalInfoHukouCustomField ...
-type CreateCorehrEmployeeReqPersonalInfoHukouCustomField struct {
+// CreateCoreHREmployeeReqPersonalInfoHukouCustomField ...
+type CreateCoreHREmployeeReqPersonalInfoHukouCustomField struct {
 	FieldName string  `json:"field_name,omitempty"` // 字段名示例值: "custom_field_1__c"
 	Value     *string `json:"value,omitempty"`      // 字段值是 JSON 转义后的字符串, 根据元数据定义不同, 字段格式不同。使用方式可参考[【操作手册】如何通过 OpenAPI 维护自定义字段](https://feishu.feishu.cn/docx/QlUudBfCtosWMbxx3vxcOFDknn7)示例值: "123"
 }
 
-// CreateCorehrEmployeeReqPersonalInfoNational ...
-type CreateCorehrEmployeeReqPersonalInfoNational struct {
+// CreateCoreHREmployeeReqPersonalInfoNational ...
+type CreateCoreHREmployeeReqPersonalInfoNational struct {
 	CountryRegion    *string                                                   `json:"country_region,omitempty"`     // 国家 / 地区 ID如果填写了证件对象, 则该字段必填可通过[【查询国家/地区信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)接口获取示例值: "6862995757234914824"
 	NationalIDType   *string                                                   `json:"national_id_type,omitempty"`   // 国家证件类型 ID如果填写了证件对象, 则该字段必填可通过[【批量查询国家证件类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/national_id_type/list)接口获取示例值: "6863330041896371725"
 	NationalIDNumber *string                                                   `json:"national_id_number,omitempty"` // 证件号码如果填写了证件对象, 则该字段必填示例值: "1231131333"
 	IssuedDate       *string                                                   `json:"issued_date,omitempty"`        // 证件签发日期示例值: "2020-04-01"
 	IssuedBy         *string                                                   `json:"issued_by,omitempty"`          // 证件签发机构示例值: "北京市公安局"
 	ExpirationDate   *string                                                   `json:"expiration_date,omitempty"`    // 证件到期日期示例值: "2020-05-21"
-	CustomFields     []*CreateCorehrEmployeeReqPersonalInfoNationalCustomField `json:"custom_fields,omitempty"`      // 自定义字段- 请参考[自定义字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide) 长度范围: `0` ～ `100`
+	CustomFields     []*CreateCoreHREmployeeReqPersonalInfoNationalCustomField `json:"custom_fields,omitempty"`      // 自定义字段- 请参考[自定义字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide) 长度范围: `0` ～ `100`
 }
 
-// CreateCorehrEmployeeReqPersonalInfoNationalCustomField ...
-type CreateCorehrEmployeeReqPersonalInfoNationalCustomField struct {
+// CreateCoreHREmployeeReqPersonalInfoNationalCustomField ...
+type CreateCoreHREmployeeReqPersonalInfoNationalCustomField struct {
 	FieldName string  `json:"field_name,omitempty"` // 字段名示例值: "custom_field_1__c"
 	Value     *string `json:"value,omitempty"`      // 字段值是 JSON 转义后的字符串, 根据元数据定义不同, 字段格式不同。使用方式可参考[【操作手册】如何通过 OpenAPI 维护自定义字段](https://feishu.feishu.cn/docx/QlUudBfCtosWMbxx3vxcOFDknn7)示例值: "123"
 }
 
-// CreateCorehrEmployeeReqPersonalInfoPersonalBasicInfo ...
-type CreateCorehrEmployeeReqPersonalInfoPersonalBasicInfo struct {
-	LegalName               *CreateCorehrEmployeeReqPersonalInfoPersonalBasicInfoLegalName     `json:"legal_name,omitempty"`               // 法定姓名。- [【飞书人事姓名填写规则】](https://bytedance.larkoffice.com/wiki/Am1Zwgjj0imm8OkfICucBqRDnbh)
-	PreferredName           *CreateCorehrEmployeeReqPersonalInfoPersonalBasicInfoPreferredName `json:"preferred_name,omitempty"`           // 常用姓名。- [【飞书人事姓名填写规则】](https://bytedance.larkoffice.com/wiki/Am1Zwgjj0imm8OkfICucBqRDnbh)
+// CreateCoreHREmployeeReqPersonalInfoPersonalBasicInfo ...
+type CreateCoreHREmployeeReqPersonalInfoPersonalBasicInfo struct {
+	LegalName               *CreateCoreHREmployeeReqPersonalInfoPersonalBasicInfoLegalName     `json:"legal_name,omitempty"`               // 法定姓名。- [【飞书人事姓名填写规则】](https://bytedance.larkoffice.com/wiki/Am1Zwgjj0imm8OkfICucBqRDnbh)
+	PreferredName           *CreateCoreHREmployeeReqPersonalInfoPersonalBasicInfoPreferredName `json:"preferred_name,omitempty"`           // 常用姓名。- [【飞书人事姓名填写规则】](https://bytedance.larkoffice.com/wiki/Am1Zwgjj0imm8OkfICucBqRDnbh)
 	AdditionalName          *string                                                            `json:"additional_name,omitempty"`          // 别名示例值: "王帅"
 	Gender                  *string                                                            `json:"gender,omitempty"`                   // 性别枚举值可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "person" - custom_api_name = "gender"示例值: "female"
 	NationalityV2           *string                                                            `json:"nationality_v2,omitempty"`           // 国籍 ID可通过[【查询国籍信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-nationality/search)接口获取示例值: "6862995757234914826"
 	EthnicityRace           *string                                                            `json:"ethnicity_race,omitempty"`           // 民族 / 种族枚举值可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "person" - custom_api_name = "ethnicity_race"示例值: "han"
-	Phone                   *CreateCorehrEmployeeReqPersonalInfoPersonalBasicInfoPhone         `json:"phone,omitempty"`                    // 个人电话
+	Phone                   *CreateCoreHREmployeeReqPersonalInfoPersonalBasicInfoPhone         `json:"phone,omitempty"`                    // 个人电话
 	Email                   *string                                                            `json:"email,omitempty"`                    // 个人邮箱示例值: "1234567@example.feishu.cn"
 	DateOfBirth             *string                                                            `json:"date_of_birth,omitempty"`            // 出生日期示例值: "2006-01-02"
 	MaritalStatus           *string                                                            `json:"marital_status,omitempty"`           // 婚姻状况枚举值可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "person" - custom_api_name = "marital_status"示例值: "married"
@@ -614,18 +614,18 @@ type CreateCorehrEmployeeReqPersonalInfoPersonalBasicInfo struct {
 	DateEnteredWorkforce    *string                                                            `json:"date_entered_workforce,omitempty"`   // 参加工作日期示例值: "2006-01-02"
 	FirstEntryTime          *string                                                            `json:"first_entry_time,omitempty"`         // 首次入境日期示例值: "2006-01-02"
 	LeaveTime               *string                                                            `json:"leave_time,omitempty"`               // 预计离境日期示例值: "2006-01-02"
-	CustomFields            []*CreateCorehrEmployeeReqPersonalInfoPersonalBasicInfoCustomField `json:"custom_fields,omitempty"`            // 自定义字段- 请参考[自定义字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide) 长度范围: `0` ～ `100`
+	CustomFields            []*CreateCoreHREmployeeReqPersonalInfoPersonalBasicInfoCustomField `json:"custom_fields,omitempty"`            // 自定义字段- 请参考[自定义字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide) 长度范围: `0` ～ `100`
 	AdditionalNationalities []string                                                           `json:"additional_nationalities,omitempty"` // 其他国籍（地区）ID示例值: ["6862995757234914827"]
 }
 
-// CreateCorehrEmployeeReqPersonalInfoPersonalBasicInfoCustomField ...
-type CreateCorehrEmployeeReqPersonalInfoPersonalBasicInfoCustomField struct {
+// CreateCoreHREmployeeReqPersonalInfoPersonalBasicInfoCustomField ...
+type CreateCoreHREmployeeReqPersonalInfoPersonalBasicInfoCustomField struct {
 	FieldName string  `json:"field_name,omitempty"` // 字段名示例值: "custom_field_1__c"
 	Value     *string `json:"value,omitempty"`      // 字段值是 JSON 转义后的字符串, 根据元数据定义不同, 字段格式不同。使用方式可参考[【操作手册】如何通过 OpenAPI 维护自定义字段](https://feishu.feishu.cn/docx/QlUudBfCtosWMbxx3vxcOFDknn7)示例值: "123"
 }
 
-// CreateCorehrEmployeeReqPersonalInfoPersonalBasicInfoLegalName ...
-type CreateCorehrEmployeeReqPersonalInfoPersonalBasicInfoLegalName struct {
+// CreateCoreHREmployeeReqPersonalInfoPersonalBasicInfoLegalName ...
+type CreateCoreHREmployeeReqPersonalInfoPersonalBasicInfoLegalName struct {
 	AdditionalNameType *string `json:"additional_name_type,omitempty"` // 补充姓名类型枚举值可以通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "person_name"- custom_api_name = "additional_name_type"示例值: "emergency_contact_name"
 	CountryRegion      *string `json:"country_region,omitempty"`       // 国家 / 地区 ID如果填写了法定姓名对象, 则该字段必填可通过[【查询国家/地区信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)接口获取示例值: "6862995757234914824"
 	FullName           *string `json:"full_name,omitempty"`            // 全名示例值: "王大帅"
@@ -647,14 +647,14 @@ type CreateCorehrEmployeeReqPersonalInfoPersonalBasicInfoLegalName struct {
 	NamePrimary        *string `json:"name_primary,omitempty"`         // 姓示例值: "王"
 }
 
-// CreateCorehrEmployeeReqPersonalInfoPersonalBasicInfoPhone ...
-type CreateCorehrEmployeeReqPersonalInfoPersonalBasicInfoPhone struct {
+// CreateCoreHREmployeeReqPersonalInfoPersonalBasicInfoPhone ...
+type CreateCoreHREmployeeReqPersonalInfoPersonalBasicInfoPhone struct {
 	InternationalAreaCode *string `json:"international_area_code,omitempty"` // 国际电话区号枚举值可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "phone" - custom_api_name = "international_area_code"示例值: "86_china"
 	PhoneNumber           *string `json:"phone_number,omitempty"`            // 电话号码如果填写了个人电话对象, 则该字段必填示例值: "13000000000"
 }
 
-// CreateCorehrEmployeeReqPersonalInfoPersonalBasicInfoPreferredName ...
-type CreateCorehrEmployeeReqPersonalInfoPersonalBasicInfoPreferredName struct {
+// CreateCoreHREmployeeReqPersonalInfoPersonalBasicInfoPreferredName ...
+type CreateCoreHREmployeeReqPersonalInfoPersonalBasicInfoPreferredName struct {
 	AdditionalNameType *string `json:"additional_name_type,omitempty"` // 补充姓名类型枚举值可以通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "person_name" - custom_api_name = "additional_name_type"示例值: "emergency_contact_name"
 	CountryRegion      *string `json:"country_region,omitempty"`       // 国家 / 地区 ID如果填写了常用姓名对象, 则该字段必填可通过[【查询国家/地区信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)接口获取示例值: "6862995757234914824"
 	FullName           *string `json:"full_name,omitempty"`            // 全名示例值: "王大帅"
@@ -676,31 +676,31 @@ type CreateCorehrEmployeeReqPersonalInfoPersonalBasicInfoPreferredName struct {
 	NamePrimary        *string `json:"name_primary,omitempty"`         // 姓示例值: "王"
 }
 
-// CreateCorehrEmployeeReqPersonalInfoResidentTaxe ...
-type CreateCorehrEmployeeReqPersonalInfoResidentTaxe struct {
+// CreateCoreHREmployeeReqPersonalInfoResidentTaxe ...
+type CreateCoreHREmployeeReqPersonalInfoResidentTaxe struct {
 	YearResidentTax  *string                                                       `json:"year_resident_tax,omitempty"`  // 年度如果填写了居民身份信息对象, 则该字段必填示例值: "2006-01-02"
 	TaxCountryRegion *string                                                       `json:"tax_country_region,omitempty"` // 国家 / 地区 ID如果填写了居民身份信息对象, 则该字段必填可通过[【查询国家/地区信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search)接口获取示例值: "6862995757234914824"
 	ResidentStatus   *string                                                       `json:"resident_status,omitempty"`    // 居民身份枚举值可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "resident_tax" - custom_api_name = "resident_status"示例值: "tax_residence"
-	CustomFields     []*CreateCorehrEmployeeReqPersonalInfoResidentTaxeCustomField `json:"custom_fields,omitempty"`      // 自定义字段- 请参考[自定义字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide) 长度范围: `0` ～ `100`
+	CustomFields     []*CreateCoreHREmployeeReqPersonalInfoResidentTaxeCustomField `json:"custom_fields,omitempty"`      // 自定义字段- 请参考[自定义字段说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide) 长度范围: `0` ～ `100`
 }
 
-// CreateCorehrEmployeeReqPersonalInfoResidentTaxeCustomField ...
-type CreateCorehrEmployeeReqPersonalInfoResidentTaxeCustomField struct {
+// CreateCoreHREmployeeReqPersonalInfoResidentTaxeCustomField ...
+type CreateCoreHREmployeeReqPersonalInfoResidentTaxeCustomField struct {
 	FieldName string  `json:"field_name,omitempty"` // 字段名示例值: "custom_field_1__c"
 	Value     *string `json:"value,omitempty"`      // 字段值是 JSON 转义后的字符串, 根据元数据定义不同, 字段格式不同。使用方式可参考[【操作手册】如何通过 OpenAPI 维护自定义字段](https://feishu.feishu.cn/docx/QlUudBfCtosWMbxx3vxcOFDknn7)示例值: "123"
 }
 
-// CreateCorehrEmployeeResp ...
-type CreateCorehrEmployeeResp struct {
+// CreateCoreHREmployeeResp ...
+type CreateCoreHREmployeeResp struct {
 	EmploymentID string `json:"employment_id,omitempty"` // 雇佣信息 ID可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)接口获取详细信息
 	ContractID   string `json:"contract_id,omitempty"`   // 合同 ID可通过[【批量查询合同】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/contract/list)接口获取详细信息
 	JobDataID    string `json:"job_data_id,omitempty"`   // 任职信息 ID可通过[【批量查询员工任职信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employees-job_data/batch_get)接口获取详细信息
 }
 
-// createCorehrEmployeeResp ...
-type createCorehrEmployeeResp struct {
+// createCoreHREmployeeResp ...
+type createCoreHREmployeeResp struct {
 	Code  int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                    `json:"msg,omitempty"`  // 错误描述
-	Data  *CreateCorehrEmployeeResp `json:"data,omitempty"`
+	Data  *CreateCoreHREmployeeResp `json:"data,omitempty"`
 	Error *ErrorDetail              `json:"error,omitempty"`
 }

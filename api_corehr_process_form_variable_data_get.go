@@ -23,10 +23,10 @@ import (
 
 // GetCoreHRProcessFormVariableData 根据流程实例 id（process_id）获取流程表单字段数据, 包括表单里的业务字段和自定义字段。仅支持飞书人事、假勤相关业务流程。
 //
-// 建议使用新版本 API 文档。详情参见[获取流程表单数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process-form_variable_data/get)。
+// 注: [旧版 API](https://open.larkoffice.com/document/server-docs/corehr-v1/process-form_variable_data/get) 文档已移动到【历史版本】目录。
 //
-// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/process-form_variable_data/get
-// new doc: https://open.feishu.cn/document/server-docs/corehr-v1/process-form_variable_data/get
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process-form_variable_data/get
+// new doc: https://open.feishu.cn/document/corehr-v1/process-form_variable_data/process-instance/get-2
 func (r *CoreHRService) GetCoreHRProcessFormVariableData(ctx context.Context, request *GetCoreHRProcessFormVariableDataReq, options ...MethodOptionFunc) (*GetCoreHRProcessFormVariableDataResp, *Response, error) {
 	if r.cli.mock.mockCoreHRGetCoreHRProcessFormVariableData != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRProcessFormVariableData mock enable")
@@ -37,7 +37,7 @@ func (r *CoreHRService) GetCoreHRProcessFormVariableData(ctx context.Context, re
 		Scope:                 "CoreHR",
 		API:                   "GetCoreHRProcessFormVariableData",
 		Method:                "GET",
-		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/processes/:process_id/form_variable_data",
+		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/processes/:process_id/form_variable_data",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
@@ -60,269 +60,125 @@ func (r *Mock) UnMockCoreHRGetCoreHRProcessFormVariableData() {
 
 // GetCoreHRProcessFormVariableDataReq ...
 type GetCoreHRProcessFormVariableDataReq struct {
-	ProcessID string `path:"process_id" json:"-"` // 流程实例 ID示例值: "123456987"
+	ProcessID        string            `path:"process_id" json:"-"`          // 流程实例id, 是一个流程的唯一标识。可通过[查询流程实例列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/list)接口返回的 process_ids 字段获取示例值: "7341373094948242956"
+	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型示例值: people_corehr_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `people_corehr_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门 ID 类型示例值: people_corehr_department_id可选值有: 以 open_department_id 来标识部门以 department_id 来标识部门以 people_corehr_department_id 来标识部门默认值: `people_corehr_department_id`
 }
 
 // GetCoreHRProcessFormVariableDataResp ...
 type GetCoreHRProcessFormVariableDataResp struct {
-	FieldVariableValues []*GetCoreHRProcessFormVariableDataRespFieldVariableValue `json:"field_variable_values,omitempty"` // 流程变量
+	FieldVariableValues []*GetCoreHRProcessFormVariableDataRespFieldVariableValue `json:"field_variable_values,omitempty"` // 表单数据
+	ProcessID           string                                                    `json:"process_id,omitempty"`            // 流程实例id
 }
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValue ...
 type GetCoreHRProcessFormVariableDataRespFieldVariableValue struct {
-	VariableApiName string                                                               `json:"variable_api_name,omitempty"` // 变量api名称
-	VariableName    *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableName  `json:"variable_name,omitempty"`     // 变量名称的i18n描述
-	VariableValue   *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValue `json:"variable_value,omitempty"`    // 变量值的对象
+	VariableApiName string                                                               `json:"variable_api_name,omitempty"` // 变量唯一标识
+	VariableName    *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableName  `json:"variable_name,omitempty"`     // 变量名称
+	VariableValue   *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValue `json:"variable_value,omitempty"`    // 变量值
+	SubValues       []*GetCoreHRProcessFormVariableDataRespFieldVariableValueSubValue    `json:"sub_values,omitempty"`        // 在 list_values 和 record_values 中引用的变量
+}
+
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueSubValue ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueSubValue struct {
+	Key   string                                                               `json:"key,omitempty"`   // 用于关联 list 和 record 类型变量值中的 key
+	Value *GetCoreHRProcessFormVariableDataRespFieldVariableValueSubValueValue `json:"value,omitempty"` // 变量值
+}
+
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueSubValueValue ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueSubValueValue struct {
+	TextValue       string                                                                            `json:"text_value,omitempty"`       // 文本值
+	BoolValue       bool                                                                              `json:"bool_value,omitempty"`       // 布尔值
+	NumberValue     string                                                                            `json:"number_value,omitempty"`     // 数字值
+	EnumValue       string                                                                            `json:"enum_value,omitempty"`       // 枚举值, 这里是枚举的 id
+	DateValue       string                                                                            `json:"date_value,omitempty"`       // 日期值, 单位: 天。从 1970 年 1 月 1 日 (UTC/GMT的午夜) 开始经过的天数
+	DateTimeValue   string                                                                            `json:"date_time_value,omitempty"`  // 时间值, 单位: ms。从 1970 年 1 月 1 日 (UTC/GMT的午夜) 开始经过的毫秒数示例值: 1719549169735
+	I18nValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueSubValueValueI18nValue     `json:"i18n_value,omitempty"`       // 多语字段值
+	ObjectValue     *GetCoreHRProcessFormVariableDataRespFieldVariableValueSubValueValueObjectValue   `json:"object_value,omitempty"`     // 对象值
+	UserValue       string                                                                            `json:"user_value,omitempty"`       // 用户 id, 根据查询参数 user_id_type 选择对应的用户 id
+	DepartmentValue string                                                                            `json:"department_value,omitempty"` // 部门id, 根据查询参数department_id_type类型选择对应的部门id。可通过[搜索部门信息](https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/department/search) 或 [批量查询部门（ V2）](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)接口查询详情。
+	RecordValues    []*GetCoreHRProcessFormVariableDataRespFieldVariableValueSubValueValueRecordValue `json:"record_values,omitempty"`    // 记录类型字段值
+	EmploymentValue string                                                                            `json:"employment_value,omitempty"` // 员工类型字段值, 为用户id, 根据入参选择的user_id_type类型返回的用户id。可通过[搜索员工信息](https://open.larkoffice.com/document/server-docs/corehr-v1/employee/search) 或 [批量查询员工信息](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)接口查询详情。
+	ListValues      []string                                                                          `json:"list_values,omitempty"`      // 数组类型值, 里面包含多个值, 每个元素都对应 sub_values 中的数组下标
+	FileValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueSubValueValueFileValue     `json:"file_value,omitempty"`       // 文件类型字段值, 可通过主数据的[文件下载Open API](https://open.larkoffice.com/document/server-docs/corehr-v1/employee/person/get-2)下载
+}
+
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueSubValueValueFileValue ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueSubValueValueFileValue struct {
+	OpenFileID string `json:"open_file_id,omitempty"` // 用于主数据[文件下载Open API](https://open.larkoffice.com/document/server-docs/corehr-v1/employee/person/get-2)接口的id
+	FileName   string `json:"file_name,omitempty"`    // 文件名称
+	Length     int64  `json:"length,omitempty"`       // 文件大小, 单位: Byte
+	MimeType   string `json:"mime_type,omitempty"`    // 文件类型, 如`application/pdf`
+}
+
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueSubValueValueI18nValue ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueSubValueValueI18nValue struct {
+	ZhCn string `json:"zh_cn,omitempty"` // 中文值
+	EnUs string `json:"en_us,omitempty"` // 英文值
+}
+
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueSubValueValueObjectValue ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueSubValueValueObjectValue struct {
+	WkID      string `json:"wk_id,omitempty"`       // 飞书人事主数据对象唯一标识。例如: wk_api_name为"job"时, wk_id代表职务ID。详请可参考[查询单个职务（V2）](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/get)wk_api_name为"job_level"时, wk_id代表职级ID。详情可参考[查询单个职级](https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_level/get)
+	WkApiName string `json:"wk_api_name,omitempty"` // 飞书人事元数据对象的唯一标识。例如: 职务的wk_api_name为"job"；职级的wk_api_name为"job_level"；如需获取更多对象信息, 可查询[获取飞书人事对象列表](https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/custom_field/list_object_api_name)接口
+}
+
+// GetCoreHRProcessFormVariableDataRespFieldVariableValueSubValueValueRecordValue ...
+type GetCoreHRProcessFormVariableDataRespFieldVariableValueSubValueValueRecordValue struct {
+	VariableApiName string `json:"variable_api_name,omitempty"` // 变量唯一标识
+	SubValueKey     string `json:"sub_value_key,omitempty"`     // 变量值, 对应subValues中的key
+	RecordID        string `json:"record_id,omitempty"`         // 记录唯一ID
 }
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableName ...
 type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // （基于系统兼容性, 该参数名称在文档中展示为zh_cn, 但在实际返回的 JSON Key 中展示为 zh-CN）i18n类型字段, 中文值
-	EnUs string `json:"en_us,omitempty"` // （基于系统兼容性, 该参数名称在文档中展示为en_us, 但在实际返回的 JSON Key 中展示为 en-US）i18n类型字段, 英文值
+	ZhCn string `json:"zh_cn,omitempty"` // 中文值
+	EnUs string `json:"en_us,omitempty"` // 英文值
 }
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValue ...
 type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValue struct {
-	TextValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueTextValue       `json:"text_value,omitempty"`       // 文本变量对象
-	NumberValue     *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueNumberValue     `json:"number_value,omitempty"`     // 数值变量对象
-	DateValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueDateValue       `json:"date_value,omitempty"`       // 日期变量对象
-	EmploymentValue *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueEmploymentValue `json:"employment_value,omitempty"` // 员工变量对象
-	DateTimeValue   *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueDateTimeValue   `json:"date_time_value,omitempty"`  // 日期时间变量对象
-	EnumValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueEnumValue       `json:"enum_value,omitempty"`       // 枚举变量对象
-	BoolValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueBoolValue       `json:"bool_value,omitempty"`       // 布尔变量对象
-	DepartmentValue *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueDepartmentValue `json:"department_value,omitempty"` // 部门变量对象
-	FileValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueFileValue       `json:"file_value,omitempty"`       // 文件变量对象
-	I18nValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueI18nValue       `json:"i18n_value,omitempty"`       // i18n变量对象
-	ObjectValue     *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueObjectValue     `json:"object_value,omitempty"`     // 对象变量
-	ListValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValue       `json:"list_value,omitempty"`       // 列表对象
-	RecordValue     *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueRecordValue     `json:"record_value,omitempty"`     // 记录对象
-}
-
-// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueBoolValue ...
-type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueBoolValue struct {
-	Value bool `json:"value,omitempty"` // 布尔变量的值
-}
-
-// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueDateTimeValue ...
-type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueDateTimeValue struct {
-	Value int64  `json:"value,omitempty"` // 毫秒的时间戳。注: 此字段数据类型为 int64
-	Zone  string `json:"zone,omitempty"`  // 时区, +08:00
-}
-
-// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueDateValue ...
-type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueDateValue struct {
-	Value int64 `json:"value,omitempty"` // 日期变量的值, 从1970起的天数
-}
-
-// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueDepartmentValue ...
-type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueDepartmentValue struct {
-	Value string `json:"value,omitempty"` // 部门ID
-}
-
-// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueEmploymentValue ...
-type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueEmploymentValue struct {
-	Value  string `json:"value,omitempty"`   // employmentID
-	UserID string `json:"user_id,omitempty"` // 员工ID 如3158117
-}
-
-// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueEnumValue ...
-type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueEnumValue struct {
-	Value string                                                                            `json:"value,omitempty"` // 枚举值
-	Name  *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueEnumValueName `json:"name,omitempty"`  // 枚举的名称
-	Desc  *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueEnumValueDesc `json:"desc,omitempty"`  // 枚举的描述
-}
-
-// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueEnumValueDesc ...
-type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueEnumValueDesc struct {
-	ZhCn string `json:"zh_cn,omitempty"` // （基于系统兼容性, 该参数名称在文档中展示为zh_cn, 但在实际返回的 JSON Key 中展示为 zh-CN）i18n类型字段, 中文值
-	EnUs string `json:"en_us,omitempty"` // （基于系统兼容性, 该参数名称在文档中展示为en_us, 但在实际返回的 JSON Key 中展示为 en-US）i18n类型字段, 英文值
-}
-
-// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueEnumValueName ...
-type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueEnumValueName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // （基于系统兼容性, 该参数名称在文档中展示为zh_cn, 但在实际返回的 JSON Key 中展示为 zh-CN）i18n类型字段, 中文值
-	EnUs string `json:"en_us,omitempty"` // （基于系统兼容性, 该参数名称在文档中展示为en_us, 但在实际返回的 JSON Key 中展示为 en-US）i18n类型字段, 英文值
+	TextValue       string                                                                            `json:"text_value,omitempty"`       // 文本值
+	BoolValue       bool                                                                              `json:"bool_value,omitempty"`       // 布尔值
+	NumberValue     string                                                                            `json:"number_value,omitempty"`     // 数字值
+	EnumValue       string                                                                            `json:"enum_value,omitempty"`       // 枚举值, 这里是枚举的 id
+	DateValue       string                                                                            `json:"date_value,omitempty"`       // 日期值, 单位: 天。从 1970 年 1 月 1 日 (UTC/GMT的午夜) 开始经过的天数示例值: 19688
+	DateTimeValue   string                                                                            `json:"date_time_value,omitempty"`  // 时间值, 单位: ms。从 1970 年 1 月 1 日 (UTC/GMT的午夜) 开始经过的毫秒数示例值: 1719549169735
+	I18nValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueI18nValue     `json:"i18n_value,omitempty"`       // 多语字段值
+	ObjectValue     *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueObjectValue   `json:"object_value,omitempty"`     // 对象值
+	UserValue       string                                                                            `json:"user_value,omitempty"`       // 用户 id, 根据查询参数 user_id_type 选择对应的用户 id
+	DepartmentValue string                                                                            `json:"department_value,omitempty"` // 部门id, 根据查询参数department_id_type类型选择对应的部门id。可通过[搜索部门信息](https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/department/search) 或 [批量查询部门（ V2）](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)接口查询详情。
+	RecordValues    []*GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueRecordValue `json:"record_values,omitempty"`    // 记录类型字段值
+	EmploymentValue string                                                                            `json:"employment_value,omitempty"` // 员工类型字段值, 为用户id, 根据入参选择的user_id_type类型返回的用户id。可通过[搜索员工信息](https://open.larkoffice.com/document/server-docs/corehr-v1/employee/search) 或 [批量查询员工信息](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)接口查询详情。
+	ListValues      []string                                                                          `json:"list_values,omitempty"`      // 数组类型值, 里面包含多个值, 每个元素都对应 sub_values 中的数组下标
+	FileValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueFileValue     `json:"file_value,omitempty"`       // 文件类型字段值, 可通过主数据的[文件下载Open API](https://open.larkoffice.com/document/server-docs/corehr-v1/employee/person/get-2)下载
 }
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueFileValue ...
 type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueFileValue struct {
-	SourceType int64  `json:"source_type,omitempty"` // 文件源类型（1BPM; 2主数据）
-	FileID     string `json:"file_id,omitempty"`     // 文件id
-	FileName   string `json:"file_name,omitempty"`   // 文件名称
-	Length     int64  `json:"length,omitempty"`      // 文件长度
-	MimeType   string `json:"mime_type,omitempty"`   // 扩展类型
+	OpenFileID string `json:"open_file_id,omitempty"` // 用于主数据[文件下载Open API](https://open.larkoffice.com/document/server-docs/corehr-v1/employee/person/get-2)下载接口的入参id
+	FileName   string `json:"file_name,omitempty"`    // 文件名称
+	Length     int64  `json:"length,omitempty"`       // 文件大小, 单位: Byte
+	MimeType   string `json:"mime_type,omitempty"`    // 文件类型, 如`application/pdf`
 }
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueI18nValue ...
 type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueI18nValue struct {
-	Value *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueI18nValueValue `json:"value,omitempty"` // i18n值
-}
-
-// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueI18nValueValue ...
-type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueI18nValueValue struct {
-	ZhCn string `json:"zh_cn,omitempty"` // （基于系统兼容性, 该参数名称在文档中展示为zh_cn, 但在实际返回的 JSON Key 中展示为 zh-CN）i18n类型字段, 中文值
-	EnUs string `json:"en_us,omitempty"` // （基于系统兼容性, 该参数名称在文档中展示为en_us, 但在实际返回的 JSON Key 中展示为 en-US）i18n类型字段, 英文值
-}
-
-// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValue ...
-type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValue struct {
-	Values []*GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValue `json:"values,omitempty"` // 列表值
-}
-
-// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValue ...
-type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValue struct {
-	TextValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueTextValue       `json:"text_value,omitempty"`       // 文本变量对象
-	NumberValue     *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueNumberValue     `json:"number_value,omitempty"`     // 数值变量对象
-	DateValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueDateValue       `json:"date_value,omitempty"`       // 日期变量对象
-	EmploymentValue *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEmploymentValue `json:"employment_value,omitempty"` // 员工变量对象
-	DateTimeValue   *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueDateTimeValue   `json:"date_time_value,omitempty"`  // 日期时间变量对象
-	EnumValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEnumValue       `json:"enum_value,omitempty"`       // 枚举变量对象
-	BoolValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueBoolValue       `json:"bool_value,omitempty"`       // 布尔变量对象
-	DepartmentValue *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueDepartmentValue `json:"department_value,omitempty"` // 部门变量对象
-	FileValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueFileValue       `json:"file_value,omitempty"`       // 文件变量对象
-	I18nValue       *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueI18nValue       `json:"i18n_value,omitempty"`       // i18n变量对象
-	ObjectValue     *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueObjectValue     `json:"object_value,omitempty"`     // 对象变量
-	RecordValue     *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueRecordValue     `json:"record_value,omitempty"`     // 记录对象
-}
-
-// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueBoolValue ...
-type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueBoolValue struct {
-	Value bool `json:"value,omitempty"` // 布尔变量的值
-}
-
-// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueDateTimeValue ...
-type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueDateTimeValue struct {
-	Value int64  `json:"value,omitempty"` // 毫秒的时间戳。注: 此字段数据类型为 int64
-	Zone  string `json:"zone,omitempty"`  // 时区, +08:00
-}
-
-// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueDateValue ...
-type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueDateValue struct {
-	Value int64 `json:"value,omitempty"` // 日期变量的值, 从1970起的天数
-}
-
-// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueDepartmentValue ...
-type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueDepartmentValue struct {
-	Value string `json:"value,omitempty"` // 部门ID
-}
-
-// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEmploymentValue ...
-type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEmploymentValue struct {
-	Value  string `json:"value,omitempty"`   // employmentID
-	UserID string `json:"user_id,omitempty"` // 员工ID 如3158117
-}
-
-// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEnumValue ...
-type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEnumValue struct {
-	Value string                                                                                          `json:"value,omitempty"` // 枚举值
-	Name  *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEnumValueName `json:"name,omitempty"`  // 枚举的名称
-	Desc  *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEnumValueDesc `json:"desc,omitempty"`  // 枚举的描述
-}
-
-// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEnumValueDesc ...
-type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEnumValueDesc struct {
-	ZhCn string `json:"zh_cn,omitempty"` // （基于系统兼容性, 该参数名称在文档中展示为zh_cn, 但在实际返回的 JSON Key 中展示为 zh-CN）i18n类型字段, 中文值
-	EnUs string `json:"en_us,omitempty"` // （基于系统兼容性, 该参数名称在文档中展示为en_us, 但在实际返回的 JSON Key 中展示为 en-US）i18n类型字段, 英文值
-}
-
-// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEnumValueName ...
-type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueEnumValueName struct {
-	ZhCn string `json:"zh_cn,omitempty"` // （基于系统兼容性, 该参数名称在文档中展示为zh_cn, 但在实际返回的 JSON Key 中展示为 zh-CN）i18n类型字段, 中文值
-	EnUs string `json:"en_us,omitempty"` // （基于系统兼容性, 该参数名称在文档中展示为en_us, 但在实际返回的 JSON Key 中展示为 en-US）i18n类型字段, 英文值
-}
-
-// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueFileValue ...
-type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueFileValue struct {
-	SourceType int64  `json:"source_type,omitempty"` // 文件源类型（1BPM; 2主数据）
-	FileID     string `json:"file_id,omitempty"`     // 文件id
-	FileName   string `json:"file_name,omitempty"`   // 文件名称
-	Length     int64  `json:"length,omitempty"`      // 文件长度
-	MimeType   string `json:"mime_type,omitempty"`   // 扩展类型
-}
-
-// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueI18nValue ...
-type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueI18nValue struct {
-	Value *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueI18nValueValue `json:"value,omitempty"` // i18n值
-}
-
-// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueI18nValueValue ...
-type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueI18nValueValue struct {
-	ZhCn string `json:"zh_cn,omitempty"` // （基于系统兼容性, 该参数名称在文档中展示为zh_cn, 但在实际返回的 JSON Key 中展示为 zh-CN）i18n类型字段, 中文值
-	EnUs string `json:"en_us,omitempty"` // （基于系统兼容性, 该参数名称在文档中展示为en_us, 但在实际返回的 JSON Key 中展示为 en-US）i18n类型字段, 英文值
-}
-
-// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueNumberValue ...
-type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueNumberValue struct {
-	Value string `json:"value,omitempty"` // 数值类型变量的值
-}
-
-// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueObjectValue ...
-type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueObjectValue struct {
-	Value     string `json:"value,omitempty"`       // 对象ID
-	WkApiName string `json:"wk_api_name,omitempty"` // 主数据apiName
-}
-
-// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueRecordValue ...
-type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueRecordValue struct {
-	Values *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueRecordValueValues `json:"values,omitempty"` // 注: 该参数实际为 Map 数据类型, Key 是变量唯一标识, Value 是变量值。
-}
-
-// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueRecordValueValues ...
-type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueRecordValueValues struct {
-	CountryRegion *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueRecordValueValuesCountryRegion `json:"country_region,omitempty"` // 这个属性名称是map的key的示例, 属性值是map的value的示例, 值和外层的variable_value是的一样的结构。
-}
-
-// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueRecordValueValuesCountryRegion ...
-type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueRecordValueValuesCountryRegion struct {
-	ObjectValue *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueRecordValueValuesCountryRegionObjectValue `json:"object_value,omitempty"` // 文本变量对象
-}
-
-// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueRecordValueValuesCountryRegionObjectValue ...
-type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueRecordValueValuesCountryRegionObjectValue struct {
-	Value     string `json:"value,omitempty"`       // 对象ID
-	WkApiName string `json:"wk_api_name,omitempty"` // 主数据apiName
-}
-
-// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueTextValue ...
-type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueListValueValueTextValue struct {
-	Value string `json:"value,omitempty"` // 文本类型变量的值
-}
-
-// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueNumberValue ...
-type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueNumberValue struct {
-	Value string `json:"value,omitempty"` // 数值类型变量的值
+	ZhCn string `json:"zh_cn,omitempty"` // 中文值
+	EnUs string `json:"en_us,omitempty"` // 英文值
 }
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueObjectValue ...
 type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueObjectValue struct {
-	Value     string `json:"value,omitempty"`       // 对象ID
-	WkApiName string `json:"wk_api_name,omitempty"` // 主数据apiName
+	WkID      string `json:"wk_id,omitempty"`       // 飞书人事主数据对象唯一标识。例如: wk_api_name为"job"时, wk_id代表职务ID。详请可参考[查询单个职务（V2）](https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/get)wk_api_name为"job_level"时, wk_id代表职级ID。详情可参考[查询单个职级](https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_level/get)
+	WkApiName string `json:"wk_api_name,omitempty"` // 飞书人事元数据对象的唯一标识。例如: 职务的wk_api_name为"job"；职级的wk_api_name为"job_level"；如需获取更多对象信息, 可查询[获取飞书人事对象列表](https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/custom_field/list_object_api_name)接口
 }
 
 // GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueRecordValue ...
 type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueRecordValue struct {
-	Values *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueRecordValueValues `json:"values,omitempty"` // 注: 该参数实际为 Map 数据类型, Key 是变量唯一标识, Value 是变量值。
-}
-
-// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueRecordValueValues ...
-type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueRecordValueValues struct {
-	CountryRegion *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueRecordValueValuesCountryRegion `json:"country_region,omitempty"` // 这个属性名称是map的key的示例, 属性值是map的value的示例, 值和外层的variable_value是的一样的结构。
-}
-
-// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueRecordValueValuesCountryRegion ...
-type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueRecordValueValuesCountryRegion struct {
-	ObjectValue *GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueRecordValueValuesCountryRegionObjectValue `json:"object_value,omitempty"` // 文本变量对象
-}
-
-// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueRecordValueValuesCountryRegionObjectValue ...
-type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueRecordValueValuesCountryRegionObjectValue struct {
-	Value     string `json:"value,omitempty"`       // 对象ID
-	WkApiName string `json:"wk_api_name,omitempty"` // 主数据apiName
-}
-
-// GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueTextValue ...
-type GetCoreHRProcessFormVariableDataRespFieldVariableValueVariableValueTextValue struct {
-	Value string `json:"value,omitempty"` // 文本类型变量的值
+	VariableApiName string `json:"variable_api_name,omitempty"` // 变量唯一标识
+	SubValueKey     string `json:"sub_value_key,omitempty"`     // 变量值, 对应subValues中的key
+	RecordID        string `json:"record_id,omitempty"`         // 记录唯一ID
 }
 
 // getCoreHRProcessFormVariableDataResp ...

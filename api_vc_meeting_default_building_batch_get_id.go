@@ -28,9 +28,9 @@ import (
 //
 // Deprecated
 func (r *VCService) GetVCMeetingDefaultBuildingBatchGetID(ctx context.Context, request *GetVCMeetingDefaultBuildingBatchGetIDReq, options ...MethodOptionFunc) (*GetVCMeetingDefaultBuildingBatchGetIDResp, *Response, error) {
-	if r.cli.mock.mockVCMeetingGetVCMeetingDefaultBuildingBatchGetID != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] VCMeeting#GetVCMeetingDefaultBuildingBatchGetID mock enable")
-		return r.cli.mock.mockVCMeetingGetVCMeetingDefaultBuildingBatchGetID(ctx, request, options...)
+	if r.cli.mock.mockVCGetVCMeetingDefaultBuildingBatchGetID != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#GetVCMeetingDefaultBuildingBatchGetID mock enable")
+		return r.cli.mock.mockVCGetVCMeetingDefaultBuildingBatchGetID(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
@@ -48,14 +48,14 @@ func (r *VCService) GetVCMeetingDefaultBuildingBatchGetID(ctx context.Context, r
 	return resp.Data, response, err
 }
 
-// MockVCMeetingGetVCMeetingDefaultBuildingBatchGetID mock VCMeetingGetVCMeetingDefaultBuildingBatchGetID method
-func (r *Mock) MockVCMeetingGetVCMeetingDefaultBuildingBatchGetID(f func(ctx context.Context, request *GetVCMeetingDefaultBuildingBatchGetIDReq, options ...MethodOptionFunc) (*GetVCMeetingDefaultBuildingBatchGetIDResp, *Response, error)) {
-	r.mockVCMeetingGetVCMeetingDefaultBuildingBatchGetID = f
+// MockVCGetVCMeetingDefaultBuildingBatchGetID mock VCGetVCMeetingDefaultBuildingBatchGetID method
+func (r *Mock) MockVCGetVCMeetingDefaultBuildingBatchGetID(f func(ctx context.Context, request *GetVCMeetingDefaultBuildingBatchGetIDReq, options ...MethodOptionFunc) (*GetVCMeetingDefaultBuildingBatchGetIDResp, *Response, error)) {
+	r.mockVCGetVCMeetingDefaultBuildingBatchGetID = f
 }
 
-// UnMockVCMeetingGetVCMeetingDefaultBuildingBatchGetID un-mock VCMeetingGetVCMeetingDefaultBuildingBatchGetID method
-func (r *Mock) UnMockVCMeetingGetVCMeetingDefaultBuildingBatchGetID() {
-	r.mockVCMeetingGetVCMeetingDefaultBuildingBatchGetID = nil
+// UnMockVCGetVCMeetingDefaultBuildingBatchGetID un-mock VCGetVCMeetingDefaultBuildingBatchGetID method
+func (r *Mock) UnMockVCGetVCMeetingDefaultBuildingBatchGetID() {
+	r.mockVCGetVCMeetingDefaultBuildingBatchGetID = nil
 }
 
 // GetVCMeetingDefaultBuildingBatchGetIDReq ...

@@ -21,59 +21,59 @@ import (
 	"context"
 )
 
-// CreateAPaaSApplicationObjectOqlQuery 在应用内执行 OQL 语句
+// QueryAPaaSApplicationObjectOql 在应用内执行 OQL 语句
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/application-object/oql_query
 // new doc: https://open.feishu.cn/document/apaas-v1/application-object-record/oql_query
-func (r *APaaSService) CreateAPaaSApplicationObjectOqlQuery(ctx context.Context, request *CreateAPaaSApplicationObjectOqlQueryReq, options ...MethodOptionFunc) (*CreateAPaaSApplicationObjectOqlQueryResp, *Response, error) {
-	if r.cli.mock.mockAPaaSCreateAPaaSApplicationObjectOqlQuery != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] APaaS#CreateAPaaSApplicationObjectOqlQuery mock enable")
-		return r.cli.mock.mockAPaaSCreateAPaaSApplicationObjectOqlQuery(ctx, request, options...)
+func (r *APaaSService) QueryAPaaSApplicationObjectOql(ctx context.Context, request *QueryAPaaSApplicationObjectOqlReq, options ...MethodOptionFunc) (*QueryAPaaSApplicationObjectOqlResp, *Response, error) {
+	if r.cli.mock.mockAPaaSQueryAPaaSApplicationObjectOql != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] APaaS#QueryAPaaSApplicationObjectOql mock enable")
+		return r.cli.mock.mockAPaaSQueryAPaaSApplicationObjectOql(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "APaaS",
-		API:                   "CreateAPaaSApplicationObjectOqlQuery",
+		API:                   "QueryAPaaSApplicationObjectOql",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/apaas/v1/applications/:namespace/objects/oql_query",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(createAPaaSApplicationObjectOqlQueryResp)
+	resp := new(queryAPaaSApplicationObjectOqlResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockAPaaSCreateAPaaSApplicationObjectOqlQuery mock APaaSCreateAPaaSApplicationObjectOqlQuery method
-func (r *Mock) MockAPaaSCreateAPaaSApplicationObjectOqlQuery(f func(ctx context.Context, request *CreateAPaaSApplicationObjectOqlQueryReq, options ...MethodOptionFunc) (*CreateAPaaSApplicationObjectOqlQueryResp, *Response, error)) {
-	r.mockAPaaSCreateAPaaSApplicationObjectOqlQuery = f
+// MockAPaaSQueryAPaaSApplicationObjectOql mock APaaSQueryAPaaSApplicationObjectOql method
+func (r *Mock) MockAPaaSQueryAPaaSApplicationObjectOql(f func(ctx context.Context, request *QueryAPaaSApplicationObjectOqlReq, options ...MethodOptionFunc) (*QueryAPaaSApplicationObjectOqlResp, *Response, error)) {
+	r.mockAPaaSQueryAPaaSApplicationObjectOql = f
 }
 
-// UnMockAPaaSCreateAPaaSApplicationObjectOqlQuery un-mock APaaSCreateAPaaSApplicationObjectOqlQuery method
-func (r *Mock) UnMockAPaaSCreateAPaaSApplicationObjectOqlQuery() {
-	r.mockAPaaSCreateAPaaSApplicationObjectOqlQuery = nil
+// UnMockAPaaSQueryAPaaSApplicationObjectOql un-mock APaaSQueryAPaaSApplicationObjectOql method
+func (r *Mock) UnMockAPaaSQueryAPaaSApplicationObjectOql() {
+	r.mockAPaaSQueryAPaaSApplicationObjectOql = nil
 }
 
-// CreateAPaaSApplicationObjectOqlQueryReq ...
-type CreateAPaaSApplicationObjectOqlQueryReq struct {
+// QueryAPaaSApplicationObjectOqlReq ...
+type QueryAPaaSApplicationObjectOqlReq struct {
 	Namespace string  `path:"namespace" json:"-"`   // 应用命名空间示例值: "package_test__c" 长度范围: `0` ～ `256` 字符
 	Query     string  `json:"query,omitempty"`      // 待执行的 OQL 语句示例值: "SELECT _id, _name FROM _user WHERE _type = $1 AND _accountStatus = $user_status LIMIT 10"
 	Args      *string `json:"args,omitempty"`       // 用于指定 OQL 语句中匿名参数的具体值示例值: "[\"_employee\"]"
 	NamedArgs *string `json:"named_args,omitempty"` // 用于指定 OQL 语句中具名参数的具体值示例值: "{\"user_status\" : \"_used\"}"
 }
 
-// CreateAPaaSApplicationObjectOqlQueryResp ...
-type CreateAPaaSApplicationObjectOqlQueryResp struct {
+// QueryAPaaSApplicationObjectOqlResp ...
+type QueryAPaaSApplicationObjectOqlResp struct {
 	Columns []string `json:"columns,omitempty"` // 每一列的标题
 	Rows    string   `json:"rows,omitempty"`    // 每一行的值, 以「key-value」的形式返回
 }
 
-// createAPaaSApplicationObjectOqlQueryResp ...
-type createAPaaSApplicationObjectOqlQueryResp struct {
-	Code  int64                                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg   string                                    `json:"msg,omitempty"`  // 错误描述
-	Data  *CreateAPaaSApplicationObjectOqlQueryResp `json:"data,omitempty"`
-	Error *ErrorDetail                              `json:"error,omitempty"`
+// queryAPaaSApplicationObjectOqlResp ...
+type queryAPaaSApplicationObjectOqlResp struct {
+	Code  int64                               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                              `json:"msg,omitempty"`  // 错误描述
+	Data  *QueryAPaaSApplicationObjectOqlResp `json:"data,omitempty"`
+	Error *ErrorDetail                        `json:"error,omitempty"`
 }

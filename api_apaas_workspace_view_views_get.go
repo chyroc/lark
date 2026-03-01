@@ -21,42 +21,42 @@ import (
 	"context"
 )
 
-// GetAPaaSWorkspaceViewViewsGet 查询视图数据记录
+// GetAPaaSWorkspaceViews 查询视图数据记录
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/workspace-view/views_get
-func (r *APaaSService) GetAPaaSWorkspaceViewViewsGet(ctx context.Context, request *GetAPaaSWorkspaceViewViewsGetReq, options ...MethodOptionFunc) (*GetAPaaSWorkspaceViewViewsGetResp, *Response, error) {
-	if r.cli.mock.mockAPaaSGetAPaaSWorkspaceViewViewsGet != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] APaaS#GetAPaaSWorkspaceViewViewsGet mock enable")
-		return r.cli.mock.mockAPaaSGetAPaaSWorkspaceViewViewsGet(ctx, request, options...)
+func (r *APaaSService) GetAPaaSWorkspaceViews(ctx context.Context, request *GetAPaaSWorkspaceViewsReq, options ...MethodOptionFunc) (*GetAPaaSWorkspaceViewsResp, *Response, error) {
+	if r.cli.mock.mockAPaaSGetAPaaSWorkspaceViews != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] APaaS#GetAPaaSWorkspaceViews mock enable")
+		return r.cli.mock.mockAPaaSGetAPaaSWorkspaceViews(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:               "APaaS",
-		API:                 "GetAPaaSWorkspaceViewViewsGet",
+		API:                 "GetAPaaSWorkspaceViews",
 		Method:              "GET",
 		URL:                 r.cli.openBaseURL + "/open-apis/apaas/v1/workspaces/:workspace_id/views/:view_name/records",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 	}
-	resp := new(getAPaaSWorkspaceViewViewsGetResp)
+	resp := new(getAPaaSWorkspaceViewsResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockAPaaSGetAPaaSWorkspaceViewViewsGet mock APaaSGetAPaaSWorkspaceViewViewsGet method
-func (r *Mock) MockAPaaSGetAPaaSWorkspaceViewViewsGet(f func(ctx context.Context, request *GetAPaaSWorkspaceViewViewsGetReq, options ...MethodOptionFunc) (*GetAPaaSWorkspaceViewViewsGetResp, *Response, error)) {
-	r.mockAPaaSGetAPaaSWorkspaceViewViewsGet = f
+// MockAPaaSGetAPaaSWorkspaceViews mock APaaSGetAPaaSWorkspaceViews method
+func (r *Mock) MockAPaaSGetAPaaSWorkspaceViews(f func(ctx context.Context, request *GetAPaaSWorkspaceViewsReq, options ...MethodOptionFunc) (*GetAPaaSWorkspaceViewsResp, *Response, error)) {
+	r.mockAPaaSGetAPaaSWorkspaceViews = f
 }
 
-// UnMockAPaaSGetAPaaSWorkspaceViewViewsGet un-mock APaaSGetAPaaSWorkspaceViewViewsGet method
-func (r *Mock) UnMockAPaaSGetAPaaSWorkspaceViewViewsGet() {
-	r.mockAPaaSGetAPaaSWorkspaceViewViewsGet = nil
+// UnMockAPaaSGetAPaaSWorkspaceViews un-mock APaaSGetAPaaSWorkspaceViews method
+func (r *Mock) UnMockAPaaSGetAPaaSWorkspaceViews() {
+	r.mockAPaaSGetAPaaSWorkspaceViews = nil
 }
 
-// GetAPaaSWorkspaceViewViewsGetReq ...
-type GetAPaaSWorkspaceViewViewsGetReq struct {
+// GetAPaaSWorkspaceViewsReq ...
+type GetAPaaSWorkspaceViewsReq struct {
 	WorkspaceID string  `path:"workspace_id" json:"-"` // 工作空间id, 可以从数据平台的 URL 中获取, 如 `https://apaas.feishu.cn/suda/workspace/workspace_aadimx5uzpsls/table-manage/main?tableId=table_1846786627963081&tab=objectManage` 中的 workspace_aadimx5uzpsls 就是 workspace_id示例值: "workspace_aadimx5uzpsls"
 	ViewName    string  `path:"view_name" json:"-"`    // 视图名称, 可以从数据平台获取对应的视图名称。示例值: "view_name_1"
 	PageSize    *int64  `query:"page_size" json:"-"`   // 分页大小, 用于限制一次请求所返回的数据条目数。默认10, 最大500示例值: 10默认值: `10`
@@ -66,18 +66,18 @@ type GetAPaaSWorkspaceViewViewsGetReq struct {
 	Order       *string `query:"order" json:"-"`       // 排序条件, 如果没指定 asc/desc, 默认为 asc, null 值可排在最前或最后。尊许 PostgREST 语法, 详情可查看`https://docs.postgrest.org/en/v13/references/api/tables_views.html#ordering`示例值: age.desc, score.asc
 }
 
-// GetAPaaSWorkspaceViewViewsGetResp ...
-type GetAPaaSWorkspaceViewViewsGetResp struct {
+// GetAPaaSWorkspaceViewsResp ...
+type GetAPaaSWorkspaceViewsResp struct {
 	HasMore   bool     `json:"has_more,omitempty"`   // 是否还有更多项
 	PageToken string   `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	Total     int64    `json:"total,omitempty"`      // 符合条件的记录总数
 	Items     []string `json:"items,omitempty"`      // 数据记录列表, 格式为数组序列化后的 JSONString
 }
 
-// getAPaaSWorkspaceViewViewsGetResp ...
-type getAPaaSWorkspaceViewViewsGetResp struct {
-	Code  int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg   string                             `json:"msg,omitempty"`  // 错误描述
-	Data  *GetAPaaSWorkspaceViewViewsGetResp `json:"data,omitempty"`
-	Error *ErrorDetail                       `json:"error,omitempty"`
+// getAPaaSWorkspaceViewsResp ...
+type getAPaaSWorkspaceViewsResp struct {
+	Code  int64                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                      `json:"msg,omitempty"`  // 错误描述
+	Data  *GetAPaaSWorkspaceViewsResp `json:"data,omitempty"`
+	Error *ErrorDetail                `json:"error,omitempty"`
 }

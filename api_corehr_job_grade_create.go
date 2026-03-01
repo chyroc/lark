@@ -21,71 +21,71 @@ import (
 	"context"
 )
 
-// CreateCorehrJobGrade 创建职等
+// CreateCoreHRJobGrade 创建职等
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/create
 // new doc: https://open.feishu.cn/document/corehr-v1/job-management/job_grade/create
-func (r *CoreHRService) CreateCorehrJobGrade(ctx context.Context, request *CreateCorehrJobGradeReq, options ...MethodOptionFunc) (*CreateCorehrJobGradeResp, *Response, error) {
-	if r.cli.mock.mockCoreHRCreateCorehrJobGrade != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCorehrJobGrade mock enable")
-		return r.cli.mock.mockCoreHRCreateCorehrJobGrade(ctx, request, options...)
+func (r *CoreHRService) CreateCoreHRJobGrade(ctx context.Context, request *CreateCoreHRJobGradeReq, options ...MethodOptionFunc) (*CreateCoreHRJobGradeResp, *Response, error) {
+	if r.cli.mock.mockCoreHRCreateCoreHRJobGrade != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCoreHRJobGrade mock enable")
+		return r.cli.mock.mockCoreHRCreateCoreHRJobGrade(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "CreateCorehrJobGrade",
+		API:                   "CreateCoreHRJobGrade",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/job_grades",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(createCorehrJobGradeResp)
+	resp := new(createCoreHRJobGradeResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRCreateCorehrJobGrade mock CoreHRCreateCorehrJobGrade method
-func (r *Mock) MockCoreHRCreateCorehrJobGrade(f func(ctx context.Context, request *CreateCorehrJobGradeReq, options ...MethodOptionFunc) (*CreateCorehrJobGradeResp, *Response, error)) {
-	r.mockCoreHRCreateCorehrJobGrade = f
+// MockCoreHRCreateCoreHRJobGrade mock CoreHRCreateCoreHRJobGrade method
+func (r *Mock) MockCoreHRCreateCoreHRJobGrade(f func(ctx context.Context, request *CreateCoreHRJobGradeReq, options ...MethodOptionFunc) (*CreateCoreHRJobGradeResp, *Response, error)) {
+	r.mockCoreHRCreateCoreHRJobGrade = f
 }
 
-// UnMockCoreHRCreateCorehrJobGrade un-mock CoreHRCreateCorehrJobGrade method
-func (r *Mock) UnMockCoreHRCreateCorehrJobGrade() {
-	r.mockCoreHRCreateCorehrJobGrade = nil
+// UnMockCoreHRCreateCoreHRJobGrade un-mock CoreHRCreateCoreHRJobGrade method
+func (r *Mock) UnMockCoreHRCreateCoreHRJobGrade() {
+	r.mockCoreHRCreateCoreHRJobGrade = nil
 }
 
-// CreateCorehrJobGradeReq ...
-type CreateCorehrJobGradeReq struct {
+// CreateCoreHRJobGradeReq ...
+type CreateCoreHRJobGradeReq struct {
 	ClientToken  *string                               `query:"client_token" json:"-"` // 根据client_token是否一致来判断是否为同一请求示例值: 12454646
 	GradeOrder   int64                                 `json:"grade_order,omitempty"`  // 职等数值示例值: 9999 取值范围: `0` ～ `99999`
 	Code         *string                               `json:"code,omitempty"`         // 编码示例值: "A01234"
-	Names        []*CreateCorehrJobGradeReqName        `json:"names,omitempty"`        // 名称- 名称不能包含「/」「；」「;」「\」、「'」字符 长度范围: `0` ～ `2`
-	Descriptions []*CreateCorehrJobGradeReqDescription `json:"descriptions,omitempty"` // 描述 长度范围: `0` ～ `2`
+	Names        []*CreateCoreHRJobGradeReqName        `json:"names,omitempty"`        // 名称- 名称不能包含「/」「；」「;」「\」、「'」字符 长度范围: `0` ～ `2`
+	Descriptions []*CreateCoreHRJobGradeReqDescription `json:"descriptions,omitempty"` // 描述 长度范围: `0` ～ `2`
 }
 
-// CreateCorehrJobGradeReqDescription ...
-type CreateCorehrJobGradeReqDescription struct {
+// CreateCoreHRJobGradeReqDescription ...
+type CreateCoreHRJobGradeReqDescription struct {
 	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）示例值: "zh-CN"
 	Value string `json:"value,omitempty"` // 文本内容示例值: "中文示例"
 }
 
-// CreateCorehrJobGradeReqName ...
-type CreateCorehrJobGradeReqName struct {
+// CreateCoreHRJobGradeReqName ...
+type CreateCoreHRJobGradeReqName struct {
 	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）示例值: "zh-CN"
 	Value string `json:"value,omitempty"` // 文本内容示例值: "中文示例"
 }
 
-// CreateCorehrJobGradeResp ...
-type CreateCorehrJobGradeResp struct {
+// CreateCoreHRJobGradeResp ...
+type CreateCoreHRJobGradeResp struct {
 	GradeID string `json:"grade_id,omitempty"` // 职等ID
 }
 
-// createCorehrJobGradeResp ...
-type createCorehrJobGradeResp struct {
+// createCoreHRJobGradeResp ...
+type createCoreHRJobGradeResp struct {
 	Code  int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                    `json:"msg,omitempty"`  // 错误描述
-	Data  *CreateCorehrJobGradeResp `json:"data,omitempty"`
+	Data  *CreateCoreHRJobGradeResp `json:"data,omitempty"`
 	Error *ErrorDetail              `json:"error,omitempty"`
 }

@@ -28,9 +28,9 @@ import (
 //
 // Deprecated
 func (r *VCService) GetVCMeetingDefaultBuildingBatchGet(ctx context.Context, request *GetVCMeetingDefaultBuildingBatchGetReq, options ...MethodOptionFunc) (*GetVCMeetingDefaultBuildingBatchGetResp, *Response, error) {
-	if r.cli.mock.mockVCMeetingGetVCMeetingDefaultBuildingBatchGet != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] VCMeeting#GetVCMeetingDefaultBuildingBatchGet mock enable")
-		return r.cli.mock.mockVCMeetingGetVCMeetingDefaultBuildingBatchGet(ctx, request, options...)
+	if r.cli.mock.mockVCGetVCMeetingDefaultBuildingBatchGet != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#GetVCMeetingDefaultBuildingBatchGet mock enable")
+		return r.cli.mock.mockVCGetVCMeetingDefaultBuildingBatchGet(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
@@ -48,14 +48,14 @@ func (r *VCService) GetVCMeetingDefaultBuildingBatchGet(ctx context.Context, req
 	return resp.Data, response, err
 }
 
-// MockVCMeetingGetVCMeetingDefaultBuildingBatchGet mock VCMeetingGetVCMeetingDefaultBuildingBatchGet method
-func (r *Mock) MockVCMeetingGetVCMeetingDefaultBuildingBatchGet(f func(ctx context.Context, request *GetVCMeetingDefaultBuildingBatchGetReq, options ...MethodOptionFunc) (*GetVCMeetingDefaultBuildingBatchGetResp, *Response, error)) {
-	r.mockVCMeetingGetVCMeetingDefaultBuildingBatchGet = f
+// MockVCGetVCMeetingDefaultBuildingBatchGet mock VCGetVCMeetingDefaultBuildingBatchGet method
+func (r *Mock) MockVCGetVCMeetingDefaultBuildingBatchGet(f func(ctx context.Context, request *GetVCMeetingDefaultBuildingBatchGetReq, options ...MethodOptionFunc) (*GetVCMeetingDefaultBuildingBatchGetResp, *Response, error)) {
+	r.mockVCGetVCMeetingDefaultBuildingBatchGet = f
 }
 
-// UnMockVCMeetingGetVCMeetingDefaultBuildingBatchGet un-mock VCMeetingGetVCMeetingDefaultBuildingBatchGet method
-func (r *Mock) UnMockVCMeetingGetVCMeetingDefaultBuildingBatchGet() {
-	r.mockVCMeetingGetVCMeetingDefaultBuildingBatchGet = nil
+// UnMockVCGetVCMeetingDefaultBuildingBatchGet un-mock VCGetVCMeetingDefaultBuildingBatchGet method
+func (r *Mock) UnMockVCGetVCMeetingDefaultBuildingBatchGet() {
+	r.mockVCGetVCMeetingDefaultBuildingBatchGet = nil
 }
 
 // GetVCMeetingDefaultBuildingBatchGetReq ...

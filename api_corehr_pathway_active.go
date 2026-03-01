@@ -21,54 +21,54 @@ import (
 	"context"
 )
 
-// CreateCorehrPathwayActive 对通道进行 启用 或 停用 操作
+// CreateCoreHRPathwayActive 对通道进行 启用 或 停用 操作
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pathway/active
-func (r *CoreHRService) CreateCorehrPathwayActive(ctx context.Context, request *CreateCorehrPathwayActiveReq, options ...MethodOptionFunc) (*CreateCorehrPathwayActiveResp, *Response, error) {
-	if r.cli.mock.mockCoreHRCreateCorehrPathwayActive != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCorehrPathwayActive mock enable")
-		return r.cli.mock.mockCoreHRCreateCorehrPathwayActive(ctx, request, options...)
+func (r *CoreHRService) CreateCoreHRPathwayActive(ctx context.Context, request *CreateCoreHRPathwayActiveReq, options ...MethodOptionFunc) (*CreateCoreHRPathwayActiveResp, *Response, error) {
+	if r.cli.mock.mockCoreHRCreateCoreHRPathwayActive != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCoreHRPathwayActive mock enable")
+		return r.cli.mock.mockCoreHRCreateCoreHRPathwayActive(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "CreateCorehrPathwayActive",
+		API:                   "CreateCoreHRPathwayActive",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/pathways/active",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(createCorehrPathwayActiveResp)
+	resp := new(createCoreHRPathwayActiveResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRCreateCorehrPathwayActive mock CoreHRCreateCorehrPathwayActive method
-func (r *Mock) MockCoreHRCreateCorehrPathwayActive(f func(ctx context.Context, request *CreateCorehrPathwayActiveReq, options ...MethodOptionFunc) (*CreateCorehrPathwayActiveResp, *Response, error)) {
-	r.mockCoreHRCreateCorehrPathwayActive = f
+// MockCoreHRCreateCoreHRPathwayActive mock CoreHRCreateCoreHRPathwayActive method
+func (r *Mock) MockCoreHRCreateCoreHRPathwayActive(f func(ctx context.Context, request *CreateCoreHRPathwayActiveReq, options ...MethodOptionFunc) (*CreateCoreHRPathwayActiveResp, *Response, error)) {
+	r.mockCoreHRCreateCoreHRPathwayActive = f
 }
 
-// UnMockCoreHRCreateCorehrPathwayActive un-mock CoreHRCreateCorehrPathwayActive method
-func (r *Mock) UnMockCoreHRCreateCorehrPathwayActive() {
-	r.mockCoreHRCreateCorehrPathwayActive = nil
+// UnMockCoreHRCreateCoreHRPathwayActive un-mock CoreHRCreateCoreHRPathwayActive method
+func (r *Mock) UnMockCoreHRCreateCoreHRPathwayActive() {
+	r.mockCoreHRCreateCoreHRPathwayActive = nil
 }
 
-// CreateCorehrPathwayActiveReq ...
-type CreateCorehrPathwayActiveReq struct {
+// CreateCoreHRPathwayActiveReq ...
+type CreateCoreHRPathwayActiveReq struct {
 	PathwayID string `json:"pathway_id,omitempty"` // 通道ID。ID获取方式- 调用[创建通道接口](/document-mod/index?fullPath=%2FuAjLw4CM%2FukTMukTMukTM%2Fcorehr-v2%2Fpathway%2Fcreate)后, 从响应结果的`pathway_id`获取。- 监听[通道创建事件](/document-mod/index?fullPath=/uAjLw4CM/ukTMukTMukTM/corehr-v2/pathway/events/created), 当触发该事件后可从事件体内获取`pathway_id`- 监听[通道更新事件](/document-mod/index?fullPath=/uAjLw4CM/ukTMukTMukTM/corehr-v2/pathway/events/updated), 当触发该事件后可从事件体内获取`pathway_id`- 监听[通道删除事件](/document-mod/index?fullPath=%2FuAjLw4CM%2FukTMukTMukTM%2Fcorehr-v2%2Fpathway%2Fevents%2Fdeleted), 当触发该事件后可从事件体内获取`pathway_id`示例值: "6862995757234914823"
 	Active    bool   `json:"active,omitempty"`     // 停启用状态；true: 启用, false: 停用示例值: true
 }
 
-// CreateCorehrPathwayActiveResp ...
-type CreateCorehrPathwayActiveResp struct {
+// CreateCoreHRPathwayActiveResp ...
+type CreateCoreHRPathwayActiveResp struct {
 }
 
-// createCorehrPathwayActiveResp ...
-type createCorehrPathwayActiveResp struct {
+// createCoreHRPathwayActiveResp ...
+type createCoreHRPathwayActiveResp struct {
 	Code  int64                          `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                         `json:"msg,omitempty"`  // 错误描述
-	Data  *CreateCorehrPathwayActiveResp `json:"data,omitempty"`
+	Data  *CreateCoreHRPathwayActiveResp `json:"data,omitempty"`
 	Error *ErrorDetail                   `json:"error,omitempty"`
 }

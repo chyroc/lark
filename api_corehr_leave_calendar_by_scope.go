@@ -21,19 +21,19 @@ import (
 	"context"
 )
 
-// GetCorehrLeaveCalendarByScope 根据日历的适用范围, 获取工作日历 ID。适用范围包含工作地点, 工时制度等。
+// GetCoreHRLeaveCalendarByScope 根据日历的适用范围, 获取工作日历 ID。适用范围包含工作地点, 工时制度等。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/calendar_by_scope
 // new doc: https://open.feishu.cn/document/corehr-v1/leave/calendar_by_scope
-func (r *CoreHRService) GetCorehrLeaveCalendarByScope(ctx context.Context, request *GetCorehrLeaveCalendarByScopeReq, options ...MethodOptionFunc) (*GetCorehrLeaveCalendarByScopeResp, *Response, error) {
-	if r.cli.mock.mockCoreHRGetCorehrLeaveCalendarByScope != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCorehrLeaveCalendarByScope mock enable")
-		return r.cli.mock.mockCoreHRGetCorehrLeaveCalendarByScope(ctx, request, options...)
+func (r *CoreHRService) GetCoreHRLeaveCalendarByScope(ctx context.Context, request *GetCoreHRLeaveCalendarByScopeReq, options ...MethodOptionFunc) (*GetCoreHRLeaveCalendarByScopeResp, *Response, error) {
+	if r.cli.mock.mockCoreHRGetCoreHRLeaveCalendarByScope != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRLeaveCalendarByScope mock enable")
+		return r.cli.mock.mockCoreHRGetCoreHRLeaveCalendarByScope(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "GetCorehrLeaveCalendarByScope",
+		API:                   "GetCoreHRLeaveCalendarByScope",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v1/leaves/calendar_by_scope",
 		Body:                  request,
@@ -41,24 +41,24 @@ func (r *CoreHRService) GetCorehrLeaveCalendarByScope(ctx context.Context, reque
 		NeedTenantAccessToken: true,
 		NeedUserAccessToken:   true,
 	}
-	resp := new(getCorehrLeaveCalendarByScopeResp)
+	resp := new(getCoreHRLeaveCalendarByScopeResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRGetCorehrLeaveCalendarByScope mock CoreHRGetCorehrLeaveCalendarByScope method
-func (r *Mock) MockCoreHRGetCorehrLeaveCalendarByScope(f func(ctx context.Context, request *GetCorehrLeaveCalendarByScopeReq, options ...MethodOptionFunc) (*GetCorehrLeaveCalendarByScopeResp, *Response, error)) {
-	r.mockCoreHRGetCorehrLeaveCalendarByScope = f
+// MockCoreHRGetCoreHRLeaveCalendarByScope mock CoreHRGetCoreHRLeaveCalendarByScope method
+func (r *Mock) MockCoreHRGetCoreHRLeaveCalendarByScope(f func(ctx context.Context, request *GetCoreHRLeaveCalendarByScopeReq, options ...MethodOptionFunc) (*GetCoreHRLeaveCalendarByScopeResp, *Response, error)) {
+	r.mockCoreHRGetCoreHRLeaveCalendarByScope = f
 }
 
-// UnMockCoreHRGetCorehrLeaveCalendarByScope un-mock CoreHRGetCorehrLeaveCalendarByScope method
-func (r *Mock) UnMockCoreHRGetCorehrLeaveCalendarByScope() {
-	r.mockCoreHRGetCorehrLeaveCalendarByScope = nil
+// UnMockCoreHRGetCoreHRLeaveCalendarByScope un-mock CoreHRGetCoreHRLeaveCalendarByScope method
+func (r *Mock) UnMockCoreHRGetCoreHRLeaveCalendarByScope() {
+	r.mockCoreHRGetCoreHRLeaveCalendarByScope = nil
 }
 
-// GetCorehrLeaveCalendarByScopeReq ...
-type GetCorehrLeaveCalendarByScopeReq struct {
+// GetCoreHRLeaveCalendarByScopeReq ...
+type GetCoreHRLeaveCalendarByScopeReq struct {
 	WkDepartmentID       *string `query:"wk_department_id" json:"-"`         // 用户所属部门的ID列表。可以通过[批量查询任职信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/list)获取所属部门的 ID示例值: "6722331851580982798"
 	WkCountryRegionID    *string `query:"wk_country_region_id" json:"-"`     // 国家/地区 ID。可以通过[批量查询任职信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/list) 获取所属国家/地区 ID示例值: "6722331851580982798"
 	WkEmployeeTypeID     *string `query:"wk_employee_type_id" json:"-"`      // 人员类型ID。可以通过[批量查询任职信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/list) 获取所属人员类型ID示例值: "6722331851580982798"
@@ -68,15 +68,15 @@ type GetCorehrLeaveCalendarByScopeReq struct {
 	WkCompanyID          *string `query:"wk_company_id" json:"-"`            // 公司 ID。可以通过[批量查询任职信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_data/list)获取公司 ID示例值: "6235435355464465434"
 }
 
-// GetCorehrLeaveCalendarByScopeResp ...
-type GetCorehrLeaveCalendarByScopeResp struct {
+// GetCoreHRLeaveCalendarByScopeResp ...
+type GetCoreHRLeaveCalendarByScopeResp struct {
 	CalendarWkID string `json:"calendar_wk_id,omitempty"` // 工作日历id
 }
 
-// getCorehrLeaveCalendarByScopeResp ...
-type getCorehrLeaveCalendarByScopeResp struct {
+// getCoreHRLeaveCalendarByScopeResp ...
+type getCoreHRLeaveCalendarByScopeResp struct {
 	Code  int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                             `json:"msg,omitempty"`  // 错误描述
-	Data  *GetCorehrLeaveCalendarByScopeResp `json:"data,omitempty"`
+	Data  *GetCoreHRLeaveCalendarByScopeResp `json:"data,omitempty"`
 	Error *ErrorDetail                       `json:"error,omitempty"`
 }

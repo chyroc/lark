@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// ListCorehrWorkforcePlan 根据传入的筛选项获取编制规划的方案列表
+// ListCoreHRWorkforcePlan 根据传入的筛选项获取编制规划的方案列表
 //
 // - 请求体入参如果没有特殊说明, 不填写默认为空, 不参与筛选。
 // - 所有筛选项可一起使用, 之间为 AND 关系。
@@ -29,68 +29,68 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/workforce_plan/list
 // new doc: https://open.feishu.cn/document/corehr-v1/workforce_plan/list
-func (r *CoreHRService) ListCorehrWorkforcePlan(ctx context.Context, request *ListCorehrWorkforcePlanReq, options ...MethodOptionFunc) (*ListCorehrWorkforcePlanResp, *Response, error) {
-	if r.cli.mock.mockCoreHRListCorehrWorkforcePlan != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#ListCorehrWorkforcePlan mock enable")
-		return r.cli.mock.mockCoreHRListCorehrWorkforcePlan(ctx, request, options...)
+func (r *CoreHRService) ListCoreHRWorkforcePlan(ctx context.Context, request *ListCoreHRWorkforcePlanReq, options ...MethodOptionFunc) (*ListCoreHRWorkforcePlanResp, *Response, error) {
+	if r.cli.mock.mockCoreHRListCoreHRWorkforcePlan != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#ListCoreHRWorkforcePlan mock enable")
+		return r.cli.mock.mockCoreHRListCoreHRWorkforcePlan(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "ListCorehrWorkforcePlan",
+		API:                   "ListCoreHRWorkforcePlan",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/workforce_plans",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(listCorehrWorkforcePlanResp)
+	resp := new(listCoreHRWorkforcePlanResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRListCorehrWorkforcePlan mock CoreHRListCorehrWorkforcePlan method
-func (r *Mock) MockCoreHRListCorehrWorkforcePlan(f func(ctx context.Context, request *ListCorehrWorkforcePlanReq, options ...MethodOptionFunc) (*ListCorehrWorkforcePlanResp, *Response, error)) {
-	r.mockCoreHRListCorehrWorkforcePlan = f
+// MockCoreHRListCoreHRWorkforcePlan mock CoreHRListCoreHRWorkforcePlan method
+func (r *Mock) MockCoreHRListCoreHRWorkforcePlan(f func(ctx context.Context, request *ListCoreHRWorkforcePlanReq, options ...MethodOptionFunc) (*ListCoreHRWorkforcePlanResp, *Response, error)) {
+	r.mockCoreHRListCoreHRWorkforcePlan = f
 }
 
-// UnMockCoreHRListCorehrWorkforcePlan un-mock CoreHRListCorehrWorkforcePlan method
-func (r *Mock) UnMockCoreHRListCorehrWorkforcePlan() {
-	r.mockCoreHRListCorehrWorkforcePlan = nil
+// UnMockCoreHRListCoreHRWorkforcePlan un-mock CoreHRListCoreHRWorkforcePlan method
+func (r *Mock) UnMockCoreHRListCoreHRWorkforcePlan() {
+	r.mockCoreHRListCoreHRWorkforcePlan = nil
 }
 
-// ListCorehrWorkforcePlanReq ...
-type ListCorehrWorkforcePlanReq struct {
+// ListCoreHRWorkforcePlanReq ...
+type ListCoreHRWorkforcePlanReq struct {
 	GetAllPlan *bool `query:"get_all_plan" json:"-"` // 是否获取所有编制规划方案, 默认为 false。- true 所有编制规划方案列表。- false 为仅获取当前生效的编制规划方案。示例值: false
 	Active     *bool `query:"active" json:"-"`       // 是否只获取已启用的方案, 默认为 true。- true 获取已启用编制规划方案- false 获取所有编制规划方案, 示例值: false
 }
 
-// ListCorehrWorkforcePlanResp ...
-type ListCorehrWorkforcePlanResp struct {
-	Items []*ListCorehrWorkforcePlanRespItem `json:"items,omitempty"` // 编制规划方案列表
+// ListCoreHRWorkforcePlanResp ...
+type ListCoreHRWorkforcePlanResp struct {
+	Items []*ListCoreHRWorkforcePlanRespItem `json:"items,omitempty"` // 编制规划方案列表
 	Total int64                              `json:"total,omitempty"` // 满足条件的方案总数
 }
 
-// ListCorehrWorkforcePlanRespItem ...
-type ListCorehrWorkforcePlanRespItem struct {
+// ListCoreHRWorkforcePlanRespItem ...
+type ListCoreHRWorkforcePlanRespItem struct {
 	WorkforcePlanID   string                                              `json:"workforce_plan_id,omitempty"`   // 编制规划方案 ID
-	WorkforcePlanName []*ListCorehrWorkforcePlanRespItemWorkforcePlanName `json:"workforce_plan_name,omitempty"` // 编制规划方案名称
+	WorkforcePlanName []*ListCoreHRWorkforcePlanRespItemWorkforcePlanName `json:"workforce_plan_name,omitempty"` // 编制规划方案名称
 	StartDate         string                                              `json:"start_date,omitempty"`          // 开始日期- 返回格式: YYYY-MM-DD（最小单位到日）- 日期范围:1900-01-01 ～ 9999-12-31
 	EndDate           string                                              `json:"end_date,omitempty"`            // 结束日期- 返回格式: YYYY-MM-DD（最小单位到日）- 日期范围:1900-01-01 ～ 9999-12-31
 	Active            bool                                                `json:"active,omitempty"`              // 是否启用- true 表示启用- false 表示停用
 }
 
-// ListCorehrWorkforcePlanRespItemWorkforcePlanName ...
-type ListCorehrWorkforcePlanRespItemWorkforcePlanName struct {
+// ListCoreHRWorkforcePlanRespItemWorkforcePlanName ...
+type ListCoreHRWorkforcePlanRespItemWorkforcePlanName struct {
 	Lang  string `json:"lang,omitempty"`  // 语言信息, 中文为 zh-CN, 英文为 en-US
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// listCorehrWorkforcePlanResp ...
-type listCorehrWorkforcePlanResp struct {
+// listCoreHRWorkforcePlanResp ...
+type listCoreHRWorkforcePlanResp struct {
 	Code  int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                       `json:"msg,omitempty"`  // 错误描述
-	Data  *ListCorehrWorkforcePlanResp `json:"data,omitempty"`
+	Data  *ListCoreHRWorkforcePlanResp `json:"data,omitempty"`
 	Error *ErrorDetail                 `json:"error,omitempty"`
 }

@@ -21,54 +21,54 @@ import (
 	"context"
 )
 
-// DeleteCorehrEmployeesAdditionalJob 删除一条指定的员工兼职
+// DeleteCoreHREmployeesAdditionalJob 删除一条指定的员工兼职
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employees-additional_job/delete
 // new doc: https://open.feishu.cn/document/corehr-v1/employee/job_data/employees-additional_job/delete
-func (r *CoreHRService) DeleteCorehrEmployeesAdditionalJob(ctx context.Context, request *DeleteCorehrEmployeesAdditionalJobReq, options ...MethodOptionFunc) (*DeleteCorehrEmployeesAdditionalJobResp, *Response, error) {
-	if r.cli.mock.mockCoreHRDeleteCorehrEmployeesAdditionalJob != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCorehrEmployeesAdditionalJob mock enable")
-		return r.cli.mock.mockCoreHRDeleteCorehrEmployeesAdditionalJob(ctx, request, options...)
+func (r *CoreHRService) DeleteCoreHREmployeesAdditionalJob(ctx context.Context, request *DeleteCoreHREmployeesAdditionalJobReq, options ...MethodOptionFunc) (*DeleteCoreHREmployeesAdditionalJobResp, *Response, error) {
+	if r.cli.mock.mockCoreHRDeleteCoreHREmployeesAdditionalJob != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHREmployeesAdditionalJob mock enable")
+		return r.cli.mock.mockCoreHRDeleteCoreHREmployeesAdditionalJob(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "DeleteCorehrEmployeesAdditionalJob",
+		API:                   "DeleteCoreHREmployeesAdditionalJob",
 		Method:                "DELETE",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/employees/additional_jobs/:additional_job_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(deleteCorehrEmployeesAdditionalJobResp)
+	resp := new(deleteCoreHREmployeesAdditionalJobResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRDeleteCorehrEmployeesAdditionalJob mock CoreHRDeleteCorehrEmployeesAdditionalJob method
-func (r *Mock) MockCoreHRDeleteCorehrEmployeesAdditionalJob(f func(ctx context.Context, request *DeleteCorehrEmployeesAdditionalJobReq, options ...MethodOptionFunc) (*DeleteCorehrEmployeesAdditionalJobResp, *Response, error)) {
-	r.mockCoreHRDeleteCorehrEmployeesAdditionalJob = f
+// MockCoreHRDeleteCoreHREmployeesAdditionalJob mock CoreHRDeleteCoreHREmployeesAdditionalJob method
+func (r *Mock) MockCoreHRDeleteCoreHREmployeesAdditionalJob(f func(ctx context.Context, request *DeleteCoreHREmployeesAdditionalJobReq, options ...MethodOptionFunc) (*DeleteCoreHREmployeesAdditionalJobResp, *Response, error)) {
+	r.mockCoreHRDeleteCoreHREmployeesAdditionalJob = f
 }
 
-// UnMockCoreHRDeleteCorehrEmployeesAdditionalJob un-mock CoreHRDeleteCorehrEmployeesAdditionalJob method
-func (r *Mock) UnMockCoreHRDeleteCorehrEmployeesAdditionalJob() {
-	r.mockCoreHRDeleteCorehrEmployeesAdditionalJob = nil
+// UnMockCoreHRDeleteCoreHREmployeesAdditionalJob un-mock CoreHRDeleteCoreHREmployeesAdditionalJob method
+func (r *Mock) UnMockCoreHRDeleteCoreHREmployeesAdditionalJob() {
+	r.mockCoreHRDeleteCoreHREmployeesAdditionalJob = nil
 }
 
-// DeleteCorehrEmployeesAdditionalJobReq ...
-type DeleteCorehrEmployeesAdditionalJobReq struct {
+// DeleteCoreHREmployeesAdditionalJobReq ...
+type DeleteCoreHREmployeesAdditionalJobReq struct {
 	AdditionalJobID string `path:"additional_job_id" json:"-"` // 兼职记录 ID示例值: "654637829201"
 }
 
-// DeleteCorehrEmployeesAdditionalJobResp ...
-type DeleteCorehrEmployeesAdditionalJobResp struct {
+// DeleteCoreHREmployeesAdditionalJobResp ...
+type DeleteCoreHREmployeesAdditionalJobResp struct {
 }
 
-// deleteCorehrEmployeesAdditionalJobResp ...
-type deleteCorehrEmployeesAdditionalJobResp struct {
+// deleteCoreHREmployeesAdditionalJobResp ...
+type deleteCoreHREmployeesAdditionalJobResp struct {
 	Code  int64                                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                                  `json:"msg,omitempty"`  // 错误描述
-	Data  *DeleteCorehrEmployeesAdditionalJobResp `json:"data,omitempty"`
+	Data  *DeleteCoreHREmployeesAdditionalJobResp `json:"data,omitempty"`
 	Error *ErrorDetail                            `json:"error,omitempty"`
 }

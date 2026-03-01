@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// GetCorehrApprovalGroups 用户通过『飞书人事-我的团队-组织架构』 发起一个组织架构调整会根据 审批流配置发起 一个或多个审批。  之后用户可通过流程的单据 ID, 查询到该审批进行的状态, 以及该流程中涉及到的 组织架构信息（包括部门变更、人员变更记录 ID、岗位变更记录 ID）。
+// GetCoreHRApprovalGroups 用户通过『飞书人事-我的团队-组织架构』 发起一个组织架构调整会根据 审批流配置发起 一个或多个审批。  之后用户可通过流程的单据 ID, 查询到该审批进行的状态, 以及该流程中涉及到的 组织架构信息（包括部门变更、人员变更记录 ID、岗位变更记录 ID）。
 //
 // 如需查询具体变更详情可按需调用以下独立的接口:
 // - 部门变更: [批量查询部门变更接口](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/approval_groups/open_query_position_change_list_by_ids)
@@ -32,50 +32,50 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/approval_groups/get
 // new doc: https://open.feishu.cn/document/corehr-v1/approval_groups/get
-func (r *CoreHRService) GetCorehrApprovalGroups(ctx context.Context, request *GetCorehrApprovalGroupsReq, options ...MethodOptionFunc) (*GetCorehrApprovalGroupsResp, *Response, error) {
-	if r.cli.mock.mockCoreHRGetCorehrApprovalGroups != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCorehrApprovalGroups mock enable")
-		return r.cli.mock.mockCoreHRGetCorehrApprovalGroups(ctx, request, options...)
+func (r *CoreHRService) GetCoreHRApprovalGroups(ctx context.Context, request *GetCoreHRApprovalGroupsReq, options ...MethodOptionFunc) (*GetCoreHRApprovalGroupsResp, *Response, error) {
+	if r.cli.mock.mockCoreHRGetCoreHRApprovalGroups != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRApprovalGroups mock enable")
+		return r.cli.mock.mockCoreHRGetCoreHRApprovalGroups(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "GetCorehrApprovalGroups",
+		API:                   "GetCoreHRApprovalGroups",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/approval_groups/:process_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(getCorehrApprovalGroupsResp)
+	resp := new(getCoreHRApprovalGroupsResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRGetCorehrApprovalGroups mock CoreHRGetCorehrApprovalGroups method
-func (r *Mock) MockCoreHRGetCorehrApprovalGroups(f func(ctx context.Context, request *GetCorehrApprovalGroupsReq, options ...MethodOptionFunc) (*GetCorehrApprovalGroupsResp, *Response, error)) {
-	r.mockCoreHRGetCorehrApprovalGroups = f
+// MockCoreHRGetCoreHRApprovalGroups mock CoreHRGetCoreHRApprovalGroups method
+func (r *Mock) MockCoreHRGetCoreHRApprovalGroups(f func(ctx context.Context, request *GetCoreHRApprovalGroupsReq, options ...MethodOptionFunc) (*GetCoreHRApprovalGroupsResp, *Response, error)) {
+	r.mockCoreHRGetCoreHRApprovalGroups = f
 }
 
-// UnMockCoreHRGetCorehrApprovalGroups un-mock CoreHRGetCorehrApprovalGroups method
-func (r *Mock) UnMockCoreHRGetCorehrApprovalGroups() {
-	r.mockCoreHRGetCorehrApprovalGroups = nil
+// UnMockCoreHRGetCoreHRApprovalGroups un-mock CoreHRGetCoreHRApprovalGroups method
+func (r *Mock) UnMockCoreHRGetCoreHRApprovalGroups() {
+	r.mockCoreHRGetCoreHRApprovalGroups = nil
 }
 
-// GetCorehrApprovalGroupsReq ...
-type GetCorehrApprovalGroupsReq struct {
+// GetCoreHRApprovalGroupsReq ...
+type GetCoreHRApprovalGroupsReq struct {
 	ProcessID  string  `path:"process_id" json:"-"`    // 组织架构调整流程 ID, 用户通过『飞书人事-我的团队-组织架构』或『飞书 人事-人员管理-组织架构』 发起一个组织架构调整, 并提交审批后, 系统会根据管理员在审批流程中配置的规则, 生成 一个或多个审批单据。可通过「组织架构调整状态变更」的事件来获取示例值: "6893014062142064111"
 	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
-// GetCorehrApprovalGroupsResp ...
-type GetCorehrApprovalGroupsResp struct {
-	ApprovalGroup *GetCorehrApprovalGroupsRespApprovalGroup `json:"approval_group,omitempty"` // 组织架构调整流程信息
+// GetCoreHRApprovalGroupsResp ...
+type GetCoreHRApprovalGroupsResp struct {
+	ApprovalGroup *GetCoreHRApprovalGroupsRespApprovalGroup `json:"approval_group,omitempty"` // 组织架构调整流程信息
 }
 
-// GetCorehrApprovalGroupsRespApprovalGroup ...
-type GetCorehrApprovalGroupsRespApprovalGroup struct {
+// GetCoreHRApprovalGroupsRespApprovalGroup ...
+type GetCoreHRApprovalGroupsRespApprovalGroup struct {
 	ApprovalGroupID       string   `json:"approval_group_id,omitempty"`        // 组织架构调整审批组 ID, 该 ID 和 process_id 一一对应
 	ProcessID             string   `json:"process_id,omitempty"`               // 组织架构调整对应的流程 ID, 与入参 process_id 对应。
 	ApprovalGroupStatus   string   `json:"approval_group_status,omitempty"`    // 组织架构调整流程状态, 枚举类型, 描述该审批单据的状态。【不推荐使用, 无法区分审批通过、执行失败和等待执行状态, 推荐使用approval_group_status_v2】可选值有: 待发起, 是指该审批单据还未成功发起。审批中, 流程成功发起, 并等待审批人审批。 可以通过『飞书人事-审批-我发起的』 / 『飞书人事-我的团队/人员管理-组织架构-调整记录』 找到审批单据。 审批通过, 该单据已通过审批, 调整记录等待写入。 一方面, 组织架构调整支持拆单功能, 同一个调整可能发起多个审批, 当前审批单可能依赖其他审批通过才能写入。已完成, 审批单中所有调整记录均写入完成。[该状态不代表调整的记录生效完成] 由于记录可能是未来生效, 因此记录的状态需通过 人员异动变更事件、部门变更事件 和 岗位变更事件 获取。    - 人员异动变更事件: [飞书人事-异动-事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_change/events/status_updated)    - 部门变更事件: [飞书人事-组织管理-事件](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/events/created)    - 岗位变更事件: 【飞书人事-岗职务管理-岗位-事件】(岗位灰度内)已拒绝, 审批未通过。已撤销, 用户主动撤销审批, 流程会进入已撤销状态。
@@ -91,10 +91,10 @@ type GetCorehrApprovalGroupsRespApprovalGroup struct {
 	PositionChanges       []string `json:"position_changes,omitempty"`         // 关联的岗位调整记录 ID 列表。- 功能灰度中, 开通岗位功能后可通过接口【批量查询岗位变更接口】获取岗位变更详情
 }
 
-// getCorehrApprovalGroupsResp ...
-type getCorehrApprovalGroupsResp struct {
+// getCoreHRApprovalGroupsResp ...
+type getCoreHRApprovalGroupsResp struct {
 	Code  int64                        `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                       `json:"msg,omitempty"`  // 错误描述
-	Data  *GetCorehrApprovalGroupsResp `json:"data,omitempty"`
+	Data  *GetCoreHRApprovalGroupsResp `json:"data,omitempty"`
 	Error *ErrorDetail                 `json:"error,omitempty"`
 }

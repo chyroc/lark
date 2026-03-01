@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// ListCorehrEmployeesInternationalAssignment 查询员工的外派信息: 外派类型、外派地点、职务、职级、上级等。
+// ListCoreHREmployeesInternationalAssignment 查询员工的外派信息: 外派类型、外派地点、职务、职级、上级等。
 //
 // - 本接口会按照「员工资源」权限范围返回数据, 请确定在「开发者后台 - 权限管理 - 数据权限」中已申请此数据权限
 // - 字段未返回请检查: 字段权限、用户该字段有值, 以及「飞书人事-人员档案设置」中字段是否启用
@@ -31,39 +31,39 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employees-international_assignment/list
 // new doc: https://open.feishu.cn/document/corehr-v1/employee/job_data/employees-international_assignment/list
-func (r *CoreHRService) ListCorehrEmployeesInternationalAssignment(ctx context.Context, request *ListCorehrEmployeesInternationalAssignmentReq, options ...MethodOptionFunc) (*ListCorehrEmployeesInternationalAssignmentResp, *Response, error) {
-	if r.cli.mock.mockCoreHRListCorehrEmployeesInternationalAssignment != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#ListCorehrEmployeesInternationalAssignment mock enable")
-		return r.cli.mock.mockCoreHRListCorehrEmployeesInternationalAssignment(ctx, request, options...)
+func (r *CoreHRService) ListCoreHREmployeesInternationalAssignment(ctx context.Context, request *ListCoreHREmployeesInternationalAssignmentReq, options ...MethodOptionFunc) (*ListCoreHREmployeesInternationalAssignmentResp, *Response, error) {
+	if r.cli.mock.mockCoreHRListCoreHREmployeesInternationalAssignment != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#ListCoreHREmployeesInternationalAssignment mock enable")
+		return r.cli.mock.mockCoreHRListCoreHREmployeesInternationalAssignment(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "ListCorehrEmployeesInternationalAssignment",
+		API:                   "ListCoreHREmployeesInternationalAssignment",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/employees/international_assignments",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(listCorehrEmployeesInternationalAssignmentResp)
+	resp := new(listCoreHREmployeesInternationalAssignmentResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRListCorehrEmployeesInternationalAssignment mock CoreHRListCorehrEmployeesInternationalAssignment method
-func (r *Mock) MockCoreHRListCorehrEmployeesInternationalAssignment(f func(ctx context.Context, request *ListCorehrEmployeesInternationalAssignmentReq, options ...MethodOptionFunc) (*ListCorehrEmployeesInternationalAssignmentResp, *Response, error)) {
-	r.mockCoreHRListCorehrEmployeesInternationalAssignment = f
+// MockCoreHRListCoreHREmployeesInternationalAssignment mock CoreHRListCoreHREmployeesInternationalAssignment method
+func (r *Mock) MockCoreHRListCoreHREmployeesInternationalAssignment(f func(ctx context.Context, request *ListCoreHREmployeesInternationalAssignmentReq, options ...MethodOptionFunc) (*ListCoreHREmployeesInternationalAssignmentResp, *Response, error)) {
+	r.mockCoreHRListCoreHREmployeesInternationalAssignment = f
 }
 
-// UnMockCoreHRListCorehrEmployeesInternationalAssignment un-mock CoreHRListCorehrEmployeesInternationalAssignment method
-func (r *Mock) UnMockCoreHRListCorehrEmployeesInternationalAssignment() {
-	r.mockCoreHRListCorehrEmployeesInternationalAssignment = nil
+// UnMockCoreHRListCoreHREmployeesInternationalAssignment un-mock CoreHRListCoreHREmployeesInternationalAssignment method
+func (r *Mock) UnMockCoreHRListCoreHREmployeesInternationalAssignment() {
+	r.mockCoreHRListCoreHREmployeesInternationalAssignment = nil
 }
 
-// ListCorehrEmployeesInternationalAssignmentReq ...
-type ListCorehrEmployeesInternationalAssignmentReq struct {
+// ListCoreHREmployeesInternationalAssignmentReq ...
+type ListCoreHREmployeesInternationalAssignmentReq struct {
 	UserIDType                             *IDType           `query:"user_id_type" json:"-"`                               // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	DepartmentIDType                       *DepartmentIDType `query:"department_id_type" json:"-"`                         // 此次调用中使用的部门 ID 类型示例值: open_department_id可选值有: 以 open_department_id 来标识部门以 department_id 来标识部门以 people_corehr_department_id 来标识部门默认值: `open_department_id`
 	PageSize                               *int64            `query:"page_size" json:"-"`                                  // 分页大小示例值: 100默认值: `200` 取值范围: `1` ～ `200`
@@ -93,19 +93,19 @@ type ListCorehrEmployeesInternationalAssignmentReq struct {
 	WorkCalendarIDList                     []string          `query:"work_calendar_id_list" json:"-"`                      // 外派工作日历- 可通过[【查询工作日历】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/work_calendar)获取详细信息- 需要以下权限点之一: - 读取外派工作日历   - 读写外派工作日历示例值: 7293840937989473836 长度范围: `0` ～ `100`
 }
 
-// ListCorehrEmployeesInternationalAssignmentResp ...
-type ListCorehrEmployeesInternationalAssignmentResp struct {
-	Items          []*ListCorehrEmployeesInternationalAssignmentRespItem `json:"items,omitempty"`            // 外派信息
+// ListCoreHREmployeesInternationalAssignmentResp ...
+type ListCoreHREmployeesInternationalAssignmentResp struct {
+	Items          []*ListCoreHREmployeesInternationalAssignmentRespItem `json:"items,omitempty"`            // 外派信息
 	NoAuthorityIDs []string                                              `json:"no_authority_ids,omitempty"` // 无权限的雇佣ID- 在指定雇佣ID【employment_ids】查询时该参数生效- 类型与 user_id_type 一致
 	PageToken      string                                                `json:"page_token,omitempty"`       // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	HasMore        bool                                                  `json:"has_more,omitempty"`         // 是否还有更多项
 }
 
-// ListCorehrEmployeesInternationalAssignmentRespItem ...
-type ListCorehrEmployeesInternationalAssignmentRespItem struct {
+// ListCoreHREmployeesInternationalAssignmentRespItem ...
+type ListCoreHREmployeesInternationalAssignmentRespItem struct {
 	WorkLocationID                         string                                                                           `json:"work_location_id,omitempty"`                           // 外派工作地点 ID  - 可通过[【查询单个地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/get)获取详细信息字段权限要求（满足任一）: 读取外派地点读写外派地点
 	ServiceCompany                         string                                                                           `json:"service_company,omitempty"`                            // 外派任职公司 ID- 可通过[【查询单个公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)获取详细信息字段权限要求（满足任一）: 读取外派公司读写外派公司
-	WorkShift                              *ListCorehrEmployeesInternationalAssignmentRespItemWorkShift                     `json:"work_shift,omitempty"`                                 // 排班类型- 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: - object_api_name: job_data  - custom_api_name: work_shift字段权限要求（满足任一）: 读取外派排班类型读写外派排班类型
+	WorkShift                              *ListCoreHREmployeesInternationalAssignmentRespItemWorkShift                     `json:"work_shift,omitempty"`                                 // 排班类型- 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: - object_api_name: job_data  - custom_api_name: work_shift字段权限要求（满足任一）: 读取外派排班类型读写外派排班类型
 	WorkingHoursTypeID                     string                                                                           `json:"working_hours_type_id,omitempty"`                      // 工时制度ID-  可通过[【查询单个工时制度】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/get)获取详细信息字段权限要求（满足任一）: 读取外派工时制度读写外派工时制度
 	EmployeeTypeID                         string                                                                           `json:"employee_type_id,omitempty"`                           // 人员类型ID- 可通过[【查询单个人员类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/get)获取详细信息
 	WeeklyWorkingHoursV2                   float64                                                                          `json:"weekly_working_hours_v2,omitempty"`                    // 周工作时长字段权限要求（满足任一）: 读取外派周工作时长读写外派周工作时长
@@ -114,81 +114,81 @@ type ListCorehrEmployeesInternationalAssignmentRespItem struct {
 	JobFamilyID                            string                                                                           `json:"job_family_id,omitempty"`                              // 序列 ID- 可通过[【查询单个序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/get)获取详细信息字段权限要求（满足任一）: 读取外派职级读写外派职级
 	JobLevelID                             string                                                                           `json:"job_level_id,omitempty"`                               // 职级 ID- 可通过[【查询单个职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/get)获取详细信息
 	JobGradeID                             string                                                                           `json:"job_grade_id,omitempty"`                               // 职等 ID- 可通过[【查询职等】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)获取详细信息字段权限要求（满足任一）: 读取外派职等读写外派职等
-	CompensationType                       *ListCorehrEmployeesInternationalAssignmentRespItemCompensationType              `json:"compensation_type,omitempty"`                          // 薪资类型 - 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: - object_api_name: job_data  - custom_api_name: compensation_type字段权限要求（满足任一）: 读取外派薪资类型读写外派薪资类型
+	CompensationType                       *ListCoreHREmployeesInternationalAssignmentRespItemCompensationType              `json:"compensation_type,omitempty"`                          // 薪资类型 - 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: - object_api_name: job_data  - custom_api_name: compensation_type字段权限要求（满足任一）: 读取外派薪资类型读写外派薪资类型
 	DirectManagerID                        string                                                                           `json:"direct_manager_id,omitempty"`                          // 直属上级雇佣 ID- 可通过[【批量查询员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)获取详细信息- 类型与 user_id_type 一致
 	DottedLineManagerID                    string                                                                           `json:"dotted_line_manager_id,omitempty"`                     // 虚线上级雇佣 ID- 可通过[【批量查询员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)获取详细信息- 类型与 user_id_type 一致
 	WorkCalendarID                         string                                                                           `json:"work_calendar_id,omitempty"`                           // 工作日历 ID- 可通过[【查询工作日历】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/work_calendar)获取详细信息字段权限要求（满足任一）: 读取外派工作日历读写外派工作日历
 	PositionID                             string                                                                           `json:"position_id,omitempty"`                                // 岗位 ID- 尚未支持, 预留字段字段权限要求（满足任一）: 读取外派岗位读写外派岗位
 	EmploymentID                           string                                                                           `json:"employment_id,omitempty"`                              // 雇佣 ID- 可通过[【批量查询员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)获取详细信息- 类型与 user_id_type 一致
-	CustomFields                           []*ListCorehrEmployeesInternationalAssignmentRespItemCustomField                 `json:"custom_fields,omitempty"`                              // 自定义字段- 请参考[【自定义字段说明】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide)字段权限要求（满足任一）: 读取外派自定义字段读写外派自定义字段
+	CustomFields                           []*ListCoreHREmployeesInternationalAssignmentRespItemCustomField                 `json:"custom_fields,omitempty"`                              // 自定义字段- 请参考[【自定义字段说明】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom-fields-guide)字段权限要求（满足任一）: 读取外派自定义字段读写外派自定义字段
 	InternationalAssignmentReason          string                                                                           `json:"international_assignment_reason,omitempty"`            // 外派原因说明
 	Description                            string                                                                           `json:"description,omitempty"`                                // 备注
 	InternationalAssignmentExpectedEndDate string                                                                           `json:"international_assignment_expected_end_date,omitempty"` // 预计结束日期- 格式: yyyy-mm-dd
-	InternationalAssignmentStatus          *ListCorehrEmployeesInternationalAssignmentRespItemInternationalAssignmentStatus `json:"international_assignment_status,omitempty"`            // 外派状态- 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: - object_api_name: international_assignment  - custom_api_name: international_assignment_status
-	InternationalAssignmentType            *ListCorehrEmployeesInternationalAssignmentRespItemInternationalAssignmentType   `json:"international_assignment_type,omitempty"`              // 外派类型- 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: - object_api_name: international_assignment  - custom_api_name: international_assignment_type
+	InternationalAssignmentStatus          *ListCoreHREmployeesInternationalAssignmentRespItemInternationalAssignmentStatus `json:"international_assignment_status,omitempty"`            // 外派状态- 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: - object_api_name: international_assignment  - custom_api_name: international_assignment_status
+	InternationalAssignmentType            *ListCoreHREmployeesInternationalAssignmentRespItemInternationalAssignmentType   `json:"international_assignment_type,omitempty"`              // 外派类型- 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: - object_api_name: international_assignment  - custom_api_name: international_assignment_type
 	EffectiveTime                          string                                                                           `json:"effective_time,omitempty"`                             // 开始日期- 格式: yyyy-mm-dd
 	ExpirationTime                         string                                                                           `json:"expiration_time,omitempty"`                            // 结束日期- 格式: yyyy-mm-dd- 在外派未结束时, 该值默认为 9999-12-31
 	ID                                     string                                                                           `json:"id,omitempty"`                                         // 外派ID
 }
 
-// ListCorehrEmployeesInternationalAssignmentRespItemCompensationType ...
-type ListCorehrEmployeesInternationalAssignmentRespItemCompensationType struct {
+// ListCoreHREmployeesInternationalAssignmentRespItemCompensationType ...
+type ListCoreHREmployeesInternationalAssignmentRespItemCompensationType struct {
 	EnumName string                                                                       `json:"enum_name,omitempty"` // 枚举值
-	Display  []*ListCorehrEmployeesInternationalAssignmentRespItemCompensationTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*ListCoreHREmployeesInternationalAssignmentRespItemCompensationTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// ListCorehrEmployeesInternationalAssignmentRespItemCompensationTypeDisplay ...
-type ListCorehrEmployeesInternationalAssignmentRespItemCompensationTypeDisplay struct {
+// ListCoreHREmployeesInternationalAssignmentRespItemCompensationTypeDisplay ...
+type ListCoreHREmployeesInternationalAssignmentRespItemCompensationTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// ListCorehrEmployeesInternationalAssignmentRespItemCustomField ...
-type ListCorehrEmployeesInternationalAssignmentRespItemCustomField struct {
+// ListCoreHREmployeesInternationalAssignmentRespItemCustomField ...
+type ListCoreHREmployeesInternationalAssignmentRespItemCustomField struct {
 	FieldName string `json:"field_name,omitempty"` // 字段名
 	Value     string `json:"value,omitempty"`      // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同- 该返回值是将原始值 `json.Marshal` 后返回, 使用 `json.Unmarshal` 解析到指定对象即可
 }
 
-// ListCorehrEmployeesInternationalAssignmentRespItemInternationalAssignmentStatus ...
-type ListCorehrEmployeesInternationalAssignmentRespItemInternationalAssignmentStatus struct {
+// ListCoreHREmployeesInternationalAssignmentRespItemInternationalAssignmentStatus ...
+type ListCoreHREmployeesInternationalAssignmentRespItemInternationalAssignmentStatus struct {
 	EnumName string                                                                                    `json:"enum_name,omitempty"` // 枚举值
-	Display  []*ListCorehrEmployeesInternationalAssignmentRespItemInternationalAssignmentStatusDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*ListCoreHREmployeesInternationalAssignmentRespItemInternationalAssignmentStatusDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// ListCorehrEmployeesInternationalAssignmentRespItemInternationalAssignmentStatusDisplay ...
-type ListCorehrEmployeesInternationalAssignmentRespItemInternationalAssignmentStatusDisplay struct {
+// ListCoreHREmployeesInternationalAssignmentRespItemInternationalAssignmentStatusDisplay ...
+type ListCoreHREmployeesInternationalAssignmentRespItemInternationalAssignmentStatusDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// ListCorehrEmployeesInternationalAssignmentRespItemInternationalAssignmentType ...
-type ListCorehrEmployeesInternationalAssignmentRespItemInternationalAssignmentType struct {
+// ListCoreHREmployeesInternationalAssignmentRespItemInternationalAssignmentType ...
+type ListCoreHREmployeesInternationalAssignmentRespItemInternationalAssignmentType struct {
 	EnumName string                                                                                  `json:"enum_name,omitempty"` // 枚举值
-	Display  []*ListCorehrEmployeesInternationalAssignmentRespItemInternationalAssignmentTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*ListCoreHREmployeesInternationalAssignmentRespItemInternationalAssignmentTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// ListCorehrEmployeesInternationalAssignmentRespItemInternationalAssignmentTypeDisplay ...
-type ListCorehrEmployeesInternationalAssignmentRespItemInternationalAssignmentTypeDisplay struct {
+// ListCoreHREmployeesInternationalAssignmentRespItemInternationalAssignmentTypeDisplay ...
+type ListCoreHREmployeesInternationalAssignmentRespItemInternationalAssignmentTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// ListCorehrEmployeesInternationalAssignmentRespItemWorkShift ...
-type ListCorehrEmployeesInternationalAssignmentRespItemWorkShift struct {
+// ListCoreHREmployeesInternationalAssignmentRespItemWorkShift ...
+type ListCoreHREmployeesInternationalAssignmentRespItemWorkShift struct {
 	EnumName string                                                                `json:"enum_name,omitempty"` // 枚举值
-	Display  []*ListCorehrEmployeesInternationalAssignmentRespItemWorkShiftDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*ListCoreHREmployeesInternationalAssignmentRespItemWorkShiftDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// ListCorehrEmployeesInternationalAssignmentRespItemWorkShiftDisplay ...
-type ListCorehrEmployeesInternationalAssignmentRespItemWorkShiftDisplay struct {
+// ListCoreHREmployeesInternationalAssignmentRespItemWorkShiftDisplay ...
+type ListCoreHREmployeesInternationalAssignmentRespItemWorkShiftDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// listCorehrEmployeesInternationalAssignmentResp ...
-type listCorehrEmployeesInternationalAssignmentResp struct {
+// listCoreHREmployeesInternationalAssignmentResp ...
+type listCoreHREmployeesInternationalAssignmentResp struct {
 	Code  int64                                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                                          `json:"msg,omitempty"`  // 错误描述
-	Data  *ListCorehrEmployeesInternationalAssignmentResp `json:"data,omitempty"`
+	Data  *ListCoreHREmployeesInternationalAssignmentResp `json:"data,omitempty"`
 	Error *ErrorDetail                                    `json:"error,omitempty"`
 }

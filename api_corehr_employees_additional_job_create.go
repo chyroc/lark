@@ -21,43 +21,43 @@ import (
 	"context"
 )
 
-// CreateCorehrEmployeesAdditionalJob 创建员工的兼职
+// CreateCoreHREmployeesAdditionalJob 创建员工的兼职
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employees-additional_job/create
 // new doc: https://open.feishu.cn/document/corehr-v1/employee/job_data/employees-additional_job/create
-func (r *CoreHRService) CreateCorehrEmployeesAdditionalJob(ctx context.Context, request *CreateCorehrEmployeesAdditionalJobReq, options ...MethodOptionFunc) (*CreateCorehrEmployeesAdditionalJobResp, *Response, error) {
-	if r.cli.mock.mockCoreHRCreateCorehrEmployeesAdditionalJob != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCorehrEmployeesAdditionalJob mock enable")
-		return r.cli.mock.mockCoreHRCreateCorehrEmployeesAdditionalJob(ctx, request, options...)
+func (r *CoreHRService) CreateCoreHREmployeesAdditionalJob(ctx context.Context, request *CreateCoreHREmployeesAdditionalJobReq, options ...MethodOptionFunc) (*CreateCoreHREmployeesAdditionalJobResp, *Response, error) {
+	if r.cli.mock.mockCoreHRCreateCoreHREmployeesAdditionalJob != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCoreHREmployeesAdditionalJob mock enable")
+		return r.cli.mock.mockCoreHRCreateCoreHREmployeesAdditionalJob(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "CreateCorehrEmployeesAdditionalJob",
+		API:                   "CreateCoreHREmployeesAdditionalJob",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/employees/additional_jobs",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(createCorehrEmployeesAdditionalJobResp)
+	resp := new(createCoreHREmployeesAdditionalJobResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRCreateCorehrEmployeesAdditionalJob mock CoreHRCreateCorehrEmployeesAdditionalJob method
-func (r *Mock) MockCoreHRCreateCorehrEmployeesAdditionalJob(f func(ctx context.Context, request *CreateCorehrEmployeesAdditionalJobReq, options ...MethodOptionFunc) (*CreateCorehrEmployeesAdditionalJobResp, *Response, error)) {
-	r.mockCoreHRCreateCorehrEmployeesAdditionalJob = f
+// MockCoreHRCreateCoreHREmployeesAdditionalJob mock CoreHRCreateCoreHREmployeesAdditionalJob method
+func (r *Mock) MockCoreHRCreateCoreHREmployeesAdditionalJob(f func(ctx context.Context, request *CreateCoreHREmployeesAdditionalJobReq, options ...MethodOptionFunc) (*CreateCoreHREmployeesAdditionalJobResp, *Response, error)) {
+	r.mockCoreHRCreateCoreHREmployeesAdditionalJob = f
 }
 
-// UnMockCoreHRCreateCorehrEmployeesAdditionalJob un-mock CoreHRCreateCorehrEmployeesAdditionalJob method
-func (r *Mock) UnMockCoreHRCreateCorehrEmployeesAdditionalJob() {
-	r.mockCoreHRCreateCorehrEmployeesAdditionalJob = nil
+// UnMockCoreHRCreateCoreHREmployeesAdditionalJob un-mock CoreHRCreateCoreHREmployeesAdditionalJob method
+func (r *Mock) UnMockCoreHRCreateCoreHREmployeesAdditionalJob() {
+	r.mockCoreHRCreateCoreHREmployeesAdditionalJob = nil
 }
 
-// CreateCorehrEmployeesAdditionalJobReq ...
-type CreateCorehrEmployeesAdditionalJobReq struct {
+// CreateCoreHREmployeesAdditionalJobReq ...
+type CreateCoreHREmployeesAdditionalJobReq struct {
 	ClientToken         *string                                                `query:"client_token" json:"-"`           // 操作的唯一标识, 用于幂等校验, 格式为标准的 UUIDV4。请求成功时, 重复的 client_token 不会再创建、变更数据。示例值: 12454646
 	UserIDType          *IDType                                                `query:"user_id_type" json:"-"`           // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	DepartmentIDType    *DepartmentIDType                                      `query:"department_id_type" json:"-"`     // 此次调用中使用的部门 ID 类型示例值: open_department_id可选值有: 【飞书】用来在具体某个应用中标识一个部门, 同一个 department_id 在不同应用中的 open_department_id 相同。【飞书】用来标识租户内一个唯一的部门。【飞书人事】用来标识「飞书人事」中的部门。默认值: `open_department_id`
@@ -73,8 +73,8 @@ type CreateCorehrEmployeesAdditionalJobReq struct {
 	EndDate             *string                                                `json:"end_date,omitempty"`               // 兼职结束日期, 不可清空示例值: "2020-05-02"
 	DirectManagerID     *string                                                `json:"direct_manager_id,omitempty"`      // 直属上级的雇佣ID, 可通过[【批量查询员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)获取详细信息类型与 user_id_type 一致示例值: "6890452208593372680"
 	DottedLineManagerID *string                                                `json:"dotted_line_manager_id,omitempty"` // 虚线上级的雇佣ID, 可通过[【批量查询员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)获取详细信息类型与 user_id_type 一致示例值: "6890452208593372680"
-	WorkShift           *CreateCorehrEmployeesAdditionalJobReqWorkShift        `json:"work_shift,omitempty"`             // 排班类型, 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "job_data"- custom_api_name = "work_shift"
-	CompensationType    *CreateCorehrEmployeesAdditionalJobReqCompensationType `json:"compensation_type,omitempty"`      // 薪资类型, 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "job_data"- custom_api_name = "compensation_type"
+	WorkShift           *CreateCoreHREmployeesAdditionalJobReqWorkShift        `json:"work_shift,omitempty"`             // 排班类型, 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "job_data"- custom_api_name = "work_shift"
+	CompensationType    *CreateCoreHREmployeesAdditionalJobReqCompensationType `json:"compensation_type,omitempty"`      // 薪资类型, 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "job_data"- custom_api_name = "compensation_type"
 	ServiceCompany      *string                                                `json:"service_company,omitempty"`        // 任职公司, 可通过[【批量查询公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list)获取详细信息示例值: "6890452208593372680"
 	WeeklyWorkingHours  *string                                                `json:"weekly_working_hours,omitempty"`   // 周工作时长【0~168】示例值: "5"
 	WorkCalendarID      *string                                                `json:"work_calendar_id,omitempty"`       // 工作日历 ID, 可通过[【查询工作日历】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/work_calendar)获取详细信息示例值: "6890452208593372680"
@@ -82,23 +82,23 @@ type CreateCorehrEmployeesAdditionalJobReq struct {
 	EmployeeSubtypeID   *string                                                `json:"employee_subtype_id,omitempty"`    // 人员子类型 ID示例值: "6890452208593372680"
 }
 
-// CreateCorehrEmployeesAdditionalJobReqCompensationType ...
-type CreateCorehrEmployeesAdditionalJobReqCompensationType struct {
+// CreateCoreHREmployeesAdditionalJobReqCompensationType ...
+type CreateCoreHREmployeesAdditionalJobReqCompensationType struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值示例值: "phone_type"
 }
 
-// CreateCorehrEmployeesAdditionalJobReqWorkShift ...
-type CreateCorehrEmployeesAdditionalJobReqWorkShift struct {
+// CreateCoreHREmployeesAdditionalJobReqWorkShift ...
+type CreateCoreHREmployeesAdditionalJobReqWorkShift struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值示例值: "phone_type"
 }
 
-// CreateCorehrEmployeesAdditionalJobResp ...
-type CreateCorehrEmployeesAdditionalJobResp struct {
-	AdditionalJob *CreateCorehrEmployeesAdditionalJobRespAdditionalJob `json:"additional_job,omitempty"` // 兼职信息
+// CreateCoreHREmployeesAdditionalJobResp ...
+type CreateCoreHREmployeesAdditionalJobResp struct {
+	AdditionalJob *CreateCoreHREmployeesAdditionalJobRespAdditionalJob `json:"additional_job,omitempty"` // 兼职信息
 }
 
-// CreateCorehrEmployeesAdditionalJobRespAdditionalJob ...
-type CreateCorehrEmployeesAdditionalJobRespAdditionalJob struct {
+// CreateCoreHREmployeesAdditionalJobRespAdditionalJob ...
+type CreateCoreHREmployeesAdditionalJobRespAdditionalJob struct {
 	ID                  string                                                               `json:"id,omitempty"`                     // 兼职记录 ID
 	EmployeeTypeID      string                                                               `json:"employee_type_id,omitempty"`       // 人员类型 ID, 可通过[【查询单个人员类型】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/get)获取详细信息
 	WorkingHoursTypeID  string                                                               `json:"working_hours_type_id,omitempty"`  // 工时制度 ID, 可通过[【查询单个工时制度】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/get)获取详细信息
@@ -112,8 +112,8 @@ type CreateCorehrEmployeesAdditionalJobRespAdditionalJob struct {
 	EndDate             string                                                               `json:"end_date,omitempty"`               // 兼职结束日期
 	DirectManagerID     string                                                               `json:"direct_manager_id,omitempty"`      // 直属上级的雇佣 ID, 可通过[【批量查询员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)获取详细信息类型与 user_id_type 一致
 	DottedLineManagerID string                                                               `json:"dotted_line_manager_id,omitempty"` // 虚线上级的雇佣 ID, 可通过[【批量查询员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)获取详细信息类型与 user_id_type 一致
-	WorkShift           *CreateCorehrEmployeesAdditionalJobRespAdditionalJobWorkShift        `json:"work_shift,omitempty"`             // 排班类型, 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "job_data"- custom_api_name = "work_shift"字段权限要求: 读写兼职的排班信息
-	CompensationType    *CreateCorehrEmployeesAdditionalJobRespAdditionalJobCompensationType `json:"compensation_type,omitempty"`      // 薪资类型, 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "job_data"- custom_api_name = "compensation_type"字段权限要求: 读写兼职的薪资类型
+	WorkShift           *CreateCoreHREmployeesAdditionalJobRespAdditionalJobWorkShift        `json:"work_shift,omitempty"`             // 排班类型, 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "job_data"- custom_api_name = "work_shift"字段权限要求: 读写兼职的排班信息
+	CompensationType    *CreateCoreHREmployeesAdditionalJobRespAdditionalJobCompensationType `json:"compensation_type,omitempty"`      // 薪资类型, 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询, 查询参数如下: object_api_name = "job_data"- custom_api_name = "compensation_type"字段权限要求: 读写兼职的薪资类型
 	ServiceCompany      string                                                               `json:"service_company,omitempty"`        // 任职公司, 可通过[【查询单个公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)获取详细信息字段权限要求: 读写兼职的任职公司
 	WeeklyWorkingHours  string                                                               `json:"weekly_working_hours,omitempty"`   // 周工作时长【0~168】
 	WorkCalendarID      string                                                               `json:"work_calendar_id,omitempty"`       // 工作日历 ID, 可通过[【查询工作日历】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/work_calendar)获取
@@ -121,34 +121,34 @@ type CreateCorehrEmployeesAdditionalJobRespAdditionalJob struct {
 	EmployeeSubtypeID   string                                                               `json:"employee_subtype_id,omitempty"`    // 人员子类型 ID
 }
 
-// CreateCorehrEmployeesAdditionalJobRespAdditionalJobCompensationType ...
-type CreateCorehrEmployeesAdditionalJobRespAdditionalJobCompensationType struct {
+// CreateCoreHREmployeesAdditionalJobRespAdditionalJobCompensationType ...
+type CreateCoreHREmployeesAdditionalJobRespAdditionalJobCompensationType struct {
 	EnumName string                                                                        `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCorehrEmployeesAdditionalJobRespAdditionalJobCompensationTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHREmployeesAdditionalJobRespAdditionalJobCompensationTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCorehrEmployeesAdditionalJobRespAdditionalJobCompensationTypeDisplay ...
-type CreateCorehrEmployeesAdditionalJobRespAdditionalJobCompensationTypeDisplay struct {
+// CreateCoreHREmployeesAdditionalJobRespAdditionalJobCompensationTypeDisplay ...
+type CreateCoreHREmployeesAdditionalJobRespAdditionalJobCompensationTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// CreateCorehrEmployeesAdditionalJobRespAdditionalJobWorkShift ...
-type CreateCorehrEmployeesAdditionalJobRespAdditionalJobWorkShift struct {
+// CreateCoreHREmployeesAdditionalJobRespAdditionalJobWorkShift ...
+type CreateCoreHREmployeesAdditionalJobRespAdditionalJobWorkShift struct {
 	EnumName string                                                                 `json:"enum_name,omitempty"` // 枚举值
-	Display  []*CreateCorehrEmployeesAdditionalJobRespAdditionalJobWorkShiftDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*CreateCoreHREmployeesAdditionalJobRespAdditionalJobWorkShiftDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// CreateCorehrEmployeesAdditionalJobRespAdditionalJobWorkShiftDisplay ...
-type CreateCorehrEmployeesAdditionalJobRespAdditionalJobWorkShiftDisplay struct {
+// CreateCoreHREmployeesAdditionalJobRespAdditionalJobWorkShiftDisplay ...
+type CreateCoreHREmployeesAdditionalJobRespAdditionalJobWorkShiftDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// createCorehrEmployeesAdditionalJobResp ...
-type createCorehrEmployeesAdditionalJobResp struct {
+// createCoreHREmployeesAdditionalJobResp ...
+type createCoreHREmployeesAdditionalJobResp struct {
 	Code  int64                                   `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                                  `json:"msg,omitempty"`  // 错误描述
-	Data  *CreateCorehrEmployeesAdditionalJobResp `json:"data,omitempty"`
+	Data  *CreateCoreHREmployeesAdditionalJobResp `json:"data,omitempty"`
 	Error *ErrorDetail                            `json:"error,omitempty"`
 }

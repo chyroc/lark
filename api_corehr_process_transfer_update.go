@@ -21,43 +21,43 @@ import (
 	"context"
 )
 
-// UpdateCorehrProcessTransfer 对于单个审批任务进行转交操作。转交后审批流程流转给被转交人。
+// UpdateCoreHRProcessTransfer 对于单个审批任务进行转交操作。转交后审批流程流转给被转交人。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process-transfer/update
 // new doc: https://open.feishu.cn/document/corehr-v1/process-form_variable_data/approver-task/update-2
-func (r *CoreHRService) UpdateCorehrProcessTransfer(ctx context.Context, request *UpdateCorehrProcessTransferReq, options ...MethodOptionFunc) (*UpdateCorehrProcessTransferResp, *Response, error) {
-	if r.cli.mock.mockCoreHRUpdateCorehrProcessTransfer != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#UpdateCorehrProcessTransfer mock enable")
-		return r.cli.mock.mockCoreHRUpdateCorehrProcessTransfer(ctx, request, options...)
+func (r *CoreHRService) UpdateCoreHRProcessTransfer(ctx context.Context, request *UpdateCoreHRProcessTransferReq, options ...MethodOptionFunc) (*UpdateCoreHRProcessTransferResp, *Response, error) {
+	if r.cli.mock.mockCoreHRUpdateCoreHRProcessTransfer != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#UpdateCoreHRProcessTransfer mock enable")
+		return r.cli.mock.mockCoreHRUpdateCoreHRProcessTransfer(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "UpdateCorehrProcessTransfer",
+		API:                   "UpdateCoreHRProcessTransfer",
 		Method:                "PUT",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/processes/:process_id/transfer",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(updateCorehrProcessTransferResp)
+	resp := new(updateCoreHRProcessTransferResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRUpdateCorehrProcessTransfer mock CoreHRUpdateCorehrProcessTransfer method
-func (r *Mock) MockCoreHRUpdateCorehrProcessTransfer(f func(ctx context.Context, request *UpdateCorehrProcessTransferReq, options ...MethodOptionFunc) (*UpdateCorehrProcessTransferResp, *Response, error)) {
-	r.mockCoreHRUpdateCorehrProcessTransfer = f
+// MockCoreHRUpdateCoreHRProcessTransfer mock CoreHRUpdateCoreHRProcessTransfer method
+func (r *Mock) MockCoreHRUpdateCoreHRProcessTransfer(f func(ctx context.Context, request *UpdateCoreHRProcessTransferReq, options ...MethodOptionFunc) (*UpdateCoreHRProcessTransferResp, *Response, error)) {
+	r.mockCoreHRUpdateCoreHRProcessTransfer = f
 }
 
-// UnMockCoreHRUpdateCorehrProcessTransfer un-mock CoreHRUpdateCorehrProcessTransfer method
-func (r *Mock) UnMockCoreHRUpdateCorehrProcessTransfer() {
-	r.mockCoreHRUpdateCorehrProcessTransfer = nil
+// UnMockCoreHRUpdateCoreHRProcessTransfer un-mock CoreHRUpdateCoreHRProcessTransfer method
+func (r *Mock) UnMockCoreHRUpdateCoreHRProcessTransfer() {
+	r.mockCoreHRUpdateCoreHRProcessTransfer = nil
 }
 
-// UpdateCorehrProcessTransferReq ...
-type UpdateCorehrProcessTransferReq struct {
+// UpdateCoreHRProcessTransferReq ...
+type UpdateCoreHRProcessTransferReq struct {
 	ProcessID   string   `path:"process_id" json:"-"`    // 流程实例id, 是一个流程的唯一标识。可通过[查询流程实例列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/process/list)接口返回的 process_ids 字段获取示例值: "7410664363763172908"
 	UserIDType  *IDType  `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	Operator    *string  `json:"operator,omitempty"`     // 操作人, 按user_id_type类型传递；如果system_user为true, 则此字段可以不填示例值: "7184703091806602796"
@@ -67,14 +67,14 @@ type UpdateCorehrProcessTransferReq struct {
 	SystemUser  *bool    `json:"system_user,omitempty"`  // 是否以系统身份操作, 如果为fasle, 则operator必填示例值: true默认值: `false`
 }
 
-// UpdateCorehrProcessTransferResp ...
-type UpdateCorehrProcessTransferResp struct {
+// UpdateCoreHRProcessTransferResp ...
+type UpdateCoreHRProcessTransferResp struct {
 }
 
-// updateCorehrProcessTransferResp ...
-type updateCorehrProcessTransferResp struct {
+// updateCoreHRProcessTransferResp ...
+type updateCoreHRProcessTransferResp struct {
 	Code  int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                           `json:"msg,omitempty"`  // 错误描述
-	Data  *UpdateCorehrProcessTransferResp `json:"data,omitempty"`
+	Data  *UpdateCoreHRProcessTransferResp `json:"data,omitempty"`
 	Error *ErrorDetail                     `json:"error,omitempty"`
 }

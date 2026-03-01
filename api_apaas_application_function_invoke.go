@@ -21,57 +21,57 @@ import (
 	"context"
 )
 
-// CreateAPaaSApplicationFunctionInvoke 执行基于飞书应用引擎开发的应用的自定义函数
+// InvokeAPaaSApplicationFunction 执行基于飞书应用引擎开发的应用的自定义函数
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/application-function/invoke
 // new doc: https://open.feishu.cn/document/apaas-v1/application-function/invoke
-func (r *APaaSService) CreateAPaaSApplicationFunctionInvoke(ctx context.Context, request *CreateAPaaSApplicationFunctionInvokeReq, options ...MethodOptionFunc) (*CreateAPaaSApplicationFunctionInvokeResp, *Response, error) {
-	if r.cli.mock.mockAPaaSCreateAPaaSApplicationFunctionInvoke != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] APaaS#CreateAPaaSApplicationFunctionInvoke mock enable")
-		return r.cli.mock.mockAPaaSCreateAPaaSApplicationFunctionInvoke(ctx, request, options...)
+func (r *APaaSService) InvokeAPaaSApplicationFunction(ctx context.Context, request *InvokeAPaaSApplicationFunctionReq, options ...MethodOptionFunc) (*InvokeAPaaSApplicationFunctionResp, *Response, error) {
+	if r.cli.mock.mockAPaaSInvokeAPaaSApplicationFunction != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] APaaS#InvokeAPaaSApplicationFunction mock enable")
+		return r.cli.mock.mockAPaaSInvokeAPaaSApplicationFunction(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "APaaS",
-		API:                   "CreateAPaaSApplicationFunctionInvoke",
+		API:                   "InvokeAPaaSApplicationFunction",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/apaas/v1/applications/:namespace/functions/:function_api_name/invoke",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(createAPaaSApplicationFunctionInvokeResp)
+	resp := new(invokeAPaaSApplicationFunctionResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockAPaaSCreateAPaaSApplicationFunctionInvoke mock APaaSCreateAPaaSApplicationFunctionInvoke method
-func (r *Mock) MockAPaaSCreateAPaaSApplicationFunctionInvoke(f func(ctx context.Context, request *CreateAPaaSApplicationFunctionInvokeReq, options ...MethodOptionFunc) (*CreateAPaaSApplicationFunctionInvokeResp, *Response, error)) {
-	r.mockAPaaSCreateAPaaSApplicationFunctionInvoke = f
+// MockAPaaSInvokeAPaaSApplicationFunction mock APaaSInvokeAPaaSApplicationFunction method
+func (r *Mock) MockAPaaSInvokeAPaaSApplicationFunction(f func(ctx context.Context, request *InvokeAPaaSApplicationFunctionReq, options ...MethodOptionFunc) (*InvokeAPaaSApplicationFunctionResp, *Response, error)) {
+	r.mockAPaaSInvokeAPaaSApplicationFunction = f
 }
 
-// UnMockAPaaSCreateAPaaSApplicationFunctionInvoke un-mock APaaSCreateAPaaSApplicationFunctionInvoke method
-func (r *Mock) UnMockAPaaSCreateAPaaSApplicationFunctionInvoke() {
-	r.mockAPaaSCreateAPaaSApplicationFunctionInvoke = nil
+// UnMockAPaaSInvokeAPaaSApplicationFunction un-mock APaaSInvokeAPaaSApplicationFunction method
+func (r *Mock) UnMockAPaaSInvokeAPaaSApplicationFunction() {
+	r.mockAPaaSInvokeAPaaSApplicationFunction = nil
 }
 
-// CreateAPaaSApplicationFunctionInvokeReq ...
-type CreateAPaaSApplicationFunctionInvokeReq struct {
+// InvokeAPaaSApplicationFunctionReq ...
+type InvokeAPaaSApplicationFunctionReq struct {
 	Namespace       string  `path:"namespace" json:"-"`         // 应用命名空间示例值: "package_test__c"
 	FunctionApiName string  `path:"function_api_name" json:"-"` // 函数 API 名称示例值: "printParam"
 	Params          *string `json:"params,omitempty"`           // 函数输入参数（JSON 序列化后的字符串）示例值: "{\"key1\":\"value1\", \"key2\":\"value2\", \"key3\":1718313981794}"
 }
 
-// CreateAPaaSApplicationFunctionInvokeResp ...
-type CreateAPaaSApplicationFunctionInvokeResp struct {
+// InvokeAPaaSApplicationFunctionResp ...
+type InvokeAPaaSApplicationFunctionResp struct {
 	Result string `json:"result,omitempty"` // 函数执行的返回结果（JSON 序列化后的字符串）
 }
 
-// createAPaaSApplicationFunctionInvokeResp ...
-type createAPaaSApplicationFunctionInvokeResp struct {
-	Code  int64                                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg   string                                    `json:"msg,omitempty"`  // 错误描述
-	Data  *CreateAPaaSApplicationFunctionInvokeResp `json:"data,omitempty"`
-	Error *ErrorDetail                              `json:"error,omitempty"`
+// invokeAPaaSApplicationFunctionResp ...
+type invokeAPaaSApplicationFunctionResp struct {
+	Code  int64                               `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                              `json:"msg,omitempty"`  // 错误描述
+	Data  *InvokeAPaaSApplicationFunctionResp `json:"data,omitempty"`
+	Error *ErrorDetail                        `json:"error,omitempty"`
 }

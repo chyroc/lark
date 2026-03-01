@@ -21,56 +21,56 @@ import (
 	"context"
 )
 
-// DeleteCorehrPathway 根据传入的通道 ID 删除一个相应的通道信息
+// DeleteCoreHRPathway 根据传入的通道 ID 删除一个相应的通道信息
 //
 // 删除对象时请确认有无在职员工、待入职单据、职务、职级、序列等数据关联此对象, 如有会导致删除失败。
 // 删除后无法恢复, 并且在系统中无法搜索到对应通道信息, 请谨慎操作。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pathway/delete
-func (r *CoreHRService) DeleteCorehrPathway(ctx context.Context, request *DeleteCorehrPathwayReq, options ...MethodOptionFunc) (*DeleteCorehrPathwayResp, *Response, error) {
-	if r.cli.mock.mockCoreHRDeleteCorehrPathway != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCorehrPathway mock enable")
-		return r.cli.mock.mockCoreHRDeleteCorehrPathway(ctx, request, options...)
+func (r *CoreHRService) DeleteCoreHRPathway(ctx context.Context, request *DeleteCoreHRPathwayReq, options ...MethodOptionFunc) (*DeleteCoreHRPathwayResp, *Response, error) {
+	if r.cli.mock.mockCoreHRDeleteCoreHRPathway != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#DeleteCoreHRPathway mock enable")
+		return r.cli.mock.mockCoreHRDeleteCoreHRPathway(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "DeleteCorehrPathway",
+		API:                   "DeleteCoreHRPathway",
 		Method:                "DELETE",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/pathways/:pathway_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(deleteCorehrPathwayResp)
+	resp := new(deleteCoreHRPathwayResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRDeleteCorehrPathway mock CoreHRDeleteCorehrPathway method
-func (r *Mock) MockCoreHRDeleteCorehrPathway(f func(ctx context.Context, request *DeleteCorehrPathwayReq, options ...MethodOptionFunc) (*DeleteCorehrPathwayResp, *Response, error)) {
-	r.mockCoreHRDeleteCorehrPathway = f
+// MockCoreHRDeleteCoreHRPathway mock CoreHRDeleteCoreHRPathway method
+func (r *Mock) MockCoreHRDeleteCoreHRPathway(f func(ctx context.Context, request *DeleteCoreHRPathwayReq, options ...MethodOptionFunc) (*DeleteCoreHRPathwayResp, *Response, error)) {
+	r.mockCoreHRDeleteCoreHRPathway = f
 }
 
-// UnMockCoreHRDeleteCorehrPathway un-mock CoreHRDeleteCorehrPathway method
-func (r *Mock) UnMockCoreHRDeleteCorehrPathway() {
-	r.mockCoreHRDeleteCorehrPathway = nil
+// UnMockCoreHRDeleteCoreHRPathway un-mock CoreHRDeleteCoreHRPathway method
+func (r *Mock) UnMockCoreHRDeleteCoreHRPathway() {
+	r.mockCoreHRDeleteCoreHRPathway = nil
 }
 
-// DeleteCorehrPathwayReq ...
-type DeleteCorehrPathwayReq struct {
+// DeleteCoreHRPathwayReq ...
+type DeleteCoreHRPathwayReq struct {
 	PathwayID string `path:"pathway_id" json:"-"` // 通道ID。ID获取方式- 调用[创建通道接口](/document-mod/index?fullPath=%2FuAjLw4CM%2FukTMukTMukTM%2Fcorehr-v2%2Fpathway%2Fcreate)后, 从响应结果的`pathway_id`获取。- 监听[通道创建事件](/document-mod/index?fullPath=/uAjLw4CM/ukTMukTMukTM/corehr-v2/pathway/events/created), 当触发该事件后可从事件体内获取`pathway_id`- 监听[通道更新事件](/document-mod/index?fullPath=/uAjLw4CM/ukTMukTMukTM/corehr-v2/pathway/events/updated), 当触发该事件后可从事件体内获取`pathway_id`- 监听[通道删除事件](/document-mod/index?fullPath=%2FuAjLw4CM%2FukTMukTMukTM%2Fcorehr-v2%2Fpathway%2Fevents%2Fdeleted), 当触发该事件后可从事件体内获取`pathway_id`示例值: "6862995757234914824"
 }
 
-// DeleteCorehrPathwayResp ...
-type DeleteCorehrPathwayResp struct {
+// DeleteCoreHRPathwayResp ...
+type DeleteCoreHRPathwayResp struct {
 }
 
-// deleteCorehrPathwayResp ...
-type deleteCorehrPathwayResp struct {
+// deleteCoreHRPathwayResp ...
+type deleteCoreHRPathwayResp struct {
 	Code  int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                   `json:"msg,omitempty"`  // 错误描述
-	Data  *DeleteCorehrPathwayResp `json:"data,omitempty"`
+	Data  *DeleteCoreHRPathwayResp `json:"data,omitempty"`
 	Error *ErrorDetail             `json:"error,omitempty"`
 }

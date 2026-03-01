@@ -21,55 +21,55 @@ import (
 	"context"
 )
 
-// DeleteAPaaSWorkspaceTableRecordsDelete 删除数据表中的记录
+// DeleteAPaaSWorkspaceTableRecords 删除数据表中的记录
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/workspace-table/records_delete
-func (r *APaaSService) DeleteAPaaSWorkspaceTableRecordsDelete(ctx context.Context, request *DeleteAPaaSWorkspaceTableRecordsDeleteReq, options ...MethodOptionFunc) (*DeleteAPaaSWorkspaceTableRecordsDeleteResp, *Response, error) {
-	if r.cli.mock.mockAPaaSDeleteAPaaSWorkspaceTableRecordsDelete != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] APaaS#DeleteAPaaSWorkspaceTableRecordsDelete mock enable")
-		return r.cli.mock.mockAPaaSDeleteAPaaSWorkspaceTableRecordsDelete(ctx, request, options...)
+func (r *APaaSService) DeleteAPaaSWorkspaceTableRecords(ctx context.Context, request *DeleteAPaaSWorkspaceTableRecordsReq, options ...MethodOptionFunc) (*DeleteAPaaSWorkspaceTableRecordsResp, *Response, error) {
+	if r.cli.mock.mockAPaaSDeleteAPaaSWorkspaceTableRecords != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] APaaS#DeleteAPaaSWorkspaceTableRecords mock enable")
+		return r.cli.mock.mockAPaaSDeleteAPaaSWorkspaceTableRecords(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:               "APaaS",
-		API:                 "DeleteAPaaSWorkspaceTableRecordsDelete",
+		API:                 "DeleteAPaaSWorkspaceTableRecords",
 		Method:              "DELETE",
 		URL:                 r.cli.openBaseURL + "/open-apis/apaas/v1/workspaces/:workspace_id/tables/:table_name/records",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 	}
-	resp := new(deleteAPaaSWorkspaceTableRecordsDeleteResp)
+	resp := new(deleteAPaaSWorkspaceTableRecordsResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockAPaaSDeleteAPaaSWorkspaceTableRecordsDelete mock APaaSDeleteAPaaSWorkspaceTableRecordsDelete method
-func (r *Mock) MockAPaaSDeleteAPaaSWorkspaceTableRecordsDelete(f func(ctx context.Context, request *DeleteAPaaSWorkspaceTableRecordsDeleteReq, options ...MethodOptionFunc) (*DeleteAPaaSWorkspaceTableRecordsDeleteResp, *Response, error)) {
-	r.mockAPaaSDeleteAPaaSWorkspaceTableRecordsDelete = f
+// MockAPaaSDeleteAPaaSWorkspaceTableRecords mock APaaSDeleteAPaaSWorkspaceTableRecords method
+func (r *Mock) MockAPaaSDeleteAPaaSWorkspaceTableRecords(f func(ctx context.Context, request *DeleteAPaaSWorkspaceTableRecordsReq, options ...MethodOptionFunc) (*DeleteAPaaSWorkspaceTableRecordsResp, *Response, error)) {
+	r.mockAPaaSDeleteAPaaSWorkspaceTableRecords = f
 }
 
-// UnMockAPaaSDeleteAPaaSWorkspaceTableRecordsDelete un-mock APaaSDeleteAPaaSWorkspaceTableRecordsDelete method
-func (r *Mock) UnMockAPaaSDeleteAPaaSWorkspaceTableRecordsDelete() {
-	r.mockAPaaSDeleteAPaaSWorkspaceTableRecordsDelete = nil
+// UnMockAPaaSDeleteAPaaSWorkspaceTableRecords un-mock APaaSDeleteAPaaSWorkspaceTableRecords method
+func (r *Mock) UnMockAPaaSDeleteAPaaSWorkspaceTableRecords() {
+	r.mockAPaaSDeleteAPaaSWorkspaceTableRecords = nil
 }
 
-// DeleteAPaaSWorkspaceTableRecordsDeleteReq ...
-type DeleteAPaaSWorkspaceTableRecordsDeleteReq struct {
+// DeleteAPaaSWorkspaceTableRecordsReq ...
+type DeleteAPaaSWorkspaceTableRecordsReq struct {
 	WorkspaceID string `path:"workspace_id" json:"-"` // 工作空间id, 可以从数据平台的 URL 中获取, 如 `https://apaas.feishu.cn/suda/workspace/workspace_aadimx5uzpsls/table-manage/main?tableId=table_1846786627963081&tab=objectManage` 中的 workspace_aadimx5uzpsls 就是 workspace_id示例值: "workspace_aadimx5uzpsls"
 	TableName   string `path:"table_name" json:"-"`   // 数据表表名, 可以从数据平台获取对应的数据表名。示例值: "table_name_1"
 	Filter      string `query:"filter" json:"-"`      // 筛选条件, 尊许 PostgREST 语法, 详情可查看 `https://docs.postgrest.org/en/v13/references/api/tables_views.html#horizontal-filtering`此处用法和查询数据记录一致。- 示例: 查找 student 表中 age 大于 10 的学生列表: age=gt.10, URLEncode 后拼在 filter 中。示例值: age%3Dgt.10
 }
 
-// DeleteAPaaSWorkspaceTableRecordsDeleteResp ...
-type DeleteAPaaSWorkspaceTableRecordsDeleteResp struct {
+// DeleteAPaaSWorkspaceTableRecordsResp ...
+type DeleteAPaaSWorkspaceTableRecordsResp struct {
 }
 
-// deleteAPaaSWorkspaceTableRecordsDeleteResp ...
-type deleteAPaaSWorkspaceTableRecordsDeleteResp struct {
-	Code  int64                                       `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg   string                                      `json:"msg,omitempty"`  // 错误描述
-	Data  *DeleteAPaaSWorkspaceTableRecordsDeleteResp `json:"data,omitempty"`
-	Error *ErrorDetail                                `json:"error,omitempty"`
+// deleteAPaaSWorkspaceTableRecordsResp ...
+type deleteAPaaSWorkspaceTableRecordsResp struct {
+	Code  int64                                 `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                `json:"msg,omitempty"`  // 错误描述
+	Data  *DeleteAPaaSWorkspaceTableRecordsResp `json:"data,omitempty"`
+	Error *ErrorDetail                          `json:"error,omitempty"`
 }

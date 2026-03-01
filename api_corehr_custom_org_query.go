@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// QueryCorehrCustomOrg 根据传入的筛选条件批量查询自定义组织信息。不传任何筛选条件, 默认获得该租户下所有的自定义组织数据。
+// QueryCoreHRCustomOrg 根据传入的筛选条件批量查询自定义组织信息。不传任何筛选条件, 默认获得该租户下所有的自定义组织数据。
 //
 // - 该接口只返回当前生效的自定义组织, 未来生效的自定义组织不返回
 // - 请求体入参不填写默认为空, 不参与筛选
@@ -31,39 +31,39 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/custom_org/query
 // new doc: https://open.feishu.cn/document/corehr-v1/organization-management/custom_org/query
-func (r *CoreHRService) QueryCorehrCustomOrg(ctx context.Context, request *QueryCorehrCustomOrgReq, options ...MethodOptionFunc) (*QueryCorehrCustomOrgResp, *Response, error) {
-	if r.cli.mock.mockCoreHRQueryCorehrCustomOrg != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#QueryCorehrCustomOrg mock enable")
-		return r.cli.mock.mockCoreHRQueryCorehrCustomOrg(ctx, request, options...)
+func (r *CoreHRService) QueryCoreHRCustomOrg(ctx context.Context, request *QueryCoreHRCustomOrgReq, options ...MethodOptionFunc) (*QueryCoreHRCustomOrgResp, *Response, error) {
+	if r.cli.mock.mockCoreHRQueryCoreHRCustomOrg != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#QueryCoreHRCustomOrg mock enable")
+		return r.cli.mock.mockCoreHRQueryCoreHRCustomOrg(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "QueryCorehrCustomOrg",
+		API:                   "QueryCoreHRCustomOrg",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/custom_orgs/query",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(queryCorehrCustomOrgResp)
+	resp := new(queryCoreHRCustomOrgResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRQueryCorehrCustomOrg mock CoreHRQueryCorehrCustomOrg method
-func (r *Mock) MockCoreHRQueryCorehrCustomOrg(f func(ctx context.Context, request *QueryCorehrCustomOrgReq, options ...MethodOptionFunc) (*QueryCorehrCustomOrgResp, *Response, error)) {
-	r.mockCoreHRQueryCorehrCustomOrg = f
+// MockCoreHRQueryCoreHRCustomOrg mock CoreHRQueryCoreHRCustomOrg method
+func (r *Mock) MockCoreHRQueryCoreHRCustomOrg(f func(ctx context.Context, request *QueryCoreHRCustomOrgReq, options ...MethodOptionFunc) (*QueryCoreHRCustomOrgResp, *Response, error)) {
+	r.mockCoreHRQueryCoreHRCustomOrg = f
 }
 
-// UnMockCoreHRQueryCorehrCustomOrg un-mock CoreHRQueryCorehrCustomOrg method
-func (r *Mock) UnMockCoreHRQueryCorehrCustomOrg() {
-	r.mockCoreHRQueryCorehrCustomOrg = nil
+// UnMockCoreHRQueryCoreHRCustomOrg un-mock CoreHRQueryCoreHRCustomOrg method
+func (r *Mock) UnMockCoreHRQueryCoreHRCustomOrg() {
+	r.mockCoreHRQueryCoreHRCustomOrg = nil
 }
 
-// QueryCorehrCustomOrgReq ...
-type QueryCorehrCustomOrgReq struct {
+// QueryCoreHRCustomOrgReq ...
+type QueryCoreHRCustomOrgReq struct {
 	PageSize      int64    `query:"page_size" json:"-"`       // 分页大小, 最大 100示例值: 100 取值范围: `1` ～ `100`
 	PageToken     *string  `query:"page_token" json:"-"`      // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 6891251722631890445
 	UserIDType    *IDType  `query:"user_id_type" json:"-"`    // 用户 ID 类型示例值: people_corehr_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `people_corehr_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
@@ -77,79 +77,79 @@ type QueryCorehrCustomOrgReq struct {
 	NeedMatchRule *bool    `json:"need_match_rule,omitempty"` // 是否返回匹配规则。- 为 true 返回 ]match_rule_groups[ 字段, 否则不返回。示例值: false
 }
 
-// QueryCorehrCustomOrgResp ...
-type QueryCorehrCustomOrgResp struct {
-	Items     []*QueryCorehrCustomOrgRespItem `json:"items,omitempty"`      // 自定义组织信息列表
+// QueryCoreHRCustomOrgResp ...
+type QueryCoreHRCustomOrgResp struct {
+	Items     []*QueryCoreHRCustomOrgRespItem `json:"items,omitempty"`      // 自定义组织信息列表
 	PageToken string                          `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	HasMore   bool                            `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
-// QueryCorehrCustomOrgRespItem ...
-type QueryCorehrCustomOrgRespItem struct {
+// QueryCoreHRCustomOrgRespItem ...
+type QueryCoreHRCustomOrgRespItem struct {
 	ObjectApiName   string                                        `json:"object_api_name,omitempty"`   // 组织类型编码
-	Names           []*QueryCorehrCustomOrgRespItemName           `json:"names,omitempty"`             // 组织名称
+	Names           []*QueryCoreHRCustomOrgRespItemName           `json:"names,omitempty"`             // 组织名称
 	Code            string                                        `json:"code,omitempty"`              // 编码
 	ParentID        string                                        `json:"parent_id,omitempty"`         // 上级自定义组织 ID- 若查询的是一级自定义组织, 则该字段不展示
 	ManagerIDs      []string                                      `json:"manager_ids,omitempty"`       // 负责人 ID 列表- 返回的 ID 类型为 ]employment_id[- 详细信息可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search) 或 [【批量查询员工】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get) 接口获取
-	Description     []*QueryCorehrCustomOrgRespItemDescription    `json:"description,omitempty"`       // 自定义组织描述
+	Description     []*QueryCoreHRCustomOrgRespItemDescription    `json:"description,omitempty"`       // 自定义组织描述
 	EffectiveTime   string                                        `json:"effective_time,omitempty"`    // 当前版本生效日期- 返回格式: YYYY-MM-DD 00:00:00（最小单位到日）- 日期范围:1900-01-01 00:00:00～9999-12-31 00:00:00- 详情可以参考[时间轴介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/about-timeline-version)
-	OrgRoles        []*QueryCorehrCustomOrgRespItemOrgRole        `json:"org_roles,omitempty"`         // 组织角色列表
-	MatchRuleGroups []*QueryCorehrCustomOrgRespItemMatchRuleGroup `json:"match_rule_groups,omitempty"` // 自动匹配的规则组。- 需要在「飞书人事-设置-组织设置」中打开对应组织类型的自动匹配开关后, 此字段才会返回相关值。- 各个[match_rule_groups]之间是并集关系- 各个[match_rules]之间是交集关系
+	OrgRoles        []*QueryCoreHRCustomOrgRespItemOrgRole        `json:"org_roles,omitempty"`         // 组织角色列表
+	MatchRuleGroups []*QueryCoreHRCustomOrgRespItemMatchRuleGroup `json:"match_rule_groups,omitempty"` // 自动匹配的规则组。- 需要在「飞书人事-设置-组织设置」中打开对应组织类型的自动匹配开关后, 此字段才会返回相关值。- 各个[match_rule_groups]之间是并集关系- 各个[match_rules]之间是交集关系
 	Active          bool                                          `json:"active,omitempty"`            // 自定义组织是否启用
 	OrgID           string                                        `json:"org_id,omitempty"`            // 自定义组织 ID
-	CustomFields    []*QueryCorehrCustomOrgRespItemCustomField    `json:"custom_fields,omitempty"`     // 自定义字段类型, 详细见[获取自定义字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query)
+	CustomFields    []*QueryCoreHRCustomOrgRespItemCustomField    `json:"custom_fields,omitempty"`     // 自定义字段类型, 详细见[获取自定义字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query)
 }
 
-// QueryCorehrCustomOrgRespItemCustomField ...
-type QueryCorehrCustomOrgRespItemCustomField struct {
+// QueryCoreHRCustomOrgRespItemCustomField ...
+type QueryCoreHRCustomOrgRespItemCustomField struct {
 	CustomApiName string                                       `json:"custom_api_name,omitempty"` // 自定义字段 API Name, 即自定义字段的唯一标识
-	Name          *QueryCorehrCustomOrgRespItemCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
+	Name          *QueryCoreHRCustomOrgRespItemCustomFieldName `json:"name,omitempty"`            // 自定义字段名称
 	Type          int64                                        `json:"type,omitempty"`            // 自定义字段类型, 详细见[获取自定义字段列表](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/query)
 	Value         string                                       `json:"value,omitempty"`           // 字段值, 是json转义后的字符串, 根据元数据定义不同, 字段格式不同。如: ```("123", "123.23", "true", [\"id1\", \"id2\"], "2006-01-02 15:04:05")```
 }
 
-// QueryCorehrCustomOrgRespItemCustomFieldName ...
-type QueryCorehrCustomOrgRespItemCustomFieldName struct {
+// QueryCoreHRCustomOrgRespItemCustomFieldName ...
+type QueryCoreHRCustomOrgRespItemCustomFieldName struct {
 	ZhCn string `json:"zh_cn,omitempty"` // 中文
 	EnUs string `json:"en_us,omitempty"` // 英文
 }
 
-// QueryCorehrCustomOrgRespItemDescription ...
-type QueryCorehrCustomOrgRespItemDescription struct {
+// QueryCoreHRCustomOrgRespItemDescription ...
+type QueryCoreHRCustomOrgRespItemDescription struct {
 	Lang  string `json:"lang,omitempty"`  // 语言, 中文值是 zh-CN, 英文值是 en-US
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// QueryCorehrCustomOrgRespItemMatchRuleGroup ...
-type QueryCorehrCustomOrgRespItemMatchRuleGroup struct {
-	MatchRules []*QueryCorehrCustomOrgRespItemMatchRuleGroupMatchRule `json:"match_rules,omitempty"` // 匹配规则列表, 组内是交集关系
+// QueryCoreHRCustomOrgRespItemMatchRuleGroup ...
+type QueryCoreHRCustomOrgRespItemMatchRuleGroup struct {
+	MatchRules []*QueryCoreHRCustomOrgRespItemMatchRuleGroupMatchRule `json:"match_rules,omitempty"` // 匹配规则列表, 组内是交集关系
 }
 
-// QueryCorehrCustomOrgRespItemMatchRuleGroupMatchRule ...
-type QueryCorehrCustomOrgRespItemMatchRuleGroupMatchRule struct {
+// QueryCoreHRCustomOrgRespItemMatchRuleGroupMatchRule ...
+type QueryCoreHRCustomOrgRespItemMatchRuleGroupMatchRule struct {
 	LeftValue   string   `json:"left_value,omitempty"`   // 左值可选值有: 部门部门（含下级）工作地点工作地点（含下级）成本中心成本中心（含下级）职务职级序列序列（含下级）人员类型
 	Operator    string   `json:"operator,omitempty"`     // 操作符可选值有: 包含不包含
 	RightValues []string `json:"right_values,omitempty"` // 右值, 填写左值对应的 ID 列表。- [department]和[department_hierarchy]: 可通过[查询单个部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/department/get)获取详情, ID 类型需要为 [people_corehr_department_id]。- [work_location]和[work_location_hierarchy]: 可通过[查询单个地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/get)获取详情。- [cost_center]和[cost_center_hierarchy]: 可通过[搜索成本中心信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/cost_center/search)获取详情。- [job]: 可通过[查询单个职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job/get)获取详情。- [job_level]: 可通过[查询单个职级](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/get)获取详情。- [job_family]和[job_family_hierarchy]: 可通过[查询单个序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/get)获取详情。- [employee_type]: 可通过[查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/get)获取详情。
 }
 
-// QueryCorehrCustomOrgRespItemName ...
-type QueryCorehrCustomOrgRespItemName struct {
+// QueryCoreHRCustomOrgRespItemName ...
+type QueryCoreHRCustomOrgRespItemName struct {
 	Lang  string `json:"lang,omitempty"`  // 语言, 中文值是 zh-CN, 英文值是 en-US
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// QueryCorehrCustomOrgRespItemOrgRole ...
-type QueryCorehrCustomOrgRespItemOrgRole struct {
+// QueryCoreHRCustomOrgRespItemOrgRole ...
+type QueryCoreHRCustomOrgRespItemOrgRole struct {
 	ApiName              string   `json:"api_name,omitempty"`               // 角色key - 可以通过页面「飞书人事-设置-组织配置」选择对应自定义组织, 「字段配置-字段编码」获取
 	SecurityGroupID      string   `json:"security_group_id,omitempty"`      // 角色ID - 可以通过[批量获取角色列表](https://open.larkoffice.com/document/server-docs/corehr-v1/authorization/list) 获取, 数据为返回数据中的 data.items.id 值。筛选条件data.items.group_type ] 3（组织角色）, data.items.org_truncation 关联的组织有且仅有一个, data.items.org_truncation.org_key 等于当前查询自定义组织 object_api_name
 	EmploymentIDs        []string `json:"employment_ids,omitempty"`         // 直接授权的员工 ID 列表- 返回的 ID 类型为 [people_corehr_id]- 详细信息可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search) 或 [【批量查询员工】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get) 接口获取
 	InheritEmploymentIDs []string `json:"inherit_employment_ids,omitempty"` // 由于有上级组织权限而自动获取下级组织权限的员工 ID 列表- 返回的 ID 类型为 [people_corehr_id]- 详细信息可通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search) 或 [【批量查询员工】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get) 接口获取
 }
 
-// queryCorehrCustomOrgResp ...
-type queryCorehrCustomOrgResp struct {
+// queryCoreHRCustomOrgResp ...
+type queryCoreHRCustomOrgResp struct {
 	Code  int64                     `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                    `json:"msg,omitempty"`  // 错误描述
-	Data  *QueryCorehrCustomOrgResp `json:"data,omitempty"`
+	Data  *QueryCoreHRCustomOrgResp `json:"data,omitempty"`
 	Error *ErrorDetail              `json:"error,omitempty"`
 }

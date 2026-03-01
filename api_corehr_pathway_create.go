@@ -21,71 +21,71 @@ import (
 	"context"
 )
 
-// CreateCorehrPathway 创建通道, 可以定义通道的名称、编码和描述信息
+// CreateCoreHRPathway 创建通道, 可以定义通道的名称、编码和描述信息
 //
 // 非必填字段, 不传时默认为空
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/pathway/create
-func (r *CoreHRService) CreateCorehrPathway(ctx context.Context, request *CreateCorehrPathwayReq, options ...MethodOptionFunc) (*CreateCorehrPathwayResp, *Response, error) {
-	if r.cli.mock.mockCoreHRCreateCorehrPathway != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCorehrPathway mock enable")
-		return r.cli.mock.mockCoreHRCreateCorehrPathway(ctx, request, options...)
+func (r *CoreHRService) CreateCoreHRPathway(ctx context.Context, request *CreateCoreHRPathwayReq, options ...MethodOptionFunc) (*CreateCoreHRPathwayResp, *Response, error) {
+	if r.cli.mock.mockCoreHRCreateCoreHRPathway != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCoreHRPathway mock enable")
+		return r.cli.mock.mockCoreHRCreateCoreHRPathway(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "CreateCorehrPathway",
+		API:                   "CreateCoreHRPathway",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/pathways",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(createCorehrPathwayResp)
+	resp := new(createCoreHRPathwayResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRCreateCorehrPathway mock CoreHRCreateCorehrPathway method
-func (r *Mock) MockCoreHRCreateCorehrPathway(f func(ctx context.Context, request *CreateCorehrPathwayReq, options ...MethodOptionFunc) (*CreateCorehrPathwayResp, *Response, error)) {
-	r.mockCoreHRCreateCorehrPathway = f
+// MockCoreHRCreateCoreHRPathway mock CoreHRCreateCoreHRPathway method
+func (r *Mock) MockCoreHRCreateCoreHRPathway(f func(ctx context.Context, request *CreateCoreHRPathwayReq, options ...MethodOptionFunc) (*CreateCoreHRPathwayResp, *Response, error)) {
+	r.mockCoreHRCreateCoreHRPathway = f
 }
 
-// UnMockCoreHRCreateCorehrPathway un-mock CoreHRCreateCorehrPathway method
-func (r *Mock) UnMockCoreHRCreateCorehrPathway() {
-	r.mockCoreHRCreateCorehrPathway = nil
+// UnMockCoreHRCreateCoreHRPathway un-mock CoreHRCreateCoreHRPathway method
+func (r *Mock) UnMockCoreHRCreateCoreHRPathway() {
+	r.mockCoreHRCreateCoreHRPathway = nil
 }
 
-// CreateCorehrPathwayReq ...
-type CreateCorehrPathwayReq struct {
+// CreateCoreHRPathwayReq ...
+type CreateCoreHRPathwayReq struct {
 	ClientToken  *string                              `query:"client_token" json:"-"` // 根据client_token是否一致来判断是否为同一请求示例值: 12454646
 	Code         *string                              `json:"code,omitempty"`         // 编码示例值: "A01234"
-	Names        []*CreateCorehrPathwayReqName        `json:"names,omitempty"`        // 名称 长度范围: `0` ～ `2`
-	Descriptions []*CreateCorehrPathwayReqDescription `json:"descriptions,omitempty"` // 描述 长度范围: `0` ～ `2`
+	Names        []*CreateCoreHRPathwayReqName        `json:"names,omitempty"`        // 名称 长度范围: `0` ～ `2`
+	Descriptions []*CreateCoreHRPathwayReqDescription `json:"descriptions,omitempty"` // 描述 长度范围: `0` ～ `2`
 }
 
-// CreateCorehrPathwayReqDescription ...
-type CreateCorehrPathwayReqDescription struct {
+// CreateCoreHRPathwayReqDescription ...
+type CreateCoreHRPathwayReqDescription struct {
 	Lang  string `json:"lang,omitempty"`  // 中文用zh-CN, 英文用en-US示例值: "zh-CN"
 	Value string `json:"value,omitempty"` // 文本内容, 最长支持2000个字符示例值: "中文示例"
 }
 
-// CreateCorehrPathwayReqName ...
-type CreateCorehrPathwayReqName struct {
+// CreateCoreHRPathwayReqName ...
+type CreateCoreHRPathwayReqName struct {
 	Lang  string `json:"lang,omitempty"`  // 中文用zh-CN, 英文用en-US示例值: "zh-CN"
 	Value string `json:"value,omitempty"` // --文本内容, 最长支持255个字符- 名称不能包含「/」「；」「;」「\」「'」字符示例值: "中文示例"
 }
 
-// CreateCorehrPathwayResp ...
-type CreateCorehrPathwayResp struct {
+// CreateCoreHRPathwayResp ...
+type CreateCoreHRPathwayResp struct {
 	PathwayID string `json:"pathway_id,omitempty"` // 通道ID
 }
 
-// createCorehrPathwayResp ...
-type createCorehrPathwayResp struct {
+// createCoreHRPathwayResp ...
+type createCoreHRPathwayResp struct {
 	Code  int64                    `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                   `json:"msg,omitempty"`  // 错误描述
-	Data  *CreateCorehrPathwayResp `json:"data,omitempty"`
+	Data  *CreateCoreHRPathwayResp `json:"data,omitempty"`
 	Error *ErrorDetail             `json:"error,omitempty"`
 }

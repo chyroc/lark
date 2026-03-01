@@ -21,422 +21,422 @@ import (
 	"context"
 )
 
-// SearchCorehrSignatureTemplate 根据多个模板ID获取电子签模板基本信息和内容列表。
+// SearchCoreHRSignatureTemplate 根据多个模板ID获取电子签模板基本信息和内容列表。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/signature_template/search
 // new doc: https://open.feishu.cn/document/corehr-v1/siganture/signature_template_info_with_thumbnail/search
-func (r *CoreHRService) SearchCorehrSignatureTemplate(ctx context.Context, request *SearchCorehrSignatureTemplateReq, options ...MethodOptionFunc) (*SearchCorehrSignatureTemplateResp, *Response, error) {
-	if r.cli.mock.mockCoreHRSearchCorehrSignatureTemplate != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#SearchCorehrSignatureTemplate mock enable")
-		return r.cli.mock.mockCoreHRSearchCorehrSignatureTemplate(ctx, request, options...)
+func (r *CoreHRService) SearchCoreHRSignatureTemplate(ctx context.Context, request *SearchCoreHRSignatureTemplateReq, options ...MethodOptionFunc) (*SearchCoreHRSignatureTemplateResp, *Response, error) {
+	if r.cli.mock.mockCoreHRSearchCoreHRSignatureTemplate != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#SearchCoreHRSignatureTemplate mock enable")
+		return r.cli.mock.mockCoreHRSearchCoreHRSignatureTemplate(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "SearchCorehrSignatureTemplate",
+		API:                   "SearchCoreHRSignatureTemplate",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/signature_templates/search",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(searchCorehrSignatureTemplateResp)
+	resp := new(searchCoreHRSignatureTemplateResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRSearchCorehrSignatureTemplate mock CoreHRSearchCorehrSignatureTemplate method
-func (r *Mock) MockCoreHRSearchCorehrSignatureTemplate(f func(ctx context.Context, request *SearchCorehrSignatureTemplateReq, options ...MethodOptionFunc) (*SearchCorehrSignatureTemplateResp, *Response, error)) {
-	r.mockCoreHRSearchCorehrSignatureTemplate = f
+// MockCoreHRSearchCoreHRSignatureTemplate mock CoreHRSearchCoreHRSignatureTemplate method
+func (r *Mock) MockCoreHRSearchCoreHRSignatureTemplate(f func(ctx context.Context, request *SearchCoreHRSignatureTemplateReq, options ...MethodOptionFunc) (*SearchCoreHRSignatureTemplateResp, *Response, error)) {
+	r.mockCoreHRSearchCoreHRSignatureTemplate = f
 }
 
-// UnMockCoreHRSearchCorehrSignatureTemplate un-mock CoreHRSearchCorehrSignatureTemplate method
-func (r *Mock) UnMockCoreHRSearchCorehrSignatureTemplate() {
-	r.mockCoreHRSearchCorehrSignatureTemplate = nil
+// UnMockCoreHRSearchCoreHRSignatureTemplate un-mock CoreHRSearchCoreHRSignatureTemplate method
+func (r *Mock) UnMockCoreHRSearchCoreHRSignatureTemplate() {
+	r.mockCoreHRSearchCoreHRSignatureTemplate = nil
 }
 
-// SearchCorehrSignatureTemplateReq ...
-type SearchCorehrSignatureTemplateReq struct {
+// SearchCoreHRSignatureTemplateReq ...
+type SearchCoreHRSignatureTemplateReq struct {
 	TemplateIDs       []string `query:"template_ids" json:"-"`        // 电子签模板ids, 用英文逗号分隔；如果不传 则返回所有电子签模版信息示例值: 7223256427270260268, 7182520625066475540
 	SelectCustomField *bool    `query:"select_custom_field" json:"-"` // 是否需要模板自定义字段, 如果不需要, 则默认只返回模板的系统字段。示例值: true
 }
 
-// SearchCorehrSignatureTemplateResp ...
-type SearchCorehrSignatureTemplateResp struct {
-	SignatureTemplates []*SearchCorehrSignatureTemplateRespSignatureTemplate `json:"signature_templates,omitempty"` // 返回的电子签模板列表
+// SearchCoreHRSignatureTemplateResp ...
+type SearchCoreHRSignatureTemplateResp struct {
+	SignatureTemplates []*SearchCoreHRSignatureTemplateRespSignatureTemplate `json:"signature_templates,omitempty"` // 返回的电子签模板列表
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplate ...
-type SearchCorehrSignatureTemplateRespSignatureTemplate struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplate ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplate struct {
 	ID          string                                                         `json:"id,omitempty"`           // 电子签模板id
-	BriefInfo   *SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfo   `json:"brief_info,omitempty"`   // 模板基本信息
-	ContentInfo *SearchCorehrSignatureTemplateRespSignatureTemplateContentInfo `json:"content_info,omitempty"` // 模板内容
+	BriefInfo   *SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfo   `json:"brief_info,omitempty"`   // 模板基本信息
+	ContentInfo *SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfo `json:"content_info,omitempty"` // 模板内容
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfo ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfo struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfo ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfo struct {
 	ID                 string                                                                         `json:"id,omitempty"`                   // 电子签模板id
-	Label              []*SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoLabel            `json:"label,omitempty"`                // 模板名称
+	Label              []*SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoLabel            `json:"label,omitempty"`                // 模板名称
 	Category           *HelpdeskCategory                                                              `json:"category,omitempty"`             // 电子签模板分类, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)电子签模板类型（signature_template_category）枚举定义部分获得
-	Usage              *SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoUsage              `json:"usage,omitempty"`                // 电子签模板用途, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)电子签模板用途（signature_template_usage）枚举定义部分获得
-	SignatoryLabels    []*SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoSignatoryLabel   `json:"signatory_labels,omitempty"`     // 模版签署对象
+	Usage              *SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoUsage              `json:"usage,omitempty"`                // 电子签模板用途, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)电子签模板用途（signature_template_usage）枚举定义部分获得
+	SignatoryLabels    []*SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoSignatoryLabel   `json:"signatory_labels,omitempty"`     // 模版签署对象
 	Active             bool                                                                           `json:"active,omitempty"`               // 是否激活
 	CreateBy           string                                                                         `json:"create_by,omitempty"`            // 创建人的雇佣ID, 详细信息可通过[【查询员工信息接口】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)获取
 	ModifyBy           string                                                                         `json:"modify_by,omitempty"`            // 修改人的雇佣ID, 详细信息可通过[【查询员工信息接口】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)获取
-	Applicability      *SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoApplicability      `json:"applicability,omitempty"`        // 电子签模板适用范围, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)电子签模板适用范围（signature_template_applicability）枚举定义部分
+	Applicability      *SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoApplicability      `json:"applicability,omitempty"`        // 电子签模板适用范围, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)电子签模板适用范围（signature_template_applicability）枚举定义部分
 	CreationMethod     string                                                                         `json:"creation_method,omitempty"`      // 模板创建方式
 	Version            string                                                                         `json:"version,omitempty"`              // 版本
 	UpdateTime         string                                                                         `json:"update_time,omitempty"`          // 更新时间
 	CreateTime         string                                                                         `json:"create_time,omitempty"`          // 创建时间
-	TemplateSetting    *SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoTemplateSetting    `json:"template_setting,omitempty"`     // 模板设置
-	TemplateRegionInfo *SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoTemplateRegionInfo `json:"template_region_info,omitempty"` // 模板适用区域
+	TemplateSetting    *SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoTemplateSetting    `json:"template_setting,omitempty"`     // 模板设置
+	TemplateRegionInfo *SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoTemplateRegionInfo `json:"template_region_info,omitempty"` // 模板适用区域
 	TemplateCode       string                                                                         `json:"template_code,omitempty"`        // 模板编码
-	TemplateDesc       []*SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoTemplateDesc     `json:"template_desc,omitempty"`        // 模板描述 支持多语
+	TemplateDesc       []*SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoTemplateDesc     `json:"template_desc,omitempty"`        // 模板描述 支持多语
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoApplicability ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoApplicability struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoApplicability ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoApplicability struct {
 	EnumName string                                                                             `json:"enum_name,omitempty"` // 模板适用范围枚举值
-	Display  []*SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoApplicabilityDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoApplicabilityDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoApplicabilityDisplay ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoApplicabilityDisplay struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoApplicabilityDisplay ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoApplicabilityDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoCategory ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoCategory struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoCategory ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoCategory struct {
 	EnumName string                                                                        `json:"enum_name,omitempty"` // 模板类别名称
-	Display  []*SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoCategoryDisplay `json:"display,omitempty"`   // 模板类别对应的多语展示
+	Display  []*SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoCategoryDisplay `json:"display,omitempty"`   // 模板类别对应的多语展示
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoCategoryDisplay ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoCategoryDisplay struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoCategoryDisplay ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoCategoryDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 中文
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoLabel ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoLabel struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoLabel ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoLabel struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 模板名
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoSignatoryLabel ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoSignatoryLabel struct {
-	TemplateSignatoryType *SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoSignatoryLabelTemplateSignatoryType `json:"template_signatory_type,omitempty"` // 电子签模板签署对象类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)电子签模板签署对象类型（signature_template_signatory_type）枚举定义部分获得
-	Label                 []*SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoSignatoryLabelLabel               `json:"label,omitempty"`                   // 字段多语展示
+// SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoSignatoryLabel ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoSignatoryLabel struct {
+	TemplateSignatoryType *SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoSignatoryLabelTemplateSignatoryType `json:"template_signatory_type,omitempty"` // 电子签模板签署对象类型, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)电子签模板签署对象类型（signature_template_signatory_type）枚举定义部分获得
+	Label                 []*SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoSignatoryLabelLabel               `json:"label,omitempty"`                   // 字段多语展示
 	Apiname               string                                                                                          `json:"apiname,omitempty"`                 // 模板签署类型名
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoSignatoryLabelLabel ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoSignatoryLabelLabel struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoSignatoryLabelLabel ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoSignatoryLabelLabel struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoSignatoryLabelTemplateSignatoryType ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoSignatoryLabelTemplateSignatoryType struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoSignatoryLabelTemplateSignatoryType ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoSignatoryLabelTemplateSignatoryType struct {
 	EnumName string                                                                                                   `json:"enum_name,omitempty"` // 模板签署对象类型对应的枚举值
-	Display  []*SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoSignatoryLabelTemplateSignatoryTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoSignatoryLabelTemplateSignatoryTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoSignatoryLabelTemplateSignatoryTypeDisplay ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoSignatoryLabelTemplateSignatoryTypeDisplay struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoSignatoryLabelTemplateSignatoryTypeDisplay ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoSignatoryLabelTemplateSignatoryTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 中文
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoTemplateDesc ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoTemplateDesc struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoTemplateDesc ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoTemplateDesc struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoTemplateRegionInfo ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoTemplateRegionInfo struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoTemplateRegionInfo ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoTemplateRegionInfo struct {
 	IsGlobalScope string                                                                                   `json:"is_global_scope,omitempty"` // 是否全球适用
-	MetaInfos     []*SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoTemplateRegionInfoMetaInfo `json:"meta_infos,omitempty"`      // 适用区域名称
+	MetaInfos     []*SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoTemplateRegionInfoMetaInfo `json:"meta_infos,omitempty"`      // 适用区域名称
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoTemplateRegionInfoMetaInfo ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoTemplateRegionInfoMetaInfo struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoTemplateRegionInfoMetaInfo ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoTemplateRegionInfoMetaInfo struct {
 	ApiName string                                                                                        `json:"api_name,omitempty"` // 区域名称apiName
 	WkID    string                                                                                        `json:"wk_id,omitempty"`    // 区域对应的唯一ID
-	Label   []*SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoTemplateRegionInfoMetaInfoLabel `json:"label,omitempty"`    // 多语描述
+	Label   []*SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoTemplateRegionInfoMetaInfoLabel `json:"label,omitempty"`    // 多语描述
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoTemplateRegionInfoMetaInfoLabel ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoTemplateRegionInfoMetaInfoLabel struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoTemplateRegionInfoMetaInfoLabel ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoTemplateRegionInfoMetaInfoLabel struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoTemplateSetting ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoTemplateSetting struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoTemplateSetting ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoTemplateSetting struct {
 	PageSealTypes []string `json:"page_seal_types,omitempty"` // 骑缝章类型
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoUsage ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoUsage struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoUsage ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoUsage struct {
 	EnumName string                                                                     `json:"enum_name,omitempty"` // 模板用途名称
-	Display  []*SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoUsageDisplay `json:"display,omitempty"`   // 模板用途的多语展示
+	Display  []*SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoUsageDisplay `json:"display,omitempty"`   // 模板用途的多语展示
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoUsageDisplay ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateBriefInfoUsageDisplay struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoUsageDisplay ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateBriefInfoUsageDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 人事合同 / 协议
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateContentInfo ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateContentInfo struct {
-	Contents            []*SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoContent            `json:"contents,omitempty"`              // 【已废弃, 无需关注】
-	CustomFields        []*SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoCustomField        `json:"custom_fields,omitempty"`         // 自定义字段列表
-	FilterFields        []*SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoFilterField        `json:"filter_fields,omitempty"`         // 【已废弃, 无需关注】
-	UsingFields         []*SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoUsingField         `json:"using_fields,omitempty"`          // 【已废弃, 无需关注】
-	SystemSettingFields []*SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingField `json:"system_setting_fields,omitempty"` // 系统字段列表
+// SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfo ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfo struct {
+	Contents            []*SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoContent            `json:"contents,omitempty"`              // 【已废弃, 无需关注】
+	CustomFields        []*SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoCustomField        `json:"custom_fields,omitempty"`         // 自定义字段列表
+	FilterFields        []*SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoFilterField        `json:"filter_fields,omitempty"`         // 【已废弃, 无需关注】
+	UsingFields         []*SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoUsingField         `json:"using_fields,omitempty"`          // 【已废弃, 无需关注】
+	SystemSettingFields []*SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingField `json:"system_setting_fields,omitempty"` // 系统字段列表
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoContent ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoContent struct {
-	ContentType   *SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoContentContentType `json:"content_type,omitempty"`   // 电子签模版内容的类型
+// SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoContent ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoContent struct {
+	ContentType   *SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoContentContentType `json:"content_type,omitempty"`   // 电子签模版内容的类型
 	FilterApiname string                                                                           `json:"filter_apiname,omitempty"` // 显示规则左值
 	Content       string                                                                           `json:"content,omitempty"`        // 模版内容
-	Label         []*SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoContentLabel     `json:"label,omitempty"`          // 中英文描述
+	Label         []*SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoContentLabel     `json:"label,omitempty"`          // 中英文描述
 	ContentDesc   string                                                                           `json:"content_desc,omitempty"`   // 内容描述
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoContentContentType ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoContentContentType struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoContentContentType ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoContentContentType struct {
 	EnumName string                                                                                    `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoContentContentTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoContentContentTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoContentContentTypeDisplay ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoContentContentTypeDisplay struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoContentContentTypeDisplay ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoContentContentTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoContentLabel ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoContentLabel struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoContentLabel ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoContentLabel struct {
 	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoCustomField ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoCustomField struct {
-	Label           []*SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoCustomFieldLabel         `json:"label,omitempty"`             // 中英文描述
+// SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoCustomField ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoCustomField struct {
+	Label           []*SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoCustomFieldLabel         `json:"label,omitempty"`             // 中英文描述
 	Apiname         string                                                                                   `json:"apiname,omitempty"`           // 字段名
-	CustomFieldType *SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoCustomFieldCustomFieldType `json:"custom_field_type,omitempty"` // 用户自定义字段类型
+	CustomFieldType *SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoCustomFieldCustomFieldType `json:"custom_field_type,omitempty"` // 用户自定义字段类型
 	Used            bool                                                                                     `json:"used,omitempty"`              // 是否使用到
 	IsRequired      bool                                                                                     `json:"is_required,omitempty"`       // 是否需要
 	CustomDesc      string                                                                                   `json:"custom_desc,omitempty"`       // 自定义描述
-	CommonInfo      *SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoCustomFieldCommonInfo      `json:"common_info,omitempty"`       // 电子签模版公共字段信息
+	CommonInfo      *SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoCustomFieldCommonInfo      `json:"common_info,omitempty"`       // 电子签模版公共字段信息
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoCustomFieldCommonInfo ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoCustomFieldCommonInfo struct {
-	Source  *SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoCustomFieldCommonInfoSource `json:"source,omitempty"`  // 模板字段源类型；枚举值填到enum_name中, 如: "System" "MainData"
+// SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoCustomFieldCommonInfo ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoCustomFieldCommonInfo struct {
+	Source  *SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoCustomFieldCommonInfoSource `json:"source,omitempty"`  // 模板字段源类型；枚举值填到enum_name中, 如: "System" "MainData"
 	Apiname string                                                                                    `json:"apiname,omitempty"` // 主数据apiname
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoCustomFieldCommonInfoSource ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoCustomFieldCommonInfoSource struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoCustomFieldCommonInfoSource ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoCustomFieldCommonInfoSource struct {
 	EnumName string                                                                                             `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoCustomFieldCommonInfoSourceDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoCustomFieldCommonInfoSourceDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoCustomFieldCommonInfoSourceDisplay ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoCustomFieldCommonInfoSourceDisplay struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoCustomFieldCommonInfoSourceDisplay ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoCustomFieldCommonInfoSourceDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoCustomFieldCustomFieldType ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoCustomFieldCustomFieldType struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoCustomFieldCustomFieldType ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoCustomFieldCustomFieldType struct {
 	EnumName string                                                                                            `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoCustomFieldCustomFieldTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoCustomFieldCustomFieldTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoCustomFieldCustomFieldTypeDisplay ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoCustomFieldCustomFieldTypeDisplay struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoCustomFieldCustomFieldTypeDisplay ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoCustomFieldCustomFieldTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoCustomFieldLabel ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoCustomFieldLabel struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoCustomFieldLabel ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoCustomFieldLabel struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoFilterField ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoFilterField struct {
-	Label         []*SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoFilterFieldLabel  `json:"label,omitempty"`          // 双语描述
+// SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoFilterField ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoFilterField struct {
+	Label         []*SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoFilterFieldLabel  `json:"label,omitempty"`          // 双语描述
 	Apiname       string                                                                            `json:"apiname,omitempty"`        // 主数据apiname
-	Filters       []*SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoFilterFieldFilter `json:"filters,omitempty"`        // 过滤条件列表
-	Logic         *SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoFilterFieldLogic    `json:"logic,omitempty"`          // 多个生效条件的logic
+	Filters       []*SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoFilterFieldFilter `json:"filters,omitempty"`        // 过滤条件列表
+	Logic         *SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoFilterFieldLogic    `json:"logic,omitempty"`          // 多个生效条件的logic
 	IsChecked     bool                                                                              `json:"is_checked,omitempty"`     // 是否被校验
 	FilterDesc    string                                                                            `json:"filter_desc,omitempty"`    // 过滤条件描述
 	CriterionList string                                                                            `json:"criterion_list,omitempty"` // 过滤条件列表, 使用string类型描述list的原因是为了避免循环引用问题, 因为该list的item类型就是这个数据类型
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoFilterFieldFilter ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoFilterFieldFilter struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoFilterFieldFilter ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoFilterFieldFilter struct {
 	Left   string                                                                            `json:"left,omitempty"`   // 左值
 	Rights []string                                                                          `json:"rights,omitempty"` // 右值列表
-	Op     *SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoFilterFieldFilterOp `json:"op,omitempty"`     // 操作符
+	Op     *SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoFilterFieldFilterOp `json:"op,omitempty"`     // 操作符
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoFilterFieldFilterOp ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoFilterFieldFilterOp struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoFilterFieldFilterOp ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoFilterFieldFilterOp struct {
 	EnumName string                                                                                     `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoFilterFieldFilterOpDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoFilterFieldFilterOpDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoFilterFieldFilterOpDisplay ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoFilterFieldFilterOpDisplay struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoFilterFieldFilterOpDisplay ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoFilterFieldFilterOpDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoFilterFieldLabel ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoFilterFieldLabel struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoFilterFieldLabel ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoFilterFieldLabel struct {
 	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoFilterFieldLogic ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoFilterFieldLogic struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoFilterFieldLogic ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoFilterFieldLogic struct {
 	EnumName string                                                                                  `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoFilterFieldLogicDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoFilterFieldLogicDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoFilterFieldLogicDisplay ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoFilterFieldLogicDisplay struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoFilterFieldLogicDisplay ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoFilterFieldLogicDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingField ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingField struct {
-	FieldType         *SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldFieldType         `json:"field_type,omitempty"`          // 模板字段值类型枚举
-	Label             []*SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldLabel           `json:"label,omitempty"`               // 双语描述
-	CommonInfo        *SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCommonInfo        `json:"common_info,omitempty"`         // 【无需关注】通用字段信息
-	CombinationInfo   *SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfo   `json:"combination_info,omitempty"`    // 【无需关注】组合字段信息
+// SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingField ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingField struct {
+	FieldType         *SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldFieldType         `json:"field_type,omitempty"`          // 模板字段值类型枚举
+	Label             []*SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldLabel           `json:"label,omitempty"`               // 双语描述
+	CommonInfo        *SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCommonInfo        `json:"common_info,omitempty"`         // 【无需关注】通用字段信息
+	CombinationInfo   *SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfo   `json:"combination_info,omitempty"`    // 【无需关注】组合字段信息
 	Children          string                                                                                            `json:"children,omitempty"`            // 【无需关注】子模板配置信息列表对应的string, 避免循环引用问题
-	CombinationInfoV2 *SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfoV2 `json:"combination_info_v2,omitempty"` // 弃用, 无需关注
+	CombinationInfoV2 *SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfoV2 `json:"combination_info_v2,omitempty"` // 弃用, 无需关注
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfo ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfo struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfo ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfo struct {
 	TotalApiname int64                                                                                                  `json:"total_apiname,omitempty"` // 【无需关注】组合字段名
 	Apiname      string                                                                                                 `json:"apiname,omitempty"`       // 字段名
-	Title        []*SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfoTitle `json:"title,omitempty"`         // 中英文描述
+	Title        []*SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfoTitle `json:"title,omitempty"`         // 中英文描述
 	Contents     [][]interface{}                                                                                        `json:"contents,omitempty"`      // 适用区域名称
-	Source       *SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfoSource  `json:"source,omitempty"`        // 【无需关注】电子签模板字段源类型
+	Source       *SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfoSource  `json:"source,omitempty"`        // 【无需关注】电子签模板字段源类型
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfoSource ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfoSource struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfoSource ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfoSource struct {
 	EnumName string                                                                                                         `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfoSourceDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfoSourceDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfoSourceDisplay ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfoSourceDisplay struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfoSourceDisplay ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfoSourceDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfoTitle ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfoTitle struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfoTitle ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfoTitle struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfoV2 ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfoV2 struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfoV2 ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfoV2 struct {
 	TotalApiname int64                                                                                                   `json:"total_apiname,omitempty"` // 弃用, 无需关注
 	Apiname      string                                                                                                  `json:"apiname,omitempty"`       // 弃用, 无需关注
-	Source       *SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfoV2Source `json:"source,omitempty"`        // 弃用, 无需关注
+	Source       *SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfoV2Source `json:"source,omitempty"`        // 弃用, 无需关注
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfoV2Source ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfoV2Source struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfoV2Source ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfoV2Source struct {
 	EnumName string                                                                                                           `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfoV2SourceDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfoV2SourceDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfoV2SourceDisplay ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfoV2SourceDisplay struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfoV2SourceDisplay ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCombinationInfoV2SourceDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCommonInfo ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCommonInfo struct {
-	Source  *SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCommonInfoSource `json:"source,omitempty"`  // 模板字段源类型- System- MainData
+// SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCommonInfo ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCommonInfo struct {
+	Source  *SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCommonInfoSource `json:"source,omitempty"`  // 模板字段源类型- System- MainData
 	Apiname string                                                                                           `json:"apiname,omitempty"` // 字段名称
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCommonInfoSource ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCommonInfoSource struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCommonInfoSource ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCommonInfoSource struct {
 	EnumName string                                                                                                    `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCommonInfoSourceDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCommonInfoSourceDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCommonInfoSourceDisplay ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCommonInfoSourceDisplay struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCommonInfoSourceDisplay ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldCommonInfoSourceDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldFieldType ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldFieldType struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldFieldType ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldFieldType struct {
 	EnumName string                                                                                             `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldFieldTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldFieldTypeDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldFieldTypeDisplay ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldFieldTypeDisplay struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldFieldTypeDisplay ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldFieldTypeDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldLabel ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldLabel struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldLabel ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoSystemSettingFieldLabel struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoUsingField ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoUsingField struct {
-	Source  *SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoUsingFieldSource `json:"source,omitempty"`  // 模板字段源类型；枚举值填到enum_name中, 如: "System" "MainData"
+// SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoUsingField ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoUsingField struct {
+	Source  *SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoUsingFieldSource `json:"source,omitempty"`  // 模板字段源类型；枚举值填到enum_name中, 如: "System" "MainData"
 	Apiname string                                                                         `json:"apiname,omitempty"` // 字段名
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoUsingFieldSource ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoUsingFieldSource struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoUsingFieldSource ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoUsingFieldSource struct {
 	EnumName string                                                                                  `json:"enum_name,omitempty"` // 枚举值
-	Display  []*SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoUsingFieldSourceDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoUsingFieldSourceDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoUsingFieldSourceDisplay ...
-type SearchCorehrSignatureTemplateRespSignatureTemplateContentInfoUsingFieldSourceDisplay struct {
+// SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoUsingFieldSourceDisplay ...
+type SearchCoreHRSignatureTemplateRespSignatureTemplateContentInfoUsingFieldSourceDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言编码（IETF BCP 47）
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// searchCorehrSignatureTemplateResp ...
-type searchCorehrSignatureTemplateResp struct {
+// searchCoreHRSignatureTemplateResp ...
+type searchCoreHRSignatureTemplateResp struct {
 	Code  int64                              `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                             `json:"msg,omitempty"`  // 错误描述
-	Data  *SearchCorehrSignatureTemplateResp `json:"data,omitempty"`
+	Data  *SearchCoreHRSignatureTemplateResp `json:"data,omitempty"`
 	Error *ErrorDetail                       `json:"error,omitempty"`
 }

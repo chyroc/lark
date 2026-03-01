@@ -21,43 +21,43 @@ import (
 	"context"
 )
 
-// CreatePassportSessionLogout 该接口用于退出用户的登录态
+// LogoutPassportSession 该接口用于退出用户的登录态
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/passport-v1/session/logout
 // new doc: https://open.feishu.cn/document/authentication-management/login-state-management/logout
-func (r *PassportService) CreatePassportSessionLogout(ctx context.Context, request *CreatePassportSessionLogoutReq, options ...MethodOptionFunc) (*CreatePassportSessionLogoutResp, *Response, error) {
-	if r.cli.mock.mockPassportCreatePassportSessionLogout != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] Passport#CreatePassportSessionLogout mock enable")
-		return r.cli.mock.mockPassportCreatePassportSessionLogout(ctx, request, options...)
+func (r *PassportService) LogoutPassportSession(ctx context.Context, request *LogoutPassportSessionReq, options ...MethodOptionFunc) (*LogoutPassportSessionResp, *Response, error) {
+	if r.cli.mock.mockPassportLogoutPassportSession != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Passport#LogoutPassportSession mock enable")
+		return r.cli.mock.mockPassportLogoutPassportSession(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "Passport",
-		API:                   "CreatePassportSessionLogout",
+		API:                   "LogoutPassportSession",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/passport/v1/sessions/logout",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(createPassportSessionLogoutResp)
+	resp := new(logoutPassportSessionResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockPassportCreatePassportSessionLogout mock PassportCreatePassportSessionLogout method
-func (r *Mock) MockPassportCreatePassportSessionLogout(f func(ctx context.Context, request *CreatePassportSessionLogoutReq, options ...MethodOptionFunc) (*CreatePassportSessionLogoutResp, *Response, error)) {
-	r.mockPassportCreatePassportSessionLogout = f
+// MockPassportLogoutPassportSession mock PassportLogoutPassportSession method
+func (r *Mock) MockPassportLogoutPassportSession(f func(ctx context.Context, request *LogoutPassportSessionReq, options ...MethodOptionFunc) (*LogoutPassportSessionResp, *Response, error)) {
+	r.mockPassportLogoutPassportSession = f
 }
 
-// UnMockPassportCreatePassportSessionLogout un-mock PassportCreatePassportSessionLogout method
-func (r *Mock) UnMockPassportCreatePassportSessionLogout() {
-	r.mockPassportCreatePassportSessionLogout = nil
+// UnMockPassportLogoutPassportSession un-mock PassportLogoutPassportSession method
+func (r *Mock) UnMockPassportLogoutPassportSession() {
+	r.mockPassportLogoutPassportSession = nil
 }
 
-// CreatePassportSessionLogoutReq ...
-type CreatePassportSessionLogoutReq struct {
+// LogoutPassportSessionReq ...
+type LogoutPassportSessionReq struct {
 	UserIDType      *IDType `query:"user_id_type" json:"-"`      // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	IdpCredentialID *string `json:"idp_credential_id,omitempty"` // idp 侧的唯一标识, logout_type = 2 时必填示例值: "user@xxx.xx"
 	LogoutType      int64   `json:"logout_type,omitempty"`       // 登出的方式示例值: 1可选值有: UserID, 使用开放平台的维度登出IdpCredentialID, 使用 idp 侧的唯一标识登出Session 标识符, 基于session uuid 登出
@@ -67,14 +67,14 @@ type CreatePassportSessionLogoutReq struct {
 	Sid             *string `json:"sid,omitempty"`               // 需要精确登出的 session 标识符, logout_type = 3 时必填示例值: "AAAAAAAAAANll6nQoIAAFA["
 }
 
-// CreatePassportSessionLogoutResp ...
-type CreatePassportSessionLogoutResp struct {
+// LogoutPassportSessionResp ...
+type LogoutPassportSessionResp struct {
 }
 
-// createPassportSessionLogoutResp ...
-type createPassportSessionLogoutResp struct {
-	Code  int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg   string                           `json:"msg,omitempty"`  // 错误描述
-	Data  *CreatePassportSessionLogoutResp `json:"data,omitempty"`
-	Error *ErrorDetail                     `json:"error,omitempty"`
+// logoutPassportSessionResp ...
+type logoutPassportSessionResp struct {
+	Code  int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                     `json:"msg,omitempty"`  // 错误描述
+	Data  *LogoutPassportSessionResp `json:"data,omitempty"`
+	Error *ErrorDetail               `json:"error,omitempty"`
 }

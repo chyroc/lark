@@ -21,56 +21,56 @@ import (
 	"context"
 )
 
-// UpdateAPaaSWorkspaceTableRecordsBatchUpdate 批量更新数据表中的记录
+// BatchUpdateAPaaSWorkspaceTableRecords 批量更新数据表中的记录
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/workspace-table/records_batch_update
-func (r *APaaSService) UpdateAPaaSWorkspaceTableRecordsBatchUpdate(ctx context.Context, request *UpdateAPaaSWorkspaceTableRecordsBatchUpdateReq, options ...MethodOptionFunc) (*UpdateAPaaSWorkspaceTableRecordsBatchUpdateResp, *Response, error) {
-	if r.cli.mock.mockAPaaSUpdateAPaaSWorkspaceTableRecordsBatchUpdate != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] APaaS#UpdateAPaaSWorkspaceTableRecordsBatchUpdate mock enable")
-		return r.cli.mock.mockAPaaSUpdateAPaaSWorkspaceTableRecordsBatchUpdate(ctx, request, options...)
+func (r *APaaSService) BatchUpdateAPaaSWorkspaceTableRecords(ctx context.Context, request *BatchUpdateAPaaSWorkspaceTableRecordsReq, options ...MethodOptionFunc) (*BatchUpdateAPaaSWorkspaceTableRecordsResp, *Response, error) {
+	if r.cli.mock.mockAPaaSBatchUpdateAPaaSWorkspaceTableRecords != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] APaaS#BatchUpdateAPaaSWorkspaceTableRecords mock enable")
+		return r.cli.mock.mockAPaaSBatchUpdateAPaaSWorkspaceTableRecords(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:               "APaaS",
-		API:                 "UpdateAPaaSWorkspaceTableRecordsBatchUpdate",
+		API:                 "BatchUpdateAPaaSWorkspaceTableRecords",
 		Method:              "PATCH",
 		URL:                 r.cli.openBaseURL + "/open-apis/apaas/v1/workspaces/:workspace_id/tables/:table_name/records_batch_update",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 	}
-	resp := new(updateAPaaSWorkspaceTableRecordsBatchUpdateResp)
+	resp := new(batchUpdateAPaaSWorkspaceTableRecordsResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockAPaaSUpdateAPaaSWorkspaceTableRecordsBatchUpdate mock APaaSUpdateAPaaSWorkspaceTableRecordsBatchUpdate method
-func (r *Mock) MockAPaaSUpdateAPaaSWorkspaceTableRecordsBatchUpdate(f func(ctx context.Context, request *UpdateAPaaSWorkspaceTableRecordsBatchUpdateReq, options ...MethodOptionFunc) (*UpdateAPaaSWorkspaceTableRecordsBatchUpdateResp, *Response, error)) {
-	r.mockAPaaSUpdateAPaaSWorkspaceTableRecordsBatchUpdate = f
+// MockAPaaSBatchUpdateAPaaSWorkspaceTableRecords mock APaaSBatchUpdateAPaaSWorkspaceTableRecords method
+func (r *Mock) MockAPaaSBatchUpdateAPaaSWorkspaceTableRecords(f func(ctx context.Context, request *BatchUpdateAPaaSWorkspaceTableRecordsReq, options ...MethodOptionFunc) (*BatchUpdateAPaaSWorkspaceTableRecordsResp, *Response, error)) {
+	r.mockAPaaSBatchUpdateAPaaSWorkspaceTableRecords = f
 }
 
-// UnMockAPaaSUpdateAPaaSWorkspaceTableRecordsBatchUpdate un-mock APaaSUpdateAPaaSWorkspaceTableRecordsBatchUpdate method
-func (r *Mock) UnMockAPaaSUpdateAPaaSWorkspaceTableRecordsBatchUpdate() {
-	r.mockAPaaSUpdateAPaaSWorkspaceTableRecordsBatchUpdate = nil
+// UnMockAPaaSBatchUpdateAPaaSWorkspaceTableRecords un-mock APaaSBatchUpdateAPaaSWorkspaceTableRecords method
+func (r *Mock) UnMockAPaaSBatchUpdateAPaaSWorkspaceTableRecords() {
+	r.mockAPaaSBatchUpdateAPaaSWorkspaceTableRecords = nil
 }
 
-// UpdateAPaaSWorkspaceTableRecordsBatchUpdateReq ...
-type UpdateAPaaSWorkspaceTableRecordsBatchUpdateReq struct {
+// BatchUpdateAPaaSWorkspaceTableRecordsReq ...
+type BatchUpdateAPaaSWorkspaceTableRecordsReq struct {
 	WorkspaceID string   `path:"workspace_id" json:"-"` // 工作空间id, 可以从数据平台的 URL 中获取, 如 `https://apaas.feishu.cn/suda/workspace/workspace_aadimx5uzpsls/table-manage/main?tableId=table_1846786627963081&tab=objectManage` 中的 workspace_aadimx5uzpsls 就是 workspace_id示例值: "workspace_aadimx5uzpsls"
 	TableName   string   `path:"table_name" json:"-"`   // 数据表表名, 可以从数据平台获取对应的数据表名。示例值: "table_name_1"
 	Records     []string `json:"records,omitempty"`     // 要更新的数据记录列表, 单次支持最多 500条, 每行 record 都必须包含主键 _id, 且不同行要更新的字段需保持一致示例值: "[{\"_id\":\"657fade8-394d-4d86-aa35-0129e3bd7614\", \"age\":10}]"
 }
 
-// UpdateAPaaSWorkspaceTableRecordsBatchUpdateResp ...
-type UpdateAPaaSWorkspaceTableRecordsBatchUpdateResp struct {
+// BatchUpdateAPaaSWorkspaceTableRecordsResp ...
+type BatchUpdateAPaaSWorkspaceTableRecordsResp struct {
 	RecordIDs []string `json:"record_ids,omitempty"` // 更新的记录唯一ID列表
 }
 
-// updateAPaaSWorkspaceTableRecordsBatchUpdateResp ...
-type updateAPaaSWorkspaceTableRecordsBatchUpdateResp struct {
-	Code  int64                                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg   string                                           `json:"msg,omitempty"`  // 错误描述
-	Data  *UpdateAPaaSWorkspaceTableRecordsBatchUpdateResp `json:"data,omitempty"`
-	Error *ErrorDetail                                     `json:"error,omitempty"`
+// batchUpdateAPaaSWorkspaceTableRecordsResp ...
+type batchUpdateAPaaSWorkspaceTableRecordsResp struct {
+	Code  int64                                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                                     `json:"msg,omitempty"`  // 错误描述
+	Data  *BatchUpdateAPaaSWorkspaceTableRecordsResp `json:"data,omitempty"`
+	Error *ErrorDetail                               `json:"error,omitempty"`
 }

@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// CreateCorehrCustomOrgActive 对自定义组织进行启用或停用操作
+// CreateCoreHRCustomOrgActive 对自定义组织进行启用或停用操作
 //
 // - 停用自定义组织时请确认有无在职员工、异动单据、待入职单据关联此自定义组织, 如有会导致停用失败。
 // - 若启/停用的生效时间当天不存在版本则会自动生成一个版本。
@@ -30,53 +30,53 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/custom_org/active
 // new doc: https://open.feishu.cn/document/corehr-v1/organization-management/custom_org/active
-func (r *CoreHRService) CreateCorehrCustomOrgActive(ctx context.Context, request *CreateCorehrCustomOrgActiveReq, options ...MethodOptionFunc) (*CreateCorehrCustomOrgActiveResp, *Response, error) {
-	if r.cli.mock.mockCoreHRCreateCorehrCustomOrgActive != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCorehrCustomOrgActive mock enable")
-		return r.cli.mock.mockCoreHRCreateCorehrCustomOrgActive(ctx, request, options...)
+func (r *CoreHRService) CreateCoreHRCustomOrgActive(ctx context.Context, request *CreateCoreHRCustomOrgActiveReq, options ...MethodOptionFunc) (*CreateCoreHRCustomOrgActiveResp, *Response, error) {
+	if r.cli.mock.mockCoreHRCreateCoreHRCustomOrgActive != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCoreHRCustomOrgActive mock enable")
+		return r.cli.mock.mockCoreHRCreateCoreHRCustomOrgActive(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "CreateCorehrCustomOrgActive",
+		API:                   "CreateCoreHRCustomOrgActive",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/custom_orgs/active",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(createCorehrCustomOrgActiveResp)
+	resp := new(createCoreHRCustomOrgActiveResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRCreateCorehrCustomOrgActive mock CoreHRCreateCorehrCustomOrgActive method
-func (r *Mock) MockCoreHRCreateCorehrCustomOrgActive(f func(ctx context.Context, request *CreateCorehrCustomOrgActiveReq, options ...MethodOptionFunc) (*CreateCorehrCustomOrgActiveResp, *Response, error)) {
-	r.mockCoreHRCreateCorehrCustomOrgActive = f
+// MockCoreHRCreateCoreHRCustomOrgActive mock CoreHRCreateCoreHRCustomOrgActive method
+func (r *Mock) MockCoreHRCreateCoreHRCustomOrgActive(f func(ctx context.Context, request *CreateCoreHRCustomOrgActiveReq, options ...MethodOptionFunc) (*CreateCoreHRCustomOrgActiveResp, *Response, error)) {
+	r.mockCoreHRCreateCoreHRCustomOrgActive = f
 }
 
-// UnMockCoreHRCreateCorehrCustomOrgActive un-mock CoreHRCreateCorehrCustomOrgActive method
-func (r *Mock) UnMockCoreHRCreateCorehrCustomOrgActive() {
-	r.mockCoreHRCreateCorehrCustomOrgActive = nil
+// UnMockCoreHRCreateCoreHRCustomOrgActive un-mock CoreHRCreateCoreHRCustomOrgActive method
+func (r *Mock) UnMockCoreHRCreateCoreHRCustomOrgActive() {
+	r.mockCoreHRCreateCoreHRCustomOrgActive = nil
 }
 
-// CreateCorehrCustomOrgActiveReq ...
-type CreateCorehrCustomOrgActiveReq struct {
+// CreateCoreHRCustomOrgActiveReq ...
+type CreateCoreHRCustomOrgActiveReq struct {
 	OrgID         string `json:"org_id,omitempty"`          // 自定义组织 ID- 可从 [批量查询自定义组织](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/custom_org/query)的 org_id 字段中获取。示例值: "6862995757234914823"
 	ObjectApiName string `json:"object_api_name,omitempty"` // 组织类型编码, 可在「飞书人事-设置-组织配置」中相应的自定义组织目录下查看示例值: "custom_org_01"
 	Active        bool   `json:"active,omitempty"`          // 启用/停用状态。- active 传 true 代表启用- active 传 false 代表停用示例值: true
 	EffectiveTime string `json:"effective_time,omitempty"`  // 自定义组织生效时间- 填写格式: YYYY-MM-DD- 系统默认为填写日期当天的 00:00:00 生效 - 该接口只支持到最小单位为日- 日期范围要求:1900-01-01 ～ 9999-12-31示例值: "2020-01-01" 长度范围: `10` ～ `10` 字符- 正则校验: `^((([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-(((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)-(0[1-9]|[12][0-9]|30))|(02-(0[1-9]|[1][0-9]|2[0-8]))))|((([0-9]{2})(0[48]|[2468][048]|[13579][26])|((0[48]|[2468][048]|[3579][26])00))-02-29))$`
 }
 
-// CreateCorehrCustomOrgActiveResp ...
-type CreateCorehrCustomOrgActiveResp struct {
+// CreateCoreHRCustomOrgActiveResp ...
+type CreateCoreHRCustomOrgActiveResp struct {
 }
 
-// createCorehrCustomOrgActiveResp ...
-type createCorehrCustomOrgActiveResp struct {
+// createCoreHRCustomOrgActiveResp ...
+type createCoreHRCustomOrgActiveResp struct {
 	Code  int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                           `json:"msg,omitempty"`  // 错误描述
-	Data  *CreateCorehrCustomOrgActiveResp `json:"data,omitempty"`
+	Data  *CreateCoreHRCustomOrgActiveResp `json:"data,omitempty"`
 	Error *ErrorDetail                     `json:"error,omitempty"`
 }

@@ -21,43 +21,43 @@ import (
 	"context"
 )
 
-// QueryCorehrSignatureFile 该接口可用于批量查询电子签文件列表, 并且支持根据文件ID、更新时间范围、文件状态、模板ID等条件检索
+// QueryCoreHRSignatureFile 该接口可用于批量查询电子签文件列表, 并且支持根据文件ID、更新时间范围、文件状态、模板ID等条件检索
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/signature_file/query
 // new doc: https://open.feishu.cn/document/corehr-v1/siganture/signature_file/query
-func (r *CoreHRService) QueryCorehrSignatureFile(ctx context.Context, request *QueryCorehrSignatureFileReq, options ...MethodOptionFunc) (*QueryCorehrSignatureFileResp, *Response, error) {
-	if r.cli.mock.mockCoreHRQueryCorehrSignatureFile != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#QueryCorehrSignatureFile mock enable")
-		return r.cli.mock.mockCoreHRQueryCorehrSignatureFile(ctx, request, options...)
+func (r *CoreHRService) QueryCoreHRSignatureFile(ctx context.Context, request *QueryCoreHRSignatureFileReq, options ...MethodOptionFunc) (*QueryCoreHRSignatureFileResp, *Response, error) {
+	if r.cli.mock.mockCoreHRQueryCoreHRSignatureFile != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#QueryCoreHRSignatureFile mock enable")
+		return r.cli.mock.mockCoreHRQueryCoreHRSignatureFile(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "QueryCorehrSignatureFile",
+		API:                   "QueryCoreHRSignatureFile",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/signature_files/query",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(queryCorehrSignatureFileResp)
+	resp := new(queryCoreHRSignatureFileResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRQueryCorehrSignatureFile mock CoreHRQueryCorehrSignatureFile method
-func (r *Mock) MockCoreHRQueryCorehrSignatureFile(f func(ctx context.Context, request *QueryCorehrSignatureFileReq, options ...MethodOptionFunc) (*QueryCorehrSignatureFileResp, *Response, error)) {
-	r.mockCoreHRQueryCorehrSignatureFile = f
+// MockCoreHRQueryCoreHRSignatureFile mock CoreHRQueryCoreHRSignatureFile method
+func (r *Mock) MockCoreHRQueryCoreHRSignatureFile(f func(ctx context.Context, request *QueryCoreHRSignatureFileReq, options ...MethodOptionFunc) (*QueryCoreHRSignatureFileResp, *Response, error)) {
+	r.mockCoreHRQueryCoreHRSignatureFile = f
 }
 
-// UnMockCoreHRQueryCorehrSignatureFile un-mock CoreHRQueryCorehrSignatureFile method
-func (r *Mock) UnMockCoreHRQueryCorehrSignatureFile() {
-	r.mockCoreHRQueryCorehrSignatureFile = nil
+// UnMockCoreHRQueryCoreHRSignatureFile un-mock CoreHRQueryCoreHRSignatureFile method
+func (r *Mock) UnMockCoreHRQueryCoreHRSignatureFile() {
+	r.mockCoreHRQueryCoreHRSignatureFile = nil
 }
 
-// QueryCorehrSignatureFileReq ...
-type QueryCorehrSignatureFileReq struct {
+// QueryCoreHRSignatureFileReq ...
+type QueryCoreHRSignatureFileReq struct {
 	SignatureFileID *string  `query:"signature_file_id" json:"-"` // 电子签文件ID, 查询结果会返回满足所有筛选条件 signature_file_id 、states、template_ids的文件示例值: 6891251722631890445
 	PageSize        *int64   `query:"page_size" json:"-"`         // 分页大小示例值: 10范围: 0～100
 	PageToken       *string  `query:"page_token" json:"-"`        // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: {"eu_nc":"[1724438210000, \"7405949343401772554\"]"}
@@ -68,50 +68,50 @@ type QueryCorehrSignatureFileReq struct {
 	TemplateIDs     []string `json:"template_ids,omitempty"`      // 电子签模板ID列表, 返回的电子签文件使用的模板在该数组中；可以通过[【获取电子签模板内容】](ssl:/uAjLw4CM/ukTMukTMukTM/corehr-v2/signature_template/search)接口获取模板ID注意: 多个模板ID之间是或的关系示例值: ["7282756156156560940", "7282756156156560945"] 长度范围: `0` ～ `100`
 }
 
-// QueryCorehrSignatureFileResp ...
-type QueryCorehrSignatureFileResp struct {
-	Items     []*QueryCorehrSignatureFileRespItem `json:"items,omitempty"`      // 电子签文件信息
+// QueryCoreHRSignatureFileResp ...
+type QueryCoreHRSignatureFileResp struct {
+	Items     []*QueryCoreHRSignatureFileRespItem `json:"items,omitempty"`      // 电子签文件信息
 	PageToken string                              `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
 	HasMore   bool                                `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
-// QueryCorehrSignatureFileRespItem ...
-type QueryCorehrSignatureFileRespItem struct {
+// QueryCoreHRSignatureFileRespItem ...
+type QueryCoreHRSignatureFileRespItem struct {
 	SignatureFileID    string                                              `json:"signature_file_id,omitempty"`    // 电子签文件ID, [【查询电子签文件信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/signature_file/query)
-	Names              []*QueryCorehrSignatureFileRespItemName             `json:"names,omitempty"`                // 名称
+	Names              []*QueryCoreHRSignatureFileRespItemName             `json:"names,omitempty"`                // 名称
 	CreateTime         string                                              `json:"create_time,omitempty"`          // 创建时间
 	UpdateTime         string                                              `json:"update_time,omitempty"`          // 更新时间
 	EmploymentID       string                                              `json:"employment_id,omitempty"`        // 雇员 id
 	PreHireID          string                                              `json:"pre_hire_id,omitempty"`          // 待入职 id
-	SignatureFileState *QueryCorehrSignatureFileRespItemSignatureFileState `json:"signature_file_state,omitempty"` // 电子签文件状态状态列表, 多个状态之间为「或」的关系；枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)电子签文件状态（signature_file_state）枚举定义部分获得
+	SignatureFileState *QueryCoreHRSignatureFileRespItemSignatureFileState `json:"signature_file_state,omitempty"` // 电子签文件状态状态列表, 多个状态之间为「或」的关系；枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)电子签文件状态（signature_file_state）枚举定义部分获得
 	ContractCode       string                                              `json:"contract_code,omitempty"`        // 供应商侧的合同编号, 作为幂等key
 	EffectiveDate      string                                              `json:"effective_date,omitempty"`       // 电子签文件生效日期, 格式: yyyy-MM-dd
 	TemplateID         string                                              `json:"template_id,omitempty"`          // 电子签模板ID
 	SignURL            string                                              `json:"sign_url,omitempty"`             // 签署链接
 }
 
-// QueryCorehrSignatureFileRespItemName ...
-type QueryCorehrSignatureFileRespItemName struct {
+// QueryCoreHRSignatureFileRespItemName ...
+type QueryCoreHRSignatureFileRespItemName struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 内容
 }
 
-// QueryCorehrSignatureFileRespItemSignatureFileState ...
-type QueryCorehrSignatureFileRespItemSignatureFileState struct {
+// QueryCoreHRSignatureFileRespItemSignatureFileState ...
+type QueryCoreHRSignatureFileRespItemSignatureFileState struct {
 	EnumName string                                                       `json:"enum_name,omitempty"` // 枚举值
-	Display  []*QueryCorehrSignatureFileRespItemSignatureFileStateDisplay `json:"display,omitempty"`   // 枚举多语展示
+	Display  []*QueryCoreHRSignatureFileRespItemSignatureFileStateDisplay `json:"display,omitempty"`   // 枚举多语展示
 }
 
-// QueryCorehrSignatureFileRespItemSignatureFileStateDisplay ...
-type QueryCorehrSignatureFileRespItemSignatureFileStateDisplay struct {
+// QueryCoreHRSignatureFileRespItemSignatureFileStateDisplay ...
+type QueryCoreHRSignatureFileRespItemSignatureFileStateDisplay struct {
 	Lang  string `json:"lang,omitempty"`  // 语言
 	Value string `json:"value,omitempty"` // 文本内容
 }
 
-// queryCorehrSignatureFileResp ...
-type queryCorehrSignatureFileResp struct {
+// queryCoreHRSignatureFileResp ...
+type queryCoreHRSignatureFileResp struct {
 	Code  int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                        `json:"msg,omitempty"`  // 错误描述
-	Data  *QueryCorehrSignatureFileResp `json:"data,omitempty"`
+	Data  *QueryCoreHRSignatureFileResp `json:"data,omitempty"`
 	Error *ErrorDetail                  `json:"error,omitempty"`
 }

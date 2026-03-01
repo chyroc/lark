@@ -28,9 +28,9 @@ import (
 //
 // Deprecated
 func (r *VCService) ListVCMeetingDefaultCountry(ctx context.Context, request *ListVCMeetingDefaultCountryReq, options ...MethodOptionFunc) (*ListVCMeetingDefaultCountryResp, *Response, error) {
-	if r.cli.mock.mockVCMeetingListVCMeetingDefaultCountry != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] VCMeeting#ListVCMeetingDefaultCountry mock enable")
-		return r.cli.mock.mockVCMeetingListVCMeetingDefaultCountry(ctx, request, options...)
+	if r.cli.mock.mockVCListVCMeetingDefaultCountry != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#ListVCMeetingDefaultCountry mock enable")
+		return r.cli.mock.mockVCListVCMeetingDefaultCountry(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
@@ -48,14 +48,14 @@ func (r *VCService) ListVCMeetingDefaultCountry(ctx context.Context, request *Li
 	return resp.Data, response, err
 }
 
-// MockVCMeetingListVCMeetingDefaultCountry mock VCMeetingListVCMeetingDefaultCountry method
-func (r *Mock) MockVCMeetingListVCMeetingDefaultCountry(f func(ctx context.Context, request *ListVCMeetingDefaultCountryReq, options ...MethodOptionFunc) (*ListVCMeetingDefaultCountryResp, *Response, error)) {
-	r.mockVCMeetingListVCMeetingDefaultCountry = f
+// MockVCListVCMeetingDefaultCountry mock VCListVCMeetingDefaultCountry method
+func (r *Mock) MockVCListVCMeetingDefaultCountry(f func(ctx context.Context, request *ListVCMeetingDefaultCountryReq, options ...MethodOptionFunc) (*ListVCMeetingDefaultCountryResp, *Response, error)) {
+	r.mockVCListVCMeetingDefaultCountry = f
 }
 
-// UnMockVCMeetingListVCMeetingDefaultCountry un-mock VCMeetingListVCMeetingDefaultCountry method
-func (r *Mock) UnMockVCMeetingListVCMeetingDefaultCountry() {
-	r.mockVCMeetingListVCMeetingDefaultCountry = nil
+// UnMockVCListVCMeetingDefaultCountry un-mock VCListVCMeetingDefaultCountry method
+func (r *Mock) UnMockVCListVCMeetingDefaultCountry() {
+	r.mockVCListVCMeetingDefaultCountry = nil
 }
 
 // ListVCMeetingDefaultCountryReq ...

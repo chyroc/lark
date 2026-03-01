@@ -22,62 +22,62 @@ import (
 	"io"
 )
 
-// DownloadCorehrSignatureFile 该接口用于下载电子签文件
+// DownloadCoreHRSignatureFile 该接口用于下载电子签文件
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/signature_file/download
 // new doc: https://open.feishu.cn/document/corehr-v1/siganture/signature_file/download
-func (r *CoreHRService) DownloadCorehrSignatureFile(ctx context.Context, request *DownloadCorehrSignatureFileReq, options ...MethodOptionFunc) (*DownloadCorehrSignatureFileResp, *Response, error) {
-	if r.cli.mock.mockCoreHRDownloadCorehrSignatureFile != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#DownloadCorehrSignatureFile mock enable")
-		return r.cli.mock.mockCoreHRDownloadCorehrSignatureFile(ctx, request, options...)
+func (r *CoreHRService) DownloadCoreHRSignatureFile(ctx context.Context, request *DownloadCoreHRSignatureFileReq, options ...MethodOptionFunc) (*DownloadCoreHRSignatureFileResp, *Response, error) {
+	if r.cli.mock.mockCoreHRDownloadCoreHRSignatureFile != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#DownloadCoreHRSignatureFile mock enable")
+		return r.cli.mock.mockCoreHRDownloadCoreHRSignatureFile(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "DownloadCorehrSignatureFile",
+		API:                   "DownloadCoreHRSignatureFile",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/signature_files/:signature_file_id/download",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(downloadCorehrSignatureFileResp)
+	resp := new(downloadCoreHRSignatureFileResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRDownloadCorehrSignatureFile mock CoreHRDownloadCorehrSignatureFile method
-func (r *Mock) MockCoreHRDownloadCorehrSignatureFile(f func(ctx context.Context, request *DownloadCorehrSignatureFileReq, options ...MethodOptionFunc) (*DownloadCorehrSignatureFileResp, *Response, error)) {
-	r.mockCoreHRDownloadCorehrSignatureFile = f
+// MockCoreHRDownloadCoreHRSignatureFile mock CoreHRDownloadCoreHRSignatureFile method
+func (r *Mock) MockCoreHRDownloadCoreHRSignatureFile(f func(ctx context.Context, request *DownloadCoreHRSignatureFileReq, options ...MethodOptionFunc) (*DownloadCoreHRSignatureFileResp, *Response, error)) {
+	r.mockCoreHRDownloadCoreHRSignatureFile = f
 }
 
-// UnMockCoreHRDownloadCorehrSignatureFile un-mock CoreHRDownloadCorehrSignatureFile method
-func (r *Mock) UnMockCoreHRDownloadCorehrSignatureFile() {
-	r.mockCoreHRDownloadCorehrSignatureFile = nil
+// UnMockCoreHRDownloadCoreHRSignatureFile un-mock CoreHRDownloadCoreHRSignatureFile method
+func (r *Mock) UnMockCoreHRDownloadCoreHRSignatureFile() {
+	r.mockCoreHRDownloadCoreHRSignatureFile = nil
 }
 
-// DownloadCorehrSignatureFileReq ...
-type DownloadCorehrSignatureFileReq struct {
+// DownloadCoreHRSignatureFileReq ...
+type DownloadCoreHRSignatureFileReq struct {
 	SignatureFileID string `path:"signature_file_id" json:"-"` // 电子签文件id, [【获取电子签文件列表】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/signature_file/list)示例值: "6891251722631890445"
 }
 
-// downloadCorehrSignatureFileResp ...
-type downloadCorehrSignatureFileResp struct {
+// downloadCoreHRSignatureFileResp ...
+type downloadCoreHRSignatureFileResp struct {
 	Code  int64                            `json:"code,omitempty"`
 	Msg   string                           `json:"msg,omitempty"`
-	Data  *DownloadCorehrSignatureFileResp `json:"data,omitempty"`
+	Data  *DownloadCoreHRSignatureFileResp `json:"data,omitempty"`
 	Error *ErrorDetail                     `json:"error,omitempty"`
 }
 
-func (r *downloadCorehrSignatureFileResp) SetReader(file io.Reader) {
+func (r *downloadCoreHRSignatureFileResp) SetReader(file io.Reader) {
 	if r.Data == nil {
-		r.Data = &DownloadCorehrSignatureFileResp{}
+		r.Data = &DownloadCoreHRSignatureFileResp{}
 	}
 	r.Data.File = file
 }
 
-// DownloadCorehrSignatureFileResp ...
-type DownloadCorehrSignatureFileResp struct {
+// DownloadCoreHRSignatureFileResp ...
+type DownloadCoreHRSignatureFileResp struct {
 	File io.Reader `json:"file,omitempty"`
 }

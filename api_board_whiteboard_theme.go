@@ -25,9 +25,9 @@ import (
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/board-v1/whiteboard/theme
 func (r *DriveService) GetBoardWhiteboardTheme(ctx context.Context, request *GetBoardWhiteboardThemeReq, options ...MethodOptionFunc) (*GetBoardWhiteboardThemeResp, *Response, error) {
-	if r.cli.mock.mockBoardGetBoardWhiteboardTheme != nil {
+	if r.cli.mock.mockDriveGetBoardWhiteboardTheme != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#GetBoardWhiteboardTheme mock enable")
-		return r.cli.mock.mockBoardGetBoardWhiteboardTheme(ctx, request, options...)
+		return r.cli.mock.mockDriveGetBoardWhiteboardTheme(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
@@ -46,14 +46,14 @@ func (r *DriveService) GetBoardWhiteboardTheme(ctx context.Context, request *Get
 	return resp.Data, response, err
 }
 
-// MockBoardGetBoardWhiteboardTheme mock BoardGetBoardWhiteboardTheme method
-func (r *Mock) MockBoardGetBoardWhiteboardTheme(f func(ctx context.Context, request *GetBoardWhiteboardThemeReq, options ...MethodOptionFunc) (*GetBoardWhiteboardThemeResp, *Response, error)) {
-	r.mockBoardGetBoardWhiteboardTheme = f
+// MockDriveGetBoardWhiteboardTheme mock DriveGetBoardWhiteboardTheme method
+func (r *Mock) MockDriveGetBoardWhiteboardTheme(f func(ctx context.Context, request *GetBoardWhiteboardThemeReq, options ...MethodOptionFunc) (*GetBoardWhiteboardThemeResp, *Response, error)) {
+	r.mockDriveGetBoardWhiteboardTheme = f
 }
 
-// UnMockBoardGetBoardWhiteboardTheme un-mock BoardGetBoardWhiteboardTheme method
-func (r *Mock) UnMockBoardGetBoardWhiteboardTheme() {
-	r.mockBoardGetBoardWhiteboardTheme = nil
+// UnMockDriveGetBoardWhiteboardTheme un-mock DriveGetBoardWhiteboardTheme method
+func (r *Mock) UnMockDriveGetBoardWhiteboardTheme() {
+	r.mockDriveGetBoardWhiteboardTheme = nil
 }
 
 // GetBoardWhiteboardThemeReq ...

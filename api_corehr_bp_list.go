@@ -21,66 +21,66 @@ import (
 	"context"
 )
 
-// GetCoreHrbpList 获取 HRBP 列表。列表中包含HRBP的ID以及部门ID信息。
+// GetCoreHRList 获取 HRBP 列表。列表中包含HRBP的ID以及部门ID信息。
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/bp/list
 // new doc: https://open.feishu.cn/document/corehr-v1/authorization/list-2
-func (r *CoreHRService) GetCoreHrbpList(ctx context.Context, request *GetCoreHrbpListReq, options ...MethodOptionFunc) (*GetCoreHrbpListResp, *Response, error) {
-	if r.cli.mock.mockCoreHRGetCoreHrbpList != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHrbpList mock enable")
-		return r.cli.mock.mockCoreHRGetCoreHrbpList(ctx, request, options...)
+func (r *CoreHRService) GetCoreHRList(ctx context.Context, request *GetCoreHRListReq, options ...MethodOptionFunc) (*GetCoreHRListResp, *Response, error) {
+	if r.cli.mock.mockCoreHRGetCoreHRList != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#GetCoreHRList mock enable")
+		return r.cli.mock.mockCoreHRGetCoreHRList(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "GetCoreHrbpList",
+		API:                   "GetCoreHRList",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/bps",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(getCoreHrbpListResp)
+	resp := new(getCoreHRListResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRGetCoreHrbpList mock CoreHRGetCoreHrbpList method
-func (r *Mock) MockCoreHRGetCoreHrbpList(f func(ctx context.Context, request *GetCoreHrbpListReq, options ...MethodOptionFunc) (*GetCoreHrbpListResp, *Response, error)) {
-	r.mockCoreHRGetCoreHrbpList = f
+// MockCoreHRGetCoreHRList mock CoreHRGetCoreHRList method
+func (r *Mock) MockCoreHRGetCoreHRList(f func(ctx context.Context, request *GetCoreHRListReq, options ...MethodOptionFunc) (*GetCoreHRListResp, *Response, error)) {
+	r.mockCoreHRGetCoreHRList = f
 }
 
-// UnMockCoreHRGetCoreHrbpList un-mock CoreHRGetCoreHrbpList method
-func (r *Mock) UnMockCoreHRGetCoreHrbpList() {
-	r.mockCoreHRGetCoreHrbpList = nil
+// UnMockCoreHRGetCoreHRList un-mock CoreHRGetCoreHRList method
+func (r *Mock) UnMockCoreHRGetCoreHRList() {
+	r.mockCoreHRGetCoreHRList = nil
 }
 
-// GetCoreHrbpListReq ...
-type GetCoreHrbpListReq struct {
+// GetCoreHRListReq ...
+type GetCoreHRListReq struct {
 	PageSize         int64             `query:"page_size" json:"-"`          // 分页大小, 最大 500示例值: 500 取值范围: `1` ～ `500`
 	PageToken        *string           `query:"page_token" json:"-"`         // 分页标记, 第一次请求不填, 表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token, 下次遍历可采用该 page_token 获取查询结果示例值: 6891251722631890445
 	UserIDType       *IDType           `query:"user_id_type" json:"-"`       // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 	DepartmentIDType *DepartmentIDType `query:"department_id_type" json:"-"` // 此次调用中使用的部门 ID 类型示例值: open_department_id可选值有: 以 open_department_id 来标识部门以 department_id 来标识部门以 people_corehr_department_id 来标识部门默认值: `open_department_id`
 }
 
-// GetCoreHrbpListResp ...
-type GetCoreHrbpListResp struct {
-	Items     []*GetCoreHrbpListRespItem `json:"items,omitempty"`      // HRBP 信息
-	PageToken string                     `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
-	HasMore   bool                       `json:"has_more,omitempty"`   // 是否还有更多项
+// GetCoreHRListResp ...
+type GetCoreHRListResp struct {
+	Items     []*GetCoreHRListRespItem `json:"items,omitempty"`      // HRBP 信息
+	PageToken string                   `json:"page_token,omitempty"` // 分页标记, 当 has_more 为 true 时, 会同时返回新的 page_token, 否则不返回 page_token
+	HasMore   bool                     `json:"has_more,omitempty"`   // 是否还有更多项
 }
 
-// GetCoreHrbpListRespItem ...
-type GetCoreHrbpListRespItem struct {
+// GetCoreHRListRespItem ...
+type GetCoreHRListRespItem struct {
 	DepartmentID string `json:"department_id,omitempty"` // 部门 ID  > 如想获取部门详细信息, 可通过[搜索部门信息](https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/department/search)接口获取。
 	HrbpID       string `json:"hrbp_id,omitempty"`       // 部门 HRBP 的雇佣 ID, 不包括上级部门的 HRBP  > 如想获取员工详细信息, 可通过[搜索员工信息](https://open.larkoffice.com/document/server-docs/corehr-v1/employee/search)接口获取。
 }
 
-// getCoreHrbpListResp ...
-type getCoreHrbpListResp struct {
-	Code  int64                `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg   string               `json:"msg,omitempty"`  // 错误描述
-	Data  *GetCoreHrbpListResp `json:"data,omitempty"`
-	Error *ErrorDetail         `json:"error,omitempty"`
+// getCoreHRListResp ...
+type getCoreHRListResp struct {
+	Code  int64              `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string             `json:"msg,omitempty"`  // 错误描述
+	Data  *GetCoreHRListResp `json:"data,omitempty"`
+	Error *ErrorDetail       `json:"error,omitempty"`
 }

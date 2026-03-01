@@ -21,66 +21,66 @@ import (
 	"context"
 )
 
-// GetAPaaSWorkspaceEnumGet 获取自定义枚举详细信息
+// GetAPaaSWorkspaceEnum 获取自定义枚举详细信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/apaas-v1/workspace-enum/enum_get
-func (r *APaaSService) GetAPaaSWorkspaceEnumGet(ctx context.Context, request *GetAPaaSWorkspaceEnumGetReq, options ...MethodOptionFunc) (*GetAPaaSWorkspaceEnumGetResp, *Response, error) {
-	if r.cli.mock.mockAPaaSGetAPaaSWorkspaceEnumGet != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] APaaS#GetAPaaSWorkspaceEnumGet mock enable")
-		return r.cli.mock.mockAPaaSGetAPaaSWorkspaceEnumGet(ctx, request, options...)
+func (r *APaaSService) GetAPaaSWorkspaceEnum(ctx context.Context, request *GetAPaaSWorkspaceEnumReq, options ...MethodOptionFunc) (*GetAPaaSWorkspaceEnumResp, *Response, error) {
+	if r.cli.mock.mockAPaaSGetAPaaSWorkspaceEnum != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] APaaS#GetAPaaSWorkspaceEnum mock enable")
+		return r.cli.mock.mockAPaaSGetAPaaSWorkspaceEnum(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:               "APaaS",
-		API:                 "GetAPaaSWorkspaceEnumGet",
+		API:                 "GetAPaaSWorkspaceEnum",
 		Method:              "GET",
 		URL:                 r.cli.openBaseURL + "/open-apis/apaas/v1/workspaces/:workspace_id/enums/:enum_name",
 		Body:                request,
 		MethodOption:        newMethodOption(options),
 		NeedUserAccessToken: true,
 	}
-	resp := new(getAPaaSWorkspaceEnumGetResp)
+	resp := new(getAPaaSWorkspaceEnumResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockAPaaSGetAPaaSWorkspaceEnumGet mock APaaSGetAPaaSWorkspaceEnumGet method
-func (r *Mock) MockAPaaSGetAPaaSWorkspaceEnumGet(f func(ctx context.Context, request *GetAPaaSWorkspaceEnumGetReq, options ...MethodOptionFunc) (*GetAPaaSWorkspaceEnumGetResp, *Response, error)) {
-	r.mockAPaaSGetAPaaSWorkspaceEnumGet = f
+// MockAPaaSGetAPaaSWorkspaceEnum mock APaaSGetAPaaSWorkspaceEnum method
+func (r *Mock) MockAPaaSGetAPaaSWorkspaceEnum(f func(ctx context.Context, request *GetAPaaSWorkspaceEnumReq, options ...MethodOptionFunc) (*GetAPaaSWorkspaceEnumResp, *Response, error)) {
+	r.mockAPaaSGetAPaaSWorkspaceEnum = f
 }
 
-// UnMockAPaaSGetAPaaSWorkspaceEnumGet un-mock APaaSGetAPaaSWorkspaceEnumGet method
-func (r *Mock) UnMockAPaaSGetAPaaSWorkspaceEnumGet() {
-	r.mockAPaaSGetAPaaSWorkspaceEnumGet = nil
+// UnMockAPaaSGetAPaaSWorkspaceEnum un-mock APaaSGetAPaaSWorkspaceEnum method
+func (r *Mock) UnMockAPaaSGetAPaaSWorkspaceEnum() {
+	r.mockAPaaSGetAPaaSWorkspaceEnum = nil
 }
 
-// GetAPaaSWorkspaceEnumGetReq ...
-type GetAPaaSWorkspaceEnumGetReq struct {
+// GetAPaaSWorkspaceEnumReq ...
+type GetAPaaSWorkspaceEnumReq struct {
 	WorkspaceID string `path:"workspace_id" json:"-"` // 工作空间id, 可以从数据平台的 URL 中获取, 如 https://apaas.feishu.cn/suda/workspace/workspace_aadimx5uzpsls/table-manage/main?tableId=table_1846786627963081&tab=objectManage 中的 workspace_aadimx5uzpsls 就是 workspace_id示例值: "workspace_aadimx5uzpsls"
 	EnumName    string `path:"enum_name" json:"-"`    // 枚举名称示例值: "enum_demo_1"
 }
 
-// GetAPaaSWorkspaceEnumGetResp ...
-type GetAPaaSWorkspaceEnumGetResp struct {
-	Name        string                                 `json:"name,omitempty"`        // 枚举名称
-	Description string                                 `json:"description,omitempty"` // 枚举描述
-	Options     []string                               `json:"options,omitempty"`     // 枚举值列表
-	CreatedAt   string                                 `json:"created_at,omitempty"`  // 创建时间, 毫秒时间戳
-	CreatedBy   *GetAPaaSWorkspaceEnumGetRespCreatedBy `json:"created_by,omitempty"`  // 创建人
+// GetAPaaSWorkspaceEnumResp ...
+type GetAPaaSWorkspaceEnumResp struct {
+	Name        string                              `json:"name,omitempty"`        // 枚举名称
+	Description string                              `json:"description,omitempty"` // 枚举描述
+	Options     []string                            `json:"options,omitempty"`     // 枚举值列表
+	CreatedAt   string                              `json:"created_at,omitempty"`  // 创建时间, 毫秒时间戳
+	CreatedBy   *GetAPaaSWorkspaceEnumRespCreatedBy `json:"created_by,omitempty"`  // 创建人
 }
 
-// GetAPaaSWorkspaceEnumGetRespCreatedBy ...
-type GetAPaaSWorkspaceEnumGetRespCreatedBy struct {
+// GetAPaaSWorkspaceEnumRespCreatedBy ...
+type GetAPaaSWorkspaceEnumRespCreatedBy struct {
 	ID     string `json:"id,omitempty"`     // 用户 id, 如 1693861178143800
 	Name   string `json:"name,omitempty"`   // 用户姓名, 如王小小
 	Avatar string `json:"avatar,omitempty"` // 用户头像 URL
 }
 
-// getAPaaSWorkspaceEnumGetResp ...
-type getAPaaSWorkspaceEnumGetResp struct {
-	Code  int64                         `json:"code,omitempty"` // 错误码, 非 0 表示失败
-	Msg   string                        `json:"msg,omitempty"`  // 错误描述
-	Data  *GetAPaaSWorkspaceEnumGetResp `json:"data,omitempty"`
-	Error *ErrorDetail                  `json:"error,omitempty"`
+// getAPaaSWorkspaceEnumResp ...
+type getAPaaSWorkspaceEnumResp struct {
+	Code  int64                      `json:"code,omitempty"` // 错误码, 非 0 表示失败
+	Msg   string                     `json:"msg,omitempty"`  // 错误描述
+	Data  *GetAPaaSWorkspaceEnumResp `json:"data,omitempty"`
+	Error *ErrorDetail               `json:"error,omitempty"`
 }

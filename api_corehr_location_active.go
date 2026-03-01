@@ -21,7 +21,7 @@ import (
 	"context"
 )
 
-// CreateCorehrLocationActive 启用/停用地点
+// CreateCoreHRLocationActive 启用/停用地点
 //
 // - 停用地点时请确认有无在职员工、异动单据、待入职单据关联此地点, 如有会导致停用失败。
 // - 若启/停用的生效时间当天不存在版本则会自动生成一个版本。
@@ -30,53 +30,53 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/location/active
 // new doc: https://open.feishu.cn/document/corehr-v1/organization-management/location/active
-func (r *CoreHRService) CreateCorehrLocationActive(ctx context.Context, request *CreateCorehrLocationActiveReq, options ...MethodOptionFunc) (*CreateCorehrLocationActiveResp, *Response, error) {
-	if r.cli.mock.mockCoreHRCreateCorehrLocationActive != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCorehrLocationActive mock enable")
-		return r.cli.mock.mockCoreHRCreateCorehrLocationActive(ctx, request, options...)
+func (r *CoreHRService) CreateCoreHRLocationActive(ctx context.Context, request *CreateCoreHRLocationActiveReq, options ...MethodOptionFunc) (*CreateCoreHRLocationActiveResp, *Response, error) {
+	if r.cli.mock.mockCoreHRCreateCoreHRLocationActive != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#CreateCoreHRLocationActive mock enable")
+		return r.cli.mock.mockCoreHRCreateCoreHRLocationActive(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "CreateCorehrLocationActive",
+		API:                   "CreateCoreHRLocationActive",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/locations/active",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(createCorehrLocationActiveResp)
+	resp := new(createCoreHRLocationActiveResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRCreateCorehrLocationActive mock CoreHRCreateCorehrLocationActive method
-func (r *Mock) MockCoreHRCreateCorehrLocationActive(f func(ctx context.Context, request *CreateCorehrLocationActiveReq, options ...MethodOptionFunc) (*CreateCorehrLocationActiveResp, *Response, error)) {
-	r.mockCoreHRCreateCorehrLocationActive = f
+// MockCoreHRCreateCoreHRLocationActive mock CoreHRCreateCoreHRLocationActive method
+func (r *Mock) MockCoreHRCreateCoreHRLocationActive(f func(ctx context.Context, request *CreateCoreHRLocationActiveReq, options ...MethodOptionFunc) (*CreateCoreHRLocationActiveResp, *Response, error)) {
+	r.mockCoreHRCreateCoreHRLocationActive = f
 }
 
-// UnMockCoreHRCreateCorehrLocationActive un-mock CoreHRCreateCorehrLocationActive method
-func (r *Mock) UnMockCoreHRCreateCorehrLocationActive() {
-	r.mockCoreHRCreateCorehrLocationActive = nil
+// UnMockCoreHRCreateCoreHRLocationActive un-mock CoreHRCreateCoreHRLocationActive method
+func (r *Mock) UnMockCoreHRCreateCoreHRLocationActive() {
+	r.mockCoreHRCreateCoreHRLocationActive = nil
 }
 
-// CreateCorehrLocationActiveReq ...
-type CreateCorehrLocationActiveReq struct {
+// CreateCoreHRLocationActiveReq ...
+type CreateCoreHRLocationActiveReq struct {
 	LocationID      string `json:"location_id,omitempty"`      // 地点 ID。ID 获取方式: 调用[【创建地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/create)[【批量分页查询地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)等接口可以返回地点ID示例值: "1616161616"
 	EffectiveTime   string `json:"effective_time,omitempty"`   // 地点启用/停用生效日期- 填写格式: YYYY-MM-DD- 系统默认为填写日期当天的 00:00:00 生效 - 该接口只支持到最小单位为日- 日期范围要求:1900-01-01～9999-12-31- 详情可以参考[时间轴介绍](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/about-timeline-version)示例值: "2020-01-01"
 	Active          bool   `json:"active,omitempty"`           // 地点启用/停用状态- true 为启用- false 为停用示例值: true
 	OperationReason string `json:"operation_reason,omitempty"` // 操作原因示例值: "业务操作"
 }
 
-// CreateCorehrLocationActiveResp ...
-type CreateCorehrLocationActiveResp struct {
+// CreateCoreHRLocationActiveResp ...
+type CreateCoreHRLocationActiveResp struct {
 }
 
-// createCorehrLocationActiveResp ...
-type createCorehrLocationActiveResp struct {
+// createCoreHRLocationActiveResp ...
+type createCoreHRLocationActiveResp struct {
 	Code  int64                           `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                          `json:"msg,omitempty"`  // 错误描述
-	Data  *CreateCorehrLocationActiveResp `json:"data,omitempty"`
+	Data  *CreateCoreHRLocationActiveResp `json:"data,omitempty"`
 	Error *ErrorDetail                    `json:"error,omitempty"`
 }

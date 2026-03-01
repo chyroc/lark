@@ -21,45 +21,45 @@ import (
 	"context"
 )
 
-// CreateVCMeetingDefaultRoomCreate 该接口用于创建会议室。
+// CreateVCMeetingDefaultRoom 该接口用于创建会议室。
 //
 // doc: https://open.feishu.cn/document/ukTMukTMukTM/uITNwYjLyUDM24iM1AjN
 // new doc: https://open.feishu.cn/document/server-docs/historic-version/meeting_room-v1/api-reference/create-meeting-room
 //
 // Deprecated
-func (r *VCService) CreateVCMeetingDefaultRoomCreate(ctx context.Context, request *CreateVCMeetingDefaultRoomCreateReq, options ...MethodOptionFunc) (*CreateVCMeetingDefaultRoomCreateResp, *Response, error) {
-	if r.cli.mock.mockVCMeetingCreateVCMeetingDefaultRoomCreate != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] VCMeeting#CreateVCMeetingDefaultRoomCreate mock enable")
-		return r.cli.mock.mockVCMeetingCreateVCMeetingDefaultRoomCreate(ctx, request, options...)
+func (r *VCService) CreateVCMeetingDefaultRoom(ctx context.Context, request *CreateVCMeetingDefaultRoomReq, options ...MethodOptionFunc) (*CreateVCMeetingDefaultRoomResp, *Response, error) {
+	if r.cli.mock.mockVCCreateVCMeetingDefaultRoom != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] VC#CreateVCMeetingDefaultRoom mock enable")
+		return r.cli.mock.mockVCCreateVCMeetingDefaultRoom(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "VC",
-		API:                   "CreateVCMeetingDefaultRoomCreate",
+		API:                   "CreateVCMeetingDefaultRoom",
 		Method:                "POST",
 		URL:                   r.cli.openBaseURL + "/open-apis/meeting_room/room/create",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(createVCMeetingDefaultRoomCreateResp)
+	resp := new(createVCMeetingDefaultRoomResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockVCMeetingCreateVCMeetingDefaultRoomCreate mock VCMeetingCreateVCMeetingDefaultRoomCreate method
-func (r *Mock) MockVCMeetingCreateVCMeetingDefaultRoomCreate(f func(ctx context.Context, request *CreateVCMeetingDefaultRoomCreateReq, options ...MethodOptionFunc) (*CreateVCMeetingDefaultRoomCreateResp, *Response, error)) {
-	r.mockVCMeetingCreateVCMeetingDefaultRoomCreate = f
+// MockVCCreateVCMeetingDefaultRoom mock VCCreateVCMeetingDefaultRoom method
+func (r *Mock) MockVCCreateVCMeetingDefaultRoom(f func(ctx context.Context, request *CreateVCMeetingDefaultRoomReq, options ...MethodOptionFunc) (*CreateVCMeetingDefaultRoomResp, *Response, error)) {
+	r.mockVCCreateVCMeetingDefaultRoom = f
 }
 
-// UnMockVCMeetingCreateVCMeetingDefaultRoomCreate un-mock VCMeetingCreateVCMeetingDefaultRoomCreate method
-func (r *Mock) UnMockVCMeetingCreateVCMeetingDefaultRoomCreate() {
-	r.mockVCMeetingCreateVCMeetingDefaultRoomCreate = nil
+// UnMockVCCreateVCMeetingDefaultRoom un-mock VCCreateVCMeetingDefaultRoom method
+func (r *Mock) UnMockVCCreateVCMeetingDefaultRoom() {
+	r.mockVCCreateVCMeetingDefaultRoom = nil
 }
 
-// CreateVCMeetingDefaultRoomCreateReq ...
-type CreateVCMeetingDefaultRoomCreateReq struct {
+// CreateVCMeetingDefaultRoomReq ...
+type CreateVCMeetingDefaultRoomReq struct {
 	BuildingID   string  `json:"building_id,omitempty"`    // 会议室所在的建筑ID
 	Floor        string  `json:"floor,omitempty"`          // 会议室所在的建筑楼层
 	Name         string  `json:"name,omitempty"`           // 会议室名称
@@ -68,15 +68,15 @@ type CreateVCMeetingDefaultRoomCreateReq struct {
 	CustomRoomID *string `json:"custom_room_id,omitempty"` // 租户自定义会议室ID
 }
 
-// CreateVCMeetingDefaultRoomCreateResp ...
-type CreateVCMeetingDefaultRoomCreateResp struct {
+// CreateVCMeetingDefaultRoomResp ...
+type CreateVCMeetingDefaultRoomResp struct {
 	RoomID string `json:"room_id,omitempty"` // 成功创建的会议室ID
 }
 
-// createVCMeetingDefaultRoomCreateResp ...
-type createVCMeetingDefaultRoomCreateResp struct {
-	Code  int64                                 `json:"code,omitempty"` // 返回码, 非 0 表示失败
-	Msg   string                                `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
-	Data  *CreateVCMeetingDefaultRoomCreateResp `json:"data,omitempty"` // 返回业务信息
-	Error *ErrorDetail                          `json:"error,omitempty"`
+// createVCMeetingDefaultRoomResp ...
+type createVCMeetingDefaultRoomResp struct {
+	Code  int64                           `json:"code,omitempty"` // 返回码, 非 0 表示失败
+	Msg   string                          `json:"msg,omitempty"`  // 返回码的描述, "success" 表示成功, 其他为错误提示信息
+	Data  *CreateVCMeetingDefaultRoomResp `json:"data,omitempty"` // 返回业务信息
+	Error *ErrorDetail                    `json:"error,omitempty"`
 }

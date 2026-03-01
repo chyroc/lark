@@ -21,43 +21,43 @@ import (
 	"context"
 )
 
-// UpdateCorehrLocationAddress 更新地点地址
+// UpdateCoreHRLocationAddress 更新地点地址
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/location-address/patch
 // new doc: https://open.feishu.cn/document/corehr-v1/organization-management/location/location-address/patch
-func (r *CoreHRService) UpdateCorehrLocationAddress(ctx context.Context, request *UpdateCorehrLocationAddressReq, options ...MethodOptionFunc) (*UpdateCorehrLocationAddressResp, *Response, error) {
-	if r.cli.mock.mockCoreHRUpdateCorehrLocationAddress != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#UpdateCorehrLocationAddress mock enable")
-		return r.cli.mock.mockCoreHRUpdateCorehrLocationAddress(ctx, request, options...)
+func (r *CoreHRService) UpdateCoreHRLocationAddress(ctx context.Context, request *UpdateCoreHRLocationAddressReq, options ...MethodOptionFunc) (*UpdateCoreHRLocationAddressResp, *Response, error) {
+	if r.cli.mock.mockCoreHRUpdateCoreHRLocationAddress != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#UpdateCoreHRLocationAddress mock enable")
+		return r.cli.mock.mockCoreHRUpdateCoreHRLocationAddress(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "UpdateCorehrLocationAddress",
+		API:                   "UpdateCoreHRLocationAddress",
 		Method:                "PATCH",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/locations/:location_id/addresses/:address_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(updateCorehrLocationAddressResp)
+	resp := new(updateCoreHRLocationAddressResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRUpdateCorehrLocationAddress mock CoreHRUpdateCorehrLocationAddress method
-func (r *Mock) MockCoreHRUpdateCorehrLocationAddress(f func(ctx context.Context, request *UpdateCorehrLocationAddressReq, options ...MethodOptionFunc) (*UpdateCorehrLocationAddressResp, *Response, error)) {
-	r.mockCoreHRUpdateCorehrLocationAddress = f
+// MockCoreHRUpdateCoreHRLocationAddress mock CoreHRUpdateCoreHRLocationAddress method
+func (r *Mock) MockCoreHRUpdateCoreHRLocationAddress(f func(ctx context.Context, request *UpdateCoreHRLocationAddressReq, options ...MethodOptionFunc) (*UpdateCoreHRLocationAddressResp, *Response, error)) {
+	r.mockCoreHRUpdateCoreHRLocationAddress = f
 }
 
-// UnMockCoreHRUpdateCorehrLocationAddress un-mock CoreHRUpdateCorehrLocationAddress method
-func (r *Mock) UnMockCoreHRUpdateCorehrLocationAddress() {
-	r.mockCoreHRUpdateCorehrLocationAddress = nil
+// UnMockCoreHRUpdateCoreHRLocationAddress un-mock CoreHRUpdateCoreHRLocationAddress method
+func (r *Mock) UnMockCoreHRUpdateCoreHRLocationAddress() {
+	r.mockCoreHRUpdateCoreHRLocationAddress = nil
 }
 
-// UpdateCorehrLocationAddressReq ...
-type UpdateCorehrLocationAddressReq struct {
+// UpdateCoreHRLocationAddressReq ...
+type UpdateCoreHRLocationAddressReq struct {
 	LocationID             string                                       `path:"location_id" json:"-"`                // 地点 ID。ID 获取方式: 调用[【创建地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/create)[【批量分页查询地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)等接口可以返回地点 ID示例值: "1616161616"
 	AddressID              string                                       `path:"address_id" json:"-"`                 // 地址 ID。ID 获取方式: 调用[【创建地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/create)[【批量分页查询地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)[【添加地点地址】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/location-address/create)等接口可以返回地址 ID示例值: "1515151515"
 	ClientToken            *string                                      `query:"client_token" json:"-"`              // 根据 client_token 是否一致来判断是否为同一请求示例值: 12454646
@@ -85,24 +85,24 @@ type UpdateCorehrLocationAddressReq struct {
 	LocalAddressLine8      *string                                      `json:"local_address_line8,omitempty"`       // 地址行 8（非拉丁语系的本地文字）- 填写规则可见[【地址填写指南】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/basic-infomation/data-calculation-rules/address-completion-guidelines)示例值: "丹佛测试地址-纽埃时区"
 	LocalAddressLine9      *string                                      `json:"local_address_line9,omitempty"`       // 地址行 9（非拉丁语系的本地文字）- 填写规则可见[【地址填写指南】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/basic-infomation/data-calculation-rules/address-completion-guidelines)示例值: "丹佛测试地址-纽埃时区"
 	PostalCode             *string                                      `json:"postal_code,omitempty"`               // 邮政编码示例值: "611530"
-	AddressTypes           []*UpdateCorehrLocationAddressReqAddressType `json:"address_types,omitempty"`             // 地址类型, 枚举值及详细信息可通过[【枚举常量介绍】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)查询获得 长度范围: `0` ～ `5`
+	AddressTypes           []*UpdateCoreHRLocationAddressReqAddressType `json:"address_types,omitempty"`             // 地址类型, 枚举值及详细信息可通过[【枚举常量介绍】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)查询获得 长度范围: `0` ～ `5`
 	IsPrimary              *bool                                        `json:"is_primary,omitempty"`                // 是否主要地址, 一个地点只能存在一个主要地址, 更新地址为主要地址会取消原主要地址, 无法更新主要地址为非主要地址- true 表示地址是主要地址- false 表示地址不是主要地址示例值: true
 	IsPublic               *bool                                        `json:"is_public,omitempty"`                 // 是否公开地址- true 表示地址是公开地址- false 表示地址不是公开地址示例值: true
 }
 
-// UpdateCorehrLocationAddressReqAddressType ...
-type UpdateCorehrLocationAddressReqAddressType struct {
+// UpdateCoreHRLocationAddressReqAddressType ...
+type UpdateCoreHRLocationAddressReqAddressType struct {
 	EnumName string `json:"enum_name,omitempty"` // 枚举值示例值: "phone_type"
 }
 
-// UpdateCorehrLocationAddressResp ...
-type UpdateCorehrLocationAddressResp struct {
+// UpdateCoreHRLocationAddressResp ...
+type UpdateCoreHRLocationAddressResp struct {
 }
 
-// updateCorehrLocationAddressResp ...
-type updateCorehrLocationAddressResp struct {
+// updateCoreHRLocationAddressResp ...
+type updateCoreHRLocationAddressResp struct {
 	Code  int64                            `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                           `json:"msg,omitempty"`  // 错误描述
-	Data  *UpdateCorehrLocationAddressResp `json:"data,omitempty"`
+	Data  *UpdateCoreHRLocationAddressResp `json:"data,omitempty"`
 	Error *ErrorDetail                     `json:"error,omitempty"`
 }

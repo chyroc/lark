@@ -21,78 +21,78 @@ import (
 	"context"
 )
 
-// ListCorehrSignatureNodeByFileID 该接口可以通过电子签文件ID查询到该电子签文件的签署流程的各个节点信息, 包括签署节点、盖章节点、审阅节点等, 各个节点有对应的内容、完成时间、审阅人、盖章人等信息
+// ListCoreHRSignatureNodeByFileID 该接口可以通过电子签文件ID查询到该电子签文件的签署流程的各个节点信息, 包括签署节点、盖章节点、审阅节点等, 各个节点有对应的内容、完成时间、审阅人、盖章人等信息
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/signature_node/list_by_file_id
 // new doc: https://open.feishu.cn/document/corehr-v1/siganture/signature_file/list_by_file_id
-func (r *CoreHRService) ListCorehrSignatureNodeByFileID(ctx context.Context, request *ListCorehrSignatureNodeByFileIDReq, options ...MethodOptionFunc) (*ListCorehrSignatureNodeByFileIDResp, *Response, error) {
-	if r.cli.mock.mockCoreHRListCorehrSignatureNodeByFileID != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#ListCorehrSignatureNodeByFileID mock enable")
-		return r.cli.mock.mockCoreHRListCorehrSignatureNodeByFileID(ctx, request, options...)
+func (r *CoreHRService) ListCoreHRSignatureNodeByFileID(ctx context.Context, request *ListCoreHRSignatureNodeByFileIDReq, options ...MethodOptionFunc) (*ListCoreHRSignatureNodeByFileIDResp, *Response, error) {
+	if r.cli.mock.mockCoreHRListCoreHRSignatureNodeByFileID != nil {
+		r.cli.Log(ctx, LogLevelDebug, "[lark] CoreHR#ListCoreHRSignatureNodeByFileID mock enable")
+		return r.cli.mock.mockCoreHRListCoreHRSignatureNodeByFileID(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
 		Scope:                 "CoreHR",
-		API:                   "ListCorehrSignatureNodeByFileID",
+		API:                   "ListCoreHRSignatureNodeByFileID",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/corehr/v2/signature_nodes/list_by_file_id",
 		Body:                  request,
 		MethodOption:          newMethodOption(options),
 		NeedTenantAccessToken: true,
 	}
-	resp := new(listCorehrSignatureNodeByFileIDResp)
+	resp := new(listCoreHRSignatureNodeByFileIDResp)
 
 	response, err := r.cli.RawRequest(ctx, req, resp)
 	return resp.Data, response, err
 }
 
-// MockCoreHRListCorehrSignatureNodeByFileID mock CoreHRListCorehrSignatureNodeByFileID method
-func (r *Mock) MockCoreHRListCorehrSignatureNodeByFileID(f func(ctx context.Context, request *ListCorehrSignatureNodeByFileIDReq, options ...MethodOptionFunc) (*ListCorehrSignatureNodeByFileIDResp, *Response, error)) {
-	r.mockCoreHRListCorehrSignatureNodeByFileID = f
+// MockCoreHRListCoreHRSignatureNodeByFileID mock CoreHRListCoreHRSignatureNodeByFileID method
+func (r *Mock) MockCoreHRListCoreHRSignatureNodeByFileID(f func(ctx context.Context, request *ListCoreHRSignatureNodeByFileIDReq, options ...MethodOptionFunc) (*ListCoreHRSignatureNodeByFileIDResp, *Response, error)) {
+	r.mockCoreHRListCoreHRSignatureNodeByFileID = f
 }
 
-// UnMockCoreHRListCorehrSignatureNodeByFileID un-mock CoreHRListCorehrSignatureNodeByFileID method
-func (r *Mock) UnMockCoreHRListCorehrSignatureNodeByFileID() {
-	r.mockCoreHRListCorehrSignatureNodeByFileID = nil
+// UnMockCoreHRListCoreHRSignatureNodeByFileID un-mock CoreHRListCoreHRSignatureNodeByFileID method
+func (r *Mock) UnMockCoreHRListCoreHRSignatureNodeByFileID() {
+	r.mockCoreHRListCoreHRSignatureNodeByFileID = nil
 }
 
-// ListCorehrSignatureNodeByFileIDReq ...
-type ListCorehrSignatureNodeByFileIDReq struct {
+// ListCoreHRSignatureNodeByFileIDReq ...
+type ListCoreHRSignatureNodeByFileIDReq struct {
 	FileID     string  `query:"file_id" json:"-"`      // 电子签文件ID, 可以通过[【批量获取电子签文件】](/ssl:ttdc/uAjLw4CM/ukTMukTMukTM/corehr-v2/signature_file/list)获取示例值: 7149088311624091180
 	UserIDType *IDType `query:"user_id_type" json:"-"` // 用户 ID 类型示例值: people_corehr_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)以飞书人事的 ID 来识别用户默认值: `people_corehr_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
 }
 
-// ListCorehrSignatureNodeByFileIDResp ...
-type ListCorehrSignatureNodeByFileIDResp struct {
-	SignatureNodes []*ListCorehrSignatureNodeByFileIDRespSignatureNode `json:"signature_nodes,omitempty"` // 电子签文件签署流程各个节点列表信息
+// ListCoreHRSignatureNodeByFileIDResp ...
+type ListCoreHRSignatureNodeByFileIDResp struct {
+	SignatureNodes []*ListCoreHRSignatureNodeByFileIDRespSignatureNode `json:"signature_nodes,omitempty"` // 电子签文件签署流程各个节点列表信息
 }
 
-// ListCorehrSignatureNodeByFileIDRespSignatureNode ...
-type ListCorehrSignatureNodeByFileIDRespSignatureNode struct {
-	UserInfos   []*ListCorehrSignatureNodeByFileIDRespSignatureNodeUserInfo `json:"user_infos,omitempty"`   // 节点相关的角色信息
+// ListCoreHRSignatureNodeByFileIDRespSignatureNode ...
+type ListCoreHRSignatureNodeByFileIDRespSignatureNode struct {
+	UserInfos   []*ListCoreHRSignatureNodeByFileIDRespSignatureNodeUserInfo `json:"user_infos,omitempty"`   // 节点相关的角色信息
 	State       string                                                      `json:"state,omitempty"`        // 节点状态, 枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)电子签文件状态（signature_file_state）枚举定义部分获得
 	FinishTime  string                                                      `json:"finish_time,omitempty"`  // 节点完成时间
 	UpdatedTime string                                                      `json:"updated_time,omitempty"` // 节点最近更新时间
 	IsOngoing   bool                                                        `json:"is_ongoing,omitempty"`   // 当前节点是否为正在处理的节点
-	RoleLabel   *ListCorehrSignatureNodeByFileIDRespSignatureNodeRoleLabel  `json:"role_label,omitempty"`   // 当前节点操作名称
+	RoleLabel   *ListCoreHRSignatureNodeByFileIDRespSignatureNodeRoleLabel  `json:"role_label,omitempty"`   // 当前节点操作名称
 	SignRole    string                                                      `json:"sign_role,omitempty"`    // 操作人类型, 如: 发起人、审阅人、签字人枚举值可通过文档[【飞书人事枚举常量】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/feishu-people-enum-constant)电子签文件流程节点签署角色（signature_node_sign_role）枚举定义部分获得
 }
 
-// ListCorehrSignatureNodeByFileIDRespSignatureNodeRoleLabel ...
-type ListCorehrSignatureNodeByFileIDRespSignatureNodeRoleLabel struct {
+// ListCoreHRSignatureNodeByFileIDRespSignatureNodeRoleLabel ...
+type ListCoreHRSignatureNodeByFileIDRespSignatureNodeRoleLabel struct {
 	Zh string `json:"zh,omitempty"` // 当前节点的操作名称中文展示, 如: 发起
 	En string `json:"en,omitempty"` // 当前节点的操作名称英文展示, 如: Initiate
 }
 
-// ListCorehrSignatureNodeByFileIDRespSignatureNodeUserInfo ...
-type ListCorehrSignatureNodeByFileIDRespSignatureNodeUserInfo struct {
+// ListCoreHRSignatureNodeByFileIDRespSignatureNodeUserInfo ...
+type ListCoreHRSignatureNodeByFileIDRespSignatureNodeUserInfo struct {
 	ID string `json:"id,omitempty"` // 员工雇佣ID, 可以通过[【搜索员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/search)获取员工详细信息
 }
 
-// listCorehrSignatureNodeByFileIDResp ...
-type listCorehrSignatureNodeByFileIDResp struct {
+// listCoreHRSignatureNodeByFileIDResp ...
+type listCoreHRSignatureNodeByFileIDResp struct {
 	Code  int64                                `json:"code,omitempty"` // 错误码, 非 0 表示失败
 	Msg   string                               `json:"msg,omitempty"`  // 错误描述
-	Data  *ListCorehrSignatureNodeByFileIDResp `json:"data,omitempty"`
+	Data  *ListCoreHRSignatureNodeByFileIDResp `json:"data,omitempty"`
 	Error *ErrorDetail                         `json:"error,omitempty"`
 }

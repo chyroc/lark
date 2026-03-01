@@ -783,12 +783,12 @@ func Test_Mail_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockMailCreateMailUserMailboxMessageSend(func(ctx context.Context, request *lark.CreateMailUserMailboxMessageSendReq, options ...lark.MethodOptionFunc) (*lark.CreateMailUserMailboxMessageSendResp, *lark.Response, error) {
+			cli.Mock().MockMailSendMailUserMailboxMessage(func(ctx context.Context, request *lark.SendMailUserMailboxMessageReq, options ...lark.MethodOptionFunc) (*lark.SendMailUserMailboxMessageResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockMailCreateMailUserMailboxMessageSend()
+			defer cli.Mock().UnMockMailSendMailUserMailboxMessage()
 
-			_, _, err := moduleCli.CreateMailUserMailboxMessageSend(ctx, &lark.CreateMailUserMailboxMessageSendReq{})
+			_, _, err := moduleCli.SendMailUserMailboxMessage(ctx, &lark.SendMailUserMailboxMessageReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -831,12 +831,12 @@ func Test_Mail_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			cli.Mock().MockMailCreateMailUserMailboxRuleReorder(func(ctx context.Context, request *lark.CreateMailUserMailboxRuleReorderReq, options ...lark.MethodOptionFunc) (*lark.CreateMailUserMailboxRuleReorderResp, *lark.Response, error) {
+			cli.Mock().MockMailReorderMailUserMailboxRule(func(ctx context.Context, request *lark.ReorderMailUserMailboxRuleReq, options ...lark.MethodOptionFunc) (*lark.ReorderMailUserMailboxRuleResp, *lark.Response, error) {
 				return nil, nil, fmt.Errorf("mock-failed")
 			})
-			defer cli.Mock().UnMockMailCreateMailUserMailboxRuleReorder()
+			defer cli.Mock().UnMockMailReorderMailUserMailboxRule()
 
-			_, _, err := moduleCli.CreateMailUserMailboxRuleReorder(ctx, &lark.CreateMailUserMailboxRuleReorderReq{})
+			_, _, err := moduleCli.ReorderMailUserMailboxRule(ctx, &lark.ReorderMailUserMailboxRuleReq{})
 			as.NotNil(err)
 			as.Equal(err.Error(), "mock-failed")
 		})
@@ -1418,7 +1418,7 @@ func Test_Mail_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.CreateMailUserMailboxMessageSend(ctx, &lark.CreateMailUserMailboxMessageSendReq{
+			_, _, err := moduleCli.SendMailUserMailboxMessage(ctx, &lark.SendMailUserMailboxMessageReq{
 				UserMailboxID: "x",
 			})
 			as.NotNil(err)
@@ -1455,7 +1455,7 @@ func Test_Mail_Sample_Failed(t *testing.T) {
 
 		t.Run("", func(t *testing.T) {
 
-			_, _, err := moduleCli.CreateMailUserMailboxRuleReorder(ctx, &lark.CreateMailUserMailboxRuleReorderReq{
+			_, _, err := moduleCli.ReorderMailUserMailboxRule(ctx, &lark.ReorderMailUserMailboxRuleReq{
 				UserMailboxID: "x",
 			})
 			as.NotNil(err)
