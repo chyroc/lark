@@ -34,7 +34,7 @@ func Test_Base_Sample_Failed(t *testing.T) {
 		cli := AppAllPermission.Ins()
 		cli.Mock().MockGetTenantAccessToken(mockGetTenantAccessTokenFailed)
 		cli.Mock().MockGetAppAccessToken(mockGetTenantAccessTokenFailed)
-		moduleCli := cli.Base
+		moduleCli := cli.Drive
 
 		t.Run("", func(t *testing.T) {
 
@@ -47,7 +47,7 @@ func Test_Base_Sample_Failed(t *testing.T) {
 
 	t.Run("request mock failed", func(t *testing.T) {
 		cli := AppAllPermission.Ins()
-		moduleCli := cli.Base
+		moduleCli := cli.Drive
 
 		t.Run("", func(t *testing.T) {
 
@@ -89,7 +89,7 @@ func Test_Base_Sample_Failed(t *testing.T) {
 
 	t.Run("response is failed (mock http)", func(t *testing.T) {
 		cli := AppAllPermission.Ins()
-		moduleCli := cli.Base
+		moduleCli := cli.Drive
 		cli.Mock().MockRawRequest(func(ctx context.Context, req *lark.RawRequestReq, resp interface{}) (response *lark.Response, err error) {
 			return nil, fmt.Errorf("mock-http-failed")
 		})
