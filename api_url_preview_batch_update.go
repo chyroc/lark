@@ -21,9 +21,12 @@ import (
 	"context"
 )
 
-// BatchUpdateURLPreview 主动更新 URL 预览, 调用后会重新触发一次客户端拉取, 需要回调服务返回更新后的数据。
+// BatchUpdateURLPreview 该接口用于主动更新 [URL 预览](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/development-link-preview/link-preview-development-guide), 调用后会重新触发一次客户端拉取, 需要回调服务返回更新后的数据。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/group/im-v2/url_preview/batch_update
+// 注意: 更新链接预览时需要注意更新频率, 如果更新时不指定用户, 则可能会造成链接预览请求放大。例如, 群聊中的链接预览, 所有群成员均会尝试重新拉取预览请求。
+//
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/group/im-v2/url_preview/batch_update
+// new doc: https://open.feishu.cn/document/im-v1/url_preview/batch_update
 func (r *MessageService) BatchUpdateURLPreview(ctx context.Context, request *BatchUpdateURLPreviewReq, options ...MethodOptionFunc) (*BatchUpdateURLPreviewResp, *Response, error) {
 	if r.cli.mock.mockMessageBatchUpdateURLPreview != nil {
 		r.cli.Log(ctx, LogLevelDebug, "[lark] Message#BatchUpdateURLPreview mock enable")
@@ -57,12 +60,13 @@ func (r *Mock) UnMockMessageBatchUpdateURLPreview() {
 
 // BatchUpdateURLPreviewReq ...
 type BatchUpdateURLPreviewReq struct {
-	PreviewTokens []string `json:"preview_tokens,omitempty"` // URL 预览的 token 列表。单个 token 限制更新频率为 1次/5秒, 示例值: ["952te0c8-9ccf-463d-ad73-593f8f768a5c"], 长度范围: `1` ～ `10`
-	OpenIDs       *string  `json:"open_ids,omitempty"`       // 需要更新 URL 预览的用户 open_id。若不传, 则默认更新 URL 预览所在会话的所有成员；若用户不在 URL 所在会话, 则无法触发更新该用户对应的 URL 预览结果, 示例值: ["ou_xxx"], 长度范围: `0` ～ `100`
+	PreviewTokens []string `json:"preview_tokens,omitempty"` // URL 预览的 preview_tokens 列表。需要通过[拉取链接预览数据](https://open.feishu.cn/document/uAjLw4CM/ukzMukzMukzM/development-link-preview/pull-link-preview-data-callback-structure)回调获取 preview_tokens。注意: 单个 token 限制更新频率为 1次/5秒。示例值: ["952te0c8-9ccf-463d-ad73-593f8f768a5c"] 长度范围: `1` ～ `10`
+	OpenIDs       *string  `json:"open_ids,omitempty"`       // 需要更新 URL 预览的用户 open_id。若不传, 则默认更新 URL 预览所在会话的所有成员；若用户不在 URL 所在会话, 则无法触发更新该用户对应的 URL 预览结果。获取方式参见[如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)。示例值: ["ou_xxx"] 长度范围: `0` ～ `100`
 }
 
 // BatchUpdateURLPreviewResp ...
-type BatchUpdateURLPreviewResp struct{}
+type BatchUpdateURLPreviewResp struct {
+}
 
 // batchUpdateURLPreviewResp ...
 type batchUpdateURLPreviewResp struct {

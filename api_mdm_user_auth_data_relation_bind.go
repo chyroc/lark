@@ -23,7 +23,7 @@ import (
 
 // BindMDMUserAuthDataRelation 通过该接口, 可为指定应用下的用户绑定一类数据维度, 支持批量给多个用户同时增量授权。
 //
-// doc: https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/mdm-v1/user_auth_data_relation/bind
+// doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/mdm-v1/user_auth_data_relation/bind
 // new doc: https://open.feishu.cn/document/server-docs/mdm-v1/user_auth_data_relation/bind
 func (r *MDMService) BindMDMUserAuthDataRelation(ctx context.Context, request *BindMDMUserAuthDataRelationReq, options ...MethodOptionFunc) (*BindMDMUserAuthDataRelationResp, *Response, error) {
 	if r.cli.mock.mockMDMBindMDMUserAuthDataRelation != nil {
@@ -58,11 +58,11 @@ func (r *Mock) UnMockMDMBindMDMUserAuthDataRelation() {
 
 // BindMDMUserAuthDataRelationReq ...
 type BindMDMUserAuthDataRelationReq struct {
-	UserIDType        *IDType  `query:"user_id_type" json:"-"`        // 用户 ID 类型, 示例值: open_id, 可选值有: open_id: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid), union_id: 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id), user_id: 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id), 默认值: `open_id`, 当值为 `user_id`, 字段权限要求: 获取用户 user ID
-	RootDimensionType string   `json:"root_dimension_type,omitempty"` // 数据类型编码, 示例值: "gongsi", 长度范围: `1` ～ `200` 字符
-	SubDimensionTypes []string `json:"sub_dimension_types,omitempty"` // 数据编码列表, 示例值: ["code_dimension"], 长度范围: `1` ～ `200`
-	AuthorizedUserIDs []string `json:"authorized_user_ids,omitempty"` // 授权人的lark id, 示例值: ["ou_7dab8a3d3cdcc9da365777c7ad535d62"], 长度范围: `1` ～ `200`
-	UamsAppID         string   `json:"uams_app_id,omitempty"`         // uams系统中应用id, 示例值: "uams-tenant-test", 长度范围: `1` ～ `200` 字符
+	UserIDType        *IDType  `query:"user_id_type" json:"-"`        // 用户 ID 类型示例值: open_id可选值有: 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。[了解更多: 如何获取 Open ID](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-openid)标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的, 在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID, 应用开发商可以把同个用户在多个应用中的身份关联起来。[了解更多: 如何获取 Union ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-union-id)标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内, 一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。[了解更多: 如何获取 User ID？](https://open.feishu.cn/document/uAjLw4CM/ugTN1YjL4UTN24CO1UjN/trouble-shooting/how-to-obtain-user-id)默认值: `open_id`当值为 `user_id`, 字段权限要求: 获取用户 user ID
+	RootDimensionType string   `json:"root_dimension_type,omitempty"` // 数据类型编码示例值: "gongsi" 长度范围: `1` ～ `200` 字符
+	SubDimensionTypes []string `json:"sub_dimension_types,omitempty"` // 数据编码列表示例值: ["code_dimension"] 长度范围: `1` ～ `200`
+	AuthorizedUserIDs []string `json:"authorized_user_ids,omitempty"` // 授权人的lark id示例值: ["ou_7dab8a3d3cdcc9da365777c7ad535d62"] 长度范围: `1` ～ `200`
+	UamsAppID         string   `json:"uams_app_id,omitempty"`         // uams系统中应用id示例值: "uams-tenant-test" 长度范围: `1` ～ `200` 字符
 }
 
 // BindMDMUserAuthDataRelationResp ...
