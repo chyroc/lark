@@ -30,14 +30,14 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/advanced-permission/base-v2/app-role/update
 // new doc: https://open.feishu.cn/document/docs/bitable-v1/advanced-permission/app-role/update-2
-func (r *BaseService) UpdateBaseAppRole(ctx context.Context, request *UpdateBaseAppRoleReq, options ...MethodOptionFunc) (*UpdateBaseAppRoleResp, *Response, error) {
+func (r *DriveService) UpdateBaseAppRole(ctx context.Context, request *UpdateBaseAppRoleReq, options ...MethodOptionFunc) (*UpdateBaseAppRoleResp, *Response, error) {
 	if r.cli.mock.mockBaseUpdateBaseAppRole != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] Base#UpdateBaseAppRole mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#UpdateBaseAppRole mock enable")
 		return r.cli.mock.mockBaseUpdateBaseAppRole(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "Base",
+		Scope:                 "Drive",
 		API:                   "UpdateBaseAppRole",
 		Method:                "PUT",
 		URL:                   r.cli.openBaseURL + "/open-apis/base/v2/apps/:app_token/roles/:role_id",

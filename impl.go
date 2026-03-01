@@ -64,7 +64,6 @@ type Lark struct {
 	Auth                  *AuthService
 	Authen                *AuthenService
 	Baike                 *BaikeService
-	Base                  *BaseService
 	Bitable               *BitableService
 	Bot                   *BotService
 	Calendar              *CalendarService
@@ -133,7 +132,6 @@ func (r *Lark) init() {
 	r.Auth = &AuthService{cli: r}
 	r.Authen = &AuthenService{cli: r}
 	r.Baike = &BaikeService{cli: r}
-	r.Base = &BaseService{cli: r}
 	r.Bitable = &BitableService{cli: r}
 	r.Bot = &BotService{cli: r}
 	r.Calendar = &CalendarService{cli: r}
@@ -220,7 +218,6 @@ type AttendanceService struct{ cli *Lark }
 type AuthService struct{ cli *Lark }
 type AuthenService struct{ cli *Lark }
 type BaikeService struct{ cli *Lark }
-type BaseService struct{ cli *Lark }
 type BitableService struct{ cli *Lark }
 type BotService struct{ cli *Lark }
 type CalendarService struct{ cli *Lark }

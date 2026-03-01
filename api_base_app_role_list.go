@@ -29,14 +29,14 @@ import (
 //
 // doc: https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/bitable-v1/advanced-permission/base-v2/app-role/list
 // new doc: https://open.feishu.cn/document/docs/bitable-v1/advanced-permission/app-role/list-2
-func (r *BaseService) ListBaseAppRole(ctx context.Context, request *ListBaseAppRoleReq, options ...MethodOptionFunc) (*ListBaseAppRoleResp, *Response, error) {
+func (r *DriveService) ListBaseAppRole(ctx context.Context, request *ListBaseAppRoleReq, options ...MethodOptionFunc) (*ListBaseAppRoleResp, *Response, error) {
 	if r.cli.mock.mockBaseListBaseAppRole != nil {
-		r.cli.Log(ctx, LogLevelDebug, "[lark] Base#ListBaseAppRole mock enable")
+		r.cli.Log(ctx, LogLevelDebug, "[lark] Drive#ListBaseAppRole mock enable")
 		return r.cli.mock.mockBaseListBaseAppRole(ctx, request, options...)
 	}
 
 	req := &RawRequestReq{
-		Scope:                 "Base",
+		Scope:                 "Drive",
 		API:                   "ListBaseAppRole",
 		Method:                "GET",
 		URL:                   r.cli.openBaseURL + "/open-apis/base/v2/apps/:app_token/roles",
